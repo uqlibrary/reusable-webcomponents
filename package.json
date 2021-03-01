@@ -1,7 +1,7 @@
 {
-  "name": "uq-library-web-components",
+  "name": "reusable-webcomponents",
   "version": "1.0.0",
-  "description": "A pure javascript collection of ITS Design System components for UQ Library use",
+  "description": "A pure javascript collection of ITS Design System components for UQ Library apps",
   "main": "src/index.js",
   "files": [
     "dist"
@@ -17,9 +17,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/kylane/uq-library-reusable-components"
+    "url": "https://github.com/uqlibrary/reusable-webcomponents.git"
   },
-  "author": "Ky Lane - Senior UX Developer",
+  "author": "UQ Library",
   "license": "MIT",
   "homepage": "https://library.uq.edu.au",
   "devDependencies": {
