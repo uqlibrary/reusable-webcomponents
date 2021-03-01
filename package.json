@@ -1,0 +1,48 @@
+{
+  "name": "uq-library-web-components",
+  "version": "1.0.0",
+  "description": "A pure javascript collection of ITS Design System components for UQ Library use",
+  "main": "src/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack-dev-server --open",
+    "clean": "rm -rf node_modules dist cypress/screenshots cypress/video",
+    "start-test-server": "webpack-dev-server",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "test": "start-server-and-test start-test-server http://localhost:8080 cypress:run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kylane/uq-library-reusable-components"
+  },
+  "author": "Ky Lane - Senior UX Developer",
+  "license": "MIT",
+  "homepage": "https://library.uq.edu.au",
+  "devDependencies": {
+    "@babel/core": "^7.5.0",
+    "@babel/preset-env": "^7.5.0",
+    "autoprefixer": "^9.6.0",
+    "axe-core": "^4.1.2",
+    "babel-loader": "^8.0.6",
+    "copy-webpack-plugin": "^6.2.1",
+    "css-loader": "^3.0.0",
+    "cssnano": "^4.1.10",
+    "cypress": "^6.5.0",
+    "cypress-axe": "^0.12.2",
+    "html-webpack-plugin": "^3.2.0",
+    "node-sass": "^4.12.0",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^7.1.0",
+    "start-server-and-test": "^1.12.0",
+    "style-loader": "^0.23.1",
+    "uglifyjs-webpack-plugin": "^2.1.3",
+    "webpack": "^4.35.2",
+    "webpack-cli": "^3.3.5",
+    "webpack-dev-server": "^3.7.2"
+  },
+  "dependencies": {}
+}
