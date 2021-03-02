@@ -1,5 +1,6 @@
 import styles from './css/main.css';
 import icons from './css/icons.css';
+import {default as menuLocale} from './js/menu';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -11,31 +12,7 @@ template.innerHTML = `
                 <div class="layout-card">
                     <div class="MuiGrid-root MuiGrid-container MuiGrid-align-items-xs-flex-start MuiGrid-justify-xs-center" data-testid="connect-footer" id="connect-footer-block">
                         <div class="MuiGrid-root ConnectFooter-navigation-407 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-4">
-                            <ul>
-                                <li>
-                                    <a data-testid="footermenu-homepage" href="http://www.library.uq.edu.au">Library home</a>&nbsp;|&nbsp;
-                                </li>
-                                <li>
-                                    <a data-testid="connect-services-link" href="https://web.library.uq.edu.au/library-services">Library services</a>&nbsp;|&nbsp;
-                                </li>
-                                <li>
-                                    <a data-testid="connect-research-link" href="https://web.library.uq.edu.au/research-tools-techniques">Research tools &amp; techniques</a>&nbsp;|&nbsp;
-                                </li>
-                                <li>
-                                    <a data-testid="connect-collections-link" href="https://web.library.uq.edu.au/collections">Collections</a>&nbsp;|&nbsp;
-                                </li>
-                                <li>
-                                    <a data-testid="connect-borrowing-link" href="https://web.library.uq.edu.au/borrowing-requesting">Borrowing &amp; requesting</a>&nbsp;|&nbsp;
-                                </li>
-                                <li>
-                                    <a data-testid="connect-locations-link" href="https://web.library.uq.edu.au/locations-hours">Locations &amp; hours</a>&nbsp;|&nbsp;
-                                </li>
-                                <li>
-                                    <a data-testid="connect-about-link" href="https://web.library.uq.edu.au/about-us">About</a>&nbsp;|&nbsp;
-                                </li>
-                                <li>
-                                    <a data-testid="connect-contact-link" href="https://web.library.uq.edu.au/contact-us">Contact us</a>
-                                </li>
+                            <ul id="footer-menu" class="footerMenu">
                             </ul>
                         </div>
                     <div class="MuiGrid-root ConnectFooter-contacts-414 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-4">
@@ -141,11 +118,61 @@ class ConnectFooter extends HTMLElement {
         // Add a shadow DOM
         const shadowDOM = this.attachShadow({mode: 'open'});
 
+        this.updateFooterMenuFromJson();
+
         // Render the template
         shadowDOM.appendChild(template.content.cloneNode(true));
 
         // Bindings
         this.loadJS = this.loadJS.bind(this);
+    }
+
+    updateFooterMenuFromJson() {
+        const separator1 = document.createElement('span');
+        separator1.textContent = ' | ';
+
+        const footerMenu = template.content.getElementById('footer-menu')
+
+        const homelink = this.createLink(
+            'footermenu-homepage',
+            menuLocale.menuhome.linkTo || '',
+            menuLocale.menuhome.primaryText || ''
+        );
+
+        const homeMenuItem = document.createElement('li');
+        homeMenuItem.appendChild(homelink);
+        homeMenuItem.appendChild(separator1);
+
+        footerMenu.appendChild(homeMenuItem);
+
+        {
+            menuLocale.publicmenu.forEach((linkProperties, index) => {
+                const menulink = this.createLink(
+                    linkProperties.dataTestid || '',
+                    linkProperties.linkTo || '',
+                    linkProperties.primaryText || '',
+                );
+
+                const menuItem = document.createElement('li');
+                menuItem.appendChild(menulink);
+
+                const separator = document.createElement('span');
+                separator.setAttribute('class', 'separator');
+                separator.textContent = ' | ';
+                menuItem.appendChild(separator);
+
+                footerMenu.appendChild(menuItem);
+            })
+        }
+    }
+
+    createLink(datatestid, href, linktext) {
+        const homelink = document.createElement('a');
+        homelink.setAttribute('data-testid', datatestid);
+        homelink.setAttribute('href', href);
+        const textOfLink = document.createTextNode(linktext);
+        homelink.appendChild(textOfLink);
+        return homelink;
     }
 
     loadJS() {
