@@ -128,8 +128,8 @@ class ConnectFooter extends HTMLElement {
     }
 
     updateFooterMenuFromJson() {
-        const separator1 = document.createElement('span');
-        separator1.textContent = ' | ';
+        const plainSeparator = document.createElement('span');
+        plainSeparator.textContent = ' | ';
 
         const footerMenu = template.content.getElementById('footer-menu')
 
@@ -141,29 +141,27 @@ class ConnectFooter extends HTMLElement {
 
         const homeMenuItem = document.createElement('li');
         homeMenuItem.appendChild(homelink);
-        homeMenuItem.appendChild(separator1);
+        homeMenuItem.appendChild(plainSeparator);
 
         footerMenu.appendChild(homeMenuItem);
 
-        {
-            menuLocale.publicmenu.forEach((linkProperties, index) => {
-                const menulink = this.createLink(
-                    linkProperties.dataTestid || '',
-                    linkProperties.linkTo || '',
-                    linkProperties.primaryText || '',
-                );
+        menuLocale.publicmenu.forEach((linkProperties, index) => {
+            const menulink = this.createLink(
+                linkProperties.dataTestid || '',
+                linkProperties.linkTo || '',
+                linkProperties.primaryText || '',
+            );
 
-                const menuItem = document.createElement('li');
-                menuItem.appendChild(menulink);
+            const menuItem = document.createElement('li');
+            menuItem.appendChild(menulink);
 
-                const separator = document.createElement('span');
-                separator.setAttribute('class', 'separator');
-                separator.textContent = ' | ';
-                menuItem.appendChild(separator);
+            const separator = document.createElement('span');
+            separator.setAttribute('class', 'separator');
+            separator.textContent = ' | ';
+            menuItem.appendChild(separator);
 
-                footerMenu.appendChild(menuItem);
-            })
-        }
+            footerMenu.appendChild(menuItem);
+        });
     }
 
     createLink(datatestid, href, linktext) {
