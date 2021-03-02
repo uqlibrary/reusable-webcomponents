@@ -129,7 +129,7 @@ class UQHeader extends HTMLElement {
                 new uq.header();
             };
             //Specify the location of the ITS DS JS file
-            script.src = 'https://homepage-staging.library.uq.edu.au/test-web-components/uq-header.js';
+            script.src = 'uq-header.js';
 
             //Append it to the document header
             document.head.appendChild(script);

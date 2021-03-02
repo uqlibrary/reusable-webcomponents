@@ -2,8 +2,8 @@ import styles from './css/main.css';
 import icons from './css/icons.css';
 const template = document.createElement('template');
 template.innerHTML = `
-  <style>${styles.toString()}</style>
-  <style>${icons.toString()}</style>
+    <style>${styles.toString()}</style>
+    <style>${icons.toString()}</style>
     <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v6/fonts/Roboto/roboto.css" />
     <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css" />
     <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css">
@@ -134,11 +134,11 @@ template.innerHTML = `
           </ul>
         </nav>
       </div>
-    </div>
+    </div>  
+  
 `;
 
 let initCalled;
-
 
 class UQSiteHeader extends HTMLElement {
     constructor() {
@@ -178,9 +178,17 @@ class UQSiteHeader extends HTMLElement {
             script.onload = function () {
                 //Code to execute after the library has been downloaded parsed and processed by the browser starts here :)
                 initCalled = true;
+                // Initialise Main Navigation
+                var navelement = document.querySelector('uq-site-header').shadowRoot.getElementById("jsNav");
+                var nav = new uq.siteHeaderNavigation(navelement, "uq-site-header__navigation");
+                // Initialise accordions
+                new uq.accordion();
+                // Equalised grid menu examples
+                var equaliseGridMenu = uq.gridMenuEqualiser('.uq-grid-menu--equalised>a');
+                equaliseGridMenu.align();
             };
             //Specify the location of the ITS DS JS file
-            script.src = 'https://homepage-staging.library.uq.edu.au/test-web-components/uq-site-header.js';
+            script.src = 'uq-site-header.js';
 
             //Append it to the document header
             document.head.appendChild(script);

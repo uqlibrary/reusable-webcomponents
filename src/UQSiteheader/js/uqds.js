@@ -16,6 +16,7 @@ var uq = function (exports) {
   var MainNavigation = /*#__PURE__*/function () {
     function MainNavigation(nav, navClass) {
       _classCallCheck(this, MainNavigation);
+      console.log(nav);
 
       this.nav = nav;
       this.navClass = navClass;
@@ -39,8 +40,7 @@ var uq = function (exports) {
       key: "init",
       value: function init() {
         var _this = this;
-
-        var mobileToggle = document.querySelector(".".concat(this.toggleClass));
+        var mobileToggle = document.querySelector('uq-site-header').shadowRoot.querySelector(".".concat(this.toggleClass));
         var subNavItems = this.nav.querySelectorAll(".".concat(this.subNavClass));
         var subNavLinks = this.nav.querySelectorAll(".".concat(this.subNavClass, " > a"));
         var subNavL2Items = this.nav.querySelectorAll(".".concat(this.level2Class, " .").concat(this.subNavClass));
@@ -236,7 +236,7 @@ var uq = function (exports) {
   });
   /**
    * @file
-   * UQ Accordion JS (instantiates an object that controls "accordion" nodes for 
+   * UQ Accordion JS (instantiates an object that controls "accordion" nodes for
    * the entire document). You need to make sure your accordion HTML is correctly
    * formatted and the accompanying SCSS/CSS is loaded as well.
    */
@@ -244,7 +244,7 @@ var uq = function (exports) {
   var accordion = /*#__PURE__*/function () {
     /**
      * @constructor
-     * @param {String} [className] - Class name of accordion wrappers (optional; 
+     * @param {String} [className] - Class name of accordion wrappers (optional;
      * default: "accordion").
      */
     function accordion(className) {
@@ -361,7 +361,7 @@ var uq = function (exports) {
 
 
           if (_this6.hash && _this6.hash !== '') {
-            var hashSelectedContent = document.querySelector("".concat(_this6.hash, ".").concat(_this6.className, "__content"));
+            var hashSelectedContent = document.querySelector('uq-header').shadowRoot.querySelector("".concat(_this6.hash, ".").concat(_this6.className, "__content"));
 
             if (hashSelectedContent) {
               // Only apply classes on load when linking directly to an accordion item.
@@ -374,7 +374,7 @@ var uq = function (exports) {
             }
           }
 
-          var accordions = document.querySelectorAll(".".concat(_this6.className));
+          var accordions = document.querySelector('uq-header').shadowRoot.querySelectorAll(".".concat(_this6.className));
           accordions.forEach(function (el) {
             var togglers = el.querySelectorAll(".".concat(_this6.className, "__toggle"));
             togglers.forEach(function (el) {
@@ -446,7 +446,7 @@ var uq = function (exports) {
    * Equaliser script extracted and modified from Equalizer
    * (https://github.com/skrajewski/Equalizer).
    * A simple way to keep elements at equal height!
-   * 
+   *
    */
 
 
@@ -468,7 +468,7 @@ var uq = function (exports) {
       }
 
       if (typeof blocks === "string") {
-        this.blocks = document.querySelectorAll(blocks);
+        this.blocks = document.querySelector('uq-header').shadowRoot.querySelectorAll(blocks);
         return;
       }
 
