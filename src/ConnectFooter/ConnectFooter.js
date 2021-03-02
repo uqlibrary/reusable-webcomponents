@@ -1,6 +1,6 @@
 import styles from './css/main.css';
 import icons from './css/icons.css';
-import {default as menuLocale} from './js/menu';
+import {default as menuLocale} from '../locale/menu';
 
 const template = document.createElement('template');
 template.innerHTML = `
