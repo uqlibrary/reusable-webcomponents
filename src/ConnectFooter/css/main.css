@@ -1,0 +1,486 @@
+.connect-footer {
+    padding: 0;
+    margin: 0;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    background-color: #F7F7F7;
+}
+
+
+/* MuiTypography */
+.MuiTypography-root {
+    margin: 0;
+}
+.MuiTypography-h6 {
+    font-size: 1.25rem;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: 0.0075em;
+}
+
+/* MuiTouchRipple */
+.MuiTouchRipple-root {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    overflow: hidden;
+    position: absolute;
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+/* MuiButton */
+
+.MuiButton-root {
+    color: rgba(0, 0, 0, 0.87);
+    padding: 6px 16px;
+    font-size: 0.875rem;
+    min-width: 64px;
+    box-sizing: border-box;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 400;
+    line-height: 1.75;
+    border-radius: 4px;
+    letter-spacing: 0.02857em;
+    text-transform: uppercase;
+}
+.MuiButton-root:hover {
+    text-decoration: none;
+    background-color: rgba(0, 0, 0, 0.04);
+}
+.MuiButton-root.Mui-disabled {
+    color: rgba(0, 0, 0, 0.26);
+}
+@media (hover: none) {
+    .MuiButton-root:hover {
+        background-color: transparent;
+    }
+}
+.MuiButton-root:hover.Mui-disabled {
+    background-color: transparent;
+}
+.MuiButton-label {
+    width: 100%;
+    display: inherit;
+    align-items: inherit;
+    justify-content: inherit;
+}
+.MuiButton-contained {
+    color: rgba(0, 0, 0, 0.87);
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2),0 2px 2px 0 rgba(0,0,0,0.14),0 1px 5px 0 rgba(0,0,0,0.12);
+    background-color: #e0e0e0;
+}
+.MuiButton-contained:hover {
+    box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2),0 4px 5px 0 rgba(0,0,0,0.14),0 1px 10px 0 rgba(0,0,0,0.12);
+    background-color: #d5d5d5;
+}
+.MuiButton-contained.Mui-focusVisible {
+    box-shadow: 0 3px 5px -1px rgba(0,0,0,0.2),0 6px 10px 0 rgba(0,0,0,0.14),0 1px 18px 0 rgba(0,0,0,0.12);
+}
+.MuiButton-contained:active {
+    box-shadow: 0 5px 5px -3px rgba(0,0,0,0.2),0 8px 10px 1px rgba(0,0,0,0.14),0 3px 14px 2px rgba(0,0,0,0.12);
+}
+.MuiButton-contained.Mui-disabled {
+    color: rgba(0, 0, 0, 0.26);
+    box-shadow: none;
+    background-color: rgba(0, 0, 0, 0.12);
+}
+@media (hover: none) {
+    .MuiButton-contained:hover {
+        box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2),0 2px 2px 0 rgba(0,0,0,0.14),0 1px 5px 0 rgba(0,0,0,0.12);
+        background-color: #e0e0e0;
+    }
+}
+.MuiButton-contained:hover.Mui-disabled {
+    background-color: rgba(0, 0, 0, 0.12);
+}
+.MuiButton-containedPrimary {
+    color: #fff;
+    background-color: #51247A;
+}
+.MuiButton-containedPrimary:hover {
+    background-color: #3b1a59;
+}
+@media (hover: none) {
+    .MuiButton-containedPrimary:hover {
+        background-color: #51247A;
+    }
+}
+.MuiButton-fullWidth {
+    width: 100%;
+}
+
+/* MuiSvgIcon */
+
+.MuiSvgIcon-root {
+    fill: currentColor;
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    font-size: 1.5rem;
+    transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    flex-shrink: 0;
+    user-select: none;
+}
+
+/* MuiGrid */
+
+.MuiGrid-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+}
+.MuiGrid-item {
+    margin: 0;
+    box-sizing: border-box;
+}
+.MuiGrid-align-items-xs-flex-start {
+    align-items: flex-start;
+}
+.MuiGrid-justify-xs-center {
+    justify-content: center;
+}
+.MuiGrid-spacing-xs-1 {
+    width: calc(100% + 8px);
+    margin: -4px;
+}
+.MuiGrid-spacing-xs-1 > .MuiGrid-item {
+    padding: 4px;
+}
+.MuiGrid-spacing-xs-2 {
+    width: calc(100% + 16px);
+    margin: -8px;
+}
+.MuiGrid-spacing-xs-2 > .MuiGrid-item {
+    padding: 8px;
+}
+.MuiGrid-grid-xs-auto {
+    flex-grow: 0;
+    max-width: none;
+    flex-basis: auto;
+}
+.MuiGrid-grid-xs-12 {
+    flex-grow: 0;
+    max-width: 100%;
+    flex-basis: 100%;
+}
+@media (min-width:960px) {
+    .MuiGrid-grid-md-4 {
+        flex-grow: 0;
+        max-width: 33.333333%;
+        flex-basis: 33.333333%;
+    }
+}
+
+/* makeStyles */
+
+.makeStyles-connectFooter-6 {
+    margin-top: 50px;
+    /*background-color: rgba(89, 89, 89, 0.15);*/
+}
+
+/* MuiButtonBase */
+
+.MuiButtonBase-root {
+    color: inherit;
+    border: 0;
+    cursor: pointer;
+    margin: 0;
+    display: inline-flex;
+    outline: 0;
+    padding: 0;
+    position: relative;
+    align-items: center;
+    user-select: none;
+    border-radius: 0;
+    vertical-align: middle;
+    -moz-appearance: none;
+    justify-content: center;
+    text-decoration: none;
+    background-color: transparent;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+}
+.MuiButtonBase-root::-moz-focus-inner {
+    border-style: none;
+}
+.MuiButtonBase-root.Mui-disabled {
+    cursor: default;
+    pointer-events: none;
+}
+
+/* MuiButton */
+
+.MuiButton-root {
+    color: rgba(0, 0, 0, 0.87);
+    padding: 6px 16px;
+    font-size: 0.875rem;
+    min-width: 64px;
+    box-sizing: border-box;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 400;
+    line-height: 1.75;
+    border-radius: 4px;
+    letter-spacing: 0.02857em;
+    text-transform: uppercase;
+}
+.MuiButton-root:hover {
+    text-decoration: none;
+    background-color: rgba(0, 0, 0, 0.04);
+}
+.MuiButton-root.Mui-disabled {
+    color: rgba(0, 0, 0, 0.26);
+}
+@media (hover: none) {
+    .MuiButton-root:hover {
+        background-color: transparent;
+    }
+}
+.MuiButton-root:hover.Mui-disabled {
+    background-color: transparent;
+}
+.MuiButton-label {
+    width: 100%;
+    display: inherit;
+    align-items: inherit;
+    justify-content: inherit;
+}
+.MuiButton-contained {
+    color: rgba(0, 0, 0, 0.87);
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2),0 2px 2px 0 rgba(0,0,0,0.14),0 1px 5px 0 rgba(0,0,0,0.12);
+    background-color: #e0e0e0;
+}
+.MuiButton-contained:hover {
+    box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2),0 4px 5px 0 rgba(0,0,0,0.14),0 1px 10px 0 rgba(0,0,0,0.12);
+    background-color: #d5d5d5;
+}
+.MuiButton-contained.Mui-focusVisible {
+    box-shadow: 0 3px 5px -1px rgba(0,0,0,0.2),0 6px 10px 0 rgba(0,0,0,0.14),0 1px 18px 0 rgba(0,0,0,0.12);
+}
+.MuiButton-contained:active {
+    box-shadow: 0 5px 5px -3px rgba(0,0,0,0.2),0 8px 10px 1px rgba(0,0,0,0.14),0 3px 14px 2px rgba(0,0,0,0.12);
+}
+.MuiButton-contained.Mui-disabled {
+    color: rgba(0, 0, 0, 0.26);
+    box-shadow: none;
+    background-color: rgba(0, 0, 0, 0.12);
+}
+@media (hover: none) {
+    .MuiButton-contained:hover {
+        box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2),0 2px 2px 0 rgba(0,0,0,0.14),0 1px 5px 0 rgba(0,0,0,0.12);
+        background-color: #e0e0e0;
+    }
+}
+.MuiButton-contained:hover.Mui-disabled {
+    background-color: rgba(0, 0, 0, 0.12);
+}
+.MuiButton-containedPrimary {
+    color: #fff;
+    background-color: #51247A;
+}
+.MuiButton-containedPrimary:hover {
+    background-color: #3b1a59;
+}
+@media (hover: none) {
+    .MuiButton-containedPrimary:hover {
+        background-color: #51247A;
+    }
+}
+.MuiButton-fullWidth {
+    width: 100%;
+}
+
+.uq-footer__container {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    padding-left: .5rem;
+    padding-right: .5rem;
+    /*padding-top: 3rem;*/
+    /*padding-bottom: 3rem*/
+}
+
+@media(min-width: 32.5rem) {
+    .uq-footer__container {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 30.5rem
+    }
+}
+
+@media(min-width: 37.5rem) {
+    .uq-footer__container {
+        margin-left: 3.25rem;
+        margin-right: 3.25rem;
+        max-width: none
+    }
+}
+
+@media(min-width: 64.25rem) {
+    .uq-footer__container {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 57.75rem
+    }
+}
+
+@media(min-width: 75rem) {
+    .uq-footer__container {
+        margin-left: 8.375rem;
+        margin-right: 8.375rem;
+        max-width: none
+    }
+}
+
+@media(min-width: 90rem) {
+    .uq-footer__container {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 73.25rem
+    }
+}
+
+@media(min-width: 37.5rem) {
+    .uq-footer__container {
+        padding-left: .75rem;
+        padding-right: .75rem
+    }
+}
+
+@media(min-width: 75rem) {
+    .uq-footer__container {
+        padding-left: 1rem;
+        padding-right: 1rem
+    }
+}
+
+/* ConnectFooter */
+.ConnectFooter-connectFooter-406 {
+    width: 100%;
+    padding: 20px 0;
+    position: relative;
+    font-weight: 300;
+    line-height: 25px;
+}
+.ConnectFooter-connectFooter-406 a {
+    color: #333333;
+    text-decoration: none;
+}
+.ConnectFooter-connectFooter-406 a:hover {
+    color: #51247A;
+    text-decoration: underline;
+}
+.ConnectFooter-navigation-407 {
+    margin-top: -4px;
+}
+.ConnectFooter-navigation-407 ul {
+    margin: 0;
+    padding: 0;
+}
+.ConnectFooter-navigation-407 li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+@media (max-width:959.95px) {
+    .ConnectFooter-navigation-407 li {
+        display: inline-block;
+    }
+}
+@media (min-width:960px) {
+    .ConnectFooter-navigation-407 li {
+        font-size: 14px;
+        line-height: 1.7;
+    }
+}
+@media (max-width:959.95px) {
+    .ConnectFooter-navigation-407 ul {
+        text-align: center;
+    }
+}
+.ConnectFooter-separator-408 {
+    display: inline-block;
+}
+.ConnectFooter-socialButtonClass-409 {
+    color: #FFFFFF;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    min-width: 32px;
+    background-color: #51247A;
+}
+.ConnectFooter-socialButtonClass-409:hover {
+    background-color: #3b1a59!important;
+}
+.ConnectFooter-internal-410 {
+    bottom: 1rem;
+    position: absolute;
+}
+@media (max-width:959.95px) {
+    .ConnectFooter-internal-410 {
+        bottom: auto;
+        position: relative;
+        margin-top: 1rem;
+        text-align: center;
+    }
+}
+.ConnectFooter-giving-411 {
+    text-align: right;
+}
+.ConnectFooter-giving-411 div {
+    margin-left: auto;
+}
+@media (max-width:959.95px) {
+    .ConnectFooter-giving-411 div {
+        margin: 5px auto;
+        max-width: 300px;
+    }
+}
+.ConnectFooter-givingBlock-412 {
+    max-width: 240px;
+    margin-right: 10px;
+}
+.ConnectFooter-givingButtonClass-413 {
+    color: #FFFFFF!important;
+    padding: 1rem;
+    text-transform: initial;
+    background-color: #2377CB;
+}
+.ConnectFooter-givingButtonClass-413:hover {
+    background-color: #195794;
+}
+.ConnectFooter-contacts-414 {
+    max-width: 400px;
+    margin-top: -4px;
+}
+@media (max-width:959.95px) {
+    .ConnectFooter-contacts-414 div div {
+        margin: 0 auto;
+    }
+}
+.makeStyles-connectFooter-730 {
+    margin-top: 50px;
+    background-color: rgba(89, 89, 89, 0.15);
+}
+
+.footerMenu li span {
+    display: none;
+}
+@media all and (max-width: 960px) {
+    .footerMenu li span {
+        text-align: center;
+        display: inline-block;
+        padding: 0 10px
+    }
+    .footerMenu li:last-of-type .separator {
+        display: none;
+    }
+}
