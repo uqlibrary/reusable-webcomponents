@@ -71,6 +71,7 @@ class UQFooter extends HTMLElement {
         const shadowDOM = this.attachShadow({mode: 'open'});
 
         const loginURL = this.getAttribute('loginURL');
+        console.log(loginURL);
         if(!loginURL) {
             template.content.getElementById('login-link').remove();
         } else {

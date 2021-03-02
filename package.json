@@ -7,10 +7,12 @@
     "dist"
   ],
   "scripts": {
-    "build": "webpack",
-    "start": "webpack-dev-server --open",
+    "build:development": "cross-env NODE_ENV=development JS_PATH='' webpack",
+    "build:staging": "cross-env NODE_ENV=staging JS_PATH='https://homepage-staging.library.uq.edu.au/web-components/' webpack",
+    "build:production": "cross-env NODE_ENV=production JS_PATH='https://library.uq.edu.au/web-components/' webpack",
+    "start": "cross-env NODE_ENV=development JS_PATH='' webpack-dev-server",
     "clean": "rm -rf node_modules dist cypress/screenshots cypress/video",
-    "start-test-server": "webpack-dev-server",
+    "start-test-server": "cross-env NODE_ENV=development JS_PATH='' webpack-dev-server",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "test": "start-server-and-test start-test-server http://localhost:8080 cypress:run"
@@ -29,6 +31,7 @@
     "axe-core": "^4.1.2",
     "babel-loader": "^8.0.6",
     "copy-webpack-plugin": "^6.2.1",
+    "cross-env": "^7.0.3",
     "css-loader": "^3.0.0",
     "cssnano": "^4.1.10",
     "cypress": "^6.5.0",
