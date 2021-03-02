@@ -67,6 +67,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new CopyPlugin({
       patterns: [
+        { from: "src/ConnectFooter/js/uqds.js", to: "connect-footer.js" },
         { from: "src/UQHeader/js/uqds.js", to: "uq-header.js" },
         { from: "src/UQFooter/js/uqds.js", to: "uq-footer.js" },
         { from: "src/UQSiteHeader/js/uqds.js", to: "uq-site-header.js" },
