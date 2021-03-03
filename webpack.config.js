@@ -4,7 +4,7 @@ const uglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CopyPlugin = require("copy-webpack-plugin");
 const ReplaceInFileWebpackPlugin = require('replace-in-file-webpack-plugin');
 const webpack = require('webpack');
-const libraryName = 'uq-lib-reusable.min.js';
+const libraryName = 'uq-lib-resusable';
 const outputFile = `${libraryName}.min.js`;
 
 const componentJsPath = {

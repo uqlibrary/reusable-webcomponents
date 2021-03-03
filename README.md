@@ -17,7 +17,7 @@
 Add the following line at the end of your HTML document to initialise the components.
 (NOTE: This is TBA in terms of final location etc)
 ```html
-<script type="text/javascript" src="https://library.uq.edu.au/resuable/uq-lib-reusable.min.js.min.js"></script>
+<script type="text/javascript" src="https://library.uq.edu.au/resuable/uq-lib-reusable.min.js"></script>
 ```
 
 eg. UQ Header:
