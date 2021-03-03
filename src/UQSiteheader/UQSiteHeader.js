@@ -19,7 +19,7 @@ template.innerHTML = `
         </div>
         <div class="uq-site-header__title-container__right">
           <slot name="site-utilities">[Site utilities go here]</slot>
-          <button class="uq-site-header__navigation-toggle jsNavToggle">Menu</button>
+          <button id="uq-site-header__navigation-toggle" class="uq-site-header__navigation-toggle jsNavToggle">Menu</button>
         </div>
       </div>
 
@@ -185,7 +185,7 @@ class UQSiteHeader extends HTMLElement {
 
         if (!showMenu) {
             // hide responsive menu button
-            const button = getElementsByClassName('menu-global__search-toggle')[0] || false;
+            const button = template.content.getElementById('uq-site-header__navigation-toggle');
             !!button && (button.style.display = 'none');
 
             return;
