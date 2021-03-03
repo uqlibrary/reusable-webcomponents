@@ -11,19 +11,20 @@
 
 
 /* MuiTypography */
-.MuiTypography-root {
+.typography {
     margin: 0;
 }
-.MuiTypography-h6 {
+.typographyh6 {
     font-size: 1.25rem;
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     font-weight: 400;
     line-height: 1.6;
     letter-spacing: 0.0075em;
+    margin-top: -4px;
 }
 
 /* MuiTouchRipple */
-.MuiTouchRipple-root {
+.touchRipple {
     top: 0;
     left: 0;
     right: 0;
@@ -37,7 +38,7 @@
 
 /* MuiButton */
 
-.MuiButton-root {
+.button {
     color: rgba(0, 0, 0, 0.87);
     padding: 6px 16px;
     font-size: 0.875rem;
@@ -51,75 +52,75 @@
     letter-spacing: 0.02857em;
     text-transform: uppercase;
 }
-.MuiButton-root:hover {
+.button:hover {
     text-decoration: none;
     background-color: rgba(0, 0, 0, 0.04);
 }
-.MuiButton-root.Mui-disabled {
+.button.Mui-disabled {
     color: rgba(0, 0, 0, 0.26);
 }
 @media (hover: none) {
-    .MuiButton-root:hover {
+    .button:hover {
         background-color: transparent;
     }
 }
-.MuiButton-root:hover.Mui-disabled {
+.button:hover.Mui-disabled {
     background-color: transparent;
 }
-.MuiButton-label {
+.buttonLabel {
     width: 100%;
     display: inherit;
     align-items: inherit;
     justify-content: inherit;
 }
-.MuiButton-contained {
+.buttonContained {
     color: rgba(0, 0, 0, 0.87);
     box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2),0 2px 2px 0 rgba(0,0,0,0.14),0 1px 5px 0 rgba(0,0,0,0.12);
     background-color: #e0e0e0;
 }
-.MuiButton-contained:hover {
+.buttonContained:hover {
     box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2),0 4px 5px 0 rgba(0,0,0,0.14),0 1px 10px 0 rgba(0,0,0,0.12);
     background-color: #d5d5d5;
 }
-.MuiButton-contained.Mui-focusVisible {
+.buttonContained.Mui-focusVisible {
     box-shadow: 0 3px 5px -1px rgba(0,0,0,0.2),0 6px 10px 0 rgba(0,0,0,0.14),0 1px 18px 0 rgba(0,0,0,0.12);
 }
-.MuiButton-contained:active {
+.buttonContained:active {
     box-shadow: 0 5px 5px -3px rgba(0,0,0,0.2),0 8px 10px 1px rgba(0,0,0,0.14),0 3px 14px 2px rgba(0,0,0,0.12);
 }
-.MuiButton-contained.Mui-disabled {
+.buttonContained.Mui-disabled {
     color: rgba(0, 0, 0, 0.26);
     box-shadow: none;
     background-color: rgba(0, 0, 0, 0.12);
 }
 @media (hover: none) {
-    .MuiButton-contained:hover {
+    .buttonContained:hover {
         box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2),0 2px 2px 0 rgba(0,0,0,0.14),0 1px 5px 0 rgba(0,0,0,0.12);
         background-color: #e0e0e0;
     }
 }
-.MuiButton-contained:hover.Mui-disabled {
+.buttonContained:hover.Mui-disabled {
     background-color: rgba(0, 0, 0, 0.12);
 }
-.MuiButton-containedPrimary {
+.buttonContainedPrimary {
     color: #fff;
     background-color: #51247A;
 }
-.MuiButton-containedPrimary:hover {
+.buttonContainedPrimary:hover {
     background-color: #3b1a59;
 }
 @media (hover: none) {
-    .MuiButton-containedPrimary:hover {
+    .buttonContainedPrimary:hover {
         background-color: #51247A;
     }
 }
-.MuiButton-fullWidth {
+.buttonFullWidth {
     width: 100%;
 }
 
 /* MuiSvgIcon */
 
-.MuiSvgIcon-root {
+.svgIcon {
     fill: currentColor;
     width: 1em;
     height: 1em;
@@ -132,48 +133,48 @@
 
 /* MuiGrid */
 
-.MuiGrid-container {
+.gridcontainer {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     box-sizing: border-box;
 }
-.MuiGrid-item {
+.griditem {
     margin: 0;
     box-sizing: border-box;
 }
-.MuiGrid-align-items-xs-flex-start {
+.flexstart {
     align-items: flex-start;
 }
-.MuiGrid-justify-xs-center {
+.justifyxscenter {
     justify-content: center;
 }
-.MuiGrid-spacing-xs-1 {
+.spacingxs1 {
     width: calc(100% + 8px);
     margin: -4px;
 }
-.MuiGrid-spacing-xs-1 > .MuiGrid-item {
+.spacingxs1 > .griditem {
     padding: 4px;
 }
 .MuiGrid-spacing-xs-2 {
     width: calc(100% + 16px);
     margin: -8px;
 }
-.MuiGrid-spacing-xs-2 > .MuiGrid-item {
+.MuiGrid-spacing-xs-2 > .griditem {
     padding: 8px;
 }
-.MuiGrid-grid-xs-auto {
+.gridxsauto {
     flex-grow: 0;
     max-width: none;
     flex-basis: auto;
 }
-.MuiGrid-grid-xs-12 {
+.griditem12 {
     flex-grow: 0;
     max-width: 100%;
     flex-basis: 100%;
 }
 @media (min-width:960px) {
-    .MuiGrid-grid-md-4 {
+    .gridmd4 {
         flex-grow: 0;
         max-width: 33.333333%;
         flex-basis: 33.333333%;
@@ -182,14 +183,13 @@
 
 /* makeStyles */
 
-.makeStyles-connectFooter-6 {
+.connectfooter-wrapper2 {
     margin-top: 50px;
-    /*background-color: rgba(89, 89, 89, 0.15);*/
 }
 
 /* MuiButtonBase */
 
-.MuiButtonBase-root {
+.buttonBase {
     color: inherit;
     border: 0;
     cursor: pointer;
@@ -209,17 +209,17 @@
     -webkit-appearance: none;
     -webkit-tap-highlight-color: transparent;
 }
-.MuiButtonBase-root::-moz-focus-inner {
+.buttonBase::-moz-focus-inner {
     border-style: none;
 }
-.MuiButtonBase-root.Mui-disabled {
+.buttonBase.Mui-disabled {
     cursor: default;
     pointer-events: none;
 }
 
 /* MuiButton */
 
-.MuiButton-root {
+.button {
     color: rgba(0, 0, 0, 0.87);
     padding: 6px 16px;
     font-size: 0.875rem;
@@ -233,72 +233,68 @@
     letter-spacing: 0.02857em;
     text-transform: uppercase;
 }
-.MuiButton-root:hover {
+.button:hover {
     text-decoration: none;
     background-color: rgba(0, 0, 0, 0.04);
 }
-.MuiButton-root.Mui-disabled {
+.button.Mui-disabled {
     color: rgba(0, 0, 0, 0.26);
 }
 @media (hover: none) {
-    .MuiButton-root:hover {
+    .button:hover {
         background-color: transparent;
     }
 }
-.MuiButton-root:hover.Mui-disabled {
+.button:hover.Mui-disabled {
     background-color: transparent;
 }
-.MuiButton-label {
+.buttonLabel {
     width: 100%;
     display: inherit;
     align-items: inherit;
     justify-content: inherit;
 }
-.MuiButton-contained {
+.buttonContained {
     color: rgba(0, 0, 0, 0.87);
     box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2),0 2px 2px 0 rgba(0,0,0,0.14),0 1px 5px 0 rgba(0,0,0,0.12);
     background-color: #e0e0e0;
 }
-.MuiButton-contained:hover {
+.buttonContained:hover {
     box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2),0 4px 5px 0 rgba(0,0,0,0.14),0 1px 10px 0 rgba(0,0,0,0.12);
     background-color: #d5d5d5;
 }
-.MuiButton-contained.Mui-focusVisible {
+.buttonContained.Mui-focusVisible {
     box-shadow: 0 3px 5px -1px rgba(0,0,0,0.2),0 6px 10px 0 rgba(0,0,0,0.14),0 1px 18px 0 rgba(0,0,0,0.12);
 }
-.MuiButton-contained:active {
+.buttonContained:active {
     box-shadow: 0 5px 5px -3px rgba(0,0,0,0.2),0 8px 10px 1px rgba(0,0,0,0.14),0 3px 14px 2px rgba(0,0,0,0.12);
 }
-.MuiButton-contained.Mui-disabled {
+.buttonContained.Mui-disabled {
     color: rgba(0, 0, 0, 0.26);
     box-shadow: none;
     background-color: rgba(0, 0, 0, 0.12);
 }
 @media (hover: none) {
-    .MuiButton-contained:hover {
+    .buttonContained:hover {
         box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2),0 2px 2px 0 rgba(0,0,0,0.14),0 1px 5px 0 rgba(0,0,0,0.12);
         background-color: #e0e0e0;
     }
 }
-.MuiButton-contained:hover.Mui-disabled {
+.buttonContained:hover.Mui-disabled {
     background-color: rgba(0, 0, 0, 0.12);
 }
-.MuiButton-containedPrimary {
+.buttonContainedPrimary {
     color: #fff;
     background-color: #51247A;
 }
-.MuiButton-containedPrimary:hover {
+.buttonContainedPrimary:hover {
     background-color: #3b1a59;
 }
 @media (hover: none) {
-    .MuiButton-containedPrimary:hover {
+    .buttonContainedPrimary:hover {
         background-color: #51247A;
     }
 }
-.MuiButton-fullWidth {
-    width: 100%;
-}
-
 .uq-footer__container {
     margin-left: 1rem;
     margin-right: 1rem;
@@ -363,53 +359,50 @@
 }
 
 /* ConnectFooter */
-.ConnectFooter-connectFooter-406 {
+.connectfooter-wrapper3 {
     width: 100%;
     padding: 20px 0;
     position: relative;
     font-weight: 300;
     line-height: 25px;
 }
-.ConnectFooter-connectFooter-406 a {
+.connectfooter-wrapper3 a {
     color: #333333;
     text-decoration: none;
 }
-.ConnectFooter-connectFooter-406 a:hover {
+.connectfooter-wrapper3 a:hover {
     color: #51247A;
     text-decoration: underline;
 }
-.ConnectFooter-navigation-407 {
+.navigation {
     margin-top: -4px;
 }
-.ConnectFooter-navigation-407 ul {
+.navigation ul {
     margin: 0;
     padding: 0;
 }
-.ConnectFooter-navigation-407 li {
+.navigation li {
     margin: 0;
     padding: 0;
     list-style: none;
 }
 @media (max-width:959.95px) {
-    .ConnectFooter-navigation-407 li {
+    .navigation li {
         display: inline-block;
     }
 }
 @media (min-width:960px) {
-    .ConnectFooter-navigation-407 li {
+    .navigation li {
         font-size: 14px;
         line-height: 1.7;
     }
 }
 @media (max-width:959.95px) {
-    .ConnectFooter-navigation-407 ul {
+    .navigation ul {
         text-align: center;
     }
 }
-.ConnectFooter-separator-408 {
-    display: inline-block;
-}
-.ConnectFooter-socialButtonClass-409 {
+.socialButtonClass {
     color: #FFFFFF;
     width: 32px;
     height: 32px;
@@ -417,56 +410,56 @@
     min-width: 32px;
     background-color: #51247A;
 }
-.ConnectFooter-socialButtonClass-409:hover {
+.socialButtonClass:hover {
     background-color: #3b1a59!important;
 }
-.ConnectFooter-internal-410 {
+.internalLinks {
     bottom: 1rem;
     position: absolute;
 }
 @media (max-width:959.95px) {
-    .ConnectFooter-internal-410 {
+    .internalLinks {
         bottom: auto;
         position: relative;
         margin-top: 1rem;
         text-align: center;
     }
 }
-.ConnectFooter-giving-411 {
+.givingWrapper {
     text-align: right;
 }
-.ConnectFooter-giving-411 div {
+.givingWrapper div {
     margin-left: auto;
 }
 @media (max-width:959.95px) {
-    .ConnectFooter-giving-411 div {
+    .givingWrapper div {
         margin: 5px auto;
         max-width: 300px;
     }
 }
-.ConnectFooter-givingBlock-412 {
+.givingBlock {
     max-width: 240px;
     margin-right: 10px;
 }
-.ConnectFooter-givingButtonClass-413 {
+.givingButtonClass {
     color: #FFFFFF!important;
     padding: 1rem;
     text-transform: initial;
     background-color: #2377CB;
 }
-.ConnectFooter-givingButtonClass-413:hover {
+.givingButtonClass:hover {
     background-color: #195794;
 }
-.ConnectFooter-contacts-414 {
+.contacts {
     max-width: 400px;
     margin-top: -4px;
 }
 @media (max-width:959.95px) {
-    .ConnectFooter-contacts-414 div div {
+    .contacts div div {
         margin: 0 auto;
     }
 }
-.makeStyles-connectFooter-730 {
+.connectfooter-wrapper {
     margin-top: 50px;
     background-color: rgba(89, 89, 89, 0.15);
 }
