@@ -1,10 +1,13 @@
 import styles from './css/main.css';
+import overrides from './css/overrides.css';
 import icons from './css/icons.css';
 import {default as menuLocale} from "../locale/menu";
+
 const template = document.createElement('template');
 template.innerHTML = `
     <style>${styles.toString()}</style>
     <style>${icons.toString()}</style>
+    <style>${overrides.toString()}</style>
     <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v6/fonts/Roboto/roboto.css" />
     <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css" />
     <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css">
@@ -213,8 +216,23 @@ class UQSiteHeader extends HTMLElement {
                     const listItem = document.createElement('li');
                     listItem.setAttribute('class', 'uq-site-header__navigation__list-item');
 
-                    const itemLink = this.createLink(jsonChild.dataTestid || '', jsonChild.linkTo || '', jsonChild.primaryText || '');
+                    const primarytextOfLink = document.createTextNode(jsonChild.primaryText || '');
+                    const primaryTextItem = document.createElement('span');
+                    primaryTextItem.setAttribute('class', 'displayText');
+                    primaryTextItem.appendChild(primarytextOfLink);
+
+                    const secondarytextOfLink = document.createTextNode(jsonChild.secondaryText || '');
+                    const secondaryTextItem = document.createElement('span');
+                    secondaryTextItem.setAttribute('class', 'displayText secondaryText');
+                    secondaryTextItem.appendChild(secondarytextOfLink);
+
+                    const itemLink = document.createElement('a');
+                    itemLink.setAttribute('data-testid', jsonChild.dataTestid || '');
+                    itemLink.setAttribute('href', jsonChild.linkTo || '');
+                    itemLink.appendChild(primaryTextItem);
+                    itemLink.appendChild(secondaryTextItem);
                     itemLink.setAttribute('aria-expanded', 'false');
+
                     listItem.appendChild(itemLink);
 
                     listItemWrapper.appendChild(listItem);
@@ -228,12 +246,12 @@ class UQSiteHeader extends HTMLElement {
     }
 
     createLink(datatestid, href, linktext) {
-        const homelink = document.createElement('a');
-        homelink.setAttribute('data-testid', datatestid);
-        homelink.setAttribute('href', href);
+        const alink = document.createElement('a');
+        alink.setAttribute('data-testid', datatestid);
+        alink.setAttribute('href', href);
         const textOfLink = document.createTextNode(linktext);
-        homelink.appendChild(textOfLink);
-        return homelink;
+        alink.appendChild(textOfLink);
+        return alink;
     }
 
     loadJS() {
