@@ -15,10 +15,10 @@ template.innerHTML = `
       <!-- Site title and utility area with mobile nav toggler (JS) -->
       <div class="uq-site-header__title-container">
         <div class="uq-site-header__title-container__left">
-          <a id="site-title" href="/" class="uq-site-header__title">Site title</a>
+          <a id="site-title" href="/" class="uq-site-header__title">Library</a>
         </div>
         <div class="uq-site-header__title-container__right">
-          <slot name="site-utilities">[Site utilities go here]</slot>
+          <slot name="site-utilities"></slot>
           <button id="uq-site-header__navigation-toggle" class="uq-site-header__navigation-toggle jsNavToggle">Menu</button>
         </div>
       </div>
