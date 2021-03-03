@@ -5,33 +5,40 @@ span.displayText {
 
 .secondaryText {
     font-size: 0.75rem;
+    min-height: 1rem;
+    font-weight: 300;
 }
 
 /* https://css-tricks.com/guide-responsive-friendly-css-columns/ */
-.multicolumn-2 {
-    columns: 2 100px;
-    column-gap: 5px;
-    column-rule: 1px solid #ccc;
-}
-
-.multicolumn-3 {
-    columns: 3 100px;
-    column-gap: 5px;
-    column-rule: 1px solid #ccc;
-}
 .uq-site-header__navigation__list--level-2.multicolumn-2 > li,
 .uq-site-header__navigation__list--level-2.multicolumn-3 > li {
-    min-height: 93px;
+    min-height: 2rem;
     -webkit-column-break-inside: avoid;
     page-break-inside: avoid;
     break-inside: avoid-column;
 }
 
-@media (min-width: 64rem) {
+@media (min-width: 64rem) { /*desktop menu size*/
     .multicolumn-2 {
-        width: 450px;
+        columns: 2 100px;
+        column-gap: 5px;
+        column-rule: 1px solid #ccc;
+        width: 500px;
     }
     .multicolumn-3 {
+        columns: 3 100px;
+        column-gap: 5px;
+        column-rule: 1px solid #ccc;
         width: 700px;
+    }
+    .uq-site-header__navigation__list--level-2 a {
+        padding: 0.2rem 0.2rem 0.2rem 1rem;
+        border-bottom-width: 0;
+    }
+    li.uq-site-header__navigation__list-item--has-subnav a {
+        min-height: 4rem;
+    }
+    .uq-site-header__navigation__list--level-2 {
+        padding-top: 1rem;
     }
 }

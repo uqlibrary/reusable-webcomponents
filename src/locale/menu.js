@@ -285,6 +285,9 @@ export default {
                     linkTo: 'https://web.library.uq.edu.au/locations-hours/lockers',
                 },
                 {
+                    // force empty entry to space columns
+                },
+                {
                     primaryText: 'Architecture & Music',
                     linkTo: 'https://web.library.uq.edu.au/locations-hours/architecture-music-library',
                 },

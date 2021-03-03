@@ -227,24 +227,27 @@ class UQSiteHeader extends HTMLElement {
                     const listItem = document.createElement('li');
                     listItem.setAttribute('class', 'uq-site-header__navigation__list-item');
 
-                    const primarytextOfLink = document.createTextNode(jsonChild.primaryText || '');
-                    const primaryTextItem = document.createElement('span');
-                    primaryTextItem.setAttribute('class', 'displayText');
-                    primaryTextItem.appendChild(primarytextOfLink);
+                    // a missing primary text allows for an empty cell, controlling the spacing of the menu
+                    if (!!jsonChild.primaryText) {
+                        const primarytextOfLink = document.createTextNode(jsonChild.primaryText || '');
+                        const primaryTextItem = document.createElement('span');
+                        primaryTextItem.setAttribute('class', 'displayText');
+                        primaryTextItem.appendChild(primarytextOfLink);
 
-                    const secondarytextOfLink = document.createTextNode(jsonChild.secondaryText || ' ');
-                    const secondaryTextItem = document.createElement('span');
-                    secondaryTextItem.setAttribute('class', 'displayText secondaryText');
-                    secondaryTextItem.appendChild(secondarytextOfLink);
+                        const secondarytextOfLink = document.createTextNode(jsonChild.secondaryText || ' ');
+                        const secondaryTextItem = document.createElement('span');
+                        secondaryTextItem.setAttribute('class', 'displayText secondaryText');
+                        secondaryTextItem.appendChild(secondarytextOfLink);
 
-                    const itemLink = document.createElement('a');
-                    itemLink.setAttribute('data-testid', jsonChild.dataTestid || '');
-                    itemLink.setAttribute('href', jsonChild.linkTo || '');
-                    itemLink.appendChild(primaryTextItem);
-                    itemLink.appendChild(secondaryTextItem);
-                    itemLink.setAttribute('aria-expanded', 'false');
+                        const itemLink = document.createElement('a');
+                        itemLink.setAttribute('data-testid', jsonChild.dataTestid || '');
+                        itemLink.setAttribute('href', jsonChild.linkTo || '');
+                        itemLink.appendChild(primaryTextItem);
+                        itemLink.appendChild(secondaryTextItem);
+                        itemLink.setAttribute('aria-expanded', 'false');
 
-                    listItem.appendChild(itemLink);
+                        listItem.appendChild(itemLink);
+                    }
 
                     listItemWrapper.appendChild(listItem);
                 })
