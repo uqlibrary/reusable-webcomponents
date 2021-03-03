@@ -164,7 +164,8 @@ class UQSiteHeader extends HTMLElement {
             template.content.getElementById('site-title').href = siteURL;
         }
 
-        this.rewriteMegaMenuFromJson();
+        const showMenu = this.getAttribute('showMenu');
+        this.rewriteMegaMenuFromJson(showMenu === 'true');
 
         // Render the template
         shadowDOM.appendChild(template.content.cloneNode(true));
@@ -173,7 +174,7 @@ class UQSiteHeader extends HTMLElement {
         this.loadJS = this.loadJS.bind(this);
     }
 
-    rewriteMegaMenuFromJson() {
+    rewriteMegaMenuFromJson(showMenu) {
         // temp variable, for easily swapping between original ITS and this, during dev
         const overWrite = true;
 
@@ -181,6 +182,10 @@ class UQSiteHeader extends HTMLElement {
 
         // clear the existing children
         !!overWrite && (megaMenu.textContent = '');
+
+        if (!showMenu) {
+            return;
+        }
 
         const listWrapper = document.createElement('ul');
         listWrapper.setAttribute(
