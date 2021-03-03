@@ -1,7 +1,37 @@
 span.displayText {
     display: block;
+    white-space: nowrap;
 }
 
 .secondaryText {
     font-size: 0.75rem;
+}
+
+/* https://css-tricks.com/guide-responsive-friendly-css-columns/ */
+.multicolumn-2 {
+    columns: 2 100px;
+    column-gap: 5px;
+    column-rule: 1px solid #ccc;
+}
+
+.multicolumn-3 {
+    columns: 3 100px;
+    column-gap: 5px;
+    column-rule: 1px solid #ccc;
+}
+.uq-site-header__navigation__list--level-2.multicolumn-2 > li,
+.uq-site-header__navigation__list--level-2.multicolumn-3 > li {
+    min-height: 93px;
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    break-inside: avoid-column;
+}
+
+@media (min-width: 64rem) {
+    .multicolumn-2 {
+        width: 450px;
+    }
+    .multicolumn-3 {
+        width: 700px;
+    }
 }

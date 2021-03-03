@@ -183,7 +183,10 @@ class UQSiteHeader extends HTMLElement {
         !!overWrite && (megaMenu.textContent = '');
 
         const listWrapper = document.createElement('ul');
-        listWrapper.setAttribute('class', 'uq-site-header__navigation__list uq-site-header__navigation__list--level-1');
+        listWrapper.setAttribute(
+            'class',
+            'uq-site-header__navigation__list uq-site-header__navigation__list--level-1'
+        );
 
         menuLocale.publicmenu.forEach((jsonParentItem, index) => {
             const hasChildren = !!jsonParentItem.submenuItems && jsonParentItem.submenuItems.length > 0;
@@ -195,7 +198,11 @@ class UQSiteHeader extends HTMLElement {
             index === 0 && (classNavListitem += ' uq-site-header__navigation__list-item--active');
             parentListItem.setAttribute('class', classNavListitem);
 
-            const parentLink = this.createLink(`megamenu-submenus-item-${index}`, jsonParentItem.linkTo || '', jsonParentItem.primaryText || '');
+            const parentLink = this.createLink(
+                `megamenu-submenus-item-${index}`,
+                jsonParentItem.linkTo || '',
+                jsonParentItem.primaryText || ''
+            );
             parentLink.setAttribute('aria-expanded', 'false');
             parentListItem.appendChild(parentLink);
 
@@ -211,7 +218,11 @@ class UQSiteHeader extends HTMLElement {
             // make child items
             if (hasChildren) {
                 const listItemWrapper = document.createElement('ul');
-                listItemWrapper.setAttribute('class', 'uq-site-header__navigation__list uq-site-header__navigation__list--level-2');
+                let listItemClass = 'uq-site-header__navigation__list uq-site-header__navigation__list--level-2';
+                !!jsonParentItem.columnCount &&
+                    jsonParentItem.columnCount > 1 &&
+                    (listItemClass += ' multicolumn-' + jsonParentItem.columnCount);
+                listItemWrapper.setAttribute('class', listItemClass);
                 jsonParentItem.submenuItems.forEach(jsonChild => {
                     const listItem = document.createElement('li');
                     listItem.setAttribute('class', 'uq-site-header__navigation__list-item');
@@ -221,7 +232,7 @@ class UQSiteHeader extends HTMLElement {
                     primaryTextItem.setAttribute('class', 'displayText');
                     primaryTextItem.appendChild(primarytextOfLink);
 
-                    const secondarytextOfLink = document.createTextNode(jsonChild.secondaryText || '');
+                    const secondarytextOfLink = document.createTextNode(jsonChild.secondaryText || ' ');
                     const secondaryTextItem = document.createElement('span');
                     secondaryTextItem.setAttribute('class', 'displayText secondaryText');
                     secondaryTextItem.appendChild(secondarytextOfLink);
