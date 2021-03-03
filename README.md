@@ -7,7 +7,9 @@
 - run `npm ci` to install packages.
 - run `npm run start` to run the project locally while developing with a listener
   - While this is running, you can run `cypress open` to manually run cypress tests
-- run `npm run build` to run a test build in the `dist` folder
+- run `npm run build` to run a `local` test build in the `dist` folder
+- run `npm run build:staging` to run a `staging` test build in the `dist` folder
+- run `npm run build:production` to run a `production` test build in the `dist` folder
 - run `npm run test` to run a test build in the `dist` folder and run all cypress tests
 
 ### Use
@@ -44,6 +46,16 @@ eg. UQ Header:
         { from: "src/UQHeader/js/uqds.js", to: "header.js" },
       ],
     }),
+```
+- Add a line to webpack config to add the full path for various builds under:
+```html
+  (process.env.NODE_ENV !== 'local') && new ReplaceInFileWebpackPlugin([{
+                dir: 'dist',
+                files: ['uq-lib-resusable.min.js'],
+                rules: [{
+                    search: /uq-header\.js/gm,
+                    replace: componentJsPath[process.env.NODE_ENV] + 'uq-header.js',
+                },{...
 ```
 - Make sure to update the dynamic load reference in the web component file.
 - Run `npm run build` to pack the file into the `dist` folder - and open index.html there in a browser to test - or - run `npm run start` to have a listening system run in your local browser.

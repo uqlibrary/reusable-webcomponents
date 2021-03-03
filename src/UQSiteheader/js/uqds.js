@@ -16,8 +16,6 @@ var uq = function (exports) {
   var MainNavigation = /*#__PURE__*/function () {
     function MainNavigation(nav, navClass) {
       _classCallCheck(this, MainNavigation);
-      console.log(nav);
-
       this.nav = nav;
       this.navClass = navClass;
       this.toggleClass = "jsNavToggle";

@@ -7,7 +7,6 @@ template.innerHTML = `
   <style>${icons.toString()}</style>
   <footer class="uq-footer" data-gtm-category="Footer">
       <div class="uq-footer__container">
-
           <div class="uq-footer__acknowledgement">
               UQ acknowledges the Traditional Owners and their custodianship of the lands on which UQ is situated. — <a href="https://about.uq.edu.au/reconciliation" class="uq-footer__acknowledgement__link">Reconciliation statement</a>
           </div>
@@ -71,7 +70,6 @@ class UQFooter extends HTMLElement {
         const shadowDOM = this.attachShadow({mode: 'open'});
 
         const loginURL = this.getAttribute('loginURL');
-        console.log(loginURL);
         if(!loginURL) {
             template.content.getElementById('login-link').remove();
         } else {
