@@ -23,13 +23,13 @@ describe('UQ Header', () => {
 
         });
 
-        it('Header passes accessibility', () => {
-            cy.viewport(1280, 900);
-            cy.checkA11y('uq-header', {
-                reportName: 'Header',
-                scopeName: 'Accessibility',
-                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
-            });
-        });
+        // it('Header passes accessibility', () => {
+        //     cy.viewport(1280, 900);
+        //     cy.checkA11y('uq-header', {
+        //         reportName: 'Header',
+        //         scopeName: 'Accessibility',
+        //         includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+        //     });
+        // });
     });
 });
