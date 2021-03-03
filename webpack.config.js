@@ -2,15 +2,21 @@ const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const uglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CopyPlugin = require("copy-webpack-plugin");
+const ReplaceInFileWebpackPlugin = require('replace-in-file-webpack-plugin');
 const webpack = require('webpack');
 const libraryName = 'uq-lib-resusable';
 const outputFile = `${libraryName}.min.js`;
 
+const componentJsPath = {
+    local: '',
+    development: 'https://homepage-development.library.uq.edu.au/' + process.env.CI_BRANCH + '/',
+    staging: 'https://homepage-staging.library.uq.edu.au/test-web-components/',
+    production: 'https://library.uq.edu.au/test-web-components/',
+};
+
 module.exports = () => {
-    // Use env.<YOUR VARIABLE> here:
     console.log('------------------------------------------------------------');
     console.log('BUILD ENVIRONMENT: ', process.env.NODE_ENV);
-    console.log('JS PATH          : ', process.env.JS_PATH);
     console.log('------------------------------------------------------------');
     return {
         entry: './src/index.js',
@@ -79,6 +85,7 @@ module.exports = () => {
                 template: path.resolve(__dirname, 'index.html'),
             }),
             new webpack.HotModuleReplacementPlugin(),
+            // This plugin simply copies the external js into the dist and renames it
             new CopyPlugin({
                 patterns: [
                     {from: "src/ConnectFooter/js/uqds.js", to: "connect-footer.js"},
@@ -87,7 +94,25 @@ module.exports = () => {
                     {from: "src/UQSiteHeader/js/uqds.js", to: "uq-site-header.js"},
                 ],
             }),
-        ],
+            // This plugin will rename the external js imports to full paths for deploy
+            (process.env.NODE_ENV !== 'local') && new ReplaceInFileWebpackPlugin([{
+                dir: 'dist',
+                files: ['uq-lib-resusable.min.js'],
+                rules: [{
+                    search: /uq-header\.js/gm,
+                    replace: componentJsPath[process.env.NODE_ENV] + 'uq-header.js',
+                },{
+                    search: /uq-footer\.js/gm,
+                    replace: componentJsPath[process.env.NODE_ENV] + 'uq-footer.js',
+                },{
+                    search: /uq-site-header\.js/gm,
+                    replace: componentJsPath[process.env.NODE_ENV] + 'uq-site-header.js',
+                },{
+                    search: /connect-footer\.js/gm,
+                    replace: componentJsPath[process.env.NODE_ENV] + 'connect-footer.js',
+                }]
+            }]),
+        ].filter(Boolean),
         mode: 'none',
     }
 };
