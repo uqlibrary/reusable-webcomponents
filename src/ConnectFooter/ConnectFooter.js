@@ -1,4 +1,4 @@
-import styles from './css/main.css';
+import styles from './css/overrides.css';
 import icons from './css/icons.css';
 import {default as menuLocale} from '../locale/menu';
 
