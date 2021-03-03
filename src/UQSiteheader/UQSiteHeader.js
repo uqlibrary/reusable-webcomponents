@@ -184,6 +184,10 @@ class UQSiteHeader extends HTMLElement {
         !!overWrite && (megaMenu.textContent = '');
 
         if (!showMenu) {
+            // hide responsive menu button
+            const button = getElementsByClassName('menu-global__search-toggle')[0] || false;
+            !!button && (button.style.display = 'none');
+
             return;
         }
 
