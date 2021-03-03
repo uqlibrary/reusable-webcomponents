@@ -17,7 +17,7 @@
 Add the following line at the end of your HTML document to initialise the components.
 (NOTE: This is TBA in terms of final location etc)
 ```html
-<script type="text/javascript" src="https://library.uq.edu.au/resuable/uq-lib-resusable.min.js"></script>
+<script type="text/javascript" src="https://library.uq.edu.au/resuable/uq-lib-reusable.min.js.min.js"></script>
 ```
 
 eg. UQ Header:
@@ -51,7 +51,7 @@ eg. UQ Header:
 ```html
   (process.env.NODE_ENV !== 'local') && new ReplaceInFileWebpackPlugin([{
                 dir: 'dist',
-                files: ['uq-lib-resusable.min.js'],
+                files: ['uq-lib-reusable.min.js.min.js'],
                 rules: [{
                     search: /uq-header\.js/gm,
                     replace: componentJsPath[process.env.NODE_ENV] + 'uq-header.js',
