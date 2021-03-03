@@ -11,5 +11,14 @@ describe('UQ Footer', () => {
             cy.get('uq-footer').shadow().find('footer.uq-footer').should('contain', 'UQ acknowledges the Traditional Owners and their custodianship of the lands on which UQ is situated.');
             cy.get('uq-footer').shadow().find('a').should('have.length', 10);
         });
+
+        it('Footer passes accessibility', () => {
+            cy.viewport(1280, 900);
+            cy.checkA11y('uq-footer', {
+                reportName: 'Footer',
+                scopeName: 'Accessibility',
+                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+            });
+        });
     });
 });

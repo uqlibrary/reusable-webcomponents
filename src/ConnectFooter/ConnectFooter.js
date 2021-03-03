@@ -6,7 +6,7 @@ const template = document.createElement('template');
 template.innerHTML = `
     <style>${styles.toString()}</style>
     <style>${icons.toString()}</style>
-    <footer class="connect-footer MuiGrid-root makeStyles-connectFooter-730 MuiGrid-item MuiGrid-grid-xs-12" data-gtm-category="Footer">
+    <div class="connect-footer MuiGrid-root makeStyles-connectFooter-730 MuiGrid-item MuiGrid-grid-xs-12" data-gtm-category="Footer">
         <div class="uq-footer__container MuiGrid-root makeStyles-connectFooter-6 MuiGrid-item MuiGrid-grid-xs-12">
             <div class="ConnectFooter-connectFooter-406">
                 <div class="layout-card">
@@ -106,7 +106,7 @@ template.innerHTML = `
                 </div>
             </div>
         </div>
-    </footer>
+    </div>
 `;
 
 let initCalled;
