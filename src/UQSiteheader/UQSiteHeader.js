@@ -170,7 +170,7 @@ class UQSiteHeader extends HTMLElement {
         shadowDOM.appendChild(template.content.cloneNode(true));
 
         // Bindings
-        this.loadJS = this.loadJS.bind(this, this.isMegaMenuDisplayed());
+        this.loadJS = this.loadJS.bind(this);
     }
 
     rewriteMegaMenuFromJson() {
@@ -277,10 +277,12 @@ class UQSiteHeader extends HTMLElement {
         return alink;
     }
 
-    loadJS(isMegaMenuDisplayed) {
+    loadJS() {
         // This loads the external JS file into the HTML head dynamically
         //Only load js if it has not been loaded before (tracked by the initCalled flag)
         if (!initCalled) {
+            const isMegaMenuDisplayed = this.isMegaMenuDisplayed();
+
             //Dynamically import the JS file and append it to the document header
             const script = document.createElement('script');
             script.type = 'text/javascript';
