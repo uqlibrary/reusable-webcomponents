@@ -164,17 +164,16 @@ class UQSiteHeader extends HTMLElement {
             template.content.getElementById('site-title').href = siteURL;
         }
 
-        const showMenu = this.getAttribute('showMenu');
-        this.rewriteMegaMenuFromJson(showMenu === 'true');
+        this.rewriteMegaMenuFromJson();
 
         // Render the template
         shadowDOM.appendChild(template.content.cloneNode(true));
 
         // Bindings
-        this.loadJS = this.loadJS.bind(this);
+        this.loadJS = this.loadJS.bind(this, this.isMegaMenuDisplayed());
     }
 
-    rewriteMegaMenuFromJson(showMenu) {
+    rewriteMegaMenuFromJson() {
         // temp variable, for easily swapping between original ITS and this, during dev
         const overWrite = true;
 
@@ -183,11 +182,12 @@ class UQSiteHeader extends HTMLElement {
         // clear the existing children
         !!overWrite && (megaMenu.textContent = '');
 
-        if (!showMenu) {
+        if (!this.isMegaMenuDisplayed()) {
             // hide responsive menu button
             const button = template.content.getElementById('uq-site-header__navigation-toggle');
             !!button && (button.style.display = 'none');
 
+            // don't add Library megamenu
             return;
         }
 
@@ -277,7 +277,7 @@ class UQSiteHeader extends HTMLElement {
         return alink;
     }
 
-    loadJS() {
+    loadJS(isMegaMenuDisplayed) {
         // This loads the external JS file into the HTML head dynamically
         //Only load js if it has not been loaded before (tracked by the initCalled flag)
         if (!initCalled) {
@@ -289,8 +289,10 @@ class UQSiteHeader extends HTMLElement {
                 //Code to execute after the library has been downloaded parsed and processed by the browser starts here :)
                 initCalled = true;
                 // Initialise Main Navigation
-                var navelement = document.querySelector('uq-site-header').shadowRoot.getElementById("jsNav");
-                var nav = new uq.siteHeaderNavigation(navelement, "uq-site-header__navigation");
+                if (!!isMegaMenuDisplayed) {
+                    var navelement = document.querySelector('uq-site-header').shadowRoot.getElementById("jsNav");
+                    var nav = new uq.siteHeaderNavigation(navelement, "uq-site-header__navigation");
+                }
                 // Initialise accordions
                 new uq.accordion();
                 // Equalised grid menu examples
@@ -304,6 +306,13 @@ class UQSiteHeader extends HTMLElement {
             document.head.appendChild(script);
         }
     };
+
+    isMegaMenuDisplayed() {
+        if (this.showMenu === undefined) {
+            this.showMenu = this.getAttribute('showMenu');
+        }
+        return this.showMenu === 'true';
+    }
 
     connectedCallback() {
         this.loadJS();
