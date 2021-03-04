@@ -71,7 +71,8 @@ class UQFooter extends HTMLElement {
 
         const loginURL = this.getAttribute('loginURL');
         if(!loginURL) {
-            template.content.getElementById('login-link').remove();
+            const loginLink = template.content.getElementById('login-link');
+            !!loginLink && loginLink.remove();
         } else {
             const link = template.content.getElementById('login-link-a');
             link.href = loginURL;

@@ -90,7 +90,8 @@ class UQHeader extends HTMLElement {
         // If the attribute hideLibraryMenuItem is true, remove it from the template
         const hideLibraryMenuItem = this.getAttribute('hideLibraryMenuItem');
         if(hideLibraryMenuItem === 'true') {
-            template.content.getElementById('menu-item-library').remove();
+            const libraryMenuItem = template.content.getElementById('menu-item-library');
+            !!libraryMenuItem && libraryMenuItem.remove();
         }
 
         // Append the label for the search widget
