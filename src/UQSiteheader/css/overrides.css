@@ -38,6 +38,9 @@ span.displayText {
     li.uq-site-header__navigation__list-item--has-subnav a {
         min-height: 4rem;
     }
+    li.uq-site-header__navigation__list-item--has-subnav li a {
+        min-height: auto;
+    }
     .uq-site-header__navigation__list--level-2 {
         padding-top: 1rem;
     }
