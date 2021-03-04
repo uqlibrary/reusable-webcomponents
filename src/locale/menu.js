@@ -257,7 +257,6 @@ export default {
             dataTestid: 'connect-locations-link',
             linkTo: 'https://web.library.uq.edu.au/locations-hours',
             primaryText: 'Locations & hours',
-            shiftLeft: true,
             columnCount: 3,
             submenuItems: [
                 {
@@ -350,7 +349,6 @@ export default {
             dataTestid: 'connect-about-link',
             linkTo: 'https://web.library.uq.edu.au/about-us',
             primaryText: 'About',
-            shiftLeft: true,
             columnCount: 2,
             submenuItems: [
                 {
