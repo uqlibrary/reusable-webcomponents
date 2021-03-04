@@ -8,7 +8,7 @@ template.innerHTML = `
   <footer class="uq-footer" data-gtm-category="Footer">
       <div class="uq-footer__container">
           <div class="uq-footer__acknowledgement">
-              UQ acknowledges the Traditional Owners and their custodianship of the lands on which UQ is situated. — <a href="https://about.uq.edu.au/reconciliation" class="uq-footer__acknowledgement__link">Reconciliation statement</a>
+              UQ acknowledges the Traditional Owners and their custodianship of the lands on which UQ is situated. &mdash; <a href="https://about.uq.edu.au/reconciliation" class="uq-footer__acknowledgement__link">Reconciliation statement</a>
           </div>
 
           <div class="uq-footer__row">
