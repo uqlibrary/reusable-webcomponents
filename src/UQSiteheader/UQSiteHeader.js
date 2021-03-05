@@ -165,7 +165,9 @@ class UQSiteHeader extends HTMLElement {
             !!siteTitleContent && (siteTitleContent.href = siteURL);
         }
 
-        this.addAuthButtonToSlot();
+        // next step: get this from the api
+        const isAuthorisedUser = 'false'; // 'true' is logged in; anything else is logged out - tbd by api
+        this.addAuthButtonToSlot(isAuthorisedUser);
 
         this.rewriteMegaMenuFromJson();
 
@@ -176,12 +178,13 @@ class UQSiteHeader extends HTMLElement {
         this.loadJS = this.loadJS.bind(this);
     }
 
-    addAuthButtonToSlot() {
-        // next step: get this from the api
-        const isAuthorisedUser_willBeDynamic = 'false'; // 'true' is logged in; anything else is logged out
+    addAuthButtonToSlot(isAuthorisedUser) {
+        if (!this.isAuthButtonDisplayed()) {
+            return;
+        }
 
         const authButton0 = document.createElement('auth-button');
-        !!authButton0 && authButton0.setAttribute('isAuthorisedUser', isAuthorisedUser_willBeDynamic);
+        !!authButton0 && authButton0.setAttribute('isAuthorisedUser', isAuthorisedUser);
         const authButton = !!authButton0 && authButton0.cloneNode(true);
 
         const authButtonWrapper = document.createElement('span');
@@ -333,6 +336,13 @@ class UQSiteHeader extends HTMLElement {
             this.showMenu = this.getAttribute('showMenu');
         }
         return !!this.showMenu || this.showMenu === '';
+    }
+
+    isAuthButtonDisplayed() {
+        if (this.isloginRequired === undefined) {
+            this.isloginRequired = this.getAttribute('showLoginButton');
+        }
+        return !!this.isloginRequired || this.isloginRequired === '';
     }
 
     connectedCallback() {
