@@ -152,14 +152,12 @@ class UQSiteHeader extends HTMLElement {
 
         // Handle the attributes for this component
 
-        const siteTitleContent = template.content.getElementById('site-title');
         // Set the title
+        const siteTitleContent = template.content.getElementById('site-title');
         const siteTitle = this.getAttribute('siteTitle');
         if (!!siteTitle) {
             !!siteTitleContent && (siteTitleContent.innerHTML = siteTitle);
         }
-
-        // Set the title link URL
         const siteURL = this.getAttribute('siteURL');
         if (!!siteURL) {
             !!siteTitleContent && (siteTitleContent.href = siteURL);
