@@ -88,6 +88,7 @@ module.exports = () => {
             // This plugin simply copies the external js into the dist and renames it
             new CopyPlugin({
                 patterns: [
+                    {from: "src/AuthButton/js/uqds.js", to: "auth-button.js"},
                     {from: "src/ConnectFooter/js/uqds.js", to: "connect-footer.js"},
                     {from: "src/UQHeader/js/uqds.js", to: "uq-header.js"},
                     {from: "src/UQFooter/js/uqds.js", to: "uq-footer.js"},
@@ -110,6 +111,9 @@ module.exports = () => {
                 },{
                     search: /connect-footer\.js/gm,
                     replace: componentJsPath[process.env.NODE_ENV] + 'connect-footer.js',
+                },{
+                    search: /auth-button\.js/gm,
+                    replace: componentJsPath[process.env.NODE_ENV] + 'auth-button.js',
                 }]
             }]),
         ].filter(Boolean),

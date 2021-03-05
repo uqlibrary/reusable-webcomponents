@@ -165,6 +165,8 @@ class UQSiteHeader extends HTMLElement {
             !!siteTitleContent && (siteTitleContent.href = siteURL);
         }
 
+        this.addAuthButtonToSlot();
+
         this.rewriteMegaMenuFromJson();
 
         // Render the template
@@ -172,6 +174,22 @@ class UQSiteHeader extends HTMLElement {
 
         // Bindings
         this.loadJS = this.loadJS.bind(this);
+    }
+
+    addAuthButtonToSlot() {
+        // next step: get this from the api
+        const isAuthorisedUser_willBeDynamic = 'false'; // 'true' is logged in; anything else is logged out
+
+        const authButton0 = document.createElement('auth-button');
+        !!authButton0 && authButton0.setAttribute('isAuthorisedUser', isAuthorisedUser_willBeDynamic);
+        const authButton = !!authButton0 && authButton0.cloneNode(true);
+
+        const authButtonWrapper = document.createElement('span');
+        !!authButtonWrapper && authButtonWrapper.setAttribute('slot', 'site-utilities');
+        !!authButton && !!authButtonWrapper && authButtonWrapper.appendChild(authButton);
+
+        const siteHeader = document.getElementsByTagName('uq-site-header')[0] || false;
+        !!authButtonWrapper && !!siteHeader && siteHeader.appendChild(authButtonWrapper)
     }
 
     rewriteMegaMenuFromJson() {
