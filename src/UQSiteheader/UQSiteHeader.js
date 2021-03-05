@@ -1,9 +1,11 @@
 import styles from './css/main.css';
 import icons from './css/icons.css';
+import askus from './css/askus.css';
 const template = document.createElement('template');
 template.innerHTML = `
     <style>${styles.toString()}</style>
     <style>${icons.toString()}</style>
+    <style>${askus.toString()}</style>
     <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v6/fonts/Roboto/roboto.css" />
     <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css" />
     <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css">
@@ -14,6 +16,14 @@ template.innerHTML = `
           <a id="site-title" href="/" class="uq-site-header__title">Site title</a>
         </div>
         <div class="uq-site-header__title-container__right">
+        <div id="askus">
+            <button id="askus-button">
+                <svg id="askus-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path>
+                </svg>
+                <div id="askus-label">Ask Us</div>
+            </button>
+        </div>
           <slot name="site-utilities">[Site utilities go here]</slot>
           <button class="uq-site-header__navigation-toggle jsNavToggle">Menu</button>
         </div>
@@ -154,6 +164,11 @@ class UQSiteHeader extends HTMLElement {
             template.content.getElementById('site-title').innerHTML = siteTitle;
         }
 
+        const hideAskUs = this.getAttribute('hideAskUs');
+        if (hideAskUs === "true") {
+            template.content.getElementById('askus').remove();
+        }
+
         // Set the title link URL
         const siteURL = this.getAttribute('siteURL');
         if (!!siteURL) {
@@ -186,6 +201,14 @@ class UQSiteHeader extends HTMLElement {
                 // Equalised grid menu examples
                 var equaliseGridMenu = uq.gridMenuEqualiser('.uq-grid-menu--equalised>a');
                 equaliseGridMenu.align();
+
+                // Actions for the ask us menu
+                if(hideAskUs !== "true" {})
+                console.log(document);
+                function handleAskUsButton(event) {
+                    console.log("click", event);
+                }
+                document.querySelector('uq-site-header').shadowRoot.getElementById("askus-button").addEventListener('click', handleAskUsButton);
             };
             //Specify the location of the ITS DS JS file
             script.src = 'uq-site-header.js';
