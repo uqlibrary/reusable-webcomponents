@@ -181,23 +181,53 @@ class UQSiteHeader extends HTMLElement {
             return;
         }
 
-        const isAuthorised = this.checkAuthorisedUser();
+        this.checkAuthorisedUser()
+            .then(isAuthorised => {
+                const authButton0 = document.createElement('auth-button');
+                !!authButton0 && authButton0.setAttribute('isAuthorisedUser', isAuthorised ? 'true' : 'false');
+                const authButton = !!authButton0 && authButton0.cloneNode(true);
 
-        const authButton0 = document.createElement('auth-button');
-        !!authButton0 && authButton0.setAttribute('isAuthorisedUser', isAuthorised ? 'true': 'false');
-        const authButton = !!authButton0 && authButton0.cloneNode(true);
+                const authButtonWrapper = document.createElement('span');
+                !!authButtonWrapper && authButtonWrapper.setAttribute('slot', 'site-utilities');
+                !!authButton && !!authButtonWrapper && authButtonWrapper.appendChild(authButton);
 
-        const authButtonWrapper = document.createElement('span');
-        !!authButtonWrapper && authButtonWrapper.setAttribute('slot', 'site-utilities');
-        !!authButton && !!authButtonWrapper && authButtonWrapper.appendChild(authButton);
-
-        const siteHeader = document.getElementsByTagName('uq-site-header')[0] || false;
-        !!authButtonWrapper && !!siteHeader && siteHeader.appendChild(authButtonWrapper)
+                const siteHeader = document.getElementsByTagName('uq-site-header')[0] || false;
+                !!authButtonWrapper && !!siteHeader && siteHeader.appendChild(authButtonWrapper);
+            });
     }
 
-    checkAuthorisedUser() {
-        // next step: get this from the api
-        return true;
+    async checkAuthorisedUser() {
+        this.accountLoading = true;
+        this.account = {};
+        let loggedin = null;
+        await this.fetchAccount()
+            .then(account => {
+                if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
+                    this.account = account;
+                }
+                this.accountLoading = false;
+
+                loggedin = !!this.account && !!this.account.id;
+            }).catch(error => {
+                loggedin = false;
+            });
+        return loggedin;
+    }
+
+    // reference: https://dmitripavlutin.com/javascript-fetch-async-await/
+    async fetchAccount() {
+        const response = await fetch('https://api.library.uq.edu.au/staging/account', {
+            headers: {
+                'Content-Type': 'application/json',
+                'x-uql-token': 'JTveqT9paQyesk9EGEG1cMcq2HsH2H4WFJVHpdnn', //  TODO: from cookie
+            }
+        });
+        if (!response.ok) {
+            const message = `An error has occured: ${response.status}`;
+            throw new Error(message);
+        }
+        const account = await response.json();
+        return account;
     }
 
     rewriteMegaMenuFromJson() {
