@@ -1,6 +1,6 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-const uglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require("terser-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const ReplaceInFileWebpackPlugin = require('replace-in-file-webpack-plugin');
 const webpack = require('webpack');
@@ -79,8 +79,11 @@ module.exports = () => {
                 },
             ],
         },
+        optimization: {
+            minimize: true,
+            minimizer: [new TerserPlugin()],
+        },
         plugins: [
-            new uglifyJsPlugin(),
             new HTMLWebpackPlugin({
                 template: path.resolve(__dirname, 'index.html'),
             }),
