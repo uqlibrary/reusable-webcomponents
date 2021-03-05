@@ -23,6 +23,9 @@ template.innerHTML = `
                 </svg>
                 <div id="askus-label">Ask Us</div>
             </button>
+            <div id="askus-menu" class="closed">
+                <a href="#">Hello</a>
+            </div>
         </div>
           <slot name="site-utilities">[Site utilities go here]</slot>
           <button class="uq-site-header__navigation-toggle jsNavToggle">Menu</button>
@@ -202,10 +205,25 @@ class UQSiteHeader extends HTMLElement {
                 var equaliseGridMenu = uq.gridMenuEqualiser('.uq-grid-menu--equalised>a');
                 equaliseGridMenu.align();
 
+                let askUsClosed = true;
                 // Actions for the ask us menu
                 if(hideAskUs !== "true") {
-                    function handleAskUsButton(event) {
-                        console.log("click", event);
+                    function toggleMenu() {
+                        askUsClosed = !askUsClosed;
+                        document.querySelector('uq-site-header').shadowRoot.getElementById("askus-menu").classList.toggle("closed")
+                    }
+                    function handleAskUsButton() {
+                        toggleMenu;
+                        console.log(askUsClosed ? "closed" : "open");
+                        askUsClosed ? document.querySelector('uq-site-header').shadowRoot.getElementById("askus-button").blur() : document.querySelector('uq-site-header').shadowRoot.getElementById("askus-button").focus();
+                        document.querySelector('uq-site-header').shadowRoot.getElementById("askus-menu").classList.toggle("closed");
+                        document.querySelector('uq-site-header').shadowRoot.getElementById("askus-menu").addEventListener('mouseleave', handleMouseOut);
+                    }
+                    function handleMouseOut() {
+                        askUsClosed = !askUsClosed;
+                        console.log(askUsClosed ? "closed" : "open");
+                        document.querySelector('uq-site-header').shadowRoot.getElementById("askus-menu").removeEventListener('mouseleave', handleMouseOut);
+                        setTimeout(toggleMenu, 300);
                     }
                     // Attach a listener to the askus button
                     document.querySelector('uq-site-header').shadowRoot.getElementById("askus-button").addEventListener('click', handleAskUsButton);

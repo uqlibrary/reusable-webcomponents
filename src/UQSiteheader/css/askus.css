@@ -35,3 +35,26 @@
     transition-property: background-color;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+#askus-menu {
+    z-index: 999;
+    background-color: rgba(255,255,255,0.98);
+    border-radius: 4px;
+    box-shadow: 0 0 6px rgba(0,0,0,0.4);
+    top: -30px;
+    left: -125px;
+    position: absolute;
+    width: 300px;
+    height: 250px;
+    transition-delay: 0.1s;
+    transition-duration: 0.5s;
+    transition-property: opacity;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.closed {
+    display: none;
+    transition-delay: 0.1s;
+    transition-duration: 0.5s;
+    transition-property: display;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
