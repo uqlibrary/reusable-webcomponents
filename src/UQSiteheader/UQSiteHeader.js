@@ -165,9 +165,7 @@ class UQSiteHeader extends HTMLElement {
             !!siteTitleContent && (siteTitleContent.href = siteURL);
         }
 
-        // next step: get this from the api
-        const isAuthorisedUser = 'false'; // 'true' is logged in; anything else is logged out - tbd by api
-        this.addAuthButtonToSlot(isAuthorisedUser);
+        this.addAuthButtonToSlot();
 
         this.rewriteMegaMenuFromJson();
 
@@ -178,13 +176,15 @@ class UQSiteHeader extends HTMLElement {
         this.loadJS = this.loadJS.bind(this);
     }
 
-    addAuthButtonToSlot(isAuthorisedUser) {
+    addAuthButtonToSlot() {
         if (!this.isAuthButtonDisplayed()) {
             return;
         }
 
+        const isAuthorised = this.checkAuthorisedUser();
+
         const authButton0 = document.createElement('auth-button');
-        !!authButton0 && authButton0.setAttribute('isAuthorisedUser', isAuthorisedUser);
+        !!authButton0 && authButton0.setAttribute('isAuthorisedUser', isAuthorised ? 'true': 'false');
         const authButton = !!authButton0 && authButton0.cloneNode(true);
 
         const authButtonWrapper = document.createElement('span');
@@ -193,6 +193,11 @@ class UQSiteHeader extends HTMLElement {
 
         const siteHeader = document.getElementsByTagName('uq-site-header')[0] || false;
         !!authButtonWrapper && !!siteHeader && siteHeader.appendChild(authButtonWrapper)
+    }
+
+    checkAuthorisedUser() {
+        // next step: get this from the api
+        return true;
     }
 
     rewriteMegaMenuFromJson() {
