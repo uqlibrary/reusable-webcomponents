@@ -59,3 +59,7 @@ eg. UQ Header:
 ```
 - Make sure to update the dynamic load reference in the web component file.
 - Run `npm run build` to pack the file into the `dist` folder - and open index.html there in a browser to test - or - run `npm run start` to have a listening system run in your local browser.
+
+### Reference Material
+
+How slots work: https://javascript.info/slots-composition
