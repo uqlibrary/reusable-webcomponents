@@ -27,6 +27,7 @@ template.innerHTML = `
                 <a href="#">Hello</a>
             </div>
         </div>
+        <div id="askus-pane" class="closed"></div>
           <slot name="site-utilities">[Site utilities go here]</slot>
           <button class="uq-site-header__navigation-toggle jsNavToggle">Menu</button>
         </div>
@@ -207,23 +208,30 @@ class UQSiteHeader extends HTMLElement {
 
                 let askUsClosed = true;
                 // Actions for the ask us menu
+                document.onkeydown = function(evt) {
+                    evt = evt || window.event;
+                    if (evt.keyCode == 27) {
+                        alert('Esc key pressed.');
+                    }
+                };
                 if(hideAskUs !== "true") {
                     function toggleMenu() {
+                        console.log('toggling menu');
                         askUsClosed = !askUsClosed;
-                        document.querySelector('uq-site-header').shadowRoot.getElementById("askus-menu").classList.toggle("closed")
+                        document.querySelector('uq-site-header').shadowRoot.getElementById("askus-menu").classList.toggle("closed");
+                        document.querySelector('uq-site-header').shadowRoot.getElementById("askus-pane").classList.toggle("closed");
                     }
                     function handleAskUsButton() {
-                        toggleMenu;
+                        toggleMenu();
                         console.log(askUsClosed ? "closed" : "open");
                         askUsClosed ? document.querySelector('uq-site-header').shadowRoot.getElementById("askus-button").blur() : document.querySelector('uq-site-header').shadowRoot.getElementById("askus-button").focus();
-                        document.querySelector('uq-site-header').shadowRoot.getElementById("askus-menu").classList.toggle("closed");
                         document.querySelector('uq-site-header').shadowRoot.getElementById("askus-menu").addEventListener('mouseleave', handleMouseOut);
                     }
                     function handleMouseOut() {
                         askUsClosed = !askUsClosed;
                         console.log(askUsClosed ? "closed" : "open");
                         document.querySelector('uq-site-header').shadowRoot.getElementById("askus-menu").removeEventListener('mouseleave', handleMouseOut);
-                        setTimeout(toggleMenu, 300);
+                        setTimeout(toggleMenu(), 300);
                     }
                     // Attach a listener to the askus button
                     document.querySelector('uq-site-header').shadowRoot.getElementById("askus-button").addEventListener('click', handleAskUsButton);
