@@ -63,3 +63,11 @@ eg. UQ Header:
 ### Reference Material
 
 How slots work: https://javascript.info/slots-composition
+
+### Known issues
+
+if you are developing and you suddenly start getting
+
+`Error: ENOENT: no such file or directory, scandir '/Users/uqldegro/github/reusable-webcomponents/node_modules/node-sass/vendor'`
+
+issuing the command `npm rebuild node-sass` will usually fix it
