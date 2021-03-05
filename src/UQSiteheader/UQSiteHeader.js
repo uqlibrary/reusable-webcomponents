@@ -332,7 +332,7 @@ class UQSiteHeader extends HTMLElement {
         if (this.showMenu === undefined) {
             this.showMenu = this.getAttribute('showMenu');
         }
-        return this.showMenu === 'true';
+        return !!this.showMenu || this.showMenu === '';
     }
 
     connectedCallback() {
