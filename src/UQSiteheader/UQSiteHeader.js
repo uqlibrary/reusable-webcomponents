@@ -182,7 +182,7 @@ class UQSiteHeader extends HTMLElement {
         this.loadJS = this.loadJS.bind(this);
     }
 
-    loadJS() {
+    loadJS(hideAskUs) {
         // This loads the external JS file into the HTML head dynamically
         //Only load js if it has not been loaded before (tracked by the initCalled flag)
         if (!initCalled) {
@@ -203,12 +203,13 @@ class UQSiteHeader extends HTMLElement {
                 equaliseGridMenu.align();
 
                 // Actions for the ask us menu
-                if(hideAskUs !== "true" {})
-                console.log(document);
-                function handleAskUsButton(event) {
-                    console.log("click", event);
+                if(hideAskUs !== "true") {
+                    function handleAskUsButton(event) {
+                        console.log("click", event);
+                    }
+                    // Attach a listener to the askus button
+                    document.querySelector('uq-site-header').shadowRoot.getElementById("askus-button").addEventListener('click', handleAskUsButton);
                 }
-                document.querySelector('uq-site-header').shadowRoot.getElementById("askus-button").addEventListener('click', handleAskUsButton);
             };
             //Specify the location of the ITS DS JS file
             script.src = 'uq-site-header.js';
