@@ -13,7 +13,7 @@ template.innerHTML = `
 
           <div class="uq-footer__row">
               <div class="uq-footer__column">
-                  <div class="uq-footer__copyright">© The University of Queensland</div>
+                  <div class="uq-footer__copyright">&copy; The University of Queensland</div>
                   <div class="uq-footer__contact">
                       Enquiries: <a href="tel:+61733651111" class="uq-footer__link footer__enquiries-phone" onclick="gtag('event', 'click', {'event_category': 'UQ Footer', 'event_label': 'Enquiries phone'});"><span itemprop="telephone">+61 7 3365 1111</span></a>                    &nbsp; | &nbsp; <a href="https://uq.edu.au/contacts" class="uq-footer__link footer__contacts-link" onclick="gtag('event', 'click', {'event_category': 'UQ Footer', 'event_label': 'Contact directory'});">Contact directory</a>
                   </div>
