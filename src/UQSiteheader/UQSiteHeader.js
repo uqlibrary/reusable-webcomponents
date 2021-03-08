@@ -178,89 +178,16 @@ class UQSiteHeader extends HTMLElement {
         if (!this.isAuthButtonDisplayed()) {
             return;
         }
+        const authButton0 = document.createElement('auth-button');
+        const authButton = !!authButton0 && authButton0.cloneNode(true);
 
-        this.checkAuthorisedUser()
-            .then(isAuthorised => {
-                const authButton0 = document.createElement('auth-button');
-                !!authButton0 && authButton0.setAttribute('isAuthorisedUser', isAuthorised ? 'true' : 'false');
-                const authButton = !!authButton0 && authButton0.cloneNode(true);
+        const authButtonWrapper = document.createElement('span');
+        !!authButtonWrapper && authButtonWrapper.setAttribute('slot', 'site-utilities');
+        !!authButton && !!authButtonWrapper && authButtonWrapper.appendChild(authButton);
 
-                const authButtonWrapper = document.createElement('span');
-                !!authButtonWrapper && authButtonWrapper.setAttribute('slot', 'site-utilities');
-                !!authButton && !!authButtonWrapper && authButtonWrapper.appendChild(authButton);
-
-                const siteHeader = document.getElementsByTagName('uq-site-header')[0] || false;
-                !!authButtonWrapper && !!siteHeader && siteHeader.appendChild(authButtonWrapper);
-            });
+        const siteHeader = document.getElementsByTagName('uq-site-header')[0] || false;
+        !!authButtonWrapper && !!siteHeader && siteHeader.appendChild(authButtonWrapper);
     }
-
-    async checkAuthorisedUser() {
-        this.accountLoading = true;
-        this.account = {};
-        let loggedin = null;
-
-        if (this.getUQCookies() === undefined || this.sessionGroupId === undefined) {
-            console.log('no cookie so we wont bother asking for an account that cant be returned');
-            loggedin = false;
-            return false;
-        }
-
-        await this.fetchAccount()
-            .then(account => {
-                if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
-                    this.account = account;
-                }
-                this.accountLoading = false;
-
-                loggedin = !!this.account && !!this.account.id;
-            }).catch(error => {
-                this.accountLoading = false;
-                loggedin = false;
-            });
-        return loggedin;
-    }
-
-    // reference: https://dmitripavlutin.com/javascript-fetch-async-await/
-    async fetchAccount() {
-        const response = await fetch('https://api.library.uq.edu.au/staging/account', {
-            headers: {
-                'Content-Type': 'application/json',
-                'x-uql-token': this.getUQCookies(),
-            }
-        });
-        if (!response.ok) {
-            const message = `An error has occured: ${response.status}`;
-            throw new Error(message);
-        }
-        const account = await response.json();
-        return account;
-    }
-
-    getUQCookies() {
-        if (this.sessionCookie !== undefined) {
-            return this.sessionCookie;
-        }
-        const SESSION_USER_GROUP_COOKIE_NAME = 'UQLID_USER_GROUP';
-        const sessionGroupId = this.getCookie(SESSION_USER_GROUP_COOKIE_NAME);
-        this.sessionGroupId = sessionGroupId === null ? undefined : sessionGroupId;
-
-        const SESSION_COOKIE_NAME = 'UQLID';
-        const sessionCookie = this.getCookie(SESSION_COOKIE_NAME);
-        this.sessionCookie = sessionCookie === null ? undefined : sessionCookie;
-
-        return this.sessionCookie;
-    }
-
-    getCookie(name) {
-        const cookies = document.cookie.split(';');
-        for (let i=0 ; i < cookies.length ; ++i) {
-            const pair = cookies[i].trim().split('=');
-            if (!!pair[0] && pair[0] === name) {
-                return !!pair[1] ? pair[1] : null;
-            }
-        }
-        return null;
-    };
 
     rewriteMegaMenuFromJson() {
         // temp variable, for easily swapping between original ITS and this, during dev
