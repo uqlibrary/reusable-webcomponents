@@ -80,6 +80,7 @@ class AuthButton extends HTMLElement {
 
     addButtonListeners(shadowDOM) {
         function visitLogOutPage() {
+            (new ApiAccess()).removeAccountStorage();
             const AUTH_URL_LOGOUT = 'https://auth.library.uq.edu.au/logout';
             const returnUrl = window.location.href;
             window.location.assign(`${AUTH_URL_LOGOUT}?return=${window.btoa(returnUrl)}`);

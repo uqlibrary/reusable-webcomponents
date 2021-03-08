@@ -3,27 +3,31 @@ let initCalled;
 
 class ApiAccess {
     constructor() {
+        this.STORAGE_ACCOUNT_KEYNAME = 'userAccount';
+
         // Bindings
         this.loadJS = this.loadJS.bind(this);
     }
 
-    async getAccount() {
-        const STORAGE_ACCOUNT_KEYNAME = 'userAccount';
+    removeAccountStorage() {
+        sessionStorage.removeItem(this.STORAGE_ACCOUNT_KEYNAME);
+    }
 
+    async getAccount() {
         if (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined) {
             // no cookie, force them to log in again
-            sessionStorage.removeItem(STORAGE_ACCOUNT_KEYNAME);
+            removeAccountStorage();
             return false;
         }
 
-        let accountData = JSON.parse(sessionStorage.getItem(STORAGE_ACCOUNT_KEYNAME));
+        let accountData = JSON.parse(sessionStorage.getItem(this.STORAGE_ACCOUNT_KEYNAME));
         if (accountData !== null) {
             return accountData;
         }
 
         const account = await this.fetchAccount();
 
-        sessionStorage.setItem(STORAGE_ACCOUNT_KEYNAME, JSON.stringify(account));
+        sessionStorage.setItem(this.STORAGE_ACCOUNT_KEYNAME, JSON.stringify(account));
 
         return account;
     }
