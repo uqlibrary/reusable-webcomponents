@@ -180,13 +180,16 @@ class UQSiteHeader extends HTMLElement {
         }
         const authButton0 = document.createElement('auth-button');
         const authButton = !!authButton0 && authButton0.cloneNode(true);
+        this.addButtonToUtilityArea(authButton);
+    }
 
-        const authButtonWrapper = document.createElement('span');
-        !!authButtonWrapper && authButtonWrapper.setAttribute('slot', 'site-utilities');
-        !!authButton && !!authButtonWrapper && authButtonWrapper.appendChild(authButton);
+    addButtonToUtilityArea(button) {
+        const buttonWrapper = document.createElement('span');
+        !!buttonWrapper && buttonWrapper.setAttribute('slot', 'site-utilities');
+        !!button && !!buttonWrapper && buttonWrapper.appendChild(button);
 
         const siteHeader = document.getElementsByTagName('uq-site-header')[0] || false;
-        !!authButtonWrapper && !!siteHeader && siteHeader.appendChild(authButtonWrapper);
+        !!buttonWrapper && !!siteHeader && siteHeader.appendChild(buttonWrapper);
     }
 
     rewriteMegaMenuFromJson() {
