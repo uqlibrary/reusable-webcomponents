@@ -61,6 +61,8 @@ class AuthButton extends HTMLElement {
         if (loggedOutButtonMandatory === 'true') {
             // Render the template
             shadowDOM.appendChild(template.content.cloneNode(true));
+            this.addButtonListeners(shadowDOM);
+
         } else {
             this.checkAuthorisedUser()
                 .then(isAuthorised => {
@@ -68,11 +70,34 @@ class AuthButton extends HTMLElement {
 
                     // Render the template
                     shadowDOM.appendChild(template.content.cloneNode(true));
+                    this.addButtonListeners(shadowDOM);
                 });
         }
 
         // Bindings
         this.loadJS = this.loadJS.bind(this);
+    }
+
+    addButtonListeners(shadowDOM) {
+        function visitLogOutPage() {
+            const AUTH_URL_LOGOUT = 'https://auth.library.uq.edu.au/logout';
+            const returnUrl = window.location.href;
+            window.location.assign(`${AUTH_URL_LOGOUT}?return=${window.btoa(returnUrl)}`);
+        }
+
+        function visitLoginPage() {
+            const AUTH_URL_LOGIN = 'https://auth.library.uq.edu.au/login';
+            const returnUrl = window.location.href;
+            window.location.assign(`${AUTH_URL_LOGIN}?return=${window.btoa(returnUrl)}`);
+        }
+
+        const loggedinButton = !!shadowDOM && shadowDOM.getElementById("auth-button-loggedin")
+        !!loggedinButton && loggedinButton.addEventListener('click', visitLogOutPage);
+
+        const loggedoutButton = !!shadowDOM && shadowDOM.getElementById("auth-button-loggedout")
+        !!loggedoutButton && loggedoutButton.addEventListener('click', visitLoginPage);
+
+        !loggedinButton && !loggedoutButton && console.log('neither logged in nor logged out buttons exist');
     }
 
     setButtonAttributes() {
@@ -111,25 +136,6 @@ class AuthButton extends HTMLElement {
                 //Code to execute after the library has been downloaded parsed and processed by the browser starts here :)
                 initCalled = true;
             };
-
-            function visitLogOutPage() {
-                const AUTH_URL_LOGOUT = 'https://auth.library.uq.edu.au/logout';
-                const returnUrl = window.location.href;
-                window.location.assign(`${AUTH_URL_LOGOUT}?url=${window.btoa(returnUrl)}`);
-            }
-
-            function visitLoginPage() {
-                const AUTH_URL_LOGIN = 'https://auth.library.uq.edu.au/login';
-                const returnUrl = window.location.href;
-                window.location.assign(`${AUTH_URL_LOGIN}?url=${window.btoa(returnUrl)}`);
-            }
-
-            // Attach listeners to the auth button
-            const parentNode = document.getElementsByTagName('auth-button')[0] || false;
-            const loggedinButton = !!parentNode && parentNode.shadowRoot.getElementById("auth-button-loggedin")
-            !!loggedinButton && loggedinButton.addEventListener('click', visitLogOutPage);
-            const loggedoutButton = !!parentNode && parentNode.shadowRoot.getElementById("auth-button-loggedout")
-            !!loggedoutButton && loggedoutButton.addEventListener('click', visitLoginPage);
 
             //Specify the location of the ITS DS JS file
             script.src = 'auth-button.js';
