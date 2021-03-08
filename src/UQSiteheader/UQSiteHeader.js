@@ -198,6 +198,13 @@ class UQSiteHeader extends HTMLElement {
         this.accountLoading = true;
         this.account = {};
         let loggedin = null;
+
+        if (this.getUQCookies() === undefined || this.sessionGroupId === undefined) {
+            console.log('no cookie so we wont bother asking for an account that cant be returned');
+            loggedin = false;
+            return false;
+        }
+
         await this.fetchAccount()
             .then(account => {
                 if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
@@ -207,6 +214,7 @@ class UQSiteHeader extends HTMLElement {
 
                 loggedin = !!this.account && !!this.account.id;
             }).catch(error => {
+                this.accountLoading = false;
                 loggedin = false;
             });
         return loggedin;
@@ -217,7 +225,7 @@ class UQSiteHeader extends HTMLElement {
         const response = await fetch('https://api.library.uq.edu.au/staging/account', {
             headers: {
                 'Content-Type': 'application/json',
-                'x-uql-token': 'JTveqT9paQyesk9EGEG1cMcq2HsH2H4WFJVHpdnn', //  TODO: from cookie
+                'x-uql-token': this.getUQCookies(),
             }
         });
         if (!response.ok) {
@@ -227,6 +235,32 @@ class UQSiteHeader extends HTMLElement {
         const account = await response.json();
         return account;
     }
+
+    getUQCookies() {
+        if (this.sessionCookie !== undefined) {
+            return this.sessionCookie;
+        }
+        const SESSION_USER_GROUP_COOKIE_NAME = 'UQLID_USER_GROUP';
+        const sessionGroupId = this.getCookie(SESSION_USER_GROUP_COOKIE_NAME);
+        this.sessionGroupId = sessionGroupId === null ? undefined : sessionGroupId;
+
+        const SESSION_COOKIE_NAME = 'UQLID';
+        const sessionCookie = this.getCookie(SESSION_COOKIE_NAME);
+        this.sessionCookie = sessionCookie === null ? undefined : sessionCookie;
+
+        return this.sessionCookie;
+    }
+
+    getCookie(name) {
+        const cookies = document.cookie.split(';');
+        for (let i=0 ; i < cookies.length ; ++i) {
+            const pair = cookies[i].trim().split('=');
+            if (!!pair[0] && pair[0] === name) {
+                return !!pair[1] ? pair[1] : null;
+            }
+        }
+        return null;
+    };
 
     rewriteMegaMenuFromJson() {
         // temp variable, for easily swapping between original ITS and this, during dev
