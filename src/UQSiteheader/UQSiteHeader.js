@@ -3,6 +3,21 @@ import overrides from './css/overrides.css';
 import icons from './css/icons.css';
 import {default as menuLocale} from "../locale/menu";
 
+/**
+ * API:
+ *   <uq-site-header
+ *       siteTitle="Library"                     // should be displayed on all sites - the text of the homepage link
+ *       siteURL="http://www.library.uq.edu.au"  // should be displayed on all sites - the link of the homepage link
+ *       showMenu                                // should the megamenu be displayed? (just include, don't put ="true" on the end)
+ *       showLoginButton                         // should the auth button be displayed? (just include, don't put ="true" on the end)
+ *       requireLoggedOut                        // only valid if 'showLoginButton' is true
+ *                                               // forces the auth button to the logged out state (just include, don't put ="true" on the end)
+ *   >
+    <slot name="site-utilities"></slot>
+ </uq-site-header>
+
+ */
+
 const template = document.createElement('template');
 template.innerHTML = `
     <style>${styles.toString()}</style>
@@ -178,9 +193,13 @@ class UQSiteHeader extends HTMLElement {
         if (!this.isAuthButtonDisplayed()) {
             return;
         }
+
         const authButton0 = document.createElement('auth-button');
+
+        !!authButton0 && this.overwriteAsLoggedOut() && authButton0.setAttribute('overwriteAsLoggedOut', 'true');
+
         const authButton = !!authButton0 && authButton0.cloneNode(true);
-        this.addButtonToUtilityArea(authButton);
+        !!authButton && this.addButtonToUtilityArea(authButton);
     }
 
     addButtonToUtilityArea(button) {
@@ -341,6 +360,13 @@ class UQSiteHeader extends HTMLElement {
             this.isloginRequired = this.getAttribute('showLoginButton');
         }
         return !!this.isloginRequired || this.isloginRequired === '';
+    }
+
+    overwriteAsLoggedOut() {
+        if (this.overwriteAsLoggedOutVar === undefined) {
+            this.overwriteAsLoggedOutVar = this.getAttribute('requireLoggedOut');
+        }
+        return !!this.overwriteAsLoggedOutVar || this.overwriteAsLoggedOutVar === '';
     }
 
     connectedCallback() {

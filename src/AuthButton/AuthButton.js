@@ -56,13 +56,20 @@ class AuthButton extends HTMLElement {
         // Add a shadow DOM
         const shadowDOM = this.attachShadow({mode: 'open'});
 
-        this.checkAuthorisedUser()
-            .then(isAuthorised => {
-                const template = !!isAuthorised ? authorisedtemplate : unauthorisedtemplate;
+        let template = unauthorisedtemplate;
+        const loggedOutButtonMandatory = this.getAttribute('overwriteAsLoggedOut');
+        if (loggedOutButtonMandatory === 'true') {
+            // Render the template
+            shadowDOM.appendChild(template.content.cloneNode(true));
+        } else {
+            this.checkAuthorisedUser()
+                .then(isAuthorised => {
+                    template = !!isAuthorised ? authorisedtemplate : unauthorisedtemplate;
 
-                // Render the template
-                shadowDOM.appendChild(template.content.cloneNode(true));
-            });
+                    // Render the template
+                    shadowDOM.appendChild(template.content.cloneNode(true));
+                });
+        }
 
         // Bindings
         this.loadJS = this.loadJS.bind(this);
