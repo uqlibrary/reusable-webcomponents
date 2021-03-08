@@ -7,10 +7,31 @@ class ApiAccess {
         this.loadJS = this.loadJS.bind(this);
     }
 
-    // reference: https://dmitripavlutin.com/javascript-fetch-async-await/
     async getAccount() {
+        const STORAGE_ACCOUNT_KEYNAME = 'userAccount';
+
         if (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined) {
-            console.log('no cookie so we wont bother asking for an account that cant be returned');
+            // no cookie, force them to log in again
+            sessionStorage.removeItem(STORAGE_ACCOUNT_KEYNAME);
+            return false;
+        }
+
+        let accountData = JSON.parse(sessionStorage.getItem(STORAGE_ACCOUNT_KEYNAME));
+        if (accountData !== null) {
+            return accountData;
+        }
+
+        const account = await this.fetchAccount();
+
+        sessionStorage.setItem(STORAGE_ACCOUNT_KEYNAME, JSON.stringify(account));
+
+        return account;
+    }
+
+    // reference: https://dmitripavlutin.com/javascript-fetch-async-await/
+    async fetchAccount() {
+        if (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined) {
+            // no cookie so we wont bother asking for an account that cant be returned
             return false;
         }
 
@@ -38,10 +59,10 @@ class ApiAccess {
         return this.sessionCookie;
     }
 
-    // I am guessing this field says whether they have a library login, not just a general uq login
     getLibraryGroupCookie() {
         if (this.libraryGroupId === undefined) {
             const SESSION_USER_GROUP_COOKIE_NAME = 'UQLID_USER_GROUP';
+            // I am guessing this field says whether they have a library login, not just a general uq login
             const sessionGroupId = this.getCookie(SESSION_USER_GROUP_COOKIE_NAME);
             this.libraryGroupId = sessionGroupId === null ? undefined : sessionGroupId;
         }
