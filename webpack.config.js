@@ -91,6 +91,7 @@ module.exports = () => {
             // This plugin simply copies the external js into the dist and renames it
             new CopyPlugin({
                 patterns: [
+                    {from: "src/ApiAccess/js/uqds.js", to: "api-access.js"},
                     {from: "src/AuthButton/js/uqds.js", to: "auth-button.js"},
                     {from: "src/ConnectFooter/js/uqds.js", to: "connect-footer.js"},
                     {from: "src/UQHeader/js/uqds.js", to: "uq-header.js"},
