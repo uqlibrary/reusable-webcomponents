@@ -1,11 +1,63 @@
 import styles from './css/main.css';
 import icons from './css/icons.css';
-import askus from './css/askus.css';
+import askusStyles from './css/askus.css';
+
+
+const askus = `
+            <button id="askus-button">
+                <svg id="askus-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path>
+                </svg>
+                <div id="askus-label">Ask Us</div>
+            </button>
+            <div id="askus-menu" class="closed-menu" style="display: none">
+                <ul class="askus-menu-list" role="menu" tabindex="-1">
+                    <li tabindex="0" role="menuitem" aria-disabled="false">
+                        <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path>
+                        </svg>
+                        <span>Menu item 1</span>
+                    </li>
+                    <li tabindex="0" role="menuitem">
+                        <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path>
+                        </svg>
+                        <span>Menu item 2</span>
+                    </li>
+                    <li tabindex="0" role="menuitem">
+                        <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path>
+                        </svg>
+                        <span>Menu item 3</span>
+                    </li>
+                    <li tabindex="0" role="menuitem">
+                        <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path>
+                        </svg>
+                        <span>Menu item 4</span>
+                    </li>
+                    <li tabindex="0" role="menuitem">
+                        <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path>
+                        </svg>
+                        <span>Menu item 5</span>
+                    </li>
+                   <li tabindex="0" role="menuitem">
+                        <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path>
+                        </svg>
+                        <span>Menu item 6</span>
+                    </li>
+                </ul>
+            </div>
+        <div id="askus-pane" class=closed-pane style="display: none"></div>
+`;
+
 const template = document.createElement('template');
 template.innerHTML = `
     <style>${styles.toString()}</style>
     <style>${icons.toString()}</style>
-    <style>${askus.toString()}</style>
+    <style>${askusStyles.toString()}</style>
     <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v6/fonts/Roboto/roboto.css" />
     <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css" />
     <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css">
@@ -16,19 +68,8 @@ template.innerHTML = `
           <a id="site-title" href="/" class="uq-site-header__title">Site title</a>
         </div>
         <div class="uq-site-header__title-container__right">
-        <div id="askus">
-            <button id="askus-button">
-                <svg id="askus-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path>
-                </svg>
-                <div id="askus-label">Ask Us</div>
-            </button>
-            <div id="askus-menu" class="closed">
-                <a href="#">Hello</a>
-            </div>
-        </div>
-        <div id="askus-pane" class="closed"></div>
-          <slot name="site-utilities">[Site utilities go here]</slot>
+            <div id="askus"></div>
+            <slot name="site-utilities">[Site utilities go here]</slot>
           <button class="uq-site-header__navigation-toggle jsNavToggle">Menu</button>
         </div>
       </div>
@@ -160,8 +201,8 @@ class UQSiteHeader extends HTMLElement {
         // Add a shadow DOM
         const shadowDOM = this.attachShadow({mode: 'open'});
 
-        // Handle the attributes for this component
 
+        // Handle the attributes for this component
         // // Set the title
         const siteTitle = this.getAttribute('siteTitle');
         if (!!siteTitle) {
@@ -171,6 +212,8 @@ class UQSiteHeader extends HTMLElement {
         const hideAskUs = this.getAttribute('hideAskUs');
         if (hideAskUs === "true") {
             template.content.getElementById('askus').remove();
+        } else {
+            template.content.getElementById('askus').innerHTML = askus;
         }
 
         // Set the title link URL
@@ -206,35 +249,57 @@ class UQSiteHeader extends HTMLElement {
                 var equaliseGridMenu = uq.gridMenuEqualiser('.uq-grid-menu--equalised>a');
                 equaliseGridMenu.align();
 
-                let askUsClosed = true;
                 // Actions for the ask us menu
-                document.onkeydown = function(evt) {
-                    evt = evt || window.event;
-                    if (evt.keyCode == 27) {
-                        alert('Esc key pressed.');
+                if (hideAskUs !== "true") {
+                    let askUsClosed = true;
+                    if(hideAskUs !== "true") {
+                        function openMenu() {
+                            askUsClosed = false;
+                            document.querySelector('uq-site-header').shadowRoot.getElementById("askus-menu").style.display = "block";
+                            document.querySelector('uq-site-header').shadowRoot.getElementById("askus-pane").style.display = "block";
+
+                            function showDisplay() {
+                                document.querySelector('uq-site-header').shadowRoot.getElementById("askus-menu").classList.remove("closed-menu");
+                                document.querySelector('uq-site-header').shadowRoot.getElementById("askus-pane").classList.remove("closed-pane");
+                            }
+
+                            setTimeout(showDisplay, 100);
+                            document.onkeydown = function (evt) {
+                                evt = evt || window.event;
+                                if (evt.keyCode == 27 && askUsClosed === false) {
+                                    closeMenu();
+                                }
+                            };
+                        }
+
+                        function closeMenu() {
+                            askUsClosed = true;
+                            document.querySelector('uq-site-header').shadowRoot.getElementById("askus-menu").classList.add("closed-menu");
+                            document.querySelector('uq-site-header').shadowRoot.getElementById("askus-pane").classList.add("closed-pane");
+
+                            function hideDisplay() {
+                                document.querySelector('uq-site-header').shadowRoot.getElementById("askus-menu").style.display = "none";
+                                document.querySelector('uq-site-header').shadowRoot.getElementById("askus-pane").style.display = "none";
+                            }
+
+                            setTimeout(hideDisplay, 500);
+                        }
+
+                        function handleAskUsButton() {
+                            askUsClosed ? document.querySelector('uq-site-header').shadowRoot.getElementById("askus-button").blur() : document.querySelector('uq-site-header').shadowRoot.getElementById("askus-button").focus();
+                            document.querySelector('uq-site-header').shadowRoot.getElementById("askus-pane").addEventListener('click', handleMouseOut);
+                            openMenu();
+                        }
+
+                        function handleMouseOut() {
+                            askUsClosed = !askUsClosed;
+                            document.querySelector('uq-site-header').shadowRoot.getElementById("askus-pane").removeEventListener('mouseleave', handleMouseOut);
+                            closeMenu();
+                        }
+
+                        // Attach a listener to the askus button
+                        document.querySelector('uq-site-header').shadowRoot.getElementById("askus-button").addEventListener('click', handleAskUsButton);
                     }
-                };
-                if(hideAskUs !== "true") {
-                    function toggleMenu() {
-                        console.log('toggling menu');
-                        askUsClosed = !askUsClosed;
-                        document.querySelector('uq-site-header').shadowRoot.getElementById("askus-menu").classList.toggle("closed");
-                        document.querySelector('uq-site-header').shadowRoot.getElementById("askus-pane").classList.toggle("closed");
-                    }
-                    function handleAskUsButton() {
-                        toggleMenu();
-                        console.log(askUsClosed ? "closed" : "open");
-                        askUsClosed ? document.querySelector('uq-site-header').shadowRoot.getElementById("askus-button").blur() : document.querySelector('uq-site-header').shadowRoot.getElementById("askus-button").focus();
-                        document.querySelector('uq-site-header').shadowRoot.getElementById("askus-menu").addEventListener('mouseleave', handleMouseOut);
-                    }
-                    function handleMouseOut() {
-                        askUsClosed = !askUsClosed;
-                        console.log(askUsClosed ? "closed" : "open");
-                        document.querySelector('uq-site-header').shadowRoot.getElementById("askus-menu").removeEventListener('mouseleave', handleMouseOut);
-                        setTimeout(toggleMenu(), 300);
-                    }
-                    // Attach a listener to the askus button
-                    document.querySelector('uq-site-header').shadowRoot.getElementById("askus-button").addEventListener('click', handleAskUsButton);
                 }
             };
             //Specify the location of the ITS DS JS file

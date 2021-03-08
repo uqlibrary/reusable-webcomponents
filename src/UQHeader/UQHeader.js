@@ -41,8 +41,8 @@ template.innerHTML = `
                     <label for="edit-as_sitesearch-off" class="option">Search all UQ websites</label>
                   </div>
                   <div class="form-item">
-                    <input type="radio" id="edit-as_sitesearch-on" name="as_sitesearch" value="https://future-students.uq.edu.au/" checked="checked" class="form-radio">
-                    <label for="edit-as_sitesearch-on" class="option" id="search-label">Search this website (future-students.uq.edu.au)</label>
+                    <input type="radio" id="edit-as_sitesearch-on" name="as_sitesearch" value="https://library.uq.edu.au/" checked="checked" class="form-radio">
+                    <label for="edit-as_sitesearch-on" class="option" id="search-label">Search this website (library.uq.edu.au)</label>
                   </div>
                 </div>
               </div>
@@ -97,7 +97,7 @@ class UQHeader extends HTMLElement {
         const searchLabel = this.getAttribute('searchLabel');
         if(!!searchLabel) {
             const oldValue = template.content.getElementById('search-label').innerHTML;
-            const newValue = oldValue.replace('future-students.uq.edu.au', searchLabel)
+            const newValue = oldValue.replace('library.uq.edu.au', searchLabel)
             template.content.getElementById('search-label').innerHTML = newValue;
         }
 
