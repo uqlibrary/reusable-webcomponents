@@ -242,7 +242,7 @@ class UQSiteHeader extends HTMLElement {
 
             let classNavListitem = 'uq-site-header__navigation__list-item';
             !!hasChildren && (classNavListitem += ' uq-site-header__navigation__list-item--has-subnav');
-            index === 0 && (classNavListitem += ' uq-site-header__navigation__list-item--active');
+            (jsonParentItem.linkTo === window.location.href) && (classNavListitem += ' uq-site-header__navigation__list-item--active');
             parentListItem.setAttribute('class', classNavListitem);
 
             const parentLink = this.createLink(
