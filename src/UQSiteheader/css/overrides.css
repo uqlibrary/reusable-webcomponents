@@ -35,9 +35,7 @@ span.displayText {
         padding: 0.2rem 0.2rem 0.2rem 1rem;
         border-bottom-width: 0;
     }
-    li.uq-site-header__navigation__list-item--has-subnav a {
-        min-height: 4rem;
-    }
+
     li.uq-site-header__navigation__list-item--has-subnav li a {
         min-height: auto;
     }
@@ -45,7 +43,18 @@ span.displayText {
         padding-top: 1rem;
     }
 }
+@media (max-width: 80rem) {
+    /* when the menu drops to a single lne, we dont need the sapacing under the menu item any more */
+    li.uq-site-header__navigation__list-item--has-subnav a {
+        min-height: 4rem;
+    }
+}
 
+/* make the megamenu appear as one line where possible */
 .uq-site-header__navigation__list--level-1 > li:not(:first-child) > a {
-    padding-left: 0;
+    padding-left: 0.2rem;
+}
+.uq-site-header__navigation__list-item--has-subnav > a {
+    padding-right: 1.5rem;
+    background-position: right 0.5rem center;
 }
