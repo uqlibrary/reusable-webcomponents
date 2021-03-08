@@ -45,3 +45,7 @@ span.displayText {
         padding-top: 1rem;
     }
 }
+
+.uq-site-header__navigation__list--level-1 > li:not(:first-child) > a {
+    padding-left: 0;
+}
