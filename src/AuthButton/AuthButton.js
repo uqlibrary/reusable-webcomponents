@@ -77,7 +77,7 @@ class AuthButton extends HTMLElement {
         let loggedin = null;
 
         const api = new ApiAccess();
-        await api.fetchAccount()
+        await api.getAccount()
             .then(account => {
                 if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
                     this.account = account;

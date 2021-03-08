@@ -8,8 +8,8 @@ class ApiAccess {
     }
 
     // reference: https://dmitripavlutin.com/javascript-fetch-async-await/
-    async fetchAccount() {
-        if (this.getUQCookies() === undefined || this.sessionGroupId === undefined) {
+    async getAccount() {
+        if (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined) {
             console.log('no cookie so we wont bother asking for an account that cant be returned');
             return false;
         }
@@ -17,7 +17,7 @@ class ApiAccess {
         const response = await fetch('https://api.library.uq.edu.au/staging/account', {
             headers: {
                 'Content-Type': 'application/json',
-                'x-uql-token': this.getUQCookies(),
+                'x-uql-token': this.getSessionCookie(),
             }
         });
         if (!response.ok) {
@@ -28,20 +28,25 @@ class ApiAccess {
         return account;
     }
 
-
-    getUQCookies() {
-        if (this.sessionCookie !== undefined) {
-            return this.sessionCookie;
+    getSessionCookie() {
+        if (this.sessionCookie === undefined) {
+            const SESSION_COOKIE_NAME = 'UQLID';
+            const sessionCookie = this.getCookie(SESSION_COOKIE_NAME);
+            this.sessionCookie = sessionCookie === null ? undefined : sessionCookie;
         }
-        const SESSION_USER_GROUP_COOKIE_NAME = 'UQLID_USER_GROUP';
-        const sessionGroupId = this.getCookie(SESSION_USER_GROUP_COOKIE_NAME);
-        this.sessionGroupId = sessionGroupId === null ? undefined : sessionGroupId;
-
-        const SESSION_COOKIE_NAME = 'UQLID';
-        const sessionCookie = this.getCookie(SESSION_COOKIE_NAME);
-        this.sessionCookie = sessionCookie === null ? undefined : sessionCookie;
 
         return this.sessionCookie;
+    }
+
+    // I am guessing this field says whether they have a library login, not just a general uq login
+    getLibraryGroupCookie() {
+        if (this.libraryGroupId === undefined) {
+            const SESSION_USER_GROUP_COOKIE_NAME = 'UQLID_USER_GROUP';
+            const sessionGroupId = this.getCookie(SESSION_USER_GROUP_COOKIE_NAME);
+            this.libraryGroupId = sessionGroupId === null ? undefined : sessionGroupId;
+        }
+
+        return this.libraryGroupId;
     }
 
     getCookie(name) {
