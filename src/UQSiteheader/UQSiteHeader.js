@@ -311,7 +311,8 @@ class UQSiteHeader extends HTMLElement {
                 initCalled = true;
                 // Initialise Main Navigation
                 if (!!isMegaMenuDisplayed) {
-                    var navelement = document.querySelector('uq-site-header').shadowRoot.getElementById("jsNav");
+                    const uqSiteHeader = document.querySelector('uq-site-header');
+                    var navelement = !!uqSiteHeader && uqSiteHeader.shadowRoot.getElementById("jsNav");
                     var nav = new uq.siteHeaderNavigation(navelement, "uq-site-header__navigation");
                 }
                 // Initialise accordions
