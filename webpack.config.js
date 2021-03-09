@@ -7,6 +7,8 @@ const webpack = require('webpack');
 const libraryName = 'uq-lib-resusable';
 const outputFile = `${libraryName}.min.js`;
 
+const useMock = !!process.env.USE_MOCK || false;
+
 const componentJsPath = {
     local: '',
     development: 'https://homepage-development.library.uq.edu.au/' + process.env.CI_BRANCH + '/',
@@ -120,6 +122,13 @@ module.exports = () => {
                     replace: componentJsPath[process.env.NODE_ENV] + 'auth-button.js',
                 }]
             }]),
+            new webpack.DefinePlugin({
+                __DEVELOPMENT__: true,
+                'process.env.NODE_ENV': JSON.stringify('development'),
+                'process.env.USE_MOCK': JSON.stringify(useMock),
+                'process.env.BRANCH': JSON.stringify('development'),
+                'process.env.FULL_PATH': JSON.stringify(process.env.FULL_PATH),
+            }),
         ].filter(Boolean),
         mode: 'none',
     }

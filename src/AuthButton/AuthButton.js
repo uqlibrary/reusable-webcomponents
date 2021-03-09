@@ -1,6 +1,6 @@
 import styles from './css/overrides.css';
 import icons from './css/icons.css';
-import ApiAccess from "../ApiAccess/ApiAccess";
+import ApiAccess from '../ApiAccess/ApiAccess';
 
 const unauthorisedtemplate = document.createElement('template');
 unauthorisedtemplate.innerHTML = `

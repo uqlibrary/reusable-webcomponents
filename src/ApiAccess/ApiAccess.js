@@ -1,4 +1,4 @@
-
+import MockApi from '../../mock/MockApi';
 let initCalled;
 
 class ApiAccess {
@@ -16,7 +16,7 @@ class ApiAccess {
     async getAccount() {
         if (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined) {
             // no cookie, force them to log in again
-            removeAccountStorage();
+            this.removeAccountStorage();
             return false;
         }
 
@@ -39,18 +39,31 @@ class ApiAccess {
             return false;
         }
 
-        const response = await fetch('https://api.library.uq.edu.au/staging/account', {
+        const response = await this.fetchApi('/account', {
             headers: {
                 'Content-Type': 'application/json',
                 'x-uql-token': this.getSessionCookie(),
+                options: { params: { ts: `${new Date().getTime()}` } },
             }
         });
+        // console.log('response = ', response);
         if (!response.ok) {
             const message = `An error has occured: ${response.status}`;
             throw new Error(message);
         }
         const account = await response.json();
         return account;
+    }
+
+    fetchApi(url, options) {
+        if (process.env.BRANCH !== 'production' && process.env.USE_MOCK) { // TODO
+            console.log('fetchApi from mock: ', url);
+            return (new MockApi).mockfetch(url, options);
+        } else {
+            console.log('fetchApi from server: ', url);
+            const API_URL = process.env.API_URL || 'https://api.library.uq.edu.au/staging';
+            return fetch(`${API_URL}${url}`, options);
+        }
     }
 
     getSessionCookie() {
