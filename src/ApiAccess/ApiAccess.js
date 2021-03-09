@@ -1,4 +1,5 @@
 import MockApi from '../../mock/MockApi';
+
 let initCalled;
 
 class ApiAccess {
@@ -14,18 +15,22 @@ class ApiAccess {
     }
 
     async getAccount() {
+        console.log('ApiAccess::getAccount');
         if (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined) {
             // no cookie, force them to log in again
+            console.log('ApiAccess::getAccount - no cookie, force them to log in again')
             this.removeAccountStorage();
             return false;
         }
 
         let accountData = JSON.parse(sessionStorage.getItem(this.STORAGE_ACCOUNT_KEYNAME));
+        console.log('account from session storage = ', accountData);
         if (accountData !== null) {
             return accountData;
         }
 
         const account = await this.fetchAccount();
+        console.log('ApiAccess::getAccount: account = ', account);
 
         sessionStorage.setItem(this.STORAGE_ACCOUNT_KEYNAME, JSON.stringify(account));
 
@@ -34,57 +39,66 @@ class ApiAccess {
 
     // reference: https://dmitripavlutin.com/javascript-fetch-async-await/
     async fetchAccount() {
+        console.log('fetchAccount start');
         if (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined) {
             // no cookie so we wont bother asking for an account that cant be returned
+            console.log('no cookie so we wont bother asking for an account that cant be returned');
             return false;
         }
 
-        const response = await this.fetchApi('/account', {
-            headers: {
-                'Content-Type': 'application/json',
-                'x-uql-token': this.getSessionCookie(),
-                options: { params: { ts: `${new Date().getTime()}` } },
+        const url = '/account';
+        if (process.env.BRANCH !== 'production' && process.env.USE_MOCK) {
+            console.log('fetchAccount get mock');
+            return this.fetchMock(url);
+        } else {
+            console.log('fetchAccount get real');
+            const response = await this.fetchFromServer(url, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-uql-token': this.getSessionCookie(),
+                    options: {params: {ts: `${new Date().getTime()}`}},
+                }
+            });
+            console.log('ACCOUNT API response = ', response);
+            console.log('ACCOUNT API response.ok = ', response.ok);
+            if (!response.ok) {
+                console.log(`An error has occured: ${response.status}`);
+                const message = `An error has occured: ${response.status} ${response.statusText}`;
+                throw new Error(message);
             }
-        });
-        // console.log('response = ', response);
-        if (!response.ok) {
-            const message = `An error has occured: ${response.status}`;
-            throw new Error(message);
+            const result = await response.json();
+            console.log('ACCOUNT API response.json() = ', result);
+            return result;
         }
-        const account = await response.json();
-        return account;
     }
 
-    fetchApi(url, options) {
-        if (process.env.BRANCH !== 'production' && process.env.USE_MOCK) { // TODO
-            console.log('fetchApi from mock: ', url);
-            return (new MockApi).mockfetch(url, options);
-        } else {
-            console.log('fetchApi from server: ', url);
-            const API_URL = process.env.API_URL || 'https://api.library.uq.edu.au/staging';
-            return fetch(`${API_URL}${url}`, options);
-        }
+    fetchFromServer(url, options) {
+        console.log('fetchApi from server: ', url);
+        const API_URL = process.env.API_URL || 'https://api.library.uq.edu.au/staging';
+        const responsePromise = fetch(`${API_URL}${url}`, options);
+        console.log('server - fetchApi got: ', responsePromise);
+        return responsePromise;
     }
 
     getSessionCookie() {
-        if (this.sessionCookie === undefined) {
-            const SESSION_COOKIE_NAME = 'UQLID';
-            const sessionCookie = this.getCookie(SESSION_COOKIE_NAME);
-            this.sessionCookie = sessionCookie === null ? undefined : sessionCookie;
-        }
+        const SESSION_COOKIE_NAME = 'UQLID';
+        const cookie = this.getCookie(SESSION_COOKIE_NAME);
+        const sessionCookie = cookie === null ? undefined : cookie;
 
-        return this.sessionCookie;
+        console.log('sessionCookie = ', sessionCookie);
+
+        return sessionCookie;
     }
 
     getLibraryGroupCookie() {
-        if (this.libraryGroupId === undefined) {
-            const SESSION_USER_GROUP_COOKIE_NAME = 'UQLID_USER_GROUP';
-            // I am guessing this field says whether they have a library login, not just a general uq login
-            const sessionGroupId = this.getCookie(SESSION_USER_GROUP_COOKIE_NAME);
-            this.libraryGroupId = sessionGroupId === null ? undefined : sessionGroupId;
-        }
+        const SESSION_USER_GROUP_COOKIE_NAME = 'UQLID_USER_GROUP';
+        // I am guessing this field says whether they have a library login, not just a general uq login
+        const cookie = this.getCookie(SESSION_USER_GROUP_COOKIE_NAME);
+        const libraryGroupId = cookie === null ? undefined : cookie;
 
-        return this.libraryGroupId;
+        console.log('libraryGroupId = ', libraryGroupId);
+
+        return libraryGroupId;
     }
 
     getCookie(name) {
@@ -97,6 +111,18 @@ class ApiAccess {
         }
         return null;
     };
+
+    fetchMock(url, options = null) {
+        console.log('masterfetch from mock: ', url);
+        const response = (new MockApi).mockfetch(url, options);
+        console.log('mock - masterfetch got: ', response);
+        if (!response.ok || !response.body) {
+            console.log(`An error has occured: ${response.status}`);
+            const message = `An error has occured: ${response.status}`;
+            throw new Error(message);
+        }
+        return response.body;
+    }
 
     loadJS() {
         // This loads the external JS file into the HTML head dynamically

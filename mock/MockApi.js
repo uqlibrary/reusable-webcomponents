@@ -45,21 +45,36 @@ class MockApi {
         });
     };
 
+    response(httpstatus, body) {
+        return {
+            body: body,
+            headers: {},
+            ok: httpstatus === 200,
+            redirected: false,
+            status: httpstatus,
+            statusText: '',
+            type: 'basic',
+            url: this.url,
+        }
+    }
+
     mockfetch(url, options) {
+        this.url = url;
+        const accountApiRoute = '/account';
         switch (url) {
-            case '/account':
+            case accountApiRoute:
                 console.log('Loading Account');
                 // mock account response
                 if (user === 'public') {
-                    return [403, {}];
+                    return this.response(403, {});
                 } else if (mockData.accounts[user]) {
-                    return [200, mockData.accounts[user]];
+                    return this.response(200, mockData.accounts[user]);
                 }
-                return [403, {}];
+                return this.response(403, {});
 
             default:
                 console.log('url not mocked...', url);
-                return [404, {message: `MOCK URL NOT FOUND: ${url}`}];
+                return this.response(404, {message: `MOCK URL NOT FOUND: ${url}`});
         }
     }
 

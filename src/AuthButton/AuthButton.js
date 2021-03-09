@@ -57,6 +57,7 @@ class AuthButton extends HTMLElement {
         const shadowDOM = this.attachShadow({mode: 'open'});
 
         let template = unauthorisedtemplate;
+        console.log('Authbutton constructor');
         const loggedOutButtonMandatory = this.getAttribute('overwriteAsLoggedOut');
         if (loggedOutButtonMandatory === 'true') {
             // Render the template
@@ -64,6 +65,7 @@ class AuthButton extends HTMLElement {
             this.addButtonListeners(shadowDOM);
 
         } else {
+            console.log('Authbutton button requires check');
             this.checkAuthorisedUser()
                 .then(isAuthorised => {
                     template = !!isAuthorised ? authorisedtemplate : unauthorisedtemplate;
@@ -105,6 +107,7 @@ class AuthButton extends HTMLElement {
     }
 
     async checkAuthorisedUser() {
+        console.log('checkAuthorisedUser start');
         this.accountLoading = true;
         this.account = {};
         let loggedin = null;
@@ -112,6 +115,7 @@ class AuthButton extends HTMLElement {
         const api = new ApiAccess();
         await api.getAccount()
             .then(account => {
+                console.log('checkAuthorisedUser: account = ', account);
                 if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
                     this.account = account;
                 }
