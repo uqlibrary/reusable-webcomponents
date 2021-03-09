@@ -15,10 +15,8 @@ class ApiAccess {
     }
 
     async getAccount() {
-        console.log('ApiAccess::getAccount');
         if (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined) {
             // no cookie, force them to log in again
-            console.log('ApiAccess::getAccount - no cookie, force them to log in again')
             this.removeAccountStorage();
             return false;
         }
@@ -29,76 +27,59 @@ class ApiAccess {
             return accountData;
         }
 
-        const account = await this.fetchAccount();
-        console.log('ApiAccess::getAccount: account = ', account);
+        const urlPath = '/account';
+        const options = {
+            'x-uql-token': this.getSessionCookie(),
+            options: {params: {ts: `${new Date().getTime()}`}}
+        }
+        const account = await this.fetchAPI(urlPath, options);
 
         sessionStorage.setItem(this.STORAGE_ACCOUNT_KEYNAME, JSON.stringify(account));
 
         return account;
     }
 
-    // reference: https://dmitripavlutin.com/javascript-fetch-async-await/
-    async fetchAccount() {
-        console.log('fetchAccount start');
+    async fetchAPI(urlPath, options) {
         if (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined) {
             // no cookie so we wont bother asking for an account that cant be returned
             console.log('no cookie so we wont bother asking for an account that cant be returned');
             return false;
         }
 
-        const url = '/account';
         if (process.env.BRANCH !== 'production' && process.env.USE_MOCK) {
-            console.log('fetchAccount get mock');
-            return this.fetchMock(url);
+            return this.fetchMock(urlPath);
         } else {
-            console.log('fetchAccount get real');
-            const response = await this.fetchFromServer(url, {
+            // reference: https://dmitripavlutin.com/javascript-fetch-async-await/
+            const response = await this.fetchFromServer(urlPath, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'x-uql-token': this.getSessionCookie(),
-                    options: {params: {ts: `${new Date().getTime()}`}},
+                    ...options,
                 }
             });
-            console.log('ACCOUNT API response = ', response);
-            console.log('ACCOUNT API response.ok = ', response.ok);
             if (!response.ok) {
                 console.log(`An error has occured: ${response.status}`);
                 const message = `An error has occured: ${response.status} ${response.statusText}`;
                 throw new Error(message);
             }
             const result = await response.json();
-            console.log('ACCOUNT API response.json() = ', result);
             return result;
         }
     }
 
-    fetchFromServer(url, options) {
-        console.log('fetchApi from server: ', url);
+    fetchFromServer(urlPath, options) {
         const API_URL = process.env.API_URL || 'https://api.library.uq.edu.au/staging';
-        const responsePromise = fetch(`${API_URL}${url}`, options);
-        console.log('server - fetchApi got: ', responsePromise);
-        return responsePromise;
+        return fetch(`${API_URL}${urlPath}`, options);
     }
 
     getSessionCookie() {
         const SESSION_COOKIE_NAME = 'UQLID';
-        const cookie = this.getCookie(SESSION_COOKIE_NAME);
-        const sessionCookie = cookie === null ? undefined : cookie;
-
-        console.log('sessionCookie = ', sessionCookie);
-
-        return sessionCookie;
+        return this.getCookie(SESSION_COOKIE_NAME);
     }
 
     getLibraryGroupCookie() {
+        // I am guessing this field indicates that they have a Library account, not just a general UQ login
         const SESSION_USER_GROUP_COOKIE_NAME = 'UQLID_USER_GROUP';
-        // I am guessing this field says whether they have a library login, not just a general uq login
-        const cookie = this.getCookie(SESSION_USER_GROUP_COOKIE_NAME);
-        const libraryGroupId = cookie === null ? undefined : cookie;
-
-        console.log('libraryGroupId = ', libraryGroupId);
-
-        return libraryGroupId;
+        return this.getCookie(SESSION_USER_GROUP_COOKIE_NAME);
     }
 
     getCookie(name) {
@@ -106,10 +87,10 @@ class ApiAccess {
         for (let i=0 ; i < cookies.length ; ++i) {
             const pair = cookies[i].trim().split('=');
             if (!!pair[0] && pair[0] === name) {
-                return !!pair[1] ? pair[1] : null;
+                return !!pair[1] ? pair[1] : undefined;
             }
         }
-        return null;
+        return undefined;
     };
 
     fetchMock(url, options = null) {
