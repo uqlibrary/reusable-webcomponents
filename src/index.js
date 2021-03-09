@@ -1,4 +1,3 @@
-import MockApi from '../mock/MockApi';
 import ApiAccess from './ApiAccess/ApiAccess';
 import AuthButton from './AuthButton/AuthButton';
 import ConnectFooter from './ConnectFooter/ConnectFooter';
