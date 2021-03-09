@@ -1,57 +1,7 @@
 import styles from './css/main.css';
 import icons from './css/icons.css';
 import askusStyles from './css/askus.css';
-
-
-const askus = `
-            <button id="askus-button">
-                <svg id="askus-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path>
-                </svg>
-                <div id="askus-label">Ask Us</div>
-            </button>
-            <div id="askus-menu" class="closed-menu" style="display: none">
-                <ul class="askus-menu-list" role="menu" tabindex="-1">
-                    <li tabindex="0" role="menuitem" aria-disabled="false">
-                        <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                                <path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path>
-                        </svg>
-                        <span>Menu item 1</span>
-                    </li>
-                    <li tabindex="0" role="menuitem">
-                        <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                                <path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path>
-                        </svg>
-                        <span>Menu item 2</span>
-                    </li>
-                    <li tabindex="0" role="menuitem">
-                        <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                                <path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path>
-                        </svg>
-                        <span>Menu item 3</span>
-                    </li>
-                    <li tabindex="0" role="menuitem">
-                        <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                                <path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path>
-                        </svg>
-                        <span>Menu item 4</span>
-                    </li>
-                    <li tabindex="0" role="menuitem">
-                        <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                                <path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path>
-                        </svg>
-                        <span>Menu item 5</span>
-                    </li>
-                   <li tabindex="0" role="menuitem">
-                        <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                                <path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path>
-                        </svg>
-                        <span>Menu item 6</span>
-                    </li>
-                </ul>
-            </div>
-        <div id="askus-pane" class=closed-pane style="display: none"></div>
-`;
+import { askus } from './AskUs';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -213,7 +163,18 @@ class UQSiteHeader extends HTMLElement {
         if (hideAskUs === "true") {
             template.content.getElementById('askus').remove();
         } else {
-            template.content.getElementById('askus').innerHTML = askus;
+            template.content.getElementById('askus').innerHTML = askus([
+                {
+                    icon: `<svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M17.5 4.5c-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .65.73.45.75.45C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.41.21.75-.19.75-.45V6c-1.49-1.12-3.63-1.5-5.5-1.5zm3.5 14c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"></path></svg>`,
+                    label: 'FAQ',
+                    url: 'https://search.library.uq.edu.au/primo-explore/account?vid=61UQ&section=loans&lang=en_US',
+                },
+                {
+                    icon: `<svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M17.5 4.5c-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .65.73.45.75.45C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.41.21.75-.19.75-.45V6c-1.49-1.12-3.63-1.5-5.5-1.5zm3.5 14c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"></path></svg>`,
+                    label: 'Chat',
+                    url: 'https://search.library.uq.edu.au/primo-explore/account?vid=61UQ&section=loans&lang=en_US',
+                }
+            ]);
         }
 
         // Set the title link URL
