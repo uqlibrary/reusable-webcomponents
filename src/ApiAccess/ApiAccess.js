@@ -1,4 +1,6 @@
 import MockApi from '../../mock/MockApi';
+import ApiRoutes from "../ApiRoutes";
+import { apiLocale as locale } from './ApiAccess.locale';
 
 let initCalled;
 
@@ -27,10 +29,11 @@ class ApiAccess {
             return accountData;
         }
 
-        const urlPath = '/account';
+        const accountApi = (new ApiRoutes()).CURRENT_ACCOUNT_API;
+        const urlPath = accountApi.apiUrl;
         const options = {
             'x-uql-token': this.getSessionCookie(),
-            options: {params: {ts: `${new Date().getTime()}`}}
+            options: accountApi.options,
         }
         const account = await this.fetchAPI(urlPath, options);
 
@@ -64,8 +67,7 @@ class ApiAccess {
             const message = `An error has occured: ${response.status} ${response.statusText}`;
             throw new Error(message);
         }
-        const result = await response.json();
-        return result;
+        return await response.json();
     }
 
     fetchFromServer(urlPath, options) {
@@ -74,14 +76,12 @@ class ApiAccess {
     }
 
     getSessionCookie() {
-        const SESSION_COOKIE_NAME = 'UQLID';
-        return this.getCookie(SESSION_COOKIE_NAME);
+        return this.getCookie(locale.SESSION_COOKIE_NAME);
     }
 
     getLibraryGroupCookie() {
-        // I am guessing this field indicates that they have a Library account, not just a general UQ login
-        const SESSION_USER_GROUP_COOKIE_NAME = 'UQLID_USER_GROUP';
-        return this.getCookie(SESSION_USER_GROUP_COOKIE_NAME);
+        // I am guessing this field is used as a proxy for 'has a Library account, not just a general UQ login'
+        return this.getCookie(locale.SESSION_USER_GROUP_COOKIE_NAME);
     }
 
     getCookie(name) {
