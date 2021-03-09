@@ -52,12 +52,12 @@
         border-radius: 4px;
         box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
         top: 50px;
-        left: calc(50% - 177.5px);
+        left: calc(50% - (90% / 2));
         position: fixed;
-        width: 355px;
+        width: 90%;
         transition: transform 0.2s ease-out, opacity 0.2s ease-out; /* Animation */
         transform: scale(1);
-        transform-origin: 66% 10%;
+        transform-origin: 50% 50%;
         opacity: 1;
     }
 }
@@ -70,7 +70,7 @@
         top: -75px;
         left: -250px;
         position: absolute;
-        width: 355px;
+        width: 380px;
         transition: transform 0.2s ease-out, opacity 0.2s ease-out; /* Animation */
         transform: scale(1);
         transform-origin: 50% 50%;
@@ -137,6 +137,7 @@
 .askus-menu-list li a:hover {
     background-color: rgba(0, 0, 0, 0.05);
     text-decoration: none;
+    cursor: pointer;
 }
 
 .askus-menu-list li svg {
@@ -150,4 +151,8 @@
 
 .askus-menu-list li a .chatTimes {
     font-size: 12px;
+}
+
+#askus-chat-li .disabled {
+    border: 3px solid red;
 }

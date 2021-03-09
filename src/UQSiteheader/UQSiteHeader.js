@@ -159,23 +159,37 @@ class UQSiteHeader extends HTMLElement {
             template.content.getElementById('site-title').innerHTML = siteTitle;
         }
 
+        // Ask Us
         const hideAskUs = this.getAttribute('hideAskUs');
+
+        // Chat
+        const chatAvail = this.getAttribute('chatAvailable');
+        const chatStart = this.getAttribute('chatStart');
+        const chatEnd = this.getAttribute('chatEnd');
+        const phoneStart = this.getAttribute('phoneStart');
+        const phoneEnd = this.getAttribute('phoneEnd');
+
+        console.log(chatAvail, chatStart, chatEnd, phoneStart, phoneEnd );
+
         if (hideAskUs === "true") {
             template.content.getElementById('askus').remove();
         } else {
-            template.content.getElementById('askus').innerHTML = askus([
-                {
-                    icon: `<svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M17.5 4.5c-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .65.73.45.75.45C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.41.21.75-.19.75-.45V6c-1.49-1.12-3.63-1.5-5.5-1.5zm3.5 14c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"></path></svg>`,
-                    label: 'FAQ',
-                    url: 'https://search.library.uq.edu.au/primo-explore/account?vid=61UQ&section=loans&lang=en_US',
-                },
-                {
-                    icon: `<svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M17.5 4.5c-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .65.73.45.75.45C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.41.21.75-.19.75-.45V6c-1.49-1.12-3.63-1.5-5.5-1.5zm3.5 14c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"></path></svg>`,
-                    label: 'Chat',
-                    url: 'https://search.library.uq.edu.au/primo-explore/account?vid=61UQ&section=loans&lang=en_US',
-                }
-            ]);
+            template.content.getElementById('askus').innerHTML = askus();
+            if(chatAvail !== "true") {
+                // Chat disabled
+                template.content.getElementById('askus-chat-li').style.opacity = '0.6';
+                template.content.getElementById('askus-chat-link').removeAttribute("onclick");
+
+                template.content.getElementById('askus-phone-li').style.opacity = '0.6';
+                template.content.getElementById('askus-phone-link').removeAttribute("href");
+            }
+                // Set the attributes
+            template.content.getElementById('askus-chat-start').innerText = chatStart;
+            template.content.getElementById('askus-chat-end').innerText = chatEnd;
+            template.content.getElementById('askus-phone-start').innerText = phoneStart;
+            template.content.getElementById('askus-phone-end').innerText = phoneEnd;
         }
+
 
         // Set the title link URL
         const siteURL = this.getAttribute('siteURL');
