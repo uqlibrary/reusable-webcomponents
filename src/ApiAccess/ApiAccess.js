@@ -22,8 +22,8 @@ class ApiAccess {
         }
 
         let accountData = JSON.parse(sessionStorage.getItem(this.STORAGE_ACCOUNT_KEYNAME));
-        console.log('account from session storage = ', accountData);
         if (accountData !== null) {
+            console.log('account from session storage = ', accountData);
             return accountData;
         }
 
@@ -34,36 +34,38 @@ class ApiAccess {
         }
         const account = await this.fetchAPI(urlPath, options);
 
-        sessionStorage.setItem(this.STORAGE_ACCOUNT_KEYNAME, JSON.stringify(account));
+        if (!this.isMock()) {
+            sessionStorage.setItem(this.STORAGE_ACCOUNT_KEYNAME, JSON.stringify(account));
+        }
 
         return account;
     }
 
-    async fetchAPI(urlPath, options) {
+    async fetchAPI(urlPath, headers) {
         if (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined) {
             // no cookie so we wont bother asking for an account that cant be returned
             console.log('no cookie so we wont bother asking for an account that cant be returned');
             return false;
         }
 
-        if (process.env.BRANCH !== 'production' && process.env.USE_MOCK) {
+        if (this.isMock()) {
             return this.fetchMock(urlPath);
-        } else {
-            // reference: https://dmitripavlutin.com/javascript-fetch-async-await/
-            const response = await this.fetchFromServer(urlPath, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    ...options,
-                }
-            });
-            if (!response.ok) {
-                console.log(`An error has occured: ${response.status}`);
-                const message = `An error has occured: ${response.status} ${response.statusText}`;
-                throw new Error(message);
-            }
-            const result = await response.json();
-            return result;
         }
+
+        // reference: https://dmitripavlutin.com/javascript-fetch-async-await/
+        const response = await this.fetchFromServer(urlPath, {
+            headers: {
+                'Content-Type': 'application/json',
+                ...headers,
+            }
+        });
+        if (!response.ok) {
+            console.log(`An error has occured: ${response.status}`);
+            const message = `An error has occured: ${response.status} ${response.statusText}`;
+            throw new Error(message);
+        }
+        const result = await response.json();
+        return result;
     }
 
     fetchFromServer(urlPath, options) {
@@ -94,15 +96,17 @@ class ApiAccess {
     };
 
     fetchMock(url, options = null) {
-        console.log('masterfetch from mock: ', url);
         const response = (new MockApi).mockfetch(url, options);
-        console.log('mock - masterfetch got: ', response);
         if (!response.ok || !response.body) {
             console.log(`An error has occured: ${response.status}`);
             const message = `An error has occured: ${response.status}`;
             throw new Error(message);
         }
         return response.body;
+    }
+
+    isMock() {
+        return process.env.BRANCH !== 'production' && process.env.USE_MOCK;
     }
 
     loadJS() {
