@@ -68,7 +68,7 @@
         border-radius: 4px;
         box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
         top: -75px;
-        left: -125px;
+        left: -250px;
         position: absolute;
         width: 355px;
         transition: transform 0.2s ease-out, opacity 0.2s ease-out; /* Animation */
