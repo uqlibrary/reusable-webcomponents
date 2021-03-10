@@ -1,13 +1,16 @@
 import styles from './css/main.css';
 import icons from './css/icons.css';
 import askusStyles from './css/askus.css';
+import myLibStyles from './css/mylibrary.css';
 import { askus } from './AskUs';
+import { mylibrary } from './MyLibrary';
 
 const template = document.createElement('template');
 template.innerHTML = `
     <style>${styles.toString()}</style>
     <style>${icons.toString()}</style>
     <style>${askusStyles.toString()}</style>
+    <style>${myLibStyles.toString()}</style>
     <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v6/fonts/Roboto/roboto.css" />
     <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css" />
     <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css">
@@ -18,6 +21,7 @@ template.innerHTML = `
           <a id="site-title" href="/" class="uq-site-header__title">Site title</a>
         </div>
         <div class="uq-site-header__title-container__right">
+            <div id="mylibrary"></div>
             <div id="askus"></div>
             <slot name="site-utilities"></slot>
           <button class="uq-site-header__navigation-toggle jsNavToggle">Menu</button>
@@ -27,8 +31,7 @@ template.innerHTML = `
       <!-- Navigation Menu  -->
       <div class="uq-site-header__navigation-container">
         <nav class="uq-site-header__navigation" id="jsNav">
-          <ul class="uq-site-header__navigation__list
-                     uq-site-header__navigation__list--level-1">
+          <ul class="uq-site-header__navigation__list uq-site-header__navigation__list--level-1">
             <li class="uq-site-header__navigation__list-item
                        uq-site-header__navigation__list-item--has-subnav
                        uq-site-header__navigation__list-item--active">
@@ -169,8 +172,6 @@ class UQSiteHeader extends HTMLElement {
         const phoneStart = this.getAttribute('phoneStart');
         const phoneEnd = this.getAttribute('phoneEnd');
 
-        console.log(chatAvail, chatStart, chatEnd, phoneStart, phoneEnd );
-
         if (hideAskUs === "true") {
             template.content.getElementById('askus').remove();
         } else {
@@ -190,6 +191,15 @@ class UQSiteHeader extends HTMLElement {
             template.content.getElementById('askus-phone-end').innerText = phoneEnd;
         }
 
+        // My Library
+        const hideMyLibrary = this.getAttribute('hideMyLibrary');
+
+        if (hideMyLibrary === "true") {
+            template.content.getElementById('mylibrary').remove();
+        } else {
+            template.content.getElementById('mylibrary').innerHTML = mylibrary();
+        }
+
 
         // Set the title link URL
         const siteURL = this.getAttribute('siteURL');
@@ -204,7 +214,7 @@ class UQSiteHeader extends HTMLElement {
         this.loadJS = this.loadJS.bind(this);
     }
 
-    loadJS(hideAskUs) {
+    loadJS(hideAskUs, hideMyLibrary) {
         // This loads the external JS file into the HTML head dynamically
         //Only load js if it has not been loaded before (tracked by the initCalled flag)
         if (!initCalled) {
@@ -227,7 +237,6 @@ class UQSiteHeader extends HTMLElement {
                 // Actions for the ask us menu
                 if (hideAskUs !== "true") {
                     let askUsClosed = true;
-                    if(hideAskUs !== "true") {
                         function openMenu() {
                             askUsClosed = false;
                             document.querySelector('uq-site-header').shadowRoot.getElementById("askus-menu").style.display = "block";
@@ -274,8 +283,58 @@ class UQSiteHeader extends HTMLElement {
 
                         // Attach a listener to the askus button
                         document.querySelector('uq-site-header').shadowRoot.getElementById("askus-button").addEventListener('click', handleAskUsButton);
-                    }
                 }
+
+                // Actions for My Library menu
+                if (hideMyLibrary !== "true") {
+                    let myLibraryClosed = true;
+                        function openMyLibMenu() {
+                            myLibraryClosed = false;
+                            document.querySelector('uq-site-header').shadowRoot.getElementById("mylibrary-menu").style.display = "block";
+                            document.querySelector('uq-site-header').shadowRoot.getElementById("mylibrary-pane").style.display = "block";
+
+                            function showDisplay() {
+                                document.querySelector('uq-site-header').shadowRoot.getElementById("mylibrary-menu").classList.remove("closed-menu");
+                                document.querySelector('uq-site-header').shadowRoot.getElementById("mylibrary-pane").classList.remove("closed-pane");
+                            }
+
+                            setTimeout(showDisplay, 100);
+                            document.onkeydown = function (evt) {
+                                evt = evt || window.event;
+                                if (evt.keyCode == 27 && myLibraryClosed === false) {
+                                    closeMyLibMenu();
+                                }
+                            };
+                        }
+
+                        function closeMyLibMenu() {
+                            myLibraryClosed = true;
+                            document.querySelector('uq-site-header').shadowRoot.getElementById("mylibrary-menu").classList.add("closed-menu");
+                            document.querySelector('uq-site-header').shadowRoot.getElementById("mylibrary-pane").classList.add("closed-pane");
+
+                            function hideMyLibDisplay() {
+                                document.querySelector('uq-site-header').shadowRoot.getElementById("mylibrary-menu").style.display = "none";
+                                document.querySelector('uq-site-header').shadowRoot.getElementById("mylibrary-pane").style.display = "none";
+                            }
+
+                            setTimeout(hideMyLibDisplay, 500);
+                        }
+
+                        function handleMyLibButton() {
+                            myLibraryClosed ? document.querySelector('uq-site-header').shadowRoot.getElementById("mylibrary-button").blur() : document.querySelector('uq-site-header').shadowRoot.getElementById("mylibrary-button").focus();
+                            document.querySelector('uq-site-header').shadowRoot.getElementById("mylibrary-pane").addEventListener('click', handleMyLibMouseOut);
+                            openMyLibMenu();
+                        }
+
+                        function handleMyLibMouseOut() {
+                            myLibraryClosed = !myLibraryClosed;
+                            document.querySelector('uq-site-header').shadowRoot.getElementById("mylibrary-pane").removeEventListener('mouseleave', handleMyLibMouseOut);
+                            closeMyLibMenu();
+                        }
+
+                        // Attach a listener to the mylibrary button
+                        document.querySelector('uq-site-header').shadowRoot.getElementById("mylibrary-button").addEventListener('click', handleMyLibButton);
+                    }
             };
             //Specify the location of the ITS DS JS file
             script.src = 'uq-site-header.js';
