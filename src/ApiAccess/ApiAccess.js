@@ -29,7 +29,7 @@ class ApiAccess {
             return accountData;
         }
 
-        const accountApi = (new ApiRoutes()).CURRENT_ACCOUNT_API;
+        const accountApi = (new ApiRoutes()).CURRENT_ACCOUNT_API();
         const urlPath = accountApi.apiUrl;
         const options = {
             'x-uql-token': this.getSessionCookie(),

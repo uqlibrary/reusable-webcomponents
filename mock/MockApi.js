@@ -60,7 +60,7 @@ class MockApi {
         this.url = url;
         const apiRoute = new ApiRoutes();
         switch (url) {
-            case apiRoute.CURRENT_ACCOUNT_API.apiUrl:
+            case apiRoute.CURRENT_ACCOUNT_API().apiUrl:
                 console.log('Loading Account');
                 // mock account response
                 if (this.user === 'public') {
@@ -70,7 +70,7 @@ class MockApi {
                 }
                 return this.response(403, {});
 
-            case apiRoute.CURRENT_AUTHOR_API.apiUrl:
+            case apiRoute.CURRENT_AUTHOR_API().apiUrl:
                 console.log('Loading eSpace Author');
                 // mock current author details from fez
                 if (this.user === 'anon') {
@@ -80,7 +80,7 @@ class MockApi {
                 }
                 return this.response(404, {});
 
-            case apiRoute.AUTHOR_DETAILS_API.apiUrl:
+            case apiRoute.AUTHOR_DETAILS_API().apiUrl:
                 console.log('Loading eSpace Author Details');
                 // mock current author details
                 if (this.user === 'anon') {
@@ -90,10 +90,10 @@ class MockApi {
                 }
                 return this.response(404, {});
 
-            case apiRoute.CHAT_API.apiUrl:
+            case apiRoute.CHAT_API().apiUrl:
                 return this.response(200, {online: true}, true);
 
-            case apiRoute.LIB_HOURS_API.apiUrl:
+            case apiRoute.LIB_HOURS_API().apiUrl:
                 return this.response(200, libHours, true);
                 // return this.response(500, {}, true);
 
