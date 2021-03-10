@@ -1,6 +1,6 @@
 import MockApi from '../../mock/MockApi';
 import ApiRoutes from "../ApiRoutes";
-import { apiLocale as locale } from './ApiAccess.locale';
+import {apiLocale as locale} from './ApiAccess.locale';
 
 let initCalled;
 
@@ -12,10 +12,6 @@ class ApiAccess {
         this.loadJS = this.loadJS.bind(this);
     }
 
-    removeAccountStorage() {
-        sessionStorage.removeItem(this.STORAGE_ACCOUNT_KEYNAME);
-    }
-
     async getAccount() {
         if (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined) {
             // no cookie, force them to log in again
@@ -23,7 +19,7 @@ class ApiAccess {
             return false;
         }
 
-        let accountData = JSON.parse(sessionStorage.getItem(this.STORAGE_ACCOUNT_KEYNAME));
+        let accountData = this.getAccountFromStorage();
         if (accountData !== null) {
             console.log('account from session storage = ', accountData);
             return accountData;
@@ -37,9 +33,7 @@ class ApiAccess {
         }
         const account = await this.fetchAPI(urlPath, options);
 
-        if (!this.isMock()) {
-            sessionStorage.setItem(this.STORAGE_ACCOUNT_KEYNAME, JSON.stringify(account));
-        }
+        this.storeAccount(account);
 
         return account;
     }
@@ -73,6 +67,39 @@ class ApiAccess {
     fetchFromServer(urlPath, options) {
         const API_URL = process.env.API_URL || 'https://api.library.uq.edu.au/staging';
         return fetch(`${API_URL}${urlPath}`, options);
+    }
+
+    storeAccount(account) {
+        // for improved UX, expire the session storage when the token must surely be expired, for those rare long sessions
+        const numberOfHoursUntilExpiry = 8; // session lasts 8 hours, per https://auth.uq.edu.au/about/
+
+        const millisecondsUntilExpiry = numberOfHoursUntilExpiry * 60 /*min*/ * 60 /*sec*/ * 1000 /* milliseconds */;
+        const storageExpiryDate = { storageExpiryDate: new Date().setTime(new Date().getTime() + millisecondsUntilExpiry)};
+        let storeableAccount = {
+            ...account,
+            ...storageExpiryDate,
+        };
+        storeableAccount = JSON.stringify(storeableAccount);
+        sessionStorage.setItem(this.STORAGE_ACCOUNT_KEYNAME, storeableAccount);
+    }
+
+    getAccountFromStorage() {
+        const account = JSON.parse(sessionStorage.getItem(this.STORAGE_ACCOUNT_KEYNAME));
+        if (account === null) {
+            return null;
+        }
+
+        const now = new Date().getTime();
+        if (!account.storageExpiryDate || account.storageExpiryDate < now) {
+            this.removeAccountStorage();
+            return null;
+        }
+
+        return account;
+    }
+
+    removeAccountStorage() {
+        sessionStorage.removeItem(this.STORAGE_ACCOUNT_KEYNAME);
     }
 
     getSessionCookie() {
