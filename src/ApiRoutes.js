@@ -2,7 +2,6 @@ class ApiRoutes {
     CURRENT_ACCOUNT_API() {
         return {
             apiUrl: 'account',
-            options: {params: {ts: `${new Date().getTime()}`}},
         };
     };
     CURRENT_AUTHOR_API() {

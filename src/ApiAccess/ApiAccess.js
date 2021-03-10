@@ -27,9 +27,7 @@ class ApiAccess {
 
         const accountApi = (new ApiRoutes()).CURRENT_ACCOUNT_API();
         const urlPath = accountApi.apiUrl;
-        const options = {
-            options: accountApi.options,
-        }
+        const options = !!accountApi.options ? accountApi.options : {};
         const account = await this.fetchAPI(urlPath, options, true);
 
         this.storeAccount(account);
@@ -50,16 +48,15 @@ class ApiAccess {
 
         const token = !!tokenRequired ? { 'x-uql-token': this.getSessionCookie() } : null;
 
+        const options = {
+            'Content-Type': 'application/json',
+            ...token,
+            ...headers,
+        };
         // reference: https://dmitripavlutin.com/javascript-fetch-async-await/
-        const response = await this.fetchFromServer(urlPath, {
-            headers: {
-                'Content-Type': 'application/json',
-                ...token,
-                ...headers,
-            }
-        });
+        const response = await this.fetchFromServer(urlPath, options);
         if (!response.ok) {
-            console.log(`An error has occured: ${response.status}`);
+            console.log(`An error has occured: ${response.status} ${response.statusText}`);
             const message = `An error has occured: ${response.status} ${response.statusText}`;
             throw new Error(message);
         }
@@ -68,7 +65,9 @@ class ApiAccess {
 
     fetchFromServer(urlPath, options) {
         const API_URL = process.env.API_URL || 'https://api.library.uq.edu.au/staging/';
-        return fetch(`${API_URL}${urlPath}`, options);
+        return fetch(`${API_URL}${urlPath}?ts=${new Date().getTime()}`, {
+            headers: options
+        });
     }
 
     storeAccount(account) {
