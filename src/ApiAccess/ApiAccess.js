@@ -28,20 +28,19 @@ class ApiAccess {
         const accountApi = (new ApiRoutes()).CURRENT_ACCOUNT_API();
         const urlPath = accountApi.apiUrl;
         const options = {
-            'x-uql-token': this.getSessionCookie(),
             options: accountApi.options,
         }
-        const account = await this.fetchAPI(urlPath, options);
+        const account = await this.fetchAPI(urlPath, options, true);
 
         this.storeAccount(account);
 
         return account;
     }
 
-    async fetchAPI(urlPath, headers) {
-        if (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined) {
+    async fetchAPI(urlPath, headers, tokenRequired = false) {
+        if (!!tokenRequired && (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)) {
             // no cookie so we wont bother asking for an account that cant be returned
-            console.log('no cookie so we wont bother asking for an account that cant be returned');
+            console.log('no cookie so we wont bother asking for an api that cant be returned');
             return false;
         }
 
@@ -49,10 +48,13 @@ class ApiAccess {
             return this.fetchMock(urlPath);
         }
 
+        const token = !!tokenRequired ? { 'x-uql-token': this.getSessionCookie() } : null;
+
         // reference: https://dmitripavlutin.com/javascript-fetch-async-await/
         const response = await this.fetchFromServer(urlPath, {
             headers: {
                 'Content-Type': 'application/json',
+                ...token,
                 ...headers,
             }
         });
