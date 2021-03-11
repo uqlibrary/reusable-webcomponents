@@ -56,26 +56,42 @@ class AuthButton extends HTMLElement {
         // Add a shadow DOM
         const shadowDOM = this.attachShadow({mode: 'open'});
 
-        let template = unauthorisedtemplate;
         const loggedOutButtonMandatory = this.getAttribute('overwriteAsLoggedOut');
         if (loggedOutButtonMandatory === 'true') {
             // Render the template
-            shadowDOM.appendChild(template.content.cloneNode(true));
+            shadowDOM.appendChild(unauthorisedtemplate.content.cloneNode(true));
             this.addButtonListeners(shadowDOM);
 
         } else {
+            this.showLoginFromAuthStatus(shadowDOM);
+        }
+
+        // Bindings
+        this.loadJS = this.loadJS.bind(this);
+    }
+
+    // mylibrary button and auth button both need account, and mylibrary goes first, being drawn further to the left on the page
+    // put a smidge of delay on the auth button so it will pull from session storage and not make a second api call
+    // (can't wait on the mylibrary button to apppear as not all pages include it)
+    async showLoginFromAuthStatus(shadowDOM) {
+        // from https://stackoverflow.com/a/54772517/1246313
+        const setAsyncTimeout = (cb, timeout = 0) => new Promise(resolve => {
+            setTimeout(() => {
+                cb();
+                resolve();
+            }, timeout);
+        });
+
+        await setAsyncTimeout(() => {
             this.checkAuthorisedUser()
                 .then(isAuthorised => {
-                    template = !!isAuthorised ? authorisedtemplate : unauthorisedtemplate;
+                    const template = !!isAuthorised ? authorisedtemplate : unauthorisedtemplate;
 
                     // Render the template
                     shadowDOM.appendChild(template.content.cloneNode(true));
                     this.addButtonListeners(shadowDOM);
                 });
-        }
-
-        // Bindings
-        this.loadJS = this.loadJS.bind(this);
+        }, 5); // least wait that does the job
     }
 
     addButtonListeners(shadowDOM) {
