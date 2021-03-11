@@ -18,7 +18,7 @@ describe("My Library menu", () => {
         .shadow()
         .find("ul.mylibrary-menu-list")
         .find("li")
-        .should("have.length", 10);
+        .should("have.length", 9);
     });
 
     it("AskUs passes accessibility", () => {
