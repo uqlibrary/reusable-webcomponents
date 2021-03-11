@@ -175,21 +175,21 @@ class UQSiteHeader extends HTMLElement {
     // Add a shadow DOM
     const shadowDOM = this.attachShadow({ mode: "open" });
 
-        // Handle the attributes for this component
+    // Handle the attributes for this component
 
-        // Set the title & link URL
-        const siteTitleContent = template.content.getElementById('site-title');
-        const siteTitle = this.getAttribute('siteTitle');
-        const siteURL = this.getAttribute('siteURL');
-        !!siteTitleContent && !!siteTitle && (siteTitleContent.innerHTML = siteTitle);
-        !!siteTitleContent && !!siteURL && (siteTitleContent.href = siteURL);
+    // Set the title & link URL
+    const siteTitleContent = template.content.getElementById('site-title');
+    const siteTitle = this.getAttribute('siteTitle');
+    const siteURL = this.getAttribute('siteURL');
+    !!siteTitleContent && !!siteTitle && (siteTitleContent.innerHTML = siteTitle);
+    !!siteTitleContent && !!siteURL && (siteTitleContent.href = siteURL);
 
-        if (!this.isAskusButtonDisplayed()) {
-            template.content.getElementById('askus').remove();
-        } else {
-            template.content.getElementById('askus').innerHTML = askus(); // get the askus template
-            this.updateAskusDOM(shadowDOM)
-        }
+    if (!this.isAskusButtonDisplayed()) {
+        template.content.getElementById('askus').remove();
+    } else {
+        template.content.getElementById('askus').innerHTML = askus(); // get the askus template
+        this.updateAskusDOM(shadowDOM)
+    }
 
     // My Library
     const hideMyLibrary = this.getAttribute("hideMyLibrary") === "true";
