@@ -170,7 +170,7 @@ class UQSiteHeader extends HTMLElement {
     constructor() {
         super();
         // Add a shadow DOM
-        const shadowDOM = this.attachShadow({mode: 'open'});
+        const shadowDom = this.attachShadow({mode: 'open'});
 
         // Handle the attributes for this component
 
@@ -181,7 +181,6 @@ class UQSiteHeader extends HTMLElement {
             !!siteTitleContent && (siteTitleContent.innerHTML = siteTitle);
         }
 
-        // Ask Us
         const hideAskUs = this.getAttribute('hideAskUs');
 
         // Chat
@@ -194,7 +193,7 @@ class UQSiteHeader extends HTMLElement {
         if (hideAskUs === "true") {
             template.content.getElementById('askus').remove();
         } else {
-            template.content.getElementById('askus').innerHTML = askus();
+            template.content.getElementById('askus').innerHTML = askus(); // get the askus template
             if(chatAvail !== "true") {
                 // Chat disabled
                 template.content.getElementById('askus-chat-li').style.opacity = '0.6';
@@ -230,7 +229,7 @@ class UQSiteHeader extends HTMLElement {
         this.rewriteMegaMenuFromJson();
 
         // Render the template
-        shadowDOM.appendChild(template.content.cloneNode(true));
+        shadowDom.appendChild(template.content.cloneNode(true));
 
         // Bindings
         this.loadJS = this.loadJS.bind(this);
@@ -376,8 +375,8 @@ class UQSiteHeader extends HTMLElement {
                 //Code to execute after the library has been downloaded parsed and processed by the browser starts here :)
                 initCalled = true;
                 // Initialise Main Navigation
+                const uqSiteHeader = document.querySelector('uq-site-header') || false;
                 if (!!isMegaMenuDisplayed) {
-                    const uqSiteHeader = document.querySelector('uq-site-header');
                     var navelement = !!uqSiteHeader && uqSiteHeader.shadowRoot.getElementById("jsNav");
                     var nav = new uq.siteHeaderNavigation(navelement, "uq-site-header__navigation");
                 }
@@ -387,107 +386,134 @@ class UQSiteHeader extends HTMLElement {
                 var equaliseGridMenu = uq.gridMenuEqualiser('.uq-grid-menu--equalised>a');
                 equaliseGridMenu.align();
 
+                const shadowDom = !!uqSiteHeader && uqSiteHeader.shadowRoot || false;
                 // Actions for the ask us menu
                 if (hideAskUs !== "true") {
                     let askUsClosed = true;
-                        function openMenu() {
-                            askUsClosed = false;
-                            document.querySelector('uq-site-header').shadowRoot.getElementById("askus-menu").style.display = "block";
-                            document.querySelector('uq-site-header').shadowRoot.getElementById("askus-pane").style.display = "block";
+                    function openMenu() {
+                        askUsClosed = false;
+                        const askusMenu = !!shadowDom && shadowDom.getElementById("askus-menu");
+                        !!askusMenu && (askusMenu.style.display = "block");
+                        const askusPane = !!shadowDom && shadowDom.getElementById("askus-pane");
+                        !!askusPane && (askusPane.style.display = "block");
 
-                            function showDisplay() {
-                                document.querySelector('uq-site-header').shadowRoot.getElementById("askus-menu").classList.remove("closed-menu");
-                                document.querySelector('uq-site-header').shadowRoot.getElementById("askus-pane").classList.remove("closed-pane");
+                        function showDisplay() {
+                            !!askusMenu && askusMenu.classList.remove("closed-menu");
+                            !!askusPane && askusPane.classList.remove("closed-pane");
+                        }
+
+                        setTimeout(showDisplay, 100);
+                        document.onkeydown = function (evt) {
+                            evt = evt || window.event;
+                            const escapeKeyCode = 27;
+                            if ((evt.key === escapeKeyCode || evt.keyCode === escapeKeyCode) && askUsClosed === false) {
+                                closeMenu();
                             }
+                        };
+                    }
 
-                            setTimeout(showDisplay, 100);
-                            document.onkeydown = function (evt) {
-                                evt = evt || window.event;
-                                if (evt.keyCode == 27 && askUsClosed === false) {
-                                    closeMenu();
-                                }
-                            };
+                    function closeMenu() {
+                        askUsClosed = true;
+                        const askusMenu = !!shadowDom && shadowDom.getElementById("askus-menu");
+                        const askusPane = !!shadowDom && shadowDom.getElementById("askus-pane");
+
+                        !!askusMenu && askusMenu.classList.add("closed-menu");
+                        !!askusPane && askusPane.classList.add("closed-pane");
+
+                        function hideDisplay() {
+                            !!askusMenu && (askusMenu.style.display = "none");
+                            !!askusPane && (askusPane.style.display = "none");
                         }
 
-                        function closeMenu() {
-                            askUsClosed = true;
-                            document.querySelector('uq-site-header').shadowRoot.getElementById("askus-menu").classList.add("closed-menu");
-                            document.querySelector('uq-site-header').shadowRoot.getElementById("askus-pane").classList.add("closed-pane");
+                        setTimeout(hideDisplay, 500);
+                    }
 
-                            function hideDisplay() {
-                                document.querySelector('uq-site-header').shadowRoot.getElementById("askus-menu").style.display = "none";
-                                document.querySelector('uq-site-header').shadowRoot.getElementById("askus-pane").style.display = "none";
-                            }
+                    function handleAskUsButton() {
+                        const askusButton = !!shadowDom && shadowDom.getElementById('askus-actual-button');
+                        const askusPane = !!shadowDom && shadowDom.getElementById("askus-pane");
 
-                            setTimeout(hideDisplay, 500);
-                        }
+                        !!askUsClosed
+                            ? !!askusButton && askusButton.blur()
+                            : !!askusButton && askusButton.focus()
+                        !!askusPane && askusPane.addEventListener('click', handleMouseOut);
 
-                        function handleAskUsButton() {
-                            askUsClosed ? document.querySelector('uq-site-header').shadowRoot.getElementById("askus-button").blur() : document.querySelector('uq-site-header').shadowRoot.getElementById("askus-button").focus();
-                            document.querySelector('uq-site-header').shadowRoot.getElementById("askus-pane").addEventListener('click', handleMouseOut);
-                            openMenu();
-                        }
+                        openMenu();
+                    }
 
-                        function handleMouseOut() {
-                            askUsClosed = !askUsClosed;
-                            document.querySelector('uq-site-header').shadowRoot.getElementById("askus-pane").removeEventListener('mouseleave', handleMouseOut);
-                            closeMenu();
-                        }
+                    function handleMouseOut() {
+                        const askusPane = !!shadowDom && shadowDom.getElementById("askus-pane");
 
-                        // Attach a listener to the askus button
-                        document.querySelector('uq-site-header').shadowRoot.getElementById("askus-button").addEventListener('click', handleAskUsButton);
+                        askUsClosed = !askUsClosed;
+                        !!askusPane && askusPane.removeEventListener('mouseleave', handleMouseOut);
+                        closeMenu();
+
+                    }
+
+                    // Attach a listener to the askus button
+                    const askusButton = !!shadowDom && shadowDom.getElementById("askus-button");
+                    !!askusButton && askusButton.addEventListener('click', handleAskUsButton);
                 }
 
                 // Actions for My Library menu
                 if (hideMyLibrary !== "true") {
                     let myLibraryClosed = true;
-                        function openMyLibMenu() {
-                            myLibraryClosed = false;
-                            document.querySelector('uq-site-header').shadowRoot.getElementById("mylibrary-menu").style.display = "block";
-                            document.querySelector('uq-site-header').shadowRoot.getElementById("mylibrary-pane").style.display = "block";
+                    function openMyLibMenu() {
+                        myLibraryClosed = false;
+                        const mylibrarymenu = !!shadowDom && shadowDom.getElementById("mylibrary-menu");
+                        const mylibrarypane = !!shadowDom && shadowDom.getElementById("mylibrary-pane");
+                        !!mylibrarymenu && (mylibrarymenu.style.display = "block");
+                        !!mylibrarypane && (mylibrarypane.style.display = "block");
 
-                            function showDisplay() {
-                                document.querySelector('uq-site-header').shadowRoot.getElementById("mylibrary-menu").classList.remove("closed-menu");
-                                document.querySelector('uq-site-header').shadowRoot.getElementById("mylibrary-pane").classList.remove("closed-pane");
+                        function showDisplay() {
+                            !!mylibrarymenu && mylibrarymenu.classList.remove("closed-menu");
+                            !!mylibrarypane && mylibrarypane.classList.remove("closed-pane");
+                        }
+
+                        setTimeout(showDisplay, 100);
+                        document.onkeydown = function (evt) {
+                            evt = evt || window.event;
+                            if (evt.keyCode == 27 && myLibraryClosed === false) {
+                                closeMyLibMenu();
                             }
-
-                            setTimeout(showDisplay, 100);
-                            document.onkeydown = function (evt) {
-                                evt = evt || window.event;
-                                if (evt.keyCode == 27 && myLibraryClosed === false) {
-                                    closeMyLibMenu();
-                                }
-                            };
-                        }
-
-                        function closeMyLibMenu() {
-                            myLibraryClosed = true;
-                            document.querySelector('uq-site-header').shadowRoot.getElementById("mylibrary-menu").classList.add("closed-menu");
-                            document.querySelector('uq-site-header').shadowRoot.getElementById("mylibrary-pane").classList.add("closed-pane");
-
-                            function hideMyLibDisplay() {
-                                document.querySelector('uq-site-header').shadowRoot.getElementById("mylibrary-menu").style.display = "none";
-                                document.querySelector('uq-site-header').shadowRoot.getElementById("mylibrary-pane").style.display = "none";
-                            }
-
-                            setTimeout(hideMyLibDisplay, 500);
-                        }
-
-                        function handleMyLibButton() {
-                            myLibraryClosed ? document.querySelector('uq-site-header').shadowRoot.getElementById("mylibrary-button").blur() : document.querySelector('uq-site-header').shadowRoot.getElementById("mylibrary-button").focus();
-                            document.querySelector('uq-site-header').shadowRoot.getElementById("mylibrary-pane").addEventListener('click', handleMyLibMouseOut);
-                            openMyLibMenu();
-                        }
-
-                        function handleMyLibMouseOut() {
-                            myLibraryClosed = !myLibraryClosed;
-                            document.querySelector('uq-site-header').shadowRoot.getElementById("mylibrary-pane").removeEventListener('mouseleave', handleMyLibMouseOut);
-                            closeMyLibMenu();
-                        }
-
-                        // Attach a listener to the mylibrary button
-                        document.querySelector('uq-site-header').shadowRoot.getElementById("mylibrary-button").addEventListener('click', handleMyLibButton);
+                        };
                     }
+
+                    function closeMyLibMenu() {
+                        const mylibrarymenu = !!shadowDom && shadowDom.getElementById("mylibrary-menu");
+                        const mylibrarypane = !!shadowDom && shadowDom.getElementById("mylibrary-pane");
+                        myLibraryClosed = true;
+                        !!mylibrarymenu && mylibrarymenu.classList.add("closed-menu");
+                        !!mylibrarypane && mylibrarypane.classList.add("closed-pane");
+
+                        function hideMyLibDisplay() {
+                            !!mylibrarymenu && (mylibrarymenu.style.display = "none");
+                            !!mylibrarypane && (mylibrarypane.style.display = "none");
+                        }
+
+                        setTimeout(hideMyLibDisplay, 500);
+                    }
+
+                    function handleMyLibButton() {
+                        const mylibrarypane = !!shadowDom && shadowDom.getElementById("mylibrary-pane");
+                        const mylibrarybutton = !!shadowDom && shadowDom.getElementById("mylibrary-button");
+                        myLibraryClosed
+                            ? !!mylibrarybutton && mylibrarybutton.blur()
+                            : !!mylibrarybutton && mylibrarybutton.focus();
+                        !!mylibrarypane && mylibrarypane.addEventListener('click', handleMyLibMouseOut);
+                        openMyLibMenu();
+                    }
+
+                    function handleMyLibMouseOut() {
+                        const mylibrarypane = !!shadowDom && shadowDom.getElementById("mylibrary-pane");
+                        myLibraryClosed = !myLibraryClosed;
+                        !!mylibrarypane && mylibrarypane.removeEventListener('mouseleave', handleMyLibMouseOut);
+                        closeMyLibMenu();
+                    }
+
+                    // Attach a listener to the mylibrary button
+                    const myLibraryButton = !!shadowDom && shadowDom.getElementById("mylibrary-button");
+                    !!myLibraryButton && myLibraryButton.addEventListener('click', handleMyLibButton);
+                }
             };
             //Specify the location of the ITS DS JS file
             script.src = 'uq-site-header.js';
