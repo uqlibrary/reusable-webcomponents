@@ -81,7 +81,7 @@ class ApiAccess {
         console.log('fetchAPI, getting ', urlPath, ' with ', headers);
 
         if (!!tokenRequired && (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)) {
-            // no cookie so we wont bother asking for an account that cant be returned
+            // no cookie so we wont bother asking for an api that cant be returned
             console.log('no cookie so we wont bother asking for an api that cant be returned');
             return false;
         }
@@ -172,7 +172,7 @@ class ApiAccess {
         if (!response.ok || !response.body) {
             console.log(`fetchMock console: An error has occured: ${response.status}`);
             const message = `fetchMock: An error has occured: ${response.status}`;
-            // throw new Error(message);
+            // vanilla gets a 403 so we don't want to throw an error here
             return {}
         }
         return response.body || {};
