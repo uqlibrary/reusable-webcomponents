@@ -17,6 +17,8 @@ import ApiAccess from "../ApiAccess/ApiAccess";
  *       showLoginButton                         // should the auth button be displayed? (just include, don't put ="true" on the end)
  *       requireLoggedOut                        // only valid if 'showLoginButton' is true
  *                                               // forces the auth button to the logged out state (just include, don't put ="true" on the end)
+ *       hideAskUs                               // when present, askus button will not be displayed (just include for true, or can put "false" on the end)
+ *       hideMyLibrary                           // when present, mylibrary button will not be displayed (mylibrary is only available when logged in) (just include for true, or can put "false" on the end)
  *   >
     <slot name="site-utilities"></slot>
  </uq-site-header>
@@ -182,16 +184,12 @@ class UQSiteHeader extends HTMLElement {
         !!siteTitleContent && !!siteTitle && (siteTitleContent.innerHTML = siteTitle);
         !!siteTitleContent && !!siteURL && (siteTitleContent.href = siteURL);
 
-        const hideAskUs = this.getAttribute('hideAskUs');
-
-        // Chat
-        const chatAvail = this.getAttribute('chatAvailable');
-
-        if (hideAskUs === "true") {
+        if (!this.isAskusButtonDisplayed()) {
             template.content.getElementById('askus').remove();
         } else {
             template.content.getElementById('askus').innerHTML = askus(); // get the askus template
-            if(chatAvail !== "true") {
+            const chatAvail = this.getChatStatus();
+            if(!chatAvail) {
                 // Chat disabled
                 template.content.getElementById('askus-chat-li').style.opacity = '0.6';
                 template.content.getElementById('askus-chat-link').removeAttribute("onclick");
@@ -221,6 +219,11 @@ class UQSiteHeader extends HTMLElement {
 
         // Bindings
         this.loadJS = this.loadJS.bind(this);
+    }
+
+    async getChatStatus() {
+        const api = new ApiAccess();
+        return await api.loadChatStatus().then(chatAvail => chatAvail);
     }
 
     addAuthButtonToSlot() {
@@ -535,6 +538,14 @@ class UQSiteHeader extends HTMLElement {
             this.isloginRequired = this.getAttribute('showLoginButton');
         }
         return !!this.isloginRequired || this.isloginRequired === '';
+    }
+
+    isAskusButtonDisplayed() {
+        const hideAskUs = this.getAttribute('hideAskUs');
+
+        const result = hideAskUs === "false" || hideAskUs === null;
+        console.log('display askus button: ', result);
+        return result;
     }
 
     overwriteAsLoggedOut() {

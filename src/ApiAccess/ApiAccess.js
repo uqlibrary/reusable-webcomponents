@@ -35,6 +35,19 @@ class ApiAccess {
         return account;
     }
 
+    async loadChatStatus() {
+        console.log('loadChatStatus start');
+        let isOnline = false;
+        const chatstatusApi = (new ApiRoutes()).CHAT_API();
+        const urlPath = chatstatusApi.apiUrl;
+        const options = !!chatstatusApi.options ? chatstatusApi.options : {};
+        await this.fetchAPI(urlPath, options)
+            .then(chatResponse => {
+                isOnline = !!chatResponse.online;
+            }).catch(error => {
+                console.log('error loading chat status ', error);
+            });
+        return isOnline;    }
 
     async loadOpeningHours() {
         console.log('loadOpeningHours start');
@@ -43,10 +56,10 @@ class ApiAccess {
         const urlPath = hoursApi.apiUrl;
         const options = !!hoursApi.options ? hoursApi.options : {};
         await this.fetchAPI(urlPath, options)
-            .then(hours => {
+            .then(hoursResponse => {
                 let askusHours = null;
-                if (!!hours && !!hours.locations && hours.locations.length > 1) {
-                    askusHours = hours.locations.map(item => {
+                if (!!hoursResponse && !!hoursResponse.locations && hoursResponse.locations.length > 1) {
+                    askusHours = hoursResponse.locations.map(item => {
                         if (item.abbr === 'AskUs') {
                             return {
                                 chat: item.departments[0].rendered,
