@@ -27,10 +27,12 @@
 
 
 .makeStyles-utility-115 {
-    margin-top: -8px;
+    margin-top: -32px;
     margin-left: 0;
     margin-right: -8px;
     margin-bottom: -16px;
+
+    height: 38px;
 }
 /*.makeStyles-utilityButton-116 {*/
 /*    color: #51247A;*/
@@ -120,4 +122,8 @@
     user-select: none;
 }
 
-
+.button-label {
+    font-size: 12px;
+    white-space: nowrap;
+    color: #51247A;
+}
