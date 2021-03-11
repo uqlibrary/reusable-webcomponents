@@ -184,36 +184,9 @@ class UQSiteHeader extends HTMLElement {
     !!siteTitleContent && !!siteTitle && (siteTitleContent.innerHTML = siteTitle);
     !!siteTitleContent && !!siteURL && (siteTitleContent.href = siteURL);
 
-    if (!this.isAskusButtonRequested()) {
-        template.content.getElementById('askus').remove();
-    } else {
-        template.content.getElementById('askus').innerHTML = askus(); // get the askus template
-        this.updateAskusDOM(shadowDOM)
-    }
+    this.hideShowAskusButton(shadowDOM);
 
-    // My Library
-    const hideEspace = this.getAttribute("hideEspace") === "true";
-
-    if (!this.isMylibraryButtonRequested()) {
-      // if the page doesnt want mylibrary, just dont show it - no account check required
-      template.content.getElementById("mylibrary").remove();
-    } else {
-      this.confirmAccount().then(accountSummary => {
-          console.log('after, accountSummary = ', accountSummary);
-          if (!accountSummary.isLoggedin) {
-              template.content.getElementById("mylibrary").remove();
-          } else {
-              const uqSiteHeader = document.querySelector('uq-site-header');
-              const shadowDOM = !!uqSiteHeader && uqSiteHeader.shadowRoot || false;
-              shadowDOM.getElementById("mylibrary").innerHTML = mylibrary();
-
-              // hideEspace === "true" &&
-              //   template.content.getElementById("mylibrary-espace").remove();
-              !accountSummary.canMasquerade &&
-              shadowDOM.getElementById("mylibrary-masquerade").remove();
-          }
-      });
-    }
+    this.hideShowMyLibraryButton();
 
     this.addAuthButtonToSlot();
 
@@ -225,6 +198,41 @@ class UQSiteHeader extends HTMLElement {
     // Bindings
     this.loadJS = this.loadJS.bind(this);
   }
+
+    hideShowMyLibraryButton() {
+        if (!this.isMylibraryButtonRequested()) {
+            // if the page doesnt want mylibrary, just dont show it - no account check required
+            template.content.getElementById("mylibrary").remove();
+            return;
+        }
+
+        this.confirmAccount().then(accountSummary => {
+            console.log('after, accountSummary = ', accountSummary);
+            if (!accountSummary.isLoggedin) {
+                template.content.getElementById("mylibrary").remove();
+            } else {
+                const uqSiteHeader = document.querySelector('uq-site-header');
+                const shadowDOM = !!uqSiteHeader && uqSiteHeader.shadowRoot || false;
+                shadowDOM.getElementById("mylibrary").innerHTML = mylibrary();
+
+                const hideEspace = this.getAttribute("hideEspace") === "true";
+
+                // hideEspace === "true" &&
+                //   template.content.getElementById("mylibrary-espace").remove();
+                !accountSummary.canMasquerade &&
+                shadowDOM.getElementById("mylibrary-masquerade").remove();
+            }
+        });
+    }
+
+    hideShowAskusButton(shadowDOM) {
+        if (this.isAskusButtonRequested()) {
+            template.content.getElementById('askus').innerHTML = askus(); // get the askus template
+            this.updateAskusDOM(shadowDOM)
+        } else {
+            template.content.getElementById('askus').remove();
+        }
+    }
 
     async confirmAccount() {
         let accountSummary = {};
