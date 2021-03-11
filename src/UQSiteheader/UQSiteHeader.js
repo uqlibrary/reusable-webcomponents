@@ -179,15 +179,22 @@ class UQSiteHeader extends HTMLElement {
       template.content.getElementById("askus").innerHTML = askus();
       if (chatAvail !== "true") {
         // Chat disabled
-        template.content.getElementById("askus-chat-li").style.opacity = "0.6";
+        template.content.getElementById("askus-chat-li").style.opacity = "0.85";
         template.content
           .getElementById("askus-chat-link")
           .removeAttribute("onclick");
+        template.content
+          .getElementById("askus-chat-link")
+          .setAttribute("disabled", true);
 
-        template.content.getElementById("askus-phone-li").style.opacity = "0.6";
+        template.content.getElementById("askus-phone-li").style.opacity =
+          "0.85";
         template.content
           .getElementById("askus-phone-link")
           .removeAttribute("href");
+        template.content
+          .getElementById("askus-phone-link")
+          .setAttribute("disabled", true);
       }
       // Set the attributes
       template.content.getElementById("askus-chat-time").innerText = chatTime;

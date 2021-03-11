@@ -140,6 +140,14 @@
     cursor: pointer;
 }
 
+.askus-menu-list li a[disabled="true"] {
+    cursor: unset;
+}
+
+.askus-menu-list li a[disabled="true"]:hover {
+    background-color: transparent;
+}
+
 .askus-menu-list li svg {
     width: 24px;
     height: 24px;
