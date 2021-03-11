@@ -24,7 +24,7 @@ describe("AskUs menu", () => {
     it("AskUs passes accessibility", () => {
       cy.viewport(1280, 900);
       cy.get("uq-site-header").shadow().find("button#askus-button").click();
-      cy.wait(2000);
+      cy.wait(500);
       cy.checkA11y("uq-site-header", {
         reportName: "AskUs",
         scopeName: "Accessibility",
