@@ -28,11 +28,14 @@ class ApiAccess {
         const accountApi = (new ApiRoutes()).CURRENT_ACCOUNT_API();
         const urlPath = accountApi.apiUrl;
         const options = !!accountApi.options ? accountApi.options : {};
-        const account = await this.fetchAPI(urlPath, options, true);
+        return await this.fetchAPI(urlPath, options, true)
+            .then(account => {
+                console.log('getAccount: account = ', account);
+                this.storeAccount(account);
+                console.log('account from server = ', account);
 
-        this.storeAccount(account);
-
-        return account;
+                return account;
+            });
     }
 
     async loadChatStatus() {

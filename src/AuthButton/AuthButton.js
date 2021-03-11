@@ -101,9 +101,6 @@ class AuthButton extends HTMLElement {
         !loggedinButton && !loggedoutButton && console.log('neither logged in nor logged out buttons exist');
     }
 
-    setButtonAttributes() {
-    }
-
     async checkAuthorisedUser() {
         this.accountLoading = true;
         this.account = {};
