@@ -184,7 +184,7 @@ class UQSiteHeader extends HTMLElement {
     !!siteTitleContent && !!siteTitle && (siteTitleContent.innerHTML = siteTitle);
     !!siteTitleContent && !!siteURL && (siteTitleContent.href = siteURL);
 
-    if (!this.isAskusButtonDisplayed()) {
+    if (!this.isAskusButtonRequested()) {
         template.content.getElementById('askus').remove();
     } else {
         template.content.getElementById('askus').innerHTML = askus(); // get the askus template
@@ -192,39 +192,55 @@ class UQSiteHeader extends HTMLElement {
     }
 
     // My Library
-    const hideMyLibrary = this.getAttribute("hideMyLibrary") === "true";
     const hideEspace = this.getAttribute("hideEspace") === "true";
-    const hideMasquerade = this.getAttribute("hideMasquerade") === "true";
 
-
-    if (!!hideMyLibrary) {
+    if (!this.isMylibraryButtonRequested()) {
+      // if the page doesnt want mylibrary, just dont show it - no account check required
       template.content.getElementById("mylibrary").remove();
     } else {
-      template.content.getElementById("mylibrary").innerHTML = mylibrary();
-      hideEspace === "true" &&
-        template.content.getElementById("mylibrary-espace").remove();
-      hideMasquerade === "true" &&
-        template.content.getElementById("mylibrary-masquerade").remove();
+      this.confirmAccount().then(accountSummary => {
+          console.log('after, accountSummary = ', accountSummary);
+          if (!accountSummary.isLoggedin) {
+              template.content.getElementById("mylibrary").remove();
+          } else {
+              const uqSiteHeader = document.querySelector('uq-site-header');
+              const shadowDOM = !!uqSiteHeader && uqSiteHeader.shadowRoot || false;
+              shadowDOM.getElementById("mylibrary").innerHTML = mylibrary();
+
+              // hideEspace === "true" &&
+              //   template.content.getElementById("mylibrary-espace").remove();
+              !accountSummary.canMasquerade &&
+              shadowDOM.getElementById("mylibrary-masquerade").remove();
+          }
+      });
     }
 
-      this.addAuthButtonToSlot();
+    this.addAuthButtonToSlot();
 
-      this.rewriteMegaMenuFromJson();
+    this.rewriteMegaMenuFromJson();
 
-      // Render the template
-      shadowDOM.appendChild(template.content.cloneNode(true));
+    // Render the template
+    shadowDOM.appendChild(template.content.cloneNode(true));
 
-      // Bindings
-      this.loadJS = this.loadJS.bind(this);
+    // Bindings
+    this.loadJS = this.loadJS.bind(this);
   }
 
-    async isChatOnline() {
+    async confirmAccount() {
+        let accountSummary = {};
+
         const api = new ApiAccess();
-        return await api.loadChatStatus().then(chatAvail => chatAvail);
+        await api.getAccount().then(account => {
+            if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
+                accountSummary.isLoggedin = !!account && !!account.id;
+                accountSummary.canMasquerade = !!accountSummary.isLoggedin && account.hasOwnProperty('canMasquerade') && account.canMasquerade === true
+            }
+        });
+        return accountSummary;
     }
 
     addAuthButtonToSlot() {
-        if (!this.isAuthButtonDisplayed()) {
+        if (!this.isAuthButtonRequested()) {
             return;
         }
 
@@ -254,7 +270,7 @@ class UQSiteHeader extends HTMLElement {
         // clear the existing children
         !!overWrite && (megaMenu.textContent = '');
 
-        if (!this.isMegaMenuDisplayed()) {
+        if (!this.isMegaMenuRequested()) {
             // hide responsive menu button
             const button = template.content.getElementById('uq-site-header__navigation-toggle');
             !!button && (button.style.display = 'none');
@@ -353,7 +369,7 @@ class UQSiteHeader extends HTMLElement {
     // This loads the external JS file into the HTML head dynamically
     //Only load js if it has not been loaded before (tracked by the initCalled flag)
     if (!initCalled) {
-      const isMegaMenuDisplayed = this.isMegaMenuDisplayed();
+      const isMegaMenuDisplayed = this.isMegaMenuRequested();
 
       //Dynamically import the JS file and append it to the document header
       const script = document.createElement('script');
@@ -531,10 +547,10 @@ class UQSiteHeader extends HTMLElement {
           }
 
           // Attach a listener to the mylibrary button
-          document
-            .querySelector("uq-site-header")
-            .shadowRoot.getElementById("mylibrary-button")
-            .addEventListener("click", handleMyLibButton);
+          const uqsiteheader1 = document.querySelector("uq-site-header")
+          const shadowRoot = !!uqsiteheader1 && uqsiteheader1.shadowRoot;
+          const mylibraryButton = !!shadowRoot && shadowRoot.getElementById("mylibrary-button");
+          !!mylibraryButton && mylibraryButton.addEventListener("click", handleMyLibButton);
         }
       };
       //Specify the location of the ITS DS JS file
@@ -546,46 +562,54 @@ class UQSiteHeader extends HTMLElement {
   }
 
     async updateAskusDOM(shadowRoot) {
-        if (!this.isChatOnline()) {
-            // Chat disabled
-            template.content.getElementById('askus-chat-li').style.opacity = '0.6';
-            template.content.getElementById('askus-chat-link').removeAttribute("onclick");
-
-            template.content.getElementById('askus-phone-li').style.opacity = '0.6';
-            template.content.getElementById('askus-phone-link').removeAttribute("href");
-        }
-
         const api = new ApiAccess();
-        const hours = await api.loadOpeningHours().then(hours => hours);
+        await api.loadChatStatus().then(isOnline => {
+            if (!isOnline) {
+                console.log('chat is offline');
+                // Chat disabled
+                shadowRoot.getElementById('askus-chat-li').style.opacity = '0.6';
+                shadowRoot.getElementById('askus-chat-link').removeAttribute("onclick");
 
-        // display opening hours in the askus widget
-        const chatitem = shadowRoot.getElementById('askus-chat-time');
-        !!hours.chat && !!chatitem && (chatitem.innerHTML = hours.chat);
+                shadowRoot.getElementById('askus-phone-li').style.opacity = '0.6';
+                shadowRoot.getElementById('askus-phone-link').removeAttribute("href");
+        } else {
+                console.log('chat is ONline');
+            }});
 
-        const phoneitem = shadowRoot.getElementById('askus-phone-time');
-        !!hours.phone && !!phoneitem && (phoneitem.innerText = hours.phone);
+        await api.loadOpeningHours().then(hours => {
+            // display opening hours in the askus widget
+            const chatitem = shadowRoot.getElementById('askus-chat-time');
+            !!hours.chat && !!chatitem && (chatitem.innerHTML = hours.chat);
+
+            const phoneitem = shadowRoot.getElementById('askus-phone-time');
+            !!hours.phone && !!phoneitem && (phoneitem.innerText = hours.phone);
+        });
+
+
     }
 
-    isMegaMenuDisplayed() {
+    isMegaMenuRequested() {
         if (this.showMenu === undefined) {
             this.showMenu = this.getAttribute('showMenu');
         }
         return !!this.showMenu || this.showMenu === '';
     }
 
-    isAuthButtonDisplayed() {
+    isAuthButtonRequested() {
         if (this.isloginRequired === undefined) {
             this.isloginRequired = this.getAttribute('showLoginButton');
         }
         return !!this.isloginRequired || this.isloginRequired === '';
     }
 
-    isAskusButtonDisplayed() {
+    isAskusButtonRequested() {
         const hideAskUs = this.getAttribute('hideAskUs');
+        return hideAskUs === "false" || hideAskUs === null;
+    }
 
-        const result = hideAskUs === "false" || hideAskUs === null;
-        console.log('display askus button: ', result);
-        return result;
+    isMylibraryButtonRequested() {
+        const hideMylibrary = this.getAttribute('hideMyLibrary');
+        return hideMylibrary === "false" || hideMylibrary === null;
     }
 
     overwriteAsLoggedOut() {

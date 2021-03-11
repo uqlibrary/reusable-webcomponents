@@ -100,8 +100,8 @@ class ApiAccess {
         // reference: https://dmitripavlutin.com/javascript-fetch-async-await/
         const response = await this.fetchFromServer(urlPath, options);
         if (!response.ok) {
-            console.log(`An error has occured: ${response.status} ${response.statusText}`);
-            const message = `An error has occured: ${response.status} ${response.statusText}`;
+            console.log(`ApiAccess console: An error has occured: ${response.status} ${response.statusText}`);
+            const message = `ApiAccess: An error has occured: ${response.status} ${response.statusText}`;
             throw new Error(message);
         }
         return await response.json();
@@ -170,11 +170,12 @@ class ApiAccess {
     fetchMock(url, options = null) {
         const response = (new MockApi).mockfetch(url, options);
         if (!response.ok || !response.body) {
-            console.log(`An error has occured: ${response.status}`);
-            const message = `An error has occured: ${response.status}`;
-            throw new Error(message);
+            console.log(`fetchMock console: An error has occured: ${response.status}`);
+            const message = `fetchMock: An error has occured: ${response.status}`;
+            // throw new Error(message);
+            return {}
         }
-        return response.body;
+        return response.body || {};
     }
 
     isMock() {

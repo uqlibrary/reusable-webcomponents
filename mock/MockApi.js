@@ -23,7 +23,7 @@ class MockApi {
         this.mockData = mockData
         this.mockData.accounts.uqrdav10 = mockData.uqrdav10.account;
         this.mockData.accounts.uqagrinb = mockData.uqagrinb.account;
-        if (user && !mockData.accounts[user]) {
+        if (user && user !== 'public' && !mockData.accounts[user]) {
             console.warn(
                 `API MOCK DATA: User name (${user}) is not found, please use one of the usernames from mock data only...`,
             );
@@ -93,6 +93,7 @@ class MockApi {
 
             case apiRoute.CHAT_API().apiUrl:
                 return this.response(200, {online: true}, true);
+                // return this.response(200, {online: false}, true);
 
             case apiRoute.LIB_HOURS_API().apiUrl:
                 return this.response(200, libHours, true);
