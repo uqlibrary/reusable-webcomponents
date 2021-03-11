@@ -4,8 +4,8 @@ import icons from './css/icons.css';
 import {default as menuLocale} from "../locale/menu";
 import askusStyles from './css/askus.css';
 import myLibStyles from './css/mylibrary.css';
-import {askus} from './AskUs';
-import {mylibrary} from './MyLibrary';
+import { askus } from './AskUs';
+import { mylibrary } from './MyLibrary';
 import ApiAccess from "../ApiAccess/ApiAccess";
 
 /**
@@ -20,12 +20,12 @@ import ApiAccess from "../ApiAccess/ApiAccess";
  *       hideAskUs                               // when present, askus button will not be displayed (just include for true, or can put "false" on the end)
  *       hideMyLibrary                           // when present, mylibrary button will not be displayed (mylibrary is only available when logged in) (just include for true, or can put "false" on the end)
  *   >
-    <slot name="site-utilities"></slot>
+ <slot name="site-utilities"></slot>
  </uq-site-header>
 
  */
 
-const template = document.createElement('template');
+const template = document.createElement("template");
 template.innerHTML = `
     <style>${styles.toString()}</style>
     <style>${icons.toString()}</style>
@@ -170,10 +170,10 @@ template.innerHTML = `
 let initCalled;
 
 class UQSiteHeader extends HTMLElement {
-    constructor() {
-        super();
-        // Add a shadow DOM
-        const shadowDom = this.attachShadow({mode: 'open'});
+  constructor() {
+    super();
+    // Add a shadow DOM
+    const shadowDOM = this.attachShadow({ mode: "open" });
 
         // Handle the attributes for this component
 
@@ -197,28 +197,35 @@ class UQSiteHeader extends HTMLElement {
                 template.content.getElementById('askus-phone-link').removeAttribute("href");
             }
 
-            this.displayAskusHours(shadowDom)
+            this.displayAskusHours(shadowDOM)
         }
 
-        // My Library
-        const hideMyLibrary = this.getAttribute('hideMyLibrary');
+    // My Library
+    const hideMyLibrary = this.getAttribute("hideMyLibrary") === "true";
+    const hideEspace = this.getAttribute("hideEspace") === "true";
+    const hideMasquerade = this.getAttribute("hideMasquerade") === "true";
 
-        if (hideMyLibrary === "true") {
-            template.content.getElementById('mylibrary').remove();
-        } else {
-            template.content.getElementById('mylibrary').innerHTML = mylibrary();
-        }
 
-        this.addAuthButtonToSlot();
-
-        this.rewriteMegaMenuFromJson();
-
-        // Render the template
-        shadowDom.appendChild(template.content.cloneNode(true));
-
-        // Bindings
-        this.loadJS = this.loadJS.bind(this);
+    if (!!hideMyLibrary) {
+      template.content.getElementById("mylibrary").remove();
+    } else {
+      template.content.getElementById("mylibrary").innerHTML = mylibrary();
+      hideEspace === "true" &&
+        template.content.getElementById("mylibrary-espace").remove();
+      hideMasquerade === "true" &&
+        template.content.getElementById("mylibrary-masquerade").remove();
     }
+
+      this.addAuthButtonToSlot();
+
+      this.rewriteMegaMenuFromJson();
+
+      // Render the template
+      shadowDOM.appendChild(template.content.cloneNode(true));
+
+      // Bindings
+      this.loadJS = this.loadJS.bind(this);
+  }
 
     async getChatStatus() {
         const api = new ApiAccess();
@@ -376,15 +383,15 @@ class UQSiteHeader extends HTMLElement {
                 var equaliseGridMenu = uq.gridMenuEqualiser('.uq-grid-menu--equalised>a');
                 equaliseGridMenu.align();
 
-                const shadowDom = !!uqSiteHeader && uqSiteHeader.shadowRoot || false;
+                const shadowDOM = !!uqSiteHeader && uqSiteHeader.shadowRoot || false;
                 // Actions for the ask us menu
                 if (hideAskUs !== "true") {
                     let askUsClosed = true;
                     function openMenu() {
                         askUsClosed = false;
-                        const askusMenu = !!shadowDom && shadowDom.getElementById("askus-menu");
+                        const askusMenu = !!shadowDOM && shadowDOM.getElementById("askus-menu");
                         !!askusMenu && (askusMenu.style.display = "block");
-                        const askusPane = !!shadowDom && shadowDom.getElementById("askus-pane");
+                        const askusPane = !!shadowDOM && shadowDOM.getElementById("askus-pane");
                         !!askusPane && (askusPane.style.display = "block");
 
                         function showDisplay() {
@@ -404,8 +411,8 @@ class UQSiteHeader extends HTMLElement {
 
                     function closeMenu() {
                         askUsClosed = true;
-                        const askusMenu = !!shadowDom && shadowDom.getElementById("askus-menu");
-                        const askusPane = !!shadowDom && shadowDom.getElementById("askus-pane");
+                        const askusMenu = !!shadowDOM && shadowDOM.getElementById("askus-menu");
+                        const askusPane = !!shadowDOM && shadowDOM.getElementById("askus-pane");
 
                         !!askusMenu && askusMenu.classList.add("closed-menu");
                         !!askusPane && askusPane.classList.add("closed-pane");
@@ -419,8 +426,8 @@ class UQSiteHeader extends HTMLElement {
                     }
 
                     function handleAskUsButton() {
-                        const askusButton = !!shadowDom && shadowDom.getElementById('askus-actual-button');
-                        const askusPane = !!shadowDom && shadowDom.getElementById("askus-pane");
+                        const askusButton = !!shadowDOM && shadowDOM.getElementById('askus-actual-button');
+                        const askusPane = !!shadowDOM && shadowDOM.getElementById("askus-pane");
 
                         !!askUsClosed
                             ? !!askusButton && askusButton.blur()
@@ -431,7 +438,7 @@ class UQSiteHeader extends HTMLElement {
                     }
 
                     function handleMouseOut() {
-                        const askusPane = !!shadowDom && shadowDom.getElementById("askus-pane");
+                        const askusPane = !!shadowDOM && shadowDOM.getElementById("askus-pane");
 
                         askUsClosed = !askUsClosed;
                         !!askusPane && askusPane.removeEventListener('mouseleave', handleMouseOut);
@@ -440,23 +447,34 @@ class UQSiteHeader extends HTMLElement {
                     }
 
                     // Attach a listener to the askus button
-                    const askusButton = !!shadowDom && shadowDom.getElementById("askus-button");
+                    const askusButton = !!shadowDOM && shadowDOM.getElementById("askus-button");
                     !!askusButton && askusButton.addEventListener('click', handleAskUsButton);
                 }
+
 
                 // Actions for My Library menu
                 if (hideMyLibrary !== "true") {
                     let myLibraryClosed = true;
                     function openMyLibMenu() {
                         myLibraryClosed = false;
-                        const mylibrarymenu = !!shadowDom && shadowDom.getElementById("mylibrary-menu");
-                        const mylibrarypane = !!shadowDom && shadowDom.getElementById("mylibrary-pane");
-                        !!mylibrarymenu && (mylibrarymenu.style.display = "block");
-                        !!mylibrarypane && (mylibrarypane.style.display = "block");
+                        document
+                            .querySelector("uq-site-header")
+                            .shadowRoot.getElementById("mylibrary-menu").style.display =
+                            "block";
+                        document
+                            .querySelector("uq-site-header")
+                            .shadowRoot.getElementById("mylibrary-pane").style.display =
+                            "block";
 
                         function showDisplay() {
-                            !!mylibrarymenu && mylibrarymenu.classList.remove("closed-menu");
-                            !!mylibrarypane && mylibrarypane.classList.remove("closed-pane");
+                            document
+                                .querySelector("uq-site-header")
+                                .shadowRoot.getElementById("mylibrary-menu")
+                                .classList.remove("closed-menu");
+                            document
+                                .querySelector("uq-site-header")
+                                .shadowRoot.getElementById("mylibrary-pane")
+                                .classList.remove("closed-pane");
                         }
 
                         setTimeout(showDisplay, 100);
@@ -469,49 +487,70 @@ class UQSiteHeader extends HTMLElement {
                     }
 
                     function closeMyLibMenu() {
-                        const mylibrarymenu = !!shadowDom && shadowDom.getElementById("mylibrary-menu");
-                        const mylibrarypane = !!shadowDom && shadowDom.getElementById("mylibrary-pane");
                         myLibraryClosed = true;
-                        !!mylibrarymenu && mylibrarymenu.classList.add("closed-menu");
-                        !!mylibrarypane && mylibrarypane.classList.add("closed-pane");
+                        document
+                            .querySelector("uq-site-header")
+                            .shadowRoot.getElementById("mylibrary-menu")
+                            .classList.add("closed-menu");
+                        document
+                            .querySelector("uq-site-header")
+                            .shadowRoot.getElementById("mylibrary-pane")
+                            .classList.add("closed-pane");
 
                         function hideMyLibDisplay() {
-                            !!mylibrarymenu && (mylibrarymenu.style.display = "none");
-                            !!mylibrarypane && (mylibrarypane.style.display = "none");
+                            document
+                                .querySelector("uq-site-header")
+                                .shadowRoot.getElementById("mylibrary-menu").style.display =
+                                "none";
+                            document
+                                .querySelector("uq-site-header")
+                                .shadowRoot.getElementById("mylibrary-pane").style.display =
+                                "none";
                         }
 
                         setTimeout(hideMyLibDisplay, 500);
                     }
 
                     function handleMyLibButton() {
-                        const mylibrarypane = !!shadowDom && shadowDom.getElementById("mylibrary-pane");
-                        const mylibrarybutton = !!shadowDom && shadowDom.getElementById("mylibrary-button");
                         myLibraryClosed
-                            ? !!mylibrarybutton && mylibrarybutton.blur()
-                            : !!mylibrarybutton && mylibrarybutton.focus();
-                        !!mylibrarypane && mylibrarypane.addEventListener('click', handleMyLibMouseOut);
+                            ? document
+                                .querySelector("uq-site-header")
+                                .shadowRoot.getElementById("mylibrary-button")
+                                .blur()
+                            : document
+                                .querySelector("uq-site-header")
+                                .shadowRoot.getElementById("mylibrary-button")
+                                .focus();
+                        document
+                            .querySelector("uq-site-header")
+                            .shadowRoot.getElementById("mylibrary-pane")
+                            .addEventListener("click", handleMyLibMouseOut);
                         openMyLibMenu();
                     }
 
                     function handleMyLibMouseOut() {
-                        const mylibrarypane = !!shadowDom && shadowDom.getElementById("mylibrary-pane");
                         myLibraryClosed = !myLibraryClosed;
-                        !!mylibrarypane && mylibrarypane.removeEventListener('mouseleave', handleMyLibMouseOut);
+                        document
+                            .querySelector("uq-site-header")
+                            .shadowRoot.getElementById("mylibrary-pane")
+                            .removeEventListener("mouseleave", handleMyLibMouseOut);
                         closeMyLibMenu();
                     }
 
                     // Attach a listener to the mylibrary button
-                    const myLibraryButton = !!shadowDom && shadowDom.getElementById("mylibrary-button");
-                    !!myLibraryButton && myLibraryButton.addEventListener('click', handleMyLibButton);
+                    document
+                        .querySelector("uq-site-header")
+                        .shadowRoot.getElementById("mylibrary-button")
+                        .addEventListener("click", handleMyLibButton);
                 }
             };
             //Specify the location of the ITS DS JS file
-            script.src = 'uq-site-header.js';
+            script.src = "uq-site-header.js";
 
-            //Append it to the document header
-            document.head.appendChild(script);
-        }
-    };
+      //Append it to the document header
+      document.head.appendChild(script);
+    }
+  }
 
     async displayAskusHours(shadowRoot) {
         const api = new ApiAccess();
