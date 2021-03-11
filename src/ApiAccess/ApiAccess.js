@@ -35,7 +35,38 @@ class ApiAccess {
         return account;
     }
 
+
+    async loadOpeningHours() {
+        console.log('loadOpeningHours start');
+        let result;
+        const hoursApi = (new ApiRoutes()).LIB_HOURS_API();
+        const urlPath = hoursApi.apiUrl;
+        const options = !!hoursApi.options ? hoursApi.options : {};
+        await this.fetchAPI(urlPath, options)
+            .then(hours => {
+                let askusHours = null;
+                if (!!hours && !!hours.locations && hours.locations.length > 1) {
+                    askusHours = hours.locations.map(item => {
+                        if (item.abbr === 'AskUs') {
+                            return {
+                                chat: item.departments[0].rendered,
+                                phone: item.departments[1].rendered,
+                            };
+                        }
+                        return null;
+                    });
+                }
+                result = askusHours ? askusHours.filter(item => item !== null)[0] : null;
+            }).catch(error => {
+                console.log('error loading hours ', error);
+                result = null
+            });
+        return result;
+    }
+
     async fetchAPI(urlPath, headers, tokenRequired = false) {
+        console.log('fetchAPI, getting ', urlPath, ' with ', headers);
+
         if (!!tokenRequired && (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)) {
             // no cookie so we wont bother asking for an account that cant be returned
             console.log('no cookie so we wont bother asking for an api that cant be returned');

@@ -6,6 +6,7 @@ import askusStyles from './css/askus.css';
 import myLibStyles from './css/mylibrary.css';
 import { askus } from './AskUs';
 import { mylibrary } from './MyLibrary';
+import ApiAccess from "../ApiAccess/ApiAccess";
 
 /**
  * API:
@@ -174,21 +175,17 @@ class UQSiteHeader extends HTMLElement {
 
         // Handle the attributes for this component
 
-        // // Set the title
+        // Set the title & link URL
         const siteTitleContent = template.content.getElementById('site-title');
         const siteTitle = this.getAttribute('siteTitle');
-        if (!!siteTitle) {
-            !!siteTitleContent && (siteTitleContent.innerHTML = siteTitle);
-        }
+        const siteURL = this.getAttribute('siteURL');
+        !!siteTitleContent && !!siteTitle && (siteTitleContent.innerHTML = siteTitle);
+        !!siteTitleContent && !!siteURL && (siteTitleContent.href = siteURL);
 
         const hideAskUs = this.getAttribute('hideAskUs');
 
         // Chat
         const chatAvail = this.getAttribute('chatAvailable');
-        const chatStart = this.getAttribute('chatStart');
-        const chatEnd = this.getAttribute('chatEnd');
-        const phoneStart = this.getAttribute('phoneStart');
-        const phoneEnd = this.getAttribute('phoneEnd');
 
         if (hideAskUs === "true") {
             template.content.getElementById('askus').remove();
@@ -202,11 +199,8 @@ class UQSiteHeader extends HTMLElement {
                 template.content.getElementById('askus-phone-li').style.opacity = '0.6';
                 template.content.getElementById('askus-phone-link').removeAttribute("href");
             }
-                // Set the attributes
-            template.content.getElementById('askus-chat-start').innerText = chatStart;
-            template.content.getElementById('askus-chat-end').innerText = chatEnd;
-            template.content.getElementById('askus-phone-start').innerText = phoneStart;
-            template.content.getElementById('askus-phone-end').innerText = phoneEnd;
+
+            this.displayAskusHours(shadowDom)
         }
 
         // My Library
@@ -216,12 +210,6 @@ class UQSiteHeader extends HTMLElement {
             template.content.getElementById('mylibrary').remove();
         } else {
             template.content.getElementById('mylibrary').innerHTML = mylibrary();
-        }
-
-        // Set the title link URL
-        const siteURL = this.getAttribute('siteURL');
-        if (!!siteURL) {
-            !!siteTitleContent && (siteTitleContent.href = siteURL);
         }
 
         this.addAuthButtonToSlot();
@@ -375,7 +363,7 @@ class UQSiteHeader extends HTMLElement {
                 //Code to execute after the library has been downloaded parsed and processed by the browser starts here :)
                 initCalled = true;
                 // Initialise Main Navigation
-                const uqSiteHeader = document.querySelector('uq-site-header') || false;
+                const uqSiteHeader = document.querySelector('uq-site-header');
                 if (!!isMegaMenuDisplayed) {
                     var navelement = !!uqSiteHeader && uqSiteHeader.shadowRoot.getElementById("jsNav");
                     var nav = new uq.siteHeaderNavigation(navelement, "uq-site-header__navigation");
@@ -522,6 +510,18 @@ class UQSiteHeader extends HTMLElement {
             document.head.appendChild(script);
         }
     };
+
+    async displayAskusHours(shadowRoot) {
+        const api = new ApiAccess();
+        const hours = await api.loadOpeningHours().then(hours => hours);
+
+        // display opening hours in the askus widget
+        const chatitem = shadowRoot.getElementById('chatTimes');
+        !!hours.chat && !!chatitem && (chatitem.innerHTML = hours.chat);
+
+        const phoneitem = shadowRoot.getElementById('phoneTimes');
+        !!hours.phone && !!phoneitem && (phoneitem.innerText = hours.phone);
+    }
 
     isMegaMenuDisplayed() {
         if (this.showMenu === undefined) {

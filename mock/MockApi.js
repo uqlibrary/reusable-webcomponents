@@ -46,12 +46,13 @@ class MockApi {
             url: this.url,
         };
         if (withDelay) {
-            const randomTime = Math.floor(Math.random() * 100) + 1; // Change these values to delay mock API
-            return new Promise(function (resolve, reject) {
-                setTimeout(function () {
-                    resolve(response);
-                }, randomTime);
-            });
+            // TODO
+            // const randomTime = Math.floor(Math.random() * 100) + 1; // Change these values to delay mock API
+            // return new Promise(function (resolve, reject) {
+            //     setTimeout(function () {
+            //         resolve(response);
+            //     }, randomTime);
+            // });
         }
         return response
     }
