@@ -4,8 +4,8 @@ import icons from './css/icons.css';
 import {default as menuLocale} from "../locale/menu";
 import askusStyles from './css/askus.css';
 import myLibStyles from './css/mylibrary.css';
-import { askus } from './AskUs';
-import { mylibrary } from './MyLibrary';
+import {askus} from './AskUs';
+import {mylibrary} from './MyLibrary';
 import ApiAccess from "../ApiAccess/ApiAccess";
 
 /**
@@ -188,8 +188,7 @@ class UQSiteHeader extends HTMLElement {
             template.content.getElementById('askus').remove();
         } else {
             template.content.getElementById('askus').innerHTML = askus(); // get the askus template
-            const chatAvail = this.getChatStatus();
-            if(!chatAvail) {
+            if (!this.getChatStatus()) {
                 // Chat disabled
                 template.content.getElementById('askus-chat-li').style.opacity = '0.6';
                 template.content.getElementById('askus-chat-link').removeAttribute("onclick");
