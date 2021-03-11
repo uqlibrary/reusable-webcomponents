@@ -165,15 +165,13 @@ class UQSiteHeader extends HTMLElement {
     const hideAskUs = this.getAttribute("hideAskUs") === "true";
 
     // Chat
-    const chatAvail = this.getAttribute("chatAvailable") || "false";
-    const chatStart = this.getAttribute("chatStart") || "false";
-    const chatEnd = this.getAttribute("chatEnd") || "false";
-    const phoneStart = this.getAttribute("phoneStart") || "";
-    const phoneEnd = this.getAttribute("phoneEnd") || "";
+    const chatAvail = this.getAttribute("chatAvailable") === "true";
+    const chatTime = this.getAttribute("chatTime") || "";
+    const phoneTime = this.getAttribute("phoneTime") || "";
 
     // My Library
-    const hideEspace = this.getAttribute("hideEspace") || "false";
-    const hideMasquerade = this.getAttribute("hideMasquerade") || "true";
+    const hideEspace = this.getAttribute("hideEspace") === "true";
+    const hideMasquerade = this.getAttribute("hideMasquerade") === "true";
 
     if (!!hideAskUs) {
       template.content.getElementById("askus").remove();
@@ -192,12 +190,8 @@ class UQSiteHeader extends HTMLElement {
           .removeAttribute("href");
       }
       // Set the attributes
-      template.content.getElementById("askus-chat-start").innerText = chatStart;
-      template.content.getElementById("askus-chat-end").innerText = chatEnd;
-      template.content.getElementById(
-        "askus-phone-start"
-      ).innerText = phoneStart;
-      template.content.getElementById("askus-phone-end").innerText = phoneEnd;
+      template.content.getElementById("askus-chat-time").innerText = chatTime;
+      template.content.getElementById("askus-phone-time").innerText = phoneTime;
     }
 
     // My Library
