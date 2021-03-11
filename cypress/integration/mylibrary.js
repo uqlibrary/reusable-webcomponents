@@ -3,11 +3,13 @@
 import ApiAccess from "../../src/ApiAccess/ApiAccess";
 
 describe("My Library menu", () => {
+  beforeEach(() => {
+    // whenever we change users in the same tab we have to clear local storage or it will pick up the previous user :(
+    (new ApiAccess()).removeAccountStorage();
+
+  });
   context("My Library Menu", () => {
     it("Appears as expected", () => {
-      // whenever we change users in the same tab we have to clear local storage or it will pick up the previous user :(
-      (new ApiAccess()).removeAccountStorage();
-
       cy.visit("http://localhost:8080");
       cy.viewport(1280, 900);
       cy.get("uq-site-header")
@@ -37,9 +39,6 @@ describe("My Library menu", () => {
     });
 
     it("Admin gets masquerade", () => {
-      // whenever we change users in the same tab we have to clear local storage or it will pick up the previous user :(
-      (new ApiAccess()).removeAccountStorage();
-
       cy.visit("http://localhost:8080?user=uqstaff");
       cy.viewport(1280, 900);
       cy.get("uq-site-header")
