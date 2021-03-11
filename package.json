@@ -9,9 +9,9 @@
   "scripts": {
     "build": "cross-env NODE_ENV=local webpack",
     "build:development": "cross-env NODE_ENV=development webpack",
-    "start:mock": "cross-env NODE_ENV=local USE_MOCK=true FULL_PATH=http://localhost:8080 NODE_OPTIONS='--max-old-space-size=2048' webpack-dev-server",
     "build:staging": "cross-env NODE_ENV=staging webpack",
     "build:production": "cross-env NODE_ENV=production webpack",
+    "start:mock": "cross-env NODE_ENV=local USE_MOCK=true FULL_PATH=http://localhost:8080 NODE_OPTIONS='--max-old-space-size=2048' webpack-dev-server",
     "start": "cross-env NODE_ENV=local webpack-dev-server --open",
     "clean": "rm -rf node_modules dist cypress/screenshots cypress/video",
     "start-test-server": "cross-env NODE_ENV=local webpack-dev-server",
