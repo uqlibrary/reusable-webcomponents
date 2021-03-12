@@ -220,7 +220,9 @@ class UQSiteHeader extends HTMLElement {
             }
             return accountSummary;
         }).then(accountSummary => {
-            this.showHideMylibraryEspaceOption();
+            if (!!accountSummary.isLoggedin) {
+                this.showHideMylibraryEspaceOption();
+            }
             return accountSummary;
         });
     }
