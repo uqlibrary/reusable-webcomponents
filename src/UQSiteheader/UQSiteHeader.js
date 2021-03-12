@@ -598,10 +598,10 @@ class UQSiteHeader extends HTMLElement {
         await api.loadOpeningHours().then(hours => {
             // display opening hours in the askus widget
             const chatitem = shadowRoot.getElementById('askus-chat-time');
-            !!hours.chat && !!chatitem && (chatitem.innerHTML = hours.chat);
+            !!hours && !!hours.chat && !!chatitem && (chatitem.innerHTML = hours.chat);
 
             const phoneitem = shadowRoot.getElementById('askus-phone-time');
-            !!hours.phone && !!phoneitem && (phoneitem.innerText = hours.phone);
+            !!hours && !!hours.phone && !!phoneitem && (phoneitem.innerText = hours.phone);
         });
 
 
