@@ -18,18 +18,12 @@ class ApiRoutes {
     CHAT_API() {
         return {
             apiUrl: 'chat_status',
-            options: {
-                params: {
-                    ts: `${new Date().getTime()}`
-                }
-            },
         };
     };
 
     LIB_HOURS_API() {
         return {
             apiUrl: 'library_hours/day',
-            options: { params: { ts: `${new Date().getTime()}` } },
         }
     };
 
