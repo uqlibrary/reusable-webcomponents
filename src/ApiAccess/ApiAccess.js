@@ -38,6 +38,17 @@ class ApiAccess {
             });
     }
 
+    async loadAuthorApi() {
+        const api = (new ApiRoutes()).CURRENT_AUTHOR_API();
+        const urlPath = api.apiUrl;
+        const options = !!api.options ? api.options : {};
+        return await this.fetchAPI(urlPath, options, true)
+            .then(author => {
+                console.log('getAccount: author = ', author);
+                return author;
+            });
+    }
+
     async loadChatStatus() {
         console.log('loadChatStatus start');
         let isOnline = false;

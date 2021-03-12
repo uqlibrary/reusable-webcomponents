@@ -215,13 +215,13 @@ class UQSiteHeader extends HTMLElement {
                 const shadowDOM = !!uqSiteHeader && uqSiteHeader.shadowRoot || false;
                 shadowDOM.getElementById("mylibrary").innerHTML = mylibrary();
 
-                const hideEspace = this.getAttribute("hideEspace") === "true";
-
-                // hideEspace === "true" &&
-                //   template.content.getElementById("mylibrary-espace").remove();
                 !accountSummary.canMasquerade &&
                 shadowDOM.getElementById("mylibrary-masquerade").remove();
             }
+            return accountSummary;
+        }).then(accountSummary => {
+            this.showHideMylibraryEspaceOption();
+            return accountSummary;
         });
     }
 
@@ -238,13 +238,24 @@ class UQSiteHeader extends HTMLElement {
         let accountSummary = {};
 
         const api = new ApiAccess();
-        await api.getAccount().then(account => {
+        return await api.getAccount().then(account => {
             if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
                 accountSummary.isLoggedin = !!account && !!account.id;
                 accountSummary.canMasquerade = !!accountSummary.isLoggedin && account.hasOwnProperty('canMasquerade') && account.canMasquerade === true
             }
+            return accountSummary;
         });
-        return accountSummary;
+    }
+
+    async showHideMylibraryEspaceOption() {
+        const api = new ApiAccess();
+        return await api.loadAuthorApi().then(author => {
+            const uqSiteHeader = document.querySelector('uq-site-header');
+            const shadowDOM = !!uqSiteHeader && uqSiteHeader.shadowRoot || false;
+            const espaceitem = shadowDOM.getElementById("mylibrary-espace");
+            !!espaceitem && (!author || !author.data || !author.data.hasOwnProperty('aut_id') && espaceitem.remove());
+            return author
+        });
     }
 
     addAuthButtonToSlot() {
