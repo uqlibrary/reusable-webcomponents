@@ -72,7 +72,7 @@ class AuthButton extends HTMLElement {
 
     // mylibrary button and auth button both need account, and mylibrary goes first, being drawn further to the left on the page
     // put a smidge of delay on the auth button so it will pull from session storage and not make a second api call
-    // (can't wait on the mylibrary button to apppear as not all pages include it)
+    // (can't wait on the mylibrary button to appear as not all pages include it)
     async showLoginFromAuthStatus(shadowDOM) {
         // from https://stackoverflow.com/a/54772517/1246313
         const setAsyncTimeout = (cb, timeout = 0) => new Promise(resolve => {
@@ -91,7 +91,7 @@ class AuthButton extends HTMLElement {
                     shadowDOM.appendChild(template.content.cloneNode(true));
                     this.addButtonListeners(shadowDOM);
                 });
-        }, 5); // least wait that does the job
+        }, 500); // least wait that does the job
     }
 
     addButtonListeners(shadowDOM) {
