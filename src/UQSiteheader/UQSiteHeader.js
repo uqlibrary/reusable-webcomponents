@@ -208,15 +208,18 @@ class UQSiteHeader extends HTMLElement {
 
         this.confirmAccount().then(accountSummary => {
             console.log('after, accountSummary = ', accountSummary);
-            if (!accountSummary.isLoggedin) {
-                template.content.getElementById("mylibrary").remove();
-            } else {
+            if (!!accountSummary.isLoggedin) {
                 const uqSiteHeader = document.querySelector('uq-site-header');
                 const shadowDOM = !!uqSiteHeader && uqSiteHeader.shadowRoot || false;
-                shadowDOM.getElementById("mylibrary").innerHTML = mylibrary();
+                if (!shadowDOM) {
+                    return {}
+                }
+                this.isMylibraryButtonRequested() && (shadowDOM.getElementById("mylibrary").innerHTML = mylibrary());
+                this.isMylibraryButtonRequested() && this.addMyLibraryButtonListeners(shadowDOM);
 
-                !accountSummary.canMasquerade &&
-                shadowDOM.getElementById("mylibrary-masquerade").remove();
+                !accountSummary.canMasquerade && !!shadowDOM && shadowDOM.getElementById("mylibrary-masquerade").remove();
+            } else {
+                template.content.getElementById("mylibrary").remove();
             }
             return accountSummary;
         }).then(accountSummary => {
@@ -401,6 +404,7 @@ class UQSiteHeader extends HTMLElement {
         initCalled = true;
         // Initialise Main Navigation
         const uqSiteHeader = document.querySelector('uq-site-header');
+        const shadowDOM = !!uqSiteHeader && uqSiteHeader.shadowRoot || false;
         if (!!isMegaMenuDisplayed) {
           var navelement = !!uqSiteHeader && uqSiteHeader.shadowRoot.getElementById("jsNav");
           var nav = new uq.siteHeaderNavigation(navelement, "uq-site-header__navigation");
@@ -413,7 +417,6 @@ class UQSiteHeader extends HTMLElement {
         );
         equaliseGridMenu.align();
 
-        const shadowDOM = !!uqSiteHeader && uqSiteHeader.shadowRoot || false;
         // Actions for the ask us menu
         if (!!shadowDOM && hideAskUs !== "true") {
           let askUsClosed = true;
@@ -483,104 +486,83 @@ class UQSiteHeader extends HTMLElement {
 
 
         // Actions for My Library menu
-        if (hideMyLibrary !== "true") {
-          let myLibraryClosed = true;
-          function openMyLibMenu() {
-            myLibraryClosed = false;
-            document
-              .querySelector("uq-site-header")
-              .shadowRoot.getElementById("mylibrary-menu").style.display =
-              "block";
-            document
-              .querySelector("uq-site-header")
-              .shadowRoot.getElementById("mylibrary-pane").style.display =
-              "block";
-
-            function showDisplay() {
-              document
-                .querySelector("uq-site-header")
-                .shadowRoot.getElementById("mylibrary-menu")
-                .classList.remove("closed-menu");
-              document
-                .querySelector("uq-site-header")
-                .shadowRoot.getElementById("mylibrary-pane")
-                .classList.remove("closed-pane");
-            }
-
-            setTimeout(showDisplay, 100);
-            document.onkeydown = function (evt) {
-              evt = evt || window.event;
-              if (evt.keyCode == 27 && myLibraryClosed === false) {
-                closeMyLibMenu();
-              }
-            };
-          }
-
-          function closeMyLibMenu() {
-            myLibraryClosed = true;
-            document
-              .querySelector("uq-site-header")
-              .shadowRoot.getElementById("mylibrary-menu")
-              .classList.add("closed-menu");
-            document
-              .querySelector("uq-site-header")
-              .shadowRoot.getElementById("mylibrary-pane")
-              .classList.add("closed-pane");
-
-            function hideMyLibDisplay() {
-              document
-                .querySelector("uq-site-header")
-                .shadowRoot.getElementById("mylibrary-menu").style.display =
-                "none";
-              document
-                .querySelector("uq-site-header")
-                .shadowRoot.getElementById("mylibrary-pane").style.display =
-                "none";
-            }
-
-            setTimeout(hideMyLibDisplay, 500);
-          }
-
-          function handleMyLibButton() {
-            myLibraryClosed
-              ? document
-                  .querySelector("uq-site-header")
-                  .shadowRoot.getElementById("mylibrary-button")
-                  .blur()
-              : document
-                  .querySelector("uq-site-header")
-                  .shadowRoot.getElementById("mylibrary-button")
-                  .focus();
-            document
-              .querySelector("uq-site-header")
-              .shadowRoot.getElementById("mylibrary-pane")
-              .addEventListener("click", handleMyLibMouseOut);
-            openMyLibMenu();
-          }
-
-          function handleMyLibMouseOut() {
-            myLibraryClosed = !myLibraryClosed;
-            document
-              .querySelector("uq-site-header")
-              .shadowRoot.getElementById("mylibrary-pane")
-              .removeEventListener("mouseleave", handleMyLibMouseOut);
-            closeMyLibMenu();
-          }
-
-          // Attach a listener to the mylibrary button
-          const uqsiteheader1 = document.querySelector("uq-site-header")
-          const shadowRoot = !!uqsiteheader1 && uqsiteheader1.shadowRoot;
-          const mylibraryButton = !!shadowRoot && shadowRoot.getElementById("mylibrary-button");
-          !!mylibraryButton && mylibraryButton.addEventListener("click", handleMyLibButton);
-        }
+        // if (!!shadowDOM && hideMyLibrary !== "true") {
+        //     this.addMyLibraryButtonListeners(shadowDOM);
+        // }
       };
       //Specify the location of the ITS DS JS file
       script.src = "uq-site-header.js";
 
-      //Append it to the document header
+            //Append it to the document header
       document.head.appendChild(script);
     }
   }
+
+    addMyLibraryButtonListeners(shadowDOM) {
+        console.log('addMyLibraryButton');
+        let myLibraryClosed = true;
+
+        function openMyLibMenu() {
+            myLibraryClosed = false;
+            shadowDOM.getElementById("mylibrary-menu").style.display =
+                "block";
+            shadowDOM.getElementById("mylibrary-pane").style.display =
+                "block";
+
+            function showDisplay() {
+                shadowDOM.getElementById("mylibrary-menu")
+                    .classList.remove("closed-menu");
+                shadowDOM.getElementById("mylibrary-pane")
+                    .classList.remove("closed-pane");
+            }
+
+            setTimeout(showDisplay, 100);
+            document.onkeydown = function (evt) {
+                evt = evt || window.event;
+                if (evt.keyCode == 27 && myLibraryClosed === false) {
+                    closeMyLibMenu();
+                }
+            };
+        }
+
+        function closeMyLibMenu() {
+            myLibraryClosed = true;
+            shadowDOM.getElementById("mylibrary-menu")
+                .classList.add("closed-menu");
+            shadowDOM.getElementById("mylibrary-pane")
+                .classList.add("closed-pane");
+
+            function hideMyLibDisplay() {
+                shadowDOM.getElementById("mylibrary-menu").style.display =
+                    "none";
+                shadowDOM.getElementById("mylibrary-pane").style.display =
+                    "none";
+            }
+
+            setTimeout(hideMyLibDisplay, 500);
+        }
+
+        function handleMyLibButton() {
+            myLibraryClosed
+                ? shadowDOM.getElementById("mylibrary-button").blur()
+                : shadowDOM.getElementById("mylibrary-button").focus();
+            shadowDOM.getElementById("mylibrary-pane").addEventListener("click", handleMyLibMouseOut);
+            openMyLibMenu();
+        }
+
+        function handleMyLibMouseOut() {
+            myLibraryClosed = !myLibraryClosed;
+            shadowDOM.getElementById("mylibrary-pane")
+                .removeEventListener("mouseleave", handleMyLibMouseOut);
+            closeMyLibMenu();
+        }
+
+        // Attach a listener to the mylibrary button
+        const uqsiteheader1 = document.querySelector("uq-site-header")
+        const shadowRoot = !!uqsiteheader1 && uqsiteheader1.shadowRoot;
+        const mylibraryButton = !!shadowRoot && shadowRoot.getElementById("mylibrary-button");
+        !!mylibraryButton && mylibraryButton.addEventListener("click", handleMyLibButton);
+    }
 
     async updateAskusDOM(shadowRoot) {
         const api = new ApiAccess();
@@ -630,6 +612,7 @@ class UQSiteHeader extends HTMLElement {
 
     isMylibraryButtonRequested() {
         const hideMylibrary = this.getAttribute('hideMyLibrary');
+        console.log('hideMylibrary = ', hideMylibrary);
         return hideMylibrary === "false" || hideMylibrary === null;
     }
 
