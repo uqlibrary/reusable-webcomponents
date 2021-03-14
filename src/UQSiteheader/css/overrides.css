@@ -44,7 +44,7 @@ span.displayText {
     }
 }
 @media (max-width: 80rem) {
-    /* when the menu drops to a single lne, we dont need the sapacing under the menu item any more */
+    /* when the menu drops to a single lne, we dont need the spacing under the menu item any more */
     li.uq-site-header__navigation__list-item--has-subnav a {
         min-height: 4rem;
     }
