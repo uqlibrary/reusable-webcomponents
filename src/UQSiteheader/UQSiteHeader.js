@@ -286,13 +286,10 @@ class UQSiteHeader extends HTMLElement {
     }
 
     rewriteMegaMenuFromJson() {
-        // temp variable, for easily swapping between original ITS and this, during dev
-        const overWrite = true;
-
         const megaMenu = template.content.getElementById('jsNav');
 
         // clear the existing children
-        !!overWrite && (megaMenu.textContent = '');
+        megaMenu.textContent = '';
 
         if (!this.isMegaMenuRequested()) {
             // hide responsive menu button
@@ -377,7 +374,7 @@ class UQSiteHeader extends HTMLElement {
 
             listWrapper.appendChild(parentListItem);
         })
-        !!overWrite && megaMenu.appendChild(listWrapper);
+        megaMenu.appendChild(listWrapper);
     }
 
     createLink(datatestid, href, linktext) {
