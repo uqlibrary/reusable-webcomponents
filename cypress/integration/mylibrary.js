@@ -10,19 +10,23 @@ describe("My Library menu", () => {
   });
   context("My Library Menu", () => {
     it("Appears as expected", () => {
-      cy.visit("http://localhost:8080");
+      cy.visit("http://localhost:8080?user=public");
       cy.viewport(1280, 900);
       cy.get("uq-site-header")
         .shadow()
-        .find("div#mylibrary")
-        .should("contain", "My library");
-      cy.get("uq-site-header").shadow().find("button#mylibrary-button").click();
+        .find("div#askus")
+        .should("contain", "AskUs");
+      cy.get("uq-site-header").shadow().find("button#askus-button").click();
       cy.wait(500);
       cy.get("uq-site-header")
         .shadow()
-        .find("ul.mylibrary-menu-list")
+        .find("ul.askus-menu-list")
         .find("li")
-        .should("have.length", 9);
+        .should("have.length", 6);
+      cy.get("uq-site-header")
+          .shadow()
+          .find("div.mylibrary-menu-list")
+          .should('not.exist');
     });
 
     it("AskUs passes accessibility", () => {

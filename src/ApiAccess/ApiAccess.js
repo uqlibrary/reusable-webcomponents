@@ -144,7 +144,7 @@ class ApiAccess {
 
     getAccountFromStorage() {
         const account = JSON.parse(sessionStorage.getItem(this.STORAGE_ACCOUNT_KEYNAME));
-        if (this.isMock() && account.id !== (new MockApi()).user) {
+        if (this.isMock() && !!account && !!account.id && account.id !== (new MockApi()).user) {
             // allow developer to swap between users in the same tab
             return null;
         }
