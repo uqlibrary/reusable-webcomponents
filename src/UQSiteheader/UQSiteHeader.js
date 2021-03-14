@@ -480,12 +480,6 @@ class UQSiteHeader extends HTMLElement {
           const askusButton = shadowDOM.getElementById("askus-button");
           !!askusButton && askusButton.addEventListener('click', handleAskUsButton);
         }
-
-
-        // Actions for My Library menu
-        // if (!!shadowDOM && hideMyLibrary !== "true") {
-        //     this.addMyLibraryButtonListeners(shadowDOM);
-        // }
       };
       //Specify the location of the ITS DS JS file
       script.src = "uq-site-header.js";

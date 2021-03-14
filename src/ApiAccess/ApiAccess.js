@@ -144,6 +144,11 @@ class ApiAccess {
 
     getAccountFromStorage() {
         const account = JSON.parse(sessionStorage.getItem(this.STORAGE_ACCOUNT_KEYNAME));
+        if (this.isMock() && account.id !== (new MockApi()).user) {
+            // allow developer to swap between users in the same tab
+            return null;
+        }
+
         if (account === null) {
             return null;
         }
@@ -184,8 +189,8 @@ class ApiAccess {
     fetchMock(url, options = null) {
         const response = (new MockApi).mockfetch(url, options);
         if (!response.ok || !response.body) {
-            console.log(`fetchMock console: An error has occured: ${response.status}`);
-            const message = `fetchMock: An error has occured: ${response.status}`;
+            console.log(`fetchMock console: An error has occured in mock: ${response.status}`);
+            const message = `fetchMock: An error has occured in mock: ${response.status}`;
             // vanilla gets a 403 so we don't want to throw an error here
             return {}
         }
