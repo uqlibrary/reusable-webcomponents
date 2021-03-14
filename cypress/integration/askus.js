@@ -11,7 +11,7 @@ describe("AskUs menu", () => {
       cy.get("uq-site-header")
         .shadow()
         .find("div#askus")
-        .should("contain", "Ask Us");
+        .should("contain", "AskUs");
       cy.get("uq-site-header").shadow().find("button#askus-button").click();
       cy.wait(500);
       cy.get("uq-site-header")
