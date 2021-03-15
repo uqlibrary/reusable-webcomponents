@@ -10,15 +10,12 @@ import {
 
 class MockApi {
     constructor() {
-        const queryString = require('query-string');
-
         // set session cookie in mock mode
         Cookies.set(apilocale.SESSION_COOKIE_NAME, 'abc123');
         Cookies.set(apilocale.SESSION_USER_GROUP_COOKIE_NAME, 'LIBRARYSTAFFB');
 
         // Get user from query string
-        const user = queryString.parse(location.search || location.hash.substring(location.hash.indexOf('?'))).user;
-        console.log('user = ', user);
+        const user = this.getUserParameter();
 
         this.mockData = mockData
         this.mockData.accounts.uqrdav10 = mockData.uqrdav10.account;
@@ -31,7 +28,12 @@ class MockApi {
 
         // default user is researcher if user is not defined
         this.user = user || 'vanilla';
+        console.log('this.user = ', this.user);
+    }
 
+    getUserParameter() {
+        const queryString = require('query-string');
+        return queryString.parse(location.search || location.hash.substring(location.hash.indexOf('?'))).user;
     }
 
     response(httpstatus, body, withDelay) {

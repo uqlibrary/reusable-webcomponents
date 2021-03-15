@@ -9,28 +9,24 @@ describe("My Library menu", () => {
 
   });
   context("My Library Menu", () => {
-    it("Appears as expected", () => {
+    it("Mylibrary not available to logged out user", () => {
       cy.visit("http://localhost:8080?user=public");
       cy.viewport(1280, 900);
-      cy.get("uq-site-header")
-        .shadow()
-        .find("div#askus")
-        .should("contain", "AskUs");
-      cy.get("uq-site-header").shadow().find("button#askus-button").click();
-      cy.wait(500);
-      cy.get("uq-site-header")
-        .shadow()
-        .find("ul.askus-menu-list")
-        .find("li")
-        .should("have.length", 6);
+      // the page is valid: it contains the correct header
       cy.get("uq-site-header")
           .shadow()
-          .find("div.mylibrary-menu-list")
+          .find("#site-title")
+          .should("contain", "Library");
+      // but because they are logged out, it does not contain a mylibrary button
+      // (mylibrary root has no children)
+      cy.get("uq-site-header")
+          .shadow()
+          .find("#mylibrary div")
           .should('not.exist');
     });
 
-    it("AskUs passes accessibility", () => {
-      cy.visit("http://localhost:8080");
+    it("My Library passes accessibility", () => {
+      cy.visit("http://localhost:8080?user=vanilla");
       cy.injectAxe();
       cy.viewport(1280, 900);
       cy.get("uq-site-header").shadow().find("button#mylibrary-button").click();
