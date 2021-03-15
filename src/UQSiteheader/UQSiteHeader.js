@@ -2,9 +2,9 @@ import styles from './css/main.css';
 import overrides from './css/overrides.css';
 import icons from './css/icons.css';
 import {default as menuLocale} from "../locale/menu";
-import askusStyles from './css/askus.css';
+// import askusStyles from '../AskUsButton/css/askus.css';
 import myLibStyles from './css/mylibrary.css';
-import { askus } from './AskUs';
+// import { askus } from './AskUs';
 import { mylibrary } from './MyLibrary';
 import ApiAccess from "../ApiAccess/ApiAccess";
 
@@ -30,7 +30,6 @@ template.innerHTML = `
     <style>${styles.toString()}</style>
     <style>${icons.toString()}</style>
     <style>${overrides.toString()}</style>
-    <style>${askusStyles.toString()}</style>
     <style>${myLibStyles.toString()}</style>
     <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v6/fonts/Roboto/roboto.css" />
     <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css" />
@@ -43,7 +42,6 @@ template.innerHTML = `
         </div>
         <div class="uq-site-header__title-container__right">
           <div id="mylibrary"></div>
-          <div id="askus"></div>
           <slot name="site-utilities"></slot>
           <button id="uq-site-header__navigation-toggle" class="uq-site-header__navigation-toggle jsNavToggle">Menu</button>
         </div>
@@ -184,10 +182,11 @@ class UQSiteHeader extends HTMLElement {
     !!siteTitleContent && !!siteTitle && (siteTitleContent.innerHTML = siteTitle);
     !!siteTitleContent && !!siteURL && (siteTitleContent.href = siteURL);
 
-    this.hideShowAskusButton(shadowDOM);
+    // this.hideShowAskusButton(shadowDOM);
 
     this.hideShowMyLibraryButton();
 
+    this.addAskUsButtonToSlot();
     this.addAuthButtonToSlot();
 
     this.rewriteMegaMenuFromJson();
@@ -230,15 +229,6 @@ class UQSiteHeader extends HTMLElement {
         });
     }
 
-    hideShowAskusButton(shadowDOM) {
-        if (this.isAskusButtonRequested()) {
-            template.content.getElementById('askus').innerHTML = askus(); // get the askus template
-            this.updateAskusDOM(shadowDOM)
-        } else {
-            template.content.getElementById('askus').remove();
-        }
-    }
-
     async confirmAccount() {
         let accountSummary = {};
 
@@ -263,6 +253,17 @@ class UQSiteHeader extends HTMLElement {
         });
     }
 
+    addAskUsButtonToSlot(slotname = 'site-utilities') {
+        if (!this.isAskusButtonRequested()) {
+            return;
+        }
+
+        const askusButton0 = document.createElement('askus-button');
+
+        const askusButton = !!askusButton0 && askusButton0.cloneNode(true);
+        !!askusButton && this.addButtonToUtilityArea(askusButton, slotname);
+    }
+
     addAuthButtonToSlot() {
         if (!this.isAuthButtonRequested()) {
             return;
@@ -276,9 +277,9 @@ class UQSiteHeader extends HTMLElement {
         !!authButton && this.addButtonToUtilityArea(authButton);
     }
 
-    addButtonToUtilityArea(button) {
+    addButtonToUtilityArea(button, slotName = 'site-utilities') {
         const buttonWrapper = document.createElement('span');
-        !!buttonWrapper && buttonWrapper.setAttribute('slot', 'site-utilities');
+        !!buttonWrapper && buttonWrapper.setAttribute('slot', slotName);
         !!button && !!buttonWrapper && buttonWrapper.appendChild(button);
 
         const siteHeader = document.getElementsByTagName('uq-site-header')[0] || false;
@@ -413,73 +414,6 @@ class UQSiteHeader extends HTMLElement {
           ".uq-grid-menu--equalised>a"
         );
         equaliseGridMenu.align();
-
-        // Actions for the ask us menu
-        if (!!shadowDOM && hideAskUs !== "true") {
-          let askUsClosed = true;
-          function openMenu() {
-            askUsClosed = false;
-            const askusMenu = shadowDOM.getElementById("askus-menu");
-            !!askusMenu && (askusMenu.style.display = "block");
-            const askusPane = shadowDOM.getElementById("askus-pane");
-            !!askusPane && (askusPane.style.display = "block");
-
-            function showDisplay() {
-              !!askusMenu && askusMenu.classList.remove("closed-menu");
-              !!askusPane && askusPane.classList.remove("closed-pane");
-            }
-
-            setTimeout(showDisplay, 100);
-            document.onkeydown = function (evt) {
-              evt = evt || window.event;
-              const escapeKeyCode = 27;
-              if ((evt.key === escapeKeyCode || evt.keyCode === escapeKeyCode) && askUsClosed === false) {
-                closeMenu();
-              }
-            };
-          }
-
-          function closeMenu() {
-            askUsClosed = true;
-            const askusMenu = shadowDOM.getElementById("askus-menu");
-            const askusPane = shadowDOM.getElementById("askus-pane");
-
-            !!askusMenu && askusMenu.classList.add("closed-menu");
-            !!askusPane && askusPane.classList.add("closed-pane");
-
-            function hideDisplay() {
-              !!askusMenu && (askusMenu.style.display = "none");
-              !!askusPane && (askusPane.style.display = "none");
-            }
-
-            setTimeout(hideDisplay, 500);
-          }
-
-          function handleAskUsButton() {
-            const askusButton = shadowDOM.getElementById('askus-actual-button');
-            const askusPane = shadowDOM.getElementById("askus-pane");
-
-            !!askUsClosed
-              ? !!askusButton && askusButton.blur()
-              : !!askusButton && askusButton.focus()
-            !!askusPane && askusPane.addEventListener('click', handleMouseOut);
-
-            openMenu();
-          }
-
-          function handleMouseOut() {
-            const askusPane = shadowDOM.getElementById("askus-pane");
-
-            askUsClosed = !askUsClosed;
-            !!askusPane && askusPane.removeEventListener('mouseleave', handleMouseOut);
-            closeMenu();
-
-          }
-
-          // Attach a listener to the askus button
-          const askusButton = shadowDOM.getElementById("askus-button");
-          !!askusButton && askusButton.addEventListener('click', handleAskUsButton);
-        }
       };
       //Specify the location of the ITS DS JS file
       script.src = "uq-site-header.js";
@@ -553,33 +487,6 @@ class UQSiteHeader extends HTMLElement {
         const shadowRoot = !!uqsiteheader1 && uqsiteheader1.shadowRoot;
         const mylibraryButton = !!shadowRoot && shadowRoot.getElementById("mylibrary-button");
         !!mylibraryButton && mylibraryButton.addEventListener("click", handleMyLibButton);
-    }
-
-    async updateAskusDOM(shadowRoot) {
-        const api = new ApiAccess();
-        await api.loadChatStatus().then(isOnline => {
-            if (!isOnline) {
-                console.log('chat is offline');
-                // Chat disabled
-                shadowRoot.getElementById('askus-chat-li').style.opacity = '0.6';
-                shadowRoot.getElementById('askus-chat-link').removeAttribute("onclick");
-
-                shadowRoot.getElementById('askus-phone-li').style.opacity = '0.6';
-                shadowRoot.getElementById('askus-phone-link').removeAttribute("href");
-        } else {
-                console.log('chat is ONline');
-            }});
-
-        await api.loadOpeningHours().then(hours => {
-            // display opening hours in the askus widget
-            const chatitem = shadowRoot.getElementById('askus-chat-time');
-            !!hours && !!hours.chat && !!chatitem && (chatitem.innerHTML = hours.chat);
-
-            const phoneitem = shadowRoot.getElementById('askus-phone-time');
-            !!hours && !!hours.phone && !!phoneitem && (phoneitem.innerText = hours.phone);
-        });
-
-
     }
 
     isMegaMenuRequested() {

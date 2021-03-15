@@ -9,12 +9,15 @@ describe("AskUs menu", () => {
     it("Appears as expected", () => {
       cy.viewport(1280, 900);
       cy.get("uq-site-header")
+          .find("askus-button")
+          .should('exist');
+      cy.get("askus-button")
         .shadow()
         .find("div#askus")
         .should("contain", "AskUs");
-      cy.get("uq-site-header").shadow().find("button#askus-button").click();
+      cy.get("askus-button").shadow().find("button#askus-button").click();
       cy.wait(500);
-      cy.get("uq-site-header")
+      cy.get("askus-button")
         .shadow()
         .find("ul.askus-menu-list")
         .find("li")
@@ -23,9 +26,9 @@ describe("AskUs menu", () => {
 
     it("AskUs passes accessibility", () => {
       cy.viewport(1280, 900);
-      cy.get("uq-site-header").shadow().find("button#askus-button").click();
+      cy.get("askus-button").shadow().find("button#askus-button").click();
       cy.wait(500);
-      cy.checkA11y("uq-site-header", {
+      cy.checkA11y("askus-button", {
         reportName: "AskUs",
         scopeName: "Accessibility",
         includedImpacts: ["minor", "moderate", "serious", "critical"],
