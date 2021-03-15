@@ -21,7 +21,7 @@ class ApiAccess {
 
         let accountData = this.getAccountFromStorage();
         if (accountData !== null) {
-            console.log('account from session storage = ', accountData);
+            console.log('getAccount: account from session storage = ', accountData);
             return accountData;
         }
 
@@ -92,7 +92,7 @@ class ApiAccess {
     }
 
     async fetchAPI(urlPath, headers, tokenRequired = false) {
-        console.log('fetchAPI, getting ', urlPath, ' with ', headers);
+        console.log('fetchAPI, getting api "', urlPath, '" with these headers: ', headers);
 
         if (!!tokenRequired && (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)) {
             // no cookie so we wont bother asking for an api that cant be returned
@@ -167,11 +167,17 @@ class ApiAccess {
     }
 
     getSessionCookie() {
+        if (this.isMock() && (new MockApi()).getUserParameter() !== 'public') {
+            return 'abc123';
+        }
         return this.getCookie(locale.SESSION_COOKIE_NAME);
     }
 
     getLibraryGroupCookie() {
         // I am guessing this field is used as a proxy for 'has a Library account, not just a general UQ login'
+        if (this.isMock() && (new MockApi()).getUserParameter() !== 'public') {
+            return 'LIBRARYSTAFFB';
+        }
         return this.getCookie(locale.SESSION_USER_GROUP_COOKIE_NAME);
     }
 
