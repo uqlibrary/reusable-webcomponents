@@ -1,11 +1,11 @@
-import styles from './css/main.css';
-import overrides from './css/overrides.css';
-import icons from './css/icons.css';
-import {default as menuLocale} from "../locale/menu";
-import askusStyles from './css/askus.css';
-import myLibStyles from './css/mylibrary.css';
-import { askus } from './AskUs';
-import { mylibrary } from './MyLibrary';
+import styles from "./css/main.css";
+import overrides from "./css/overrides.css";
+import icons from "./css/icons.css";
+import { default as menuLocale } from "../locale/menu";
+import askusStyles from "./css/askus.css";
+import myLibStyles from "./css/mylibrary.css";
+import { askus } from "./AskUs";
+import { mylibrary } from "./MyLibrary";
 import ApiAccess from "../ApiAccess/ApiAccess";
 
 /**
@@ -178,10 +178,12 @@ class UQSiteHeader extends HTMLElement {
     // Handle the attributes for this component
 
     // Set the title & link URL
-    const siteTitleContent = template.content.getElementById('site-title');
-    const siteTitle = this.getAttribute('siteTitle');
-    const siteURL = this.getAttribute('siteURL');
-    !!siteTitleContent && !!siteTitle && (siteTitleContent.innerHTML = siteTitle);
+    const siteTitleContent = template.content.getElementById("site-title");
+    const siteTitle = this.getAttribute("siteTitle");
+    const siteURL = this.getAttribute("siteURL");
+    !!siteTitleContent &&
+      !!siteTitle &&
+      (siteTitleContent.innerHTML = siteTitle);
     !!siteTitleContent && !!siteURL && (siteTitleContent.href = siteURL);
 
     this.hideShowAskusButton(shadowDOM);
@@ -199,192 +201,228 @@ class UQSiteHeader extends HTMLElement {
     this.loadJS = this.loadJS.bind(this);
   }
 
-    hideShowMyLibraryButton() {
-        if (!this.isMylibraryButtonRequested()) {
-            // if the page doesnt want mylibrary, just dont show it - no account check required
-            template.content.getElementById("mylibrary").remove();
-            return;
-        }
-
-        this.confirmAccount().then(accountSummary => {
-            console.log('after, accountSummary = ', accountSummary);
-            if (!!accountSummary.isLoggedin) {
-                const uqSiteHeader = document.querySelector('uq-site-header');
-                const shadowDOM = !!uqSiteHeader && uqSiteHeader.shadowRoot || false;
-                if (!shadowDOM) {
-                    return {}
-                }
-                this.isMylibraryButtonRequested() && (shadowDOM.getElementById("mylibrary").innerHTML = mylibrary());
-                this.isMylibraryButtonRequested() && this.addMyLibraryButtonListeners(shadowDOM);
-
-                !accountSummary.canMasquerade && !!shadowDOM && shadowDOM.getElementById("mylibrary-masquerade").remove();
-            } else {
-                template.content.getElementById("mylibrary").remove();
-            }
-            return accountSummary;
-        }).then(accountSummary => {
-            if (!!accountSummary.isLoggedin) {
-                this.showHideMylibraryEspaceOption();
-            }
-            return accountSummary;
-        });
+  hideShowMyLibraryButton() {
+    if (!this.isMylibraryButtonRequested()) {
+      // if the page doesnt want mylibrary, just dont show it - no account check required
+      template.content.getElementById("mylibrary").remove();
+      return;
     }
 
-    hideShowAskusButton(shadowDOM) {
-        if (this.isAskusButtonRequested()) {
-            template.content.getElementById('askus').innerHTML = askus(); // get the askus template
-            this.updateAskusDOM(shadowDOM)
+    this.confirmAccount()
+      .then((accountSummary) => {
+        console.log("after, accountSummary = ", accountSummary);
+        if (!!accountSummary.isLoggedin) {
+          const uqSiteHeader = document.querySelector("uq-site-header");
+          const shadowDOM =
+            (!!uqSiteHeader && uqSiteHeader.shadowRoot) || false;
+          if (!shadowDOM) {
+            return {};
+          }
+          this.isMylibraryButtonRequested() &&
+            (shadowDOM.getElementById("mylibrary").innerHTML = mylibrary());
+          this.isMylibraryButtonRequested() &&
+            this.addMyLibraryButtonListeners(shadowDOM);
+
+          !accountSummary.canMasquerade &&
+            !!shadowDOM &&
+            shadowDOM.getElementById("mylibrary-masquerade").remove();
         } else {
-            template.content.getElementById('askus').remove();
+          template.content.getElementById("mylibrary").remove();
         }
-    }
-
-    async confirmAccount() {
-        let accountSummary = {};
-
-        const api = new ApiAccess();
-        return await api.getAccount().then(account => {
-            if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
-                accountSummary.isLoggedin = !!account && !!account.id;
-                accountSummary.canMasquerade = !!accountSummary.isLoggedin && account.hasOwnProperty('canMasquerade') && account.canMasquerade === true
-            }
-            return accountSummary;
-        });
-    }
-
-    async showHideMylibraryEspaceOption() {
-        const api = new ApiAccess();
-        return await api.loadAuthorApi().then(author => {
-            const uqSiteHeader = document.querySelector('uq-site-header');
-            const shadowDOM = !!uqSiteHeader && uqSiteHeader.shadowRoot || false;
-            const espaceitem = shadowDOM.getElementById("mylibrary-espace");
-            !!espaceitem && (!author || !author.data || !author.data.hasOwnProperty('aut_id') && espaceitem.remove());
-            return author
-        });
-    }
-
-    addAuthButtonToSlot() {
-        if (!this.isAuthButtonRequested()) {
-            return;
+        return accountSummary;
+      })
+      .then((accountSummary) => {
+        if (!!accountSummary.isLoggedin) {
+          this.showHideMylibraryEspaceOption();
         }
+        return accountSummary;
+      });
+  }
 
-        const authButton0 = document.createElement('auth-button');
+  hideShowAskusButton(shadowDOM) {
+    if (this.isAskusButtonRequested()) {
+      template.content.getElementById("askus").innerHTML = askus(); // get the askus template
+      this.updateAskusDOM(shadowDOM);
+    } else {
+      template.content.getElementById("askus").remove();
+    }
+  }
 
-        !!authButton0 && this.overwriteAsLoggedOut() && authButton0.setAttribute('overwriteAsLoggedOut', 'true');
+  async confirmAccount() {
+    let accountSummary = {};
 
-        const authButton = !!authButton0 && authButton0.cloneNode(true);
-        !!authButton && this.addButtonToUtilityArea(authButton);
+    const api = new ApiAccess();
+    return await api.getAccount().then((account) => {
+      if (account.hasOwnProperty("hasSession") && account.hasSession === true) {
+        accountSummary.isLoggedin = !!account && !!account.id;
+        accountSummary.canMasquerade =
+          !!accountSummary.isLoggedin &&
+          account.hasOwnProperty("canMasquerade") &&
+          account.canMasquerade === true;
+      }
+      return accountSummary;
+    });
+  }
+
+  async showHideMylibraryEspaceOption() {
+    const api = new ApiAccess();
+    return await api.loadAuthorApi().then((author) => {
+      const uqSiteHeader = document.querySelector("uq-site-header");
+      const shadowDOM = (!!uqSiteHeader && uqSiteHeader.shadowRoot) || false;
+      const espaceitem = shadowDOM.getElementById("mylibrary-espace");
+      !!espaceitem &&
+        (!author ||
+          !author.data ||
+          (!author.data.hasOwnProperty("aut_id") && espaceitem.remove()));
+      return author;
+    });
+  }
+
+  addAuthButtonToSlot() {
+    if (!this.isAuthButtonRequested()) {
+      return;
     }
 
-    addButtonToUtilityArea(button) {
-        const buttonWrapper = document.createElement('span');
-        !!buttonWrapper && buttonWrapper.setAttribute('slot', 'site-utilities');
-        !!button && !!buttonWrapper && buttonWrapper.appendChild(button);
+    const authButton0 = document.createElement("auth-button");
 
-        const siteHeader = document.getElementsByTagName('uq-site-header')[0] || false;
-        !!buttonWrapper && !!siteHeader && siteHeader.appendChild(buttonWrapper);
+    !!authButton0 &&
+      this.overwriteAsLoggedOut() &&
+      authButton0.setAttribute("overwriteAsLoggedOut", "true");
+
+    const authButton = !!authButton0 && authButton0.cloneNode(true);
+    !!authButton && this.addButtonToUtilityArea(authButton);
+  }
+
+  addButtonToUtilityArea(button) {
+    const buttonWrapper = document.createElement("span");
+    !!buttonWrapper && buttonWrapper.setAttribute("slot", "site-utilities");
+    !!button && !!buttonWrapper && buttonWrapper.appendChild(button);
+
+    const siteHeader =
+      document.getElementsByTagName("uq-site-header")[0] || false;
+    !!buttonWrapper && !!siteHeader && siteHeader.appendChild(buttonWrapper);
+  }
+
+  rewriteMegaMenuFromJson() {
+    const megaMenu = template.content.getElementById("jsNav");
+
+    // clear the existing children
+    megaMenu.textContent = "";
+
+    if (!this.isMegaMenuRequested()) {
+      // hide responsive menu button
+      const button = template.content.getElementById(
+        "uq-site-header__navigation-toggle"
+      );
+      !!button && (button.style.display = "none");
+
+      // don't add Library megamenu
+      return;
     }
 
-    rewriteMegaMenuFromJson() {
-        const megaMenu = template.content.getElementById('jsNav');
+    const listWrapper = document.createElement("ul");
+    listWrapper.setAttribute(
+      "class",
+      "uq-site-header__navigation__list uq-site-header__navigation__list--level-1"
+    );
 
-        // clear the existing children
-        megaMenu.textContent = '';
+    menuLocale.publicmenu.forEach((jsonParentItem, index) => {
+      const hasChildren =
+        !!jsonParentItem.submenuItems && jsonParentItem.submenuItems.length > 0;
 
-        if (!this.isMegaMenuRequested()) {
-            // hide responsive menu button
-            const button = template.content.getElementById('uq-site-header__navigation-toggle');
-            !!button && (button.style.display = 'none');
+      const parentListItem = document.createElement("li");
 
-            // don't add Library megamenu
-            return;
-        }
+      let classNavListitem = "uq-site-header__navigation__list-item";
+      !!hasChildren &&
+        (classNavListitem +=
+          " uq-site-header__navigation__list-item--has-subnav");
+      jsonParentItem.linkTo === window.location.href &&
+        (classNavListitem += " uq-site-header__navigation__list-item--active");
+      parentListItem.setAttribute("class", classNavListitem);
 
-        const listWrapper = document.createElement('ul');
-        listWrapper.setAttribute(
-            'class',
-            'uq-site-header__navigation__list uq-site-header__navigation__list--level-1'
+      const parentLink = this.createLink(
+        `megamenu-submenus-item-${index}`,
+        jsonParentItem.linkTo || "",
+        jsonParentItem.primaryText || ""
+      );
+      parentLink.setAttribute("aria-expanded", "false");
+      parentListItem.appendChild(parentLink);
+
+      if (hasChildren) {
+        const textOfToggle = document.createTextNode("Open");
+        const parentToggle = document.createElement("span");
+        parentToggle.setAttribute(
+          "class",
+          "uq-site-header__navigation__sub-toggle"
         );
+        parentToggle.appendChild(textOfToggle);
 
-        menuLocale.publicmenu.forEach((jsonParentItem, index) => {
-            const hasChildren = !!jsonParentItem.submenuItems && jsonParentItem.submenuItems.length > 0;
+        parentListItem.appendChild(parentToggle);
+      }
 
-            const parentListItem = document.createElement('li');
+      // make child items
+      if (hasChildren) {
+        const listItemWrapper = document.createElement("ul");
+        let listItemClass =
+          "uq-site-header__navigation__list uq-site-header__navigation__list--level-2";
+        !!jsonParentItem.columnCount &&
+          jsonParentItem.columnCount > 1 &&
+          (listItemClass += " multicolumn-" + jsonParentItem.columnCount);
+        listItemWrapper.setAttribute("class", listItemClass);
+        jsonParentItem.submenuItems.forEach((jsonChild) => {
+          const listItem = document.createElement("li");
+          listItem.setAttribute(
+            "class",
+            "uq-site-header__navigation__list-item"
+          );
 
-            let classNavListitem = 'uq-site-header__navigation__list-item';
-            !!hasChildren && (classNavListitem += ' uq-site-header__navigation__list-item--has-subnav');
-            (jsonParentItem.linkTo === window.location.href) && (classNavListitem += ' uq-site-header__navigation__list-item--active');
-            parentListItem.setAttribute('class', classNavListitem);
-
-            const parentLink = this.createLink(
-                `megamenu-submenus-item-${index}`,
-                jsonParentItem.linkTo || '',
-                jsonParentItem.primaryText || ''
+          // a missing primary text allows for an empty cell, controlling the spacing of the menu
+          if (!!jsonChild.primaryText) {
+            const primarytextOfLink = document.createTextNode(
+              jsonChild.primaryText || ""
             );
-            parentLink.setAttribute('aria-expanded', 'false');
-            parentListItem.appendChild(parentLink);
+            const primaryTextItem = document.createElement("span");
+            primaryTextItem.setAttribute("class", "displayText");
+            primaryTextItem.appendChild(primarytextOfLink);
 
-            if (hasChildren) {
-                const textOfToggle = document.createTextNode('Open');
-                const parentToggle = document.createElement('span');
-                parentToggle.setAttribute('class', 'uq-site-header__navigation__sub-toggle');
-                parentToggle.appendChild(textOfToggle);
+            const secondarytextOfLink = document.createTextNode(
+              jsonChild.secondaryText || " "
+            );
+            const secondaryTextItem = document.createElement("span");
+            secondaryTextItem.setAttribute(
+              "class",
+              "displayText secondaryText"
+            );
+            secondaryTextItem.appendChild(secondarytextOfLink);
 
-                parentListItem.appendChild(parentToggle);
-            }
+            const itemLink = document.createElement("a");
+            itemLink.setAttribute("data-testid", jsonChild.dataTestid || "");
+            itemLink.setAttribute("href", jsonChild.linkTo || "");
+            itemLink.appendChild(primaryTextItem);
+            itemLink.appendChild(secondaryTextItem);
+            itemLink.setAttribute("aria-expanded", "false");
 
-            // make child items
-            if (hasChildren) {
-                const listItemWrapper = document.createElement('ul');
-                let listItemClass = 'uq-site-header__navigation__list uq-site-header__navigation__list--level-2';
-                !!jsonParentItem.columnCount &&
-                    jsonParentItem.columnCount > 1 &&
-                    (listItemClass += ' multicolumn-' + jsonParentItem.columnCount);
-                listItemWrapper.setAttribute('class', listItemClass);
-                jsonParentItem.submenuItems.forEach(jsonChild => {
-                    const listItem = document.createElement('li');
-                    listItem.setAttribute('class', 'uq-site-header__navigation__list-item');
+            listItem.appendChild(itemLink);
+          }
 
-                    // a missing primary text allows for an empty cell, controlling the spacing of the menu
-                    if (!!jsonChild.primaryText) {
-                        const primarytextOfLink = document.createTextNode(jsonChild.primaryText || '');
-                        const primaryTextItem = document.createElement('span');
-                        primaryTextItem.setAttribute('class', 'displayText');
-                        primaryTextItem.appendChild(primarytextOfLink);
+          listItemWrapper.appendChild(listItem);
+        });
+        parentListItem.appendChild(listItemWrapper);
+      }
 
-                        const secondarytextOfLink = document.createTextNode(jsonChild.secondaryText || ' ');
-                        const secondaryTextItem = document.createElement('span');
-                        secondaryTextItem.setAttribute('class', 'displayText secondaryText');
-                        secondaryTextItem.appendChild(secondarytextOfLink);
+      listWrapper.appendChild(parentListItem);
+    });
+    megaMenu.appendChild(listWrapper);
+  }
 
-                        const itemLink = document.createElement('a');
-                        itemLink.setAttribute('data-testid', jsonChild.dataTestid || '');
-                        itemLink.setAttribute('href', jsonChild.linkTo || '');
-                        itemLink.appendChild(primaryTextItem);
-                        itemLink.appendChild(secondaryTextItem);
-                        itemLink.setAttribute('aria-expanded', 'false');
-
-                        listItem.appendChild(itemLink);
-                    }
-
-                    listItemWrapper.appendChild(listItem);
-                })
-                parentListItem.appendChild(listItemWrapper);
-            }
-
-            listWrapper.appendChild(parentListItem);
-        })
-        megaMenu.appendChild(listWrapper);
-    }
-
-    createLink(datatestid, href, linktext) {
-        const alink = document.createElement('a');
-        alink.setAttribute('data-testid', datatestid);
-        alink.setAttribute('href', href);
-        const textOfLink = document.createTextNode(linktext);
-        alink.appendChild(textOfLink);
-        return alink;
-    }
+  createLink(datatestid, href, linktext) {
+    const alink = document.createElement("a");
+    alink.setAttribute("data-testid", datatestid);
+    alink.setAttribute("href", href);
+    const textOfLink = document.createTextNode(linktext);
+    alink.appendChild(textOfLink);
+    return alink;
+  }
 
   loadJS(hideAskUs, hideMyLibrary) {
     // This loads the external JS file into the HTML head dynamically
@@ -393,18 +431,22 @@ class UQSiteHeader extends HTMLElement {
       const isMegaMenuDisplayed = this.isMegaMenuRequested();
 
       //Dynamically import the JS file and append it to the document header
-      const script = document.createElement('script');
-      script.type = 'text/javascript';
+      const script = document.createElement("script");
+      script.type = "text/javascript";
       script.async = true;
       script.onload = function () {
         //Code to execute after the library has been downloaded parsed and processed by the browser starts here :)
         initCalled = true;
         // Initialise Main Navigation
-        const uqSiteHeader = document.querySelector('uq-site-header');
-        const shadowDOM = !!uqSiteHeader && uqSiteHeader.shadowRoot || false;
+        const uqSiteHeader = document.querySelector("uq-site-header");
+        const shadowDOM = (!!uqSiteHeader && uqSiteHeader.shadowRoot) || false;
         if (!!isMegaMenuDisplayed) {
-          var navelement = !!uqSiteHeader && uqSiteHeader.shadowRoot.getElementById("jsNav");
-          var nav = new uq.siteHeaderNavigation(navelement, "uq-site-header__navigation");
+          var navelement =
+            !!uqSiteHeader && uqSiteHeader.shadowRoot.getElementById("jsNav");
+          var nav = new uq.siteHeaderNavigation(
+            navelement,
+            "uq-site-header__navigation"
+          );
         }
         // Initialise accordions
         new uq.accordion();
@@ -433,7 +475,10 @@ class UQSiteHeader extends HTMLElement {
             document.onkeydown = function (evt) {
               evt = evt || window.event;
               const escapeKeyCode = 27;
-              if ((evt.key === escapeKeyCode || evt.keyCode === escapeKeyCode) && askUsClosed === false) {
+              if (
+                (evt.key === escapeKeyCode || evt.keyCode === escapeKeyCode) &&
+                askUsClosed === false
+              ) {
                 closeMenu();
               }
             };
@@ -456,13 +501,13 @@ class UQSiteHeader extends HTMLElement {
           }
 
           function handleAskUsButton() {
-            const askusButton = shadowDOM.getElementById('askus-actual-button');
+            const askusButton = shadowDOM.getElementById("askus-actual-button");
             const askusPane = shadowDOM.getElementById("askus-pane");
 
             !!askUsClosed
               ? !!askusButton && askusButton.blur()
-              : !!askusButton && askusButton.focus()
-            !!askusPane && askusPane.addEventListener('click', handleMouseOut);
+              : !!askusButton && askusButton.focus();
+            !!askusPane && askusPane.addEventListener("click", handleMouseOut);
 
             openMenu();
           }
@@ -471,148 +516,157 @@ class UQSiteHeader extends HTMLElement {
             const askusPane = shadowDOM.getElementById("askus-pane");
 
             askUsClosed = !askUsClosed;
-            !!askusPane && askusPane.removeEventListener('mouseleave', handleMouseOut);
+            !!askusPane &&
+              askusPane.removeEventListener("mouseleave", handleMouseOut);
             closeMenu();
-
           }
 
           // Attach a listener to the askus button
           const askusButton = shadowDOM.getElementById("askus-button");
-          !!askusButton && askusButton.addEventListener('click', handleAskUsButton);
+          !!askusButton &&
+            askusButton.addEventListener("click", handleAskUsButton);
         }
       };
       //Specify the location of the ITS DS JS file
       script.src = "uq-site-header.js";
 
-            //Append it to the document header
+      //Append it to the document header
       document.head.appendChild(script);
     }
   }
 
-    addMyLibraryButtonListeners(shadowDOM) {
-        console.log('addMyLibraryButton');
-        let myLibraryClosed = true;
+  addMyLibraryButtonListeners(shadowDOM) {
+    console.log("addMyLibraryButton");
+    let myLibraryClosed = true;
 
-        function openMyLibMenu() {
-            myLibraryClosed = false;
-            shadowDOM.getElementById("mylibrary-menu").style.display =
-                "block";
-            shadowDOM.getElementById("mylibrary-pane").style.display =
-                "block";
+    function openMyLibMenu() {
+      myLibraryClosed = false;
+      shadowDOM.getElementById("mylibrary-menu").style.display = "block";
+      shadowDOM.getElementById("mylibrary-pane").style.display = "block";
 
-            function showDisplay() {
-                shadowDOM.getElementById("mylibrary-menu")
-                    .classList.remove("closed-menu");
-                shadowDOM.getElementById("mylibrary-pane")
-                    .classList.remove("closed-pane");
-            }
+      function showDisplay() {
+        shadowDOM
+          .getElementById("mylibrary-menu")
+          .classList.remove("closed-menu");
+        shadowDOM
+          .getElementById("mylibrary-pane")
+          .classList.remove("closed-pane");
+      }
 
-            setTimeout(showDisplay, 100);
-            document.onkeydown = function (evt) {
-                evt = evt || window.event;
-                if (evt.keyCode == 27 && myLibraryClosed === false) {
-                    closeMyLibMenu();
-                }
-            };
+      setTimeout(showDisplay, 100);
+      document.onkeydown = function (evt) {
+        evt = evt || window.event;
+        if (evt.keyCode == 27 && myLibraryClosed === false) {
+          closeMyLibMenu();
         }
-
-        function closeMyLibMenu() {
-            myLibraryClosed = true;
-            shadowDOM.getElementById("mylibrary-menu")
-                .classList.add("closed-menu");
-            shadowDOM.getElementById("mylibrary-pane")
-                .classList.add("closed-pane");
-
-            function hideMyLibDisplay() {
-                shadowDOM.getElementById("mylibrary-menu").style.display =
-                    "none";
-                shadowDOM.getElementById("mylibrary-pane").style.display =
-                    "none";
-            }
-
-            setTimeout(hideMyLibDisplay, 500);
-        }
-
-        function handleMyLibButton() {
-            myLibraryClosed
-                ? shadowDOM.getElementById("mylibrary-button").blur()
-                : shadowDOM.getElementById("mylibrary-button").focus();
-            shadowDOM.getElementById("mylibrary-pane").addEventListener("click", handleMyLibMouseOut);
-            openMyLibMenu();
-        }
-
-        function handleMyLibMouseOut() {
-            myLibraryClosed = !myLibraryClosed;
-            shadowDOM.getElementById("mylibrary-pane")
-                .removeEventListener("mouseleave", handleMyLibMouseOut);
-            closeMyLibMenu();
-        }
-
-        // Attach a listener to the mylibrary button
-        const uqsiteheader1 = document.querySelector("uq-site-header")
-        const shadowRoot = !!uqsiteheader1 && uqsiteheader1.shadowRoot;
-        const mylibraryButton = !!shadowRoot && shadowRoot.getElementById("mylibrary-button");
-        !!mylibraryButton && mylibraryButton.addEventListener("click", handleMyLibButton);
+      };
     }
 
-    async updateAskusDOM(shadowRoot) {
-        const api = new ApiAccess();
-        await api.loadChatStatus().then(isOnline => {
-            if (!isOnline) {
-                console.log('chat is offline');
-                // Chat disabled
-                shadowRoot.getElementById('askus-chat-li').style.opacity = '0.6';
-                shadowRoot.getElementById('askus-chat-link').removeAttribute("onclick");
+    function closeMyLibMenu() {
+      myLibraryClosed = true;
+      shadowDOM.getElementById("mylibrary-menu").classList.add("closed-menu");
+      shadowDOM.getElementById("mylibrary-pane").classList.add("closed-pane");
 
-                shadowRoot.getElementById('askus-phone-li').style.opacity = '0.6';
-                shadowRoot.getElementById('askus-phone-link').removeAttribute("href");
-        } else {
-                console.log('chat is ONline');
-            }});
+      function hideMyLibDisplay() {
+        shadowDOM.getElementById("mylibrary-menu").style.display = "none";
+        shadowDOM.getElementById("mylibrary-pane").style.display = "none";
+      }
 
-        await api.loadOpeningHours().then(hours => {
-            // display opening hours in the askus widget
-            const chatitem = shadowRoot.getElementById('askus-chat-time');
-            !!hours && !!hours.chat && !!chatitem && (chatitem.innerHTML = hours.chat);
-
-            const phoneitem = shadowRoot.getElementById('askus-phone-time');
-            !!hours && !!hours.phone && !!phoneitem && (phoneitem.innerText = hours.phone);
-        });
-
-
+      setTimeout(hideMyLibDisplay, 500);
     }
 
-    isMegaMenuRequested() {
-        if (this.showMenu === undefined) {
-            this.showMenu = this.getAttribute('showMenu');
-        }
-        return !!this.showMenu || this.showMenu === '';
+    function handleMyLibButton() {
+      myLibraryClosed
+        ? shadowDOM.getElementById("mylibrary-button").blur()
+        : shadowDOM.getElementById("mylibrary-button").focus();
+      shadowDOM
+        .getElementById("mylibrary-pane")
+        .addEventListener("click", handleMyLibMouseOut);
+      openMyLibMenu();
     }
 
-    isAuthButtonRequested() {
-        if (this.isloginRequired === undefined) {
-            this.isloginRequired = this.getAttribute('showLoginButton');
-        }
-        return !!this.isloginRequired || this.isloginRequired === '';
+    function handleMyLibMouseOut() {
+      myLibraryClosed = !myLibraryClosed;
+      shadowDOM
+        .getElementById("mylibrary-pane")
+        .removeEventListener("mouseleave", handleMyLibMouseOut);
+      closeMyLibMenu();
     }
 
-    isAskusButtonRequested() {
-        const hideAskUs = this.getAttribute('hideAskUs');
-        return hideAskUs === "false" || hideAskUs === null;
-    }
+    // Attach a listener to the mylibrary button
+    const uqsiteheader1 = document.querySelector("uq-site-header");
+    const shadowRoot = !!uqsiteheader1 && uqsiteheader1.shadowRoot;
+    const mylibraryButton =
+      !!shadowRoot && shadowRoot.getElementById("mylibrary-button");
+    !!mylibraryButton &&
+      mylibraryButton.addEventListener("click", handleMyLibButton);
+  }
 
-    isMylibraryButtonRequested() {
-        const hideMylibrary = this.getAttribute('hideMyLibrary');
-        console.log('hideMylibrary = ', hideMylibrary);
-        return hideMylibrary === "false" || hideMylibrary === null;
-    }
+  async updateAskusDOM(shadowRoot) {
+    const api = new ApiAccess();
+    await api.loadChatStatus().then((isOnline) => {
+      if (!isOnline) {
+        console.log("chat is offline");
+        // Chat disabled
+        shadowRoot.getElementById("askus-chat-li").style.opacity = "0.6";
+        shadowRoot.getElementById("askus-chat-link").removeAttribute("onclick");
 
-    overwriteAsLoggedOut() {
-        if (this.overwriteAsLoggedOutVar === undefined) {
-            this.overwriteAsLoggedOutVar = this.getAttribute('requireLoggedOut');
-        }
-        return !!this.overwriteAsLoggedOutVar || this.overwriteAsLoggedOutVar === '';
+        shadowRoot.getElementById("askus-phone-li").style.opacity = "0.6";
+        shadowRoot.getElementById("askus-phone-link").removeAttribute("href");
+      } else {
+        console.log("chat is ONline");
+      }
+    });
+
+    await api.loadOpeningHours().then((hours) => {
+      // display opening hours in the askus widget
+      const chatitem = shadowRoot.getElementById("askus-chat-time");
+      !!hours &&
+        !!hours.chat &&
+        !!chatitem &&
+        (chatitem.innerHTML = hours.chat);
+
+      const phoneitem = shadowRoot.getElementById("askus-phone-time");
+      !!hours &&
+        !!hours.phone &&
+        !!phoneitem &&
+        (phoneitem.innerText = hours.phone);
+    });
+  }
+
+  isMegaMenuRequested() {
+    if (this.showMenu === undefined) {
+      this.showMenu = this.getAttribute("showMenu");
     }
+    return !!this.showMenu || this.showMenu === "";
+  }
+
+  isAuthButtonRequested() {
+    if (this.isloginRequired === undefined) {
+      this.isloginRequired = this.getAttribute("showLoginButton");
+    }
+    return !!this.isloginRequired || this.isloginRequired === "";
+  }
+
+  isAskusButtonRequested() {
+    const hideAskUs = this.getAttribute("hideAskUs");
+    return hideAskUs === "false" || hideAskUs === null;
+  }
+
+  isMylibraryButtonRequested() {
+    const hideMylibrary = this.getAttribute("hideMyLibrary");
+    console.log("hideMylibrary = ", hideMylibrary);
+    return hideMylibrary === "false" || hideMylibrary === null;
+  }
+
+  overwriteAsLoggedOut() {
+    if (this.overwriteAsLoggedOutVar === undefined) {
+      this.overwriteAsLoggedOutVar = this.getAttribute("requireLoggedOut");
+    }
+    return (
+      !!this.overwriteAsLoggedOutVar || this.overwriteAsLoggedOutVar === ""
+    );
+  }
 
   connectedCallback() {
     this.loadJS();
