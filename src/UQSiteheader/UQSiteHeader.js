@@ -39,7 +39,7 @@ template.innerHTML = `
       <!-- Site title and utility area with mobile nav toggler (JS) -->
       <div class="uq-site-header__title-container">
         <div class="uq-site-header__title-container__left">
-          <a id="site-title" href="/" class="uq-site-header__title">Library</a>
+          <a id="site-title" href="https://www.library.uq.edu.au/" class="uq-site-header__title">Library</a>
         </div>
         <div class="uq-site-header__title-container__right">
           <div id="mylibrary"></div>
@@ -201,43 +201,42 @@ class UQSiteHeader extends HTMLElement {
     this.loadJS = this.loadJS.bind(this);
   }
 
-  hideShowMyLibraryButton() {
-    if (!this.isMylibraryButtonRequested()) {
-      // if the page doesnt want mylibrary, just dont show it - no account check required
-      template.content.getElementById("mylibrary").remove();
-      return;
+    hideShowMyLibraryButton() {
+        if (!this.isMylibraryButtonRequested()) {
+            // if the page doesnt want mylibrary, just dont show it - no account check required
+            console.log('mylibrary button not required - remove if current')
+            const mylibraryElem = template.content.getElementById("mylibrary");
+            !!mylibraryElem && mylibraryElem.remove();
+            return;
+        }
+
+        this.confirmAccount().then(accountSummary => {
+            console.log('after, accountSummary = ', accountSummary);
+            if (!!accountSummary.isLoggedin) {
+                const uqSiteHeader = document.querySelector('uq-site-header');
+                const shadowDOM = !!uqSiteHeader && uqSiteHeader.shadowRoot || false;
+                if (!shadowDOM) {
+                    return {}
+                }
+                const myLibraryElement = !!shadowDOM && shadowDOM.getElementById("mylibrary") || false;
+                this.isMylibraryButtonRequested() && myLibraryElement && (myLibraryElement.innerHTML = mylibrary());
+                this.isMylibraryButtonRequested() && this.addMyLibraryButtonListeners(shadowDOM);
+
+                const masqueradeElement = !!shadowDOM && shadowDOM.getElementById("mylibrary-masquerade");
+                !accountSummary.canMasquerade && !!masqueradeElement && masqueradeElement.remove();
+            } else {
+                console.log('not logged in, mylibrary button not displayable - remove if current')
+                const myLibraryElement = template.content.getElementById("mylibrary");
+                !!myLibraryElement && myLibraryElement.remove();
+            }
+            return accountSummary;
+        }).then(accountSummary => {
+            if (!!accountSummary.isLoggedin) {
+                this.showHideMylibraryEspaceOption();
+            }
+            return accountSummary;
+        });
     }
-
-    this.confirmAccount()
-      .then((accountSummary) => {
-        console.log("after, accountSummary = ", accountSummary);
-        if (!!accountSummary.isLoggedin) {
-          const uqSiteHeader = document.querySelector("uq-site-header");
-          const shadowDOM =
-            (!!uqSiteHeader && uqSiteHeader.shadowRoot) || false;
-          if (!shadowDOM) {
-            return {};
-          }
-          this.isMylibraryButtonRequested() &&
-            (shadowDOM.getElementById("mylibrary").innerHTML = mylibrary());
-          this.isMylibraryButtonRequested() &&
-            this.addMyLibraryButtonListeners(shadowDOM);
-
-          !accountSummary.canMasquerade &&
-            !!shadowDOM &&
-            shadowDOM.getElementById("mylibrary-masquerade").remove();
-        } else {
-          template.content.getElementById("mylibrary").remove();
-        }
-        return accountSummary;
-      })
-      .then((accountSummary) => {
-        if (!!accountSummary.isLoggedin) {
-          this.showHideMylibraryEspaceOption();
-        }
-        return accountSummary;
-      });
-  }
 
   hideShowAskusButton(shadowDOM) {
     if (this.isAskusButtonRequested()) {
