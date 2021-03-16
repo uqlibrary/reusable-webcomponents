@@ -61,3 +61,9 @@ span.displayText {
         background-position: right 0.5rem center;
     }
 }
+
+/* primo sets some crazy stuff! lets get that proper bolding back on our homepage link! */
+.uq-site-header__title-container__left a {
+    -webkit-font-smoothing: initial;
+    -webkit-tap-highlight-color: initial;
+}
