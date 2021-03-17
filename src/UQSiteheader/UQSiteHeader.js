@@ -1,10 +1,8 @@
 import styles from "./css/main.css";
 import overrides from "./css/overrides.css";
 import icons from "./css/icons.css";
-import { default as menuLocale } from "../locale/menu";
+import {default as menuLocale} from "../locale/menu";
 import myLibStyles from "../UtilityArea/css/mylibrary.css";
-import { mylibrary } from "./MyLibrary";
-import ApiAccess from "../ApiAccess/ApiAccess";
 
 /**
  * API:
@@ -194,7 +192,7 @@ class UQSiteHeader extends HTMLElement {
     this.loadJS = this.loadJS.bind(this);
   }
 
-    addMyLibraryButtonToSlot(slotname = 'site-utilities') {
+    addMyLibraryButtonToSlot() {
       if (!this.isMylibraryButtonRequested()) {
         // if the page doesnt want mylibrary, just dont show it - no account check required
         return;
@@ -204,10 +202,10 @@ class UQSiteHeader extends HTMLElement {
       const mylibraryButton0 = document.createElement('mylibrary-button');
 
       const mylibraryButton = !!mylibraryButton0 && mylibraryButton0.cloneNode(true);
-      !!mylibraryButton && this.addButtonToUtilityArea(mylibraryButton, slotname);
+      !!mylibraryButton && this.addButtonToUtilityArea(mylibraryButton);
     }
 
-    addAskUsButtonToSlot(slotname = 'site-utilities') {
+    addAskUsButtonToSlot() {
         if (!this.isAskusButtonRequested()) {
             return;
         }
@@ -215,33 +213,32 @@ class UQSiteHeader extends HTMLElement {
         const askusButton0 = document.createElement('askus-button');
 
         const askusButton = !!askusButton0 && askusButton0.cloneNode(true);
-        !!askusButton && this.addButtonToUtilityArea(askusButton, slotname);
+        !!askusButton && this.addButtonToUtilityArea(askusButton);
     }
 
     addAuthButtonToSlot() {
-        if (!this.isAuthButtonRequested()) {
-            return;
-        }
+      if (!this.isAuthButtonRequested()) {
+        return;
+      }
 
-    const authButton0 = document.createElement("auth-button");
+      const authButton0 = document.createElement("auth-button");
+      !!authButton0 &&
+        this.overwriteAsLoggedOut() &&
+        authButton0.setAttribute("overwriteAsLoggedOut", "true");
 
-    !!authButton0 &&
-      this.overwriteAsLoggedOut() &&
-      authButton0.setAttribute("overwriteAsLoggedOut", "true");
+      const authButton = !!authButton0 && authButton0.cloneNode(true);
+      !!authButton && this.addButtonToUtilityArea(authButton);
+    }
 
-    const authButton = !!authButton0 && authButton0.cloneNode(true);
-    !!authButton && this.addButtonToUtilityArea(authButton);
-  }
+    addButtonToUtilityArea(button) {
+      const buttonWrapper = document.createElement('span');
+          !!buttonWrapper && buttonWrapper.setAttribute('slot', 'site-utilities');
+          !!button && !!buttonWrapper && buttonWrapper.appendChild(button);
 
-    addButtonToUtilityArea(button, slotName = 'site-utilities') {
-        const buttonWrapper = document.createElement('span');
-        !!buttonWrapper && buttonWrapper.setAttribute('slot', slotName);
-        !!button && !!buttonWrapper && buttonWrapper.appendChild(button);
-
-    const siteHeader =
-      document.getElementsByTagName("uq-site-header")[0] || false;
-    !!buttonWrapper && !!siteHeader && siteHeader.appendChild(buttonWrapper);
-  }
+      const siteHeader =
+        document.getElementsByTagName("uq-site-header")[0] || false;
+      !!buttonWrapper && !!siteHeader && siteHeader.appendChild(buttonWrapper);
+    }
 
   rewriteMegaMenuFromJson() {
     const megaMenu = template.content.getElementById("jsNav");
