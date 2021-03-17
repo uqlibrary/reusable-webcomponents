@@ -11,8 +11,8 @@ import {
 class MockApi {
     constructor() {
         // set session cookie in mock mode
-        Cookies.set(apilocale.SESSION_COOKIE_NAME, 'abc123');
-        Cookies.set(apilocale.SESSION_USER_GROUP_COOKIE_NAME, 'LIBRARYSTAFFB');
+        Cookies.set(apilocale.SESSION_COOKIE_NAME, apilocale.UQLID_COOKIE_MOCK);
+        Cookies.set(apilocale.SESSION_USER_GROUP_COOKIE_NAME, apilocale.USERGROUP_COOKIE_MOCK);
 
         // Get user from query string
         const user = this.getUserParameter();
