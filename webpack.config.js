@@ -95,7 +95,7 @@ module.exports = () => {
                 patterns: [
                     {from: "src/ApiAccess/js/uqds.js", to: "api-access.js"},
                     {from: "src/AskUsButton/js/uqds.js", to: "askus-button.js"},
-                    {from: "src/AuthButton/js/uqds.js", to: "auth-button.js"},
+                    {from: "src/UtilityArea/js/uqds.js", to: "auth-button.js"},
                     {from: "src/ConnectFooter/js/uqds.js", to: "connect-footer.js"},
                     {from: "src/UQHeader/js/uqds.js", to: "uq-header.js"},
                     {from: "src/UQFooter/js/uqds.js", to: "uq-footer.js"},

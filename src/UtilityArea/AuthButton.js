@@ -1,11 +1,9 @@
-import styles from './css/overrides.css';
-import icons from './css/icons.css';
+import styles from './css/auth.css';
 import ApiAccess from '../ApiAccess/ApiAccess';
 
 const unauthorisedtemplate = document.createElement('template');
 unauthorisedtemplate.innerHTML = `
     <style>${styles.toString()}</style>
-    <style>${icons.toString()}</style>
     <div class="MuiGrid-root-8 makeStyles-utility-115 MuiGrid-item-10 MuiGrid-grid-xs-auto-41" id="auth-button-block" data-testid="auth" style="display: block;">
         <button
             class="MuiButtonBase-root-148 MuiIconButton-root-158 makeStyles-iconButtonRoot-182 log-in-button"
@@ -27,7 +25,6 @@ unauthorisedtemplate.innerHTML = `
 const authorisedtemplate = document.createElement('template');
 authorisedtemplate.innerHTML = `
     <style>${styles.toString()}</style>
-    <style>${icons.toString()}</style>
     <div class="MuiGrid-root-8 makeStyles-utility-115 MuiGrid-item-10 MuiGrid-grid-xs-auto-41" id="auth-button-block" data-testid="auth" style="display: block;">
         <button
             class="MuiButtonBase-root-148 MuiIconButton-root-158 makeStyles-iconButtonRoot-182 log-out-button"
