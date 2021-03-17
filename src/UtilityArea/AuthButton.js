@@ -87,6 +87,14 @@ class AuthButton extends HTMLElement {
                     // Render the template
                     shadowDOM.appendChild(template.content.cloneNode(true));
                     this.addButtonListeners(shadowDOM);
+
+                    if (!!isAuthorised) {
+                        const mylibraryStub = document.getElementById('mylibraryslot');
+                        const mylibraryButton0 = document.createElement('mylibrary-button');
+                        const mylibraryButton = !!mylibraryButton0 && mylibraryButton0.cloneNode(true);
+
+                        !!mylibraryStub && mylibraryStub.children.length === 0 && mylibraryStub.appendChild(mylibraryButton);
+                    }
                 });
         }, 500); // least wait that does the job
     }

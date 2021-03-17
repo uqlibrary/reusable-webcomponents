@@ -199,10 +199,11 @@ class UQSiteHeader extends HTMLElement {
       }
 
       console.log('show mylibrary button');
-      const mylibraryButton0 = document.createElement('mylibrary-button');
+      // this one just creates the stub - authbutton will fill in the actual button if they are logged in
+      const mylibraryButton0 = document.createElement('div');
+      mylibraryButton0.id = 'mylibraryslot';
 
-      const mylibraryButton = !!mylibraryButton0 && mylibraryButton0.cloneNode(true);
-      !!mylibraryButton && this.addButtonToUtilityArea(mylibraryButton);
+      !!mylibraryButton0 && this.addButtonToUtilityArea(mylibraryButton0);
     }
 
     addAskUsButtonToSlot() {
@@ -233,7 +234,7 @@ class UQSiteHeader extends HTMLElement {
     addButtonToUtilityArea(button) {
       const buttonWrapper = document.createElement('span');
           !!buttonWrapper && buttonWrapper.setAttribute('slot', 'site-utilities');
-          !!button && !!buttonWrapper && buttonWrapper.appendChild(button);
+      !!button && !!buttonWrapper && buttonWrapper.appendChild(button);
 
       const siteHeader =
         document.getElementsByTagName("uq-site-header")[0] || false;
