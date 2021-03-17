@@ -30,9 +30,8 @@ class ApiAccess {
         const options = !!accountApi.options ? accountApi.options : {};
         return await this.fetchAPI(urlPath, options, true)
             .then(account => {
-                console.log('getAccount: account = ', account);
+                console.log('getAccount: account from server = ', account);
                 this.storeAccount(account);
-                console.log('account from server = ', account);
 
                 return account;
             });
@@ -44,13 +43,11 @@ class ApiAccess {
         const options = !!api.options ? api.options : {};
         return await this.fetchAPI(urlPath, options, true)
             .then(author => {
-                console.log('getAccount: author = ', author);
                 return author;
             });
     }
 
     async loadChatStatus() {
-        console.log('loadChatStatus start');
         let isOnline = false;
         const chatstatusApi = (new ApiRoutes()).CHAT_API();
         const urlPath = chatstatusApi.apiUrl;
@@ -64,7 +61,6 @@ class ApiAccess {
         return isOnline;    }
 
     async loadOpeningHours() {
-        console.log('loadOpeningHours start');
         let result;
         const hoursApi = (new ApiRoutes()).LIB_HOURS_API();
         const urlPath = hoursApi.apiUrl;

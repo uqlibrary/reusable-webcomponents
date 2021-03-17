@@ -198,12 +198,11 @@ class UQSiteHeader extends HTMLElement {
         return;
       }
 
-      console.log('show mylibrary button');
       // this one just creates the stub - authbutton will fill in the actual button if they are logged in
-      const mylibraryButton0 = document.createElement('div');
-      mylibraryButton0.id = 'mylibraryslot';
+      const mylibraryButton = document.createElement('div');
+      mylibraryButton.id = 'mylibraryslot';
 
-      !!mylibraryButton0 && this.addButtonToUtilityArea(mylibraryButton0);
+      !!mylibraryButton && this.addButtonToUtilityArea(mylibraryButton);
     }
 
     addAskUsButtonToSlot() {
@@ -211,9 +210,7 @@ class UQSiteHeader extends HTMLElement {
             return;
         }
 
-        const askusButton0 = document.createElement('askus-button');
-
-        const askusButton = !!askusButton0 && askusButton0.cloneNode(true);
+        const askusButton = document.createElement('askus-button');
         !!askusButton && this.addButtonToUtilityArea(askusButton);
     }
 
@@ -222,12 +219,10 @@ class UQSiteHeader extends HTMLElement {
         return;
       }
 
-      const authButton0 = document.createElement("auth-button");
-      !!authButton0 &&
-        this.overwriteAsLoggedOut() &&
-        authButton0.setAttribute("overwriteAsLoggedOut", "true");
+      const authButton = document.createElement("auth-button");
+      !!authButton && this.overwriteAsLoggedOut() &&
+      authButton.setAttribute("overwriteAsLoggedOut", "true");
 
-      const authButton = !!authButton0 && authButton0.cloneNode(true);
       !!authButton && this.addButtonToUtilityArea(authButton);
     }
 
@@ -423,7 +418,6 @@ class UQSiteHeader extends HTMLElement {
 
   isMylibraryButtonRequested() {
     const hideMylibrary = this.getAttribute("hideMyLibrary");
-    console.log("hideMylibrary = ", hideMylibrary);
     return hideMylibrary === "false" || hideMylibrary === null;
   }
 

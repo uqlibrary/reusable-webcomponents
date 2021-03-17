@@ -107,6 +107,7 @@ class MyLibraryButton extends HTMLElement {
     constructor() {
         console.log('MyLibraryButton constructor');
         super();
+
         // Add a shadow DOM
         const shadowDOM = this.attachShadow({mode: 'open'});
 
@@ -127,7 +128,6 @@ class MyLibraryButton extends HTMLElement {
 
                 this.showHideMylibraryEspaceOption(shadowRoot);
 
-                const myLibraryElement = shadowRoot.getElementById("mylibrary") || false;
                 this.addMylibraryButtonListeners(shadowRoot);
             }
             return accountSummary;
@@ -229,7 +229,7 @@ class MyLibraryButton extends HTMLElement {
 
     loadJS() {
         // This loads the external JS file into the HTML head dynamically
-        //Only load js if it has not been loaded before (tracked by the initCalled flag)
+        // Only load js if it has not been loaded before (tracked by the initCalled flag)
         if (!initCalled) {
             //Dynamically import the JS file and append it to the document header
             const script = document.createElement('script');

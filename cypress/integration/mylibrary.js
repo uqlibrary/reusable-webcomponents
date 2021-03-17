@@ -30,19 +30,16 @@ describe("My Library menu", () => {
       cy.injectAxe();
       cy.viewport(1280, 900);
       cy.get("uq-site-header")
-          .find('span[slot="site-utilities"] #mylibraryslot')
-          .find("mylibrary-button")
+          .find('span[slot="site-utilities"] mylibrary-button')
           .should('exist');
       cy.get("uq-site-header")
-          .find('span[slot="site-utilities"] #mylibraryslot')
-          .find("mylibrary-button")
+          .find('span[slot="site-utilities"] mylibrary-button')
           .shadow()
           .find("button#mylibrary-button")
           .click();
       cy.wait(500);
       cy.get("uq-site-header")
-          .find('span[slot="site-utilities"] #mylibraryslot')
-          .find("mylibrary-button")
+          .find('span[slot="site-utilities"] mylibrary-button')
           .shadow()
           .find('#mylibrary-menu.closed-menu')
           .should('not.exist');
