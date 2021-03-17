@@ -1,6 +1,7 @@
 import ApiAccess from './ApiAccess/ApiAccess';
 import AskUsButton from './UtilityArea/AskUsButton';
 import AuthButton from './UtilityArea/AuthButton';
+import MyLibraryButton from './UtilityArea/MyLibraryButton';
 import ConnectFooter from './ConnectFooter/ConnectFooter';
 import UQHeader from './UQHeader/UQHeader.js';
 import UQSiteHeader from './UQSiteHeader/UQSiteHeader.js';
@@ -16,6 +17,7 @@ if (process.env.BRANCH !== 'production' && process.env.USE_MOCK) {
 customElements.define('api-access', ApiAccess);
 customElements.define('askus-button', AskUsButton);
 customElements.define('auth-button', AuthButton);
+customElements.define('mylibrary-button', MyLibraryButton);
 customElements.define('connect-footer', ConnectFooter);
 customElements.define('uq-header', UQHeader);
 customElements.define('uq-site-header', UQSiteHeader);

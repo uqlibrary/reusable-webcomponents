@@ -198,8 +198,8 @@ class ApiAccess {
     fetchMock(url, options = null) {
         const response = (new MockApi).mockfetch(url, options);
         if (!response.ok || !response.body) {
-            console.log(`fetchMock console: An error has occured in mock: ${response.status}`);
-            const message = `fetchMock: An error has occured in mock: ${response.status}`;
+            console.log(`fetchMock console: An error has occured in mock for ${url}: ${response.status}`);
+            const message = `fetchMock: An error has occured in mock for ${url}: ${response.status}`;
             // vanilla gets a 403 so we don't want to throw an error here
             return {}
         }

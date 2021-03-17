@@ -96,6 +96,7 @@ module.exports = () => {
                     {from: "src/ApiAccess/js/uqds.js", to: "api-access.js"},
                     {from: "src/UtilityArea/js/uqds.js", to: "askus-button.js"},
                     {from: "src/UtilityArea/js/uqds.js", to: "auth-button.js"},
+                    {from: "src/UtilityArea/js/uqds.js", to: "mylibrary-button.js"},
                     {from: "src/ConnectFooter/js/uqds.js", to: "connect-footer.js"},
                     {from: "src/UQHeader/js/uqds.js", to: "uq-header.js"},
                     {from: "src/UQFooter/js/uqds.js", to: "uq-footer.js"},
@@ -124,6 +125,9 @@ module.exports = () => {
                 },{
                     search: /auth-button\.js/gm,
                     replace: componentJsPath[process.env.NODE_ENV] + 'auth-button.js',
+                },{
+                    search: /mylibrary-button\.js/gm,
+                    replace: componentJsPath[process.env.NODE_ENV] + 'mylibrary-button.js',
                 }]
             }]),
             new webpack.DefinePlugin({

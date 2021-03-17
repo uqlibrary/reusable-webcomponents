@@ -2,7 +2,7 @@ import styles from "./css/main.css";
 import overrides from "./css/overrides.css";
 import icons from "./css/icons.css";
 import { default as menuLocale } from "../locale/menu";
-import myLibStyles from "./css/mylibrary.css";
+import myLibStyles from "../UtilityArea/css/mylibrary.css";
 import { mylibrary } from "./MyLibrary";
 import ApiAccess from "../ApiAccess/ApiAccess";
 
@@ -39,7 +39,6 @@ template.innerHTML = `
           <a id="site-title" href="https://www.library.uq.edu.au/" class="uq-site-header__title">Library</a>
         </div>
         <div class="uq-site-header__title-container__right">
-          <div id="mylibrary"></div>
           <slot name="site-utilities"></slot>
           <button id="uq-site-header__navigation-toggle" class="uq-site-header__navigation-toggle jsNavToggle">Menu</button>
         </div>
@@ -182,8 +181,7 @@ class UQSiteHeader extends HTMLElement {
       (siteTitleContent.innerHTML = siteTitle);
     !!siteTitleContent && !!siteURL && (siteTitleContent.href = siteURL);
 
-    this.hideShowMyLibraryButton();
-
+    this.addMyLibraryButtonToSlot();
     this.addAskUsButtonToSlot();
     this.addAuthButtonToSlot();
 
@@ -196,72 +194,18 @@ class UQSiteHeader extends HTMLElement {
     this.loadJS = this.loadJS.bind(this);
   }
 
-    hideShowMyLibraryButton() {
-        if (!this.isMylibraryButtonRequested()) {
-            // if the page doesnt want mylibrary, just dont show it - no account check required
-            console.log('mylibrary button not required - remove if current')
-            const mylibraryElem = template.content.getElementById("mylibrary");
-            !!mylibraryElem && mylibraryElem.remove();
-            return;
-        }
-
-        this.confirmAccount().then(accountSummary => {
-            console.log('after, accountSummary = ', accountSummary);
-            if (!!accountSummary.isLoggedin) {
-                const uqSiteHeader = document.querySelector('uq-site-header');
-                const shadowDOM = !!uqSiteHeader && uqSiteHeader.shadowRoot || false;
-                if (!shadowDOM) {
-                    return {}
-                }
-                const myLibraryElement = !!shadowDOM && shadowDOM.getElementById("mylibrary") || false;
-                this.isMylibraryButtonRequested() && myLibraryElement && (myLibraryElement.innerHTML = mylibrary());
-                this.isMylibraryButtonRequested() && this.addMyLibraryButtonListeners(shadowDOM);
-
-                const masqueradeElement = !!shadowDOM && shadowDOM.getElementById("mylibrary-masquerade");
-                !accountSummary.canMasquerade && !!masqueradeElement && masqueradeElement.remove();
-            } else {
-                console.log('not logged in, mylibrary button not displayable - remove if current')
-                const myLibraryElement = template.content.getElementById("mylibrary");
-                !!myLibraryElement && myLibraryElement.remove();
-            }
-            return accountSummary;
-        }).then(accountSummary => {
-            if (!!accountSummary.isLoggedin) {
-                this.showHideMylibraryEspaceOption();
-            }
-            return accountSummary;
-        });
-    }
-
-    async confirmAccount() {
-        let accountSummary = {};
-
-    const api = new ApiAccess();
-    return await api.getAccount().then((account) => {
-      if (account.hasOwnProperty("hasSession") && account.hasSession === true) {
-        accountSummary.isLoggedin = !!account && !!account.id;
-        accountSummary.canMasquerade =
-          !!accountSummary.isLoggedin &&
-          account.hasOwnProperty("canMasquerade") &&
-          account.canMasquerade === true;
+    addMyLibraryButtonToSlot(slotname = 'site-utilities') {
+      if (!this.isMylibraryButtonRequested()) {
+        // if the page doesnt want mylibrary, just dont show it - no account check required
+        return;
       }
-      return accountSummary;
-    });
-  }
 
-  async showHideMylibraryEspaceOption() {
-    const api = new ApiAccess();
-    return await api.loadAuthorApi().then((author) => {
-      const uqSiteHeader = document.querySelector("uq-site-header");
-      const shadowDOM = (!!uqSiteHeader && uqSiteHeader.shadowRoot) || false;
-      const espaceitem = shadowDOM.getElementById("mylibrary-espace");
-      !!espaceitem &&
-        (!author ||
-          !author.data ||
-          (!author.data.hasOwnProperty("aut_id") && espaceitem.remove()));
-      return author;
-    });
-  }
+      console.log('show mylibrary button');
+      const mylibraryButton0 = document.createElement('mylibrary-button');
+
+      const mylibraryButton = !!mylibraryButton0 && mylibraryButton0.cloneNode(true);
+      !!mylibraryButton && this.addButtonToUtilityArea(mylibraryButton, slotname);
+    }
 
     addAskUsButtonToSlot(slotname = 'site-utilities') {
         if (!this.isAskusButtonRequested()) {
@@ -460,79 +404,12 @@ class UQSiteHeader extends HTMLElement {
     }
   }
 
-  addMyLibraryButtonListeners(shadowDOM) {
-    console.log("addMyLibraryButton");
-    let myLibraryClosed = true;
-
-    function openMyLibMenu() {
-      myLibraryClosed = false;
-      shadowDOM.getElementById("mylibrary-menu").style.display = "block";
-      shadowDOM.getElementById("mylibrary-pane").style.display = "block";
-
-      function showDisplay() {
-        shadowDOM
-          .getElementById("mylibrary-menu")
-          .classList.remove("closed-menu");
-        shadowDOM
-          .getElementById("mylibrary-pane")
-          .classList.remove("closed-pane");
-      }
-
-      setTimeout(showDisplay, 100);
-      document.onkeydown = function (evt) {
-        evt = evt || window.event;
-        if (evt.keyCode == 27 && myLibraryClosed === false) {
-          closeMyLibMenu();
-        }
-      };
+  isMegaMenuRequested() {
+    if (this.showMenu === undefined) {
+        this.showMenu = this.getAttribute('showMenu');
     }
-
-    function closeMyLibMenu() {
-      myLibraryClosed = true;
-      shadowDOM.getElementById("mylibrary-menu").classList.add("closed-menu");
-      shadowDOM.getElementById("mylibrary-pane").classList.add("closed-pane");
-
-      function hideMyLibDisplay() {
-        shadowDOM.getElementById("mylibrary-menu").style.display = "none";
-        shadowDOM.getElementById("mylibrary-pane").style.display = "none";
-      }
-
-      setTimeout(hideMyLibDisplay, 500);
-    }
-
-    function handleMyLibButton() {
-      myLibraryClosed
-        ? shadowDOM.getElementById("mylibrary-button").blur()
-        : shadowDOM.getElementById("mylibrary-button").focus();
-      shadowDOM
-        .getElementById("mylibrary-pane")
-        .addEventListener("click", handleMyLibMouseOut);
-      openMyLibMenu();
-    }
-
-    function handleMyLibMouseOut() {
-      myLibraryClosed = !myLibraryClosed;
-      shadowDOM
-        .getElementById("mylibrary-pane")
-        .removeEventListener("mouseleave", handleMyLibMouseOut);
-      closeMyLibMenu();
-    }
-
-    // Attach a listener to the mylibrary button
-    const uqsiteheader1 = document.querySelector("uq-site-header");
-    const shadowRoot = !!uqsiteheader1 && uqsiteheader1.shadowRoot;
-    const mylibraryButton =
-      !!shadowRoot && shadowRoot.getElementById("mylibrary-button");
-    !!mylibraryButton &&
-      mylibraryButton.addEventListener("click", handleMyLibButton);
+    return !!this.showMenu || this.showMenu === '';
   }
-
-    isMegaMenuRequested() {
-        if (this.showMenu === undefined) {
-            this.showMenu = this.getAttribute('showMenu');
-        }
-        return !!this.showMenu || this.showMenu === '';
-    }
 
   isAuthButtonRequested() {
     if (this.isloginRequired === undefined) {
