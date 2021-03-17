@@ -170,7 +170,7 @@ class ApiAccess {
 
     getSessionCookie() {
         if (this.isMock() && new MockApi().getUserParameter() !== 'public') {
-            return 'abc123';
+            return locale.UQLID_COOKIE_MOCK;
         }
         return this.getCookie(locale.SESSION_COOKIE_NAME);
     }
@@ -178,7 +178,7 @@ class ApiAccess {
     getLibraryGroupCookie() {
         // I am guessing this field is used as a proxy for 'has a Library account, not just a general UQ login'
         if (this.isMock() && new MockApi().getUserParameter() !== 'public') {
-            return 'LIBRARYSTAFFB';
+            return locale.USERGROUP_COOKIE_MOCK;
         }
         return this.getCookie(locale.SESSION_USER_GROUP_COOKIE_NAME);
     }
