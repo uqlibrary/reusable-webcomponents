@@ -1,8 +1,10 @@
 import styles from './css/main.css';
+import overrides from "./css/overrides.css";
 
 const template = document.createElement('template');
 template.innerHTML = `
   <style>${styles.toString()}</style>
+  <style>${overrides.toString()}</style>
   <header class="uq-header">
       <div class="uq-header__container">
         <div class="nav-global">
