@@ -71,32 +71,24 @@ class AuthButton extends HTMLElement {
     // put a smidge of delay on the auth button so it will pull from session storage and not make a second api call
     // (can't wait on the mylibrary button to appear as not all pages include it)
     async showLoginFromAuthStatus(shadowDOM) {
-        // from https://stackoverflow.com/a/54772517/1246313
-        const setAsyncTimeout = (cb, timeout = 0) => new Promise(resolve => {
-            setTimeout(() => {
-                cb();
-                resolve();
-            }, timeout);
-        });
+        this.checkAuthorisedUser()
+            .then(isAuthorised => {
+                const template = !!isAuthorised ? authorisedtemplate : unauthorisedtemplate;
 
-        await setAsyncTimeout(() => {
-            this.checkAuthorisedUser()
-                .then(isAuthorised => {
-                    const template = !!isAuthorised ? authorisedtemplate : unauthorisedtemplate;
+                // Render the template
+                shadowDOM.appendChild(template.content.cloneNode(true));
+                this.addButtonListeners(shadowDOM);
 
-                    // Render the template
-                    shadowDOM.appendChild(template.content.cloneNode(true));
-                    this.addButtonListeners(shadowDOM);
-
-                    if (!!isAuthorised) {
-                        const mylibraryStub = document.getElementById('mylibraryslot');
-                        const mylibraryButton0 = document.createElement('mylibrary-button');
-                        const mylibraryButton = !!mylibraryButton0 && mylibraryButton0.cloneNode(true);
-
-                        !!mylibraryStub && mylibraryStub.children.length === 0 && mylibraryStub.appendChild(mylibraryButton);
-                    }
-                });
-        }, 500); // least wait that does the job
+                if (!!isAuthorised) {
+                    // find the stub we built for mylibrary and replace it with the button
+                    const mylibraryStub = document.getElementById('mylibraryslot');
+                    const mylibraryButton = document.createElement('mylibrary-button');
+                    !!mylibraryStub &&
+                        mylibraryStub.children.length === 0 &&
+                        !!mylibraryButton &&
+                        mylibraryStub.parentNode.replaceChild(mylibraryButton, mylibraryStub);
+                }
+            });
     }
 
     addButtonListeners(shadowDOM) {
