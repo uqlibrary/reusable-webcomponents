@@ -1,5 +1,5 @@
 import ApiAccess from './ApiAccess/ApiAccess';
-import AskUsButton from './AskUsButton/AskUsButton';
+import AskUsButton from './UtilityArea/AskUsButton';
 import AuthButton from './UtilityArea/AuthButton';
 import ConnectFooter from './ConnectFooter/ConnectFooter';
 import UQHeader from './UQHeader/UQHeader.js';
