@@ -30,9 +30,8 @@ class ApiAccess {
         const options = !!accountApi.options ? accountApi.options : {};
         return await this.fetchAPI(urlPath, options, true)
             .then(account => {
-                console.log('getAccount: account = ', account);
+                console.log('getAccount: account from server = ', account);
                 this.storeAccount(account);
-                console.log('account from server = ', account);
 
                 return account;
             });
@@ -44,13 +43,11 @@ class ApiAccess {
         const options = !!api.options ? api.options : {};
         return await this.fetchAPI(urlPath, options, true)
             .then(author => {
-                console.log('getAccount: author = ', author);
                 return author;
             });
     }
 
     async loadChatStatus() {
-        console.log('loadChatStatus start');
         let isOnline = false;
         const chatstatusApi = (new ApiRoutes()).CHAT_API();
         const urlPath = chatstatusApi.apiUrl;
@@ -64,7 +61,6 @@ class ApiAccess {
         return isOnline;    }
 
     async loadOpeningHours() {
-        console.log('loadOpeningHours start');
         let result;
         const hoursApi = (new ApiRoutes()).LIB_HOURS_API();
         const urlPath = hoursApi.apiUrl;
@@ -144,9 +140,12 @@ class ApiAccess {
 
     getAccountFromStorage() {
         const account = JSON.parse(sessionStorage.getItem(this.STORAGE_ACCOUNT_KEYNAME));
-        if (this.isMock() && !!account && !!account.id && account.id !== (new MockApi()).user) {
-            // allow developer to swap between users in the same tab
-            return null;
+        if (this.isMock() && !!account) {
+            if ((!!account.id && account.id !== (new MockApi()).user) || !account.id) {
+                // allow developer to swap between users in the same tab
+                this.removeAccountStorage()
+                return null;
+            }
         }
 
         if (account === null) {
@@ -168,7 +167,7 @@ class ApiAccess {
 
     getSessionCookie() {
         if (this.isMock() && (new MockApi()).getUserParameter() !== 'public') {
-            return 'abc123';
+            return locale.UQLID_COOKIE_MOCK;
         }
         return this.getCookie(locale.SESSION_COOKIE_NAME);
     }
@@ -176,7 +175,7 @@ class ApiAccess {
     getLibraryGroupCookie() {
         // I am guessing this field is used as a proxy for 'has a Library account, not just a general UQ login'
         if (this.isMock() && (new MockApi()).getUserParameter() !== 'public') {
-            return 'LIBRARYSTAFFB';
+            return locale.USERGROUP_COOKIE_MOCK;
         }
         return this.getCookie(locale.SESSION_USER_GROUP_COOKIE_NAME);
     }
@@ -195,8 +194,8 @@ class ApiAccess {
     fetchMock(url, options = null) {
         const response = (new MockApi).mockfetch(url, options);
         if (!response.ok || !response.body) {
-            console.log(`fetchMock console: An error has occured in mock: ${response.status}`);
-            const message = `fetchMock: An error has occured in mock: ${response.status}`;
+            console.log(`fetchMock console: An error has occured in mock for ${url}: ${response.status}`);
+            const message = `fetchMock: An error has occured in mock for ${url}: ${response.status}`;
             // vanilla gets a 403 so we don't want to throw an error here
             return {}
         }

@@ -1,11 +1,9 @@
-import styles from './css/overrides.css';
-import icons from './css/icons.css';
+import styles from './css/auth.css';
 import ApiAccess from '../ApiAccess/ApiAccess';
 
 const unauthorisedtemplate = document.createElement('template');
 unauthorisedtemplate.innerHTML = `
     <style>${styles.toString()}</style>
-    <style>${icons.toString()}</style>
     <div class="MuiGrid-root-8 makeStyles-utility-115 MuiGrid-item-10 MuiGrid-grid-xs-auto-41" id="auth-button-block" data-testid="auth" style="display: block;">
         <button
             class="MuiButtonBase-root-148 MuiIconButton-root-158 makeStyles-iconButtonRoot-182 log-in-button"
@@ -27,7 +25,6 @@ unauthorisedtemplate.innerHTML = `
 const authorisedtemplate = document.createElement('template');
 authorisedtemplate.innerHTML = `
     <style>${styles.toString()}</style>
-    <style>${icons.toString()}</style>
     <div class="MuiGrid-root-8 makeStyles-utility-115 MuiGrid-item-10 MuiGrid-grid-xs-auto-41" id="auth-button-block" data-testid="auth" style="display: block;">
         <button
             class="MuiButtonBase-root-148 MuiIconButton-root-158 makeStyles-iconButtonRoot-182 log-out-button"
@@ -74,24 +71,24 @@ class AuthButton extends HTMLElement {
     // put a smidge of delay on the auth button so it will pull from session storage and not make a second api call
     // (can't wait on the mylibrary button to appear as not all pages include it)
     async showLoginFromAuthStatus(shadowDOM) {
-        // from https://stackoverflow.com/a/54772517/1246313
-        const setAsyncTimeout = (cb, timeout = 0) => new Promise(resolve => {
-            setTimeout(() => {
-                cb();
-                resolve();
-            }, timeout);
-        });
+        this.checkAuthorisedUser()
+            .then(isAuthorised => {
+                const template = !!isAuthorised ? authorisedtemplate : unauthorisedtemplate;
 
-        await setAsyncTimeout(() => {
-            this.checkAuthorisedUser()
-                .then(isAuthorised => {
-                    const template = !!isAuthorised ? authorisedtemplate : unauthorisedtemplate;
+                // Render the template
+                shadowDOM.appendChild(template.content.cloneNode(true));
+                this.addButtonListeners(shadowDOM);
 
-                    // Render the template
-                    shadowDOM.appendChild(template.content.cloneNode(true));
-                    this.addButtonListeners(shadowDOM);
-                });
-        }, 500); // least wait that does the job
+                if (!!isAuthorised) {
+                    // find the stub we built for mylibrary and replace it with the button
+                    const mylibraryStub = document.getElementById('mylibraryslot');
+                    const mylibraryButton = document.createElement('mylibrary-button');
+                    !!mylibraryStub &&
+                        mylibraryStub.children.length === 0 &&
+                        !!mylibraryButton &&
+                        mylibraryStub.parentNode.replaceChild(mylibraryButton, mylibraryStub);
+                }
+            });
     }
 
     addButtonListeners(shadowDOM) {

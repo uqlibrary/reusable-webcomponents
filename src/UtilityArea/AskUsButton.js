@@ -1,11 +1,9 @@
 import askus from './css/askus.css';
-import icons from './css/icons.css';
 import ApiAccess from "../ApiAccess/ApiAccess";
 
 const template = document.createElement('template');
 template.innerHTML = `
     <style>${askus.toString()}</style>
-    <style>${icons.toString()}</style>
     <div id="askus">
         <!-- Button -->
         <button id="askus-button">

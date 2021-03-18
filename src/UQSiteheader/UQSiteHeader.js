@@ -1,10 +1,8 @@
 import styles from "./css/main.css";
 import overrides from "./css/overrides.css";
 import icons from "./css/icons.css";
-import { default as menuLocale } from "../locale/menu";
-import myLibStyles from "./css/mylibrary.css";
-import { mylibrary } from "./MyLibrary";
-import ApiAccess from "../ApiAccess/ApiAccess";
+import {default as menuLocale} from "../locale/menu";
+import myLibStyles from "../UtilityArea/css/mylibrary.css";
 
 /**
  * API:
@@ -39,7 +37,6 @@ template.innerHTML = `
           <a id="site-title" href="https://www.library.uq.edu.au/" class="uq-site-header__title">Library</a>
         </div>
         <div class="uq-site-header__title-container__right">
-          <div id="mylibrary"></div>
           <slot name="site-utilities"></slot>
           <button id="uq-site-header__navigation-toggle" class="uq-site-header__navigation-toggle jsNavToggle">Menu</button>
         </div>
@@ -182,8 +179,7 @@ class UQSiteHeader extends HTMLElement {
       (siteTitleContent.innerHTML = siteTitle);
     !!siteTitleContent && !!siteURL && (siteTitleContent.href = siteURL);
 
-    this.hideShowMyLibraryButton();
-
+    this.addMyLibraryButtonToSlot();
     this.addAskUsButtonToSlot();
     this.addAuthButtonToSlot();
 
@@ -279,25 +275,22 @@ class UQSiteHeader extends HTMLElement {
         return;
     }
 
-    const authButton0 = document.createElement("auth-button");
+      const authButton = document.createElement("auth-button");
+      !!authButton && this.overwriteAsLoggedOut() &&
+      authButton.setAttribute("overwriteAsLoggedOut", "true");
 
-    !!authButton0 &&
-      this.overwriteAsLoggedOut() &&
-      authButton0.setAttribute("overwriteAsLoggedOut", "true");
-
-    const authButton = !!authButton0 && authButton0.cloneNode(true);
-    !!authButton && this.addButtonToUtilityArea(authButton);
-  }
+      !!authButton && this.addButtonToUtilityArea(authButton);
+    }
 
   addButtonToUtilityArea(button, slotName = 'site-utilities') {
     const buttonWrapper = document.createElement('span');
     !!buttonWrapper && buttonWrapper.setAttribute('slot', slotName);
     !!button && !!buttonWrapper && buttonWrapper.appendChild(button);
 
-    const siteHeader =
-      document.getElementsByTagName("uq-site-header")[0] || false;
-    !!buttonWrapper && !!siteHeader && siteHeader.appendChild(buttonWrapper);
-  }
+      const siteHeader =
+        document.getElementsByTagName("uq-site-header")[0] || false;
+      !!buttonWrapper && !!siteHeader && siteHeader.appendChild(buttonWrapper);
+    }
 
   rewriteMegaMenuFromJson() {
     const megaMenu = template.content.getElementById("jsNav");
@@ -460,79 +453,12 @@ class UQSiteHeader extends HTMLElement {
     }
   }
 
-  addMyLibraryButtonListeners(shadowDOM) {
-    console.log("addMyLibraryButton");
-    let myLibraryClosed = true;
-
-    function openMyLibMenu() {
-      myLibraryClosed = false;
-      shadowDOM.getElementById("mylibrary-menu").style.display = "block";
-      shadowDOM.getElementById("mylibrary-pane").style.display = "block";
-
-      function showDisplay() {
-        shadowDOM
-          .getElementById("mylibrary-menu")
-          .classList.remove("closed-menu");
-        shadowDOM
-          .getElementById("mylibrary-pane")
-          .classList.remove("closed-pane");
-      }
-
-      setTimeout(showDisplay, 100);
-      document.onkeydown = function (evt) {
-        evt = evt || window.event;
-        if (evt.keyCode == 27 && myLibraryClosed === false) {
-          closeMyLibMenu();
-        }
-      };
+  isMegaMenuRequested() {
+    if (this.showMenu === undefined) {
+        this.showMenu = this.getAttribute('showMenu');
     }
-
-    function closeMyLibMenu() {
-      myLibraryClosed = true;
-      shadowDOM.getElementById("mylibrary-menu").classList.add("closed-menu");
-      shadowDOM.getElementById("mylibrary-pane").classList.add("closed-pane");
-
-      function hideMyLibDisplay() {
-        shadowDOM.getElementById("mylibrary-menu").style.display = "none";
-        shadowDOM.getElementById("mylibrary-pane").style.display = "none";
-      }
-
-      setTimeout(hideMyLibDisplay, 500);
-    }
-
-    function handleMyLibButton() {
-      myLibraryClosed
-        ? shadowDOM.getElementById("mylibrary-button").blur()
-        : shadowDOM.getElementById("mylibrary-button").focus();
-      shadowDOM
-        .getElementById("mylibrary-pane")
-        .addEventListener("click", handleMyLibMouseOut);
-      openMyLibMenu();
-    }
-
-    function handleMyLibMouseOut() {
-      myLibraryClosed = !myLibraryClosed;
-      shadowDOM
-        .getElementById("mylibrary-pane")
-        .removeEventListener("mouseleave", handleMyLibMouseOut);
-      closeMyLibMenu();
-    }
-
-    // Attach a listener to the mylibrary button
-    const uqsiteheader1 = document.querySelector("uq-site-header");
-    const shadowRoot = !!uqsiteheader1 && uqsiteheader1.shadowRoot;
-    const mylibraryButton =
-      !!shadowRoot && shadowRoot.getElementById("mylibrary-button");
-    !!mylibraryButton &&
-      mylibraryButton.addEventListener("click", handleMyLibButton);
+    return !!this.showMenu || this.showMenu === '';
   }
-
-    isMegaMenuRequested() {
-        if (this.showMenu === undefined) {
-            this.showMenu = this.getAttribute('showMenu');
-        }
-        return !!this.showMenu || this.showMenu === '';
-    }
 
   isAuthButtonRequested() {
     if (this.isloginRequired === undefined) {
@@ -548,7 +474,6 @@ class UQSiteHeader extends HTMLElement {
 
   isMylibraryButtonRequested() {
     const hideMylibrary = this.getAttribute("hideMyLibrary");
-    console.log("hideMylibrary = ", hideMylibrary);
     return hideMylibrary === "false" || hideMylibrary === null;
   }
 

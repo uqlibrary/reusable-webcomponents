@@ -11,8 +11,8 @@ import {
 class MockApi {
     constructor() {
         // set session cookie in mock mode
-        Cookies.set(apilocale.SESSION_COOKIE_NAME, 'abc123');
-        Cookies.set(apilocale.SESSION_USER_GROUP_COOKIE_NAME, 'LIBRARYSTAFFB');
+        Cookies.set(apilocale.SESSION_COOKIE_NAME, apilocale.UQLID_COOKIE_MOCK);
+        Cookies.set(apilocale.SESSION_USER_GROUP_COOKIE_NAME, apilocale.USERGROUP_COOKIE_MOCK);
 
         // Get user from query string
         const user = this.getUserParameter();
@@ -28,7 +28,6 @@ class MockApi {
 
         // default user is researcher if user is not defined
         this.user = user || 'vanilla';
-        console.log('this.user = ', this.user);
     }
 
     getUserParameter() {
@@ -64,7 +63,6 @@ class MockApi {
         const apiRoute = new ApiRoutes();
         switch (url) {
             case apiRoute.CURRENT_ACCOUNT_API().apiUrl:
-                console.log('Loading Account');
                 // mock account response
                 if (this.user === 'public') {
                     return this.response(403, {});
@@ -74,7 +72,6 @@ class MockApi {
                 return this.response(403, {});
 
             case apiRoute.CURRENT_AUTHOR_API().apiUrl:
-                console.log('Loading eSpace Author');
                 // mock current author details from fez
                 if (this.user === 'anon') {
                     return this.response(403, {});
@@ -84,7 +81,6 @@ class MockApi {
                 return this.response(404, {});
 
             case apiRoute.AUTHOR_DETAILS_API().apiUrl:
-                console.log('Loading eSpace Author Details');
                 // mock current author details
                 if (this.user === 'anon') {
                     return this.response(403, {});

@@ -20,8 +20,8 @@ describe("My Library menu", () => {
       // but because they are logged out, it does not contain a mylibrary button
       // (mylibrary root has no children)
       cy.get("uq-site-header")
-          .shadow()
-          .find("#mylibrary div")
+          .find('span[slot="site-utilities"] #mylibraryslot')
+          .find("mylibrary-button")
           .should('not.exist');
     });
 
@@ -29,8 +29,20 @@ describe("My Library menu", () => {
       cy.visit("http://localhost:8080?user=vanilla");
       cy.injectAxe();
       cy.viewport(1280, 900);
-      cy.get("uq-site-header").shadow().find("button#mylibrary-button").click();
+      cy.get("uq-site-header")
+          .find('span[slot="site-utilities"] mylibrary-button')
+          .should('exist');
+      cy.get("uq-site-header")
+          .find('span[slot="site-utilities"] mylibrary-button')
+          .shadow()
+          .find("button#mylibrary-button")
+          .click();
       cy.wait(500);
+      cy.get("uq-site-header")
+          .find('span[slot="site-utilities"] mylibrary-button')
+          .shadow()
+          .find('#mylibrary-menu.closed-menu')
+          .should('not.exist');
       cy.checkA11y("uq-site-header", {
         reportName: "My Library",
         scopeName: "Accessibility",
@@ -41,19 +53,16 @@ describe("My Library menu", () => {
     it("Admin gets masquerade", () => {
       cy.visit("http://localhost:8080?user=uqstaff");
       cy.viewport(1280, 900);
-      cy.get("uq-site-header")
-          .shadow()
+      cy.get("uq-site-header").find("mylibrary-button").shadow()
           .find("div#mylibrary")
           .should("contain", "My library");
-      cy.get("uq-site-header").shadow().find("button#mylibrary-button").click();
+      cy.get("uq-site-header").find("mylibrary-button").shadow().find("button#mylibrary-button").click();
       cy.wait(500);
-      cy.get("uq-site-header")
-          .shadow()
+      cy.get("uq-site-header").find("mylibrary-button").shadow()
           .find("ul.mylibrary-menu-list")
           .find("li")
           .should("have.length", 10);
-      cy.get("uq-site-header")
-          .shadow()
+      cy.get("uq-site-header").find("mylibrary-button").shadow()
           .find('li[data-testid="mylibrary-masquerade"]')
           .should('exist')
           .contains('Masquerade');
@@ -62,19 +71,16 @@ describe("My Library menu", () => {
     it("Researcher gets espace but not masquerade", () => {
       cy.visit("http://localhost:8080?user=s1111111");
       cy.viewport(1280, 900);
-      cy.get("uq-site-header")
-          .shadow()
+      cy.get("uq-site-header").find("mylibrary-button").shadow()
           .find("div#mylibrary")
           .should("contain", "My library");
-      cy.get("uq-site-header").shadow().find("button#mylibrary-button").click();
+      cy.get("uq-site-header").find("mylibrary-button").shadow().find("button#mylibrary-button").click();
       cy.wait(500);
-      cy.get("uq-site-header")
-          .shadow()
+      cy.get("uq-site-header").find("mylibrary-button").shadow()
           .find("ul.mylibrary-menu-list")
           .find("li")
           .should("have.length", 9);
-      cy.get("uq-site-header")
-          .shadow()
+      cy.get("uq-site-header").find("mylibrary-button").shadow()
           .find('li[data-testid="mylibrary-espace"]')
           .contains('eSpace dashboard');
     });
@@ -82,23 +88,19 @@ describe("My Library menu", () => {
     it("non-Researcher gets neither espace nor masquerade", () => {
       cy.visit("http://localhost:8080?user=s3333333");
       cy.viewport(1280, 900);
-      cy.get("uq-site-header")
-          .shadow()
+      cy.get("uq-site-header").find("mylibrary-button").shadow()
           .find("div#mylibrary")
           .should("contain", "My library");
-      cy.get("uq-site-header").shadow().find("button#mylibrary-button").click();
+      cy.get("uq-site-header").find("mylibrary-button").shadow().find("button#mylibrary-button").click();
       cy.wait(500);
-      cy.get("uq-site-header")
-          .shadow()
+      cy.get("uq-site-header").find("mylibrary-button").shadow()
           .find("ul.mylibrary-menu-list")
           .find("li")
           .should("have.length", 8);
-      cy.get("uq-site-header")
-          .shadow()
+      cy.get("uq-site-header").find("mylibrary-button").shadow()
           .find('li[data-testid="mylibrary-masquerade"]')
           .should('not.exist');
-      cy.get("uq-site-header")
-          .shadow()
+      cy.get("uq-site-header").find("mylibrary-button").shadow()
           .find('li[data-testid="mylibrary-espace"]')
           .should('not.exist');
     });
