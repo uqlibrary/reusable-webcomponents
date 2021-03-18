@@ -110,12 +110,24 @@
     list-style-type: none;
 }
 
-.askus-menu-list li {
-    display: inline-block;
-    width: calc(50% - 4px);
-    padding: 0 !important;
-    margin: 0 !important;
-    height: 35px !important;
+@media screen and (max-width: 420px) {
+    .askus-menu-list li {
+        display: inline-block;
+        width: calc(100% - 4px);
+        padding: 0 !important;
+        margin: 0 !important;
+        height: 35px !important;
+    }
+}
+
+@media screen and (min-width: 420px) {
+    .askus-menu-list li {
+        display: inline-block;
+        width: calc(50% - 4px);
+        padding: 0 !important;
+        margin: 0 !important;
+        height: 35px !important;
+    }
 }
 
 .askus-menu-list li a {
