@@ -146,6 +146,17 @@
     color: #595959;
 }
 
+@media screen and (max-width: 420px) {
+    #askus-menu-item-moreways a {
+        text-align: left;
+    }
+}
+@media screen and (min-width: 420px) {
+    #askus-menu-item-moreways a {
+        text-align: center;
+    }
+}
+
 .askus-menu-list li a:hover {
     background-color: rgba(0, 0, 0, 0.05);
     text-decoration: none;
