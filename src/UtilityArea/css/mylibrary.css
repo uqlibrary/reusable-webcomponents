@@ -4,18 +4,18 @@
 #mylibrary #mylibrary-icon {
     width: 24px;
     height: 24px;
-    fill: #51247A;
+    fill: #51247a;
     margin-bottom: -5px;
 }
 
 #mylibrary #mylibrary-label {
     font-size: 12px;
     white-space: nowrap;
-    color: #51247A;
+    color: #51247a;
 }
 
 #mylibrary button {
-    background: rgba(0,0,0,0);
+    background: rgba(0, 0, 0, 0);
     border-radius: 50%;
     border: none;
     margin: -12px 0;
@@ -28,8 +28,10 @@
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-#mylibrary button:hover, button:active, button:focus {
-    background: rgba(0,0,0,0.04) !important;
+#mylibrary button:hover,
+button:active,
+button:focus {
+    background: rgba(0, 0, 0, 0.04) !important;
     transition-delay: 0s;
     transition-duration: 0.15s;
     transition-property: background-color;
@@ -38,7 +40,7 @@
 
 #mylibrary button:active {
     outline: none;
-    background: rgba(81,36,122, 0.3) !important;
+    background: rgba(81, 36, 122, 0.3) !important;
     transition-delay: 0s;
     transition-duration: 0.15s;
     transition-property: background-color;
@@ -83,7 +85,7 @@
     height: 100%;
     top: 0;
     left: 0;
-    background-color: rgba(0,0,0,0.2);
+    background-color: rgba(0, 0, 0, 0.2);
     transition: opacity 0.2s ease-out; /* Animation */
     z-index: 998;
     opacity: 1;
@@ -93,33 +95,43 @@
     transition: transform 0.2s ease-in, opacity 0.2s ease-in; /* Animation */
     transform: scale(0.5) !important;
     transform-origin: 66% 10%;
-
 }
 .closed-pane {
     opacity: 0 !important;
     transition: opacity 0.2s ease-in; /* Animation */
     transition-delay: 0s;
-
 }
 
 .mylibrary-menu-list {
-    width: 100%;
+    width: calc(100% - 20px);
     padding: 6px !important;
     padding-bottom: 0 !important;
     margin: 0;
     list-style-type: none;
 }
 
-.mylibrary-menu-list li {
-    display: inline-block;
-    width: calc(50% - 2px);
-    padding: 0 !important;
-    margin: 0 !important;
-    height: 35px !important;
+@media screen and (max-width: 420px) {
+    .mylibrary-menu-list li {
+        display: inline-block;
+        width: calc(100% - 4px);
+        padding: 0 !important;
+        margin: 0 !important;
+        height: 35px !important;
+    }
+}
+
+@media screen and (min-width: 420px) {
+    .mylibrary-menu-list li {
+        display: inline-block;
+        width: calc(50% - 4px);
+        padding: 0 !important;
+        margin: 0 !important;
+        height: 35px !important;
+    }
 }
 
 .mylibrary-menu-list li a {
-    display:inline-block;
+    display: inline-block;
     width: 100% !important;
     white-space: nowrap;
     text-overflow: ellipsis;

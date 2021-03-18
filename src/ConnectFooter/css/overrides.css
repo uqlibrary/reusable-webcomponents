@@ -6,9 +6,8 @@
     width: 100%;
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
-    background-color: #F7F7F7;
+    background-color: #f7f7f7;
 }
-
 
 /* MuiTypography */
 .typography {
@@ -16,7 +15,7 @@
 }
 .typographyh6 {
     font-size: 1.25rem;
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
     font-weight: 400;
     line-height: 1.6;
     letter-spacing: 0.0075em;
@@ -44,8 +43,9 @@
     font-size: 0.875rem;
     min-width: 64px;
     box-sizing: border-box;
-    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+        box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
     font-weight: 400;
     line-height: 1.75;
     border-radius: 4px;
@@ -75,18 +75,19 @@
 }
 .buttonContained {
     color: rgba(0, 0, 0, 0.87);
-    box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2),0 2px 2px 0 rgba(0,0,0,0.14),0 1px 5px 0 rgba(0,0,0,0.12);
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
     background-color: #e0e0e0;
 }
 .buttonContained:hover {
-    box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2),0 4px 5px 0 rgba(0,0,0,0.14),0 1px 10px 0 rgba(0,0,0,0.12);
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
     background-color: #d5d5d5;
 }
 .buttonContained.Mui-focusVisible {
-    box-shadow: 0 3px 5px -1px rgba(0,0,0,0.2),0 6px 10px 0 rgba(0,0,0,0.14),0 1px 18px 0 rgba(0,0,0,0.12);
+    box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
 }
 .buttonContained:active {
-    box-shadow: 0 5px 5px -3px rgba(0,0,0,0.2),0 8px 10px 1px rgba(0,0,0,0.14),0 3px 14px 2px rgba(0,0,0,0.12);
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14),
+        0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 .buttonContained.Mui-disabled {
     color: rgba(0, 0, 0, 0.26);
@@ -95,7 +96,7 @@
 }
 @media (hover: none) {
     .buttonContained:hover {
-        box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2),0 2px 2px 0 rgba(0,0,0,0.14),0 1px 5px 0 rgba(0,0,0,0.12);
+        box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
         background-color: #e0e0e0;
     }
 }
@@ -104,14 +105,14 @@
 }
 .buttonContainedPrimary {
     color: #fff;
-    background-color: #51247A;
+    background-color: #51247a;
 }
 .buttonContainedPrimary:hover {
     background-color: #3b1a59;
 }
 @media (hover: none) {
     .buttonContainedPrimary:hover {
-        background-color: #51247A;
+        background-color: #51247a;
     }
 }
 .buttonFullWidth {
@@ -173,7 +174,7 @@
     max-width: 100%;
     flex-basis: 100%;
 }
-@media (min-width:960px) {
+@media (min-width: 960px) {
     .gridmd4 {
         flex-grow: 0;
         max-width: 33.333333%;
@@ -225,8 +226,9 @@
     font-size: 0.875rem;
     min-width: 64px;
     box-sizing: border-box;
-    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+        box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
     font-weight: 400;
     line-height: 1.75;
     border-radius: 4px;
@@ -256,18 +258,19 @@
 }
 .buttonContained {
     color: rgba(0, 0, 0, 0.87);
-    box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2),0 2px 2px 0 rgba(0,0,0,0.14),0 1px 5px 0 rgba(0,0,0,0.12);
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
     background-color: #e0e0e0;
 }
 .buttonContained:hover {
-    box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2),0 4px 5px 0 rgba(0,0,0,0.14),0 1px 10px 0 rgba(0,0,0,0.12);
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
     background-color: #d5d5d5;
 }
 .buttonContained.Mui-focusVisible {
-    box-shadow: 0 3px 5px -1px rgba(0,0,0,0.2),0 6px 10px 0 rgba(0,0,0,0.14),0 1px 18px 0 rgba(0,0,0,0.12);
+    box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
 }
 .buttonContained:active {
-    box-shadow: 0 5px 5px -3px rgba(0,0,0,0.2),0 8px 10px 1px rgba(0,0,0,0.14),0 3px 14px 2px rgba(0,0,0,0.12);
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14),
+        0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 .buttonContained.Mui-disabled {
     color: rgba(0, 0, 0, 0.26);
@@ -276,7 +279,7 @@
 }
 @media (hover: none) {
     .buttonContained:hover {
-        box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2),0 2px 2px 0 rgba(0,0,0,0.14),0 1px 5px 0 rgba(0,0,0,0.12);
+        box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
         background-color: #e0e0e0;
     }
 }
@@ -285,76 +288,76 @@
 }
 .buttonContainedPrimary {
     color: #fff;
-    background-color: #51247A;
+    background-color: #51247a;
 }
 .buttonContainedPrimary:hover {
     background-color: #3b1a59;
 }
 @media (hover: none) {
     .buttonContainedPrimary:hover {
-        background-color: #51247A;
+        background-color: #51247a;
     }
 }
 .uq-footer__container {
     margin-left: 1rem;
     margin-right: 1rem;
-    padding-left: .5rem;
-    padding-right: .5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
     /*padding-top: 3rem;*/
     /*padding-bottom: 3rem*/
 }
 
-@media(min-width: 32.5rem) {
+@media (min-width: 32.5rem) {
     .uq-footer__container {
         margin-left: auto;
         margin-right: auto;
-        max-width: 30.5rem
+        max-width: 30.5rem;
     }
 }
 
-@media(min-width: 37.5rem) {
+@media (min-width: 37.5rem) {
     .uq-footer__container {
         margin-left: 3.25rem;
         margin-right: 3.25rem;
-        max-width: none
+        max-width: none;
     }
 }
 
-@media(min-width: 64.25rem) {
+@media (min-width: 64.25rem) {
     .uq-footer__container {
         margin-left: auto;
         margin-right: auto;
-        max-width: 57.75rem
+        max-width: 57.75rem;
     }
 }
 
-@media(min-width: 75rem) {
+@media (min-width: 75rem) {
     .uq-footer__container {
         margin-left: 8.375rem;
         margin-right: 8.375rem;
-        max-width: none
+        max-width: none;
     }
 }
 
-@media(min-width: 90rem) {
+@media (min-width: 90rem) {
     .uq-footer__container {
         margin-left: auto;
         margin-right: auto;
-        max-width: 73.25rem
+        max-width: 73.25rem;
     }
 }
 
-@media(min-width: 37.5rem) {
+@media (min-width: 37.5rem) {
     .uq-footer__container {
-        padding-left: .75rem;
-        padding-right: .75rem
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
     }
 }
 
-@media(min-width: 75rem) {
+@media (min-width: 75rem) {
     .uq-footer__container {
         padding-left: 1rem;
-        padding-right: 1rem
+        padding-right: 1rem;
     }
 }
 
@@ -371,7 +374,7 @@
     text-decoration: none;
 }
 .connectfooter-wrapper3 a:hover {
-    color: #51247A;
+    color: #51247a;
     text-decoration: underline;
 }
 .navigation {
@@ -386,38 +389,38 @@
     padding: 0;
     list-style: none;
 }
-@media (max-width:959.95px) {
+@media (max-width: 959.95px) {
     .navigation li {
         display: inline-block;
     }
 }
-@media (min-width:960px) {
+@media (min-width: 960px) {
     .navigation li {
         font-size: 14px;
         line-height: 1.7;
     }
 }
-@media (max-width:959.95px) {
+@media (max-width: 959.95px) {
     .navigation ul {
         text-align: center;
     }
 }
 .socialButtonClass {
-    color: #FFFFFF;
+    color: #ffffff;
     width: 32px;
     height: 32px;
     padding: 0;
     min-width: 32px;
-    background-color: #51247A;
+    background-color: #51247a;
 }
 .socialButtonClass:hover {
-    background-color: #3b1a59!important;
+    background-color: #3b1a59 !important;
 }
 .internalLinks {
     bottom: 1rem;
     position: absolute;
 }
-@media (max-width:959.95px) {
+@media (max-width: 959.95px) {
     .internalLinks {
         bottom: auto;
         position: relative;
@@ -431,7 +434,7 @@
 .givingWrapper div {
     margin-left: auto;
 }
-@media (max-width:959.95px) {
+@media (max-width: 959.95px) {
     .givingWrapper div {
         margin: 5px auto;
         max-width: 300px;
@@ -442,10 +445,10 @@
     margin-right: 10px;
 }
 .givingButtonClass {
-    color: #FFFFFF!important;
+    color: #ffffff !important;
     padding: 1rem;
     text-transform: initial;
-    background-color: #2377CB;
+    background-color: #2377cb;
 }
 .givingButtonClass:hover {
     background-color: #195794;
@@ -454,7 +457,7 @@
     max-width: 400px;
     margin-top: -4px;
 }
-@media (max-width:959.95px) {
+@media (max-width: 959.95px) {
     .contacts div div {
         margin: 0 auto;
     }
@@ -471,7 +474,7 @@
     .footerMenu li span {
         text-align: center;
         display: inline-block;
-        padding: 0 10px
+        padding: 0 10px;
     }
     .footerMenu li:last-of-type .separator {
         display: none;

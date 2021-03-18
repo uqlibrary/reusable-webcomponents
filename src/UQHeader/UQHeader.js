@@ -1,5 +1,5 @@
 import styles from './css/main.css';
-import overrides from "./css/overrides.css";
+import overrides from './css/overrides.css';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -80,33 +80,32 @@ template.innerHTML = `
 
 let initCalled;
 
-
 class UQHeader extends HTMLElement {
     constructor() {
         super();
         // Add a shadow DOM
-        const shadowDOM = this.attachShadow({mode: 'open'});
+        const shadowDOM = this.attachShadow({ mode: 'open' });
 
         // Handle the attributes for this component
 
         // If the attribute hideLibraryMenuItem is true, remove it from the template
         const hideLibraryMenuItem = this.getAttribute('hideLibraryMenuItem');
-        if(hideLibraryMenuItem === 'true') {
+        if (hideLibraryMenuItem === 'true') {
             const libraryMenuItem = template.content.getElementById('menu-item-library');
             !!libraryMenuItem && libraryMenuItem.remove();
         }
 
         // Append the label for the search widget
         const searchLabel = this.getAttribute('searchLabel');
-        if(!!searchLabel) {
+        if (!!searchLabel) {
             const oldValue = template.content.getElementById('search-label').innerHTML;
-            const newValue = oldValue.replace('library.uq.edu.au', searchLabel)
+            const newValue = oldValue.replace('library.uq.edu.au', searchLabel);
             template.content.getElementById('search-label').innerHTML = newValue;
         }
 
         // Append the url for the search widget
         const searchURL = this.getAttribute('searchURL');
-        if(!!searchURL) {
+        if (!!searchURL) {
             template.content.getElementById('edit-as_sitesearch-on').value = searchURL;
         }
 
@@ -137,7 +136,7 @@ class UQHeader extends HTMLElement {
             //Append it to the document header
             document.head.appendChild(script);
         }
-    };
+    }
 
     connectedCallback() {
         this.loadJS();

@@ -1,5 +1,5 @@
 import mylibrary from './css/mylibrary.css';
-import ApiAccess from "../ApiAccess/ApiAccess";
+import ApiAccess from '../ApiAccess/ApiAccess';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -102,14 +102,13 @@ template.innerHTML = `
 
 let initCalled;
 
-
 class MyLibraryButton extends HTMLElement {
     constructor() {
         console.log('MyLibraryButton constructor');
         super();
 
         // Add a shadow DOM
-        const shadowDOM = this.attachShadow({mode: 'open'});
+        const shadowDOM = this.attachShadow({ mode: 'open' });
 
         // Render the template
         this.updateMylibraryDOM(shadowDOM);
@@ -119,11 +118,11 @@ class MyLibraryButton extends HTMLElement {
     }
 
     async updateMylibraryDOM(shadowRoot) {
-        this.confirmAccount().then(accountSummary => {
+        this.confirmAccount().then((accountSummary) => {
             if (!!accountSummary.isLoggedin) {
                 shadowRoot.appendChild(template.content.cloneNode(true));
 
-                const masqueradeElement = !!shadowRoot && shadowRoot.getElementById("mylibrary-masquerade");
+                const masqueradeElement = !!shadowRoot && shadowRoot.getElementById('mylibrary-masquerade');
                 !accountSummary.canMasquerade && !!masqueradeElement && masqueradeElement.remove();
 
                 this.showHideMylibraryEspaceOption(shadowRoot);
@@ -142,11 +141,11 @@ class MyLibraryButton extends HTMLElement {
         // it should be in session storage shouldnt make a second call
         const api = new ApiAccess();
         return await api.getAccount().then((account) => {
-            if (account.hasOwnProperty("hasSession") && account.hasSession === true) {
+            if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
                 accountSummary.isLoggedin = !!account && !!account.id;
                 accountSummary.canMasquerade =
                     !!accountSummary.isLoggedin &&
-                    account.hasOwnProperty("canMasquerade") &&
+                    account.hasOwnProperty('canMasquerade') &&
                     account.canMasquerade === true;
             }
             return accountSummary;
@@ -156,8 +155,8 @@ class MyLibraryButton extends HTMLElement {
     async showHideMylibraryEspaceOption(shadowDOM) {
         const api = new ApiAccess();
         return await api.loadAuthorApi().then((author) => {
-            const espaceitem = !!shadowDOM && shadowDOM.getElementById("mylibrary-espace");
-            const isAuthor = !!author && !!author.data && !!author.data.hasOwnProperty("aut_id");
+            const espaceitem = !!shadowDOM && shadowDOM.getElementById('mylibrary-espace');
+            const isAuthor = !!author && !!author.data && !!author.data.hasOwnProperty('aut_id');
             !!espaceitem && !isAuthor && espaceitem.remove();
             return author;
         });
@@ -168,14 +167,14 @@ class MyLibraryButton extends HTMLElement {
 
         function openMyLibMenu() {
             myLibraryClosed = false;
-            const shadowMenu = shadowDOM.getElementById("mylibrary-menu");
-            !!shadowMenu && (shadowMenu.style.display = "block");
-            const shadowPane = shadowDOM.getElementById("mylibrary-pane");
-            !!shadowPane && (shadowPane.style.display = "block");
+            const shadowMenu = shadowDOM.getElementById('mylibrary-menu');
+            !!shadowMenu && (shadowMenu.style.display = 'block');
+            const shadowPane = shadowDOM.getElementById('mylibrary-pane');
+            !!shadowPane && (shadowPane.style.display = 'block');
 
             function showDisplay() {
-                !!shadowMenu && shadowMenu.classList.remove("closed-menu");
-                !!shadowPane && shadowPane.classList.remove("closed-pane");
+                !!shadowMenu && shadowMenu.classList.remove('closed-menu');
+                !!shadowPane && shadowPane.classList.remove('closed-pane');
             }
 
             setTimeout(showDisplay, 100);
@@ -190,41 +189,37 @@ class MyLibraryButton extends HTMLElement {
 
         function closeMyLibMenu() {
             myLibraryClosed = true;
-            const shadowMenu = shadowDOM.getElementById("mylibrary-menu");
-            shadowMenu.classList.add("closed-menu");
-            const shadowPane = shadowDOM.getElementById("mylibrary-pane");
-            shadowPane.classList.add("closed-pane");
+            const shadowMenu = shadowDOM.getElementById('mylibrary-menu');
+            shadowMenu.classList.add('closed-menu');
+            const shadowPane = shadowDOM.getElementById('mylibrary-pane');
+            shadowPane.classList.add('closed-pane');
 
             function hideMyLibDisplay() {
-                !!shadowMenu && (shadowMenu.style.display = "none");
-                !!shadowPane && (shadowPane.style.display = "none");
+                !!shadowMenu && (shadowMenu.style.display = 'none');
+                !!shadowPane && (shadowPane.style.display = 'none');
             }
 
             setTimeout(hideMyLibDisplay, 500);
         }
 
         function handleMyLibButton() {
-            const shadowButton = shadowDOM.getElementById("mylibrary-button");
-            myLibraryClosed
-                ? !!shadowButton && shadowButton.blur()
-                : !!shadowButton && shadowButton.focus();
-            const shadowPane = shadowDOM.getElementById("mylibrary-pane");
-            !!shadowPane && shadowPane.addEventListener("click", handleMyLibMouseOut);
+            const shadowButton = shadowDOM.getElementById('mylibrary-button');
+            myLibraryClosed ? !!shadowButton && shadowButton.blur() : !!shadowButton && shadowButton.focus();
+            const shadowPane = shadowDOM.getElementById('mylibrary-pane');
+            !!shadowPane && shadowPane.addEventListener('click', handleMyLibMouseOut);
             openMyLibMenu();
         }
 
         function handleMyLibMouseOut() {
             myLibraryClosed = !myLibraryClosed;
-            const shadowPane = shadowDOM.getElementById("mylibrary-pane");
-            !!shadowPane && shadowPane.removeEventListener("mouseleave", handleMyLibMouseOut);
+            const shadowPane = shadowDOM.getElementById('mylibrary-pane');
+            !!shadowPane && shadowPane.removeEventListener('mouseleave', handleMyLibMouseOut);
             closeMyLibMenu();
         }
 
         // Attach a listener to the mylibrary button
-        const mylibraryButton =
-            shadowDOM.getElementById("mylibrary-button");
-        !!mylibraryButton &&
-            mylibraryButton.addEventListener("click", handleMyLibButton);
+        const mylibraryButton = shadowDOM.getElementById('mylibrary-button');
+        !!mylibraryButton && mylibraryButton.addEventListener('click', handleMyLibButton);
     }
 
     loadJS() {
@@ -246,7 +241,7 @@ class MyLibraryButton extends HTMLElement {
             //Append it to the document header
             document.head.appendChild(script);
         }
-    };
+    }
 
     connectedCallback() {
         this.loadJS();

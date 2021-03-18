@@ -1,5 +1,5 @@
 import askus from './css/askus.css';
-import ApiAccess from "../ApiAccess/ApiAccess";
+import ApiAccess from '../ApiAccess/ApiAccess';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -57,12 +57,21 @@ template.innerHTML = `
                     </a>
                 </li>
                 <!-- More ways -->
-                <li role="menuitem" aria-disabled="false" style="width: 99%">
-                    <a href="https://web.library.uq.edu.au/contact-us" rel="noreferrer" style="text-align: center">
+                <li id="askus-menu-item-moreways" role="menuitem" aria-disabled="false" style="width: 99%">
+                    <a href="https://web.library.uq.edu.au/contact-us" rel="noreferrer">
                         <span>More ways to contact us</span>
                     </a>
                 </li>
             </ul>
+        </div>
+        <!-- Chat status -->
+        <div id="askus-chat-status">
+            <div id="askus-chat-online" style="display: none;" title="Click to open online chat">
+                <svg id="askus-chat-status-icon-online" focusable="false" viewBox="0 0 24 24" aria-hidden="true" id="chat-status-icon-online" data-testid="chat-status-icon-online"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path></svg>
+            </div>
+           <div id="askus-chat-offline" style="display: none;" title="Chat currently offline">
+                <svg id="askus-chat-status-icon-offline" focusable="false" viewBox="0 0 24 24" aria-hidden="true" id="chat-status-icon-offline" data-testid="chat-status-icon-online"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path></svg>
+            </div>
         </div>
     </div>
     <!-- Screen wrapper -->
@@ -71,12 +80,11 @@ template.innerHTML = `
 
 let initCalled;
 
-
 class AskUsButton extends HTMLElement {
     constructor() {
         super();
         // Add a shadow DOM
-        const shadowDOM = this.attachShadow({mode: 'open'});
+        const shadowDOM = this.attachShadow({ mode: 'open' });
 
         // Render the template
         shadowDOM.appendChild(template.content.cloneNode(true));
@@ -87,23 +95,28 @@ class AskUsButton extends HTMLElement {
         this.loadJS = this.loadJS.bind(this);
     }
 
-
     async updateAskusDOM(shadowRoot) {
         const api = new ApiAccess();
-        await api.loadChatStatus().then(isOnline => {
+        await api.loadChatStatus().then((isOnline) => {
             if (!isOnline) {
                 console.log('chat is offline');
                 // Chat disabled
                 shadowRoot.getElementById('askus-chat-li').style.opacity = '0.6';
-                shadowRoot.getElementById('askus-chat-link').removeAttribute("onclick");
+                shadowRoot.getElementById('askus-chat-link').removeAttribute('onclick');
 
                 shadowRoot.getElementById('askus-phone-li').style.opacity = '0.6';
-                shadowRoot.getElementById('askus-phone-link').removeAttribute("href");
-            } else {
-                console.log('chat is ONline');
-            }});
+                shadowRoot.getElementById('askus-phone-link').removeAttribute('href');
 
-        await api.loadOpeningHours().then(hours => {
+                // Chat status
+                shadowRoot.getElementById('askus-chat-offline').removeAttribute('style');
+            } else {
+                console.log('chat is online');
+                // Chat status
+                shadowRoot.getElementById('askus-chat-online').removeAttribute('style');
+            }
+        });
+
+        await api.loadOpeningHours().then((hours) => {
             // display opening hours in the askus widget
             const chatitem = shadowRoot.getElementById('askus-chat-time');
             !!hours && !!hours.chat && !!chatitem && (chatitem.innerHTML = hours.chat);
@@ -111,22 +124,20 @@ class AskUsButton extends HTMLElement {
             const phoneitem = shadowRoot.getElementById('askus-phone-time');
             !!hours && !!hours.phone && !!phoneitem && (phoneitem.innerText = hours.phone);
         });
-
-
     }
 
-    addButtonListeners(shadowDOM) {
+    addButtonListeners(shadowDOM, isOnline) {
         let askUsClosed = true;
         function openMenu() {
             askUsClosed = false;
-            const askusMenu = shadowDOM.getElementById("askus-menu");
-            !!askusMenu && (askusMenu.style.display = "block");
-            const askusPane = shadowDOM.getElementById("askus-pane");
-            !!askusPane && (askusPane.style.display = "block");
+            const askusMenu = shadowDOM.getElementById('askus-menu');
+            !!askusMenu && (askusMenu.style.display = 'block');
+            const askusPane = shadowDOM.getElementById('askus-pane');
+            !!askusPane && (askusPane.style.display = 'block');
 
             function showDisplay() {
-                !!askusMenu && askusMenu.classList.remove("closed-menu");
-                !!askusPane && askusPane.classList.remove("closed-pane");
+                !!askusMenu && askusMenu.classList.remove('closed-menu');
+                !!askusPane && askusPane.classList.remove('closed-pane');
             }
 
             setTimeout(showDisplay, 100);
@@ -141,15 +152,15 @@ class AskUsButton extends HTMLElement {
 
         function closeMenu() {
             askUsClosed = true;
-            const askusMenu = shadowDOM.getElementById("askus-menu");
-            const askusPane = shadowDOM.getElementById("askus-pane");
+            const askusMenu = shadowDOM.getElementById('askus-menu');
+            const askusPane = shadowDOM.getElementById('askus-pane');
 
-            !!askusMenu && askusMenu.classList.add("closed-menu");
-            !!askusPane && askusPane.classList.add("closed-pane");
+            !!askusMenu && askusMenu.classList.add('closed-menu');
+            !!askusPane && askusPane.classList.add('closed-pane');
 
             function hideDisplay() {
-                !!askusMenu && (askusMenu.style.display = "none");
-                !!askusPane && (askusPane.style.display = "none");
+                !!askusMenu && (askusMenu.style.display = 'none');
+                !!askusPane && (askusPane.style.display = 'none');
             }
 
             setTimeout(hideDisplay, 500);
@@ -157,28 +168,43 @@ class AskUsButton extends HTMLElement {
 
         function handleAskUsButton() {
             const askusButton = shadowDOM.getElementById('askus-actual-button');
-            const askusPane = shadowDOM.getElementById("askus-pane");
+            const askusPane = shadowDOM.getElementById('askus-pane');
 
-            !!askUsClosed
-                ? !!askusButton && askusButton.blur()
-                : !!askusButton && askusButton.focus()
+            !!askUsClosed ? !!askusButton && askusButton.blur() : !!askusButton && askusButton.focus();
             !!askusPane && askusPane.addEventListener('click', handleMouseOut);
 
             openMenu();
         }
 
         function handleMouseOut() {
-            const askusPane = shadowDOM.getElementById("askus-pane");
+            const askusPane = shadowDOM.getElementById('askus-pane');
 
             askUsClosed = !askUsClosed;
             !!askusPane && askusPane.removeEventListener('mouseleave', handleMouseOut);
             closeMenu();
-
         }
 
         // Attach a listener to the askus button
-        const askusButton = shadowDOM.getElementById("askus-button");
+        const askusButton = shadowDOM.getElementById('askus-button');
         !!askusButton && askusButton.addEventListener('click', handleAskUsButton);
+
+        // Chat status
+        function openChat() {
+            window.open(
+                'https://support.my.uq.edu.au/app/chat/chat_launch_lib/p/45',
+                'chat',
+                'toolbar=no, location=no, status=no, width=400, height=400',
+            );
+        }
+
+        function navigateToContactUs() {
+            console.log('Navigating to contact us');
+            window.location.href = 'https://support.my.uq.edu.au/app/library/contact';
+        }
+
+        // Chat status listeners
+        shadowDOM.getElementById('askus-chat-online').addEventListener('click', openChat);
+        shadowDOM.getElementById('askus-chat-offline').addEventListener('click', navigateToContactUs);
     }
 
     loadJS() {
@@ -200,7 +226,7 @@ class AskUsButton extends HTMLElement {
             //Append it to the document header
             document.head.appendChild(script);
         }
-    };
+    }
 
     connectedCallback() {
         this.loadJS();
