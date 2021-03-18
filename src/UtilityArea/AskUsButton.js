@@ -57,8 +57,8 @@ template.innerHTML = `
                     </a>
                 </li>
                 <!-- More ways -->
-                <li role="menuitem" aria-disabled="false" style="width: 99%">
-                    <a href="https://web.library.uq.edu.au/contact-us" rel="noreferrer" style="text-align: center">
+                <li id="askus-menu-item-moreways" role="menuitem" aria-disabled="false" style="width: 99%">
+                    <a href="https://web.library.uq.edu.au/contact-us" rel="noreferrer">
                         <span>More ways to contact us</span>
                     </a>
                 </li>
