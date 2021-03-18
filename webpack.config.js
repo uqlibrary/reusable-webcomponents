@@ -83,7 +83,15 @@ module.exports = () => {
         },
         optimization: {
             minimize: true,
-            minimizer: [new TerserPlugin()],
+            minimizer: [
+                new TerserPlugin({
+                    terserOptions: {
+                        compress: {
+                            drop_console: process.env.NODE_ENV === 'development',
+                        }
+                    }
+                })
+            ],
         },
         plugins: [
             new HTMLWebpackPlugin({
