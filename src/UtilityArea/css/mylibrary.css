@@ -103,19 +103,31 @@
 }
 
 .mylibrary-menu-list {
-    width: 100%;
+    width: calc(100% - 20px);
     padding: 6px !important;
     padding-bottom: 0 !important;
     margin: 0;
     list-style-type: none;
 }
 
-.mylibrary-menu-list li {
-    display: inline-block;
-    width: calc(50% - 2px);
-    padding: 0 !important;
-    margin: 0 !important;
-    height: 35px !important;
+@media screen and (max-width: 420px) {
+    .mylibrary-menu-list li {
+        display: inline-block;
+        width: calc(100% - 4px);
+        padding: 0 !important;
+        margin: 0 !important;
+        height: 35px !important;
+    }
+}
+
+@media screen and (min-width: 420px) {
+    .mylibrary-menu-list li {
+        display: inline-block;
+        width: calc(50% - 4px);
+        padding: 0 !important;
+        margin: 0 !important;
+        height: 35px !important;
+    }
 }
 
 .mylibrary-menu-list li a {

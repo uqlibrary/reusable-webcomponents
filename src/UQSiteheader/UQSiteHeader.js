@@ -174,6 +174,7 @@ class UQSiteHeader extends HTMLElement {
     const siteTitleContent = template.content.getElementById("site-title");
     const siteTitle = this.getAttribute("siteTitle");
     const siteURL = this.getAttribute("siteURL");
+
     !!siteTitleContent &&
       !!siteTitle &&
       (siteTitleContent.innerHTML = siteTitle);
