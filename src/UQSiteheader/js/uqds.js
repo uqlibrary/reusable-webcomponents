@@ -368,10 +368,13 @@ var uq = function (exports) {
           const uqHeader = document.querySelector('uq-header') || false;
           const shadowRoot = !!uqHeader && uqHeader.shadowRoot || false;
           if (_this6.hash && _this6.hash !== '') {
-            const selectors = "".concat(_this6.hash, ".").concat(_this6.className, "__content");
+            let selectors = "".concat(_this6.hash, ".").concat(_this6.className, "__content");
             // on uqlapp we get weird errors like
             // "Failed to execute 'querySelector' on 'DocumentFragment': '#/membership.accordion__content' is not a valid selector."
-            if (!isSelectorValid(selectors)) { console.log('would have got error on selector ', selectors)} // #dev
+            // where #/membership is a vital part of the url
+            // note: uqlapp does not display the megamenu
+            selectors = selectors.replace('#/membership.', '');
+            if (!isSelectorValid(selectors)) { console.log('selector ', selectors, ' has probably caused the uqsiteheader to silently fail')} // #dev
             var hashSelectedContent = isSelectorValid(selectors) && !!shadowRoot && shadowRoot.querySelector(selectors) || false;
 
             if (!!hashSelectedContent) {
@@ -385,8 +388,9 @@ var uq = function (exports) {
             }
           }
 
-          const selectors1 = ".".concat(_this6.className);
-          if (!isSelectorValid(selectors1)) { console.log('would have got error on selector ', selectors1)} // #dev
+          let selectors1 = ".".concat(_this6.className);
+          selectors1 = selectors1.replace('#/membership.', '');
+          if (!isSelectorValid(selectors1)) { console.log('selector ', selectors, ' has probably caused the uqsiteheader to silently fail')} // #dev
           var accordions = isSelectorValid(selectors1) && !!shadowRoot && shadowRoot.querySelectorAll(selectors1);
           accordions.forEach(function (el) {
             var togglers = el.querySelectorAll(".".concat(_this6.className, "__toggle"));

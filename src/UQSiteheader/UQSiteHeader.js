@@ -221,7 +221,7 @@ class UQSiteHeader extends HTMLElement {
 
       const authButton = document.createElement("auth-button");
       !!authButton && this.overwriteAsLoggedOut() &&
-      authButton.setAttribute("overwriteAsLoggedOut", "true");
+          authButton.setAttribute("overwriteAsLoggedOut", "true");
 
       !!authButton && this.addButtonToUtilityArea(authButton);
     }
