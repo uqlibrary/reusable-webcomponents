@@ -213,10 +213,10 @@ class UQSiteHeader extends HTMLElement {
         !!askusButton && this.addButtonToUtilityArea(askusButton);
     }
 
-    addAuthButtonToSlot() {
-        if (!this.isAuthButtonRequested()) {
-            return;
-        }
+  addAuthButtonToSlot() {
+    if (!this.isAuthButtonRequested()) {
+        return;
+    }
 
         const authButton = document.createElement('auth-button');
         !!authButton && this.overwriteAsLoggedOut() && authButton.setAttribute('overwriteAsLoggedOut', 'true');
