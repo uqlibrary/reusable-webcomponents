@@ -1,8 +1,8 @@
-import styles from "./css/main.css";
-import overrides from "./css/overrides.css";
-import icons from "./css/icons.css";
-import {default as menuLocale} from "../locale/menu";
-import myLibStyles from "../UtilityArea/css/mylibrary.css";
+import styles from './css/main.css';
+import overrides from './css/overrides.css';
+import icons from './css/icons.css';
+import { default as menuLocale } from '../locale/menu';
+import myLibStyles from '../UtilityArea/css/mylibrary.css';
 
 /**
  * API:
@@ -21,7 +21,7 @@ import myLibStyles from "../UtilityArea/css/mylibrary.css";
 
  */
 
-const template = document.createElement("template");
+const template = document.createElement('template');
 template.innerHTML = `
     <style>${styles.toString()}</style>
     <style>${icons.toString()}</style>
@@ -163,47 +163,45 @@ template.innerHTML = `
 let initCalled;
 
 class UQSiteHeader extends HTMLElement {
-  constructor() {
-    super();
-    // Add a shadow DOM
-    const shadowDOM = this.attachShadow({ mode: "open" });
+    constructor() {
+        super();
+        // Add a shadow DOM
+        const shadowDOM = this.attachShadow({ mode: 'open' });
 
-    // Handle the attributes for this component
+        // Handle the attributes for this component
 
-    // Set the title & link URL
-    const siteTitleContent = template.content.getElementById("site-title");
-    const siteTitle = this.getAttribute("siteTitle");
-    const siteURL = this.getAttribute("siteURL");
+        // Set the title & link URL
+        const siteTitleContent = template.content.getElementById('site-title');
+        const siteTitle = this.getAttribute('siteTitle');
+        const siteURL = this.getAttribute('siteURL');
 
-    !!siteTitleContent &&
-      !!siteTitle &&
-      (siteTitleContent.innerHTML = siteTitle);
-    !!siteTitleContent && !!siteURL && (siteTitleContent.href = siteURL);
+        !!siteTitleContent && !!siteTitle && (siteTitleContent.innerHTML = siteTitle);
+        !!siteTitleContent && !!siteURL && (siteTitleContent.href = siteURL);
 
-    this.addMyLibraryButtonToSlot();
-    this.addAskUsButtonToSlot();
-    this.addAuthButtonToSlot();
+        this.addMyLibraryButtonToSlot();
+        this.addAskUsButtonToSlot();
+        this.addAuthButtonToSlot();
 
-    this.rewriteMegaMenuFromJson();
+        this.rewriteMegaMenuFromJson();
 
-    // Render the template
-    shadowDOM.appendChild(template.content.cloneNode(true));
+        // Render the template
+        shadowDOM.appendChild(template.content.cloneNode(true));
 
-    // Bindings
-    this.loadJS = this.loadJS.bind(this);
-  }
+        // Bindings
+        this.loadJS = this.loadJS.bind(this);
+    }
 
     addMyLibraryButtonToSlot() {
-      if (!this.isMylibraryButtonRequested()) {
-        // if the page doesnt want mylibrary, just dont show it - no account check required
-        return;
-      }
+        if (!this.isMylibraryButtonRequested()) {
+            // if the page doesnt want mylibrary, just dont show it - no account check required
+            return;
+        }
 
-      // this one just creates the stub - authbutton will fill in the actual button if they are logged in
-      const mylibraryButton = document.createElement('div');
-      mylibraryButton.id = 'mylibraryslot';
+        // this one just creates the stub - authbutton will fill in the actual button if they are logged in
+        const mylibraryButton = document.createElement('div');
+        mylibraryButton.id = 'mylibraryslot';
 
-      !!mylibraryButton && this.addButtonToUtilityArea(mylibraryButton);
+        !!mylibraryButton && this.addButtonToUtilityArea(mylibraryButton);
     }
 
     addAskUsButtonToSlot() {
@@ -216,224 +214,192 @@ class UQSiteHeader extends HTMLElement {
     }
 
     addAuthButtonToSlot() {
-      if (!this.isAuthButtonRequested()) {
-        return;
-      }
+        if (!this.isAuthButtonRequested()) {
+            return;
+        }
 
-      const authButton = document.createElement("auth-button");
-      !!authButton && this.overwriteAsLoggedOut() &&
-      authButton.setAttribute("overwriteAsLoggedOut", "true");
+        const authButton = document.createElement('auth-button');
+        !!authButton && this.overwriteAsLoggedOut() && authButton.setAttribute('overwriteAsLoggedOut', 'true');
 
-      !!authButton && this.addButtonToUtilityArea(authButton);
+        !!authButton && this.addButtonToUtilityArea(authButton);
     }
 
     addButtonToUtilityArea(button) {
-      const buttonWrapper = document.createElement('span');
-          !!buttonWrapper && buttonWrapper.setAttribute('slot', 'site-utilities');
-      !!button && !!buttonWrapper && buttonWrapper.appendChild(button);
+        const buttonWrapper = document.createElement('span');
+        !!buttonWrapper && buttonWrapper.setAttribute('slot', 'site-utilities');
+        !!button && !!buttonWrapper && buttonWrapper.appendChild(button);
 
-      const siteHeader =
-        document.getElementsByTagName("uq-site-header")[0] || false;
-      !!buttonWrapper && !!siteHeader && siteHeader.appendChild(buttonWrapper);
+        const siteHeader = document.getElementsByTagName('uq-site-header')[0] || false;
+        !!buttonWrapper && !!siteHeader && siteHeader.appendChild(buttonWrapper);
     }
 
-  rewriteMegaMenuFromJson() {
-    const megaMenu = template.content.getElementById("jsNav");
+    rewriteMegaMenuFromJson() {
+        const megaMenu = template.content.getElementById('jsNav');
 
-    // clear the existing children
-    megaMenu.textContent = "";
+        // clear the existing children
+        megaMenu.textContent = '';
 
-    if (!this.isMegaMenuRequested()) {
-      // hide responsive menu button
-      const button = template.content.getElementById(
-        "uq-site-header__navigation-toggle"
-      );
-      !!button && (button.style.display = "none");
+        if (!this.isMegaMenuRequested()) {
+            // hide responsive menu button
+            const button = template.content.getElementById('uq-site-header__navigation-toggle');
+            !!button && (button.style.display = 'none');
 
-      // don't add Library megamenu
-      return;
-    }
-
-    const listWrapper = document.createElement("ul");
-    listWrapper.setAttribute(
-      "class",
-      "uq-site-header__navigation__list uq-site-header__navigation__list--level-1"
-    );
-
-    menuLocale.publicmenu.forEach((jsonParentItem, index) => {
-      const hasChildren =
-        !!jsonParentItem.submenuItems && jsonParentItem.submenuItems.length > 0;
-
-      const parentListItem = document.createElement("li");
-
-      let classNavListitem = "uq-site-header__navigation__list-item";
-      !!hasChildren &&
-        (classNavListitem +=
-          " uq-site-header__navigation__list-item--has-subnav");
-      jsonParentItem.linkTo === window.location.href &&
-        (classNavListitem += " uq-site-header__navigation__list-item--active");
-      parentListItem.setAttribute("class", classNavListitem);
-
-      const parentLink = this.createLink(
-        `megamenu-submenus-item-${index}`,
-        jsonParentItem.linkTo || "",
-        jsonParentItem.primaryText || ""
-      );
-      parentLink.setAttribute("aria-expanded", "false");
-      parentListItem.appendChild(parentLink);
-
-      if (hasChildren) {
-        const textOfToggle = document.createTextNode("Open");
-        const parentToggle = document.createElement("span");
-        parentToggle.setAttribute(
-          "class",
-          "uq-site-header__navigation__sub-toggle"
-        );
-        parentToggle.appendChild(textOfToggle);
-
-        parentListItem.appendChild(parentToggle);
-      }
-
-      // make child items
-      if (hasChildren) {
-        const listItemWrapper = document.createElement("ul");
-        let listItemClass =
-          "uq-site-header__navigation__list uq-site-header__navigation__list--level-2";
-        !!jsonParentItem.columnCount &&
-          jsonParentItem.columnCount > 1 &&
-          (listItemClass += " multicolumn-" + jsonParentItem.columnCount);
-        listItemWrapper.setAttribute("class", listItemClass);
-        jsonParentItem.submenuItems.forEach((jsonChild) => {
-          const listItem = document.createElement("li");
-          listItem.setAttribute(
-            "class",
-            "uq-site-header__navigation__list-item"
-          );
-
-          // a missing primary text allows for an empty cell, controlling the spacing of the menu
-          if (!!jsonChild.primaryText) {
-            const primarytextOfLink = document.createTextNode(
-              jsonChild.primaryText || ""
-            );
-            const primaryTextItem = document.createElement("span");
-            primaryTextItem.setAttribute("class", "displayText");
-            primaryTextItem.appendChild(primarytextOfLink);
-
-            const secondarytextOfLink = document.createTextNode(
-              jsonChild.secondaryText || " "
-            );
-            const secondaryTextItem = document.createElement("span");
-            secondaryTextItem.setAttribute(
-              "class",
-              "displayText secondaryText"
-            );
-            secondaryTextItem.appendChild(secondarytextOfLink);
-
-            const itemLink = document.createElement("a");
-            itemLink.setAttribute("data-testid", jsonChild.dataTestid || "");
-            itemLink.setAttribute("href", jsonChild.linkTo || "");
-            itemLink.appendChild(primaryTextItem);
-            itemLink.appendChild(secondaryTextItem);
-            itemLink.setAttribute("aria-expanded", "false");
-
-            listItem.appendChild(itemLink);
-          }
-
-          listItemWrapper.appendChild(listItem);
-        });
-        parentListItem.appendChild(listItemWrapper);
-      }
-
-      listWrapper.appendChild(parentListItem);
-    });
-    megaMenu.appendChild(listWrapper);
-  }
-
-  createLink(datatestid, href, linktext) {
-    const alink = document.createElement("a");
-    alink.setAttribute("data-testid", datatestid);
-    alink.setAttribute("href", href);
-    const textOfLink = document.createTextNode(linktext);
-    alink.appendChild(textOfLink);
-    return alink;
-  }
-
-  loadJS(hideAskUs, hideMyLibrary) {
-    // This loads the external JS file into the HTML head dynamically
-    //Only load js if it has not been loaded before (tracked by the initCalled flag)
-    if (!initCalled) {
-      const isMegaMenuDisplayed = this.isMegaMenuRequested();
-
-      //Dynamically import the JS file and append it to the document header
-      const script = document.createElement("script");
-      script.type = "text/javascript";
-      script.async = true;
-      script.onload = function () {
-        //Code to execute after the library has been downloaded parsed and processed by the browser starts here :)
-        initCalled = true;
-        // Initialise Main Navigation
-        const uqSiteHeader = document.querySelector("uq-site-header");
-        const shadowDOM = (!!uqSiteHeader && uqSiteHeader.shadowRoot) || false;
-        if (!!isMegaMenuDisplayed) {
-          var navelement =
-            !!uqSiteHeader && uqSiteHeader.shadowRoot.getElementById("jsNav");
-          var nav = new uq.siteHeaderNavigation(
-            navelement,
-            "uq-site-header__navigation"
-          );
+            // don't add Library megamenu
+            return;
         }
-        // Initialise accordions
-        new uq.accordion();
-        // Equalised grid menu examples
-        var equaliseGridMenu = uq.gridMenuEqualiser(
-          ".uq-grid-menu--equalised>a"
-        );
-        equaliseGridMenu.align();
-      };
-      //Specify the location of the ITS DS JS file
-      script.src = "uq-site-header.js";
 
-      //Append it to the document header
-      document.head.appendChild(script);
+        const listWrapper = document.createElement('ul');
+        listWrapper.setAttribute('class', 'uq-site-header__navigation__list uq-site-header__navigation__list--level-1');
+
+        menuLocale.publicmenu.forEach((jsonParentItem, index) => {
+            const hasChildren = !!jsonParentItem.submenuItems && jsonParentItem.submenuItems.length > 0;
+
+            const parentListItem = document.createElement('li');
+
+            let classNavListitem = 'uq-site-header__navigation__list-item';
+            !!hasChildren && (classNavListitem += ' uq-site-header__navigation__list-item--has-subnav');
+            jsonParentItem.linkTo === window.location.href &&
+                (classNavListitem += ' uq-site-header__navigation__list-item--active');
+            parentListItem.setAttribute('class', classNavListitem);
+
+            const parentLink = this.createLink(
+                `megamenu-submenus-item-${index}`,
+                jsonParentItem.linkTo || '',
+                jsonParentItem.primaryText || '',
+            );
+            parentLink.setAttribute('aria-expanded', 'false');
+            parentListItem.appendChild(parentLink);
+
+            if (hasChildren) {
+                const textOfToggle = document.createTextNode('Open');
+                const parentToggle = document.createElement('span');
+                parentToggle.setAttribute('class', 'uq-site-header__navigation__sub-toggle');
+                parentToggle.appendChild(textOfToggle);
+
+                parentListItem.appendChild(parentToggle);
+            }
+
+            // make child items
+            if (hasChildren) {
+                const listItemWrapper = document.createElement('ul');
+                let listItemClass = 'uq-site-header__navigation__list uq-site-header__navigation__list--level-2';
+                !!jsonParentItem.columnCount &&
+                    jsonParentItem.columnCount > 1 &&
+                    (listItemClass += ' multicolumn-' + jsonParentItem.columnCount);
+                listItemWrapper.setAttribute('class', listItemClass);
+                jsonParentItem.submenuItems.forEach((jsonChild) => {
+                    const listItem = document.createElement('li');
+                    listItem.setAttribute('class', 'uq-site-header__navigation__list-item');
+
+                    // a missing primary text allows for an empty cell, controlling the spacing of the menu
+                    if (!!jsonChild.primaryText) {
+                        const primarytextOfLink = document.createTextNode(jsonChild.primaryText || '');
+                        const primaryTextItem = document.createElement('span');
+                        primaryTextItem.setAttribute('class', 'displayText');
+                        primaryTextItem.appendChild(primarytextOfLink);
+
+                        const secondarytextOfLink = document.createTextNode(jsonChild.secondaryText || ' ');
+                        const secondaryTextItem = document.createElement('span');
+                        secondaryTextItem.setAttribute('class', 'displayText secondaryText');
+                        secondaryTextItem.appendChild(secondarytextOfLink);
+
+                        const itemLink = document.createElement('a');
+                        itemLink.setAttribute('data-testid', jsonChild.dataTestid || '');
+                        itemLink.setAttribute('href', jsonChild.linkTo || '');
+                        itemLink.appendChild(primaryTextItem);
+                        itemLink.appendChild(secondaryTextItem);
+                        itemLink.setAttribute('aria-expanded', 'false');
+
+                        listItem.appendChild(itemLink);
+                    }
+
+                    listItemWrapper.appendChild(listItem);
+                });
+                parentListItem.appendChild(listItemWrapper);
+            }
+
+            listWrapper.appendChild(parentListItem);
+        });
+        megaMenu.appendChild(listWrapper);
     }
-  }
 
-  isMegaMenuRequested() {
-    if (this.showMenu === undefined) {
-        this.showMenu = this.getAttribute('showMenu');
+    createLink(datatestid, href, linktext) {
+        const alink = document.createElement('a');
+        alink.setAttribute('data-testid', datatestid);
+        alink.setAttribute('href', href);
+        const textOfLink = document.createTextNode(linktext);
+        alink.appendChild(textOfLink);
+        return alink;
     }
-    return !!this.showMenu || this.showMenu === '';
-  }
 
-  isAuthButtonRequested() {
-    if (this.isloginRequired === undefined) {
-      this.isloginRequired = this.getAttribute("showLoginButton");
+    loadJS(hideAskUs, hideMyLibrary) {
+        // This loads the external JS file into the HTML head dynamically
+        //Only load js if it has not been loaded before (tracked by the initCalled flag)
+        if (!initCalled) {
+            const isMegaMenuDisplayed = this.isMegaMenuRequested();
+
+            //Dynamically import the JS file and append it to the document header
+            const script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.async = true;
+            script.onload = function () {
+                //Code to execute after the library has been downloaded parsed and processed by the browser starts here :)
+                initCalled = true;
+                // Initialise Main Navigation
+                const uqSiteHeader = document.querySelector('uq-site-header');
+                const shadowDOM = (!!uqSiteHeader && uqSiteHeader.shadowRoot) || false;
+                if (!!isMegaMenuDisplayed) {
+                    var navelement = !!uqSiteHeader && uqSiteHeader.shadowRoot.getElementById('jsNav');
+                    var nav = new uq.siteHeaderNavigation(navelement, 'uq-site-header__navigation');
+                }
+                // Initialise accordions
+                new uq.accordion();
+                // Equalised grid menu examples
+                var equaliseGridMenu = uq.gridMenuEqualiser('.uq-grid-menu--equalised>a');
+                equaliseGridMenu.align();
+            };
+            //Specify the location of the ITS DS JS file
+            script.src = 'uq-site-header.js';
+
+            //Append it to the document header
+            document.head.appendChild(script);
+        }
     }
-    return !!this.isloginRequired || this.isloginRequired === "";
-  }
 
-  isAskusButtonRequested() {
-    const hideAskUs = this.getAttribute("hideAskUs");
-    return hideAskUs === "false" || hideAskUs === null;
-  }
-
-  isMylibraryButtonRequested() {
-    const hideMylibrary = this.getAttribute("hideMyLibrary");
-    return hideMylibrary === "false" || hideMylibrary === null;
-  }
-
-  overwriteAsLoggedOut() {
-    if (this.overwriteAsLoggedOutVar === undefined) {
-      this.overwriteAsLoggedOutVar = this.getAttribute("requireLoggedOut");
+    isMegaMenuRequested() {
+        if (this.showMenu === undefined) {
+            this.showMenu = this.getAttribute('showMenu');
+        }
+        return !!this.showMenu || this.showMenu === '';
     }
-    return (
-      !!this.overwriteAsLoggedOutVar || this.overwriteAsLoggedOutVar === ""
-    );
-  }
 
-  connectedCallback() {
-    this.loadJS();
-  }
+    isAuthButtonRequested() {
+        if (this.isloginRequired === undefined) {
+            this.isloginRequired = this.getAttribute('showLoginButton');
+        }
+        return !!this.isloginRequired || this.isloginRequired === '';
+    }
+
+    isAskusButtonRequested() {
+        const hideAskUs = this.getAttribute('hideAskUs');
+        return hideAskUs === 'false' || hideAskUs === null;
+    }
+
+    isMylibraryButtonRequested() {
+        const hideMylibrary = this.getAttribute('hideMyLibrary');
+        return hideMylibrary === 'false' || hideMylibrary === null;
+    }
+
+    overwriteAsLoggedOut() {
+        if (this.overwriteAsLoggedOutVar === undefined) {
+            this.overwriteAsLoggedOutVar = this.getAttribute('requireLoggedOut');
+        }
+        return !!this.overwriteAsLoggedOutVar || this.overwriteAsLoggedOutVar === '';
+    }
+
+    connectedCallback() {
+        this.loadJS();
+    }
 }
 
 export default UQSiteHeader;
