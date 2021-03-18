@@ -192,88 +192,32 @@ class UQSiteHeader extends HTMLElement {
     this.loadJS = this.loadJS.bind(this);
   }
 
-  hideShowMyLibraryButton() {
+    addMyLibraryButtonToSlot() {
       if (!this.isMylibraryButtonRequested()) {
-          // if the page doesnt want mylibrary, just dont show it - no account check required
-          console.log('mylibrary button not required - remove if current')
-          const mylibraryElem = template.content.getElementById("mylibrary");
-          !!mylibraryElem && mylibraryElem.remove();
-          return;
-      }
-
-      this.confirmAccount().then(accountSummary => {
-          console.log('after, accountSummary = ', accountSummary);
-          if (!!accountSummary.isLoggedin) {
-              const uqSiteHeader = document.querySelector('uq-site-header');
-              const shadowDOM = !!uqSiteHeader && uqSiteHeader.shadowRoot || false;
-              if (!shadowDOM) {
-                  return {}
-              }
-              const myLibraryElement = !!shadowDOM && shadowDOM.getElementById("mylibrary") || false;
-              this.isMylibraryButtonRequested() && myLibraryElement && (myLibraryElement.innerHTML = mylibrary());
-              this.isMylibraryButtonRequested() && this.addMyLibraryButtonListeners(shadowDOM);
-
-              const masqueradeElement = !!shadowDOM && shadowDOM.getElementById("mylibrary-masquerade");
-              !accountSummary.canMasquerade && !!masqueradeElement && masqueradeElement.remove();
-          } else {
-              console.log('not logged in, mylibrary button not displayable - remove if current')
-              const myLibraryElement = template.content.getElementById("mylibrary");
-              !!myLibraryElement && myLibraryElement.remove();
-          }
-          return accountSummary;
-      }).then(accountSummary => {
-          if (!!accountSummary.isLoggedin) {
-              this.showHideMylibraryEspaceOption();
-          }
-          return accountSummary;
-      });
-  }
-
-  async confirmAccount() {
-      let accountSummary = {};
-
-      const api = new ApiAccess();
-      return await api.getAccount().then((account) => {
-        if (account.hasOwnProperty("hasSession") && account.hasSession === true) {
-          accountSummary.isLoggedin = !!account && !!account.id;
-          accountSummary.canMasquerade =
-            !!accountSummary.isLoggedin &&
-            account.hasOwnProperty("canMasquerade") &&
-            account.canMasquerade === true;
-        }
-        return accountSummary;
-      });
-  }
-
-  async showHideMylibraryEspaceOption() {
-    const api = new ApiAccess();
-    return await api.loadAuthorApi().then((author) => {
-      const uqSiteHeader = document.querySelector("uq-site-header");
-      const shadowDOM = (!!uqSiteHeader && uqSiteHeader.shadowRoot) || false;
-      const espaceitem = shadowDOM.getElementById("mylibrary-espace");
-      !!espaceitem &&
-        (!author ||
-          !author.data ||
-          (!author.data.hasOwnProperty("aut_id") && espaceitem.remove()));
-      return author;
-    });
-  }
-
-  addAskUsButtonToSlot(slotname = 'site-utilities') {
-      if (!this.isAskusButtonRequested()) {
-          return;
-      }
-
-      const askusButton0 = document.createElement('askus-button');
-
-      const askusButton = !!askusButton0 && askusButton0.cloneNode(true);
-      !!askusButton && this.addButtonToUtilityArea(askusButton, slotname);
-  }
-
-  addAuthButtonToSlot() {
-    if (!this.isAuthButtonRequested()) {
+        // if the page doesnt want mylibrary, just dont show it - no account check required
         return;
+      }
+
+      // this one just creates the stub - authbutton will fill in the actual button if they are logged in
+      const mylibraryButton = document.createElement('div');
+      mylibraryButton.id = 'mylibraryslot';
+
+      !!mylibraryButton && this.addButtonToUtilityArea(mylibraryButton);
     }
+
+    addAskUsButtonToSlot() {
+        if (!this.isAskusButtonRequested()) {
+            return;
+        }
+
+        const askusButton = document.createElement('askus-button');
+        !!askusButton && this.addButtonToUtilityArea(askusButton);
+    }
+
+    addAuthButtonToSlot() {
+      if (!this.isAuthButtonRequested()) {
+        return;
+      }
 
       const authButton = document.createElement("auth-button");
       !!authButton && this.overwriteAsLoggedOut() &&
@@ -282,10 +226,10 @@ class UQSiteHeader extends HTMLElement {
       !!authButton && this.addButtonToUtilityArea(authButton);
     }
 
-  addButtonToUtilityArea(button, slotName = 'site-utilities') {
-    const buttonWrapper = document.createElement('span');
-    !!buttonWrapper && buttonWrapper.setAttribute('slot', slotName);
-    !!button && !!buttonWrapper && buttonWrapper.appendChild(button);
+    addButtonToUtilityArea(button) {
+      const buttonWrapper = document.createElement('span');
+          !!buttonWrapper && buttonWrapper.setAttribute('slot', 'site-utilities');
+      !!button && !!buttonWrapper && buttonWrapper.appendChild(button);
 
       const siteHeader =
         document.getElementsByTagName("uq-site-header")[0] || false;
