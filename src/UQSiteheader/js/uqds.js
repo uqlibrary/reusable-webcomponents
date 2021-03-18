@@ -205,6 +205,13 @@ var uq = function (exports) {
     throw new Error('Dynamic requires are not currently supported by @rollup/plugin-commonjs');
   }
 
+  // per https://stackoverflow.com/questions/34849001/check-if-css-selector-is-valid/42149818
+  const isSelectorValid = ((dummyElement) =>
+      (selector) => {
+        try { dummyElement.querySelector(selector) } catch { return false }
+        return true
+      })(document.createDocumentFragment());
+
   var ready = createCommonjsModule(function (module) {
     /*!
       * domready (c) Dustin Diaz 2014 - License MIT
@@ -358,10 +365,16 @@ var uq = function (exports) {
           } // Scroll to hash (param string) selected accordion
 
 
+          const uqHeader = document.querySelector('uq-header') || false;
+          const shadowRoot = !!uqHeader && uqHeader.shadowRoot || false;
           if (_this6.hash && _this6.hash !== '') {
-            var hashSelectedContent = document.querySelector('uq-header').shadowRoot.querySelector("".concat(_this6.hash, ".").concat(_this6.className, "__content"));
+            const selectors = "".concat(_this6.hash, ".").concat(_this6.className, "__content");
+            // on uqlapp we get weird errors like
+            // "Failed to execute 'querySelector' on 'DocumentFragment': '#/membership.accordion__content' is not a valid selector."
+            if (!isSelectorValid(selectors)) { console.log('would have got error on selector ', selectors)} // #dev
+            var hashSelectedContent = isSelectorValid(selectors) && !!shadowRoot && shadowRoot.querySelector(selectors) || false;
 
-            if (hashSelectedContent) {
+            if (!!hashSelectedContent) {
               // Only apply classes on load when linking directly to an accordion item.
               var hashSelected = accordion.getPrevSibling(hashSelectedContent, ".".concat(_this6.className, "__toggle"));
 
@@ -372,7 +385,9 @@ var uq = function (exports) {
             }
           }
 
-          var accordions = document.querySelector('uq-header').shadowRoot.querySelectorAll(".".concat(_this6.className));
+          const selectors1 = ".".concat(_this6.className);
+          if (!isSelectorValid(selectors1)) { console.log('would have got error on selector ', selectors1)} // #dev
+          var accordions = isSelectorValid(selectors1) && !!shadowRoot && shadowRoot.querySelectorAll(selectors1);
           accordions.forEach(function (el) {
             var togglers = el.querySelectorAll(".".concat(_this6.className, "__toggle"));
             togglers.forEach(function (el) {
