@@ -70,7 +70,7 @@
         top: -75px;
         left: -250px;
         position: absolute;
-        width: 380px;
+        width: 400px;
         transition: transform 0.2s ease-out, opacity 0.2s ease-out; /* Animation */
         transform: scale(1);
         transform-origin: 50% 50%;
@@ -103,7 +103,7 @@
 }
 
 .askus-menu-list {
-    width: 100%;
+    width: calc(100% - 20px);
     padding: 6px !important;
     padding-bottom: 0 !important;
     margin: 0;
@@ -112,7 +112,7 @@
 
 .askus-menu-list li {
     display: inline-block;
-    width: calc(50% - 3px);
+    width: calc(50% - 4px);
     padding: 0 !important;
     margin: 0 !important;
     height: 35px !important;
@@ -163,4 +163,40 @@
 
 #askus-chat-li .disabled {
     border: 3px solid red;
+}
+
+/* Chat status */
+
+#askus-chat-status {
+    z-index: 9999;
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+}
+#askus-chat-online {
+    background-color: #007200;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    padding: 12px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.5);
+}
+
+#askus-chat-offline {
+    background-color: #c40000;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    padding: 12px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.5);
+}
+
+#askus-chat-status:hover {
+    cursor: pointer;
+}
+
+#askus-chat-status #askus-chat-status-icon {
+    fill: #FFF;
+    width: 100%;
+    height: 100%;
 }
