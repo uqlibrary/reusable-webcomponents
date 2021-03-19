@@ -11,7 +11,7 @@
 - run `npm run build:staging` to run a `staging` test build in the `dist` folder
 - run `npm run build:production` to run a `production` test build in the `dist` folder
 - run `npm run test` to run a test build in the `dist` folder and run all cypress tests
-- run `npm run pretier:test` to check all files for codestyles and `npm run pressier:fix` to fix them all
+- run `npm run prettier:test` to check all files for codestyles and `npm run prettier:fix` to fix them all
 
 ### Use
 
