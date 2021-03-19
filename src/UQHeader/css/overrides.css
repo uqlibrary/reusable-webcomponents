@@ -3,3 +3,18 @@
     -webkit-font-smoothing: initial;
     font-stretch: inherit;
 }
+
+.skip-to-content-link {
+    background: #FFF;
+    height: 50px;
+    left: 50%;
+    padding: 16px;
+    position: absolute;
+    transform: translateY(-100%);
+    transition: transform 0.3s;
+    color: #000;
+}
+
+.skip-to-content-link:focus {
+    transform: translateY(0%);
+}
