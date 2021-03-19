@@ -29,7 +29,10 @@ eg. UQ Header:
         searchURL="www.google.com"
 ></uq-header>
 ```
-
+You will also need to add a named anchor after all the header imports etc to tell the skip nav where to skip to:
+```html
+<a name="content"></a>
+```
 
 ### Setting up from the ITS Design System private packages
 ###### _Using UQ Header package as an example_

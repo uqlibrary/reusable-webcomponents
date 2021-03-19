@@ -156,8 +156,8 @@ template.innerHTML = `
           </ul>
         </nav>
       </div>
-    </div>  
-  
+    </div>
+    <a name="after-header" />  
 `;
 
 let initCalled;

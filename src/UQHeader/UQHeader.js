@@ -5,6 +5,7 @@ const template = document.createElement('template');
 template.innerHTML = `
   <style>${styles.toString()}</style>
   <style>${overrides.toString()}</style>
+    <a class="skip-to-content-link" href="#content">Skip to site content</a>
   <header class="uq-header">
       <div class="uq-header__container">
         <div class="nav-global">
