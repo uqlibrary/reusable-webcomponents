@@ -86,6 +86,13 @@ class AskUsButton extends HTMLElement {
         // Add a shadow DOM
         const shadowDOM = this.attachShadow({ mode: 'open' });
 
+        if (this.isPaneButtonOpacityDropRequested()) {
+            // primo needs the opacity on the background turned off because it interacts weirdly with the Primo styles
+            // add a class to the pane, and turn off the background colour on that class
+            const pane = template.content.getElementById('askus-pane');
+            !!pane && pane.classList.add('noOpacity');
+        }
+
         // Render the template
         shadowDOM.appendChild(template.content.cloneNode(true));
         this.updateAskusDOM(shadowDOM);
@@ -205,6 +212,12 @@ class AskUsButton extends HTMLElement {
         // Chat status listeners
         shadowDOM.getElementById('askus-chat-online').addEventListener('click', openChat);
         shadowDOM.getElementById('askus-chat-offline').addEventListener('click', navigateToContactUs);
+    }
+
+    isPaneButtonOpacityDropRequested() {
+        // primo only provides the attributes in lower case :(
+        const noPaneOpacity = this.getAttribute('nopaneopacity');
+        return !!noPaneOpacity || noPaneOpacity === '';
     }
 
     loadJS() {

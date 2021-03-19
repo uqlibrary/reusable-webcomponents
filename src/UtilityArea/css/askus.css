@@ -90,6 +90,9 @@ button:focus {
     z-index: 998;
     opacity: 1;
 }
+#askus-pane.noOpacity {
+    background-color: initial;
+}
 .closed-menu {
     opacity: 0 !important;
     transition: transform 0.2s ease-in, opacity 0.2s ease-in; /* Animation */
