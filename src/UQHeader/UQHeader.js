@@ -5,13 +5,13 @@ const template = document.createElement('template');
 template.innerHTML = `
   <style>${styles.toString()}</style>
   <style>${overrides.toString()}</style>
-    <a class="skip-to-content-link" href="#content">Skip to site content</a>
+    <a class="skip-to-content-link" id="skip-nav" href="#content">Skip to site content</a>
   <header class="uq-header">
       <div class="uq-header__container">
         <div class="nav-global">
           <div class="logo">
-            <a class="logo--large" href="https://www.uq.edu.au/"><img alt="The University of Queensland" src="https://static.uq.net.au/v11/logos/corporate/uq-lockup-landscape--reversed.svg"></a>
-            <a class="logo--small" href="https://www.uq.edu.au/"><img alt="The University of Queensland" src="https://static.uq.net.au/v11/logos/corporate/uq-logo--reversed.svg"></a>
+            <a class="logo--large" id="logo--large" href="https://www.uq.edu.au/"><img alt="The University of Queensland" src="https://static.uq.net.au/v11/logos/corporate/uq-lockup-landscape--reversed.svg"></a>
+            <a class="logo--small" id="logo--small" href="https://www.uq.edu.au/"><img alt="The University of Queensland" src="https://static.uq.net.au/v11/logos/corporate/uq-logo--reversed.svg"></a>
           </div>
           <nav class="menu-global">
             <ul>
