@@ -4,7 +4,7 @@ const TerserPlugin = require("terser-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const ReplaceInFileWebpackPlugin = require('replace-in-file-webpack-plugin');
 const webpack = require('webpack');
-const libraryName = 'uq-lib-resusable';
+const libraryName = 'uq-lib-reusable';
 const outputFile = `${libraryName}.min.js`;
 
 const useMock = !!process.env.USE_MOCK || false;
@@ -114,7 +114,7 @@ module.exports = () => {
             // This plugin will rename the external js imports to full paths for deploy
             (process.env.NODE_ENV !== 'local') && new ReplaceInFileWebpackPlugin([{
                 dir: 'dist',
-                files: ['uq-lib-resusable.min.js'],
+                files: ['uq-lib-reusable.min.js'],
                 rules: [{
                     search: /uq-header\.js/gm,
                     replace: componentJsPath[process.env.NODE_ENV] + 'uq-header.js',
