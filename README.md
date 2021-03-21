@@ -11,6 +11,7 @@
 - run `npm run build:staging` to run a `staging` test build in the `dist` folder
 - run `npm run build:production` to run a `production` test build in the `dist` folder
 - run `npm run test` to run a test build in the `dist` folder and run all cypress tests
+- run `npm run pretier:test` to check all files for codestyles and `npm run pressier:fix` to fix them all
 
 ### Use
 
@@ -28,7 +29,10 @@ eg. UQ Header:
         searchURL="www.google.com"
 ></uq-header>
 ```
-
+You will also need to add a named anchor after all the header imports etc to tell the skip nav where to skip to:
+```html
+<a name="content"></a>
+```
 
 ### Setting up from the ITS Design System private packages
 ###### _Using UQ Header package as an example_

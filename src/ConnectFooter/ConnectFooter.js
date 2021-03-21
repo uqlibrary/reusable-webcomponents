@@ -1,6 +1,6 @@
 import styles from './css/overrides.css';
 import icons from './css/icons.css';
-import {default as menuLocale} from '../locale/menu';
+import { default as menuLocale } from '../locale/menu';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -111,12 +111,11 @@ template.innerHTML = `
 
 let initCalled;
 
-
 class ConnectFooter extends HTMLElement {
     constructor() {
         super();
         // Add a shadow DOM
-        const shadowDOM = this.attachShadow({mode: 'open'});
+        const shadowDOM = this.attachShadow({ mode: 'open' });
 
         this.updateFooterMenuFromJson();
 
@@ -131,12 +130,12 @@ class ConnectFooter extends HTMLElement {
         const plainSeparator = document.createElement('span');
         plainSeparator.textContent = ' | ';
 
-        const footerMenu = template.content.getElementById('footer-menu')
+        const footerMenu = template.content.getElementById('footer-menu');
 
         const homelink = this.createLink(
             'footermenu-homepage',
             menuLocale.menuhome.linkTo || '',
-            menuLocale.menuhome.primaryText || ''
+            menuLocale.menuhome.primaryText || '',
         );
 
         const homeMenuItem = document.createElement('li');
@@ -191,7 +190,7 @@ class ConnectFooter extends HTMLElement {
             //Append it to the document header
             document.head.appendChild(script);
         }
-    };
+    }
 
     connectedCallback() {
         this.loadJS();

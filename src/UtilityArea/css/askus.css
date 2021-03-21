@@ -4,18 +4,18 @@
 #askus #askus-icon {
     width: 24px;
     height: 24px;
-    fill: #51247A;
+    fill: #51247a;
     margin-bottom: -5px;
 }
 
 #askus #askus-label {
     font-size: 12px;
     white-space: nowrap;
-    color: #51247A;
+    color: #51247a;
 }
 
 #askus button {
-    background: rgba(0,0,0,0);
+    background: rgba(0, 0, 0, 0);
     border-radius: 50%;
     border: none;
     margin: -12px 0;
@@ -28,8 +28,10 @@
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-#askus button:hover, button:active, button:focus {
-    background: rgba(0,0,0,0.04) !important;
+#askus button:hover,
+button:active,
+button:focus {
+    background: rgba(0, 0, 0, 0.04) !important;
     transition-delay: 0s;
     transition-duration: 0.15s;
     transition-property: background-color;
@@ -38,7 +40,7 @@
 
 #askus button:active {
     outline: none;
-    background: rgba(81,36,122, 0.3) !important;
+    background: rgba(81, 36, 122, 0.3) !important;
     transition-delay: 0s;
     transition-duration: 0.15s;
     transition-property: background-color;
@@ -83,7 +85,7 @@
     height: 100%;
     top: 0;
     left: 0;
-    background-color: rgba(0,0,0,0.2);
+    background-color: rgba(0, 0, 0, 0.2);
     transition: opacity 0.2s ease-out; /* Animation */
     z-index: 998;
     opacity: 1;
@@ -93,13 +95,11 @@
     transition: transform 0.2s ease-in, opacity 0.2s ease-in; /* Animation */
     transform: scale(0.5) !important;
     transform-origin: 66% 10%;
-
 }
 .closed-pane {
     opacity: 0 !important;
     transition: opacity 0.2s ease-in; /* Animation */
     transition-delay: 0s;
-
 }
 
 .askus-menu-list {
@@ -131,7 +131,7 @@
 }
 
 .askus-menu-list li a {
-    display:inline-block;
+    display: inline-block;
     width: 100% !important;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -163,11 +163,11 @@
     cursor: pointer;
 }
 
-.askus-menu-list li a[disabled="true"] {
+.askus-menu-list li a[disabled='true'] {
     cursor: unset;
 }
 
-.askus-menu-list li a[disabled="true"]:hover {
+.askus-menu-list li a[disabled='true']:hover {
     background-color: transparent;
 }
 
@@ -202,7 +202,12 @@
     height: 24px;
     border-radius: 50%;
     padding: 12px;
-    box-shadow: 0 0 8px rgba(0,0,0,0.5);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+    transition-duration: 0.2s;
+    transition-property: background-color;
+}
+#askus-chat-online:hover {
+    background-color: #005f00;
 }
 
 #askus-chat-offline {
@@ -211,15 +216,21 @@
     height: 24px;
     border-radius: 50%;
     padding: 12px;
-    box-shadow: 0 0 8px rgba(0,0,0,0.5);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+    transition-duration: 0.2s;
+    transition-property: background-color;
+}
+#askus-chat-offline:hover {
+    background-color: #ac0000;
 }
 
 #askus-chat-status:hover {
     cursor: pointer;
 }
 
-#askus-chat-status .askus-chat-status-icon {
-    fill: #FFF;
+#askus-chat-status #askus-chat-status-icon-online,
+#askus-chat-status #askus-chat-status-icon-offline {
+    fill: #fff;
     width: 100%;
     height: 100%;
 }

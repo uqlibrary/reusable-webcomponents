@@ -46,19 +46,17 @@ authorisedtemplate.innerHTML = `
 
 let initCalled;
 
-
 class AuthButton extends HTMLElement {
     constructor() {
         super();
         // Add a shadow DOM
-        const shadowDOM = this.attachShadow({mode: 'open'});
+        const shadowDOM = this.attachShadow({ mode: 'open' });
 
         const loggedOutButtonMandatory = this.getAttribute('overwriteAsLoggedOut');
         if (loggedOutButtonMandatory === 'true') {
             // Render the template
             shadowDOM.appendChild(unauthorisedtemplate.content.cloneNode(true));
             this.addButtonListeners(shadowDOM);
-
         } else {
             this.showLoginFromAuthStatus(shadowDOM);
         }
@@ -68,29 +66,28 @@ class AuthButton extends HTMLElement {
     }
 
     async showLoginFromAuthStatus(shadowDOM) {
-        this.checkAuthorisedUser()
-            .then(isAuthorised => {
-                const template = !!isAuthorised ? authorisedtemplate : unauthorisedtemplate;
+        this.checkAuthorisedUser().then((isAuthorised) => {
+            const template = !!isAuthorised ? authorisedtemplate : unauthorisedtemplate;
 
-                // Render the template
-                shadowDOM.appendChild(template.content.cloneNode(true));
-                this.addButtonListeners(shadowDOM);
+            // Render the template
+            shadowDOM.appendChild(template.content.cloneNode(true));
+            this.addButtonListeners(shadowDOM);
 
-                if (!!isAuthorised) {
-                    // find the stub we built for mylibrary and replace it with the button
-                    const mylibraryStub = document.getElementById('mylibraryslot');
-                    const mylibraryButton = document.createElement('mylibrary-button');
-                    !!mylibraryStub &&
-                        mylibraryStub.children.length === 0 &&
-                        !!mylibraryButton &&
-                        mylibraryStub.parentNode.replaceChild(mylibraryButton, mylibraryStub);
-                }
-            });
+            if (!!isAuthorised) {
+                // find the stub we built for mylibrary and replace it with the button
+                const mylibraryStub = document.getElementById('mylibraryslot');
+                const mylibraryButton = document.createElement('mylibrary-button');
+                !!mylibraryStub &&
+                    mylibraryStub.children.length === 0 &&
+                    !!mylibraryButton &&
+                    mylibraryStub.parentNode.replaceChild(mylibraryButton, mylibraryStub);
+            }
+        });
     }
 
     addButtonListeners(shadowDOM) {
         function visitLogOutPage() {
-            (new ApiAccess()).removeAccountStorage();
+            new ApiAccess().removeAccountStorage();
             const AUTH_URL_LOGOUT = 'https://auth.library.uq.edu.au/logout';
             const returnUrl = window.location.href;
             window.location.assign(`${AUTH_URL_LOGOUT}?return=${window.btoa(returnUrl)}`);
@@ -102,10 +99,10 @@ class AuthButton extends HTMLElement {
             window.location.assign(`${AUTH_URL_LOGIN}?return=${window.btoa(returnUrl)}`);
         }
 
-        const loggedinButton = !!shadowDOM && shadowDOM.getElementById("auth-button-loggedin")
+        const loggedinButton = !!shadowDOM && shadowDOM.getElementById('auth-button-loggedin');
         !!loggedinButton && loggedinButton.addEventListener('click', visitLogOutPage);
 
-        const loggedoutButton = !!shadowDOM && shadowDOM.getElementById("auth-button-loggedout")
+        const loggedoutButton = !!shadowDOM && shadowDOM.getElementById('auth-button-loggedout');
         !!loggedoutButton && loggedoutButton.addEventListener('click', visitLoginPage);
 
         !loggedinButton && !loggedoutButton && console.log('neither logged in nor logged out buttons exist');
@@ -117,15 +114,17 @@ class AuthButton extends HTMLElement {
         let loggedin = null;
 
         const api = new ApiAccess();
-        await api.getAccount()
-            .then(account => {
+        await api
+            .getAccount()
+            .then((account) => {
                 if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
                     this.account = account;
                 }
                 this.accountLoading = false;
 
                 loggedin = !!this.account && !!this.account.id;
-            }).catch(error => {
+            })
+            .catch((error) => {
                 this.accountLoading = false;
                 loggedin = false;
             });
@@ -151,7 +150,7 @@ class AuthButton extends HTMLElement {
             //Append it to the document header
             document.head.appendChild(script);
         }
-    };
+    }
 
     connectedCallback() {
         this.loadJS();

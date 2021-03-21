@@ -1,16 +1,17 @@
 import styles from './css/main.css';
-import overrides from "./css/overrides.css";
+import overrides from './css/overrides.css';
 
 const template = document.createElement('template');
 template.innerHTML = `
   <style>${styles.toString()}</style>
   <style>${overrides.toString()}</style>
+    <a class="skip-to-content-link" id="skip-nav" href="#content">Skip to site content</a>
   <header class="uq-header">
       <div class="uq-header__container">
         <div class="nav-global">
           <div class="logo">
-            <a class="logo--large" href="https://www.uq.edu.au/"><img alt="The University of Queensland" src="https://static.uq.net.au/v11/logos/corporate/uq-lockup-landscape--reversed.svg"></a>
-            <a class="logo--small" href="https://www.uq.edu.au/"><img alt="The University of Queensland" src="https://static.uq.net.au/v11/logos/corporate/uq-logo--reversed.svg"></a>
+            <a class="logo--large" id="logo--large" href="https://www.uq.edu.au/"><img alt="The University of Queensland" src="https://static.uq.net.au/v11/logos/corporate/uq-lockup-landscape--reversed.svg"></a>
+            <a class="logo--small" id="logo--small" href="https://www.uq.edu.au/"><img alt="The University of Queensland" src="https://static.uq.net.au/v11/logos/corporate/uq-logo--reversed.svg"></a>
           </div>
           <nav class="menu-global">
             <ul>
@@ -80,33 +81,32 @@ template.innerHTML = `
 
 let initCalled;
 
-
 class UQHeader extends HTMLElement {
     constructor() {
         super();
         // Add a shadow DOM
-        const shadowDOM = this.attachShadow({mode: 'open'});
+        const shadowDOM = this.attachShadow({ mode: 'open' });
 
         // Handle the attributes for this component
 
         // If the attribute hideLibraryMenuItem is true, remove it from the template
         const hideLibraryMenuItem = this.getAttribute('hideLibraryMenuItem');
-        if(hideLibraryMenuItem === 'true') {
+        if (hideLibraryMenuItem === 'true') {
             const libraryMenuItem = template.content.getElementById('menu-item-library');
             !!libraryMenuItem && libraryMenuItem.remove();
         }
 
         // Append the label for the search widget
         const searchLabel = this.getAttribute('searchLabel');
-        if(!!searchLabel) {
+        if (!!searchLabel) {
             const oldValue = template.content.getElementById('search-label').innerHTML;
-            const newValue = oldValue.replace('library.uq.edu.au', searchLabel)
+            const newValue = oldValue.replace('library.uq.edu.au', searchLabel);
             template.content.getElementById('search-label').innerHTML = newValue;
         }
 
         // Append the url for the search widget
         const searchURL = this.getAttribute('searchURL');
-        if(!!searchURL) {
+        if (!!searchURL) {
             template.content.getElementById('edit-as_sitesearch-on').value = searchURL;
         }
 
@@ -137,7 +137,7 @@ class UQHeader extends HTMLElement {
             //Append it to the document header
             document.head.appendChild(script);
         }
-    };
+    }
 
     connectedCallback() {
         this.loadJS();

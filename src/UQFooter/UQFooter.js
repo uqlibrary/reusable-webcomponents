@@ -62,15 +62,14 @@ template.innerHTML = `
 
 let initCalled;
 
-
 class UQFooter extends HTMLElement {
     constructor() {
         super();
         // Add a shadow DOM
-        const shadowDOM = this.attachShadow({mode: 'open'});
+        const shadowDOM = this.attachShadow({ mode: 'open' });
 
         const loginURL = this.getAttribute('loginURL');
-        if(!loginURL) {
+        if (!loginURL) {
             const loginLink = template.content.getElementById('login-link');
             !!loginLink && loginLink.remove();
         } else {
@@ -103,7 +102,7 @@ class UQFooter extends HTMLElement {
             //Append it to the document header
             document.head.appendChild(script);
         }
-    };
+    }
 
     connectedCallback() {
         this.loadJS();

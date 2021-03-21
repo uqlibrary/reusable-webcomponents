@@ -10,11 +10,10 @@
     flex-basis: auto;
 }
 
-
 /* Make Styles */
 
 .makeStyles-iconButton-180 {
-    color: #51247A;
+    color: #51247a;
 }
 .makeStyles-iconButtonLabel-181 {
     display: flex;
@@ -22,9 +21,8 @@
     flex-direction: column;
 }
 .makeStyles-iconButtonRoot-182 {
-    color: #51247A;
+    color: #51247a;
 }
-
 
 .makeStyles-utility-115 {
     margin-top: -32px;
@@ -125,5 +123,5 @@
 .button-label {
     font-size: 12px;
     white-space: nowrap;
-    color: #51247A;
+    color: #51247a;
 }

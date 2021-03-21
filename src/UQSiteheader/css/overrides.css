@@ -18,7 +18,8 @@ span.displayText {
     break-inside: avoid-column;
 }
 
-@media (min-width: 64rem) { /*desktop menu size*/
+@media (min-width: 64rem) {
+    /*desktop menu size*/
     .multicolumn-2 {
         columns: 2 100px;
         column-gap: 5px;

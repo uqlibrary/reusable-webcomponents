@@ -13,7 +13,6 @@ if (process.env.BRANCH !== 'production' && process.env.USE_MOCK) {
     require('../mock/MockApi');
 }
 
-
 customElements.define('api-access', ApiAccess);
 customElements.define('askus-button', AskUsButton);
 customElements.define('auth-button', AuthButton);
