@@ -5,7 +5,8 @@
 
 ### Development
 - run `npm ci` to install packages.
-- run `npm run start` to run the project locally while developing with a listener
+- run `npm run start` to run the project locally while developing with a listener (calls api on staging for data)
+- run `npm run start:mock` to run the project locally with mock data
   - While this is running, you can run `cypress open` to manually run cypress tests
 - run `npm run build` to run a `local` test build in the `dist` folder
 - run `npm run build:staging` to run a `staging` test build in the `dist` folder
