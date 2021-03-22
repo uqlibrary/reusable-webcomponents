@@ -14,10 +14,11 @@
     "start:mock": "cross-env NODE_ENV=local USE_MOCK=true FULL_PATH=http://localhost:8080 NODE_OPTIONS='--max-old-space-size=2048' webpack-dev-server --open",
     "start": "cross-env NODE_ENV=local webpack-dev-server --open",
     "clean": "rm -rf node_modules dist cypress/screenshots cypress/video",
-    "start-test-server": "cross-env NODE_ENV=local webpack-dev-server",
+    "start-test-server": "cross-env NODE_ENV=local USE_MOCK=true webpack-dev-server",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "test": "start-server-and-test start-test-server http://localhost:8080 cypress:run",
+    "test:local": "start-server-and-test start-test-server http://localhost:8080 cypress:open",
     "prettier:test": "npx prettier --check ./",
     "prettier:fix": "npx prettier --write ./"
   },
