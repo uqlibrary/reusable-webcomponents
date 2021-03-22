@@ -64,6 +64,21 @@ You will also need to add a named anchor after all the header imports etc to tel
 - Make sure to update the dynamic load reference in the web component file.
 - Run `npm run build` to pack the file into the `dist` folder - and open index.html there in a browser to test - or - run `npm run start` to have a listening system run in your local browser.
 
+### AWS Buckets
+
+Code is deployed to 3 buckets:
+
+- uql-reusable-webcomponents-production
+- uql-reusable-webcomponents-staging
+- uql-reusable-webcomponents-development
+
+uql-reusable-webcomponents-development has subfolders that map to feature branches
+
+There is a cloudfront behaviour on assets.library.uq.edu.au that maps these buckets to assets address for use in deployment
+- https://assets.library.uq.edu.au/reusable-webcomponents-development/  ==> s3://uql-reusable-webcomponents-development/
+- https://assets.library.uq.edu.au/reusable-webcomponents-staging/      ==> s3://uql-reusable-webcomponents-staging/
+- https://assets.library.uq.edu.au/reusable-webcomponents/              ==> s3://uql-reusable-webcomponents-production/
+
 ### Reference Material
 
 How slots work: https://javascript.info/slots-composition
