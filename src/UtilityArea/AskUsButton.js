@@ -4,13 +4,13 @@ import ApiAccess from '../ApiAccess/ApiAccess';
 const template = document.createElement('template');
 template.innerHTML = `
     <style>${askus.toString()}</style>
-    <div id="askus" part="labelless">
+    <div id="askus">
         <!-- Button -->
-        <button id="askus-button" aria-label="Askus button">
+        <button id="askus-button" aria-label="View Askus options" part="button" title="View Askus options">
             <svg id="askus-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"/>
             </svg>
-            <div id="askus-label">AskUs</div>
+            <div id="askus-label" part="label">AskUs</div>
         </button>
         <!-- Menu -->
         <div id="askus-menu" class="closed-menu" style="display: none">
