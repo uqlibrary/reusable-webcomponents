@@ -28,29 +28,7 @@ if [[ -z $CI_BRANCH ]]; then
   CI_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 fi
 
-# Not running code coverage check for feature branches.
-BRANCH_INCLUDES_CC=false
-#if [[ ($CI_BRANCH == "master" || $CI_BRANCH == "staging" || $CI_BRANCH == "production" || $CI_BRANCH == "codebuild") ]]; then
-#    Skipping coverage for initial development/prototyping
-#    BRANCH_INCLUDES_CC=true
-#  BRANCH_INCLUDES_CC=false
-#fi
-
 export TZ='Australia/Brisbane'
-
-# Run e2e tests if in master branch, or if the branch name includes 'cypress'
-# Putting * around the test-string gives a test for inclusion of the substring rather than exact match
-BRANCH_RUNS_E2E=false
-printf "Does the commit message contain cypress?"
-printf $CI_COMMIT_MESSAGE == *"cypress"*
-if [[ $CI_BRANCH == "master" || $CI_BRANCH == "staging" || $CI_BRANCH == "codebuild" || $CI_COMMIT_MESSAGE == *"cypress"* ]]; then
-    BRANCH_RUNS_E2E=true
-fi
-
-set -e
-
-if [[ $BRANCH_RUNS_E2E == true ]]; then
-    printf "\n--- \e[1mRUNNING E2E TESTS\e[0m ---\n"
-    npm run test
-fi
+printf "\n--- \e[1mRUNNING E2E TESTS\e[0m ---\n"
+npm run test
 esac
