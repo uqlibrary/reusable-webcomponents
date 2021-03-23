@@ -42,7 +42,7 @@ phases:
   build:
     commands:
       set &&
-      ($CI_BRANCH === 'development' && npm run build:development ||
+      ($CI_BRANCH === 'production' && npm run build:production ||
       $CI_BRANCH === 'staging' && npm run build:staging ||
       npm run build:development) &&
       ls dist
