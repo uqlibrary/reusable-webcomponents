@@ -31,4 +31,3 @@ fi
 export TZ='Australia/Brisbane'
 printf "\n--- \e[1mRUNNING E2E TESTS\e[0m ---\n"
 npm run test
-esac
