@@ -5,13 +5,14 @@
 
 ### Development
 - run `npm ci` to install packages.
-- run `npm run start` to run the project locally while developing with a listener
+- run `npm run start` to run the project locally while developing with a listener (calls api on staging for data)
+- run `npm run start:mock` to run the project locally with mock data
   - While this is running, you can run `cypress open` to manually run cypress tests
 - run `npm run build` to run a `local` test build in the `dist` folder
 - run `npm run build:staging` to run a `staging` test build in the `dist` folder
 - run `npm run build:production` to run a `production` test build in the `dist` folder
 - run `npm run test` to run a test build in the `dist` folder and run all cypress tests
-- run `npm run pretier:test` to check all files for codestyles and `npm run pressier:fix` to fix them all
+- run `npm run prettier:test` to check all files for codestyles and `npm run prettier:fix` to fix them all
 
 ### Use
 
@@ -63,6 +64,21 @@ You will also need to add a named anchor after all the header imports etc to tel
 ```
 - Make sure to update the dynamic load reference in the web component file.
 - Run `npm run build` to pack the file into the `dist` folder - and open index.html there in a browser to test - or - run `npm run start` to have a listening system run in your local browser.
+
+### AWS Buckets
+
+Code is deployed to 3 buckets:
+
+- uql-reusable-webcomponents-production
+- uql-reusable-webcomponents-staging
+- uql-reusable-webcomponents-development
+
+uql-reusable-webcomponents-development has subfolders that map to feature branches
+
+There is a cloudfront behaviour on assets.library.uq.edu.au that maps these buckets to assets address for use in deployment
+- https://assets.library.uq.edu.au/reusable-webcomponents-development/  ==> s3://uql-reusable-webcomponents-development/
+- https://assets.library.uq.edu.au/reusable-webcomponents-staging/      ==> s3://uql-reusable-webcomponents-staging/
+- https://assets.library.uq.edu.au/reusable-webcomponents/              ==> s3://uql-reusable-webcomponents-production/
 
 ### Reference Material
 
