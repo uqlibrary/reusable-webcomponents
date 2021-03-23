@@ -19,6 +19,8 @@ const componentJsPath = {
 module.exports = () => {
     console.log('------------------------------------------------------------');
     console.log('BUILD ENVIRONMENT: ', process.env.NODE_ENV);
+    console.log('BUILD BRANCH     : ', process.env.CI_BRANCH || process.env.NODE_ENVnpm install -g depcheck);
+    console.log('BUILD URL        : ', componentJsPath[process.env.NODE_ENV]);
     console.log('------------------------------------------------------------');
     return {
         entry: './src/index.js',
