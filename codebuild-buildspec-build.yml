@@ -5,12 +5,12 @@ env:
      # key: "value"
      # key: "value"
   parameter-store:
-    PT_PROJECT: "/CodeBuild/homepage/PT_PROJECT"
-    PT_TOKEN: "/CodeBuild/homepage/PT_TOKEN"
-    CYPRESS_RECORD_KEY: "/CodeBuild/homepage/CYPRESS_RECORD_KEY"
-    SENTRY_AUTH_TOKEN: "/CodeBuild/homepage/SENTRY_AUTH_TOKEN"
-    SENTRY_ORG: "/CodeBuild/homepage/SENTRY_ORG"
-    SENTRY_PROJECT: "/CodeBuild/homepage/SENTRY_PROJECT"
+    PT_PROJECT: "/CodeBuild/reusable-webcomponents/PT_PROJECT"
+    PT_TOKEN: "/CodeBuild/reusable-webcomponents/PT_TOKEN"
+    CYPRESS_RECORD_KEY: "/CodeBuild/reusable-webcomponents/CYPRESS_RECORD_KEY"
+    SENTRY_AUTH_TOKEN: "/CodeBuild/reusable-webcomponents/SENTRY_AUTH_TOKEN"
+    SENTRY_ORG: "/CodeBuild/reusable-webcomponents/SENTRY_ORG"
+    SENTRY_PROJECT: "/CodeBuild/reusable-webcomponents/SENTRY_PROJECT"
   #secrets-manager:
      # key: secret-id:json-key:version-stage:version-id
      # key: secret-id:json-key:version-stage:version-id
@@ -26,26 +26,23 @@ env:
 phases:
   install:
     runtime-versions:
-      java: openjdk11
-      nodejs: 12
+      java: corretto11
+      nodejs: 14
     #commands:
       # - command
       # - command
   pre_build:
     commands:
-      sysctl fs.inotify.max_user_watches &&
-      sysctl fs.inotify.max_user_watches=524288 &&
-      sysctl fs.inotify.max_user_watches &&
-      chmod a+x -R bin/* scripts/*.sh &&
-      bin/codebuild-git-wrapper.sh https://github.com/uqlibrary/homepage-react.git $CI_BRANCH &&
-      bin/codebuild-setup.sh
+      - sysctl fs.inotify.max_user_watches
+      - sysctl fs.inotify.max_user_watches=524288
+      - sysctl fs.inotify.max_user_watches
+      - chmod a+x -R bin/* scripts/*.sh && bin/codebuild-setup.sh
   build:
     commands:
-      set &&
-      ($CI_BRANCH === 'production' && npm run build:production ||
-      $CI_BRANCH === 'staging' && npm run build:staging ||
-      npm run build:development) &&
-      ls dist
+      - set
+      - export BUILD_TARGET='development'
+      - if [[ ($CI_BRANCH == 'production') || ($CI_BRANCH == 'staging') ]]; then export BUILD_TARGET=$CI_BRANCH ; fi
+      - npm run build:$BUILD_TARGET && ls dist
   post_build:
     commands:
       if [ -f ./scripts/releaseNotes.sh ]; then ./scripts/releaseNotes.sh; fi
@@ -60,7 +57,7 @@ phases:
 artifacts:
   files:
     - '**/*'
-  name: reusable-build.zip
+  name: reusable-webcomponents-build.zip
   base-directory: dist
 #cache:
   #paths:

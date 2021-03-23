@@ -5,13 +5,13 @@ env:
      # key: "value"
      # key: "value"
   parameter-store:
-    PT_PROJECT: "/CodeBuild/webcomponents/PT_PROJECT"
-    PT_TOKEN: "/CodeBuild/webcomponents/PT_TOKEN"
-    CYPRESS_RECORD_KEY: "/CodeBuild/webcomponents/CYPRESS_RECORD_KEY"
-    GOOGLE_MAPS_API_KEY: "/CodeBuild/webcomponents/GOOGLE_MAPS_API_KEY"
-    SENTRY_AUTH_TOKEN: "/CodeBuild/webcomponents/SENTRY_AUTH_TOKEN"
-    SENTRY_ORG: "/CodeBuild/webcomponents/SENTRY_ORG"
-    SENTRY_PROJECT: "/CodeBuild/webcomponents/SENTRY_PROJECT"
+    PT_PROJECT: "/CodeBuild/reusable-webcomponents/PT_PROJECT"
+    PT_TOKEN: "/CodeBuild/reusable-webcomponents/PT_TOKEN"
+    CYPRESS_RECORD_KEY: "/CodeBuild/reusable-webcomponents/CYPRESS_RECORD_KEY"
+    GOOGLE_MAPS_API_KEY: "/CodeBuild/reusable-webcomponents/GOOGLE_MAPS_API_KEY"
+    SENTRY_AUTH_TOKEN: "/CodeBuild/reusable-webcomponents/SENTRY_AUTH_TOKEN"
+    SENTRY_ORG: "/CodeBuild/reusable-webcomponents/SENTRY_ORG"
+    SENTRY_PROJECT: "/CodeBuild/reusable-webcomponents/SENTRY_PROJECT"
   #secrets-manager:
      # key: secret-id:json-key:version-stage:version-id
      # key: secret-id:json-key:version-stage:version-id
@@ -27,23 +27,21 @@ env:
 phases:
   install:
     runtime-versions:
-      java: openjdk11
-      nodejs: 12
+      java: corretto11
+      nodejs: 14
     #commands:
       # - command
       # - command
   pre_build:
     commands:
-      sysctl fs.inotify.max_user_watches &&
-      sysctl fs.inotify.max_user_watches=524288 &&
-      sysctl fs.inotify.max_user_watches &&
-      chmod a+x -R bin/* scripts/*.sh &&
-      bin/codebuild-git-wrapper.sh https://github.com/uqlibrary/reusable-webcomponents.git $CI_BRANCH &&
-      bin/codebuild-setup.sh
+      - sysctl fs.inotify.max_user_watches
+      - sysctl fs.inotify.max_user_watches=524288
+      - sysctl fs.inotify.max_user_watches
+      - chmod a+x -R bin/* scripts/*.sh && bin/codebuild-setup.sh
   build:
     commands:
-      set &&
-      bin/codebuild-test.sh
+      - set
+      - bin/codebuild-test.sh
   #post_build:
     #commands:
       # - command
