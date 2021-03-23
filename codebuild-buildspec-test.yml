@@ -1,0 +1,68 @@
+version: 0.2
+
+env:
+  #variables:
+     # key: "value"
+     # key: "value"
+  parameter-store:
+    PT_PROJECT: "/CodeBuild/webcomponents/PT_PROJECT"
+    PT_TOKEN: "/CodeBuild/webcomponents/PT_TOKEN"
+    CYPRESS_RECORD_KEY: "/CodeBuild/webcomponents/CYPRESS_RECORD_KEY"
+    GOOGLE_MAPS_API_KEY: "/CodeBuild/webcomponents/GOOGLE_MAPS_API_KEY"
+    SENTRY_AUTH_TOKEN: "/CodeBuild/webcomponents/SENTRY_AUTH_TOKEN"
+    SENTRY_ORG: "/CodeBuild/webcomponents/SENTRY_ORG"
+    SENTRY_PROJECT: "/CodeBuild/webcomponents/SENTRY_PROJECT"
+  #secrets-manager:
+     # key: secret-id:json-key:version-stage:version-id
+     # key: secret-id:json-key:version-stage:version-id
+  #exported-variables:
+     # - variable
+     # - variable
+  #git-credential-helper: yes
+#batch:
+  #fast-fail: true
+  #build-list:
+  #build-matrix:
+  #build-graph:
+phases:
+  install:
+    runtime-versions:
+      java: openjdk11
+      nodejs: 12
+    #commands:
+      # - command
+      # - command
+  pre_build:
+    commands:
+      sysctl fs.inotify.max_user_watches &&
+      sysctl fs.inotify.max_user_watches=524288 &&
+      sysctl fs.inotify.max_user_watches &&
+      chmod a+x -R bin/* scripts/*.sh &&
+      bin/codebuild-git-wrapper.sh https://github.com/uqlibrary/reusable-webcomponents.git $CI_BRANCH &&
+      bin/codebuild-setup.sh
+  build:
+    commands:
+      set &&
+      bin/codebuild-test.sh
+  #post_build:
+    #commands:
+      # - command
+      # - command
+#reports:
+  #report-name-or-arn:
+    #files:
+      # - location
+      # - location
+    #base-directory: location
+    #discard-paths: yes
+    #file-format: JunitXml | CucumberJson
+#artifacts:
+  #files:
+    # - location
+    # - location
+  #name: $(date +%Y-%m-%d)
+  #discard-paths: yes
+  #base-directory: location
+#cache:
+  #paths:
+    # - paths

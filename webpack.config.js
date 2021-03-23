@@ -11,9 +11,9 @@ const useMock = !!process.env.USE_MOCK || false;
 
 const componentJsPath = {
     local: '',
-    development: 'https://homepage-development.library.uq.edu.au/' + process.env.CI_BRANCH + '/',
-    staging: 'https://homepage-staging.library.uq.edu.au/test-web-components/',
-    production: 'https://library.uq.edu.au/test-web-components/',
+    development: 'https://app.library.uq.edu.au/webcomponents/development/' + process.env.CI_BRANCH + '/',
+    staging: 'https://app.library.uq.edu.au/webcomponents/staging/',
+    production: 'https://app.library.uq.edu.au/webcomponents/',
 };
 
 module.exports = () => {
@@ -98,7 +98,7 @@ module.exports = () => {
                 template: path.resolve(__dirname, 'index.html'),
             }),
             new webpack.HotModuleReplacementPlugin(),
-            // This plugin simply copies the external js into the dist and renames it
+            // This plugin simply copies the external js from ITS DS into the dist and renames it
             new CopyPlugin({
                 patterns: [
                     {from: "src/ApiAccess/js/uqds.js", to: "api-access.js"},
