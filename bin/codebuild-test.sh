@@ -5,9 +5,9 @@
 #export CI_BUILD_NUMBER="$CODEBUILD_BUILD_ID"
 ##export CI_NAME=CodeBuild
 ##export COMMIT_INFO_AUTHOR=$(git show ${CI_COMMIT_ID} --no-patch --pretty=format:"%an")
-##export COMMIT_INFO_EMAIL=$(git show ${CI_COMMIT_ID} --no-patch --pretty=format:"%ae")
 ##export COMMIT_INFO_MESSAGE=$(git show ${CI_COMMIT_ID} --no-patch --pretty=format:"%B")
-##export CI_BUILD_URL="https://ap-southeast-2.console.aws.amazon.com/codesuite/codepipeline/pipelines/reusable-webcomponents-${CI_BRANCH}/executions/${CI_BUILD_NUMBER}"
+export COMMIT_INFO_EMAIL=$(git show ${CI_COMMIT_ID} --no-patch --pretty=format:"%ae")
+export CI_BUILD_URL="https://ap-southeast-2.console.aws.amazon.com/codesuite/codepipeline/pipelines/reusable-webcomponents-${CI_BRANCH}/executions/${CI_BUILD_NUMBER}"
 
 echo
 echo "Commit Info:"
