@@ -111,6 +111,10 @@ export default {
                     secondaryText: 'Search, request, access & copy',
                     linkTo: 'https://web.library.uq.edu.au/library-services/special-collections',
                 },
+                // extra fields force the menu to break where we want it to
+                {},
+                {},
+                {},
             ],
         },
         {

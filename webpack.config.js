@@ -11,14 +11,16 @@ const useMock = !!process.env.USE_MOCK || false;
 
 const componentJsPath = {
     local: '',
-    development: 'https://homepage-development.library.uq.edu.au/' + process.env.CI_BRANCH + '/',
-    staging: 'https://homepage-staging.library.uq.edu.au/test-web-components/',
-    production: 'https://library.uq.edu.au/test-web-components/',
+    development: 'https://assets.library.uq.edu.au/reusable-webcomponents-development/' + process.env.CI_BRANCH + '/',
+    staging: 'https://assets.library.uq.edu.au/reusable-webcomponents-staging/',
+    production: 'https://assets.library.uq.edu.au/reusable-webcomponents/',
 };
 
 module.exports = () => {
     console.log('------------------------------------------------------------');
     console.log('BUILD ENVIRONMENT: ', process.env.NODE_ENV);
+    console.log('BUILD BRANCH     : ', process.env.CI_BRANCH || process.env.NODE_ENV);
+    console.log('BUILD URL        : ', componentJsPath[process.env.NODE_ENV]);
     console.log('------------------------------------------------------------');
     return {
         entry: './src/index.js',
@@ -98,7 +100,7 @@ module.exports = () => {
                 template: path.resolve(__dirname, 'index.html'),
             }),
             new webpack.HotModuleReplacementPlugin(),
-            // This plugin simply copies the external js into the dist and renames it
+            // This plugin simply copies the external js from ITS DS into the dist and renames it
             new CopyPlugin({
                 patterns: [
                     {from: "src/ApiAccess/js/uqds.js", to: "api-access.js"},
