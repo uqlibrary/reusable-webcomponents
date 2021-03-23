@@ -19,3 +19,9 @@ npm cache clear -f
 printf "\n\n--- INSTALL DEPENDENCIES ---\n"
 echo "$ npm ci"
 npm ci
+
+printf "\n\n--- CYPRESS SETUP ---\n"
+echo "$ npm cy:verify"
+npm run cy:verify
+echo "$ npm cy:info"
+npm run cy:info
