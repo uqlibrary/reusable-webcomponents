@@ -11,9 +11,9 @@ const useMock = !!process.env.USE_MOCK || false;
 
 const componentJsPath = {
     local: '',
-    development: 'https://assets.library.uq.edu.au/webcomponents/development/' + process.env.CI_BRANCH + '/',
-    staging: 'https://assets.library.uq.edu.au/webcomponents/staging/',
-    production: 'https://assets.library.uq.edu.au/webcomponents/',
+    development: 'https://assets.library.uq.edu.au/reusable-webcomponents-development/' + process.env.CI_BRANCH + '/',
+    staging: 'https://assets.library.uq.edu.au/reusable-webcomponents-staging/',
+    production: 'https://assets.library.uq.edu.au/reusable-webcomponents/',
 };
 
 module.exports = () => {
