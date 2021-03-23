@@ -1,5 +1,6 @@
 import styles from './css/auth.css';
 import ApiAccess from '../ApiAccess/ApiAccess';
+import {authLocale as locale} from './auth.locale';
 
 const unauthorisedtemplate = document.createElement('template');
 unauthorisedtemplate.innerHTML = `
@@ -88,15 +89,14 @@ class AuthButton extends HTMLElement {
     addButtonListeners(shadowDOM) {
         function visitLogOutPage() {
             new ApiAccess().removeAccountStorage();
-            const AUTH_URL_LOGOUT = 'https://auth.library.uq.edu.au/logout';
+
             const returnUrl = window.location.href;
-            window.location.assign(`${AUTH_URL_LOGOUT}?return=${window.btoa(returnUrl)}`);
+            window.location.assign(`${locale.AUTH_URL_LOGOUT}${window.btoa(returnUrl)}`);
         }
 
         function visitLoginPage() {
-            const AUTH_URL_LOGIN = 'https://auth.library.uq.edu.au/login';
             const returnUrl = window.location.href;
-            window.location.assign(`${AUTH_URL_LOGIN}?return=${window.btoa(returnUrl)}`);
+            window.location.assign(`${locale.AUTH_URL_LOGIN}${window.btoa(returnUrl)}`);
         }
 
         const loggedinButton = !!shadowDOM && shadowDOM.getElementById('auth-button-loggedin');

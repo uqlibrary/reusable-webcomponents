@@ -6,7 +6,7 @@
   "chromeWebSecurity": false,
   "defaultCommandTimeout": 10000,
   "videoUploadOnPasses": false,
-  "projectId": "d2f4io",
+  "projectId": "2nei7f",
   "blockHosts": ["www.googletagmanager.com"],
   "firefoxGcInterval": {
     "runMode": 1,
