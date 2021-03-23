@@ -361,12 +361,12 @@ class UQSiteHeader extends HTMLElement {
                 if (!!isMegaMenuDisplayed) {
                     var navelement = !!uqSiteHeader && uqSiteHeader.shadowRoot.getElementById('jsNav');
                     var nav = new uq.siteHeaderNavigation(navelement, 'uq-site-header__navigation');
+                    // Initialise accordions
+                    new uq.accordion();
+                    // Equalised grid menu examples
+                    var equaliseGridMenu = uq.gridMenuEqualiser('.uq-grid-menu--equalised>a');
+                    equaliseGridMenu.align();
                 }
-                // Initialise accordions
-                new uq.accordion();
-                // Equalised grid menu examples
-                var equaliseGridMenu = uq.gridMenuEqualiser('.uq-grid-menu--equalised>a');
-                equaliseGridMenu.align();
             };
             //Specify the location of the ITS DS JS file
             script.src = 'uq-site-header.js';
