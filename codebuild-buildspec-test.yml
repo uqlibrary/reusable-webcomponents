@@ -37,7 +37,7 @@ phases:
       - sysctl fs.inotify.max_user_watches
       - sysctl fs.inotify.max_user_watches=524288
       - sysctl fs.inotify.max_user_watches
-      - chmod a+x -R bin/* scripts/*.sh && bin/codebuild-setup.sh
+      - chmod a+x -R bin/* && bin/codebuild-setup.sh
   build:
     commands:
       - set
