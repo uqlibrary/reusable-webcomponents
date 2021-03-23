@@ -66,9 +66,6 @@ class AuthButton extends HTMLElement {
         this.loadJS = this.loadJS.bind(this);
     }
 
-    // mylibrary button and auth button both need account, and mylibrary goes first, being drawn further to the left on the page
-    // put a smidge of delay on the auth button so it will pull from session storage and not make a second api call
-    // (can't wait on the mylibrary button to appear as not all pages include it)
     async showLoginFromAuthStatus(shadowDOM) {
         this.checkAuthorisedUser().then((isAuthorised) => {
             const template = !!isAuthorised ? authorisedtemplate : unauthorisedtemplate;
