@@ -1,11 +1,11 @@
-import ApiAccess from './ApiAccess/ApiAccess';
-import AskUsButton from './UtilityArea/AskUsButton';
-import AuthButton from './UtilityArea/AuthButton';
-import MyLibraryButton from './UtilityArea/MyLibraryButton';
-import ConnectFooter from './ConnectFooter/ConnectFooter';
-import UQHeader from './UQHeader/UQHeader.js';
-import UQSiteHeader from './UQSiteHeader/UQSiteHeader.js';
-import UQFooter from './UQFooter/UQFooter.js';
+import ApiAccess from '/src/ApiAccess/ApiAccess';
+import AskUsButton from '/src/UtilityArea/AskUsButton';
+import AuthButton from '/src/UtilityArea/AuthButton';
+import MyLibraryButton from '/src/UtilityArea/MyLibraryButton';
+import ConnectFooter from '/src/ConnectFooter/ConnectFooter';
+import UQHeader from '/src/UQHeader/UQHeader.js';
+import UQSiteHeader from '/src/UQSiteHeader/UQSiteHeader.js';
+import UQFooter from '/src/UQFooter/UQFooter.js';
 
 // Import mock data if required
 if (process.env.BRANCH !== 'production' && process.env.USE_MOCK) {
