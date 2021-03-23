@@ -65,6 +65,13 @@ You will also need to add a named anchor after all the header imports etc to tel
 - Make sure to update the dynamic load reference in the web component file.
 - Run `npm run build` to pack the file into the `dist` folder - and open index.html there in a browser to test - or - run `npm run start` to have a listening system run in your local browser.
 
+### Testing
+
+This repo uses Cypress tests. To run tests:
+- locally: `npm run test:local` - select the preferred browser from the dropdown in the top right of the cypress interface, then click on the 'run integration tests'
+
+NOTE: CI testing uses environment variables stored on AWS to run cypress successfully and reporting to the cypress dashboard.
+
 ### AWS Buckets
 
 Code is deployed to 3 buckets:
