@@ -89,7 +89,8 @@ There is a cloudfront behaviour on assets.library.uq.edu.au that maps these buck
 
 ### Reference Material
 
-How slots work: https://javascript.info/slots-composition
+- How slots work: https://javascript.info/slots-composition
+- Apply styles within the shadow dom from outside: https://developer.mozilla.org/en-US/docs/Web/CSS/::part (undocumented caveat: you can only style the item with the "part attribute" you cant style its descendants ie this doesn't work: `askus-button::part(askus) div#askus-label` you have to put the part="x" on the label element)
 
 ### Known issues
 
