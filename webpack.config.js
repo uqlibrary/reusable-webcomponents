@@ -122,7 +122,7 @@ module.exports = () => {
             }),
             // This plugin will rename the external js imports to full paths for deploy
             (process.env.NODE_ENV !== 'local') && new ReplaceInFileWebpackPlugin([{
-                dir: 'dist',
+                dir: buildPath[process.env.NODE_ENV],
                 files: ['uq-lib-reusable.min.js'],
                 rules: [{
                     search: /uq-header\.js/gm,
