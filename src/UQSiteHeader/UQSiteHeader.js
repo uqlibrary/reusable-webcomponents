@@ -178,8 +178,8 @@ class UQSiteHeader extends HTMLElement {
         !!siteTitleContent && !!siteTitle && (siteTitleContent.innerHTML = siteTitle);
         !!siteTitleContent && !!siteURL && (siteTitleContent.href = siteURL);
 
-        this.addMyLibraryButtonToSlot();
         this.addAskUsButtonToSlot();
+        this.addMyLibraryButtonToSlot();
         this.addAuthButtonToSlot();
 
         this.rewriteMegaMenuFromJson();
@@ -197,18 +197,19 @@ class UQSiteHeader extends HTMLElement {
             return;
         }
 
-        const slotId = 'mylibraryslot';
-        const existingMyLibrarySlot = document.getElementById(slotId);
-        if (!!existingMyLibrarySlot) {
+        const stubId = 'mylibrarystub';
+        const existingMyLibraryStub = document.getElementById(stubId);
+        const existingMyLibrarySlot = document.getElementById('mylibrarybutton');
+        if (!!existingMyLibraryStub || !!existingMyLibrarySlot) {
             // mylibrary already exists
             return;
         }
 
         // this one just creates the stub - authbutton will fill in the actual button if they are logged in
         const mylibraryButton = document.createElement('div');
-        mylibraryButton.id = slotId;
+        mylibraryButton.id = stubId;
 
-        !!mylibraryButton && this.addButtonToUtilityArea(mylibraryButton);
+        !!mylibraryButton && this.addButtonToUtilityArea(mylibraryButton, 'mylibrarybutton');
     }
 
     addAskUsButtonToSlot() {
@@ -217,7 +218,7 @@ class UQSiteHeader extends HTMLElement {
         }
 
         const askusButton = document.createElement('askus-button');
-        !!askusButton && this.addButtonToUtilityArea(askusButton);
+        !!askusButton && this.addButtonToUtilityArea(askusButton, 'askus');
     }
 
     addAuthButtonToSlot() {
@@ -228,15 +229,14 @@ class UQSiteHeader extends HTMLElement {
         const authButton = document.createElement('auth-button');
         !!authButton && this.overwriteAsLoggedOut() && authButton.setAttribute('overwriteAsLoggedOut', 'true');
 
-        !!authButton && this.addButtonToUtilityArea(authButton);
+        !!authButton && this.addButtonToUtilityArea(authButton, 'auth');
     }
 
-    addButtonToUtilityArea(button) {
+    addButtonToUtilityArea(button, id=null) {
         const buttonWrapper = document.createElement('span');
         !!buttonWrapper && buttonWrapper.setAttribute('slot', 'site-utilities');
-        if (!!buttonWrapper && !!button.id) {
-            buttonWrapper.setAttribute('id', JSON.stringify(button.id));
-        }
+        console.log('button = ', button); // #dev
+        !!buttonWrapper && !!id && buttonWrapper.setAttribute('id', id);
         !!button && !!buttonWrapper && buttonWrapper.appendChild(button);
 
         const siteHeader = document.getElementsByTagName('uq-site-header')[0] || false;
@@ -361,12 +361,12 @@ class UQSiteHeader extends HTMLElement {
                 if (!!isMegaMenuDisplayed) {
                     var navelement = !!uqSiteHeader && uqSiteHeader.shadowRoot.getElementById('jsNav');
                     var nav = new uq.siteHeaderNavigation(navelement, 'uq-site-header__navigation');
+                    // Initialise accordions
+                    new uq.accordion();
+                    // Equalised grid menu examples
+                    var equaliseGridMenu = uq.gridMenuEqualiser('.uq-grid-menu--equalised>a');
+                    equaliseGridMenu.align();
                 }
-                // Initialise accordions
-                new uq.accordion();
-                // Equalised grid menu examples
-                var equaliseGridMenu = uq.gridMenuEqualiser('.uq-grid-menu--equalised>a');
-                equaliseGridMenu.align();
             };
             //Specify the location of the ITS DS JS file
             script.src = 'uq-site-header.js';
