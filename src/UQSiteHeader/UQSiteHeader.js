@@ -172,8 +172,8 @@ class UQSiteHeader extends HTMLElement {
 
         // Set the title & link URL
         const siteTitleContent = template.content.getElementById('site-title');
-        const siteTitle = this.getAttribute('siteTitle');
-        const siteURL = this.getAttribute('siteURL');
+        const siteTitle = this.getAttribute('sitetitle');
+        const siteURL = this.getAttribute('siteurl');
 
         !!siteTitleContent && !!siteTitle && (siteTitleContent.innerHTML = siteTitle);
         !!siteTitleContent && !!siteURL && (siteTitleContent.href = siteURL);
@@ -368,31 +368,31 @@ class UQSiteHeader extends HTMLElement {
 
     isMegaMenuRequested() {
         if (this.showMenu === undefined) {
-            this.showMenu = this.getAttribute('showMenu');
+            this.showMenu = this.getAttribute('showmenu');
         }
         return !!this.showMenu || this.showMenu === '';
     }
 
     isAuthButtonRequested() {
         if (this.isloginRequired === undefined) {
-            this.isloginRequired = this.getAttribute('showLoginButton');
+            this.isloginRequired = this.getAttribute('showloginbutton');
         }
         return !!this.isloginRequired || this.isloginRequired === '';
     }
 
     isAskusButtonRequested() {
-        const hideAskUs = this.getAttribute('hideAskUs');
+        const hideAskUs = this.getAttribute('hideaskus');
         return hideAskUs === 'false' || hideAskUs === null;
     }
 
     isMylibraryButtonRequested() {
-        const hideMylibrary = this.getAttribute('hideMyLibrary');
+        const hideMylibrary = this.getAttribute('hidemylibrary');
         return hideMylibrary === 'false' || hideMylibrary === null;
     }
 
     overwriteAsLoggedOut() {
         if (this.overwriteAsLoggedOutVar === undefined) {
-            this.overwriteAsLoggedOutVar = this.getAttribute('requireLoggedOut');
+            this.overwriteAsLoggedOutVar = this.getAttribute('requireloggedout');
         }
         return !!this.overwriteAsLoggedOutVar || this.overwriteAsLoggedOutVar === '';
     }
