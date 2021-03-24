@@ -17,10 +17,17 @@ const componentJsPath = {
 };
 
 module.exports = () => {
+    const buildPath = {
+        local: path.resolve(__dirname, 'dist'),
+        development: path.resolve(__dirname, 'dist') + '/' + process.env.CI_BRANCH + '/',
+        staging: path.resolve(__dirname, 'dist'),
+        production: path.resolve(__dirname, 'dist'),
+    };
     console.log('------------------------------------------------------------');
     console.log('BUILD ENVIRONMENT: ', process.env.NODE_ENV);
     console.log('BUILD BRANCH     : ', process.env.CI_BRANCH || process.env.NODE_ENV);
     console.log('BUILD URL        : ', componentJsPath[process.env.NODE_ENV]);
+    console.log('BUILD PATH       : ', buildPath[process.env.NODE_ENV]);
     console.log('------------------------------------------------------------');
     return {
         entry: './src/index.js',
@@ -28,7 +35,7 @@ module.exports = () => {
             library: libraryName,
             libraryTarget: 'umd',
             libraryExport: 'default',
-            path: path.resolve(__dirname, 'dist'),
+            path: buildPath[process.env.NODE_ENV],
             filename: outputFile,
         },
         module: {
@@ -115,7 +122,7 @@ module.exports = () => {
             }),
             // This plugin will rename the external js imports to full paths for deploy
             (process.env.NODE_ENV !== 'local') && new ReplaceInFileWebpackPlugin([{
-                dir: 'dist',
+                dir: buildPath[process.env.NODE_ENV],
                 files: ['uq-lib-reusable.min.js'],
                 rules: [{
                     search: /uq-header\.js/gm,
