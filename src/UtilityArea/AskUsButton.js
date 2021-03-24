@@ -6,11 +6,11 @@ template.innerHTML = `
     <style>${askus.toString()}</style>
     <div id="askus">
         <!-- Button -->
-        <button id="askus-button">
+        <button id="askus-button" aria-label="View Askus options" part="button" title="View Askus options">
             <svg id="askus-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"/>
             </svg>
-            <div id="askus-label">AskUs</div>
+            <div id="askus-label" part="label">AskUs</div>
         </button>
         <!-- Menu -->
         <div id="askus-menu" class="closed-menu" style="display: none">
@@ -85,6 +85,13 @@ class AskUsButton extends HTMLElement {
         super();
         // Add a shadow DOM
         const shadowDOM = this.attachShadow({ mode: 'open' });
+
+        if (this.isPaneButtonOpacityDropRequested()) {
+            // primo needs the opacity on the background turned off because it interacts weirdly with the Primo styles
+            // add a class to the pane, and turn off the background colour on that class
+            const pane = template.content.getElementById('askus-pane');
+            !!pane && pane.classList.add('noOpacity');
+        }
 
         // Render the template
         shadowDOM.appendChild(template.content.cloneNode(true));
@@ -205,6 +212,12 @@ class AskUsButton extends HTMLElement {
         // Chat status listeners
         shadowDOM.getElementById('askus-chat-online').addEventListener('click', openChat);
         shadowDOM.getElementById('askus-chat-offline').addEventListener('click', navigateToContactUs);
+    }
+
+    isPaneButtonOpacityDropRequested() {
+        // primo only provides the attributes in lower case :(
+        const noPaneOpacity = this.getAttribute('nopaneopacity');
+        return !!noPaneOpacity || noPaneOpacity === '';
     }
 
     loadJS() {

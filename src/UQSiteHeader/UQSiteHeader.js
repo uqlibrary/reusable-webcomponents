@@ -32,7 +32,7 @@ template.innerHTML = `
     <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css">
   <div class="uq-site-header">
       <!-- Site title and utility area with mobile nav toggler (JS) -->
-      <div class="uq-site-header__title-container">
+      <div class="uq-site-header__title-container" part="title">
         <div class="uq-site-header__title-container__left">
           <a id="site-title" href="https://www.library.uq.edu.au/" class="uq-site-header__title">Library</a>
         </div>
@@ -214,9 +214,9 @@ class UQSiteHeader extends HTMLElement {
     }
 
     addAuthButtonToSlot() {
-        if (!this.isAuthButtonRequested()) {
-            return;
-        }
+      if (!this.isAuthButtonRequested()) {
+        return;
+      }
 
         const authButton = document.createElement('auth-button');
         !!authButton && this.overwriteAsLoggedOut() && authButton.setAttribute('overwriteAsLoggedOut', 'true');
