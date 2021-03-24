@@ -85,10 +85,10 @@ class AuthButton extends HTMLElement {
         }
 
         const loggedinButton = !!shadowDOM && shadowDOM.getElementById('auth-button-logout');
-        !!loggedinButton && loggedinButton.addEventListener('click', visitLogOutPage);
+        !!loggedinButton && loggedinButton.addEventListener('click', visitLoginPage);
 
         const loggedoutButton = !!shadowDOM && shadowDOM.getElementById('auth-button-login');
-        !!loggedoutButton && loggedoutButton.addEventListener('click', visitLoginPage);
+        !!loggedoutButton && loggedoutButton.addEventListener('click', visitLogOutPage);
 
         !loggedinButton && !loggedoutButton && console.log('neither logged in nor logged out buttons exist');
     }
