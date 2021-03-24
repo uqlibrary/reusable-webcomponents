@@ -28,21 +28,24 @@ phases:
     runtime-versions:
       java: corretto11
       nodejs: 14
-    #commands:
-      # - command
-      # - command
-  pre_build:
     commands:
+      - set
       - sysctl fs.inotify.max_user_watches
       - sysctl fs.inotify.max_user_watches=524288
       - sysctl fs.inotify.max_user_watches
-      - chmod a+x -R bin/* && bin/codebuild-setup.sh
+      - chmod a+x -R bin/*
+      - bin/codebuild-setup.sh
+  pre_build:
+    commands:
+      - set
+      - bin/codebuild-test.sh
   build:
     commands:
       - set
       - export BUILD_TARGET='development'
       - "if [ \"$CI_BRANCH\" = \"production\" -o \"$CI_BRANCH\" = \"staging\" ]; then export BUILD_TARGET=$CI_BRANCH ; fi"
-      - npm run build:$BUILD_TARGET && ls dist
+      - npm run build:$BUILD_TARGET
+      - ls dist
   post_build:
     commands:
       if [ -f ./scripts/releaseNotes.sh ]; then ./scripts/releaseNotes.sh; fi

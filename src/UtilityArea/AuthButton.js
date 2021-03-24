@@ -2,45 +2,27 @@ import styles from './css/auth.css';
 import ApiAccess from '../ApiAccess/ApiAccess';
 import {authLocale as locale} from './auth.locale';
 
-const unauthorisedtemplate = document.createElement('template');
-unauthorisedtemplate.innerHTML = `
-    <style>${styles.toString()}</style>
-    <div class="MuiGrid-root-8 makeStyles-utility-115 MuiGrid-item-10 MuiGrid-grid-xs-auto-41" id="auth-button-block" data-testid="auth" style="display: block;">
-        <button
-            class="MuiButtonBase-root-148 MuiIconButton-root-158 makeStyles-iconButtonRoot-182 log-in-button"
-            data-testid="auth-button-loggedout"
-            id="auth-button-loggedout"
-            tabindex="0"
-            type="button"
-        >
-            <span class="MuiIconButton-label-166 makeStyles-iconButtonLabel-181">
-                <svg class="MuiSvgIcon-root-167 makeStyles-iconButton-180" focusable="false" viewBox="0 0 24 24" aria-hidden="true" id="logged-out-icon">
-                    <path d="M12 5.9c1.16 0 2.1.94 2.1 2.1s-.94 2.1-2.1 2.1S9.9 9.16 9.9 8s.94-2.1 2.1-2.1m0 9c2.97 0 6.1 1.46 6.1 2.1v1.1H5.9V17c0-.64 3.13-2.1 6.1-2.1M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 9c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z"></path>
-                </svg>
-                <div id="log-in-label" class="button-label">Log in</div>
-            </span>
-            <span class="MuiTouchRipple-root-412"></span>
-        </button>
-    </div>
-`;
 const authorisedtemplate = document.createElement('template');
 authorisedtemplate.innerHTML = `
     <style>${styles.toString()}</style>
-    <div class="MuiGrid-root-8 makeStyles-utility-115 MuiGrid-item-10 MuiGrid-grid-xs-auto-41" id="auth-button-block" data-testid="auth" style="display: block;">
-        <button
-            class="MuiButtonBase-root-148 MuiIconButton-root-158 makeStyles-iconButtonRoot-182 log-out-button"
-            data-testid="auth-button-loggedin"
-            id="auth-button-loggedin"
-            tabindex="0"
-            type="button"
-        >
-            <span class="MuiIconButton-label-166 makeStyles-iconButtonLabel-181">
-                <svg class="MuiSvgIcon-root-167 makeStyles-iconButton-180" focusable="false" viewBox="0 0 24 24" aria-hidden="true" id="logged-in-icon">
-                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
-                </svg>
-                <div id="log-out-label" class="button-label">Log out</div>
-            </span>
-            <span class="MuiTouchRipple-root-412"></span>
+    <div id="auth">
+     <button id="auth-button-login">
+        <svg id="auth-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true" id="logged-in-icon">
+            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
+        </svg>
+        <div id="auth-log-out-label">Log out</div>
+    </button>
+    </div>
+`;
+const unauthorisedtemplate = document.createElement('template');
+unauthorisedtemplate.innerHTML = `
+    <style>${styles.toString()}</style>
+    <div id="auth">
+        <button id="auth-button-logout">
+            <svg id="auth-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true" id="logged-out-icon">
+                <path d="M12 5.9c1.16 0 2.1.94 2.1 2.1s-.94 2.1-2.1 2.1S9.9 9.16 9.9 8s.94-2.1 2.1-2.1m0 9c2.97 0 6.1 1.46 6.1 2.1v1.1H5.9V17c0-.64 3.13-2.1 6.1-2.1M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 9c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z"></path>
+            </svg>
+            <div id="auth-log-in-label">Log in</div>
         </button>
     </div>
 `;
@@ -51,7 +33,7 @@ class AuthButton extends HTMLElement {
     constructor() {
         super();
         // Add a shadow DOM
-        const shadowDOM = this.attachShadow({ mode: 'open' });
+        const shadowDOM = this.attachShadow({mode: 'open'});
 
         const loggedOutButtonMandatory = this.getAttribute('overwriteAsLoggedOut');
         if (loggedOutButtonMandatory === 'true') {
@@ -82,9 +64,9 @@ class AuthButton extends HTMLElement {
                 const mylibraryStub = document.getElementById('mylibraryslot');
                 const mylibraryButton = document.createElement('mylibrary-button');
                 !!mylibraryStub &&
-                    mylibraryStub.children.length === 0 &&
-                    !!mylibraryButton &&
-                    mylibraryStub.parentNode.replaceChild(mylibraryButton, mylibraryStub);
+                mylibraryStub.children.length === 0 &&
+                !!mylibraryButton &&
+                mylibraryStub.parentNode.replaceChild(mylibraryButton, mylibraryStub);
             }
         });
     }
@@ -102,10 +84,10 @@ class AuthButton extends HTMLElement {
             window.location.assign(`${locale.AUTH_URL_LOGIN}${window.btoa(returnUrl)}`);
         }
 
-        const loggedinButton = !!shadowDOM && shadowDOM.getElementById('auth-button-loggedin');
+        const loggedinButton = !!shadowDOM && shadowDOM.getElementById('auth-button-logout');
         !!loggedinButton && loggedinButton.addEventListener('click', visitLogOutPage);
 
-        const loggedoutButton = !!shadowDOM && shadowDOM.getElementById('auth-button-loggedout');
+        const loggedoutButton = !!shadowDOM && shadowDOM.getElementById('auth-button-login');
         !!loggedoutButton && loggedoutButton.addEventListener('click', visitLoginPage);
 
         !loggedinButton && !loggedoutButton && console.log('neither logged in nor logged out buttons exist');

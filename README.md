@@ -11,7 +11,7 @@
 - run `npm run build` to run a `local` test build in the `dist` folder
 - run `npm run build:staging` to run a `staging` test build in the `dist` folder
 - run `npm run build:production` to run a `production` test build in the `dist` folder
-- run `npm run test` to run a test build in the `dist` folder and run all cypress tests
+- run `npm run test:local` to run a test build in the `dist` folder and run all cypress tests
 - run `npm run prettier:test` to check all files for codestyles and `npm run prettier:fix` to fix them all
 
 ### Use
@@ -26,8 +26,8 @@ eg. UQ Header:
 ```html
 <uq-header
         hideLibraryMenuItem="true"
-        searchLabel="google.com.au"
-        searchURL="www.google.com"
+        searchLabel="library.uq.edu.au"
+        searchURL="library.uq.edu.au"
 ></uq-header>
 ```
 You will also need to add a named anchor after all the header imports etc to tell the skip nav where to skip to:
