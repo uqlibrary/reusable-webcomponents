@@ -423,7 +423,7 @@ var uq = (function (exports) {
                                 selectors = selectors.replace('#/membership.', '');
                                 if (!isSelectorValid(selectors)) {
                                     console.log('selector ', selectors, ' has probably caused the uqsiteheader to silently fail');
-                                } // #dev                                var hashSelectedContent = document
+                                }
                                 var hashSelectedContent = !!shadowRoot && isSelectorValid(selectors) && shadowRoot.querySelector(selectors) || false;
 
                                 if (!!hashSelectedContent) {
