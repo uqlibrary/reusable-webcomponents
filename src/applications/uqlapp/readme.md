@@ -1,23 +1,20 @@
 This inclusion is used to supply header and footer to:
 
-- UQLapp (<https://app.library.uq.edu.au/>)
-- Exams (eg <https://www.library.uq.edu.au/exams/papers.php?stub=phil>)
+- UQLapp
+- Exams
 
-# UQLAPP
+## UQLapp
 
-- UQLAPP URL: <https://app.library.uq.edu.au/#/>
+- UQLapp URL: <https://app.library.uq.edu.au/#/>
 - repo <https://github.com/uqlibrary/uqlapp-frontend/>
-- development environment: <https://app-testing.library.uq.edu.au/#/> linked to branch testing in
+- development environment: <https://app-testing.library.uq.edu.au/#/> linked to branch `testing`
 
-# Exams
+## Exams
 - https://www.library.uq.edu.au/exams/
 - code: managed by Dan
-- development env: https://enki-dr.library.uq.edu.au/exams/
+- development env: https://enki-dr.library.uq.edu.au/exams/ (needs specific permissions)
 
 Include the following:
-
-[Yesterday 16:20] Lea de Groot
-but the script lines below it could be replaced with
 
 ```html
 <link type="image/x-icon" rel="shortcut icon" href="https://www.library.uq.edu.au/favicon.ico">
