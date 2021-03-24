@@ -90,14 +90,14 @@ class UQHeader extends HTMLElement {
         // Handle the attributes for this component
 
         // If the attribute hideLibraryMenuItem is true, remove it from the template
-        const hideLibraryMenuItem = this.getAttribute('hideLibraryMenuItem');
+        const hideLibraryMenuItem = this.getAttribute('hidelibrarymenuitem');
         if (hideLibraryMenuItem === 'true') {
             const libraryMenuItem = template.content.getElementById('menu-item-library');
             !!libraryMenuItem && libraryMenuItem.remove();
         }
 
         // Append the label for the search widget
-        const searchLabel = this.getAttribute('searchLabel');
+        const searchLabel = this.getAttribute('searchlabel');
         if (!!searchLabel) {
             const oldValue = template.content.getElementById('search-label').innerHTML;
             const newValue = oldValue.replace('library.uq.edu.au', searchLabel);
@@ -105,7 +105,7 @@ class UQHeader extends HTMLElement {
         }
 
         // Append the url for the search widget
-        const searchURL = this.getAttribute('searchURL');
+        const searchURL = this.getAttribute('searchurl');
         if (!!searchURL) {
             template.content.getElementById('edit-as_sitesearch-on').value = searchURL;
         }

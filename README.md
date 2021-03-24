@@ -25,9 +25,9 @@ Add the following line at the end of your HTML document to initialise the compon
 eg. UQ Header:
 ```html
 <uq-header
-        hideLibraryMenuItem="true"
-        searchLabel="library.uq.edu.au"
-        searchURL="library.uq.edu.au"
+        hideLibrarymenuitem="true"
+        searchlabel="library.uq.edu.au"
+        searchurl="library.uq.edu.au"
 ></uq-header>
 ```
 You will also need to add a named anchor after all the header imports etc to tell the skip nav where to skip to:
