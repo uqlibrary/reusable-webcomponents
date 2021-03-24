@@ -41,8 +41,7 @@ phases:
     commands:
       - set
       - export BUILD_TARGET='development'
-      - "if [ \"$CI_BRANCH\" == 'staging' ]; then export BUILD_TARGET=$CI_BRANCH ; fi"
-      - "if [ \"$CI_BRANCH\" == 'production' ]; then export BUILD_TARGET=$CI_BRANCH ; fi"
+      - "if [ \"$CI_BRANCH\" = \"production\" -o \"$CI_BRANCH\" = \"staging\" ]; then export BUILD_TARGET=$CI_BRANCH ; fi"
       - npm run build:$BUILD_TARGET && ls dist
   post_build:
     commands:
