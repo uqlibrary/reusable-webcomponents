@@ -51,7 +51,7 @@ describe('My Library menu', () => {
                 .find('mylibrary-button')
                 .shadow()
                 .find('div#mylibrary')
-                .should('contain', 'My library');
+                .should('contain', 'MyLibrary');
             cy.get('uq-site-header').find('mylibrary-button').shadow().find('button#mylibrary-button').click();
             cy.wait(500);
             cy.get('uq-site-header')
@@ -75,7 +75,7 @@ describe('My Library menu', () => {
                 .find('mylibrary-button')
                 .shadow()
                 .find('div#mylibrary')
-                .should('contain', 'My library');
+                .should('contain', 'MyLibrary');
             cy.get('uq-site-header').find('mylibrary-button').shadow().find('button#mylibrary-button').click();
             cy.wait(500);
             cy.get('uq-site-header')
@@ -98,7 +98,7 @@ describe('My Library menu', () => {
                 .find('mylibrary-button')
                 .shadow()
                 .find('div#mylibrary')
-                .should('contain', 'My library');
+                .should('contain', 'MyLibrary');
             cy.get('uq-site-header').find('mylibrary-button').shadow().find('button#mylibrary-button').click();
             cy.wait(500);
             cy.get('uq-site-header')
