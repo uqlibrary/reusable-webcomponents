@@ -17,18 +17,18 @@ const componentJsPath = {
 };
 
 module.exports = () => {
-    console.log('------------------------------------------------------------');
-    console.log('BUILD ENVIRONMENT: ', process.env.NODE_ENV);
-    console.log('BUILD BRANCH     : ', process.env.CI_BRANCH || process.env.NODE_ENV);
-    console.log('BUILD URL        : ', componentJsPath[process.env.NODE_ENV]);
-    console.log('------------------------------------------------------------');
-
     const buildPath = {
         local: path.resolve(__dirname, 'dist'),
         development: path.resolve(__dirname, 'dist') + '/' + process.env.CI_BRANCH + '/',
         staging: path.resolve(__dirname, 'dist'),
         production: path.resolve(__dirname, 'dist'),
     };
+    console.log('------------------------------------------------------------');
+    console.log('BUILD ENVIRONMENT: ', process.env.NODE_ENV);
+    console.log('BUILD BRANCH     : ', process.env.CI_BRANCH || process.env.NODE_ENV);
+    console.log('BUILD URL        : ', componentJsPath[process.env.NODE_ENV]);
+    console.log('BUILD PATH       : ', buildPath[process.env.NODE_ENV]);
+    console.log('------------------------------------------------------------');
     return {
         entry: './src/index.js',
         output: {
