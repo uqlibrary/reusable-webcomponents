@@ -5,7 +5,7 @@ describe('AskUs menu', () => {
         cy.visit('http://localhost:8080');
         cy.injectAxe();
     });
-    context('ASkUs Menu', () => {
+    context('AskUs Menu', () => {
         it('Appears as expected', () => {
             cy.viewport(1280, 900);
             cy.get('uq-site-header').find('askus-button').should('exist');
