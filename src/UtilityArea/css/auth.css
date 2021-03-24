@@ -9,12 +9,13 @@
 }
 
 #auth #auth-log-out-label, #auth #auth-log-in-label {
-    font-size: 12px;
+    font-size: 12px !important;
     white-space: nowrap;
     color: #51247a;
 }
 
 #auth button {
+    line-height: 20px;
     background: rgba(0, 0, 0, 0);
     border-radius: 50%;
     border: none;
