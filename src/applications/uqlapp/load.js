@@ -17,6 +17,7 @@ function loadReusableComponents() {
 
     const siteHeader = document.createElement('uq-site-header');
     siteHeader.setAttribute("hideAskUs", "");
+    siteHeader.setAttribute("hideMyLibrary", "");
     document.body.insertBefore(siteHeader, firstElement);
 
     const connectFooter = document.createElement('connect-footer');
