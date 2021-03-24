@@ -12,7 +12,7 @@ describe('Auth button', () => {
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
             });
             cy.get('uq-site-header').find('auth-button').should('exist');
-            cy.get('auth-button').shadow().find('#log-out-label').should('contain', 'Log out');
+            cy.get('auth-button').shadow().find('#auth-log-out-label').should('contain', 'Log out');
         });
 
         it('logged out user sees a "Log in" button"', () => {
@@ -25,7 +25,7 @@ describe('Auth button', () => {
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
             });
             cy.get('uq-site-header').find('auth-button').should('exist');
-            cy.get('auth-button').shadow().find('#log-in-label').should('contain', 'Log in');
+            cy.get('auth-button').shadow().find('#auth-log-in-label').should('contain', 'Log in');
         });
 
     });
