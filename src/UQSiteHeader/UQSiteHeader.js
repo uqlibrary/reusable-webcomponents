@@ -209,7 +209,7 @@ class UQSiteHeader extends HTMLElement {
         const mylibraryButton = document.createElement('div');
         mylibraryButton.id = stubId;
 
-        !!mylibraryButton && this.addButtonToUtilityArea(mylibraryButton, 'mylibrarybutton');
+        !!mylibraryButton && this.createSlotForButtonInUtilityArea(mylibraryButton, 'mylibrarybutton');
     }
 
     addAskUsButtonToSlot() {
@@ -218,7 +218,7 @@ class UQSiteHeader extends HTMLElement {
         }
 
         const askusButton = document.createElement('askus-button');
-        !!askusButton && this.addButtonToUtilityArea(askusButton, 'askus');
+        !!askusButton && this.createSlotForButtonInUtilityArea(askusButton, 'askus');
     }
 
     addAuthButtonToSlot() {
@@ -229,18 +229,18 @@ class UQSiteHeader extends HTMLElement {
         const authButton = document.createElement('auth-button');
         !!authButton && this.overwriteAsLoggedOut() && authButton.setAttribute('overwriteAsLoggedOut', 'true');
 
-        !!authButton && this.addButtonToUtilityArea(authButton, 'auth');
+        !!authButton && this.createSlotForButtonInUtilityArea(authButton, 'auth');
     }
 
-    addButtonToUtilityArea(button, id=null) {
-        const buttonWrapper = document.createElement('span');
-        !!buttonWrapper && buttonWrapper.setAttribute('slot', 'site-utilities');
-        console.log('button = ', button); // #dev
-        !!buttonWrapper && !!id && buttonWrapper.setAttribute('id', id);
-        !!button && !!buttonWrapper && buttonWrapper.appendChild(button);
+    createSlotForButtonInUtilityArea(button, id=null) {
+        const slot = document.createElement('span');
+        !!slot && slot.setAttribute('slot', 'site-utilities');
+        console.log('createSlotForButtonInUtilityArea: button = ', button, ' (id = ', id, ')'); // #dev
+        !!slot && !!id && slot.setAttribute('id', id);
+        !!button && !!slot && slot.appendChild(button);
 
         const siteHeader = document.getElementsByTagName('uq-site-header')[0] || false;
-        !!buttonWrapper && !!siteHeader && siteHeader.appendChild(buttonWrapper);
+        !!slot && !!siteHeader && siteHeader.appendChild(slot);
     }
 
     rewriteMegaMenuFromJson() {
