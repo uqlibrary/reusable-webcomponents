@@ -59,11 +59,13 @@ class AuthButton extends HTMLElement {
             if (!!isAuthorised) {
                 // find the stub we built for mylibrary and replace it with the button
                 const mylibraryStub = document.getElementById('mylibrarystub');
-                const mylibraryButton = !!mylibraryStub && document.createElement('mylibrary-button');
-                !!mylibraryStub &&
-                mylibraryStub.children.length === 0 &&
-                !!mylibraryButton &&
-                mylibraryStub.parentNode.replaceChild(mylibraryButton, mylibraryStub);
+                if (!mylibraryStub || mylibraryStub.children.length > 0) {
+                    // if the stub was not set up, then mylibrary is not required
+                    // if the stub already has a child button, dont create another
+                    return;
+                }
+                const mylibraryButton = document.createElement('mylibrary-button');
+                !!mylibraryButton && mylibraryStub.parentNode.replaceChild(mylibraryButton, mylibraryStub);
             }
         });
     }
