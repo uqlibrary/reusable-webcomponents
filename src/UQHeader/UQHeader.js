@@ -91,7 +91,7 @@ class UQHeader extends HTMLElement {
 
         // If the attribute hideLibraryMenuItem is true, remove it from the template
         const hideLibraryMenuItem = this.getAttribute('hidelibrarymenuitem');
-        if (hideLibraryMenuItem === 'true') {
+        if (!!hideLibraryMenuItem || hideLibraryMenuItem === 'true') {
             const libraryMenuItem = template.content.getElementById('menu-item-library');
             !!libraryMenuItem && libraryMenuItem.remove();
         }
@@ -109,6 +109,8 @@ class UQHeader extends HTMLElement {
         if (!!searchURL) {
             template.content.getElementById('edit-as_sitesearch-on').value = searchURL;
         }
+
+        console.log('UQHeader attributes: ', hideLibraryMenuItem, searchLabel, searchURL);
 
         // Render the template
         shadowDOM.appendChild(template.content.cloneNode(true));
