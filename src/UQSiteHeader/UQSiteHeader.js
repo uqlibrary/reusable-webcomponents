@@ -288,7 +288,7 @@ class UQSiteHeader extends HTMLElement {
 
     isAuthButtonRequested() {
         if (this.isloginRequired === undefined) {
-            this.isloginRequired = this.getAttribute('showloginbutton');
+            this.isloginRequired = this.getAttribute('requireloggedout');
         }
         return !!this.isloginRequired || this.isloginRequired === '';
     }
