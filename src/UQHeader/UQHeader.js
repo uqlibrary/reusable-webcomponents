@@ -89,7 +89,7 @@ class UQHeader extends HTMLElement {
 
         // Handle the attributes for this component
 
-        // If the attribute hideLibraryMenuItem is true, remove it from the template
+        // If the attribute hidelibrarymenuitem is true, remove it from the template
         const hideLibraryMenuItem = this.getAttribute('hidelibrarymenuitem');
         if (!!hideLibraryMenuItem || hideLibraryMenuItem === 'true') {
             const libraryMenuItem = template.content.getElementById('menu-item-library');
