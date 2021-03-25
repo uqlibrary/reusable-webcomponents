@@ -217,6 +217,11 @@ class UQSiteHeader extends HTMLElement {
             return;
         }
 
+        const buttonExists = document.querySelector('askus-button');
+        if (!!buttonExists) {
+            return; // button already exists
+        }
+
         const askusButton = document.createElement('askus-button');
         !!askusButton && this.createSlotForButtonInUtilityArea(askusButton, 'askus');
     }
@@ -225,6 +230,11 @@ class UQSiteHeader extends HTMLElement {
       if (!this.isAuthButtonRequested()) {
         return;
       }
+
+        const buttonExists = document.querySelector('auth-button');
+        if (!!buttonExists) {
+            return; // button already exists
+        }
 
         const authButton = document.createElement('auth-button');
         !!authButton && this.overwriteAsLoggedOut() && authButton.setAttribute('overwriteAsLoggedOut', 'true');
