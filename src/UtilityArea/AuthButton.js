@@ -59,7 +59,7 @@ class AuthButton extends HTMLElement {
             if (!!isAuthorised) {
                 // find the stub we built for mylibrary and replace it with the button
                 const mylibraryStub = document.getElementById('mylibrarystub');
-                const mylibraryButton = document.createElement('mylibrary-button');
+                const mylibraryButton = !!mylibraryStub && document.createElement('mylibrary-button');
                 !!mylibraryStub &&
                 mylibraryStub.children.length === 0 &&
                 !!mylibraryButton &&
