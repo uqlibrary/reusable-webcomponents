@@ -7,14 +7,14 @@ import myLibStyles from '../UtilityArea/css/mylibrary.css';
 /**
  * API:
  *   <uq-site-header
- *       siteTitle="Library"                     // should be displayed on all sites - the text of the homepage link
- *       siteURL="http://www.library.uq.edu.au"  // should be displayed on all sites - the link of the homepage link
- *       showMenu                                // should the megamenu be displayed? (just include, don't put ="true" on the end)
- *       showLoginButton                         // should the auth button be displayed? (just include, don't put ="true" on the end)
- *       requireLoggedOut                        // only valid if 'showLoginButton' is true
+ *       sitetitle="Library"                     // should be displayed on all sites - the text of the homepage link
+ *       siteurl="http://www.library.uq.edu.au"  // should be displayed on all sites - the link of the homepage link
+ *       showmenu                                // should the megamenu be displayed? (just include, don't put ="true" on the end)
+ *       showloginbutton                         // should the auth button be displayed? (just include, don't put ="true" on the end)
+ *       requireloggedout                        // only valid if 'showloginbutton' is true
  *                                               // forces the auth button to the logged out state (just include, don't put ="true" on the end)
- *       hideAskUs                               // when present, askus button will not be displayed (just include for true, or can put "false" on the end)
- *       hideMyLibrary                           // when present, mylibrary button will not be displayed (mylibrary is only available when logged in) (just include for true, or can put "false" on the end)
+ *       hideaskus                               // when present, askus button will not be displayed (just include for true, or can put "false" on the end)
+ *       hidemylibrary                           // when present, mylibrary button will not be displayed (mylibrary is only available when logged in) (just include for true, or can put "false" on the end)
  *   >
  <slot name="site-utilities"></slot>
  </uq-site-header>
@@ -385,7 +385,7 @@ class UQSiteHeader extends HTMLElement {
 
     isAuthButtonRequested() {
         if (this.isloginRequired === undefined) {
-            this.isloginRequired = this.getAttribute('showloginbutton');
+            this.isloginRequired = this.getAttribute('requireloggedout');
         }
         return !!this.isloginRequired || this.isloginRequired === '';
     }
