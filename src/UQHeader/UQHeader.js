@@ -110,8 +110,6 @@ class UQHeader extends HTMLElement {
             template.content.getElementById('edit-as_sitesearch-on').value = searchURL;
         }
 
-        console.log('UQHeader attributes: ', hideLibraryMenuItem, searchLabel, searchURL);
-
         // Render the template
         shadowDOM.appendChild(template.content.cloneNode(true));
 

@@ -9,14 +9,13 @@ const outputFile = `${libraryName}.min.js`;
 
 const useMock = !!process.env.USE_MOCK || false;
 
-const componentJsPath = {
-    local: '',
-    development: 'https://assets.library.uq.edu.au/reusable-webcomponents-development/' + process.env.CI_BRANCH + '/',
-    staging: 'https://assets.library.uq.edu.au/reusable-webcomponents-staging/',
-    production: 'https://assets.library.uq.edu.au/reusable-webcomponents/',
-};
-
 module.exports = () => {
+    const componentJsPath = {
+        local: '',
+        development: 'https://assets.library.uq.edu.au/reusable-webcomponents-development/' + process.env.CI_BRANCH + '/',
+        staging: 'https://assets.library.uq.edu.au/reusable-webcomponents-staging/',
+        production: 'https://assets.library.uq.edu.au/reusable-webcomponents/',
+    };
     const buildPath = {
         local: path.resolve(__dirname, 'dist'),
         development: path.resolve(__dirname, 'dist') + '/' + process.env.CI_BRANCH + '/',
@@ -118,8 +117,6 @@ module.exports = () => {
                     {from: "src/UQHeader/js/uqds.js", to: "uq-header.js"},
                     {from: "src/UQFooter/js/uqds.js", to: "uq-footer.js"},
                     {from: "src/UQSiteHeader/js/uqds.js", to: "uq-site-header.js"},
-                    {from: "src/React/custom-elements-es5-adapter.js", to: "custom-elements-es5-adapter.js"},
-                    {from: "src/React/webcomponents-bundle.js", to: "webcomponents-bundle.js"},
                 ],
             }),
             // This plugin will rename the external js imports to full paths for deploy
