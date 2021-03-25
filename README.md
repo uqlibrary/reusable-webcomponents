@@ -25,7 +25,7 @@ Add the following line at the end of your HTML document to initialise the compon
 eg. UQ Header:
 ```html
 <uq-header
-        hideLibrarymenuitem="true"
+        hidelibrarymenuitem="true"
         searchlabel="library.uq.edu.au"
         searchurl="library.uq.edu.au"
 ></uq-header>
