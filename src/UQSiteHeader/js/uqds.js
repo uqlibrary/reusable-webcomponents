@@ -242,7 +242,14 @@ var uq = (function (exports) {
         throw new Error('Dynamic requires are not currently supported by @rollup/plugin-commonjs');
     }
 
-    var ready = createCommonjsModule(function (module) {
+  // per https://stackoverflow.com/questions/34849001/check-if-css-selector-is-valid/42149818
+  const isSelectorValid = ((dummyElement) =>
+      (selector) => {
+        try { dummyElement.querySelector(selector) } catch { return false }
+        return true
+      })(document.createDocumentFragment());
+
+  var ready = createCommonjsModule(function (module) {
         /*!
          * domready (c) Dustin Diaz 2014 - License MIT
          */
@@ -405,14 +412,21 @@ var uq = (function (exports) {
                                 _this6.hash = window.location.hash;
                             } // Scroll to hash (param string) selected accordion
 
+                          const uqHeader = document.querySelector('uq-header') || false;
+                          const shadowRoot = !!uqHeader && uqHeader.shadowRoot || false;
                             if (_this6.hash && _this6.hash !== '') {
-                                var hashSelectedContent = document
-                                    .querySelector('uq-header')
-                                    .shadowRoot.querySelector(
-                                        ''.concat(_this6.hash, '.').concat(_this6.className, '__content'),
-                                    );
+                                let selectors = ''.concat(_this6.hash, '.').concat(_this6.className, '__content');
+                                // on uqlapp we get weird errors like
+                                // "Failed to execute 'querySelector' on 'DocumentFragment': '#/membership.accordion__content' is not a valid selector."
+                                // where #/membership is a vital part of the url
+                                // note: uqlapp does not display the megamenu
+                                selectors = selectors.replace('#/membership.', '');
+                                if (!isSelectorValid(selectors)) {
+                                    console.log('selector ', selectors, ' has probably caused the uqsiteheader to silently fail');
+                                }
+                                var hashSelectedContent = !!shadowRoot && isSelectorValid(selectors) && shadowRoot.querySelector(selectors) || false;
 
-                                if (hashSelectedContent) {
+                                if (!!hashSelectedContent) {
                                     // Only apply classes on load when linking directly to an accordion item.
                                     var hashSelected = accordion.getPrevSibling(
                                         hashSelectedContent,
@@ -425,9 +439,7 @@ var uq = (function (exports) {
                                 }
                             }
 
-                            var accordions = document
-                                .querySelector('uq-header')
-                                .shadowRoot.querySelectorAll('.'.concat(_this6.className));
+                            var accordions = !!shadowRoot && shadowRoot.querySelectorAll('.'.concat(_this6.className));
                             accordions.forEach(function (el) {
                                 var togglers = el.querySelectorAll('.'.concat(_this6.className, '__toggle'));
                                 togglers.forEach(function (el) {

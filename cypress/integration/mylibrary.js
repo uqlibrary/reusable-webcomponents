@@ -16,7 +16,7 @@ describe('My Library menu', () => {
             // but because they are logged out, it does not contain a mylibrary button
             // (mylibrary root has no children)
             cy.get('uq-site-header')
-                .find('span[slot="site-utilities"] #mylibraryslot')
+                .find('span[slot="site-utilities"] #mylibrarystub')
                 .find('mylibrary-button')
                 .should('not.exist');
         });

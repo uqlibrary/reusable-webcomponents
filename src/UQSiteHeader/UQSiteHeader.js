@@ -178,8 +178,8 @@ class UQSiteHeader extends HTMLElement {
         !!siteTitleContent && !!siteTitle && (siteTitleContent.innerHTML = siteTitle);
         !!siteTitleContent && !!siteURL && (siteTitleContent.href = siteURL);
 
-        this.addMyLibraryButtonToSlot();
         this.addAskUsButtonToSlot();
+        this.addMyLibraryButtonToSlot();
         this.addAuthButtonToSlot();
 
         this.rewriteMegaMenuFromJson();
@@ -197,11 +197,19 @@ class UQSiteHeader extends HTMLElement {
             return;
         }
 
+        const stubId = 'mylibrarystub';
+        const existingMyLibraryStub = document.getElementById(stubId);
+        const existingMyLibrarySlot = document.getElementById('mylibrarybutton');
+        if (!!existingMyLibraryStub || !!existingMyLibrarySlot) {
+            // mylibrary already exists
+            return;
+        }
+
         // this one just creates the stub - authbutton will fill in the actual button if they are logged in
         const mylibraryButton = document.createElement('div');
-        mylibraryButton.id = 'mylibraryslot';
+        mylibraryButton.id = stubId;
 
-        !!mylibraryButton && this.addButtonToUtilityArea(mylibraryButton);
+        !!mylibraryButton && this.createSlotForButtonInUtilityArea(mylibraryButton, 'mylibrarybutton');
     }
 
     addAskUsButtonToSlot() {
@@ -210,7 +218,7 @@ class UQSiteHeader extends HTMLElement {
         }
 
         const askusButton = document.createElement('askus-button');
-        !!askusButton && this.addButtonToUtilityArea(askusButton);
+        !!askusButton && this.createSlotForButtonInUtilityArea(askusButton, 'askus');
     }
 
     addAuthButtonToSlot() {
@@ -221,16 +229,18 @@ class UQSiteHeader extends HTMLElement {
         const authButton = document.createElement('auth-button');
         !!authButton && this.overwriteAsLoggedOut() && authButton.setAttribute('overwriteAsLoggedOut', 'true');
 
-        !!authButton && this.addButtonToUtilityArea(authButton);
+        !!authButton && this.createSlotForButtonInUtilityArea(authButton, 'auth');
     }
 
-    addButtonToUtilityArea(button) {
-        const buttonWrapper = document.createElement('span');
-        !!buttonWrapper && buttonWrapper.setAttribute('slot', 'site-utilities');
-        !!button && !!buttonWrapper && buttonWrapper.appendChild(button);
+    createSlotForButtonInUtilityArea(button, id=null) {
+        const slot = document.createElement('span');
+        !!slot && slot.setAttribute('slot', 'site-utilities');
+        console.log('createSlotForButtonInUtilityArea: button = ', button, ' (id = ', id, ')'); // #dev
+        !!slot && !!id && slot.setAttribute('id', id);
+        !!button && !!slot && slot.appendChild(button);
 
         const siteHeader = document.getElementsByTagName('uq-site-header')[0] || false;
-        !!buttonWrapper && !!siteHeader && siteHeader.appendChild(buttonWrapper);
+        !!slot && !!siteHeader && siteHeader.appendChild(slot);
     }
 
     rewriteMegaMenuFromJson() {
