@@ -26,6 +26,12 @@ class ApiRoutes {
             apiUrl: 'library_hours/day',
         };
     }
+
+    ALERT_API() {
+        return {
+            apiUrl: 'alerts/current',
+        };
+    }
 }
 
 export default ApiRoutes;

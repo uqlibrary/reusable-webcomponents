@@ -1510,3 +1510,12 @@ export const possibleRecords = {
 export const incompleteNTROs = {
     'total': 18, 'took': 104, 'per_page': 20, 'current_page': 1, 'from': 1, 'to': 18
 };
+
+export const alerts = [{
+    "id": "b1739480-4ef4-11eb-91a1-6d3f07452cd4",
+    "start": "2021-01-01 00:00:12",
+    "end": "2021-12-31 23:59:12",
+    "title": "We are open on-campus and online.",
+    "body": "Access collections, services, and support to help you continue your work and study.[permanent][UQ Library COVID-19 Updates](https:\/\/web.library.uq.edu.au\/library-services\/covid-19)",
+    "urgent": 0
+}]
