@@ -1,3 +1,4 @@
+import Alerts from './Alerts/Alerts';
 import ApiAccess from './ApiAccess/ApiAccess.js';
 import AskUsButton from './UtilityArea/AskUsButton.js';
 import AuthButton from './UtilityArea/AuthButton.js';
@@ -13,6 +14,7 @@ if (process.env.BRANCH !== 'production' && process.env.USE_MOCK) {
     require('../mock/MockApi');
 }
 
+customElements.define('alert-list', Alerts);
 customElements.define('api-access', ApiAccess);
 customElements.define('askus-button', AskUsButton);
 customElements.define('auth-button', AuthButton);

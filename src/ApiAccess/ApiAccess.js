@@ -88,6 +88,20 @@ class ApiAccess {
         return result;
     }
 
+    async loadAlerts() {
+        const alertApi = new ApiRoutes().ALERT_API();
+        const urlPath = alertApi.apiUrl;
+        const options = !!alertApi.options ? alertApi.options : {};
+        return await this.fetchAPI(urlPath, options)
+            .then((alerts) => {
+                return alerts;
+            })
+            .catch((error) => {
+                console.log('error loading alerts ', error);
+                result = null;
+            });
+    }
+
     async fetchAPI(urlPath, headers, tokenRequired = false) {
         console.log('fetchAPI, getting api "', urlPath, '" with these headers: ', headers);
 

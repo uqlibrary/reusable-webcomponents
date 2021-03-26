@@ -5,7 +5,7 @@ import ApiRoutes from "../src/ApiRoutes";
 import { apiLocale as apilocale } from '../src/ApiAccess/ApiAccess.locale';
 
 import {
-    libHours,
+    libHours, alerts
 } from './data/account';
 
 class MockApi {
@@ -41,7 +41,7 @@ class MockApi {
             headers: {},
             ok: httpstatus === 200,
             redirected: false,
-            status: httpstatus,
+            status: !!body ? httpstatus : 500,
             statusText: '',
             type: 'basic',
             url: this.url,
@@ -95,6 +95,10 @@ class MockApi {
 
             case apiRoute.LIB_HOURS_API().apiUrl:
                 return this.response(200, libHours, true);
+                // return this.response(500, {}, true);
+
+            case apiRoute.ALERT_API().apiUrl:
+                return this.response(200, alerts, true);
                 // return this.response(500, {}, true);
 
             default:
