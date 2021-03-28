@@ -100,9 +100,14 @@ function loadReusableComponents() {
                 }
             }
 
+            // setting the attribute doesnt seem to be takng off the menu item
+            const uqheader = document.querySelector('uq-header') || false;
+            const shadowDOM = (!!uqheader && uqheader.shadowRoot) || false;
+            const libraryMenuItem = !!shadowDOM && shadowDOM.getElementById('menu-item-library');
+            !!libraryMenuItem && libraryMenuItem.remove();
+
             // just in case something weird happens
             // we dont want it potentially making infinite API calls as it attempts to make each button
-            console.log('loop = ', currentLoop); // #dev
             if (currentLoop++ > maxLoops) {
                 clearInterval(addButtons);
             }
