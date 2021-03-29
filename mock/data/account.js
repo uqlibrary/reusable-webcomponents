@@ -1523,6 +1523,6 @@ export const alerts = [{
     "start": "2021-01-01 00:00:12",
     "end": "2025-12-31 23:59:12",
     "title": "This is a permanent urgent alert",
-    "body": "This is the message",
+    "body": "This is the message [permanent]",
     "urgent": 1
 }];
