@@ -115,8 +115,10 @@
     background-color: #bf5000;
     color: #FFF;
 }
-.warning svg {
-    fill: rgba(0,0,0,0.4);
+.warning #alert-close svg {
+    fill: rgba(255,255,255,0.75);
+    width: 24px;
+    height: 24px;
 }
 
 .warning #alert-close {

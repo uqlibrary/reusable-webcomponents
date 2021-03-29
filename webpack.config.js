@@ -148,6 +148,9 @@ module.exports = () => {
                 },{
                     search: /alert-list\.js/gm,
                     replace: componentJsPath[process.env.NODE_ENV] + 'alert-list.js',
+                },{
+                    search: /alert\.js/gm,
+                    replace: componentJsPath[process.env.NODE_ENV] + 'alert.js',
                 }]
             }]),
             new webpack.DefinePlugin({
