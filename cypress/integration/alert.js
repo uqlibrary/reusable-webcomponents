@@ -10,22 +10,45 @@ describe('Alert', () => {
             cy.viewport(1280, 900);
             cy.get('uq-alert').should('have.length', 2);
 
-            // cy.get('uq-alert')[0]
-            //     .shadow()
-            //     .find('uq-alert')
-            //     .should(
-            //         'contain',
-            //         'This is an alert.',
-            //     );
+            cy.get('uq-alert[id="1"]')
+                .shadow()
+                .find('#alert-title')
+                .should(
+                    'have.text',
+                    'This is an alert',
+                );
+
+            cy.get('uq-alert[id="1"]')
+                .shadow()
+                .find('#alert-close')
+                .click();
+
+            cy.get('uq-alert[id="1"]')
+                .shadow()
+                .find('#alert')
+                .should('have.css', 'display', 'none');
+
+            cy.get('uq-alert[id="2"]')
+                .shadow()
+                .find('#alert-title')
+                .should(
+                    'have.text',
+                    'This is a permanent urgent alert',
+                );
         });
 
-        // it('Footer passes accessibility', () => {
-        //     cy.viewport(1280, 900);
-        //     cy.checkA11y('uq-footer', {
-        //         reportName: 'Footer',
-        //         scopeName: 'Accessibility',
-        //         includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
-        //     });
-        // });
+        it('Alert passes accessibility', () => {
+            cy.viewport(1280, 900);
+            cy.checkA11y('uq-alert[id="1"]', {
+                reportName: 'Alert',
+                scopeName: 'Accessibility',
+                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+            });
+            cy.checkA11y('uq-alert[id="2"]', {
+                reportName: 'Alert',
+                scopeName: 'Accessibility',
+                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+            });
+        });
     });
 });

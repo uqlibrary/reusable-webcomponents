@@ -56,6 +56,10 @@
     flex: 1
 }
 
+#alert #alert-container.clickable:hover {
+    cursor: pointer;
+}
+
 @media (min-width: 600px) {
     #alert #alert-action-mobile {
         display: none;

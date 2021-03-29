@@ -8,7 +8,7 @@ template.innerHTML = `
   <style>${icons.toString()}</style>
   <style>${overrides.toString()}</style>
   <div id="alert" class="alert alert--default" role="alert" data-id="">
-        <div class="alert__container">
+        <div id="alert-container" class="alert__container">
             <div id="alert-icon"></div>
             <div class="alert__message">
                 <b id="alert-title"></b> - <span id="alert-message"></span>
@@ -26,7 +26,7 @@ class Alert extends HTMLElement {
     constructor() {
         super();
         // Add a shadow DOM
-        const shadowDOM = this.attachShadow({ mode: 'closed' });
+        const shadowDOM = this.attachShadow({ mode: 'open' });
 
         const icons = {
             0: '<svg viewBox="0 0 24 24" aria-hidden="false" id="info-outline-icon" aria-label="Alert."><path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path></svg>',
@@ -65,7 +65,7 @@ class Alert extends HTMLElement {
         shadowDOM.getElementById('alert-message').innerText = cleanMessage || "No message supplied";
         shadowDOM.getElementById('alert-icon').innerHTML = icons[alerttype];
         shadowDOM.getElementById('alert').classList.add(alerttype === "0" ? 'info' : 'warning')
-        shadowDOM.getElementById('alert').setAttribute('data-id', id);
+        shadowDOM.getElementById('alert').setAttribute('data-testid', 'alert-' + id);
 
         // Show or hide the close button and assign the function to do so
         if (!!canclose) {
@@ -82,13 +82,21 @@ class Alert extends HTMLElement {
             const navigateToUrl = () => {
                 window.location.href = linkUrl;
             }
+
+            shadowDOM.getElementById('alert-container').classList.add('clickable');
+            shadowDOM.getElementById('alert-container').addEventListener('click', navigateToUrl)
+            shadowDOM.getElementById('alert-container').setAttribute('data-testid', 'alert-' + id + '-message-button');
+
             shadowDOM.getElementById('alert-action-desktop').setAttribute('title', linkLabel)
             shadowDOM.getElementById('alert-action-desktop').innerText = linkLabel;
             shadowDOM.getElementById('alert-action-desktop').addEventListener('click', navigateToUrl)
+            shadowDOM.getElementById('alert-action-desktop').setAttribute('data-testid', 'alert-' + id + '-action-button');
 
             shadowDOM.getElementById('alert-action-mobile').setAttribute('title', linkLabel)
             shadowDOM.getElementById('alert-action-mobile').innerText = linkLabel;
             shadowDOM.getElementById('alert-action-mobile').addEventListener('click', navigateToUrl)
+            shadowDOM.getElementById('alert-action-mobile').setAttribute('data-testid', 'alert-' + id + '-action-button');
+
         } else {
             shadowDOM.getElementById('alert-action-desktop').remove();
             shadowDOM.getElementById('alert-action-mobile').remove();
