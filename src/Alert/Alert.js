@@ -84,7 +84,8 @@ class Alert extends HTMLElement {
                         //set cookie for 24 hours
                         const date = new Date();
                         date.setTime(date.getTime()+(24*60*60*1000));
-                        document.cookie = 'UQL-Hide-Alerts=1;expires=' + date.toGMTString() + ';domain=.library.uq.edu.au;path=/';
+                        const cookieDomain = window.location.hostname.endsWith('.library.uq.edu.au') ? 'domain=.library.uq.edu.au;path=/' : '';
+                        document.cookie = 'UQL-Hide-Alerts=1;expires=' + date.toGMTString() + ';' + cookieDomain;
                     }
                 };
                 shadowDOM.getElementById('alert-close').addEventListener('click', closeAlert);
