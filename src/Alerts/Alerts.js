@@ -32,13 +32,12 @@ class Alerts extends HTMLElement {
             if (!!alertWrapper && !!alerts && alerts.length > 0) {
                 // loop through alerts
                 alerts.forEach((alertData) => {
-                    const alert = document.createElement('alert');
+                    const alert = document.createElement('uq-alert');
                     if (!!alert) {
                         !!alertData.id && alert.setAttribute('id', alertData.id);
-                        // may want to do more parsing of body here?
-                        !!alertData.body && alert.setAttribute('body', alertData.body);
-                        !!alertData.title && alert.setAttribute('title', alertData.title);
-                        !!alertData.urgent && alert.setAttribute('urgent', alertData.urgent);
+                        !!alertData.body && alert.setAttribute('alertmessage', alertData.body);
+                        !!alertData.title && alert.setAttribute('alerttitle', alertData.title);
+                        !!alertData.urgent && alert.setAttribute('alerttype', alertData.urgent);
                     }
                     alertWrapper.appendChild(alert);
                 });
