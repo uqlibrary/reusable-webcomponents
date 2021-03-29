@@ -20,6 +20,14 @@ describe('Alert', () => {
 
             cy.get('uq-alert[id="1"]')
                 .shadow()
+                .find('#alert-action-desktop')
+                .should(
+                    'have.text',
+                    'Action button label',
+                );
+
+            cy.get('uq-alert[id="1"]')
+                .shadow()
                 .find('#alert-close')
                 .click();
 
