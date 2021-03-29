@@ -1517,5 +1517,12 @@ export const alerts = [{
     "end": "2021-12-31 23:59:12",
     "title": "We are open on-campus and online.",
     "body": "Access collections, services, and support to help you continue your work and study.[permanent][UQ Library COVID-19 Updates](https:\/\/web.library.uq.edu.au\/library-services\/covid-19)",
+    "urgent": 1
+}, {
+    "id": "b1739480-4ef4-11eb-91a1-6d3f07452aaa",
+    "start": "2021-01-01 00:00:12",
+    "end": "2021-12-31 23:59:12",
+    "title": "This is a normal alert",
+    "body": "Have a good day.",
     "urgent": 0
 }]

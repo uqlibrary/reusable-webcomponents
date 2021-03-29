@@ -4,7 +4,9 @@ import ApiAccess from '../ApiAccess/ApiAccess';
 const template = document.createElement('template');
 template.innerHTML = `
     <style>${styles.toString()}</style>
-    <div role="region" aria-label="UQ Library Alerts" data-testid="alert-wrapper" id="alert-wrapper">
+    <div role="region" aria-label="UQ Library Alerts">
+        <div style="width: 100%" data-testid="alert-wrapper" id="alert-wrapper">
+        </div>
     </div>
 `;
 
@@ -37,7 +39,8 @@ class Alerts extends HTMLElement {
                         !!alertData.id && alert.setAttribute('id', alertData.id);
                         !!alertData.body && alert.setAttribute('alertmessage', alertData.body);
                         !!alertData.title && alert.setAttribute('alerttitle', alertData.title);
-                        !!alertData.urgent && alert.setAttribute('alerttype', alertData.urgent);
+                        const alertIconIndex = !!alertData.urgent && alertData.urgent === 1 ? '1' :'0';
+                        alert.setAttribute('alerttype', alertIconIndex);
                     }
                     alertWrapper.appendChild(alert);
                 });
