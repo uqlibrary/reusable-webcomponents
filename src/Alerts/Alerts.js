@@ -15,7 +15,12 @@ let initCalled;
 class Alerts extends HTMLElement {
     constructor() {
         super();
-        // Add a shadow DOM
+
+        const alertsDismissed = document.cookie.indexOf("UQL-Hide-Alerts=1") >= 0;
+        if (!!alertsDismissed) {
+            return;
+        }
+
         const shadowDOM = this.attachShadow({ mode: 'open' });
 
         // Render the template
