@@ -1514,15 +1514,15 @@ export const incompleteNTROs = {
 export const alerts = [{
     "id": "1",
     "start": "2021-01-01 00:00:12",
-    "end": "2021-12-31 23:59:12",
+    "end": "2025-12-31 23:59:12",
     "title": "This is an alert",
     "body": "This is the message [Action button label](http://www.link.com)",
     "urgent": 0
 }, {
     "id": "2",
     "start": "2021-01-01 00:00:12",
-    "end": "2021-12-31 23:59:12",
-    "title": "This is a normal alert",
+    "end": "2025-12-31 23:59:12",
+    "title": "This is a permanent urgent alert",
     "body": "This is the message [permanent]",
     "urgent": 1
 }];

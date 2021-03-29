@@ -8,9 +8,9 @@ describe('Alert', () => {
     context('Alert', () => {
         it('Alert is visible without interaction at 1280', () => {
             cy.viewport(1280, 900);
-            cy.get('uq-alert').should('have.length', 2);
+            cy.get('alert-list').shadow().find('uq-alert').should('have.length', 2);
 
-            cy.get('uq-alert[id="1"]')
+            cy.get('alert-list').shadow().find('uq-alert[id="1"]')
                 .shadow()
                 .find('#alert-title')
                 .should(
@@ -18,7 +18,7 @@ describe('Alert', () => {
                     'This is an alert',
                 );
 
-            cy.get('uq-alert[id="1"]')
+            cy.get('alert-list').shadow().find('uq-alert[id="1"]')
                 .shadow()
                 .find('#alert-action-desktop')
                 .should(
@@ -26,17 +26,17 @@ describe('Alert', () => {
                     'Action button label',
                 );
 
-            cy.get('uq-alert[id="1"]')
+            cy.get('alert-list').shadow().find('uq-alert[id="1"]')
                 .shadow()
                 .find('#alert-close')
                 .click();
 
-            cy.get('uq-alert[id="1"]')
+            cy.get('alert-list').shadow().find('uq-alert[id="1"]')
                 .shadow()
                 .find('#alert')
                 .should('have.css', 'display', 'none');
 
-            cy.get('uq-alert[id="2"]')
+            cy.get('alert-list').shadow().find('uq-alert[id="2"]')
                 .shadow()
                 .find('#alert-title')
                 .should(
