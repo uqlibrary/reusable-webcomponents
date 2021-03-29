@@ -16,7 +16,9 @@ template.innerHTML = `
             <div role="button" id="alert-action-desktop" title="button title" tabindex="0">Button label</div>
         </div>
         <div role="button" id="alert-action-mobile" title="button title" tabindex="0">Button label</div>
-        <a id="alert-close" role="button" title="Close this alert" href="javascript:void(0)" class="alert__close">&times;</a>
+        <a id="alert-close" role="button" aria-label="Click to close this alert" href="javascript:void(0)" class="alert__close">
+            <svg focusable="false" viewBox="0 0 24 24" aria-label="Click to close this alert" ><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </a>
     </div>
 `;
 
