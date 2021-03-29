@@ -43,7 +43,6 @@ describe('Alert', () => {
 
         it('Alert passes accessibility', () => {
             cy.viewport(1280, 900);
-            console.log(cy.shadowGet('alert-list'));
             cy.get('alert-list')
                 .shadow()
                 .find('uq-alert[id="1"]')
