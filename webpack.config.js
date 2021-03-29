@@ -145,6 +145,9 @@ module.exports = () => {
                 },{
                     search: /mylibrary-button\.js/gm,
                     replace: componentJsPath[process.env.NODE_ENV] + 'mylibrary-button.js',
+                },{
+                    search: /alert-list\.js/gm,
+                    replace: componentJsPath[process.env.NODE_ENV] + 'alert-list.js',
                 }]
             }]),
             new webpack.DefinePlugin({
