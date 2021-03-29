@@ -79,6 +79,14 @@ class Alert extends HTMLElement {
             if (!!canclose) {
                 const closeAlert = () => {
                     shadowDOM.getElementById('alert').style.display = 'none';
+
+                    if (document.cookie.indexOf("UQL-Hide-Alerts=1") <= -1) {
+                        //set cookie for 24 hours
+                        const date = new Date();
+                        date.setTime(date.getTime()+(24*60*60*1000));
+                        const cookieDomain = window.location.hostname.endsWith('.library.uq.edu.au') ? 'domain=.library.uq.edu.au;path=/' : '';
+                        document.cookie = 'UQL-Hide-Alerts=1;expires=' + date.toGMTString() + ';' + cookieDomain;
+                    }
                 };
                 shadowDOM.getElementById('alert-close').addEventListener('click', closeAlert);
             } else {
