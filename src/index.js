@@ -6,6 +6,7 @@ import ConnectFooter from './ConnectFooter/ConnectFooter.js';
 import UQHeader from './UQHeader/UQHeader.js';
 import UQSiteHeader from './UQSiteHeader/UQSiteHeader.js';
 import UQFooter from './UQFooter/UQFooter.js';
+import Alert from './Alert/Alert.js';
 
 // Import mock data if required
 if (process.env.BRANCH !== 'production' && process.env.USE_MOCK) {
@@ -21,3 +22,4 @@ customElements.define('connect-footer', ConnectFooter);
 customElements.define('uq-header', UQHeader);
 customElements.define('uq-site-header', UQSiteHeader);
 customElements.define('uq-footer', UQFooter);
+customElements.define('uq-alert', Alert);

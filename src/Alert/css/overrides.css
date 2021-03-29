@@ -1,0 +1,124 @@
+@media (max-width: 600px) {
+    #alert {
+        padding-bottom: 1px;
+    }
+}
+
+#alert #alert-icon {
+    position: relative;
+    display: inline-block;
+    overflow: visible;
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+}
+
+#alert .alert__message {
+    padding: 24px 24px 24px 12px !important;
+    width: 100%;
+    flex: 1;
+}
+
+#alert .alert__container {
+    padding: 0 12px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#alert #alert-icon svg {
+    margin-top: -5px;
+    width: 32px;
+    height: 32px;
+}
+
+#alert #alert-action-desktop {
+    display: inline-block;
+    padding: 6px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    width: 100%;
+    flex: 0;
+}
+
+#alert #alert-action-mobile {
+    display: block;
+    padding: 6px 8px;
+    margin: -6px 24px 20px 24px !important;
+    border-radius: 4px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    width: calc(100% - 48px);
+    text-align: center;
+    flex: 1
+}
+
+@media (min-width: 600px) {
+    #alert #alert-action-mobile {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    #alert #alert-action-desktop {
+        display: none;
+    }
+}
+
+#alert #alert-action-desktop:hover {
+    cursor: pointer;
+}
+
+/*ERROR*/
+.info {
+    background-color: #2377CB;
+    color: #FFF;
+}
+.info svg {
+    fill: rgba(0,0,0,0.4);
+}
+
+.info #alert-close {
+    color: rgba(255,255,255,0.75);
+}
+
+.info #alert-close:hover {
+    color: rgba(255,255,255,1);
+    cursor: pointer;
+}
+.info #alert-action-mobile, .info #alert-action-desktop {
+    background-color: rgba(0,0,0,0.3);
+}
+
+.info #alert-action-desktop:hover {
+    background-color: rgba(0,0,0,0.5);
+}
+
+/*WARNING*/
+.warning {
+    background-color: #bf5000;
+    color: #FFF;
+}
+.warning svg {
+    fill: rgba(0,0,0,0.4);
+}
+
+.warning #alert-close {
+    color: rgba(255,255,255,0.75);
+}
+
+.warning #alert-close:hover {
+    color: rgba(255,255,255,1);
+    cursor: pointer;
+}
+
+.warning #alert-action-mobile, .warning #alert-action-desktop {
+    background-color: rgba(0,0,0,0.5);
+}
+
+.warning #alert-action-desktop:hover {
+    background-color: rgba(0,0,0,0.6);
+}

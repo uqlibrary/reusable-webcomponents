@@ -15,11 +15,25 @@
           searchurl="http://library.uq.edu.au"
   ></uq-header>
 
+  <uq-alert
+          alerttitle="This is an alert"
+          alertmessage="This is the message [Long link name here](http://www.link.com)"
+          alerttype="0"
+          id="1"
+  ></uq-alert>
+
+  <uq-alert
+          alerttitle="This is a permanent urgent alert"
+          alertmessage="This is the message [permanent]"
+          alerttype="1"
+          id="2"
+  ></uq-alert>
+
   <uq-site-header
           sitetitle="Library Test"
           siteurl="http://www.library.uq.edu.au"
-          showmenu
-          showloginbutton
+          showmenu="true"
+          showloginbutton="true"
   >
       <slot name="site-utilities"></slot>
   </uq-site-header>
