@@ -10,39 +10,35 @@ describe('Alert', () => {
             cy.viewport(1280, 900);
             cy.get('alert-list').shadow().find('uq-alert').should('have.length', 2);
 
-            cy.get('alert-list').shadow().find('uq-alert[id="1"]')
+            cy.get('alert-list')
+                .shadow()
+                .find('uq-alert[id="1"]')
                 .shadow()
                 .find('#alert-title')
-                .should(
-                    'have.text',
-                    'This is an alert',
-                );
+                .should('have.text', 'This is an alert');
 
-            cy.get('alert-list').shadow().find('uq-alert[id="1"]')
+            cy.get('alert-list')
+                .shadow()
+                .find('uq-alert[id="1"]')
                 .shadow()
                 .find('#alert-action-desktop')
-                .should(
-                    'have.text',
-                    'Action button label',
-                );
+                .should('have.text', 'Action button label');
 
-            cy.get('alert-list').shadow().find('uq-alert[id="1"]')
+            cy.get('alert-list').shadow().find('uq-alert[id="1"]').shadow().find('#alert-close').click();
+
+            cy.get('alert-list')
                 .shadow()
-                .find('#alert-close')
-                .click();
-
-            cy.get('alert-list').shadow().find('uq-alert[id="1"]')
+                .find('uq-alert[id="1"]')
                 .shadow()
                 .find('#alert')
                 .should('have.css', 'display', 'none');
 
-            cy.get('alert-list').shadow().find('uq-alert[id="2"]')
+            cy.get('alert-list')
+                .shadow()
+                .find('uq-alert[id="2"]')
                 .shadow()
                 .find('#alert-title')
-                .should(
-                    'have.text',
-                    'This is a permanent urgent alert',
-                );
+                .should('have.text', 'This is a permanent urgent alert');
         });
 
         it('Alert passes accessibility', () => {

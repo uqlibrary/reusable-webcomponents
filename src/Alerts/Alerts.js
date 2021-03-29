@@ -39,7 +39,7 @@ class Alerts extends HTMLElement {
                         !!alertData.id && alert.setAttribute('id', alertData.id);
                         !!alertData.body && alert.setAttribute('alertmessage', alertData.body);
                         !!alertData.title && alert.setAttribute('alerttitle', alertData.title);
-                        const alertIconIndex = !!alertData.urgent && alertData.urgent === 1 ? '1' :'0';
+                        const alertIconIndex = !!alertData.urgent && alertData.urgent === 1 ? '1' : '0';
                         alert.setAttribute('alerttype', alertIconIndex);
                     }
                     alertWrapper.appendChild(alert);
