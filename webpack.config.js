@@ -109,6 +109,7 @@ module.exports = () => {
             // This plugin simply copies the external js from ITS DS into the dist and renames it
             new CopyPlugin({
                 patterns: [
+                    {from: "src/Alerts/js/uqds.js", to: "alert-list.js"},
                     {from: "src/ApiAccess/js/uqds.js", to: "api-access.js"},
                     {from: "src/UtilityArea/js/uqds.js", to: "askus-button.js"},
                     {from: "src/UtilityArea/js/uqds.js", to: "auth-button.js"},
