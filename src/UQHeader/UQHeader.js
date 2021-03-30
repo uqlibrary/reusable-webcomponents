@@ -5,29 +5,29 @@ const template = document.createElement('template');
 template.innerHTML = `
   <style>${styles.toString()}</style>
   <style>${overrides.toString()}</style>
-    <button tabindex="0" class="skip-to-content-link" id="skip-nav" aria-label="Click to skip to the sites main content">
+    <button tabindex="0" class="skip-to-content-link" id="skip-nav" data-testid="skip-nav" aria-label="Click to skip to the sites main content">
         Skip to site content
     </button>
-  <header class="uq-header">
+  <header class="uq-header" id="uq-header" data-testid="uq-header">
       <div class="uq-header__container">
         <div class="nav-global">
           <div class="logo">
-            <a class="logo--large" id="logo--large" href="https://www.uq.edu.au/"><img alt="The University of Queensland" src="https://static.uq.net.au/v11/logos/corporate/uq-lockup-landscape--reversed.svg"></a>
-            <a class="logo--small" id="logo--small" href="https://www.uq.edu.au/"><img alt="The University of Queensland" src="https://static.uq.net.au/v11/logos/corporate/uq-logo--reversed.svg"></a>
+            <a class="logo--large" id="logo--large" href="https://www.uq.edu.au/" data-testid="uq-header-logo-large-link"><img alt="The University of Queensland" src="https://static.uq.net.au/v11/logos/corporate/uq-lockup-landscape--reversed.svg"></a>
+            <a class="logo--small" id="logo--small" href="https://www.uq.edu.au/" data-testid="uq-header-logo-small-link"><img alt="The University of Queensland" src="https://static.uq.net.au/v11/logos/corporate/uq-logo--reversed.svg"></a>
           </div>
-          <nav class="menu-global">
+          <nav class="menu-global" data-testid="uq-header-nav">
             <ul>
-              <li><a href="https://contacts.uq.edu.au/">Contacts</a></li>
-              <li><a href="https://future-students.uq.edu.au/">Study</a></li>
-              <li><a href="https://maps.uq.edu.au/">Maps</a></li>
-              <li><a href="https://www.uq.edu.au/news/">News</a></li>
-              <li><a href="https://www.uq.edu.au/events/">Events</a></li>
-              <li><a href="https://jobs.uq.edu.au/">Jobs</a></li>
-              <li id="menu-item-library"><a href="https://www.library.uq.edu.au/">Library</a></li>
-              <li><a href="https://giving.uq.edu.au/">Give now</a></li>
-              <li><a href="https://my.uq.edu.au/">my.UQ</a></li>
+              <li><a href="https://contacts.uq.edu.au/" data-testid="uq-header-contacts-link">Contacts</a></li>
+              <li><a href="https://future-students.uq.edu.au/" data-testid="uq-header-study-link">Study</a></li>
+              <li><a href="https://maps.uq.edu.au/" data-testid="uq-header-maps-link">Maps</a></li>
+              <li><a href="https://www.uq.edu.au/news/" data-testid="uq-header-news-link">News</a></li>
+              <li><a href="https://www.uq.edu.au/events/" data-testid="uq-header-events-link">Events</a></li>
+              <li><a href="https://jobs.uq.edu.au/" data-testid="uq-header-jobs-link">Jobs</a></li>
+              <li id="menu-item-library"><a href="https://www.library.uq.edu.au/" data-testid="uq-header-library-link">Library</a></li>
+              <li><a href="https://giving.uq.edu.au/" data-testid="uq-header-givenow-link">Give now</a></li>
+              <li><a href="https://my.uq.edu.au/" data-testid="uq-header-myuq-link">my.UQ</a></li>
               <li class="menu-global__search-toggle">
-                <button class="search-toggle__button">Search</button>
+                <button class="search-toggle__button" data-testid="uq-header-search-button">Search</button>
               </li>
             </ul>
           </nav>
@@ -42,11 +42,11 @@ template.innerHTML = `
               <div class="nav-search__scope">
                 <div class="nav-search__scope__radio-wrapper">
                   <div class="form-item">
-                    <input type="radio" id="edit-as_sitesearch-off" name="as_sitesearch" value="" class="form-radio">
+                    <input type="radio" id="edit-as_sitesearch-off" data-testid="edit-as_sitesearch-off" name="as_sitesearch" value="" class="form-radio">
                     <label for="edit-as_sitesearch-off" class="option">Search all UQ websites</label>
                   </div>
                   <div class="form-item">
-                    <input type="radio" id="edit-as_sitesearch-on" name="as_sitesearch" value="https://library.uq.edu.au/" checked="checked" class="form-radio">
+                    <input type="radio" id="edit-as_sitesearch-on" data-testid="edit-as_sitesearch-on" name="as_sitesearch" value="https://library.uq.edu.au/" checked="checked" class="form-radio">
                     <label for="edit-as_sitesearch-on" class="option" id="search-label">Search this website (library.uq.edu.au)</label>
                   </div>
                 </div>
@@ -55,9 +55,9 @@ template.innerHTML = `
             <div class="nav-search__query">
                 <span class="search-query__wrapper">
                     <label for="edit-q" class="visually-hidden">Search term</label>
-                    <input type="text" id="edit-q" name="q" value="" size="60" maxlength="128" class="search-query__input">
+                    <input type="text" id="edit-q" data-testid="uq-header-search-input" name="q" value="" size="60" maxlength="128" class="search-query__input">
                     <span class="search-query__button">
-                        <input type="submit" name="op" value="Search" class="search-query__submit">
+                        <input type="submit" name="op" id="op" data-testid="uq-header-search-submit" value="Search" class="search-query__submit">
                     </span>
                 </span>
             </div>
@@ -65,15 +65,15 @@ template.innerHTML = `
 
             <nav class="menu-global">
               <ul>
-                <li><a href="https://contacts.uq.edu.au/">Contacts</a></li>
-                <li><a href="https://www.uq.edu.au/news/">News</a></li>
-                <li id="menu-item-library"><a href="https://www.library.uq.edu.au/">Library</a></li>
-                <li><a href="https://future-students.uq.edu.au/">Study</a></li>
-                <li><a href="https://www.uq.edu.au/events/">Events</a></li>
-                <li><a href="https://giving.uq.edu.au/">Give now</a></li>
-                <li><a href="https://maps.uq.edu.au/">Maps</a></li>
-                <li><a href="https://jobs.uq.edu.au/">Jobs</a></li>
-                <li><a href="https://my.uq.edu.au/">my.UQ</a></li>
+                <li><a href="https://contacts.uq.edu.au/" data-testid="uq-header-contacts-link-mobile">Contacts</a></li>
+                <li><a href="https://www.uq.edu.au/news/" data-testid="uq-header-news-link-mobile">News</a></li>
+                <li id="menu-item-library"><a href="https://www.library.uq.edu.au/" data-testid="uq-header-library-link-mobile">Library</a></li>
+                <li><a href="https://future-students.uq.edu.au/" data-testid="uq-header-study-link-mobile">Study</a></li>
+                <li><a href="https://www.uq.edu.au/events/" data-testid="uq-header-events-link-mobile">Events</a></li>
+                <li><a href="https://giving.uq.edu.au/" data-testid="uq-header-giving-link-mobile">Give now</a></li>
+                <li><a href="https://maps.uq.edu.au/" data-testid="uq-header-maps-link-mobile">Maps</a></li>
+                <li><a href="https://jobs.uq.edu.au/" data-testid="uq-header-jobs-link-mobile">Jobs</a></li>
+                <li><a href="https://my.uq.edu.au/" data-testid="uq-header-myuq-link-mobile">my.UQ</a></li>
               </ul>
             </nav>
         </div>

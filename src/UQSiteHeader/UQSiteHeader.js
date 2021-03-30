@@ -34,11 +34,11 @@ template.innerHTML = `
       <!-- Site title and utility area with mobile nav toggler (JS) -->
       <div class="uq-site-header__title-container" part="title">
         <div class="uq-site-header__title-container__left">
-          <a id="site-title" href="https://www.library.uq.edu.au/" class="uq-site-header__title">Library</a>
+          <a id="site-title" data-testid="site-title" href="https://www.library.uq.edu.au/" class="uq-site-header__title">Library</a>
         </div>
         <div class="uq-site-header__title-container__right">
           <slot name="site-utilities"></slot>
-          <button id="uq-site-header__navigation-toggle" class="uq-site-header__navigation-toggle jsNavToggle">Menu</button>
+          <button id="uq-site-header__navigation-toggle" data-testid="uq-site-header__navigation-toggle" class="uq-site-header__navigation-toggle jsNavToggle">Menu</button>
         </div>
       </div>
 

@@ -6,13 +6,13 @@ const template = document.createElement('template');
 template.innerHTML = `
     <style>${styles.toString()}</style>
     <style>${icons.toString()}</style>
-    <div class="connect-footer connectfooter-wrapper griditem griditem12" data-gtm-category="Footer">
+    <div data-testid="connect-footer" id="connect-footer" class="connect-footer connectfooter-wrapper griditem griditem12" data-gtm-category="Footer">
         <div class="uq-footer__container connectfooter-wrapper2 griditem griditem12">
             <div class="connectfooter-wrapper3">
                 <div class="layout-card">
                     <div class="gridcontainer flexstart justifyxscenter" data-testid="connect-footer" id="connect-footer-block">
                         <div class="navigation griditem griditem12 gridmd4">
-                            <ul id="footer-menu" class="footerMenu">
+                            <ul id="footer-menu" data-testid="connect-footer-menu" class="footerMenu">
                             </ul>
                         </div>
                     <div class="contacts griditem griditem12 gridmd4">
@@ -23,7 +23,7 @@ template.innerHTML = `
                         </div>
                         <div class="gridcontainer spacingxs1">
                             <div class="griditem gridxsauto" id="buttonSocial-0">
-                                <button class="buttonBase button socialButtonClass buttonContained buttonContainedPrimary" tabindex="0" type="button" aria-label="Library Blog" data-testid="connect-blog-link" id="socialbutton-0" title="Library Blog">
+                                <button class="buttonBase button socialButtonClass buttonContained buttonContainedPrimary" tabindex="0" type="button" aria-label="Library Blog" data-testid="connect-footer-blog-link" id="socialbutton-0" title="Library Blog">
                                     <span class="buttonLabel">
                                         <svg class="svgIcon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                                             <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path>

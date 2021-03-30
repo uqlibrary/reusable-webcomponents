@@ -7,16 +7,16 @@ template.innerHTML = `
   <style>${styles.toString()}</style>
   <style>${icons.toString()}</style>
   <style>${overrides.toString()}</style>
-  <div id="alert" class="alert alert--default" role="alert" data-id="">
-        <div id="alert-container" class="alert__container">
-            <div id="alert-icon"></div>
+  <div id="alert" data-testid="alert" class="alert alert--default" role="alert" data-id="">
+        <div id="alert-container" data-testid="alert-container" class="alert__container">
+            <div id="alert-icon" data-testid="alert-icon"></div>
             <div class="alert__message">
-                <b id="alert-title"></b> - <span id="alert-message"></span>
+                <b id="alert-title" data-testid="alert-title"></b> - <span id="alert-message" data-testid="alert-message"></span>
             </div>
-            <div role="button" id="alert-action-desktop" title="button title" tabindex="0">Button label</div>
+            <div role="button" id="alert-action-desktop" data-testid="alert-action-desktop" title="button title" tabindex="0">Button label</div>
         </div>
-        <div role="button" id="alert-action-mobile" title="button title" tabindex="0">Button label</div>
-        <a id="alert-close" role="button" aria-label="Click to close this alert" href="javascript:void(0)" class="alert__close">
+        <div role="button" id="alert-action-mobile" data-testid="alert-action-mobile" title="button title" tabindex="0">Button label</div>
+        <a id="alert-close" data-testid="alert-close" role="button" aria-label="Click to close this alert" href="javascript:void(0)" class="alert__close">
             <svg focusable="false" viewBox="0 0 24 24" aria-label="Click to close this alert" ><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
         </a>
     </div>
@@ -28,7 +28,7 @@ class Alert extends HTMLElement {
     constructor() {
         super();
         // Add a shadow DOM
-        const shadowDOM = this.attachShadow({ mode: 'open' });
+        const shadowDOM = this.attachShadow({mode: 'open'});
         this.loadAlert(shadowDOM);
 
         // Bindings
@@ -83,7 +83,7 @@ class Alert extends HTMLElement {
                     if (document.cookie.indexOf("UQL-Hide-Alerts=1") <= -1) {
                         //set cookie for 24 hours
                         const date = new Date();
-                        date.setTime(date.getTime()+(24*60*60*1000));
+                        date.setTime(date.getTime() + (24 * 60 * 60 * 1000));
                         const cookieDomain = window.location.hostname.endsWith('.library.uq.edu.au') ? 'domain=.library.uq.edu.au;path=/' : '';
                         document.cookie = 'UQL-Hide-Alerts=1;expires=' + date.toGMTString() + ';' + cookieDomain;
                     }

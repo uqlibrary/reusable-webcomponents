@@ -4,8 +4,8 @@ import ApiAccess from '../ApiAccess/ApiAccess';
 const template = document.createElement('template');
 template.innerHTML = `
     <style>${styles.toString()}</style>
-    <div role="region" aria-label="UQ Library Alerts">
-        <div style="width: 100%" data-testid="alert-wrapper" id="alert-wrapper">
+    <div role="region" aria-label="UQ Library Alerts" data-testid="alerts">
+        <div style="width: 100%" data-testid="alerts-wrapper" id="alerts-wrapper">
         </div>
     </div>
 `;
@@ -35,7 +35,7 @@ class Alerts extends HTMLElement {
         await new ApiAccess().loadAlerts().then((alerts) => {
             const alertParent = document.querySelector('alert-list');
             const shadowDOM = (!!alertParent && alertParent.shadowRoot) || false;
-            const alertWrapper = !!shadowDOM && shadowDOM.getElementById('alert-wrapper');
+            const alertWrapper = !!shadowDOM && shadowDOM.getElementById('alerts-wrapper');
             if (!!alertWrapper && !!alerts && alerts.length > 0) {
                 // loop through alerts
                 alerts.forEach((alertData) => {
