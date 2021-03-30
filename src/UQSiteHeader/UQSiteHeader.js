@@ -307,9 +307,10 @@ class UQSiteHeader extends HTMLElement {
                     jsonParentItem.columnCount > 1 &&
                     (listItemClass += ' multicolumn-' + jsonParentItem.columnCount);
                 listItemWrapper.setAttribute('class', listItemClass);
-                jsonParentItem.submenuItems.forEach((jsonChild) => {
+                jsonParentItem.submenuItems.forEach((jsonChild, indexChild) => {
                     const listItem = document.createElement('li');
                     listItem.setAttribute('class', 'uq-site-header__navigation__list-item');
+                    listItem.setAttribute('data-testid', `${jsonParentItem.dataTestid}-${indexChild}` || '');
 
                     // a missing primary text allows for an empty cell, controlling the spacing of the menu
                     if (!!jsonChild.primaryText) {
@@ -324,7 +325,6 @@ class UQSiteHeader extends HTMLElement {
                         secondaryTextItem.appendChild(secondarytextOfLink);
 
                         const itemLink = document.createElement('a');
-                        itemLink.setAttribute('data-testid', jsonChild.dataTestid || '');
                         itemLink.setAttribute('href', jsonChild.linkTo || '');
                         itemLink.appendChild(primaryTextItem);
                         itemLink.appendChild(secondaryTextItem);
