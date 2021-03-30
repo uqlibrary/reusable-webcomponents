@@ -20,6 +20,8 @@ class gtm extends HTMLElement {
         const gtmCode = this.getAttribute('gtm');
         template.content.getElementById('gtm').src = "https://www.googletagmanager.com/ns.html?id=" + gtmCode;
 
+
+
         // <!-- Google Tag Manager -->
         (function (w, d, s, l, i) {
             w[l] = w[l] || [];
