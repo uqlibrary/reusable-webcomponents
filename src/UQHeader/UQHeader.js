@@ -90,8 +90,7 @@ class UQHeader extends HTMLElement {
         // Handle the attributes for this component
 
         // If the attribute hidelibrarymenuitem is true, remove it from the template
-        const hideLibraryMenuItem = this.getAttribute('hidelibrarymenuitem');
-        if (!!hideLibraryMenuItem || hideLibraryMenuItem === 'true') {
+        if (!this.isGlobalMenuLibraryItemRequested()) {
             const libraryMenuItem = template.content.getElementById('menu-item-library');
             !!libraryMenuItem && libraryMenuItem.remove();
         }
@@ -137,6 +136,11 @@ class UQHeader extends HTMLElement {
             //Append it to the document header
             document.head.appendChild(script);
         }
+    }
+
+    isGlobalMenuLibraryItemRequested() {
+        const hidelibrarymenuitem = this.getAttribute('hidelibrarymenuitem');
+        return hidelibrarymenuitem === 'false' || hidelibrarymenuitem === null;
     }
 
     connectedCallback() {
