@@ -1,5 +1,6 @@
 span.displayText {
     display: block;
+    white-space: nowrap;
 }
 
 .secondaryText {
@@ -29,7 +30,7 @@ span.displayText {
         columns: 3 100px;
         column-gap: 5px;
         column-rule: 1px solid #ccc;
-        width: 700px;
+        width: 750px;
     }
     .uq-site-header__navigation__list--level-2 a {
         padding: 0.2rem 0.2rem 0.2rem 1rem;
