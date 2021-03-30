@@ -5,12 +5,12 @@ This inclusion is used to supply header and footer to:
 
 ## UQLapp
 
-- UQLapp URL: <https://app.library.uq.edu.au/#/>
+- production URL: <https://app.library.uq.edu.au/#/> (parent page to 4 separate apps)
 - repo <https://github.com/uqlibrary/uqlapp-frontend/>
 - development environment: <https://app-testing.library.uq.edu.au/#/> linked to branch `testing`
 
 ## Exams
-- https://www.library.uq.edu.au/exams/
+- production URL: <https://www.library.uq.edu.au/exams/>
 - code: managed by Dan
 - development env: https://enki-dr.library.uq.edu.au/exams/ (needs specific permissions)
 
