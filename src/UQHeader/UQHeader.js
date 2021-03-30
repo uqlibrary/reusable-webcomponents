@@ -5,7 +5,9 @@ const template = document.createElement('template');
 template.innerHTML = `
   <style>${styles.toString()}</style>
   <style>${overrides.toString()}</style>
-    <a class="skip-to-content-link" id="skip-nav" href="#content">Skip to site content</a>
+    <button tabindex="0" class="skip-to-content-link" id="skip-nav" aria-label="Click to skip to the sites main content">
+        Skip to site content
+    </button>
   <header class="uq-header">
       <div class="uq-header__container">
         <div class="nav-global">
@@ -89,6 +91,12 @@ class UQHeader extends HTMLElement {
 
         // Handle the attributes for this component
 
+        // The element id for the skip nav, if exists or hides the skip nav
+        const skipNavElement = this.getAttribute('skipnavid');
+        if (!skipNavElement) {
+            template.content.getElementById('skip-nav').remove();
+        }
+
         // If the attribute hidelibrarymenuitem is true, remove it from the template
         const hideLibraryMenuItem = this.getAttribute('hidelibrarymenuitem');
         if (!!hideLibraryMenuItem || hideLibraryMenuItem === 'true') {
@@ -112,6 +120,14 @@ class UQHeader extends HTMLElement {
 
         // Render the template
         shadowDOM.appendChild(template.content.cloneNode(true));
+
+        if(!!skipNavElement) {
+            console.log('There is somewhere to skip to: ', skipNavElement);
+            const skipToElement = () => {
+                document.getElementById(skipNavElement).focus();
+            }
+            shadowDOM.getElementById('skip-nav').addEventListener('click', skipToElement);
+        }
 
         // Bindings
         this.loadJS = this.loadJS.bind(this);
