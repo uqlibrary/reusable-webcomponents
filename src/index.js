@@ -8,6 +8,7 @@ import UQHeader from './UQHeader/UQHeader.js';
 import UQSiteHeader from './UQSiteHeader/UQSiteHeader.js';
 import UQFooter from './UQFooter/UQFooter.js';
 import Alert from './Alert/Alert.js';
+import gtm from './GTM/gtm.js';
 
 // Import mock data if required
 if (process.env.BRANCH !== 'production' && process.env.USE_MOCK) {
@@ -25,3 +26,4 @@ customElements.define('uq-header', UQHeader);
 customElements.define('uq-site-header', UQSiteHeader);
 customElements.define('uq-footer', UQFooter);
 customElements.define('uq-alert', Alert);
+customElements.define('uq-gtm', gtm);
