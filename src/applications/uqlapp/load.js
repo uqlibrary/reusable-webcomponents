@@ -10,9 +10,7 @@ function loadReusableComponents() {
     const firstElement = document.body.children[0];
 
     const header = document.createElement('uq-header');
-    header.setAttribute("hideLibraryMenuItem", "true");
-    header.setAttribute("searchLabel", "library.uq.edu.au");
-    header.setAttribute("searchURL", "http://library.uq.edu.au");
+    header.setAttribute("hideLibraryMenuItem", "");
     document.body.insertBefore(header, firstElement);
 
     const siteHeader = document.createElement('uq-site-header');
