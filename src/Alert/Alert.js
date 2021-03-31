@@ -46,7 +46,6 @@ class Alert extends HTMLElement {
             const message = this.getAttribute('alertmessage');
             const alerttype = this.getAttribute('alerttype');
             const id = this.getAttribute('id');
-            console.log(id);
 
             // Get links or 'permanent' from the message and return a clean message
             let canclose = true;

@@ -106,7 +106,6 @@ class AskUsButton extends HTMLElement {
         const api = new ApiAccess();
         await api.loadChatStatus().then((isOnline) => {
             if (!isOnline) {
-                console.log('chat is offline');
                 // Chat disabled
                 shadowRoot.getElementById('askus-chat-li').style.opacity = '0.6';
                 shadowRoot.getElementById('askus-chat-link').removeAttribute('onclick');
@@ -117,7 +116,6 @@ class AskUsButton extends HTMLElement {
                 // Chat status
                 shadowRoot.getElementById('askus-chat-offline').removeAttribute('style');
             } else {
-                console.log('chat is online');
                 // Chat status
                 shadowRoot.getElementById('askus-chat-online').removeAttribute('style');
             }
@@ -205,7 +203,6 @@ class AskUsButton extends HTMLElement {
         }
 
         function navigateToContactUs() {
-            console.log('Navigating to contact us');
             window.location.href = 'https://support.my.uq.edu.au/app/library/contact';
         }
 
