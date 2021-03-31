@@ -168,27 +168,34 @@ class UQSiteHeader extends HTMLElement {
         // Add a shadow DOM
         const shadowDOM = this.attachShadow({ mode: 'open' });
 
-        // Handle the attributes for this component
-
-        // Set the title & link URL
-        const siteTitleContent = template.content.getElementById('site-title');
-        const siteTitle = this.getAttribute('sitetitle');
-        const siteURL = this.getAttribute('siteurl');
-
-        !!siteTitleContent && !!siteTitle && (siteTitleContent.innerHTML = siteTitle);
-        !!siteTitleContent && !!siteURL && (siteTitleContent.href = siteURL);
-
-        this.addAskUsButtonToSlot();
-        this.addMyLibraryButtonToSlot();
-        this.addAuthButtonToSlot();
-
-        this.rewriteMegaMenuFromJson();
-
-        // Render the template
-        shadowDOM.appendChild(template.content.cloneNode(true));
+        this.handleAttributes(shadowDOM);
 
         // Bindings
         this.loadJS = this.loadJS.bind(this);
+    }
+
+    handleAttributes(shadowDOM) {
+        const setAttributes = setInterval(() => {
+            // Set the title & link URL
+            const siteTitleContent = template.content.getElementById('site-title');
+
+            const siteTitle = this.getAttribute('sitetitle');
+            !!siteTitleContent && !!siteTitle && (siteTitleContent.innerHTML = siteTitle);
+
+            const siteURL = this.getAttribute('siteurl');
+            !!siteTitleContent && !!siteURL && (siteTitleContent.href = siteURL);
+
+            this.addAskUsButtonToSlot();
+            this.addMyLibraryButtonToSlot();
+            this.addAuthButtonToSlot();
+
+            this.rewriteMegaMenuFromJson();
+
+            // Render the template
+            shadowDOM.appendChild(template.content.cloneNode(true));
+
+            clearInterval(setAttributes);
+        }, 100);
     }
 
     addMyLibraryButtonToSlot() {
