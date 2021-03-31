@@ -51,14 +51,7 @@ describe('Alert', () => {
 
         it('Alert is hidden if cookie is set to hide it', () => {
             cy.viewport(1280, 900);
-            cy.setCookie('1', 'hidden');
-            cy.visit('http://localhost:8080');
-            cy.get('alert-list').shadow().find('uq-alert').should('have.length', 1);
-        });
-
-        it('Alert is hidden if cookie is set to hide it', () => {
-            cy.viewport(1280, 900);
-            cy.setCookie('1', 'hidden');
+            cy.setCookie('UQ_ALERT_1', 'hidden');
             cy.visit('http://localhost:8080');
             cy.get('alert-list').shadow().find('uq-alert').should('have.length', 1);
         });
