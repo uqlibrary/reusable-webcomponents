@@ -1,6 +1,14 @@
 import styles from './css/auth.css';
 import ApiAccess from '../ApiAccess/ApiAccess';
-import {authLocale as locale} from './auth.locale';
+import { authLocale } from './auth.locale';
+import { mylibraryLocale } from './mylibrary.locale';
+
+/*
+ * usage:
+ *  <auth-button />
+ *  <auth-button overwriteasloggedout />
+ *
+ */
 
 const authorisedtemplate = document.createElement('template');
 authorisedtemplate.innerHTML = `
@@ -35,8 +43,7 @@ class AuthButton extends HTMLElement {
         // Add a shadow DOM
         const shadowDOM = this.attachShadow({mode: 'open'});
 
-        const loggedOutButtonMandatory = this.getAttribute('overwriteasloggedout');
-        if (loggedOutButtonMandatory === 'true') {
+        if (this.isOverwriteAsLoggedOutRequested()) {
             // Render the template
             shadowDOM.appendChild(unauthorisedtemplate.content.cloneNode(true));
             this.addButtonListeners(shadowDOM);
@@ -57,8 +64,8 @@ class AuthButton extends HTMLElement {
             this.addButtonListeners(shadowDOM);
 
             if (!!isAuthorised) {
-                // find the stub we built for mylibrary and replace it with the button
-                const mylibraryStub = document.getElementById('mylibrarystub');
+                // if we can find the stub we built for mylibrary, replace it with the button
+                const mylibraryStub = document.getElementById(mylibraryLocale.MYLIBRARY_STUB_ID);
                 if (!mylibraryStub || mylibraryStub.children.length > 0) {
                     // if the stub was not set up, then mylibrary is not required
                     // if the stub already has a child button, dont create another
@@ -75,12 +82,12 @@ class AuthButton extends HTMLElement {
             new ApiAccess().removeAccountStorage();
 
             const returnUrl = window.location.href;
-            window.location.assign(`${locale.AUTH_URL_LOGOUT}${window.btoa(returnUrl)}`);
+            window.location.assign(`${authLocale.AUTH_URL_LOGOUT}${window.btoa(returnUrl)}`);
         }
 
         function visitLoginPage() {
             const returnUrl = window.location.href;
-            window.location.assign(`${locale.AUTH_URL_LOGIN}${window.btoa(returnUrl)}`);
+            window.location.assign(`${authLocale.AUTH_URL_LOGIN}${window.btoa(returnUrl)}`);
         }
 
         const loggedinButton = !!shadowDOM && shadowDOM.getElementById('auth-button-logout');
@@ -113,6 +120,11 @@ class AuthButton extends HTMLElement {
                 loggedin = false;
             });
         return loggedin;
+    }
+
+    isOverwriteAsLoggedOutRequested() {
+        const isOverwriteRequired = this.getAttribute('overwriteasloggedout');
+        return (!!isOverwriteRequired || isOverwriteRequired === '') && isOverwriteRequired !== 'false';
     }
 
     loadJS() {
