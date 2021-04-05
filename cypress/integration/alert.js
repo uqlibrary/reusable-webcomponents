@@ -12,30 +12,30 @@ describe('Alert', () => {
 
             cy.get('alert-list')
                 .shadow()
-                .find('uq-alert[id="1"]')
+                .find('uq-alert[id="alert-1"]')
                 .shadow()
                 .find('#alert-title')
                 .should('have.text', 'This is an alert');
 
             cy.get('alert-list')
                 .shadow()
-                .find('uq-alert[id="1"]')
+                .find('uq-alert[id="alert-1"]')
                 .shadow()
                 .find('#alert-action-desktop')
                 .should('have.text', 'Action button label');
 
-            cy.get('alert-list').shadow().find('uq-alert[id="1"]').shadow().find('#alert-close').click();
+            cy.get('alert-list').shadow().find('uq-alert[id="alert-1"]').shadow().find('#alert-close').click();
 
             cy.get('alert-list')
                 .shadow()
-                .find('uq-alert[id="1"]')
+                .find('uq-alert[id="alert-1"]')
                 .shadow()
                 .find('#alert')
                 .should('have.css', 'display', 'none');
 
             cy.get('alert-list')
                 .shadow()
-                .find('uq-alert[id="2"]')
+                .find('uq-alert[id="alert-2"]')
                 .shadow()
                 .find('#alert-title')
                 .should('have.text', 'This is a permanent urgent alert');
@@ -45,7 +45,7 @@ describe('Alert', () => {
             cy.viewport(1280, 900);
             cy.get('alert-list')
                 .shadow()
-                .find('uq-alert[id="1"]')
+                .find('uq-alert[id="alert-1"]')
                 .shadow()
                 .find('div#alert')
                 .checkA11y('alert-list', {
@@ -55,7 +55,7 @@ describe('Alert', () => {
             });
             cy.get('alert-list')
                 .shadow()
-                .find('uq-alert[id="2"]')
+                .find('uq-alert[id="alert-2"]')
                 .shadow()
                 .find('div#alert')
                 .checkA11y('alert-list', {
