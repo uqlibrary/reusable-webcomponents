@@ -40,14 +40,16 @@ class Alerts extends HTMLElement {
                 // loop through alerts
                 alerts.forEach((alertData) => {
                     const alert = document.createElement('uq-alert');
-                    if (!!alert) {
-                        !!alertData.id && alert.setAttribute('id', alertData.id);
+                    // somehow this is writing twice on primo; dont create if already there
+                    const alertExists = !!alertData && document.querySelector(`#alert-${alertData.id}`);
+                    if (!!alert && !alertExists) {
+                        !!alertData.id && alert.setAttribute('id', `alert-${alertData.id}`);
                         !!alertData.body && alert.setAttribute('alertmessage', alertData.body);
                         !!alertData.title && alert.setAttribute('alerttitle', alertData.title);
                         const alertIconIndex = !!alertData.urgent && alertData.urgent === 1 ? '1' : '0';
                         alert.setAttribute('alerttype', alertIconIndex);
+                        alertWrapper.appendChild(alert);
                     }
-                    alertWrapper.appendChild(alert);
                 });
             }
         });
