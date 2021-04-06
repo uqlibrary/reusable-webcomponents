@@ -8,6 +8,11 @@ function ready(fn) {
 
 function loadReusableComponents() {
     const firstElement = document.body.children[0];
+    if (!document.querySelector('uq-gtm')) {
+        const gtm = document.createElement('uq-gtm');
+        gtm.setAttribute("gtm", "GTM-W4KK37");
+        !!firstElement && !!header && document.body.insertBefore(gtm, firstElement);
+    }
 
     if (!document.querySelector('uq-header')) {
         const header = document.createElement('uq-header');
@@ -46,14 +51,14 @@ function loadReusableComponents() {
     // let it do the header blocks, above, but control the button addition carefully
     const maxLoops = 20;
     let currentLoop = 0;
-    function addRequiredButtons(mylibraryRequired = true) {
+    function addRequiredButtons() {
         const addButtons = setInterval(() => {
             function addButtonToSlot(button) {
-                const uqSiteHeaderElement = document.querySelector('uq-site-header');
                 const buttonWrapper = document.createElement('span');
                 !!buttonWrapper && buttonWrapper.setAttribute('slot', 'site-utilities');
                 !!button && !!buttonWrapper && buttonWrapper.appendChild(button);
 
+                const uqSiteHeaderElement = document.querySelector('uq-site-header');
                 !!buttonWrapper && !!uqSiteHeaderElement && uqSiteHeaderElement.appendChild(buttonWrapper);
             }
 
@@ -62,17 +67,13 @@ function loadReusableComponents() {
                 const checkStorage = setInterval(() => {
                     clearInterval(checkStorage);
                     const account = JSON.parse(sessionStorage.getItem('userAccount'));
-                    let b = !!account && !!account.id;
-                    console.log('logged in? ', b); // #dev
-                    return b;
+                    return !!account && !!account.id;
                 }, 200);
             }
 
-            function createAuthButton(mylibraryRequired = true) {
-                const authButton0 = document.querySelector('auth-button') || false;
-                if (!authButton0) {
-                    console.log(' checking for mylibrary'); // #dev
-                    !!mylibraryRequired && !!isLoggedIn() && createMylibraryButton();
+            function createAuthButton() {
+                if (!document.querySelector('auth-button')) {
+                    !!isLoggedIn() && createMylibraryButton();
 
                     const authButton = document.createElement('auth-button');
                     addButtonToSlot(authButton);
@@ -80,39 +81,28 @@ function loadReusableComponents() {
             }
 
             function createMylibraryButton() {
-                console.log('createMylibraryButton'); // #dev
-                const mylibraryButton0 = document.querySelector('mylibrary-button') || false;
-                if (!mylibraryButton0) {
+                if (!document.querySelector('mylibrary-button')) {
                     const mylibraryButton = document.createElement('mylibrary-button');
                     addButtonToSlot(mylibraryButton);
                 }
             }
 
             function createAskusButton() {
-                const askusButton0 = document.querySelector('askus-button') || false;
-                if (!askusButton0) {
+                if (!document.querySelector('askus-button')) {
                     const askusButton = document.createElement('askus-button');
                     addButtonToSlot(askusButton);
                 }
             }
 
-            const uqsiteheader = document.querySelector('uq-site-header') || false;
-            if (!!uqsiteheader) {
-                const askusButton0 = document.querySelector('askus-button') || false;
-                if (!askusButton0) {
-                    createAskusButton();
-                }
+            if (!!document.querySelector('uq-site-header')) {
+                createAskusButton();
+                createAuthButton(mylibraryRequired);
+            }
 
-                const authButton0 = document.querySelector('auth-button') || false;
-                if (!authButton0) {
-                    createAuthButton(mylibraryRequired);
-                }
-
-                const authButton1 = document.querySelector('auth-button') || false;
-                const askusButton1 = document.querySelector('askus-button') || false;
-                if (!!authButton1 && !!askusButton1) {
-                    clearInterval(addButtons);
-                }
+            const authButtonFound = document.querySelector('auth-button') || false;
+            const askusButtonFound = document.querySelector('askus-button') || false;
+            if (!!authButtonFound && !!askusButtonFound) {
+                clearInterval(addButtons);
             }
 
             // setting the attribute doesnt seem to be takng off the menu item
