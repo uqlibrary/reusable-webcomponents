@@ -97,13 +97,6 @@ class Alert extends HTMLElement {
                 const navigateToUrl = () => {
                     window.location.href = linkUrl;
                 };
-
-                shadowDOM.getElementById('alert-container').classList.add('clickable');
-                shadowDOM.getElementById('alert-container').addEventListener('click', navigateToUrl);
-                shadowDOM
-                    .getElementById('alert-container')
-                    .setAttribute('data-testid', 'alert-' + id + '-message-button');
-
                 shadowDOM.getElementById('alert-action-desktop').setAttribute('title', linkLabel);
                 shadowDOM.getElementById('alert-action-desktop').innerText = linkLabel;
                 shadowDOM.getElementById('alert-action-desktop').addEventListener('click', navigateToUrl);
