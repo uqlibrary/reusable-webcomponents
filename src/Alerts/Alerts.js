@@ -40,14 +40,20 @@ class Alerts extends HTMLElement {
                 // loop through alerts
                 alerts.forEach((alertData) => {
                     const alert = document.createElement('uq-alert');
-                    if (!!alert) {
-                        !!alertData.id && alert.setAttribute('id', alertData.id);
+
+                    // if the alert-list is inserted twice, all the elements will be inserted in the first instance. Weird.
+                    // so go into the shadow dom of the first instance and look to see if the id exists
+                    const alertList = document.querySelector('alert-list');
+                    const shadowDOM = (!!alertList && alertList.shadowRoot) || false;
+                    const alertExists = !!shadowDOM && !!alertData && shadowDOM.querySelector(`#alert-${alertData.id}`);
+                    if (!!alert && !alertExists) {
+                        !!alertData.id && alert.setAttribute('id', `alert-${alertData.id}`);
                         !!alertData.body && alert.setAttribute('alertmessage', alertData.body);
                         !!alertData.title && alert.setAttribute('alerttitle', alertData.title);
                         const alertIconIndex = !!alertData.urgent && alertData.urgent === 1 ? '1' : '0';
                         alert.setAttribute('alerttype', alertIconIndex);
+                        alertWrapper.appendChild(alert);
                     }
-                    alertWrapper.appendChild(alert);
                 });
             }
         });
