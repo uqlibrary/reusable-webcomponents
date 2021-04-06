@@ -5,8 +5,14 @@ describe('Skip nav', () => {
         cy.visit('http://localhost:8080');
         cy.injectAxe();
     });
+
     context('Skip Menu', () => {
-        it('AskUs passes accessibility', () => {
+        it('Skip works as expected', () => {
+
+        });
+    });
+    context('Skip Menu', () => {
+        it('Skip menu passes accessibility', () => {
             cy.viewport(1280, 900);
             cy.get('uq-header').shadow().find('#skip-nav').focus();
             cy.wait(1000);

@@ -16,11 +16,6 @@ class Alerts extends HTMLElement {
     constructor() {
         super();
 
-        const alertsDismissed = document.cookie.indexOf("UQL-Hide-Alerts=1") >= 0;
-        if (!!alertsDismissed) {
-            return;
-        }
-
         const shadowDOM = this.attachShadow({ mode: 'open' });
 
         // Render the template
@@ -52,7 +47,9 @@ class Alerts extends HTMLElement {
                         !!alertData.title && alert.setAttribute('alerttitle', alertData.title);
                         const alertIconIndex = !!alertData.urgent && alertData.urgent === 1 ? '1' : '0';
                         alert.setAttribute('alerttype', alertIconIndex);
-                        alertWrapper.appendChild(alert);
+                        if (document.cookie.indexOf('UQ_ALERT_' + alert.id + "=hidden") <= -1) {
+                            alertWrapper.appendChild(alert);
+                        }
                     }
                 });
             }

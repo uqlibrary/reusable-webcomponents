@@ -104,7 +104,6 @@ let initCalled;
 
 class MyLibraryButton extends HTMLElement {
     constructor() {
-        console.log('MyLibraryButton constructor');
         super();
 
         // Add a shadow DOM

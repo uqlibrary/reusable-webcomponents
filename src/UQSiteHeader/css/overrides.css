@@ -7,6 +7,7 @@ span.displayText {
     font-size: 0.75rem;
     min-height: 1rem;
     font-weight: 300;
+    margin-bottom: 2px;
 }
 
 /* https://css-tricks.com/guide-responsive-friendly-css-columns/ */

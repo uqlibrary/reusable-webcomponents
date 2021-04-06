@@ -16,8 +16,8 @@ template.innerHTML = `
             <div role="button" id="alert-action-desktop" data-testid="alert-action-desktop" title="button title" tabindex="0">Button label</div>
         </div>
         <div role="button" id="alert-action-mobile" data-testid="alert-action-mobile" title="button title" tabindex="0">Button label</div>
-        <a id="alert-close" data-testid="alert-close" role="button" aria-label="Click to close this alert" href="javascript:void(0)" class="alert__close">
-            <svg focusable="false" viewBox="0 0 24 24" aria-label="Click to close this alert" ><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        <a id="alert-close" data-testid="alert-close" role="button" aria-label="Dismiss this alert for 24 hours" href="javascript:void(0)" class="alert__close">
+            <svg focusable="false" viewBox="0 0 24 24" aria-label="Dismiss this alert for 24 hours" ><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
         </a>
     </div>
 `;
@@ -79,13 +79,12 @@ class Alert extends HTMLElement {
             if (!!canclose) {
                 const closeAlert = () => {
                     shadowDOM.getElementById('alert').style.display = 'none';
-
-                    if (document.cookie.indexOf("UQL-Hide-Alerts=1") <= -1) {
+                    if (document.cookie.indexOf('UQ_ALERT_' + id + "=hidden") <= -1) {
                         //set cookie for 24 hours
                         const date = new Date();
                         date.setTime(date.getTime() + (24 * 60 * 60 * 1000));
                         const cookieDomain = window.location.hostname.endsWith('.library.uq.edu.au') ? 'domain=.library.uq.edu.au;path=/' : '';
-                        document.cookie = 'UQL-Hide-Alerts=1;expires=' + date.toGMTString() + ';' + cookieDomain;
+                        document.cookie = 'UQ_ALERT_' + id + '=hidden;expires=' + date.toGMTString() + ';' + cookieDomain;
                     }
                 };
                 shadowDOM.getElementById('alert-close').addEventListener('click', closeAlert);

@@ -121,7 +121,6 @@ class UQHeader extends HTMLElement {
         shadowDOM.appendChild(template.content.cloneNode(true));
 
         if(!!skipNavElement) {
-            console.log('There is somewhere to skip to: ', skipNavElement);
             const skipToElement = () => {
                 document.getElementById(skipNavElement).focus();
             }

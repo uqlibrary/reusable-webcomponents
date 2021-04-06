@@ -245,7 +245,7 @@ class UQSiteHeader extends HTMLElement {
     createSlotForButtonInUtilityArea(button, id=null) {
         const slot = document.createElement('span');
         !!slot && slot.setAttribute('slot', 'site-utilities');
-        console.log('createSlotForButtonInUtilityArea: button = ', button, ' (id = ', id, ')'); // #dev
+        // console.log('createSlotForButtonInUtilityArea: button = ', button, ' (id = ', id, ')'); // #dev
         !!slot && !!id && slot.setAttribute('id', id);
         !!button && !!slot && slot.appendChild(button);
 
@@ -283,7 +283,7 @@ class UQSiteHeader extends HTMLElement {
             parentListItem.setAttribute('class', classNavListitem);
 
             const parentLink = this.createLink(
-                `megamenu-submenus-item-${index}`,
+                `menu-group-item-${index}`,
                 jsonParentItem.linkTo || '',
                 jsonParentItem.primaryText || '',
             );
