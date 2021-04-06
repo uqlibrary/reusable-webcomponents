@@ -40,8 +40,12 @@ class Alerts extends HTMLElement {
                 // loop through alerts
                 alerts.forEach((alertData) => {
                     const alert = document.createElement('uq-alert');
-                    // somehow this is writing twice on primo; dont create if already there
-                    const alertExists = !!alertData && document.querySelector(`#alert-${alertData.id}`);
+
+                    // if the alert-list is inserted twice, all the elements will be inserted in the first instance. Weird.
+                    // so go into the shadow dom of the first instance and look to see if the id exists
+                    const alertList = document.querySelector('alert-list');
+                    const shadowDOM = (!!alertList && alertList.shadowRoot) || false;
+                    const alertExists = !!shadowDOM && !!alertData && shadowDOM.querySelector(`#alert-${alertData.id}`);
                     if (!!alert && !alertExists) {
                         !!alertData.id && alert.setAttribute('id', `alert-${alertData.id}`);
                         !!alertData.body && alert.setAttribute('alertmessage', alertData.body);
