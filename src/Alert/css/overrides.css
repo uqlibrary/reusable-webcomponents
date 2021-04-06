@@ -110,7 +110,7 @@
     background-color: rgba(0,0,0,0.5);
 }
 
-.info #alert-title, .info b {
+.info #alert-title, .info b, .alert .alert-title {
     font-weight: 600 !important;
 }
 
