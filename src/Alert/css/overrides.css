@@ -110,8 +110,8 @@
     background-color: rgba(0,0,0,0.5);
 }
 
-.info b#alert-title {
-    font-weight: bold !important;
+.info #alert-title {
+    font-weight: 600 !important;
 }
 
 /*WARNING*/
