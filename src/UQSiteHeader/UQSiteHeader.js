@@ -283,7 +283,7 @@ class UQSiteHeader extends HTMLElement {
             parentListItem.setAttribute('class', classNavListitem);
 
             const parentLink = this.createLink(
-                `megamenu-submenus-item-${index}`,
+                `menu-group-item-${index}`,
                 jsonParentItem.linkTo || '',
                 jsonParentItem.primaryText || '',
             );

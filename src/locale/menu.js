@@ -1,6 +1,6 @@
 export default {
     menuhome: {
-        dataTestid: 'connect-home-link',
+        dataTestid: 'menu-group-home-link',
         linkTo: 'http://www.library.uq.edu.au',
         primaryText: 'Library home',
     },
@@ -12,7 +12,7 @@ export default {
         // the parent items appears in the footer; the submenuItems appear in the megamenu
         {
             id: 'libraryServices',
-            dataTestid: 'connect-services-link',
+            dataTestid: 'menu-group-services-link',
             linkTo: 'https://web.library.uq.edu.au/library-services',
             primaryText: 'Library services',
             columnCount: 2,
@@ -119,7 +119,7 @@ export default {
         },
         {
             id: 'researchToolsTechniques',
-            dataTestid: 'connect-research-link',
+            dataTestid: 'menu-group-research-link',
             linkTo: 'https://web.library.uq.edu.au/research-tools-techniques',
             primaryText: 'Research tools & techniques',
             columnCount: 2,
@@ -188,7 +188,7 @@ export default {
         },
         {
             id: 'collections',
-            dataTestid: 'connect-collections-link',
+            dataTestid: 'menu-group-collections-link',
             linkTo: 'https://web.library.uq.edu.au/collections',
             primaryText: 'Collections',
             columnCount: 1,
@@ -217,7 +217,7 @@ export default {
         },
         {
             id: 'borrowingRequesting',
-            dataTestid: 'connect-borrowing-link',
+            dataTestid: 'menu-group-borrowing-link',
             linkTo: 'https://web.library.uq.edu.au/borrowing-requesting',
             primaryText: 'Borrowing & requesting',
             columnCount: 2,
@@ -258,7 +258,7 @@ export default {
         },
         {
             id: 'locationsHours',
-            dataTestid: 'connect-locations-link',
+            dataTestid: 'menu-group-locations-link',
             linkTo: 'https://web.library.uq.edu.au/locations-hours',
             primaryText: 'Locations & hours',
             columnCount: 3,
@@ -350,7 +350,7 @@ export default {
         },
         {
             id: 'about',
-            dataTestid: 'connect-about-link',
+            dataTestid: 'menu-group-about-link',
             linkTo: 'https://web.library.uq.edu.au/about-us',
             primaryText: 'About',
             columnCount: 2,
@@ -415,7 +415,7 @@ export default {
         },
         {
             id: 'contactUs',
-            dataTestid: 'connect-contact-link',
+            dataTestid: 'menu-group-contact-link',
             linkTo: 'https://web.library.uq.edu.au/contact-us',
             primaryText: 'Contact us',
         },
