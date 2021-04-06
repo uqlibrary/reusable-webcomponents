@@ -9,20 +9,37 @@ function ready(fn) {
 function loadReusableComponents() {
     const firstElement = document.body.children[0];
 
-    const header = document.createElement('uq-header');
-    header.setAttribute("hideLibraryMenuItem", "");
-    document.body.insertBefore(header, firstElement);
+    if (!document.querySelector('uq-header')) {
+        const header = document.createElement('uq-header');
+        header.setAttribute("hideLibraryMenuItem", "");
+        !!firstElement && !!header && document.body.insertBefore(header, firstElement);
+    }
 
-    const siteHeader = document.createElement('uq-site-header');
-    siteHeader.setAttribute("hideAskUs", "");
-    siteHeader.setAttribute("hideMyLibrary", "");
-    document.body.insertBefore(siteHeader, firstElement);
+    if (!document.querySelector('uq-site-header')) {
+        const slot = document.createElement('slot');
+        !!slot && slot.setAttribute("name", "site-utilities");
 
-    const connectFooter = document.createElement('connect-footer');
-    document.body.appendChild(connectFooter);
+        const siteHeader = document.createElement('uq-site-header');
+        !!siteHeader && siteHeader.setAttribute("hideAskUs", "");
+        !!siteHeader && siteHeader.setAttribute("hideMyLibrary", "");
+        !!slot && !!siteHeader && siteHeader.appendChild(slot);
+        !!firstElement && !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
+    }
 
-    const subFooter = document.createElement('uq-footer');
-    document.body.appendChild(subFooter);
+    if (!document.querySelector('alert-list')) {
+        const alerts = document.createElement('alert-list');
+        !!firstElement && !!alerts && document.body.insertBefore(alerts, firstElement);
+    }
+
+    if (!document.querySelector('connect-footer')) {
+        const connectFooter = document.createElement('connect-footer');
+        !!connectFooter && document.body.appendChild(connectFooter);
+    }
+
+    if (!document.querySelector('uq-footer')) {
+        const subFooter = document.createElement('uq-footer');
+        !!subFooter && document.body.appendChild(subFooter);
+    }
 
     // the angular in app.library is unreliable in how it interacts with our webcomponent buttons.
     // sometimes we get none, sometimes we get a double set :(
@@ -48,7 +65,7 @@ function loadReusableComponents() {
                     let b = !!account && !!account.id;
                     console.log('logged in? ', b); // #dev
                     return b;
-                }, 50);
+                }, 200);
             }
 
             function createAuthButton(mylibraryRequired = true) {
