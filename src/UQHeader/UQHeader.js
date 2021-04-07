@@ -4,7 +4,7 @@ import overrides from './css/overrides.css';
 const template = document.createElement('template');
 template.innerHTML = `
   <style>
-  .uq-header__container {
+  .uq-header {
     all: initial;
     * {
         all: unset;
