@@ -18,7 +18,10 @@
 
 Add the following line at the end of your HTML document to initialise the components. Example below is obviously for staging - substitute for development or production, and note that the _defer_ is important.
 ```html
-<script type="text/javascript" src="https://library.uq.edu.au/resuable-webcomponents-staging/uq-lib-reusable.min.js" defer></script>
+  <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v6/fonts/Roboto/roboto.css" />
+  <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css" />
+  <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css">
+  <script type="text/javascript" src="https://library.uq.edu.au/resuable-webcomponents-staging/uq-lib-reusable.min.js" defer></script>
 ```
 
 eg. UQ Header:
