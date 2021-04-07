@@ -1,6 +1,9 @@
 #alert {
     border-bottom: 1px solid rgba(0,0,0,0.1);
     font-family: 'Roboto', sans-serif !important;
+    font-stretch: unset !important;
+    font-weight: 300 !important;
+    font-size: 16px !important;
 }
 @media (max-width: 600px) {
     #alert {
@@ -24,6 +27,7 @@
     font-weight: 300 !important;
     font-size: 16px;
     font-family: 'Roboto', sans-serif !important;
+    font-stretch: unset;
 }
 
 #alert #alert-title, .info b, .alert .alert-title {
