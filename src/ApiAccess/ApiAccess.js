@@ -83,7 +83,7 @@ class ApiAccess {
             })
             .catch((error) => {
                 console.log('error loading hours ', error);
-                result = null;
+                return null;
             });
         return result;
     }
@@ -98,7 +98,7 @@ class ApiAccess {
             })
             .catch((error) => {
                 console.log('error loading alerts ', error);
-                result = null;
+                return null;
             });
     }
 
