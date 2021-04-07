@@ -5,7 +5,6 @@ const template = document.createElement('template');
 template.innerHTML = `
   <style>${styles.toString()}</style>
   <style>${icons.toString()}</style>
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700" rel="stylesheet">
   <footer data-testid="uq-footer" id="footer" class="uq-footer" data-gtm-category="Footer">
       <div class="uq-footer__container">
           <div class="uq-footer__acknowledgement">
