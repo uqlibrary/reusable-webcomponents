@@ -87,7 +87,7 @@ class UQHeader extends HTMLElement {
     constructor() {
         super();
         // Add a shadow DOM
-        const shadowDOM = this.attachShadow({ mode: 'closed' });
+        const shadowDOM = this.attachShadow({ mode: 'open' });
 
         // Handle the attributes for this component
 
