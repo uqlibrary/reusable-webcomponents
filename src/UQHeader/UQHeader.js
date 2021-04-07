@@ -3,6 +3,11 @@ import overrides from './css/overrides.css';
 
 const template = document.createElement('template');
 template.innerHTML = `
+  <style>
+  .uq-header__container {
+    all: initial;
+  }
+  </style>
   <style>${styles.toString()}</style>
   <style>${overrides.toString()}</style>
     <button tabindex="0" class="skip-to-content-link" id="skip-nav" data-testid="skip-nav" aria-label="Click to skip to the sites main content">
