@@ -6,6 +6,9 @@ template.innerHTML = `
   <style>
   .uq-header__container {
     all: initial;
+    * {
+        all: unset;
+    }
   }
   </style>
   <style>${styles.toString()}</style>
