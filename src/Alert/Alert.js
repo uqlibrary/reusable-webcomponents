@@ -7,7 +7,6 @@ template.innerHTML = `
   <style>${styles.toString()}</style>
   <style>${icons.toString()}</style>
   <style>${overrides.toString()}</style>
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700" rel="stylesheet">
   <div id="alert" data-testid="alert" class="alert alert--default" role="alert" data-id="">
         <div id="alert-container" data-testid="alert-container" class="alert__container">
             <div id="alert-icon" data-testid="alert-icon"></div>
