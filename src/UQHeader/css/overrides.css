@@ -1,4 +1,7 @@
 /* for primo */
+.uq-header {
+    all: unset;
+}
 .menu-global a {
     -webkit-font-smoothing: initial;
     font-stretch: inherit;
