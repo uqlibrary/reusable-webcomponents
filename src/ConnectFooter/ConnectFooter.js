@@ -6,6 +6,9 @@ const template = document.createElement('template');
 template.innerHTML = `
     <style>${styles.toString()}</style>
     <style>${icons.toString()}</style>
+    <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v6/fonts/Roboto/roboto.css" />
+    <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css" />
+    <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css">
     <div data-testid="connect-footer" id="connect-footer" class="connect-footer connectfooter-wrapper griditem griditem12" data-gtm-category="Footer">
         <div class="uq-footer__container connectfooter-wrapper2 griditem griditem12">
             <div class="connectfooter-wrapper3">

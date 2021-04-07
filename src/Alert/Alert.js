@@ -8,6 +8,8 @@ template.innerHTML = `
   <style>${icons.toString()}</style>
   <style>${overrides.toString()}</style>
   <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v6/fonts/Roboto/roboto.css" />
+  <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css" />
+  <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css">
   <div id="alert" data-testid="alert" class="alert alert--default" role="alert" data-id="">
         <div id="alert-container" data-testid="alert-container" class="alert__container">
             <div id="alert-icon" data-testid="alert-icon"></div>

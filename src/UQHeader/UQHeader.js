@@ -5,6 +5,9 @@ const template = document.createElement('template');
 template.innerHTML = `
   <style>${styles.toString()}</style>
   <style>${overrides.toString()}</style>
+    <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v6/fonts/Roboto/roboto.css" />
+    <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css" />
+    <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css">
     <button tabindex="0" class="skip-to-content-link" id="skip-nav" data-testid="skip-nav" aria-label="Click to skip to the sites main content">
         Skip to site content
     </button>
