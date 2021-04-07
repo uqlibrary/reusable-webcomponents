@@ -11,7 +11,7 @@ template.innerHTML = `
         <div id="alert-container" data-testid="alert-container" class="alert__container">
             <div id="alert-icon" data-testid="alert-icon"></div>
             <div class="alert__message">
-                <b id="alert-title" data-testid="alert-title" class="alert-title"></b> <span id="alert-message" data-testid="alert-message"></span>
+                <b id="alert-title" data-testid="alert-title" class="alert-title"></b><span id="alert-message" data-testid="alert-message"></span>
             </div>
             <div role="button" id="alert-action-desktop" data-testid="alert-action-desktop" title="button title" tabindex="0">Button label</div>
         </div>
