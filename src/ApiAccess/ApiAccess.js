@@ -133,7 +133,15 @@ class ApiAccess {
     }
 
     fetchFromServer(urlPath, options) {
-        const API_URL = process.env.API_URL || 'https://api.library.uq.edu.au/v1/';
+        let API_URL = process.env.API_URL || 'https://api.library.uq.edu.au/staging/';
+
+        // temp check to make sure we dont break primo while we are attempting to make webpack write production properly
+        const isPrimoProduction = window.location.hostname === 'search.library.uq.edu.au' && /vid=61UQ/.test(window.location.href);
+        if (isPrimoProduction && API_URL === 'https://api.library.uq.edu.au/staging/') {
+            console.log('overwrote api url');
+            API_URL = 'https://api.library.uq.edu.au/v1/';
+        }
+
         return fetch(`${API_URL}${urlPath}?ts=${new Date().getTime()}`, {
             headers: options,
         });
