@@ -20,6 +20,11 @@
     padding: 24px 24px 24px 12px !important;
     width: 100%;
     flex: 1;
+    font-weight: 300 !important;
+}
+
+#alert #alert-title, .info b, .alert .alert-title {
+    font-weight: 600 !important;
 }
 
 #alert .alert__container {
@@ -108,10 +113,6 @@
 
 .info #alert-action-desktop:hover {
     background-color: rgba(0,0,0,0.5);
-}
-
-.info #alert-title, .info b, .alert .alert-title {
-    font-weight: 600 !important;
 }
 
 /*WARNING*/
