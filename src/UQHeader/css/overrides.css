@@ -1,6 +1,6 @@
 /* for primo */
-.uq-header {
-    all: unset;
+.uq-header__container {
+    all: initial;
 }
 .menu-global a {
     -webkit-font-smoothing: initial;
