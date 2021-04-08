@@ -18,7 +18,7 @@ const useMock = !!process.env.USE_MOCK || false;
 
 module.exports = () => {
     const componentJsPath = {
-        local: '',
+        local: 'http://localhost:8080/',
         development: 'https://assets.library.uq.edu.au/reusable-webcomponents-development/' + process.env.CI_BRANCH + '/',
         staging: 'https://assets.library.uq.edu.au/reusable-webcomponents-staging/',
         production: 'https://assets.library.uq.edu.au/reusable-webcomponents/',
