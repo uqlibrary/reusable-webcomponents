@@ -3,6 +3,12 @@
 }
 * {  font-size: 16px; }
 
+@media (min-width: 64em) {
+    .uq-site-header__title-container {
+        padding-top: 1em;
+        padding-bottom: 1em;
+    }
+}
 span.displayText {
     display: block;
     white-space: nowrap;
