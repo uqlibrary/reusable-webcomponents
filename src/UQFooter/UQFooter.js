@@ -1,10 +1,12 @@
 import styles from './css/main.css';
 import icons from './css/icons.css';
+import overrides from './css/overrides.css';
 
 const template = document.createElement('template');
 template.innerHTML = `
   <style>${styles.toString()}</style>
   <style>${icons.toString()}</style>
+  <style>${overrides.toString()}</style>
   <footer data-testid="uq-footer" id="footer" class="uq-footer" data-gtm-category="Footer">
       <div class="uq-footer__container">
           <div class="uq-footer__acknowledgement">
