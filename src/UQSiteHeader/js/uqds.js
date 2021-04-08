@@ -58,6 +58,9 @@ var uq = (function (exports) {
                     var mobileToggle = document
                         .querySelector('uq-site-header')
                         .shadowRoot.querySelector('.'.concat(this.toggleClass));
+                    if (!this.nav) {
+                        return;
+                    }
                     var subNavItems = this.nav.querySelectorAll('.'.concat(this.subNavClass));
                     var subNavLinks = this.nav.querySelectorAll('.'.concat(this.subNavClass, ' > a'));
                     var subNavL2Items = this.nav.querySelectorAll(

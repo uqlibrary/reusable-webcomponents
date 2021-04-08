@@ -43,113 +43,6 @@ template.innerHTML = `
       <div class="uq-site-header__navigation-container">
         <nav class="uq-site-header__navigation" id="jsNav">
           <ul class="uq-site-header__navigation__list uq-site-header__navigation__list--level-1">
-            <li class="uq-site-header__navigation__list-item
-                       uq-site-header__navigation__list-item--has-subnav
-                       uq-site-header__navigation__list-item--active">
-              <a href="/study" aria-expanded="false">Study</a>
-              <span class="uq-site-header__navigation__sub-toggle">Open</span>
-              <ul class="uq-site-header__navigation__list
-                         uq-site-header__navigation__list--level-2">
-                <li class="uq-site-header__navigation__list-item">
-                  <a href="/study/programs" aria-expanded="false">Find a program</a>
-                </li>
-                <li class="uq-site-header__navigation__list-item">
-                  <a href="/study/agriculture-environment" aria-expanded="false">Agriculture and Environment</a>
-                </li>
-                <li class="uq-site-header__navigation__list-item">
-                  <a href="/study/architecture-planning" aria-expanded="false">Architecture and Planning</a>
-                </li>
-                <li class="uq-site-header__navigation__list-item">
-                  <a href="/study/arts-humanities-social-sciences" aria-expanded="false">Arts, Humanities and Social Sciences</a>
-                </li>
-                <li class="uq-site-header__navigation__list-item">
-                  <a href="/study/business-economics" aria-expanded="false">Business and Economics</a>
-                </li>
-                <li class="uq-site-header__navigation__list-item">
-                  <a href="/study/education" aria-expanded="false">Education</a>
-                </li>
-                <li class="uq-site-header__navigation__list-item">
-                  <a href="/study/engineering-computing" aria-expanded="false">Engineering and Computing</a>
-                </li>
-                <li class="uq-site-header__navigation__list-item">
-                  <a href="/study/health-behavioural-sciences" aria-expanded="false">Health and Behavioural Sciences</a>
-                </li>
-                <li class="uq-site-header__navigation__list-item">
-                  <a href="/study/law" aria-expanded="false">Law</a>
-                </li>
-                <li class="uq-site-header__navigation__list-item">
-                  <a href="/study/medicine" aria-expanded="false">Medicine</a>
-                </li>
-                <li class="uq-site-header__navigation__list-item">
-                  <a href="/study/science-mathematics" aria-expanded="false"
-                    >Science and Mathematics</a>
-                </li>
-                <li class="uq-site-header__navigation__list-item">
-                  <a href="/study/micromasters-uqx" aria-expanded="false">MicroMasters and UQx</a>
-                </li>
-              </ul>
-            </li>
-            <li class="uq-site-header__navigation__list-item
-                       uq-site-header__navigation__list-item--has-subnav">
-              <a href="/admissions" aria-expanded="false">Admissions</a>
-              <span class="uq-site-header__navigation__sub-toggle">Open</span>
-              <ul class="uq-site-header__navigation__list
-                         uq-site-header__navigation__list--level-2">
-                <li class="uq-site-header__navigation__list-item">
-                  <a href="/admissions/undergraduate" aria-expanded="false">Undergraduate</a>
-                </li>
-                <li class="uq-site-header__navigation__list-item">
-                  <a href="/admissions/honours" aria-expanded="false">Honours</a>
-                </li>
-                <li class="uq-site-header__navigation__list-item">
-                  <a href="/admissions/postgraduate-coursework" aria-expanded="false">Postgraduate coursework</a>
-                </li>
-                <li class="uq-site-header__navigation__list-item">
-                  <a href="/admissions/higher-degree-research" aria-expanded="false">Higher degree by research</a>
-                </li>
-                <li class="uq-site-header__navigation__list-item">
-                  <a href="/admissions/cross-institutional-study" aria-expanded="false">Cross-institutional study</a>
-                </li>
-                <li class="uq-site-header__navigation__list-item">
-                  <a href="/admissions/non-award-study" aria-expanded="false">Non-award study</a>
-                </li>
-                <li class="uq-site-header__navigation__list-item">
-                  <a href="/admissions/doctor-medicine" aria-expanded="false">Doctor of Medicine</a>
-                </li>
-                <li class="uq-site-header__navigation__list-item">
-                  <a href="https://www.uq.edu.au/studyabroad/how-to-apply" aria-expanded="false">Study abroad and incoming exchange</a>
-                </li>
-              </ul>
-            </li>
-            <li class="uq-site-header__navigation__list-item
-                       uq-site-header__navigation__list-item--has-subnav">
-              <a href="/university-life" aria-expanded="false">University life</a>
-              <span class="uq-site-header__navigation__sub-toggle">Open</span>
-              <ul class="uq-site-header__navigation__list
-                         uq-site-header__navigation__list--level-2">
-                <li class="uq-site-header__navigation__list-item">
-                  <a href="/university-life/living-in-brisbane" aria-expanded="false">Living in Brisbane</a>
-                </li>
-                <li class="uq-site-header__navigation__list-item">
-                  <a href="/university-life/getting-prepared-to-come-to-australia" aria-expanded="false">Getting prepared to come to Australia</a>
-                </li>
-                <li class="uq-site-header__navigation__list-item">
-                  <a href="/university-life/campuses-research-sites" aria-expanded="false">Campuses and research sites</a>
-                </li>
-                <li class="uq-site-header__navigation__list-item">
-                  <a href="/university-life/campus-tours" aria-expanded="false">Campus tours</a>
-                </li>
-              </ul>
-            </li>
-            <li class="uq-site-header__navigation__list-item">
-              <a href="/events" aria-expanded="false">Events</a>
-            </li>
-            <li class="uq-site-header__navigation__list-item">
-              <a href="/stories" aria-expanded="false">Stories</a>
-            </li>
-            <li class="uq-site-header__navigation__list-item">
-              <a href="/contact-us" aria-expanded="false">Contact</a>
-            </li>
           </ul>
         </nav>
       </div>
@@ -179,10 +72,16 @@ class UQSiteHeader extends HTMLElement {
         this.addMyLibraryButtonToSlot();
         this.addAuthButtonToSlot();
 
-        this.rewriteMegaMenuFromJson();
+        // attributes take a moment to appear sometimes
+        const displayMenu = setInterval(() => {
+            clearInterval(displayMenu);
 
-        // Render the template
-        shadowDOM.appendChild(template.content.cloneNode(true));
+            this.rewriteMegaMenuFromJson();
+
+            // Render the template
+            shadowDOM.appendChild(template.content.cloneNode(true));
+        }, 50);
+
 
         // Bindings
         this.loadJS = this.loadJS.bind(this);
@@ -242,7 +141,6 @@ class UQSiteHeader extends HTMLElement {
     createSlotForButtonInUtilityArea(button, id=null) {
         const slot = document.createElement('span');
         !!slot && slot.setAttribute('slot', 'site-utilities');
-        // console.log('createSlotForButtonInUtilityArea: button = ', button, ' (id = ', id, ')'); // #dev
         !!slot && !!id && slot.setAttribute('id', id);
         !!button && !!slot && slot.appendChild(button);
 
@@ -254,7 +152,7 @@ class UQSiteHeader extends HTMLElement {
         const megaMenu = template.content.getElementById('jsNav');
 
         // clear the existing children
-        megaMenu.textContent = '';
+        !!megaMenu && (megaMenu.textContent = '');
 
         if (!this.isMegaMenuRequested()) {
             // hide responsive menu button
@@ -384,10 +282,8 @@ class UQSiteHeader extends HTMLElement {
     }
 
     isMegaMenuRequested() {
-        if (this.showMenu === undefined) {
-            this.showMenu = this.getAttribute('showmenu');
-        }
-        return !!this.showMenu || this.showMenu === '';
+        const showMenu = this.getAttribute('showmenu');
+        return !!showMenu || showMenu === '';
     }
 
     isAuthButtonRequested() {
