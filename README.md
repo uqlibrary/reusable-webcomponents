@@ -47,6 +47,7 @@ You will also need to add a named anchor after all the header imports etc to tel
 - Edit the js/uqds.js file to replace any reference to `document.query...` to a shadow dom reference by replacing it with `document.querySelector('uq-header').shadowRoot.query...`
 - Register the new web component in `src/index.js` and insert the dom element in `/index.html'
 - Add a line to the webpack config to copy the ~usds.js file from the ITS DS package to the dist root and rename it.
+- Replace all `rem` units in css to `em` to stop old vendor apps from breaking our components.
 ```html
   new CopyPlugin({
       patterns: [
