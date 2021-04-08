@@ -166,7 +166,7 @@ module.exports = () => {
                 __DEVELOPMENT__: true,
                 'process.env.NODE_ENV': JSON.stringify(environment),
                 'process.env.USE_MOCK': JSON.stringify(useMock),
-                'process.env.BRANCH': JSON.stringify(config.branch),
+                'process.env.BRANCH': JSON.stringify(config.branchType),
                 'process.env.FULL_PATH': JSON.stringify(process.env.FULL_PATH),
                 'process.env.API_URL': JSON.stringify(config.api),
             }),
