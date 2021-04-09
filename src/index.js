@@ -11,7 +11,7 @@ import Alert from './Alert/Alert.js';
 import gtm from './GTM/gtm.js';
 
 // Import mock data if required
-if (process.env.BRANCH !== 'production' && process.env.USE_MOCK) {
+if (process.env.USE_MOCK) {
     console.log('include mock data');
     require('../mock/MockApi');
 }
