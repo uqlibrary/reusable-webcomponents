@@ -6,6 +6,7 @@ const ReplaceInFileWebpackPlugin = require('replace-in-file-webpack-plugin');
 const webpack = require('webpack');
 const libraryName = 'uq-lib-reusable';
 const outputFile = `${libraryName}.min.js`;
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const useMock = !!process.env.USE_MOCK || false;
 
@@ -54,9 +55,9 @@ module.exports = () => {
                 {
                     test: /\.scss$/,
                     use: [
+                        MiniCssExtractPlugin.loader,
                         'css-loader',
-                        'postcss-loader',
-                        'sass-loader',
+                        'sass-loader'
                     ],
                 },
                 {
@@ -119,6 +120,7 @@ module.exports = () => {
                     {from: "src/UQFooter/js/uqds.js", to: "uq-footer.js"},
                     {from: "src/UQSiteHeader/js/uqds.js", to: "uq-site-header.js"},
                     {from: "src/applications/libguides/arrow-right.png", to: "applications/libguides/arrow-right.png"},
+                    {from: "src/applications/libguides/arrow-down.png", to: "applications/libguides/arrow-down.png"},
                 ],
             }),
             // This plugin will rename the external js imports to full paths for deploy
