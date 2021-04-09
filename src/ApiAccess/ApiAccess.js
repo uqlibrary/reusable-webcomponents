@@ -228,7 +228,7 @@ class ApiAccess {
     }
 
     isMock() {
-        return process.env.BRANCH !== 'production' && process.env.USE_MOCK;
+        return process.env.USE_MOCK;
     }
 
     loadJS() {
