@@ -7,10 +7,10 @@
     "dist"
   ],
   "scripts": {
-    "build": "cross-env NODE_ENV=local webpack",
-    "build:development": "cross-env NODE_ENV=development webpack",
-    "build:staging": "cross-env NODE_ENV=staging webpack",
-    "build:production": "cross-env NODE_ENV=production webpack",
+    "build": "cross-env NODE_ENV=local webpack && npm run compilesass",
+    "build:development": "cross-env NODE_ENV=development webpack && npm run compilesass",
+    "build:staging": "cross-env NODE_ENV=staging webpack && npm run compilesass",
+    "build:production": "cross-env NODE_ENV=production webpack && npm run compilesass",
     "start:mock": "cross-env NODE_ENV=local USE_MOCK=true FULL_PATH=http://localhost:8080 NODE_OPTIONS='--max-old-space-size=2048' webpack-dev-server --open",
     "start": "cross-env NODE_ENV=local webpack-dev-server --open",
     "clean": "rm -rf node_modules dist cypress/screenshots cypress/video",
@@ -27,7 +27,8 @@
     "test": "start-server-and-test start-test-server http://localhost:8080 cypress:run",
     "test:local": "start-server-and-test start-test-server http://localhost:8080 cypress:open",
     "prettier:test": "npx prettier --check ./",
-    "prettier:fix": "npx prettier --write ./"
+    "prettier:fix": "npx prettier --write ./",
+    "compilesass": "node-sass ./src/applications --output ./dist/applications"
   },
   "repository": {
     "type": "git",
@@ -39,6 +40,7 @@
   "devDependencies": {
     "axe-core": "^4.1.2",
     "babel-eslint": "^10.1.0",
+    "clean-css-cli": "^5.2.2",
     "copy-webpack-plugin": "^6.2.1",
     "cypress": "^6.8.0",
     "cypress-axe": "^0.12.2",
@@ -48,9 +50,15 @@
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.3.1",
+    "file-loader": "^6.2.0",
+    "mini-css-extract-plugin": "^1.4.1",
+    "node-sass": "^4.14.1",
     "prettier": "2.2.1",
     "prettier-eslint-cli": "^5.0.1",
+    "sass-loader": "^7.3.1",
     "start-server-and-test": "^1.12.0",
+    "webpack": "^4.46.0",
+    "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.7.2"
   },
   "dependencies": {
@@ -66,16 +74,12 @@
     "core-js": "^3.9.1",
     "html-webpack-plugin": "^3.2.0",
     "js-cookie": "^2.2.1",
-    "node-sass": "^4.12.0",
     "postcss-loader": "^3.0.0",
     "query-string": "^6.14.1",
     "regenerator-runtime": "^0.13.7",
     "replace-in-file-webpack-plugin": "^1.0.6",
-    "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
-    "terser-webpack-plugin": "^4.2.3",
-    "webpack": "^4.35.2",
-    "webpack-cli": "^3.3.5"
+    "terser-webpack-plugin": "^4.2.3"
   },
   "browserslist": [
     "defaults",
