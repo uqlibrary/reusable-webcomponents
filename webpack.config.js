@@ -8,11 +8,18 @@ const libraryName = 'uq-lib-reusable';
 const outputFile = `${libraryName}.min.js`;
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+// get branch name for current build (if running build locally, CI_BRANCH is not set - it's set in AWS)
+const branch = process && process.env && process.env.CI_BRANCH ? process.env.CI_BRANCH : 'development';
+const environment = (branch === 'production' || branch === 'staging') ? branch : 'development';
+
+// get configuration for the branch
+const config = require('./config').default[environment] || require('./config').default.development;
+
 const useMock = !!process.env.USE_MOCK || false;
 
 module.exports = () => {
     const componentJsPath = {
-        local: '',
+        local: 'http://localhost:8080/',
         development: 'https://assets.library.uq.edu.au/reusable-webcomponents-development/' + process.env.CI_BRANCH + '/',
         staging: 'https://assets.library.uq.edu.au/reusable-webcomponents-staging/',
         production: 'https://assets.library.uq.edu.au/reusable-webcomponents/',
@@ -90,18 +97,19 @@ module.exports = () => {
                 },
             ],
         },
-        optimization: {
-            minimize: true,
-            minimizer: [
-                new TerserPlugin({
-                    terserOptions: {
-                        compress: {
-                            drop_console: process.env.NODE_ENV === 'development',
-                        }
-                    }
-                })
-            ],
-        },
+        // temp remove while we check we are sending correct api call
+        // optimization: {
+        //     minimize: true,
+        //     minimizer: [
+        //         new TerserPlugin({
+        //             terserOptions: {
+        //                 compress: {
+        //                     drop_console: process.env.NODE_ENV === 'development',
+        //                 }
+        //             }
+        //         })
+        //     ],
+        // },
         plugins: [
             new HTMLWebpackPlugin({
                 template: path.resolve(__dirname, 'index.html'),
@@ -158,10 +166,11 @@ module.exports = () => {
             }]),
             new webpack.DefinePlugin({
                 __DEVELOPMENT__: true,
-                'process.env.NODE_ENV': JSON.stringify('development'),
+                'process.env.NODE_ENV': JSON.stringify(config.environment),
                 'process.env.USE_MOCK': JSON.stringify(useMock),
-                'process.env.BRANCH': JSON.stringify('development'),
+                'process.env.BRANCH': JSON.stringify(config.environment),
                 'process.env.FULL_PATH': JSON.stringify(process.env.FULL_PATH),
+                'process.env.API_URL': JSON.stringify(config.api),
             }),
         ].filter(Boolean),
         mode: 'none',
