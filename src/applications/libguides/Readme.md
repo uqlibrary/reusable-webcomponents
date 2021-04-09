@@ -11,7 +11,7 @@ To install the reusable web components, enter the libguides "look and feel" page
 <script type="text/javascript" src="https://assets.library.uq.edu.au/reusable-webcomponents-XXXXX/YYYYY/uq-lib-reusable.min.js" defer></script>
 ```
 * Where XXXXX is the branch you expect to use (ie. staging, development or production).
-* Where YYYYY is the mranch name if a development build. Omit if not.
+* Where YYYYY is the branch name and XXXXX is `developemnt` if a development build. Omit if not.
 
 When complete, click save.
 
