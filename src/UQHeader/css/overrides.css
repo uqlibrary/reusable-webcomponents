@@ -1,4 +1,10 @@
 /* for primo */
+
+.uq-header {
+    font-size: 16px;
+}
+* {  font-size: 16px; }
+
 .menu-global a {
     -webkit-font-smoothing: initial;
     font-stretch: inherit;

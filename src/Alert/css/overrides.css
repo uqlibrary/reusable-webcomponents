@@ -1,3 +1,8 @@
+.alert {
+    font-size: 16px;
+}
+* {  font-size: 16px; }
+
 #alert {
     border-bottom: 1px solid rgba(0,0,0,0.1);
     font-family: 'Roboto', sans-serif !important;
@@ -52,6 +57,7 @@
 #alert #alert-action-desktop {
     display: inline-block;
     padding: 6px 8px;
+    margin-right: 16px;
     border-radius: 4px;
     text-transform: uppercase;
     white-space: nowrap;

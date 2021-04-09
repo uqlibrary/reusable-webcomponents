@@ -54,57 +54,57 @@
     justify-content: flex-start;
     align-items: stretch;
     align-content: flex-start;
-    margin-top: -0.5rem;
-    margin-bottom: -0.5rem;
+    margin-top: -0.5em;
+    margin-bottom: -0.5em;
 }
 
-@media (min-width: 37.5rem) {
+@media (min-width: 37.5em) {
     .uq-grid {
-        margin-top: -0.75rem;
-        margin-bottom: -0.75rem;
+        margin-top: -0.75em;
+        margin-bottom: -0.75em;
     }
 }
 
-@media (min-width: 75rem) {
+@media (min-width: 75em) {
     .uq-grid {
-        margin-top: -1rem;
-        margin-bottom: -1rem;
+        margin-top: -1em;
+        margin-bottom: -1em;
     }
 }
 
 .uq-grid__col {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
     flex: none;
 }
 
-@media (min-width: 37.5rem) {
+@media (min-width: 37.5em) {
     .uq-grid__col {
-        padding-left: 0.75rem;
-        padding-right: 0.75rem;
+        padding-left: 0.75em;
+        padding-right: 0.75em;
     }
 }
 
-@media (min-width: 75rem) {
+@media (min-width: 75em) {
     .uq-grid__col {
-        padding-left: 1rem;
-        padding-right: 1rem;
+        padding-left: 1em;
+        padding-right: 1em;
     }
 }
 
-@media (min-width: 37.5rem) {
+@media (min-width: 37.5em) {
     .uq-grid__col {
-        padding-top: 0.75rem;
-        padding-bottom: 0.75rem;
+        padding-top: 0.75em;
+        padding-bottom: 0.75em;
     }
 }
 
-@media (min-width: 75rem) {
+@media (min-width: 75em) {
     .uq-grid__col {
-        padding-top: 1rem;
-        padding-bottom: 1rem;
+        padding-top: 1em;
+        padding-bottom: 1em;
     }
 }
 
@@ -112,21 +112,21 @@
     .uq-grid {
         display: grid;
         grid-template-columns: repeat(24, 1fr);
-        grid-gap: 1rem 0;
+        grid-gap: 1em 0;
         margin-top: 0;
         margin-bottom: 0;
     }
 
-    @media (min-width: 37.5rem) {
+    @media (min-width: 37.5em) {
         .uq-grid {
-            grid-row-gap: 1.5rem;
+            grid-row-gap: 1.5em;
             margin-top: 0;
             margin-bottom: 0;
         }
     }
-    @media (min-width: 75rem) {
+    @media (min-width: 75em) {
         .uq-grid {
-            grid-row-gap: 2rem;
+            grid-row-gap: 2em;
             margin-top: 0;
             margin-bottom: 0;
         }
@@ -136,13 +136,13 @@
         padding-bottom: 0;
     }
 
-    @media (min-width: 37.5rem) {
+    @media (min-width: 37.5em) {
         .uq-grid__col {
             padding-top: 0;
             padding-bottom: 0;
         }
     }
-    @media (min-width: 75rem) {
+    @media (min-width: 75em) {
         .uq-grid__col {
             padding-top: 0;
             padding-bottom: 0;
@@ -151,87 +151,87 @@
 }
 
 .uq-grid:not(.uq-grid--full-width) {
-    margin-left: 1rem;
-    margin-right: 1rem;
+    margin-left: 1em;
+    margin-right: 1em;
 }
 
-@media (min-width: 32.5rem) {
+@media (min-width: 32.5em) {
     .uq-grid:not(.uq-grid--full-width) {
         margin-left: auto;
         margin-right: auto;
-        max-width: 30.5rem;
+        max-width: 30.5em;
     }
 }
 
-@media (min-width: 37.5rem) {
+@media (min-width: 37.5em) {
     .uq-grid:not(.uq-grid--full-width) {
-        margin-left: 3.25rem;
-        margin-right: 3.25rem;
+        margin-left: 3.25em;
+        margin-right: 3.25em;
         max-width: none;
     }
 }
 
-@media (min-width: 64.25rem) {
+@media (min-width: 64.25em) {
     .uq-grid:not(.uq-grid--full-width) {
         margin-left: auto;
         margin-right: auto;
-        max-width: 57.75rem;
+        max-width: 57.75em;
     }
 }
 
-@media (min-width: 75rem) {
+@media (min-width: 75em) {
     .uq-grid:not(.uq-grid--full-width) {
-        margin-left: 8.375rem;
-        margin-right: 8.375rem;
+        margin-left: 8.375em;
+        margin-right: 8.375em;
         max-width: none;
     }
 }
 
-@media (min-width: 90rem) {
+@media (min-width: 90em) {
     .uq-grid:not(.uq-grid--full-width) {
         margin-left: auto;
         margin-right: auto;
-        max-width: 73.25rem;
+        max-width: 73.25em;
     }
 }
 
 .uq-grid--full-width {
-    margin-left: -0.5rem;
-    margin-right: -0.5rem;
+    margin-left: -0.5em;
+    margin-right: -0.5em;
     max-width: none;
 }
 
-@media (min-width: 37.5rem) {
+@media (min-width: 37.5em) {
     .uq-grid--full-width {
-        margin-left: -0.75rem;
-        margin-right: -0.75rem;
+        margin-left: -0.75em;
+        margin-right: -0.75em;
     }
 }
 
-@media (min-width: 75rem) {
+@media (min-width: 75em) {
     .uq-grid--full-width {
-        margin-left: -1rem;
-        margin-right: -1rem;
+        margin-left: -1em;
+        margin-right: -1em;
     }
 }
 
 .uq-grid .uq-grid {
-    margin-left: -0.5rem;
-    margin-right: -0.5rem;
+    margin-left: -0.5em;
+    margin-right: -0.5em;
     max-width: none;
 }
 
-@media (min-width: 37.5rem) {
+@media (min-width: 37.5em) {
     .uq-grid .uq-grid {
-        margin-left: -0.75rem;
-        margin-right: -0.75rem;
+        margin-left: -0.75em;
+        margin-right: -0.75em;
     }
 }
 
-@media (min-width: 75rem) {
+@media (min-width: 75em) {
     .uq-grid .uq-grid {
-        margin-left: -1rem;
-        margin-right: -1rem;
+        margin-left: -1em;
+        margin-right: -1em;
     }
 }
 
@@ -503,7 +503,7 @@
     }
 }
 
-@media (min-width: 37.5rem) {
+@media (min-width: 37.5em) {
     .uq-grid__col--xl-1 {
         width: 8.3333333333%;
     }
@@ -706,7 +706,7 @@
     }
 }
 
-@media (min-width: 75rem) {
+@media (min-width: 75em) {
     .uq-grid__col--xl-1 {
         width: 8.3333333333%;
     }
@@ -827,18 +827,18 @@
 }
 
 .uq-grid--flexible > .uq-grid__col {
-    flex: 1 0 15.625rem;
+    flex: 1 0 15.625em;
     max-width: 100%;
     width: auto;
 }
 
 @supports (display: grid) {
     .uq-grid--flexible {
-        grid-template-columns: repeat(auto-fit, minmax(15.625rem, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(15.625em, 1fr));
     }
 }
 
-@media (min-width: 37.5rem) {
+@media (min-width: 37.5em) {
     .uq-grid--golden > .uq-grid__col:nth-child(even) {
         margin-left: 12.5%;
     }
@@ -851,7 +851,7 @@
     }
 }
 
-@media (min-width: 75rem) {
+@media (min-width: 75em) {
     .uq-grid--golden > .uq-grid__col:nth-child(even) {
         margin-left: 8.3333333333%;
     }
@@ -864,7 +864,7 @@
     }
 }
 
-@media (max-width: 63.9375rem) {
+@media (max-width: 63.9375em) {
     .uq-grid--scroll-small {
         display: flex;
         flex-wrap: nowrap;
@@ -872,95 +872,95 @@
     }
 
     .uq-grid--scroll-small .uq-grid__col {
-        flex: 1 0 18.75rem;
-        margin-right: 1.5rem;
+        flex: 1 0 18.75em;
+        margin-right: 1.5em;
     }
 }
 
 .uq-layout-container {
-    margin-left: 1rem;
-    margin-right: 1rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    margin-left: 1em;
+    margin-right: 1em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
 }
 
-@media (min-width: 32.5rem) {
+@media (min-width: 32.5em) {
     .uq-layout-container {
         margin-left: auto;
         margin-right: auto;
-        max-width: 30.5rem;
+        max-width: 30.5em;
     }
 }
 
-@media (min-width: 37.5rem) {
+@media (min-width: 37.5em) {
     .uq-layout-container {
-        margin-left: 3.25rem;
-        margin-right: 3.25rem;
+        margin-left: 3.25em;
+        margin-right: 3.25em;
         max-width: none;
     }
 }
 
-@media (min-width: 64.25rem) {
+@media (min-width: 64.25em) {
     .uq-layout-container {
         margin-left: auto;
         margin-right: auto;
-        max-width: 57.75rem;
+        max-width: 57.75em;
     }
 }
 
-@media (min-width: 75rem) {
+@media (min-width: 75em) {
     .uq-layout-container {
-        margin-left: 8.375rem;
-        margin-right: 8.375rem;
+        margin-left: 8.375em;
+        margin-right: 8.375em;
         max-width: none;
     }
 }
 
-@media (min-width: 90rem) {
+@media (min-width: 90em) {
     .uq-layout-container {
         margin-left: auto;
         margin-right: auto;
-        max-width: 73.25rem;
+        max-width: 73.25em;
     }
 }
 
-@media (min-width: 37.5rem) {
+@media (min-width: 37.5em) {
     .uq-layout-container {
-        padding-left: 0.75rem;
-        padding-right: 0.75rem;
+        padding-left: 0.75em;
+        padding-right: 0.75em;
     }
 }
 
-@media (min-width: 75rem) {
+@media (min-width: 75em) {
     .uq-layout-container {
-        padding-left: 1rem;
-        padding-right: 1rem;
+        padding-left: 1em;
+        padding-right: 1em;
     }
 }
 
 .uq-layout-container .uq-grid {
-    margin-left: -0.5rem;
-    margin-right: -0.5rem;
+    margin-left: -0.5em;
+    margin-right: -0.5em;
     max-width: none;
 }
 
-@media (min-width: 37.5rem) {
+@media (min-width: 37.5em) {
     .uq-layout-container .uq-grid {
-        margin-left: -0.75rem;
-        margin-right: -0.75rem;
+        margin-left: -0.75em;
+        margin-right: -0.75em;
     }
 }
 
-@media (min-width: 75rem) {
+@media (min-width: 75em) {
     .uq-layout-container .uq-grid {
-        margin-left: -1rem;
-        margin-right: -1rem;
+        margin-left: -1em;
+        margin-right: -1em;
     }
 }
 
 body {
     color: #2b2a29;
-    font-size: 1rem;
+    font-size: 1em;
     font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-weight: 400;
     line-height: 1.5;
@@ -1008,45 +1008,45 @@ h6 {
 }
 
 h1 {
-    margin-top: 1.5rem;
-    margin-bottom: 2.5rem;
-    font-size: 2.5rem;
+    margin-top: 1.5em;
+    margin-bottom: 2.5em;
+    font-size: 2.5em;
     font-family: 'Montserrat', Helvetica, Arial, sans-serif;
 }
 
 h2 {
-    margin-top: 2.5rem;
-    margin-bottom: 1.5rem;
-    font-size: 2rem;
+    margin-top: 2.5em;
+    margin-bottom: 1.5em;
+    font-size: 2em;
 }
 
 h3 {
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
+    margin-top: 2em;
+    margin-bottom: 1em;
+    font-size: 1.5em;
 }
 
 h4 {
-    margin-top: 2rem;
-    margin-bottom: 1.5rem;
-    font-size: 1.25rem;
+    margin-top: 2em;
+    margin-bottom: 1.5em;
+    font-size: 1.25em;
 }
 
 h5 {
-    margin-top: 1.5rem;
-    margin-bottom: 1rem;
-    font-size: 1.125rem;
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+    font-size: 1.125em;
 }
 
 h6 {
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
-    font-size: 1rem;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    font-size: 1em;
 }
 
 p {
     margin-top: 0;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.5em;
 }
 
 b,
@@ -1059,8 +1059,8 @@ em {
 }
 
 blockquote {
-    margin: 0 0 1.5rem;
-    padding-left: 1.5rem;
+    margin: 0 0 1.5em;
+    padding-left: 1.5em;
     border-left: 6px solid #2b2a29;
     font-family: 'Merriweather', Georgia, serif;
     font-style: italic;
@@ -1069,13 +1069,13 @@ blockquote {
 ol,
 ul {
     margin-top: 0;
-    margin-bottom: 1.5rem;
-    padding-left: 1.5rem;
+    margin-bottom: 1.5em;
+    padding-left: 1.5em;
 }
 
 ol li,
 ul li {
-    margin-bottom: 1rem;
+    margin-bottom: 1em;
 }
 
 ol li:last-child,
@@ -1090,15 +1090,15 @@ dl {
 
 dl dt {
     color: #51247a;
-    font-size: 0.875rem;
+    font-size: 0.875em;
     text-transform: uppercase;
     font-weight: 500;
 }
 
 dl dd {
     margin-left: 0;
-    margin-bottom: 1.5rem;
-    font-size: 1.125rem;
+    margin-bottom: 1.5em;
+    font-size: 1.125em;
 }
 
 a {
@@ -1137,35 +1137,35 @@ a:hover {
 }
 
 .text--xxxxl {
-    font-size: 2.5rem;
+    font-size: 2.5em;
 }
 
 .text--xxxl {
-    font-size: 2rem;
+    font-size: 2em;
 }
 
 .text--xxl {
-    font-size: 1.5rem;
+    font-size: 1.5em;
 }
 
 .text--xl {
-    font-size: 1.25rem;
+    font-size: 1.25em;
 }
 
 .text--l {
-    font-size: 1.125rem;
+    font-size: 1.125em;
 }
 
 .text--m {
-    font-size: 1rem;
+    font-size: 1em;
 }
 
 .text--s {
-    font-size: 0.875rem;
+    font-size: 0.875em;
 }
 
 .text--xs {
-    font-size: 0.75rem;
+    font-size: 0.75em;
 }
 
 .text--weight-normal {
@@ -1210,20 +1210,20 @@ a:hover {
     display: none !important;
 }
 
-@media (max-width: 37.4375rem) {
+@media (max-width: 37.4375em) {
     .hidden--mobile-only {
         display: none !important;
     }
 }
 
-@media (min-width: 37.5rem) {
+@media (min-width: 37.5em) {
     .hidden--md,
     .hidden--tablet {
         display: none !important;
     }
 }
 
-@media (min-width: 75rem) {
+@media (min-width: 75em) {
     .hidden--xl,
     .hidden--desktop {
         display: none !important;
@@ -1244,7 +1244,7 @@ a:hover {
 .accordion {
     border-bottom: 1px solid #e7e3e0;
     list-style: none;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.5em;
     overflow: hidden;
     padding: 0;
 }
@@ -1269,11 +1269,11 @@ a:hover {
     cursor: pointer;
     display: inline-block;
     font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.2em;
     font-weight: 400;
     line-height: normal;
     margin: 0;
-    padding: 1rem 1rem 1rem 0;
+    padding: 1em 1em 1em 0;
     position: relative;
     text-align: left;
     text-decoration: none;
@@ -1281,10 +1281,10 @@ a:hover {
     width: 100%;
 }
 
-@media (min-width: 37.5rem) {
+@media (min-width: 37.5em) {
     .accordion__toggle {
-        font-size: 1.5rem;
-        padding: 1rem 1rem 1rem 1rem;
+        font-size: 1.5em;
+        padding: 1em 1em 1em 1em;
     }
 }
 
@@ -1292,8 +1292,8 @@ a:hover {
     content: '';
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3e%3cdefs%3e%3cstyle%3e.a%7bfill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;%7d%3c/style%3e%3c/defs%3e%3ctitle%3eadd%3c/title%3e%3cline class='a' x1='12' y1='1' x2='12' y2='23'/%3e%3cline class='a' x1='23' y1='12' x2='1' y2='12'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
-    width: 1rem;
-    height: 1rem;
+    width: 1em;
+    height: 1em;
     float: right;
     transform: translateY(50%);
 }
@@ -1334,9 +1334,9 @@ a:hover {
     transition: height 200ms ease;
 }
 
-@media (min-width: 37.5rem) {
+@media (min-width: 37.5em) {
     .accordion__content {
-        padding: 0 1rem;
+        padding: 0 1em;
     }
 }
 
@@ -1369,12 +1369,12 @@ a:hover {
 }
 
 .accordion--secondary .accordion__toggle {
-    font-size: 1.1rem;
+    font-size: 1.1em;
 }
 
-@media (min-width: 37.5rem) {
+@media (min-width: 37.5em) {
     .accordion--secondary .accordion__toggle {
-        font-size: 1.2rem;
+        font-size: 1.2em;
     }
 }
 
@@ -1408,43 +1408,43 @@ a:hover {
     margin-bottom: 0;
 }
 
-@media only screen and (min-width: 37.5rem) {
+@media only screen and (min-width: 37.5em) {
     .uq-grid-menu {
         grid: auto-flow/repeat(2, 1fr);
     }
 }
 
-@media only screen and (min-width: 75rem) {
+@media only screen and (min-width: 75em) {
     .uq-grid-menu {
         grid: auto-flow/repeat(3, 1fr);
     }
 }
 
-@media only screen and (min-width: 37.5rem) {
+@media only screen and (min-width: 37.5em) {
     .uq-grid-menu--2-column {
         grid: auto-flow/repeat(2, 1fr);
     }
 }
 
-@media only screen and (min-width: 37.5rem) {
+@media only screen and (min-width: 37.5em) {
     .uq-grid-menu--3-column {
         grid: auto-flow/repeat(2, 1fr);
     }
 }
 
-@media only screen and (min-width: 75rem) {
+@media only screen and (min-width: 75em) {
     .uq-grid-menu--3-column {
         grid: auto-flow/repeat(3, 1fr);
     }
 }
 
-@media only screen and (min-width: 37.5rem) {
+@media only screen and (min-width: 37.5em) {
     .uq-grid-menu--4-column {
         grid: auto-flow/repeat(2, 1fr);
     }
 }
 
-@media only screen and (min-width: 75rem) {
+@media only screen and (min-width: 75em) {
     .uq-grid-menu--4-column {
         grid: auto-flow/repeat(4, 1fr);
     }
@@ -1455,10 +1455,10 @@ a:hover {
     border-bottom: 1px solid #efedeb;
     color: #1e72c6;
     display: block;
-    font-size: 1.375rem;
+    font-size: 1.375em;
     font-weight: 400;
     line-height: normal;
-    padding: 1rem 2rem 1rem 1rem;
+    padding: 1em 2em 1em 1em;
     position: relative;
     height: 100%;
 }
@@ -1467,12 +1467,12 @@ a:hover {
 .uq-grid-menu__link::after {
     content: '';
     position: absolute;
-    right: 1.5rem;
-    top: 1.25rem;
-    width: 2rem;
-    height: 2rem;
+    right: 1.5em;
+    top: 1.25em;
+    width: 2em;
+    height: 2em;
     transition: ease 0.3s;
-    margin-top: -0.2rem;
+    margin-top: -0.2em;
 }
 
 .uq-grid-menu a:hover,
@@ -1487,7 +1487,7 @@ a:hover {
     content: '';
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-5 0 24 24' %3E%3Cpath d='M5.145 14.285l6.167-6a.41.41 0 000-.598L5.145 1.715' fill='none' stroke='%23FFF' stroke-width='.75' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    right: 0.5rem;
+    right: 0.5em;
 }
 
 .uq-grid-menu a:hover a,
@@ -1506,22 +1506,22 @@ a:hover {
 }
 
 .uq-grid-menu__title {
-    font-size: 1.375rem;
+    font-size: 1.375em;
     font-weight: 400;
 }
 
 .uq-grid-menu__description {
     color: #2b2a29;
     display: block;
-    font-size: 0.8rem;
+    font-size: 0.8em;
     font-weight: 300;
     line-height: normal;
-    margin-top: 0.25rem;
+    margin-top: 0.25em;
 }
 
 .uq-grid-menu__icon {
-    margin-top: -0.3rem;
-    margin-right: 0.5rem;
+    margin-top: -0.3em;
+    margin-right: 0.5em;
     transition: filter 0.2s;
 }
 
@@ -1530,9 +1530,9 @@ a:hover {
     color: #2b2a29;
 }
 
-@media only screen and (min-width: 37.5rem) {
+@media only screen and (min-width: 37.5em) {
     .uq-grid-menu {
-        gap: 1rem;
+        gap: 1em;
     }
 }
 
@@ -1573,7 +1573,7 @@ a:hover {
     color: #2b2a29;
     box-sizing: border-box;
     font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size: 1rem;
+    font-size: 1em;
     font-weight: 400;
     line-height: 1.5;
 }
@@ -1585,71 +1585,71 @@ a:hover {
 }
 
 .uq-site-header__title-container {
-    margin-left: 1rem;
-    margin-right: 1rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    margin-left: 1em;
+    margin-right: 1em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
     align-items: center;
     display: flex;
     flex-wrap: wrap;
     float: none;
     justify-content: space-between;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-top: 1em;
+    padding-bottom: 1em;
     position: relative;
 }
 
-@media (min-width: 32.5rem) {
+@media (min-width: 32.5em) {
     .uq-site-header__title-container {
         margin-left: auto;
         margin-right: auto;
-        max-width: 30.5rem;
+        max-width: 30.5em;
     }
 }
 
-@media (min-width: 37.5rem) {
+@media (min-width: 37.5em) {
     .uq-site-header__title-container {
-        margin-left: 3.25rem;
-        margin-right: 3.25rem;
+        margin-left: 3.25em;
+        margin-right: 3.25em;
         max-width: none;
     }
 }
 
-@media (min-width: 64.25rem) {
+@media (min-width: 64.25em) {
     .uq-site-header__title-container {
         margin-left: auto;
         margin-right: auto;
-        max-width: 57.75rem;
+        max-width: 57.75em;
     }
 }
 
-@media (min-width: 75rem) {
+@media (min-width: 75em) {
     .uq-site-header__title-container {
-        margin-left: 8.375rem;
-        margin-right: 8.375rem;
+        margin-left: 8.375em;
+        margin-right: 8.375em;
         max-width: none;
     }
 }
 
-@media (min-width: 90rem) {
+@media (min-width: 90em) {
     .uq-site-header__title-container {
         margin-left: auto;
         margin-right: auto;
-        max-width: 73.25rem;
+        max-width: 73.25em;
     }
 }
 
-@media (min-width: 37.5rem) {
+@media (min-width: 37.5em) {
     .uq-site-header__title-container {
-        padding-left: 0.75rem;
-        padding-right: 0.75rem;
+        padding-left: 0.75em;
+        padding-right: 0.75em;
     }
 }
 
-@media (min-width: 75rem) {
+@media (min-width: 75em) {
     .uq-site-header__title-container {
-        padding-left: 1rem;
-        padding-right: 1rem;
+        padding-left: 1em;
+        padding-right: 1em;
     }
 }
 
@@ -1658,16 +1658,16 @@ a:hover {
     align-items: center;
 }
 
-@media (min-width: 64rem) {
+@media (min-width: 64em) {
     .uq-site-header__title-container {
-        padding-top: 1.5rem;
-        padding-bottom: 0.5rem;
+        padding-top: 1.5em;
+        padding-bottom: 0.5em;
     }
 }
 
 .uq-site-header__title {
     color: #51247a;
-    font-size: 1.25rem;
+    font-size: 1.25em;
     font-weight: 500;
     margin: 0;
     text-decoration: none;
@@ -1684,15 +1684,15 @@ a:hover {
     border: 0 none;
     color: #51247a;
     cursor: pointer;
-    height: 1.5rem;
+    height: 1.5em;
     margin-bottom: 0;
-    margin-left: 1rem;
+    margin-left: 1em;
     margin-right: 0;
     overflow: hidden;
     padding: 0;
     position: relative;
     text-indent: -100vw;
-    width: 1.5rem;
+    width: 1.5em;
 }
 
 .uq-site-header__navigation-toggle:hover {
@@ -1712,18 +1712,18 @@ a:hover {
     display: block;
     -webkit-filter: invert(20%) sepia(34%) saturate(1979%) hue-rotate(239deg) brightness(97%) contrast(107%);
     filter: invert(20%) sepia(34%) saturate(1979%) hue-rotate(239deg) brightness(97%) contrast(107%);
-    height: 1.5rem;
+    height: 1.5em;
     left: 0;
     position: absolute;
     top: 0;
-    width: 1.5rem;
+    width: 1.5em;
 }
 
 .uq-site-header__navigation-toggle--close:before {
     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Cpath d='M1.715 14.285l12.57-12.57m0 12.57L1.715 1.715' stroke='%23000' stroke-width='.75' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
-@media (min-width: 64rem) {
+@media (min-width: 64em) {
     .uq-site-header__navigation-toggle {
         display: none;
     }
@@ -1736,50 +1736,50 @@ a:hover {
     position: relative;
 }
 
-@media (min-width: 64rem) {
+@media (min-width: 64em) {
     .uq-site-header__navigation-container {
-        margin-left: 1rem;
-        margin-right: 1rem;
+        margin-left: 1em;
+        margin-right: 1em;
     }
 }
 
-@media (min-width: 64rem) and (min-width: 32.5rem) {
+@media (min-width: 64em) and (min-width: 32.5em) {
     .uq-site-header__navigation-container {
         margin-left: auto;
         margin-right: auto;
-        max-width: 30.5rem;
+        max-width: 30.5em;
     }
 }
 
-@media (min-width: 64rem) and (min-width: 37.5rem) {
+@media (min-width: 64em) and (min-width: 37.5em) {
     .uq-site-header__navigation-container {
-        margin-left: 3.25rem;
-        margin-right: 3.25rem;
+        margin-left: 3.25em;
+        margin-right: 3.25em;
         max-width: none;
     }
 }
 
-@media (min-width: 64rem) and (min-width: 64.25rem) {
+@media (min-width: 64em) and (min-width: 64.25em) {
     .uq-site-header__navigation-container {
         margin-left: auto;
         margin-right: auto;
-        max-width: 57.75rem;
+        max-width: 57.75em;
     }
 }
 
-@media (min-width: 64rem) and (min-width: 75rem) {
+@media (min-width: 64em) and (min-width: 75em) {
     .uq-site-header__navigation-container {
-        margin-left: 8.375rem;
-        margin-right: 8.375rem;
+        margin-left: 8.375em;
+        margin-right: 8.375em;
         max-width: none;
     }
 }
 
-@media (min-width: 64rem) and (min-width: 90rem) {
+@media (min-width: 64em) and (min-width: 90em) {
     .uq-site-header__navigation-container {
         margin-left: auto;
         margin-right: auto;
-        max-width: 73.25rem;
+        max-width: 73.25em;
     }
 }
 
@@ -1787,7 +1787,7 @@ a:hover {
     border-bottom: 1px solid #e7e3e0;
     color: #000;
     display: block;
-    padding: 1rem 1.5rem;
+    padding: 1em 1.5em;
     text-decoration: none;
     transition: background-color 0.25s, border-color 0.25s;
 }
@@ -1798,7 +1798,7 @@ a:hover {
     text-decoration: underline;
 }
 
-@media (min-width: 64rem) {
+@media (min-width: 64em) {
     .uq-site-header__navigation a:hover,
     .uq-site-header__navigation a:focus {
         color: inherit;
@@ -1808,7 +1808,7 @@ a:hover {
     }
 }
 
-@media (min-width: 64rem) {
+@media (min-width: 64em) {
     .uq-site-header__navigation a {
         border-bottom: 2px solid transparent;
     }
@@ -1825,7 +1825,7 @@ a:hover {
     display: none;
 }
 
-@media (min-width: 64rem) {
+@media (min-width: 64em) {
     .uq-site-header__navigation__list--level-1 {
         display: flex;
     }
@@ -1840,7 +1840,7 @@ a:hover {
     border-top: 1px solid #e7e3e0;
 }
 
-@media (min-width: 64rem) {
+@media (min-width: 64em) {
     .uq-site-header__navigation__list--level-1.uq-site-header__navigation__list--open {
         border-top: 0 none;
     }
@@ -1855,10 +1855,10 @@ a:hover {
     width: 100%;
     opacity: 0;
     background-color: #f7f6f5;
-    transform: translateY(-0.5rem);
+    transform: translateY(-0.5em);
 }
 
-@media (min-width: 64rem) {
+@media (min-width: 64em) {
     .uq-site-header__navigation__list--level-2 {
         position: absolute;
         width: 320px;
@@ -1881,7 +1881,7 @@ a:hover {
 
 .uq-site-header__navigation__list--level-2 a {
     border-bottom: 1px solid #e7e3e0;
-    padding-left: 3rem;
+    padding-left: 3em;
 }
 
 .uq-site-header__navigation__list--level-2 a:hover,
@@ -1889,9 +1889,9 @@ a:hover {
     background-color: #e7e3e0;
 }
 
-@media (min-width: 64rem) {
+@media (min-width: 64em) {
     .uq-site-header__navigation__list--level-2 a {
-        padding-left: 1.5rem;
+        padding-left: 1.5em;
     }
 }
 
@@ -1908,12 +1908,12 @@ a:hover {
     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' stroke='%2351247A'%3E%3Cpath d='M1.715 10.855l6-6.168a.41.41 0 01.597 0l5.973 6.168' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
-@media (min-width: 64rem) {
+@media (min-width: 64em) {
     .uq-site-header__navigation__list-item--has-subnav > a {
-        padding-right: 2.5rem;
+        padding-right: 2.5em;
         background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' stroke='%2351247A'%3E%3Cpath d='M14.285 5.145l-6 6.167a.41.41 0 01-.598 0L1.715 5.145' fill='none' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-        background-position: right 1.3rem center;
-        background-size: 0.6rem;
+        background-position: right 1.3em center;
+        background-size: 0.6em;
         background-repeat: no-repeat;
     }
 }
@@ -1922,7 +1922,7 @@ a:hover {
     border-left: 2px solid #51247a;
 }
 
-@media (min-width: 64rem) {
+@media (min-width: 64em) {
     .uq-site-header__navigation__list-item--active > a {
         border-left: 0 none;
         border-bottom: 2px solid #51247a;
@@ -1934,8 +1934,8 @@ a:hover {
     top: 0;
     right: 0;
     display: block;
-    width: 3rem;
-    padding: 1rem 1.5rem;
+    width: 3em;
+    padding: 1em 1.5em;
     border-left: 1px solid #e7e3e0;
     text-indent: -100vw;
     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' stroke='%2351247A'%3E%3Cpath d='M14.285 5.145l-6 6.167a.41.41 0 01-.598 0L1.715 5.145' fill='none' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
@@ -1944,26 +1944,26 @@ a:hover {
     overflow: hidden;
 }
 
-@media (min-width: 37.5rem) {
+@media (min-width: 37.5em) {
     .uq-site-header__navigation__sub-toggle {
-        width: 3.5rem;
+        width: 3.5em;
     }
 }
 
-@media (min-width: 64rem) {
+@media (min-width: 64em) {
     .uq-site-header__navigation__sub-toggle {
         display: none;
     }
 }
 
-@media (min-width: 64rem) {
+@media (min-width: 64em) {
     .uq-site-header__navigation {
-        margin: 0 calc(0.75rem - 1.5rem);
+        margin: 0 calc(0.75em - 1.5em);
     }
 }
 
-@media (min-width: 75rem) {
+@media (min-width: 75em) {
     .uq-site-header__navigation {
-        margin: 0 calc(1rem - 1.5rem);
+        margin: 0 calc(1em - 1.5em);
     }
 }

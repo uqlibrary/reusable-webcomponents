@@ -1,4 +1,9 @@
 .connect-footer {
+    font-size: 16px;
+}
+* {  font-size: 16px; }
+
+.connect-footer {
     padding: 0;
     margin: 0;
     position: relative;
@@ -13,7 +18,7 @@
     margin: 0;
 }
 .typographyh6 {
-    font-size: 1.25rem;
+    font-size: 1.25em;
     font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
     font-weight: 400;
     line-height: 1.6;
@@ -39,7 +44,7 @@
 .button {
     color: rgba(0, 0, 0, 0.87);
     padding: 6px 16px;
-    font-size: 0.875rem;
+    font-size: 0.875em;
     min-width: 64px;
     box-sizing: border-box;
     transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
@@ -125,7 +130,7 @@
     width: 1em;
     height: 1em;
     display: inline-block;
-    font-size: 1.5rem;
+    font-size: 1.5em;
     transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     flex-shrink: 0;
     user-select: none;
@@ -222,7 +227,7 @@
 .button {
     color: rgba(0, 0, 0, 0.87);
     padding: 6px 16px;
-    font-size: 0.875rem;
+    font-size: 0.875em;
     min-width: 64px;
     box-sizing: border-box;
     transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
@@ -298,65 +303,65 @@
     }
 }
 .uq-footer__container {
-    margin-left: 1rem;
-    margin-right: 1rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    /*padding-top: 3rem;*/
-    /*padding-bottom: 3rem*/
+    margin-left: 1em;
+    margin-right: 1em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    /*padding-top: 3em;*/
+    /*padding-bottom: 3em*/
 }
 
-@media (min-width: 32.5rem) {
+@media (min-width: 32.5em) {
     .uq-footer__container {
         margin-left: auto;
         margin-right: auto;
-        max-width: 30.5rem;
+        max-width: 30.5em;
     }
 }
 
-@media (min-width: 37.5rem) {
+@media (min-width: 37.5em) {
     .uq-footer__container {
-        margin-left: 3.25rem;
-        margin-right: 3.25rem;
+        margin-left: 3.25em;
+        margin-right: 3.25em;
         max-width: none;
     }
 }
 
-@media (min-width: 64.25rem) {
+@media (min-width: 64.25em) {
     .uq-footer__container {
         margin-left: auto;
         margin-right: auto;
-        max-width: 57.75rem;
+        max-width: 57.75em;
     }
 }
 
-@media (min-width: 75rem) {
+@media (min-width: 75em) {
     .uq-footer__container {
-        margin-left: 8.375rem;
-        margin-right: 8.375rem;
+        margin-left: 8.375em;
+        margin-right: 8.375em;
         max-width: none;
     }
 }
 
-@media (min-width: 90rem) {
+@media (min-width: 90em) {
     .uq-footer__container {
         margin-left: auto;
         margin-right: auto;
-        max-width: 73.25rem;
+        max-width: 73.25em;
     }
 }
 
-@media (min-width: 37.5rem) {
+@media (min-width: 37.5em) {
     .uq-footer__container {
-        padding-left: 0.75rem;
-        padding-right: 0.75rem;
+        padding-left: 0.75em;
+        padding-right: 0.75em;
     }
 }
 
-@media (min-width: 75rem) {
+@media (min-width: 75em) {
     .uq-footer__container {
-        padding-left: 1rem;
-        padding-right: 1rem;
+        padding-left: 1em;
+        padding-right: 1em;
     }
 }
 
@@ -416,14 +421,14 @@
     background-color: #3b1a59 !important;
 }
 .internalLinks {
-    bottom: 1rem;
+    bottom: 1em;
     position: absolute;
 }
 @media (max-width: 959.95px) {
     .internalLinks {
         bottom: auto;
         position: relative;
-        margin-top: 1rem;
+        margin-top: 1em;
         text-align: center;
     }
 }
@@ -445,7 +450,7 @@
 }
 .givingButtonClass {
     color: #ffffff !important;
-    padding: 1rem;
+    padding: 1em;
     text-transform: initial;
     background-color: #2377cb;
 }
