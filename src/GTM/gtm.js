@@ -17,10 +17,11 @@ template.innerHTML = `
 class gtm extends HTMLElement {
     constructor() {
         super();
-        const gtmCode = this.getAttribute('gtm');
+        let gtmCode = this.getAttribute('gtm');
+        if (gtmCode === null) {
+            gtmCode = 'GTM-W4KK37';
+        }
         template.content.getElementById('gtm').src = "https://www.googletagmanager.com/ns.html?id=" + gtmCode;
-
-
 
         // <!-- Google Tag Manager -->
         (function (w, d, s, l, i) {
