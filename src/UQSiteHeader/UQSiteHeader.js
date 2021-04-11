@@ -7,18 +7,20 @@ import myLibStyles from '../UtilityArea/css/mylibrary.css';
 /**
  * API:
  *   <uq-site-header
- *       sitetitle="Library"                     // should be displayed on all sites - the text of the homepage link
- *       siteurl="http://www.library.uq.edu.au"  // should be displayed on all sites - the link of the homepage link
+ *       sitetitle="Library"                     // should be displayed on all sites - the text of the homepage link. Optional. Default "Library"
+ *       siteurl="http://www.library.uq.edu.au"  // should be displayed on all sites - the link of the homepage link. Optional. Default "http://www.library.uq.edu.au"
  *       showmenu                                // should the megamenu be displayed? (just include, don't put ="true" on the end)
- *       showloginbutton                         // should the auth button be displayed? (just include, don't put ="true" on the end)
- *       requireloggedout                        // only valid if 'showloginbutton' is true
- *                                               // forces the auth button to the logged out state (just include, don't put ="true" on the end)
- *       hideaskus                               // when present, askus button will not be displayed (just include for true, or can put "false" on the end)
- *       hidemylibrary                           // when present, mylibrary button will not be displayed (mylibrary is only available when logged in) (just include for true, or can put "false" on the end)
  *   >
- <slot name="site-utilities"></slot>
- </uq-site-header>
-
+ *       <span slot="site-utilities">
+ *           <askus-button />
+ *       </span>
+ *       <span slot="site-utilities">
+ *           <div id="mylibrarystub" />
+ *       </span>
+ *       <span slot="site-utilities">
+ *           <auth-button />
+ *       </span>
+ *   </uq-site-header>
  */
 
 const template = document.createElement('template');
@@ -62,10 +64,11 @@ class UQSiteHeader extends HTMLElement {
 
         // Set the title & link URL
         const siteTitleContent = template.content.getElementById('site-title');
-        const siteTitle = this.getAttribute('sitetitle');
-        const siteURL = this.getAttribute('siteurl');
 
+        const siteTitle = this.getAttribute('sitetitle');
         !!siteTitleContent && !!siteTitle && (siteTitleContent.innerHTML = siteTitle);
+
+        const siteURL = this.getAttribute('siteurl');
         !!siteTitleContent && !!siteURL && (siteTitleContent.href = siteURL);
 
         // this.addAskUsButtonToSlot();
@@ -286,29 +289,29 @@ class UQSiteHeader extends HTMLElement {
         return !!showMenu || showMenu === '';
     }
 
-    isAuthButtonRequested() {
-        if (this.isloginRequired === undefined) {
-            this.isloginRequired = this.getAttribute('showloginbutton');
-        }
-        return !!this.isloginRequired || this.isloginRequired === '';
-    }
-
-    isAskusButtonRequested() {
-        const hideAskUs = this.getAttribute('hideaskus');
-        return hideAskUs === 'false' || hideAskUs === null;
-    }
-
-    isMylibraryButtonRequested() {
-        const hideMylibrary = this.getAttribute('hidemylibrary');
-        return hideMylibrary === 'false' || hideMylibrary === null;
-    }
-
-    overwriteAsLoggedOut() {
-        if (this.overwriteAsLoggedOutVar === undefined) {
-            this.overwriteAsLoggedOutVar = this.getAttribute('requireloggedout');
-        }
-        return !!this.overwriteAsLoggedOutVar || this.overwriteAsLoggedOutVar === '';
-    }
+    // isAuthButtonRequested() {
+    //     if (this.isloginRequired === undefined) {
+    //         this.isloginRequired = this.getAttribute('showloginbutton');
+    //     }
+    //     return !!this.isloginRequired || this.isloginRequired === '';
+    // }
+    //
+    // isAskusButtonRequested() {
+    //     const hideAskUs = this.getAttribute('hideaskus');
+    //     return hideAskUs === 'false' || hideAskUs === null;
+    // }
+    //
+    // isMylibraryButtonRequested() {
+    //     const hideMylibrary = this.getAttribute('hidemylibrary');
+    //     return hideMylibrary === 'false' || hideMylibrary === null;
+    // }
+    //
+    // overwriteAsLoggedOut() {
+    //     if (this.overwriteAsLoggedOutVar === undefined) {
+    //         this.overwriteAsLoggedOutVar = this.getAttribute('requireloggedout');
+    //     }
+    //     return !!this.overwriteAsLoggedOutVar || this.overwriteAsLoggedOutVar === '';
+    // }
 
     connectedCallback() {
         this.loadJS();
