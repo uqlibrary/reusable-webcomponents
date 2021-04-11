@@ -68,9 +68,9 @@ class UQSiteHeader extends HTMLElement {
         !!siteTitleContent && !!siteTitle && (siteTitleContent.innerHTML = siteTitle);
         !!siteTitleContent && !!siteURL && (siteTitleContent.href = siteURL);
 
-        this.addAskUsButtonToSlot();
-        this.addMyLibraryButtonToSlot();
-        this.addAuthButtonToSlot();
+        // this.addAskUsButtonToSlot();
+        // this.addMyLibraryButtonToSlot();
+        // this.addAuthButtonToSlot();
 
         // attributes take a moment to appear sometimes
         const displayMenu = setInterval(() => {
@@ -123,9 +123,9 @@ class UQSiteHeader extends HTMLElement {
     }
 
     addAuthButtonToSlot() {
-      if (!this.isAuthButtonRequested()) {
-        return;
-      }
+        if (!this.isAuthButtonRequested()) {
+            return;
+        }
 
         const buttonExists = document.querySelector('auth-button');
         if (!!buttonExists) {
