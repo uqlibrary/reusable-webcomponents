@@ -60,16 +60,19 @@ class UQSiteHeader extends HTMLElement {
         // Add a shadow DOM
         const shadowDOM = this.attachShadow({ mode: 'open' });
 
-        // Handle the attributes for this component
+        // the attributes seem to need an extra moment before they are available
+        const handleAttributes = setInterval(() => {
+            clearInterval(handleAttributes);
 
-        // Set the title & link URL
-        const siteTitleContent = template.content.getElementById('site-title');
+            // Set the title & link URL
+            const siteTitleContent = template.content.getElementById('site-title');
 
-        const siteTitle = this.getAttribute('sitetitle');
-        !!siteTitleContent && !!siteTitle && (siteTitleContent.innerHTML = siteTitle);
+            const siteTitle = this.getAttribute('sitetitle');
+            !!siteTitleContent && !!siteTitle && (siteTitleContent.innerHTML = siteTitle);
 
-        const siteURL = this.getAttribute('siteurl');
-        !!siteTitleContent && !!siteURL && (siteTitleContent.href = siteURL);
+            const siteURL = this.getAttribute('siteurl');
+            !!siteTitleContent && !!siteURL && (siteTitleContent.href = siteURL);
+        }, 50);
 
         // this.addAskUsButtonToSlot();
         // this.addMyLibraryButtonToSlot();

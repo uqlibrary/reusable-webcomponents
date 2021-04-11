@@ -64,6 +64,11 @@ function createAskusButton() {
 function loadReusableComponents() {
     const firstElement = document.body.children[0];
 
+    if (!document.querySelector('uq-gtm')) {
+        const header = document.createElement('uq-gtm');
+        document.body.insertBefore(header, firstElement);
+    }
+
     if (!document.querySelector('uq-header')) {
         const header = document.createElement('uq-header');
         header.setAttribute("hideLibraryMenuItem", "");

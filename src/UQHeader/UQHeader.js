@@ -89,43 +89,46 @@ class UQHeader extends HTMLElement {
         // Add a shadow DOM
         const shadowDOM = this.attachShadow({ mode: 'open' });
 
-        // Handle the attributes for this component
+        // the attributes seem to need an extra moment before they are available
+        const handleAttributes = setInterval(() => {
+            clearInterval(handleAttributes);
 
-        // The element id for the skip nav, if exists or hides the skip nav
-        const skipNavElement = this.getAttribute('skipnavid');
-        if (!skipNavElement) {
-            template.content.getElementById('skip-nav').remove();
-        }
-
-        // If the attribute hidelibrarymenuitem is true, remove it from the template
-        if (!this.isGlobalMenuLibraryItemRequested()) {
-            const libraryMenuItem = template.content.getElementById('menu-item-library');
-            !!libraryMenuItem && libraryMenuItem.remove();
-        }
-
-        // Append the label for the search widget
-        const searchLabel = this.getAttribute('searchlabel');
-        if (!!searchLabel) {
-            const oldValue = template.content.getElementById('search-label').innerHTML;
-            const newValue = oldValue.replace('library.uq.edu.au', searchLabel);
-            template.content.getElementById('search-label').innerHTML = newValue;
-        }
-
-        // Append the url for the search widget
-        const searchURL = this.getAttribute('searchurl');
-        if (!!searchURL) {
-            template.content.getElementById('edit-as_sitesearch-on').value = searchURL;
-        }
-
-        // Render the template
-        shadowDOM.appendChild(template.content.cloneNode(true));
-
-        if(!!skipNavElement) {
-            const skipToElement = () => {
-                document.getElementById(skipNavElement).focus();
+            // The element id for the skip nav, if exists or hides the skip nav
+            const skipNavElement = this.getAttribute('skipnavid');
+            if (!skipNavElement) {
+                template.content.getElementById('skip-nav').remove();
             }
-            shadowDOM.getElementById('skip-nav').addEventListener('click', skipToElement);
-        }
+
+            // If the attribute hidelibrarymenuitem is true, remove it from the template
+            if (!this.isGlobalMenuLibraryItemRequested()) {
+                const libraryMenuItem = template.content.getElementById('menu-item-library');
+                !!libraryMenuItem && libraryMenuItem.remove();
+            }
+
+            // Append the label for the search widget
+            const searchLabel = this.getAttribute('searchlabel');
+            if (!!searchLabel) {
+                const oldValue = template.content.getElementById('search-label').innerHTML;
+                const newValue = oldValue.replace('library.uq.edu.au', searchLabel);
+                template.content.getElementById('search-label').innerHTML = newValue;
+            }
+
+            // Append the url for the search widget
+            const searchURL = this.getAttribute('searchurl');
+            if (!!searchURL) {
+                template.content.getElementById('edit-as_sitesearch-on').value = searchURL;
+            }
+
+            // Render the template
+            shadowDOM.appendChild(template.content.cloneNode(true));
+
+            if (!!skipNavElement) {
+                const skipToElement = () => {
+                    document.getElementById(skipNavElement).focus();
+                }
+                shadowDOM.getElementById('skip-nav').addEventListener('click', skipToElement);
+            }
+        }, 50);
 
         // Bindings
         this.loadJS = this.loadJS.bind(this);
