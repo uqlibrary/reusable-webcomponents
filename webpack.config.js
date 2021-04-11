@@ -89,19 +89,18 @@ module.exports = () => {
                 },
             ],
         },
-        // temp remove while we check we are sending correct api call
-        // optimization: {
-        //     minimize: true,
-        //     minimizer: [
-        //         new TerserPlugin({
-        //             terserOptions: {
-        //                 compress: {
-        //                     drop_console: process.env.NODE_ENV === 'development',
-        //                 }
-        //             }
-        //         })
-        //     ],
-        // },
+        optimization: {
+            minimize: true,
+            minimizer: [
+                new TerserPlugin({
+                    terserOptions: {
+                        compress: {
+                            drop_console: process.env.NODE_ENV === 'development',
+                        }
+                    }
+                })
+            ],
+        },
         plugins: [
             new HTMLWebpackPlugin({
                 template: path.resolve(__dirname, 'index.html'),
