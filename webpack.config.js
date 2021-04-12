@@ -120,7 +120,9 @@ module.exports = () => {
                     {from: "src/UQSiteHeader/js/uqds.js", to: "uq-site-header.js"},
                     {from: "src/applications/libguides/arrow-right.png", to: "applications/libguides/arrow-right.png"},
                     {from: "src/applications/libguides/arrow-down.png", to: "applications/libguides/arrow-down.png"},
+                    // all load.js and .css file for applications should be included here
                     {from: "src/applications/drupal/load.js", to: "applications/drupal/load.js"},
+                    {from: "src/applications/uqlapp/load.js", to: "applications/uqlapp/load.js"},
                 ],
             }),
             // This plugin will rename the external js imports to full paths for deploy

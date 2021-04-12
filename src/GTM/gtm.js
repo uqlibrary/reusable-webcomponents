@@ -43,10 +43,8 @@ class gtm extends HTMLElement {
     }
 
     getGtmCode() {
-        let gtmCode = this.getAttribute('gtm');
-        if (gtmCode === null) {
-            gtmCode = 'GTM-W4KK37';
-        }
+        const defaultGtmCode = 'GTM-W4KK37';
+        return this.getAttribute('gtm') || defaultGtmCode;
     }
 }
 
