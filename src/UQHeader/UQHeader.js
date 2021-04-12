@@ -89,44 +89,50 @@ class UQHeader extends HTMLElement {
         // Add a shadow DOM
         const shadowDOM = this.attachShadow({ mode: 'open' });
 
+        // Render the template
+        shadowDOM.appendChild(template.content.cloneNode(true));
+
         // the attributes seem to need an extra moment before they are available
+        // (elsewhere we update the template from the attributes - that doesnt work here because the
+        // UQHeader/uqds.js is expecting things to be ready immediately)
         const handleAttributes = setInterval(() => {
             clearInterval(handleAttributes);
 
             // The element id for the skip nav, if exists or hides the skip nav
-            const skipNavElement = this.getAttribute('skipnavid');
-            if (!skipNavElement) {
-                template.content.getElementById('skip-nav').remove();
+            const skipNavDestination = this.getAttribute('skipnavid');
+            if (!skipNavDestination) {
+                const skipNavTemplate = shadowDOM.getElementById('skip-nav');
+                !!skipNavTemplate && skipNavTemplate.remove();
             }
 
-            // If the attribute hidelibrarymenuitem is true, remove it from the template
+            // If the attribute hidelibrarymenuitem is true, remove the global menu item from the DOM
             if (!this.isGlobalMenuLibraryItemRequested()) {
-                const libraryMenuItem = template.content.getElementById('menu-item-library');
+                const libraryMenuItem = shadowDOM.getElementById('menu-item-library');
                 !!libraryMenuItem && libraryMenuItem.remove();
             }
 
             // Append the label for the search widget
             const searchLabel = this.getAttribute('searchlabel');
             if (!!searchLabel) {
-                const oldValue = template.content.getElementById('search-label').innerHTML;
+                const oldValue = shadowDOM.getElementById('search-label').innerHTML;
                 const newValue = oldValue.replace('library.uq.edu.au', searchLabel);
-                template.content.getElementById('search-label').innerHTML = newValue;
+                shadowDOM.getElementById('search-label').innerHTML = newValue;
             }
 
             // Append the url for the search widget
             const searchURL = this.getAttribute('searchurl');
             if (!!searchURL) {
-                template.content.getElementById('edit-as_sitesearch-on').value = searchURL;
+                shadowDOM.getElementById('edit-as_sitesearch-on').value = searchURL;
             }
 
-            // Render the template
-            shadowDOM.appendChild(template.content.cloneNode(true));
-
-            if (!!skipNavElement) {
+            // if skip not removed, above, then add the click handler
+            const skipNavTemplate2 = shadowDOM.getElementById('skip-nav');
+            if(!!skipNavTemplate2) {
                 const skipToElement = () => {
-                    document.getElementById(skipNavElement).focus();
+                    document.getElementById(skipNavTemplate2).focus();
                 }
-                shadowDOM.getElementById('skip-nav').addEventListener('click', skipToElement);
+                const skipNavButton = shadowDOM.getElementById('skip-nav');
+                !!skipNavButton && skipNavButton.addEventListener('click', skipToElement);
             }
         }, 50);
 
