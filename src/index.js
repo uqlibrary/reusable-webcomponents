@@ -1,6 +1,5 @@
 import Alerts from './Alerts/Alerts';
 import ApiAccess from './ApiAccess/ApiAccess.js';
-import PaperCard from './tools/PaperCard.js';
 import AskUsButton from './UtilityArea/AskUsButton.js';
 import AuthButton from './UtilityArea/AuthButton.js';
 import MyLibraryButton from './UtilityArea/MyLibraryButton.js';
@@ -23,7 +22,6 @@ customElements.define('askus-button', AskUsButton);
 customElements.define('auth-button', AuthButton);
 customElements.define('mylibrary-button', MyLibraryButton);
 customElements.define('connect-footer', ConnectFooter);
-customElements.define('paper-card', PaperCard);
 customElements.define('uq-header', UQHeader);
 customElements.define('uq-site-header', UQSiteHeader);
 customElements.define('uq-footer', UQFooter);

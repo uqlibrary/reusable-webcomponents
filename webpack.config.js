@@ -118,7 +118,6 @@ module.exports = () => {
                     {from: "src/UQHeader/js/uqds.js", to: "uq-header.js"},
                     {from: "src/UQFooter/js/uqds.js", to: "uq-footer.js"},
                     {from: "src/UQSiteHeader/js/uqds.js", to: "uq-site-header.js"},
-                    {from: "src/tools/js/uqds.js", to: "paper-card.js"},
                     {from: "src/applications/libguides/arrow-right.png", to: "applications/libguides/arrow-right.png"},
                     {from: "src/applications/libguides/arrow-down.png", to: "applications/libguides/arrow-down.png"},
                     // all load.js for applications should be included here
