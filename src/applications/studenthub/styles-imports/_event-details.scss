@@ -1,0 +1,311 @@
+#main {
+
+  #columns { // table!!
+    #content {
+      .event_type {
+        display: none;
+      }
+
+      .event_booking_stat .num,
+      .event_booking_stat .desc,
+      .event_start ,
+      .event_end {
+        font-size: 16px;
+        font-size: 1rem;
+      }
+      div.event h1 {
+        font-size: 28px;
+        font-size: 1.75rem;
+      }
+
+      .event_title {
+        margin-top: 0.3rem;
+        background-color: $theme-color-lighter;
+        color: $menu-background-color;
+        padding: 96px 0 16px 24px;
+        padding: 6rem 0 1rem 1.5rem;
+        margin-right: 32px;
+        margin-right: 2rem;
+      }
+
+      // put the block spacing on the first item
+      div.event_date {
+        margin-top: 48px;
+        margin-top: 3rem;
+        font-weight: 300;
+      }
+
+
+      div.event_date,
+      div.event_venue,
+      div.event_summary,
+      div.event_details {
+        strong {
+          position: absolute !important;
+          top: -9999px !important;
+          left: -9999px !important;
+        }
+      }
+      div.event_date,
+      div.event_venue,
+      div.event_summary,
+      div.event_booking {
+        br {
+          display: none;
+        }
+      }
+      div.event_contact_details strong {
+        display: none;
+      }
+
+      div.event_details  {
+        margin-left: 60px;
+        margin-left: 3.75rem;
+      }
+
+      div.event_venue ,
+      div.event_time  ,
+      div.event_details,
+      div.event_contact_details {
+        padding-left: 56px;
+        padding-left: 3.5rem;
+        margin-left: 0;
+      }
+
+
+      div.event_venue ,
+      div.event_details,
+      div.event_contact_details,
+      ul.attachments ,
+      div.event_booking_stat:not(.first) {
+        border-bottom: 1px solid #e5e5e5;
+        margin-right: 32px;
+        margin-right: 2rem;
+        margin-bottom: 24px;
+        margin-bottom: 1.5rem;
+        padding-bottom: 24px;
+        padding-bottom: 1.5rem;
+      }
+
+      div.event_summary p {
+        display: block;
+        font-weight: bold;
+        margin-left: 2.5rem;
+        margin-top: -1.5rem;
+      }
+
+        // styling icons
+      // https://github.com/google/material-design-icons/issues/150
+      div.event_contact_details p {
+        margin-left: 16px;
+        margin-left: 1rem;
+      }
+
+      div.event_booking_stat.first .num {
+        margin-left: 11px;
+        margin-left: 0.7rem;
+        padding-left: 0;
+      }
+      div.event_booking_stat .num {
+        padding-left: 56px;
+        padding-left: 3.5rem;
+      }
+
+      div.event_contact_details p {
+        padding-left: 24px;
+        padding-left: 1.5rem;
+        margin-top: -24px;
+        margin-top: -1.5rem;
+        margin-bottom: 0;
+      }
+
+      li.attachment a ,
+      div.event_date .event_start {
+        margin-left: 11px;
+        margin-left: .7rem;
+      }
+
+      div.event_end span ,
+      div.event_venue span {
+        margin-left: 32px;
+        margin-left: 2rem;
+      }
+
+      ul.attachments,
+      li.attachment {
+        list-style-type: none;
+        margin-left: 0;
+        padding-left: 0;
+      }
+
+      div.event_date,
+      div.event_summary,
+      div.event_contact_details,
+      li.attachment,
+      div.event_booking_stat.first {
+        padding-left: 16px;
+        padding-left: 1rem;
+      }
+
+      div.event_date,
+      div.event_summary,
+      div.event_contact_details ,
+      div.event_booking_stat.first {
+        &:before {
+          vertical-align: top;
+          color: #808080;
+        }
+
+      }
+
+      div.event_venue {
+        margin-top: 0;
+      }
+
+      div.event_date:before {
+        content: 'today';
+      }
+      div.event_summary:before {
+        content: 'speaker_notes';
+      }
+      div.event_contact_details:before {
+        content: 'contact_phone';
+      }
+      div.event_booking_stat.first:before {
+        content: 'people';
+      }
+      li.attachment:before {
+        content: 'attachment';
+      }
+
+      // make the two divs run inline
+      div.event_booking_stat {
+        .num,
+        .desc {
+          display: inline;
+          font-weight: 200;
+        }
+        .desc {
+          margin-left: 0;
+          color: inherit;
+        }
+      }
+
+
+
+      .event_booking {
+        border-top-width: 0;
+        h2 {
+          display: none;
+        }
+        p {
+          // this should only be the line: "Cancellations have closed. You will not be able to cancel your booking if you continue."
+          font-weight: bold;
+          margin-left: 16px;
+          margin-left: 1rem;
+        }
+        .event_booking_stat.first,
+        .event_booking_stat {
+          border-width: 0; // removed dotted borders
+          float: none;
+          margin: 11px 0 0 0;
+        }
+        .event_booking_stat {
+          padding: 0;
+        }
+        .event_booking_stat.first {
+          padding-left: 1rem;
+        }
+
+        form {
+          margin-top: 8px;
+        }
+        input[type="submit"] {
+          border: 0 solid transparent;
+          cursor: pointer;
+          font-weight: normal;
+          line-height: normal;
+          margin: 0 0 20px;
+          margin: 0 0 1.25rem;
+          position: relative;
+          text-decoration: none;
+          text-align: center;
+          -webkit-appearance: none;
+          -webkit-border-radius: 0;
+          display: inline-block;
+          padding: 16px 32px 16px 32px;
+          padding-top: 1rem 2rem 1rem 2rem;
+          font-size: 16px;
+          font-size: 1rem;
+          background-color: $accent-color;
+          color: #fff;
+          transition: background-color 300ms ease-out;
+          text-transform: uppercase;
+        }
+
+      }
+
+      #message {
+        padding: 10px;
+      }
+      #message.flash {
+        color: #000;
+        background-color: $accent-color-lighter;
+      }
+
+    }
+
+  }
+
+}
+
+.event_booking_stat {
+  width: auto;
+}
+
+.nubbin {
+  // this class controls the positioning of the little 'edit' nubbin
+  // the changes to the layout to match uq meant it could not be moused over
+  // pull back inside the block so it can be moused over
+  // only admins will see this
+  left: inherit;
+  right: 10px;
+}
+
+@media only screen and (max-width: 700px) {
+  #main {
+
+    #columns { // table!!
+      #content {
+        div.event_venue,
+        div.event_details,
+        div.event_contact_details,
+        ul.attachments,
+        div.event_booking_stat:not(.first) {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}
+
+
+// both IE & edge are unable to reach the material design icons
+// we are replacing the breadcrumb icon with a >
+// and ignoring the body icons
+@supports (-ms-text-combine-horizontal:none) // ie11
+or (-ms-ime-align:auto) // edge
+{
+  body ol.breadcrumbList li:before {
+    content: '>';
+    padding: 0 10px;
+    margin-top: -8px;
+  }
+  // extra space is put in where the icons should be - possibly enough for the text name of the icon?
+  body #main #columns #content div.event_date {
+    margin-left: -96px;
+  }
+  body #main #columns #content .event_booking div.event_booking_stat.first .num {
+    margin-left:-108px;
+  }
+}

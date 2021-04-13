@@ -1,0 +1,127 @@
+#main {
+
+  #columns { // table!!
+
+    .sidebar { //right hand nav bar of table
+      background-color: $menu-background-color;
+      color: #222;
+      border-width: 0;
+      font-size: inherit;
+      max-width: 350px;
+
+      h3 {
+        border-bottom-width: 0;
+        line-height: 1.25;
+        font-size: 1.3em;
+        background-color: #fff;
+        color: #222;
+      }
+
+      .body { // block of upcoming events links
+
+        li.reformatted span.caption { // hide the old format date when we have reformatted wwith js
+          display: none;
+        }
+
+        ul {
+          margin: 0;
+          padding:0;
+        }
+        li {
+          list-style: none;
+          padding: 0;
+          margin-bottom: 0.5rem;
+
+          br {
+            display: none;
+          }
+          span.caption , // event date
+          a { // name of event
+            display: block;
+            background-color: $footer-background-color;
+            color: #000;
+            font-weight: 400;
+          }
+          span.caption {
+            font-style: normal;
+            padding: 0 0 1.7rem 5rem;
+          }
+          a { // name of event
+            padding: 16px 0 27px 16px;
+            padding: 1rem 0 1.7rem 1rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+
+          .formatted-date {
+            width: 2rem;
+            background-color: lighten($theme-color, 30%);
+            color: #fff;
+            text-align: center;
+            padding: 3px 16px 7px 16px;
+            padding: 0.2rem 1rem 0.4rem 1rem;
+            float: left;
+            padding-bottom: 0.4rem;
+          }
+          .day {
+            font-size: 1.6rem;
+          }
+          .month {
+            text-transform: uppercase;
+            margin-top: -0.5rem;
+          }
+          &:first-child .formatted-date {
+            background-color: $theme-color;
+          }
+          &:nth-child(2) .formatted-date {
+            background-color:  lighten($theme-color, 10%);
+          }
+          &:nth-child(3) .formatted-date {
+            background-color:  lighten($theme-color, 20%);
+          }
+
+        }
+
+        // more events button at bottom of list
+        & > a {
+          background-color: $accent-color;
+          color: $menu-background-color;
+          margin-top: 24px;
+          margin-top: 1.5rem;
+          padding: 16px 32px;
+          padding: 1rem 2rem;
+          display: block;
+          white-space: nowrap;
+          text-align: center;
+          text-transform: uppercase;
+          text-decoration: none;
+          font-size: 16px;
+          font-size: 1rem;
+        }
+
+      }
+
+      a {
+        line-height: 1.25;
+      }
+    }
+
+    li, p {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+  }
+}
+
+@media only screen and (min-width: 700px) {
+  .body {
+    position: relative;
+
+  }
+  .body>a {
+    position: absolute;
+    right: 0;
+  }
+}
+
