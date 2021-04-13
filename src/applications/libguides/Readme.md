@@ -26,7 +26,11 @@ To install the reusable header web components, click on the "Header / Footer / T
 ```html
 <uq-gtm gtm="GTM-XXXXXX"></uq-gtm>
 <uq-header hidelibrarymenuitem skipnavid="YYYYYY"></uq-header>
-<uq-site-header showloginbutton></uq-site-header>
+<uq-site-header>
+    <span slot="site-utilities">
+        <auth-button />
+    </span>
+</uq-site-header>
 <alert-list></alert-list>
 ```
 * Where XXXX is the Google Tag Manager container code you require.
@@ -35,11 +39,17 @@ To install the reusable header web components, click on the "Header / Footer / T
 You may add additional utility items in the site header by adding a `<slot>`:
 
 ````html
-<uq-site-header showloginbutton>
-      <slot name="site-utilities">
-          Additional utility code/elements would go here.
-      </slot>
-  </uq-site-header>
+<uq-site-header>
+    <span slot="site-utilities">
+        <askus-button />
+    </span>
+    <span slot="site-utilities">
+        <div id="mylibrarystub"></div>
+    </span>
+    <span slot="site-utilities">
+        <auth-button />
+    </span>
+</uq-site-header>
 ````
 When complete - click save.
 
