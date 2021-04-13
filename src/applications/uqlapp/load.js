@@ -75,13 +75,13 @@ function loadReusableComponents() {
         const siteHeader = document.createElement('uq-site-header');
 
         const askusButton = createAskusButton();
-        !!askusButton && siteHeader.appendChild(askusButton);
+        !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
 
         const mylibraryStub = createMylibraryStub();
-        !!mylibraryStub && siteHeader.appendChild(mylibraryStub);
+        !!siteHeader && !!mylibraryStub && siteHeader.appendChild(mylibraryStub);
 
         const authButton = createAuthButton();
-        !!authButton && siteHeader.appendChild(authButton);
+        !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
 
         !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
     }
