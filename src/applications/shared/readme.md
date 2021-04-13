@@ -5,6 +5,14 @@ The following HTML is included to provide reusable headers to various pages.
 It provides uq-header, uq-site-header and uq-footer.
 (connect-footer is excluded & uq-site-header has no utility area buttons and no mega menu)
 
+During development (2021):
+```html
+  <link type="image/x-icon" rel="shortcut icon" href="https://www.library.uq.edu.au/favicon.ico">
+  <script async src="https://assets.library.uq.edu.au/reusable-webcomponents-development/feature-shared/uq-lib-reusable.min.js" defer></script>
+  <script async src="https://assets.library.uq.edu.au/reusable-webcomponents-development/feature-shared/applications/shared/load.js"></script>
+```
+
+Production:
 ```html
   <link type="image/x-icon" rel="shortcut icon" href="https://www.library.uq.edu.au/favicon.ico">
   <script async src="https://assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js" defer></script>
