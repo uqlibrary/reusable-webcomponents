@@ -13,6 +13,7 @@ function createSlotForButtonInUtilityArea(button, id=null) {
     !!slot && !!id && slot.setAttribute('id', id);
     !!button && !!slot && slot.appendChild(button);
 
+    // !!slot && !!siteHeader && siteHeader.appendChild(slot);
     return slot;
 }
 
@@ -33,7 +34,9 @@ function createMylibraryStub() {
     mylibraryButton = document.createElement('div');
     mylibraryButton.id = stubId;
 
-    return !!mylibraryButton && this.createSlotForButtonInUtilityArea(mylibraryButton, mylibraryButtonId);
+    const slot = !!mylibraryButton && this.createSlotForButtonInUtilityArea(mylibraryButton, mylibraryButtonId);
+
+    return slot;
 }
 
 function createAuthButton() {
@@ -42,7 +45,9 @@ function createAuthButton() {
     }
 
     const authButton = document.createElement('auth-button');
-    return !!authButton && createSlotForButtonInUtilityArea(authButton, 'auth');
+    const slot = !!authButton && createSlotForButtonInUtilityArea(authButton, 'auth');
+
+    return slot;
 }
 
 function createAskusButton() {
@@ -51,54 +56,61 @@ function createAskusButton() {
     }
 
     const askusButton = document.createElement('askus-button');
-    return !!askusButton && createSlotForButtonInUtilityArea(askusButton, 'askus');
+    const slot = !!askusButton && createSlotForButtonInUtilityArea(askusButton, 'askus');
+
+    return slot;
 }
 
 function loadReusableComponents() {
     const firstElement = document.body.children[0];
-    if (!firstElement) {
-        return;
-    }
 
     if (!document.querySelector('uq-gtm')) {
-        const gtm = document.createElement('uq-gtm');
-        !!gtm && document.body.insertBefore(gtm, firstElement);
+        const header = document.createElement('uq-gtm');
+        document.body.insertBefore(header, firstElement);
     }
 
     if (!document.querySelector('uq-header')) {
         const header = document.createElement('uq-header');
         header.setAttribute("hideLibraryMenuItem", "");
-        !!header && document.body.insertBefore(header, firstElement);
+        document.body.insertBefore(header, firstElement);
     }
 
     if (!document.querySelector('uq-site-header')) {
+        const slot = document.createElement('slot');
+        !!slot && slot.setAttribute("name", "site-utilities");
+
         const siteHeader = document.createElement('uq-site-header');
+        siteHeader.setAttribute("showmenu", "");
+        siteHeader.appendChild(slot);
+        console.log('siteHeader = ', siteHeader);
 
         const askusButton = createAskusButton();
-        !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
+        !!askusButton && siteHeader.appendChild(askusButton);
 
-        const mylibraryStub = createMylibraryStub();
-        !!siteHeader && !!mylibraryStub && siteHeader.appendChild(mylibraryStub);
+        const mylibraryButton = createMylibraryStub();
+        !!mylibraryButton && siteHeader.appendChild(mylibraryButton);
 
         const authButton = createAuthButton();
-        !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
+        !!authButton && siteHeader.appendChild(authButton);
 
-        !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
+        document.body.insertBefore(siteHeader, firstElement);
     }
 
     if (!document.querySelector('alert-list')) {
         const alerts = document.createElement('alert-list');
-        !!alerts && document.body.insertBefore(alerts, firstElement);
+        document.body.insertBefore(alerts, firstElement);
     }
 
     if (!document.querySelector('connect-footer')) {
         const connectFooter = document.createElement('connect-footer');
-        !!connectFooter && document.body.appendChild(connectFooter);
+        console.log('add connectFooter footer');
+        document.body.appendChild(connectFooter);
     }
 
     if (!document.querySelector('uq-footer')) {
         const subFooter = document.createElement('uq-footer');
-        !!subFooter && document.body.appendChild(subFooter);
+        console.log('add uq footer');
+        document.body.appendChild(subFooter);
     }
 }
 

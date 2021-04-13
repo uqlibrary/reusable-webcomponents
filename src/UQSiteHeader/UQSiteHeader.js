@@ -7,18 +7,20 @@ import myLibStyles from '../UtilityArea/css/mylibrary.css';
 /**
  * API:
  *   <uq-site-header
- *       sitetitle="Library"                     // should be displayed on all sites - the text of the homepage link
- *       siteurl="http://www.library.uq.edu.au"  // should be displayed on all sites - the link of the homepage link
+ *       sitetitle="Library"                     // should be displayed on all sites - the text of the homepage link. Optional. Default "Library"
+ *       siteurl="http://www.library.uq.edu.au"  // should be displayed on all sites - the link of the homepage link. Optional. Default "http://www.library.uq.edu.au"
  *       showmenu                                // should the megamenu be displayed? (just include, don't put ="true" on the end)
- *       showloginbutton                         // should the auth button be displayed? (just include, don't put ="true" on the end)
- *       requireloggedout                        // only valid if 'showloginbutton' is true
- *                                               // forces the auth button to the logged out state (just include, don't put ="true" on the end)
- *       hideaskus                               // when present, askus button will not be displayed (just include for true, or can put "false" on the end)
- *       hidemylibrary                           // when present, mylibrary button will not be displayed (mylibrary is only available when logged in) (just include for true, or can put "false" on the end)
  *   >
- <slot name="site-utilities"></slot>
- </uq-site-header>
-
+ *       <span slot="site-utilities">
+ *           <askus-button />
+ *       </span>
+ *       <span slot="site-utilities">
+ *           <div id="mylibrarystub" />
+ *       </span>
+ *       <span slot="site-utilities">
+ *           <auth-button />
+ *       </span>
+ *   </uq-site-header>
  */
 
 const template = document.createElement('template');
@@ -58,19 +60,23 @@ class UQSiteHeader extends HTMLElement {
         // Add a shadow DOM
         const shadowDOM = this.attachShadow({ mode: 'open' });
 
-        // Handle the attributes for this component
+        // the attributes seem to need an extra moment before they are available
+        const handleAttributes = setInterval(() => {
+            clearInterval(handleAttributes);
 
-        // Set the title & link URL
-        const siteTitleContent = template.content.getElementById('site-title');
-        const siteTitle = this.getAttribute('sitetitle');
-        const siteURL = this.getAttribute('siteurl');
+            // Set the title & link URL
+            const siteTitleContent = template.content.getElementById('site-title');
 
-        !!siteTitleContent && !!siteTitle && (siteTitleContent.innerHTML = siteTitle);
-        !!siteTitleContent && !!siteURL && (siteTitleContent.href = siteURL);
+            const siteTitle = this.getAttribute('sitetitle');
+            !!siteTitleContent && !!siteTitle && (siteTitleContent.innerHTML = siteTitle);
 
-        this.addAskUsButtonToSlot();
-        this.addMyLibraryButtonToSlot();
-        this.addAuthButtonToSlot();
+            const siteURL = this.getAttribute('siteurl');
+            !!siteTitleContent && !!siteURL && (siteTitleContent.href = siteURL);
+        }, 50);
+
+        // this.addAskUsButtonToSlot();
+        // this.addMyLibraryButtonToSlot();
+        // this.addAuthButtonToSlot();
 
         // attributes take a moment to appear sometimes
         const displayMenu = setInterval(() => {
@@ -87,66 +93,66 @@ class UQSiteHeader extends HTMLElement {
         this.loadJS = this.loadJS.bind(this);
     }
 
-    addMyLibraryButtonToSlot() {
-        if (!this.isMylibraryButtonRequested()) {
-            // if the page doesnt want mylibrary, just dont show it - no account check required
-            return;
-        }
-
-        const stubId = 'mylibrarystub';
-        const existingMyLibraryStub = document.getElementById(stubId);
-        const existingMyLibrarySlot = document.getElementById('mylibrarybutton');
-        if (!!existingMyLibraryStub || !!existingMyLibrarySlot) {
-            // mylibrary already exists
-            return;
-        }
-
-        // this one just creates the stub - authbutton will fill in the actual button if they are logged in
-        const mylibraryButton = document.createElement('div');
-        mylibraryButton.id = stubId;
-
-        !!mylibraryButton && this.createSlotForButtonInUtilityArea(mylibraryButton, 'mylibrarybutton');
-    }
-
-    addAskUsButtonToSlot() {
-        if (!this.isAskusButtonRequested()) {
-            return;
-        }
-
-        const buttonExists = document.querySelector('askus-button');
-        if (!!buttonExists) {
-            return; // button already exists
-        }
-
-        const askusButton = document.createElement('askus-button');
-        !!askusButton && this.createSlotForButtonInUtilityArea(askusButton, 'askus');
-    }
-
-    addAuthButtonToSlot() {
-      if (!this.isAuthButtonRequested()) {
-        return;
-      }
-
-        const buttonExists = document.querySelector('auth-button');
-        if (!!buttonExists) {
-            return; // button already exists
-        }
-
-        const authButton = document.createElement('auth-button');
-        !!authButton && this.overwriteAsLoggedOut() && authButton.setAttribute('overwriteAsLoggedOut', 'true');
-
-        !!authButton && this.createSlotForButtonInUtilityArea(authButton, 'auth');
-    }
-
-    createSlotForButtonInUtilityArea(button, id=null) {
-        const slot = document.createElement('span');
-        !!slot && slot.setAttribute('slot', 'site-utilities');
-        !!slot && !!id && slot.setAttribute('id', id);
-        !!button && !!slot && slot.appendChild(button);
-
-        const siteHeader = document.getElementsByTagName('uq-site-header')[0] || false;
-        !!slot && !!siteHeader && siteHeader.appendChild(slot);
-    }
+    // addMyLibraryButtonToSlot() {
+    //     if (!this.isMylibraryButtonRequested()) {
+    //         // if the page doesnt want mylibrary, just dont show it - no account check required
+    //         return;
+    //     }
+    //
+    //     const stubId = 'mylibrarystub';
+    //     const existingMyLibraryStub = document.getElementById(stubId);
+    //     const existingMyLibrarySlot = document.getElementById('mylibrarybutton');
+    //     if (!!existingMyLibraryStub || !!existingMyLibrarySlot) {
+    //         // mylibrary already exists
+    //         return;
+    //     }
+    //
+    //     // this one just creates the stub - authbutton will fill in the actual button if they are logged in
+    //     const mylibraryButton = document.createElement('div');
+    //     mylibraryButton.id = stubId;
+    //
+    //     !!mylibraryButton && this.createSlotForButtonInUtilityArea(mylibraryButton, 'mylibrarybutton');
+    // }
+    //
+    // addAskUsButtonToSlot() {
+    //     if (!this.isAskusButtonRequested()) {
+    //         return;
+    //     }
+    //
+    //     const buttonExists = document.querySelector('askus-button');
+    //     if (!!buttonExists) {
+    //         return; // button already exists
+    //     }
+    //
+    //     const askusButton = document.createElement('askus-button');
+    //     !!askusButton && this.createSlotForButtonInUtilityArea(askusButton, 'askus');
+    // }
+    //
+    // addAuthButtonToSlot() {
+    //     if (!this.isAuthButtonRequested()) {
+    //         return;
+    //     }
+    //
+    //     const buttonExists = document.querySelector('auth-button');
+    //     if (!!buttonExists) {
+    //         return; // button already exists
+    //     }
+    //
+    //     const authButton = document.createElement('auth-button');
+    //     !!authButton && this.overwriteAsLoggedOut() && authButton.setAttribute('overwriteAsLoggedOut', 'true');
+    //
+    //     !!authButton && this.createSlotForButtonInUtilityArea(authButton, 'auth');
+    // }
+    //
+    // createSlotForButtonInUtilityArea(button, id=null) {
+    //     const slot = document.createElement('span');
+    //     !!slot && slot.setAttribute('slot', 'site-utilities');
+    //     !!slot && !!id && slot.setAttribute('id', id);
+    //     !!button && !!slot && slot.appendChild(button);
+    //
+    //     const siteHeader = document.getElementsByTagName('uq-site-header')[0] || false;
+    //     !!slot && !!siteHeader && siteHeader.appendChild(slot);
+    // }
 
     rewriteMegaMenuFromJson() {
         const megaMenu = template.content.getElementById('jsNav');
@@ -286,29 +292,29 @@ class UQSiteHeader extends HTMLElement {
         return !!showMenu || showMenu === '';
     }
 
-    isAuthButtonRequested() {
-        if (this.isloginRequired === undefined) {
-            this.isloginRequired = this.getAttribute('showloginbutton');
-        }
-        return !!this.isloginRequired || this.isloginRequired === '';
-    }
-
-    isAskusButtonRequested() {
-        const hideAskUs = this.getAttribute('hideaskus');
-        return hideAskUs === 'false' || hideAskUs === null;
-    }
-
-    isMylibraryButtonRequested() {
-        const hideMylibrary = this.getAttribute('hidemylibrary');
-        return hideMylibrary === 'false' || hideMylibrary === null;
-    }
-
-    overwriteAsLoggedOut() {
-        if (this.overwriteAsLoggedOutVar === undefined) {
-            this.overwriteAsLoggedOutVar = this.getAttribute('requireloggedout');
-        }
-        return !!this.overwriteAsLoggedOutVar || this.overwriteAsLoggedOutVar === '';
-    }
+    // isAuthButtonRequested() {
+    //     if (this.isloginRequired === undefined) {
+    //         this.isloginRequired = this.getAttribute('showloginbutton');
+    //     }
+    //     return !!this.isloginRequired || this.isloginRequired === '';
+    // }
+    //
+    // isAskusButtonRequested() {
+    //     const hideAskUs = this.getAttribute('hideaskus');
+    //     return hideAskUs === 'false' || hideAskUs === null;
+    // }
+    //
+    // isMylibraryButtonRequested() {
+    //     const hideMylibrary = this.getAttribute('hidemylibrary');
+    //     return hideMylibrary === 'false' || hideMylibrary === null;
+    // }
+    //
+    // overwriteAsLoggedOut() {
+    //     if (this.overwriteAsLoggedOutVar === undefined) {
+    //         this.overwriteAsLoggedOutVar = this.getAttribute('requireloggedout');
+    //     }
+    //     return !!this.overwriteAsLoggedOutVar || this.overwriteAsLoggedOutVar === '';
+    // }
 
     connectedCallback() {
         this.loadJS();
