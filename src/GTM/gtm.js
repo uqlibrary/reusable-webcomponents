@@ -17,10 +17,9 @@ template.innerHTML = `
 class gtm extends HTMLElement {
     constructor() {
         super();
-        let gtmCode = this.getAttribute('gtm');
-        if (gtmCode === null) {
-            gtmCode = 'GTM-W4KK37';
-        }
+
+        const gtmCode = this.getGtmCode();
+
         template.content.getElementById('gtm').src = "https://www.googletagmanager.com/ns.html?id=" + gtmCode;
 
         // <!-- Google Tag Manager -->
@@ -41,6 +40,11 @@ class gtm extends HTMLElement {
 
         // Render the template into the body
         document.body.appendChild(template.content.cloneNode(true));
+    }
+
+    getGtmCode() {
+        const defaultGtmCode = 'GTM-W4KK37';
+        return this.getAttribute('gtm') || defaultGtmCode;
     }
 }
 
