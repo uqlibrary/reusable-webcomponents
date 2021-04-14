@@ -29,7 +29,7 @@ template.innerHTML = `
     <style>${icons.toString()}</style>
     <style>${overrides.toString()}</style>
     <style>${myLibStyles.toString()}</style>
-  <div class="uq-site-header">
+  <div class="uq-site-header" part="root">
       <!-- Site title and utility area with mobile nav toggler (JS) -->
       <div class="uq-site-header__title-container" part="title">
         <div class="uq-site-header__title-container__left">
