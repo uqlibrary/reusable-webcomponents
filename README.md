@@ -30,11 +30,12 @@ eg. UQ Header:
         hidelibrarymenuitem="true"
         searchlabel="library.uq.edu.au"
         searchurl="library.uq.edu.au"
+        skipnavid="skiptohere"
 ></uq-header>
 ```
 You will also need to add a named anchor after all the header imports etc to tell the skip nav where to skip to:
 ```html
-<a name="content"></a>
+<a id="skiptohere"></a>
 ```
 
 ### Setting up from the ITS Design System private packages

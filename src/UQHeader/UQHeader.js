@@ -93,7 +93,7 @@ class UQHeader extends HTMLElement {
         shadowDOM.appendChild(template.content.cloneNode(true));
 
         // the attributes seem to need an extra moment before they are available
-        // (elsewhere we update the template from the attributes - that doesnt work here because the
+        // (in other components we update the template from the attributes - that doesnt work here because
         // UQHeader/uqds.js is expecting things to be ready immediately)
         const handleAttributes = setInterval(() => {
             clearInterval(handleAttributes);
