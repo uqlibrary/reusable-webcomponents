@@ -1,3 +1,34 @@
+// remove the older header-footer tags immediately (they will load old content on the pages with old widgets, eg training)
+// this wont be required once the old tags are replaced
+const removeOldMinimalHeader = setInterval(() => {
+    const element = document.querySelector('uq-minimal-header');
+    if (!!element) {
+        element.remove();
+        clearInterval(removeOldMinimalHeader);
+    }
+}, 50);
+const removeOldMenu = setInterval(() => {
+    const element = document.querySelector('uql-menu');
+    if (!!element) {
+        element.remove();
+        clearInterval(removeOldMenu);
+    }
+}, 50);
+const removeOldConnectFooter = setInterval(() => {
+    const element = document.querySelector('uql-connect-footer');
+    if (!!element) {
+        element.remove();
+        clearInterval(removeOldConnectFooter);
+    }
+}, 50);
+const removeOldMinimalFooter = setInterval(() => {
+    const element = document.querySelector('uq-minimal-footer');
+    if (!!element) {
+        element.remove();
+        clearInterval(removeOldMinimalFooter);
+    }
+}, 50);
+
 function ready(fn) {
     if (document.readyState !== 'loading'){
         fn();
