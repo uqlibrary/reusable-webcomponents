@@ -159,6 +159,29 @@ module.exports = () => {
                     replace: componentJsPath[process.env.NODE_ENV] + 'alert.js',
                 }]
             }]),
+            (process.env.NODE_ENV === 'development') && new ReplaceInFileWebpackPlugin([{
+                // in dev we want to copy the compiled .css files to the sub directory
+                dir: buildPath[process.env.NODE_ENV],
+                rules: [{
+                    search: /applications\/libguides\/custom-styles.css/gm,
+                    replace: componentJsPath[process.env.NODE_ENV] + 'applications/libguides/custom-styles.css',
+                },{
+                    search: /applications\/shared\/custom-styles.css/gm,
+                    replace: componentJsPath[process.env.NODE_ENV] + 'applications/shared/custom-styles.css',
+                },{
+                    search: /applications\/studenthub\/custom-styles.css/gm,
+                    replace: componentJsPath[process.env.NODE_ENV] + 'applications/studenthub/custom-styles.css',
+                },{
+                    search: /applications\/drupal\/custom-styles.css/gm,
+                    replace: componentJsPath[process.env.NODE_ENV] + 'applications/drupal/custom-styles.css',
+                },{
+                    search: /applications\/primo\/custom-styles.css/gm,
+                    replace: componentJsPath[process.env.NODE_ENV] + 'applications/primo/custom-styles.css',
+                },{
+                    search: /applications\/uqlapp\/custom-styles.css/gm,
+                    replace: componentJsPath[process.env.NODE_ENV] + 'applications/uqlapp/custom-styles.css',
+                }]
+            }]),
             new webpack.DefinePlugin({
                 __DEVELOPMENT__: true,
                 'process.env.NODE_ENV': JSON.stringify(config.environment),
