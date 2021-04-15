@@ -125,14 +125,17 @@ class UQHeader extends HTMLElement {
                 shadowDOM.getElementById('edit-as_sitesearch-on').value = searchURL;
             }
 
-            // if skip not removed, above, then add the click handler
-            const skipNavTemplate2 = shadowDOM.getElementById('skip-nav');
-            if(!!skipNavTemplate2) {
+            // if skip provided, then add the click handler, else remove the skip button
+            const skipNavRequested = this.getAttribute('skipnavid');
+            const skipNavTemplate = shadowDOM.getElementById('skip-nav');
+            if (!skipNavRequested && !!skipNavTemplate) {
+                skipNavTemplate.remove();
+            }
+            if (!!skipNavRequested && !!skipNavTemplate) {
                 const skipToElement = () => {
-                    document.getElementById(skipNavTemplate2).focus();
+                    document.getElementById(skipNavRequested).focus();
                 }
-                const skipNavButton = shadowDOM.getElementById('skip-nav');
-                !!skipNavButton && skipNavButton.addEventListener('click', skipToElement);
+                skipNavTemplate.addEventListener('click', skipToElement);
             }
         }, 50);
 

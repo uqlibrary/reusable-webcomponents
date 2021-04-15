@@ -1,18 +1,10 @@
 /// <reference types="cypress" />
 
 describe('Skip nav', () => {
-    beforeEach(() => {
-        cy.visit('http://localhost:8080');
-        cy.injectAxe();
-    });
-
-    context('Skip Menu', () => {
-        it('Skip works as expected', () => {
-
-        });
-    });
-    context('Skip Menu', () => {
+    context('Skip Menu Accessibility', () => {
         it('Skip menu passes accessibility', () => {
+            cy.visit('http://localhost:8080');
+            cy.injectAxe();
             cy.viewport(1280, 900);
             cy.get('uq-header').shadow().find('#skip-nav').focus();
             cy.wait(1000);
@@ -21,6 +13,22 @@ describe('Skip nav', () => {
                 scopeName: 'Accessibility',
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
             });
+        });
+    });
+    context('Skip Menu off', () => {
+        it('No Skip works as expected', () => {
+            cy.visit('http://localhost:8080/index-noauth-nomenu-noskip.html');
+            cy.viewport(1280, 900);
+            cy.get('uq-header').shadow().find('#skip-nav').should('not.exist');
+        });
+    });
+    context('Skip Menu on', () => {
+        it('Skip works as expected', () => {
+            cy.visit('http://localhost:8080');
+            cy.viewport(1280, 900);
+            cy.get('uq-header').shadow().find('button[data-testid="skip-nav"]').focus().click();
+            cy.wait(1000);
+            cy.focused().should('have.attr', 'id', 'skiptohere')
         });
     });
 });
