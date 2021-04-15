@@ -20,11 +20,15 @@ function loadReusableComponents() {
     if (!document.querySelector('uq-header')) {
         const header = document.createElement('uq-header');
         header.setAttribute("hideLibraryMenuItem", "");
+        header.setAttribute("skipnavid", "content");
         !!header && document.body.insertBefore(header, firstElement);
     }
 
     if (!document.querySelector('uq-site-header')) {
         const siteHeader = document.createElement('uq-site-header');
+
+        // no utility area buttons are required in this suite
+
         !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
     }
 
