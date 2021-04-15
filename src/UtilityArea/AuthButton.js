@@ -122,6 +122,8 @@ class AuthButton extends HTMLElement {
         return loggedin;
     }
 
+    // we have an option to add the attribute `overwriteasloggedout` to the authbutton
+    // this will include the auth button, but always show them as logged out
     isOverwriteAsLoggedOutRequested() {
         const isOverwriteRequired = this.getAttribute('overwriteasloggedout');
         return (!!isOverwriteRequired || isOverwriteRequired === '') && isOverwriteRequired !== 'false';

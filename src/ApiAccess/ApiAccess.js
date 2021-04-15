@@ -157,7 +157,6 @@ class ApiAccess {
     }
 
     getAccountFromStorage() {
-        console.log('getAccountFromStorage');
         const account = JSON.parse(sessionStorage.getItem(this.STORAGE_ACCOUNT_KEYNAME));
         if (this.isMock() && !!account) {
             if ((!!account.id && account.id !== new MockApi().user) || !account.id) {

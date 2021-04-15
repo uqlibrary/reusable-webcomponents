@@ -93,16 +93,16 @@ class UQHeader extends HTMLElement {
         shadowDOM.appendChild(template.content.cloneNode(true));
 
         // the attributes seem to need an extra moment before they are available
-        // (elsewhere we update the template from the attributes - that doesnt work here because the
+        // (in other components we update the template from the attributes - that doesnt work here because
         // UQHeader/uqds.js is expecting things to be ready immediately)
         const handleAttributes = setInterval(() => {
             clearInterval(handleAttributes);
 
             // The element id for the skip nav, if exists or hides the skip nav
-            const skipNavDestination = this.getAttribute('skipnavid');
-            if (!skipNavDestination) {
-                const skipNavTemplate = shadowDOM.getElementById('skip-nav');
-                !!skipNavTemplate && skipNavTemplate.remove();
+            const skipNavRequestedTo = this.getAttribute('skipnavid');
+            if (!skipNavRequestedTo) {
+                const skipNavButton = shadowDOM.getElementById('skip-nav');
+                !!skipNavButton && skipNavButton.remove();
             }
 
             // If the attribute hidelibrarymenuitem is true, remove the global menu item from the DOM
@@ -125,11 +125,10 @@ class UQHeader extends HTMLElement {
                 shadowDOM.getElementById('edit-as_sitesearch-on').value = searchURL;
             }
 
-            // if skip not removed, above, then add the click handler
-            const skipNavTemplate2 = shadowDOM.getElementById('skip-nav');
-            if(!!skipNavTemplate2) {
+            if (!!skipNavRequestedTo) {
                 const skipToElement = () => {
-                    document.getElementById(skipNavTemplate2).focus();
+                    const skipNavLander = document.getElementById(skipNavRequestedTo);
+                    !!skipNavLander && skipNavLander.focus();
                 }
                 const skipNavButton = shadowDOM.getElementById('skip-nav');
                 !!skipNavButton && skipNavButton.addEventListener('click', skipToElement);

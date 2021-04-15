@@ -13,7 +13,6 @@ function loadReusableComponents() {
     document.body.insertBefore(header, firstElement);
 
     const siteHeader = document.createElement('uq-site-header');
-    // siteHeader.setAttribute('showLoginButton', "");
     document.body.insertBefore(siteHeader, firstElement);
 
     const connectFooter = document.createElement('connect-footer');
