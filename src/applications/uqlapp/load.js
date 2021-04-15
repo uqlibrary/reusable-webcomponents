@@ -68,6 +68,7 @@ function loadReusableComponents() {
     if (!document.querySelector('uq-header')) {
         const header = document.createElement('uq-header');
         header.setAttribute("hideLibraryMenuItem", "");
+        header.setAttribute("skipnavid", "skiptohere");
         !!header && document.body.insertBefore(header, firstElement);
     }
 
