@@ -98,6 +98,12 @@ class UQHeader extends HTMLElement {
         const handleAttributes = setInterval(() => {
             clearInterval(handleAttributes);
 
+            // The element id for the skip nav, if exists or hides the skip nav
+            const skipNavRequestedTo = this.getAttribute('skipnavid');
+            if (!skipNavRequestedTo) {
+                shadowDOM.getElementById('skip-nav').remove();
+            }
+
             // If the attribute hidelibrarymenuitem is true, remove the global menu item from the DOM
             if (!this.isGlobalMenuLibraryItemRequested()) {
                 const libraryMenuItem = shadowDOM.getElementById('menu-item-library');
@@ -118,18 +124,13 @@ class UQHeader extends HTMLElement {
                 shadowDOM.getElementById('edit-as_sitesearch-on').value = searchURL;
             }
 
-            // if skip provided, then add the click handler, else remove the skip button
-            const skipNavRequested = this.getAttribute('skipnavid');
-            const skipNavTemplate = shadowDOM.getElementById('skip-nav');
-            if (!skipNavRequested && !!skipNavTemplate) {
-                skipNavTemplate.remove();
-            }
-            if (!!skipNavRequested && !!skipNavTemplate) {
+            if (!!skipNavRequestedTo) {
                 const skipToElement = () => {
-                    const landingElement = document.getElementById(skipNavRequested);
-                    !!landingElement && landingElement.focus();
+                    const skipNavLander = document.getElementById(skipNavRequestedTo);
+                    !!skipNavLander && skipNavLander.focus();
                 }
-                skipNavTemplate.addEventListener('click', skipToElement);
+                const skipNavButton = shadowDOM.getElementById('skip-nav');
+                !!skipNavButton && skipNavButton.addEventListener('click', skipToElement);
             }
         }, 50);
 
