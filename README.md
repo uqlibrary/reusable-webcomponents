@@ -33,10 +33,11 @@ eg. UQ Header:
         skipnavid="skiptohere"
 ></uq-header>
 ```
-You will also need to add a named anchor after all the header imports etc to tell the skip nav where to skip to:
+You will also need to add an anchor with the landing id after all the header imports etc to tell the skip nav where to skip to, eg:
 ```html
 <a id="skiptohere"></a>
 ```
+This must be an ANCHOR, not any other html element.
 
 ### Setting up from the ITS Design System private packages
 ###### _Using UQ Header package as an example_
