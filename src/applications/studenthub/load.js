@@ -28,7 +28,7 @@ function createAskusButton() {
     return slot;
 }
 
-function loadReusableComponents() {
+function loadReusableComponentsStudenthub() {
     loadUQFavicon();
     // addAppleTouchIcon();
 
@@ -37,6 +37,8 @@ function loadReusableComponents() {
     updateEventsLinkText();
 
     reformatSidebarDates();
+
+    addSkipNavLandingPoint();
 
     //first element of the original document
     const firstElement = document.body.children[0];
@@ -82,11 +84,17 @@ function loadReusableComponents() {
 }
 
 function addSkipNavLandingPoint() {
-    const sitenameAnchor = document.querySelector('#sitename a');
+    const pageHeading = document.querySelector('#sitename a');
+    if (!pageHeading) {
+        return;
+    }
+    const sitenameAnchor = document.createElement('a');
     if (!sitenameAnchor) {
-        // return;
+        return;
     }
     sitenameAnchor.id = 'sitenameanchor';
+    sitenameAnchor.href = '#';
+    pageHeading.parentElement.insertBefore(sitenameAnchor, pageHeading);
 }
 
 function loadUQFavicon() {
@@ -293,4 +301,4 @@ function updateEventsLinkText() {
     }
 }
 
-ready(loadReusableComponents);
+ready(loadReusableComponentsStudenthub);
