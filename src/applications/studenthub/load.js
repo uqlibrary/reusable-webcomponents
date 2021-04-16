@@ -2,7 +2,7 @@ var urlStudentHubHomePage = "https://"+window.location.hostname+"/workgroups/lib
 // note: function isHomePage also hard codes this path
 
 function ready(fn) {
-  if (document.readyState != 'loading'){
+  if (document.readyState !== 'loading'){
     fn();
   } else {
     document.addEventListener('DOMContentLoaded', fn);
@@ -56,30 +56,30 @@ function loadReusableComponents() {
  * Reformat date from DD-MMM-YYYY to styled elements
  */
 function reformatSidebarDates() {
-  var upcomingEvents = document.querySelectorAll('.upcomingEvents .body li');
+  const upcomingEvents = document.querySelectorAll('.upcomingEvents .body li');
 
   if (!upcomingEvents.length) {
     return;
   }
 
-  for (var eventIndex = 0; eventIndex < upcomingEvents.length; eventIndex++) {
-    var originalDate = upcomingEvents[eventIndex].querySelector('span.caption').innerHTML.replace(/(\s|\n)+/g, '');
+  upcomingEvents.forEach(event => {
+
+    const originalDate = event.querySelector('span.caption').innerHTML.replace(/(\s|\n)+/g, '-');
     if (originalDate) {
 
-      var dateBits = originalDate.split("-");
-
+      const dateBits = originalDate.split("-");
       if (dateBits.length > 2) {
 
         //hide original date display
-        upcomingEvents[eventIndex].querySelector('span.caption').className += ' hide';
+        event.querySelector('span.caption').className += ' hide';
 
         //create day element
-        var dayElement = document.createElement('div');
+        const dayElement = document.createElement('div');
         dayElement.className = 'day';
         dayElement.appendChild(document.createTextNode(dateBits[0]));
 
         //create month element
-        var monthElement = document.createElement('div');
+        const monthElement = document.createElement('div');
         monthElement.className = 'month';
         monthElement.appendChild(document.createTextNode(dateBits[1]));
 
@@ -89,11 +89,11 @@ function reformatSidebarDates() {
         dateElement.appendChild(dayElement);
         dateElement.appendChild(monthElement);
 
-        var eventLink = upcomingEvents[eventIndex].querySelector('a');
-        upcomingEvents[eventIndex].insertBefore(dateElement, eventLink);
+        const eventLink = event.querySelector('a');
+        event.insertBefore(dateElement, eventLink);
       }
     }
-  }
+  });
 }
 
 /**
