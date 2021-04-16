@@ -9,24 +9,20 @@ function ready(fn) {
 function createSlotForButtonInUtilityArea(button, id=null) {
     const slot = document.createElement('span');
     !!slot && slot.setAttribute('slot', 'site-utilities');
-    console.log('createSlotForButtonInUtilityArea: button = ', button, ' (id = ', id, ')'); // #dev
     !!slot && !!id && slot.setAttribute('id', id);
     !!button && !!slot && slot.appendChild(button);
 
-    // !!slot && !!siteHeader && siteHeader.appendChild(slot);
     return slot;
 }
 
 function createMylibraryStub() {
     const stubId = 'mylibrarystub'; // match mylibraryLocale.MYLIBRARY_STUB_ID
     if (!!document.getElementById(stubId)) {
-        console.log('createMylibraryStub: stub found ');
         return false;
     }
 
     const mylibraryButtonId = 'mylibrarybutton'; // match mylibraryLocale.MYLIBRARY_BUTTON_ID
     if (!!document.getElementById(mylibraryButtonId)) {
-        console.log('createMylibraryStub: slot found');
         return false;
     }
 
@@ -63,54 +59,50 @@ function createAskusButton() {
 
 function loadReusableComponents() {
     const firstElement = document.body.children[0];
+    if (!firstElement) {
+        return;
+    }
 
     if (!document.querySelector('uq-gtm')) {
-        const header = document.createElement('uq-gtm');
-        document.body.insertBefore(header, firstElement);
+        const gtm = document.createElement('uq-gtm');
+        !!gtm && document.body.insertBefore(gtm, firstElement);
     }
 
     if (!document.querySelector('uq-header')) {
         const header = document.createElement('uq-header');
         header.setAttribute("hideLibraryMenuItem", "");
-        document.body.insertBefore(header, firstElement);
+        !!header && document.body.insertBefore(header, firstElement);
     }
 
     if (!document.querySelector('uq-site-header')) {
-        const slot = document.createElement('slot');
-        !!slot && slot.setAttribute("name", "site-utilities");
-
         const siteHeader = document.createElement('uq-site-header');
-        siteHeader.setAttribute("showmenu", "");
-        siteHeader.appendChild(slot);
-        console.log('siteHeader = ', siteHeader);
+        !!siteHeader && siteHeader.setAttribute("showmenu", "");
 
         const askusButton = createAskusButton();
-        !!askusButton && siteHeader.appendChild(askusButton);
+        !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
 
-        const mylibraryButton = createMylibraryStub();
-        !!mylibraryButton && siteHeader.appendChild(mylibraryButton);
+        const mylibraryStub = createMylibraryStub();
+        !!siteHeader && !!mylibraryStub && siteHeader.appendChild(mylibraryStub);
 
         const authButton = createAuthButton();
-        !!authButton && siteHeader.appendChild(authButton);
+        !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
 
-        document.body.insertBefore(siteHeader, firstElement);
+        !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
     }
 
     if (!document.querySelector('alert-list')) {
         const alerts = document.createElement('alert-list');
-        document.body.insertBefore(alerts, firstElement);
+        !!alerts && document.body.insertBefore(alerts, firstElement);
     }
 
     if (!document.querySelector('connect-footer')) {
         const connectFooter = document.createElement('connect-footer');
-        console.log('add connectFooter footer');
-        document.body.appendChild(connectFooter);
+        !!connectFooter && document.body.appendChild(connectFooter);
     }
 
     if (!document.querySelector('uq-footer')) {
         const subFooter = document.createElement('uq-footer');
-        console.log('add uq footer');
-        document.body.appendChild(subFooter);
+        !!subFooter && document.body.appendChild(subFooter);
     }
 }
 
