@@ -57,7 +57,7 @@ function createAskusButton() {
     return slot;
 }
 
-function loadReusableComponents() {
+function loadReusableComponentsDrupal() {
     const firstElement = document.body.children[0];
     if (!firstElement) {
         return;
@@ -70,7 +70,8 @@ function loadReusableComponents() {
 
     if (!document.querySelector('uq-header')) {
         const header = document.createElement('uq-header');
-        header.setAttribute("hideLibraryMenuItem", "");
+        !!header && header.setAttribute("hideLibraryMenuItem", "");
+        // no 'skip to content' as drupal provides a 'skip to menu' on first click
         !!header && document.body.insertBefore(header, firstElement);
     }
 
@@ -106,4 +107,4 @@ function loadReusableComponents() {
     }
 }
 
-ready(loadReusableComponents);
+ready(loadReusableComponentsDrupal);
