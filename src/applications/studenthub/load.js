@@ -183,14 +183,11 @@ function addBreadcrumbs(parentElementIdentifier) {
     breadcrumbList.className = 'breadcrumbList';
 
     // create first breadcrumb entry: home page
-    // <paper-icon-button icon="home"></paper-icon-button>
-    const homepageIcon = document.createElement('paper-icon-button');
-    homepageIcon.icon = 'home';
-    const homePageLink = 'https://www.library.uq.edu.au/';
+    const hometext = document.createTextNode('Home');
 
     const anAnchor = document.createElement('a');
-    anAnchor.href = homePageLink;
-    anAnchor.appendChild(homepageIcon);
+    anAnchor.href = 'https://www.library.uq.edu.au/';
+    anAnchor.appendChild(hometext);
 
     let anLI = document.createElement('li');
     anLI.appendChild(anAnchor);

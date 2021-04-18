@@ -20,13 +20,26 @@ Method to edit the theme:
 
 Code to include in the GUI editor (keep this up to date as it can't be reviewed reliably in the GUI):
 
-        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0">
-        <script src="https://assets.library.uq.edu.au/reusable-webcomponents-development/feature-studenthub/applications/studenthub/load.js" async></script>
-        <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v6/fonts/Roboto/roboto.css" />
-        <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css" />
-        <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css">
-        <script type="text/javascript" src="https://assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js" defer></script>
-        <link rel="stylesheet" href="https://assets.library.uq.edu.au/reusable-webcomponents-development/feature-studenthub/applications/custom-styles.css">
+```html
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0">
+<link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v6/fonts/Roboto/roboto.css" />
+<link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css" />
+<link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css">
+<link rel="stylesheet" href="https://assets.library.uq.edu.au/reusable-webcomponents/applications/custom-styles.css">
+<script type="text/javascript" src="https://assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js" defer></script>
+<script src="https://assets.library.uq.edu.au/reusable-webcomponents/applications/studenthub/load.js" async></script>
+```
+
+2021 development:
+```html
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0">
+<link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v6/fonts/Roboto/roboto.css" />
+<link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css" />
+<link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css">
+<link rel="stylesheet" href="https://assets.library.uq.edu.au/reusable-webcomponents-development/feature-studenthub/applications/studenthub/custom-styles.css">
+<script type="text/javascript" src="https://assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js" defer></script>
+<script src="https://assets.library.uq.edu.au/reusable-webcomponents-development/feature-studenthub/applications/studenthub/load.js" async></script>
+```
 
 Notes:
 
