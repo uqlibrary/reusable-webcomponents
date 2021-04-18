@@ -9,7 +9,6 @@ function ready(fn) {
 function createSlotForButtonInUtilityArea(button, id=null) {
     const slot = document.createElement('span');
     !!slot && slot.setAttribute('slot', 'site-utilities');
-    console.log('createSlotForButtonInUtilityArea: button = ', button, ' (id = ', id, ')'); // #dev
     !!slot && !!id && slot.setAttribute('id', id);
     !!button && !!slot && slot.appendChild(button);
 
@@ -19,13 +18,11 @@ function createSlotForButtonInUtilityArea(button, id=null) {
 function createMylibraryStub() {
     const stubId = 'mylibrarystub'; // match mylibraryLocale.MYLIBRARY_STUB_ID
     if (!!document.getElementById(stubId)) {
-        console.log('createMylibraryStub: stub found ');
         return false;
     }
 
     const mylibraryButtonId = 'mylibrarybutton'; // match mylibraryLocale.MYLIBRARY_BUTTON_ID
     if (!!document.getElementById(mylibraryButtonId)) {
-        console.log('createMylibraryStub: slot found');
         return false;
     }
 
