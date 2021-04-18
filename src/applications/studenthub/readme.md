@@ -25,7 +25,7 @@ Code to include in the GUI editor (keep this up to date as it can't be reviewed 
 <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v6/fonts/Roboto/roboto.css" />
 <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css" />
 <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css">
-<link rel="stylesheet" href="https://assets.library.uq.edu.au/reusable-webcomponents/applications/custom-styles.css">
+<link rel="stylesheet" href="https://assets.library.uq.edu.au/reusable-webcomponents/applications/studenthub/custom-styles.css">
 <script type="text/javascript" src="https://assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js" defer></script>
 <script src="https://assets.library.uq.edu.au/reusable-webcomponents/applications/studenthub/load.js" async></script>
 ```
