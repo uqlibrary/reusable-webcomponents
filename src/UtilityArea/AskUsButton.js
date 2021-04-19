@@ -1,8 +1,22 @@
 import askus from './css/askus.css';
 import ApiAccess from '../ApiAccess/ApiAccess';
 
-const template = document.createElement('template');
-template.innerHTML = `
+/**
+ * API eg:
+ * <span slot="site-utilities">
+ *  <askus-button hideProactiveChat />
+ * </span>
+ *
+ * <span slot="site-utilities">
+ *  <askus-button />
+ * </span>
+ *
+ *  hideProactiveChat will hide the proactove chat button at the bottom of the screen
+ *
+ */
+
+ const template = document.createElement('template');
+ template.innerHTML = `
     <style>${askus.toString()}</style>
     <div id="askus">
         <!-- Button -->
@@ -102,7 +116,14 @@ class AskUsButton extends HTMLElement {
         this.loadJS = this.loadJS.bind(this);
     }
 
+    isProactiveChatHidden() {
+        const hideProactiveChat = this.getAttribute('hideProactiveChat');
+        return hideProactiveChat === 'true' || hideProactiveChat === '';
+    }
+
     async updateAskusDOM(shadowRoot) {
+        const isProactiveChatHidden = this.isProactiveChatHidden();
+
         const api = new ApiAccess();
         await api.loadChatStatus().then((isOnline) => {
             if (!isOnline) {
@@ -114,10 +135,12 @@ class AskUsButton extends HTMLElement {
                 shadowRoot.getElementById('askus-phone-link').removeAttribute('href');
 
                 // Chat status
-                shadowRoot.getElementById('askus-chat-offline').removeAttribute('style');
+                const offline = shadowRoot.getElementById('askus-chat-offline');
+                !isProactiveChatHidden && !!offline && offline.removeAttribute('style');
             } else {
                 // Chat status
-                shadowRoot.getElementById('askus-chat-online').removeAttribute('style');
+                const online = shadowRoot.getElementById('askus-chat-online');
+                !isProactiveChatHidden && !!online && online.removeAttribute('style');
             }
         });
 
