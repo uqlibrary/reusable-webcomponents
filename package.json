@@ -28,7 +28,7 @@
     "test:local": "start-server-and-test start-test-server http://localhost:8080 cypress:open",
     "prettier:test": "npx prettier --check ./",
     "prettier:fix": "npx prettier --write ./",
-    "compilesass": "node-sass ./src/applications --output ./dist/applications",
+    "compilesass": "node-sass ./src/applications --output ./dist/applications --output-style compressed",
     "compilesass:development": "node-sass ./src/applications --output ./dist/$CI_BRANCH/applications"
   },
   "repository": {
