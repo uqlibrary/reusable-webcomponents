@@ -95,7 +95,7 @@ module.exports = () => {
                 new TerserPlugin({
                     terserOptions: {
                         compress: {
-                            drop_console: process.env.NODE_ENV === 'development',
+                            drop_console: process.env.NODE_ENV === 'production',
                         }
                     }
                 })
