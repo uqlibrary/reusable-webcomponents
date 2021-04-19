@@ -29,7 +29,7 @@
     "prettier:test": "npx prettier --check ./",
     "prettier:fix": "npx prettier --write ./",
     "compilesass": "node-sass ./src/applications --output ./dist/applications --output-style compressed",
-    "compilesass:development": "node-sass ./src/applications --output-style compressed --output ./dist/$CI_BRANCH/applications"
+    "compilesass:development": "node-sass ./src/applications --output ./dist/$CI_BRANCH/applications"
   },
   "repository": {
     "type": "git",
