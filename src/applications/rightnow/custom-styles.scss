@@ -1,0 +1,677 @@
+@import "../styles-imports/skeleton";
+
+@import "styles-imports/chat";
+@import "styles-imports/libcal";
+@import "styles-imports/responsive";
+@import "styles-imports/feedback";
+
+// from drupal
+$breadcrumb-text-color: #676767;
+$breadcrumb-divider-color: #ccc;
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+a ,
+  a:hover ,
+  a:active {
+  color: $accent-color;
+}
+
+.btn-primary,
+.btn-default {
+  background-color: $accent-color;
+  background-image: none;
+  border: none;
+  border-radius: 2px;
+  color: white;
+}
+
+.btn-primary:hover,
+.btn-default:hover {
+  background-color: $accent-color;
+  background-image: none;
+  border: none;
+  color: white;
+}
+
+.btn-primary:active,
+.btn-primary:focus,
+.btn-default:active,
+.btn-default:focus {
+  background-color: $accent-color;
+  background-image: none;
+  border: none;
+  color: white;
+}
+
+.uq-header {
+  border-radius: 0;
+  background-color: $theme-color;
+  height: 60px;
+  height: 3.75rem;
+  margin-bottom: 0;
+  border: none;
+  -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .5);
+  -moz-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .5);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .5);
+}
+
+.uq-footer {
+  border-radius: 0;
+  background-color: $theme-color;
+  padding-top: 16px;
+  padding-top: 1rem;
+  font-size: 12px;
+  font-size: 0.75rem;
+  height: auto;
+  color: white;
+  margin: 0;
+}
+
+.uq-footer a {
+  color: white;
+}
+
+.uq-line {
+  height: 62px;
+  height: 3.8rem;
+  margin: -2px -15px;
+}
+
+.container>.navbar-header,
+.container-fluid>.navbar-header,
+.container>.navbar-collapse,
+.container-fluid>.navbar-collapse {
+  margin: 0;
+}
+
+
+// local formatting of the mega menu
+.tab-content {
+  background-color: $menu-background-color;
+  padding: 5px 16px 16px 16px;
+  margin-top: -8px;
+  border: 1px solid $breadcrumb-divider-color;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  border-radius: 0 0 2px 2px;
+}
+
+// some tabs came in with a border and padding
+.paper-tab-0 {
+  padding: 0;
+}
+
+.page__header {
+  background-color: $secondary-color-light;
+  color: $secondary-color-dark;
+}
+
+
+// vertically align the tabs as normal
+div#tabsContent {
+  padding-top: 16px;
+  padding-top: 1rem;
+}
+
+// apply 'current marker' border to contact tab
+paper-tab:nth-child(8) div.tab-content {
+  border-bottom: 2px solid #666;
+}
+
+// rightnow styling
+body.library {
+  background-color: #fff;
+  color: inherit;
+  font-family: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+body.library #rn_Container .columns {
+
+}
+
+
+#rn_PageTitle,
+#rn_PageContent,
+#uq_AskQuestionContent {
+  background-color: #fff;
+  color: inherit;
+  margin: 10px 0 20px 0;
+}
+#rn_PageContent {
+  padding-top: 16px;
+}
+#rn_Body {
+  .rn_AnswerList {
+    width: 66.66667%;
+    border-radius: 0;
+    border-width: 0;
+    box-shadow: none;
+    margin-top: 26px;
+    margin-top: 1.625rem;
+    padding-top: 0;
+
+    // the answer last update dates have a green background by default.
+    .rn_Element2 {
+      display: none; // late decision to hide it; leave in the formatting for ease if they are re-displayed
+
+      background-color: #fff;
+      color: #000;
+    }
+    .rn_Element2:before {
+      content: " (";
+    }
+    .rn_Element2:after {
+      content: ")";
+    }
+  }
+  #rn_SearchControls {
+    padding-top: 16px;
+    padding-top: 1rem;
+  }
+
+  .rn_Multiline {
+    .rn_Element1 a,
+    .rn_Element1 a:link,
+    .rn_Element1 a:active {
+      font-size: 16px;
+      font-size: 1rem;
+      font-weight: 300;
+    }
+
+    .rn_Content ul {
+      margin-top: 0;
+    }
+
+    .rn_Content li {
+      border-bottom: 1px solid $secondary-color-light;
+    }
+  }
+}
+#uq_AskQuestionContent {
+  ul {
+    padding: 16px;
+    padding: 1rem;
+  }
+  .menu li a,
+  .rn_NavigationTab a {
+    padding: 0;
+    font-weight: 300;
+  }
+}
+.lib_sidebar {
+  padding-top: 1px;
+  padding-left: 69%;
+
+  h2 {
+    font-size: 16px;
+    font-size: 1rem;
+    margin: 0;
+    line-height: normal;
+    color: $secondary-color-dark;
+    background-color: inherit;
+  }
+
+  h3 {
+    font-weight: bold;
+    font-size: 16px;
+    font-size: 1rem;
+    color: $theme-color;
+    margin: 0;
+  }
+  ul,
+  ul li {
+    list-style: none;
+    margin: 0;
+    padding: 12px 0;
+    padding: 0.8rem 0;
+  }
+
+  ul > li {
+    border-bottom: 1px solid $secondary-color-light;
+  }
+
+  ul li.hasIcon > span:first-child {
+    padding-right: 7px;
+  }
+
+  li.hours {
+    border-bottom-width: 0;
+  }
+}
+.rn_Hours,
+.rn_HoursPrefix {
+  font-size: 14px;
+  font-size: 0.9rem;
+}
+ul .rn_ChatHours .rn_HoursBlock {
+  margin-top: 0;
+}
+div.rn_CurrentTime {
+  display: none;
+}
+
+// style the chat online/offline link in the sidebar
+#uq_AskQuestionContent .menu .conditionalWidget .rn_Chat a  {
+  padding: 11.2px 30px;
+  padding: 0.7rem 1.8rem;
+  font-weight: 400;
+
+}
+.conditionalWidget .rn_ConditionalChatLink .rn_Chat {
+  a { // button
+    text-transform: uppercase;
+    color: #fff;
+    background-color: $accent-color;
+    border-radius: 0;
+    display: inline-block;
+    margin-bottom: 0;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+  }
+  span { // message
+    display: block;
+    background-color: inherit;
+    font-weight: normal;
+    color: $secondary-color;
+    background-color: inherit;
+  }
+}
+
+
+// login/out link
+#rn_LoginStatus {
+  float: right;
+  margin-left: 20px;
+  margin-left: 1.25rem;
+  padding-top: 20px;
+  padding-top: 1.25rem;
+}
+.crmpersonaldetails {
+  float: right;
+  padding-top: 40px;
+  padding-top: 2.5rem;
+}
+
+ol.breadcrumb {
+  padding: 0 15px 8px 15px;
+  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
+  margin-left: 0;
+  list-style: none;
+  display: block;
+}
+ol.breadcrumb > li {
+  display: inline-block;
+}
+.breadcrumb > li + li:before {
+  padding: 0 5px;
+  color: $breadcrumb-divider-color;
+  content: "/\00a0";
+}
+.breadcrumb-home iron-icon {
+  height: 24px;
+  height: 1.5rem;
+  margin-top: -3px;
+}
+
+div.breadcrumbs,
+#rn_Container,
+.lib_pagetop {
+  background-color: $secondary-color-light;
+  color: inherit;
+}
+.subtitle .rn_DataValue,
+.subtitle p {
+  margin: 4px 0 0 0;
+  margin: 0.25rem 0 0 0;
+}
+
+
+div.breadcrumbs {
+  padding-bottom: 16px;
+  padding-bottom: 1rem;
+  margin-bottom: 24px;
+  margin-bottom: 1.5rem;
+
+}
+.breadcrumb-trail a {
+  color: $breadcrumb-text-color;
+}
+
+body.library #rn_Container {
+  background-color: #fff;
+  color: #000;
+}
+
+.breadcrumbs ol.breadcrumb-trail ,
+.breadcrumbs ol.breadcrumb-trail li:first-child {
+  padding-left: 0;
+}
+
+
+
+
+.rn_AnswerList h3 {
+  font-size: 26px;
+  font-size: 1.65rem;
+  font-weight: 400;
+  line-height: 1.25;
+  margin-bottom: 1rem;
+}
+
+/* get the mega menu layout right */
+.paper-tab-0:not(.iron-selected) > .tab-content.paper-tab {
+  border-width: 0;
+  box-shadow: 0 0 #fff;
+}
+.lib_pagetop.small-12.large-12.columns {
+  margin-top: 3px;
+}
+
+.panel-pane__content {
+  padding-top: 2em;
+}
+#rn_Navigation {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+}
+
+body.library #rn_Container .row .columns {
+  height: auto;
+  background-color: $secondary-color-light;
+  margin-top: 0;
+}
+
+
+.rn_RelatedAnswers h2,
+.rn_PreviousAnswers h2 {
+  border-top:  1px solid $secondary-color-light;
+}
+
+#rn_PageContent.rn_AnswerList ol,
+#rn_PageContent.rn_AnswerList ul,
+.rn_RelatedAnswers ol,
+.rn_RelatedAnswers ul,
+.rn_PreviousAnswers ol ,
+.rn_PreviousAnswers ul {
+  margin-left: 20px;
+  margin-left: 1.25rem;
+  padding-left: 0;
+}
+.rn_RelatedAnswers ul > li ,
+.rn_RelatedAnswers ol > li ,
+.rn_PreviousAnswers ol > li ,
+.rn_PreviousAnswers ul > li ,
+#rn_PageContent.rn_AnswerList ol > li ,
+#rn_PageContent.rn_AnswerList ul > li {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.rn_TextInput.rn_Input label {
+  font-size: 16px;
+  font-size: 1rem;
+  display: block;
+  padding-left: 0;
+  color: #000;
+}
+
+.rn_KeywordText label {
+  font-size: 18px;
+  font-size: 1.125rem;
+  display: block;
+  padding-left: 0;
+  color: #000;
+  font-weight: 500;
+}
+
+.rn_KeywordText input {
+  width: 90%;
+  font-size: 16px;
+  font-size: 1rem;
+  padding: 8px;
+  padding: 0.5rem;
+}
+
+
+.page__header {
+  background-color: $secondary-color-light;
+  color: $secondary-color-dark;
+}
+h1.page__title {
+  margin-bottom: 0;
+}
+h1.page__title .rn_FieldDisplay.rn_Output ,
+h1.page__title .rn_FieldDisplay.rn_Output .rn_DataValue ,
+.rn_AnswerList .rn_FieldDisplay.rn_Output ,
+.rn_AnswerList .rn_FieldDisplay.rn_Output .rn_DataValue {
+  margin-left: 0;
+  color: $secondary-color-dark;
+  background-color: inherit;
+}
+h1.page__title * {
+  font-size: 39.008px;
+  font-size: 2.438rem;
+  line-height: 1.25;
+  font-weight: normal;
+}
+
+
+
+.rn_AnswerList p {
+  margin-top: 16px;
+  margin-top: 1rem;
+  margin-bottom: 16px;
+  margin-bottom: 1rem;
+}
+#navigation-icons {
+  padding-bottom: 16px;
+  padding-bottom: 1rem;
+}
+.panel-pane__content .rn_FieldDisplay {
+  margin-left: 0;
+}
+// .panel-pane__content h1 {
+//  font-weight: 800;
+// }
+
+a {
+  color: $accent-color;
+}
+.search-tips {
+  padding-top: 16px;
+  padding-top: 1rem;
+}
+
+
+li.syndicatedWidget .rn_ConditionalChatLink #myChatLink #myChatLinkInfo span {
+  background-color: $accent-color-light;
+  color: #fff;
+  padding: 0;
+  font-weight: normal;
+  border-radius: 4px;
+  display: inline;
+  padding: 10px;
+  padding: .625rem;
+}
+li.syndicatedWidget .rn_ConditionalChatLink div a {
+  background-color: $accent-color-light;
+  color: #fff;
+  padding: 10px;
+  padding: .625rem;
+}
+
+.rn_Paginator a {
+  color: $accent-color
+}
+.rn_Paginator a:hover {
+  background-color: $accent-color
+}
+
+
+// hide yucky links
+#back-icon ,
+.rn_EmailAnswerLink {
+  display: none;
+}
+
+// style search & search tip buttons on details.php
+.rn_AnswerList #rn_SearchControls .rn_SearchButton input {
+  border-radius: 0;
+  background-color: $accent-color;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-size: 1rem;
+}
+
+.button-colored-accent .rn_SearchButton input {
+  font-size: 16px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: $accent-color;
+  border-radius: 0;
+}
+
+
+.lib_searchTip {
+  margin: 0;
+  clear: both;
+}
+.lib_searchTip .button-colored-secondary a {
+  color: $secondary-color;
+  width: 160px;
+  width: 10rem;
+  height: 46px;
+  height: 2.875rem;
+  padding: 10px;
+  padding: 0.625rem;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: normal;
+}
+.lib_searchTip .button-colored-secondary a:hover {
+  background-color: $secondary-color-light;
+  text-decoration: none;
+}
+
+.button-colored-accent input {
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.rn_FormSubmit input {
+  background-color: $accent-color;
+  color: #fff;
+  width: 160px;
+  width: 10rem;
+  border-radius: 0;
+}
+
+// the polymer element is getting a top of 116px. Weird.
+.uql-mega-menu-0 uqlibrary-iron-dropdown.uql-mega-menu {
+  top: 167px !important;
+}
+
+
+
+
+// styles provided by CRM
+.rn_AnswerList h3 {
+  font-size: 26px;
+  font-size: 1.65rem;
+  font-weight: 400;
+  line-height: 1.25;
+  margin-bottom: 10px;
+}
+
+#rn_Body .rn_Multiline .rn_Content li, .lib_sidebar ul>li {
+  border-bottom: 1px solid $secondary-color-light;
+  margin-bottom: 0;
+}
+
+
+
+#rn_SearchControls .rn_SearchInput button, #rn_SearchControls .rn_SearchButton button {
+  font-weight: 400;
+  height: 45px;
+  margin-bottom: 20px;
+  padding: 10px;
+  width: 100%;
+}
+
+.rn_AnswerList #rn_SearchControls .rn_SearchButton button {
+  border-radius: 0;
+  background-color: $accent-color;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 1rem;
+}
+
+
+.rn_Paginator ul {
+  display: inline-flex;
+  list-style-type: none;
+}
+
+
+
+// styles by us to make up for deficiencies in what CRM supplied
+.rn_Paginator ul li {
+  padding: 0.5em
+}
+
+.rn_Results  {
+  text-align: right;
+}
+
+
+.rn_AnswerList #rn_SearchControls .rn_SearchButton button,
+.rn_FormSubmit button {
+  -webkit-appearance: none;
+  background-color: $accent-color;
+  color: #fff;
+  width: 160px;
+  width: 10rem;
+  border-radius: 0;
+  border-width: 0;
+  padding: 10px;
+  padding: 0.625rem;
+  font-size: 14px;
+  font-size: 0.875rem;
+}
+
+
+.rn_RelatedAnswers h2 {
+  display: none;
+}
+
+.rn_RelatedAnswers ul:before {
+
+  content: "Answers others found helpful";
+
+  border-top: 1px solid $secondary-color-light;
+  padding-top: 10px;
+  padding-top: 0.625rem;
+  font-size: 18px;
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: $secondary-color-dark;
+  margin-left: -20px;
+  margin-left: -1.25rem;
+  padding-left: 0;
+}
+
