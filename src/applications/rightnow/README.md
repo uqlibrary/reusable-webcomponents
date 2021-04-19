@@ -22,14 +22,3 @@ Header block (production):
 <script type="text/javascript" src="https://assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js" defer></script>
 <script src="https://assets.library.uq.edu.au/reusable-webcomponents/applications/rightnow/load.js" async></script>
 ```
-
-These are the main pages we currently have:
-- Feedback form https://support.my.uq.edu.au/app/library/feedback
-- FAQ pages https://support.my.uq.edu.au/app/library/faqs and eg https://support.my.uq.edu.au/app/library/faqs/st/3/kw/database/page/1
-- FAQ answer pages eg https://support.my.uq.edu.au/app/library/answers/detail/a_id/1091
-- Contact form  https://support.my.uq.edu.au/app/library/contact
-- Report a problem page eg https://support.my.uq.edu.au/app/library/contact/report_problem/true/incidents.subject/Frogs%20%2F/incidents.c$summary/61UQ_ALMA21107302790003131
-  
-As well as the chat launch and chat landing pages:
-- https://support.my.uq.edu.au/app/chat/chat_launch_lib/p/45
-- https://support.my.uq.edu.au/app/chat/chat_landing_lib/p/45
