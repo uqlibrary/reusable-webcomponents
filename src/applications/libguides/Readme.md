@@ -12,6 +12,7 @@ To install the reusable web components, enter the libguides "look and feel" page
 <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css" />
 <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css">
 <link rel="stylesheet" type="text/css" href="http://assets.library.uq.edu.au/reusable-webcomponents-XXXXX/YYYYY/applications/libguides/custom-styles.css">
+<link type="image/x-icon" rel="shortcut icon" href="http://assets.library.uq.edu.au/reusable-webcomponents-XXXXX/YYYYY/favicon.ico">
 <script type="text/javascript" src="https://assets.library.uq.edu.au/reusable-webcomponents-XXXXX/YYYYY/uq-lib-reusable.min.js" defer></script>
 ```
 * Where XXXXX is the branch you expect to use (ie. staging, development or production will be blank and no `-`).
