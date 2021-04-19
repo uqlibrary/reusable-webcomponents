@@ -120,6 +120,7 @@ module.exports = () => {
                     {from: "src/UQSiteHeader/js/uqds.js", to: "uq-site-header.js"},
                     {from: "src/applications/libguides/arrow-right.png", to: "applications/libguides/arrow-right.png"},
                     {from: "src/applications/libguides/arrow-down.png", to: "applications/libguides/arrow-down.png"},
+                    {from: "src/favicon.ico", to: "favicon.ico"},
                     // all load.js for applications should be included here
                     {from: "src/applications/drupal/load.js", to: "applications/drupal/load.js"},
                     {from: "src/applications/rightnow/load.js", to: "applications/rightnow/load.js"},
