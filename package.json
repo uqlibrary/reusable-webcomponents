@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "build": "cross-env NODE_ENV=local webpack && npm run compilesass",
-    "build:development": "cross-env NODE_ENV=development webpack && npm run compilesass",
+    "build:development": "cross-env NODE_ENV=development webpack && npm run compilesass:development",
     "build:staging": "cross-env NODE_ENV=staging webpack && npm run compilesass",
     "build:production": "cross-env NODE_ENV=production webpack && npm run compilesass",
     "start:mock": "cross-env NODE_ENV=local USE_MOCK=true FULL_PATH=http://localhost:8080 NODE_OPTIONS='--max-old-space-size=2048' webpack-dev-server --open",
@@ -28,7 +28,8 @@
     "test:local": "start-server-and-test start-test-server http://localhost:8080 cypress:open",
     "prettier:test": "npx prettier --check ./",
     "prettier:fix": "npx prettier --write ./",
-    "compilesass": "node-sass ./src/applications --output ./dist/applications"
+    "compilesass": "node-sass ./src/applications --output ./dist/applications",
+    "compilesass:development": "node-sass ./src/applications --output ./dist/$CI_BRANCH/applications"
   },
   "repository": {
     "type": "git",
