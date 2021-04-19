@@ -109,8 +109,14 @@ class AskUsButton extends HTMLElement {
 
         // Render the template
         shadowDOM.appendChild(template.content.cloneNode(true));
-        this.updateAskusDOM(shadowDOM);
-        this.addButtonListeners(shadowDOM);
+
+        // the attributes seem to need an extra moment before they are available
+        const handleAttributes = setInterval(() => {
+            clearInterval(handleAttributes);
+
+            this.updateAskusDOM(shadowDOM);
+            this.addButtonListeners(shadowDOM);
+        }, 50);
 
         // Bindings
         this.loadJS = this.loadJS.bind(this);
