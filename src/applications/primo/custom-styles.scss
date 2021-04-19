@@ -64,7 +64,7 @@ $accent-color-half-opacity: rgba(35, 119, 203, .5);
 }
 
 @import "www/styles/main";
-@import "../styles-imports/skeleton";
+@import "../styles-imports/_skeleton";
 
 /* Style imports to override primo defaults */
 @import "styles-imports/main-search-buttons";
