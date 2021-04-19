@@ -28,30 +28,15 @@ To install the reusable header web components, click on the "Header / Footer / T
 <uq-gtm gtm="GTM-XXXXXX"></uq-gtm>
 <uq-header hidelibrarymenuitem skipnavid="YYYYYY"></uq-header>
 <uq-site-header>
-    <span slot="site-utilities">
-        <auth-button />
-    </span>
+    <span slot="site-utilities"><mylibrary-button /></span>
+    <span slot="site-utilities"><askus-button /></span>
+    <span slot="site-utilities"><auth-button /></span>
 </uq-site-header>
 <alert-list></alert-list>
 ```
 * Where XXXX is the Google Tag Manager container code you require.
 * Where YYYY is the html element `id` of the container for the page content that will take focus when skipping navigation. 
 
-You may add additional utility items in the site header by adding a `<slot>`:
-
-````html
-<uq-site-header>
-    <span slot="site-utilities">
-        <askus-button />
-    </span>
-    <span slot="site-utilities">
-        <div id="mylibrarystub"></div>
-    </span>
-    <span slot="site-utilities">
-        <auth-button />
-    </span>
-</uq-site-header>
-````
 When complete - click save.
 
 ### Footer
