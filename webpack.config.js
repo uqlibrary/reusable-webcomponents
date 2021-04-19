@@ -123,6 +123,7 @@ module.exports = () => {
                     {from: "src/favicon.ico", to: "favicon.ico"},
                     // all load.js for applications should be included here
                     {from: "src/applications/drupal/load.js", to: "applications/drupal/load.js"},
+                    {from: "src/applications/rightnow/load.js", to: "applications/rightnow/load.js"},
                     {from: "src/applications/shared/load.js", to: "applications/shared/load.js"},
                     {from: "src/applications/studenthub/load.js", to: "applications/studenthub/load.js"},
                     {from: "src/applications/uqlapp/load.js", to: "applications/uqlapp/load.js"},
