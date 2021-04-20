@@ -138,6 +138,7 @@ class UQHeader extends HTMLElement {
 
         // Bindings
         this.loadJS = this.loadJS.bind(this);
+        this.isGlobalMenuLibraryItemRequested = this.isGlobalMenuLibraryItemRequested.bind(this);
     }
 
     loadJS() {
