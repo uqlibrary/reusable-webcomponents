@@ -217,11 +217,6 @@ class UQSiteHeader extends HTMLElement {
         }
     }
 
-    isMegaMenuRequested() {
-        const showMenu = this.getAttribute('showmenu');
-        return !!showMenu || showMenu === '';
-    }
-
     connectedCallback() {
         this.loadJS();
     }
