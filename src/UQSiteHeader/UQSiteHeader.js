@@ -1,7 +1,7 @@
 import styles from './css/main.css';
 import overrides from './css/overrides.css';
 import icons from './css/icons.css';
-import { default as menuLocale } from '../locale/menu';
+import {default as menuLocale} from '../locale/menu';
 import myLibStyles from '../UtilityArea/css/mylibrary.css';
 
 /**
@@ -80,7 +80,98 @@ class UQSiteHeader extends HTMLElement {
         const displayMenu = setInterval(() => {
             clearInterval(displayMenu);
 
-            this.rewriteMegaMenuFromJson();
+            const megaMenu = template.content.getElementById('jsNav');
+
+            // clear the existing children
+            !!megaMenu && (megaMenu.textContent = '');
+
+            const showMenu = this.getAttribute('showmenu');
+            const isMegaMenuRequested = !!showMenu || showMenu === '';
+            if (!isMegaMenuRequested) {
+                // hide responsive menu button
+                const button = template.content.getElementById('uq-site-header__navigation-toggle');
+                !!button && (button.style.display = 'none');
+            } else {
+
+                const listWrapper = document.createElement('ul');
+                listWrapper.setAttribute('class', 'uq-site-header__navigation__list uq-site-header__navigation__list--level-1');
+
+                menuLocale.publicmenu.forEach((jsonParentItem, index) => {
+                    const hasChildren = !!jsonParentItem.submenuItems && jsonParentItem.submenuItems.length > 0;
+
+                    const parentListItem = document.createElement('li');
+
+                    let classNavListitem = 'uq-site-header__navigation__list-item';
+                    !!hasChildren && (classNavListitem += ' uq-site-header__navigation__list-item--has-subnav');
+                    jsonParentItem.linkTo === window.location.href &&
+                    (classNavListitem += ' uq-site-header__navigation__list-item--active');
+                    parentListItem.setAttribute('class', classNavListitem);
+
+                    // create Link
+                    const datatestid = `menu-group-item-${index}`;
+                    const href = jsonParentItem.linkTo || '';
+                    const linktext = jsonParentItem.primaryText || '';
+                    const parentLink = document.createElement('a');
+                    parentLink.setAttribute('data-testid', datatestid);
+                    parentLink.setAttribute('href', href);
+                    const textOfLink = document.createTextNode(linktext);
+                    parentLink.appendChild(textOfLink);
+
+                    parentLink.setAttribute('aria-expanded', 'false');
+                    parentListItem.appendChild(parentLink);
+
+                    if (hasChildren) {
+                        const textOfToggle = document.createTextNode('Open');
+                        const parentToggle = document.createElement('span');
+                        parentToggle.setAttribute('class', 'uq-site-header__navigation__sub-toggle');
+                        parentToggle.appendChild(textOfToggle);
+
+                        parentListItem.appendChild(parentToggle);
+                    }
+
+                    // make child items
+                    if (hasChildren) {
+                        const listItemWrapper = document.createElement('ul');
+                        let listItemClass = 'uq-site-header__navigation__list uq-site-header__navigation__list--level-2';
+                        !!jsonParentItem.columnCount &&
+                        jsonParentItem.columnCount > 1 &&
+                        (listItemClass += ' multicolumn-' + jsonParentItem.columnCount);
+                        listItemWrapper.setAttribute('class', listItemClass);
+                        jsonParentItem.submenuItems.forEach((jsonChild, indexChild) => {
+                            const listItem = document.createElement('li');
+                            listItem.setAttribute('class', 'uq-site-header__navigation__list-item');
+                            listItem.setAttribute('data-testid', `${jsonParentItem.dataTestid}-${indexChild}` || '');
+
+                            // a missing primary text allows for an empty cell, controlling the spacing of the menu
+                            if (!!jsonChild.primaryText) {
+                                const primarytextOfLink = document.createTextNode(jsonChild.primaryText || '');
+                                const primaryTextItem = document.createElement('span');
+                                primaryTextItem.setAttribute('class', 'displayText');
+                                primaryTextItem.appendChild(primarytextOfLink);
+
+                                const secondarytextOfLink = document.createTextNode(jsonChild.secondaryText || ' ');
+                                const secondaryTextItem = document.createElement('span');
+                                secondaryTextItem.setAttribute('class', 'displayText secondaryText');
+                                secondaryTextItem.appendChild(secondarytextOfLink);
+
+                                const itemLink = document.createElement('a');
+                                itemLink.setAttribute('href', jsonChild.linkTo || '');
+                                itemLink.appendChild(primaryTextItem);
+                                itemLink.appendChild(secondaryTextItem);
+                                itemLink.setAttribute('aria-expanded', 'false');
+
+                                listItem.appendChild(itemLink);
+                            }
+
+                            listItemWrapper.appendChild(listItem);
+                        });
+                        parentListItem.appendChild(listItemWrapper);
+                    }
+
+                    listWrapper.appendChild(parentListItem);
+                });
+                megaMenu.appendChild(listWrapper);
+            }
 
             // Render the template
             shadowDOM.appendChild(template.content.cloneNode(true));
@@ -91,110 +182,12 @@ class UQSiteHeader extends HTMLElement {
         this.loadJS = this.loadJS.bind(this);
     }
 
-    rewriteMegaMenuFromJson() {
-        const megaMenu = template.content.getElementById('jsNav');
-
-        // clear the existing children
-        !!megaMenu && (megaMenu.textContent = '');
-
-        if (!this.isMegaMenuRequested()) {
-            // hide responsive menu button
-            const button = template.content.getElementById('uq-site-header__navigation-toggle');
-            !!button && (button.style.display = 'none');
-
-            // don't add Library megamenu
-            return;
-        }
-
-        const listWrapper = document.createElement('ul');
-        listWrapper.setAttribute('class', 'uq-site-header__navigation__list uq-site-header__navigation__list--level-1');
-
-        menuLocale.publicmenu.forEach((jsonParentItem, index) => {
-            const hasChildren = !!jsonParentItem.submenuItems && jsonParentItem.submenuItems.length > 0;
-
-            const parentListItem = document.createElement('li');
-
-            let classNavListitem = 'uq-site-header__navigation__list-item';
-            !!hasChildren && (classNavListitem += ' uq-site-header__navigation__list-item--has-subnav');
-            jsonParentItem.linkTo === window.location.href &&
-                (classNavListitem += ' uq-site-header__navigation__list-item--active');
-            parentListItem.setAttribute('class', classNavListitem);
-
-            const parentLink = this.createLink(
-                `menu-group-item-${index}`,
-                jsonParentItem.linkTo || '',
-                jsonParentItem.primaryText || '',
-            );
-            parentLink.setAttribute('aria-expanded', 'false');
-            parentListItem.appendChild(parentLink);
-
-            if (hasChildren) {
-                const textOfToggle = document.createTextNode('Open');
-                const parentToggle = document.createElement('span');
-                parentToggle.setAttribute('class', 'uq-site-header__navigation__sub-toggle');
-                parentToggle.appendChild(textOfToggle);
-
-                parentListItem.appendChild(parentToggle);
-            }
-
-            // make child items
-            if (hasChildren) {
-                const listItemWrapper = document.createElement('ul');
-                let listItemClass = 'uq-site-header__navigation__list uq-site-header__navigation__list--level-2';
-                !!jsonParentItem.columnCount &&
-                    jsonParentItem.columnCount > 1 &&
-                    (listItemClass += ' multicolumn-' + jsonParentItem.columnCount);
-                listItemWrapper.setAttribute('class', listItemClass);
-                jsonParentItem.submenuItems.forEach((jsonChild, indexChild) => {
-                    const listItem = document.createElement('li');
-                    listItem.setAttribute('class', 'uq-site-header__navigation__list-item');
-                    listItem.setAttribute('data-testid', `${jsonParentItem.dataTestid}-${indexChild}` || '');
-
-                    // a missing primary text allows for an empty cell, controlling the spacing of the menu
-                    if (!!jsonChild.primaryText) {
-                        const primarytextOfLink = document.createTextNode(jsonChild.primaryText || '');
-                        const primaryTextItem = document.createElement('span');
-                        primaryTextItem.setAttribute('class', 'displayText');
-                        primaryTextItem.appendChild(primarytextOfLink);
-
-                        const secondarytextOfLink = document.createTextNode(jsonChild.secondaryText || ' ');
-                        const secondaryTextItem = document.createElement('span');
-                        secondaryTextItem.setAttribute('class', 'displayText secondaryText');
-                        secondaryTextItem.appendChild(secondarytextOfLink);
-
-                        const itemLink = document.createElement('a');
-                        itemLink.setAttribute('href', jsonChild.linkTo || '');
-                        itemLink.appendChild(primaryTextItem);
-                        itemLink.appendChild(secondaryTextItem);
-                        itemLink.setAttribute('aria-expanded', 'false');
-
-                        listItem.appendChild(itemLink);
-                    }
-
-                    listItemWrapper.appendChild(listItem);
-                });
-                parentListItem.appendChild(listItemWrapper);
-            }
-
-            listWrapper.appendChild(parentListItem);
-        });
-        megaMenu.appendChild(listWrapper);
-    }
-
-    createLink(datatestid, href, linktext) {
-        const alink = document.createElement('a');
-        alink.setAttribute('data-testid', datatestid);
-        alink.setAttribute('href', href);
-        const textOfLink = document.createTextNode(linktext);
-        alink.appendChild(textOfLink);
-        return alink;
-    }
-
     loadJS(hideAskUs, hideMyLibrary) {
         // This loads the external JS file into the HTML head dynamically
         //Only load js if it has not been loaded before (tracked by the initCalled flag)
         if (!initCalled) {
-            const isMegaMenuDisplayed = this.isMegaMenuRequested();
+            const showMenu = this.getAttribute('showmenu');
+            const isMegaMenuDisplayed = !!showMenu || showMenu === '';
 
             //Dynamically import the JS file and append it to the document header
             const script = document.createElement('script');
