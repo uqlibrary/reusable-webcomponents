@@ -72,7 +72,7 @@ span.displayText {
 
     .uq-site-header__navigation__list-item--has-subnav > a {
         padding-right: 1.5em;
-        background-position: right 0.5em center;
+        background-position: right 0.5em top 1.5em;
     }
 }
 
