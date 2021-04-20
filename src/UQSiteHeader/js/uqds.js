@@ -59,6 +59,7 @@ var uq = (function (exports) {
                         .querySelector('uq-site-header')
                         .shadowRoot.querySelector('.'.concat(this.toggleClass));
                     if (!this.nav) {
+                        console.log('this.nav not found ', this);
                         return;
                     }
                     var subNavItems = this.nav.querySelectorAll('.'.concat(this.subNavClass));
@@ -415,8 +416,6 @@ var uq = (function (exports) {
                                 _this6.hash = window.location.hash;
                             } // Scroll to hash (param string) selected accordion
 
-                          const uqHeader = document.querySelector('uq-header') || false;
-                          const shadowRoot = !!uqHeader && uqHeader.shadowRoot || false;
                             if (_this6.hash && _this6.hash !== '') {
                                 let selectors = ''.concat(_this6.hash, '.').concat(_this6.className, '__content');
                                 // on uqlapp we get weird errors like
@@ -427,9 +426,14 @@ var uq = (function (exports) {
                                 if (!isSelectorValid(selectors)) {
                                     console.log('selector ', selectors, ' has probably caused the uqsiteheader to silently fail');
                                 }
-                                var hashSelectedContent = !!shadowRoot && isSelectorValid(selectors) && shadowRoot.querySelector(selectors) || false;
+                                var hashSelectedContent = isSelectorValid(selectors) &&
+                                    document
+                                        .querySelector('uq-header')
+                                        .shadowRoot.querySelector(
+                                            selectors
+                                    );
 
-                                if (!!hashSelectedContent) {
+                                if (hashSelectedContent) {
                                     // Only apply classes on load when linking directly to an accordion item.
                                     var hashSelected = accordion.getPrevSibling(
                                         hashSelectedContent,
@@ -442,7 +446,9 @@ var uq = (function (exports) {
                                 }
                             }
 
-                            var accordions = !!shadowRoot && shadowRoot.querySelectorAll('.'.concat(_this6.className));
+                            var accordions = document
+                                .querySelector('uq-header')
+                                .shadowRoot.querySelectorAll('.'.concat(_this6.className));
                             accordions.forEach(function (el) {
                                 var togglers = el.querySelectorAll('.'.concat(_this6.className, '__toggle'));
                                 togglers.forEach(function (el) {
