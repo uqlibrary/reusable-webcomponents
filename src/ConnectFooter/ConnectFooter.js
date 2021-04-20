@@ -124,6 +124,8 @@ class ConnectFooter extends HTMLElement {
 
         // Bindings
         this.loadJS = this.loadJS.bind(this);
+        this.updateFooterMenuFromJson = this.updateFooterMenuFromJson.bind(this);
+        this.createLink = this.createLink.bind(this);
     }
 
     updateFooterMenuFromJson() {

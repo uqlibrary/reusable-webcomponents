@@ -100,6 +100,9 @@ class AskUsButton extends HTMLElement {
 
         // Bindings
         this.loadJS = this.loadJS.bind(this);
+        this.updateAskusDOM = this.updateAskusDOM.bind(this);
+        this.addButtonListeners = this.addButtonListeners.bind(this);
+        this.isPaneButtonOpacityDropRequested = this.isPaneButtonOpacityDropRequested.bind(this);
     }
 
     async updateAskusDOM(shadowRoot) {
