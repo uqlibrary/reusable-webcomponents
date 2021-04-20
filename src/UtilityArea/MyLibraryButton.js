@@ -116,6 +116,7 @@ class MyLibraryButton extends HTMLElement {
         this.loadJS = this.loadJS.bind(this);
         this.showHideMylibraryEspaceOption = this.showHideMylibraryEspaceOption.bind(this);
         this.addMylibraryButtonListeners = this.addMylibraryButtonListeners.bind(this);
+        this.confirmAccount = this.confirmAccount.bind(this);
     }
 
     async updateMylibraryDOM(shadowRoot) {

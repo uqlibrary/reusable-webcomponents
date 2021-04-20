@@ -56,6 +56,7 @@ class AuthButton extends HTMLElement {
         this.showLoginFromAuthStatus = this.showLoginFromAuthStatus.bind(this);
         this.addButtonListeners = this.addButtonListeners.bind(this);
         this.checkAuthorisedUser = this.checkAuthorisedUser.bind(this);
+        this.isOverwriteAsLoggedOutRequested = this.isOverwriteAsLoggedOutRequested.bind(this);
     }
 
     async showLoginFromAuthStatus(shadowDOM) {
