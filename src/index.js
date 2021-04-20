@@ -1,3 +1,5 @@
+console.log('Build: Wed April 21 8:14am')
+
 import Alerts from './Alerts/Alerts';
 import ApiAccess from './ApiAccess/ApiAccess.js';
 import AskUsButton from './UtilityArea/AskUsButton.js';
