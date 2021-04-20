@@ -117,6 +117,7 @@ class MyLibraryButton extends HTMLElement {
     }
 
     async updateMylibraryDOM(shadowRoot) {
+        const that = this;
         this.confirmAccount().then((accountSummary) => {
             if (!!accountSummary.isLoggedin) {
                 shadowRoot.appendChild(template.content.cloneNode(true));
@@ -124,9 +125,9 @@ class MyLibraryButton extends HTMLElement {
                 const masqueradeElement = !!shadowRoot && shadowRoot.getElementById('mylibrary-masquerade');
                 !accountSummary.canMasquerade && !!masqueradeElement && masqueradeElement.remove();
 
-                this.showHideMylibraryEspaceOption(shadowRoot);
+                that.showHideMylibraryEspaceOption(shadowRoot);
 
-                this.addMylibraryButtonListeners(shadowRoot);
+                that.addMylibraryButtonListeners(shadowRoot);
             }
             return accountSummary;
         });
