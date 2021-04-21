@@ -61,6 +61,13 @@ var uq = (function (exports) {
                     const loadNav = setInterval(() => {
                         if (!this.nav) {
                             console.log('this.nav not found ', this);
+
+                            const uqsiteheader = document.querySelector('uq-site-header');
+                            const shadowRoot = !!uqsiteheader && uqsiteheader.shadowRoot;
+                            this.nav = !!shadowRoot && shadowRoot.querySelector('#jsNav');
+                            if (!this.nav) {
+                                console.log('this.nav not found again ', uqsiteheader, shadowRoot);
+                            }
                         }
                         if (!!this.nav) {
                             clearInterval(loadNav);
