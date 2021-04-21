@@ -63,11 +63,6 @@ function loadReusableComponentsDrupal() {
         return;
     }
 
-    if (!document.querySelector('uq-gtm')) {
-        const gtm = document.createElement('uq-gtm');
-        !!gtm && document.body.insertBefore(gtm, firstElement);
-    }
-
     if (!document.querySelector('uq-header')) {
         const header = document.createElement('uq-header');
         !!header && header.setAttribute("hideLibraryMenuItem", "");
