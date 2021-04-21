@@ -58,47 +58,62 @@ var uq = (function (exports) {
                     var mobileToggle = document
                         .querySelector('uq-site-header')
                         .shadowRoot.querySelector('.'.concat(this.toggleClass));
-                    if (!this.nav) {
-                        console.log('this.nav not found ', this);
-                        return;
-                    }
-                    var subNavItems = this.nav.querySelectorAll('.'.concat(this.subNavClass));
-                    var subNavLinks = this.nav.querySelectorAll('.'.concat(this.subNavClass, ' > a'));
-                    var subNavL2Items = this.nav.querySelectorAll(
-                        '.'.concat(this.level2Class, ' .').concat(this.subNavClass),
-                    );
-                    var subNavL2Links = this.nav.querySelectorAll(
-                        '.'.concat(this.level2Class, ' .').concat(this.subNavClass, ' > a'),
-                    );
-                    var navLinks = this.nav.querySelectorAll('li > a');
-                    var subNavToggles = this.nav.querySelectorAll('.'.concat(this.subToggleClass));
-                    mobileToggle.addEventListener('click', this.handleMobileToggle);
-                    subNavItems.forEach(function (item) {
-                        _this.setOrientation(item);
-
-                        item.addEventListener('mouseenter', _this.handleToggle);
-                        item.addEventListener('mouseleave', _this.handleToggle);
-                    });
-                    subNavLinks.forEach(function (item) {
-                        if (window.matchMedia('(min-width: 1024px)').matches) {
-                            item.addEventListener('touchend', _this.handleToggle);
+                    const loadNav = setInterval(() => {
+                        if (!this.nav) {
+                            console.log('this.nav not found ', this);
                         }
-                    });
-                    subNavL2Items.forEach(function (item) {
-                        _this.setOrientation(item);
+                        if (!!this.nav) {
+                            clearInterval(loadNav);
+                            // if (!this.nav) {
+                            //     console.log('this.nav not found ', this);
+                            //     const uqsiteheader = document.querySelector('uq-site-header');
+                            //     const shadowRoot = !!uqsiteheader && uqsiteheader.shadowRoot;
+                            //     this.nav = !!shadowRoot && shadowRoot.querySelector('#jsNav');
+                            //     if (!this.nav) {
+                            //         console.log('this.nav not found again ', uqsiteheader, shadowRoot);
+                            //     }
+                            //
+                            //     // return;
+                            // }
+                            var subNavItems = !!this.nav && this.nav.querySelectorAll('.'.concat(this.subNavClass));
+                            var subNavLinks = !!this.nav && this.nav.querySelectorAll('.'.concat(this.subNavClass, ' > a'));
+                            var subNavL2Items = !!this.nav && this.nav.querySelectorAll(
+                                '.'.concat(this.level2Class, ' .').concat(this.subNavClass),
+                            );
+                            var subNavL2Links = !!this.nav && this.nav.querySelectorAll(
+                                '.'.concat(this.level2Class, ' .').concat(this.subNavClass, ' > a'),
+                            );
+                            var navLinks = !!this.nav && this.nav.querySelectorAll('li > a');
+                            var subNavToggles = !!this.nav && this.nav.querySelectorAll('.'.concat(this.subToggleClass));
+                            mobileToggle.addEventListener('click', this.handleMobileToggle);
+                            subNavItems.forEach(function (item) {
+                                _this.setOrientation(item);
 
-                        item.addEventListener('mouseenter', _this.handleToggle);
-                        item.addEventListener('mouseleave', _this.handleToggle);
-                    });
-                    subNavL2Links.forEach(function (item) {
-                        item.addEventListener('touchend', _this.handleToggle);
-                    });
-                    navLinks.forEach(function (item) {
-                        item.addEventListener('keydown', _this.handleKeyPress);
-                    });
-                    subNavToggles.forEach(function (item) {
-                        item.addEventListener('click', _this.handleToggle);
-                    });
+                                item.addEventListener('mouseenter', _this.handleToggle);
+                                item.addEventListener('mouseleave', _this.handleToggle);
+                            });
+                            subNavLinks.forEach(function (item) {
+                                if (window.matchMedia('(min-width: 1024px)').matches) {
+                                    item.addEventListener('touchend', _this.handleToggle);
+                                }
+                            });
+                            subNavL2Items.forEach(function (item) {
+                                _this.setOrientation(item);
+
+                                item.addEventListener('mouseenter', _this.handleToggle);
+                                item.addEventListener('mouseleave', _this.handleToggle);
+                            });
+                            subNavL2Links.forEach(function (item) {
+                                item.addEventListener('touchend', _this.handleToggle);
+                            });
+                            navLinks.forEach(function (item) {
+                                item.addEventListener('keydown', _this.handleKeyPress);
+                            });
+                            subNavToggles.forEach(function (item) {
+                                item.addEventListener('click', _this.handleToggle);
+                            });
+                        }
+                    }, 50);
                 },
             },
             {
