@@ -15,7 +15,7 @@ function insertScript(url, defer = false) {
     }
 }
 // insertScript('https://assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js', true);
-// insertScript('https://assets.library.uq.edu.au/reusable-webcomponents-development/feature-libwizard/uq-lib-reusable.min.js', true);
+insertScript('https://assets.library.uq.edu.au/reusable-webcomponents-development/feature-libwizard/uq-lib-reusable.min.js', true);
 
 function ready(fn) {
     if (document.readyState !== 'loading'){
