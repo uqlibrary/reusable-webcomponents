@@ -125,6 +125,10 @@ class AskUsButton extends HTMLElement {
         this.isPaneButtonOpacityDropRequested = this.isPaneButtonOpacityDropRequested.bind(this);
     }
 
+    attributeChangedCallback(name, oldValue, newValue) {
+        console.log(`attributeChangedCallback: ${name}'s value has been changed from ${oldValue} to ${newValue}`);
+    }
+
     isProactiveChatHidden() {
         const hideProactiveChat = this.getAttribute('hideProactiveChat');
         return hideProactiveChat === 'true' || hideProactiveChat === '';
