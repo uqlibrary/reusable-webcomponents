@@ -235,6 +235,7 @@ class UQSiteHeader extends HTMLElement {
     }
 
     connectedCallback() {
+        console.log('connectedCallback');
         this.loadJS();
     }
 }
