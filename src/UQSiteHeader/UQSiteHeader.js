@@ -182,7 +182,7 @@ class UQSiteHeader extends HTMLElement {
         this.loadJS = this.loadJS.bind(this);
     }
 
-    loadJS(hideAskUs, hideMyLibrary) {
+    loadJS() {
         // This loads the external JS file into the HTML head dynamically
         // Only load js if it has not been loaded before and the nav element is available
         const loadMenu = setInterval(() => {
