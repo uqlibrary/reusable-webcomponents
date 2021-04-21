@@ -184,37 +184,54 @@ class UQSiteHeader extends HTMLElement {
 
     loadJS(hideAskUs, hideMyLibrary) {
         // This loads the external JS file into the HTML head dynamically
-        //Only load js if it has not been loaded before (tracked by the initCalled flag)
-        if (!initCalled) {
-            const showMenu = this.getAttribute('showmenu');
-            const isMegaMenuDisplayed = !!showMenu || showMenu === '';
+        // Only load js if it has not been loaded before and the nav element is available
+        const loadMenu = setInterval(() => {
+            const uqSiteHeader = document.querySelector('uq-site-header');
+            const shadowRoot = (!!uqSiteHeader && uqSiteHeader.shadowRoot) || false;
+            var navelement = (!!shadowRoot && shadowRoot.getElementById('jsNav')) || false;
+            console.log('navelement = ', navelement);
 
-            //Dynamically import the JS file and append it to the document header
-            const script = document.createElement('script');
-            script.type = 'text/javascript';
-            script.defer = true;
-            script.onload = function () {
-                //Code to execute after the library has been downloaded parsed and processed by the browser starts here :)
-                initCalled = true;
-                // Initialise Main Navigation
-                const uqSiteHeader = document.querySelector('uq-site-header');
-                const shadowDOM = (!!uqSiteHeader && uqSiteHeader.shadowRoot) || false;
-                if (!!isMegaMenuDisplayed) {
-                    var navelement = !!uqSiteHeader && uqSiteHeader.shadowRoot.getElementById('jsNav');
-                    var nav = new uq.siteHeaderNavigation(navelement, 'uq-site-header__navigation');
-                }
-                // Initialise accordions
-                new uq.accordion();
-                // Equalised grid menu examples
-                var equaliseGridMenu = uq.gridMenuEqualiser('.uq-grid-menu--equalised>a');
-                equaliseGridMenu.align();
-            };
-            //Specify the location of the ITS DS JS file
-            script.src = 'uq-site-header.js';
+            const scripts = document.getElementsByTagName('script');
+            const scriptList = Array.prototype.slice.call(scripts);
+            const scriptFound = scriptList.find(scriptTag => {
+                return String(scriptTag).includes('uq-site-header.js');
+            });
+            console.log('scriptFound = ', scriptFound);
 
-            //Append it to the document header
-            document.head.appendChild(script);
-        }
+            if (!scriptFound && !!navelement) {
+                clearInterval(loadMenu);
+
+                const showMenu = this.getAttribute('showmenu');
+                const isMegaMenuDisplayed = !!showMenu || showMenu === '';
+
+                //Dynamically import the JS file and append it to the document header
+                const script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.defer = true;
+                script.onload = function () {
+                    //Code to execute after the library has been downloaded parsed and processed by the browser starts here :)
+                    // Initialise Main Navigation
+                    const uqSiteHeader = document.querySelector('uq-site-header');
+                    const shadowRoot = (!!uqSiteHeader && uqSiteHeader.shadowRoot) || false;
+                    if (!!isMegaMenuDisplayed) {
+                        var navelement = !!shadowRoot && shadowRoot.getElementById('jsNav');
+                        var nav = new uq.siteHeaderNavigation(navelement, 'uq-site-header__navigation');
+                    }
+                    // Initialise accordions
+                    new uq.accordion();
+                    // Equalised grid menu examples
+                    var equaliseGridMenu = uq.gridMenuEqualiser('.uq-grid-menu--equalised>a');
+                    equaliseGridMenu.align();
+                };
+                //Specify the location of the ITS DS JS file
+                script.src = 'uq-site-header.js';
+
+                //Append it to the document header
+                document.head.appendChild(script);
+            } else {
+                console.log('not yet');
+            }
+        }, 50);
     }
 
     connectedCallback() {
