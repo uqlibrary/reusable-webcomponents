@@ -128,6 +128,7 @@ module.exports = () => {
                     {from: "src/applications/studenthub/load.js", to: "applications/studenthub/load.js"},
                     {from: "src/applications/uqlapp/load.js", to: "applications/uqlapp/load.js"},
                     {from: "src/applications/libguides/load.js", to: "applications/libguides/load.js"},
+                    {from: "src/applications/libcal/load.js", to: "applications/libcal/load.js"},
                 ],
             }),
             // This plugin will rename the external js imports to full paths for deploy
