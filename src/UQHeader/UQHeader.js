@@ -171,6 +171,10 @@ class UQHeader extends HTMLElement {
     connectedCallback() {
         this.loadJS();
     }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        console.log(`UQHeader attributeChangedCallback: ${name}'s value has been changed from ${oldValue} to ${newValue}`);
+    }
 }
 
 export default UQHeader;

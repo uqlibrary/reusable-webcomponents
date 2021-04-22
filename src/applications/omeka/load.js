@@ -1,55 +1,76 @@
 function ready(fn) {
-  if (document.readyState != 'loading'){
+  if (document.readyState !== 'loading'){
     fn();
   } else {
     document.addEventListener('DOMContentLoaded', fn);
   }
 }
 
-function loadReusableComponents() {
+function loadReusableComponentsOmeka() {
   loadUQFavicon();
 
   addAppleTouchIcon();
 
-  addCss('//assets.library.uq.edu.au/reusable-components/omeka/custom-styles.css');
+  addCss('//assets.library.uq.edu.au/reusable-webcomponents-development/feature-omeka/applications/omeka/custom-styles.css');
+  // addCss('//assets.library.uq.edu.au/reusable-webcomponents/applications/omeka/custom-styles.css');
+  // addCss('//assets.library.uq.edu.au/reusable-components/omeka/custom-styles.css');
 
   addResponsiveMeta();
 
-  addElements();
+  insertScript('//assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js');
 
+  //insert elements
 
-
-  //insert elements, even before Polymer is loaded
-
-  //first element of the original document
-  var firstElement = document.body.children[0];
-
-  var alerts = document.querySelector('uqlibrary-alerts');
-  if (!alerts) {
-    //as a back up insert header if it's not defined already
-    alerts = document.createElement('uqlibrary-alerts');
-    document.body.insertBefore(alerts, firstElement);
+  const firstElement = document.body.children[0];
+  if (!firstElement) {
+    return;
   }
 
-  // insert header after body-tag
-  var header = document.createElement('uq-minimal-header');
-  document.body.insertBefore(header, firstElement);
+  if (!document.querySelector('uq-header')) {
+    const header = document.createElement('uq-header');
+    !!header && header.setAttribute("hideLibraryMenuItem", "");
+    // no 'skip to content' as drupal provides a 'skip to menu' on first click
+    !!header && document.body.insertBefore(header, firstElement);
+  }
 
-  // insert footer before body-tag
-  var footer = document.createElement('uq-minimal-footer');
-  document.body.appendChild(footer);
+  if (!document.querySelector('uq-site-header')) {
+    const siteHeader = document.createElement('uq-site-header');
 
+    const askusButton = createAskusButton();
+    !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
 
-  window.addEventListener('WebComponentsReady', function() {
-    // when polymer is ready - configure elements
+    !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
+  }
 
-    header.showLoginButton = false;
+  if (!document.querySelector('alert-list')) {
+    const alerts = document.createElement('alert-list');
+    !!alerts && document.body.insertBefore(alerts, firstElement);
+  }
 
-    header.applicationTitle = 'Online Exhibitions';
+  if (!document.querySelector('uq-footer')) {
+    const subFooter = document.createElement('uq-footer');
+    !!subFooter && document.body.appendChild(subFooter);
+  }
+}
 
-  });
+function createSlotForButtonInUtilityArea(button, id=null) {
+  const slot = document.createElement('span');
+  !!slot && slot.setAttribute('slot', 'site-utilities');
+  !!slot && !!id && slot.setAttribute('id', id);
+  !!button && !!slot && slot.appendChild(button);
 
+  return slot;
+}
 
+function createAskusButton() {
+  if (!!document.querySelector('askus-button')) {
+    return false;
+  }
+
+  const askusButton = document.createElement('askus-button');
+  const slot = !!askusButton && createSlotForButtonInUtilityArea(askusButton, 'askus');
+
+  return slot;
 }
 
 function loadUQFavicon() {
@@ -110,15 +131,21 @@ function addCss(fileName) {
   head.appendChild(link);
 }
 
-function addElements() {
-  var head = document.head,
-    link = document.createElement('link');
-
-  link.rel = 'import';
-  link.href = '//assets.library.uq.edu.au/reusable-components/elements.vulcanized.html';
-  link.async = true;
-
-  head.appendChild(link);
+function insertScript(url, defer) {
+  var script = document.querySelector("script[src*='" + url + "']");
+  if (!script) {
+    var heads = document.getElementsByTagName("head");
+    if (heads && heads.length) {
+      var head = heads[0];
+      if (head) {
+        script = document.createElement('script');
+        script.setAttribute('src', url);
+        script.setAttribute('type', 'text/javascript');
+        !!defer && script.setAttribute('defer', '');
+        head.appendChild(script);
+      }
+    }
+  }
 }
 
 function AddClassNameToBody(newclassName) {
@@ -128,4 +155,4 @@ function AddClassNameToBody(newclassName) {
 
 }
 
-ready(loadReusableComponents);
+ready(loadReusableComponentsOmeka);
