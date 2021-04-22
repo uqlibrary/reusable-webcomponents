@@ -17,12 +17,9 @@ template.innerHTML = `
 class gtm extends HTMLElement {
     constructor() {
         super();
-
-        const defaultGtmCode = 'GTM-W4KK37';
         const gtm = this.getAttribute('gtm');
-        const gtmCode = gtm || defaultGtmCode;
+        const gtmCode = gtm || 'GTM-W4KK37';
         console.log('GTM code: ', gtmCode);
-
         const gtmElement = template.content.getElementById('gtm');
         !!gtmElement && (gtmElement.src = "https://www.googletagmanager.com/ns.html?id=" + gtmCode);
 
