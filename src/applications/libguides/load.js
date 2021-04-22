@@ -68,10 +68,6 @@ function createAskusButton() {
 function loadReusableComponentsLibGuides() {
     const firstElement = document.body.children[0];
 
-    const gtm = document.createElement('uq-gtm');
-    gtm.setAttribute("gtm", "GTM-PX9H7R");
-    document.body.insertBefore(gtm, firstElement);
-
     const header = document.createElement('uq-header');
     document.body.insertBefore(header, firstElement);
 
