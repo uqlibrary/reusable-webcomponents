@@ -19,7 +19,8 @@ class gtm extends HTMLElement {
         super();
 
         const defaultGtmCode = 'GTM-W4KK37';
-        const gtmCode = this.getAttribute('gtm') || defaultGtmCode;
+        const gtm = this.getAttribute('gtm');
+        const gtmCode = gtm || defaultGtmCode;
         console.log('GTM code: ', gtmCode);
 
         const gtmElement = template.content.getElementById('gtm');
@@ -27,7 +28,6 @@ class gtm extends HTMLElement {
 
         // <!-- Google Tag Manager -->
         (function (w, d, s, l, i) {
-            console.log('UQ Lib reusable gtm');
             w[l] = w[l] || [];
             w[l].push({
                 'gtm.start':
