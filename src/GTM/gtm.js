@@ -20,6 +20,7 @@ class gtm extends HTMLElement {
 
         const defaultGtmCode = 'GTM-W4KK37';
         const gtmCode = this.getAttribute('gtm') || defaultGtmCode;
+        console.log('GTM code: ', gtmCode);
 
         const gtmElement = template.content.getElementById('gtm');
         !!gtmElement && (gtmElement.src = "https://www.googletagmanager.com/ns.html?id=" + gtmCode);
