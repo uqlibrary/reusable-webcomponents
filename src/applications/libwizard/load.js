@@ -1,11 +1,11 @@
 function insertScript(url, defer = false) {
-    var script = document.querySelector("script[src*='" + url + "']");
-    if (!script) {
-        var heads = document.getElementsByTagName("head");
+    const scriptfound = document.querySelector("script[src*='" + url + "']");
+    if (!scriptfound) {
+        const heads = document.getElementsByTagName("head");
         if (heads && heads.length) {
-            var head = heads[0];
+            const head = heads[0];
             if (head) {
-                script = document.createElement('script');
+                const script = document.createElement('script');
                 script.setAttribute('src', url);
                 script.setAttribute('type', 'text/javascript');
                 !!defer && script.setAttribute('defer', '');
@@ -14,6 +14,7 @@ function insertScript(url, defer = false) {
         }
     }
 }
+// we insert this script here, rather than the Springshare admin panel, so we can supply the defer attribute
 // insertScript('https://assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js', true);
 insertScript('https://assets.library.uq.edu.au/reusable-webcomponents-development/feature-libwizard/uq-lib-reusable.min.js', true);
 
@@ -42,7 +43,7 @@ function loadReusableComponents() {
 
     // springshare adds a style, presumably for their header, that conflicts, and is stupid. delete.
     const centerBlock = document.querySelector('.text-center');
-    centerBlock.className = centerBlock.className.replace(/\btext-center\b/g, "");
+    !!centerBlock && (centerBlock.className = centerBlock.className.replace(/\btext-center\b/g, ""));
 }
 
 ready(loadReusableComponents);
