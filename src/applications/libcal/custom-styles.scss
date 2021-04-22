@@ -1,0 +1,16 @@
+body {
+  padding: 0 !important;
+  font-size: initial;
+}
+html {
+  font-size: initial;
+}
+.sr-only, #s-lc-public-skiplink {
+  display: none;
+}
+@media screen and (max-width: 790px) {
+  #s-lib-public-main, #s-lib-bc-list {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+}
