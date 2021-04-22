@@ -1,8 +1,7 @@
-#Omeka Customisation
+# Omeka Customisation
 
 - Omeka URL: https://uqlibraryonlineexhibitions.omeka.net/
-- No development environment
-
+- No development environment (but you could make another project?)
 
 A third party product we are using for online library exhibits
 
@@ -10,7 +9,7 @@ Login as admin [here](https://uqlibraryonlineexhibitions.omeka.net/admin/) - use
 
 The prefered method of styling is to style [the assets css file](https://github.com/uqlibrary/uqlibrary-reusable-components/blob/master/applications/omeka/custom-styles.scss)
 
-CSS for the homepage and items pages can also updated in the [CSS Plugin](http://uqlibraryonlineexhibitions.omeka.net/admin/plugins)
+CSS for the Omeka homepage and items pages can also updated in the [CSS Plugin](http://uqlibraryonlineexhibitions.omeka.net/admin/plugins)
 which has major restrictions, eg:
 
 * any styling of html header and footer elements are removed!!!
@@ -29,7 +28,7 @@ which has major restrictions, eg:
 
 This means the Omeka homepage cannot have a great deal of styling - I think I've wrung everything out of it that can be done. (See below for backup of css).
 
-The [load.js](//assets.library.uq.edu.au/reusable-components/omeka/load.js) file:
+The [load.js](//assets.library.uq.edu.au/reusable-webcomponents/applications/omeka/load.js) file:
 
 * loads the responsive meta
 * applies the uq favicon
@@ -41,10 +40,10 @@ JS is applied in the footer, which can be edited [on this page](http://uqlibrary
 
 Once on that page, scroll down to 'Footer Text', click the 'HTML' icon on the edit area, and update the html for the footer. Maintain the following code block as the correct code:
 
-        <script type="text/javascript" src="//assets.library.uq.edu.au/reusable-components/omeka/load.js"></script>
-        <script type="text/javascript" src="//assets.library.uq.edu.au/reusable-components/webcomponentsjs/webcomponents.js"></script>
+        <script type="text/javascript" src="//assets.library.uq.edu.au/reusable-webcomponents/applications/omeka/load.js"></script>
+        <script type="text/javascript" src="//assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js" defer></script>
 
-If you have a specific theme that needs special styling, add a new class name in by adding these lines to the bottom of the footer, as above. It will add a class to the body element (base it on the theme name) - then you can write css to taregt just this theme (it will affect all exhibits that have had this classname added to the body)
+If you have a specific theme that needs special styling, add a new class name in by adding these lines to the bottom of the footer, as above. It will add a class to the body element (base it on the theme name) - then you can write css to target just this theme (it will affect all exhibits that have had this classname added to the body)
 
         <script type="text/javascript">// <![CDATA[
           AddClassNameToBody('bigtheme');
