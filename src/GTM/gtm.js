@@ -18,7 +18,8 @@ class gtm extends HTMLElement {
     constructor() {
         super();
 
-        const gtmCode = this.getGtmCode();
+        const defaultGtmCode = 'GTM-W4KK37';
+        const gtmCode = this.getAttribute('gtm') || defaultGtmCode;
 
         const gtmElement = template.content.getElementById('gtm');
         !!gtmElement && (gtmElement.src = "https://www.googletagmanager.com/ns.html?id=" + gtmCode);
@@ -41,11 +42,6 @@ class gtm extends HTMLElement {
 
         // Render the template into the body
         document.body.appendChild(template.content.cloneNode(true));
-    }
-
-    getGtmCode() {
-        const defaultGtmCode = 'GTM-W4KK37';
-        return this.getAttribute('gtm') || defaultGtmCode;
     }
 }
 
