@@ -26,6 +26,7 @@ class gtm extends HTMLElement {
 
         // <!-- Google Tag Manager -->
         (function (w, d, s, l, i) {
+            console.log('UQ Lib reusable gtm');
             w[l] = w[l] || [];
             w[l].push({
                 'gtm.start':
