@@ -17,7 +17,8 @@ function loadReusableComponentsOmeka() {
 
   addResponsiveMeta();
 
-  insertScript('//assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js');
+  insertScript('//assets.library.uq.edu.au/reusable-webcomponents-development/feature-omeka/uq-lib-reusable.min.js');
+  // insertScript('//assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js');
 
   //insert elements
 
