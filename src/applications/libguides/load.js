@@ -6,6 +6,14 @@ function ready(fn) {
     }
 }
 
+let isOutsideUQ = true;
+
+if (window.location.href.indexOf("uq.edu.au") > -1) {
+    isOutsideUQ = false;
+}
+
+console.log('Is libguides in edit mode?: ', isOutsideUQ);
+
 function createSlotForButtonInUtilityArea(button, id=null) {
     const slot = document.createElement('span');
     !!slot && slot.setAttribute('slot', 'site-utilities');
@@ -69,14 +77,16 @@ function loadReusableComponentsLibGuides() {
 
     const siteHeader = document.createElement('uq-site-header');
 
-    const askusButton = createAskusButton();
-    !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
+    if (!isOutsideUQ) {
+        const askusButton = createAskusButton();
+        !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
 
-    const mylibraryStub = createMylibraryStub();
-    !!siteHeader && !!mylibraryStub && siteHeader.appendChild(mylibraryStub);
+        const mylibraryStub = createMylibraryStub();
+        !!siteHeader && !!mylibraryStub && siteHeader.appendChild(mylibraryStub);
 
-    const authButton = createAuthButton();
-    !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
+        const authButton = createAuthButton();
+        !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
+    }
 
     document.body.insertBefore(siteHeader, firstElement);
 
