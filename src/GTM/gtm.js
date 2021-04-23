@@ -18,6 +18,7 @@ class gtm extends HTMLElement {
     constructor() {
         super();
         const gtm = this.getAttribute('gtm').toString();
+        console.log('GTM attr: ', gtm);
         const gtmCode = gtm || 'GTM-W4KK37';
         console.log('GTM code: ', gtmCode);
         const gtmElement = template.content.getElementById('gtm');
