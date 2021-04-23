@@ -135,7 +135,7 @@ class ApiAccess {
     fetchFromServer(urlPath, options) {
         const API_URL = process.env.API_URL || 'https://api.library.uq.edu.au/staging/';
 
-        return fetch(`${API_URL}${urlPath}?ts=${new Date().getTime()}`, {
+        return fetch(`${API_URL}${urlPath}?${new Date().getTime()}`, {
             headers: options,
         });
     }
