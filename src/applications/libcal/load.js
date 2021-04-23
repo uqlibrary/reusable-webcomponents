@@ -76,8 +76,9 @@ function createElement(type, props) {
 function loadReusableComponentsLibGuides() {
     const firstElement = document.body.children[0];
 
-    const gtmElement = createElement('uq-gtm', {gtm: 'ABC123'})
+    const gtmElement = createElement('uq-gtm-temp', {gtm: 'ABC123'})
     document.body.insertBefore(gtmElement, firstElement);
+    document.renameNode('uq-gtm-temp', null, 'uq-gtm');
 
     const header = document.createElement('uq-header');
     document.body.insertBefore(header, firstElement);
