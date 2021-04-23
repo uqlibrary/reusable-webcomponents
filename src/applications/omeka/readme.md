@@ -1,15 +1,18 @@
 # Omeka Customisation
 
-- Omeka URL: https://uqlibraryonlineexhibitions.omeka.net/
-- No development environment (but you could make another project?)
+Omeka is a third party CMS the Library is using for online library exhibits.
 
-A third party product we are using for online library exhibits
+Omeka live URL: https://uqlibraryonlineexhibitions.omeka.net/
+
+The highest profile exhibit atm is [JD Fryer](https://uqlibraryonlineexhibitions.omeka.net/exhibits/show/jd-fryer-student-and-soldier)
 
 Login as admin [here](https://uqlibraryonlineexhibitions.omeka.net/admin/) - user email and password are in PasswordState.
 
-The prefered method of styling is to style [the assets css file](https://github.com/uqlibrary/uqlibrary-reusable-components/blob/master/applications/omeka/custom-styles.scss)
+There is no development environment, but there has been a test project in the past, it may still exist: [View](https://uqlibraryonlineexhibitions.omeka.net/exhibits/show/lea-s-test/sample-page) - [Admin](https://uqlibraryonlineexhibitions.omeka.net/admin/exhibits/theme-config/7).
 
-CSS for the Omeka homepage and items pages can also updated in the [CSS Plugin](http://uqlibraryonlineexhibitions.omeka.net/admin/plugins)
+The [load js file](https://github.com/uqlibrary/reusable-webcomponents/blob/master/src/applications/omeka/load.js") and the [the assets css file](https://github.com/uqlibrary/reusable-webcomponents/blob/master/src/applications/omeka/custom-styles.scss) are the preferred way of styling the Exhibit pages.
+
+The Omeka homepage is updated in the [CSS Plugin](http://uqlibraryonlineexhibitions.omeka.net/admin/plugins)
 which has major restrictions, eg:
 
 * any styling of html header and footer elements are removed!!!
@@ -28,26 +31,18 @@ which has major restrictions, eg:
 
 This means the Omeka homepage cannot have a great deal of styling - I think I've wrung everything out of it that can be done. (See below for backup of css).
 
-The [load.js](//assets.library.uq.edu.au/reusable-webcomponents/applications/omeka/load.js) file:
+JS is applied in the footer, the JS Fryer Exhibit can be edited [on this page](http://uqlibraryonlineexhibitions.omeka.net/admin/exhibits/theme-config/1) (or... click on exhibits in the left hand nav, click 'edit' on the chosen exhibit, scroll down to the theme dropdown, change theme if needed and click Configure). Once on that page, scroll down to 'Footer Text', click the 'HTML' icon on the edit area, and update the html for the footer. 
 
-* loads the responsive meta
-* applies the uq favicon
-* applies the uq apple icon
-* attaches the above css file
-* loads the reusable components
-
-JS is applied in the footer, which can be edited [on this page](http://uqlibraryonlineexhibitions.omeka.net/admin/exhibits/theme-config/1) (or... click on exhibits in the left hand nav, click 'edit' on the chosen exhibit, scroll down to the theme dropdown, choose the correct theme and click Configure).
-
-Once on that page, scroll down to 'Footer Text', click the 'HTML' icon on the edit area, and update the html for the footer. Maintain the following code block as the correct code:
+Maintain the following code block as the correct inclusions for all exhibits (some may have extra markup in the footer field for display):
 
         <script type="text/javascript" src="//assets.library.uq.edu.au/reusable-webcomponents/applications/omeka/load.js"></script>
         <script type="text/javascript" src="//assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js" defer></script>
 
-If you have a specific theme that needs special styling, add a new class name in by adding these lines to the bottom of the footer, as above. It will add a class to the body element (base it on the theme name) - then you can write css to target just this theme (it will affect all exhibits that have had this classname added to the body)
+If you have a specific theme that needs special styling, you can add a new class name to the body element by adding these lines to the bottom of the footer (edit the footer as described above). This function call will add a class to the body element - then you can write css to target just this theme in a .scss file. (it will affect all exhibits that have had this classname added to the body)
 
-        <script type="text/javascript">// <![CDATA[
+        <script type="text/javascript">
           AddClassNameToBody('bigtheme');
-        ]]></script>  
+        </script>  
 
 The UQ logo used by omeka is uq-exhibitions-logo.png and archived in this folder.
 
