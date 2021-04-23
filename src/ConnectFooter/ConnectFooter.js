@@ -123,7 +123,7 @@ class ConnectFooter extends HTMLElement {
             !!link && (link.tabIndex = "0");
             !!link && (link.type = "button");
             !!link && (link.ariaLabel = button.linkMouseOver);
-            !!link && (link.dataTestid = button.dataTestid);
+            !!link && link.setAttribute('data-testid', button.dataTestid);
             !!link && (link.id = `socialbutton-${index}`);
             !!link && (link.title = button.linkMouseOver);
             !!link && !!span && link.appendChild(span);
@@ -143,7 +143,7 @@ class ConnectFooter extends HTMLElement {
 
             const link = document.createElement('a')
             !!link && (link.href = button.linkTo);
-            !!link && (link.dataTestid = button.dataTestid);
+            !!link && link.setAttribute('data-testid', button.dataTestid);
             !!link && !!linkLabel && link.appendChild(linkLabel);
 
             const linkLabelSpan = document.createTextNode(' |  ');
@@ -167,7 +167,7 @@ class ConnectFooter extends HTMLElement {
             !!link && (link.className = "buttonBase button buttonContained givingButtonClass buttonFullWidth");
             !!link && (link.tabIndex = "0");
             !!link && (link.type = "button");
-            !!link && (link.dataTestid = button.dataTestid);
+            !!link && link.setAttribute('data-testid', button.dataTestid);
             !!link && !!linkLabel && link.appendChild(linkLabel);
 
             const ripplespan = document.createElement('span');
