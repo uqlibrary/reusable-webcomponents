@@ -11,16 +11,9 @@ function loadReusableComponentsOmeka() {
 
   addAppleTouchIcon();
 
-  addCss('//assets.library.uq.edu.au/reusable-webcomponents-development/feature-omeka/applications/omeka/custom-styles.css');
-  // addCss('//assets.library.uq.edu.au/reusable-webcomponents/applications/omeka/custom-styles.css');
-  // addCss('//assets.library.uq.edu.au/reusable-components/omeka/custom-styles.css');
+  addCss('//assets.library.uq.edu.au/reusable-webcomponents/applications/omeka/custom-styles.css');
 
   addResponsiveMeta();
-
-  // insertScript('//assets.library.uq.edu.au/reusable-webcomponents-development/feature-omeka/uq-lib-reusable.min.js');
-  // insertScript('//assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js');
-
-  //insert elements
 
   const firstElement = document.body.children[0];
   if (!firstElement) {
@@ -76,7 +69,7 @@ function createAskusButton() {
 
 function loadUQFavicon() {
   var link = document.createElement('link'),
-    href = '//assets.library.uq.edu.au/reusable-components/resources/favicon.ico';
+    href = '//www.library.uq.edu.au/favicon.ico';
   link.type = 'image/x-icon';
   link.rel = 'shortcut icon';
   link.href = href;
@@ -130,23 +123,6 @@ function addCss(fileName) {
   link.href = fileName;
 
   head.appendChild(link);
-}
-
-function insertScript(url, defer) {
-  var script = document.querySelector("script[src*='" + url + "']");
-  if (!script) {
-    var heads = document.getElementsByTagName("head");
-    if (heads && heads.length) {
-      var head = heads[0];
-      if (head) {
-        script = document.createElement('script');
-        script.setAttribute('src', url);
-        script.setAttribute('type', 'text/javascript');
-        !!defer && script.setAttribute('defer', '');
-        head.appendChild(script);
-      }
-    }
-  }
 }
 
 function AddClassNameToBody(newclassName) {
