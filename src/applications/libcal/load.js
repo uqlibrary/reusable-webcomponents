@@ -65,12 +65,19 @@ function createAskusButton() {
     return slot;
 }
 
+function createElement(type, props) {
+    var $e = document.createElement(type);
+    for (var prop in props) {
+        $e.setAttribute(prop, props[prop]);
+    }
+    return $e;
+}
+
 function loadReusableComponentsLibGuides() {
     const firstElement = document.body.children[0];
 
-    const gtm = document.createElement('uq-gtm');
-    gtm.setAttribute('gtm', 'GTM-ABC123');
-    document.body.insertBefore(gtm, firstElement);
+    const gtmElement = createElement('uq-gtm', {gtm: 'ABC123'});
+    document.body.insertBefore(gtmElement, firstElement);
 
     const header = document.createElement('uq-header');
     document.body.insertBefore(header, firstElement);
