@@ -9,11 +9,8 @@ describe('GTM', () => {
     context('GTM', () => {
         it('uq-gtm component starts with null gtm value until attr set', () => {
             cy.viewport(1280, 900);
-            cy.server();
-
             // No attributed on load
             cy.get('uq-gtm').should('not.have.attr', 'gtm');
-
             // Now inject the atttribute as load.js would
             cy.window().then(win => {
                 const gtmElement = win.document.getElementsByTagName('uq-gtm');
