@@ -7,9 +7,11 @@ describe('GTM', () => {
         cy.injectAxe();
         cy.intercept('GET', 'https://www.googletagmanager.com/gtm.js', (req) => {
             expect(req.url).to.contain('ABC123');
+            req.reply(200, );
         }).as('gtm');
         cy.intercept('GET', 'https://www.googletagmanager.com/ns.html', (req) => {
             expect(req.url).to.contain('ABC123');
+            req.reply(200, );
         }).as('gtmns');
     });
     context('GTM', () => {
@@ -23,11 +25,12 @@ describe('GTM', () => {
                 const gtmElement = win.document.getElementsByTagName('uq-gtm');
                 gtmElement[0].setAttribute('gtm', 'ABC123');
             });
+            // Checks that it tried to call the gtm APIs and got a mocked response
+            cy.wait('@gtm').its('response.statusCode').should('equal', 200)
+            cy.wait('@gtmns').its('response.statusCode').should('equal', 200)
+            // The DOM element should have the right attribute
             cy.get('uq-gtm').should('have.attr', 'gtm', 'ABC123');
 
-            // Checks that it tried to call the gtm APIs
-            cy.wait('@gtm').its('response.body').should('include', 'OK')
-            cy.wait('@gtmns').its('response.body').should('include', 'OK')
         });
     });
 });
