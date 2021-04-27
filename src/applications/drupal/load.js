@@ -61,9 +61,7 @@ function createMylibraryStub() {
     mylibraryButton = document.createElement('div');
     mylibraryButton.id = stubId;
 
-    const slot = !!mylibraryButton && this.createSlotForButtonInUtilityArea(mylibraryButton, mylibraryButtonId);
-
-    return slot;
+    return !!mylibraryButton && this.createSlotForButtonInUtilityArea(mylibraryButton, mylibraryButtonId);
 }
 
 function createAuthButton() {
@@ -72,9 +70,7 @@ function createAuthButton() {
     }
 
     const authButton = document.createElement('auth-button');
-    const slot = !!authButton && createSlotForButtonInUtilityArea(authButton, 'auth');
-
-    return slot;
+    return !!authButton && createSlotForButtonInUtilityArea(authButton, 'auth');
 }
 
 function createAskusButton() {
@@ -83,15 +79,18 @@ function createAskusButton() {
     }
 
     const askusButton = document.createElement('askus-button');
-    const slot = !!askusButton && createSlotForButtonInUtilityArea(askusButton, 'askus');
-
-    return slot;
+    return !!askusButton && createSlotForButtonInUtilityArea(askusButton, 'askus');
 }
 
 function loadReusableComponentsDrupal() {
     const firstElement = document.body.children[0];
     if (!firstElement) {
         return;
+    }
+
+    if (!document.querySelector('uq-gtm')) {
+        const gtm = document.createElement('uq-gtm');
+        !!gtm && document.body.insertBefore(gtm, firstElement);
     }
 
     if (!document.querySelector('uq-header')) {
