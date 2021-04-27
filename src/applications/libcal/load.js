@@ -76,21 +76,25 @@ function createElement(type, props) {
 function loadReusableComponentsLibGuides() {
     const firstElement = document.body.children[0];
 
+    const gtm = document.createElement('uq-gtm');
+    gtm.setAttribute('gtm', 'GTM-PX9H7R');
+    document.body.insertBefore(gtm, firstElement);
+
     const header = document.createElement('uq-header');
     document.body.insertBefore(header, firstElement);
 
     const siteHeader = document.createElement('uq-site-header');
 
-    if (!isOutsideUQ) {
-        const askusButton = createAskusButton();
-        !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
+    // if (!isOutsideUQ) {
+    const askusButton = createAskusButton();
+    !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
 
-        const mylibraryStub = createMylibraryStub();
-        !!siteHeader && !!mylibraryStub && siteHeader.appendChild(mylibraryStub);
+    const mylibraryStub = createMylibraryStub();
+    !!siteHeader && !!mylibraryStub && siteHeader.appendChild(mylibraryStub);
 
-        const authButton = createAuthButton();
-        !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
-    }
+    const authButton = createAuthButton();
+    !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
+    // }
 
     document.body.insertBefore(siteHeader, firstElement);
 
