@@ -100,6 +100,9 @@ class AskUsButton extends HTMLElement {
 
         // Bindings
         this.loadJS = this.loadJS.bind(this);
+        this.updateAskusDOM = this.updateAskusDOM.bind(this);
+        this.addButtonListeners = this.addButtonListeners.bind(this);
+        this.isPaneButtonOpacityDropRequested = this.isPaneButtonOpacityDropRequested.bind(this);
     }
 
     async updateAskusDOM(shadowRoot) {
@@ -224,7 +227,7 @@ class AskUsButton extends HTMLElement {
             //Dynamically import the JS file and append it to the document header
             const script = document.createElement('script');
             script.type = 'text/javascript';
-            script.async = true;
+            script.defer = true;
             script.onload = function () {
                 //Code to execute after the library has been downloaded parsed and processed by the browser starts here :)
                 initCalled = true;

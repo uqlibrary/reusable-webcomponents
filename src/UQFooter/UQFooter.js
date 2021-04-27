@@ -92,7 +92,7 @@ class UQFooter extends HTMLElement {
             //Dynamically import the JS file and append it to the document header
             const script = document.createElement('script');
             script.type = 'text/javascript';
-            script.async = true;
+            script.defer = true;
             script.onload = function () {
                 //Code to execute after the library has been downloaded parsed and processed by the browser starts here :)
                 initCalled = true;

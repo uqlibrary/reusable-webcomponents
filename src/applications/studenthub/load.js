@@ -48,6 +48,7 @@ function loadReusableComponentsStudenthub() {
 
     if (!document.querySelector('uq-gtm')) {
         const gtm = document.createElement('uq-gtm');
+        !!gtm && gtm.setAttribute("gtm", "GTM-W4KK37");
         !!gtm && document.body.insertBefore(gtm, firstElement);
     }
 

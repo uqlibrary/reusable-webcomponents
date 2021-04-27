@@ -53,15 +53,20 @@ class AuthButton extends HTMLElement {
 
         // Bindings
         this.loadJS = this.loadJS.bind(this);
+        this.showLoginFromAuthStatus = this.showLoginFromAuthStatus.bind(this);
+        this.addButtonListeners = this.addButtonListeners.bind(this);
+        this.checkAuthorisedUser = this.checkAuthorisedUser.bind(this);
+        this.isOverwriteAsLoggedOutRequested = this.isOverwriteAsLoggedOutRequested.bind(this);
     }
 
     async showLoginFromAuthStatus(shadowDOM) {
+        const that = this;
         this.checkAuthorisedUser().then((isAuthorised) => {
             const template = !!isAuthorised ? authorisedtemplate : unauthorisedtemplate;
 
             // Render the template
             shadowDOM.appendChild(template.content.cloneNode(true));
-            this.addButtonListeners(shadowDOM);
+            that.addButtonListeners(shadowDOM);
 
             if (!!isAuthorised) {
                 // if we can find the stub we built for mylibrary, replace it with the button
@@ -104,19 +109,20 @@ class AuthButton extends HTMLElement {
         this.account = {};
         let loggedin = null;
 
+        const that = this;
         const api = new ApiAccess();
         await api
             .getAccount()
             .then((account) => {
                 if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
-                    this.account = account;
+                    that.account = account;
                 }
-                this.accountLoading = false;
+                that.accountLoading = false;
 
-                loggedin = !!this.account && !!this.account.id;
+                loggedin = !!that.account && !!that.account.id;
             })
             .catch((error) => {
-                this.accountLoading = false;
+                that.accountLoading = false;
                 loggedin = false;
             });
         return loggedin;
@@ -136,7 +142,7 @@ class AuthButton extends HTMLElement {
             //Dynamically import the JS file and append it to the document header
             const script = document.createElement('script');
             script.type = 'text/javascript';
-            script.async = true;
+            script.defer = true;
             script.onload = function () {
                 //Code to execute after the library has been downloaded parsed and processed by the browser starts here :)
                 initCalled = true;

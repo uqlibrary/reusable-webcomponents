@@ -92,6 +92,7 @@ class UQHeader extends HTMLElement {
         // Render the template
         shadowDOM.appendChild(template.content.cloneNode(true));
 
+        const that = this;
         // the attributes seem to need an extra moment before they are available
         // (in other components we update the template from the attributes - that doesnt work here because
         // UQHeader/uqds.js is expecting things to be ready immediately)
@@ -99,20 +100,20 @@ class UQHeader extends HTMLElement {
             clearInterval(handleAttributes);
 
             // The element id for the skip nav, if exists or hides the skip nav
-            const skipNavRequestedTo = this.getAttribute('skipnavid');
+            const skipNavRequestedTo = that.getAttribute('skipnavid');
             if (!skipNavRequestedTo) {
                 const skipNavButton = shadowDOM.getElementById('skip-nav');
                 !!skipNavButton && skipNavButton.remove();
             }
 
             // If the attribute hidelibrarymenuitem is true, remove the global menu item from the DOM
-            if (!this.isGlobalMenuLibraryItemRequested()) {
+            if (!that.isGlobalMenuLibraryItemRequested()) {
                 const libraryMenuItem = shadowDOM.getElementById('menu-item-library');
                 !!libraryMenuItem && libraryMenuItem.remove();
             }
 
             // Append the label for the search widget
-            const searchLabel = this.getAttribute('searchlabel');
+            const searchLabel = that.getAttribute('searchlabel');
             if (!!searchLabel) {
                 const oldValue = shadowDOM.getElementById('search-label').innerHTML;
                 const newValue = oldValue.replace('library.uq.edu.au', searchLabel);
@@ -120,7 +121,7 @@ class UQHeader extends HTMLElement {
             }
 
             // Append the url for the search widget
-            const searchURL = this.getAttribute('searchurl');
+            const searchURL = that.getAttribute('searchurl');
             if (!!searchURL) {
                 shadowDOM.getElementById('edit-as_sitesearch-on').value = searchURL;
             }
@@ -137,6 +138,7 @@ class UQHeader extends HTMLElement {
 
         // Bindings
         this.loadJS = this.loadJS.bind(this);
+        this.isGlobalMenuLibraryItemRequested = this.isGlobalMenuLibraryItemRequested.bind(this);
     }
 
     loadJS() {
@@ -146,7 +148,7 @@ class UQHeader extends HTMLElement {
             //Dynamically import the JS file and append it to the document header
             const script = document.createElement('script');
             script.type = 'text/javascript';
-            script.async = true;
+            script.defer = true;
             script.onload = function () {
                 //Code to execute after the library has been downloaded parsed and processed by the browser starts here :)
                 initCalled = true;

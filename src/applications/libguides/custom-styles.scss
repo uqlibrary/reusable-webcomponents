@@ -63,6 +63,7 @@
   background: #999490;
 }
 
+// Styles below are from the old custom-styles.scss on old reusable
 
 $font: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $nav-border: 4px solid #51247A;
@@ -124,6 +125,10 @@ body {
   font-size: 16px;
   font-style: normal;
   line-height: 24px;
+}
+
+.s-lg-admin-command-bar, ul.navbar-nav {
+  font-size: 12px !important;
 }
 
 /* 'body' to overwrite inbuilt springshare styles... */
@@ -511,16 +516,6 @@ ul, ol {
   0 1px 5px 0 rgba(0, 0, 0, 0.12),
   0 3px 1px -2px rgba(0, 0, 0, 0.2);
   background-color: #FEFEFE;
-
-  .s-lib-box-title {
-    font-size: 1.623rem;
-    margin-bottom: 0;
-    padding: 12px 9px;
-    color: #212121;
-    font-weight: 600;
-    background: #EEE;
-    border-bottom: 1px solid #CCC;
-  }
 }
 
 #s-lg-guide-main {
