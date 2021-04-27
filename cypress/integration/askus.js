@@ -8,6 +8,7 @@ describe('AskUs menu', () => {
     context('AskUs Menu', () => {
         it('Appears as expected', () => {
             cy.viewport(1280, 900);
+            cy.wait(100);
             cy.get('uq-site-header').find('askus-button').should('exist');
             cy.get('askus-button').shadow().find('div#askus').should('contain', 'AskUs');
             cy.get('askus-button').shadow().find('button#askus-button').click();
