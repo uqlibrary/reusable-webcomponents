@@ -104,6 +104,8 @@ function loadReusableComponentsDrupal() {
     if (!document.querySelector('uq-site-header')) {
         const siteHeader = document.createElement('uq-site-header');
         !!siteHeader && siteHeader.setAttribute("showmenu", "");
+        !!siteHeader && siteHeader.setAttribute("sitetitle", "thingy");
+        !!siteHeader && siteHeader.setAttribute("siteurl", "http://example.com");
 
         const askusButton = createAskusButton();
         !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);

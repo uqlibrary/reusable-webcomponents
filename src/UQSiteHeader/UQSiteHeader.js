@@ -57,43 +57,85 @@ template.innerHTML = `
 let initCalled;
 
 class UQSiteHeader extends HTMLElement {
+    static get observedAttributes() {
+        // return ['sitetitle', 'siteurl', 'showmenu'];
+        return ['sitetitle', 'siteurl'];
+    }
+
     constructor() {
         super();
-        // Add a shadow DOM
-        const shadowDOM = this.attachShadow({ mode: 'open' });
-
-        // the attributes seem to need an extra moment before they are available
-        const handleAttributes = setInterval(() => {
-            clearInterval(handleAttributes);
-
-            // Set the title & link URL
-            const siteTitleContent = template.content.getElementById('site-title');
-
-            const siteTitle = this.getAttribute('sitetitle');
-            !!siteTitleContent && !!siteTitle && (siteTitleContent.innerHTML = siteTitle);
-
-            const siteURL = this.getAttribute('siteurl');
-            !!siteTitleContent && !!siteURL && (siteTitleContent.href = siteURL);
-        }, 50);
-
-        // attributes take a moment to appear sometimes
-        const displayMenu = setInterval(() => {
-            clearInterval(displayMenu);
-
-            this.rewriteMegaMenuFromJson();
-
-            // Render the template
-            shadowDOM.appendChild(template.content.cloneNode(true));
-
-            this.loadMenu();
-        }, 50);
-
 
         // Bindings
+        this.createLink = this.createLink.bind(this);
+        this.isMegaMenuRequested = this.isMegaMenuRequested.bind(this);
         this.loadMenu = this.loadMenu.bind(this);
         this.rewriteMegaMenuFromJson = this.rewriteMegaMenuFromJson.bind(this);
-        this.isMegaMenuRequested = this.isMegaMenuRequested.bind(this);
-        this.createLink = this.createLink.bind(this);
+
+        const shadowDOM = this.attachShadow({mode: 'open'});
+
+        this.rewriteMegaMenuFromJson();
+
+        console.log('template cloned');
+        // Render the template
+        shadowDOM.appendChild(template.content.cloneNode(true));
+        const doc = document;
+        console.log('cloned doc = ', doc); // gives document, correct
+        const uqSiteHeader = document.querySelector('uq-site-header');
+        console.log('cloned uqSiteHeader = ', uqSiteHeader); // gives null
+        const testdom = setInterval(() => {
+            const uqSiteHeader = document.querySelector('uq-site-header');
+            console.log('cloned wait uqSiteHeader = ', uqSiteHeader); // gives uqSiteHeader because there has been enough time for it to be accessible
+            clearInterval(testdom);
+        }, 50);
+    }
+
+
+    attributeChangedCallback(fieldName, oldValue, newValue) {
+        console.log(`requested change of ${fieldName} value from ${oldValue} to ${newValue}`);
+        switch(fieldName) {
+            case 'sitetitle':
+                this.setTitle();
+
+                break;
+            case 'siteurl':
+                this.setSiteUrl();
+
+                break;
+            // case 'showmenu':
+            //     const showMenu = this.getAttribute('showmenu');
+            //     const isMegaMenuRequested = !!showMenu || showMenu === '';
+            //     // !!isMegaMenuRequested ?  this.updateMenu() : this.hideMobileMenuButton();
+            //     if (!!isMegaMenuRequested) {
+            //         this.updateMenu();
+            //     } else {
+            //         this.hideMobileMenuButton();
+            //     }
+            //
+            //     break;
+            default:
+                console.log(`unknown attribute ${fieldName} received for UQSiteHeader`);
+        }
+
+        // this.loadJS(newValue);
+    }
+
+    setSiteUrl() {
+        const uqSiteHeader = document.querySelector('uq-site-header');
+        const shadowRoot = (!!uqSiteHeader && uqSiteHeader.shadowRoot) || false;
+        const siteTitleElement = !!shadowRoot && shadowRoot.getElementById('site-title');
+
+        const newSiteURL = this.getAttribute('siteurl');
+        !!siteTitleElement && !!newSiteURL && (siteTitleElement.href = newSiteURL) || console.log('site url update failed');
+    }
+
+    setTitle() {
+        const uqSiteHeader = document.querySelector('uq-site-header');
+        console.log('in setTitle: uqSiteHeader = ', uqSiteHeader);
+        const shadowRoot = (!!uqSiteHeader && uqSiteHeader.shadowRoot) || false;
+        let siteTitleElement = !!shadowRoot && shadowRoot.getElementById('site-title');
+
+        const newSiteTitle = this.getAttribute('sitetitle');
+        !!siteTitleElement && !!newSiteTitle && (siteTitleElement.innerHTML = newSiteTitle) || console.log('site title update failed');
     }
 
     rewriteMegaMenuFromJson() {
@@ -251,6 +293,8 @@ class UQSiteHeader extends HTMLElement {
 
     connectedCallback() {
         console.log('connectedCallback');
+
+        // this.loadMenu();
     }
 }
 
