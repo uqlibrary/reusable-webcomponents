@@ -19,9 +19,12 @@ class gtm extends HTMLElement {
         super();
         this.loadJS = this.loadJS.bind(this);
         const gtm = this.getAttribute('gtm');
-        this.loadJS(gtm);
+        if(!!gtm) {
+            this.loadJS(gtm);
+        }
     }
     loadJS(gtm) {
+        console.log('gtm script called with: ', gtm);
         if(!!gtm) {
             console.log('Inserting the scripts for GTM:', gtm);
             const gtmElement = template.content.getElementById('gtm');
