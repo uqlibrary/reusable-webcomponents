@@ -17,31 +17,42 @@ template.innerHTML = `
 class gtm extends HTMLElement {
     constructor() {
         super();
-        const gtm = this.getAttribute('gtm').toString();
-        console.log('GTM attr: ', gtm);
-        const gtmCode = gtm || 'GTM-W4KK37';
-        console.log('GTM code: ', gtmCode);
-        const gtmElement = template.content.getElementById('gtm');
-        !!gtmElement && (gtmElement.src = "https://www.googletagmanager.com/ns.html?id=" + gtmCode);
+        this.loadJS = this.loadJS.bind(this);
+        const gtm = this.getAttribute('gtm');
+        this.loadJS(gtm);
+    }
+    loadJS(gtm) {
+        if(!!gtm) {
+            console.log('Inserting the scripts for GTM:', gtm);
+            const gtmElement = template.content.getElementById('gtm');
+            !!gtmElement && (gtmElement.src = "https://www.googletagmanager.com/ns.html?id=" + gtm);
 
-        // <!-- Google Tag Manager -->
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            });
-            var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
-            j.async = true;
-            j.src =
-                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-            f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', gtmCode);
-        // <!-- End Google Tag Manager -->
+            // <!-- Google Tag Manager -->
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({
+                    'gtm.start':
+                        new Date().getTime(), event: 'gtm.js'
+                });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+                j.async = true;
+                j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', gtm);
+            // <!-- End Google Tag Manager -->
 
-        // Render the template into the body
-        document.body.appendChild(template.content.cloneNode(true));
+            // Render the template into the body
+            document.body.appendChild(template.content.cloneNode(true));
+        }
+    };
+    static get observedAttributes() {
+        return ['gtm'];
+    }
+    attributeChangedCallback(name, oldValue, newValue) {
+        console.log(`${name} value has been changed from ${oldValue} to ${newValue}`);
+        this.loadJS(newValue);
     }
 }
 
