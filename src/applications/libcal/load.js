@@ -85,16 +85,16 @@ function loadReusableComponentsLibGuides() {
 
     const siteHeader = document.createElement('uq-site-header');
 
-    // if (!isOutsideUQ) {
-    const askusButton = createAskusButton();
-    !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
+    if (!isOutsideUQ) {
+        const askusButton = createAskusButton();
+        !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
 
-    const mylibraryStub = createMylibraryStub();
-    !!siteHeader && !!mylibraryStub && siteHeader.appendChild(mylibraryStub);
+        const mylibraryStub = createMylibraryStub();
+        !!siteHeader && !!mylibraryStub && siteHeader.appendChild(mylibraryStub);
 
-    const authButton = createAuthButton();
-    !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
-    // }
+        const authButton = createAuthButton();
+        !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
+    }
 
     document.body.insertBefore(siteHeader, firstElement);
 
