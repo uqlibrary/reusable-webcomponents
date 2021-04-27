@@ -373,13 +373,22 @@
     font-weight: 300;
     line-height: 25px;
 }
-.connectfooter-wrapper3 a {
+.connectfooter-wrapper3 .internalLinks a,
+.connectfooter-wrapper3 .navigation a {
     color: #333333;
+    text-decoration: none;
+}
+.connectfooter-wrapper3 .contacts a.socialButtonClass:link,
+.connectfooter-wrapper3 .contacts a.socialButtonClass:hover {
+    color: #fff;
     text-decoration: none;
 }
 .connectfooter-wrapper3 a:hover {
     color: #51247a;
     text-decoration: underline;
+}
+.connectfooter-wrapper3 .givingBlock a:hover {
+    text-decoration: none;
 }
 .navigation {
     margin-top: -4px;

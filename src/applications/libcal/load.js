@@ -6,6 +6,14 @@ function ready(fn) {
     }
 }
 
+let isOutsideUQ = true;
+
+if (window.location.href.indexOf("uq.edu.au") > -1) {
+    isOutsideUQ = false;
+}
+
+console.log('Is libcal in edit mode?: ', isOutsideUQ);
+
 function createSlotForButtonInUtilityArea(button, id=null) {
     const slot = document.createElement('span');
     !!slot && slot.setAttribute('slot', 'site-utilities');
@@ -57,49 +65,44 @@ function createAskusButton() {
     return slot;
 }
 
-function loadReusableComponentsDrupal() {
-    const firstElement = document.body.children[0];
-    if (!firstElement) {
-        return;
+function createElement(type, props) {
+    var $e = document.createElement(type);
+    for (var prop in props) {
+        $e.setAttribute(prop, props[prop]);
     }
-
-    if (!document.querySelector('uq-header')) {
-        const header = document.createElement('uq-header');
-        !!header && header.setAttribute("hideLibraryMenuItem", "");
-        // no 'skip to content' as drupal provides a 'skip to menu' on first click
-        !!header && document.body.insertBefore(header, firstElement);
-    }
-
-    if (!document.querySelector('uq-site-header')) {
-        const siteHeader = document.createElement('uq-site-header');
-        !!siteHeader && siteHeader.setAttribute("showmenu", "");
-
-        const askusButton = createAskusButton();
-        !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
-
-        const mylibraryStub = createMylibraryStub();
-        !!siteHeader && !!mylibraryStub && siteHeader.appendChild(mylibraryStub);
-
-        const authButton = createAuthButton();
-        !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
-
-        !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
-    }
-
-    if (!document.querySelector('alert-list')) {
-        const alerts = document.createElement('alert-list');
-        !!alerts && document.body.insertBefore(alerts, firstElement);
-    }
-
-    if (!document.querySelector('connect-footer')) {
-        const connectFooter = document.createElement('connect-footer');
-        !!connectFooter && document.body.appendChild(connectFooter);
-    }
-
-    if (!document.querySelector('uq-footer')) {
-        const subFooter = document.createElement('uq-footer');
-        !!subFooter && document.body.appendChild(subFooter);
-    }
+    return $e;
 }
 
-ready(loadReusableComponentsDrupal);
+function loadReusableComponentsLibGuides() {
+    const firstElement = document.body.children[0];
+
+    const gtm = document.createElement('uq-gtm');
+    gtm.setAttribute('gtm', 'GTM-K597ZS');
+    document.body.insertBefore(gtm, firstElement);
+
+    const header = document.createElement('uq-header');
+    document.body.insertBefore(header, firstElement);
+
+    const siteHeader = document.createElement('uq-site-header');
+
+    // if (!isOutsideUQ) {
+    const askusButton = createAskusButton();
+    !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
+
+    const mylibraryStub = createMylibraryStub();
+    !!siteHeader && !!mylibraryStub && siteHeader.appendChild(mylibraryStub);
+
+    const authButton = createAuthButton();
+    !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
+    // }
+
+    document.body.insertBefore(siteHeader, firstElement);
+
+    const connectFooter = document.createElement('connect-footer');
+    document.body.appendChild(connectFooter);
+
+    const subFooter = document.createElement('uq-footer');
+    document.body.appendChild(subFooter);
+}
+
+ready(loadReusableComponentsLibGuides);

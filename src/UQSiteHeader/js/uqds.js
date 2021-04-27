@@ -58,46 +58,69 @@ var uq = (function (exports) {
                     var mobileToggle = document
                         .querySelector('uq-site-header')
                         .shadowRoot.querySelector('.'.concat(this.toggleClass));
-                    if (!this.nav) {
-                        return;
-                    }
-                    var subNavItems = this.nav.querySelectorAll('.'.concat(this.subNavClass));
-                    var subNavLinks = this.nav.querySelectorAll('.'.concat(this.subNavClass, ' > a'));
-                    var subNavL2Items = this.nav.querySelectorAll(
-                        '.'.concat(this.level2Class, ' .').concat(this.subNavClass),
-                    );
-                    var subNavL2Links = this.nav.querySelectorAll(
-                        '.'.concat(this.level2Class, ' .').concat(this.subNavClass, ' > a'),
-                    );
-                    var navLinks = this.nav.querySelectorAll('li > a');
-                    var subNavToggles = this.nav.querySelectorAll('.'.concat(this.subToggleClass));
-                    mobileToggle.addEventListener('click', this.handleMobileToggle);
-                    subNavItems.forEach(function (item) {
-                        _this.setOrientation(item);
+                    const loadNav = setInterval(() => {
+                        if (!this.nav) {
+                            console.log('this.nav not found ', this);
 
-                        item.addEventListener('mouseenter', _this.handleToggle);
-                        item.addEventListener('mouseleave', _this.handleToggle);
-                    });
-                    subNavLinks.forEach(function (item) {
-                        if (window.matchMedia('(min-width: 1024px)').matches) {
-                            item.addEventListener('touchend', _this.handleToggle);
+                            const uqsiteheader = document.querySelector('uq-site-header');
+                            const shadowRoot = !!uqsiteheader && uqsiteheader.shadowRoot;
+                            this.nav = !!shadowRoot && shadowRoot.querySelector('#jsNav');
+                            if (!this.nav) {
+                                console.log('this.nav not found again ', uqsiteheader, shadowRoot);
+                            }
                         }
-                    });
-                    subNavL2Items.forEach(function (item) {
-                        _this.setOrientation(item);
+                        if (!!this.nav) {
+                            clearInterval(loadNav);
+                            // if (!this.nav) {
+                            //     console.log('this.nav not found ', this);
+                            //     const uqsiteheader = document.querySelector('uq-site-header');
+                            //     const shadowRoot = !!uqsiteheader && uqsiteheader.shadowRoot;
+                            //     this.nav = !!shadowRoot && shadowRoot.querySelector('#jsNav');
+                            //     if (!this.nav) {
+                            //         console.log('this.nav not found again ', uqsiteheader, shadowRoot);
+                            //     }
+                            //
+                            //     // return;
+                            // }
+                            var subNavItems = !!this.nav && this.nav.querySelectorAll('.'.concat(this.subNavClass));
+                            var subNavLinks = !!this.nav && this.nav.querySelectorAll('.'.concat(this.subNavClass, ' > a'));
+                            var subNavL2Items = !!this.nav && this.nav.querySelectorAll(
+                                '.'.concat(this.level2Class, ' .').concat(this.subNavClass),
+                            );
+                            var subNavL2Links = !!this.nav && this.nav.querySelectorAll(
+                                '.'.concat(this.level2Class, ' .').concat(this.subNavClass, ' > a'),
+                            );
+                            var navLinks = !!this.nav && this.nav.querySelectorAll('li > a');
+                            var subNavToggles = !!this.nav && this.nav.querySelectorAll('.'.concat(this.subToggleClass));
+                            mobileToggle.addEventListener('click', this.handleMobileToggle);
+                            subNavItems.forEach(function (item) {
+                                _this.setOrientation(item);
 
-                        item.addEventListener('mouseenter', _this.handleToggle);
-                        item.addEventListener('mouseleave', _this.handleToggle);
-                    });
-                    subNavL2Links.forEach(function (item) {
-                        item.addEventListener('touchend', _this.handleToggle);
-                    });
-                    navLinks.forEach(function (item) {
-                        item.addEventListener('keydown', _this.handleKeyPress);
-                    });
-                    subNavToggles.forEach(function (item) {
-                        item.addEventListener('click', _this.handleToggle);
-                    });
+                                item.addEventListener('mouseenter', _this.handleToggle);
+                                item.addEventListener('mouseleave', _this.handleToggle);
+                            });
+                            subNavLinks.forEach(function (item) {
+                                if (window.matchMedia('(min-width: 1024px)').matches) {
+                                    item.addEventListener('touchend', _this.handleToggle);
+                                }
+                            });
+                            subNavL2Items.forEach(function (item) {
+                                _this.setOrientation(item);
+
+                                item.addEventListener('mouseenter', _this.handleToggle);
+                                item.addEventListener('mouseleave', _this.handleToggle);
+                            });
+                            subNavL2Links.forEach(function (item) {
+                                item.addEventListener('touchend', _this.handleToggle);
+                            });
+                            navLinks.forEach(function (item) {
+                                item.addEventListener('keydown', _this.handleKeyPress);
+                            });
+                            subNavToggles.forEach(function (item) {
+                                item.addEventListener('click', _this.handleToggle);
+                            });
+                        }
+                    }, 50);
                 },
             },
             {
@@ -415,8 +438,6 @@ var uq = (function (exports) {
                                 _this6.hash = window.location.hash;
                             } // Scroll to hash (param string) selected accordion
 
-                          const uqHeader = document.querySelector('uq-header') || false;
-                          const shadowRoot = !!uqHeader && uqHeader.shadowRoot || false;
                             if (_this6.hash && _this6.hash !== '') {
                                 let selectors = ''.concat(_this6.hash, '.').concat(_this6.className, '__content');
                                 // on uqlapp we get weird errors like
@@ -427,9 +448,14 @@ var uq = (function (exports) {
                                 if (!isSelectorValid(selectors)) {
                                     console.log('selector ', selectors, ' has probably caused the uqsiteheader to silently fail');
                                 }
-                                var hashSelectedContent = !!shadowRoot && isSelectorValid(selectors) && shadowRoot.querySelector(selectors) || false;
+                                var hashSelectedContent = isSelectorValid(selectors) &&
+                                    document
+                                        .querySelector('uq-header')
+                                        .shadowRoot.querySelector(
+                                            selectors
+                                    );
 
-                                if (!!hashSelectedContent) {
+                                if (hashSelectedContent) {
                                     // Only apply classes on load when linking directly to an accordion item.
                                     var hashSelected = accordion.getPrevSibling(
                                         hashSelectedContent,
@@ -442,7 +468,9 @@ var uq = (function (exports) {
                                 }
                             }
 
-                            var accordions = !!shadowRoot && shadowRoot.querySelectorAll('.'.concat(_this6.className));
+                            var accordions = document
+                                .querySelector('uq-header')
+                                .shadowRoot.querySelectorAll('.'.concat(_this6.className));
                             accordions.forEach(function (el) {
                                 var togglers = el.querySelectorAll('.'.concat(_this6.className, '__toggle'));
                                 togglers.forEach(function (el) {

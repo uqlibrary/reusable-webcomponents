@@ -6,6 +6,14 @@ function ready(fn) {
     }
 }
 
+let isOutsideUQ = true;
+
+if (window.location.href.indexOf("uq.edu.au") > -1) {
+    isOutsideUQ = false;
+}
+
+console.log('Is libguides in edit mode?: ', isOutsideUQ);
+
 function createSlotForButtonInUtilityArea(button, id=null) {
     const slot = document.createElement('span');
     !!slot && slot.setAttribute('slot', 'site-utilities');
@@ -30,7 +38,9 @@ function createMylibraryStub() {
     mylibraryButton = document.createElement('div');
     mylibraryButton.id = stubId;
 
-    return !!mylibraryButton && this.createSlotForButtonInUtilityArea(mylibraryButton, mylibraryButtonId);
+    const slot = !!mylibraryButton && this.createSlotForButtonInUtilityArea(mylibraryButton, mylibraryButtonId);
+
+    return slot;
 }
 
 function createAuthButton() {
@@ -39,7 +49,9 @@ function createAuthButton() {
     }
 
     const authButton = document.createElement('auth-button');
-    return !!authButton && createSlotForButtonInUtilityArea(authButton, 'auth');
+    const slot = !!authButton && createSlotForButtonInUtilityArea(authButton, 'auth');
+
+    return slot;
 }
 
 function createAskusButton() {
@@ -48,30 +60,24 @@ function createAskusButton() {
     }
 
     const askusButton = document.createElement('askus-button');
-    return !!askusButton && createSlotForButtonInUtilityArea(askusButton, 'askus');
+    const slot = !!askusButton && createSlotForButtonInUtilityArea(askusButton, 'askus');
+
+    return slot;
 }
 
-function loadReusableComponents() {
+function loadReusableComponentsLibGuides() {
     const firstElement = document.body.children[0];
-    if (!firstElement) {
-        return;
-    }
 
-    if (!document.querySelector('uq-gtm')) {
-        const gtm = document.createElement('uq-gtm');
-        !!gtm && document.body.insertBefore(gtm, firstElement);
-    }
+    // const gtm = document.createElement('uq-gtm');
+    // gtm.setAttribute("gtm", "GTM-PX9H7R");
+    // document.body.insertBefore(gtm, firstElement);
 
-    if (!document.querySelector('uq-header')) {
-        const header = document.createElement('uq-header');
-        header.setAttribute("hideLibraryMenuItem", "");
-        header.setAttribute("skipnavid", "skiptohere");
-        !!header && document.body.insertBefore(header, firstElement);
-    }
+    const header = document.createElement('uq-header');
+    document.body.insertBefore(header, firstElement);
 
-    if (!document.querySelector('uq-site-header')) {
-        const siteHeader = document.createElement('uq-site-header');
+    const siteHeader = document.createElement('uq-site-header');
 
+    if (!isOutsideUQ) {
         const askusButton = createAskusButton();
         !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
 
@@ -80,24 +86,15 @@ function loadReusableComponents() {
 
         const authButton = createAuthButton();
         !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
-
-        !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
     }
 
-    if (!document.querySelector('alert-list')) {
-        const alerts = document.createElement('alert-list');
-        !!alerts && document.body.insertBefore(alerts, firstElement);
-    }
+    document.body.insertBefore(siteHeader, firstElement);
 
-    if (!document.querySelector('connect-footer')) {
-        const connectFooter = document.createElement('connect-footer');
-        !!connectFooter && document.body.appendChild(connectFooter);
-    }
+    const connectFooter = document.createElement('connect-footer');
+    document.body.appendChild(connectFooter);
 
-    if (!document.querySelector('uq-footer')) {
-        const subFooter = document.createElement('uq-footer');
-        !!subFooter && document.body.appendChild(subFooter);
-    }
+    const subFooter = document.createElement('uq-footer');
+    document.body.appendChild(subFooter);
 }
 
-ready(loadReusableComponents);
+ready(loadReusableComponentsLibGuides);
