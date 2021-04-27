@@ -13,7 +13,7 @@ template.innerHTML = `
     </noscript>
     <!-- End Google Tag Manager (noscript) -->
 `;
-
+let hasInserted = false;
 class gtm extends HTMLElement {
     constructor() {
         super();
@@ -26,7 +26,8 @@ class gtm extends HTMLElement {
     }
     loadJS(gtm) {
         console.log('gtm script called with: ', gtm);
-        if(!!gtm) {
+        if(!!gtm && !hasInserted) {
+            hasInserted = true;
             console.log('Inserting the scripts for GTM:', gtm);
             const gtmElement = template.content.getElementById('gtm');
             !!gtmElement && (gtmElement.src = "https://www.googletagmanager.com/ns.html?id=" + gtm);
