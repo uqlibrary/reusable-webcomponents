@@ -11,6 +11,7 @@ describe('My Library menu', () => {
         it('Mylibrary not available to logged out user', () => {
             cy.visit('http://localhost:8080?user=public');
             cy.viewport(1280, 900);
+            cy.wait(100);
             // the page is valid: it contains the correct header
             cy.get('uq-site-header').shadow().find('#site-title').should('contain', 'Library');
             // but because they are logged out, it does not contain a mylibrary button
@@ -25,6 +26,7 @@ describe('My Library menu', () => {
             cy.visit('http://localhost:8080?user=vanilla');
             cy.injectAxe();
             cy.viewport(1280, 900);
+            cy.wait(100);
             cy.get('uq-site-header').find('span[slot="site-utilities"] mylibrary-button').should('exist');
             cy.get('uq-site-header')
                 .find('span[slot="site-utilities"] mylibrary-button')
