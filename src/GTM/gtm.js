@@ -19,6 +19,7 @@ class gtm extends HTMLElement {
         super();
         this.loadJS = this.loadJS.bind(this);
         const gtm = this.getAttribute('gtm');
+        console.log('gtm attr on load: ', gtm);
         if(!!gtm) {
             this.loadJS(gtm);
         }
