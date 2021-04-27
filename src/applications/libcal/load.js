@@ -12,6 +12,8 @@ if (window.location.href.indexOf("uq.edu.au") > -1) {
     isOutsideUQ = false;
 }
 
+console.log('Is libcal in edit mode?: ', isOutsideUQ);
+
 function createSlotForButtonInUtilityArea(button, id=null) {
     const slot = document.createElement('span');
     !!slot && slot.setAttribute('slot', 'site-utilities');
@@ -64,7 +66,7 @@ function createAskusButton() {
 }
 
 function createElement(type, props) {
-    var $e = this.createElement(type);
+    var $e = document.createElement(type);
     for (var prop in props) {
         $e.setAttribute(prop, props[prop]);
     }
@@ -74,8 +76,9 @@ function createElement(type, props) {
 function loadReusableComponentsLibGuides() {
     const firstElement = document.body.children[0];
 
-    const gtmElement = createElement('uq-gtm', {gtm: 'ABC123'});
-    document.body.insertBefore(gtmElement, firstElement);
+    const gtm = document.createElement('uq-gtm');
+    gtm.setAttribute('gtm', 'GTM-PNKNTSQ');
+    document.body.insertBefore(gtm, firstElement);
 
     const header = document.createElement('uq-header');
     document.body.insertBefore(header, firstElement);
