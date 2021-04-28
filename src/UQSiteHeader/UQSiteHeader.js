@@ -209,7 +209,7 @@ class UQSiteHeader extends HTMLElement {
                         const stagingDomain = 'library.stage.drupal.uq.edu.au';
                         let linkTo = jsonChild.linkTo || '';
                         const stagingLink = linkTo.replace('web.library.uq.edu.au', stagingDomain);
-                        linkTo =  'window.location.hostname' === stagingDomain ? stagingLink : linkTo;
+                        linkTo =  window.location.hostname === stagingDomain ? stagingLink : linkTo;
 
                         const itemLink = document.createElement('a');
                         itemLink.setAttribute('href', linkTo);
