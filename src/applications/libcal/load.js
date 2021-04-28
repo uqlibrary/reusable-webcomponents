@@ -84,6 +84,7 @@ function loadReusableComponentsLibGuides() {
     document.body.insertBefore(header, firstElement);
 
     const siteHeader = document.createElement('uq-site-header');
+    siteHeader.setAttribute('skipnavid', 's-lc-public-main');
 
     if (!isOutsideUQ) {
         const askusButton = createAskusButton();
