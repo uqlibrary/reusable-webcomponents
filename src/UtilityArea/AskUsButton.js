@@ -150,6 +150,7 @@ class AskUsButton extends HTMLElement {
                 // Chat status
                 shadowRoot.getElementById('askus-chat-online').removeAttribute('style');
                 // Show the pr0active chat if we're not in primo
+                console.log('=============>', window.location.hostname);
                 if(!isPrimoPage(window.location.hostname) && document.cookie.indexOf("UQ_ASKUS_PROACTIVE_CHAT=hidden") <= -1) {
                     setTimeout(showProactiveChatWrapper, secondsTilProactiveChatAppears * 1000 - 1000);
                     setTimeout(showProactiveChat, secondsTilProactiveChatAppears * 1000);
