@@ -73,6 +73,23 @@ template.innerHTML = `
                 <svg id="askus-chat-status-icon-offline" focusable="false" viewBox="0 0 24 24" aria-hidden="true" id="chat-status-icon-offline" data-testid="chat-status-icon-online"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path></svg>
             </div>
         </div>
+        
+        <!-- Proactive chat -->
+        <div id="askus-proactive-chat-wrapper" data-testid="askus-proactive-chat-wrapper" style="display: none">
+            <div id="askus-proactive-chat" data-testid="askus-proactive-chat">
+                <div class="askus-proactive-chat-text">
+                    <div class="title">Chat is online now</div>
+                    <div class="message">Library staff are here to assist.<br/>Would you like to chat?</div>
+                </div>
+                <div class="askus-proactive-chat-left-button">
+                    <button id="askus-proactive-chat-button-open" data-testid="askus-proactive-chat-button-open" class="askus-proactive-chat-button">Chat&nbsp;now</button>
+                </div>
+                <div class="askus-proactive-chat-right-button">
+                    <button id="askus-proactive-chat-button-close" data-testid="askus-proactive-chat-button-close" class="askus-proactive-chat-button">Maybe&nbsp;later</button>
+                </div>
+            </div>
+        </div>
+        
     </div>
     <!-- Screen wrapper -->
     <div id="askus-pane" data-testid="askus-pane" aria-hidden="true" class=closed-pane style="display: none" />
@@ -84,6 +101,7 @@ class AskUsButton extends HTMLElement {
     constructor() {
         super();
         // Add a shadow DOM
+        const secondsTilProactiveChatAppears = this.getAttribute('secondsTilProactiveChatAppears') || 60;
         const shadowDOM = this.attachShadow({ mode: 'open' });
 
         if (this.isPaneButtonOpacityDropRequested()) {
@@ -95,7 +113,7 @@ class AskUsButton extends HTMLElement {
 
         // Render the template
         shadowDOM.appendChild(template.content.cloneNode(true));
-        this.updateAskusDOM(shadowDOM);
+        this.updateAskusDOM(shadowDOM, secondsTilProactiveChatAppears);
         this.addButtonListeners(shadowDOM);
 
         // Bindings
@@ -105,7 +123,17 @@ class AskUsButton extends HTMLElement {
         this.isPaneButtonOpacityDropRequested = this.isPaneButtonOpacityDropRequested.bind(this);
     }
 
-    async updateAskusDOM(shadowRoot) {
+    async updateAskusDOM(shadowRoot, secondsTilProactiveChatAppears) {
+        const isPrimoPage = (hostname) => {
+            var regExp = /(.*)exlibrisgroup.com/i;
+            return ('search.library.uq.edu.au' === hostname) || regExp.test(hostname);
+        };
+        const showProactiveChat = () => {
+            shadowRoot.getElementById('askus-proactive-chat').classList.add('show');
+        };
+        const showProactiveChatWrapper = () => {
+            shadowRoot.getElementById('askus-proactive-chat-wrapper').removeAttribute('style');
+        };
         const api = new ApiAccess();
         await api.loadChatStatus().then((isOnline) => {
             if (!isOnline) {
@@ -121,6 +149,11 @@ class AskUsButton extends HTMLElement {
             } else {
                 // Chat status
                 shadowRoot.getElementById('askus-chat-online').removeAttribute('style');
+                // Show the pr0active chat if we're not in primo
+                if(!isPrimoPage(window.location.hostname) && document.cookie.indexOf("UQ_ASKUS_PROACTIVE_CHAT=hidden") <= -1) {
+                    setTimeout(showProactiveChatWrapper, secondsTilProactiveChatAppears * 1000 - 1000);
+                    setTimeout(showProactiveChat, secondsTilProactiveChatAppears * 1000);
+                }
             }
         });
 
@@ -212,6 +245,26 @@ class AskUsButton extends HTMLElement {
         // Chat status listeners
         shadowDOM.getElementById('askus-chat-online').addEventListener('click', openChat);
         shadowDOM.getElementById('askus-chat-offline').addEventListener('click', navigateToContactUs);
+
+
+        // Proactive chat
+        function hideProactiveChatWrapper() {
+            shadowDOM.getElementById('askus-proactive-chat-wrapper').remove();
+        }
+        function closeProactiveChat() {
+            shadowDOM.getElementById('askus-proactive-chat').classList.remove('show');
+            setTimeout(hideProactiveChatWrapper, 1000);
+            if (document.cookie.indexOf("UQ_ASKUS_PROACTIVE_CHAT=hidden") <= -1) {
+                //set cookie for 24 hours
+                const date = new Date();
+                date.setTime(date.getTime() + (24 * 60 * 60 * 1000));
+                const cookieDomain = window.location.hostname.endsWith('.library.uq.edu.au') ? 'domain=.library.uq.edu.au;path=/' : '';
+                document.cookie = 'UQ_ASKUS_PROACTIVE_CHAT=hidden;expires=' + date.toGMTString() + ';' + cookieDomain;
+            }
+        }
+        shadowDOM.getElementById('askus-proactive-chat-button-close').addEventListener('click', closeProactiveChat);
+        shadowDOM.getElementById('askus-proactive-chat-button-open').addEventListener('click', openChat);
+
     }
 
     isPaneButtonOpacityDropRequested() {
