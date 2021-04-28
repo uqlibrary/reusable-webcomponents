@@ -89,8 +89,6 @@ class UQSiteHeader extends HTMLElement {
 
         // the dom is not loaded for a moment
         const awaitShadowDom = setInterval(() => {
-            const uqSiteHeader = document.querySelector('uq-site-header');
-            const shadowRoot = (!!uqSiteHeader && uqSiteHeader.shadowRoot) || false;
             if (!that.shadowRoot) {
                 return;
             }
@@ -159,8 +157,8 @@ class UQSiteHeader extends HTMLElement {
 
             let classNavListitem = 'uq-site-header__navigation__list-item';
             !!hasChildren && (classNavListitem += ' uq-site-header__navigation__list-item--has-subnav');
-            jsonParentItem.linkTo === window.location.href &&
-            (classNavListitem += ' uq-site-header__navigation__list-item--active');
+            const activeClassName = ' uq-site-header__navigation__list-item--active';
+            (jsonParentItem.linkTo === window.location.href) && (classNavListitem += activeClassName);
             parentListItem.setAttribute('class', classNavListitem);
 
             const parentLink = this.createLink(
