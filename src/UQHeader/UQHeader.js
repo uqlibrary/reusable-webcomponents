@@ -128,12 +128,15 @@ class UQHeader extends HTMLElement {
             }
 
             if (!!skipNavRequestedTo) {
+                console.log('Attaching skip function');
                 const skipToElement = () => {
                     const skipNavLander = document.getElementById(skipNavRequestedTo);
                     !!skipNavLander && skipNavLander.focus();
                 }
                 const skipNavButton = shadowDOM.getElementById('skip-nav');
                 !!skipNavButton && skipNavButton.addEventListener('click', skipToElement);
+            } else {
+                console.log('Not attaching skip function');
             }
         }, 50);
 
