@@ -89,18 +89,18 @@ module.exports = () => {
                 },
             ],
         },
-        optimization: {
-            minimize: true,
-            minimizer: [
-                new TerserPlugin({
-                    terserOptions: {
-                        compress: {
-                            drop_console: process.env.NODE_ENV === 'production',
-                        }
-                    }
-                })
-            ],
-        },
+        // optimization: {
+        //     minimize: true,
+        //     minimizer: [
+        //         new TerserPlugin({
+        //             terserOptions: {
+        //                 compress: {
+        //                     drop_console: process.env.NODE_ENV === 'production',
+        //                 }
+        //             }
+        //         })
+        //     ],
+        // },
         plugins: [
             new HTMLWebpackPlugin({
                 template: path.resolve(__dirname, 'index.html'),
@@ -123,13 +123,13 @@ module.exports = () => {
                     {from: "src/favicon.ico", to: "favicon.ico"},
                     // all load.js for applications should be included here
                     {from: "src/applications/drupal/load.js", to: "applications/drupal/load.js"},
-                    {from: "src/applications/libcal/load.js", to: "applications/libcal/load.js"},
-                    {from: "src/applications/libguides/load.js", to: "applications/libguides/load.js"},
                     {from: "src/applications/omeka/load.js", to: "applications/omeka/load.js"},
                     {from: "src/applications/rightnow/load.js", to: "applications/rightnow/load.js"},
                     {from: "src/applications/shared/load.js", to: "applications/shared/load.js"},
                     {from: "src/applications/studenthub/load.js", to: "applications/studenthub/load.js"},
                     {from: "src/applications/uqlapp/load.js", to: "applications/uqlapp/load.js"},
+                    {from: "src/applications/libguides/load.js", to: "applications/libguides/load.js"},
+                    {from: "src/applications/libcal/load.js", to: "applications/libcal/load.js"},
                 ],
             }),
             // This plugin will rename the external js imports to full paths for deploy

@@ -63,8 +63,6 @@ function loadReusableComponentsDrupal() {
         return;
     }
 
-    // gtm is inserted by drupal
-
     if (!document.querySelector('uq-header')) {
         const header = document.createElement('uq-header');
         !!header && header.setAttribute("hideLibraryMenuItem", "");

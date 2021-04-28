@@ -10,7 +10,7 @@ To install the reusable web components, enter the libguides "look and feel" page
 ```html
 <link type="image/x-icon" rel="shortcut icon" href="http://assets.library.uq.edu.au/reusable-webcomponents/favicon.ico">
 <script type="text/javascript" src="//assets.library.uq.edu.au/reusable-webcomponents/applications/libcal/load.js"></script>
-<script type="text/javascript" src="//assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js" defer></script>
+<script type="text/javascript" src="//assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js"></script>
 <link rel="stylesheet" type="text/css" href="//assets.library.uq.edu.au/reusable-webcomponents/applications/libcal/custom-styles.css">
 ```
 * NOTE: The `load.js` will check if the current page is on the *.uq.edu.au domain and hide the login/askus/mylibrary utility buttons if not due to API CORS not being allowed outside UQ.
