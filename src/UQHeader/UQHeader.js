@@ -101,6 +101,7 @@ class UQHeader extends HTMLElement {
 
             // The element id for the skip nav, if exists or hides the skip nav
             const skipNavRequestedTo = that.getAttribute('skipnavid');
+            console.log('skipNavRequestedTo: ', skipNavRequestedTo);
             if (!skipNavRequestedTo) {
                 const skipNavButton = shadowDOM.getElementById('skip-nav');
                 !!skipNavButton && skipNavButton.remove();
@@ -165,6 +166,7 @@ class UQHeader extends HTMLElement {
 
     isGlobalMenuLibraryItemRequested() {
         const hidelibrarymenuitem = this.getAttribute('hidelibrarymenuitem');
+        console.log('hidelibrarymenuitem: ', hidelibrarymenuitem);
         return hidelibrarymenuitem === 'false' || hidelibrarymenuitem === null;
     }
 
