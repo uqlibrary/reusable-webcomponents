@@ -81,6 +81,8 @@ function loadReusableComponentsLibGuides() {
     document.body.insertBefore(gtm, firstElement);
 
     const header = document.createElement('uq-header');
+    header.setAttribute('skipnavid', 's-lc-public-page-content');
+    header.setAttribute('hidelibrarymenuitem', false);
     document.body.insertBefore(header, firstElement);
 
     const siteHeader = document.createElement('uq-site-header');
