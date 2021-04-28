@@ -6,6 +6,10 @@ $page-background-color: #FAFAFA;
 $button-color: #0E62EB;
 $black-button-color: #595959;
 
+#s-lc-public-skiplink {
+  display: none !important;
+}
+
 %navlinks {
   border-radius: 0 2px 2px 0 !important;
   background: #EEE;
