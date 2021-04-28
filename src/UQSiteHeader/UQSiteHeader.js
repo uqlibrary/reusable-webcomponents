@@ -15,14 +15,14 @@ import myLibStyles from '../UtilityArea/css/mylibrary.css';
  *           <askus-button />
  *       </span>
  *       <span slot="site-utilities">
- *           <div id="mylibrarystub" />
+ *           <div id="mylibrarystub" />         // provide a stub and let auth-button handle replacing with the mylibrary button if the user is logged in
  *       </span>
  *       <span slot="site-utilities">
  *           <auth-button />
  *       </span>
  *   </uq-site-header>
  *
- * uqsiteheader does not add the utility area buttons itself - add them externally by either html or javascriot
+ * ie uqsiteheader does not add the utility area buttons itself - add them externally by either html or javascriot
  */
 
 const template = document.createElement('template');
@@ -39,7 +39,7 @@ template.innerHTML = `
         </div>
         <div class="uq-site-header__title-container__right">
           <slot name="site-utilities"></slot>
-          <button id="uq-site-header__navigation-toggle" data-testid="uq-site-header__navigation-toggle" class="uq-site-header__navigation-toggle jsNavToggle">Menu</button>
+          <button style="display: none" id="uq-site-header__navigation-toggle" data-testid="uq-site-header__navigation-toggle" class="uq-site-header__navigation-toggle jsNavToggle">Menu</button>
         </div>
       </div>
 
@@ -58,100 +58,96 @@ let initCalled;
 
 class UQSiteHeader extends HTMLElement {
     static get observedAttributes() {
-        // return ['sitetitle', 'siteurl', 'showmenu'];
-        return ['sitetitle', 'siteurl'];
+        return ['sitetitle', 'siteurl', 'showmenu'];
     }
 
     constructor() {
         super();
 
+        // when the ITS script loads, we store a the object it supplies so we can use it
+        // when the menu has finished loading to supply the menu mouseover
+        this.uqReference = null;
+
         // Bindings
         this.createLink = this.createLink.bind(this);
-        this.isMegaMenuRequested = this.isMegaMenuRequested.bind(this);
-        this.loadMenu = this.loadMenu.bind(this);
+        this.loadScript = this.loadScript.bind(this);
         this.rewriteMegaMenuFromJson = this.rewriteMegaMenuFromJson.bind(this);
+        this.showMenu = this.showMenu.bind(this);
+        this.unhideMobileMenuButton = this.unhideMobileMenuButton.bind(this);
 
-        const shadowDOM = this.attachShadow({mode: 'open'});
+        // whether or not a menu is requested, clear any children supplied by ITS
+        const megaMenu = template.content.getElementById('jsNav');
+        !!megaMenu && (megaMenu.textContent = '');
 
-        this.rewriteMegaMenuFromJson();
-
-        console.log('template cloned');
         // Render the template
+        const shadowDOM = this.attachShadow({mode: 'open'});
         shadowDOM.appendChild(template.content.cloneNode(true));
-        const doc = document;
-        console.log('cloned doc = ', doc); // gives document, correct
-        const uqSiteHeader = document.querySelector('uq-site-header');
-        console.log('cloned uqSiteHeader = ', uqSiteHeader); // gives null
-        const testdom = setInterval(() => {
+    }
+
+    attributeChangedCallback(fieldName, oldValue, newValue) {
+        const that = this;
+
+        // the dom is not loaded for a moment
+        const awaitShadowDom = setInterval(() => {
             const uqSiteHeader = document.querySelector('uq-site-header');
-            console.log('cloned wait uqSiteHeader = ', uqSiteHeader); // gives uqSiteHeader because there has been enough time for it to be accessible
-            clearInterval(testdom);
+            const shadowRoot = (!!uqSiteHeader && uqSiteHeader.shadowRoot) || false;
+            if (!that.shadowRoot) {
+                return;
+            }
+
+            clearInterval(awaitShadowDom);
+
+            switch(fieldName) {
+                case 'sitetitle':
+                    this.setTitle(newValue);
+
+                    break;
+                case 'siteurl':
+                    this.setSiteUrl(newValue);
+
+                    break;
+                case 'showmenu':
+                    this.showMenu();
+
+                    break;
+                default:
+                    console.log(`unknown attribute ${fieldName} received for UQSiteHeader`);
+            }
         }, 50);
     }
 
-
-    attributeChangedCallback(fieldName, oldValue, newValue) {
-        console.log(`requested change of ${fieldName} value from ${oldValue} to ${newValue}`);
-        switch(fieldName) {
-            case 'sitetitle':
-                this.setTitle();
-
-                break;
-            case 'siteurl':
-                this.setSiteUrl();
-
-                break;
-            // case 'showmenu':
-            //     const showMenu = this.getAttribute('showmenu');
-            //     const isMegaMenuRequested = !!showMenu || showMenu === '';
-            //     // !!isMegaMenuRequested ?  this.updateMenu() : this.hideMobileMenuButton();
-            //     if (!!isMegaMenuRequested) {
-            //         this.updateMenu();
-            //     } else {
-            //         this.hideMobileMenuButton();
-            //     }
-            //
-            //     break;
-            default:
-                console.log(`unknown attribute ${fieldName} received for UQSiteHeader`);
-        }
-
-        // this.loadJS(newValue);
-    }
-
-    setSiteUrl() {
-        const uqSiteHeader = document.querySelector('uq-site-header');
-        const shadowRoot = (!!uqSiteHeader && uqSiteHeader.shadowRoot) || false;
-        const siteTitleElement = !!shadowRoot && shadowRoot.getElementById('site-title');
-
-        const newSiteURL = this.getAttribute('siteurl');
+    setSiteUrl(newSiteURL) {
+        const siteTitleElement = !!this.shadowRoot && this.shadowRoot.getElementById('site-title');
         !!siteTitleElement && !!newSiteURL && (siteTitleElement.href = newSiteURL) || console.log('site url update failed');
     }
 
-    setTitle() {
-        const uqSiteHeader = document.querySelector('uq-site-header');
-        console.log('in setTitle: uqSiteHeader = ', uqSiteHeader);
-        const shadowRoot = (!!uqSiteHeader && uqSiteHeader.shadowRoot) || false;
-        let siteTitleElement = !!shadowRoot && shadowRoot.getElementById('site-title');
-
-        const newSiteTitle = this.getAttribute('sitetitle');
+    setTitle(newSiteTitle) {
+        let siteTitleElement = !!this.shadowRoot && this.shadowRoot.getElementById('site-title');
         !!siteTitleElement && !!newSiteTitle && (siteTitleElement.innerHTML = newSiteTitle) || console.log('site title update failed');
     }
 
+    showMenu() {
+        this.rewriteMegaMenuFromJson();
+
+        this.unhideMobileMenuButton();
+
+        const that = this;
+        // we must wait for the script to finish loading before we can use it
+        const waitOnUqScript = setInterval(() => {
+            if (!that.uqReference) {
+                return;
+            }
+            clearInterval(waitOnUqScript);
+
+            const navelement = !!this.shadowRoot && this.shadowRoot.getElementById('jsNav');
+            const uq = that.uqReference;
+            new uq.siteHeaderNavigation(navelement, 'uq-site-header__navigation');
+        }, 50
+        , that)
+    }
+
     rewriteMegaMenuFromJson() {
-        const megaMenu = template.content.getElementById('jsNav');
-
-        // clear the existing children
-        !!megaMenu && (megaMenu.textContent = '');
-
-        if (!this.isMegaMenuRequested()) {
-            // hide responsive menu button
-            const button = template.content.getElementById('uq-site-header__navigation-toggle');
-            !!button && (button.style.display = 'none');
-
-            // don't add Library megamenu
-            return;
-        }
+        const megaMenu = !!this.shadowRoot && this.shadowRoot.getElementById('jsNav');
 
         const listWrapper = document.createElement('ul');
         listWrapper.setAttribute('class', 'uq-site-header__navigation__list uq-site-header__navigation__list--level-1');
@@ -228,6 +224,11 @@ class UQSiteHeader extends HTMLElement {
         megaMenu.appendChild(listWrapper);
     }
 
+    unhideMobileMenuButton() {
+        const button = !!this.shadowRoot && this.shadowRoot.getElementById('uq-site-header__navigation-toggle');
+        !!button && (button.style.display = null);
+    }
+
     createLink(datatestid, href, linktext) {
         const alink = document.createElement('a');
         alink.setAttribute('data-testid', datatestid);
@@ -237,41 +238,27 @@ class UQSiteHeader extends HTMLElement {
         return alink;
     }
 
-    loadMenu() {
+    loadScript() {
         // This loads the external JS file into the HTML head dynamically
-        // Only load js if it has not been loaded before and the nav element is available
-        const uqSiteHeader = document.querySelector('uq-site-header');
-        const shadowRoot = (!!uqSiteHeader && uqSiteHeader.shadowRoot) || false;
-        var navelement = (!!shadowRoot && shadowRoot.getElementById('jsNav')) || false;
-        console.log('navelement = ', navelement);
-
-        const scripts = document.getElementsByTagName('script');
-        const scriptList = Array.prototype.slice.call(scripts);
-        const scriptFound = scriptList.find(scriptTag => {
-            return String(scriptTag).includes('uq-site-header.js');
-        });
-        console.log('scriptFound = ', scriptFound);
-
-        if (!scriptFound && !!navelement) {
+        // Only load js if it has not been loaded before
+        const scriptId = 'uq-nav-script';
+        const scriptFound = document.getElementById(scriptId);
+        if (!scriptFound) {
+            const that = this;
 
             const showMenu = this.getAttribute('showmenu');
-            console.log('showMenu = ', showMenu);
             const isMegaMenuDisplayed = !!showMenu || showMenu === '';
-            console.log('isMegaMenuDisplayed = ', isMegaMenuDisplayed);
 
             //Dynamically import the JS file and append it to the document header
             const script = document.createElement('script');
             script.type = 'text/javascript';
             script.defer = true;
+            script.id = scriptId;
             script.onload = function () {
                 //Code to execute after the library has been downloaded parsed and processed by the browser starts here :)
-                // Initialise Main Navigation
-                const uqSiteHeader = document.querySelector('uq-site-header');
-                const shadowRoot = (!!uqSiteHeader && uqSiteHeader.shadowRoot) || false;
-                if (!!isMegaMenuDisplayed) {
-                    var navelement = !!shadowRoot && shadowRoot.getElementById('jsNav');
-                    var nav = new uq.siteHeaderNavigation(navelement, 'uq-site-header__navigation');
-                }
+                // store reference so we can initialise the main menu when it is available
+                that.uqReference = uq;
+
                 // Initialise accordions
                 new uq.accordion();
                 // Equalised grid menu examples
@@ -280,21 +267,16 @@ class UQSiteHeader extends HTMLElement {
             };
             //Specify the location of the ITS DS JS file
             script.src = 'uq-site-header.js';
+            // script.src = '../../../dist/uq-site-header.js';
 
             //Append it to the document header
             document.head.appendChild(script);
         }
     }
 
-    isMegaMenuRequested() {
-        const showMenu = this.getAttribute('showmenu');
-        return !!showMenu || showMenu === '';
-    }
-
     connectedCallback() {
-        console.log('connectedCallback');
-
-        // this.loadMenu();
+        // when this method has fired, the shadow dom is available
+        this.loadScript();
     }
 }
 
