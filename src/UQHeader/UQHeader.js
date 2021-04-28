@@ -132,6 +132,7 @@ class UQHeader extends HTMLElement {
                 const skipToElement = () => {
                     console.log('Skipping to ', skipNavRequestedTo);
                     const skipNavLander = document.getElementById(skipNavRequestedTo);
+                    console.log('Element to skip to: ', skipNavLander);
                     !!skipNavLander && skipNavLander.focus();
                 }
                 const skipNavButton = shadowDOM.getElementById('skip-nav');
