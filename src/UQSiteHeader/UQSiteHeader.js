@@ -205,8 +205,14 @@ class UQSiteHeader extends HTMLElement {
                         secondaryTextItem.setAttribute('class', 'displayText secondaryText');
                         secondaryTextItem.appendChild(secondarytextOfLink);
 
+                        // we want to be able to navigate around the staging site, if thats where we are
+                        const stagingDomain = 'library.stage.drupal.uq.edu.au';
+                        let linkTo = jsonChild.linkTo || '';
+                        const stagingLink = linkTo.replace('web.library.uq.edu.au', stagingDomain);
+                        linkTo =  'window.location.hostname' === stagingDomain ? stagingLink : linkTo;
+
                         const itemLink = document.createElement('a');
-                        itemLink.setAttribute('href', jsonChild.linkTo || '');
+                        itemLink.setAttribute('href', linkTo);
                         itemLink.appendChild(primaryTextItem);
                         itemLink.appendChild(secondaryTextItem);
                         itemLink.setAttribute('aria-expanded', 'false');
