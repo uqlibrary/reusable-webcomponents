@@ -15,11 +15,7 @@ function insertScript(url, defer = false) {
     }
 }
 // we insert this script here, rather than the Springshare admin panel, so we can supply the defer attribute
-// insertScript('https://assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js', true);
-insertScript(
-    'https://assets.library.uq.edu.au/reusable-webcomponents-development/feature-libwizard/uq-lib-reusable.min.js',
-    true,
-);
+insertScript('https://assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js', true);
 
 function ready(fn) {
     if (document.readyState !== 'loading') {
