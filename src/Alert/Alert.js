@@ -1,11 +1,9 @@
 import styles from './css/main.css';
-import icons from './css/icons.css';
 import overrides from './css/overrides.css';
 
 const template = document.createElement('template');
 template.innerHTML = `
   <style>${styles.toString()}</style>
-  <style>${icons.toString()}</style>
   <style>${overrides.toString()}</style>
   <div id="alert" data-testid="alert" class="alert alert--default" role="alert" data-id="">
         <div id="alert-container" data-testid="alert-container" class="alert__container">
@@ -32,7 +30,7 @@ class Alert extends HTMLElement {
         this.loadAlert(shadowDOM);
 
         // Bindings
-        this.loadJS = this.loadJS.bind(this);
+        this.loadAlert = this.loadAlert.bind(this);
     }
 
     loadAlert(shadowDOM) {
@@ -122,18 +120,6 @@ class Alert extends HTMLElement {
                 clearInterval(loadAlertFields);
             }
         }, 300);
-    }
-
-    loadJS() {
-        // This loads the external JS file into the HTML head dynamically
-        //Only load js if it has not been loaded before (tracked by the initCalled flag)
-        if (!initCalled) {
-            //Dynamically import the JS file and append it to the document header
-        }
-    }
-
-    connectedCallback() {
-        this.loadJS();
     }
 }
 

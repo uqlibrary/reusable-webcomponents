@@ -129,7 +129,6 @@ class AskUsButton extends HTMLElement {
         this.addButtonListeners(shadowDOM);
 
         // Bindings
-        this.loadJS = this.loadJS.bind(this);
         this.updateAskusDOM = this.updateAskusDOM.bind(this);
         this.addButtonListeners = this.addButtonListeners.bind(this);
         this.isPaneButtonOpacityDropRequested = this.isPaneButtonOpacityDropRequested.bind(this);
@@ -137,9 +136,7 @@ class AskUsButton extends HTMLElement {
 
     isProactiveChatHidden() {
         const hideProactiveChat = this.getAttribute('hideProactiveChat');
-        const hide = hideProactiveChat === 'true' || hideProactiveChat === '';
-        console.log('chat hide?', hide);
-        return hide;
+        return hideProactiveChat === 'true' || hideProactiveChat === '';
     }
 
     async updateAskusDOM(shadowRoot, secondsTilProactiveChatAppears) {
@@ -296,31 +293,6 @@ class AskUsButton extends HTMLElement {
         // primo only provides the attributes in lower case :(
         const noPaneOpacity = this.getAttribute('nopaneopacity');
         return !!noPaneOpacity || noPaneOpacity === '';
-    }
-
-    loadJS() {
-        // This loads the external JS file into the HTML head dynamically
-        //Only load js if it has not been loaded before (tracked by the initCalled flag)
-        if (!initCalled) {
-            //Dynamically import the JS file and append it to the document header
-            const script = document.createElement('script');
-            script.type = 'text/javascript';
-            script.defer = true;
-            script.onload = function () {
-                //Code to execute after the library has been downloaded parsed and processed by the browser starts here :)
-                initCalled = true;
-            };
-
-            //Specify the location of the ITS DS JS file
-            script.src = 'askus-button.js';
-
-            //Append it to the document header
-            document.head.appendChild(script);
-        }
-    }
-
-    connectedCallback() {
-        this.loadJS();
     }
 }
 

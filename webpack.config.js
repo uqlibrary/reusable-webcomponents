@@ -110,14 +110,8 @@ module.exports = () => {
             // This plugin simply copies the external js from ITS DS into the dist and renames it
             new CopyPlugin({
                 patterns: [
-                    { from: 'src/Alerts/js/uqds.js', to: 'alert-list.js' },
                     { from: 'src/ApiAccess/js/uqds.js', to: 'api-access.js' },
-                    { from: 'src/UtilityArea/js/uqds.js', to: 'askus-button.js' },
-                    { from: 'src/UtilityArea/js/uqds.js', to: 'auth-button.js' },
-                    { from: 'src/UtilityArea/js/uqds.js', to: 'mylibrary-button.js' },
-                    { from: 'src/ConnectFooter/js/uqds.js', to: 'connect-footer.js' },
                     { from: 'src/UQHeader/js/uqds.js', to: 'uq-header.js' },
-                    { from: 'src/UQFooter/js/uqds.js', to: 'uq-footer.js' },
                     { from: 'src/UQSiteHeader/js/uqds.js', to: 'uq-site-header.js' },
                     {
                         from: 'src/applications/libguides/arrow-right.png',
@@ -127,13 +121,13 @@ module.exports = () => {
                     { from: 'src/favicon.ico', to: 'favicon.ico' },
                     // all load.js for applications should be included here
                     { from: 'src/applications/drupal/load.js', to: 'applications/drupal/load.js' },
+                    { from: 'src/applications/libcal/load.js', to: 'applications/libcal/load.js' },
+                    { from: 'src/applications/libguides/load.js', to: 'applications/libguides/load.js' },
                     { from: 'src/applications/omeka/load.js', to: 'applications/omeka/load.js' },
                     { from: 'src/applications/rightnow/load.js', to: 'applications/rightnow/load.js' },
                     { from: 'src/applications/shared/load.js', to: 'applications/shared/load.js' },
                     { from: 'src/applications/studenthub/load.js', to: 'applications/studenthub/load.js' },
                     { from: 'src/applications/uqlapp/load.js', to: 'applications/uqlapp/load.js' },
-                    { from: 'src/applications/libguides/load.js', to: 'applications/libguides/load.js' },
-                    { from: 'src/applications/libcal/load.js', to: 'applications/libcal/load.js' },
                 ],
             }),
             // This plugin will rename the external js imports to full paths for deploy
@@ -148,36 +142,8 @@ module.exports = () => {
                                 replace: componentJsPath[process.env.NODE_ENV] + 'uq-header.js',
                             },
                             {
-                                search: /uq-footer\.js/gm,
-                                replace: componentJsPath[process.env.NODE_ENV] + 'uq-footer.js',
-                            },
-                            {
                                 search: /uq-site-header\.js/gm,
                                 replace: componentJsPath[process.env.NODE_ENV] + 'uq-site-header.js',
-                            },
-                            {
-                                search: /connect-footer\.js/gm,
-                                replace: componentJsPath[process.env.NODE_ENV] + 'connect-footer.js',
-                            },
-                            {
-                                search: /askus-button\.js/gm,
-                                replace: componentJsPath[process.env.NODE_ENV] + 'askus-button.js',
-                            },
-                            {
-                                search: /auth-button\.js/gm,
-                                replace: componentJsPath[process.env.NODE_ENV] + 'auth-button.js',
-                            },
-                            {
-                                search: /mylibrary-button\.js/gm,
-                                replace: componentJsPath[process.env.NODE_ENV] + 'mylibrary-button.js',
-                            },
-                            {
-                                search: /alert-list\.js/gm,
-                                replace: componentJsPath[process.env.NODE_ENV] + 'alert-list.js',
-                            },
-                            {
-                                search: /alert\.js/gm,
-                                replace: componentJsPath[process.env.NODE_ENV] + 'alert.js',
                             },
                         ],
                     },
