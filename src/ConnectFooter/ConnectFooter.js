@@ -1,12 +1,10 @@
 import styles from './css/overrides.css';
-import icons from './css/icons.css';
 import { default as menuLocale } from '../locale/menu';
 import { default as footerlocale } from './connectfooter.locale';
 
 const template = document.createElement('template');
 template.innerHTML = `
     <style>${styles.toString()}</style>
-    <style>${icons.toString()}</style>
     <div data-testid="connect-footer" id="connect-footer" class="connect-footer connectfooter-wrapper griditem griditem12" data-gtm-category="Footer">
         <div class="uq-footer__container connectfooter-wrapper2 griditem griditem12">
             <div class="connectfooter-wrapper3">

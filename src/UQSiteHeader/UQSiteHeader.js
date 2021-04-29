@@ -1,6 +1,5 @@
 import styles from './css/main.css';
 import overrides from './css/overrides.css';
-import icons from './css/icons.css';
 import { default as menuLocale } from '../locale/menu';
 import myLibStyles from '../UtilityArea/css/mylibrary.css';
 
@@ -28,7 +27,6 @@ import myLibStyles from '../UtilityArea/css/mylibrary.css';
 const template = document.createElement('template');
 template.innerHTML = `
     <style>${styles.toString()}</style>
-    <style>${icons.toString()}</style>
     <style>${overrides.toString()}</style>
     <style>${myLibStyles.toString()}</style>
   <div class="uq-site-header" part="root">
