@@ -33,9 +33,18 @@
     ln -sf "../../scripts/prepare-commit-msg" ".git/hooks/prepare-commit-msg"
   ```
 
+When you commit your changes, the above script will require you to have correctly formatted code.
+
+The following commands are available to fix any misformatting easily:
+
+- `npm run codestyles:fix:all` - fix all files
+- `npm run codestyles:fix:staged` - fix all staged files
+
 ### Use
 
-Add the following line at the end of your HTML document to initialise the components. Example below is obviously for staging - substitute for development or production, and note that the _defer_ is important.
+Add the following line at the end of your HTML document to initialise the components. Example below is obviously for production - substitute for development or staging. 
+
+Note that the _defer_ is important.
 ```html
   <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v6/fonts/Roboto/roboto.css" />
   <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css" />
