@@ -1,8 +1,55 @@
 # UQ Library Reusable Web Components
-### Current contents
-- UQ Header (28 Feb 2021) - [ITS DS](https://design-system.uq.edu.au/?path=/docs/components-header--header)
-- UQ Footer (28 Feb 2021) - [ITS DS](https://design-system.uq.edu.au/?path=/docs/components-footer--footer)
 
+These reusable webcomponents provides header and footer to multiple systems.
+
+The 'applications/' folder allows us to version control changes to the scripts we use to insert code into 3rd party systems
+
+(tl;dr we add the header-footer to many third party systems, usually by creating a load.js file which is inserted in the backend of that system, and that load script pulls in the .min.js reusable file and creates the header-footer elements. Read each application's readme file to get full details on each system)
+
+- Library homepage
+  - code in repo homepage-react
+  - live at https://www.library.uq.edu.au/
+- Drupal 
+  - the Library public CMS
+  - code at /src/applications/drupal
+  - live at eg https://web.library.uq.edu.au/contact-us
+- Libcal
+  - used for various booking pages
+  - code at /src/applications/libcal
+  - live at eg https://calendar.library.uq.edu.au/reserve/spaces/reading-room
+- Libguides
+  - guides on many subjects to help students
+  - code at /src/applications/libguides
+  - live at https://guides.library.uq.edu.au/
+- Omeka
+  - Library Exhibitions
+  - code at /src/applications/omeka
+  - live - homepage at https://uqlibraryonlineexhibitions.omeka.net/
+  - example exhibition at https://uqlibraryonlineexhibitions.omeka.net/exhibits/show/jd-fryer-student-and-soldier
+- Primo
+  - the Library catalogue (but note we NEVER use that 'c' word)
+  - *styling* at /src/applications/primo
+  - code is in separate repo as it is not deployed via AWS
+  - live at https://search.library.uq.edu.au/primo-explore/search?vid=61UQ&sortby=rank
+  - see full description in readme
+  - has multiple branches assigned to it
+- Rightnow
+  - the UQ CRM
+  - code at /src/applications/rightnow
+  - see readme for many live pages
+- Shared
+  - a bunch of scripts runnng on the enki servers
+  - managed by Dan
+  - code at /src/applications/shared
+- Studenthub
+  - a small group of pages that displays staff-training to logged in staff
+  - code at /src/applications/studenhub
+  - live at https://www.studenthub.uq.edu.au/workgroups/library-staff-development
+- UQLAPP
+  - legacy angular system offering 4 products. Only membership is current for development
+  - code at /src/applications/uqlapp
+  - live at https://app.library.uq.edu.au/
+  
 ### Development
 - run `npm ci` to install packages.
 - run `npm run start` to run the project locally while developing with a listener (calls api on staging for data)
@@ -67,7 +114,40 @@ You will also need to add an anchor with the landing id after all the header imp
 ```
 This must be an ANCHOR, not any other html element.
 
+### Testing
+
+This repo uses Cypress tests. To run tests:
+- locally: `npm run test:local` - select the preferred browser from the dropdown in the top right of the cypress interface, then click on the 'run integration tests'
+
+NOTE: CI testing uses environment variables stored on AWS to run cypress successfully and reporting to the cypress dashboard.
+
+### AWS Buckets
+
+Code is deployed to 3 buckets:
+
+- uql-reusable-webcomponents-production
+- uql-reusable-webcomponents-staging
+- uql-reusable-webcomponents-development
+
+uql-reusable-webcomponents-development has subfolders that map to feature branches
+
+There is a cloudfront behaviour on assets.library.uq.edu.au that maps these buckets to assets address for use in deployment
+- https://assets.library.uq.edu.au/reusable-webcomponents-development/  ==> s3://uql-reusable-webcomponents-development/
+- https://assets.library.uq.edu.au/reusable-webcomponents-staging/      ==> s3://uql-reusable-webcomponents-staging/
+- https://assets.library.uq.edu.au/reusable-webcomponents/              ==> s3://uql-reusable-webcomponents-production/
+
+### Reference Material
+
+- How slots work: https://javascript.info/slots-composition
+- Apply styles within the shadow dom from outside: https://developer.mozilla.org/en-US/docs/Web/CSS/::part (undocumented caveat: you can only style the item with the "part attribute" you cant style its descendants ie this doesn't work: `askus-button::part(askus) div#askus-label` you have to put the part="x" on the label element)
+- [Lifecycle hooks in web components](https://ultimatecourses.com/blog/lifecycle-hooks-in-web-components)
+
 ### Setting up from the ITS Design System private packages
+
+#### Current contents
+- UQ Header (28 Feb 2021) - [ITS DS](https://design-system.uq.edu.au/?path=/docs/components-header--header)
+- UQ Footer (28 Feb 2021) - [ITS DS](https://design-system.uq.edu.au/?path=/docs/components-footer--footer)
+
 ###### _Using UQ Header package as an example_
 
 - Follow the export procedure from [ITS Design System github](https://github.com/uq-its-ss/design-system/blob/master/packages/private-design-output/README.md).
@@ -98,34 +178,6 @@ This must be an ANCHOR, not any other html element.
 - Make sure to update the dynamic load reference in the web component file.
 - Run `npm run build` to pack the file into the `dist` folder - and open index.html there in a browser to test - or - run `npm run start` to have a listening system run in your local browser.
 
-### Testing
-
-This repo uses Cypress tests. To run tests:
-- locally: `npm run test:local` - select the preferred browser from the dropdown in the top right of the cypress interface, then click on the 'run integration tests'
-
-NOTE: CI testing uses environment variables stored on AWS to run cypress successfully and reporting to the cypress dashboard.
-
-### AWS Buckets
-
-Code is deployed to 3 buckets:
-
-- uql-reusable-webcomponents-production
-- uql-reusable-webcomponents-staging
-- uql-reusable-webcomponents-development
-
-uql-reusable-webcomponents-development has subfolders that map to feature branches
-
-There is a cloudfront behaviour on assets.library.uq.edu.au that maps these buckets to assets address for use in deployment
-- https://assets.library.uq.edu.au/reusable-webcomponents-development/  ==> s3://uql-reusable-webcomponents-development/
-- https://assets.library.uq.edu.au/reusable-webcomponents-staging/      ==> s3://uql-reusable-webcomponents-staging/
-- https://assets.library.uq.edu.au/reusable-webcomponents/              ==> s3://uql-reusable-webcomponents-production/
-
-### Reference Material
-
-- How slots work: https://javascript.info/slots-composition
-- Apply styles within the shadow dom from outside: https://developer.mozilla.org/en-US/docs/Web/CSS/::part (undocumented caveat: you can only style the item with the "part attribute" you cant style its descendants ie this doesn't work: `askus-button::part(askus) div#askus-label` you have to put the part="x" on the label element)
-- [Lifecycle hooks in web components](https://ultimatecourses.com/blog/lifecycle-hooks-in-web-components)
-
 ### Known issues
 
 if you are developing and you suddenly start getting
@@ -133,58 +185,3 @@ if you are developing and you suddenly start getting
 `Error: ENOENT: no such file or directory, scandir '/Users/uqldegro/github/reusable-webcomponents/node_modules/node-sass/vendor'`
 
 issuing the command `npm rebuild node-sass` will usually fix it
-
-### Google Tag Manager
-
-Please see this blog post regarding getting GTM to get event reports from elements within the shadow dom: https://www.simoahava.com/analytics/track-interactions-in-shadow-dom-google-tag-manager/#the-listener
-
-TLDR; - In Google Tag Manager, create a Custom HTML tag, and type or copy-paste the following code.
-
-```html
-<script>
-  (function() {
-    // Set to the event you want to track
-    var eventName = 'click',
-    // Set to false if you don't want to use capture phase
-        useCapture = true,
-    // Set to false if you want to track all events and not just those in shadow DOM
-        trackOnlyShadowDom = true;
-
-    var callback = function(event) {
-      if ('composed' in event && typeof event.composedPath === 'function') {
-        // Get the path of elements the event climbed through, e.g.
-        // [span, div, div, section, body]
-        var path = event.composedPath();
-        
-        // Fetch reference to the element that was actually clicked
-        var targetElement = path[0];
-        
-        // Check if the element is WITHIN the shadow DOM (ignoring the root)
-        var shadowFound = path.length ? path.filter(function(i) {
-          return !targetElement.shadowRoot && !!i.shadowRoot;
-        }).length > 0 : false;
-        
-        // If only shadow DOM events should be tracked and the element is not within one, return
-        if (trackOnlyShadowDom && !shadowFound) return;
-        
-        // Push to dataLayer
-        window.dataLayer.push({
-          event: 'custom_event_' + event.type,
-          custom_event: {
-            element: targetElement,
-            elementId: targetElement.id || '',
-            elementClasses: targetElement.className || '',
-            elementUrl: targetElement.href || targetElement.action || '',
-            elementTarget: targetElement.target || '',
-            originalEvent: event,
-            inShadowDom: shadowFound
-          }
-        });
-      }
-    };
-    
-    document.addEventListener(eventName, callback, useCapture);
-  })();
-</script>
-```
-You can attach a Page View trigger to this tag. After that, every single click on pages where the listener is active will be pushed into dataLayer with an object content.
