@@ -107,7 +107,7 @@ class UQSiteHeader extends HTMLElement {
 
                     break;
                 default:
-                    console.log(`unknown attribute ${fieldName} received for UQSiteHeader`);
+                    console.log(`unhandled attribute ${fieldName} received for UQSiteHeader`);
             }
         }, 50);
     }
