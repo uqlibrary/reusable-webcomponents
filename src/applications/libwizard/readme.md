@@ -6,7 +6,6 @@ Admin is at https://uq.libwizard.com/admin/settings
 ## Page header tab 'display this html':
 
 ```html
-<uq-gtm></uq-gtm>
 <uq-header hidelibrarymenuitem skipnavid="main-content"></uq-header>
 
 <uq-site-header>
