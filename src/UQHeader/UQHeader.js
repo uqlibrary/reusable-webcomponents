@@ -103,7 +103,7 @@ class UQHeader extends HTMLElement {
     attributeChangedCallback(fieldName, oldValue, newValue) {
         const that = this;
 
-        // the dom is not loaded for a moment (needed when attributes are aded via JS, ie the applications
+        // the dom is not loaded for a moment (needed when attributes are added via JS, ie the applications)
         const awaitShadowDom = setInterval(() => {
             if (!that.shadowRoot) {
                 return;
@@ -124,7 +124,6 @@ class UQHeader extends HTMLElement {
                         !!skipNavLander && skipNavLander.focus();
                     };
                     const skipNavButton = that.shadowRoot.getElementById('skip-nav');
-                    console.log('skipNavButton = ', skipNavButton);
                     !!skipNavButton && skipNavButton.addEventListener('click', skipToElement);
                     !!skipNavButton && (skipNavButton.style.display = null);
 
