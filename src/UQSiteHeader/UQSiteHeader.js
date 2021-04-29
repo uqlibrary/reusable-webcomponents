@@ -108,24 +108,28 @@ class UQSiteHeader extends HTMLElement {
                     jsonParentItem.linkTo === window.location.href &&
                         (classNavListitem += ' uq-site-header__navigation__list-item--active');
                     parentListItem.setAttribute('class', classNavListitem);
+                    const datatestid = `menu-group-item-${index}`;
+                    parentListItem.setAttribute('data-testid', datatestid);
 
                     // create Link
-                    const datatestid = `menu-group-item-${index}`;
                     const href = jsonParentItem.linkTo || '';
                     const linktext = jsonParentItem.primaryText || '';
-                    const parentLink = document.createElement('a');
-                    parentLink.setAttribute('data-testid', datatestid);
-                    parentLink.setAttribute('href', href);
-                    const textOfLink = document.createTextNode(linktext);
-                    parentLink.appendChild(textOfLink);
 
+                    const textOfLink = document.createTextNode(linktext);
+
+                    const parentLink = document.createElement('a');
+                    parentLink.setAttribute('href', href);
+                    parentLink.setAttribute('data-testid', `${datatestid}-link`);
+                    parentLink.appendChild(textOfLink);
                     parentLink.setAttribute('aria-expanded', 'false');
                     parentListItem.appendChild(parentLink);
 
                     if (hasChildren) {
                         const textOfToggle = document.createTextNode('Open');
+
                         const parentToggle = document.createElement('span');
                         parentToggle.setAttribute('class', 'uq-site-header__navigation__sub-toggle');
+                        parentToggle.setAttribute('data-testid', `${datatestid}-open`);
                         parentToggle.appendChild(textOfToggle);
 
                         parentListItem.appendChild(parentToggle);
