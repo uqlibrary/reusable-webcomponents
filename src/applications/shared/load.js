@@ -1,5 +1,5 @@
 function ready(fn) {
-    if (document.readyState !== 'loading'){
+    if (document.readyState !== 'loading') {
         fn();
     } else {
         document.addEventListener('DOMContentLoaded', fn);
@@ -14,13 +14,14 @@ function loadReusableComponents() {
 
     if (!document.querySelector('uq-gtm')) {
         const gtm = document.createElement('uq-gtm');
+        !!gtm && gtm.setAttribute('gtm', 'GTM-W4KK37');
         !!gtm && document.body.insertBefore(gtm, firstElement);
     }
 
     if (!document.querySelector('uq-header')) {
         const header = document.createElement('uq-header');
-        header.setAttribute("hideLibraryMenuItem", "");
-        header.setAttribute("skipnavid", "content");
+        header.setAttribute('hideLibraryMenuItem', '');
+        header.setAttribute('skipnavid', 'content');
         !!header && document.body.insertBefore(header, firstElement);
     }
 

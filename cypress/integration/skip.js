@@ -28,7 +28,7 @@ describe('Skip nav', () => {
             cy.viewport(1280, 900);
             cy.get('uq-header').shadow().find('button[data-testid="skip-nav"]').focus().click();
             cy.wait(1000);
-            cy.focused().should('have.attr', 'id', 'skiptohere')
+            cy.focused().should('have.attr', 'id', 'skiptohere');
         });
     });
 });

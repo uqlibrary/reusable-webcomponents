@@ -41,7 +41,7 @@ class AuthButton extends HTMLElement {
     constructor() {
         super();
         // Add a shadow DOM
-        const shadowDOM = this.attachShadow({mode: 'open'});
+        const shadowDOM = this.attachShadow({ mode: 'open' });
 
         if (this.isOverwriteAsLoggedOutRequested()) {
             // Render the template

@@ -1,8 +1,10 @@
 .uq-site-header {
     font-size: 16px;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
 }
-* {  font-size: 16px; }
+* {
+    font-size: 16px;
+}
 
 @media (min-width: 64em) {
     .uq-site-header__title-container {

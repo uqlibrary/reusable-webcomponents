@@ -1,0 +1,61 @@
+md-select,
+md-select:not([disabled]) {
+    &:focus,
+    .md-input-focused & {
+        .md-select-value {
+            @extend .prm-secondary-border.prm-hue1;
+        }
+    }
+    &[required] {
+        // @extend %required-starlet;
+        input {
+            border-bottom-color: $red;
+
+            &.ng-untouched {
+                + [ng-messages] {
+                    min-height: 0;
+                    max-height: 0;
+                    overflow: hidden;
+                }
+            }
+        }
+    }
+}
+
+._md-select-value,
+.md-select-value {
+    border-color: transparent;
+    ._md-select-icon,
+    .md-select-icon {
+        //text-align: right;
+        @include rtl(text-align, right, left);
+        &:after {
+            font-size: 12px;
+            top: 0px;
+        }
+    }
+}
+
+md-select-menu,
+md-select-menu.md-primoExplore-theme,
+md-select-menu.md-default-theme {
+    md-content {
+        background-color: $white;
+
+        md-option {
+            &:not([disabled]) {
+                &:hover,
+                &:focus {
+                    background: darken($white, 10%);
+                }
+            }
+        }
+    }
+}
+
+body.leganto-getit {
+    overflow-y: scroll;
+    ._md-select-menu-container {
+        position: absolute;
+    }
+}

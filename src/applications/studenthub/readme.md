@@ -1,4 +1,4 @@
-#Studenthub (aka Careerhub)  Customisation
+#Studenthub (aka Careerhub) Customisation
 
 A third party product that we are theming to match the general library theme.
 
@@ -21,30 +21,48 @@ Method to edit the theme:
 Code to include in the GUI editor (keep this up to date as it can't be reviewed reliably in the GUI):
 
 ```html
-<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0" />
 <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v6/fonts/Roboto/roboto.css" />
 <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css" />
-<link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css">
-<link rel="stylesheet" href="https://assets.library.uq.edu.au/reusable-webcomponents/applications/studenthub/custom-styles.css">
-<script type="text/javascript" src="https://assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js" defer></script>
+<link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css" />
+<link
+  rel="stylesheet"
+  href="https://assets.library.uq.edu.au/reusable-webcomponents/applications/studenthub/custom-styles.css"
+/>
+<script
+  type="text/javascript"
+  src="https://assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js"
+  defer
+></script>
 <script src="https://assets.library.uq.edu.au/reusable-webcomponents/applications/studenthub/load.js" async></script>
 ```
 
 2021 development:
+
 ```html
-<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0" />
 <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v6/fonts/Roboto/roboto.css" />
 <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css" />
-<link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css">
-<link rel="stylesheet" href="https://assets.library.uq.edu.au/reusable-webcomponents-development/feature-studenthub/applications/studenthub/custom-styles.css">
-<script type="text/javascript" src="https://assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js" defer></script>
-<script src="https://assets.library.uq.edu.au/reusable-webcomponents-development/feature-studenthub/applications/studenthub/load.js" async></script>
+<link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css" />
+<link
+  rel="stylesheet"
+  href="https://assets.library.uq.edu.au/reusable-webcomponents-development/feature-studenthub/applications/studenthub/custom-styles.css"
+/>
+<script
+  type="text/javascript"
+  src="https://assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js"
+  defer
+></script>
+<script
+  src="https://assets.library.uq.edu.au/reusable-webcomponents-development/feature-studenthub/applications/studenthub/load.js"
+  async
+></script>
 ```
 
 Notes:
 
-* Careerhub have said they will put the meta viewport line in the template. It hasnt appeared yet - if it does, this line can be removed here
-* Material design icons are being used, so the font family is included
+- Careerhub have said they will put the meta viewport line in the template. It hasnt appeared yet - if it does, this line can be removed here
+- Material design icons are being used, so the font family is included
 
 ### Locating the Theme Edit page
 

@@ -1,4 +1,4 @@
-const studentHubHomePageUrl = "https://" + window.location.hostname + "/workgroups/library-staff-development";
+const studentHubHomePageUrl = 'https://' + window.location.hostname + '/workgroups/library-staff-development';
 // note: function isHomePage also hard codes this path
 
 function ready(fn) {
@@ -48,13 +48,14 @@ function loadReusableComponentsStudenthub() {
 
     if (!document.querySelector('uq-gtm')) {
         const gtm = document.createElement('uq-gtm');
+        !!gtm && gtm.setAttribute('gtm', 'GTM-W4KK37');
         !!gtm && document.body.insertBefore(gtm, firstElement);
     }
 
     if (!document.querySelector('uq-header')) {
         const header = document.createElement('uq-header');
-        header.setAttribute("hideLibraryMenuItem", "");
-        header.setAttribute("skipnavid", "sitenameanchor");
+        header.setAttribute('hideLibraryMenuItem', '');
+        header.setAttribute('skipnavid', 'sitenameanchor');
         !!header && document.body.insertBefore(header, firstElement);
     }
 
@@ -120,16 +121,11 @@ function reformatSidebarDates() {
         return;
     }
 
-    upcomingEvents.forEach(event => {
-
-        const originalDate = event.querySelector('span.caption')
-            .innerHTML
-            .replace(/(\s|\n)+/g, '-'); // this replace may not be needed now - they used to have some junk char in there
+    upcomingEvents.forEach((event) => {
+        const originalDate = event.querySelector('span.caption').innerHTML.replace(/(\s|\n)+/g, '-'); // this replace may not be needed now - they used to have some junk char in there
         if (originalDate) {
-
-            const dateBits = originalDate.split("-");
+            const dateBits = originalDate.split('-');
             if (dateBits.length > 2) {
-
                 //hide original date display
                 event.querySelector('span.caption').className += ' hide';
 
@@ -193,7 +189,6 @@ function addBreadcrumbs(parentElementIdentifier) {
     anLI.appendChild(anAnchor);
     breadcrumbList.appendChild(anLI);
 
-
     // create second breadcrumb entry: Studenthub workgroup homepage
     const linktext1 = 'Library ';
     const linktext2 = 'staff development';
@@ -222,7 +217,6 @@ function addBreadcrumbs(parentElementIdentifier) {
     anLI.appendChild(childElement);
     breadcrumbList.appendChild(anLI);
 
-
     // On the Studenthub event page, event titles have a class of 'event_title'
     const testElement = document.querySelector('.event_title');
 
@@ -238,7 +232,6 @@ function addBreadcrumbs(parentElementIdentifier) {
         anLI = document.createElement('li');
         anLI.appendChild(childElement);
         breadcrumbList.appendChild(anLI);
-
     } else {
         if (!isHomePage()) {
             childElement = document.createElement('span');
@@ -253,7 +246,6 @@ function addBreadcrumbs(parentElementIdentifier) {
             document.body.className += newclassName;
         }
     }
-
 
     // fourth breadcrumb
     if (testElement !== null) {
@@ -294,7 +286,7 @@ function updateEventsLinkText() {
     const moreEventsLink = document.querySelector('.sidebar .body a[href$="/events"]');
     if (moreEventsLink !== null) {
         // this has to be in all caps to make the nightwatch tests pass - Edge browser doesnt recognise a css transform
-        moreEventsLink.innerHTML = "MORE EVENTS";
+        moreEventsLink.innerHTML = 'MORE EVENTS';
     }
 }
 

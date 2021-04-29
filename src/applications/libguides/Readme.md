@@ -1,48 +1,44 @@
 # Libguides documentation
+
 ## Kitchen sink
+
 - Production : https://assets.library.uq.edu.au/reusable-webcomponents/
 - Staging : https://assets.library.uq.edu.au/reusable-webcomponents-staging/
 - Master : https://assets.library.uq.edu.au/reusable-webcomponents-development/master/
+
 ## Installation
+
 ### Imports
+
 To install the reusable web components, enter the libguides "look and feel" page admin section (eg. https://uq.libapps.com/libguides/lookfeel.php?action=1 ). Click on the "Custom JS/CSS" tab at the top, and paste the following code into the required pane:
 
 ```html
-<link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v6/fonts/Roboto/roboto.css" />
-<link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css" />
-<link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css">
-<link rel="stylesheet" type="text/css" href="http://assets.library.uq.edu.au/reusable-webcomponents-XXXXX/YYYYY/applications/libguides/custom-styles.css">
-<link type="image/x-icon" rel="shortcut icon" href="http://assets.library.uq.edu.au/reusable-webcomponents-XXXXX/YYYYY/favicon.ico">
-<script type="text/javascript" src="https://assets.library.uq.edu.au/reusable-webcomponents-XXXXX/YYYYY/uq-lib-reusable.min.js" defer></script>
+<link
+  type="image/x-icon"
+  rel="shortcut icon"
+  href="http://assets.library.uq.edu.au/reusable-webcomponents/favicon.ico"
+/>
+<script
+  type="text/javascript"
+  src="//assets.library.uq.edu.au/reusable-webcomponents/applications/libguides/load.js"
+></script>
+<script type="text/javascript" src="//assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js"></script>
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="//assets.library.uq.edu.au/reusable-webcomponents/applications/libguides/custom-styles.css"
+/>
 ```
-* Where XXXXX is the branch you expect to use (ie. staging, development or production will be blank and no `-`).
-* Where YYYYY is the branch name and XXXXX is `development` if a development build. Omit if not.
-* NOTE: `custom-styles.css` has a bunch of css overrides for the default libguides skin to make it work. 
+
+- NOTE: The `load.js` will check if the current page is on the \*.uq.edu.au domain and hide the login/askus/mylibrary utility buttons if not due to API CORS not being allowed outside UQ.
+- NOTE: `custom-styles.css` has a bunch of css overrides for the default libguides skin to make it work.
 
 When complete, click save.
 
-### Header
-To install the reusable header web components, click on the "Header / Footer / Tabs / Boxes" tab at the top, and paste the following code (for production) into the *header* pane:
+### Things to note
 
-```html
-<uq-gtm gtm="GTM-XXXXXX"></uq-gtm>
-<uq-header hidelibrarymenuitem skipnavid="YYYYYY"></uq-header>
-<uq-site-header>
-    <span slot="site-utilities"><mylibrary-button /></span>
-    <span slot="site-utilities"><askus-button /></span>
-    <span slot="site-utilities"><auth-button /></span>
-</uq-site-header>
-<alert-list></alert-list>
-```
-* Where XXXX is the Google Tag Manager container code you require.
-* Where YYYY is the html element `id` of the container for the page content that will take focus when skipping navigation. 
+#### Admin edit pages
 
-When complete - click save.
+Admin edit pages (ie. https://uq.libapps.com/libguides/lookfeel.php?action=1) aer not on the \*.uq.edu.au domain as as such, will fail CORS checks for any calls to API. Because of that, we hide the utility buttons which require api data to display correctly (chat status/hours etc).
 
-### Footer
-To install the reusable footer components, click on the "Header / Footer / Tabs / Boxes" tab and paste the following code into the *footer* pane:
-```html
-<connect-footer></connect-footer>
-<uq-footer></uq-footer>
-```
-When complete, click save.
+Previous to this rollout - the libGuides had override CSS in multiple places. It is all now in this folder -> custom-styles.scss. Please dont go adding it into the libguides backend, and we cannot manage it from there.

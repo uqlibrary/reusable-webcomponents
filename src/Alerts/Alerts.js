@@ -47,7 +47,7 @@ class Alerts extends HTMLElement {
                         !!alertData.title && alert.setAttribute('alerttitle', alertData.title);
                         const alertIconIndex = !!alertData.urgent && alertData.urgent === 1 ? '1' : '0';
                         alert.setAttribute('alerttype', alertIconIndex);
-                        if (document.cookie.indexOf('UQ_ALERT_' + alert.id + "=hidden") <= -1) {
+                        if (document.cookie.indexOf('UQ_ALERT_' + alert.id + '=hidden') <= -1) {
                             alertWrapper.appendChild(alert);
                         }
                     }

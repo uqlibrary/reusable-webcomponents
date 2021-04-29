@@ -46,10 +46,10 @@ function loadReusableComponentsRightnow() {
     if (!document.querySelector('uq-header')) {
         const header = document.createElement('uq-header');
         console.log('header = ', header);
-        header.setAttribute("hideLibraryMenuItem", "");
+        header.setAttribute('hideLibraryMenuItem', '');
         if (!!document.querySelector(`#${siteNameId}`)) {
             console.log('siteNameId found');
-            header.setAttribute("skipnavid", siteNameId);
+            header.setAttribute('skipnavid', siteNameId);
         } else {
             console.log('siteNameId NOT found');
         }
@@ -59,7 +59,7 @@ function loadReusableComponentsRightnow() {
 
     if (!document.querySelector('uq-site-header')) {
         const siteHeader = document.createElement('uq-site-header');
-        !!siteHeader && siteHeader.setAttribute("showmenu", "");
+        !!siteHeader && siteHeader.setAttribute('showmenu', '');
 
         const askusButton = createAskusButton();
         !!askusButton && !!siteHeader && siteHeader.appendChild(askusButton);
