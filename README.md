@@ -14,6 +14,25 @@
 - run `npm run test:local` to run a test build in the `dist` folder and run all cypress tests
 - run `npm run prettier:test` to check all files for codestyles and `npm run prettier:fix` to fix them all
 
+#### Git safety checks
+
+- Run the following in the project root directory to install the pre-commit hook:
+
+  ```sh
+  ln -sf "../../scripts/pre-commit" ".git/hooks/pre-commit"
+  ```
+
+  It does two things:
+
+  - Prevent direct commits to the staging branch.
+  - Run `prettier-eslint` automatically before every local commit
+
+- Run the following in the project root directory to prevent accidental merges from the staging branch:
+
+  ```sh
+    ln -sf "../../scripts/prepare-commit-msg" ".git/hooks/prepare-commit-msg"
+  ```
+
 ### Use
 
 Add the following line at the end of your HTML document to initialise the components. Example below is obviously for staging - substitute for development or production, and note that the _defer_ is important.
