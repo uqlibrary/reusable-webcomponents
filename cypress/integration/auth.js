@@ -5,6 +5,7 @@ describe('Auth button', () => {
         it('logged in user sees a "Log out" button', () => {
             cy.visit('http://localhost:8080');
             cy.viewport(1280, 900);
+            cy.wait(100);
             cy.injectAxe();
             cy.checkA11y('auth-button', {
                 reportName: 'Auth Loggedin',
@@ -19,6 +20,7 @@ describe('Auth button', () => {
             cy.visit('http://localhost:8080/?user=public');
             cy.viewport(1280, 900);
             cy.injectAxe();
+            cy.wait(100);
             cy.checkA11y('auth-button', {
                 reportName: 'Auth Loggedout',
                 scopeName: 'Accessibility',
@@ -27,6 +29,5 @@ describe('Auth button', () => {
             cy.get('uq-site-header').find('auth-button').should('exist');
             cy.get('auth-button').shadow().find('#auth-log-in-label').should('contain', 'Log in');
         });
-
     });
 });

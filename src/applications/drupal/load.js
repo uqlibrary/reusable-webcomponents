@@ -30,14 +30,14 @@ const removeOldMinimalFooter = setInterval(() => {
 }, 50);
 
 function ready(fn) {
-    if (document.readyState !== 'loading'){
+    if (document.readyState !== 'loading') {
         fn();
     } else {
         document.addEventListener('DOMContentLoaded', fn);
     }
 }
 
-function createSlotForButtonInUtilityArea(button, id=null) {
+function createSlotForButtonInUtilityArea(button, id = null) {
     const slot = document.createElement('span');
     !!slot && slot.setAttribute('slot', 'site-utilities');
     !!slot && !!id && slot.setAttribute('id', id);
@@ -88,21 +88,18 @@ function loadReusableComponentsDrupal() {
         return;
     }
 
-    if (!document.querySelector('uq-gtm')) {
-        const gtm = document.createElement('uq-gtm');
-        !!gtm && document.body.insertBefore(gtm, firstElement);
-    }
+    // gtm is inserted by drupal
 
     if (!document.querySelector('uq-header')) {
         const header = document.createElement('uq-header');
-        !!header && header.setAttribute("hideLibraryMenuItem", "");
+        !!header && header.setAttribute('hideLibraryMenuItem', '');
         // no 'skip to content' as drupal provides a 'skip to menu' on first click
         !!header && document.body.insertBefore(header, firstElement);
     }
 
     if (!document.querySelector('uq-site-header')) {
         const siteHeader = document.createElement('uq-site-header');
-        !!siteHeader && siteHeader.setAttribute("showmenu", "");
+        !!siteHeader && siteHeader.setAttribute('showmenu', '');
 
         const askusButton = createAskusButton();
         !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);

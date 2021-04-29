@@ -1,12 +1,12 @@
 function ready(fn) {
-    if (document.readyState !== 'loading'){
+    if (document.readyState !== 'loading') {
         fn();
     } else {
         document.addEventListener('DOMContentLoaded', fn);
     }
 }
 
-function createSlotForButtonInUtilityArea(button, id=null) {
+function createSlotForButtonInUtilityArea(button, id = null) {
     const slot = document.createElement('span');
     !!slot && slot.setAttribute('slot', 'site-utilities');
     !!slot && !!id && slot.setAttribute('id', id);
@@ -59,13 +59,14 @@ function loadReusableComponents() {
 
     if (!document.querySelector('uq-gtm')) {
         const gtm = document.createElement('uq-gtm');
+        !!gtm && gtm.setAttribute('gtm', 'GTM-W4KK37');
         !!gtm && document.body.insertBefore(gtm, firstElement);
     }
 
     if (!document.querySelector('uq-header')) {
         const header = document.createElement('uq-header');
-        header.setAttribute("hideLibraryMenuItem", "");
-        header.setAttribute("skipnavid", "skiptohere");
+        header.setAttribute('hideLibraryMenuItem', '');
+        header.setAttribute('skipnavid', 'skiptohere');
         !!header && document.body.insertBefore(header, firstElement);
     }
 

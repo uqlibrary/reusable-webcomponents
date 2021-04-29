@@ -29,6 +29,6 @@ Cypress.Commands.add('typeTab', (shiftKey, ctrlKey) => {
         keyCode: 9,
         which: 9,
         shiftKey: shiftKey,
-        ctrlKey: ctrlKey
+        ctrlKey: ctrlKey,
     });
 });

@@ -1,0 +1,13 @@
+/* starting homepage */
+
+prm-homepage {
+    padding-bottom: 4em;
+
+    md-content {
+        padding: 0.75em 1em;
+
+        @include __xs {
+            padding: 0.75em;
+        }
+    }
+}

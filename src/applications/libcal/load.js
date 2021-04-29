@@ -1,5 +1,5 @@
 function ready(fn) {
-    if (document.readyState !== 'loading'){
+    if (document.readyState !== 'loading') {
         fn();
     } else {
         document.addEventListener('DOMContentLoaded', fn);
@@ -8,13 +8,13 @@ function ready(fn) {
 
 let isOutsideUQ = true;
 
-if (window.location.href.indexOf("uq.edu.au") > -1) {
+if (window.location.href.indexOf('uq.edu.au') > -1) {
     isOutsideUQ = false;
 }
 
 console.log('Is libcal in edit mode?: ', isOutsideUQ);
 
-function createSlotForButtonInUtilityArea(button, id=null) {
+function createSlotForButtonInUtilityArea(button, id = null) {
     const slot = document.createElement('span');
     !!slot && slot.setAttribute('slot', 'site-utilities');
     !!slot && !!id && slot.setAttribute('id', id);
@@ -77,24 +77,26 @@ function loadReusableComponentsLibGuides() {
     const firstElement = document.body.children[0];
 
     const gtm = document.createElement('uq-gtm');
-    gtm.setAttribute('gtm', 'GTM-K597ZS');
+    gtm.setAttribute('gtm', 'GTM-PX9H7R');
     document.body.insertBefore(gtm, firstElement);
 
     const header = document.createElement('uq-header');
+    header.setAttribute('hidelibrarymenuitem', true);
     document.body.insertBefore(header, firstElement);
 
     const siteHeader = document.createElement('uq-site-header');
+    siteHeader.setAttribute('skipnavid', 's-lc-public-main');
 
-    // if (!isOutsideUQ) {
-    const askusButton = createAskusButton();
-    !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
+    if (!isOutsideUQ) {
+        const askusButton = createAskusButton();
+        !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
 
-    const mylibraryStub = createMylibraryStub();
-    !!siteHeader && !!mylibraryStub && siteHeader.appendChild(mylibraryStub);
+        const mylibraryStub = createMylibraryStub();
+        !!siteHeader && !!mylibraryStub && siteHeader.appendChild(mylibraryStub);
 
-    const authButton = createAuthButton();
-    !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
-    // }
+        const authButton = createAuthButton();
+        !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
+    }
 
     document.body.insertBefore(siteHeader, firstElement);
 

@@ -1,7 +1,7 @@
 import styles from './css/main.css';
 import overrides from './css/overrides.css';
 import icons from './css/icons.css';
-import {default as menuLocale} from '../locale/menu';
+import { default as menuLocale } from '../locale/menu';
 import myLibStyles from '../UtilityArea/css/mylibrary.css';
 
 /**
@@ -80,7 +80,7 @@ class UQSiteHeader extends HTMLElement {
         !!megaMenu && (megaMenu.textContent = '');
 
         // Render the template
-        const shadowDOM = this.attachShadow({mode: 'open'});
+        const shadowDOM = this.attachShadow({ mode: 'open' });
         shadowDOM.appendChild(template.content.cloneNode(true));
     }
 
@@ -95,7 +95,7 @@ class UQSiteHeader extends HTMLElement {
 
             clearInterval(awaitShadowDom);
 
-            switch(fieldName) {
+            switch (fieldName) {
                 case 'sitetitle':
                     this.setTitle(newValue);
 
@@ -116,12 +116,14 @@ class UQSiteHeader extends HTMLElement {
 
     setSiteUrl(newSiteURL) {
         const siteTitleElement = !!this.shadowRoot && this.shadowRoot.getElementById('site-title');
-        !!siteTitleElement && !!newSiteURL && (siteTitleElement.href = newSiteURL) || console.log('site url update failed');
+        (!!siteTitleElement && !!newSiteURL && (siteTitleElement.href = newSiteURL)) ||
+            console.log('site url update failed');
     }
 
     setTitle(newSiteTitle) {
         let siteTitleElement = !!this.shadowRoot && this.shadowRoot.getElementById('site-title');
-        !!siteTitleElement && !!newSiteTitle && (siteTitleElement.innerHTML = newSiteTitle) || console.log('site title update failed');
+        (!!siteTitleElement && !!newSiteTitle && (siteTitleElement.innerHTML = newSiteTitle)) ||
+            console.log('site title update failed');
     }
 
     showMenu() {
@@ -131,17 +133,20 @@ class UQSiteHeader extends HTMLElement {
 
         const that = this;
         // we must wait for the script to finish loading before we can use it
-        const waitOnUqScript = setInterval(() => {
-            if (!that.uqReference) {
-                return;
-            }
-            clearInterval(waitOnUqScript);
+        const waitOnUqScript = setInterval(
+            () => {
+                if (!that.uqReference) {
+                    return;
+                }
+                clearInterval(waitOnUqScript);
 
-            const navelement = !!this.shadowRoot && this.shadowRoot.getElementById('jsNav');
-            const uq = that.uqReference;
-            new uq.siteHeaderNavigation(navelement, 'uq-site-header__navigation');
-        }, 50
-        , that)
+                const navelement = !!this.shadowRoot && this.shadowRoot.getElementById('jsNav');
+                const uq = that.uqReference;
+                new uq.siteHeaderNavigation(navelement, 'uq-site-header__navigation');
+            },
+            50,
+            that,
+        );
     }
 
     rewriteMegaMenuFromJson() {
@@ -158,7 +163,7 @@ class UQSiteHeader extends HTMLElement {
             let classNavListitem = 'uq-site-header__navigation__list-item';
             !!hasChildren && (classNavListitem += ' uq-site-header__navigation__list-item--has-subnav');
             const activeClassName = ' uq-site-header__navigation__list-item--active';
-            (jsonParentItem.linkTo === window.location.href) && (classNavListitem += activeClassName);
+            jsonParentItem.linkTo === window.location.href && (classNavListitem += activeClassName);
             parentListItem.setAttribute('class', classNavListitem);
 
             const parentLink = this.createLink(
@@ -183,8 +188,8 @@ class UQSiteHeader extends HTMLElement {
                 const listItemWrapper = document.createElement('ul');
                 let listItemClass = 'uq-site-header__navigation__list uq-site-header__navigation__list--level-2';
                 !!jsonParentItem.columnCount &&
-                jsonParentItem.columnCount > 1 &&
-                (listItemClass += ' multicolumn-' + jsonParentItem.columnCount);
+                    jsonParentItem.columnCount > 1 &&
+                    (listItemClass += ' multicolumn-' + jsonParentItem.columnCount);
                 listItemWrapper.setAttribute('class', listItemClass);
                 jsonParentItem.submenuItems.forEach((jsonChild, indexChild) => {
                     const listItem = document.createElement('li');
@@ -207,7 +212,7 @@ class UQSiteHeader extends HTMLElement {
                         const stagingDomain = 'library.stage.drupal.uq.edu.au';
                         let linkTo = jsonChild.linkTo || '';
                         const stagingLink = linkTo.replace('web.library.uq.edu.au', stagingDomain);
-                        linkTo =  window.location.hostname === stagingDomain ? stagingLink : linkTo;
+                        linkTo = window.location.hostname === stagingDomain ? stagingLink : linkTo;
 
                         const itemLink = document.createElement('a');
                         itemLink.setAttribute('href', linkTo);
