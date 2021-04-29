@@ -97,6 +97,10 @@ class UQHeader extends HTMLElement {
         shadowDOM.appendChild(template.content.cloneNode(true));
 
         // Bindings
+        this.hideLibraryGlobalMenuItem = this.hideLibraryGlobalMenuItem.bind(this);
+        this.appendSearchWidgetUrl = this.appendSearchWidgetUrl.bind(this);
+        this.changeSearchWidgetLabel = this.changeSearchWidgetLabel.bind(this);
+        this.handleSkipNavInsertion = this.handleSkipNavInsertion.bind(this);
         this.loadScript = this.loadScript.bind(this);
     }
 
@@ -115,47 +119,63 @@ class UQHeader extends HTMLElement {
             // UQHeader/uqds.js is expecting things to be ready immediately)
             switch (fieldName) {
                 case 'skipnavid':
-                    // The element id for the skip nav, if exists or hides the skip nav
-                    if (!newValue) {
-                        break;
-                    }
-                    const skipToElement = () => {
-                        const skipNavLander = document.getElementById(newValue);
-                        !!skipNavLander && skipNavLander.focus();
-                    };
-                    const skipNavButton = that.shadowRoot.getElementById('skip-nav');
-                    !!skipNavButton && skipNavButton.addEventListener('click', skipToElement);
-                    !!skipNavButton && (skipNavButton.style.display = null);
+                    this.handleSkipNavInsertion(newValue);
 
                     break;
                 case 'searchlabel':
-                    // Append the label for the search widget
-                    if (!!newValue) {
-                        const oldValue = that.shadowRoot.getElementById('search-label').innerHTML;
-                        const result = oldValue.replace('library.uq.edu.au', newValue);
-                        that.shadowRoot.getElementById('search-label').innerHTML = result;
-                    }
+                    this.changeSearchWidgetLabel(newValue);
 
                     break;
                 case 'searchurl':
-                    // Append the url for the search widget
-                    if (!!newValue) {
-                        that.shadowRoot.getElementById('edit-as_sitesearch-on').value = newValue;
-                    }
+                    this.appendSearchWidgetUrl(newValue);
 
                     break;
                 case 'hidelibrarymenuitem':
-                    // If the attribute hidelibrarymenuitem is true, remove the global menu item from the DOM
-                    if (!(newValue === 'false' || newValue === null)) {
-                        const libraryMenuItem = that.shadowRoot.getElementById('menu-item-library');
-                        !!libraryMenuItem && libraryMenuItem.remove();
-                    }
+                    this.hideLibraryGlobalMenuItem(newValue);
 
                     break;
                 default:
                     console.log(`unhandled attribute ${fieldName} received for UQHeader`);
             }
         }, 50);
+    }
+
+    // Provides a #id for skip nav
+    // if never provided, skip nav is never unhidden
+    handleSkipNavInsertion(newValue) {
+        if (!newValue) {
+            return;
+        }
+        const skipToElement = () => {
+            const skipNavLander = document.getElementById(newValue);
+            !!skipNavLander && skipNavLander.focus();
+        };
+        const skipNavButton = this.shadowRoot.getElementById('skip-nav');
+        // element is style="display: none" by default
+        !!skipNavButton && (skipNavButton.style.display = null);
+        !!skipNavButton && skipNavButton.addEventListener('click', skipToElement);
+    }
+
+    hideLibraryGlobalMenuItem(newValue) {
+        // If the attribute hidelibrarymenuitem is true, remove the global menu item from the DOM
+        if (!(newValue === 'false' || newValue === null)) {
+            const libraryMenuItem = this.shadowRoot.getElementById('menu-item-library');
+            !!libraryMenuItem && libraryMenuItem.remove();
+        }
+    }
+
+    appendSearchWidgetUrl(newValue) {
+        if (!!newValue) {
+            this.shadowRoot.getElementById('edit-as_sitesearch-on').value = newValue;
+        }
+    }
+
+    changeSearchWidgetLabel(newValue) {
+        if (!!newValue) {
+            const oldValue = this.shadowRoot.getElementById('search-label').innerHTML;
+            const result = oldValue.replace('library.uq.edu.au', newValue);
+            this.shadowRoot.getElementById('search-label').innerHTML = result;
+        }
     }
 
     loadScript() {
