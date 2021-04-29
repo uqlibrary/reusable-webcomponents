@@ -1,6 +1,18 @@
 import askus from './css/askus.css';
 import ApiAccess from '../ApiAccess/ApiAccess';
 
+/**
+ * API
+ * <span slot="site-utilities">             -- tells uqsiteheader where to insert it in the dom
+ *  <askus-button
+ *      hideProactiveChat                   -- libwizard: dont show proactive chat at all
+ *      nopaneopacity                       -- primo: dont put a background on it
+ *      secondsTilProactiveChatAppears=3    -- default 60
+ *  />
+ * </span>
+ *
+ */
+
 const template = document.createElement('template');
 template.innerHTML = `
     <style>${askus.toString()}</style>
@@ -123,7 +135,16 @@ class AskUsButton extends HTMLElement {
         this.isPaneButtonOpacityDropRequested = this.isPaneButtonOpacityDropRequested.bind(this);
     }
 
+    isProactiveChatHidden() {
+        const hideProactiveChat = this.getAttribute('hideProactiveChat');
+        const hide = hideProactiveChat === 'true' || hideProactiveChat === '';
+        console.log('chat hide?', hide);
+        return hide;
+    }
+
     async updateAskusDOM(shadowRoot, secondsTilProactiveChatAppears) {
+        const isProactiveChatHidden = this.isProactiveChatHidden();
+
         const isPrimoPage = (hostname) => {
             var regExp = /(.*)exlibrisgroup.com/i;
             return 'search.library.uq.edu.au' === hostname || regExp.test(hostname);
@@ -136,7 +157,19 @@ class AskUsButton extends HTMLElement {
         };
         const api = new ApiAccess();
         await api.loadChatStatus().then((isOnline) => {
-            if (!isOnline) {
+            if (!!isOnline) {
+                // Chat status
+                !isProactiveChatHidden && shadowRoot.getElementById('askus-chat-online').removeAttribute('style');
+                // Show the proactive chat if we're not in primo & they havent asked for it to be hidden
+                if (
+                    !isProactiveChatHidden &&
+                    !isPrimoPage(window.location.hostname) &&
+                    document.cookie.indexOf('UQ_ASKUS_PROACTIVE_CHAT=hidden') <= -1
+                ) {
+                    setTimeout(showProactiveChatWrapper, secondsTilProactiveChatAppears * 1000 - 1000);
+                    setTimeout(showProactiveChat, secondsTilProactiveChatAppears * 1000);
+                }
+            } else {
                 // Chat disabled
                 shadowRoot.getElementById('askus-chat-li').style.opacity = '0.6';
                 shadowRoot.getElementById('askus-chat-link').removeAttribute('onclick');
@@ -145,18 +178,7 @@ class AskUsButton extends HTMLElement {
                 shadowRoot.getElementById('askus-phone-link').removeAttribute('href');
 
                 // Chat status
-                shadowRoot.getElementById('askus-chat-offline').removeAttribute('style');
-            } else {
-                // Chat status
-                shadowRoot.getElementById('askus-chat-online').removeAttribute('style');
-                // Show the proactive chat if we're not in primo
-                if (
-                    !isPrimoPage(window.location.hostname) &&
-                    document.cookie.indexOf('UQ_ASKUS_PROACTIVE_CHAT=hidden') <= -1
-                ) {
-                    setTimeout(showProactiveChatWrapper, secondsTilProactiveChatAppears * 1000 - 1000);
-                    setTimeout(showProactiveChat, secondsTilProactiveChatAppears * 1000);
-                }
+                !isProactiveChatHidden && shadowRoot.getElementById('askus-chat-offline').removeAttribute('style');
             }
         });
 
