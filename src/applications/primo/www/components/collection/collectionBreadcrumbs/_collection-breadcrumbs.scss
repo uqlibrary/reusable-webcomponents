@@ -1,7 +1,7 @@
 prm-collection-breadcrumbs {
-    margin-bottom: .2em;
+    margin-bottom: 0.2em;
     margin-top: 2em;
-    font-size: .65em;
+    font-size: 0.65em;
     font-weight: normal;
     .md-button,
     .md-button.#{$defaultTheme}:not(.md-menu-toolbar) {
@@ -20,12 +20,12 @@ prm-collection-breadcrumbs {
         //     text-decoration: none !important;
         //     cursor: default !important;
         //     color: transparentize($dark, .5)!important;
-        // } 		
+        // }
     }
     md-icon {
-    	opacity: .5;
-    	path {
-    		fill: $links;
-    	}
+        opacity: 0.5;
+        path {
+            fill: $links;
+        }
     }
 }

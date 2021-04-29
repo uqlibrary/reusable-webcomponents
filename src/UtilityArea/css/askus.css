@@ -248,7 +248,7 @@ button:focus {
     background-color: white;
     width: 250px;
     padding: 12px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     right: -300px;
     transition: right 0.3s;
     transition-delay: 0.3s;
@@ -276,7 +276,7 @@ button:focus {
     font-size: 22px !important;
     font-weight: bold;
     text-transform: uppercase;
-    color: #51247A;
+    color: #51247a;
 }
 #askus-proactive-chat .askus-proactive-chat-text .message {
     font-size: 14px !important;
@@ -286,7 +286,8 @@ button:focus {
 #askus-proactive-chat .askus-proactive-chat-button {
     width: 100%;
 }
-#askus-proactive-chat .askus-proactive-chat-left-button, #askus-proactive-chat .askus-proactive-chat-right-button {
+#askus-proactive-chat .askus-proactive-chat-left-button,
+#askus-proactive-chat .askus-proactive-chat-right-button {
     flex-grow: 1;
 }
 #askus-proactive-chat .askus-proactive-chat-left-button {
@@ -296,18 +297,18 @@ button:focus {
     margin: 0 0 0 5px;
 }
 #askus-proactive-chat .askus-proactive-chat-left-button button {
-    color: #FFFFFF !important;
+    color: #ffffff !important;
     background-color: #2377cb;
     border-radius: 4px !important;
-    box-shadow: 0 0 6px rgba(0,0,0,0.2);
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
     padding: 0px !important;
     margin: 0px !important;
 }
 #askus-proactive-chat .askus-proactive-chat-right-button button {
     color: #333333 !important;
-    background-color: #CCCCCC;
+    background-color: #cccccc;
     border-radius: 4px !important;
-    box-shadow: 0 0 6px rgba(0,0,0,0.2);
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
     padding: 0px !important;
     margin: 0px !important;
 }

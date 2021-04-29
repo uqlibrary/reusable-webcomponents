@@ -6,7 +6,7 @@
     }
     .separated-block-item {
         &:after {
-            content: "";
+            content: '';
             // position: absolute;
             height: 1em;
             width: 1px;
@@ -16,30 +16,29 @@
             // position: relative;
             // right: .2em;
         }
-        &:last-child:after{
+        &:last-child:after {
             display: none;
         }
     }
 }
 
-
 .labeled-block {
     .block-label {
         flex: 0 0 auto;
-        margin-right: .5em;
+        margin-right: 0.5em;
         position: relative;
         top: 5px;
     }
     .block-body {
         overflow: hidden;
         max-height: 10em;
-        transition: max-height .8s $swift-ease-in-out-timing-function;
+        transition: max-height 0.8s $swift-ease-in-out-timing-function;
     }
 
     &.collapsed {
         .block-body {
             max-height: 1.8em;
-            transition: max-height .5s $swift-ease-out-timing-function;
+            transition: max-height 0.5s $swift-ease-out-timing-function;
         }
     }
 }

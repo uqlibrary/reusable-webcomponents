@@ -4,15 +4,15 @@ $actionButtonMargin: 4px;
 prm-brief-result-container {
     display: block;
     width: 100%;
-    position: relative;  
+    position: relative;
 
-    .md-button[disabled="disabled"]{
+    .md-button[disabled='disabled'] {
         z-index: -1;
-	}
-	
-	.hide-thumbnail{
-		z-index: 10;
-	}
+    }
+
+    .hide-thumbnail {
+        z-index: 10;
+    }
 
     .list-item-primary-content {
         padding: $paddingLarge $paddingExtra;
@@ -35,7 +35,7 @@ prm-brief-result-container {
             }
         }
         &:before {
-            content: "";
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
@@ -50,21 +50,20 @@ prm-brief-result-container {
             }
         }
         &.has-checkbox {
-            @include rtl-prop(padding-left, padding-right, 3em, auto)
+            @include rtl-prop(padding-left, padding-right, 3em, auto);
         }
         md-checkbox {
             position: absolute;
             top: 0.95em;
             @include rtl-prop(left, right, 0.8em, 0);
-        }       
-        
+        }
     }
 
     .result-item-text {
         padding-right: 3em;
         padding-left: 1.25em;
 
-        [dir="rtl"] & {
+        [dir='rtl'] & {
             padding-right: 1.25em;
             padding-left: 3em;
         }
@@ -72,7 +71,6 @@ prm-brief-result-container {
         .__xs & {
             padding: 0;
             margin-top: 0.35em;
-
         }
         prm-full-view & {
             padding-left: 2em;
@@ -80,7 +78,6 @@ prm-brief-result-container {
         }
     }
     .result-item-image {
-
         flex: 0 0 60px;
         prm-full-view & {
             margin-right: 0;
@@ -88,7 +85,7 @@ prm-brief-result-container {
             width: 6em;
             min-width: 6em;
 
-            [dir="rtl"] & {
+            [dir='rtl'] & {
                 margin-left: 0;
             }
         }
@@ -102,7 +99,7 @@ prm-brief-result-container {
         prm-full-view & {
             .dedup-images-holder {
                 > div {
-                    width:$thumbnailWidth;
+                    width: $thumbnailWidth;
                     transform: translate(18px, 24px) scale(1.5);
                     display: block;
                 }
@@ -124,10 +121,10 @@ prm-brief-result-container {
         prm-search-result-frbr-line {
             > span {
                 text-transform: lowercase;
-                font-size: .9rem;
+                font-size: 0.9rem;
                 font-size: 1.25em;
                 font-weight: 400;
-                letter-spacing: 0
+                letter-spacing: 0;
             }
         }
     }
@@ -140,19 +137,19 @@ prm-brief-result-container {
     }
 }
 
-.list-item-wrapper { 
+.list-item-wrapper {
     border-bottom-width: 1px;
     border-bottom-style: solid;
-    
+
     @extend .zero-padding;
-    @extend .prm-background-border;    
+    @extend .prm-background-border;
     @extend .prm-background.prm-hue2;
 
     &:last-of-type {
         border-bottom-width: 0;
         @extend .default-shadow;
-    }    
-   
+    }
+
     &:hover,
     &:focus,
     &:focus-within {
@@ -164,83 +161,78 @@ prm-brief-result-container {
     }
     &.item-expanded {
         z-index: 11 !important;
-    
+
         .list-item-primary-content {
             transform: translate3d(-8px, -16px, 0);
-            transition-duration: .3s;            
+            transition-duration: 0.3s;
         }
     }
-    
+
     & .item-bookmarked,
     & .item-bookmarked:hover {
         @extend .prm-highlight.prm-hue1;
-    }    
+    }
 }
 
 // a tweak to make "page #" headers appear above the result items, and the same time not occupy vertical space, because this space is being calculated when the item gets expanded. To remove the tweak, remove the class '.pages-separated-with-gaps' from '.list-items-list' element.
 ///// this tweak is now in _search-result-list.scss
 
-
-
-.peer-reviewed-mark-icon, .course-info-mark-icon{
-	color: #8359d4 !important;
-	& md-icon {
-            width: 18px;
-            height: 18px;
-            min-width: 18px;
-            min-height: 18px;
-        }
- }
-.peer-reviewed-mark, .course-info-mark{
-
-	padding: .25em 0;
+.peer-reviewed-mark-icon,
+.course-info-mark-icon {
+    color: #8359d4 !important;
+    & md-icon {
+        width: 18px;
+        height: 18px;
+        min-width: 18px;
+        min-height: 18px;
+    }
+}
+.peer-reviewed-mark,
+.course-info-mark {
+    padding: 0.25em 0;
     position: relative;
     left: -2px;
-     & span {
-    	font-weight: 600;
-    	font-size: 12px;
-
+    & span {
+        font-weight: 600;
+        font-size: 12px;
     }
 }
 
 .open-access-mark-icon {
-	color: #f68212 !important;
-	& md-icon {
-            width: 18px;
-            height: 18px;
-            min-width: 18px;
-            min-height: 18px;
-        }
- }
+    color: #f68212 !important;
+    & md-icon {
+        width: 18px;
+        height: 18px;
+        min-width: 18px;
+        min-height: 18px;
+    }
+}
 
 .open-access-mark {
-
-	padding: .25em 0;
+    padding: 0.25em 0;
     position: relative;
     left: -2px;
-     & span {
-    	font-weight: 600;
-    	font-size: 12px;
-
+    & span {
+        font-weight: 600;
+        font-size: 12px;
     }
 }
 
 .icon-after-icon {
-	margin-left: 10px;
+    margin-left: 10px;
 }
 
-
 .list-item-count {
-	z-index: 10;
+    z-index: 10;
     position: absolute;
-    opacity: .5;
-    font-size: .8em;
-    top: .4em;
-    @include rtl-prop(left, right, .5em, auto);
+    opacity: 0.5;
+    font-size: 0.8em;
+    top: 0.4em;
+    @include rtl-prop(left, right, 0.5em, auto);
 
     .has-checkbox & {
         top: 1.2em;
-        opacity: .7;
+        opacity: 0.7;
         width: 20px;
         display: flex;
         justify-content: center;
@@ -258,7 +250,7 @@ prm-brief-result-container {
         align-items: center;
         justify-content: center;
         @extend .prm-secondary-bg.prm-hue1;
-        @include rtl-prop(left, right, .25em, auto);
+        @include rtl-prop(left, right, 0.25em, auto);
 
         // &:after {
         //     content: "";
@@ -285,14 +277,14 @@ prm-brief-result-container {
     margin-right: $actionButtonMargin;
     display: flex;
     align-items: flex-start;
-    transition: transform .3s $easeOutQuint, opacity .2s;
+    transition: transform 0.3s $easeOutQuint, opacity 0.2s;
     transform: translate(-4px, 0);
-    @include rtl-prop(margin-right, margin-left,  $actionButtonMargin, auto);
+    @include rtl-prop(margin-right, margin-left, $actionButtonMargin, auto);
 
     .item-expanded & {
-        @include rtl(transform, translate(14px, -18px), translate(-14px,-18px));
+        @include rtl(transform, translate(14px, -18px), translate(-14px, -18px));
     }
-    html[dir="rtl"] & {
+    html[dir='rtl'] & {
         right: auto;
         left: 0;
     }
@@ -318,11 +310,11 @@ prm-brief-result-container {
             &:not([disabled]) {
                 box-shadow: none;
                 background-color: transparent !important;
-                color: $dark!important;
+                color: $dark !important;
             }
         }
     }
-    
+
     .pin-button {
         md-icon {
             transition: $swift-ease-out;
@@ -331,7 +323,6 @@ prm-brief-result-container {
         }
         @extend .prm-secondary-color.prm-hue3;
         &.pinned {
-
             &:hover,
             &:focus {
                 color: $dark;
@@ -390,7 +381,7 @@ prm-brief-result-container {
                 right: 0;
                 md-icon {
                     @include setSize(32px);
-                    transform: rotate3d(0, 0, 1, 45deg) scale3d(.5, .5, 1) translate3d(4px, 0, 0);
+                    transform: rotate3d(0, 0, 1, 45deg) scale3d(0.5, 0.5, 1) translate3d(4px, 0, 0);
                     opacity: 0;
                     transform-origin: 50% 45%;
                     top: 5px;
@@ -404,9 +395,7 @@ prm-brief-result-container {
     }
 }
 
-
-
-.action-list-content {    
+.action-list-content {
     background-color: transparent;
     position: absolute;
     top: 0;
@@ -414,10 +403,10 @@ prm-brief-result-container {
     width: 100%;
     height: 100%;
     padding-left: $paddingLarge;
-    
+
     // white background for expanded item
     &:before {
-        content: "";
+        content: '';
         position: absolute;
         top: 0;
         left: 0;
@@ -426,32 +415,34 @@ prm-brief-result-container {
         opacity: 0;
         background-color: $white;
         transition: $swift-ease-out;
-        transform: translate3d(0,0,0);
-        box-shadow: 0 0 0 1px lighten($primary, 25%), 0 10px 20px -5px transparentize(black, .88), 0 -10px 20px -5px transparentize(black, .88);
-        }
-    
+        transform: translate3d(0, 0, 0);
+        box-shadow: 0 0 0 1px lighten($primary, 25%), 0 10px 20px -5px transparentize(black, 0.88),
+            0 -10px 20px -5px transparentize(black, 0.88);
+    }
+
     // rtl
-    @include rtl-prop(left,right, 0, auto);
+    @include rtl-prop(left, right, 0, auto);
 
     .secondary-content-holder {
         width: calc(100% + 39px);
         opacity: 0;
-        transition: opacity .1s 0s ease;
+        transition: opacity 0.1s 0s ease;
         overflow: hidden;
         position: relative;
         left: -27px;
-        [dir="rtl"] & {
+        [dir='rtl'] & {
             left: auto;
             right: -12px;
         }
 
         .item-expanded & {
             opacity: 1;
-            transition: opacity .3s .1s ease;
+            transition: opacity 0.3s 0.1s ease;
         }
     }
-    
-    > md-content, > md-divider {
+
+    > md-content,
+    > md-divider {
         top: -1em;
         position: relative;
     }
@@ -460,10 +451,10 @@ prm-brief-result-container {
     .item-hovered & {
         height: inherit;
         &:before {
-            transition-duration: .4s;
+            transition-duration: 0.4s;
             width: calc(100% + 24px);
             height: calc(100% + 5px);
-            opacity: 1;            
+            opacity: 1;
             transform: translate3d(-12px, -20px, 0);
         }
     }
@@ -478,29 +469,28 @@ prm-brief-result-container {
         .item-expanded & {
             transform: scale3d(1, 1, 1);
             opacity: 1;
-            transition: transform .3s $swift-ease-out-timing-function, opacity .2s ease;
+            transition: transform 0.3s $swift-ease-out-timing-function, opacity 0.2s ease;
 
             // @include ie-exceptions;
 
             $elements: 12;
             $delay: 0.03;
             @for $i from 1 through $elements {
-                &:nth-child( #{$i}) {
+                &:nth-child(#{$i}) {
                     transition-delay: #{($elements * $delay) - ($i * $delay)}s;
                 }
             }
         }
     }
-    
 
     md-divider {
         margin: 0;
         width: 100%;
         @extend .prm-background-border;
-        @include rtl-prop(left,right, -26px, auto);
+        @include rtl-prop(left, right, -26px, auto);
         // height: 1px;
         // position: relative;
-    }   
+    }
 }
 
 // pin animation
@@ -508,44 +498,44 @@ prm-brief-result-container {
     position: absolute;
     z-index: 1000;
     transition: $swift-ease-in;
-    transition-duration: .5s;
+    transition-duration: 0.5s;
     background-color: transparent;
     border-radius: 50%;
     width: 38px;
     height: 38px;
-    padding: .5em;
+    padding: 0.5em;
     opacity: 0;
     overflow: hidden;
 
     &:before {
-        content: "";
+        content: '';
         background-color: $red;
         position: absolute;
         width: 100%;
         height: 100%;
-        top:0;
+        top: 0;
         left: 0;
         opacity: 0;
         z-index: 0;
-        transition: opacity .3s .3s linear;
+        transition: opacity 0.3s 0.3s linear;
     }
 
-    &:after{
-        content: "";
+    &:after {
+        content: '';
         background-color: white;
         position: absolute;
         width: 100%;
         height: 100%;
-        top:0;
+        top: 0;
         left: 0;
         opacity: 1;
         z-index: -1;
-        transition: opacity .2s .5s linear;
+        transition: opacity 0.2s 0.5s linear;
     }
 
     prm-icon {
         color: $moreLink;
-        transition: color .4s .1s linear;
+        transition: color 0.4s 0.1s linear;
     }
     md-icon {
         transform: rotate(20deg);
@@ -557,7 +547,7 @@ prm-brief-result-container {
             color: white;
         }
         md-icon {
-            transition: transform .7s $swift-ease-in-timing-function;
+            transition: transform 0.7s $swift-ease-in-timing-function;
             transform: rotate(-415deg);
         }
         &:before {
@@ -569,19 +559,18 @@ prm-brief-result-container {
     }
 }
 
-
 @keyframes flyToFav {
     0% {
         opacity: 0;
-        transform: scale3d(.85, .85, 1);
-        box-shadow: 0 0 0 0 rgba(0,0,0,0);
+        transform: scale3d(0.85, 0.85, 1);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
     }
-    5%{
+    5% {
         opacity: 1;
     }
     50% {
         transform: scale3d(1, 1, 1);
-        box-shadow: 0 15px 12px -6px rgba(0,0,0,.15);
+        box-shadow: 0 15px 12px -6px rgba(0, 0, 0, 0.15);
         transition: $swift-ease-out;
     }
 
@@ -591,5 +580,4 @@ prm-brief-result-container {
     80% {
         opacity: 0;
     }
-
 }

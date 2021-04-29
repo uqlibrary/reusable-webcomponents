@@ -21,18 +21,14 @@ $paddingBase: 1em;
 $paddingExtra: 1.5em;
 $paddingMedium: 1.3em;
 $paddingLarge: 1em;
-$paddingSmall: .5em;
-$paddingTiny: .25em;
+$paddingSmall: 0.5em;
+$paddingTiny: 0.25em;
 
 // colors
-$uqBlue: #2377CB;
+$uqBlue: #2377cb;
 $muteOrange: red;
 
-
-
 $almostBlack: #777;
-
-
 
 $titles: $uqBlue;
 $frbr: #ed9100;
@@ -40,31 +36,30 @@ $pink: rgb(255, 171, 200);
 
 $dark: #333;
 $dark-hue1: darken($dark, 30%);
-$darker: darken(saturate(adjust-hue($dark, 0.0000), 0.0000), 6.6667);
+$darker: darken(saturate(adjust-hue($dark, 0), 0), 6.6667);
 
 // lighter background color
 
-$highlightBlue: rgba(35,119,203,.1);
-$highlightYellow: #FFFCC4; //stronger
-$highlight: darken(desaturate(adjust-hue($highlightYellow, -4.0920), 16.0000), 8.0392);
-$highlightText: #FFE564;
-$success: #3EA03E;
+$highlightBlue: rgba(35, 119, 203, 0.1);
+$highlightYellow: #fffcc4; //stronger
+$highlight: darken(desaturate(adjust-hue($highlightYellow, -4.092), 16), 8.0392);
+$highlightText: #ffe564;
+$success: #3ea03e;
 //$green: #3EA03E; // redundancy of 'success'
-$green: #198A19;
+$green: #198a19;
 //$orange: #CE8015; //#E0962E;
-$muteOrange: #C59655;
-$yellow: #F1C16F;
+$muteOrange: #c59655;
+$yellow: #f1c16f;
 $overlayDarkDG: rgba(68, 68, 68, 0.6);
 
 // $availabiltyDetails: desaturate(lighten($midGrey,5%), 5%);
 //$maybe: $orange;
 
-$alert: #F7EDA3;
+$alert: #f7eda3;
 $alert-hue1: darken(desaturate(adjust-hue($alert, 0.3074), 15.3043), 2.9412);
 
-
 $disabled: #aaa;
-$courseColor: #55909B;
+$courseColor: #55909b;
 
 $primary: $uqBlue;
 $primary-hue1: darken($primary, 3%);
@@ -72,7 +67,7 @@ $primary-hue2: darken($primary, 5%);
 $primary-hue3: darken($primary-hue2, 2%);
 $primary-hue4: darken($primary, 10%);
 $primary-hue5: darker($primary, -5%);
-$primary-hue6: transparentize($primary, .1);
+$primary-hue6: transparentize($primary, 0.1);
 
 $secondary: $uqBlue;
 $secondary-hue1: $uqBlue;
@@ -83,7 +78,7 @@ $secondary-hue5: darken($secondary, 37%);
 $secondary-hue6: darken(saturate(adjust-hue($secondary, -7), 64.57), 2);
 
 $backgroundColor: white;
-$backgroundActual: #E9E9E9;
+$backgroundActual: #e9e9e9;
 $textColor: #000;
 
 $positive: $uqBlue;
@@ -92,15 +87,18 @@ $positive-hue1: darken($positive, 2%);
 $negative: gray;
 $negative-hue1: darken(saturate($negative, 5%), 10%);
 
-$background: darken(saturate(adjust-hue($backgroundColor, 0.0000), 0.0000), 8.6275); //redundancy of almostwhite
+$background: darken(saturate(adjust-hue($backgroundColor, 0), 0), 8.6275); //redundancy of almostwhite
 
 $background-hue1: darken($backgroundColor, 3%); // darker 1 (i.e: background for locations filter bar)
 // $background-hue2: lighten(saturate(adjust-hue($backgroundColor, 0.0000), 0.0000), 3.9216); // lighter 1 (i.e: background for full view dialog)
 $background-hue2: lighten($background, 4%);
-$background-hue3: lighten(saturate(adjust-hue($backgroundColor, 0.0000), 0.0000), 5.8824); // lighter 2 (i.e: background for actions forms)
+$background-hue3: lighten(
+    saturate(adjust-hue($backgroundColor, 0), 0),
+    5.8824
+); // lighter 2 (i.e: background for actions forms)
 
 $background-hue4: lighten($background, 3%);
-$background-hue5: transparentize($background, .5);
+$background-hue5: transparentize($background, 0.5);
 $background-hue6: darken($background, 1%);
 $background-hue7: darken($background, 10%);
 $background-hue8: lighten($background, 6%);
@@ -113,15 +111,15 @@ $background-hue14: darken($background, 40%);
 $background-hue15: darken($background, 54%);
 
 $white: $backgroundColor;
-$almostWhite: lighten(saturate(adjust-hue($background, 60.0000), 20.0000), 0.7843);
+$almostWhite: lighten(saturate(adjust-hue($background, 60), 20), 0.7843);
 $bg: $background;
-$nearlyWhite: darken(saturate(adjust-hue($backgroundColor, 0.0000), 0.0000), 5.4902); // stronger
+$nearlyWhite: darken(saturate(adjust-hue($backgroundColor, 0), 0), 5.4902); // stronger
 $blueGrey: #ccc;
-$midGrey: #53738C; //darken(saturate(adjust-hue($blueGrey, 206.3158), 25.5605), 36.2745);
+$midGrey: #53738c; //darken(saturate(adjust-hue($blueGrey, 206.3158), 25.5605), 36.2745);
 $actionsBackground: lighten($background, 6%);
 $autoCompleteBg: $backgroundColor;
 $sectionHighlight: darken(desaturate($background, 0), 5%);
-$snippets:#999;
+$snippets: #999;
 $lightenGrey: #6d6d6d;
 
 $links: $uqBlue;
@@ -131,7 +129,7 @@ $links-hue-3: darken($links, 10%);
 $links-hue-4: darken(saturate($links, 5%), 2%);
 $links-hue-5: darken(saturate($links, 20%), 20%);
 $linksHover: darken(saturate($links, 20%), 20%);
-$linksHover-hue-2: transparentize($linksHover, .5);
+$linksHover-hue-2: transparentize($linksHover, 0.5);
 $linkAlt: $secondary-hue1;
 $md-primary: $links;
 
@@ -147,7 +145,6 @@ $warn: $red;
 $warn-hue1: darken($warn, 22%);
 $warningBorder: inset 0 0 0 3px $warning;
 
-
 $text: $dark;
 $text-hue1: lighten($text, 30%);
 $text-hue2: $text;
@@ -159,12 +156,12 @@ $notice: #e08303;
 $highlight: $background-hue7;
 $highlight-hue1: $background-hue7;
 
-$modalBackdrop: rgb(68,68,68);
+$modalBackdrop: rgb(68, 68, 68);
 $moreLink: $links;
 
 $selectedItem: saturate(lighten($midGrey, 53%), 40%);
 
-$citationTitle:  rgb(68, 112, 123);
+$citationTitle: rgb(68, 112, 123);
 // $citationTitle: $titles;
 
 // chips
@@ -196,7 +193,7 @@ $warning-hue2: darken($warning, 22%);
 $personalization: #7d1538;
 
 // Peer Reviewed
-$peer-reviewed-color :#8359d4;
+$peer-reviewed-color: #8359d4;
 
 // Open Access
 $open-access-color: #f68212;
@@ -208,8 +205,7 @@ $open-access-color: #f68212;
 $progressBarHeight: 15px;
 
 // buttons
-$defaultMdButtonHover: rgba(158,158,158,0.2);
-
+$defaultMdButtonHover: rgba(158, 158, 158, 0.2);
 
 //// Angular Material overrides
 // Angular Material transition easing curves
@@ -230,8 +226,8 @@ $swift-ease-in-out: all $swift-ease-in-out-duration $swift-ease-in-out-timing-fu
 //  Angular Material layouts
 // ------------------------------
 
-$baseline-grid:            8px !default;
-$layout-gutter-width:      ($baseline-grid * 2) !default;
+$baseline-grid: 8px !default;
+$layout-gutter-width: ($baseline-grid * 2) !default;
 
 //  Angular Material breakpoints
 // ------------------------------

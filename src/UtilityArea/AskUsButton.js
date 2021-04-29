@@ -126,7 +126,7 @@ class AskUsButton extends HTMLElement {
     async updateAskusDOM(shadowRoot, secondsTilProactiveChatAppears) {
         const isPrimoPage = (hostname) => {
             var regExp = /(.*)exlibrisgroup.com/i;
-            return ('search.library.uq.edu.au' === hostname) || regExp.test(hostname);
+            return 'search.library.uq.edu.au' === hostname || regExp.test(hostname);
         };
         const showProactiveChat = () => {
             shadowRoot.getElementById('askus-proactive-chat').classList.add('show');
@@ -150,7 +150,10 @@ class AskUsButton extends HTMLElement {
                 // Chat status
                 shadowRoot.getElementById('askus-chat-online').removeAttribute('style');
                 // Show the proactive chat if we're not in primo
-                if(!isPrimoPage(window.location.hostname) && document.cookie.indexOf("UQ_ASKUS_PROACTIVE_CHAT=hidden") <= -1) {
+                if (
+                    !isPrimoPage(window.location.hostname) &&
+                    document.cookie.indexOf('UQ_ASKUS_PROACTIVE_CHAT=hidden') <= -1
+                ) {
                     setTimeout(showProactiveChatWrapper, secondsTilProactiveChatAppears * 1000 - 1000);
                     setTimeout(showProactiveChat, secondsTilProactiveChatAppears * 1000);
                 }
@@ -246,7 +249,6 @@ class AskUsButton extends HTMLElement {
         shadowDOM.getElementById('askus-chat-online').addEventListener('click', openChat);
         shadowDOM.getElementById('askus-chat-offline').addEventListener('click', navigateToContactUs);
 
-
         // Proactive chat
         function hideProactiveChatWrapper() {
             shadowDOM.getElementById('askus-proactive-chat-wrapper').remove();
@@ -254,17 +256,18 @@ class AskUsButton extends HTMLElement {
         function closeProactiveChat() {
             shadowDOM.getElementById('askus-proactive-chat').classList.remove('show');
             setTimeout(hideProactiveChatWrapper, 1000);
-            if (document.cookie.indexOf("UQ_ASKUS_PROACTIVE_CHAT=hidden") <= -1) {
+            if (document.cookie.indexOf('UQ_ASKUS_PROACTIVE_CHAT=hidden') <= -1) {
                 //set cookie for 24 hours
                 const date = new Date();
-                date.setTime(date.getTime() + (24 * 60 * 60 * 1000));
-                const cookieDomain = window.location.hostname.endsWith('.library.uq.edu.au') ? 'domain=.library.uq.edu.au;path=/' : '';
+                date.setTime(date.getTime() + 24 * 60 * 60 * 1000);
+                const cookieDomain = window.location.hostname.endsWith('.library.uq.edu.au')
+                    ? 'domain=.library.uq.edu.au;path=/'
+                    : '';
                 document.cookie = 'UQ_ASKUS_PROACTIVE_CHAT=hidden;expires=' + date.toGMTString() + ';' + cookieDomain;
             }
         }
         shadowDOM.getElementById('askus-proactive-chat-button-close').addEventListener('click', closeProactiveChat);
         shadowDOM.getElementById('askus-proactive-chat-button-open').addEventListener('click', openChat);
-
     }
 
     isPaneButtonOpacityDropRequested() {

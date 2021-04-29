@@ -1,5 +1,4 @@
-
-prm-get-it-request{
+prm-get-it-request {
     .main_tile_request_form {
         opacity: 1;
         position: relative;
@@ -8,39 +7,39 @@ prm-get-it-request{
         margin-top: 1%;
         flex-direction: row;
         display: inline-flex;
-        border: 1px solid rgba(58,58,58,.3);
+        border: 1px solid rgba(58, 58, 58, 0.3);
     }
 
-    .getItNgrs{
+    .getItNgrs {
         flex-direction: column;
         display: flex;
         width: 75%;
     }
 
-    .fill_details{
+    .fill_details {
         flex-direction: column;
         display: flex;
         justify-content: space-between;
         width: 75%;
     }
 
-    .text_wrapper{
-		width: 75%;
+    .text_wrapper {
+        width: 75%;
     }
 
-    .form_title{
+    .form_title {
         white-space: nowrap;
-		text-align: left;
-		font-family: Source Sans Pro;
-		font-style: normal;
-		font-weight: bold;
-		font-size: 18px;
-        color: rgba(102,102,102,1);
+        text-align: left;
+        font-family: Source Sans Pro;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 18px;
+        color: rgba(102, 102, 102, 1);
         padding-top: 2em;
         padding-left: 12%;
     }
 
-    .form_item{
+    .form_item {
         flex-direction: row;
         display: flex;
         align-items: center;
@@ -48,43 +47,43 @@ prm-get-it-request{
         padding-top: 15px;
     }
 
-    .form_field_parent{
+    .form_field_parent {
         flex-direction: row;
         display: flex;
         width: 85%;
     }
 
-    .form_field{
+    .form_field {
         width: 85%;
     }
 
-    .form_field_2{
+    .form_field_2 {
         width: 50%;
     }
 
-    .first{
+    .first {
         padding-right: 1em;
     }
 
-    .margin-buttons{
+    .margin-buttons {
         flex-direction: row;
-        display: flex!important;
+        display: flex !important;
         justify-content: flex-end;
         margin-right: 0%;
         float: right;
     }
 
-    .submit_btn{
+    .submit_btn {
         margin-right: 0;
     }
-    
-    .cancel_btn{
+
+    .cancel_btn {
         color: #3d6e94;
         border-style: solid;
         border-color: #3d6e94;
-        border-width: 1px;    
-        }
-   
+        border-width: 1px;
+    }
+
     .icon_border md-icon {
         color: #666666;
         opacity: 1;
@@ -94,7 +93,7 @@ prm-get-it-request{
         min-width: 24px;
     }
 
-    .icon_border prm-icon{
+    .icon_border prm-icon {
         margin: 0;
         position: absolute;
         top: 50%;
@@ -103,7 +102,7 @@ prm-get-it-request{
         transform: translate(-50%, -50%);
     }
 
-    .icon_border{
+    .icon_border {
         position: relative;
         color: #666666;
         border-radius: 50%;
@@ -119,42 +118,42 @@ prm-get-it-request{
     md-input-container {
         width: 100%;
         padding: 0;
-        .md-input{
+        .md-input {
             padding: 0;
         }
-        ._md-select-value{
+        ._md-select-value {
             padding: 0;
         }
     }
 
-    .md-datepicker-input-container{
-        border-bottom-color: rgba(0,0,0,.14);
+    .md-datepicker-input-container {
+        border-bottom-color: rgba(0, 0, 0, 0.14);
         width: 100%;
-        padding-right: 0; 
+        padding-right: 0;
         margin-right: 0;
         margin-left: 0;
 
-        .md-button{
+        .md-button {
             background-color: transparent;
         }
 
-        .md-button:hover{
+        .md-button:hover {
             background-color: transparent;
         }
 
-        .md-button:focus{
+        .md-button:focus {
             background-color: transparent;
         }
     }
 
-    md-datepicker{
-        padding-right: 0%; 
+    md-datepicker {
+        padding-right: 0%;
         margin-right: 0%;
     }
 
-    .width-note{
-        width:80%;
-    }    
+    .width-note {
+        width: 80%;
+    }
 
     .md-datepicker-button {
         display: inline-block;
@@ -163,13 +162,13 @@ prm-get-it-request{
         display: none;
     }
 
-    .md-button.button-with-icon prm-icon md-icon{
+    .md-button.button-with-icon prm-icon md-icon {
         border: none;
         transform: none;
         left: 0%;
     }
 
-    md-datepicker{
+    md-datepicker {
         margin: 0;
         position: absolute;
         top: 50%;
@@ -178,83 +177,82 @@ prm-get-it-request{
         width: 100%;
     }
 
-    .service-form-item{
+    .service-form-item {
         margin: 18px 0;
     }
 
-    .alert-bar{
+    .alert-bar {
         position: sticky;
     }
 
-    md-input-container label{
+    md-input-container label {
         opacity: 0.8;
     }
 
-    .offer_details_main_tail{
+    .offer_details_main_tail {
         border-left: 1px solid #f1f1f1;
         background: #f8f8f8;
         width: 25%;
     }
 
-    .no_offer{
+    .no_offer {
         border-left: none;
         background: none;
     }
 
-    .validation_msg{
+    .validation_msg {
         padding-left: 12%;
         padding-bottom: 1em;
         color: tomato;
     }
 
-    .material_type_msg{
+    .material_type_msg {
         padding-left: 12%;
         padding-bottom: 1em;
         color: $text-hue1;
     }
 
-    .alternativeEmail{
+    .alternativeEmail {
         border: none;
     }
 
-    .form_material_type_item{
+    .form_material_type_item {
         display: flex;
         flex-direction: column;
         padding-left: 7em;
         font-family: Source Sans Pro;
-		font-style: normal;
-		font-size: initial;
-        color: rgba(102,102,102,1);
+        font-style: normal;
+        font-size: initial;
+        color: rgba(102, 102, 102, 1);
         padding-top: 1em;
         padding-bottom: 1em;
 
-        .material_type_title{
+        .material_type_title {
             padding-bottom: 0.5em;
         }
 
-        .material_type_container{
+        .material_type_container {
             display: flex;
             flex-direction: row;
         }
 
-        .material_type{
+        .material_type {
             display: flex;
             flex-direction: row;
         }
     }
 
-    .checkbox_label{
+    .checkbox_label {
         padding-left: 0.5em;
         padding-right: 1.5em;
-        
     }
 
-    .allow_other_formats{
+    .allow_other_formats {
         padding-left: 7em;
         font-family: Source Sans Pro;
-		font-style: initial;
-		font-size: 16px;
-        color: rgba(102,102,102,1);
+        font-style: initial;
+        font-size: 16px;
+        color: rgba(102, 102, 102, 1);
         padding-top: 1em;
         padding-bottom: 1em;
         display: flex;
@@ -268,13 +266,13 @@ prm-get-it-request{
         cursor: pointer;
         font-size: initial;
         font-family: Source Sans Pro;
-        color: rgba(102,102,102,1);
+        color: rgba(102, 102, 102, 1);
         -webkit-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
     }
-  
+
     .container input {
         position: absolute;
         opacity: 0;
@@ -282,15 +280,15 @@ prm-get-it-request{
         height: 0;
         width: 0;
     }
-    
-    .container  .checkmark {
+
+    .container .checkmark {
         position: absolute;
         top: 0;
         left: 0;
         height: 20px;
         width: 20px;
         background-color: #eee;
-        border: 1px solid rgba(102,102,102,1);
+        border: 1px solid rgba(102, 102, 102, 1);
     }
 
     .container:hover input ~ .checkmark {
@@ -302,20 +300,20 @@ prm-get-it-request{
         border: none;
     }
 
-    .material_type_container .checkmark{
+    .material_type_container .checkmark {
         border-radius: 50%;
     }
 
-    .allow_other_formats .checkmark{
+    .allow_other_formats .checkmark {
         border-radius: 3px;
     }
 
-    .allow_other_formats .container input:checked ~ .checkmark:after{
+    .allow_other_formats .container input:checked ~ .checkmark:after {
         display: block;
     }
 
     .allow_other_formats .container .checkmark:after {
-        content: "";
+        content: '';
         position: absolute;
         display: none;
     }
@@ -332,50 +330,50 @@ prm-get-it-request{
         transform: rotate(45deg);
     }
 
-    .close{
-		float: right;
-		color: rgba(102,102,102,1);
-		min-width: auto;
-		font-size: 130%;
-		font-family: cursive;		
-	}
+    .close {
+        float: right;
+        color: rgba(102, 102, 102, 1);
+        min-width: auto;
+        font-size: 130%;
+        font-family: cursive;
+    }
 
-    @media only screen and (max-width: 767px){
-        .offer_details_main_tail{
+    @media only screen and (max-width: 767px) {
+        .offer_details_main_tail {
             display: none !important;
         }
 
-        .form_item{
-            display: flex!important;
+        .form_item {
+            display: flex !important;
             padding-left: 12%;
         }
 
-        .form_field{
+        .form_field {
             width: 90%;
         }
 
-        .getItNgrs{
+        .getItNgrs {
             width: 100%;
         }
 
-        .margin-buttons{
+        .margin-buttons {
             right: -20%;
             position: relative;
         }
 
-        .allow_other_formats{
+        .allow_other_formats {
             padding-left: 12%;
         }
 
-        .form_material_type_item{
+        .form_material_type_item {
             padding-left: 12%;
         }
 
-        .fill_details{
+        .fill_details {
             width: 75%;
         }
 
-        .close_s{
+        .close_s {
             position: absolute;
             right: 0;
             color: #666;
@@ -385,17 +383,17 @@ prm-get-it-request{
         }
     }
 
-    @media only screen and (min-width: 768px){
-        .offer_details_main_tail_s{
+    @media only screen and (min-width: 768px) {
+        .offer_details_main_tail_s {
             display: none !important;
         }
-        
-        .close_s{
+
+        .close_s {
             display: none !important;
         }
-    }  
-	.spinner-container{
-		display: flex;
+    }
+    .spinner-container {
+        display: flex;
         justify-content: center;
         position: relative;
         top: 0.6em;

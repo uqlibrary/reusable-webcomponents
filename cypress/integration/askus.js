@@ -29,7 +29,6 @@ describe('AskUs menu', () => {
     });
 
     context('Proactive chat', () => {
-
         it('Appears as expected', () => {
             cy.viewport(1280, 900);
             cy.get('askus-button').shadow().find('#askus-proactive-chat').should('not.be.visible');

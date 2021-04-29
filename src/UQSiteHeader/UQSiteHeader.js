@@ -1,7 +1,7 @@
 import styles from './css/main.css';
 import overrides from './css/overrides.css';
 import icons from './css/icons.css';
-import {default as menuLocale} from '../locale/menu';
+import { default as menuLocale } from '../locale/menu';
 import myLibStyles from '../UtilityArea/css/mylibrary.css';
 
 /**
@@ -92,9 +92,11 @@ class UQSiteHeader extends HTMLElement {
                 const button = template.content.getElementById('uq-site-header__navigation-toggle');
                 !!button && (button.style.display = 'none');
             } else {
-
                 const listWrapper = document.createElement('ul');
-                listWrapper.setAttribute('class', 'uq-site-header__navigation__list uq-site-header__navigation__list--level-1');
+                listWrapper.setAttribute(
+                    'class',
+                    'uq-site-header__navigation__list uq-site-header__navigation__list--level-1',
+                );
 
                 menuLocale.publicmenu.forEach((jsonParentItem, index) => {
                     const hasChildren = !!jsonParentItem.submenuItems && jsonParentItem.submenuItems.length > 0;
@@ -104,7 +106,7 @@ class UQSiteHeader extends HTMLElement {
                     let classNavListitem = 'uq-site-header__navigation__list-item';
                     !!hasChildren && (classNavListitem += ' uq-site-header__navigation__list-item--has-subnav');
                     jsonParentItem.linkTo === window.location.href &&
-                    (classNavListitem += ' uq-site-header__navigation__list-item--active');
+                        (classNavListitem += ' uq-site-header__navigation__list-item--active');
                     parentListItem.setAttribute('class', classNavListitem);
 
                     // create Link
@@ -132,10 +134,11 @@ class UQSiteHeader extends HTMLElement {
                     // make child items
                     if (hasChildren) {
                         const listItemWrapper = document.createElement('ul');
-                        let listItemClass = 'uq-site-header__navigation__list uq-site-header__navigation__list--level-2';
+                        let listItemClass =
+                            'uq-site-header__navigation__list uq-site-header__navigation__list--level-2';
                         !!jsonParentItem.columnCount &&
-                        jsonParentItem.columnCount > 1 &&
-                        (listItemClass += ' multicolumn-' + jsonParentItem.columnCount);
+                            jsonParentItem.columnCount > 1 &&
+                            (listItemClass += ' multicolumn-' + jsonParentItem.columnCount);
                         listItemWrapper.setAttribute('class', listItemClass);
                         jsonParentItem.submenuItems.forEach((jsonChild, indexChild) => {
                             const listItem = document.createElement('li');
@@ -177,7 +180,6 @@ class UQSiteHeader extends HTMLElement {
             shadowDOM.appendChild(template.content.cloneNode(true));
         }, 50);
 
-
         // Bindings
         this.loadJS = this.loadJS.bind(this);
     }
@@ -193,7 +195,7 @@ class UQSiteHeader extends HTMLElement {
 
             const scripts = document.getElementsByTagName('script');
             const scriptList = Array.prototype.slice.call(scripts);
-            const scriptFound = scriptList.find(scriptTag => {
+            const scriptFound = scriptList.find((scriptTag) => {
                 return String(scriptTag).includes('uq-site-header.js');
             });
             console.log('scriptFound = ', scriptFound);

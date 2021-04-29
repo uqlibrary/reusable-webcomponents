@@ -2,7 +2,7 @@
 /* CSS Document */
 
 body {
-    font-family: Roboto,'Helvetica Neue',Helvetica,Arial,sans-serif !important;
+    font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
     font-weight: 300;
     background: #fafafa;
     font-size: 16px;
@@ -11,28 +11,28 @@ body {
 }
 
 a {
-	color: #2377cb;
+    color: #2377cb;
     text-decoration: none;
     overflow-wrap: break-word;
     word-wrap: break-word;
 }
 
 .s-lib-box .s-lib-box-title {
-	color: #49075e;
+    color: #49075e;
     font-size: 20px !important;
     font-size: 1.275rem;
     font-weight: 400;
-	background: #eee;
+    background: #eee;
 }
 
-#s-lg-guide-tabs .nav-tabs>li {
+#s-lg-guide-tabs .nav-tabs > li {
     margin-bottom: -1px;
     margin-top: 2px;
     background-color: #ddd;
-	border-radius: 5px 5px 0px 0px;
+    border-radius: 5px 5px 0px 0px;
 }
-#s-lg-guide-tabs .nav-tabs>li:hover {
-	border-bottom: 4px solid #51247a;
+#s-lg-guide-tabs .nav-tabs > li:hover {
+    border-bottom: 4px solid #51247a;
 }
 
 .tabs ul .active {
@@ -40,11 +40,12 @@ a {
 }
 
 .ui-widget-content {
-	border: 0px solid #bbb;
+    border: 0px solid #bbb;
 }
 
-.ui-tabs .ui-tabs-nav .ui-state-active, .ui-tabs .ui-tabs-nav .ui-state-active:hover {
-	border-bottom: 4px solid #51247a !important;
+.ui-tabs .ui-tabs-nav .ui-state-active,
+.ui-tabs .ui-tabs-nav .ui-state-active:hover {
+    border-bottom: 4px solid #51247a !important;
 }
 
 .tabs ul .active {
@@ -53,28 +54,30 @@ a {
 
 .ui-tabs .ui-tabs-nav .ui-state-default {
     background: 0 0;
-    border-bottom: 4px solid transparent!important;
-    transition: all .1s ease;
+    border-bottom: 4px solid transparent !important;
+    transition: all 0.1s ease;
     margin-bottom: -1px;
     margin-top: 2px;
     background-color: #ddd;
     font-size: 14px;
 }
 
-.ui-tabs .ui-tabs-nav .ui-state-default-tab>li:hover {
-	border-bottom: 4px solid #51247a !important;
+.ui-tabs .ui-tabs-nav .ui-state-default-tab > li:hover {
+    border-bottom: 4px solid #51247a !important;
 }
 
-.nav-pills>li {
+.nav-pills > li {
     background: #ddd;
     padding: 5px;
 }
 
-#s-lg-tabs-container .nav-pills>li:not(.dropdown-menu)>ul>li>a {
-	border-bottom: 0px solid #eee;
+#s-lg-tabs-container .nav-pills > li:not(.dropdown-menu) > ul > li > a {
+    border-bottom: 0px solid #eee;
 }
 
-#s-lg-tabs-container .nav-pills>.active>a, #s-lg-tabs-container .nav-pills>.active>a:hover, #s-lg-tabs-container .nav-pills>.active>li>a, #s-lg-tabs-container .nav-pills>.active>li>a:hover {
-	border-left: 4px solid #51247a;
+#s-lg-tabs-container .nav-pills > .active > a,
+#s-lg-tabs-container .nav-pills > .active > a:hover,
+#s-lg-tabs-container .nav-pills > .active > li > a,
+#s-lg-tabs-container .nav-pills > .active > li > a:hover {
+    border-left: 4px solid #51247a;
 }
-

@@ -1,23 +1,26 @@
-
-html, body {
-    @extend .prm-background;    
+html,
+body {
+    @extend .prm-background;
 
     @include ie-only {
         // IE overrides here
     }
 }
 
-body {        
+body {
     font-family: $serif;
     font-size: $defaultFontSize;
     @extend .prm-text;
     // overflow-x: hidden;
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
     box-sizing: border-box;
 }
-a, button {
+a,
+button {
     .fa,
     .icon,
     .glyphicon {
@@ -26,7 +29,7 @@ a, button {
 }
 
 :focus {
-  outline: -webkit-focus-ring-color auto 0;
+    outline: -webkit-focus-ring-color auto 0;
 }
 
 ::selection {
@@ -34,11 +37,11 @@ a, button {
 }
 
 .lowercase {
-  text-transform: lowercase;
+    text-transform: lowercase;
 }
 
 .bold {
-  font-weight: $bold;
+    font-weight: $bold;
 }
 
 mark {

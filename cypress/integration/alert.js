@@ -45,7 +45,7 @@ describe('Alert', () => {
             cy.viewport(1280, 900);
             cy.get('alert-list').shadow().find('uq-alert').should('have.length', 2);
             cy.get('alert-list').shadow().find('uq-alert[id="alert-1"]').shadow().find('#alert-close').click();
-            cy.reload(true)
+            cy.reload(true);
             cy.get('alert-list').shadow().find('uq-alert').should('have.length', 1);
         });
 
@@ -64,10 +64,10 @@ describe('Alert', () => {
                 .shadow()
                 .find('div#alert')
                 .checkA11y('alert-list', {
-                reportName: 'Alert',
-                scopeName: 'Accessibility',
-                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
-            });
+                    reportName: 'Alert',
+                    scopeName: 'Accessibility',
+                    includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+                });
             cy.get('alert-list')
                 .shadow()
                 .find('uq-alert[id="alert-2"]')

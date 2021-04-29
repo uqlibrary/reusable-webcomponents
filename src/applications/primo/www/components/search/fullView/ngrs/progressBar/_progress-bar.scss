@@ -1,5 +1,4 @@
-prm-progress-bar{
-
+prm-progress-bar {
     .ProgressBar {
         margin: 0 auto;
         list-style: none;
@@ -14,16 +13,16 @@ prm-progress-bar{
         width: 100%;
     }
 
-    .ProgressBar-step:first-child{
-        hr{
+    .ProgressBar-step:first-child {
+        hr {
             width: 50%;
             left: 25%;
             position: inherit;
-        }  
+        }
     }
 
-    .ProgressBar-step:last-child{
-        hr{
+    .ProgressBar-step:last-child {
+        hr {
             width: 50%;
             left: -25%;
             position: inherit;

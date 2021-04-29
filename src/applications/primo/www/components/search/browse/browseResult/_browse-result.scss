@@ -1,33 +1,32 @@
 prm-browse-result {
-  .cross-ref-icon {
-    > md-icon {
-      transform: rotate(-180deg);
-      top: -1px;
-      position: relative;
+    .cross-ref-icon {
+        > md-icon {
+            transform: rotate(-180deg);
+            top: -1px;
+            position: relative;
+        }
     }
-  }
 
-  .call-number-description {
-    white-space: normal !important;
-  }
-
-  .not-link {
-    cursor: pointer !important;
-  }
-
-  .md-list-item-text {
-    div {
-      display: inline-block;
+    .call-number-description {
+        white-space: normal !important;
     }
-  }
 
-  md-list-item {
-    .md-button {
-      &:hover:not([disabled]) {
-        background-color: transparent;
-        color: $dark;
-      }
+    .not-link {
+        cursor: pointer !important;
     }
-  }
 
+    .md-list-item-text {
+        div {
+            display: inline-block;
+        }
+    }
+
+    md-list-item {
+        .md-button {
+            &:hover:not([disabled]) {
+                background-color: transparent;
+                color: $dark;
+            }
+        }
+    }
 }

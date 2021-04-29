@@ -1,130 +1,130 @@
 prm-saved-queries-list {
-     .md-subheader {
-         .__xs & {
-             position: inherit!important;
-         }
-         ._md-subheader-inner, .md-subheader-inner{
-             padding: .5em .85em;
-         }
-     }
+    .md-subheader {
+        .__xs & {
+            position: inherit !important;
+        }
+        ._md-subheader-inner,
+        .md-subheader-inner {
+            padding: 0.5em 0.85em;
+        }
+    }
 
-     .has-checkbox {
-         md-checkbox {
-             z-index: 10;
-             position: absolute;
-             top: .95em;
-             left: .8em;
-             [dir=rtl] & {
-                right: .8em;
-             }
-         }
-     }
+    .has-checkbox {
+        md-checkbox {
+            z-index: 10;
+            position: absolute;
+            top: 0.95em;
+            left: 0.8em;
+            [dir='rtl'] & {
+                right: 0.8em;
+            }
+        }
+    }
 
-	 .result-item-actions {
-         position: inherit;
-     }
-    
-     md-checkbox {
-        ._md-label[ng-transclude], .md-label[ng-transclude] {
+    .result-item-actions {
+        position: inherit;
+    }
+
+    md-checkbox {
+        ._md-label[ng-transclude],
+        .md-label[ng-transclude] {
             margin-left: 30px;
-            [dir=rtl] & {
+            [dir='rtl'] & {
                 margin-left: auto;
                 margin-right: 30px;
             }
         }
-     }
-    
-     .inline-div {
-         display: inline;
-     }
+    }
 
-     .strikethrough {
-         text-decoration: line-through;
-     }
+    .inline-div {
+        display: inline;
+    }
 
-     .clear-row {
-         clear: left;
-     }
+    .strikethrough {
+        text-decoration: line-through;
+    }
 
-     .list-item-count {
-         position: absolute;
-         left: .5em;
-         opacity: .3;
-         font-size: .8em;
-         top: .4em;
-         .has-checkbox & {
-             left: 12px;
-             top: 16px;
-             opacity: .7;
-             width: 20px;
-             display: flex;
-             justify-content: center;
-         }
-     }
+    .clear-row {
+        clear: left;
+    }
 
-     .animate-scale {
-         transform-origin: 0 0;
-         &.middle {
-             transform-origin: 0 50%;
-         }
-         &.ng-enter {
-             transition: $swift-ease-out;
-             transition-duration: .3s;
-             transform: scale(.7);
-             opacity: 0;
+    .list-item-count {
+        position: absolute;
+        left: 0.5em;
+        opacity: 0.3;
+        font-size: 0.8em;
+        top: 0.4em;
+        .has-checkbox & {
+            left: 12px;
+            top: 16px;
+            opacity: 0.7;
+            width: 20px;
+            display: flex;
+            justify-content: center;
+        }
+    }
 
-             @include ie-exceptions;
+    .animate-scale {
+        transform-origin: 0 0;
+        &.middle {
+            transform-origin: 0 50%;
+        }
+        &.ng-enter {
+            transition: $swift-ease-out;
+            transition-duration: 0.3s;
+            transform: scale(0.7);
+            opacity: 0;
 
-             &.ng-enter-active {
-                 transform: scale(1);
-                 opacity: 1;
-             }
-         }
-     }
+            @include ie-exceptions;
 
-     .string-block {
-         float: left;
-         position: relative;
-         &:first-child {
-             > span:first-of-type {
-                 md-select-value {
-                     .md-text {
-                         display: inline-block;
-                         &:first-letter {
-                             text-transform: uppercase;
-                         }
-                     }
-                 }
-             }
-         }
-         prm-icon {
-             float: left;
-             clear: none;
-             display: inline;
-             color: $dark;
-             color: #198A19;
-             margin-right: .25em;
-             left: -1.5em;
-         }
-         md-icon {
-             transform: scale(-1, 1);
-             @include setSize(18px);
-         }
-     }
+            &.ng-enter-active {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    }
 
+    .string-block {
+        float: left;
+        position: relative;
+        &:first-child {
+            > span:first-of-type {
+                md-select-value {
+                    .md-text {
+                        display: inline-block;
+                        &:first-letter {
+                            text-transform: uppercase;
+                        }
+                    }
+                }
+            }
+        }
+        prm-icon {
+            float: left;
+            clear: none;
+            display: inline;
+            color: $dark;
+            color: #198a19;
+            margin-right: 0.25em;
+            left: -1.5em;
+        }
+        md-icon {
+            transform: scale(-1, 1);
+            @include setSize(18px);
+        }
+    }
 
-     .text-ellipsis{
-         max-width: 800px;
-         white-space: nowrap;
-         overflow: hidden;
-     	text-overflow: ellipsis;
-     }
+    .text-ellipsis {
+        max-width: 800px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
     .saved-query-actions {
         .__xs &,
         .__sm & {
             position: static;
         }
-
     }
 }
 
@@ -132,59 +132,59 @@ prm-saved-queries-list {
     .__xs & {
         justify-content: inherit;
     }
-        &:hover,
-        &:focus {
-            &:before {
-                opacity: 1;
-                z-index: 0;
-            }
-        }
+    &:hover,
+    &:focus {
         &:before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            background-color: $backgroundColor;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0;
-            prm-full-view & {
-                display: none;
-                padding-left: 1em;
+            opacity: 1;
+            z-index: 0;
+        }
+    }
+    &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: $backgroundColor;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        opacity: 0;
+        prm-full-view & {
+            display: none;
+            padding-left: 1em;
+        }
+    }
+    .md-list-item-text {
+        display: inline-block;
+        a {
+            max-width: 100%;
+            @extend .prm-links.prm-hue1;
+        }
+        h3 {
+            white-space: inherit !important;
+
+            &.item-title {
+                font-weight: $bold;
             }
         }
-        .md-list-item-text {
-            display: inline-block;
-            a {
-                max-width: 100%;
-                @extend .prm-links.prm-hue1;
+        p {
+            &.text-headings {
+                strong {
+                    text-transform: uppercase;
+                    font-weight: 600;
+                    font-size: 0.85em;
+                    opacity: 0.75;
+                }
+                i {
+                    opacity: 0.5;
+                    margin: 0 0.25em;
+                }
             }
-            h3 {
-                white-space: inherit!important;
-
-                &.item-title {
+            &.saved-query-filters {
+                span.text-bold {
                     font-weight: $bold;
-                }
-            }
-            p {
-                &.text-headings{
-                    strong {
-                        text-transform: uppercase;
-                        font-weight: 600;
-                        font-size: .85em;
-                        opacity: .75;
-                    }
-                    i {
-                        opacity: .5;
-                        margin: 0 .25em;
-                    }
-                }
-                &.saved-query-filters{
-                    span.text-bold {
-                        font-weight: $bold;
-                    }
                 }
             }
         }
     }
+}

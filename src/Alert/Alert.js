@@ -28,7 +28,7 @@ class Alert extends HTMLElement {
     constructor() {
         super();
         // Add a shadow DOM
-        const shadowDOM = this.attachShadow({mode: 'open'});
+        const shadowDOM = this.attachShadow({ mode: 'open' });
         this.loadAlert(shadowDOM);
 
         // Bindings
@@ -79,12 +79,15 @@ class Alert extends HTMLElement {
             if (!!canclose) {
                 const closeAlert = () => {
                     shadowDOM.getElementById('alert').style.display = 'none';
-                    if (document.cookie.indexOf('UQ_ALERT_' + id + "=hidden") <= -1) {
+                    if (document.cookie.indexOf('UQ_ALERT_' + id + '=hidden') <= -1) {
                         //set cookie for 24 hours
                         const date = new Date();
-                        date.setTime(date.getTime() + (24 * 60 * 60 * 1000));
-                        const cookieDomain = window.location.hostname.endsWith('.library.uq.edu.au') ? 'domain=.library.uq.edu.au;path=/' : '';
-                        document.cookie = 'UQ_ALERT_' + id + '=hidden;expires=' + date.toGMTString() + ';' + cookieDomain;
+                        date.setTime(date.getTime() + 24 * 60 * 60 * 1000);
+                        const cookieDomain = window.location.hostname.endsWith('.library.uq.edu.au')
+                            ? 'domain=.library.uq.edu.au;path=/'
+                            : '';
+                        document.cookie =
+                            'UQ_ALERT_' + id + '=hidden;expires=' + date.toGMTString() + ';' + cookieDomain;
                     }
                 };
                 shadowDOM.getElementById('alert-close').addEventListener('click', closeAlert);

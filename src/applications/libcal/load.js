@@ -1,5 +1,5 @@
 function ready(fn) {
-    if (document.readyState !== 'loading'){
+    if (document.readyState !== 'loading') {
         fn();
     } else {
         document.addEventListener('DOMContentLoaded', fn);
@@ -8,13 +8,13 @@ function ready(fn) {
 
 let isOutsideUQ = true;
 
-if (window.location.href.indexOf("uq.edu.au") > -1) {
+if (window.location.href.indexOf('uq.edu.au') > -1) {
     isOutsideUQ = false;
 }
 
 console.log('Is libcal in edit mode?: ', isOutsideUQ);
 
-function createSlotForButtonInUtilityArea(button, id=null) {
+function createSlotForButtonInUtilityArea(button, id = null) {
     const slot = document.createElement('span');
     !!slot && slot.setAttribute('slot', 'site-utilities');
     !!slot && !!id && slot.setAttribute('id', id);

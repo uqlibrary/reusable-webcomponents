@@ -29,6 +29,5 @@ describe('Auth button', () => {
             cy.get('uq-site-header').find('auth-button').should('exist');
             cy.get('auth-button').shadow().find('#auth-log-in-label').should('contain', 'Log in');
         });
-
     });
 });
