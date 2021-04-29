@@ -165,11 +165,13 @@ class UQSiteHeader extends HTMLElement {
             const activeClassName = ' uq-site-header__navigation__list-item--active';
             jsonParentItem.linkTo === window.location.href && (classNavListitem += activeClassName);
             parentListItem.setAttribute('class', classNavListitem);
+            const datatestid = `menu-group-item-${index}`;
+            parentListItem.setAttribute('data-testid', datatestid);
 
             const parentLink = this.createLink(
-                `menu-group-item-${index}`,
                 jsonParentItem.linkTo || '',
                 jsonParentItem.primaryText || '',
+                `${datatestid}-link`,
             );
             parentLink.setAttribute('aria-expanded', 'false');
             parentListItem.appendChild(parentLink);
@@ -178,6 +180,7 @@ class UQSiteHeader extends HTMLElement {
                 const textOfToggle = document.createTextNode('Open');
                 const parentToggle = document.createElement('span');
                 parentToggle.setAttribute('class', 'uq-site-header__navigation__sub-toggle');
+                parentToggle.setAttribute('data-testid', `${datatestid}-open`);
                 parentToggle.appendChild(textOfToggle);
 
                 parentListItem.appendChild(parentToggle);
@@ -238,11 +241,12 @@ class UQSiteHeader extends HTMLElement {
         !!button && (button.style.display = null);
     }
 
-    createLink(datatestid, href, linktext) {
-        const alink = document.createElement('a');
-        alink.setAttribute('data-testid', datatestid);
-        alink.setAttribute('href', href);
+    createLink(href, linktext, datatestid = '') {
         const textOfLink = document.createTextNode(linktext);
+
+        const alink = document.createElement('a');
+        !!datatestid && alink.setAttribute('data-testid', datatestid);
+        alink.setAttribute('href', href);
         alink.appendChild(textOfLink);
         return alink;
     }
