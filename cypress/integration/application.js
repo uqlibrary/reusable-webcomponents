@@ -6,7 +6,7 @@ describe('Dummy Application', () => {
         cy.injectAxe();
     });
     context('Works as expected', () => {
-        it('Header is visible without interaction at 1280', () => {
+        it('Javascript calls act correctly', () => {
             cy.viewport(1280, 900);
             // applications/testing can remove the Library entry from the global menu
             cy.get('uq-header').shadow().find('div.nav-global').find('#menu-item-library').should('not.exist');

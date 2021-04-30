@@ -67,7 +67,8 @@ class UQSiteHeader extends HTMLElement {
         this.uqReference = null;
 
         // Bindings
-        this.createLink = this.createLink.bind(this);
+        this.createLinkElement = this.createLinkElement.bind(this);
+        this.getLink = this.getLink.bind(this);
         this.loadScript = this.loadScript.bind(this);
         this.rewriteMegaMenuFromJson = this.rewriteMegaMenuFromJson.bind(this);
         this.showMenu = this.showMenu.bind(this);
@@ -154,7 +155,16 @@ class UQSiteHeader extends HTMLElement {
         listWrapper.setAttribute('class', 'uq-site-header__navigation__list uq-site-header__navigation__list--level-1');
 
         menuLocale.publicmenu.forEach((jsonParentItem, index) => {
+            const datatestid = `menu-group-item-${index}`;
             const hasChildren = !!jsonParentItem.submenuItems && jsonParentItem.submenuItems.length > 0;
+
+            const textOfParentLink = document.createTextNode(jsonParentItem.primaryText || '');
+
+            const parentLink = document.createElement('a');
+            parentLink.setAttribute('data-testid', `${datatestid}-link`);
+            parentLink.setAttribute('href', this.getLink(jsonParentItem.linkTo) || '');
+            parentLink.appendChild(textOfParentLink);
+            parentLink.setAttribute('aria-expanded', 'false');
 
             const parentListItem = document.createElement('li');
 
@@ -163,15 +173,8 @@ class UQSiteHeader extends HTMLElement {
             const activeClassName = ' uq-site-header__navigation__list-item--active';
             jsonParentItem.linkTo === window.location.href && (classNavListitem += activeClassName);
             parentListItem.setAttribute('class', classNavListitem);
-            const datatestid = `menu-group-item-${index}`;
             parentListItem.setAttribute('data-testid', datatestid);
 
-            const parentLink = this.createLink(
-                jsonParentItem.linkTo || '',
-                jsonParentItem.primaryText || '',
-                `${datatestid}-link`,
-            );
-            parentLink.setAttribute('aria-expanded', 'false');
             parentListItem.appendChild(parentLink);
 
             if (hasChildren) {
@@ -209,14 +212,8 @@ class UQSiteHeader extends HTMLElement {
                         secondaryTextItem.setAttribute('class', 'displayText secondaryText');
                         secondaryTextItem.appendChild(secondarytextOfLink);
 
-                        // we want to be able to navigate around the staging site, if thats where we are
-                        const stagingDomain = 'library.stage.drupal.uq.edu.au';
-                        let linkTo = jsonChild.linkTo || '';
-                        const stagingLink = linkTo.replace('web.library.uq.edu.au', stagingDomain);
-                        linkTo = window.location.hostname === stagingDomain ? stagingLink : linkTo;
-
                         const itemLink = document.createElement('a');
-                        itemLink.setAttribute('href', linkTo);
+                        itemLink.setAttribute('href', this.getLink(jsonChild.linkTo));
                         itemLink.appendChild(primaryTextItem);
                         itemLink.appendChild(secondaryTextItem);
                         itemLink.setAttribute('aria-expanded', 'false');
@@ -234,12 +231,21 @@ class UQSiteHeader extends HTMLElement {
         megaMenu.appendChild(listWrapper);
     }
 
+    // either use the production link from the json,
+    // or if we are on the drupal staging site, rewrite the url to be local to the staging site
+    getLink(linkTo) {
+        const stagingDomain = 'library.stage.drupal.uq.edu.au';
+        const prodDomain = 'web.library.uq.edu.au';
+        const stagingLink = linkTo.replace(prodDomain, stagingDomain);
+        return window.location.hostname === stagingDomain ? stagingLink : linkTo;
+    }
+
     unhideMobileMenuButton() {
         const button = !!this.shadowRoot && this.shadowRoot.getElementById('uq-site-header__navigation-toggle');
         !!button && (button.style.display = null);
     }
 
-    createLink(href, linktext, datatestid = '') {
+    createLinkElement(href, linktext, datatestid = '') {
         const textOfLink = document.createTextNode(linktext);
 
         const alink = document.createElement('a');

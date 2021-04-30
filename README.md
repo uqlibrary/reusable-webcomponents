@@ -13,6 +13,7 @@ The 'applications/' folder allows us to version control changes to the scripts w
   - the Library public CMS
   - code at /src/applications/drupal
   - live at eg https://web.library.uq.edu.au/contact-us
+  - drupal staging at eg https://library.stage.drupal.uq.edu.au/library-services/services-students is tied to the feature-drupal branch in this repo
 - Libcal
   - used for various booking pages
   - code at /src/applications/libcal
