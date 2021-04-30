@@ -52,3 +52,46 @@ body {
 h1 {
     margin-block-start: 0;
 }
+
+button.blue-submit {
+    align-items: center;
+    background-color: #0e62eb;
+    border: 1px solid #0e62eb;
+    border-radius: 3px;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    font-family: Roboto, Noto, sans-serif;
+    font-size: 16px;
+    font-variant-caps: normal;
+    justify-content: center;
+    margin: 0 0.29em;
+    min-width: 5.14em;
+    outline-width: 0;
+    padding: 0.7em 0.57em;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    transition-delay: 0s;
+    transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+    z-index: 0;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+}
+button.blue-submit:hover {
+    color: #0e62eb !important;
+    background-color: #fff;
+    text-decoration: none;
+}
+
+.keyboard-user-only {
+    position:absolute;
+    left:-10000px;
+    top:auto;
+    width:1px;
+    height:1px;
+    overflow:hidden;
+}
+
