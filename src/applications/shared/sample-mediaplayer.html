@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+
+    <title>Streaming - UQL_LAWS5216_Video2</title>
+
+    <!-- make php comment: /* from https://github.com/uqlibrary/reusable-webcomponents/tree/master/src/applications/shared */ -->
+    <link type="image/x-icon" rel="shortcut icon" href="https://www.library.uq.edu.au/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v6/fonts/Roboto/roboto.css"/>
+    <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css"/>
+    <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css">
+
+    <!-- styles for all these pages -->
+    <link rel="stylesheet" type="text/css"
+          href="https://assets.library.uq.edu.au/reusable-webcomponents-development/feature-shared/applications/shared/custom-styles.css">
+    <!-- styles for just this page -->
+    <style type="text/css">
+        /* local styles here */
+    </style>
+
+    <script async
+            src="https://assets.library.uq.edu.au/reusable-webcomponents-development/feature-shared/uq-lib-reusable.min.js"
+            defer></script>
+    <script async
+            src="https://assets.library.uq.edu.au/reusable-webcomponents-development/feature-shared/applications/shared/load.js"></script>
+
+    <script src="https://content.jwplatform.com/libraries/DBS2Vjgp.js"></script>
+    <script>jwplayer.key = ""</script>
+</head>
+<body>
+
+<div id="content" style="z-index: 1000000; ">
+    <!-- note I've taken out the <center> tags. Very old school (not standard for html5).
+    I've put styles on both #content and .panel so they will center -->
+
+    <!-- putting 'class="panel"' on a div will draw the frame around it like paper-card did -->
+    <div class="panel">
+        <!-- this heading should be h1 for accessibility reasons. Style it if its too big rather than changing the heading level -->
+        <h1>The accused</h1>
+
+        <div>
+            <!--
+            Start Media Player Code
+            -->
+            <div id="mediaplayer">Loading the player ...</div>
+
+            <script type="text/javascript">
+                jwplayer("mediaplayer").setup({
+                    playlist: [{
+                        file: 'https://streaming.library.uq.edu.au/media/copyright/copyright_offair.mp4',
+                        image: 'https://streaming.library.uq.edu.au/media/thumbnails/UQL_LAWS5216_Video2.jpg',
+                        title: 'The accused',
+                        description: 'Streaming Media Copyright Info'
+                    }, {
+                        file: 'https://streaming.library.uq.edu.au:1936/media/_definst_/mp4:UQL_LAWS5216_Video2/UQL_LAWS5216_Video2_1.mp4/playlist.m3u8',
+                        image: 'https://streaming.library.uq.edu.au/media/thumbnails/UQL_LAWS5216_Video2_1.jpg',
+                        title: 'The accused',
+                        description: 'Shows the full criminal trial of an Indonesian businessman accused of importing 7.5 million dollars worth of drugs into Australia. Gives behind-the-scenes perspectives on both the defence and the prosecution&#039;s strategies.'
+                    }],
+                    autostart: "false",
+                    width: "720"
+                });
+            </script>
+            <!--
+            end Media Player Code
+            -->
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
