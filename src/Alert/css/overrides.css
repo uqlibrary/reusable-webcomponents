@@ -1,10 +1,12 @@
 .alert {
     font-size: 16px;
 }
-* {  font-size: 16px; }
+* {
+    font-size: 16px;
+}
 
 #alert {
-    border-bottom: 1px solid rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     font-family: 'Roboto', sans-serif !important;
     font-stretch: unset !important;
     font-weight: 300 !important;
@@ -25,7 +27,8 @@
     margin-right: 12px;
 }
 
-#alert #alert-message, .alert__message {
+#alert #alert-message,
+.alert__message {
     padding: 24px 24px 24px 12px !important;
     width: 100%;
     flex: 1;
@@ -35,7 +38,9 @@
     font-stretch: unset;
 }
 
-#alert #alert-title, .info b, .alert .alert-title {
+#alert #alert-title,
+.info b,
+.alert .alert-title {
     font-weight: 600 !important;
 }
 
@@ -74,7 +79,7 @@
     white-space: nowrap;
     width: calc(100% - 48px);
     text-align: center;
-    flex: 1
+    flex: 1;
 }
 
 #alert #alert-container.clickable:hover {
@@ -99,59 +104,61 @@
 
 /*ERROR*/
 .info {
-    background-color: #2377CB;
-    color: #FFF;
+    background-color: #2377cb;
+    color: #fff;
 }
 .info svg {
-    fill: rgba(0,0,0,0.4);
+    fill: rgba(0, 0, 0, 0.4);
 }
 
 .info #alert-close {
-    color: rgba(255,255,255,0.75);
+    color: rgba(255, 255, 255, 0.75);
 }
 
 .info #alert-close svg {
-    fill: rgba(255,255,255,0.75);
+    fill: rgba(255, 255, 255, 0.75);
     width: 24px;
     height: 24px;
 }
 
 .info #alert-close:hover {
-    color: rgba(255,255,255,1);
+    color: rgba(255, 255, 255, 1);
     cursor: pointer;
 }
-.info #alert-action-mobile, .info #alert-action-desktop {
-    background-color: rgba(0,0,0,0.3);
+.info #alert-action-mobile,
+.info #alert-action-desktop {
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 .info #alert-action-desktop:hover {
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 /*WARNING*/
 .warning {
     background-color: #bf5000;
-    color: #FFF;
+    color: #fff;
 }
 .warning #alert-close svg {
-    fill: rgba(255,255,255,0.75);
+    fill: rgba(255, 255, 255, 0.75);
     width: 24px;
     height: 24px;
 }
 
 .warning #alert-close {
-    color: rgba(255,255,255,0.75);
+    color: rgba(255, 255, 255, 0.75);
 }
 
 .warning #alert-close:hover {
-    color: rgba(255,255,255,1);
+    color: rgba(255, 255, 255, 1);
     cursor: pointer;
 }
 
-.warning #alert-action-mobile, .warning #alert-action-desktop {
-    background-color: rgba(0,0,0,0.5);
+.warning #alert-action-mobile,
+.warning #alert-action-desktop {
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .warning #alert-action-desktop:hover {
-    background-color: rgba(0,0,0,0.6);
+    background-color: rgba(0, 0, 0, 0.6);
 }

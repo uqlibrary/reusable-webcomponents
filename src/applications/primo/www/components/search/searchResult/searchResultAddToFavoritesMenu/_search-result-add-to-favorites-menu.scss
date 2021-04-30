@@ -1,44 +1,43 @@
 /* starting searchResultAddToFavoritesMenu */
 prm-search-result-add-to-favorites-menu {
-	.labels-menu-button {
-    opacity: .5;
-    margin: 0;
-    margin-top: .35em;
+    .labels-menu-button {
+        opacity: 0.5;
+        margin: 0;
+        margin-top: 0.35em;
 
-    &:hover {
-      opacity: 1;
-    }
-
-	md-icon {
-	  @include setSize(18px);
-	}
-
-    &.md-button {
-  		
-  		&.md-icon-button {
-        @include setSize(36px);
-  		}      
-
-      &.button-with-icon {
-        font-size: .8rem;
-        font-weight: $bold;
-        letter-spacing: 0.03em;
-        border-radius: 1.2em;
-        line-height: 28px;
-        min-height: 28px;
+        &:hover {
+            opacity: 1;
+        }
 
         md-icon {
-          height: 20px;
-          width: 20px;
+            @include setSize(18px);
         }
 
-        .md-ripple-container {
-          border-radius: 1.2em;
+        &.md-button {
+            &.md-icon-button {
+                @include setSize(36px);
+            }
+
+            &.button-with-icon {
+                font-size: 0.8rem;
+                font-weight: $bold;
+                letter-spacing: 0.03em;
+                border-radius: 1.2em;
+                line-height: 28px;
+                min-height: 28px;
+
+                md-icon {
+                    height: 20px;
+                    width: 20px;
+                }
+
+                .md-ripple-container {
+                    border-radius: 1.2em;
+                }
+            }
         }
-      }      
     }
-  	}
-  .disabledFavTool {
-    color: $disabled;
-  }
+    .disabledFavTool {
+        color: $disabled;
+    }
 }

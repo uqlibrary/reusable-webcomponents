@@ -1,12 +1,10 @@
 import styles from './css/overrides.css';
-import icons from './css/icons.css';
 import { default as menuLocale } from '../locale/menu';
 import { default as footerlocale } from './connectfooter.locale';
 
 const template = document.createElement('template');
 template.innerHTML = `
     <style>${styles.toString()}</style>
-    <style>${icons.toString()}</style>
     <div data-testid="connect-footer" id="connect-footer" class="connect-footer connectfooter-wrapper griditem griditem12" data-gtm-category="Footer">
         <div class="uq-footer__container connectfooter-wrapper2 griditem griditem12">
             <div class="connectfooter-wrapper3">
@@ -53,7 +51,6 @@ class ConnectFooter extends HTMLElement {
         shadowDOM.appendChild(template.content.cloneNode(true));
 
         // Bindings
-        this.loadJS = this.loadJS.bind(this);
         this.updateFooterMenuFromJson = this.updateFooterMenuFromJson.bind(this);
         this.createLink = this.createLink.bind(this);
     }
@@ -99,14 +96,14 @@ class ConnectFooter extends HTMLElement {
 
         const socialbuttonContainer = template.content.querySelector('.contacts .buttons');
         footerlocale.connectFooter.buttonSocial.map((button, index) => {
-            const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-            !!path && path.setAttribute("d", button.iconPath);
+            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            !!path && path.setAttribute('d', button.iconPath);
 
-            const svg = document.createElementNS("http://www.w3.org/2000/svg", 'svg');
-            !!svg && svg.setAttribute("class", "svgIcon");
-            !!svg && svg.setAttribute("focusable", "false");
-            !!svg && svg.setAttribute("viewBox", "0 0 24 24");
-            !!svg && svg.setAttribute("ariaHidden", "true");
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            !!svg && svg.setAttribute('class', 'svgIcon');
+            !!svg && svg.setAttribute('focusable', 'false');
+            !!svg && svg.setAttribute('viewBox', '0 0 24 24');
+            !!svg && svg.setAttribute('ariaHidden', 'true');
             !!svg && !!path && svg.appendChild(path);
 
             const span = document.createElement('span');
@@ -114,14 +111,14 @@ class ConnectFooter extends HTMLElement {
             !!span && !!svg && span.appendChild(svg);
 
             const ripplespan = document.createElement('span');
-            !!ripplespan && (ripplespan.className='touchRipple');
+            !!ripplespan && (ripplespan.className = 'touchRipple');
 
-            const link = document.createElement('a')
+            const link = document.createElement('a');
             !!link && (link.href = button.linkTo);
-            !!link && (link.target = "_blank");
-            !!link && (link.className = "buttonBase button socialButtonClass buttonContained buttonContainedPrimary");
-            !!link && (link.tabIndex = "0");
-            !!link && (link.type = "button");
+            !!link && (link.target = '_blank');
+            !!link && (link.className = 'buttonBase button socialButtonClass buttonContained buttonContainedPrimary');
+            !!link && (link.tabIndex = '0');
+            !!link && (link.type = 'button');
             !!link && (link.ariaLabel = button.linkMouseOver);
             !!link && link.setAttribute('data-testid', button.dataTestid);
             !!link && (link.id = `socialbutton-${index}`);
@@ -141,7 +138,7 @@ class ConnectFooter extends HTMLElement {
         footerlocale.connectFooter.internalLinks.map((button, index) => {
             const linkLabel = document.createTextNode(button.linklabel);
 
-            const link = document.createElement('a')
+            const link = document.createElement('a');
             !!link && (link.href = button.linkTo);
             !!link && link.setAttribute('data-testid', button.dataTestid);
             !!link && !!linkLabel && link.appendChild(linkLabel);
@@ -149,7 +146,9 @@ class ConnectFooter extends HTMLElement {
             const linkLabelSpan = document.createTextNode(' |  ');
             const span = document.createElement('span');
             index < footerlocale.connectFooter.internalLinks.length - 1 &&
-                !!span && !!linkLabelSpan && span.appendChild(linkLabelSpan);
+                !!span &&
+                !!linkLabelSpan &&
+                span.appendChild(linkLabelSpan);
 
             const container = document.createElement('span');
             !!container && !!link && container.appendChild(link);
@@ -162,16 +161,16 @@ class ConnectFooter extends HTMLElement {
         footerlocale.connectFooter.givingLinks.map((button, index) => {
             const linkLabel = document.createTextNode(button.label);
 
-            const link = document.createElement('a')
+            const link = document.createElement('a');
             !!link && (link.href = button.linkTo);
-            !!link && (link.className = "buttonBase button buttonContained givingButtonClass buttonFullWidth");
-            !!link && (link.tabIndex = "0");
-            !!link && (link.type = "button");
+            !!link && (link.className = 'buttonBase button buttonContained givingButtonClass buttonFullWidth');
+            !!link && (link.tabIndex = '0');
+            !!link && (link.type = 'button');
             !!link && link.setAttribute('data-testid', button.dataTestid);
             !!link && !!linkLabel && link.appendChild(linkLabel);
 
             const ripplespan = document.createElement('span');
-            !!ripplespan && (ripplespan.className='touchRipple');
+            !!ripplespan && (ripplespan.className = 'touchRipple');
 
             const container = document.createElement('div');
             !!container && (container.className = 'givingBlock griditem griditem12');
@@ -189,30 +188,6 @@ class ConnectFooter extends HTMLElement {
         const textOfLink = document.createTextNode(linktext);
         homelink.appendChild(textOfLink);
         return homelink;
-    }
-
-    loadJS() {
-        // This loads the external JS file into the HTML head dynamically
-        //Only load js if it has not been loaded before (tracked by the initCalled flag)
-        if (!initCalled) {
-            //Dynamically import the JS file and append it to the document header
-            const script = document.createElement('script');
-            script.type = 'text/javascript';
-            script.defer = true;
-            script.onload = function () {
-                //Code to execute after the library has been downloaded parsed and processed by the browser starts here :)
-                initCalled = true;
-            };
-            //Specify the location of the ITS DS JS file
-            script.src = 'connect-footer.js';
-
-            //Append it to the document header
-            document.head.appendChild(script);
-        }
-    }
-
-    connectedCallback() {
-        this.loadJS();
     }
 }
 

@@ -1,8 +1,8 @@
 // Left sidebar
 .sidebar {
     display: none;
-    height: 100%; 
-    transition: max-width .5s .2s $easeOutQuint, padding .3s .2s ease;
+    height: 100%;
+    transition: max-width 0.5s 0.2s $easeOutQuint, padding 0.3s 0.2s ease;
     z-index: 2;
     a {
         color: $midGrey;
@@ -11,13 +11,12 @@
         @media screen and (max-width: 1080px) {
             max-width: 0 !important;
             padding: 20px 0;
-            transition: max-width .5s $easeOutCirc, padding .3s ease;
+            transition: max-width 0.5s $easeOutCirc, padding 0.3s ease;
         }
     }
 
     .container-fluid.is-stuck + .container-fluid {
         .sidebar {
-              
         }
     }
 
@@ -34,9 +33,9 @@
         overflow-x: visible;
         overflow-y: visible;
         /* Scrollable contents if viewport is shorter than content. */
-        
+
         // margin-top: 108px;
-        transition: margin .5s $easeOutCirc;
+        transition: margin 0.5s $easeOutCirc;
         // &.stuck {
         //   position: absolute !important;
         //   &.is-stuck {
@@ -47,15 +46,15 @@
         .stuck {
             height: 100%;
             // top: 25px;
-            transition: top .7s $easeOutExpo;
+            transition: top 0.7s $easeOutExpo;
             &.is-stuck {
                 // margin-top: -20px;
             }
         }
 
         .facets-on-left & {
-             padding: $paddingExtra $paddingLarge $paddingLarge $paddingExtra;
-             margin-left: 0 !important;
+            padding: $paddingExtra $paddingLarge $paddingLarge $paddingExtra;
+            margin-left: 0 !important;
         }
     }
 
@@ -73,8 +72,6 @@
             margin-left: 16.6% !important;
         }
     }
-
-    
 }
 
 .independent-scroller {
@@ -86,13 +83,12 @@
 .nav-sidebar {
     margin-right: -21px;
     /* 20px padding + 1px border */
-    
+
     margin-left: -20px;
     .icon {
         height: 18px;
         width: 18px;
         display: inline-block;
-        ;
         background-size: contain;
         background-repeat: no-repeat;
         position: relative;
@@ -115,7 +111,8 @@
             letter-spacing: 0.05em;
             padding: 15px 20px;
             white-space: nowrap;
-            &:hover, &:focus {
+            &:hover,
+            &:focus {
                 background-color: lighten($blueGrey, 3%);
             }
             @media (min-width: 922px) {
@@ -125,7 +122,9 @@
         }
     }
     .active {
-        a, a:hover, a:focus {
+        a,
+        a:hover,
+        a:focus {
             color: darken($midGrey, 20%);
             background-color: lighten($blueGrey, 10%);
         }
@@ -144,7 +143,7 @@
 }
 .sidebar-section {
     margin-top: $paddingLarge;
-    transition: margin .4s ease;
+    transition: margin 0.4s ease;
     .section-title {
         font-size: 1.15em;
         font-weight: $bold;
@@ -152,18 +151,18 @@
         margin-top: 0;
         .icon {
             margin-right: $paddingTiny;
-            font-size: .8em;
-            opacity: .5;
+            font-size: 0.8em;
+            opacity: 0.5;
         }
     }
-    .section-content {        
+    .section-content {
         overflow: hidden;
         margin-bottom: 0;
         padding: $paddingTiny 0;
         position: relative;
-        transition: max-height .5s $easeOutQuint;
+        transition: max-height 0.5s $easeOutQuint;
     }
-    .expand-section-label  {
+    .expand-section-label {
         text-transform: uppercase;
     }
     &.section-semi-extended {
@@ -176,7 +175,7 @@
         }
         .expand-section-label {
             &:before {
-                content: "more";
+                content: 'more';
             }
         }
     }
@@ -190,15 +189,14 @@
         }
         .expand-section-label {
             &:before {
-                content: "less";
+                content: 'less';
             }
         }
         .expand-section-toggle {
             .arrow-icon {
                 transform: rotate(180deg);
-            }   
+            }
         }
-        
     }
     &.section-collapsed {
         .section-title {
@@ -206,17 +204,17 @@
         }
         .section-content {
             padding: 0;
-            max-height: 0 !important;    
+            max-height: 0 !important;
         }
         .expand-section-label {
             &:before {
-                content: "expand";
-            }           
+                content: 'expand';
+            }
         }
         .expand-section-toggle {
             .arrow-icon {
                 transform: rotate(0deg);
-            } 
+            }
             // &:before {
             //     display: none;
             // }
@@ -224,7 +222,6 @@
             //     width: 2em;
             // }
         }
-        
     }
     &.section-maxed {
         .expand-section-toggle {
@@ -234,9 +231,9 @@
     .expand-section-toggle {
         border: 1px solid darken($almostWhite, 7%);
         border-radius: $radius;
-        font-size: .8em;
+        font-size: 0.8em;
         font-weight: $normal;
-        color: lighten($almostBlack,15%);
+        color: lighten($almostBlack, 15%);
         padding: 1px $paddingTiny 1px $paddingSmall;
         margin-top: 2px;
         // padding-top: $paddingTiny;
@@ -264,7 +261,7 @@
         .arrow-icon {
             position: relative;
             margin-left: $paddingTiny;
-            transition: transform .5s ease;
+            transition: transform 0.5s ease;
         }
         &:hover {
             color: $dark;
@@ -285,24 +282,26 @@
             position: relative;
             border-radius: $radius;
             margin-bottom: 2px;
-            transition: padding .4s $easeOutQuint, background-color .4s ease;
-            &:hover, &:active, &:focus {
+            transition: padding 0.4s $easeOutQuint, background-color 0.4s ease;
+            &:hover,
+            &:active,
+            &:focus {
                 text-decoration: none;
             }
             &:before {
-                content: "\f00c";
+                content: '\f00c';
                 font-family: fontawesome;
                 position: absolute;
                 left: 4px;
                 opacity: 0;
                 font-size: 0.8em;
-                top: .2em;
+                top: 0.2em;
                 padding: 0 2px;
                 transform: scale3d(0, 0, 1);
-                transition: opacity .2s 0 ease, transform .3s $easeOutQuint;
+                transition: opacity 0.2s 0 ease, transform 0.3s $easeOutQuint;
             }
             &:after {
-                content: "";
+                content: '';
                 width: 0;
                 height: 1px;
                 background-color: $white;
@@ -317,7 +316,7 @@
                 color: lighten($almostBlack, 20%);
                 // padding-right: $paddingTiny;
                 &:before {
-                    content: "~";
+                    content: '~';
                     margin-left: $paddingTiny;
                     margin-right: $paddingTiny;
                 }
@@ -337,12 +336,11 @@
                 &:before {
                     opacity: 1;
                     transform: scale3d(1, 1, 1);
-                    transition: opacity .4s ease, transform .3s .1s $easeOutBack;
+                    transition: opacity 0.4s ease, transform 0.3s 0.1s $easeOutBack;
                 }
                 .count {
                     color: lighten($almostBlack, 30%);
                 }
-                
             }
             // &:before {
             //     content: "\f05e";
@@ -357,18 +355,18 @@
                 color: $white;
                 padding: 0 $paddingTiny 0 $paddingExtra;
                 &:before {
-                    content: "\f05e";
+                    content: '\f05e';
                     opacity: 1;
                     transform: scale3d(1, 1, 1);
-                    transition: opacity .4s ease, transform .3s .1s $easeOutBack;
+                    transition: opacity 0.4s ease, transform 0.3s 0.1s $easeOutBack;
                 }
                 &:after {
                     // clip: rect(0,150px,1px,20px);
                     width: calc(100% - 23px);
-                    transition: width .4s .1s $easeOutCubic;
+                    transition: width 0.4s 0.1s $easeOutCubic;
                 }
                 .count {
-                    color: transparentize($white, .2);
+                    color: transparentize($white, 0.2);
                 }
             }
         }
@@ -383,9 +381,9 @@
             position: absolute;
             border-radius: 50%;
             // top: -2px;
-            font-size: .9em;
+            font-size: 0.9em;
             transform: translate3d(0, 0, 0);
-            transition: transform .5s $easeOutQuint, opacity .3s ease;
+            transition: transform 0.5s $easeOutQuint, opacity 0.3s ease;
             .icon {
                 margin: 0;
                 padding: 4px;
@@ -400,30 +398,30 @@
                 z-index: 1;
                 opacity: 1;
                 transform: translate3d(10px, 0, 0);
-                transition: transform .5s $easeOutQuint, opacity .3s ease;
+                transition: transform 0.5s $easeOutQuint, opacity 0.3s ease;
             }
         }
     }
 }
 
 .facet-item {
-    transform: scale3d(1,1,1);
+    transform: scale3d(1, 1, 1);
     opacity: 1;
     max-height: 2em;
     transform-origin: 0 50%;
-    transition: transform .4s $easeOutQuint, opacity .25s ease, max-height .4s $easeOutQuint;
+    transition: transform 0.4s $easeOutQuint, opacity 0.25s ease, max-height 0.4s $easeOutQuint;
     &.facet-selected {
-        transform: scale3d(0,0,0);
+        transform: scale3d(0, 0, 0);
         overflow: hidden;
         opacity: 0;
         max-height: 0;
-        transition: transform .4s $easeOutQuint, opacity .25s ease, max-height .4s $easeOutQuint;
+        transition: transform 0.4s $easeOutQuint, opacity 0.25s ease, max-height 0.4s $easeOutQuint;
     }
 }
 
 .filtered-facets-wrapper {
     overflow: hidden;
-    transition: max-height .3s ease;
+    transition: max-height 0.3s ease;
 
     &.section-empty {
         max-height: 0;
@@ -442,45 +440,44 @@
     .facet-item {
         max-height: 0;
         opacity: 0;
-        transform: scale3d(0,0,0);
-        transition: max-height .3s $easeOutQuint, opacity .2s ease, transform .4s $easeOutQuint, overflow 0s 0s;
+        transform: scale3d(0, 0, 0);
+        transition: max-height 0.3s $easeOutQuint, opacity 0.2s ease, transform 0.4s $easeOutQuint, overflow 0s 0s;
         overflow: hidden;
-        .facet-title{
+        .facet-title {
             &:hover {
                 &:before {
-                    content: "\2573" !important;
-                    font-size: .6em;
+                    content: '\2573' !important;
+                    font-size: 0.6em;
                     line-height: 1.8em;
                     font-weight: bold;
-                    color:black;
+                    color: black;
                 }
             }
         }
         &.selected {
             max-height: 2em;
             opacity: 1;
-            transform: scale3d(1,1,1);
+            transform: scale3d(1, 1, 1);
             overflow: visible;
-            transition: max-height .3s $easeOutQuint, opacity .2s ease, transform .4s $easeOutQuint, overflow 0s .4s;
+            transition: max-height 0.3s $easeOutQuint, opacity 0.2s ease, transform 0.4s $easeOutQuint, overflow 0s 0.4s;
         }
         &.selected-excluded {
             .facet-title {
                 &:hover {
                     &:before {
-                        color:white;
+                        color: white;
                     }
                 }
             }
             .exclude-this {
                 .icon {
                     &:before {
-                        content: "\f00c";        
+                        content: '\f00c';
                     }
-                }                
+                }
             }
         }
         .exclude-this {
-
         }
     }
 }

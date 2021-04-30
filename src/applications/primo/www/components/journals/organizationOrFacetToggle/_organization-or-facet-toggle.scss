@@ -14,27 +14,29 @@ prm-organization-or-facet-toggle {
             &.toggled {
                 &.button-as-link {
                     &:hover:not([disabled]) {
-                        @include bgColor($primary)
+                        @include bgColor($primary);
                     }
                     &:focus:not([disabled]) {
-                        @include bgColor($primary)
+                        @include bgColor($primary);
                     }
                 }
             }
 
-
             md-switch {
                 height: 23px;
-                .md-label, ._md-label {
+                .md-label,
+                ._md-label {
                     @extend .prm-organization;
                 }
-                .md-bar,._md-bar {
+                .md-bar,
+                ._md-bar {
                     @extend .prm-organization-bg;
-                    opacity: .4;
+                    opacity: 0.4;
                 }
-                .md-thumb, ._md-thumb {
+                .md-thumb,
+                ._md-thumb {
                     @extend .prm-organization-bg;
-                }       
+                }
             }
         }
     }

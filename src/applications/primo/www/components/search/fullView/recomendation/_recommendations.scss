@@ -1,14 +1,13 @@
- prm-recomendations {
+prm-recomendations {
+    width: 100%;
 
- 	width: 100%;
-
- 	md-divider {
-	    border: none;
-	    margin-top: .5em;
-	    margin-bottom: .5em;
-	    opacity: .5;
-	    border-bottom: 1px solid darken($bg, 15%);
-	}
+    md-divider {
+        border: none;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+        opacity: 0.5;
+        border-bottom: 1px solid darken($bg, 15%);
+    }
 }
 
 .recommendations-list {
@@ -67,13 +66,13 @@
 }
 
 prm-recomendation-item {
-	padding: .5em 1em .5em 1em;
+    padding: 0.5em 1em 0.5em 1em;
     transform-origin: 0 50%;
-    margin-right: .5em;
+    margin-right: 0.5em;
     position: relative;
     cursor: pointer;
     margin-left: 1em;
-    margin-bottom: .75em;
+    margin-bottom: 0.75em;
     width: 100%;
 
     @include __xs {
@@ -87,10 +86,10 @@ prm-recomendation-item {
         }
     }
 
-    .media-figure {        
+    .media-figure {
         max-width: 3em;
 
-        @include rtl-prop(margin-right, margin-left, 1em, 0)
+        @include rtl-prop(margin-right, margin-left, 1em, 0);
     }
     img {
         width: 100%;
@@ -107,19 +106,18 @@ prm-recomendation-item {
         // background: linear-gradient(to right,  rgba(241,241,241,0) 0%,rgba(241,241,241,1) 48%,rgba(241,241,241,1) 100%);
         // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00f1f1f1', endColorstr='#f1f1f1',GradientType=1 );
 
-
         &.ng-enter {
             transform: translateX(10px);
             opacity: 0;
             transition: $swift-ease-out;
-            transition-duration: .3s;
+            transition-duration: 0.3s;
             // transition-delay: .2s;
             &.ng-enter-active {
                 transform: translateX(2px);
                 opacity: 1;
             }
         }
-         &.ng-leave {
+        &.ng-leave {
             transform: translateX(2px);
             opacity: 1;
             transition: $swift-ease-out;
@@ -147,31 +145,28 @@ prm-recomendation-item {
             }
 
             prm-full-view-cont & {
-                @extend .prm-background
+                @extend .prm-background;
             }
 
             md-icon {
                 transform: rotate(25deg);
                 @include setSize(20px);
-
             }
         }
 
         .pin-icon {
-
             color: $moreLink;
-
         }
     }
 }
- .recommendations-title {
-	font-size: 1em;
-	margin-bottom: 0;
+.recommendations-title {
+    font-size: 1em;
+    margin-bottom: 0;
     color: #44707b;
     font-weight: 600;
     line-height: 1.2em !important;
     padding-bottom: 0 !important;
-    display: block;    
+    display: block;
     position: relative;
 
     @include rtl-prop(padding-right, padding-left, 16px, 0);
@@ -188,7 +183,7 @@ prm-recomendation-item {
     }
     &:hover,
     &.hover {
-        > span > span {        
+        > span > span {
             @extend a:hover;
         }
     }
@@ -215,5 +210,4 @@ prm-recomendation-item {
         width: 16px;
         height: 16px;
     }
-
 }

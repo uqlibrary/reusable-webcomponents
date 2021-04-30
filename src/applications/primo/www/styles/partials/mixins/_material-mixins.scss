@@ -4,7 +4,7 @@
 // RTL <> LTR
 // Use this to include and RTL reference, and pass the values for LTR and RTL respectively
 // usage ex: @include rtl(right, auto, rtl-value(1em 2em 1em 4em));
-// expected result: 
+// expected result:
 //    .class {
 //      right: auto;
 //    }
@@ -12,14 +12,14 @@
 //      right: 1em 4em 1em 2em;
 //    }
 @mixin rtl($prop, $ltr-value, $rtl-value) {
-  #{$prop}: $ltr-value;
-  [dir=rtl] & {
-    #{$prop}: $rtl-value;
-  }
+    #{$prop}: $ltr-value;
+    [dir='rtl'] & {
+        #{$prop}: $rtl-value;
+    }
 }
 // Use this to sustitute a property in LTR with another in RTL
 // usage: @include rtl-prop(right, left, 1em)
-// expected result: 
+// expected result:
 //    .class {
 //      right: 1em;
 //    }
@@ -30,20 +30,20 @@
 //      left: 1em;
 //    }
 @mixin rtl-prop($ltr-prop, $rtl-prop, $value, $reset-value) {
-  #{$ltr-prop}: $value;
-  [dir=rtl] & {
-    #{$ltr-prop}: $reset-value;
-    #{$rtl-prop}: $value;
-  }
+    #{$ltr-prop}: $value;
+    [dir='rtl'] & {
+        #{$ltr-prop}: $reset-value;
+        #{$rtl-prop}: $value;
+    }
 }
 
 // A function to reverse padding (top left bottom right) -> (top right bottom left)
 @function rtl-value($list) {
-  @if length($list) == 4 {
-    @return nth($list, 1) nth($list, 4) nth($list, 3) nth($list, 2)
-  }
-  @if length($list) == 5 {
-    @return nth($list, 1) nth($list, 4) nth($list, 3) nth($list, 2) nth($list, 5)
-  }
-  @return $list;
+    @if length($list) == 4 {
+        @return nth($list, 1) nth($list, 4) nth($list, 3) nth($list, 2);
+    }
+    @if length($list) == 5 {
+        @return nth($list, 1) nth($list, 4) nth($list, 3) nth($list, 2) nth($list, 5);
+    }
+    @return $list;
 }

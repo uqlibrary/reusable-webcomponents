@@ -1,18 +1,21 @@
-@import "line-clamp";
+@import 'line-clamp';
 
 body {
-	font-size: $defaultFontSize;
-  .combined-half-mark {
-    font-family: arial;
-    font-size: .95em;
-  }
+    font-size: $defaultFontSize;
+    .combined-half-mark {
+        font-family: arial;
+        font-size: 0.95em;
+    }
 }
-h1, h2, h3, h4 {
-	margin-top: 0;
-	margin-bottom: .5em;
+h1,
+h2,
+h3,
+h4 {
+    margin-top: 0;
+    margin-bottom: 0.5em;
 }
 h1 {
-	font-weight: $normal;
+    font-weight: $normal;
 }
 h2 {
     font-weight: 300;
@@ -25,7 +28,7 @@ b {
     @extend .bold-text;
 }
 p {
-  margin: 0 0 .5em;
+    margin: 0 0 0.5em;
 }
 em.keyword {
     font-style: normal;
@@ -38,74 +41,74 @@ em.keyword {
     color: $success;
 }
 .text-link {
-	cursor: pointer;
-	@extend .prm-links-important;
+    cursor: pointer;
+    @extend .prm-links-important;
 }
 .uppercase-bold {
-	text-transform: uppercase;
-    			font-size: .75em;
-    			font-weight: $bold;
-    			letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 0.75em;
+    font-weight: $bold;
+    letter-spacing: 0.05em;
 }
 .text-uppercase {
-	text-transform: uppercase;
+    text-transform: uppercase;
 }
 .text-no-case {
     text-transform: none;
 }
 .bold-text,
 strong {
-	font-weight: $bold !important;
+    font-weight: $bold !important;
 }
 .normal-text {
-	font-weight: $normal;
+    font-weight: $normal;
 }
 .light-text {
-	font-weight: $light;
+    font-weight: $light;
 }
 .small-text {
-	font-size: 12px;
-	line-height: 14px;
+    font-size: 12px;
+    line-height: 14px;
 }
 .italic-text {
     font-style: italic;
 }
 .weak-text {
-	@extend .prm-text.prm-hue4
+    @extend .prm-text.prm-hue4;
 }
 .darker-text {
-    @extend .prm-text.prm-hue3
+    @extend .prm-text.prm-hue3;
 }
 .tiny-uppercase-text {
-	letter-spacing: 0.07em;
-	text-transform: uppercase;
-	font-weight: $bold;
-	font-size: .75em;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    font-weight: $bold;
+    font-size: 0.75em;
 }
 .medium-uppercase-bold {
     text-transform: uppercase;
-    font-size: .85em;
+    font-size: 0.85em;
 }
 .text-align {
     &-center {
-	   text-align:center;
+        text-align: center;
     }
     &-left {
-        text-align:left;
+        text-align: left;
     }
     &-right {
-        text-align:right;
+        text-align: right;
     }
 }
 
 .text-in-brackets {
     &:before {
-    	font-style: normal;
-        content: "(";
+        font-style: normal;
+        content: '(';
     }
     &:after {
-    	font-style: normal;
-        content: ")";
+        font-style: normal;
+        content: ')';
     }
 }
 .text-italic {
@@ -113,69 +116,59 @@ strong {
 }
 
 .word-break-all {
-	word-break: break-all;
+    word-break: break-all;
 }
 .word-break {
     word-wrap: break-word;
     span {
-       word-wrap: break-word;
+        word-wrap: break-word;
     }
 }
 .first-letter-uppercase {
-	display: inline-block;
-	&:first-letter {
-		text-transform: uppercase;
-	}
+    display: inline-block;
+    &:first-letter {
+        text-transform: uppercase;
+    }
 }
 .spaced-text {
-	letter-spacing: 0.03em;
+    letter-spacing: 0.03em;
 }
 .text-highlight {
-    box-shadow: inset 0 -.3em 0 0 $highlightText;
+    box-shadow: inset 0 -0.3em 0 0 $highlightText;
 }
 .text-rtl {
-
 }
 
 .direction-rtl {
-
 }
 
 .direction-rtl-on-ltr {
-
 }
 
 .direction-ltr {
-
 }
 
 .string-to-rtl {
-
 }
 
 .string-to-rtl-details {
-
-
-
-  [dir="ltr"] & {
-
-  }
-
-  .arrow-link {
-    [link-arrow] {
-      // position: absolute;
-      position: absolute;
-      //left: -20px;
+    [dir='ltr'] & {
     }
-  }
+
+    .arrow-link {
+        [link-arrow] {
+            // position: absolute;
+            position: absolute;
+            //left: -20px;
+        }
+    }
 }
 
 // needed for PRM-28784. Taken from https://css-tricks.com/snippets/css/prevent-long-urls-from-breaking-out-of-container/
-// Asaf's response: Check the CSS before adding utiity classes to it. 
+// Asaf's response: Check the CSS before adding utiity classes to it.
 //       this class is redundant as it is alrteady covered by the class '.word-break' above.
 //       Also, the entire CSS is autoprefixed. Don't use browser prefixes.
 .dont-break-out {
-
     @extend .word-break;
 
     // /* These are technically the same, but use both */

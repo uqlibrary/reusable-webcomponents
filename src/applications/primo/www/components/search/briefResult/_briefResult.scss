@@ -1,4 +1,4 @@
-$verticalMargin: .25em;
+$verticalMargin: 0.25em;
 
 prm-brief-result {
     position: relative;
@@ -11,25 +11,25 @@ prm-brief-result {
         margin: 7px 0 7px 0;
         margin: 0;
         font-weight: $bold;
-        cursor: pointer;   
+        cursor: pointer;
         align-self: flex-start;
 
         //[dir="rtl"] & {
         //    @extend .text-rtl;
         //}
-        
-        .full-view-mouse-pointer  {
-        	cursor: text;
+
+        .full-view-mouse-pointer {
+            cursor: text;
             box-shadow: none;
             background-color: inherit;
+        }
 
-        }     
-        
-        .__xs & {            
+        .__xs & {
             max-width: none;
             font-size: 1.1em;
         }
-        span{ //make sure spans gets the color from here and not from the wrapping link (specificity)
+        span {
+            //make sure spans gets the color from here and not from the wrapping link (specificity)
             color: $titles;
         }
     }
@@ -39,11 +39,11 @@ prm-brief-result {
         line-height: 1.4em;
         @extend .word-break;
 
-        [dir="rtl"] & {
+        [dir='rtl'] & {
             @extend .text-rtl;
         }
 
-        > span {            
+        > span {
             &:last-child {
                 // &:after {
                 //     content: "";
@@ -69,15 +69,15 @@ prm-brief-result {
         img {
             max-height: 1.25em;
             vertical-align: middle;
-            margin-left: .35em;
-            margin-right: .35em;
+            margin-left: 0.35em;
+            margin-right: 0.35em;
         }
 
-        [class^="media-"] {
-            opacity: .85;
+        [class^='media-'] {
+            opacity: 0.85;
         }
 
-        .media-creator   {
+        .media-creator {
             opacity: 1;
             color: $dark;
             font-size: 1.1em;
@@ -93,5 +93,4 @@ prm-brief-result {
             display: none;
         }
     }
-    
 }

@@ -5,7 +5,7 @@ const template = document.createElement('template');
 template.innerHTML = `
   <style>${styles.toString()}</style>
   <style>${overrides.toString()}</style>
-    <button tabindex="0" class="skip-to-content-link" id="skip-nav" data-testid="skip-nav" aria-label="Click to skip to the sites main content">
+    <button style="display: none" tabindex="0" class="skip-to-content-link" id="skip-nav" data-testid="skip-nav" aria-label="Click to skip to the sites main content">
         Skip to site content
     </button>
   <header class="uq-header" id="uq-header" data-testid="uq-header">
@@ -84,6 +84,10 @@ template.innerHTML = `
 let initCalled;
 
 class UQHeader extends HTMLElement {
+    static get observedAttributes() {
+        return ['skipnavid', 'searchlabel', 'searchurl', 'hidelibrarymenuitem'];
+    }
+
     constructor() {
         super();
         // Add a shadow DOM
@@ -92,62 +96,89 @@ class UQHeader extends HTMLElement {
         // Render the template
         shadowDOM.appendChild(template.content.cloneNode(true));
 
-        const that = this;
-        // the attributes seem to need an extra moment before they are available
-        // (in other components we update the template from the attributes - that doesnt work here because
-        // UQHeader/uqds.js is expecting things to be ready immediately)
-        const handleAttributes = setInterval(() => {
-            clearInterval(handleAttributes);
-
-            // The element id for the skip nav, if exists or hides the skip nav
-            const skipNavRequestedTo = that.getAttribute('skipnavid');
-            console.log('skipNavRequestedTo: ', skipNavRequestedTo);
-            if (!skipNavRequestedTo) {
-                const skipNavButton = shadowDOM.getElementById('skip-nav');
-                !!skipNavButton && skipNavButton.remove();
-            }
-
-            // If the attribute hidelibrarymenuitem is true, remove the global menu item from the DOM
-            if (!that.isGlobalMenuLibraryItemRequested()) {
-                const libraryMenuItem = shadowDOM.getElementById('menu-item-library');
-                !!libraryMenuItem && libraryMenuItem.remove();
-            }
-
-            // Append the label for the search widget
-            const searchLabel = that.getAttribute('searchlabel');
-            if (!!searchLabel) {
-                const oldValue = shadowDOM.getElementById('search-label').innerHTML;
-                const newValue = oldValue.replace('library.uq.edu.au', searchLabel);
-                shadowDOM.getElementById('search-label').innerHTML = newValue;
-            }
-
-            // Append the url for the search widget
-            const searchURL = that.getAttribute('searchurl');
-            if (!!searchURL) {
-                shadowDOM.getElementById('edit-as_sitesearch-on').value = searchURL;
-            }
-
-            if (!!skipNavRequestedTo) {
-                console.log('Attaching skip function');
-                const skipToElement = () => {
-                    console.log('Skipping to ', skipNavRequestedTo);
-                    const skipNavLander = document.getElementById(skipNavRequestedTo);
-                    console.log('Element to skip to: ', skipNavLander);
-                    !!skipNavLander && skipNavLander.focus();
-                }
-                const skipNavButton = shadowDOM.getElementById('skip-nav');
-                !!skipNavButton && skipNavButton.addEventListener('click', skipToElement);
-            } else {
-                console.log('Not attaching skip function');
-            }
-        }, 50);
-
         // Bindings
-        this.loadJS = this.loadJS.bind(this);
-        this.isGlobalMenuLibraryItemRequested = this.isGlobalMenuLibraryItemRequested.bind(this);
+        this.hideLibraryGlobalMenuItem = this.hideLibraryGlobalMenuItem.bind(this);
+        this.appendSearchWidgetUrl = this.appendSearchWidgetUrl.bind(this);
+        this.changeSearchWidgetLabel = this.changeSearchWidgetLabel.bind(this);
+        this.handleSkipNavInsertion = this.handleSkipNavInsertion.bind(this);
+        this.loadScript = this.loadScript.bind(this);
     }
 
-    loadJS() {
+    attributeChangedCallback(fieldName, oldValue, newValue) {
+        const that = this;
+
+        // the dom is not loaded for a moment (needed when attributes are added via JS, ie the applications)
+        const awaitShadowDom = setInterval(() => {
+            if (!that.shadowRoot) {
+                return;
+            }
+
+            clearInterval(awaitShadowDom);
+
+            // (in other components we update the template from the attributes - that doesnt work here because
+            // UQHeader/uqds.js is expecting things to be ready immediately)
+            switch (fieldName) {
+                case 'skipnavid':
+                    this.handleSkipNavInsertion(newValue);
+
+                    break;
+                case 'searchlabel':
+                    this.changeSearchWidgetLabel(newValue);
+
+                    break;
+                case 'searchurl':
+                    this.appendSearchWidgetUrl(newValue);
+
+                    break;
+                case 'hidelibrarymenuitem':
+                    this.hideLibraryGlobalMenuItem(newValue);
+
+                    break;
+                default:
+                    console.log(`unhandled attribute ${fieldName} received for UQHeader`);
+            }
+        }, 50);
+    }
+
+    // Provides a #id for skip nav
+    // if never provided, skip nav is never unhidden
+    handleSkipNavInsertion(newValue) {
+        if (!newValue) {
+            return;
+        }
+        const skipToElement = () => {
+            const skipNavLander = document.getElementById(newValue);
+            !!skipNavLander && skipNavLander.focus();
+        };
+        const skipNavButton = this.shadowRoot.getElementById('skip-nav');
+        // element is style="display: none" by default
+        !!skipNavButton && (skipNavButton.style.display = null);
+        !!skipNavButton && skipNavButton.addEventListener('click', skipToElement);
+    }
+
+    hideLibraryGlobalMenuItem(newValue) {
+        // If the attribute hidelibrarymenuitem is true, remove the global menu item from the DOM
+        if (!(newValue === 'false' || newValue === null)) {
+            const libraryMenuItem = this.shadowRoot.getElementById('menu-item-library');
+            !!libraryMenuItem && libraryMenuItem.remove();
+        }
+    }
+
+    appendSearchWidgetUrl(newValue) {
+        if (!!newValue) {
+            this.shadowRoot.getElementById('edit-as_sitesearch-on').value = newValue;
+        }
+    }
+
+    changeSearchWidgetLabel(newValue) {
+        if (!!newValue) {
+            const oldValue = this.shadowRoot.getElementById('search-label').innerHTML;
+            const result = oldValue.replace('library.uq.edu.au', newValue);
+            this.shadowRoot.getElementById('search-label').innerHTML = result;
+        }
+    }
+
+    loadScript() {
         // This loads the external JS file into the HTML head dynamically
         //Only load js if it has not been loaded before (tracked by the initCalled flag)
         if (!initCalled) {
@@ -169,14 +200,8 @@ class UQHeader extends HTMLElement {
         }
     }
 
-    isGlobalMenuLibraryItemRequested() {
-        const hidelibrarymenuitem = this.getAttribute('hidelibrarymenuitem');
-        console.log('hidelibrarymenuitem: ', hidelibrarymenuitem);
-        return hidelibrarymenuitem === 'false' || hidelibrarymenuitem === null;
-    }
-
     connectedCallback() {
-        this.loadJS();
+        this.loadScript();
     }
 }
 

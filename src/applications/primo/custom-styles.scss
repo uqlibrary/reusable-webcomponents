@@ -1,106 +1,112 @@
-$accent-color-half-opacity: rgba(35, 119, 203, .5);
+$accent-color-half-opacity: rgba(35, 119, 203, 0.5);
 
 /* cyrillic-ext */
 @font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Roboto'), local('Roboto-Regular'), url(https://fonts.gstatic.com/s/roboto/v15/sTdaA6j0Psb920Vjv-mrzH-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
-  unicode-range: U+0460-052F, U+20B4, U+2DE0-2DFF, U+A640-A69F;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Roboto'), local('Roboto-Regular'),
+        url(https://fonts.gstatic.com/s/roboto/v15/sTdaA6j0Psb920Vjv-mrzH-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+    unicode-range: U+0460-052F, U+20B4, U+2DE0-2DFF, U+A640-A69F;
 }
 
 /* cyrillic */
 @font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Roboto'), local('Roboto-Regular'), url(https://fonts.gstatic.com/s/roboto/v15/uYECMKoHcO9x1wdmbyHIm3-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
-  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Roboto'), local('Roboto-Regular'),
+        url(https://fonts.gstatic.com/s/roboto/v15/uYECMKoHcO9x1wdmbyHIm3-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+    unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
 }
 
 /* greek-ext */
 @font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Roboto'), local('Roboto-Regular'), url(https://fonts.gstatic.com/s/roboto/v15/tnj4SB6DNbdaQnsM8CFqBX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
-  unicode-range: U+1F00-1FFF;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Roboto'), local('Roboto-Regular'),
+        url(https://fonts.gstatic.com/s/roboto/v15/tnj4SB6DNbdaQnsM8CFqBX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+    unicode-range: U+1F00-1FFF;
 }
 
 /* greek */
 @font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Roboto'), local('Roboto-Regular'), url(https://fonts.gstatic.com/s/roboto/v15/_VYFx-s824kXq_Ul2BHqYH-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
-  unicode-range: U+0370-03FF;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Roboto'), local('Roboto-Regular'),
+        url(https://fonts.gstatic.com/s/roboto/v15/_VYFx-s824kXq_Ul2BHqYH-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+    unicode-range: U+0370-03FF;
 }
 
 /* vietnamese */
 @font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Roboto'), local('Roboto-Regular'), url(https://fonts.gstatic.com/s/roboto/v15/NJ4vxlgWwWbEsv18dAhqnn-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
-  unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Roboto'), local('Roboto-Regular'),
+        url(https://fonts.gstatic.com/s/roboto/v15/NJ4vxlgWwWbEsv18dAhqnn-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+    unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB;
 }
 
 /* latin-ext */
 @font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Roboto'), local('Roboto-Regular'), url(https://fonts.gstatic.com/s/roboto/v15/Ks_cVxiCiwUWVsFWFA3Bjn-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
-  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Roboto'), local('Roboto-Regular'),
+        url(https://fonts.gstatic.com/s/roboto/v15/Ks_cVxiCiwUWVsFWFA3Bjn-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
 }
 
 /* latin */
 @font-face {
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  src: local('Roboto'), local('Roboto-Regular'), url(https://fonts.gstatic.com/s/roboto/v15/oMMgfZMQthOryQo9n22dcuvvDin1pK8aKteLpeZ5c0A.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    src: local('Roboto'), local('Roboto-Regular'),
+        url(https://fonts.gstatic.com/s/roboto/v15/oMMgfZMQthOryQo9n22dcuvvDin1pK8aKteLpeZ5c0A.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
 }
 
-@import "www/styles/main";
-@import "../styles-imports/skeleton";
+@import 'www/styles/main';
+@import '../styles-imports/skeleton';
 
 /* Style imports to override primo defaults */
-@import "styles-imports/main-search-buttons";
-@import "styles-imports/prm-user-area";
-@import "styles-imports/full_view_status";
+@import 'styles-imports/main-search-buttons';
+@import 'styles-imports/prm-user-area';
+@import 'styles-imports/full_view_status';
 
 uqlibrary-alerts,
 uq-minimal-header {
-  z-index: 79 !important;
+    z-index: 79 !important;
 }
 
 prm-user-area {
-  .user-menu-button .user-name {
-    color: $accent-color;
-  }
+    .user-menu-button .user-name {
+        color: $accent-color;
+    }
 }
 
 prm-logo {
-  display: none;
+    display: none;
 }
 
 prm-search-bar,
 prm-topbar .top-nav-bar {
-  background-color: transparent;
+    background-color: transparent;
 }
 
 //fixing layout after header was inserted
 prm-topbar {
-  height: auto;
+    height: auto;
 }
 
 .top-nav-bar,
 prm-user-area .md-fab-toolbar {
-  height: 60px !important;
-  min-height: 60px !important;
-
+    height: 60px !important;
+    min-height: 60px !important;
 }
 
 /*
@@ -115,74 +121,73 @@ md-backdrop._md-dialog-backdrop {
 }
 */
 
-
 /* REMOVED per Stacey VG.
  body.md-dialog-is-showing {
   overflow-x: visible !important;
 } */
 
 uqlibrary-alerts {
-  width: 100% !important;
+    width: 100% !important;
 }
 
 // Hide the article full view side menu item "Tags"
-button.zero-margin.button-right-align.button-link.md-button.md-primoExplore-theme[aria-label="Tags"] {
-  display: none;
+button.zero-margin.button-right-align.button-link.md-button.md-primoExplore-theme[aria-label='Tags'] {
+    display: none;
 }
 
 //Hide the "Tags" content area on the article full view
 div.full-view-section#tags {
-  display: none;
+    display: none;
 }
 
 prm-search-bar {
-  .advanced-search-tabs {
-    background: $white;
-  }
-  .simple-search-wrapper {
-    .search-actions {
-      .md-button {
-        &:last-child {
-          padding: 0 1em;
-        }
-        &.button-link:not([disabled]) {
-          &:hover,
-          &:focus {
-            color: #0a447e;
-            background-color: $highlightBlue;
-          }
-        }
-      }
+    .advanced-search-tabs {
+        background: $white;
     }
-  }
+    .simple-search-wrapper {
+        .search-actions {
+            .md-button {
+                &:last-child {
+                    padding: 0 1em;
+                }
+                &.button-link:not([disabled]) {
+                    &:hover,
+                    &:focus {
+                        color: #0a447e;
+                        background-color: $highlightBlue;
+                    }
+                }
+            }
+        }
+    }
 }
 
 // Arrows shown in each row of advanced search query under form
 .advanced-search-wrapper .search-string .string-block prm-icon {
-  prm-browse-search-bar &, 
-  prm-journals-search-bar &,
-  prm-search-bar &,
-  prm-tags-search-bar & {
-    color: $uqBlue;
-  }
+    prm-browse-search-bar &,
+    prm-journals-search-bar &,
+    prm-search-bar &,
+    prm-tags-search-bar & {
+        color: $uqBlue;
+    }
 }
 
 prm-search-bookmark-filter {
-  // QR Code and Favourites button in top nav
-  .md-icon-button.button-over-dark {
-    color: $textColor !important;
-  }
+    // QR Code and Favourites button in top nav
+    .md-icon-button.button-over-dark {
+        color: $textColor !important;
+    }
 }
 
 // Arrows shown next to headings in favourites
 prm-saved-queries-list .string-block prm-icon {
-  color: $uqBlue;
+    color: $uqBlue;
 }
 
 //Browse interface - made dropdown list grey BG instead of yellow
 prm-browse-search-bar .search-scope {
-  background-color: #F2F2F2 !important;
-  border-color: $blueGrey !important;
+    background-color: #f2f2f2 !important;
+    border-color: $blueGrey !important;
 }
 
 // Browse interface - link colors
@@ -195,10 +200,10 @@ prm-browse-search-bar .search-scope {
 .login-dialog .md-list md-list-item .md-list-item-text h3,
 .login-dialog .md-list md-list-item > .md-no-style .md-list-item-text .list-item-title,
 .login-dialog .md-list md-list-item > .md-no-style .md-list-item-text h3,
-.login-dialog .md-list[class$="-line"] md-list-item .md-list-item-text .list-item-title,
-.login-dialog .md-list[class$="-line"] md-list-item .md-list-item-text h3,
-.login-dialog .md-list[class$="-line"] md-list-item > .md-no-style .md-list-item-text .list-item-title,
-.login-dialog .md-list[class$="-line"] md-list-item > .md-no-style .md-list-item-text h3,
+.login-dialog .md-list[class$='-line'] md-list-item .md-list-item-text .list-item-title,
+.login-dialog .md-list[class$='-line'] md-list-item .md-list-item-text h3,
+.login-dialog .md-list[class$='-line'] md-list-item > .md-no-style .md-list-item-text .list-item-title,
+.login-dialog .md-list[class$='-line'] md-list-item > .md-no-style .md-list-item-text h3,
 .login-dialog md-list md-list-item .md-list-item-text .list-item-title,
 .login-dialog md-list md-list-item .md-list-item-text h3,
 .login-dialog md-list md-list-item > .md-no-style .md-list-item-text .list-item-title,
@@ -213,16 +218,16 @@ prm-browse-search-bar .search-scope {
 .tiles-grid-tile .tile-header .header-link:focus,
 .tiles-grid-tile .tile-header .header-link:hover,
 .tiles-grid-tile .tile-header .md-button,
-[class*=NFT] > span,
-[class*=check_] > span,
-[class*="_more"] > span,
-[class*="_unknown"] > span,
-[class*=may_] > span,
-[class*=does_not_exist] > span,
-[class*=available] > span,
-[class*=FT] > span,
-[class*=unavailable] > span,
-[class*=no_] > span,
+[class*='NFT'] > span,
+[class*='check_'] > span,
+[class*='_more'] > span,
+[class*='_unknown'] > span,
+[class*='may_'] > span,
+[class*='does_not_exist'] > span,
+[class*='available'] > span,
+[class*='FT'] > span,
+[class*='unavailable'] > span,
+[class*='no_'] > span,
 a,
 md-grid-tile .tile-header .header-link .arrow-icon,
 md-grid-tile .tile-header .header-link:focus,
@@ -242,386 +247,407 @@ md-list.prm-list.prm-linkable-list-items md-list-item .item-title,
 prm-browse-search md-list.prm-list.prm-linkable-list-items md-list-item .item-title,
 prm-citation-trails-item.active-item .item-title,
 prm-tags-results-list md-list.prm-list.prm-linkable-list-items md-list-item .item-title {
-  color: $links !important;
+    color: $links !important;
 }
 
 .tiles-grid-tile {
-  background: $white;
+    background: $white;
 }
 
 // Change the color of 'See:' in the browse listings
-span[translate="nui.browse.crossref.see"] {
-  color: #000000;
+span[translate='nui.browse.crossref.see'] {
+    color: #000000;
 }
 
 // saved searches and search history list items run over the 'number icon' in narrower windows (and any Windows chrome)
 md-list-item .md-list-item-text.layout-fill.layout-align-start-start.layout-column.flex-80 {
-  margin-left: 30px;
-  margin-top: 10px;
+    margin-left: 30px;
+    margin-top: 10px;
 }
 
 // temporary styling to remove the 'browse button' while testing the november release in prod-dev
 // (button is controllable in the BO from november)
 div.top-nav-bar-links.buttons-group.layout-align-center-center.layout-row.flex-100 {
-  display: none;
+    display: none;
 }
 // also hide the browse button in the mobile view
-div.md-dialog-container .custom-links-container.layout-wrap.layout-align-sm-start-start.layout-align-center-start.layout-row {
-  display: none;
+div.md-dialog-container
+    .custom-links-container.layout-wrap.layout-align-sm-start-start.layout-align-center-start.layout-row {
+    display: none;
 }
 
 /* make the lock always show on facets area */
 prm-facet prm-breadcrumbs div.md-chip-content strong {
-  padding-left: 22px;
+    padding-left: 22px;
 }
 prm-facet {
-  button.md-button.button-as-link.link-alt-color {
-    color: $uqBlue;
-  }
+    button.md-button.button-as-link.link-alt-color {
+        color: $uqBlue;
+    }
 }
 prm-breadcrumbs {
-  .md-chips .md-chip-content .persistence-button {
-    opacity: 1;
-    transform: none;
-    padding-left: -2px;
-  }
-  .md-chip.persistent-facet {
-    strong {
-      padding-left: 0;
+    .md-chips .md-chip-content .persistence-button {
+        opacity: 1;
+        transform: none;
+        padding-left: -2px;
     }
-    .md-chip-content .persistence-button {
-      left: -1px;
+    .md-chip.persistent-facet {
+        strong {
+            padding-left: 0;
+        }
+        .md-chip-content .persistence-button {
+            left: -1px;
+        }
     }
-  }
-  .md-button.link-alt-color.button-as-link {
-    color: $uqBlue;
-  }
+    .md-button.link-alt-color.button-as-link {
+        color: $uqBlue;
+    }
 }
 
 // make the username and menu buttons (top right) black text
 button.button-with-menu-arrow.md-button.md-primoExplore-theme.md-ink-ripple,
-button.user-button.md-button.md-primoExplore-theme.md-ink-ripple ,
+button.user-button.md-button.md-primoExplore-theme.md-ink-ripple,
 prm-user-area-expandable .md-button.user-button .menu-arrow {
-  color: $dark;
+    color: $dark;
 }
 
 // Button hover styling
 .md-button:not([disabled]) {
-  &._md-focused, 
-  &.hovered, 
-  &.md-focused, 
-  &:focus, 
-  &:hover {
-    color: #000;
-    background-color: rgba(51, 51, 51, 0.1);
-  }
+    &._md-focused,
+    &.hovered,
+    &.md-focused,
+    &:focus,
+    &:hover {
+        color: #000;
+        background-color: rgba(51, 51, 51, 0.1);
+    }
 }
 
 // make the dropdowns under the search bar readable
 ._md-select-value ._md-select-icon {
-  color: $dark;
+    color: $dark;
 }
 
 ._md-text {
-  color: $dark;
+    color: $dark;
 }
 
 // underline animated highlight on the dropdowns under the search bar
 md-input-container:after,
 .md-input-color-underline {
-  background-color: $theme-color !important;
+    background-color: $theme-color !important;
 }
 
 // account -> loans & requests. Give more space for the weird looking checkboxes
 .md-list-item-text.md-list-item-with-checkbox.layout-wrap.layout-row.flex > div {
-  padding-left: 16px;
-  padding-left: 1rem;
+    padding-left: 16px;
+    padding-left: 1rem;
 }
 
 // checkboxes on Loans/Request are ugly as!
 md-list.separate-list-items md-list-item .item-index {
-  margin-top: 0.55em;
+    margin-top: 0.55em;
 }
 md-list md-list-item .md-list-item-with-checkbox md-checkbox {
-  top: 0.8em;
+    top: 0.8em;
 }
 
 // put some space on the library outlinks
 .header-subtitle {
-  margin-top: 1rem;
+    margin-top: 1rem;
 }
 .header-subtitle prm-account-links a {
-  padding-right: 1rem;
+    padding-right: 1rem;
 }
 
 // the 'Virtual Browse' item in the left hand menu for an individual eg book is just getting its rightmost letter clipped off
 div#services-index button.zero-margin.button-right-align.button-link.md-button.md-primoExplore-theme.md-ink-ripple {
-  padding: 0;
+    padding: 0;
 }
 
 // Widen the full display view's sidebar, add padding to buttons
 prm-full-view .services-index-under {
-  #services-index,
-  .md-button {
-    max-width: 10rem;
-  }
+    #services-index,
+    .md-button {
+        max-width: 10rem;
+    }
 }
 .__gt-xs .full-view-section-content {
-  padding-left: 8.5rem;
+    padding-left: 8.5rem;
 }
 prm-full-view prm-brief-result-container .result-item-text {
-  padding-left: 3.5em;
+    padding-left: 3.5em;
 }
 div#services-index button.zero-margin.button-right-align.button-link.md-button.md-primoExplore-theme.md-ink-ripple {
-  padding: 0 6px;
+    padding: 0 6px;
 }
 
 // add space for the lock icon to show on the facets
 .md-chip-content {
-  padding-left: 15px;
+    padding-left: 15px;
 }
 // add space for the checkboxes not to be half cut off
 .md-chips ._md-container.md-ink-ripple {
-  margin-left: 10px;
+    margin-left: 10px;
 }
 strong.facet-title.layout-align-end-stretch.layout-row {
-  margin-left: 10px;
+    margin-left: 10px;
 }
 
 md-checkbox {
-  &:hover, 
-  &:focus {
-    ._md-icon,
-    .md-icon {
-      box-shadow: 0px 0px 0 0.6px #000;
+    &:hover,
+    &:focus {
+        ._md-icon,
+        .md-icon {
+            box-shadow: 0px 0px 0 0.6px #000;
+        }
     }
-  }
-  &.md-checked {
-    .md-icon,
-    ._md-icon {
-      background-color: $uqBlue;
+    &.md-checked {
+        .md-icon,
+        ._md-icon {
+            background-color: $uqBlue;
+        }
     }
-  }
 }
 
 .section-content .md-chips .md-chip.wrapping-chip {
-  .md-chip-content {
-    padding-right: 40px;
-    max-width: 100%;
-    &:active, &:focus, &:hover {
-      &:not([disabled]) {
-        background-color: transparent;
-      }
+    .md-chip-content {
+        padding-right: 40px;
+        max-width: 100%;
+        &:active,
+        &:focus,
+        &:hover {
+            &:not([disabled]) {
+                background-color: transparent;
+            }
+        }
     }
-  }
-  strong.facet-title.layout-align-end-stretch.layout-row {
-    &:active, &:focus, &:hover {
-      &:not([disabled]) {
-        background-color: #5F5F5F;
-      }
+    strong.facet-title.layout-align-end-stretch.layout-row {
+        &:active,
+        &:focus,
+        &:hover {
+            &:not([disabled]) {
+                background-color: #5f5f5f;
+            }
+        }
     }
-  }
 }
 
 // tweak the styling of the primo database search
 .search-scope.journal-search-tile.layout-align-center-start.layout-column {
-  background-color: $theme-color;
-  color: $white;
-  line-height: 1.3;
-  padding-left: 8px;
-  padding-right: 0;
-  text-transform: uppercase;
-  font-size: 13px;
+    background-color: $theme-color;
+    color: $white;
+    line-height: 1.3;
+    padding-left: 8px;
+    padding-right: 0;
+    text-transform: uppercase;
+    font-size: 13px;
 }
 prm-atoz-search-bar {
-  background-color: transparent;
+    background-color: transparent;
 }
-md-content prm-search-result-list .pages-separated-with-gaps .list-item-wrapper.first-in-page:first-of-type .md-subheader ._md-subheader-inner {
-  top: -43px;
+md-content
+    prm-search-result-list
+    .pages-separated-with-gaps
+    .list-item-wrapper.first-in-page:first-of-type
+    .md-subheader
+    ._md-subheader-inner {
+    top: -43px;
 }
 
 .section-content .md-chips .md-chip.wrapping-chip .facet-title {
-  margin-right: 0;
+    margin-right: 0;
 }
 
 // restore original citation icon colors, overwritten in _icon.scss
 .citation-trails-brief,
 .citation-trails-fullview {
-  .md-primoExplore-theme {
-    color: tomato !important;
-  }
-  &:hover {
     .md-primoExplore-theme {
-      color: #e02200 !important;
+        color: tomato !important;
     }
-  }
+    &:hover {
+        .md-primoExplore-theme {
+            color: #e02200 !important;
+        }
+    }
 }
 
 // only show the report a problem button once
 div > getit-link-service {
-  display: none;
+    display: none;
 }
 #getit_link1_0 div > getit-link-service {
-  display: inline !important;
-  margin-left: -10px;
+    display: inline !important;
+    margin-left: -10px;
 }
 
 // style the report a problem button
 .help-button:not([style-scope]) {
-  border: 1px solid $theme-color;
+    border: 1px solid $theme-color;
 }
 .help-button:not([style-scope]) {
-  background-color: $theme-color;
-  color: $white;
-  transition: none;
+    background-color: $theme-color;
+    color: $white;
+    transition: none;
 }
 .help-button:not([style-scope]):hover,
 .help-button:not([style-scope]):hover a,
 .help-button:not([style-scope]):hover a:hover {
-  background-color: $white;
-  color: $theme-color !important;
-  font-weight: bold;
-  box-shadow: none; // removes underline on the link
+    background-color: $white;
+    color: $theme-color !important;
+    font-weight: bold;
+    box-shadow: none; // removes underline on the link
 }
 .help-button:not([style-scope]):hover a,
 .help-button:not([style-scope]):hover a:hover {
-  text-decoration: none;
-  box-shadow: none;
+    text-decoration: none;
+    box-shadow: none;
 }
 .help-button:not([style-scope]) a {
-  background-color: inherit;
-  color: $white !important;
-  text-decoration: none;
+    background-color: inherit;
+    color: $white !important;
+    text-decoration: none;
 }
 .help-button:not([style-scope]) a:hover {
-  background-color: inherit;
-  color: inherit !important;
-  text-decoration: none;
+    background-color: inherit;
+    color: inherit !important;
+    text-decoration: none;
 }
 
 // various tweaks for February 2020 Release of Primo
 @media (max-width: 599px) {
-  // page count for very small page width is mis aligned
-  .__xs prm-search-result-list .pages-separated-with-gaps .list-item-wrapper.first-in-page:first-of-type .md-subheader ._md-subheader-inner ._md-subheader-content {
-    margin-top: -9px;
-  }
+    // page count for very small page width is mis aligned
+    .__xs
+        prm-search-result-list
+        .pages-separated-with-gaps
+        .list-item-wrapper.first-in-page:first-of-type
+        .md-subheader
+        ._md-subheader-inner
+        ._md-subheader-content {
+        margin-top: -9px;
+    }
 }
 
 button.md-button.link-alt-color {
-  &.button-as-link-mobile {
-    color: $accent-color;
-  }
-  &.button-as-link:not([disabled]) {
-    &:hover,
-    &:focus {
-      color: #0a447e;
-      background-color: $highlightBlue;
+    &.button-as-link-mobile {
+        color: $accent-color;
     }
-  }
+    &.button-as-link:not([disabled]) {
+        &:hover,
+        &:focus {
+            color: #0a447e;
+            background-color: $highlightBlue;
+        }
+    }
 }
 
 @media (max-width: 600px) {
-  // align the pin button
-  .md-button.button-as-link {
-    padding-top: 0;
-  }
+    // align the pin button
+    .md-button.button-as-link {
+        padding-top: 0;
+    }
 }
 
 // reduce the padding on the locked facets
 prm-breadcrumbs .md-chip.persistent-facet .md-chip-content strong {
-  padding-left: 12px;
+    padding-left: 12px;
 }
 
 // uqblue (#2377CB) isn't accessible on the primo grey background, so slightly different colour is needed
-.language-characters a { // dbsearch alpha-nav
-  color: #1E66AE !important;
+.language-characters a {
+    // dbsearch alpha-nav
+    color: #1e66ae !important;
 }
 
 // dbsearch sidebar
 prm-tree-nav md-list md-list-item .md-button.branch-name {
-  color: #1E66AE;
+    color: #1e66ae;
 }
 prm-tree-nav md-list md-list-item .md-button.branch-name.is-selected {
-  color: #333 !important;
-  &:hover {
-    background-color: rgba(51,51,51,.1) !important;
-  }
+    color: #333 !important;
+    &:hover {
+        background-color: rgba(51, 51, 51, 0.1) !important;
+    }
 }
 prm-tree-nav md-list md-list-item .md-button.branch-name.is-selected:hover {
-  background-color: rgba(51,51,51,.1) !important;
+    background-color: rgba(51, 51, 51, 0.1) !important;
 }
 
 // buttons on main primo page
 prm-facet-range prm-icon md-icon.md-primoExplore-theme,
 prm-facet-exact button:not(.button-exclude) prm-icon md-icon.md-primoExplore-theme {
-  // little arrow in facet area but NOT the 'exclude filter' checked box (appears on mouseover)
-  color: #1E66AE !important;
+    // little arrow in facet area but NOT the 'exclude filter' checked box (appears on mouseover)
+    color: #1e66ae !important;
 }
 
 .multiselect-facet-group .md-chip .md-chip-content md-checkbox {
-  left: 0;
+    left: 0;
 }
 
 prm-facet-range,
 prm-facet-exact {
-  .section-title {
-    &:active, &:focus, &:hover {
-      span {
-        color: #000;
-      }
+    .section-title {
+        &:active,
+        &:focus,
+        &:hover {
+            span {
+                color: #000;
+            }
+        }
     }
-  }
 }
 
 prm-add-alert-toast md-toast .md-toast-content .md-button {
-  &:active, &:focus, &:hover {
-    &:not([disabled]) {
-      background: #5F5F5F;
+    &:active,
+    &:focus,
+    &:hover {
+        &:not([disabled]) {
+            background: #5f5f5f;
+        }
     }
-  }
 }
 
 primo-explore .md-dialog-container.fixed-container {
-  background-color: rgba(83,115,140,0.5);
+    background-color: rgba(83, 115, 140, 0.5);
 }
 
 prm-search-result-list .pages-separated-with-gaps {
-  .list-item-wrapper {
-    background-color: $white;
-    .item-bookmarked {
-      background: $highlightYellow;
+    .list-item-wrapper {
+        background-color: $white;
+        .item-bookmarked {
+            background: $highlightYellow;
+        }
     }
-  }  
-  .results-title:not(.results-title-favorites) {
-    padding-left: 70px;
-    top: -7px !important;
-  }
+    .results-title:not(.results-title-favorites) {
+        padding-left: 70px;
+        top: -7px !important;
+    }
 }
 
 prm-search-result-tool-bar {
-  .md-toolbar-tools {
-    prm-add-query-to-saved-searches,
-    prm-personalize-results-button {
-      .md-button.link-alt-color.button-as-link {
-        color: $uqBlue;
-      }
+    .md-toolbar-tools {
+        prm-add-query-to-saved-searches,
+        prm-personalize-results-button {
+            .md-button.link-alt-color.button-as-link {
+                color: $uqBlue;
+            }
+        }
     }
-  }
 }
 
 .result-item-actions {
-  prm-save-to-favorites-button {
-    .pin-button {
-      color: $primary-hue2;
-      &.pinned {
-        &:focus,
-        &:hover {
-          color: $white !important;
-          background-color: $primary-hue2 !important;
+    prm-save-to-favorites-button {
+        .pin-button {
+            color: $primary-hue2;
+            &.pinned {
+                &:focus,
+                &:hover {
+                    color: $white !important;
+                    background-color: $primary-hue2 !important;
+                }
+            }
         }
-      }
     }
-  }
 }
 
 .md-button.arrow-link-button .button-content:focus,
@@ -630,74 +656,74 @@ prm-search-result-tool-bar {
 .md-button.arrow-link-button:focus .button-content,
 .md-button.arrow-link-button:hover .button-content,
 .prm-links-background.prm-hue-1,
-.recommendations-title.hover>span>span,
-.recommendations-title:hover>span>span,
+.recommendations-title.hover > span > span,
+.recommendations-title:hover > span > span,
 a.hover,
 a:focus,
 a:hover,
-prm-citation-trails-item.active-item md-card>.md-button:focus .item-title span,
-prm-citation-trails-item.active-item md-card>.md-button:hover .item-title span,
+prm-citation-trails-item.active-item md-card > .md-button:focus .item-title span,
+prm-citation-trails-item.active-item md-card > .md-button:hover .item-title span,
 prm-tags-list .md-chips .md-chip .md-chip-content:hover strong,
 prm-tags-list .md-chips md-chip .md-chip-content:hover strong,
 prm-tags-list md-chips .md-chip .md-chip-content:hover strong,
 prm-tags-list md-chips md-chip .md-chip-content:hover strong {
-  background-color: transparent;
+    background-color: transparent;
 }
 
 prm-citation-trails-indication {
-  .md-button:not([disabled]) {
-    &.md-icon-button, 
-    &.button-with-icon {
-      &:hover {
-        background-color: rgba(255,99,71,.1);
-      }
+    .md-button:not([disabled]) {
+        &.md-icon-button,
+        &.button-with-icon {
+            &:hover {
+                background-color: rgba(255, 99, 71, 0.1);
+            }
+        }
     }
-  }
 }
 
 md-card {
-  &.default-card {
-    background: $white;
-  }
+    &.default-card {
+        background: $white;
+    }
 }
 
 .recommendations-title {
-  color: $links;
+    color: $links;
 }
 
 prm-action-list md-nav-bar.vertical-nav-bar .md-nav-item .md-button.md-active:not([disabled]) {
-  &._md-focused,
-  &.hovered,
-  &.md-focused,
-  &:focus,
-  &:hover {
-    color: #000;
-    background-color: rgba(51,51,51,.1);
-  }
+    &._md-focused,
+    &.hovered,
+    &.md-focused,
+    &:focus,
+    &:hover {
+        color: #000;
+        background-color: rgba(51, 51, 51, 0.1);
+    }
 }
 
-@import "styles-imports/discovery_collection";
+@import 'styles-imports/discovery_collection';
 
 // primo Toasts should have a uq blue OK button and a not-so-harshly-black Dismiss button
 // the Dismiss button
 md-toast .md-toast-content .md-button {
-  prm-add-alert-toast &,
-  prm-mendeley-toast &,
-  prm-silent-login-alert-toast &,
-  prm-timeout-toast &,
-  prm-voice-search-toast & {
-    color: #5F5F5F;
-    &:not([disabled]) {
-      &._md-focused,
-      &.hovered,
-      &.md-focused,
-      &:focus,
-      &:hover {
-        color: $white;
-        background-color: #5F5F5F;
-      }
+    prm-add-alert-toast &,
+    prm-mendeley-toast &,
+    prm-silent-login-alert-toast &,
+    prm-timeout-toast &,
+    prm-voice-search-toast & {
+        color: #5f5f5f;
+        &:not([disabled]) {
+            &._md-focused,
+            &.hovered,
+            &.md-focused,
+            &:focus,
+            &:hover {
+                color: $white;
+                background-color: #5f5f5f;
+            }
+        }
     }
-  }
 }
 
 // the OK button on the eg "Your session has been inactive for an extended period and has been reset." alert
@@ -711,109 +737,107 @@ prm-timeout-toast md-toast .md-button.settings-button,
 prm-timeout-toast md-toast .md-button.settings-button md-icon,
 prm-voice-search-toast md-toast .md-button.settings-button,
 prm-voice-search-toast md-toast .md-button.settings-button md-icon {
-  color: $accent-color;
+    color: $accent-color;
 }
 
 // then reverse the colours on hover
 md-toast .md-button.settings-button:not([disabled]) {
-  prm-add-alert-toast &,
-  prm-mendeley-toast &,
-  prm-silent-login-alert-toast &,
-  prm-timeout-toast &,
-  prm-voice-search-toast & {
-    &,
-    md-icon {
-      &._md-focused,
-      &.hovered,
-      &.md-focused,
-      &:focus,
-      &:hover {
-        color: $white;
-        background-color: $accent-color
-      }
+    prm-add-alert-toast &,
+    prm-mendeley-toast &,
+    prm-silent-login-alert-toast &,
+    prm-timeout-toast &,
+    prm-voice-search-toast & {
+        &,
+        md-icon {
+            &._md-focused,
+            &.hovered,
+            &.md-focused,
+            &:focus,
+            &:hover {
+                color: $white;
+                background-color: $accent-color;
+            }
+        }
     }
-  }
 }
 
 // Citation Search (Citation Linker) The field labels are quite a pale blue in contrast
 prm-citation-linker .request-form md-input-container md-select .md-select-value.md-select-placeholder,
 prm-citation-linker .request-form md-input-container md-select md-select-value span:first-child,
-prm-citation-linker .request-form md-input-container label:not(.md-no-float):not(._md-container-ignore)
- {
-  opacity: 1;
-  color: $accent-color;
+prm-citation-linker .request-form md-input-container label:not(.md-no-float):not(._md-container-ignore) {
+    opacity: 1;
+    color: $accent-color;
 }
 
 // fix submit button on purchase request form
 prm-citation-linker .md-button.button-large.button-with-icon {
-  border: 1px solid $white;
-  &:hover {
-    color: $accent-color !important;
-    background-color: $white !important;
-    border-color: $accent-color;
-  }
+    border: 1px solid $white;
+    &:hover {
+        color: $accent-color !important;
+        background-color: $white !important;
+        border-color: $accent-color;
+    }
 }
 
 prm-citation-linker .md-button.button-large.button-with-icon md-icon {
-  display: none;
+    display: none;
 }
 
 prm-citation-linker md-input-container:not([md-no-float]) .md-select-placeholder span:first-child {
-  margin-bottom: -3px;
+    margin-bottom: -3px;
 }
 
 uq-site-header {
-  &::part(root) {
-    background-color: $backgroundActual;
-  }
-  &::part(title) {
-    // shift the uq site title in the web component up a little
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-  }
+    &::part(root) {
+        background-color: $backgroundActual;
+    }
+    &::part(title) {
+        // shift the uq site title in the web component up a little
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
 }
 
 askus-button {
-  &::part(button) {
-    height: 42px;
-    width: 42px;
-    background-color: rgba(51,51,51,.12);
-    margin-left: 4px;
-    &:hover,
-    &:active
-    &:focus {
-      background-color: $white;
-      opacity: initial;
+    &::part(button) {
+        height: 42px;
+        width: 42px;
+        background-color: rgba(51, 51, 51, 0.12);
+        margin-left: 4px;
+        &:hover,
+        &:active &:focus {
+            background-color: $white;
+            opacity: initial;
+        }
     }
-  }
-  // make the askus button look more like the native primo buttons
-  &::part(label) {
-    display: none;
-  }
+    // make the askus button look more like the native primo buttons
+    &::part(label) {
+        display: none;
+    }
 }
 
 // after we turned off the grey in the background in _custom-themes, there were a couple that needed the grey put back
 prm-favorites-tool-bar,
 prm-back-to-search-results-button {
-  md-toolbar.default-toolbar,
-  md-toolbar.default-toolbar:not(.md-menu-toolbar),
-  md-toolbar.md-primoExplore-theme.default-toolbar {
-    background-color: #dcdcdc;
-  }
+    md-toolbar.default-toolbar,
+    md-toolbar.default-toolbar:not(.md-menu-toolbar),
+    md-toolbar.md-primoExplore-theme.default-toolbar {
+        background-color: #dcdcdc;
+    }
 }
 
 // improve the colour contrast on some obscure text, by request
 span.availability-status.no_fulltext,
 span.availability-status.unavailable_in_institution,
 span.availability-status.restricted {
-  color: #555555;
+    color: #555555;
 }
 
 prm-full-view {
-  #full-view-container {
-    &,
-    & > .full-view-inner-container {
-      background: $backgroundColor;
+    #full-view-container {
+        &,
+        & > .full-view-inner-container {
+            background: $backgroundColor;
+        }
     }
-  }
 }

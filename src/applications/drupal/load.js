@@ -1,12 +1,43 @@
+// remove the older header-footer tags immediately (they will load old content on the pages with old widgets, eg training)
+// this wont be required once the old tags are replaced
+const removeOldMinimalHeader = setInterval(() => {
+    const element = document.querySelector('uq-minimal-header');
+    if (!!element) {
+        element.remove();
+        clearInterval(removeOldMinimalHeader);
+    }
+}, 50);
+const removeOldMenu = setInterval(() => {
+    const element = document.querySelector('uql-menu');
+    if (!!element) {
+        element.remove();
+        clearInterval(removeOldMenu);
+    }
+}, 50);
+const removeOldConnectFooter = setInterval(() => {
+    const element = document.querySelector('uql-connect-footer');
+    if (!!element) {
+        element.remove();
+        clearInterval(removeOldConnectFooter);
+    }
+}, 50);
+const removeOldMinimalFooter = setInterval(() => {
+    const element = document.querySelector('uq-minimal-footer');
+    if (!!element) {
+        element.remove();
+        clearInterval(removeOldMinimalFooter);
+    }
+}, 50);
+
 function ready(fn) {
-    if (document.readyState !== 'loading'){
+    if (document.readyState !== 'loading') {
         fn();
     } else {
         document.addEventListener('DOMContentLoaded', fn);
     }
 }
 
-function createSlotForButtonInUtilityArea(button, id=null) {
+function createSlotForButtonInUtilityArea(button, id = null) {
     const slot = document.createElement('span');
     !!slot && slot.setAttribute('slot', 'site-utilities');
     !!slot && !!id && slot.setAttribute('id', id);
@@ -30,9 +61,7 @@ function createMylibraryStub() {
     mylibraryButton = document.createElement('div');
     mylibraryButton.id = stubId;
 
-    const slot = !!mylibraryButton && this.createSlotForButtonInUtilityArea(mylibraryButton, mylibraryButtonId);
-
-    return slot;
+    return !!mylibraryButton && this.createSlotForButtonInUtilityArea(mylibraryButton, mylibraryButtonId);
 }
 
 function createAuthButton() {
@@ -41,9 +70,7 @@ function createAuthButton() {
     }
 
     const authButton = document.createElement('auth-button');
-    const slot = !!authButton && createSlotForButtonInUtilityArea(authButton, 'auth');
-
-    return slot;
+    return !!authButton && createSlotForButtonInUtilityArea(authButton, 'auth');
 }
 
 function createAskusButton() {
@@ -52,9 +79,7 @@ function createAskusButton() {
     }
 
     const askusButton = document.createElement('askus-button');
-    const slot = !!askusButton && createSlotForButtonInUtilityArea(askusButton, 'askus');
-
-    return slot;
+    return !!askusButton && createSlotForButtonInUtilityArea(askusButton, 'askus');
 }
 
 function loadReusableComponentsDrupal() {
@@ -67,14 +92,14 @@ function loadReusableComponentsDrupal() {
 
     if (!document.querySelector('uq-header')) {
         const header = document.createElement('uq-header');
-        !!header && header.setAttribute("hideLibraryMenuItem", "");
+        !!header && header.setAttribute('hideLibraryMenuItem', '');
         // no 'skip to content' as drupal provides a 'skip to menu' on first click
         !!header && document.body.insertBefore(header, firstElement);
     }
 
     if (!document.querySelector('uq-site-header')) {
         const siteHeader = document.createElement('uq-site-header');
-        !!siteHeader && siteHeader.setAttribute("showmenu", "");
+        !!siteHeader && siteHeader.setAttribute('showmenu', '');
 
         const askusButton = createAskusButton();
         !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);

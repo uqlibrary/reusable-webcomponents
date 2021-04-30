@@ -118,7 +118,6 @@ md-chips.md-primoExplore-theme .md-chip.md-focused md-icon {
     color: rgba(255, 255, 255, 0.87);
 }
 
-
 /** Theme styles for mdCalendar. */
 
 .md-calendar.md-primoExplore-theme {
@@ -192,7 +191,7 @@ md-icon.md-primoExplore-theme.md-primary {
 md-input-container.md-primoExplore-theme .md-input {
     color: rgba(0, 0, 0, 0.87);
     border-color: rgba(0, 0, 0, 0.12);
-    //  
+    //
 }
 
 md-input-container.md-primoExplore-theme .md-input::-webkit-input-placeholder,
@@ -208,7 +207,7 @@ md-input-container.md-primoExplore-theme > md-icon {
 
 md-input-container.md-primoExplore-theme label,
 md-input-container.md-primoExplore-theme .md-placeholder {
-    //  
+    //
     color: rgba(0, 0, 0, 0.26);
 }
 
@@ -483,18 +482,44 @@ md-tabs.md-primoExplore-theme.md-primary > md-tabs-wrapper {
     background-color: rgb(83, 115, 140);
 }
 
-md-tabs.md-primoExplore-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {
+md-tabs.md-primoExplore-theme.md-primary
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]) {
     color: rgb(197, 202, 233);
 }
 
-md-tabs.md-primoExplore-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active,
-md-tabs.md-primoExplore-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon,
-md-tabs.md-primoExplore-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused,
-md-tabs.md-primoExplore-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon {
+md-tabs.md-primoExplore-theme.md-primary
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active,
+md-tabs.md-primoExplore-theme.md-primary
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active
+    md-icon,
+md-tabs.md-primoExplore-theme.md-primary
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused,
+md-tabs.md-primoExplore-theme.md-primary
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused
+    md-icon {
     color: rgba(255, 255, 255, 0.87);
 }
 
-md-tabs.md-primoExplore-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused {
+md-tabs.md-primoExplore-theme.md-primary
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused {
     background: rgba(255, 255, 255, 0.1);
 }
 
@@ -502,18 +527,50 @@ md-toolbar > md-tabs.md-primoExplore-theme > md-tabs-wrapper {
     background-color: rgb(83, 115, 140);
 }
 
-md-toolbar > md-tabs.md-primoExplore-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {
+md-toolbar
+    > md-tabs.md-primoExplore-theme
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]) {
     color: rgb(197, 202, 233);
 }
 
-md-toolbar > md-tabs.md-primoExplore-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active,
-md-toolbar > md-tabs.md-primoExplore-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon,
-md-toolbar > md-tabs.md-primoExplore-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused,
-md-toolbar > md-tabs.md-primoExplore-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon {
+md-toolbar
+    > md-tabs.md-primoExplore-theme
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active,
+md-toolbar
+    > md-tabs.md-primoExplore-theme
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active
+    md-icon,
+md-toolbar
+    > md-tabs.md-primoExplore-theme
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused,
+md-toolbar
+    > md-tabs.md-primoExplore-theme
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused
+    md-icon {
     color: rgba(255, 255, 255, 0.87);
 }
 
-md-toolbar > md-tabs.md-primoExplore-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused {
+md-toolbar
+    > md-tabs.md-primoExplore-theme
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused {
     background: rgba(255, 255, 255, 0.1);
 }
 
@@ -654,7 +711,6 @@ md-chips.md-primoExplore-theme.md-hue-1 .md-chip.md-focused md-icon {
     color: rgb(255, 255, 255);
 }
 
-
 /** Theme styles for mdCalendar. */
 
 .md-calendar.md-primoExplore-theme.md-hue-1 {
@@ -670,7 +726,9 @@ md-chips.md-primoExplore-theme.md-hue-1 .md-chip.md-focused md-icon {
 }
 
 .md-primoExplore-theme.md-hue-1 .md-calendar-date.md-calendar-selected-date .md-calendar-date-selection-indicator,
-.md-primoExplore-theme.md-hue-1 .md-calendar-date.md-focus.md-calendar-selected-date .md-calendar-date-selection-indicator {
+.md-primoExplore-theme.md-hue-1
+    .md-calendar-date.md-focus.md-calendar-selected-date
+    .md-calendar-date-selection-indicator {
     background: rgb(83, 115, 140);
     color: rgba(255, 255, 255, 0.87);
     border-color: transparent;
@@ -728,7 +786,6 @@ md-icon.md-primoExplore-theme.md-hue-1.md-primary {
 md-input-container.md-primoExplore-theme.md-hue-1 .md-input {
     color: rgba(0, 0, 0, 0.87);
     border-color: rgba(0, 0, 0, 0.12);
-     
 }
 
 md-input-container.md-primoExplore-theme.md-hue-1 .md-input::-webkit-input-placeholder,
@@ -744,7 +801,6 @@ md-input-container.md-primoExplore-theme.md-hue-1 > md-icon {
 
 md-input-container.md-primoExplore-theme.md-hue-1 label,
 md-input-container.md-primoExplore-theme.md-hue-1 .md-placeholder {
-     
     color: rgba(0, 0, 0, 0.26);
 }
 
@@ -1019,18 +1075,44 @@ md-tabs.md-primoExplore-theme.md-hue-1.md-primary > md-tabs-wrapper {
     background-color: rgb(121, 134, 203);
 }
 
-md-tabs.md-primoExplore-theme.md-hue-1.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {
+md-tabs.md-primoExplore-theme.md-hue-1.md-primary
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]) {
     color: rgb(197, 202, 233);
 }
 
-md-tabs.md-primoExplore-theme.md-hue-1.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active,
-md-tabs.md-primoExplore-theme.md-hue-1.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon,
-md-tabs.md-primoExplore-theme.md-hue-1.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused,
-md-tabs.md-primoExplore-theme.md-hue-1.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon {
+md-tabs.md-primoExplore-theme.md-hue-1.md-primary
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active,
+md-tabs.md-primoExplore-theme.md-hue-1.md-primary
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active
+    md-icon,
+md-tabs.md-primoExplore-theme.md-hue-1.md-primary
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused,
+md-tabs.md-primoExplore-theme.md-hue-1.md-primary
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused
+    md-icon {
     color: rgb(255, 255, 255);
 }
 
-md-tabs.md-primoExplore-theme.md-hue-1.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused {
+md-tabs.md-primoExplore-theme.md-hue-1.md-primary
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused {
     background: rgba(255, 255, 255, 0.1);
 }
 
@@ -1038,18 +1120,50 @@ md-toolbar > md-tabs.md-primoExplore-theme.md-hue-1 > md-tabs-wrapper {
     background-color: rgb(121, 134, 203);
 }
 
-md-toolbar > md-tabs.md-primoExplore-theme.md-hue-1 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {
+md-toolbar
+    > md-tabs.md-primoExplore-theme.md-hue-1
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]) {
     color: rgb(197, 202, 233);
 }
 
-md-toolbar > md-tabs.md-primoExplore-theme.md-hue-1 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active,
-md-toolbar > md-tabs.md-primoExplore-theme.md-hue-1 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon,
-md-toolbar > md-tabs.md-primoExplore-theme.md-hue-1 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused,
-md-toolbar > md-tabs.md-primoExplore-theme.md-hue-1 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon {
+md-toolbar
+    > md-tabs.md-primoExplore-theme.md-hue-1
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active,
+md-toolbar
+    > md-tabs.md-primoExplore-theme.md-hue-1
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active
+    md-icon,
+md-toolbar
+    > md-tabs.md-primoExplore-theme.md-hue-1
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused,
+md-toolbar
+    > md-tabs.md-primoExplore-theme.md-hue-1
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused
+    md-icon {
     color: rgb(255, 255, 255);
 }
 
-md-toolbar > md-tabs.md-primoExplore-theme.md-hue-1 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused {
+md-toolbar
+    > md-tabs.md-primoExplore-theme.md-hue-1
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused {
     background: rgba(255, 255, 255, 0.1);
 }
 
@@ -1190,7 +1304,6 @@ md-chips.md-primoExplore-theme.md-hue-2 .md-chip.md-focused md-icon {
     color: rgba(255, 255, 255, 0.87);
 }
 
-
 /** Theme styles for mdCalendar. */
 
 .md-calendar.md-primoExplore-theme.md-hue-2 {
@@ -1206,7 +1319,9 @@ md-chips.md-primoExplore-theme.md-hue-2 .md-chip.md-focused md-icon {
 }
 
 .md-primoExplore-theme.md-hue-2 .md-calendar-date.md-calendar-selected-date .md-calendar-date-selection-indicator,
-.md-primoExplore-theme.md-hue-2 .md-calendar-date.md-focus.md-calendar-selected-date .md-calendar-date-selection-indicator {
+.md-primoExplore-theme.md-hue-2
+    .md-calendar-date.md-focus.md-calendar-selected-date
+    .md-calendar-date-selection-indicator {
     background: rgb(83, 115, 140);
     color: rgba(255, 255, 255, 0.87);
     border-color: transparent;
@@ -1264,7 +1379,6 @@ md-icon.md-primoExplore-theme.md-hue-2.md-primary {
 md-input-container.md-primoExplore-theme.md-hue-2 .md-input {
     color: rgba(0, 0, 0, 0.87);
     border-color: rgba(0, 0, 0, 0.12);
-     
 }
 
 md-input-container.md-primoExplore-theme.md-hue-2 .md-input::-webkit-input-placeholder,
@@ -1280,7 +1394,6 @@ md-input-container.md-primoExplore-theme.md-hue-2 > md-icon {
 
 md-input-container.md-primoExplore-theme.md-hue-2 label,
 md-input-container.md-primoExplore-theme.md-hue-2 .md-placeholder {
-     
     color: rgba(0, 0, 0, 0.26);
 }
 
@@ -1555,18 +1668,44 @@ md-tabs.md-primoExplore-theme.md-hue-2.md-primary > md-tabs-wrapper {
     background-color: rgb(40, 53, 147);
 }
 
-md-tabs.md-primoExplore-theme.md-hue-2.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {
+md-tabs.md-primoExplore-theme.md-hue-2.md-primary
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]) {
     color: rgb(197, 202, 233);
 }
 
-md-tabs.md-primoExplore-theme.md-hue-2.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active,
-md-tabs.md-primoExplore-theme.md-hue-2.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon,
-md-tabs.md-primoExplore-theme.md-hue-2.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused,
-md-tabs.md-primoExplore-theme.md-hue-2.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon {
+md-tabs.md-primoExplore-theme.md-hue-2.md-primary
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active,
+md-tabs.md-primoExplore-theme.md-hue-2.md-primary
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active
+    md-icon,
+md-tabs.md-primoExplore-theme.md-hue-2.md-primary
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused,
+md-tabs.md-primoExplore-theme.md-hue-2.md-primary
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused
+    md-icon {
     color: rgba(255, 255, 255, 0.87);
 }
 
-md-tabs.md-primoExplore-theme.md-hue-2.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused {
+md-tabs.md-primoExplore-theme.md-hue-2.md-primary
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused {
     background: rgba(255, 255, 255, 0.1);
 }
 
@@ -1574,18 +1713,50 @@ md-toolbar > md-tabs.md-primoExplore-theme.md-hue-2 > md-tabs-wrapper {
     background-color: rgb(40, 53, 147);
 }
 
-md-toolbar > md-tabs.md-primoExplore-theme.md-hue-2 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {
+md-toolbar
+    > md-tabs.md-primoExplore-theme.md-hue-2
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]) {
     color: rgb(197, 202, 233);
 }
 
-md-toolbar > md-tabs.md-primoExplore-theme.md-hue-2 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active,
-md-toolbar > md-tabs.md-primoExplore-theme.md-hue-2 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon,
-md-toolbar > md-tabs.md-primoExplore-theme.md-hue-2 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused,
-md-toolbar > md-tabs.md-primoExplore-theme.md-hue-2 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon {
+md-toolbar
+    > md-tabs.md-primoExplore-theme.md-hue-2
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active,
+md-toolbar
+    > md-tabs.md-primoExplore-theme.md-hue-2
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active
+    md-icon,
+md-toolbar
+    > md-tabs.md-primoExplore-theme.md-hue-2
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused,
+md-toolbar
+    > md-tabs.md-primoExplore-theme.md-hue-2
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused
+    md-icon {
     color: rgba(255, 255, 255, 0.87);
 }
 
-md-toolbar > md-tabs.md-primoExplore-theme.md-hue-2 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused {
+md-toolbar
+    > md-tabs.md-primoExplore-theme.md-hue-2
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused {
     background: rgba(255, 255, 255, 0.1);
 }
 
@@ -1726,7 +1897,6 @@ md-chips.md-primoExplore-theme.md-hue-3 .md-chip.md-focused md-icon {
     color: rgba(0, 0, 0, 0.87);
 }
 
-
 /** Theme styles for mdCalendar. */
 
 .md-calendar.md-primoExplore-theme.md-hue-3 {
@@ -1742,7 +1912,9 @@ md-chips.md-primoExplore-theme.md-hue-3 .md-chip.md-focused md-icon {
 }
 
 .md-primoExplore-theme.md-hue-3 .md-calendar-date.md-calendar-selected-date .md-calendar-date-selection-indicator,
-.md-primoExplore-theme.md-hue-3 .md-calendar-date.md-focus.md-calendar-selected-date .md-calendar-date-selection-indicator {
+.md-primoExplore-theme.md-hue-3
+    .md-calendar-date.md-focus.md-calendar-selected-date
+    .md-calendar-date-selection-indicator {
     background: rgb(83, 115, 140);
     color: rgba(255, 255, 255, 0.87);
     border-color: transparent;
@@ -1800,7 +1972,6 @@ md-icon.md-primoExplore-theme.md-hue-3.md-primary {
 md-input-container.md-primoExplore-theme.md-hue-3 .md-input {
     color: rgba(0, 0, 0, 0.87);
     border-color: rgba(0, 0, 0, 0.12);
-     
 }
 
 md-input-container.md-primoExplore-theme.md-hue-3 .md-input::-webkit-input-placeholder,
@@ -1816,7 +1987,6 @@ md-input-container.md-primoExplore-theme.md-hue-3 > md-icon {
 
 md-input-container.md-primoExplore-theme.md-hue-3 label,
 md-input-container.md-primoExplore-theme.md-hue-3 .md-placeholder {
-     
     color: rgba(0, 0, 0, 0.26);
 }
 
@@ -2091,18 +2261,44 @@ md-tabs.md-primoExplore-theme.md-hue-3.md-primary > md-tabs-wrapper {
     background-color: rgb(140, 158, 255);
 }
 
-md-tabs.md-primoExplore-theme.md-hue-3.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {
+md-tabs.md-primoExplore-theme.md-hue-3.md-primary
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]) {
     color: rgb(197, 202, 233);
 }
 
-md-tabs.md-primoExplore-theme.md-hue-3.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active,
-md-tabs.md-primoExplore-theme.md-hue-3.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon,
-md-tabs.md-primoExplore-theme.md-hue-3.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused,
-md-tabs.md-primoExplore-theme.md-hue-3.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon {
+md-tabs.md-primoExplore-theme.md-hue-3.md-primary
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active,
+md-tabs.md-primoExplore-theme.md-hue-3.md-primary
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active
+    md-icon,
+md-tabs.md-primoExplore-theme.md-hue-3.md-primary
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused,
+md-tabs.md-primoExplore-theme.md-hue-3.md-primary
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused
+    md-icon {
     color: rgba(0, 0, 0, 0.87);
 }
 
-md-tabs.md-primoExplore-theme.md-hue-3.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused {
+md-tabs.md-primoExplore-theme.md-hue-3.md-primary
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused {
     background: rgba(0, 0, 0, 0.1);
 }
 
@@ -2110,18 +2306,50 @@ md-toolbar > md-tabs.md-primoExplore-theme.md-hue-3 > md-tabs-wrapper {
     background-color: rgb(140, 158, 255);
 }
 
-md-toolbar > md-tabs.md-primoExplore-theme.md-hue-3 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {
+md-toolbar
+    > md-tabs.md-primoExplore-theme.md-hue-3
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]) {
     color: rgb(197, 202, 233);
 }
 
-md-toolbar > md-tabs.md-primoExplore-theme.md-hue-3 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active,
-md-toolbar > md-tabs.md-primoExplore-theme.md-hue-3 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon,
-md-toolbar > md-tabs.md-primoExplore-theme.md-hue-3 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused,
-md-toolbar > md-tabs.md-primoExplore-theme.md-hue-3 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon {
+md-toolbar
+    > md-tabs.md-primoExplore-theme.md-hue-3
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active,
+md-toolbar
+    > md-tabs.md-primoExplore-theme.md-hue-3
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active
+    md-icon,
+md-toolbar
+    > md-tabs.md-primoExplore-theme.md-hue-3
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused,
+md-toolbar
+    > md-tabs.md-primoExplore-theme.md-hue-3
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused
+    md-icon {
     color: rgba(0, 0, 0, 0.87);
 }
 
-md-toolbar > md-tabs.md-primoExplore-theme.md-hue-3 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused {
+md-toolbar
+    > md-tabs.md-primoExplore-theme.md-hue-3
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused {
     background: rgba(0, 0, 0, 0.1);
 }
 
@@ -2312,11 +2540,11 @@ md-progress-linear.md-primoExplore-theme.md-accent .md-bar {
     background-color: rgb(114, 180, 186);
 }
 
-md-progress-linear.md-primoExplore-theme[md-mode=buffer].md-accent .md-bar1 {
+md-progress-linear.md-primoExplore-theme[md-mode='buffer'].md-accent .md-bar1 {
     background-color: rgb(197, 202, 233);
 }
 
-md-progress-linear.md-primoExplore-theme[md-mode=buffer].md-accent .md-dashed:before {
+md-progress-linear.md-primoExplore-theme[md-mode='buffer'].md-accent .md-dashed:before {
     background: radial-gradient(rgb(197, 202, 233) 0%, rgb(197, 202, 233) 16%, transparent 42%);
 }
 
@@ -2414,18 +2642,44 @@ md-tabs.md-primoExplore-theme.md-accent > md-tabs-wrapper {
     background-color: rgb(114, 180, 186);
 }
 
-md-tabs.md-primoExplore-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {
+md-tabs.md-primoExplore-theme.md-accent
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]) {
     color: rgb(197, 202, 233);
 }
 
-md-tabs.md-primoExplore-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active,
-md-tabs.md-primoExplore-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon,
-md-tabs.md-primoExplore-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused,
-md-tabs.md-primoExplore-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon {
+md-tabs.md-primoExplore-theme.md-accent
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active,
+md-tabs.md-primoExplore-theme.md-accent
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active
+    md-icon,
+md-tabs.md-primoExplore-theme.md-accent
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused,
+md-tabs.md-primoExplore-theme.md-accent
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused
+    md-icon {
     color: rgb(255, 255, 255);
 }
 
-md-tabs.md-primoExplore-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused {
+md-tabs.md-primoExplore-theme.md-accent
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused {
     background: rgba(255, 255, 255, 0.1);
 }
 
@@ -2438,22 +2692,59 @@ md-toolbar.md-accent > md-tabs.md-primoExplore-theme > md-tabs-wrapper {
     background-color: rgb(114, 180, 186);
 }
 
-md-toolbar.md-accent > md-tabs.md-primoExplore-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {
+md-toolbar.md-accent
+    > md-tabs.md-primoExplore-theme
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]) {
     color: rgb(197, 202, 233);
 }
 
-md-toolbar.md-accent > md-tabs.md-primoExplore-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active,
-md-toolbar.md-accent > md-tabs.md-primoExplore-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon,
-md-toolbar.md-accent > md-tabs.md-primoExplore-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused,
-md-toolbar.md-accent > md-tabs.md-primoExplore-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon {
+md-toolbar.md-accent
+    > md-tabs.md-primoExplore-theme
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active,
+md-toolbar.md-accent
+    > md-tabs.md-primoExplore-theme
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active
+    md-icon,
+md-toolbar.md-accent
+    > md-tabs.md-primoExplore-theme
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused,
+md-toolbar.md-accent
+    > md-tabs.md-primoExplore-theme
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused
+    md-icon {
     color: rgb(255, 255, 255);
 }
 
-md-toolbar.md-accent > md-tabs.md-primoExplore-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused {
+md-toolbar.md-accent
+    > md-tabs.md-primoExplore-theme
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused {
     background: rgba(255, 255, 255, 0.1);
 }
 
-md-toolbar.md-accent > md-tabs.md-primoExplore-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-ink-bar {
+md-toolbar.md-accent
+    > md-tabs.md-primoExplore-theme
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-ink-bar {
     color: rgba(57, 73, 171, 1);
     background: rgba(57, 73, 171, 1);
 }
@@ -2637,11 +2928,11 @@ md-progress-linear.md-primoExplore-theme.md-hue-1.md-accent .md-bar {
     background-color: rgb(114, 180, 186);
 }
 
-md-progress-linear.md-primoExplore-theme.md-hue-1[md-mode=buffer].md-accent .md-bar1 {
+md-progress-linear.md-primoExplore-theme.md-hue-1[md-mode='buffer'].md-accent .md-bar1 {
     background-color: rgb(197, 202, 233);
 }
 
-md-progress-linear.md-primoExplore-theme.md-hue-1[md-mode=buffer].md-accent .md-dashed:before {
+md-progress-linear.md-primoExplore-theme.md-hue-1[md-mode='buffer'].md-accent .md-dashed:before {
     background: radial-gradient(rgb(197, 202, 233) 0%, rgb(197, 202, 233) 16%, transparent 42%);
 }
 
@@ -2739,22 +3030,52 @@ md-tabs.md-primoExplore-theme.md-hue-1.md-accent > md-tabs-wrapper {
     background-color: rgb(114, 180, 186);
 }
 
-md-tabs.md-primoExplore-theme.md-hue-1.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {
+md-tabs.md-primoExplore-theme.md-hue-1.md-accent
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]) {
     color: rgb(197, 202, 233);
 }
 
-md-tabs.md-primoExplore-theme.md-hue-1.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active,
-md-tabs.md-primoExplore-theme.md-hue-1.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon,
-md-tabs.md-primoExplore-theme.md-hue-1.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused,
-md-tabs.md-primoExplore-theme.md-hue-1.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon {
+md-tabs.md-primoExplore-theme.md-hue-1.md-accent
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active,
+md-tabs.md-primoExplore-theme.md-hue-1.md-accent
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active
+    md-icon,
+md-tabs.md-primoExplore-theme.md-hue-1.md-accent
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused,
+md-tabs.md-primoExplore-theme.md-hue-1.md-accent
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused
+    md-icon {
     color: rgba(0, 0, 0, 0.87);
 }
 
-md-tabs.md-primoExplore-theme.md-hue-1.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused {
+md-tabs.md-primoExplore-theme.md-hue-1.md-accent
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused {
     background: rgba(0, 0, 0, 0.1);
 }
 
-md-tabs.md-primoExplore-theme.md-hue-1.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-ink-bar {
+md-tabs.md-primoExplore-theme.md-hue-1.md-accent
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-ink-bar {
     color: rgba(57, 73, 171, 1);
     background: rgba(57, 73, 171, 1);
 }
@@ -2763,22 +3084,59 @@ md-toolbar.md-accent > md-tabs.md-primoExplore-theme.md-hue-1 > md-tabs-wrapper 
     background-color: rgb(114, 180, 186);
 }
 
-md-toolbar.md-accent > md-tabs.md-primoExplore-theme.md-hue-1 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {
+md-toolbar.md-accent
+    > md-tabs.md-primoExplore-theme.md-hue-1
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]) {
     color: rgb(197, 202, 233);
 }
 
-md-toolbar.md-accent > md-tabs.md-primoExplore-theme.md-hue-1 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active,
-md-toolbar.md-accent > md-tabs.md-primoExplore-theme.md-hue-1 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon,
-md-toolbar.md-accent > md-tabs.md-primoExplore-theme.md-hue-1 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused,
-md-toolbar.md-accent > md-tabs.md-primoExplore-theme.md-hue-1 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon {
+md-toolbar.md-accent
+    > md-tabs.md-primoExplore-theme.md-hue-1
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active,
+md-toolbar.md-accent
+    > md-tabs.md-primoExplore-theme.md-hue-1
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active
+    md-icon,
+md-toolbar.md-accent
+    > md-tabs.md-primoExplore-theme.md-hue-1
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused,
+md-toolbar.md-accent
+    > md-tabs.md-primoExplore-theme.md-hue-1
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused
+    md-icon {
     color: rgba(0, 0, 0, 0.87);
 }
 
-md-toolbar.md-accent > md-tabs.md-primoExplore-theme.md-hue-1 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused {
+md-toolbar.md-accent
+    > md-tabs.md-primoExplore-theme.md-hue-1
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused {
     background: rgba(0, 0, 0, 0.1);
 }
 
-md-toolbar.md-accent > md-tabs.md-primoExplore-theme.md-hue-1 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-ink-bar {
+md-toolbar.md-accent
+    > md-tabs.md-primoExplore-theme.md-hue-1
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-ink-bar {
     color: rgba(57, 73, 171, 1);
     background: rgba(57, 73, 171, 1);
 }
@@ -2962,11 +3320,11 @@ md-progress-linear.md-primoExplore-theme.md-hue-2.md-accent .md-bar {
     background-color: rgb(114, 180, 186);
 }
 
-md-progress-linear.md-primoExplore-theme.md-hue-2[md-mode=buffer].md-accent .md-bar1 {
+md-progress-linear.md-primoExplore-theme.md-hue-2[md-mode='buffer'].md-accent .md-bar1 {
     background-color: rgb(197, 202, 233);
 }
 
-md-progress-linear.md-primoExplore-theme.md-hue-2[md-mode=buffer].md-accent .md-dashed:before {
+md-progress-linear.md-primoExplore-theme.md-hue-2[md-mode='buffer'].md-accent .md-dashed:before {
     background: radial-gradient(rgb(197, 202, 233) 0%, rgb(197, 202, 233) 16%, transparent 42%);
 }
 
@@ -3064,22 +3422,52 @@ md-tabs.md-primoExplore-theme.md-hue-2.md-accent > md-tabs-wrapper {
     background-color: rgb(114, 180, 186);
 }
 
-md-tabs.md-primoExplore-theme.md-hue-2.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {
+md-tabs.md-primoExplore-theme.md-hue-2.md-accent
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]) {
     color: rgb(197, 202, 233);
 }
 
-md-tabs.md-primoExplore-theme.md-hue-2.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active,
-md-tabs.md-primoExplore-theme.md-hue-2.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon,
-md-tabs.md-primoExplore-theme.md-hue-2.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused,
-md-tabs.md-primoExplore-theme.md-hue-2.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon {
+md-tabs.md-primoExplore-theme.md-hue-2.md-accent
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active,
+md-tabs.md-primoExplore-theme.md-hue-2.md-accent
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active
+    md-icon,
+md-tabs.md-primoExplore-theme.md-hue-2.md-accent
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused,
+md-tabs.md-primoExplore-theme.md-hue-2.md-accent
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused
+    md-icon {
     color: rgb(255, 255, 255);
 }
 
-md-tabs.md-primoExplore-theme.md-hue-2.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused {
+md-tabs.md-primoExplore-theme.md-hue-2.md-accent
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused {
     background: rgba(255, 255, 255, 0.1);
 }
 
-md-tabs.md-primoExplore-theme.md-hue-2.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-ink-bar {
+md-tabs.md-primoExplore-theme.md-hue-2.md-accent
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-ink-bar {
     color: rgba(57, 73, 171, 1);
     background: rgba(57, 73, 171, 1);
 }
@@ -3088,22 +3476,59 @@ md-toolbar.md-accent > md-tabs.md-primoExplore-theme.md-hue-2 > md-tabs-wrapper 
     background-color: rgb(114, 180, 186);
 }
 
-md-toolbar.md-accent > md-tabs.md-primoExplore-theme.md-hue-2 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {
+md-toolbar.md-accent
+    > md-tabs.md-primoExplore-theme.md-hue-2
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]) {
     color: rgb(197, 202, 233);
 }
 
-md-toolbar.md-accent > md-tabs.md-primoExplore-theme.md-hue-2 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active,
-md-toolbar.md-accent > md-tabs.md-primoExplore-theme.md-hue-2 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon,
-md-toolbar.md-accent > md-tabs.md-primoExplore-theme.md-hue-2 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused,
-md-toolbar.md-accent > md-tabs.md-primoExplore-theme.md-hue-2 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon {
+md-toolbar.md-accent
+    > md-tabs.md-primoExplore-theme.md-hue-2
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active,
+md-toolbar.md-accent
+    > md-tabs.md-primoExplore-theme.md-hue-2
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active
+    md-icon,
+md-toolbar.md-accent
+    > md-tabs.md-primoExplore-theme.md-hue-2
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused,
+md-toolbar.md-accent
+    > md-tabs.md-primoExplore-theme.md-hue-2
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused
+    md-icon {
     color: rgb(255, 255, 255);
 }
 
-md-toolbar.md-accent > md-tabs.md-primoExplore-theme.md-hue-2 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused {
+md-toolbar.md-accent
+    > md-tabs.md-primoExplore-theme.md-hue-2
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused {
     background: rgba(255, 255, 255, 0.1);
 }
 
-md-toolbar.md-accent > md-tabs.md-primoExplore-theme.md-hue-2 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-ink-bar {
+md-toolbar.md-accent
+    > md-tabs.md-primoExplore-theme.md-hue-2
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-ink-bar {
     color: rgba(57, 73, 171, 1);
     background: rgba(57, 73, 171, 1);
 }
@@ -3287,11 +3712,11 @@ md-progress-linear.md-primoExplore-theme.md-hue-3.md-accent .md-bar {
     background-color: rgb(114, 180, 186);
 }
 
-md-progress-linear.md-primoExplore-theme.md-hue-3[md-mode=buffer].md-accent .md-bar1 {
+md-progress-linear.md-primoExplore-theme.md-hue-3[md-mode='buffer'].md-accent .md-bar1 {
     background-color: rgb(197, 202, 233);
 }
 
-md-progress-linear.md-primoExplore-theme.md-hue-3[md-mode=buffer].md-accent .md-dashed:before {
+md-progress-linear.md-primoExplore-theme.md-hue-3[md-mode='buffer'].md-accent .md-dashed:before {
     background: radial-gradient(rgb(197, 202, 233) 0%, rgb(197, 202, 233) 16%, transparent 42%);
 }
 
@@ -3389,22 +3814,52 @@ md-tabs.md-primoExplore-theme.md-hue-3.md-accent > md-tabs-wrapper {
     background-color: rgb(114, 180, 186);
 }
 
-md-tabs.md-primoExplore-theme.md-hue-3.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {
+md-tabs.md-primoExplore-theme.md-hue-3.md-accent
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]) {
     color: rgb(197, 202, 233);
 }
 
-md-tabs.md-primoExplore-theme.md-hue-3.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active,
-md-tabs.md-primoExplore-theme.md-hue-3.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon,
-md-tabs.md-primoExplore-theme.md-hue-3.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused,
-md-tabs.md-primoExplore-theme.md-hue-3.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon {
+md-tabs.md-primoExplore-theme.md-hue-3.md-accent
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active,
+md-tabs.md-primoExplore-theme.md-hue-3.md-accent
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active
+    md-icon,
+md-tabs.md-primoExplore-theme.md-hue-3.md-accent
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused,
+md-tabs.md-primoExplore-theme.md-hue-3.md-accent
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused
+    md-icon {
     color: rgba(255, 255, 255, 0.87);
 }
 
-md-tabs.md-primoExplore-theme.md-hue-3.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused {
+md-tabs.md-primoExplore-theme.md-hue-3.md-accent
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused {
     background: rgba(255, 255, 255, 0.1);
 }
 
-md-tabs.md-primoExplore-theme.md-hue-3.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-ink-bar {
+md-tabs.md-primoExplore-theme.md-hue-3.md-accent
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-ink-bar {
     color: rgba(57, 73, 171, 1);
     background: rgba(57, 73, 171, 1);
 }
@@ -3413,22 +3868,59 @@ md-toolbar.md-accent > md-tabs.md-primoExplore-theme.md-hue-3 > md-tabs-wrapper 
     background-color: rgb(114, 180, 186);
 }
 
-md-toolbar.md-accent > md-tabs.md-primoExplore-theme.md-hue-3 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {
+md-toolbar.md-accent
+    > md-tabs.md-primoExplore-theme.md-hue-3
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]) {
     color: rgb(197, 202, 233);
 }
 
-md-toolbar.md-accent > md-tabs.md-primoExplore-theme.md-hue-3 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active,
-md-toolbar.md-accent > md-tabs.md-primoExplore-theme.md-hue-3 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon,
-md-toolbar.md-accent > md-tabs.md-primoExplore-theme.md-hue-3 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused,
-md-toolbar.md-accent > md-tabs.md-primoExplore-theme.md-hue-3 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon {
+md-toolbar.md-accent
+    > md-tabs.md-primoExplore-theme.md-hue-3
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active,
+md-toolbar.md-accent
+    > md-tabs.md-primoExplore-theme.md-hue-3
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active
+    md-icon,
+md-toolbar.md-accent
+    > md-tabs.md-primoExplore-theme.md-hue-3
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused,
+md-toolbar.md-accent
+    > md-tabs.md-primoExplore-theme.md-hue-3
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused
+    md-icon {
     color: rgba(255, 255, 255, 0.87);
 }
 
-md-toolbar.md-accent > md-tabs.md-primoExplore-theme.md-hue-3 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused {
+md-toolbar.md-accent
+    > md-tabs.md-primoExplore-theme.md-hue-3
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused {
     background: rgba(255, 255, 255, 0.1);
 }
 
-md-toolbar.md-accent > md-tabs.md-primoExplore-theme.md-hue-3 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-ink-bar {
+md-toolbar.md-accent
+    > md-tabs.md-primoExplore-theme.md-hue-3
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-ink-bar {
     color: rgba(57, 73, 171, 1);
     background: rgba(57, 73, 171, 1);
 }
@@ -3586,11 +4078,11 @@ md-progress-linear.md-primoExplore-theme.md-warn .md-bar {
     background-color: rgb(255, 87, 34);
 }
 
-md-progress-linear.md-primoExplore-theme[md-mode=buffer].md-warn .md-bar1 {
+md-progress-linear.md-primoExplore-theme[md-mode='buffer'].md-warn .md-bar1 {
     background-color: rgb(255, 204, 188);
 }
 
-md-progress-linear.md-primoExplore-theme[md-mode=buffer].md-warn .md-dashed:before {
+md-progress-linear.md-primoExplore-theme[md-mode='buffer'].md-warn .md-dashed:before {
     background: radial-gradient(rgb(255, 204, 188) 0%, rgb(255, 204, 188) 16%, transparent 42%);
 }
 
@@ -3693,18 +4185,44 @@ md-tabs.md-primoExplore-theme.md-warn > md-tabs-wrapper {
     background-color: rgb(255, 87, 34);
 }
 
-md-tabs.md-primoExplore-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {
+md-tabs.md-primoExplore-theme.md-warn
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]) {
     color: rgb(255, 204, 188);
 }
 
-md-tabs.md-primoExplore-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active,
-md-tabs.md-primoExplore-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon,
-md-tabs.md-primoExplore-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused,
-md-tabs.md-primoExplore-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon {
+md-tabs.md-primoExplore-theme.md-warn
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active,
+md-tabs.md-primoExplore-theme.md-warn
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active
+    md-icon,
+md-tabs.md-primoExplore-theme.md-warn
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused,
+md-tabs.md-primoExplore-theme.md-warn
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused
+    md-icon {
     color: rgb(255, 255, 255);
 }
 
-md-tabs.md-primoExplore-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused {
+md-tabs.md-primoExplore-theme.md-warn
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused {
     background: rgba(255, 255, 255, 0.1);
 }
 
@@ -3712,18 +4230,50 @@ md-toolbar.md-warn > md-tabs.md-primoExplore-theme > md-tabs-wrapper {
     background-color: rgb(255, 87, 34);
 }
 
-md-toolbar.md-warn > md-tabs.md-primoExplore-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {
+md-toolbar.md-warn
+    > md-tabs.md-primoExplore-theme
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]) {
     color: rgb(255, 204, 188);
 }
 
-md-toolbar.md-warn > md-tabs.md-primoExplore-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active,
-md-toolbar.md-warn > md-tabs.md-primoExplore-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon,
-md-toolbar.md-warn > md-tabs.md-primoExplore-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused,
-md-toolbar.md-warn > md-tabs.md-primoExplore-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon {
+md-toolbar.md-warn
+    > md-tabs.md-primoExplore-theme
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active,
+md-toolbar.md-warn
+    > md-tabs.md-primoExplore-theme
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active
+    md-icon,
+md-toolbar.md-warn
+    > md-tabs.md-primoExplore-theme
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused,
+md-toolbar.md-warn
+    > md-tabs.md-primoExplore-theme
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused
+    md-icon {
     color: rgb(255, 255, 255);
 }
 
-md-toolbar.md-warn > md-tabs.md-primoExplore-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused {
+md-toolbar.md-warn
+    > md-tabs.md-primoExplore-theme
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused {
     background: rgba(255, 255, 255, 0.1);
 }
 
@@ -3795,7 +4345,8 @@ md-checkbox.md-primoExplore-theme.md-hue-1:not([disabled]).md-warn.md-checked .m
     background-color: rgba(255, 138, 101, 0.87);
 }
 
-md-checkbox.md-primoExplore-theme.md-hue-1:not([disabled]).md-warn.md-checked.md-focused:not([disabled]) .md-container:before {
+md-checkbox.md-primoExplore-theme.md-hue-1:not([disabled]).md-warn.md-checked.md-focused:not([disabled])
+    .md-container:before {
     background-color: rgba(255, 138, 101, 0.26);
 }
 
@@ -3880,11 +4431,11 @@ md-progress-linear.md-primoExplore-theme.md-hue-1.md-warn .md-bar {
     background-color: rgb(255, 138, 101);
 }
 
-md-progress-linear.md-primoExplore-theme.md-hue-1[md-mode=buffer].md-warn .md-bar1 {
+md-progress-linear.md-primoExplore-theme.md-hue-1[md-mode='buffer'].md-warn .md-bar1 {
     background-color: rgb(255, 204, 188);
 }
 
-md-progress-linear.md-primoExplore-theme.md-hue-1[md-mode=buffer].md-warn .md-dashed:before {
+md-progress-linear.md-primoExplore-theme.md-hue-1[md-mode='buffer'].md-warn .md-dashed:before {
     background: radial-gradient(rgb(255, 204, 188) 0%, rgb(255, 204, 188) 16%, transparent 42%);
 }
 
@@ -3987,18 +4538,44 @@ md-tabs.md-primoExplore-theme.md-hue-1.md-warn > md-tabs-wrapper {
     background-color: rgb(255, 138, 101);
 }
 
-md-tabs.md-primoExplore-theme.md-hue-1.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {
+md-tabs.md-primoExplore-theme.md-hue-1.md-warn
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]) {
     color: rgb(255, 204, 188);
 }
 
-md-tabs.md-primoExplore-theme.md-hue-1.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active,
-md-tabs.md-primoExplore-theme.md-hue-1.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon,
-md-tabs.md-primoExplore-theme.md-hue-1.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused,
-md-tabs.md-primoExplore-theme.md-hue-1.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon {
+md-tabs.md-primoExplore-theme.md-hue-1.md-warn
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active,
+md-tabs.md-primoExplore-theme.md-hue-1.md-warn
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active
+    md-icon,
+md-tabs.md-primoExplore-theme.md-hue-1.md-warn
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused,
+md-tabs.md-primoExplore-theme.md-hue-1.md-warn
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused
+    md-icon {
     color: rgba(0, 0, 0, 0.87);
 }
 
-md-tabs.md-primoExplore-theme.md-hue-1.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused {
+md-tabs.md-primoExplore-theme.md-hue-1.md-warn
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused {
     background: rgba(0, 0, 0, 0.1);
 }
 
@@ -4006,18 +4583,50 @@ md-toolbar.md-warn > md-tabs.md-primoExplore-theme.md-hue-1 > md-tabs-wrapper {
     background-color: rgb(255, 138, 101);
 }
 
-md-toolbar.md-warn > md-tabs.md-primoExplore-theme.md-hue-1 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {
+md-toolbar.md-warn
+    > md-tabs.md-primoExplore-theme.md-hue-1
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]) {
     color: rgb(255, 204, 188);
 }
 
-md-toolbar.md-warn > md-tabs.md-primoExplore-theme.md-hue-1 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active,
-md-toolbar.md-warn > md-tabs.md-primoExplore-theme.md-hue-1 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon,
-md-toolbar.md-warn > md-tabs.md-primoExplore-theme.md-hue-1 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused,
-md-toolbar.md-warn > md-tabs.md-primoExplore-theme.md-hue-1 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon {
+md-toolbar.md-warn
+    > md-tabs.md-primoExplore-theme.md-hue-1
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active,
+md-toolbar.md-warn
+    > md-tabs.md-primoExplore-theme.md-hue-1
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active
+    md-icon,
+md-toolbar.md-warn
+    > md-tabs.md-primoExplore-theme.md-hue-1
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused,
+md-toolbar.md-warn
+    > md-tabs.md-primoExplore-theme.md-hue-1
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused
+    md-icon {
     color: rgba(0, 0, 0, 0.87);
 }
 
-md-toolbar.md-warn > md-tabs.md-primoExplore-theme.md-hue-1 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused {
+md-toolbar.md-warn
+    > md-tabs.md-primoExplore-theme.md-hue-1
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused {
     background: rgba(0, 0, 0, 0.1);
 }
 
@@ -4089,7 +4698,8 @@ md-checkbox.md-primoExplore-theme.md-hue-2:not([disabled]).md-warn.md-checked .m
     background-color: rgba(216, 67, 21, 0.87);
 }
 
-md-checkbox.md-primoExplore-theme.md-hue-2:not([disabled]).md-warn.md-checked.md-focused:not([disabled]) .md-container:before {
+md-checkbox.md-primoExplore-theme.md-hue-2:not([disabled]).md-warn.md-checked.md-focused:not([disabled])
+    .md-container:before {
     background-color: rgba(216, 67, 21, 0.26);
 }
 
@@ -4174,11 +4784,11 @@ md-progress-linear.md-primoExplore-theme.md-hue-2.md-warn .md-bar {
     background-color: rgb(216, 67, 21);
 }
 
-md-progress-linear.md-primoExplore-theme.md-hue-2[md-mode=buffer].md-warn .md-bar1 {
+md-progress-linear.md-primoExplore-theme.md-hue-2[md-mode='buffer'].md-warn .md-bar1 {
     background-color: rgb(255, 204, 188);
 }
 
-md-progress-linear.md-primoExplore-theme.md-hue-2[md-mode=buffer].md-warn .md-dashed:before {
+md-progress-linear.md-primoExplore-theme.md-hue-2[md-mode='buffer'].md-warn .md-dashed:before {
     background: radial-gradient(rgb(255, 204, 188) 0%, rgb(255, 204, 188) 16%, transparent 42%);
 }
 
@@ -4281,18 +4891,44 @@ md-tabs.md-primoExplore-theme.md-hue-2.md-warn > md-tabs-wrapper {
     background-color: rgb(216, 67, 21);
 }
 
-md-tabs.md-primoExplore-theme.md-hue-2.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {
+md-tabs.md-primoExplore-theme.md-hue-2.md-warn
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]) {
     color: rgb(255, 204, 188);
 }
 
-md-tabs.md-primoExplore-theme.md-hue-2.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active,
-md-tabs.md-primoExplore-theme.md-hue-2.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon,
-md-tabs.md-primoExplore-theme.md-hue-2.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused,
-md-tabs.md-primoExplore-theme.md-hue-2.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon {
+md-tabs.md-primoExplore-theme.md-hue-2.md-warn
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active,
+md-tabs.md-primoExplore-theme.md-hue-2.md-warn
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active
+    md-icon,
+md-tabs.md-primoExplore-theme.md-hue-2.md-warn
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused,
+md-tabs.md-primoExplore-theme.md-hue-2.md-warn
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused
+    md-icon {
     color: rgb(255, 255, 255);
 }
 
-md-tabs.md-primoExplore-theme.md-hue-2.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused {
+md-tabs.md-primoExplore-theme.md-hue-2.md-warn
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused {
     background: rgba(255, 255, 255, 0.1);
 }
 
@@ -4300,18 +4936,50 @@ md-toolbar.md-warn > md-tabs.md-primoExplore-theme.md-hue-2 > md-tabs-wrapper {
     background-color: rgb(216, 67, 21);
 }
 
-md-toolbar.md-warn > md-tabs.md-primoExplore-theme.md-hue-2 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {
+md-toolbar.md-warn
+    > md-tabs.md-primoExplore-theme.md-hue-2
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]) {
     color: rgb(255, 204, 188);
 }
 
-md-toolbar.md-warn > md-tabs.md-primoExplore-theme.md-hue-2 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active,
-md-toolbar.md-warn > md-tabs.md-primoExplore-theme.md-hue-2 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon,
-md-toolbar.md-warn > md-tabs.md-primoExplore-theme.md-hue-2 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused,
-md-toolbar.md-warn > md-tabs.md-primoExplore-theme.md-hue-2 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon {
+md-toolbar.md-warn
+    > md-tabs.md-primoExplore-theme.md-hue-2
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active,
+md-toolbar.md-warn
+    > md-tabs.md-primoExplore-theme.md-hue-2
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active
+    md-icon,
+md-toolbar.md-warn
+    > md-tabs.md-primoExplore-theme.md-hue-2
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused,
+md-toolbar.md-warn
+    > md-tabs.md-primoExplore-theme.md-hue-2
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused
+    md-icon {
     color: rgb(255, 255, 255);
 }
 
-md-toolbar.md-warn > md-tabs.md-primoExplore-theme.md-hue-2 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused {
+md-toolbar.md-warn
+    > md-tabs.md-primoExplore-theme.md-hue-2
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused {
     background: rgba(255, 255, 255, 0.1);
 }
 
@@ -4383,7 +5051,8 @@ md-checkbox.md-primoExplore-theme.md-hue-3:not([disabled]).md-warn.md-checked .m
     background-color: rgba(255, 158, 128, 0.87);
 }
 
-md-checkbox.md-primoExplore-theme.md-hue-3:not([disabled]).md-warn.md-checked.md-focused:not([disabled]) .md-container:before {
+md-checkbox.md-primoExplore-theme.md-hue-3:not([disabled]).md-warn.md-checked.md-focused:not([disabled])
+    .md-container:before {
     background-color: rgba(255, 158, 128, 0.26);
 }
 
@@ -4468,11 +5137,11 @@ md-progress-linear.md-primoExplore-theme.md-hue-3.md-warn .md-bar {
     background-color: rgb(255, 158, 128);
 }
 
-md-progress-linear.md-primoExplore-theme.md-hue-3[md-mode=buffer].md-warn .md-bar1 {
+md-progress-linear.md-primoExplore-theme.md-hue-3[md-mode='buffer'].md-warn .md-bar1 {
     background-color: rgb(255, 204, 188);
 }
 
-md-progress-linear.md-primoExplore-theme.md-hue-3[md-mode=buffer].md-warn .md-dashed:before {
+md-progress-linear.md-primoExplore-theme.md-hue-3[md-mode='buffer'].md-warn .md-dashed:before {
     background: radial-gradient(rgb(255, 204, 188) 0%, rgb(255, 204, 188) 16%, transparent 42%);
 }
 
@@ -4575,18 +5244,44 @@ md-tabs.md-primoExplore-theme.md-hue-3.md-warn > md-tabs-wrapper {
     background-color: rgb(255, 158, 128);
 }
 
-md-tabs.md-primoExplore-theme.md-hue-3.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {
+md-tabs.md-primoExplore-theme.md-hue-3.md-warn
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]) {
     color: rgb(255, 204, 188);
 }
 
-md-tabs.md-primoExplore-theme.md-hue-3.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active,
-md-tabs.md-primoExplore-theme.md-hue-3.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon,
-md-tabs.md-primoExplore-theme.md-hue-3.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused,
-md-tabs.md-primoExplore-theme.md-hue-3.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon {
+md-tabs.md-primoExplore-theme.md-hue-3.md-warn
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active,
+md-tabs.md-primoExplore-theme.md-hue-3.md-warn
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active
+    md-icon,
+md-tabs.md-primoExplore-theme.md-hue-3.md-warn
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused,
+md-tabs.md-primoExplore-theme.md-hue-3.md-warn
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused
+    md-icon {
     color: rgba(0, 0, 0, 0.87);
 }
 
-md-tabs.md-primoExplore-theme.md-hue-3.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused {
+md-tabs.md-primoExplore-theme.md-hue-3.md-warn
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused {
     background: rgba(0, 0, 0, 0.1);
 }
 
@@ -4594,18 +5289,50 @@ md-toolbar.md-warn > md-tabs.md-primoExplore-theme.md-hue-3 > md-tabs-wrapper {
     background-color: rgb(255, 158, 128);
 }
 
-md-toolbar.md-warn > md-tabs.md-primoExplore-theme.md-hue-3 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {
+md-toolbar.md-warn
+    > md-tabs.md-primoExplore-theme.md-hue-3
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]) {
     color: rgb(255, 204, 188);
 }
 
-md-toolbar.md-warn > md-tabs.md-primoExplore-theme.md-hue-3 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active,
-md-toolbar.md-warn > md-tabs.md-primoExplore-theme.md-hue-3 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon,
-md-toolbar.md-warn > md-tabs.md-primoExplore-theme.md-hue-3 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused,
-md-toolbar.md-warn > md-tabs.md-primoExplore-theme.md-hue-3 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon {
+md-toolbar.md-warn
+    > md-tabs.md-primoExplore-theme.md-hue-3
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active,
+md-toolbar.md-warn
+    > md-tabs.md-primoExplore-theme.md-hue-3
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-active
+    md-icon,
+md-toolbar.md-warn
+    > md-tabs.md-primoExplore-theme.md-hue-3
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused,
+md-toolbar.md-warn
+    > md-tabs.md-primoExplore-theme.md-hue-3
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused
+    md-icon {
     color: rgba(0, 0, 0, 0.87);
 }
 
-md-toolbar.md-warn > md-tabs.md-primoExplore-theme.md-hue-3 > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused {
+md-toolbar.md-warn
+    > md-tabs.md-primoExplore-theme.md-hue-3
+    > md-tabs-wrapper
+    > md-tabs-canvas
+    > md-pagination-wrapper
+    > md-tab-item:not([disabled]).md-focused {
     background: rgba(0, 0, 0, 0.1);
 }
 
@@ -4661,11 +5388,11 @@ md-bottom-sheet.md-primoExplore-theme .md-subheader {
 }
 
 md-backdrop {
-    background-color: rgba(33, 33, 33, 0.0);
+    background-color: rgba(33, 33, 33, 0);
 }
 
 md-backdrop.md-opaque.md-primoExplore-theme {
-    background-color: rgba(33, 33, 33, 1.0);
+    background-color: rgba(33, 33, 33, 1);
 }
 
 a.md-button.md-primoExplore-theme:not([disabled]):hover,
@@ -4776,7 +5503,6 @@ md-content.md-primoExplore-theme {
 .md-primoExplore-theme .md-calendar-date-selection-indicator:hover {
     background: rgb(224, 224, 224);
 }
-
 
 /** Theme styles for mdDatepicker. */
 
@@ -4988,11 +5714,11 @@ md-bottom-sheet.md-primoExplore-theme.md-hue-1 .md-subheader {
 }
 
 md-backdrop {
-    background-color: rgba(33, 33, 33, 0.0);
+    background-color: rgba(33, 33, 33, 0);
 }
 
 md-backdrop.md-opaque.md-primoExplore-theme.md-hue-1 {
-    background-color: rgba(33, 33, 33, 1.0);
+    background-color: rgba(33, 33, 33, 1);
 }
 
 a.md-button.md-primoExplore-theme.md-hue-1:not([disabled]):hover,
@@ -5103,7 +5829,6 @@ md-content.md-primoExplore-theme.md-hue-1 {
 .md-primoExplore-theme.md-hue-1 .md-calendar-date-selection-indicator:hover {
     background: rgb(224, 224, 224);
 }
-
 
 /** Theme styles for mdDatepicker. */
 
@@ -5315,11 +6040,11 @@ md-bottom-sheet.md-primoExplore-theme.md-hue-2 .md-subheader {
 }
 
 md-backdrop {
-    background-color: rgba(33, 33, 33, 0.0);
+    background-color: rgba(33, 33, 33, 0);
 }
 
 md-backdrop.md-opaque.md-primoExplore-theme.md-hue-2 {
-    background-color: rgba(33, 33, 33, 1.0);
+    background-color: rgba(33, 33, 33, 1);
 }
 
 a.md-button.md-primoExplore-theme.md-hue-2:not([disabled]):hover,
@@ -5430,7 +6155,6 @@ md-content.md-primoExplore-theme.md-hue-2 {
 .md-primoExplore-theme.md-hue-2 .md-calendar-date-selection-indicator:hover {
     background: rgb(224, 224, 224);
 }
-
 
 /** Theme styles for mdDatepicker. */
 
@@ -5642,11 +6366,11 @@ md-bottom-sheet.md-primoExplore-theme.md-hue-3 .md-subheader {
 }
 
 md-backdrop {
-    background-color: rgba(33, 33, 33, 0.0);
+    background-color: rgba(33, 33, 33, 0);
 }
 
 md-backdrop.md-opaque.md-primoExplore-theme.md-hue-3 {
-    background-color: rgba(33, 33, 33, 1.0);
+    background-color: rgba(33, 33, 33, 1);
 }
 
 a.md-button.md-primoExplore-theme.md-hue-3:not([disabled]):hover,
@@ -5757,7 +6481,6 @@ md-content.md-primoExplore-theme.md-hue-3 {
 .md-primoExplore-theme.md-hue-3 .md-calendar-date-selection-indicator:hover {
     background: rgb(224, 224, 224);
 }
-
 
 /** Theme styles for mdDatepicker. */
 

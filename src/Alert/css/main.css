@@ -1,11 +1,13 @@
 /* ALERTS */
 
 .grid {
-    box-sizing: border-box
+    box-sizing: border-box;
 }
 
-.grid *, .grid *::before, .grid *::after {
-    box-sizing: border-box
+.grid *,
+.grid *::before,
+.grid *::after {
+    box-sizing: border-box;
 }
 
 .grid {
@@ -16,108 +18,111 @@
     align-items: stretch;
     align-content: flex-start;
     margin-top: -0.5em;
-    margin-bottom: -0.5em
+    margin-bottom: -0.5em;
 }
 
 @media (min-width: 37.5em) {
     .grid {
         margin-top: -0.75em;
-        margin-bottom: -0.75em
+        margin-bottom: -0.75em;
     }
 }
 
 @media (min-width: 75em) {
     .grid {
         margin-top: -1em;
-        margin-bottom: -1em
+        margin-bottom: -1em;
     }
 }
 
 .grid__col {
-    padding-left: .5em;
-    padding-right: .5em;
-    padding-top: .5em;
-    padding-bottom: .5em;
-    flex: none
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    flex: none;
 }
 
 @media (min-width: 37.5em) {
     .grid__col {
-        padding-left: .75em;
-        padding-right: .75em
+        padding-left: 0.75em;
+        padding-right: 0.75em;
     }
 }
 
 @media (min-width: 75em) {
     .grid__col {
         padding-left: 1em;
-        padding-right: 1em
+        padding-right: 1em;
     }
 }
 
 @media (min-width: 37.5em) {
     .grid__col {
-        padding-top: .75em;
-        padding-bottom: .75em
+        padding-top: 0.75em;
+        padding-bottom: 0.75em;
     }
 }
 
 @media (min-width: 75em) {
     .grid__col {
         padding-top: 1em;
-        padding-bottom: 1em
+        padding-bottom: 1em;
     }
 }
 
 @supports (display: grid) {
     .grid {
         display: grid;
-        grid-template-columns:repeat(24, 1fr);
+        grid-template-columns: repeat(24, 1fr);
         grid-gap: 1em 0;
         margin-top: 0;
-        margin-bottom: 0
+        margin-bottom: 0;
     }
 
     @media (min-width: 37.5em) {
         .grid {
             grid-row-gap: 1.5em;
             margin-top: 0;
-            margin-bottom: 0
+            margin-bottom: 0;
         }
-    }@media (min-width: 75em) {
-    .grid {
-        grid-row-gap: 2em;
-        margin-top: 0;
-        margin-bottom: 0
     }
-}.grid__col {
-     padding-top: 0;
-     padding-bottom: 0
- }
+    @media (min-width: 75em) {
+        .grid {
+            grid-row-gap: 2em;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+    }
+    .grid__col {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
 
     @media (min-width: 37.5em) {
         .grid__col {
             padding-top: 0;
-            padding-bottom: 0
+            padding-bottom: 0;
         }
-    }@media (min-width: 75em) {
-    .grid__col {
-        padding-top: 0;
-        padding-bottom: 0
     }
-}
+    @media (min-width: 75em) {
+        .grid__col {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+    }
 }
 
 .grid:not(.grid--full-width) {
     margin-left: 1em;
-    margin-right: 1em
+    margin-right: 1em;
 }
 
 @media (min-width: 32.5em) {
     .grid:not(.grid--full-width) {
         margin-left: auto;
         margin-right: auto;
-        max-width: 30.5em
+        max-width: 30.5em;
     }
 }
 
@@ -125,7 +130,7 @@
     .grid:not(.grid--full-width) {
         margin-left: 3.25em;
         margin-right: 3.25em;
-        max-width: none
+        max-width: none;
     }
 }
 
@@ -133,7 +138,7 @@
     .grid:not(.grid--full-width) {
         margin-left: auto;
         margin-right: auto;
-        max-width: 57.75em
+        max-width: 57.75em;
     }
 }
 
@@ -141,7 +146,7 @@
     .grid:not(.grid--full-width) {
         margin-left: 8.375em;
         margin-right: 8.375em;
-        max-width: none
+        max-width: none;
     }
 }
 
@@ -149,582 +154,637 @@
     .grid:not(.grid--full-width) {
         margin-left: auto;
         margin-right: auto;
-        max-width: 73.25em
+        max-width: 73.25em;
     }
 }
 
 .grid--full-width {
     margin-left: -0.5em;
     margin-right: -0.5em;
-    max-width: none
+    max-width: none;
 }
 
 @media (min-width: 37.5em) {
     .grid--full-width {
         margin-left: -0.75em;
-        margin-right: -0.75em
+        margin-right: -0.75em;
     }
 }
 
 @media (min-width: 75em) {
     .grid--full-width {
         margin-left: -1em;
-        margin-right: -1em
+        margin-right: -1em;
     }
 }
 
 .grid .grid {
     margin-left: -0.5em;
     margin-right: -0.5em;
-    max-width: none
+    max-width: none;
 }
 
 @media (min-width: 37.5em) {
     .grid .grid {
         margin-left: -0.75em;
-        margin-right: -0.75em
+        margin-right: -0.75em;
     }
 }
 
 @media (min-width: 75em) {
     .grid .grid {
         margin-left: -1em;
-        margin-right: -1em
+        margin-right: -1em;
     }
 }
 
 .grid__col--xl-1 {
-    width: 8.3333333333%
+    width: 8.3333333333%;
 }
 
 .grid__col--xl-2 {
-    width: 16.6666666667%
+    width: 16.6666666667%;
 }
 
-.grid__col--xl-3, .grid--quarters > .grid__col {
-    width: 25%
+.grid__col--xl-3,
+.grid--quarters > .grid__col {
+    width: 25%;
 }
 
-.grid__col--xl-4, .grid--thirds > .grid__col, .grid--golden > .grid__col:nth-child(even) {
-    width: 33.3333333333%
+.grid__col--xl-4,
+.grid--thirds > .grid__col,
+.grid--golden > .grid__col:nth-child(even) {
+    width: 33.3333333333%;
 }
 
 .grid__col--xl-5 {
-    width: 41.6666666667%
+    width: 41.6666666667%;
 }
 
 .grid__col--xl-6 {
-    width: 50%
+    width: 50%;
 }
 
-.grid__col--xl-7, .grid--golden > .grid__col:nth-child(odd) {
-    width: 58.3333333333%
+.grid__col--xl-7,
+.grid--golden > .grid__col:nth-child(odd) {
+    width: 58.3333333333%;
 }
 
 .grid__col--xl-8 {
-    width: 66.6666666667%
+    width: 66.6666666667%;
 }
 
 .grid__col--xl-9 {
-    width: 75%
+    width: 75%;
 }
 
 .grid__col--xl-10 {
-    width: 83.3333333333%
+    width: 83.3333333333%;
 }
 
 .grid__col--xl-11 {
-    width: 91.6666666667%
+    width: 91.6666666667%;
 }
 
 .grid__col--xl-12 {
-    width: 100%
+    width: 100%;
 }
 
 @supports (display: grid) {
     .grid__col--xl-1 {
         grid-column: auto/span 2;
-        width: auto
+        width: auto;
     }
 
     .grid__col--xl-2 {
         grid-column: auto/span 4;
-        width: auto
+        width: auto;
     }
 
-    .grid__col--xl-3, .grid--quarters > .grid__col {
+    .grid__col--xl-3,
+    .grid--quarters > .grid__col {
         grid-column: auto/span 6;
-        width: auto
+        width: auto;
     }
 
-    .grid__col--xl-4, .grid--thirds > .grid__col, .grid--golden > .grid__col:nth-child(even) {
+    .grid__col--xl-4,
+    .grid--thirds > .grid__col,
+    .grid--golden > .grid__col:nth-child(even) {
         grid-column: auto/span 8;
-        width: auto
+        width: auto;
     }
 
     .grid__col--xl-5 {
         grid-column: auto/span 10;
-        width: auto
+        width: auto;
     }
 
     .grid__col--xl-6 {
         grid-column: auto/span 12;
-        width: auto
+        width: auto;
     }
 
-    .grid__col--xl-7, .grid--golden > .grid__col:nth-child(odd) {
+    .grid__col--xl-7,
+    .grid--golden > .grid__col:nth-child(odd) {
         grid-column: auto/span 14;
-        width: auto
+        width: auto;
     }
 
     .grid__col--xl-8 {
         grid-column: auto/span 16;
-        width: auto
+        width: auto;
     }
 
     .grid__col--xl-9 {
         grid-column: auto/span 18;
-        width: auto
+        width: auto;
     }
 
     .grid__col--xl-10 {
         grid-column: auto/span 20;
-        width: auto
+        width: auto;
     }
 
     .grid__col--xl-11 {
         grid-column: auto/span 22;
-        width: auto
+        width: auto;
     }
 
     .grid__col--xl-12 {
         grid-column: auto/span 24;
-        width: auto
+        width: auto;
     }
 }
 
 .grid__col--md-1 {
-    width: 12.5%
+    width: 12.5%;
 }
 
-.grid__col--md-2, .grid--golden > .grid__col:nth-child(even) {
-    width: 25%
+.grid__col--md-2,
+.grid--golden > .grid__col:nth-child(even) {
+    width: 25%;
 }
 
 .grid__col--md-3 {
-    width: 37.5%
+    width: 37.5%;
 }
 
-.grid__col--md-4, .grid--quarters > .grid__col, .grid--thirds > .grid__col, .grid--halves > .grid__col {
-    width: 50%
+.grid__col--md-4,
+.grid--quarters > .grid__col,
+.grid--thirds > .grid__col,
+.grid--halves > .grid__col {
+    width: 50%;
 }
 
-.grid__col--md-5, .grid--golden > .grid__col:nth-child(odd) {
-    width: 62.5%
+.grid__col--md-5,
+.grid--golden > .grid__col:nth-child(odd) {
+    width: 62.5%;
 }
 
 .grid__col--md-6 {
-    width: 75%
+    width: 75%;
 }
 
 .grid__col--md-7 {
-    width: 87.5%
+    width: 87.5%;
 }
 
 .grid__col--md-8 {
-    width: 100%
+    width: 100%;
 }
 
 @supports (display: grid) {
     .grid__col--md-1 {
         grid-column: auto/span 3;
-        width: auto
+        width: auto;
     }
 
-    .grid__col--md-2, .grid--golden > .grid__col:nth-child(even) {
+    .grid__col--md-2,
+    .grid--golden > .grid__col:nth-child(even) {
         grid-column: auto/span 6;
-        width: auto
+        width: auto;
     }
 
     .grid__col--md-3 {
         grid-column: auto/span 9;
-        width: auto
+        width: auto;
     }
 
-    .grid__col--md-4, .grid--quarters > .grid__col, .grid--thirds > .grid__col, .grid--halves > .grid__col {
+    .grid__col--md-4,
+    .grid--quarters > .grid__col,
+    .grid--thirds > .grid__col,
+    .grid--halves > .grid__col {
         grid-column: auto/span 12;
-        width: auto
+        width: auto;
     }
 
-    .grid__col--md-5, .grid--golden > .grid__col:nth-child(odd) {
+    .grid__col--md-5,
+    .grid--golden > .grid__col:nth-child(odd) {
         grid-column: auto/span 15;
-        width: auto
+        width: auto;
     }
 
     .grid__col--md-6 {
         grid-column: auto/span 18;
-        width: auto
+        width: auto;
     }
 
     .grid__col--md-7 {
         grid-column: auto/span 21;
-        width: auto
+        width: auto;
     }
 
     .grid__col--md-8 {
         grid-column: auto/span 24;
-        width: auto
+        width: auto;
     }
 }
 
 .grid__col--1 {
-    width: 16.6666666667%
+    width: 16.6666666667%;
 }
 
 .grid__col--2 {
-    width: 33.3333333333%
+    width: 33.3333333333%;
 }
 
 .grid__col--3 {
-    width: 50%
+    width: 50%;
 }
 
 .grid__col--4 {
-    width: 66.6666666667%
+    width: 66.6666666667%;
 }
 
 .grid__col--5 {
-    width: 83.3333333333%
+    width: 83.3333333333%;
 }
 
-.grid__col--6, .grid--quarters > .grid__col, .grid--thirds > .grid__col, .grid--halves > .grid__col, .grid--golden > .grid__col:nth-child(even), .grid--golden > .grid__col:nth-child(odd) {
-    width: 100%
+.grid__col--6,
+.grid--quarters > .grid__col,
+.grid--thirds > .grid__col,
+.grid--halves > .grid__col,
+.grid--golden > .grid__col:nth-child(even),
+.grid--golden > .grid__col:nth-child(odd) {
+    width: 100%;
 }
 
 @supports (display: grid) {
     .grid__col--1 {
         grid-column: auto/span 4;
-        width: auto
+        width: auto;
     }
 
     .grid__col--2 {
         grid-column: auto/span 8;
-        width: auto
+        width: auto;
     }
 
     .grid__col--3 {
         grid-column: auto/span 12;
-        width: auto
+        width: auto;
     }
 
     .grid__col--4 {
         grid-column: auto/span 16;
-        width: auto
+        width: auto;
     }
 
     .grid__col--5 {
         grid-column: auto/span 20;
-        width: auto
+        width: auto;
     }
 
-    .grid__col--6, .grid--quarters > .grid__col, .grid--thirds > .grid__col, .grid--halves > .grid__col, .grid--golden > .grid__col:nth-child(even), .grid--golden > .grid__col:nth-child(odd) {
+    .grid__col--6,
+    .grid--quarters > .grid__col,
+    .grid--thirds > .grid__col,
+    .grid--halves > .grid__col,
+    .grid--golden > .grid__col:nth-child(even),
+    .grid--golden > .grid__col:nth-child(odd) {
         grid-column: auto/span 24;
-        width: auto
+        width: auto;
     }
 }
 
 @media (min-width: 37.5em) {
     .grid__col--xl-1 {
-        width: 8.3333333333%
+        width: 8.3333333333%;
     }
 
     .grid__col--xl-2 {
-        width: 16.6666666667%
+        width: 16.6666666667%;
     }
 
-    .grid__col--xl-3, .grid--quarters > .grid__col {
-        width: 25%
+    .grid__col--xl-3,
+    .grid--quarters > .grid__col {
+        width: 25%;
     }
 
-    .grid__col--xl-4, .grid--thirds > .grid__col, .grid--golden > .grid__col:nth-child(even) {
-        width: 33.3333333333%
+    .grid__col--xl-4,
+    .grid--thirds > .grid__col,
+    .grid--golden > .grid__col:nth-child(even) {
+        width: 33.3333333333%;
     }
 
     .grid__col--xl-5 {
-        width: 41.6666666667%
+        width: 41.6666666667%;
     }
 
     .grid__col--xl-6 {
-        width: 50%
+        width: 50%;
     }
 
-    .grid__col--xl-7, .grid--golden > .grid__col:nth-child(odd) {
-        width: 58.3333333333%
+    .grid__col--xl-7,
+    .grid--golden > .grid__col:nth-child(odd) {
+        width: 58.3333333333%;
     }
 
     .grid__col--xl-8 {
-        width: 66.6666666667%
+        width: 66.6666666667%;
     }
 
     .grid__col--xl-9 {
-        width: 75%
+        width: 75%;
     }
 
     .grid__col--xl-10 {
-        width: 83.3333333333%
+        width: 83.3333333333%;
     }
 
     .grid__col--xl-11 {
-        width: 91.6666666667%
+        width: 91.6666666667%;
     }
 
     .grid__col--xl-12 {
-        width: 100%
+        width: 100%;
     }
 
     @supports (display: grid) {
         .grid__col--xl-1 {
             grid-column: auto/span 2;
-            width: auto
+            width: auto;
         }
 
         .grid__col--xl-2 {
             grid-column: auto/span 4;
-            width: auto
+            width: auto;
         }
 
-        .grid__col--xl-3, .grid--quarters > .grid__col {
+        .grid__col--xl-3,
+        .grid--quarters > .grid__col {
             grid-column: auto/span 6;
-            width: auto
+            width: auto;
         }
 
-        .grid__col--xl-4, .grid--thirds > .grid__col, .grid--golden > .grid__col:nth-child(even) {
+        .grid__col--xl-4,
+        .grid--thirds > .grid__col,
+        .grid--golden > .grid__col:nth-child(even) {
             grid-column: auto/span 8;
-            width: auto
+            width: auto;
         }
 
         .grid__col--xl-5 {
             grid-column: auto/span 10;
-            width: auto
+            width: auto;
         }
 
         .grid__col--xl-6 {
             grid-column: auto/span 12;
-            width: auto
+            width: auto;
         }
 
-        .grid__col--xl-7, .grid--golden > .grid__col:nth-child(odd) {
+        .grid__col--xl-7,
+        .grid--golden > .grid__col:nth-child(odd) {
             grid-column: auto/span 14;
-            width: auto
+            width: auto;
         }
 
         .grid__col--xl-8 {
             grid-column: auto/span 16;
-            width: auto
+            width: auto;
         }
 
         .grid__col--xl-9 {
             grid-column: auto/span 18;
-            width: auto
+            width: auto;
         }
 
         .grid__col--xl-10 {
             grid-column: auto/span 20;
-            width: auto
+            width: auto;
         }
 
         .grid__col--xl-11 {
             grid-column: auto/span 22;
-            width: auto
+            width: auto;
         }
 
         .grid__col--xl-12 {
             grid-column: auto/span 24;
-            width: auto
+            width: auto;
         }
-    }.grid__col--md-1 {
-         width: 12.5%
-     }
+    }
+    .grid__col--md-1 {
+        width: 12.5%;
+    }
 
-    .grid__col--md-2, .grid--golden > .grid__col:nth-child(even) {
-        width: 25%
+    .grid__col--md-2,
+    .grid--golden > .grid__col:nth-child(even) {
+        width: 25%;
     }
 
     .grid__col--md-3 {
-        width: 37.5%
+        width: 37.5%;
     }
 
-    .grid__col--md-4, .grid--quarters > .grid__col, .grid--thirds > .grid__col, .grid--halves > .grid__col {
-        width: 50%
+    .grid__col--md-4,
+    .grid--quarters > .grid__col,
+    .grid--thirds > .grid__col,
+    .grid--halves > .grid__col {
+        width: 50%;
     }
 
-    .grid__col--md-5, .grid--golden > .grid__col:nth-child(odd) {
-        width: 62.5%
+    .grid__col--md-5,
+    .grid--golden > .grid__col:nth-child(odd) {
+        width: 62.5%;
     }
 
     .grid__col--md-6 {
-        width: 75%
+        width: 75%;
     }
 
     .grid__col--md-7 {
-        width: 87.5%
+        width: 87.5%;
     }
 
     .grid__col--md-8 {
-        width: 100%
+        width: 100%;
     }
 
     @supports (display: grid) {
         .grid__col--md-1 {
             grid-column: auto/span 3;
-            width: auto
+            width: auto;
         }
 
-        .grid__col--md-2, .grid--golden > .grid__col:nth-child(even) {
+        .grid__col--md-2,
+        .grid--golden > .grid__col:nth-child(even) {
             grid-column: auto/span 6;
-            width: auto
+            width: auto;
         }
 
         .grid__col--md-3 {
             grid-column: auto/span 9;
-            width: auto
+            width: auto;
         }
 
-        .grid__col--md-4, .grid--quarters > .grid__col, .grid--thirds > .grid__col, .grid--halves > .grid__col {
+        .grid__col--md-4,
+        .grid--quarters > .grid__col,
+        .grid--thirds > .grid__col,
+        .grid--halves > .grid__col {
             grid-column: auto/span 12;
-            width: auto
+            width: auto;
         }
 
-        .grid__col--md-5, .grid--golden > .grid__col:nth-child(odd) {
+        .grid__col--md-5,
+        .grid--golden > .grid__col:nth-child(odd) {
             grid-column: auto/span 15;
-            width: auto
+            width: auto;
         }
 
         .grid__col--md-6 {
             grid-column: auto/span 18;
-            width: auto
+            width: auto;
         }
 
         .grid__col--md-7 {
             grid-column: auto/span 21;
-            width: auto
+            width: auto;
         }
 
         .grid__col--md-8 {
             grid-column: auto/span 24;
-            width: auto
+            width: auto;
         }
     }
 }
 
 @media (min-width: 75em) {
     .grid__col--xl-1 {
-        width: 8.3333333333%
+        width: 8.3333333333%;
     }
 
     .grid__col--xl-2 {
-        width: 16.6666666667%
+        width: 16.6666666667%;
     }
 
-    .grid__col--xl-3, .grid--quarters > .grid__col {
-        width: 25%
+    .grid__col--xl-3,
+    .grid--quarters > .grid__col {
+        width: 25%;
     }
 
-    .grid__col--xl-4, .grid--thirds > .grid__col, .grid--golden > .grid__col:nth-child(even) {
-        width: 33.3333333333%
+    .grid__col--xl-4,
+    .grid--thirds > .grid__col,
+    .grid--golden > .grid__col:nth-child(even) {
+        width: 33.3333333333%;
     }
 
     .grid__col--xl-5 {
-        width: 41.6666666667%
+        width: 41.6666666667%;
     }
 
     .grid__col--xl-6 {
-        width: 50%
+        width: 50%;
     }
 
-    .grid__col--xl-7, .grid--golden > .grid__col:nth-child(odd) {
-        width: 58.3333333333%
+    .grid__col--xl-7,
+    .grid--golden > .grid__col:nth-child(odd) {
+        width: 58.3333333333%;
     }
 
     .grid__col--xl-8 {
-        width: 66.6666666667%
+        width: 66.6666666667%;
     }
 
     .grid__col--xl-9 {
-        width: 75%
+        width: 75%;
     }
 
     .grid__col--xl-10 {
-        width: 83.3333333333%
+        width: 83.3333333333%;
     }
 
     .grid__col--xl-11 {
-        width: 91.6666666667%
+        width: 91.6666666667%;
     }
 
     .grid__col--xl-12 {
-        width: 100%
+        width: 100%;
     }
 
     @supports (display: grid) {
         .grid__col--xl-1 {
             grid-column: auto/span 2;
-            width: auto
+            width: auto;
         }
 
         .grid__col--xl-2 {
             grid-column: auto/span 4;
-            width: auto
+            width: auto;
         }
 
-        .grid__col--xl-3, .grid--quarters > .grid__col {
+        .grid__col--xl-3,
+        .grid--quarters > .grid__col {
             grid-column: auto/span 6;
-            width: auto
+            width: auto;
         }
 
-        .grid__col--xl-4, .grid--thirds > .grid__col, .grid--golden > .grid__col:nth-child(even) {
+        .grid__col--xl-4,
+        .grid--thirds > .grid__col,
+        .grid--golden > .grid__col:nth-child(even) {
             grid-column: auto/span 8;
-            width: auto
+            width: auto;
         }
 
         .grid__col--xl-5 {
             grid-column: auto/span 10;
-            width: auto
+            width: auto;
         }
 
         .grid__col--xl-6 {
             grid-column: auto/span 12;
-            width: auto
+            width: auto;
         }
 
-        .grid__col--xl-7, .grid--golden > .grid__col:nth-child(odd) {
+        .grid__col--xl-7,
+        .grid--golden > .grid__col:nth-child(odd) {
             grid-column: auto/span 14;
-            width: auto
+            width: auto;
         }
 
         .grid__col--xl-8 {
             grid-column: auto/span 16;
-            width: auto
+            width: auto;
         }
 
         .grid__col--xl-9 {
             grid-column: auto/span 18;
-            width: auto
+            width: auto;
         }
 
         .grid__col--xl-10 {
             grid-column: auto/span 20;
-            width: auto
+            width: auto;
         }
 
         .grid__col--xl-11 {
             grid-column: auto/span 22;
-            width: auto
+            width: auto;
         }
 
         .grid__col--xl-12 {
             grid-column: auto/span 24;
-            width: auto
+            width: auto;
         }
     }
 }
@@ -732,37 +792,37 @@
 .grid--flexible > .grid__col {
     flex: 1 0 15.625em;
     max-width: 100%;
-    width: auto
+    width: auto;
 }
 
 @supports (display: grid) {
     .grid--flexible {
-        grid-template-columns:repeat(auto-fit, minmax(15.625em, 1fr))
+        grid-template-columns: repeat(auto-fit, minmax(15.625em, 1fr));
     }
 }
 
 @media (min-width: 37.5em) {
     .grid--golden > .grid__col:nth-child(even) {
-        margin-left: 12.5%
+        margin-left: 12.5%;
     }
 
     @supports (display: grid) {
         .grid--golden > .grid__col:nth-child(even) {
             margin-left: 0;
-            grid-column-start: 18
+            grid-column-start: 18;
         }
     }
 }
 
 @media (min-width: 75em) {
     .grid--golden > .grid__col:nth-child(even) {
-        margin-left: 8.3333333333%
+        margin-left: 8.3333333333%;
     }
 
     @supports (display: grid) {
         .grid--golden > .grid__col:nth-child(even) {
             margin-left: 0;
-            grid-column-start: 18
+            grid-column-start: 18;
         }
     }
 }
@@ -771,27 +831,27 @@
     .grid--scroll-small {
         display: flex;
         flex-wrap: nowrap;
-        overflow: auto
+        overflow: auto;
     }
 
     .grid--scroll-small .grid__col {
         flex: 1 0 18.75em;
-        margin-right: 1.5em
+        margin-right: 1.5em;
     }
 }
 
 .layout-container {
     margin-left: 1em;
     margin-right: 1em;
-    padding-left: .5em;
-    padding-right: .5em
+    padding-left: 0.5em;
+    padding-right: 0.5em;
 }
 
 @media (min-width: 32.5em) {
     .layout-container {
         margin-left: auto;
         margin-right: auto;
-        max-width: 30.5em
+        max-width: 30.5em;
     }
 }
 
@@ -799,7 +859,7 @@
     .layout-container {
         margin-left: 3.25em;
         margin-right: 3.25em;
-        max-width: none
+        max-width: none;
     }
 }
 
@@ -807,7 +867,7 @@
     .layout-container {
         margin-left: auto;
         margin-right: auto;
-        max-width: 57.75em
+        max-width: 57.75em;
     }
 }
 
@@ -815,7 +875,7 @@
     .layout-container {
         margin-left: 8.375em;
         margin-right: 8.375em;
-        max-width: none
+        max-width: none;
     }
 }
 
@@ -823,300 +883,313 @@
     .layout-container {
         margin-left: auto;
         margin-right: auto;
-        max-width: 73.25em
+        max-width: 73.25em;
     }
 }
 
 @media (min-width: 37.5em) {
     .layout-container {
-        padding-left: .75em;
-        padding-right: .75em
+        padding-left: 0.75em;
+        padding-right: 0.75em;
     }
 }
 
 @media (min-width: 75em) {
     .layout-container {
         padding-left: 1em;
-        padding-right: 1em
+        padding-right: 1em;
     }
 }
 
 .layout-container .grid {
     margin-left: -0.5em;
     margin-right: -0.5em;
-    max-width: none
+    max-width: none;
 }
 
 @media (min-width: 37.5em) {
     .layout-container .grid {
         margin-left: -0.75em;
-        margin-right: -0.75em
+        margin-right: -0.75em;
     }
 }
 
 @media (min-width: 75em) {
     .layout-container .grid {
         margin-left: -1em;
-        margin-right: -1em
+        margin-right: -1em;
     }
 }
 
 body {
     color: #2b2a29;
     font-size: 1em;
-    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-weight: 400;
     line-height: 1.5;
     font-size: 100%;
     background: #fff;
     margin: 0;
-    padding: 0
+    padding: 0;
 }
 
-*, *::before, *::after {
-    box-sizing: border-box
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
 
 .margin--reset {
-    margin: 0
+    margin: 0;
 }
 
 .white {
-    background-color: #fff
+    background-color: #fff;
 }
 
 .black {
-    background-color: #000
+    background-color: #000;
 }
 
 .link {
-    background-color: #1e72c6
+    background-color: #1e72c6;
 }
 
 .purple {
-    background-color: #51247a
+    background-color: #51247a;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-weight: 500;
     line-height: 1.4;
-    color: #51247a
+    color: #51247a;
 }
 
 h1 {
     margin-top: 1.5em;
     margin-bottom: 2.5em;
     font-size: 2.5em;
-    font-family: "Montserrat", Helvetica, Arial, sans-serif
+    font-family: 'Montserrat', Helvetica, Arial, sans-serif;
 }
 
 h2 {
     margin-top: 2.5em;
     margin-bottom: 1.5em;
-    font-size: 2em
+    font-size: 2em;
 }
 
 h3 {
     margin-top: 2em;
     margin-bottom: 1em;
-    font-size: 1.5em
+    font-size: 1.5em;
 }
 
 h4 {
     margin-top: 2em;
     margin-bottom: 1.5em;
-    font-size: 1.25em
+    font-size: 1.25em;
 }
 
 h5 {
     margin-top: 1.5em;
     margin-bottom: 1em;
-    font-size: 1.125em
+    font-size: 1.125em;
 }
 
 h6 {
     margin-top: 1.5em;
-    margin-bottom: .5em;
-    font-size: 1em
+    margin-bottom: 0.5em;
+    font-size: 1em;
 }
 
 p {
     margin-top: 0;
-    margin-bottom: 1.5em
+    margin-bottom: 1.5em;
 }
 
-b, strong {
-    font-weight: 500
+b,
+strong {
+    font-weight: 500;
 }
 
 em {
-    font-style: italic
+    font-style: italic;
 }
 
 blockquote {
     margin: 0 0 1.5em;
     padding-left: 1.5em;
     border-left: 6px solid #2b2a29;
-    font-family: "Merriweather", Georgia, serif;
-    font-style: italic
+    font-family: 'Merriweather', Georgia, serif;
+    font-style: italic;
 }
 
-ol, ul {
+ol,
+ul {
     margin-top: 0;
     margin-bottom: 1.5em;
-    padding-left: 1.5em
+    padding-left: 1.5em;
 }
 
-ol li, ul li {
-    margin-bottom: 1em
+ol li,
+ul li {
+    margin-bottom: 1em;
 }
 
-ol li:last-child, ul li:last-child {
-    margin-bottom: 0
+ol li:last-child,
+ul li:last-child {
+    margin-bottom: 0;
 }
 
 dl {
     margin-top: 0;
-    margin-bottom: 0
+    margin-bottom: 0;
 }
 
 dl dt {
     color: #51247a;
-    font-size: .875em;
+    font-size: 0.875em;
     text-transform: uppercase;
-    font-weight: 500
+    font-weight: 500;
 }
 
 dl dd {
     margin-left: 0;
     margin-bottom: 1.5em;
-    font-size: 1.125em
+    font-size: 1.125em;
 }
 
 a {
     color: #1e72c6;
     text-decoration: none;
-    transition: .2s color
+    transition: 0.2s color;
 }
 
 a:hover {
     color: #1e72c6;
-    text-decoration: underline
+    text-decoration: underline;
 }
 
 .text--reverse {
-    color: #fff
+    color: #fff;
 }
 
 .text--primary {
-    color: #51247a
+    color: #51247a;
 }
 
 .text--purple-light {
-    color: #962a8b
+    color: #962a8b;
 }
 
 .text--black {
-    color: #000
+    color: #000;
 }
 
 .text--white {
-    color: #fff
+    color: #fff;
 }
 
 .text--error {
-    color: #be1b38
+    color: #be1b38;
 }
 
 .text--xxxxl {
-    font-size: 2.5em
+    font-size: 2.5em;
 }
 
 .text--xxxl {
-    font-size: 2em
+    font-size: 2em;
 }
 
 .text--xxl {
-    font-size: 1.5em
+    font-size: 1.5em;
 }
 
 .text--xl {
-    font-size: 1.25em
+    font-size: 1.25em;
 }
 
 .text--l {
-    font-size: 1.125em
+    font-size: 1.125em;
 }
 
 .text--m {
-    font-size: 1em
+    font-size: 1em;
 }
 
 .text--s {
-    font-size: .875em
+    font-size: 0.875em;
 }
 
 .text--xs {
-    font-size: .75em
+    font-size: 0.75em;
 }
 
 .text--weight-normal {
-    font-weight: 400
+    font-weight: 400;
 }
 
 .text--weight-bold {
-    font-weight: 500
+    font-weight: 500;
 }
 
 .text--weight-medium {
-    font-weight: 500
+    font-weight: 500;
 }
 
 .text--left {
-    text-align: left
+    text-align: left;
 }
 
 .text--right {
-    text-align: right
+    text-align: right;
 }
 
 .text--center {
-    text-align: center
+    text-align: center;
 }
 
 .text--uppercase {
-    text-transform: uppercase
+    text-transform: uppercase;
 }
 
 .text--accent {
-    font-family: "Merriweather", Georgia, serif;
+    font-family: 'Merriweather', Georgia, serif;
     font-weight: 400;
-    font-style: italic
+    font-style: italic;
 }
 
 .text--shadow {
-    text-shadow: 0 4px 4px rgba(0, 0, 0, .4)
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
 }
 
 .hidden {
-    display: none !important
+    display: none !important;
 }
 
 @media (max-width: 37.4375em) {
     .hidden--mobile-only {
-        display: none !important
+        display: none !important;
     }
 }
 
 @media (min-width: 37.5em) {
-    .hidden--md, .hidden--tablet {
-        display: none !important
+    .hidden--md,
+    .hidden--tablet {
+        display: none !important;
     }
 }
 
 @media (min-width: 75em) {
-    .hidden--xl, .hidden--desktop {
-        display: none !important
+    .hidden--xl,
+    .hidden--desktop {
+        display: none !important;
     }
 }
 
@@ -1128,7 +1201,7 @@ a:hover {
     height: 1px;
     word-wrap: normal;
     margin: 0;
-    padding: 0
+    padding: 0;
 }
 
 .alert {
@@ -1140,14 +1213,14 @@ a:hover {
 
 .alert__container {
     margin-left: 1em;
-    margin-right: 1em
+    margin-right: 1em;
 }
 
 @media (min-width: 32.5em) {
     .alert__container {
         margin-left: auto;
         margin-right: auto;
-        max-width: 30.5em
+        max-width: 30.5em;
     }
 }
 
@@ -1155,7 +1228,7 @@ a:hover {
     .alert__container {
         margin-left: 3.25em;
         margin-right: 3.25em;
-        max-width: none
+        max-width: none;
     }
 }
 
@@ -1163,7 +1236,7 @@ a:hover {
     .alert__container {
         margin-left: auto;
         margin-right: auto;
-        max-width: 57.75em
+        max-width: 57.75em;
     }
 }
 
@@ -1171,7 +1244,7 @@ a:hover {
     .alert__container {
         margin-left: 8.375em;
         margin-right: 8.375em;
-        max-width: none
+        max-width: none;
     }
 }
 
@@ -1179,53 +1252,57 @@ a:hover {
     .alert__container {
         margin-left: auto;
         margin-right: auto;
-        max-width: 73.25em
+        max-width: 73.25em;
     }
 }
 
-.alert__container > .alert__message, .alert__container > .alert__action {
-    padding-left: .5em;
-    padding-right: .5em
+.alert__container > .alert__message,
+.alert__container > .alert__action {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
 }
 
 @media (min-width: 37.5em) {
-    .alert__container > .alert__message, .alert__container > .alert__action {
-        padding-left: .75em;
-        padding-right: .75em
+    .alert__container > .alert__message,
+    .alert__container > .alert__action {
+        padding-left: 0.75em;
+        padding-right: 0.75em;
     }
 }
 
 @media (min-width: 75em) {
-    .alert__container > .alert__message, .alert__container > .alert__action {
+    .alert__container > .alert__message,
+    .alert__container > .alert__action {
         padding-left: 1em;
-        padding-right: 1em
+        padding-right: 1em;
     }
 }
 
 .alert__message {
-    font-size: .875em;
+    font-size: 0.875em;
     font-weight: 300;
     line-height: 1.4;
     padding-top: 1em;
     padding-bottom: 1em;
     padding-left: 1.5em;
-    padding-right: 5em !important
+    padding-right: 5em !important;
 }
 
 .alert__message a {
     color: #2b2a29;
-    text-decoration: underline
+    text-decoration: underline;
 }
 
-.alert__message a:hover, .alert__message a:focus {
-    opacity: .5
+.alert__message a:hover,
+.alert__message a:focus {
+    opacity: 0.5;
 }
 
 .alert__action {
-    padding-top: .5em;
+    padding-top: 0.5em;
     padding-bottom: 1em;
     padding-left: 1.5em;
-    padding-right: 1.5em
+    padding-right: 1.5em;
 }
 
 .alert__close {
@@ -1233,105 +1310,107 @@ a:hover {
     color: #817d7a;
     font-size: 2em;
     font-weight: 300;
-    line-height: .9;
+    line-height: 0.9;
     opacity: 1;
-    padding: 0 .5em .25em;
+    padding: 0 0.5em 0.25em;
     position: absolute;
     text-decoration: none !important;
     top: 0.5em;
-    right: 0.5em
+    right: 0.5em;
 }
 
 .alert__close:hover {
-    text-decoration: none
+    text-decoration: none;
 }
 
 .alert__close:focus {
-    text-decoration: underline !important
+    text-decoration: underline !important;
 }
 
-.alert__close:hover, .alert__close:focus {
-    opacity: .5
+.alert__close:hover,
+.alert__close:focus {
+    opacity: 0.5;
 }
 
 .alert--has-action .alert__message {
-    padding-bottom: 0
+    padding-bottom: 0;
 }
 
 .alert--no-close .alert__message {
-    padding-right: 1em
+    padding-right: 1em;
 }
 
 .alert--info {
-    background-color: #d4f0ff
+    background-color: #d4f0ff;
 }
 
 .alert--success {
-    background-color: #d5eeca
+    background-color: #d5eeca;
 }
 
 .alert--warning {
-    background-color: #ffe0ad
+    background-color: #ffe0ad;
 }
 
 .alert--danger {
-    background-color: #ffacac
+    background-color: #ffacac;
 }
 
 @media (min-width: 37.5em) {
-    .alert__message, .alert__action {
+    .alert__message,
+    .alert__action {
         display: inline-block;
-        vertical-align: middle
+        vertical-align: middle;
     }
 
     .alert__message {
         font-size: 1em;
-        padding-right: 10em !important
+        padding-right: 10em !important;
     }
 
     .alert__action {
         width: 33.3333333333%;
-        padding-bottom: .5em;
-        padding-right: 5em
+        padding-bottom: 0.5em;
+        padding-right: 5em;
     }
 
     .alert__close {
-        top: .5em
+        top: 0.5em;
     }
 
     .alert--has-action .alert__message {
         width: 66.6666666667%;
         padding-bottom: 1em;
-        padding-right: 1em
+        padding-right: 1em;
     }
 
     .alert--slim .alert__message {
         padding-bottom: 1em;
-        padding-top: 1em
+        padding-top: 1em;
     }
 
     .alert--slim .alert__close {
-        top: .5em
+        top: 0.5em;
     }
 }
 
 @media (min-width: 64em) {
     .alert__message {
         padding-top: 1.5em;
-        padding-bottom: 1.5em
+        padding-bottom: 1.5em;
     }
 
     .alert__action {
         margin-left: 8.3333333333%;
-        width: 33.3333333333%
+        width: 33.3333333333%;
     }
 
     .alert__close {
-        top: 0.5em
+        top: 0.5em;
     }
 
     .alert--has-action .alert__message {
         width: 58.3333333333%;
-        padding-bottom: 1.5em
+        padding-bottom: 1.5em;
     }
 }

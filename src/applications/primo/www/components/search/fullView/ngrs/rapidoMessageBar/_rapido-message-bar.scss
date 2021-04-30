@@ -1,88 +1,83 @@
-prm-rapido-message-bar{
-
-    .main_tile{
+prm-rapido-message-bar {
+    .main_tile {
         width: 100%;
         background-color: #fff;
         box-shadow: 3px 3px 5px #c1bebe;
         margin-top: 1%;
     }
 
-    .tile{
+    .tile {
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
     }
 
-    .text{
+    .text {
         display: flex;
         flex-direction: column;
     }
 
-    @media only screen and (max-width: 740px){
-        #text_line{
-            flex-direction: column!important;
+    @media only screen and (max-width: 740px) {
+        #text_line {
+            flex-direction: column !important;
             font-size: 24px !important;
         }
 
-        .icon{
-            padding: 1em!important;
+        .icon {
+            padding: 1em !important;
         }
     }
 
-    #text_line{
+    #text_line {
         font-family: Source Sans Pro;
         font-size: 32px;
-        color: rgba(102,102,102,1);
+        color: rgba(102, 102, 102, 1);
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
 
-        span{
+        span {
             margin-right: 0.5em;
             margin-left: 0.5em;
         }
-
-        
     }
 
-
-    md-icon{
+    md-icon {
         margin: -1px !important;
         min-height: 35px;
         min-width: 35px;
-    }    
-
-    .my_icon_green{	
-        border-radius: 50%;
-        opacity: 1;
-        background-color: #fff !important;
-        box-shadow: 3px 3px 5px #c1bebe;
-        border: 8px solid #61BB76;
-        color: #61BB76!important;
-        height: auto;
-        width: auto;
-        position: relative;
-        align-items: center;	       
     }
 
-    .my_icon_red{	
+    .my_icon_green {
         border-radius: 50%;
         opacity: 1;
         background-color: #fff !important;
         box-shadow: 3px 3px 5px #c1bebe;
-        border: 8px solid #FF0000;
-        color: #FF0000!important;
+        border: 8px solid #61bb76;
+        color: #61bb76 !important;
         height: auto;
         width: auto;
         position: relative;
-        align-items: center;	       
-    }    
+        align-items: center;
+    }
 
-    .icon{
+    .my_icon_red {
+        border-radius: 50%;
+        opacity: 1;
+        background-color: #fff !important;
+        box-shadow: 3px 3px 5px #c1bebe;
+        border: 8px solid #ff0000;
+        color: #ff0000 !important;
+        height: auto;
+        width: auto;
+        position: relative;
+        align-items: center;
+    }
+
+    .icon {
         padding: 1em;
         padding-left: 1em;
         padding-right: 1em;
-    }  
-   
+    }
 }

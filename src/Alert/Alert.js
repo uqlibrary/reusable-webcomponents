@@ -1,11 +1,9 @@
 import styles from './css/main.css';
-import icons from './css/icons.css';
 import overrides from './css/overrides.css';
 
 const template = document.createElement('template');
 template.innerHTML = `
   <style>${styles.toString()}</style>
-  <style>${icons.toString()}</style>
   <style>${overrides.toString()}</style>
   <div id="alert" data-testid="alert" class="alert alert--default" role="alert" data-id="">
         <div id="alert-container" data-testid="alert-container" class="alert__container">
@@ -28,11 +26,11 @@ class Alert extends HTMLElement {
     constructor() {
         super();
         // Add a shadow DOM
-        const shadowDOM = this.attachShadow({mode: 'open'});
+        const shadowDOM = this.attachShadow({ mode: 'open' });
         this.loadAlert(shadowDOM);
 
         // Bindings
-        this.loadJS = this.loadJS.bind(this);
+        this.loadAlert = this.loadAlert.bind(this);
     }
 
     loadAlert(shadowDOM) {
@@ -79,12 +77,15 @@ class Alert extends HTMLElement {
             if (!!canclose) {
                 const closeAlert = () => {
                     shadowDOM.getElementById('alert').style.display = 'none';
-                    if (document.cookie.indexOf('UQ_ALERT_' + id + "=hidden") <= -1) {
+                    if (document.cookie.indexOf('UQ_ALERT_' + id + '=hidden') <= -1) {
                         //set cookie for 24 hours
                         const date = new Date();
-                        date.setTime(date.getTime() + (24 * 60 * 60 * 1000));
-                        const cookieDomain = window.location.hostname.endsWith('.library.uq.edu.au') ? 'domain=.library.uq.edu.au;path=/' : '';
-                        document.cookie = 'UQ_ALERT_' + id + '=hidden;expires=' + date.toGMTString() + ';' + cookieDomain;
+                        date.setTime(date.getTime() + 24 * 60 * 60 * 1000);
+                        const cookieDomain = window.location.hostname.endsWith('.library.uq.edu.au')
+                            ? 'domain=.library.uq.edu.au;path=/'
+                            : '';
+                        document.cookie =
+                            'UQ_ALERT_' + id + '=hidden;expires=' + date.toGMTString() + ';' + cookieDomain;
                     }
                 };
                 shadowDOM.getElementById('alert-close').addEventListener('click', closeAlert);
@@ -119,18 +120,6 @@ class Alert extends HTMLElement {
                 clearInterval(loadAlertFields);
             }
         }, 300);
-    }
-
-    loadJS() {
-        // This loads the external JS file into the HTML head dynamically
-        //Only load js if it has not been loaded before (tracked by the initCalled flag)
-        if (!initCalled) {
-            //Dynamically import the JS file and append it to the document header
-        }
-    }
-
-    connectedCallback() {
-        this.loadJS();
     }
 }
 

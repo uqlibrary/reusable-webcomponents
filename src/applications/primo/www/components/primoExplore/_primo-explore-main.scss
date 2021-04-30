@@ -1,84 +1,81 @@
 prm-explore-main {
-  * :focus{
-    outline: none !important; //remove default focus border
-  }
-  .header {
-    z-index: 1;
+    * :focus {
+        outline: none !important; //remove default focus border
+    }
+    .header {
+        z-index: 1;
 
-    .transparent-top-bar {
-      &:before{
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: #222;
-        opacity: .3;
-      }
-      div{
-        background-color: transparent;
-      }
-      md-fab-toolbar {
-        &.md-is-open {
-          md-fab-trigger {
-            .md-fab-toolbar-background, ._md-fab-toolbar-background {
-              background-color: #222!important;
-
-
+        .transparent-top-bar {
+            &:before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: #222;
+                opacity: 0.3;
             }
-          }
-
+            div {
+                background-color: transparent;
+            }
+            md-fab-toolbar {
+                &.md-is-open {
+                    md-fab-trigger {
+                        .md-fab-toolbar-background,
+                        ._md-fab-toolbar-background {
+                            background-color: #222 !important;
+                        }
+                    }
+                }
+            }
         }
-      }
+        > prm-spinner {
+            position: absolute;
+            bottom: -15px;
+            width: 100%;
+            z-index: 14;
+            transform-origin: 50% 50%;
+            height: 30px;
+
+            @include media('screen', '<smallTablet') {
+                bottom: -10px;
+                max-height: 20px;
+            }
+
+            .spinner-wrapper {
+                width: 30px;
+                height: 90px;
+                transform: rotate(90deg) scale(1) translateY(0);
+            }
+
+            .loader-graphic {
+                transform: translateY(85px);
+            }
+
+            &.ng-enter {
+                transform: scale3d(8, 0, 1);
+                transition: $swift-ease-out;
+                transition-duration: 0.75s;
+
+                @include ie-exceptions;
+
+                &.ng-enter-active {
+                    transform: scale3d(1, 1, 1);
+                }
+            }
+
+            &.ng-leave {
+                transform: scale3d(1, 1, 1);
+                transition: $swift-ease-in-out;
+
+                @include ie-exceptions;
+
+                &.ng-leave-active {
+                    transform: scale3d(8, 0, 1);
+                }
+            }
+        }
     }
-    > prm-spinner {
-
-      position: absolute;
-      bottom: -15px;
-      width: 100%;
-      z-index: 14;
-      transform-origin: 50% 50%;
-      height: 30px;
-
-      @include media("screen", "<smallTablet") {
-        bottom: -10px;
-        max-height: 20px;
-      }
-
-      .spinner-wrapper {
-        width: 30px;
-        height: 90px;
-        transform: rotate(90deg) scale(1) translateY(0);
-      }
-
-      .loader-graphic {
-        transform: translateY(85px);
-      }
-
-      &.ng-enter {
-        transform: scale3d(8, 0, 1);
-        transition: $swift-ease-out;
-        transition-duration: .75s;
-
-        @include ie-exceptions;
-
-        &.ng-enter-active {
-          transform: scale3d(1, 1, 1);
-        }
-      }
-
-      &.ng-leave {
-        transform: scale3d(1, 1, 1);
-        transition: $swift-ease-in-out;
-
-        @include ie-exceptions;
-
-        &.ng-leave-active {
-          transform: scale3d(8, 0, 1);
-        }
-      }
-    }
-  }
 }
 //

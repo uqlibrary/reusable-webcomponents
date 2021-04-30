@@ -1,5 +1,5 @@
-prm-progress-checkbox{
-    .container{
+prm-progress-checkbox {
+    .container {
         display: inline-flex;
         flex-direction: column;
         align-items: center;
@@ -10,9 +10,9 @@ prm-progress-checkbox{
         display: inline-block;
         position: relative;
         width: fit-content;
-      }
-      
-      .round label {
+    }
+
+    .round label {
         background-color: #fff;
         border: 1px solid #ccc;
         border-radius: 50%;
@@ -22,14 +22,13 @@ prm-progress-checkbox{
         left: 3.5px;
         position: absolute;
         top: 0;
-        
-      }
-      
-      .round label:after {
+    }
+
+    .round label:after {
         border: 2px solid #fff;
         border-top: none;
         border-right: none;
-        content: "";
+        content: '';
         height: 5px;
         left: 25%;
         opacity: 0;
@@ -37,50 +36,47 @@ prm-progress-checkbox{
         top: 27%;
         transform: rotate(-45deg);
         width: 7px;
-      }
-      
-      .round input[type="checkbox"] {
+    }
+
+    .round input[type='checkbox'] {
         visibility: hidden;
-      }
-      
-      .round input[type="checkbox"]:checked + label {
+    }
+
+    .round input[type='checkbox']:checked + label {
         background-color: #71b475;
         border-color: #71b475;
-      }
-      
-      .round input[type="checkbox"]:checked + label:after {
-        opacity: 1;
-      }
+    }
 
-      .status{
+    .round input[type='checkbox']:checked + label:after {
+        opacity: 1;
+    }
+
+    .status {
         font-family: Source Sans Pro;
         font-size: 14px;
         color: #666;
         font-weight: bold;
         opacity: 0.8;
-      }
+    }
 
-      .date{
+    .date {
         font-family: Source Sans Pro;
         font-size: 14px;
         color: #666;
         opacity: 0.8;
-      }
+    }
 
-      .checked{
-        border:none;
-        border-top:1.49px solid #71b475;
-        color:#fff;
-        height:1px;
-      }
+    .checked {
+        border: none;
+        border-top: 1.49px solid #71b475;
+        color: #fff;
+        height: 1px;
+    }
 
-      .unchecked{
-        border:none;
-        border-top:1px dotted #ccc;
-        color:#fff;
-        height:1px;
-      }
- 
+    .unchecked {
+        border: none;
+        border-top: 1px dotted #ccc;
+        color: #fff;
+        height: 1px;
+    }
 }
-  
-  
