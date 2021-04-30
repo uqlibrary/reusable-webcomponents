@@ -48,9 +48,21 @@ body {
     margin-right: auto;
     text-align: center;
 }
+.panel-left {
+    text-align: left;
+}
 
 h1 {
     margin-block-start: 0;
+    padding: 16px 0;
+    font-size: 24px;
+    font-weight: 400;
+    color: #000;
+}
+h2 {
+    font-size: 18px;
+    font-weight: 500;
+    padding: 8px 0 16px;
 }
 
 button.blue-submit {
@@ -95,3 +107,16 @@ button.blue-submit:hover {
     overflow:hidden;
 }
 
+.flex-end-justified {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+form.spaced-text-field input[type="text"] {
+    width: 100%;
+    margin: 0.5rem 0;
+    padding: 0.5rem 0.1rem;
+    border-width: 0 0 1px 0;
+    font-size: 16px;
+}
