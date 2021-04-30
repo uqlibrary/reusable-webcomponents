@@ -74,13 +74,16 @@ button.blue-submit {
     text-align: center;
     text-transform: uppercase;
     transition-delay: 0s;
-    transition-duration: 0.28s;
-    transition-property: box-shadow;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
     user-select: none;
     z-index: 0;
     -webkit-font-smoothing: antialiased;
     -webkit-tap-highlight-color: transparent;
+}
+button.blue-submit:hover {
+    color: #0e62eb !important;
+    background-color: #fff;
+    text-decoration: none;
 }
 
 .keyboard-user-only {
