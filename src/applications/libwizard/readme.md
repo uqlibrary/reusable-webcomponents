@@ -1,9 +1,10 @@
 # Libwizard
 
-
 Admin is at https://uq.libwizard.com/admin/settings
 
-## Page header tab 'display this html':
+## Page header tab 
+
+Select 'display this html' and insert the following html:
 
 ```html
 <uq-header hidelibrarymenuitem skipnavid="skiptohere"></uq-header>
@@ -19,13 +20,15 @@ Admin is at https://uq.libwizard.com/admin/settings
 
 Custom CSS Code: blank
 
-External CSS Files: blank
+External CSS Files: 
+
+https://assets.library.uq.edu.au/reusable-webcomponents/applications/libwizard/custom-styles.css
 
 Custom JS Code: blank
 
 External JS Code: 
 
-https://assets.library.uq.edu.au/reusable-webcomponents-development/feature-libwizard/applications.libwizard/load.js
+https://assets.library.uq.edu.au/reusable-webcomponents/applications/libwizard/load.js
 
 
 The contents of the LibWizard admin panel before the 2021 changes were made are recorded at <readme.old.me>
