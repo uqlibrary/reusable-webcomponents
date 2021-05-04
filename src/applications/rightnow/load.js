@@ -14,33 +14,6 @@ function createSlotForButtonInUtilityArea(button, id = null) {
     return slot;
 }
 
-function createMylibraryStub() {
-    const stubId = 'mylibrarystub'; // match mylibraryLocale.MYLIBRARY_STUB_ID
-    if (!!document.getElementById(stubId)) {
-        return false;
-    }
-
-    const mylibraryButtonId = 'mylibrarybutton'; // match mylibraryLocale.MYLIBRARY_BUTTON_ID
-    if (!!document.getElementById(mylibraryButtonId)) {
-        return false;
-    }
-
-    // this just creates a stub - authbutton will insert the actual button if they are logged in when this stub is present
-    mylibraryButton = document.createElement('div');
-    mylibraryButton.id = stubId;
-
-    return !!mylibraryButton && this.createSlotForButtonInUtilityArea(mylibraryButton, mylibraryButtonId);
-}
-
-function createAuthButton() {
-    if (!!document.querySelector('auth-button')) {
-        return false;
-    }
-
-    const authButton = document.createElement('auth-button');
-    return !!authButton && createSlotForButtonInUtilityArea(authButton, 'auth');
-}
-
 function createAskusButton() {
     if (!!document.querySelector('askus-button')) {
         return false;
@@ -116,6 +89,8 @@ function fontLoader(font) {
 }
 
 function loadReusableComponents() {
+    // because it is a major headache for ITS to deploy changes, we've just added this font here.
+    // if we are asking for changes at some point, it would be good to move it into the template so all the font calls are in one place
     fontLoader('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
 
     addSkipNavLandingPoint();
@@ -147,12 +122,6 @@ function loadReusableComponents() {
 
         const askusButton = createAskusButton();
         !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
-
-        const mylibraryStub = createMylibraryStub();
-        !!siteHeader && !!mylibraryStub && siteHeader.appendChild(mylibraryStub);
-
-        const authButton = createAuthButton();
-        !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
 
         !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
     }
