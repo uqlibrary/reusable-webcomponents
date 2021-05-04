@@ -10,6 +10,13 @@ $black-button-color: #595959;
     display: none !important;
 }
 
+.s-lc-period-first-col {
+    line-height: 2 !important;
+    overflow: unset !important;
+    text-overflow: unset !important;
+    white-space: normal !important;
+}
+
 %navlinks {
     border-radius: 0 2px 2px 0 !important;
     background: #eee;
