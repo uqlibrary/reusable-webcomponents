@@ -28,7 +28,21 @@ function createAskusButton() {
     return slot;
 }
 
+function fontLoader(font) {
+    var headID = document.getElementsByTagName('head')[0];
+    var link = document.createElement('link');
+    link.type = 'text/css';
+    link.rel = 'stylesheet';
+    headID.appendChild(link);
+    link.href = font;
+}
+
 function loadReusableComponentsStudenthub() {
+    fontLoader('https://static.uq.net.au/v6/fonts/Roboto/roboto.css');
+    fontLoader('https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css');
+    fontLoader('https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css');
+    fontLoader('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
+
     loadUQFavicon();
     // addAppleTouchIcon();
 

@@ -33,7 +33,20 @@ function loadUQFavicon() {
     favicon.href = '//www.library.uq.edu.au/favicon.ico';
 }
 
+function fontLoader(font) {
+    var headID = document.getElementsByTagName('head')[0];
+    var link = document.createElement('link');
+    link.type = 'text/css';
+    link.rel = 'stylesheet';
+    headID.appendChild(link);
+    link.href = font;
+}
+
 function loadReusableComponents() {
+    fontLoader('https://static.uq.net.au/v6/fonts/Roboto/roboto.css');
+    fontLoader('https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css');
+    fontLoader('https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css');
+    fontLoader('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
     loadUQFavicon();
 
     // remove the springdshare skip-to-content so that we get a consistent experience across the Library
