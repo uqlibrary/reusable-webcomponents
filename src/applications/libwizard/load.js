@@ -26,11 +26,15 @@ function ready(fn) {
 }
 
 function loadUQFavicon() {
-    const favicon = document.querySelector('link[rel=icon]');
+    let favicon = document.querySelector('link[rel=icon]');
 
-    favicon.type = 'image/x-icon';
-    favicon.rel = 'shortcut icon';
-    favicon.href = '//www.library.uq.edu.au/favicon.ico';
+    if (!favicon) {
+        favicon = document.createElement('link');
+    }
+
+    !!favicon && (favicon.type = 'image/x-icon');
+    !!favicon && (favicon.rel = 'icon');
+    !!favicon && (favicon.href = '//www.library.uq.edu.au/favicon.ico');
 }
 
 function loadReusableComponents() {
