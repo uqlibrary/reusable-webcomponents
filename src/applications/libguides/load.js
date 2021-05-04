@@ -65,14 +65,29 @@ function createAskusButton() {
     return slot;
 }
 
+function fontLoader(font) {
+    var headID = document.getElementsByTagName('head')[0];
+    var link = document.createElement('link');
+    link.type = 'text/css';
+    link.rel = 'stylesheet';
+    headID.appendChild(link);
+    link.href = font;
+}
+
 function loadReusableComponentsLibGuides() {
+    fontLoader('https://static.uq.net.au/v6/fonts/Roboto/roboto.css');
+    fontLoader('https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css');
+    fontLoader('https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css');
+    fontLoader('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
+
     const firstElement = document.body.children[0];
 
     const gtm = document.createElement('uq-gtm');
-    gtm.setAttribute('gtm', 'GTM-PX9H7R');
+    !!gtm && gtm.setAttribute('gtm', 'GTM-PX9H7R');
     document.body.insertBefore(gtm, firstElement);
 
     const header = document.createElement('uq-header');
+    !!header && header.setAttribute('hideLibraryMenuItem', '');
     document.body.insertBefore(header, firstElement);
 
     const siteHeader = document.createElement('uq-site-header');

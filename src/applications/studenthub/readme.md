@@ -25,6 +25,7 @@ Code to include in the GUI editor (keep this up to date as it can't be reviewed 
 <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v6/fonts/Roboto/roboto.css" />
 <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css" />
 <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css" />
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap" />
 <link
   rel="stylesheet"
   href="https://assets.library.uq.edu.au/reusable-webcomponents/applications/studenthub/custom-styles.css"

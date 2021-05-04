@@ -6,7 +6,18 @@ function ready(fn) {
     }
 }
 
+function fontLoader(font) {
+    var headID = document.getElementsByTagName('head')[0];
+    var link = document.createElement('link');
+    link.type = 'text/css';
+    link.rel = 'stylesheet';
+    headID.appendChild(link);
+    link.href = font;
+}
+
 function loadReusableComponents() {
+    fontLoader('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
+
     const firstElement = document.body.children[0];
     if (!firstElement) {
         return;

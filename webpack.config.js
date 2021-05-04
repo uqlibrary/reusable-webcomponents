@@ -110,7 +110,6 @@ module.exports = () => {
             // This plugin simply copies the external js from ITS DS into the dist and renames it
             new CopyPlugin({
                 patterns: [
-                    { from: 'src/ApiAccess/js/uqds.js', to: 'api-access.js' },
                     { from: 'src/UQHeader/js/uqds.js', to: 'uq-header.js' },
                     { from: 'src/UQSiteHeader/js/uqds.js', to: 'uq-site-header.js' },
                     {

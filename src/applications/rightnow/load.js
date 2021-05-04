@@ -42,7 +42,7 @@ const createIcon = (svgPath, size) => {
 };
 
 function dePolymerIcons() {
-    // because we dont have wdit access to Rightnow to edit the pages anymore, swap out the polymer iron icons with direct javascript
+    // because we dont have edit access to Rightnow to edit the pages anymore, swap out the polymer iron icons with javascript
 
     // home icon in topic path
     const homeIconSvg =
@@ -79,7 +79,20 @@ function dePolymerIcons() {
     !!emailIcon && !!newemailIcon && emailIcon.parentNode.replaceChild(newemailIcon, emailIcon);
 }
 
-function loadReusableComponentsStudenthub() {
+function fontLoader(font) {
+    var headID = document.getElementsByTagName('head')[0];
+    var link = document.createElement('link');
+    link.type = 'text/css';
+    link.rel = 'stylesheet';
+    headID.appendChild(link);
+    link.href = font;
+}
+
+function loadReusableComponents() {
+    // because it is a major headache for ITS to deploy changes, we've just added this font here.
+    // if we are asking for changes at some point, it would be good to move it into the template so all the font calls are in one place
+    fontLoader('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
+
     addSkipNavLandingPoint();
 
     dePolymerIcons();
@@ -108,7 +121,7 @@ function loadReusableComponentsStudenthub() {
         !!siteHeader && siteHeader.setAttribute('showmenu', '');
 
         const askusButton = createAskusButton();
-        !!askusButton && siteHeader.appendChild(askusButton);
+        !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
 
         !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
     }
@@ -141,4 +154,4 @@ function addSkipNavLandingPoint() {
         firstContentElement.parentElement.insertBefore(skiptohere, firstContentElement);
 }
 
-ready(loadReusableComponentsStudenthub);
+ready(loadReusableComponents);

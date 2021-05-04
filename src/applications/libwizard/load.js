@@ -26,14 +26,31 @@ function ready(fn) {
 }
 
 function loadUQFavicon() {
-    const favicon = document.querySelector('link[rel=icon]');
+    let favicon = document.querySelector('link[rel=icon]');
 
-    favicon.type = 'image/x-icon';
-    favicon.rel = 'shortcut icon';
-    favicon.href = '//www.library.uq.edu.au/favicon.ico';
+    if (!favicon) {
+        favicon = document.createElement('link');
+    }
+
+    !!favicon && (favicon.type = 'image/x-icon');
+    !!favicon && (favicon.rel = 'icon');
+    !!favicon && (favicon.href = '//www.library.uq.edu.au/favicon.ico');
+}
+
+function fontLoader(font) {
+    var headID = document.getElementsByTagName('head')[0];
+    var link = document.createElement('link');
+    link.type = 'text/css';
+    link.rel = 'stylesheet';
+    headID.appendChild(link);
+    link.href = font;
 }
 
 function loadReusableComponents() {
+    fontLoader('https://static.uq.net.au/v6/fonts/Roboto/roboto.css');
+    fontLoader('https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css');
+    fontLoader('https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css');
+    fontLoader('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
     loadUQFavicon();
 
     // remove the springdshare skip-to-content so that we get a consistent experience across the Library
