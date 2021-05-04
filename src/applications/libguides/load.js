@@ -69,10 +69,11 @@ function loadReusableComponentsLibGuides() {
     const firstElement = document.body.children[0];
 
     const gtm = document.createElement('uq-gtm');
-    gtm.setAttribute('gtm', 'GTM-PX9H7R');
+    !!gtm && gtm.setAttribute('gtm', 'GTM-PX9H7R');
     document.body.insertBefore(gtm, firstElement);
 
     const header = document.createElement('uq-header');
+    !!header && header.setAttribute('hideLibraryMenuItem', '');
     document.body.insertBefore(header, firstElement);
 
     const siteHeader = document.createElement('uq-site-header');
