@@ -13,12 +13,6 @@
 To install the reusable web components, enter the libguides "look and feel" page admin section (eg. https://uq.libapps.com/libguides/lookfeel.php?action=1 ). Click on the "Custom JS/CSS" tab at the top, and paste the following code into the required pane:
 
 ```html
-<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700" rel="stylesheet">
-<link
-  type="image/x-icon"
-  rel="shortcut icon"
-  href="http://assets.library.uq.edu.au/reusable-webcomponents/favicon.ico"
-/>
 <script
   type="text/javascript"
   src="//assets.library.uq.edu.au/reusable-webcomponents/applications/libcal/load.js"
