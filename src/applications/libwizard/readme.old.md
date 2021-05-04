@@ -2,7 +2,7 @@
 
 ## Page header tab, 'display this HTML':
 
-
+```html
 <div style="-webkit-tap-highlight-color: rgba(0,0,0,0);
 height: 100px;
 background-color: #51247A;
@@ -79,16 +79,17 @@ text-decoration: none;">Library</a></div>
 </div>
 </div>
 </div>
+```
 
 ## Custom CSS/JS Tab
 
 Custom CSS Code: 
-
+```css
 div.container-app ,
 div#content-app {
 padding-top: 12px;
 }
-
+```
 External CSS Files: blank
 
 Custom JS Code: blank

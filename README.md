@@ -9,6 +9,11 @@ The 'applications/' folder allows us to version control changes to the scripts w
 - Library homepage
   - code in repo homepage-react
   - live at https://www.library.uq.edu.au/
+- Auth
+  - library authentication & authorization check for SSO login
+  - code at /src/applications/shared and called from repo `auth`
+  - live at https://auth.library.uq.edu.au
+  - staging at https://auth-staging.library.uq.edu.au/
 - Drupal 
   - the Library public CMS
   - code at /src/applications/drupal
