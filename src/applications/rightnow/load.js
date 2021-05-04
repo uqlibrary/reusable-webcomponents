@@ -69,7 +69,7 @@ const createIcon = (svgPath, size) => {
 };
 
 function dePolymerIcons() {
-    // because we dont have wdit access to Rightnow to edit the pages anymore, swap out the polymer iron icons with direct javascript
+    // because we dont have edit access to Rightnow to edit the pages anymore, swap out the polymer iron icons with javascript
 
     // home icon in topic path
     const homeIconSvg =
@@ -115,7 +115,7 @@ function fontLoader(font) {
     link.href = font;
 }
 
-function loadReusableComponentsStudenthub() {
+function loadReusableComponents() {
     fontLoader('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
 
     addSkipNavLandingPoint();
@@ -185,4 +185,4 @@ function addSkipNavLandingPoint() {
         firstContentElement.parentElement.insertBefore(skiptohere, firstContentElement);
 }
 
-ready(loadReusableComponentsStudenthub);
+ready(loadReusableComponents);
