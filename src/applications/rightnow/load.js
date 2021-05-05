@@ -14,33 +14,6 @@ function createSlotForButtonInUtilityArea(button, id = null) {
     return slot;
 }
 
-function createMylibraryStub() {
-    const stubId = 'mylibrarystub'; // match mylibraryLocale.MYLIBRARY_STUB_ID
-    if (!!document.getElementById(stubId)) {
-        return false;
-    }
-
-    const mylibraryButtonId = 'mylibrarybutton'; // match mylibraryLocale.MYLIBRARY_BUTTON_ID
-    if (!!document.getElementById(mylibraryButtonId)) {
-        return false;
-    }
-
-    // this just creates a stub - authbutton will insert the actual button if they are logged in when this stub is present
-    mylibraryButton = document.createElement('div');
-    mylibraryButton.id = stubId;
-
-    return !!mylibraryButton && this.createSlotForButtonInUtilityArea(mylibraryButton, mylibraryButtonId);
-}
-
-function createAuthButton() {
-    if (!!document.querySelector('auth-button')) {
-        return false;
-    }
-
-    const authButton = document.createElement('auth-button');
-    return !!authButton && createSlotForButtonInUtilityArea(authButton, 'auth');
-}
-
 function createAskusButton() {
     if (!!document.querySelector('askus-button')) {
         return false;
@@ -69,7 +42,7 @@ const createIcon = (svgPath, size) => {
 };
 
 function dePolymerIcons() {
-    // because we dont have wdit access to Rightnow to edit the pages anymore, swap out the polymer iron icons with direct javascript
+    // because we dont have edit access to Rightnow to edit the pages anymore, swap out the polymer iron icons with javascript
 
     // home icon in topic path
     const homeIconSvg =
@@ -115,10 +88,9 @@ function fontLoader(font) {
     link.href = font;
 }
 
-function loadReusableComponentsStudenthub() {
-    fontLoader('https://static.uq.net.au/v6/fonts/Roboto/roboto.css');
-    fontLoader('https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css');
-    fontLoader('https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css');
+function loadReusableComponents() {
+    // because it is a major headache for ITS to deploy changes, we've just added this font here.
+    // if we are asking for changes at some point, it would be good to move it into the template so all the font calls are in one place
     fontLoader('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
 
     addSkipNavLandingPoint();
@@ -151,12 +123,6 @@ function loadReusableComponentsStudenthub() {
         const askusButton = createAskusButton();
         !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
 
-        const mylibraryStub = createMylibraryStub();
-        !!siteHeader && !!mylibraryStub && siteHeader.appendChild(mylibraryStub);
-
-        const authButton = createAuthButton();
-        !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
-
         !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
     }
 
@@ -188,4 +154,4 @@ function addSkipNavLandingPoint() {
         firstContentElement.parentElement.insertBefore(skiptohere, firstContentElement);
 }
 
-ready(loadReusableComponentsStudenthub);
+ready(loadReusableComponents);

@@ -119,9 +119,11 @@ module.exports = () => {
                     { from: 'src/applications/libguides/arrow-down.png', to: 'applications/libguides/arrow-down.png' },
                     { from: 'src/favicon.ico', to: 'favicon.ico' },
                     // all load.js for applications should be included here
+                    { from: 'src/applications/auth/load.js', to: 'applications/auth/load.js' },
                     { from: 'src/applications/drupal/load.js', to: 'applications/drupal/load.js' },
                     { from: 'src/applications/libcal/load.js', to: 'applications/libcal/load.js' },
                     { from: 'src/applications/libguides/load.js', to: 'applications/libguides/load.js' },
+                    { from: 'src/applications/libwizard/load.js', to: 'applications/libwizard/load.js' },
                     { from: 'src/applications/omeka/load.js', to: 'applications/omeka/load.js' },
                     { from: 'src/applications/rightnow/load.js', to: 'applications/rightnow/load.js' },
                     { from: 'src/applications/shared/load.js', to: 'applications/shared/load.js' },

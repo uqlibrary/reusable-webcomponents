@@ -6,18 +6,25 @@ function ready(fn) {
     }
 }
 
-function fontLoader(font) {
-    var headID = document.getElementsByTagName('head')[0];
-    var link = document.createElement('link');
-    link.type = 'text/css';
-    link.rel = 'stylesheet';
-    headID.appendChild(link);
-    link.href = font;
+function createSlotForButtonInUtilityArea(button, id = null) {
+    const slot = document.createElement('span');
+    !!slot && slot.setAttribute('slot', 'site-utilities');
+    !!slot && !!id && slot.setAttribute('id', id);
+    !!button && !!slot && slot.appendChild(button);
+
+    return slot;
+}
+
+function createAskusButton() {
+    if (!!document.querySelector('askus-button')) {
+        return false;
+    }
+
+    const askusButton = document.createElement('askus-button');
+    return !!askusButton && createSlotForButtonInUtilityArea(askusButton, 'askus');
 }
 
 function loadReusableComponents() {
-    fontLoader('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
-
     const firstElement = document.body.children[0];
     if (!firstElement) {
         return;
@@ -39,7 +46,8 @@ function loadReusableComponents() {
     if (!document.querySelector('uq-site-header')) {
         const siteHeader = document.createElement('uq-site-header');
 
-        // no utility area buttons are required in this suite
+        const askusButton = createAskusButton();
+        !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
 
         !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
     }
