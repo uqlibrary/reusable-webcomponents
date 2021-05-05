@@ -52,24 +52,32 @@ describe('AskUs menu', () => {
             });
         });
 
-        //TODO: Add tests that mock the window.location.hostname to check primo functionality
-        // it('Does not appear as expected on search.library.uq.edu.au', () => {
-        //     // cy.window().then(win => win.location.hostname = 'search.library.uq.edu.au');
-        //     cy.window().then(win => console.log(win.location.hostname));
-        //     // cy.state('window').location.hostname = 'search.library.uq.edu.au';
-        //     cy.viewport(1280, 900);
-        //     cy.get('askus-button').shadow().find('#askus-proactive-chat').should('not.be.visible');
-        // });
-
         it('Can hide proactive chat button', () => {
-            cy.visit('http://localhost:8080/index-noauth-nomenu-noskip.html');
+            cy.visit('http://localhost:8080');
             cy.viewport(1280, 900);
-            cy.get('uq-site-header').find('askus-button').should('exist');
-            cy.wait(500);
-            cy.get('askus-button').shadow().find('#askus-chat-online').should('exist');
-            cy.get('askus-button').shadow().find('#askus-chat-online').should('have.css', 'display', 'none');
-            cy.get('askus-button').shadow().find('#askus-chat-offline').should('exist');
-            cy.get('askus-button').shadow().find('#askus-chat-offline').should('have.css', 'display', 'none');
+            cy.get('askus-button').shadow().find('#askus-proactive-chat').should('not.be.visible');
+            cy.get('askus-button').shadow().find('div#askus-proactive-chat').should('not.have.class', 'show');
+            cy.getCookie('UQ_ASKUS_PROACTIVE_CHAT').should('not.exist');
+            cy.wait(1500);
+            cy.get('askus-button').shadow().find('div#askus-proactive-chat').should('have.class', 'show');
+            cy.get('askus-button').shadow().find('button#askus-proactive-chat-button-close').click();
+            cy.getCookie('UQ_ASKUS_PROACTIVE_CHAT').should('have.property', 'value', 'hidden');
+        });
+
+        it('Can opens chat window', () => {
+            cy.visit('http://localhost:8080', {
+                onBeforeLoad(win) {
+                    cy.stub(win, 'open');
+                },
+            });
+            cy.viewport(1280, 900);
+            cy.get('askus-button').shadow().find('#askus-proactive-chat').should('not.be.visible');
+            cy.get('askus-button').shadow().find('div#askus-proactive-chat').should('not.have.class', 'show');
+            cy.getCookie('UQ_ASKUS_PROACTIVE_CHAT').should('not.exist');
+            cy.wait(1500);
+            cy.get('askus-button').shadow().find('div#askus-proactive-chat').should('have.class', 'show');
+            cy.get('askus-button').shadow().find('button#askus-proactive-chat-button-open').click();
+            cy.window().its('open').should('be.called');
         });
     });
 });
