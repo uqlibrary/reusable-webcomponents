@@ -4,13 +4,39 @@ Omeka is a third party CMS the Library is using for online library exhibits.
 
 Omeka live URL: https://uqlibraryonlineexhibitions.omeka.net/
 
-The highest profile exhibit atm is [JD Fryer](https://uqlibraryonlineexhibitions.omeka.net/exhibits/show/jd-fryer-student-and-soldier)
+## Exhibitions
 
 Login as admin [here](https://uqlibraryonlineexhibitions.omeka.net/admin/) - user email and password are in PasswordState.
 
 There is no development environment, but there has been a test project in the past, it may still exist: [View](https://uqlibraryonlineexhibitions.omeka.net/exhibits/show/lea-s-test/sample-page) - [Admin](https://uqlibraryonlineexhibitions.omeka.net/admin/exhibits/theme-config/7).
 
 The [load js file](https://github.com/uqlibrary/reusable-webcomponents/blob/master/src/applications/omeka/load.js") and the [the assets css file](https://github.com/uqlibrary/reusable-webcomponents/blob/master/src/applications/omeka/custom-styles.scss) are the preferred way of styling the Exhibit pages.
+
+### JD Fryer Exhibition
+
+The highest profile exhibit atm is [JD Fryer](https://uqlibraryonlineexhibitions.omeka.net/exhibits/show/jd-fryer-student-and-soldier)
+
+It has a body class of `fryer` applied via the AddClassNameToBody call.
+
+Fryer-specific styling is set in the fryer.scss style-import.
+
+Specific footer for fryer:
+
+```html
+<div class="footer-container">
+<div class="qanzac">
+<div id="qanzac-statement">This project is proudly supported by the Queensland Government.</div>
+<div id="qanzac-logo"><img src="https://web.library.uq.edu.au/files/16245/ANZAC_CQ_w%20crest_locked%20logo_C_landscape_min_size_rev_10mm.png" alt="" /></div>
+</div>
+</div>
+<script type="text/javascript" src="//assets.library.uq.edu.au/reusable-webcomponents/applications/omeka/load.js"></script>
+<script type="text/javascript" src="//assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js" defer="defer"></script>
+<script type="text/javascript">
+    AddClassNameToBody('fryer');
+</script>
+```
+
+## Omeka Homepage
 
 The Omeka homepage is updated in the [CSS Plugin](http://uqlibraryonlineexhibitions.omeka.net/admin/plugins)
 which has major restrictions, eg:

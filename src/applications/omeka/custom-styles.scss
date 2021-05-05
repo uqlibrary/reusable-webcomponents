@@ -4,13 +4,16 @@
 @import 'styles-imports/body';
 @import 'styles-imports/footer';
 
+// specific theme styles
+@import 'styles-imports/fryer'; // jd fryer exhibition-specific styling
+
 // Exhibits are supposed to use the Minimalist theme, as UQL styling has been set to override the defaults on that theme
 // if an exhibit requires specific styling, think of a class name specific to the exhibition and
 // call function AddClassNameToBody in the footer to add a classname to the body, eg
 //
-// <script type="text/javascript">// <![CDATA[
+// <script type="text/javascript">
 //  AddClassNameToBody('leohayesexhib');
-// ]]></script>
+// </script>
 //
 // then write specific styles targetting that theme, overwriting Minimalist theme
 //
