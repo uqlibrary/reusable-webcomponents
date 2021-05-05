@@ -1,0 +1,122 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+#content {
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  padding: 0.5em 1.5em 0;
+  max-width: 1170px;
+  width: 90%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#content::after {
+  content: '\00a0';
+  display: block;
+  margin-top: 1.5em;
+  height: 0;
+  visibility: hidden;
+}
+
+.big {
+  font-size: 18px;
+  font-weight: 500;
+  padding: 8px 0 16px;
+}
+
+.panel {
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border-radius: 2px;
+  font-family: 'Roboto', 'Noto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12),
+  0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.panel-left {
+  text-align: left;
+}
+
+h1 {
+  margin-block-start: 0;
+  padding: 16px 0;
+  font-size: 24px;
+  font-weight: 400;
+  color: #000;
+}
+h2 {
+  font-size: 18px;
+  font-weight: 500;
+  padding: 8px 0 16px;
+}
+
+button.blue-submit {
+  align-items: center;
+  background-color: #0e62eb;
+  border: 1px solid #0e62eb;
+  border-radius: 3px;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  font-family: Roboto, Noto, sans-serif;
+  font-size: 16px;
+  font-variant-caps: normal;
+  justify-content: center;
+  margin: 0 0.29em;
+  min-width: 5.14em;
+  outline-width: 0;
+  padding: 0.7em 0.57em;
+  position: relative;
+  text-align: center;
+  text-transform: uppercase;
+  transition-delay: 0s;
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  z-index: 0;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+button.blue-submit:hover {
+  color: #0e62eb !important;
+  background-color: #fff;
+  text-decoration: none;
+}
+
+.keyboard-user-only {
+  position:absolute;
+  left:-10000px;
+  top:auto;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+}
+
+.flex-end-justified {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+form.spaced-text-field input[type="text"] {
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.5rem 0.1rem;
+  border-width: 0 0 1px 0;
+  font-size: 16px;
+}
