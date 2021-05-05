@@ -11,7 +11,7 @@ The 'applications/' folder allows us to version control changes to the scripts w
   - live at https://www.library.uq.edu.au/
 - Auth
   - library authentication & authorization check for SSO login
-  - code at /src/applications/shared and called from repo `auth`
+  - code at /src/applications/auth and called from src/resources/views/layout/default.blade.php in repo `auth`
   - live at https://auth.library.uq.edu.au
   - staging at https://auth-staging.library.uq.edu.au/
 - Drupal 
