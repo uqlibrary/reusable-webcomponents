@@ -4,13 +4,23 @@ Omeka is a third party CMS the Library is using for online library exhibits.
 
 Omeka live URL: https://uqlibraryonlineexhibitions.omeka.net/
 
-The highest profile exhibit atm is [JD Fryer](https://uqlibraryonlineexhibitions.omeka.net/exhibits/show/jd-fryer-student-and-soldier)
+## Exhibitions
 
 Login as admin [here](https://uqlibraryonlineexhibitions.omeka.net/admin/) - user email and password are in PasswordState.
 
 There is no development environment, but there has been a test project in the past, it may still exist: [View](https://uqlibraryonlineexhibitions.omeka.net/exhibits/show/lea-s-test/sample-page) - [Admin](https://uqlibraryonlineexhibitions.omeka.net/admin/exhibits/theme-config/7).
 
 The [load js file](https://github.com/uqlibrary/reusable-webcomponents/blob/master/src/applications/omeka/load.js") and the [the assets css file](https://github.com/uqlibrary/reusable-webcomponents/blob/master/src/applications/omeka/custom-styles.scss) are the preferred way of styling the Exhibit pages.
+
+### JD Fryer Exhibition
+
+The highest profile exhibit atm is [JD Fryer](https://uqlibraryonlineexhibitions.omeka.net/exhibits/show/jd-fryer-student-and-soldier)
+
+It has a body class of `fryer` applied via the AddClassNameToBody call.
+
+Fryer-specific styling is set in the fryer.scss style-import.
+
+## Omeka Homepage
 
 The Omeka homepage is updated in the [CSS Plugin](http://uqlibraryonlineexhibitions.omeka.net/admin/plugins)
 which has major restrictions, eg:
