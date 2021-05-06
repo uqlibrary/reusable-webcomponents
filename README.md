@@ -2,7 +2,7 @@
 
 These reusable webcomponents provides header and footer to multiple systems.
 
-The 'applications/' folder allows us to version control changes to the scripts we use to insert code into 3rd party systems
+The 'applications/' folder allows us to version control changes to the scripts we use to insert code into 3rd party systems. Each has a specific readme file.
 
 (tl;dr we add the header-footer to many third party systems, usually by creating a load.js file which is inserted in the backend of that system, and that load script pulls in the .min.js reusable file and creates the header-footer elements. Read each application's readme file to get full details on each system)
 
@@ -61,7 +61,7 @@ The 'applications/' folder allows us to version control changes to the scripts w
 - run `npm run start` to run the project locally while developing with a listener (calls api on staging for data)
 - run `npm run start:mock` to run the project locally with mock data
   - While this is running, you can run `cypress open` to manually run cypress tests
-- run `npm run build` to run a `local` test build in the `dist` folder
+- run `npm run build` to run a `local` test build in the `dist` folder (this also replaces `gulp styles` in the old reusable for building css locally for pasting into live pages for test)
 - run `npm run build:staging` to run a `staging` test build in the `dist` folder
 - run `npm run build:production` to run a `production` test build in the `dist` folder
 - run `npm run test:local` to run a test build in the `dist` folder and run all cypress tests
@@ -69,7 +69,7 @@ The 'applications/' folder allows us to version control changes to the scripts w
 
 #### Git safety checks
 
-- Run the following in the project root directory to install the pre-commit hook:
+- Run the following in the project root directory after cloning to install the pre-commit hook:
 
   ```sh
   ln -sf "../../scripts/pre-commit" ".git/hooks/pre-commit"
