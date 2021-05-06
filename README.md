@@ -2,59 +2,7 @@
 
 These reusable webcomponents provides header and footer to multiple systems.
 
-The 'applications/' folder allows us to version control changes to the scripts we use to insert code into 3rd party systems. Each has a specific readme file.
-
-(tl;dr we add the header-footer to many third party systems, usually by creating a load.js file which is inserted in the backend of that system, and that load script pulls in the .min.js reusable file and creates the header-footer elements. Read each application's readme file to get full details on each system)
-
-- Library homepage
-  - code in repo homepage-react
-  - live at https://www.library.uq.edu.au/
-- Auth
-  - library authentication & authorization check for SSO login
-  - code at /src/applications/auth and called from src/resources/views/layout/default.blade.php in repo `auth`
-  - live at https://auth.library.uq.edu.au
-  - staging at https://auth-staging.library.uq.edu.au/
-- Drupal 
-  - the Library public CMS
-  - code at /src/applications/drupal
-  - live at eg https://web.library.uq.edu.au/contact-us
-  - drupal staging at eg https://library.stage.drupal.uq.edu.au/library-services/services-students is tied to the feature-drupal branch in this repo
-- Libcal
-  - used for various booking pages
-  - code at /src/applications/libcal
-  - live at eg https://calendar.library.uq.edu.au/reserve/spaces/reading-room
-- Libguides
-  - guides on many subjects to help students
-  - code at /src/applications/libguides
-  - live at https://guides.library.uq.edu.au/
-- Omeka
-  - Library Exhibitions
-  - code at /src/applications/omeka
-  - live - homepage at https://uqlibraryonlineexhibitions.omeka.net/
-  - example exhibition at https://uqlibraryonlineexhibitions.omeka.net/exhibits/show/jd-fryer-student-and-soldier
-- Primo
-  - the Library catalogue (but note we NEVER use that 'c' word)
-  - *styling* at /src/applications/primo
-  - code is in separate repo as it is not deployed via AWS
-  - live at https://search.library.uq.edu.au/primo-explore/search?vid=61UQ&sortby=rank
-  - see full description in readme
-  - has multiple branches assigned to it
-- Rightnow
-  - the UQ CRM
-  - code at /src/applications/rightnow
-  - see readme for many live pages
-- Shared
-  - a bunch of scripts runnng on the enki servers
-  - managed by Dan
-  - code at /src/applications/shared
-- Studenthub
-  - a small group of pages that displays staff-training to logged in staff
-  - code at /src/applications/studenhub
-  - live at https://www.studenthub.uq.edu.au/workgroups/library-staff-development
-- UQLAPP
-  - legacy angular system offering 4 products. Only membership is current for development
-  - code at /src/applications/uqlapp
-  - live at https://app.library.uq.edu.au/
+The 'applications/' folder allows us to version control changes to the scripts we use to insert code into 3rd party systems - see [the applications readme](applications/readme.md) for a summary. 
   
 ### Development
 - run `npm ci` to install packages.
