@@ -114,6 +114,11 @@ function loadReusableComponentsLibGuides() {
 
     document.body.insertBefore(siteHeader, firstElement);
 
+    if (!document.querySelector('alert-list')) {
+        const alerts = document.createElement('alert-list');
+        !!alerts && document.body.insertBefore(alerts, firstElement);
+    }
+
     const connectFooter = document.createElement('connect-footer');
     document.body.appendChild(connectFooter);
 

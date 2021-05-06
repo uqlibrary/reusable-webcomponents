@@ -73,7 +73,7 @@ describe('Dummy Application', () => {
             .shadow()
             .find('[data-testid="alert-alert-1"]')
             .should('exist')
-            .should('contain', 'This is the message');
+            .and('contain', 'This is the message');
     }
 
     function hasNoAlerts() {
@@ -85,7 +85,7 @@ describe('Dummy Application', () => {
             .shadow()
             .find('ul[data-testid="connect-footer-menu"]')
             .should('exist')
-            .should('contain', 'Library home');
+            .and('contain', 'Library home');
     }
 
     function hasNoConnectFooter() {
@@ -97,7 +97,7 @@ describe('Dummy Application', () => {
             .shadow()
             .find('a.uq-footer__acknowledgement__link')
             .should('exist')
-            .should('contain', 'Reconciliation statement');
+            .and('contain', 'Reconciliation statement');
     }
 
     function hasNoUqFooter() {
@@ -270,8 +270,7 @@ describe('Dummy Application', () => {
             hasNoAskusButton();
             hasNoAuthButton();
 
-            // hasAnAlert();
-            hasNoAlerts; // this is wrong and should be fixed!!!!!
+            hasAnAlert();
 
             hasConnectFooter();
 
@@ -293,8 +292,7 @@ describe('Dummy Application', () => {
             hasNoAskusButton();
             hasNoAuthButton();
 
-            // hasAnAlert();
-            hasNoAlerts; // this is wrong and should be fixed!!!!!
+            hasAnAlert();
 
             hasConnectFooter();
 
