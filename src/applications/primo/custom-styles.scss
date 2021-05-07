@@ -841,3 +841,19 @@ prm-full-view {
         }
     }
 }
+
+prm-page-nav-menu {
+    // Stop new pagination from floating above content
+    position: static;
+    .page-nav-inner {
+        &:after {
+            // Remove oval background on "previous" and "next" buttons
+            display: none;
+        }
+    }
+}
+
+.my-refworks-ctm {
+    // Hide RefWorks in mobile menu
+    display: none;
+}
