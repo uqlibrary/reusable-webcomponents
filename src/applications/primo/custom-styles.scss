@@ -857,3 +857,9 @@ prm-page-nav-menu {
     // Hide RefWorks in mobile menu
     display: none;
 }
+
+prm-explore-main {
+    .header {
+        z-index: 20;
+    }
+}
