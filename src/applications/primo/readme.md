@@ -62,9 +62,9 @@ DAC sometimes asks for different changes in different environments (see table, a
 
 Angular changes are done in repo exlibris-primo and css changes are done here (all javascript is run from the angular View Package in repo exlibris-primo).
 
-When your work is compelte, don't just merge up to production, make sure all the primo branches contain the changes.
+When your work is complete, don't just merge up to production, make sure all the primo branches contain the changes.
 
-One useful technique to avoid lots of commits and codeship builds is to edit the css in the browser by Inspecting and editing the source file at assets.library.uq.edu.au > reusable-components > primo2 > custom-styles.css, then paste your changes into the custom_styles.scss file in this repo. (Alchemy is a useful Chrome extension for unpacking vulcanized css)
+One useful technique to avoid lots of commits and codeship builds is to edit the css in the browser by Inspecting and editing the source file at assets.library.uq.edu.au > reusable-webcomponents > applications/primo > custom-styles.css, then paste your changes into the custom_styles.css file in this repo. (Alchemy is a useful Chrome extension for unpacking vulcanized css)
 
 The command `npm run build:development` will create a dist folder containing the required .css file from the .scss for a final check prior to commit. (Paste it back into the browser)
 
