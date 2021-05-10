@@ -16,6 +16,7 @@ if (process.env.USE_MOCK) {
     require('../mock/MockApi');
 }
 
+customElements.define('alert-list', Alerts);
 customElements.define('api-access', ApiAccess);
 customElements.define('askus-button', AskUsButton);
 customElements.define('auth-button', AuthButton);
@@ -26,4 +27,3 @@ customElements.define('uq-site-header', UQSiteHeader);
 customElements.define('uq-footer', UQFooter);
 customElements.define('uq-alert', Alert);
 customElements.define('uq-gtm', gtm);
-customElements.define('alert-list', Alerts);
