@@ -153,7 +153,7 @@ prm-search-bar {
                 &.button-link:not([disabled]) {
                     &:hover,
                     &:focus {
-                        color: #0a447e;
+                        color: $links-hue-5;
                         background-color: $highlightBlue;
                     }
                 }
@@ -535,7 +535,7 @@ button.md-button.link-alt-color {
     &.button-as-link:not([disabled]) {
         &:hover,
         &:focus {
-            color: #0a447e;
+            color: $links-hue-5;
             background-color: $highlightBlue;
         }
     }
