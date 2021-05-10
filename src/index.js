@@ -10,8 +10,9 @@ import UQFooter from './UQFooter/UQFooter.js';
 import Alert from './Alert/Alert.js';
 import gtm from './GTM/gtm.js';
 
-// Import mock data if required
+/* istanbul ignore else  */
 if (process.env.USE_MOCK) {
+    // Import mock data if required
     console.log('include mock data');
     require('../mock/MockApi');
 }
