@@ -43,7 +43,6 @@ class Alert extends HTMLElement {
             const id = this.getAttribute('id');
             /* istanbul ignore if  */
             if (!id) {
-                console.log('returning');
                 return;
             }
             clearInterval(loadAlertFields);
@@ -83,7 +82,6 @@ class Alert extends HTMLElement {
             // Show or hide the close button and assign the function to do so
             if (!!canclose) {
                 const closeAlert = () => {
-                    console.log('closeAlert');
                     shadowDOM.getElementById('alert').style.display = 'none';
                     const alertHiddenCookieID = 'UQ_ALERT_' + id;
                     const alertCookieHidddenValue = 'hidden';
