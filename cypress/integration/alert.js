@@ -84,9 +84,39 @@ describe('Alert', () => {
         it('Alert with no param displays correctly', () => {
             cy.visit('http://localhost:8080/src/Alert/test-empty-alert.html');
             cy.viewport(1280, 900);
-            // cy.wait(100);
             cy.get('uq-alert').shadow().find('#alert').find('#alert-title').contains('No title supplied');
             cy.get('uq-alert').shadow().find('#alert').find('#alert-message').contains('No message supplied');
+        });
+
+        it('Duplicating the alerts element does not give a second set of alerts', () => {
+            cy.visit('http://localhost:8080/src/Alerts/test-multiple-alerts-dont-duplicate.html');
+            cy.viewport(1280, 900);
+
+            // we get 2 alert lists
+            cy.get('.multipleAlerts alert-list').should('have.length', 2);
+
+            // first one has the alerts
+            cy.get('.multipleAlerts alert-list').first().shadow().find('[data-testid="alerts"]').should('exist');
+            cy.get('.multipleAlerts alert-list')
+                .first()
+                .shadow()
+                .find('[data-testid="alerts-wrapper"]')
+                .should('exist');
+            cy.get('.multipleAlerts alert-list')
+                .first()
+                .shadow()
+                .find('[data-testid="alerts-wrapper"]')
+                .find('uq-alert')
+                .should('have.length', 2);
+            // second does not have any alerts
+            cy.get('.multipleAlerts alert-list').first().next().shadow().find('[data-testid="alerts"]').should('exist');
+            cy.get('.multipleAlerts alert-list')
+                .first()
+                .next()
+                .shadow()
+                .find('[data-testid="alerts-wrapper"]')
+                .children()
+                .should('have.length', 0);
         });
     });
 });
