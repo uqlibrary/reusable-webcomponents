@@ -6,7 +6,7 @@ let initCalled;
 
 class ApiAccess {
     constructor() {
-        this.STORAGE_ACCOUNT_KEYNAME = 'userAccount';
+        this.STORAGE_ACCOUNT_KEYNAME = locale.STORAGE_ACCOUNT_KEYNAME;
     }
 
     async getAccount() {
@@ -137,9 +137,9 @@ class ApiAccess {
         });
     }
 
-    storeAccount(account) {
+    storeAccount(account, numberOfHoursUntilExpiry = 8) {
         // for improved UX, expire the session storage when the token must surely be expired, for those rare long sessions
-        const numberOfHoursUntilExpiry = 8; // session lasts 8 hours, per https://auth.uq.edu.au/about/
+        // session lasts 8 hours, per https://auth.uq.edu.au/about/
 
         const millisecondsUntilExpiry = numberOfHoursUntilExpiry * 60 /*min*/ * 60 /*sec*/ * 1000; /* milliseconds */
         const storageExpiryDate = {
