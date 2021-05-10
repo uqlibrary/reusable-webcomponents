@@ -38,23 +38,6 @@ describe('Alert', () => {
                 .should('have.text', 'This is a permanent urgent alert');
         });
 
-        it('Alert is hidden if clicked to dismiss', () => {
-            cy.visit('http://localhost:8080');
-            cy.viewport(1280, 900);
-            cy.get('alert-list').shadow().find('uq-alert').should('have.length', 2);
-            cy.get('alert-list').shadow().find('uq-alert[id="alert-1"]').shadow().find('#alert-close').click();
-            cy.reload(true);
-            cy.get('alert-list').shadow().find('uq-alert').should('have.length', 1);
-        });
-
-        it('Alert is hidden if cookie is set to hide it', () => {
-            cy.visit('http://localhost:8080');
-            cy.viewport(1280, 900);
-            cy.setCookie('UQ_ALERT_alert-1', 'hidden');
-            cy.visit('http://localhost:8080');
-            cy.get('alert-list').shadow().find('uq-alert').should('have.length', 1);
-        });
-
         it('Alert passes accessibility', () => {
             cy.visit('http://localhost:8080');
             cy.injectAxe();
@@ -79,6 +62,23 @@ describe('Alert', () => {
                     scopeName: 'Accessibility',
                     includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
                 });
+        });
+
+        it('Alert is hidden if clicked to dismiss', () => {
+            cy.visit('http://localhost:8080');
+            cy.viewport(1280, 900);
+            cy.get('alert-list').shadow().find('uq-alert').should('have.length', 2);
+            cy.get('alert-list').shadow().find('uq-alert[id="alert-1"]').shadow().find('#alert-close').click();
+            cy.reload(true);
+            cy.get('alert-list').shadow().find('uq-alert').should('have.length', 1);
+        });
+
+        it('Alert is hidden if cookie is set to hide it', () => {
+            cy.visit('http://localhost:8080');
+            cy.viewport(1280, 900);
+            cy.setCookie('UQ_ALERT_alert-1', 'hidden');
+            cy.visit('http://localhost:8080');
+            cy.get('alert-list').shadow().find('uq-alert').should('have.length', 1);
         });
 
         it('Alert with no param displays correctly', () => {
