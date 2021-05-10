@@ -1,12 +1,9 @@
 /// <reference types="cypress" />
 
 describe('Alert', () => {
-    beforeEach(() => {
-        cy.visit('http://localhost:8080');
-        cy.injectAxe();
-    });
     context('Alert', () => {
         it('Alert is visible without interaction at 1280', () => {
+            cy.visit('http://localhost:8080');
             cy.viewport(1280, 900);
             cy.get('alert-list').shadow().find('uq-alert').should('have.length', 2);
 
@@ -42,6 +39,7 @@ describe('Alert', () => {
         });
 
         it('Alert is hidden if clicked to dismiss', () => {
+            cy.visit('http://localhost:8080');
             cy.viewport(1280, 900);
             cy.get('alert-list').shadow().find('uq-alert').should('have.length', 2);
             cy.get('alert-list').shadow().find('uq-alert[id="alert-1"]').shadow().find('#alert-close').click();
@@ -50,6 +48,7 @@ describe('Alert', () => {
         });
 
         it('Alert is hidden if cookie is set to hide it', () => {
+            cy.visit('http://localhost:8080');
             cy.viewport(1280, 900);
             cy.setCookie('UQ_ALERT_alert-1', 'hidden');
             cy.visit('http://localhost:8080');
@@ -57,6 +56,8 @@ describe('Alert', () => {
         });
 
         it('Alert passes accessibility', () => {
+            cy.visit('http://localhost:8080');
+            cy.injectAxe();
             cy.viewport(1280, 900);
             cy.get('alert-list')
                 .shadow()
@@ -78,6 +79,14 @@ describe('Alert', () => {
                     scopeName: 'Accessibility',
                     includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
                 });
+        });
+
+        it('Alert with no param displays correctly', () => {
+            cy.visit('http://localhost:8080/src/Alert/test-empty-alert.html');
+            cy.viewport(1280, 900);
+            // cy.wait(100);
+            cy.get('uq-alert').shadow().find('#alert').find('#alert-title').contains('No title supplied');
+            cy.get('uq-alert').shadow().find('#alert').find('#alert-message').contains('No message supplied');
         });
     });
 });

@@ -40,10 +40,17 @@ class Alert extends HTMLElement {
         };
 
         const loadAlertFields = setInterval(() => {
-            const title = this.getAttribute('alerttitle');
-            const message = this.getAttribute('alertmessage');
-            const alerttype = this.getAttribute('alerttype');
             const id = this.getAttribute('id');
+            /* istanbul ignore if  */
+            if (!id) {
+                console.log('returning');
+                return;
+            }
+            clearInterval(loadAlertFields);
+
+            const alerttype = this.getAttribute('alerttype');
+            const message = this.getAttribute('alertmessage');
+            const title = this.getAttribute('alerttitle');
 
             // Get links or 'permanent' from the message and return a clean message
             let canclose = true;
@@ -69,13 +76,14 @@ class Alert extends HTMLElement {
             // Assign the values
             shadowDOM.getElementById('alert-title').innerText = title || 'No title supplied';
             shadowDOM.getElementById('alert-message').innerText = cleanMessage || 'No message supplied';
-            shadowDOM.getElementById('alert-icon').innerHTML = icons[alerttype];
+            shadowDOM.getElementById('alert-icon').innerHTML = icons[alerttype || '0'];
             shadowDOM.getElementById('alert').classList.add(alerttype === '0' ? 'info' : 'warning');
             shadowDOM.getElementById('alert').setAttribute('data-testid', 'alert-' + id);
 
             // Show or hide the close button and assign the function to do so
             if (!!canclose) {
                 const closeAlert = () => {
+                    console.log('closeAlert');
                     shadowDOM.getElementById('alert').style.display = 'none';
                     if (document.cookie.indexOf('UQ_ALERT_' + id + '=hidden') <= -1) {
                         //set cookie for 24 hours
@@ -114,10 +122,6 @@ class Alert extends HTMLElement {
             } else {
                 shadowDOM.getElementById('alert-action-desktop').remove();
                 shadowDOM.getElementById('alert-action-mobile').remove();
-            }
-
-            if (!!title) {
-                clearInterval(loadAlertFields);
             }
         }, 300);
     }
