@@ -47,20 +47,18 @@ describe('Auth button', () => {
             cy.get('auth-button').shadow().find('#auth-log-in-label').should('contain', 'Log in');
         });
 
-        // this should probably be done in jest instead?
-        async function checkStorage() {
-            await new ApiAccess().getAccount().then((newAccount) => {
-                // dummy get
-                cy.get('auth-button').eq(newAccount, false);
-                cy.get('auth-button').eq(sessionStorage.length, 0);
-            });
-        }
-
         it('account with out of date session storage is not used', () => {
             const store = new ApiAccess();
             store.storeAccount(uqrdav10, -24);
 
             checkStorage();
+
+            async function checkStorage() {
+                await new ApiAccess().getAccount().then((newAccount) => {
+                    expect(newAccount).to.be.equal(false);
+                    expect(sessionStorage.length).to.be.equal(0);
+                });
+            }
         });
     });
 });
