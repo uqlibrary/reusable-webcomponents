@@ -5,7 +5,7 @@ This document describes how changes can be made to various areas of the Homepage
 1. Edit the file specific to the area you want to change (see below) in the correct branch and commit your change.
    The branch to use is `user-admin-manage`
    If you are using Github to edit, then your screen should look like this:
-   ![Demonstrating selecting the UX Services branch](https://raw.githubusercontent.com/uqlibrary/reusable-webcomponents/user-admin-manage/docs/demo-user-edit.png "Demonstrating selecting the UX Services branch")
+   ![Demonstrating selecting the UX Services branch](https://raw.githubusercontent.com/uqlibrary/reusable-webcomponents/user-admin-manage/docs/demo-user-edit.png?token=AEOON3OI7JAK6MIRAWFOQYDAUNEXK "Demonstrating selecting the UX Services branch")
 2. Check the build passes on Amazon by checking the `System - Deployments` channel on Teams (if you have access, you can also check it on [Amazon](https://ap-southeast-2.console.aws.amazon.com/codesuite/codepipeline/pipelines/reusable-webcomponents-user-admin-manage/view?region=ap-southeast-2))
 3. Preview the change at <http://assets.library.uq.edu.au/reusable-webcomponents-development/user-admin-manage/index.html> after AWS passes.
 4. Let devs know that you have a change to be merged in
