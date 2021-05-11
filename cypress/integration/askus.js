@@ -64,11 +64,7 @@ describe('AskUs menu', () => {
         });
 
         it('Navigates to contact from askus menu', () => {
-            cy.visit('http://localhost:8080', {
-                onBeforeLoad(win) {
-                    cy.stub(win, 'location');
-                },
-            });
+            cy.visit('http://localhost:8080');
             cy.viewport(1280, 900);
             cy.get('askus-button').shadow().find('button#askus-button').click();
             cy.get('askus-button').shadow().find('a[data-testid="askus-menu-moreways"').should("have.attr", "href", "https://web.library.uq.edu.au/contact-us");
@@ -78,8 +74,12 @@ describe('AskUs menu', () => {
             cy.visit('http://localhost:8080?chatstatusoffline=true');
             cy.viewport(1280, 900);
             cy.wait(1500);
+            cy.intercept('GET', 'https://support.my.uq.edu.au/app/library/contact', {
+                statusCode: 200,
+                body: 'it worked!',
+            })
             cy.get('askus-button').shadow().find('div#askus-chat-offline').click();
-
+            cy.get('body').contains('it worked!');
         });
     });
 

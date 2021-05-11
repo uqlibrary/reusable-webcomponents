@@ -18,6 +18,13 @@ describe('Auth button', () => {
             cy.get('auth-button').shadow().find('#auth-log-out-label').should('contain', 'Log out');
         });
 
+        it('`overwriteasloggedout` attribute always show them as logged out', () => {
+            cy.visit('http://localhost:8080/index-primo.html');
+            cy.viewport(1280, 900);
+            cy.wait(100);
+            cy.get('auth-button').shadow().find('#auth-log-in-label').should('contain', 'Log in');
+        });
+
         it('another logged in user sees a "Log out" button', () => {
             cy.visit('http://localhost:8080/?user=s1111111');
             cy.viewport(1280, 900);
