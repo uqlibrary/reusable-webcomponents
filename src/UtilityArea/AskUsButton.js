@@ -154,6 +154,7 @@ class AskUsButton extends HTMLElement {
         };
         const api = new ApiAccess();
         await api.loadChatStatus().then((isOnline) => {
+            /* istanbul ignore else  */
             if (!!isOnline) {
                 // Chat status
                 !isProactiveChatHidden && shadowRoot.getElementById('askus-chat-online').removeAttribute('style');
@@ -205,7 +206,6 @@ class AskUsButton extends HTMLElement {
 
             setTimeout(showDisplay, 100);
             document.onkeydown = function (evt) {
-                evt = evt || window.event;
                 const escapeKeyCode = 27;
                 if ((evt.key === escapeKeyCode || evt.keyCode === escapeKeyCode) && askUsClosed === false) {
                     closeMenu();
@@ -233,6 +233,7 @@ class AskUsButton extends HTMLElement {
             const askusButton = shadowDOM.getElementById('askus-actual-button');
             const askusPane = shadowDOM.getElementById('askus-pane');
 
+            /* istanbul ignore next  */
             !!askUsClosed ? !!askusButton && askusButton.blur() : !!askusButton && askusButton.focus();
             !!askusPane && askusPane.addEventListener('click', handleMouseOut);
 
@@ -260,6 +261,7 @@ class AskUsButton extends HTMLElement {
             );
         }
 
+        /* istanbul ignore next  */
         function navigateToContactUs() {
             window.location.href = 'https://support.my.uq.edu.au/app/library/contact';
         }
@@ -279,6 +281,7 @@ class AskUsButton extends HTMLElement {
                 //set cookie for 24 hours
                 const date = new Date();
                 date.setTime(date.getTime() + 24 * 60 * 60 * 1000);
+                /* istanbul ignore next  */
                 const cookieDomain = window.location.hostname.endsWith('.library.uq.edu.au')
                     ? 'domain=.library.uq.edu.au;path=/'
                     : '';

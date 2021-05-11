@@ -1,0 +1,39 @@
+<!doctype html>
+<html style="padding: 0; margin: 0" lang="en">
+<head>
+    <title>UQ Library - Reusable Web Components</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v6/fonts/Roboto/roboto.css" />
+    <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css" />
+    <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css">
+</head>
+<body style="padding: 0; margin: 0; font-family: 'Roboto', sans-serif">
+  <!-- This is a test GTM code - if not using the default gtm value, insert your site's GTM with attribute name `gtm` -->
+  <uq-gtm></uq-gtm>
+  <uq-header hidelibrarymenuitem skipnavid="skiptohere"></uq-header>
+  <uq-site-header sitetitle="Library Test" showmenu>
+      <span slot="site-utilities">
+          <askus-button secondsTilProactiveChatAppears=3 nopaneopacity />
+      </span>
+      <span slot="site-utilities">
+          <div id="mylibrarystub"></div>
+      </span>
+      <span slot="site-utilities">
+          <auth-button />
+      </span>
+  </uq-site-header>
+  <alert-list></alert-list>
+
+  <div style="min-height: 300px; margin-left: auto; margin-right: auto; max-width: 960px; padding: 1rem;">
+      <h1 tabindex="-1" id="skiptohere">UQ Library - Reusable Web Components</h1>
+      <h2>Kitchen sink</h2>
+
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut congue vel massa ac volutpat. Vivamus scelerisque, leo pretium elementum finibus, libero risus condimentum eros, at gravida diam turpis vitae nulla. Ut in purus non quam ultricies sodales. Etiam dapibus gravida dignissim. Donec laoreet sagittis arcu, eget suscipit tellus tristique a. Aenean ullamcorper lacinia nisi non volutpat. Nam viverra sem diam, id faucibus nulla vehicula faucibus. Aenean ultricies purus sit amet condimentum semper. Sed tempor iaculis molestie. Suspendisse consequat est eget risus malesuada ultricies. In sagittis vel sem a elementum. Suspendisse vulputate mattis volutpat. Quisque interdum sapien id urna euismod, id bibendum dolor luctus. Proin egestas, lacus nec ultricies efficitur, urna est molestie libero, tincidunt tempor purus ipsum sed nisi. Praesent molestie sem eu imperdiet aliquam.</p>
+  </div>
+
+  <connect-footer></connect-footer>
+  <uq-footer loginurl="http://library.uq.edu.au"></uq-footer>
+  <script type="text/javascript" src="uq-lib-reusable.min.js"></script>
+</body>
+
+</html>
