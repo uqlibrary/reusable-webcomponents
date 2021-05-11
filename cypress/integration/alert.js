@@ -118,5 +118,17 @@ describe('Alert', () => {
                 .children()
                 .should('have.length', 0);
         });
+
+        it('Alert link out works', () => {
+            cy.visit('http://localhost:8080');
+            cy.viewport(1280, 900);
+            cy.wait(1500);
+            cy.intercept('GET', 'http://www.link.com', {
+                statusCode: 200,
+                body: 'it worked!',
+            });
+            cy.get('alert-list').shadow().find('uq-alert[id="alert-1"]').shadow().find('#alert-action-desktop').click();
+            cy.get('body').contains('it worked!');
+        });
     });
 });
