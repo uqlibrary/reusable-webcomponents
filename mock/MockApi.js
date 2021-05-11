@@ -87,15 +87,6 @@ class MockApi {
                 }
                 return this.response(404, {});
 
-            case apiRoute.AUTHOR_DETAILS_API().apiUrl:
-                // mock current author details
-                if (this.user === 'anon') {
-                    return this.response(403, {});
-                } else if (this.mockData.authorDetails[this.user]) {
-                    return this.response(200, this.mockData.authorDetails[this.user]);
-                }
-                return this.response(404, {});
-
             case apiRoute.CHAT_API().apiUrl:
                 if(!this.chatStatusOffline) {
                     return this.response(200, {online: true}, true);

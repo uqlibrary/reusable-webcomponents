@@ -1,1 +1,1 @@
-export { accounts, authorsSearch, currentAuthor, authorDetails, uqrdav10, uqagrinb } from './account';
+export { accounts, authorsSearch, currentAuthor, uqrdav10, uqagrinb } from './account';
