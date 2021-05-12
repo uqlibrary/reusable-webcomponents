@@ -220,19 +220,18 @@ class ApiAccess {
         return undefined;
     }
 
-    fetchMock(url, options = null, username = 'public') {
+    fetchMock(url, options = null) {
         const response = new MockApi().mockfetch(url, options);
         if (!response.ok || !response.body) {
             console.log(`fetchMock console: An error has occured in mock for ${url}: ${response.status}`);
             const message = `fetchMock: An error has occured in mock for ${url}: ${response.status}`;
-            if (this.user === 'vanlla') {
+            if (new MockApi().user === 'vanlla') {
                 // vanilla gets a 403 on account so we don't want to throw an error here
                 return {};
             } else {
                 const msg = `got an error in mockapi for ${url} `;
                 console.log(msg, response);
                 throw new Error(msg);
-                // return response;
             }
         }
         return response.body || {};
