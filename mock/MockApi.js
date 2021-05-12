@@ -97,8 +97,12 @@ class MockApi {
                 }
 
             case apiRoute.LIB_HOURS_API().apiUrl:
-                return this.response(200, libHours, true);
-                // return this.response(500, {}, true);
+                if (this.user === 'chatStatusError') {
+                    return this.response(403, {});
+                    // return this.response(500, {}, true);
+                } else {
+                    return this.response(200, libHours, true);
+                }
 
             case apiRoute.ALERT_API().apiUrl:
                 return this.response(200, alerts, true);

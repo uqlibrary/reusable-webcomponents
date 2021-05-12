@@ -32,7 +32,7 @@ describe('AskUs menu', () => {
             });
         });
 
-        it('On primo it doesnt show the blanking pane', () => {
+        it('Askus Pane Opacity can be removed, as needed for Primo', () => {
             cy.visit('http://localhost:8080/index-primo.html');
             cy.viewport(1280, 900);
             cy.get('askus-button').shadow().find('button#askus-button').click();
@@ -142,13 +142,16 @@ describe('AskUs menu', () => {
         });
 
         it('Displays as offline when chat status api is 403', () => {
-            console.log('Displays as offline when chat status api is 403');
             cy.visit('http://localhost:8080/?user=chatStatusError');
             cy.viewport(1280, 900);
             cy.get('askus-button').shadow().find('#askus-chat-online').should('exist');
             cy.get('askus-button').shadow().find('#askus-chat-online').should('have.css', 'display', 'none');
             cy.get('askus-button').shadow().find('#askus-chat-offline').should('exist');
             cy.get('askus-button').shadow().find('#askus-chat-offline').should('not.have.css', 'display', 'none');
+            cy.get('askus-button').shadow().find('#askus-chat-time').should('exist');
+            cy.get('askus-button').shadow().find('#askus-chat-time').should('have.value', '');
+            cy.get('askus-button').shadow().find('#askus-phone-time').should('exist');
+            cy.get('askus-button').shadow().find('#askus-phone-time').should('have.value', '');
         });
     });
 });
