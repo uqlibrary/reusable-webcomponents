@@ -343,7 +343,7 @@ describe('Dummy Application', () => {
         });
     });
 
-    context('eSpace works as expected', () => {
+    context('changing properties as required by eSpace works as expected', () => {
         it('Javascript load works correctly', () => {
             cy.visit('http://localhost:8080/src/applications/espace/example.html');
             cy.viewport(1280, 900);
