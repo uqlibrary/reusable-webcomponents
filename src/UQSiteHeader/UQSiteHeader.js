@@ -67,10 +67,9 @@ class UQSiteHeader extends HTMLElement {
         this.uqReference = null;
 
         // Bindings
-        this.createLinkElement = this.createLinkElement.bind(this);
         this.getLink = this.getLink.bind(this);
         this.loadScript = this.loadScript.bind(this);
-        this.rewriteMegaMenuFromJson = this.rewriteMegaMenuFromJson.bind(this);
+        this.updateMegaMenu = this.updateMegaMenu.bind(this);
         this.showMenu = this.showMenu.bind(this);
         this.unhideMobileMenuButton = this.unhideMobileMenuButton.bind(this);
 
@@ -89,6 +88,7 @@ class UQSiteHeader extends HTMLElement {
         // the dom is not loaded for a moment
         const awaitShadowDom = setInterval(() => {
             if (!that.shadowRoot) {
+                /* istanbul ignore next  */
                 return;
             }
 
@@ -107,6 +107,7 @@ class UQSiteHeader extends HTMLElement {
                     this.showMenu();
 
                     break;
+                /* istanbul ignore next  */
                 default:
                     console.log(`unhandled attribute ${fieldName} received for UQSiteHeader`);
             }
@@ -115,18 +116,16 @@ class UQSiteHeader extends HTMLElement {
 
     setSiteUrl(newSiteURL) {
         const siteTitleElement = !!this.shadowRoot && this.shadowRoot.getElementById('site-title');
-        (!!siteTitleElement && !!newSiteURL && (siteTitleElement.href = newSiteURL)) ||
-            console.log('site url update failed');
+        !!siteTitleElement && !!newSiteURL && (siteTitleElement.href = newSiteURL);
     }
 
     setTitle(newSiteTitle) {
         let siteTitleElement = !!this.shadowRoot && this.shadowRoot.getElementById('site-title');
-        (!!siteTitleElement && !!newSiteTitle && (siteTitleElement.innerHTML = newSiteTitle)) ||
-            console.log('site title update failed');
+        !!siteTitleElement && !!newSiteTitle && (siteTitleElement.innerHTML = newSiteTitle);
     }
 
     showMenu() {
-        this.rewriteMegaMenuFromJson();
+        this.updateMegaMenu();
 
         this.unhideMobileMenuButton();
 
@@ -148,9 +147,13 @@ class UQSiteHeader extends HTMLElement {
         );
     }
 
-    rewriteMegaMenuFromJson() {
+    updateMegaMenu() {
         const megaMenu = !!this.shadowRoot && this.shadowRoot.getElementById('jsNav');
+        const listWrapper = this.rewriteMegaMenuFromJson(menuLocale);
+        megaMenu.appendChild(listWrapper);
+    }
 
+    rewriteMegaMenuFromJson(menu) {
         const listWrapper = document.createElement('ul');
         listWrapper.setAttribute('class', 'uq-site-header__navigation__list uq-site-header__navigation__list--level-1');
 
@@ -185,10 +188,8 @@ class UQSiteHeader extends HTMLElement {
                 parentToggle.appendChild(textOfToggle);
 
                 parentListItem.appendChild(parentToggle);
-            }
 
-            // make child items
-            if (hasChildren) {
+                // make child items
                 const listItemWrapper = document.createElement('ul');
                 let listItemClass = 'uq-site-header__navigation__list uq-site-header__navigation__list--level-2';
                 !!jsonParentItem.columnCount &&
@@ -228,10 +229,10 @@ class UQSiteHeader extends HTMLElement {
 
             listWrapper.appendChild(parentListItem);
         });
-        megaMenu.appendChild(listWrapper);
+        return listWrapper;
     }
 
-    // either use the production link from the json,
+    // we either use the production link from the json,
     // or if we are on the drupal staging site, rewrite the url to be local to the staging site
     getLink(linkTo) {
         const stagingDomain = 'library.stage.drupal.uq.edu.au';
@@ -243,16 +244,6 @@ class UQSiteHeader extends HTMLElement {
     unhideMobileMenuButton() {
         const button = !!this.shadowRoot && this.shadowRoot.getElementById('uq-site-header__navigation-toggle');
         !!button && (button.style.display = null);
-    }
-
-    createLinkElement(href, linktext, datatestid = '') {
-        const textOfLink = document.createTextNode(linktext);
-
-        const alink = document.createElement('a');
-        !!datatestid && alink.setAttribute('data-testid', datatestid);
-        alink.setAttribute('href', href);
-        alink.appendChild(textOfLink);
-        return alink;
     }
 
     loadScript() {
