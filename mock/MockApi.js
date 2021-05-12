@@ -88,7 +88,9 @@ class MockApi {
                 return this.response(404, {});
 
             case apiRoute.CHAT_API().apiUrl:
-                if(!this.chatStatusOffline) {
+                if (this.user === 'chatStatusError') {
+                    return this.response(403, {});
+                } else if(!this.chatStatusOffline) {
                     return this.response(200, {online: true}, true);
                 } else {
                     return this.response(200, {online: false}, true);
