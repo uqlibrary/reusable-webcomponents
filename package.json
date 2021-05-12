@@ -22,6 +22,7 @@
     "cy:info": "cypress info",
     "cy:version": "cypress version",
     "cy:cache:list": "cypress cache list",
+    "precy:run": "rm -rf .nyc_output",
     "cy:run": "cypress run",
     "cy:run:record": "cypress run --record",
     "cy:open": "cypress open",
