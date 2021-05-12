@@ -130,5 +130,16 @@ describe('Alert', () => {
             cy.get('alert-list').shadow().find('uq-alert[id="alert-1"]').shadow().find('#alert-action-desktop').click();
             cy.get('body').contains('it worked!');
         });
+
+        it('No alerts show when Alerts api doesnt load; page otherwise correct', () => {
+            cy.visit('http://localhost:8080?user=alertError');
+            cy.viewport(1280, 900);
+            cy.wait(1500);
+            cy.get('alert-list').shadow().find('[data-testid="alerts-wrapper"]').children().should('have.length', 0);
+
+            // some things on the page look right
+            cy.get('uq-header').shadow().find('div.nav-global').find('.search-toggle__button').should('be.visible');
+            cy.get('uq-site-header').shadow().find('[data-testid="site-title"]').contains('Library Test');
+        });
     });
 });

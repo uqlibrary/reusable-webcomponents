@@ -105,8 +105,12 @@ class MockApi {
                 }
 
             case apiRoute.ALERT_API().apiUrl:
-                return this.response(200, alerts, true);
-                // return this.response(500, {}, true);
+                if (this.user === 'alertError') {
+                    return this.response(403, {});
+                    // return this.response(500, {}, true);
+                } else {
+                    return this.response(200, alerts, true);
+                }
 
             default:
                 console.log('url not mocked...', url);
