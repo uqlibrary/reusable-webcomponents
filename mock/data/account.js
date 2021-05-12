@@ -1,5 +1,4 @@
 export const accounts = {
-    // staff, no espace data
     public: null,
     vanilla: {
         "id": "uqvanill",
