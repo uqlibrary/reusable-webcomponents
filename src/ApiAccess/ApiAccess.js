@@ -37,7 +37,8 @@ class ApiAccess {
     async loadAuthorApi() {
         const api = new ApiRoutes().CURRENT_AUTHOR_API();
         const urlPath = api.apiUrl;
-        const options = !!api.options ? api.options : {};
+        // const options = !!api.options ? api.options : {};
+        const options = {}; // options not currently used
         return await this.fetchAPI(urlPath, options, true)
             .then((author) => {
                 return author;
@@ -52,7 +53,8 @@ class ApiAccess {
         let isOnline = false;
         const chatstatusApi = new ApiRoutes().CHAT_API();
         const urlPath = chatstatusApi.apiUrl;
-        const options = !!chatstatusApi.options ? chatstatusApi.options : {};
+        // const options = !!chatstatusApi.options ? chatstatusApi.options : {};
+        const options = {}; // options not currently used
         await this.fetchAPI(urlPath, options)
             .then((chatResponse) => {
                 isOnline = !!chatResponse.online;
@@ -67,7 +69,8 @@ class ApiAccess {
         let result;
         const hoursApi = new ApiRoutes().LIB_HOURS_API();
         const urlPath = hoursApi.apiUrl;
-        const options = !!hoursApi.options ? hoursApi.options : {};
+        // const options = !!hoursApi.options ? hoursApi.options : {};
+        const options = {}; // options not currently used
         await this.fetchAPI(urlPath, options)
             .then((hoursResponse) => {
                 let askusHours = null;
@@ -94,7 +97,8 @@ class ApiAccess {
     async loadAlerts() {
         const alertApi = new ApiRoutes().ALERT_API();
         const urlPath = alertApi.apiUrl;
-        const options = !!alertApi.options ? alertApi.options : {};
+        // const options = !!alertApi.options ? alertApi.options : {};
+        const options = {}; // options not currently used
         return await this.fetchAPI(urlPath, options)
             .then((alerts) => {
                 return alerts;
