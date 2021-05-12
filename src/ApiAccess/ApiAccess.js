@@ -24,7 +24,8 @@ class ApiAccess {
 
         const accountApi = new ApiRoutes().CURRENT_ACCOUNT_API();
         const urlPath = accountApi.apiUrl;
-        const options = !!accountApi.options ? accountApi.options : {};
+        // const options = !!accountApi.options ? accountApi.options : {};
+        const options = {}; // options not currently used
         return await this.fetchAPI(urlPath, options, true).then((account) => {
             console.log('getAccount: account from server = ', account);
             this.storeAccount(account);
@@ -37,9 +38,14 @@ class ApiAccess {
         const api = new ApiRoutes().CURRENT_AUTHOR_API();
         const urlPath = api.apiUrl;
         const options = !!api.options ? api.options : {};
-        return await this.fetchAPI(urlPath, options, true).then((author) => {
-            return author;
-        });
+        return await this.fetchAPI(urlPath, options, true)
+            .then((author) => {
+                return author;
+            })
+            .catch((error) => {
+                console.log('error loading authors ', error);
+                return {};
+            });
     }
 
     async loadChatStatus() {
@@ -109,8 +115,16 @@ class ApiAccess {
         }
 
         if (this.isMock()) {
-            return this.fetchMock(urlPath);
+            try {
+                return this.fetchMock(urlPath);
+            } catch (e) {
+                const msg = `mock api error: ${e.message}`;
+                console.log(msg);
+                throw new Error(msg);
+            }
         }
+
+        console.log('get real api');
 
         const token = !!tokenRequired ? { 'x-uql-token': this.getSessionCookie() } : null;
 
@@ -206,13 +220,20 @@ class ApiAccess {
         return undefined;
     }
 
-    fetchMock(url, options = null) {
+    fetchMock(url, options = null, username = 'public') {
         const response = new MockApi().mockfetch(url, options);
         if (!response.ok || !response.body) {
             console.log(`fetchMock console: An error has occured in mock for ${url}: ${response.status}`);
             const message = `fetchMock: An error has occured in mock for ${url}: ${response.status}`;
-            // vanilla gets a 403 so we don't want to throw an error here
-            return {};
+            if (this.user === 'vanlla') {
+                // vanilla gets a 403 on account so we don't want to throw an error here
+                return {};
+            } else {
+                const msg = `got an error in mockapi for ${url} `;
+                console.log(msg, response);
+                throw new Error(msg);
+                // return response;
+            }
         }
         return response.body || {};
     }

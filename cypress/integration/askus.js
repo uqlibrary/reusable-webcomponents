@@ -45,10 +45,10 @@ describe('AskUs menu', () => {
             cy.get('askus-button').shadow().find('button#askus-button').click();
             cy.wait(500);
             cy.get('askus-button').shadow().find('div#askus-menu').should('be.visible');
-            cy.get('body').type('{enter}', { force: true })
+            cy.get('body').type('{enter}', { force: true });
             cy.wait(500);
             cy.get('askus-button').shadow().find('div#askus-menu').should('be.visible');
-            cy.get('body').type('{esc}', { force: true })
+            cy.get('body').type('{esc}', { force: true });
             cy.wait(500);
             cy.get('askus-button').shadow().find('div#askus-menu').should('not.be.visible');
         });
@@ -67,7 +67,10 @@ describe('AskUs menu', () => {
             cy.visit('http://localhost:8080');
             cy.viewport(1280, 900);
             cy.get('askus-button').shadow().find('button#askus-button').click();
-            cy.get('askus-button').shadow().find('a[data-testid="askus-menu-moreways"').should("have.attr", "href", "https://web.library.uq.edu.au/contact-us");
+            cy.get('askus-button')
+                .shadow()
+                .find('a[data-testid="askus-menu-moreways"')
+                .should('have.attr', 'href', 'https://web.library.uq.edu.au/contact-us');
         });
 
         it('Navigates to contact from offline chat icon', () => {
@@ -77,7 +80,7 @@ describe('AskUs menu', () => {
             cy.intercept('GET', 'https://support.my.uq.edu.au/app/library/contact', {
                 statusCode: 200,
                 body: 'it worked!',
-            })
+            });
             cy.get('askus-button').shadow().find('div#askus-chat-offline').click();
             cy.get('body').contains('it worked!');
         });
@@ -120,7 +123,6 @@ describe('AskUs menu', () => {
             cy.getCookie('UQ_ASKUS_PROACTIVE_CHAT').should('have.property', 'value', 'hidden');
             cy.wait(1500);
             cy.get('askus-button').shadow().find('div#askus-proactive-chat').should('not.have.class', 'show');
-
         });
 
         it('Can open chat window', () => {
@@ -137,6 +139,16 @@ describe('AskUs menu', () => {
             cy.get('askus-button').shadow().find('div#askus-proactive-chat').should('have.class', 'show');
             cy.get('askus-button').shadow().find('button#askus-proactive-chat-button-open').click();
             cy.window().its('open').should('be.called');
+        });
+
+        it('Displays as offline when chat status api is 403', () => {
+            console.log('Displays as offline when chat status api is 403');
+            cy.visit('http://localhost:8080/?user=chatStatusError');
+            cy.viewport(1280, 900);
+            cy.get('askus-button').shadow().find('#askus-chat-online').should('exist');
+            cy.get('askus-button').shadow().find('#askus-chat-online').should('have.css', 'display', 'none');
+            cy.get('askus-button').shadow().find('#askus-chat-offline').should('exist');
+            cy.get('askus-button').shadow().find('#askus-chat-offline').should('not.have.css', 'display', 'none');
         });
     });
 });
