@@ -112,6 +112,7 @@ class MockApi {
                     return this.response(200, alerts, true);
                 }
 
+            /* istanbul ignore next  */
             default:
                 console.log('url not mocked...', url);
                 return this.response(404, {message: `MOCK URL NOT FOUND: ${url}`});
