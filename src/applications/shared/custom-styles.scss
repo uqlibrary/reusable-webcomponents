@@ -99,12 +99,12 @@ button.blue-submit:hover {
 }
 
 .keyboard-user-only {
-    position:absolute;
-    left:-10000px;
-    top:auto;
-    width:1px;
-    height:1px;
-    overflow:hidden;
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
 }
 
 .flex-end-justified {
@@ -113,7 +113,7 @@ button.blue-submit:hover {
     justify-content: flex-end;
 }
 
-form.spaced-text-field input[type="text"] {
+form.spaced-text-field input[type='text'] {
     width: 100%;
     margin: 0.5rem 0;
     padding: 0.5rem 0.1rem;

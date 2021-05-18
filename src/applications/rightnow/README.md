@@ -12,7 +12,7 @@ These are the pages we currently have:
 
 The RightNow pages features:
 
-- Library styling on the page, 
+- Library styling on the page,
 - Mega-menu to give users maximum possible information to answer questions
 - The Library login button is hidden, because users might be logged into RightNow, and because CRM is a non-library domain, so Reusable login wont work!!
 - The Ask Us button is shown because it links to the chat popup and other contact items.
@@ -40,7 +40,7 @@ Header block found on Rightnow pages:
 
 Production is at https://support.my.uq.edu.au/app/library/ eg [contact form](https://support.my.uq.edu.au/app/library/contact) and Staging is at https://uqcurrent.crm.test.uq.edu.au/app/library/ eg [contact form](https://uqcurrent.crm.test.uq.edu.au/app/library/contact)
 
-## Archived:
+## Archived
 
 The github repo at [oracle-rightnow](https://github.com/uqlibrary/oracle-rightnow) is a repository of templates and views _backing up_ code on the CRM servers for our pages at [https://support.my.uq.edu.au/](https://support.my.uq.edu.au/app/library/faqs) - changes are NOT made by updating github and pushing! Visit the oracle-rightnow repo for more details.
 
