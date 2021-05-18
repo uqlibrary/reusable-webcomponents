@@ -27,7 +27,7 @@
     "cy:open": "cypress open",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run --record",
-    "test": "start-server-and-test start-test-server http://localhost:8080 cypress:run",
+    "test": "start-server-and-test start-test-server http://localhost:8080 cy:run",
     "test:local": "start-server-and-test start-test-server http://localhost:8080 cypress:open",
     "prettier:test": "npx prettier --check ./",
     "prettier:fix": "npx prettier --write ./",

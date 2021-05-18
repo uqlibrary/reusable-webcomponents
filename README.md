@@ -14,7 +14,8 @@ The 'applications/' folder allows us to version control changes to the scripts w
 - run `npm run build:staging` to run a `staging` test build in the `dist` folder
 - run `npm run build:production` to run a `production` test build in the `dist` folder
 - run `npm run test:local` to run a test build in the `dist` folder and run all cypress tests
-- run `npm run prettier:test` to check all files for codestyles and `npm run prettier:fix` to fix them all
+- run `npm run prettier:test` to check all files for codestyles, and
+- run `npm run prettier:fix` to fix all codestyle issues
 
 ### Git safety checks
 
@@ -76,7 +77,7 @@ This must be an ANCHOR, not any other html element.
 
 ## Testing
 
-This repo uses Cypress tests. To run tests:
+This repo uses [Cypress.io](https://cypress.io/) tests. To run tests:
 
 - locally: `npm run test:local` - select the preferred browser from the dropdown in the top right of the cypress interface, then click on the 'run integration tests'
 
@@ -101,7 +102,17 @@ There is a cloudfront behaviour on assets.library.uq.edu.au that maps these buck
 ## Reference Material
 
 - How slots work: <https://javascript.info/slots-composition>
-- Apply styles within the shadow dom from outside: <https://developer.mozilla.org/en-US/docs/Web/CSS/::part> (undocumented caveat: you can only style the item with the "part attribute" you cant style its descendants ie this doesn't work: `askus-button::part(askus) div#askus-label` you have to put the part="x" on the label element)
+- Apply styles within the shadow dom from outside: <https://developer.mozilla.org/en-US/docs/Web/CSS/::part>
+  - Undocumented caveat: You can only style the item with the "part attribute" you can't style its descendants like:
+
+    ```css
+    askus-button::part(askus) div#askus-label {
+      ...
+    }
+    ```
+
+    You have to put the `part="x"` on the label element.
+
 - [Lifecycle hooks in web components](https://ultimatecourses.com/blog/lifecycle-hooks-in-web-components)
 
 ## Setting up from the ITS Design System private packages
