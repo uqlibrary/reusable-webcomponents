@@ -38,7 +38,7 @@ Header block found on Rightnow pages:
 <script src="https://assets.library.uq.edu.au/reusable-webcomponents/applications/rightnow/load.js" async></script>
 ```
 
-Production is at https://support.my.uq.edu.au/app/library/ eg [contact form](https://support.my.uq.edu.au/app/library/contact) and Staging is at https://uqcurrent.crm.test.uq.edu.au/app/library/ eg [contact form](https://uqcurrent.crm.test.uq.edu.au/app/library/contact)
+Production is at <https://support.my.uq.edu.au/app/library/> eg [contact form](https://support.my.uq.edu.au/app/library/contact) and Staging is at <https://uqcurrent.crm.test.uq.edu.au/app/library/> eg [contact form](https://uqcurrent.crm.test.uq.edu.au/app/library/contact)
 
 ## Archived
 

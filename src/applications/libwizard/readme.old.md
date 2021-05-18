@@ -1,6 +1,6 @@
-# before 2021 changes:
+# before 2021 changes
 
-## Page header tab, 'display this HTML':
+## Page header tab, 'display this HTML'
 
 ```html
 <div style="-webkit-tap-highlight-color: rgba(0,0,0,0);
