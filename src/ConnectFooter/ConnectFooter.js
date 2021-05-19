@@ -53,11 +53,20 @@ class ConnectFooter extends HTMLElement {
         // Bindings
         this.updateFooterMenuFromJson = this.updateFooterMenuFromJson.bind(this);
         this.createLink = this.createLink.bind(this);
+        this.createFooterInternalLinkEntry = this.createFooterInternalLinkEntry.bind(this);
+        this.createFooterGivingButtonEntry = this.createFooterGivingButtonEntry.bind(this);
+        this.createFooterSocialButtonEntry = this.createFooterSocialButtonEntry.bind(this);
+        this.createFooterMenuEntry = this.createFooterMenuEntry.bind(this);
+        this.createSeparatorForFooterMenu = this.createSeparatorForFooterMenu.bind(this);
+        this.socialButtonIdentifier = this.socialButtonIdentifier.bind(this);
+        this.internalButtonIdentifier = this.internalButtonIdentifier.bind(this);
+        this.footerButtonIdentifier = this.footerButtonIdentifier.bind(this);
+        this.givingButtonIdentifier = this.givingButtonIdentifier.bind(this);
     }
 
     updateFooterMenuFromJson() {
         const footerMenu = template.content.getElementById('footer-menu');
-        if (!document.getElementById('footermenu-home')) {
+        if (!!footerMenu && !template.content.getElementById('footermenu-home')) {
             const homelink = this.createLink(
                 'footermenu-homepage',
                 menuLocale.menuhome.linkTo || '',
@@ -65,22 +74,23 @@ class ConnectFooter extends HTMLElement {
             );
 
             const homeMenuItem = document.createElement('li');
-            homeMenuItem.setAttribute('id', '#footermenu-home');
-            homeMenuItem.appendChild(homelink);
+            !!homeMenuItem && homeMenuItem.setAttribute('id', this.footerButtonIdentifier('home'));
+            !!homeMenuItem && homeMenuItem.appendChild(homelink);
 
             const separator = this.createSeparatorForFooterMenu();
-            homeMenuItem.appendChild(separator);
+            !!homeMenuItem && !!separator && homeMenuItem.appendChild(separator);
 
             footerMenu.appendChild(homeMenuItem);
         }
 
-        menuLocale.publicmenu.forEach((linkProperties, index) => {
-            if (!document.getElementById(`footermenu-${index}`)) {
-                const menuItem = this.createFooterMenuEntry(linkProperties, index);
+        !!footerMenu &&
+            menuLocale.publicmenu.forEach((linkProperties, index) => {
+                if (!template.content.getElementById(this.footerButtonIdentifier(index))) {
+                    const menuItem = this.createFooterMenuEntry(linkProperties, index);
 
-                footerMenu.appendChild(menuItem);
-            }
-        });
+                    !!menuItem && footerMenu.appendChild(menuItem);
+                }
+            });
 
         const contactsheader = template.content.querySelector('.contacts h3');
         !!contactsheader && (contactsheader.innerHTML = footerlocale.connectFooter.buttonSocialHeader);
@@ -88,9 +98,8 @@ class ConnectFooter extends HTMLElement {
         const socialbuttonContainer = template.content.querySelector('.contacts .buttons');
         !!socialbuttonContainer &&
             footerlocale.connectFooter.buttonSocial.forEach((button, index) => {
-                if (!document.getElementById(`socialbutton-${index}`)) {
+                if (!template.content.getElementById(this.socialButtonIdentifier(index))) {
                     const container = this.createFooterSocialButtonEntry(button, index);
-
                     !!container && socialbuttonContainer.appendChild(container);
                 }
             });
@@ -98,9 +107,8 @@ class ConnectFooter extends HTMLElement {
         const internalbuttonsContainer = template.content.querySelector('.contacts .internalLinks');
         !!internalbuttonsContainer &&
             footerlocale.connectFooter.internalLinks.forEach((button, index) => {
-                if (!document.getElementById(`internalbutton-${index}`)) {
+                if (!template.content.getElementById(this.internalButtonIdentifier(index))) {
                     const container = this.createFooterInternalLinkEntry(button, index);
-
                     !!container && internalbuttonsContainer.appendChild(container);
                 }
             });
@@ -108,9 +116,10 @@ class ConnectFooter extends HTMLElement {
         const givingbuttonsContainer = template.content.querySelector('.givingWrapper div');
         !!givingbuttonsContainer &&
             footerlocale.connectFooter.givingLinks.map((button, index) => {
-                const container = this.createFooterGivingButtonEntry(button, index);
-
-                !!container && givingbuttonsContainer.appendChild(container);
+                if (!template.content.getElementById(this.givingButtonIdentifier(index))) {
+                    const container = this.createFooterGivingButtonEntry(button, index);
+                    !!container && givingbuttonsContainer.appendChild(container);
+                }
             });
     }
 
@@ -130,7 +139,7 @@ class ConnectFooter extends HTMLElement {
             span.appendChild(linkLabelSpan);
 
         const container = document.createElement('span');
-        !!container && (container.id = `internalbutton-${index}`);
+        !!container && (container.id = this.internalButtonIdentifier(index));
         !!container && !!link && container.appendChild(link);
         !!container && !!span && container.appendChild(span);
         return container;
@@ -152,7 +161,7 @@ class ConnectFooter extends HTMLElement {
 
         const container = document.createElement('div');
         !!container && (container.className = 'givingBlock griditem griditem12');
-        !!container && (container.id = `givingbutton-${index}`);
+        !!container && (container.id = this.givingButtonIdentifier(index));
         !!container && !!link && container.appendChild(link);
         !!container && !!ripplespan && container.appendChild(ripplespan);
         return container;
@@ -184,7 +193,7 @@ class ConnectFooter extends HTMLElement {
         !!link && (link.type = 'button');
         !!link && (link.ariaLabel = button.linkMouseOver);
         !!link && link.setAttribute('data-testid', button.dataTestid);
-        !!link && (link.id = `socialbutton-${index}`);
+        !!link && (link.id = this.socialButtonIdentifier(index));
         !!link && (link.title = button.linkMouseOver);
         !!link && !!span && link.appendChild(span);
         !!link && !!ripplespan && link.appendChild(ripplespan);
@@ -204,28 +213,46 @@ class ConnectFooter extends HTMLElement {
         );
 
         const menuItem = document.createElement('li');
-        menuItem.setAttribute('id', `#footermenu-${index}`);
-        menuItem.appendChild(menulink);
+        !!menuItem && menuItem.setAttribute('id', this.footerButtonIdentifier(index));
+        !!menuItem && menuItem.appendChild(menulink);
 
         const separator = this.createSeparatorForFooterMenu();
-        menuItem.appendChild(separator);
+        !!menuItem && !!separator && menuItem.appendChild(separator);
         return menuItem;
     }
 
     createSeparatorForFooterMenu() {
         const separator = document.createElement('span');
-        separator.setAttribute('class', 'separator');
-        separator.textContent = ' | ';
+        !!separator && separator.setAttribute('class', 'separator');
+        !!separator && (separator.textContent = ' | ');
         return separator;
     }
 
     createLink(datatestid, href, linktext) {
         const homelink = document.createElement('a');
-        homelink.setAttribute('data-testid', datatestid);
-        homelink.setAttribute('href', href);
+        !!homelink && homelink.setAttribute('data-testid', datatestid);
+        !!homelink && homelink.setAttribute('href', href);
+
         const textOfLink = document.createTextNode(linktext);
-        homelink.appendChild(textOfLink);
+        !!homelink && !!textOfLink && homelink.appendChild(textOfLink);
+
         return homelink;
+    }
+
+    socialButtonIdentifier(index) {
+        return `socialbutton-${index}`;
+    }
+
+    internalButtonIdentifier(index) {
+        return `internalbutton-${index}`;
+    }
+
+    footerButtonIdentifier(index) {
+        return `footermenu-${index}`;
+    }
+
+    givingButtonIdentifier(index) {
+        return `givingbutton-${index}`;
     }
 }
 
