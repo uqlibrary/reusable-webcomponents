@@ -56,46 +56,37 @@ class ConnectFooter extends HTMLElement {
     }
 
     updateFooterMenuFromJson() {
-        const plainSeparator = document.createElement('span');
-        plainSeparator.textContent = ' | ';
-
         const footerMenu = template.content.getElementById('footer-menu');
-
-        const homelink = this.createLink(
-            'footermenu-homepage',
-            menuLocale.menuhome.linkTo || '',
-            menuLocale.menuhome.primaryText || '',
-        );
-
-        const homeMenuItem = document.createElement('li');
-        homeMenuItem.appendChild(homelink);
-        homeMenuItem.appendChild(plainSeparator);
-
-        footerMenu.appendChild(homeMenuItem);
-
-        menuLocale.publicmenu.forEach((linkProperties, index) => {
-            const menulink = this.createLink(
-                linkProperties.dataTestid || '',
-                linkProperties.linkTo || '',
-                linkProperties.primaryText || '',
+        if (!document.querySelector('#footermenu-home')) {
+            const homelink = this.createLink(
+                'footermenu-homepage',
+                menuLocale.menuhome.linkTo || '',
+                menuLocale.menuhome.primaryText || '',
             );
 
-            const menuItem = document.createElement('li');
-            menuItem.appendChild(menulink);
+            const homeMenuItem = document.createElement('li');
+            homeMenuItem.setAttribute('id', '#footermenu-home');
+            homeMenuItem.appendChild(homelink);
 
-            const separator = document.createElement('span');
-            separator.setAttribute('class', 'separator');
-            separator.textContent = ' | ';
-            menuItem.appendChild(separator);
+            const separator = this.createSeparatorForFooterMenu();
+            homeMenuItem.appendChild(separator);
 
-            footerMenu.appendChild(menuItem);
+            footerMenu.appendChild(homeMenuItem);
+        }
+
+        menuLocale.publicmenu.forEach((linkProperties, index) => {
+            if (!document.querySelector(`#footermenu-${index}`)) {
+                const menuItem = this.createFooterMenuEntry(linkProperties, index);
+
+                footerMenu.appendChild(menuItem);
+            }
         });
 
         const contactsheader = template.content.querySelector('.contacts h3');
         !!contactsheader && (contactsheader.innerHTML = footerlocale.connectFooter.buttonSocialHeader);
 
         const socialbuttonContainer = template.content.querySelector('.contacts .buttons');
-        footerlocale.connectFooter.buttonSocial.map((button, index) => {
+        footerlocale.connectFooter.buttonSocial.forEach((button, index) => {
             const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
             !!path && path.setAttribute('d', button.iconPath);
 
@@ -135,7 +126,7 @@ class ConnectFooter extends HTMLElement {
         });
 
         const internalbuttonsContainer = template.content.querySelector('.contacts .internalLinks');
-        footerlocale.connectFooter.internalLinks.map((button, index) => {
+        footerlocale.connectFooter.internalLinks.forEach((button, index) => {
             const linkLabel = document.createTextNode(button.linklabel);
 
             const link = document.createElement('a');
@@ -179,6 +170,29 @@ class ConnectFooter extends HTMLElement {
 
             !!givingbuttonsContainer && !!container && givingbuttonsContainer.appendChild(container);
         });
+    }
+
+    createFooterMenuEntry(linkProperties, index) {
+        const menulink = this.createLink(
+            linkProperties.dataTestid || '',
+            linkProperties.linkTo || '',
+            linkProperties.primaryText || '',
+        );
+
+        const menuItem = document.createElement('li');
+        menuItem.setAttribute('id', `#footermenu-${index}`);
+        menuItem.appendChild(menulink);
+
+        const separator = this.createSeparatorForFooterMenu();
+        menuItem.appendChild(separator);
+        return menuItem;
+    }
+
+    createSeparatorForFooterMenu() {
+        const separator = document.createElement('span');
+        separator.setAttribute('class', 'separator');
+        separator.textContent = ' | ';
+        return separator;
     }
 
     createLink(datatestid, href, linktext) {
