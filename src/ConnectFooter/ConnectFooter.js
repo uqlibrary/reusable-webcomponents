@@ -57,7 +57,7 @@ class ConnectFooter extends HTMLElement {
 
     updateFooterMenuFromJson() {
         const footerMenu = template.content.getElementById('footer-menu');
-        if (!document.querySelector('#footermenu-home')) {
+        if (!document.getElementById('footermenu-home')) {
             const homelink = this.createLink(
                 'footermenu-homepage',
                 menuLocale.menuhome.linkTo || '',
@@ -75,7 +75,7 @@ class ConnectFooter extends HTMLElement {
         }
 
         menuLocale.publicmenu.forEach((linkProperties, index) => {
-            if (!document.querySelector(`#footermenu-${index}`)) {
+            if (!document.getElementById(`footermenu-${index}`)) {
                 const menuItem = this.createFooterMenuEntry(linkProperties, index);
 
                 footerMenu.appendChild(menuItem);
@@ -88,7 +88,7 @@ class ConnectFooter extends HTMLElement {
         const socialbuttonContainer = template.content.querySelector('.contacts .buttons');
         !!socialbuttonContainer &&
             footerlocale.connectFooter.buttonSocial.forEach((button, index) => {
-                if (!document.querySelector(`socialbutton-${index}`)) {
+                if (!document.getElementById(`socialbutton-${index}`)) {
                     const container = this.createFooterSocialButtonEntry(button, index);
 
                     !!container && socialbuttonContainer.appendChild(container);
@@ -96,27 +96,14 @@ class ConnectFooter extends HTMLElement {
             });
 
         const internalbuttonsContainer = template.content.querySelector('.contacts .internalLinks');
-        footerlocale.connectFooter.internalLinks.forEach((button, index) => {
-            const linkLabel = document.createTextNode(button.linklabel);
+        !!internalbuttonsContainer &&
+            footerlocale.connectFooter.internalLinks.forEach((button, index) => {
+                if (!document.getElementById(`internalbutton-${index}`)) {
+                    const container = this.createFooterInternalLinkEntry(button, index);
 
-            const link = document.createElement('a');
-            !!link && (link.href = button.linkTo);
-            !!link && link.setAttribute('data-testid', button.dataTestid);
-            !!link && !!linkLabel && link.appendChild(linkLabel);
-
-            const linkLabelSpan = document.createTextNode(' |  ');
-            const span = document.createElement('span');
-            index < footerlocale.connectFooter.internalLinks.length - 1 &&
-                !!span &&
-                !!linkLabelSpan &&
-                span.appendChild(linkLabelSpan);
-
-            const container = document.createElement('span');
-            !!container && !!link && container.appendChild(link);
-            !!container && !!span && container.appendChild(span);
-
-            !!internalbuttonsContainer && !!container && internalbuttonsContainer.appendChild(container);
-        });
+                    !!container && internalbuttonsContainer.appendChild(container);
+                }
+            });
 
         const givingbuttonsContainer = template.content.querySelector('.givingWrapper div');
         !!givingbuttonsContainer &&
@@ -125,6 +112,28 @@ class ConnectFooter extends HTMLElement {
 
                 !!container && givingbuttonsContainer.appendChild(container);
             });
+    }
+
+    createFooterInternalLinkEntry(button, index) {
+        const linkLabel = document.createTextNode(button.linklabel);
+
+        const link = document.createElement('a');
+        !!link && (link.href = button.linkTo);
+        !!link && link.setAttribute('data-testid', button.dataTestid);
+        !!link && !!linkLabel && link.appendChild(linkLabel);
+
+        const linkLabelSpan = document.createTextNode(' |  ');
+        const span = document.createElement('span');
+        index < footerlocale.connectFooter.internalLinks.length - 1 &&
+            !!span &&
+            !!linkLabelSpan &&
+            span.appendChild(linkLabelSpan);
+
+        const container = document.createElement('span');
+        !!container && (container.id = `internalbutton-${index}`);
+        !!container && !!link && container.appendChild(link);
+        !!container && !!span && container.appendChild(span);
+        return container;
     }
 
     createFooterGivingButtonEntry(button, index) {
