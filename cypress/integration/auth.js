@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 import uqrdav10 from '../../mock/data/account';
 import ApiAccess from '../../src/ApiAccess/ApiAccess';
+import { apiLocale } from '../../src/ApiAccess/ApiAccess.locale';
 
 describe('Auth button', () => {
     context('Auth button', () => {
@@ -53,12 +54,41 @@ describe('Auth button', () => {
 
             checkStorage();
 
+            let testValid = false;
             async function checkStorage() {
                 await new ApiAccess().getAccount().then((newAccount) => {
                     expect(newAccount).to.be.equal(false);
                     expect(sessionStorage.length).to.be.equal(0);
+                    testValid = true;
                 });
             }
+
+            const checkTestHappened = setInterval(() => {
+                clearInterval(checkTestHappened);
+                // just a paranoia check that the above test inside an await actually happened. 50 ms was not enough!
+                expect(testValid).to.be.equal(true);
+            }, 1000);
+        });
+
+        it('does not call a tokenised api if the cookies arent available', () => {
+            cy.clearCookie(apiLocale.SESSION_COOKIE_NAME);
+            cy.clearCookie(apiLocale.SESSION_USER_GROUP_COOKIE_NAME);
+
+            let testValid = false;
+            async function checkCookies() {
+                await new ApiAccess().loadAuthorApi().then((result) => {
+                    expect(result).to.be.equal(false);
+                    expect(sessionStorage.length).to.be.equal(0);
+                    testValid = true;
+                });
+            }
+            checkCookies();
+
+            const checkTestHappened = setInterval(() => {
+                clearInterval(checkTestHappened);
+                // just a paranoia check that the above test inside an await actually happened.
+                expect(testValid).to.be.equal(true);
+            }, 1000);
         });
     });
 });
