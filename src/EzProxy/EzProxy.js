@@ -18,7 +18,7 @@ template.innerHTML = `
     <div id="ez-proxy" class="uq-grid">
         <fieldset class="uq-grid__col--5">
             <input type="url" placeholder="DOI or URL" id="ez-proxy-input" />
-            <div id="ez-proxy-input-error" class="hidden"></div>
+            <div id="ez-proxy-input-error" class="uq-error-message hidden"></div>
             <button id="ez-proxy-create-link-button" class="uq-button hidden">Create Link</button>
             <span id="ez-proxy-copy-link-buttons" class="hidden">
                 <textarea readonly id="ez-proxy-url-display-area"></textarea>
@@ -64,19 +64,18 @@ class EzProxy extends HTMLElement {
     }
 
     get inputUrl() {
-        return this.getAttribute('inputUrl');
+        const inputField = this.shadowRoot.getElementById('ez-proxy-input');
+        return inputField.value;
     }
 
     set inputUrl(value) {
-        this.setAttribute('inputUrl', value);
-    }
+        const createLinkButton = this.shadowRoot.getElementById('ez-proxy-create-link-button');
+        createLinkButton.classList.remove('hidden');
 
-    get showInputPanel() {
-        return this.getAttribute('showInputPanel') === 'true';
-    }
-
-    set showInputPanel(value) {
-        this.setAttribute('showInputPanel', value);
+        const inputField = this.shadowRoot.getElementById('ez-proxy-input');
+        inputField.value = value;
+        inputField.classList.remove('hidden');
+        inputField.focus();
     }
 
     get doiRegexp() {
@@ -84,40 +83,39 @@ class EzProxy extends HTMLElement {
     }
 
     get inputValidator() {
-        const valid = this.getAttribute('valid');
-        const invalid = this.getAttribute('invalid');
-        const message = this.getAttribute('validator-message');
-        return {
-            valid,
-            invalid,
-            message,
-        };
+        const valid = this.getAttribute('valid') === 'true';
+        return { valid };
     }
 
     set inputValidator(value) {
         this.setAttribute('valid', value.valid);
-        this.setAttribute('invalid', value.invalid);
-        this.setAttribute('validator-message', value.message);
+
+        const inputField = this.shadowRoot.getElementById('ez-proxy-input');
+        inputField.classList.toggle('uq-input--error', !value.valid);
+
+        const inputErrorArea = this.shadowRoot.getElementById('ez-proxy-input-error');
+        inputErrorArea.innerText = value.message;
+        inputErrorArea.classList.toggle('hidden', value.valid);
     }
 
     get outputUrl() {
-        return this.getAttribute('outputUrl');
+        const outputArea = this.shadowRoot.getElementById('ez-proxy-url-display-area');
+        return outputArea.value;
     }
 
     set outputUrl(value) {
-        this.setAttribute('outputUrl', value);
-
-        const inputField = this.shadowRoot.getElementById('ez-proxy-input');
-        inputField.classList.add('hidden');
-
-        const createLinkButton = this.shadowRoot.getElementById('ez-proxy-create-link-button');
-        createLinkButton.classList.add('hidden');
-
         const outputArea = this.shadowRoot.getElementById('ez-proxy-url-display-area');
         outputArea.value = value;
 
+        if (!!value) {
+            const inputField = this.shadowRoot.getElementById('ez-proxy-input');
+            inputField.classList.add('hidden');
+            const createLinkButton = this.shadowRoot.getElementById('ez-proxy-create-link-button');
+            createLinkButton.classList.add('hidden');
+        }
+
         const copyUrlOptions = this.shadowRoot.getElementById('ez-proxy-copy-link-buttons');
-        copyUrlOptions.classList.remove('hidden');
+        copyUrlOptions.classList.toggle('hidden', !value);
     }
 
     set copyStatus(value) {
@@ -144,8 +142,6 @@ class EzProxy extends HTMLElement {
     }
 
     connectedCallback() {
-        this.setAttribute('showInputPanel', true);
-
         const shadowDOM = this.attachShadow({ mode: 'open' });
         shadowDOM.appendChild(template.content.cloneNode(true));
 
@@ -208,10 +204,9 @@ class EzProxy extends HTMLElement {
      */
     inputUrlKeypress(e, ezProxy) {
         if (e.keyCode !== 13) {
-            ezProxy.setAttribute('inputUrl', e.path[0].value);
             return;
         }
-        if (ezProxy.createLink) {
+        if (ezProxy.copyOnly) {
             ezProxy.displayUrl(e, ezProxy);
         } else {
             ezProxy.navigateToEzproxy(e, ezProxy);
@@ -225,13 +220,10 @@ class EzProxy extends HTMLElement {
     displayUrl(e, ezProxy) {
         var cleanedUrl = cleanupUrl(ezProxy.inputUrl);
         ezProxy.inputValidator = ezProxy.checkUrl(cleanedUrl, ezProxy);
-        ezProxy.outputUrl = ezProxy.getUrl(cleanedUrl, ezProxy);
 
         if (ezProxy.inputValidator.valid) {
+            ezProxy.outputUrl = ezProxy.getUrl(cleanedUrl, ezProxy);
             // ezProxy.ga.addEvent('ShowUrl', ezProxy.outputUrl);
-
-            //show output url panel
-            ezProxy.showInputPanel = false;
             ezProxy.shadowRoot.getElementById('ez-proxy-test-link-button').focus();
         }
     }
@@ -241,13 +233,18 @@ class EzProxy extends HTMLElement {
      * @param e
      */
     navigateToEzproxy(e, ezProxy) {
-        var cleanedUrl = cleanupUrl(ezProxy.inputUrl);
-        ezProxy.inputValidator = ezProxy.checkUrl(cleanedUrl, ezProxy);
-        ezProxy.outputUrl = ezProxy.getUrl(cleanedUrl, ezProxy);
+        let outputUrl;
+        if (ezProxy.copyOnly) {
+            outputUrl = ezProxy.outputUrl;
+        } else {
+            var cleanedUrl = cleanupUrl(ezProxy.inputUrl);
+            ezProxy.inputValidator = ezProxy.checkUrl(cleanedUrl, ezProxy);
+            outputUrl = ezProxy.getUrl(cleanedUrl, ezProxy);
+        }
 
         if (ezProxy.inputValidator.valid) {
-            // ezProxy.ga.addEvent('GoProxy', ezProxy.outputUrl);
-            var win = window.open(ezProxy.outputUrl);
+            // ezProxy.ga.addEvent('GoProxy', outputUrl);
+            var win = window.open(outputUrl);
             win.focus();
         }
     }
@@ -296,8 +293,6 @@ class EzProxy extends HTMLElement {
             validation.valid = true;
         }
 
-        //paper-input-container invalid property doesn't apply ! operator
-        validation.invalid = !validation.valid;
         return validation;
     }
 
@@ -305,12 +300,6 @@ class EzProxy extends HTMLElement {
      * resets url input field
      */
     resetInput(ezProxy) {
-        ezProxy.showInputPanel = true;
-        ezProxy.copyStatus = {
-            status: null,
-            message: '',
-        };
-        ezProxy.shadowRoot.getElementById('ez-proxy-input').focus();
         ezProxy.outputUrl = '';
         ezProxy.inputUrl = '';
     }
