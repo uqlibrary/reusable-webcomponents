@@ -118,6 +118,15 @@ class ApiAccess {
             return false;
         }
 
+        const token = !!tokenRequired ? { 'x-uql-token': this.getSessionCookie() } : null;
+
+        const options = {
+            'Content-Type': 'application/json',
+            ...token,
+            ...headers,
+        };
+
+        /* istanbul ignore else  */
         if (this.isMock()) {
             try {
                 return this.fetchMock(urlPath);
@@ -126,25 +135,16 @@ class ApiAccess {
                 console.log(msg);
                 throw new Error(msg);
             }
+        } else {
+            // reference: https://dmitripavlutin.com/javascript-fetch-async-await/
+            const response = await this.fetchFromServer(urlPath, options);
+            if (!response.ok) {
+                console.log(`ApiAccess console: An error has occured: ${response.status} ${response.statusText}`);
+                const message = `ApiAccess: An error has occured: ${response.status} ${response.statusText}`;
+                throw new Error(message);
+            }
+            return await response.json();
         }
-
-        console.log('get real api');
-
-        const token = !!tokenRequired ? { 'x-uql-token': this.getSessionCookie() } : null;
-
-        const options = {
-            'Content-Type': 'application/json',
-            ...token,
-            ...headers,
-        };
-        // reference: https://dmitripavlutin.com/javascript-fetch-async-await/
-        const response = await this.fetchFromServer(urlPath, options);
-        if (!response.ok) {
-            console.log(`ApiAccess console: An error has occured: ${response.status} ${response.statusText}`);
-            const message = `ApiAccess: An error has occured: ${response.status} ${response.statusText}`;
-            throw new Error(message);
-        }
-        return await response.json();
     }
 
     fetchFromServer(urlPath, options) {
