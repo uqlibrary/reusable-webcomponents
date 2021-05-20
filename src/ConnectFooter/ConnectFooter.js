@@ -53,141 +53,206 @@ class ConnectFooter extends HTMLElement {
         // Bindings
         this.updateFooterMenuFromJson = this.updateFooterMenuFromJson.bind(this);
         this.createLink = this.createLink.bind(this);
+        this.createFooterInternalLinkEntry = this.createFooterInternalLinkEntry.bind(this);
+        this.createFooterGivingButtonEntry = this.createFooterGivingButtonEntry.bind(this);
+        this.createFooterSocialButtonEntry = this.createFooterSocialButtonEntry.bind(this);
+        this.createFooterMenuEntry = this.createFooterMenuEntry.bind(this);
+        this.createSeparatorForFooterMenu = this.createSeparatorForFooterMenu.bind(this);
+        this.socialButtonIdentifier = this.socialButtonIdentifier.bind(this);
+        this.internalButtonIdentifier = this.internalButtonIdentifier.bind(this);
+        this.footerButtonIdentifier = this.footerButtonIdentifier.bind(this);
+        this.givingButtonIdentifier = this.givingButtonIdentifier.bind(this);
     }
 
     updateFooterMenuFromJson() {
-        const plainSeparator = document.createElement('span');
-        plainSeparator.textContent = ' | ';
-
         const footerMenu = template.content.getElementById('footer-menu');
-
-        const homelink = this.createLink(
-            'footermenu-homepage',
-            menuLocale.menuhome.linkTo || '',
-            menuLocale.menuhome.primaryText || '',
-        );
-
-        const homeMenuItem = document.createElement('li');
-        homeMenuItem.appendChild(homelink);
-        homeMenuItem.appendChild(plainSeparator);
-
-        footerMenu.appendChild(homeMenuItem);
-
-        menuLocale.publicmenu.forEach((linkProperties, index) => {
-            const menulink = this.createLink(
-                linkProperties.dataTestid || '',
-                linkProperties.linkTo || '',
-                linkProperties.primaryText || '',
+        if (!!footerMenu && !template.content.getElementById('footermenu-home')) {
+            const homelink = this.createLink(
+                'footermenu-homepage',
+                menuLocale.menuhome.linkTo || '',
+                menuLocale.menuhome.primaryText || '',
             );
 
-            const menuItem = document.createElement('li');
-            menuItem.appendChild(menulink);
+            const homeMenuItem = document.createElement('li');
+            !!homeMenuItem && homeMenuItem.setAttribute('id', this.footerButtonIdentifier('home'));
+            !!homeMenuItem && homeMenuItem.appendChild(homelink);
 
-            const separator = document.createElement('span');
-            separator.setAttribute('class', 'separator');
-            separator.textContent = ' | ';
-            menuItem.appendChild(separator);
+            const separator = this.createSeparatorForFooterMenu();
+            !!homeMenuItem && !!separator && homeMenuItem.appendChild(separator);
 
-            footerMenu.appendChild(menuItem);
-        });
+            footerMenu.appendChild(homeMenuItem);
+        }
+
+        !!footerMenu &&
+            menuLocale.publicmenu.forEach((linkProperties, index) => {
+                if (!template.content.getElementById(this.footerButtonIdentifier(index))) {
+                    const menuItem = this.createFooterMenuEntry(linkProperties, index);
+
+                    !!menuItem && footerMenu.appendChild(menuItem);
+                }
+            });
 
         const contactsheader = template.content.querySelector('.contacts h3');
         !!contactsheader && (contactsheader.innerHTML = footerlocale.connectFooter.buttonSocialHeader);
 
         const socialbuttonContainer = template.content.querySelector('.contacts .buttons');
-        footerlocale.connectFooter.buttonSocial.map((button, index) => {
-            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-            !!path && path.setAttribute('d', button.iconPath);
-
-            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-            !!svg && svg.setAttribute('class', 'svgIcon');
-            !!svg && svg.setAttribute('focusable', 'false');
-            !!svg && svg.setAttribute('viewBox', '0 0 24 24');
-            !!svg && svg.setAttribute('ariaHidden', 'true');
-            !!svg && !!path && svg.appendChild(path);
-
-            const span = document.createElement('span');
-            !!span && (span.className = 'buttonLabel');
-            !!span && !!svg && span.appendChild(svg);
-
-            const ripplespan = document.createElement('span');
-            !!ripplespan && (ripplespan.className = 'touchRipple');
-
-            const link = document.createElement('a');
-            !!link && (link.href = button.linkTo);
-            !!link && (link.target = '_blank');
-            !!link && (link.className = 'buttonBase button socialButtonClass buttonContained buttonContainedPrimary');
-            !!link && (link.tabIndex = '0');
-            !!link && (link.type = 'button');
-            !!link && (link.ariaLabel = button.linkMouseOver);
-            !!link && link.setAttribute('data-testid', button.dataTestid);
-            !!link && (link.id = `socialbutton-${index}`);
-            !!link && (link.title = button.linkMouseOver);
-            !!link && !!span && link.appendChild(span);
-            !!link && !!ripplespan && link.appendChild(ripplespan);
-
-            const container = document.createElement('div');
-            !!container && (container.className = 'griditem gridxsauto');
-            !!container && (container.id = `buttonSocial-${index}`);
-            !!container && !!link && container.appendChild(link);
-
-            !!socialbuttonContainer && !!container && socialbuttonContainer.appendChild(container);
-        });
+        !!socialbuttonContainer &&
+            footerlocale.connectFooter.buttonSocial.forEach((button, index) => {
+                if (!template.content.getElementById(this.socialButtonIdentifier(index))) {
+                    const container = this.createFooterSocialButtonEntry(button, index);
+                    !!container && socialbuttonContainer.appendChild(container);
+                }
+            });
 
         const internalbuttonsContainer = template.content.querySelector('.contacts .internalLinks');
-        footerlocale.connectFooter.internalLinks.map((button, index) => {
-            const linkLabel = document.createTextNode(button.linklabel);
-
-            const link = document.createElement('a');
-            !!link && (link.href = button.linkTo);
-            !!link && link.setAttribute('data-testid', button.dataTestid);
-            !!link && !!linkLabel && link.appendChild(linkLabel);
-
-            const linkLabelSpan = document.createTextNode(' |  ');
-            const span = document.createElement('span');
-            index < footerlocale.connectFooter.internalLinks.length - 1 &&
-                !!span &&
-                !!linkLabelSpan &&
-                span.appendChild(linkLabelSpan);
-
-            const container = document.createElement('span');
-            !!container && !!link && container.appendChild(link);
-            !!container && !!span && container.appendChild(span);
-
-            !!internalbuttonsContainer && !!container && internalbuttonsContainer.appendChild(container);
-        });
+        !!internalbuttonsContainer &&
+            footerlocale.connectFooter.internalLinks.forEach((button, index) => {
+                if (!template.content.getElementById(this.internalButtonIdentifier(index))) {
+                    const container = this.createFooterInternalLinkEntry(button, index);
+                    !!container && internalbuttonsContainer.appendChild(container);
+                }
+            });
 
         const givingbuttonsContainer = template.content.querySelector('.givingWrapper div');
-        footerlocale.connectFooter.givingLinks.map((button, index) => {
-            const linkLabel = document.createTextNode(button.label);
+        !!givingbuttonsContainer &&
+            footerlocale.connectFooter.givingLinks.map((button, index) => {
+                if (!template.content.getElementById(this.givingButtonIdentifier(index))) {
+                    const container = this.createFooterGivingButtonEntry(button, index);
+                    !!container && givingbuttonsContainer.appendChild(container);
+                }
+            });
+    }
 
-            const link = document.createElement('a');
-            !!link && (link.href = button.linkTo);
-            !!link && (link.className = 'buttonBase button buttonContained givingButtonClass buttonFullWidth');
-            !!link && (link.tabIndex = '0');
-            !!link && (link.type = 'button');
-            !!link && link.setAttribute('data-testid', button.dataTestid);
-            !!link && !!linkLabel && link.appendChild(linkLabel);
+    createFooterInternalLinkEntry(button, index) {
+        const linkLabel = document.createTextNode(button.linklabel);
 
-            const ripplespan = document.createElement('span');
-            !!ripplespan && (ripplespan.className = 'touchRipple');
+        const link = document.createElement('a');
+        !!link && (link.href = button.linkTo);
+        !!link && link.setAttribute('data-testid', button.dataTestid);
+        !!link && !!linkLabel && link.appendChild(linkLabel);
 
-            const container = document.createElement('div');
-            !!container && (container.className = 'givingBlock griditem griditem12');
-            !!container && !!link && container.appendChild(link);
-            !!container && !!ripplespan && container.appendChild(ripplespan);
+        const linkLabelSpan = document.createTextNode(' |  ');
+        const span = document.createElement('span');
+        index < footerlocale.connectFooter.internalLinks.length - 1 &&
+            !!span &&
+            !!linkLabelSpan &&
+            span.appendChild(linkLabelSpan);
 
-            !!givingbuttonsContainer && !!container && givingbuttonsContainer.appendChild(container);
-        });
+        const container = document.createElement('span');
+        !!container && (container.id = this.internalButtonIdentifier(index));
+        !!container && !!link && container.appendChild(link);
+        !!container && !!span && container.appendChild(span);
+        return container;
+    }
+
+    createFooterGivingButtonEntry(button, index) {
+        const linkLabel = document.createTextNode(button.label);
+
+        const link = document.createElement('a');
+        !!link && (link.href = button.linkTo);
+        !!link && (link.className = 'buttonBase button buttonContained givingButtonClass buttonFullWidth');
+        !!link && (link.tabIndex = '0');
+        !!link && (link.type = 'button');
+        !!link && link.setAttribute('data-testid', button.dataTestid);
+        !!link && !!linkLabel && link.appendChild(linkLabel);
+
+        const ripplespan = document.createElement('span');
+        !!ripplespan && (ripplespan.className = 'touchRipple');
+
+        const container = document.createElement('div');
+        !!container && (container.className = 'givingBlock griditem griditem12');
+        !!container && (container.id = this.givingButtonIdentifier(index));
+        !!container && !!link && container.appendChild(link);
+        !!container && !!ripplespan && container.appendChild(ripplespan);
+        return container;
+    }
+
+    createFooterSocialButtonEntry(button, index) {
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        !!path && path.setAttribute('d', button.iconPath);
+
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        !!svg && svg.setAttribute('class', 'svgIcon');
+        !!svg && svg.setAttribute('focusable', 'false');
+        !!svg && svg.setAttribute('viewBox', '0 0 24 24');
+        !!svg && svg.setAttribute('ariaHidden', 'true');
+        !!svg && !!path && svg.appendChild(path);
+
+        const span = document.createElement('span');
+        !!span && (span.className = 'buttonLabel');
+        !!span && !!svg && span.appendChild(svg);
+
+        const ripplespan = document.createElement('span');
+        !!ripplespan && (ripplespan.className = 'touchRipple');
+
+        const link = document.createElement('a');
+        !!link && (link.href = button.linkTo);
+        !!link && (link.target = '_blank');
+        !!link && (link.className = 'buttonBase button socialButtonClass buttonContained buttonContainedPrimary');
+        !!link && (link.tabIndex = '0');
+        !!link && (link.type = 'button');
+        !!link && (link.ariaLabel = button.linkMouseOver);
+        !!link && link.setAttribute('data-testid', button.dataTestid);
+        !!link && (link.id = this.socialButtonIdentifier(index));
+        !!link && (link.title = button.linkMouseOver);
+        !!link && !!span && link.appendChild(span);
+        !!link && !!ripplespan && link.appendChild(ripplespan);
+
+        const container = document.createElement('div');
+        !!container && (container.className = 'griditem gridxsauto');
+        !!container && (container.id = `buttonSocial-${index}`);
+        !!container && !!link && container.appendChild(link);
+        return container;
+    }
+
+    createFooterMenuEntry(linkProperties, index) {
+        const menulink = this.createLink(
+            linkProperties.dataTestid || '',
+            linkProperties.linkTo || '',
+            linkProperties.primaryText || '',
+        );
+
+        const menuItem = document.createElement('li');
+        !!menuItem && menuItem.setAttribute('id', this.footerButtonIdentifier(index));
+        !!menuItem && menuItem.appendChild(menulink);
+
+        const separator = this.createSeparatorForFooterMenu();
+        !!menuItem && !!separator && menuItem.appendChild(separator);
+        return menuItem;
+    }
+
+    createSeparatorForFooterMenu() {
+        const separator = document.createElement('span');
+        !!separator && separator.setAttribute('class', 'separator');
+        !!separator && (separator.textContent = ' | ');
+        return separator;
     }
 
     createLink(datatestid, href, linktext) {
         const homelink = document.createElement('a');
-        homelink.setAttribute('data-testid', datatestid);
-        homelink.setAttribute('href', href);
+        !!homelink && homelink.setAttribute('data-testid', datatestid);
+        !!homelink && homelink.setAttribute('href', href);
+
         const textOfLink = document.createTextNode(linktext);
-        homelink.appendChild(textOfLink);
+        !!homelink && !!textOfLink && homelink.appendChild(textOfLink);
+
         return homelink;
+    }
+
+    socialButtonIdentifier(index) {
+        return `socialbutton-${index}`;
+    }
+
+    internalButtonIdentifier(index) {
+        return `internalbutton-${index}`;
+    }
+
+    footerButtonIdentifier(index) {
+        return `footermenu-${index}`;
+    }
+
+    givingButtonIdentifier(index) {
+        return `givingbutton-${index}`;
     }
 }
 
