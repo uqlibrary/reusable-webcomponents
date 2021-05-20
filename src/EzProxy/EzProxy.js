@@ -202,14 +202,14 @@ class EzProxy extends HTMLElement {
      * handle 'enter key' on input field
      * @param e
      */
-    inputUrlKeypress(e, ezProxy) {
+    inputUrlKeypress(e) {
         if (e.keyCode !== 13) {
             return;
         }
-        if (ezProxy.copyOnly) {
-            ezProxy.displayUrl(e, ezProxy);
+        if (this.copyOnly) {
+            this.displayUrl(e);
         } else {
-            ezProxy.navigateToEzproxy(e, ezProxy);
+            this.navigateToEzproxy(e);
         }
     }
 
@@ -217,14 +217,14 @@ class EzProxy extends HTMLElement {
      * display the ezproxy link
      * @param e
      */
-    displayUrl(e, ezProxy) {
-        var cleanedUrl = cleanupUrl(ezProxy.inputUrl);
-        ezProxy.inputValidator = ezProxy.checkUrl(cleanedUrl, ezProxy);
+    displayUrl(e) {
+        var cleanedUrl = cleanupUrl(this.inputUrl);
+        this.inputValidator = this.checkUrl(cleanedUrl);
 
-        if (ezProxy.inputValidator.valid) {
-            ezProxy.outputUrl = ezProxy.getUrl(cleanedUrl, ezProxy);
-            // ezProxy.ga.addEvent('ShowUrl', ezProxy.outputUrl);
-            ezProxy.shadowRoot.getElementById('ez-proxy-test-link-button').focus();
+        if (this.inputValidator.valid) {
+            this.outputUrl = this.getUrl(cleanedUrl);
+            // this.ga.addEvent('ShowUrl', this.outputUrl);
+            this.shadowRoot.getElementById('ez-proxy-test-link-button').focus();
         }
     }
 
@@ -232,18 +232,18 @@ class EzProxy extends HTMLElement {
      * Open ezproxy link in a new window/tab
      * @param e
      */
-    navigateToEzproxy(e, ezProxy) {
+    navigateToEzproxy(e) {
         let outputUrl;
-        if (ezProxy.copyOnly) {
-            outputUrl = ezProxy.outputUrl;
+        if (this.copyOnly) {
+            outputUrl = this.outputUrl;
         } else {
-            var cleanedUrl = cleanupUrl(ezProxy.inputUrl);
-            ezProxy.inputValidator = ezProxy.checkUrl(cleanedUrl, ezProxy);
-            outputUrl = ezProxy.getUrl(cleanedUrl, ezProxy);
+            var cleanedUrl = cleanupUrl(this.inputUrl);
+            this.inputValidator = this.checkUrl(cleanedUrl);
+            outputUrl = this.getUrl(cleanedUrl);
         }
 
-        if (ezProxy.inputValidator.valid) {
-            // ezProxy.ga.addEvent('GoProxy', outputUrl);
+        if (this.inputValidator.valid) {
+            // this.ga.addEvent('GoProxy', outputUrl);
             var win = window.open(outputUrl);
             win.focus();
         }
@@ -254,13 +254,13 @@ class EzProxy extends HTMLElement {
      * @param cleanedUrl
      * @returns {string}
      */
-    getUrl(cleanedUrl, ezProxy) {
+    getUrl(cleanedUrl) {
         var dest;
 
         dest = '';
-        if (ezProxy.inputValidator.valid) {
+        if (this.inputValidator.valid) {
             dest = 'https://ezproxy.library.uq.edu.au/login?url=';
-            if (ezProxy.doiRegexp.test(cleanedUrl)) {
+            if (this.doiRegexp.test(cleanedUrl)) {
                 dest += 'https://dx.doi.org/';
             }
             dest += cleanedUrl;
@@ -273,7 +273,7 @@ class EzProxy extends HTMLElement {
      * @param dest - the URl to be checked
      * @returns {Object}
      */
-    checkUrl(dest, ezProxy) {
+    checkUrl(dest) {
         const validation = {
             valid: false,
             message: '',
@@ -281,7 +281,7 @@ class EzProxy extends HTMLElement {
 
         if (dest.length <= 0) {
             validation.message = 'Please enter a URL';
-        } else if (ezProxy.doiRegexp.test(dest)) {
+        } else if (this.doiRegexp.test(dest)) {
             validation.valid = true;
         } else if (!isURL(dest, { require_protocol: true })) {
             if (dest.substring(0, 4).toLowerCase() !== 'http') {
@@ -299,34 +299,34 @@ class EzProxy extends HTMLElement {
     /**
      * resets url input field
      */
-    resetInput(ezProxy) {
-        ezProxy.outputUrl = '';
-        ezProxy.inputUrl = '';
+    resetInput() {
+        this.outputUrl = '';
+        this.inputUrl = '';
     }
 
     /*
      * Copy URL to Clipboard (same as ctrl+a / ctrl+c)
      * Only available for Firefox 41+, Chrome 43+, Opera 29+, IE 10+
      */
-    copyUrl(ezProxy) {
+    copyUrl() {
         if (!document.execCommand) {
-            ezProxy.copyStatus = {
+            this.copyStatus = {
                 success: false,
                 message: 'Copy function not available in this web browser',
             };
             return;
         }
 
-        ezProxy.shadowRoot.getElementById('ez-proxy-url-display-area').select();
+        this.shadowRoot.getElementById('ez-proxy-url-display-area').select();
 
         try {
             const copyStatus = document.execCommand('copy');
-            ezProxy.copyStatus = {
+            this.copyStatus = {
                 success: !!copyStatus,
                 message: copyStatus ? 'URL copied successfully' : 'Unable to copy URL',
             };
         } catch (err) {
-            ezProxy.copyStatus = {
+            this.copyStatus = {
                 success: false,
                 message: 'An error occurred while copying the URL',
             };
