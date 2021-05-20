@@ -1,5 +1,6 @@
 import mainStyles from './css/main.css';
 import customStyles from './css/overrides.css';
+import isURL from 'validator/es/lib/isURL';
 
 /*
  * usage:
@@ -17,74 +18,179 @@ template.innerHTML = `
     <div id="ez-proxy" class="uq-grid">
         <fieldset class="uq-grid__col--5">
             <input type="url" placeholder="DOI or URL" id="ez-proxy-input" />
-            <textarea id="ez-proxy-url-display-area" class="hidden"></textarea>
+            <div id="ez-proxy-input-error" class="hidden"></div>
             <button id="ez-proxy-create-link-button" class="uq-button hidden">Create Link</button>
-            <button id="ez-proxy-create-new-link-button" class="uq-button hidden">Create New Link</button>
-            <button id="ez-proxy-test-link-button" class="uq-button hidden">Test Link</button>
-            <button id="ez-proxy-copy-link-button" class="uq-button hidden">Copy Link</button>
+            <span id="ez-proxy-copy-link-buttons" class="hidden">
+                <textarea readonly id="ez-proxy-url-display-area"></textarea>
+                <button id="ez-proxy-test-link-button" class="uq-button">Test Link</button>
+                <button id="ez-proxy-copy-link-button" class="uq-button">Copy Link</button>
+                <button id="ez-proxy-create-new-link-button" class="uq-button">Create New Link</button>
+            </span>
             <button id="ez-proxy-redirect-button" class="uq-button hidden">Go</button>
         </fieldset>
     </div>
 `;
 
+/**
+ * remove extraneous bits from the web address
+ * @param dest
+ * @returns {String}
+ */
+const cleanupUrl = (dest) => {
+    dest = dest.trim();
+
+    var ezpRegexp = /https?:\/\/(www.)?ezproxy.library.uq.edu.au\/login\?url\=/i;
+    dest = dest.replace(ezpRegexp, '');
+
+    var ezproxyUrlRegexp = /(([A-Za-z]*:(?:\/\/)?)(.)+(.ezproxy.library.uq.edu.au))(.*)?/;
+    if (ezproxyUrlRegexp.test(dest)) {
+        dest = dest.replace('.ezproxy.library.uq.edu.au', '');
+    }
+
+    var doiRegexp = /https?:\/\/dx.doi.org\//i;
+    dest = dest.replace(doiRegexp, '');
+
+    return dest;
+};
+
 class EzProxy extends HTMLElement {
     constructor() {
         super();
+    }
 
-        this.createLink = this.isCopyOnly();
-        this.doiRegexp = /^\b(10[.][0-9]{3,}(?:[.][0-9]+)*\/(?:(?!['&\'])\S)+)\b/;
-        this.inputUrl = '';
-        this.outputUrl = '';
-        this.copyStatus = '';
-        this.showInputPanel = true;
-        this.inputValidator = {
-            valid: true,
-            invalid: false,
-            message: '',
+    get copyOnly() {
+        return this.hasAttribute('copy-only');
+    }
+
+    get inputUrl() {
+        return this.getAttribute('inputUrl');
+    }
+
+    set inputUrl(value) {
+        this.setAttribute('inputUrl', value);
+    }
+
+    get doiRegexp() {
+        return /^\b(10[.][0-9]{3,}(?:[.][0-9]+)*\/(?:(?!['&\'])\S)+)\b/;
+    }
+
+    get inputValidator() {
+        const valid = this.getAttribute('valid');
+        const invalid = this.getAttribute('invalid');
+        const message = this.getAttribute('validator-message');
+        return {
+            valid,
+            invalid,
+            message,
         };
+    }
+
+    set inputValidator(value) {
+        this.setAttribute('valid', value.valid);
+        this.setAttribute('invalid', value.invalid);
+        this.setAttribute('validator-message', value.message);
+    }
+
+    get outputUrl() {
+        return this.getAttribute('outputUrl');
+    }
+
+    set outputUrl(value) {
+        this.setAttribute('outputUrl', value);
+
+        const inputField = this.shadowRoot.getElementById('ez-proxy-input');
+        inputField.classList.add('hidden');
+
+        const createLinkButton = this.shadowRoot.getElementById('ez-proxy-create-link-button');
+        createLinkButton.classList.add('hidden');
+
+        const outputArea = this.shadowRoot.getElementById('ez-proxy-url-display-area');
+        outputArea.value = value;
+
+        const copyUrlOptions = this.shadowRoot.getElementById('ez-proxy-copy-link-buttons');
+        copyUrlOptions.classList.remove('hidden');
+    }
+
+    get copyStatus() {
+        return this.getAttribute('copyStatus');
+    }
+
+    set copyStatus(value) {
+        this.setAttribute('copyStatus', value);
+    }
+
+    connectedCallback() {
+        this.setAttribute('showInputPanel', true);
 
         const shadowDOM = this.attachShadow({ mode: 'open' });
         shadowDOM.appendChild(template.content.cloneNode(true));
 
-        this.inputField = shadowDOM.getElementById('ez-proxy-input');
-        this.createLinkButton = shadowDOM.getElementById('ez-proxy-create-link-button');
-        this.createNewLinkButton = shadowDOM.getElementById('ez-proxy-create-new-link-button');
-        this.testLinkButton = shadowDOM.getElementById('ez-proxy-test-link-button');
-        this.copyLinkButton = shadowDOM.getElementById('ez-proxy-copy-link-button');
-        this.redirectButton = shadowDOM.getElementById('ez-proxy-redirect-button');
-        this.urlDisplayArea = shadowDOM.getElementById('ez-proxy-url-display-area');
+        const createLinkButton = shadowDOM.getElementById('ez-proxy-create-link-button');
+        const redirectButton = shadowDOM.getElementById('ez-proxy-redirect-button');
+        // const urlDisplayArea = shadowDOM.getElementById('ez-proxy-url-display-area');
 
-        if (this.createLink) {
-            this.createLinkButton.classList.remove('hidden');
+        if (this.copyOnly) {
+            createLinkButton.classList.remove('hidden');
         } else {
-            this.redirectButton.classList.remove('hidden');
+            redirectButton.classList.remove('hidden');
         }
 
-        this.inputField.addEventListener('keypress', this.inputUrlKeypress);
-
-        this.createLinkButton.addEventListener('click', this.displayUrl);
-        this.createNewLinkButton.addEventListener('click', this.resetInput);
-        this.copyLinkButton.addEventListener('click', this.copyUrl);
-        this.testLinkButton.addEventListener('click', this.navigateToEzproxy);
-        this.redirectButton.addEventListener('click', this.navigateToEzproxy);
+        this.addEventListeners(shadowDOM);
     }
 
-    isCopyOnly() {
-        return this.getAttribute('copy-only') !== null;
+    addEventListeners(shadowDOM) {
+        const ezProxy = this;
+
+        const copyLinkButton = shadowDOM.getElementById('ez-proxy-copy-link-button');
+        !!copyLinkButton &&
+            copyLinkButton.addEventListener('click', () => {
+                ezProxy.copyUrl(ezProxy);
+            });
+
+        const createLinkButton = shadowDOM.getElementById('ez-proxy-create-link-button');
+        !!createLinkButton &&
+            createLinkButton.addEventListener('click', (e) => {
+                ezProxy.displayUrl(e, ezProxy);
+            });
+
+        const createNewLinkButton = shadowDOM.getElementById('ez-proxy-create-new-link-button');
+        !!createNewLinkButton &&
+            createNewLinkButton.addEventListener('click', () => {
+                ezProxy.resetInput(ezProxy);
+            });
+
+        const inputField = shadowDOM.getElementById('ez-proxy-input');
+        !!inputField &&
+            inputField.addEventListener('keypress', (e) => {
+                ezProxy.inputUrlKeypress(e, ezProxy);
+            });
+
+        const redirectButton = shadowDOM.getElementById('ez-proxy-redirect-button');
+        !!redirectButton &&
+            redirectButton.addEventListener('click', (e) => {
+                ezProxy.navigateToEzproxy(e, ezProxy);
+            });
+
+        const testLinkButton = shadowDOM.getElementById('ez-proxy-test-link-button');
+        !!testLinkButton &&
+            testLinkButton.addEventListener('click', (e) => {
+                ezProxy.navigateToEzproxy(e, ezProxy);
+            });
     }
 
     /**
      * handle 'enter key' on input field
      * @param e
      */
-    inputUrlKeypress(e) {
+    inputUrlKeypress(e, ezProxy) {
         if (e.keyCode !== 13) {
+            ezProxy.setAttribute('inputUrl', e.path[0].value);
             return;
         }
-        if (this.createLink) {
-            this.displayUrl(e);
+        if (ezProxy.createLink) {
+            ezProxy.displayUrl(e, ezProxy);
         } else {
-            this.navigateToEzproxy(e);
+            ezProxy.navigateToEzproxy(e, ezProxy);
         }
     }
 
@@ -92,17 +198,17 @@ class EzProxy extends HTMLElement {
      * display the ezproxy link
      * @param e
      */
-    displayUrl(e) {
-        var cleanedUrl = this.cleanupUrl(this.inputUrl);
-        this.inputValidator = this.checkUrl(cleanedUrl);
-        this.outputUrl = this.getUrl(cleanedUrl);
+    displayUrl(e, ezProxy) {
+        var cleanedUrl = cleanupUrl(ezProxy.inputUrl);
+        ezProxy.inputValidator = ezProxy.checkUrl(cleanedUrl, ezProxy);
+        ezProxy.outputUrl = ezProxy.getUrl(cleanedUrl, ezProxy);
 
-        if (this.inputValidator.valid) {
-            this.$.ga.addEvent('ShowUrl', this.outputUrl);
+        if (ezProxy.inputValidator.valid) {
+            // ezProxy.ga.addEvent('ShowUrl', ezProxy.outputUrl);
 
             //show output url panel
-            this.showInputPanel = false;
-            this.$.testLinkButton.focus();
+            ezProxy.showInputPanel = false;
+            ezProxy.shadowRoot.getElementById('ez-proxy-test-link-button').focus();
         }
     }
 
@@ -110,38 +216,16 @@ class EzProxy extends HTMLElement {
      * Open ezproxy link in a new window/tab
      * @param e
      */
-    navigateToEzproxy(e) {
-        var cleanedUrl = this.cleanupUrl(this.inputUrl);
-        this.inputValidator = this.checkUrl(cleanedUrl);
-        this.outputUrl = this.getUrl(cleanedUrl);
+    navigateToEzproxy(e, ezProxy) {
+        var cleanedUrl = cleanupUrl(ezProxy.inputUrl);
+        ezProxy.inputValidator = ezProxy.checkUrl(cleanedUrl, ezProxy);
+        ezProxy.outputUrl = ezProxy.getUrl(cleanedUrl, ezProxy);
 
-        if (this.inputValidator.valid) {
-            this.$.ga.addEvent('GoProxy', this.outputUrl);
-            var win = window.open(this.outputUrl);
+        if (ezProxy.inputValidator.valid) {
+            // ezProxy.ga.addEvent('GoProxy', ezProxy.outputUrl);
+            var win = window.open(ezProxy.outputUrl);
             win.focus();
         }
-    }
-
-    /**
-     * remove extraneous bits from the web address
-     * @param dest
-     * @returns {String}
-     */
-    cleanupUrl(dest) {
-        dest = dest.trim();
-
-        var ezpRegexp = /https?:\/\/(www.)?ezproxy.library.uq.edu.au\/login\?url\=/i;
-        dest = dest.replace(ezpRegexp, '');
-
-        var ezproxyUrlRegexp = /(([A-Za-z]*:(?:\/\/)?)(.)+(.ezproxy.library.uq.edu.au))(.*)?/;
-        if (ezproxyUrlRegexp.test(dest)) {
-            dest = dest.replace('.ezproxy.library.uq.edu.au', '');
-        }
-
-        var doiRegexp = /https?:\/\/dx.doi.org\//i;
-        dest = dest.replace(doiRegexp, '');
-
-        return dest;
     }
 
     /**
@@ -149,13 +233,13 @@ class EzProxy extends HTMLElement {
      * @param cleanedUrl
      * @returns {string}
      */
-    getUrl(cleanedUrl) {
+    getUrl(cleanedUrl, ezProxy) {
         var dest;
 
         dest = '';
-        if (this.inputValidator.valid) {
+        if (ezProxy.inputValidator.valid) {
             dest = 'https://ezproxy.library.uq.edu.au/login?url=';
-            if (this.doiRegexp.test(cleanedUrl)) {
+            if (ezProxy.doiRegexp.test(cleanedUrl)) {
                 dest += 'https://dx.doi.org/';
             }
             dest += cleanedUrl;
@@ -168,17 +252,17 @@ class EzProxy extends HTMLElement {
      * @param dest - the URl to be checked
      * @returns {Object}
      */
-    checkUrl(dest) {
-        var validation = {
+    checkUrl(dest, ezProxy) {
+        const validation = {
             valid: false,
             message: '',
         };
 
         if (dest.length <= 0) {
             validation.message = 'Please enter a URL';
-        } else if (this.doiRegexp.test(dest)) {
+        } else if (ezProxy.doiRegexp.test(dest)) {
             validation.valid = true;
-        } else if (!validator.isURL(dest, { require_protocol: true })) {
+        } else if (!isURL(dest, { require_protocol: true })) {
             if (dest.substring(0, 4).toLowerCase() !== 'http') {
                 validation.message = 'Invalid URL. Please add the protocol ie: http://, https://';
             } else {
@@ -195,21 +279,20 @@ class EzProxy extends HTMLElement {
 
     /**
      * resets url input field
-     * @param e
      */
-    resetInput(e) {
-        this.showInputPanel = true;
-        this.copyStatus = '';
-        this.$.inputUrlTextfield.focus();
-        this.outputUrl = '';
-        this.inputUrl = '';
+    resetInput(ezProxy) {
+        ezProxy.showInputPanel = true;
+        ezProxy.copyStatus = '';
+        ezProxy.shadowRoot.getElementById('ez-proxy-input').focus();
+        ezProxy.outputUrl = '';
+        ezProxy.inputUrl = '';
     }
 
     /*
      * Copy URL to Clipboard (same as ctrl+a / ctrl+c)
      * Only available for Firefox 41+, Chrome 43+, Opera 29+, IE 10+
      */
-    copyUrl() {
+    copyUrl(ezProxy) {
         var copySuccess = {
             success: false,
             message: '',
@@ -217,13 +300,13 @@ class EzProxy extends HTMLElement {
 
         if (!document.execCommand) {
             copySuccess.message = 'Copy function not available in this web browser';
-            this.copyStatus = copySuccess.message;
-            this.$.copyNotification.open();
+            ezProxy.copyStatus = copySuccess.message;
+            ezProxy.copyNotification.open();
             return copySuccess;
         }
 
         //Show the hidden textfield with the URL, and select it
-        this.$.outputUrlTextarea.querySelector('#textarea').select();
+        ezProxy.shadowRoot.getElementById('ez-proxy-url-display-area').select();
 
         try {
             copySuccess.success = document.execCommand('copy');
@@ -232,8 +315,8 @@ class EzProxy extends HTMLElement {
             copySuccess.message = 'An error occurred while copying the URL';
         } finally {
             //Hide the textfield
-            this.copyStatus = copySuccess.message;
-            this.$.copyNotification.open();
+            ezProxy.copyStatus = copySuccess.message;
+            ezProxy.copyNotification.open();
         }
 
         return copySuccess;

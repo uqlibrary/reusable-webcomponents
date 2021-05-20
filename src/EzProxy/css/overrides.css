@@ -1,0 +1,10 @@
+#ez-proxy-input {
+    margin-bottom: 0.5rem;
+}
+
+#ez-proxy-url-display-area {
+    resize: none;
+    height: 2.7rem;
+    outline: none;
+    margin-bottom: 0;
+}
