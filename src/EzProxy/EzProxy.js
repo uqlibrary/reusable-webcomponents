@@ -25,6 +25,7 @@ template.innerHTML = `
                 <button id="ez-proxy-test-link-button" class="uq-button">Test Link</button>
                 <button id="ez-proxy-copy-link-button" class="uq-button">Copy Link</button>
                 <button id="ez-proxy-create-new-link-button" class="uq-button">Create New Link</button>
+                <div id="ez-proxy-copy-status"></div>
             </span>
             <button id="ez-proxy-redirect-button" class="uq-button hidden">Go</button>
         </fieldset>
@@ -70,6 +71,14 @@ class EzProxy extends HTMLElement {
         this.setAttribute('inputUrl', value);
     }
 
+    get showInputPanel() {
+        return this.getAttribute('showInputPanel') === 'true';
+    }
+
+    set showInputPanel(value) {
+        this.setAttribute('showInputPanel', value);
+    }
+
     get doiRegexp() {
         return /^\b(10[.][0-9]{3,}(?:[.][0-9]+)*\/(?:(?!['&\'])\S)+)\b/;
     }
@@ -111,12 +120,27 @@ class EzProxy extends HTMLElement {
         copyUrlOptions.classList.remove('hidden');
     }
 
-    get copyStatus() {
-        return this.getAttribute('copyStatus');
-    }
-
     set copyStatus(value) {
-        this.setAttribute('copyStatus', value);
+        const { success, message } = value;
+        const statusToast = this.shadowRoot.getElementById('ez-proxy-copy-status');
+        statusToast.innerText = message;
+        if (!message) {
+            statusToast.classList.add('hidden');
+            return;
+        }
+        statusToast.classList.toggle('uq-success-message', success);
+        statusToast.classList.toggle('uq-error-message', !success);
+        statusToast.classList.remove('hidden');
+        setTimeout(() => {
+            statusToast.classList.add('open');
+        }, 10);
+        setTimeout(() => {
+            statusToast.classList.remove('open');
+            setTimeout(() => {
+                statusToast.classList.add('hidden');
+                statusToast.innerText = '';
+            }, 1000);
+        }, 3010);
     }
 
     connectedCallback() {
@@ -282,7 +306,10 @@ class EzProxy extends HTMLElement {
      */
     resetInput(ezProxy) {
         ezProxy.showInputPanel = true;
-        ezProxy.copyStatus = '';
+        ezProxy.copyStatus = {
+            status: null,
+            message: '',
+        };
         ezProxy.shadowRoot.getElementById('ez-proxy-input').focus();
         ezProxy.outputUrl = '';
         ezProxy.inputUrl = '';
@@ -293,33 +320,28 @@ class EzProxy extends HTMLElement {
      * Only available for Firefox 41+, Chrome 43+, Opera 29+, IE 10+
      */
     copyUrl(ezProxy) {
-        var copySuccess = {
-            success: false,
-            message: '',
-        };
-
         if (!document.execCommand) {
-            copySuccess.message = 'Copy function not available in this web browser';
-            ezProxy.copyStatus = copySuccess.message;
-            ezProxy.copyNotification.open();
-            return copySuccess;
+            ezProxy.copyStatus = {
+                success: false,
+                message: 'Copy function not available in this web browser',
+            };
+            return;
         }
 
-        //Show the hidden textfield with the URL, and select it
         ezProxy.shadowRoot.getElementById('ez-proxy-url-display-area').select();
 
         try {
-            copySuccess.success = document.execCommand('copy');
-            copySuccess.message = copySuccess.success ? 'URL copied successfully' : 'Unable to copy URL';
+            const copyStatus = document.execCommand('copy');
+            ezProxy.copyStatus = {
+                success: !!copyStatus,
+                message: copyStatus ? 'URL copied successfully' : 'Unable to copy URL',
+            };
         } catch (err) {
-            copySuccess.message = 'An error occurred while copying the URL';
-        } finally {
-            //Hide the textfield
-            ezProxy.copyStatus = copySuccess.message;
-            ezProxy.copyNotification.open();
+            ezProxy.copyStatus = {
+                success: false,
+                message: 'An error occurred while copying the URL',
+            };
         }
-
-        return copySuccess;
     }
 }
 
