@@ -3,7 +3,6 @@
 describe('UQ Header', () => {
     beforeEach(() => {
         cy.visit('http://localhost:8080');
-        cy.injectAxe();
     });
     context('Header', () => {
         it('Header is visible without interaction at 1280', () => {
@@ -37,6 +36,7 @@ describe('UQ Header', () => {
         });
 
         it('Header passes accessibility', () => {
+            cy.injectAxe();
             cy.viewport(1280, 900);
             cy.checkA11y('uq-header', {
                 reportName: 'Header',

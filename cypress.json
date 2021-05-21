@@ -2,18 +2,10 @@
   "baseUrl": "http://localhost:8080",
   "waitForAnimations": true,
   "pageLoadTimeout": 30000,
-  "video": true,
+  "video": false,
   "chromeWebSecurity": false,
   "defaultCommandTimeout": 10000,
   "videoUploadOnPasses": false,
   "projectId": "2nei7f",
-  "blockHosts": ["www.googletagmanager.com"],
-  "firefoxGcInterval": {
-    "runMode": 1,
-    "openMode": 1
-  },
-  "numTestsKeptInMemory": 1,
-  "env": {
-    "RETRIES": 3
-  }
+  "blockHosts": ["www.googletagmanager.com"]
 }

@@ -3,7 +3,6 @@
 describe('Alert', () => {
     beforeEach(() => {
         cy.visit('http://localhost:8080');
-        cy.injectAxe();
     });
     context('Alert', () => {
         it('Alert is visible without interaction at 1280', () => {
@@ -57,6 +56,7 @@ describe('Alert', () => {
         });
 
         it('Alert passes accessibility', () => {
+            cy.injectAxe();
             cy.viewport(1280, 900);
             cy.get('alert-list')
                 .shadow()
