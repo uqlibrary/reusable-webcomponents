@@ -205,7 +205,6 @@ class AskUsButton extends HTMLElement {
 
             setTimeout(showDisplay, 100);
             document.onkeydown = function (evt) {
-                evt = evt || window.event;
                 const escapeKeyCode = 27;
                 if ((evt.key === escapeKeyCode || evt.keyCode === escapeKeyCode) && askUsClosed === false) {
                     closeMenu();
@@ -230,12 +229,8 @@ class AskUsButton extends HTMLElement {
         }
 
         function handleAskUsButton() {
-            const askusButton = shadowDOM.getElementById('askus-actual-button');
             const askusPane = shadowDOM.getElementById('askus-pane');
-
-            !!askUsClosed ? !!askusButton && askusButton.blur() : !!askusButton && askusButton.focus();
             !!askusPane && askusPane.addEventListener('click', handleMouseOut);
-
             openMenu();
         }
 
@@ -275,15 +270,14 @@ class AskUsButton extends HTMLElement {
         function closeProactiveChat() {
             shadowDOM.getElementById('askus-proactive-chat').classList.remove('show');
             setTimeout(hideProactiveChatWrapper, 1000);
-            if (document.cookie.indexOf('UQ_ASKUS_PROACTIVE_CHAT=hidden') <= -1) {
-                //set cookie for 24 hours
-                const date = new Date();
-                date.setTime(date.getTime() + 24 * 60 * 60 * 1000);
-                const cookieDomain = window.location.hostname.endsWith('.library.uq.edu.au')
-                    ? 'domain=.library.uq.edu.au;path=/'
-                    : '';
-                document.cookie = 'UQ_ASKUS_PROACTIVE_CHAT=hidden;expires=' + date.toGMTString() + ';' + cookieDomain;
-            }
+            //set cookie for 24 hours
+            const date = new Date();
+            date.setTime(date.getTime() + 24 * 60 * 60 * 1000);
+            /* istanbul ignore next  */
+            const cookieDomain = window.location.hostname.endsWith('.library.uq.edu.au')
+                ? 'domain=.library.uq.edu.au;path=/'
+                : '';
+            document.cookie = 'UQ_ASKUS_PROACTIVE_CHAT=hidden;expires=' + date.toGMTString() + ';' + cookieDomain;
         }
         shadowDOM.getElementById('askus-proactive-chat-button-close').addEventListener('click', closeProactiveChat);
         shadowDOM.getElementById('askus-proactive-chat-button-open').addEventListener('click', openChat);

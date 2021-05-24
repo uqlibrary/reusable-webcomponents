@@ -11,8 +11,9 @@ import UQFooter from './UQFooter/UQFooter';
 import UQHeader from './UQHeader/UQHeader';
 import UQSiteHeader from './UQSiteHeader/UQSiteHeader';
 
-// Import mock data if required
+/* istanbul ignore else  */
 if (process.env.USE_MOCK) {
+    // Import mock data if required
     console.log('include mock data');
     require('../mock/MockApi');
 }

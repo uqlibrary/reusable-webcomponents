@@ -16,6 +16,8 @@ class MockApi {
 
         // Get user from query string
         const user = this.getUserParameter();
+        const chatStatusOffline = this.getChatStatusParameter() === "true";
+        this.chatStatusOffline = chatStatusOffline || false;
 
         this.mockData = mockData
         this.mockData.accounts.uqrdav10 = mockData.uqrdav10.account;
@@ -33,6 +35,11 @@ class MockApi {
     getUserParameter() {
         const queryString = require('query-string');
         return queryString.parse(location.search || location.hash.substring(location.hash.indexOf('?'))).user;
+    }
+
+    getChatStatusParameter() {
+        const queryString = require('query-string');
+        return queryString.parse(location.search || location.hash.substring(location.hash.indexOf('?'))).chatstatusoffline;
     }
 
     response(httpstatus, body, withDelay) {
@@ -80,27 +87,32 @@ class MockApi {
                 }
                 return this.response(404, {});
 
-            case apiRoute.AUTHOR_DETAILS_API().apiUrl:
-                // mock current author details
-                if (this.user === 'anon') {
-                    return this.response(403, {});
-                } else if (this.mockData.authorDetails[this.user]) {
-                    return this.response(200, this.mockData.authorDetails[this.user]);
-                }
-                return this.response(404, {});
-
             case apiRoute.CHAT_API().apiUrl:
-                return this.response(200, {online: true}, true);
-                // return this.response(200, {online: false}, true);
+                if (this.user === 'chatStatusError') {
+                    return this.response(403, {});
+                } else if(!this.chatStatusOffline) {
+                    return this.response(200, {online: true}, true);
+                } else {
+                    return this.response(200, {online: false}, true);
+                }
 
             case apiRoute.LIB_HOURS_API().apiUrl:
-                return this.response(200, libHours, true);
-                // return this.response(500, {}, true);
+                if (this.user === 'chatStatusError') {
+                    return this.response(403, {});
+                    // return this.response(500, {}, true);
+                } else {
+                    return this.response(200, libHours, true);
+                }
 
             case apiRoute.ALERT_API().apiUrl:
-                return this.response(200, alerts, true);
-                // return this.response(500, {}, true);
+                if (this.user === 'alertError') {
+                    return this.response(403, {});
+                    // return this.response(500, {}, true);
+                } else {
+                    return this.response(200, alerts, true);
+                }
 
+            /* istanbul ignore next  */
             default:
                 console.log('url not mocked...', url);
                 return this.response(404, {message: `MOCK URL NOT FOUND: ${url}`});

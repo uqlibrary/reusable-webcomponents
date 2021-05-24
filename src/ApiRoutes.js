@@ -9,11 +9,6 @@ class ApiRoutes {
             apiUrl: 'fez-authors',
         };
     }
-    AUTHOR_DETAILS_API(userId) {
-        return {
-            apiUrl: `authors/details/${userId}`,
-        };
-    }
 
     CHAT_API() {
         return {

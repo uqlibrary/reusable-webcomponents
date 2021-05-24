@@ -40,10 +40,16 @@ class Alert extends HTMLElement {
         };
 
         const loadAlertFields = setInterval(() => {
-            const title = this.getAttribute('alerttitle');
-            const message = this.getAttribute('alertmessage');
-            const alerttype = this.getAttribute('alerttype');
             const id = this.getAttribute('id');
+            /* istanbul ignore if  */
+            if (!id) {
+                return;
+            }
+            clearInterval(loadAlertFields);
+
+            const alerttype = this.getAttribute('alerttype');
+            const message = this.getAttribute('alertmessage');
+            const title = this.getAttribute('alerttitle');
 
             // Get links or 'permanent' from the message and return a clean message
             let canclose = true;
@@ -69,7 +75,7 @@ class Alert extends HTMLElement {
             // Assign the values
             shadowDOM.getElementById('alert-title').innerText = title || 'No title supplied';
             shadowDOM.getElementById('alert-message').innerText = cleanMessage || 'No message supplied';
-            shadowDOM.getElementById('alert-icon').innerHTML = icons[alerttype];
+            shadowDOM.getElementById('alert-icon').innerHTML = icons[alerttype || '0'];
             shadowDOM.getElementById('alert').classList.add(alerttype === '0' ? 'info' : 'warning');
             shadowDOM.getElementById('alert').setAttribute('data-testid', 'alert-' + id);
 
@@ -77,15 +83,35 @@ class Alert extends HTMLElement {
             if (!!canclose) {
                 const closeAlert = () => {
                     shadowDOM.getElementById('alert').style.display = 'none';
-                    if (document.cookie.indexOf('UQ_ALERT_' + id + '=hidden') <= -1) {
+                    const alertHiddenCookieID = 'UQ_ALERT_' + id;
+                    const alertCookieHidddenValue = 'hidden';
+
+                    function cookieNotFound(cookieId, cookieValue) {
+                        return document.cookie.indexOf(cookieId + '=' + cookieValue) <= -1;
+                    }
+
+                    function alertNotHidden(cookieId, cookieValue) {
+                        return cookieNotFound(cookieId, cookieValue);
+                    }
+
+                    /* istanbul ignore else  */
+                    if (alertNotHidden(alertHiddenCookieID, alertCookieHidddenValue)) {
                         //set cookie for 24 hours
                         const date = new Date();
                         date.setTime(date.getTime() + 24 * 60 * 60 * 1000);
+                        /* istanbul ignore if */
                         const cookieDomain = window.location.hostname.endsWith('.library.uq.edu.au')
-                            ? 'domain=.library.uq.edu.au;path=/'
+                            ? /* istanbul ignore next */
+                              'domain=.library.uq.edu.au;path=/'
                             : '';
                         document.cookie =
-                            'UQ_ALERT_' + id + '=hidden;expires=' + date.toGMTString() + ';' + cookieDomain;
+                            alertHiddenCookieID +
+                            '=' +
+                            alertCookieHidddenValue +
+                            ';expires=' +
+                            date.toGMTString() +
+                            ';' +
+                            cookieDomain;
                     }
                 };
                 shadowDOM.getElementById('alert-close').addEventListener('click', closeAlert);
@@ -114,10 +140,6 @@ class Alert extends HTMLElement {
             } else {
                 shadowDOM.getElementById('alert-action-desktop').remove();
                 shadowDOM.getElementById('alert-action-mobile').remove();
-            }
-
-            if (!!title) {
-                clearInterval(loadAlertFields);
             }
         }, 300);
     }

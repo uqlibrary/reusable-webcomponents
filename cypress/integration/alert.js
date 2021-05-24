@@ -1,11 +1,9 @@
 /// <reference types="cypress" />
 
 describe('Alert', () => {
-    beforeEach(() => {
-        cy.visit('http://localhost:8080');
-    });
     context('Alert', () => {
         it('Alert is visible without interaction at 1280', () => {
+            cy.visit('http://localhost:8080');
             cy.viewport(1280, 900);
             cy.get('alert-list').shadow().find('uq-alert').should('have.length', 2);
 
@@ -40,22 +38,8 @@ describe('Alert', () => {
                 .should('have.text', 'This is a permanent urgent alert');
         });
 
-        it('Alert is hidden if clicked to dismiss', () => {
-            cy.viewport(1280, 900);
-            cy.get('alert-list').shadow().find('uq-alert').should('have.length', 2);
-            cy.get('alert-list').shadow().find('uq-alert[id="alert-1"]').shadow().find('#alert-close').click();
-            cy.reload(true);
-            cy.get('alert-list').shadow().find('uq-alert').should('have.length', 1);
-        });
-
-        it('Alert is hidden if cookie is set to hide it', () => {
-            cy.viewport(1280, 900);
-            cy.setCookie('UQ_ALERT_alert-1', 'hidden');
-            cy.visit('http://localhost:8080');
-            cy.get('alert-list').shadow().find('uq-alert').should('have.length', 1);
-        });
-
         it('Alert passes accessibility', () => {
+            cy.visit('http://localhost:8080');
             cy.injectAxe();
             cy.viewport(1280, 900);
             cy.get('alert-list')
@@ -78,6 +62,84 @@ describe('Alert', () => {
                     scopeName: 'Accessibility',
                     includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
                 });
+        });
+
+        it('Alert is hidden if clicked to dismiss', () => {
+            cy.visit('http://localhost:8080');
+            cy.viewport(1280, 900);
+            cy.get('alert-list').shadow().find('uq-alert').should('have.length', 2);
+            cy.get('alert-list').shadow().find('uq-alert[id="alert-1"]').shadow().find('#alert-close').click();
+            cy.reload(true);
+            cy.get('alert-list').shadow().find('uq-alert').should('have.length', 1);
+        });
+
+        it('Alert is hidden if cookie is set to hide it', () => {
+            cy.visit('http://localhost:8080');
+            cy.viewport(1280, 900);
+            cy.setCookie('UQ_ALERT_alert-1', 'hidden');
+            cy.visit('http://localhost:8080');
+            cy.get('alert-list').shadow().find('uq-alert').should('have.length', 1);
+        });
+
+        it('Alert with no param displays correctly', () => {
+            cy.visit('http://localhost:8080/src/Alert/test-empty-alert.html');
+            cy.viewport(1280, 900);
+            cy.get('uq-alert').shadow().find('#alert').find('#alert-title').contains('No title supplied');
+            cy.get('uq-alert').shadow().find('#alert').find('#alert-message').contains('No message supplied');
+        });
+
+        it('Duplicating the alerts element does not give a second set of alerts', () => {
+            cy.visit('http://localhost:8080/src/Alerts/test-multiple-alerts-dont-duplicate.html');
+            cy.viewport(1280, 900);
+
+            // we get 2 alert lists
+            cy.get('.multipleAlerts alert-list').should('have.length', 2);
+
+            // first one has the alerts
+            cy.get('.multipleAlerts alert-list').first().shadow().find('[data-testid="alerts"]').should('exist');
+            cy.get('.multipleAlerts alert-list')
+                .first()
+                .shadow()
+                .find('[data-testid="alerts-wrapper"]')
+                .should('exist');
+            cy.get('.multipleAlerts alert-list')
+                .first()
+                .shadow()
+                .find('[data-testid="alerts-wrapper"]')
+                .find('uq-alert')
+                .should('have.length', 2);
+            // second does not have any alerts
+            cy.get('.multipleAlerts alert-list').first().next().shadow().find('[data-testid="alerts"]').should('exist');
+            cy.get('.multipleAlerts alert-list')
+                .first()
+                .next()
+                .shadow()
+                .find('[data-testid="alerts-wrapper"]')
+                .children()
+                .should('have.length', 0);
+        });
+
+        it('Alert link out works', () => {
+            cy.visit('http://localhost:8080');
+            cy.viewport(1280, 900);
+            cy.wait(1500);
+            cy.intercept('GET', 'http://www.link.com', {
+                statusCode: 200,
+                body: 'it worked!',
+            });
+            cy.get('alert-list').shadow().find('uq-alert[id="alert-1"]').shadow().find('#alert-action-desktop').click();
+            cy.get('body').contains('it worked!');
+        });
+
+        it('No alerts show when Alerts api doesnt load; page otherwise correct', () => {
+            cy.visit('http://localhost:8080?user=alertError');
+            cy.viewport(1280, 900);
+            cy.wait(1500);
+            cy.get('alert-list').shadow().find('[data-testid="alerts-wrapper"]').children().should('have.length', 0);
+
+            // some things on the page look right
+            cy.get('uq-header').shadow().find('div.nav-global').find('.search-toggle__button').should('be.visible');
+            cy.get('uq-site-header').shadow().find('[data-testid="site-title"]').contains('Library Test');
         });
     });
 });
