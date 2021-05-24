@@ -144,6 +144,7 @@ class MyLibraryButton extends HTMLElement {
         // it should be in session storage shouldnt make a second call
         const api = new ApiAccess();
         return await api.getAccount().then((account) => {
+            /* istanbul ignore else */
             if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
                 accountSummary.isLoggedin = !!account && !!account.id;
                 accountSummary.canMasquerade =
