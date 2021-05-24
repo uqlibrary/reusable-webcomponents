@@ -148,6 +148,14 @@ var uq = (function (exports) {
                 value: function openLevel(subNav, menuItem) {
                     subNav.classList.add(this.openModifier);
                     menuItem.classList.add(this.levelOpenModifier);
+
+                    // In Firefox the megamenu is causing the page to have a very large horizontal scrollbar.
+                    // Its seems in firefox, the extra width of multiple columns is still applied even when the menu is closed.
+                    // Multi column in the megamenu is a mandatory user requirement
+                    const child = menuItem.querySelector('ul');
+                    child.classList.contains('multicolumn-2') && child.classList.add('displaymulticolumn-2');
+                    child.classList.contains('multicolumn-3') && child.classList.add('displaymulticolumn-3');
+
                     menuItem.querySelector('a').setAttribute('aria-expanded', 'true');
                 },
             },
@@ -157,6 +165,11 @@ var uq = (function (exports) {
                     subNav.classList.remove(this.openModifier);
                     this.setOrientation(menuItem);
                     menuItem.classList.remove(this.levelOpenModifier);
+
+                    const child = menuItem.querySelector('ul');
+                    child.classList.contains('displaymulticolumn-2') && child.classList.remove('displaymulticolumn-2');
+                    child.classList.contains('displaymulticolumn-3') && child.classList.remove('displaymulticolumn-3');
+
                     menuItem.querySelector('a').setAttribute('aria-expanded', 'false');
                 },
             },
