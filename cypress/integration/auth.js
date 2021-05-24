@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-import uqrdav10 from '../../mock/data/account';
+import uqrdav10, { accounts } from '../../mock/data/account';
 import ApiAccess from '../../src/ApiAccess/ApiAccess';
 import { apiLocale } from '../../src/ApiAccess/ApiAccess.locale';
 
@@ -9,13 +9,13 @@ describe('Auth button', () => {
             cy.visit('http://localhost:8080');
             cy.viewport(1280, 900);
             cy.wait(100);
+            cy.get('uq-site-header').find('auth-button').should('exist');
             cy.injectAxe();
             cy.checkA11y('auth-button', {
                 reportName: 'Auth Loggedin',
                 scopeName: 'Accessibility',
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
             });
-            cy.get('uq-site-header').find('auth-button').should('exist');
             cy.get('auth-button').shadow().find('#auth-log-out-label').should('contain', 'Log out');
         });
 
@@ -89,6 +89,18 @@ describe('Auth button', () => {
                 // just a paranoia check that the above test inside an await actually happened.
                 expect(testValid).to.be.equal(true);
             }, 1000);
+        });
+
+        it(' user with expired stored session is not logged in', () => {
+            const store = new ApiAccess();
+            store.storeAccount(accounts.s1111111, -24); // put info in the session storage
+            // console.log(sessionStorage.getItem(this.STORAGE_ACCOUNT_KEYNAME));
+
+            cy.visit('http://localhost:8080/?user=s1111111');
+            cy.viewport(1280, 900);
+            cy.wait(100);
+            cy.get('uq-site-header').find('auth-button').should('exist');
+            cy.get('auth-button').shadow().find('#auth-log-out-label').should('contain', 'Log out');
         });
     });
 });
