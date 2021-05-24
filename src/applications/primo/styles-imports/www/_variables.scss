@@ -40,7 +40,7 @@ $darker: darken(saturate(adjust-hue($dark, 0), 0), 6.6667);
 
 // lighter background color
 
-$highlightBlue: rgba(35, 119, 203, 0.1);
+$highlightBlue: transparentize($uqBlue, 0.9);
 $highlightYellow: #fffcc4; //stronger
 $highlight: darken(desaturate(adjust-hue($highlightYellow, -4.092), 16), 8.0392);
 $highlightText: #ffe564;
@@ -127,7 +127,7 @@ $links-background-hue1: transparent;
 $links-hue-1: darken(saturate($links, 5%), 5%);
 $links-hue-3: darken($links, 10%);
 $links-hue-4: darken(saturate($links, 5%), 2%);
-$links-hue-5: darken(saturate($links, 20%), 20%);
+$links-hue-5: darken(saturate($links, 15%), 20%);
 $linksHover: darken(saturate($links, 20%), 20%);
 $linksHover-hue-2: transparentize($linksHover, 0.5);
 $linkAlt: $secondary-hue1;

@@ -33,13 +33,13 @@ describe('Dummy Application', () => {
             .should('not.exist');
     }
 
-    function hasUqSiteHeader() {
+    function hasUqSiteHeader(sitesearchurl = 'https://www.library.uq.edu.au/') {
         cy.get('uq-site-header')
             .shadow()
             .find('div.uq-site-header')
             .find('a[data-testid="site-title"]')
             .should('have.attr', 'href')
-            .and('include', 'https://www.library.uq.edu.au/');
+            .and('include', sitesearchurl);
     }
 
     function hasMegaMenu() {
@@ -340,6 +340,26 @@ describe('Dummy Application', () => {
             hasAnAlert();
 
             hasUqFooter();
+        });
+    });
+
+    context('changing properties as required by eSpace works as expected', () => {
+        it('Javascript load works correctly', () => {
+            cy.visit('http://localhost:8080/src/applications/espace/example.html');
+            cy.viewport(1280, 900);
+
+            hasUqHeader();
+
+            hasUqSiteHeader('https://espace.library.uq.edu.au/');
+
+            hasNoMegaMenu();
+
+            hasNoAskusButton();
+            hasAuthButton();
+
+            hasAnAlert();
+
+            hasNoUqFooter();
         });
     });
 });

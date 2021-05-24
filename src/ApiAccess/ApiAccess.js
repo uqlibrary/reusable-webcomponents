@@ -6,7 +6,7 @@ let initCalled;
 
 class ApiAccess {
     constructor() {
-        this.STORAGE_ACCOUNT_KEYNAME = 'userAccount';
+        this.STORAGE_ACCOUNT_KEYNAME = locale.STORAGE_ACCOUNT_KEYNAME;
     }
 
     async getAccount() {
@@ -18,15 +18,14 @@ class ApiAccess {
 
         let accountData = this.getAccountFromStorage();
         if (accountData !== null) {
-            console.log('getAccount: account from session storage = ', accountData);
             return accountData;
         }
 
         const accountApi = new ApiRoutes().CURRENT_ACCOUNT_API();
         const urlPath = accountApi.apiUrl;
-        const options = !!accountApi.options ? accountApi.options : {};
+        // const options = !!accountApi.options ? accountApi.options : {};
+        const options = {}; // options not currently used
         return await this.fetchAPI(urlPath, options, true).then((account) => {
-            console.log('getAccount: account from server = ', account);
             this.storeAccount(account);
 
             return account;
@@ -36,17 +35,24 @@ class ApiAccess {
     async loadAuthorApi() {
         const api = new ApiRoutes().CURRENT_AUTHOR_API();
         const urlPath = api.apiUrl;
-        const options = !!api.options ? api.options : {};
-        return await this.fetchAPI(urlPath, options, true).then((author) => {
-            return author;
-        });
+        // const options = !!api.options ? api.options : {};
+        const options = {}; // options not currently used
+        return await this.fetchAPI(urlPath, options, true)
+            .then((author) => {
+                return author;
+            })
+            .catch((error) => {
+                console.log('error loading authors ', error);
+                return {};
+            });
     }
 
     async loadChatStatus() {
         let isOnline = false;
         const chatstatusApi = new ApiRoutes().CHAT_API();
         const urlPath = chatstatusApi.apiUrl;
-        const options = !!chatstatusApi.options ? chatstatusApi.options : {};
+        // const options = !!chatstatusApi.options ? chatstatusApi.options : {};
+        const options = {}; // options not currently used
         await this.fetchAPI(urlPath, options)
             .then((chatResponse) => {
                 isOnline = !!chatResponse.online;
@@ -61,7 +67,8 @@ class ApiAccess {
         let result;
         const hoursApi = new ApiRoutes().LIB_HOURS_API();
         const urlPath = hoursApi.apiUrl;
-        const options = !!hoursApi.options ? hoursApi.options : {};
+        // const options = !!hoursApi.options ? hoursApi.options : {};
+        const options = {}; // options not currently used
         await this.fetchAPI(urlPath, options)
             .then((hoursResponse) => {
                 let askusHours = null;
@@ -88,7 +95,8 @@ class ApiAccess {
     async loadAlerts() {
         const alertApi = new ApiRoutes().ALERT_API();
         const urlPath = alertApi.apiUrl;
-        const options = !!alertApi.options ? alertApi.options : {};
+        // const options = !!alertApi.options ? alertApi.options : {};
+        const options = {}; // options not currently used
         return await this.fetchAPI(urlPath, options)
             .then((alerts) => {
                 return alerts;
@@ -100,16 +108,10 @@ class ApiAccess {
     }
 
     async fetchAPI(urlPath, headers, tokenRequired = false) {
-        console.log('fetchAPI, getting api "', urlPath, '" with these headers: ', headers);
-
         if (!!tokenRequired && (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)) {
             // no cookie so we wont bother asking for an api that cant be returned
             console.log('no cookie so we wont bother asking for an api that cant be returned');
             return false;
-        }
-
-        if (this.isMock()) {
-            return this.fetchMock(urlPath);
         }
 
         const token = !!tokenRequired ? { 'x-uql-token': this.getSessionCookie() } : null;
@@ -119,14 +121,26 @@ class ApiAccess {
             ...token,
             ...headers,
         };
-        // reference: https://dmitripavlutin.com/javascript-fetch-async-await/
-        const response = await this.fetchFromServer(urlPath, options);
-        if (!response.ok) {
-            console.log(`ApiAccess console: An error has occured: ${response.status} ${response.statusText}`);
-            const message = `ApiAccess: An error has occured: ${response.status} ${response.statusText}`;
-            throw new Error(message);
+
+        /* istanbul ignore else  */
+        if (this.isMock()) {
+            try {
+                return this.fetchMock(urlPath);
+            } catch (e) {
+                const msg = `mock api error: ${e.message}`;
+                console.log(msg);
+                throw new Error(msg);
+            }
+        } else {
+            // reference: https://dmitripavlutin.com/javascript-fetch-async-await/
+            const response = await this.fetchFromServer(urlPath, options);
+            if (!response.ok) {
+                console.log(`ApiAccess console: An error has occured: ${response.status} ${response.statusText}`);
+                const message = `ApiAccess: An error has occured: ${response.status} ${response.statusText}`;
+                throw new Error(message);
+            }
+            return await response.json();
         }
-        return await response.json();
     }
 
     fetchFromServer(urlPath, options) {
@@ -137,9 +151,9 @@ class ApiAccess {
         });
     }
 
-    storeAccount(account) {
+    storeAccount(account, numberOfHoursUntilExpiry = 8) {
         // for improved UX, expire the session storage when the token must surely be expired, for those rare long sessions
-        const numberOfHoursUntilExpiry = 8; // session lasts 8 hours, per https://auth.uq.edu.au/about/
+        // session lasts 8 hours, per https://auth.uq.edu.au/about/
 
         const millisecondsUntilExpiry = numberOfHoursUntilExpiry * 60 /*min*/ * 60 /*sec*/ * 1000; /* milliseconds */
         const storageExpiryDate = {
@@ -211,8 +225,14 @@ class ApiAccess {
         if (!response.ok || !response.body) {
             console.log(`fetchMock console: An error has occured in mock for ${url}: ${response.status}`);
             const message = `fetchMock: An error has occured in mock for ${url}: ${response.status}`;
-            // vanilla gets a 403 so we don't want to throw an error here
-            return {};
+            if (new MockApi().user === 'vanlla') {
+                // vanilla gets a 403 on account so we don't want to throw an error here
+                return {};
+            } else {
+                const msg = `got an error in mockapi for ${url} `;
+                console.log(msg, response);
+                throw new Error(msg);
+            }
         }
         return response.body || {};
     }
