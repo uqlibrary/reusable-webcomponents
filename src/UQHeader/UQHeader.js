@@ -196,7 +196,7 @@ class UQHeader extends HTMLElement {
                 new uq.header();
             };
             //Specify the location of the ITS DS JS file
-            script.src = '/uq-header.js';
+            script.src = 'uq-header.js';
 
             //Append it to the document header
             document.head.appendChild(script);
