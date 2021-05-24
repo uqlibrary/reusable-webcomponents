@@ -109,8 +109,8 @@ class UQHeader extends HTMLElement {
 
         // the dom is not loaded for a moment (needed when attributes are added via JS, ie the applications)
         const awaitShadowDom = setInterval(() => {
+            /* istanbul ignore next */
             if (!that.shadowRoot) {
-                /* istanbul ignore next  */
                 return;
             }
 
