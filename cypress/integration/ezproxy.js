@@ -48,10 +48,7 @@ describe('EzProxy', () => {
                 .should('be.calledOnceWith', 'https://ezproxy.library.uq.edu.au/login?url=https://www.google.com/');
         });
 
-        it('calls command to copy the generated URL to the clipboard on clicking copy button', () => {
-            cy.document().then((doc) => {
-                cy.stub(doc, 'execCommand').callsFake(() => true);
-            });
+        const copyAndToast = (toastMessage) => {
             cy.get('ez-proxy:not([redirectonly])')
                 .should('exist')
                 .shadow()
@@ -68,11 +65,108 @@ describe('EzProxy', () => {
                         .should('exist')
                         .as('toast')
                         .should('be.visible')
-                        .should('have.text', 'URL copied successfully');
+                        .should('have.text', toastMessage);
                     cy.wait(4000); // wait for toast to disappear
                     cy.get('@toast').should('not.be.visible');
                 });
-            cy.document().its('execCommand').should('be.calledOnceWith', 'copy');
+        };
+
+        it('uses clipboard API command to copy the generated URL to the clipboard on clicking copy button', () => {
+            let readText;
+            cy.window().then((win) => {
+                if ((readText = win.navigator?.clipboard?.readText)) {
+                    cy.spy(win.navigator.clipboard, 'readText').as('readText');
+                } else {
+                    cy.log('This browser does not support clipboard API command.');
+                    cy.document().then((doc) => {
+                        cy.stub(doc, 'execCommand')
+                            .callsFake(() => true)
+                            .as('execCommand');
+                    });
+                }
+            });
+            copyAndToast('URL copied successfully');
+            if (readText) {
+                cy.window().then((win) => {
+                    cy.get('@readText').should('be.calledOnce');
+                });
+            }
+        });
+
+        const replaceReadText = (replacement = false) => {
+            let readText;
+            cy.window().then((win) => {
+                if (win.navigator?.clipboard?.readText) {
+                    readText = win.navigator.clipboard.readText;
+                    win.navigator.clipboard.readText = replacement;
+                } else {
+                    win.navigator.clipboard = {
+                        ...win.navigator?.clipboard,
+                        readText: replacement,
+                    };
+                }
+            });
+            return readText;
+        };
+
+        it('uses legacy command to copy the generated URL to the clipboard on clicking copy button', () => {
+            cy.document().then((doc) => {
+                cy.stub(doc, 'execCommand')
+                    .callsFake(() => true)
+                    .as('execCommand');
+            });
+            const readText = replaceReadText();
+            copyAndToast('URL copied successfully');
+            cy.get('@execCommand').should('be.calledOnceWith', 'copy');
+            cy.window().then((win) => {
+                if (readText) {
+                    win.navigator.clipboard.readText = readText;
+                }
+            });
+        });
+
+        it('shows expected error messages when copy mechanisms fail - 1 of 3', () => {
+            let execCommand;
+            cy.document().then((doc) => {
+                execCommand = doc.execCommand;
+                doc.execCommand = false;
+            });
+            const readText = replaceReadText();
+            copyAndToast('Copy function not available in this web browser');
+            cy.document().then((doc) => {
+                doc.execCommand = execCommand;
+            });
+            cy.window().then((win) => {
+                if (readText) {
+                    win.navigator.clipboard.readText = readText;
+                }
+            });
+        });
+
+        it('shows expected error messages when copy mechanisms fail - 2 of 3', () => {
+            cy.document().then((doc) => {
+                cy.stub(doc, 'execCommand')
+                    .callsFake(() => false)
+                    .as('execCommand');
+            });
+            const readText = replaceReadText();
+            copyAndToast('Unable to copy URL');
+            cy.get('@execCommand').should('be.calledOnceWith', 'copy');
+            cy.window().then((win) => {
+                if (readText) {
+                    win.navigator.clipboard.readText = readText;
+                }
+            });
+        });
+
+        it('shows expected error messages when copy mechanisms fail - 3 of 3', () => {
+            const readText = replaceReadText(() => {
+                throw DOMException('fail');
+            });
+            copyAndToast('An error occurred while copying the URL');
+            cy.window().then((win) => {
+                win.navigator.clipboard.readText = readText;
+            });
         });
 
         it('shows expected error messages for ill-formed URLs', () => {
