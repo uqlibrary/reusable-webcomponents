@@ -18,7 +18,6 @@ class ApiAccess {
 
         let accountData = this.getAccountFromStorage();
         if (accountData !== null) {
-            console.log('getAccount: account from session storage = ', accountData);
             return accountData;
         }
 
@@ -27,7 +26,6 @@ class ApiAccess {
         // const options = !!accountApi.options ? accountApi.options : {};
         const options = {}; // options not currently used
         return await this.fetchAPI(urlPath, options, true).then((account) => {
-            console.log('getAccount: account from server = ', account);
             this.storeAccount(account);
 
             return account;
@@ -74,6 +72,7 @@ class ApiAccess {
         await this.fetchAPI(urlPath, options)
             .then((hoursResponse) => {
                 let askusHours = null;
+                /* istanbul ignore else */
                 if (!!hoursResponse && !!hoursResponse.locations && hoursResponse.locations.length > 1) {
                     askusHours = hoursResponse.locations.map((item) => {
                         if (item.abbr === 'AskUs') {
@@ -85,7 +84,7 @@ class ApiAccess {
                         return null;
                     });
                 }
-                result = askusHours ? askusHours.filter((item) => item !== null)[0] : null;
+                result = askusHours ? askusHours.filter((item) => item !== null)[0] : /* istanbul ignore next */ null;
             })
             .catch((error) => {
                 console.log('error loading hours ', error);
@@ -110,8 +109,6 @@ class ApiAccess {
     }
 
     async fetchAPI(urlPath, headers, tokenRequired = false) {
-        console.log('fetchAPI, getting api "', urlPath, '" with these headers: ', headers);
-
         if (!!tokenRequired && (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)) {
             // no cookie so we wont bother asking for an api that cant be returned
             console.log('no cookie so we wont bother asking for an api that cant be returned');
@@ -147,6 +144,7 @@ class ApiAccess {
         }
     }
 
+    /* istanbul ignore next */
     fetchFromServer(urlPath, options) {
         const API_URL = process.env.API_URL || 'https://api.library.uq.edu.au/staging/';
 
@@ -199,6 +197,7 @@ class ApiAccess {
     }
 
     getSessionCookie() {
+        /* istanbul ignore else  */
         if (this.isMock() && new MockApi().getUserParameter() !== 'public') {
             return locale.UQLID_COOKIE_MOCK;
         }
@@ -207,6 +206,7 @@ class ApiAccess {
 
     getLibraryGroupCookie() {
         // I am guessing this field is used as a proxy for 'has a Library account, not just a general UQ login'
+        /* istanbul ignore else  */
         if (this.isMock() && new MockApi().getUserParameter() !== 'public') {
             return locale.USERGROUP_COOKIE_MOCK;
         }
@@ -218,7 +218,7 @@ class ApiAccess {
         for (let i = 0; i < cookies.length; ++i) {
             const pair = cookies[i].trim().split('=');
             if (!!pair[0] && pair[0] === name) {
-                return !!pair[1] ? pair[1] : undefined;
+                return !!pair[1] ? pair[1] : /* istanbul ignore next */ undefined;
             }
         }
         return undefined;
@@ -227,18 +227,11 @@ class ApiAccess {
     fetchMock(url, options = null) {
         const response = new MockApi().mockfetch(url, options);
         if (!response.ok || !response.body) {
-            console.log(`fetchMock console: An error has occured in mock for ${url}: ${response.status}`);
-            const message = `fetchMock: An error has occured in mock for ${url}: ${response.status}`;
-            if (new MockApi().user === 'vanlla') {
-                // vanilla gets a 403 on account so we don't want to throw an error here
-                return {};
-            } else {
-                const msg = `got an error in mockapi for ${url} `;
-                console.log(msg, response);
-                throw new Error(msg);
-            }
+            const msg = `fetchMock: An error has occured in mock for ${url}: ${response.status}`;
+            console.log(msg);
+            throw new Error(msg);
         }
-        return response.body || {};
+        return response.body || /* istanbul ignore next */ {};
     }
 
     isMock() {

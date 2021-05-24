@@ -48,7 +48,7 @@ class MockApi {
             headers: {},
             ok: httpstatus === 200,
             redirected: false,
-            status: !!body ? httpstatus : 500,
+            status: !!body ? httpstatus : /* istanbul ignore next */ 500,
             statusText: '',
             type: 'basic',
             url: this.url,
@@ -80,6 +80,7 @@ class MockApi {
 
             case apiRoute.CURRENT_AUTHOR_API().apiUrl:
                 // mock current author details from fez
+                /* istanbul ignore next */
                 if (this.user === 'anon') {
                     return this.response(403, {});
                 } else if (this.mockData.currentAuthor[this.user]) {
