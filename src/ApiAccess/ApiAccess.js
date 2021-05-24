@@ -18,7 +18,6 @@ class ApiAccess {
 
         let accountData = this.getAccountFromStorage();
         if (accountData !== null) {
-            console.log('getAccount: account from session storage = ', accountData);
             return accountData;
         }
 
@@ -27,7 +26,6 @@ class ApiAccess {
         // const options = !!accountApi.options ? accountApi.options : {};
         const options = {}; // options not currently used
         return await this.fetchAPI(urlPath, options, true).then((account) => {
-            console.log('getAccount: account from server = ', account);
             this.storeAccount(account);
 
             return account;
@@ -110,8 +108,6 @@ class ApiAccess {
     }
 
     async fetchAPI(urlPath, headers, tokenRequired = false) {
-        console.log('fetchAPI, getting api "', urlPath, '" with these headers: ', headers);
-
         if (!!tokenRequired && (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)) {
             // no cookie so we wont bother asking for an api that cant be returned
             console.log('no cookie so we wont bother asking for an api that cant be returned');
