@@ -66,11 +66,12 @@ class ConnectFooter extends HTMLElement {
 
     updateFooterMenuFromJson() {
         const footerMenu = template.content.getElementById('footer-menu');
+        /* istanbul ignore else */
         if (!!footerMenu && !template.content.getElementById('footermenu-home')) {
             const homelink = this.createLink(
                 'footermenu-homepage',
-                menuLocale.menuhome.linkTo || '',
-                menuLocale.menuhome.primaryText || '',
+                menuLocale.menuhome.linkTo || /* istanbul ignore next */ '',
+                menuLocale.menuhome.primaryText || /* istanbul ignore next */ '',
             );
 
             const homeMenuItem = document.createElement('li');
@@ -85,6 +86,7 @@ class ConnectFooter extends HTMLElement {
 
         !!footerMenu &&
             menuLocale.publicmenu.forEach((linkProperties, index) => {
+                /* istanbul ignore else */
                 if (!template.content.getElementById(this.footerButtonIdentifier(index))) {
                     const menuItem = this.createFooterMenuEntry(linkProperties, index);
 
@@ -98,6 +100,7 @@ class ConnectFooter extends HTMLElement {
         const socialbuttonContainer = template.content.querySelector('.contacts .buttons');
         !!socialbuttonContainer &&
             footerlocale.connectFooter.buttonSocial.forEach((button, index) => {
+                /* istanbul ignore else */
                 if (!template.content.getElementById(this.socialButtonIdentifier(index))) {
                     const container = this.createFooterSocialButtonEntry(button, index);
                     !!container && socialbuttonContainer.appendChild(container);
@@ -107,6 +110,7 @@ class ConnectFooter extends HTMLElement {
         const internalbuttonsContainer = template.content.querySelector('.contacts .internalLinks');
         !!internalbuttonsContainer &&
             footerlocale.connectFooter.internalLinks.forEach((button, index) => {
+                /* istanbul ignore else */
                 if (!template.content.getElementById(this.internalButtonIdentifier(index))) {
                     const container = this.createFooterInternalLinkEntry(button, index);
                     !!container && internalbuttonsContainer.appendChild(container);
@@ -116,6 +120,7 @@ class ConnectFooter extends HTMLElement {
         const givingbuttonsContainer = template.content.querySelector('.givingWrapper div');
         !!givingbuttonsContainer &&
             footerlocale.connectFooter.givingLinks.map((button, index) => {
+                /* istanbul ignore else */
                 if (!template.content.getElementById(this.givingButtonIdentifier(index))) {
                     const container = this.createFooterGivingButtonEntry(button, index);
                     !!container && givingbuttonsContainer.appendChild(container);
@@ -207,9 +212,9 @@ class ConnectFooter extends HTMLElement {
 
     createFooterMenuEntry(linkProperties, index) {
         const menulink = this.createLink(
-            linkProperties.dataTestid || '',
-            linkProperties.linkTo || '',
-            linkProperties.primaryText || '',
+            linkProperties.dataTestid || /* istanbul ignore next */ '',
+            linkProperties.linkTo || /* istanbul ignore next */ '',
+            linkProperties.primaryText || /* istanbul ignore next */ '',
         );
 
         const menuItem = document.createElement('li');
