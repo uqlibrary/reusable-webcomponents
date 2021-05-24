@@ -69,6 +69,17 @@ describe('EzProxy', () => {
                     cy.get('#ez-proxy-redirect-button').should('exist').should('not.be.visible');
                 });
         });
+
+        it('is accessible', () => {
+            cy.injectAxe();
+            cy.viewport(1280, 900);
+
+            cy.checkA11y('ez-proxy[redirectonly]', {
+                reportName: 'EzProxy redirect-only',
+                scopeName: 'on load',
+                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+            });
+        });
     });
 
     context('redirect-only mode', () => {
@@ -100,19 +111,15 @@ describe('EzProxy', () => {
                 .its('open')
                 .should('be.calledOnceWith', 'https://ezproxy.library.uq.edu.au/login?url=https://www.uq.edu.au/');
         });
-    });
 
-    // Doesn't seem to be working
-    it.skip('is accessible', () => {
-        cy.injectAxe();
-        cy.viewport(1280, 900);
-        cy.get('ez-proxy[redirectonly]')
-            .shadow()
-            .find('#ez-proxy')
-            .checkA11y('#ez-proxy', {
-                reportName: 'EzProxy redirect-only',
+        it('is accessible', () => {
+            cy.injectAxe();
+            cy.viewport(1280, 900);
+            cy.checkA11y('ez-proxy:not([redirectonly])', {
+                reportName: 'EzProxy copy',
                 scopeName: 'on load',
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
             });
+        });
     });
 });
