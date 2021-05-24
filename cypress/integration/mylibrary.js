@@ -120,5 +120,45 @@ describe('My Library menu', () => {
                 .find('li[data-testid="mylibrary-espace"]')
                 .should('not.exist');
         });
+
+        it('Pressing esc closes the mylibrary menu', () => {
+            cy.visit('http://localhost:8080');
+            cy.viewport(1280, 900);
+            cy.get('mylibrary-button').shadow().find('button#mylibrary-button').click();
+            cy.wait(500);
+            cy.get('mylibrary-button').shadow().find('div#mylibrary-menu').should('be.visible');
+            cy.get('body').type('{enter}', { force: true });
+            cy.wait(500);
+            cy.get('mylibrary-button').shadow().find('div#mylibrary-menu').should('be.visible');
+            cy.get('body').type('{esc}', { force: true });
+            cy.wait(500);
+            cy.get('mylibrary-button').shadow().find('div#mylibrary-menu').should('not.be.visible');
+        });
+
+        it('Clicking the pane closes the mylibrary menu', () => {
+            cy.visit('http://localhost:8080');
+            cy.viewport(1280, 900);
+            cy.get('mylibrary-button').shadow().find('button#mylibrary-button').click();
+            cy.wait(500);
+            cy.get('mylibrary-button').shadow().find('div#mylibrary-menu').should('be.visible');
+            cy.get('mylibrary-button').shadow().find('div#mylibrary-pane').click();
+            cy.wait(500);
+            cy.get('mylibrary-button').shadow().find('div#mylibrary-menu').should('not.be.visible');
+        });
+
+        it('Navigates to page from mylibrary menu', () => {
+            cy.visit('http://localhost:8080?user=s1111111');
+            cy.viewport(1280, 900);
+            cy.wait(1500);
+            cy.intercept('GET', 'https://support.my.uq.edu.au/app/library/feedback', {
+                statusCode: 200,
+                body: 'user is on library feedback page',
+            });
+            cy.get('mylibrary-button').shadow().find('button#mylibrary-button').click();
+            cy.wait(500);
+            cy.get('mylibrary-button').shadow().find('[data-testid="mylibrary-menu-feedback"]').should('be.visible');
+            cy.get('mylibrary-button').shadow().find('[data-testid="mylibrary-menu-feedback"]').click();
+            cy.get('body').contains('user is on library feedback page');
+        });
     });
 });
