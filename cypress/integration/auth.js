@@ -2,6 +2,7 @@
 import uqrdav10, { accounts } from '../../mock/data/account';
 import ApiAccess from '../../src/ApiAccess/ApiAccess';
 import { apiLocale } from '../../src/ApiAccess/ApiAccess.locale';
+import { authLocale } from '../../src/UtilityArea/auth.locale';
 
 describe('Auth button', () => {
     context('Auth button', () => {
@@ -46,6 +47,37 @@ describe('Auth button', () => {
             });
             cy.get('uq-site-header').find('auth-button').should('exist');
             cy.get('auth-button').shadow().find('#auth-log-in-label').should('contain', 'Log in');
+        });
+
+        it('Navigates to login page', () => {
+            cy.visit('http://localhost:8080/?user=public');
+            cy.viewport(1280, 900);
+            cy.wait(100);
+            cy.get('uq-site-header').find('auth-button').should('exist');
+            cy.get('auth-button').shadow().find('#auth-log-in-label').should('contain', 'Log in');
+
+            cy.wait(1500);
+            cy.intercept('GET', authLocale.AUTH_URL_LOGIN, {
+                statusCode: 200,
+                body: 'user visits login page',
+            });
+            cy.get('auth-button').shadow().find('[data-testid="auth-button-login"]').click();
+            cy.get('body').contains('user visits login page');
+        });
+
+        it('Navigates to logout page', () => {
+            cy.visit('http://localhost:8080/?user=s1111111');
+            cy.viewport(1280, 900);
+            cy.wait(100);
+            cy.get('uq-site-header').find('auth-button').should('exist');
+            cy.get('auth-button').shadow().find('#auth-log-out-label').should('contain', 'Log out');
+            cy.wait(1500);
+            cy.intercept('GET', authLocale.AUTH_URL_LOGOUT, {
+                statusCode: 200,
+                body: 'user visits logout page',
+            });
+            cy.get('auth-button').shadow().find('[data-testid="auth-button-logout"]').click();
+            cy.get('body').contains('user visits logout page');
         });
 
         it('account with out of date session storage is not used', () => {

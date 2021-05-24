@@ -100,7 +100,9 @@ class AuthButton extends HTMLElement {
         const loggedoutButton = !!shadowDOM && shadowDOM.getElementById('auth-button-logout');
         !!loggedoutButton && loggedoutButton.addEventListener('click', visitLogOutPage);
 
-        !loggedinButton && !loggedoutButton && console.log('neither logged in nor logged out buttons exist');
+        !loggedinButton &&
+            !loggedoutButton &&
+            /* istanbul ignore next */ console.log('neither logged in nor logged out buttons exist');
     }
 
     async checkAuthorisedUser() {
@@ -113,6 +115,7 @@ class AuthButton extends HTMLElement {
         await api
             .getAccount()
             .then((account) => {
+                /* istanbul ignore else */
                 if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
                     that.account = account;
                 }
