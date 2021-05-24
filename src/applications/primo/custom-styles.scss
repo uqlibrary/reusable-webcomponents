@@ -153,7 +153,7 @@ prm-search-bar {
                 &.button-link:not([disabled]) {
                     &:hover,
                     &:focus {
-                        color: #0a447e;
+                        color: $links-hue-5;
                         background-color: $highlightBlue;
                     }
                 }
@@ -535,7 +535,7 @@ button.md-button.link-alt-color {
     &.button-as-link:not([disabled]) {
         &:hover,
         &:focus {
-            color: #0a447e;
+            color: $links-hue-5;
             background-color: $highlightBlue;
         }
     }
@@ -851,6 +851,32 @@ prm-page-nav-menu {
             display: none;
         }
     }
+    .current-bulk,
+    .current-page {
+        // Show blue background for current page/page-size 
+        // instead of rounded rectangle
+        box-shadow: none;
+        background: $uqBlue;
+        color: $white !important;
+    }
+    .counter-main,
+    .counter-nav,
+    .bulks-options {
+        .md-button {
+            // Blue colour for all clickable items
+            color: $uqBlue;
+            &:not([disabled]) {
+                &.hovered,
+                &.md-focused,
+                &:hover,
+                &:focus {
+                    // Light blue background on hover for everything
+                    color: $links-hue-5 !important;
+                    background-color: $highlightBlue;
+                }
+            }
+        }
+    }
 }
 
 .my-refworks-ctm {
@@ -860,6 +886,8 @@ prm-page-nav-menu {
 
 prm-explore-main {
     .header {
+        // Allow floating "My favourites" and "Back to top" buttons
+        // to be clickable
         z-index: 20;
     }
 }
