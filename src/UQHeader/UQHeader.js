@@ -110,6 +110,7 @@ class UQHeader extends HTMLElement {
         // the dom is not loaded for a moment (needed when attributes are added via JS, ie the applications)
         const awaitShadowDom = setInterval(() => {
             if (!that.shadowRoot) {
+                /* istanbul ignore next  */
                 return;
             }
 
@@ -134,6 +135,7 @@ class UQHeader extends HTMLElement {
                     this.hideLibraryGlobalMenuItem(newValue);
 
                     break;
+                /* istanbul ignore next  */
                 default:
                     console.log(`unhandled attribute ${fieldName} received for UQHeader`);
             }
@@ -143,9 +145,6 @@ class UQHeader extends HTMLElement {
     // Provides a #id for skip nav
     // if never provided, skip nav is never unhidden
     handleSkipNavInsertion(newValue) {
-        if (!newValue) {
-            return;
-        }
         const skipToElement = () => {
             const skipNavLander = document.getElementById(newValue);
             !!skipNavLander && skipNavLander.focus();
@@ -158,6 +157,7 @@ class UQHeader extends HTMLElement {
 
     hideLibraryGlobalMenuItem(newValue) {
         // If the attribute hidelibrarymenuitem is true, remove the global menu item from the DOM
+        /* istanbul ignore else  */
         if (!(newValue === 'false' || newValue === null)) {
             const libraryMenuItem = this.shadowRoot.getElementById('menu-item-library');
             !!libraryMenuItem && libraryMenuItem.remove();
@@ -165,12 +165,14 @@ class UQHeader extends HTMLElement {
     }
 
     appendSearchWidgetUrl(newValue) {
+        /* istanbul ignore else  */
         if (!!newValue) {
             this.shadowRoot.getElementById('edit-as_sitesearch-on').value = newValue;
         }
     }
 
     changeSearchWidgetLabel(newValue) {
+        /* istanbul ignore else  */
         if (!!newValue) {
             const oldValue = this.shadowRoot.getElementById('search-label').innerHTML;
             const result = oldValue.replace('library.uq.edu.au', newValue);
@@ -181,6 +183,7 @@ class UQHeader extends HTMLElement {
     loadScript() {
         // This loads the external JS file into the HTML head dynamically
         //Only load js if it has not been loaded before (tracked by the initCalled flag)
+        /* istanbul ignore else  */
         if (!initCalled) {
             //Dynamically import the JS file and append it to the document header
             const script = document.createElement('script');
@@ -193,7 +196,7 @@ class UQHeader extends HTMLElement {
                 new uq.header();
             };
             //Specify the location of the ITS DS JS file
-            script.src = 'uq-header.js';
+            script.src = '/uq-header.js';
 
             //Append it to the document header
             document.head.appendChild(script);

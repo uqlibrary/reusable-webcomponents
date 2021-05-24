@@ -26,8 +26,9 @@ class Alerts extends HTMLElement {
     async updateAlertListDom(shadowRoot) {
         await new ApiAccess().loadAlerts().then((alerts) => {
             const alertParent = document.querySelector('alert-list');
-            const shadowDOM = (!!alertParent && alertParent.shadowRoot) || false;
+            const shadowDOM = !!alertParent && alertParent.shadowRoot;
             const alertWrapper = !!shadowDOM && shadowDOM.getElementById('alerts-wrapper');
+            /* istanbul ignore else  */
             if (!!alertWrapper && !!alerts && alerts.length > 0) {
                 // loop through alerts
                 alerts.forEach((alertData) => {
@@ -36,8 +37,9 @@ class Alerts extends HTMLElement {
                     // if the alert-list is inserted twice, all the elements will be inserted in the first instance. Weird.
                     // so go into the shadow dom of the first instance and look to see if the id exists
                     const alertList = document.querySelector('alert-list');
-                    const shadowDOM = (!!alertList && alertList.shadowRoot) || false;
+                    const shadowDOM = !!alertList && alertList.shadowRoot;
                     const alertExists = !!shadowDOM && !!alertData && shadowDOM.querySelector(`#alert-${alertData.id}`);
+                    /* istanbul ignore else  */
                     if (!!alert && !alertExists) {
                         !!alertData.id && alert.setAttribute('id', `alert-${alertData.id}`);
                         !!alertData.body && alert.setAttribute('alertmessage', alertData.body);
