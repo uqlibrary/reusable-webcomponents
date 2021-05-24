@@ -109,6 +109,10 @@ class EzProxy extends HTMLElement {
         const outputArea = this.shadowRoot.getElementById('ez-proxy-url-display-area');
         outputArea.value = value;
 
+        if (this.redirectOnly) {
+            return;
+        }
+
         if (!!value) {
             const inputField = this.shadowRoot.getElementById('ez-proxy-input');
             inputField.classList.add('hidden');
@@ -137,8 +141,7 @@ class EzProxy extends HTMLElement {
         setTimeout(() => {
             statusToast.classList.remove('open');
             setTimeout(() => {
-                statusToast.classList.add('hidden');
-                statusToast.innerText = '';
+                this.copyStatus = { message: '' };
             }, 1000);
         }, 3010);
     }
@@ -235,18 +238,15 @@ class EzProxy extends HTMLElement {
      * @param e
      */
     navigateToEzproxy(e) {
-        let outputUrl;
         if (this.redirectOnly) {
             var cleanedUrl = cleanupUrl(this.inputUrl);
             this.inputValidator = this.checkUrl(cleanedUrl);
-            outputUrl = this.getUrl(cleanedUrl);
-        } else {
-            outputUrl = this.outputUrl;
+            this.outputUrl = this.getUrl(cleanedUrl);
         }
 
         if (this.inputValidator.valid) {
-            // this.ga.addEvent('GoProxy', outputUrl);
-            var win = window.open(outputUrl);
+            // this.ga.addEvent('GoProxy', this.outputUrl);
+            var win = window.open(this.outputUrl);
             win.focus();
         }
     }
@@ -283,6 +283,8 @@ class EzProxy extends HTMLElement {
 
         if (dest.length <= 0) {
             validation.message = 'Please enter a URL';
+            const inputField = this.shadowRoot.getElementById('ez-proxy-input');
+            inputField.focus();
         } else if (this.doiRegexp.test(dest)) {
             validation.valid = true;
         } else if (!isURL(dest, { require_protocol: true })) {
