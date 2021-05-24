@@ -121,6 +121,7 @@ class MyLibraryButton extends HTMLElement {
     async updateMylibraryDOM(shadowRoot) {
         const that = this;
         this.confirmAccount().then((accountSummary) => {
+            /* istanbul ignore else */
             if (!!accountSummary.isLoggedin) {
                 shadowRoot.appendChild(template.content.cloneNode(true));
 
@@ -181,7 +182,7 @@ class MyLibraryButton extends HTMLElement {
 
             setTimeout(showDisplay, 100);
             document.onkeydown = function (evt) {
-                evt = evt || window.event;
+                evt = evt || /* istanbul ignore next */ window.event;
                 const escapeKeyCode = 27;
                 if ((evt.key === escapeKeyCode || evt.keyCode === escapeKeyCode) && myLibraryClosed === false) {
                     closeMyLibMenu();
