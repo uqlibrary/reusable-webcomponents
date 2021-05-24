@@ -41,6 +41,7 @@ class gtm extends HTMLElement {
                 });
                 var f = d.getElementsByTagName(s)[0],
                     j = d.createElement(s),
+                    /* istanbul ignore next */
                     dl = l != 'dataLayer' ? '&l=' + l : '';
                 j.async = true;
                 j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
