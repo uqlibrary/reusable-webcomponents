@@ -87,8 +87,8 @@ class UQSiteHeader extends HTMLElement {
 
         // the dom is not loaded for a moment
         const awaitShadowDom = setInterval(() => {
+            /* istanbul ignore next */
             if (!that.shadowRoot) {
-                /* istanbul ignore next  */
                 return;
             }
 
@@ -161,11 +161,13 @@ class UQSiteHeader extends HTMLElement {
             const datatestid = `menu-group-item-${index}`;
             const hasChildren = !!jsonParentItem.submenuItems && jsonParentItem.submenuItems.length > 0;
 
-            const textOfParentLink = document.createTextNode(jsonParentItem.primaryText || '');
+            const textOfParentLink = document.createTextNode(
+                jsonParentItem.primaryText || /* istanbul ignore next */ '',
+            );
 
             const parentLink = document.createElement('a');
             parentLink.setAttribute('data-testid', `${datatestid}-link`);
-            parentLink.setAttribute('href', this.getLink(jsonParentItem.linkTo) || '');
+            parentLink.setAttribute('href', this.getLink(jsonParentItem.linkTo) || /* istanbul ignore next */ '');
             parentLink.appendChild(textOfParentLink);
             parentLink.setAttribute('aria-expanded', 'false');
 
@@ -174,6 +176,7 @@ class UQSiteHeader extends HTMLElement {
             let classNavListitem = 'uq-site-header__navigation__list-item';
             !!hasChildren && (classNavListitem += ' uq-site-header__navigation__list-item--has-subnav');
             const activeClassName = ' uq-site-header__navigation__list-item--active';
+            /* istanbul ignore next */
             jsonParentItem.linkTo === window.location.href && (classNavListitem += activeClassName);
             parentListItem.setAttribute('class', classNavListitem);
             parentListItem.setAttribute('data-testid', datatestid);
@@ -199,11 +202,16 @@ class UQSiteHeader extends HTMLElement {
                 jsonParentItem.submenuItems.forEach((jsonChild, indexChild) => {
                     const listItem = document.createElement('li');
                     listItem.setAttribute('class', 'uq-site-header__navigation__list-item');
-                    listItem.setAttribute('data-testid', `${jsonParentItem.dataTestid}-${indexChild}` || '');
+                    listItem.setAttribute(
+                        'data-testid',
+                        `${jsonParentItem.dataTestid}-${indexChild}` || /* istanbul ignore next */ '',
+                    );
 
                     // a missing primary text allows for an empty cell, controlling the spacing of the menu
                     if (!!jsonChild.primaryText) {
-                        const primarytextOfLink = document.createTextNode(jsonChild.primaryText || '');
+                        const primarytextOfLink = document.createTextNode(
+                            jsonChild.primaryText || /* istanbul ignore next */ '',
+                        );
                         const primaryTextItem = document.createElement('span');
                         primaryTextItem.setAttribute('class', 'displayText');
                         primaryTextItem.appendChild(primarytextOfLink);
@@ -238,6 +246,7 @@ class UQSiteHeader extends HTMLElement {
         const stagingDomain = 'library.stage.drupal.uq.edu.au';
         const prodDomain = 'web.library.uq.edu.au';
         const stagingLink = linkTo.replace(prodDomain, stagingDomain);
+        /* istanbul ignore next */
         return window.location.hostname === stagingDomain ? stagingLink : linkTo;
     }
 
@@ -251,6 +260,7 @@ class UQSiteHeader extends HTMLElement {
         // Only load js if it has not been loaded before
         const scriptId = 'uq-nav-script';
         const scriptFound = document.getElementById(scriptId);
+        /* istanbul ignore else */
         if (!scriptFound) {
             const that = this;
 
