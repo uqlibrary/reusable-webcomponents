@@ -77,7 +77,7 @@ template.innerHTML = `
         <div class="paper-item-body-0">
             <h4 class="title">Library member registration (for non-UQ staff and students)</h4>
             <div class="secondary body1">Email 
-                <a id="emailEnquiry" href="#" class="uqlibrary-training-details"></a> with your name, UQ username, phone number and the event name and date to reserve a place. We’ll email you within 2 business days.
+                <a id="emailEnquiry" href="#" class="uqlibrary-training-details"></a> with your name, UQ username, phone number and the event name and date to reserve a place. We'll email you within 2 business days.
             </div>
         </div>
     </div>
