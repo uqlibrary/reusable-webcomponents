@@ -11,7 +11,7 @@ template.innerHTML = `
         <h3 class="inverse" id="eventName"></h3>
     </div>
     <!--    <div class="details body1" id="eventSummary"></div>-->
-    <div class="details body1" id="eventDetails"></div>
+    <div class="details body1" id="eventDetails" data-testid="eventDetails"></div>
     <div class="iconRow dateRange" role="option" tabindex="0" aria-disabled="false">
         <div class="content-icon">
             <span class="lowlevel-icon">
@@ -25,8 +25,10 @@ template.innerHTML = `
         </div>
         <div class="paper-item-body-0">
             <h4 class="title">Date</h4>
-            <div class="secondary body1" id="fullDate"></div>
-            <div class="secondary body1"><span id="startTime"></span> - <span id="endTime"></span></div>
+            <div class="secondary body1" id="fullDate" data-testid="fullDate"></div>
+            <div class="secondary body1">
+                <span id="startTime" data-testid="startTime"></span> - <span id="endTime" data-testid="endTime"></span>
+            </div>
         </div>
     </div>
     <div class="iconRow locationblock" role="option" tabindex="0" aria-disabled="false">
@@ -42,7 +44,7 @@ template.innerHTML = `
         </div>
         <div>
             <h4 class="title">Location</h4>
-            <div id="locationdetails"></div>
+            <div id="locationdetails" data-testid="locationdetails"></div>
         </div>
     </div>
     <div class="iconRow registrationItem" role="option" tabindex="0" aria-disabled="false">
@@ -58,10 +60,10 @@ template.innerHTML = `
         </div>
         <div class="paper-item-body-0">
             <h4 class="title">Registration</h4>
-            <div class="secondary body1" id="bookingText"></div>
+            <div class="secondary body1" id="bookingText" data-testid="bookingText"></div>
         </div>
     </div>
-    <div class="iconRow nonuqregistration" role="option" tabindex="0" aria-disabled="false" id="registrationBlockForNonUQ">
+    <div class="iconRow nonuqregistration" role="option" tabindex="0" aria-disabled="false" id="registrationBlockForNonUQ" data-testid="registrationBlockForNonUQ">
         <div class="content-icon">
             <span class="lowlevel-icon">
                 <!-- icon info-outline -->
@@ -80,7 +82,7 @@ template.innerHTML = `
         </div>
     </div>
     <div class="pane__footer">
-        <button id="bookTraining" class="uq-button" role="button" tabindex="0" animated="" aria-disabled="false" elevation="0">Login and book</button>
+        <button id="bookTraining" data-testid="bookTraining" class="uq-button" role="button" tabindex="0" animated="" aria-disabled="false" elevation="0">Login and book</button>
     </div>
 </div>
 `;
@@ -108,12 +110,11 @@ class TrainingDetail extends HTMLElement {
         super();
         // Add a shadow DOM
         const shadowDOM = this.attachShadow({ mode: 'open' });
-        // this.addButtonListeners(shadowDOM);
 
         // Render the template
         shadowDOM.appendChild(template.content.cloneNode(true));
 
-        this.hideNonUQRegistration(shadowDOM);
+        this.setupEmailRegistration(shadowDOM);
         this.setEventName(shadowDOM);
         this.setEventDetails(shadowDOM);
         // this.setEventSummary(shadowDOM);
@@ -125,7 +126,7 @@ class TrainingDetail extends HTMLElement {
         this.getEmailEnquiryHref = this.getEmailEnquiryHref.bind(this);
         this.getStartDateFormatted = this.getStartDateFormatted.bind(this);
         this.getStartTimeFormatted = this.getStartTimeFormatted.bind(this);
-        this.hideNonUQRegistration = this.hideNonUQRegistration.bind(this);
+        this.setupEmailRegistration = this.setupEmailRegistration.bind(this);
         this.setBookingText = this.setBookingText.bind(this);
         this.setEventDateTime = this.setEventDateTime.bind(this);
         this.setEventDetails = this.setEventDetails.bind(this);
@@ -136,9 +137,15 @@ class TrainingDetail extends HTMLElement {
 
     addButtonListeners(eventId) {
         const shadowDOM = this.shadowRoot;
+        const target = this.getAttribute('studenthub_window') || '_blank';
 
-        function visitBookingPage(link) {
-            window.open(link, '_blank');
+        function visitBookingPage(link, target) {
+            /* istanbul ignore else */
+            if (target === '_self') {
+                window.location.assign(link);
+            } else {
+                window.open(link);
+            }
         }
 
         function getBookingLink(eventId) {
@@ -150,7 +157,7 @@ class TrainingDetail extends HTMLElement {
         !!bookingButton &&
             bookingButton.addEventListener('click', function () {
                 const link = getBookingLink(eventId);
-                visitBookingPage(link);
+                visitBookingPage(link, target);
             });
     }
 
@@ -158,6 +165,7 @@ class TrainingDetail extends HTMLElement {
         const startDate = this.getAttribute('start');
         const endDate = this.getAttribute('end');
 
+        /* istanbul ignore next */
         if (!startDate || !endDate) {
             return;
         }
@@ -178,8 +186,8 @@ class TrainingDetail extends HTMLElement {
     }
 
     getStartTimeFormatted(optionHours) {
-        // old: this._startTime = moment(this.event.start).format("h:mma");
         const startDate = this.getAttribute('start');
+        /* istanbul ignore next */
         if (!startDate) {
             return '';
         }
@@ -188,8 +196,8 @@ class TrainingDetail extends HTMLElement {
     }
 
     getStartDateFormatted() {
-        // old: this._fullDate = moment(this.event.start).format("dddd DD MMMM YYYY");
         const startDate = this.getAttribute('start');
+        /* istanbul ignore next */
         if (!startDate) {
             return '';
         }
@@ -231,12 +239,14 @@ class TrainingDetail extends HTMLElement {
 
     setEventLocation(shadowDOM) {
         const venue = this.getAttribute('venue');
+        /* istanbul ignore next */
         if (!venue) {
             return;
         }
         const venueNameElement = document.createTextNode(venue);
 
         const locationdetails = shadowDOM.getElementById('locationdetails');
+        /* istanbul ignore next */
         if (!locationdetails) {
             return;
         }
@@ -256,7 +266,7 @@ class TrainingDetail extends HTMLElement {
         }
     }
 
-    hideNonUQRegistration(shadowDOM) {
+    setupEmailRegistration(shadowDOM) {
         const userID = this.getAttribute('user-id') || false;
         const userName = this.getAttribute('user-name') || false;
 
@@ -270,6 +280,7 @@ class TrainingDetail extends HTMLElement {
 
         const registrationEmail = 'training@library.uq.edu.au';
         const emailEnquiryLink = shadowDOM.getElementById('emailEnquiry');
+        /* istanbul ignore next */
         if (!emailEnquiryLink) {
             return;
         }
@@ -278,12 +289,12 @@ class TrainingDetail extends HTMLElement {
     }
 
     getEmailEnquiryHref(registrationEmail) {
-        const eventNameData = this.getAttribute('event-name') || '';
-        const eventIdData = this.getAttribute('event-id') || '';
-        const eventStartDateData = this.getAttribute('start') || '';
-        const userID = this.getAttribute('user-id') || '';
-        const userName = this.getAttribute('user-name') || '';
-        const userEmail = this.getAttribute('user-email') || '';
+        const eventNameData = this.getAttribute('event-name') || /* istanbul ignore next */ '';
+        const eventIdData = this.getAttribute('event-id') || /* istanbul ignore next */ '';
+        const eventStartDateData = this.getAttribute('start') || /* istanbul ignore next */ '';
+        const userID = this.getAttribute('user-id') || /* istanbul ignore next */ '';
+        const userName = this.getAttribute('user-name') || /* istanbul ignore next */ '';
+        const userEmail = this.getAttribute('user-email') || /* istanbul ignore next */ '';
 
         let mailText = 'mailto:' + registrationEmail + '?';
         mailText += '&subject=Expression of interest for event';
