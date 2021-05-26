@@ -2,6 +2,44 @@
 
 echo "Pre-commit hook running..."
 
+doError() {
+  echo "== UQLapp-frontend pre-commit hook error =="
+  echo "target: $1"
+  echo "msg: $2"
+  echo
+  exit 1
+}
+
+FILE1='src/UQHeader/UQHeader.js'
+FILE2='src/UQSiteHeader/UQSiteHeader.js'
+
+# if the .js file is created like:
+# script.src = '/uq-header.js';
+# then Primo login falls over, see https://www.pivotaltracker.com/n/projects/1589667/stories/178262284
+git diff --cached --name-only | while read file; do
+  # uq-header.js should not have a / on the front of the file name reference
+  if [ "$file" = "$FILE1" ]; then
+    BADSTRING1="/uq-header.js";
+    if grep -q "$BADSTRING1" $file; then
+      doError $file "'uq-header' should not be an absolute reference!! (it should not have a '/' on the front)"
+      break;
+    fi
+  fi
+
+  # uq-site-header.js should not have a / on the front of the file name reference
+  if [ "$file" = "$FILE2" ]; then
+    BADSTRING2="/uq-site-header.js";
+    if grep -q "$BADSTRING2" $file; then
+      doError $file "'uq-site-header' should not be an absolute reference!! (it should not have a '/' on the front)"
+      break;
+    fi
+  fi
+done
+
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
 # Commits should not be made directly on Staging branch.
 # (Do work in feature branch and then merge into Staging branch)
 
