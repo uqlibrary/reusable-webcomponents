@@ -10,9 +10,9 @@ template.innerHTML = `
     <div class="event-name purple">
         <h3 class="inverse" id="eventName"></h3>
     </div>
-    <!--    <div class="details body1" id="eventSummary"></div>-->
-    <div class="details body1" id="eventDetails" data-testid="eventDetails"></div>
-    <div class="iconRow dateRange" role="option" tabindex="0" aria-disabled="false">
+    <!--    <div class="details" id="eventSummary"></div>-->
+    <div class="details" id="eventDetails" data-testid="eventDetails"></div>
+    <div class="details iconRow dateRange" role="option" tabindex="0" aria-disabled="false">
         <div class="content-icon">
             <span class="lowlevel-icon">
                 <!-- icon date-range -->
@@ -23,15 +23,15 @@ template.innerHTML = `
                 </svg>
             </span>
         </div>
-        <div class="paper-item-body-0">
-            <h4 class="title">Date</h4>
-            <div class="secondary body1" id="fullDate" data-testid="fullDate"></div>
-            <div class="secondary body1">
+        <div>
+            <h4>Date</h4>
+            <div id="fullDate" data-testid="fullDate"></div>
+            <div>
                 <span id="startTime" data-testid="startTime"></span> - <span id="endTime" data-testid="endTime"></span>
             </div>
         </div>
     </div>
-    <div class="iconRow locationblock" role="option" tabindex="0" aria-disabled="false">
+    <div class="details iconRow locationblock" role="option" tabindex="0" aria-disabled="false">
         <div class="content-icon">
             <span class="lowlevel-icon">
                 <!-- icon communication:location-on -->
@@ -43,11 +43,11 @@ template.innerHTML = `
             </span>
         </div>
         <div>
-            <h4 class="title">Location</h4>
+            <h4>Location</h4>
             <div id="locationdetails" data-testid="locationdetails"></div>
         </div>
     </div>
-    <div class="iconRow registrationItem" role="option" tabindex="0" aria-disabled="false">
+    <div class="details iconRow registrationItem" role="option" tabindex="0" aria-disabled="false">
         <div class="content-icon">
             <span class="lowlevel-icon">
                 <!-- notification:event-available -->
@@ -58,12 +58,12 @@ template.innerHTML = `
                 </svg>
             </span>
         </div>
-        <div class="paper-item-body-0">
-            <h4 class="title">Registration</h4>
-            <div class="secondary body1" id="bookingText" data-testid="bookingText"></div>
+        <div>
+            <h4>Registration</h4>
+            <div id="bookingText" data-testid="bookingText"></div>
         </div>
     </div>
-    <div class="iconRow nonuqregistration" role="option" tabindex="0" aria-disabled="false" id="registrationBlockForNonUQ" data-testid="registrationBlockForNonUQ">
+    <div class="details iconRow nonuqregistration" role="option" tabindex="0" aria-disabled="false" id="registrationBlockForNonUQ" data-testid="registrationBlockForNonUQ">
         <div class="content-icon">
             <span class="lowlevel-icon">
                 <!-- icon info-outline -->
@@ -74,9 +74,9 @@ template.innerHTML = `
                 </svg>
             </span>
         </div>
-        <div class="paper-item-body-0">
-            <h4 class="title">Library member registration (for non-UQ staff and students)</h4>
-            <div class="secondary body1">Email 
+        <div>
+            <h4>Library member registration (for non-UQ staff and students)</h4>
+            <div>Email 
                 <a id="emailEnquiry" href="#" class="uqlibrary-training-details"></a> with your name, UQ username, phone number and the event name and date to reserve a place. We'll email you within 2 business days.
             </div>
         </div>
