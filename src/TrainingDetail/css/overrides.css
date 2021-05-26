@@ -1,0 +1,71 @@
+.details {
+    padding: 16px;
+    overflow: hidden;
+}
+
+.content-icon {
+    flex-direction: row;
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    width: 5rem;
+    min-width: 5rem;
+    display: flex;
+    align-items: center;
+}
+
+.lowlevel-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    vertical-align: middle;
+    fill: currentcolor;
+    stroke: currentcolor;
+    width: 24px;
+    height: 24px;
+}
+
+.pane__footer {
+    text-align: right;
+}
+
+.event-name {
+    padding: 16px;
+}
+.event-name h3 {
+    margin: 0 0 16px 0;
+}
+h3.inverse {
+    color: #fff;
+}
+
+/* style the text from the api */
+.details p {
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    line-height: 1.25;
+    overflow-wrap: break-word;
+    text-size-adjust: 100%;
+    white-space: normal;
+}
+.details p,
+.details ul li {
+    margin-bottom: initial;
+}
+
+.iconRow {
+    display: flex;
+    padding: 12px;
+}
+
+.iconRow h4 {
+    margin-block-end: 0;
+    margin-block-start: 0;
+    margin-bottom: 0;
+    margin-top: 0;
+    color: #000;
+}
