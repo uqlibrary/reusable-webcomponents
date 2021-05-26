@@ -92,7 +92,7 @@ describe('Training', () => {
                 .shadow()
                 .within(() => {
                     cy.get('h3').contains('Excel2');
-                    cy.get('[data-testid="locationdetails"]').contains('Location not in map list');
+                    cy.get('[data-testid="locationdetails"]').contains('Townsville');
                     cy.get('[data-testid="locationdetails"] a').should('not.exist');
                     cy.get('[data-testid="bookingText"]').contains('Class is full. Register for waitlist.');
                     cy.get('[data-testid="registrationBlockForNonUQ"]').should('not.be.visible');
