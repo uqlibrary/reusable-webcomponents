@@ -12,10 +12,10 @@ template.innerHTML = `
         </div>
             <div class="card-content">
                 <div aria-label="filter by keyword" class="paper-input-0" tabindex="0" aria-disabled="false">
-                    <div style="display: flex;">
-                        <label style="flex: 1" class="keywordhover1 hovertext1">
-                            <input id="inputKeyword" class="hovertext1 paper-input" autocomplete="off" placeholder=" " autocapitalize="none" autocorrect="off" aria-describedby="" aria-labelledby="keywordhover" tabindex="0">
-                            <span class="keywordhover1 hovertext1">By keyword</span>
+                    <div class="keywordPlaceholderMovement">
+                        <label>
+                            <input id="inputKeyword" class="paper-input" autocomplete="off" placeholder=" " autocapitalize="none" autocorrect="off" aria-describedby="" aria-labelledby="keywordhover" tabindex="0">
+                            <span>By keyword</span>
                         </label>                        
                         <button class="clearKeyword" id="clearKeyword">
                             <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="iron-icon" style="pointer-events: none; display: block; width: 100%; height: 100%;">
@@ -162,6 +162,7 @@ class TrainingFilter extends HTMLElement {
         !!inputKeywordField && inputKeywordField.addEventListener('change', noteKeywordChange);
         !!inputKeywordField && inputKeywordField.addEventListener('keydown', noteKeywordChange);
         !!inputKeywordField && inputKeywordField.addEventListener('keyup', noteKeywordChange);
+        // may need more listeners for mobile, etc?
 
         function noteCheckboxSet() {
             that.onlineOnlyProperty = !!this.checked;

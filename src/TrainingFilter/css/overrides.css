@@ -133,12 +133,11 @@ button.chip {
     padding: 0.1rem 1rem;
 }
 
-/*.hovertext1 {*/
-/*    display: flex;*/
-/*    position: relative;*/
-/*}*/
+.keywordPlaceholderMovement {
+    display: flex;
+}
 
-label.hovertext1 {
+.keywordPlaceholderMovement label {
     /*margin:20px 0;*/
     position:relative;
     display:inline-block;
@@ -149,7 +148,7 @@ label.hovertext1 {
     flex: 1;
 }
 
-span.hovertext1 {
+.keywordPlaceholderMovement span {
     padding: 20px 10px 10px 10px;
     pointer-events: none;
     position:absolute;
@@ -163,12 +162,12 @@ span.hovertext1 {
     font-weight: 400;
 }
 
-input.hovertext1 {
+.keywordPlaceholderMovement input {
     padding:10px;
 }
 
-input.hovertext1:focus + span,
-input.hovertext1:not(:placeholder-shown) + span {
+.keywordPlaceholderMovement input:focus + span,
+.keywordPlaceholderMovement input:not(:placeholder-shown) + span {
     opacity:1;
     transform: scale(0.75) translateY(-100%) translateX(-30px);
 }
