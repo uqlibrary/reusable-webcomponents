@@ -14,8 +14,8 @@ template.innerHTML = `
                 <div aria-label="filter by keyword" class="paper-input-0" tabindex="0" aria-disabled="false">
                     <div aria-label="keywordhover" id="keywordhover" class="hovertext keywordhover "></div>
                     <div style="display: flex;">
-                        <input id="inputKeyword" class="paper-input" autocomplete="off" placeholder="By keyword" autocapitalize="none" autocorrect="off" aria-describedby="" aria-labelledby="keywordhover" tabindex="0">
-                        <span style="flex: 1" class="lowlevel-icon" style="">
+                        <input style="flex: 1" id="inputKeyword" class="paper-input" autocomplete="off" placeholder="By keyword" autocapitalize="none" autocorrect="off" aria-describedby="" aria-labelledby="keywordhover" tabindex="0">
+                        <span class="lowlevel-icon" style="">
                             <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="iron-icon" style="pointer-events: none; display: block; width: 100%; height: 100%;">
                                 <g class="iron-icon">
                                     <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" class="iron-icon"></path>

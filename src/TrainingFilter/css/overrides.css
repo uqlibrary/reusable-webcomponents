@@ -74,7 +74,7 @@ button.campus {
 }
 
 .opener.filterer::after {
-    content: " ▼";
+    content: " \25BC";
     float: right;
 }
 
