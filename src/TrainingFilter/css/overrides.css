@@ -1,0 +1,118 @@
+.pane {
+    background-color: #fff;
+}
+
+.content-icon {
+    flex-direction: row;
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    width: 3rem;
+    min-width: 3rem;
+    display: flex;
+    align-items: center;
+}
+
+.lowlevel-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    vertical-align: middle;
+    fill: currentcolor;
+    stroke: currentcolor;
+    width: 24px;
+    height: 24px;
+}
+
+.title-text {
+    font-size: 24px;
+    font-weight: 400;
+    color: #000;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding-top: 0;
+    width: 100%;
+}
+.card-content > div {
+    /*flex: 1;*/
+    /*flex-basis: 0.000000001px;*/
+width: 30%;
+}
+
+.hidden {
+    display: none;
+    /*transition: height 5s, width 5s, padding 5s, visibility 5s, opacity 0.5s ease-out;*/
+    animation: in 700ms ease both;
+}
+
+button.week,
+button.campus {
+    display: block;
+    width: 10rem;
+}
+
+/* buttons that act to filter */
+.filterer {
+    background-color: #fff;
+    border: 1px solid #e2e2e2;
+    border-radius: 2px;
+    min-height: 3rem;
+    text-align: left;
+    color: #A9A9A9;
+    font-size: 16px;
+    opacity: 1;
+}
+
+.opener.filterer {
+    width: 100%;
+}
+
+.opener.filterer::after {
+    content: " ▼";
+    float: right;
+}
+
+.hovertext {
+    font-size: 0.8rem;
+    height: 1rem;
+    color: #51247A;
+    padding-bottom: 1.2rem;
+}
+
+.hovertext {
+    height: 0.8rem;
+}
+
+.listHolder {
+    position: relative;
+}
+
+.selectorlist {
+    position: absolute;
+    /*top: -2rem;*/
+    left: 1rem;
+    z-index: 10;
+/*    margin-top: -2rem;*/
+/*    margin-left: 2rem;*/
+/*    z-index: 2;*/
+}
+
+.quicklinks h4 {
+    color: #1d1d1d;
+    display: inline;
+    font-size: 0.75rem;
+    font-weight: 400;
+}
+
+button.chip {
+    border-radius: 1rem;
+    display: inline-flex;
+    margin-right: 0.25rem;
+    padding: 0.1rem 1rem;
+}

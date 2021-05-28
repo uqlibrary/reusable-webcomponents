@@ -1,3 +1,7 @@
+.pane {
+    background-color: #fff;
+}
+
 .content-icon {
     flex-direction: row;
     -webkit-font-smoothing: antialiased;
@@ -27,7 +31,7 @@
 }
 
 .event-name {
-    padding: 16px;
+    padding: 1.5rem;
 }
 .event-name h3 {
     margin: 0 0 16px 0;
