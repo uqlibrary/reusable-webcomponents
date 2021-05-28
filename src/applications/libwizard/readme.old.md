@@ -1,6 +1,6 @@
-# before 2021 changes:
+# before 2021 changes
 
-## Page header tab, 'display this HTML':
+## Page header tab, 'display this HTML'
 
 ```html
 <div style="-webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -83,18 +83,17 @@ text-decoration: none;">Library</a></div>
 
 ## Custom CSS/JS Tab
 
-Custom CSS Code: 
+Custom CSS Code:
+
 ```css
-div.container-app ,
+div.container-app,
 div#content-app {
-padding-top: 12px;
+  padding-top: 12px;
 }
 ```
+
 External CSS Files: blank
 
 Custom JS Code: blank
 
 External JS Code: blank
-
-
-
