@@ -15,7 +15,7 @@
 }
 
 .lowlevel-icon {
-    display: inline-flex;
+    /*display: inline-flex;*/
     align-items: center;
     justify-content: center;
     position: relative;
@@ -24,6 +24,8 @@
     stroke: currentcolor;
     width: 24px;
     height: 24px;
+
+    margin-top: 20px;
 }
 
 .title-text {
@@ -43,6 +45,7 @@
     /*flex: 1;*/
     /*flex-basis: 0.000000001px;*/
 width: 30%;
+    padding-top: 1.2rem;
 }
 
 .hidden {
@@ -115,4 +118,44 @@ button.chip {
     display: inline-flex;
     margin-right: 0.25rem;
     padding: 0.1rem 1rem;
+}
+
+/*.hovertext1 {*/
+/*    display: flex;*/
+/*    position: relative;*/
+/*}*/
+
+label.hovertext1 {
+    /*margin:20px 0;*/
+    position:relative;
+    display:inline-block;
+
+    margin-bottom: 0;
+
+    /* to make cancel button sit beside field */
+    flex: 1;
+}
+
+span.hovertext1 {
+    padding: 20px 10px 10px 10px;
+    pointer-events: none;
+    position:absolute;
+    left:0;
+    top:0;
+    transition: 0.2s;
+    transition-timing-function: ease;
+    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+    opacity:0.5;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+input.hovertext1 {
+    padding:10px;
+}
+
+input.hovertext1:focus + span,
+input.hovertext1:not(:placeholder-shown) + span {
+    opacity:1;
+    transform: scale(0.75) translateY(-100%) translateX(-30px);
 }
