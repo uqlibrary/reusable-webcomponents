@@ -14,7 +14,7 @@
     align-items: center;
 }
 
-.lowlevel-icon {
+.clearKeyword {
     /*display: inline-flex;*/
     align-items: center;
     justify-content: center;
@@ -24,8 +24,21 @@
     stroke: currentcolor;
     width: 24px;
     height: 24px;
+    background-color: white;
+    color: grey;
+    border: none;
 
     margin-top: 20px;
+}
+
+.clearKeyword:hover {
+    cursor: pointer;
+    color: black;
+}
+
+.clearKeyword svg {
+    width: 24px !important;
+    height: 24px !important;;
 }
 
 .title-text {

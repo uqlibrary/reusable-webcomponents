@@ -17,13 +17,13 @@ template.innerHTML = `
                             <input id="inputKeyword" class="hovertext1 paper-input" autocomplete="off" placeholder=" " autocapitalize="none" autocorrect="off" aria-describedby="" aria-labelledby="keywordhover" tabindex="0">
                             <span class="keywordhover1 hovertext1">By keyword</span>
                         </label>                        
-                        <span class="lowlevel-icon">
+                        <button class="clearKeyword" id="clearKeyword">
                             <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="iron-icon" style="pointer-events: none; display: block; width: 100%; height: 100%;">
                                 <g class="iron-icon">
                                     <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" class="iron-icon"></path>
                                 </g>
                             </svg>
-                        </span>
+                        </button>
                     </div>
                 </div>
                 <div aria-label="filter by campus" id="campusDropdown" class="listHolder paper-dropdown-menu-0" role="combobox" aria-autocomplete="none" aria-haspopup="true" aria-disabled="false">
@@ -168,6 +168,14 @@ class TrainingFilter extends HTMLElement {
         }
         const onlineonlyField = !!shadowDOM && shadowDOM.getElementById('onlineonly');
         !!onlineonlyField && onlineonlyField.addEventListener('change', noteCheckboxSet);
+
+        function clearKeyword() {
+            const inputKeywordField = !!shadowDOM && shadowDOM.getElementById('inputKeyword');
+            !!inputKeywordField && (inputKeywordField.value = '');
+            that.inputKeywordValue = '';
+        }
+        const cancelclick = !!shadowDOM && shadowDOM.getElementById('clearKeyword');
+        !!cancelclick && cancelclick.addEventListener('click', clearKeyword);
     }
 
     loadPopularChips(shadowDOM) {
