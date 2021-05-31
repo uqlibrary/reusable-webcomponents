@@ -260,6 +260,7 @@ class TrainingFilter extends HTMLElement {
 
             const weekSelectButton = document.createElement('button');
             weekSelectButton.className = 'week filterer';
+            weekSelectButton.setAttribute('data-testid', weekName.replaceAll(' ', ''));
             weekSelectButton.innerHTML = weekName;
             !!weekSelectButton &&
                 weekSelectButton.addEventListener('click', function () {
@@ -319,7 +320,7 @@ class TrainingFilter extends HTMLElement {
                 const moveLabel = `${campusHover.className} above`;
                 !!moveLabel && (campusHover.className = moveLabel);
             }
-            // there is no functionality to clear the selector fields
+            // there is no requirement to clear the selector fields
 
             // mark as selected so we can move the placeholder label
             const campusDropdown = !!shadowDOM && shadowDOM.getElementById('campusDropdown');
@@ -328,6 +329,7 @@ class TrainingFilter extends HTMLElement {
 
             const campuslist = !!shadowDOM && shadowDOM.getElementById('campuslist');
             that.toggleVisibility(campuslist);
+
             that.selectedCampus = campusCode;
 
             const campusOpenerButton = !!shadowDOM && shadowDOM.getElementById('campusOpener');
@@ -366,8 +368,12 @@ class TrainingFilter extends HTMLElement {
         const currentUrl = new URL(document.URL);
         const oldHash = currentUrl.hash;
 
-        const proposedHash = `keyword=${this._inputKeywordValue};campus=${encodeURIComponent(this._selectedCampus)};
-        weekstart=${encodeURIComponent(this._selectedWeek)};online=${this._onlineOnlyProperty}`;
+        // break it up because prettier interacts badly with the longer string
+        const keywordhash = `keyword=${this._inputKeywordValue}`;
+        const campushash = `campus=${encodeURIComponent(this._selectedCampus)}`;
+        const dateHash = `weekstart=${encodeURIComponent(this._selectedWeek)}`;
+        const onlineHash = `online=${this._onlineOnlyProperty}`;
+        const proposedHash = `${keywordhash};${campushash};${dateHash};${onlineHash}`;
 
         const blankHash = 'keyword=;campus=;weekstart=;online=false';
         if (`#${proposedHash}` !== oldHash && proposedHash === blankHash) {

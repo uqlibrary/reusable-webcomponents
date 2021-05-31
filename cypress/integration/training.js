@@ -132,7 +132,10 @@ describe('Training', () => {
                     // the placeholder has moved up, proxied by "color has changed"
                     cy.get('[data-testid="keywordhover"]').should('have.css', 'color', uqpurple);
 
-                    // TODO: url is now #xxx?
+                    cy.url().should(
+                        'eq',
+                        'http://localhost:8080/index-training.html#keyword=excel;campus=;weekstart=;online=false',
+                    );
                 });
         });
         it('user can select a campus', () => {
@@ -150,6 +153,11 @@ describe('Training', () => {
                     cy.get('[data-testid="campusOpener"]').contains('St Lucia');
                     // the placeholder has moved up, proxied by "color has changed"
                     cy.get('[data-testid="campushover"]').should('have.css', 'color', uqpurple);
+
+                    cy.url().should(
+                        'eq',
+                        'http://localhost:8080/index-training.html#keyword=;campus=St%2520Lucia;weekstart=;online=false',
+                    );
                 });
         });
         it('user can select a week', () => {
@@ -162,9 +170,14 @@ describe('Training', () => {
                     cy.get('[data-testid="weekhover"]').click();
 
                     cy.get('[data-testid="weeklist"]').first().click();
-                    cy.get('[data-testid="weekOpener"]').contains('22 July - 29 July ');
+                    cy.get('[data-testid="weekOpener"]').should('contain', '22 July - 28 July ');
                     // the placeholder has moved up, proxied by "color has changed"
                     cy.get('[data-testid="weekhover"]').should('have.css', 'color', uqpurple);
+
+                    cy.url().should(
+                        'eq',
+                        'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=20210722;online=false',
+                    );
                 });
         });
     });
