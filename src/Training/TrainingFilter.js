@@ -1,5 +1,5 @@
 import styles from './css/main.css';
-import overrides from './css/overrides.css';
+import overrides from './css/filter.css';
 import { authLocale } from '../UtilityArea/auth.locale';
 
 const template = document.createElement('template');
