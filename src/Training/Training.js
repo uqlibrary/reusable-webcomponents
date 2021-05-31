@@ -10,7 +10,6 @@ template.innerHTML = `
     </style>
     <div role="region" aria-label="UQ Library Training" data-testid="library-training" id="library-training">
         <div id="training-container">
-            <div id="training-status"></div>
             <training-filter id="training-filter"></training-filter>
             <training-list id="training-list"></training-list>
         </div>
@@ -18,10 +17,6 @@ template.innerHTML = `
 `;
 
 class Training extends HTMLElement {
-    get logging() {
-        return true;
-    }
-
     get eventFilterId() {
         return this.getAttribute('event-filter-id');
     }
@@ -61,6 +56,9 @@ class Training extends HTMLElement {
             .slice(1) // remove '#' from beginning
             .split(';') // separate filters
             .map((spec) => {
+                if (!spec) {
+                    return;
+                }
                 const parts = spec.split('='); // get keys and values
                 ret.push({
                     name: parts[0],
@@ -82,7 +80,6 @@ class Training extends HTMLElement {
         this.shadowRoot.appendChild(template.content.cloneNode(true));
 
         // Save element refs
-        this.statusNode = this.shadowRoot.getElementById('training-status');
         this.filterComponent = this.shadowRoot.getElementById('training-filter');
         this.listComponent = this.shadowRoot.getElementById('training-list');
 
@@ -94,38 +91,72 @@ class Training extends HTMLElement {
         new ApiAccess().loadTrainingEvents(this.maxEventCount).then((fetchedEvents) => {
             if (fetchedEvents) {
                 this.trainingEvents = fetchedEvents;
-
-                this.statusNode.innerText = `Loaded ${this.trainingEvents.length} events`;
                 this.setFilters();
             }
         });
     }
 
     getFilteredEvents() {
-        const filteredEvents = this.trainingEvents.filter(() => {
-            // TODO: filter with this.filters
+        // Convert array to object for easy reference
+        const filters = {};
+        ['keyword', 'campus', 'weekstart', 'online'].map((filterName) => {
+            const filter = !!this.filters && this.filters.find((spec) => spec.name === filterName);
+            if (filter) {
+                filters[filterName] = filter.value;
+            }
+        }, this);
+
+        const keywordRegExp = new RegExp(filters.keyword, 'i');
+
+        let weekStart;
+        let weekEnd;
+        if (!!filters.weekstart) {
+            weekStart = new Date(filters.weekstart);
+            weekStart.setHours(0, 0, 0);
+
+            weekEnd = new Date(weekStart.getTime());
+            weekEnd.setDate(weekStart.getDate() + 7);
+        }
+
+        const filteredEvents = this.trainingEvents.filter((event) => {
+            if (!!filters.keyword && !(event.name.match(keywordRegExp) || event.details.match(keywordRegExp))) {
+                return false;
+            }
+
+            if (!!filters.campus && filters.campus !== event.campus) {
+                return false;
+            }
+
+            if (!!filters.weekstart) {
+                // const eventDate = moment(event.start);
+                const eventDate = new Date(event.start);
+                if (eventDate < weekStart || weekEnd > eventDate) {
+                    return false;
+                }
+            }
+
+            if (!!filters.online && filters.online === 'true' && !event.isOnlineClass) {
+                return false;
+            }
 
             return true;
         });
 
-        this.logging && console.log(`Filtered list has ${filteredEvents.length} events`);
         return filteredEvents;
     }
 
     addEventListeners() {
         window.addEventListener('hashchange', () => {
-            this.logging && console.log('Hash changed to', window.location.hash || '(empty)');
             this.setFilters();
         });
     }
 
     setFilters() {
-        this.logging && console.log({ filters: this.filters });
-
         // Copy filters from URL to filter component
-        this.filters.forEach(({ name, value }) => {
-            this.filterComponent.setAttribute(name, value);
-        });
+        !!this.filters &&
+            this.filters.forEach(({ name, value }) => {
+                this.filterComponent.setAttribute(name, value);
+            });
 
         // Apply filters to list
         this.listComponent.data = this.getFilteredEvents();
