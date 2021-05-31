@@ -27,7 +27,7 @@ class Training extends HTMLElement {
     }
 
     get maxEventCount() {
-        return this.getAttribute('max-event-count');
+        return this.getAttribute('max-event-count') || 100;
     }
 
     get gaAppName() {

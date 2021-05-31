@@ -108,11 +108,21 @@ class ApiAccess {
             });
     }
 
-    async loadTrainingEvents(maxEventCount = 100) {
+    async loadTrainingEvents(maxEventCount) {
         const trainingApi = new ApiRoutes().TRAINING_API();
         const urlPath = trainingApi.apiUrl;
-        const filterParams = new URLSearchParams({ maxEventCount }).toString();
-        return await this.fetchAPI(urlPath.concat('?', filterParams)).catch((error) => {
+        const filter = {
+            maxEventCount,
+            // filterIds should be an array. Passing an array as value to
+            // URLSearchParams doesn't seem to be working.
+            'filterIds[]': 104, // Value of filter to extract data from career hub.
+        };
+        const filterParams = new URLSearchParams(filter).toString();
+
+        // Need to decode the url-encoded version of '[]' in filterIds.
+        const url = urlPath.concat('?', decodeURIComponent(filterParams));
+
+        return await this.fetchAPI(url).catch((error) => {
             console.log('error loading training events ', error);
             return null;
         });
