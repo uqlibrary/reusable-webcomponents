@@ -54,14 +54,18 @@ class Training extends HTMLElement {
         if (!location.hash) {
             return null;
         }
-        const ret = {};
+        const ret = [];
 
+        // #keyword=Rstudio;campus=St%20Lucia;weekstart=2021-05-31;online=false
         location.hash
             .slice(1) // remove '#' from beginning
-            .split('&') // separate filters
+            .split(';') // separate filters
             .map((spec) => {
                 const parts = spec.split('='); // get keys and values
-                ret[parts[0]] = parts[1];
+                ret.push({
+                    name: parts[0],
+                    value: decodeURIComponent(parts[1]),
+                });
             });
 
         return ret;
@@ -119,7 +123,9 @@ class Training extends HTMLElement {
         this.logging && console.log({ filters: this.filters });
 
         // Copy filters from URL to filter component
-        this.filterComponent.filters = this.filters;
+        this.filters.forEach(({ name, value }) => {
+            this.filterComponent.setAttribute(name, value);
+        });
 
         // Apply filters to list
         this.listComponent.data = this.getFilteredEvents();
