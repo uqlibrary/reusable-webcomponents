@@ -80,29 +80,20 @@ button.campus {
     border-radius: 2px;
     min-height: 3rem;
     text-align: left;
-    color: #A9A9A9;
+    color: #333;
     font-size: 16px;
     opacity: 1;
 }
 
 .opener.filterer {
     width: 100%;
+    color: #A9A9A9;
+    margin-top: 0.5rem;
 }
 
 .opener.filterer::after {
     content: " \25BC";
     float: right;
-}
-
-.hovertext {
-    font-size: 0.8rem;
-    height: 1rem;
-    color: #51247A;
-    padding-bottom: 1.2rem;
-}
-
-.hovertext {
-    height: 0.8rem;
 }
 
 .listHolder {
@@ -117,6 +108,7 @@ button.campus {
 /*    margin-top: -2rem;*/
 /*    margin-left: 2rem;*/
 /*    z-index: 2;*/
+    overflow: auto;
 }
 
 .quicklinks h4 {
@@ -170,4 +162,45 @@ button.chip {
 .keywordPlaceholderMovement input:not(:placeholder-shown) + span {
     opacity:1;
     transform: scale(0.75) translateY(-100%) translateX(-30px);
+}
+
+.listHolder label {
+    /*margin:20px 0;*/
+    position:relative;
+    display:inline-block;
+    width: 100%;
+
+    margin-bottom: 0;
+
+    /* to make cancel button sit beside field */
+    /*flex: 1;*/
+}
+
+.hovertext.above {
+    font-size: 0.8rem;
+    color: #51247A;
+    /*padding-bottom: 1.2rem;*/
+    height: 0.8rem;
+    margin-top: -3rem;
+}
+
+.hovertext {
+    margin-top: -1rem;
+    margin-left: 0.5rem;
+    color: #a9a9a9;
+}
+
+/*.hovertext span {*/
+/*    opacity: 0;*/
+/*}*/
+
+.hovertext {
+    /*opacity:1;*/
+    transition: .2s;
+    transition-timing-function: ease;
+    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+
+    animation:1s ease 2s normal forwards 1 fadein;
+    /*transform: scale(0.75) translateY(-100%) translateX(-30px);*/
+    transform: translateY(-20px);
 }

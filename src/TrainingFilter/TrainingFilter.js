@@ -27,13 +27,13 @@ template.innerHTML = `
                     </div>
                 </div>
                 <div aria-label="filter by campus" id="campusDropdown" class="listHolder paper-dropdown-menu-0" role="combobox" aria-autocomplete="none" aria-haspopup="true" aria-disabled="false">
-                    <div aria-label="campushover" id="campushover" class="hovertext campushover "></div>
-                    <button id="campusOpener" class="opener filterer" aria-labelledby="campushover">By campus</button>
+                    <button id="campusOpener" class="opener filterer" aria-labelledby="campushover"></button>
+                    <div aria-label="campushover" id="campushover" class="hovertext campushover">By campus</div>
                     <div id="campuslist" class="selectorlist campuslist hidden"></div>
                 </div>
                 <div aria-label="filter by week" id="weekDropdown" class="listHolder paper-dropdown-menu-0" role="combobox" aria-autocomplete="none" aria-haspopup="true" aria-disabled="false">
-                    <div aria-label="weekhover" id="weekhover" class="hovertext weekhover "></div>
-                    <button id="weekOpener" class="opener filterer" aria-labelledby="weekhover">By week</button>
+                    <button id="weekOpener" class="opener filterer" aria-labelledby="weekhover"></button>
+                    <div aria-label="weekhover" id="weekhover" class="hovertext weekhover">By week</div>
                     <div id="weeklist" class="selectorlist weeklist hidden"></div>
                 </div>
             </div>
@@ -43,7 +43,6 @@ template.innerHTML = `
             </div>
             <div id="quicklinks" class="quicklinks">
                 <h4>Popular events:</h4>
-    <!--                    <button class="paper-button-0" role="button" tabindex="0" animated="" aria-disabled="false" elevation="0">EndNote</button>-->
             </div>
         </div>
     </div>
@@ -52,31 +51,10 @@ template.innerHTML = `
 let initCalled;
 
 class TrainingFilter extends HTMLElement {
-    // static get observedAttributes() {
-    //     return ['xxx'];
-    // }
-    //
-    // attributeChangedCallback(fieldName, oldValue, newValue) {
-    //     switch (fieldName) {
-    //         case 'xxx':
-    //             this.addButtonListeners(newValue);
-    //
-    //             break;
-    //         /* istanbul ignore next  */
-    //         default:
-    //             console.log(`unhandled attribute ${fieldName} received for TrainingFilter`);
-    //     }
-    // }
-
-    // properties
-    // selectedCampus
-    // selectedWeek
-    // inputKeywordValue
-    // onlineOnlyProperty
-
     constructor() {
         super();
 
+        // initialise properties
         this.selectedCampus = '';
         this.selectedWeek = '';
         this.inputKeywordValue = '';
@@ -102,22 +80,38 @@ class TrainingFilter extends HTMLElement {
 
     set selectedCampus(selectedCampus) {
         // do things to make a change available to other components
-        console.log('selectedCampus has been set to ', selectedCampus);
+        console.log(
+            'selectedCampus has been set to ',
+            selectedCampus,
+            ' now do something clever to pass it back to the parent',
+        );
     }
 
     set selectedWeek(selectedWeek) {
         // do things to make a change available to other components
-        console.log('selectedWeek has been set to ', selectedWeek);
+        console.log(
+            'selectedWeek has been set to ',
+            selectedWeek,
+            ' now do something clever to pass it back to the parent',
+        );
     }
 
     set inputKeywordValue(inputKeyword) {
         // do things to make a change available to other components
-        console.log('inputKeyword has been set to ', inputKeyword);
+        console.log(
+            'inputKeyword has been set to ',
+            inputKeyword,
+            ' now do something clever to pass it back to the parent',
+        );
     }
 
     set onlineOnlyProperty(onlineonly) {
         // do things to make a change available to other components
-        console.log('onlineOnlyProperty has been set to ', onlineonly);
+        console.log(
+            'onlineOnlyProperty has been set to ',
+            onlineonly,
+            ' now do something clever to pass it back to the parent',
+        );
     }
 
     addListeners(shadowDOM) {
@@ -126,7 +120,7 @@ class TrainingFilter extends HTMLElement {
         const campuslist = !!shadowDOM && shadowDOM.getElementById('campuslist');
         const weeklist = !!shadowDOM && shadowDOM.getElementById('weeklist');
 
-        // root close fires after botton open, auto closing it :(
+        // doesnt work atm - root close fires after button opens, auto closing it :(
         // function closeSelectors() {
         //     console.log('close closeSelectors');
         //     !campuslist.classList.contains('hidden') && that.toggleVisibility(campuslist);
@@ -143,6 +137,8 @@ class TrainingFilter extends HTMLElement {
         }
         const campusOpenerButton = !!shadowDOM && shadowDOM.getElementById('campusOpener');
         !!campusOpenerButton && campusOpenerButton.addEventListener('click', toggleCampusSelector);
+        const campushover = !!shadowDOM && shadowDOM.getElementById('campushover');
+        !!campushover && campushover.addEventListener('click', toggleCampusSelector);
 
         function toggleWeekSelector() {
             !campuslist.classList.contains('hidden') && that.toggleVisibility(campuslist);
@@ -150,6 +146,8 @@ class TrainingFilter extends HTMLElement {
         }
         const weekOpenerButton = !!shadowDOM && shadowDOM.getElementById('weekOpener');
         !!weekOpenerButton && weekOpenerButton.addEventListener('click', toggleWeekSelector);
+        const weekhover = !!shadowDOM && shadowDOM.getElementById('weekhover');
+        !!weekhover && weekhover.addEventListener('click', toggleWeekSelector);
 
         function noteKeywordChange() {
             const inputKeywordField = !!shadowDOM && shadowDOM.getElementById('inputKeyword');
@@ -210,8 +208,6 @@ class TrainingFilter extends HTMLElement {
 
         const chipDom = shadowDOM.getElementById('quicklinks');
         chips.forEach((chip) => {
-            // const chipNameLabel = document.createTextNode(xxchipName);
-
             const chipButton = document.createElement('button');
             chipButton.className = 'chip uq-button';
             chipButton.innerHTML = chip.label;
@@ -224,7 +220,7 @@ class TrainingFilter extends HTMLElement {
     }
 
     toggleVisibility(selector) {
-        const showByClassname = !!selector ? selector.className.replace('hidden') : '';
+        const showByClassname = !!selector ? selector.className.replace('hidden', '') : '';
         const hideByClassname = !!selector ? `${selector.className} hidden` : '';
         !!selector && selector.classList.contains('hidden')
             ? (selector.className = showByClassname)
@@ -237,15 +233,27 @@ class TrainingFilter extends HTMLElement {
 
         function selectWeek(weekName) {
             console.log('clicked selectWeek for ', weekName);
-            const weekOpenerButton = !!shadowDOM && shadowDOM.getElementById('weekOpener');
-            !!weekOpenerButton && (weekOpenerButton.innerHTML = weekName);
+
+            const weekHover = !!shadowDOM && shadowDOM.getElementById('weekhover');
+            if (!!weekHover && !weekHover.classList.contains('above')) {
+                // const moveLabel = !!selector && selector.className.replace('hidden', 'above');
+                const moveLabel = `${weekHover.className} above`;
+                !!moveLabel && (weekHover.className = moveLabel);
+            }
+            // there is no functionality to clear the selector fields
+
+            // mark as selected so we can move the placeholder label
+            const weekDropdown = !!shadowDOM && shadowDOM.getElementById('weekDropdown');
+            const newClassname = !!weekDropdown && `${weekDropdown.className} selected`;
+            !!weekDropdown && (weekDropdown.className = newClassname);
 
             const weeklist = !!shadowDOM && shadowDOM.getElementById('weeklist');
             that.toggleVisibility(weeklist);
             that.selectedWeek = weekName;
 
-            const weekHover = !!shadowDOM && shadowDOM.getElementById('weekhover');
-            !!weekHover && (weekHover.innerHTML = 'By week');
+            const weekOpenerButton = !!shadowDOM && shadowDOM.getElementById('weekOpener');
+            !!weekOpenerButton && (weekOpenerButton.innerHTML = weekName);
+            console.log('weekOpenerButton.innerHTML = ', weekOpenerButton.innerHTML);
         }
 
         function addWeekSelectorButton(weekName, weeklistDom) {
@@ -276,7 +284,7 @@ class TrainingFilter extends HTMLElement {
         let weekEndDate = new Date(weekStartProvided);
         weekEndDate.setDate(weekStartDate.getDate() + 7);
         let weekEndDisplay = new Intl.DateTimeFormat('en-AU', optionDate).format(weekEndDate);
-        // TODO check we do include a week for the final class, and we don't include an extra week on the end that has no entries
+        // TODO test we do include a week for the final class, and we don't include an extra week on the end that has no entries
         while (weekStartDate <= weekEndDateFinal) {
             const weekLabel = `${weekStartDisplay} - ${weekEndDisplay} `;
             addWeekSelectorButton(weekLabel, weeklistDom);
@@ -300,15 +308,27 @@ class TrainingFilter extends HTMLElement {
 
         function selectCampus(campusName, campusCode) {
             console.log('clicked selectCampus for ', campusName);
-            const campusOpenerButton = !!shadowDOM && shadowDOM.getElementById('campusOpener');
-            !!campusOpenerButton && (campusOpenerButton.innerHTML = campusName);
+
+            const campusHover = !!shadowDOM && shadowDOM.getElementById('campushover');
+            if (!!campusHover && !campusHover.classList.contains('above')) {
+                // const moveLabel = !!selector && selector.className.replace('hidden', 'above');
+                const moveLabel = `${campusHover.className} above`;
+                !!moveLabel && (campusHover.className = moveLabel);
+            }
+            // there is no functionality to clear the selector fields
+
+            // mark as selected so we can move the placeholder label
+            const campusDropdown = !!shadowDOM && shadowDOM.getElementById('campusDropdown');
+            const newClassname = !!campusDropdown && `${campusDropdown.className} selected`;
+            !!campusDropdown && (campusDropdown.className = newClassname);
 
             const campuslist = !!shadowDOM && shadowDOM.getElementById('campuslist');
             that.toggleVisibility(campuslist);
             that.selectedCampus = campusCode;
 
-            const campusHover = !!shadowDOM && shadowDOM.getElementById('campushover');
-            !!campusHover && (campusHover.innerHTML = 'By campus');
+            const campusOpenerButton = !!shadowDOM && shadowDOM.getElementById('campusOpener');
+            !!campusOpenerButton && (campusOpenerButton.innerHTML = campusName);
+            console.log('campusOpenerButton.innerHTML = ', campusOpenerButton.innerHTML);
         }
 
         function addCampusSelectorButton(campusName, campusCode) {
