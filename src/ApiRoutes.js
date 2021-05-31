@@ -27,6 +27,12 @@ class ApiRoutes {
             apiUrl: 'alerts/current',
         };
     }
+
+    TRAINING_API() {
+        return {
+            apiUrl: 'training_events',
+        };
+    }
 }
 
 export default ApiRoutes;

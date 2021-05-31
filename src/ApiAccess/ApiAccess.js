@@ -108,7 +108,17 @@ class ApiAccess {
             });
     }
 
-    async fetchAPI(urlPath, headers, tokenRequired = false) {
+    async loadTrainingEvents(maxEventCount = 100) {
+        const trainingApi = new ApiRoutes().TRAINING_API();
+        const urlPath = trainingApi.apiUrl;
+        const filterParams = new URLSearchParams({ maxEventCount }).toString();
+        return await this.fetchAPI(urlPath.concat('?', filterParams)).catch((error) => {
+            console.log('error loading training events ', error);
+            return null;
+        });
+    }
+
+    async fetchAPI(urlPath, headers = {}, tokenRequired = false) {
         if (!!tokenRequired && (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)) {
             // no cookie so we wont bother asking for an api that cant be returned
             console.log('no cookie so we wont bother asking for an api that cant be returned');

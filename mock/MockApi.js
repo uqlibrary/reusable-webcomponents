@@ -8,6 +8,8 @@ import {
     libHours, alerts
 } from './data/account';
 
+import trainingEvents from './data/training';
+
 class MockApi {
     constructor() {
         // set session cookie in mock mode
@@ -68,7 +70,8 @@ class MockApi {
     mockfetch(url, options) {
         this.url = url;
         const apiRoute = new ApiRoutes();
-        switch (url) {
+        const urlWithoutQueryString = url.split('?')[0];
+        switch (urlWithoutQueryString) {
             case apiRoute.CURRENT_ACCOUNT_API().apiUrl:
                 // mock account response
                 if (this.user === 'public') {
@@ -112,6 +115,9 @@ class MockApi {
                 } else {
                     return this.response(200, alerts, true);
                 }
+
+            case apiRoute.TRAINING_API().apiUrl:
+                return this.response(200, trainingEvents, true);
 
             /* istanbul ignore next  */
             default:
