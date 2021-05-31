@@ -47,7 +47,7 @@ class Training extends HTMLElement {
     }
 
     set trainingEvents(events) {
-        this.trainingEvents = events;
+        this._trainingEvents = events;
     }
 
     get filters() {
@@ -87,12 +87,12 @@ class Training extends HTMLElement {
     }
 
     fetchData() {
-        new ApiAccess().loadTrainingEvents(this.maxEventCount).then((trainingEvents) => {
-            if (trainingEvents) {
-                // DOESN'T SEEM TO BE WORKING
-                // this.trainingEvents = trainingEvents;
+        new ApiAccess().loadTrainingEvents(this.maxEventCount).then((fetchedEvents) => {
+            if (fetchedEvents) {
+                this.trainingEvents = fetchedEvents;
 
-                this.statusNode.innerText = `Loaded ${trainingEvents.length} events`;
+                this.statusNode.innerText = `Loaded ${this.trainingEvents.length} events`;
+                this.setFilters();
             }
         });
     }
