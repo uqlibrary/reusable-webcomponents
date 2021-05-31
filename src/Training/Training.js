@@ -8,7 +8,7 @@ template.innerHTML = `
         ${styles.toString()}
         ${styleOverrides.toString()}
     </style>
-    <div role="region" aria-label="UQ Library Training" data-testid="uq-training" id="uq-training">
+    <div role="region" aria-label="UQ Library Training" data-testid="library-training" id="library-training">
         <div id="training-container">
             <div id="training-status"></div>
             <training-filter id="training-filter"></training-filter>
