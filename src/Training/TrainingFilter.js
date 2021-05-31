@@ -47,8 +47,6 @@ template.innerHTML = `
     </div>
 `;
 
-let initCalled;
-
 class TrainingFilter extends HTMLElement {
     constructor() {
         super();
@@ -71,95 +69,49 @@ class TrainingFilter extends HTMLElement {
         this.loadPopularChips(shadowDOM);
 
         this.addListeners = this.addListeners.bind(this);
+        this.changeHashofUrl = this.changeHashofUrl.bind(this);
         this.loadCampuses = this.loadCampuses.bind(this);
         this.loadPopularChips = this.loadPopularChips.bind(this);
         this.loadWeeks = this.loadWeeks.bind(this);
-        this.shortenWeek = this.shortenWeek.bind(this);
+        this.shortenDate = this.shortenDate.bind(this);
         this.toggleVisibility = this.toggleVisibility.bind(this);
-    }
-
-    changeHashofUrl() {
-        const currentUrl = new URL(document.URL);
-        const oldHash = currentUrl.hash;
-        console.log('oldHash = ', oldHash);
-
-        const proposedHash = `keyword=${this._inputKeywordValue};campus=${encodeURIComponent(
-            this._selectedCampus,
-        )};weekstart=${encodeURIComponent(this._selectedWeek)};online=${this._onlineOnlyProperty}`;
-
-        const blankHash = 'keyword=;campus=;weekstart=;online=false';
-        if (`#${proposedHash}` !== oldHash && proposedHash === blankHash) {
-            console.log('changing to blank: proposedHash = ', proposedHash);
-            currentUrl.hash = '#';
-            document.location.href = currentUrl.href;
-        } else if (`#${proposedHash}` !== oldHash) {
-            console.log('changing: proposedHash = ', proposedHash);
-            currentUrl.hash = proposedHash;
-            document.location.href = currentUrl.href;
-        } else {
-            console.log('did not change: proposedHash = ', proposedHash);
-        }
     }
 
     set selectedCampus(selectedCampus) {
         // do things to make a change available to other components
-        console.log(
-            'selectedCampus has been set to ',
-            selectedCampus,
-            ' now do something clever to pass it back to the parent',
-        );
-
         this._selectedCampus = selectedCampus;
-
         this.changeHashofUrl();
     }
 
     set selectedWeek(selectedWeek) {
         // do things to make a change available to other components
-        console.log(
-            'selectedWeek has been set to ',
-            selectedWeek,
-            ' now do something clever to pass it back to the parent',
-        );
-
         this._selectedWeek = selectedWeek;
-
-        console.log('this.selectedWeek = ', this.selectedWeek);
         this.changeHashofUrl();
     }
 
     set inputKeywordValue(inputKeyword) {
         // do things to make a change available to other components
-        console.log(
-            'inputKeyword has been set to ',
-            inputKeyword,
-            ' now do something clever to pass it back to the parent',
-        );
-
         this._inputKeywordValue = inputKeyword;
-
         this.changeHashofUrl();
     }
 
     set onlineOnlyProperty(onlineonly) {
         // do things to make a change available to other components
-        console.log(
-            'onlineOnlyProperty has been set to ',
-            onlineonly,
-            ' now do something clever to pass it back to the parent',
-        );
-
         this._onlineOnlyProperty = onlineonly;
-
         this.changeHashofUrl();
     }
 
+    /**
+     * add listeners as required by the page
+     * @param shadowDOM
+     */
     addListeners(shadowDOM) {
         const that = this;
 
         const campuslist = !!shadowDOM && shadowDOM.getElementById('campuslist');
         const weeklist = !!shadowDOM && shadowDOM.getElementById('weeklist');
 
+        // close the dropdown when the user clicks anywhere
         // doesnt work atm - root close fires after button opens, auto closing it :(
         // function closeSelectors() {
         //     console.log('close closeSelectors');
@@ -217,6 +169,10 @@ class TrainingFilter extends HTMLElement {
         !!cancelclick && cancelclick.addEventListener('click', clearKeyword);
     }
 
+    /**
+     * add the list of popular event chips
+     * @param shadowDOM
+     */
     loadPopularChips(shadowDOM) {
         console.log('loadPopularChips');
         const that = this;
@@ -239,9 +195,7 @@ class TrainingFilter extends HTMLElement {
             },
         ];
         function setKeyword(searchTerm) {
-            console.log('setKeyword ', searchTerm);
             const inputKeywordDom = shadowDOM.getElementById('inputKeyword');
-            console.log('inputKeywordDom = ', inputKeywordDom);
             !!inputKeywordDom && (inputKeywordDom.value = searchTerm);
             that.inputKeywordValue = searchTerm;
         }
@@ -259,26 +213,14 @@ class TrainingFilter extends HTMLElement {
         });
     }
 
-    toggleVisibility(selector) {
-        const showByClassname = !!selector ? selector.className.replace('hidden', '') : '';
-        const hideByClassname = !!selector ? `${selector.className} hidden` : '';
-        !!selector && selector.classList.contains('hidden')
-            ? (selector.className = showByClassname)
-            : (selector.className = hideByClassname);
-    }
-
-    shortenWeek(weekName) {
-        const parts = weekName.split(' - ');
-        const results = !!parts && parts.length > 0 && parts.shift();
-        console.log('shortenWeek results = ', results);
-        return results;
-    }
-
+    /**
+     * load the list of weeks into the dropdown, add listeners, etc
+     * @param shadowDOM
+     */
     loadWeeks(shadowDOM) {
-        console.log('loadWeeks');
         const that = this;
 
-        function selectWeek(weekName) {
+        function selectWeek(weekName, weekStartDate) {
             console.log('clicked selectWeek for ', weekName);
 
             const weekHover = !!shadowDOM && shadowDOM.getElementById('weekhover');
@@ -296,27 +238,37 @@ class TrainingFilter extends HTMLElement {
 
             const weeklist = !!shadowDOM && shadowDOM.getElementById('weeklist');
             that.toggleVisibility(weeklist);
-            that.selectedWeek = that.shortenWeek(weekName);
+            that.selectedWeek = that.shortenDate(weekStartDate);
 
             const weekOpenerButton = !!shadowDOM && shadowDOM.getElementById('weekOpener');
             !!weekOpenerButton && (weekOpenerButton.innerHTML = weekName);
         }
 
-        function addWeekSelectorButton(weekName, weeklistDom) {
-            const weekNameLabel = document.createTextNode(weekName);
+        const allAvailableEntry = 'All available';
+
+        function addWeekSelectorButton(weekStartDate, weeklistDom) {
+            let weekName;
+            if (weekStartDate === allAvailableEntry) {
+                weekName = allAvailableEntry;
+            } else {
+                const weekStartDisplay = formatDate(weekStartDate);
+                let weekEndDate = new Date(weekStartDate);
+                weekEndDate.setDate(weekStartDate.getDate() + 6);
+                const weekEndDisplay = formatDate(weekEndDate);
+                weekName = `${weekStartDisplay} - ${weekEndDisplay} `;
+            }
 
             const weekSelectButton = document.createElement('button');
             weekSelectButton.className = 'week filterer';
             weekSelectButton.innerHTML = weekName;
             !!weekSelectButton &&
                 weekSelectButton.addEventListener('click', function () {
-                    selectWeek(weekName);
+                    selectWeek(weekName, weekStartDate);
                 });
             !!weeklistDom && weeklistDom.appendChild(weekSelectButton);
         }
 
         const weekStartProvided = this.getAttribute('week-start') || '';
-        const weekEndProvided = this.getAttribute('week-end') || '';
 
         const weeklistDom = shadowDOM.getElementById('weeklist');
         addWeekSelectorButton('All available', weeklistDom);
@@ -326,27 +278,35 @@ class TrainingFilter extends HTMLElement {
             return new Intl.DateTimeFormat('en-AU', optionDate).format(inputDate);
         }
 
-        let weekStartDate = new Date(weekStartProvided);
-        let weekStartDisplay = formatDate(weekStartDate);
+        function whileMoreDatesToDisplay(weekStartDate) {
+            const weekEndProvided = that.getAttribute('week-end') || '';
+            const weekEndDateFinal = new Date(weekEndProvided);
+            return weekStartDate <= weekEndDateFinal;
+        }
 
-        let weekEndDate = new Date(weekStartProvided);
-        weekEndDate.setDate(weekStartDate.getDate() + 6);
-        const weekEndDateFinal = new Date(weekEndProvided);
-
-        let weekEndDisplay = formatDate(weekEndDate);
+        const weekStartProvidedDate = new Date(weekStartProvided);
+        let dayIncrement = 7;
         // TODO test we do include a week that includes the final date, and we don't include an extra week on the end that has no entries
-        while (weekStartDate <= weekEndDateFinal) {
-            const weekLabel = `${weekStartDisplay} - ${weekEndDisplay} `;
-            addWeekSelectorButton(weekLabel, weeklistDom);
+        let weekStartDate = new Date(weekStartProvided);
+        weekStartDate.setDate(weekStartProvidedDate.getDate());
+        while (whileMoreDatesToDisplay(weekStartDate)) {
+            addWeekSelectorButton(weekStartDate, weeklistDom);
 
-            weekStartDate.setDate(weekStartDate.getDate() + 7);
-            weekStartDisplay = formatDate(weekStartDate);
+            weekStartDate = new Date(weekStartProvidedDate);
+            weekStartDate.setDate(weekStartProvidedDate.getDate() + dayIncrement);
+            dayIncrement += 7;
 
-            weekEndDate.setDate(weekStartDate.getDate() + 6);
-            weekEndDisplay = formatDate(weekEndDate);
+            if (dayIncrement > 200) {
+                //dev
+                break;
+            }
         }
     }
 
+    /**
+     * load the list of campuses into the dropdown, add listeners, etc
+     * @param shadowDOM
+     */
     loadCampuses(shadowDOM) {
         const that = this;
 
@@ -372,7 +332,6 @@ class TrainingFilter extends HTMLElement {
 
             const campusOpenerButton = !!shadowDOM && shadowDOM.getElementById('campusOpener');
             !!campusOpenerButton && (campusOpenerButton.innerHTML = campusName);
-            console.log('campusOpenerButton.innerHTML = ', campusOpenerButton.innerHTML);
         }
 
         function addCampusSelectorButton(campusName, campusCode) {
@@ -398,6 +357,48 @@ class TrainingFilter extends HTMLElement {
             const campusName = decodeURIComponent(campusCode);
             addCampusSelectorButton(campusName, campusCode);
         });
+    }
+
+    /**
+     * update the hash of the url with the selected values
+     */
+    changeHashofUrl() {
+        const currentUrl = new URL(document.URL);
+        const oldHash = currentUrl.hash;
+
+        const proposedHash = `keyword=${this._inputKeywordValue};campus=${encodeURIComponent(this._selectedCampus)};
+        weekstart=${encodeURIComponent(this._selectedWeek)};online=${this._onlineOnlyProperty}`;
+
+        const blankHash = 'keyword=;campus=;weekstart=;online=false';
+        if (`#${proposedHash}` !== oldHash && proposedHash === blankHash) {
+            currentUrl.hash = '#';
+            document.location.href = currentUrl.href;
+        } else if (`#${proposedHash}` !== oldHash) {
+            currentUrl.hash = proposedHash;
+            document.location.href = currentUrl.href;
+        }
+    }
+
+    /**
+     * show hide an element
+     */
+    toggleVisibility(selector) {
+        const showByClassname = !!selector ? selector.className.replace('hidden', '') : '';
+        const hideByClassname = !!selector ? `${selector.className} hidden` : '';
+        !!selector && selector.classList.contains('hidden')
+            ? (selector.className = showByClassname)
+            : (selector.className = hideByClassname);
+    }
+
+    /**
+     * change the date provided by the api into YYYYMMDD format for url hash
+     */
+    shortenDate(weekStartDate) {
+        const optionDate = { year: 'numeric', month: '2-digit', day: '2-digit' };
+        // fr-ca: hack to get dates in YYYY-MM-DD format
+        let date = new Intl.DateTimeFormat('fr-ca', optionDate).format(weekStartDate);
+        date = date.replaceAll('-', '');
+        return encodeURIComponent(date);
     }
 }
 

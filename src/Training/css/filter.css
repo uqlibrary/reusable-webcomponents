@@ -88,7 +88,7 @@ button.campus {
 
 .opener.filterer {
     width: 100%;
-    color: #A9A9A9;
+    color: #333;
     margin-top: 0.5rem;
 }
 
@@ -138,7 +138,7 @@ button.chip {
 }
 
 .keywordPlaceholderMovement span {
-    padding: 20px 10px 10px 10px;
+    padding: 24px 10px 10px 10px;
     pointer-events: none;
     position:absolute;
     left:0;
@@ -149,6 +149,7 @@ button.chip {
     opacity:0.5;
     font-size: 16px;
     font-weight: 400;
+    color: #333;
 }
 
 .keywordPlaceholderMovement input {
@@ -185,7 +186,7 @@ button.chip {
 .hovertext {
     margin-top: -1rem;
     margin-left: 0.5rem;
-    color: #a9a9a9;
+    color: #333;
 }
 
 /*.hovertext span {*/
