@@ -37,7 +37,7 @@ template.innerHTML = `
                 </div>
             </div>
             <div class="onlineToggle">
-                <input type="checkbox" name="onlineonly" id="onlineonly" />
+                <input type="checkbox" name="onlineonly" id="onlineonly" data-testid="onlineonly" />
                 <label class="toggle-label paper-toggle-button">Show only online events</label>
             </div>
             <div id="quicklinks" class="quicklinks">
@@ -205,6 +205,7 @@ class TrainingFilter extends HTMLElement {
             const chipButton = document.createElement('button');
             chipButton.className = 'chip uq-button';
             chipButton.innerHTML = chip.label;
+            chipButton.setAttribute('data-testid', chip.term);
             !!chipButton &&
                 chipButton.addEventListener('click', function () {
                     setKeyword(chip.term);
@@ -342,6 +343,7 @@ class TrainingFilter extends HTMLElement {
             const campusSelectButton = document.createElement('button');
             campusSelectButton.className = 'campus filterer';
             campusSelectButton.innerHTML = campusName;
+            campusSelectButton.setAttribute('data-testid', campusName.replaceAll(' ', ''));
             !!campusSelectButton &&
                 campusSelectButton.addEventListener('click', function () {
                     selectCampus(campusName, campusCode);
@@ -400,6 +402,10 @@ class TrainingFilter extends HTMLElement {
      * change the date provided by the api into YYYYMMDD format for url hash
      */
     shortenDate(weekStartDate) {
+        if (weekStartDate === 'All available') {
+            return 'all';
+        }
+
         const optionDate = { year: 'numeric', month: '2-digit', day: '2-digit' };
         // fr-ca: hack to get dates in YYYY-MM-DD format
         let date = new Intl.DateTimeFormat('fr-ca', optionDate).format(weekStartDate);

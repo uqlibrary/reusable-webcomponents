@@ -146,17 +146,23 @@ describe('Training', () => {
                 .shadow()
                 .within(() => {
                     cy.get('[data-testid="campushover"]').click();
-
-                    // cy.get('[data-testid="campuslist"]').should('have.length', 3);
-                    cy.get('[data-testid="campuslist"]').first().click();
-
+                    cy.get('[data-testid="StLucia"]').click();
                     cy.get('[data-testid="campusOpener"]').contains('St Lucia');
                     // the placeholder has moved up, proxied by "color has changed"
                     cy.get('[data-testid="campushover"]').should('have.css', 'color', uqpurple);
-
                     cy.url().should(
                         'eq',
                         'http://localhost:8080/index-training.html#keyword=;campus=St%2520Lucia;weekstart=;online=false',
+                    );
+
+                    cy.get('[data-testid="campushover"]').click();
+                    cy.get('[data-testid="Alllocations"]').click();
+                    cy.get('[data-testid="campusOpener"]').contains('All locations');
+                    // the placeholder has moved up, proxied by "color has changed"
+                    cy.get('[data-testid="campushover"]').should('have.css', 'color', uqpurple);
+                    cy.url().should(
+                        'eq',
+                        'http://localhost:8080/index-training.html#keyword=;campus=all;weekstart=;online=false',
                     );
                 });
         });
@@ -169,14 +175,49 @@ describe('Training', () => {
                 .within(() => {
                     cy.get('[data-testid="weekhover"]').click();
 
-                    cy.get('[data-testid="weeklist"]').first().click();
-                    cy.get('[data-testid="weekOpener"]').should('contain', '22 July - 28 July ');
+                    cy.get('[data-testid="Allavailable"]').click();
+                    cy.get('[data-testid="weekOpener"]').should('contain', 'All available');
                     // the placeholder has moved up, proxied by "color has changed"
                     cy.get('[data-testid="weekhover"]').should('have.css', 'color', uqpurple);
 
                     cy.url().should(
                         'eq',
-                        'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=20210722;online=false',
+                        'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=all;online=false',
+                    );
+
+                    cy.get('[data-testid="weekhover"]').click();
+
+                    cy.get('[data-testid="27May-2June"]').click();
+                    cy.get('[data-testid="weekOpener"]').should('contain', '27 May - 2 June ');
+                    // the placeholder has moved up, proxied by "color has changed"
+                    cy.get('[data-testid="weekhover"]').should('have.css', 'color', uqpurple);
+
+                    cy.url().should(
+                        'eq',
+                        'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=20210527;online=false',
+                    );
+                });
+        });
+        it('user can select multiple elements', () => {
+            cy.visit('http://localhost:8080/index-training.html');
+            cy.viewport(1280, 900);
+            cy.get('training-filter')
+                .should('exist')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="weekhover"]').click();
+                    cy.get('[data-testid="Allavailable"]').click();
+
+                    cy.get('[data-testid="campushover"]').click();
+                    cy.get('[data-testid="Alllocations"]').click();
+
+                    cy.get('[data-testid="endnote"]').click();
+
+                    cy.get('[data-testid="onlineonly"]').click();
+
+                    cy.url().should(
+                        'eq',
+                        'http://localhost:8080/index-training.html#keyword=endnote;campus=all;weekstart=all;online=true',
                     );
                 });
         });
