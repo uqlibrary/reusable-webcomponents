@@ -99,4 +99,73 @@ describe('Training', () => {
                 });
         });
     });
+    context('Training filters', () => {
+        const uqpurple = 'rgb(81, 36, 122)'; // #51247a
+        it('Training filter is accessible', () => {
+            cy.visit('http://localhost:8080/index-training.html');
+            cy.injectAxe();
+            cy.viewport(1280, 900);
+            cy.get('training-filter')
+                .should('exist')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="training-filter-header"]').contains('Filter events');
+                    cy.get('[data-testid="keywordhover"]').contains('By keyword');
+                    cy.get('[data-testid="campushover"]').contains('By campus');
+                    cy.get('[data-testid="weekhover"]').contains('By week');
+                });
+            cy.wait(1000);
+            cy.checkA11y('uq-header', {
+                reportName: 'Training Filter',
+                scopeName: 'Accessibility',
+                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+            });
+        });
+        it('user can enter a keyword', () => {
+            cy.visit('http://localhost:8080/index-training.html');
+            cy.viewport(1280, 900);
+            cy.get('training-filter')
+                .should('exist')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="inputKeyword"]').type('excel').should('have.value', 'excel');
+                    // the placeholder has moved up, proxied by "color has changed"
+                    cy.get('[data-testid="keywordhover"]').should('have.css', 'color', uqpurple);
+
+                    // TODO: url is now #xxx?
+                });
+        });
+        it('user can select a campus', () => {
+            cy.visit('http://localhost:8080/index-training.html');
+            cy.viewport(1280, 900);
+            cy.get('training-filter')
+                .should('exist')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="campushover"]').click();
+
+                    // cy.get('[data-testid="campuslist"]').should('have.length', 3);
+                    cy.get('[data-testid="campuslist"]').first().click();
+
+                    cy.get('[data-testid="campusOpener"]').contains('St Lucia');
+                    // the placeholder has moved up, proxied by "color has changed"
+                    cy.get('[data-testid="campushover"]').should('have.css', 'color', uqpurple);
+                });
+        });
+        it('user can select a week', () => {
+            cy.visit('http://localhost:8080/index-training.html');
+            cy.viewport(1280, 900);
+            cy.get('training-filter')
+                .should('exist')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="weekhover"]').click();
+
+                    cy.get('[data-testid="weeklist"]').first().click();
+                    cy.get('[data-testid="weekOpener"]').contains('22 July - 29 July ');
+                    // the placeholder has moved up, proxied by "color has changed"
+                    cy.get('[data-testid="weekhover"]').should('have.css', 'color', uqpurple);
+                });
+        });
+    });
 });

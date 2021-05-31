@@ -7,15 +7,15 @@ template.innerHTML = `
     <style>${styles.toString()}</style>
     <style>${overrides.toString()}</style>
     <div id="root" class="pane pane--outline">
-        <div class="header uq-pane__title">
+        <div class="header uq-pane__title" data-testid="training-filter-header">
             <div class="title-text paper-card">Filter events</div>
         </div>
-            <div class="card-content">
+            <div class="card-content" data-testid="dropdown-container">
                 <div aria-label="filter by keyword" class="paper-input-0" tabindex="0" aria-disabled="false">
                     <div class="keywordPlaceholderMovement">
                         <label>
-                            <input id="inputKeyword" class="paper-input" autocomplete="off" placeholder=" " autocapitalize="none" autocorrect="off" aria-describedby="" aria-labelledby="keywordhover" tabindex="0">
-                            <span>By keyword</span>
+                            <input id="inputKeyword" data-testid="inputKeyword" class="paper-input" autocomplete="off" placeholder=" " autocapitalize="none" autocorrect="off" aria-describedby="" aria-labelledby="keywordhover" tabindex="0">
+                            <span data-testid="keywordhover">By keyword</span>
                         </label>                        
                         <button class="clearKeyword" id="clearKeyword">
                             <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="iron-icon" style="pointer-events: none; display: block; width: 100%; height: 100%;">
@@ -27,14 +27,14 @@ template.innerHTML = `
                     </div>
                 </div>
                 <div aria-label="filter by campus" id="campusDropdown" class="listHolder paper-dropdown-menu-0" role="combobox" aria-autocomplete="none" aria-haspopup="true" aria-disabled="false">
-                    <button id="campusOpener" class="opener filterer" aria-labelledby="campushover"></button>
-                    <div aria-label="campushover" id="campushover" class="hovertext campushover">By campus</div>
-                    <div id="campuslist" class="selectorlist campuslist hidden"></div>
+                    <button data-testid="campusOpener" id="campusOpener" class="opener filterer" aria-labelledby="campushover"></button>
+                    <div aria-label="campushover" data-testid="campushover" id="campushover" class="hovertext campushover">By campus</div>
+                    <div data-testid="campuslist" id="campuslist" class="selectorlist campuslist hidden"></div>
                 </div>
                 <div aria-label="filter by week" id="weekDropdown" class="listHolder paper-dropdown-menu-0" role="combobox" aria-autocomplete="none" aria-haspopup="true" aria-disabled="false">
-                    <button id="weekOpener" class="opener filterer" aria-labelledby="weekhover"></button>
-                    <div aria-label="weekhover" id="weekhover" class="hovertext weekhover">By week</div>
-                    <div id="weeklist" class="selectorlist weeklist hidden"></div>
+                    <button data-testid="weekOpener" id="weekOpener" class="opener filterer" aria-labelledby="weekhover"></button>
+                    <div data-testid="weekhover" aria-label="weekhover" id="weekhover" class="hovertext weekhover">By week</div>
+                    <div data-testid="weeklist"  id="weeklist" class="selectorlist weeklist hidden"></div>
                 </div>
             </div>
             <div class="onlineToggle">
