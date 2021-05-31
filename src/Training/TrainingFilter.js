@@ -1,6 +1,5 @@
 import styles from './css/main.css';
 import overrides from './css/filter.css';
-import { authLocale } from '../UtilityArea/auth.locale';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -55,10 +54,10 @@ class TrainingFilter extends HTMLElement {
         super();
 
         // initialise properties
-        this.selectedCampus = '';
-        this.selectedWeek = '';
-        this.inputKeywordValue = '';
-        this.onlineOnlyProperty = false;
+        this._selectedCampus = '';
+        this._selectedWeek = '';
+        this._inputKeywordValue = '';
+        this._onlineOnlyProperty = false;
 
         // Add a shadow DOM
         const shadowDOM = this.attachShadow({ mode: 'open' });
@@ -75,7 +74,31 @@ class TrainingFilter extends HTMLElement {
         this.loadCampuses = this.loadCampuses.bind(this);
         this.loadPopularChips = this.loadPopularChips.bind(this);
         this.loadWeeks = this.loadWeeks.bind(this);
+        this.shortenWeek = this.shortenWeek.bind(this);
         this.toggleVisibility = this.toggleVisibility.bind(this);
+    }
+
+    changeHashofUrl() {
+        const currentUrl = new URL(document.URL);
+        const oldHash = currentUrl.hash;
+        console.log('oldHash = ', oldHash);
+
+        const proposedHash = `keyword=${this._inputKeywordValue};campus=${encodeURIComponent(
+            this._selectedCampus,
+        )};weekstart=${encodeURIComponent(this._selectedWeek)};online=${this._onlineOnlyProperty}`;
+
+        const blankHash = 'keyword=;campus=;weekstart=;online=false';
+        if (`#${proposedHash}` !== oldHash && proposedHash === blankHash) {
+            console.log('changing to blank: proposedHash = ', proposedHash);
+            currentUrl.hash = '#';
+            document.location.href = currentUrl.href;
+        } else if (`#${proposedHash}` !== oldHash) {
+            console.log('changing: proposedHash = ', proposedHash);
+            currentUrl.hash = proposedHash;
+            document.location.href = currentUrl.href;
+        } else {
+            console.log('did not change: proposedHash = ', proposedHash);
+        }
     }
 
     set selectedCampus(selectedCampus) {
@@ -85,6 +108,10 @@ class TrainingFilter extends HTMLElement {
             selectedCampus,
             ' now do something clever to pass it back to the parent',
         );
+
+        this._selectedCampus = selectedCampus;
+
+        this.changeHashofUrl();
     }
 
     set selectedWeek(selectedWeek) {
@@ -94,6 +121,11 @@ class TrainingFilter extends HTMLElement {
             selectedWeek,
             ' now do something clever to pass it back to the parent',
         );
+
+        this._selectedWeek = selectedWeek;
+
+        console.log('this.selectedWeek = ', this.selectedWeek);
+        this.changeHashofUrl();
     }
 
     set inputKeywordValue(inputKeyword) {
@@ -103,6 +135,10 @@ class TrainingFilter extends HTMLElement {
             inputKeyword,
             ' now do something clever to pass it back to the parent',
         );
+
+        this._inputKeywordValue = inputKeyword;
+
+        this.changeHashofUrl();
     }
 
     set onlineOnlyProperty(onlineonly) {
@@ -112,6 +148,10 @@ class TrainingFilter extends HTMLElement {
             onlineonly,
             ' now do something clever to pass it back to the parent',
         );
+
+        this._onlineOnlyProperty = onlineonly;
+
+        this.changeHashofUrl();
     }
 
     addListeners(shadowDOM) {
@@ -227,6 +267,13 @@ class TrainingFilter extends HTMLElement {
             : (selector.className = hideByClassname);
     }
 
+    shortenWeek(weekName) {
+        const parts = weekName.split(' - ');
+        const results = !!parts && parts.length > 0 && parts.shift();
+        console.log('shortenWeek results = ', results);
+        return results;
+    }
+
     loadWeeks(shadowDOM) {
         console.log('loadWeeks');
         const that = this;
@@ -249,11 +296,10 @@ class TrainingFilter extends HTMLElement {
 
             const weeklist = !!shadowDOM && shadowDOM.getElementById('weeklist');
             that.toggleVisibility(weeklist);
-            that.selectedWeek = weekName;
+            that.selectedWeek = that.shortenWeek(weekName);
 
             const weekOpenerButton = !!shadowDOM && shadowDOM.getElementById('weekOpener');
             !!weekOpenerButton && (weekOpenerButton.innerHTML = weekName);
-            console.log('weekOpenerButton.innerHTML = ', weekOpenerButton.innerHTML);
         }
 
         function addWeekSelectorButton(weekName, weeklistDom) {
@@ -275,36 +321,34 @@ class TrainingFilter extends HTMLElement {
         const weeklistDom = shadowDOM.getElementById('weeklist');
         addWeekSelectorButton('All available', weeklistDom);
 
-        const optionDate = { month: 'short', day: 'numeric' };
-
-        const weekEndDateFinal = new Date(weekEndProvided);
+        function formatDate(inputDate) {
+            const optionDate = { month: 'short', day: 'numeric' };
+            return new Intl.DateTimeFormat('en-AU', optionDate).format(inputDate);
+        }
 
         let weekStartDate = new Date(weekStartProvided);
-        let weekStartDisplay = new Intl.DateTimeFormat('en-AU', optionDate).format(weekStartDate);
+        let weekStartDisplay = formatDate(weekStartDate);
+
         let weekEndDate = new Date(weekStartProvided);
-        weekEndDate.setDate(weekStartDate.getDate() + 7);
-        let weekEndDisplay = new Intl.DateTimeFormat('en-AU', optionDate).format(weekEndDate);
-        // TODO test we do include a week for the final class, and we don't include an extra week on the end that has no entries
+        weekEndDate.setDate(weekStartDate.getDate() + 6);
+        const weekEndDateFinal = new Date(weekEndProvided);
+
+        let weekEndDisplay = formatDate(weekEndDate);
+        // TODO test we do include a week that includes the final date, and we don't include an extra week on the end that has no entries
         while (weekStartDate <= weekEndDateFinal) {
             const weekLabel = `${weekStartDisplay} - ${weekEndDisplay} `;
             addWeekSelectorButton(weekLabel, weeklistDom);
 
             weekStartDate.setDate(weekStartDate.getDate() + 7);
-            weekStartDisplay = new Intl.DateTimeFormat('en-AU', optionDate).format(weekStartDate);
-            weekEndDate.setDate(weekStartDate.getDate() + 7);
-            weekEndDisplay = new Intl.DateTimeFormat('en-AU', optionDate).format(weekEndDate);
+            weekStartDisplay = formatDate(weekStartDate);
+
+            weekEndDate.setDate(weekStartDate.getDate() + 6);
+            weekEndDisplay = formatDate(weekEndDate);
         }
     }
 
     loadCampuses(shadowDOM) {
         const that = this;
-        const campuses = {
-            STLUC: 'St Lucia',
-            GATTN: 'Gatton',
-            IPSWC: 'Ipswich',
-            HERST: 'Herston',
-            ONL: 'Online',
-        };
 
         function selectCampus(campusName, campusCode) {
             console.log('clicked selectCampus for ', campusName);
@@ -351,8 +395,8 @@ class TrainingFilter extends HTMLElement {
         addCampusSelectorButton('All locations', 'all', campuslistDom);
 
         campusList.forEach((campusCode) => {
-            const campusName = campuses[campusCode];
-            addCampusSelectorButton(campusName, campusCode, campuslistDom);
+            const campusName = decodeURIComponent(campusCode);
+            addCampusSelectorButton(campusName, campusCode);
         });
     }
 }
