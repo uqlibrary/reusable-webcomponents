@@ -259,5 +259,12 @@ describe('Training', () => {
                     cy.url().should('eq', 'http://localhost:8080/index-training.html#');
                 });
         });
+        it('clears a bookmarked url', () => {
+            // what is displayed must match the filter, so any param that dont match the filter settings should be cleared
+            // (future possibility to allow bookmarked urls?)
+            cy.visit('http://localhost:8080/index-training.html#keyword=Excel;campus=Gatton;weekstart=all;online=true');
+            cy.viewport(1280, 900);
+            cy.url().should('eq', 'http://localhost:8080/index-training.html#');
+        });
     });
 });

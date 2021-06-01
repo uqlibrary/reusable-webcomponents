@@ -72,6 +72,8 @@ class TrainingFilter extends HTMLElement {
         this.loadWeeks(shadowDOM);
         this.loadPopularChips(shadowDOM);
 
+        this.changeHashofUrl(); // clear any bookmarked parameters, so displayed details match the empty filter
+
         this.addListeners = this.addListeners.bind(this);
         this.changeHashofUrl = this.changeHashofUrl.bind(this);
         this.loadCampuses = this.loadCampuses.bind(this);
