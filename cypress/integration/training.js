@@ -105,14 +105,19 @@ describe('Training', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.injectAxe();
             cy.viewport(1280, 900);
-            cy.get('training-filter')
+            cy.get('library-training')
                 .should('exist')
                 .shadow()
                 .within(() => {
-                    cy.get('[data-testid="training-filter-header"]').contains('Filter events');
-                    cy.get('[data-testid="keywordhover"]').contains('By keyword');
-                    cy.get('[data-testid="campushover"]').contains('By campus');
-                    cy.get('[data-testid="weekhover"]').contains('By week');
+                    cy.get('training-filter')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            cy.get('[data-testid="training-filter-header"]').contains('Filter events');
+                            cy.get('[data-testid="keywordhover"]').contains('By keyword');
+                            cy.get('[data-testid="campushover"]').contains('By campus');
+                            cy.get('[data-testid="weekhover"]').contains('By week');
+                        });
                 });
             cy.wait(1000);
             cy.checkA11y('uq-header', {
@@ -124,139 +129,164 @@ describe('Training', () => {
         it('user can enter a keyword', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
-            cy.get('training-filter')
+            cy.get('library-training')
                 .should('exist')
                 .shadow()
                 .within(() => {
-                    cy.get('[data-testid="inputKeyword"]').type('excel').should('have.value', 'excel');
-                    // the placeholder has moved up, proxied by "color has changed"
-                    cy.get('[data-testid="keywordhover"]').should('have.css', 'color', uqpurple);
+                    cy.get('training-filter')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            cy.get('[data-testid="inputKeyword"]').type('excel').should('have.value', 'excel');
+                            // the placeholder has moved up, proxied by "color has changed"
+                            cy.get('[data-testid="keywordhover"]').should('have.css', 'color', uqpurple);
 
-                    cy.url().should(
-                        'eq',
-                        'http://localhost:8080/index-training.html#keyword=excel;campus=;weekstart=;online=false',
-                    );
+                            cy.url().should(
+                                'eq',
+                                'http://localhost:8080/index-training.html#keyword=excel;campus=;weekstart=;online=false',
+                            );
+                        });
                 });
         });
         it('user can select a campus', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
-            cy.get('training-filter')
+            cy.get('library-training')
                 .should('exist')
                 .shadow()
                 .within(() => {
-                    cy.get('[data-testid="campushover"]').click();
-                    cy.get('[data-testid="StLucia"]').click();
-                    cy.get('[data-testid="campusOpener"]').contains('St Lucia');
-                    // the placeholder has moved up, proxied by "color has changed"
-                    cy.get('[data-testid="campushover"]').should('have.css', 'color', uqpurple);
-                    cy.url().should(
-                        'eq',
-                        'http://localhost:8080/index-training.html#keyword=;campus=St%2520Lucia;weekstart=;online=false',
-                    );
+                    cy.get('training-filter')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            cy.get('[data-testid="campushover"]').click();
+                            cy.get('[data-testid="StLucia"]').click();
+                            cy.get('[data-testid="campusOpener"]').contains('St Lucia');
+                            // the placeholder has moved up, proxied by "color has changed"
+                            cy.get('[data-testid="campushover"]').should('have.css', 'color', uqpurple);
+                            cy.url().should(
+                                'eq',
+                                'http://localhost:8080/index-training.html#keyword=;campus=St%2520Lucia;weekstart=;online=false',
+                            );
 
-                    cy.get('[data-testid="campushover"]').click();
-                    cy.get('[data-testid="Alllocations"]').click();
-                    cy.get('[data-testid="campusOpener"]').contains('All locations');
-                    // the placeholder has moved up, proxied by "color has changed"
-                    cy.get('[data-testid="campushover"]').should('have.css', 'color', uqpurple);
-                    cy.url().should(
-                        'eq',
-                        'http://localhost:8080/index-training.html#keyword=;campus=all;weekstart=;online=false',
-                    );
+                            cy.get('[data-testid="campushover"]').click();
+                            cy.get('[data-testid="Alllocations"]').click();
+                            cy.get('[data-testid="campusOpener"]').contains('All locations');
+                            // the placeholder has moved up, proxied by "color has changed"
+                            cy.get('[data-testid="campushover"]').should('have.css', 'color', uqpurple);
+                            cy.url().should(
+                                'eq',
+                                'http://localhost:8080/index-training.html#keyword=;campus=all;weekstart=;online=false',
+                            );
+                        });
                 });
         });
         it('user can select a week', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
-            cy.get('training-filter')
+            cy.get('library-training')
                 .should('exist')
                 .shadow()
                 .within(() => {
-                    cy.get('[data-testid="weekhover"]').click();
+                    cy.get('training-filter')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            cy.get('[data-testid="weekhover"]').click();
 
-                    cy.get('[data-testid="allavailable"]').click();
-                    cy.get('[data-testid="weekOpener"]').should('contain', 'All available');
-                    // the placeholder has moved up, proxied by "color has changed"
-                    cy.get('[data-testid="weekhover"]').should('have.css', 'color', uqpurple);
+                            cy.get('[data-testid="allavailable"]').click();
+                            cy.get('[data-testid="weekOpener"]').should('contain', 'All available');
+                            // the placeholder has moved up, proxied by "color has changed"
+                            cy.get('[data-testid="weekhover"]').should('have.css', 'color', uqpurple);
 
-                    cy.url().should(
-                        'eq',
-                        'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=all;online=false',
-                    );
+                            cy.url().should(
+                                'eq',
+                                'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=all;online=false',
+                            );
 
-                    cy.get('[data-testid="weekhover"]').click();
+                            cy.get('[data-testid="weekhover"]').click();
 
-                    cy.get('[data-testid="27may-2june"]').click();
-                    cy.get('[data-testid="weekOpener"]').should('contain', '27 May - 2 June ');
-                    // the placeholder has moved up, proxied by "color has changed"
-                    cy.get('[data-testid="weekhover"]').should('have.css', 'color', uqpurple);
+                            cy.get('[data-testid="14jun-20jun"]').click();
+                            cy.get('[data-testid="weekOpener"]').should('contain', '14 Jun - 20 Jun');
+                            // the placeholder has moved up, proxied by "color has changed"
+                            cy.get('[data-testid="weekhover"]').should('have.css', 'color', uqpurple);
 
-                    cy.url().should(
-                        'eq',
-                        'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=20210527;online=false',
-                    );
+                            cy.url().should(
+                                'eq',
+                                'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=20210614;online=false',
+                            );
+                        });
                 });
         });
         it('user can select multiple elements', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
-            cy.get('training-filter')
+            cy.get('library-training')
                 .should('exist')
                 .shadow()
                 .within(() => {
-                    const weekDropdown = '[data-testid="allavailable"]';
-                    const campusDropdown = '[data-testid="Alllocations"]';
+                    cy.get('training-filter')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            const weekDropdown = '[data-testid="allavailable"]';
+                            const campusDropdown = '[data-testid="Alllocations"]';
 
-                    // the two dropdowns wont be open at the same time
-                    cy.get('[data-testid="weekhover"]').click(); // open the week list
-                    cy.get(weekDropdown).should('be.visible'); // week list shows
-                    cy.get(campusDropdown).should('not.be.visible'); // campus list is closed
+                            // the two dropdowns wont be open at the same time
+                            cy.get('[data-testid="weekhover"]').click(); // open the week list
+                            cy.get(weekDropdown).should('be.visible'); // week list shows
+                            cy.get(campusDropdown).should('not.be.visible'); // campus list is closed
 
-                    cy.get('[data-testid="campushover"]').click(); // open the campus list
-                    cy.get(campusDropdown).should('be.visible'); // campus list is open
-                    cy.get(weekDropdown).should('not.be.visible'); // week list has closed
+                            cy.get('[data-testid="campushover"]').click(); // open the campus list
+                            cy.get(campusDropdown).should('be.visible'); // campus list is open
+                            cy.get(weekDropdown).should('not.be.visible'); // week list has closed
 
-                    cy.get('[data-testid="weekhover"]').click(); // reopen the week list
-                    cy.get(weekDropdown).should('be.visible'); // campus list has closed
-                    cy.get(campusDropdown).should('not.be.visible'); // week list is open
-                    cy.get('[data-testid="allavailable"]').click(); // select a week for the next step of the test
+                            cy.get('[data-testid="weekhover"]').click(); // reopen the week list
+                            cy.get(weekDropdown).should('be.visible'); // campus list has closed
+                            cy.get(campusDropdown).should('not.be.visible'); // week list is open
+                            cy.get('[data-testid="allavailable"]').click(); // select a week for the next step of the test
 
-                    cy.get('[data-testid="campushover"]').click();
-                    cy.get('[data-testid="Alllocations"]').click();
+                            cy.get('[data-testid="campushover"]').click();
+                            cy.get('[data-testid="Alllocations"]').click();
 
-                    cy.get('[data-testid="endnote"]').click();
+                            cy.get('[data-testid="endnote"]').click();
 
-                    cy.get('[data-testid="onlineonly"]').click();
+                            cy.get('[data-testid="onlineonly"]').click();
 
-                    cy.url().should(
-                        'eq',
-                        'http://localhost:8080/index-training.html#keyword=endnote;campus=all;weekstart=all;online=true',
-                    );
+                            cy.url().should(
+                                'eq',
+                                'http://localhost:8080/index-training.html#keyword=endnote;campus=all;weekstart=all;online=true',
+                            );
+                        });
                 });
         });
         it('user can clear fields', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
-            cy.get('training-filter')
+            cy.get('library-training')
                 .should('exist')
                 .shadow()
                 .within(() => {
-                    cy.get('[data-testid="endnote"]').click();
-                    cy.url().should(
-                        'eq',
-                        'http://localhost:8080/index-training.html#keyword=endnote;campus=;weekstart=;online=false',
-                    );
-                    cy.get('[data-testid="clearKeyword"]').click();
-                    cy.url().should('eq', 'http://localhost:8080/index-training.html#');
+                    cy.get('training-filter')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            cy.get('[data-testid="endnote"]').click();
+                            cy.url().should(
+                                'eq',
+                                'http://localhost:8080/index-training.html#keyword=endnote;campus=;weekstart=;online=false',
+                            );
+                            cy.get('[data-testid="clearKeyword"]').click();
+                            cy.url().should('eq', 'http://localhost:8080/index-training.html#');
 
-                    cy.get('[data-testid="onlineonly"]').click();
-                    cy.url().should(
-                        'eq',
-                        'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=;online=true',
-                    );
-                    cy.get('[data-testid="onlineonly"]').click();
-                    cy.url().should('eq', 'http://localhost:8080/index-training.html#');
+                            cy.get('[data-testid="onlineonly"]').click();
+                            cy.url().should(
+                                'eq',
+                                'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=;online=true',
+                            );
+                            cy.get('[data-testid="onlineonly"]').click();
+                            cy.url().should('eq', 'http://localhost:8080/index-training.html#');
+                        });
                 });
         });
         it('clears a bookmarked url', () => {
