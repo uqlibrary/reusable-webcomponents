@@ -82,7 +82,7 @@ template.innerHTML = `
         </div>
     </div>
     <div class="pane__footer">
-        <button id="bookTraining" data-testid="bookTraining" class="uq-button" role="button" tabindex="0" animated="" aria-disabled="false" elevation="0">Login and book</button>
+        <button id="bookTraining" data-testid="bookTraining" class="uq-button" role="button" tabindex="0" animated="" aria-disabled="false" elevation="0">Log in and book</button>
     </div>
 </div>
 `;
