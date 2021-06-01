@@ -12,7 +12,7 @@ template.innerHTML = `
     </div>
     <!--    <div class="details" id="eventSummary"></div>-->
     <div class="details" id="eventDetails" data-testid="eventDetails"></div>
-    <div class="details iconRow dateRange" role="option" tabindex="0" aria-disabled="false">
+    <div class="details iconRow dateRange" tabindex="0" aria-disabled="false">
         <div class="content-icon">
             <span class="lowlevel-icon">
                 <!-- icon date-range -->
@@ -31,7 +31,7 @@ template.innerHTML = `
             </div>
         </div>
     </div>
-    <div class="details iconRow locationblock" role="option" tabindex="0" aria-disabled="false">
+    <div class="details iconRow locationblock" tabindex="0" aria-disabled="false">
         <div class="content-icon">
             <span class="lowlevel-icon">
                 <!-- icon communication:location-on -->
@@ -47,7 +47,7 @@ template.innerHTML = `
             <div id="locationdetails" data-testid="locationdetails"></div>
         </div>
     </div>
-    <div class="details iconRow registrationItem" role="option" tabindex="0" aria-disabled="false">
+    <div class="details iconRow registrationItem" tabindex="0" aria-disabled="false">
         <div class="content-icon">
             <span class="lowlevel-icon">
                 <!-- notification:event-available -->
@@ -63,7 +63,7 @@ template.innerHTML = `
             <div id="bookingText" data-testid="bookingText"></div>
         </div>
     </div>
-    <div class="details iconRow nonuqregistration" role="option" tabindex="0" aria-disabled="false" id="registrationBlockForNonUQ" data-testid="registrationBlockForNonUQ">
+    <div class="details iconRow nonuqregistration" tabindex="0" aria-disabled="false" id="registrationBlockForNonUQ" data-testid="registrationBlockForNonUQ">
         <div class="content-icon">
             <span class="lowlevel-icon">
                 <!-- icon info-outline -->

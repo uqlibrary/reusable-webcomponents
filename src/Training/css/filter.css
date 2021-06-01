@@ -1,6 +1,9 @@
 .pane {
     background-color: #fff;
 }
+h3.title-text {
+    margin-top: 0;
+}
 
 .content-icon {
     flex-direction: row;

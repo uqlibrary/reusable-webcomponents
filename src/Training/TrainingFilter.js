@@ -5,48 +5,47 @@ const template = document.createElement('template');
 template.innerHTML = `
     <style>${styles.toString()}</style>
     <style>${overrides.toString()}</style>
-    <div id="root" class="pane pane--outline">
+    <div id="root" class="pane pane--outline" role="region" aria-live="polite">
         <div class="header uq-pane__title" data-testid="training-filter-header">
-            <div class="title-text paper-card">Filter events</div>
+            <h3 class="title-text paper-card">Filter events</h3>
         </div>
-            <div class="card-content" data-testid="dropdown-container">
-                <div aria-label="filter by keyword" tabindex="0" aria-disabled="false">
-                    <div class="keywordPlaceholderMovement">
-                        <label>
-                            <input id="inputKeyword" data-testid="inputKeyword" class="paper-input" autocomplete="off" placeholder=" " autocapitalize="none" autocorrect="off" aria-describedby="" aria-labelledby="keywordhover" tabindex="0">
-                            <span data-testid="keywordhover">By keyword</span>
-                        </label>                        
-                        <button class="clearKeyword" id="clearKeyword" data-testid="clearKeyword">
-                            <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="iron-icon" style="pointer-events: none; display: block; width: 100%; height: 100%;">
-                                <g class="iron-icon">
-                                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" class="iron-icon"></path>
-                                </g>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-                <div aria-label="filter by campus" id="campusDropdown" class="listHolder paper-dropdown-menu-0" role="combobox" aria-autocomplete="none" aria-haspopup="true" aria-disabled="false">
-                    <button data-testid="campusOpener" id="campusOpener" class="opener filterer" aria-labelledby="campushover"></button>
-                    <div class="hoverblock">
-                        <div data-testid="campushover" id="campushover" class="campushover hovertext">By campus</div>
-                    </div>
-                    <div data-testid="campuslist" id="campuslist" class="selectorlist campuslist hidden"></div>
-                </div>
-                <div aria-label="filter by week" id="weekDropdown" class="listHolder paper-dropdown-menu-0" role="combobox" aria-autocomplete="none" aria-haspopup="true" aria-disabled="false">
-                    <button data-testid="weekOpener" id="weekOpener" class="opener filterer" aria-labelledby="weekhover"></button>
-                    <div class="hoverblock">
-                        <div data-testid="weekhover" aria-label="weekhover" id="weekhover" class="weekhover hovertext">By week</div>
-                    </div>
-                    <div data-testid="weeklist"  id="weeklist" class="selectorlist weeklist hidden"></div>
+        <div class="card-content" data-testid="dropdown-container">
+            <div aria-label="filter by keyword" tabindex="0" aria-disabled="false">
+                <div class="keywordPlaceholderMovement">
+                    <label>
+                        <input id="inputKeyword" data-testid="inputKeyword" class="paper-input" autocomplete="off" placeholder=" " autocapitalize="none" autocorrect="off" aria-describedby="" aria-labelledby="keywordhover" tabindex="0">
+                        <span data-testid="keywordhover">By keyword</span>
+                    </label>                        
+                    <button class="clearKeyword" id="clearKeyword" data-testid="clearKeyword" aria-label="Clear Keyword">
+                        <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="iron-icon" style="pointer-events: none; display: block; width: 100%; height: 100%;">
+                            <g class="iron-icon">
+                                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" class="iron-icon"></path>
+                            </g>
+                        </svg>
+                    </button>
                 </div>
             </div>
-            <div class="onlineToggle">
-                <input type="checkbox" name="onlineonly" id="onlineonly" data-testid="onlineonly" />
-                <label class="toggle-label paper-toggle-button">Show only online events</label>
+            <div aria-label="filter by campus" id="campusDropdown" class="listHolder" role="listbox" aria-autocomplete="none" aria-haspopup="true" aria-disabled="false">
+                <button data-testid="campusOpener" id="campusOpener" class="opener filterer"><span class="hidden">By campus</span></button>
+                <div class="hoverblock">
+                    <div data-testid="campushover" id="campushover" class="campushover hovertext">By campus</div>
+                </div>
+                <div data-testid="campuslist" id="campuslist" class="selectorlist campuslist hidden"></div>
             </div>
-            <div id="quicklinks" class="quicklinks">
-                <h4>Popular events:</h4>
+            <div aria-label="filter by week" id="weekDropdown" class="listHolder" role="listbox" aria-autocomplete="none" aria-haspopup="true" aria-disabled="false">
+                <button data-testid="weekOpener" id="weekOpener" class="opener filterer"><span class="hidden">By week</span></button>
+                <div class="hoverblock">
+                    <div data-testid="weekhover" aria-label="weekhover" id="weekhover" class="weekhover hovertext">By week</div>
+                </div>
+                <div data-testid="weeklist"  id="weeklist" class="selectorlist weeklist hidden"></div>
             </div>
+        </div>
+        <div class="onlineToggle">
+            <input type="checkbox" name="onlineonly" id="onlineonly" data-testid="onlineonly" aria-labelledby="online" />
+            <label id="online" class="toggle-label paper-toggle-button">Show only online events</label>
+        </div>
+        <div id="quicklinks" class="quicklinks">
+            <h4>Popular events:</h4>
         </div>
     </div>
 `;
@@ -208,6 +207,7 @@ class TrainingFilter extends HTMLElement {
         function setKeyword(searchTerm) {
             const inputKeywordDom = shadowDOM.getElementById('inputKeyword');
             !!inputKeywordDom && (inputKeywordDom.value = searchTerm);
+            !!inputKeywordDom && inputKeywordDom.focus();
             that.inputKeywordValue = searchTerm;
         }
 
@@ -217,6 +217,7 @@ class TrainingFilter extends HTMLElement {
             chipButton.className = 'chip uq-button';
             chipButton.innerHTML = chip.label;
             chipButton.setAttribute('data-testid', chip.term);
+            chipButton.setAttribute('aria-label', `Use ${chip.term} as keyword`);
             !!chipButton &&
                 chipButton.addEventListener('click', function () {
                     setKeyword(chip.term);
@@ -299,6 +300,7 @@ class TrainingFilter extends HTMLElement {
 
         const weekStartProvidedDate = new Date(weekStartProvided);
         let dayIncrement = 7;
+        const numberOfDaysInAWeek = 7;
         // TODO test we do include a week that includes the final date, and we don't include an extra week on the end that has no entries
         let weekStartDate = new Date(weekStartProvided);
         weekStartDate.setDate(weekStartProvidedDate.getDate());
@@ -307,7 +309,7 @@ class TrainingFilter extends HTMLElement {
 
             weekStartDate = new Date(weekStartProvidedDate);
             weekStartDate.setDate(weekStartProvidedDate.getDate() + dayIncrement);
-            dayIncrement += 7;
+            dayIncrement += numberOfDaysInAWeek;
         }
     }
 
