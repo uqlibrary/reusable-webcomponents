@@ -59,7 +59,7 @@ class Training extends HTMLElement {
                     return;
                 }
                 const [name, value] = spec.split('='); // get keys and values
-                if (this.knownFilters.includes(name)) {
+                if (this.knownFilters.includes(name) && !!value) {
                     ret.push({
                         name,
                         value: name === 'campus' ? decodeURIComponent(value).split('|') : value,
@@ -100,9 +100,38 @@ class Training extends HTMLElement {
         new ApiAccess().loadTrainingEvents(this.maxEventCount, this.eventFilterId).then((fetchedEvents) => {
             if (fetchedEvents) {
                 this.trainingEvents = fetchedEvents;
+                this.initFiltering();
                 this.setFilters();
             }
         });
+    }
+
+    initFiltering() {
+        if (this.hideFilter) {
+            return;
+        }
+
+        const campusList = [];
+        const startDateList = [];
+        const endDateList = [];
+        this.trainingEvents.map((event) => {
+            campusList.push(event.campus);
+            startDateList.push(new Date(event.start));
+            endDateList.push(new Date(event.end));
+        });
+        const campusListAttr = campusList
+            .filter((value, index, self) => !!value && self.indexOf(value) === index)
+            .map(encodeURIComponent)
+            .join('|');
+        const weekStartAttr = startDateList.sort((a, b) => a < b)[0].toISOString();
+        const weekEndAttr = endDateList
+            .sort((a, b) => a < b)
+            .pop()
+            .toISOString();
+
+        this.filterComponent.setAttribute('week-start', weekStartAttr);
+        this.filterComponent.setAttribute('campus-list', campusListAttr);
+        this.filterComponent.setAttribute('week-end', weekEndAttr);
     }
 
     getFilteredEvents() {
@@ -137,7 +166,6 @@ class Training extends HTMLElement {
             }
 
             if (!!filters.weekstart) {
-                // const eventDate = moment(event.start);
                 const eventDate = new Date(event.start);
                 if (eventDate < weekStart || weekEnd > eventDate) {
                     return false;
@@ -161,25 +189,25 @@ class Training extends HTMLElement {
     }
 
     setFilters() {
-        // Copy filters from URL to filter component
-        !this.hideFilter &&
-            !!this.filters &&
-            this.filters.forEach(({ name, value }) => {
-                let encodedValue;
-                switch (name) {
-                    case 'campus':
-                        encodedValue = encodeURIComponent(value.join('|'));
-                        break;
-                    case 'weekstart':
-                        // fr-ca: hack to get dates in YYYY-MM-DD format
-                        const formatter = new Intl.DateTimeFormat('fr-ca');
-                        encodedValue = formatter.format(value).replaceAll('-', '');
-                        break;
-                    default:
-                        encodedValue = value;
-                }
-                this.filterComponent.setAttribute(name, value);
-            });
+        // // Copy filters from URL to filter component
+        // !this.hideFilter &&
+        //     !!this.filters &&
+        //     this.filters.forEach(({ name, value }) => {
+        //         let encodedValue;
+        //         switch (name) {
+        //             case 'campus':
+        //                 encodedValue = encodeURIComponent(value.join('|'));
+        //                 break;
+        //             case 'weekstart':
+        //                 // fr-ca: hack to get dates in YYYY-MM-DD format
+        //                 const formatter = new Intl.DateTimeFormat('fr-ca');
+        //                 encodedValue = formatter.format(new Date(value)).replaceAll('-', '');
+        //                 break;
+        //             default:
+        //                 encodedValue = value;
+        //         }
+        //         this.filterComponent.setAttribute(name, value);
+        //     });
 
         // Apply filters to list
         this.listComponent.data = this.getFilteredEvents();
