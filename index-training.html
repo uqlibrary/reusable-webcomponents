@@ -27,10 +27,13 @@
                 max-width: 960px;
                 padding: 1rem;
             }
-            article h1 {
-                font-size: 2.438rem;
-                font-weight: 400;
+            article h1,
+            article > div > p {
                 color: #f0f0f0;
+            }
+            article h1 {
+                font-weight: 400;
+                font-size: 2.438rem;
             }
         </style>
     </head>
@@ -48,9 +51,70 @@
 
         <article>
             <div>
-                <h1>Training</h1>
+                <h1>Training widget demo</h1>
 
+                <p>
+                    Note: this filter is for display only at this point and doesn't drive the display of example courses
+                    below it.
+                </p>
                 <library-training></library-training>
+
+                <!-- places-remaining="Booking is not required" bookingSettings = null -->
+                <p>Logged in EM user looking at a course that doesnt require booking, with St Lucia UQ Maps link</p>
+                <training-detail
+                    data-testid="2824657"
+                    event-id="2824657"
+                    event-name="Excel: Introduction to Spreadsheets"
+                    event-details="<p>At the end of this session, class participants will be able to:</p><ul><li>Design and create a simple spreadsheet</li><li>Enter data, labels, formulas and simple functions</li><li>Format and sort data</li><li>Present data in charts</li></ul><p><em>This session will use Microsoft Excel. </em>Please install the software <em>before </em>joining this session: <a href='https://my.uq.edu.au/information-and-services/information-technology/software-and-web-apps/software-uq/microsoft-software/office-365-personal-use'>https://my.uq.edu.au/information-and-services/info...<br></a></p><p><img style='background-color:&#32;initial;&#32;width:&#32;25px;' src='https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png'> Attend online: Zoom link to be sent before session</p><p><em><em>As part of <a href='https://ppl.app.uq.edu.au/content/10.10.01-sustainability-0'>UQ Sustainability</a> this class has no paper handouts. You may download manuals and exercises for this class on the </em><a href='https://web.library.uq.edu.au/library-services/training/training-resources'><em>training resources</em></a><em> page.</em></em></p>"
+                    event-summary="A beginner's guide to essential spreadsheet concepts and skills"
+                    places-remaining="Booking is not required"
+                    start="2020-11-24T10:00:00+10:00"
+                    end="2020-11-24T11:30:00+10:00"
+                    venue="St Lucia, Duhig Tower (2), 02-D501"
+                    user-id="ema1111"
+                    user-name="Lea de Groot"
+                    user-email="uqldegro@uq.edu.au"
+                ></training-detail>
+
+                <hr />
+
+                <!-- places-remaining="Places still available"  bookingSettings.placeRemaining > 0 -->
+                <!-- window target is purely for testing, no user requirement exists -->
+                <p>Staff user for Toowoomba course (Google maps link) for course with places available</p>
+                <training-detail
+                    data-testid="3455330"
+                    event-id="3455330"
+                    event-name="Excel1: Introduction to Spreadsheets"
+                    event-details="<p>At the end of this session, class participants will be able to:</p><ul><li>Design and create a simple spreadsheet</li><li>Enter data, labels, formulas and simple functions</li><li>Format and sort data</li><li>Present data in charts</li></ul><p><em>This session will use Microsoft Excel. </em>Please install the software <em>before </em>joining this session: <a href='https://my.uq.edu.au/information-and-services/information-technology/software-and-web-apps/software-uq/microsoft-software/office-365-personal-use'>https://my.uq.edu.au/information-and-services/info...<br></a></p><p><img style='background-color:&#32;initial;&#32;width:&#32;25px;' src='https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png'> Attend online: Zoom link to be sent before session</p><p><em><em>As part of <a href='https://ppl.app.uq.edu.au/content/10.10.01-sustainability-0'>UQ Sustainability</a> this class has no paper handouts. You may download manuals and exercises for this class on the </em><a href='https://web.library.uq.edu.au/library-services/training/training-resources'><em>training resources</em></a><em> page.</em></em></p>"
+                    event-summary="A beginner's guide to essential spreadsheet concepts and skills"
+                    places-remaining="Places still available"
+                    start="2020-11-24T10:00:00+10:00"
+                    end="2020-11-24T11:30:00+10:00"
+                    venue="Toowoomba Rural Clinic"
+                    user-id="uqldegro"
+                    user-name="Lea de Groot"
+                    user-email="uqldegro@uq.edu.au"
+                    studenthub_window="_self"
+                ></training-detail>
+                <hr />
+
+                <!-- places-remaining="Class is full. Register for waitlist." bookingSettings.placeRemaining === 0 -->
+                <!-- user not logged in, dont send user fields -->
+                <p>
+                    Non logged in user with a course that is full and a location with no entry in the lookup table (no
+                    map link)
+                </p>
+                <training-detail
+                    data-testid="3455331"
+                    event-id="3455331"
+                    event-name="Excel2: Introduction to Spreadsheets"
+                    event-details="<p>At the end of this session, class participants will be able to:</p><ul><li>Design and create a simple spreadsheet</li><li>Enter data, labels, formulas and simple functions</li><li>Format and sort data</li><li>Present data in charts</li></ul><p><em>This session will use Microsoft Excel. </em>Please install the software <em>before </em>joining this session: <a href='https://my.uq.edu.au/information-and-services/information-technology/software-and-web-apps/software-uq/microsoft-software/office-365-personal-use'>https://my.uq.edu.au/information-and-services/info...<br></a></p><p><img style='background-color:&#32;initial;&#32;width:&#32;25px;' src='https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png'> Attend online: Zoom link to be sent before session</p><p><em><em>As part of <a href='https://ppl.app.uq.edu.au/content/10.10.01-sustainability-0'>UQ Sustainability</a> this class has no paper handouts. You may download manuals and exercises for this class on the </em><a href='https://web.library.uq.edu.au/library-services/training/training-resources'><em>training resources</em></a><em> page.</em></em></p>"
+                    event-summary="A beginner's guide to essential spreadsheet concepts and skills"
+                    places-remaining="Class is full. Register for waitlist."
+                    start="2020-11-24T10:00:00+10:00"
+                    end="2020-11-24T11:30:00+10:00"
+                    venue="Townsville"
+                ></training-detail>
             </div>
         </article>
 
