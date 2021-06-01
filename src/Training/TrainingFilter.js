@@ -106,6 +106,25 @@ class TrainingFilter extends HTMLElement {
         this.changeHashofUrl();
     }
 
+    static get observedAttributes() {
+        return ['campus-list', 'week-start', 'week-end'];
+    }
+
+    attributeChangedCallback(name) {
+        switch (name) {
+            case 'campus-list':
+                this.loadCampuses(this.shadowRoot);
+                break;
+            case 'week-start':
+            case 'week-end':
+                this.loadWeeks(this.shadowRoot);
+                break;
+            /* istanbul ignore next */
+            default:
+                break;
+        }
+    }
+
     /**
      * add listeners as required by the page
      * @param shadowDOM
@@ -233,6 +252,12 @@ class TrainingFilter extends HTMLElement {
     loadWeeks(shadowDOM) {
         const that = this;
 
+        const weekStart = this.getAttribute('week-start');
+        const weekEnd = this.getAttribute('week-end');
+        if (!weekStart || !weekEnd) {
+            return;
+        }
+
         function selectWeek(weekName, weekStartDate) {
             console.log('clicked selectWeek for ', weekName);
 
@@ -319,6 +344,11 @@ class TrainingFilter extends HTMLElement {
      */
     loadCampuses(shadowDOM) {
         const that = this;
+
+        const campuses = this.getAttribute('campus-list');
+        if (!campuses) {
+            return;
+        }
 
         function selectCampus(campusName, campusCode) {
             console.log('clicked selectCampus for ', campusName);
