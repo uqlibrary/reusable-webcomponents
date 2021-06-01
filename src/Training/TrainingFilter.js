@@ -16,7 +16,7 @@ template.innerHTML = `
                             <input id="inputKeyword" data-testid="inputKeyword" class="paper-input" autocomplete="off" placeholder=" " autocapitalize="none" autocorrect="off" aria-describedby="" aria-labelledby="keywordhover" tabindex="0">
                             <span data-testid="keywordhover">By keyword</span>
                         </label>                        
-                        <button class="clearKeyword" id="clearKeyword">
+                        <button class="clearKeyword" id="clearKeyword" data-testid="clearKeyword">
                             <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="iron-icon" style="pointer-events: none; display: block; width: 100%; height: 100%;">
                                 <g class="iron-icon">
                                     <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" class="iron-icon"></path>
@@ -124,7 +124,9 @@ class TrainingFilter extends HTMLElement {
         // !!body && body.addEventListener('click', closeSelectors);
 
         function toggleCampusSelector() {
+            // if the other dropdown is still open, close it
             !weeklist.classList.contains('hidden') && that.toggleVisibility(weeklist);
+
             that.toggleVisibility(campuslist);
         }
         const campusOpenerButton = !!shadowDOM && shadowDOM.getElementById('campusOpener');
@@ -133,7 +135,9 @@ class TrainingFilter extends HTMLElement {
         !!campushover && campushover.addEventListener('click', toggleCampusSelector);
 
         function toggleWeekSelector() {
+            // if the other dropdown is still open, close it
             !campuslist.classList.contains('hidden') && that.toggleVisibility(campuslist);
+
             that.toggleVisibility(weeklist);
         }
         const weekOpenerButton = !!shadowDOM && shadowDOM.getElementById('weekOpener');
@@ -144,9 +148,6 @@ class TrainingFilter extends HTMLElement {
         function noteKeywordChange() {
             const inputKeywordField = !!shadowDOM && shadowDOM.getElementById('inputKeyword');
             !!inputKeywordField && (that.inputKeywordValue = inputKeywordField.value);
-
-            const keywordhover = !!shadowDOM && shadowDOM.getElementById('keywordhover');
-            !!keywordhover && (keywordhover.innerHTML = 'By keyword');
         }
         const inputKeywordField = !!shadowDOM && shadowDOM.getElementById('inputKeyword');
         !!inputKeywordField && inputKeywordField.addEventListener('change', noteKeywordChange);
@@ -225,8 +226,8 @@ class TrainingFilter extends HTMLElement {
             console.log('clicked selectWeek for ', weekName);
 
             const weekHover = !!shadowDOM && shadowDOM.getElementById('weekhover');
+            /* istanbul ignore else */
             if (!!weekHover && !weekHover.classList.contains('above')) {
-                // const moveLabel = !!selector && selector.className.replace('hidden', 'above');
                 const moveLabel = `${weekHover.className} above`;
                 !!moveLabel && (weekHover.className = moveLabel);
             }
@@ -261,7 +262,7 @@ class TrainingFilter extends HTMLElement {
 
             const weekSelectButton = document.createElement('button');
             weekSelectButton.className = 'week filterer';
-            weekSelectButton.setAttribute('data-testid', weekName.replaceAll(' ', ''));
+            weekSelectButton.setAttribute('data-testid', weekName.replaceAll(' ', '').toLowerCase());
             weekSelectButton.innerHTML = weekName;
             !!weekSelectButton &&
                 weekSelectButton.addEventListener('click', function () {
@@ -270,7 +271,7 @@ class TrainingFilter extends HTMLElement {
             !!weeklistDom && weeklistDom.appendChild(weekSelectButton);
         }
 
-        const weekStartProvided = this.getAttribute('week-start') || '';
+        const weekStartProvided = this.getAttribute('week-start') || /* istanbul ignore next */ '';
 
         const weeklistDom = shadowDOM.getElementById('weeklist');
         addWeekSelectorButton('All available', weeklistDom);
@@ -281,7 +282,7 @@ class TrainingFilter extends HTMLElement {
         }
 
         function whileMoreDatesToDisplay(weekStartDate) {
-            const weekEndProvided = that.getAttribute('week-end') || '';
+            const weekEndProvided = that.getAttribute('week-end') || /* istanbul ignore next */ '';
             const weekEndDateFinal = new Date(weekEndProvided);
             return weekStartDate <= weekEndDateFinal;
         }
@@ -297,11 +298,6 @@ class TrainingFilter extends HTMLElement {
             weekStartDate = new Date(weekStartProvidedDate);
             weekStartDate.setDate(weekStartProvidedDate.getDate() + dayIncrement);
             dayIncrement += 7;
-
-            if (dayIncrement > 200) {
-                //dev
-                break;
-            }
         }
     }
 
@@ -317,7 +313,6 @@ class TrainingFilter extends HTMLElement {
 
             const campusHover = !!shadowDOM && shadowDOM.getElementById('campushover');
             if (!!campusHover && !campusHover.classList.contains('above')) {
-                // const moveLabel = !!selector && selector.className.replace('hidden', 'above');
                 const moveLabel = `${campusHover.className} above`;
                 !!moveLabel && (campusHover.className = moveLabel);
             }
@@ -351,7 +346,7 @@ class TrainingFilter extends HTMLElement {
             !!campuslistDom && campuslistDom.appendChild(campusSelectButton);
         }
 
-        const campusListProvided = this.getAttribute('campus-list') || '';
+        const campusListProvided = this.getAttribute('campus-list') || /* istanbul ignore next */ '';
         const campusList = campusListProvided.split('|');
 
         const campuslistDom = shadowDOM.getElementById('campuslist');
@@ -391,11 +386,11 @@ class TrainingFilter extends HTMLElement {
      * show hide an element
      */
     toggleVisibility(selector) {
-        const showByClassname = !!selector ? selector.className.replace('hidden', '') : '';
-        const hideByClassname = !!selector ? `${selector.className} hidden` : '';
+        const showByClassname = !!selector && selector.className.replace(' hidden', '');
+        const hideByClassname = !!selector && `${selector.className} hidden`;
         !!selector && selector.classList.contains('hidden')
-            ? (selector.className = showByClassname)
-            : (selector.className = hideByClassname);
+            ? !!showByClassname && (selector.className = showByClassname)
+            : !!hideByClassname && (selector.className = hideByClassname);
     }
 
     /**
@@ -409,6 +404,7 @@ class TrainingFilter extends HTMLElement {
         const optionDate = { year: 'numeric', month: '2-digit', day: '2-digit' };
         // fr-ca: hack to get dates in YYYY-MM-DD format
         let date = new Intl.DateTimeFormat('fr-ca', optionDate).format(weekStartDate);
+        // then reduce to simply YYYYMMDD
         date = date.replaceAll('-', '');
         return encodeURIComponent(date);
     }
