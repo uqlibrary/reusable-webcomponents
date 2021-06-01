@@ -45,13 +45,17 @@ class Training extends HTMLElement {
         this._trainingEvents = events;
     }
 
+    get knownFilters() {
+        return ['keyword', 'campus', 'weekstart', 'online'];
+    }
+
     get filters() {
         if (!location.hash) {
             return null;
         }
         const ret = [];
 
-        // #keyword=Rstudio;campus=St%20Lucia;weekstart=2021-05-31;online=false
+        // #keyword=Rstudio;campus=St%20Lucia|Gatton;weekstart=2021-05-31;online=false
         location.hash
             .slice(1) // remove '#' from beginning
             .split(';') // separate filters
@@ -59,11 +63,13 @@ class Training extends HTMLElement {
                 if (!spec) {
                     return;
                 }
-                const parts = spec.split('='); // get keys and values
-                ret.push({
-                    name: parts[0],
-                    value: decodeURIComponent(parts[1]),
-                });
+                const [name, value] = spec.split('='); // get keys and values
+                if (this.knownFilters.includes(name)) {
+                    ret.push({
+                        name,
+                        value: name === 'campus' ? decodeURIComponent(value).split('|') : value,
+                    });
+                }
             });
 
         return ret;
@@ -99,7 +105,7 @@ class Training extends HTMLElement {
     getFilteredEvents() {
         // Convert array to object for easy reference
         const filters = {};
-        ['keyword', 'campus', 'weekstart', 'online'].map((filterName) => {
+        this.knownFilters.map((filterName) => {
             const filter = !!this.filters && this.filters.find((spec) => spec.name === filterName);
             if (filter) {
                 filters[filterName] = filter.value;
@@ -123,7 +129,7 @@ class Training extends HTMLElement {
                 return false;
             }
 
-            if (!!filters.campus && filters.campus !== event.campus) {
+            if (!!filters.campus && !filters.campus.includes(event.campus)) {
                 return false;
             }
 
@@ -155,6 +161,19 @@ class Training extends HTMLElement {
         // Copy filters from URL to filter component
         !!this.filters &&
             this.filters.forEach(({ name, value }) => {
+                let encodedValue;
+                switch (name) {
+                    case 'campus':
+                        encodedValue = encodeURIComponent(value.join('|'));
+                        break;
+                    case 'weekstart':
+                        // fr-ca: hack to get dates in YYYY-MM-DD format
+                        const formatter = new Intl.DateTimeFormat('fr-ca');
+                        encodedValue = formatter.format(value).replaceAll('-', '');
+                        break;
+                    default:
+                        encodedValue = value;
+                }
                 this.filterComponent.setAttribute(name, value);
             });
 
