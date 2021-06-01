@@ -15,7 +15,6 @@
 }
 
 .clearKeyword {
-    /*display: inline-flex;*/
     align-items: center;
     justify-content: center;
     position: relative;
@@ -56,15 +55,12 @@
     width: 100%;
 }
 .card-content > div {
-    /*flex: 1;*/
-    /*flex-basis: 0.000000001px;*/
-width: 30%;
+    width: 30%;
     padding-top: 1.2rem;
 }
 
 .hidden {
     display: none;
-    /*transition: height 5s, width 5s, padding 5s, visibility 5s, opacity 0.5s ease-out;*/
     animation: in 700ms ease both;
 }
 
@@ -93,6 +89,7 @@ button.campus {
 }
 
 .opener.filterer::after {
+    /* drop down arrow */
     content: " \25BC";
     float: right;
 }
@@ -119,7 +116,8 @@ button.chip {
     border-radius: 1rem;
     display: inline-flex;
     margin-right: 0.25rem;
-    padding: 0.1rem 1rem;
+    padding: 0.3rem 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .keywordPlaceholderMovement {
@@ -127,7 +125,6 @@ button.chip {
 }
 
 .keywordPlaceholderMovement label {
-    /*margin:20px 0;*/
     position:relative;
     display:inline-block;
 
@@ -164,21 +161,16 @@ button.chip {
 }
 
 .listHolder label {
-    /*margin:20px 0;*/
     position:relative;
     display:inline-block;
     width: 100%;
 
     margin-bottom: 0;
-
-    /* to make cancel button sit beside field */
-    /*flex: 1;*/
 }
 
 .hovertext.above {
     font-size: 0.8rem;
     color: #51247A;
-    /*padding-bottom: 1.2rem;*/
     height: 0.8rem;
     margin-top: -3rem;
 }
@@ -189,12 +181,7 @@ button.chip {
     color: #333;
 }
 
-/*.hovertext span {*/
-/*    opacity: 0;*/
-/*}*/
-
 .hovertext {
-    /*opacity:1;*/
     transition: .2s;
     transition-timing-function: ease;
     transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
