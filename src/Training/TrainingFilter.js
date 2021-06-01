@@ -192,16 +192,16 @@ class TrainingFilter extends HTMLElement {
                 label: 'Excel',
             },
             {
-                term: 'Creating a Structured Thesis',
-                label: 'Creating a Structure Thesis (CaST)',
-            },
-            {
                 term: 'UQRDM',
                 label: 'UQRDM',
             },
             {
                 term: 'Rstudio',
                 label: 'R (language)',
+            },
+            {
+                term: 'Creating a Structured Thesis',
+                label: 'Creating a Structure Thesis (CaST)',
             },
         ];
         function setKeyword(searchTerm) {
