@@ -176,6 +176,8 @@ button.chip {
 }
 
 .hovertext {
+}
+.hoverblock {
     margin-top: -1rem;
     margin-left: 0.5rem;
     color: #333;
@@ -189,4 +191,20 @@ button.chip {
     animation:1s ease 2s normal forwards 1 fadein;
     /*transform: scale(0.75) translateY(-100%) translateX(-30px);*/
     transform: translateY(-20px);
+}
+
+@media (max-width: 700px) {
+    .card-content {
+        display: block;
+    }
+
+    .card-content > div {
+        width: 90%;
+        padding-bottom: 1rem;
+        height: 5rem; /* need to fix the height so the field doesnt shift as the label moves around */
+    }
+
+    .hoverblock {
+        height: 1.5rem;
+    }
 }

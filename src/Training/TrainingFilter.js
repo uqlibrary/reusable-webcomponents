@@ -10,7 +10,7 @@ template.innerHTML = `
             <div class="title-text paper-card">Filter events</div>
         </div>
             <div class="card-content" data-testid="dropdown-container">
-                <div aria-label="filter by keyword" class="paper-input-0" tabindex="0" aria-disabled="false">
+                <div aria-label="filter by keyword" tabindex="0" aria-disabled="false">
                     <div class="keywordPlaceholderMovement">
                         <label>
                             <input id="inputKeyword" data-testid="inputKeyword" class="paper-input" autocomplete="off" placeholder=" " autocapitalize="none" autocorrect="off" aria-describedby="" aria-labelledby="keywordhover" tabindex="0">
@@ -27,12 +27,16 @@ template.innerHTML = `
                 </div>
                 <div aria-label="filter by campus" id="campusDropdown" class="listHolder paper-dropdown-menu-0" role="combobox" aria-autocomplete="none" aria-haspopup="true" aria-disabled="false">
                     <button data-testid="campusOpener" id="campusOpener" class="opener filterer" aria-labelledby="campushover"></button>
-                    <div aria-label="campushover" data-testid="campushover" id="campushover" class="hovertext campushover">By campus</div>
+                    <div class="hoverblock">
+                        <div data-testid="campushover" id="campushover" class="campushover hovertext">By campus</div>
+                    </div>
                     <div data-testid="campuslist" id="campuslist" class="selectorlist campuslist hidden"></div>
                 </div>
                 <div aria-label="filter by week" id="weekDropdown" class="listHolder paper-dropdown-menu-0" role="combobox" aria-autocomplete="none" aria-haspopup="true" aria-disabled="false">
                     <button data-testid="weekOpener" id="weekOpener" class="opener filterer" aria-labelledby="weekhover"></button>
-                    <div data-testid="weekhover" aria-label="weekhover" id="weekhover" class="hovertext weekhover">By week</div>
+                    <div class="hoverblock">
+                        <div data-testid="weekhover" aria-label="weekhover" id="weekhover" class="weekhover hovertext">By week</div>
+                    </div>
                     <div data-testid="weeklist"  id="weeklist" class="selectorlist weeklist hidden"></div>
                 </div>
             </div>
@@ -323,9 +327,9 @@ class TrainingFilter extends HTMLElement {
             // there is no requirement to clear the selector fields
 
             // mark as selected so we can move the placeholder label
-            const campusDropdown = !!shadowDOM && shadowDOM.getElementById('campusDropdown');
-            const newClassname = !!campusDropdown && `${campusDropdown.className} selected`;
-            !!campusDropdown && (campusDropdown.className = newClassname);
+            // const campusDropdown = !!shadowDOM && shadowDOM.getElementById('campusDropdown');
+            // const newClassname = !!campusDropdown && `${campusDropdown.className} selected`;
+            // !!campusDropdown && (campusDropdown.className = newClassname);
 
             const campuslist = !!shadowDOM && shadowDOM.getElementById('campuslist');
             that.toggleVisibility(campuslist);
