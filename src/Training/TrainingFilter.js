@@ -191,6 +191,10 @@ class TrainingFilter extends HTMLElement {
                 label: 'Creating a Structure Thesis (CaST)',
             },
             {
+                term: 'UQRDM',
+                label: 'UQRDM',
+            },
+            {
                 term: 'Rstudio',
                 label: 'R (language)',
             },
