@@ -8,17 +8,12 @@ template.innerHTML = `
         ${styles.toString()}
         ${styleOverrides.toString()}
     </style>
-    <div role="region" aria-label="UQ Library Training" data-testid="library-training" id="library-training">
-        <div id="training-container">
-            <training-filter id="training-filter"></training-filter>
-            <training-list id="training-list"></training-list>
-        </div>
-    </div>
+    <div role="region" aria-label="UQ Library Training" data-testid="library-training" id="library-training"></div>
 `;
 
 class Training extends HTMLElement {
     get eventFilterId() {
-        return this.getAttribute('event-filter-id');
+        return this.getAttribute('event-filter-id') || 104;
     }
 
     get maxEventCount() {
@@ -86,15 +81,23 @@ class Training extends HTMLElement {
         this.shadowRoot.appendChild(template.content.cloneNode(true));
 
         // Save element refs
-        this.filterComponent = this.shadowRoot.getElementById('training-filter');
-        this.listComponent = this.shadowRoot.getElementById('training-list');
+        this.rootElement = this.shadowRoot.getElementById('library-training');
+        if (!this.hideFilter) {
+            this.filterComponent = document.createElement('training-filter');
+            this.rootElement.appendChild(this.filterComponent);
+        }
+        this.listComponent = document.createElement('training-list');
+        if (this.hideCategoryTitle) {
+            this.listComponent.setAttribute('hide-category-title', true);
+        }
+        this.rootElement.appendChild(this.listComponent);
 
         this.fetchData();
         this.addEventListeners();
     }
 
     fetchData() {
-        new ApiAccess().loadTrainingEvents(this.maxEventCount).then((fetchedEvents) => {
+        new ApiAccess().loadTrainingEvents(this.maxEventCount, this.eventFilterId).then((fetchedEvents) => {
             if (fetchedEvents) {
                 this.trainingEvents = fetchedEvents;
                 this.setFilters();
@@ -159,7 +162,8 @@ class Training extends HTMLElement {
 
     setFilters() {
         // Copy filters from URL to filter component
-        !!this.filters &&
+        !this.hideFilter &&
+            !!this.filters &&
             this.filters.forEach(({ name, value }) => {
                 let encodedValue;
                 switch (name) {

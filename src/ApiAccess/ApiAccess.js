@@ -108,14 +108,14 @@ class ApiAccess {
             });
     }
 
-    async loadTrainingEvents(maxEventCount) {
+    async loadTrainingEvents({ maxEventCount, filterId }) {
         const trainingApi = new ApiRoutes().TRAINING_API();
         const urlPath = trainingApi.apiUrl;
         const filter = {
             maxEventCount,
             // filterIds should be an array. Passing an array as value to
             // URLSearchParams doesn't seem to be working.
-            'filterIds[]': 104, // Value of filter to extract data from career hub.
+            'filterIds[]': filterId, // Value of filter to extract data from career hub.
         };
         const filterParams = new URLSearchParams(filter).toString();
 
