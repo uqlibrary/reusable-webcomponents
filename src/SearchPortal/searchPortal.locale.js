@@ -1,5 +1,3 @@
-import React from 'react';
-
 const primoPrefix = '&tab=61uq_all&search_scope=61UQ_All&sortby=rank&vid=61UQ&offset=0';
 
 // index of the drop down in the search selection box
@@ -8,7 +6,7 @@ const DATABASES = 6;
 const EXAMS = 7;
 const READING_LISTS = 8;
 
-export const searchPanelLocale = {
+export const searchPortalLocale = {
     typeSelect: {
         label: 'Search',
         items: [
@@ -106,43 +104,43 @@ export const searchPanelLocale = {
     links: [
         {
             label: 'Search help',
-            link: 'https://web.library.uq.edu.au/research-tools-techniques/uq-library-search',
+            linkto: 'https://web.library.uq.edu.au/research-tools-techniques/uq-library-search',
             display: [...PRIMO_ELEMENTS],
         },
         {
             label: 'Advanced search',
-            link: 'https://search.library.uq.edu.au/primo-explore/search?vid=61UQ&mode=advanced',
+            linkto: 'https://search.library.uq.edu.au/primo-explore/search?vid=61UQ&mode=advanced',
             display: [...PRIMO_ELEMENTS],
         },
         {
             label: 'Database search',
-            link: 'https://search.library.uq.edu.au/primo-explore/dbsearch?vid=61UQ',
+            linkto: 'https://search.library.uq.edu.au/primo-explore/dbsearch?vid=61UQ',
             display: [...PRIMO_ELEMENTS],
         },
         {
             label: 'Database help',
-            link:
+            linkto:
                 'https://web.library.uq.edu.au/research-tools-techniques/search-techniques/where-and-how-search/searching-databases',
             display: [DATABASES],
         },
         {
             label: 'Browse databases',
-            link: 'https://search.library.uq.edu.au/primo-explore/dbsearch?vid=61UQ',
+            linkto: 'https://search.library.uq.edu.au/primo-explore/dbsearch?vid=61UQ',
             display: [DATABASES],
         },
         {
             label: 'Browse search',
-            link: 'https://search.library.uq.edu.au/primo-explore/browse?vid=61UQ',
+            linkto: 'https://search.library.uq.edu.au/primo-explore/browse?vid=61UQ',
             display: [...PRIMO_ELEMENTS],
         },
         {
             label: 'Browse courses',
-            link: 'https://www.library.uq.edu.au/exams/',
+            linkto: 'https://www.library.uq.edu.au/exams/',
             display: [EXAMS],
         },
         {
             label: 'Browse courses',
-            link: 'https://uq.rl.talis.com/index.html',
+            linkto: 'https://uq.rl.talis.com/index.html',
             display: [READING_LISTS],
         },
     ],

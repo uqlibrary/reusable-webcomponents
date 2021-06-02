@@ -1,5 +1,6 @@
 import styles from './css/main.css';
 import overrides from './css/overrides.css';
+import { searchPortalLocale } from './searchPortal.locale';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -71,7 +72,7 @@ template.innerHTML = `
                             </button>
                         </div>
                     </div>
-                    <div class="searchPanel MuiGrid-container MuiFormControlMuiGrid-spacing-xs-2" data-testid="primo-search-links">
+                    <div class="searchPanel MuiGrid-container MuiFormControlMuiGrid-spacing-xs-2" id="footerLinks" data-testid="primo-search-links">
                         <div class="searchUnderlinks MuiGrid-item MuiGrid-grid-xs-auto" data-testid="primo-search-links-0">
                             <a href="https://web.library.uq.edu.au/research-tools-techniques/uq-library-search" rel="noreferrer">Search help</a>
                         </div>
@@ -102,8 +103,10 @@ class SearchPortal extends HTMLElement {
         shadowDOM.appendChild(template.content.cloneNode(true));
 
         this.addListeners(shadowDOM);
+        this.appendFooterLinks(shadowDOM);
 
         this.addListeners = this.addListeners.bind(this);
+        this.appendFooterLinks = this.appendFooterLinks.bind(this);
     }
 
     /**
@@ -112,6 +115,36 @@ class SearchPortal extends HTMLElement {
      */
     addListeners(shadowDOM) {
         const that = this;
+    }
+
+    createFooterLink(link, index) {
+        const displayLabel = document.createTextNode(link.label);
+
+        const anchor = document.createElement('a');
+        !!anchor && (anchor.href = link.linkto);
+        !!anchor && (anchor.rel = 'noreferrer');
+        !!anchor && (anchor.ariaLabel = link.label);
+        anchor.appendChild(displayLabel);
+
+        const container = document.createElement('div');
+        !!container && (container.className = 'searchUnderlinks MuiGrid-item MuiGrid-grid-xs-auto');
+        !!container && container.setAttribute('data-testid', `primo-search-links-${index}`);
+        !!container && !!anchor && container.appendChild(anchor);
+        return container;
+    }
+
+    appendFooterLinks(shadowDOM, searchType = 0) {
+        const footerLinkContainer = !!shadowDOM && shadowDOM.getElementById('footerLinks');
+        // clear current footer links
+        !!footerLinkContainer && (footerLinkContainer.innerHTML = '');
+        // add the footer links for this searchtype
+        !!footerLinkContainer &&
+            searchPortalLocale.links.forEach((link, index) => {
+                if (link.display.includes(searchType)) {
+                    const container = this.createFooterLink(link, index);
+                    !!container && footerLinkContainer.appendChild(container);
+                }
+            });
     }
 }
 
