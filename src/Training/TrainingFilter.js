@@ -5,7 +5,7 @@ const template = document.createElement('template');
 template.innerHTML = `
     <style>${styles.toString()}</style>
     <style>${overrides.toString()}</style>
-    <div id="root" class="pane pane--outline" role="region" aria-live="polite">
+    <section id="training-filter" class="pane pane--outline" role="search" aria-live="polite">
         <div class="header uq-pane__title" data-testid="training-filter-header">
             <h3 class="title-text paper-card">Filter events</h3>
         </div>
@@ -51,7 +51,7 @@ template.innerHTML = `
         <div id="quicklinks" class="quicklinks">
             <h4>Popular events:</h4>
         </div>
-    </div>
+    </section>
 `;
 
 class TrainingFilter extends HTMLElement {
@@ -447,11 +447,8 @@ class TrainingFilter extends HTMLElement {
             return 'all';
         }
 
-        const optionDate = { year: 'numeric', month: '2-digit', day: '2-digit' };
         // fr-ca: hack to get dates in YYYY-MM-DD format
-        let date = new Intl.DateTimeFormat('fr-ca', optionDate).format(weekStartDate);
-        // then reduce to simply YYYYMMDD
-        date = date.replaceAll('-', '');
+        let date = new Intl.DateTimeFormat('fr-ca').format(weekStartDate);
         return encodeURIComponent(date);
     }
 }

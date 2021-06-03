@@ -1,12 +1,10 @@
-import styles from './css/main.css';
-import styleOverrides from './css/overrides.css';
+import styles from './css/overrides.css';
 import ApiAccess from '../ApiAccess/ApiAccess';
 
 const template = document.createElement('template');
 template.innerHTML = `
     <style>
         ${styles.toString()}
-        ${styleOverrides.toString()}
     </style>
     <div role="region" aria-label="UQ Library Training" data-testid="library-training" id="library-training"></div>
 `;
@@ -60,9 +58,12 @@ class Training extends HTMLElement {
                 }
                 const [name, value] = spec.split('='); // get keys and values
                 if (this.knownFilters.includes(name) && !!value) {
+                    if (['campus', 'weekstart'].includes(name) && value === 'all') {
+                        return;
+                    }
                     ret.push({
                         name,
-                        value: name === 'campus' ? decodeURIComponent(value).split('|') : value,
+                        value: name === 'campus' ? decodeURIComponent(value).split('|').map(decodeURIComponent) : value,
                     });
                 }
             });
@@ -149,8 +150,7 @@ class Training extends HTMLElement {
         let weekStart;
         let weekEnd;
         if (!!filters.weekstart) {
-            weekStart = new Date(filters.weekstart);
-            weekStart.setHours(0, 0, 0);
+            weekStart = new Date(filters.weekstart + 'T00:00:00+10:00');
 
             weekEnd = new Date(weekStart.getTime());
             weekEnd.setDate(weekStart.getDate() + 7);
