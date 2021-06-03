@@ -1,6 +1,5 @@
 import styles from './css/main.css';
 import overrides from './css/detail.css';
-import { authLocale } from '../UtilityArea/auth.locale';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -87,56 +86,37 @@ template.innerHTML = `
 </div>
 `;
 
-let initCalled;
-
 class TrainingDetail extends HTMLElement {
-    static get observedAttributes() {
-        return ['event-id'];
-    }
-
-    attributeChangedCallback(fieldName, oldValue, newValue) {
-        switch (fieldName) {
-            case 'event-id':
-                this.addButtonListeners(newValue);
-
-                break;
-            /* istanbul ignore next  */
-            default:
-                console.log(`unhandled attribute ${fieldName} received for TrainingDetail`);
-        }
-    }
-
     constructor() {
         super();
+
+        this._eventData = {};
+
         // Add a shadow DOM
         const shadowDOM = this.attachShadow({ mode: 'open' });
 
         // Render the template
         shadowDOM.appendChild(template.content.cloneNode(true));
+    }
 
-        this.setupEmailRegistration(shadowDOM);
-        this.setEventName(shadowDOM);
-        this.setEventDetails(shadowDOM);
-        // this.setEventSummary(shadowDOM);
-        this.setEventLocation(shadowDOM);
-        this.setBookingText(shadowDOM);
-        this.setEventDateTime(shadowDOM);
+    set data(eventData) {
+        this._eventData = eventData;
 
-        this.findKnownLocationinVenue = this.findKnownLocationinVenue.bind(this);
-        this.getEmailEnquiryHref = this.getEmailEnquiryHref.bind(this);
-        this.getStartDateFormatted = this.getStartDateFormatted.bind(this);
-        this.getStartTimeFormatted = this.getStartTimeFormatted.bind(this);
-        this.setupEmailRegistration = this.setupEmailRegistration.bind(this);
-        this.setBookingText = this.setBookingText.bind(this);
-        this.setEventDateTime = this.setEventDateTime.bind(this);
-        this.setEventDetails = this.setEventDetails.bind(this);
-        this.setEventLocation = this.setEventLocation.bind(this);
-        this.setEventName = this.setEventName.bind(this);
-        // this.setEventSummary = this.setEventSummary.bind(this);
+        this.setupEmailRegistration();
+        this.setEventName();
+        this.setEventDetails();
+        // this.setEventSummary();
+        this.setEventLocation();
+        this.setBookingText();
+        this.setEventDateTime();
+        this.addButtonListeners(eventData.id);
+    }
+
+    get data() {
+        return this._eventData;
     }
 
     addButtonListeners(eventId) {
-        const shadowDOM = this.shadowRoot;
         const target = this.getAttribute('studenthub_window') || '_blank';
 
         function visitBookingPage(link, target) {
@@ -148,22 +128,18 @@ class TrainingDetail extends HTMLElement {
             }
         }
 
-        function getBookingLink(eventId) {
-            return `https://studenthub.uq.edu.au/students/events/detail/${eventId}`;
-        }
+        const bookingLink = `https://studenthub.uq.edu.au/students/events/detail/${eventId}`;
 
-        const bookingButton = !!shadowDOM && shadowDOM.getElementById('bookTraining');
-        const that = this;
+        const bookingButton = this.shadowRoot.getElementById('bookTraining');
         !!bookingButton &&
             bookingButton.addEventListener('click', function () {
-                const link = getBookingLink(eventId);
-                visitBookingPage(link, target);
+                visitBookingPage(bookingLink, target);
             });
     }
 
-    setEventDateTime(shadowDOM) {
-        const startDate = this.getAttribute('start');
-        const endDate = this.getAttribute('end');
+    setEventDateTime() {
+        const startDate = this.data.start;
+        const endDate = this.data.end;
 
         /* istanbul ignore next */
         if (!startDate || !endDate) {
@@ -172,21 +148,21 @@ class TrainingDetail extends HTMLElement {
 
         const optionHours = { hour: 'numeric', minute: 'numeric' };
         const startTimeData = this.getStartTimeFormatted(optionHours);
-        const startTimeDom = shadowDOM.getElementById('startTime');
+        const startTimeDom = this.shadowRoot.getElementById('startTime');
         !!startTimeData && !!startTimeDom && (startTimeDom.innerText = startTimeData);
 
         const endDateDate = new Date(endDate);
         const endTimeData = new Intl.DateTimeFormat('en-AU', optionHours).format(endDateDate);
-        const endTimeDom = shadowDOM.getElementById('endTime');
+        const endTimeDom = this.shadowRoot.getElementById('endTime');
         !!endTimeData && !!endTimeDom && (endTimeDom.innerText = endTimeData);
 
         const fullDateData = this.getStartDateFormatted();
-        const fullDateDom = shadowDOM.getElementById('fullDate');
+        const fullDateDom = this.shadowRoot.getElementById('fullDate');
         !!fullDateData && !!fullDateDom && (fullDateDom.innerText = fullDateData);
     }
 
     getStartTimeFormatted(optionHours) {
-        const startDate = this.getAttribute('start');
+        const startDate = this.data.start;
         /* istanbul ignore next */
         if (!startDate) {
             return '';
@@ -196,7 +172,7 @@ class TrainingDetail extends HTMLElement {
     }
 
     getStartDateFormatted() {
-        const startDate = this.getAttribute('start');
+        const startDate = this.data.start;
         /* istanbul ignore next */
         if (!startDate) {
             return '';
@@ -206,53 +182,52 @@ class TrainingDetail extends HTMLElement {
         return new Intl.DateTimeFormat('en-AU', optionDate).format(startDateDate);
     }
 
-    setEventName(shadowDOM) {
-        const eventNameData = this.getAttribute('event-name');
-        const eventNameDom = shadowDOM.getElementById('eventName');
+    setEventName() {
+        const eventNameData = this.data.name;
+        const eventNameDom = this.shadowRoot.getElementById('eventName');
         !!eventNameData && !!eventNameDom && (eventNameDom.innerText = eventNameData);
     }
 
-    setEventDetails(shadowDOM) {
-        let eventDetailsData = this.getAttribute('event-details');
-        eventDetailsData = eventDetailsData.replace('\n', '<br />');
+    setEventDetails() {
+        const eventDetailsData = this.data.details.replace('\n', '<br />');
 
-        const eventDetailsDom = shadowDOM.getElementById('eventDetails');
+        const eventDetailsDom = this.shadowRoot.getElementById('eventDetails');
         !!eventDetailsData && !!eventDetailsDom && (eventDetailsDom.innerHTML = eventDetailsData);
     }
 
     // this seems never to be displayed?
-    // setEventSummary(shadowDOM) {
-    //     let eventSummaryData = this.getAttribute('event-summary');
+    // setEventSummary() {
+    //     let eventSummaryData = this.data.summary;
     //
     //     eventSummaryData = eventSummaryData.replace('\n', '<br />');
     //
     //
-    //     const eventSummaryDom = shadowDOM.getElementById('eventSummary');
+    //     const eventSummaryDom = this.shadowRoot.getElementById('eventSummary');
     //     !!eventSummaryData && !!eventSummaryDom && (eventSummaryDom.innerText = eventSummaryData);
     // }
 
-    setBookingText(shadowDOM) {
-        const placesRemaining = this.getAttribute('places-remaining');
-        const bookingTextDom = shadowDOM.getElementById('bookingText');
+    setBookingText() {
+        const placesRemaining = this.data.placesRemaining;
+        const bookingTextDom = this.shadowRoot.getElementById('bookingText');
         !!placesRemaining && !!bookingTextDom && (bookingTextDom.innerText = placesRemaining);
     }
 
-    setEventLocation(shadowDOM) {
-        const venue = this.getAttribute('venue');
+    setEventLocation() {
+        const venue = this.data.venue;
         /* istanbul ignore next */
         if (!venue) {
             return;
         }
         const venueNameElement = document.createTextNode(venue);
 
-        const locationdetails = shadowDOM.getElementById('locationdetails');
+        const locationdetails = this.shadowRoot.getElementById('locationdetails');
         /* istanbul ignore next */
         if (!locationdetails) {
             return;
         }
 
         const mapUrl = this.findKnownLocationinVenue(venue);
-        const _maplink = mapUrl !== false ? mapUrl : '';
+        // const _maplink = mapUrl !== false ? mapUrl : '';
         const _showMapLink = mapUrl !== false;
         if (_showMapLink) {
             const itemLink = document.createElement('a');
@@ -266,11 +241,11 @@ class TrainingDetail extends HTMLElement {
         }
     }
 
-    setupEmailRegistration(shadowDOM) {
-        const userID = this.getAttribute('user-id') || false;
-        const userName = this.getAttribute('user-name') || false;
+    setupEmailRegistration() {
+        const userID = this.data.userId || false;
+        const userName = this.data.userName || false;
 
-        const registrationBlockForNonUQDom = shadowDOM.getElementById('registrationBlockForNonUQ');
+        const registrationBlockForNonUQDom = this.shadowRoot.getElementById('registrationBlockForNonUQ');
 
         const showRegistrationForNonUQ = !!userID && !!userName && userID.match(/^em/) !== null;
         if (!!registrationBlockForNonUQDom && !showRegistrationForNonUQ) {
@@ -279,7 +254,7 @@ class TrainingDetail extends HTMLElement {
         }
 
         const registrationEmail = 'training@library.uq.edu.au';
-        const emailEnquiryLink = shadowDOM.getElementById('emailEnquiry');
+        const emailEnquiryLink = this.shadowRoot.getElementById('emailEnquiry');
         /* istanbul ignore next */
         if (!emailEnquiryLink) {
             return;
@@ -289,12 +264,12 @@ class TrainingDetail extends HTMLElement {
     }
 
     getEmailEnquiryHref(registrationEmail) {
-        const eventNameData = this.getAttribute('event-name') || /* istanbul ignore next */ '';
-        const eventIdData = this.getAttribute('event-id') || /* istanbul ignore next */ '';
-        const eventStartDateData = this.getAttribute('start') || /* istanbul ignore next */ '';
-        const userID = this.getAttribute('user-id') || /* istanbul ignore next */ '';
-        const userName = this.getAttribute('user-name') || /* istanbul ignore next */ '';
-        const userEmail = this.getAttribute('user-email') || /* istanbul ignore next */ '';
+        const eventNameData = this.data.name || /* istanbul ignore next */ '';
+        const eventIdData = this.data.id || /* istanbul ignore next */ '';
+        const eventStartDateData = this.data.start || /* istanbul ignore next */ '';
+        const userID = this.data.userId || /* istanbul ignore next */ '';
+        const userName = this.data.userName || /* istanbul ignore next */ '';
+        const userEmail = this.data.userEmail || /* istanbul ignore next */ '';
 
         let mailText = 'mailto:' + registrationEmail + '?';
         mailText += '&subject=Expression of interest for event';

@@ -1,0 +1,181 @@
+import styles from './css/main.css';
+import listStyles from './css/list.css';
+import uqds from './js/uqds';
+import ApiAccess from '../ApiAccess/ApiAccess';
+
+const template = document.createElement('template');
+template.innerHTML = `
+    <style>
+        ${styles.toString()}
+        ${listStyles.toString()}
+    </style>
+    <section data-testid="training-list" id="training-list" role="grid" aria-label="Available events" class="uq-grid uq-grid--full-width">
+    </section>
+`;
+
+const categoryTemplate = document.createElement('template');
+categoryTemplate.innerHTML = `
+    <div class="uq-grid__col uq-grid__col--6 uq-card">
+        <div class="uq-card__header">Card header</div>
+        <div class="uq-card__body">
+            <div class="uq-card__content">
+                <div 
+                    class="accordion"
+                    aria-label="Accordion button group"
+                    role="presentation"
+                    id="training-events-accordion"
+                    data-testid="training-events-accordion"
+                ></div>
+            </div>
+        </div>
+    </div>
+`;
+
+const eventTemplate = document.createElement('template');
+eventTemplate.innerHTML = `
+    <div class="accordion__item">
+        <button class="accordion__toggle" aria-expanded="false"></button>
+        <div class="accordion__content" aria-hidden="true"></div>
+    </div>
+`;
+
+class TrainingList extends HTMLElement {
+    constructor() {
+        super();
+        this._accountLoading = false;
+        this._account = {};
+        this._eventList = [];
+    }
+
+    set data(eventList) {
+        this._eventList = eventList;
+        this.clearEvents();
+
+        const categoryNames = [...new Set(eventList.map((event) => event.eventType))];
+        categoryNames.map((categoryName, index) => {
+            this.rootElement.appendChild(categoryTemplate.content.cloneNode(true));
+            const categoryCard = this.rootElement.lastElementChild;
+
+            categoryCard.getElementsByClassName('uq-card__header').item(0).innerHTML = `
+                <h3>${categoryName}</h3>
+            `;
+
+            const categoryListElement = categoryCard.getElementsByClassName('accordion').item(0);
+            categoryListElement.setAttribute('id', `event-category-${index}`);
+            categoryListElement.setAttribute('data-testid', `event-category-${index}`);
+            categoryListElement.setAttribute('data-category-name', categoryName);
+
+            this.populateEventsByCategory(categoryListElement);
+        });
+
+        this.addEventListeners();
+    }
+
+    get data() {
+        return this._eventList;
+    }
+
+    get accountLoading() {
+        return this._accountLoading;
+    }
+
+    set accountLoading(value) {
+        this._accountLoading = value;
+    }
+
+    get account() {
+        return this._account;
+    }
+
+    set account(value) {
+        this._account = value;
+    }
+
+    connectedCallback() {
+        this.attachShadow({ mode: 'open' });
+
+        // Render the template
+        this.shadowRoot.appendChild(template.content.cloneNode(true));
+
+        // Save element refs
+        this.rootElement = this.shadowRoot.getElementById('training-list');
+
+        this.checkAuthorisedUser();
+    }
+
+    addEventListeners() {
+        new uqds.accordion('accordion');
+    }
+
+    populateEventsByCategory(categoryListElement) {
+        const categoryName = categoryListElement.getAttribute('data-category-name');
+        const eventsByCategory = this.data.filter((event) => event.eventType === categoryName);
+        eventsByCategory.map((event) => {
+            this.insertEvent(event, categoryListElement);
+        });
+    }
+
+    insertEvent(event, eventListForCategory) {
+        eventListForCategory.appendChild(eventTemplate.content.cloneNode(true));
+        const eventElement = eventListForCategory.lastElementChild;
+        const toggleButtonId = `event-title-${event.entityId}`;
+        const detailContainerId = `event-detail-${event.entityId}`;
+
+        const toggleButton = eventElement.getElementsByClassName('accordion__toggle').item(0);
+        toggleButton.setAttribute('id', toggleButtonId);
+        toggleButton.setAttribute('aria-controls', detailContainerId);
+        toggleButton.textContent = event.name;
+
+        const detailContainer = eventElement.getElementsByClassName('accordion__content').item(0);
+        detailContainer.setAttribute('id', detailContainerId);
+        detailContainer.setAttribute('aria-labelledby', toggleButtonId);
+
+        const detailElement = document.createElement('training-detail');
+        detailContainer.appendChild(detailElement);
+        detailElement.setAttribute('data-testid', `event-detail-content-${event.entityId}`);
+        detailElement.data = {
+            id: event.entityId,
+            name: event.name,
+            details: event.details,
+            summary: event.summary,
+            placesRemaining: event.bookingSettings.placesRemaining,
+            start: event.start,
+            end: event.end,
+            venue: event.venue,
+            userId: (this.account && this.account.id) || '',
+            userName: (this.account && this.account.name) || '',
+            userEmail: (this.account && this.account.email) || '',
+        };
+    }
+
+    clearEvents() {
+        this.rootElement.innerHTML = '';
+    }
+
+    async checkAuthorisedUser() {
+        this.accountLoading = true;
+        this.account = {};
+        let loggedin = null;
+
+        const that = this;
+        const api = new ApiAccess();
+        await api
+            .getAccount()
+            .then((account) => {
+                /* istanbul ignore else */
+                if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
+                    that.account = account;
+                }
+                that.accountLoading = false;
+
+                loggedin = !!that.account && !!that.account.id;
+            })
+            .catch((error) => {
+                that.accountLoading = false;
+                loggedin = false;
+            });
+        return loggedin;
+    }
+}
+
+export default TrainingList;

@@ -1,11 +1,7 @@
-import styles from './css/overrides.css';
 import ApiAccess from '../ApiAccess/ApiAccess';
 
 const template = document.createElement('template');
 template.innerHTML = `
-    <style>
-        ${styles.toString()}
-    </style>
     <div role="region" aria-label="UQ Library Training" data-testid="library-training" id="library-training"></div>
 `;
 
@@ -120,10 +116,7 @@ class Training extends HTMLElement {
             startDateList.push(new Date(event.start));
             endDateList.push(new Date(event.end));
         });
-        const campusListAttr = campusList
-            .filter((value, index, self) => !!value && self.indexOf(value) === index)
-            .map(encodeURIComponent)
-            .join('|');
+        const campusListAttr = [...new Set(campusList)].filter(Boolean).map(encodeURIComponent).join('|');
         const weekStartAttr = startDateList.sort((a, b) => a < b)[0].toISOString();
         const weekEndAttr = endDateList
             .sort((a, b) => a < b)
