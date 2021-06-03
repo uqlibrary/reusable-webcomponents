@@ -9,7 +9,7 @@ template.innerHTML = `
     <div id="root" class="pane pane--outline" role="region" aria-live="polite">
         <div class="MuiPaper-root MuiCard-root libraryCard StandardCard MuiPaper-elevation1 MuiPaper-rounded" data-testid="primo-search" id="primo-search">
     <div class="MuiCardContent-root libraryContent" data-testid="primo-search-content">
-        <form id="primo-search-form">
+        <form id="search-portal-form">
             <div class="searchPanel MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-flex-end">
                 <div class="MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-auto">
                     <div class="MuiFormControl-root" style="width: 100%;">
@@ -19,8 +19,9 @@ template.innerHTML = `
                                 <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                                     <path id="portaltype-current-icon" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"></path>
                                 </svg>&nbsp;<span id="portaltype-current-label">Library</span>
+                                <input type="hidden" name="portaltype" id="portaltype-current-value">
                             </div>
-                            <input type="hidden" id="primo-search-select-input" data-testid="primo-search-select-input" value="0">
+                            <input type="hidden" id="search-portal-input" data-testid="primo-search-select-input" value="0">
                                 <svg class="MuiSvgIcon-root MuiSelect-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                                     <path d="M7 10l5 5 5-5z"></path>
                                 </svg>
@@ -31,7 +32,7 @@ template.innerHTML = `
                         <div class="MuiAutocomplete-root" role="combobox" aria-expanded="false" data-testid="primo-search-autocomplete">
                             <div class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth">
                                 <div class="MuiInputBase-root MuiInput-root MuiInput-underline MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd">
-                                    <input aria-invalid="false" autocomplete="off" id="portaltype-current-inputfield" placeholder="Find books, articles, databases, Library guides &amp; more" type="search" class="MuiInputBase-input MuiInput-input selectInput MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch" aria-autocomplete="list" autocapitalize="none" spellcheck="false" aria-label="Enter your search terms" data-testid="primo-search-autocomplete-input" value="">
+                                    <input name="currentInputfield" aria-invalid="false" autocomplete="off" id="current-inputfield" placeholder="Find books, articles, databases, Library guides &amp; more" type="search" class="MuiInputBase-input MuiInput-input selectInput MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch" aria-autocomplete="list" autocapitalize="none" spellcheck="false" aria-label="Enter your search terms" data-testid="primo-search-autocomplete-input" value="">
                                         <div class="MuiAutocomplete-endAdornment"></div>
                                     </div>
                                 </div>
@@ -80,6 +81,16 @@ template.innerHTML = `
     </div>
 `;
 
+const PRIMO_LIBRARY_SEARCH = 0;
+const PRIMO_BOOKS_SEARCH = 1;
+const PRIMO_JOURNAL_ARTICLES_SEARCH = 2;
+const PRIMO_VIDEO_AUDIO_SEARCH = 3;
+const PRIMO_JOURNALS_SEARCH = 4;
+const PRIMO_PHYSICAL_ITEMS_SEARCH = 5;
+// const PRIMO_DATABASE_SEARCH = 6;
+const EXAM_SEARCH_TYPE = 7;
+const COURSE_RESOURCE_SEARCH_TYPE = 8;
+
 class SearchPortal extends HTMLElement {
     constructor() {
         super();
@@ -110,11 +121,49 @@ class SearchPortal extends HTMLElement {
     addListeners(shadowDOM) {
         const that = this;
 
+        function submitHandler() {
+            return function (e) {
+                e.preventDefault();
+
+                const charactersBefore = (string, separator) => {
+                    if (!!string && string.indexOf(separator) === -1) {
+                        return string.trim();
+                    }
+                    return string.substr(0, string.indexOf(separator));
+                };
+
+                const formData = new FormData(e.target);
+                const formObject = Object.fromEntries(formData);
+
+                const matches = searchPortalLocale.typeSelect.items.filter((element) => {
+                    return parseInt(element.selectId, 10) === parseInt(formObject.portaltype, 10);
+                });
+                const searchType = matches.length > 0 ? matches[0] : false;
+                if (!!formObject.currentInputfield) {
+                    let keyword = formObject.currentInputfield;
+                    // if ([COURSE_RESOURCE_SEARCH_TYPE, EXAM_SEARCH_TYPE].includes(searchType.selectId)) {
+                    //     // because the display text in the dropdown has the descriptors in it, that text reaches here.
+                    //     // trim down to the course code only
+                    //     keyword = charactersBefore(keyword, ' ');
+                    // }
+                    const link = searchType.link.replace('[keyword]', keyword).replace('[keyword]', keyword); // database search has two instances of keyword
+
+                    window.location.assign(link);
+                }
+
+                return false;
+            };
+        }
+
+        const theform = !!shadowDOM && shadowDOM.getElementById('search-portal-form');
+        !!theform && theform.addEventListener('submit', submitHandler());
+
         // open and close the dropdown when the search-type button is clicked
         const searchPortalSelector = !!shadowDOM && shadowDOM.getElementById('search-portal-select');
-        searchPortalSelector.addEventListener('click', function (e) {
-            that.showHidePortalTypeDropdown(shadowDOM);
-        });
+        !!searchPortalSelector &&
+            searchPortalSelector.addEventListener('click', function (e) {
+                that.showHidePortalTypeDropdown(shadowDOM);
+            });
     }
 
     showHidePortalTypeDropdown(shadowDOM) {
@@ -196,23 +245,30 @@ class SearchPortal extends HTMLElement {
     setDropdownButton(shadowDOM, searchType = 0) {
         const portalTypeContainer = !!shadowDOM && shadowDOM.getElementById('portaltype-dropdown');
 
+        const useSearchType = parseInt(searchType, 10);
+
         // put the icon on the display
         const portalTypeCurrentIcon = !!shadowDOM && shadowDOM.getElementById('portaltype-current-icon');
         !!portalTypeCurrentIcon &&
-            !!searchPortalLocale.typeSelect?.items[searchType]?.iconPath &&
-            portalTypeCurrentIcon.setAttribute('d', searchPortalLocale.typeSelect.items[searchType].iconPath);
+            !!searchPortalLocale.typeSelect?.items[useSearchType]?.iconPath &&
+            portalTypeCurrentIcon.setAttribute('d', searchPortalLocale.typeSelect.items[useSearchType].iconPath);
 
         // put the text label on the display
         const portalTypeCurrentLabel = !!shadowDOM && shadowDOM.getElementById('portaltype-current-label');
         !!portalTypeCurrentLabel &&
-            !!searchPortalLocale.typeSelect?.items[searchType]?.name &&
-            (portalTypeCurrentLabel.innerHTML = searchPortalLocale.typeSelect.items[searchType].name);
+            !!searchPortalLocale.typeSelect?.items[useSearchType]?.name &&
+            (portalTypeCurrentLabel.innerHTML = searchPortalLocale.typeSelect.items[useSearchType].name);
+
+        const portalTypeCurrentSave = !!shadowDOM && shadowDOM.getElementById('portaltype-current-value');
+        !!portalTypeCurrentSave &&
+            !!searchPortalLocale.typeSelect?.items[useSearchType]?.selectId &&
+            (portalTypeCurrentSave.value = searchPortalLocale.typeSelect.items[useSearchType].selectId);
 
         // supply the placeholder text
-        const portalTypeCurrentInput = !!shadowDOM && shadowDOM.getElementById('portaltype-current-inputfield');
+        const portalTypeCurrentInput = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
         !!portalTypeCurrentInput &&
-            !!searchPortalLocale.typeSelect?.items[searchType]?.placeholder &&
-            (portalTypeCurrentInput.placeholder = searchPortalLocale.typeSelect.items[searchType].placeholder);
+            !!searchPortalLocale.typeSelect?.items[useSearchType]?.placeholder &&
+            (portalTypeCurrentInput.placeholder = searchPortalLocale.typeSelect.items[useSearchType].placeholder);
 
         // add an extra class to the button to say which label it is currently showing
         // this is used by the css to make the dropdown highlight the matching label
@@ -227,13 +283,15 @@ class SearchPortal extends HTMLElement {
                 }
             }
         }
-        const newClass = `label-${searchType}-button`;
+        const newClass = `label-${useSearchType}-button`;
         portalTypeContainer.className = `${portalTypeContainer.className} ${newClass}`;
 
-        this.appendFooterLinks(shadowDOM, searchType);
+        this.appendFooterLinks(shadowDOM, useSearchType);
     }
 
     createPortalTypeSelector(shadowDOM, searchType = 0) {
+        const useSearchType = parseInt(searchType, 10);
+
         const portalTypeDropdown = document.createElement('ul');
         // !!portalTypeDropdown && (portalTypeDropdown.id = 'portal-type-selector');
         !!portalTypeDropdown &&
