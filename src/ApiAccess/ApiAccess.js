@@ -167,8 +167,9 @@ class ApiAccess {
     /* istanbul ignore next */
     fetchFromServer(urlPath, options) {
         const API_URL = process.env.API_URL || 'https://api.library.uq.edu.au/staging/';
+        const connector = urlPath.indexOf('?') > -1 ? '&' : '?';
 
-        return fetch(`${API_URL}${urlPath}?${new Date().getTime()}`, {
+        return fetch(`${API_URL}${urlPath}${connector}${new Date().getTime()}`, {
             headers: options,
         });
     }
