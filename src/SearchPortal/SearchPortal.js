@@ -14,11 +14,11 @@ template.innerHTML = `
                 <div class="MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-auto">
                     <div class="MuiFormControl-root" style="width: 100%;">
                         <label class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled" data-shrink="true" id="primo-search-select-label">Search</label>
-                        <div class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl">
-                            <div class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input" tabindex="0" role="button" aria-haspopup="listbox" aria-labelledby="primo-search-select-label primo-search-select" id="primo-search-select" data-testid="primo-search-select">
+                        <div class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl" id="portaltype-dropdown">
+                            <div class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input" tabindex="0" role="button" aria-haspopup="listbox" aria-labelledby="primo-search-select-label primo-search-select" id="search-portal-select" data-testid="primo-search-select">
                                 <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"></path>
-                                </svg>&nbsp;Library
+                                    <path id="portaltype-current-icon" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"></path>
+                                </svg>&nbsp;<span id="portaltype-current-label">Library</span>
                             </div>
                             <input type="hidden" id="primo-search-select-input" data-testid="primo-search-select-input" value="0">
                                 <svg class="MuiSvgIcon-root MuiSelect-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
@@ -31,7 +31,7 @@ template.innerHTML = `
                         <div class="MuiAutocomplete-root" role="combobox" aria-expanded="false" data-testid="primo-search-autocomplete">
                             <div class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth">
                                 <div class="MuiInputBase-root MuiInput-root MuiInput-underline MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd">
-                                    <input aria-invalid="false" autocomplete="off" id="primo-search-autocomplete" placeholder="Find books, articles, databases, Library guides &amp; more" type="search" class="MuiInputBase-input MuiInput-input selectInput MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch" aria-autocomplete="list" autocapitalize="none" spellcheck="false" aria-label="Enter your search terms" data-testid="primo-search-autocomplete-input" value="">
+                                    <input aria-invalid="false" autocomplete="off" id="portaltype-current-inputfield" placeholder="Find books, articles, databases, Library guides &amp; more" type="search" class="MuiInputBase-input MuiInput-input selectInput MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch" aria-autocomplete="list" autocapitalize="none" spellcheck="false" aria-label="Enter your search terms" data-testid="primo-search-autocomplete-input" value="">
                                         <div class="MuiAutocomplete-endAdornment"></div>
                                     </div>
                                 </div>
@@ -73,18 +73,6 @@ template.innerHTML = `
                         </div>
                     </div>
                     <div class="searchPanel MuiGrid-container MuiFormControlMuiGrid-spacing-xs-2" id="footerLinks" data-testid="primo-search-links">
-                        <div class="searchUnderlinks MuiGrid-item MuiGrid-grid-xs-auto" data-testid="primo-search-links-0">
-                            <a href="https://web.library.uq.edu.au/research-tools-techniques/uq-library-search" rel="noreferrer">Search help</a>
-                        </div>
-                        <div class="searchUnderlinks MuiGrid-item MuiGrid-grid-xs-auto" data-testid="primo-search-links-1">
-                            <a href="https://search.library.uq.edu.au/primo-explore/search?vid=61UQ&amp;mode=advanced" rel="noreferrer">Advanced search</a>
-                        </div>
-                        <div class="searchUnderlinks MuiGrid-item MuiGrid-grid-xs-auto" data-testid="primo-search-links-2">
-                            <a href="https://search.library.uq.edu.au/primo-explore/dbsearch?vid=61UQ" rel="noreferrer">Database search</a>
-                        </div>
-                        <div class="searchUnderlinks MuiGrid-item MuiGrid-grid-xs-auto" data-testid="primo-search-links-5">
-                            <a href="https://search.library.uq.edu.au/primo-explore/browse?vid=61UQ" rel="noreferrer">Browse search</a>
-                        </div>
                     </div>
                 </form>
             </div>
@@ -103,10 +91,16 @@ class SearchPortal extends HTMLElement {
         shadowDOM.appendChild(template.content.cloneNode(true));
 
         this.addListeners(shadowDOM);
-        this.appendFooterLinks(shadowDOM);
+        this.setDropdownButton(shadowDOM);
+        this.createPortalTypeSelector(shadowDOM);
 
         this.addListeners = this.addListeners.bind(this);
         this.appendFooterLinks = this.appendFooterLinks.bind(this);
+        this.createFooterLink = this.createFooterLink.bind(this);
+        this.createPortalTypeSelectionEntry = this.createPortalTypeSelectionEntry.bind(this);
+        this.createPortalTypeSelector = this.createPortalTypeSelector.bind(this);
+        this.setDropdownButton = this.setDropdownButton.bind(this);
+        this.showHidePortalTypeDropdown = this.showHidePortalTypeDropdown.bind(this);
     }
 
     /**
@@ -115,6 +109,159 @@ class SearchPortal extends HTMLElement {
      */
     addListeners(shadowDOM) {
         const that = this;
+
+        // open and close the dropdown when the search-type button is clicked
+        const searchPortalSelector = !!shadowDOM && shadowDOM.getElementById('search-portal-select');
+        searchPortalSelector.addEventListener('click', function (e) {
+            that.showHidePortalTypeDropdown(shadowDOM);
+        });
+    }
+
+    showHidePortalTypeDropdown(shadowDOM) {
+        const portalTypeDropdown = !!shadowDOM && shadowDOM.getElementById('portal-type-selector');
+
+        // then display the dropdown
+        !!portalTypeDropdown && this.toggleVisibility(portalTypeDropdown, 'portalTypeSelectorDisplayed');
+
+        // if we are showing the dropdown,
+        // set the top of the dropdown so the current element matches up with the underlying button
+        if (!!portalTypeDropdown && !portalTypeDropdown.classList.contains('hidden')) {
+            // get the currrently displayed label
+            const portalTypeCurrentLabel = !!shadowDOM && shadowDOM.getElementById('portaltype-current-label');
+            // problem matching the '&amp;" in the video label
+            const portalTypeCurrentLabelText =
+                !!portalTypeCurrentLabel && portalTypeCurrentLabel.innerHTML.replace('&amp;', '_');
+            let matchingID;
+            !!searchPortalLocale.typeSelect?.items &&
+                searchPortalLocale.typeSelect.items.forEach((item, index) => {
+                    item.name.replace('&', '_') === portalTypeCurrentLabelText && (matchingID = index);
+                });
+
+            const newTopValue = matchingID * -40;
+            !!matchingID && !!portalTypeDropdown && (portalTypeDropdown.style.top = `${newTopValue}px`);
+        }
+    }
+
+    /**
+     * show hide an element
+     * if it has `hidden' class, replace it with the supplied class name
+     */
+    toggleVisibility(selector, displayStyle) {
+        const showByClassname = !!selector && selector.className.replace(' hidden', ` ${displayStyle}`);
+        const hideByClassname = !!selector && selector.className.replace(` ${displayStyle}`, ' hidden');
+        !!selector && selector.classList.contains('hidden')
+            ? !!showByClassname && (selector.className = showByClassname)
+            : !!hideByClassname && (selector.className = hideByClassname);
+    }
+
+    createPortalTypeSelectionEntry(button, index, shadowDOM) {
+        const that = this;
+
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        !!path && path.setAttribute('d', button.iconPath);
+
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        !!svg && svg.setAttribute('class', 'MuiSvgIcon-root MuiSvgIcon-colorSecondary');
+        !!svg && svg.setAttribute('focusable', 'false');
+        !!svg && svg.setAttribute('viewBox', '0 0 24 24');
+        !!svg && svg.setAttribute('ariaHidden', 'true');
+        !!svg && !!path && svg.appendChild(path);
+
+        const label = document.createElement('span');
+        label.innerHTML = button.name;
+
+        const li = document.createElement('li');
+        !!li &&
+            (li.className =
+                // `portalTypeSelectionEntry MuiButtonBase-root MuiListItem-root MuiMenuItem-root Mui-selected MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button`);
+                `portalTypeSelectionEntry portalTypeSelectionEntry-${index} MuiButtonBase-root MuiListItem-root MuiMenuItem-root Mui-selected MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button`);
+        !!li && li.setAttribute('tabindex', '0');
+        !!li && li.setAttribute('role', 'button');
+        !!li && li.setAttribute('aria-disabled', 'false');
+        !!li && li.setAttribute('data-testid', `primo-search-item-${index}`);
+        !!li && li.setAttribute('data-value', index);
+        !!li && !!svg && li.appendChild(svg);
+        !!li && !!svg && li.appendChild(label);
+
+        !!li &&
+            li.addEventListener('click', function () {
+                that.setDropdownButton(shadowDOM, index);
+                that.appendFooterLinks(shadowDOM, index);
+                that.showHidePortalTypeDropdown(shadowDOM);
+            });
+
+        return li;
+    }
+
+    setDropdownButton(shadowDOM, searchType = 0) {
+        const portalTypeContainer = !!shadowDOM && shadowDOM.getElementById('portaltype-dropdown');
+
+        // put the icon on the display
+        const portalTypeCurrentIcon = !!shadowDOM && shadowDOM.getElementById('portaltype-current-icon');
+        !!portalTypeCurrentIcon &&
+            !!searchPortalLocale.typeSelect?.items[searchType]?.iconPath &&
+            portalTypeCurrentIcon.setAttribute('d', searchPortalLocale.typeSelect.items[searchType].iconPath);
+
+        // put the text label on the display
+        const portalTypeCurrentLabel = !!shadowDOM && shadowDOM.getElementById('portaltype-current-label');
+        !!portalTypeCurrentLabel &&
+            !!searchPortalLocale.typeSelect?.items[searchType]?.name &&
+            (portalTypeCurrentLabel.innerHTML = searchPortalLocale.typeSelect.items[searchType].name);
+
+        // supply the placeholder text
+        const portalTypeCurrentInput = !!shadowDOM && shadowDOM.getElementById('portaltype-current-inputfield');
+        !!portalTypeCurrentInput &&
+            !!searchPortalLocale.typeSelect?.items[searchType]?.placeholder &&
+            (portalTypeCurrentInput.placeholder = searchPortalLocale.typeSelect.items[searchType].placeholder);
+
+        // add an extra class to the button to say which label it is currently showing
+        // this is used by the css to make the dropdown highlight the matching label
+        // remove any previous label - looks like we cant regexp to match a classname, we'll have to loop over the label.items length
+        if (!!searchPortalLocale.typeSelect.items && searchPortalLocale.typeSelect.items.length > 0) {
+            for (let ii = 0; ii < searchPortalLocale.typeSelect.items.length; ii++) {
+                const testClassName = `label-${ii}-button`;
+
+                if (portalTypeContainer.classList.contains(testClassName)) {
+                    portalTypeContainer.className = portalTypeContainer.className.replace(testClassName, '').trim();
+                    break;
+                }
+            }
+        }
+        const newClass = `label-${searchType}-button`;
+        portalTypeContainer.className = `${portalTypeContainer.className} ${newClass}`;
+
+        this.appendFooterLinks(shadowDOM, searchType);
+    }
+
+    createPortalTypeSelector(shadowDOM, searchType = 0) {
+        const portalTypeDropdown = document.createElement('ul');
+        // !!portalTypeDropdown && (portalTypeDropdown.id = 'portal-type-selector');
+        !!portalTypeDropdown &&
+            (portalTypeDropdown.className =
+                'MuiList-root MuiMenu-list MuiList-padding MuiPaper-elevation8 portalTypeSelector');
+        !!portalTypeDropdown && portalTypeDropdown.setAttribute('role', 'listbox');
+        !!portalTypeDropdown && portalTypeDropdown.setAttribute('tabindex', '-1');
+        !!portalTypeDropdown && portalTypeDropdown.setAttribute('aria-labelledby', 'primo-search-select-label');
+
+        // add the footer links for this searchtype
+        !!portalTypeDropdown &&
+            searchPortalLocale.typeSelect?.items.forEach((entry, index) => {
+                const container = this.createPortalTypeSelectionEntry(entry, index, shadowDOM);
+                !!container && portalTypeDropdown.appendChild(container);
+            });
+
+        const portalTypeSelectorContainer = document.createElement('div');
+        !!portalTypeSelectorContainer && (portalTypeSelectorContainer.id = 'portal-type-selector');
+        !!portalTypeSelectorContainer &&
+            (portalTypeSelectorContainer.className = `MuiPaper-root MuiMenu-paper MuiPaper-elevation8 MuiPaper-rounded hidden`);
+        !!portalTypeSelectorContainer && portalTypeSelectorContainer.setAttribute('tabindex', '-1');
+        !!portalTypeSelectorContainer &&
+            !!portalTypeDropdown &&
+            portalTypeSelectorContainer.appendChild(portalTypeDropdown);
+        const portalTypeContainer = !!shadowDOM && shadowDOM.getElementById('portaltype-dropdown');
+        !!portalTypeContainer &&
+            !!portalTypeSelectorContainer &&
+            portalTypeContainer.appendChild(portalTypeSelectorContainer);
     }
 
     createFooterLink(link, index) {

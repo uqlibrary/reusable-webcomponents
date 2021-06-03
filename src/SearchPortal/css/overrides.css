@@ -1156,6 +1156,75 @@ input:not([type=checkbox]):not([type=radio]):not([type=submit])
     transform: translate(14px, -6px) scale(0.75);
 }
 
+
+
+/** MuiListItem */
+
+.MuiListItem-root {
+    width: 100%;
+    display: flex;
+    position: relative;
+    box-sizing: border-box;
+    text-align: left;
+    align-items: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    justify-content: flex-start;
+    text-decoration: none;
+}
+.MuiListItem-root.Mui-focusVisible {
+    background-color: rgba(0, 0, 0, 0.08);
+}
+.MuiListItem-root.Mui-selected, .MuiListItem-root.Mui-selected:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+}
+.MuiListItem-root.Mui-disabled {
+    opacity: 0.5;
+}
+.MuiListItem-container {
+    position: relative;
+}
+.MuiListItem-dense {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+.MuiListItem-alignItemsFlexStart {
+    align-items: flex-start;
+}
+.MuiListItem-divider {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    background-clip: padding-box;
+}
+.MuiListItem-gutters {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+.MuiListItem-button {
+    transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+.MuiListItem-button:hover {
+    text-decoration: none;
+    background-color: rgba(0, 0, 0, 0.04);
+}
+@media (hover: none) {
+    .MuiListItem-button:hover {
+        background-color: transparent;
+    }
+}
+.MuiListItem-secondaryAction {
+    padding-right: 48px;
+}
+
+/** MuiMenu */
+
+.MuiMenu-paper {
+    max-height: calc(100% - 96px);
+    -webkit-overflow-scrolling: touch;
+}
+.MuiMenu-list {
+    outline: 0;
+}
+
 /** MuiInputBase */
 
 @-webkit-keyframes mui-auto-fill {}
@@ -1646,3 +1715,49 @@ label + .MuiInput-formControl {
 /*     background-size: cover;*/
 /* }*/
 
+.hidden {
+    display: none;
+    animation: in 700ms ease both;
+}
+
+.portalTypeSelector {
+    position: absolute;
+    right: 0;
+    z-index: 10;
+    overflow: auto;
+    /*width: auto;*/
+    min-width: 13rem;
+    padding-left: 0;
+}
+
+.portalTypeSelectorDisplayed {
+    opacity: 1;
+    transform: none;
+    /*min-width: 101px;*/
+    transition: opacity 322ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, transform 214ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    position: absolute;
+    top: 0;
+    left: 200px;
+    /*transform-origin: 0 26px;*/
+}
+
+.portalTypeSelectionEntry {
+    background-color: #fff !important;
+}
+
+.portalTypeSelectionEntry span {
+    padding-left: 0.5rem;
+}
+
+.label-0-button li.portalTypeSelectionEntry-0,
+.label-1-button li.portalTypeSelectionEntry-1,
+.label-2-button li.portalTypeSelectionEntry-2,
+.label-3-button li.portalTypeSelectionEntry-3,
+.label-4-button li.portalTypeSelectionEntry-4,
+.label-5-button li.portalTypeSelectionEntry-5,
+.label-6-button li.portalTypeSelectionEntry-6,
+.label-7-button li.portalTypeSelectionEntry-7,
+.label-8-button li.portalTypeSelectionEntry-8 {
+    color: #FFFFFF;
+    background-color: #4085C6 !important;
+}
