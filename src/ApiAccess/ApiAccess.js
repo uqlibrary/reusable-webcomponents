@@ -108,7 +108,7 @@ class ApiAccess {
             });
     }
 
-    async loadTrainingEvents({ maxEventCount, filterId }) {
+    async loadTrainingEvents(maxEventCount, filterId) {
         const trainingApi = new ApiRoutes().TRAINING_API();
         const urlPath = trainingApi.apiUrl;
         const filter = {
