@@ -5,7 +5,7 @@ describe('EzProxy', () => {
 
     context('default mode', () => {
         it('shows expected elements on load', () => {
-            cy.get('ez-proxy:not([redirectonly])')
+            cy.get('ez-proxy:not([redirect-only])')
                 .should('exist')
                 .scrollIntoView()
                 .shadow()
@@ -19,7 +19,7 @@ describe('EzProxy', () => {
         });
 
         it('shows expected elements on creating a link', () => {
-            cy.get('ez-proxy:not([redirectonly])')
+            cy.get('ez-proxy:not([redirect-only])')
                 .should('exist')
                 .shadow()
                 .find('#ez-proxy')
@@ -34,7 +34,7 @@ describe('EzProxy', () => {
             cy.window().then((win) => {
                 cy.stub(win, 'open').callsFake(() => ({ focus: () => {} }));
             });
-            cy.get('ez-proxy:not([redirectonly])')
+            cy.get('ez-proxy:not([redirect-only])')
                 .should('exist')
                 .shadow()
                 .find('#ez-proxy')
@@ -49,7 +49,7 @@ describe('EzProxy', () => {
         });
 
         const copyAndToast = (toastMessage) => {
-            cy.get('ez-proxy:not([redirectonly])')
+            cy.get('ez-proxy:not([redirect-only])')
                 .should('exist')
                 .shadow()
                 .find('#ez-proxy')
@@ -170,7 +170,7 @@ describe('EzProxy', () => {
         });
 
         it('shows expected error messages for ill-formed URLs', () => {
-            cy.get('ez-proxy:not([redirectonly])')
+            cy.get('ez-proxy:not([redirect-only])')
                 .should('exist')
                 .shadow()
                 .find('#ez-proxy')
@@ -190,7 +190,7 @@ describe('EzProxy', () => {
         });
 
         it('resets view on clicking button to create new link', () => {
-            cy.get('ez-proxy:not([redirectonly])')
+            cy.get('ez-proxy:not([redirect-only])')
                 .should('exist')
                 .shadow()
                 .find('#ez-proxy')
@@ -210,7 +210,7 @@ describe('EzProxy', () => {
         });
 
         it('removes ezyproxy-fied parts from hostname', () => {
-            cy.get('ez-proxy:not([redirectonly])')
+            cy.get('ez-proxy:not([redirect-only])')
                 .should('exist')
                 .shadow()
                 .find('#ez-proxy')
@@ -229,7 +229,7 @@ describe('EzProxy', () => {
         });
 
         it('creates doi.org URLs from DOIs as expected', () => {
-            cy.get('ez-proxy:not([redirectonly])')
+            cy.get('ez-proxy:not([redirect-only])')
                 .should('exist')
                 .shadow()
                 .find('#ez-proxy')
@@ -247,7 +247,7 @@ describe('EzProxy', () => {
             cy.injectAxe();
             cy.viewport(1280, 900);
 
-            cy.checkA11y('ez-proxy[redirectonly]', {
+            cy.checkA11y('ez-proxy[redirect-only]', {
                 reportName: 'EzProxy redirect-only',
                 scopeName: 'on load',
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
@@ -257,7 +257,7 @@ describe('EzProxy', () => {
 
     context('redirect-only mode', () => {
         it('shows expected elements on load', () => {
-            cy.get('ez-proxy[redirectonly]')
+            cy.get('ez-proxy[redirect-only]')
                 .should('exist')
                 .shadow()
                 .find('#ez-proxy')
@@ -273,7 +273,7 @@ describe('EzProxy', () => {
             cy.window().then((win) => {
                 cy.stub(win, 'open').callsFake(() => ({ focus: () => {} }));
             });
-            cy.get('ez-proxy[redirectonly]')
+            cy.get('ez-proxy[redirect-only]')
                 .should('exist')
                 .shadow()
                 .find('#ez-proxy')
@@ -286,7 +286,7 @@ describe('EzProxy', () => {
         });
 
         it('shows error if no input was provided', () => {
-            cy.get('ez-proxy[redirectonly]')
+            cy.get('ez-proxy[redirect-only]')
                 .should('exist')
                 .shadow()
                 .find('#ez-proxy')
@@ -302,7 +302,7 @@ describe('EzProxy', () => {
         it('is accessible', () => {
             cy.injectAxe();
             cy.viewport(1280, 900);
-            cy.checkA11y('ez-proxy:not([redirectonly])', {
+            cy.checkA11y('ez-proxy:not([redirect-only])', {
                 reportName: 'EzProxy copy',
                 scopeName: 'on load',
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],

@@ -5,7 +5,7 @@ import isURL from 'validator/es/lib/isURL';
 /*
  * usage:
  *  <ez-proxy></ez-proxy>
- *  <ez-proxy redirectonly></ez-proxy>
+ *  <ez-proxy redirect-only></ez-proxy>
  *
  */
 
@@ -62,7 +62,7 @@ class EzProxy extends HTMLElement {
     }
 
     get redirectOnly() {
-        return this.hasAttribute('redirectonly');
+        return this.hasAttribute('redirect-only') && this.getAttribute('redirect-only') !== 'false';
     }
 
     get inputUrl() {
