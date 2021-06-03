@@ -26,14 +26,18 @@ template.innerHTML = `
                 </div>
             </div>
             <div aria-label="filter by campus" id="campusDropdown" class="listHolder" role="listbox" aria-autocomplete="none" aria-haspopup="true" aria-disabled="false">
-                <button data-testid="campusOpener" id="campusOpener" class="opener filterer"><span class="hidden">By campus</span></button>
+                <button data-testid="campusOpener" id="campusOpener" class="opener filterer">
+                    <span class="hidden">By campus</span>
+                </button>
                 <div class="hoverblock">
                     <div data-testid="campushover" id="campushover" class="campushover hovertext">By campus</div>
                 </div>
                 <div data-testid="campuslist" id="campuslist" class="selectorlist campuslist hidden"></div>
             </div>
             <div aria-label="filter by week" id="weekDropdown" class="listHolder" role="listbox" aria-autocomplete="none" aria-haspopup="true" aria-disabled="false">
-                <button data-testid="weekOpener" id="weekOpener" class="opener filterer"><span class="hidden">By week</span></button>
+                <button data-testid="weekOpener" id="weekOpener" class="opener filterer">
+                    <span class="hidden">By week</span>
+                </button>
                 <div class="hoverblock">
                     <div data-testid="weekhover" aria-label="weekhover" id="weekhover" class="weekhover hovertext">By week</div>
                 </div>

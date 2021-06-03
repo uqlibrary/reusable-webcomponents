@@ -2,7 +2,7 @@
     background-color: #fff;
 }
 h3.title-text {
-    margin-top: 0;
+    margin: 0 auto 0 -1px;
 }
 
 .content-icon {
@@ -53,12 +53,12 @@ h3.title-text {
 .card-content {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
     padding-top: 0;
     width: 100%;
 }
 .card-content > div {
-    width: 30%;
+    width: 31%;
     padding-top: 1.2rem;
 }
 
@@ -103,9 +103,10 @@ button.campus {
 
 .selectorlist {
     position: absolute;
-    left: 1rem;
+    right: 0;
     z-index: 10;
     overflow: auto;
+    margin-top: -6px;
 }
 
 .quicklinks h4 {
@@ -138,7 +139,7 @@ button.chip {
 }
 
 .keywordPlaceholderMovement span {
-    padding: 24px 10px 10px 10px;
+    padding: 24px 10px 10px 8px;
     pointer-events: none;
     position:absolute;
     left:0;
@@ -159,7 +160,7 @@ button.chip {
 .keywordPlaceholderMovement input:focus + span,
 .keywordPlaceholderMovement input:not(:placeholder-shown) + span {
     opacity:1;
-    transform: scale(0.75) translateY(-85%) translateX(-10px);
+    transform: scale(0.75) translateY(-90%) translateX(-25px);
     color: #51247A;
 }
 
@@ -176,10 +177,9 @@ button.chip {
     color: #51247A;
     height: 0.8rem;
     margin-top: -3rem;
+    transform: translateY(-20px) translateX(-6px)
 }
 
-.hovertext {
-}
 .hoverblock {
     margin-top: -1rem;
     margin-left: 0.5rem;
@@ -194,6 +194,10 @@ button.chip {
     animation:1s ease 2s normal forwards 1 fadein;
     /*transform: scale(0.75) translateY(-100%) translateX(-30px);*/
     transform: translateY(-20px);
+}
+
+.onlineToggle input {
+    margin-left: 0;
 }
 
 @media (max-width: 700px) {
