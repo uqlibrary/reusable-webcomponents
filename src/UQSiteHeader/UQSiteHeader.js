@@ -70,6 +70,9 @@ class UQSiteHeader extends HTMLElement {
         this.getLink = this.getLink.bind(this);
         this.loadScript = this.loadScript.bind(this);
         this.updateMegaMenu = this.updateMegaMenu.bind(this);
+        this.rewriteMegaMenuFromJson = this.rewriteMegaMenuFromJson.bind(this);
+        this.setTitle = this.setTitle.bind(this);
+        this.setSiteUrl = this.setSiteUrl.bind(this);
         this.showMenu = this.showMenu.bind(this);
         this.unhideMobileMenuButton = this.unhideMobileMenuButton.bind(this);
 
@@ -285,7 +288,6 @@ class UQSiteHeader extends HTMLElement {
             };
             //Specify the location of the ITS DS JS file
             script.src = 'uq-site-header.js';
-            // script.src = '../../../dist/uq-site-header.js';
 
             //Append it to the document header
             document.head.appendChild(script);
