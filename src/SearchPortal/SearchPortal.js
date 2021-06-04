@@ -41,18 +41,18 @@ template.innerHTML = `
                                     </div>
                                 </div>
                             </div>
-                            <div class="MuiGrid-item MuiGrid-grid-xs-auto" style="width: 90px; margin-left: -70px; margin-right: -20px; margin-bottom: 6px;">
+                            <div class="MuiGrid-item MuiGrid-grid-xs-auto" style="width: 45px; margin-left: -35px; margin-right: -10px; margin-bottom: 6px;">
                                 <div class="MuiGrid-container">
-                                    <div class="MuiGrid-item MuiGrid-grid-xs-auto">
-                                        <button class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall" tabindex="0" type="button" title="Use your microphone to search" data-testid="primo-search-autocomplete-voice-record">
-                                            <span class="MuiIconButton-label">
-                                                <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                                                    <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"></path>
-                                                </svg>
-                                            </span>
-                                            <span class="MuiTouchRipple-root"></span>
-                                        </button>
-                                    </div>
+<!--                                    <div class="MuiGrid-item MuiGrid-grid-xs-auto">-->
+<!--                                        <button class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall" tabindex="0" type="button" title="Use your microphone to search" data-testid="primo-search-autocomplete-voice-record">-->
+<!--                                            <span class="MuiIconButton-label">-->
+<!--                                                <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">-->
+<!--                                                    <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"></path>-->
+<!--                                                </svg>-->
+<!--                                            </span>-->
+<!--                                            <span class="MuiTouchRipple-root"></span>-->
+<!--                                        </button>-->
+<!--                                    </div>-->
                                     <div class="MuiGrid-item MuiGrid-grid-xs-auto">
                                         <button class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall" tabindex="0" type="button" title="Clear your search term" id="clear-search-term" data-testid="primo-search-autocomplete-voice-clear">
                                             <span class="MuiIconButton-label">
