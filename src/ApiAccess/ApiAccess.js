@@ -250,7 +250,8 @@ class ApiAccess {
     fetchFromServer(urlPath, options) {
         const API_URL = process.env.API_URL || 'https://api.library.uq.edu.au/staging/';
 
-        const delimiter = urlPath.contains('?') ? '&' : '?'; // appends the timestamp cache buster correctly
+        // make specific to the path because the user search term might include '?'
+        const delimiter = urlPath.includes('search_suggestions?') ? '&' : '?'; // appends the timestamp cache buster correctly
         const url = `${API_URL}${urlPath}${delimiter}${new Date().getTime()}`;
         return fetch(url, {
             headers: options,
