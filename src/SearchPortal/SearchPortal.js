@@ -23,62 +23,62 @@ template.innerHTML = `
                                         </svg>&nbsp;<span id="portaltype-current-label" data-testid="portaltype-current-label">Library</span>
                                         <input type="hidden" name="portaltype" id="portaltype-current-value">
                                     </div>
+                                    <!-- input field probable unused -->
                                     <input type="hidden" id="search-portal-input" data-testid="primo-search-select-input" value="0">
-                                        <svg class="MuiSvgIcon-root MuiSelect-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                                            <path d="M7 10l5 5 5-5z"></path>
+                                    <svg class="MuiSvgIcon-root MuiSelect-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path d="M7 10l5 5 5-5z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-true">
+                            <div class="MuiAutocomplete-root" role="combobox" aria-expanded="false" id="primo-search-autocomplete" data-testid="primo-search-autocomplete">
+                                <div class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth">
+                                    <div class="MuiInputBase-root MuiInput-root MuiInput-underline MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd">
+                                        <input name="currentInputfield" aria-invalid="false" autocomplete="off" id="current-inputfield" placeholder="Find books, articles, databases, Library guides &amp; more" type="search" class="MuiInputBase-input MuiInput-input selectInput MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch" aria-autocomplete="list" autocapitalize="none" spellcheck="false" aria-label="Enter your search terms" data-testid="primo-search-autocomplete-input" value="">
+                                            <div class="MuiAutocomplete-endAdornment"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="MuiGrid-item MuiGrid-grid-xs-auto" style="width: 90px; margin-left: -70px; margin-right: -20px; margin-bottom: 6px;">
+                                <div class="MuiGrid-container">
+                                    <div class="MuiGrid-item MuiGrid-grid-xs-auto">
+                                        <button class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall" tabindex="0" type="button" title="Use your microphone to search" data-testid="primo-search-autocomplete-voice-record">
+                                            <span class="MuiIconButton-label">
+                                                <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                                                    <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"></path>
+                                                </svg>
+                                            </span>
+                                            <span class="MuiTouchRipple-root"></span>
+                                        </button>
+                                    </div>
+                                    <div class="MuiGrid-item MuiGrid-grid-xs-auto">
+                                        <button class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall" tabindex="0" type="button" title="Clear your search term" id="clear-search-term" data-testid="primo-search-autocomplete-voice-clear">
+                                            <span class="MuiIconButton-label">
+                                                <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                                                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+                                                </svg>
+                                            </span>
+                                            <span class="MuiTouchRipple-root"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-auto">
+                                <button class="MuiButtonBase-root MuiButton-root MuiButton-contained searchButton MuiButton-containedPrimary MuiButton-containedSizeLarge MuiButton-sizeLarge MuiButton-fullWidth" tabindex="0" type="submit" id="primo-search-submit" data-testid="primo-search-submit" value="Submit" title="Perform your search">
+                                    <span class="MuiButton-label">
+                                        <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
                                         </svg>
-                                    </div>
-                                </div>
+                                    </span>
+                                    <span class="MuiTouchRipple-root"></span>
+                                </button>
                             </div>
-                            <div class="MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-true">
-                                <div class="MuiAutocomplete-root" role="combobox" aria-expanded="false" id="primo-search-autocomplete" data-testid="primo-search-autocomplete">
-                                    <div class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth">
-                                        <div class="MuiInputBase-root MuiInput-root MuiInput-underline MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd">
-                                            <input name="currentInputfield" aria-invalid="false" autocomplete="off" id="current-inputfield" placeholder="Find books, articles, databases, Library guides &amp; more" type="search" class="MuiInputBase-input MuiInput-input selectInput MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch" aria-autocomplete="list" autocapitalize="none" spellcheck="false" aria-label="Enter your search terms" data-testid="primo-search-autocomplete-input" value="">
-                                                <div class="MuiAutocomplete-endAdornment"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="MuiGrid-item MuiGrid-grid-xs-auto" style="width: 90px; margin-left: -70px; margin-right: -20px; margin-bottom: 6px;">
-                                    <div class="MuiGrid-container">
-                                        <div class="MuiGrid-item MuiGrid-grid-xs-auto">
-                                            <button class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall" tabindex="0" type="button" title="Use your microphone to search" data-testid="primo-search-autocomplete-voice-record">
-                                                <span class="MuiIconButton-label">
-                                                    <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                                                        <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"></path>
-                                                    </svg>
-                                                </span>
-                                                <span class="MuiTouchRipple-root"></span>
-                                            </button>
-                                        </div>
-                                        <div class="MuiGrid-item MuiGrid-grid-xs-auto">
-                                            <button class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall" tabindex="0" type="button" title="Clear your search term" data-testid="primo-search-autocomplete-voice-clear">
-                                                <span class="MuiIconButton-label">
-                                                    <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                                                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
-                                                    </svg>
-                                                </span>
-                                                <span class="MuiTouchRipple-root"></span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-auto">
-                                    <button class="MuiButtonBase-root MuiButton-root MuiButton-contained searchButton MuiButton-containedPrimary MuiButton-containedSizeLarge MuiButton-sizeLarge MuiButton-fullWidth" tabindex="0" type="submit" id="primo-search-submit" data-testid="primo-search-submit" value="Submit" title="Perform your search">
-                                        <span class="MuiButton-label">
-                                            <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                                                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
-                                            </svg>
-                                        </span>
-                                        <span class="MuiTouchRipple-root"></span>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="searchPanel MuiGrid-container MuiFormControlMuiGrid-spacing-xs-2" id="footerLinks" data-testid="primo-search-links">
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+                        <div class="searchPanel MuiGrid-container MuiFormControlMuiGrid-spacing-xs-2" id="footerLinks" data-testid="primo-search-links">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -99,8 +99,6 @@ class SearchPortal extends HTMLElement {
     constructor() {
         super();
 
-        this._typedKeyword = '';
-
         // Add a shadow DOM
         const shadowDOM = this.attachShadow({ mode: 'open' });
 
@@ -118,10 +116,6 @@ class SearchPortal extends HTMLElement {
         this.createPortalTypeSelector = this.createPortalTypeSelector.bind(this);
         this.setDropdownButton = this.setDropdownButton.bind(this);
         this.showHidePortalTypeDropdown = this.showHidePortalTypeDropdown.bind(this);
-    }
-
-    set typedKeyword(inputKeyword) {
-        this._typedKeyword = inputKeyword;
     }
 
     async getPrimoSuggestions(keyword) {
@@ -327,10 +321,6 @@ class SearchPortal extends HTMLElement {
                     throttledExamLoadSuggestions(inputField.value);
                 } else if (searchType.value === COURSE_RESOURCE_SEARCH_TYPE) {
                     console.log('do a course resource search');
-                    // // on the first pass we only get what they type;
-                    // // on the second pass we get the full description string
-                    // const coursecode = charactersBefore(that.typedKeyword, ' ');
-                    // throttledReadingListLoadSuggestions.current(coursecode);
                     throttledReadingListLoadSuggestions(inputField.value);
                 } else {
                     console.log('do a ? did not recognise searchType.value = ', searchType.value);
@@ -345,7 +335,6 @@ class SearchPortal extends HTMLElement {
         const inputField = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
         !!inputField && inputField.addEventListener('keydown', getSuggestions);
         !!inputField && inputField.addEventListener('keyup', getSuggestions);
-        !!inputField && inputField.addEventListener('change', getSuggestions);
         !!inputField && inputField.addEventListener('onpaste', getSuggestions);
 
         // open and close the dropdown when the search-type button is clicked
@@ -353,6 +342,19 @@ class SearchPortal extends HTMLElement {
         !!searchPortalSelector &&
             searchPortalSelector.addEventListener('click', function (e) {
                 that.showHidePortalTypeDropdown(shadowDOM);
+            });
+
+        function clearSearchTerm() {
+            const inputField = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
+            !!inputField && (inputField.value = '');
+
+            const searchResults = !!shadowDOM && shadowDOM.getElementById('search-portal-autocomplete-listbox');
+            !!searchResults && searchResults.remove();
+        }
+        const clearButton = !!shadowDOM && shadowDOM.getElementById('clear-search-term');
+        !!clearButton &&
+            clearButton.addEventListener('click', function (e) {
+                clearSearchTerm();
             });
     }
 

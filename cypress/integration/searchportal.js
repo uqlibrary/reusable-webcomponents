@@ -77,6 +77,11 @@ describe('Search Portal', () => {
                         .find('li')
                         .its('length')
                         .should('eq', 10);
+
+                    // clear 'X' button works
+                    cy.get('[data-testid="primo-search-autocomplete-voice-clear"]').click();
+                    cy.get('input[data-testid="primo-search-autocomplete-input"]').should('have.value', '');
+                    cy.get('ul[data-testid="primo-search-autocomplete-listbox"]').should('not.exist');
                 });
         });
 
