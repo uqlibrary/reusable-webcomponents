@@ -224,26 +224,26 @@ class ApiAccess {
         };
 
         /* istanbul ignore else  */
-        // if (this.isMock()) {
-        //     try {
-        //         console.log('mocking url : ', url);
-        //         return this.fetchMock(url);
-        //     } catch (e) {
-        //         const msg = `mock api error: ${e.message}`;
-        //         console.log(msg);
-        //         throw new Error(msg);
-        //     }
-        // } else {
-        // this assumes non api.library urls
-        const response = await fetchJsonp(url, options);
-        console.log('fetchJsonp got ', response);
-        if (!response.ok) {
-            console.log(`ApiAccess console: An error has occured: ${response.status} ${response.statusText}`);
-            const message = `ApiAccess: An error has occured: ${response.status} ${response.statusText}`;
-            throw new Error(message);
+        if (this.isMock()) {
+            try {
+                console.log('mocking url : ', url);
+                return this.fetchMock(url);
+            } catch (e) {
+                const msg = `mock api error: ${e.message}`;
+                console.log(msg);
+                throw new Error(msg);
+            }
+        } else {
+            // this assumes non api.library urls
+            const response = await fetchJsonp(url, options);
+            console.log('fetchJsonp got ', response);
+            if (!response.ok) {
+                console.log(`ApiAccess console: An error has occured: ${response.status} ${response.statusText}`);
+                const message = `ApiAccess: An error has occured: ${response.status} ${response.statusText}`;
+                throw new Error(message);
+            }
+            return await response.json();
         }
-        return await response.json();
-        // }
     }
 
     /* istanbul ignore next */
