@@ -44,7 +44,7 @@ class ApiRoutes {
         };
     };
 
-    PRIMO_SUGGESTIONS_API_EXAMS = ({ keyword }) => ({
+    EXAMS_SUGGESTIONS_API = (keyword) => ({
         apiUrl: 'https://api.library.uq.edu.au/v1/search_suggestions?type=exam_paper&prefix=' + keyword,
     });
 

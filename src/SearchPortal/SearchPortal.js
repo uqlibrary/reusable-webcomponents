@@ -84,14 +84,14 @@ template.innerHTML = `
 `;
 
 const PRIMO_LIBRARY_SEARCH = '0';
-const PRIMO_BOOKS_SEARCH = 1;
-const PRIMO_JOURNAL_ARTICLES_SEARCH = 2;
-const PRIMO_VIDEO_AUDIO_SEARCH = 3;
-const PRIMO_JOURNALS_SEARCH = 4;
-const PRIMO_PHYSICAL_ITEMS_SEARCH = 5;
+const PRIMO_BOOKS_SEARCH = '1';
+const PRIMO_JOURNAL_ARTICLES_SEARCH = '2';
+const PRIMO_VIDEO_AUDIO_SEARCH = '3';
+const PRIMO_JOURNALS_SEARCH = '4';
+const PRIMO_PHYSICAL_ITEMS_SEARCH = '5';
 // const PRIMO_DATABASE_SEARCH = 6;
-const EXAM_SEARCH_TYPE = 7;
-const COURSE_RESOURCE_SEARCH_TYPE = 8;
+const EXAM_SEARCH_TYPE = '7';
+const COURSE_RESOURCE_SEARCH_TYPE = '8';
 
 class SearchPortal extends HTMLElement {
     constructor() {
@@ -123,84 +123,109 @@ class SearchPortal extends HTMLElement {
     }
 
     async getPrimoSuggestions(keyword) {
-        await new ApiAccess().loadPrimoSuggestions(keyword).then((suggestions) => {
-            console.log('getPrimoSuggestions: received ', suggestions);
-            const suggestionParent = document
-                .querySelector('search-portal')
-                .shadowRoot.getElementById('search-portal-form');
+        await new ApiAccess()
+            .loadPrimoSuggestions(keyword)
+            .then((suggestions) => {
+                console.log('getPrimoSuggestions: received ', suggestions);
+                this.loadSuggestionsIntoPage(suggestions);
+            })
+            .catch((e) => {
+                console.log('getPrimoSuggestions, error: ', e);
+            });
+    }
 
-            /* istanbul ignore else  */
-            if (!!suggestionParent && !!suggestions && suggestions.length > 0) {
-                let ul = suggestionParent.querySelector('#primo-search-autocomplete-listbox');
-                if (!ul) {
-                    ul = document.createElement('ul');
-                    !!ul && (ul.className = 'MuiAutocomplete-listbox');
-                    !!ul && ul.setAttribute('id', 'primo-search-autocomplete-listbox');
-                    !!ul && ul.setAttribute('data-testid', 'primo-search-autocomplete-listbox');
-                    !!ul && ul.setAttribute('role', 'listbox');
-                    !!ul && ul.setAttribute('aria-labelledby', 'primo-search-select-label');
-                    !!ul && ul.setAttribute('aria-label', 'Suggestion list');
-                } else {
-                    // clear pre-existing suggestions
-                    ul.innerHTML = '';
-                }
+    async getExamPaperSuggestions(keyword) {
+        await new ApiAccess()
+            .loadExamPaperSuggestions(keyword)
+            .then((suggestions) => {
+                console.log('loadExamPaperSuggestions: received ', suggestions);
+                this.loadSuggestionsIntoPage(suggestions, 'courseid');
+            })
+            .catch((e) => {
+                console.log('getExamPaperSuggestions, error: ', e);
+            });
+    }
 
-                const searchType = document
-                    .querySelector('search-portal')
-                    .shadowRoot.getElementById('portaltype-current-value');
-                // searchType.value returns 0,1
-                const type =
-                    !!searchPortalLocale.typeSelect?.items &&
-                    searchPortalLocale.typeSelect.items
-                        .filter((item, index) => {
-                            return item.selectId === searchType.value;
-                            // return parseInt(item.selectId, 10) === parseInt(searchType.value, 10);
-                        })
-                        .shift();
+    /**
+     *
+     * @param suggestions
+     * @param urlsource - some apis need a non displayed value to build the url. This tells them what field to use
+     */
+    loadSuggestionsIntoPage(suggestions, urlsource = 'text') {
+        const suggestionParent = document
+            .querySelector('search-portal')
+            .shadowRoot.getElementById('search-portal-form');
 
-                // loop through suggestions
-                !!ul &&
-                    suggestions.forEach((suggestion, index) => {
-                        const suggestiondisplay = document.createElement('li');
-
-                        /* istanbul ignore else  */
-                        if (!!suggestiondisplay && !!suggestion.text) {
-                            const text = document.createTextNode(suggestion.text);
-
-                            const encodedSearchTerm = encodeURIComponent(suggestion.text);
-                            const link = type.link
-                                .replace('[keyword]', encodedSearchTerm)
-                                .replace('[keyword]', encodedSearchTerm); // database search has two instances of keyword
-                            const anchor = document.createElement('a');
-                            !!anchor && !!link && !!text && (anchor.href = link);
-                            !!anchor && !!link && !!text && anchor.appendChild(text);
-                            !!anchor && (anchor.className = 'MuiPaper-root');
-
-                            !!suggestion && suggestiondisplay.setAttribute('tabindex', '-1');
-                            !!suggestion && suggestiondisplay.setAttribute('role', 'option');
-                            !!suggestion &&
-                                suggestiondisplay.setAttribute('id', `primo-search-autocomplete-option-${index}`);
-                            !!suggestion && suggestiondisplay.setAttribute('data-option-index', index);
-                            !!suggestion && suggestiondisplay.setAttribute('aria-disabled', 'false');
-                            !!suggestion && suggestiondisplay.setAttribute('aria-selected', 'false');
-                            !!suggestion && (suggestiondisplay.className = 'MuiAutocomplete-option');
-
-                            !!anchor && suggestiondisplay.appendChild(anchor);
-
-                            ul.appendChild(suggestiondisplay);
-                        }
-                    });
-
-                const parent = suggestionParent.querySelector('#suggestion-parent') || document.createElement('div');
-                !!parent && parent.setAttribute('id', `suggestion-parent`);
-                !!parent &&
-                    (parent.className =
-                        'MuiPaper-root MuiAutocomplete-paper MuiPaper-elevation1 MuiPaper-rounded suggestionList');
-                !!parent && !!ul && parent.appendChild(ul);
-
-                !!parent && suggestionParent.appendChild(parent);
+        console.log('loadSuggestionsIntoPage: suggestions = ', suggestions);
+        /* istanbul ignore else  */
+        if (!!suggestionParent && !!suggestions && suggestions.length > 0) {
+            let ul = suggestionParent.querySelector('#primo-search-autocomplete-listbox');
+            if (!ul) {
+                ul = document.createElement('ul');
+                !!ul && (ul.className = 'MuiAutocomplete-listbox');
+                !!ul && ul.setAttribute('id', 'primo-search-autocomplete-listbox');
+                !!ul && ul.setAttribute('data-testid', 'primo-search-autocomplete-listbox');
+                !!ul && ul.setAttribute('role', 'listbox');
+                !!ul && ul.setAttribute('aria-labelledby', 'primo-search-select-label');
+                !!ul && ul.setAttribute('aria-label', 'Suggestion list');
+            } else {
+                // clear pre-existing suggestions
+                ul.innerHTML = '';
             }
-        });
+
+            const searchType = document
+                .querySelector('search-portal')
+                .shadowRoot.getElementById('portaltype-current-value');
+            // searchType.value returns 0,1, ... 8; ie the current dropdown id
+            let type =
+                !!searchPortalLocale.typeSelect?.items &&
+                searchPortalLocale.typeSelect.items.filter((item, index) => {
+                    return item.selectId === searchType.value;
+                });
+            !!type && type.length > 0 && (type = type.shift());
+
+            // loop through suggestions
+            !!ul &&
+                suggestions.forEach((suggestion, index) => {
+                    const suggestiondisplay = document.createElement('li');
+
+                    /* istanbul ignore else  */
+                    if (!!suggestiondisplay && !!suggestion.text && !!suggestion[urlsource]) {
+                        const text = document.createTextNode(suggestion.text);
+
+                        const encodedSearchTerm = encodeURIComponent(suggestion[urlsource]);
+                        const link = type.link
+                            .replace('[keyword]', encodedSearchTerm)
+                            .replace('[keyword]', encodedSearchTerm); // database search has two instances of keyword
+                        const anchor = document.createElement('a');
+                        !!anchor && !!link && !!text && (anchor.href = link);
+                        !!anchor && !!link && !!text && anchor.appendChild(text);
+                        !!anchor && (anchor.className = 'MuiPaper-root');
+
+                        !!suggestion && suggestiondisplay.setAttribute('tabindex', '-1');
+                        !!suggestion && suggestiondisplay.setAttribute('role', 'option');
+                        !!suggestion &&
+                            suggestiondisplay.setAttribute('id', `primo-search-autocomplete-option-${index}`);
+                        !!suggestion && suggestiondisplay.setAttribute('data-option-index', index);
+                        !!suggestion && suggestiondisplay.setAttribute('aria-disabled', 'false');
+                        !!suggestion && suggestiondisplay.setAttribute('aria-selected', 'false');
+                        !!suggestion && (suggestiondisplay.className = 'MuiAutocomplete-option');
+
+                        !!anchor && suggestiondisplay.appendChild(anchor);
+
+                        ul.appendChild(suggestiondisplay);
+                    }
+                });
+
+            const parent = suggestionParent.querySelector('#suggestion-parent') || document.createElement('div');
+            !!parent && parent.setAttribute('id', `suggestion-parent`);
+            !!parent &&
+                (parent.className =
+                    'MuiPaper-root MuiAutocomplete-paper MuiPaper-elevation1 MuiPaper-rounded suggestionList');
+            !!parent && !!ul && parent.appendChild(ul);
+
+            !!parent && suggestionParent.appendChild(parent);
+        }
     }
 
     /**
@@ -230,11 +255,6 @@ class SearchPortal extends HTMLElement {
                 const searchType = matches.length > 0 ? matches[0] : false;
                 if (!!formObject.currentInputfield) {
                     let keyword = formObject.currentInputfield;
-                    // if ([COURSE_RESOURCE_SEARCH_TYPE, EXAM_SEARCH_TYPE].includes(searchType.selectId)) {
-                    //     // because the display text in the dropdown has the descriptors in it, that text reaches here.
-                    //     // trim down to the course code only
-                    //     keyword = charactersBefore(keyword, ' ');
-                    // }
                     const link = searchType.link.replace('[keyword]', keyword).replace('[keyword]', keyword); // database search has two instances of keyword
 
                     window.location.assign(link);
@@ -264,7 +284,7 @@ class SearchPortal extends HTMLElement {
         !!theform && theform.addEventListener('submit', submitHandler());
 
         const throttledPrimoLoadSuggestions = throttle(3100, (newValue) => this.getPrimoSuggestions(newValue));
-        const throttledExamLoadSuggestions = throttle(3100, (newValue) => actions.loadExamPaperSuggestions(newValue));
+        const throttledExamLoadSuggestions = throttle(3100, (newValue) => this.getExamPaperSuggestions(newValue));
         const throttledReadingListLoadSuggestions = throttle(3100, (newValue) =>
             actions.loadHomepageCourseReadingListsSuggestions(newValue),
         );
@@ -289,7 +309,7 @@ class SearchPortal extends HTMLElement {
                     console.log('do a primo search for ', inputField.value);
                     throttledPrimoLoadSuggestions(inputField.value);
                 } else if (searchType.value === EXAM_SEARCH_TYPE) {
-                    console.log('do a exam search');
+                    console.log('do an exam search');
                     throttledExamLoadSuggestions(inputField.value);
                 } else if (searchType.value === COURSE_RESOURCE_SEARCH_TYPE) {
                     console.log('do a course resource search');

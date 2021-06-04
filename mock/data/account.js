@@ -1339,3 +1339,20 @@ export const primoSuggestions = {
         ],
     }
 };
+
+export const examSuggestions = [{
+    "name": "PHIL2011",
+    "url": "https:\/\/files.library.uq.edu.au\/exams\/2020\/Semester_Two_Final_Examinations_2020_PHIL2011.pdf",
+    "type": "exam_paper",
+    "course_title": "Philosophy of Modern Physics"
+}, {
+    "name": "PHIL7221",
+    "url": "https:\/\/files.library.uq.edu.au\/exams\/2018\/Semester_Two_Final_Examinations__2018_PHIL7221_school.pdf",
+    "type": "exam_paper",
+    "course_title": "Environmental Philosophy"
+}, {
+    "name": "PHIL2110",
+    "url": "https:\/\/files.library.uq.edu.au\/exams\/2018\/Semester_Two_Final_Examinations__2018_PHIL2110_846.pdf",
+    "type": "exam_paper",
+    "course_title": "Formal Logic: an introduction to classical formal logic"
+}];

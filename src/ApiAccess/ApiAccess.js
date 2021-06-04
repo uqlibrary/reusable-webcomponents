@@ -142,31 +142,21 @@ class ApiAccess {
     }
 
     async loadExamPaperSuggestions(keyword) {
-        return (dispatch) => {
-            dispatch({ type: actions.PRIMO_SUGGESTIONS_LOADING });
-            return fetch(PRIMO_SUGGESTIONS_API_EXAMS({ keyword }).apiUrl)
-                .then(throwFetchErrors)
-                .then((response) => response.json())
-                .then((data) => {
-                    const payload = data.map((item, index) => {
-                        const title = !!item.course_title ? ` (${item.course_title})` : '';
-                        return {
-                            text: `${item.name}${title}`,
-                            index,
-                        };
-                    });
-                    dispatch({
-                        type: actions.PRIMO_SUGGESTIONS_LOADED,
-                        payload: payload,
-                    });
-                })
-                .catch((error) => {
-                    dispatch({
-                        type: actions.PRIMO_SUGGESTIONS_FAILED,
-                        payload: error.message,
-                    });
+        return await this.fetchAPI(new ApiRoutes().EXAMS_SUGGESTIONS_API(keyword).apiUrl)
+            .then((data) => {
+                return data.map((item, index) => {
+                    const title = !!item.course_title ? ` (${item.course_title})` : '';
+                    return {
+                        text: `${item.name}${title}`,
+                        courseid: item.name,
+                        index,
+                    };
                 });
-        };
+            })
+            .catch((error) => {
+                console.log('error loading Exam suggestions ', error);
+                return null;
+            });
     }
 
     async loadHomepageCourseReadingListsSuggestions(keyword) {
@@ -366,6 +356,7 @@ const throwFetchErrors = (response) => {
     if (!response.ok) {
         const status = response.status || 'status undefined';
         const statusText = response.statusText || 'status message undefined';
+        console.log('throwing');
         throw Error(`Error ${status} - ${statusText}`);
     }
     return response;

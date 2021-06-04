@@ -23,7 +23,7 @@ export const searchPortalLocale = {
                     '&facet=rtype,exclude,newspaper_articles,lk&facet=rtype,exclude,reviews,lk',
             },
             {
-                selectId: 1,
+                selectId: '1',
                 name: 'Books',
                 // ImportContactsIcon
                 iconPath:
@@ -35,7 +35,7 @@ export const searchPortalLocale = {
                     '&facet=rtype,include,books',
             },
             {
-                selectId: 2,
+                selectId: '2',
                 name: 'Journal articles',
                 // SchoolIcon
                 iconPath: 'M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z',
@@ -46,7 +46,7 @@ export const searchPortalLocale = {
                     '&facet=rtype,include,articles',
             },
             {
-                selectId: 3,
+                selectId: '3',
                 name: 'Video & audio',
                 // MovieIcon
                 iconPath:
@@ -58,7 +58,7 @@ export const searchPortalLocale = {
                     '&mfacet=rtype,include,videos,1&mfacet=rtype,include,audios,1',
             },
             {
-                selectId: 4,
+                selectId: '4',
                 name: 'Journals',
                 // DescriptionIcon
                 iconPath:
@@ -70,7 +70,7 @@ export const searchPortalLocale = {
                     '&mfacet=rtype,include,newspapers,1&mfacet=rtype,include,journals,1&mode=advanced',
             },
             {
-                selectId: 5,
+                selectId: '5',
                 name: 'Physical items',
                 // InboxIcon
                 iconPath:
@@ -82,7 +82,7 @@ export const searchPortalLocale = {
                     '&facet=tlevel,include,physical_items',
             },
             {
-                selectId: 6,
+                selectId: '6',
                 name: 'Databases',
                 // StorageIcon
                 iconPath: 'M2 20h20v-4H2v4zm2-3h2v2H4v-2zM2 4v4h20V4H2zm4 3H4V5h2v2zm-4 7h20v-4H2v4zm2-3h2v2H4v-2z',
@@ -91,7 +91,7 @@ export const searchPortalLocale = {
                     'https://search.library.uq.edu.au/primo-explore/dbsearch?query=any,contains,[keyword]&tab=jsearch_slot&vid=61UQ&offset=0&databases=any,[keyword]',
             },
             {
-                selectId: 7,
+                selectId: '7',
                 name: 'Past exam papers',
                 // FindInPageIcon
                 iconPath:
@@ -100,7 +100,7 @@ export const searchPortalLocale = {
                 link: 'https://www.library.uq.edu.au/exams/papers.php?stub=[keyword]',
             },
             {
-                selectId: 8,
+                selectId: '8',
                 name: 'Course reading lists',
                 // ListAltIcon
                 iconPath:

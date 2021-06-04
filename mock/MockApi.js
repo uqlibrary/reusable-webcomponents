@@ -5,7 +5,7 @@ import ApiRoutes from "../src/ApiRoutes";
 import { apiLocale as apilocale } from '../src/ApiAccess/ApiAccess.locale';
 
 import {
-    libHours, alerts, primoSuggestions
+    libHours, alerts, primoSuggestions, examSuggestions
 } from './data/account';
 
 class MockApi {
@@ -123,6 +123,16 @@ class MockApi {
                 } else {
                     console.log('returning mock primo suggestions');
                     return this.response(200, primoSuggestions, true);
+                }
+
+            case apiRoute.EXAMS_SUGGESTIONS_API('PHIL').apiUrl:
+            case apiRoute.EXAMS_SUGGESTIONS_API('').apiUrl:
+                if (this.user === 'primoError') {
+                    return this.response(403, {});
+                    // return this.response(500, {}, true);
+                } else {
+                    console.log('returning mock exam suggestions');
+                    return this.response(200, examSuggestions, true);
                 }
 
             /* istanbul ignore next  */
