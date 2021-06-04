@@ -44,11 +44,11 @@ class ApiRoutes {
     };
 
     EXAMS_SUGGESTIONS_API = (keyword) => ({
-        apiUrl: 'https://api.library.uq.edu.au/v1/search_suggestions?type=exam_paper&prefix=' + keyword,
+        apiUrl: 'search_suggestions?type=exam_paper&prefix=' + keyword,
     });
 
     SUGGESTIONS_API_PAST_COURSE = (keyword) => ({
-        apiUrl: 'https://api.library.uq.edu.au/v1/search_suggestions?type=learning_resource&prefix=' + keyword,
+        apiUrl: 'search_suggestions?type=learning_resource&prefix=' + keyword,
     });
 }
 
