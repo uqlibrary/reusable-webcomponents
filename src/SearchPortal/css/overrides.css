@@ -1653,6 +1653,9 @@ label + .MuiInput-formControl {
     padding-right: 30px;
     padding-bottom: 0;
 }
+.searchForm {
+    position: relative;
+}
 @media (min-width:960px) {
     .searchPanel {
         justify-content: flex-end;
@@ -1760,4 +1763,31 @@ label + .MuiInput-formControl {
 .label-8-button li.portalTypeSelectionEntry-8 {
     color: #FFFFFF;
     background-color: #4085C6 !important;
+}
+
+.suggestionList {
+    position: absolute;
+    width: 767px;
+    will-change: transform;
+    transform: translate3d(203px, 325px, 0px);
+    z-index: 1300;
+    top: -255px;
+    left: -70px;
+}
+
+@media (max-width:959.95px) {
+    .suggestionList {
+        top: -200px;
+        left: -160px;
+        width: calc(100% - 95px);
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.suggestionList a,
+.suggestionList a:hover,
+.suggestionList a:visited,
+.suggestionList a:active {
+    text-decoration: none;
 }

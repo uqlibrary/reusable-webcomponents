@@ -1315,3 +1315,27 @@ export const alerts = [{
     "body": "This is the message [permanent]",
     "urgent": 1
 }];
+
+export const primoSuggestions = {
+    "responseHeader": {
+        "status": 0,
+        "QTime": 2
+    },
+    "response": {
+        "numFound": 1622,
+        "start": 0,
+        "maxScore": 16.476818,
+        "docs": [
+            { "text": 'beards', "score": 16.476818 },
+            { "text": 'beards folklore', "score": 16.476564 },
+            { "text": 'beards massage', "score": 16.476564 },
+            { "text": 'beards fiction', "score": 16.476564},
+            { "text": 'beards poetry', "score": 16.476564 },
+            { "text": 'beards history', "score": 16.476564},
+            { "text": 'beards europe', "score": 16.476564 },
+            { "text": 'beards humor', "score": 16.476564},
+            { "text": 'beards harold', "score": 16.476564 },
+            { "text": 'beards peter', "score": 16.476564 },
+        ],
+    }
+};

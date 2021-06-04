@@ -1,6 +1,7 @@
 import MockApi from '../../mock/MockApi';
 import ApiRoutes from '../ApiRoutes';
 import { apiLocale as locale } from './ApiAccess.locale';
+import fetchJsonp from 'fetch-jsonp';
 
 let initCalled;
 
@@ -108,6 +109,99 @@ class ApiAccess {
             });
     }
 
+    /**
+     * Loads the primo search suggestions
+     * @returns {function(*)}
+     */
+    async loadPrimoSuggestions(keyword) {
+        console.log('loadPrimoSuggestions: ', keyword);
+        const route = new ApiRoutes().PRIMO_SUGGESTIONS_API_GENERIC(keyword);
+        const url = route.apiUrl;
+        return await this.fetchJsonpAPI(url, {
+            jsonpCallbackFunction: 'byutv_jsonp_callback_c631f96adec14320b23f1cac342d30f6',
+            timeout: 3000,
+        })
+            .then((data) => {
+                return (
+                    (data &&
+                        data.response &&
+                        data.response.docs &&
+                        data.response.docs.map((item, index) => {
+                            return {
+                                ...item,
+                                index,
+                            };
+                        })) ||
+                    /* istanbul ignore next */ []
+                );
+            })
+            .catch((error) => {
+                console.log('error loading Primo suggestions ', error);
+                return null;
+            });
+    }
+
+    async loadExamPaperSuggestions(keyword) {
+        return (dispatch) => {
+            dispatch({ type: actions.PRIMO_SUGGESTIONS_LOADING });
+            return fetch(PRIMO_SUGGESTIONS_API_EXAMS({ keyword }).apiUrl)
+                .then(throwFetchErrors)
+                .then((response) => response.json())
+                .then((data) => {
+                    const payload = data.map((item, index) => {
+                        const title = !!item.course_title ? ` (${item.course_title})` : '';
+                        return {
+                            text: `${item.name}${title}`,
+                            index,
+                        };
+                    });
+                    dispatch({
+                        type: actions.PRIMO_SUGGESTIONS_LOADED,
+                        payload: payload,
+                    });
+                })
+                .catch((error) => {
+                    dispatch({
+                        type: actions.PRIMO_SUGGESTIONS_FAILED,
+                        payload: error.message,
+                    });
+                });
+        };
+    }
+
+    async loadHomepageCourseReadingListsSuggestions(keyword) {
+        return (dispatch) => {
+            dispatch({ type: actions.PRIMO_SUGGESTIONS_LOADING });
+            return fetch(SUGGESTIONS_API_PAST_COURSE({ keyword }).apiUrl)
+                .then(throwFetchErrors)
+                .then((response) => response.json())
+                .then((data) => {
+                    const payload = data.map((item, index) => {
+                        const specifier =
+                            (item.course_title ? `${item.course_title} | ` : '') +
+                            (item.campus ? `${item.campus} , ` : '') +
+                            (item.period ? item.period.toLowerCase() : '');
+                        const append = !!specifier ? ` ( ${specifier} )` : '';
+                        return {
+                            text: `${item.name}${append}`,
+                            index,
+                            rest: item,
+                        };
+                    });
+                    dispatch({
+                        type: actions.PRIMO_SUGGESTIONS_LOADED,
+                        payload: payload,
+                    });
+                })
+                .catch((error) => {
+                    dispatch({
+                        type: actions.PRIMO_SUGGESTIONS_FAILED,
+                        payload: error.message,
+                    });
+                });
+        };
+    }
+
     async fetchAPI(urlPath, headers, tokenRequired = false) {
         if (!!tokenRequired && (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)) {
             // no cookie so we wont bother asking for an api that cant be returned
@@ -142,6 +236,35 @@ class ApiAccess {
             }
             return await response.json();
         }
+    }
+
+    async fetchJsonpAPI(url, headers) {
+        console.log('fetchJsonpAPI: url = ', url);
+        const options = {
+            ...headers,
+        };
+
+        /* istanbul ignore else  */
+        // if (this.isMock()) {
+        //     try {
+        //         console.log('mocking url : ', url);
+        //         return this.fetchMock(url);
+        //     } catch (e) {
+        //         const msg = `mock api error: ${e.message}`;
+        //         console.log(msg);
+        //         throw new Error(msg);
+        //     }
+        // } else {
+        // this assumes non api.library urls
+        const response = await fetchJsonp(url, options);
+        console.log('fetchJsonp got ', response);
+        if (!response.ok) {
+            console.log(`ApiAccess console: An error has occured: ${response.status} ${response.statusText}`);
+            const message = `ApiAccess: An error has occured: ${response.status} ${response.statusText}`;
+            throw new Error(message);
+        }
+        return await response.json();
+        // }
     }
 
     /* istanbul ignore next */
@@ -238,5 +361,14 @@ class ApiAccess {
         return process.env.USE_MOCK;
     }
 }
+
+const throwFetchErrors = (response) => {
+    if (!response.ok) {
+        const status = response.status || 'status undefined';
+        const statusText = response.statusText || 'status message undefined';
+        throw Error(`Error ${status} - ${statusText}`);
+    }
+    return response;
+};
 
 export default ApiAccess;

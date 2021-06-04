@@ -5,7 +5,7 @@ import ApiRoutes from "../src/ApiRoutes";
 import { apiLocale as apilocale } from '../src/ApiAccess/ApiAccess.locale';
 
 import {
-    libHours, alerts
+    libHours, alerts, primoSuggestions
 } from './data/account';
 
 class MockApi {
@@ -65,7 +65,9 @@ class MockApi {
         return response
     }
 
-    mockfetch(url, options) {
+    mockfetch(url, keyword) {
+        console.log('mockfetch url = ', url);
+        console.log('mockfetch keyword = ', keyword);
         this.url = url;
         const apiRoute = new ApiRoutes();
         switch (url) {
@@ -111,6 +113,16 @@ class MockApi {
                     // return this.response(500, {}, true);
                 } else {
                     return this.response(200, alerts, true);
+                }
+
+            case apiRoute.PRIMO_SUGGESTIONS_API_GENERIC('Kitchen').apiUrl:
+            case apiRoute.PRIMO_SUGGESTIONS_API_GENERIC('').apiUrl:
+                if (this.user === 'primoError') {
+                    return this.response(403, {});
+                    // return this.response(500, {}, true);
+                } else {
+                    console.log('returning mock primo suggestions');
+                    return this.response(200, primoSuggestions, true);
                 }
 
             /* istanbul ignore next  */
