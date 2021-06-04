@@ -14,9 +14,9 @@ class Training extends HTMLElement {
         return this.getAttribute('max-event-count') || 100;
     }
 
-    get gaAppName() {
-        return this.getAttribute('ga-app-name');
-    }
+    // get gaAppName() {
+    //     return this.getAttribute('ga-app-name');
+    // }
 
     get hideFilter() {
         return this.hasAttribute('hide-filter');
@@ -204,6 +204,7 @@ class Training extends HTMLElement {
 
         // Apply filters to list
         this.listComponent.data = this.getFilteredEvents();
+        this.hideCategoryTitle && this.listComponent.setAttribute('hide-category-title', this.hideCategoryTitle);
     }
 }
 

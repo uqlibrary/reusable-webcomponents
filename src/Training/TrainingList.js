@@ -16,16 +16,20 @@ template.innerHTML = `
 const categoryTemplate = document.createElement('template');
 categoryTemplate.innerHTML = `
     <div class="uq-grid__col uq-grid__col--6 uq-card">
-        <div class="uq-card__header">Card header</div>
+        <div class="uq-card__header"></div>
         <div class="uq-card__body">
             <div class="uq-card__content">
                 <div 
-                    class="accordion"
+                    class="uq-accordion"
                     aria-label="Accordion button group"
                     role="presentation"
                     id="training-events-accordion"
                     data-testid="training-events-accordion"
-                ></div>
+                >
+                </div>
+            </div>
+            <div class="uq-card__actions">
+                <button class="uq-button uq-button--secondary is-more">Show more</button>
             </div>
         </div>
     </div>
@@ -33,9 +37,9 @@ categoryTemplate.innerHTML = `
 
 const eventTemplate = document.createElement('template');
 eventTemplate.innerHTML = `
-    <div class="accordion__item">
-        <button class="accordion__toggle" aria-expanded="false"></button>
-        <div class="accordion__content" aria-hidden="true"></div>
+    <div class="uq-accordion__item">
+        <button class="uq-accordion__toggle" aria-expanded="false"></button>
+        <div class="uq-accordion__content" aria-hidden="true"></div>
     </div>
 `;
 
@@ -56,16 +60,32 @@ class TrainingList extends HTMLElement {
             this.rootElement.appendChild(categoryTemplate.content.cloneNode(true));
             const categoryCard = this.rootElement.lastElementChild;
 
-            categoryCard.getElementsByClassName('uq-card__header').item(0).innerHTML = `
-                <h3>${categoryName}</h3>
-            `;
+            if (!this.hideCategoryTitle) {
+                categoryCard.getElementsByClassName('uq-card__header').item(0).innerHTML = `
+                    <h3 class="uq-card__title">${categoryName}</h3>
+                `;
+            }
 
-            const categoryListElement = categoryCard.getElementsByClassName('accordion').item(0);
+            const categoryListElement = categoryCard.getElementsByClassName('uq-accordion').item(0);
             categoryListElement.setAttribute('id', `event-category-${index}`);
             categoryListElement.setAttribute('data-testid', `event-category-${index}`);
             categoryListElement.setAttribute('data-category-name', categoryName);
 
-            this.populateEventsByCategory(categoryListElement);
+            const longListCallback = () => {
+                categoryCard.classList.add('has-more-events');
+                categoryCard
+                    .getElementsByClassName('uq-card__actions')
+                    .item(0)
+                    .lastElementChild.addEventListener('click', (e) => {
+                        const isMoreButton = e.target.classList.contains('is-more');
+                        e.target.textContent = isMoreButton ? 'Show less' : 'Show more';
+                        e.target.classList.toggle('is-more', !isMoreButton);
+                        categoryCard.classList.toggle('show-all', isMoreButton);
+                        isMoreButton && categoryCard.getElementsByClassName('uq-accordion__toggle').item(5).focus();
+                    });
+            };
+
+            this.populateEventsByCategory(categoryListElement, longListCallback);
         });
 
         this.addEventListeners();
@@ -73,6 +93,10 @@ class TrainingList extends HTMLElement {
 
     get data() {
         return this._eventList;
+    }
+
+    get hideCategoryTitle() {
+        return this.hasAttribute('hide-category-title');
     }
 
     get accountLoading() {
@@ -104,12 +128,15 @@ class TrainingList extends HTMLElement {
     }
 
     addEventListeners() {
-        new uqds.accordion('accordion');
+        new uqds.accordion('uq-accordion');
     }
 
-    populateEventsByCategory(categoryListElement) {
+    populateEventsByCategory(categoryListElement, longListCallback = () => {}) {
         const categoryName = categoryListElement.getAttribute('data-category-name');
         const eventsByCategory = this.data.filter((event) => event.eventType === categoryName);
+        if (eventsByCategory.length > 5) {
+            longListCallback();
+        }
         eventsByCategory.map((event) => {
             this.insertEvent(event, categoryListElement);
         });
@@ -118,15 +145,28 @@ class TrainingList extends HTMLElement {
     insertEvent(event, eventListForCategory) {
         eventListForCategory.appendChild(eventTemplate.content.cloneNode(true));
         const eventElement = eventListForCategory.lastElementChild;
-        const toggleButtonId = `event-title-${event.entityId}`;
+        const toggleButtonId = `event-detail-toggle-${event.entityId}`;
         const detailContainerId = `event-detail-${event.entityId}`;
 
-        const toggleButton = eventElement.getElementsByClassName('accordion__toggle').item(0);
+        const toggleButton = eventElement.getElementsByClassName('uq-accordion__toggle').item(0);
         toggleButton.setAttribute('id', toggleButtonId);
         toggleButton.setAttribute('aria-controls', detailContainerId);
-        toggleButton.textContent = event.name;
 
-        const detailContainer = eventElement.getElementsByClassName('accordion__content').item(0);
+        const eventDate = new Date(event.start);
+        toggleButton.innerHTML = `
+            <div class="group-first" tab-index="-1">
+                <h4 id="event-name-${event.entityId}">${event.name}</h4>
+                <time datetime="${eventDate.toISOString()}" id="event-date-${event.entityId}">
+                    ${eventDate.toLocaleDateString('default', {
+                        day: 'numeric',
+                        month: 'short',
+                    })}
+                </date>
+            </div>
+            <div id="event-venue-${event.entityId}">${event.venue}</div>
+        `;
+
+        const detailContainer = eventElement.getElementsByClassName('uq-accordion__content').item(0);
         detailContainer.setAttribute('id', detailContainerId);
         detailContainer.setAttribute('aria-labelledby', toggleButtonId);
 

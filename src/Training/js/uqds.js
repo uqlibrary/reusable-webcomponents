@@ -128,12 +128,17 @@ const uq = (function (exports) {
                         return function (e) {
                             e.preventDefault();
 
-                            if (e.target.classList.contains(''.concat(_this2.className, '__toggle--active'))) {
-                                _this2.slideContentUp(e.target);
-                            } else {
-                                _this2.slideContentDown(e.target);
+                            let toggler = e.target;
+                            while (!toggler.classList.contains(''.concat(_this2.className, '__toggle'))) {
+                                toggler = toggler.parentElement;
+                            }
 
-                                _this2.slideUpOthers(e.target, togglers);
+                            if (toggler.classList.contains(''.concat(_this2.className, '__toggle--active'))) {
+                                _this2.slideContentUp(toggler);
+                            } else {
+                                _this2.slideContentDown(toggler);
+
+                                _this2.slideUpOthers(toggler, togglers);
                             }
                         };
                     },

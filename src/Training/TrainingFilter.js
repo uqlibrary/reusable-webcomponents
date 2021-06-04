@@ -5,11 +5,11 @@ const template = document.createElement('template');
 template.innerHTML = `
     <style>${styles.toString()}</style>
     <style>${overrides.toString()}</style>
-    <section id="training-filter" class="pane pane--outline" role="search" aria-live="polite">
+    <section id="training-filter" class="uq-pane" role="search" aria-live="polite">
         <div class="header uq-pane__title" data-testid="training-filter-header">
             <h3 class="title-text paper-card">Filter events</h3>
         </div>
-        <div class="card-content" data-testid="dropdown-container">
+        <div class="uq-pane__content" data-testid="dropdown-container">
             <div aria-label="filter by keyword" tabindex="0" aria-disabled="false">
                 <div class="keywordPlaceholderMovement">
                     <label>

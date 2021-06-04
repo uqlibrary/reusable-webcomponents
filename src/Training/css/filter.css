@@ -1,4 +1,4 @@
-.pane {
+.uq-pane {
     background-color: #fff;
 }
 h3.title-text {
@@ -41,7 +41,7 @@ h3.title-text {
 
 .clearKeyword svg {
     width: 24px !important;
-    height: 24px !important;;
+    height: 24px !important;
 }
 
 .title-text {
@@ -50,14 +50,14 @@ h3.title-text {
     color: #000;
 }
 
-.card-content {
+.uq-pane__content {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     padding-top: 0;
     width: 100%;
 }
-.card-content > div {
+.uq-pane__content > div {
     width: 31%;
     padding-top: 1.2rem;
 }
@@ -93,7 +93,7 @@ button.campus {
 
 .opener.filterer::after {
     /* drop down arrow */
-    content: " \25BC";
+    content: ' \25BC';
     float: right;
 }
 
@@ -129,8 +129,8 @@ button.chip {
 }
 
 .keywordPlaceholderMovement label {
-    position:relative;
-    display:inline-block;
+    position: relative;
+    display: inline-block;
 
     margin-bottom: 0;
 
@@ -141,32 +141,32 @@ button.chip {
 .keywordPlaceholderMovement span {
     padding: 24px 10px 10px 8px;
     pointer-events: none;
-    position:absolute;
-    left:0;
-    top:0;
+    position: absolute;
+    left: 0;
+    top: 0;
     transition: 0.2s;
     transition-timing-function: ease;
     transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
-    opacity:0.5;
+    opacity: 0.5;
     font-size: 16px;
     font-weight: 400;
     color: #333;
 }
 
 .keywordPlaceholderMovement input {
-    padding:10px;
+    padding: 10px;
 }
 
 .keywordPlaceholderMovement input:focus + span,
 .keywordPlaceholderMovement input:not(:placeholder-shown) + span {
-    opacity:1;
+    opacity: 1;
     transform: scale(0.75) translateY(-90%) translateX(-25px);
-    color: #51247A;
+    color: #51247a;
 }
 
 .listHolder label {
-    position:relative;
-    display:inline-block;
+    position: relative;
+    display: inline-block;
     width: 100%;
 
     margin-bottom: 0;
@@ -174,10 +174,10 @@ button.chip {
 
 .hovertext.above {
     font-size: 0.8rem;
-    color: #51247A;
+    color: #51247a;
     height: 0.8rem;
     margin-top: -3rem;
-    transform: translateY(-20px) translateX(-6px)
+    transform: translateY(-20px) translateX(-6px);
 }
 
 .hoverblock {
@@ -187,11 +187,11 @@ button.chip {
 }
 
 .hovertext {
-    transition: .2s;
+    transition: 0.2s;
     transition-timing-function: ease;
     transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
 
-    animation:1s ease 2s normal forwards 1 fadein;
+    animation: 1s ease 2s normal forwards 1 fadein;
     /*transform: scale(0.75) translateY(-100%) translateX(-30px);*/
     transform: translateY(-20px);
 }
@@ -201,11 +201,11 @@ button.chip {
 }
 
 @media (max-width: 700px) {
-    .card-content {
+    .uq-pane__content {
         display: block;
     }
 
-    .card-content > div {
+    .uq-pane__content > div {
         width: 90%;
         padding-bottom: 1rem;
         height: 5rem; /* need to fix the height so the field doesnt shift as the label moves around */

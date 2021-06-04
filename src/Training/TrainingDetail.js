@@ -5,7 +5,7 @@ const template = document.createElement('template');
 template.innerHTML = `
   <style>${styles.toString()}</style>
   <style>${overrides.toString()}</style>
-  <div class="pane pane--outline pane--has-footer">
+  <div class="uq-pane uq-pane--outline uq-pane--has-footer">
     <div class="event-name purple">
         <h3 class="inverse" id="eventName"></h3>
     </div>
@@ -80,7 +80,7 @@ template.innerHTML = `
             </div>
         </div>
     </div>
-    <div class="pane__footer">
+    <div class="uq-pane__footer">
         <button id="bookTraining" data-testid="bookTraining" class="uq-button" role="button" tabindex="0" animated="" aria-disabled="false" elevation="0">Log in and book</button>
     </div>
 </div>

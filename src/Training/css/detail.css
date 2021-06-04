@@ -1,4 +1,4 @@
-.pane {
+.uq-pane {
     background-color: #fff;
 }
 
@@ -26,7 +26,7 @@
     height: 24px;
 }
 
-.pane__footer {
+.uq-pane__footer {
     text-align: right;
 }
 
