@@ -160,36 +160,25 @@ class ApiAccess {
     }
 
     async loadHomepageCourseReadingListsSuggestions(keyword) {
-        return (dispatch) => {
-            dispatch({ type: actions.PRIMO_SUGGESTIONS_LOADING });
-            return fetch(SUGGESTIONS_API_PAST_COURSE({ keyword }).apiUrl)
-                .then(throwFetchErrors)
-                .then((response) => response.json())
-                .then((data) => {
-                    const payload = data.map((item, index) => {
-                        const specifier =
-                            (item.course_title ? `${item.course_title} | ` : '') +
-                            (item.campus ? `${item.campus} , ` : '') +
-                            (item.period ? item.period.toLowerCase() : '');
-                        const append = !!specifier ? ` ( ${specifier} )` : '';
-                        return {
-                            text: `${item.name}${append}`,
-                            index,
-                            rest: item,
-                        };
-                    });
-                    dispatch({
-                        type: actions.PRIMO_SUGGESTIONS_LOADED,
-                        payload: payload,
-                    });
-                })
-                .catch((error) => {
-                    dispatch({
-                        type: actions.PRIMO_SUGGESTIONS_FAILED,
-                        payload: error.message,
-                    });
+        return await this.fetchAPI(new ApiRoutes().SUGGESTIONS_API_PAST_COURSE(keyword).apiUrl)
+            .then((data) => {
+                return data.map((item, index) => {
+                    const specifier =
+                        (item.course_title ? `${item.course_title} | ` : '') +
+                        (item.campus ? `${item.campus} , ` : '') +
+                        (item.period ? item.period.toLowerCase() : '');
+                    const append = !!specifier ? ` ( ${specifier} )` : '';
+                    return {
+                        ...item,
+                        text: `${item.name}${append}`,
+                        index,
+                    };
                 });
-        };
+            })
+            .catch((error) => {
+                console.log('error loading Learning Resource suggestions ', error);
+                return null;
+            });
     }
 
     async fetchAPI(urlPath, headers, tokenRequired = false) {

@@ -1356,3 +1356,26 @@ export const examSuggestions = [{
     "type": "exam_paper",
     "course_title": "Formal Logic: an introduction to classical formal logic"
 }];
+
+export const learningResourceSuggestions = [{
+    "name": "PHIL2013",
+    "url": "http:\/\/lr.library.uq.edu.au\/lists\/6054F5AD-48A7-D99B-32E3-61438F0C9E4C",
+    "type": "learning_resource",
+    "course_title": "Rise of Modern Philosophy",
+    "campus": "St Lucia",
+    "period": "Semester 2 2021"
+}, {
+    "name": "PHIL1013",
+    "url": "http:\/\/lr.library.uq.edu.au\/lists\/6F4C18DC-1BB3-6926-22A1-9FF8123DD37C",
+    "type": "learning_resource",
+    "course_title": "Introduction to Ethics",
+    "campus": "St Lucia",
+    "period": "Semester 2 2021"
+}, {
+    "name": "PPES2101",
+    "url": "http:\/\/lr.library.uq.edu.au\/lists\/9954067E-8C88-0707-B398-EBCF62CEE257",
+    "type": "learning_resource",
+    "course_title": "Politics, Philosophy, Economics 2",
+    "campus": "St Lucia",
+    "period": "Semester 2 2021"
+}];

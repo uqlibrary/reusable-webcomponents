@@ -146,6 +146,18 @@ class SearchPortal extends HTMLElement {
             });
     }
 
+    async getLearningResourceSuggestions(keyword) {
+        await new ApiAccess()
+            .loadHomepageCourseReadingListsSuggestions(keyword)
+            .then((suggestions) => {
+                console.log('loadHomepageCourseReadingListsSuggestions: received ', suggestions);
+                this.loadSuggestionsIntoPage(suggestions, 'name');
+            })
+            .catch((e) => {
+                console.log('getLearningResourceSuggestions, error: ', e);
+            });
+    }
+
     /**
      *
      * @param suggestions
@@ -286,7 +298,7 @@ class SearchPortal extends HTMLElement {
         const throttledPrimoLoadSuggestions = throttle(3100, (newValue) => this.getPrimoSuggestions(newValue));
         const throttledExamLoadSuggestions = throttle(3100, (newValue) => this.getExamPaperSuggestions(newValue));
         const throttledReadingListLoadSuggestions = throttle(3100, (newValue) =>
-            actions.loadHomepageCourseReadingListsSuggestions(newValue),
+            this.getLearningResourceSuggestions(newValue),
         );
 
         function getSuggestions(e) {

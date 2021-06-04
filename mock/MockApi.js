@@ -5,7 +5,7 @@ import ApiRoutes from "../src/ApiRoutes";
 import { apiLocale as apilocale } from '../src/ApiAccess/ApiAccess.locale';
 
 import {
-    libHours, alerts, primoSuggestions, examSuggestions
+    libHours, alerts, primoSuggestions, examSuggestions, learningResourceSuggestions
 } from './data/account';
 
 class MockApi {
@@ -65,9 +65,9 @@ class MockApi {
         return response
     }
 
-    mockfetch(url, keyword) {
+    mockfetch(url, options) {
         console.log('mockfetch url = ', url);
-        console.log('mockfetch keyword = ', keyword);
+        console.log('mockfetch options = ', options);
         this.url = url;
         const apiRoute = new ApiRoutes();
         switch (url) {
@@ -127,12 +127,23 @@ class MockApi {
 
             case apiRoute.EXAMS_SUGGESTIONS_API('PHIL').apiUrl:
             case apiRoute.EXAMS_SUGGESTIONS_API('').apiUrl:
-                if (this.user === 'primoError') {
+                if (this.user === 'examError') {
                     return this.response(403, {});
                     // return this.response(500, {}, true);
                 } else {
                     console.log('returning mock exam suggestions');
                     return this.response(200, examSuggestions, true);
+                }
+
+
+            case apiRoute.SUGGESTIONS_API_PAST_COURSE('PHIL').apiUrl:
+            case apiRoute.SUGGESTIONS_API_PAST_COURSE('').apiUrl:
+                if (this.user === 'lrError') {
+                    return this.response(403, {});
+                    // return this.response(500, {}, true);
+                } else {
+                    console.log('returning mock talis suggestions');
+                    return this.response(200, learningResourceSuggestions, true);
                 }
 
             /* istanbul ignore next  */
