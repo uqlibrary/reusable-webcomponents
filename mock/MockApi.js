@@ -115,6 +115,7 @@ class MockApi {
                     return this.response(200, alerts, true);
                 }
 
+            case apiRoute.PRIMO_SUGGESTIONS_API_GENERIC('bear').apiUrl:
             case apiRoute.PRIMO_SUGGESTIONS_API_GENERIC('beard').apiUrl:
             case apiRoute.PRIMO_SUGGESTIONS_API_GENERIC('').apiUrl:
                 if (this.user === 'primoError') {

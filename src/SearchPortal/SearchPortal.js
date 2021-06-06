@@ -114,6 +114,7 @@ class SearchPortal extends HTMLElement {
         this.createFooterLink = this.createFooterLink.bind(this);
         this.createPortalTypeSelectionEntry = this.createPortalTypeSelectionEntry.bind(this);
         this.createPortalTypeSelector = this.createPortalTypeSelector.bind(this);
+        this.isDropDownCurrentlyShowing = this.isDropDownCurrentlyShowing.bind(this);
         this.setDropdownButton = this.setDropdownButton.bind(this);
         this.showHidePortalTypeDropdown = this.showHidePortalTypeDropdown.bind(this);
     }
@@ -337,25 +338,42 @@ class SearchPortal extends HTMLElement {
         !!inputField && inputField.addEventListener('keyup', getSuggestions);
         !!inputField && inputField.addEventListener('onpaste', getSuggestions);
 
+        function clearSearchResults() {
+            console.log('clearing search result list');
+            const searchResults = !!shadowDOM && shadowDOM.getElementById('search-portal-autocomplete-listbox');
+            !!searchResults && searchResults.remove();
+        }
+
         // open and close the dropdown when the search-type button is clicked
         const searchPortalSelector = !!shadowDOM && shadowDOM.getElementById('search-portal-select');
         !!searchPortalSelector &&
             searchPortalSelector.addEventListener('click', function (e) {
+                console.log('searchPortalSelector click');
                 that.showHidePortalTypeDropdown(shadowDOM);
+                if (!that.isDropDownCurrentlyShowing(shadowDOM)) {
+                    console.log('drop down not showing');
+                    clearSearchResults();
+                    getSuggestions();
+                } else {
+                    console.log('drop down IS showing');
+                }
             });
 
         function clearSearchTerm() {
             const inputField = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
             !!inputField && (inputField.value = '');
-
-            const searchResults = !!shadowDOM && shadowDOM.getElementById('search-portal-autocomplete-listbox');
-            !!searchResults && searchResults.remove();
         }
         const clearButton = !!shadowDOM && shadowDOM.getElementById('clear-search-term');
         !!clearButton &&
             clearButton.addEventListener('click', function (e) {
                 clearSearchTerm();
+                clearSearchResults();
             });
+    }
+
+    isDropDownCurrentlyShowing(shadowDOM) {
+        const portalTypeDropdown = !!shadowDOM && shadowDOM.getElementById('portal-type-selector');
+        return !!portalTypeDropdown && !portalTypeDropdown.classList.contains('hidden');
     }
 
     showHidePortalTypeDropdown(shadowDOM) {
@@ -366,7 +384,7 @@ class SearchPortal extends HTMLElement {
 
         // if we are showing the dropdown,
         // set the top of the dropdown so the current element matches up with the underlying button
-        if (!!portalTypeDropdown && !portalTypeDropdown.classList.contains('hidden')) {
+        if (this.isDropDownCurrentlyShowing(shadowDOM)) {
             // get the currrently displayed label
             const portalTypeCurrentLabel = !!shadowDOM && shadowDOM.getElementById('portaltype-current-label');
             // problem matching the '&amp;" in the video label
