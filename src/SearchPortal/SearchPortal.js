@@ -114,7 +114,7 @@ class SearchPortal extends HTMLElement {
         this.createFooterLink = this.createFooterLink.bind(this);
         this.createPortalTypeSelectionEntry = this.createPortalTypeSelectionEntry.bind(this);
         this.createPortalTypeSelector = this.createPortalTypeSelector.bind(this);
-        this.isDropDownCurrentlyShowing = this.isDropDownCurrentlyShowing.bind(this);
+        this.isPortalTypeDropDownCurrentlyOpen = this.isPortalTypeDropDownCurrentlyOpen.bind(this);
         this.setDropdownButton = this.setDropdownButton.bind(this);
         this.showHidePortalTypeDropdown = this.showHidePortalTypeDropdown.bind(this);
     }
@@ -273,6 +273,53 @@ class SearchPortal extends HTMLElement {
             };
         }
 
+        const theform = !!shadowDOM && shadowDOM.getElementById('search-portal-form');
+        !!theform && theform.addEventListener('submit', submitHandler());
+
+        const inputField = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
+        !!inputField &&
+            inputField.addEventListener('keydown', function (e) {
+                that.getSuggestions(shadowDOM);
+            });
+        !!inputField &&
+            inputField.addEventListener('keyup', function (e) {
+                that.getSuggestions(shadowDOM);
+            });
+        !!inputField &&
+            inputField.addEventListener('onpaste', function (e) {
+                that.getSuggestions(shadowDOM);
+            });
+
+        // open and close the dropdown when the search-type button is clicked
+        const searchPortalSelector = !!shadowDOM && shadowDOM.getElementById('search-portal-select');
+        !!searchPortalSelector &&
+            searchPortalSelector.addEventListener('click', function (e) {
+                console.log('searchPortalSelector click');
+                that.showHidePortalTypeDropdown(shadowDOM);
+                if (!that.isPortalTypeDropDownCurrentlyOpen(shadowDOM)) {
+                    console.log('drop down has been closed');
+                    that.clearSearchResults(shadowDOM);
+                    that.getSuggestions(shadowDOM);
+                } else {
+                    console.log('drop down has been opened');
+                }
+            });
+
+        function clearSearchTerm() {
+            const inputField = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
+            !!inputField && (inputField.value = '');
+        }
+        const clearButton = !!shadowDOM && shadowDOM.getElementById('clear-search-term');
+        !!clearButton &&
+            clearButton.addEventListener('click', function (e) {
+                clearSearchTerm();
+                that.clearSearchResults(shadowDOM);
+            });
+    }
+
+    getSuggestions(shadowDOM) {
+        const that = this;
+
         // there have been cases where someone has put a book on the corner of a keyboard,
         // which sends thousands of requests to the server - block this
         // length has to be 4, because subjects like FREN3111 have 3 repeating numbers...
@@ -289,89 +336,52 @@ class SearchPortal extends HTMLElement {
             return lastChar === char2 && lastChar === char3 && lastChar === char4 && lastChar === char5;
         }
 
-        const theform = !!shadowDOM && shadowDOM.getElementById('search-portal-form');
-        !!theform && theform.addEventListener('submit', submitHandler());
-
         const throttledPrimoLoadSuggestions = throttle(3100, (newValue) => this.getPrimoSuggestions(newValue));
         const throttledExamLoadSuggestions = throttle(3100, (newValue) => this.getExamPaperSuggestions(newValue));
         const throttledReadingListLoadSuggestions = throttle(3100, (newValue) =>
             this.getLearningResourceSuggestions(newValue),
         );
 
-        function getSuggestions(e) {
-            const that = this;
+        const focusOnSearchInput = () => {
+            setTimeout(() => {
+                const searchInput = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
+                !!searchInput && searchInput.focus();
+            }, 200);
+        };
 
-            const searchType = !!shadowDOM && shadowDOM.getElementById('portaltype-current-value');
-
-            const inputField = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
-
-            if (!!inputField.value && inputField.value.length > 3 && !isRepeatingString(inputField.value)) {
-                const PRIMO_SEARCH_TYPES = [
-                    PRIMO_LIBRARY_SEARCH,
-                    PRIMO_BOOKS_SEARCH,
-                    PRIMO_JOURNAL_ARTICLES_SEARCH,
-                    PRIMO_VIDEO_AUDIO_SEARCH,
-                    PRIMO_JOURNALS_SEARCH,
-                    PRIMO_PHYSICAL_ITEMS_SEARCH,
-                ];
-                if (PRIMO_SEARCH_TYPES.includes(searchType.value)) {
-                    console.log('do a primo search for ', inputField.value);
-                    throttledPrimoLoadSuggestions(inputField.value);
-                } else if (searchType.value === EXAM_SEARCH_TYPE) {
-                    console.log('do an exam search');
-                    throttledExamLoadSuggestions(inputField.value);
-                } else if (searchType.value === COURSE_RESOURCE_SEARCH_TYPE) {
-                    console.log('do a course resource search');
-                    throttledReadingListLoadSuggestions(inputField.value);
-                } else {
-                    console.log('do a ? did not recognise searchType.value = ', searchType.value);
-                }
-                // focusOnSearchInput();
-            } else {
-                // actions.clearPrimoSuggestions();
-            }
-            // }
-        }
+        const searchType = !!shadowDOM && shadowDOM.getElementById('portaltype-current-value');
 
         const inputField = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
-        !!inputField && inputField.addEventListener('keydown', getSuggestions);
-        !!inputField && inputField.addEventListener('keyup', getSuggestions);
-        !!inputField && inputField.addEventListener('onpaste', getSuggestions);
 
-        function clearSearchResults() {
-            console.log('clearing search result list');
-            const searchResults = !!shadowDOM && shadowDOM.getElementById('search-portal-autocomplete-listbox');
-            !!searchResults && searchResults.remove();
+        if (!!inputField.value && inputField.value.length > 3 && !isRepeatingString(inputField.value)) {
+            const PRIMO_SEARCH_TYPES = [
+                PRIMO_LIBRARY_SEARCH,
+                PRIMO_BOOKS_SEARCH,
+                PRIMO_JOURNAL_ARTICLES_SEARCH,
+                PRIMO_VIDEO_AUDIO_SEARCH,
+                PRIMO_JOURNALS_SEARCH,
+                PRIMO_PHYSICAL_ITEMS_SEARCH,
+            ];
+            if (PRIMO_SEARCH_TYPES.includes(searchType.value)) {
+                console.log('do a primo search for ', inputField.value);
+                throttledPrimoLoadSuggestions(inputField.value);
+            } else if (searchType.value === EXAM_SEARCH_TYPE) {
+                console.log('do an exam search');
+                throttledExamLoadSuggestions(inputField.value);
+            } else if (searchType.value === COURSE_RESOURCE_SEARCH_TYPE) {
+                console.log('do a course resource search');
+                throttledReadingListLoadSuggestions(inputField.value);
+            } else {
+                console.log('do a ? did not recognise searchType.value = ', searchType.value);
+            }
+            focusOnSearchInput();
+        } else {
+            // actions.clearPrimoSuggestions();
         }
-
-        // open and close the dropdown when the search-type button is clicked
-        const searchPortalSelector = !!shadowDOM && shadowDOM.getElementById('search-portal-select');
-        !!searchPortalSelector &&
-            searchPortalSelector.addEventListener('click', function (e) {
-                console.log('searchPortalSelector click');
-                that.showHidePortalTypeDropdown(shadowDOM);
-                if (!that.isDropDownCurrentlyShowing(shadowDOM)) {
-                    console.log('drop down not showing');
-                    clearSearchResults();
-                    getSuggestions();
-                } else {
-                    console.log('drop down IS showing');
-                }
-            });
-
-        function clearSearchTerm() {
-            const inputField = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
-            !!inputField && (inputField.value = '');
-        }
-        const clearButton = !!shadowDOM && shadowDOM.getElementById('clear-search-term');
-        !!clearButton &&
-            clearButton.addEventListener('click', function (e) {
-                clearSearchTerm();
-                clearSearchResults();
-            });
+        // }
     }
 
-    isDropDownCurrentlyShowing(shadowDOM) {
+    isPortalTypeDropDownCurrentlyOpen(shadowDOM) {
         const portalTypeDropdown = !!shadowDOM && shadowDOM.getElementById('portal-type-selector');
         return !!portalTypeDropdown && !portalTypeDropdown.classList.contains('hidden');
     }
@@ -384,7 +394,7 @@ class SearchPortal extends HTMLElement {
 
         // if we are showing the dropdown,
         // set the top of the dropdown so the current element matches up with the underlying button
-        if (this.isDropDownCurrentlyShowing(shadowDOM)) {
+        if (this.isPortalTypeDropDownCurrentlyOpen(shadowDOM)) {
             // get the currrently displayed label
             const portalTypeCurrentLabel = !!shadowDOM && shadowDOM.getElementById('portaltype-current-label');
             // problem matching the '&amp;" in the video label
@@ -399,6 +409,12 @@ class SearchPortal extends HTMLElement {
             const newTopValue = matchingID * -40;
             !!matchingID && !!portalTypeDropdown && (portalTypeDropdown.style.top = `${newTopValue}px`);
         }
+    }
+
+    clearSearchResults(shadowDOM) {
+        console.log('clearing search result list');
+        const searchResults = !!shadowDOM && shadowDOM.getElementById('search-portal-autocomplete-listbox');
+        !!searchResults && searchResults.remove();
     }
 
     /**
@@ -447,6 +463,11 @@ class SearchPortal extends HTMLElement {
                 that.setDropdownButton(shadowDOM, index);
                 that.appendFooterLinks(shadowDOM, index);
                 that.showHidePortalTypeDropdown(shadowDOM);
+                // We need to clear the search results even if we only swap between primo searches
+                // because the link out in the search list will change
+                that.clearSearchResults(shadowDOM);
+                // if search term not blank, reload suggestions
+                that.getSuggestions(shadowDOM);
             });
 
         return li;
