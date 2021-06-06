@@ -1,3 +1,5 @@
+import { searchPortalLocale } from '../../src/SearchPortal/searchPortal.locale';
+
 describe('Search Portal', () => {
     beforeEach(() => {
         cy.visit('/');
@@ -181,6 +183,42 @@ describe('Search Portal', () => {
                         .find('li')
                         .its('length')
                         .should('eq', 3);
+                });
+        });
+
+        it('When the search type is changed the search sugestions reload', () => {
+            cy.viewport(1300, 1000);
+            cy.get('search-portal')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="primo-search"]').contains('Search');
+                    cy.wait(1000);
+
+                    // Library search
+                    const searchTerm = 'beard';
+                    cy.get('input[data-testid="primo-search-autocomplete-input"]').type(searchTerm, 100);
+                    cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
+                        .find('li')
+                        .its('length')
+                        .should('eq', 10);
+
+                    cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
+                        .find('li')
+                        .first()
+                        .find('a')
+                        .should('have.attr', 'href')
+                        .and('match', /rtype,exclude,reviews,lk/); // look for the part that is specific to the Library search
+
+                    // change to a different search type
+                    cy.get('div[data-testid="primo-search-select"]').click();
+                    cy.get('li[data-testid="primo-search-item-1"]').click(); // books
+                    cy.wait(1000); // it never takes this long locally!
+                    cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
+                        .find('li')
+                        .first()
+                        .find('a')
+                        .should('have.attr', 'href')
+                        .and('match', /facet=rtype,include,books/); // look for the part that is specific to the Book search
                 });
         });
     });
