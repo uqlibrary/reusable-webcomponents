@@ -774,6 +774,12 @@ label + .MuiInput-formControl {
     padding-left: 0;
 }
 
+@media (max-width:959.95px) {
+    .portaltype-dropdown-container {
+        width: 100%;
+    }
+}
+
 .portalTypeSelectorDisplayed {
     opacity: 1;
     transform: none;

@@ -11,7 +11,7 @@ template.innerHTML = `
             <form id="search-portal-form" class="searchForm">
                 <div id="search-parent" class="searchPanel MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-flex-end">
                     <div class="MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-auto">
-                        <div class="MuiFormControl-root">
+                        <div class="MuiFormControl-root portaltype-dropdown-container">
                             <label class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled" data-shrink="true" id="primo-search-select-label">Search</label>
                             <div class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl" id="portaltype-dropdown">
                                 <div class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input" tabindex="0" role="button" aria-haspopup="listbox" aria-labelledby="primo-search-select-label" id="search-portal-select" data-testid="primo-search-select">
@@ -149,9 +149,9 @@ class SearchPortal extends HTMLElement {
      * @param urlsource - some apis need a non displayed value to build the url. This tells them what field to use
      */
     loadSuggestionsIntoPage(suggestions, urlsource = 'text') {
-        const suggestionParent = document
-            .querySelector('search-portal')
-            .shadowRoot.getElementById('search-portal-form');
+        const shadowDOM = document.querySelector('search-portal').shadowRoot;
+
+        const suggestionParent = !!shadowDOM && shadowDOM.getElementById('search-portal-form');
 
         document.addEventListener('click', this.listenForSuggestionListClick);
         console.log('added listenForSuggestionListClick');
@@ -172,9 +172,7 @@ class SearchPortal extends HTMLElement {
                 ul.innerHTML = '';
             }
 
-            const searchType = document
-                .querySelector('search-portal')
-                .shadowRoot.getElementById('portaltype-current-value');
+            const searchType = !!shadowDOM && shadowDOM.getElementById('portaltype-current-value');
             // searchType.value returns 0,1, ... 8; ie the current dropdown id
             let type =
                 !!searchPortalLocale.typeSelect?.items &&
@@ -216,14 +214,17 @@ class SearchPortal extends HTMLElement {
                     }
                 });
 
-            const parent = suggestionParent.querySelector('#suggestion-parent') || document.createElement('div');
-            !!parent && parent.setAttribute('id', `suggestion-parent`);
-            !!parent &&
-                (parent.className =
-                    'MuiPaper-root MuiAutocomplete-paper MuiPaper-elevation1 MuiPaper-rounded suggestionList');
-            !!parent && !!ul && parent.appendChild(ul);
+            let listContainer = !!shadowDOM && shadowDOM.getElementById('suggestion-parent');
+            if (!listContainer) {
+                listContainer = document.createElement('div');
+                !!listContainer && listContainer.setAttribute('id', `suggestion-parent`);
+                !!listContainer &&
+                    (listContainer.className =
+                        'MuiPaper-root MuiAutocomplete-paper MuiPaper-elevation1 MuiPaper-rounded suggestionList');
+            }
+            !!listContainer && !!ul && listContainer.appendChild(ul);
 
-            !!parent && suggestionParent.appendChild(parent);
+            !!listContainer && suggestionParent.appendChild(listContainer);
         }
     }
 
