@@ -33,40 +33,39 @@ template.innerHTML = `
                             <div class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth">
                                 <div class="MuiInputBase-root MuiInput-root MuiInput-underline MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd">
                                     <input name="currentInputfield" aria-invalid="false" autocomplete="off" id="current-inputfield" placeholder="Find books, articles, databases, Library guides &amp; more" type="search" class="MuiInputBase-input MuiInput-input selectInput MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch" aria-autocomplete="list" autocapitalize="none" spellcheck="false" aria-label="Enter your search terms" data-testid="primo-search-autocomplete-input" value="">
-                                        <div class="MuiAutocomplete-endAdornment"></div>
-                                    </div>
+                                    <div class="MuiAutocomplete-endAdornment"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="MuiGrid-item MuiGrid-grid-xs-auto utilityarea">
-                            <div class="MuiGrid-container">
-                                <div class="MuiGrid-item MuiGrid-grid-xs-auto">
-                                    <button class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall" tabindex="0" type="button" title="Clear your search term" id="clear-search-term" data-testid="primo-search-autocomplete-voice-clear">
-                                        <span class="MuiIconButton-label">
-                                            <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                                                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
-                                            </svg>
-                                        </span>
-                                        <span class="MuiTouchRipple-root"></span>
-                                    </button>
-                                </div>
+                    </div>
+                    <div class="MuiGrid-item MuiGrid-grid-xs-auto utilityarea">
+                        <div class="MuiGrid-container">
+                            <div class="MuiGrid-item MuiGrid-grid-xs-auto">
+                                <button class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall" tabindex="0" type="button" title="Clear your search term" id="clear-search-term" data-testid="primo-search-autocomplete-voice-clear">
+                                    <span class="MuiIconButton-label">
+                                        <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+                                        </svg>
+                                    </span>
+                                    <span class="MuiTouchRipple-root"></span>
+                                </button>
                             </div>
                         </div>
-                        <div class="MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-auto">
-                            <button class="MuiButtonBase-root MuiButton-root MuiButton-contained searchButton MuiButton-containedPrimary MuiButton-containedSizeLarge MuiButton-sizeLarge MuiButton-fullWidth" tabindex="0" type="submit" id="primo-search-submit" data-testid="primo-search-submit" value="Submit" title="Perform your search">
-                                <span class="MuiButton-label">
-                                    <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
-                                    </svg>
-                                </span>
-                                <span class="MuiTouchRipple-root"></span>
-                            </button>
-                        </div>
                     </div>
-                    <div class="searchPanel MuiGrid-container MuiFormControlMuiGrid-spacing-xs-2" id="footerLinks" data-testid="primo-search-links">
+                    <div class="MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-auto">
+                        <button class="MuiButtonBase-root MuiButton-root MuiButton-contained searchButton MuiButton-containedPrimary MuiButton-containedSizeLarge MuiButton-sizeLarge MuiButton-fullWidth" tabindex="0" type="submit" id="primo-search-submit" data-testid="primo-search-submit" value="Submit" title="Perform your search">
+                            <span class="MuiButton-label">
+                                <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+                                </svg>
+                            </span>
+                            <span class="MuiTouchRipple-root"></span>
+                        </button>
                     </div>
-                </form>
-            </div>
+                </div>
+                <div class="searchPanel MuiGrid-container MuiFormControlMuiGrid-spacing-xs-2" id="footerLinks" data-testid="primo-search-links">
+                </div>
+            </form>
         </div>
     </div>
 `;
