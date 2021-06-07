@@ -6,6 +6,54 @@
     <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v6/fonts/Roboto/roboto.css" />
     <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css" />
     <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css">
+    <style>
+
+        .layout-card {
+            margin-left: 1rem;
+            margin-right: 1rem;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem
+        }
+
+        @media (min-width: 37.5rem) {
+            .layout-card {
+                padding-left: 0.75rem;
+                padding-right: 0.75rem;
+                margin-left: 3.25rem;
+                margin-right: 3.25rem;
+                max-width: none
+            }
+        }
+
+        @media (min-width: 69.25rem) {
+            .layout-card {
+                margin-left: auto;
+                margin-right: auto;
+                max-width: 61.5rem
+            }
+        }
+
+        @media (min-width: 80rem) {
+            .layout-card {
+                margin-left: 8.375rem;
+                margin-right: 8.375rem;
+                max-width: none;
+                padding-left: 1rem;
+                padding-right: 1rem
+            }
+        }
+
+        @media (min-width: 90rem) {
+            .layout-card {
+                margin-left: auto;
+                margin-right: auto;
+                max-width: 71rem;
+                padding-left: 1rem;
+                padding-right: 1rem
+            }
+        }
+
+    </style>
 <!--    <script type="text/javascript" src="src/applications/testing/load.js"></script>-->
 </head>
 <body style="padding: 0; margin: 0; font-family: 'Roboto', sans-serif">
@@ -25,7 +73,7 @@
   </uq-site-header>
   <alert-list></alert-list>
 
-  <div style="min-height: 300px; margin-left: auto; margin-right: auto; max-width: 960px; padding: 1rem;">
+  <div style="min-height: 300px;" class="layout-card">
       <h1 tabindex="-1" id="skiptohere">UQ Library - Reusable Web Components</h1>
       <h2 data-testid="random-page-element">Kitchen sink</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut congue vel massa ac volutpat.</p>
