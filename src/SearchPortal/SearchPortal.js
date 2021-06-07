@@ -91,7 +91,7 @@ const PRIMO_JOURNAL_ARTICLES_SEARCH = '2';
 const PRIMO_VIDEO_AUDIO_SEARCH = '3';
 const PRIMO_JOURNALS_SEARCH = '4';
 const PRIMO_PHYSICAL_ITEMS_SEARCH = '5';
-// const PRIMO_DATABASE_SEARCH = 6;
+// const PRIMO_DATABASE_SEARCH = '6';
 const EXAM_SEARCH_TYPE = '7';
 const COURSE_RESOURCE_SEARCH_TYPE = '8';
 
@@ -114,9 +114,10 @@ class SearchPortal extends HTMLElement {
         this.createFooterLink = this.createFooterLink.bind(this);
         this.createPortalTypeSelectionEntry = this.createPortalTypeSelectionEntry.bind(this);
         this.createPortalTypeSelector = this.createPortalTypeSelector.bind(this);
-        this.isPortalTypeDropDownCurrentlyOpen = this.isPortalTypeDropDownCurrentlyOpen.bind(this);
+        this.isPortalTypeDropDownOpen = this.isPortalTypeDropDownOpen.bind(this);
         this.setDropdownButton = this.setDropdownButton.bind(this);
         this.showHidePortalTypeDropdown = this.showHidePortalTypeDropdown.bind(this);
+        this.toggleVisibility = this.toggleVisibility.bind(this);
     }
 
     async getPrimoSuggestions(keyword) {
@@ -296,7 +297,7 @@ class SearchPortal extends HTMLElement {
             searchPortalSelector.addEventListener('click', function (e) {
                 console.log('searchPortalSelector click');
                 that.showHidePortalTypeDropdown(shadowDOM);
-                if (!that.isPortalTypeDropDownCurrentlyOpen(shadowDOM)) {
+                if (!that.isPortalTypeDropDownOpen(shadowDOM)) {
                     console.log('drop down has been closed');
                     that.clearSearchResults(shadowDOM);
                     that.getSuggestions(shadowDOM);
@@ -381,7 +382,7 @@ class SearchPortal extends HTMLElement {
         // }
     }
 
-    isPortalTypeDropDownCurrentlyOpen(shadowDOM) {
+    isPortalTypeDropDownOpen(shadowDOM) {
         const portalTypeDropdown = !!shadowDOM && shadowDOM.getElementById('portal-type-selector');
         return !!portalTypeDropdown && !portalTypeDropdown.classList.contains('hidden');
     }
@@ -394,19 +395,20 @@ class SearchPortal extends HTMLElement {
 
         // if we are showing the dropdown,
         // set the top of the dropdown so the current element matches up with the underlying button
-        if (this.isPortalTypeDropDownCurrentlyOpen(shadowDOM)) {
+        if (this.isPortalTypeDropDownOpen(shadowDOM)) {
             // get the currrently displayed label
             const portalTypeCurrentLabel = !!shadowDOM && shadowDOM.getElementById('portaltype-current-label');
             // problem matching the '&amp;" in the video label
             const portalTypeCurrentLabelText =
                 !!portalTypeCurrentLabel && portalTypeCurrentLabel.innerHTML.replace('&amp;', '_');
-            let matchingID;
+            let matchingID = 0;
             !!searchPortalLocale.typeSelect?.items &&
                 searchPortalLocale.typeSelect.items.forEach((item, index) => {
                     item.name.replace('&', '_') === portalTypeCurrentLabelText && (matchingID = index);
                 });
 
-            const newTopValue = matchingID * -40;
+            const negativeHeightOfRowPx = -40;
+            const newTopValue = matchingID * negativeHeightOfRowPx;
             !!matchingID && !!portalTypeDropdown && (portalTypeDropdown.style.top = `${newTopValue}px`);
         }
     }
