@@ -116,6 +116,7 @@ class SearchPortal extends HTMLElement {
         this.createPortalTypeSelector = this.createPortalTypeSelector.bind(this);
         this.isPortalTypeDropDownOpen = this.isPortalTypeDropDownOpen.bind(this);
         this.listenForSearchTypeClick = this.listenForSearchTypeClick.bind(this);
+        this.listenForSuggestionListClick = this.listenForSuggestionListClick.bind(this);
         this.setDropdownButton = this.setDropdownButton.bind(this);
         this.showHidePortalTypeDropdown = this.showHidePortalTypeDropdown.bind(this);
         this.toggleVisibility = this.toggleVisibility.bind(this);
@@ -167,7 +168,9 @@ class SearchPortal extends HTMLElement {
             .querySelector('search-portal')
             .shadowRoot.getElementById('search-portal-form');
 
-        console.log('loadSuggestionsIntoPage: suggestions = ', suggestions);
+        document.addEventListener('click', this.listenForSuggestionListClick);
+        console.log('added listenForSuggestionListClick');
+
         /* istanbul ignore else  */
         if (!!suggestionParent && !!suggestions && suggestions.length > 0) {
             let ul = suggestionParent.querySelector('#search-portal-autocomplete-listbox');
@@ -211,7 +214,7 @@ class SearchPortal extends HTMLElement {
                         const anchor = document.createElement('a');
                         !!anchor && !!link && !!text && (anchor.href = link);
                         !!anchor && !!link && !!text && anchor.appendChild(text);
-                        !!anchor && (anchor.className = 'MuiPaper-root');
+                        !!anchor && (anchor.className = 'MuiPaper-root suggestion-link');
 
                         !!suggestion && suggestiondisplay.setAttribute('tabindex', '-1');
                         !!suggestion && suggestiondisplay.setAttribute('role', 'option');
@@ -385,10 +388,9 @@ class SearchPortal extends HTMLElement {
 
     listenForSearchTypeClick(e) {
         const that = this;
-        const portalTypeDropdown = document
-            .querySelector('search-portal')
-            .shadowRoot.getElementById('portal-type-selector');
-        console.log('listener: a click on body, but is it in the dropdown?');
+        const shadowDOM = document.querySelector('search-portal').shadowRoot;
+        const portalTypeDropdown = shadowDOM.getElementById('portal-type-selector');
+        console.log('listenForSearchTypeClick: a click on body, but is it in the dropdown?');
 
         if (
             e.composedPath()[0].hasAttribute('id') &&
@@ -400,15 +402,50 @@ class SearchPortal extends HTMLElement {
             e.composedPath()[0].getAttribute('id').startsWith('portalTypeSelectionEntry-')
         ) {
             // a click on the dropdown itself - clean up, but the click itself is handled elsewhere
-            console.log('Clicked inside!');
+            console.log('SearchType Clicked inside!');
+
+            if (that.isPortalTypeDropDownOpen(shadowDOM)) {
+                console.log('remove any current suggestion list');
+                let ul = shadowDOM.querySelector('#search-portal-autocomplete-listbox');
+                ul.innerHTML = '';
+            }
+
             document.removeEventListener('click', that.listenForSearchTypeClick);
-            console.log('removed listenForSearchTypeClick'); // if this doesnt happen then the removal failed
+            console.log('SearchType removed listenForSearchTypeClick'); // if this doesnt happen then the removal failed
+
             return;
         }
 
         // This is a click outside.
-        console.log('Clicked outside!');
+        console.log('SearchType Clicked outside!');
         !!portalTypeDropdown && that.toggleVisibility(portalTypeDropdown, 'portalTypeSelectorDisplayed');
+    }
+
+    listenForSuggestionListClick(e) {
+        // const that = this;
+        if (
+            e.composedPath()[0].hasAttribute('id') &&
+            e.composedPath()[0].getAttribute('id').startsWith('portalTypeSelectionEntry-')
+        ) {
+            // when the user clicks on the search type dropdown, we dont clear the suggestin list a second time
+            return;
+        } else if (e.composedPath()[0].classList.contains('suggestion-link')) {
+            // a click on the dropdown itself - clean up, but the click itself is handled elsewhere
+            console.log('SuggestionLink Clicked inside!');
+            document.removeEventListener('click', this.listenForSuggestionListClick);
+            console.log('1 SuggestionLink removed listenForSuggestionListClick'); // if this doesnt happen then the removal failed
+            return;
+        }
+
+        // This is a click outside.
+        console.log('SuggestionLink Clicked outside!');
+
+        const searchResults = document
+            .querySelector('search-portal')
+            .shadowRoot.getElementById('search-portal-autocomplete-listbox');
+        !!searchResults && searchResults.remove();
+        document.removeEventListener('click', this.listenForSuggestionListClick);
+        console.log('2 SuggestionLink removed listenForSuggestionListClick'); // if this doesnt happen then the removal failed
     }
 
     isPortalTypeDropDownOpen(shadowDOM) {

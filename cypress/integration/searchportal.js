@@ -222,12 +222,11 @@ describe('Search Portal', () => {
                 });
         });
 
-        it('When the user clicks elsewhere on the page the Search type dropdown will close', () => {
+        it('When the user clicks elsewhere on the page the search type dropdown will close', () => {
             cy.viewport(1300, 1000);
             cy.get('search-portal')
                 .shadow()
                 .within(() => {
-                    cy.get('[data-testid="primo-search"]').contains('Search');
                     cy.wait(1000);
 
                     // open the search type dropdown
@@ -235,12 +234,36 @@ describe('Search Portal', () => {
                     // the dropdown is open
                     cy.get('[data-testid="portal-type-selector"]').should('not.have.class', 'hidden');
                 });
-            // click somewhere on the page outside the dropdown
+            // click somewhere on the page outside the Search type dropdown
             cy.get('[data-testid="random-page-element"]').click();
             cy.get('search-portal')
                 .shadow()
                 .within(() => {
                     cy.get('[data-testid="portal-type-selector"]').should('have.class', 'hidden');
+                });
+        });
+
+        it('When the user clicks elsewhere on the page the suggestion dropdown will close', () => {
+            cy.viewport(1300, 1000);
+            cy.get('search-portal')
+                .shadow()
+                .within(() => {
+                    cy.wait(1000);
+
+                    // type a search query
+                    cy.get('input[data-testid="primo-search-autocomplete-input"]').type('beard', 100);
+                    // the dropdown is open
+                    cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
+                        .find('li')
+                        .its('length')
+                        .should('eq', 10);
+                });
+            // click somewhere on the page outside the Search type dropdown
+            cy.get('[data-testid="random-page-element"]').click();
+            cy.get('search-portal')
+                .shadow()
+                .within(() => {
+                    cy.get('ul[data-testid="primo-search-autocomplete-listbox"]').should('not.exist');
                 });
         });
     });
