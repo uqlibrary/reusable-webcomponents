@@ -28,7 +28,7 @@ template.innerHTML = `
                             </div>
                         </div>
                     </div>
-                    <div class="MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-true">
+                    <div class="MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-true" id="input-field-wrapper">
                         <div class="MuiAutocomplete-root" role="combobox" aria-expanded="false" id="primo-search-autocomplete" data-testid="primo-search-autocomplete">
                             <div class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth">
                                 <div class="MuiInputBase-root MuiInput-root MuiInput-underline MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd">
@@ -223,6 +223,15 @@ class SearchPortal extends HTMLElement {
                         'MuiPaper-root MuiAutocomplete-paper MuiPaper-elevation1 MuiPaper-rounded suggestionList');
             }
             !!listContainer && !!ul && listContainer.appendChild(ul);
+
+            // set the top left corner & width of the suggestion list to match the placement of the input field
+            const portalTypeContainer = !!shadowDOM && shadowDOM.getElementById('portaltype-dropdown');
+            const inputFieldWrapper = !!shadowDOM && shadowDOM.getElementById('input-field-wrapper');
+            const leftPx = portalTypeContainer.offsetWidth - 170; // this number simply works
+            !!portalTypeContainer && !!listContainer && (listContainer.style.left = `${leftPx}px`);
+            !!inputFieldWrapper &&
+                !!listContainer &&
+                (listContainer.style.width = `${inputFieldWrapper.offsetWidth}px`);
 
             !!listContainer && suggestionParent.appendChild(listContainer);
         }
