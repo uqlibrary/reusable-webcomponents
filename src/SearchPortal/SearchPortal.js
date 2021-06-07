@@ -115,6 +115,7 @@ class SearchPortal extends HTMLElement {
         this.createPortalTypeSelectionEntry = this.createPortalTypeSelectionEntry.bind(this);
         this.createPortalTypeSelector = this.createPortalTypeSelector.bind(this);
         this.isPortalTypeDropDownOpen = this.isPortalTypeDropDownOpen.bind(this);
+        this.listenForSearchTypeClick = this.listenForSearchTypeClick.bind(this);
         this.setDropdownButton = this.setDropdownButton.bind(this);
         this.showHidePortalTypeDropdown = this.showHidePortalTypeDropdown.bind(this);
         this.toggleVisibility = this.toggleVisibility.bind(this);
@@ -382,6 +383,34 @@ class SearchPortal extends HTMLElement {
         // }
     }
 
+    listenForSearchTypeClick(e) {
+        const that = this;
+        const portalTypeDropdown = document
+            .querySelector('search-portal')
+            .shadowRoot.getElementById('portal-type-selector');
+        console.log('listener: a click on body, but is it in the dropdown?');
+
+        if (
+            e.composedPath()[0].hasAttribute('id') &&
+            e.composedPath()[0].getAttribute('id') === 'portaltype-current-label'
+        ) {
+            return; // they just clicked it open, do nothing
+        } else if (
+            e.composedPath()[0].hasAttribute('id') &&
+            e.composedPath()[0].getAttribute('id').startsWith('portalTypeSelectionEntry-')
+        ) {
+            // a click on the dropdown itself - clean up, but the click itself is handled elsewhere
+            console.log('Clicked inside!');
+            document.removeEventListener('click', that.listenForSearchTypeClick);
+            console.log('removed listenForSearchTypeClick'); // if this doesnt happen then the removal failed
+            return;
+        }
+
+        // This is a click outside.
+        console.log('Clicked outside!');
+        !!portalTypeDropdown && that.toggleVisibility(portalTypeDropdown, 'portalTypeSelectorDisplayed');
+    }
+
     isPortalTypeDropDownOpen(shadowDOM) {
         const portalTypeDropdown = !!shadowDOM && shadowDOM.getElementById('portal-type-selector');
         return !!portalTypeDropdown && !portalTypeDropdown.classList.contains('hidden');
@@ -410,6 +439,9 @@ class SearchPortal extends HTMLElement {
             const negativeHeightOfRowPx = -40;
             const newTopValue = matchingID * negativeHeightOfRowPx;
             !!matchingID && !!portalTypeDropdown && (portalTypeDropdown.style.top = `${newTopValue}px`);
+
+            document.addEventListener('click', this.listenForSearchTypeClick);
+            console.log('added listenForSearchTypeClick');
         }
     }
 
@@ -445,6 +477,7 @@ class SearchPortal extends HTMLElement {
         !!svg && !!path && svg.appendChild(path);
 
         const label = document.createElement('span');
+        !!label && (label.id = `portalTypeSelectionEntry-${index}`);
         label.innerHTML = button.name;
 
         const li = document.createElement('li');
@@ -461,7 +494,7 @@ class SearchPortal extends HTMLElement {
         !!li && !!svg && li.appendChild(label);
 
         !!li &&
-            li.addEventListener('click', function () {
+            li.addEventListener('click', function (e) {
                 that.setDropdownButton(shadowDOM, index);
                 that.appendFooterLinks(shadowDOM, index);
                 that.showHidePortalTypeDropdown(shadowDOM);
@@ -546,6 +579,8 @@ class SearchPortal extends HTMLElement {
         !!portalTypeSelectorContainer &&
             (portalTypeSelectorContainer.className = `MuiPaper-root MuiMenu-paper MuiPaper-elevation8 MuiPaper-rounded hidden`);
         !!portalTypeSelectorContainer && portalTypeSelectorContainer.setAttribute('tabindex', '-1');
+        !!portalTypeSelectorContainer &&
+            portalTypeSelectorContainer.setAttribute('data-testid', 'portal-type-selector');
         !!portalTypeSelectorContainer &&
             !!portalTypeDropdown &&
             portalTypeSelectorContainer.appendChild(portalTypeDropdown);

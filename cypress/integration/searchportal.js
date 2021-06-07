@@ -221,5 +221,27 @@ describe('Search Portal', () => {
                         .and('match', /facet=rtype,include,books/); // look for the part that is specific to the Book search
                 });
         });
+
+        it('When the user clicks elsewhere on the page the Search type dropdown will close', () => {
+            cy.viewport(1300, 1000);
+            cy.get('search-portal')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="primo-search"]').contains('Search');
+                    cy.wait(1000);
+
+                    // open the search type dropdown
+                    cy.get('div[data-testid="primo-search-select"]').click();
+                    // the dropdown is open
+                    cy.get('[data-testid="portal-type-selector"]').should('not.have.class', 'hidden');
+                });
+            // click somewhere on the page outside the dropdown
+            cy.get('[data-testid="random-page-element"]').click();
+            cy.get('search-portal')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="portal-type-selector"]').should('have.class', 'hidden');
+                });
+        });
     });
 });
