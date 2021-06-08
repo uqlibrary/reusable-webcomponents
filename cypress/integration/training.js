@@ -5,27 +5,48 @@ describe('Training', () => {
         it('Basic training details loads', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
-            cy.get('training-detail[data-testid="2824657"]').shadow().find('h3').contains('Excel');
+            cy.get('library-training')
+                .should('exist')
+                .shadow()
+                .within(() => {
+                    cy.get('training-list')
+                        .should('exist')
+                        .shadow()
+                        .as('trainingList')
+                        .within(() => {
+                            cy.get('#training-list').should('exist').get('#event-detail-toggle-3428487').click();
+                        });
+                });
+            cy.get('@trainingList').within(() => {
+                cy.get('#event-detail-3428487')
+                    .should('exist')
+                    .should('be.visible')
+                    .children('training-detail')
+                    .shadow()
+                    .within(() => {
+                        cy.get('#eventName').should('have.text', 'Python with Spyder: Introduction to Data Science');
+                    });
+            });
         });
+
         it('Training passes accessibility', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.injectAxe();
             cy.viewport(1280, 900);
-            cy.get('training-detail[data-testid="2824657"]').shadow();
-            cy.wait(1000);
-            cy.checkA11y('uq-header', {
-                reportName: 'Training Detail',
+            cy.checkA11y('library-training', {
+                reportName: 'Training widget',
                 scopeName: 'Accessibility',
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
             });
         });
+
         it('Training has correct details for em user with st lucia training and non-booking course', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
-            cy.get('training-detail[data-testid="2824657"]')
+            cy.get('training-detail[data-testid="event-detail-content-2824657"]')
                 .should('exist')
                 .shadow()
-                .within((block) => {
+                .within(() => {
                     cy.get('h3').contains('Excel');
                     cy.get('[data-testid="eventDetails"]').contains(
                         'At the end of this session, class participants will be able to',
@@ -60,6 +81,7 @@ describe('Training', () => {
                         });
                 });
         });
+
         it('Training has correct details for uq user with toowoomba training and bookable course can visit studenthub', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
@@ -67,7 +89,7 @@ describe('Training', () => {
                 statusCode: 200,
                 body: 'User now on studenthub page',
             });
-            cy.get('training-detail[data-testid="3455330"]')
+            cy.get('training-detail[data-testid="event-detail-content-3455330"]')
                 .should('exist')
                 .shadow()
                 .within(() => {
@@ -84,10 +106,11 @@ describe('Training', () => {
                 });
             cy.get('body').contains('User now on studenthub page');
         });
+
         it('Training has correct details for logged out user with unidentifiable location and full course', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
-            cy.get('training-detail[data-testid="3455331"]')
+            cy.get('training-detail[data-testid="event-detail-content-3455331"]')
                 .should('exist')
                 .shadow()
                 .within(() => {
@@ -99,6 +122,7 @@ describe('Training', () => {
                 });
         });
     });
+
     context('Training filters', () => {
         const uqpurple = 'rgb(81, 36, 122)'; // #51247a
         it('Training filter is accessible', () => {
@@ -213,7 +237,7 @@ describe('Training', () => {
 
                             cy.url().should(
                                 'eq',
-                                'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=20210614;online=false',
+                                'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=2021-06-14;online=false',
                             );
                         });
                 });

@@ -117,7 +117,7 @@ class TrainingDetail extends HTMLElement {
     }
 
     addButtonListeners(eventId) {
-        const target = this.getAttribute('studenthub_window') || '_blank';
+        const target = this.data.studenthubWindow || '_blank';
 
         function visitBookingPage(link, target) {
             /* istanbul ignore else */
