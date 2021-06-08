@@ -9,7 +9,7 @@ template.innerHTML = `
         ${styles.toString()}
         ${listStyles.toString()}
     </style>
-    <section data-testid="training-list" id="training-list" role="grid" aria-label="Available events" class="uq-grid uq-grid--full-width">
+    <section data-testid="training-list" id="training-list" aria-label="Available events" class="uq-grid uq-grid--full-width">
     </section>
 `;
 
@@ -22,7 +22,6 @@ categoryTemplate.innerHTML = `
                 <div 
                     class="uq-accordion"
                     aria-label="Accordion button group"
-                    role="presentation"
                     id="training-events-accordion"
                     data-testid="training-events-accordion"
                 >
