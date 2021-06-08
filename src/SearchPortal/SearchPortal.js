@@ -389,17 +389,15 @@ class SearchPortal extends HTMLElement {
         const portalTypeDropdown = shadowDOM.getElementById('portal-type-selector');
         console.log('listenForSearchTypeClick: a click on body, but is it in the dropdown?');
 
+        const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
+        // const eventTargetClass = !!eventTarget && eventTarget.hasAttribute('class') && !!eventTarget && eventTarget.getAttribute('class');
+        const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
+
         console.log("click on e.composedPath()[0].getAttribute('class') = ", e.composedPath()[0].getAttribute('class'));
         e.composedPath()[0].getAttribute('class') === null && console.log(e.composedPath());
-        if (
-            e.composedPath()[0].hasAttribute('class') &&
-            e.composedPath()[0].getAttribute('class').includes('search-type-button')
-        ) {
+        if (!!eventTarget && eventTarget.classList.contains('search-type-button')) {
             return; // they just clicked it open, do nothing
-        } else if (
-            e.composedPath()[0].hasAttribute('id') &&
-            e.composedPath()[0].getAttribute('id').startsWith('portalTypeSelectionEntry-')
-        ) {
+        } else if (!!eventTargetId && eventTargetId.startsWith('portalTypeSelectionEntry-')) {
             // a click on the dropdown itself - clean up, but the click itself is handled elsewhere
             console.log('SearchType Clicked inside!');
 
@@ -425,14 +423,12 @@ class SearchPortal extends HTMLElement {
     }
 
     listenForSuggestionListClick(e) {
-        // const that = this;
-        if (
-            e.composedPath()[0].hasAttribute('id') &&
-            e.composedPath()[0].getAttribute('id').startsWith('portalTypeSelectionEntry-')
-        ) {
+        const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
+        const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
+        if (!!eventTargetId && eventTargetId.startsWith('portalTypeSelectionEntry-')) {
             // when the user clicks on the search type dropdown, we dont clear the suggestion list a second time
             return;
-        } else if (e.composedPath()[0].classList.contains('suggestion-link')) {
+        } else if (!!eventTarget && eventTarget.classList.contains('suggestion-link')) {
             // a click on the dropdown itself - clean up, but the click itself is handled elsewhere
             console.log('SuggestionLink Clicked inside!');
             document.removeEventListener('click', this.listenForSuggestionListClick);
