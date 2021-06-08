@@ -266,5 +266,61 @@ describe('Search Portal', () => {
                     cy.get('ul[data-testid="primo-search-autocomplete-listbox"]').should('not.exist');
                 });
         });
+
+        it('the user can click on any part of the search type selector', () => {
+            cy.viewport(1300, 1000);
+            cy.get('search-portal')
+                .shadow()
+                .within(() => {
+                    cy.wait(1000);
+
+                    // type a search query
+                    cy.get('input[data-testid="primo-search-autocomplete-input"]').type('beard', 100);
+                    // the dropdown is open
+                    cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
+                        .find('li')
+                        .its('length')
+                        .should('eq', 10);
+
+                    // click on the lowest level item of the search type display label
+                    // we cant test portaltype-current-icon because it is covered by its owning svg, but sometimes the user does click on that!
+                    cy.get('[data-testid="portaltype-current-svg"]').click();
+                    // the dropdown is open
+                    cy.get('[data-testid="portal-type-selector"]').should('not.have.class', 'hidden');
+                    // select Books
+                    cy.get('li[data-testid="primo-search-item-1"]').click();
+                    // the dropdown is closed
+                    cy.get('[data-testid="portal-type-selector"]').should('have.class', 'hidden');
+                    // the search results reload
+                    cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
+                        .find('li')
+                        .its('length')
+                        .should('eq', 10);
+
+                    // click on the button item of the search type display label
+                    cy.get('[data-testid="primo-search-select"]').click();
+                    // the dropdown is open
+                    cy.get('[data-testid="portal-type-selector"]').should('not.have.class', 'hidden');
+                    cy.get('li[data-testid="primo-search-item-2"]').click();
+                    cy.get('[data-testid="portal-type-selector"]').should('have.class', 'hidden');
+                    // the search results reload
+                    cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
+                        .find('li')
+                        .its('length')
+                        .should('eq', 10);
+
+                    // click on the wrapper item of the search type display label
+                    cy.get('[data-testid="portaltype-current-wrapper"]').click();
+                    // the dropdown is open
+                    cy.get('[data-testid="portal-type-selector"]').should('not.have.class', 'hidden');
+                    cy.get('li[data-testid="primo-search-item-3"]').click();
+                    cy.get('[data-testid="portal-type-selector"]').should('have.class', 'hidden');
+                    // the search results reload
+                    cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
+                        .find('li')
+                        .its('length')
+                        .should('eq', 10);
+                });
+        });
     });
 });
