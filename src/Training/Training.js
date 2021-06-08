@@ -49,6 +49,7 @@ class Training extends HTMLElement {
             .slice(1) // remove '#' from beginning
             .split(';') // separate filters
             .map((spec) => {
+                /* istanbul ignore if */
                 if (!spec) {
                     return;
                 }
@@ -95,6 +96,7 @@ class Training extends HTMLElement {
 
     fetchData() {
         new ApiAccess().loadTrainingEvents(this.maxEventCount, this.eventFilterId).then((fetchedEvents) => {
+            /* istanbul ignore else */
             if (fetchedEvents) {
                 this.trainingEvents = fetchedEvents;
                 this.initFiltering();

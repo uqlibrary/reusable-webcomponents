@@ -28,7 +28,7 @@ categoryTemplate.innerHTML = `
                 </div>
             </div>
             <div class="uq-card__actions">
-                <button class="uq-button uq-button--secondary is-more">Show more</button>
+                <button class="uq-button uq-button--secondary is-more" data-testid="training-events-toggle-full-list">Show more</button>
             </div>
         </div>
     </div>
@@ -45,7 +45,7 @@ eventTemplate.innerHTML = `
 class TrainingList extends HTMLElement {
     constructor() {
         super();
-        this._accountLoading = false;
+        // this._accountLoading = false;
         this._account = {};
         this._eventList = [];
     }
@@ -98,13 +98,13 @@ class TrainingList extends HTMLElement {
         return this.hasAttribute('hide-category-title');
     }
 
-    get accountLoading() {
-        return this._accountLoading;
-    }
+    // get accountLoading() {
+    //     return this._accountLoading;
+    // }
 
-    set accountLoading(value) {
-        this._accountLoading = value;
-    }
+    // set accountLoading(value) {
+    //     this._accountLoading = value;
+    // }
 
     get account() {
         return this._account;
@@ -130,7 +130,7 @@ class TrainingList extends HTMLElement {
         new uqds.accordion('uq-accordion');
     }
 
-    populateEventsByCategory(categoryListElement, longListCallback = () => {}) {
+    populateEventsByCategory(categoryListElement, longListCallback) {
         const categoryName = categoryListElement.getAttribute('data-category-name');
         const eventsByCategory = this.data.filter((event) => event.eventType === categoryName);
         if (eventsByCategory.length > 5) {
@@ -192,7 +192,7 @@ class TrainingList extends HTMLElement {
     }
 
     async checkAuthorisedUser() {
-        this.accountLoading = true;
+        // this.accountLoading = true;
         this.account = {};
         let loggedin = null;
 
@@ -205,14 +205,16 @@ class TrainingList extends HTMLElement {
                 if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
                     that.account = account;
                 }
-                that.accountLoading = false;
+                // that.accountLoading = false;
 
                 loggedin = !!that.account && !!that.account.id;
             })
-            .catch((error) => {
-                that.accountLoading = false;
-                loggedin = false;
-            });
+            .catch(
+                /* istanbul ignore next */ () => {
+                    // that.accountLoading = false;
+                    loggedin = false;
+                },
+            );
         return loggedin;
     }
 }

@@ -1,11 +1,63 @@
 /// <reference types="cypress" />
 
 describe('Training', () => {
-    context('Training details', () => {
-        it('Basic training details loads', () => {
+    it.skip('Passes accessibility', () => {
+        cy.visit('http://localhost:8080/index-training.html');
+        cy.injectAxe();
+        cy.viewport(1280, 900);
+        cy.checkA11y('library-training:not([hide-filter])', {
+            reportName: 'Training widget',
+            scopeName: 'Accessibility',
+            includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+        });
+    });
+
+    it('hides filter and category title on attributes set', () => {
+        cy.visit('http://localhost:8080/index-training.html');
+        cy.viewport(1280, 900);
+        cy.get('library-training[hide-filter]')
+            .should('exist')
+            .shadow()
+            .within(() => {
+                cy.get('training-filter').should('not.exist');
+                cy.get('training-list').should('exist').shadow().find('.uq-card__header').should('be.empty');
+            });
+    });
+
+    context('List component', () => {
+        it('toggles full list of rows on button click', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
-            cy.get('library-training')
+            cy.get('library-training:not([hide-filter])')
+                .should('exist')
+                .shadow()
+                .within(() => {
+                    cy.get('training-list')
+                        .should('exist')
+                        .shadow()
+                        .find('.uq-card.has-more-events')
+                        .first()
+                        .as('expandableList')
+                        .within(() => {
+                            cy.get('.uq-accordion__item:nth-of-type(5)').should('be.visible');
+                            cy.get('.uq-accordion__item:nth-of-type(6)').should('not.be.visible');
+                            cy.get('@expandableList')
+                                .find('[data-testid="training-events-toggle-full-list"]')
+                                .as('toggleButton')
+                                .click();
+                            cy.get('.uq-accordion__item:nth-of-type(6)').should('be.visible');
+                            cy.get('@toggleButton').should('have.text', 'Show less').click();
+                            cy.get('.uq-accordion__item:nth-of-type(6)').should('not.be.visible');
+                        });
+                });
+        });
+    });
+
+    context('Details component', () => {
+        it('loads basic training details', () => {
+            cy.visit('http://localhost:8080/index-training.html');
+            cy.viewport(1280, 900);
+            cy.get('library-training:not([hide-filter])')
                 .should('exist')
                 .shadow()
                 .within(() => {
@@ -29,18 +81,7 @@ describe('Training', () => {
             });
         });
 
-        it('Training passes accessibility', () => {
-            cy.visit('http://localhost:8080/index-training.html');
-            cy.injectAxe();
-            cy.viewport(1280, 900);
-            cy.checkA11y('library-training', {
-                reportName: 'Training widget',
-                scopeName: 'Accessibility',
-                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
-            });
-        });
-
-        it('Training has correct details for em user with st lucia training and non-booking course', () => {
+        it('has correct details for em user with st lucia training and non-booking course', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
             cy.get('training-detail[data-testid="event-detail-content-2824657"]')
@@ -82,7 +123,7 @@ describe('Training', () => {
                 });
         });
 
-        it('Training has correct details for uq user with toowoomba training and bookable course can visit studenthub', () => {
+        it('has correct details for uq user with toowoomba training and bookable course can visit studenthub', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
             cy.intercept('GET', 'https://studenthub.uq.edu.au/students/events/detail/3455330', {
@@ -107,7 +148,11 @@ describe('Training', () => {
             cy.get('body').contains('User now on studenthub page');
         });
 
-        it('Training has correct details for logged out user with unidentifiable location and full course', () => {
+        it('has correct details for logged out user with unidentifiable location and full course', () => {
+            const stub = cy.stub().as('open');
+            cy.on('window:before:load', (win) => {
+                cy.stub(win, 'open').callsFake(stub);
+            });
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
             cy.get('training-detail[data-testid="event-detail-content-3455331"]')
@@ -119,7 +164,10 @@ describe('Training', () => {
                     cy.get('[data-testid="locationdetails"] a').should('not.exist');
                     cy.get('[data-testid="bookingText"]').contains('Class is full. Register for waitlist.');
                     cy.get('[data-testid="registrationBlockForNonUQ"]').should('not.be.visible');
+                    cy.get('button[data-testid="bookTraining"]').should('exist').click();
                 });
+
+            cy.get('@open').should('have.been.calledOnce');
         });
     });
 
@@ -129,7 +177,7 @@ describe('Training', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.injectAxe();
             cy.viewport(1280, 900);
-            cy.get('library-training')
+            cy.get('library-training:not([hide-filter])')
                 .should('exist')
                 .shadow()
                 .within(() => {
@@ -153,7 +201,7 @@ describe('Training', () => {
         it('user can enter a keyword', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
-            cy.get('library-training')
+            cy.get('library-training:not([hide-filter])')
                 .should('exist')
                 .shadow()
                 .within(() => {
@@ -175,7 +223,7 @@ describe('Training', () => {
         it('user can select a campus', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
-            cy.get('library-training')
+            cy.get('library-training:not([hide-filter])')
                 .should('exist')
                 .shadow()
                 .within(() => {
@@ -208,7 +256,7 @@ describe('Training', () => {
         it('user can select a week', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
-            cy.get('library-training')
+            cy.get('library-training:not([hide-filter])')
                 .should('exist')
                 .shadow()
                 .within(() => {
@@ -245,7 +293,7 @@ describe('Training', () => {
         it('user can select multiple elements', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
-            cy.get('library-training')
+            cy.get('library-training:not([hide-filter])')
                 .should('exist')
                 .shadow()
                 .within(() => {
@@ -287,7 +335,7 @@ describe('Training', () => {
         it('user can clear fields', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
-            cy.get('library-training')
+            cy.get('library-training:not([hide-filter])')
                 .should('exist')
                 .shadow()
                 .within(() => {

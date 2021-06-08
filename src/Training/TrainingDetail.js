@@ -120,7 +120,7 @@ class TrainingDetail extends HTMLElement {
         const target = this.data.studenthubWindow || '_blank';
 
         function visitBookingPage(link, target) {
-            /* istanbul ignore else */
+            /* istanbul ignore if */
             if (target === '_self') {
                 window.location.assign(link);
             } else {
