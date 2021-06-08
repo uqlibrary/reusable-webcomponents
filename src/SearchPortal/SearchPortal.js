@@ -82,6 +82,8 @@ const PRIMO_PHYSICAL_ITEMS_SEARCH = '5';
 const EXAM_SEARCH_TYPE = '7';
 const COURSE_RESOURCE_SEARCH_TYPE = '8';
 
+const REMEMBER_COOKIE_ID = 'rememberSearchType';
+
 class SearchPortal extends HTMLElement {
     constructor() {
         super();
@@ -93,7 +95,10 @@ class SearchPortal extends HTMLElement {
         shadowDOM.appendChild(template.content.cloneNode(true));
 
         this.addListeners(shadowDOM);
-        this.setDropdownButton(shadowDOM);
+
+        const useSearchType = this.getOpeningSearchType();
+        this.setSearchTypeButton(shadowDOM, useSearchType);
+
         this.createPortalTypeSelector(shadowDOM);
 
         this.addListeners = this.addListeners.bind(this);
@@ -101,9 +106,10 @@ class SearchPortal extends HTMLElement {
         this.createFooterLink = this.createFooterLink.bind(this);
         this.createPortalTypeSelectionEntry = this.createPortalTypeSelectionEntry.bind(this);
         this.createPortalTypeSelector = this.createPortalTypeSelector.bind(this);
+        this.getOpeningSearchType = this.getOpeningSearchType.bind(this);
         this.isPortalTypeDropDownOpen = this.isPortalTypeDropDownOpen.bind(this);
         this.listenForClicks = this.listenForClicks.bind(this);
-        this.setDropdownButton = this.setDropdownButton.bind(this);
+        this.setSearchTypeButton = this.setSearchTypeButton.bind(this);
         this.showHidePortalTypeDropdown = this.showHidePortalTypeDropdown.bind(this);
         this.toggleVisibility = this.toggleVisibility.bind(this);
     }
@@ -434,7 +440,7 @@ class SearchPortal extends HTMLElement {
             //     return;
         } else if (!!eventTargetId && eventTargetId.startsWith('portalTypeSelectionEntry-')) {
             console.log('click detector case FOUR');
-            // user has selected a search type form the open search type dropdown
+            // user has selected a search type from the open search type dropdown
             // clean up - the click itself is handled elsewhere
             console.log('SearchType Clicked inside!');
 
@@ -456,6 +462,10 @@ class SearchPortal extends HTMLElement {
             //     that.clearSearchResults(shadowDOM);
             // }
 
+            const searchType = !!shadowDOM && shadowDOM.getElementById('portaltype-current-value');
+            console.log('XXXX store search type as ', searchType.value);
+            that.rememberSearchTypeChoice(searchType.value);
+
             document.removeEventListener('click', that.listenForClicks);
             console.log('SearchType removed listenForClicks'); // if this doesnt happen then the removal failed
 
@@ -474,6 +484,61 @@ class SearchPortal extends HTMLElement {
         // dropdowns closed so remove listener
         document.removeEventListener('click', that.listenForClicks);
         console.log('2 SuggestionLink removed listenForClicks'); // if this doesnt happen then the removal failed
+    }
+
+    cookieNotFound(cookieId) {
+        return document.cookie.indexOf(cookieId + '=') <= -1;
+    }
+
+    getCookieValue(name) {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; ++i) {
+            const pair = cookies[i].trim().split('=');
+            if (!!pair[0] && pair[0] === name) {
+                return !!pair[1] ? pair[1] : /* istanbul ignore next */ undefined;
+            }
+        }
+        return undefined;
+    }
+
+    getOpeningSearchType() {
+        console.log('getOpeningSearchType');
+        if (this.cookieNotFound(REMEMBER_COOKIE_ID)) {
+            console.log('getOpeningSearchType not found, use ', PRIMO_LIBRARY_SEARCH);
+            return PRIMO_LIBRARY_SEARCH;
+        }
+
+        const cookie = this.getCookieValue(REMEMBER_COOKIE_ID);
+        console.log('getOpeningSearchType use cookie calue ', cookie);
+
+        // this.clearCookie(REMEMBER_COOKIE_ID); // otherwise they can never change the drop down!!
+
+        return cookie;
+    }
+
+    // clearCookie(cookieId) {
+    //     const numHours = -24; // date in the past
+    //     const expiryDate = new Date();
+    //     expiryDate.setTime(expiryDate.getTime() + numHours * 60 * 60 * 1000);
+    //
+    //     this.setCookie(cookieId, '', expiryDate);
+    // }
+
+    rememberSearchTypeChoice(searchType) {
+        //set cookie for 1 hours
+        const numHours = 1;
+        const expiryDate = new Date();
+        expiryDate.setTime(expiryDate.getTime() + numHours * 60 * 60 * 1000);
+
+        this.setCookie(REMEMBER_COOKIE_ID, searchType, expiryDate);
+    }
+
+    setCookie(cookieId, cookieValue, expiryDate) {
+        const cookieDomain = window.location.hostname.endsWith('.library.uq.edu.au')
+            ? /* istanbul ignore next */
+              'domain=.library.uq.edu.au;path=/'
+            : '';
+        document.cookie = cookieId + '=' + cookieValue + ';expires=' + expiryDate.toGMTString() + ';' + cookieDomain;
     }
 
     isPortalTypeDropDownOpen(shadowDOM) {
@@ -578,7 +643,7 @@ class SearchPortal extends HTMLElement {
 
         !!li &&
             li.addEventListener('click', function (e) {
-                that.setDropdownButton(shadowDOM, index);
+                that.setSearchTypeButton(shadowDOM, index);
                 that.appendFooterLinks(shadowDOM, index);
                 that.showHidePortalTypeDropdown(shadowDOM);
                 // We need to clear the search results even if we only swap between primo searches
@@ -591,7 +656,7 @@ class SearchPortal extends HTMLElement {
         return li;
     }
 
-    setDropdownButton(shadowDOM, searchType = 0) {
+    setSearchTypeButton(shadowDOM, searchType = 0) {
         const portalTypeContainer = !!shadowDOM && shadowDOM.getElementById('portaltype-dropdown');
 
         const useSearchType = parseInt(searchType, 10);

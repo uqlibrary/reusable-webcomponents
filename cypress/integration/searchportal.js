@@ -322,5 +322,24 @@ describe('Search Portal', () => {
                         .should('eq', 10);
                 });
         });
+
+        it("the user's search type selection is remembered", () => {
+            cy.viewport(1300, 1000);
+            cy.get('search-portal')
+                .shadow()
+                .within(() => {
+                    cy.get('div[data-testid="primo-search-select"]').click();
+                    cy.get('[data-testid="portaltype-current-label"]').contains('Library');
+                    cy.get('li[data-testid="primo-search-item-2"]').click();
+                    cy.get('[data-testid="portaltype-current-label"]').contains('Journal articles');
+                });
+            // open a new window and the search type is saved
+            cy.viewport(1300, 1000);
+            cy.get('search-portal')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="portaltype-current-label"]').contains('Journal articles');
+                });
+        });
     });
 });
