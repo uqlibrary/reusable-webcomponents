@@ -9,15 +9,17 @@ template.innerHTML = `
     <div id="primo-search" class="MuiPaper-root MuiCard-root libraryCard StandardCard MuiPaper-elevation1 MuiPaper-rounded" data-testid="primo-search" role="region" aria-live="polite">
         <div class="MuiCardContent-root libraryContent" data-testid="primo-search-content">
             <form id="search-portal-form" class="searchForm">
+                <div class="MuiFormControl-root searchPanel" style="margin-bottom: -0.75rem; padding-top: 1rem;">
+                    <label id="primo-search-select-label" class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled" data-shrink="true">Search</label>
+                </div>
                 <div id="search-parent" class="searchPanel MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-flex-end">
-                    <div class="MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-auto">
+                    <div id="search-portal-select" class="MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-auto">
                         <div class="MuiFormControl-root portaltype-dropdown-container">
-                            <label class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled" data-shrink="true" id="primo-search-select-label">Search</label>
-                            <div id="portaltype-dropdown" class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl">
-                                <div class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input" tabindex="0" role="button" aria-haspopup="listbox" aria-labelledby="primo-search-select-label" id="search-portal-select" data-testid="primo-search-select">
-                                    <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                                        <path id="portaltype-current-icon" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"></path>
-                                    </svg>&nbsp;<span id="portaltype-current-label" data-testid="portaltype-current-label">Library</span>
+                            <div id="portaltype-dropdown" class="search-type-button MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl">
+                                <div class="search-type-button MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input" tabindex="0" role="button" aria-haspopup="listbox" aria-labelledby="primo-search-select-label" data-testid="primo-search-select">
+                                    <svg class="search-type-button MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path id="portaltype-current-icon" class="search-type-button" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"></path>
+                                    </svg>&nbsp;<span id="portaltype-current-label" class="search-type-button" data-testid="portaltype-current-label">Library</span>
                                     <input id="portaltype-current-value" type="hidden" name="portaltype">
                                 </div>
                                 <!-- input field probable unused -->
@@ -387,9 +389,11 @@ class SearchPortal extends HTMLElement {
         const portalTypeDropdown = shadowDOM.getElementById('portal-type-selector');
         console.log('listenForSearchTypeClick: a click on body, but is it in the dropdown?');
 
+        console.log("click on e.composedPath()[0].getAttribute('class') = ", e.composedPath()[0].getAttribute('class'));
+        e.composedPath()[0].getAttribute('class') === null && console.log(e.composedPath());
         if (
-            e.composedPath()[0].hasAttribute('id') &&
-            e.composedPath()[0].getAttribute('id') === 'portaltype-current-label'
+            e.composedPath()[0].hasAttribute('class') &&
+            e.composedPath()[0].getAttribute('class').includes('search-type-button')
         ) {
             return; // they just clicked it open, do nothing
         } else if (
@@ -400,9 +404,13 @@ class SearchPortal extends HTMLElement {
             console.log('SearchType Clicked inside!');
 
             if (that.isPortalTypeDropDownOpen(shadowDOM)) {
+                that.closeSearchTypeSelector(portalTypeDropdown, 'portalTypeSelectorDisplayed');
+
                 console.log('remove any current suggestion list');
                 let ul = shadowDOM.querySelector('#search-portal-autocomplete-listbox');
-                ul.innerHTML = '';
+                !!ul && (ul.innerHTML = '');
+
+                that.getSuggestions(shadowDOM);
             }
 
             document.removeEventListener('click', that.listenForSearchTypeClick);
@@ -422,7 +430,7 @@ class SearchPortal extends HTMLElement {
             e.composedPath()[0].hasAttribute('id') &&
             e.composedPath()[0].getAttribute('id').startsWith('portalTypeSelectionEntry-')
         ) {
-            // when the user clicks on the search type dropdown, we dont clear the suggestin list a second time
+            // when the user clicks on the search type dropdown, we dont clear the suggestion list a second time
             return;
         } else if (e.composedPath()[0].classList.contains('suggestion-link')) {
             // a click on the dropdown itself - clean up, but the click itself is handled elsewhere
@@ -496,13 +504,23 @@ class SearchPortal extends HTMLElement {
             : !!hideByClassname && (selector.className = hideByClassname);
     }
 
+    closeSearchTypeSelector(selector, displayStyle) {
+        const hideByClassname = !!selector && selector.className.replace(` ${displayStyle}`, ' hidden');
+        !!selector &&
+            !selector.classList.contains('hidden') &&
+            !!hideByClassname &&
+            (selector.className = hideByClassname);
+    }
+
     createPortalTypeSelectionEntry(button, index, shadowDOM) {
         const that = this;
 
         const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        !!path && (path.id = `portalTypeSelectionEntry-path-${index}`);
         !!path && path.setAttribute('d', button.iconPath);
 
         const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        !!svg && (svg.id = `portalTypeSelectionEntry-svg-${index}`);
         !!svg && svg.setAttribute('class', 'MuiSvgIcon-root MuiSvgIcon-colorSecondary');
         !!svg && svg.setAttribute('focusable', 'false');
         !!svg && svg.setAttribute('viewBox', '0 0 24 24');
