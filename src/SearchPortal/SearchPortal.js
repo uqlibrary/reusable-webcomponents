@@ -102,8 +102,7 @@ class SearchPortal extends HTMLElement {
         this.createPortalTypeSelectionEntry = this.createPortalTypeSelectionEntry.bind(this);
         this.createPortalTypeSelector = this.createPortalTypeSelector.bind(this);
         this.isPortalTypeDropDownOpen = this.isPortalTypeDropDownOpen.bind(this);
-        this.listenForSearchTypeClick = this.listenForSearchTypeClick.bind(this);
-        this.listenForSuggestionListClick = this.listenForSuggestionListClick.bind(this);
+        this.listenForClicks = this.listenForClicks.bind(this);
         this.setDropdownButton = this.setDropdownButton.bind(this);
         this.showHidePortalTypeDropdown = this.showHidePortalTypeDropdown.bind(this);
         this.toggleVisibility = this.toggleVisibility.bind(this);
@@ -155,7 +154,7 @@ class SearchPortal extends HTMLElement {
 
         const suggestionParent = !!shadowDOM && shadowDOM.getElementById('search-portal-form');
 
-        document.addEventListener('click', this.listenForSuggestionListClick);
+        document.addEventListener('click', this.listenForClicks);
         console.log('added listenForSuggestionListClick');
 
         /* istanbul ignore else  */
@@ -184,37 +183,35 @@ class SearchPortal extends HTMLElement {
             !!type && type.length > 0 && (type = type.shift());
 
             // loop through suggestions
-            !!ul &&
-                suggestions.forEach((suggestion, index) => {
-                    const suggestiondisplay = document.createElement('li');
+            suggestions.forEach((suggestion, index) => {
+                const suggestiondisplay = document.createElement('li');
 
-                    /* istanbul ignore else  */
-                    if (!!suggestiondisplay && !!suggestion.text && !!suggestion[urlsource]) {
-                        const text = document.createTextNode(suggestion.text);
+                /* istanbul ignore else  */
+                if (!!suggestiondisplay && !!suggestion.text && !!suggestion[urlsource]) {
+                    const text = document.createTextNode(suggestion.text);
 
-                        const encodedSearchTerm = encodeURIComponent(suggestion[urlsource]);
-                        const link = type.link
-                            .replace('[keyword]', encodedSearchTerm)
-                            .replace('[keyword]', encodedSearchTerm); // database search has two instances of keyword
-                        const anchor = document.createElement('a');
-                        !!anchor && !!link && !!text && (anchor.href = link);
-                        !!anchor && !!link && !!text && anchor.appendChild(text);
-                        !!anchor && (anchor.className = 'MuiPaper-root suggestion-link');
+                    const encodedSearchTerm = encodeURIComponent(suggestion[urlsource]);
+                    const link = type.link
+                        .replace('[keyword]', encodedSearchTerm)
+                        .replace('[keyword]', encodedSearchTerm); // database search has two instances of keyword
+                    const anchor = document.createElement('a');
+                    !!anchor && !!link && !!text && (anchor.href = link);
+                    !!anchor && !!link && !!text && anchor.appendChild(text);
+                    !!anchor && (anchor.className = 'MuiPaper-root suggestion-link');
 
-                        !!suggestion && suggestiondisplay.setAttribute('tabindex', '-1');
-                        !!suggestion && suggestiondisplay.setAttribute('role', 'option');
-                        !!suggestion &&
-                            suggestiondisplay.setAttribute('id', `primo-search-autocomplete-option-${index}`);
-                        !!suggestion && suggestiondisplay.setAttribute('data-option-index', index);
-                        !!suggestion && suggestiondisplay.setAttribute('aria-disabled', 'false');
-                        !!suggestion && suggestiondisplay.setAttribute('aria-selected', 'false');
-                        !!suggestion && (suggestiondisplay.className = 'MuiAutocomplete-option');
+                    !!suggestion && suggestiondisplay.setAttribute('tabindex', '-1');
+                    !!suggestion && suggestiondisplay.setAttribute('role', 'option');
+                    !!suggestion && suggestiondisplay.setAttribute('id', `primo-search-autocomplete-option-${index}`);
+                    !!suggestion && suggestiondisplay.setAttribute('data-option-index', index);
+                    !!suggestion && suggestiondisplay.setAttribute('aria-disabled', 'false');
+                    !!suggestion && suggestiondisplay.setAttribute('aria-selected', 'false');
+                    !!suggestion && (suggestiondisplay.className = 'MuiAutocomplete-option');
 
-                        !!anchor && suggestiondisplay.appendChild(anchor);
+                    !!anchor && suggestiondisplay.appendChild(anchor);
 
-                        ul.appendChild(suggestiondisplay);
-                    }
-                });
+                    ul.appendChild(suggestiondisplay);
+                }
+            });
 
             let listContainer = !!shadowDOM && shadowDOM.getElementById('suggestion-parent');
             if (!listContainer) {
@@ -260,13 +257,16 @@ class SearchPortal extends HTMLElement {
                 const formData = !!e && !!e.target && new FormData(e.target);
                 const formObject = !!formData && Object.fromEntries(formData);
 
-                const matches = searchPortalLocale.typeSelect.items.filter((element) => {
-                    return parseInt(element.selectId, 10) === parseInt(formObject.portaltype, 10);
-                });
-                const searchType = matches.length > 0 ? matches[0] : false;
                 if (!!formObject.currentInputfield) {
-                    let keyword = formObject.currentInputfield;
+                    const matches = searchPortalLocale.typeSelect.items.filter((element) => {
+                        return parseInt(element.selectId, 10) === parseInt(formObject.portaltype, 10);
+                    });
+                    const searchType = matches.length > 0 ? matches[0] : false;
+                    const keyword = formObject.currentInputfield;
                     const link = searchType.link.replace('[keyword]', keyword).replace('[keyword]', keyword); // database search has two instances of keyword
+
+                    // close the dropdown (because the window takes a moment to reload and it just looks weird)
+                    that.clearSearchResults(shadowDOM); // check this one
 
                     window.location.assign(link);
                 }
@@ -294,14 +294,15 @@ class SearchPortal extends HTMLElement {
 
         // open and close the dropdown when the search-type button is clicked
         const searchPortalSelector = !!shadowDOM && shadowDOM.getElementById('search-portal-select');
+        console.log('searchPortalSelector addEventListener');
         !!searchPortalSelector &&
             searchPortalSelector.addEventListener('click', function (e) {
                 console.log('searchPortalSelector click');
                 that.showHidePortalTypeDropdown(shadowDOM);
                 if (!that.isPortalTypeDropDownOpen(shadowDOM)) {
                     console.log('drop down has been closed');
-                    that.clearSearchResults(shadowDOM);
-                    that.getSuggestions(shadowDOM);
+                    // that.clearSearchResults(shadowDOM);
+                    // that.getSuggestions(shadowDOM);
                 } else {
                     console.log('drop down has been opened');
                 }
@@ -346,8 +347,8 @@ class SearchPortal extends HTMLElement {
 
         const focusOnSearchInput = () => {
             setTimeout(() => {
-                const searchInput = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
-                !!searchInput && searchInput.focus();
+                const inputField = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
+                !!inputField && inputField.focus();
             }, 200);
         };
 
@@ -364,8 +365,18 @@ class SearchPortal extends HTMLElement {
                 PRIMO_JOURNALS_SEARCH,
                 PRIMO_PHYSICAL_ITEMS_SEARCH,
             ];
+
+            // const firstSuggestion = !!shadowDOM && shadowDOM.getElementById('primo-search-autocomplete-option-0');
+            // console.log('firstSuggestion = ', firstSuggestion);
+            // console.log('prevInput.value = ', prevInput.value, '; inputField.value = ', inputField.value);
+            // if (!!firstSuggestion) {
+            //     console.log('firstSuggestion = ', firstSuggestion);
+            //     // dont re-search, we dont need to hit the api again
+            //     console.log('dont call the api if we already have the results');
+            //     // dont call the api if we already have the results
+            // } else
             if (PRIMO_SEARCH_TYPES.includes(searchType.value)) {
-                console.log('do a primo search for ', inputField.value);
+                console.log('do a primo search for ', inputField.value, ' on search type ', searchType.value);
                 throttledPrimoLoadSuggestions(inputField.value);
             } else if (searchType.value === EXAM_SEARCH_TYPE) {
                 console.log('do an exam search');
@@ -383,7 +394,13 @@ class SearchPortal extends HTMLElement {
         // }
     }
 
-    listenForSearchTypeClick(e) {
+    /**
+     * When we have dropdowns we have to listen for clicks on the rest of the page so we close the dropdown when the user "clicks away"
+     * We have 2 dropdowns.
+     * Complicatedly track whether the click is in one of the dropdowns here
+     * @param e
+     */
+    listenForClicks(e) {
         const that = this;
         const shadowDOM = document.querySelector('search-portal').shadowRoot;
         const portalTypeDropdown = shadowDOM.getElementById('portal-type-selector');
@@ -396,55 +413,67 @@ class SearchPortal extends HTMLElement {
         console.log("click on e.composedPath()[0].getAttribute('class') = ", e.composedPath()[0].getAttribute('class'));
         e.composedPath()[0].getAttribute('class') === null && console.log(e.composedPath());
         if (!!eventTarget && eventTarget.classList.contains('search-type-button')) {
-            return; // they just clicked it open, do nothing
+            // user has clicked on the closed Search Type selector
+            console.log('click detector case ONE');
+            // that.clearSearchResults(shadowDOM);
+            // that.showHidePortalTypeDropdown(shadowDOM);
+            return;
+        } else if (!!eventTarget && eventTarget.classList.contains('suggestion-link')) {
+            console.log('click detector case TWO');
+            // a click on a suggestion dropdown item - clean up, but the click itself is handled as an anchor href
+            console.log('SuggestionLink Clicked inside!');
+
+            document.removeEventListener('click', that.listenForClicks);
+            console.log('1 SuggestionLink removed listenForSuggestionListClick'); // if this doesnt happen then the removal failed
+            return;
+            //
+            // } else if (!!eventTarget && eventTarget.classList.contains('search-type-button')) {
+            //     console.log('click detector case THREE');
+            //     // user has clicked open the search type selector
+            //     that.clearSearchResults(shadowDOM);
+            //     return;
         } else if (!!eventTargetId && eventTargetId.startsWith('portalTypeSelectionEntry-')) {
-            // a click on the dropdown itself - clean up, but the click itself is handled elsewhere
+            console.log('click detector case FOUR');
+            // user has selected a search type form the open search type dropdown
+            // clean up - the click itself is handled elsewhere
             console.log('SearchType Clicked inside!');
 
-            if (that.isPortalTypeDropDownOpen(shadowDOM)) {
-                that.closeSearchTypeSelector(portalTypeDropdown, 'portalTypeSelectorDisplayed');
+            // if (that.isPortalTypeDropDownOpen(shadowDOM)) {
+            console.log('search type selector is open');
+            that.closeSearchTypeSelector(portalTypeDropdown, 'portalTypeSelectorDisplayed');
 
-                console.log('remove any current suggestion list');
-                let ul = shadowDOM.querySelector('#search-portal-autocomplete-listbox');
-                !!ul && (ul.innerHTML = '');
+            const inputField = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
+            !!inputField && inputField.focus();
 
-                that.getSuggestions(shadowDOM);
-            }
+            // console.log('remove any current suggestion list');
+            // let ul = shadowDOM.querySelector('#search-portal-autocomplete-listbox');
+            // !!ul && (ul.innerHTML = '');
 
-            document.removeEventListener('click', that.listenForSearchTypeClick);
-            console.log('SearchType removed listenForSearchTypeClick'); // if this doesnt happen then the removal failed
+            that.clearSearchResults(shadowDOM);
+            that.getSuggestions(shadowDOM);
+            // } else {
+            //     console.log('search type selector is closed');
+            //     that.clearSearchResults(shadowDOM);
+            // }
+
+            document.removeEventListener('click', that.listenForClicks);
+            console.log('SearchType removed listenForClicks'); // if this doesnt happen then the removal failed
 
             return;
         }
+        console.log('click detector case FIVE');
+        // user has clicked outside the dropdowns - close if open
 
         // This is a click outside.
         console.log('SearchType Clicked outside!');
-        !!portalTypeDropdown && that.toggleVisibility(portalTypeDropdown, 'portalTypeSelectorDisplayed');
-    }
+        !!portalTypeDropdown && that.closeSearchTypeSelector(portalTypeDropdown, 'portalTypeSelectorDisplayed');
 
-    listenForSuggestionListClick(e) {
-        const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
-        const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
-        if (!!eventTargetId && eventTargetId.startsWith('portalTypeSelectionEntry-')) {
-            // when the user clicks on the search type dropdown, we dont clear the suggestion list a second time
-            return;
-        } else if (!!eventTarget && eventTarget.classList.contains('suggestion-link')) {
-            // a click on the dropdown itself - clean up, but the click itself is handled elsewhere
-            console.log('SuggestionLink Clicked inside!');
-            document.removeEventListener('click', this.listenForSuggestionListClick);
-            console.log('1 SuggestionLink removed listenForSuggestionListClick'); // if this doesnt happen then the removal failed
-            return;
-        }
+        // const shadowDOM = document.querySelector('search-portal').shadowRoot;
+        that.clearSearchResults(shadowDOM);
 
-        // This is a click outside.
-        console.log('SuggestionLink Clicked outside!');
-
-        const searchResults = document
-            .querySelector('search-portal')
-            .shadowRoot.getElementById('search-portal-autocomplete-listbox');
-        !!searchResults && searchResults.remove();
-        document.removeEventListener('click', this.listenForSuggestionListClick);
-        console.log('2 SuggestionLink removed listenForSuggestionListClick'); // if this doesnt happen then the removal failed
+        // dropdowns closed so remove listener
+        document.removeEventListener('click', that.listenForClicks);
+        console.log('2 SuggestionLink removed listenForClicks'); // if this doesnt happen then the removal failed
     }
 
     isPortalTypeDropDownOpen(shadowDOM) {
@@ -477,15 +506,22 @@ class SearchPortal extends HTMLElement {
             const newTopValue = matchingID * negativeHeightOfRowPx - offsetPx;
             !!matchingID && !!portalTypeDropdown && (portalTypeDropdown.style.top = `${newTopValue}px`);
 
-            document.addEventListener('click', this.listenForSearchTypeClick);
+            document.addEventListener('click', this.listenForClicks);
             console.log('added listenForSearchTypeClick');
         }
     }
 
     clearSearchResults(shadowDOM) {
-        console.log('clearing search result list');
+        // const firstSuggestion = !!shadowDOM && shadowDOM.getElementById('primo-search-autocomplete-option-0');
+        // console.log('clearSearchResults firstSuggestion = ', firstSuggestion);
+
+        console.log('clearSearchResults clearing search result list');
+        // if (!firstSuggestion) {
         const searchResults = !!shadowDOM && shadowDOM.getElementById('search-portal-autocomplete-listbox');
         !!searchResults && searchResults.remove();
+        // } else {
+        //     console.log('nothing to clear');
+        // }
     }
 
     /**
@@ -578,10 +614,10 @@ class SearchPortal extends HTMLElement {
             (portalTypeCurrentSave.value = searchPortalLocale.typeSelect.items[useSearchType].selectId);
 
         // supply the placeholder text
-        const portalTypeCurrentInput = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
-        !!portalTypeCurrentInput &&
+        const inputField = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
+        !!inputField &&
             !!searchPortalLocale.typeSelect?.items[useSearchType]?.placeholder &&
-            (portalTypeCurrentInput.placeholder = searchPortalLocale.typeSelect.items[useSearchType].placeholder);
+            (inputField.placeholder = searchPortalLocale.typeSelect.items[useSearchType].placeholder);
 
         // add an extra class to the button to say which label it is currently showing
         // this is used by the css to make the dropdown highlight the matching label
