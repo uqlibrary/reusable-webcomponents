@@ -719,8 +719,13 @@ label + .MuiInput-formControl {
     margin-bottom: 4px;
     padding: 8px;
 }
-.searchUnderlinks a, .searchUnderlinks a:link, .searchUnderlinks a:hover, .searchUnderlinks a:visited, .searchUnderlinks a:active {
+.searchUnderlinks a {
     color: #51247A !important;
+    background-color: inherit;
+    text-decoration: none;
+}
+.searchUnderlinks a:hover, .searchUnderlinks a:visited, .searchUnderlinks a:active {
+    text-decoration: underline;
 }
 @media (max-width:959.95px) {
     .searchUnderlinks {
