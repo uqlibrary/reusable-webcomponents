@@ -67,7 +67,6 @@ describe('Search Portal', () => {
                 .shadow()
                 .within(() => {
                     cy.get('[data-testid="search-portal"]').contains('Search');
-                    cy.wait(1000);
                     // main library search (choose Books)
                     cy.get('div[data-testid="search-portal-type-select"]').click();
                     cy.get('li[data-testid="search-portal-type-select-item-1"]').click();
@@ -112,6 +111,14 @@ describe('Search Portal', () => {
                         .find('li')
                         .its('length')
                         .should('eq', 10);
+
+                    // the user clicks the button to load the search
+                    // cy.intercept('GET', 'https://search.library.uq.edu.au/primo-explore/search?query=any,contains,beard&tab=61uq_all&search_scope=61UQ_All&sortby=rank&vid=61UQ&offset=0&facet=rtype,include,articles', {
+                    //     statusCode: 200,
+                    //     body: 'user is on a Primo result page',
+                    // });
+                    // cy.get('button[data-testid="search-portal-submit"]').click();
+                    // cy.get('body').contains('user is on a Primo result page');
                 });
         });
 
@@ -160,6 +167,14 @@ describe('Search Portal', () => {
                         .find('li')
                         .its('length')
                         .should('eq', 3);
+
+                    // the user clicks the first result to load the search
+                    cy.intercept('GET', 'https://www.library.uq.edu.au/exams/papers.php?stub=PHIL2011', {
+                        statusCode: 200,
+                        body: 'user is on an Exams result page',
+                    });
+                    cy.get('li[data-testid="search-portal-autocomplete-option-1"] a').click();
+                    cy.get('body').contains('user is on an Exams result page');
                 });
         });
 
@@ -181,7 +196,7 @@ describe('Search Portal', () => {
                         .should('have.attr', 'href')
                         .and('include', 'talis.com');
 
-                    // typing in the course resources text area shows the correct entries from the api
+                    // typing in the course resources text area shows the correct entries from the mock api
                     // cy.get('input[data-testid="search-portal-autocomplete-input"]').type('PHIL', 100);
                     // cy.get('ul[data-testid="search-portal-autocomplete-listbox"]')
                     //     .find('li')
@@ -343,6 +358,22 @@ describe('Search Portal', () => {
                 .shadow()
                 .within(() => {
                     cy.get('[data-testid="portaltype-current-label"]').contains('Journal articles');
+                });
+        });
+
+        it('a repeating string returns no results', () => {
+            cy.viewport(1300, 1000);
+            cy.get('search-portal')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="search-portal"]').contains('Search');
+                    cy.wait(1000);
+
+                    // on first load, the library drop down displays "Library"
+                    cy.get('div[data-testid="search-portal-type-select"]').contains('Library');
+                    // enter a repeating string
+                    cy.get('input[data-testid="search-portal-autocomplete-input"]').type('DDDDD', 100);
+                    cy.get('ul[data-testid="search-portal-autocomplete-listbox"]').should('not.exist');
                 });
         });
     });

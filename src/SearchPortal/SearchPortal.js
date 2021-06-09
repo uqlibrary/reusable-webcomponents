@@ -119,6 +119,7 @@ class SearchPortal extends HTMLElement {
         await new ApiAccess()
             .loadPrimoSuggestions(keyword)
             .then((suggestions) => {
+                /* istanbul ignore else */
                 console.log('getPrimoSuggestions: received ', suggestions);
                 this.loadSuggestionsIntoPage(suggestions);
             })
@@ -131,6 +132,7 @@ class SearchPortal extends HTMLElement {
         await new ApiAccess()
             .loadExamPaperSuggestions(keyword)
             .then((suggestions) => {
+                /* istanbul ignore else */
                 console.log('loadExamPaperSuggestions: received ', suggestions);
                 this.loadSuggestionsIntoPage(suggestions, 'courseid');
             })
@@ -139,6 +141,7 @@ class SearchPortal extends HTMLElement {
             });
     }
 
+    /* istanbul ignore next */
     async getLearningResourceSuggestions(keyword) {
         await new ApiAccess()
             .loadHomepageCourseReadingListsSuggestions(keyword)
@@ -209,6 +212,8 @@ class SearchPortal extends HTMLElement {
                     !!suggestion && suggestiondisplay.setAttribute('tabindex', '-1');
                     !!suggestion && suggestiondisplay.setAttribute('role', 'option');
                     !!suggestion && suggestiondisplay.setAttribute('id', `search-portal-autocomplete-option-${index}`);
+                    !!suggestion &&
+                        suggestiondisplay.setAttribute('data-testid', `search-portal-autocomplete-option-${index}`);
                     !!suggestion && suggestiondisplay.setAttribute('data-option-index', index);
                     !!suggestion && suggestiondisplay.setAttribute('aria-disabled', 'false');
                     !!suggestion && suggestiondisplay.setAttribute('aria-selected', 'false');
@@ -296,6 +301,7 @@ class SearchPortal extends HTMLElement {
             });
         !!inputField &&
             inputField.addEventListener('onpaste', function (e) {
+                /* istanbul ignore next */
                 that.getSuggestions(shadowDOM);
             });
 
@@ -332,18 +338,23 @@ class SearchPortal extends HTMLElement {
 
         // there have been cases where someone has put a book on the corner of a keyboard,
         // which sends thousands of requests to the server - block this
-        // length has to be 4, because subjects like FREN3111 have 3 repeating numbers...
+        // length has to be 5, because subjects like FREN1111 have 4 repeating numbers...
         function isRepeatingString(searchString) {
+            console.log('check isRepeatingString ', searchString);
             if (searchString.length <= 4) {
+                console.log('repeat: string short');
                 return false;
             }
             const lastChar = searchString.charAt(searchString.length - 1);
+            console.log('lastChar = ', lastChar);
             const char2 = searchString.charAt(searchString.length - 2);
             const char3 = searchString.charAt(searchString.length - 3);
             const char4 = searchString.charAt(searchString.length - 4);
             const char5 = searchString.charAt(searchString.length - 5);
 
-            return lastChar === char2 && lastChar === char3 && lastChar === char4 && lastChar === char5;
+            const b = lastChar === char2 && lastChar === char3 && lastChar === char4 && lastChar === char5;
+            console.log('repeating? ', b);
+            return b;
         }
 
         const throttledPrimoLoadSuggestions = throttle(3100, (newValue) => this.getPrimoSuggestions(newValue));
@@ -618,7 +629,7 @@ class SearchPortal extends HTMLElement {
         return li;
     }
 
-    setSearchTypeButton(shadowDOM, searchType = 0) {
+    setSearchTypeButton(shadowDOM, searchType) {
         const portalTypeContainer = !!shadowDOM && shadowDOM.getElementById('portaltype-dropdown');
 
         const useSearchType = parseInt(searchType, 10);
@@ -649,6 +660,7 @@ class SearchPortal extends HTMLElement {
         // add an extra class to the button to say which label it is currently showing
         // this is used by the css to make the dropdown highlight the matching label
         // remove any previous label - looks like we cant regexp to match a classname, we'll have to loop over the label.items length
+        /* istanbul ignore else */
         if (!!searchPortalLocale.typeSelect.items && searchPortalLocale.typeSelect.items.length > 0) {
             for (let ii = 0; ii < searchPortalLocale.typeSelect.items.length; ii++) {
                 const testClassName = `label-${ii}-button`;
@@ -716,7 +728,7 @@ class SearchPortal extends HTMLElement {
         return container;
     }
 
-    appendFooterLinks(shadowDOM, searchType = 0) {
+    appendFooterLinks(shadowDOM, searchType) {
         const footerLinkContainer = !!shadowDOM && shadowDOM.getElementById('footer-links');
         // clear current footer links
         !!footerLinkContainer && (footerLinkContainer.innerHTML = '');

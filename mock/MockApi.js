@@ -115,6 +115,7 @@ class MockApi {
                     return this.response(200, alerts, true);
                 }
 
+            case apiRoute.PRIMO_SUGGESTIONS_API_GENERIC('DDDDD').apiUrl: // to test the repeating key works and doesnt pass just because the mock data doesnt exist
             case apiRoute.PRIMO_SUGGESTIONS_API_GENERIC('bear').apiUrl:
             case apiRoute.PRIMO_SUGGESTIONS_API_GENERIC('beard').apiUrl:
             case apiRoute.PRIMO_SUGGESTIONS_API_GENERIC('').apiUrl:
