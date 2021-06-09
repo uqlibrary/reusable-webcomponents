@@ -14,7 +14,7 @@ template.innerHTML = `
                 <div class="keywordPlaceholderMovement">
                     <label>
                         <input id="inputKeyword" data-testid="inputKeyword" class="paper-input" autocomplete="off" placeholder=" " autocapitalize="none" autocorrect="off" aria-describedby="" aria-labelledby="keywordhover" tabindex="0">
-                        <span data-testid="keywordhover">By keyword</span>
+                        <span id="keywordhover" data-testid="keywordhover">By keyword</span>
                     </label>                        
                     <button class="clearKeyword" id="clearKeyword" data-testid="clearKeyword" aria-label="Clear Keyword">
                         <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="iron-icon" style="pointer-events: none; display: block; width: 100%; height: 100%;">
@@ -25,8 +25,8 @@ template.innerHTML = `
                     </button>
                 </div>
             </div>
-            <div aria-label="filter by campus" id="campusDropdown" class="listHolder" role="listbox" aria-autocomplete="none" aria-haspopup="true" aria-disabled="false">
-                <button data-testid="campusOpener" id="campusOpener" class="opener filterer">
+            <div aria-label="filter by campus" id="campusDropdown" class="listHolder" aria-haspopup="true" aria-disabled="false">
+                <button data-testid="campusOpener" id="campusOpener" class="opener filterer" aria-labelledby="campushover">
                     <span class="hidden">By campus</span>
                 </button>
                 <div class="hoverblock">
@@ -34,8 +34,8 @@ template.innerHTML = `
                 </div>
                 <div data-testid="campuslist" id="campuslist" class="selectorlist campuslist hidden"></div>
             </div>
-            <div aria-label="filter by week" id="weekDropdown" class="listHolder" role="listbox" aria-autocomplete="none" aria-haspopup="true" aria-disabled="false">
-                <button data-testid="weekOpener" id="weekOpener" class="opener filterer">
+            <div aria-label="filter by week" id="weekDropdown" class="listHolder" aria-haspopup="true" aria-disabled="false">
+                <button data-testid="weekOpener" id="weekOpener" class="opener filterer" aria-labelledby="weekhover">
                     <span class="hidden">By week</span>
                 </button>
                 <div class="hoverblock">
@@ -302,6 +302,7 @@ class TrainingFilter extends HTMLElement {
 
             const weekSelectButton = document.createElement('button');
             weekSelectButton.className = 'week filterer';
+            weekSelectButton.setAttribute('role', 'option');
             weekSelectButton.setAttribute('data-testid', weekName.replaceAll(' ', '').toLowerCase());
             weekSelectButton.innerHTML = weekName;
             !!weekSelectButton &&
@@ -384,6 +385,7 @@ class TrainingFilter extends HTMLElement {
             const campusSelectButton = document.createElement('button');
             campusSelectButton.className = 'campus filterer';
             campusSelectButton.innerHTML = campusName;
+            campusSelectButton.setAttribute('role', 'option');
             campusSelectButton.setAttribute('data-testid', campusName.replaceAll(' ', ''));
             !!campusSelectButton &&
                 campusSelectButton.addEventListener('click', function () {
@@ -434,9 +436,13 @@ class TrainingFilter extends HTMLElement {
     toggleVisibility(selector) {
         const showByClassname = !!selector && selector.className.replace(' hidden', '');
         const hideByClassname = !!selector && `${selector.className} hidden`;
-        !!selector && selector.classList.contains('hidden')
-            ? !!showByClassname && (selector.className = showByClassname)
-            : !!hideByClassname && (selector.className = hideByClassname);
+        if (!!selector && selector.classList.contains('hidden')) {
+            !!selector && selector.setAttribute('role', 'listbox');
+            !!showByClassname && (selector.className = showByClassname);
+        } else {
+            !!hideByClassname && (selector.className = hideByClassname);
+            !!selector && selector.removeAttribute('role');
+        }
     }
 
     /**

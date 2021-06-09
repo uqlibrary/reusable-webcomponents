@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 describe('Training', () => {
-    it.skip('Passes accessibility', () => {
+    it('Passes accessibility', () => {
         cy.visit('http://localhost:8080/index-training.html');
         cy.injectAxe();
         cy.viewport(1280, 900);
