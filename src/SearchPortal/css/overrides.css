@@ -798,23 +798,36 @@ label + .MuiInput-formControl {
 
 .portalTypeSelectionEntry {
     background-color: #fff !important;
+    display: block;
 }
 
 .portalTypeSelectionEntry span {
     padding-left: 0.5rem;
 }
 
-.label-0-button li.portalTypeSelectionEntry-0,
-.label-1-button li.portalTypeSelectionEntry-1,
-.label-2-button li.portalTypeSelectionEntry-2,
-.label-3-button li.portalTypeSelectionEntry-3,
-.label-4-button li.portalTypeSelectionEntry-4,
-.label-5-button li.portalTypeSelectionEntry-5,
-.label-6-button li.portalTypeSelectionEntry-6,
-.label-7-button li.portalTypeSelectionEntry-7,
-.label-8-button li.portalTypeSelectionEntry-8 {
+.label-0-button .portalTypeSelectionEntry-0,
+.label-1-button .portalTypeSelectionEntry-1,
+.label-2-button .portalTypeSelectionEntry-2,
+.label-3-button .portalTypeSelectionEntry-3,
+.label-4-button .portalTypeSelectionEntry-4,
+.label-5-button .portalTypeSelectionEntry-5,
+.label-6-button .portalTypeSelectionEntry-6,
+.label-7-button .portalTypeSelectionEntry-7,
+.label-8-button .portalTypeSelectionEntry-8 {
     color: #FFFFFF;
     background-color: #4085C6 !important;
+}
+.portalTypeSelectionEntry-0:focus,
+.portalTypeSelectionEntry-1:focus,
+.portalTypeSelectionEntry-2:focus,
+.portalTypeSelectionEntry-3:focus,
+.portalTypeSelectionEntry-4:focus,
+.portalTypeSelectionEntry-5:focus,
+.portalTypeSelectionEntry-6:focus,
+.portalTypeSelectionEntry-7:focus,
+.portalTypeSelectionEntry-8:focus {
+    color: #000;
+    background-color: #d3d3d3 !important;
 }
 
 .suggestionList {
@@ -854,3 +867,4 @@ label + .MuiInput-formControl {
     margin-right: -10px;
     margin-bottom: 6px;
 }
+

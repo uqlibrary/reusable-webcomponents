@@ -9,7 +9,7 @@ template.innerHTML = `
     <style>${overrides.toString()}</style>
     <div id="search-portal" class="MuiPaper-root MuiCard-root libraryCard StandardCard MuiPaper-elevation1 MuiPaper-rounded" data-testid="search-portal" role="region" aria-live="polite">
         <div class="MuiCardContent-root libraryContent" data-testid="search-portal-content">
-            <form id="search-portal-form" class="searchForm">
+            <form id="search-portal-form" class="searchForm" role="search">
                 <div class="MuiFormControl-root searchPanel" style="margin-bottom: -0.75rem; padding-top: 1rem;">
                     <label id="search-portal-type-select-label" class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled" data-shrink="true">Search</label>
                 </div>
@@ -17,14 +17,12 @@ template.innerHTML = `
                     <div id="search-portal-type-select" class="MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-auto">
                         <div class="MuiFormControl-root portaltype-dropdown-container">
                             <div id="portaltype-dropdown" data-testid="portaltype-current-wrapper" class="search-type-button MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl">
-                                <div class="search-type-button MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input" tabindex="0" role="button" aria-haspopup="listbox" aria-labelledby="search-portal-type-select-label" data-testid="search-portal-type-select">
+                                <button aria-haspopup="listbox" class="search-type-button MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input" tabindex="0" aria-haspopup="listbox" aria-labelledby="search-portal-type-select-label" data-testid="search-portal-type-select">
                                     <svg data-testid="portaltype-current-svg" class="search-type-button MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                                         <path id="portaltype-current-icon" class="search-type-button" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"></path>
                                     </svg>&nbsp;<span id="portaltype-current-label" class="search-type-button" data-testid="portaltype-current-label">Library</span>
                                     <input id="portaltype-current-value" type="hidden" name="portaltype">
-                                </div>
-                                <!-- input field probable unused -->
-                                <input id="search-portal-input" type="hidden" data-testid="search-portal-type-select-input" value="0">
+                                </button>
                                 <svg class="MuiSvgIcon-root MuiSelect-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                                     <path d="M7 10l5 5 5-5z"></path>
                                 </svg>
@@ -32,7 +30,7 @@ template.innerHTML = `
                         </div>
                     </div>
                     <div id="input-field-wrapper" class="MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-true">
-                        <div id="search-portal-autocomplete" class="MuiAutocomplete-root" role="combobox" aria-expanded="false" data-testid="search-portal-autocomplete">
+                        <div id="search-portal-autocomplete" class="MuiAutocomplete-root" role="listbox" aria-expanded="false" data-testid="search-portal-autocomplete">
                             <div class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth">
                                 <div class="MuiInputBase-root MuiInput-root MuiInput-underline MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd">
                                     <input id="current-inputfield" name="currentInputfield" aria-invalid="false" autocomplete="off" placeholder="Find books, articles, databases, Library guides &amp; more" type="search" class="MuiInputBase-input MuiInput-input selectInput MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch" aria-autocomplete="list" autocapitalize="none" spellcheck="false" aria-label="Enter your search terms" data-testid="search-portal-autocomplete-input" value="">
@@ -209,7 +207,7 @@ class SearchPortal extends HTMLElement {
                     !!anchor && !!link && !!text && anchor.appendChild(text);
                     !!anchor && (anchor.className = 'MuiPaper-root suggestion-link');
 
-                    !!suggestion && suggestiondisplay.setAttribute('tabindex', '-1');
+                    // !!suggestion && suggestiondisplay.setAttribute('tabindex', '-1');
                     !!suggestion && suggestiondisplay.setAttribute('role', 'option');
                     !!suggestion && suggestiondisplay.setAttribute('id', `search-portal-autocomplete-option-${index}`);
                     !!suggestion &&
@@ -324,6 +322,7 @@ class SearchPortal extends HTMLElement {
         function clearSearchTerm() {
             const inputField = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
             !!inputField && (inputField.value = '');
+            !!inputField && inputField.focus();
         }
         const clearButton = !!shadowDOM && shadowDOM.getElementById('clear-search-term');
         !!clearButton &&
@@ -569,9 +568,13 @@ class SearchPortal extends HTMLElement {
     toggleVisibility(selector, displayStyle) {
         const showByClassname = !!selector && selector.className.replace(' hidden', ` ${displayStyle}`);
         const hideByClassname = !!selector && selector.className.replace(` ${displayStyle}`, ' hidden');
-        !!selector && selector.classList.contains('hidden')
-            ? !!showByClassname && (selector.className = showByClassname)
-            : !!hideByClassname && (selector.className = hideByClassname);
+        if (!!selector && selector.classList.contains('hidden')) {
+            !!showByClassname && (selector.className = showByClassname);
+            !!showByClassname && selector.setAttribute('tabindex', '0');
+        } else {
+            !!hideByClassname && (selector.className = hideByClassname);
+            !!showByClassname && selector.setAttribute('tabindex', '-1');
+        }
     }
 
     closeSearchTypeSelector(selector, displayStyle) {
@@ -601,18 +604,19 @@ class SearchPortal extends HTMLElement {
         !!label && (label.id = `portalTypeSelectionEntry-${index}`);
         label.innerHTML = button.name;
 
-        const li = document.createElement('li');
+        const li = document.createElement('button');
         !!li &&
             (li.className =
-                // `portalTypeSelectionEntry MuiButtonBase-root MuiListItem-root MuiMenuItem-root Mui-selected MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button`);
+                // `portalTypeSelectionEntry portalTypeSelectionEntry-${index} MuiListItem-root`);
                 `portalTypeSelectionEntry portalTypeSelectionEntry-${index} MuiButtonBase-root MuiListItem-root MuiMenuItem-root Mui-selected MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button`);
-        !!li && li.setAttribute('tabindex', '0');
-        !!li && li.setAttribute('role', 'button');
-        !!li && li.setAttribute('aria-disabled', 'false');
+        // !!li && li.setAttribute('tabindex', '0');
+        !!li && li.setAttribute('role', 'option');
+        // !!li && li.setAttribute('aria-disabled', 'false');
         !!li && li.setAttribute('data-testid', `search-portal-type-select-item-${index}`);
-        !!li && li.setAttribute('data-value', index);
+        // !!li && li.setAttribute('data-value', index);
         !!li && !!svg && li.appendChild(svg);
         !!li && !!svg && li.appendChild(label);
+        // li.innerHTML = button.name;
 
         !!li &&
             li.addEventListener('click', function (e) {
@@ -686,10 +690,9 @@ class SearchPortal extends HTMLElement {
             (portalTypeDropdown.className =
                 'MuiList-root MuiMenu-list MuiList-padding MuiPaper-elevation8 portalTypeSelector');
         !!portalTypeDropdown && portalTypeDropdown.setAttribute('role', 'listbox');
-        !!portalTypeDropdown && portalTypeDropdown.setAttribute('tabindex', '-1');
+        // !!portalTypeDropdown && portalTypeDropdown.setAttribute('tabindex', '-1');
         !!portalTypeDropdown && portalTypeDropdown.setAttribute('aria-labelledby', 'search-portal-type-select-label');
 
-        // add the footer links for this searchtype
         !!portalTypeDropdown &&
             searchPortalLocale.typeSelect?.items.forEach((entry, index) => {
                 const container = this.createPortalTypeSelectionEntry(entry, index, shadowDOM);
@@ -700,7 +703,7 @@ class SearchPortal extends HTMLElement {
         !!portalTypeSelectorContainer && (portalTypeSelectorContainer.id = 'portal-type-selector');
         !!portalTypeSelectorContainer &&
             (portalTypeSelectorContainer.className = `MuiPaper-root MuiMenu-paper MuiPaper-elevation8 MuiPaper-rounded hidden`);
-        !!portalTypeSelectorContainer && portalTypeSelectorContainer.setAttribute('tabindex', '-1');
+        // !!portalTypeSelectorContainer && portalTypeSelectorContainer.setAttribute('tabindex', '-1');
         !!portalTypeSelectorContainer &&
             portalTypeSelectorContainer.setAttribute('data-testid', 'portal-type-selector');
         !!portalTypeSelectorContainer &&
