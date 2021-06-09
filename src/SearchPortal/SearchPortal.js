@@ -2,6 +2,7 @@ import overrides from './css/overrides.css';
 import { searchPortalLocale } from './searchPortal.locale';
 import { throttle } from 'throttle-debounce';
 import ApiAccess from '../ApiAccess/ApiAccess';
+import { cookieNotFound, getCookieValue, setCookie } from '../helpers/cookie';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -486,43 +487,12 @@ class SearchPortal extends HTMLElement {
         console.log('2 SuggestionLink removed listenForClicks'); // if this doesnt happen then the removal failed
     }
 
-    cookieNotFound(cookieId) {
-        return document.cookie.indexOf(cookieId + '=') <= -1;
-    }
-
-    getCookieValue(name) {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; ++i) {
-            const pair = cookies[i].trim().split('=');
-            if (!!pair[0] && pair[0] === name) {
-                return !!pair[1] ? pair[1] : /* istanbul ignore next */ undefined;
-            }
-        }
-        return undefined;
-    }
-
     getOpeningSearchType() {
-        console.log('getOpeningSearchType');
-        if (this.cookieNotFound(REMEMBER_COOKIE_ID)) {
-            console.log('getOpeningSearchType not found, use ', PRIMO_LIBRARY_SEARCH);
+        if (cookieNotFound(REMEMBER_COOKIE_ID)) {
             return PRIMO_LIBRARY_SEARCH;
         }
-
-        const cookie = this.getCookieValue(REMEMBER_COOKIE_ID);
-        console.log('getOpeningSearchType use cookie calue ', cookie);
-
-        // this.clearCookie(REMEMBER_COOKIE_ID); // otherwise they can never change the drop down!!
-
-        return cookie;
+        return getCookieValue(REMEMBER_COOKIE_ID);
     }
-
-    // clearCookie(cookieId) {
-    //     const numHours = -24; // date in the past
-    //     const expiryDate = new Date();
-    //     expiryDate.setTime(expiryDate.getTime() + numHours * 60 * 60 * 1000);
-    //
-    //     this.setCookie(cookieId, '', expiryDate);
-    // }
 
     rememberSearchTypeChoice(searchType) {
         //set cookie for 1 hours
@@ -530,15 +500,7 @@ class SearchPortal extends HTMLElement {
         const expiryDate = new Date();
         expiryDate.setTime(expiryDate.getTime() + numHours * 60 * 60 * 1000);
 
-        this.setCookie(REMEMBER_COOKIE_ID, searchType, expiryDate);
-    }
-
-    setCookie(cookieId, cookieValue, expiryDate) {
-        const cookieDomain = window.location.hostname.endsWith('.library.uq.edu.au')
-            ? /* istanbul ignore next */
-              'domain=.library.uq.edu.au;path=/'
-            : '';
-        document.cookie = cookieId + '=' + cookieValue + ';expires=' + expiryDate.toGMTString() + ';' + cookieDomain;
+        setCookie(REMEMBER_COOKIE_ID, searchType, expiryDate);
     }
 
     isPortalTypeDropDownOpen(shadowDOM) {

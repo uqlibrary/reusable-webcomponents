@@ -1,5 +1,6 @@
 import askus from './css/askus.css';
 import ApiAccess from '../ApiAccess/ApiAccess';
+import { cookieNotFound, setCookie } from '../helpers/cookie';
 
 /**
  * API
@@ -109,6 +110,9 @@ template.innerHTML = `
 
 let initCalled;
 
+const PROACTIVE_CHAT_HIDDEN_COOKIE_NAME = 'UQ_ASKUS_PROACTIVE_CHAT';
+const PROACTIVE_CHAT_HIDDEN_COOKIE_VALUE = 'hidden';
+
 class AskUsButton extends HTMLElement {
     constructor() {
         super();
@@ -161,7 +165,7 @@ class AskUsButton extends HTMLElement {
                 if (
                     !isProactiveChatHidden &&
                     !isPrimoPage(window.location.hostname) &&
-                    document.cookie.indexOf('UQ_ASKUS_PROACTIVE_CHAT=hidden') <= -1
+                    cookieNotFound(PROACTIVE_CHAT_HIDDEN_COOKIE_NAME, PROACTIVE_CHAT_HIDDEN_COOKIE_VALUE)
                 ) {
                     setTimeout(showProactiveChatWrapper, secondsTilProactiveChatAppears * 1000 - 1000);
                     setTimeout(showProactiveChat, secondsTilProactiveChatAppears * 1000);
@@ -273,11 +277,7 @@ class AskUsButton extends HTMLElement {
             //set cookie for 24 hours
             const date = new Date();
             date.setTime(date.getTime() + 24 * 60 * 60 * 1000);
-            /* istanbul ignore next  */
-            const cookieDomain = window.location.hostname.endsWith('.library.uq.edu.au')
-                ? 'domain=.library.uq.edu.au;path=/'
-                : '';
-            document.cookie = 'UQ_ASKUS_PROACTIVE_CHAT=hidden;expires=' + date.toGMTString() + ';' + cookieDomain;
+            setCookie(PROACTIVE_CHAT_HIDDEN_COOKIE_NAME, PROACTIVE_CHAT_HIDDEN_COOKIE_VALUE, date);
         }
         shadowDOM.getElementById('askus-proactive-chat-button-close').addEventListener('click', closeProactiveChat);
         shadowDOM.getElementById('askus-proactive-chat-button-open').addEventListener('click', openChat);

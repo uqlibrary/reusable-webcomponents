@@ -2,6 +2,7 @@ import MockApi from '../../mock/MockApi';
 import ApiRoutes from '../ApiRoutes';
 import { apiLocale as locale } from './ApiAccess.locale';
 import fetchJsonp from 'fetch-jsonp';
+import { getCookieValue } from '../helpers/cookie';
 
 let initCalled;
 
@@ -306,7 +307,7 @@ class ApiAccess {
         if (this.isMock() && new MockApi().getUserParameter() !== 'public') {
             return locale.UQLID_COOKIE_MOCK;
         }
-        return this.getCookie(locale.SESSION_COOKIE_NAME);
+        return getCookieValue(locale.SESSION_COOKIE_NAME);
     }
 
     getLibraryGroupCookie() {
@@ -315,18 +316,7 @@ class ApiAccess {
         if (this.isMock() && new MockApi().getUserParameter() !== 'public') {
             return locale.USERGROUP_COOKIE_MOCK;
         }
-        return this.getCookie(locale.SESSION_USER_GROUP_COOKIE_NAME);
-    }
-
-    getCookie(name) {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; ++i) {
-            const pair = cookies[i].trim().split('=');
-            if (!!pair[0] && pair[0] === name) {
-                return !!pair[1] ? pair[1] : /* istanbul ignore next */ undefined;
-            }
-        }
-        return undefined;
+        return getCookieValue(locale.SESSION_USER_GROUP_COOKIE_NAME);
     }
 
     fetchMock(url, options = null) {
