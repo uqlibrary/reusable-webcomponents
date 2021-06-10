@@ -83,11 +83,11 @@ const COURSE_RESOURCE_SEARCH_TYPE = '8';
 
 const REMEMBER_COOKIE_ID = 'rememberSearchType';
 
-function isKeyPressed(e, keyescape, keyescapenumeric) {
-    // console.log(`KeyboardEvent: key='${e.key}' | code='${e.code}'`);
+function isKeyPressed(e, charKeyInput, numericKeyInput) {
+    // console.log(`KeyboardEvent: key='${e.key}' | code='${e.code}' | charCode='${e.charCode}' | keyCode='${e.keyCode}'`);
     const keyNumeric = e.charCode || e.keyCode;
     const keyChar = e.key || e.code;
-    return keyChar === keyescape || keyNumeric === keyescapenumeric;
+    return keyChar === charKeyInput || keyNumeric === numericKeyInput;
 }
 function isEscapeKeyPressed(e) {
     return isKeyPressed(e, 'Escape', 27);
@@ -178,6 +178,7 @@ class SearchPortal extends HTMLElement {
         const suggestionListSibling = !!shadowDOM && shadowDOM.getElementById('input-field-wrapper');
 
         document.addEventListener('click', this.listenForMouseClicks);
+        document.addEventListener('keydown', this.listenForKeyClicks);
         console.log('added listenForSuggestionListClick');
 
         /* istanbul ignore else  */
@@ -221,6 +222,23 @@ class SearchPortal extends HTMLElement {
                     !!anchor && !!link && !!text && (anchor.href = link);
                     !!anchor && !!link && !!text && anchor.appendChild(text);
                     !!anchor && (anchor.className = 'MuiPaper-root suggestion-link');
+
+                    // dev
+                    // anchor.addEventListener('click', function (e) {
+                    //     console.log('click on anchor', e);
+                    // });
+                    // anchor.addEventListener('keydown', function (e) {
+                    //     console.log('keydown on anchor', e);
+                    // });
+                    // anchor.addEventListener('keypress', function (e) {
+                    //     console.log('keypress on anchor', e);
+                    // });
+                    // anchor.addEventListener('keyup', function (e) {
+                    //     console.log('keyup on anchor', e);
+                    // });
+                    // anchor.addEventListener('submit', function (e) {
+                    //     console.log('submit on anchor', e);
+                    // });
 
                     // !!suggestion && suggestiondisplay.setAttribute('tabindex', '-1');
                     !!suggestion && suggestiondisplay.setAttribute('role', 'option');
@@ -274,6 +292,7 @@ class SearchPortal extends HTMLElement {
 
         function submitHandler() {
             console.log('submitHandler 1');
+            console.log('document.activeElement = ', document.activeElement);
             return function (e) {
                 console.log('submitHandler 2');
                 e.preventDefault();
@@ -385,21 +404,16 @@ class SearchPortal extends HTMLElement {
         // which sends thousands of requests to the server - block this
         // length has to be 5, because subjects like FREN1111 have 4 repeating numbers...
         function isRepeatingString(searchString) {
-            console.log('check isRepeatingString ', searchString);
             if (searchString.length <= 4) {
-                console.log('repeat: string short');
                 return false;
             }
             const lastChar = searchString.charAt(searchString.length - 1);
-            console.log('lastChar = ', lastChar);
             const char2 = searchString.charAt(searchString.length - 2);
             const char3 = searchString.charAt(searchString.length - 3);
             const char4 = searchString.charAt(searchString.length - 4);
             const char5 = searchString.charAt(searchString.length - 5);
 
-            const b = lastChar === char2 && lastChar === char3 && lastChar === char4 && lastChar === char5;
-            console.log('repeating? ', b);
-            return b;
+            return lastChar === char2 && lastChar === char3 && lastChar === char4 && lastChar === char5;
         }
 
         const throttledPrimoLoadSuggestions = throttle(3100, (newValue) => this.getPrimoSuggestions(newValue));
@@ -474,7 +488,6 @@ class SearchPortal extends HTMLElement {
         console.log('listenForSearchTypeClick: a click on body, but is it in the dropdown?');
 
         const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
-        // const eventTargetClass = !!eventTarget && eventTarget.hasAttribute('class') && !!eventTarget && eventTarget.getAttribute('class');
         const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
 
         console.log("click on e.composedPath()[0].getAttribute('class') = ", e.composedPath()[0].getAttribute('class'));
@@ -483,8 +496,6 @@ class SearchPortal extends HTMLElement {
         if (!!eventTarget && eventTarget.classList.contains('search-type-button')) {
             // user has clicked on the closed Search Type selector
             console.log('click detector case ONE');
-            // that.clearSearchResults(shadowDOM);
-            // that.showHidePortalTypeDropdown(shadowDOM);
 
             // put focus on the currently selected search type
             const portalTypeContainer = !!shadowDOM && shadowDOM.getElementById('portaltype-dropdown');
@@ -574,41 +585,13 @@ class SearchPortal extends HTMLElement {
 
     listenForKeyClicks(e) {
         const shadowDOM = document.querySelector('search-portal').shadowRoot;
-        // const keyCode = e.charCode || e.keyCode;
-        // console.log('listenForKeyClicks: keyCode = ', keyCode);
         if (this.isPortalTypeDropDownOpen(shadowDOM)) {
             const inputField = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
             if (isReturnKeyPressed(e)) {
                 console.log('focus event FIVE');
-
-                // they have hit return
-                // now add a blur to a search type select button
-                // const portalTypeContainer = !!shadowDOM && shadowDOM.getElementById('portaltype-dropdown');
-                // console.log('portalTypeContainer = ', portalTypeContainer);
-                // let classname = portalTypeContainer.className.match(/label-(.*)/);
-                // !!classname && classname.length > 0 && (classname = classname[0]);
-                // console.log('classname = ', classname);
-                // let classnameid = !!classname && classname.match('label-(.*)-button');
-                // !!classnameid && classnameid.length > 1 && (classnameid = classnameid[1]);
-                // console.log('classnameid = ', classnameid);
-                // const dropdownId =
-                //     !!classnameid &&
-                //     !!shadowDOM &&
-                //     shadowDOM.getElementById(`search-portal-type-select-item-${classnameid}`);
-                // console.log('dropdownId = ', dropdownId);
-                // !!dropdownId && dropdownId.addEventListener('blur', function(e) {
-                //     console.log('dropdownId blur event on ', e);
-                // });
-
-                // const formData = !!e && !!e.target && new FormData(e.target);
-                // const formObject = !!formData && Object.fromEntries(formData);
-                // console.log('formObject.portaltype = ', formObject.portaltype);
                 const portalTypeCurrentSave = !!shadowDOM && shadowDOM.getElementById('portaltype-current-value');
-                console.log('111 portalTypeCurrentSave = ', portalTypeCurrentSave);
                 !!inputField && inputField.focus();
             } else if (isEscapeKeyPressed(e)) {
-                // console.log('listenForKeyClicks: keyCode = ESCAPE', keyCode);
-                // console.log('escape presssed - close the search type selector', keyCode);
                 const portalTypeDropdown = shadowDOM.getElementById('portal-type-selector');
                 this.closeSearchTypeSelector(portalTypeDropdown, 'portalTypeSelectorDisplayed');
                 !!inputField && inputField.focus();
@@ -733,7 +716,6 @@ class SearchPortal extends HTMLElement {
     }
 
     createPortalTypeSelectionEntry(entry, index, shadowDOM) {
-        console.log('createPortalTypeSelectionEntry = ', index);
         const that = this;
 
         const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
@@ -776,8 +758,15 @@ class SearchPortal extends HTMLElement {
             // We need to clear the search results even if we only swap between primo searches
             // because the link out in the search list will change
             that.clearSearchResults(shadowDOM);
+
             // if search term not blank, reload suggestions
+            // ?? was deleted?
             that.getSuggestions(shadowDOM);
+
+            const inputField = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
+            !!inputField && inputField.value !== '' && that.getSuggestions(shadowDOM);
+            console.log('focus event SIX');
+            !!inputField && inputField.focus();
         }
 
         !!button &&
@@ -785,9 +774,25 @@ class SearchPortal extends HTMLElement {
                 handleSearchTypeSelection();
             });
         button.addEventListener('keydown', function (e) {
+            console.log('keydown on searchtype', e);
             if (isReturnKeyPressed(e)) {
                 handleSearchTypeSelection();
+                e.preventDefault(); // otherwise form submits
+            } else if (isKeyPressed(e, 'Tab', 9)) {
+                const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
+                const lastId = searchPortalLocale.typeSelect.items.length - 1;
+                const finalEntry = `portalTypeSelectionEntry-${lastId}`;
+                if (!!eventTarget && eventTarget.classList.contains(finalEntry)) {
+                    // user has tabbed off end of list - close search type dropdown list
+                    console.log('close seaerch type dropdown list');
+                    const portalTypeDropdown = shadowDOM.getElementById('portal-type-selector');
+                    !!portalTypeDropdown &&
+                        that.closeSearchTypeSelector(portalTypeDropdown, 'portalTypeSelectorDisplayed');
+                }
             }
+        });
+        button.addEventListener('submit', function (e) {
+            console.log('submit on searchtype', e);
         });
 
         return button;
