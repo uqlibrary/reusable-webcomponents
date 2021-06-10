@@ -1,0 +1,20 @@
+#ez-proxy-url-display-area {
+    resize: none;
+    height: 2.7rem;
+    outline: none;
+}
+
+#ez-proxy-copy-status {
+    position: fixed;
+    left: 1rem;
+    bottom: 1rem;
+    transition: transform 1s, opacity 1s;
+    padding: 1rem 1.5rem 1rem 3rem;
+    opacity: 0;
+    z-index: 1;
+}
+
+#ez-proxy-copy-status.open {
+    opacity: 1;
+    transform: translateY(1rem);
+}
