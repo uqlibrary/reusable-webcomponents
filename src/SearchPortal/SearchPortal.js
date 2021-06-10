@@ -11,13 +11,13 @@ template.innerHTML = `
         <div class="MuiCardContent-root libraryContent" data-testid="search-portal-content">
             <form id="search-portal-form" class="searchForm" role="search">
                 <div class="MuiFormControl-root searchPanel" style="margin-bottom: -0.75rem; padding-top: 1rem;">
-                    <label id="search-portal-type-select-label" class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled" data-shrink="true">Search</label>
+                    <label id="search-portal-type-select-label" class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled" data-shrink="true" aria-label="Search UQ Library">Search</label>
                 </div>
                 <div id="search-parent" class="searchPanel MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-flex-end">
                     <div id="search-portal-type-select" class="MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-auto">
                         <div class="MuiFormControl-root portaltype-dropdown-container">
                             <div id="portaltype-dropdown" data-testid="portaltype-current-wrapper" class="search-type-button MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl">
-                                <button aria-haspopup="listbox" class="search-type-button MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input" tabindex="0" aria-haspopup="listbox" aria-labelledby="search-portal-type-select-label" data-testid="search-portal-type-select">
+                                <button type="button" class="search-type-button MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input" tabindex="0" aria-labelledby="search-portal-type-select-label" data-testid="search-portal-type-select">
                                     <svg data-testid="portaltype-current-svg" class="search-type-button MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                                         <path id="portaltype-current-icon" class="search-type-button" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"></path>
                                     </svg>&nbsp;<span id="portaltype-current-label" class="search-type-button" data-testid="portaltype-current-label">Library</span>
@@ -30,7 +30,7 @@ template.innerHTML = `
                         </div>
                     </div>
                     <div id="input-field-wrapper" class="MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-true">
-                        <div id="search-portal-autocomplete" class="MuiAutocomplete-root" role="listbox" aria-expanded="false" data-testid="search-portal-autocomplete">
+                        <div id="search-portal-autocomplete" class="MuiAutocomplete-root" aria-expanded="false" data-testid="search-portal-autocomplete" aria-label="Select Search Type">
                             <div class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth">
                                 <div class="MuiInputBase-root MuiInput-root MuiInput-underline MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd">
                                     <input id="current-inputfield" name="currentInputfield" aria-invalid="false" autocomplete="off" placeholder="Find books, articles, databases, Library guides &amp; more" type="search" class="MuiInputBase-input MuiInput-input selectInput MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch" aria-autocomplete="list" autocapitalize="none" spellcheck="false" aria-label="Enter your search terms" data-testid="search-portal-autocomplete-input" value="">
@@ -39,10 +39,10 @@ template.innerHTML = `
                             </div>
                         </div>
                     </div>
-                    <div class="MuiGrid-item MuiGrid-grid-xs-auto utilityarea">
+                    <div id="clearButton" class="MuiGrid-item MuiGrid-grid-xs-auto utilityarea">
                         <div class="MuiGrid-container">
                             <div class="MuiGrid-item MuiGrid-grid-xs-auto">
-                                <button id="clear-search-term" class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall" tabindex="0" type="button" title="Clear your search term" data-testid="search-portal-autocomplete-voice-clear">
+                                <button type="button" id="clear-search-term" class="clear-search-term MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall" tabindex="0" type="button" title="Clear your search term" data-testid="search-portal-autocomplete-voice-clear">
                                     <span class="MuiIconButton-label">
                                         <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                                             <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
@@ -83,6 +83,9 @@ const COURSE_RESOURCE_SEARCH_TYPE = '8';
 
 const REMEMBER_COOKIE_ID = 'rememberSearchType';
 
+const KEY_RETURN = 13;
+const KEY_ESCAPE = 27;
+
 class SearchPortal extends HTMLElement {
     constructor() {
         super();
@@ -107,7 +110,8 @@ class SearchPortal extends HTMLElement {
         this.createPortalTypeSelector = this.createPortalTypeSelector.bind(this);
         this.getOpeningSearchType = this.getOpeningSearchType.bind(this);
         this.isPortalTypeDropDownOpen = this.isPortalTypeDropDownOpen.bind(this);
-        this.listenForClicks = this.listenForClicks.bind(this);
+        this.listenForKeyClicks = this.listenForKeyClicks.bind(this);
+        this.listenForMouseClicks = this.listenForMouseClicks.bind(this);
         this.setSearchTypeButton = this.setSearchTypeButton.bind(this);
         this.showHidePortalTypeDropdown = this.showHidePortalTypeDropdown.bind(this);
         this.toggleVisibility = this.toggleVisibility.bind(this);
@@ -160,22 +164,22 @@ class SearchPortal extends HTMLElement {
     loadSuggestionsIntoPage(suggestions, urlsource = 'text') {
         const shadowDOM = document.querySelector('search-portal').shadowRoot;
 
-        const suggestionParent = !!shadowDOM && shadowDOM.getElementById('search-portal-form');
+        const suggestionListSibling = !!shadowDOM && shadowDOM.getElementById('input-field-wrapper');
 
-        document.addEventListener('click', this.listenForClicks);
+        document.addEventListener('click', this.listenForMouseClicks);
         console.log('added listenForSuggestionListClick');
 
         /* istanbul ignore else  */
-        if (!!suggestionParent && !!suggestions && suggestions.length > 0) {
-            let ul = suggestionParent.querySelector('#search-portal-autocomplete-listbox');
+        if (!!suggestionListSibling && !!suggestions && suggestions.length > 0) {
+            let ul = shadowDOM.getElementById('search-portal-autocomplete-listbox');
             if (!ul) {
                 ul = document.createElement('ul');
                 !!ul && (ul.className = 'MuiAutocomplete-listbox');
                 !!ul && ul.setAttribute('id', 'search-portal-autocomplete-listbox');
                 !!ul && ul.setAttribute('data-testid', 'search-portal-autocomplete-listbox');
                 !!ul && ul.setAttribute('role', 'listbox');
-                !!ul && ul.setAttribute('aria-labelledby', 'search-portal-type-select-label');
-                !!ul && ul.setAttribute('aria-label', 'Suggestion list');
+                // !!ul && ul.setAttribute('aria-labelledby', 'search-portal-type-select-label');
+                !!ul && ul.setAttribute('aria-label', 'Suggestions');
             } else {
                 // clear pre-existing suggestions
                 ul.innerHTML = '';
@@ -215,6 +219,7 @@ class SearchPortal extends HTMLElement {
                     !!suggestion && suggestiondisplay.setAttribute('data-option-index', index);
                     !!suggestion && suggestiondisplay.setAttribute('aria-disabled', 'false');
                     !!suggestion && suggestiondisplay.setAttribute('aria-selected', 'false');
+                    // !!suggestion && suggestiondisplay.setAttribute('aria-label', `Search for ${suggestion.text}`);
                     !!suggestion && (suggestiondisplay.className = 'MuiAutocomplete-option');
 
                     !!anchor && suggestiondisplay.appendChild(anchor);
@@ -226,14 +231,14 @@ class SearchPortal extends HTMLElement {
             let listContainer = !!shadowDOM && shadowDOM.getElementById('suggestion-parent');
             if (!listContainer) {
                 listContainer = document.createElement('div');
-                !!listContainer && listContainer.setAttribute('id', `suggestion-parent`);
+                !!listContainer && listContainer.setAttribute('id', 'suggestion-parent');
                 !!listContainer &&
                     (listContainer.className =
                         'MuiPaper-root MuiAutocomplete-paper MuiPaper-elevation1 MuiPaper-rounded suggestionList');
             }
             !!listContainer && !!ul && listContainer.appendChild(ul);
 
-            // set the top left corner & width of the suggestion list to match the placement of the input field
+            // set the top left corner & width of the suggestion list to match the placement & width of the input field
             const portalTypeContainer = !!shadowDOM && shadowDOM.getElementById('portaltype-dropdown');
             const inputFieldWrapper = !!shadowDOM && shadowDOM.getElementById('input-field-wrapper');
             const leftPx = portalTypeContainer.offsetWidth - 170; // this number simply works
@@ -242,7 +247,10 @@ class SearchPortal extends HTMLElement {
                 !!listContainer &&
                 (listContainer.style.width = `${inputFieldWrapper.offsetWidth}px`);
 
-            !!listContainer && suggestionParent.appendChild(listContainer);
+            // add the suggestion list in between the input field and the clear button, so we can tab to it
+            const searchContainer = shadowDOM.getElementById('search-parent');
+            const clearButton = shadowDOM.getElementById('clearButton');
+            !!clearButton && !!searchContainer && searchContainer.insertBefore(listContainer, clearButton);
         }
     }
 
@@ -254,7 +262,9 @@ class SearchPortal extends HTMLElement {
         const that = this;
 
         function submitHandler() {
+            console.log('submitHandler 1');
             return function (e) {
+                console.log('submitHandler 2');
                 e.preventDefault();
 
                 const charactersBefore = (string, separator) => {
@@ -264,19 +274,20 @@ class SearchPortal extends HTMLElement {
                     return string.substr(0, string.indexOf(separator));
                 };
 
+                // close the dropdown (because the window takes a moment to reload and it just looks weird)
+                that.clearSearchResults(shadowDOM); // check this one
+
                 const formData = !!e && !!e.target && new FormData(e.target);
                 const formObject = !!formData && Object.fromEntries(formData);
 
                 if (!!formObject.currentInputfield) {
                     const matches = searchPortalLocale.typeSelect.items.filter((element) => {
+                        // might not need parse int now?
                         return parseInt(element.selectId, 10) === parseInt(formObject.portaltype, 10);
                     });
                     const searchType = matches.length > 0 ? matches[0] : false;
                     const keyword = formObject.currentInputfield;
                     const link = searchType.link.replace('[keyword]', keyword).replace('[keyword]', keyword); // database search has two instances of keyword
-
-                    // close the dropdown (because the window takes a moment to reload and it just looks weird)
-                    that.clearSearchResults(shadowDOM); // check this one
 
                     window.location.assign(link);
                 }
@@ -291,7 +302,13 @@ class SearchPortal extends HTMLElement {
         const inputField = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
         !!inputField &&
             inputField.addEventListener('keydown', function (e) {
-                that.getSuggestions(shadowDOM);
+                const keyCode = e.charCode || e.keyCode;
+                if (keyCode === KEY_ESCAPE) {
+                    clearSearchTerm();
+                    that.clearSearchResults(shadowDOM);
+                } else {
+                    that.getSuggestions(shadowDOM);
+                }
             });
         !!inputField &&
             inputField.addEventListener('keyup', function (e) {
@@ -316,12 +333,14 @@ class SearchPortal extends HTMLElement {
                     // that.getSuggestions(shadowDOM);
                 } else {
                     console.log('drop down has been opened');
+                    that.clearSearchResults(shadowDOM);
                 }
             });
 
         function clearSearchTerm() {
             const inputField = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
             !!inputField && (inputField.value = '');
+            console.log('focus event ONE');
             !!inputField && inputField.focus();
         }
         const clearButton = !!shadowDOM && shadowDOM.getElementById('clear-search-term');
@@ -362,12 +381,13 @@ class SearchPortal extends HTMLElement {
             this.getLearningResourceSuggestions(newValue),
         );
 
-        const focusOnSearchInput = () => {
-            setTimeout(() => {
-                const inputField = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
-                !!inputField && inputField.focus();
-            }, 200);
-        };
+        // const focusOnSearchInput = () => {
+        //     setTimeout(() => {
+        //         const inputField = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
+        //         console.log('focus event TWO');
+        //         !!inputField && inputField.focus();
+        //     }, 200);
+        // };
 
         const searchType = !!shadowDOM && shadowDOM.getElementById('portaltype-current-value');
 
@@ -404,7 +424,10 @@ class SearchPortal extends HTMLElement {
             } else {
                 console.log('do a ? did not recognise searchType.value = ', searchType.value);
             }
-            focusOnSearchInput();
+            // focusOnSearchInput();
+            // const inputField = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
+            // console.log('focus event TWO');
+            // !!inputField && inputField.focus();
         } else {
             // actions.clearPrimoSuggestions();
         }
@@ -417,7 +440,7 @@ class SearchPortal extends HTMLElement {
      * Complicatedly track whether the click is in one of the dropdowns here
      * @param e
      */
-    listenForClicks(e) {
+    listenForMouseClicks(e) {
         const that = this;
         const shadowDOM = document.querySelector('search-portal').shadowRoot;
         const portalTypeDropdown = shadowDOM.getElementById('portal-type-selector');
@@ -429,18 +452,34 @@ class SearchPortal extends HTMLElement {
 
         console.log("click on e.composedPath()[0].getAttribute('class') = ", e.composedPath()[0].getAttribute('class'));
         e.composedPath()[0].getAttribute('class') === null && console.log(e.composedPath());
+
         if (!!eventTarget && eventTarget.classList.contains('search-type-button')) {
             // user has clicked on the closed Search Type selector
             console.log('click detector case ONE');
             // that.clearSearchResults(shadowDOM);
             // that.showHidePortalTypeDropdown(shadowDOM);
+
+            // put focus on the currently selected search type
+            const portalTypeContainer = !!shadowDOM && shadowDOM.getElementById('portaltype-dropdown');
+            let classname = portalTypeContainer.className.match(/label-(.*)/);
+            !!classname && classname.length > 0 && (classname = classname[0]);
+            let classnameid = !!classname && classname.match('label-(.*)-button');
+            !!classnameid && classnameid.length > 1 && (classnameid = classnameid[1]);
+            const dropdownId =
+                !!classnameid &&
+                !!shadowDOM &&
+                shadowDOM.getElementById(`search-portal-type-select-item-${classnameid}`);
+            !!dropdownId && dropdownId.focus();
+
             return;
         } else if (!!eventTarget && eventTarget.classList.contains('suggestion-link')) {
             console.log('click detector case TWO');
             // a click on a suggestion dropdown item - clean up, but the click itself is handled as an anchor href
             console.log('SuggestionLink Clicked inside!');
 
-            document.removeEventListener('click', that.listenForClicks);
+            console.log('removeEventListener THREE');
+            document.removeEventListener('click', that.listenForMouseClicks);
+            document.removeEventListener('keydown', this.listenForKeyClicks);
             console.log('1 SuggestionLink removed listenForSuggestionListClick'); // if this doesnt happen then the removal failed
             return;
             //
@@ -450,8 +489,8 @@ class SearchPortal extends HTMLElement {
             //     that.clearSearchResults(shadowDOM);
             //     return;
         } else if (!!eventTargetId && eventTargetId.startsWith('portalTypeSelectionEntry-')) {
-            console.log('click detector case FOUR');
             // user has selected a search type from the open search type dropdown
+            console.log('click detector case FOUR');
             // clean up - the click itself is handled elsewhere
             console.log('SearchType Clicked inside!');
 
@@ -460,6 +499,7 @@ class SearchPortal extends HTMLElement {
             that.closeSearchTypeSelector(portalTypeDropdown, 'portalTypeSelectorDisplayed');
 
             const inputField = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
+            console.log('focus event THREE');
             !!inputField && inputField.focus();
 
             // console.log('remove any current suggestion list');
@@ -477,8 +517,12 @@ class SearchPortal extends HTMLElement {
             console.log('XXXX store search type as ', searchType.value);
             that.rememberSearchTypeChoice(searchType.value);
 
-            document.removeEventListener('click', that.listenForClicks);
-            console.log('SearchType removed listenForClicks'); // if this doesnt happen then the removal failed
+            if (that.isSuggestionListOpen(shadowDOM)) {
+                console.log('removeEventListener ONE');
+                document.removeEventListener('click', that.listenForMouseClicks);
+                document.removeEventListener('keydown', this.listenForKeyClicks);
+                console.log('SearchType removed listenForMouseClicks'); // if this doesnt happen then the removal failed}
+            }
 
             return;
         }
@@ -493,8 +537,40 @@ class SearchPortal extends HTMLElement {
         that.clearSearchResults(shadowDOM);
 
         // dropdowns closed so remove listener
-        document.removeEventListener('click', that.listenForClicks);
-        console.log('2 SuggestionLink removed listenForClicks'); // if this doesnt happen then the removal failed
+        if (that.isSuggestionListOpen(shadowDOM)) {
+            console.log('removeEventListener TWO');
+            document.removeEventListener('click', that.listenForMouseClicks);
+            document.removeEventListener('keydown', this.listenForKeyClicks);
+            console.log('2 SuggestionLink removed listenForMouseClicks'); // if this doesnt happen then the removal failed
+        }
+    }
+
+    listenForKeyClicks(e) {
+        const shadowDOM = document.querySelector('search-portal').shadowRoot;
+        const keyCode = e.charCode || e.keyCode;
+        console.log('listenForKeyClicks: keyCode = ', keyCode);
+        if (this.isPortalTypeDropDownOpen(shadowDOM)) {
+            // const keyCode = e.charCode || e.keyCode;
+            if (keyCode === KEY_RETURN) {
+                const inputField = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
+                console.log('focus event FIVE');
+                !!inputField && inputField.focus();
+            } else if (keyCode === KEY_ESCAPE) {
+                console.log('escape presssed - close the search type selector', keyCode);
+                const portalTypeDropdown = shadowDOM.getElementById('portal-type-selector');
+                this.closeSearchTypeSelector(portalTypeDropdown, 'portalTypeSelectorDisplayed');
+                !!inputField && inputField.focus();
+                document.removeEventListener('click', this.listenForMouseClicks);
+                document.removeEventListener('keydown', this.listenForKeyClicks);
+                console.log('3 SuggestionLink removed listenForMouseClicks'); // if this doesnt happen then the removal failed
+            }
+        }
+    }
+
+    isSuggestionListOpen(shadowDOM) {
+        const searchResults = !!shadowDOM && shadowDOM.getElementById('search-portal-autocomplete-listbox');
+        console.log('isSuggestionListOpen? ', !!searchResults);
+        return !!searchResults;
     }
 
     getOpeningSearchType() {
@@ -543,8 +619,12 @@ class SearchPortal extends HTMLElement {
             const newTopValue = matchingID * negativeHeightOfRowPx - offsetPx;
             !!matchingID && !!portalTypeDropdown && (portalTypeDropdown.style.top = `${newTopValue}px`);
 
-            document.addEventListener('click', this.listenForClicks);
+            document.addEventListener('click', this.listenForMouseClicks);
             console.log('added listenForSearchTypeClick');
+
+            // the escape key should close the search type selector
+            // maybe we should add and remove this when the
+            document.addEventListener('keydown', this.listenForKeyClicks);
         }
     }
 
@@ -555,10 +635,25 @@ class SearchPortal extends HTMLElement {
         console.log('clearSearchResults clearing search result list');
         // if (!firstSuggestion) {
         const searchResults = !!shadowDOM && shadowDOM.getElementById('search-portal-autocomplete-listbox');
-        !!searchResults && searchResults.remove();
+        // !!searchResults && (searchResults.innerHTML = '');
+        console.log('searchResults = ', searchResults);
+        // let suggestionId = 0;
+        // let suggestion;
+        // while (!!(suggestion = shadowDOM.getElementById(`search-portal-autocomplete-option-${suggestionId}`))) {
+        //     const link = suggestion.querySelector('a');
+        //     link.href = '';
+        //
+        //     suggestionId++;
+        // }
+        // const searchResultsAfter = !!shadowDOM && shadowDOM.getElementById('search-portal-autocomplete-listbox');
+        // console.log('searchResultsAfter = ', searchResultsAfter);
+
         // } else {
         //     console.log('nothing to clear');
         // }
+        !!searchResults && searchResults.remove();
+        const searchResultsAfter2 = !!shadowDOM && shadowDOM.getElementById('search-portal-autocomplete-listbox');
+        console.log('searchResultsAfter2 = ', searchResultsAfter2);
     }
 
     /**
@@ -609,9 +704,12 @@ class SearchPortal extends HTMLElement {
             (li.className =
                 // `portalTypeSelectionEntry portalTypeSelectionEntry-${index} MuiListItem-root`);
                 `portalTypeSelectionEntry portalTypeSelectionEntry-${index} MuiButtonBase-root MuiListItem-root MuiMenuItem-root Mui-selected MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button`);
+        !!li && li.setAttribute('type', 'button');
         // !!li && li.setAttribute('tabindex', '0');
         !!li && li.setAttribute('role', 'option');
+        !!li && li.setAttribute('aria-label', `Search in ${button.name}`);
         // !!li && li.setAttribute('aria-disabled', 'false');
+        !!li && li.setAttribute('id', `search-portal-type-select-item-${index}`);
         !!li && li.setAttribute('data-testid', `search-portal-type-select-item-${index}`);
         // !!li && li.setAttribute('data-value', index);
         !!li && !!svg && li.appendChild(svg);
@@ -684,7 +782,7 @@ class SearchPortal extends HTMLElement {
     createPortalTypeSelector(shadowDOM, searchType = 0) {
         const useSearchType = parseInt(searchType, 10);
 
-        const portalTypeDropdown = document.createElement('ul');
+        const portalTypeDropdown = document.createElement('div');
         // !!portalTypeDropdown && (portalTypeDropdown.id = 'portal-type-selector');
         !!portalTypeDropdown &&
             (portalTypeDropdown.className =
@@ -692,6 +790,7 @@ class SearchPortal extends HTMLElement {
         !!portalTypeDropdown && portalTypeDropdown.setAttribute('role', 'listbox');
         // !!portalTypeDropdown && portalTypeDropdown.setAttribute('tabindex', '-1');
         !!portalTypeDropdown && portalTypeDropdown.setAttribute('aria-labelledby', 'search-portal-type-select-label');
+        !!portalTypeDropdown && portalTypeDropdown.setAttribute('data-testid', 'search-type-selector');
 
         !!portalTypeDropdown &&
             searchPortalLocale.typeSelect?.items.forEach((entry, index) => {

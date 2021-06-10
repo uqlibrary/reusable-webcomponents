@@ -735,7 +735,7 @@ label + .MuiInput-formControl {
 @media (min-width:960px) {
     .searchButton {
         width: 40px;
-        padding: 8px 8px !important;
+        padding: 5px 18px !important;
         min-width: 20px;
     }
 }
@@ -815,7 +815,7 @@ label + .MuiInput-formControl {
 .label-7-button .portalTypeSelectionEntry-7,
 .label-8-button .portalTypeSelectionEntry-8 {
     color: #FFFFFF;
-    background-color: #4085C6 !important;
+    background-color: #d3d3d3 !important;
 }
 .portalTypeSelectionEntry-0:focus,
 .portalTypeSelectionEntry-1:focus,
@@ -827,7 +827,7 @@ label + .MuiInput-formControl {
 .portalTypeSelectionEntry-7:focus,
 .portalTypeSelectionEntry-8:focus {
     color: #000;
-    background-color: #d3d3d3 !important;
+    background-color: #4085C6 !important; /* uqblue */
 }
 
 .suggestionList {
@@ -866,5 +866,18 @@ label + .MuiInput-formControl {
     margin-left: -35px;
     margin-right: -10px;
     margin-bottom: 6px;
+}
+
+/* make the search button focus visible when tabbing */
+.searchButton {
+    border: thick solid #51247A; /* uqpurple */
+}
+.searchButton:focus {
+    border: thick solid #d3d3d3;
+}
+
+/* make the clear button focus visible when tabbing */
+.clear-search-term:focus {
+    background-color: #d3d3d3;
 }
 
