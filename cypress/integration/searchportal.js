@@ -241,32 +241,27 @@ describe('Search Portal', () => {
                         .should('eq', 10);
 
                     // and the suggestion on the first link will be a library-type link
-                    // cy.get('ul[data-testid="search-portal-autocomplete-listbox"]')
-                    //     .find('li')
-                    //     .first()
-                    //     .find('a')
-                    //     .should('have.attr', 'href')
-                    //     .and('match', /rtype,exclude,reviews,lk/); // look for the part that is specific to the Library search
+                    cy.get('ul[data-testid="search-portal-autocomplete-listbox"]')
+                        .find('li')
+                        .first()
+                        .find('a')
+                        .should('have.attr', 'href')
+                        .and('match', /rtype,exclude,reviews,lk/); // look for the part that is specific to the Library search
 
                     // change to a different search type
-                    // cy.get('[data-testid="search-portal-type-select"]').focus();
-                    cy.get('[data-testid="search-portal-type-select"]').focus().click();
-                    // the suggestion list will close
-                    // cy.get('ul[data-testid="search-portal-autocomplete-listbox"]')
-                    //     .find('li')
-                    //     .its('length')
-                    //     .should('eq', 10);
+                    cy.get('[data-testid="search-portal-type-select"]').click();
+                    cy.get('button[data-testid="search-portal-type-select-item-1"]').click();
+                    cy.wait(1000); // it never takes this long locally!
+                    // the search type list will close
+                    cy.get('[data-testid="portal-type-selector"]').should('have.class', 'hidden');
 
-                    // cy.get('button[data-testid="search-portal-type-select-item-1"]').click(); // books
-                    // cy.wait(1000); // it never takes this long locally!
-                    //
                     // // the search will reload automatically and have book-type links now
-                    // cy.get('ul[data-testid="search-portal-autocomplete-listbox"]')
-                    //     .find('li')
-                    //     .first()
-                    //     .find('a')
-                    //     .should('have.attr', 'href')
-                    //     .and('match', /facet=rtype,include,books/); // look for the part that is specific to the Book search
+                    cy.get('ul[data-testid="search-portal-autocomplete-listbox"]')
+                        .find('li')
+                        .first()
+                        .find('a')
+                        .should('have.attr', 'href')
+                        .and('match', /facet=rtype,include,books/); // look for the part that is specific to the Book search
                 });
         });
 
