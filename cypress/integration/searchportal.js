@@ -114,13 +114,17 @@ describe('Search Portal', () => {
                         .should('eq', 10);
 
                     // the user clicks the button to load the search
-                    // cy.intercept('GET', 'https://search.library.uq.edu.au/primo-explore/search?query=any,contains,beard&tab=61uq_all&search_scope=61UQ_All&sortby=rank&vid=61UQ&offset=0&facet=rtype,include,articles', {
-                    //     statusCode: 200,
-                    //     body: 'user is on a Primo result page',
-                    // });
-                    // cy.get('button[data-testid="search-portal-submit"]').click();
-                    // cy.get('body').contains('user is on a Primo result page');
+                    cy.intercept(
+                        'GET',
+                        'https://search.library.uq.edu.au/primo-explore/search?query=any,contains,beard&tab=61uq_all&search_scope=61UQ_All&sortby=rank&vid=61UQ&offset=0&facet=rtype,include,articles',
+                        {
+                            statusCode: 200,
+                            body: 'user is on a Primo result page',
+                        },
+                    );
+                    cy.get('button[data-testid="search-portal-submit"]').click();
                 });
+            cy.get('body').contains('user is on a Primo result page');
         });
 
         it('Databases should have the expected items', () => {
@@ -179,17 +183,22 @@ describe('Search Portal', () => {
 
                     // the user clicks the first result to load the search - exam links divert to auth! Apparently cypress works on the redirected-to link, not where we send them
                     // https://auth.uq.edu.au/idp/module.php/core/loginuserpass.php?AuthState=&etc
-                    // cy.intercept('GET', '/idp/module.php', {
-                    //     statusCode: 200,
-                    //     body: 'user is on an Exams result page via auth',
-                    // });
-                    // cy.get('li[data-testid="search-portal-autocomplete-option-1"] a').click();
-                    // cy.get('body').contains('user is on an Exams result page');
+                    cy.intercept('GET', '/idp/module.php', {
+                        statusCode: 200,
+                        body: 'user is on an Exams result page via auth',
+                    });
+                    cy.get('li[data-testid="search-portal-autocomplete-option-1"] a').click();
                 });
+            cy.get('body').contains('user is on an Exams result page');
         });
 
         it('Course resources should have the expected items', () => {
             cy.viewport(1300, 1000);
+            // cy.intercept('GET', 'https://uq.rl.talis.com/search.html?q=PHIL1013', {
+            cy.intercept('GET', '/search.html?q=PHIL1013', {
+                // statusCode: 200,
+                body: 'user is on a Talis result page',
+            });
             cy.get('search-portal')
                 .shadow()
                 .within(() => {
@@ -213,14 +222,9 @@ describe('Search Portal', () => {
                         .its('length')
                         .should('eq', 3);
 
-                    // // cy.intercept('GET', 'https://uq.rl.talis.com/search.html?q=PHIL1013', {
-                    // cy.intercept('GET', '/search.html?q=PHIL1013', {
-                    //     // statusCode: 200,
-                    //     body: 'user is on a Talis result page',
-                    // });
-                    // cy.get('li[data-testid="search-portal-autocomplete-option-1"] a').click();
-                    // cy.get('body').contains('user is on a Talis result page');
+                    cy.get('li[data-testid="search-portal-autocomplete-option-1"] a').click();
                 });
+            cy.get('body').contains('user is on a Talis result page');
         });
 
         it('When the search type is changed the search sugestions reload', () => {
@@ -256,6 +260,10 @@ describe('Search Portal', () => {
                     cy.get('[data-testid="portal-type-selector"]').should('have.class', 'hidden');
 
                     // // the search will reload automatically and have book-type links now
+                    cy.get('ul[data-testid="search-portal-autocomplete-listbox"]')
+                        .find('li')
+                        .its('length')
+                        .should('eq', 10);
                     cy.get('ul[data-testid="search-portal-autocomplete-listbox"]')
                         .find('li')
                         .first()
@@ -397,6 +405,31 @@ describe('Search Portal', () => {
                     cy.get('input[data-testid="search-portal-autocomplete-input"]').type('DDDDD', { force: true });
                     cy.get('ul[data-testid="search-portal-autocomplete-listbox"]').should('not.exist');
                 });
+        });
+
+        it('clicking the submit button goes to the external site', () => {
+            cy.viewport(1300, 1000);
+            cy.intercept(
+                'GET',
+                'https://search.library.uq.edu.au/primo-explore/search?query=any,contains,beard&tab=61uq_all&search_scope=61UQ_All&sortby=rank&vid=61UQ&offset=0&facet=rtype,exclude,newspaper_articles,lk&facet=rtype,exclude,reviews,lk',
+                {
+                    statusCode: 200,
+                    body: 'user is on a Primo result page',
+                },
+            );
+            cy.get('search-portal')
+                .shadow()
+                .within(() => {
+                    // force is required because otherwise it sometimes thinks the text field is disabled when the width of the search type dropdown has changed after search type selection
+                    cy.get('input[data-testid="search-portal-autocomplete-input"]').type('beard', { force: true });
+                    cy.get('ul[data-testid="search-portal-autocomplete-listbox"]')
+                        .find('li')
+                        .its('length')
+                        .should('eq', 10);
+
+                    cy.get('button[data-testid="search-portal-submit"]').click();
+                });
+            cy.get('body').contains('user is on a Primo result page');
         });
     });
 });
