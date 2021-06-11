@@ -307,8 +307,8 @@ describe('Training', () => {
 
                             cy.get('[data-testid="weekhover"]').click();
 
-                            cy.get('[data-testid="14jun-20jun"]').click();
-                            cy.get('[data-testid="weekOpener"]').should('contain', '14 Jun - 20 Jun');
+                            cy.get('[data-testid="14june-20june"]').click();
+                            cy.get('[data-testid="weekOpener"]').should('contain', '14 June - 20 June');
                             // the placeholder has moved up, proxied by "color has changed"
                             cy.get('[data-testid="weekhover"]').should('have.css', 'color', uqpurple);
 
@@ -391,7 +391,7 @@ describe('Training', () => {
                         });
                 });
         });
-        it('user can clear fields', () => {
+        it('user can clear other fields', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
             cy.get('library-training:not([hide-filter])')
