@@ -181,11 +181,17 @@ describe('Search Portal', () => {
                         .should('have.attr', 'href')
                         .and('match', /https:\/\/www.library.uq.edu.au\/exams\/papers.php\?stub=/);
 
-                    // the user clicks the first result to load the search - exam links divert to auth! Apparently cypress works on the redirected-to link, not where we send them
+                    // the user clicks the first result to load the search - exam links divert to auth!
+                    // Apparently cypress works on the redirected-to link, not where we send them.
+                    // Except maybe not - I saw it loading the exams link one. Huh?
                     // https://auth.uq.edu.au/idp/module.php/core/loginuserpass.php?AuthState=&etc
                     cy.intercept('GET', '/idp/module.php', {
                         statusCode: 200,
                         body: 'user is on an Exams result page via auth',
+                    });
+                    cy.intercept('GET', 'https://www.library.uq.edu.au/exams/papers.php?stub=PHIL2013', {
+                        statusCode: 200,
+                        body: 'user is on an Exams result page',
                     });
                     cy.get('li[data-testid="search-portal-autocomplete-option-1"] a').click();
                 });

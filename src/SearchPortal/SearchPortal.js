@@ -96,6 +96,10 @@ function isReturnKeyPressed(e) {
     return isKeyPressed(e, 'Enter', 13);
 }
 
+function isTabKeyPressed(e) {
+    return isKeyPressed(e, 'Tab', 9);
+}
+
 class SearchPortal extends HTMLElement {
     constructor() {
         super();
@@ -173,6 +177,7 @@ class SearchPortal extends HTMLElement {
      * @param urlsource - some apis need a non displayed value to build the url. This tells them what field to use
      */
     loadSuggestionsIntoPage(suggestions, urlsource = 'text') {
+        const that = this;
         const shadowDOM = document.querySelector('search-portal').shadowRoot;
 
         const suggestionListSibling = !!shadowDOM && shadowDOM.getElementById('input-field-wrapper');
@@ -223,23 +228,6 @@ class SearchPortal extends HTMLElement {
                     !!anchor && !!link && !!text && anchor.appendChild(text);
                     !!anchor && (anchor.className = 'MuiPaper-root suggestion-link');
 
-                    // dev
-                    // anchor.addEventListener('click', function (e) {
-                    //     console.log('click on anchor', e);
-                    // });
-                    // anchor.addEventListener('keydown', function (e) {
-                    //     console.log('keydown on anchor', e);
-                    // });
-                    // anchor.addEventListener('keypress', function (e) {
-                    //     console.log('keypress on anchor', e);
-                    // });
-                    // anchor.addEventListener('keyup', function (e) {
-                    //     console.log('keyup on anchor', e);
-                    // });
-                    // anchor.addEventListener('submit', function (e) {
-                    //     console.log('submit on anchor', e);
-                    // });
-
                     // !!suggestion && suggestiondisplay.setAttribute('tabindex', '-1');
                     !!suggestion && suggestiondisplay.setAttribute('role', 'option');
                     !!suggestion && suggestiondisplay.setAttribute('id', `search-portal-autocomplete-option-${index}`);
@@ -250,6 +238,13 @@ class SearchPortal extends HTMLElement {
                     !!suggestion && suggestiondisplay.setAttribute('aria-selected', 'false');
                     // !!suggestion && suggestiondisplay.setAttribute('aria-label', `Search for ${suggestion.text}`);
                     !!suggestion && (suggestiondisplay.className = 'MuiAutocomplete-option');
+                    index === suggestions.length - 1 &&
+                        suggestiondisplay.addEventListener('keydown', function (e) {
+                            if (isTabKeyPressed(e)) {
+                                // user has tabbed off end of list - close suggestions dropdown list
+                                that.clearSearchResults(shadowDOM);
+                            }
+                        });
 
                     !!anchor && suggestiondisplay.appendChild(anchor);
 
@@ -267,14 +262,17 @@ class SearchPortal extends HTMLElement {
             }
             !!listContainer && !!ul && listContainer.appendChild(ul);
 
-            // set the top left corner & width of the suggestion list to match the placement & width of the input field
-            const portalTypeContainer = !!shadowDOM && shadowDOM.getElementById('portaltype-dropdown');
-            const inputFieldWrapper = !!shadowDOM && shadowDOM.getElementById('input-field-wrapper');
-            const leftPx = portalTypeContainer.offsetWidth - 170; // this number simply works
-            !!portalTypeContainer && !!listContainer && (listContainer.style.left = `${leftPx}px`);
-            !!inputFieldWrapper &&
-                !!listContainer &&
-                (listContainer.style.width = `${inputFieldWrapper.offsetWidth}px`);
+            // set the top left corner & width of the suggestion list to match the placement & width of the input field on desktop size
+            // no way to do inline styles with a media query, sadly
+            if (document.body.clientWidth > 959.95) {
+                const portalTypeContainer = !!shadowDOM && shadowDOM.getElementById('portaltype-dropdown');
+                const inputFieldWrapper = !!shadowDOM && shadowDOM.getElementById('input-field-wrapper');
+                const leftPx = portalTypeContainer.offsetWidth - 170; // this number simply works
+                !!portalTypeContainer && !!listContainer && (listContainer.style.left = `${leftPx}px`);
+                !!inputFieldWrapper &&
+                    !!listContainer &&
+                    (listContainer.style.width = `${inputFieldWrapper.offsetWidth}px`);
+            }
 
             // add the suggestion list in between the input field and the clear button, so we can tab to it
             const searchContainer = shadowDOM.getElementById('search-parent');
@@ -778,13 +776,13 @@ class SearchPortal extends HTMLElement {
             if (isReturnKeyPressed(e)) {
                 handleSearchTypeSelection();
                 e.preventDefault(); // otherwise form submits
-            } else if (isKeyPressed(e, 'Tab', 9)) {
+            } else if (isTabKeyPressed(e)) {
                 const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
                 const lastId = searchPortalLocale.typeSelect.items.length - 1;
                 const finalEntry = `portalTypeSelectionEntry-${lastId}`;
                 if (!!eventTarget && eventTarget.classList.contains(finalEntry)) {
                     // user has tabbed off end of list - close search type dropdown list
-                    console.log('close seaerch type dropdown list');
+                    console.log('close search type dropdown list');
                     const portalTypeDropdown = shadowDOM.getElementById('portal-type-selector');
                     !!portalTypeDropdown &&
                         that.closeSearchTypeSelector(portalTypeDropdown, 'portalTypeSelectorDisplayed');
