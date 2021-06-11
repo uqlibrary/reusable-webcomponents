@@ -54,6 +54,15 @@ template.innerHTML = `
     </section>
 `;
 
+function isKeyPressed(e, charKeyInput, numericKeyInput) {
+    const keyNumeric = e.charCode || e.keyCode;
+    const keyChar = e.key || e.code;
+    return keyChar === charKeyInput || keyNumeric === numericKeyInput;
+}
+function isEscapeKeyPressed(e) {
+    return isKeyPressed(e, 'Escape', 27);
+}
+
 class TrainingFilter extends HTMLElement {
     constructor() {
         super();
@@ -79,6 +88,8 @@ class TrainingFilter extends HTMLElement {
 
         this.addListeners = this.addListeners.bind(this);
         this.changeHashofUrl = this.changeHashofUrl.bind(this);
+        this.listenForKeyClicks = this.listenForKeyClicks.bind(this);
+        this.listenForMouseClicks = this.listenForMouseClicks.bind(this);
         this.loadCampuses = this.loadCampuses.bind(this);
         this.loadPopularChips = this.loadPopularChips.bind(this);
         this.loadWeeks = this.loadWeeks.bind(this);
@@ -138,18 +149,6 @@ class TrainingFilter extends HTMLElement {
 
         const campuslist = !!shadowDOM && shadowDOM.getElementById('campuslist');
         const weeklist = !!shadowDOM && shadowDOM.getElementById('weeklist');
-
-        // close the dropdown when the user clicks anywhere
-        // doesnt work atm - root close fires after button opens, auto closing it :(
-        // function closeSelectors() {
-        //     console.log('close closeSelectors');
-        //     !campuslist.classList.contains('hidden') && that.toggleVisibility(campuslist);
-        //     !weeklist.classList.contains('hidden') && that.toggleVisibility(weeklist);
-        // }
-        // const root = !!shadowDOM && shadowDOM.getElementById('root');
-        // !!root && root.addEventListener('click', closeSelectors);
-        // const body = document.querySelector('body');
-        // !!body && body.addEventListener('click', closeSelectors);
 
         function toggleCampusSelector() {
             // if the other dropdown is still open, close it
@@ -434,14 +433,64 @@ class TrainingFilter extends HTMLElement {
      * show hide an element
      */
     toggleVisibility(selector) {
-        const showByClassname = !!selector && selector.className.replace(' hidden', '');
-        const hideByClassname = !!selector && `${selector.className} hidden`;
-        if (!!selector && selector.classList.contains('hidden')) {
-            !!selector && selector.setAttribute('role', 'listbox');
-            !!showByClassname && (selector.className = showByClassname);
-        } else {
-            !!hideByClassname && (selector.className = hideByClassname);
-            !!selector && selector.removeAttribute('role');
+        const that = this;
+        if (!selector) {
+            return;
+        }
+
+        !!isHidden(selector) ? show(selector) : hide(selector);
+
+        function isHidden(selector) {
+            return selector.classList.contains('hidden');
+        }
+
+        function show(selector) {
+            selector.setAttribute('role', 'listbox');
+            selector.className = selector.className.replace(' hidden', '');
+            document.addEventListener('click', that.listenForMouseClicks);
+            document.addEventListener('keydown', that.listenForKeyClicks);
+        }
+
+        function hide(selector) {
+            selector.className = `${selector.className} hidden`;
+            selector.removeAttribute('role');
+            document.removeEventListener('click', that.listenForMouseClicks);
+            document.removeEventListener('keydown', that.listenForKeyClicks);
+        }
+    }
+
+    listenForKeyClicks(e) {
+        const that = this;
+        const trainingFilter =
+            document.querySelector('library-training').shadowRoot.querySelector('training-filter') ||
+            document.querySelector('training-filter');
+        const shadowDOM = !!trainingFilter && trainingFilter.shadowRoot;
+        if (isEscapeKeyPressed(e)) {
+            const campuslist = !!shadowDOM && shadowDOM.getElementById('campuslist');
+            !!campuslist && !campuslist.classList.contains('hidden') && trainingFilter.toggleVisibility(campuslist);
+            const weeklist = !!shadowDOM && shadowDOM.getElementById('weeklist');
+            !!weeklist && !weeklist.classList.contains('hidden') && trainingFilter.toggleVisibility(weeklist);
+        }
+    }
+
+    listenForMouseClicks(e) {
+        const that = this;
+        const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
+
+        if (!hasClickedOnDropdown(eventTarget)) {
+            const campuslist = that.shadowRoot.getElementById('campuslist');
+            !!campuslist && !campuslist.classList.contains('hidden') && that.toggleVisibility(campuslist);
+            const weeklist = that.shadowRoot.getElementById('weeklist');
+            !!weeklist && !weeklist.classList.contains('hidden') && that.toggleVisibility(weeklist);
+        }
+
+        function hasClickedOnDropdown(eventTarget) {
+            return (
+                !!eventTarget &&
+                (eventTarget.classList.contains('opener') ||
+                    eventTarget.classList.contains('weekhover') ||
+                    eventTarget.classList.contains('campushover'))
+            );
         }
     }
 

@@ -253,6 +253,35 @@ describe('Training', () => {
                         });
                 });
         });
+        it('user can clear campus selector field', () => {
+            cy.visit('http://localhost:8080/index-training.html');
+            cy.viewport(1280, 900);
+            cy.get('library-training:not([hide-filter])')
+                .should('exist')
+                .shadow()
+                .within(() => {
+                    cy.get('training-filter')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            cy.get('[data-testid="campushover"]').click();
+                            cy.get('[data-testid="campuslist"]').find('button').its('length').should('eq', 3);
+                        });
+                });
+            // click somewhere on the page outside the campus type dropdown
+            cy.get('[data-testid="random-page-element"]').click();
+            cy.get('library-training:not([hide-filter])')
+                .should('exist')
+                .shadow()
+                .within(() => {
+                    cy.get('training-filter')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            cy.get('[data-testid="campuslist"]').should('have.class', 'hidden');
+                        });
+                });
+        });
         it('user can select a week', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
@@ -287,6 +316,36 @@ describe('Training', () => {
                                 'eq',
                                 'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=2021-06-14;online=false',
                             );
+                        });
+                });
+        });
+        it('user can clear week selector field', () => {
+            cy.visit('http://localhost:8080/index-training.html');
+            cy.viewport(1280, 900);
+            cy.get('library-training:not([hide-filter])')
+                .should('exist')
+                .shadow()
+                .within(() => {
+                    cy.get('training-filter')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            cy.get('[data-testid="weekhover"]').click();
+                            cy.get('[data-testid="weeklist"]').should('not.have.class', 'hidden');
+                            cy.get('[data-testid="weeklist"]').find('button').its('length').should('eq', 15);
+                        });
+                });
+            // click somewhere on the page outside the week type dropdown
+            cy.get('[data-testid="random-page-element"]').click();
+            cy.get('library-training:not([hide-filter])')
+                .should('exist')
+                .shadow()
+                .within(() => {
+                    cy.get('training-filter')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            cy.get('[data-testid="weeklist"]').should('have.class', 'hidden');
                         });
                 });
         });
