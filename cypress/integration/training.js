@@ -307,14 +307,16 @@ describe('Training', () => {
 
                             cy.get('[data-testid="weekhover"]').click();
 
-                            cy.get('[data-testid="14june-20june"]').click();
-                            cy.get('[data-testid="weekOpener"]').should('contain', '14 June - 20 June');
+                            // there seems to be an issue that my machine uses 4 char for June, but AWS (and maybe Ashley's?) uses 3 char
+                            // so avoid the issue and use August, which is 'aug'.
+                            cy.get('[data-testid="2aug-8aug"]').click();
+                            cy.get('[data-testid="weekOpener"]').should('contain', '2 Aug - 8 Aug ');
                             // the placeholder has moved up, proxied by "color has changed"
                             cy.get('[data-testid="weekhover"]').should('have.css', 'color', uqpurple);
 
                             cy.url().should(
                                 'eq',
-                                'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=2021-06-14;online=false',
+                                'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=2021-08-02;online=false',
                             );
                         });
                 });
