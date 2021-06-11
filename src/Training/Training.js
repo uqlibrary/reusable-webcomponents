@@ -19,11 +19,11 @@ class Training extends HTMLElement {
     // }
 
     get hideFilter() {
-        return this.hasAttribute('hide-filter');
+        return this.hasAttribute('hide-filter') && this.getAttribute('hide-filter') !== 'false';
     }
 
     get hideCategoryTitle() {
-        return this.hasAttribute('hide-category-title');
+        return this.hasAttribute('hide-category-title') && this.getAttribute('hide-category-title') !== 'false';
     }
 
     get trainingEvents() {
