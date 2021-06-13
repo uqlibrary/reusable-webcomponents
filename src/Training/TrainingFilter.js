@@ -184,12 +184,14 @@ class TrainingFilter extends HTMLElement {
             const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
             const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
             if (isArrowDownKeyPressed(e)) {
+                e.preventDefault();
                 const currentId = eventTargetId.replace('campus-select-', '');
                 const nextId = parseInt(currentId, 10) + 1;
 
                 const nextElement = !!shadowDOM && shadowDOM.getElementById(`campus-select-${nextId}`);
                 !!nextElement && nextElement.focus();
             } else if (isArrowUpKeyPressed(e)) {
+                e.preventDefault();
                 const currentId = eventTargetId.replace('campus-select-', '');
                 const prevId = parseInt(currentId, 10) - 1;
                 let prevElement;
@@ -228,12 +230,14 @@ class TrainingFilter extends HTMLElement {
             const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
             const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
             if (isArrowDownKeyPressed(e)) {
+                e.preventDefault();
                 const currentId = eventTargetId.replace('week-select-', '');
                 const nextId = parseInt(currentId, 10) + 1;
 
                 const nextElement = !!shadowDOM && shadowDOM.getElementById(`week-select-${nextId}`);
                 !!nextElement && nextElement.focus();
             } else if (isArrowUpKeyPressed(e)) {
+                e.preventDefault();
                 const currentId = eventTargetId.replace('week-select-', '');
                 const prevId = parseInt(currentId, 10) - 1;
                 let prevElement;
