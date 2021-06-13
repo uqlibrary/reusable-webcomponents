@@ -45,7 +45,6 @@ eventTemplate.innerHTML = `
 class TrainingList extends HTMLElement {
     constructor() {
         super();
-        // this._accountLoading = false;
         this._account = {};
         this._eventList = [];
     }
@@ -97,14 +96,6 @@ class TrainingList extends HTMLElement {
     get hideCategoryTitle() {
         return this.hasAttribute('hide-category-title');
     }
-
-    // get accountLoading() {
-    //     return this._accountLoading;
-    // }
-
-    // set accountLoading(value) {
-    //     this._accountLoading = value;
-    // }
 
     get account() {
         return this._account;
@@ -192,7 +183,6 @@ class TrainingList extends HTMLElement {
     }
 
     async checkAuthorisedUser() {
-        // this.accountLoading = true;
         this.account = {};
         let loggedin = null;
 
@@ -205,13 +195,11 @@ class TrainingList extends HTMLElement {
                 if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
                     that.account = account;
                 }
-                // that.accountLoading = false;
 
                 loggedin = !!that.account && !!that.account.id;
             })
             .catch(
                 /* istanbul ignore next */ () => {
-                    // that.accountLoading = false;
                     loggedin = false;
                 },
             );

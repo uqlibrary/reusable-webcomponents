@@ -152,17 +152,19 @@ const uq = (function (exports) {
                     value: function init() {
                         var _this3 = this;
 
-                        const document = window.document
-                            .querySelector('library-training')
-                            .shadowRoot.querySelector('training-list').shadowRoot;
-
-                        var accordions = document.querySelectorAll('.'.concat(_this3.className));
-                        accordions.forEach(function (el) {
-                            var togglers = el.querySelectorAll('.'.concat(_this3.className, '__toggle'));
-                            togglers.forEach(function (el) {
-                                el.addEventListener('click', _this3.handleToggle(togglers));
+                        document
+                            .querySelectorAll('library-training[events-loaded]:not([accordions-active])')
+                            .forEach((trainingInstance) => {
+                                trainingInstance.setAttribute('accordions-active', '');
+                                const document = trainingInstance.shadowRoot.querySelector('training-list').shadowRoot;
+                                const accordions = document.querySelectorAll('.'.concat(_this3.className));
+                                accordions.forEach(function (el) {
+                                    const togglers = el.querySelectorAll('.'.concat(_this3.className, '__toggle'));
+                                    togglers.forEach(function (el) {
+                                        el.addEventListener('click', _this3.handleToggle(togglers));
+                                    });
+                                });
                             });
-                        });
                     },
                 },
             ],

@@ -100,6 +100,7 @@ class Training extends HTMLElement {
             if (fetchedEvents) {
                 this.trainingEvents = fetchedEvents;
                 this.initFiltering();
+                this.setAttribute('events-loaded', '');
                 this.setFilters();
             }
         });
@@ -205,8 +206,10 @@ class Training extends HTMLElement {
         //     });
 
         // Apply filters to list
-        this.listComponent.data = this.getFilteredEvents();
-        this.hideCategoryTitle && this.listComponent.setAttribute('hide-category-title', this.hideCategoryTitle);
+        if (this.hasAttribute('events-loaded')) {
+            this.removeAttribute('accordions-active');
+            this.listComponent.data = this.getFilteredEvents();
+        }
     }
 }
 
