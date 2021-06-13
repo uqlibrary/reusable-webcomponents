@@ -3,6 +3,7 @@ import { searchPortalLocale } from './searchPortal.locale';
 import { throttle } from 'throttle-debounce';
 import ApiAccess from '../ApiAccess/ApiAccess';
 import { cookieNotFound, getCookieValue, setCookie } from '../helpers/cookie';
+import { isTabKeyPressed, isEscapeKeyPressed, isReturnKeyPressed } from '../helpers/keyDetection';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -82,23 +83,6 @@ const EXAM_SEARCH_TYPE = '7';
 const COURSE_RESOURCE_SEARCH_TYPE = '8';
 
 const REMEMBER_COOKIE_ID = 'rememberSearchType';
-
-function isKeyPressed(e, charKeyInput, numericKeyInput) {
-    // console.log(`KeyboardEvent: key='${e.key}' | code='${e.code}' | charCode='${e.charCode}' | keyCode='${e.keyCode}'`);
-    const keyNumeric = e.charCode || e.keyCode;
-    const keyChar = e.key || e.code;
-    return keyChar === charKeyInput || keyNumeric === numericKeyInput;
-}
-function isEscapeKeyPressed(e) {
-    return isKeyPressed(e, 'Escape', 27);
-}
-function isReturnKeyPressed(e) {
-    return isKeyPressed(e, 'Enter', 13);
-}
-
-function isTabKeyPressed(e) {
-    return isKeyPressed(e, 'Tab', 9);
-}
 
 class SearchPortal extends HTMLElement {
     constructor() {
