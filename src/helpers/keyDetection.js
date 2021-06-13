@@ -15,6 +15,6 @@ export function isArrowUpKeyPressed(e) {
 export function isReturnKeyPressed(e) {
     return isKeyPressed(e, 'Enter', 13);
 }
-function isTabKeyPressed(e) {
+export function isTabKeyPressed(e) {
     return isKeyPressed(e, 'Tab', 9);
 }

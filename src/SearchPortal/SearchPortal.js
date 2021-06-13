@@ -3,7 +3,13 @@ import { searchPortalLocale } from './searchPortal.locale';
 import { throttle } from 'throttle-debounce';
 import ApiAccess from '../ApiAccess/ApiAccess';
 import { cookieNotFound, getCookieValue, setCookie } from '../helpers/cookie';
-import { isTabKeyPressed, isEscapeKeyPressed, isReturnKeyPressed } from '../helpers/keyDetection';
+import {
+    isTabKeyPressed,
+    isEscapeKeyPressed,
+    isReturnKeyPressed,
+    isArrowDownKeyPressed,
+    isArrowUpKeyPressed,
+} from '../helpers/keyDetection';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -211,6 +217,7 @@ class SearchPortal extends HTMLElement {
                     !!anchor && !!link && !!text && (anchor.href = link);
                     !!anchor && !!link && !!text && anchor.appendChild(text);
                     !!anchor && (anchor.className = 'MuiPaper-root suggestion-link');
+                    !!anchor && anchor.setAttribute('id', `suggestion-link-${index}`);
 
                     // !!suggestion && suggestiondisplay.setAttribute('tabindex', '-1');
                     !!suggestion && suggestiondisplay.setAttribute('role', 'option');
@@ -222,13 +229,39 @@ class SearchPortal extends HTMLElement {
                     !!suggestion && suggestiondisplay.setAttribute('aria-selected', 'false');
                     // !!suggestion && suggestiondisplay.setAttribute('aria-label', `Search for ${suggestion.text}`);
                     !!suggestion && (suggestiondisplay.className = 'MuiAutocomplete-option');
-                    index === suggestions.length - 1 &&
-                        suggestiondisplay.addEventListener('keydown', function (e) {
-                            if (isTabKeyPressed(e)) {
-                                // user has tabbed off end of list - close suggestions dropdown list
-                                that.clearSearchResults(shadowDOM);
+                    suggestiondisplay.addEventListener('keydown', function (e) {
+                        const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
+                        const eventTargetId =
+                            !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
+                        if (isArrowDownKeyPressed(e)) {
+                            e.preventDefault();
+                            const currentId = eventTargetId.replace('suggestion-link-', '');
+                            const nextId = parseInt(currentId, 10) + 1;
+
+                            const nextElement = !!shadowDOM && shadowDOM.getElementById(`suggestion-link-${nextId}`);
+                            !!nextElement && nextElement.focus();
+                        } else if (isArrowUpKeyPressed(e)) {
+                            e.preventDefault();
+                            const currentId = eventTargetId.replace('suggestion-link-', '');
+                            if (currentId !== '0') {
+                                const prevId = parseInt(currentId, 10) - 1;
+                                const prevElement =
+                                    !!shadowDOM && shadowDOM.getElementById(`suggestion-link-${prevId}`);
+                                !!prevElement && prevElement.focus();
                             }
-                        });
+                        } else if (isTabKeyPressed(e)) {
+                            // user has tabbed off end of list - close suggestions dropdown list
+                            index === suggestions.length - 1 && that.clearSearchResults(shadowDOM);
+                        } else if (isEscapeKeyPressed(e)) {
+                            const inputField = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
+                            !!inputField && inputField.focus();
+                            // if we immediately clear, then the list just reopens, so wait a moment
+                            const waitAMoment = setInterval(() => {
+                                clearInterval(waitAMoment);
+                                that.clearSearchResults(shadowDOM);
+                            }, 200);
+                        }
+                    });
 
                     !!anchor && suggestiondisplay.appendChild(anchor);
 
@@ -757,9 +790,27 @@ class SearchPortal extends HTMLElement {
             });
         button.addEventListener('keydown', function (e) {
             console.log('keydown on searchtype', e);
+            const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
+            const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
             if (isReturnKeyPressed(e)) {
                 handleSearchTypeSelection();
                 e.preventDefault(); // otherwise form submits
+            } else if (isArrowDownKeyPressed(e)) {
+                e.preventDefault();
+                const currentId = eventTargetId.replace('search-portal-type-select-item-', '');
+                const nextId = parseInt(currentId, 10) + 1;
+
+                const nextElement = !!shadowDOM && shadowDOM.getElementById(`search-portal-type-select-item-${nextId}`);
+                !!nextElement && nextElement.focus();
+            } else if (isArrowUpKeyPressed(e)) {
+                e.preventDefault();
+                const currentId = eventTargetId.replace('search-portal-type-select-item-', '');
+                if (currentId !== '0') {
+                    const prevId = parseInt(currentId, 10) - 1;
+                    const prevElement =
+                        !!shadowDOM && shadowDOM.getElementById(`search-portal-type-select-item-${prevId}`);
+                    !!prevElement && prevElement.focus();
+                }
             } else if (isTabKeyPressed(e)) {
                 const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
                 const lastId = searchPortalLocale.typeSelect.items.length - 1;
