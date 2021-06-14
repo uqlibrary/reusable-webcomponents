@@ -171,6 +171,16 @@ class TrainingFilter extends HTMLElement {
 
         const campusOpener = !!shadowDOM && shadowDOM.getElementById('campusOpener');
         campusOpener.addEventListener('keydown', function (e) {
+            console.log(
+                'isKeyPressed: e.key = ',
+                e.key,
+                ' | e.code = ',
+                e.code,
+                ' |  e.charCode = ',
+                e.charCode,
+                ' | e.keyCode = ',
+                e.keyCode,
+            );
             if (isArrowDownKeyPressed(e)) {
                 const allElement = !!shadowDOM && shadowDOM.getElementById('campus-select-0');
                 console.log('put focus on first element');
