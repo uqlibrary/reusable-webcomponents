@@ -66,11 +66,14 @@ describe('Training', () => {
                         .shadow()
                         .as('trainingList')
                         .within(() => {
-                            cy.get('#training-list').should('exist').get('#event-detail-toggle-3428487').click();
+                            cy.get('#training-list')
+                                .should('exist')
+                                .get('[data-testid="training-event-detail-toggle-3428487"]')
+                                .click();
                         });
                 });
             cy.get('@trainingList').within(() => {
-                cy.get('#event-detail-3428487')
+                cy.get('[data-testid="training-event-detail-3428487"]')
                     .should('exist')
                     .should('be.visible')
                     .children('training-detail')
@@ -92,8 +95,8 @@ describe('Training', () => {
                         .should('exist')
                         .shadow()
                         .within(() => {
-                            cy.get('[data-testid="event-detail-toggle-3455330"]').click(); // open detail item
-                            cy.get('#event-detail-3455330')
+                            cy.get('[data-testid="training-event-detail-toggle-3455330"]').click(); // open detail item
+                            cy.get('[data-testid="training-event-detail-3455330"]')
                                 .should('exist')
                                 .should('be.visible')
                                 .children('training-detail')
@@ -101,8 +104,8 @@ describe('Training', () => {
                                 .within(() => {
                                     cy.get('#bookingText').should('have.text', 'Booking is not required');
                                 });
-                            cy.get('[data-testid="event-detail-toggle-3437655"]').click(); // open detail item
-                            cy.get('#event-detail-3437655')
+                            cy.get('[data-testid="training-event-detail-toggle-3437655"]').click(); // open detail item
+                            cy.get('[data-testid="training-event-detail-3437655"]')
                                 .should('exist')
                                 .should('be.visible')
                                 .children('training-detail')
@@ -110,8 +113,8 @@ describe('Training', () => {
                                 .within(() => {
                                     cy.get('#bookingText').should('have.text', 'Class is full. Register for waitlist');
                                 });
-                            cy.get('[data-testid="event-detail-toggle-3428487"]').click(); // open detail item
-                            cy.get('#event-detail-3428487')
+                            cy.get('[data-testid="training-event-detail-toggle-3428487"]').click(); // open detail item
+                            cy.get('[data-testid="training-event-detail-3428487"]')
                                 .should('exist')
                                 .should('be.visible')
                                 .children('training-detail')
@@ -126,11 +129,11 @@ describe('Training', () => {
         it('has correct details for em user with st lucia training and non-booking course', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
-            cy.get('training-detail[data-testid="event-detail-content-2824657"]')
+            cy.get('training-detail[data-testid="training-event-detail-content-2824657"]')
                 .should('exist')
                 .shadow()
                 .within(() => {
-                    cy.get('[data-testid="event-name"]').contains('Excel');
+                    cy.get('[data-testid="training-event-name"]').contains('Excel');
                     cy.get('[data-testid="training-details"]').contains(
                         'At the end of this session, class participants will be able to',
                     );
@@ -174,11 +177,11 @@ describe('Training', () => {
             });
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
-            cy.get('training-detail[data-testid="event-detail-content-3455330"]')
+            cy.get('training-detail[data-testid="training-event-detail-content-3455330"]')
                 .should('exist')
                 .shadow()
                 .within(() => {
-                    cy.get('[data-testid="event-name"]').contains('Excel1');
+                    cy.get('[data-testid="training-event-name"]').contains('Excel1');
                     cy.get('[data-testid="training-details-location-details"] a').contains('Toowoomba Rural Clinic');
                     cy.get('[data-testid="training-details-location-details"] a').should(
                         'have.attr',
@@ -202,11 +205,11 @@ describe('Training', () => {
             });
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
-            cy.get('training-detail[data-testid="event-detail-content-3455331"]')
+            cy.get('training-detail[data-testid="training-event-detail-content-3455331"]')
                 .should('exist')
                 .shadow()
                 .within(() => {
-                    cy.get('[data-testid="event-name"]').contains('Excel2');
+                    cy.get('[data-testid="training-event-name"]').contains('Excel2');
                     cy.get('[data-testid="training-details-location-details"]').contains('Townsville');
                     cy.get('[data-testid="training-details-location-details"] a').should('not.exist');
                     cy.get('[data-testid="training-details-booking-text"]').contains(

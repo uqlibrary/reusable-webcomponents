@@ -179,7 +179,7 @@ class TrainingDetail extends HTMLElement {
         if (!!eventNameData && !!eventHeadingDom) {
             const eventNameEl = document.createElement(this.itemTitleElement);
             eventNameEl.setAttribute('id', 'eventName');
-            eventNameEl.setAttribute('data-testid', 'event-name');
+            eventNameEl.setAttribute('data-testid', 'training-event-name');
             eventNameEl.innerText = eventNameData;
             eventHeadingDom.appendChild(eventNameEl);
         }
