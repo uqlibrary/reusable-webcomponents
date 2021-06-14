@@ -65,7 +65,7 @@
     justify-content: space-between;
 }
 
-.uq-accordion__toggle h4 {
+.uq-accordion__toggle [id^='event-name'] {
     margin: 0;
     color: #1e72c6; /* copied from .link in @usds */
 }
@@ -83,4 +83,8 @@
 
 .uq-card__content {
     padding: 0;
+}
+
+[id^='event-name'] {
+    font-size: 1.25rem;
 }

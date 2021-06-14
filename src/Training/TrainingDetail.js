@@ -6,9 +6,7 @@ template.innerHTML = `
   <style>${styles.toString()}</style>
   <style>${overrides.toString()}</style>
   <div class="uq-pane uq-pane--outline uq-pane--has-footer">
-    <div class="event-name purple">
-        <h3 class="inverse" id="eventName"></h3>
-    </div>
+    <div class="event-heading purple" id="eventHeading"></div>
     <!--    <div class="details" id="eventSummary"></div>-->
     <div class="details" id="eventDetails" data-testid="eventDetails"></div>
     <div class="details iconRow dateRange" tabindex="0" aria-disabled="false">
@@ -116,6 +114,10 @@ class TrainingDetail extends HTMLElement {
         return this._eventData;
     }
 
+    get itemTitleElement() {
+        return this.getAttribute('item-title-element') || 'h5';
+    }
+
     addButtonListeners(eventId) {
         const target = this.data.studenthubWindow || '_blank';
 
@@ -184,8 +186,14 @@ class TrainingDetail extends HTMLElement {
 
     setEventName() {
         const eventNameData = this.data.name;
-        const eventNameDom = this.shadowRoot.getElementById('eventName');
-        !!eventNameData && !!eventNameDom && (eventNameDom.innerText = eventNameData);
+        const eventHeadingDom = this.shadowRoot.getElementById('eventHeading');
+        if (!!eventNameData && !!eventHeadingDom) {
+            const eventNameEl = document.createElement(this.itemTitleElement);
+            eventNameEl.setAttribute('id', 'eventName');
+            eventNameEl.setAttribute('data-testid', 'event-name');
+            eventNameEl.innerText = eventNameData;
+            eventHeadingDom.appendChild(eventNameEl);
+        }
     }
 
     setEventDetails() {

@@ -88,7 +88,7 @@ describe('Training', () => {
                 .should('exist')
                 .shadow()
                 .within(() => {
-                    cy.get('h3').contains('Excel');
+                    cy.get('[data-testid="event-name"]').contains('Excel');
                     cy.get('[data-testid="eventDetails"]').contains(
                         'At the end of this session, class participants will be able to',
                     );
@@ -134,7 +134,7 @@ describe('Training', () => {
                 .should('exist')
                 .shadow()
                 .within(() => {
-                    cy.get('h3').contains('Excel1');
+                    cy.get('[data-testid="event-name"]').contains('Excel1');
                     cy.get('[data-testid="locationdetails"] a').contains('Toowoomba Rural Clinic');
                     cy.get('[data-testid="locationdetails"] a').should(
                         'have.attr',
@@ -159,7 +159,7 @@ describe('Training', () => {
                 .should('exist')
                 .shadow()
                 .within(() => {
-                    cy.get('h3').contains('Excel2');
+                    cy.get('[data-testid="event-name"]').contains('Excel2');
                     cy.get('[data-testid="locationdetails"]').contains('Townsville');
                     cy.get('[data-testid="locationdetails"] a').should('not.exist');
                     cy.get('[data-testid="bookingText"]').contains('Class is full. Register for waitlist.');
