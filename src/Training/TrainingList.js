@@ -149,6 +149,7 @@ class TrainingList extends HTMLElement {
 
         const toggleButton = eventElement.getElementsByClassName('uq-accordion__toggle').item(0);
         toggleButton.setAttribute('id', toggleButtonId);
+        toggleButton.setAttribute('data-testid', toggleButtonId);
         toggleButton.setAttribute('aria-controls', detailContainerId);
 
         const eventDate = new Date(event.start);
@@ -172,12 +173,22 @@ class TrainingList extends HTMLElement {
         const detailElement = document.createElement('training-detail');
         detailContainer.appendChild(detailElement);
         detailElement.setAttribute('data-testid', `event-detail-content-${event.entityId}`);
+
+        let placesRemainingText = 'Booking is not required';
+        if (event.bookingSettings !== null) {
+            placesRemainingText = 'Class is full. Register for waitlist';
+
+            if (event.bookingSettings.placesRemaining > 0) {
+                placesRemainingText = 'Places still available';
+            }
+        }
+
         detailElement.data = {
             id: event.entityId,
             name: event.name,
             details: event.details,
             summary: event.summary,
-            placesRemaining: event.bookingSettings.placesRemaining,
+            placesRemaining: placesRemainingText,
             start: event.start,
             end: event.end,
             venue: event.venue,

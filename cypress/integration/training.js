@@ -81,6 +81,48 @@ describe('Training', () => {
             });
         });
 
+        it('the places remaining text is always correct', () => {
+            cy.visit('http://localhost:8080/index-training.html');
+            cy.viewport(1280, 900);
+            cy.get('library-training:not([hide-filter])')
+                .should('exist')
+                .shadow()
+                .within(() => {
+                    cy.get('training-list')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            cy.get('[data-testid="event-detail-toggle-3455330"]').click(); // open detail item
+                            cy.get('#event-detail-3455330')
+                                .should('exist')
+                                .should('be.visible')
+                                .children('training-detail')
+                                .shadow()
+                                .within(() => {
+                                    cy.get('#bookingText').should('have.text', 'Booking is not required');
+                                });
+                            cy.get('[data-testid="event-detail-toggle-3437655"]').click(); // open detail item
+                            cy.get('#event-detail-3437655')
+                                .should('exist')
+                                .should('be.visible')
+                                .children('training-detail')
+                                .shadow()
+                                .within(() => {
+                                    cy.get('#bookingText').should('have.text', 'Class is full. Register for waitlist');
+                                });
+                            cy.get('[data-testid="event-detail-toggle-3428487"]').click(); // open detail item
+                            cy.get('#event-detail-3428487')
+                                .should('exist')
+                                .should('be.visible')
+                                .children('training-detail')
+                                .shadow()
+                                .within(() => {
+                                    cy.get('#bookingText').should('have.text', 'Places still available');
+                                });
+                        });
+                });
+        });
+
         it('has correct details for em user with st lucia training and non-booking course', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
