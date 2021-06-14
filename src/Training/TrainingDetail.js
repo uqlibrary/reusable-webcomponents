@@ -8,7 +8,7 @@ template.innerHTML = `
   <div class="uq-pane uq-pane--outline uq-pane--has-footer">
     <div class="event-heading purple" id="eventHeading"></div>
     <!--    <div class="details" id="eventSummary"></div>-->
-    <div class="details" id="eventDetails" data-testid="eventDetails"></div>
+    <div class="details" id="eventDetails" data-testid="training-details"></div>
     <div class="details iconRow dateRange" tabindex="0" aria-disabled="false">
         <div class="content-icon">
             <span class="lowlevel-icon">
@@ -22,9 +22,9 @@ template.innerHTML = `
         </div>
         <div>
             <h4>Date</h4>
-            <div id="fullDate" data-testid="fullDate"></div>
+            <div id="fullDate" data-testid="training-details-full-date"></div>
             <div>
-                <span id="startTime" data-testid="startTime"></span> - <span id="endTime" data-testid="endTime"></span>
+                <span id="startTime" data-testid="training-details-start-time"></span> - <span id="endTime" data-testid="training-details-end-time"></span>
             </div>
         </div>
     </div>
@@ -41,7 +41,7 @@ template.innerHTML = `
         </div>
         <div>
             <h4>Location</h4>
-            <div id="locationdetails" data-testid="locationdetails"></div>
+            <div id="locationdetails" data-testid="training-details-location-details"></div>
         </div>
     </div>
     <div class="details iconRow registrationItem" tabindex="0" aria-disabled="false">
@@ -57,10 +57,10 @@ template.innerHTML = `
         </div>
         <div>
             <h4>Registration</h4>
-            <div id="bookingText" data-testid="bookingText"></div>
+            <div id="bookingText" data-testid="training-details-booking-text"></div>
         </div>
     </div>
-    <div class="details iconRow nonuqregistration" tabindex="0" aria-disabled="false" id="registrationBlockForNonUQ" data-testid="registrationBlockForNonUQ">
+    <div class="details iconRow nonuqregistration" tabindex="0" aria-disabled="false" id="registrationBlockForNonUQ" data-testid="training-details-registrationBlockForNonUQ">
         <div class="content-icon">
             <span class="lowlevel-icon">
                 <!-- icon info-outline -->
@@ -74,12 +74,12 @@ template.innerHTML = `
         <div>
             <h4>Library member registration (for non-UQ staff and students)</h4>
             <div>Email 
-                <a id="emailEnquiry" href="#" class="uqlibrary-training-details"></a> with your name, UQ username, phone number and the event name and date to reserve a place. We'll email you within 2 business days.
+                <a data-testid="training-details-email-enquiry-started" id="emailEnquiry" href="#" class="uqlibrary-training-details"></a> with your name, UQ username, phone number and the event name and date to reserve a place. We'll email you within 2 business days.
             </div>
         </div>
     </div>
     <div class="uq-pane__footer">
-        <button id="bookTraining" data-testid="bookTraining" class="uq-button" role="button" tabindex="0" animated="" aria-disabled="false" elevation="0">Log in and book</button>
+        <button id="bookTraining" data-testid="training-details-book-training-button" class="uq-button" role="button" tabindex="0" animated="" aria-disabled="false" elevation="0">Log in and book</button>
     </div>
 </div>
 `;
@@ -119,23 +119,12 @@ class TrainingDetail extends HTMLElement {
     }
 
     addButtonListeners(eventId) {
-        const target = this.data.studenthubWindow || '_blank';
-
-        function visitBookingPage(link, target) {
-            /* istanbul ignore if */
-            if (target === '_self') {
-                window.location.assign(link);
-            } else {
-                window.open(link);
-            }
-        }
-
         const bookingLink = `https://studenthub.uq.edu.au/students/events/detail/${eventId}`;
 
         const bookingButton = this.shadowRoot.getElementById('bookTraining');
         !!bookingButton &&
             bookingButton.addEventListener('click', function () {
-                visitBookingPage(bookingLink, target);
+                window.open(bookingLink);
             });
     }
 
@@ -190,7 +179,7 @@ class TrainingDetail extends HTMLElement {
         if (!!eventNameData && !!eventHeadingDom) {
             const eventNameEl = document.createElement(this.itemTitleElement);
             eventNameEl.setAttribute('id', 'eventName');
-            eventNameEl.setAttribute('data-testid', 'event-name');
+            eventNameEl.setAttribute('data-testid', 'training-event-name');
             eventNameEl.innerText = eventNameData;
             eventHeadingDom.appendChild(eventNameEl);
         }
@@ -235,11 +224,12 @@ class TrainingDetail extends HTMLElement {
         }
 
         const mapUrl = this.findKnownLocationinVenue(venue);
-        // const _maplink = mapUrl !== false ? mapUrl : '';
         const _showMapLink = mapUrl !== false;
         if (_showMapLink) {
             const itemLink = document.createElement('a');
             itemLink.setAttribute('href', mapUrl);
+            const venueEncoded = encodeURIComponent(venue);
+            itemLink.setAttribute('data-testid', `training-details-open-map-${venueEncoded}`);
             itemLink.setAttribute('target', '_blank');
             itemLink.appendChild(venueNameElement);
 

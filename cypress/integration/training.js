@@ -66,11 +66,14 @@ describe('Training', () => {
                         .shadow()
                         .as('trainingList')
                         .within(() => {
-                            cy.get('#training-list').should('exist').get('#event-detail-toggle-3428487').click();
+                            cy.get('#training-list')
+                                .should('exist')
+                                .get('[data-testid="training-event-detail-toggle-3428487"]')
+                                .click();
                         });
                 });
             cy.get('@trainingList').within(() => {
-                cy.get('#event-detail-3428487')
+                cy.get('[data-testid="training-event-detail-3428487"]')
                     .should('exist')
                     .should('be.visible')
                     .children('training-detail')
@@ -92,8 +95,8 @@ describe('Training', () => {
                         .should('exist')
                         .shadow()
                         .within(() => {
-                            cy.get('[data-testid="event-detail-toggle-3455330"]').click(); // open detail item
-                            cy.get('#event-detail-3455330')
+                            cy.get('[data-testid="training-event-detail-toggle-3455330"]').click(); // open detail item
+                            cy.get('[data-testid="training-event-detail-3455330"]')
                                 .should('exist')
                                 .should('be.visible')
                                 .children('training-detail')
@@ -101,8 +104,8 @@ describe('Training', () => {
                                 .within(() => {
                                     cy.get('#bookingText').should('have.text', 'Booking is not required');
                                 });
-                            cy.get('[data-testid="event-detail-toggle-3437655"]').click(); // open detail item
-                            cy.get('#event-detail-3437655')
+                            cy.get('[data-testid="training-event-detail-toggle-3437655"]').click(); // open detail item
+                            cy.get('[data-testid="training-event-detail-3437655"]')
                                 .should('exist')
                                 .should('be.visible')
                                 .children('training-detail')
@@ -110,8 +113,8 @@ describe('Training', () => {
                                 .within(() => {
                                     cy.get('#bookingText').should('have.text', 'Class is full. Register for waitlist');
                                 });
-                            cy.get('[data-testid="event-detail-toggle-3428487"]').click(); // open detail item
-                            cy.get('#event-detail-3428487')
+                            cy.get('[data-testid="training-event-detail-toggle-3428487"]').click(); // open detail item
+                            cy.get('[data-testid="training-event-detail-3428487"]')
                                 .should('exist')
                                 .should('be.visible')
                                 .children('training-detail')
@@ -126,30 +129,32 @@ describe('Training', () => {
         it('has correct details for em user with st lucia training and non-booking course', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
-            cy.get('training-detail[data-testid="event-detail-content-2824657"]')
+            cy.get('training-detail[data-testid="training-event-detail-content-2824657"]')
                 .should('exist')
                 .shadow()
                 .within(() => {
-                    cy.get('[data-testid="event-name"]').contains('Excel');
-                    cy.get('[data-testid="eventDetails"]').contains(
+                    cy.get('[data-testid="training-event-name"]').contains('Excel');
+                    cy.get('[data-testid="training-details"]').contains(
                         'At the end of this session, class participants will be able to',
                     );
-                    cy.get('[data-testid="fullDate"]').contains('Tuesday, 24 November 2020');
-                    cy.get('[data-testid="startTime"]').contains('10:00 am');
-                    cy.get('[data-testid="endTime"]').contains('11:30 am');
-                    cy.get('[data-testid="locationdetails"] a').contains('St Lucia, Duhig Tower (2), 02-D501');
-                    cy.get('[data-testid="locationdetails"] a').should(
+                    cy.get('[data-testid="training-details-full-date"]').contains('Tuesday, 24 November 2020');
+                    cy.get('[data-testid="training-details-start-time"]').contains('10:00 am');
+                    cy.get('[data-testid="training-details-end-time"]').contains('11:30 am');
+                    cy.get('[data-testid="training-details-location-details"] a').contains(
+                        'St Lucia, Duhig Tower (2), 02-D501',
+                    );
+                    cy.get('[data-testid="training-details-location-details"] a').should(
                         'have.attr',
                         'href',
                         'https://maps.uq.edu.au/?zoom=19&campusId=406&lat=-27.4966319&lng=153.0144148&zLevel=1',
                     );
-                    cy.get('[data-testid="bookingText"]').contains('Booking is not required');
-                    cy.get('[data-testid="registrationBlockForNonUQ"] h4').should('exist');
-                    cy.get('[data-testid="registrationBlockForNonUQ"] h4').contains(
+                    cy.get('[data-testid="training-details-booking-text"]').contains('Booking is not required');
+                    cy.get('[data-testid="training-details-registrationBlockForNonUQ"] h4').should('exist');
+                    cy.get('[data-testid="training-details-registrationBlockForNonUQ"] h4').contains(
                         'Library member registration (for non-UQ staff and students)',
                     );
-                    cy.get('[data-testid="registrationBlockForNonUQ"] a').contains('@library'); // a library email address
-                    cy.get('[data-testid="registrationBlockForNonUQ"] a')
+                    cy.get('[data-testid="training-details-registrationBlockForNonUQ"] a').contains('@library'); // a library email address
+                    cy.get('[data-testid="training-details-registrationBlockForNonUQ"] a')
                         .should('have.attr', 'href')
                         .then((href) => {
                             console.log('href = ', href);
@@ -166,28 +171,31 @@ describe('Training', () => {
         });
 
         it('has correct details for uq user with toowoomba training and bookable course can visit studenthub', () => {
+            const stub = cy.stub().as('open');
+            cy.on('window:before:load', (win) => {
+                cy.stub(win, 'open').callsFake(stub);
+            });
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
-            cy.intercept('GET', 'https://studenthub.uq.edu.au/students/events/detail/3455330', {
-                statusCode: 200,
-                body: 'User now on studenthub page',
-            });
-            cy.get('training-detail[data-testid="event-detail-content-3455330"]')
+            cy.get('training-detail[data-testid="training-event-detail-content-3455330"]')
                 .should('exist')
                 .shadow()
                 .within(() => {
-                    cy.get('[data-testid="event-name"]').contains('Excel1');
-                    cy.get('[data-testid="locationdetails"] a').contains('Toowoomba Rural Clinic');
-                    cy.get('[data-testid="locationdetails"] a').should(
+                    cy.get('[data-testid="training-event-name"]').contains('Excel1');
+                    cy.get('[data-testid="training-details-location-details"] a').contains('Toowoomba Rural Clinic');
+                    cy.get('[data-testid="training-details-location-details"] a').should(
                         'have.attr',
                         'href',
                         'https://www.google.com/maps/search/?api=1&query=Toowoomba%20Rural%20Clinical%20School%2C%20152%20West%20Street%2C%20South%20Toowoomba%20QLD%2C%20Australia',
                     );
-                    cy.get('[data-testid="bookingText"]').contains('Places still available');
-                    cy.get('[data-testid="registrationBlockForNonUQ"]').should('not.be.visible');
-                    cy.get('button[data-testid="bookTraining"]').should('exist').click();
+                    cy.get('[data-testid="training-details-booking-text"]').contains('Places still available');
+                    cy.get('[data-testid="training-details-registrationBlockForNonUQ"]').should('not.be.visible');
+                    cy.get('button[data-testid="training-details-book-training-button"]').should('exist').click();
                 });
-            cy.get('body').contains('User now on studenthub page');
+            cy.get('@open').should(
+                'have.been.calledOnceWithExactly',
+                'https://studenthub.uq.edu.au/students/events/detail/3455330',
+            );
         });
 
         it('has correct details for logged out user with unidentifiable location and full course', () => {
@@ -197,19 +205,24 @@ describe('Training', () => {
             });
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
-            cy.get('training-detail[data-testid="event-detail-content-3455331"]')
+            cy.get('training-detail[data-testid="training-event-detail-content-3455331"]')
                 .should('exist')
                 .shadow()
                 .within(() => {
-                    cy.get('[data-testid="event-name"]').contains('Excel2');
-                    cy.get('[data-testid="locationdetails"]').contains('Townsville');
-                    cy.get('[data-testid="locationdetails"] a').should('not.exist');
-                    cy.get('[data-testid="bookingText"]').contains('Class is full. Register for waitlist.');
-                    cy.get('[data-testid="registrationBlockForNonUQ"]').should('not.be.visible');
-                    cy.get('button[data-testid="bookTraining"]').should('exist').click();
+                    cy.get('[data-testid="training-event-name"]').contains('Excel2');
+                    cy.get('[data-testid="training-details-location-details"]').contains('Townsville');
+                    cy.get('[data-testid="training-details-location-details"] a').should('not.exist');
+                    cy.get('[data-testid="training-details-booking-text"]').contains(
+                        'Class is full. Register for waitlist.',
+                    );
+                    cy.get('[data-testid="training-details-registrationBlockForNonUQ"]').should('not.be.visible');
+                    cy.get('button[data-testid="training-details-book-training-button"]').should('exist').click();
                 });
 
-            cy.get('@open').should('have.been.calledOnce');
+            cy.get('@open').should(
+                'have.been.calledOnceWithExactly',
+                'https://studenthub.uq.edu.au/students/events/detail/3455331',
+            );
         });
     });
 
