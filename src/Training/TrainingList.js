@@ -66,7 +66,7 @@ class TrainingList extends HTMLElement {
 
             const categoryListElement = categoryCard.getElementsByClassName('uq-accordion').item(0);
             categoryListElement.setAttribute('id', `event-category-${index}`);
-            categoryListElement.setAttribute('data-testid', `event-category-${index}`);
+            categoryListElement.setAttribute('data-testid', `training-event-category-${index}`);
             categoryListElement.setAttribute('data-category-name', categoryName);
 
             const longListCallback = () => {
@@ -135,8 +135,8 @@ class TrainingList extends HTMLElement {
     insertEvent(event, eventListForCategory) {
         eventListForCategory.appendChild(eventTemplate.content.cloneNode(true));
         const eventElement = eventListForCategory.lastElementChild;
-        const toggleButtonId = `event-detail-toggle-${event.entityId}`;
-        const detailContainerId = `event-detail-${event.entityId}`;
+        const toggleButtonId = `training-event-detail-toggle-${event.entityId}`;
+        const detailContainerId = `training-event-detail-${event.entityId}`;
 
         const toggleButton = eventElement.getElementsByClassName('uq-accordion__toggle').item(0);
         toggleButton.setAttribute('id', toggleButtonId);
@@ -160,10 +160,12 @@ class TrainingList extends HTMLElement {
 
         const detailContainer = eventElement.getElementsByClassName('uq-accordion__content').item(0);
         detailContainer.setAttribute('id', detailContainerId);
+        detailContainer.setAttribute('data-testid', detailContainerId);
         detailContainer.setAttribute('aria-labelledby', toggleButtonId);
 
         const detailElement = document.createElement('training-detail');
-        detailElement.setAttribute('data-testid', `event-detail-content-${event.entityId}`);
+        detailElement.setAttribute('id', `training-event-detail-content-${event.entityId}`);
+        detailElement.setAttribute('data-testid', `training-event-detail-content-${event.entityId}`);
         detailElement.setAttribute('item-title-element', this.hideCategoryTitle ? 'h4' : 'h5');
         detailContainer.appendChild(detailElement);
 

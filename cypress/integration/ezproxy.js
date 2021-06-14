@@ -9,12 +9,12 @@ describe('EzProxy', () => {
                 .should('exist')
                 .scrollIntoView()
                 .shadow()
-                .find('#ez-proxy')
+                .find('[data-testid="ez-proxy"]')
                 .within(() => {
-                    cy.get('#ez-proxy-input').should('exist').should('be.visible');
-                    cy.get('#ez-proxy-create-link-button').should('exist').should('be.visible');
-                    cy.get('#ez-proxy-copy-link-buttons').should('exist').should('not.be.visible');
-                    cy.get('#ez-proxy-redirect-button').should('exist').should('not.be.visible');
+                    cy.get('[data-testid="ez-proxy-input"]').should('exist').should('be.visible');
+                    cy.get('[data-testid="ez-proxy-create-link-button"]').should('exist').should('be.visible');
+                    cy.get('[data-testid="ez-proxy-copy-link-buttons"]').should('exist').should('not.be.visible');
+                    cy.get('[data-testid="ez-proxy-redirect-button"]').should('exist').should('not.be.visible');
                 });
         });
 
@@ -22,11 +22,11 @@ describe('EzProxy', () => {
             cy.get('ez-proxy[create-link]')
                 .should('exist')
                 .shadow()
-                .find('#ez-proxy')
+                .find('[data-testid="ez-proxy"]')
                 .within(() => {
-                    cy.get('#ez-proxy-input').type('https://www.google.com/{enter}');
-                    cy.get('#ez-proxy-create-link-button').should('exist').should('not.be.visible');
-                    cy.get('#ez-proxy-copy-link-buttons').should('exist').should('be.visible');
+                    cy.get('[data-testid="ez-proxy-input"]').type('https://www.google.com/{enter}');
+                    cy.get('[data-testid="ez-proxy-create-link-button"]').should('exist').should('not.be.visible');
+                    cy.get('[data-testid="ez-proxy-copy-link-buttons"]').should('exist').should('be.visible');
                 });
         });
 
@@ -37,11 +37,11 @@ describe('EzProxy', () => {
             cy.get('ez-proxy[create-link]')
                 .should('exist')
                 .shadow()
-                .find('#ez-proxy')
+                .find('[data-testid="ez-proxy"]')
                 .within(() => {
-                    cy.get('#ez-proxy-input').type('https://www.google.com/');
-                    cy.get('#ez-proxy-create-link-button').click();
-                    cy.get('#ez-proxy-test-link-button').should('exist').should('be.visible').click();
+                    cy.get('[data-testid="ez-proxy-input"]').type('https://www.google.com/');
+                    cy.get('[data-testid="ez-proxy-create-link-button"]').click();
+                    cy.get('[data-testid="ez-proxy-test-link-button"]').should('exist').should('be.visible').click();
                 });
             cy.window()
                 .its('open')
@@ -52,16 +52,16 @@ describe('EzProxy', () => {
             cy.get('ez-proxy[create-link]')
                 .should('exist')
                 .shadow()
-                .find('#ez-proxy')
+                .find('[data-testid="ez-proxy"]')
                 .within(() => {
-                    cy.get('#ez-proxy-input').should('exist').type('https://www.google.com/');
-                    cy.get('#ez-proxy-create-link-button').click();
-                    cy.get('#ez-proxy-url-display-area').should(
+                    cy.get('[data-testid="ez-proxy-input"]').should('exist').type('https://www.google.com/');
+                    cy.get('[data-testid="ez-proxy-create-link-button"]').click();
+                    cy.get('[data-testid="ez-proxy-url-display-area"]').should(
                         'have.value',
                         'https://ezproxy.library.uq.edu.au/login?url=https://www.google.com/',
                     );
-                    cy.get('#ez-proxy-copy-link-button').should('exist').click();
-                    cy.get('#ez-proxy-copy-status')
+                    cy.get('[data-testid="ez-proxy-copy-link-button"]').should('exist').click();
+                    cy.get('[data-testid="ez-proxy-copy-status"]')
                         .should('exist')
                         .as('toast')
                         .should('be.visible')
@@ -173,11 +173,11 @@ describe('EzProxy', () => {
             cy.get('ez-proxy[create-link]')
                 .should('exist')
                 .shadow()
-                .find('#ez-proxy')
+                .find('[data-testid="ez-proxy"]')
                 .within(() => {
-                    cy.get('#ez-proxy-input').should('exist').as('inputField').type('blah');
-                    cy.get('#ez-proxy-create-link-button').as('createLinkButton').click();
-                    cy.get('#ez-proxy-input-error')
+                    cy.get('[data-testid="ez-proxy-input"]').should('exist').as('inputField').type('blah');
+                    cy.get('[data-testid="ez-proxy-create-link-button"]').as('createLinkButton').click();
+                    cy.get('[data-testid="ez-proxy-input-error"]')
                         .should('exist')
                         .should('be.visible')
                         .as('inputError')
@@ -193,19 +193,19 @@ describe('EzProxy', () => {
             cy.get('ez-proxy[create-link]')
                 .should('exist')
                 .shadow()
-                .find('#ez-proxy')
+                .find('[data-testid="ez-proxy"]')
                 .within(() => {
-                    cy.get('#ez-proxy-input').should('exist').type('https://www.google.com/');
-                    cy.get('#ez-proxy-create-link-button').click();
-                    cy.get('#ez-proxy-url-display-area').should(
+                    cy.get('[data-testid="ez-proxy-input"]').should('exist').type('https://www.google.com/');
+                    cy.get('[data-testid="ez-proxy-create-link-button"]').click();
+                    cy.get('[data-testid="ez-proxy-url-display-area"]').should(
                         'have.value',
                         'https://ezproxy.library.uq.edu.au/login?url=https://www.google.com/',
                     );
-                    cy.get('#ez-proxy-create-new-link-button').should('exist').click();
-                    cy.get('#ez-proxy-input').should('exist').should('be.visible');
-                    cy.get('#ez-proxy-create-link-button').should('exist').should('be.visible');
-                    cy.get('#ez-proxy-copy-link-buttons').should('exist').should('not.be.visible');
-                    cy.get('#ez-proxy-redirect-button').should('exist').should('not.be.visible');
+                    cy.get('[data-testid="ez-proxy-create-new-link-button"]').should('exist').click();
+                    cy.get('[data-testid="ez-proxy-input"]').should('exist').should('be.visible');
+                    cy.get('[data-testid="ez-proxy-create-link-button"]').should('exist').should('be.visible');
+                    cy.get('[data-testid="ez-proxy-copy-link-buttons"]').should('exist').should('not.be.visible');
+                    cy.get('[data-testid="ez-proxy-redirect-button"]').should('exist').should('not.be.visible');
                 });
         });
 
@@ -213,15 +213,15 @@ describe('EzProxy', () => {
             cy.get('ez-proxy[create-link]')
                 .should('exist')
                 .shadow()
-                .find('#ez-proxy')
+                .find('[data-testid="ez-proxy"]')
                 .within(() => {
-                    cy.get('#ez-proxy-input')
+                    cy.get('[data-testid="ez-proxy-input"]')
                         .should('exist')
                         .type(
                             'http://www.sciencedirect.com.ezproxy.library.uq.edu.au/science/article/pii/S1744388116300159',
                         );
-                    cy.get('#ez-proxy-create-link-button').click();
-                    cy.get('#ez-proxy-url-display-area').should(
+                    cy.get('[data-testid="ez-proxy-create-link-button"]').click();
+                    cy.get('[data-testid="ez-proxy-url-display-area"]').should(
                         'have.value',
                         'https://ezproxy.library.uq.edu.au/login?url=http://www.sciencedirect.com/science/article/pii/S1744388116300159',
                     );
@@ -232,11 +232,11 @@ describe('EzProxy', () => {
             cy.get('ez-proxy[create-link]')
                 .should('exist')
                 .shadow()
-                .find('#ez-proxy')
+                .find('[data-testid="ez-proxy"]')
                 .within(() => {
-                    cy.get('#ez-proxy-input').should('exist').type('10.1016/S2214-109X(21)00061-9');
-                    cy.get('#ez-proxy-create-link-button').click();
-                    cy.get('#ez-proxy-url-display-area').should(
+                    cy.get('[data-testid="ez-proxy-input"]').should('exist').type('10.1016/S2214-109X(21)00061-9');
+                    cy.get('[data-testid="ez-proxy-create-link-button"]').click();
+                    cy.get('[data-testid="ez-proxy-url-display-area"]').should(
                         'have.value',
                         'https://ezproxy.library.uq.edu.au/login?url=https://dx.doi.org/10.1016/S2214-109X(21)00061-9',
                     );
@@ -260,12 +260,12 @@ describe('EzProxy', () => {
             cy.get('ez-proxy:not([create-link])')
                 .should('exist')
                 .shadow()
-                .find('#ez-proxy')
+                .find('[data-testid="ez-proxy"]')
                 .within(() => {
-                    cy.get('#ez-proxy-input').should('exist').should('be.visible');
-                    cy.get('#ez-proxy-create-link-button').should('exist').should('not.be.visible');
-                    cy.get('#ez-proxy-copy-link-buttons').should('exist').should('not.be.visible');
-                    cy.get('#ez-proxy-redirect-button').should('exist').should('be.visible');
+                    cy.get('[data-testid="ez-proxy-input"]').should('exist').should('be.visible');
+                    cy.get('[data-testid="ez-proxy-create-link-button"]').should('exist').should('not.be.visible');
+                    cy.get('[data-testid="ez-proxy-copy-link-buttons"]').should('exist').should('not.be.visible');
+                    cy.get('[data-testid="ez-proxy-redirect-button"]').should('exist').should('be.visible');
                 });
         });
 
@@ -276,9 +276,9 @@ describe('EzProxy', () => {
             cy.get('ez-proxy:not([create-link])')
                 .should('exist')
                 .shadow()
-                .find('#ez-proxy')
+                .find('[data-testid="ez-proxy"]')
                 .within(() => {
-                    cy.get('#ez-proxy-input').should('exist').type('https://www.uq.edu.au/{enter}');
+                    cy.get('[data-testid="ez-proxy-input"]').should('exist').type('https://www.uq.edu.au/{enter}');
                 });
             cy.window()
                 .its('open')
@@ -289,10 +289,10 @@ describe('EzProxy', () => {
             cy.get('ez-proxy:not([create-link])')
                 .should('exist')
                 .shadow()
-                .find('#ez-proxy')
+                .find('[data-testid="ez-proxy"]')
                 .within(() => {
-                    cy.get('#ez-proxy-redirect-button').should('exist').click();
-                    cy.get('#ez-proxy-input-error')
+                    cy.get('[data-testid="ez-proxy-redirect-button"]').should('exist').click();
+                    cy.get('[data-testid="ez-proxy-input-error"]')
                         .should('exist')
                         .should('be.visible')
                         .should('have.text', 'Please enter a URL');
