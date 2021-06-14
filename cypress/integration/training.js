@@ -124,12 +124,12 @@ describe('Training', () => {
         });
 
         it('has correct details for uq user with toowoomba training and bookable course can visit studenthub', () => {
+            const stub = cy.stub().as('open');
+            cy.on('window:before:load', (win) => {
+                cy.stub(win, 'open').callsFake(stub);
+            });
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
-            cy.intercept('GET', 'https://studenthub.uq.edu.au/students/events/detail/3455330', {
-                statusCode: 200,
-                body: 'User now on studenthub page',
-            });
             cy.get('training-detail[data-testid="event-detail-content-3455330"]')
                 .should('exist')
                 .shadow()
@@ -145,7 +145,10 @@ describe('Training', () => {
                     cy.get('[data-testid="registrationBlockForNonUQ"]').should('not.be.visible');
                     cy.get('button[data-testid="bookTraining"]').should('exist').click();
                 });
-            cy.get('body').contains('User now on studenthub page');
+            cy.get('@open').should(
+                'have.been.calledOnceWithExactly',
+                'https://studenthub.uq.edu.au/students/events/detail/3455330',
+            );
         });
 
         it('has correct details for logged out user with unidentifiable location and full course', () => {
@@ -167,7 +170,10 @@ describe('Training', () => {
                     cy.get('button[data-testid="bookTraining"]').should('exist').click();
                 });
 
-            cy.get('@open').should('have.been.calledOnce');
+            cy.get('@open').should(
+                'have.been.calledOnceWithExactly',
+                'https://studenthub.uq.edu.au/students/events/detail/3455331',
+            );
         });
     });
 

@@ -119,23 +119,12 @@ class TrainingDetail extends HTMLElement {
     }
 
     addButtonListeners(eventId) {
-        const target = this.data.studenthubWindow || '_blank';
-
-        function visitBookingPage(link, target) {
-            /* istanbul ignore if */
-            if (target === '_self') {
-                window.location.assign(link);
-            } else {
-                window.open(link);
-            }
-        }
-
         const bookingLink = `https://studenthub.uq.edu.au/students/events/detail/${eventId}`;
 
         const bookingButton = this.shadowRoot.getElementById('bookTraining');
         !!bookingButton &&
             bookingButton.addEventListener('click', function () {
-                visitBookingPage(bookingLink, target);
+                window.open(bookingLink);
             });
     }
 
