@@ -15,19 +15,19 @@ template.innerHTML = `
         ${mainStyles.toString()}
         ${customStyles.toString()}
     </style>
-    <div id="ez-proxy" class="uq-grid">
+    <div id="ez-proxy" data-testid="ez-proxy" class="uq-grid">
         <fieldset class="uq-grid__col--5">
-            <input type="url" placeholder="DOI or URL" id="ez-proxy-input" />
-            <div id="ez-proxy-input-error" class="uq-error-message hidden"></div>
-            <button id="ez-proxy-create-link-button" class="uq-button hidden">Create Link</button>
-            <span id="ez-proxy-copy-link-buttons" class="hidden">
-                <textarea readonly id="ez-proxy-url-display-area"></textarea>
-                <button id="ez-proxy-test-link-button" class="uq-button">Test Link</button>
-                <button id="ez-proxy-copy-link-button" class="uq-button">Copy Link</button>
-                <button id="ez-proxy-create-new-link-button" class="uq-button">Create New Link</button>
-                <div id="ez-proxy-copy-status"></div>
+            <input type="url" placeholder="DOI or URL" id="ez-proxy-input" data-testid="ez-proxy-input" />
+            <div id="ez-proxy-input-error" data-testid="ez-proxy-input-error" class="uq-error-message hidden"></div>
+            <button id="ez-proxy-create-link-button" data-testid="ez-proxy-create-link-button" class="uq-button hidden">Create Link</button>
+            <span id="ez-proxy-copy-link-buttons" data-testid="ez-proxy-copy-link-buttons" class="hidden">
+                <textarea readonly id="ez-proxy-url-display-area" data-testid="ez-proxy-url-display-area"></textarea>
+                <button id="ez-proxy-test-link-button" data-testid="ez-proxy-test-link-button" class="uq-button">Test Link</button>
+                <button id="ez-proxy-copy-link-button" data-testid="ez-proxy-copy-link-button" class="uq-button">Copy Link</button>
+                <button id="ez-proxy-create-new-link-button" data-testid="ez-proxy-create-new-link-button" class="uq-button">Create New Link</button>
+                <div id="ez-proxy-copy-status" data-testid="ez-proxy-copy-status"></div>
             </span>
-            <button id="ez-proxy-redirect-button" class="uq-button hidden">Go</button>
+            <button id="ez-proxy-redirect-button" data-testid="ez-proxy-redirect-button" class="uq-button hidden">Go</button>
         </fieldset>
     </div>
 `;
