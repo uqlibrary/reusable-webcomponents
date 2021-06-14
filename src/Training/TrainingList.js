@@ -45,7 +45,6 @@ eventTemplate.innerHTML = `
 class TrainingList extends HTMLElement {
     constructor() {
         super();
-        // this._accountLoading = false;
         this._account = {};
         this._eventList = [];
     }
@@ -98,14 +97,6 @@ class TrainingList extends HTMLElement {
         return this.hasAttribute('hide-category-title');
     }
 
-    // get accountLoading() {
-    //     return this._accountLoading;
-    // }
-
-    // set accountLoading(value) {
-    //     this._accountLoading = value;
-    // }
-
     get account() {
         return this._account;
     }
@@ -152,9 +143,10 @@ class TrainingList extends HTMLElement {
         toggleButton.setAttribute('aria-controls', detailContainerId);
 
         const eventDate = new Date(event.start);
+        const eventNameElName = this.hideCategoryTitle ? 'h3' : 'h4';
         toggleButton.innerHTML = `
             <div class="group-first" tab-index="-1">
-                <h4 id="event-name-${event.entityId}">${event.name}</h4>
+                <${eventNameElName} id="event-name-${event.entityId}">${event.name}</${eventNameElName}>
                 <time datetime="${eventDate.toISOString()}" id="event-date-${event.entityId}">
                     ${eventDate.toLocaleDateString('default', {
                         day: 'numeric',
@@ -170,8 +162,9 @@ class TrainingList extends HTMLElement {
         detailContainer.setAttribute('aria-labelledby', toggleButtonId);
 
         const detailElement = document.createElement('training-detail');
-        detailContainer.appendChild(detailElement);
         detailElement.setAttribute('data-testid', `event-detail-content-${event.entityId}`);
+        detailElement.setAttribute('item-title-element', this.hideCategoryTitle ? 'h4' : 'h5');
+        detailContainer.appendChild(detailElement);
         detailElement.data = {
             id: event.entityId,
             name: event.name,
@@ -192,7 +185,6 @@ class TrainingList extends HTMLElement {
     }
 
     async checkAuthorisedUser() {
-        // this.accountLoading = true;
         this.account = {};
         let loggedin = null;
 
@@ -205,13 +197,11 @@ class TrainingList extends HTMLElement {
                 if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
                     that.account = account;
                 }
-                // that.accountLoading = false;
 
                 loggedin = !!that.account && !!that.account.id;
             })
             .catch(
                 /* istanbul ignore next */ () => {
-                    // that.accountLoading = false;
                     loggedin = false;
                 },
             );
