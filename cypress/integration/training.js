@@ -253,6 +253,35 @@ describe('Training', () => {
                         });
                 });
         });
+        it('user can clear campus selector field', () => {
+            cy.visit('http://localhost:8080/index-training.html');
+            cy.viewport(1280, 900);
+            cy.get('library-training:not([hide-filter])')
+                .should('exist')
+                .shadow()
+                .within(() => {
+                    cy.get('training-filter')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            cy.get('[data-testid="campushover"]').click();
+                            cy.get('[data-testid="campuslist"]').find('button').its('length').should('eq', 3);
+                        });
+                });
+            // click somewhere on the page outside the campus type dropdown
+            cy.get('[data-testid="random-page-element"]').click();
+            cy.get('library-training:not([hide-filter])')
+                .should('exist')
+                .shadow()
+                .within(() => {
+                    cy.get('training-filter')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            cy.get('[data-testid="campuslist"]').should('have.class', 'hidden');
+                        });
+                });
+        });
         it('user can select a week', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
@@ -278,15 +307,47 @@ describe('Training', () => {
 
                             cy.get('[data-testid="weekhover"]').click();
 
-                            cy.get('[data-testid="14jun-20jun"]').click();
-                            cy.get('[data-testid="weekOpener"]').should('contain', '14 Jun - 20 Jun');
+                            // there seems to be an issue that my machine uses 4 char for June, but AWS (and maybe Ashley's?) uses 3 char
+                            // so avoid the issue and use August, which is 'aug'.
+                            cy.get('[data-testid="2aug-8aug"]').click();
+                            cy.get('[data-testid="weekOpener"]').should('contain', '2 Aug - 8 Aug ');
                             // the placeholder has moved up, proxied by "color has changed"
                             cy.get('[data-testid="weekhover"]').should('have.css', 'color', uqpurple);
 
                             cy.url().should(
                                 'eq',
-                                'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=2021-06-14;online=false',
+                                'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=2021-08-02;online=false',
                             );
+                        });
+                });
+        });
+        it('user can clear week selector field', () => {
+            cy.visit('http://localhost:8080/index-training.html');
+            cy.viewport(1280, 900);
+            cy.get('library-training:not([hide-filter])')
+                .should('exist')
+                .shadow()
+                .within(() => {
+                    cy.get('training-filter')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            cy.get('[data-testid="weekhover"]').click();
+                            cy.get('[data-testid="weeklist"]').should('not.have.class', 'hidden');
+                            cy.get('[data-testid="weeklist"]').find('button').its('length').should('eq', 15);
+                        });
+                });
+            // click somewhere on the page outside the week type dropdown
+            cy.get('[data-testid="random-page-element"]').click();
+            cy.get('library-training:not([hide-filter])')
+                .should('exist')
+                .shadow()
+                .within(() => {
+                    cy.get('training-filter')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            cy.get('[data-testid="weeklist"]').should('have.class', 'hidden');
                         });
                 });
         });
@@ -332,7 +393,7 @@ describe('Training', () => {
                         });
                 });
         });
-        it('user can clear fields', () => {
+        it('user can clear other fields', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
             cy.get('library-training:not([hide-filter])')

@@ -39,7 +39,7 @@
         </style>
     </head>
     <body>
-        <uq-header hidelibrarymenuitem></uq-header>
+        <uq-header hidelibrarymenuitem skipnavid="skiptohere"></uq-header>
 
         <uq-site-header sitetitle="Library Test" siteurl="http://www.library.uq.edu.au">
             <span slot="site-utilities">
@@ -52,7 +52,8 @@
 
         <article>
             <div>
-                <h1>Training widget demo</h1>
+
+                <h1 data-testid="random-page-element" id="skiptohere" tabindex="-1">Training widget demo</h1>
                 <library-training></library-training>
             </div>
 

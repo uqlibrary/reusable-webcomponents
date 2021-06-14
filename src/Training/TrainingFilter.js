@@ -7,12 +7,12 @@ template.innerHTML = `
     <style>${overrides.toString()}</style>
     <section id="training-filter" class="uq-pane" role="search" aria-live="polite">
         <div class="header uq-pane__title" data-testid="training-filter-header">
-            <h3 class="title-text paper-card">Filter events</h3>
+            <h3 tabindex="0" class="title-text paper-card">Filter events</h3>
         </div>
         <div class="uq-pane__content" data-testid="dropdown-container">
-            <div aria-label="filter by keyword" tabindex="0" aria-disabled="false">
+            <div>
                 <div class="keywordPlaceholderMovement">
-                    <label>
+                    <label aria-label="filter by keyword">
                         <input id="inputKeyword" data-testid="inputKeyword" class="paper-input" autocomplete="off" placeholder=" " autocapitalize="none" autocorrect="off" aria-describedby="" aria-labelledby="keywordhover" tabindex="0">
                         <span id="keywordhover" data-testid="keywordhover">By keyword</span>
                     </label>                        
@@ -25,23 +25,24 @@ template.innerHTML = `
                     </button>
                 </div>
             </div>
-            <div aria-label="filter by campus" id="campusDropdown" class="listHolder" aria-haspopup="true" aria-disabled="false">
-                <button data-testid="campusOpener" id="campusOpener" class="opener filterer" aria-labelledby="campushover">
+            <span style="display: none" tabindex="-1" id="campus-filter-label">Choose the campus for your course</span>
+            <div aria-label="filter by campus" id="campusDropdown" class="listHolder" aria-disabled="false">
+                <button data-testid="campusOpener" id="campusOpener" class="opener filterer" aria-haspopup="listbox" aria-labelledby="campus-filter-label">
                     <span class="hidden">By campus</span>
                 </button>
-                <div class="hoverblock">
+                <div id="hoverblock" class="hoverblock">
                     <div data-testid="campushover" id="campushover" class="campushover hovertext">By campus</div>
                 </div>
-                <div data-testid="campuslist" id="campuslist" class="selectorlist campuslist hidden"></div>
+                <div tabindex="-1" data-testid="campuslist" id="campuslist" class="selectorlist campuslist hidden" aria-expanded="false"></div>
             </div>
-            <div aria-label="filter by week" id="weekDropdown" class="listHolder" aria-haspopup="true" aria-disabled="false">
+            <div aria-label="filter by week" id="weekDropdown" class="listHolder" aria-disabled="false">
                 <button data-testid="weekOpener" id="weekOpener" class="opener filterer" aria-labelledby="weekhover">
                     <span class="hidden">By week</span>
                 </button>
                 <div class="hoverblock">
-                    <div data-testid="weekhover" aria-label="weekhover" id="weekhover" class="weekhover hovertext">By week</div>
+                    <div data-testid="weekhover" id="weekhover" class="weekhover hovertext">By week</div>
                 </div>
-                <div data-testid="weeklist"  id="weeklist" class="selectorlist weeklist hidden"></div>
+                <div data-testid="weeklist" id="weeklist" class="selectorlist weeklist hidden" aria-expanded="false"></div>
             </div>
         </div>
         <div class="onlineToggle">
@@ -53,6 +54,21 @@ template.innerHTML = `
         </div>
     </section>
 `;
+
+function isKeyPressed(e, charKeyInput, numericKeyInput) {
+    const keyNumeric = e.charCode || e.keyCode;
+    const keyChar = e.key || e.code;
+    return keyChar === charKeyInput || keyNumeric === numericKeyInput;
+}
+function isEscapeKeyPressed(e) {
+    return isKeyPressed(e, 'Escape', 27);
+}
+function isArrowDownKeyPressed(e) {
+    return isKeyPressed(e, 'ArrowDown', 40);
+}
+function isArrowUpKeyPressed(e) {
+    return isKeyPressed(e, 'ArrowUp', 38);
+}
 
 class TrainingFilter extends HTMLElement {
     constructor() {
@@ -79,6 +95,8 @@ class TrainingFilter extends HTMLElement {
 
         this.addListeners = this.addListeners.bind(this);
         this.changeHashofUrl = this.changeHashofUrl.bind(this);
+        this.listenForKeyClicks = this.listenForKeyClicks.bind(this);
+        this.listenForMouseClicks = this.listenForMouseClicks.bind(this);
         this.loadCampuses = this.loadCampuses.bind(this);
         this.loadPopularChips = this.loadPopularChips.bind(this);
         this.loadWeeks = this.loadWeeks.bind(this);
@@ -139,28 +157,52 @@ class TrainingFilter extends HTMLElement {
         const campuslist = !!shadowDOM && shadowDOM.getElementById('campuslist');
         const weeklist = !!shadowDOM && shadowDOM.getElementById('weeklist');
 
-        // close the dropdown when the user clicks anywhere
-        // doesnt work atm - root close fires after button opens, auto closing it :(
-        // function closeSelectors() {
-        //     console.log('close closeSelectors');
-        //     !campuslist.classList.contains('hidden') && that.toggleVisibility(campuslist);
-        //     !weeklist.classList.contains('hidden') && that.toggleVisibility(weeklist);
-        // }
-        // const root = !!shadowDOM && shadowDOM.getElementById('root');
-        // !!root && root.addEventListener('click', closeSelectors);
-        // const body = document.querySelector('body');
-        // !!body && body.addEventListener('click', closeSelectors);
-
         function toggleCampusSelector() {
             // if the other dropdown is still open, close it
             !weeklist.classList.contains('hidden') && that.toggleVisibility(weeklist);
 
             that.toggleVisibility(campuslist);
         }
+
         const campusOpenerButton = !!shadowDOM && shadowDOM.getElementById('campusOpener');
         !!campusOpenerButton && campusOpenerButton.addEventListener('click', toggleCampusSelector);
         const campushover = !!shadowDOM && shadowDOM.getElementById('campushover');
         !!campushover && campushover.addEventListener('click', toggleCampusSelector);
+
+        const campusOpener = !!shadowDOM && shadowDOM.getElementById('campusOpener');
+        campusOpener.addEventListener('keydown', function (e) {
+            if (isArrowDownKeyPressed(e)) {
+                const allElement = !!shadowDOM && shadowDOM.getElementById('campus-select-0');
+                console.log('put focus on first element');
+                !!allElement && allElement.focus();
+            }
+        });
+
+        // allow the user to navigate the campus list with the arrow keys - Nick says its expected
+        const campusDropdown = !!shadowDOM && shadowDOM.getElementById('campusDropdown');
+        campusDropdown.addEventListener('keydown', function (e) {
+            const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
+            const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
+            if (isArrowDownKeyPressed(e)) {
+                e.preventDefault();
+                const currentId = eventTargetId.replace('campus-select-', '');
+                const nextId = parseInt(currentId, 10) + 1;
+
+                const nextElement = !!shadowDOM && shadowDOM.getElementById(`campus-select-${nextId}`);
+                !!nextElement && nextElement.focus();
+            } else if (isArrowUpKeyPressed(e)) {
+                e.preventDefault();
+                const currentId = eventTargetId.replace('campus-select-', '');
+                const prevId = parseInt(currentId, 10) - 1;
+                let prevElement;
+                if (currentId === '0') {
+                    prevElement = !!shadowDOM && shadowDOM.getElementById('campusOpener');
+                } else {
+                    prevElement = !!shadowDOM && shadowDOM.getElementById(`campus-select-${prevId}`);
+                }
+                !!prevElement && prevElement.focus();
+            }
+        });
 
         function toggleWeekSelector() {
             // if the other dropdown is still open, close it
@@ -168,24 +210,62 @@ class TrainingFilter extends HTMLElement {
 
             that.toggleVisibility(weeklist);
         }
+
         const weekOpenerButton = !!shadowDOM && shadowDOM.getElementById('weekOpener');
         !!weekOpenerButton && weekOpenerButton.addEventListener('click', toggleWeekSelector);
         const weekhover = !!shadowDOM && shadowDOM.getElementById('weekhover');
         !!weekhover && weekhover.addEventListener('click', toggleWeekSelector);
 
+        const weekOpener = !!shadowDOM && shadowDOM.getElementById('weekOpener');
+        weekOpener.addEventListener('keydown', function (e) {
+            if (isArrowDownKeyPressed(e)) {
+                const allElement = !!shadowDOM && shadowDOM.getElementById('week-select-0');
+                !!allElement && allElement.focus();
+            }
+        });
+
+        // allow the user to navigate the week list with the arrow keys - Nick says its expected
+        const weekDropdown = !!shadowDOM && shadowDOM.getElementById('weekDropdown');
+        weekDropdown.addEventListener('keydown', function (e) {
+            const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
+            const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
+            if (isArrowDownKeyPressed(e)) {
+                e.preventDefault();
+                const currentId = eventTargetId.replace('week-select-', '');
+                const nextId = parseInt(currentId, 10) + 1;
+
+                const nextElement = !!shadowDOM && shadowDOM.getElementById(`week-select-${nextId}`);
+                !!nextElement && nextElement.focus();
+            } else if (isArrowUpKeyPressed(e)) {
+                e.preventDefault();
+                const currentId = eventTargetId.replace('week-select-', '');
+                const prevId = parseInt(currentId, 10) - 1;
+                let prevElement;
+                if (currentId === '0') {
+                    prevElement = !!shadowDOM && shadowDOM.getElementById('weekOpener');
+                } else {
+                    prevElement = !!shadowDOM && shadowDOM.getElementById(`week-select-${prevId}`);
+                }
+                !!prevElement && prevElement.focus();
+            }
+        });
+
         function noteKeywordChange() {
             const inputKeywordField = !!shadowDOM && shadowDOM.getElementById('inputKeyword');
             !!inputKeywordField && (that.inputKeywordValue = inputKeywordField.value);
         }
+
         const inputKeywordField = !!shadowDOM && shadowDOM.getElementById('inputKeyword');
         !!inputKeywordField && inputKeywordField.addEventListener('change', noteKeywordChange);
         !!inputKeywordField && inputKeywordField.addEventListener('keydown', noteKeywordChange);
         !!inputKeywordField && inputKeywordField.addEventListener('keyup', noteKeywordChange);
+
         // may need more listeners for mobile, etc?
 
         function noteCheckboxSet() {
             that.onlineOnlyProperty = !!this.checked;
         }
+
         const onlineonlyField = !!shadowDOM && shadowDOM.getElementById('onlineonly');
         !!onlineonlyField && onlineonlyField.addEventListener('change', noteCheckboxSet);
 
@@ -194,6 +274,7 @@ class TrainingFilter extends HTMLElement {
             !!inputKeywordField && (inputKeywordField.value = '');
             that.inputKeywordValue = '';
         }
+
         const cancelclick = !!shadowDOM && shadowDOM.getElementById('clearKeyword');
         !!cancelclick && cancelclick.addEventListener('click', clearKeyword);
     }
@@ -227,6 +308,7 @@ class TrainingFilter extends HTMLElement {
                 label: 'Creating a Structure Thesis (CaST)',
             },
         ];
+
         function setKeyword(searchTerm) {
             const inputKeywordDom = shadowDOM.getElementById('inputKeyword');
             !!inputKeywordDom && (inputKeywordDom.value = searchTerm);
@@ -288,7 +370,7 @@ class TrainingFilter extends HTMLElement {
 
         const allAvailableEntry = 'All available';
 
-        function addWeekSelectorButton(weekStartDate, weeklistDom) {
+        function addWeekSelectorButton(weekStartDate, weeklistDom, index) {
             let weekName;
             if (weekStartDate === allAvailableEntry) {
                 weekName = allAvailableEntry;
@@ -302,7 +384,13 @@ class TrainingFilter extends HTMLElement {
 
             const weekSelectButton = document.createElement('button');
             weekSelectButton.className = 'week filterer';
+            weekSelectButton.setAttribute('id', `week-select-${index}`);
             weekSelectButton.setAttribute('role', 'option');
+            const label =
+                weekStartDate === allAvailableEntry
+                    ? 'Display courses on all days'
+                    : `Only display courses between ${weekName}`;
+            weekSelectButton.setAttribute('aria-label', label);
             weekSelectButton.setAttribute('data-testid', weekName.replaceAll(' ', '').toLowerCase());
             weekSelectButton.innerHTML = weekName;
             !!weekSelectButton &&
@@ -315,7 +403,7 @@ class TrainingFilter extends HTMLElement {
         const weekStartProvided = this.getAttribute('week-start') || /* istanbul ignore next */ '';
 
         const weeklistDom = shadowDOM.getElementById('weeklist');
-        addWeekSelectorButton('All available', weeklistDom);
+        addWeekSelectorButton(allAvailableEntry, weeklistDom, 0);
 
         function formatDate(inputDate) {
             const optionDate = { month: 'short', day: 'numeric' };
@@ -334,8 +422,10 @@ class TrainingFilter extends HTMLElement {
         // TODO test we do include a week that includes the final date, and we don't include an extra week on the end that has no entries
         let weekStartDate = new Date(weekStartProvided);
         weekStartDate.setDate(weekStartProvidedDate.getDate());
+        let index = 1; // 'all' button is '0'
         while (whileMoreDatesToDisplay(weekStartDate)) {
-            addWeekSelectorButton(weekStartDate, weeklistDom);
+            addWeekSelectorButton(weekStartDate, weeklistDom, index);
+            index++;
 
             weekStartDate = new Date(weekStartProvidedDate);
             weekStartDate.setDate(weekStartProvidedDate.getDate() + dayIncrement);
@@ -379,13 +469,28 @@ class TrainingFilter extends HTMLElement {
             !!campusOpenerButton && (campusOpenerButton.innerHTML = campusName);
         }
 
-        function addCampusSelectorButton(campusName, campusCode) {
+        function addCampusSelectorButton(campusName, campusCode, index) {
             // const campusNameLabel = document.createTextNode(campusName);
 
             const campusSelectButton = document.createElement('button');
             campusSelectButton.className = 'campus filterer';
             campusSelectButton.innerHTML = campusName;
+            campusSelectButton.setAttribute('id', `campus-select-${index}`);
             campusSelectButton.setAttribute('role', 'option');
+            let label;
+            console.log('campusCode = ', campusCode);
+            switch (campusCode) {
+                case 'all':
+                    label = 'Display courses at all locations, and online';
+                    break;
+                case 'Online':
+                    label = 'Display only online courses';
+                    break;
+                default:
+                    label = `Only display courses at ${campusName}`;
+            }
+            console.log('label = ', label);
+            campusSelectButton.setAttribute('aria-label', label);
             campusSelectButton.setAttribute('data-testid', campusName.replaceAll(' ', ''));
             !!campusSelectButton &&
                 campusSelectButton.addEventListener('click', function () {
@@ -397,12 +502,14 @@ class TrainingFilter extends HTMLElement {
         const campusListProvided = this.getAttribute('campus-list') || /* istanbul ignore next */ '';
         const campusList = campusListProvided.split('|');
 
-        const campuslistDom = shadowDOM.getElementById('campuslist');
-        addCampusSelectorButton('All locations', 'all', campuslistDom);
+        const campuslistDom = !!shadowDOM && shadowDOM.getElementById('campuslist');
+        addCampusSelectorButton('All locations', 'all', 0);
 
+        let index = 1; // 'all' button is '0'
         campusList.forEach((campusCode) => {
             const campusName = decodeURIComponent(campusCode);
-            addCampusSelectorButton(campusName, campusCode);
+            addCampusSelectorButton(campusName, campusCode, index);
+            index++;
         });
     }
 
@@ -434,14 +541,68 @@ class TrainingFilter extends HTMLElement {
      * show hide an element
      */
     toggleVisibility(selector) {
-        const showByClassname = !!selector && selector.className.replace(' hidden', '');
-        const hideByClassname = !!selector && `${selector.className} hidden`;
-        if (!!selector && selector.classList.contains('hidden')) {
-            !!selector && selector.setAttribute('role', 'listbox');
-            !!showByClassname && (selector.className = showByClassname);
-        } else {
-            !!hideByClassname && (selector.className = hideByClassname);
-            !!selector && selector.removeAttribute('role');
+        const that = this;
+        if (!selector) {
+            return;
+        }
+
+        !!isHidden(selector) ? show(selector) : hide(selector);
+
+        function isHidden(selector) {
+            return selector.classList.contains('hidden');
+        }
+
+        function show(selector) {
+            selector.setAttribute('role', 'listbox');
+            selector.className = selector.className.replace(' hidden', '');
+            document.addEventListener('click', that.listenForMouseClicks);
+            document.addEventListener('keydown', that.listenForKeyClicks);
+            selector.setAttribute('aria-expanded', 'true');
+            selector.setAttribute('tabindex', '0');
+        }
+
+        function hide(selector) {
+            selector.className = `${selector.className} hidden`;
+            selector.removeAttribute('role');
+            document.removeEventListener('click', that.listenForMouseClicks);
+            document.removeEventListener('keydown', that.listenForKeyClicks);
+            selector.setAttribute('aria-expanded', 'false');
+            selector.setAttribute('tabindex', '-1');
+        }
+    }
+
+    listenForKeyClicks(e) {
+        const that = this;
+        const trainingFilter =
+            document.querySelector('library-training').shadowRoot.querySelector('training-filter') ||
+            document.querySelector('training-filter');
+        const shadowDOM = !!trainingFilter && trainingFilter.shadowRoot;
+        if (isEscapeKeyPressed(e)) {
+            const campuslist = !!shadowDOM && shadowDOM.getElementById('campuslist');
+            !!campuslist && !campuslist.classList.contains('hidden') && trainingFilter.toggleVisibility(campuslist);
+            const weeklist = !!shadowDOM && shadowDOM.getElementById('weeklist');
+            !!weeklist && !weeklist.classList.contains('hidden') && trainingFilter.toggleVisibility(weeklist);
+        }
+    }
+
+    listenForMouseClicks(e) {
+        const that = this;
+        const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
+
+        if (!hasClickedOnDropdown(eventTarget)) {
+            const campuslist = that.shadowRoot.getElementById('campuslist');
+            !!campuslist && !campuslist.classList.contains('hidden') && that.toggleVisibility(campuslist);
+            const weeklist = that.shadowRoot.getElementById('weeklist');
+            !!weeklist && !weeklist.classList.contains('hidden') && that.toggleVisibility(weeklist);
+        }
+
+        function hasClickedOnDropdown(eventTarget) {
+            return (
+                !!eventTarget &&
+                (eventTarget.classList.contains('opener') ||
+                    eventTarget.classList.contains('weekhover') ||
+                    eventTarget.classList.contains('campushover'))
+            );
         }
     }
 
