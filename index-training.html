@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html style="padding: 0; margin: 0" lang="en">
+    <head>
+        <title>UQ Library - Reusable Web Components</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+        <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v6/fonts/Roboto/roboto.css" />
+        <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css" />
+        <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css" />
+        <style>
+            body {
+                padding: 0;
+                margin: 0;
+                font-family: 'Roboto', sans-serif;
+            }
+            article {
+                min-height: 300px;
+                background-image: url(https://web.library.uq.edu.au/files/75078/background-blur-bright-684314.jpg);
+                background-size: cover;
+            }
+            article > div {
+                margin-left: auto;
+                margin-right: auto;
+                max-width: 960px;
+                padding: 1rem;
+            }
+            article h1 {
+                padding: 1rem;
+                color: #f0f0f0;
+                font-weight: 400;
+                font-size: 2.438rem;
+                text-shadow: 0 0 4px black;
+            }
+
+            article h2,
+            article p {
+                padding: 0 1rem;
+                color: #f0f0f0;
+            }
+        </style>
+    </head>
+    <body>
+        <uq-header hidelibrarymenuitem skipnavid="skiptohere"></uq-header>
+
+        <uq-site-header sitetitle="Library Test" siteurl="http://www.library.uq.edu.au">
+            <span slot="site-utilities">
+                <askus-button hideProactiveChat />
+            </span>
+            <span slot="site-utilities">
+                <auth-button />
+            </span>
+        </uq-site-header>
+
+        <article>
+            <div>
+
+                <h1 data-testid="random-page-element" id="skiptohere" tabindex="-1">Training widget demo</h1>
+                <library-training></library-training>
+            </div>
+
+            <div>
+                <h2>With optional parameters</h2>
+                <library-training hide-category-title hide-filter></library-training>
+            </div>
+            <div>
+                <h2>Detail test output</h2>
+                <!-- places-remaining="Booking is not required" bookingSettings = null -->
+                <p>Logged in EM user looking at a course that doesnt require booking, with St Lucia UQ Maps link</p>
+                <training-detail data-testid="event-detail-content-2824657"></training-detail>
+                <script>
+                    window.addEventListener('DOMContentLoaded', () => {
+                        const trainingDetail2824657 = document.querySelector(
+                            '[data-testid="event-detail-content-2824657"]',
+                        );
+                        trainingDetail2824657.data = {
+                            id: '2824657',
+                            name: 'Excel: Introduction to Spreadsheets',
+                            details:
+                                "<p>At the end of this session, class participants will be able to:</p><ul><li>Design and create a simple spreadsheet</li><li>Enter data, labels, formulas and simple functions</li><li>Format and sort data</li><li>Present data in charts</li></ul><p><em>This session will use Microsoft Excel. </em>Please install the software <em>before </em>joining this session: <a href='https://my.uq.edu.au/information-and-services/information-technology/software-and-web-apps/software-uq/microsoft-software/office-365-personal-use'>https://my.uq.edu.au/information-and-services/info...<br></a></p><p><img style='background-color:&#32;initial;&#32;width:&#32;25px;' src='https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png'> Attend online: Zoom link to be sent before session</p><p><em><em>As part of <a href='https://ppl.app.uq.edu.au/content/10.10.01-sustainability-0'>UQ Sustainability</a> this class has no paper handouts. You may download manuals and exercises for this class on the </em><a href='https://web.library.uq.edu.au/library-services/training/training-resources'><em>training resources</em></a><em> page.</em></em></p>",
+                            summary: "A beginner's guide to essential spreadsheet concepts and skills",
+                            placesRemaining: 'Booking is not required',
+                            start: '2020-11-24T10:00:00+10:00',
+                            end: '2020-11-24T11:30:00+10:00',
+                            venue: 'St Lucia, Duhig Tower (2), 02-D501',
+                            userId: 'ema1111',
+                            userName: 'Lea de Groot',
+                            userEmail: 'uqldegro@uq.edu.au',
+                        };
+                    });
+                </script>
+
+                <hr />
+
+                <!-- places-remaining="Places still available"  bookingSettings.placeRemaining > 0 -->
+                <!-- window target is purely for testing, no user requirement exists -->
+                <p>Staff user for Toowoomba course (Google maps link) for course with places available</p>
+                <training-detail data-testid="event-detail-content-3455330"></training-detail>
+                <script>
+                    window.addEventListener('DOMContentLoaded', () => {
+                        const trainingDetail3455330 = document.querySelector(
+                            '[data-testid="event-detail-content-3455330"]',
+                        );
+                        trainingDetail3455330.data = {
+                            id: '3455330',
+                            name: 'Excel1: Introduction to Spreadsheets',
+                            details:
+                                "<p>At the end of this session, class participants will be able to:</p><ul><li>Design and create a simple spreadsheet</li><li>Enter data, labels, formulas and simple functions</li><li>Format and sort data</li><li>Present data in charts</li></ul><p><em>This session will use Microsoft Excel. </em>Please install the software <em>before </em>joining this session: <a href='https://my.uq.edu.au/information-and-services/information-technology/software-and-web-apps/software-uq/microsoft-software/office-365-personal-use'>https://my.uq.edu.au/information-and-services/info...<br></a></p><p><img style='background-color:&#32;initial;&#32;width:&#32;25px;' src='https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png'> Attend online: Zoom link to be sent before session</p><p><em><em>As part of <a href='https://ppl.app.uq.edu.au/content/10.10.01-sustainability-0'>UQ Sustainability</a> this class has no paper handouts. You may download manuals and exercises for this class on the </em><a href='https://web.library.uq.edu.au/library-services/training/training-resources'><em>training resources</em></a><em> page.</em></em></p>",
+                            summary: "A beginner's guide to essential spreadsheet concepts and skills",
+                            placesRemaining: 'Places still available',
+                            start: '2020-11-24T10:00:00+10:00',
+                            end: '2020-11-24T11:30:00+10:00',
+                            venue: 'Toowoomba Rural Clinic',
+                            userId: 'uqldegro',
+                            userName: 'Lea de Groot',
+                            userEmail: 'uqldegro@uq.edu.au',
+                            studenthubWindow: '_self',
+                        };
+                    });
+                </script>
+                <hr />
+
+                <!-- places-remaining="Class is full. Register for waitlist." bookingSettings.placeRemaining === 0 -->
+                <!-- user not logged in, dont send user fields -->
+                <p>
+                    Non logged in user with a course that is full and a location with no entry in the lookup table (no
+                    map link)
+                </p>
+                <training-detail data-testid="event-detail-content-3455331"></training-detail>
+                <script>
+                    window.addEventListener('DOMContentLoaded', () => {
+                        const trainingDetail3455331 = document.querySelector(
+                            '[data-testid="event-detail-content-3455331"]',
+                        );
+                        trainingDetail3455331.data = {
+                            id: '3455331',
+                            name: 'Excel2: Introduction to Spreadsheets',
+                            details:
+                                "<p>At the end of this session, class participants will be able to:</p><ul><li>Design and create a simple spreadsheet</li><li>Enter data, labels, formulas and simple functions</li><li>Format and sort data</li><li>Present data in charts</li></ul><p><em>This session will use Microsoft Excel. </em>Please install the software <em>before </em>joining this session: <a href='https://my.uq.edu.au/information-and-services/information-technology/software-and-web-apps/software-uq/microsoft-software/office-365-personal-use'>https://my.uq.edu.au/information-and-services/info...<br></a></p><p><img style='background-color:&#32;initial;&#32;width:&#32;25px;' src='https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png'> Attend online: Zoom link to be sent before session</p><p><em><em>As part of <a href='https://ppl.app.uq.edu.au/content/10.10.01-sustainability-0'>UQ Sustainability</a> this class has no paper handouts. You may download manuals and exercises for this class on the </em><a href='https://web.library.uq.edu.au/library-services/training/training-resources'><em>training resources</em></a><em> page.</em></em></p>",
+                            summary: "A beginner's guide to essential spreadsheet concepts and skills",
+                            placesRemaining: 'Class is full. Register for waitlist.',
+                            start: '2020-11-24T10:00:00+10:00',
+                            end: '2020-11-24T11:30:00+10:00',
+                            venue: 'Townsville',
+                        };
+                    });
+                </script>
+            </div>
+        </article>
+
+        <connect-footer></connect-footer>
+
+        <uq-footer></uq-footer>
+        <script type="text/javascript" src="uq-lib-reusable.min.js"></script>
+    </body>
+</html>

@@ -1,10 +1,10 @@
 /// <reference types="cypress" />
-import gtm from '../../src/GTM/gtm';
+// import gtm from '../../src/GTM/gtm';
 
 describe('GTM', () => {
     beforeEach(() => {
         cy.visit('http://localhost:8080');
-        cy.injectAxe();
+        // cy.injectAxe();
         cy.intercept('GET', 'https://www.googletagmanager.com/gtm.js', (req) => {
             expect(req.url).to.contain('ABC123');
             req.reply(200);

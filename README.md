@@ -3,7 +3,7 @@
 These reusable webcomponents provides header and footer to multiple systems.
 
 The 'applications/' folder allows us to version control changes to the scripts we use to insert code into 3rd party systems - see [the applications readme](applications/readme.md) for a summary.
-  
+
 ## Development
 
 - run `npm ci` to install packages.
@@ -14,7 +14,8 @@ The 'applications/' folder allows us to version control changes to the scripts w
 - run `npm run build:staging` to run a `staging` test build in the `dist` folder
 - run `npm run build:production` to run a `production` test build in the `dist` folder
 - run `npm run test:local` to run a test build in the `dist` folder and run all cypress tests
-- run `npm run prettier:test` to check all files for codestyles and `npm run prettier:fix` to fix them all
+- run `npm run prettier:test` to check all files for codestyles, and
+- run `npm run prettier:fix` to fix all codestyle issues
 
 ### Git safety checks
 
@@ -49,20 +50,24 @@ Add the following line at the end of your HTML document to initialise the compon
 Note that the _defer_ is important.
 
 ```html
-  <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v6/fonts/Roboto/roboto.css" />
-  <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css" />
-  <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css">
-  <script type="text/javascript" src="https://assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js" defer></script>
+<link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v6/fonts/Roboto/roboto.css" />
+<link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css" />
+<link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css" />
+<script
+  type="text/javascript"
+  src="https://assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js"
+  defer
+></script>
 ```
 
 eg. UQ Header:
 
 ```html
 <uq-header
-        hidelibrarymenuitem="true"
-        searchlabel="library.uq.edu.au"
-        searchurl="library.uq.edu.au"
-        skipnavid="skiptohere"
+  hidelibrarymenuitem="true"
+  searchlabel="library.uq.edu.au"
+  searchurl="library.uq.edu.au"
+  skipnavid="skiptohere"
 ></uq-header>
 ```
 
@@ -76,7 +81,7 @@ This must be an ANCHOR, not any other html element.
 
 ## Testing
 
-This repo uses Cypress tests. To run tests:
+This repo uses [Cypress.io](https://cypress.io/) tests. To run tests:
 
 - locally: `npm run test:local` - select the preferred browser from the dropdown in the top right of the cypress interface, then click on the 'run integration tests'
 
@@ -94,14 +99,25 @@ uql-reusable-webcomponents-development has subfolders that map to feature branch
 
 There is a cloudfront behaviour on assets.library.uq.edu.au that maps these buckets to assets address for use in deployment
 
-- <https://assets.library.uq.edu.au/reusable-webcomponents-development/>  ==> s3://uql-reusable-webcomponents-development/
-- <https://assets.library.uq.edu.au/reusable-webcomponents-staging/>      ==> s3://uql-reusable-webcomponents-staging/
-- <https://assets.library.uq.edu.au/reusable-webcomponents/>              ==> s3://uql-reusable-webcomponents-production/
+- <https://assets.library.uq.edu.au/reusable-webcomponents-development/> ==> s3://uql-reusable-webcomponents-development/
+- <https://assets.library.uq.edu.au/reusable-webcomponents-staging/> ==> s3://uql-reusable-webcomponents-staging/
+- <https://assets.library.uq.edu.au/reusable-webcomponents/> ==> s3://uql-reusable-webcomponents-production/
 
 ## Reference Material
 
 - How slots work: <https://javascript.info/slots-composition>
-- Apply styles within the shadow dom from outside: <https://developer.mozilla.org/en-US/docs/Web/CSS/::part> (undocumented caveat: you can only style the item with the "part attribute" you cant style its descendants ie this doesn't work: `askus-button::part(askus) div#askus-label` you have to put the part="x" on the label element)
+- Apply styles within the shadow dom from outside: <https://developer.mozilla.org/en-US/docs/Web/CSS/::part>
+
+  - Undocumented caveat: You can only style the item with the "part attribute" you can't style its descendants like:
+
+    ```css
+    askus-button::part(askus) div#askus-label {
+      font-weight: bold;
+    }
+    ```
+
+    You have to put the `part="x"` on the label element.
+
 - [Lifecycle hooks in web components](https://ultimatecourses.com/blog/lifecycle-hooks-in-web-components)
 
 ## Setting up from the ITS Design System private packages
@@ -116,30 +132,33 @@ There is a cloudfront behaviour on assets.library.uq.edu.au that maps these buck
 - Follow the export procedure from [ITS Design System github](https://github.com/uq-its-ss/design-system/blob/master/packages/private-design-output/README.md).
 - Copy the exported package to a new folder (eg UQHeader) - or over existing files in the case of an update.
 - Create the Web Component file (eg. UQHeader.js in that folder)
-  - Update the reference to the CSS in the css/*.css
+  - Update the reference to the CSS in the css/\*.css
 - Edit the js/uqds.js file to replace any reference to `document.query...` to a shadow dom reference by replacing it with `document.querySelector('uq-header').shadowRoot.query...`
 - Register the new web component in `src/index.js` and insert the dom element in `/index.html'
 - Add a line to the webpack config to copy the ~usds.js file from the ITS DS package to the dist root and rename it.
 - Replace all `rem` units in css to `em` to stop old vendor apps from breaking our components.
 
 ```html
-  new CopyPlugin({
-      patterns: [
-        { from: "src/UQHeader/js/uqds.js", to: "header.js" },
-      ],
-    }),
+new CopyPlugin({ patterns: [ { from: "src/UQHeader/js/uqds.js", to: "header.js" }, ], }),
 ```
 
 - Add a line to webpack config to add the full path for various builds under:
 
-```html
-  (process.env.NODE_ENV !== 'local') && new ReplaceInFileWebpackPlugin([{
-                dir: 'dist',
-                files: ['uq-lib-reusable.min.js.min.js'],
-                rules: [{
-                    search: /uq-header\.js/gm,
-                    replace: componentJsPath[process.env.NODE_ENV] + 'uq-header.js',
-                },{...
+```js
+process.env.NODE_ENV !== 'local' &&
+  new ReplaceInFileWebpackPlugin([
+    {
+      dir: 'dist',
+      files: ['uq-lib-reusable.min.js.min.js'],
+      rules: [
+        {
+          search: /uq-header\.js/gm,
+          replace: componentJsPath[process.env.NODE_ENV] + 'uq-header.js',
+        },
+      ],
+    },
+    /* ... */
+  ]);
 ```
 
 - Make sure to update the dynamic load reference in the web component file.

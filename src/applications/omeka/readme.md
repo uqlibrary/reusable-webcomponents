@@ -2,7 +2,7 @@
 
 Omeka is a third party CMS the Library is using for online library exhibits.
 
-Omeka live URL: https://uqlibraryonlineexhibitions.omeka.net/
+Omeka live URL: <https://uqlibraryonlineexhibitions.omeka.net/>
 
 ## Exhibitions
 
@@ -24,15 +24,27 @@ Specific footer for fryer:
 
 ```html
 <div class="footer-container">
-<div class="qanzac">
-<div id="qanzac-statement">This project is proudly supported by the Queensland Government.</div>
-<div id="qanzac-logo"><img src="https://web.library.uq.edu.au/files/16245/ANZAC_CQ_w%20crest_locked%20logo_C_landscape_min_size_rev_10mm.png" alt="" /></div>
+  <div class="qanzac">
+    <div id="qanzac-statement">This project is proudly supported by the Queensland Government.</div>
+    <div id="qanzac-logo">
+      <img
+        src="https://web.library.uq.edu.au/files/16245/ANZAC_CQ_w%20crest_locked%20logo_C_landscape_min_size_rev_10mm.png"
+        alt=""
+      />
+    </div>
+  </div>
 </div>
-</div>
-<script type="text/javascript" src="//assets.library.uq.edu.au/reusable-webcomponents/applications/omeka/load.js"></script>
-<script type="text/javascript" src="//assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js" defer="defer"></script>
+<script
+  type="text/javascript"
+  src="//assets.library.uq.edu.au/reusable-webcomponents/applications/omeka/load.js"
+></script>
+<script
+  type="text/javascript"
+  src="//assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js"
+  defer="defer"
+></script>
 <script type="text/javascript">
-    AddClassNameToBody('fryer');
+  AddClassNameToBody('fryer');
 </script>
 ```
 
@@ -46,9 +58,9 @@ which has major restrictions, eg:
 - any property set to a value of 'inherit' is removed
 - omeka doesnt recognise rem unit values and removes the property, so supply a px default
 - the following properties are removed:
-  ** transition
+  **transition
   ** transition-delay
-  ** max-width
+  **max-width
   ** width
   \*\* min-height
 - it strips :before attributes
@@ -61,47 +73,60 @@ JS is applied in the footer, the JS Fryer Exhibit can be edited [on this page](h
 
 Maintain the following code block as the correct inclusions for all exhibits (some may have extra markup in the footer field for display):
 
-        <script type="text/javascript" src="//assets.library.uq.edu.au/reusable-webcomponents/applications/omeka/load.js"></script>
-        <script type="text/javascript" src="//assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js" defer></script>
+```html
+<script
+  type="text/javascript"
+  src="//assets.library.uq.edu.au/reusable-webcomponents/applications/omeka/load.js"
+></script>
+<script
+  type="text/javascript"
+  src="//assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js"
+  defer
+></script>
+```
 
 If you have a specific theme that needs special styling, you can add a new class name to the body element by adding these lines to the bottom of the footer (edit the footer as described above). This function call will add a class to the body element - then you can write css to target just this theme in a .scss file. (it will affect all exhibits that have had this classname added to the body)
 
-        <script type="text/javascript">
-          AddClassNameToBody('bigtheme');
-        </script>
+```html
+<script type="text/javascript">
+  AddClassNameToBody('bigtheme');
+</script>
+```
 
 The UQ logo used by omeka is uq-exhibitions-logo.png and archived in this folder.
 
-The homepage css at http://uqlibraryonlineexhibitions.omeka.net/admin/plugins/config?name=CSSEditor as at 30/10/2018:
+The homepage css at <http://uqlibraryonlineexhibitions.omeka.net/admin/plugins/config?name=CSSEditor> as at 30/10/2018:
 
-#home {
-font-family:Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif
+```css
+# home {
+  font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-#site-title {
-height:100px;
-background-color:#51247A;
-margin-left:0;
-padding-left:16px
+# site-title {
+  height: 100px;
+  background-color: #51247a;
+  margin-left: 0;
+  padding-left: 16px;
 }
 
-#wrap {
-background-color:#fff;
-color:#66615D;
-padding-left:1em;
-padding-right:1em;
-margin-left:auto;
-margin-right:auto
+# wrap {
+  background-color: #fff;
+  color: #66615d;
+  padding-left: 1em;
+  padding-right: 1em;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 @media screen and (max-width: 900px) {
-#footer-text {
-background-color:#51247A;
-color:#d4c8de;
-height:230px
-}
+  # footer-text {
+    background-color: #51247a;
+    color: #d4c8de;
+    height: 230px;
+  }
 }
 
 a {
-color:#8457AD
+  color: #8457ad;
 }
+```

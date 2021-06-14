@@ -110,6 +110,26 @@ class ApiAccess {
             });
     }
 
+    async loadTrainingEvents(maxEventCount, filterId) {
+        const trainingApi = new ApiRoutes().TRAINING_API();
+        const urlPath = trainingApi.apiUrl;
+        const filter = {
+            maxEventCount,
+            // filterIds should be an array. Passing an array as value to
+            // URLSearchParams doesn't seem to be working.
+            'filterIds[]': filterId, // Value of filter to extract data from career hub.
+        };
+        const filterParams = new URLSearchParams(filter).toString();
+
+        // Need to decode the url-encoded version of '[]' in filterIds.
+        const url = urlPath.concat('?', decodeURIComponent(filterParams));
+
+        return await this.fetchAPI(url).catch((error) => {
+            console.log('error loading training events ', error);
+            return null;
+        });
+    }
+
     /**
      * Loads the primo search suggestions
      * @returns {function(*)}
@@ -250,11 +270,9 @@ class ApiAccess {
     /* istanbul ignore next */
     fetchFromServer(urlPath, options) {
         const API_URL = process.env.API_URL || 'https://api.library.uq.edu.au/staging/';
+        const connector = urlPath.indexOf('?') > -1 ? '&' : '?';
 
-        // make specific to the path because the user search term might include '?'
-        const delimiter = urlPath.includes('search_suggestions?') ? '&' : '?'; // appends the timestamp cache buster correctly
-        const url = `${API_URL}${urlPath}${delimiter}${new Date().getTime()}`;
-        return fetch(url, {
+        return fetch(`${API_URL}${urlPath}${connector}${new Date().getTime()}`, {
             headers: options,
         });
     }

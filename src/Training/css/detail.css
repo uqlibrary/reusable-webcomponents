@@ -1,0 +1,71 @@
+.uq-pane {
+    background-color: #fff;
+}
+
+.content-icon {
+    flex-direction: row;
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    width: 3rem;
+    min-width: 3rem;
+    display: flex;
+    align-items: center;
+}
+
+.lowlevel-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    vertical-align: middle;
+    fill: currentcolor;
+    stroke: currentcolor;
+    width: 24px;
+    height: 24px;
+}
+
+.uq-pane__footer {
+    text-align: right;
+}
+
+.event-heading {
+    padding: 1.5rem;
+}
+#eventName {
+    font-size: 1.5rem;
+    margin: 0 0 1rem 0;
+    color: #fff;
+}
+
+.details {
+    padding: 0.75rem 1.5rem;
+    overflow: hidden;
+}
+/* style the text from the api */
+.details p {
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    line-height: 1.25;
+    overflow-wrap: break-word;
+    text-size-adjust: 100%;
+    white-space: normal;
+}
+.details p,
+.details ul li {
+    margin-bottom: initial;
+}
+
+.iconRow {
+    display: flex;
+}
+.iconRow h4 {
+    margin-block-end: 0;
+    margin-block-start: 0;
+    margin-bottom: 0;
+    margin-top: 0;
+    color: #000;
+}

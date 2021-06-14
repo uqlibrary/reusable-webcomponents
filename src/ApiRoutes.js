@@ -50,6 +50,12 @@ class ApiRoutes {
     SUGGESTIONS_API_PAST_COURSE = (keyword) => ({
         apiUrl: 'search_suggestions?type=learning_resource&prefix=' + keyword,
     });
+
+    TRAINING_API() {
+        return {
+            apiUrl: 'training_events',
+        };
+    }
 }
 
 export default ApiRoutes;
