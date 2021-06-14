@@ -131,25 +131,27 @@ describe('Training', () => {
                 .shadow()
                 .within(() => {
                     cy.get('h3').contains('Excel');
-                    cy.get('[data-testid="eventDetails"]').contains(
+                    cy.get('[data-testid="training-details"]').contains(
                         'At the end of this session, class participants will be able to',
                     );
-                    cy.get('[data-testid="fullDate"]').contains('Tuesday, 24 November 2020');
-                    cy.get('[data-testid="startTime"]').contains('10:00 am');
-                    cy.get('[data-testid="endTime"]').contains('11:30 am');
-                    cy.get('[data-testid="locationdetails"] a').contains('St Lucia, Duhig Tower (2), 02-D501');
-                    cy.get('[data-testid="locationdetails"] a').should(
+                    cy.get('[data-testid="training-details-full-date"]').contains('Tuesday, 24 November 2020');
+                    cy.get('[data-testid="training-details-start-time"]').contains('10:00 am');
+                    cy.get('[data-testid="training-details-end-time"]').contains('11:30 am');
+                    cy.get('[data-testid="training-details-location-details"] a').contains(
+                        'St Lucia, Duhig Tower (2), 02-D501',
+                    );
+                    cy.get('[data-testid="training-details-location-details"] a').should(
                         'have.attr',
                         'href',
                         'https://maps.uq.edu.au/?zoom=19&campusId=406&lat=-27.4966319&lng=153.0144148&zLevel=1',
                     );
-                    cy.get('[data-testid="bookingText"]').contains('Booking is not required');
-                    cy.get('[data-testid="registrationBlockForNonUQ"] h4').should('exist');
-                    cy.get('[data-testid="registrationBlockForNonUQ"] h4').contains(
+                    cy.get('[data-testid="training-details-booking-text"]').contains('Booking is not required');
+                    cy.get('[data-testid="training-details-registrationBlockForNonUQ"] h4').should('exist');
+                    cy.get('[data-testid="training-details-registrationBlockForNonUQ"] h4').contains(
                         'Library member registration (for non-UQ staff and students)',
                     );
-                    cy.get('[data-testid="registrationBlockForNonUQ"] a').contains('@library'); // a library email address
-                    cy.get('[data-testid="registrationBlockForNonUQ"] a')
+                    cy.get('[data-testid="training-details-registrationBlockForNonUQ"] a').contains('@library'); // a library email address
+                    cy.get('[data-testid="training-details-registrationBlockForNonUQ"] a')
                         .should('have.attr', 'href')
                         .then((href) => {
                             console.log('href = ', href);
@@ -177,15 +179,15 @@ describe('Training', () => {
                 .shadow()
                 .within(() => {
                     cy.get('h3').contains('Excel1');
-                    cy.get('[data-testid="locationdetails"] a').contains('Toowoomba Rural Clinic');
-                    cy.get('[data-testid="locationdetails"] a').should(
+                    cy.get('[data-testid="training-details-location-details"] a').contains('Toowoomba Rural Clinic');
+                    cy.get('[data-testid="training-details-location-details"] a').should(
                         'have.attr',
                         'href',
                         'https://www.google.com/maps/search/?api=1&query=Toowoomba%20Rural%20Clinical%20School%2C%20152%20West%20Street%2C%20South%20Toowoomba%20QLD%2C%20Australia',
                     );
-                    cy.get('[data-testid="bookingText"]').contains('Places still available');
-                    cy.get('[data-testid="registrationBlockForNonUQ"]').should('not.be.visible');
-                    cy.get('button[data-testid="bookTraining"]').should('exist').click();
+                    cy.get('[data-testid="training-details-booking-text"]').contains('Places still available');
+                    cy.get('[data-testid="training-details-registrationBlockForNonUQ"]').should('not.be.visible');
+                    cy.get('button[data-testid="training-details-book-training-button"]').should('exist').click();
                 });
             cy.get('body').contains('User now on studenthub page');
         });
@@ -202,11 +204,13 @@ describe('Training', () => {
                 .shadow()
                 .within(() => {
                     cy.get('h3').contains('Excel2');
-                    cy.get('[data-testid="locationdetails"]').contains('Townsville');
-                    cy.get('[data-testid="locationdetails"] a').should('not.exist');
-                    cy.get('[data-testid="bookingText"]').contains('Class is full. Register for waitlist.');
-                    cy.get('[data-testid="registrationBlockForNonUQ"]').should('not.be.visible');
-                    cy.get('button[data-testid="bookTraining"]').should('exist').click();
+                    cy.get('[data-testid="training-details-location-details"]').contains('Townsville');
+                    cy.get('[data-testid="training-details-location-details"] a').should('not.exist');
+                    cy.get('[data-testid="training-details-booking-text"]').contains(
+                        'Class is full. Register for waitlist.',
+                    );
+                    cy.get('[data-testid="training-details-registrationBlockForNonUQ"]').should('not.be.visible');
+                    cy.get('button[data-testid="training-details-book-training-button"]').should('exist').click();
                 });
 
             cy.get('@open').should('have.been.calledOnce');
