@@ -121,43 +121,47 @@ class MockApi {
             case apiRoute.TRAINING_API().apiUrl:
                 return this.response(200, trainingEvents, true);
 
-            case apiRoute.PRIMO_SUGGESTIONS_API_GENERIC('DDDDD').apiUrl: // to test the repeating key works and doesnt pass just because the mock data doesnt exist
-            case apiRoute.PRIMO_SUGGESTIONS_API_GENERIC('bear').apiUrl:
-            case apiRoute.PRIMO_SUGGESTIONS_API_GENERIC('beard').apiUrl:
-            case apiRoute.PRIMO_SUGGESTIONS_API_GENERIC('').apiUrl:
-                if (this.user === 'primoError') {
-                    return this.response(403, {});
-                    // return this.response(500, {}, true);
-                } else {
-                    console.log('returning mock primo suggestions');
-                    return this.response(200, primoSuggestions, true);
-                }
-
-            case apiRoute.EXAMS_SUGGESTIONS_API('PHIL').apiUrl:
-            case apiRoute.EXAMS_SUGGESTIONS_API('').apiUrl:
-                if (this.user === 'examError') {
-                    return this.response(403, {});
-                    // return this.response(500, {}, true);
-                } else {
-                    console.log('returning mock exam suggestions');
-                    return this.response(200, examSuggestions, true);
-                }
-
-
-            case apiRoute.SUGGESTIONS_API_PAST_COURSE('PHIL').apiUrl:
-            case apiRoute.SUGGESTIONS_API_PAST_COURSE('').apiUrl:
-                if (this.user === 'lrError') {
-                    return this.response(403, {});
-                    // return this.response(500, {}, true);
-                } else {
-                    console.log('returning mock talis suggestions');
-                    return this.response(200, learningResourceSuggestions, true);
-                }
-
-            /* istanbul ignore next  */
             default:
-                console.log('url not mocked...', url);
-                return this.response(404, {message: `MOCK URL NOT FOUND: ${url}`});
+                // splitting the '?' out of some apis doesnt work
+                switch (url) {
+                    case apiRoute.PRIMO_SUGGESTIONS_API_GENERIC('DDDDD').apiUrl: // to test the repeating key works and doesnt pass just because the mock data doesnt exist
+                    case apiRoute.PRIMO_SUGGESTIONS_API_GENERIC('bear').apiUrl:
+                    case apiRoute.PRIMO_SUGGESTIONS_API_GENERIC('beard').apiUrl:
+                    case apiRoute.PRIMO_SUGGESTIONS_API_GENERIC('').apiUrl:
+                        if (this.user === 'primoError') {
+                            return this.response(403, {});
+                            // return this.response(500, {}, true);
+                        } else {
+                            console.log('returning mock primo suggestions');
+                            return this.response(200, primoSuggestions, true);
+                        }
+
+                    case apiRoute.EXAMS_SUGGESTIONS_API('PHIL').apiUrl:
+                    case apiRoute.EXAMS_SUGGESTIONS_API('').apiUrl:
+                        if (this.user === 'examError') {
+                            return this.response(403, {});
+                            // return this.response(500, {}, true);
+                        } else {
+                            console.log('returning mock exam suggestions');
+                            return this.response(200, examSuggestions, true);
+                        }
+
+                    case apiRoute.SUGGESTIONS_API_PAST_COURSE('PHIL').apiUrl:
+                    case apiRoute.SUGGESTIONS_API_PAST_COURSE('').apiUrl:
+                        if (this.user === 'lrError') {
+                            return this.response(403, {});
+                            // return this.response(500, {}, true);
+                        } else {
+                            console.log('returning mock talis suggestions');
+                            return this.response(200, learningResourceSuggestions, true);
+                        }
+
+                    /* istanbul ignore next  */
+                    default:
+                        console.log('url not mocked...', url);
+                        return this.response(404, {message: `MOCK URL NOT FOUND: ${url}`});
+                }
+
         }
     }
 }
