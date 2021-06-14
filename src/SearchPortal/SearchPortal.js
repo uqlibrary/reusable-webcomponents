@@ -172,6 +172,7 @@ class SearchPortal extends HTMLElement {
 
         const suggestionListSibling = !!shadowDOM && shadowDOM.getElementById('input-field-wrapper');
 
+        // look for clicks outside the page because this dropdown should close when that happens
         document.addEventListener('click', this.listenForMouseClicks);
         document.addEventListener('keydown', this.listenForKeyClicks);
         console.log('added listenForSuggestionListClick');
@@ -218,6 +219,8 @@ class SearchPortal extends HTMLElement {
                     !!anchor && !!link && !!text && anchor.appendChild(text);
                     !!anchor && (anchor.className = 'MuiPaper-root suggestion-link');
                     !!anchor && anchor.setAttribute('id', `suggestion-link-${index}`);
+                    !!anchor && anchor.setAttribute('data-testid', `suggestion-link-${index}`);
+                    !!anchor && anchor.setAttribute('tabindex', '0');
 
                     // !!suggestion && suggestiondisplay.setAttribute('tabindex', '-1');
                     !!suggestion && suggestiondisplay.setAttribute('role', 'option');
@@ -243,7 +246,10 @@ class SearchPortal extends HTMLElement {
                         } else if (isArrowUpKeyPressed(e)) {
                             e.preventDefault();
                             const currentId = eventTargetId.replace('suggestion-link-', '');
-                            if (currentId !== '0') {
+                            if (currentId === '0') {
+                                const prevElement = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
+                                !!prevElement && prevElement.focus();
+                            } else {
                                 const prevId = parseInt(currentId, 10) - 1;
                                 const prevElement =
                                     !!shadowDOM && shadowDOM.getElementById(`suggestion-link-${prevId}`);
@@ -306,10 +312,7 @@ class SearchPortal extends HTMLElement {
         const that = this;
 
         function submitHandler() {
-            console.log('submitHandler 1');
-            console.log('document.activeElement = ', document.activeElement);
             return function (e) {
-                console.log('submitHandler 2');
                 e.preventDefault();
 
                 const charactersBefore = (string, separator) => {
@@ -351,6 +354,12 @@ class SearchPortal extends HTMLElement {
                 if (isEscapeKeyPressed(e)) {
                     clearSearchTerm();
                     that.clearSearchResults(shadowDOM);
+                } else if (isArrowDownKeyPressed(e)) {
+                    // down arrow pressed when in input field
+                    e.preventDefault();
+                    const nextElement = !!shadowDOM && shadowDOM.getElementById(`suggestion-link-0`);
+                    console.log('nextElement = ', nextElement);
+                    !!nextElement && nextElement.focus();
                 } else {
                     that.getSuggestions(shadowDOM);
                 }
@@ -755,7 +764,7 @@ class SearchPortal extends HTMLElement {
                 // `portalTypeSelectionEntry portalTypeSelectionEntry-${index} MuiListItem-root`);
                 `portalTypeSelectionEntry portalTypeSelectionEntry-${index} MuiButtonBase-root MuiListItem-root MuiMenuItem-root Mui-selected MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button`);
         !!button && button.setAttribute('type', 'button');
-        // !!button && button.setAttribute('tabindex', '0');
+        !!button && button.setAttribute('tabindex', '0');
         !!button && button.setAttribute('role', 'option');
         !!button && button.setAttribute('aria-label', `Search in ${entry.name}`);
         // !!button && button.setAttribute('aria-disabled', 'false');
