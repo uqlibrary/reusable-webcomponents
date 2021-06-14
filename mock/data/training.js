@@ -85,7 +85,7 @@ const training = [
         "bookingSettings": {
             "bookings": 5,
             "bookingLimit": 17,
-            "placesRemaining": 12,
+            "placesRemaining": 0,
             "bookingsOpen": "2021-04-16T08:05:00+10:00",
             "bookingsClose": "2021-05-31T09:30:00+10:00"
         },
@@ -202,13 +202,7 @@ const training = [
         "onlineInstructions": null,
         "venue": "https://uqz.zoom.us/j/83066132733",
         "bookingType": 1,
-        "bookingSettings": {
-            "bookings": 11,
-            "bookingLimit": null,
-            "placesRemaining": null,
-            "bookingsOpen": "2021-05-16T19:46:00+10:00",
-            "bookingsClose": "2021-05-31T15:00:00+10:00"
-        },
+        "bookingSettings": null,
         "workGroupId": 117,
         "attendance": {
             "total": 11,

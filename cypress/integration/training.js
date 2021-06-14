@@ -81,6 +81,48 @@ describe('Training', () => {
             });
         });
 
+        it('the places remaining text is always correct', () => {
+            cy.visit('http://localhost:8080/index-training.html');
+            cy.viewport(1280, 900);
+            cy.get('library-training:not([hide-filter])')
+                .should('exist')
+                .shadow()
+                .within(() => {
+                    cy.get('training-list')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            cy.get('[data-testid="event-detail-toggle-3455330"]').click(); // open detail item
+                            cy.get('#event-detail-3455330')
+                                .should('exist')
+                                .should('be.visible')
+                                .children('training-detail')
+                                .shadow()
+                                .within(() => {
+                                    cy.get('#bookingText').should('have.text', 'Booking is not required');
+                                });
+                            cy.get('[data-testid="event-detail-toggle-3437655"]').click(); // open detail item
+                            cy.get('#event-detail-3437655')
+                                .should('exist')
+                                .should('be.visible')
+                                .children('training-detail')
+                                .shadow()
+                                .within(() => {
+                                    cy.get('#bookingText').should('have.text', 'Class is full. Register for waitlist');
+                                });
+                            cy.get('[data-testid="event-detail-toggle-3428487"]').click(); // open detail item
+                            cy.get('#event-detail-3428487')
+                                .should('exist')
+                                .should('be.visible')
+                                .children('training-detail')
+                                .shadow()
+                                .within(() => {
+                                    cy.get('#bookingText').should('have.text', 'Places still available');
+                                });
+                        });
+                });
+        });
+
         it('has correct details for em user with st lucia training and non-booking course', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
@@ -89,25 +131,27 @@ describe('Training', () => {
                 .shadow()
                 .within(() => {
                     cy.get('[data-testid="event-name"]').contains('Excel');
-                    cy.get('[data-testid="eventDetails"]').contains(
+                    cy.get('[data-testid="training-details"]').contains(
                         'At the end of this session, class participants will be able to',
                     );
-                    cy.get('[data-testid="fullDate"]').contains('Tuesday, 24 November 2020');
-                    cy.get('[data-testid="startTime"]').contains('10:00 am');
-                    cy.get('[data-testid="endTime"]').contains('11:30 am');
-                    cy.get('[data-testid="locationdetails"] a').contains('St Lucia, Duhig Tower (2), 02-D501');
-                    cy.get('[data-testid="locationdetails"] a').should(
+                    cy.get('[data-testid="training-details-full-date"]').contains('Tuesday, 24 November 2020');
+                    cy.get('[data-testid="training-details-start-time"]').contains('10:00 am');
+                    cy.get('[data-testid="training-details-end-time"]').contains('11:30 am');
+                    cy.get('[data-testid="training-details-location-details"] a').contains(
+                        'St Lucia, Duhig Tower (2), 02-D501',
+                    );
+                    cy.get('[data-testid="training-details-location-details"] a').should(
                         'have.attr',
                         'href',
                         'https://maps.uq.edu.au/?zoom=19&campusId=406&lat=-27.4966319&lng=153.0144148&zLevel=1',
                     );
-                    cy.get('[data-testid="bookingText"]').contains('Booking is not required');
-                    cy.get('[data-testid="registrationBlockForNonUQ"] h4').should('exist');
-                    cy.get('[data-testid="registrationBlockForNonUQ"] h4').contains(
+                    cy.get('[data-testid="training-details-booking-text"]').contains('Booking is not required');
+                    cy.get('[data-testid="training-details-registrationBlockForNonUQ"] h4').should('exist');
+                    cy.get('[data-testid="training-details-registrationBlockForNonUQ"] h4').contains(
                         'Library member registration (for non-UQ staff and students)',
                     );
-                    cy.get('[data-testid="registrationBlockForNonUQ"] a').contains('@library'); // a library email address
-                    cy.get('[data-testid="registrationBlockForNonUQ"] a')
+                    cy.get('[data-testid="training-details-registrationBlockForNonUQ"] a').contains('@library'); // a library email address
+                    cy.get('[data-testid="training-details-registrationBlockForNonUQ"] a')
                         .should('have.attr', 'href')
                         .then((href) => {
                             console.log('href = ', href);
@@ -135,15 +179,15 @@ describe('Training', () => {
                 .shadow()
                 .within(() => {
                     cy.get('[data-testid="event-name"]').contains('Excel1');
-                    cy.get('[data-testid="locationdetails"] a').contains('Toowoomba Rural Clinic');
-                    cy.get('[data-testid="locationdetails"] a').should(
+                    cy.get('[data-testid="training-details-location-details"] a').contains('Toowoomba Rural Clinic');
+                    cy.get('[data-testid="training-details-location-details"] a').should(
                         'have.attr',
                         'href',
                         'https://www.google.com/maps/search/?api=1&query=Toowoomba%20Rural%20Clinical%20School%2C%20152%20West%20Street%2C%20South%20Toowoomba%20QLD%2C%20Australia',
                     );
-                    cy.get('[data-testid="bookingText"]').contains('Places still available');
-                    cy.get('[data-testid="registrationBlockForNonUQ"]').should('not.be.visible');
-                    cy.get('button[data-testid="bookTraining"]').should('exist').click();
+                    cy.get('[data-testid="training-details-booking-text"]').contains('Places still available');
+                    cy.get('[data-testid="training-details-registrationBlockForNonUQ"]').should('not.be.visible');
+                    cy.get('button[data-testid="training-details-book-training-button"]').should('exist').click();
                 });
             cy.get('@open').should(
                 'have.been.calledOnceWithExactly',
@@ -163,11 +207,13 @@ describe('Training', () => {
                 .shadow()
                 .within(() => {
                     cy.get('[data-testid="event-name"]').contains('Excel2');
-                    cy.get('[data-testid="locationdetails"]').contains('Townsville');
-                    cy.get('[data-testid="locationdetails"] a').should('not.exist');
-                    cy.get('[data-testid="bookingText"]').contains('Class is full. Register for waitlist.');
-                    cy.get('[data-testid="registrationBlockForNonUQ"]').should('not.be.visible');
-                    cy.get('button[data-testid="bookTraining"]').should('exist').click();
+                    cy.get('[data-testid="training-details-location-details"]').contains('Townsville');
+                    cy.get('[data-testid="training-details-location-details"] a').should('not.exist');
+                    cy.get('[data-testid="training-details-booking-text"]').contains(
+                        'Class is full. Register for waitlist.',
+                    );
+                    cy.get('[data-testid="training-details-registrationBlockForNonUQ"]').should('not.be.visible');
+                    cy.get('button[data-testid="training-details-book-training-button"]').should('exist').click();
                 });
 
             cy.get('@open').should(
@@ -192,9 +238,9 @@ describe('Training', () => {
                         .shadow()
                         .within(() => {
                             cy.get('[data-testid="training-filter-header"]').contains('Filter events');
-                            cy.get('[data-testid="keywordhover"]').contains('By keyword');
-                            cy.get('[data-testid="campushover"]').contains('By campus');
-                            cy.get('[data-testid="weekhover"]').contains('By week');
+                            cy.get('[data-testid="training-filter-keyword-label"]').contains('By keyword');
+                            cy.get('[data-testid="training-filter-campus-label"]').contains('By campus');
+                            cy.get('[data-testid="training-filter-week-label"]').contains('By week');
                         });
                 });
             cy.wait(1000);
@@ -215,9 +261,15 @@ describe('Training', () => {
                         .should('exist')
                         .shadow()
                         .within(() => {
-                            cy.get('[data-testid="inputKeyword"]').type('excel').should('have.value', 'excel');
+                            cy.get('[data-testid="training-filter-keyword-entry"]')
+                                .type('excel')
+                                .should('have.value', 'excel');
                             // the placeholder has moved up, proxied by "color has changed"
-                            cy.get('[data-testid="keywordhover"]').should('have.css', 'color', uqpurple);
+                            cy.get('[data-testid="training-filter-keyword-label"]').should(
+                                'have.css',
+                                'color',
+                                uqpurple,
+                            );
 
                             cy.url().should(
                                 'eq',
@@ -237,21 +289,29 @@ describe('Training', () => {
                         .should('exist')
                         .shadow()
                         .within(() => {
-                            cy.get('[data-testid="campushover"]').click();
-                            cy.get('[data-testid="StLucia"]').click();
-                            cy.get('[data-testid="campusOpener"]').contains('St Lucia');
+                            cy.get('[data-testid="training-filter-campus-label"]').click();
+                            cy.get('[data-testid="training-filter-select-campus-StLucia"]').click();
+                            cy.get('[data-testid="training-filter-campus-container"]').contains('St Lucia');
                             // the placeholder has moved up, proxied by "color has changed"
-                            cy.get('[data-testid="campushover"]').should('have.css', 'color', uqpurple);
+                            cy.get('[data-testid="training-filter-campus-label"]').should(
+                                'have.css',
+                                'color',
+                                uqpurple,
+                            );
                             cy.url().should(
                                 'eq',
                                 'http://localhost:8080/index-training.html#keyword=;campus=St%2520Lucia;weekstart=;online=false',
                             );
 
-                            cy.get('[data-testid="campushover"]').click();
-                            cy.get('[data-testid="Alllocations"]').click();
-                            cy.get('[data-testid="campusOpener"]').contains('All locations');
+                            cy.get('[data-testid="training-filter-campus-label"]').click();
+                            cy.get('[data-testid="training-filter-select-campus-Alllocations"]').click();
+                            cy.get('[data-testid="training-filter-campus-container"]').contains('All locations');
                             // the placeholder has moved up, proxied by "color has changed"
-                            cy.get('[data-testid="campushover"]').should('have.css', 'color', uqpurple);
+                            cy.get('[data-testid="training-filter-campus-label"]').should(
+                                'have.css',
+                                'color',
+                                uqpurple,
+                            );
                             cy.url().should(
                                 'eq',
                                 'http://localhost:8080/index-training.html#keyword=;campus=all;weekstart=;online=false',
@@ -270,8 +330,11 @@ describe('Training', () => {
                         .should('exist')
                         .shadow()
                         .within(() => {
-                            cy.get('[data-testid="campushover"]').click();
-                            cy.get('[data-testid="campuslist"]').find('button').its('length').should('eq', 3);
+                            cy.get('[data-testid="training-filter-campus-label"]').click();
+                            cy.get('[data-testid="training-filter-campus-list"]')
+                                .find('button')
+                                .its('length')
+                                .should('eq', 3);
                         });
                 });
             // click somewhere on the page outside the campus type dropdown
@@ -284,7 +347,7 @@ describe('Training', () => {
                         .should('exist')
                         .shadow()
                         .within(() => {
-                            cy.get('[data-testid="campuslist"]').should('have.class', 'hidden');
+                            cy.get('[data-testid="training-filter-campus-list"]').should('have.class', 'hidden');
                         });
                 });
         });
@@ -299,26 +362,29 @@ describe('Training', () => {
                         .should('exist')
                         .shadow()
                         .within(() => {
-                            cy.get('[data-testid="weekhover"]').click();
+                            cy.get('[data-testid="training-filter-week-label"]').click();
 
-                            cy.get('[data-testid="allavailable"]').click();
-                            cy.get('[data-testid="weekOpener"]').should('contain', 'All available');
+                            cy.get('[data-testid="training-filter-select-week-allavailable"]').click();
+                            cy.get('[data-testid="training-filter-week-container"]').should('contain', 'All available');
                             // the placeholder has moved up, proxied by "color has changed"
-                            cy.get('[data-testid="weekhover"]').should('have.css', 'color', uqpurple);
+                            cy.get('[data-testid="training-filter-week-label"]').should('have.css', 'color', uqpurple);
 
                             cy.url().should(
                                 'eq',
                                 'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=all;online=false',
                             );
 
-                            cy.get('[data-testid="weekhover"]').click();
+                            cy.get('[data-testid="training-filter-week-label"]').click();
 
                             // there seems to be an issue that my machine uses 4 char for June, but AWS (and maybe Ashley's?) uses 3 char
                             // so avoid the issue and use August, which is 'aug'.
-                            cy.get('[data-testid="2aug-8aug"]').click();
-                            cy.get('[data-testid="weekOpener"]').should('contain', '2 Aug - 8 Aug ');
+                            cy.get('[data-testid="training-filter-select-week-2aug-8aug"]').click();
+                            cy.get('[data-testid="training-filter-week-container"]').should(
+                                'contain',
+                                '2 Aug - 8 Aug ',
+                            );
                             // the placeholder has moved up, proxied by "color has changed"
-                            cy.get('[data-testid="weekhover"]').should('have.css', 'color', uqpurple);
+                            cy.get('[data-testid="training-filter-week-label"]').should('have.css', 'color', uqpurple);
 
                             cy.url().should(
                                 'eq',
@@ -338,9 +404,12 @@ describe('Training', () => {
                         .should('exist')
                         .shadow()
                         .within(() => {
-                            cy.get('[data-testid="weekhover"]').click();
-                            cy.get('[data-testid="weeklist"]').should('not.have.class', 'hidden');
-                            cy.get('[data-testid="weeklist"]').find('button').its('length').should('eq', 15);
+                            cy.get('[data-testid="training-filter-week-label"]').click();
+                            cy.get('[data-testid="training-filter-week-list"]').should('not.have.class', 'hidden');
+                            cy.get('[data-testid="training-filter-week-list"]')
+                                .find('button')
+                                .its('length')
+                                .should('eq', 15);
                         });
                 });
             // click somewhere on the page outside the week type dropdown
@@ -353,7 +422,7 @@ describe('Training', () => {
                         .should('exist')
                         .shadow()
                         .within(() => {
-                            cy.get('[data-testid="weeklist"]').should('have.class', 'hidden');
+                            cy.get('[data-testid="training-filter-week-list"]').should('have.class', 'hidden');
                         });
                 });
         });
@@ -368,29 +437,29 @@ describe('Training', () => {
                         .should('exist')
                         .shadow()
                         .within(() => {
-                            const weekDropdown = '[data-testid="allavailable"]';
-                            const campusDropdown = '[data-testid="Alllocations"]';
+                            const weekDropdown = '[data-testid="training-filter-select-week-allavailable"]';
+                            const campusDropdown = '[data-testid="training-filter-select-campus-Alllocations"]';
 
                             // the two dropdowns wont be open at the same time
-                            cy.get('[data-testid="weekhover"]').click(); // open the week list
+                            cy.get('[data-testid="training-filter-week-label"]').click(); // open the week list
                             cy.get(weekDropdown).should('be.visible'); // week list shows
                             cy.get(campusDropdown).should('not.be.visible'); // campus list is closed
 
-                            cy.get('[data-testid="campushover"]').click(); // open the campus list
+                            cy.get('[data-testid="training-filter-campus-label"]').click(); // open the campus list
                             cy.get(campusDropdown).should('be.visible'); // campus list is open
                             cy.get(weekDropdown).should('not.be.visible'); // week list has closed
 
-                            cy.get('[data-testid="weekhover"]').click(); // reopen the week list
+                            cy.get('[data-testid="training-filter-week-label"]').click(); // reopen the week list
                             cy.get(weekDropdown).should('be.visible'); // campus list has closed
                             cy.get(campusDropdown).should('not.be.visible'); // week list is open
-                            cy.get('[data-testid="allavailable"]').click(); // select a week for the next step of the test
+                            cy.get('[data-testid="training-filter-select-week-allavailable"]').click(); // select a week for the next step of the test
 
-                            cy.get('[data-testid="campushover"]').click();
-                            cy.get('[data-testid="Alllocations"]').click();
+                            cy.get('[data-testid="training-filter-campus-label"]').click();
+                            cy.get('[data-testid="training-filter-select-campus-Alllocations"]').click();
 
-                            cy.get('[data-testid="endnote"]').click();
+                            cy.get('[data-testid="training-filter-popular-events-endnote"]').click();
 
-                            cy.get('[data-testid="onlineonly"]').click();
+                            cy.get('[data-testid="training-filter-onlineonly-checkbox"]').click();
 
                             cy.url().should(
                                 'eq',
@@ -410,20 +479,20 @@ describe('Training', () => {
                         .should('exist')
                         .shadow()
                         .within(() => {
-                            cy.get('[data-testid="endnote"]').click();
+                            cy.get('[data-testid="training-filter-popular-events-endnote"]').click();
                             cy.url().should(
                                 'eq',
                                 'http://localhost:8080/index-training.html#keyword=endnote;campus=;weekstart=;online=false',
                             );
-                            cy.get('[data-testid="clearKeyword"]').click();
+                            cy.get('[data-testid="training-filter-clear-keyword"]').click();
                             cy.url().should('eq', 'http://localhost:8080/index-training.html#');
 
-                            cy.get('[data-testid="onlineonly"]').click();
+                            cy.get('[data-testid="training-filter-onlineonly-checkbox"]').click();
                             cy.url().should(
                                 'eq',
                                 'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=;online=true',
                             );
-                            cy.get('[data-testid="onlineonly"]').click();
+                            cy.get('[data-testid="training-filter-onlineonly-checkbox"]').click();
                             cy.url().should('eq', 'http://localhost:8080/index-training.html#');
                         });
                 });
