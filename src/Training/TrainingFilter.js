@@ -9,14 +9,14 @@ template.innerHTML = `
         <div class="header uq-pane__title" data-testid="training-filter-header">
             <h3 tabindex="0" class="title-text paper-card">Filter events</h3>
         </div>
-        <div class="uq-pane__content" data-testid="dropdown-container">
+        <div class="uq-pane__content" data-testid="training-filter-container">
             <div>
                 <div class="keywordPlaceholderMovement">
                     <label aria-label="filter by keyword">
-                        <input id="inputKeyword" data-testid="inputKeyword" class="paper-input" autocomplete="off" placeholder=" " autocapitalize="none" autocorrect="off" aria-describedby="" aria-labelledby="keywordhover" tabindex="0">
-                        <span id="keywordhover" data-testid="keywordhover">By keyword</span>
+                        <input id="inputKeyword" data-testid="training-filter-keyword-entry" class="paper-input" autocomplete="off" placeholder=" " autocapitalize="none" autocorrect="off" aria-describedby="" aria-labelledby="keywordhover" tabindex="0">
+                        <span id="keywordhover" data-testid="training-filter-keyword-label">By keyword</span>
                     </label>                        
-                    <button class="clearKeyword" id="clearKeyword" data-testid="clearKeyword" aria-label="Clear Keyword">
+                    <button class="clearKeyword" id="clearKeyword" data-testid="training-filter-clear-keyword" aria-label="Clear Keyword">
                         <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="iron-icon" style="pointer-events: none; display: block; width: 100%; height: 100%;">
                             <g class="iron-icon">
                                 <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" class="iron-icon"></path>
@@ -27,26 +27,26 @@ template.innerHTML = `
             </div>
             <span style="display: none" tabindex="-1" id="campus-filter-label">Choose the campus for your course</span>
             <div aria-label="filter by campus" id="campusDropdown" class="listHolder" aria-disabled="false">
-                <button data-testid="campusOpener" id="campusOpener" class="opener filterer" aria-haspopup="listbox" aria-labelledby="campus-filter-label">
+                <button data-testid="training-filter-campus-container" id="campusOpener" class="opener filterer" aria-haspopup="listbox" aria-labelledby="campus-filter-label">
                     <span class="hidden">By campus</span>
                 </button>
                 <div id="hoverblock" class="hoverblock">
-                    <div data-testid="campushover" id="campushover" class="campushover hovertext">By campus</div>
+                    <div data-testid="training-filter-campus-label" id="campushover" class="campushover hovertext">By campus</div>
                 </div>
-                <div tabindex="-1" data-testid="campuslist" id="campuslist" class="selectorlist campuslist hidden" aria-expanded="false"></div>
+                <div tabindex="-1" data-testid="training-filter-campus-list" id="campuslist" class="selectorlist campuslist hidden" aria-expanded="false"></div>
             </div>
             <div aria-label="filter by week" id="weekDropdown" class="listHolder" aria-disabled="false">
-                <button data-testid="weekOpener" id="weekOpener" class="opener filterer" aria-labelledby="weekhover">
+                <button data-testid="training-filter-week-container" id="weekOpener" class="opener filterer" aria-labelledby="weekhover">
                     <span class="hidden">By week</span>
                 </button>
                 <div class="hoverblock">
-                    <div data-testid="weekhover" id="weekhover" class="weekhover hovertext">By week</div>
+                    <div data-testid="training-filter-week-label" id="weekhover" class="weekhover hovertext">By week</div>
                 </div>
-                <div data-testid="weeklist" id="weeklist" class="selectorlist weeklist hidden" aria-expanded="false"></div>
+                <div data-testid="training-filter-week-list" id="weeklist" class="selectorlist weeklist hidden" aria-expanded="false"></div>
             </div>
         </div>
         <div class="onlineToggle">
-            <input type="checkbox" name="onlineonly" id="onlineonly" data-testid="onlineonly" aria-labelledby="online" />
+            <input type="checkbox" name="onlineonly" id="onlineonly" data-testid="training-filter-onlineonly-checkbox" aria-labelledby="online" />
             <label id="online" class="toggle-label paper-toggle-button">Show only online events</label>
         </div>
         <div id="quicklinks" class="quicklinks">
@@ -171,6 +171,16 @@ class TrainingFilter extends HTMLElement {
 
         const campusOpener = !!shadowDOM && shadowDOM.getElementById('campusOpener');
         campusOpener.addEventListener('keydown', function (e) {
+            console.log(
+                'isKeyPressed: e.key = ',
+                e.key,
+                ' | e.code = ',
+                e.code,
+                ' |  e.charCode = ',
+                e.charCode,
+                ' | e.keyCode = ',
+                e.keyCode,
+            );
             if (isArrowDownKeyPressed(e)) {
                 const allElement = !!shadowDOM && shadowDOM.getElementById('campus-select-0');
                 console.log('put focus on first element');
@@ -321,7 +331,7 @@ class TrainingFilter extends HTMLElement {
             const chipButton = document.createElement('button');
             chipButton.className = 'chip uq-button';
             chipButton.innerHTML = chip.label;
-            chipButton.setAttribute('data-testid', chip.term);
+            chipButton.setAttribute('data-testid', `training-filter-popular-events-${chip.term}`);
             chipButton.setAttribute('aria-label', `Use ${chip.term} as keyword`);
             !!chipButton &&
                 chipButton.addEventListener('click', function () {
@@ -391,7 +401,9 @@ class TrainingFilter extends HTMLElement {
                     ? 'Display courses on all days'
                     : `Only display courses between ${weekName}`;
             weekSelectButton.setAttribute('aria-label', label);
-            weekSelectButton.setAttribute('data-testid', weekName.replaceAll(' ', '').toLowerCase());
+            const weekSelectButtonDataTestId = weekName.replaceAll(' ', '').toLowerCase();
+            const weekSelectButtonDataTestLabel = `training-filter-select-week-${weekSelectButtonDataTestId}`;
+            weekSelectButton.setAttribute('data-testid', weekSelectButtonDataTestLabel);
             weekSelectButton.innerHTML = weekName;
             !!weekSelectButton &&
                 weekSelectButton.addEventListener('click', function () {
@@ -491,7 +503,9 @@ class TrainingFilter extends HTMLElement {
             }
             console.log('label = ', label);
             campusSelectButton.setAttribute('aria-label', label);
-            campusSelectButton.setAttribute('data-testid', campusName.replaceAll(' ', ''));
+            const campusSelectButtonDataTestId = campusName.replaceAll(' ', '');
+            const campusSelectButtonDataTestLabel = `training-filter-select-campus-${campusSelectButtonDataTestId}`;
+            campusSelectButton.setAttribute('data-testid', campusSelectButtonDataTestLabel);
             !!campusSelectButton &&
                 campusSelectButton.addEventListener('click', function () {
                     selectCampus(campusName, campusCode);
