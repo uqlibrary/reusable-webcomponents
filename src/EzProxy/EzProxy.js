@@ -4,8 +4,8 @@ import isURL from 'validator/es/lib/isURL';
 
 /*
  * usage:
+ *  <ez-proxy create-link="true"></ez-proxy>
  *  <ez-proxy></ez-proxy>
- *  <ez-proxy redirect-only></ez-proxy>
  *
  */
 
@@ -62,7 +62,10 @@ class EzProxy extends HTMLElement {
     }
 
     get redirectOnly() {
-        return this.hasAttribute('redirect-only') && this.getAttribute('redirect-only') !== 'false';
+        const createLink = this.hasAttribute('create-link') && this.getAttribute('create-link') !== 'false';
+        // convert legacy option to more logical option
+        // (The links are created in either case, it's what we do with it that's different)
+        return !createLink;
     }
 
     get inputUrl() {
