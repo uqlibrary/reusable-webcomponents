@@ -115,14 +115,6 @@ class TrainingFilter extends HTMLElement {
     }
 
     set inputKeywordValue(inputKeyword) {
-        // only send once per char and dont send when they clear the field
-        if (this._inputKeywordValue !== inputKeyword && inputKeyword !== '') {
-            window.dataLayer = window.dataLayer || []; // for tests
-            window.dataLayer.push({
-                'gtm.element.elements.training-filter-keyword.value': inputKeyword,
-            });
-        }
-
         this._inputKeywordValue = inputKeyword;
         this.changeHashofUrl();
     }
@@ -264,6 +256,15 @@ class TrainingFilter extends HTMLElement {
             }
         });
 
+        function sendKeywordToGoogleAnalytics(e) {
+            if (that._inputKeywordValue !== '') {
+                window.dataLayer = window.dataLayer || []; // for tests
+                window.dataLayer.push({
+                    'gtm.element.elements.training-filter-keyword.value': that._inputKeywordValue,
+                });
+            }
+        }
+
         function noteKeywordChange() {
             const inputKeywordField = !!shadowDOM && shadowDOM.getElementById('inputKeyword');
             !!inputKeywordField && (that.inputKeywordValue = inputKeywordField.value);
@@ -272,6 +273,7 @@ class TrainingFilter extends HTMLElement {
         const inputKeywordField = !!shadowDOM && shadowDOM.getElementById('inputKeyword');
         !!inputKeywordField && inputKeywordField.addEventListener('keydown', noteKeywordChange);
         !!inputKeywordField && inputKeywordField.addEventListener('keyup', noteKeywordChange);
+        !!inputKeywordField && inputKeywordField.addEventListener('blur', sendKeywordToGoogleAnalytics);
 
         // may need more listeners for mobile, etc?
 
