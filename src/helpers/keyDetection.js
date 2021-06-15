@@ -1,4 +1,14 @@
 export function isKeyPressed(e, charKeyInput, numericKeyInput) {
+    console.log(
+        'isKeyPressed: e.key = ',
+        e.key,
+        ' | e.code = ',
+        e.code,
+        ' | e.charCode = ',
+        e.charCode,
+        ' | e.keyCode = ',
+        e.keyCode,
+    );
     const keyNumeric = e.charCode || e.keyCode;
     const keyChar = e.key || e.code;
     return keyChar === charKeyInput || keyNumeric === numericKeyInput;

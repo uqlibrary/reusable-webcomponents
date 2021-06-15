@@ -755,7 +755,9 @@ class SearchPortal extends HTMLElement {
         !!svg && !!path && svg.appendChild(path);
 
         const label = document.createElement('span');
-        !!label && (label.id = `portalTypeSelectionEntry-${index}`);
+        const labelid = `portalTypeSelectionEntry-${index}`;
+        !!label && (label.id = labelid);
+        !!label && label.setAttribute('data-testid', labelid);
         label.innerHTML = entry.name;
 
         const button = document.createElement('button');
@@ -813,7 +815,7 @@ class SearchPortal extends HTMLElement {
                 !!nextElement && nextElement.focus();
             } else if (isArrowUpKeyPressed(e)) {
                 e.preventDefault();
-                const currentId = eventTargetId.replace('search-portal-type-select-item-', '');
+                const currentId = eventTargetId.replace('portalTypeSelectionEntry-', '');
                 if (currentId !== '0') {
                     const prevId = parseInt(currentId, 10) - 1;
                     const prevElement =
@@ -832,9 +834,6 @@ class SearchPortal extends HTMLElement {
                         that.closeSearchTypeSelector(portalTypeDropdown, 'portalTypeSelectorDisplayed');
                 }
             }
-        });
-        button.addEventListener('submit', function (e) {
-            console.log('submit on searchtype', e);
         });
 
         return button;
