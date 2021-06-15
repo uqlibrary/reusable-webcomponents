@@ -260,6 +260,7 @@ class TrainingFilter extends HTMLElement {
             if (that._inputKeywordValue !== '') {
                 window.dataLayer = window.dataLayer || []; // for tests
                 window.dataLayer.push({
+                    event: 'reusable_component_event_click',
                     'gtm.element.elements.training-filter-keyword.value': that._inputKeywordValue,
                 });
             }
