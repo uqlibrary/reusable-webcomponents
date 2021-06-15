@@ -105,25 +105,29 @@ class TrainingFilter extends HTMLElement {
     }
 
     set selectedCampus(selectedCampus) {
-        // do things to make a change available to other components
         this._selectedCampus = selectedCampus;
         this.changeHashofUrl();
     }
 
     set selectedWeek(selectedWeek) {
-        // do things to make a change available to other components
         this._selectedWeek = selectedWeek;
         this.changeHashofUrl();
     }
 
     set inputKeywordValue(inputKeyword) {
-        // do things to make a change available to other components
+        // only send once per char and dont send when they clear the field
+        if (this._inputKeywordValue !== inputKeyword && inputKeyword !== '') {
+            window.dataLayer = window.dataLayer || []; // for tests
+            window.dataLayer.push({
+                'gtm.element.elements.training-filter-keyword.value': inputKeyword,
+            });
+        }
+
         this._inputKeywordValue = inputKeyword;
         this.changeHashofUrl();
     }
 
     set onlineOnlyProperty(onlineonly) {
-        // do things to make a change available to other components
         this._onlineOnlyProperty = onlineonly;
         this.changeHashofUrl();
     }
@@ -266,7 +270,6 @@ class TrainingFilter extends HTMLElement {
         }
 
         const inputKeywordField = !!shadowDOM && shadowDOM.getElementById('inputKeyword');
-        !!inputKeywordField && inputKeywordField.addEventListener('change', noteKeywordChange);
         !!inputKeywordField && inputKeywordField.addEventListener('keydown', noteKeywordChange);
         !!inputKeywordField && inputKeywordField.addEventListener('keyup', noteKeywordChange);
 
