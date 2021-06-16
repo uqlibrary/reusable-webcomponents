@@ -166,19 +166,24 @@ class TrainingFilter extends HTMLElement {
         function handleCampusKeyDown(e) {
             const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
             const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
-            console.log('handleCampusKeyDown ', eventTargetId || eventTarget);
             if (isArrowDownKeyPressed(e)) {
+                console.log('handleCampusKeyDown ArrowDownKeyPressed ', eventTargetId || eventTarget);
                 e.preventDefault();
                 // nav to first campus entry
                 navToFirstCampusEntry();
             } else if (isBackTabKeyPressed(e)) {
+                console.log('handleCampusKeyDown BackTabKeyPressed ', eventTargetId || eventTarget);
                 !campuslist.classList.contains('hidden') && that.closeDropdown(campuslist);
+            } else {
+                console.log('handleCampusKeyDown other ', eventTargetId || eventTarget);
             }
         }
 
-        const campushover = !!shadowDOM && shadowDOM.getElementById('campushover'); // for Windows
-        !!campushover && campushover.addEventListener('click', toggleCampusSelector);
-        !!campushover && campushover.addEventListener('keydown', handleCampusKeyDown);
+        // const campushover = !!shadowDOM && shadowDOM.getElementById('campushover'); // for Windows
+        // !!campushover && campushover.addEventListener('click', toggleCampusSelector);
+        // !!campushover && campushover.addEventListener('keydown', handleCampusKeyDown);
+
+        !!campuslist && campuslist.addEventListener('keydown', handleCampusKeyDown); // for Windows
 
         const campusOpener = !!shadowDOM && shadowDOM.getElementById('campusOpener'); // for OSX
         !!campusOpener && campusOpener.addEventListener('click', toggleCampusSelector);
