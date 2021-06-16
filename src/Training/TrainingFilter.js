@@ -173,16 +173,10 @@ class TrainingFilter extends HTMLElement {
         !!campusOpenerButton && campusOpenerButton.addEventListener('click', toggleCampusSelector);
         const campushover = !!shadowDOM && shadowDOM.getElementById('campushover');
         !!campushover && campushover.addEventListener('click', toggleCampusSelector);
-        !!campushover && campushover.addEventListener('keydown', visitCampusList);
+        !!campushover && campushover.addEventListener('keydown', visitCampusList); // for Windows
 
         const campusOpener = !!shadowDOM && shadowDOM.getElementById('campusOpener');
-        // campusOpener.addEventListener('keydown', function (e) {
-        //     if (isArrowDownKeyPressed(e)) {
-        //         const allElement = !!shadowDOM && shadowDOM.getElementById('campus-select-0');
-        //         console.log('put focus on first element');
-        //         !!allElement && allElement.focus();
-        //     }
-        // });
+        campusOpener.addEventListener('keydown', visitCampusList); // for OSX
 
         // allow the user to navigate the campus list with the arrow keys - Nick says its expected
         const campusDropdown = !!shadowDOM && shadowDOM.getElementById('campusDropdown');
@@ -230,15 +224,10 @@ class TrainingFilter extends HTMLElement {
         !!weekOpenerButton && weekOpenerButton.addEventListener('click', toggleWeekSelector);
         const weekhover = !!shadowDOM && shadowDOM.getElementById('weekhover');
         !!weekhover && weekhover.addEventListener('click', toggleWeekSelector);
-        !!weekhover && weekhover.addEventListener('keydown', visitWeekList);
+        !!weekhover && weekhover.addEventListener('keydown', visitWeekList); // for Windows
 
         const weekOpener = !!shadowDOM && shadowDOM.getElementById('weekOpener');
-        // weekOpener.addEventListener('keydown', function (e) {
-        //     if (isArrowDownKeyPressed(e)) {
-        //         const allElement = !!shadowDOM && shadowDOM.getElementById('week-select-0');
-        //         !!allElement && allElement.focus();
-        //     }
-        // });
+        weekOpener.addEventListener('keydown', visitWeekList); // for OSX
 
         // allow the user to navigate the week list with the arrow keys - Nick says its expected
         const weekDropdown = !!shadowDOM && shadowDOM.getElementById('weekDropdown');
