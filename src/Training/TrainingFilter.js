@@ -1,5 +1,11 @@
 import styles from './css/main.css';
 import overrides from './css/filter.css';
+import {
+    isArrowDownKeyPressed,
+    isArrowUpKeyPressed,
+    isEscapeKeyPressed,
+    isReturnKeyPressed,
+} from '../helpers/keyDetection';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -30,7 +36,7 @@ template.innerHTML = `
                 <button data-testid="training-filter-campus-container" id="campusOpener" class="opener filterer" aria-haspopup="listbox" aria-labelledby="campus-filter-label">
                     <span class="hidden">By campus</span>
                 </button>
-                <div id="hoverblock" class="hoverblock">
+                <div id="campushoverblock" class="hoverblock">
                     <div data-testid="training-filter-campus-label" id="campushover" class="campushover hovertext">By campus</div>
                 </div>
                 <div tabindex="-1" data-testid="training-filter-campus-list" id="campuslist" class="selectorlist campuslist hidden" aria-expanded="false"></div>
@@ -39,7 +45,7 @@ template.innerHTML = `
                 <button data-testid="training-filter-week-container" id="weekOpener" class="opener filterer" aria-labelledby="weekhover">
                     <span class="hidden">By week</span>
                 </button>
-                <div class="hoverblock">
+                <div id="weekhoverblock" class="hoverblock">
                     <div data-testid="training-filter-week-label" id="weekhover" class="weekhover hovertext">By week</div>
                 </div>
                 <div data-testid="training-filter-week-list" id="weeklist" class="selectorlist weeklist hidden" aria-expanded="false"></div>
@@ -54,21 +60,6 @@ template.innerHTML = `
         </div>
     </section>
 `;
-
-function isKeyPressed(e, charKeyInput, numericKeyInput) {
-    const keyNumeric = e.charCode || e.keyCode;
-    const keyChar = e.key || e.code;
-    return keyChar === charKeyInput || keyNumeric === numericKeyInput;
-}
-function isEscapeKeyPressed(e) {
-    return isKeyPressed(e, 'Escape', 27);
-}
-function isArrowDownKeyPressed(e) {
-    return isKeyPressed(e, 'ArrowDown', 40);
-}
-function isArrowUpKeyPressed(e) {
-    return isKeyPressed(e, 'ArrowUp', 38);
-}
 
 class TrainingFilter extends HTMLElement {
     constructor() {
@@ -154,29 +145,47 @@ class TrainingFilter extends HTMLElement {
         const weeklist = !!shadowDOM && shadowDOM.getElementById('weeklist');
 
         function toggleCampusSelector() {
+            console.log('toggleCampusSelector');
             // if the other dropdown is still open, close it
             !weeklist.classList.contains('hidden') && that.toggleVisibility(weeklist);
 
             that.toggleVisibility(campuslist);
         }
 
-        function visitCampusList(e) {
-            e.preventDefault();
+        function navToFirstCampusEntry() {
+            const nextElement = !!shadowDOM && shadowDOM.getElementById(`campus-select-0`);
+            console.log('navToFirstCampusEntry: navigate to = ', nextElement);
+            !!nextElement && nextElement.focus();
+        }
+
+        function handleCampusKeyDown(e) {
+            const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
+            const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
+            console.log('handleCampusKeyDown ', eventTargetId);
             if (isArrowDownKeyPressed(e)) {
-                const nextElement = !!shadowDOM && shadowDOM.getElementById(`campus-select-0`);
-                console.log('nextElement = ', nextElement);
-                !!nextElement && nextElement.focus();
+                e.preventDefault();
+                // nav to first campus entry
+                navToFirstCampusEntry();
+            } else if (isReturnKeyPressed(e)) {
+                e.preventDefault();
+                toggleCampusSelector();
+                navToFirstCampusEntry();
             }
         }
 
         const campusOpenerButton = !!shadowDOM && shadowDOM.getElementById('campusOpener');
         !!campusOpenerButton && campusOpenerButton.addEventListener('click', toggleCampusSelector);
-        const campushover = !!shadowDOM && shadowDOM.getElementById('campushover');
-        !!campushover && campushover.addEventListener('click', toggleCampusSelector);
-        !!campushover && campushover.addEventListener('keydown', visitCampusList); // for Windows
 
-        const campusOpener = !!shadowDOM && shadowDOM.getElementById('campusOpener');
-        campusOpener.addEventListener('keydown', visitCampusList); // for OSX
+        const campushover = !!shadowDOM && shadowDOM.getElementById('campushover'); // for Windows
+        !!campushover && campushover.addEventListener('click', toggleCampusSelector);
+        !!campushover && campushover.addEventListener('keydown', handleCampusKeyDown);
+
+        const campusOpener = !!shadowDOM && shadowDOM.getElementById('campusOpener'); // for OSX
+        !!campusOpener && campusOpener.addEventListener('click', toggleCampusSelector);
+        campusOpener.addEventListener('keydown', handleCampusKeyDown);
+
+        // const campushoverblock = !!shadowDOM && shadowDOM.getElementById('campushoverblock');
+        // campushoverblock.addEventListener('keydown', handleCampusKeyDown); // for OSX
 
         // allow the user to navigate the campus list with the arrow keys - Nick says its expected
         const campusDropdown = !!shadowDOM && shadowDOM.getElementById('campusDropdown');
@@ -211,23 +220,32 @@ class TrainingFilter extends HTMLElement {
             that.toggleVisibility(weeklist);
         }
 
-        function visitWeekList(e) {
-            e.preventDefault();
+        function navToFirstWeekEntry() {
+            const nextElement = !!shadowDOM && shadowDOM.getElementById(`week-select-0`);
+            console.log('navToFirstWeekEntry: navigate to = ', nextElement);
+            !!nextElement && nextElement.focus();
+        }
+
+        function handleWeekKeyDown(e) {
             if (isArrowDownKeyPressed(e)) {
-                const nextElement = !!shadowDOM && shadowDOM.getElementById(`week-select-0`);
-                console.log('visitWeekList nextElement = ', nextElement);
-                !!nextElement && nextElement.focus();
+                e.preventDefault();
+                navToFirstWeekEntry();
+            } else if (isReturnKeyPressed(e)) {
+                e.preventDefault();
+                toggleWeekSelector();
+                navToFirstWeekEntry();
             }
         }
 
         const weekOpenerButton = !!shadowDOM && shadowDOM.getElementById('weekOpener');
         !!weekOpenerButton && weekOpenerButton.addEventListener('click', toggleWeekSelector);
-        const weekhover = !!shadowDOM && shadowDOM.getElementById('weekhover');
+        const weekhover = !!shadowDOM && shadowDOM.getElementById('weekhover'); // for Windows
         !!weekhover && weekhover.addEventListener('click', toggleWeekSelector);
-        !!weekhover && weekhover.addEventListener('keydown', visitWeekList); // for Windows
+        !!weekhover && weekhover.addEventListener('keydown', handleWeekKeyDown);
 
-        const weekOpener = !!shadowDOM && shadowDOM.getElementById('weekOpener');
-        weekOpener.addEventListener('keydown', visitWeekList); // for OSX
+        const weekOpener = !!shadowDOM && shadowDOM.getElementById('weekOpener'); // for OSX
+        !!weekOpener && weekOpener.addEventListener('click', toggleWeekSelector);
+        weekOpener.addEventListener('keydown', handleWeekKeyDown);
 
         // allow the user to navigate the week list with the arrow keys - Nick says its expected
         const weekDropdown = !!shadowDOM && shadowDOM.getElementById('weekDropdown');
