@@ -5,7 +5,7 @@ import {
     isArrowUpKeyPressed,
     isBackTabKeyPressed,
     isEscapeKeyPressed,
-    isKeyPressedUnknown,
+    // isKeyPressedUnknown,
     // isReturnKeyPressed,
     isTabKeyPressed,
 } from '../helpers/keyDetection';
@@ -147,8 +147,10 @@ class TrainingFilter extends HTMLElement {
         const campuslist = !!shadowDOM && shadowDOM.getElementById('campuslist');
         const weeklist = !!shadowDOM && shadowDOM.getElementById('weeklist');
 
-        function toggleCampusSelector() {
-            console.log('toggleCampusSelector');
+        function toggleCampusSelector(e) {
+            const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
+            const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
+            console.log('toggleCampusSelector ', eventTargetId || eventTarget);
             // if the other dropdown is still open, close it
             !weeklist.classList.contains('hidden') && that.toggleVisibility(weeklist);
 
@@ -164,13 +166,13 @@ class TrainingFilter extends HTMLElement {
         function handleCampusKeyDown(e) {
             const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
             const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
-            console.log('handleCampusKeyDown ', eventTargetId);
+            console.log('handleCampusKeyDown ', eventTargetId || eventTarget);
             if (isArrowDownKeyPressed(e)) {
                 e.preventDefault();
                 // nav to first campus entry
                 navToFirstCampusEntry();
             } else if (isBackTabKeyPressed(e)) {
-                !campuslist.classList.contains('hidden') && that.toggleVisibility(campuslist);
+                !campuslist.classList.contains('hidden') && that.closeDropdown(campuslist);
             }
         }
 
@@ -187,6 +189,7 @@ class TrainingFilter extends HTMLElement {
         campusDropdown.addEventListener('keydown', function (e) {
             const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
             const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
+            console.log('handle campusDropdown KeyDown ', eventTargetId || eventTarget);
             if (isArrowDownKeyPressed(e)) {
                 e.preventDefault();
                 const currentId = eventTargetId.replace('campus-select-', '');
@@ -205,6 +208,16 @@ class TrainingFilter extends HTMLElement {
                     prevElement = !!shadowDOM && shadowDOM.getElementById(`campus-select-${prevId}`);
                 }
                 !!prevElement && prevElement.focus();
+            } else if (isTabKeyPressed(e)) {
+                console.log('TabKeyPressed');
+                // close on tab off last element
+                if (eventTargetId.startsWith('campus-select-')) {
+                    const currentId = eventTargetId.replace('campus-select-', '');
+                    const nextId = parseInt(currentId, 10) + 1;
+                    console.log('nextId = ', nextId);
+                    const nextElement = !!shadowDOM && shadowDOM.getElementById(`campus-select-${nextId}`);
+                    !nextElement && that.closeDropdown(campuslist);
+                }
             }
         });
 
@@ -226,7 +239,7 @@ class TrainingFilter extends HTMLElement {
                 e.preventDefault();
                 navToFirstWeekEntry();
             } else if (isBackTabKeyPressed(e)) {
-                !weeklist.classList.contains('hidden') && that.toggleVisibility(weeklist);
+                !weeklist.classList.contains('hidden') && that.closeDropdown(weeklist);
             }
         }
 
@@ -243,6 +256,7 @@ class TrainingFilter extends HTMLElement {
         weekDropdown.addEventListener('keydown', function (e) {
             const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
             const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
+            console.log('weekDropdown.addEventListener keydown ', eventTargetId || eventTarget);
             if (isArrowDownKeyPressed(e)) {
                 e.preventDefault();
                 const currentId = eventTargetId.replace('week-select-', '');
@@ -261,6 +275,16 @@ class TrainingFilter extends HTMLElement {
                     prevElement = !!shadowDOM && shadowDOM.getElementById(`week-select-${prevId}`);
                 }
                 !!prevElement && prevElement.focus();
+            } else if (isTabKeyPressed(e)) {
+                console.log('TabKeyPressed');
+                // close on last element
+                if (eventTargetId.startsWith('week-select-')) {
+                    const currentId = eventTargetId.replace('week-select-', '');
+                    const nextId = parseInt(currentId, 10) + 1;
+                    console.log('nextId = ', nextId);
+                    const nextElement = !!shadowDOM && shadowDOM.getElementById(`week-select-${nextId}`);
+                    !nextElement && that.closeDropdown(weeklist);
+                }
             }
         });
 
@@ -566,8 +590,18 @@ class TrainingFilter extends HTMLElement {
         }
     }
 
+    closeDropdown(selector) {
+        const that = this;
+        selector.className = `${selector.className} hidden`;
+        selector.removeAttribute('role');
+        document.removeEventListener('click', that.listenForMouseClicks);
+        document.removeEventListener('keydown', that.listenForKeyClicks);
+        selector.setAttribute('aria-expanded', 'false');
+        selector.setAttribute('tabindex', '-1');
+    }
+
     /**
-     * show hide an element
+     * show / hide a dropdown
      */
     toggleVisibility(selector) {
         const that = this;
@@ -575,7 +609,7 @@ class TrainingFilter extends HTMLElement {
             return;
         }
 
-        !!isHidden(selector) ? show(selector) : hide(selector);
+        !!isHidden(selector) ? show(selector) : that.closeDropdown(selector);
 
         function isHidden(selector) {
             return selector.classList.contains('hidden');
@@ -588,15 +622,6 @@ class TrainingFilter extends HTMLElement {
             document.addEventListener('keydown', that.listenForKeyClicks);
             selector.setAttribute('aria-expanded', 'true');
             selector.setAttribute('tabindex', '0');
-        }
-
-        function hide(selector) {
-            selector.className = `${selector.className} hidden`;
-            selector.removeAttribute('role');
-            document.removeEventListener('click', that.listenForMouseClicks);
-            document.removeEventListener('keydown', that.listenForKeyClicks);
-            selector.setAttribute('aria-expanded', 'false');
-            selector.setAttribute('tabindex', '-1');
         }
     }
 
