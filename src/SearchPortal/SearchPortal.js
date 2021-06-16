@@ -39,8 +39,9 @@ template.innerHTML = `
                     <div id="input-field-wrapper" class="MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-true">
                         <div id="search-portal-autocomplete" class="MuiAutocomplete-root" aria-expanded="false" data-testid="search-portal-autocomplete" aria-label="Select Search Type">
                             <div class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth">
-                                <div role="combobox" aria-owns="search-portal-autocomplete-listbox" class="MuiInputBase-root MuiInput-root MuiInput-underline MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd">
-                                    <input id="current-inputfield" name="currentInputfield" aria-controls="search-portal-autocomplete-listbox" aria-invalid="false" autocomplete="off" placeholder="Find books, articles, databases, Library guides &amp; more" type="search" class="MuiInputBase-input MuiInput-input selectInput MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch" aria-autocomplete="list" autocapitalize="none" spellcheck="false" aria-label="Enter your search terms" data-testid="search-portal-autocomplete-input" value="">
+                                <div id="inputFieldParent" role="combobox" aria-expanded="false" aria-owns="search-portal-autocomplete-listbox" class="MuiInputBase-root MuiInput-root MuiInput-underline MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd">
+                                    <!--  aria-controls="search-portal-autocomplete-listbox" invalid per AXE --> 
+                                    <input type="text" id="current-inputfield" name="currentInputfield" aria-invalid="false" autocomplete="off" placeholder="Find books, articles, databases, Library guides &amp; more" type="search" class="MuiInputBase-input MuiInput-input selectInput MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch" aria-autocomplete="list" autocapitalize="none" spellcheck="false" aria-label="Enter your search terms" data-testid="search-portal-autocomplete-input" value="">
                                     <div class="MuiAutocomplete-endAdornment"></div>
                                 </div>
                             </div>
@@ -179,6 +180,9 @@ class SearchPortal extends HTMLElement {
 
         /* istanbul ignore else  */
         if (!!suggestionListSibling && !!suggestions && suggestions.length > 0) {
+            const inputFieldParent = !!shadowDOM && shadowDOM.getElementById('inputFieldParent');
+            !!inputFieldParent && inputFieldParent.setAttribute('aria-expanded', 'true');
+
             let ul = shadowDOM.getElementById('search-portal-autocomplete-listbox');
             if (!ul) {
                 ul = document.createElement('ul');
@@ -642,6 +646,9 @@ class SearchPortal extends HTMLElement {
                 document.removeEventListener('click', this.listenForMouseClicks);
                 document.removeEventListener('keydown', this.listenForKeyClicks);
                 console.log('3 SuggestionLink removed listenForMouseClicks'); // if this doesnt happen then the removal failed
+
+                const inputFieldParent = !!shadowDOM && shadowDOM.getElementById('inputFieldParent');
+                !!inputFieldParent && inputFieldParent.setAttribute('aria-expanded', 'true');
             } else {
                 console.log('other key listenForKeyClicks');
             }
@@ -712,6 +719,10 @@ class SearchPortal extends HTMLElement {
         // console.log('clearSearchResults firstSuggestion = ', firstSuggestion);
 
         console.log('clearSearchResults clearing search result list');
+
+        const inputFieldParent = !!shadowDOM && shadowDOM.getElementById('inputFieldParent');
+        !!inputFieldParent && inputFieldParent.setAttribute('aria-expanded', 'false');
+
         // if (!firstSuggestion) {
         const searchResults = !!shadowDOM && shadowDOM.getElementById('search-portal-autocomplete-listbox');
         // !!searchResults && (searchResults.innerHTML = '');
