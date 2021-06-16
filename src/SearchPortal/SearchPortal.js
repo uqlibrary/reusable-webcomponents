@@ -39,8 +39,8 @@ template.innerHTML = `
                     <div id="input-field-wrapper" class="MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-true">
                         <div id="search-portal-autocomplete" class="MuiAutocomplete-root" aria-expanded="false" data-testid="search-portal-autocomplete" aria-label="Select Search Type">
                             <div class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth">
-                                <div class="MuiInputBase-root MuiInput-root MuiInput-underline MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd">
-                                    <input id="current-inputfield" name="currentInputfield" aria-invalid="false" autocomplete="off" placeholder="Find books, articles, databases, Library guides &amp; more" type="search" class="MuiInputBase-input MuiInput-input selectInput MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch" aria-autocomplete="list" autocapitalize="none" spellcheck="false" aria-label="Enter your search terms" data-testid="search-portal-autocomplete-input" value="">
+                                <div role="combobox" aria-owns="search-portal-autocomplete-listbox" class="MuiInputBase-root MuiInput-root MuiInput-underline MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd">
+                                    <input id="current-inputfield" name="currentInputfield" aria-controls="search-portal-autocomplete-listbox" aria-invalid="false" autocomplete="off" placeholder="Find books, articles, databases, Library guides &amp; more" type="search" class="MuiInputBase-input MuiInput-input selectInput MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch" aria-autocomplete="list" autocapitalize="none" spellcheck="false" aria-label="Enter your search terms" data-testid="search-portal-autocomplete-input" value="">
                                     <div class="MuiAutocomplete-endAdornment"></div>
                                 </div>
                             </div>
@@ -229,17 +229,16 @@ class SearchPortal extends HTMLElement {
                                 !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
                             const keyNumeric = e.charCode || e.keyCode;
                             const keyChar = e.key || e.code;
-                            console.log('suggestion anchor keyclick on eventTargetId = ', eventTargetId);
-                            console.log(
-                                'suggestion anchor keyclick: e.key: ',
-                                e.key,
-                                ' | e.code = ',
-                                e.code,
-                                ' | e.charCode = ',
-                                e.charCode,
-                                ', | e.keyCode = ',
-                                e.keyCode,
-                            );
+                            if (isArrowDownKeyPressed(e)) {
+                                e.preventDefault();
+                                console.log('suggestion anchor DOWNarrow keyclick on eventTargetId = ', eventTargetId);
+                            } else if (isArrowUpKeyPressed(e)) {
+                                e.preventDefault();
+                                console.log('suggestion anchor UPrrow keyclick on eventTargetId = ', eventTargetId);
+                            } else {
+                                e.preventDefault();
+                                console.log('suggestion anchor other keyclick on eventTargetId = ', eventTargetId);
+                            }
                         });
 
                     // !!suggestion && suggestiondisplay.setAttribute('tabindex', '-1');
@@ -258,7 +257,7 @@ class SearchPortal extends HTMLElement {
                             !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
                         if (isArrowDownKeyPressed(e)) {
                             e.preventDefault();
-                            console.log('suggestion listitem keyclick on eventTargetId = ', eventTargetId);
+                            console.log('suggestion listitem downarrow keyclick on eventTargetId = ', eventTargetId);
                             const currentId = eventTargetId.replace('suggestion-link-', '');
                             const nextId = parseInt(currentId, 10) + 1;
 
