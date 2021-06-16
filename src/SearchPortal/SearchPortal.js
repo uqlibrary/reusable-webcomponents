@@ -4,11 +4,11 @@ import { throttle } from 'throttle-debounce';
 import ApiAccess from '../ApiAccess/ApiAccess';
 import { cookieNotFound, getCookieValue, setCookie } from '../helpers/cookie';
 import {
-    isTabKeyPressed,
-    isEscapeKeyPressed,
-    isReturnKeyPressed,
     isArrowDownKeyPressed,
     isArrowUpKeyPressed,
+    isEscapeKeyPressed,
+    isReturnKeyPressed,
+    isTabKeyPressed,
 } from '../helpers/keyDetection';
 
 const template = document.createElement('template');
@@ -378,12 +378,14 @@ class SearchPortal extends HTMLElement {
 
                 if (!!formObject.currentInputfield) {
                     const matches = searchPortalLocale.typeSelect.items.filter((element) => {
-                        // might not need parse int now?
-                        return parseInt(element.selectId, 10) === parseInt(formObject.portaltype, 10);
+                        return element.selectId === formObject.portaltype;
                     });
                     const searchType = matches.length > 0 ? matches[0] : false;
                     const keyword = formObject.currentInputfield;
-                    const link = searchType.link.replace('[keyword]', keyword).replace('[keyword]', keyword); // database search has two instances of keyword
+                    const link =
+                        !!searchType &&
+                        !!searchType.link &&
+                        searchType.link.replace('[keyword]', keyword).replace('[keyword]', keyword); // database search has two instances of keyword
 
                     window.location.assign(link);
                 }
@@ -845,23 +847,21 @@ class SearchPortal extends HTMLElement {
             console.log('keydown on searchtype', e);
             const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
             const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
+            const currentIdRaw = !!eventTargetId && eventTargetId.replace('search-portal-type-select-item-', '');
+            const currentId = !!currentIdRaw && parseInt(currentIdRaw, 10);
             if (isReturnKeyPressed(e)) {
                 handleSearchTypeSelection();
                 e.preventDefault(); // otherwise form submits
             } else if (isArrowDownKeyPressed(e)) {
                 e.preventDefault();
-                const currentId = eventTargetId.replace('search-portal-type-select-item-', '');
-                const nextId = parseInt(currentId, 10) + 1;
-
-                const nextElement = !!shadowDOM && shadowDOM.getElementById(`search-portal-type-select-item-${nextId}`);
+                const nextElement =
+                    !!shadowDOM && shadowDOM.getElementById(`search-portal-type-select-item-${currentId + 1}`);
                 !!nextElement && nextElement.focus();
             } else if (isArrowUpKeyPressed(e)) {
                 e.preventDefault();
-                const currentId = eventTargetId.replace('portalTypeSelectionEntry-', '');
-                if (currentId !== '0') {
-                    const prevId = parseInt(currentId, 10) - 1;
+                if (currentIdRaw !== '0') {
                     const prevElement =
-                        !!shadowDOM && shadowDOM.getElementById(`search-portal-type-select-item-${prevId}`);
+                        !!shadowDOM && shadowDOM.getElementById(`search-portal-type-select-item-${currentId - 1}`);
                     !!prevElement && prevElement.focus();
                 }
             } else if (isTabKeyPressed(e)) {
