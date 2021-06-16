@@ -6,7 +6,7 @@ import {
     isBackTabKeyPressed,
     isEscapeKeyPressed,
     // isKeyPressedUnknown,
-    // isReturnKeyPressed,
+    isReturnKeyPressed,
     isTabKeyPressed,
 } from '../helpers/keyDetection';
 
@@ -171,11 +171,14 @@ class TrainingFilter extends HTMLElement {
                 e.preventDefault();
                 // nav to first campus entry
                 navigateToFirstCampusEntry();
+            } else if (isReturnKeyPressed(e)) {
+                // just to avoid the preventdefault, as it stops the dropdown opening
             } else if (isBackTabKeyPressed(e)) {
                 console.log('handleCampusKeyDown BackTabKeyPressed ', eventTargetId || eventTarget);
                 !campuslist.classList.contains('hidden') && that.closeDropdown(campuslist);
             } else {
                 console.log('handleCampusKeyDown other ', eventTargetId || eventTarget);
+                e.preventDefault();
             }
         }
 
@@ -188,6 +191,13 @@ class TrainingFilter extends HTMLElement {
         const campusOpener = !!shadowDOM && shadowDOM.getElementById('campusOpener'); // for OSX
         !!campusOpener && campusOpener.addEventListener('click', toggleCampusSelector);
         !!campusOpener && campusOpener.addEventListener('keydown', handleCampusKeyDown);
+        !!campusOpener &&
+            campusOpener.addEventListener('keyup', function (e) {
+                const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
+                const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
+                console.log('campusOpener keyup other ', eventTargetId || eventTarget);
+                isArrowDownKeyPressed(e);
+            });
 
         // allow the user to navigate the campus list with the arrow keys - Nick says its expected
         const campusDropdown = !!shadowDOM && shadowDOM.getElementById('campusDropdown');
