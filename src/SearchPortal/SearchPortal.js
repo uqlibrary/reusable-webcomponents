@@ -847,7 +847,10 @@ class SearchPortal extends HTMLElement {
             console.log('keydown on searchtype', e);
             const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
             const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
-            const currentIdRaw = !!eventTargetId && eventTargetId.replace('search-portal-type-select-item-', '');
+            // Odd. Windows wants search-portal-type-select-item but OSX wants portalTypeSelectionEntry
+            const currentIdRaw = eventTargetId.startsWith('portalTypeSelectionEntry-')
+                ? eventTargetId.replace('portalTypeSelectionEntry-', '')
+                : !!eventTargetId && eventTargetId.replace('search-portal-type-select-item-', '');
             const currentId = !!currentIdRaw && parseInt(currentIdRaw, 10);
             if (isReturnKeyPressed(e)) {
                 handleSearchTypeSelection();
