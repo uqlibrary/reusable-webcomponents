@@ -194,8 +194,8 @@ class TrainingFilter extends HTMLElement {
         campusDropdown.addEventListener('keydown', function (e) {
             const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
             const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
-            console.log('handle campusDropdown KeyDown ', eventTargetId || eventTarget);
             if (isArrowDownKeyPressed(e)) {
+                console.log('handle campusDropdown KeyDown ArrowDownKeyPressed ', eventTargetId || eventTarget);
                 e.preventDefault();
                 const currentId = eventTargetId.replace('campus-select-', '');
                 const nextId = parseInt(currentId, 10) + 1;
@@ -203,6 +203,7 @@ class TrainingFilter extends HTMLElement {
                 const nextElement = !!shadowDOM && shadowDOM.getElementById(`campus-select-${nextId}`);
                 !!nextElement && nextElement.focus();
             } else if (isArrowUpKeyPressed(e)) {
+                console.log('handle campusDropdown KeyDown ArrowUpKeyPressed ', eventTargetId || eventTarget);
                 e.preventDefault();
                 const currentId = eventTargetId.replace('campus-select-', '');
                 const prevId = parseInt(currentId, 10) - 1;
@@ -214,7 +215,7 @@ class TrainingFilter extends HTMLElement {
                 }
                 !!prevElement && prevElement.focus();
             } else if (isTabKeyPressed(e)) {
-                console.log('TabKeyPressed');
+                console.log('handle campusDropdown KeyDown TabKeyPressed( ', eventTargetId || eventTarget);
                 // close on tab off last element
                 if (eventTargetId.startsWith('campus-select-')) {
                     const currentId = eventTargetId.replace('campus-select-', '');
@@ -223,6 +224,8 @@ class TrainingFilter extends HTMLElement {
                     const nextElement = !!shadowDOM && shadowDOM.getElementById(`campus-select-${nextId}`);
                     !nextElement && that.closeDropdown(campuslist);
                 }
+            } else {
+                console.log('handle campusDropdown KeyDown other KeyPressed ', eventTargetId || eventTarget);
             }
         });
 
