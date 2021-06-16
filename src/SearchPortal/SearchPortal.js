@@ -238,6 +238,7 @@ class SearchPortal extends HTMLElement {
                             !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
                         if (isArrowDownKeyPressed(e)) {
                             e.preventDefault();
+                            console.log('eventTargetId = ', eventTargetId);
                             const currentId = eventTargetId.replace('suggestion-link-', '');
                             const nextId = parseInt(currentId, 10) + 1;
 
