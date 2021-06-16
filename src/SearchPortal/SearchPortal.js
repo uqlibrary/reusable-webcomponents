@@ -236,9 +236,29 @@ class SearchPortal extends HTMLElement {
                             if (isArrowDownKeyPressed(e)) {
                                 e.preventDefault();
                                 console.log('suggestion anchor DOWNarrow keyclick on eventTargetId = ', eventTargetId);
+                                console.log(
+                                    'suggestion listitem downarrow keyclick on eventTargetId = ',
+                                    eventTargetId,
+                                );
+                                const currentId = eventTargetId.replace('suggestion-link-', '');
+                                const nextId = parseInt(currentId, 10) + 1;
+
+                                const nextElement =
+                                    !!shadowDOM && shadowDOM.getElementById(`suggestion-link-${nextId}`);
+                                !!nextElement && nextElement.focus();
                             } else if (isArrowUpKeyPressed(e)) {
                                 e.preventDefault();
                                 console.log('suggestion anchor UPrrow keyclick on eventTargetId = ', eventTargetId);
+                                const currentId = eventTargetId.replace('suggestion-link-', '');
+                                if (currentId === '0') {
+                                    const prevElement = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
+                                    !!prevElement && prevElement.focus();
+                                } else {
+                                    const prevId = parseInt(currentId, 10) - 1;
+                                    const prevElement =
+                                        !!shadowDOM && shadowDOM.getElementById(`suggestion-link-${prevId}`);
+                                    !!prevElement && prevElement.focus();
+                                }
                             } else {
                                 e.preventDefault();
                                 console.log('suggestion anchor other keyclick on eventTargetId = ', eventTargetId);
@@ -259,29 +279,33 @@ class SearchPortal extends HTMLElement {
                         const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
                         const eventTargetId =
                             !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
-                        if (isArrowDownKeyPressed(e)) {
-                            e.preventDefault();
-                            console.log('suggestion listitem downarrow keyclick on eventTargetId = ', eventTargetId);
-                            const currentId = eventTargetId.replace('suggestion-link-', '');
-                            const nextId = parseInt(currentId, 10) + 1;
-
-                            const nextElement = !!shadowDOM && shadowDOM.getElementById(`suggestion-link-${nextId}`);
-                            !!nextElement && nextElement.focus();
-                        } else if (isArrowUpKeyPressed(e)) {
-                            e.preventDefault();
-                            const currentId = eventTargetId.replace('suggestion-link-', '');
-                            if (currentId === '0') {
-                                const prevElement = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
-                                !!prevElement && prevElement.focus();
-                            } else {
-                                const prevId = parseInt(currentId, 10) - 1;
-                                const prevElement =
-                                    !!shadowDOM && shadowDOM.getElementById(`suggestion-link-${prevId}`);
-                                !!prevElement && prevElement.focus();
-                            }
-                        } else if (isTabKeyPressed(e)) {
-                            // user has tabbed off end of list - close suggestions dropdown list
+                        // if (isArrowDownKeyPressed(e)) {
+                        // e.preventDefault();
+                        // console.log('suggestion listitem downarrow keyclick on eventTargetId = ', eventTargetId);
+                        // const currentId = eventTargetId.replace('suggestion-link-', '');
+                        // const nextId = parseInt(currentId, 10) + 1;
+                        //
+                        // const nextElement = !!shadowDOM && shadowDOM.getElementById(`suggestion-link-${nextId}`);
+                        // !!nextElement && nextElement.focus();
+                        // } else if (isArrowUpKeyPressed(e)) {
+                        // e.preventDefault();
+                        // const currentId = eventTargetId.replace('suggestion-link-', '');
+                        // if (currentId === '0') {
+                        //     const prevElement = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
+                        //     !!prevElement && prevElement.focus();
+                        // } else {
+                        //     const prevId = parseInt(currentId, 10) - 1;
+                        //     const prevElement =
+                        //         !!shadowDOM && shadowDOM.getElementById(`suggestion-link-${prevId}`);
+                        //     !!prevElement && prevElement.focus();
+                        // }
+                        // } else
+                        if (isTabKeyPressed(e)) {
+                            // user has tabbed off end of list - close suggestions dropdown list and focus on next element
+                            index === suggestions.length - 1 && console.log('on last suggestion - clear list');
                             index === suggestions.length - 1 && that.clearSearchResults(shadowDOM);
+                            const clearButton = !!shadowDOM && shadowDOM.getElementById('clear-search-term');
+                            !!clearButton && clearButton.focus();
                         } else if (isEscapeKeyPressed(e)) {
                             const inputField = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
                             !!inputField && inputField.focus();
@@ -727,20 +751,7 @@ class SearchPortal extends HTMLElement {
         const searchResults = !!shadowDOM && shadowDOM.getElementById('search-portal-autocomplete-listbox');
         // !!searchResults && (searchResults.innerHTML = '');
         console.log('searchResults = ', searchResults);
-        // let suggestionId = 0;
-        // let suggestion;
-        // while (!!(suggestion = shadowDOM.getElementById(`search-portal-autocomplete-option-${suggestionId}`))) {
-        //     const link = suggestion.querySelector('a');
-        //     link.href = '';
-        //
-        //     suggestionId++;
-        // }
-        // const searchResultsAfter = !!shadowDOM && shadowDOM.getElementById('search-portal-autocomplete-listbox');
-        // console.log('searchResultsAfter = ', searchResultsAfter);
 
-        // } else {
-        //     console.log('nothing to clear');
-        // }
         !!searchResults && searchResults.remove();
         const searchResultsAfter2 = !!shadowDOM && shadowDOM.getElementById('search-portal-autocomplete-listbox');
         console.log('searchResultsAfter2 = ', searchResultsAfter2);
