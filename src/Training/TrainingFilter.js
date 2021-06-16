@@ -160,29 +160,29 @@ class TrainingFilter extends HTMLElement {
             that.toggleVisibility(campuslist);
         }
 
+        function visitCampusList(e) {
+            e.preventDefault();
+            if (isArrowDownKeyPressed(e)) {
+                const nextElement = !!shadowDOM && shadowDOM.getElementById(`campus-select-0`);
+                console.log('nextElement = ', nextElement);
+                !!nextElement && nextElement.focus();
+            }
+        }
+
         const campusOpenerButton = !!shadowDOM && shadowDOM.getElementById('campusOpener');
         !!campusOpenerButton && campusOpenerButton.addEventListener('click', toggleCampusSelector);
         const campushover = !!shadowDOM && shadowDOM.getElementById('campushover');
         !!campushover && campushover.addEventListener('click', toggleCampusSelector);
+        !!campushover && campushover.addEventListener('keydown', visitCampusList);
 
         const campusOpener = !!shadowDOM && shadowDOM.getElementById('campusOpener');
-        campusOpener.addEventListener('keydown', function (e) {
-            console.log(
-                'isKeyPressed: e.key = ',
-                e.key,
-                ' | e.code = ',
-                e.code,
-                ' |  e.charCode = ',
-                e.charCode,
-                ' | e.keyCode = ',
-                e.keyCode,
-            );
-            if (isArrowDownKeyPressed(e)) {
-                const allElement = !!shadowDOM && shadowDOM.getElementById('campus-select-0');
-                console.log('put focus on first element');
-                !!allElement && allElement.focus();
-            }
-        });
+        // campusOpener.addEventListener('keydown', function (e) {
+        //     if (isArrowDownKeyPressed(e)) {
+        //         const allElement = !!shadowDOM && shadowDOM.getElementById('campus-select-0');
+        //         console.log('put focus on first element');
+        //         !!allElement && allElement.focus();
+        //     }
+        // });
 
         // allow the user to navigate the campus list with the arrow keys - Nick says its expected
         const campusDropdown = !!shadowDOM && shadowDOM.getElementById('campusDropdown');
@@ -217,18 +217,28 @@ class TrainingFilter extends HTMLElement {
             that.toggleVisibility(weeklist);
         }
 
+        function visitWeekList(e) {
+            e.preventDefault();
+            if (isArrowDownKeyPressed(e)) {
+                const nextElement = !!shadowDOM && shadowDOM.getElementById(`week-select-0`);
+                console.log('visitWeekList nextElement = ', nextElement);
+                !!nextElement && nextElement.focus();
+            }
+        }
+
         const weekOpenerButton = !!shadowDOM && shadowDOM.getElementById('weekOpener');
         !!weekOpenerButton && weekOpenerButton.addEventListener('click', toggleWeekSelector);
         const weekhover = !!shadowDOM && shadowDOM.getElementById('weekhover');
         !!weekhover && weekhover.addEventListener('click', toggleWeekSelector);
+        !!weekhover && weekhover.addEventListener('keydown', visitWeekList);
 
         const weekOpener = !!shadowDOM && shadowDOM.getElementById('weekOpener');
-        weekOpener.addEventListener('keydown', function (e) {
-            if (isArrowDownKeyPressed(e)) {
-                const allElement = !!shadowDOM && shadowDOM.getElementById('week-select-0');
-                !!allElement && allElement.focus();
-            }
-        });
+        // weekOpener.addEventListener('keydown', function (e) {
+        //     if (isArrowDownKeyPressed(e)) {
+        //         const allElement = !!shadowDOM && shadowDOM.getElementById('week-select-0');
+        //         !!allElement && allElement.focus();
+        //     }
+        // });
 
         // allow the user to navigate the week list with the arrow keys - Nick says its expected
         const weekDropdown = !!shadowDOM && shadowDOM.getElementById('weekDropdown');
@@ -257,7 +267,9 @@ class TrainingFilter extends HTMLElement {
         });
 
         function sendKeywordToGoogleAnalytics(e) {
+            console.log('sendKeywordToGoogleAnalytics that._inputKeywordValue = ', that._inputKeywordValue);
             if (that._inputKeywordValue !== '') {
+                console.log('sendKeywordToGoogleAnalytics send');
                 window.dataLayer = window.dataLayer || []; // for tests
                 window.dataLayer.push({
                     'gtm.element.elements.training-filter-keyword.value': that._inputKeywordValue,
