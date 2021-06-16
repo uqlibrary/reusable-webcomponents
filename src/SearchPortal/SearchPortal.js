@@ -221,6 +221,26 @@ class SearchPortal extends HTMLElement {
                     !!anchor && anchor.setAttribute('id', `suggestion-link-${index}`);
                     !!anchor && anchor.setAttribute('data-testid', `suggestion-link-${index}`);
                     !!anchor && anchor.setAttribute('tabindex', '0');
+                    !!anchor &&
+                        anchor.addEventListener('keydown', function (e) {
+                            const eventTarget =
+                                !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
+                            const eventTargetId =
+                                !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
+                            const keyNumeric = e.charCode || e.keyCode;
+                            const keyChar = e.key || e.code;
+                            console.log('suggestion anchor keyclick on eventTargetId = ', eventTargetId);
+                            console.log(
+                                'suggestion anchor keyclick: e.key: ',
+                                e.key,
+                                ' | e.code = ',
+                                e.code,
+                                ' | e.charCode = ',
+                                e.charCode,
+                                ', | e.keyCode = ',
+                                e.keyCode,
+                            );
+                        });
 
                     // !!suggestion && suggestiondisplay.setAttribute('tabindex', '-1');
                     !!suggestion && suggestiondisplay.setAttribute('role', 'option');
@@ -238,7 +258,7 @@ class SearchPortal extends HTMLElement {
                             !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
                         if (isArrowDownKeyPressed(e)) {
                             e.preventDefault();
-                            console.log('eventTargetId = ', eventTargetId);
+                            console.log('suggestion listitem keyclick on eventTargetId = ', eventTargetId);
                             const currentId = eventTargetId.replace('suggestion-link-', '');
                             const nextId = parseInt(currentId, 10) + 1;
 
