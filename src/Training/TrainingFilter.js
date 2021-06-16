@@ -3,8 +3,11 @@ import overrides from './css/filter.css';
 import {
     isArrowDownKeyPressed,
     isArrowUpKeyPressed,
+    isBackTabKeyPressed,
     isEscapeKeyPressed,
-    isReturnKeyPressed,
+    isKeyPressedUnknown,
+    // isReturnKeyPressed,
+    isTabKeyPressed,
 } from '../helpers/keyDetection';
 
 const template = document.createElement('template');
@@ -166,15 +169,10 @@ class TrainingFilter extends HTMLElement {
                 e.preventDefault();
                 // nav to first campus entry
                 navToFirstCampusEntry();
-            } else if (isReturnKeyPressed(e)) {
-                e.preventDefault();
-                toggleCampusSelector();
-                navToFirstCampusEntry();
+            } else if (isBackTabKeyPressed(e)) {
+                !campuslist.classList.contains('hidden') && that.toggleVisibility(campuslist);
             }
         }
-
-        const campusOpenerButton = !!shadowDOM && shadowDOM.getElementById('campusOpener');
-        !!campusOpenerButton && campusOpenerButton.addEventListener('click', toggleCampusSelector);
 
         const campushover = !!shadowDOM && shadowDOM.getElementById('campushover'); // for Windows
         !!campushover && campushover.addEventListener('click', toggleCampusSelector);
@@ -183,9 +181,6 @@ class TrainingFilter extends HTMLElement {
         const campusOpener = !!shadowDOM && shadowDOM.getElementById('campusOpener'); // for OSX
         !!campusOpener && campusOpener.addEventListener('click', toggleCampusSelector);
         campusOpener.addEventListener('keydown', handleCampusKeyDown);
-
-        // const campushoverblock = !!shadowDOM && shadowDOM.getElementById('campushoverblock');
-        // campushoverblock.addEventListener('keydown', handleCampusKeyDown); // for OSX
 
         // allow the user to navigate the campus list with the arrow keys - Nick says its expected
         const campusDropdown = !!shadowDOM && shadowDOM.getElementById('campusDropdown');
@@ -230,22 +225,18 @@ class TrainingFilter extends HTMLElement {
             if (isArrowDownKeyPressed(e)) {
                 e.preventDefault();
                 navToFirstWeekEntry();
-            } else if (isReturnKeyPressed(e)) {
-                e.preventDefault();
-                toggleWeekSelector();
-                navToFirstWeekEntry();
+            } else if (isBackTabKeyPressed(e)) {
+                !weeklist.classList.contains('hidden') && that.toggleVisibility(weeklist);
             }
         }
 
-        const weekOpenerButton = !!shadowDOM && shadowDOM.getElementById('weekOpener');
-        !!weekOpenerButton && weekOpenerButton.addEventListener('click', toggleWeekSelector);
         const weekhover = !!shadowDOM && shadowDOM.getElementById('weekhover'); // for Windows
         !!weekhover && weekhover.addEventListener('click', toggleWeekSelector);
         !!weekhover && weekhover.addEventListener('keydown', handleWeekKeyDown);
 
         const weekOpener = !!shadowDOM && shadowDOM.getElementById('weekOpener'); // for OSX
         !!weekOpener && weekOpener.addEventListener('click', toggleWeekSelector);
-        weekOpener.addEventListener('keydown', handleWeekKeyDown);
+        !!weekOpener && weekOpener.addEventListener('keydown', handleWeekKeyDown);
 
         // allow the user to navigate the week list with the arrow keys - Nick says its expected
         const weekDropdown = !!shadowDOM && shadowDOM.getElementById('weekDropdown');
