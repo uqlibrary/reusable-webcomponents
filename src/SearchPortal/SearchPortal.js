@@ -16,7 +16,7 @@ template.innerHTML = `
     <style>${overrides.toString()}</style>
     <div id="search-portal" class="MuiPaper-root MuiCard-root libraryCard StandardCard MuiPaper-elevation1 MuiPaper-rounded" data-testid="primo-search" role="region" aria-live="polite">
         <div class="MuiCardContent-root libraryContent" data-testid="primo-search-content">
-            <form id="search-portal-form" class="searchForm" role="search">
+            <form id="primo-search-form" class="searchForm" role="search">
                 <div class="MuiFormControl-root searchPanel" style="margin-bottom: -0.75rem; padding-top: 1rem;">
                     <label id="search-portal-type-select-label" class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled" data-shrink="true" aria-label="Search UQ Library">Search</label>
                 </div>
@@ -361,14 +361,9 @@ class SearchPortal extends HTMLElement {
 
         function submitHandler() {
             return function (e) {
-                e.preventDefault();
-
-                const charactersBefore = (string, separator) => {
-                    if (!!string && string.indexOf(separator) === -1) {
-                        return string.trim();
-                    }
-                    return string.substr(0, string.indexOf(separator));
-                };
+                if (!!e) {
+                    e.preventDefault();
+                }
 
                 // close the dropdown (because the window takes a moment to reload and it just looks weird)
                 that.clearSearchResults(shadowDOM); // check this one
@@ -387,6 +382,13 @@ class SearchPortal extends HTMLElement {
                         !!searchType.link &&
                         searchType.link.replace('[keyword]', keyword).replace('[keyword]', keyword); // database search has two instances of keyword
 
+                    window.dataLayer = window.dataLayer || []; // for tests
+                    window.dataLayer.push({
+                        event: 'gtm.formSubmit',
+                        'gtm.element.elements.primo-search-autocomplete.value': formObject.currentInputfield,
+                        'gtm.element.elements.primo-search-select-input.value': formObject.portaltype,
+                    });
+
                     window.location.assign(link);
                 }
 
@@ -394,7 +396,7 @@ class SearchPortal extends HTMLElement {
             };
         }
 
-        const theform = !!shadowDOM && shadowDOM.getElementById('search-portal-form');
+        const theform = !!shadowDOM && shadowDOM.getElementById('primo-search-form');
         !!theform && theform.addEventListener('submit', submitHandler());
 
         const inputField = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
