@@ -34,7 +34,7 @@ template.innerHTML = `
                     </button>
                 </div>
             </div>
-            <span style="display: none" tabindex="-1" id="campus-filter-label">Choose the campus for your course</span>
+            <span style="display: none" tabindex="0" id="campus-filter-label">Choose the campus for your course</span>
             <div aria-label="filter by campus" id="campusDropdown" class="listHolder" aria-disabled="false">
                 <button data-testid="training-filter-campus-container" id="campusOpener" class="opener filterer" aria-haspopup="listbox" aria-labelledby="campus-filter-label">
                     <span class="hidden">By campus</span>
@@ -95,7 +95,7 @@ class TrainingFilter extends HTMLElement {
         this.loadPopularChips = this.loadPopularChips.bind(this);
         this.loadWeeks = this.loadWeeks.bind(this);
         this.shortenDate = this.shortenDate.bind(this);
-        this.toggleVisibility = this.toggleVisibility.bind(this);
+        this.toggleDropdownVisibility = this.toggleDropdownVisibility.bind(this);
     }
 
     set selectedCampus(selectedCampus) {
@@ -152,9 +152,9 @@ class TrainingFilter extends HTMLElement {
             const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
             console.log('toggleCampusSelector ', eventTargetId || eventTarget);
             // if the other dropdown is still open, close it
-            !weeklist.classList.contains('hidden') && that.toggleVisibility(weeklist);
+            !weeklist.classList.contains('hidden') && that.toggleDropdownVisibility(weeklist);
 
-            that.toggleVisibility(campuslist);
+            that.toggleDropdownVisibility(campuslist);
         }
 
         function navigateToFirstCampusEntry() {
@@ -241,9 +241,9 @@ class TrainingFilter extends HTMLElement {
 
         function toggleWeekSelector() {
             // if the other dropdown is still open, close it
-            !campuslist.classList.contains('hidden') && that.toggleVisibility(campuslist);
+            !campuslist.classList.contains('hidden') && that.toggleDropdownVisibility(campuslist);
 
-            that.toggleVisibility(weeklist);
+            that.toggleDropdownVisibility(weeklist);
         }
 
         function navigateToFirstWeekEntry() {
@@ -428,7 +428,7 @@ class TrainingFilter extends HTMLElement {
             !!weekDropdown && (weekDropdown.className = newClassname);
 
             const weeklist = !!shadowDOM && shadowDOM.getElementById('weeklist');
-            that.toggleVisibility(weeklist);
+            that.toggleDropdownVisibility(weeklist);
             that.selectedWeek = that.shortenDate(weekStartDate);
 
             const weekOpenerButton = !!shadowDOM && shadowDOM.getElementById('weekOpener');
@@ -530,7 +530,7 @@ class TrainingFilter extends HTMLElement {
             // !!campusDropdown && (campusDropdown.className = newClassname);
 
             const campuslist = !!shadowDOM && shadowDOM.getElementById('campuslist');
-            that.toggleVisibility(campuslist);
+            that.toggleDropdownVisibility(campuslist);
 
             that.selectedCampus = campusCode;
 
@@ -621,19 +621,19 @@ class TrainingFilter extends HTMLElement {
     /**
      * show / hide a dropdown
      */
-    toggleVisibility(selector) {
+    toggleDropdownVisibility(selector) {
         const that = this;
         if (!selector) {
             return;
         }
 
-        !!isHidden(selector) ? show(selector) : that.closeDropdown(selector);
+        !!isHidden(selector) ? openDropdown(selector) : that.closeDropdown(selector);
 
         function isHidden(selector) {
             return selector.classList.contains('hidden');
         }
 
-        function show(selector) {
+        function openDropdown(selector) {
             selector.setAttribute('role', 'listbox');
             selector.className = selector.className.replace(' hidden', '');
             document.addEventListener('click', that.listenForMouseClicks);
@@ -651,9 +651,11 @@ class TrainingFilter extends HTMLElement {
         const shadowDOM = !!trainingFilter && trainingFilter.shadowRoot;
         if (isEscapeKeyPressed(e)) {
             const campuslist = !!shadowDOM && shadowDOM.getElementById('campuslist');
-            !!campuslist && !campuslist.classList.contains('hidden') && trainingFilter.toggleVisibility(campuslist);
+            !!campuslist &&
+                !campuslist.classList.contains('hidden') &&
+                trainingFilter.toggleDropdownVisibility(campuslist);
             const weeklist = !!shadowDOM && shadowDOM.getElementById('weeklist');
-            !!weeklist && !weeklist.classList.contains('hidden') && trainingFilter.toggleVisibility(weeklist);
+            !!weeklist && !weeklist.classList.contains('hidden') && trainingFilter.toggleDropdownVisibility(weeklist);
         }
     }
 
@@ -663,9 +665,9 @@ class TrainingFilter extends HTMLElement {
 
         if (!hasClickedOnDropdown(eventTarget)) {
             const campuslist = that.shadowRoot.getElementById('campuslist');
-            !!campuslist && !campuslist.classList.contains('hidden') && that.toggleVisibility(campuslist);
+            !!campuslist && !campuslist.classList.contains('hidden') && that.toggleDropdownVisibility(campuslist);
             const weeklist = that.shadowRoot.getElementById('weeklist');
-            !!weeklist && !weeklist.classList.contains('hidden') && that.toggleVisibility(weeklist);
+            !!weeklist && !weeklist.classList.contains('hidden') && that.toggleDropdownVisibility(weeklist);
         }
 
         function hasClickedOnDropdown(eventTarget) {
