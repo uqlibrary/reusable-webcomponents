@@ -281,7 +281,7 @@ class EzProxy extends HTMLElement {
      * Only available for Firefox 41+, Chrome 43+, Opera 29+, IE 10+
      */
     copyUrl() {
-        if ((!window.navigator.clipboard || !window.navigator.clipboard.readText) && !document.execCommand) {
+        if ((!window.navigator.clipboard || !window.navigator.clipboard.writeText) && !document.execCommand) {
             this.copyStatus = {
                 success: false,
                 message: 'Copy function not available in this web browser',
@@ -294,15 +294,15 @@ class EzProxy extends HTMLElement {
         try {
             let copyStatus;
             const ezProxy = this;
-            if (window.navigator.clipboard && window.navigator.clipboard.readText) {
-                window.navigator.clipboard.readText().then(() => {
+            if (window.navigator.clipboard && window.navigator.clipboard.writeText) {
+                window.navigator.clipboard.writeText(this.outputUrl).then(() => {
                     ezProxy.copyStatus = {
                         success: true,
                         message: 'URL copied successfully',
                     };
                 });
             } else {
-                copyStatus = document.execCommand('copy');
+                const copyStatus = document.execCommand('copy');
                 this.copyStatus = {
                     success: !!copyStatus,
                     message: copyStatus ? 'URL copied successfully' : 'Unable to copy URL',
