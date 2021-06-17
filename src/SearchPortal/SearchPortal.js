@@ -118,6 +118,7 @@ class SearchPortal extends HTMLElement {
         // this.listenForKeyboardSelectionOfSearchTypeSelector = this.listenForKeyboardSelectionOfSearchTypeSelector.bind(this);
         this.listenForKeyClicks = this.listenForKeyClicks.bind(this);
         this.listenForMouseClicks = this.listenForMouseClicks.bind(this);
+        this.sendSubmitToGTM = this.sendSubmitToGTM.bind(this);
         this.setSearchTypeButton = this.setSearchTypeButton.bind(this);
         this.showHidePortalTypeDropdown = this.showHidePortalTypeDropdown.bind(this);
         this.toggleVisibility = this.toggleVisibility.bind(this);
@@ -226,6 +227,10 @@ class SearchPortal extends HTMLElement {
                     !!anchor && anchor.setAttribute('data-testid', `suggestion-link-${index}`);
                     !!anchor && anchor.setAttribute('tabindex', '0');
                     !!anchor &&
+                        anchor.addEventListener('click', function (e) {
+                            that.sendSubmitToGTM(); // submit the GTM info, then carry on to the normal href navigation
+                        });
+                    !!anchor &&
                         anchor.addEventListener('keydown', function (e) {
                             const eventTarget =
                                 !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
@@ -259,6 +264,8 @@ class SearchPortal extends HTMLElement {
                                         !!shadowDOM && shadowDOM.getElementById(`suggestion-link-${prevId}`);
                                     !!prevElement && prevElement.focus();
                                 }
+                            } else if (isReturnKeyPressed(e)) {
+                                // dont prevent default
                             } else {
                                 e.preventDefault();
                                 console.log('suggestion anchor other keyclick on eventTargetId = ', eventTargetId);
@@ -372,6 +379,8 @@ class SearchPortal extends HTMLElement {
                 const formObject = !!formData && Object.fromEntries(formData);
 
                 if (!!formObject.currentInputfield) {
+                    that.sendSubmitToGTM();
+
                     const matches = searchPortalLocale.typeSelect.items.filter((element) => {
                         return element.selectId === formObject.portaltype;
                     });
@@ -381,13 +390,6 @@ class SearchPortal extends HTMLElement {
                         !!searchType &&
                         !!searchType.link &&
                         searchType.link.replace('[keyword]', keyword).replace('[keyword]', keyword); // database search has two instances of keyword
-
-                    window.dataLayer = window.dataLayer || []; // for tests
-                    window.dataLayer.push({
-                        event: 'gtm.formSubmit',
-                        'gtm.element.elements.primo-search-autocomplete.value': formObject.currentInputfield,
-                        'gtm.element.elements.primo-search-select-input.value': formObject.portaltype,
-                    });
 
                     window.location.assign(link);
                 }
@@ -471,6 +473,18 @@ class SearchPortal extends HTMLElement {
                 clearSearchTerm();
                 that.clearSearchResults(shadowDOM);
             });
+    }
+
+    sendSubmitToGTM(formObject) {
+        window.dataLayer = window.dataLayer || []; // for tests
+
+        const inputField = this.shadowRoot.getElementById('current-inputfield').value;
+        const portaltype = this.shadowRoot.getElementById('search-type-current-value').value;
+        window.dataLayer.push({
+            event: 'gtm.formSubmit',
+            'gtm.element.elements.primo-search-autocomplete.value': inputField,
+            'gtm.element.elements.primo-search-select-input.value': portaltype,
+        });
     }
 
     getSuggestions(shadowDOM) {
