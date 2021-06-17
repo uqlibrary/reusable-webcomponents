@@ -8,6 +8,8 @@ export function isKeyPressed(e, charKeyInput, numericKeyInput) {
         e.charCode,
         ' | e.keyCode = ',
         e.keyCode,
+        ' | e.shiftKey = ',
+        e.shiftKey,
     );
     const keyNumeric = e.charCode || e.keyCode;
     const keyChar = e.key || e.code;
@@ -27,4 +29,10 @@ export function isReturnKeyPressed(e) {
 }
 export function isTabKeyPressed(e) {
     return isKeyPressed(e, 'Tab', 9);
+}
+export function isBackTabKeyPressed(e) {
+    return isKeyPressed(e, 'Tab', 9) && !!e.shiftKey;
+}
+export function isKeyPressedUnknown(e) {
+    return isKeyPressed(e, undefined, undefined);
 }

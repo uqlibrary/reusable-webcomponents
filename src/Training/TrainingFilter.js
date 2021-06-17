@@ -1,5 +1,14 @@
 import styles from './css/main.css';
 import overrides from './css/filter.css';
+import {
+    isArrowDownKeyPressed,
+    isArrowUpKeyPressed,
+    isBackTabKeyPressed,
+    isEscapeKeyPressed,
+    // isKeyPressedUnknown,
+    isReturnKeyPressed,
+    isTabKeyPressed,
+} from '../helpers/keyDetection';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -25,12 +34,12 @@ template.innerHTML = `
                     </button>
                 </div>
             </div>
-            <span style="display: none" tabindex="-1" id="campus-filter-label">Choose the campus for your course</span>
+            <span style="display: none" tabindex="0" id="campus-filter-label">Choose the campus for your course</span>
             <div aria-label="filter by campus" id="campusDropdown" class="listHolder" aria-disabled="false">
                 <button data-testid="training-filter-campus-container" id="campusOpener" class="opener filterer" aria-haspopup="listbox" aria-labelledby="campus-filter-label">
                     <span class="hidden">By campus</span>
                 </button>
-                <div id="hoverblock" class="hoverblock">
+                <div id="campushoverblock" class="hoverblock">
                     <div data-testid="training-filter-campus-label" id="campushover" class="campushover hovertext">By campus</div>
                 </div>
                 <div tabindex="-1" data-testid="training-filter-campus-list" id="campuslist" class="selectorlist campuslist hidden" aria-expanded="false"></div>
@@ -39,7 +48,7 @@ template.innerHTML = `
                 <button data-testid="training-filter-week-container" id="weekOpener" class="opener filterer" aria-labelledby="weekhover">
                     <span class="hidden">By week</span>
                 </button>
-                <div class="hoverblock">
+                <div id="weekhoverblock" class="hoverblock">
                     <div data-testid="training-filter-week-label" id="weekhover" class="weekhover hovertext">By week</div>
                 </div>
                 <div data-testid="training-filter-week-list" id="weeklist" class="selectorlist weeklist hidden" aria-expanded="false"></div>
@@ -54,21 +63,6 @@ template.innerHTML = `
         </div>
     </section>
 `;
-
-function isKeyPressed(e, charKeyInput, numericKeyInput) {
-    const keyNumeric = e.charCode || e.keyCode;
-    const keyChar = e.key || e.code;
-    return keyChar === charKeyInput || keyNumeric === numericKeyInput;
-}
-function isEscapeKeyPressed(e) {
-    return isKeyPressed(e, 'Escape', 27);
-}
-function isArrowDownKeyPressed(e) {
-    return isKeyPressed(e, 'ArrowDown', 40);
-}
-function isArrowUpKeyPressed(e) {
-    return isKeyPressed(e, 'ArrowUp', 38);
-}
 
 class TrainingFilter extends HTMLElement {
     constructor() {
@@ -101,7 +95,7 @@ class TrainingFilter extends HTMLElement {
         this.loadPopularChips = this.loadPopularChips.bind(this);
         this.loadWeeks = this.loadWeeks.bind(this);
         this.shortenDate = this.shortenDate.bind(this);
-        this.toggleVisibility = this.toggleVisibility.bind(this);
+        this.toggleDropdownVisibility = this.toggleDropdownVisibility.bind(this);
     }
 
     set selectedCampus(selectedCampus) {
@@ -153,36 +147,57 @@ class TrainingFilter extends HTMLElement {
         const campuslist = !!shadowDOM && shadowDOM.getElementById('campuslist');
         const weeklist = !!shadowDOM && shadowDOM.getElementById('weeklist');
 
-        function toggleCampusSelector() {
+        function toggleCampusSelector(e) {
+            const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
+            const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
+            console.log('toggleCampusSelector ', eventTargetId || eventTarget);
             // if the other dropdown is still open, close it
-            !weeklist.classList.contains('hidden') && that.toggleVisibility(weeklist);
+            !weeklist.classList.contains('hidden') && that.toggleDropdownVisibility(weeklist);
 
-            that.toggleVisibility(campuslist);
+            that.toggleDropdownVisibility(campuslist);
         }
 
-        const campusOpenerButton = !!shadowDOM && shadowDOM.getElementById('campusOpener');
-        !!campusOpenerButton && campusOpenerButton.addEventListener('click', toggleCampusSelector);
-        const campushover = !!shadowDOM && shadowDOM.getElementById('campushover');
-        !!campushover && campushover.addEventListener('click', toggleCampusSelector);
+        function navigateToFirstCampusEntry() {
+            const nextElement = !!shadowDOM && shadowDOM.getElementById(`campus-select-0`);
+            console.log('navigateToFirstCampusEntry: navigate to = ', nextElement);
+            !!nextElement && nextElement.focus();
+        }
 
-        const campusOpener = !!shadowDOM && shadowDOM.getElementById('campusOpener');
-        campusOpener.addEventListener('keydown', function (e) {
-            console.log(
-                'isKeyPressed: e.key = ',
-                e.key,
-                ' | e.code = ',
-                e.code,
-                ' |  e.charCode = ',
-                e.charCode,
-                ' | e.keyCode = ',
-                e.keyCode,
-            );
+        function handleCampusKeyDown(e) {
+            const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
+            const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
             if (isArrowDownKeyPressed(e)) {
-                const allElement = !!shadowDOM && shadowDOM.getElementById('campus-select-0');
-                console.log('put focus on first element');
-                !!allElement && allElement.focus();
+                console.log('handleCampusKeyDown ArrowDownKeyPressed ', eventTargetId || eventTarget);
+                e.preventDefault();
+                // nav to first campus entry
+                navigateToFirstCampusEntry();
+            } else if (isReturnKeyPressed(e)) {
+                // just to avoid the preventdefault, as it stops the dropdown opening
+            } else if (isBackTabKeyPressed(e)) {
+                console.log('handleCampusKeyDown BackTabKeyPressed ', eventTargetId || eventTarget);
+                !campuslist.classList.contains('hidden') && that.closeDropdown(campuslist);
+            } else {
+                console.log('handleCampusKeyDown other ', eventTargetId || eventTarget);
+                e.preventDefault();
             }
-        });
+        }
+
+        const campushover = !!shadowDOM && shadowDOM.getElementById('campushover'); // for Windows
+        !!campushover && campushover.addEventListener('click', toggleCampusSelector);
+        !!campushover && campushover.addEventListener('keydown', handleCampusKeyDown);
+
+        !!campuslist && campuslist.addEventListener('keydown', handleCampusKeyDown); // for Windows
+
+        const campusOpener = !!shadowDOM && shadowDOM.getElementById('campusOpener'); // for OSX
+        !!campusOpener && campusOpener.addEventListener('click', toggleCampusSelector);
+        !!campusOpener && campusOpener.addEventListener('keydown', handleCampusKeyDown);
+        !!campusOpener &&
+            campusOpener.addEventListener('keyup', function (e) {
+                const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
+                const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
+                console.log('campusOpener keyup other ', eventTargetId || eventTarget);
+                isArrowDownKeyPressed(e);
+            });
 
         // allow the user to navigate the campus list with the arrow keys - Nick says its expected
         const campusDropdown = !!shadowDOM && shadowDOM.getElementById('campusDropdown');
@@ -190,6 +205,7 @@ class TrainingFilter extends HTMLElement {
             const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
             const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
             if (isArrowDownKeyPressed(e)) {
+                console.log('handle campusDropdown KeyDown ArrowDownKeyPressed ', eventTargetId || eventTarget);
                 e.preventDefault();
                 const currentId = eventTargetId.replace('campus-select-', '');
                 const nextId = parseInt(currentId, 10) + 1;
@@ -197,6 +213,7 @@ class TrainingFilter extends HTMLElement {
                 const nextElement = !!shadowDOM && shadowDOM.getElementById(`campus-select-${nextId}`);
                 !!nextElement && nextElement.focus();
             } else if (isArrowUpKeyPressed(e)) {
+                console.log('handle campusDropdown KeyDown ArrowUpKeyPressed ', eventTargetId || eventTarget);
                 e.preventDefault();
                 const currentId = eventTargetId.replace('campus-select-', '');
                 const prevId = parseInt(currentId, 10) - 1;
@@ -207,34 +224,57 @@ class TrainingFilter extends HTMLElement {
                     prevElement = !!shadowDOM && shadowDOM.getElementById(`campus-select-${prevId}`);
                 }
                 !!prevElement && prevElement.focus();
+            } else if (isTabKeyPressed(e)) {
+                console.log('handle campusDropdown KeyDown TabKeyPressed( ', eventTargetId || eventTarget);
+                // close on tab off last element
+                if (eventTargetId.startsWith('campus-select-')) {
+                    const currentId = eventTargetId.replace('campus-select-', '');
+                    const nextId = parseInt(currentId, 10) + 1;
+                    console.log('nextId = ', nextId);
+                    const nextElement = !!shadowDOM && shadowDOM.getElementById(`campus-select-${nextId}`);
+                    !nextElement && that.closeDropdown(campuslist);
+                }
+            } else {
+                console.log('handle campusDropdown KeyDown other KeyPressed ', eventTargetId || eventTarget);
             }
         });
 
         function toggleWeekSelector() {
             // if the other dropdown is still open, close it
-            !campuslist.classList.contains('hidden') && that.toggleVisibility(campuslist);
+            !campuslist.classList.contains('hidden') && that.toggleDropdownVisibility(campuslist);
 
-            that.toggleVisibility(weeklist);
+            that.toggleDropdownVisibility(weeklist);
         }
 
-        const weekOpenerButton = !!shadowDOM && shadowDOM.getElementById('weekOpener');
-        !!weekOpenerButton && weekOpenerButton.addEventListener('click', toggleWeekSelector);
-        const weekhover = !!shadowDOM && shadowDOM.getElementById('weekhover');
-        !!weekhover && weekhover.addEventListener('click', toggleWeekSelector);
+        function navigateToFirstWeekEntry() {
+            const nextElement = !!shadowDOM && shadowDOM.getElementById(`week-select-0`);
+            console.log('navigateToFirstWeekEntry: navigate to = ', nextElement);
+            !!nextElement && nextElement.focus();
+        }
 
-        const weekOpener = !!shadowDOM && shadowDOM.getElementById('weekOpener');
-        weekOpener.addEventListener('keydown', function (e) {
+        function handleWeekKeyDown(e) {
             if (isArrowDownKeyPressed(e)) {
-                const allElement = !!shadowDOM && shadowDOM.getElementById('week-select-0');
-                !!allElement && allElement.focus();
+                e.preventDefault();
+                navigateToFirstWeekEntry();
+            } else if (isBackTabKeyPressed(e)) {
+                !weeklist.classList.contains('hidden') && that.closeDropdown(weeklist);
             }
-        });
+        }
+
+        const weekhover = !!shadowDOM && shadowDOM.getElementById('weekhover'); // for Windows
+        !!weekhover && weekhover.addEventListener('click', toggleWeekSelector);
+        !!weekhover && weekhover.addEventListener('keydown', handleWeekKeyDown);
+
+        const weekOpener = !!shadowDOM && shadowDOM.getElementById('weekOpener'); // for OSX
+        !!weekOpener && weekOpener.addEventListener('click', toggleWeekSelector);
+        !!weekOpener && weekOpener.addEventListener('keydown', handleWeekKeyDown);
 
         // allow the user to navigate the week list with the arrow keys - Nick says its expected
         const weekDropdown = !!shadowDOM && shadowDOM.getElementById('weekDropdown');
         weekDropdown.addEventListener('keydown', function (e) {
             const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
             const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
+            console.log('weekDropdown.addEventListener keydown ', eventTargetId || eventTarget);
             if (isArrowDownKeyPressed(e)) {
                 e.preventDefault();
                 const currentId = eventTargetId.replace('week-select-', '');
@@ -253,11 +293,23 @@ class TrainingFilter extends HTMLElement {
                     prevElement = !!shadowDOM && shadowDOM.getElementById(`week-select-${prevId}`);
                 }
                 !!prevElement && prevElement.focus();
+            } else if (isTabKeyPressed(e)) {
+                console.log('TabKeyPressed');
+                // close on last element
+                if (eventTargetId.startsWith('week-select-')) {
+                    const currentId = eventTargetId.replace('week-select-', '');
+                    const nextId = parseInt(currentId, 10) + 1;
+                    console.log('nextId = ', nextId);
+                    const nextElement = !!shadowDOM && shadowDOM.getElementById(`week-select-${nextId}`);
+                    !nextElement && that.closeDropdown(weeklist);
+                }
             }
         });
 
         function sendKeywordToGoogleAnalytics(e) {
+            console.log('sendKeywordToGoogleAnalytics that._inputKeywordValue = ', that._inputKeywordValue);
             if (that._inputKeywordValue !== '') {
+                console.log('sendKeywordToGoogleAnalytics send');
                 window.dataLayer = window.dataLayer || []; // for tests
                 window.dataLayer.push({
                     event: 'reusable_component_event_click',
@@ -377,7 +429,7 @@ class TrainingFilter extends HTMLElement {
             !!weekDropdown && (weekDropdown.className = newClassname);
 
             const weeklist = !!shadowDOM && shadowDOM.getElementById('weeklist');
-            that.toggleVisibility(weeklist);
+            that.toggleDropdownVisibility(weeklist);
             that.selectedWeek = that.shortenDate(weekStartDate);
 
             const weekOpenerButton = !!shadowDOM && shadowDOM.getElementById('weekOpener');
@@ -479,7 +531,7 @@ class TrainingFilter extends HTMLElement {
             // !!campusDropdown && (campusDropdown.className = newClassname);
 
             const campuslist = !!shadowDOM && shadowDOM.getElementById('campuslist');
-            that.toggleVisibility(campuslist);
+            that.toggleDropdownVisibility(campuslist);
 
             that.selectedCampus = campusCode;
 
@@ -557,37 +609,38 @@ class TrainingFilter extends HTMLElement {
         }
     }
 
+    closeDropdown(selector) {
+        const that = this;
+        selector.className = `${selector.className} hidden`;
+        selector.removeAttribute('role');
+        document.removeEventListener('click', that.listenForMouseClicks);
+        document.removeEventListener('keydown', that.listenForKeyClicks);
+        selector.setAttribute('aria-expanded', 'false');
+        selector.setAttribute('tabindex', '-1');
+    }
+
     /**
-     * show hide an element
+     * show / hide a dropdown
      */
-    toggleVisibility(selector) {
+    toggleDropdownVisibility(selector) {
         const that = this;
         if (!selector) {
             return;
         }
 
-        !!isHidden(selector) ? show(selector) : hide(selector);
+        !!isHidden(selector) ? openDropdown(selector) : that.closeDropdown(selector);
 
         function isHidden(selector) {
             return selector.classList.contains('hidden');
         }
 
-        function show(selector) {
+        function openDropdown(selector) {
             selector.setAttribute('role', 'listbox');
             selector.className = selector.className.replace(' hidden', '');
             document.addEventListener('click', that.listenForMouseClicks);
             document.addEventListener('keydown', that.listenForKeyClicks);
             selector.setAttribute('aria-expanded', 'true');
             selector.setAttribute('tabindex', '0');
-        }
-
-        function hide(selector) {
-            selector.className = `${selector.className} hidden`;
-            selector.removeAttribute('role');
-            document.removeEventListener('click', that.listenForMouseClicks);
-            document.removeEventListener('keydown', that.listenForKeyClicks);
-            selector.setAttribute('aria-expanded', 'false');
-            selector.setAttribute('tabindex', '-1');
         }
     }
 
@@ -599,9 +652,11 @@ class TrainingFilter extends HTMLElement {
         const shadowDOM = !!trainingFilter && trainingFilter.shadowRoot;
         if (isEscapeKeyPressed(e)) {
             const campuslist = !!shadowDOM && shadowDOM.getElementById('campuslist');
-            !!campuslist && !campuslist.classList.contains('hidden') && trainingFilter.toggleVisibility(campuslist);
+            !!campuslist &&
+                !campuslist.classList.contains('hidden') &&
+                trainingFilter.toggleDropdownVisibility(campuslist);
             const weeklist = !!shadowDOM && shadowDOM.getElementById('weeklist');
-            !!weeklist && !weeklist.classList.contains('hidden') && trainingFilter.toggleVisibility(weeklist);
+            !!weeklist && !weeklist.classList.contains('hidden') && trainingFilter.toggleDropdownVisibility(weeklist);
         }
     }
 
@@ -611,9 +666,9 @@ class TrainingFilter extends HTMLElement {
 
         if (!hasClickedOnDropdown(eventTarget)) {
             const campuslist = that.shadowRoot.getElementById('campuslist');
-            !!campuslist && !campuslist.classList.contains('hidden') && that.toggleVisibility(campuslist);
+            !!campuslist && !campuslist.classList.contains('hidden') && that.toggleDropdownVisibility(campuslist);
             const weeklist = that.shadowRoot.getElementById('weeklist');
-            !!weeklist && !weeklist.classList.contains('hidden') && that.toggleVisibility(weeklist);
+            !!weeklist && !weeklist.classList.contains('hidden') && that.toggleDropdownVisibility(weeklist);
         }
 
         function hasClickedOnDropdown(eventTarget) {

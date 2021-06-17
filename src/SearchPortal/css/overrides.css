@@ -854,11 +854,24 @@ label + .MuiInput-formControl {
     }
 }
 
+li.MuiAutocomplete-option {
+    padding: 0;
+    margin: 0;
+}
 .suggestionList a,
+.suggestionList a:focus,
 .suggestionList a:hover,
 .suggestionList a:visited,
 .suggestionList a:active {
     text-decoration: none;
+    padding: 6px 16px;
+    margin: 0;
+}
+.suggestionList a:active,
+.suggestionList a:focus,
+.suggestionList a:hover {
+    background-color: #e2e2e2;
+    width: 100%;
 }
 
 .formControl {
