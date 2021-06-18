@@ -1,5 +1,8 @@
 /// <reference types="cypress" />
 
+const RETURN_KEY = 13;
+const DOWN_ARROW_KEYCODE = 40;
+
 describe('Training', () => {
     it('Passes accessibility', () => {
         cy.visit('http://localhost:8080/index-training.html');
@@ -28,7 +31,7 @@ describe('Training', () => {
         it('toggles full list of rows on button click', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
-            cy.get('library-training:not([hide-filter])')
+            cy.get('library-training[id="test-with-filter"]')
                 .should('exist')
                 .shadow()
                 .within(() => {
@@ -57,7 +60,7 @@ describe('Training', () => {
         it('loads basic training details', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
-            cy.get('library-training:not([hide-filter])')
+            cy.get('library-training[id="test-with-filter"]')
                 .should('exist')
                 .shadow()
                 .within(() => {
@@ -87,7 +90,7 @@ describe('Training', () => {
         it('the places remaining text is always correct', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
-            cy.get('library-training:not([hide-filter])')
+            cy.get('library-training[id="test-with-filter"]')
                 .should('exist')
                 .shadow()
                 .within(() => {
@@ -232,7 +235,7 @@ describe('Training', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.injectAxe();
             cy.viewport(1280, 900);
-            cy.get('library-training:not([hide-filter])')
+            cy.get('library-training[id="test-with-filter"]')
                 .should('exist')
                 .shadow()
                 .within(() => {
@@ -256,7 +259,7 @@ describe('Training', () => {
         it('user can enter a keyword', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
-            cy.get('library-training:not([hide-filter])')
+            cy.get('library-training[id="test-with-filter"]')
                 .should('exist')
                 .shadow()
                 .within(() => {
@@ -284,7 +287,7 @@ describe('Training', () => {
         it('user can select a campus', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
-            cy.get('library-training:not([hide-filter])')
+            cy.get('library-training[id="test-with-filter"]')
                 .should('exist')
                 .shadow()
                 .within(() => {
@@ -325,7 +328,7 @@ describe('Training', () => {
         it('user can clear campus selector field', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
-            cy.get('library-training:not([hide-filter])')
+            cy.get('library-training[id="test-with-filter"]')
                 .should('exist')
                 .shadow()
                 .within(() => {
@@ -342,7 +345,7 @@ describe('Training', () => {
                 });
             // click somewhere on the page outside the campus type dropdown
             cy.get('[data-testid="random-page-element"]').click();
-            cy.get('library-training:not([hide-filter])')
+            cy.get('library-training[id="test-with-filter"]')
                 .should('exist')
                 .shadow()
                 .within(() => {
@@ -357,7 +360,7 @@ describe('Training', () => {
         it('user can select a week', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
-            cy.get('library-training:not([hide-filter])')
+            cy.get('library-training[id="test-with-filter"]')
                 .should('exist')
                 .shadow()
                 .within(() => {
@@ -399,7 +402,7 @@ describe('Training', () => {
         it('user can clear week selector field', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
-            cy.get('library-training:not([hide-filter])')
+            cy.get('library-training[id="test-with-filter"]')
                 .should('exist')
                 .shadow()
                 .within(() => {
@@ -417,7 +420,7 @@ describe('Training', () => {
                 });
             // click somewhere on the page outside the week type dropdown
             cy.get('[data-testid="random-page-element"]').click();
-            cy.get('library-training:not([hide-filter])')
+            cy.get('library-training[id="test-with-filter"]')
                 .should('exist')
                 .shadow()
                 .within(() => {
@@ -432,7 +435,7 @@ describe('Training', () => {
         it('user can select multiple elements', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
-            cy.get('library-training:not([hide-filter])')
+            cy.get('library-training[id="test-with-filter"]')
                 .should('exist')
                 .shadow()
                 .within(() => {
@@ -474,7 +477,7 @@ describe('Training', () => {
         it('user can clear other fields', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
-            cy.get('library-training:not([hide-filter])')
+            cy.get('library-training[id="test-with-filter"]')
                 .should('exist')
                 .shadow()
                 .within(() => {
@@ -507,5 +510,40 @@ describe('Training', () => {
             cy.viewport(1280, 900);
             cy.url().should('eq', 'http://localhost:8080/index-training.html#');
         });
+
+        // it.only('the keyboard works properly', () => {
+        //     cy.visit('http://localhost:8080/index-training.html');
+        //     cy.viewport(1280, 1280);
+        //     cy.get('library-training[id="test-with-filter"]')
+        //         .should('exist')
+        //         .shadow()
+        //         .within(() => {
+        //             cy.get('training-filter')
+        //                 .should('exist')
+        //                 .shadow()
+        //                 .within(() => {
+        //                     // cy.get('[data-testid="training-filter-keyword-entry"]')
+        //                     //     .type('e');
+        //                     // cy.wait(1500); // dev, so we can see focus is on that element
+        //                     // cy.get('[data-testid="training-filter-keyword-entry"]').should('have.focus');
+        //                     // cy.log('about to tab');
+        //                     // cy.get('[data-testid="training-filter-keyword-entry"]')
+        //                     //     .trigger('keydown', { keyCode: 9 });
+        //                     // cy.log('after tab');
+        //                     // cy.wait(1500); // dev, so we can see focus is on that element
+        //                     // cy.get('[data-testid="training-filter-clear-keyword"]').should('have.focus');
+        //
+        //                     cy.get('[data-testid="training-filter-campus-list"]').should('have.class', 'hidden');
+        //                     cy.get('[data-testid="training-filter-keyword-entry"]')
+        //                         .trigger('keydown', { keyCode: RETURN_KEY });
+        //                     cy.wait(1500);
+        //                     cy.get('[data-testid="training-filter-campus-list"]').should('not.have.class', 'hidden');
+        //                     cy.get('[data-testid="training-filter-campus-list"]').find('button').should('length', 3);
+        //                     cy.get('[data-testid="training-filter-campus-list"]').trigger('keydown', {
+        //                         keyCode: DOWN_ARROW_KEYCODE,
+        //                     });
+        //                 });
+        //         });
+        // });
     });
 });

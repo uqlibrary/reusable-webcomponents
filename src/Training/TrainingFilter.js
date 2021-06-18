@@ -171,14 +171,9 @@ class TrainingFilter extends HTMLElement {
                 e.preventDefault();
                 // nav to first campus entry
                 navigateToFirstCampusEntry();
-            } else if (isReturnKeyPressed(e)) {
-                // just to avoid the preventdefault, as it stops the dropdown opening
             } else if (isBackTabKeyPressed(e)) {
                 console.log('handleCampusKeyDown BackTabKeyPressed ', eventTargetId || eventTarget);
                 !campuslist.classList.contains('hidden') && that.closeDropdown(campuslist);
-            } else {
-                console.log('handleCampusKeyDown other ', eventTargetId || eventTarget);
-                e.preventDefault();
             }
         }
 
@@ -191,53 +186,45 @@ class TrainingFilter extends HTMLElement {
         const campusOpener = !!shadowDOM && shadowDOM.getElementById('campusOpener'); // for OSX
         !!campusOpener && campusOpener.addEventListener('click', toggleCampusSelector);
         !!campusOpener && campusOpener.addEventListener('keydown', handleCampusKeyDown);
-        !!campusOpener &&
-            campusOpener.addEventListener('keyup', function (e) {
-                const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
-                const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
-                console.log('campusOpener keyup other ', eventTargetId || eventTarget);
-                isArrowDownKeyPressed(e);
-            });
 
         // allow the user to navigate the campus list with the arrow keys - Nick says its expected
         const campusDropdown = !!shadowDOM && shadowDOM.getElementById('campusDropdown');
-        campusDropdown.addEventListener('keydown', function (e) {
-            const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
-            const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
-            if (isArrowDownKeyPressed(e)) {
-                console.log('handle campusDropdown KeyDown ArrowDownKeyPressed ', eventTargetId || eventTarget);
-                e.preventDefault();
-                const currentId = eventTargetId.replace('campus-select-', '');
-                const nextId = parseInt(currentId, 10) + 1;
+        campusDropdown.addEventListener('keydown', campusDropdownKeyDownListener());
 
-                const nextElement = !!shadowDOM && shadowDOM.getElementById(`campus-select-${nextId}`);
-                !!nextElement && nextElement.focus();
-            } else if (isArrowUpKeyPressed(e)) {
-                console.log('handle campusDropdown KeyDown ArrowUpKeyPressed ', eventTargetId || eventTarget);
-                e.preventDefault();
-                const currentId = eventTargetId.replace('campus-select-', '');
-                const prevId = parseInt(currentId, 10) - 1;
-                let prevElement;
-                if (currentId === '0') {
-                    prevElement = !!shadowDOM && shadowDOM.getElementById('campusOpener');
-                } else {
-                    prevElement = !!shadowDOM && shadowDOM.getElementById(`campus-select-${prevId}`);
-                }
-                !!prevElement && prevElement.focus();
-            } else if (isTabKeyPressed(e)) {
-                console.log('handle campusDropdown KeyDown TabKeyPressed( ', eventTargetId || eventTarget);
-                // close on tab off last element
-                if (eventTargetId.startsWith('campus-select-')) {
+        function campusDropdownKeyDownListener() {
+            return function (e) {
+                const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
+                const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
+                if (isArrowDownKeyPressed(e)) {
+                    console.log('handle campusDropdown KeyDown ArrowDownKeyPressed ', eventTargetId || eventTarget);
+                    e.preventDefault();
                     const currentId = eventTargetId.replace('campus-select-', '');
                     const nextId = parseInt(currentId, 10) + 1;
-                    console.log('nextId = ', nextId);
+
                     const nextElement = !!shadowDOM && shadowDOM.getElementById(`campus-select-${nextId}`);
-                    !nextElement && that.closeDropdown(campuslist);
+                    !!nextElement && nextElement.focus();
+                } else if (isArrowUpKeyPressed(e)) {
+                    console.log('handle campusDropdown KeyDown ArrowUpKeyPressed ', eventTargetId || eventTarget);
+                    e.preventDefault();
+                    const currentId = eventTargetId.replace('campus-select-', '');
+                    const prevId = parseInt(currentId, 10) - 1;
+                    const prevElementId =
+                        (!!prevId || prevId === 0) && (currentId === '0' ? 'campusOpener' : `campus-select-${prevId}`);
+                    const prevElement = !!prevElementId && !!shadowDOM && shadowDOM.getElementById(prevElementId);
+                    !!prevElement && prevElement.focus();
+                } else if (isTabKeyPressed(e)) {
+                    console.log('handle campusDropdown KeyDown TabKeyPressed( ', eventTargetId || eventTarget);
+                    // close on tab off last element
+                    if (eventTargetId.startsWith('campus-select-')) {
+                        const currentId = eventTargetId.replace('campus-select-', '');
+                        const nextId = parseInt(currentId, 10) + 1;
+                        console.log('nextId = ', nextId);
+                        const nextElement = !!shadowDOM && shadowDOM.getElementById(`campus-select-${nextId}`);
+                        !nextElement && that.closeDropdown(campuslist);
+                    }
                 }
-            } else {
-                console.log('handle campusDropdown KeyDown other KeyPressed ', eventTargetId || eventTarget);
-            }
-        });
+            };
+        }
 
         function toggleWeekSelector() {
             // if the other dropdown is still open, close it
@@ -327,8 +314,6 @@ class TrainingFilter extends HTMLElement {
         !!inputKeywordField && inputKeywordField.addEventListener('keydown', noteKeywordChange);
         !!inputKeywordField && inputKeywordField.addEventListener('keyup', noteKeywordChange);
         !!inputKeywordField && inputKeywordField.addEventListener('blur', sendKeywordToGoogleAnalytics);
-
-        // may need more listeners for mobile, etc?
 
         function noteCheckboxSet() {
             that.onlineOnlyProperty = !!this.checked;
