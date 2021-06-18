@@ -47,6 +47,10 @@
     border-top: none;
 }
 
+.uq-accordion__toggle {
+    padding: 0.8rem 1rem;
+}
+
 .uq-accordion__item:last-of-type {
     border-bottom: none;
 }
