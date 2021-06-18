@@ -13,7 +13,7 @@ describe('EzProxy', () => {
                 .within(() => {
                     cy.get('[data-testid="ez-proxy-input"]').should('exist').should('be.visible');
                     cy.get('[data-testid="ez-proxy-create-link-button"]').should('exist').should('be.visible');
-                    cy.get('[data-testid="ez-proxy-copy-link-buttons"]').should('exist').should('not.be.visible');
+                    cy.get('[data-testid="ez-proxy-copy-options"]').should('exist').should('not.be.visible');
                     cy.get('[data-testid="ez-proxy-redirect-button"]').should('exist').should('not.be.visible');
                 });
         });
@@ -26,7 +26,7 @@ describe('EzProxy', () => {
                 .within(() => {
                     cy.get('[data-testid="ez-proxy-input"]').type('https://www.google.com/{enter}');
                     cy.get('[data-testid="ez-proxy-create-link-button"]').should('exist').should('not.be.visible');
-                    cy.get('[data-testid="ez-proxy-copy-link-buttons"]').should('exist').should('be.visible');
+                    cy.get('[data-testid="ez-proxy-copy-options"]').should('exist').should('be.visible');
                 });
         });
 
@@ -60,7 +60,7 @@ describe('EzProxy', () => {
                         'have.value',
                         'https://ezproxy.library.uq.edu.au/login?url=https://www.google.com/',
                     );
-                    cy.get('[data-testid="ez-proxy-copy-link-buttons"]').should('not.have.class', 'hidden');
+                    cy.get('[data-testid="ez-proxy-copy-options"]').should('not.have.class', 'hidden');
                     cy.get('[data-testid="ez-proxy-copy-link-button"]').should('be.visible').click();
                     cy.get('[data-testid="ez-proxy-copy-status"]')
                         .should('exist')
@@ -116,11 +116,11 @@ describe('EzProxy', () => {
             const writeText = replaceWriteText();
             copyAndToast('URL copied successfully');
             cy.get('@execCommand').should('be.calledOnceWith', 'copy');
-            cy.window().then((win) => {
-                if (writeText) {
+            if (writeText) {
+                cy.window().then((win) => {
                     win.navigator.clipboard.writeText = writeText;
-                }
-            });
+                });
+            }
         });
 
         it('shows expected error messages when copy mechanisms fail - 1 of 3', () => {
@@ -202,7 +202,7 @@ describe('EzProxy', () => {
                     cy.get('[data-testid="ez-proxy-create-new-link-button"]').should('exist').click();
                     cy.get('[data-testid="ez-proxy-input"]').should('exist').should('be.visible');
                     cy.get('[data-testid="ez-proxy-create-link-button"]').should('exist').should('be.visible');
-                    cy.get('[data-testid="ez-proxy-copy-link-buttons"]').should('exist').should('not.be.visible');
+                    cy.get('[data-testid="ez-proxy-copy-options"]').should('exist').should('not.be.visible');
                     cy.get('[data-testid="ez-proxy-redirect-button"]').should('exist').should('not.be.visible');
                 });
         });
@@ -262,7 +262,7 @@ describe('EzProxy', () => {
                 .within(() => {
                     cy.get('[data-testid="ez-proxy-input"]').should('exist').should('be.visible');
                     cy.get('[data-testid="ez-proxy-create-link-button"]').should('exist').should('not.be.visible');
-                    cy.get('[data-testid="ez-proxy-copy-link-buttons"]').should('exist').should('not.be.visible');
+                    cy.get('[data-testid="ez-proxy-copy-options"]').should('exist').should('not.be.visible');
                     cy.get('[data-testid="ez-proxy-redirect-button"]').should('exist').should('be.visible');
                 });
         });
@@ -294,6 +294,18 @@ describe('EzProxy', () => {
                         .should('exist')
                         .should('be.visible')
                         .should('have.text', 'Please enter a URL');
+                });
+        });
+
+        it('clears the field on clicking the clear button', () => {
+            cy.get('ez-proxy:not([create-link])')
+                .should('exist')
+                .shadow()
+                .find('[data-testid="ez-proxy"]')
+                .within(() => {
+                    cy.get('[data-testid="ez-proxy-input"]').should('exist').type('https://www.uq.edu.au/');
+                    cy.get('[data-testid="ez-proxy-input-clear-button"]').should('exist').click();
+                    cy.get('[data-testid="ez-proxy-input"]').should('be.empty');
                 });
         });
 

@@ -1,3 +1,7 @@
+#ez-proxy-copy-options > button {
+    margin-top: 0.5rem;
+}
+
 #ez-proxy-url-display-area {
     resize: none;
     height: 2.7rem;

@@ -15,19 +15,22 @@ template.innerHTML = `
         ${mainStyles.toString()}
         ${customStyles.toString()}
     </style>
-    <div id="ez-proxy" data-testid="ez-proxy" class="uq-grid">
-        <fieldset class="uq-grid__col--5">
+    <div id="ez-proxy" data-testid="ez-proxy" class="uq-card">
+        <fieldset class="uq-card__content">
             <input type="url" placeholder="DOI or URL" id="ez-proxy-input" data-testid="ez-proxy-input" />
             <div id="ez-proxy-input-error" data-testid="ez-proxy-input-error" class="uq-error-message hidden"></div>
             <button id="ez-proxy-create-link-button" data-testid="ez-proxy-create-link-button" class="uq-button hidden">Create Link</button>
-            <span id="ez-proxy-copy-link-buttons" data-testid="ez-proxy-copy-link-buttons" class="hidden">
+            <span id="ez-proxy-copy-options" data-testid="ez-proxy-copy-options" class="hidden">
                 <textarea readonly id="ez-proxy-url-display-area" data-testid="ez-proxy-url-display-area"></textarea>
                 <button id="ez-proxy-test-link-button" data-testid="ez-proxy-test-link-button" class="uq-button">Test Link</button>
                 <button id="ez-proxy-copy-link-button" data-testid="ez-proxy-copy-link-button" class="uq-button">Copy Link</button>
-                <button id="ez-proxy-create-new-link-button" data-testid="ez-proxy-create-new-link-button" class="uq-button">Create New Link</button>
+                <button id="ez-proxy-create-new-link-button" data-testid="ez-proxy-create-new-link-button" class="uq-button uq-button--secondary">Create New Link</button>
                 <div id="ez-proxy-copy-status" data-testid="ez-proxy-copy-status"></div>
             </span>
-            <button id="ez-proxy-redirect-button" data-testid="ez-proxy-redirect-button" class="uq-button hidden">Go</button>
+            <span id="ez-proxy-redirect-options" data-testid="ez-proxy-redirect-options" class="hidden">
+                <button id="ez-proxy-redirect-button" data-testid="ez-proxy-redirect-button" class="uq-button">Go</button>
+                <button id="ez-proxy-input-clear-button" data-testid="ez-proxy-input-clear-button" class="uq-button uq-button--secondary">Clear</button>
+            </span>
         </fieldset>
     </div>
 `;
@@ -49,7 +52,9 @@ class EzProxy extends HTMLElement {
     }
 
     set inputUrl(value) {
-        this.createLinkButton.classList.remove('hidden');
+        if (!this.redirectOnly) {
+            this.createLinkButton.classList.remove('hidden');
+        }
         this.inputField.value = value;
         this.inputField.classList.remove('hidden');
         this.inputField.focus();
@@ -117,19 +122,21 @@ class EzProxy extends HTMLElement {
         const shadowDOM = this.attachShadow({ mode: 'open' });
         shadowDOM.appendChild(template.content.cloneNode(true));
 
-        this.inputField = shadowDOM.getElementById('ez-proxy-input');
-        this.inputErrorArea = shadowDOM.getElementById('ez-proxy-input-error');
-        this.createLinkButton = shadowDOM.getElementById('ez-proxy-create-link-button');
-        this.redirectButton = shadowDOM.getElementById('ez-proxy-redirect-button');
-        this.copyUrlOptions = shadowDOM.getElementById('ez-proxy-copy-link-buttons');
         this.copyLinkButton = shadowDOM.getElementById('ez-proxy-copy-link-button');
+        this.copyOptions = shadowDOM.getElementById('ez-proxy-copy-options');
+        this.createLinkButton = shadowDOM.getElementById('ez-proxy-create-link-button');
         this.createNewLinkButton = shadowDOM.getElementById('ez-proxy-create-new-link-button');
-        this.testLinkButton = shadowDOM.getElementById('ez-proxy-test-link-button');
+        this.inputClearButton = shadowDOM.getElementById('ez-proxy-input-clear-button');
+        this.inputErrorArea = shadowDOM.getElementById('ez-proxy-input-error');
+        this.inputField = shadowDOM.getElementById('ez-proxy-input');
+        this.redirectButton = shadowDOM.getElementById('ez-proxy-redirect-button');
+        this.redirectOptions = shadowDOM.getElementById('ez-proxy-redirect-options');
         this.statusToast = shadowDOM.getElementById('ez-proxy-copy-status');
+        this.testLinkButton = shadowDOM.getElementById('ez-proxy-test-link-button');
         this.urlDisplayArea = shadowDOM.getElementById('ez-proxy-url-display-area');
 
         if (this.redirectOnly) {
-            this.redirectButton.classList.remove('hidden');
+            this.redirectOptions.classList.remove('hidden');
         } else {
             this.createLinkButton.classList.remove('hidden');
         }
@@ -141,6 +148,7 @@ class EzProxy extends HTMLElement {
         this.copyLinkButton.addEventListener('click', () => this.copyUrl());
         this.createLinkButton.addEventListener('click', () => this.displayUrl());
         this.createNewLinkButton.addEventListener('click', () => this.resetInput());
+        this.inputClearButton.addEventListener('click', () => this.resetInput());
         this.inputField.addEventListener('keypress', (e) => this.inputUrlKeypress(e));
         this.redirectButton.addEventListener('click', () => this.navigateToEzproxy());
         this.testLinkButton.addEventListener('click', () => this.navigateToEzproxy());
@@ -195,7 +203,6 @@ class EzProxy extends HTMLElement {
 
         if (this.inputValidator.valid) {
             this.outputUrl = this.getUrl(cleanedUrl);
-            // this.ga.addEvent('ShowUrl', this.outputUrl);
             this.testLinkButton.focus();
         }
     }
@@ -211,7 +218,6 @@ class EzProxy extends HTMLElement {
         }
 
         if (this.inputValidator.valid) {
-            // this.ga.addEvent('GoProxy', this.outputUrl);
             var win = window.open(this.outputUrl);
             win.focus();
         }
@@ -292,7 +298,6 @@ class EzProxy extends HTMLElement {
         this.urlDisplayArea.select();
 
         try {
-            let copyStatus;
             const ezProxy = this;
             if (window.navigator.clipboard && window.navigator.clipboard.writeText) {
                 window.navigator.clipboard.writeText(this.outputUrl).then(() => {
