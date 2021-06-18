@@ -35,7 +35,7 @@ template.innerHTML = `
                 </div>
             </div>
             <span style="display: none" tabindex="0" id="campus-filter-label">Choose the campus for your course</span>
-            <div aria-label="filter by campus" id="campusDropdown" class="listHolder" aria-disabled="false">
+            <div aria-label="filter by campus" id="campusDropdown" data-testid="training-filter-campus-dropdown" class="listHolder" aria-disabled="false">
                 <button data-testid="training-filter-campus-container" id="campusOpener" class="opener filterer" aria-haspopup="listbox" aria-labelledby="campus-filter-label">
                     <span class="hidden">By campus</span>
                 </button>
@@ -44,7 +44,7 @@ template.innerHTML = `
                 </div>
                 <div tabindex="-1" data-testid="training-filter-campus-list" id="campuslist" class="selectorlist campuslist hidden" aria-expanded="false"></div>
             </div>
-            <div aria-label="filter by week" id="weekDropdown" class="listHolder" aria-disabled="false">
+            <div aria-label="filter by week" id="weekDropdown" data-testid="training-filter-week-dropdown" class="listHolder" aria-disabled="false">
                 <button data-testid="training-filter-week-container" id="weekOpener" class="opener filterer" aria-labelledby="weekhover">
                     <span class="hidden">By week</span>
                 </button>
@@ -174,6 +174,10 @@ class TrainingFilter extends HTMLElement {
             } else if (isBackTabKeyPressed(e)) {
                 console.log('handleCampusKeyDown BackTabKeyPressed ', eventTargetId || eventTarget);
                 !campuslist.classList.contains('hidden') && that.closeDropdown(campuslist);
+            } else if (isTabKeyPressed(e)) {
+                const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
+                const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
+                console.log('handleCampusKeyDown tab presssed does the default ', eventTargetId);
             }
         }
 
@@ -248,11 +252,11 @@ class TrainingFilter extends HTMLElement {
             }
         }
 
-        const weekhover = !!shadowDOM && shadowDOM.getElementById('weekhover'); // for Windows
+        const weekhover = !!shadowDOM && shadowDOM.getElementById('weekhover');
         !!weekhover && weekhover.addEventListener('click', toggleWeekSelector);
         !!weekhover && weekhover.addEventListener('keydown', handleWeekKeyDown);
 
-        const weekOpener = !!shadowDOM && shadowDOM.getElementById('weekOpener'); // for OSX
+        const weekOpener = !!shadowDOM && shadowDOM.getElementById('weekOpener');
         !!weekOpener && weekOpener.addEventListener('click', toggleWeekSelector);
         !!weekOpener && weekOpener.addEventListener('keydown', handleWeekKeyDown);
 
@@ -265,9 +269,16 @@ class TrainingFilter extends HTMLElement {
             if (isArrowDownKeyPressed(e)) {
                 e.preventDefault();
                 const currentId = eventTargetId.replace('week-select-', '');
-                const nextId = parseInt(currentId, 10) + 1;
-
-                const nextElement = !!shadowDOM && shadowDOM.getElementById(`week-select-${nextId}`);
+                console.log('currentId = ', currentId);
+                let nextElement;
+                if (currentId === 'weekOpener') {
+                    nextElement = !!shadowDOM && shadowDOM.getElementById('week-select-0');
+                } else {
+                    const nextId = parseInt(currentId, 10) + 1;
+                    console.log('nextId = ', nextId);
+                    nextElement = !!shadowDOM && shadowDOM.getElementById(`week-select-${nextId}`);
+                }
+                console.log('nextElement = ', nextElement);
                 !!nextElement && nextElement.focus();
             } else if (isArrowUpKeyPressed(e)) {
                 e.preventDefault();
@@ -440,15 +451,13 @@ class TrainingFilter extends HTMLElement {
             const weekSelectButton = document.createElement('button');
             weekSelectButton.className = 'week filterer';
             weekSelectButton.setAttribute('id', `week-select-${index}`);
+            weekSelectButton.setAttribute('data-testid', `training-filter-select-week-${index}`);
             weekSelectButton.setAttribute('role', 'option');
             const label =
                 weekStartDate === allAvailableEntry
                     ? 'Display courses on all days'
                     : `Only display courses between ${weekName}`;
             weekSelectButton.setAttribute('aria-label', label);
-            const weekSelectButtonDataTestId = weekName.replaceAll(' ', '').toLowerCase();
-            const weekSelectButtonDataTestLabel = `training-filter-select-week-${weekSelectButtonDataTestId}`;
-            weekSelectButton.setAttribute('data-testid', weekSelectButtonDataTestLabel);
             weekSelectButton.innerHTML = weekName;
             !!weekSelectButton &&
                 weekSelectButton.addEventListener('click', function () {
@@ -533,6 +542,7 @@ class TrainingFilter extends HTMLElement {
             campusSelectButton.className = 'campus filterer';
             campusSelectButton.innerHTML = campusName;
             campusSelectButton.setAttribute('id', `campus-select-${index}`);
+            campusSelectButton.setAttribute('data-testid', `training-filter-campus-select-${index}`);
             campusSelectButton.setAttribute('role', 'option');
             let label;
             console.log('campusCode = ', campusCode);
@@ -548,9 +558,6 @@ class TrainingFilter extends HTMLElement {
             }
             console.log('label = ', label);
             campusSelectButton.setAttribute('aria-label', label);
-            const campusSelectButtonDataTestId = campusName.replaceAll(' ', '');
-            const campusSelectButtonDataTestLabel = `training-filter-select-campus-${campusSelectButtonDataTestId}`;
-            campusSelectButton.setAttribute('data-testid', campusSelectButtonDataTestLabel);
             !!campusSelectButton &&
                 campusSelectButton.addEventListener('click', function () {
                     selectCampus(campusName, campusCode);
