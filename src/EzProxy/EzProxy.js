@@ -83,6 +83,7 @@ class EzProxy extends HTMLElement {
     }
 
     set outputUrl(value) {
+        this.urlDisplayArea.style.height = '';
         this.urlDisplayArea.value = value;
 
         if (this.redirectOnly) {
@@ -92,9 +93,12 @@ class EzProxy extends HTMLElement {
         if (!!value) {
             this.inputField.classList.add('hidden');
             this.createLinkButton.classList.add('hidden');
+            setTimeout(() => {
+                this.urlDisplayArea.style.height = 'calc(' + this.urlDisplayArea.scrollHeight + 'px' + ' + 0.1rem)';
+            }, 100);
         }
 
-        this.copyUrlOptions.classList.toggle('hidden', !value);
+        this.copyOptions.classList.toggle('hidden', !value);
     }
 
     set copyStatus(value) {

@@ -4,8 +4,10 @@
 
 #ez-proxy-url-display-area {
     resize: none;
-    height: 2.7rem;
+    height: auto;
     outline: none;
+    margin-bottom: 1rem;
+    transition: height 1s;
 }
 
 #ez-proxy-copy-status {
