@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-const RETURN_KEY = 13;
+const RETURN_KEYCODE = 13;
 const DOWN_ARROW_KEYCODE = 40;
 
 describe('Training', () => {
@@ -281,6 +281,11 @@ describe('Training', () => {
                                 'eq',
                                 'http://localhost:8080/index-training.html#keyword=excel;campus=;weekstart=;online=false',
                             );
+
+                            // the user can use the escape key to clear the input field
+                            cy.get('[data-testid="training-filter-keyword-entry"]').type('{esc}', { force: true });
+                            cy.get('[data-testid="training-filter-keyword-entry"]').should('have.value', '');
+                            cy.url().should('eq', 'http://localhost:8080/index-training.html#');
                         });
                 });
         });
@@ -535,7 +540,7 @@ describe('Training', () => {
         //
         //                     cy.get('[data-testid="training-filter-campus-list"]').should('have.class', 'hidden');
         //                     cy.get('[data-testid="training-filter-keyword-entry"]')
-        //                         .trigger('keydown', { keyCode: RETURN_KEY });
+        //                         .trigger('keydown', { keyCode: RETURN_KEYCODE });
         //                     cy.wait(1500);
         //                     cy.get('[data-testid="training-filter-campus-list"]').should('not.have.class', 'hidden');
         //                     cy.get('[data-testid="training-filter-campus-list"]').find('button').should('length', 3);
