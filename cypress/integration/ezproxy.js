@@ -13,7 +13,7 @@ describe('EzProxy', () => {
                 .within(() => {
                     cy.get('[data-testid="ez-proxy-input"]').should('exist').should('be.visible');
                     cy.get('[data-testid="ez-proxy-create-link-button"]').should('exist').should('be.visible');
-                    cy.get('[data-testid="ez-proxy-copy-link-buttons"]').should('exist').should('not.be.visible');
+                    cy.get('[data-testid="ez-proxy-copy-options"]').should('exist').should('not.be.visible');
                     cy.get('[data-testid="ez-proxy-redirect-button"]').should('exist').should('not.be.visible');
                 });
         });
@@ -26,7 +26,7 @@ describe('EzProxy', () => {
                 .within(() => {
                     cy.get('[data-testid="ez-proxy-input"]').type('https://www.google.com/{enter}');
                     cy.get('[data-testid="ez-proxy-create-link-button"]').should('exist').should('not.be.visible');
-                    cy.get('[data-testid="ez-proxy-copy-link-buttons"]').should('exist').should('be.visible');
+                    cy.get('[data-testid="ez-proxy-copy-options"]').should('exist').should('be.visible');
                 });
         });
 
@@ -60,7 +60,8 @@ describe('EzProxy', () => {
                         'have.value',
                         'https://ezproxy.library.uq.edu.au/login?url=https://www.google.com/',
                     );
-                    cy.get('[data-testid="ez-proxy-copy-link-button"]').should('exist').click();
+                    cy.get('[data-testid="ez-proxy-copy-options"]').should('not.have.class', 'hidden');
+                    cy.get('[data-testid="ez-proxy-copy-link-button"]').should('be.visible').click();
                     cy.get('[data-testid="ez-proxy-copy-status"]')
                         .should('exist')
                         .as('toast')
@@ -72,41 +73,38 @@ describe('EzProxy', () => {
         };
 
         it('uses clipboard API command to copy the generated URL to the clipboard on clicking copy button', () => {
-            let readText;
             cy.window().then((win) => {
-                if ((readText = win.navigator?.clipboard?.readText)) {
-                    cy.spy(win.navigator.clipboard, 'readText').as('readText');
+                if (!!win.navigator?.clipboard?.writeText) {
+                    cy.spy(win.navigator.clipboard, 'writeText').as('writeText');
+                    copyAndToast('URL copied successfully');
+                    cy.get('@writeText').should('be.calledOnce');
                 } else {
                     cy.log('This browser does not support clipboard API command.');
                     cy.document().then((doc) => {
                         cy.stub(doc, 'execCommand')
                             .callsFake(() => true)
                             .as('execCommand');
+                        copyAndToast('URL copied successfully');
+                        cy.get('@execCommand').should('be.calledOnce');
                     });
                 }
             });
-            copyAndToast('URL copied successfully');
-            if (readText) {
-                cy.window().then((win) => {
-                    cy.get('@readText').should('be.calledOnce');
-                });
-            }
         });
 
-        const replaceReadText = (replacement = false) => {
-            let readText;
+        const replaceWriteText = (replacement = false) => {
+            let writeText;
             cy.window().then((win) => {
-                if (win.navigator?.clipboard?.readText) {
-                    readText = win.navigator.clipboard.readText;
-                    win.navigator.clipboard.readText = replacement;
+                if (win.navigator?.clipboard?.writeText) {
+                    writeText = win.navigator.clipboard.writeText;
+                    win.navigator.clipboard.writeText = replacement;
                 } else {
                     win.navigator.clipboard = {
                         ...win.navigator?.clipboard,
-                        readText: replacement,
+                        writeText: replacement,
                     };
                 }
             });
-            return readText;
+            return writeText;
         };
 
         it('uses legacy command to copy the generated URL to the clipboard on clicking copy button', () => {
@@ -115,14 +113,14 @@ describe('EzProxy', () => {
                     .callsFake(() => true)
                     .as('execCommand');
             });
-            const readText = replaceReadText();
+            const writeText = replaceWriteText();
             copyAndToast('URL copied successfully');
             cy.get('@execCommand').should('be.calledOnceWith', 'copy');
-            cy.window().then((win) => {
-                if (readText) {
-                    win.navigator.clipboard.readText = readText;
-                }
-            });
+            if (writeText) {
+                cy.window().then((win) => {
+                    win.navigator.clipboard.writeText = writeText;
+                });
+            }
         });
 
         it('shows expected error messages when copy mechanisms fail - 1 of 3', () => {
@@ -131,14 +129,14 @@ describe('EzProxy', () => {
                 execCommand = doc.execCommand;
                 doc.execCommand = false;
             });
-            const readText = replaceReadText();
+            const writeText = replaceWriteText();
             copyAndToast('Copy function not available in this web browser');
             cy.document().then((doc) => {
                 doc.execCommand = execCommand;
             });
             cy.window().then((win) => {
-                if (readText) {
-                    win.navigator.clipboard.readText = readText;
+                if (writeText) {
+                    win.navigator.clipboard.writeText = writeText;
                 }
             });
         });
@@ -149,23 +147,23 @@ describe('EzProxy', () => {
                     .callsFake(() => false)
                     .as('execCommand');
             });
-            const readText = replaceReadText();
+            const writeText = replaceWriteText();
             copyAndToast('Unable to copy URL');
             cy.get('@execCommand').should('be.calledOnceWith', 'copy');
             cy.window().then((win) => {
-                if (readText) {
-                    win.navigator.clipboard.readText = readText;
+                if (writeText) {
+                    win.navigator.clipboard.writeText = writeText;
                 }
             });
         });
 
         it('shows expected error messages when copy mechanisms fail - 3 of 3', () => {
-            const readText = replaceReadText(() => {
+            const writeText = replaceWriteText(() => {
                 throw DOMException('fail');
             });
             copyAndToast('An error occurred while copying the URL');
             cy.window().then((win) => {
-                win.navigator.clipboard.readText = readText;
+                win.navigator.clipboard.writeText = writeText;
             });
         });
 
@@ -204,7 +202,7 @@ describe('EzProxy', () => {
                     cy.get('[data-testid="ez-proxy-create-new-link-button"]').should('exist').click();
                     cy.get('[data-testid="ez-proxy-input"]').should('exist').should('be.visible');
                     cy.get('[data-testid="ez-proxy-create-link-button"]').should('exist').should('be.visible');
-                    cy.get('[data-testid="ez-proxy-copy-link-buttons"]').should('exist').should('not.be.visible');
+                    cy.get('[data-testid="ez-proxy-copy-options"]').should('exist').should('not.be.visible');
                     cy.get('[data-testid="ez-proxy-redirect-button"]').should('exist').should('not.be.visible');
                 });
         });
@@ -264,7 +262,7 @@ describe('EzProxy', () => {
                 .within(() => {
                     cy.get('[data-testid="ez-proxy-input"]').should('exist').should('be.visible');
                     cy.get('[data-testid="ez-proxy-create-link-button"]').should('exist').should('not.be.visible');
-                    cy.get('[data-testid="ez-proxy-copy-link-buttons"]').should('exist').should('not.be.visible');
+                    cy.get('[data-testid="ez-proxy-copy-options"]').should('exist').should('not.be.visible');
                     cy.get('[data-testid="ez-proxy-redirect-button"]').should('exist').should('be.visible');
                 });
         });
@@ -296,6 +294,18 @@ describe('EzProxy', () => {
                         .should('exist')
                         .should('be.visible')
                         .should('have.text', 'Please enter a URL');
+                });
+        });
+
+        it('clears the field on clicking the clear button', () => {
+            cy.get('ez-proxy:not([create-link])')
+                .should('exist')
+                .shadow()
+                .find('[data-testid="ez-proxy"]')
+                .within(() => {
+                    cy.get('[data-testid="ez-proxy-input"]').should('exist').type('https://www.uq.edu.au/');
+                    cy.get('[data-testid="ez-proxy-input-clear-button"]').should('exist').click();
+                    cy.get('[data-testid="ez-proxy-input"]').should('be.empty');
                 });
         });
 
