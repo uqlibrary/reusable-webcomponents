@@ -13,7 +13,7 @@
     "build:production": "cross-env NODE_ENV=production webpack && npm run compilesass",
     "start:mock": "cross-env NODE_ENV=local USE_MOCK=true FULL_PATH=http://localhost:8080 NODE_OPTIONS='--max-old-space-size=2048' webpack-dev-server --open",
     "start": "cross-env NODE_ENV=local webpack-dev-server --open",
-    "clean": "rm -rf node_modules dist cypress/screenshots cypress/video",
+    "clean": "rm -rf node_modules dist cypress/screenshots cypress/video coverage .nyc_output",
     "codestyles:fix": "cross-env prettier-eslint --write",
     "codestyles:fix:all": "cross-env prettier-eslint '**/*.js' --write",
     "codestyles:fix:staged": "cross-env FILES=$(git diff --cached --name-only --diff-filter=ACM | grep \".jsx\\{0,1\\}$\"); npx prettier-eslint $FILES --write",
@@ -28,6 +28,8 @@
     "cy:open": "cypress open",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run --record",
+    "test": "start-server-and-test start-test-server http://localhost:8080 test:coverage",
+    "test:coverage": "nyc cypress run",
     "test:local": "start-server-and-test start-test-server http://localhost:8080 cypress:open",
     "test:jest": "cross-env NODE_ENV=test FULL_PATH=http://localhost jest src/",
     "prettier:test": "npx prettier --check ./",
@@ -96,5 +98,22 @@
     "defaults",
     "not IE 11",
     "maintained node versions"
-  ]
+  ],
+  "nyc": {
+    "all": false,
+    "check-coverage": true,
+    "branches": 100,
+    "lines": 100,
+    "functions": 100,
+    "statements": 100,
+    "include": [
+      "**/src/**"
+    ],
+    "exclude": [
+      "**/*.locale.js",
+      "**/src/locale/**",
+      "**/mock/**",
+      "**/codebuild/**"
+    ]
+  }
 }
