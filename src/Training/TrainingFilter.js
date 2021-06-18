@@ -305,7 +305,10 @@ class TrainingFilter extends HTMLElement {
             }
         }
 
-        function noteKeywordChange() {
+        function noteKeywordChange(e) {
+            if (isEscapeKeyPressed(e)) {
+                clearKeyword();
+            }
             const inputKeywordField = !!shadowDOM && shadowDOM.getElementById('inputKeyword');
             !!inputKeywordField && (that.inputKeywordValue = inputKeywordField.value);
         }
