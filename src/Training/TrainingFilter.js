@@ -618,6 +618,7 @@ class TrainingFilter extends HTMLElement {
      */
     toggleDropdownVisibility(selector) {
         const that = this;
+        /* istanbul ignore next */
         if (!selector) {
             return;
         }

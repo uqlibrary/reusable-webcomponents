@@ -618,19 +618,23 @@ describe('Training', () => {
                                 });
 
                             // force the dropdown to close
-                            cy.get('[data-testid="training-filter-campus-container"]').type('{enter}', { force: true });
-                            // // tab from campus dropdown to week dropdown
-                            // cy.get('[data-testid="training-filter-campus-container"]')
-                            //     .trigger('keydown', {
-                            //             keyCode: TAB_KEYCODE,
-                            //             which: TAB_KEYCODE,
-                            //         })
-                            //         .then(e => {
-                            //             // and we have tabbed on to the Week Dropdown
-                            //             cy.get('[data-testid="training-filter-week-label"]')
-                            //                 .should('have.focus');
-                            //             cy.log('week has focus');
-                            //         });
+                            cy.log('close campus dropdown and test the week dropdown');
+                            cy.get('[data-testid="training-filter-campus-container"]').type('{esc}', { force: true });
+                            cy.get('[data-testid="training-filter-campus-list"]').should('have.class', 'hidden');
+
+                            // tab from campus dropdown to week dropdown
+                            cy.get('[data-testid="training-filter-campus-container"]')
+                                .focus()
+                                .trigger('keydown', {
+                                    keyCode: TAB_KEYCODE,
+                                    which: TAB_KEYCODE,
+                                    force: true,
+                                })
+                                .then((e) => {
+                                    // and we have tabbed on to the Week Dropdown
+                                    cy.get('[data-testid="training-filter-week-label"]').should('have.focus');
+                                    cy.log('week has focus');
+                                });
 
                             cy.get('[data-testid="training-filter-week-list"]').should('have.class', 'hidden');
                             cy.get('[data-testid="training-filter-week-container"]').type('{enter}', { force: true });
@@ -706,20 +710,24 @@ describe('Training', () => {
                                     cy.get('[data-testid="training-filter-select-week-14"]').should('have.focus');
                                 });
 
-                            // // can back tab from the week button to the campus button
-                            // cy.get('[data-testid="training-filter-week-container"]')
-                            //     .focus()
-                            //     .trigger('keydown', {
-                            //         keyCode: TAB_KEYCODE,
-                            //         shift: true,
-                            //     })
-                            //     .then(e => {
-                            //         cy.get('[data-testid="training-filter-campus-list"]')
-                            //             .should('have.focus')
-                            //     });
+                            cy.log('can back tab from the week button to the campus button');
+                            cy.get('[data-testid="training-filter-week-container"]')
+                                .focus()
+                                .trigger('keydown', {
+                                    keyCode: TAB_KEYCODE,
+                                    shift: true,
+                                    force: true,
+                                })
+                                .then((e) => {
+                                    cy.get('[data-testid="training-filter-campus-list"]').should('have.focus');
+                                });
                         }); // end within training-filter
                 }); // end within library-training
             cy.get('body').contains('Training widget demo'); // dummy test - sometimes cypress seems to return true on a test even though it actually fails if there is no test after it :(
+        });
+
+        it('dummy test', () => {
+            cy.visit('http://localhost:8080/index-training.html');
         });
     });
 });
