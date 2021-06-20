@@ -7,6 +7,213 @@ const TAB_KEYCODE = 9;
 const UP_ARROW_KEYCODE = 38;
 
 describe('Training', () => {
+    it('the keyboard works properly', () => {
+        cy.visit('http://localhost:8080/index-training.html');
+        cy.viewport(1280, 1280);
+        cy.get('library-training[id="test-with-filter"]')
+            .should('exist')
+            .shadow()
+            .within(() => {
+                cy.get('training-filter')
+                    .should('exist')
+                    .shadow()
+                    .within(() => {
+                        // cy.get('[data-testid="training-filter-keyword-entry"]')
+                        //     .type('e');
+                        // cy.wait(1500); // dev, so we can see focus is on that element
+                        // cy.get('[data-testid="training-filter-keyword-entry"]').should('have.focus');
+                        // cy.log('about to tab');
+                        // cy.get('[data-testid="training-filter-keyword-entry"]')
+                        //     // the 'typeTab' command in the commands.js doesnt seem to work inside the shadowdom :(
+                        //     .trigger('keydown', { keyCode: TAB_KEYCODE })
+                        //     .then(e => {
+                        //         cy.log('after tab');
+                        //         cy.wait(1500); // debug, so we can see focus is on that element, no it isnt :(
+                        //         cy.get('[data-testid="training-filter-clear-keyword"]').should('have.focus');
+                        //     });
+
+                        // a enter-key click on the campus parent opens the dropdown
+                        cy.get('[data-testid="training-filter-campus-list"]').should('have.class', 'hidden');
+                        cy.get('[data-testid="training-filter-campus-container"]').type('{enter}', { force: true });
+                        // cy.wait(1500);
+                        cy.get('[data-testid="training-filter-campus-list"]').should('not.have.class', 'hidden');
+                        cy.get('[data-testid="training-filter-campus-list"]').find('button').should('length', 3);
+
+                        // arrow up and down robustly working (its actually easy to muck this up, so leave it, despite it seeming ovrekill)
+                        cy.get('[data-testid="training-filter-campus-label"]')
+                            .trigger('keydown', {
+                                keyCode: DOWN_ARROW_KEYCODE,
+                            })
+                            .then((e) => {
+                                // if this test fails, first run the test again
+                                // it often fails immediately after this file is saved. odd.
+                                // it can also fail if you have put your cursor in the Developer Tools Console
+                                cy.log(
+                                    'if this fails or stops here and you just saved the cypress file - try clicking the rerun button',
+                                );
+                                cy.get('[data-testid="training-filter-campus-select-0"]').should('have.focus');
+                            });
+
+                        cy.get('[data-testid="training-filter-campus-select-0"]')
+                            .trigger('keydown', {
+                                keyCode: DOWN_ARROW_KEYCODE,
+                            })
+                            .then((e) => {
+                                cy.get('[data-testid="training-filter-campus-select-1"]').should('have.focus');
+                            });
+
+                        cy.get('[data-testid="training-filter-campus-select-1"]')
+                            .trigger('keydown', {
+                                keyCode: DOWN_ARROW_KEYCODE,
+                            })
+                            .then((e) => {
+                                cy.get('[data-testid="training-filter-campus-select-2"]').should('have.focus');
+                            });
+
+                        cy.get('[data-testid="training-filter-campus-select-2"]')
+                            .trigger('keydown', {
+                                keyCode: DOWN_ARROW_KEYCODE,
+                            })
+                            .then((e) => {
+                                cy.get('[data-testid="training-filter-campus-select-0"]')
+                                    // this is actually not expected, but its harmless, so I havent tried to debug it
+                                    .should('have.focus');
+                            });
+
+                        cy.get('[data-testid="training-filter-campus-select-2"]')
+                            .trigger('keydown', {
+                                keyCode: UP_ARROW_KEYCODE,
+                            })
+                            .then((e) => {
+                                cy.get('[data-testid="training-filter-campus-select-1"]').should('have.focus');
+                            });
+
+                        cy.get('[data-testid="training-filter-campus-select-1"]')
+                            .trigger('keydown', {
+                                keyCode: UP_ARROW_KEYCODE,
+                            })
+                            .then((e) => {
+                                cy.get('[data-testid="training-filter-campus-select-0"]').should('have.focus');
+                            });
+
+                        cy.get('[data-testid="training-filter-campus-select-0"]')
+                            .trigger('keydown', {
+                                keyCode: UP_ARROW_KEYCODE,
+                            })
+                            .then((e) => {
+                                // and we are back on the parent campus button
+                                cy.get('[data-testid="training-filter-campus-container"]').should('have.focus');
+                            });
+
+                        // force the dropdown to close
+                        cy.log('close campus dropdown and test the week dropdown');
+                        cy.get('[data-testid="training-filter-campus-container"]').type('{esc}', { force: true });
+                        cy.get('[data-testid="training-filter-campus-list"]').should('have.class', 'hidden');
+
+                        // tab from campus dropdown to week dropdown
+                        cy.get('[data-testid="training-filter-campus-container"]')
+                            .focus()
+                            .trigger('keydown', {
+                                keyCode: TAB_KEYCODE,
+                                which: TAB_KEYCODE,
+                                force: true,
+                            })
+                            .then((e) => {
+                                // and we have tabbed on to the Week Dropdown
+                                cy.get('[data-testid="training-filter-week-label"]').should('have.focus');
+                                cy.log('week has focus');
+                            });
+
+                        cy.get('[data-testid="training-filter-week-list"]').should('have.class', 'hidden');
+                        cy.get('[data-testid="training-filter-week-container"]').type('{enter}', { force: true });
+                        // cy.wait(1500);
+                        cy.get('[data-testid="training-filter-week-list"]').should('not.have.class', 'hidden');
+                        cy.get('[data-testid="training-filter-week-list"]').find('button').should('length', 15);
+
+                        // arrow up and down robustly working (its actually easy to muck this up, so leave it, despite it seeming ovrekill)
+                        cy.get('[data-testid="training-filter-week-label"]')
+                            .trigger('keydown', {
+                                keyCode: DOWN_ARROW_KEYCODE,
+                            })
+                            .then((e) => {
+                                cy.get('[data-testid="training-filter-select-week-0"]').should('have.focus');
+                            });
+
+                        cy.get('[data-testid="training-filter-select-week-0"]')
+                            .trigger('keydown', {
+                                keyCode: DOWN_ARROW_KEYCODE,
+                            })
+                            .then((e) => {
+                                cy.get('[data-testid="training-filter-select-week-1"]').should('have.focus');
+                            });
+
+                        cy.get('[data-testid="training-filter-select-week-1"]')
+                            .trigger('keydown', {
+                                keyCode: DOWN_ARROW_KEYCODE,
+                            })
+                            .then((e) => {
+                                cy.get('[data-testid="training-filter-select-week-2"]').should('have.focus');
+                            });
+
+                        cy.get('[data-testid="training-filter-select-week-2"]')
+                            .trigger('keydown', {
+                                keyCode: DOWN_ARROW_KEYCODE,
+                            })
+                            .then((e) => {
+                                cy.get('[data-testid="training-filter-select-week-3"]').should('have.focus');
+                            });
+
+                        cy.get('[data-testid="training-filter-select-week-2"]')
+                            .trigger('keydown', {
+                                keyCode: UP_ARROW_KEYCODE,
+                            })
+                            .then((e) => {
+                                cy.get('[data-testid="training-filter-select-week-1"]').should('have.focus');
+                            });
+
+                        cy.get('[data-testid="training-filter-select-week-1"]')
+                            .trigger('keydown', {
+                                keyCode: UP_ARROW_KEYCODE,
+                            })
+                            .then((e) => {
+                                cy.get('[data-testid="training-filter-select-week-0"]').should('have.focus');
+                            });
+
+                        cy.get('[data-testid="training-filter-select-week-0"]')
+                            .trigger('keydown', {
+                                keyCode: UP_ARROW_KEYCODE,
+                            })
+                            .then((e) => {
+                                // and we are back on the parent week button
+                                cy.get('[data-testid="training-filter-week-container"]').should('have.focus');
+                            });
+
+                        // final entry in dropdown doesnt arrow further
+                        cy.get('[data-testid="training-filter-select-week-14"]')
+                            .focus()
+                            .trigger('keydown', {
+                                keyCode: DOWN_ARROW_KEYCODE,
+                            })
+                            .then((e) => {
+                                cy.get('[data-testid="training-filter-select-week-14"]').should('have.focus');
+                            });
+
+                        cy.log('can back tab from the week button to the campus button');
+                        cy.get('[data-testid="training-filter-week-container"]')
+                            .focus()
+                            .trigger('keydown', {
+                                keyCode: TAB_KEYCODE,
+                                shift: true,
+                                force: true,
+                            })
+                            .then((e) => {
+                                cy.get('[data-testid="training-filter-campus-list"]').should('have.focus');
+                            });
+                    }); // end within training-filter
+            }); // end within library-training
+        cy.get('body').contains('Training widget demo'); // dummy test - sometimes cypress seems to return true on a test even though it actually fails if there is no test after it :(
+    });
+
     it('Passes accessibility', () => {
         cy.visit('http://localhost:8080/index-training.html');
         cy.injectAxe();
@@ -517,213 +724,6 @@ describe('Training', () => {
             cy.visit('http://localhost:8080/index-training.html#keyword=Excel;campus=Gatton;weekstart=all;online=true');
             cy.viewport(1280, 900);
             cy.url().should('eq', 'http://localhost:8080/index-training.html#');
-        });
-
-        it('the keyboard works properly', () => {
-            cy.visit('http://localhost:8080/index-training.html');
-            cy.viewport(1280, 1280);
-            cy.get('library-training[id="test-with-filter"]')
-                .should('exist')
-                .shadow()
-                .within(() => {
-                    cy.get('training-filter')
-                        .should('exist')
-                        .shadow()
-                        .within(() => {
-                            // cy.get('[data-testid="training-filter-keyword-entry"]')
-                            //     .type('e');
-                            // cy.wait(1500); // dev, so we can see focus is on that element
-                            // cy.get('[data-testid="training-filter-keyword-entry"]').should('have.focus');
-                            // cy.log('about to tab');
-                            // cy.get('[data-testid="training-filter-keyword-entry"]')
-                            //     // the 'typeTab' command in the commands.js doesnt seem to work inside the shadowdom :(
-                            //     .trigger('keydown', { keyCode: TAB_KEYCODE })
-                            //     .then(e => {
-                            //         cy.log('after tab');
-                            //         cy.wait(1500); // debug, so we can see focus is on that element, no it isnt :(
-                            //         cy.get('[data-testid="training-filter-clear-keyword"]').should('have.focus');
-                            //     });
-
-                            // a enter-key click on the campus parent opens the dropdown
-                            cy.get('[data-testid="training-filter-campus-list"]').should('have.class', 'hidden');
-                            cy.get('[data-testid="training-filter-campus-container"]').type('{enter}', { force: true });
-                            // cy.wait(1500);
-                            cy.get('[data-testid="training-filter-campus-list"]').should('not.have.class', 'hidden');
-                            cy.get('[data-testid="training-filter-campus-list"]').find('button').should('length', 3);
-
-                            // arrow up and down robustly working (its actually easy to muck this up, so leave it, despite it seeming ovrekill)
-                            cy.get('[data-testid="training-filter-campus-label"]')
-                                .trigger('keydown', {
-                                    keyCode: DOWN_ARROW_KEYCODE,
-                                })
-                                .then((e) => {
-                                    // if this test fails, first run the test again
-                                    // it often fails immediately after this file is saved. odd.
-                                    // it can also fail if you have put your cursor in the Developer Tools Console
-                                    cy.log(
-                                        'if this fails or stops here and you just saved the cypress file - try clicking the rerun button',
-                                    );
-                                    cy.get('[data-testid="training-filter-campus-select-0"]').should('have.focus');
-                                });
-
-                            cy.get('[data-testid="training-filter-campus-select-0"]')
-                                .trigger('keydown', {
-                                    keyCode: DOWN_ARROW_KEYCODE,
-                                })
-                                .then((e) => {
-                                    cy.get('[data-testid="training-filter-campus-select-1"]').should('have.focus');
-                                });
-
-                            cy.get('[data-testid="training-filter-campus-select-1"]')
-                                .trigger('keydown', {
-                                    keyCode: DOWN_ARROW_KEYCODE,
-                                })
-                                .then((e) => {
-                                    cy.get('[data-testid="training-filter-campus-select-2"]').should('have.focus');
-                                });
-
-                            cy.get('[data-testid="training-filter-campus-select-2"]')
-                                .trigger('keydown', {
-                                    keyCode: DOWN_ARROW_KEYCODE,
-                                })
-                                .then((e) => {
-                                    cy.get('[data-testid="training-filter-campus-select-0"]')
-                                        // this is actually not expected, but its harmless, so I havent tried to debug it
-                                        .should('have.focus');
-                                });
-
-                            cy.get('[data-testid="training-filter-campus-select-2"]')
-                                .trigger('keydown', {
-                                    keyCode: UP_ARROW_KEYCODE,
-                                })
-                                .then((e) => {
-                                    cy.get('[data-testid="training-filter-campus-select-1"]').should('have.focus');
-                                });
-
-                            cy.get('[data-testid="training-filter-campus-select-1"]')
-                                .trigger('keydown', {
-                                    keyCode: UP_ARROW_KEYCODE,
-                                })
-                                .then((e) => {
-                                    cy.get('[data-testid="training-filter-campus-select-0"]').should('have.focus');
-                                });
-
-                            cy.get('[data-testid="training-filter-campus-select-0"]')
-                                .trigger('keydown', {
-                                    keyCode: UP_ARROW_KEYCODE,
-                                })
-                                .then((e) => {
-                                    // and we are back on the parent campus button
-                                    cy.get('[data-testid="training-filter-campus-container"]').should('have.focus');
-                                });
-
-                            // force the dropdown to close
-                            cy.log('close campus dropdown and test the week dropdown');
-                            cy.get('[data-testid="training-filter-campus-container"]').type('{esc}', { force: true });
-                            cy.get('[data-testid="training-filter-campus-list"]').should('have.class', 'hidden');
-
-                            // tab from campus dropdown to week dropdown
-                            cy.get('[data-testid="training-filter-campus-container"]')
-                                .focus()
-                                .trigger('keydown', {
-                                    keyCode: TAB_KEYCODE,
-                                    which: TAB_KEYCODE,
-                                    force: true,
-                                })
-                                .then((e) => {
-                                    // and we have tabbed on to the Week Dropdown
-                                    cy.get('[data-testid="training-filter-week-label"]').should('have.focus');
-                                    cy.log('week has focus');
-                                });
-
-                            cy.get('[data-testid="training-filter-week-list"]').should('have.class', 'hidden');
-                            cy.get('[data-testid="training-filter-week-container"]').type('{enter}', { force: true });
-                            // cy.wait(1500);
-                            cy.get('[data-testid="training-filter-week-list"]').should('not.have.class', 'hidden');
-                            cy.get('[data-testid="training-filter-week-list"]').find('button').should('length', 15);
-
-                            // arrow up and down robustly working (its actually easy to muck this up, so leave it, despite it seeming ovrekill)
-                            cy.get('[data-testid="training-filter-week-label"]')
-                                .trigger('keydown', {
-                                    keyCode: DOWN_ARROW_KEYCODE,
-                                })
-                                .then((e) => {
-                                    cy.get('[data-testid="training-filter-select-week-0"]').should('have.focus');
-                                });
-
-                            cy.get('[data-testid="training-filter-select-week-0"]')
-                                .trigger('keydown', {
-                                    keyCode: DOWN_ARROW_KEYCODE,
-                                })
-                                .then((e) => {
-                                    cy.get('[data-testid="training-filter-select-week-1"]').should('have.focus');
-                                });
-
-                            cy.get('[data-testid="training-filter-select-week-1"]')
-                                .trigger('keydown', {
-                                    keyCode: DOWN_ARROW_KEYCODE,
-                                })
-                                .then((e) => {
-                                    cy.get('[data-testid="training-filter-select-week-2"]').should('have.focus');
-                                });
-
-                            cy.get('[data-testid="training-filter-select-week-2"]')
-                                .trigger('keydown', {
-                                    keyCode: DOWN_ARROW_KEYCODE,
-                                })
-                                .then((e) => {
-                                    cy.get('[data-testid="training-filter-select-week-3"]').should('have.focus');
-                                });
-
-                            cy.get('[data-testid="training-filter-select-week-2"]')
-                                .trigger('keydown', {
-                                    keyCode: UP_ARROW_KEYCODE,
-                                })
-                                .then((e) => {
-                                    cy.get('[data-testid="training-filter-select-week-1"]').should('have.focus');
-                                });
-
-                            cy.get('[data-testid="training-filter-select-week-1"]')
-                                .trigger('keydown', {
-                                    keyCode: UP_ARROW_KEYCODE,
-                                })
-                                .then((e) => {
-                                    cy.get('[data-testid="training-filter-select-week-0"]').should('have.focus');
-                                });
-
-                            cy.get('[data-testid="training-filter-select-week-0"]')
-                                .trigger('keydown', {
-                                    keyCode: UP_ARROW_KEYCODE,
-                                })
-                                .then((e) => {
-                                    // and we are back on the parent week button
-                                    cy.get('[data-testid="training-filter-week-container"]').should('have.focus');
-                                });
-
-                            // final entry in dropdown doesnt arrow further
-                            cy.get('[data-testid="training-filter-select-week-14"]')
-                                .focus()
-                                .trigger('keydown', {
-                                    keyCode: DOWN_ARROW_KEYCODE,
-                                })
-                                .then((e) => {
-                                    cy.get('[data-testid="training-filter-select-week-14"]').should('have.focus');
-                                });
-
-                            cy.log('can back tab from the week button to the campus button');
-                            cy.get('[data-testid="training-filter-week-container"]')
-                                .focus()
-                                .trigger('keydown', {
-                                    keyCode: TAB_KEYCODE,
-                                    shift: true,
-                                    force: true,
-                                })
-                                .then((e) => {
-                                    cy.get('[data-testid="training-filter-campus-list"]').should('have.focus');
-                                });
-                        }); // end within training-filter
-                }); // end within library-training
-            cy.get('body').contains('Training widget demo'); // dummy test - sometimes cypress seems to return true on a test even though it actually fails if there is no test after it :(
         });
 
         it('dummy test', () => {
