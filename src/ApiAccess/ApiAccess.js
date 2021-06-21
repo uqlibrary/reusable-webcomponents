@@ -158,7 +158,8 @@ class ApiAccess {
             })
             .catch((error) => {
                 console.log('error loading Primo suggestions ', error);
-                return null;
+                const msg = `error loading Primo suggestions: ${error.message}`;
+                throw new Error(msg);
             });
     }
 
@@ -176,7 +177,8 @@ class ApiAccess {
             })
             .catch((error) => {
                 console.log('error loading Exam suggestions ', error);
-                return null;
+                const msg = `error loading Exam suggestions: ${error.message}`;
+                throw new Error(msg);
             });
     }
 
@@ -198,7 +200,8 @@ class ApiAccess {
             })
             .catch((error) => {
                 console.log('error loading Learning Resource suggestions ', error);
-                return null;
+                const msg = `error loading Learning Resource suggestions: ${error.message}`;
+                throw new Error(msg);
             });
     }
 
@@ -349,6 +352,39 @@ class ApiAccess {
 
     isMock() {
         return process.env.USE_MOCK;
+    }
+
+    /**
+     * display an error in the bottom left corner of the screen if we have a problem from the api
+     */
+    showApiErrorDiv() {
+        let apiErrorDiv = document.getElementById('api-error');
+        if (!apiErrorDiv) {
+            apiErrorDiv = document.createElement('div');
+            !!apiErrorDiv && apiErrorDiv.setAttribute('id', 'api-error');
+            !!apiErrorDiv && apiErrorDiv.setAttribute('data-testid', 'api-error');
+            !!apiErrorDiv && (apiErrorDiv.style.position = 'fixed');
+            !!apiErrorDiv && (apiErrorDiv.style.left = 0);
+            !!apiErrorDiv && (apiErrorDiv.style.bottom = 0);
+            !!apiErrorDiv && (apiErrorDiv.style.color = '#fff');
+            !!apiErrorDiv && (apiErrorDiv.style.backgroundColor = '#951126');
+            !!apiErrorDiv && (apiErrorDiv.style.padding = '12px 18px');
+            const errorMessage = 'There was a problem - if the display is incorrect, please refresh the page.';
+            !!apiErrorDiv && (apiErrorDiv.innerHTML = errorMessage);
+
+            const body = document.querySelector('body');
+            !!apiErrorDiv && !!body && body.appendChild(apiErrorDiv);
+        }
+        apiErrorDiv.style.display = 'block';
+        // apiErrorDiv.style.visibility = 'visible';
+        // apiErrorDiv.style.opacity = '1';
+        // apiErrorDiv.style.transition = "visibility 0s, opacity 0.5s linea";
+        setTimeout(function () {
+            // apiErrorDiv.style.visibility = "hidden";
+            // apiErrorDiv.style.opacity = "0";
+            apiErrorDiv.style.display = 'none';
+            // apiErrorDiv.style.transition = "visibility 0s, opacity 0.5s linea";
+        }, 3000);
     }
 }
 

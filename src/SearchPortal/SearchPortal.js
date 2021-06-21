@@ -134,6 +134,7 @@ class SearchPortal extends HTMLElement {
             })
             .catch((e) => {
                 console.log('getPrimoSuggestions, error: ', e);
+                new ApiAccess().showApiErrorDiv();
             });
     }
 
@@ -142,11 +143,12 @@ class SearchPortal extends HTMLElement {
             .loadExamPaperSuggestions(keyword)
             .then((suggestions) => {
                 /* istanbul ignore else */
-                console.log('loadExamPaperSuggestions: received ', suggestions);
+                console.log('getExamPaperSuggestions: received ', suggestions);
                 this.loadSuggestionsIntoPage(suggestions, 'courseid');
             })
             .catch((e) => {
                 console.log('getExamPaperSuggestions, error: ', e);
+                new ApiAccess().showApiErrorDiv();
             });
     }
 
@@ -155,11 +157,12 @@ class SearchPortal extends HTMLElement {
         await new ApiAccess()
             .loadHomepageCourseReadingListsSuggestions(keyword)
             .then((suggestions) => {
-                console.log('loadHomepageCourseReadingListsSuggestions: received ', suggestions);
+                console.log('getLearningResourceSuggestions: received ', suggestions);
                 this.loadSuggestionsIntoPage(suggestions, 'name');
             })
             .catch((e) => {
                 console.log('getLearningResourceSuggestions, error: ', e);
+                new ApiAccess().showApiErrorDiv();
             });
     }
 

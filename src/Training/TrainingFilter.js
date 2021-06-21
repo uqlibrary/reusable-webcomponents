@@ -5,8 +5,6 @@ import {
     isArrowUpKeyPressed,
     isBackTabKeyPressed,
     isEscapeKeyPressed,
-    // isKeyPressedUnknown,
-    isReturnKeyPressed,
     isTabKeyPressed,
 } from '../helpers/keyDetection';
 
@@ -35,7 +33,7 @@ template.innerHTML = `
                 </div>
             </div>
             <span style="display: none" tabindex="0" id="campus-filter-label">Choose the campus for your course</span>
-            <div aria-label="filter by campus" id="campusDropdown" class="listHolder" aria-disabled="false">
+            <div aria-label="filter by campus" id="campusDropdown" data-testid="training-filter-campus-dropdown" class="listHolder" aria-disabled="false">
                 <button data-testid="training-filter-campus-container" id="campusOpener" class="opener filterer" aria-haspopup="listbox" aria-labelledby="campus-filter-label">
                     <span class="hidden">By campus</span>
                 </button>
@@ -44,19 +42,15 @@ template.innerHTML = `
                 </div>
                 <div tabindex="-1" data-testid="training-filter-campus-list" id="campuslist" class="selectorlist campuslist hidden" aria-expanded="false"></div>
             </div>
-            <div aria-label="filter by week" id="weekDropdown" class="listHolder" aria-disabled="false">
+            <div aria-label="filter by week" id="weekDropdown" data-testid="training-filter-week-dropdown" class="listHolder" aria-disabled="false">
                 <button data-testid="training-filter-week-container" id="weekOpener" class="opener filterer" aria-labelledby="weekhover">
                     <span class="hidden">By week</span>
                 </button>
                 <div id="weekhoverblock" class="hoverblock">
                     <div data-testid="training-filter-week-label" id="weekhover" class="weekhover hovertext">By week</div>
                 </div>
-                <div data-testid="training-filter-week-list" id="weeklist" class="selectorlist weeklist hidden" aria-expanded="false"></div>
+                <div tabindex="-1" data-testid="training-filter-week-list" id="weeklist" class="selectorlist weeklist hidden" aria-expanded="false"></div>
             </div>
-        </div>
-        <div class="onlineToggle">
-            <input type="checkbox" name="onlineonly" id="onlineonly" data-testid="training-filter-onlineonly-checkbox" aria-labelledby="online" />
-            <label id="online" class="toggle-label paper-toggle-button">Show only online events</label>
         </div>
         <div id="quicklinks" class="quicklinks">
             <h4>Popular events:</h4>
@@ -72,7 +66,6 @@ class TrainingFilter extends HTMLElement {
         this._selectedCampus = '';
         this._selectedWeek = '';
         this._inputKeywordValue = '';
-        this._onlineOnlyProperty = false;
 
         // Add a shadow DOM
         const shadowDOM = this.attachShadow({ mode: 'open' });
@@ -113,11 +106,6 @@ class TrainingFilter extends HTMLElement {
         this.changeHashofUrl();
     }
 
-    set onlineOnlyProperty(onlineonly) {
-        this._onlineOnlyProperty = onlineonly;
-        this.changeHashofUrl();
-    }
-
     static get observedAttributes() {
         return ['campus-list', 'week-start', 'week-end'];
     }
@@ -150,7 +138,6 @@ class TrainingFilter extends HTMLElement {
         function toggleCampusSelector(e) {
             const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
             const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
-            console.log('toggleCampusSelector ', eventTargetId || eventTarget);
             // if the other dropdown is still open, close it
             !weeklist.classList.contains('hidden') && that.toggleDropdownVisibility(weeklist);
 
@@ -159,7 +146,6 @@ class TrainingFilter extends HTMLElement {
 
         function navigateToFirstCampusEntry() {
             const nextElement = !!shadowDOM && shadowDOM.getElementById(`campus-select-0`);
-            console.log('navigateToFirstCampusEntry: navigate to = ', nextElement);
             !!nextElement && nextElement.focus();
         }
 
@@ -167,12 +153,11 @@ class TrainingFilter extends HTMLElement {
             const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
             const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
             if (isArrowDownKeyPressed(e)) {
-                console.log('handleCampusKeyDown ArrowDownKeyPressed ', eventTargetId || eventTarget);
                 e.preventDefault();
                 // nav to first campus entry
                 navigateToFirstCampusEntry();
-            } else if (isBackTabKeyPressed(e)) {
-                console.log('handleCampusKeyDown BackTabKeyPressed ', eventTargetId || eventTarget);
+            } /* istanbul ignore next */ else if (isBackTabKeyPressed(e)) {
+                // not tested - looks like cypress cant do the tab inside shadow dom
                 !campuslist.classList.contains('hidden') && that.closeDropdown(campuslist);
             }
         }
@@ -196,7 +181,6 @@ class TrainingFilter extends HTMLElement {
                 const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
                 const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
                 if (isArrowDownKeyPressed(e)) {
-                    console.log('handle campusDropdown KeyDown ArrowDownKeyPressed ', eventTargetId || eventTarget);
                     e.preventDefault();
                     const currentId = eventTargetId.replace('campus-select-', '');
                     const nextId = parseInt(currentId, 10) + 1;
@@ -204,7 +188,6 @@ class TrainingFilter extends HTMLElement {
                     const nextElement = !!shadowDOM && shadowDOM.getElementById(`campus-select-${nextId}`);
                     !!nextElement && nextElement.focus();
                 } else if (isArrowUpKeyPressed(e)) {
-                    console.log('handle campusDropdown KeyDown ArrowUpKeyPressed ', eventTargetId || eventTarget);
                     e.preventDefault();
                     const currentId = eventTargetId.replace('campus-select-', '');
                     const prevId = parseInt(currentId, 10) - 1;
@@ -212,13 +195,12 @@ class TrainingFilter extends HTMLElement {
                         (!!prevId || prevId === 0) && (currentId === '0' ? 'campusOpener' : `campus-select-${prevId}`);
                     const prevElement = !!prevElementId && !!shadowDOM && shadowDOM.getElementById(prevElementId);
                     !!prevElement && prevElement.focus();
-                } else if (isTabKeyPressed(e)) {
-                    console.log('handle campusDropdown KeyDown TabKeyPressed( ', eventTargetId || eventTarget);
+                } /* istanbul ignore next */ else if (isTabKeyPressed(e)) {
+                    // not tested - looks like cypress cant do the tab inside shadow dom
                     // close on tab off last element
                     if (eventTargetId.startsWith('campus-select-')) {
                         const currentId = eventTargetId.replace('campus-select-', '');
                         const nextId = parseInt(currentId, 10) + 1;
-                        console.log('nextId = ', nextId);
                         const nextElement = !!shadowDOM && shadowDOM.getElementById(`campus-select-${nextId}`);
                         !nextElement && that.closeDropdown(campuslist);
                     }
@@ -235,7 +217,6 @@ class TrainingFilter extends HTMLElement {
 
         function navigateToFirstWeekEntry() {
             const nextElement = !!shadowDOM && shadowDOM.getElementById(`week-select-0`);
-            console.log('navigateToFirstWeekEntry: navigate to = ', nextElement);
             !!nextElement && nextElement.focus();
         }
 
@@ -243,16 +224,17 @@ class TrainingFilter extends HTMLElement {
             if (isArrowDownKeyPressed(e)) {
                 e.preventDefault();
                 navigateToFirstWeekEntry();
-            } else if (isBackTabKeyPressed(e)) {
+            } /* istanbul ignore next */ else if (isBackTabKeyPressed(e)) {
+                // not tested - looks like cypress cant do the tab inside shadow dom
                 !weeklist.classList.contains('hidden') && that.closeDropdown(weeklist);
             }
         }
 
-        const weekhover = !!shadowDOM && shadowDOM.getElementById('weekhover'); // for Windows
+        const weekhover = !!shadowDOM && shadowDOM.getElementById('weekhover');
         !!weekhover && weekhover.addEventListener('click', toggleWeekSelector);
         !!weekhover && weekhover.addEventListener('keydown', handleWeekKeyDown);
 
-        const weekOpener = !!shadowDOM && shadowDOM.getElementById('weekOpener'); // for OSX
+        const weekOpener = !!shadowDOM && shadowDOM.getElementById('weekOpener');
         !!weekOpener && weekOpener.addEventListener('click', toggleWeekSelector);
         !!weekOpener && weekOpener.addEventListener('keydown', handleWeekKeyDown);
 
@@ -261,13 +243,15 @@ class TrainingFilter extends HTMLElement {
         weekDropdown.addEventListener('keydown', function (e) {
             const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
             const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
-            console.log('weekDropdown.addEventListener keydown ', eventTargetId || eventTarget);
             if (isArrowDownKeyPressed(e)) {
                 e.preventDefault();
                 const currentId = eventTargetId.replace('week-select-', '');
-                const nextId = parseInt(currentId, 10) + 1;
-
-                const nextElement = !!shadowDOM && shadowDOM.getElementById(`week-select-${nextId}`);
+                let nextElement;
+                /* istanbul ignore else */
+                if (currentId !== 'weekOpener') {
+                    const nextId = parseInt(currentId, 10) + 1;
+                    nextElement = !!shadowDOM && shadowDOM.getElementById(`week-select-${nextId}`);
+                }
                 !!nextElement && nextElement.focus();
             } else if (isArrowUpKeyPressed(e)) {
                 e.preventDefault();
@@ -280,13 +264,12 @@ class TrainingFilter extends HTMLElement {
                     prevElement = !!shadowDOM && shadowDOM.getElementById(`week-select-${prevId}`);
                 }
                 !!prevElement && prevElement.focus();
-            } else if (isTabKeyPressed(e)) {
-                console.log('TabKeyPressed');
+            } /* istanbul ignore next */ else if (isTabKeyPressed(e)) {
+                // not tested - looks like cypress cant do the tab inside shadow dom
                 // close on last element
                 if (eventTargetId.startsWith('week-select-')) {
                     const currentId = eventTargetId.replace('week-select-', '');
                     const nextId = parseInt(currentId, 10) + 1;
-                    console.log('nextId = ', nextId);
                     const nextElement = !!shadowDOM && shadowDOM.getElementById(`week-select-${nextId}`);
                     !nextElement && that.closeDropdown(weeklist);
                 }
@@ -294,9 +277,8 @@ class TrainingFilter extends HTMLElement {
         });
 
         function sendKeywordToGoogleAnalytics(e) {
-            console.log('sendKeywordToGoogleAnalytics that._inputKeywordValue = ', that._inputKeywordValue);
+            /* istanbul ignore else */
             if (that._inputKeywordValue !== '') {
-                console.log('sendKeywordToGoogleAnalytics send');
                 window.dataLayer = window.dataLayer || []; // for tests
                 window.dataLayer.push({
                     event: 'reusable_component_event_click',
@@ -318,13 +300,6 @@ class TrainingFilter extends HTMLElement {
         !!inputKeywordField && inputKeywordField.addEventListener('keyup', noteKeywordChange);
         !!inputKeywordField && inputKeywordField.addEventListener('blur', sendKeywordToGoogleAnalytics);
 
-        function noteCheckboxSet() {
-            that.onlineOnlyProperty = !!this.checked;
-        }
-
-        const onlineonlyField = !!shadowDOM && shadowDOM.getElementById('onlineonly');
-        !!onlineonlyField && onlineonlyField.addEventListener('change', noteCheckboxSet);
-
         function clearKeyword() {
             const inputKeywordField = !!shadowDOM && shadowDOM.getElementById('inputKeyword');
             !!inputKeywordField && (inputKeywordField.value = '');
@@ -340,7 +315,6 @@ class TrainingFilter extends HTMLElement {
      * @param shadowDOM
      */
     loadPopularChips(shadowDOM) {
-        console.log('loadPopularChips');
         const that = this;
         const chips = [
             {
@@ -401,8 +375,6 @@ class TrainingFilter extends HTMLElement {
         }
 
         function selectWeek(weekName, weekStartDate) {
-            console.log('clicked selectWeek for ', weekName);
-
             const weekHover = !!shadowDOM && shadowDOM.getElementById('weekhover');
             /* istanbul ignore else */
             if (!!weekHover && !weekHover.classList.contains('above')) {
@@ -441,15 +413,13 @@ class TrainingFilter extends HTMLElement {
             const weekSelectButton = document.createElement('button');
             weekSelectButton.className = 'week filterer';
             weekSelectButton.setAttribute('id', `week-select-${index}`);
+            weekSelectButton.setAttribute('data-testid', `training-filter-select-week-${index}`);
             weekSelectButton.setAttribute('role', 'option');
             const label =
                 weekStartDate === allAvailableEntry
                     ? 'Display courses on all days'
                     : `Only display courses between ${weekName}`;
             weekSelectButton.setAttribute('aria-label', label);
-            const weekSelectButtonDataTestId = weekName.replaceAll(' ', '').toLowerCase();
-            const weekSelectButtonDataTestLabel = `training-filter-select-week-${weekSelectButtonDataTestId}`;
-            weekSelectButton.setAttribute('data-testid', weekSelectButtonDataTestLabel);
             weekSelectButton.innerHTML = weekName;
             !!weekSelectButton &&
                 weekSelectButton.addEventListener('click', function () {
@@ -504,8 +474,6 @@ class TrainingFilter extends HTMLElement {
         }
 
         function selectCampus(campusName, campusCode) {
-            console.log('clicked selectCampus for ', campusName);
-
             const campusHover = !!shadowDOM && shadowDOM.getElementById('campushover');
             if (!!campusHover && !campusHover.classList.contains('above')) {
                 const moveLabel = `${campusHover.className} above`;
@@ -534,12 +502,12 @@ class TrainingFilter extends HTMLElement {
             campusSelectButton.className = 'campus filterer';
             campusSelectButton.innerHTML = campusName;
             campusSelectButton.setAttribute('id', `campus-select-${index}`);
+            campusSelectButton.setAttribute('data-testid', `training-filter-campus-select-${index}`);
             campusSelectButton.setAttribute('role', 'option');
             let label;
-            console.log('campusCode = ', campusCode);
             switch (campusCode) {
                 case 'all':
-                    label = 'Display courses at all locations, and online';
+                    label = 'Display courses at all locations';
                     break;
                 case 'Online':
                     label = 'Display only online courses';
@@ -547,11 +515,7 @@ class TrainingFilter extends HTMLElement {
                 default:
                     label = `Only display courses at ${campusName}`;
             }
-            console.log('label = ', label);
             campusSelectButton.setAttribute('aria-label', label);
-            const campusSelectButtonDataTestId = campusName.replaceAll(' ', '');
-            const campusSelectButtonDataTestLabel = `training-filter-select-campus-${campusSelectButtonDataTestId}`;
-            campusSelectButton.setAttribute('data-testid', campusSelectButtonDataTestLabel);
             !!campusSelectButton &&
                 campusSelectButton.addEventListener('click', function () {
                     selectCampus(campusName, campusCode);
@@ -584,10 +548,9 @@ class TrainingFilter extends HTMLElement {
         const keywordhash = `keyword=${this._inputKeywordValue}`;
         const campushash = `campus=${encodeURIComponent(this._selectedCampus)}`;
         const dateHash = `weekstart=${encodeURIComponent(this._selectedWeek)}`;
-        const onlineHash = `online=${this._onlineOnlyProperty}`;
-        const proposedHash = `${keywordhash};${campushash};${dateHash};${onlineHash}`;
+        const proposedHash = `${keywordhash};${campushash};${dateHash}`;
 
-        const blankHash = 'keyword=;campus=;weekstart=;online=false';
+        const blankHash = 'keyword=;campus=;weekstart=';
         if (`#${proposedHash}` !== oldHash && proposedHash === blankHash) {
             currentUrl.hash = '#';
             document.location.href = currentUrl.href;
@@ -612,6 +575,7 @@ class TrainingFilter extends HTMLElement {
      */
     toggleDropdownVisibility(selector) {
         const that = this;
+        /* istanbul ignore next */
         if (!selector) {
             return;
         }
@@ -635,9 +599,12 @@ class TrainingFilter extends HTMLElement {
     listenForKeyClicks(e) {
         const that = this;
         const trainingFilter =
-            document.querySelector('library-training').shadowRoot.querySelector('training-filter') ||
+            document
+                .querySelector('library-training')
+                .shadowRoot.querySelector('training-filter') /* istanbul ignore next */ ||
             document.querySelector('training-filter');
         const shadowDOM = !!trainingFilter && trainingFilter.shadowRoot;
+        /* istanbul ignore else */
         if (isEscapeKeyPressed(e)) {
             const campuslist = !!shadowDOM && shadowDOM.getElementById('campuslist');
             !!campuslist &&
@@ -663,8 +630,8 @@ class TrainingFilter extends HTMLElement {
             return (
                 !!eventTarget &&
                 (eventTarget.classList.contains('opener') ||
-                    eventTarget.classList.contains('weekhover') ||
-                    eventTarget.classList.contains('campushover'))
+                    /* istanbul ignore else */ eventTarget.classList.contains('weekhover') ||
+                    /* istanbul ignore else */ eventTarget.classList.contains('campushover'))
             );
         }
     }
