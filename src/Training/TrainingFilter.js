@@ -5,8 +5,6 @@ import {
     isArrowUpKeyPressed,
     isBackTabKeyPressed,
     isEscapeKeyPressed,
-    // isKeyPressedUnknown,
-    isReturnKeyPressed,
     isTabKeyPressed,
 } from '../helpers/keyDetection';
 
@@ -140,7 +138,6 @@ class TrainingFilter extends HTMLElement {
         function toggleCampusSelector(e) {
             const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
             const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
-            console.log('toggleCampusSelector ', eventTargetId || eventTarget);
             // if the other dropdown is still open, close it
             !weeklist.classList.contains('hidden') && that.toggleDropdownVisibility(weeklist);
 
@@ -149,7 +146,6 @@ class TrainingFilter extends HTMLElement {
 
         function navigateToFirstCampusEntry() {
             const nextElement = !!shadowDOM && shadowDOM.getElementById(`campus-select-0`);
-            console.log('navigateToFirstCampusEntry: navigate to = ', nextElement);
             !!nextElement && nextElement.focus();
         }
 
@@ -157,17 +153,12 @@ class TrainingFilter extends HTMLElement {
             const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
             const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
             if (isArrowDownKeyPressed(e)) {
-                console.log('handleCampusKeyDown ArrowDownKeyPressed ', eventTargetId || eventTarget);
                 e.preventDefault();
                 // nav to first campus entry
                 navigateToFirstCampusEntry();
-            } else if (isBackTabKeyPressed(e)) {
-                console.log('handleCampusKeyDown BackTabKeyPressed ', eventTargetId || eventTarget);
+            } /* istanbul ignore next */ else if (isBackTabKeyPressed(e)) {
+                // not tested - looks like cypress cant do the tab inside shadow dom
                 !campuslist.classList.contains('hidden') && that.closeDropdown(campuslist);
-            } else if (isTabKeyPressed(e)) {
-                const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
-                const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
-                console.log('handleCampusKeyDown tab presssed does the default ', eventTargetId);
             }
         }
 
@@ -190,7 +181,6 @@ class TrainingFilter extends HTMLElement {
                 const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
                 const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
                 if (isArrowDownKeyPressed(e)) {
-                    console.log('handle campusDropdown KeyDown ArrowDownKeyPressed ', eventTargetId || eventTarget);
                     e.preventDefault();
                     const currentId = eventTargetId.replace('campus-select-', '');
                     const nextId = parseInt(currentId, 10) + 1;
@@ -198,7 +188,6 @@ class TrainingFilter extends HTMLElement {
                     const nextElement = !!shadowDOM && shadowDOM.getElementById(`campus-select-${nextId}`);
                     !!nextElement && nextElement.focus();
                 } else if (isArrowUpKeyPressed(e)) {
-                    console.log('handle campusDropdown KeyDown ArrowUpKeyPressed ', eventTargetId || eventTarget);
                     e.preventDefault();
                     const currentId = eventTargetId.replace('campus-select-', '');
                     const prevId = parseInt(currentId, 10) - 1;
@@ -206,13 +195,12 @@ class TrainingFilter extends HTMLElement {
                         (!!prevId || prevId === 0) && (currentId === '0' ? 'campusOpener' : `campus-select-${prevId}`);
                     const prevElement = !!prevElementId && !!shadowDOM && shadowDOM.getElementById(prevElementId);
                     !!prevElement && prevElement.focus();
-                } else if (isTabKeyPressed(e)) {
-                    console.log('handle campusDropdown KeyDown TabKeyPressed( ', eventTargetId || eventTarget);
+                } /* istanbul ignore next */ else if (isTabKeyPressed(e)) {
+                    // not tested - looks like cypress cant do the tab inside shadow dom
                     // close on tab off last element
                     if (eventTargetId.startsWith('campus-select-')) {
                         const currentId = eventTargetId.replace('campus-select-', '');
                         const nextId = parseInt(currentId, 10) + 1;
-                        console.log('nextId = ', nextId);
                         const nextElement = !!shadowDOM && shadowDOM.getElementById(`campus-select-${nextId}`);
                         !nextElement && that.closeDropdown(campuslist);
                     }
@@ -229,16 +217,15 @@ class TrainingFilter extends HTMLElement {
 
         function navigateToFirstWeekEntry() {
             const nextElement = !!shadowDOM && shadowDOM.getElementById(`week-select-0`);
-            console.log('navigateToFirstWeekEntry: navigate to = ', nextElement);
             !!nextElement && nextElement.focus();
         }
 
         function handleWeekKeyDown(e) {
             if (isArrowDownKeyPressed(e)) {
-                console.log('handleWeekKeyDown: isArrowDownKeyPressed (not weekOpener');
                 e.preventDefault();
                 navigateToFirstWeekEntry();
-            } else if (isBackTabKeyPressed(e)) {
+            } /* istanbul ignore next */ else if (isBackTabKeyPressed(e)) {
+                // not tested - looks like cypress cant do the tab inside shadow dom
                 !weeklist.classList.contains('hidden') && that.closeDropdown(weeklist);
             }
         }
@@ -256,21 +243,15 @@ class TrainingFilter extends HTMLElement {
         weekDropdown.addEventListener('keydown', function (e) {
             const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
             const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
-            console.log('weekDropdown.addEventListener keydown ', eventTargetId || eventTarget);
             if (isArrowDownKeyPressed(e)) {
                 e.preventDefault();
                 const currentId = eventTargetId.replace('week-select-', '');
-                console.log('currentId = ', currentId);
                 let nextElement;
-                // if (currentId === 'weekOpener') {
-                //     nextElement = !!shadowDOM && shadowDOM.getElementById('week-select-0');
-                // } else {
+                /* istanbul ignore else */
                 if (currentId !== 'weekOpener') {
                     const nextId = parseInt(currentId, 10) + 1;
-                    console.log('nextId = ', nextId);
                     nextElement = !!shadowDOM && shadowDOM.getElementById(`week-select-${nextId}`);
                 }
-                console.log('nextElement = ', nextElement);
                 !!nextElement && nextElement.focus();
             } else if (isArrowUpKeyPressed(e)) {
                 e.preventDefault();
@@ -283,13 +264,12 @@ class TrainingFilter extends HTMLElement {
                     prevElement = !!shadowDOM && shadowDOM.getElementById(`week-select-${prevId}`);
                 }
                 !!prevElement && prevElement.focus();
-            } else if (isTabKeyPressed(e)) {
-                console.log('TabKeyPressed');
+            } /* istanbul ignore next */ else if (isTabKeyPressed(e)) {
+                // not tested - looks like cypress cant do the tab inside shadow dom
                 // close on last element
                 if (eventTargetId.startsWith('week-select-')) {
                     const currentId = eventTargetId.replace('week-select-', '');
                     const nextId = parseInt(currentId, 10) + 1;
-                    console.log('nextId = ', nextId);
                     const nextElement = !!shadowDOM && shadowDOM.getElementById(`week-select-${nextId}`);
                     !nextElement && that.closeDropdown(weeklist);
                 }
@@ -297,9 +277,8 @@ class TrainingFilter extends HTMLElement {
         });
 
         function sendKeywordToGoogleAnalytics(e) {
-            console.log('sendKeywordToGoogleAnalytics that._inputKeywordValue = ', that._inputKeywordValue);
+            /* istanbul ignore else */
             if (that._inputKeywordValue !== '') {
-                console.log('sendKeywordToGoogleAnalytics send');
                 window.dataLayer = window.dataLayer || []; // for tests
                 window.dataLayer.push({
                     'gtm.element.elements.training-filter-keyword.value': that._inputKeywordValue,
@@ -335,7 +314,6 @@ class TrainingFilter extends HTMLElement {
      * @param shadowDOM
      */
     loadPopularChips(shadowDOM) {
-        console.log('loadPopularChips');
         const that = this;
         const chips = [
             {
@@ -396,8 +374,6 @@ class TrainingFilter extends HTMLElement {
         }
 
         function selectWeek(weekName, weekStartDate) {
-            console.log('clicked selectWeek for ', weekName);
-
             const weekHover = !!shadowDOM && shadowDOM.getElementById('weekhover');
             /* istanbul ignore else */
             if (!!weekHover && !weekHover.classList.contains('above')) {
@@ -497,8 +473,6 @@ class TrainingFilter extends HTMLElement {
         }
 
         function selectCampus(campusName, campusCode) {
-            console.log('clicked selectCampus for ', campusName);
-
             const campusHover = !!shadowDOM && shadowDOM.getElementById('campushover');
             if (!!campusHover && !campusHover.classList.contains('above')) {
                 const moveLabel = `${campusHover.className} above`;
@@ -530,7 +504,6 @@ class TrainingFilter extends HTMLElement {
             campusSelectButton.setAttribute('data-testid', `training-filter-campus-select-${index}`);
             campusSelectButton.setAttribute('role', 'option');
             let label;
-            console.log('campusCode = ', campusCode);
             switch (campusCode) {
                 case 'all':
                     label = 'Display courses at all locations';
@@ -541,7 +514,6 @@ class TrainingFilter extends HTMLElement {
                 default:
                     label = `Only display courses at ${campusName}`;
             }
-            console.log('label = ', label);
             campusSelectButton.setAttribute('aria-label', label);
             !!campusSelectButton &&
                 campusSelectButton.addEventListener('click', function () {
@@ -626,12 +598,13 @@ class TrainingFilter extends HTMLElement {
     listenForKeyClicks(e) {
         const that = this;
         const trainingFilter =
-            document.querySelector('library-training').shadowRoot.querySelector('training-filter') ||
+            document
+                .querySelector('library-training')
+                .shadowRoot.querySelector('training-filter') /* istanbul ignore next */ ||
             document.querySelector('training-filter');
         const shadowDOM = !!trainingFilter && trainingFilter.shadowRoot;
         /* istanbul ignore else */
         if (isEscapeKeyPressed(e)) {
-            console.log('listenForKeyClicks escape key pressed');
             const campuslist = !!shadowDOM && shadowDOM.getElementById('campuslist');
             !!campuslist &&
                 !campuslist.classList.contains('hidden') &&

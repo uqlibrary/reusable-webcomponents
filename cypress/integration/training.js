@@ -934,9 +934,32 @@ describe('Training', () => {
             cy.viewport(1280, 900);
             cy.url().should('eq', 'http://localhost:8080/index-training.html#');
         });
-
-        it('dummy test', () => {
+        it('sends to GTM', () => {
             cy.visit('http://localhost:8080/index-training.html');
+            cy.viewport(1280, 1280);
+            cy.get('library-training[id="test-with-filter"]')
+                .should('exist')
+                .shadow()
+                .within(() => {
+                    cy.get('training-filter')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            expect(window.dataLayer).to.be.undefined;
+                            cy.window().then((win) => {
+                                expect(win.dataLayer).to.be.undefined;
+                            });
+                            cy.get('[data-testid="training-filter-keyword-entry"]').should('exist');
+                            cy.get('[data-testid="training-filter-keyword-entry"]').type('e');
+                            cy.url().should(
+                                'eq',
+                                'http://localhost:8080/index-training.html#keyword=e;campus=;weekstart=',
+                            );
+                        });
+                });
+            // click away from the keyword input field, because that is when we send the keyword
+            cy.get('[data-testid="random-page-element"]').click();
+            cy.window().its('dataLayer').should('have.length', 1);
         });
     });
     // it.only('test template', () => {
