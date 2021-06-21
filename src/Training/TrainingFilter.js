@@ -54,10 +54,6 @@ template.innerHTML = `
                 <div tabindex="-1" data-testid="training-filter-week-list" id="weeklist" class="selectorlist weeklist hidden" aria-expanded="false"></div>
             </div>
         </div>
-        <div class="onlineToggle">
-            <input type="checkbox" name="onlineonly" id="onlineonly" data-testid="training-filter-onlineonly-checkbox" aria-labelledby="online" />
-            <label id="online" class="toggle-label paper-toggle-button">Show only online events</label>
-        </div>
         <div id="quicklinks" class="quicklinks">
             <h4>Popular events:</h4>
         </div>
@@ -72,7 +68,6 @@ class TrainingFilter extends HTMLElement {
         this._selectedCampus = '';
         this._selectedWeek = '';
         this._inputKeywordValue = '';
-        this._onlineOnlyProperty = false;
 
         // Add a shadow DOM
         const shadowDOM = this.attachShadow({ mode: 'open' });
@@ -110,11 +105,6 @@ class TrainingFilter extends HTMLElement {
 
     set inputKeywordValue(inputKeyword) {
         this._inputKeywordValue = inputKeyword;
-        this.changeHashofUrl();
-    }
-
-    set onlineOnlyProperty(onlineonly) {
-        this._onlineOnlyProperty = onlineonly;
         this.changeHashofUrl();
     }
 
@@ -330,13 +320,6 @@ class TrainingFilter extends HTMLElement {
         !!inputKeywordField && inputKeywordField.addEventListener('keyup', noteKeywordChange);
         !!inputKeywordField && inputKeywordField.addEventListener('blur', sendKeywordToGoogleAnalytics);
 
-        function noteCheckboxSet() {
-            that.onlineOnlyProperty = !!this.checked;
-        }
-
-        const onlineonlyField = !!shadowDOM && shadowDOM.getElementById('onlineonly');
-        !!onlineonlyField && onlineonlyField.addEventListener('change', noteCheckboxSet);
-
         function clearKeyword() {
             const inputKeywordField = !!shadowDOM && shadowDOM.getElementById('inputKeyword');
             !!inputKeywordField && (inputKeywordField.value = '');
@@ -550,7 +533,7 @@ class TrainingFilter extends HTMLElement {
             console.log('campusCode = ', campusCode);
             switch (campusCode) {
                 case 'all':
-                    label = 'Display courses at all locations, and online';
+                    label = 'Display courses at all locations';
                     break;
                 case 'Online':
                     label = 'Display only online courses';
@@ -592,10 +575,9 @@ class TrainingFilter extends HTMLElement {
         const keywordhash = `keyword=${this._inputKeywordValue}`;
         const campushash = `campus=${encodeURIComponent(this._selectedCampus)}`;
         const dateHash = `weekstart=${encodeURIComponent(this._selectedWeek)}`;
-        const onlineHash = `online=${this._onlineOnlyProperty}`;
-        const proposedHash = `${keywordhash};${campushash};${dateHash};${onlineHash}`;
+        const proposedHash = `${keywordhash};${campushash};${dateHash}`;
 
-        const blankHash = 'keyword=;campus=;weekstart=;online=false';
+        const blankHash = 'keyword=;campus=;weekstart=';
         if (`#${proposedHash}` !== oldHash && proposedHash === blankHash) {
             currentUrl.hash = '#';
             document.location.href = currentUrl.href;

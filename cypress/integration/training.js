@@ -105,7 +105,7 @@ describe('Training', () => {
                             // cy.wait(1500); // dev, so we can see focus is on that element
                             cy.url().should(
                                 'eq',
-                                'http://localhost:8080/index-training.html#keyword=e;campus=;weekstart=;online=false',
+                                'http://localhost:8080/index-training.html#keyword=e;campus=;weekstart=',
                             );
                             cy.get('[data-testid="training-filter-keyword-entry"]').type('{esc}', { force: true });
                             cy.url().should('eq', 'http://localhost:8080/index-training.html#');
@@ -127,7 +127,7 @@ describe('Training', () => {
                             cy.get('[data-testid="training-filter-keyword-entry"]').type('e');
                             cy.url().should(
                                 'eq',
-                                'http://localhost:8080/index-training.html#keyword=e;campus=;weekstart=;online=false',
+                                'http://localhost:8080/index-training.html#keyword=e;campus=;weekstart=',
                             );
                             cy.get('[data-testid="training-filter-keyword-entry"]').should('have.focus');
                             // can clear text with 'enter' click on the clear button
@@ -708,7 +708,7 @@ describe('Training', () => {
 
                             cy.url().should(
                                 'eq',
-                                'http://localhost:8080/index-training.html#keyword=excel;campus=;weekstart=;online=false',
+                                'http://localhost:8080/index-training.html#keyword=excel;campus=;weekstart=',
                             );
 
                             // the user can use the escape key to clear the input field
@@ -740,7 +740,7 @@ describe('Training', () => {
                             );
                             cy.url().should(
                                 'eq',
-                                'http://localhost:8080/index-training.html#keyword=;campus=St%2520Lucia;weekstart=;online=false',
+                                'http://localhost:8080/index-training.html#keyword=;campus=St%2520Lucia;weekstart=',
                             );
 
                             cy.get('[data-testid="training-filter-campus-label"]').click();
@@ -754,7 +754,7 @@ describe('Training', () => {
                             );
                             cy.url().should(
                                 'eq',
-                                'http://localhost:8080/index-training.html#keyword=;campus=all;weekstart=;online=false',
+                                'http://localhost:8080/index-training.html#keyword=;campus=all;weekstart=',
                             );
                         });
                 });
@@ -811,7 +811,7 @@ describe('Training', () => {
 
                             cy.url().should(
                                 'eq',
-                                'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=all;online=false',
+                                'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=all',
                             );
 
                             cy.get('[data-testid="training-filter-week-label"]').click();
@@ -828,7 +828,7 @@ describe('Training', () => {
 
                             cy.url().should(
                                 'eq',
-                                'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=2021-08-02;online=false',
+                                'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=2021-08-02',
                             );
                         });
                 });
@@ -899,11 +899,9 @@ describe('Training', () => {
 
                             cy.get('[data-testid="training-filter-popular-events-endnote"]').click();
 
-                            cy.get('[data-testid="training-filter-onlineonly-checkbox"]').click();
-
                             cy.url().should(
                                 'eq',
-                                'http://localhost:8080/index-training.html#keyword=endnote;campus=all;weekstart=all;online=true',
+                                'http://localhost:8080/index-training.html#keyword=endnote;campus=all;weekstart=all',
                             );
                         });
                 });
@@ -922,17 +920,9 @@ describe('Training', () => {
                             cy.get('[data-testid="training-filter-popular-events-endnote"]').click();
                             cy.url().should(
                                 'eq',
-                                'http://localhost:8080/index-training.html#keyword=endnote;campus=;weekstart=;online=false',
+                                'http://localhost:8080/index-training.html#keyword=endnote;campus=;weekstart=',
                             );
                             cy.get('[data-testid="training-filter-clear-keyword"]').click();
-                            cy.url().should('eq', 'http://localhost:8080/index-training.html#');
-
-                            cy.get('[data-testid="training-filter-onlineonly-checkbox"]').click();
-                            cy.url().should(
-                                'eq',
-                                'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=;online=true',
-                            );
-                            cy.get('[data-testid="training-filter-onlineonly-checkbox"]').click();
                             cy.url().should('eq', 'http://localhost:8080/index-training.html#');
                         });
                 });
@@ -940,7 +930,7 @@ describe('Training', () => {
         it('clears a bookmarked url', () => {
             // what is displayed must match the filter, so any param that dont match the filter settings should be cleared
             // (future possibility to allow bookmarked urls?)
-            cy.visit('http://localhost:8080/index-training.html#keyword=Excel;campus=Gatton;weekstart=all;online=true');
+            cy.visit('http://localhost:8080/index-training.html#keyword=Excel;campus=Gatton;weekstart=all');
             cy.viewport(1280, 900);
             cy.url().should('eq', 'http://localhost:8080/index-training.html#');
         });
