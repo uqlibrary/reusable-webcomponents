@@ -245,6 +245,7 @@ class TrainingFilter extends HTMLElement {
 
         function handleWeekKeyDown(e) {
             if (isArrowDownKeyPressed(e)) {
+                console.log('handleWeekKeyDown: isArrowDownKeyPressed (not weekOpener');
                 e.preventDefault();
                 navigateToFirstWeekEntry();
             } else if (isBackTabKeyPressed(e)) {
@@ -271,9 +272,10 @@ class TrainingFilter extends HTMLElement {
                 const currentId = eventTargetId.replace('week-select-', '');
                 console.log('currentId = ', currentId);
                 let nextElement;
-                if (currentId === 'weekOpener') {
-                    nextElement = !!shadowDOM && shadowDOM.getElementById('week-select-0');
-                } else {
+                // if (currentId === 'weekOpener') {
+                //     nextElement = !!shadowDOM && shadowDOM.getElementById('week-select-0');
+                // } else {
+                if (currentId !== 'weekOpener') {
                     const nextId = parseInt(currentId, 10) + 1;
                     console.log('nextId = ', nextId);
                     nextElement = !!shadowDOM && shadowDOM.getElementById(`week-select-${nextId}`);
@@ -645,7 +647,9 @@ class TrainingFilter extends HTMLElement {
             document.querySelector('library-training').shadowRoot.querySelector('training-filter') ||
             document.querySelector('training-filter');
         const shadowDOM = !!trainingFilter && trainingFilter.shadowRoot;
+        /* istanbul ignore else */
         if (isEscapeKeyPressed(e)) {
+            console.log('listenForKeyClicks escape key pressed');
             const campuslist = !!shadowDOM && shadowDOM.getElementById('campuslist');
             !!campuslist &&
                 !campuslist.classList.contains('hidden') &&
@@ -670,8 +674,8 @@ class TrainingFilter extends HTMLElement {
             return (
                 !!eventTarget &&
                 (eventTarget.classList.contains('opener') ||
-                    eventTarget.classList.contains('weekhover') ||
-                    eventTarget.classList.contains('campushover'))
+                    /* istanbul ignore else */ eventTarget.classList.contains('weekhover') ||
+                    /* istanbul ignore else */ eventTarget.classList.contains('campushover'))
             );
         }
     }

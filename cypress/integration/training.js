@@ -337,6 +337,78 @@ describe('Training', () => {
         //         }); // end within library-training
         //     cy.get('body').contains('Training widget demo'); // dummy test - sometimes cypress seems to return true on a test even though it actually fails if there is no test after it :(
         // });
+
+        it('the campus dropdown closes when the user clicks escape', () => {
+            cy.visit('http://localhost:8080/index-training.html');
+            cy.viewport(1280, 1280);
+            cy.get('library-training[id="test-with-filter"]')
+                .should('exist')
+                .shadow()
+                .within(() => {
+                    cy.get('training-filter')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            cy.get('[data-testid="training-filter-campus-list"]').should('have.class', 'hidden');
+                            // open the campus drop down
+                            cy.get('[data-testid="training-filter-campus-container"]').type('{enter}', { force: true });
+                            cy.get('[data-testid="training-filter-campus-list"]').should('not.have.class', 'hidden');
+                            cy.get('[data-testid="training-filter-campus-list"]').find('button').should('length', 3);
+                        });
+                });
+
+            // click escape
+            cy.get('body').type('{esc}', { force: true });
+
+            // campus dropdown is closed
+            cy.get('library-training[id="test-with-filter"]')
+                .should('exist')
+                .shadow()
+                .within(() => {
+                    cy.get('training-filter')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            cy.get('[data-testid="training-filter-campus-list"]').should('have.class', 'hidden');
+                        });
+                });
+        });
+
+        it('the week dropdown closes when the user clicks escape', () => {
+            cy.visit('http://localhost:8080/index-training.html');
+            cy.viewport(1280, 1280);
+            cy.get('library-training[id="test-with-filter"]')
+                .should('exist')
+                .shadow()
+                .within(() => {
+                    cy.get('training-filter')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            cy.get('[data-testid="training-filter-week-list"]').should('have.class', 'hidden');
+                            // open the week drop down
+                            cy.get('[data-testid="training-filter-week-container"]').type('{enter}', { force: true });
+                            cy.get('[data-testid="training-filter-week-list"]').should('not.have.class', 'hidden');
+                            cy.get('[data-testid="training-filter-week-list"]').find('button').should('length', 15);
+                        });
+                });
+
+            // click escape
+            cy.get('body').type('{esc}', { force: true });
+
+            // week dropdown is closed
+            cy.get('library-training[id="test-with-filter"]')
+                .should('exist')
+                .shadow()
+                .within(() => {
+                    cy.get('training-filter')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            cy.get('[data-testid="training-filter-week-list"]').should('have.class', 'hidden');
+                        });
+                });
+        });
     });
 
     it('Passes accessibility', () => {
@@ -855,7 +927,7 @@ describe('Training', () => {
             cy.visit('http://localhost:8080/index-training.html');
         });
     });
-    // it('test template', () => {
+    // it.only('test template', () => {
     //     cy.visit('http://localhost:8080/index-training.html');
     //     cy.viewport(1280, 1280);
     //     cy.get('library-training[id="test-with-filter"]')
