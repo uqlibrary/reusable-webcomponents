@@ -51,7 +51,7 @@ template.innerHTML = `
                 <div id="weekhoverblock" class="hoverblock">
                     <div data-testid="training-filter-week-label" id="weekhover" class="weekhover hovertext">By week</div>
                 </div>
-                <div data-testid="training-filter-week-list" id="weeklist" class="selectorlist weeklist hidden" aria-expanded="false"></div>
+                <div tabindex="-1" data-testid="training-filter-week-list" id="weeklist" class="selectorlist weeklist hidden" aria-expanded="false"></div>
             </div>
         </div>
         <div class="onlineToggle">

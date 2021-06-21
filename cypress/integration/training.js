@@ -123,28 +123,44 @@ describe('Training', () => {
                         .should('exist')
                         .shadow()
                         .within(() => {
-                            // can clear text with 'enter' click on the clear button
+                            cy.url().should('eq', 'http://localhost:8080/index-training.html#');
                             cy.get('[data-testid="training-filter-keyword-entry"]').type('e');
-                            // cy.wait(1500); // dev, so we can see focus is on that element
                             cy.url().should(
                                 'eq',
                                 'http://localhost:8080/index-training.html#keyword=e;campus=;weekstart=;online=false',
                             );
                             cy.get('[data-testid="training-filter-keyword-entry"]').should('have.focus');
-                            cy.log('about to tab');
-                            // cy.get('[data-testid="training-filter-keyword-entry"]')
-                            //     // the 'typeTab' command in the commands.js doesnt seem to work inside the shadowdom :(
-                            //     .trigger('keydown', { keyCode: TAB_KEYCODE })
-                            //     .then(e => {
-                            //         cy.log('after tab');
-                            //         // cy.wait(1500); // debug, so we can see focus is on that element :(
-                            //         cy.get('[data-testid="training-filter-clear-keyword"]').should('have.focus');
-                            //     });
-
+                            // can clear text with 'enter' click on the clear button
                             cy.get('[data-testid="training-filter-clear-keyword"]')
                                 .type('{enter}', { force: true })
                                 .then((e) => {
                                     cy.url().should('eq', 'http://localhost:8080/index-training.html#');
+                                });
+                        });
+                });
+        });
+        it.skip('the user can tab from the keyword entry field to the keyword clear button', () => {
+            cy.visit('http://localhost:8080/index-training.html');
+            cy.viewport(1280, 1280);
+            cy.get('library-training[id="test-with-filter"]')
+                .should('exist')
+                .shadow()
+                .within(() => {
+                    cy.get('training-filter')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            // can clear text with 'enter' click on the clear button
+                            cy.get('[data-testid="training-filter-keyword-entry"]');
+                            cy.get('[data-testid="training-filter-keyword-entry"]').should('have.focus');
+                            cy.log('about to tab');
+                            cy.get('[data-testid="training-filter-keyword-entry"]')
+                                // the 'typeTab' command in the commands.js doesnt seem to work inside the shadowdom :(
+                                .trigger('keydown', { keyCode: TAB_KEYCODE })
+                                .then((e) => {
+                                    cy.log('after tab');
+                                    // cy.wait(1500); // debug, so we can see focus is on that element :(
+                                    cy.get('[data-testid="training-filter-clear-keyword"]').should('have.focus');
                                 });
                         });
                 });
@@ -175,33 +191,39 @@ describe('Training', () => {
                         });
                 });
         });
-        // it('user can tab from campus button to week dropdown', () => {
-        //     cy.visit('http://localhost:8080/index-training.html');
-        //     cy.viewport(1280, 1280);
-        //     cy.get('library-training[id="test-with-filter"]')
-        //         .should('exist')
-        //         .shadow()
-        //         .within(() => {
-        //             cy.get('training-filter')
-        //                 .should('exist')
-        //                 .shadow()
-        //                 .within(() => {
-        //                     // tab from campus dropdown to week dropdown
-        //                     cy.get('[data-testid="training-filter-campus-container"]')
-        //                         .focus()
-        //                         .trigger('keydown', {
-        //                             keyCode: TAB_KEYCODE,
-        //                             which: TAB_KEYCODE,
-        //                             force: true,
-        //                         })
-        //                         .then((e) => {
-        //                             // and we have tabbed on to the Week Dropdown
-        //                             cy.get('[data-testid="training-filter-week-label"]').should('have.focus');
-        //                             cy.log('week has focus');
-        //                         });
-        //                 });
-        //         });
-        // });
+        it.skip('user can tab from campus dropdown button to week dropdown button', () => {
+            cy.visit('http://localhost:8080/index-training.html');
+            cy.viewport(1280, 1280);
+            cy.get('library-training[id="test-with-filter"]')
+                .should('exist')
+                .shadow()
+                .within(() => {
+                    cy.get('training-filter')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            cy.get('[data-testid="training-filter-campus-dropdown"]')
+                                // cy.get('[data-testid="training-filter-campus-container"] span')
+                                // cy.get('[data-testid="training-filter-campus-container"]')
+                                // cy.get('[data-testid="training-filter-campus-label"]')
+                                // cy.get('[id="campushoverblock"]')
+                                .should('exist')
+                                .wait(1500)
+                                .trigger('keydown', {
+                                    keyCode: TAB_KEYCODE,
+                                    force: true,
+                                })
+                                .then((e) => {
+                                    // cy.get('[data-testid="training-filter-week-dropdown"]').should('have.focus');
+                                    // cy.get('[data-testid="training-filter-week-container"]').should('have.focus');
+                                    // cy.get('[data-testid="training-filter-week-container"] span').should('have.focus');
+                                    // cy.get('[id="weekhoverblock"]').should('have.focus');
+                                    cy.get('[data-testid="training-filter-week-label"]').should('have.focus');
+                                });
+                        });
+                });
+        });
+
         it('user can use the arrow keys to navigate up and down the week dropdown', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 1280);
@@ -311,32 +333,32 @@ describe('Training', () => {
                         });
                 });
         });
-        // it('user can back tab from the week button to the campus button', () => {
-        //     cy.visit('http://localhost:8080/index-training.html');
-        //     cy.viewport(1280, 1280);
-        //     cy.get('library-training[id="test-with-filter"]')
-        //         .should('exist')
-        //         .shadow()
-        //         .within(() => {
-        //             cy.get('training-filter')
-        //                 .should('exist')
-        //                 .shadow()
-        //                 .within(() => {
-        //                     cy.get('[data-testid="training-filter-week-container"]')
-        //                         .should('exist')
-        //                         .focus()
-        //                         .trigger('keydown', {
-        //                             keyCode: TAB_KEYCODE,
-        //                             shift: true,
-        //                             force: true,
-        //                         })
-        //                         .then((e) => {
-        //                             cy.get('[data-testid="training-filter-campus-list"]').should('have.focus');
-        //                         });
-        //                 }); // end within training-filter
-        //         }); // end within library-training
-        //     cy.get('body').contains('Training widget demo'); // dummy test - sometimes cypress seems to return true on a test even though it actually fails if there is no test after it :(
-        // });
+        it.skip('user can back tab from the week dropdown button to the campus dropdown button', () => {
+            cy.visit('http://localhost:8080/index-training.html');
+            cy.viewport(1280, 1280);
+            cy.get('library-training[id="test-with-filter"]')
+                .should('exist')
+                .shadow()
+                .within(() => {
+                    cy.get('training-filter')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            cy.get('[data-testid="training-filter-week-container"]')
+                                .should('exist')
+                                .focus()
+                                .trigger('keydown', {
+                                    keyCode: TAB_KEYCODE,
+                                    shift: true,
+                                    force: true,
+                                })
+                                .then((e) => {
+                                    cy.get('[data-testid="training-filter-campus-container"]').should('have.focus');
+                                });
+                        });
+                });
+            cy.get('body').contains('Training widget demo'); // dummy test - sometimes cypress seems to return true on a test even though it actually fails if there is no test after it :(
+        });
 
         it('the campus dropdown closes when the user clicks escape', () => {
             cy.visit('http://localhost:8080/index-training.html');
