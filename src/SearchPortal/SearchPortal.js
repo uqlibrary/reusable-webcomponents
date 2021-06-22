@@ -135,7 +135,7 @@ class SearchPortal extends HTMLElement {
                 this.loadSuggestionsIntoPage(suggestions);
             })
             .catch((e) => {
-                new ApiAccess().showApiErrorDiv();
+                console.log('getPrimoSuggestions, error: ', e);
             });
     }
 
@@ -147,7 +147,7 @@ class SearchPortal extends HTMLElement {
                 this.loadSuggestionsIntoPage(suggestions, 'courseid');
             })
             .catch((e) => {
-                new ApiAccess().showApiErrorDiv();
+                console.log('getExamPaperSuggestions, error: ', e);
             });
     }
 
@@ -159,7 +159,7 @@ class SearchPortal extends HTMLElement {
                 this.loadSuggestionsIntoPage(suggestions, 'name');
             })
             .catch((e) => {
-                new ApiAccess().showApiErrorDiv();
+                console.log('getLearningResourceSuggestions, error: ', e);
             });
     }
 
