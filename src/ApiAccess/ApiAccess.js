@@ -353,35 +353,6 @@ class ApiAccess {
     isMock() {
         return process.env.USE_MOCK;
     }
-
-    /**
-     * display an error in the bottom left corner of the screen if we have a problem from the api
-     */
-    showApiErrorDiv() {
-        let apiErrorDiv = document.getElementById('api-error');
-        if (!apiErrorDiv) {
-            apiErrorDiv = document.createElement('div');
-            !!apiErrorDiv && apiErrorDiv.setAttribute('id', 'api-error');
-            !!apiErrorDiv && apiErrorDiv.setAttribute('data-testid', 'api-error');
-            !!apiErrorDiv && (apiErrorDiv.style.position = 'fixed');
-            !!apiErrorDiv && (apiErrorDiv.style.left = '1rem');
-            !!apiErrorDiv && (apiErrorDiv.style.bottom = '1rem');
-            !!apiErrorDiv && (apiErrorDiv.style.color = '#fff');
-            !!apiErrorDiv && (apiErrorDiv.style.backgroundColor = '#951126');
-            !!apiErrorDiv && (apiErrorDiv.style.padding = '1rem 1.5rem 1rem 1.5rem');
-            const errorMessage = 'There was a problem - if the display is incorrect, please refresh the page.';
-            !!apiErrorDiv && (apiErrorDiv.innerHTML = errorMessage);
-
-            const body = document.querySelector('body');
-            !!apiErrorDiv && !!body && body.appendChild(apiErrorDiv);
-        }
-        apiErrorDiv.style.opacity = '1';
-        apiErrorDiv.style.transition = 'transform 1s, opacity 1s';
-        setTimeout(function () {
-            apiErrorDiv.style.opacity = '0';
-            apiErrorDiv.style.transition = 'ranslateY(1rem)';
-        }, 3000);
-    }
 }
 
 const throwFetchErrors = (response) => {

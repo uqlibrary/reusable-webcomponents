@@ -15,7 +15,7 @@ describe('Search Portal', () => {
         cy.get('div[data-testid="primo-search-links"]').find('div').its('length').should('eq', numLinks);
     }
 
-    context('Search Portal for public user', () => {
+    context('Search Portal', () => {
         beforeEach(() => {
             cy.visit('/');
         });
@@ -612,56 +612,7 @@ describe('Search Portal', () => {
                 });
             cy.get('body').contains('user is on a Primo result page');
         });
-    });
 
-    context('Search Portal for error user', () => {
-        it('an error in an api displays an error', () => {
-            cy.visit('http://localhost:8080/?user=primoError');
-            cy.viewport(1300, 1000);
-            cy.get('search-portal')
-                .shadow()
-                .within(() => {
-                    cy.get('[data-testid="primo-search-select"]').click();
-                    cy.get('button[data-testid="primo-search-item-1"]').click();
-                    cy.get('input[data-testid="primo-search-autocomplete-input"]').type('PHIL', { force: true });
-                });
-
-            cy.wait(500);
-            cy.get('[data-testid="api-error"]').should('be.visible');
-            cy.wait(2000);
-            cy.get('[data-testid="api-error"]').should('not.be.visible');
-
-            cy.visit('http://localhost:8080/?user=examError');
-            cy.viewport(1300, 1000);
-            cy.get('search-portal')
-                .shadow()
-                .within(() => {
-                    cy.get('[data-testid="primo-search-select"]').click();
-                    cy.get('button[data-testid="primo-search-item-7"]').click();
-                    cy.get('input[data-testid="primo-search-autocomplete-input"]').type('PHIL', { force: true });
-                });
-            cy.wait(500);
-            cy.get('[data-testid="api-error"]').should('be.visible');
-            cy.wait(2000);
-            cy.get('[data-testid="api-error"]').should('not.be.visible');
-
-            cy.visit('http://localhost:8080/?user=lrError');
-            cy.viewport(1300, 1000);
-            cy.get('search-portal')
-                .shadow()
-                .within(() => {
-                    cy.get('[data-testid="primo-search-select"]').click();
-                    cy.get('button[data-testid="primo-search-item-8"]').click();
-                    cy.get('input[data-testid="primo-search-autocomplete-input"]').type('PHIL', { force: true });
-                });
-            cy.wait(500);
-            cy.get('[data-testid="api-error"]').should('be.visible');
-            cy.wait(2000);
-            cy.get('[data-testid="api-error"]').should('not.be.visible');
-        });
-    });
-
-    context('Mobile view', () => {
         it('the mobile view shows the results list properly', () => {
             cy.visit('http://localhost:8080/');
             cy.viewport(320, 480);
