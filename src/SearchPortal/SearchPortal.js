@@ -116,7 +116,7 @@ class SearchPortal extends HTMLElement {
         this.getOpeningSearchType = this.getOpeningSearchType.bind(this);
         this.isPortalTypeDropDownOpen = this.isPortalTypeDropDownOpen.bind(this);
         // this.listenForKeyboardSelectionOfSearchTypeSelector = this.listenForKeyboardSelectionOfSearchTypeSelector.bind(this);
-        this.listenForKeyClicks = this.listenForKeyClicks.bind(this);
+        // this.listenForKeyClicks = this.listenForKeyClicks.bind(this);
         this.listenForMouseClicks = this.listenForMouseClicks.bind(this);
         this.sendSubmitToGTM = this.sendSubmitToGTM.bind(this);
         this.setSearchTypeButton = this.setSearchTypeButton.bind(this);
@@ -179,10 +179,10 @@ class SearchPortal extends HTMLElement {
 
         // look for clicks outside the page because this dropdown should close when that happens
         document.addEventListener('click', this.listenForMouseClicks);
-        document.addEventListener('keydown', this.listenForKeyClicks);
+        // document.addEventListener('keydown', this.listenForKeyClicks);
         console.log('added listenForSuggestionListClick');
 
-        /* istanbul ignore else  */
+        /* istanbul ignore else */
         if (!!suggestionListSibling && !!suggestions && suggestions.length > 0) {
             const inputFieldParent = !!shadowDOM && shadowDOM.getElementById('inputFieldParent');
             !!inputFieldParent && inputFieldParent.setAttribute('aria-expanded', 'true');
@@ -214,7 +214,7 @@ class SearchPortal extends HTMLElement {
             suggestions.forEach((suggestion, index) => {
                 const suggestiondisplay = document.createElement('li');
 
-                /* istanbul ignore else  */
+                /* istanbul ignore else */
                 if (!!suggestiondisplay && !!suggestion.text && !!suggestion[urlsource]) {
                     const text = document.createTextNode(suggestion.text);
 
@@ -267,7 +267,7 @@ class SearchPortal extends HTMLElement {
                                         !!shadowDOM && shadowDOM.getElementById(`suggestion-link-${prevId}`);
                                     !!prevElement && prevElement.focus();
                                 }
-                            } else if (isEscapeKeyPressed(e)) {
+                            } /* istanbul ignore else */ else if (isEscapeKeyPressed(e)) {
                                 const inputField = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
                                 !!inputField && (inputField.value = '');
                                 !!inputField && inputField.focus();
@@ -321,14 +321,14 @@ class SearchPortal extends HTMLElement {
                             index === suggestions.length - 1 && that.clearSearchResults(shadowDOM);
                             const clearButton = !!shadowDOM && shadowDOM.getElementById('clear-search-term');
                             !!clearButton && clearButton.focus();
-                        } else if (isEscapeKeyPressed(e)) {
-                            const inputField = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
-                            !!inputField && inputField.focus();
-                            // if we immediately clear, then the list just reopens, so wait a moment
-                            const waitAMoment = setInterval(() => {
-                                clearInterval(waitAMoment);
-                                that.clearSearchResults(shadowDOM);
-                            }, 200);
+                            // } else if (isEscapeKeyPressed(e)) {
+                            //     const inputField = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
+                            //     !!inputField && inputField.focus();
+                            //     // if we immediately clear, then the list just reopens, so wait a moment
+                            //     const waitAMoment = setInterval(() => {
+                            //         clearInterval(waitAMoment);
+                            //         that.clearSearchResults(shadowDOM);
+                            //     }, 200);
                         }
                     });
 
@@ -376,6 +376,8 @@ class SearchPortal extends HTMLElement {
 
         function submitHandler() {
             return function (e) {
+                /* istanbul ignore else */
+
                 if (!!e) {
                     e.preventDefault();
                 }
@@ -386,13 +388,14 @@ class SearchPortal extends HTMLElement {
                 const formData = !!e && !!e.target && new FormData(e.target);
                 const formObject = !!formData && Object.fromEntries(formData);
 
+                /* istanbul ignore else */
                 if (!!formObject.currentInputfield) {
                     that.sendSubmitToGTM();
 
                     const matches = searchPortalLocale.typeSelect.items.filter((element) => {
                         return element.selectId === formObject.portaltype;
                     });
-                    const searchType = matches.length > 0 ? matches[0] : false;
+                    const searchType = matches.length > 0 ? matches[0] : /* istanbul ignore next */ false;
                     const keyword = formObject.currentInputfield;
                     const link =
                         !!searchType &&
@@ -430,6 +433,7 @@ class SearchPortal extends HTMLElement {
             inputField.addEventListener('keyup', function (e) {
                 that.getSuggestions(shadowDOM);
             });
+        /* istanbul ignore next */
         !!inputField &&
             inputField.addEventListener('onpaste', function (e) {
                 /* istanbul ignore next */
@@ -446,11 +450,8 @@ class SearchPortal extends HTMLElement {
             searchPortalSelector.addEventListener('click', function (e) {
                 console.log('searchPortalSelector click');
                 that.showHidePortalTypeDropdown(shadowDOM);
-                if (!that.isPortalTypeDropDownOpen(shadowDOM)) {
-                    console.log('drop down has been closed');
-                    // that.clearSearchResults(shadowDOM);
-                    // that.getSuggestions(shadowDOM);
-                } else {
+                /* istanbul ignore else */
+                if (!!that.isPortalTypeDropDownOpen(shadowDOM)) {
                     console.log('drop down has been opened');
                     that.clearSearchResults(shadowDOM);
                 }
@@ -615,7 +616,7 @@ class SearchPortal extends HTMLElement {
 
             console.log('removeEventListener THREE');
             document.removeEventListener('click', that.listenForMouseClicks);
-            document.removeEventListener('keydown', this.listenForKeyClicks);
+            // document.removeEventListener('keydown', this.listenForKeyClicks);
             console.log('1 SuggestionLink removed listenForSuggestionListClick'); // if this doesnt happen then the removal failed
             return;
             //
@@ -653,12 +654,12 @@ class SearchPortal extends HTMLElement {
             console.log('XXXX store search type as ', searchType.value);
             that.rememberSearchTypeChoice(searchType.value);
 
-            if (that.isSuggestionListOpen(shadowDOM)) {
-                console.log('removeEventListener ONE');
-                document.removeEventListener('click', that.listenForMouseClicks);
-                document.removeEventListener('keydown', this.listenForKeyClicks);
-                console.log('SearchType removed listenForMouseClicks'); // if this doesnt happen then the removal failed}
-            }
+            // if (that.isSuggestionListOpen(shadowDOM)) {
+            //     console.log('removeEventListener ONE');
+            //     document.removeEventListener('click', that.listenForMouseClicks);
+            //     document.removeEventListener('keydown', this.listenForKeyClicks);
+            //     console.log('SearchType removed listenForMouseClicks'); // if this doesnt happen then the removal failed}
+            // }
 
             return;
         }
@@ -673,43 +674,44 @@ class SearchPortal extends HTMLElement {
         that.clearSearchResults(shadowDOM);
 
         // dropdowns closed so remove listener
-        if (that.isSuggestionListOpen(shadowDOM)) {
-            console.log('removeEventListener TWO');
-            document.removeEventListener('click', that.listenForMouseClicks);
-            document.removeEventListener('keydown', this.listenForKeyClicks);
-            console.log('2 SuggestionLink removed listenForMouseClicks'); // if this doesnt happen then the removal failed
-        }
+        // if (that.isSuggestionListOpen(shadowDOM)) {
+        console.log('removeEventListener TWO');
+        document.removeEventListener('click', that.listenForMouseClicks);
+        // document.removeEventListener('keydown', this.listenForKeyClicks);
+        console.log('2 SuggestionLink removed listenForMouseClicks'); // if this doesnt happen then the removal failed
+        // }
     }
 
-    listenForKeyClicks(e) {
-        const shadowDOM = document.querySelector('search-portal').shadowRoot;
-        if (this.isPortalTypeDropDownOpen(shadowDOM)) {
-            const inputField = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
-            if (isReturnKeyPressed(e)) {
-                console.log('focus event FIVE');
-                const portalTypeCurrentSave = !!shadowDOM && shadowDOM.getElementById('search-type-current-value');
-                !!inputField && inputField.focus();
-            } else if (isEscapeKeyPressed(e)) {
-                const portalTypeDropdown = shadowDOM.getElementById('portal-type-selector');
-                this.closeSearchTypeSelector(portalTypeDropdown, 'portalTypeSelectorDisplayed');
-                !!inputField && inputField.focus();
-                document.removeEventListener('click', this.listenForMouseClicks);
-                document.removeEventListener('keydown', this.listenForKeyClicks);
-                console.log('3 SuggestionLink removed listenForMouseClicks'); // if this doesnt happen then the removal failed
+    // listenForKeyClicks(e) {
+    //     console.log('listenForKeyClicks');
+    //     const shadowDOM = document.querySelector('search-portal').shadowRoot;
+    //     if (this.isPortalTypeDropDownOpen(shadowDOM)) {
+    //         const inputField = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
+    //         if (isReturnKeyPressed(e)) {
+    //             console.log('focus event FIVE');
+    //             const portalTypeCurrentSave = !!shadowDOM && shadowDOM.getElementById('search-type-current-value');
+    //             !!inputField && inputField.focus();
+    //         } else if (isEscapeKeyPressed(e)) {
+    //             const portalTypeDropdown = shadowDOM.getElementById('portal-type-selector');
+    //             this.closeSearchTypeSelector(portalTypeDropdown, 'portalTypeSelectorDisplayed');
+    //             !!inputField && inputField.focus();
+    //             document.removeEventListener('click', this.listenForMouseClicks);
+    //             document.removeEventListener('keydown', this.listenForKeyClicks);
+    //             console.log('3 SuggestionLink removed listenForMouseClicks'); // if this doesnt happen then the removal failed
+    //
+    //             const inputFieldParent = !!shadowDOM && shadowDOM.getElementById('inputFieldParent');
+    //             !!inputFieldParent && inputFieldParent.setAttribute('aria-expanded', 'true');
+    //         } else {
+    //             console.log('other key listenForKeyClicks');
+    //         }
+    //     }
+    // }
 
-                const inputFieldParent = !!shadowDOM && shadowDOM.getElementById('inputFieldParent');
-                !!inputFieldParent && inputFieldParent.setAttribute('aria-expanded', 'true');
-            } else {
-                console.log('other key listenForKeyClicks');
-            }
-        }
-    }
-
-    isSuggestionListOpen(shadowDOM) {
-        const searchResults = !!shadowDOM && shadowDOM.getElementById('search-portal-autocomplete-listbox');
-        console.log('isSuggestionListOpen? ', !!searchResults);
-        return !!searchResults;
-    }
+    // isSuggestionListOpen(shadowDOM) {
+    //     const searchResults = !!shadowDOM && shadowDOM.getElementById('search-portal-autocomplete-listbox');
+    //     console.log('isSuggestionListOpen? ', !!searchResults);
+    //     return !!searchResults;
+    // }
 
     getOpeningSearchType() {
         if (cookieNotFound(REMEMBER_COOKIE_ID)) {
@@ -760,7 +762,7 @@ class SearchPortal extends HTMLElement {
             document.addEventListener('click', this.listenForMouseClicks);
             console.log('added listenForSearchTypeClick');
 
-            document.addEventListener('keydown', this.listenForKeyClicks);
+            // document.addEventListener('keydown', this.listenForKeyClicks);
         }
     }
 
@@ -872,7 +874,7 @@ class SearchPortal extends HTMLElement {
             const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
             // Odd. Windows wants search-portal-type-select-item but OSX wants portalTypeSelectionEntry
             const currentIdRaw = eventTargetId.startsWith('portalTypeSelectionEntry-')
-                ? eventTargetId.replace('portalTypeSelectionEntry-', '')
+                ? /* istanbul ignore next */ eventTargetId.replace('portalTypeSelectionEntry-', '')
                 : !!eventTargetId && eventTargetId.replace('search-portal-type-select-item-', '');
             const currentId = !!currentIdRaw && parseInt(currentIdRaw, 10);
             if (isReturnKeyPressed(e)) {
@@ -883,8 +885,9 @@ class SearchPortal extends HTMLElement {
                 const nextElement =
                     !!shadowDOM && shadowDOM.getElementById(`search-portal-type-select-item-${currentId + 1}`);
                 !!nextElement && nextElement.focus();
-            } else if (isArrowUpKeyPressed(e)) {
+            } /* istanbul ignore else */ else if (isArrowUpKeyPressed(e)) {
                 e.preventDefault();
+                /* istanbul ignore else */
                 if (currentIdRaw !== '0') {
                     const prevElement =
                         !!shadowDOM && shadowDOM.getElementById(`search-portal-type-select-item-${currentId - 1}`);
@@ -926,26 +929,26 @@ class SearchPortal extends HTMLElement {
     //     }
     // }
 
-    getIdOfFocussedSearchTypeSelector() {
-        const shadowDOM = document.querySelector('search-portal').shadowRoot;
-        const portalTypeContainer = !!shadowDOM && shadowDOM.getElementById('portaltype-dropdown');
-        console.log('portalTypeContainer = ', portalTypeContainer);
-        let classname = portalTypeContainer.className.match(/label-(.*)/);
-        !!classname && classname.length > 0 && (classname = classname[0]);
-        console.log('classname = ', classname);
-        let classnameid = !!classname && classname.match('label-(.*)-button');
-        !!classnameid && classnameid.length > 1 && (classnameid = classnameid[1]);
-        console.log('classnameid = ', classnameid);
-        return !!classnameid && `search-portal-type-select-item-${classnameid}`;
-        // const dropdownId =
-        //     !!classnameid &&
-        //     !!shadowDOM &&
-        //     shadowDOM.getElementById(`search-portal-type-select-item-${classnameid}`);
-        // console.log('dropdownId = ', dropdownId);
-        // !!dropdownId && dropdownId.addEventListener('blur', function(e) {
-        //     console.log('dropdownId blur event on ', e);
-        // });
-    }
+    // getIdOfFocussedSearchTypeSelector() {
+    //     const shadowDOM = document.querySelector('search-portal').shadowRoot;
+    //     const portalTypeContainer = !!shadowDOM && shadowDOM.getElementById('portaltype-dropdown');
+    //     console.log('portalTypeContainer = ', portalTypeContainer);
+    //     let classname = portalTypeContainer.className.match(/label-(.*)/);
+    //     !!classname && classname.length > 0 && (classname = classname[0]);
+    //     console.log('classname = ', classname);
+    //     let classnameid = !!classname && classname.match('label-(.*)-button');
+    //     !!classnameid && classnameid.length > 1 && (classnameid = classnameid[1]);
+    //     console.log('classnameid = ', classnameid);
+    //     return !!classnameid && `search-portal-type-select-item-${classnameid}`;
+    //     // const dropdownId =
+    //     //     !!classnameid &&
+    //     //     !!shadowDOM &&
+    //     //     shadowDOM.getElementById(`search-portal-type-select-item-${classnameid}`);
+    //     // console.log('dropdownId = ', dropdownId);
+    //     // !!dropdownId && dropdownId.addEventListener('blur', function(e) {
+    //     //     console.log('dropdownId blur event on ', e);
+    //     // });
+    // }
 
     setSearchTypeButton(shadowDOM, searchType) {
         const portalTypeContainer = !!shadowDOM && shadowDOM.getElementById('portaltype-dropdown');

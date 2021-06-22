@@ -2,6 +2,7 @@ import { searchPortalLocale } from '../../src/SearchPortal/searchPortal.locale';
 
 const DOWN_ARROW_KEYCODE = 40;
 const ESCAPE_KEYCODE = 27;
+const RETURN_KEYCODE = 13;
 const TAB_KEYCODE = 9;
 const UP_ARROW_KEYCODE = 38;
 
@@ -71,9 +72,46 @@ describe('Search Portal', () => {
                     cy.get('input[data-testid="primo-search-autocomplete-input"]').type('beard', { force: true });
                     cy.get('[data-testid="suggestion-link-0"]').focus().trigger('keydown', { keyCode: ESCAPE_KEYCODE });
                     cy.get('ul[data-testid="primo-search-autocomplete-listbox"]').should('not.exist');
+                    cy.get('input[data-testid="primo-search-autocomplete-input"]').should('have.value', '');
                 });
             cy.get('body').contains('Lorem'); // dummy test - sometimes cypress seems to return true on a test even though it actually fails if there is no test after it :(
         });
+
+        // fails with error
+        // "cy.type() failed because it requires a valid typeable element."
+        // specifying the anchor link must be an... anchor link... hmm...
+        // it('the user can use the keyboard to navigate to a suggestion link', () => {
+        //     cy.viewport(1300, 1000);
+        //     cy.intercept(
+        //         'GET',
+        //         'https://search.library.uq.edu.au/primo-explore/search?query=any,contains,beards%20massage&tab=61uq_all&search_scope=61UQ_All&sortby=rank&vid=61UQ&offset=0&facet=rtype,exclude,newspaper_articles,lk&facet=rtype,exclude,reviews,lk',
+        //         {
+        //             statusCode: 200,
+        //             body: 'user is on a Primo result page',
+        //         },
+        //     );
+        //     cy.get('search-portal')
+        //         .shadow()
+        //         .within(() => {
+        //             // the enter key will navigate to the suggestion link
+        //             cy.get('button[data-testid="primo-search-autocomplete-voice-clear"]').click();
+        //             cy.get('input[data-testid="primo-search-autocomplete-input"]').type('beard', { force: true });
+        //             cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
+        //                 .find('li')
+        //                 .its('length')
+        //                 .should('eq', 10);
+        //
+        //             cy.get('[data-testid="suggestion-link-2"]')
+        //                 .should('have.attr', 'href')
+        //                 .and('match', /facet=rtype,exclude,newspaper_articles,lk&facet=rtype,exclude,reviews,lk/)
+        //                 .and('match', /query=any,contains,beards%20massage/);
+        //             cy.get('[data-testid="suggestion-link-2"]')
+        //                 .type('{enter}')
+        //                 // .trigger('keydown', { keyCode: RETURN_KEYCODE })
+        //             ;
+        //         });
+        //         cy.get('body').contains('user is on a Primo result page');
+        // });
 
         it('the user can use the keyboard to navigate the search type dropdown', () => {
             cy.viewport(1300, 1000);
@@ -94,17 +132,61 @@ describe('Search Portal', () => {
                     });
                     cy.get('[data-testid="primo-search-item-3"]').should('have.focus');
 
-                    cy.log('tab from final item goes to next field');
-                    cy.get('[data-testid="primo-search-item-8"]')
-                        .focus()
-                        .trigger('keydown', {
-                            keyCode: TAB_KEYCODE,
-                        })
-                        .then(() => {
-                            cy.get('[data-testid="primo-search-autocomplete-input"]').should('have.focus');
-                        });
+                    // cy.log('tab from final item goes to next field');
+                    // cy.get('[data-testid="primo-search-item-8"]')
+                    //     .focus()
+                    //     .trigger('keydown', {
+                    //         keyCode: TAB_KEYCODE,
+                    //     })
+                    //     .then(() => {
+                    //         cy.get('[data-testid="primo-search-autocomplete-input"]').should('have.focus');
+                    //     });
+
+                    // the user types a search on 'Library'
+                    cy.log('the user can change search types and resue their current query');
+                    cy.get('input[data-testid="primo-search-autocomplete-input"]').type('beard', { force: true });
+                    cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
+                        .find('li')
+                        .its('length')
+                        .should('eq', 10);
+                    cy.get('[data-testid="suggestion-link-0"]')
+                        .should('have.attr', 'href')
+                        .and('match', /facet=rtype,exclude,newspaper_articles,lk&facet=rtype,exclude,reviews,lk/);
+
+                    // while the search results are still open, the user changes search type
+                    cy.get('[data-testid="primo-search-select"]').click(); // drop down opens
+                    // choose a different search type
+                    cy.get('button[data-testid="primo-search-item-3"]').focus().trigger('keydown', {
+                        keyCode: RETURN_KEYCODE,
+                    });
+                    // and the search suggestions should update without further user action to the new search results
+                    cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
+                        .find('li')
+                        .its('length')
+                        .should('eq', 10);
+                    cy.get('[data-testid="suggestion-link-0"]')
+                        .should('have.attr', 'href')
+                        .and('match', /rtype,include,audios/);
                 });
             cy.get('body').contains('Lorem'); // dummy test - sometimes cypress seems to return true on a test even though it actually fails if there is no test after it :(
+        });
+
+        it('the user can use the keyboard to control the input text field', () => {
+            cy.viewport(1300, 1000);
+            cy.get('search-portal')
+                .shadow()
+                .within(() => {
+                    cy.get('input[data-testid="primo-search-autocomplete-input"]').type('beard', { force: true });
+                    cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
+                        .find('li')
+                        .its('length')
+                        .should('eq', 10);
+                    cy.get('[data-testid="primo-search-autocomplete-input"]')
+                        .focus()
+                        .trigger('keydown', { keyCode: ESCAPE_KEYCODE });
+                    cy.get('ul[data-testid="primo-search-autocomplete-listbox"]').should('not.exist');
+                    cy.get('input[data-testid="primo-search-autocomplete-input"]').should('have.value', '');
+                });
         });
 
         it('the search dropdown has the expected children', () => {
@@ -576,6 +658,26 @@ describe('Search Portal', () => {
             cy.get('[data-testid="api-error"]').should('be.visible');
             cy.wait(2000);
             cy.get('[data-testid="api-error"]').should('not.be.visible');
+        });
+    });
+
+    context('Mobile view', () => {
+        it('the mobile view shows the results list properly', () => {
+            cy.visit('http://localhost:8080/');
+            cy.viewport(320, 480);
+            cy.get('search-portal')
+                .shadow()
+                .within(() => {
+                    cy.get('input[data-testid="primo-search-autocomplete-input"]')
+                        .focus()
+                        .type('beard', { force: true });
+                    cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
+                        .find('li')
+                        .should('be.visible')
+                        .its('length')
+                        .should('eq', 10);
+                });
+            cy.get('body').contains('Lorem'); // dummy test - sometimes cypress seems to return true on a test even though it actually fails if there is no test after it :(
         });
     });
 });
