@@ -176,6 +176,7 @@ class TrainingDetail extends HTMLElement {
     setEventName() {
         const eventNameData = this.data.name;
         const eventHeadingDom = this.shadowRoot.getElementById('eventHeading');
+        /* istanbul ignore else */
         if (!!eventNameData && !!eventHeadingDom) {
             const eventNameEl = document.createElement(this.itemTitleElement);
             eventNameEl.setAttribute('id', 'eventName');
