@@ -113,11 +113,11 @@ class TrainingFilter extends HTMLElement {
     attributeChangedCallback(name) {
         switch (name) {
             case 'campus-list':
-                this.loadCampuses(this.shadowRoot);
+                this.loadCampuses();
                 break;
             case 'week-start':
             case 'week-end':
-                this.loadWeeks(this.shadowRoot);
+                this.loadWeeks();
                 break;
             /* istanbul ignore next */
             default:
@@ -127,13 +127,12 @@ class TrainingFilter extends HTMLElement {
 
     /**
      * add listeners as required by the page
-     * @param shadowDOM
      */
-    addListeners(shadowDOM) {
+    addListeners() {
         const that = this;
 
-        const campuslist = !!shadowDOM && shadowDOM.getElementById('campuslist');
-        const weeklist = !!shadowDOM && shadowDOM.getElementById('weeklist');
+        const campuslist = that.shadowRoot.getElementById('campuslist');
+        const weeklist = that.shadowRoot.getElementById('weeklist');
 
         function toggleCampusSelector(e) {
             const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
@@ -145,7 +144,7 @@ class TrainingFilter extends HTMLElement {
         }
 
         function navigateToFirstCampusEntry() {
-            const nextElement = !!shadowDOM && shadowDOM.getElementById(`campus-select-0`);
+            const nextElement = that.shadowRoot.getElementById(`campus-select-0`);
             !!nextElement && nextElement.focus();
         }
 
@@ -162,18 +161,18 @@ class TrainingFilter extends HTMLElement {
             }
         }
 
-        const campushover = !!shadowDOM && shadowDOM.getElementById('campushover'); // for Windows
+        const campushover = that.shadowRoot.getElementById('campushover'); // for Windows
         !!campushover && campushover.addEventListener('click', toggleCampusSelector);
         !!campushover && campushover.addEventListener('keydown', handleCampusKeyDown);
 
         !!campuslist && campuslist.addEventListener('keydown', handleCampusKeyDown); // for Windows
 
-        const campusOpener = !!shadowDOM && shadowDOM.getElementById('campusOpener'); // for OSX
+        const campusOpener = that.shadowRoot.getElementById('campusOpener'); // for OSX
         !!campusOpener && campusOpener.addEventListener('click', toggleCampusSelector);
         !!campusOpener && campusOpener.addEventListener('keydown', handleCampusKeyDown);
 
         // allow the user to navigate the campus list with the arrow keys - Nick says its expected
-        const campusDropdown = !!shadowDOM && shadowDOM.getElementById('campusDropdown');
+        const campusDropdown = that.shadowRoot.getElementById('campusDropdown');
         campusDropdown.addEventListener('keydown', campusDropdownKeyDownListener());
 
         function campusDropdownKeyDownListener() {
@@ -185,7 +184,7 @@ class TrainingFilter extends HTMLElement {
                     const currentId = eventTargetId.replace('campus-select-', '');
                     const nextId = parseInt(currentId, 10) + 1;
 
-                    const nextElement = !!shadowDOM && shadowDOM.getElementById(`campus-select-${nextId}`);
+                    const nextElement = that.shadowRoot.getElementById(`campus-select-${nextId}`);
                     !!nextElement && nextElement.focus();
                 } else if (isArrowUpKeyPressed(e)) {
                     e.preventDefault();
@@ -193,7 +192,7 @@ class TrainingFilter extends HTMLElement {
                     const prevId = parseInt(currentId, 10) - 1;
                     const prevElementId =
                         (!!prevId || prevId === 0) && (currentId === '0' ? 'campusOpener' : `campus-select-${prevId}`);
-                    const prevElement = !!prevElementId && !!shadowDOM && shadowDOM.getElementById(prevElementId);
+                    const prevElement = !!prevElementId && that.shadowRoot.getElementById(prevElementId);
                     !!prevElement && prevElement.focus();
                 } /* istanbul ignore next */ else if (isTabKeyPressed(e)) {
                     // not tested - looks like cypress cant do the tab inside shadow dom
@@ -201,7 +200,7 @@ class TrainingFilter extends HTMLElement {
                     if (eventTargetId.startsWith('campus-select-')) {
                         const currentId = eventTargetId.replace('campus-select-', '');
                         const nextId = parseInt(currentId, 10) + 1;
-                        const nextElement = !!shadowDOM && shadowDOM.getElementById(`campus-select-${nextId}`);
+                        const nextElement = that.shadowRoot.getElementById(`campus-select-${nextId}`);
                         !nextElement && that.closeDropdown(campuslist);
                     }
                 }
@@ -216,7 +215,7 @@ class TrainingFilter extends HTMLElement {
         }
 
         function navigateToFirstWeekEntry() {
-            const nextElement = !!shadowDOM && shadowDOM.getElementById(`week-select-0`);
+            const nextElement = that.shadowRoot.getElementById(`week-select-0`);
             !!nextElement && nextElement.focus();
         }
 
@@ -230,16 +229,16 @@ class TrainingFilter extends HTMLElement {
             }
         }
 
-        const weekhover = !!shadowDOM && shadowDOM.getElementById('weekhover');
+        const weekhover = that.shadowRoot.getElementById('weekhover');
         !!weekhover && weekhover.addEventListener('click', toggleWeekSelector);
         !!weekhover && weekhover.addEventListener('keydown', handleWeekKeyDown);
 
-        const weekOpener = !!shadowDOM && shadowDOM.getElementById('weekOpener');
+        const weekOpener = that.shadowRoot.getElementById('weekOpener');
         !!weekOpener && weekOpener.addEventListener('click', toggleWeekSelector);
         !!weekOpener && weekOpener.addEventListener('keydown', handleWeekKeyDown);
 
         // allow the user to navigate the week list with the arrow keys - Nick says its expected
-        const weekDropdown = !!shadowDOM && shadowDOM.getElementById('weekDropdown');
+        const weekDropdown = that.shadowRoot.getElementById('weekDropdown');
         weekDropdown.addEventListener('keydown', function (e) {
             const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
             const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
@@ -250,7 +249,7 @@ class TrainingFilter extends HTMLElement {
                 /* istanbul ignore else */
                 if (currentId !== 'weekOpener') {
                     const nextId = parseInt(currentId, 10) + 1;
-                    nextElement = !!shadowDOM && shadowDOM.getElementById(`week-select-${nextId}`);
+                    nextElement = that.shadowRoot.getElementById(`week-select-${nextId}`);
                 }
                 !!nextElement && nextElement.focus();
             } else if (isArrowUpKeyPressed(e)) {
@@ -259,9 +258,9 @@ class TrainingFilter extends HTMLElement {
                 const prevId = parseInt(currentId, 10) - 1;
                 let prevElement;
                 if (currentId === '0') {
-                    prevElement = !!shadowDOM && shadowDOM.getElementById('weekOpener');
+                    prevElement = that.shadowRoot.getElementById('weekOpener');
                 } else {
-                    prevElement = !!shadowDOM && shadowDOM.getElementById(`week-select-${prevId}`);
+                    prevElement = that.shadowRoot.getElementById(`week-select-${prevId}`);
                 }
                 !!prevElement && prevElement.focus();
             } /* istanbul ignore next */ else if (isTabKeyPressed(e)) {
@@ -270,7 +269,7 @@ class TrainingFilter extends HTMLElement {
                 if (eventTargetId.startsWith('week-select-')) {
                     const currentId = eventTargetId.replace('week-select-', '');
                     const nextId = parseInt(currentId, 10) + 1;
-                    const nextElement = !!shadowDOM && shadowDOM.getElementById(`week-select-${nextId}`);
+                    const nextElement = that.shadowRoot.getElementById(`week-select-${nextId}`);
                     !nextElement && that.closeDropdown(weeklist);
                 }
             }
@@ -291,30 +290,29 @@ class TrainingFilter extends HTMLElement {
             if (isEscapeKeyPressed(e)) {
                 clearKeyword();
             }
-            const inputKeywordField = !!shadowDOM && shadowDOM.getElementById('inputKeyword');
+            const inputKeywordField = that.shadowRoot.getElementById('inputKeyword');
             !!inputKeywordField && (that.inputKeywordValue = inputKeywordField.value);
         }
 
-        const inputKeywordField = !!shadowDOM && shadowDOM.getElementById('inputKeyword');
+        const inputKeywordField = that.shadowRoot.getElementById('inputKeyword');
         !!inputKeywordField && inputKeywordField.addEventListener('keydown', noteKeywordChange);
         !!inputKeywordField && inputKeywordField.addEventListener('keyup', noteKeywordChange);
         !!inputKeywordField && inputKeywordField.addEventListener('blur', sendKeywordToGoogleAnalytics);
 
         function clearKeyword() {
-            const inputKeywordField = !!shadowDOM && shadowDOM.getElementById('inputKeyword');
+            const inputKeywordField = that.shadowRoot.getElementById('inputKeyword');
             !!inputKeywordField && (inputKeywordField.value = '');
             that.inputKeywordValue = '';
         }
 
-        const cancelclick = !!shadowDOM && shadowDOM.getElementById('clearKeyword');
+        const cancelclick = that.shadowRoot.getElementById('clearKeyword');
         !!cancelclick && cancelclick.addEventListener('click', clearKeyword);
     }
 
     /**
      * add the list of popular event chips
-     * @param shadowDOM
      */
-    loadPopularChips(shadowDOM) {
+    loadPopularChips() {
         const that = this;
         const chips = [
             {
@@ -340,13 +338,13 @@ class TrainingFilter extends HTMLElement {
         ];
 
         function setKeyword(searchTerm) {
-            const inputKeywordDom = shadowDOM.getElementById('inputKeyword');
+            const inputKeywordDom = that.shadowRoot.getElementById('inputKeyword');
             !!inputKeywordDom && (inputKeywordDom.value = searchTerm);
             !!inputKeywordDom && inputKeywordDom.focus();
             that.inputKeywordValue = searchTerm;
         }
 
-        const chipDom = shadowDOM.getElementById('quicklinks');
+        const chipDom = that.shadowRoot.getElementById('quicklinks');
         chips.forEach((chip) => {
             const chipButton = document.createElement('button');
             chipButton.className = 'chip uq-button';
@@ -363,9 +361,8 @@ class TrainingFilter extends HTMLElement {
 
     /**
      * load the list of weeks into the dropdown, add listeners, etc
-     * @param shadowDOM
      */
-    loadWeeks(shadowDOM) {
+    loadWeeks() {
         const that = this;
 
         const weekStart = this.getAttribute('week-start');
@@ -375,7 +372,7 @@ class TrainingFilter extends HTMLElement {
         }
 
         function selectWeek(weekName, weekStartDate) {
-            const weekHover = !!shadowDOM && shadowDOM.getElementById('weekhover');
+            const weekHover = that.shadowRoot.getElementById('weekhover');
             /* istanbul ignore else */
             if (!!weekHover && !weekHover.classList.contains('above')) {
                 const moveLabel = `${weekHover.className} above`;
@@ -384,15 +381,15 @@ class TrainingFilter extends HTMLElement {
             // there is no functionality to clear the selector fields
 
             // mark as selected so we can move the placeholder label
-            const weekDropdown = !!shadowDOM && shadowDOM.getElementById('weekDropdown');
+            const weekDropdown = that.shadowRoot.getElementById('weekDropdown');
             const newClassname = !!weekDropdown && `${weekDropdown.className} selected`;
             !!weekDropdown && (weekDropdown.className = newClassname);
 
-            const weeklist = !!shadowDOM && shadowDOM.getElementById('weeklist');
+            const weeklist = that.shadowRoot.getElementById('weeklist');
             that.toggleDropdownVisibility(weeklist);
             that.selectedWeek = that.shortenDate(weekStartDate);
 
-            const weekOpenerButton = !!shadowDOM && shadowDOM.getElementById('weekOpener');
+            const weekOpenerButton = that.shadowRoot.getElementById('weekOpener');
             !!weekOpenerButton && (weekOpenerButton.innerHTML = weekName);
         }
 
@@ -430,7 +427,7 @@ class TrainingFilter extends HTMLElement {
 
         const weekStartProvided = this.getAttribute('week-start') || /* istanbul ignore next */ '';
 
-        const weeklistDom = shadowDOM.getElementById('weeklist');
+        const weeklistDom = that.shadowRoot.getElementById('weeklist');
         addWeekSelectorButton(allAvailableEntry, weeklistDom, 0);
 
         function formatDate(inputDate) {
@@ -463,9 +460,8 @@ class TrainingFilter extends HTMLElement {
 
     /**
      * load the list of campuses into the dropdown, add listeners, etc
-     * @param shadowDOM
      */
-    loadCampuses(shadowDOM) {
+    loadCampuses() {
         const that = this;
 
         const campuses = this.getAttribute('campus-list');
@@ -474,7 +470,7 @@ class TrainingFilter extends HTMLElement {
         }
 
         function selectCampus(campusName, campusCode) {
-            const campusHover = !!shadowDOM && shadowDOM.getElementById('campushover');
+            const campusHover = that.shadowRoot.getElementById('campushover');
             if (!!campusHover && !campusHover.classList.contains('above')) {
                 const moveLabel = `${campusHover.className} above`;
                 !!moveLabel && (campusHover.className = moveLabel);
@@ -482,16 +478,16 @@ class TrainingFilter extends HTMLElement {
             // there is no requirement to clear the selector fields
 
             // mark as selected so we can move the placeholder label
-            // const campusDropdown = !!shadowDOM && shadowDOM.getElementById('campusDropdown');
+            // const campusDropdown = that.shadowRoot.getElementById('campusDropdown');
             // const newClassname = !!campusDropdown && `${campusDropdown.className} selected`;
             // !!campusDropdown && (campusDropdown.className = newClassname);
 
-            const campuslist = !!shadowDOM && shadowDOM.getElementById('campuslist');
+            const campuslist = that.shadowRoot.getElementById('campuslist');
             that.toggleDropdownVisibility(campuslist);
 
             that.selectedCampus = campusCode;
 
-            const campusOpenerButton = !!shadowDOM && shadowDOM.getElementById('campusOpener');
+            const campusOpenerButton = that.shadowRoot.getElementById('campusOpener');
             !!campusOpenerButton && (campusOpenerButton.innerHTML = campusName);
         }
 
@@ -526,7 +522,7 @@ class TrainingFilter extends HTMLElement {
         const campusListProvided = this.getAttribute('campus-list') || /* istanbul ignore next */ '';
         const campusList = campusListProvided.split('|');
 
-        const campuslistDom = !!shadowDOM && shadowDOM.getElementById('campuslist');
+        const campuslistDom = that.shadowRoot.getElementById('campuslist');
         addCampusSelectorButton('All locations', 'all', 0);
 
         let index = 1; // 'all' button is '0'
@@ -603,14 +599,13 @@ class TrainingFilter extends HTMLElement {
                 .querySelector('library-training')
                 .shadowRoot.querySelector('training-filter') /* istanbul ignore next */ ||
             document.querySelector('training-filter');
-        const shadowDOM = !!trainingFilter && trainingFilter.shadowRoot;
         /* istanbul ignore else */
         if (isEscapeKeyPressed(e)) {
-            const campuslist = !!shadowDOM && shadowDOM.getElementById('campuslist');
+            const campuslist = that.shadowRoot.getElementById('campuslist');
             !!campuslist &&
                 !campuslist.classList.contains('hidden') &&
                 trainingFilter.toggleDropdownVisibility(campuslist);
-            const weeklist = !!shadowDOM && shadowDOM.getElementById('weeklist');
+            const weeklist = that.shadowRoot.getElementById('weeklist');
             !!weeklist && !weeklist.classList.contains('hidden') && trainingFilter.toggleDropdownVisibility(weeklist);
         }
     }
