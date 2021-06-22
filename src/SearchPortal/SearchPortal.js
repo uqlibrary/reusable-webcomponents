@@ -823,9 +823,8 @@ class SearchPortal extends HTMLElement {
         !!svg && !!path && svg.appendChild(path);
 
         const label = document.createElement('span');
-        const labelid = `portalTypeSelectionEntry-${index}`;
-        !!label && (label.id = labelid);
-        !!label && label.setAttribute('data-testid', labelid);
+        !!label && (label.id = `portalTypeSelectionEntry-${index}`);
+        !!label && label.setAttribute('data-testid', `search-type-selection-${index}`);
         label.innerHTML = entry.name;
 
         const button = document.createElement('button');

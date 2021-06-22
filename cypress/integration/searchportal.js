@@ -75,28 +75,34 @@ describe('Search Portal', () => {
             cy.get('body').contains('Lorem'); // dummy test - sometimes cypress seems to return true on a test even though it actually fails if there is no test after it :(
         });
 
-        it('the user can use the keyboard to navigate between selector type items', () => {
+        it('the user can use the keyboard to navigate the search type dropdown', () => {
             cy.viewport(1300, 1000);
             cy.get('search-portal')
                 .shadow()
                 .within(() => {
-                    cy.get('[data-testid="primo-search-select"]').click();
-                    cy.get('[data-testid="primo-search-item-1"]').trigger('keydown', {
+                    cy.get('[data-testid="primo-search-select"]').click(); // drop down opens
+
+                    cy.log('arrow down from item n goes to item n+1');
+                    cy.get('[data-testid="primo-search-item-1"]').focus().trigger('keydown', {
                         keyCode: DOWN_ARROW_KEYCODE,
                     });
                     cy.get('[data-testid="primo-search-item-2"]').should('have.focus');
 
-                    cy.log('start arrow up check');
-                    cy.get('[data-testid="portalTypeSelectionEntry-2"]').trigger('keydown', {
+                    cy.log('arrow up from item n goes to item n-1');
+                    cy.get('[data-testid="primo-search-item-4"]').focus().trigger('keydown', {
                         keyCode: UP_ARROW_KEYCODE,
                     });
-                    cy.get('[data-testid="primo-search-item-1"]').should('have.focus');
+                    cy.get('[data-testid="primo-search-item-3"]').should('have.focus');
 
-                    cy.log('start arrow up check');
-                    cy.get('[data-testid="portalTypeSelectionEntry-8"]').trigger('keydown', {
-                        keyCode: TAB_KEYCODE,
-                    });
-                    cy.get('[data-testid="primo-search-autocomplete-input"]').should('have.focus');
+                    cy.log('tab from final item goes to next field');
+                    cy.get('[data-testid="primo-search-item-8"]')
+                        .focus()
+                        .trigger('keydown', {
+                            keyCode: TAB_KEYCODE,
+                        })
+                        .then(() => {
+                            cy.get('[data-testid="primo-search-autocomplete-input"]').should('have.focus');
+                        });
                 });
             cy.get('body').contains('Lorem'); // dummy test - sometimes cypress seems to return true on a test even though it actually fails if there is no test after it :(
         });
