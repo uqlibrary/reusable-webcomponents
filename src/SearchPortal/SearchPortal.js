@@ -267,6 +267,11 @@ class SearchPortal extends HTMLElement {
                                         !!shadowDOM && shadowDOM.getElementById(`suggestion-link-${prevId}`);
                                     !!prevElement && prevElement.focus();
                                 }
+                            } else if (isEscapeKeyPressed(e)) {
+                                const inputField = !!shadowDOM && shadowDOM.getElementById('current-inputfield');
+                                !!inputField && (inputField.value = '');
+                                !!inputField && inputField.focus();
+                                that.clearSearchResults(shadowDOM);
                             } else if (isReturnKeyPressed(e)) {
                                 // dont prevent default
                             } else {

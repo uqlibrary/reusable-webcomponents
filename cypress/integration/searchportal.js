@@ -1,7 +1,10 @@
 import { searchPortalLocale } from '../../src/SearchPortal/searchPortal.locale';
 
 const DOWN_ARROW_KEYCODE = 40;
+const ESCAPE_KEYCODE = 27;
+const TAB_KEYCODE = 9;
 const UP_ARROW_KEYCODE = 38;
+
 describe('Search Portal', () => {
     /**
      * different search types have a different number of links in the footer area
@@ -16,7 +19,7 @@ describe('Search Portal', () => {
             cy.visit('/');
         });
 
-        it('the user can arrow between suggestion items', () => {
+        it('the user can use the keyboard to navigate between suggestion items', () => {
             cy.viewport(1300, 1000);
             cy.get('search-portal')
                 .shadow()
@@ -28,26 +31,51 @@ describe('Search Portal', () => {
                         .should('eq', 10);
 
                     // arrow down from the search text to the first suggestion
-                    cy.log('first arrow down from input field');
+                    cy.log('arrow down from input field');
+                    cy.log(
+                        'if this fails or stops here and you just saved the cypress file - try clicking the rerun button before you debug',
+                    );
                     cy.get('[data-testid="primo-search-autocomplete-input"]').trigger('keydown', {
                         keyCode: DOWN_ARROW_KEYCODE,
                     });
                     cy.get('[data-testid="suggestion-link-0"]').should('have.focus');
 
+                    // focus on suggestion N and arrow down, and focus should be on N+1
+                    cy.log('arrow up between suggestions');
+                    cy.get('[data-testid="suggestion-link-1"]')
+                        .focus()
+                        .trigger('keydown', { keyCode: DOWN_ARROW_KEYCODE });
+                    cy.get('[data-testid="suggestion-link-2"]').should('have.focus');
+
                     // focus on suggestion N and arrow up, and focus should be on N-1
                     cy.log('arrow up between suggestions');
-                    cy.get('[data-testid="suggestion-link-2"]').trigger('keydown', { keyCode: UP_ARROW_KEYCODE });
-                    cy.get('[data-testid="suggestion-link-1"]').should('have.focus');
+                    cy.get('[data-testid="suggestion-link-6"]')
+                        .focus()
+                        .trigger('keydown', { keyCode: UP_ARROW_KEYCODE });
+                    cy.get('[data-testid="suggestion-link-5"]').should('have.focus');
 
                     // focus on suggestion 1 and arrow up, and focus should be on the input field
                     cy.log('arrow up from first suggestion yo input field');
-                    cy.get('[data-testid="suggestion-link-0"]').trigger('keydown', { keyCode: UP_ARROW_KEYCODE });
+                    cy.get('[data-testid="suggestion-link-0"]')
+                        .focus()
+                        .trigger('keydown', { keyCode: UP_ARROW_KEYCODE });
                     cy.get('[data-testid="primo-search-autocomplete-input"]').should('have.focus');
+
+                    // focus on last suggestion and tab and focus should be on the cancel button
+                    cy.log('tab from last suggestion to clear button');
+                    cy.get('[data-testid="suggestion-link-9"]').focus().trigger('keydown', { keyCode: TAB_KEYCODE });
+                    cy.get('[data-testid="primo-search-autocomplete-voice-clear"]').should('have.focus');
+
+                    cy.log('focus on a suggestion and hit escape and suggestions are cleared');
+                    cy.get('button[data-testid="primo-search-autocomplete-voice-clear"]').click();
+                    cy.get('input[data-testid="primo-search-autocomplete-input"]').type('beard', { force: true });
+                    cy.get('[data-testid="suggestion-link-0"]').focus().trigger('keydown', { keyCode: ESCAPE_KEYCODE });
+                    cy.get('ul[data-testid="primo-search-autocomplete-listbox"]').should('not.exist');
                 });
             cy.get('body').contains('Lorem'); // dummy test - sometimes cypress seems to return true on a test even though it actually fails if there is no test after it :(
         });
 
-        it('the user can arrow between selector type items', () => {
+        it('the user can use the keyboard to navigate between selector type items', () => {
             cy.viewport(1300, 1000);
             cy.get('search-portal')
                 .shadow()
@@ -63,6 +91,12 @@ describe('Search Portal', () => {
                         keyCode: UP_ARROW_KEYCODE,
                     });
                     cy.get('[data-testid="primo-search-item-1"]').should('have.focus');
+
+                    cy.log('start arrow up check');
+                    cy.get('[data-testid="portalTypeSelectionEntry-8"]').trigger('keydown', {
+                        keyCode: TAB_KEYCODE,
+                    });
+                    cy.get('[data-testid="primo-search-autocomplete-input"]').should('have.focus');
                 });
             cy.get('body').contains('Lorem'); // dummy test - sometimes cypress seems to return true on a test even though it actually fails if there is no test after it :(
         });
