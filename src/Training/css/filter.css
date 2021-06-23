@@ -72,7 +72,7 @@ button.campus {
     display: block;
     width: 10rem;
 }
-button.campus:focus, button.week:focus {
+.selectorlist button:focus {
     background-color: #4085C6; /* uqblue */
     color: #fff;
     outline: none;
