@@ -19,8 +19,10 @@ export function isTabKeyPressed(e) {
     return isKeyPressed(e, 'Tab', 9);
 }
 export function isBackTabKeyPressed(e) {
-    return isKeyPressed(e, 'Tab', 9) && !!e.shiftKey;
+    return isKeyPressed(e, 'Tab', 9) && /* istanbul ignore next */ !!e.shiftKey;
 }
+/* istanbul ignore next */
 export function isKeyPressedUnknown(e) {
+    // unused, mostly useful during dev
     return isKeyPressed(e, undefined, undefined);
 }
