@@ -169,14 +169,6 @@ button.chip {
     color: #51247a;
 }
 
-.listHolder label {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-
-    margin-bottom: 0;
-}
-
 .hovertext.above {
     font-size: 0.8rem;
     color: #51247a;
