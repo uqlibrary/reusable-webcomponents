@@ -246,7 +246,8 @@ class TrainingDetail extends HTMLElement {
 
         const registrationBlockForNonUQDom = this.shadowRoot.getElementById('registrationBlockForNonUQ');
 
-        const showRegistrationForNonUQ = !!userID && !!userName && userID.match(/^em/) !== null;
+        // shows for logged out people and em users
+        const showRegistrationForNonUQ = !userID || (!!userID && !!userName && userID.match(/^em/) !== null);
         if (!!registrationBlockForNonUQDom && !showRegistrationForNonUQ) {
             registrationBlockForNonUQDom.style.display = 'none';
             return;

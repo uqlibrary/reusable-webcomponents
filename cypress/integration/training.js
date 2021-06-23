@@ -647,7 +647,7 @@ describe('Training', () => {
                     cy.get('[data-testid="training-details-booking-text"]').contains(
                         'Class is full. Register for waitlist.',
                     );
-                    cy.get('[data-testid="training-details-registrationBlockForNonUQ"]').should('not.be.visible');
+                    cy.get('[data-testid="training-details-registrationBlockForNonUQ"]').should('be.visible');
                     cy.get('button[data-testid="training-details-book-training-button"]').should('exist').click();
                 });
 
