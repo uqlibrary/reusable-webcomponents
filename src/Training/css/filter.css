@@ -72,6 +72,11 @@ button.campus {
     display: block;
     width: 10rem;
 }
+button.campus:focus, button.week:focus {
+    background-color: #4085C6; /* uqblue */
+    color: #fff;
+    outline: none;
+}
 
 /* buttons that act to filter */
 .filterer {
