@@ -17,7 +17,7 @@ template.innerHTML = `
             <h3 tabindex="0" class="title-text paper-card">Filter events</h3>
         </div>
         <div class="uq-pane__content" data-testid="training-filter-container">
-            <div>
+            <div class="keywordcontainer">
                 <div class="keywordPlaceholderMovement">
                     <label aria-label="filter by keyword">
                         <input id="inputKeyword" data-testid="training-filter-keyword-entry" class="paper-input" autocomplete="off" placeholder=" " autocapitalize="none" autocorrect="off" aria-describedby="" aria-labelledby="keywordhover" tabindex="0">

@@ -24,7 +24,7 @@ h3.title-text {
     vertical-align: middle;
     fill: currentcolor;
     stroke: currentcolor;
-    width: 24px;
+    width: 26px;
     height: 24px;
     background-color: white;
     color: grey;
@@ -60,6 +60,9 @@ h3.title-text {
 .uq-pane__content > div {
     width: 31%;
     padding-top: 1.2rem;
+}
+.uq-pane__content > div.keywordcontainer {
+    width: 33%;
 }
 
 .hidden {
@@ -206,6 +209,9 @@ button.chip {
         width: 90%;
         padding-bottom: 1rem;
         height: 5rem; /* need to fix the height so the field doesnt shift as the label moves around */
+    }
+    .uq-pane__content > div.keywordcontainer {
+        width: 88%;
     }
 
     .hoverblock {
