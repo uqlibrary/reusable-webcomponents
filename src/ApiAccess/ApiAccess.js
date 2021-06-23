@@ -208,6 +208,30 @@ class ApiAccess {
             });
     }
 
+    async loadSecureCollectionCheck(path) {
+        return await this.fetchAPI(new ApiRoutes().SECURE_COLLECTION_CHECK_API({ path }).apiUrl)
+            .then((data) => {
+                return data;
+            })
+            .catch((error) => {
+                console.log('error loading Secure Collection Check ', error);
+                const msg = `error loading Secure Collection Check: ${error.message}`;
+                throw new Error(msg);
+            });
+    }
+
+    async loadSecureCollectionFile(path) {
+        return await this.fetchAPI(new ApiRoutes().SECURE_COLLECTION_FILE_API({ path }).apiUrl)
+            .then((data) => {
+                return data;
+            })
+            .catch((error) => {
+                console.log('error loading Secure Collection File ', error);
+                const msg = `error loading Secure Collection File: ${error.message}`;
+                throw new Error(msg);
+            });
+    }
+
     async fetchAPI(urlPath, headers, tokenRequired = false) {
         // this is a fail safe - account blocks it earlier and currently no other api calls do this */
         /* istanbul ignore next */
