@@ -209,6 +209,7 @@ class ApiAccess {
     }
 
     async loadSecureCollectionCheck(path) {
+        console.log('fetchiong: ', new ApiRoutes().SECURE_COLLECTION_CHECK_API({ path }).apiUrl);
         return await this.fetchAPI(new ApiRoutes().SECURE_COLLECTION_CHECK_API({ path }).apiUrl)
             .then((data) => {
                 return data;
@@ -379,6 +380,12 @@ class ApiAccess {
 
     fetchMock(url, options = null) {
         const response = new MockApi().mockfetch(url, options);
+        console.log('mock url = ', url);
+        console.log('mock response = ', response);
+        // if (url.startsWith('file/collection/')) {
+        //     // the secure collections give a different formatted response and handles its own errors
+        //     return response;
+        // } else
         if (!response.ok || !response.body) {
             const msg = `fetchMock: An error has occured in mock for ${url}: ${response.status}`;
             console.log(msg);
