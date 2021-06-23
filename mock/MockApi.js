@@ -156,6 +156,138 @@ class MockApi {
                             return this.response(200, learningResourceSuggestions, true);
                         }
 
+
+                    // secure collection checks
+
+                    // http://localhost:2020/collection?user=s1111111&collection=exams&file=phil1010.pdf
+                    case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'exams/phil1010.pdf' }).apiUrl:
+                        return [200, { response: 'Login required' }];
+
+                    case apiRoute.SECURE_COLLECTION_FILE_API({ path: 'exams/phil1010.pdf' }).apiUrl:
+                            return [
+                                200,
+                                {
+                                    url:
+                                        'https://files.library.uq.edu.au/secure/exams/phil1010.pdf?Expires=1621059344&Signature=long_string&Key-Pair-Id=APKAJNDQICYW445PEOSA',
+                                    displaypanel: 'redirect',
+                                },
+                            ];
+
+                    // http://localhost:2020/collection?user=s1111111&collection=collection&file=doesntExist
+                    case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'collection/doesntExist' }).apiUrl:
+                            return [200, { response: 'No such collection' }];
+                    case apiRoute.SECURE_COLLECTION_FILE_API({ path: 'collection/doesntExist' }).apiUrl:
+                            return [200, { response: 'No such collection' }];
+
+                    // http://localhost:2020/collection?user=s1111111&collection=unknown&file=unknown
+                    // https://files.library.uq.edu.au/testlogin/unknown/unknown
+                    case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'unknown/unknown' }).apiUrl:
+                            return [200, { response: 'No such collection' }];
+
+                    // https://files.library.uq.edu.au/unknown/unknown
+                    case apiRoute.SECURE_COLLECTION_FILE_API({ path: 'unknown/unknown' }).apiUrl:
+                            return [200, { response: 'No such collection' }];
+
+                    // http://localhost:2020/collection?user=s1111111&collection=exams&file=2018/Semester_Two_Final_Examinations__2018_PHIL2011_281.pdf
+                    // https://files.library.uq.edu.au/testlogin/exams/2018/Semester_Two_Final_Examinations__2018_PHIL2011_281.pdf
+                    case apiRoute.SECURE_COLLECTION_CHECK_API({
+                            path: 'exams/2018/Semester_Two_Final_Examinations__2018_PHIL2011_281.pdf',
+                        }).apiUrl:
+                            return [200, { response: 'Login required' }];
+
+                    // https://files.library.uq.edu.au/exams/2018/Semester_Two_Final_Examinations__2018_PHIL2011_281.pdf
+                    case apiRoute.SECURE_COLLECTION_FILE_API({ path: 'exams/2018/Semester_Two_Final_Examinations__2018_PHIL2011_281.pdf' })
+                                .apiUrl:
+                            return [
+                                200,
+                                {
+                                    url:
+                                        'https://files.library.uq.edu.au/secure/exams/2018/Semester_Two_Final_Examinations__2018_PHIL2011_281.pdf?Expires=1621059344&Signature=long_string&Key-Pair-Id=APKAJNDQICYW445PEOSA',
+                                    displaypanel: 'redirect',
+                                },
+                            ];
+
+                    // http://localhost:2020/collection?user=emcommunity&collection=exams&file=2018/Semester_Two_Final_Examinations__2018_PHIL2011_EMuser.pdf
+                    // https://files.library.uq.edu.au/testlogin/exams/2018/Semester_Two_Final_Examinations__2018_PHIL2011_EMuser.pdf
+                    case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'exams/2018/Semester_Two_Final_Examinations__2018_PHIL2011_EMuser.pdf' })
+                                .apiUrl:
+                            return [200, { response: 'Login required' }];
+
+                    // https://files.library.uq.edu.au/exams/2018/Semester_Two_Final_Examinations__2018_PHIL2011_EMuser.pdf
+                    case apiRoute.SECURE_COLLECTION_FILE_API({ path: 'exams/2018/Semester_Two_Final_Examinations__2018_PHIL2011_EMuser.pdf' })
+                                .apiUrl:
+                            return [200, { response: 'Invalid User' }];
+
+                    // https://files.library.uq.edu.au/coursebank/111111111111111.pdf
+                    // http://localhost:2020/collection?user=s1111111&collection=coursebank&file=111111111111111.pdf
+                    case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'coursebank/111111111111111.pdf' }).apiUrl:
+                            return [200, { response: 'Login required' }];
+                    case apiRoute.SECURE_COLLECTION_FILE_API({ path: 'coursebank/111111111111111.pdf' }).apiUrl:
+                            return [
+                                200,
+                                {
+                                    url:
+                                        'https://files.library.uq.edu.au/secure/coursebank/111111111111111.pdf?Expires=1621060025&Signature=longString&Key-Pair-Id=APKAJNDQICYW445PEOSA',
+                                    displaypanel: 'statutoryCopyright',
+                                    acknowledgementRequired: true,
+                                },
+                            ];
+
+                    // https://files.library.uq.edu.au/bomdata/abcdef.zip
+                    // http://localhost:2020/collection?user=s1111111&collection=bomdata&file=abcdef.zip
+                    case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'bomdata/abcdef.zip' }).apiUrl:
+                            return [200, { response: 'Login required' }];
+                    case apiRoute.SECURE_COLLECTION_FILE_API({ path: 'bomdata/abcdef.zip' }).apiUrl:
+                            return [
+                                200,
+                                {
+                                    url:
+                                        'https://files.library.uq.edu.au/secure/bomdata/abcdef.zip?Expires=1621060025&Signature=longString&Key-Pair-Id=APKAJNDQICYW445PEOSA',
+                                    displaypanel: 'commercialCopyright',
+                                    acknowledgementRequired: true,
+                                    hasList: true, // as yet unused
+                                },
+                            ];
+
+                    // (list of example Thomson papers at http://ezproxy.library.uq.edu.au/loggedin/UQ/resources/thomson_classic_legal.html )
+                    // https://files.library.uq.edu.au/thomson/classic_legal_texts/Thynne_Accountability_And_Control.pdf
+                    // http://localhost:2020/collection?user=s1111111&collection=thomson&file=classic_legal_texts/Thynne_Accountability_And_Control.pdf
+                    case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'thomson/classic_legal_texts/Thynne_Accountability_And_Control.pdf' })
+                                .apiUrl:
+                        return [200, { response: 'Login required' }];
+                    case apiRoute.SECURE_COLLECTION_FILE_API({ path: 'thomson/classic_legal_texts/Thynne_Accountability_And_Control.pdf' })
+                                .apiUrl:
+                        return [
+                            200,
+                            {
+                                url:
+                                    'https://files.library.uq.edu.au/secure/thomson/classic_legal_texts/Thynne_Accountability_And_Control.pdf?Expires=1621380128&Signature=longstring&Key-Pair-Id=APKAJNDQICYW445PEOSA',
+                                displaypanel: 'redirect',
+                                acknowledgementRequired: false,
+                                hasList: true, // as yet unused
+                            },
+                        ];
+
+                    // a link without a file extension
+                    case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'coursebank/2222222' }).apiUrl:
+                            return [200, { response: 'Login required' }];
+                    case apiRoute.SECURE_COLLECTION_FILE_API({ path: 'coursebank/2222222' }).apiUrl:
+                            return [
+                                200,
+                                {
+                                    url:
+                                        'https://files.library.uq.edu.au/secure/coursebank/2222222?Expires=1621060025&Signature=longString&Key-Pair-Id=APKAJNDQICYW445PEOSA',
+                                    displaypanel: 'statutoryCopyright',
+                                    acknowledgementRequired: true,
+                                },
+                            ];
+
+                    // http://localhost:2020/collection?user=s1111111&collection=api&file=fails
+                    case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'api/fails' }).apiUrl:
+                            return [500, {}];
+                    case apiRoute.SECURE_COLLECTION_FILE_API({ path: 'api/fails' }).apiUrl:
+                            return [500, {}];
+
                     /* istanbul ignore next  */
                     default:
                         console.log('url not mocked...', url);
