@@ -2,7 +2,7 @@ import MockApi from '../../mock/MockApi';
 import ApiRoutes from '../ApiRoutes';
 import { apiLocale as locale } from './ApiAccess.locale';
 import fetchJsonp from 'fetch-jsonp';
-import { getCookieValue } from '../helpers/cookie';
+import { clearCookie, getCookieValue } from '../helpers/cookie';
 
 let initCalled;
 
@@ -167,7 +167,7 @@ class ApiAccess {
         return await this.fetchAPI(new ApiRoutes().EXAMS_SUGGESTIONS_API(keyword).apiUrl)
             .then((data) => {
                 return data.map((item, index) => {
-                    const title = !!item.course_title ? ` (${item.course_title})` : '';
+                    const title = !!item.course_title ? ` (${item.course_title})` : /* istanbul ignore next */ '';
                     return {
                         text: `${item.name}${title}`,
                         courseid: item.name,
@@ -187,10 +187,10 @@ class ApiAccess {
             .then((data) => {
                 return data.map((item, index) => {
                     const specifier =
-                        (item.course_title ? `${item.course_title} | ` : '') +
-                        (item.campus ? `${item.campus} , ` : '') +
-                        (item.period ? item.period.toLowerCase() : '');
-                    const append = !!specifier ? ` ( ${specifier} )` : '';
+                        (item.course_title ? `${item.course_title} | ` : /* istanbul ignore next */ '') +
+                        (item.campus ? `${item.campus} , ` : /* istanbul ignore next */ '') +
+                        (item.period ? item.period.toLowerCase() : /* istanbul ignore next */ '');
+                    const append = !!specifier ? ` ( ${specifier} )` : /* istanbul ignore next */ '';
                     return {
                         ...item,
                         text: `${item.name}${append}`,
@@ -355,14 +355,14 @@ class ApiAccess {
     }
 }
 
-const throwFetchErrors = (response) => {
-    if (!response.ok) {
-        const status = response.status || 'status undefined';
-        const statusText = response.statusText || 'status message undefined';
-        console.log('throwing');
-        throw Error(`Error ${status} - ${statusText}`);
-    }
-    return response;
-};
+// const throwFetchErrors = (response) => {
+//     if (!response.ok) {
+//         const status = response.status || 'status undefined';
+//         const statusText = response.statusText || 'status message undefined';
+//         console.log('throwing');
+//         throw Error(`Error ${status} - ${statusText}`);
+//     }
+//     return response;
+// };
 
 export default ApiAccess;

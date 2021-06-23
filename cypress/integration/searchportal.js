@@ -566,6 +566,7 @@ describe('Search Portal', () => {
                     cy.get('[data-testid="portaltype-current-label"]').contains('Journal articles');
                 });
             // open a new window and the search type is saved
+            cy.visit('/');
             cy.viewport(1300, 1000);
             cy.get('search-portal')
                 .shadow()
@@ -627,8 +628,50 @@ describe('Search Portal', () => {
                         .should('be.visible')
                         .its('length')
                         .should('eq', 10);
+                    cy.get('[data-testid="search-portal-suggestion-parent"]').then((e) => {
+                        expect(e).to.have.css('left', '-160px');
+                    });
                 });
             cy.get('body').contains('Lorem'); // dummy test - sometimes cypress seems to return true on a test even though it actually fails if there is no test after it :(
+        });
+
+        it('if a suggestion api fails we just dont get a suggestion list', () => {
+            cy.visit('http://localhost:8080/?user=primoError');
+            cy.viewport(1300, 1000);
+            cy.get('search-portal')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="primo-search-select"]').click();
+                    cy.get('button[data-testid="primo-search-item-1"]').click();
+                    cy.get('input[data-testid="primo-search-autocomplete-input"]').type('PHIL', { force: true });
+                });
+
+            cy.wait(500);
+            cy.get('[data-testid="search-portal-suggestion-parent"]').should('not.exist');
+
+            cy.visit('http://localhost:8080/?user=examError');
+            cy.viewport(1300, 1000);
+            cy.get('search-portal')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="primo-search-select"]').click();
+                    cy.get('button[data-testid="primo-search-item-7"]').click();
+                    cy.get('input[data-testid="primo-search-autocomplete-input"]').type('PHIL', { force: true });
+                });
+            cy.wait(500);
+            cy.get('[data-testid="search-portal-suggestion-parent"]').should('not.exist');
+
+            cy.visit('http://localhost:8080/?user=lrError');
+            cy.viewport(1300, 1000);
+            cy.get('search-portal')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="primo-search-select"]').click();
+                    cy.get('button[data-testid="primo-search-item-8"]').click();
+                    cy.get('input[data-testid="primo-search-autocomplete-input"]').type('PHIL', { force: true });
+                });
+            cy.wait(500);
+            cy.get('[data-testid="search-portal-suggestion-parent"]').should('not.exist');
         });
     });
 });

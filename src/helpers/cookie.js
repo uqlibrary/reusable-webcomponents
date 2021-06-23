@@ -22,6 +22,8 @@ export function setCookie(cookieId, cookieValue, expiryDate) {
     document.cookie = cookieId + '=' + cookieValue + ';expires=' + expiryDate.toGMTString() + ';' + cookieDomain;
 }
 
+// not currently used but left here for completeness of "cookie functions"
+/* istanbul ignore next */
 export function clearCookie(cookieId) {
     const numHours = -24; // date in the past
     const expiryDate = new Date();
