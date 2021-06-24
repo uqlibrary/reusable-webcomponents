@@ -206,6 +206,8 @@ class ApiAccess {
     }
 
     async fetchAPI(urlPath, headers, tokenRequired = false) {
+        // this is a fail safe - account blocks it earlier and currently no other api calls do this */
+        /* istanbul ignore next */
         if (!!tokenRequired && (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)) {
             // no cookie so we wont bother asking for an api that cant be returned
             console.log('no cookie so we wont bother asking for an api that cant be returned');
@@ -324,20 +326,28 @@ class ApiAccess {
     }
 
     getSessionCookie() {
-        /* istanbul ignore else  */
-        if (this.isMock() && new MockApi().getUserParameter() !== 'public') {
+        /* istanbul ignore next */
+        if (!this.isMock()) {
+            return getCookieValue(locale.SESSION_COOKIE_NAME);
+        }
+        if (new MockApi().getUserParameter() !== 'public') {
             return locale.UQLID_COOKIE_MOCK;
         }
-        return getCookieValue(locale.SESSION_COOKIE_NAME);
+        return undefined;
     }
 
     getLibraryGroupCookie() {
         // I am guessing this field is used as a proxy for 'has a Library account, not just a general UQ login'
-        /* istanbul ignore else  */
-        if (this.isMock() && new MockApi().getUserParameter() !== 'public') {
+        /* istanbul ignore next */
+        if (!this.isMock()) {
+            return getCookieValue(locale.SESSION_USER_GROUP_COOKIE_NAME);
+        }
+        /* istanbul ignore else */
+        if (new MockApi().getUserParameter() !== 'public') {
             return locale.USERGROUP_COOKIE_MOCK;
         }
-        return getCookieValue(locale.SESSION_USER_GROUP_COOKIE_NAME);
+        /* istanbul ignore next */
+        return undefined;
     }
 
     fetchMock(url, options = null) {

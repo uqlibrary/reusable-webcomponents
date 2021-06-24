@@ -11,6 +11,7 @@ export function getCookieValue(name) {
             return !!pair[1] ? pair[1] : /* istanbul ignore next */ undefined;
         }
     }
+    /* istanbul ignore next */
     return undefined;
 }
 

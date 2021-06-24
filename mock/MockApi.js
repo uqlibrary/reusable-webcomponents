@@ -12,12 +12,15 @@ import trainingEvents from './data/training';
 
 class MockApi {
     constructor() {
-        // set session cookie in mock mode
-        Cookies.set(apilocale.SESSION_COOKIE_NAME, apilocale.UQLID_COOKIE_MOCK);
-        Cookies.set(apilocale.SESSION_USER_GROUP_COOKIE_NAME, apilocale.USERGROUP_COOKIE_MOCK);
-
         // Get user from query string
         const user = this.getUserParameter();
+
+        // set session cookie in mock mode
+        if (user !== 'public') {
+            Cookies.set(apilocale.SESSION_COOKIE_NAME, apilocale.UQLID_COOKIE_MOCK);
+            Cookies.set(apilocale.SESSION_USER_GROUP_COOKIE_NAME, apilocale.USERGROUP_COOKIE_MOCK);
+        }
+
         const chatStatusOffline = this.getChatStatusParameter() === "true";
         this.chatStatusOffline = chatStatusOffline || false;
 
@@ -36,6 +39,8 @@ class MockApi {
 
     getUserParameter() {
         const queryString = require('query-string');
+        // console.log('MockApi queryString = ', queryString);
+        // console.log('MockApi user = ', queryString.parse(location.search || location.hash.substring(location.hash.indexOf('?'))).user);
         return queryString.parse(location.search || location.hash.substring(location.hash.indexOf('?'))).user;
     }
 
@@ -69,7 +74,6 @@ class MockApi {
 
     mockfetch(url, options) {
         console.log('mockfetch url = ', url);
-        console.log('mockfetch options = ', options);
         this.url = url;
         const apiRoute = new ApiRoutes();
         const urlWithoutQueryString = url.split('?')[0];
