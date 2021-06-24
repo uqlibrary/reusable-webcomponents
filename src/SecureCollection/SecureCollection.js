@@ -6,7 +6,7 @@ import { default as menuLocale } from '../locale/menu';
 const fileExtensionElement = document.createElement('template');
 fileExtensionElement.innerHTML = `
 <p data-testid="fileExtension">
-    Save the file with a name ending in <b id="fileExtensionEmphasis"></b> so your system will know how to open
+    Save the file with a name ending in <b data-testid="secure-collection-file-extension" id="fileExtensionEmphasis"></b> so your system will know how to open
     it.
 </p>
 `;
@@ -24,7 +24,7 @@ circularProgressElement.innerHTML = `
 const template = document.createElement('template');
 template.innerHTML = `
     <style>${overrides.toString()}</style>
-    <div class="root MuiGrid-root MuiGrid-container" data-testid="StandardPage" id="StandardPage">
+    <div class="root MuiGrid-root MuiGrid-container" data-testid="secure-collection" id="StandardPage">
         <div class="secure-collection-container">
             <div class="MuiGrid-root jss163 MuiGrid-item MuiGrid-grid-xs-true"><h2
                     class="MuiTypography-root jss162 MuiTypography-h4 MuiTypography-colorPrimary"
@@ -37,7 +37,7 @@ template.innerHTML = `
                             <div class="MuiCardContent-root jss197" data-testid="standard-card-copyright-notice-content">
                                 <div class="MuiGrid-root MuiGrid-container">
                                     <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-auto"
-                                         style="width: 80px; margin-right: 20px; margin-bottom: 6px; opacity: 0.3;">
+                                        style="width: 80px; margin-right: 20px; margin-bottom: 6px; opacity: 0.3;">
                                     </div>
                                 </div>
                             </div>
@@ -214,7 +214,7 @@ class SecureCollection extends HTMLElement {
     under the Act.
 </p>
 <div id="download">
-    <a id="downloadLink" class="followLink" href="">
+    <a data-testid="secure-collection-commercial-copyright-download-link" id="downloadLink" class="followLink" href="">
         Acknowledge Copyright and Download
     </a>
 </div>
@@ -250,7 +250,7 @@ class SecureCollection extends HTMLElement {
     protection under the Act.
 </p>
 <div id="download">
-    <a id="downloadLink" class="followLink" href="">
+    <a id="downloadLink" data-testid="secure-collection-statutory-copyright-download-link" class="followLink" href="">
         Acknowledge Copyright and Download
     </a>
 </div>
@@ -358,8 +358,8 @@ class SecureCollection extends HTMLElement {
 `;
 
         const redirectLink = `${authLocale.AUTH_URL_LOGIN}?return=${window.btoa(window.location.href)}`;
-        console.log('displayLoginRequiredRedirectorPanel: I would redirect to ', redirectLink);
-        // window.location.assign(redirectLink);
+        // console.log('displayLoginRequiredRedirectorPanel: I would redirect to ', redirectLink);
+        window.location.assign(redirectLink);
 
         const anchor = loginRequiredRedirectorPanel.content.getElementById('redirector');
         anchor.href = redirectLink;
@@ -375,8 +375,8 @@ class SecureCollection extends HTMLElement {
 
     displayRedirectingPanel(redirectLink) {
         if (redirectLink !== null) {
-            console.log('displayRedirectingPanel: I would redirect to ', redirectLink);
-            // window.location.assign(redirectLink);
+            // console.log('displayRedirectingPanel: I would redirect to ', redirectLink);
+            window.location.assign(redirectLink);
         }
 
         const redirectorPanel = document.createElement('template');
