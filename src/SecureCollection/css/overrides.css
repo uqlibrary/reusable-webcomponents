@@ -83,7 +83,7 @@
 }
 .followLink {
     color: #fff;
-    border: 1px solid #0e62eb;
+    border: 1px solid #2377cb;
     margin: 0 auto;
     display: flex;
     padding: 0.7em 0.57em;
@@ -100,12 +100,12 @@
     outline-width: 0;
     text-transform: uppercase;
     justify-content: center;
-    background-color: #0e62eb;
+    background-color: #2377cb;
     transition-delay: 0s;
     font-variant-caps: normal;
 }
 .followLink:hover {
-    color: #0e62eb !important;
+    color: #2377cb !important;
     text-decoration: none;
     background-color: #fff;
 }

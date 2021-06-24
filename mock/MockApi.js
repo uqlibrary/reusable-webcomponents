@@ -171,7 +171,7 @@ class MockApi {
 
                     // secure collection checks
 
-                    // http://localhost:2020/collection?user=s1111111&collection=exams&file=phil1010.pdf
+                    // http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=exams&file=phil1010.pdf
                     case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'exams/phil1010.pdf' }).apiUrl:
                         return this.response(200, { response: 'Login required' });
 
@@ -185,13 +185,13 @@ class MockApi {
                                 },
                             );
 
-                    // http://localhost:2020/collection?user=s1111111&collection=collection&file=doesntExist
+                    // http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=collection&file=doesntExist
                     case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'collection/doesntExist' }).apiUrl:
                             return this.response(200, { response: 'No such collection' });
                     case apiRoute.SECURE_COLLECTION_FILE_API({ path: 'collection/doesntExist' }).apiUrl:
                             return this.response(200, { response: 'No such collection' });
 
-                    // http://localhost:2020/collection?user=s1111111&collection=unknown&file=unknown
+                    // http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=unknown&file=unknown
                     // https://files.library.uq.edu.au/testlogin/unknown/unknown
                     case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'unknown/unknown' }).apiUrl:
                             return this.response(200, { response: 'No such collection' });
@@ -200,7 +200,7 @@ class MockApi {
                     case apiRoute.SECURE_COLLECTION_FILE_API({ path: 'unknown/unknown' }).apiUrl:
                             return this.response(200, { response: 'No such collection' });
 
-                    // http://localhost:2020/collection?user=s1111111&collection=exams&file=2018/Semester_Two_Final_Examinations__2018_PHIL2011_281.pdf
+                    // http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=exams&file=2018/Semester_Two_Final_Examinations__2018_PHIL2011_281.pdf
                     // https://files.library.uq.edu.au/testlogin/exams/2018/Semester_Two_Final_Examinations__2018_PHIL2011_281.pdf
                     case apiRoute.SECURE_COLLECTION_CHECK_API({
                             path: 'exams/2018/Semester_Two_Final_Examinations__2018_PHIL2011_281.pdf',
@@ -219,19 +219,19 @@ class MockApi {
                                 },
                             );
 
-                    // http://localhost:2020/collection?user=emcommunity&collection=exams&file=2018/Semester_Two_Final_Examinations__2018_PHIL2011_EMuser.pdf
+                    // http://localhost:8080/src/applications/securecollection/demo.html?user=emcommunity&collection=exams&file=2018/Semester_Two_Final_Examinations__2018_PHIL2011_EMuser.pdf
                     // https://files.library.uq.edu.au/testlogin/exams/2018/Semester_Two_Final_Examinations__2018_PHIL2011_EMuser.pdf
                     case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'exams/2018/Semester_Two_Final_Examinations__2018_PHIL2011_EMuser.pdf' })
                                 .apiUrl:
-                            return this.response(200, { response: 'Login required' });
-
-                    // https://files.library.uq.edu.au/exams/2018/Semester_Two_Final_Examinations__2018_PHIL2011_EMuser.pdf
-                    case apiRoute.SECURE_COLLECTION_FILE_API({ path: 'exams/2018/Semester_Two_Final_Examinations__2018_PHIL2011_EMuser.pdf' })
-                                .apiUrl:
                             return this.response(200, { response: 'Invalid User' });
 
+                    // // https://files.library.uq.edu.au/exams/2018/Semester_Two_Final_Examinations__2018_PHIL2011_EMuser.pdf
+                    // case apiRoute.SECURE_COLLECTION_FILE_API({ path: 'exams/2018/Semester_Two_Final_Examinations__2018_PHIL2011_EMuser.pdf' })
+                    //             .apiUrl:
+                    //         return this.response(200, { response: 'Invalid User' });
+
+                    // http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=coursebank&file=111111111111111.pdf
                     // https://files.library.uq.edu.au/coursebank/111111111111111.pdf
-                    // http://localhost:2020/collection?user=s1111111&collection=coursebank&file=111111111111111.pdf
                     case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'coursebank/111111111111111.pdf' }).apiUrl:
                             return this.response(200, { response: 'Login required' });
                     case apiRoute.SECURE_COLLECTION_FILE_API({ path: 'coursebank/111111111111111.pdf' }).apiUrl:
@@ -245,8 +245,8 @@ class MockApi {
                                 },
                             );
 
+                    // http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=bomdata&file=abcdef.zip
                     // https://files.library.uq.edu.au/bomdata/abcdef.zip
-                    // http://localhost:2020/collection?user=s1111111&collection=bomdata&file=abcdef.zip
                     case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'bomdata/abcdef.zip' }).apiUrl:
                             return this.response(200, { response: 'Login required' });
                     case apiRoute.SECURE_COLLECTION_FILE_API({ path: 'bomdata/abcdef.zip' }).apiUrl:
@@ -263,7 +263,7 @@ class MockApi {
 
                     // (list of example Thomson papers at http://ezproxy.library.uq.edu.au/loggedin/UQ/resources/thomson_classic_legal.html )
                     // https://files.library.uq.edu.au/thomson/classic_legal_texts/Thynne_Accountability_And_Control.pdf
-                    // http://localhost:2020/collection?user=s1111111&collection=thomson&file=classic_legal_texts/Thynne_Accountability_And_Control.pdf
+                    // http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=thomson&file=classic_legal_texts/Thynne_Accountability_And_Control.pdf
                     case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'thomson/classic_legal_texts/Thynne_Accountability_And_Control.pdf' })
                                 .apiUrl:
                         return this.response(200, { response: 'Login required' });
@@ -294,7 +294,7 @@ class MockApi {
                                 },
                             );
 
-                    // http://localhost:2020/collection?user=s1111111&collection=api&file=fails
+                    // http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=api&file=fails
                     case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'api/fails' }).apiUrl:
                             return this.response(500, {});
                     case apiRoute.SECURE_COLLECTION_FILE_API({ path: 'api/fails' }).apiUrl:
