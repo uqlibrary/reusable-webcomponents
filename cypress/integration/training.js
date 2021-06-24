@@ -108,7 +108,10 @@ describe('Training', () => {
                                 'http://localhost:8080/index-training.html#keyword=e;campus=;weekstart=',
                             );
                             cy.get('[data-testid="training-filter-keyword-entry"]').type('{esc}', { force: true });
-                            cy.url().should('eq', 'http://localhost:8080/index-training.html#');
+                            cy.url().should(
+                                'eq',
+                                'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=',
+                            );
                         });
                 });
         });
@@ -123,7 +126,10 @@ describe('Training', () => {
                         .should('exist')
                         .shadow()
                         .within(() => {
-                            cy.url().should('eq', 'http://localhost:8080/index-training.html#');
+                            cy.url().should(
+                                'eq',
+                                'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=',
+                            );
                             cy.get('[data-testid="training-filter-keyword-entry"]').type('e');
                             cy.url().should(
                                 'eq',
@@ -134,7 +140,10 @@ describe('Training', () => {
                             cy.get('[data-testid="training-filter-clear-keyword"]')
                                 .type('{enter}', { force: true })
                                 .then((e) => {
-                                    cy.url().should('eq', 'http://localhost:8080/index-training.html#');
+                                    cy.url().should(
+                                        'eq',
+                                        'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=',
+                                    );
                                 });
                         });
                 });
@@ -714,7 +723,10 @@ describe('Training', () => {
                             // the user can use the escape key to clear the input field
                             cy.get('[data-testid="training-filter-keyword-entry"]').type('{esc}', { force: true });
                             cy.get('[data-testid="training-filter-keyword-entry"]').should('have.value', '');
-                            cy.url().should('eq', 'http://localhost:8080/index-training.html#');
+                            cy.url().should(
+                                'eq',
+                                'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=',
+                            );
                         });
                 });
         });
@@ -923,7 +935,10 @@ describe('Training', () => {
                                 'http://localhost:8080/index-training.html#keyword=endnote;campus=;weekstart=',
                             );
                             cy.get('[data-testid="training-filter-clear-keyword"]').click();
-                            cy.url().should('eq', 'http://localhost:8080/index-training.html#');
+                            cy.url().should(
+                                'eq',
+                                'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=',
+                            );
                         });
                 });
         });
@@ -932,7 +947,7 @@ describe('Training', () => {
             // (future possibility to allow bookmarked urls?)
             cy.visit('http://localhost:8080/index-training.html#keyword=Excel;campus=Gatton;weekstart=all');
             cy.viewport(1280, 900);
-            cy.url().should('eq', 'http://localhost:8080/index-training.html#');
+            cy.url().should('eq', 'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=');
         });
         it('sends to GTM', () => {
             cy.visit('http://localhost:8080/index-training.html');

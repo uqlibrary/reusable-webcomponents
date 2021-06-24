@@ -32,7 +32,7 @@ template.innerHTML = `
                     </button>
                 </div>
             </div>
-            <div aria-label="filter by campus" id="campusDropdown" data-testid="training-filter-campus-dropdown" aria-disabled="false">
+            <div aria-label="filter by campus" id="campusDropdown" data-testid="training-filter-campus-dropdown" class="listHolder" aria-disabled="false">
                 <button data-testid="training-filter-campus-container" id="campusOpener" class="campus opener filterer" aria-haspopup="listbox" aria-labelledby="campushover">
                     <span class="hidden">By campus</span>
                 </button>
@@ -41,7 +41,7 @@ template.innerHTML = `
                 </div>
                 <div tabindex="-1" data-testid="training-filter-campus-list" id="campuslist" class="selectorlist campuslist hidden" aria-expanded="false"></div>
             </div>
-            <div aria-label="filter by week" id="weekDropdown" data-testid="training-filter-week-dropdown" aria-disabled="false">
+            <div aria-label="filter by week" id="weekDropdown" data-testid="training-filter-week-dropdown" class="listHolder" aria-disabled="false">
                 <button data-testid="training-filter-week-container" id="weekOpener" class="week opener filterer" aria-labelledby="weekhover">
                     <span class="hidden">By week</span>
                 </button>
@@ -150,14 +150,13 @@ class TrainingFilter extends HTMLElement {
 
         function handleCampusKeyDown(e) {
             const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
-            const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
             if (isArrowDownKeyPressed(e)) {
                 e.preventDefault();
                 // nav to first campus entry
                 navigateToFirstCampusEntry();
             } /* istanbul ignore next */ else if (isBackTabKeyPressed(e)) {
                 // not tested - looks like cypress cant do the tab inside shadow dom
-                !campuslist.classList.contains('hidden') && that.closeDropdown(campuslist, campusDropdown);
+                !campuslist.classList.contains('hidden') && that.closeDropdown(campuslist);
             }
         }
 
@@ -200,7 +199,7 @@ class TrainingFilter extends HTMLElement {
                         const currentId = eventTargetId.replace('campus-select-', '');
                         const nextId = parseInt(currentId, 10) + 1;
                         const nextElement = that.shadowRoot.getElementById(`campus-select-${nextId}`);
-                        !nextElement && that.closeDropdown(campuslist, campusDropdown);
+                        !nextElement && that.closeDropdown(campuslist);
                     }
                 }
             };
@@ -224,7 +223,7 @@ class TrainingFilter extends HTMLElement {
                 navigateToFirstWeekEntry();
             } /* istanbul ignore next */ else if (isBackTabKeyPressed(e)) {
                 // not tested - looks like cypress cant do the tab inside shadow dom
-                !weeklist.classList.contains('hidden') && that.closeDropdown(weeklist, weekDropdown);
+                !weeklist.classList.contains('hidden') && that.closeDropdown(weeklist);
             }
         }
 
@@ -268,7 +267,7 @@ class TrainingFilter extends HTMLElement {
                     const currentId = eventTargetId.replace('week-select-', '');
                     const nextId = parseInt(currentId, 10) + 1;
                     const nextElement = that.shadowRoot.getElementById(`week-select-${nextId}`);
-                    !nextElement && that.closeDropdown(weeklist, weekDropdown);
+                    !nextElement && that.closeDropdown(weeklist);
                 }
             }
         });
@@ -535,27 +534,19 @@ class TrainingFilter extends HTMLElement {
         const keywordhash = `keyword=${this._inputKeywordValue}`;
         const campushash = `campus=${encodeURIComponent(this._selectedCampus)}`;
         const dateHash = `weekstart=${encodeURIComponent(this._selectedWeek)}`;
-        const proposedHash = `${keywordhash};${campushash};${dateHash}`;
+        currentUrl.hash = `${keywordhash};${campushash};${dateHash}`;
 
-        const blankHash = 'keyword=;campus=;weekstart=';
-        if (`#${proposedHash}` !== oldHash && proposedHash === blankHash) {
-            currentUrl.hash = '#';
-            document.location.href = currentUrl.href;
-        } else if (`#${proposedHash}` !== oldHash) {
-            currentUrl.hash = proposedHash;
-            document.location.href = currentUrl.href;
-        }
+        document.location.href = currentUrl.href;
     }
 
-    closeDropdown(list, parent) {
+    closeDropdown(list) {
         const that = this;
-        list.className = `${list.className} hidden`;
+        !list.classList.contains('hidden') && list.classList.toggle('hidden');
         list.removeAttribute('role');
         document.removeEventListener('click', that.listenForMouseClicks);
         document.removeEventListener('keydown', that.listenForKeyClicks);
         list.setAttribute('aria-expanded', 'false');
         list.setAttribute('tabindex', '-1');
-        !!parent.classList.contains('listHolder') && parent.classList.toggle('listHolder');
     }
 
     /**
@@ -564,25 +555,21 @@ class TrainingFilter extends HTMLElement {
     toggleDropdownVisibility(dropdownType) {
         const that = this;
         const dropDownList = that.shadowRoot.getElementById(`${dropdownType}list`);
-        const dropdownParent = that.shadowRoot.getElementById(`${dropdownType}Dropdown`);
 
         /* istanbul ignore next */
         if (!dropDownList) {
             return;
         }
 
-        !!isHidden(dropDownList)
-            ? openDropdown(dropDownList, dropdownParent)
-            : that.closeDropdown(dropDownList, dropdownParent);
+        !!isHidden(dropDownList) ? openDropdown(dropDownList) : that.closeDropdown(dropDownList);
 
         function isHidden(selector) {
             return selector.classList.contains('hidden');
         }
 
-        function openDropdown(list, parent) {
-            !parent.classList.contains('listHolder') && parent.classList.toggle('listHolder');
+        function openDropdown(list) {
             list.setAttribute('role', 'listbox');
-            list.className = list.className.replace(' hidden', '');
+            !!list.classList.contains('hidden') && list.classList.toggle('hidden');
             document.addEventListener('click', that.listenForMouseClicks);
             document.addEventListener('keydown', that.listenForKeyClicks);
             list.setAttribute('aria-expanded', 'true');
