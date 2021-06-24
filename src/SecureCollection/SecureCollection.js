@@ -3,6 +3,29 @@ import overrides from './css/overrides.css';
 import { authLocale } from '../UtilityArea/auth.locale';
 import { default as menuLocale } from '../locale/menu';
 
+const noAccessPanel = document.createElement('template');
+noAccessPanel.innerHTML = `
+ <ul>
+    <li>
+        If you have another UQ account, <a id="logoutandreturnhere" href="">logout and switch accounts</a> to proceed.
+    </li>
+    <li>
+        <a href="https://web.library.uq.edu.au/contact-us">Contact us</a> if you should have file collection access
+        with this account.
+    </li>
+</ul>
+<p>
+    Return to the <a href="https://www.library.uq.edu.au/">Library Home Page</a>.
+</p>
+`;
+
+const fileExtensionElement = document.createElement('template');
+fileExtensionElement.innerHTML = `
+<p data-testid="fileExtension">
+    Save the file with a name ending in <b id="fileExtensionEmphasis"></b> so your system will know how to open
+    it.
+</p>
+`;
 const circularProgressElement = document.createElement('template');
 circularProgressElement.innerHTML = `
     <div class="MuiCircularProgress-root MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
@@ -12,6 +35,49 @@ circularProgressElement.innerHTML = `
                     fill="none" stroke-width="3.6"></circle>
         </svg>
     </div>
+`;
+
+const statutoryCopyrightAcknowledgementPanel = document.createElement('template');
+statutoryCopyrightAcknowledgementPanel.innerHTML = `
+<p>
+    This material has been reproduced and communicated to you by or on behalf of The University of
+    Queensland in accordance with section 113P of the Copyright Act 1968 (the Act). The material in this
+    communication may be subject to copyright under the Act.
+</p>
+<p>
+    Any further reproduction or communication of this material by you may be the subject of copyright
+    protection under the Act.
+</p>
+<div id="download">
+    <a id="downloadLink" class="followLink" href="">
+        Acknowledge Copyright and Download
+    </a>
+</div>
+`;
+
+const commercialCopyrightAcknowledgementPanel = document.createElement('template');
+commercialCopyrightAcknowledgementPanel.innerHTML = `
+<p className={'copyrightsubhead'}>
+    This file is provided to support teaching and learning for the staff and students of the University
+    of Queensland
+</p>
+<h3>COMMONWEALTH OF AUSTRALIA</h3>
+<h4>Copyright Regulations 1969</h4>
+<h5>WARNING</h5>
+<p>
+    This material has been reproduced and communicated to you by or on behalf of the University of
+    Queensland pursuant to Part VB of the Copyright Act 1968 (the Act).
+</p>
+<p>
+    The material in this communication may be subject to copyright under the Act. Any further
+    reproduction or communication of this material by you may be the subject of copyright protection
+    under the Act.
+</p>
+<div id="download">
+    <a id="downloadLink" class="followLink" href="">
+        Acknowledge Copyright and Download
+    </a>
+</div>
 `;
 
 const template = document.createElement('template');
@@ -188,90 +254,37 @@ class SecureCollection extends HTMLElement {
     displayCommercialCopyrightAcknowledgementPanel() {
         const fileExtension = !!this.clickLink && getFileExtension(this.clickLink);
 
-        const p1 = this.createSimpleTextInElement(
-            'This file is provided to support teaching and learning for the staff and students of the University' +
-                ' of Queensland',
-        );
-        p1.className = 'copyrightsubhead';
-        const hA = this.createSimpleTextInElement('COMMONWEALTH OF AUSTRALIA', 'h3');
-        const HB = this.createSimpleTextInElement('Copyright Regulations 1969', 'h4');
-        const HC = this.createSimpleTextInElement('WARNING', 'h5');
-        const p2 = this.createSimpleTextInElement(
-            'This material has been reproduced and communicated to you by or on behalf of the University of' +
-                ' Queensland pursuant to Part VB of the Copyright Act 1968 (the Act).',
-        );
-        const p3 = this.createSimpleTextInElement(
-            'The material in this communication may be subject to copyright under the Act. Any further' +
-                ' reproduction or communication of this material by you may be the subject of copyright protection' +
-                ' under the Act.',
-        );
-        const div1 = this.createDocumentAcknowldgementButton();
+        // update the download link
+        const anchor = commercialCopyrightAcknowledgementPanel.content.getElementById('downloadLink');
+        anchor.href = this.clickLink;
 
         const block = document.createElement('div');
-        block.appendChild(p1);
-        block.appendChild(hA);
-        block.appendChild(HB);
-        block.appendChild(HC);
-        block.appendChild(p2);
-        block.appendChild(p3);
-        block.appendChild(div1);
-        if (!!fileExtension) {
-            const p4 = this.createFileExtensionAdvisory(fileExtension);
+        block.appendChild(commercialCopyrightAcknowledgementPanel.content.cloneNode(true));
 
-            block.appendChild(p4);
+        if (!!fileExtension) {
+            const anchor = fileExtensionElement.content.getElementById('fileExtensionEmphasis');
+            anchor.innerHTML = `.${fileExtension}`;
+
+            block.appendChild(fileExtensionElement.content.cloneNode(true));
         }
 
         return this.wrapFragmentInStandardPage('Copyright Notice', block);
     }
 
-    createFileExtensionAdvisory(fileExtension) {
-        const textNode0 = document.createTextNode(`.${fileExtension}`);
-        const emphasis1 = document.createElement('b');
-        emphasis1.appendChild(textNode0);
-        const textNode1 = document.createTextNode('Save the file with a name ending in ');
-        const textNode2 = document.createTextNode(' so your system will know how to open it.');
-        const p4 = document.createElement('p');
-        p4.setAttribute('data-testid', 'fileExtension');
-        p4.appendChild(textNode1);
-        p4.appendChild(emphasis1);
-        p4.appendChild(textNode2);
-        return p4;
-    }
-
-    createDocumentAcknowldgementButton() {
-        const linktextNode = document.createTextNode('Acknowledge Copyright and Download');
-        const downloadLink = document.createElement('a');
-        downloadLink.className = 'followLink';
-        downloadLink.href = this.clickLink;
-        downloadLink.appendChild(linktextNode);
-        const div1 = document.createElement('div');
-        div1.id = 'download';
-        div1.appendChild(downloadLink);
-        return div1;
-    }
-
     displayStatutoryCopyrightAcknowledgementPanel() {
-        const fileExtension = !!this.clickLink && getFileExtension(this.clickLink);
-
-        const p1 = this.createSimpleTextInElement(
-            'This material has been reproduced and communicated to you by or on behalf of The University of' +
-                ' Queensland in accordance with section 113P of the Copyright Act 1968 (the Act). The material in this' +
-                ' communication may be subject to copyright under the Act.',
-        );
-        const p2 = this.createSimpleTextInElement(
-            'Any further reproduction or communication of this material by you may be the subject of copyright' +
-                ' protection under the Act.',
-        );
-        const div1 = this.createDocumentAcknowldgementButton();
+        // update the download link
+        const anchor = statutoryCopyrightAcknowledgementPanel.content.getElementById('downloadLink');
+        anchor.href = this.clickLink;
 
         const block = document.createElement('div');
-        block.appendChild(p1);
-        block.appendChild(p2);
-        block.appendChild(div1);
+        block.appendChild(statutoryCopyrightAcknowledgementPanel.content.cloneNode(true));
 
+        const fileExtension = !!this.clickLink && getFileExtension(this.clickLink);
         if (!!fileExtension) {
-            const p3 = this.createFileExtensionAdvisory(fileExtension);
-            block.appendChild(p3);
+            const anchor = fileExtensionElement.content.getElementById('fileExtensionEmphasis');
+            anchor.innerHTML = `.${fileExtension}`;
+
+            block.appendChild(fileExtensionElement.content.cloneNode(true));
         }
 
         return this.wrapFragmentInStandardPage('WARNING', block);
@@ -340,35 +353,12 @@ class SecureCollection extends HTMLElement {
 
     displayNoAccessPanel() {
         const logoutLink = `${authLocale.AUTH_URL_LOGOUT}?return=${window.btoa(window.location.href)}`;
-
-        const li1 = this.createSimpleTextWithMiddleLinkInElement(
-            'If you have another UQ account, ',
-            logoutLink,
-            'logout and switch accounts',
-            '  to proceed.',
-            'li',
-        );
-        const li2 = this.createSimpleTextWithMiddleLinkInElement(
-            '',
-            menuLocale.contactus.link,
-            'Contact us',
-            ' if you should have file collection access with this account.',
-            'li',
-        );
-        const p = this.createSimpleTextWithMiddleLinkInElement(
-            'Return to the ',
-            'https://www.library.uq.edu.au/',
-            'Library Home Page',
-            '.',
-        );
-
-        const ul = document.createElement('ul');
-        ul.appendChild(li1);
-        ul.appendChild(li2);
+        const anchor = noAccessPanel.content.getElementById('logoutandreturnhere');
+        anchor.href = logoutLink;
 
         const block = document.createElement('div');
-        block.appendChild(ul);
-        block.appendChild(p);
+        block.appendChild(noAccessPanel.content.cloneNode(true));
+
         return this.wrapFragmentInStandardPage(
             'Access to this file is only available to UQ staff and students.',
             block,
