@@ -111,6 +111,15 @@ prm-gallery-items-list .result-item-actions .pin-button:hover md-icon {
     color: $white !important;
 }
 
+// Avoid stretching of custom thumbnails
+prm-gallery-item .collection-element img {
+    .is-gallery-view &,
+    .is-grid-view & {
+        width: auto;
+        max-width: 100%;
+    }
+}
+
 // Collection display - Search options
 // Issue: Search options text and button colour are Ex Libris OTB and low contrast - Change to UQ text and button colour
 prm-collection-search button.search-button.md-button.md-primoExplore-theme {
