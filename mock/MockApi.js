@@ -171,7 +171,7 @@ class MockApi {
 
                     // secure collection checks
 
-                    // http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=exams&file=phil1010.pdf
+                    // http://localhost:8080/src/applications/securecollection/demo.html?user=public&collection=exams&file=phil1010.pdf
                     case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'exams/phil1010.pdf' }).apiUrl:
                         return this.response(200, { response: 'Login required' });
 
@@ -200,7 +200,7 @@ class MockApi {
                     case apiRoute.SECURE_COLLECTION_FILE_API({ path: 'unknown/unknown' }).apiUrl:
                             return this.response(200, { response: 'No such collection' });
 
-                    // http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=exams&file=2018/Semester_Two_Final_Examinations__2018_PHIL2011_281.pdf
+                    // http://localhost:8080/src/applications/securecollection/demo.html?user=public&collection=exams&file=2018/Semester_Two_Final_Examinations__2018_PHIL2011_281.pdf
                     // https://files.library.uq.edu.au/testlogin/exams/2018/Semester_Two_Final_Examinations__2018_PHIL2011_281.pdf
                     case apiRoute.SECURE_COLLECTION_CHECK_API({
                             path: 'exams/2018/Semester_Two_Final_Examinations__2018_PHIL2011_281.pdf',
@@ -219,6 +219,7 @@ class MockApi {
                                 },
                             );
 
+                    // it is intended this mock is called only with a non-uq user type, eg emcommunity
                     // http://localhost:8080/src/applications/securecollection/demo.html?user=emcommunity&collection=exams&file=2018/Semester_Two_Final_Examinations__2018_PHIL2011_EMuser.pdf
                     // https://files.library.uq.edu.au/testlogin/exams/2018/Semester_Two_Final_Examinations__2018_PHIL2011_EMuser.pdf
                     case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'exams/2018/Semester_Two_Final_Examinations__2018_PHIL2011_EMuser.pdf' })
@@ -281,6 +282,7 @@ class MockApi {
                         );
 
                     // a link without a file extension
+                    // http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=coursebank&file=2222222
                     case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'coursebank/2222222' }).apiUrl:
                             return this.response(200, { response: 'Login required' });
                     case apiRoute.SECURE_COLLECTION_FILE_API({ path: 'coursebank/2222222' }).apiUrl:
