@@ -3,22 +3,6 @@ import overrides from './css/overrides.css';
 import { authLocale } from '../UtilityArea/auth.locale';
 import { default as menuLocale } from '../locale/menu';
 
-const noAccessPanel = document.createElement('template');
-noAccessPanel.innerHTML = `
- <ul>
-    <li>
-        If you have another UQ account, <a id="logoutandreturnhere" href="">logout and switch accounts</a> to proceed.
-    </li>
-    <li>
-        <a href="https://web.library.uq.edu.au/contact-us">Contact us</a> if you should have file collection access
-        with this account.
-    </li>
-</ul>
-<p>
-    Return to the <a href="https://www.library.uq.edu.au/">Library Home Page</a>.
-</p>
-`;
-
 const fileExtensionElement = document.createElement('template');
 fileExtensionElement.innerHTML = `
 <p data-testid="fileExtension">
@@ -35,49 +19,6 @@ circularProgressElement.innerHTML = `
                     fill="none" stroke-width="3.6"></circle>
         </svg>
     </div>
-`;
-
-const statutoryCopyrightAcknowledgementPanel = document.createElement('template');
-statutoryCopyrightAcknowledgementPanel.innerHTML = `
-<p>
-    This material has been reproduced and communicated to you by or on behalf of The University of
-    Queensland in accordance with section 113P of the Copyright Act 1968 (the Act). The material in this
-    communication may be subject to copyright under the Act.
-</p>
-<p>
-    Any further reproduction or communication of this material by you may be the subject of copyright
-    protection under the Act.
-</p>
-<div id="download">
-    <a id="downloadLink" class="followLink" href="">
-        Acknowledge Copyright and Download
-    </a>
-</div>
-`;
-
-const commercialCopyrightAcknowledgementPanel = document.createElement('template');
-commercialCopyrightAcknowledgementPanel.innerHTML = `
-<p className={'copyrightsubhead'}>
-    This file is provided to support teaching and learning for the staff and students of the University
-    of Queensland
-</p>
-<h3>COMMONWEALTH OF AUSTRALIA</h3>
-<h4>Copyright Regulations 1969</h4>
-<h5>WARNING</h5>
-<p>
-    This material has been reproduced and communicated to you by or on behalf of the University of
-    Queensland pursuant to Part VB of the Copyright Act 1968 (the Act).
-</p>
-<p>
-    The material in this communication may be subject to copyright under the Act. Any further
-    reproduction or communication of this material by you may be the subject of copyright protection
-    under the Act.
-</p>
-<div id="download">
-    <a id="downloadLink" class="followLink" href="">
-        Acknowledge Copyright and Download
-    </a>
-</div>
 `;
 
 const template = document.createElement('template');
@@ -241,18 +182,43 @@ class SecureCollection extends HTMLElement {
             /* istanbul ignore next */
             default:
                 // to satisfy switch syntax - shouldnt be possible
-                return this.wrapFragmentInStandardPage('', 'Something went wrong');
+                return this.wrapFragmentInStandardPage('Something went wrong');
         }
     }
 
     displayLoadingPanel() {
         const block = document.createElement('div');
         block.appendChild(circularProgressElement.content.cloneNode(true));
-        this.wrapFragmentInStandardPage('', block);
+        this.wrapFragmentInStandardPage(block);
     }
 
     displayCommercialCopyrightAcknowledgementPanel() {
         const fileExtension = !!this.clickLink && getFileExtension(this.clickLink);
+
+        const commercialCopyrightAcknowledgementPanel = document.createElement('template');
+        commercialCopyrightAcknowledgementPanel.innerHTML = `
+<p className={'copyrightsubhead'}>
+    This file is provided to support teaching and learning for the staff and students of the University
+    of Queensland
+</p>
+<h3>COMMONWEALTH OF AUSTRALIA</h3>
+<h4>Copyright Regulations 1969</h4>
+<h5>WARNING</h5>
+<p>
+    This material has been reproduced and communicated to you by or on behalf of the University of
+    Queensland pursuant to Part VB of the Copyright Act 1968 (the Act).
+</p>
+<p>
+    The material in this communication may be subject to copyright under the Act. Any further
+    reproduction or communication of this material by you may be the subject of copyright protection
+    under the Act.
+</p>
+<div id="download">
+    <a id="downloadLink" class="followLink" href="">
+        Acknowledge Copyright and Download
+    </a>
+</div>
+`;
 
         // update the download link
         const anchor = commercialCopyrightAcknowledgementPanel.content.getElementById('downloadLink');
@@ -268,10 +234,28 @@ class SecureCollection extends HTMLElement {
             block.appendChild(fileExtensionElement.content.cloneNode(true));
         }
 
-        return this.wrapFragmentInStandardPage('Copyright Notice', block);
+        return this.wrapFragmentInStandardPage(block, 'Copyright Notice');
     }
 
     displayStatutoryCopyrightAcknowledgementPanel() {
+        const statutoryCopyrightAcknowledgementPanel = document.createElement('template');
+        statutoryCopyrightAcknowledgementPanel.innerHTML = `
+<p>
+    This material has been reproduced and communicated to you by or on behalf of The University of
+    Queensland in accordance with section 113P of the Copyright Act 1968 (the Act). The material in this
+    communication may be subject to copyright under the Act.
+</p>
+<p>
+    Any further reproduction or communication of this material by you may be the subject of copyright
+    protection under the Act.
+</p>
+<div id="download">
+    <a id="downloadLink" class="followLink" href="">
+        Acknowledge Copyright and Download
+    </a>
+</div>
+`;
+
         // update the download link
         const anchor = statutoryCopyrightAcknowledgementPanel.content.getElementById('downloadLink');
         anchor.href = this.clickLink;
@@ -287,7 +271,7 @@ class SecureCollection extends HTMLElement {
             block.appendChild(fileExtensionElement.content.cloneNode(true));
         }
 
-        return this.wrapFragmentInStandardPage('WARNING', block);
+        return this.wrapFragmentInStandardPage(block, 'WARNING');
     }
 
     displayUnknownCollectionPanel() {
@@ -321,24 +305,7 @@ class SecureCollection extends HTMLElement {
         block.appendChild(p1);
         block.appendChild(p2);
 
-        return this.wrapFragmentInStandardPage('This file does not exist or is unavailable.', block);
-    }
-
-    createSimpleTextWithMiddleLinkInElement(starttext, href, linktext, endtext, elementType = 'p') {
-        const linktextNode = document.createTextNode(linktext);
-
-        const anchor = document.createElement('a');
-        anchor.href = href;
-        anchor.appendChild(linktextNode);
-
-        const startText = document.createTextNode(starttext);
-        const endText = document.createTextNode(endtext);
-
-        const paragraph = document.createElement(elementType);
-        paragraph.appendChild(startText);
-        paragraph.appendChild(anchor);
-        paragraph.appendChild(endText);
-        return paragraph;
+        return this.wrapFragmentInStandardPage(block, 'This file does not exist or is unavailable.');
     }
 
     displayApiErrorPanel() {
@@ -348,10 +315,26 @@ class SecureCollection extends HTMLElement {
         const displayWrapper = document.createElement('p');
         displayWrapper.appendChild(content);
 
-        return this.wrapFragmentInStandardPage('System temporarily unavailable', displayWrapper);
+        return this.wrapFragmentInStandardPage(displayWrapper, 'System temporarily unavailable');
     }
 
     displayNoAccessPanel() {
+        const noAccessPanel = document.createElement('template');
+        noAccessPanel.innerHTML = `
+ <ul>
+    <li>
+        If you have another UQ account, <a id="logoutandreturnhere" href="">logout and switch accounts</a> to proceed.
+    </li>
+    <li>
+        <a href="https://web.library.uq.edu.au/contact-us">Contact us</a> if you should have file collection access
+        with this account.
+    </li>
+</ul>
+<p>
+    Return to the <a href="https://www.library.uq.edu.au/">Library Home Page</a>.
+</p>
+`;
+
         const logoutLink = `${authLocale.AUTH_URL_LOGOUT}?return=${window.btoa(window.location.href)}`;
         const anchor = noAccessPanel.content.getElementById('logoutandreturnhere');
         anchor.href = logoutLink;
@@ -360,43 +343,34 @@ class SecureCollection extends HTMLElement {
         block.appendChild(noAccessPanel.content.cloneNode(true));
 
         return this.wrapFragmentInStandardPage(
-            'Access to this file is only available to UQ staff and students.',
             block,
+            'Access to this file is only available to UQ staff and students.',
         );
-    }
-
-    createSimpleTextInElement(text, elementType = 'p') {
-        const textNode = document.createTextNode(text);
-        const paragraph = document.createElement(elementType);
-        paragraph.appendChild(textNode);
-
-        return paragraph;
     }
 
     // the window is set to the auth url before this panel is displayed, so it should only blink up, if at all
-    displayLoginRequiredRedirectorPanel(redirectLink) {
-        if (redirectLink !== null) {
-            console.log('displayLoginRequiredRedirectorPanel: I would redirect to ', redirectLink);
-            // window.location.assign(redirectLink);
-        }
-        // and while it loads, display this:
-        const p1 = this.createSimpleTextInElement(
-            'Login is required for this file - please wait while you are redirected.',
-        );
+    displayLoginRequiredRedirectorPanel() {
+        const loginRequiredRedirectorPanel = document.createElement('template');
+        loginRequiredRedirectorPanel.innerHTML = `
+<p>Login is required for this file - please wait while you are redirected.</p>
+<div id="circularprogress"></div>
+<p>You can <a id="redirector" href="">click here</a> if you aren't redirected.</p>
+`;
 
-        const p2 = this.createSimpleTextWithMiddleLinkInElement(
-            'You can ',
-            redirectLink,
-            'click here',
-            " if you aren't redirected.",
-        );
+        const redirectLink = `${authLocale.AUTH_URL_LOGIN}?return=${window.btoa(window.location.href)}`;
+        console.log('displayLoginRequiredRedirectorPanel: I would redirect to ', redirectLink);
+        // window.location.assign(redirectLink);
+
+        const anchor = loginRequiredRedirectorPanel.content.getElementById('redirector');
+        anchor.href = redirectLink;
+
+        const circularprogress = loginRequiredRedirectorPanel.content.getElementById('circularprogress');
+        circularprogress.appendChild(circularProgressElement.content.cloneNode(true));
 
         const block = document.createElement('div');
-        block.appendChild(p1);
-        block.appendChild(circularProgressElement.content.cloneNode(true));
-        block.appendChild(p2);
+        block.appendChild(loginRequiredRedirectorPanel.content.cloneNode(true));
 
-        return this.wrapFragmentInStandardPage('Redirecting', block);
+        return this.wrapFragmentInStandardPage(block, 'Redirecting');
     }
 
     displayRedirectingPanel(redirectLink) {
@@ -405,22 +379,31 @@ class SecureCollection extends HTMLElement {
             // window.location.assign(redirectLink);
         }
 
-        const p1 = this.createSimpleTextInElement('We are preparing the file, you should be redirected shortly.');
-        const p2 = this.createSimpleTextWithMiddleLinkInElement(
-            'You can ',
-            redirectLink,
-            'download the file',
-            ' if the page does not redirect.',
-        );
+        const redirectorPanel = document.createElement('template');
+        redirectorPanel.innerHTML = `
+<p>We are preparing the file, you should be redirected shortly.</p>
+<p>You can <a id="redirector" href="">download the file</a> if the page does not redirect.</p>
+<div id="circularprogress"></div>
+`;
+
+        const anchor = redirectorPanel.content.getElementById('redirector');
+        anchor.href = redirectLink;
+
+        const circularprogress = redirectorPanel.content.getElementById('circularprogress');
+        circularprogress.appendChild(circularProgressElement.content.cloneNode(true));
 
         const block = document.createElement('div');
-        block.appendChild(circularProgressElement.content.cloneNode(true));
+        block.appendChild(redirectorPanel.content.cloneNode(true));
 
-        return this.wrapFragmentInStandardPage('Redirecting', block);
+        return this.wrapFragmentInStandardPage(block, 'Redirecting');
     }
 
-    wrapFragmentInStandardPage(title, fragment) {
-        // delete any existing page child and replace with the passed in one
+    /**
+     * delete any existing page child and replace with the passed in one
+     * @param fragment
+     * @param title
+     */
+    wrapFragmentInStandardPage(fragment, title = '') {
         const block = this.shadowRoot.getElementById('block');
         // clear current child
         block.innerHTML = '';
@@ -439,12 +422,14 @@ class SecureCollection extends HTMLElement {
         block.appendChild(fragment);
     }
 
-    async loggedin() {
+    async isLoggedin() {
+        console.log('loggedin');
         const that = this;
         let loggedin = false;
         await new ApiAccess()
             .getAccount()
             .then((account) => {
+                console.log('loggedin? account = ', account);
                 /* istanbul ignore else */
                 if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
                     that.account = account;
@@ -456,6 +441,7 @@ class SecureCollection extends HTMLElement {
             .catch((error) => {
                 that.accountLoading = false;
             });
+        console.log('loggedin: ', loggedin);
         return loggedin;
     }
 
@@ -475,17 +461,22 @@ class SecureCollection extends HTMLElement {
         // } else
         if (apiResponse.response === 'Login required') {
             console.log('secureCollection.response === Login required');
-            this.loggedin()
-                .then(() => {
-                    console.log('user is logged in');
-                    // that.displayPanel = 'loading'; // assume we dont need it as we start off loading
-                    // they are actually logged in! now we ask for the actual file they want
-                    that.getSecureCollectionFile(currentSearchParams);
+            this.isLoggedin()
+                .then((isLoggedIn) => {
+                    if (!!isLoggedIn) {
+                        console.log('user is logged in');
+                        // that.displayPanel = 'loading'; // assume we dont need it as we start off loading
+                        // they are actually logged in! now we ask for the actual file they want
+                        that.getSecureCollectionFile(currentSearchParams);
+                    } else {
+                        console.log('user is NOT logged in');
+                        this.displayLoginRequiredRedirectorPanel();
+                    }
                 })
                 .catch(() => {
-                    console.log('user is NOT logged in');
-                    const redirectLink = `${authLocale.AUTH_URL_LOGIN}?return=${window.btoa(window.location.href)}`;
-                    this.displayLoginRequiredRedirectorPanel(redirectLink);
+                    console.log('catch: user is NOT logged in');
+                    // no, this should be system error
+                    this.displayLoginRequiredRedirectorPanel();
                 });
         } else if (apiResponse.response === 'Invalid User') {
             that.displayPanel = 'invalidUser';
@@ -518,6 +509,31 @@ class SecureCollection extends HTMLElement {
             // but at any rate it isnt one of the recognised types, so display 'no such'
             that.displayPanel = 'noSuchCollection';
         }
+    }
+
+    createSimpleTextWithMiddleLinkInElement(starttext, href, linktext, endtext, elementType = 'p') {
+        const linktextNode = document.createTextNode(linktext);
+
+        const anchor = document.createElement('a');
+        anchor.href = href;
+        anchor.appendChild(linktextNode);
+
+        const startText = document.createTextNode(starttext);
+        const endText = document.createTextNode(endtext);
+
+        const paragraph = document.createElement(elementType);
+        paragraph.appendChild(startText);
+        paragraph.appendChild(anchor);
+        paragraph.appendChild(endText);
+        return paragraph;
+    }
+
+    createSimpleTextInElement(text, elementType = 'p') {
+        const textNode = document.createTextNode(text);
+        const paragraph = document.createElement(elementType);
+        paragraph.appendChild(textNode);
+
+        return paragraph;
     }
 }
 
