@@ -31,17 +31,7 @@ template.innerHTML = `
                     data-testid="StandardPage-title">Secure Collection</h2></div>
             <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12">
                 <section aria-live="assertive">
-                    <div id="block" class="MuiCard-root jss196 StandardCard" data-testid="standard-card-copyright-notice" id="standard-card-copyright-notice">
-                        <div class="wrapper"></div>
-                        <div>
-                            <div class="MuiCardContent-root jss197" data-testid="standard-card-copyright-notice-content">
-                                <div class="MuiGrid-root MuiGrid-container">
-                                    <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-auto"
-                                        style="width: 80px; margin-right: 20px; margin-bottom: 6px; opacity: 0.3;">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div id="block" class="MuiPaper-root MuiCard-root jss196 StandardCard MuiPaper-elevation1 MuiPaper-rounded jss196 StandardCard" data-testid="standard-card-copyright-notice" id="standard-card-copyright-notice">
                     </div>
                 </section>
             </div>
@@ -374,6 +364,7 @@ class SecureCollection extends HTMLElement {
     }
 
     displayRedirectingPanel(redirectLink) {
+        /* istanbul ignore else */
         if (redirectLink !== null) {
             console.log('displayRedirectingPanel: I will redirect to ', redirectLink);
             window.location.assign(redirectLink);
@@ -411,15 +402,23 @@ class SecureCollection extends HTMLElement {
         if (!!title) {
             const titleNode = document.createTextNode(title);
             const h3 = document.createElement('h3');
+            h3.className =
+                'MuiTypography-root MuiCardHeader-title MuiTypography-h5 MuiTypography-colorInherit MuiTypography-displayBlock';
             h3.appendChild(titleNode);
 
             const wrapper = document.createElement('div');
-            wrapper.className = 'wrapper';
+            wrapper.className = 'MuiCardHeader-root wrapper';
             wrapper.appendChild(h3);
             block.appendChild(wrapper);
         }
 
-        block.appendChild(fragment);
+        const blockwrapper = document.createElement('div');
+        blockwrapper.style.marginBottom = '24px';
+        blockwrapper.style.paddingLeft = '24px';
+        blockwrapper.style.paddingRight = '24px';
+        blockwrapper.style.paddingBottom = '24px';
+        blockwrapper.appendChild(fragment);
+        block.appendChild(blockwrapper);
     }
 
     async isUserLoggedin() {
