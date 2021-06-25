@@ -1,5 +1,5 @@
 .root {
-    background-color: #F7F7F7;
+    background-color: #ffffff;
 }
 .secure-collection-container {
     margin-left: 1em;
@@ -1016,4 +1016,9 @@
     opacity: 0.5;
     margin-top: -4px;
     margin-left: -48px;
+}
+
+.contentbox {
+    color: rgba(0, 0, 0, 1);
+    background-color: #f7f7f7
 }
