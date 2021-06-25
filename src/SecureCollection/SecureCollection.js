@@ -50,6 +50,7 @@ template.innerHTML = `
 `;
 
 export const getFileExtension = (filename) => {
+    /* istanbul ignore next */
     if (filename === undefined) {
         return false;
     }
@@ -163,26 +164,32 @@ class SecureCollection extends HTMLElement {
     displayCorrectPanel() {
         console.log('displaying the correct panel, per: ', this.displayPanel);
         switch (this.displayPanel) {
-            case 'error':
-                return this.displayApiErrorPanel();
             case 'loading':
+                console.log('displayCorrectPanel loading');
                 return this.displayLoadingPanel();
+            case 'redirect':
+                console.log('displayCorrectPanel redirect');
+                return this.displayRedirectingPanel(this.redirectLink);
             case 'noSuchCollection':
+                console.log('displayCorrectPanel noSuchCollection');
                 return this.displayUnknownCollectionPanel();
-            // case 'loginRequired':
-            //     return this.displayLoginRequiredRedirectorPanel(this.redirectLink);
             case 'commercialCopyright':
+                console.log('displayCorrectPanel commercialCopyright');
                 return this.displayCommercialCopyrightAcknowledgementPanel();
             case 'statutoryCopyright':
+                console.log('displayCorrectPanel statutoryCopyright');
                 return this.displayStatutoryCopyrightAcknowledgementPanel();
             case 'invalidUser':
+                console.log('displayCorrectPanel invalidUser');
                 return this.displayNoAccessPanel();
-            case 'redirect':
-                return this.displayRedirectingPanel(this.redirectLink);
+            case 'error':
+                console.log('displayCorrectPanel error');
+                return this.displayApiErrorPanel();
             /* istanbul ignore next */
             default:
+                console.log('displayCorrectPanel default');
                 // to satisfy switch syntax - shouldnt be possible
-                return this.wrapFragmentInStandardPage('Something went wrong');
+                this.wrapFragmentInStandardPage('Something went wrong');
         }
     }
 
@@ -197,21 +204,17 @@ class SecureCollection extends HTMLElement {
 
         const commercialCopyrightAcknowledgementPanel = document.createElement('template');
         commercialCopyrightAcknowledgementPanel.innerHTML = `
-<p className={'copyrightsubhead'}>
-    This file is provided to support teaching and learning for the staff and students of the University
-    of Queensland
-</p>
+<p>This file is provided to support teaching and learning for the staff and students of the University of Queensland</p>
 <h3>COMMONWEALTH OF AUSTRALIA</h3>
 <h4>Copyright Regulations 1969</h4>
 <h5>WARNING</h5>
 <p>
-    This material has been reproduced and communicated to you by or on behalf of the University of
-    Queensland pursuant to Part VB of the Copyright Act 1968 (the Act).
+    This material has been reproduced and communicated to you by or on behalf of the University of Queensland pursuant
+    to Part VB of the Copyright Act 1968 (the Act).
 </p>
 <p>
-    The material in this communication may be subject to copyright under the Act. Any further
-    reproduction or communication of this material by you may be the subject of copyright protection
-    under the Act.
+    The material in this communication may be subject to copyright under the Act. Any further reproduction or
+    communication of this material by you may be the subject of copyright protection under the Act.
 </p>
 <div id="download">
     <a data-testid="secure-collection-commercial-copyright-download-link" id="downloadLink" class="followLink" href="">
@@ -234,20 +237,20 @@ class SecureCollection extends HTMLElement {
             block.appendChild(fileExtensionElement.content.cloneNode(true));
         }
 
-        return this.wrapFragmentInStandardPage(block, 'Copyright Notice');
+        this.wrapFragmentInStandardPage(block, 'Copyright Notice');
     }
 
     displayStatutoryCopyrightAcknowledgementPanel() {
         const statutoryCopyrightAcknowledgementPanel = document.createElement('template');
         statutoryCopyrightAcknowledgementPanel.innerHTML = `
 <p>
-    This material has been reproduced and communicated to you by or on behalf of The University of
-    Queensland in accordance with section 113P of the Copyright Act 1968 (the Act). The material in this
-    communication may be subject to copyright under the Act.
+    This material has been reproduced and communicated to you by or on behalf of The University of Queensland in
+    accordance with section 113P of the Copyright Act 1968 (the Act). The material in this communication may be subject
+    to copyright under the Act.
 </p>
 <p>
-    Any further reproduction or communication of this material by you may be the subject of copyright
-    protection under the Act.
+    Any further reproduction or communication of this material by you may be the subject of copyright protection under
+    the Act.
 </p>
 <div id="download">
     <a id="downloadLink" data-testid="secure-collection-statutory-copyright-download-link" class="followLink" href="">
@@ -271,7 +274,7 @@ class SecureCollection extends HTMLElement {
             block.appendChild(fileExtensionElement.content.cloneNode(true));
         }
 
-        return this.wrapFragmentInStandardPage(block, 'WARNING');
+        this.wrapFragmentInStandardPage(block, 'WARNING');
     }
 
     displayUnknownCollectionPanel() {
@@ -305,7 +308,7 @@ class SecureCollection extends HTMLElement {
         block.appendChild(p1);
         block.appendChild(p2);
 
-        return this.wrapFragmentInStandardPage(block, 'This file does not exist or is unavailable.');
+        this.wrapFragmentInStandardPage(block, 'This file does not exist or is unavailable.');
     }
 
     displayApiErrorPanel() {
@@ -315,7 +318,7 @@ class SecureCollection extends HTMLElement {
         const displayWrapper = document.createElement('p');
         displayWrapper.appendChild(content);
 
-        return this.wrapFragmentInStandardPage(displayWrapper, 'System temporarily unavailable');
+        this.wrapFragmentInStandardPage(displayWrapper, 'System temporarily unavailable');
     }
 
     displayNoAccessPanel() {
@@ -342,10 +345,7 @@ class SecureCollection extends HTMLElement {
         const block = document.createElement('div');
         block.appendChild(noAccessPanel.content.cloneNode(true));
 
-        return this.wrapFragmentInStandardPage(
-            block,
-            'Access to this file is only available to UQ staff and students.',
-        );
+        this.wrapFragmentInStandardPage(block, 'Access to this file is only available to UQ staff and students.');
     }
 
     // the window is set to the auth url before this panel is displayed, so it should only blink up, if at all
@@ -358,7 +358,7 @@ class SecureCollection extends HTMLElement {
 `;
 
         const redirectLink = `${authLocale.AUTH_URL_LOGIN}?return=${window.btoa(window.location.href)}`;
-        // console.log('displayLoginRequiredRedirectorPanel: I would redirect to ', redirectLink);
+        console.log('displayLoginRequiredRedirectorPanel: I will redirect to ', redirectLink);
         window.location.assign(redirectLink);
 
         const anchor = loginRequiredRedirectorPanel.content.getElementById('redirector');
@@ -370,12 +370,12 @@ class SecureCollection extends HTMLElement {
         const block = document.createElement('div');
         block.appendChild(loginRequiredRedirectorPanel.content.cloneNode(true));
 
-        return this.wrapFragmentInStandardPage(block, 'Redirecting');
+        this.wrapFragmentInStandardPage(block, 'Redirecting');
     }
 
     displayRedirectingPanel(redirectLink) {
         if (redirectLink !== null) {
-            // console.log('displayRedirectingPanel: I would redirect to ', redirectLink);
+            console.log('displayRedirectingPanel: I will redirect to ', redirectLink);
             window.location.assign(redirectLink);
         }
 
@@ -395,7 +395,7 @@ class SecureCollection extends HTMLElement {
         const block = document.createElement('div');
         block.appendChild(redirectorPanel.content.cloneNode(true));
 
-        return this.wrapFragmentInStandardPage(block, 'Redirecting');
+        this.wrapFragmentInStandardPage(block, 'Redirecting');
     }
 
     /**
@@ -422,7 +422,7 @@ class SecureCollection extends HTMLElement {
         block.appendChild(fragment);
     }
 
-    async isLoggedin() {
+    async isUserLoggedin() {
         console.log('loggedin');
         const that = this;
         let loggedin = false;
@@ -452,16 +452,9 @@ class SecureCollection extends HTMLElement {
         // unexpectedly, the api responses have attributes all in lower case,
         // ie secureCollection.displaypanel NOT secureCollection.displayPanel
 
-        // if (!!secureCollectionError) {
-        //     that.displayPanel = 'error';
-        // } else if (!secureCollectionError && !!secureCollectionLoading) {
-        //     that.displayPanel = 'loading';
-        // } else if (!secureCollection) {
-        //     that.displayPanel = 'loading'; // initially
-        // } else
         if (apiResponse.response === 'Login required') {
             console.log('secureCollection.response === Login required');
-            this.isLoggedin()
+            this.isUserLoggedin()
                 .then((isLoggedIn) => {
                     if (!!isLoggedIn) {
                         console.log('user is logged in');
@@ -481,6 +474,7 @@ class SecureCollection extends HTMLElement {
         } else if (apiResponse.response === 'Invalid User') {
             that.displayPanel = 'invalidUser';
         } else if (apiResponse.displaypanel === 'redirect') {
+            console.log('redirect');
             /* istanbul ignore else */
             if (!!apiResponse.url) {
                 that.displayPanel = 'redirect';

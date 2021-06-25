@@ -38,7 +38,7 @@ describe('Secure Collection', () => {
 
         it('a link that returns an error from the api says so', () => {
             cy.visit(
-                'http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=api&file=fails',
+                'http://localhost:8080/src/applications/securecollection/demo.html?user=public&collection=api&file=fails',
             );
             cy.injectAxe();
             cy.viewport(1300, 1000);
@@ -59,7 +59,7 @@ describe('Secure Collection', () => {
                 });
         });
 
-        it('a link that requires a Statutory Copyright statement does so', () => {
+        it('a link that requires a Statutory Copyright statement does so (logged in users only)', () => {
             cy.visit(
                 'http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=coursebank&file=111111111111111.pdf',
             );
@@ -94,7 +94,7 @@ describe('Secure Collection', () => {
                 });
         });
 
-        it('a link that does not have a file extension doesnt display the file extension hint to the user', () => {
+        it('a link that does not have a file extension doesnt display the file extension hint to the user (loggedin user only)', () => {
             cy.visit(
                 'http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=coursebank&file=2222222',
             );
@@ -110,7 +110,7 @@ describe('Secure Collection', () => {
                 });
         });
 
-        it('a link that requires a Commercial Copyright statement does so', () => {
+        it('a link that requires a Commercial Copyright statement does so (logged in user only)', () => {
             cy.visit(
                 'http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=bomdata&file=abcdef.zip',
             );
@@ -175,7 +175,7 @@ describe('Secure Collection', () => {
                 });
         });
 
-        it('a link that requires login will redirect to auth', () => {
+        it('a link that requires login will redirect to auth for the public user', () => {
             cy.intercept('GET', '/idp/module.php', {
                 // https://auth.uq.edu.au/idp/module.php/core/loginuserpass.php?AuthState=&etc
                 statusCode: 200,
@@ -186,15 +186,26 @@ describe('Secure Collection', () => {
             );
             // cy.injectAxe();
             cy.viewport(1300, 1000);
-            cy.wait(500);
             cy.get('body').contains('auth pages that forces the user to login');
         });
 
-        it('a link that does not require acknowledgement will redirect to the file', () => {
+        it('a link that requires login will redirect to the resource for the loggedin user', () => {
+            cy.intercept('GET', '/secure/exams/phil1010.pdf', {
+                statusCode: 200,
+                body: 'I am a file resource delivered to the user',
+            });
+            cy.visit(
+                'http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=exams&file=phil1010.pdf',
+            );
+            cy.viewport(1300, 1000);
+            cy.get('body').contains('I am a file resource delivered to the user');
+        });
+
+        it('a link that does not require acknowledgement will redirect to the file (logged in user only)', () => {
             cy.intercept('GET', '/secure/thomson/classic_legal_texts/Thynne_Accountability_And_Control.pdf', {
                 // 'https://files.library.uq.edu.au/secure/thomson/classic_legal_texts/Thynne_Accountability_And_Control.pdf?Expires=1621380128&Signature=longstring&Key-Pair-Id=APKAJNDQICYW445PEOSA',
                 statusCode: 200,
-                body: 'I am a file resource delivered to the user',
+                body: 'I am another file resource delivered to the user',
             });
             cy.visit(
                 'http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=thomson&file=classic_legal_texts/Thynne_Accountability_And_Control.pdf',
@@ -202,11 +213,11 @@ describe('Secure Collection', () => {
             cy.viewport(1300, 1000);
             // then check redirection
             // cy.wait(1500);
-            cy.get('body').contains('I am a file resource delivered to the user');
+            cy.get('body').contains('I am another file resource delivered to the user');
         });
 
         it.skip('has a working back button', () => {
-            cy.visit('http://localhost:8080/src/applications/securecollection/demo.html?user=uqstaff'); // supply a page the back button can return to
+            cy.visit('http://localhost:8080/?user=uqstaff'); // supply a page the back button can return to
 
             cy.visit(
                 'http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=coursebank&file=111111111111111.pdf',
