@@ -31,7 +31,7 @@ template.innerHTML = `
                     data-testid="StandardPage-title">Secure Collection</h2></div>
             <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12">
                 <section aria-live="assertive">
-                    <div id="block" class="MuiPaper-root MuiCard-root jss196 StandardCard MuiPaper-elevation1 MuiPaper-rounded jss196 StandardCard" data-testid="standard-card-copyright-notice" id="standard-card-copyright-notice">
+                    <div id="block" class="contentbox MuiPaper-root MuiCard-root jss196 StandardCard MuiPaper-elevation1 MuiPaper-rounded StandardCard" data-testid="standard-card-copyright-notice" id="standard-card-copyright-notice">
                     </div>
                 </section>
             </div>
