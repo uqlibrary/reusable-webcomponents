@@ -208,7 +208,9 @@ class MyLibraryButton extends HTMLElement {
 
         function handleMyLibButton() {
             const shadowButton = shadowDOM.getElementById('mylibrary-button');
-            myLibraryClosed ? !!shadowButton && shadowButton.blur() : !!shadowButton && shadowButton.focus();
+            myLibraryClosed
+                ? !!shadowButton && shadowButton.blur()
+                : /* istanbul ignore next */ !!shadowButton && shadowButton.focus();
             const shadowPane = shadowDOM.getElementById('mylibrary-pane');
             !!shadowPane && shadowPane.addEventListener('click', handleMyLibMouseOut);
             openMyLibMenu();
