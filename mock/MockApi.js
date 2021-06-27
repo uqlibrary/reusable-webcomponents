@@ -214,7 +214,7 @@ class MockApi {
                     case apiRoute.SECURE_COLLECTION_CHECK_API({
                             path: 'exams/2018/Semester_Two_Final_Examinations__2018_PHIL2011_281.pdf',
                         }).apiUrl:
-                        if (this.user === 'public') {
+                        if (['public', 'test'].includes(this.user)) {
                             return this.response(200, {response: 'Login required'});
                         } else {
                             return this.response(
@@ -266,7 +266,7 @@ class MockApi {
                     // http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=coursebank&file=111111111111111.pdf
                     // https://files.library.uq.edu.au/coursebank/111111111111111.pdf
                     case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'coursebank/111111111111111.pdf' }).apiUrl:
-                        if (this.user === 'public') {
+                        if (['public', 'test'].includes(this.user)) {
                             return this.response(200, {response: 'Login required'});
                         } else {
                             return this.response(
@@ -293,7 +293,7 @@ class MockApi {
                     // http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=bomdata&file=abcdef.zip
                     // https://files.library.uq.edu.au/bomdata/abcdef.zip
                     case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'bomdata/abcdef.zip' }).apiUrl:
-                        if (this.user === 'public') {
+                        if (['public', 'test'].includes(this.user)) {
                             return this.response(200, {response: 'Login required'});
                         } else {
                             return this.response(
@@ -324,7 +324,7 @@ class MockApi {
                     // http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=thomson&file=classic_legal_texts/Thynne_Accountability_And_Control.pdf
                     case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'thomson/classic_legal_texts/Thynne_Accountability_And_Control.pdf' })
                                 .apiUrl:
-                        if (this.user === 'public') {
+                        if (['public', 'test'].includes(this.user)) {
                             return this.response(200, {response: 'Login required'});
                         } else {
                             return this.response(
@@ -354,7 +354,7 @@ class MockApi {
                     // a link without a file extension
                     // http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=coursebank&file=2222222
                     case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'coursebank/2222222' }).apiUrl:
-                        if (this.user === 'public') {
+                        if (['public', 'test'].includes(this.user)) {
                             return this.response(200, {response: 'Login required'});
                         } else {
                             return this.response(
