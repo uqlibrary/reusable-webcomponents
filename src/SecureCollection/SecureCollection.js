@@ -63,6 +63,7 @@ export const getUrlSearchParams = (url) => {
         // prod and localhost
         return new URLSearchParams(url.search);
     }
+    /* istanbul ignore next */
     if (url.hash.startsWith('#')) {
         // staging has the search params inside the hash :(
         // eg #/collection?collection=thomson&file=classic_legal_texts/Thynne_Accountability_And_Control.pdf
@@ -97,7 +98,6 @@ class SecureCollection extends HTMLElement {
         this.displayPanel = 'loading'; // which display panel should the page display?
         this.redirectLink = null; // the link the user will presently be auto directed to, as there is no copyright to acknowledge
         this.clickLink = null; // the link that the user will click to acknowledge copyright and load the file
-        this.loadFileApi = false; // true: Check Api indicates all good, go on and load the File Api
 
         // add 'go back' button if page has a referer TODO
 
@@ -116,40 +116,35 @@ class SecureCollection extends HTMLElement {
             .then((data) => {
                 console.log('getSecureCollectionCheck got: ', data);
                 that.evaluateApiResponse(data);
+                return that.displayCorrectPanel();
             })
             /* istanbul ignore next */
             .catch((e) => {
                 console.log('catch getSecureCollectionCheck, error: ', e);
                 that.displayPanel = 'error';
                 return that.displayCorrectPanel();
-            })
-            .finally((e) => {
-                console.log('finally getSecureCollectionCheck ', e);
-                if (!that.loadFileApi && !!that.displayPanel) {
-                    // may not need loadFileApi
-                    return that.displayCorrectPanel();
-                }
             });
     }
 
-    async getSecureCollectionFile(path) {
-        const that = this;
-        await new ApiAccess()
-            .loadSecureCollectionFile(path)
-            .then((data) => {
-                that.evaluateApiResponse(data);
-
-                if (!!that.displayPanel) {
-                    return that.displayCorrectPanel();
-                }
-            })
-            /* istanbul ignore next */
-            .catch((e) => {
-                console.log('loadSecureCollectionFile, error: ', e);
-                that.displayPanel = 'error';
-                return that.displayCorrectPanel();
-            });
-    }
+    // async getSecureCollectionFile(path) {
+    //     console.log('###### SECURE COLLECION FILE ######');
+    //     const that = this;
+    //     await new ApiAccess()
+    //         .loadSecureCollectionFile(path)
+    //         .then((data) => {
+    //             that.evaluateApiResponse(data);
+    //
+    //             if (!!that.displayPanel) {
+    //                 return that.displayCorrectPanel();
+    //             }
+    //         })
+    //         /* istanbul ignore next */
+    //         .catch((e) => {
+    //             console.log('loadSecureCollectionFile, error: ', e);
+    //             that.displayPanel = 'error';
+    //             return that.displayCorrectPanel();
+    //         });
+    // }
 
     displayCorrectPanel() {
         console.log('displaying the correct panel, per: ', this.displayPanel);
@@ -157,6 +152,9 @@ class SecureCollection extends HTMLElement {
             case 'loading':
                 console.log('displayCorrectPanel loading');
                 return this.displayLoadingPanel();
+            case 'login':
+                console.log('displayCorrectPanel login');
+                return this.displayLoginRequiredRedirectorPanel();
             case 'redirect':
                 console.log('displayCorrectPanel redirect');
                 return this.displayRedirectingPanel(this.redirectLink);
@@ -344,12 +342,15 @@ class SecureCollection extends HTMLElement {
         loginRequiredRedirectorPanel.innerHTML = `
 <p>Login is required for this file - please wait while you are redirected.</p>
 <div id="circularprogress"></div>
-<p>You can <a id="redirector" href="">click here</a> if you aren't redirected.</p>
+<p>You can <a data-testid="secure-collection-auth-redirector" id="redirector" href="">click here</a> if you aren't redirected.</p>
 `;
 
         const redirectLink = `${authLocale.AUTH_URL_LOGIN}?return=${window.btoa(window.location.href)}`;
-        console.log('displayLoginRequiredRedirectorPanel: I will redirect to ', redirectLink);
-        window.location.assign(redirectLink);
+        /* istanbul ignore next */
+        if (!this.isTestMode()) {
+            console.log('displayLoginRequiredRedirectorPanel: I will redirect to ', redirectLink);
+            window.location.assign(redirectLink);
+        }
 
         const anchor = loginRequiredRedirectorPanel.content.getElementById('redirector');
         anchor.href = redirectLink;
@@ -363,9 +364,19 @@ class SecureCollection extends HTMLElement {
         this.wrapFragmentInStandardPage(block, 'Redirecting');
     }
 
+    isTestMode() {
+        /* istanbul ignore next */
+        if (window.location.host !== 'localhost:8080') {
+            return false;
+        }
+        const queryString = require('query-string');
+        const user = queryString.parse(location.search || location.hash.substring(location.hash.indexOf('?'))).user;
+        return user === 'test';
+    }
+
     displayRedirectingPanel(redirectLink) {
-        /* istanbul ignore else */
-        if (redirectLink !== null) {
+        /* istanbul ignore next */
+        if (redirectLink !== null && !this.isTestMode()) {
             console.log('displayRedirectingPanel: I will redirect to ', redirectLink);
             window.location.assign(redirectLink);
         }
@@ -373,7 +384,7 @@ class SecureCollection extends HTMLElement {
         const redirectorPanel = document.createElement('template');
         redirectorPanel.innerHTML = `
 <p>We are preparing the file, you should be redirected shortly.</p>
-<p>You can <a id="redirector" href="">download the file</a> if the page does not redirect.</p>
+<p>You can <a <a data-testid="secure-collection-resource-redirector" id="redirector" href="">download the file</a> if the page does not redirect.</p>
 <div id="circularprogress"></div>
 `;
 
@@ -421,59 +432,45 @@ class SecureCollection extends HTMLElement {
         block.appendChild(blockwrapper);
     }
 
-    async isUserLoggedin() {
-        console.log('loggedin');
-        const that = this;
-        let loggedin = false;
-        await new ApiAccess()
-            .getAccount()
-            .then((account) => {
-                console.log('loggedin? account = ', account);
-                /* istanbul ignore else */
-                if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
-                    that.account = account;
-                }
-                that.accountLoading = false;
-
-                loggedin = !!that.account && !!that.account.id;
-            })
-            .catch((error) => {
-                that.accountLoading = false;
-            });
-        console.log('loggedin: ', loggedin);
-        return loggedin;
-    }
+    // async checkLoggedInStatus() {
+    //     console.log('loggedin');
+    //     const that = this;
+    //     let loggedin = false;
+    //     await new ApiAccess()
+    //         .getAccount()
+    //         .then(account => {
+    //             console.log('getAccount THEN loggedin? account = ', account);
+    //             /* istanbul ignore else */
+    //             if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
+    //                 that.account = account;
+    //             }
+    //             that.accountLoading = false;
+    //
+    //             loggedin = !!that.account && !!that.account.id;
+    //         })
+    //         .catch((error) => {
+    //             console.log('getAccount CATCH loggedin');
+    //             that.accountLoading = false;
+    //         })
+    //         .finally(e => {
+    //             console.log('checkLoggedInStatus: loggedin ', loggedin);
+    //             return loggedin;
+    //         });
+    // }
 
     evaluateApiResponse(apiResponse) {
         const that = this;
         console.log('evaluateApiResponse: ', apiResponse);
 
         // unexpectedly, the api responses have attributes all in lower case,
-        // ie secureCollection.displaypanel NOT secureCollection.displayPanel
-
+        // ie apiResponse.displaypanel NOT apiResponse.displayPanel
         if (apiResponse.response === 'Login required') {
-            console.log('secureCollection.response === Login required');
-            this.isUserLoggedin()
-                .then((isLoggedIn) => {
-                    if (!!isLoggedIn) {
-                        console.log('user is logged in');
-                        // that.displayPanel = 'loading'; // assume we dont need it as we start off loading
-                        // they are actually logged in! now we ask for the actual file they want
-                        that.getSecureCollectionFile(currentSearchParams);
-                    } else {
-                        console.log('user is NOT logged in');
-                        this.displayLoginRequiredRedirectorPanel();
-                    }
-                })
-                .catch(() => {
-                    console.log('catch: user is NOT logged in');
-                    // no, this should be system error
-                    this.displayLoginRequiredRedirectorPanel();
-                });
+            console.log('*************** secureCollection.response === Login required');
+            // they must not be logged in
+            that.displayPanel = 'login';
         } else if (apiResponse.response === 'Invalid User') {
             that.displayPanel = 'invalidUser';
         } else if (apiResponse.displaypanel === 'redirect') {
-            console.log('redirect');
             /* istanbul ignore else */
             if (!!apiResponse.url) {
                 that.displayPanel = 'redirect';

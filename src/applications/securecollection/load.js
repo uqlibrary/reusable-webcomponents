@@ -1,3 +1,0 @@
-// function loadReusableComponentsStudenthub() {}
-//
-// ready(loadReusableComponentsStudenthub);
