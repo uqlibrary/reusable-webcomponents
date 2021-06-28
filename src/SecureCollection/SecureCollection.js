@@ -13,7 +13,8 @@ fileExtensionElement.innerHTML = `
 const circularProgressElement = document.createElement('template');
 circularProgressElement.innerHTML = `
     <div class="MuiCircularProgress-root MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
-         role="progressbar" data-testid="loading-secure-collection" style="width: 20px; height: 20px;">
+         aria-label="Page is loading" role="progressbar" data-testid="loading-secure-collection"
+         style="width: 20px; height: 20px;">
         <svg class="MuiCircularProgress-svg" viewBox="22 22 44 44">
             <circle class="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate" cx="44" cy="44" r="20.2"
                     fill="none" stroke-width="3.6"></circle>
