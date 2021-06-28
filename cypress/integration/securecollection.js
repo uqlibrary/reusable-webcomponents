@@ -244,12 +244,12 @@ describe('Secure Collection', () => {
         });
 
         it('a link that downloads can have the "download" button clicked', () => {
-            cy.intercept('GET', '/secure/exams/phil1010.pdf', {
+            cy.intercept('GET', '/coursebank/22222222222.pdf', {
                 statusCode: 200,
                 body: 'I am a file resource delivered to the user',
             });
             cy.visit(
-                'http://localhost:8080/src/applications/securecollection/demo.html?user=test&collection=exams&file=phil1010.pdf',
+                'http://localhost:8080/src/applications/securecollection/demo.html?user=test&collection=coursebank&file=22222222222.pdf',
             );
             cy.viewport(1300, 1000);
             cy.get('secure-collection')

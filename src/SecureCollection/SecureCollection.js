@@ -116,7 +116,29 @@ class SecureCollection extends HTMLElement {
             .loadSecureCollectionCheck(path)
             .then((data) => {
                 console.log('getSecureCollectionCheck got: ', data);
-                that.evaluateApiResponse(data);
+                if (data.response === 'Login required') {
+                    console.log('*************** secureCollection.response === Login required');
+                    this.checkLoggedInStatus()
+                        .then((isLoggedIn) => {
+                            console.log('loggedin? got: ', isLoggedIn);
+                            if (!!isLoggedIn) {
+                                console.log('user is logged in');
+                                // that.displayPanel = 'loading'; // assume we dont need it as we start off loading
+                                // they are actually logged in! now we ask for the actual file they want
+                                that.getSecureCollectionFile(currentSearchParams);
+                            } else {
+                                console.log('user is NOT logged in');
+                                this.displayLoginRequiredRedirectorPanel();
+                            }
+                        })
+                        .catch(() => {
+                            console.log('catch: user is NOT logged in');
+                            // no, this should be system error
+                            this.displayLoginRequiredRedirectorPanel();
+                        });
+                } else {
+                    that.evaluateApiResponse(data);
+                }
                 return that.displayCorrectPanel();
             })
             /* istanbul ignore next */
@@ -127,25 +149,25 @@ class SecureCollection extends HTMLElement {
             });
     }
 
-    // async getSecureCollectionFile(path) {
-    //     console.log('###### SECURE COLLECION FILE ######');
-    //     const that = this;
-    //     await new ApiAccess()
-    //         .loadSecureCollectionFile(path)
-    //         .then((data) => {
-    //             that.evaluateApiResponse(data);
-    //
-    //             if (!!that.displayPanel) {
-    //                 return that.displayCorrectPanel();
-    //             }
-    //         })
-    //         /* istanbul ignore next */
-    //         .catch((e) => {
-    //             console.log('loadSecureCollectionFile, error: ', e);
-    //             that.displayPanel = 'error';
-    //             return that.displayCorrectPanel();
-    //         });
-    // }
+    async getSecureCollectionFile(path) {
+        console.log('###### SECURE COLLECION FILE ######');
+        const that = this;
+        await new ApiAccess()
+            .loadSecureCollectionFile(path)
+            .then((data) => {
+                that.evaluateApiResponse(data);
+
+                if (!!that.displayPanel) {
+                    return that.displayCorrectPanel();
+                }
+            })
+            /* istanbul ignore next */
+            .catch((e) => {
+                console.log('loadSecureCollectionFile, error: ', e);
+                that.displayPanel = 'error';
+                return that.displayCorrectPanel();
+            });
+    }
 
     displayCorrectPanel() {
         console.log('displaying the correct panel, per: ', this.displayPanel);
@@ -433,31 +455,30 @@ class SecureCollection extends HTMLElement {
         block.appendChild(blockwrapper);
     }
 
-    // async checkLoggedInStatus() {
-    //     console.log('loggedin');
-    //     const that = this;
-    //     let loggedin = false;
-    //     await new ApiAccess()
-    //         .getAccount()
-    //         .then(account => {
-    //             console.log('getAccount THEN loggedin? account = ', account);
-    //             /* istanbul ignore else */
-    //             if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
-    //                 that.account = account;
-    //             }
-    //             that.accountLoading = false;
-    //
-    //             loggedin = !!that.account && !!that.account.id;
-    //         })
-    //         .catch((error) => {
-    //             console.log('getAccount CATCH loggedin');
-    //             that.accountLoading = false;
-    //         })
-    //         .finally(e => {
-    //             console.log('checkLoggedInStatus: loggedin ', loggedin);
-    //             return loggedin;
-    //         });
-    // }
+    async checkLoggedInStatus() {
+        console.log('function check LoggedInStatus');
+        const that = this;
+        let loggedin = false;
+        return await new ApiAccess()
+            .getAccount()
+            .then((account) => {
+                console.log('getAccount THEN loggedin? account = ', account);
+                /* istanbul ignore else */
+                if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
+                    that.account = account;
+                }
+                that.accountLoading = false;
+
+                loggedin = !!that.account && !!that.account.id;
+                console.log('returning loggedin as: ', loggedin);
+                return loggedin;
+            })
+            .catch((error) => {
+                console.log('getAccount CATCH loggedin');
+                that.accountLoading = false;
+                return false;
+            });
+    }
 
     evaluateApiResponse(apiResponse) {
         const that = this;
@@ -465,11 +486,7 @@ class SecureCollection extends HTMLElement {
 
         // unexpectedly, the api responses have attributes all in lower case,
         // ie apiResponse.displaypanel NOT apiResponse.displayPanel
-        if (apiResponse.response === 'Login required') {
-            console.log('*************** secureCollection.response === Login required');
-            // they must not be logged in
-            that.displayPanel = 'login';
-        } else if (apiResponse.response === 'Invalid User') {
+        if (apiResponse.response === 'Invalid User') {
             that.displayPanel = 'invalidUser';
         } else if (apiResponse.displaypanel === 'redirect') {
             /* istanbul ignore else */

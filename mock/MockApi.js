@@ -171,18 +171,7 @@ class MockApi {
 
                     // http://localhost:8080/src/applications/securecollection/demo.html?user=public&collection=exams&file=phil1010.pdf
                     case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'exams/phil1010.pdf' }).apiUrl:
-                        if (this.user === 'public') {
-                            return this.response(200, {response: 'Login required'});
-                        } else {
-                            return this.response(
-                                200,
-                                {
-                                    url:
-                                        'https://files.library.uq.edu.au/secure/exams/phil1010.pdf?Expires=1621059344&Signature=long_string&Key-Pair-Id=APKAJNDQICYW445PEOSA',
-                                    displaypanel: 'redirect',
-                                },
-                            );
-                        }
+                        return this.response(200, {response: 'Login required'});
 
                     case apiRoute.SECURE_COLLECTION_FILE_API({ path: 'exams/phil1010.pdf' }).apiUrl:
                             return this.response(
@@ -214,18 +203,7 @@ class MockApi {
                     case apiRoute.SECURE_COLLECTION_CHECK_API({
                             path: 'exams/2018/Semester_Two_Final_Examinations__2018_PHIL2011_281.pdf',
                         }).apiUrl:
-                        if (['public', 'test'].includes(this.user)) {
-                            return this.response(200, {response: 'Login required'});
-                        } else {
-                            return this.response(
-                                200,
-                                {
-                                    url:
-                                        'https://files.library.uq.edu.au/secure/exams/2018/Semester_Two_Final_Examinations__2018_PHIL2011_281.pdf?Expires=1621059344&Signature=long_string&Key-Pair-Id=APKAJNDQICYW445PEOSA',
-                                    displaypanel: 'redirect',
-                                },
-                            );
-                        }
+                        return this.response(200, {response: 'Login required'});
 
                     // https://files.library.uq.edu.au/exams/2018/Semester_Two_Final_Examinations__2018_PHIL2011_281.pdf
                     case apiRoute.SECURE_COLLECTION_FILE_API({ path: 'exams/2018/Semester_Two_Final_Examinations__2018_PHIL2011_281.pdf' })
@@ -266,19 +244,7 @@ class MockApi {
                     // http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=coursebank&file=111111111111111.pdf
                     // https://files.library.uq.edu.au/coursebank/111111111111111.pdf
                     case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'coursebank/111111111111111.pdf' }).apiUrl:
-                        if (['public', 'test'].includes(this.user)) {
-                            return this.response(200, {response: 'Login required'});
-                        } else {
-                            return this.response(
-                                200,
-                                {
-                                    url:
-                                        'https://files.library.uq.edu.au/secure/coursebank/111111111111111.pdf?Expires=1621060025&Signature=longString&Key-Pair-Id=APKAJNDQICYW445PEOSA',
-                                    displaypanel: 'statutoryCopyright',
-                                    acknowledgementRequired: true,
-                                },
-                            );
-                        }
+                        return this.response(200, {response: 'Login required'});
                     case apiRoute.SECURE_COLLECTION_FILE_API({ path: 'coursebank/111111111111111.pdf' }).apiUrl:
                             return this.response(
                                 200,
@@ -290,23 +256,22 @@ class MockApi {
                                 },
                             );
 
-                    // http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=bomdata&file=abcdef.zip
-                    // https://files.library.uq.edu.au/bomdata/abcdef.zip
-                    case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'bomdata/abcdef.zip' }).apiUrl:
-                        if (['public', 'test'].includes(this.user)) {
-                            return this.response(200, {response: 'Login required'});
-                        } else {
+                    // http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=coursebank&file=22222222222.pdf
+                    // https://files.library.uq.edu.au/coursebank/22222222222.pdf
+                    case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'coursebank/22222222222.pdf' }).apiUrl:
                             return this.response(
                                 200,
                                 {
                                     url:
-                                        'https://files.library.uq.edu.au/secure/bomdata/abcdef.zip?Expires=1621060025&Signature=longString&Key-Pair-Id=APKAJNDQICYW445PEOSA',
-                                    displaypanel: 'commercialCopyright',
-                                    acknowledgementRequired: true,
-                                    hasList: true, // as yet unused
+                                        'https://files.library.uq.edu.au/secure/coursebank/22222222222.pdf?Expires=1621060025&Signature=longString&Key-Pair-Id=APKAJNDQICYW445PEOSA',
+                                    displaypanel: 'redirect',
                                 },
                             );
-                        }
+
+                    // http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=bomdata&file=abcdef.zip
+                    // https://files.library.uq.edu.au/bomdata/abcdef.zip
+                    case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'bomdata/abcdef.zip' }).apiUrl:
+                        return this.response(200, {response: 'Login required'});
                     case apiRoute.SECURE_COLLECTION_FILE_API({ path: 'bomdata/abcdef.zip' }).apiUrl:
                             return this.response(
                                 200,
@@ -324,20 +289,7 @@ class MockApi {
                     // http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=thomson&file=classic_legal_texts/Thynne_Accountability_And_Control.pdf
                     case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'thomson/classic_legal_texts/Thynne_Accountability_And_Control.pdf' })
                                 .apiUrl:
-                        if (['public', 'test'].includes(this.user)) {
-                            return this.response(200, {response: 'Login required'});
-                        } else {
-                            return this.response(
-                                200,
-                                {
-                                    url:
-                                        'https://files.library.uq.edu.au/secure/thomson/classic_legal_texts/Thynne_Accountability_And_Control.pdf?Expires=1621380128&Signature=longstring&Key-Pair-Id=APKAJNDQICYW445PEOSA',
-                                    displaypanel: 'redirect',
-                                    acknowledgementRequired: false,
-                                    hasList: true, // as yet unused
-                                },
-                            );
-                        }
+                        return this.response(200, {response: 'Login required'});
                     case apiRoute.SECURE_COLLECTION_FILE_API({ path: 'thomson/classic_legal_texts/Thynne_Accountability_And_Control.pdf' })
                                 .apiUrl:
                         return this.response(
@@ -354,19 +306,7 @@ class MockApi {
                     // a link without a file extension
                     // http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=coursebank&file=2222222
                     case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'coursebank/2222222' }).apiUrl:
-                        if (['public', 'test'].includes(this.user)) {
-                            return this.response(200, {response: 'Login required'});
-                        } else {
-                            return this.response(
-                                200,
-                                {
-                                    url:
-                                        'https://files.library.uq.edu.au/secure/coursebank/2222222?Expires=1621060025&Signature=longString&Key-Pair-Id=APKAJNDQICYW445PEOSA',
-                                    displaypanel: 'statutoryCopyright',
-                                    acknowledgementRequired: true,
-                                },
-                            );
-                        }
+                        return this.response(200, {response: 'Login required'});
                     case apiRoute.SECURE_COLLECTION_FILE_API({ path: 'coursebank/2222222' }).apiUrl:
                         return this.response(
                                 200,
