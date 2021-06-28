@@ -210,7 +210,10 @@ class ApiAccess {
         console.log('fetchiong: ', new ApiRoutes().SECURE_COLLECTION_CHECK_API({ path }).apiUrl);
         return await this.fetchAPI(new ApiRoutes().SECURE_COLLECTION_CHECK_API({ path }).apiUrl, {}, true, false)
             .then((data) => {
-                return data;
+                console.log('data = ', data);
+                return !!data.response || !!data.url
+                    ? data // mock
+                    : /* istanbul ignore next */ data.json(); // live
             })
             .catch((error) => {
                 console.log('error loading Secure Collection Check ', error);
