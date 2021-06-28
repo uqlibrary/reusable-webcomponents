@@ -212,6 +212,7 @@ class ApiAccess {
         console.log('fetchiong: ', new ApiRoutes().SECURE_COLLECTION_CHECK_API({ path }).apiUrl);
         return await this.fetchAPI(new ApiRoutes().SECURE_COLLECTION_CHECK_API({ path }).apiUrl, {}, true, false)
             .then((data) => {
+                console.log('loadSecureCollectionCheck data = ', data);
                 return data;
             })
             .catch((error) => {
@@ -268,7 +269,7 @@ class ApiAccess {
             const connector = urlPath.indexOf('?') > -1 ? '&' : '?';
             const addTimestamp = !!timestampRequired ? `${connector}${new Date().getTime()}` : '';
 
-            const response = fetch(`${API_URL}${urlPath}${addTimestamp}`, {
+            const response = await fetch(`${API_URL}${urlPath}${addTimestamp}`, {
                 headers: options,
             });
             console.log('response = ', response);
