@@ -207,7 +207,7 @@ class ApiAccess {
 
     async loadSecureCollectionCheck(path) {
         console.log('fetchiong: ', new ApiRoutes().SECURE_COLLECTION_CHECK_API({ path }).apiUrl);
-        return await this.fetchAPI(new ApiRoutes().SECURE_COLLECTION_CHECK_API({ path }).apiUrl)
+        return await this.fetchAPI(new ApiRoutes().SECURE_COLLECTION_CHECK_API({ path }).apiUrl, {}, true)
             .then((data) => {
                 return data;
             })
@@ -219,7 +219,7 @@ class ApiAccess {
     }
 
     async loadSecureCollectionFile(path) {
-        return await this.fetchAPI(new ApiRoutes().SECURE_COLLECTION_FILE_API({ path }).apiUrl)
+        return await this.fetchAPI(new ApiRoutes().SECURE_COLLECTION_FILE_API({ path }).apiUrl, {}, true)
             .then((data) => {
                 return data;
             })
