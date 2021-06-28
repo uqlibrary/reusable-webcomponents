@@ -260,7 +260,7 @@ describe('Secure Collection', () => {
             cy.get('body').contains('I am a file resource delivered to the user');
         });
 
-        it('a link that downloads will redirect to the resource', () => {
+        it.skip('a link that downloads will redirect to the resource', () => {
             cy.intercept('GET', '/secure/exams/phil1010.pdf', {
                 statusCode: 200,
                 body: 'I am a file resource delivered to the user',
@@ -272,7 +272,7 @@ describe('Secure Collection', () => {
             cy.get('body').contains('I am a file resource delivered to the user');
         });
 
-        it('a link that does not require acknowledgement will redirect to the file (logged in user only)', () => {
+        it.skip('a link that does not require acknowledgement will redirect to the file (logged in user only)', () => {
             cy.intercept('GET', '/secure/thomson/classic_legal_texts/Thynne_Accountability_And_Control.pdf', {
                 // 'https://files.library.uq.edu.au/secure/thomson/classic_legal_texts/Thynne_Accountability_And_Control.pdf?Expires=1621380128&Signature=longstring&Key-Pair-Id=APKAJNDQICYW445PEOSA',
                 statusCode: 200,
