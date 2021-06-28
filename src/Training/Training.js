@@ -125,19 +125,20 @@ class Training extends HTMLElement {
         }
 
         const campusList = [];
-        const startDateList = [];
-        const endDateList = [];
+        let firstStartDate = null;
+        let lastEndDate = null;
         this.trainingEvents.map((event) => {
             campusList.push(event.campus);
-            startDateList.push(new Date(event.start));
-            endDateList.push(new Date(event.end));
+            if (!firstStartDate || firstStartDate > event.start) {
+                firstStartDate = event.start;
+            }
+            if (!lastEndDate || lastEndDate < event.end) {
+                lastEndDate = event.end;
+            }
         });
         const campusListAttr = [...new Set(campusList)].filter(Boolean).map(encodeURIComponent).join('|');
-        const weekStartAttr = startDateList.sort((a, b) => a < b)[0].toISOString();
-        const weekEndAttr = endDateList
-            .sort((a, b) => a < b)
-            .pop()
-            .toISOString();
+        const weekStartAttr = new Date(firstStartDate).toISOString();
+        const weekEndAttr = new Date(lastEndDate).toISOString();
 
         this.filterComponent.setAttribute('week-start', weekStartAttr);
         this.filterComponent.setAttribute('campus-list', campusListAttr);
@@ -175,8 +176,11 @@ class Training extends HTMLElement {
             }
 
             if (!!filters.weekstart) {
-                const eventDate = new Date(event.start);
-                if (eventDate < weekStart || weekEnd > eventDate) {
+                const eventStartDate = new Date(event.start);
+                const eventEndDate = new Date(event.end);
+                const eventStartsAfterWeek = eventStartDate > weekEnd;
+                const eventEndsBeforeWeek = eventEndDate < weekStart;
+                if (eventStartsAfterWeek || eventEndsBeforeWeek) {
                     return false;
                 }
             }
