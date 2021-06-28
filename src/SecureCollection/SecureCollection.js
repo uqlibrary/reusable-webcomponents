@@ -326,7 +326,7 @@ class SecureCollection extends HTMLElement {
 </p>
 `;
 
-        const logoutLink = `${authLocale.AUTH_URL_LOGOUT}?return=${window.btoa(window.location.href)}`;
+        const logoutLink = `${authLocale.AUTH_URL_LOGOUT}${window.btoa(window.location.href)}`;
         const anchor = noAccessPanel.content.getElementById('logoutandreturnhere');
         anchor.href = logoutLink;
 
@@ -345,7 +345,7 @@ class SecureCollection extends HTMLElement {
 <p>You can <a data-testid="secure-collection-auth-redirector" id="redirector" href="">click here</a> if you aren't redirected.</p>
 `;
 
-        const redirectLink = `${authLocale.AUTH_URL_LOGIN}?return=${window.btoa(window.location.href)}`;
+        const redirectLink = `${authLocale.AUTH_URL_LOGIN}${window.btoa(window.location.href)}`;
         /* istanbul ignore next */
         if (!this.isTestMode()) {
             console.log('displayLoginRequiredRedirectorPanel: I will redirect to ', redirectLink);
@@ -384,7 +384,7 @@ class SecureCollection extends HTMLElement {
         const redirectorPanel = document.createElement('template');
         redirectorPanel.innerHTML = `
 <p>We are preparing the file, you should be redirected shortly.</p>
-<p>You can <a <a data-testid="secure-collection-resource-redirector" id="redirector" href="">download the file</a> if the page does not redirect.</p>
+<p>You can <a data-testid="secure-collection-resource-redirector" id="redirector" href="">download the file</a> if the page does not redirect.</p>
 <div id="circularprogress"></div>
 `;
 
