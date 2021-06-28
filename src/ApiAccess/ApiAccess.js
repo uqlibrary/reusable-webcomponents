@@ -231,8 +231,13 @@ class ApiAccess {
     }
 
     async fetchAPI(urlPath, headers, tokenRequired = false) {
-        if (!!tokenRequired && (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)) {
-            // no cookie so we wont bother asking for an api that cant be returned
+        console.log('fetchAPI: urlPath = ', urlPath);
+        if (
+            urlPath === 'account' &&
+            !!tokenRequired &&
+            (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)
+        ) {
+            // no cookie so we wont bother asking for the account api that cant be returned
             console.log('no cookie so we wont bother asking for an api that cant be returned');
             return false;
         }
