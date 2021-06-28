@@ -234,10 +234,13 @@ class ApiAccess {
     }
 
     async fetchAPI(urlPath, headers, tokenRequired = false) {
-        // this is a fail safe - account blocks it earlier and currently no other api calls do this */
-        /* istanbul ignore next */
-        if (!!tokenRequired && (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)) {
-            // no cookie so we wont bother asking for an api that cant be returned
+        console.log('fetchAPI: urlPath = ', urlPath);
+        if (
+            urlPath === 'account' &&
+            !!tokenRequired &&
+            (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)
+        ) {
+            // no cookie so we wont bother asking for the account api that cant be returned
             console.log('no cookie so we wont bother asking for an api that cant be returned');
             return false;
         }
