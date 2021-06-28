@@ -123,6 +123,8 @@ class MockApi {
                 }
 
             case apiRoute.TRAINING_API().apiUrl:
+                // return this.response(500, null, true);
+                // return this.response(200, [], true);
                 return this.response(200, trainingEvents, true);
 
             default:

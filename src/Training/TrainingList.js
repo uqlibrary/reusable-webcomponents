@@ -53,7 +53,9 @@ class TrainingList extends HTMLElement {
         this._eventList = eventList;
         this.clearEvents();
 
+        // Get list of unique category names
         const categoryNames = [...new Set(eventList.map((event) => event.eventType))];
+
         categoryNames.map((categoryName, index) => {
             this.rootElement.appendChild(categoryTemplate.content.cloneNode(true));
             const categoryCard = this.rootElement.lastElementChild;

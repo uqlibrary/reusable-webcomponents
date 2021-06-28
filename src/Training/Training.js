@@ -1,8 +1,19 @@
 import ApiAccess from '../ApiAccess/ApiAccess';
+import styles from './css/main.css';
 
 const template = document.createElement('template');
 template.innerHTML = `
-    <div role="region" aria-label="UQ Library Training" data-testid="library-training" id="library-training"></div>
+    <style>${styles.toString()}</style>
+    <div role="region" aria-label="UQ Library Training" data-testid="library-training" id="library-training">
+        <div class="uq-card" data-testid="training-data-message" id="training-data-message">
+            <p class="uq-card__content" data-testid="training-loading-message">Loading class information...</p>
+        </div>
+    </div>
+`;
+
+const noDataTemplate = document.createElement('template');
+noDataTemplate.innerHTML = `
+    <p class="uq-card__content" data-testid="training-no-data-message">No classes scheduled; check back soon.</p>
 `;
 
 class Training extends HTMLElement {
@@ -13,10 +24,6 @@ class Training extends HTMLElement {
     get maxEventCount() {
         return this.getAttribute('max-event-count') || 100;
     }
-
-    // get gaAppName() {
-    //     return this.getAttribute('ga-app-name');
-    // }
 
     get hideFilter() {
         return this.hasAttribute('hide-filter') && this.getAttribute('hide-filter') !== 'false';
@@ -80,15 +87,12 @@ class Training extends HTMLElement {
 
         // Save element refs
         this.rootElement = this.shadowRoot.getElementById('library-training');
-        if (!this.hideFilter) {
-            this.filterComponent = document.createElement('training-filter');
-            this.rootElement.appendChild(this.filterComponent);
-        }
+        this.messageElement = this.shadowRoot.getElementById('training-data-message');
+        this.filterComponent = document.createElement('training-filter');
         this.listComponent = document.createElement('training-list');
         if (this.hideCategoryTitle) {
-            this.listComponent.setAttribute('hide-category-title', true);
+            this.listComponent.setAttribute('hide-category-title', '');
         }
-        this.rootElement.appendChild(this.listComponent);
 
         this.fetchData();
         this.addEventListeners();
@@ -97,11 +101,20 @@ class Training extends HTMLElement {
     fetchData() {
         new ApiAccess().loadTrainingEvents(this.maxEventCount, this.eventFilterId).then((fetchedEvents) => {
             /* istanbul ignore else */
-            if (fetchedEvents) {
+            if (!!fetchedEvents && fetchedEvents.length) {
                 this.trainingEvents = fetchedEvents;
-                this.initFiltering();
                 this.setAttribute('events-loaded', '');
+                this.messageElement.innerHTML = '';
+                if (!this.hideFilter) {
+                    this.rootElement.appendChild(this.filterComponent);
+                }
+                this.rootElement.appendChild(this.listComponent);
+                this.initFiltering();
                 this.setFilters();
+            } else {
+                this.messageElement.innerHTML = '';
+                this.trainingEvents = [];
+                this.messageElement.appendChild(noDataTemplate.content.cloneNode(true));
             }
         });
     }
@@ -112,19 +125,20 @@ class Training extends HTMLElement {
         }
 
         const campusList = [];
-        const startDateList = [];
-        const endDateList = [];
+        let firstStartDate = null;
+        let lastEndDate = null;
         this.trainingEvents.map((event) => {
             campusList.push(event.campus);
-            startDateList.push(new Date(event.start));
-            endDateList.push(new Date(event.end));
+            if (!firstStartDate || firstStartDate > event.start) {
+                firstStartDate = event.start;
+            }
+            if (!lastEndDate || lastEndDate < event.end) {
+                lastEndDate = event.end;
+            }
         });
         const campusListAttr = [...new Set(campusList)].filter(Boolean).map(encodeURIComponent).join('|');
-        const weekStartAttr = startDateList.sort((a, b) => a < b)[0].toISOString();
-        const weekEndAttr = endDateList
-            .sort((a, b) => a < b)
-            .pop()
-            .toISOString();
+        const weekStartAttr = new Date(firstStartDate).toISOString();
+        const weekEndAttr = new Date(lastEndDate).toISOString();
 
         this.filterComponent.setAttribute('week-start', weekStartAttr);
         this.filterComponent.setAttribute('campus-list', campusListAttr);
@@ -162,8 +176,11 @@ class Training extends HTMLElement {
             }
 
             if (!!filters.weekstart) {
-                const eventDate = new Date(event.start);
-                if (eventDate < weekStart || weekEnd > eventDate) {
+                const eventStartDate = new Date(event.start);
+                const eventEndDate = new Date(event.end);
+                const eventStartsAfterWeek = eventStartDate > weekEnd;
+                const eventEndsBeforeWeek = eventEndDate < weekStart;
+                if (eventStartsAfterWeek || eventEndsBeforeWeek) {
                     return false;
                 }
             }
