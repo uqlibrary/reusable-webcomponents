@@ -148,9 +148,10 @@ class ApiAccess {
             .then((data) => {
                 return (
                     (data &&
-                        data.response &&
-                        data.response.docs &&
-                        data.response.docs.map((item, index) => {
+                        data.body &&
+                        data.body.response &&
+                        data.body.response.docs &&
+                        data.body.response.docs.map((item, index) => {
                             return {
                                 ...item,
                                 index,
