@@ -169,8 +169,19 @@ class TrainingDetail extends HTMLElement {
             return '';
         }
         const startDateDate = new Date(startDate);
+        // desired output format: Tuesday 29 June 2021
         const optionDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        return new Intl.DateTimeFormat('en-AU', optionDate).format(startDateDate);
+        return new Intl.DateTimeFormat('en-AU', optionDate)
+            .formatToParts(startDateDate)
+            .map(({ type, value }) => {
+                switch (type) {
+                    case 'literal':
+                        return ' ';
+                    default:
+                        return value;
+                }
+            })
+            .join('');
     }
 
     setEventName() {
