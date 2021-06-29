@@ -138,41 +138,81 @@ class TrainingDetail extends HTMLElement {
         }
 
         const optionHours = { hour: 'numeric', minute: 'numeric' };
-        const startTimeData = this.getStartTimeFormatted(optionHours);
+
+        const startTimeDisplayValue = this.formatTime(startDate, optionHours);
         const startTimeDom = this.shadowRoot.getElementById('startTime');
-        !!startTimeData && !!startTimeDom && (startTimeDom.innerText = startTimeData);
+        !!startTimeDisplayValue && !!startTimeDom && (startTimeDom.innerText = startTimeDisplayValue);
 
-        const endDateDate = new Date(endDate);
-        const endTimeData = new Intl.DateTimeFormat('en-AU', optionHours).format(endDateDate);
+        const endTimeDisplayValue = this.formatTime(endDate, optionHours);
         const endTimeDom = this.shadowRoot.getElementById('endTime');
-        !!endTimeData && !!endTimeDom && (endTimeDom.innerText = endTimeData);
+        !!endTimeDisplayValue && !!endTimeDom && (endTimeDom.innerText = endTimeDisplayValue);
 
-        const fullDateData = this.getStartDateFormatted();
+        const fullDateData = this.formatDate(this.data.start);
         const fullDateDom = this.shadowRoot.getElementById('fullDate');
         !!fullDateData && !!fullDateDom && (fullDateDom.innerText = fullDateData);
     }
 
-    getStartTimeFormatted(optionHours) {
-        const startDate = this.data.start;
+    /**
+     * convert formatting to meet UQ style guide https://marketing-communication.uq.edu.au/written-style-guide
+     * 9:30 am becomes 9.30am
+     * 10:00 pm becomes 10pm
+     */
+    formatTime(dateField, optionHours) {
+        function areMinutesZero(theDate) {
+            // minutesPortion = eg 00 or 30
+            // a bit cumbersome, but there doesnt seem to be a way to 'extract the minute portion from the date'
+            // so we can check if it is zero and hide it if it is
+            const minutesPortion = new Intl.DateTimeFormat('en-AU', optionHours)
+                .formatToParts(theDate)
+                .map(({ type, value }) => {
+                    switch (type) {
+                        case 'minute':
+                            return value;
+                        default:
+                            return '';
+                    }
+                })
+                .join('');
+            return minutesPortion === '00';
+        }
+
         /* istanbul ignore next */
-        if (!startDate) {
+        if (dateField === '') {
             return '';
         }
-        const startDateDate = new Date(startDate);
-        return new Intl.DateTimeFormat('en-AU', optionHours).format(startDateDate);
+        const dateObject = new Date(dateField);
+        return new Intl.DateTimeFormat('en-AU', optionHours)
+            .formatToParts(dateObject)
+            .map(({ type, value }) => {
+                console.log(type, ' : ', value);
+                switch (type) {
+                    case 'literal':
+                        return value === ':' ? (areMinutesZero(dateObject) ? '' : '.') : '';
+                    case 'minute':
+                        return areMinutesZero(dateObject) ? '' : value;
+
+                    default:
+                        return value;
+                }
+            })
+            .join('');
     }
 
-    getStartDateFormatted() {
-        const startDate = this.data.start;
+    /**
+     * convert date to UQ style guide format https://marketing-communication.uq.edu.au/written-style-guide
+     * (just remove comma after dayname)
+     * @returns {string}
+     */
+    formatDate(dateField) {
         /* istanbul ignore next */
-        if (!startDate) {
+        if (dateField === '') {
             return '';
         }
-        const startDateDate = new Date(startDate);
-        // desired output format: Tuesday 29 June 2021
+        const startDate = new Date(dateField);
+
         const optionDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         return new Intl.DateTimeFormat('en-AU', optionDate)
-            .formatToParts(startDateDate)
+            .formatToParts(startDate)
             .map(({ type, value }) => {
                 switch (type) {
                     case 'literal':
@@ -291,9 +331,9 @@ class TrainingDetail extends HTMLElement {
         const optionHours = { hour: 'numeric', minute: 'numeric' };
         mailText +=
             'Event Date: ' +
-            this.getStartDateFormatted() +
+            this.formatDate(this.data.start) +
             ' at ' +
-            this.getStartTimeFormatted(optionHours) +
+            this.formatTime(this.data.start, optionHours) +
             ' (' +
             eventStartDateData +
             ')' +

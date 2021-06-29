@@ -442,27 +442,29 @@ describe('Training', () => {
         });
     });
 
-    it('Passes accessibility', () => {
-        cy.visit('http://localhost:8080/index-training.html');
-        cy.injectAxe();
-        cy.viewport(1280, 900);
-        cy.checkA11y('library-training:not([hide-filter])', {
-            reportName: 'Training widget',
-            scopeName: 'Accessibility',
-            includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
-        });
-    });
-
-    it('hides filter and category title on attributes set', () => {
-        cy.visit('http://localhost:8080/index-training.html');
-        cy.viewport(1280, 900);
-        cy.get('library-training[hide-filter]')
-            .should('exist')
-            .shadow()
-            .within(() => {
-                cy.get('training-filter').should('not.exist');
-                cy.get('training-list').should('exist').shadow().find('.uq-card__header').should('be.empty');
+    context('Miscellaneous checks', () => {
+        it('Passes accessibility', () => {
+            cy.visit('http://localhost:8080/index-training.html');
+            cy.injectAxe();
+            cy.viewport(1280, 900);
+            cy.checkA11y('library-training:not([hide-filter])', {
+                reportName: 'Training widget',
+                scopeName: 'Accessibility',
+                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
             });
+        });
+
+        it('hides filter and category title on attributes set', () => {
+            cy.visit('http://localhost:8080/index-training.html');
+            cy.viewport(1280, 900);
+            cy.get('library-training[hide-filter]')
+                .should('exist')
+                .shadow()
+                .within(() => {
+                    cy.get('training-filter').should('not.exist');
+                    cy.get('training-list').should('exist').shadow().find('.uq-card__header').should('be.empty');
+                });
+        });
     });
 
     context('List component', () => {
@@ -579,8 +581,8 @@ describe('Training', () => {
                         'At the end of this session, class participants will be able to',
                     );
                     cy.get('[data-testid="training-details-full-date"]').contains('Tuesday 24 November 2020');
-                    cy.get('[data-testid="training-details-start-time"]').contains('10:00 am');
-                    cy.get('[data-testid="training-details-end-time"]').contains('11:30 am');
+                    cy.get('[data-testid="training-details-start-time"]').contains('10am');
+                    cy.get('[data-testid="training-details-end-time"]').contains('11.30am');
                     cy.get('[data-testid="training-details-location-details"] a').contains(
                         'St Lucia, Duhig Tower (2), 02-D501',
                     );
@@ -604,7 +606,7 @@ describe('Training', () => {
                             expect(href).to.have.string('Event Id: 2824657');
                             expect(href).to.have.string('Event Title: Excel: Introduction to Spreadsheets');
                             expect(href).to.have.string(
-                                'Event Date: Tuesday 24 November 2020 at 10:00 am (2020-11-24T10:00:00+10:00)',
+                                'Event Date: Tuesday 24 November 2020 at 10am (2020-11-24T10:00:00+10:00)',
                             );
                             expect(href).to.have.string('Name: Lea de Groot');
                         });
