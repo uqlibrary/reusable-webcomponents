@@ -27,6 +27,10 @@
     text-align: right;
 }
 
+.uq-card .uq-accordion {
+    border-bottom: none;
+}
+
 .uq-card.has-more-events .uq-card__actions {
     display: block;
 }
