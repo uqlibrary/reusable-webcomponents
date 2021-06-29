@@ -154,6 +154,7 @@ class TrainingList extends HTMLElement {
                     ${eventDate.toLocaleDateString('default', {
                         day: 'numeric',
                         month: 'short',
+                        timeZone: 'Australia/Brisbane',
                     })}
                 </date>
             </div>

@@ -137,7 +137,7 @@ class TrainingDetail extends HTMLElement {
             return;
         }
 
-        const optionHours = { hour: 'numeric', minute: 'numeric' };
+        const optionHours = { hour: 'numeric', minute: 'numeric', timeZone: 'Australia/Brisbane' };
         const startTimeData = this.getStartTimeFormatted(optionHours);
         const startTimeDom = this.shadowRoot.getElementById('startTime');
         !!startTimeData && !!startTimeDom && (startTimeDom.innerText = startTimeData);
@@ -169,7 +169,13 @@ class TrainingDetail extends HTMLElement {
             return '';
         }
         const startDateDate = new Date(startDate);
-        const optionDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const optionDate = {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            timeZone: 'Australia/Brisbane',
+        };
         return new Intl.DateTimeFormat('en-AU', optionDate).format(startDateDate);
     }
 
@@ -277,7 +283,7 @@ class TrainingDetail extends HTMLElement {
         mailText += 'Event Id: ' + eventIdData + '%0D%0A';
         mailText += 'Event Title: ' + eventNameData + '%0D%0A';
 
-        const optionHours = { hour: 'numeric', minute: 'numeric' };
+        const optionHours = { hour: 'numeric', minute: 'numeric', timeZone: 'Australia/Brisbane' };
         mailText +=
             'Event Date: ' +
             this.getStartDateFormatted() +
