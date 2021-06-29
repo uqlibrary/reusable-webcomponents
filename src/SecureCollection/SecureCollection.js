@@ -21,15 +21,31 @@ circularProgressElement.innerHTML = `
         </svg>
     </div>
 `;
+const backButtonElement = document.createElement('template');
+backButtonElement.innerHTML = `
+<button class="MuiButtonBase-root MuiIconButton-root jss165" tabindex="0" type="button" id="StandardPage-goback-button"
+    data-testid="StandardPage-goback-button" title="Go back" onclick="window.history.back(); return false;">
+    <span class="MuiIconButton-label">
+        <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path>
+        </svg>
+    </span>
+    <span class="MuiTouchRipple-root"></span>
+</button>
+`;
 
 const template = document.createElement('template');
 template.innerHTML = `
     <style>${overrides.toString()}</style>
     <div class="root MuiGrid-root MuiGrid-container" data-testid="secure-collection" id="StandardPage">
         <div class="secure-collection-container">
-            <div class="MuiGrid-root jss163 MuiGrid-item MuiGrid-grid-xs-true"><h2
-                    class="MuiTypography-root jss162 MuiTypography-h4 MuiTypography-colorPrimary"
-                    data-testid="StandardPage-title">Secure Collection</h2></div>
+            <div class="MuiGrid-root jss163 MuiGrid-item MuiGrid-grid-xs-true">
+                <h2 class="MuiTypography-root MuiTypography-h4 MuiTypography-colorPrimary"
+                    data-testid="StandardPage-title"
+                >
+                    <span>Secure Collection</span>
+                </h2>
+            </div>
             <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12">
                 <section aria-live="assertive">
                     <div id="block" class="contentbox MuiPaper-root MuiCard-root jss196 StandardCard MuiPaper-elevation1 MuiPaper-rounded StandardCard" data-testid="standard-card-copyright-notice" id="standard-card-copyright-notice">
@@ -92,6 +108,11 @@ class SecureCollection extends HTMLElement {
 
         // Add a shadow DOM
         const shadowDOM = this.attachShadow({ mode: 'open' });
+
+        if (window.history.length > 1) {
+            const block = template.content.querySelector('h2 span');
+            block.parentNode.insertBefore(backButtonElement.content.cloneNode(true), block);
+        }
 
         // Render the template
         shadowDOM.appendChild(template.content.cloneNode(true));
