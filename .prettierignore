@@ -4,3 +4,5 @@ cypress/examples
 cypress/screenshots/
 *.json
 mock
+src/locale/menu.js
+src/ConnectFooter/connectfooter.locale.js

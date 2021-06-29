@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 export default {
     menuhome: {
         dataTestid: 'menu-group-home-link',

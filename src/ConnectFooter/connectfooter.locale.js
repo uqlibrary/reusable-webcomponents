@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 export default {
     connectFooter: {
         buttonSocialHeader: 'Connect with us',
