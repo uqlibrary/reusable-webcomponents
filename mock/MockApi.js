@@ -169,7 +169,7 @@ class MockApi {
 
                     // secure collection checks
 
-                    // http://localhost:8080/src/applications/securecollection/demo.html?user=public&collection=exams&file=phil1010.pdf
+                    // http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=exams&file=phil1010.pdf
                     case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'exams/phil1010.pdf' }).apiUrl:
                         return this.response(200, {response: 'Login required'});
 
