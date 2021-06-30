@@ -42,16 +42,17 @@ class Training extends HTMLElement {
     }
 
     get knownFilters() {
-        return ['keyword', 'campus', 'weekstart', 'online'];
+        return ['keyword', 'campus', 'weekstart'];
     }
 
     get filters() {
+        /* istanbul ignore if */
         if (!location.hash) {
             return null;
         }
         const ret = [];
 
-        // #keyword=Rstudio;campus=St%20Lucia|Gatton;weekstart=2021-05-31;online=false
+        // #keyword=Rstudio;campus=St%20Lucia|Gatton;weekstart=2021-05-31
         location.hash
             .slice(1) // remove '#' from beginning
             .split(';') // separate filters
@@ -180,13 +181,10 @@ class Training extends HTMLElement {
                 const eventEndDate = new Date(event.end);
                 const eventStartsAfterWeek = eventStartDate > weekEnd;
                 const eventEndsBeforeWeek = eventEndDate < weekStart;
+                /* istanbul ignore else */
                 if (eventStartsAfterWeek || eventEndsBeforeWeek) {
                     return false;
                 }
-            }
-
-            if (!!filters.online && filters.online === 'true' && !event.isOnlineClass) {
-                return false;
             }
 
             return true;
@@ -223,6 +221,7 @@ class Training extends HTMLElement {
         //     });
 
         // Apply filters to list
+        /* istanbul ignore else */
         if (this.hasAttribute('events-loaded')) {
             this.removeAttribute('accordions-active');
             this.listComponent.data = this.getFilteredEvents();

@@ -137,7 +137,7 @@ class TrainingDetail extends HTMLElement {
             return;
         }
 
-        const optionHours = { hour: 'numeric', minute: 'numeric' };
+        const optionHours = { hour: 'numeric', minute: 'numeric', timeZone: 'Australia/Brisbane' };
 
         const startTimeDisplayValue = this.formatTime(startDate, optionHours);
         const startTimeDom = this.shadowRoot.getElementById('startTime');
@@ -209,7 +209,13 @@ class TrainingDetail extends HTMLElement {
         }
         const startDate = new Date(dateField);
 
-        const optionDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const optionDate = {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            timeZone: 'Australia/Brisbane',
+        };
         return new Intl.DateTimeFormat('en-AU', optionDate)
             .formatToParts(startDate)
             .map(({ type, value }) => {
@@ -327,7 +333,7 @@ class TrainingDetail extends HTMLElement {
         mailText += 'Event Id: ' + eventIdData + '%0D%0A';
         mailText += 'Event Title: ' + eventNameData + '%0D%0A';
 
-        const optionHours = { hour: 'numeric', minute: 'numeric' };
+        const optionHours = { hour: 'numeric', minute: 'numeric', timeZone: 'Australia/Brisbane' };
         mailText +=
             'Event Date: ' +
             this.formatDate(this.data.start) +
