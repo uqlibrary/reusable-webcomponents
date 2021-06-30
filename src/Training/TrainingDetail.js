@@ -184,7 +184,6 @@ class TrainingDetail extends HTMLElement {
         return new Intl.DateTimeFormat('en-AU', optionHours)
             .formatToParts(dateObject)
             .map(({ type, value }) => {
-                console.log(type, ' : ', value);
                 switch (type) {
                     case 'literal':
                         return value === ':' ? (areMinutesZero(dateObject) ? '' : '.') : '';
