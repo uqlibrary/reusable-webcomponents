@@ -858,6 +858,9 @@ li.MuiAutocomplete-option {
     padding: 0;
     margin: 0;
 }
+li.MuiAutocomplete-option:focus {
+    outline: none;
+}
 .suggestionList a,
 .suggestionList a:focus,
 .suggestionList a:hover,
@@ -872,6 +875,7 @@ li.MuiAutocomplete-option {
 .suggestionList a:hover {
     background-color: #e2e2e2;
     width: 100%;
+    outline: none;
 }
 
 .formControl {
