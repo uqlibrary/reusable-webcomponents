@@ -127,8 +127,24 @@ class SecureCollection extends HTMLElement {
 
         this.getSecureCollectionCheck(currentSearchParams);
 
+        this.appendExtensionsSavePrompt = this.appendExtensionsSavePrompt.bind(this);
+        this.checkLoggedInStatus = this.checkLoggedInStatus.bind(this);
+        this.displayApiErrorPanel = this.displayApiErrorPanel.bind(this);
+        this.displayCommercialCopyrightAcknowledgementPanel = this.displayCommercialCopyrightAcknowledgementPanel.bind(
+            this,
+        );
+        this.displayCorrectPanel = this.displayCorrectPanel.bind(this);
+        this.displayLoginRequiredRedirectorPanel = this.displayLoginRequiredRedirectorPanel.bind(this);
+        this.displayNoAccessPanel = this.displayNoAccessPanel.bind(this);
         this.displayRedirectingPanel = this.displayRedirectingPanel.bind(this);
+        this.displayStatutoryCopyrightAcknowledgementPanel = this.displayStatutoryCopyrightAcknowledgementPanel.bind(
+            this,
+        );
+        this.displayUnknownCollectionPanel = this.displayUnknownCollectionPanel.bind(this);
+        this.evaluateApiResponse = this.evaluateApiResponse.bind(this);
         this.getSecureCollectionCheck = this.getSecureCollectionCheck.bind(this);
+        this.getSecureCollectionFile = this.getSecureCollectionFile.bind(this);
+        this.wrapFragmentInStandardPage = this.wrapFragmentInStandardPage.bind(this);
     }
 
     async getSecureCollectionCheck(path) {
@@ -136,27 +152,21 @@ class SecureCollection extends HTMLElement {
         await new ApiAccess()
             .loadSecureCollectionCheck(path)
             .then((data) => {
-                console.log('getSecureCollectionCheck got: ', data);
                 if (data.response === 'Login required') {
-                    console.log('*************** secureCollection.response === Login required');
                     this.checkLoggedInStatus()
                         .then((isLoggedIn) => {
-                            console.log('loggedin? got: ', isLoggedIn);
                             if (!!isLoggedIn) {
-                                console.log('user is logged in');
-                                // that.displayPanel = 'loading'; // assume we dont need it as we start off loading
-                                // they are actually logged in! now we ask for the actual file they want
+                                // they are logged in! now we ask for the actual file they want
                                 that.getSecureCollectionFile(currentSearchParams);
                             } else {
-                                console.log('user is NOT logged in');
                                 this.displayLoginRequiredRedirectorPanel();
                             }
                         })
-                        .catch(() => {
-                            console.log('catch: user is NOT logged in');
-                            // no, this should be system error
-                            this.displayLoginRequiredRedirectorPanel();
-                        });
+                        .catch(
+                            /* istanbul ignore next */ () => {
+                                this.displayApiErrorPanel();
+                            },
+                        );
                 } else {
                     that.evaluateApiResponse(data);
                 }
@@ -164,62 +174,53 @@ class SecureCollection extends HTMLElement {
             })
             /* istanbul ignore next */
             .catch((e) => {
-                console.log('catch getSecureCollectionCheck, error: ', e);
-                that.displayPanel = 'error';
-                return that.displayCorrectPanel();
+                return that.displayApiErrorPanel();
             });
     }
 
     async getSecureCollectionFile(path) {
-        console.log('###### SECURE COLLECION FILE ######');
         const that = this;
         await new ApiAccess()
             .loadSecureCollectionFile(path)
             .then((data) => {
                 that.evaluateApiResponse(data);
 
-                if (!!that.displayPanel) {
-                    return that.displayCorrectPanel();
-                }
-            })
-            /* istanbul ignore next */
-            .catch((e) => {
-                console.log('loadSecureCollectionFile, error: ', e);
-                that.displayPanel = 'error';
                 return that.displayCorrectPanel();
-            });
+            })
+            .catch(
+                /* istanbul ignore next */ (e) => {
+                    return that.displayApiErrorPanel();
+                },
+            );
     }
 
     displayCorrectPanel() {
-        console.log('displaying the correct panel, per: ', this.displayPanel);
+        /* istanbul ignore next */
+        if (!this.displayPanel) {
+            this.displayPanel = 'error';
+        }
+
         switch (this.displayPanel) {
             case 'loading':
-                console.log('displayCorrectPanel loading');
                 return this.displayLoadingPanel();
-            case 'login':
-                console.log('displayCorrectPanel login');
-                return this.displayLoginRequiredRedirectorPanel();
             case 'redirect':
-                console.log('displayCorrectPanel redirect');
-                return this.displayRedirectingPanel(this.redirectLink);
+                return this.displayRedirectingPanel();
             case 'noSuchCollection':
-                console.log('displayCorrectPanel noSuchCollection');
                 return this.displayUnknownCollectionPanel();
+            /* istanbul ignore next */
+            case 'loginRequired':
+                return this.displayLoginRequiredRedirectorPanel(this.redirectLink);
             case 'commercialCopyright':
-                console.log('displayCorrectPanel commercialCopyright');
                 return this.displayCommercialCopyrightAcknowledgementPanel();
             case 'statutoryCopyright':
-                console.log('displayCorrectPanel statutoryCopyright');
                 return this.displayStatutoryCopyrightAcknowledgementPanel();
             case 'invalidUser':
-                console.log('displayCorrectPanel invalidUser');
                 return this.displayNoAccessPanel();
+            /* istanbul ignore next */
             case 'error':
-                console.log('displayCorrectPanel error');
                 return this.displayApiErrorPanel();
             /* istanbul ignore next */
             default:
-                console.log('displayCorrectPanel default');
                 // to satisfy switch syntax - shouldnt be possible
                 this.wrapFragmentInStandardPage('Something went wrong');
         }
@@ -232,8 +233,6 @@ class SecureCollection extends HTMLElement {
     }
 
     displayCommercialCopyrightAcknowledgementPanel() {
-        const fileExtension = !!this.clickLink && getFileExtension(this.clickLink);
-
         const commercialCopyrightAcknowledgementPanel = document.createElement('template');
         commercialCopyrightAcknowledgementPanel.innerHTML = `
 <p>This file is provided to support teaching and learning for the staff and students of the University of Queensland</p>
@@ -254,7 +253,6 @@ class SecureCollection extends HTMLElement {
     </a>
 </div>
 `;
-
         // update the download link
         const anchor = commercialCopyrightAcknowledgementPanel.content.getElementById('downloadLink');
         anchor.href = this.clickLink;
@@ -262,12 +260,7 @@ class SecureCollection extends HTMLElement {
         const block = document.createElement('div');
         block.appendChild(commercialCopyrightAcknowledgementPanel.content.cloneNode(true));
 
-        if (!!fileExtension) {
-            const anchor = fileExtensionElement.content.getElementById('fileExtensionEmphasis');
-            anchor.innerHTML = `.${fileExtension}`;
-
-            block.appendChild(fileExtensionElement.content.cloneNode(true));
-        }
+        this.appendExtensionsSavePrompt(block);
 
         this.wrapFragmentInStandardPage(block, 'Copyright Notice');
     }
@@ -290,14 +283,23 @@ class SecureCollection extends HTMLElement {
     </a>
 </div>
 `;
-
         // update the download link
         const anchor = statutoryCopyrightAcknowledgementPanel.content.getElementById('downloadLink');
         anchor.href = this.clickLink;
 
         const block = document.createElement('div');
         block.appendChild(statutoryCopyrightAcknowledgementPanel.content.cloneNode(true));
+        this.appendExtensionsSavePrompt(block);
 
+        this.wrapFragmentInStandardPage(block, 'WARNING');
+    }
+
+    /**
+     * if the downloadable file has an extension, eg .pdf, then we prompt the user that they should make sure they save it properly
+     * (in practice, all the links have an extension)
+     * @param block
+     */
+    appendExtensionsSavePrompt(block) {
         const fileExtension = !!this.clickLink && getFileExtension(this.clickLink);
         if (!!fileExtension) {
             const anchor = fileExtensionElement.content.getElementById('fileExtensionEmphasis');
@@ -305,8 +307,6 @@ class SecureCollection extends HTMLElement {
 
             block.appendChild(fileExtensionElement.content.cloneNode(true));
         }
-
-        this.wrapFragmentInStandardPage(block, 'WARNING');
     }
 
     displayUnknownCollectionPanel() {
@@ -391,8 +391,7 @@ class SecureCollection extends HTMLElement {
 
         const redirectLink = `${authLocale.AUTH_URL_LOGIN}${window.btoa(window.location.href)}`;
         /* istanbul ignore next */
-        if (!this.isTestMode()) {
-            console.log('displayLoginRequiredRedirectorPanel: I will redirect to ', redirectLink);
+        if (!this.isSpecialTestMode()) {
             window.location.assign(redirectLink);
         }
 
@@ -408,21 +407,25 @@ class SecureCollection extends HTMLElement {
         this.wrapFragmentInStandardPage(block, 'Redirecting');
     }
 
-    isTestMode() {
+    isSpecialTestMode() {
         /* istanbul ignore next */
         if (window.location.host !== 'localhost:8080') {
             return false;
         }
         const queryString = require('query-string');
-        const user = queryString.parse(location.search || location.hash.substring(location.hash.indexOf('?'))).user;
-        return user === 'test';
+        const user = queryString.parse(
+            location.search || /* istanbul ignore next */ location.hash.substring(location.hash.indexOf('?')),
+        ).user;
+        console.log('isTestMode: user = ', user);
+        const b = user === 'test';
+        console.log('isTestMode: return ', b);
+        return b;
     }
 
-    displayRedirectingPanel(redirectLink) {
+    displayRedirectingPanel() {
         /* istanbul ignore next */
-        if (redirectLink !== null && !this.isTestMode()) {
-            console.log('displayRedirectingPanel: I will redirect to ', redirectLink);
-            window.location.assign(redirectLink);
+        if (this.redirectLink !== null && !this.isSpecialTestMode()) {
+            window.location.assign(this.redirectLink);
         }
 
         const redirectorPanel = document.createElement('template');
@@ -433,7 +436,7 @@ class SecureCollection extends HTMLElement {
 `;
 
         const anchor = redirectorPanel.content.getElementById('redirector');
-        anchor.href = redirectLink;
+        anchor.href = this.redirectLink;
 
         const circularprogress = redirectorPanel.content.getElementById('circularprogress');
         circularprogress.appendChild(circularProgressElement.content.cloneNode(true));
@@ -477,33 +480,25 @@ class SecureCollection extends HTMLElement {
     }
 
     async checkLoggedInStatus() {
-        console.log('function check LoggedInStatus');
         const that = this;
-        let loggedin = false;
         return await new ApiAccess()
             .getAccount()
             .then((account) => {
-                console.log('getAccount THEN loggedin? account = ', account);
+                let libraryUser;
                 /* istanbul ignore else */
                 if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
-                    that.account = account;
+                    libraryUser = account;
                 }
-                that.accountLoading = false;
-
-                loggedin = !!that.account && !!that.account.id;
-                console.log('returning loggedin as: ', loggedin);
-                return loggedin;
+                return !!libraryUser && !!libraryUser.id;
             })
             .catch((error) => {
                 console.log('getAccount CATCH loggedin');
-                that.accountLoading = false;
                 return false;
             });
     }
 
     evaluateApiResponse(apiResponse) {
         const that = this;
-        console.log('evaluateApiResponse: ', apiResponse);
 
         // unexpectedly, the api responses have attributes all in lower case,
         // ie apiResponse.displaypanel NOT apiResponse.displayPanel
