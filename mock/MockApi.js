@@ -224,11 +224,6 @@ class MockApi {
                             );
                         }
 
-                    // // https://files.library.uq.edu.au/exams/2018/Semester_Two_Final_Examinations__2018_PHIL2011_EMuser.pdf
-                    // case apiRoute.SECURE_COLLECTION_FILE_API({ path: 'exams/2018/Semester_Two_Final_Examinations__2018_PHIL2011_EMuser.pdf' })
-                    //             .apiUrl:
-                    //         return this.response(200, { response: 'Invalid User' });
-
                     // http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=coursebank&file=111111111111111.pdf
                     // https://files.library.uq.edu.au/coursebank/111111111111111.pdf
                     case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'coursebank/111111111111111.pdf' }).apiUrl:

@@ -9,7 +9,6 @@ describe('Secure Collection', () => {
             cy.injectAxe();
             cy.viewport(1280, 900);
             cy.get('secure-collection').shadow().find('[data-testid="StandardPage-title"]');
-            // cy.wait(1000);
             cy.checkA11y('secure-collection', {
                 reportName: 'Secure Collection',
                 scopeName: 'Accessibility',
@@ -26,11 +25,6 @@ describe('Secure Collection', () => {
                 .shadow()
                 .within(() => {
                     cy.get('h2').contains('Secure Collection');
-                    // cy.checkA11y('[data-testid="secure-collection"]', {
-                    //     reportName: 'Secure Collection',
-                    //     scopeName: 'Content',
-                    //     includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
-                    // });
                     cy.get('#block').contains('This file does not exist or is unavailable.');
                     cy.get('#block').contains('Please check the link you have used.');
                 });
@@ -47,11 +41,6 @@ describe('Secure Collection', () => {
                 .within(() => {
                     cy.get('h2').contains('Secure Collection');
                     cy.get('[data-testid="secure-collection"]').contains('Secure Collection');
-                    // cy.checkA11y('[data-testid="secure-collection"]', {
-                    //     reportName: 'Secure Collection',
-                    //     scopeName: 'Content',
-                    //     includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
-                    // });
                     cy.get('#block').contains('System temporarily unavailable');
                     cy.get('#block').contains(
                         "We're working on the issue and will have service restored as soon as possible. Please try again later.",
@@ -73,11 +62,6 @@ describe('Secure Collection', () => {
                 .shadow()
                 .within(() => {
                     cy.get('h2').contains('Secure Collection');
-                    // cy.checkA11y('[data-testid="secure-collection"]', {
-                    //     reportName: 'Secure Collection',
-                    //     scopeName: 'Content',
-                    //     includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
-                    // });
                     cy.get('#block').contains('WARNING');
                     cy.get('#block').contains(
                         'This material has been reproduced and communicated to you by or on behalf of The',
@@ -131,11 +115,6 @@ describe('Secure Collection', () => {
                 .shadow()
                 .within(() => {
                     cy.get('h2').contains('Secure Collection');
-                    // cy.checkA11y('[data-testid="secure-collection"]', {
-                    //     reportName: 'Secure Collection',
-                    //     scopeName: 'Content',
-                    //     includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
-                    // });
                     cy.get('#block').contains('WARNING');
                     cy.get('#block').contains(
                         'This file is provided to support teaching and learning for the staff and students of',
@@ -178,11 +157,6 @@ describe('Secure Collection', () => {
                 .shadow()
                 .within(() => {
                     cy.get('h2').contains('Secure Collection');
-                    // cy.checkA11y('[data-testid="secure-collection"]', {
-                    //     reportName: 'Secure Collection',
-                    //     scopeName: 'Content',
-                    //     includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
-                    // });
                     cy.get('#block').contains('Access to this file is only available to UQ staff and students');
                     cy.get('#block').contains('If you have another UQ account');
                 });
@@ -198,7 +172,6 @@ describe('Secure Collection', () => {
                 statusCode: 200,
                 body: 'auth pages that forces the user to login',
             });
-            console.log('USER TEST');
             cy.visit(
                 'http://localhost:8080/src/applications/securecollection/demo.html?user=test&collection=exams&file=2018/Semester_Two_Final_Examinations__2018_PHIL2011_281.pdf',
             );
@@ -218,7 +191,6 @@ describe('Secure Collection', () => {
                 statusCode: 200,
                 body: 'auth pages that forces the user to login',
             });
-            console.log('USER PUBLIC');
             cy.visit(
                 'http://localhost:8080/src/applications/securecollection/demo.html?user=public&collection=exams&file=2018/Semester_Two_Final_Examinations__2018_PHIL2011_281.pdf',
             );
@@ -233,7 +205,6 @@ describe('Secure Collection', () => {
                 statusCode: 200,
                 body: 'I am a exam file resource delivered to the user',
             });
-            console.log('USER S1111111');
             cy.visit(
                 'http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=exams&file=2018/Semester_Two_Final_Examinations__2018_PHIL2011_281.pdf',
             );
