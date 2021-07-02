@@ -4,6 +4,7 @@ import styles from './css/main.css';
 const template = document.createElement('template');
 template.innerHTML = `
     <style>${styles.toString()}</style>
+    <style>#training-data-message:empty { display: none; }</style>
     <div role="region" aria-label="UQ Library Training" data-testid="library-training" id="library-training">
         <div class="uq-card" data-testid="training-data-message" id="training-data-message">
             <p class="uq-card__content" data-testid="training-loading-message">Loading class information...</p>

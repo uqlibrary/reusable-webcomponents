@@ -60,11 +60,9 @@ class TrainingList extends HTMLElement {
             this.rootElement.appendChild(categoryTemplate.content.cloneNode(true));
             const categoryCard = this.rootElement.lastElementChild;
 
-            if (!this.hideCategoryTitle) {
-                categoryCard.getElementsByClassName('uq-card__header').item(0).innerHTML = `
-                    <h3 class="uq-card__title">${categoryName}</h3>
-                `;
-            }
+            categoryCard.getElementsByClassName('uq-card__header').item(0).innerHTML = `
+                <h3 class="uq-card__title${this.hideCategoryTitle ? ' visually-hidden' : ''}">${categoryName}</h3>
+            `;
 
             const categoryListElement = categoryCard.getElementsByClassName('uq-accordion').item(0);
             categoryListElement.setAttribute('id', `event-category-${index}`);
@@ -146,10 +144,9 @@ class TrainingList extends HTMLElement {
         toggleButton.setAttribute('aria-controls', detailContainerId);
 
         const eventDate = new Date(event.start);
-        const eventNameElName = this.hideCategoryTitle ? 'h3' : 'h4';
         toggleButton.innerHTML = `
             <div class="group-first" tab-index="-1">
-                <${eventNameElName} id="event-name-${event.entityId}">${event.name}</${eventNameElName}>
+                <h4 id="event-name-${event.entityId}">${event.name}</h4>
                 <time datetime="${eventDate.toISOString()}" id="event-date-${event.entityId}">
                     ${eventDate.toLocaleDateString('default', {
                         day: 'numeric',
