@@ -462,7 +462,11 @@ describe('Training', () => {
                 .shadow()
                 .within(() => {
                     cy.get('training-filter').should('not.exist');
-                    cy.get('training-list').should('exist').shadow().find('.uq-card__header').should('be.empty');
+                    cy.get('training-list')
+                        .should('exist')
+                        .shadow()
+                        .find('.uq-card__header h3')
+                        .should('have.class', 'visually-hidden');
                 });
         });
     });
@@ -522,7 +526,7 @@ describe('Training', () => {
                     .children('training-detail')
                     .shadow()
                     .within(() => {
-                        cy.get('#eventName').should('have.text', 'Python with Spyder: Introduction to Data Science');
+                        cy.get('[data-testid="training-details-location-details"]').should('have.text', 'Online, Zoom');
                     });
             });
         });
@@ -576,7 +580,6 @@ describe('Training', () => {
                 .should('exist')
                 .shadow()
                 .within(() => {
-                    cy.get('[data-testid="training-event-name"]').contains('Excel');
                     cy.get('[data-testid="training-details"]').contains(
                         'At the end of this session, class participants will be able to',
                     );
@@ -592,8 +595,8 @@ describe('Training', () => {
                         'https://maps.uq.edu.au/?zoom=19&campusId=406&lat=-27.4966319&lng=153.0144148&zLevel=1',
                     );
                     cy.get('[data-testid="training-details-booking-text"]').contains('Booking is not required');
-                    cy.get('[data-testid="training-details-registrationBlockForNonUQ"] h4').should('exist');
-                    cy.get('[data-testid="training-details-registrationBlockForNonUQ"] h4').contains(
+                    cy.get('[data-testid="training-details-registrationBlockForNonUQ"] h5').should('exist');
+                    cy.get('[data-testid="training-details-registrationBlockForNonUQ"] h5').contains(
                         'Library member registration (for non-UQ staff and students)',
                     );
                     cy.get('[data-testid="training-details-registrationBlockForNonUQ"] a').contains('@library'); // a library email address
@@ -624,7 +627,6 @@ describe('Training', () => {
                 .should('exist')
                 .shadow()
                 .within(() => {
-                    cy.get('[data-testid="training-event-name"]').contains('Excel1');
                     cy.get('[data-testid="training-details-location-details"] a').contains('Toowoomba Rural Clinic');
                     cy.get('[data-testid="training-details-location-details"] a').should(
                         'have.attr',
@@ -652,7 +654,6 @@ describe('Training', () => {
                 .should('exist')
                 .shadow()
                 .within(() => {
-                    cy.get('[data-testid="training-event-name"]').contains('Excel2');
                     cy.get('[data-testid="training-details-location-details"]').contains('Townsville');
                     cy.get('[data-testid="training-details-location-details"] a').should('not.exist');
                     cy.get('[data-testid="training-details-booking-text"]').contains(
