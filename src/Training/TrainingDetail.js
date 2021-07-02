@@ -5,8 +5,7 @@ const template = document.createElement('template');
 template.innerHTML = `
   <style>${styles.toString()}</style>
   <style>${overrides.toString()}</style>
-  <div class="uq-pane uq-pane--outline uq-pane--has-footer">
-    <div class="event-heading purple" id="eventHeading"></div>
+  <div class="uq-pane uq-pane--has-footer">
     <!--    <div class="details" id="eventSummary"></div>-->
     <div class="details" id="eventDetails" data-testid="training-details"></div>
     <div class="details iconRow dateRange" tabindex="0" aria-disabled="false">
@@ -21,7 +20,7 @@ template.innerHTML = `
             </span>
         </div>
         <div>
-            <h4>Date</h4>
+            <h5>Date</h5>
             <div id="fullDate" data-testid="training-details-full-date"></div>
             <div>
                 <span id="startTime" data-testid="training-details-start-time"></span> - <span id="endTime" data-testid="training-details-end-time"></span>
@@ -40,7 +39,7 @@ template.innerHTML = `
             </span>
         </div>
         <div>
-            <h4>Location</h4>
+            <h5>Location</h5>
             <div id="locationdetails" data-testid="training-details-location-details"></div>
         </div>
     </div>
@@ -56,7 +55,7 @@ template.innerHTML = `
             </span>
         </div>
         <div>
-            <h4>Registration</h4>
+            <h5>Registration</h5>
             <div id="bookingText" data-testid="training-details-booking-text"></div>
         </div>
     </div>
@@ -72,7 +71,7 @@ template.innerHTML = `
             </span>
         </div>
         <div>
-            <h4>Library member registration (for non-UQ staff and students)</h4>
+            <h5>Library member registration (for non-UQ staff and students)</h5>
             <div>Email 
                 <a data-testid="training-details-email-enquiry-started" id="emailEnquiry" href="#" class="uqlibrary-training-details"></a> with your name, UQ username, phone number and the event name and date to reserve a place. We'll email you within 2 business days.
             </div>
@@ -101,7 +100,6 @@ class TrainingDetail extends HTMLElement {
         this._eventData = eventData;
 
         this.setupEmailRegistration();
-        this.setEventName();
         this.setEventDetails();
         // this.setEventSummary();
         this.setEventLocation();
@@ -112,10 +110,6 @@ class TrainingDetail extends HTMLElement {
 
     get data() {
         return this._eventData;
-    }
-
-    get itemTitleElement() {
-        return this.getAttribute('item-title-element') || 'h5';
     }
 
     addButtonListeners(eventId) {
@@ -227,19 +221,6 @@ class TrainingDetail extends HTMLElement {
                 }
             })
             .join('');
-    }
-
-    setEventName() {
-        const eventNameData = this.data.name;
-        const eventHeadingDom = this.shadowRoot.getElementById('eventHeading');
-        /* istanbul ignore else */
-        if (!!eventNameData && !!eventHeadingDom) {
-            const eventNameEl = document.createElement(this.itemTitleElement);
-            eventNameEl.setAttribute('id', 'eventName');
-            eventNameEl.setAttribute('data-testid', 'training-event-name');
-            eventNameEl.innerText = eventNameData;
-            eventHeadingDom.appendChild(eventNameEl);
-        }
     }
 
     setEventDetails() {

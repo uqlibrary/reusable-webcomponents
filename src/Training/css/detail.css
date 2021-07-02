@@ -2,6 +2,10 @@
     background-color: #fff;
 }
 
+.uq-pane--has-footer .uq-pane__footer {
+    background-color: transparent;
+}
+
 .content-icon {
     flex-direction: row;
     -webkit-font-smoothing: antialiased;

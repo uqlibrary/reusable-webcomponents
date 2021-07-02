@@ -169,7 +169,6 @@ class TrainingList extends HTMLElement {
         const detailElement = document.createElement('training-detail');
         detailElement.setAttribute('id', `training-event-detail-content-${event.entityId}`);
         detailElement.setAttribute('data-testid', `training-event-detail-content-${event.entityId}`);
-        detailElement.setAttribute('item-title-element', this.hideCategoryTitle ? 'h4' : 'h5');
         detailContainer.appendChild(detailElement);
 
         let placesRemainingText = 'Booking is not required';

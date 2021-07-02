@@ -62,10 +62,15 @@
 .uq-accordion__toggle:hover,
 .uq-accordion__toggle:focus {
     text-decoration: none;
+    background-color: #f7f6f5;
 }
 .uq-accordion__toggle:hover [id^='event-name'],
 .uq-accordion__toggle:focus [id^='event-name'] {
     text-decoration: underline;
+}
+
+.uq-accordion__toggle--active {
+    background-color: #f7f6f5;
 }
 
 .uq-accordion__toggle .group-first {
