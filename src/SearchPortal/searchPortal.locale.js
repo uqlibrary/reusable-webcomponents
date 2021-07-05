@@ -113,7 +113,7 @@ export const searchPortalLocale = {
     links: [
         {
             label: 'Search help',
-            linkto: 'https://web.library.uq.edu.au/research-tools-techniques/uq-library-search',
+            linkto: 'https://web.library.uq.edu.au/research-tools-techniques/library-search',
             display: [...PRIMO_ELEMENTS],
         },
         {
@@ -143,7 +143,7 @@ export const searchPortalLocale = {
             display: [...PRIMO_ELEMENTS],
         },
         {
-            label: 'Browse courses',
+            label: 'Browse courses (UQ login required) ',
             linkto: 'https://www.library.uq.edu.au/exams/',
             display: [EXAMS],
         },
