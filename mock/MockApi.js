@@ -5,17 +5,22 @@ import ApiRoutes from "../src/ApiRoutes";
 import { apiLocale as apilocale } from '../src/ApiAccess/ApiAccess.locale';
 
 import {
-    libHours, alerts
+    libHours, alerts, primoSuggestions, examSuggestions, learningResourceSuggestions
 } from './data/account';
+
+import trainingEvents from './data/training';
 
 class MockApi {
     constructor() {
-        // set session cookie in mock mode
-        Cookies.set(apilocale.SESSION_COOKIE_NAME, apilocale.UQLID_COOKIE_MOCK);
-        Cookies.set(apilocale.SESSION_USER_GROUP_COOKIE_NAME, apilocale.USERGROUP_COOKIE_MOCK);
-
         // Get user from query string
         const user = this.getUserParameter();
+
+        // set session cookie in mock mode
+        if (user !== 'public') {
+            Cookies.set(apilocale.SESSION_COOKIE_NAME, apilocale.UQLID_COOKIE_MOCK);
+            Cookies.set(apilocale.SESSION_USER_GROUP_COOKIE_NAME, apilocale.USERGROUP_COOKIE_MOCK);
+        }
+
         const chatStatusOffline = this.getChatStatusParameter() === "true";
         this.chatStatusOffline = chatStatusOffline || false;
 
@@ -34,6 +39,8 @@ class MockApi {
 
     getUserParameter() {
         const queryString = require('query-string');
+        // console.log('MockApi queryString = ', queryString);
+        // console.log('MockApi user = ', queryString.parse(location.search || location.hash.substring(location.hash.indexOf('?'))).user);
         return queryString.parse(location.search || location.hash.substring(location.hash.indexOf('?'))).user;
     }
 
@@ -66,9 +73,11 @@ class MockApi {
     }
 
     mockfetch(url, options) {
+        console.log('mockfetch url = ', url);
         this.url = url;
         const apiRoute = new ApiRoutes();
-        switch (url) {
+        const urlWithoutQueryString = url.split('?')[0];
+        switch (urlWithoutQueryString) {
             case apiRoute.CURRENT_ACCOUNT_API().apiUrl:
                 // mock account response
                 if (this.user === 'public') {
@@ -113,10 +122,52 @@ class MockApi {
                     return this.response(200, alerts, true);
                 }
 
-            /* istanbul ignore next  */
+            case apiRoute.TRAINING_API().apiUrl:
+                // return this.response(500, null, true);
+                // return this.response(200, [], true);
+                return this.response(200, trainingEvents, true);
+
             default:
-                console.log('url not mocked...', url);
-                return this.response(404, {message: `MOCK URL NOT FOUND: ${url}`});
+                // splitting the '?' out of some apis doesnt work
+                switch (url) {
+                    case apiRoute.PRIMO_SUGGESTIONS_API_GENERIC('DDDDD').apiUrl: // to test the repeating key works and doesnt pass just because the mock data doesnt exist
+                    case apiRoute.PRIMO_SUGGESTIONS_API_GENERIC('bear').apiUrl:
+                    case apiRoute.PRIMO_SUGGESTIONS_API_GENERIC('beard').apiUrl:
+                    case apiRoute.PRIMO_SUGGESTIONS_API_GENERIC('').apiUrl:
+                        if (this.user === 'primoError') {
+                            return this.response(403, {});
+                            // return this.response(500, {}, true);
+                        } else {
+                            console.log('returning mock primo suggestions');
+                            return this.response(200, primoSuggestions, true);
+                        }
+
+                    case apiRoute.EXAMS_SUGGESTIONS_API('PHIL').apiUrl:
+                    case apiRoute.EXAMS_SUGGESTIONS_API('').apiUrl:
+                        if (this.user === 'examError') {
+                            return this.response(403, {});
+                            // return this.response(500, {}, true);
+                        } else {
+                            console.log('returning mock exam suggestions');
+                            return this.response(200, examSuggestions, true);
+                        }
+
+                    case apiRoute.SUGGESTIONS_API_PAST_COURSE('PHIL').apiUrl:
+                    case apiRoute.SUGGESTIONS_API_PAST_COURSE('').apiUrl:
+                        if (this.user === 'lrError') {
+                            return this.response(403, {});
+                            // return this.response(500, {}, true);
+                        } else {
+                            console.log('returning mock talis suggestions');
+                            return this.response(200, learningResourceSuggestions, true);
+                        }
+
+                    /* istanbul ignore next  */
+                    default:
+                        console.log('url not mocked...', url);
+                        return this.response(404, {message: `MOCK URL NOT FOUND: ${url}`});
+                }
+
         }
     }
 }

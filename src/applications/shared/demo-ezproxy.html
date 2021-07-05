@@ -1,86 +1,132 @@
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes" />
 
-    <title>There may be a problem with this link</title>
+        <title>There may be a problem with this link</title>
 
-    <link type="image/x-icon" rel="shortcut icon" href="//assets.library.uq.edu.au/reusable-components/resources/favicon.ico" />
+        <link
+            type="image/x-icon"
+            rel="shortcut icon"
+            href="//assets.library.uq.edu.au/reusable-components/resources/favicon.ico"
+        />
 
-    <!-- production -->
-    <link type="image/x-icon" rel="shortcut icon" href="https://www.library.uq.edu.au/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v6/fonts/Roboto/roboto.css" />
-    <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css" />
-    <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css" />
-    <link
-            rel="stylesheet"
-            type="text/css"
-            href="custom-styles.css"
-    />
-    <script type="text/javascript" src="load.js"></script>
-    <script type="text/javascript" src="/uq-lib-reusable.min.js"></script>
+        <!-- production -->
+        <link type="image/x-icon" rel="shortcut icon" href="https://www.library.uq.edu.au/favicon.ico" />
+        <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v6/fonts/Roboto/roboto.css" />
+        <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css" />
+        <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css" />
+        <link rel="stylesheet" type="text/css" href="custom-styles.css" />
+        <script type="text/javascript" src="load.js"></script>
+        <script type="text/javascript" src="/uq-lib-reusable.min.js"></script>
+    </head>
+    <body>
+        <div id="content">
+            <div class="panel panel-left">
+                <h1>There may be a problem with this link</h1>
 
+                <div class="card-content">
+                    You were trying to go to <strong>http://example.com</strong> via UQ Library, but this is not a
+                    Library resource. <br /><br />
 
-</head>
-<body>
+                    There are a few reasons why you might see this message:
 
-<div id="content">
-    <div class="panel panel-left">
-        <h1>There may be a problem with this link</h1>
+                    <ul>
+                        <li>
+                            Most likely, this link goes to a public website and you have been sent via the Library
+                            unnecessarily.
+                        </li>
+                        <li>
+                            Sometimes the URL is actually a Library resource but we have an error in our configuration.
+                        </li>
+                        <li>
+                            Sometimes the link is a scam trying to look more trustworthy by being sent via by the
+                            Library.
+                        </li>
+                    </ul>
 
-        <div class="card-content">
-            You were trying to go to <strong>http://example.com</strong> via UQ Library, but this is not a Library resource. <br/><br/>
+                    <h2>What should you do now?</h2>
 
-            There are a few reasons why you might see this message:
+                    <strong>Exercise caution</strong> if you choose to continue to
+                    <a href="http://example.com">http://example.com</a> <br /><br />
 
-            <ul>
-                <li>Most likely, this link goes to a public website and you have been sent via the Library unnecessarily.</li>
-                <li>Sometimes the URL is actually a Library resource but we have an error in our configuration.</li>
-                <li>Sometimes the link is a scam trying to look more trustworthy by being sent via by the Library.</li>
-            </ul>
+                    If it is not the content you expect, or the site is behaving suspiciously (e.g. asking you to enter
+                    your UQ username and password or other personal information), leave the site immediately.
 
-            <h2>What should you do now?</h2>
+                    <h3>Help us fix the problem</h3>
 
-            <strong>Exercise caution</strong> if you choose to continue to <a href="http://example.com">http://example.com</a> <br/><br/>
+                    <p>This error has been automatically logged for investigation.</p>
 
-            If it is not the content you expect, or the site is behaving suspiciously (e.g. asking you to enter your UQ username and password or other personal information), leave the site immediately.
+                    <p>The following information will help us fix the problem:</p>
 
-            <h3>Help us fix the problem</h3>
+                    <form
+                        class="form"
+                        id="submit-info"
+                        name="submit-info"
+                        action="//www.library.uq.edu.au/ezproxy-docs/needhost-submit.php"
+                        method="POST"
+                        target="_new"
+                    >
+                        <div>
+                            <input type="hidden" name="url" value="http://example.com" />
+                        </div>
+                        <div>
+                            <label
+                                class="keyboard-user-only"
+                                aria-hidden="true"
+                                for="description"
+                                id="paper-input-label-1"
+                                >Where did you find the link?</label
+                            >
+                            <input
+                                type="text"
+                                id="description"
+                                name="description"
+                                placeholder="Where did you find the link?"
+                                value=""
+                            />
+                        </div>
+                        <div>
+                            <label
+                                class="keyboard-user-only"
+                                aria-hidden="true"
+                                for="reply-email"
+                                id="paper-input-label-2"
+                                >Your email address, if you would like us to get back to you</label
+                            >
+                            <input
+                                type="text"
+                                id="reply-email"
+                                name="reply-email"
+                                placeholder="Your email address, if you would like us to get back to you"
+                            />
+                        </div>
+                        <div>
+                            <label
+                                class="keyboard-user-only"
+                                aria-hidden="true"
+                                for="more-info"
+                                id="paper-input-label-3"
+                                >Any other information about the link?</label
+                            >
+                            <input
+                                type="text"
+                                id="more-info"
+                                name="more-info"
+                                placeholder="Any other information about the link?"
+                            />
+                        </div>
 
-            <p>This error has been automatically logged for investigation.</p>
-
-            <p>The following information will help us fix the problem: </p>
-
-            <form class="form" id="submit-info" name="submit-info" action="//www.library.uq.edu.au/ezproxy-docs/needhost-submit.php" method="POST" target="_new">
-
-                <div>
-                <input type="hidden" name="url" value="http://example.com">
+                        <div class="flex-end-justified">
+                            <button onClick="document.getElementById('submit-info').submit();" class="blue-submit">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
                 </div>
-                <div>
-                    <label class="keyboard-user-only" aria-hidden="true" for="description" id="paper-input-label-1">Where did you find the link?</label>
-                    <input type="text" id="description" name="description" placeholder="Where did you find the link?" value="">
-                </div>
-                <div>
-                    <label class="keyboard-user-only" aria-hidden="true" for="reply-email" id="paper-input-label-2">Your email address, if you would like us to get back to you</label>
-                    <input type="text" id="reply-email" name="reply-email" placeholder="Your email address, if you would like us to get back to you">
-                </div>
-                <div>
-                    <label class="keyboard-user-only" aria-hidden="true" for="more-info" id="paper-input-label-3">Any other information about the link?</label>
-                    <input type="text" id="more-info" name="more-info" placeholder="Any other information about the link?">
-                </div>
-
-                <div class="flex-end-justified">
-                    <button onClick="document.getElementById('submit-info').submit();" class="blue-submit">Submit</button>
-                </div>
-            </form>
-
+            </div>
         </div>
-
-    </div>
-</div>
-
-</body>
+    </body>
 </html>

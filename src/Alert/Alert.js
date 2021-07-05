@@ -1,5 +1,6 @@
 import styles from './css/main.css';
 import overrides from './css/overrides.css';
+import { cookieNotFound, setCookie } from '../helpers/cookie';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -86,10 +87,6 @@ class Alert extends HTMLElement {
                     const alertHiddenCookieID = 'UQ_ALERT_' + id;
                     const alertCookieHidddenValue = 'hidden';
 
-                    function cookieNotFound(cookieId, cookieValue) {
-                        return document.cookie.indexOf(cookieId + '=' + cookieValue) <= -1;
-                    }
-
                     function alertNotHidden(cookieId, cookieValue) {
                         return cookieNotFound(cookieId, cookieValue);
                     }
@@ -99,19 +96,7 @@ class Alert extends HTMLElement {
                         //set cookie for 24 hours
                         const date = new Date();
                         date.setTime(date.getTime() + 24 * 60 * 60 * 1000);
-                        /* istanbul ignore if */
-                        const cookieDomain = window.location.hostname.endsWith('.library.uq.edu.au')
-                            ? /* istanbul ignore next */
-                              'domain=.library.uq.edu.au;path=/'
-                            : '';
-                        document.cookie =
-                            alertHiddenCookieID +
-                            '=' +
-                            alertCookieHidddenValue +
-                            ';expires=' +
-                            date.toGMTString() +
-                            ';' +
-                            cookieDomain;
+                        setCookie(alertHiddenCookieID, alertCookieHidddenValue, date);
                     }
                 };
                 shadowDOM.getElementById('alert-close').addEventListener('click', closeAlert);

@@ -1315,3 +1315,67 @@ export const alerts = [{
     "body": "This is the message [permanent]",
     "urgent": 1
 }];
+
+export const primoSuggestions = {
+    "responseHeader": {
+        "status": 0,
+        "QTime": 2
+    },
+    "response": {
+        "numFound": 1622,
+        "start": 0,
+        "maxScore": 16.476818,
+        "docs": [
+            { "text": 'beards', "score": 16.476818 },
+            { "text": 'beards folklore', "score": 16.476564 },
+            { "text": 'beards massage', "score": 16.476564 },
+            { "text": 'beards fiction', "score": 16.476564},
+            { "text": 'beards poetry', "score": 16.476564 },
+            { "text": 'beards history', "score": 16.476564},
+            { "text": 'beards europe', "score": 16.476564 },
+            { "text": 'beards humor', "score": 16.476564},
+            { "text": 'beards harold', "score": 16.476564 },
+            { "text": 'beards peter', "score": 16.476564 },
+        ],
+    }
+};
+
+export const examSuggestions = [{
+    "name": "PHIL2011",
+    "url": "https:\/\/files.library.uq.edu.au\/exams\/2020\/Semester_Two_Final_Examinations_2020_PHIL2011.pdf",
+    "type": "exam_paper",
+    "course_title": "Philosophy of Modern Physics"
+}, {
+    "name": "PHIL7221",
+    "url": "https:\/\/files.library.uq.edu.au\/exams\/2018\/Semester_Two_Final_Examinations__2018_PHIL7221_school.pdf",
+    "type": "exam_paper",
+    "course_title": "Environmental Philosophy"
+}, {
+    "name": "PHIL2110",
+    "url": "https:\/\/files.library.uq.edu.au\/exams\/2018\/Semester_Two_Final_Examinations__2018_PHIL2110_846.pdf",
+    "type": "exam_paper",
+    "course_title": "Formal Logic: an introduction to classical formal logic"
+}];
+
+export const learningResourceSuggestions = [{
+    "name": "PHIL2013",
+    "url": "http:\/\/lr.library.uq.edu.au\/lists\/6054F5AD-48A7-D99B-32E3-61438F0C9E4C",
+    "type": "learning_resource",
+    "course_title": "Rise of Modern Philosophy",
+    "campus": "St Lucia",
+    "period": "Semester 2 2021"
+}, {
+    "name": "PHIL1013",
+    "url": "http:\/\/lr.library.uq.edu.au\/lists\/6F4C18DC-1BB3-6926-22A1-9FF8123DD37C",
+    "type": "learning_resource",
+    "course_title": "Introduction to Ethics",
+    "campus": "St Lucia",
+    "period": "Semester 2 2021"
+}, {
+    "name": "PPES2101",
+    "url": "http:\/\/lr.library.uq.edu.au\/lists\/9954067E-8C88-0707-B398-EBCF62CEE257",
+    "type": "learning_resource",
+    "course_title": "Politics, Philosophy, Economics 2",
+    "campus": "St Lucia",
+    "period": "Semester 2 2021"
+}];

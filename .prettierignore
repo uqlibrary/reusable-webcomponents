@@ -4,3 +4,4 @@ cypress/examples
 cypress/screenshots/
 *.json
 mock
+main.css
