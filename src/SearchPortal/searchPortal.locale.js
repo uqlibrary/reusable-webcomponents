@@ -112,6 +112,11 @@ export const searchPortalLocale = {
     },
     links: [
         {
+            label: 'Search help',
+            linkto: 'https://web.library.uq.edu.au/research-tools-techniques/uq-library-search',
+            display: [...PRIMO_ELEMENTS],
+        },
+        {
             label: 'Advanced search',
             linkto: 'https://search.library.uq.edu.au/primo-explore/search?vid=61UQ&mode=advanced',
             display: [...PRIMO_ELEMENTS],
