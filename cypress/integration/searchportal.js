@@ -199,7 +199,7 @@ describe('Search Portal', () => {
 
                     // on first load, the library drop down displays "Library"
                     cy.get('[data-testid="primo-search-select"]').contains('Library');
-                    hasCorrectNumberOfFooterLinks(4);
+                    hasCorrectNumberOfFooterLinks(3);
 
                     // there are the correct number of options in the search dropdown
                     cy.get('div[data-testid="search-type-selector"]')
@@ -246,7 +246,7 @@ describe('Search Portal', () => {
                     cy.get('button[data-testid="primo-search-item-1"]').click();
                     cy.get('[data-testid="portaltype-current-label"]').contains('Books');
 
-                    hasCorrectNumberOfFooterLinks(4);
+                    hasCorrectNumberOfFooterLinks(3);
 
                     // typing in the text area shows the correct entries from the api
                     cy.get('button[data-testid="primo-search-autocomplete-voice-clear"]').click();
@@ -278,7 +278,7 @@ describe('Search Portal', () => {
                     cy.get('button[data-testid="primo-search-item-2"]').click();
                     cy.get('[data-testid="portaltype-current-label"]').contains('Journal articles');
 
-                    hasCorrectNumberOfFooterLinks(4);
+                    hasCorrectNumberOfFooterLinks(3);
 
                     // typing in the text area shows the correct entries from the api
                     cy.get('button[data-testid="primo-search-autocomplete-voice-clear"]').click();
@@ -336,7 +336,7 @@ describe('Search Portal', () => {
 
                     hasCorrectNumberOfFooterLinks(1);
                     // the link in the single footer should go to an 'exams' result
-                    cy.get('div[data-testid="primo-search-links-6"] a')
+                    cy.get('div[data-testid="primo-search-links-5"] a')
                         .should('have.attr', 'href')
                         .and('include', 'exams');
 
@@ -392,7 +392,7 @@ describe('Search Portal', () => {
 
                     hasCorrectNumberOfFooterLinks(1);
                     // the single link in the footer should go to a 'talis' result
-                    cy.get('div[data-testid="primo-search-links-7"] a')
+                    cy.get('div[data-testid="primo-search-links-6"] a')
                         .should('have.attr', 'href')
                         .and('include', 'talis.com');
 
