@@ -1,39 +1,93 @@
-<!doctype html>
+<!DOCTYPE html>
 <html style="padding: 0; margin: 0" lang="en">
-<head>
-    <title>UQ Library - Reusable Web Components</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v6/fonts/Roboto/roboto.css" />
-    <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css" />
-    <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css">
-<!--    <script type="text/javascript" src="src/applications/testing/load.js"></script>-->
-</head>
-<body style="padding: 0; margin: 0; font-family: 'Roboto', sans-serif">
-  <!-- This is a test GTM code - if not using the default gtm value, insert your site's GTM with attribute name `gtm` -->
-  <uq-gtm></uq-gtm>
-  <uq-header hidelibrarymenuitem skipnavid="skiptohere"></uq-header>
-  <uq-site-header sitetitle="Library Test" showmenu>
-      <span slot="site-utilities">
-          <askus-button secondsTilProactiveChatAppears=3 />
-      </span>
-      <span slot="site-utilities">
-          <div id="mylibrarystub"></div>
-      </span>
-      <span slot="site-utilities">
-          <auth-button />
-      </span>
-  </uq-site-header>
-  <alert-list></alert-list>
+    <head>
+        <title>UQ Library - Reusable Web Components</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+        <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v6/fonts/Roboto/roboto.css" />
+        <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css" />
+        <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css" />
+        <style>
 
-  <div style="min-height: 300px; margin-left: auto; margin-right: auto; max-width: 960px; padding: 1rem;">
-      <h1 tabindex="-1" id="skiptohere">UQ Library - Reusable Web Components</h1>
-      <h2>Kitchen sink</h2>
+            .layout-card {
+                margin-left: 1rem;
+                margin-right: 1rem;
+                padding-left: 0.5rem;
+                padding-right: 0.5rem
+            }
 
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut congue vel massa ac volutpat. Vivamus scelerisque, leo pretium elementum finibus, libero risus condimentum eros, at gravida diam turpis vitae nulla. Ut in purus non quam ultricies sodales. Etiam dapibus gravida dignissim. Donec laoreet sagittis arcu, eget suscipit tellus tristique a. Aenean ullamcorper lacinia nisi non volutpat. Nam viverra sem diam, id faucibus nulla vehicula faucibus. Aenean ultricies purus sit amet condimentum semper. Sed tempor iaculis molestie. Suspendisse consequat est eget risus malesuada ultricies. In sagittis vel sem a elementum. Suspendisse vulputate mattis volutpat. Quisque interdum sapien id urna euismod, id bibendum dolor luctus. Proin egestas, lacus nec ultricies efficitur, urna est molestie libero, tincidunt tempor purus ipsum sed nisi. Praesent molestie sem eu imperdiet aliquam.</p>
-  </div>
+            @media (min-width: 37.5rem) {
+                .layout-card {
+                    padding-left: 0.75rem;
+                    padding-right: 0.75rem;
+                    margin-left: 3.25rem;
+                    margin-right: 3.25rem;
+                    max-width: none
+                }
+            }
 
-  <connect-footer></connect-footer>
-  <uq-footer loginurl="http://library.uq.edu.au"></uq-footer>
-</body>
+            @media (min-width: 69.25rem) {
+                .layout-card {
+                    margin-left: auto;
+                    margin-right: auto;
+                    max-width: 61.5rem
+                }
+            }
 
+            @media (min-width: 80rem) {
+                .layout-card {
+                    margin-left: 8.375rem;
+                    margin-right: 8.375rem;
+                    max-width: none;
+                    padding-left: 1rem;
+                    padding-right: 1rem
+                }
+            }
+
+            @media (min-width: 90rem) {
+                .layout-card {
+                    margin-left: auto;
+                    margin-right: auto;
+                    max-width: 71rem;
+                    padding-left: 1rem;
+                    padding-right: 1rem
+                }
+            }
+
+        </style>
+        <!--    <script type="text/javascript" src="src/applications/testing/load.js"></script>-->
+    </head>
+    <body style="padding: 0; margin: 0; font-family: 'Roboto', sans-serif">
+        <!-- This is a test GTM code - if not using the default gtm value, insert your site's GTM with attribute name `gtm` -->
+        <uq-gtm></uq-gtm>
+        <uq-header hidelibrarymenuitem skipnavid="skiptohere"></uq-header>
+        <uq-site-header sitetitle="Library Test" showmenu>
+            <span slot="site-utilities">
+                <askus-button secondsTilProactiveChatAppears="3" />
+            </span>
+            <span slot="site-utilities">
+                <div id="mylibrarystub"></div>
+            </span>
+            <span slot="site-utilities">
+                <auth-button />
+            </span>
+        </uq-site-header>
+        <alert-list></alert-list>
+
+        <div style="min-height: 300px;" class="layout-card">
+            <h1 tabindex="-1" id="skiptohere">UQ Library - Reusable Web Components</h1>
+            <h2 data-testid="random-page-element">Kitchen sink</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut congue vel massa ac volutpat.</p>
+
+            <search-portal></search-portal>
+
+            <h2>EzProxy</h2>
+            <ez-proxy create-link="true"></ez-proxy>
+            <br />
+            <h2>EzProxy Redirect-Only</h2>
+            <ez-proxy></ez-proxy>
+        </div>
+
+        <connect-footer></connect-footer>
+        <uq-footer loginurl="http://library.uq.edu.au"></uq-footer>
+    </body>
 </html>

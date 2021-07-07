@@ -67,7 +67,7 @@ template.innerHTML = `
               <ul>
                 <li><a href="https://contacts.uq.edu.au/" data-testid="uq-header-contacts-link-mobile">Contacts</a></li>
                 <li><a href="https://www.uq.edu.au/news/" data-testid="uq-header-news-link-mobile">News</a></li>
-                <li id="menu-item-library"><a href="https://www.library.uq.edu.au/" data-testid="uq-header-library-link-mobile">Library</a></li>
+                <li id="menu-item-library-mobile"><a href="https://www.library.uq.edu.au/" data-testid="uq-header-library-link-mobile">Library</a></li>
                 <li><a href="https://future-students.uq.edu.au/" data-testid="uq-header-study-link-mobile">Study</a></li>
                 <li><a href="https://www.uq.edu.au/events/" data-testid="uq-header-events-link-mobile">Events</a></li>
                 <li><a href="https://giving.uq.edu.au/" data-testid="uq-header-giving-link-mobile">Give now</a></li>
@@ -161,6 +161,8 @@ class UQHeader extends HTMLElement {
         if (!(newValue === 'false' || newValue === null)) {
             const libraryMenuItem = this.shadowRoot.getElementById('menu-item-library');
             !!libraryMenuItem && libraryMenuItem.remove();
+            const libraryMobileMenuItem = this.shadowRoot.getElementById('menu-item-library-mobile');
+            !!libraryMobileMenuItem && libraryMenuItem.remove();
         }
     }
 

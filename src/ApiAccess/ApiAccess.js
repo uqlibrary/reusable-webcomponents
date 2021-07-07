@@ -1,6 +1,8 @@
 import MockApi from '../../mock/MockApi';
 import ApiRoutes from '../ApiRoutes';
 import { apiLocale as locale } from './ApiAccess.locale';
+import fetchJsonp from 'fetch-jsonp';
+import { clearCookie, getCookieValue } from '../helpers/cookie';
 
 let initCalled;
 
@@ -108,7 +110,104 @@ class ApiAccess {
             });
     }
 
+    async loadTrainingEvents(maxEventCount, filterId) {
+        const trainingApi = new ApiRoutes().TRAINING_API();
+        const urlPath = trainingApi.apiUrl;
+        const filter = {
+            maxEventCount,
+            // filterIds should be an array. Passing an array as value to
+            // URLSearchParams doesn't seem to be working.
+            'filterIds[]': filterId, // Value of filter to extract data from career hub.
+        };
+        const filterParams = new URLSearchParams(filter).toString();
+
+        // Need to decode the url-encoded version of '[]' in filterIds.
+        const url = urlPath.concat('?', decodeURIComponent(filterParams));
+
+        return await this.fetchAPI(url).catch((error) => {
+            console.log('error loading training events ', error);
+            return null;
+        });
+    }
+
+    /**
+     * Loads the primo search suggestions
+     * @returns {function(*)}
+     */
+    async loadPrimoSuggestions(keyword) {
+        console.log('loadPrimoSuggestions: ', keyword);
+        const route = new ApiRoutes().PRIMO_SUGGESTIONS_API_GENERIC(keyword);
+        const url = route.apiUrl;
+        return await this.fetchJsonpAPI(url, {
+            jsonpCallbackFunction: 'byutv_jsonp_callback_c631f96adec14320b23f1cac342d30f6',
+            timeout: 3000,
+        })
+            .then((data) => {
+                return (
+                    (data &&
+                        data.response &&
+                        data.response.docs &&
+                        data.response.docs.map((item, index) => {
+                            return {
+                                ...item,
+                                index,
+                            };
+                        })) ||
+                    /* istanbul ignore next */ []
+                );
+            })
+            .catch((error) => {
+                console.log('error loading Primo suggestions ', error);
+                const msg = `error loading Primo suggestions: ${error.message}`;
+                throw new Error(msg);
+            });
+    }
+
+    async loadExamPaperSuggestions(keyword) {
+        return await this.fetchAPI(new ApiRoutes().EXAMS_SUGGESTIONS_API(keyword).apiUrl)
+            .then((data) => {
+                return data.map((item, index) => {
+                    const title = !!item.course_title ? ` (${item.course_title})` : /* istanbul ignore next */ '';
+                    return {
+                        text: `${item.name}${title}`,
+                        courseid: item.name,
+                        index,
+                    };
+                });
+            })
+            .catch((error) => {
+                console.log('error loading Exam suggestions ', error);
+                const msg = `error loading Exam suggestions: ${error.message}`;
+                throw new Error(msg);
+            });
+    }
+
+    async loadHomepageCourseReadingListsSuggestions(keyword) {
+        return await this.fetchAPI(new ApiRoutes().SUGGESTIONS_API_PAST_COURSE(keyword).apiUrl)
+            .then((data) => {
+                return data.map((item, index) => {
+                    const specifier =
+                        (item.course_title ? `${item.course_title} | ` : /* istanbul ignore next */ '') +
+                        (item.campus ? `${item.campus} , ` : /* istanbul ignore next */ '') +
+                        (item.period ? item.period.toLowerCase() : /* istanbul ignore next */ '');
+                    const append = !!specifier ? ` ( ${specifier} )` : /* istanbul ignore next */ '';
+                    return {
+                        ...item,
+                        text: `${item.name}${append}`,
+                        index,
+                    };
+                });
+            })
+            .catch((error) => {
+                console.log('error loading Learning Resource suggestions ', error);
+                const msg = `error loading Learning Resource suggestions: ${error.message}`;
+                throw new Error(msg);
+            });
+    }
+
     async fetchAPI(urlPath, headers, tokenRequired = false) {
+        // this is a fail safe - account blocks it earlier and currently no other api calls do this */
+        /* istanbul ignore next */
         if (!!tokenRequired && (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)) {
             // no cookie so we wont bother asking for an api that cant be returned
             console.log('no cookie so we wont bother asking for an api that cant be returned');
@@ -144,11 +243,41 @@ class ApiAccess {
         }
     }
 
+    async fetchJsonpAPI(url, headers) {
+        console.log('fetchJsonpAPI: url = ', url);
+        const options = {
+            ...headers,
+        };
+
+        /* istanbul ignore else  */
+        if (this.isMock()) {
+            try {
+                console.log('mocking url : ', url);
+                return this.fetchMock(url);
+            } catch (e) {
+                const msg = `mock api error: ${e.message}`;
+                console.log(msg);
+                throw new Error(msg);
+            }
+        } else {
+            // this assumes non api.library urls
+            const response = await fetchJsonp(url, options);
+            console.log('fetchJsonp got ', response);
+            if (!response.ok) {
+                console.log(`ApiAccess console: An error has occured: ${response.status} ${response.statusText}`);
+                const message = `ApiAccess: An error has occured: ${response.status} ${response.statusText}`;
+                throw new Error(message);
+            }
+            return await response.json();
+        }
+    }
+
     /* istanbul ignore next */
     fetchFromServer(urlPath, options) {
         const API_URL = process.env.API_URL || 'https://api.library.uq.edu.au/staging/';
+        const connector = urlPath.indexOf('?') > -1 ? '&' : '?';
 
-        return fetch(`${API_URL}${urlPath}?${new Date().getTime()}`, {
+        return fetch(`${API_URL}${urlPath}${connector}${new Date().getTime()}`, {
             headers: options,
         });
     }
@@ -197,30 +326,27 @@ class ApiAccess {
     }
 
     getSessionCookie() {
-        /* istanbul ignore else  */
-        if (this.isMock() && new MockApi().getUserParameter() !== 'public') {
+        /* istanbul ignore next */
+        if (!this.isMock()) {
+            return getCookieValue(locale.SESSION_COOKIE_NAME);
+        }
+        if (new MockApi().getUserParameter() !== 'public') {
             return locale.UQLID_COOKIE_MOCK;
         }
-        return this.getCookie(locale.SESSION_COOKIE_NAME);
+        return undefined;
     }
 
     getLibraryGroupCookie() {
         // I am guessing this field is used as a proxy for 'has a Library account, not just a general UQ login'
-        /* istanbul ignore else  */
-        if (this.isMock() && new MockApi().getUserParameter() !== 'public') {
+        /* istanbul ignore next */
+        if (!this.isMock()) {
+            return getCookieValue(locale.SESSION_USER_GROUP_COOKIE_NAME);
+        }
+        /* istanbul ignore else */
+        if (new MockApi().getUserParameter() !== 'public') {
             return locale.USERGROUP_COOKIE_MOCK;
         }
-        return this.getCookie(locale.SESSION_USER_GROUP_COOKIE_NAME);
-    }
-
-    getCookie(name) {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; ++i) {
-            const pair = cookies[i].trim().split('=');
-            if (!!pair[0] && pair[0] === name) {
-                return !!pair[1] ? pair[1] : /* istanbul ignore next */ undefined;
-            }
-        }
+        /* istanbul ignore next */
         return undefined;
     }
 
@@ -238,5 +364,15 @@ class ApiAccess {
         return process.env.USE_MOCK;
     }
 }
+
+// const throwFetchErrors = (response) => {
+//     if (!response.ok) {
+//         const status = response.status || 'status undefined';
+//         const statusText = response.statusText || 'status message undefined';
+//         console.log('throwing');
+//         throw Error(`Error ${status} - ${statusText}`);
+//     }
+//     return response;
+// };
 
 export default ApiAccess;

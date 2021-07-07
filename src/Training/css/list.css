@@ -1,0 +1,103 @@
+#training-list {
+    padding: 0.5rem;
+}
+@media (min-width: 37.5rem) {
+    #training-list {
+        padding: 0.8rem;
+    }
+}
+@media (min-width: 75rem) {
+    #training-list {
+        padding: 1rem;
+    }
+}
+
+.uq-card {
+    border-radius: 0;
+    padding: 0;
+}
+
+.uq-card__title {
+    padding: 1rem;
+    font-size: 1.5rem;
+}
+
+.uq-card .uq-card__actions {
+    display: none;
+    text-align: right;
+}
+
+.uq-card .uq-accordion {
+    border-bottom: none;
+}
+
+.uq-card.has-more-events .uq-card__actions {
+    display: block;
+}
+
+.uq-card.has-more-events .uq-accordion {
+    position: relative;
+}
+
+.uq-card.has-more-events .uq-accordion__item:nth-of-type(n + 6) {
+    display: none;
+}
+
+.uq-card.has-more-events.show-all .uq-accordion__item:nth-of-type(n + 6) {
+    display: block;
+}
+
+.uq-accordion__item:first-of-type {
+    border-top: none;
+}
+
+.uq-accordion__toggle {
+    padding: 0.8rem 1rem;
+}
+
+.uq-accordion__item:last-of-type {
+    border-bottom: none;
+}
+
+.uq-accordion__toggle:hover,
+.uq-accordion__toggle:focus {
+    text-decoration: none;
+    background-color: #f7f6f5;
+}
+.uq-accordion__toggle:hover [id^='event-name'],
+.uq-accordion__toggle:focus [id^='event-name'] {
+    text-decoration: underline;
+}
+
+.uq-accordion__toggle--active {
+    background-color: #f7f6f5;
+}
+
+.uq-accordion__toggle .group-first {
+    display: flex;
+    justify-content: space-between;
+}
+
+.uq-accordion__toggle [id^='event-name'] {
+    margin: 0;
+    color: #1e72c6; /* copied from .link in @usds */
+}
+
+.uq-accordion__toggle [id^='event-venue'] {
+    color: #595959;
+    font-size: 0.75rem;
+}
+
+.uq-accordion__toggle [id^='event-date'] {
+    color: #2b2b2b;
+    font-size: 1rem;
+    padding: 0.4rem 1rem 0 0;
+}
+
+.uq-card__content {
+    padding: 0;
+}
+
+[id^='event-name'] {
+    font-size: 1.25rem;
+}

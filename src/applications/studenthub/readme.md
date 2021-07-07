@@ -1,4 +1,4 @@
-#Studenthub (aka Careerhub) Customisation
+# Studenthub (aka Careerhub) Customisation
 
 A third party product that we are theming to match the general library theme.
 
@@ -25,7 +25,11 @@ Code to include in the GUI editor (keep this up to date as it can't be reviewed 
 <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v6/fonts/Roboto/roboto.css" />
 <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css" />
 <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css" />
-<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap"
+/>
 <link
   rel="stylesheet"
   href="https://assets.library.uq.edu.au/reusable-webcomponents/applications/studenthub/custom-styles.css"
@@ -65,7 +69,7 @@ Notes:
 - Careerhub have said they will put the meta viewport line in the template. It hasnt appeared yet - if it does, this line can be removed here
 - Material design icons are being used, so the font family is included
 
-### Locating the Theme Edit page
+## Locating the Theme Edit page
 
 The theme edit page is here [current link](https://www.studenthub.uq.edu.au/Admin/SubSites/Layout.aspx?id=14) or follow these steps:
 

@@ -1,0 +1,220 @@
+.uq-pane {
+    background-color: #fff;
+}
+h3.title-text {
+    margin: 0 auto 0 -1px;
+}
+
+.content-icon {
+    flex-direction: row;
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    width: 3rem;
+    min-width: 3rem;
+    display: flex;
+    align-items: center;
+}
+
+.clearKeyword {
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    vertical-align: middle;
+    fill: currentcolor;
+    stroke: currentcolor;
+    width: 26px;
+    height: 24px;
+    background-color: white;
+    color: grey;
+    border: none;
+
+    margin-top: 20px;
+    margin-left: -2.2rem;
+}
+
+.clearKeyword:hover {
+    cursor: pointer;
+    color: black;
+}
+
+.clearKeyword svg {
+    width: 24px !important;
+    height: 24px !important;
+}
+
+.title-text {
+    font-size: 24px;
+    font-weight: 400;
+    color: #000;
+}
+
+.uq-pane__content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 0;
+    width: 100%;
+}
+.uq-pane__content > div {
+    width: 31%;
+    padding-top: 1.2rem;
+}
+.uq-pane__content > div.keywordcontainer {
+    width: 33%;
+}
+
+.hidden {
+    display: none;
+    animation: in 700ms ease both;
+}
+
+button.week,
+button.campus {
+    display: block;
+    width: 10rem;
+}
+.selectorlist button:focus {
+    background-color: #4085C6; /* uqblue */
+    color: #fff;
+    outline: none;
+}
+
+/* buttons that act to filter */
+.filterer {
+    background-color: #fff;
+    border: 1px solid #e2e2e2;
+    border-radius: 2px;
+    min-height: 3rem;
+    text-align: left;
+    color: #333;
+    font-size: 16px;
+    opacity: 1;
+}
+
+.opener.filterer {
+    width: 100%;
+    color: #333;
+    margin-top: 0.5rem;
+}
+
+.opener.filterer::after {
+    /* drop down arrow */
+    content: ' \25BC';
+    float: right;
+}
+
+.listHolder {
+    position: relative;
+}
+
+.selectorlist {
+    position: absolute;
+    right: 0;
+    z-index: 10;
+    overflow: auto;
+    margin-top: -6px;
+}
+
+.quicklinks h4 {
+    color: #1d1d1d;
+    display: inline;
+    font-size: 0.75rem;
+    font-weight: 400;
+}
+
+button.chip {
+    border-radius: 1rem;
+    display: inline-flex;
+    margin-right: 0.25rem;
+    padding: 0.3rem 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.keywordPlaceholderMovement {
+    display: flex;
+}
+
+.keywordPlaceholderMovement label {
+    position: relative;
+    display: inline-block;
+
+    margin-bottom: 0;
+
+    /* to make cancel button sit beside field */
+    flex: 1;
+}
+
+.keywordPlaceholderMovement span {
+    padding: 24px 10px 10px 8px;
+    pointer-events: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: 0.2s;
+    transition-timing-function: ease;
+    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+    opacity: 0.5;
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+}
+
+.keywordPlaceholderMovement input {
+    padding: 10px;
+}
+
+.keywordPlaceholderMovement input:focus + span,
+.keywordPlaceholderMovement input:not(:placeholder-shown) + span {
+    opacity: 1;
+    transform: scale(0.75) translateY(-90%) translateX(-25px);
+    color: #51247a;
+}
+
+.hovertext.above {
+    font-size: 0.8rem;
+    color: #51247a;
+    height: 0.8rem;
+    margin-top: -3rem;
+    transform: translateY(-20px) translateX(-6px);
+}
+
+.hoverblock {
+    margin-top: -1rem;
+    margin-left: 0.5rem;
+    color: #333;
+}
+
+.hovertext {
+    transition: 0.2s;
+    transition-timing-function: ease;
+    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+
+    animation: 1s ease 2s normal forwards 1 fadein;
+    /*transform: scale(0.75) translateY(-100%) translateX(-30px);*/
+    transform: translateY(-20px);
+}
+
+.onlineToggle input {
+    margin-left: 0;
+}
+
+@media (max-width: 700px) {
+    .uq-pane__content {
+        display: block;
+    }
+
+    .uq-pane__content > div {
+        width: 90%;
+        padding-bottom: 1rem;
+        height: 5rem; /* need to fix the height so the field doesnt shift as the label moves around */
+    }
+    .uq-pane__content > div.keywordcontainer {
+        width: 88%;
+    }
+
+    .hoverblock {
+        height: 1.5rem;
+    }
+}
