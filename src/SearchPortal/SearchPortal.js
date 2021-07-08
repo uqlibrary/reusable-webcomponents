@@ -805,12 +805,18 @@ class SearchPortal extends HTMLElement {
     }
 
     createFooterLink(link, index) {
+        const that = this;
         const displayLabel = document.createTextNode(link.label);
 
         const anchor = document.createElement('a');
+        !!anchor && (anchor.id = `search-portal-footerlink-${index}`);
         !!anchor && (anchor.href = link.linkto);
         !!anchor && (anchor.rel = 'noreferrer');
         !!anchor && (anchor.ariaLabel = link.label);
+        !!anchor &&
+            anchor.addEventListener('click', function (e) {
+                that.sendSubmitToGTM(e); // submit the GTM info, then carry on to the normal href navigation
+            });
         anchor.appendChild(displayLabel);
 
         const container = document.createElement('div');
