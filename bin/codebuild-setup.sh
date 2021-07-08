@@ -20,6 +20,10 @@ printf "\n\n--- INSTALL DEPENDENCIES ---\n"
 echo "$ npm ci"
 npm ci
 
+printf "\n\n--- INSTALL JEST ---\n"
+echo "$ npm install -g jest"
+npm install -g jest
+
 printf "\n\n--- CYPRESS SETUP ---\n"
 echo "$ npm cy:verify"
 npm run cy:verify
