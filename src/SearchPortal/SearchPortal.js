@@ -421,29 +421,52 @@ class SearchPortal extends HTMLElement {
             });
     }
 
+    /**
+     * Events arent sending properly to GTM, so we force them manually here
+     * @param formObject
+     */
     sendSubmitToGTM(formObject) {
         window.dataLayer = window.dataLayer || []; // for tests
 
+        let gtmItems;
         const portaltype = this.shadowRoot.getElementById('search-type-current-value').value;
-        let inputField;
-        if (
+        const userHasSubmittedForm =
             !!formObject &&
             !!formObject.target &&
             !!formObject.target.id &&
-            formObject.target.id === 'primo-search-form'
-        ) {
-            // the user has clicked the submit button (or hit return)
-            inputField = this.shadowRoot.getElementById('current-inputfield').value;
+            formObject.target.id === 'primo-search-form';
+        const userHasClickedFooterLink =
+            !!formObject &&
+            !!formObject.target &&
+            !!formObject.target.id &&
+            formObject.target.id.startsWith('search-portal-footerlink-');
+        if (userHasSubmittedForm) {
+            const userSearchTerm = this.shadowRoot.getElementById('current-inputfield').value;
+            gtmItems = {
+                event: 'gtm.formSubmit',
+                'gtm.elementId': 'primo-search-form',
+                'gtm.element.elements.primo-search-autocomplete.value': userSearchTerm,
+                'gtm.element.elements.primo-search-select-input.value': portaltype,
+            };
+        } /* istanbul ignore next */ else if (userHasClickedFooterLink) {
+            // the user has clicked one of the built in footer links under the widget
+            const footerLinkLabel = !!formObject && !!formObject.target && formObject.target.innerHTML;
+            gtmItems = {
+                event: 'gtm.linkClick',
+                'gtm.elementId': formObject.target.id,
+                'gtm.element': footerLinkLabel,
+            };
         } else {
             // the user has clicked on a suggestion link
-            inputField = !!formObject && !!formObject.target && formObject.target.innerHTML;
+            const suggestionText = !!formObject && !!formObject.target && formObject.target.innerHTML;
+            gtmItems = {
+                event: 'gtm.formSubmit',
+                'gtm.elementId': 'primo-search-form',
+                'gtm.element.elements.primo-search-autocomplete.value': suggestionText,
+                'gtm.element.elements.primo-search-select-input.value': portaltype,
+            };
         }
-        window.dataLayer.push({
-            event: 'gtm.formSubmit',
-            'gtm.elementId': 'primo-search-form',
-            'gtm.element.elements.primo-search-autocomplete.value': inputField,
-            'gtm.element.elements.primo-search-select-input.value': portaltype,
-        });
+        window.dataLayer.push(gtmItems);
     }
 
     getSuggestions() {
@@ -805,12 +828,19 @@ class SearchPortal extends HTMLElement {
     }
 
     createFooterLink(link, index) {
+        const that = this;
         const displayLabel = document.createTextNode(link.label);
 
         const anchor = document.createElement('a');
+        !!anchor && (anchor.id = `search-portal-footerlink-${index}`);
         !!anchor && (anchor.href = link.linkto);
         !!anchor && (anchor.rel = 'noreferrer');
         !!anchor && (anchor.ariaLabel = link.label);
+        !!anchor &&
+            anchor.addEventListener('click', function (e) {
+                /* istanbul ignore next */
+                that.sendSubmitToGTM(e); // submit the GTM info, then carry on to the normal href navigation
+            });
         anchor.appendChild(displayLabel);
 
         const container = document.createElement('div');
