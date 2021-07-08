@@ -33,4 +33,5 @@ printf "\n--- \e[1mRUNNING E2E TESTS\e[0m ---\n"
 npm run test:e2e:dashboard
 
 printf "\n--- \e[1mRUNNING UNIT TESTS\e[0m ---\n"
+printf "Jest v"; jest --version
 npm run test:unit
