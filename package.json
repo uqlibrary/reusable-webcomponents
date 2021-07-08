@@ -64,7 +64,6 @@
     "eslint-plugin-prettier": "^3.3.1",
     "file-loader": "^6.2.0",
     "istanbul-lib-coverage": "^3.0.0",
-    "jest": "^27.0.6",
     "mini-css-extract-plugin": "^1.4.1",
     "mocha": "^5.2.0",
     "node-sass": "^4.14.1",
@@ -121,8 +120,5 @@
       "**/mock/**",
       "**/codebuild/**"
     ]
-  },
-  "jest": {
-    "testEnvironment": "jsdom"
   }
 }
