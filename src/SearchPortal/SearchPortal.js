@@ -224,7 +224,7 @@ class SearchPortal extends HTMLElement {
                     !!anchor && !!link && !!text && anchor.appendChild(text);
                     !!anchor && (anchor.className = 'MuiPaper-root suggestion-link');
                     !!anchor && anchor.setAttribute('id', `suggestion-link-${index}`);
-                    !!anchor && anchor.setAttribute('data-testid', `suggestion-link-${index}`);
+                    !!anchor && anchor.setAttribute('data-testid', 'primo-search-submit');
                     !!anchor && anchor.setAttribute('tabindex', '0');
                     !!anchor &&
                         anchor.addEventListener('click', function (e) {
