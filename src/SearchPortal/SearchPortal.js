@@ -228,7 +228,7 @@ class SearchPortal extends HTMLElement {
                     !!anchor && anchor.setAttribute('tabindex', '0');
                     !!anchor &&
                         anchor.addEventListener('click', function (e) {
-                            that.sendSubmitToGTM(); // submit the GTM info, then carry on to the normal href navigation
+                            that.sendSubmitToGTM(e); // submit the GTM info, then carry on to the normal href navigation
                         });
                     !!anchor &&
                         anchor.addEventListener('keydown', function (e) {
@@ -348,7 +348,7 @@ class SearchPortal extends HTMLElement {
 
                 /* istanbul ignore else */
                 if (!!formObject.currentInputfield) {
-                    that.sendSubmitToGTM();
+                    that.sendSubmitToGTM(e);
 
                     const matches = searchPortalLocale.typeSelect.items.filter((element) => {
                         return element.selectId === formObject.portaltype;
@@ -424,10 +424,23 @@ class SearchPortal extends HTMLElement {
     sendSubmitToGTM(formObject) {
         window.dataLayer = window.dataLayer || []; // for tests
 
-        const inputField = this.shadowRoot.getElementById('current-inputfield').value;
         const portaltype = this.shadowRoot.getElementById('search-type-current-value').value;
+        let inputField;
+        if (
+            !!formObject &&
+            !!formObject.target &&
+            !!formObject.target.id &&
+            formObject.target.id === 'primo-search-form'
+        ) {
+            // the user has clicked the submit button (or hit return)
+            inputField = this.shadowRoot.getElementById('current-inputfield').value;
+        } else {
+            // the user has clicked on a suggestion link
+            inputField = !!formObject && !!formObject.target && formObject.target.innerHTML;
+        }
         window.dataLayer.push({
             event: 'gtm.formSubmit',
+            'gtm.elementId': 'primo-search-form',
             'gtm.element.elements.primo-search-autocomplete.value': inputField,
             'gtm.element.elements.primo-search-select-input.value': portaltype,
         });
