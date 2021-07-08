@@ -284,6 +284,9 @@ class EzProxy extends HTMLElement {
     resetInput() {
         this.outputUrl = '';
         this.inputUrl = '';
+        this.inputField.classList.remove('uq-input--error');
+        this.inputErrorArea.innerText = '';
+        this.inputErrorArea.classList.add('hidden');
     }
 
     /*
