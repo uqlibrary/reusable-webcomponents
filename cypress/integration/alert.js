@@ -132,7 +132,7 @@ describe('Alert', () => {
         });
 
         it('No alerts show when Alerts api doesnt load; page otherwise correct', () => {
-            cy.visit('http://localhost:8080?user=alertError');
+            cy.visit('http://localhost:8080?user=errorUser');
             cy.viewport(1280, 900);
             cy.wait(1500);
             cy.get('alert-list').shadow().find('[data-testid="alerts-wrapper"]').children().should('have.length', 0);
