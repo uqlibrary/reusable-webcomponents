@@ -640,7 +640,7 @@ describe('Search Portal', () => {
         });
 
         it('if a suggestion api fails we just dont get a suggestion list', () => {
-            cy.visit('http://localhost:8080/?user=primoError');
+            cy.visit('http://localhost:8080/?user=errorUser');
             cy.viewport(1300, 1000);
             cy.get('search-portal')
                 .shadow()
@@ -653,7 +653,7 @@ describe('Search Portal', () => {
             cy.wait(500);
             cy.get('[data-testid="search-portal-suggestion-parent"]').should('not.exist');
 
-            cy.visit('http://localhost:8080/?user=examError');
+            cy.visit('http://localhost:8080/?user=errorUser');
             cy.viewport(1300, 1000);
             cy.get('search-portal')
                 .shadow()
@@ -665,7 +665,7 @@ describe('Search Portal', () => {
             cy.wait(500);
             cy.get('[data-testid="search-portal-suggestion-parent"]').should('not.exist');
 
-            cy.visit('http://localhost:8080/?user=lrError');
+            cy.visit('http://localhost:8080/?user=errorUser');
             cy.viewport(1300, 1000);
             cy.get('search-portal')
                 .shadow()
