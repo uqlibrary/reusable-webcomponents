@@ -98,7 +98,7 @@ class MockApi {
                 return this.response(404, {});
 
             case apiRoute.CHAT_API().apiUrl:
-                if (this.user === 'chatStatusError') {
+                if (this.user === 'errorUser') {
                     return this.response(403, {});
                 } else if(!this.chatStatusOffline) {
                     return this.response(200, {online: true}, true);
@@ -107,7 +107,7 @@ class MockApi {
                 }
 
             case apiRoute.LIB_HOURS_API().apiUrl:
-                if (this.user === 'chatStatusError') {
+                if (this.user === 'errorUser') {
                     return this.response(403, {});
                     // return this.response(500, {}, true);
                 } else {
@@ -115,7 +115,7 @@ class MockApi {
                 }
 
             case apiRoute.ALERT_API().apiUrl:
-                if (this.user === 'alertError') {
+                if (this.user === 'errorUser') {
                     return this.response(403, {});
                     // return this.response(500, {}, true);
                 } else {
@@ -134,7 +134,7 @@ class MockApi {
                     case apiRoute.PRIMO_SUGGESTIONS_API_GENERIC('bear').apiUrl:
                     case apiRoute.PRIMO_SUGGESTIONS_API_GENERIC('beard').apiUrl:
                     case apiRoute.PRIMO_SUGGESTIONS_API_GENERIC('').apiUrl:
-                        if (this.user === 'primoError') {
+                        if (this.user === 'errorUser') {
                             return this.response(403, {});
                             // return this.response(500, {}, true);
                         } else {
@@ -144,7 +144,7 @@ class MockApi {
 
                     case apiRoute.EXAMS_SUGGESTIONS_API('PHIL').apiUrl:
                     case apiRoute.EXAMS_SUGGESTIONS_API('').apiUrl:
-                        if (this.user === 'examError') {
+                        if (this.user === 'errorUser') {
                             return this.response(403, {});
                             // return this.response(500, {}, true);
                         } else {
@@ -154,7 +154,7 @@ class MockApi {
 
                     case apiRoute.SUGGESTIONS_API_PAST_COURSE('PHIL').apiUrl:
                     case apiRoute.SUGGESTIONS_API_PAST_COURSE('').apiUrl:
-                        if (this.user === 'lrError') {
+                        if (this.user === 'errorUser') {
                             return this.response(403, {});
                             // return this.response(500, {}, true);
                         } else {
