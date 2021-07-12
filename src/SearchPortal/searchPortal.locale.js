@@ -110,7 +110,7 @@ export const searchPortalLocale = {
             },
         ],
     },
-    links: [
+    footerLinks: [
         {
             label: 'Search help',
             linkto: 'https://web.library.uq.edu.au/research-tools-techniques/library-search',

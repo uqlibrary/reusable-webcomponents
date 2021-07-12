@@ -837,10 +837,13 @@ class SearchPortal extends HTMLElement {
         !!anchor && (anchor.rel = 'noreferrer');
         !!anchor && (anchor.ariaLabel = link.label);
         !!anchor &&
-            anchor.addEventListener('click', function (e) {
-                /* istanbul ignore next */
-                that.sendSubmitToGTM(e); // submit the GTM info, then carry on to the normal href navigation
-            });
+            anchor.addEventListener(
+                'click',
+                /* istanbul ignore next */ function (e) {
+                    /* istanbul ignore next */
+                    that.sendSubmitToGTM(e); // submit the GTM info, then carry on to the normal href navigation
+                },
+            );
         anchor.appendChild(displayLabel);
 
         const container = document.createElement('div');
@@ -856,8 +859,8 @@ class SearchPortal extends HTMLElement {
         !!footerLinkContainer && (footerLinkContainer.innerHTML = '');
         // add the footer links for this searchtype
         !!footerLinkContainer &&
-            searchPortalLocale.links.forEach((link, index) => {
-                if (link.display.includes(searchType)) {
+            searchPortalLocale.footerLinks.forEach((link, index) => {
+                if (link.display.includes(searchType) && link.linkto !== window.location.href) {
                     const container = this.createFooterLink(link, index);
                     !!container && footerLinkContainer.appendChild(container);
                 }
