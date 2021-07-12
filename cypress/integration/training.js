@@ -668,6 +668,34 @@ describe('Training', () => {
                 'https://studenthub.uq.edu.au/students/events/detail/3455331',
             );
         });
+
+        it('Correct error shows when an empty result is return by Training api', () => {
+            cy.visit('http://localhost:8080/index-training.html?user=emptyUser');
+            cy.viewport(1280, 900);
+            cy.wait(1500);
+            cy.get('library-training[id="test-with-filter"]')
+                .should('exist')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="training-no-data-message"]').contains(
+                        'No classes scheduled; check back soon.',
+                    );
+                });
+        });
+
+        it('Correct error shows when Training api doesnt load', () => {
+            cy.visit('http://localhost:8080/index-training.html?user=errorUser');
+            cy.viewport(1280, 900);
+            cy.wait(1500);
+            cy.get('library-training[id="test-with-filter"]')
+                .should('exist')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="training-api-error-message"]').contains(
+                        'Something went wrong. Please refresh the page to see upcoming courses.',
+                    );
+                });
+        });
     });
 
     context('Training filters', () => {
