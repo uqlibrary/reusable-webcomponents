@@ -124,10 +124,13 @@ class ApiAccess {
         // Need to decode the url-encoded version of '[]' in filterIds.
         const url = urlPath.concat('?', decodeURIComponent(filterParams));
 
-        return await this.fetchAPI(url).catch((error) => {
-            console.log('error loading training events ', error);
-            return null;
-        });
+        return await this.fetchAPI(url)
+            .then((trainingData) => {
+                return trainingData;
+            })
+            .catch((error) => {
+                throw new Error(error.message());
+            });
     }
 
     /**
