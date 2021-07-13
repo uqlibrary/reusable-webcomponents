@@ -492,9 +492,21 @@ describe('Training', () => {
                                 .find('[data-testid="training-events-toggle-full-list"]')
                                 .as('toggleButton')
                                 .click();
+                            // accordion expands and extra items are visible
                             cy.get('.uq-accordion__item:nth-of-type(6)').should('be.visible');
+                            // the 'show less' button exists but is off screen
+                            cy.get('@toggleButton').should('be.visible');
+                            cy.get('@toggleButton').should('have.text', 'Show less');
+                            cy.isNotInViewport('[data-testid="training-events-toggle-full-list"]');
+                            // scroll down to the 'show less' button
+                            cy.get('[data-testid="training-events-toggle-full-list"]').scrollIntoView();
+                            cy.isInViewport('[data-testid="training-events-toggle-full-list"]'); // 'show less' button
+                            // click the 'show less' button to close the acccordion
                             cy.get('@toggleButton').should('have.text', 'Show less').click();
+                            cy.get('@toggleButton').should('have.text', 'Show more');
+                            // the accordion is closed and we have scrolled back to the top of the section
                             cy.get('.uq-accordion__item:nth-of-type(6)').should('not.be.visible');
+                            cy.isInViewport('[data-testid="category-top-0"]'); // top of section
                         });
                 });
         });
