@@ -17,10 +17,10 @@ noDataTemplate.innerHTML = `
     <p class="uq-card__content" data-testid="training-no-data-message">No classes scheduled; check back soon.</p>
 `;
 
-// const apiErrorTemplate = document.createElement('template');
-// apiErrorTemplate.innerHTML = `
-//     <p class="uq-card__content" data-testid="training-api-error-message">Something went wrong. Please refresh the page to see upcoming courses.</p>
-// `;
+const apiErrorTemplate = document.createElement('template');
+apiErrorTemplate.innerHTML = `
+    <p class="uq-card__content" data-testid="training-api-error-message">Something went wrong. Please refresh the page to see upcoming courses.</p>
+`;
 
 class Training extends HTMLElement {
     get eventFilterId() {
@@ -106,24 +106,38 @@ class Training extends HTMLElement {
     }
 
     fetchData() {
-        new ApiAccess().loadTrainingEvents(this.maxEventCount, this.eventFilterId).then((fetchedEvents) => {
-            /* istanbul ignore else */
-            if (!!fetchedEvents && fetchedEvents.length) {
-                this.trainingEvents = fetchedEvents;
-                this.setAttribute('events-loaded', '');
-                this.messageElement.innerHTML = '';
-                if (!this.hideFilter) {
-                    this.rootElement.appendChild(this.filterComponent);
+        new ApiAccess()
+            .loadTrainingEvents(this.maxEventCount, this.eventFilterId)
+            .then((fetchedEvents) => {
+                // there is something strange happening that sometimes the api sends us an object
+                // convert to an array when it happens
+                const standardisedEvents =
+                    !!fetchedEvents && typeof fetchedEvents === 'object'
+                        ? Object.keys(fetchedEvents).map((key) => {
+                              return fetchedEvents[key];
+                          })
+                        : fetchedEvents;
+                if (!!standardisedEvents && standardisedEvents.length > 0) {
+                    this.trainingEvents = standardisedEvents;
+                    this.setAttribute('events-loaded', '');
+                    this.messageElement.innerHTML = '';
+                    if (!this.hideFilter) {
+                        this.rootElement.appendChild(this.filterComponent);
+                    }
+                    this.rootElement.appendChild(this.listComponent);
+                    this.initFiltering();
+                    this.setFilters();
+                } else {
+                    this.messageElement.innerHTML = '';
+                    this.trainingEvents = [];
+                    this.messageElement.appendChild(noDataTemplate.content.cloneNode(true));
                 }
-                this.rootElement.appendChild(this.listComponent);
-                this.initFiltering();
-                this.setFilters();
-            } else {
+            })
+            .catch(() => {
                 this.messageElement.innerHTML = '';
                 this.trainingEvents = [];
-                this.messageElement.appendChild(noDataTemplate.content.cloneNode(true));
-            }
-        });
+                this.messageElement.appendChild(apiErrorTemplate.content.cloneNode(true));
+            });
     }
 
     initFiltering() {

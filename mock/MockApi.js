@@ -8,7 +8,7 @@ import {
     libHours, alerts, primoSuggestions, examSuggestions, learningResourceSuggestions
 } from './data/account';
 
-import trainingEvents from './data/training';
+import trainingEvents from './data/trainingobject';
 
 class MockApi {
     constructor() {
