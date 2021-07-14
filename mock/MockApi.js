@@ -123,15 +123,9 @@ class MockApi {
                 }
 
             case apiRoute.TRAINING_API().apiUrl:
-                if (this.user === 'errorUser') {
-                    console.log('error user');
-                    return this.response(403, {error: 'true'});
-                    // return this.response(500, null, true);
-                } else if (this.user === 'emptyUser') {
-                    return this.response(200, [], true);
-                } else {
-                    return this.response(200, trainingEvents, true);
-                }
+                // return this.response(500, null, true);
+                // return this.response(200, [], true);
+                return this.response(200, trainingEvents, true);
 
             default:
                 // splitting the '?' out of some apis doesnt work

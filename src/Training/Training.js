@@ -17,11 +17,6 @@ noDataTemplate.innerHTML = `
     <p class="uq-card__content" data-testid="training-no-data-message">No classes scheduled; check back soon.</p>
 `;
 
-// const apiErrorTemplate = document.createElement('template');
-// apiErrorTemplate.innerHTML = `
-//     <p class="uq-card__content" data-testid="training-api-error-message">Something went wrong. Please refresh the page to see upcoming courses.</p>
-// `;
-
 class Training extends HTMLElement {
     get eventFilterId() {
         return this.getAttribute('event-filter-id') || 104;
