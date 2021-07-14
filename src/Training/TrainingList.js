@@ -56,19 +56,9 @@ class TrainingList extends HTMLElement {
         // Get list of unique category names
         const categoryNames = [...new Set(eventList.map((event) => event.eventType))];
 
-        const categoryIdPrefix = 'category-top-';
-        const buttonIdPrefix = 'actionbutton-';
-        const that = this;
         categoryNames.map((categoryName, index) => {
             this.rootElement.appendChild(categoryTemplate.content.cloneNode(true));
             const categoryCard = this.rootElement.lastElementChild;
-
-            // tie the action button to the section it is in
-            const cardTop = categoryCard.querySelector('.uq-card__header');
-            !!cardTop & (cardTop.id = `${categoryIdPrefix}${index}`);
-            !!cardTop & cardTop.setAttribute('data-testid', `${categoryIdPrefix}${index}`);
-            const actionButton = categoryCard.querySelector('.uq-card__actions button');
-            !!actionButton & (actionButton.id = `${buttonIdPrefix}${index}`);
 
             categoryCard.getElementsByClassName('uq-card__header').item(0).innerHTML = `
                 <h3 class="uq-card__title${this.hideCategoryTitle ? ' visually-hidden' : ''}">${categoryName}</h3>
@@ -89,13 +79,6 @@ class TrainingList extends HTMLElement {
                         e.target.textContent = isMoreButton ? 'Show less' : 'Show more';
                         e.target.classList.toggle('is-more', !isMoreButton);
                         categoryCard.classList.toggle('show-all', isMoreButton);
-                        if (!isMoreButton) {
-                            // scroll the user back to the top of the section so they arent lost on the page
-                            const buttonId = e.target.id;
-                            const parentid = buttonId.replace(buttonIdPrefix, categoryIdPrefix);
-                            const parent = that.shadowRoot.getElementById(parentid);
-                            !!parent && parent.scrollIntoView();
-                        }
                         isMoreButton && categoryCard.getElementsByClassName('uq-accordion__toggle').item(5).focus();
                     });
             };

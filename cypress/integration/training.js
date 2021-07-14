@@ -492,21 +492,9 @@ describe('Training', () => {
                                 .find('[data-testid="training-events-toggle-full-list"]')
                                 .as('toggleButton')
                                 .click();
-                            // accordion expands and extra items are visible
                             cy.get('.uq-accordion__item:nth-of-type(6)').should('be.visible');
-                            // the 'show less' button exists but is off screen
-                            cy.get('@toggleButton').should('be.visible');
-                            cy.get('@toggleButton').should('have.text', 'Show less');
-                            cy.isNotInViewport('[data-testid="training-events-toggle-full-list"]');
-                            // scroll down to the 'show less' button
-                            cy.get('[data-testid="training-events-toggle-full-list"]').scrollIntoView();
-                            cy.isInViewport('[data-testid="training-events-toggle-full-list"]'); // 'show less' button
-                            // click the 'show less' button to close the acccordion
                             cy.get('@toggleButton').should('have.text', 'Show less').click();
-                            cy.get('@toggleButton').should('have.text', 'Show more');
-                            // the accordion is closed and we have scrolled back to the top of the section
                             cy.get('.uq-accordion__item:nth-of-type(6)').should('not.be.visible');
-                            cy.isInViewport('[data-testid="category-top-0"]'); // top of section
                         });
                 });
         });
@@ -680,34 +668,6 @@ describe('Training', () => {
                 'https://studenthub.uq.edu.au/students/events/detail/3455331',
             );
         });
-
-        // it('Correct error shows when an empty result is return by Training api', () => {
-        //     cy.visit('http://localhost:8080/index-training.html?user=emptyUser');
-        //     cy.viewport(1280, 900);
-        //     cy.wait(1500);
-        //     cy.get('library-training[id="test-with-filter"]')
-        //         .should('exist')
-        //         .shadow()
-        //         .within(() => {
-        //             cy.get('[data-testid="training-no-data-message"]').contains(
-        //                 'No classes scheduled; check back soon.',
-        //             );
-        //         });
-        // });
-        //
-        // it('Correct error shows when Training api doesnt load', () => {
-        //     cy.visit('http://localhost:8080/index-training.html?user=errorUser');
-        //     cy.viewport(1280, 900);
-        //     cy.wait(1500);
-        //     cy.get('library-training[id="test-with-filter"]')
-        //         .should('exist')
-        //         .shadow()
-        //         .within(() => {
-        //             cy.get('[data-testid="training-api-error-message"]').contains(
-        //                 'Something went wrong. Please refresh the page to see upcoming courses.',
-        //             );
-        //         });
-        // });
     });
 
     context('Training filters', () => {
