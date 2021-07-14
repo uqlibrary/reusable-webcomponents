@@ -109,8 +109,16 @@ class Training extends HTMLElement {
         new ApiAccess()
             .loadTrainingEvents(this.maxEventCount, this.eventFilterId)
             .then((fetchedEvents) => {
-                if (!!fetchedEvents && fetchedEvents.length) {
-                    this.trainingEvents = fetchedEvents;
+                // there is something strange happening that sometimes the api sends us an object
+                // convert to an array when it happens
+                const standardisedEvents =
+                    !!fetchedEvents && typeof fetchedEvents === 'object'
+                        ? Object.keys(fetchedEvents).map((key) => {
+                              return fetchedEvents[key];
+                          })
+                        : fetchedEvents;
+                if (!!standardisedEvents && standardisedEvents.length > 0) {
+                    this.trainingEvents = standardisedEvents;
                     this.setAttribute('events-loaded', '');
                     this.messageElement.innerHTML = '';
                     if (!this.hideFilter) {
