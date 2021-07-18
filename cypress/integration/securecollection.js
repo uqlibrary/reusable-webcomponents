@@ -19,7 +19,17 @@ describe('Secure Collection', () => {
             cy.visit(
                 'http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=collection&file=doesntExist',
             );
-            cy.injectAxe();
+            cy.viewport(1300, 1000);
+            cy.get('secure-collection')
+                .shadow()
+                .within(() => {
+                    cy.get('h2').contains('Secure Collection');
+                    cy.get('#block').contains('This file does not exist or is unavailable.');
+                    cy.get('#block').contains('Please check the link you have used.');
+                });
+        });
+        it('when the html is called with no parameters it says so', () => {
+            cy.visit('http://localhost:8080/src/applications/securecollection/demo.html');
             cy.viewport(1300, 1000);
             cy.get('secure-collection')
                 .shadow()
@@ -34,7 +44,6 @@ describe('Secure Collection', () => {
             cy.visit(
                 'http://localhost:8080/src/applications/securecollection/demo.html?user=public&collection=api&file=fails',
             );
-            cy.injectAxe();
             cy.viewport(1300, 1000);
             cy.get('secure-collection')
                 .shadow()
@@ -56,7 +65,6 @@ describe('Secure Collection', () => {
             cy.visit(
                 'http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=coursebank&file=111111111111111.pdf',
             );
-            cy.injectAxe();
             cy.viewport(1300, 1000);
             cy.get('secure-collection')
                 .shadow()
@@ -109,7 +117,6 @@ describe('Secure Collection', () => {
             cy.visit(
                 'http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=bomdata&file=abcdef.zip',
             );
-            cy.injectAxe();
             cy.viewport(1300, 1000);
             cy.get('secure-collection')
                 .shadow()
@@ -151,7 +158,6 @@ describe('Secure Collection', () => {
             cy.visit(
                 'http://localhost:8080/src/applications/securecollection/demo.html?user=emcommunity&collection=exams&file=2018/Semester_Two_Final_Examinations__2018_PHIL2011_EMuser.pdf',
             );
-            cy.injectAxe();
             cy.viewport(1300, 1000);
             cy.get('secure-collection')
                 .shadow()
@@ -175,7 +181,6 @@ describe('Secure Collection', () => {
             cy.visit(
                 'http://localhost:8080/src/applications/securecollection/demo.html?user=test&collection=exams&file=2018/Semester_Two_Final_Examinations__2018_PHIL2011_281.pdf',
             );
-            // cy.injectAxe();
             cy.get('secure-collection')
                 .shadow()
                 .within(() => {
@@ -194,7 +199,6 @@ describe('Secure Collection', () => {
             cy.visit(
                 'http://localhost:8080/src/applications/securecollection/demo.html?user=public&collection=exams&file=2018/Semester_Two_Final_Examinations__2018_PHIL2011_281.pdf',
             );
-            // cy.injectAxe();
             cy.viewport(1300, 1000);
             cy.wait(500);
             cy.get('body').contains('auth pages that forces the user to login');
@@ -208,7 +212,6 @@ describe('Secure Collection', () => {
             cy.visit(
                 'http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=exams&file=2018/Semester_Two_Final_Examinations__2018_PHIL2011_281.pdf',
             );
-            // cy.injectAxe();
             cy.viewport(1300, 1000);
             cy.wait(500);
             cy.get('body').contains('I am a exam file resource delivered to the user');
