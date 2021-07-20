@@ -227,15 +227,17 @@ class ApiAccess {
             .then((data) => {
                 return data;
             })
-            .catch((error) => {
-                console.log('error loading Secure Collection File ', error);
-                const msg = `error loading Secure Collection File: ${error.message}`;
-                throw new Error(msg);
-            });
+            .catch(
+                /* istanbul ignore next */ (error) => {
+                    console.log('error loading Secure Collection File ', error);
+                    const msg = `error loading Secure Collection File: ${error.message}`;
+                    throw new Error(msg);
+                },
+            );
     }
 
     async fetchAPI(urlPath, headers, tokenRequired = false, timestampRequired = true) {
-        console.log('fetchAPI: urlPath = ', urlPath);
+        /* istanbul ignore next */
         if (
             urlPath === 'account' &&
             !!tokenRequired &&

@@ -116,7 +116,7 @@ class Training extends HTMLElement {
                         ? Object.keys(fetchedEvents).map((key) => {
                               return fetchedEvents[key];
                           })
-                        : fetchedEvents;
+                        : /* istanbul ignore next */ fetchedEvents;
                 if (!!standardisedEvents && standardisedEvents.length > 0) {
                     this.trainingEvents = standardisedEvents;
                     this.setAttribute('events-loaded', '');
