@@ -56,6 +56,12 @@ class ApiRoutes {
             apiUrl: 'training_events',
         };
     }
+
+    // confirm the user's login, when needed
+    SECURE_COLLECTION_CHECK_API = ({ path }) => ({ apiUrl: `file/collection/testlogin/${path}` });
+
+    // get file & folder details file/collection/{folder}/{filePath}
+    SECURE_COLLECTION_FILE_API = ({ path }) => ({ apiUrl: `file/collection/${path}?acknowledged` });
 }
 
 export default ApiRoutes;

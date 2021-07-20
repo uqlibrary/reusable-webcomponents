@@ -39,38 +39,42 @@ describe('Search Portal', () => {
                     cy.get('[data-testid="primo-search-autocomplete-input"]').trigger('keydown', {
                         keyCode: DOWN_ARROW_KEYCODE,
                     });
-                    cy.get('[data-testid="suggestion-link-0"]').should('have.focus');
+                    cy.get('[data-testid="search-portal-autocomplete-option-0"] a').should('have.focus');
 
                     // focus on suggestion N and arrow down, and focus should be on N+1
                     cy.log('arrow up between suggestions');
-                    cy.get('[data-testid="suggestion-link-1"]')
+                    cy.get('[data-testid="search-portal-autocomplete-option-1"] a')
                         .focus()
                         .trigger('keydown', { keyCode: DOWN_ARROW_KEYCODE });
-                    cy.get('[data-testid="suggestion-link-2"]').should('have.focus');
+                    cy.get('[data-testid="search-portal-autocomplete-option-2"] a').should('have.focus');
 
                     // focus on suggestion N and arrow up, and focus should be on N-1
                     cy.log('arrow up between suggestions');
-                    cy.get('[data-testid="suggestion-link-6"]')
+                    cy.get('[data-testid="search-portal-autocomplete-option-6"] a')
                         .focus()
                         .trigger('keydown', { keyCode: UP_ARROW_KEYCODE });
-                    cy.get('[data-testid="suggestion-link-5"]').should('have.focus');
+                    cy.get('[data-testid="search-portal-autocomplete-option-5"] a').should('have.focus');
 
                     // focus on suggestion 1 and arrow up, and focus should be on the input field
                     cy.log('arrow up from first suggestion yo input field');
-                    cy.get('[data-testid="suggestion-link-0"]')
+                    cy.get('[data-testid="search-portal-autocomplete-option-0"] a')
                         .focus()
                         .trigger('keydown', { keyCode: UP_ARROW_KEYCODE });
                     cy.get('[data-testid="primo-search-autocomplete-input"]').should('have.focus');
 
                     // focus on last suggestion and tab and focus should be on the cancel button
                     cy.log('tab from last suggestion to clear button');
-                    cy.get('[data-testid="suggestion-link-9"]').focus().trigger('keydown', { keyCode: TAB_KEYCODE });
+                    cy.get('[data-testid="search-portal-autocomplete-option-9"] a')
+                        .focus()
+                        .trigger('keydown', { keyCode: TAB_KEYCODE });
                     cy.get('[data-testid="primo-search-autocomplete-voice-clear"]').should('have.focus');
 
                     cy.log('focus on a suggestion and hit escape and suggestions are cleared');
                     cy.get('button[data-testid="primo-search-autocomplete-voice-clear"]').click();
                     cy.get('input[data-testid="primo-search-autocomplete-input"]').type('beard', { force: true });
-                    cy.get('[data-testid="suggestion-link-0"]').focus().trigger('keydown', { keyCode: ESCAPE_KEYCODE });
+                    cy.get('[data-testid="search-portal-autocomplete-option-0"] a')
+                        .focus()
+                        .trigger('keydown', { keyCode: ESCAPE_KEYCODE });
                     cy.get('ul[data-testid="primo-search-autocomplete-listbox"]').should('not.exist');
                     cy.get('input[data-testid="primo-search-autocomplete-input"]').should('have.value', '');
                 });
@@ -101,11 +105,11 @@ describe('Search Portal', () => {
         //                 .its('length')
         //                 .should('eq', 10);
         //
-        //             cy.get('[data-testid="suggestion-link-2"]')
+        //             cy.get('[data-testid="search-portal-autocomplete-option-2"] a')
         //                 .should('have.attr', 'href')
         //                 .and('match', /facet=rtype,exclude,newspaper_articles,lk&facet=rtype,exclude,reviews,lk/)
         //                 .and('match', /query=any,contains,beards%20massage/);
-        //             cy.get('[data-testid="suggestion-link-2"]')
+        //             cy.get('[data-testid="search-portal-autocomplete-option-2"] a')
         //                 .type('{enter}')
         //                 // .trigger('keydown', { keyCode: RETURN_KEYCODE })
         //             ;
@@ -149,7 +153,7 @@ describe('Search Portal', () => {
                         .find('li')
                         .its('length')
                         .should('eq', 10);
-                    cy.get('[data-testid="suggestion-link-0"]')
+                    cy.get('[data-testid="search-portal-autocomplete-option-0"] a')
                         .should('have.attr', 'href')
                         .and('match', /facet=rtype,exclude,newspaper_articles,lk&facet=rtype,exclude,reviews,lk/);
 
@@ -164,7 +168,7 @@ describe('Search Portal', () => {
                         .find('li')
                         .its('length')
                         .should('eq', 10);
-                    cy.get('[data-testid="suggestion-link-0"]')
+                    cy.get('[data-testid="search-portal-autocomplete-option-0"] a')
                         .should('have.attr', 'href')
                         .and('match', /rtype,include,audios/);
                 });
@@ -636,7 +640,7 @@ describe('Search Portal', () => {
         });
 
         it('if a suggestion api fails we just dont get a suggestion list', () => {
-            cy.visit('http://localhost:8080/?user=primoError');
+            cy.visit('http://localhost:8080/?user=errorUser');
             cy.viewport(1300, 1000);
             cy.get('search-portal')
                 .shadow()
@@ -649,7 +653,7 @@ describe('Search Portal', () => {
             cy.wait(500);
             cy.get('[data-testid="search-portal-suggestion-parent"]').should('not.exist');
 
-            cy.visit('http://localhost:8080/?user=examError');
+            cy.visit('http://localhost:8080/?user=errorUser');
             cy.viewport(1300, 1000);
             cy.get('search-portal')
                 .shadow()
@@ -661,7 +665,7 @@ describe('Search Portal', () => {
             cy.wait(500);
             cy.get('[data-testid="search-portal-suggestion-parent"]').should('not.exist');
 
-            cy.visit('http://localhost:8080/?user=lrError');
+            cy.visit('http://localhost:8080/?user=errorUser');
             cy.viewport(1300, 1000);
             cy.get('search-portal')
                 .shadow()

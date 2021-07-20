@@ -142,7 +142,7 @@ describe('AskUs menu', () => {
         });
 
         it('Displays as offline when chat status api is 403', () => {
-            cy.visit('http://localhost:8080/?user=chatStatusError');
+            cy.visit('http://localhost:8080/?user=errorUser');
             cy.viewport(1280, 900);
             cy.get('askus-button').shadow().find('#askus-chat-online').should('exist');
             cy.get('askus-button').shadow().find('#askus-chat-online').should('have.css', 'display', 'none');

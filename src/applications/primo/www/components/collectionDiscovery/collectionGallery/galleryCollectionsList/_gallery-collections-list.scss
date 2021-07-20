@@ -114,11 +114,12 @@ prm-gallery-collection {
             @extend .bold-text;
             span {
                 display: inline;
-                padding: 0.1em 0 0.1em 0;
+                padding: 0.12em 0 0.12em 0;
                 box-shadow: 0.4em 0 0 0 $background-hue2, -0.4em 0 0 0 $background-hue2;
                 left: 0.3em;
                 position: relative;
                 @extend .prm-background.prm-hue2;
+                line-height: 1.4;
             }
         }
         .item-info {

@@ -114,7 +114,7 @@ class ApiAccess {
         const trainingApi = new ApiRoutes().TRAINING_API();
         const urlPath = trainingApi.apiUrl;
         const filter = {
-            maxEventCount,
+            take: maxEventCount,
             // filterIds should be an array. Passing an array as value to
             // URLSearchParams doesn't seem to be working.
             'filterIds[]': filterId, // Value of filter to extract data from career hub.
@@ -124,10 +124,13 @@ class ApiAccess {
         // Need to decode the url-encoded version of '[]' in filterIds.
         const url = urlPath.concat('?', decodeURIComponent(filterParams));
 
-        return await this.fetchAPI(url).catch((error) => {
-            console.log('error loading training events ', error);
-            return null;
-        });
+        return await this.fetchAPI(url)
+            .then((trainingData) => {
+                return trainingData;
+            })
+            .catch((error) => {
+                throw new Error(error.message());
+            });
     }
 
     /**
@@ -205,11 +208,40 @@ class ApiAccess {
             });
     }
 
-    async fetchAPI(urlPath, headers, tokenRequired = false) {
-        // this is a fail safe - account blocks it earlier and currently no other api calls do this */
-        /* istanbul ignore next */
-        if (!!tokenRequired && (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)) {
-            // no cookie so we wont bother asking for an api that cant be returned
+    async loadSecureCollectionCheck(path) {
+        console.log('fetchiong: ', new ApiRoutes().SECURE_COLLECTION_CHECK_API({ path }).apiUrl);
+        return await this.fetchAPI(new ApiRoutes().SECURE_COLLECTION_CHECK_API({ path }).apiUrl, {}, true, false)
+            .then((data) => {
+                console.log('loadSecureCollectionCheck data = ', data);
+                return data;
+            })
+            .catch((error) => {
+                console.log('error loading Secure Collection Check ', error);
+                const msg = `error loading Secure Collection Check: ${error.message}`;
+                throw new Error(msg);
+            });
+    }
+
+    async loadSecureCollectionFile(path) {
+        return await this.fetchAPI(new ApiRoutes().SECURE_COLLECTION_FILE_API({ path }).apiUrl, {}, true, false)
+            .then((data) => {
+                return data;
+            })
+            .catch((error) => {
+                console.log('error loading Secure Collection File ', error);
+                const msg = `error loading Secure Collection File: ${error.message}`;
+                throw new Error(msg);
+            });
+    }
+
+    async fetchAPI(urlPath, headers, tokenRequired = false, timestampRequired = true) {
+        console.log('fetchAPI: urlPath = ', urlPath);
+        if (
+            urlPath === 'account' &&
+            !!tokenRequired &&
+            (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)
+        ) {
+            // no cookie so we wont bother asking for the account api that cant be returned
             console.log('no cookie so we wont bother asking for an api that cant be returned');
             return false;
         }
@@ -233,7 +265,15 @@ class ApiAccess {
             }
         } else {
             // reference: https://dmitripavlutin.com/javascript-fetch-async-await/
-            const response = await this.fetchFromServer(urlPath, options);
+            const API_URL = process.env.API_URL || 'https://api.library.uq.edu.au/staging/';
+            const connector = urlPath.indexOf('?') > -1 ? '&' : '?';
+            const addTimestamp = !!timestampRequired ? `${connector}${new Date().getTime()}` : '';
+
+            const response = await fetch(`${API_URL}${urlPath}${addTimestamp}`, {
+                headers: options,
+            });
+            console.log('response = ', response);
+
             if (!response.ok) {
                 console.log(`ApiAccess console: An error has occured: ${response.status} ${response.statusText}`);
                 const message = `ApiAccess: An error has occured: ${response.status} ${response.statusText}`;
@@ -273,14 +313,14 @@ class ApiAccess {
     }
 
     /* istanbul ignore next */
-    fetchFromServer(urlPath, options) {
-        const API_URL = process.env.API_URL || 'https://api.library.uq.edu.au/staging/';
-        const connector = urlPath.indexOf('?') > -1 ? '&' : '?';
-
-        return fetch(`${API_URL}${urlPath}${connector}${new Date().getTime()}`, {
-            headers: options,
-        });
-    }
+    // fetchFromServer(urlPath, options) {
+    //     const API_URL = process.env.API_URL || 'https://api.library.uq.edu.au/staging/';
+    //     const connector = urlPath.indexOf('?') > -1 ? '&' : '?';
+    //
+    //     return fetch(`${API_URL}${urlPath}${connector}${new Date().getTime()}`, {
+    //         headers: options,
+    //     });
+    // }
 
     storeAccount(account, numberOfHoursUntilExpiry = 8) {
         // for improved UX, expire the session storage when the token must surely be expired, for those rare long sessions
@@ -352,6 +392,12 @@ class ApiAccess {
 
     fetchMock(url, options = null) {
         const response = new MockApi().mockfetch(url, options);
+        console.log('mock url = ', url);
+        console.log('mock response = ', response);
+        // if (url.startsWith('file/collection/')) {
+        //     // the secure collections give a different formatted response and handles its own errors
+        //     return response;
+        // } else
         if (!response.ok || !response.body) {
             const msg = `fetchMock: An error has occured in mock for ${url}: ${response.status}`;
             console.log(msg);

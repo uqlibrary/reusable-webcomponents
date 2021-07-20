@@ -224,11 +224,11 @@ class SearchPortal extends HTMLElement {
                     !!anchor && !!link && !!text && anchor.appendChild(text);
                     !!anchor && (anchor.className = 'MuiPaper-root suggestion-link');
                     !!anchor && anchor.setAttribute('id', `suggestion-link-${index}`);
-                    !!anchor && anchor.setAttribute('data-testid', `suggestion-link-${index}`);
+                    !!anchor && anchor.setAttribute('data-testid', 'primo-search-submit');
                     !!anchor && anchor.setAttribute('tabindex', '0');
                     !!anchor &&
                         anchor.addEventListener('click', function (e) {
-                            that.sendSubmitToGTM(); // submit the GTM info, then carry on to the normal href navigation
+                            that.sendSubmitToGTM(e); // submit the GTM info, then carry on to the normal href navigation
                         });
                     !!anchor &&
                         anchor.addEventListener('keydown', function (e) {
@@ -348,7 +348,7 @@ class SearchPortal extends HTMLElement {
 
                 /* istanbul ignore else */
                 if (!!formObject.currentInputfield) {
-                    that.sendSubmitToGTM();
+                    that.sendSubmitToGTM(e);
 
                     const matches = searchPortalLocale.typeSelect.items.filter((element) => {
                         return element.selectId === formObject.portaltype;
@@ -421,16 +421,52 @@ class SearchPortal extends HTMLElement {
             });
     }
 
+    /**
+     * Events arent sending properly to GTM, so we force them manually here
+     * @param formObject
+     */
     sendSubmitToGTM(formObject) {
         window.dataLayer = window.dataLayer || []; // for tests
 
-        const inputField = this.shadowRoot.getElementById('current-inputfield').value;
+        let gtmItems;
         const portaltype = this.shadowRoot.getElementById('search-type-current-value').value;
-        window.dataLayer.push({
-            event: 'gtm.formSubmit',
-            'gtm.element.elements.primo-search-autocomplete.value': inputField,
-            'gtm.element.elements.primo-search-select-input.value': portaltype,
-        });
+        const userHasSubmittedForm =
+            !!formObject &&
+            !!formObject.target &&
+            !!formObject.target.id &&
+            formObject.target.id === 'primo-search-form';
+        const userHasClickedFooterLink =
+            !!formObject &&
+            !!formObject.target &&
+            !!formObject.target.id &&
+            formObject.target.id.startsWith('search-portal-footerlink-');
+        if (userHasSubmittedForm) {
+            const userSearchTerm = this.shadowRoot.getElementById('current-inputfield').value;
+            gtmItems = {
+                event: 'gtm.formSubmit',
+                'gtm.elementId': 'primo-search-form',
+                'gtm.element.elements.primo-search-autocomplete.value': userSearchTerm,
+                'gtm.element.elements.primo-search-select-input.value': portaltype,
+            };
+        } /* istanbul ignore next */ else if (userHasClickedFooterLink) {
+            // the user has clicked one of the built in footer links under the widget
+            const footerLinkLabel = !!formObject && !!formObject.target && formObject.target.innerHTML;
+            gtmItems = {
+                event: 'gtm.linkClick',
+                'gtm.elementId': formObject.target.id,
+                'gtm.element': footerLinkLabel,
+            };
+        } else {
+            // the user has clicked on a suggestion link
+            const suggestionText = !!formObject && !!formObject.target && formObject.target.innerHTML;
+            gtmItems = {
+                event: 'gtm.formSubmit',
+                'gtm.elementId': 'primo-search-form',
+                'gtm.element.elements.primo-search-autocomplete.value': suggestionText,
+                'gtm.element.elements.primo-search-select-input.value': portaltype,
+            };
+        }
+        window.dataLayer.push(gtmItems);
     }
 
     getSuggestions() {
@@ -792,12 +828,22 @@ class SearchPortal extends HTMLElement {
     }
 
     createFooterLink(link, index) {
+        const that = this;
         const displayLabel = document.createTextNode(link.label);
 
         const anchor = document.createElement('a');
+        !!anchor && (anchor.id = `search-portal-footerlink-${index}`);
         !!anchor && (anchor.href = link.linkto);
         !!anchor && (anchor.rel = 'noreferrer');
         !!anchor && (anchor.ariaLabel = link.label);
+        !!anchor &&
+            anchor.addEventListener(
+                'click',
+                /* istanbul ignore next */ function (e) {
+                    /* istanbul ignore next */
+                    that.sendSubmitToGTM(e); // submit the GTM info, then carry on to the normal href navigation
+                },
+            );
         anchor.appendChild(displayLabel);
 
         const container = document.createElement('div');
@@ -813,8 +859,8 @@ class SearchPortal extends HTMLElement {
         !!footerLinkContainer && (footerLinkContainer.innerHTML = '');
         // add the footer links for this searchtype
         !!footerLinkContainer &&
-            searchPortalLocale.links.forEach((link, index) => {
-                if (link.display.includes(searchType)) {
+            searchPortalLocale.footerLinks.forEach((link, index) => {
+                if (link.display.includes(searchType) && link.linkto !== window.location.href) {
                     const container = this.createFooterLink(link, index);
                     !!container && footerLinkContainer.appendChild(container);
                 }
