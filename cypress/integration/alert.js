@@ -123,7 +123,7 @@ describe('Alert', () => {
             cy.visit('http://localhost:8080');
             cy.viewport(1280, 900);
             cy.wait(1500);
-            cy.intercept('GET', 'http://www.link.com', {
+            cy.intercept('GET', 'http://www.example.com', {
                 statusCode: 200,
                 body: 'it worked!',
             });

@@ -12,7 +12,7 @@ template.innerHTML = `
             <div class="alert__message">
                 <b id="alert-title" data-testid="alert-title" class="alert-title"></b><span id="alert-message" data-testid="alert-message"></span>
             </div>
-            <div role="button" id="alert-action-desktop" data-testid="alert-action-desktop" title="button title" tabindex="0">Button label</div>
+            <a id="alert-action-desktop" data-testid="alert-action-desktop" tabindex="0">Button label</a>
         </div>
         <div role="button" id="alert-action-mobile" data-testid="alert-action-mobile" title="button title" tabindex="0">Button label</div>
         <a id="alert-close" data-testid="alert-close" role="button" aria-label="Dismiss this alert for 24 hours" href="javascript:void(0)" class="alert__close">
@@ -109,9 +109,8 @@ class Alert extends HTMLElement {
                 const navigateToUrl = () => {
                     window.location.href = linkUrl;
                 };
-                shadowDOM.getElementById('alert-action-desktop').setAttribute('title', linkLabel);
                 shadowDOM.getElementById('alert-action-desktop').innerText = linkLabel;
-                shadowDOM.getElementById('alert-action-desktop').addEventListener('click', navigateToUrl);
+                shadowDOM.getElementById('alert-action-desktop').setAttribute('href', linkUrl);
                 shadowDOM
                     .getElementById('alert-action-desktop')
                     .setAttribute('data-testid', 'alert-' + id + '-action-button');
