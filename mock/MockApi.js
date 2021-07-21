@@ -1,10 +1,10 @@
 /* eslint-disable */
 import Cookies from 'js-cookie';
-import * as mockData from './data';
+import * as mockData from './data/account';
 import ApiRoutes from "../src/ApiRoutes";
 import {apiLocale as apilocale} from '../src/ApiAccess/ApiAccess.locale';
 
-import {alerts, examSuggestions, learningResourceSuggestions, libHours, primoSuggestions} from './data/account';
+import {alerts, examSuggestions, learningResourceSuggestions, libHours, primoSuggestions} from './data/misc';
 
 import trainingEvents from './data/trainingobject';
 
@@ -37,8 +37,6 @@ class MockApi {
 
     getUserParameter() {
         const queryString = require('query-string');
-        // console.log('MockApi queryString = ', queryString);
-        // console.log('MockApi user = ', queryString.parse(location.search || location.hash.substring(location.hash.indexOf('?'))).user);
         return queryString.parse(location.search || location.hash.substring(location.hash.indexOf('?'))).user;
     }
 
