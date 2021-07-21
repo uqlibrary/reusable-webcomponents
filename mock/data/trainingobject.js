@@ -1,4 +1,4 @@
-const training_object = {
+const trainingEventsObject = {
     "0": {
         "entityId": 3428487,
         "created": "2021-03-26T10:52:34.667+10:00",
@@ -3647,4 +3647,4 @@ const training_object = {
     }
 };
 
-export default training_object;
+export default trainingEventsObject;
