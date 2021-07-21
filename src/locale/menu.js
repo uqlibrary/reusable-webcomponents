@@ -93,7 +93,7 @@ export default {
                     linkTo: 'https://web.library.uq.edu.au/library-services/training',
                 },
                 {
-                    primaryText: 'I.T.',
+                    primaryText: 'IT',
                     secondaryText: 'Printing, WiFi, available computers',
                     linkTo: 'https://web.library.uq.edu.au/library-services/it',
                 },
@@ -205,6 +205,10 @@ export default {
                 {
                     primaryText: 'Cultural & heritage collections',
                     linkTo: 'https://web.library.uq.edu.au/collections/cultural-heritage-collections',
+                },
+                {
+                    primaryText: 'Collection Discovery',
+                    linkTo: 'https://search.library.uq.edu.au/primo-explore/collectionDiscovery?vid=61UQ',
                 },
                 {
                     primaryText: 'Collection management',
@@ -330,10 +334,6 @@ export default {
                     primaryText: 'Law',
                     secondaryText: 'Walter Harrison Library',
                     linkTo: 'https://web.library.uq.edu.au/locations-hours/law-library-walter-harrison-library',
-                },
-                {
-                    primaryText: 'UQ/Mater McAuley Library',
-                    linkTo: 'https://web.library.uq.edu.au/locations-hours/uqmater-mcauley-library',
                 },
                 {
                     primaryText: 'PACE Health Sciences',
