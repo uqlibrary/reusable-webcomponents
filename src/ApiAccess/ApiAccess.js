@@ -209,10 +209,8 @@ class ApiAccess {
     }
 
     async loadSecureCollectionCheck(path) {
-        console.log('fetchiong: ', new ApiRoutes().SECURE_COLLECTION_CHECK_API({ path }).apiUrl);
         return await this.fetchAPI(new ApiRoutes().SECURE_COLLECTION_CHECK_API({ path }).apiUrl, {}, true, false)
             .then((data) => {
-                console.log('loadSecureCollectionCheck data = ', data);
                 return data;
             })
             .catch((error) => {
@@ -274,7 +272,6 @@ class ApiAccess {
             const response = await fetch(`${API_URL}${urlPath}${addTimestamp}`, {
                 headers: options,
             });
-            console.log('response = ', response);
 
             if (!response.ok) {
                 console.log(`ApiAccess console: An error has occured: ${response.status} ${response.statusText}`);
@@ -286,7 +283,6 @@ class ApiAccess {
     }
 
     async fetchJsonpAPI(url, headers) {
-        console.log('fetchJsonpAPI: url = ', url);
         const options = {
             ...headers,
         };
@@ -304,7 +300,6 @@ class ApiAccess {
         } else {
             // this assumes non api.library urls
             const response = await fetchJsonp(url, options);
-            console.log('fetchJsonp got ', response);
             if (!response.ok) {
                 console.log(`ApiAccess console: An error has occured: ${response.status} ${response.statusText}`);
                 const message = `ApiAccess: An error has occured: ${response.status} ${response.statusText}`;
@@ -313,16 +308,6 @@ class ApiAccess {
             return await response.json();
         }
     }
-
-    /* istanbul ignore next */
-    // fetchFromServer(urlPath, options) {
-    //     const API_URL = process.env.API_URL || 'https://api.library.uq.edu.au/staging/';
-    //     const connector = urlPath.indexOf('?') > -1 ? '&' : '?';
-    //
-    //     return fetch(`${API_URL}${urlPath}${connector}${new Date().getTime()}`, {
-    //         headers: options,
-    //     });
-    // }
 
     storeAccount(account, numberOfHoursUntilExpiry = 8) {
         // for improved UX, expire the session storage when the token must surely be expired, for those rare long sessions
@@ -396,10 +381,6 @@ class ApiAccess {
         const response = new MockApi().mockfetch(url, options);
         console.log('mock url = ', url);
         console.log('mock response = ', response);
-        // if (url.startsWith('file/collection/')) {
-        //     // the secure collections give a different formatted response and handles its own errors
-        //     return response;
-        // } else
         if (!response.ok || !response.body) {
             const msg = `fetchMock: An error has occured in mock for ${url}: ${response.status}`;
             console.log(msg);
@@ -412,15 +393,5 @@ class ApiAccess {
         return process.env.USE_MOCK;
     }
 }
-
-// const throwFetchErrors = (response) => {
-//     if (!response.ok) {
-//         const status = response.status || 'status undefined';
-//         const statusText = response.statusText || 'status message undefined';
-//         console.log('throwing');
-//         throw Error(`Error ${status} - ${statusText}`);
-//     }
-//     return response;
-// };
 
 export default ApiAccess;

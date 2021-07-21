@@ -1,7 +1,6 @@
 import ApiAccess from '../ApiAccess/ApiAccess';
 import overrides from './css/overrides.css';
 import { authLocale } from '../UtilityArea/auth.locale';
-import { default as menuLocale } from '../locale/menu';
 
 const fileExtensionElement = document.createElement('template');
 fileExtensionElement.innerHTML = `
@@ -416,10 +415,7 @@ class SecureCollection extends HTMLElement {
         const user = queryString.parse(
             location.search || /* istanbul ignore next */ location.hash.substring(location.hash.indexOf('?')),
         ).user;
-        console.log('isTestMode: user = ', user);
-        const b = user === 'test';
-        console.log('isTestMode: return ', b);
-        return b;
+        return user === 'test';
     }
 
     displayRedirectingPanel() {
@@ -492,7 +488,6 @@ class SecureCollection extends HTMLElement {
                 return !!libraryUser && !!libraryUser.id;
             })
             .catch((error) => {
-                console.log('getAccount CATCH loggedin');
                 return false;
             });
     }
