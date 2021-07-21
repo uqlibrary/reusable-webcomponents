@@ -260,22 +260,5 @@ describe('Secure Collection', () => {
             // cy.wait(1500);
             cy.get('body').contains('I am another file resource delivered to the user');
         });
-
-        it('has a working back button', () => {
-            cy.visit('http://localhost:8080/?user=uqstaff'); // supply a page the back button can return to
-
-            cy.visit(
-                'http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=coursebank&file=111111111111111.pdf',
-            );
-            cy.get('secure-collection')
-                .shadow()
-                .within(() => {
-                    cy.get('#block').contains('WARNING');
-
-                    cy.get('button[data-testid=StandardPage-goback-button]').should('exist');
-                    cy.get('button[data-testid=StandardPage-goback-button]').click();
-                });
-            cy.url().should('eq', 'http://localhost:8080/?user=uqstaff');
-        });
     });
 });
