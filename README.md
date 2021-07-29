@@ -79,6 +79,12 @@ You will also need to add an anchor with the landing id after all the header imp
 
 This must be an ANCHOR, not any other html element.
 
+### Mock user access
+
+* masquerade - uqstaff
+* espace - uqstaff, s1111111
+* web admin - uqwebadminperson (alerts admin; a username that cannot exist because until we are using the db, this is hardcoded in the system)
+
 ## Testing
 
 This repo uses [Cypress.io](https://cypress.io/) tests. To run tests:

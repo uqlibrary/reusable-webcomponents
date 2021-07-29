@@ -70,6 +70,30 @@ describe('My Library menu', () => {
                 .contains('Masquerade');
         });
 
+        it('Web Admin gets alerts admin', () => {
+            cy.visit('http://localhost:8080?user=uqwebadminperson');
+            cy.viewport(1280, 900);
+            cy.get('uq-site-header')
+                .find('mylibrary-button')
+                .shadow()
+                .find('div#mylibrary')
+                .should('contain', 'MyLibrary');
+            cy.get('uq-site-header').find('mylibrary-button').shadow().find('button#mylibrary-button').click();
+            cy.wait(500);
+            cy.get('uq-site-header')
+                .find('mylibrary-button')
+                .shadow()
+                .find('ul.mylibrary-menu-list')
+                .find('li')
+                .should('have.length', 9);
+            cy.get('uq-site-header')
+                .find('mylibrary-button')
+                .shadow()
+                .find('li[data-testid="alerts-admin"]')
+                .should('exist')
+                .contains('Website alerts');
+        });
+
         it('Researcher gets espace but not masquerade', () => {
             cy.visit('http://localhost:8080?user=s1111111');
             cy.viewport(1280, 900);

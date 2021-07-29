@@ -378,6 +378,25 @@ export const accounts = {
     },
     // upos
     // admins
+    uqwebadminperson: { // username that would be invalid in prod
+        "id": "uqwebadminperson",
+        "class": ["libstaff", "IS_CURRENT"],
+        "type": 18,
+        "homeLib": "St Lucia",
+        "firstName": "UQ",
+        "lastName": "Staff",
+        "name": "Staff who can edit alerts and spotlights",
+        'mail': 'uq.webadmin@lirary.uq.edu.au',
+        "barcode": "111111111111111",
+        "groups": ["DC=uq,DC=edu,DC=au"],
+        "classes": [],
+        "expiryDate": "31-12-99",
+        "hasSession": true,
+        "tokenBased": false,
+        "canMasquerade": false,
+        "blocked": false,
+        "user_group": "LIBRARYSTAFFB",
+    },
 };
 
 export const authorsSearch = {
