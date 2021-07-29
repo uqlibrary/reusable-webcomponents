@@ -45,19 +45,19 @@ template.innerHTML = `
                     </a>
                 </li>
                 
-                <!-- Printing balance -->
-                <li role="menuitem" aria-disabled="false">
-                    <a data-testid="mylibrary-menu-print-balance" href="https://lib-print.library.uq.edu.au:9192/user" rel="noreferrer">
-                        <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"></path></svg>
-                        <span>Print balance</span>
-                    </a>
-                </li>
-                
                 <!-- Alerts Admin -->
                 <li data-testid="alerts-admin" id="alerts-admin" role="menuitem" aria-disabled="false">
                     <a data-testid="mylibrary-menu-alerts-admin" href="https://www.library.uq.edu.au/admin/alerts" rel="noreferrer">
                         <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path></svg>
                         <span>Website alerts</span>
+                    </a>
+                </li>
+                
+                <!-- Printing balance -->
+                <li role="menuitem" aria-disabled="false">
+                    <a data-testid="mylibrary-menu-print-balance" href="https://lib-print.library.uq.edu.au:9192/user" rel="noreferrer">
+                        <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"></path></svg>
+                        <span>Print balance</span>
                     </a>
                 </li>
                 
@@ -133,7 +133,7 @@ class MyLibraryButton extends HTMLElement {
             !!account &&
             !!account.id &&
             [
-                'uqstaff', // mock
+                'uqwebadminperson', // mock
                 // Staff who will use the form
                 'uqjtilse', // jake Tilse
                 'uqsvangr', // Stacey van Groll
