@@ -1,10 +1,10 @@
 /* eslint-disable */
 import Cookies from 'js-cookie';
-import * as mockData from './data';
+import * as mockData from './data/account';
 import ApiRoutes from "../src/ApiRoutes";
 import {apiLocale as apilocale} from '../src/ApiAccess/ApiAccess.locale';
 
-import {alerts, examSuggestions, learningResourceSuggestions, libHours, primoSuggestions} from './data/account';
+import {alerts, examSuggestions, learningResourceSuggestions, libHours, primoSuggestions} from './data/misc';
 
 import trainingEvents from './data/trainingobject';
 
@@ -37,8 +37,6 @@ class MockApi {
 
     getUserParameter() {
         const queryString = require('query-string');
-        // console.log('MockApi queryString = ', queryString);
-        // console.log('MockApi user = ', queryString.parse(location.search || location.hash.substring(location.hash.indexOf('?'))).user);
         return queryString.parse(location.search || location.hash.substring(location.hash.indexOf('?'))).user;
     }
 
@@ -174,14 +172,14 @@ class MockApi {
                         return this.response(200, {response: 'Login required'});
 
                     case apiRoute.SECURE_COLLECTION_FILE_API({ path: 'exams/phil1010.pdf' }).apiUrl:
-                            return this.response(
-                                200,
-                                {
-                                    url:
-                                        'https://files.library.uq.edu.au/secure/exams/phil1010.pdf?Expires=1621059344&Signature=long_string&Key-Pair-Id=APKAJNDQICYW445PEOSA',
-                                    displaypanel: 'redirect',
-                                },
-                            );
+                        return this.response(
+                            200,
+                            {
+                                url:
+                                    'https://files.library.uq.edu.au/secure/exams/phil1010.pdf?Expires=1621059344&Signature=long_string&Key-Pair-Id=APKAJNDQICYW445PEOSA',
+                                displaypanel: 'redirect',
+                            },
+                        );
 
                     // http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=collection&file=doesntExist
                     case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'collection/doesntExist' }).apiUrl:

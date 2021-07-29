@@ -128,6 +128,7 @@
 .info #alert-action-mobile,
 .info #alert-action-desktop {
     background-color: rgba(0, 0, 0, 0.3);
+    color: #fff;
 }
 
 .info #alert-action-desktop:hover {
@@ -157,6 +158,7 @@
 .warning #alert-action-mobile,
 .warning #alert-action-desktop {
     background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
 }
 
 .warning #alert-action-desktop:hover {
