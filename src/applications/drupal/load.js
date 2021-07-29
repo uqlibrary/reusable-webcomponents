@@ -29,6 +29,12 @@ const removeOldMinimalFooter = setInterval(() => {
     }
 }, 50);
 
+// certain admin pages in drupal dont take the webcomponents because they interact badly
+const pagesWithoutComponents = [
+    'http://localhost:8080/src/applications/drupal/pageWithoutComponents.html',
+    'https://web.library.uq.edu.au/ckfinder/browse',
+    'https://library.stage.drupal.uq.edu.au/ckfinder/browse',
+];
 function ready(fn) {
     if (document.readyState !== 'loading') {
         fn();
@@ -96,6 +102,10 @@ function loadReusableComponentsDrupal() {
     fontLoader('https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css');
     fontLoader('https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css');
     fontLoader('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
+
+    if (pagesWithoutComponents.includes(window.location.href)) {
+        return;
+    }
 
     const firstElement = document.body.children[0];
     if (!firstElement) {
