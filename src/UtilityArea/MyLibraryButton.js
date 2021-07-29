@@ -53,6 +53,14 @@ template.innerHTML = `
                     </a>
                 </li>
                 
+                <!-- Alerts Admin -->
+                <li data-testid="alerts-admin" id="alerts-admin" role="menuitem" aria-disabled="false">
+                    <a data-testid="mylibrary-menu-alerts-admin" href="https://www.library.uq.edu.au/admin/alerts" rel="noreferrer">
+                        <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path></svg>
+                        <span>Website alerts</span>
+                    </a>
+                </li>
+                
                 <!-- eSpace dashboard -->
                 <li data-testid="mylibrary-espace" id="mylibrary-espace" role="menuitem" aria-disabled="false">
                     <a data-testid="mylibrary-menu-espace-dashboard" href="https://espace.library.uq.edu.au/dashboard" rel="noreferrer">
@@ -118,6 +126,35 @@ class MyLibraryButton extends HTMLElement {
         this.confirmAccount = this.confirmAccount.bind(this);
     }
 
+    // there is an intention to make a non-hard coded access system. Perhaps a table, and an update screen?
+    // until this is db driven, make the same change in Homepage so the user can actually access the system
+    canSeeAlertsAdmin(account) {
+        return (
+            !!account &&
+            !!account.id &&
+            [
+                'uqstaff', // mock
+                // Staff who will use the form
+                'uqjtilse', // jake Tilse
+                'uqsvangr', // Stacey van Groll
+                'uqtziebe', // Tanya Ziebell
+                'uqnfitt', // nick Fitt
+                'uqrbowen', // Rob Bowen
+                'uqehorns', // Eric Hornsby
+                'uqdcall1', // Dan Callan
+                'uqtscho1', // Tristan Schoonens
+                // devs
+                'uqldegro', // Lea de Groot
+                'uqamartl', // Andrew Martlew
+                'uqklane1', // Ky Lane
+                'uqawil42', // Ashley Wilson
+                'uqclien1', // Cliff Lien
+                'uqmmoise', // Marcelo Perez Moises
+                // all devs should be here
+            ].includes(account.id)
+        );
+    }
+
     async updateMylibraryDOM(shadowRoot) {
         const that = this;
         this.confirmAccount().then((accountSummary) => {
@@ -127,6 +164,9 @@ class MyLibraryButton extends HTMLElement {
 
                 const masqueradeElement = !!shadowRoot && shadowRoot.getElementById('mylibrary-masquerade');
                 !accountSummary.canMasquerade && !!masqueradeElement && masqueradeElement.remove();
+
+                const alertsAdminElement = !!shadowRoot && shadowRoot.getElementById('alerts-admin');
+                !this.canSeeAlertsAdmin(accountSummary) && !!alertsAdminElement && alertsAdminElement.remove();
 
                 that.showHideMylibraryEspaceOption(shadowRoot);
 
@@ -147,6 +187,7 @@ class MyLibraryButton extends HTMLElement {
             /* istanbul ignore else */
             if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
                 accountSummary.isLoggedin = !!account && !!account.id;
+                accountSummary.id = !!account && !!account.id && account.id;
                 accountSummary.canMasquerade =
                     !!accountSummary.isLoggedin &&
                     account.hasOwnProperty('canMasquerade') &&

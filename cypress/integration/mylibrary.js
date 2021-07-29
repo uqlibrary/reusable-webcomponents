@@ -46,7 +46,7 @@ describe('My Library menu', () => {
             });
         });
 
-        it('Admin gets masquerade', () => {
+        it('Admin gets masquerade & alerts admin', () => {
             cy.visit('http://localhost:8080?user=uqstaff');
             cy.viewport(1280, 900);
             cy.get('uq-site-header')
@@ -61,7 +61,7 @@ describe('My Library menu', () => {
                 .shadow()
                 .find('ul.mylibrary-menu-list')
                 .find('li')
-                .should('have.length', 10);
+                .should('have.length', 11);
             cy.get('uq-site-header')
                 .find('mylibrary-button')
                 .shadow()
