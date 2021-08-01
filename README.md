@@ -79,6 +79,12 @@ You will also need to add an anchor with the landing id after all the header imp
 
 This must be an ANCHOR, not any other html element.
 
+### Mock user access
+
+* masquerade - uqstaff
+* espace - uqstaff, s1111111
+* web admin - uqwebadminperson (alerts admin; a username that cannot exist because until we are using the db, this is hardcoded in the system)
+
 ## Testing
 
 This repo uses [Cypress.io](https://cypress.io/) tests. To run tests:
@@ -86,6 +92,16 @@ This repo uses [Cypress.io](https://cypress.io/) tests. To run tests:
 - locally: `npm run test:local` - select the preferred browser from the dropdown in the top right of the cypress interface, then click on the 'run integration tests'
 
 NOTE: CI testing uses environment variables stored on AWS to run cypress successfully and reporting to the cypress dashboard.
+
+## Branches
+
+In addition to the usual branches, the following are in use and should not be deleted from github or AWS Pipelines:
+
+* `feature-drupal` (drupal sandbox calls .js files from this folder cf [drupal readme](src/applications/drupal/readme.md))
+* `primo-prod-dev` (maps to primo env prod-dev. Needed to support uqsvangr cf [primo readme](src/applications/primo/readme.md]))
+* `primo-sandbox` (maps to primo env sandbox-dev. Needed to support uqsvangr)
+* `primo-sandbox-dev` (maps to primo env sandbox-dev. Needed to support uqsvangr)
+* `user-admin-manage` (used by eg uqjtilse to make changes to the megamenu ready for us to merge to master cd [admin user doc](docs/admin-howto.md))
 
 ## AWS Buckets
 

@@ -53,14 +53,6 @@ template.innerHTML = `
                     </a>
                 </li>
                 
-                <!-- Alerts Admin -->
-                <li data-testid="alerts-admin" id="alerts-admin" role="menuitem" aria-disabled="false">
-                    <a data-testid="mylibrary-menu-alerts-admin" href="https://www.library.uq.edu.au/admin/alerts" rel="noreferrer">
-                        <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path></svg>
-                        <span>Website alerts</span>
-                    </a>
-                </li>
-                
                 <!-- eSpace dashboard -->
                 <li data-testid="mylibrary-espace" id="mylibrary-espace" role="menuitem" aria-disabled="false">
                     <a data-testid="mylibrary-menu-espace-dashboard" href="https://espace.library.uq.edu.au/dashboard" rel="noreferrer">
@@ -92,7 +84,15 @@ template.innerHTML = `
                         <span>Saved searches</span>
                     </a>
                 </li>
-                
+                                
+                <!-- Alerts Admin -->
+                <li data-testid="alerts-admin" id="alerts-admin" role="menuitem" aria-disabled="false">
+                    <a data-testid="mylibrary-menu-alerts-admin" href="https://www.library.uq.edu.au/admin/alerts" rel="noreferrer">
+                        <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path></svg>
+                        <span>Website alerts</span>
+                    </a>
+                </li>
+
                 <!-- Feedback -->
                 <li role="menuitem" aria-disabled="false">
                     <a data-testid="mylibrary-menu-feedback" href="https://support.my.uq.edu.au/app/library/feedback" rel="noreferrer">
@@ -133,7 +133,7 @@ class MyLibraryButton extends HTMLElement {
             !!account &&
             !!account.id &&
             [
-                'uqstaff', // mock
+                'uqwebadminperson', // mock
                 // Staff who will use the form
                 'uqjtilse', // jake Tilse
                 'uqsvangr', // Stacey van Groll
