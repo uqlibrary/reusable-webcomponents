@@ -207,6 +207,10 @@ export default {
                     linkTo: 'https://web.library.uq.edu.au/collections/cultural-heritage-collections',
                 },
                 {
+                    primaryText: 'Collection Discovery',
+                    linkTo: 'https://search.library.uq.edu.au/primo-explore/collectionDiscovery?vid=61UQ',
+                },
+                {
                     primaryText: 'Collection management',
                     linkTo: 'https://web.library.uq.edu.au/collections/collection-management',
                 },
