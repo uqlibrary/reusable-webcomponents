@@ -33,6 +33,10 @@ describe('Dummy Application', () => {
             .should('not.exist');
     }
 
+    function hasNoUqHeader() {
+        cy.get('uq-header').should('not.exist');
+    }
+
     function hasUqSiteHeader(sitesearchurl = 'https://www.library.uq.edu.au/') {
         cy.get('uq-site-header')
             .shadow()
@@ -40,6 +44,10 @@ describe('Dummy Application', () => {
             .find('a[data-testid="site-title"]')
             .should('have.attr', 'href')
             .and('include', sitesearchurl);
+    }
+
+    function hasNoUqSiteHeader() {
+        cy.get('uq-site-header').should('not.exist');
     }
 
     function hasMegaMenu() {
@@ -301,7 +309,7 @@ describe('Dummy Application', () => {
     });
 
     context('Drupal works as expected', () => {
-        it('Javascript load works correctly', () => {
+        it('Sample page load works correctly', () => {
             cy.visit('http://localhost:8080/src/applications/drupal/demo.html');
             cy.viewport(1280, 900);
 
@@ -320,6 +328,20 @@ describe('Dummy Application', () => {
             hasConnectFooter();
 
             hasUqFooter();
+        });
+        it('does not have any web components on a specifically named Drupal page', () => {
+            cy.visit('http://localhost:8080/src/applications/drupal/pageWithoutComponents.html');
+            cy.viewport(1280, 900);
+
+            hasNoUqHeader();
+
+            hasNoUqSiteHeader();
+
+            hasNoAlerts();
+
+            hasNoConnectFooter();
+
+            hasNoUqFooter();
         });
     });
 
