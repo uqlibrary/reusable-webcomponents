@@ -29,12 +29,6 @@ const removeOldMinimalFooter = setInterval(() => {
     }
 }, 50);
 
-// certain admin pages in drupal dont take the webcomponents because they interact badly
-const pagesWithoutComponents = [
-    'http://localhost:8080/src/applications/drupal/pageWithoutComponents.html',
-    'https://web.library.uq.edu.au/ckfinder/browse',
-    'https://library.stage.drupal.uq.edu.au/ckfinder/browse',
-];
 function ready(fn) {
     if (document.readyState !== 'loading') {
         fn();
@@ -64,7 +58,7 @@ function createMylibraryStub() {
     }
 
     // this just creates a stub - authbutton will insert the actual button if they are logged in when this stub is present
-    mylibraryButton = document.createElement('div');
+    const mylibraryButton = document.createElement('div');
     mylibraryButton.id = stubId;
 
     return !!mylibraryButton && this.createSlotForButtonInUtilityArea(mylibraryButton, mylibraryButtonId);
@@ -97,13 +91,22 @@ function fontLoader(font) {
     link.href = font;
 }
 
+// certain admin pages in drupal dont take the webcomponents because they interact badly
+const drupalHosts = ['web.library.uq.edu.au', 'library.stage.drupal.uq.edu.au', 'localhost:8080'];
+const pagesWithoutComponents = [
+    '/src/applications/drupal/pageWithoutComponents.html', // localhost
+    '/ckfinder/browse',
+    '/ckfinder/browse/images',
+    '/ckfinder/browse/files',
+];
+
 function loadReusableComponentsDrupal() {
     fontLoader('https://static.uq.net.au/v6/fonts/Roboto/roboto.css');
     fontLoader('https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css');
     fontLoader('https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css');
     fontLoader('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
 
-    if (pagesWithoutComponents.includes(window.location.href)) {
+    if (drupalHosts.includes(window.location.host) && pagesWithoutComponents.includes(window.location.pathname)) {
         return;
     }
 
