@@ -17,6 +17,8 @@ The 'applications/' folder allows us to version control changes to the scripts w
 - run `npm run prettier:test` to check all files for codestyles, and
 - run `npm run prettier:fix` to fix all codestyle issues
 
+Start localhost: `http://localhost:8080/`
+
 ### Git safety checks
 
 - Run the following in the project root directory after cloning to install the pre-commit hook:
