@@ -130,7 +130,7 @@ var uq = (function (exports) {
                     }
                     const subNav = menuItem.querySelector('ul');
 
-                    if (subNav.classList.contains(this.openModifier)) {
+                    if (subNav.classList.contains(this.openModifier) || event.type === 'mouseleave') {
                         this.closeLevel(subNav, menuItem);
                     } else {
                         if (event.type === 'touchend') {
@@ -160,15 +160,23 @@ var uq = (function (exports) {
             {
                 key: 'closeLevel',
                 value: function closeLevel(subNav, menuItem) {
-                    subNav.classList.remove(this.openModifier);
-                    this.setOrientation(menuItem);
-                    menuItem.classList.remove(this.levelOpenModifier);
+                    !!subNav &&
+                        subNav.classList.contains(this.openModifier) &&
+                        subNav.classList.remove(this.openModifier);
+                    !!menuItem && this.setOrientation(menuItem);
+                    !!menuItem &&
+                        menuItem.classList.contains(this.levelOpenModifier) &&
+                        menuItem.classList.remove(this.levelOpenModifier);
 
-                    const child = menuItem.querySelector('ul');
-                    child.classList.contains('displaymulticolumn-2') && child.classList.remove('displaymulticolumn-2');
-                    child.classList.contains('displaymulticolumn-3') && child.classList.remove('displaymulticolumn-3');
+                    const child = !!menuItem && menuItem.querySelector('ul');
+                    !!child &&
+                        child.classList.contains('displaymulticolumn-2') &&
+                        child.classList.remove('displaymulticolumn-2');
+                    !!child &&
+                        child.classList.contains('displaymulticolumn-3') &&
+                        child.classList.remove('displaymulticolumn-3');
 
-                    menuItem.querySelector('a').setAttribute('aria-expanded', 'false');
+                    !!menuItem && menuItem.querySelector('a').setAttribute('aria-expanded', 'false');
                 },
             },
             {
