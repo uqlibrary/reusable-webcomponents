@@ -83,9 +83,8 @@ This must be an ANCHOR, not any other html element.
 
 ### Mock user access
 
-* masquerade - uqstaff
+* masquerade, web admin (alerts, spotlights) - uqstaff
 * espace - uqstaff, s1111111
-* web admin - uqwebadminperson (alerts admin; a username that cannot exist because until we are using the db, this is hardcoded in the system)
 
 ## Testing
 
