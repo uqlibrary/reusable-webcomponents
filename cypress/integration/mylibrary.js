@@ -56,9 +56,10 @@ describe('My Library menu', () => {
                     cy.get('div#mylibrary').should('contain', 'MyLibrary');
                     cy.get('button#mylibrary-button').click();
                     cy.wait(500);
-                    cy.get('ul.mylibrary-menu-list').find('li').should('have.length', 11);
+                    cy.get('ul.mylibrary-menu-list').find('li').should('have.length', 12);
                     cy.get('li[data-testid="mylibrary-masquerade"]').should('exist').contains('Masquerade');
                     cy.get('li[data-testid="alerts-admin"]').should('exist').contains('Website alerts');
+                    cy.get('li[data-testid="spotlights-admin"]').should('exist').contains('Website spotlights');
                 });
         });
 
@@ -76,6 +77,7 @@ describe('My Library menu', () => {
                     cy.get('li[data-testid="mylibrary-espace"]').contains('eSpace dashboard');
                     cy.get('li[data-testid="mylibrary-masquerade"]').should('not.exist');
                     cy.get('li[data-testid="alerts-admin"]').should('not.exist');
+                    cy.get('li[data-testid="spotlights-admin"]').should('not.exist');
                 });
         });
 
@@ -92,6 +94,7 @@ describe('My Library menu', () => {
                     cy.get('ul.mylibrary-menu-list').find('li').should('have.length', 8);
                     cy.get('li[data-testid="mylibrary-masquerade"]').should('not.exist');
                     cy.get('li[data-testid="alerts-admin"]').should('not.exist');
+                    cy.get('li[data-testid="spotlights-admin"]').should('not.exist');
                     cy.get('li[data-testid="mylibrary-espace"]').should('not.exist');
                 });
         });

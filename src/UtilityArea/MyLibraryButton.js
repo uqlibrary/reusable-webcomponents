@@ -92,6 +92,14 @@ template.innerHTML = `
                         <span>Website alerts</span>
                     </a>
                 </li>
+                                
+                <!-- Spotlights Admin -->
+                <li data-testid="spotlights-admin" id="spotlights-admin" role="menuitem" aria-disabled="false">
+                    <a data-testid="mylibrary-menu-spotlights-admin" href="https://app.library.uq.edu.au/spotlights/#/" rel="noreferrer">
+                        <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path></svg>
+                        <span>Website spotlights</span>
+                    </a>
+                </li>
 
                 <!-- Feedback -->
                 <li role="menuitem" aria-disabled="false">
@@ -126,8 +134,8 @@ class MyLibraryButton extends HTMLElement {
         this.confirmAccount = this.confirmAccount.bind(this);
     }
 
-    hasSpotlightsADAccess(account) {
-        console.log('account.groups = ', account.groups);
+    // access controlled via Active Directory (AD)
+    hasWebContentAdminAccess(account) {
         return (
             !!account &&
             !!account.groups &&
@@ -136,7 +144,11 @@ class MyLibraryButton extends HTMLElement {
     }
 
     canSeeAlertsAdmin(account) {
-        return !!account && !!this.hasSpotlightsADAccess(account);
+        return !!account && !!this.hasWebContentAdminAccess(account);
+    }
+
+    canSeeSpotlightsAdmin(account) {
+        return !!account && !!this.hasWebContentAdminAccess(account);
     }
 
     async updateMylibraryDOM(shadowRoot) {
@@ -151,6 +163,11 @@ class MyLibraryButton extends HTMLElement {
 
                 const alertsAdminElement = !!shadowRoot && shadowRoot.getElementById('alerts-admin');
                 !this.canSeeAlertsAdmin(accountSummary) && !!alertsAdminElement && alertsAdminElement.remove();
+
+                const spotlightsAdminElement = !!shadowRoot && shadowRoot.getElementById('spotlights-admin');
+                !this.canSeeSpotlightsAdmin(accountSummary) &&
+                    !!spotlightsAdminElement &&
+                    spotlightsAdminElement.remove();
 
                 that.showHideMylibraryEspaceOption(shadowRoot);
 
