@@ -126,33 +126,17 @@ class MyLibraryButton extends HTMLElement {
         this.confirmAccount = this.confirmAccount.bind(this);
     }
 
-    // there is an intention to make a non-hard coded access system. Perhaps a table, and an update screen?
-    // until this is db driven, make the same change in Homepage so the user can actually access the system
-    canSeeAlertsAdmin(account) {
+    hasSpotlightsADAccess(account) {
+        console.log('account.groups = ', account.groups);
         return (
             !!account &&
-            !!account.id &&
-            [
-                'uqwebadminperson', // mock
-                // Staff who will use the form
-                'uqjtilse', // jake Tilse
-                'uqsvangr', // Stacey van Groll
-                'uqtziebe', // Tanya Ziebell
-                'uqnfitt', // nick Fitt
-                'uqrbowen', // Rob Bowen
-                'uqehorns', // Eric Hornsby
-                'uqdcall1', // Dan Callan
-                'uqtscho1', // Tristan Schoonens
-                // devs
-                'uqldegro', // Lea de Groot
-                'uqamartl', // Andrew Martlew
-                'uqklane1', // Ky Lane
-                'uqawil42', // Ashley Wilson
-                'uqclien1', // Cliff Lien
-                'uqmmoise', // Marcelo Perez Moises
-                // all devs should be here
-            ].includes(account.id)
+            !!account.groups &&
+            account.groups.find((group) => group.includes('lib_libapi_SpotlightAdmins'))
         );
+    }
+
+    canSeeAlertsAdmin(account) {
+        return !!account && !!this.hasSpotlightsADAccess(account);
     }
 
     async updateMylibraryDOM(shadowRoot) {
@@ -187,7 +171,7 @@ class MyLibraryButton extends HTMLElement {
             /* istanbul ignore else */
             if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
                 accountSummary.isLoggedin = !!account && !!account.id;
-                accountSummary.id = !!account && !!account.id && account.id;
+                accountSummary.groups = !!account && !!account.groups && account.groups;
                 accountSummary.canMasquerade =
                     !!accountSummary.isLoggedin &&
                     account.hasOwnProperty('canMasquerade') &&

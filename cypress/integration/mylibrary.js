@@ -46,7 +46,7 @@ describe('My Library menu', () => {
             });
         });
 
-        it('Admin gets masquerade', () => {
+        it('Admin gets admin entries', () => {
             cy.visit('http://localhost:8080?user=uqstaff');
             cy.viewport(1280, 900);
             cy.get('uq-site-header')
@@ -61,31 +61,13 @@ describe('My Library menu', () => {
                 .shadow()
                 .find('ul.mylibrary-menu-list')
                 .find('li')
-                .should('have.length', 10);
+                .should('have.length', 11);
             cy.get('uq-site-header')
                 .find('mylibrary-button')
                 .shadow()
                 .find('li[data-testid="mylibrary-masquerade"]')
                 .should('exist')
                 .contains('Masquerade');
-        });
-
-        it('Web Admin gets alerts admin', () => {
-            cy.visit('http://localhost:8080?user=uqwebadminperson');
-            cy.viewport(1280, 900);
-            cy.get('uq-site-header')
-                .find('mylibrary-button')
-                .shadow()
-                .find('div#mylibrary')
-                .should('contain', 'MyLibrary');
-            cy.get('uq-site-header').find('mylibrary-button').shadow().find('button#mylibrary-button').click();
-            cy.wait(500);
-            cy.get('uq-site-header')
-                .find('mylibrary-button')
-                .shadow()
-                .find('ul.mylibrary-menu-list')
-                .find('li')
-                .should('have.length', 9);
             cy.get('uq-site-header')
                 .find('mylibrary-button')
                 .shadow()
@@ -94,7 +76,7 @@ describe('My Library menu', () => {
                 .contains('Website alerts');
         });
 
-        it('Researcher gets espace but not masquerade', () => {
+        it('Researcher gets espace but not admin entries', () => {
             cy.visit('http://localhost:8080?user=s1111111');
             cy.viewport(1280, 900);
             cy.get('uq-site-header')
@@ -115,9 +97,19 @@ describe('My Library menu', () => {
                 .shadow()
                 .find('li[data-testid="mylibrary-espace"]')
                 .contains('eSpace dashboard');
+            cy.get('uq-site-header')
+                .find('mylibrary-button')
+                .shadow()
+                .find('li[data-testid="mylibrary-masquerade"]')
+                .should('not.exist');
+            cy.get('uq-site-header')
+                .find('mylibrary-button')
+                .shadow()
+                .find('li[data-testid="alerts-admin"]')
+                .should('not.exist');
         });
 
-        it('non-Researcher gets neither espace nor masquerade', () => {
+        it('non-Researcher gets neither espace nor admin entries', () => {
             cy.visit('http://localhost:8080?user=s3333333');
             cy.viewport(1280, 900);
             cy.get('uq-site-header')
@@ -137,6 +129,11 @@ describe('My Library menu', () => {
                 .find('mylibrary-button')
                 .shadow()
                 .find('li[data-testid="mylibrary-masquerade"]')
+                .should('not.exist');
+            cy.get('uq-site-header')
+                .find('mylibrary-button')
+                .shadow()
+                .find('li[data-testid="alerts-admin"]')
                 .should('not.exist');
             cy.get('uq-site-header')
                 .find('mylibrary-button')
