@@ -35,18 +35,20 @@ var uq = (function (exports) {
             this.nav = nav;
             this.navClass = navClass;
             this.toggleClass = 'jsNavToggle';
-            this.openModifier = ''.concat(this.navClass, '__list--open');
-            this.levelOpenModifier = ''.concat(this.navClass, '__list-item--open');
-            this.level1Class = ''.concat(this.navClass, '__list--level-1');
-            this.level2Class = ''.concat(this.navClass, '__list--level-2');
-            this.reverseClass = ''.concat(this.navClass, '__list--reverse');
-            this.subNavClass = ''.concat(this.navClass, '__list-item--has-subnav');
-            this.subToggleClass = ''.concat(this.navClass, '__sub-toggle');
+            this.openModifier = `${this.navClass}__list--open`;
+            this.levelOpenModifier = `${this.navClass}__list-item--open`;
+            this.level1Class = `${this.navClass}__list--level-1`;
+            this.level2Class = `${this.navClass}__list--level-2`;
+            this.reverseClass = `${this.navClass}__list--reverse`;
+            this.subNavClass = `${this.navClass}__list-item--has-subnav`;
+            this.subToggleClass = `${this.navClass}__sub-toggle`;
+
             this.init = this.init.bind(this);
             this.handleToggle = this.handleToggle.bind(this);
             this.handleMobileToggle = this.handleMobileToggle.bind(this);
             this.setOrientation = this.setOrientation.bind(this);
             this.handleKeyPress = this.handleKeyPress.bind(this);
+
             this.init();
         }
 
@@ -54,61 +56,61 @@ var uq = (function (exports) {
             {
                 key: 'init',
                 value: function init() {
-                    var _this = this;
-                    var mobileToggle = document
+                    const mobileToggle = document
                         .querySelector('uq-site-header')
-                        .shadowRoot.querySelector('.'.concat(this.toggleClass));
-                    var subNavItems = this.nav.querySelectorAll('.'.concat(this.subNavClass));
-                    var subNavLinks = this.nav.querySelectorAll('.'.concat(this.subNavClass, ' > a'));
-                    var subNavL2Items = this.nav.querySelectorAll(
-                        '.'.concat(this.level2Class, ' .').concat(this.subNavClass),
-                    );
-                    var subNavL2Links = this.nav.querySelectorAll(
-                        '.'.concat(this.level2Class, ' .').concat(this.subNavClass, ' > a'),
-                    );
-                    var navLinks = this.nav.querySelectorAll('li > a');
-                    var subNavToggles = this.nav.querySelectorAll('.'.concat(this.subToggleClass));
-                    mobileToggle.addEventListener('click', this.handleMobileToggle);
-                    subNavItems.forEach(function (item) {
-                        _this.setOrientation(item);
+                        .shadowRoot.querySelector(`.${this.toggleClass}`);
+                    const subNavItems = this.nav.querySelectorAll(`.${this.subNavClass}`);
+                    const subNavLinks = this.nav.querySelectorAll(`.${this.subNavClass} > a`);
+                    const subNavL2Items = this.nav.querySelectorAll(`.${this.level2Class} .${this.subNavClass}`);
+                    const subNavL2Links = this.nav.querySelectorAll(`.${this.level2Class} .${this.subNavClass} > a`);
+                    const navLinks = this.nav.querySelectorAll('li > a');
+                    const subNavToggles = this.nav.querySelectorAll(`.${this.subToggleClass}`);
 
-                        item.addEventListener('mouseenter', _this.handleToggle);
-                        item.addEventListener('mouseleave', _this.handleToggle);
+                    mobileToggle.addEventListener('click', this.handleMobileToggle);
+
+                    subNavItems.forEach((item) => {
+                        this.setOrientation(item);
+                        item.addEventListener('mouseenter', this.handleToggle);
+                        item.addEventListener('mouseleave', this.handleToggle);
                     });
-                    subNavLinks.forEach(function (item) {
+
+                    subNavLinks.forEach((item) => {
                         if (window.matchMedia('(min-width: 1024px)').matches) {
-                            item.addEventListener('touchend', _this.handleToggle);
+                            item.addEventListener('touchend', this.handleToggle);
                         }
                     });
-                    subNavL2Items.forEach(function (item) {
-                        _this.setOrientation(item);
 
-                        item.addEventListener('mouseenter', _this.handleToggle);
-                        item.addEventListener('mouseleave', _this.handleToggle);
+                    subNavL2Items.forEach((item) => {
+                        this.setOrientation(item);
+                        item.addEventListener('mouseenter', this.handleToggle);
+                        item.addEventListener('mouseleave', this.handleToggle);
                     });
-                    subNavL2Links.forEach(function (item) {
-                        item.addEventListener('touchend', _this.handleToggle);
+
+                    subNavL2Links.forEach((item) => {
+                        item.addEventListener('touchend', this.handleToggle);
                     });
-                    navLinks.forEach(function (item) {
-                        item.addEventListener('keydown', _this.handleKeyPress);
+
+                    navLinks.forEach((item) => {
+                        item.addEventListener('keydown', this.handleKeyPress);
                     });
-                    subNavToggles.forEach(function (item) {
-                        item.addEventListener('click', _this.handleToggle);
+
+                    subNavToggles.forEach((item) => {
+                        item.addEventListener('click', this.handleToggle);
                     });
                 },
             },
             {
                 key: 'handleMobileToggle',
                 value: function handleMobileToggle(event) {
-                    var _this2 = this;
+                    const toggle = event.target;
+                    const target = this.nav.querySelectorAll(`.${this.level1Class}`);
+                    const ariaExpanded = toggle.getAttribute('aria-expanded') === 'true';
 
-                    var toggle = event.target;
-                    var target = this.nav.querySelectorAll('.'.concat(this.level1Class));
-                    var ariaExpanded = toggle.getAttribute('aria-expanded') === 'true';
-                    toggle.classList.toggle('uq-site-header__navigation-toggle--close');
+                    toggle.classList.toggle(`${this.navClass}-toggle--close`);
                     toggle.setAttribute('aria-expanded', !ariaExpanded);
-                    target.forEach(function (el) {
-                        el.classList.toggle(_this2.openModifier);
+
+                    target.forEach((el) => {
+                        el.classList.toggle(this.openModifier);
                         el.setAttribute('aria-expanded', !ariaExpanded);
                     });
                 },
@@ -122,22 +124,18 @@ var uq = (function (exports) {
                     ) {
                         return;
                     }
-
-                    var menuItem = event.target;
-
+                    let menuItem = event.target;
                     if (menuItem.tagName !== 'LI') {
                         menuItem = menuItem.parentElement;
                     }
+                    const subNav = menuItem.querySelector('ul');
 
-                    var subNav = menuItem.querySelector('ul');
-
-                    if (subNav.classList.contains(this.openModifier)) {
+                    if (subNav.classList.contains(this.openModifier) || event.type === 'mouseleave') {
                         this.closeLevel(subNav, menuItem);
                     } else {
                         if (event.type === 'touchend') {
                             event.preventDefault();
                         }
-
                         this.closeAllLevels();
                         this.openLevel(subNav, menuItem);
                     }
@@ -162,15 +160,23 @@ var uq = (function (exports) {
             {
                 key: 'closeLevel',
                 value: function closeLevel(subNav, menuItem) {
-                    subNav.classList.remove(this.openModifier);
-                    this.setOrientation(menuItem);
-                    menuItem.classList.remove(this.levelOpenModifier);
+                    !!subNav &&
+                        subNav.classList.contains(this.openModifier) &&
+                        subNav.classList.remove(this.openModifier);
+                    !!menuItem && this.setOrientation(menuItem);
+                    !!menuItem &&
+                        menuItem.classList.contains(this.levelOpenModifier) &&
+                        menuItem.classList.remove(this.levelOpenModifier);
 
-                    const child = menuItem.querySelector('ul');
-                    child.classList.contains('displaymulticolumn-2') && child.classList.remove('displaymulticolumn-2');
-                    child.classList.contains('displaymulticolumn-3') && child.classList.remove('displaymulticolumn-3');
+                    const child = !!menuItem && menuItem.querySelector('ul');
+                    !!child &&
+                        child.classList.contains('displaymulticolumn-2') &&
+                        child.classList.remove('displaymulticolumn-2');
+                    !!child &&
+                        child.classList.contains('displaymulticolumn-3') &&
+                        child.classList.remove('displaymulticolumn-3');
 
-                    menuItem.querySelector('a').setAttribute('aria-expanded', 'false');
+                    !!menuItem && menuItem.querySelector('a').setAttribute('aria-expanded', 'false');
                 },
             },
             {
@@ -189,10 +195,9 @@ var uq = (function (exports) {
             {
                 key: 'setOrientation',
                 value: function setOrientation(item) {
-                    var subNav = item.querySelector('.'.concat(this.level2Class));
-                    var reverseClass = this.reverseClass;
-                    var subNavRight = 0;
-
+                    const subNav = item.querySelector(`.${this.level2Class}`);
+                    const { reverseClass } = this;
+                    let subNavRight = 0;
                     if (subNav && subNav.getBoundingClientRect()) {
                         subNavRight = subNav.getBoundingClientRect().right;
                     }
@@ -205,21 +210,27 @@ var uq = (function (exports) {
             {
                 key: 'handleKeyPress',
                 value: function handleKeyPress(event) {
-                    var parent = event.currentTarget.parentNode;
-                    var nav = parent.parentNode;
+                    const parent = event.currentTarget.parentNode;
+                    const nav = parent.parentNode;
+                    const mobileToggle = document.querySelector(`.${this.toggleClass}`);
 
                     if (parent === nav.firstElementChild) {
                         // If we shift tab past the first child, toggle this level.
                         if (event.key === 'Tab' && event.shiftKey === true) {
                             this.closeLevel(nav, nav.parentNode);
+                            mobileToggle.classList.toggle(`${this.navClass}-toggle--close`);
+                            mobileToggle.setAttribute('aria-expanded', 'false');
                         }
                     } else if (parent === nav.lastElementChild) {
                         // If we tab past the last child, toggle this level.
                         if (event.key === 'Tab' && event.shiftKey === false) {
                             this.closeLevel(nav, nav.parentNode);
+                            mobileToggle.classList.toggle(`${this.navClass}-toggle--close`);
+                            mobileToggle.setAttribute('aria-expanded', 'false');
                         }
-                    } // Toggle nav on Space (32) or any Arrow key (37-40).
+                    }
 
+                    // Toggle nav on Space (32) or any Arrow key (37-40).
                     switch (event.keyCode) {
                         case 32:
                         case 37:
@@ -228,6 +239,8 @@ var uq = (function (exports) {
                         case 40:
                             event.preventDefault();
                             this.handleToggle(event);
+                            break;
+                        default:
                             break;
                     }
                 },

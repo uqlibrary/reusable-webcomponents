@@ -17,6 +17,8 @@ The 'applications/' folder allows us to version control changes to the scripts w
 - run `npm run prettier:test` to check all files for codestyles, and
 - run `npm run prettier:fix` to fix all codestyle issues
 
+localhost will run on port 8080: `http://localhost:8080/`
+
 ### Git safety checks
 
 - Run the following in the project root directory after cloning to install the pre-commit hook:
@@ -81,9 +83,8 @@ This must be an ANCHOR, not any other html element.
 
 ### Mock user access
 
-* masquerade - uqstaff
+* masquerade, web admin (alerts, spotlights) - uqstaff
 * espace - uqstaff, s1111111
-* web admin - uqwebadminperson (alerts admin; a username that cannot exist because until we are using the db, this is hardcoded in the system)
 
 ## Testing
 

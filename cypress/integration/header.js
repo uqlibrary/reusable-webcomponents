@@ -101,5 +101,17 @@ describe('UQ Header', () => {
             // now the first child is visible
             cy.get('uq-site-header').shadow().find('li[data-testid="menu-group-services-link-0"]').should('be.visible');
         });
+
+        it('ITS DS accordion opens', () => {
+            cy.viewport(1280, 900);
+            cy.get('uq-header')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="uqheader-nav-search"]').find('form').should('not.be.visible');
+                    cy.get('[data-testid="uq-header-search-button"]').should('exist');
+                    cy.get('[data-testid="uq-header-search-button"]').click();
+                    cy.get('[data-testid="uqheader-nav-search"]').find('form').should('be.visible');
+                });
+        });
     });
 });

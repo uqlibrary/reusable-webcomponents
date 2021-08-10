@@ -32,7 +32,7 @@ template.innerHTML = `
             </ul>
           </nav>
         </div>
-        <div class="nav-search">
+        <div class="nav-search" data-testid="uqheader-nav-search">
           <form class="nav-search__form" action="https://www.uq.edu.au/search/" method="get" accept-charset="UTF-8">
             <fieldset class="nav-search__wrapper">
               <legend class="hidden">
