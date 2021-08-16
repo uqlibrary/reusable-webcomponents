@@ -703,7 +703,7 @@ label + .MuiInput-formControl {
     }
 }
 .selectInput {
-    color: #2377cb;
+    color: #3a3a3a;
     overflow: hidden !important;
     font-size: 24px !important;
     font-weight: 300;
@@ -902,4 +902,3 @@ li.MuiAutocomplete-option:focus {
 .clear-search-term:focus {
     background-color: #d3d3d3;
 }
-
