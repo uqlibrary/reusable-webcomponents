@@ -898,12 +898,7 @@ prm-explore-main {
 }
 
 // availability statements should be either blue (for mostly available now), or grey (for mostly available by request).
-[class*='check_'],
-.availability-status.getit,
-[class*='FT'] {
-    color: #555555;
-}
-[class*='check_']>span {
+button[title*="Check availability"] span  {
     color: #555555 !important;
 }
 
