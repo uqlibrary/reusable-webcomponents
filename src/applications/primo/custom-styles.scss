@@ -222,7 +222,6 @@ prm-browse-search-bar .search-scope {
 .tiles-grid-tile .tile-header .header-link:hover,
 .tiles-grid-tile .tile-header .md-button,
 [class*='NFT'] > span,
-[class*='check_'] > span,
 [class*='_more'] > span,
 [class*='_unknown'] > span,
 [class*='may_'] > span,
@@ -900,4 +899,7 @@ prm-explore-main {
 .availability-status.getit,
 [class*='FT'] {
     color: #555555;
+}
+[class*='check_']>span {
+    color: #555555 !important;
 }
