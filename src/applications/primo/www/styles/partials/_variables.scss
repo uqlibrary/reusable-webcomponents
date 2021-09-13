@@ -43,9 +43,8 @@ $darker: darken(saturate(adjust-hue($dark, 0), 0), 6.6667);
 $highlightYellow: #fffcc4; //stronger
 $highlight: darken(desaturate(adjust-hue($highlightYellow, -4.092), 16), 8.0392);
 $highlightText: #ffe564;
-$success: #3ea03e;
-//$green: #3EA03E; // redundancy of 'success'
-$green: #198a19;
+$success: #198a19;
+$uqgreen: #2ea836;
 //$orange: #CE8015; //#E0962E;
 $muteOrange: #c59655;
 $yellow: #f1c16f;
@@ -65,7 +64,7 @@ $primary-hue1: darken($primary, 3%);
 $primary-hue2: darken($primary, 5%);
 $primary-hue3: darken($primary-hue2, 2%);
 $primary-hue4: darken($primary, 10%);
-$primary-hue5: darker($primary, -5%);
+$primary-hue5: darken($primary, -5%);
 $primary-hue6: transparentize($primary, 0.1);
 
 $secondary: #a9cdd6;
@@ -78,7 +77,7 @@ $secondary-hue6: darken(saturate(adjust-hue($secondary, -7), 64.57), 2);
 
 $backgroundColor: white;
 
-$positive: #0f7d00;
+$positive: $green;
 $positive-hue1: darken($positive, 2%);
 
 $negative: gray;
@@ -120,7 +119,7 @@ $sectionHighlight: darken(desaturate($background, 0), 5%);
 $snippets: #999;
 $lightenGrey: #6d6d6d;
 
-$links: #3d6e94;
+$links: $green;
 
 $links-background-hue1: transparentize($links, 1);
 

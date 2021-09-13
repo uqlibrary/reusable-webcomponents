@@ -465,7 +465,7 @@ md-content
 .citation-trails-brief,
 .citation-trails-fullview {
     .md-primoExplore-theme {
-        color: tomato !important;
+        color: $red !important;
     }
     &:hover {
         .md-primoExplore-theme {
@@ -550,9 +550,12 @@ button.md-button.link-alt-color {
     }
 }
 
-// reduce the padding on the locked facets
-prm-breadcrumbs .md-chip.persistent-facet .md-chip-content strong {
-    padding-left: 12px;
+prm-breadcrumbs .md-chip.persistent-facet {
+    background-color: $uqGold-hue1;
+    .md-chip-content strong {
+        // reduce the padding on the locked facets
+        padding-left: 12px;
+    }
 }
 
 // uqblue (#2377CB) isn't accessible on the primo grey background, so slightly different colour is needed
@@ -902,4 +905,31 @@ prm-explore-main {
 }
 [class*='check_']>span {
     color: #555555 !important;
+}
+
+.open-access-mark-icon {
+    color: $red !important;
+}
+
+prm-alphabet-toolbar  {
+    .md-button {
+        &.active {
+            color: $accent-color !important;
+            background-color: $white;
+        }
+    }
+    .md-button {
+        &.active:hover,
+        &.active:focus,
+        &.active.md-focused {
+            background-color: $accent-color !important;
+            color: $white !important;
+        }
+    }
+}
+
+.bar {
+    button, &.alert-bar {
+        color: #fff;
+    }
 }
