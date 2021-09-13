@@ -40,22 +40,25 @@ $darker: darken(saturate(adjust-hue($dark, 0), 0), 6.6667);
 
 // lighter background color
 
-$highlightBlue: transparentize($accent-color, 0.9);
-$highlightYellow: #fffcc4; //stronger
-$highlight: darken(desaturate(adjust-hue($highlightYellow, -4.092), 16), 8.0392);
-$highlightText: #ffe564;
 $success: #3ea03e;
-//$green: #3EA03E; // redundancy of 'success'
 $green: #198a19;
 //$orange: #CE8015; //#E0962E;
+$uqGold: #bb9d65;
+$uqGold-hue1: lighten($uqGold, 20%);
 $muteOrange: #c59655;
-$yellow: #f1c16f;
+$yellow: #fbb800; // uq yellow
+//$yellow-hue1: lighten($yellow, 20%); // uq yellow
 $overlayDarkDG: rgba(68, 68, 68, 0.6);
+
+$highlightBlue: transparentize($accent-color, 0.9);
+$highlightYellow: $uqGold-hue1; //stronger
+$highlight: darken(desaturate(adjust-hue($highlightYellow, -4.092), 16), 8.0392);
+$highlightText: #fbb800; // uq yellow
 
 // $availabiltyDetails: desaturate(lighten($midGrey,5%), 5%);
 //$maybe: $orange;
 
-$alert: #f7eda3;
+$alert: #bf5000;
 $alert-hue1: darken(desaturate(adjust-hue($alert, 0.3074), 15.3043), 2.9412);
 
 $disabled: #aaa;
@@ -137,7 +140,7 @@ $linkTitle: $links;
 
 $collectionDisLinks: #0075b0;
 
-$red: tomato;
+$red: #eb602e; // uq orange
 $red-hue1: darken($red, 20%);
 // warning
 $warning: $red;
@@ -151,7 +154,7 @@ $text-hue2: $text;
 $text-hue3: darken($text, 10%);
 $text-hue4: lighten($text, 10%);
 
-$notice: #e08303;
+$notice: $red;
 
 $highlight: $background-hue7;
 $highlight-hue1: $background-hue7;
@@ -178,19 +181,19 @@ $defaultBarHeight: 60px;
 $briefButtonHeight: 38px;
 
 // citations
-$citation: tomato;
+$citation: $red;
 $citationColor: $citation;
 $citation-hue1: darken($citation, 40%);
 $citation-hue2: darken($citation, 20%);
 $citation-hue3: darken($citation, 22%);
 
 // warning
-$warning: tomato;
+$warning: $red;
 $warning-hue1: darken($warning, 20%);
 $warning-hue2: darken($warning, 22%);
 
 // personalization
-$personalization: #7d1538;
+$personalization: $red;
 
 // Peer Reviewed
 $peer-reviewed-color: #8359d4;
