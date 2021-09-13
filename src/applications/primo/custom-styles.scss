@@ -171,7 +171,7 @@ prm-search-bar {
     prm-journals-search-bar &,
     prm-search-bar &,
     prm-tags-search-bar & {
-        color: $uqBlue;
+        color: $accent-color;
     }
 }
 
@@ -184,7 +184,7 @@ prm-search-bookmark-filter {
 
 // Arrows shown next to headings in favourites
 prm-saved-queries-list .string-block prm-icon {
-    color: $uqBlue;
+    color: $accent-color;
 }
 
 //Browse interface - made dropdown list grey BG instead of yellow
@@ -285,7 +285,7 @@ prm-facet prm-breadcrumbs div.md-chip-content strong {
 }
 prm-facet {
     button.md-button.button-as-link.link-alt-color {
-        color: $uqBlue;
+        color: $accent-color;
     }
 }
 prm-breadcrumbs {
@@ -303,7 +303,7 @@ prm-breadcrumbs {
         }
     }
     .md-button.link-alt-color.button-as-link {
-        color: $uqBlue;
+        color: $accent-color;
     }
 }
 
@@ -408,7 +408,7 @@ md-checkbox {
     &.md-checked {
         .md-icon,
         ._md-icon {
-            background-color: $uqBlue;
+            background-color: $accent-color;
         }
     }
 }
@@ -632,7 +632,7 @@ prm-search-result-tool-bar {
         prm-add-query-to-saved-searches,
         prm-personalize-results-button {
             .md-button.link-alt-color.button-as-link {
-                color: $uqBlue;
+                color: $accent-color;
             }
         }
     }
@@ -859,7 +859,7 @@ prm-page-nav-menu {
         // Show blue background for current page/page-size
         // instead of rounded rectangle
         box-shadow: none;
-        background: $uqBlue;
+        background: $accent-color;
         color: $white !important;
     }
     .counter-main,
@@ -867,7 +867,7 @@ prm-page-nav-menu {
     .bulks-options {
         .md-button {
             // Blue colour for all clickable items
-            color: $uqBlue;
+            color: $accent-color;
             &:not([disabled]) {
                 &.hovered,
                 &.md-focused,
