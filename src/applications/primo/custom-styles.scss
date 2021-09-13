@@ -894,3 +894,10 @@ prm-explore-main {
         z-index: 20;
     }
 }
+
+// availability statements should be either blue (for mostly available now), or grey (for mostly available by request).
+[class*='check_'],
+.availability-status.getit,
+[class*='FT'] {
+    color: #555555;
+}
