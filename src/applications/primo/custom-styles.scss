@@ -974,8 +974,8 @@ prm-login-alma-mashup {
         }
     }
 }
-.dismiss-alert-button span[translate="nui.message.dismiss"] {
-    margin-right: 20px;
+button.button-with-icon prm-icon {
+    padding-top: 4px;
 }
 
 // color the exclude facet
