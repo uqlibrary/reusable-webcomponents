@@ -486,10 +486,10 @@ div > getit-link-service {
 
 // style the report a problem button
 .help-button:not([style-scope]) {
-    border: 1px solid $theme-color;
+    border: 1px solid $accent-color;
 }
 .help-button:not([style-scope]) {
-    background-color: $theme-color;
+    background-color: $accent-color;
     color: $white;
     transition: none;
 }
@@ -497,7 +497,7 @@ div > getit-link-service {
 .help-button:not([style-scope]):hover a,
 .help-button:not([style-scope]):hover a:hover {
     background-color: $white;
-    color: $theme-color !important;
+    color: $accent-color !important;
     font-weight: bold;
     box-shadow: none; // removes underline on the link
 }
