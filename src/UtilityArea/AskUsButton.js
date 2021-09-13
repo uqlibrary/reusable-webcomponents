@@ -269,7 +269,8 @@ class AskUsButton extends HTMLElement {
 
         // Proactive chat
         function hideProactiveChatWrapper() {
-            shadowDOM.getElementById('askus-proactive-chat-wrapper').remove();
+            const pcWrapper = shadowDOM.getElementById('askus-proactive-chat-wrapper');
+            !!pcWrapper && pcWrapper.remove();
         }
         function closeProactiveChat() {
             shadowDOM.getElementById('askus-proactive-chat').classList.remove('show');
