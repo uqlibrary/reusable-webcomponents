@@ -43,10 +43,12 @@ prm-personalize-results-button {
             &.toggled {
                 &.button-as-link {
                     &:hover:not([disabled]) {
-                        @include bgColor($personalization);
+                        background-color: $highlightBlue;
+                        color: $links-hue-5;
                     }
                     &:focus:not([disabled]) {
-                        @include bgColor($personalization);
+                        background-color: $highlightBlue;
+                        color: $links-hue-5;
                     }
                 }
             }
