@@ -69,7 +69,7 @@ $primary-hue1: darken($primary, 3%);
 $primary-hue2: darken($primary, 5%);
 $primary-hue3: darken($primary-hue2, 2%);
 $primary-hue4: darken($primary, 10%);
-$primary-hue5: darken($primary, -5%);
+//$primary-hue5: darker($primary, -5%);
 $primary-hue6: transparentize($primary, 0.1);
 
 $secondary: $accent-color;
