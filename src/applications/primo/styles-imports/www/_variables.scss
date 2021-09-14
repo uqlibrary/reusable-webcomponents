@@ -43,22 +43,23 @@ $darker: darken(saturate(adjust-hue($dark, 0), 0), 6.6667);
 $success: #3ea03e;
 $green: #2ea836;
 //$orange: #CE8015; //#E0962E;
-$uqGold: #bb9d65;
-$uqGold-hue1: lighten($uqGold, 20%);
 $muteOrange: #c59655;
-$yellow: #fbb800; // uq yellow
+$yellow: #bbd8f5; // UQ Light Colours, Information light
 //$yellow-hue1: lighten($yellow, 20%); // uq yellow
 $overlayDarkDG: rgba(68, 68, 68, 0.6);
 
 $highlightBlue: transparentize($accent-color, 0.9);
-$highlightYellow: $uqGold-hue1; //stronger
+$highlightYellow:  #fbb800; // UQ Dark colours, Warning dark
 $highlight: darken(desaturate(adjust-hue($highlightYellow, -4.092), 16), 8.0392);
-$highlightText: #fbb800; // uq yellow
+$highlightText: #fff0c8; // UQ Light colours, Warning light // underscores
+
+$bannerBkg: #bbd8f5; // UQ Light Colours, Information light
+$pinnedItem: #f7f6f5; // UQ Light colours Light grey
 
 // $availabiltyDetails: desaturate(lighten($midGrey,5%), 5%);
 //$maybe: $orange;
 
-$alert: $uqGold-hue1;
+$alert: $bannerBkg;
 $alert-hue1: darken(desaturate(adjust-hue($alert, 0.3074), 15.3043), 2.9412);
 
 $disabled: #aaa;
