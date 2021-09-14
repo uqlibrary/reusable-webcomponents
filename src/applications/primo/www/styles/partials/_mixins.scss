@@ -58,6 +58,13 @@ Color brightness is determined by the following formula:
 
 @function set-button-font-color($fontColor) {
     @if (
+            $fontColor ==
+            $red
+    ) {
+        @return $accent-color;
+    }
+
+    @if (
         $fontColor ==
             $positive or
             $fontColor ==
