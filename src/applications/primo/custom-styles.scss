@@ -746,6 +746,15 @@ md-toast .md-toast-content .md-button {
         }
     }
 }
+md-toast .md-toast-content {
+    prm-add-alert-toast &,
+    prm-mendeley-toast &,
+    prm-silent-login-alert-toast &,
+    prm-timeout-toast &,
+    prm-voice-search-toast & {
+        background-color: $bannerBkg;
+    }
+}
 
 // the OK button on the eg "Your session has been inactive for an extended period and has been reset." alert
 prm-add-alert-toast md-toast .md-button.settings-button,
