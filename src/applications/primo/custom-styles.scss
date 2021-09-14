@@ -551,7 +551,7 @@ button.md-button.link-alt-color {
 }
 
 prm-breadcrumbs .md-chip.persistent-facet {
-    background-color: $uqGold-hue1;
+    background-color: $highlightText;
     .md-chip-content strong {
         // reduce the padding on the locked facets
         padding-left: 12px;
@@ -622,7 +622,7 @@ primo-explore prm-search-result-list {
             background-color: $white;
 
             .item-bookmarked {
-                background: $highlightYellow;
+                background: $pinnedItem;
             }
         }
 
