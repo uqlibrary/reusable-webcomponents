@@ -77,6 +77,8 @@ Color brightness is determined by the following formula:
             $fontColor ==
             $notice or
             $fontColor ==
+            $warn or
+            $fontColor ==
             $warn-hue1 or
             $fontColor ==
             $personalization
@@ -105,6 +107,8 @@ Color brightness is determined by the following formula:
             $secondary-hue3 or
             $fontColor ==
             $notice or
+            $fontColor ==
+            $warn or
             $fontColor ==
             $warn-hue1 or
             $fontColor ==

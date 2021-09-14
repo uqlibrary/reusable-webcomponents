@@ -178,14 +178,14 @@ $defaultBarHeight: 60px;
 $briefButtonHeight: 38px;
 
 // citations
-$citation: tomato;
+$citation: $red;
 $citationColor: $citation;
 $citation-hue1: darken($citation, 40%);
 $citation-hue2: darken($citation, 20%);
 $citation-hue3: darken($citation, 22%);
 
 // warning
-$warning: tomato;
+$warning: $red;
 $warning-hue1: darken($warning, 20%);
 $warning-hue2: darken($warning, 22%);
 
