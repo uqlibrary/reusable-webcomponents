@@ -58,7 +58,7 @@ $highlightText: #fbb800; // uq yellow
 // $availabiltyDetails: desaturate(lighten($midGrey,5%), 5%);
 //$maybe: $orange;
 
-$alert: #bf5000;
+$alert: $uqGold-hue1;
 $alert-hue1: darken(desaturate(adjust-hue($alert, 0.3074), 15.3043), 2.9412);
 
 $disabled: #aaa;
