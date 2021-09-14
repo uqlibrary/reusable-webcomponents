@@ -13,7 +13,7 @@ prm-quick-link {
     }
     width: fit-content;
     span {
-      color: $green;
+      color: $accent-color;
       margin: 0 3px 0 3px;
     }
 
@@ -22,7 +22,7 @@ prm-quick-link {
     }
 
     .quick-link-type {
-      color: $green;
+      color: $accent-color;
       margin: 0 3px 0 0;
       [dir="rtl"] & {
         margin: 0 0 0 3px;

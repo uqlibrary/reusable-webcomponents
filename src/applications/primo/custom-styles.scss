@@ -902,10 +902,6 @@ button[title*="Check availability"] span  {
     color: #555555 !important;
 }
 
-.open-access-mark-icon {
-    color: $red !important;
-}
-
 prm-alphabet-toolbar  {
     .md-button {
         &.active {
@@ -921,10 +917,9 @@ prm-alphabet-toolbar  {
             color: $white !important;
         }
     }
-}
-
-.bar {
-    button, &.alert-bar {
-        color: #fff;
+    .bar {
+        button, &.alert-bar {
+            color: #fff;
+        }
     }
 }
