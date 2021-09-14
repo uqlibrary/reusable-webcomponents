@@ -24,24 +24,24 @@
 
 @keyframes pulsateYellowBG {
     0% {
-        background-color: $highlightYellow;
+        background-color: $uqWarningDark;
     }
     50% {
-        background-color: desaturate(darken($highlightYellow, 15%), 10%);
+        background-color: desaturate(darken($uqWarningDark, 15%), 10%);
     }
     100% {
-        background-color: $highlightYellow;
+        background-color: $uqWarningDark;
     }
 }
 @keyframes pulsateYellowColor {
     0% {
-        color: $highlightYellow;
+        color: $uqWarningDark;
     }
     50% {
-        color: desaturate(darken($highlightYellow, 15%), 10%);
+        color: desaturate(darken($uqWarningDark, 15%), 10%);
     }
     100% {
-        color: $highlightYellow;
+        color: $uqWarningDark;
     }
 }
 

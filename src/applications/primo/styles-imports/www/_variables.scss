@@ -1,5 +1,5 @@
 //// VARIABLES
-// The complex color calculation were created with http://razorjam.github.io/sasscolourfunctioncalculator/
+// UQ colours 2021 from https://design-system.uq.edu.au/?path=/docs/core-colour-applying-colour--page
 
 // Fonts family
 $serif: Roboto, Helvetica, Arial, sans-serif;
@@ -44,22 +44,23 @@ $success: #3ea03e;
 $green: #2ea836;
 //$orange: #CE8015; //#E0962E;
 $muteOrange: #c59655;
-$yellow: #bbd8f5; // UQ Light Colours, Information light
+$uqInformationLight: #bbd8f5;
+//$yellow: #f1c16f;
 //$yellow-hue1: lighten($yellow, 20%); // uq yellow
 $overlayDarkDG: rgba(68, 68, 68, 0.6);
 
 $highlightBlue: transparentize($accent-color, 0.9);
-$highlightYellow:  #fbb800; // UQ Dark colours, Warning dark
-$highlight: darken(desaturate(adjust-hue($highlightYellow, -4.092), 16), 8.0392);
-$highlightText: #fff0c8; // UQ Light colours, Warning light // underscores
+$uqWarningDark:  #fbb800;
+$highlight: darken(desaturate(adjust-hue($uqWarningDark, -4.092), 16), 8.0392);
+$uqWarningLight: #fff0c8;
+$uqNeutral: #d7d1cc;
 
-$bannerBkg: #bbd8f5; // UQ Light Colours, Information light
-$pinnedItem: #f7f6f5; // UQ Light colours Light grey
+$uqLightGrey: #f7f6f5;
 
 // $availabiltyDetails: desaturate(lighten($midGrey,5%), 5%);
 //$maybe: $orange;
 
-$alert: $bannerBkg;
+$alert: $uqInformationLight;
 $alert-hue1: darken(desaturate(adjust-hue($alert, 0.3074), 15.3043), 2.9412);
 
 $disabled: #aaa;

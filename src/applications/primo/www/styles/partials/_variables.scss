@@ -40,14 +40,14 @@ $darker: darken(saturate(adjust-hue($dark, 0), 0), 6.6667);
 
 // lighter background color
 
-$highlightYellow: #fff0c8; // UQ Light colours, Warning light
-$highlight: darken(desaturate(adjust-hue($highlightYellow, -4.092), 16), 8.0392);
-$highlightText: #fbb800; // UQ Light colours, Warning light
+$uqWarningDark: #fff0c8; // UQ Light colours, Warning light
+$highlight: darken(desaturate(adjust-hue($uqWarningDark, -4.092), 16), 8.0392);
+$uqWarningLight: #fbb800; // UQ Light colours, Warning light
 $success: #2ea836;
 $green: #2ea836;
 //$orange: #CE8015; //#E0962E;
 $muteOrange: #c59655;
-$yellow: #bbd8f5; // UQ Light Colours, Information light
+$uqInformationLight: #bbd8f5;
 $overlayDarkDG: rgba(68, 68, 68, 0.6);
 
 // $availabiltyDetails: desaturate(lighten($midGrey,5%), 5%);
@@ -153,7 +153,7 @@ $text-hue4: lighten($text, 10%);
 
 $notice: #b84d00;
 
-$highlight: $highlightYellow;
+$highlight: $uqWarningDark;
 $highlight-hue1: #fffcc4;
 
 $modalBackdrop: rgb(68, 68, 68);

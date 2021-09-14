@@ -99,7 +99,7 @@
 //         transform: translateY(-10px);
 //         transition: background-color 0 .6s;
 //         .new-list-dialog-open & {
-//             background-color: $highlightYellow;
+//             background-color: $uqWarningDark;
 //             transition: background-color .6s .1s $easeOutQuint;
 //         }
 //     }
@@ -120,8 +120,8 @@
 //         top: -21px;
 //         right: 54px;
 //         transform: rotate(-90deg) scaleY(1.4);
-//         color: $highlightYellow;
-//         text-shadow: 3px 0px 3px transparentize(darken($highlightYellow, 50%), 0.8);
+//         color: $uqWarningDark;
+//         text-shadow: 3px 0px 3px transparentize(darken($uqWarningDark, 50%), 0.8);
 //     }
 // }
 // #new-list-dialog {
@@ -434,8 +434,8 @@
 //     z-index: 8;
 //     height: 100%;
 //     opacity: 0;
-//     background-color: $highlightYellow;
-//     border-left: 1px solid desaturate(darken($highlightYellow, 10%), 30%);
+//     background-color: $uqWarningDark;
+//     border-left: 1px solid desaturate(darken($uqWarningDark, 10%), 30%);
 //     max-width: none;
 //     margin-right: 0;
 //     transform: translate3d(100%, 0, 0);
@@ -706,7 +706,7 @@
 //                 font-weight: $bold;
 //                 color: black;
 //                 font-style: normal;
-//                 background-color: $highlightYellow;
+//                 background-color: $uqWarningDark;
 //             }
 //         }
 //         &:hover {
