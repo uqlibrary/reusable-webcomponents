@@ -958,3 +958,7 @@ prm-login-alma-mashup button.button-with-icon.zero-margin.md-button.md-primoExpl
         color: #fff;
     }
 }
+
+.available-facets .section-content .md-chips .md-chip .button-exclude:hover:not([disabled]) {
+    color: $red;
+}
