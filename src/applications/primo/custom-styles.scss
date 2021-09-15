@@ -950,12 +950,15 @@ prm-alphabet-toolbar  {
 }
 
 // make the login button in the toast look clickable
-prm-login-alma-mashup button.button-with-icon.zero-margin.md-button.md-primoExplore-theme.md-ink-ripple {
-    &:active,
-    &:focus,
-    &:hover {
-        background-color: $accent-color !important;
-        color: #fff;
+ui-view,
+prm-login-alma-mashup {
+    button.button-with-icon.zero-margin.md-button.md-primoExplore-theme.md-ink-ripple {
+        &:active,
+        &:focus,
+        &:hover {
+            background-color: $accent-color !important;
+            color: #fff;
+        }
     }
 }
 
