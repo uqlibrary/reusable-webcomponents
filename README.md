@@ -4,6 +4,30 @@ These reusable webcomponents provides header and footer to multiple systems.
 
 The 'applications/' folder allows us to version control changes to the scripts we use to insert code into 3rd party systems - see [the applications readme](applications/readme.md) for a summary.
 
+## Installation
+
+1. Clone from github
+
+2. install npm: `nvm use 11.10.1 && npm i -g npm@6 webpack-dev-server`
+
+3. Create these git hooks to manage branches to project standard:
+
+  ```sh
+  ln -sf "../../scripts/pre-commit" ".git/hooks/pre-commit"
+  ```
+
+It does two things:
+
+- Prevent direct commits to the staging branch.
+- Run `prettier-eslint` automatically before every local commit
+
+- Run the following in the project root directory to prevent accidental merges from the staging branch:
+
+  ```sh
+    ln -sf "../../scripts/prepare-commit-msg" ".git/hooks/prepare-commit-msg"
+  ```
+When you commit your changes, the above script will require you to have correctly formatted code.
+
 ## Development
 
 - run `npm ci` to install packages.
@@ -18,27 +42,6 @@ The 'applications/' folder allows us to version control changes to the scripts w
 - run `npm run prettier:fix` to fix all codestyle issues
 
 localhost will run on port 8080: `http://localhost:8080/`
-
-### Git safety checks
-
-- Run the following in the project root directory after cloning to install the pre-commit hook:
-
-  ```sh
-  ln -sf "../../scripts/pre-commit" ".git/hooks/pre-commit"
-  ```
-
-  It does two things:
-
-  - Prevent direct commits to the staging branch.
-  - Run `prettier-eslint` automatically before every local commit
-
-- Run the following in the project root directory to prevent accidental merges from the staging branch:
-
-  ```sh
-    ln -sf "../../scripts/prepare-commit-msg" ".git/hooks/prepare-commit-msg"
-  ```
-
-When you commit your changes, the above script will require you to have correctly formatted code.
 
 The following commands are available to fix any misformatting easily:
 
