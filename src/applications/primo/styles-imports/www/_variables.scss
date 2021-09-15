@@ -1,5 +1,5 @@
 //// VARIABLES
-// The complex color calculation were created with http://razorjam.github.io/sasscolourfunctioncalculator/
+// UQ colours 2021 from https://design-system.uq.edu.au/?path=/docs/core-colour-applying-colour--page
 
 // Fonts family
 $serif: Roboto, Helvetica, Arial, sans-serif;
@@ -25,12 +25,12 @@ $paddingSmall: 0.5em;
 $paddingTiny: 0.25em;
 
 // colors
-$uqBlue: #2377cb;
+$accent-color: #2377cb; // uqblue; uq blue
 $muteOrange: red;
 
 $almostBlack: #777;
 
-$titles: $uqBlue;
+$titles: $accent-color;
 $frbr: #ed9100;
 $pink: rgb(255, 171, 200);
 
@@ -40,38 +40,43 @@ $darker: darken(saturate(adjust-hue($dark, 0), 0), 6.6667);
 
 // lighter background color
 
-$highlightBlue: transparentize($uqBlue, 0.9);
-$highlightYellow: #fffcc4; //stronger
-$highlight: darken(desaturate(adjust-hue($highlightYellow, -4.092), 16), 8.0392);
-$highlightText: #ffe564;
 $success: #3ea03e;
-//$green: #3EA03E; // redundancy of 'success'
-$green: #198a19;
+$green: #2ea836;
 //$orange: #CE8015; //#E0962E;
 $muteOrange: #c59655;
-$yellow: #f1c16f;
+$uqInformationLight: #bbd8f5;
+//$yellow: #f1c16f;
+//$yellow-hue1: lighten($yellow, 20%); // uq yellow
 $overlayDarkDG: rgba(68, 68, 68, 0.6);
+
+$highlightBlue: transparentize($accent-color, 0.9);
+$uqWarningDark:  #fbb800;
+$highlight: darken(desaturate(adjust-hue($uqWarningDark, -4.092), 16), 8.0392);
+$uqWarningLight: #fff0c8;
+$uqNeutral: #d7d1cc;
+
+$uqLightGrey: #f7f6f5;
 
 // $availabiltyDetails: desaturate(lighten($midGrey,5%), 5%);
 //$maybe: $orange;
 
-$alert: #f7eda3;
+$alert: $uqInformationLight;
 $alert-hue1: darken(desaturate(adjust-hue($alert, 0.3074), 15.3043), 2.9412);
 
 $disabled: #aaa;
 $courseColor: #55909b;
 
-$primary: $uqBlue;
+$primary: $accent-color;
 $primary-hue1: darken($primary, 3%);
 $primary-hue2: darken($primary, 5%);
 $primary-hue3: darken($primary-hue2, 2%);
 $primary-hue4: darken($primary, 10%);
-$primary-hue5: darker($primary, -5%);
+//$primary-hue5: darker($primary, -5%);
 $primary-hue6: transparentize($primary, 0.1);
 
-$secondary: $uqBlue;
-$secondary-hue1: $uqBlue;
-$secondary-hue2: $uqBlue;
+$secondary: $accent-color;
+$secondary-hue1: $accent-color;
+$secondary-hue2: $accent-color;
 $secondary-hue3: darken(saturate(adjust-hue($secondary, -12), 30.28), 47.65); // "show more" buttons in facets
 $secondary-hue4: darken(saturate(adjust-hue($secondary, -7), 64.57), 13.92);
 $secondary-hue5: darken($secondary, 37%);
@@ -81,7 +86,7 @@ $backgroundColor: white;
 $backgroundActual: #e9e9e9;
 $textColor: #000;
 
-$positive: $uqBlue;
+$positive: $accent-color;
 $positive-hue1: darken($positive, 2%);
 
 $negative: gray;
@@ -122,7 +127,7 @@ $sectionHighlight: darken(desaturate($background, 0), 5%);
 $snippets: #999;
 $lightenGrey: #6d6d6d;
 
-$links: $uqBlue;
+$links: $accent-color;
 $links-background-hue1: transparent;
 $links-hue-1: darken(saturate($links, 5%), 5%);
 $links-hue-3: darken($links, 10%);
@@ -137,7 +142,7 @@ $linkTitle: $links;
 
 $collectionDisLinks: #0075b0;
 
-$red: tomato;
+$red: #eb602e; // uq orange
 $red-hue1: darken($red, 20%);
 // warning
 $warning: $red;
@@ -151,7 +156,7 @@ $text-hue2: $text;
 $text-hue3: darken($text, 10%);
 $text-hue4: lighten($text, 10%);
 
-$notice: #e08303;
+$notice: $red;
 
 $highlight: $background-hue7;
 $highlight-hue1: $background-hue7;
@@ -178,25 +183,25 @@ $defaultBarHeight: 60px;
 $briefButtonHeight: 38px;
 
 // citations
-$citation: tomato;
+$citation: $red;
 $citationColor: $citation;
 $citation-hue1: darken($citation, 40%);
 $citation-hue2: darken($citation, 20%);
 $citation-hue3: darken($citation, 22%);
 
 // warning
-$warning: tomato;
+$warning: $red;
 $warning-hue1: darken($warning, 20%);
 $warning-hue2: darken($warning, 22%);
 
 // personalization
-$personalization: #7d1538;
+$personalization: $accent-color;
 
 // Peer Reviewed
 $peer-reviewed-color: #8359d4;
 
 // Open Access
-$open-access-color: #f68212;
+$open-access-color: $red;
 
 // Angular Material
 //-----------------

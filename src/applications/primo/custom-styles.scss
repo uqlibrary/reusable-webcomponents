@@ -171,7 +171,7 @@ prm-search-bar {
     prm-journals-search-bar &,
     prm-search-bar &,
     prm-tags-search-bar & {
-        color: $uqBlue;
+        color: $accent-color;
     }
 }
 
@@ -184,7 +184,7 @@ prm-search-bookmark-filter {
 
 // Arrows shown next to headings in favourites
 prm-saved-queries-list .string-block prm-icon {
-    color: $uqBlue;
+    color: $accent-color;
 }
 
 //Browse interface - made dropdown list grey BG instead of yellow
@@ -222,7 +222,6 @@ prm-browse-search-bar .search-scope {
 .tiles-grid-tile .tile-header .header-link:hover,
 .tiles-grid-tile .tile-header .md-button,
 [class*='NFT'] > span,
-[class*='check_'] > span,
 [class*='_more'] > span,
 [class*='_unknown'] > span,
 [class*='may_'] > span,
@@ -285,7 +284,7 @@ prm-facet prm-breadcrumbs div.md-chip-content strong {
 }
 prm-facet {
     button.md-button.button-as-link.link-alt-color {
-        color: $uqBlue;
+        color: $accent-color;
     }
 }
 prm-breadcrumbs {
@@ -303,7 +302,7 @@ prm-breadcrumbs {
         }
     }
     .md-button.link-alt-color.button-as-link {
-        color: $uqBlue;
+        color: $accent-color;
     }
 }
 
@@ -408,7 +407,7 @@ md-checkbox {
     &.md-checked {
         .md-icon,
         ._md-icon {
-            background-color: $uqBlue;
+            background-color: $accent-color;
         }
     }
 }
@@ -466,7 +465,7 @@ md-content
 .citation-trails-brief,
 .citation-trails-fullview {
     .md-primoExplore-theme {
-        color: tomato !important;
+        color: $red !important;
     }
     &:hover {
         .md-primoExplore-theme {
@@ -551,9 +550,12 @@ button.md-button.link-alt-color {
     }
 }
 
-// reduce the padding on the locked facets
-prm-breadcrumbs .md-chip.persistent-facet .md-chip-content strong {
-    padding-left: 12px;
+prm-breadcrumbs .md-chip.persistent-facet {
+    background-color: $uqWarningLight;
+    .md-chip-content strong {
+        // reduce the padding on the locked facets
+        padding-left: 12px;
+    }
 }
 
 // uqblue (#2377CB) isn't accessible on the primo grey background, so slightly different colour is needed
@@ -614,16 +616,32 @@ primo-explore .md-dialog-container.fixed-container {
     background-color: rgba(83, 115, 140, 0.5);
 }
 
-prm-search-result-list .pages-separated-with-gaps {
-    .list-item-wrapper {
-        background-color: $white;
-        .item-bookmarked {
-            background: $highlightYellow;
+primo-explore prm-search-result-list {
+    .pages-separated-with-gaps {
+        .list-item-wrapper {
+            background-color: $white;
+
+            .item-bookmarked {
+                background: $uqLightGrey;
+            }
+        }
+
+        .results-title:not(.results-title-favorites) {
+            padding-left: 70px;
+            top: -7px !important;
         }
     }
-    .results-title:not(.results-title-favorites) {
-        padding-left: 70px;
-        top: -7px !important;
+    prm-personalize-results-button {
+        .md-button:hover md-switch.md-checked .md-label {
+            color: $links-hue-3 !important;
+        }
+        .md-button.toggled.button-as-link:hover:not([disabled]):hover:not([disabled]) {
+            background-color: $highlightBlue;
+            color: $links-hue-3;
+        }
+        .md-button md-switch.md-checked .md-label .bold-text {
+            color: $accent-color;
+        }
     }
 }
 
@@ -632,7 +650,7 @@ prm-search-result-tool-bar {
         prm-add-query-to-saved-searches,
         prm-personalize-results-button {
             .md-button.link-alt-color.button-as-link {
-                color: $uqBlue;
+                color: $accent-color;
             }
         }
     }
@@ -715,17 +733,26 @@ md-toast .md-toast-content .md-button {
     prm-silent-login-alert-toast &,
     prm-timeout-toast &,
     prm-voice-search-toast & {
-        color: #5f5f5f;
+        color: $dark;
         &:not([disabled]) {
             &._md-focused,
             &.hovered,
             &.md-focused,
             &:focus,
             &:hover {
-                color: $white;
-                background-color: #5f5f5f;
+                color: #000;
+                background-color: rgba(51,51,51,0.1);
             }
         }
+    }
+}
+md-toast .md-toast-content {
+    prm-add-alert-toast &,
+    prm-mendeley-toast &,
+    prm-silent-login-alert-toast &,
+    prm-timeout-toast &,
+    prm-voice-search-toast & {
+        background-color: $uqInformationLight;
     }
 }
 
@@ -744,7 +771,7 @@ prm-voice-search-toast md-toast .md-button.settings-button md-icon {
 }
 
 // then reverse the colours on hover
-md-toast .md-button.settings-button:not([disabled]) {
+md-toast .md-button.settings-button:not([disabled]):not(.dismiss-alert-button) {
     prm-add-alert-toast &,
     prm-mendeley-toast &,
     prm-silent-login-alert-toast &,
@@ -859,7 +886,7 @@ prm-page-nav-menu {
         // Show blue background for current page/page-size
         // instead of rounded rectangle
         box-shadow: none;
-        background: $uqBlue;
+        background: $accent-color;
         color: $white !important;
     }
     .counter-main,
@@ -867,7 +894,7 @@ prm-page-nav-menu {
     .bulks-options {
         .md-button {
             // Blue colour for all clickable items
-            color: $uqBlue;
+            color: $accent-color;
             &:not([disabled]) {
                 &.hovered,
                 &.md-focused,
@@ -893,4 +920,65 @@ prm-explore-main {
         // to be clickable
         z-index: 20;
     }
+}
+
+// availability statements should be either blue (for mostly available now), or grey (for mostly available by request).
+button[title*="Check availability"] span  {
+    color: #555555 !important;
+}
+
+prm-alphabet-toolbar  {
+    .md-button {
+        &.active {
+            color: $accent-color !important;
+            background-color: $white;
+        }
+    }
+    .md-button {
+        &.active:hover,
+        &.active:focus,
+        &.active.md-focused {
+            background-color: $accent-color !important;
+            color: $white !important;
+        }
+    }
+    .bar {
+        button, &.alert-bar {
+            color: #fff;
+        }
+    }
+}
+
+// make the login button in the toast look clickable
+ui-view,
+prm-login-alma-mashup {
+    button.button-with-icon.zero-margin.md-button.md-primoExplore-theme.md-ink-ripple:not(.dismiss-alert-button) {
+        &:active,
+        &:focus,
+        &:hover {
+            background-color: $accent-color !important;
+            color: #fff;
+        }
+    }
+}
+
+// make the dismiss login button look clickable
+ui-view,
+prm-login-alma-mashup {
+    button.dismiss-alert-button.zero-margin.md-button.md-primoExplore-theme.md-ink-ripple.button-with-icon {
+        &:active,
+        &:focus,
+        &:hover {
+            color: #000;
+            background-color: rgba(51, 51, 51, 0.1) !important;
+        }
+    }
+}
+prm-authentication button.button-with-icon prm-icon {
+    padding-top: 4px;
+}
+
+// color the exclude facet
+.available-facets .section-content .md-chips .md-chip .button-exclude:hover:not([disabled]) {
+    color: $red;
 }

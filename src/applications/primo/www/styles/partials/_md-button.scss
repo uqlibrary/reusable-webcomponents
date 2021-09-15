@@ -43,7 +43,7 @@
     }
 
     &.button-warn {
-        @include bgColor($warn-hue1);
+        @include bgColor($warn);
     }
 
     // use to inherit background color of dark color parent
