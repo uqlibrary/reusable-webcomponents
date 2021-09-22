@@ -1,0 +1,94 @@
+@import '../styles-imports/skeleton.scss';
+
+@import "styles-imports/libcal";
+
+uql-menu div#scrim {
+  z-index: 1000;
+}
+
+/* let admin menu overlap UQ Library header */
+html body.logged-in.admin-menu {
+  margin-top: 0 !important;
+}
+
+body.ia-enabled {
+  uq-minimal-header {
+    overflow: visible !important;
+    z-index: 1000;
+  }
+
+  #overlay-container {
+    z-index: 1001;
+
+    .overlay-element {
+      z-index: 1002;
+    }
+
+  }
+
+  /* hide Drupal header/footer */
+  #mobile-user-greeting,
+  #zone-postscript-wrapper,
+  #section-header,
+  #section-footer {
+    display: none;
+  }
+
+  /* Default Layout */
+  @media all and (min-width: 740px) and (min-device-width: 740px),
+  (max-device-width: 800px) and (min-width: 740px) and (orientation: landscape) {
+    background-position: 50% 64px;
+  }
+
+  /* Narrow Layout */
+  @media all and (min-width: 740px) and (min-device-width: 740px),
+  (max-device-width: 800px) and (min-width: 740px) and (orientation: landscape) {
+    #section-content {
+      #zone-content-wrapper {
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+  /* Wide Layout */
+  @media all and (min-width: 1048px) {
+    background-position: 50% 66px;
+
+    &.front {
+      &.responsive-layout-mobile {
+        #region-content #uql-search {
+          margin-top: 180px;
+        }
+      }
+    }
+
+    #section-content {
+      #zone-content-wrapper {
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+    }
+
+    &.admin-menu {
+      #section-content {
+        #zone-content-wrapper {
+          margin-top: 20px;
+        }
+      }
+    }
+  }
+
+  @media all and (max-width: 739px) {
+  }
+}
+
+//uq drupal styles
+
+.page {
+  min-height: calc(100vh - 450px);
+  position: relative;
+}
+
+#admin-menu {
+  z-index: 1001 !important;
+}
