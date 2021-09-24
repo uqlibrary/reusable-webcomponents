@@ -12,7 +12,9 @@ describe('Alert', () => {
                 .find('uq-alert[id="alert-1"]')
                 .shadow()
                 .find('#alert-title')
-                .should('have.text', 'This is an alert');
+                .should('contain', 'This is an alert')
+                .should('not.contain', 'primo') // the system-specific alerts dont appear on this system-unspecified page
+                .should('not.contain', 'drupal');
 
             cy.get('alert-list')
                 .shadow()
@@ -32,10 +34,12 @@ describe('Alert', () => {
 
             cy.get('alert-list')
                 .shadow()
-                .find('uq-alert[id="alert-2"]')
+                .find('uq-alert[id="alert-4"]')
                 .shadow()
                 .find('#alert-title')
-                .should('have.text', 'This is a permanent urgent alert');
+                .should('contain', 'This is a permanent urgent alert')
+                .should('not.contain', 'primo')
+                .should('not.contain', 'drupal');
         });
 
         it('Alert passes accessibility', () => {
@@ -54,7 +58,7 @@ describe('Alert', () => {
                 });
             cy.get('alert-list')
                 .shadow()
-                .find('uq-alert[id="alert-2"]')
+                .find('uq-alert[id="alert-4"]')
                 .shadow()
                 .find('div#alert')
                 .checkA11y('alert-list', {

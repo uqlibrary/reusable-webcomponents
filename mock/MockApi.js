@@ -111,11 +111,30 @@ class MockApi {
                 }
 
             case apiRoute.ALERT_API().apiUrl:
+                const fakeUrl = new URL(`https://api/${url}`);
+                let searchParams = new URLSearchParams(fakeUrl.search);
+
+                let system;
+                if (searchParams.has('system')) {
+                    system = searchParams.get('system');
+                }
                 if (this.user === 'errorUser') {
                     return this.response(403, {});
                     // return this.response(500, {}, true);
                 } else {
-                    return this.response(200, alerts, true);
+                    // it seems more flexible to filter the mock data here rather than create multiple mock fields
+                    // and conditionally return them
+                    console.log('checking alerts for this system:', system);
+                    const filteredAlerts = alerts.filter(a => {
+                        if (a.systems.length === 0) {
+                            return true; // display this alert on all systems
+                        }
+                        if (!!system && a.systems.includes(system)) {
+                            return true; // this alert is specific to this system - display
+                        }
+                        return false; // this alert is specific to a different system than this one - dont display
+                    })
+                    return this.response(200, filteredAlerts, true);
                 }
 
             case apiRoute.TRAINING_API().apiUrl:
