@@ -91,6 +91,17 @@ function fontLoader(font) {
     link.href = font;
 }
 
+function addCss(fileName) {
+    var head = document.head,
+        link = document.createElement('link');
+
+    link.type = 'text/css';
+    link.rel = 'stylesheet';
+    link.href = fileName;
+
+    head.appendChild(link);
+}
+
 // certain admin pages in drupal dont take the webcomponents because they interact badly
 const drupalHosts = ['web.library.uq.edu.au', 'library.stage.drupal.uq.edu.au', 'localhost:8080'];
 const pagesWithoutComponents = [
@@ -109,6 +120,13 @@ function loadReusableComponentsDrupal() {
     if (drupalHosts.includes(window.location.host) && pagesWithoutComponents.includes(window.location.pathname)) {
         return;
     }
+
+    const stagingLocation = '-development/feature-drupal';
+    const cssFile =
+        '//assets.library.uq.edu.au/reusable-webcomponents' +
+        (window.location.host === 'library.stage.drupal.uq.edu.au' ? stagingLocation : '') +
+        '/applications/drupal/custom-styles.css';
+    addCss(cssFile);
 
     const firstElement = document.body.children[0];
     if (!firstElement) {
