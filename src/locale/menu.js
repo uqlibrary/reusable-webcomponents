@@ -155,6 +155,8 @@ export default {
                     secondaryText: 'Access full-text from anywhere',
                     linkTo: 'https://web.library.uq.edu.au/research-tools-techniques/campus-access',
                 },
+                // Extra blank field to put an item on the right.
+                {},
                 {
                     primaryText: 'Search techniques',
                     secondaryText: 'Find the results you need',
@@ -179,6 +181,11 @@ export default {
                     primaryText: 'Digital Essentials',
                     secondaryText: 'Build your digital & assignment skills',
                     linkTo: 'https://web.library.uq.edu.au/research-tools-techniques/digital-essentials',
+                },
+                {
+                    primaryText: 'Discover health information',
+                    secondaryText: 'Health research & evidence-based practice',
+                    linkTo: 'https://web.library.uq.edu.au/research-tools-techniques/discover-health-information',
                 },
                 {
                     primaryText: 'Digital Researcher Lab',
