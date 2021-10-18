@@ -122,7 +122,7 @@ class MockApi {
                     return this.response(403, {});
                     // return this.response(500, {}, true);
                 } else {
-                    // it seems more flexible to filter the mock data here rather than create multiple mock fields
+                    // it seems more flexible to filter the mock data here rather than create multiple mock files
                     // and conditionally return them
                     console.log('checking alerts for this system:', system);
                     const filteredAlerts = alerts.filter(a => {
