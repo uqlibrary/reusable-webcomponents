@@ -856,13 +856,6 @@ prm-back-to-search-results-button {
     }
 }
 
-// improve the colour contrast on some obscure text, by request
-span.availability-status.no_fulltext,
-span.availability-status.unavailable_in_institution,
-span.availability-status.restricted {
-    color: #555555;
-}
-
 prm-full-view {
     #full-view-container {
         &,
@@ -923,8 +916,42 @@ prm-explore-main {
 }
 
 // availability statements should be either blue (for mostly available now), or grey (for mostly available by request).
-button[title*="Check availability"] span  {
+prm-search-result-availability-line button {
+  // default to blue unless specified as grey, thus we never get orange!
+  span.availability-status {
+    color: $accent-color !important;
+  }
+  // attempt to collate all possible "check availability" and "unavailable" codes
+  span.availability-status.check_holding_in_institution,
+  span.availability-status.check_holding_in_library,
+  span.availability-status.check_holdings,
+  span.availability-status.check_holdings_in_institution,
+  span.availability-status.check_holdings_in_library,
+  span.availability-status.check_holdings_in_maininstitution,
+  span.availability-status.does_not_exist_in_maininstitution,
+  span.availability-status.does_not_exist_in_my_institution_available,
+  span.availability-status.does_not_exist_in_my_institution_check_holdings,
+  span.availability-status.does_not_exist_in_my_institution_unavailable,
+  span.availability-status.fulltext_unknown,
+  span.availability-status.getit,
+  span.availability-status.may_be_restricted,
+  span.availability-status.no_fulltext_linktosrc,
+  span.availability-status.no_fulltext_linktosrc_newspaper,
+  span.availability-status.no_fulltext_newspaper,
+  span.availability-status.no_fulltext,
+  span.availability-status.restricted,
+  span.availability-status.unavailable_in_all_institutions,
+  span.availability-status.unavailable_in_institution,
+  span.availability-status.unavailable_in_library,
+  span.availability-status.unavailable_in_maininstitution_more,
+  span.availability-status.unavailable_in_maininstitution_nomore,
+  span.availability-status.viewit_getit_NFT,
+  span.availability-status.viewit_NFT {
+    &>span {
+      color: #555555 !important;
+    }
     color: #555555 !important;
+  }
 }
 
 prm-alphabet-toolbar  {
