@@ -900,6 +900,11 @@ prm-page-nav-menu {
             }
         }
     }
+
+    // pagination widget has a contrast issue of a blue arrow and dark background, upon hovering
+    #speedDialWidget .md-button.md-fab:hover {
+        background-color: $highlightBlue;
+    }
 }
 
 .my-refworks-ctm {
