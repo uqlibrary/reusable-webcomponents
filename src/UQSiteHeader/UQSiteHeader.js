@@ -42,7 +42,7 @@ template.innerHTML = `
       </div>
 
       <!-- Navigation Menu  -->
-      <div class="uq-site-header__navigation-container">
+      <div data-testid="mega-menu-container" class="uq-site-header__navigation-container">
         <nav class="uq-site-header__navigation" id="jsNav">
           <ul class="uq-site-header__navigation__list uq-site-header__navigation__list--level-1">
           </ul>

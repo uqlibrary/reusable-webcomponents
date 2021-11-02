@@ -113,5 +113,29 @@ describe('UQ Header', () => {
                     cy.get('[data-testid="uqheader-nav-search"]').find('form').should('be.visible');
                 });
         });
+
+        it('the menu draws properly on device rotation', () => {
+            cy.viewport(1024, 768); // ipad landscape
+            cy.get('uq-site-header')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="mega-menu-container"]')
+                        .should('exist')
+                        .invoke('css', 'height')
+                        .then((str) => parseInt(str))
+                        .should('be.lt', 90); // the menu does not wrap
+
+                    cy.viewport(768, 1024); // ipad portrait
+                    cy.get('[data-testid="uq-site-header__navigation-toggle"]').should('exist').click();
+
+                    cy.viewport(1024, 768); // ipad landscape
+                    cy.wait(50);
+                    cy.get('[data-testid="mega-menu-container"]')
+                        .should('exist')
+                        .invoke('css', 'height')
+                        .then((str) => parseInt(str))
+                        .should('be.lt', 90); // the menu does not wrap
+                });
+        });
     });
 });
