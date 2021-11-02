@@ -24,6 +24,20 @@ function _createClass(Constructor, protoProps, staticProps) {
 
 var uq = (function (exports) {
     'use strict';
+
+    function toggleMegaMenu(toggle) {
+        const target = this.nav.querySelectorAll(`.${this.level1Class}`);
+        const ariaExpanded = toggle.getAttribute('aria-expanded') === 'true';
+
+        toggle.classList.toggle(`${this.navClass}-toggle--close`);
+        toggle.setAttribute('aria-expanded', !ariaExpanded);
+
+        target.forEach((el) => {
+            el.classList.toggle(this.openModifier);
+            el.setAttribute('aria-expanded', !ariaExpanded);
+        });
+    }
+
     /**
      * Main Navigation
      * @file Drop down navigation handler.
@@ -46,6 +60,7 @@ var uq = (function (exports) {
             this.init = this.init.bind(this);
             this.handleToggle = this.handleToggle.bind(this);
             this.handleMobileToggle = this.handleMobileToggle.bind(this);
+            this.handleResize = this.handleResize.bind(this);
             this.setOrientation = this.setOrientation.bind(this);
             this.handleKeyPress = this.handleKeyPress.bind(this);
 
@@ -67,6 +82,7 @@ var uq = (function (exports) {
                     const subNavToggles = this.nav.querySelectorAll(`.${this.subToggleClass}`);
 
                     mobileToggle.addEventListener('click', this.handleMobileToggle);
+                    window.addEventListener('resize', this.handleResize);
 
                     subNavItems.forEach((item) => {
                         this.setOrientation(item);
@@ -103,16 +119,20 @@ var uq = (function (exports) {
                 key: 'handleMobileToggle',
                 value: function handleMobileToggle(event) {
                     const toggle = event.target;
-                    const target = this.nav.querySelectorAll(`.${this.level1Class}`);
+                    toggleMegaMenu.call(this, toggle);
+                },
+            },
+            {
+                key: 'handleResize',
+                value: function handleResize(event) {
+                    const toggle = document
+                        .querySelector('uq-site-header')
+                        .shadowRoot.querySelector(`.${this.toggleClass}`);
+                    // close the expanded mobile menu if open - otherwise inappropriate classes remain applied
                     const ariaExpanded = toggle.getAttribute('aria-expanded') === 'true';
-
-                    toggle.classList.toggle(`${this.navClass}-toggle--close`);
-                    toggle.setAttribute('aria-expanded', !ariaExpanded);
-
-                    target.forEach((el) => {
-                        el.classList.toggle(this.openModifier);
-                        el.setAttribute('aria-expanded', !ariaExpanded);
-                    });
+                    if (!!ariaExpanded) {
+                        toggleMegaMenu.call(this, toggle);
+                    }
                 },
             },
             {
