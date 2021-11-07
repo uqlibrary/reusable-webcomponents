@@ -160,3 +160,12 @@ prm-collection-discovery-view-switcher .md-button.is-active:not([disabled]) {
 prm-collection-search button.search-button.md-button.md-primoExplore-theme.md-ink-ripple:not(.is-shifted) {
     margin-left: 40px;
 }
+
+// If searching within a collection in Collection Discovery and finding no results,
+// there is new text to expand the search to all collections in Collection Discovery.
+// Part of the text under the hyperlink is in Ex Libris teal - PT #180061880
+prm-collection-gallery {
+    .collection-discovery-expand-search button.md-button {
+        color: $accent-color;
+    }
+}

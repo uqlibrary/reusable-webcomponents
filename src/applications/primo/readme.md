@@ -19,7 +19,7 @@ There are 6 basic environments:
 
 (and of course there is the `master` branch, but this does not map to any of the live environments)
 
-The branch is set in the view package - see repo exlibris-primo (TBD)
+The branch is set in the view package - see [github repo exlibris-primo](https://github.com/uqlibrary/exlibris-primo)
 
 Primo UI is in active development. All releases are scheduled by ExLibris and are available in Primo Sand Box a couple of weeks before going to production.
 
