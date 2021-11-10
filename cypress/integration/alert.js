@@ -5,7 +5,7 @@ describe('Alert', () => {
         it('Alert is visible without interaction at 1280', () => {
             cy.visit('http://localhost:8080');
             cy.viewport(1280, 900);
-            cy.get('alert-list').shadow().find('uq-alert').should('have.length', 2);
+            cy.get('alert-list').shadow().find('uq-alert').should('have.length', 3);
 
             cy.get('alert-list')
                 .shadow()
@@ -71,10 +71,10 @@ describe('Alert', () => {
         it('Alert is hidden if clicked to dismiss', () => {
             cy.visit('http://localhost:8080');
             cy.viewport(1280, 900);
-            cy.get('alert-list').shadow().find('uq-alert').should('have.length', 2);
+            cy.get('alert-list').shadow().find('uq-alert').should('have.length', 3);
             cy.get('alert-list').shadow().find('uq-alert[id="alert-1"]').shadow().find('#alert-close').click();
             cy.reload(true);
-            cy.get('alert-list').shadow().find('uq-alert').should('have.length', 1);
+            cy.get('alert-list').shadow().find('uq-alert').should('have.length', 2);
         });
 
         it('Alert is hidden if cookie is set to hide it', () => {
@@ -82,7 +82,7 @@ describe('Alert', () => {
             cy.viewport(1280, 900);
             cy.setCookie('UQ_ALERT_alert-1', 'hidden');
             cy.visit('http://localhost:8080');
-            cy.get('alert-list').shadow().find('uq-alert').should('have.length', 1);
+            cy.get('alert-list').shadow().find('uq-alert').should('have.length', 2);
         });
 
         it('Alert with no param displays correctly', () => {

@@ -80,10 +80,10 @@ export const alerts = [{
     "id": "5",
     "start": "2021-01-01 00:00:12",
     "end": "2025-12-31 23:59:12",
-    "title": "This is a permanent urgent alert that will show on all systems",
+    "title": "This is a permanent urgent alert that will show on homepage only",
     "body": "This is the message [permanent]",
     "urgent": 1,
-    "systems": ['drupal'],
+    "systems": ['homepage'],
 }];
 
 export const primoSuggestions = {
