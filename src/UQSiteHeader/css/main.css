@@ -1862,7 +1862,7 @@ a:hover {
     .uq-site-header__navigation__list--level-2 {
         position: absolute;
         width: 320px;
-        transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+        transition: none;
     }
 }
 
@@ -1872,6 +1872,7 @@ a:hover {
     height: auto;
     visibility: visible;
     z-index: 20;
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
 }
 
 .uq-site-header__navigation__list--level-2.uq-site-header__navigation__list--reverse {

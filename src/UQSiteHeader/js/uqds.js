@@ -174,27 +174,34 @@ var uq = (function (exports) {
                     child.classList.contains('multicolumn-2') && child.classList.add('displaymulticolumn-2');
                     child.classList.contains('multicolumn-3') && child.classList.add('displaymulticolumn-3');
 
+                    !!menuItem && this.setOrientation(menuItem);
+
                     menuItem.querySelector('a').setAttribute('aria-expanded', 'true');
                 },
             },
             {
                 key: 'closeLevel',
                 value: function closeLevel(subNav, menuItem) {
+                    const { reverseClass } = this;
+                    subNav.classList.remove(reverseClass);
+
                     !!subNav &&
                         subNav.classList.contains(this.openModifier) &&
                         subNav.classList.remove(this.openModifier);
-                    !!menuItem && this.setOrientation(menuItem);
+
                     !!menuItem &&
                         menuItem.classList.contains(this.levelOpenModifier) &&
                         menuItem.classList.remove(this.levelOpenModifier);
 
                     const child = !!menuItem && menuItem.querySelector('ul');
-                    !!child &&
-                        child.classList.contains('displaymulticolumn-2') &&
-                        child.classList.remove('displaymulticolumn-2');
+
                     !!child &&
                         child.classList.contains('displaymulticolumn-3') &&
                         child.classList.remove('displaymulticolumn-3');
+
+                    !!child &&
+                        child.classList.contains('displaymulticolumn-2') &&
+                        child.classList.remove('displaymulticolumn-2');
 
                     !!menuItem && menuItem.querySelector('a').setAttribute('aria-expanded', 'false');
                 },
@@ -222,7 +229,7 @@ var uq = (function (exports) {
                         subNavRight = subNav.getBoundingClientRect().right;
                     }
 
-                    if (window.innerWidth < subNavRight) {
+                    if (window.innerWidth - 15 < subNavRight) {
                         subNav.classList.add(reverseClass);
                     }
                 },
@@ -295,6 +302,7 @@ var uq = (function (exports) {
         } catch {
             return false;
         }
+
         return true;
     })(document.createDocumentFragment());
 
