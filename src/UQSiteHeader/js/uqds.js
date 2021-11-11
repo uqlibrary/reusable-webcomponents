@@ -474,7 +474,7 @@ var uq = (function (exports) {
                                 // on uqlapp we get weird errors like
                                 // "Failed to execute 'querySelector' on 'DocumentFragment': '#/membership.accordion__content' is not a valid selector."
                                 // where #/membership is a vital part of the url
-                                // note: uqlapp does not display the megamenu
+                                // note: uqlapp does not display the megamenu.
                                 selectors = selectors.replace('#/membership.', '');
                                 if (!isSelectorValid(selectors)) {
                                     console.log(
