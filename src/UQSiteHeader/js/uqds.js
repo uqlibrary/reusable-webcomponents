@@ -183,11 +183,14 @@ var uq = (function (exports) {
                 key: 'closeLevel',
                 value: function closeLevel(subNav, menuItem) {
                     const { reverseClass } = this;
+
                     subNav.classList.remove(reverseClass);
 
                     !!subNav &&
                         subNav.classList.contains(this.openModifier) &&
                         subNav.classList.remove(this.openModifier);
+
+                    !!menuItem && this.setOrientation(menuItem);
 
                     !!menuItem &&
                         menuItem.classList.contains(this.levelOpenModifier) &&
