@@ -295,7 +295,7 @@ var uq = (function (exports) {
         throw new Error('Dynamic requires are not currently supported by @rollup/plugin-commonjs');
     }
 
-    // per https://stackoverflow.com/questions/34849001/check-if-css-selector-is-valid/42149818
+    // as per https://stackoverflow.com/questions/34849001/check-if-css-selector-is-valid/42149818
     const isSelectorValid = ((dummyElement) => (selector) => {
         try {
             dummyElement.querySelector(selector);
