@@ -48,16 +48,42 @@ export const alerts = [{
     "id": "1",
     "start": "2021-01-01 00:00:12",
     "end": "2025-12-31 23:59:12",
-    "title": "This is an alert",
+    "title": "This is an alert that will show on all systems 1 of 2",
     "body": "This is the message [Action button label](http://www.example.com)",
-    "urgent": 0
+    "urgent": 0,
+    "systems": [],
 }, {
     "id": "2",
     "start": "2021-01-01 00:00:12",
     "end": "2025-12-31 23:59:12",
-    "title": "This is a permanent urgent alert",
+    "title": "This is a permanent urgent alert that will only show on primo",
     "body": "This is the message [permanent]",
-    "urgent": 1
+    "urgent": 1,
+    "systems": ['primo'],
+}, {
+    "id": "3",
+    "start": "2021-01-01 00:00:12",
+    "end": "2025-12-31 23:59:12",
+    "title": "This is a permanent urgent alert that will only show on primo or drupal",
+    "body": "This is the message [permanent]",
+    "urgent": 1,
+    "systems": ['primo', 'drupal'],
+}, {
+    "id": "4",
+    "start": "2021-01-01 00:00:12",
+    "end": "2025-12-31 23:59:12",
+    "title": "This is a permanent urgent alert that will show on all systems 2 of 2",
+    "body": "This is the message [permanent]",
+    "urgent": 1,
+    "systems": [],
+}, {
+    "id": "5",
+    "start": "2021-01-01 00:00:12",
+    "end": "2025-12-31 23:59:12",
+    "title": "This is a permanent urgent alert that will show on homepage only",
+    "body": "This is the message [permanent]",
+    "urgent": 1,
+    "systems": ['homepage'],
 }];
 
 export const primoSuggestions = {

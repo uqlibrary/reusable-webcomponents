@@ -22,10 +22,14 @@ class ApiRoutes {
         };
     }
 
-    ALERT_API() {
-        return {
-            apiUrl: 'alerts/current',
-        };
+    ALERT_API(system = null) {
+        return !!system && system.length > 0
+            ? {
+                  apiUrl: `alerts/current?system=${system}`,
+              }
+            : {
+                  apiUrl: 'alerts/current',
+              };
     }
 
     // Primo Suggestions API

@@ -82,6 +82,13 @@ describe('Dummy Application', () => {
             .find('[data-testid="alert-alert-1"]')
             .should('exist')
             .and('contain', 'This is the message');
+        // none of these test systems are primo, so this alert wont appear on any of them
+        cy.get('alert-list')
+            .shadow()
+            .find('uq-alert')
+            .shadow()
+            .find('[data-testid="alert-alert-2"]')
+            .should('not.exist');
     }
 
     function hasNoAlerts() {
@@ -324,6 +331,14 @@ describe('Dummy Application', () => {
             hasMyLibraryButton();
 
             hasAnAlert();
+            // a drupal specific alert appears
+            cy.get('alert-list')
+                .shadow()
+                .find('uq-alert')
+                .shadow()
+                .find('[data-testid="alert-alert-3"]')
+                .should('exist')
+                .should('contain', 'This is the message');
 
             hasConnectFooter();
 

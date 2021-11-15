@@ -95,8 +95,8 @@ class ApiAccess {
         return result;
     }
 
-    async loadAlerts() {
-        const alertApi = new ApiRoutes().ALERT_API();
+    async loadAlerts(system) {
+        const alertApi = new ApiRoutes().ALERT_API(system);
         const urlPath = alertApi.apiUrl;
         // const options = !!alertApi.options ? alertApi.options : {};
         const options = {}; // options not currently used

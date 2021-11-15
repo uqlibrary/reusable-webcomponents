@@ -160,6 +160,7 @@ function loadReusableComponentsDrupal() {
 
     if (!document.querySelector('alert-list')) {
         const alerts = document.createElement('alert-list');
+        !!alerts && alerts.setAttribute('system', 'drupal');
         !!alerts && document.body.insertBefore(alerts, firstElement);
     }
 
