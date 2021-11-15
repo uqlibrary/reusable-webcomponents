@@ -10,21 +10,41 @@ template.innerHTML = `
     </div>
 `;
 
-let initCalled;
-
 class Alerts extends HTMLElement {
     constructor() {
         super();
 
-        const shadowDOM = this.attachShadow({ mode: 'open' });
-
-        // Render the template
-        shadowDOM.appendChild(template.content.cloneNode(true));
-        this.updateAlertListDom(shadowDOM);
+        this.system = this.getAttribute('system');
     }
 
-    async updateAlertListDom(shadowRoot) {
-        await new ApiAccess().loadAlerts().then((alerts) => {
+    static get observedAttributes() {
+        return ['system'];
+    }
+
+    connectedCallback() {
+        // because the system attribute is sometimes set via javascript, not inline on an element, we have to give
+        // a short delay to allow that next line of js to be reached
+        const shortDelayForAttributes = setInterval(() => {
+            console.log('### shortDelayForAttributes');
+            clearInterval(shortDelayForAttributes);
+
+            const shadowDOM = this.attachShadow({ mode: 'open' });
+
+            shadowDOM.appendChild(template.content.cloneNode(true));
+            this.updateAlertListDom(shadowDOM, this.system);
+        }, 50);
+    }
+
+    attributeChangedCallback(fieldName, oldValue, newValue) {
+        if (fieldName === 'system') {
+            this.system = newValue;
+        } else {
+            console.log(`unhandled attribute ${fieldName} received for Alerts`);
+        }
+    }
+
+    async updateAlertListDom(shadowRoot, system) {
+        await new ApiAccess().loadAlerts(system).then((alerts) => {
             const alertParent = document.querySelector('alert-list');
             const shadowDOM = !!alertParent && alertParent.shadowRoot;
             const alertWrapper = !!shadowDOM && shadowDOM.getElementById('alerts-wrapper');
