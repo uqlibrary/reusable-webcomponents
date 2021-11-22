@@ -140,7 +140,7 @@ var uq = (function (exports) {
                 value: function handleToggle(event) {
                     if (
                         (event.type === 'mouseenter' || event.type === 'mouseleave') &&
-                        window.matchMedia('(max-width: 1024px)').matches
+                        window.matchMedia('(max-width: 1023px)').matches
                     ) {
                         return;
                     }
@@ -174,12 +174,17 @@ var uq = (function (exports) {
                     child.classList.contains('multicolumn-2') && child.classList.add('displaymulticolumn-2');
                     child.classList.contains('multicolumn-3') && child.classList.add('displaymulticolumn-3');
 
+                    !!menuItem && this.setOrientation(menuItem);
+
                     menuItem.querySelector('a').setAttribute('aria-expanded', 'true');
                 },
             },
             {
                 key: 'closeLevel',
                 value: function closeLevel(subNav, menuItem) {
+                    const { reverseClass } = this;
+                    subNav.classList.remove(reverseClass);
+
                     !!subNav &&
                         subNav.classList.contains(this.openModifier) &&
                         subNav.classList.remove(this.openModifier);
