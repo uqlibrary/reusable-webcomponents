@@ -140,7 +140,7 @@ var uq = (function (exports) {
                 value: function handleToggle(event) {
                     if (
                         (event.type === 'mouseenter' || event.type === 'mouseleave') &&
-                        window.matchMedia('(max-width: 1024px)').matches
+                        window.matchMedia('(max-width: 1023px)').matches
                     ) {
                         return;
                     }
