@@ -95,7 +95,7 @@ template.innerHTML = `
                                 
                 <!-- Spotlights Admin -->
                 <li data-testid="spotlights-admin" id="spotlights-admin" role="menuitem" aria-disabled="false">
-                    <a data-testid="mylibrary-menu-spotlights-admin" href="https://app.library.uq.edu.au/spotlights/#/" rel="noreferrer">
+                    <a data-testid="mylibrary-menu-spotlights-admin" href="https://www.library.uq.edu.au/admin/spotlights" rel="noreferrer">
                         <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path></svg>
                         <span>Website spotlights</span>
                     </a>
