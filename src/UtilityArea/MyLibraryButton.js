@@ -11,8 +11,8 @@ template.innerHTML = `
             <div id="mylibrary-label">MyLibrary</div>
         </button>
         <!-- Menu -->
-        <div id="mylibrary-menu" data-testid="mylibrary-menu" class="closed-menu" style="display: none">
-            <ul class="mylibrary-menu-list" role="menu" >
+        <div id="mylibrary-menu" data-testid="mylibrary-menu" class="closed-menu" style="display: none;">
+            <ul class="mylibrary-menu-list" role="menu">
                 <!-- Borrowing -->
                 <li role="menuitem" aria-disabled="false">
                     <a data-testid="mylibrary-menu-borrowing" href="https://search.library.uq.edu.au/primo-explore/login?vid=61UQ&targetURL=https%3A%2F%2Fsearch.library.uq.edu.au%2Fprimo-explore%2Faccount%3Fvid%3D61UQ%26lang%3Den_US%26section%3Dloans" rel="noreferrer">
@@ -34,14 +34,6 @@ template.innerHTML = `
                     <a data-testid="mylibrary-menu-document-delivery" href="https://auth.library.uq.edu.au/login?relais_return=1" rel="noreferrer">
                         <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"></path></svg>
                         <span>Document delivery</span>
-                    </a>
-                </li>
-                
-                <!-- Masquerade -->
-                <li data-testid="mylibrary-masquerade" id="mylibrary-masquerade" role="menuitem" aria-disabled="false">
-                    <a data-testid="mylibrary-menu-masquerade" href="https://www.library.uq.edu.au/admin/masquerade" rel="noreferrer">
-                        <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M16.5 12c1.38 0 2.49-1.12 2.49-2.5S17.88 7 16.5 7C15.12 7 14 8.12 14 9.5s1.12 2.5 2.5 2.5zM9 11c1.66 0 2.99-1.34 2.99-3S10.66 5 9 5C7.34 5 6 6.34 6 8s1.34 3 3 3zm7.5 3c-1.83 0-5.5.92-5.5 2.75V19h11v-2.25c0-1.83-3.67-2.75-5.5-2.75zM9 13c-2.33 0-7 1.17-7 3.5V19h7v-2.25c0-.85.33-2.34 2.37-3.47C10.5 13.1 9.66 13 9 13z"></path></svg>
-                        <span>Masquerade</span>
                     </a>
                 </li>
                 
@@ -84,22 +76,6 @@ template.innerHTML = `
                         <span>Saved searches</span>
                     </a>
                 </li>
-                                
-                <!-- Alerts Admin -->
-                <li data-testid="alerts-admin" id="alerts-admin" role="menuitem" aria-disabled="false">
-                    <a data-testid="mylibrary-menu-alerts-admin" href="https://www.library.uq.edu.au/admin/alerts" rel="noreferrer">
-                        <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path></svg>
-                        <span>Website alerts</span>
-                    </a>
-                </li>
-                                
-                <!-- Spotlights Admin -->
-                <li data-testid="spotlights-admin" id="spotlights-admin" role="menuitem" aria-disabled="false">
-                    <a data-testid="mylibrary-menu-spotlights-admin" href="https://www.library.uq.edu.au/admin/spotlights" rel="noreferrer">
-                        <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path></svg>
-                        <span>Website spotlights</span>
-                    </a>
-                </li>
 
                 <!-- Feedback -->
                 <li role="menuitem" aria-disabled="false">
@@ -110,6 +86,38 @@ template.innerHTML = `
                 </li>
                 
             </ul>
+            <div id="admin-options">
+                <hr>
+                <ul class="mylibrary-menu-list" role="menu">
+                                               
+                    <!-- Masquerade -->
+                    <li data-testid="mylibrary-masquerade" id="mylibrary-masquerade" role="menuitem" aria-disabled="false">
+                        <a data-testid="mylibrary-menu-masquerade" href="https://www.library.uq.edu.au/admin/masquerade" rel="noreferrer">
+                            <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;">
+                                <path d="M16.5 12c1.38 0 2.49-1.12 2.49-2.5S17.88 7 16.5 7C15.12 7 14 8.12 14 9.5s1.12 2.5 2.5 2.5zM9 11c1.66 0 2.99-1.34 2.99-3S10.66 5 9 5C7.34 5 6 6.34 6 8s1.34 3 3 3zm7.5 3c-1.83 0-5.5.92-5.5 2.75V19h11v-2.25c0-1.83-3.67-2.75-5.5-2.75zM9 13c-2.33 0-7 1.17-7 3.5V19h7v-2.25c0-.85.33-2.34 2.37-3.47C10.5 13.1 9.66 13 9 13z"></path>
+                            </svg>
+                            <span>Masquerade</span>
+                        </a>
+                    </li>
+                     
+                    <!-- Alerts Admin -->
+                    <li data-testid="alerts-admin" id="alerts-admin" role="menuitem" aria-disabled="false">
+                        <a data-testid="mylibrary-menu-alerts-admin" href="https://www.library.uq.edu.au/admin/alerts" rel="noreferrer">
+                            <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path></svg>
+                            <span>Website alerts</span>
+                        </a>
+                    </li>
+                                    
+                    <!-- Spotlights Admin -->
+                    <li data-testid="spotlights-admin" id="spotlights-admin" role="menuitem" aria-disabled="false">
+                        <a data-testid="mylibrary-menu-spotlights-admin" href="https://www.library.uq.edu.au/admin/spotlights" rel="noreferrer">
+                            <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path></svg>
+                            <span>Website spotlights</span>
+                        </a>
+                    </li>
+    
+                </ul>
+            </div>
         </div>
         <!-- Screen wrapper -->
         <div id="mylibrary-pane" data-testid="mylibrary-pane" aria-hidden="true" class=closed-pane style="display: none" />
@@ -168,6 +176,13 @@ class MyLibraryButton extends HTMLElement {
                 !this.canSeeSpotlightsAdmin(accountSummary) &&
                     !!spotlightsAdminElement &&
                     spotlightsAdminElement.remove();
+
+                const adminOptionsBlock = !!shadowRoot && shadowRoot.getElementById('admin-options');
+                !accountSummary.canMasquerade &&
+                    !this.canSeeAlertsAdmin(accountSummary) &&
+                    !this.canSeeSpotlightsAdmin(accountSummary) &&
+                    !!adminOptionsBlock &&
+                    adminOptionsBlock.remove();
 
                 that.showHideMylibraryEspaceOption(shadowRoot);
 

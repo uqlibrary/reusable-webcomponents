@@ -2,6 +2,56 @@
 
 import ApiAccess from '../../src/ApiAccess/ApiAccess';
 
+function openMyLibraryDropdown() {
+    cy.get('div#mylibrary').should('contain', 'MyLibrary');
+    cy.get('button#mylibrary-button').click();
+    cy.wait(500);
+}
+
+function assertUserHasStandardMyLibraryOptions() {
+    cy.get('li a[data-testid="mylibrary-menu-borrowing"]').should('exist').contains('Borrowing');
+    cy.get('li a[data-testid="mylibrary-menu-document-delivery"]').should('exist').contains('Document delivery');
+    cy.get('li a[data-testid="mylibrary-menu-course-resources"]').should('exist').contains('Course resources');
+    cy.get('li a[data-testid="mylibrary-menu-document-delivery"]').should('exist').contains('Document delivery');
+    cy.get('li a[data-testid="mylibrary-menu-print-balance"]').should('exist').contains('Print balance');
+    cy.get('li a[data-testid="mylibrary-menu-room-bookings"]').should('exist').contains('Room bookings');
+    cy.get('li a[data-testid="mylibrary-menu-saved-items"]').should('exist').contains('Saved items');
+    cy.get('li a[data-testid="mylibrary-menu-saved-searches"]').should('exist').contains('Saved searches');
+    cy.get('li a[data-testid="mylibrary-menu-feedback"]').should('exist').contains('Feedback');
+}
+
+function assertUserHasMasquerade(expected) {
+    if (!!expected) {
+        cy.get('li[data-testid="mylibrary-masquerade"]').should('exist').contains('Masquerade');
+    } else {
+        cy.get('li[data-testid="mylibrary-masquerade"]').should('not.exist');
+    }
+}
+
+function assertUserHasAlertsAdmin(expected) {
+    if (!!expected) {
+        cy.get('li[data-testid="alerts-admin"]').should('exist').contains('Website alerts');
+    } else {
+        cy.get('li[data-testid="alerts-admin"]').should('not.exist');
+    }
+}
+
+function assertUserHasSpotlightAdmin(expected) {
+    if (!!expected) {
+        cy.get('li[data-testid="spotlights-admin"]').should('exist').contains('Website spotlights');
+    } else {
+        cy.get('li[data-testid="spotlights-admin"]').should('not.exist');
+    }
+}
+
+function assertUserHasEspaceDashboard(expected) {
+    if (!!expected) {
+        cy.get('li[data-testid="mylibrary-espace"]').should('exist').contains('eSpace dashboard');
+    } else {
+        cy.get('li[data-testid="mylibrary-espace"]').should('not.exist');
+    }
+}
+
 describe('My Library menu', () => {
     beforeEach(() => {
         // whenever we change users in the same tab we have to clear local storage or it will pick up the previous user :(
@@ -53,13 +103,28 @@ describe('My Library menu', () => {
                 .find('mylibrary-button')
                 .shadow()
                 .within(() => {
-                    cy.get('div#mylibrary').should('contain', 'MyLibrary');
-                    cy.get('button#mylibrary-button').click();
-                    cy.wait(500);
-                    cy.get('ul.mylibrary-menu-list').find('li').should('have.length', 12);
-                    cy.get('li[data-testid="mylibrary-masquerade"]').should('exist').contains('Masquerade');
-                    cy.get('li[data-testid="alerts-admin"]').should('exist').contains('Website alerts');
-                    cy.get('li[data-testid="spotlights-admin"]').should('exist').contains('Website spotlights');
+                    openMyLibraryDropdown();
+                    assertUserHasStandardMyLibraryOptions();
+                    assertUserHasMasquerade(true);
+                    assertUserHasAlertsAdmin(true);
+                    assertUserHasSpotlightAdmin(true);
+                    assertUserHasEspaceDashboard(true);
+                });
+        });
+
+        it('An espace masquerader non-admin sees masquerade but not other admin functions', () => {
+            cy.visit('http://localhost:8080?user=uqmasquerade');
+            cy.viewport(1280, 900);
+            cy.get('uq-site-header')
+                .find('mylibrary-button')
+                .shadow()
+                .within(() => {
+                    openMyLibraryDropdown();
+                    assertUserHasStandardMyLibraryOptions();
+                    assertUserHasMasquerade(true);
+                    assertUserHasAlertsAdmin(false);
+                    assertUserHasSpotlightAdmin(false);
+                    assertUserHasEspaceDashboard(true);
                 });
         });
 
@@ -70,14 +135,28 @@ describe('My Library menu', () => {
                 .find('mylibrary-button')
                 .shadow()
                 .within(() => {
-                    cy.get('div#mylibrary').should('contain', 'MyLibrary');
-                    cy.get('button#mylibrary-button').click();
-                    cy.wait(500);
-                    cy.get('ul.mylibrary-menu-list').find('li').should('have.length', 9);
-                    cy.get('li[data-testid="mylibrary-espace"]').contains('eSpace dashboard');
-                    cy.get('li[data-testid="mylibrary-masquerade"]').should('not.exist');
-                    cy.get('li[data-testid="alerts-admin"]').should('not.exist');
-                    cy.get('li[data-testid="spotlights-admin"]').should('not.exist');
+                    openMyLibraryDropdown();
+                    assertUserHasStandardMyLibraryOptions();
+                    assertUserHasEspaceDashboard(true);
+                    assertUserHasMasquerade(false);
+                    assertUserHasAlertsAdmin(false);
+                    assertUserHasSpotlightAdmin(false);
+                });
+        });
+
+        it('A digiteam member gets espace & masquerade but not other admin entries', () => {
+            cy.visit('http://localhost:8080?user=digiteamMember');
+            cy.viewport(1280, 900);
+            cy.get('uq-site-header')
+                .find('mylibrary-button')
+                .shadow()
+                .within(() => {
+                    openMyLibraryDropdown();
+                    assertUserHasStandardMyLibraryOptions();
+                    assertUserHasEspaceDashboard(true);
+                    assertUserHasMasquerade(true);
+                    assertUserHasAlertsAdmin(false);
+                    assertUserHasSpotlightAdmin(false);
                 });
         });
 
@@ -88,14 +167,12 @@ describe('My Library menu', () => {
                 .find('mylibrary-button')
                 .shadow()
                 .within(() => {
-                    cy.get('div#mylibrary').should('contain', 'MyLibrary');
-                    cy.get('button#mylibrary-button').click();
-                    cy.wait(500);
-                    cy.get('ul.mylibrary-menu-list').find('li').should('have.length', 8);
-                    cy.get('li[data-testid="mylibrary-masquerade"]').should('not.exist');
-                    cy.get('li[data-testid="alerts-admin"]').should('not.exist');
-                    cy.get('li[data-testid="spotlights-admin"]').should('not.exist');
-                    cy.get('li[data-testid="mylibrary-espace"]').should('not.exist');
+                    openMyLibraryDropdown();
+                    assertUserHasStandardMyLibraryOptions();
+                    assertUserHasMasquerade(false);
+                    assertUserHasAlertsAdmin(false);
+                    assertUserHasSpotlightAdmin(false);
+                    assertUserHasEspaceDashboard(false);
                 });
         });
 
