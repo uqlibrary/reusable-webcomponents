@@ -382,8 +382,6 @@ class SearchPortal extends HTMLElement {
                     e.preventDefault();
                     const nextElement = that.shadowRoot.getElementById(`suggestion-link-0`);
                     !!nextElement && nextElement.focus();
-                } else {
-                    that.getSuggestions();
                 }
             });
         !!inputField &&
