@@ -95,8 +95,7 @@ describe('Auth button', () => {
                 });
             }
 
-            const checkTestHappened = setInterval(() => {
-                clearInterval(checkTestHappened);
+            setTimeout(() => {
                 // just a paranoia check that the above test inside an await actually happened. 50 ms was not enough!
                 expect(testValid).to.be.equal(true);
             }, 1000);
@@ -105,6 +104,9 @@ describe('Auth button', () => {
         it('does not call a tokenised api if the cookies arent available', () => {
             cy.clearCookie(apiLocale.SESSION_COOKIE_NAME);
             cy.clearCookie(apiLocale.SESSION_USER_GROUP_COOKIE_NAME);
+
+            const api = new ApiAccess();
+            api.removeAccountStorage();
 
             let testValid = false;
             async function checkCookies() {
@@ -116,8 +118,7 @@ describe('Auth button', () => {
             }
             checkCookies();
 
-            const checkTestHappened = setInterval(() => {
-                clearInterval(checkTestHappened);
+            setTimeout(() => {
                 // just a paranoia check that the above test inside an await actually happened.
                 expect(testValid).to.be.equal(true);
             }, 1000);
@@ -126,7 +127,7 @@ describe('Auth button', () => {
         it(' user with expired stored session is not logged in', () => {
             const store = new ApiAccess();
             store.storeAccount(accounts.s1111111, -24); // put info in the session storage
-            // console.log(sessionStorage.getItem(this.STORAGE_ACCOUNT_KEYNAME));
+            // console.log('sessionStorage: ', sessionStorage.getItem('userAccount'));
 
             cy.visit('http://localhost:8080/?user=s1111111');
             cy.viewport(1280, 900);

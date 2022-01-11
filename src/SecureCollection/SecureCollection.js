@@ -102,8 +102,6 @@ class SecureCollection extends HTMLElement {
         this.redirectLink = null; // the link the user will presently be auto directed to, as there is no copyright to acknowledge
         this.clickLink = null; // the link that the user will click to acknowledge copyright and load the file
 
-        // add 'go back' button if page has a referer TODO
-
         this.displayLoadingPanel();
 
         this.getSecureCollectionCheck(currentSearchParams);
