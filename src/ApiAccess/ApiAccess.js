@@ -275,7 +275,7 @@ class ApiAccess {
 
             if (!response.ok) {
                 console.log(`ApiAccess console: An error has occured: ${response.status} ${response.statusText}`);
-                const message = `ApiAccess: An error has occured: ${response.status} ${response.statusText}`;
+                const message = `ApiAccess [A1]: An error has occured: ${response.status} ${response.statusText}`;
                 throw new Error(message);
             }
             return await response.json();
@@ -302,7 +302,7 @@ class ApiAccess {
             const response = await fetchJsonp(url, options);
             if (!response.ok) {
                 console.log(`ApiAccess console: An error has occured: ${response.status} ${response.statusText}`);
-                const message = `ApiAccess: An error has occured: ${response.status} ${response.statusText}`;
+                const message = `ApiAccess [A2]: An error has occured: ${response.status} ${response.statusText}`;
                 throw new Error(message);
             }
             return await response.json();
@@ -317,8 +317,12 @@ class ApiAccess {
         const storageExpiryDate = {
             storageExpiryDate: new Date().setTime(new Date().getTime() + millisecondsUntilExpiry),
         };
+        // structure must match that used in homepage as they both write to the same storage
+        // (has to, as reusable will remove storage to log homepage out!)
         let storeableAccount = {
-            ...account,
+            account: {
+                ...account,
+            },
             ...storageExpiryDate,
         };
         storeableAccount = JSON.stringify(storeableAccount);
@@ -326,26 +330,30 @@ class ApiAccess {
     }
 
     getAccountFromStorage() {
-        const account = JSON.parse(sessionStorage.getItem(this.STORAGE_ACCOUNT_KEYNAME));
-        if (this.isMock() && !!account) {
-            if ((!!account.id && account.id !== new MockApi().user) || !account.id) {
+        const storedAccount = JSON.parse(sessionStorage.getItem(this.STORAGE_ACCOUNT_KEYNAME));
+        if (this.isMock() && !!storedAccount) {
+            const mockUserHasChanged =
+                !!storedAccount.account &&
+                !!storedAccount.account.id &&
+                storedAccount.account.id !== new MockApi().user;
+            if (mockUserHasChanged || !storedAccount.account || !storedAccount.account.id) {
                 // allow developer to swap between users in the same tab
                 this.removeAccountStorage();
                 return null;
             }
         }
 
-        if (account === null) {
+        if (storedAccount === null) {
             return null;
         }
 
         const now = new Date().getTime();
-        if (!account.storageExpiryDate || account.storageExpiryDate < now) {
+        if (!storedAccount.storageExpiryDate || storedAccount.storageExpiryDate < now) {
             this.removeAccountStorage();
             return null;
         }
 
-        return account;
+        return storedAccount.account;
     }
 
     removeAccountStorage() {
