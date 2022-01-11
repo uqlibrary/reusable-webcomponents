@@ -226,28 +226,6 @@ describe('Dummy Application', () => {
 
     // Primo has no load.js file so is not tested here
 
-    context('Omeka works as expected', () => {
-        it('Javascript load works correctly', () => {
-            cy.visit('http://localhost:8080/src/applications/omeka/demo.html');
-            cy.viewport(1280, 900);
-
-            hasUqHeader();
-
-            hasUqSiteHeader();
-
-            hasNoMegaMenu();
-
-            hasAskusButton();
-            hasNoAuthButton();
-
-            hasAnAlert();
-
-            hasNoConnectFooter();
-
-            hasUqFooter();
-        });
-    });
-
     // note that the load.js file calls the live minimal file :(
     context('LibWizard works as expected', () => {
         it('Javascript load works correctly', () => {
