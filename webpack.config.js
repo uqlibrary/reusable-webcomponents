@@ -124,7 +124,6 @@ module.exports = () => {
                     { from: 'src/applications/libcal/load.js', to: 'applications/libcal/load.js' },
                     { from: 'src/applications/libguides/load.js', to: 'applications/libguides/load.js' },
                     { from: 'src/applications/libwizard/load.js', to: 'applications/libwizard/load.js' },
-                    { from: 'src/applications/omeka/load.js', to: 'applications/omeka/load.js' },
                     { from: 'src/applications/rightnow/load.js', to: 'applications/rightnow/load.js' },
                     { from: 'src/applications/shared/load.js', to: 'applications/shared/load.js' },
                     { from: 'src/applications/studenthub/load.js', to: 'applications/studenthub/load.js' },
