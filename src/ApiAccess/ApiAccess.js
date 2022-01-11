@@ -209,7 +209,7 @@ class ApiAccess {
     }
 
     async loadSecureCollectionCheck(path) {
-        return await this.fetchAPI(new ApiRoutes().SECURE_COLLECTION_CHECK_API({ path }).apiUrl, {}, true, false)
+        return await this.fetchAPI(new ApiRoutes().SECURE_COLLECTION_CHECK_API({ path }).apiUrl, {}, false, false)
             .then((data) => {
                 return data;
             })
@@ -236,11 +236,7 @@ class ApiAccess {
 
     async fetchAPI(urlPath, headers, tokenRequired = false, timestampRequired = true) {
         /* istanbul ignore next */
-        if (
-            urlPath === 'account' &&
-            !!tokenRequired &&
-            (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)
-        ) {
+        if (!!tokenRequired && (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)) {
             // no cookie so we wont bother asking for the account api that cant be returned
             console.log('no cookie so we wont bother asking for an api that cant be returned');
             return false;
@@ -274,7 +270,7 @@ class ApiAccess {
             });
 
             if (!response.ok) {
-                console.log(`ApiAccess console: An error has occured: ${response.status} ${response.statusText}`);
+                console.log(`ApiAccess console [A3]: An error has occured: ${response.status} ${response.statusText}`);
                 const message = `ApiAccess [A1]: An error has occured: ${response.status} ${response.statusText}`;
                 throw new Error(message);
             }
@@ -301,7 +297,7 @@ class ApiAccess {
             // this assumes non api.library urls
             const response = await fetchJsonp(url, options);
             if (!response.ok) {
-                console.log(`ApiAccess console: An error has occured: ${response.status} ${response.statusText}`);
+                console.log(`ApiAccess console [A4]: An error has occured: ${response.status} ${response.statusText}`);
                 const message = `ApiAccess [A2]: An error has occured: ${response.status} ${response.statusText}`;
                 throw new Error(message);
             }
@@ -361,10 +357,11 @@ class ApiAccess {
     }
 
     getSessionCookie() {
-        /* istanbul ignore next */
         if (!this.isMock()) {
+            /* istanbul ignore next */
             return getCookieValue(locale.SESSION_COOKIE_NAME);
         }
+
         if (new MockApi().getUserParameter() !== 'public') {
             return locale.UQLID_COOKIE_MOCK;
         }
