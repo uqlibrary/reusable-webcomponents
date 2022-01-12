@@ -313,6 +313,9 @@ class ApiAccess {
         const storageExpiryDate = {
             storageExpiryDate: new Date().setTime(new Date().getTime() + millisecondsUntilExpiry),
         };
+        const uqlCookie = {
+            cookie: this.getSessionCookie(),
+        };
         // structure must match that used in homepage as they both write to the same storage
         // (has to, as reusable will remove storage to log homepage out!)
         let storeableAccount = {
@@ -320,6 +323,7 @@ class ApiAccess {
                 ...account,
             },
             ...storageExpiryDate,
+            ...uqlCookie,
         };
         storeableAccount = JSON.stringify(storeableAccount);
         sessionStorage.setItem(this.STORAGE_ACCOUNT_KEYNAME, storeableAccount);
@@ -327,7 +331,12 @@ class ApiAccess {
 
     getAccountFromStorage() {
         const storedAccount = JSON.parse(sessionStorage.getItem(this.STORAGE_ACCOUNT_KEYNAME));
-        if (this.isMock() && !!storedAccount) {
+
+        if (storedAccount === null) {
+            return null;
+        }
+
+        if (this.isMock()) {
             const mockUserHasChanged =
                 !!storedAccount.account &&
                 !!storedAccount.account.id &&
@@ -339,7 +348,8 @@ class ApiAccess {
             }
         }
 
-        if (storedAccount === null) {
+        if (!storedAccount.cookie || storedAccount.cookie !== this.getSessionCookie()) {
+            this.removeAccountStorage();
             return null;
         }
 
