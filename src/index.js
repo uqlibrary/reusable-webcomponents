@@ -1,3 +1,29 @@
+var supportsCustomElements = 'customElements' in window;
+if (!supportsCustomElements) {
+    var bodyblock = document.querySelector('body');
+    !!bodyblock && (bodyblock.style.textAlign = 'center');
+    !!bodyblock && (bodyblock.style.padding = '16px');
+
+    var upgradeDiv = document.createElement('div');
+
+    var contentText = "Your browser is too old - some aspects of our site won't work. ";
+    var contentNode = !!contentText && document.createTextNode(contentText);
+    !!upgradeDiv && !!contentNode && upgradeDiv.appendChild(contentNode);
+
+    var anchor = document.createElement('a');
+    !!anchor && (anchor.href = 'https://browser-update.org/update-browser.html');
+    !!anchor && (anchor.target = '_blank');
+    var linkText = 'Please upgrade';
+    var linkTextNode = !!linkText && document.createTextNode(linkText);
+    !!anchor && !!linkTextNode && anchor.appendChild(linkTextNode);
+    !!upgradeDiv && !!anchor && upgradeDiv.appendChild(anchor);
+
+    var firstElement = document.body.children[0];
+    !!firstElement && !!upgradeDiv && document.body.insertBefore(upgradeDiv, firstElement);
+
+    process.exit(0);
+}
+
 import Alert from './Alert/Alert';
 import Alerts from './Alerts/Alerts';
 import ApiAccess from './ApiAccess/ApiAccess';
