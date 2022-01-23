@@ -20,3 +20,5 @@ For regeneration of ITS DS:
     "@uqds/grid": "file:../../"
 }
 ```
+
+To preview changes on localhost: <http://localhost:8080/index-training.html>
