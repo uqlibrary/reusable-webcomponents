@@ -120,7 +120,7 @@ describe('Auth button', () => {
                 clearInterval(checkTestHappened);
                 // just a paranoia check that the above test inside an await actually happened.
                 expect(testValid).to.be.equal(true);
-            }, 1000);
+            }, 5500);
         });
 
         it(' user with expired stored session is not logged in', () => {
