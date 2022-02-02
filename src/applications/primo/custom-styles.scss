@@ -1014,3 +1014,12 @@ prm-authentication button.button-with-icon prm-icon {
 .available-facets .section-content .md-chips .md-chip .button-exclude:hover:not([disabled]) {
     color: $red;
 }
+
+// apply appropriate colours to filter bar in mobile view
+md-toolbar.bottom-fixed-toolbar.mobile-toolbar  {
+    background-color: $blueGrey;
+    div:first-child button:nth-child(2) {
+        background-color: $accent-color;
+        color: #fff;
+    }
+}
