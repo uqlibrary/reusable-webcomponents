@@ -33,12 +33,13 @@ describe('Search Portal', () => {
 
                     // arrow down from the search text to the first suggestion
                     cy.log('arrow down from input field');
-                    cy.log(
-                        'if this fails or stops here and you just saved the cypress file - try clicking the rerun button before you debug',
-                    );
-                    cy.get('[data-testid="primo-search-autocomplete-input"]').trigger('keydown', {
+
+                    //cy.get('[data-testid="primo-search-autocomplete-input"]').type('{downarrow}');
+
+                    cy.get('[data-testid="primo-search-autocomplete-input"]').focus().trigger('keydown', {
                         keyCode: DOWN_ARROW_KEYCODE,
                     });
+                    cy.wait(50);
                     cy.get('[data-testid="search-portal-autocomplete-option-0"] a').should('have.focus');
 
                     // focus on suggestion N and arrow down, and focus should be on N+1
@@ -46,6 +47,7 @@ describe('Search Portal', () => {
                     cy.get('[data-testid="search-portal-autocomplete-option-1"] a')
                         .focus()
                         .trigger('keydown', { keyCode: DOWN_ARROW_KEYCODE });
+                    cy.wait(50);
                     cy.get('[data-testid="search-portal-autocomplete-option-2"] a').should('have.focus');
 
                     // focus on suggestion N and arrow up, and focus should be on N-1
@@ -134,6 +136,7 @@ describe('Search Portal', () => {
                     cy.get('[data-testid="primo-search-item-4"]').focus().trigger('keydown', {
                         keyCode: UP_ARROW_KEYCODE,
                     });
+                    cy.wait(5000);
                     cy.get('[data-testid="primo-search-item-3"]').should('have.focus');
 
                     // cy.log('tab from final item goes to next field');
@@ -360,11 +363,20 @@ describe('Search Portal', () => {
                         .should('have.attr', 'href')
                         .and('match', /https:\/\/www.library.uq.edu.au\/exams\/papers.php\?stub=/);
 
+                    // the user clicks the first result to load the search - exam links divert to auth!
+                    // Apparently cypress works on the redirected-to link, not where we send them.
+                    // Except maybe not - I saw it loading the exams link once. Huh?
+                    cy.intercept('GET', '/idp/module.php', {
+                        // https://auth.uq.edu.au/idp/module.php/core/loginuserpass.php?AuthState=&etc
+                        statusCode: 200,
+                        body: 'user is on an Exams result page via auth',
+                    });
                     cy.intercept('GET', 'https://www.library.uq.edu.au/exams/papers.php?stub=PHIL7221', {
                         statusCode: 200,
                         body: 'user is on an Exams result page',
                     });
                     cy.get('li[data-testid="search-portal-autocomplete-option-1"] a').click();
+                    cy.wait(50);
                 });
             cy.get('body').contains('user is on an Exams result page');
         });
