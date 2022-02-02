@@ -130,14 +130,14 @@ describe('Search Portal', () => {
                     cy.get('[data-testid="primo-search-item-1"]').focus().trigger('keydown', {
                         keyCode: DOWN_ARROW_KEYCODE,
                     });
-                    // SL REMOVED - cy.get('[data-testid="primo-search-item-2"]').should('have.focus');
+                    cy.get('[data-testid="primo-search-item-2"]').should('have.focus');
 
                     cy.log('arrow up from item n goes to item n-1');
                     cy.get('[data-testid="primo-search-item-4"]').focus().trigger('keydown', {
                         keyCode: UP_ARROW_KEYCODE,
                     });
                     cy.wait(5000);
-                    // SL REMOVED - cy.get('[data-testid="primo-search-item-3"]').should('have.focus');
+                    cy.get('[data-testid="primo-search-item-3"]').should('have.focus');
 
                     // cy.log('tab from final item goes to next field');
                     // cy.get('[data-testid="primo-search-item-8"]')
