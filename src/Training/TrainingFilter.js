@@ -125,7 +125,7 @@ class TrainingFilter extends HTMLElement {
     }
 
     /**
-     * add listeners as required by the page
+     * add listeners as required by the page.
      */
     addListeners() {
         const that = this;
