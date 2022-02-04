@@ -111,7 +111,45 @@ const pagesWithoutComponents = [
     '/ckfinder/browse/files',
 ];
 
+function insertScript(url, defer = false) {
+    const scriptfound = document.querySelector("script[src*='" + url + "']");
+    if (!scriptfound) {
+        const heads = document.getElementsByTagName('head');
+        if (heads && heads.length) {
+            const head = heads[0];
+            if (head) {
+                const script = document.createElement('script');
+                script.setAttribute('type', 'text/javascript');
+                script.setAttribute('src', url);
+                !!defer && script.setAttribute('defer', '');
+                head.appendChild(script);
+            }
+        }
+    }
+}
+function localScriptName() {
+    const drupaljs = 'drupal-lib-reusable.min.js';
+    if (window.location.host === 'localhost:8080') {
+        return '/' + drupaljs;
+    }
+    var folder = '/'; // default. Use for prod.
+    if (window.location.hostname === 'library.stage.drupal.uq.edu.au') {
+        folder = '-development/feature-drupal/';
+    } else if (window.location.hostname === 'assets.library.uq.edu.au') {
+        if (/reusable-webcomponents-staging/.test(window.location.href)) {
+            folder = '-staging/';
+        } else if (/reusable-webcomponents-development\/master/.test(window.location.href)) {
+            folder = '-development/master/';
+        } else {
+            folder = '-development/feature-drupal/';
+        }
+    }
+    return 'https://assets.library.uq.edu.au/reusable-webcomponents' + folder + drupaljs;
+}
+
 function loadReusableComponentsDrupal() {
+    insertScript(localScriptName(), true);
+
     fontLoader('https://static.uq.net.au/v6/fonts/Roboto/roboto.css');
     fontLoader('https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css');
     fontLoader('https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css');

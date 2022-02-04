@@ -1,12 +1,22 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+const renameOutputPlugin = require('rename-output-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const ReplaceInFileWebpackPlugin = require('replace-in-file-webpack-plugin');
 const webpack = require('webpack');
-const libraryName = 'uq-lib-reusable';
-const outputFile = `${libraryName}.min.js`;
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+const drupalFilename = 'drupal-reusable';
+const libraryName = (name) => {
+    console.log('libraryName: name = ', name);
+    return name === 'drupal' ? 'drupal-reusable.min.js' : 'uq-lib-reusable.min.js';
+};
+const outputFile = (name) => {
+    console.log('outputFile: name=  ', name);
+    return name === 'drupal' ? 'drupal.min.js' : `${libraryName}.min.js`;
+};
+
+// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 // get branch name for current build (if running build locally, CI_BRANCH is not set - it's set in AWS)
 const branch = process && process.env && process.env.CI_BRANCH ? process.env.CI_BRANCH : 'development';
@@ -25,11 +35,15 @@ module.exports = () => {
         staging: 'https://assets.library.uq.edu.au/reusable-webcomponents-staging/',
         production: 'https://assets.library.uq.edu.au/reusable-webcomponents/',
     };
-    const buildPath = {
-        local: path.resolve(__dirname, 'dist'),
-        development: path.resolve(__dirname, 'dist') + '/' + process.env.CI_BRANCH + '/',
-        staging: path.resolve(__dirname, 'dist'),
-        production: path.resolve(__dirname, 'dist'),
+    const buildPath = (location, file) => {
+        const fileMarker = file === 'drupal' ? '/drupal' : '';
+        const buildPathType = {
+            local: path.resolve(__dirname, 'dist' + fileMarker),
+            development: path.resolve(__dirname, 'dist') + '/' + process.env.CI_BRANCH + fileMarker + '/',
+            staging: path.resolve(__dirname, 'dist' + fileMarker),
+            production: path.resolve(__dirname, 'dist' + fileMarker),
+        };
+        return buildPathType[location];
     };
     console.log('------------------------------------------------------------');
     console.log('BUILD ENVIRONMENT: ', process.env.NODE_ENV);
@@ -38,13 +52,14 @@ module.exports = () => {
     console.log('BUILD PATH       : ', buildPath[process.env.NODE_ENV]);
     console.log('------------------------------------------------------------');
     return {
-        entry: './src/index.js',
+        entry: {
+            reusable: './src/index.js',
+            drupal: './src/drupal.js',
+        },
         output: {
-            library: libraryName,
-            libraryTarget: 'umd',
-            libraryExport: 'default',
-            path: buildPath[process.env.NODE_ENV],
-            filename: outputFile,
+            // path: path.resolve(__dirname, 'dist'),
+            path: buildPath(process.env.NODE_ENV, '[name]'),
+            filename: '[name].min.js',
         },
         module: {
             rules: [
@@ -103,15 +118,22 @@ module.exports = () => {
             ],
         },
         plugins: [
+            // https://stackoverflow.com/questions/60589413/how-to-create-multi-output-files
             new HTMLWebpackPlugin({
                 template: path.resolve(__dirname, 'index.html'),
             }),
+            // new HTMLWebpackPlugin({
+            //     //     template: path.resolve(__dirname, 'drupal.html'),
+            //     //     // filename: './drupal2.js',
+            //     //     chunks: ['options'],
+            // }),
             new webpack.HotModuleReplacementPlugin(),
-            // This plugin simply copies the external js from ITS DS into the dist and renames it
             new CopyPlugin({
                 patterns: [
+                    // copy the external js from ITS DS into the dist and rename it
                     { from: 'src/UQHeader/js/uqds.js', to: 'uq-header.js' },
                     { from: 'src/UQSiteHeader/js/uqds.js', to: 'uq-site-header.js' },
+                    // move some needed files into the distro
                     {
                         from: 'src/applications/libguides/arrow-right.png',
                         to: 'applications/libguides/arrow-right.png',
@@ -129,6 +151,10 @@ module.exports = () => {
                     { from: 'src/applications/studenthub/load.js', to: 'applications/studenthub/load.js' },
                     { from: 'src/applications/uqlapp/load.js', to: 'applications/uqlapp/load.js' },
                 ],
+            }),
+            new renameOutputPlugin({
+                reusable: 'uq-lib-reusable.min.js',
+                drupal: 'drupal-lib-reusable.min.js',
             }),
             // This plugin will rename the external js imports to full paths for deploy
             process.env.NODE_ENV !== 'local' &&

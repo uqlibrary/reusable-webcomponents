@@ -1,0 +1,11 @@
+import EzProxy from './EzProxy/EzProxy';
+import Training from './Training/Training';
+import TrainingDetail from './Training/TrainingDetail';
+import TrainingFilter from './Training/TrainingFilter';
+import TrainingList from './Training/TrainingList';
+
+customElements.define('ez-proxy', EzProxy);
+customElements.define('library-training', Training);
+customElements.define('training-detail', TrainingDetail);
+customElements.define('training-filter', TrainingFilter);
+customElements.define('training-list', TrainingList);
