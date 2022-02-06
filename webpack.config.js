@@ -156,11 +156,11 @@ module.exports = () => {
                 reusable: 'uq-lib-reusable.min.js',
                 drupal: 'drupal-lib-reusable.min.js',
             }),
-            // This plugin will rename the external js imports to full paths for deploy
+            // Rename the external js imports to full paths when deployed & remove the drupal.js from homepage
             process.env.NODE_ENV !== 'local' &&
                 new ReplaceInFileWebpackPlugin([
                     {
-                        dir: buildPath[process.env.NODE_ENV],
+                        dir: buildPath(process.env.NODE_ENV, 'index'),
                         files: ['uq-lib-reusable.min.js'],
                         rules: [
                             {
