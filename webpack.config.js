@@ -173,16 +173,6 @@ module.exports = () => {
                             },
                         ],
                     },
-                    {
-                        dir: buildPath(process.env.NODE_ENV, 'index'),
-                        files: ['index.html'],
-                        rules: [
-                            {
-                                search: /\<script type="text\/javascript" src="drupal-lib-reusable.min.js"><\/script>/gm,
-                                replace: '',
-                            },
-                        ],
-                    },
                 ]),
             new webpack.DefinePlugin({
                 __DEVELOPMENT__: true,
