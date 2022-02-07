@@ -6,18 +6,6 @@ const CopyPlugin = require('copy-webpack-plugin');
 const ReplaceInFileWebpackPlugin = require('replace-in-file-webpack-plugin');
 const webpack = require('webpack');
 
-const drupalFilename = 'drupal-reusable';
-const libraryName = (name) => {
-    console.log('libraryName: name = ', name);
-    return name === 'drupal' ? 'drupal-reusable.min.js' : 'uq-lib-reusable.min.js';
-};
-const outputFile = (name) => {
-    console.log('outputFile: name=  ', name);
-    return name === 'drupal' ? 'drupal.min.js' : `${libraryName}.min.js`;
-};
-
-// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
 // get branch name for current build (if running build locally, CI_BRANCH is not set - it's set in AWS)
 const branch = process && process.env && process.env.CI_BRANCH ? process.env.CI_BRANCH : 'development';
 const environment = branch === 'production' || branch === 'staging' ? branch : 'development';
@@ -49,7 +37,7 @@ module.exports = () => {
     console.log('BUILD ENVIRONMENT: ', process.env.NODE_ENV);
     console.log('BUILD BRANCH     : ', process.env.CI_BRANCH || process.env.NODE_ENV);
     console.log('BUILD URL        : ', componentJsPath[process.env.NODE_ENV]);
-    console.log('BUILD PATH       : ', buildPath[process.env.NODE_ENV]);
+    console.log('BUILD PATH       : ', buildPath(process.env.NODE_ENV, 'index'));
     console.log('------------------------------------------------------------');
     return {
         entry: {
@@ -57,7 +45,6 @@ module.exports = () => {
             drupal: './src/drupal.js',
         },
         output: {
-            // path: path.resolve(__dirname, 'dist'),
             path: buildPath(process.env.NODE_ENV, '[name]'),
             filename: '[name].min.js',
         },
@@ -122,11 +109,6 @@ module.exports = () => {
             new HTMLWebpackPlugin({
                 template: path.resolve(__dirname, 'index.html'),
             }),
-            // new HTMLWebpackPlugin({
-            //     //     template: path.resolve(__dirname, 'drupal.html'),
-            //     //     // filename: './drupal2.js',
-            //     //     chunks: ['options'],
-            // }),
             new webpack.HotModuleReplacementPlugin(),
             new CopyPlugin({
                 patterns: [
