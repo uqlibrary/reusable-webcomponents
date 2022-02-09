@@ -381,7 +381,7 @@ describe('Search Portal', () => {
             cy.get('body').contains('user is on an Exams result page');
         });
 
-        it('Course resources should have the expected items', () => {
+        it('Course reading lists should have the expected items', () => {
             cy.viewport(1300, 1000);
             // cy.intercept('GET', 'https://uq.rl.talis.com/search.html?q=PHIL1013', {
             cy.intercept('GET', '/search.html?q=PHIL1013', {
@@ -393,7 +393,7 @@ describe('Search Portal', () => {
                 .within(() => {
                     cy.get('[data-testid="primo-search"]').contains('Search');
                     cy.wait(1000);
-                    // course resources occurs in the dropdown
+                    // course reading list occurs in the dropdown
                     cy.get('[data-testid="primo-search-select"]').click();
                     cy.get('button[data-testid="primo-search-item-8"]').click();
                     cy.get('[data-testid="portaltype-current-label"]').contains('Course reading lists');
@@ -404,7 +404,7 @@ describe('Search Portal', () => {
                         .should('have.attr', 'href')
                         .and('include', 'talis.com');
 
-                    // typing in the course resources text area shows the correct entries from the mock api
+                    // typing in the text area when in  course reading list mode shows the correct entries from the mock api
                     cy.get('input[data-testid="primo-search-autocomplete-input"]').type('PHIL', { force: true });
                     cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
                         .find('li')
