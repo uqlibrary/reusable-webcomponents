@@ -11,7 +11,7 @@ function openMyLibraryDropdown() {
 function assertUserHasStandardMyLibraryOptions() {
     cy.get('li a[data-testid="mylibrary-menu-borrowing"]').should('exist').contains('Borrowing');
     cy.get('li a[data-testid="mylibrary-menu-document-delivery"]').should('exist').contains('Document delivery');
-    cy.get('li a[data-testid="mylibrary-menu-course-resources"]').should('exist').contains('Course resources');
+    cy.get('li a[data-testid="mylibrary-menu-course-resources"]').should('exist').contains('Learning resources');
     cy.get('li a[data-testid="mylibrary-menu-document-delivery"]').should('exist').contains('Document delivery');
     cy.get('li a[data-testid="mylibrary-menu-print-balance"]').should('exist').contains('Print balance');
     cy.get('li a[data-testid="mylibrary-menu-room-bookings"]').should('exist').contains('Room bookings');
