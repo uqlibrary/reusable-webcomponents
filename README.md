@@ -8,7 +8,7 @@ The 'applications/' folder allows us to version control changes to the scripts w
 
 1. Clone from github
 
-2. install npm: `nvm use 11.10.1 && npm i -g npm@6 webpack-dev-server`
+2. install npm: `nvm use 16.13.2 && npm i -g npm@8 webpack-dev-server`
 
 3. Create these git hooks to manage branches to project standard:
 
@@ -48,6 +48,8 @@ The following commands are available to fix any misformatting easily:
 
 - `npm run codestyles:fix:all` - fix all files
 - `npm run codestyles:fix:staged` - fix all staged files
+
+If you are working on Training and want to see the index-training.html file on a live url eg https://assets.library.uq.edu.au/reusable-webcomponents-development/master/index-training.html then you will have to manually copy the index-training.html file into the bucket - the build process doesnt cover it.
 
 ## Use
 
