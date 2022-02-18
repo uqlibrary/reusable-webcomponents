@@ -125,7 +125,7 @@ class TrainingFilter extends HTMLElement {
     }
 
     /**
-     * add listeners as required by the page
+     * add listeners as required by the page.
      */
     addListeners() {
         const that = this;
@@ -312,10 +312,6 @@ class TrainingFilter extends HTMLElement {
     loadPopularChips() {
         const that = this;
         const chips = [
-            {
-                term: 'endnote',
-                label: 'EndNote',
-            },
             {
                 term: 'Excel',
                 label: 'Excel',

@@ -33,12 +33,13 @@ describe('Search Portal', () => {
 
                     // arrow down from the search text to the first suggestion
                     cy.log('arrow down from input field');
-                    cy.log(
-                        'if this fails or stops here and you just saved the cypress file - try clicking the rerun button before you debug',
-                    );
-                    cy.get('[data-testid="primo-search-autocomplete-input"]').trigger('keydown', {
+
+                    //cy.get('[data-testid="primo-search-autocomplete-input"]').type('{downarrow}');
+
+                    cy.get('[data-testid="primo-search-autocomplete-input"]').focus().trigger('keydown', {
                         keyCode: DOWN_ARROW_KEYCODE,
                     });
+                    cy.wait(50);
                     cy.get('[data-testid="search-portal-autocomplete-option-0"] a').should('have.focus');
 
                     // focus on suggestion N and arrow down, and focus should be on N+1
@@ -46,6 +47,7 @@ describe('Search Portal', () => {
                     cy.get('[data-testid="search-portal-autocomplete-option-1"] a')
                         .focus()
                         .trigger('keydown', { keyCode: DOWN_ARROW_KEYCODE });
+                    cy.wait(50);
                     cy.get('[data-testid="search-portal-autocomplete-option-2"] a').should('have.focus');
 
                     // focus on suggestion N and arrow up, and focus should be on N-1
@@ -134,6 +136,7 @@ describe('Search Portal', () => {
                     cy.get('[data-testid="primo-search-item-4"]').focus().trigger('keydown', {
                         keyCode: UP_ARROW_KEYCODE,
                     });
+                    cy.wait(5000);
                     cy.get('[data-testid="primo-search-item-3"]').should('have.focus');
 
                     // cy.log('tab from final item goes to next field');
@@ -360,16 +363,25 @@ describe('Search Portal', () => {
                         .should('have.attr', 'href')
                         .and('match', /https:\/\/www.library.uq.edu.au\/exams\/papers.php\?stub=/);
 
+                    // the user clicks the first result to load the search - exam links divert to auth!
+                    // Apparently cypress works on the redirected-to link, not where we send them.
+                    // Except maybe not - I saw it loading the exams link once. Huh?
+                    cy.intercept('GET', '/idp/module.php', {
+                        // https://auth.uq.edu.au/idp/module.php/core/loginuserpass.php?AuthState=&etc
+                        statusCode: 200,
+                        body: 'user is on an Exams result page via auth',
+                    });
                     cy.intercept('GET', 'https://www.library.uq.edu.au/exams/papers.php?stub=PHIL7221', {
                         statusCode: 200,
                         body: 'user is on an Exams result page',
                     });
                     cy.get('li[data-testid="search-portal-autocomplete-option-1"] a').click();
+                    cy.wait(50);
                 });
             cy.get('body').contains('user is on an Exams result page');
         });
 
-        it('Course resources should have the expected items', () => {
+        it('Course reading lists should have the expected items', () => {
             cy.viewport(1300, 1000);
             // cy.intercept('GET', 'https://uq.rl.talis.com/search.html?q=PHIL1013', {
             cy.intercept('GET', '/search.html?q=PHIL1013', {
@@ -381,7 +393,7 @@ describe('Search Portal', () => {
                 .within(() => {
                     cy.get('[data-testid="primo-search"]').contains('Search');
                     cy.wait(1000);
-                    // course resources occurs in the dropdown
+                    // course reading list occurs in the dropdown
                     cy.get('[data-testid="primo-search-select"]').click();
                     cy.get('button[data-testid="primo-search-item-8"]').click();
                     cy.get('[data-testid="portaltype-current-label"]').contains('Course reading lists');
@@ -392,7 +404,7 @@ describe('Search Portal', () => {
                         .should('have.attr', 'href')
                         .and('include', 'talis.com');
 
-                    // typing in the course resources text area shows the correct entries from the mock api
+                    // typing in the text area when in  course reading list mode shows the correct entries from the mock api
                     cy.get('input[data-testid="primo-search-autocomplete-input"]').type('PHIL', { force: true });
                     cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
                         .find('li')

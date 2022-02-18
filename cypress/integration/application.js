@@ -321,6 +321,20 @@ describe('Dummy Application', () => {
             hasConnectFooter();
 
             hasUqFooter();
+
+            // simple check that the components exist, now that we are splitting them out from the main reusable.min file
+            cy.get('search-portal').shadow().find('form label').should('contain', 'Library Search');
+            cy.get('ez-proxy')
+                .shadow()
+                .find('fieldset input')
+                .should('have.attr', 'placeholder')
+                .and('include', 'DOI or URL');
+            cy.get('library-training')
+                .shadow()
+                .find('training-filter')
+                .shadow()
+                .find('h3')
+                .and('contain', 'Filter events');
         });
         it('does not have any web components on a specifically named Drupal page', () => {
             cy.visit('http://localhost:8080/src/applications/drupal/pageWithoutComponents.html');

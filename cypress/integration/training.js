@@ -952,11 +952,11 @@ describe('Training', () => {
                             cy.get('[data-testid="training-filter-campus-label"]').click();
                             cy.get('[data-testid="training-filter-campus-select-0"]').click();
 
-                            cy.get('[data-testid="training-filter-popular-events-endnote"]').click();
+                            cy.get('[data-testid="training-filter-popular-events-Excel"]').click();
 
                             cy.url().should(
                                 'eq',
-                                'http://localhost:8080/index-training.html#keyword=endnote;campus=all;weekstart=all',
+                                'http://localhost:8080/index-training.html#keyword=Excel;campus=all;weekstart=all',
                             );
                         });
                 });
@@ -972,10 +972,10 @@ describe('Training', () => {
                         .should('exist')
                         .shadow()
                         .within(() => {
-                            cy.get('[data-testid="training-filter-popular-events-endnote"]').click();
+                            cy.get('[data-testid="training-filter-popular-events-Excel"]').click();
                             cy.url().should(
                                 'eq',
-                                'http://localhost:8080/index-training.html#keyword=endnote;campus=;weekstart=',
+                                'http://localhost:8080/index-training.html#keyword=Excel;campus=;weekstart=',
                             );
                             cy.get('[data-testid="training-filter-clear-keyword"]').click();
                             cy.url().should(

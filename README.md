@@ -49,6 +49,8 @@ The following commands are available to fix any misformatting easily:
 - `npm run codestyles:fix:all` - fix all files
 - `npm run codestyles:fix:staged` - fix all staged files
 
+If you are working on Training and want to see the index-training.html file on a live url eg https://assets.library.uq.edu.au/reusable-webcomponents-development/master/index-training.html then you will have to manually copy the index-training.html file into the bucket - the build process doesnt cover it.
+
 ## Use
 
 Add the following line at the end of your HTML document to initialise the components. Example below is obviously for production - substitute for development or staging.
