@@ -48,7 +48,7 @@ class ApiRoutes {
     };
 
     EXAMS_SUGGESTIONS_API = (keyword) => ({
-        apiUrl: 'search_suggestions?type=exam_paper&prefix=' + keyword,
+        apiUrl: 'exams/suggestions/' + keyword,
     });
 
     SUGGESTIONS_API_PAST_COURSE = (keyword) => ({
