@@ -78,7 +78,7 @@ export default {
                     linkTo: 'https://web.library.uq.edu.au/library-services/covid-19',
                 },
                 {
-                    primaryText: 'Contact the librarian team',
+                    primaryText: 'Contact the Librarian Team',
                     secondaryText: 'Expert advice for your discipline',
                     linkTo: 'https://web.library.uq.edu.au/library-services/contact-librarian-team',
                 },
