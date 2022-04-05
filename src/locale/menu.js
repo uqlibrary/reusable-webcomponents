@@ -78,13 +78,13 @@ export default {
                     linkTo: 'https://web.library.uq.edu.au/library-services/covid-19',
                 },
                 {
-                    primaryText: 'Your librarian',
+                    primaryText: 'Contact the librarian team',
                     secondaryText: 'Expert advice for your discipline',
-                    linkTo: 'https://web.library.uq.edu.au/library-services/liaison-librarians',
+                    linkTo: 'https://web.library.uq.edu.au/library-services/contact-librarian-team',
                 },
                 {
-                    primaryText: 'Book a room',
-                    secondaryText: 'Student meeting and study rooms',
+                    primaryText: 'Book a room or desk',
+                    secondaryText: 'Student meeting and study spaces',
                     linkTo: 'https://uqbookit.uq.edu.au/#/app/booking-types/77b52dde-d704-4b6d-917e-e820f7df07cb',
                 },
                 {
@@ -146,7 +146,7 @@ export default {
                     linkTo: 'https://espace.library.uq.edu.au/',
                 },
                 {
-                    primaryText: 'Fryer Manuscripts',
+                    primaryText: 'Fryer Library Manuscripts',
                     secondaryText: 'Search our unpublished collections',
                     linkTo: 'https://manuscripts.library.uq.edu.au/',
                 },
