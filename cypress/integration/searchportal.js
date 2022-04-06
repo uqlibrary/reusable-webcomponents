@@ -361,7 +361,7 @@ describe('Search Portal', () => {
                         .first()
                         .find('a')
                         .should('have.attr', 'href')
-                        .and('match', /https:\/\/www.library.uq.edu.au\/exams\/papers.php\?stub=/);
+                        .and('match', /https:\/\/www.library.uq.edu.au\/exams\/course\//);
 
                     // the user clicks the first result to load the search - exam links divert to auth!
                     // Apparently cypress works on the redirected-to link, not where we send them.
@@ -371,7 +371,7 @@ describe('Search Portal', () => {
                         statusCode: 200,
                         body: 'user is on an Exams result page via auth',
                     });
-                    cy.intercept('GET', 'https://www.library.uq.edu.au/exams/papers.php?stub=PHIL7221', {
+                    cy.intercept('GET', 'https://www.library.uq.edu.au/exams/course/PHIL7221', {
                         statusCode: 200,
                         body: 'user is on an Exams result page',
                     });
