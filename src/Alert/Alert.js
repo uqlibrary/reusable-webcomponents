@@ -8,7 +8,7 @@ template.innerHTML = `
   <style>${overrides.toString()}</style>
   <div id="alert" data-testid="alert" class="alert alert--default" role="alert" data-id="">
         <div id="alert-container" data-testid="alert-container" class="alert__container">
-            <div id="alert-icon" data-testid="alert-icon"></div>
+            <div id="alert-icon" class="alert-icon" data-testid="alert-icon"></div>
             <div class="alert__message">
                 <b id="alert-title" data-testid="alert-title" class="alert-title"></b><span id="alert-message" data-testid="alert-message"></span>
             </div>
@@ -35,11 +35,6 @@ class Alert extends HTMLElement {
     }
 
     loadAlert(shadowDOM) {
-        const icons = {
-            0: '<svg viewBox="0 0 24 24" aria-hidden="false" id="info-outline-icon" aria-label="Alert."><path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path></svg>',
-            1: '<svg viewBox="0 0 24 24" aria-hidden="false" id="warning-icon" aria-label="Important alert."><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path></svg>',
-        };
-
         const loadAlertFields = setInterval(() => {
             const id = this.getAttribute('id');
             /* istanbul ignore if  */
@@ -48,7 +43,19 @@ class Alert extends HTMLElement {
             }
             clearInterval(loadAlertFields);
 
-            const alerttype = this.getAttribute('alerttype');
+            const priorityTypeDefault = 'info';
+            let priorityType = this.getAttribute('prioritytype');
+            // temporarily account for old values for maximum compatibility
+            if (priorityType == '0') {
+                priorityType = 'info';
+            } else if (priorityType == '1') {
+                priorityType = 'urgent';
+            } else {
+                // this check should remain
+                priorityType = ['info', 'urgent', 'extreme'].includes(priorityType)
+                    ? priorityType
+                    : priorityTypeDefault;
+            }
             const message = this.getAttribute('alertmessage');
             const title = this.getAttribute('alerttitle');
 
@@ -76,8 +83,7 @@ class Alert extends HTMLElement {
             // Assign the values
             shadowDOM.getElementById('alert-title').innerText = title || 'No title supplied';
             shadowDOM.getElementById('alert-message').innerText = cleanMessage || 'No message supplied';
-            shadowDOM.getElementById('alert-icon').innerHTML = icons[alerttype || '0'];
-            shadowDOM.getElementById('alert').classList.add(alerttype === '0' ? 'info' : 'warning');
+            shadowDOM.getElementById('alert').classList.add(priorityType);
             shadowDOM.getElementById('alert').setAttribute('data-testid', 'alert-' + id);
 
             // Show or hide the close button and assign the function to do so

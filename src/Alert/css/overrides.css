@@ -24,7 +24,6 @@
     overflow: visible;
     width: 24px;
     height: 24px;
-    margin-right: 12px;
 }
 
 #alert #alert-message,
@@ -104,7 +103,7 @@
 
 /*ERROR*/
 .info {
-    background-color: #2377cb;
+    background-color: #1e72c6;
     color: #fff;
 }
 .info svg {
@@ -135,32 +134,73 @@
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-/*WARNING*/
-.warning {
-    background-color: #bf5000;
-    color: #fff;
+.info .alert-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cg stroke='%23fff' stroke-width='.75' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='M9.258 10.516h-.43A.829.829 0 0 1 8 9.687V7.602c0-.23-.2-.43-.43-.43h-.425' fill='none'%3e%3c/path%3e%3cpath d='M7.8 5.059a.194.194 0 0 0-.198.199c0 .113.085.199.199.199a.195.195 0 0 0 .199-.2.195.195 0 0 0-.2-.198zm0 0'%3e%3c/path%3e%3cpath d='M8 1.715c3.457 0 6.285 2.828 6.285 6.285 0 3.457-2.828 6.285-6.285 6.285-3.457 0-6.285-2.828-6.285-6.285 0-3.457 2.828-6.285 6.285-6.285zm0 0' fill='none'%3e%3c/path%3e%3c/g%3e%3c/svg%3e")
 }
-.warning #alert-close svg {
+
+/*URGENT*/
+.urgent {
+    background-color: #fbb800;
+    color: #000;
+}
+.urgent #alert-close svg {
     fill: rgba(255, 255, 255, 0.75);
     width: 24px;
     height: 24px;
 }
 
-.warning #alert-close {
+.urgent #alert-close {
     color: rgba(255, 255, 255, 0.75);
 }
 
-.warning #alert-close:hover {
+.urgent #alert-close:hover {
     color: rgba(255, 255, 255, 1);
     cursor: pointer;
 }
 
-.warning #alert-action-mobile,
-.warning #alert-action-desktop {
+.urgent #alert-action-mobile,
+.urgent #alert-action-desktop {
     background-color: rgba(0, 0, 0, 0.5);
     color: #fff;
 }
 
-.warning #alert-action-desktop:hover {
+.urgent #alert-action-desktop:hover {
     background-color: rgba(0, 0, 0, 0.6);
+}
+.urgent .alert-icon {
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='12' cy='12' r='9.25' stroke='%232b2a29' stroke-width='1.5'%3e%3c/circle%3e%3cpath d='M12 7.8v4' stroke='%232b2a29' stroke-width='1.5' stroke-linecap='round'%3e%3c/path%3e%3ccircle cx='11.9' cy='15.6' r='.6' fill='%232b2a29' stroke='%232b2a29'%3e%3c/circle%3e%3c/svg%3e")
+}
+
+/*EXTREME*/
+.extreme {
+    background-color: #951126;
+    color: #fff;
+}
+.extreme #alert-close svg {
+    fill: rgba(255, 255, 255, 0.75);
+    width: 24px;
+    height: 24px;
+}
+
+.extreme #alert-close {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.extreme #alert-close:hover {
+    color: rgba(255, 255, 255, 1);
+    cursor: pointer;
+}
+
+.extreme #alert-action-mobile,
+.extreme #alert-action-desktop {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+}
+
+.extreme #alert-action-desktop:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.extreme .alert-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cg stroke='%23fff' stroke-width='.75' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='M8 11.77c-.113 0-.2.085-.2.203 0 .113.087.199.2.199.113 0 .2-.086.2-.2a.196.196 0 0 0-.2-.202zm0 0'%3e%3c/path%3e%3cpath d='M8 10.086V5.914m.914-3.629c-.258-.515-.855-.715-1.344-.457a.9.9 0 0 0-.457.457L1.801 13.06a.853.853 0 0 0 .398 1.14.77.77 0 0 0 .371.086h10.86a.858.858 0 0 0 .77-1.226zm0 0' fill='none'%3e%3c/path%3e%3c/g%3e%3c/svg%3e")
 }
