@@ -59,6 +59,12 @@ class Alert extends HTMLElement {
             const message = this.getAttribute('alertmessage');
             const title = this.getAttribute('alerttitle');
 
+            const ariaLabels = {
+                info: 'Alert.',
+                urgent: 'Important alert.',
+                extreme: 'Very important alert.',
+            };
+
             // Get links or 'permanent' from the message and return a clean message
             let canclose = true;
             let linkLabel = null;
@@ -85,6 +91,7 @@ class Alert extends HTMLElement {
             shadowDOM.getElementById('alert-message').innerText = cleanMessage || 'No message supplied';
             shadowDOM.getElementById('alert').classList.add(priorityType);
             shadowDOM.getElementById('alert').setAttribute('data-testid', 'alert-' + id);
+            shadowDOM.getElementById('alert-icon').setAttribute('aria-label', ariaLabels[priorityType]);
 
             // Show or hide the close button and assign the function to do so
             if (!!canclose) {
