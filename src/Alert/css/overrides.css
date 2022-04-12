@@ -28,7 +28,7 @@
 }
 #alert #alert-message,
 .alert__message {
-    padding: 0 24px 0 12px !important;
+    padding: 0 24px 0 6px !important;
     width: 100%;
     flex: 1;
     font-weight: 300 !important;
@@ -133,17 +133,17 @@
     color: #000;
 }
 .urgent #alert-close svg {
-    fill: rgba(255, 255, 255, 0.75);
+    fill: rgba(0, 0, 0, 0.75);
     width: 24px;
     height: 24px;
 }
 
 .urgent #alert-close {
-    color: rgba(255, 255, 255, 0.75);
+    color: rgba(0, 0, 0, 0.75);
 }
 
 .urgent #alert-close:hover {
-    color: rgba(255, 255, 255, 1);
+    color: rgba(0, 0, 0, 1);
     cursor: pointer;
 }
 

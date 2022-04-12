@@ -82,12 +82,14 @@ class Alert extends HTMLElement {
                 cleanMessage = cleanMessage.replace('[permanent]', '');
                 canclose = false;
             }
+            cleanMessage = !!cleanMessage && cleanMessage.length > 0 ? cleanMessage.trim() : cleanMessage;
 
             // Render the template
             shadowDOM.appendChild(template.content.cloneNode(true));
 
             // Assign the values
-            shadowDOM.getElementById('alert-title').innerText = title || 'No title supplied';
+            shadowDOM.getElementById('alert-title').innerText =
+                !!title && title.length > 0 ? title.trim() : 'No title supplied';
             shadowDOM.getElementById('alert-message').innerText = cleanMessage || 'No message supplied';
             shadowDOM.getElementById('alert').classList.add(priorityType);
             shadowDOM.getElementById('alert').setAttribute('data-testid', 'alert-' + id);
