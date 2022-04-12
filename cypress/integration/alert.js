@@ -1,5 +1,9 @@
 /// <reference types="cypress" />
 
+const INFO = 1;
+const URGENT = 4;
+const EXTREME = 5;
+
 describe('Alert', () => {
     context('Alert', () => {
         it('Alert is visible without interaction at 1280', () => {
@@ -9,7 +13,7 @@ describe('Alert', () => {
 
             cy.get('alert-list')
                 .shadow()
-                .find('uq-alert[id="alert-1"]')
+                .find(`uq-alert[id="alert-${INFO}"]`)
                 .shadow()
                 .find('#alert-title')
                 .should('contain', 'This is an alert')
@@ -18,23 +22,23 @@ describe('Alert', () => {
 
             cy.get('alert-list')
                 .shadow()
-                .find('uq-alert[id="alert-1"]')
+                .find(`uq-alert[id="alert-${INFO}"]`)
                 .shadow()
                 .find('#alert-action-desktop')
                 .should('have.text', 'Action button label');
 
-            cy.get('alert-list').shadow().find('uq-alert[id="alert-1"]').shadow().find('#alert-close').click();
+            cy.get('alert-list').shadow().find(`uq-alert[id="alert-${INFO}"]`).shadow().find('#alert-close').click();
 
             cy.get('alert-list')
                 .shadow()
-                .find('uq-alert[id="alert-1"]')
+                .find(`uq-alert[id="alert-${INFO}"]`)
                 .shadow()
                 .find('#alert')
                 .should('have.css', 'display', 'none');
 
             cy.get('alert-list')
                 .shadow()
-                .find('uq-alert[id="alert-4"]')
+                .find(`uq-alert[id="alert-${URGENT}"]`)
                 .shadow()
                 .find('#alert-title')
                 .should('contain', 'This is a permanent urgent alert')
@@ -48,7 +52,7 @@ describe('Alert', () => {
             cy.viewport(1280, 900);
             cy.get('alert-list')
                 .shadow()
-                .find('uq-alert[id="alert-1"]')
+                .find(`uq-alert[id="alert-${INFO}"]`)
                 .shadow()
                 .find('div#alert')
                 .checkA11y('alert-list', {
@@ -58,7 +62,13 @@ describe('Alert', () => {
                 });
             cy.get('alert-list')
                 .shadow()
-                .find('uq-alert[id="alert-4"]')
+                .find(`uq-alert[id="alert-${INFO}"]`)
+                .shadow()
+                .find('div#alert-icon')
+                .should('have.attr', 'aria-label', 'Alert.');
+            cy.get('alert-list')
+                .shadow()
+                .find(`uq-alert[id="alert-${URGENT}"]`)
                 .shadow()
                 .find('div#alert')
                 .checkA11y('alert-list', {
@@ -66,13 +76,25 @@ describe('Alert', () => {
                     scopeName: 'Accessibility',
                     includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
                 });
+            cy.get('alert-list')
+                .shadow()
+                .find(`uq-alert[id="alert-${URGENT}"]`)
+                .shadow()
+                .find('div#alert-icon')
+                .should('have.attr', 'aria-label', 'Important alert.');
+            cy.get('alert-list')
+                .shadow()
+                .find(`uq-alert[id="alert-${EXTREME}"]`)
+                .shadow()
+                .find('div#alert-icon')
+                .should('have.attr', 'aria-label', 'Very important alert.');
         });
 
         it('Alert is hidden if clicked to dismiss', () => {
             cy.visit('http://localhost:8080');
             cy.viewport(1280, 900);
             cy.get('alert-list').shadow().find('uq-alert').should('have.length', 3);
-            cy.get('alert-list').shadow().find('uq-alert[id="alert-1"]').shadow().find('#alert-close').click();
+            cy.get('alert-list').shadow().find(`uq-alert[id="alert-${INFO}"]`).shadow().find('#alert-close').click();
             cy.reload(true);
             cy.get('alert-list').shadow().find('uq-alert').should('have.length', 2);
         });
@@ -131,7 +153,12 @@ describe('Alert', () => {
                 statusCode: 200,
                 body: 'it worked!',
             });
-            cy.get('alert-list').shadow().find('uq-alert[id="alert-1"]').shadow().find('#alert-action-desktop').click();
+            cy.get('alert-list')
+                .shadow()
+                .find(`uq-alert[id="alert-${INFO}"]`)
+                .shadow()
+                .find('#alert-action-desktop')
+                .click();
             cy.get('body').contains('it worked!');
         });
 

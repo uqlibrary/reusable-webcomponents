@@ -50,7 +50,7 @@ export const alerts = [{
     "end": "2025-12-31 23:59:12",
     "title": "This is an alert that will show on all systems 1 of 2",
     "body": "This is the message [Action button label](http://www.example.com)",
-    "urgent": 0,
+    "priority_type": "info",
     "systems": [],
 }, {
     "id": "2",
@@ -58,7 +58,7 @@ export const alerts = [{
     "end": "2025-12-31 23:59:12",
     "title": "This is a permanent urgent alert that will only show on primo",
     "body": "This is the message [permanent]",
-    "urgent": 1,
+    "priority_type": "urgent",
     "systems": ['primo'],
 }, {
     "id": "3",
@@ -66,7 +66,7 @@ export const alerts = [{
     "end": "2025-12-31 23:59:12",
     "title": "This is a permanent urgent alert that will only show on primo or drupal",
     "body": "This is the message [permanent]",
-    "urgent": 1,
+    "priority_type": "urgent",
     "systems": ['primo', 'drupal'],
 }, {
     "id": "4",
@@ -74,15 +74,15 @@ export const alerts = [{
     "end": "2025-12-31 23:59:12",
     "title": "This is a permanent urgent alert that will show on all systems 2 of 2",
     "body": "This is the message [permanent]",
-    "urgent": 1,
+    "priority_type": "urgent",
     "systems": [],
 }, {
     "id": "5",
     "start": "2021-01-01 00:00:12",
     "end": "2025-12-31 23:59:12",
-    "title": "This is a permanent urgent alert that will show on homepage only",
+    "title": "This is a permanent extreme alert that will show on homepage only",
     "body": "This is the message [permanent]",
-    "urgent": 1,
+    "priority_type": "extreme",
     "systems": ['homepage'],
 }];
 
