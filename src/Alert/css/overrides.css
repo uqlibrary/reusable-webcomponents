@@ -24,11 +24,11 @@
     overflow: visible;
     width: 24px;
     height: 24px;
+    background-repeat: no-repeat;
 }
-
 #alert #alert-message,
 .alert__message {
-    padding: 24px 24px 24px 12px !important;
+    padding: 0 24px 0 12px !important;
     width: 100%;
     flex: 1;
     font-weight: 300 !important;
@@ -44,28 +44,22 @@
 }
 
 #alert .alert__container {
-    padding: 0 12px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
-    align-items: center;
-}
-
-#alert #alert-icon svg {
-    margin-top: -5px;
-    width: 32px;
-    height: 32px;
+    align-items: start;
+    padding: 18px 24px 18px 12px !important;
 }
 
 #alert #alert-action-desktop {
     display: inline-block;
     padding: 6px 8px;
-    margin-right: 16px;
     border-radius: 4px;
     white-space: nowrap;
     width: 100%;
     flex: 0;
+    margin: auto;
 }
 
 #alert #alert-action-mobile {
@@ -103,9 +97,6 @@
 .info {
     background-color: #1e72c6;
     color: #fff;
-}
-.info svg {
-    fill: rgba(0, 0, 0, 0.4);
 }
 
 .info #alert-close {
