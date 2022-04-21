@@ -1089,7 +1089,7 @@ prm-report-problem {
     .report-container {
         .report-problem-btn {
             right: -10px;
-            bottom: 80px;
+            bottom: 100px;
 
             prm-icon md-icon path {
                 color: $accent-color;
@@ -1137,5 +1137,8 @@ prm-view-online {
     .all-links-options a:hover span {
         box-shadow: none;
         color: #333;
+    }
+    button:first-child {
+        padding-left: 10px;
     }
 }
