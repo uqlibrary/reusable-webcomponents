@@ -1042,20 +1042,27 @@ prm-facet .switch-results {
         background-color: $background-grey;
     }
 
+    md-switch span {
+        position: relative;
+    }
+
     button:first-child {
-        min-height: 2em;
-        padding: 1em 6px;
+        padding-top: 0.5em;
+        padding-bottom: 1.5em;
         a {
-            text-align: left;
-            display: block;
-            margin-top: -10px;
+            position: absolute;
+            top: 0.8em;
+            right: 0;
+
         }
     }
 
     button:first-child:hover a,
     button.md-button.button-as-link:first-child a:hover {
-        color: #fff!important;
+        color: #fff !important;
         box-shadow: none;
+    }
+    button.md-button.button-as-link:first-child a:hover {
         text-decoration-color: #fff;
         text-decoration-line: underline;
     }
