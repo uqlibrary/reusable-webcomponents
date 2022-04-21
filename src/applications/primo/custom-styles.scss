@@ -1104,13 +1104,19 @@ prm-view-online {
     }
 
     a.arrow-link.links-section md-icon {
-        margin-left: 7px;
+        margin-left: 5px;
     }
 
     a prm-icon {
         md-icon,
         md-icon.md-primoExplore-theme {
             color: $accent-color !important;
+            width: 18px;
+            height: 18px;
         }
+    }
+    .all-links-options a:hover span {
+        box-shadow: none;
+        color: #333;
     }
 }
