@@ -1041,10 +1041,15 @@ prm-facet .switch-results {
     .md-button.button-as-link.active:hover:not([disabled]) {
         background-color: $background-grey;
     }
-    &:hover a ,
-    .md-button.button-as-link a:hover {
+
+    button:first-child:hover a,
+    button.md-button.button-as-link:first-child a:hover {
         color: #fff!important;
         box-shadow: inset 0 -2px 0 0 #fff;
+    }
+
+    .md-button.inactive.button-as-link:hover:hover:not([disabled])  {
+        background-color: $background-grey;
     }
 }
 
@@ -1094,14 +1099,17 @@ prm-report-problem {
 }
 
 // 4. New multiple links for CDI records
+prm-view-online {
+    a.arrow-link.links-section {
+        display: block;
+        font-weight: 600;
+    }
 
-a.arrow-link.links-section {
-    display: block;
-    font-weight: 600;
-}
-a.arrow-link.links-section md-icon {
-    margin-left: 7px;
-}
-prm-icon md-icon, prm-icon md-icon.md-primoExplore-theme {
-    color: $accent-color!important;
+    a.arrow-link.links-section md-icon {
+        margin-left: 7px;
+    }
+
+    prm-icon md-icon, prm-icon md-icon.md-primoExplore-theme {
+        color: $accent-color !important;
+    }
 }
