@@ -1117,12 +1117,14 @@ prm-report-problem {
 
 // Multiple links for CDI records (View it section, Show More/Less, "View online" links)
 prm-view-online {
-    a.arrow-link.links-section {
+    a.arrow-link,
+    a.arrow-link div.layout-row {
         display: block;
         font-weight: 600;
     }
 
-    a.arrow-link.links-section md-icon {
+    a.arrow-link md-icon,
+    a.arrow-link div.layout-row md-icon {
         margin-left: 5px;
     }
 
