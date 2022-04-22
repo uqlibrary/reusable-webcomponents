@@ -1039,7 +1039,14 @@ prm-facet .switch-results {
         }
     }
     .md-button.button-as-link.active:hover:not([disabled]) {
-        background-color: $background-grey;
+        background-color: $highlightBlue;
+    }
+    .md-button.inactive.button-as-link:hover:hover:not([disabled]),
+    .md-button:hover md-switch.md-checked .md-label {
+        color: $links-hue-3 !important;
+    }
+    .md-button.inactive.button-as-link:hover:hover:not([disabled])  {
+        background-color: $highlightBlue;
     }
 
     md-switch span {
@@ -1057,18 +1064,15 @@ prm-facet .switch-results {
         }
     }
 
+    // the "whats this" link
     button:first-child:hover a,
     button.md-button.button-as-link:first-child a:hover {
-        color: #fff !important;
+        color: $links-hue-3 !important;
         box-shadow: none;
     }
     button.md-button.button-as-link:first-child a:hover {
-        text-decoration-color: #fff;
+        text-decoration-color: $links-hue-3;
         text-decoration-line: underline;
-    }
-
-    .md-button.inactive.button-as-link:hover:hover:not([disabled])  {
-        background-color: $background-grey;
     }
 }
 
