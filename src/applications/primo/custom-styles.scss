@@ -1088,37 +1088,6 @@ prm-advanced-search .collapsed-area {
     }
 }
 
-// Feedback icon (bottom right hand corner)
-prm-report-problem {
-    .report-container {
-        .report-problem-btn {
-            right: -10px;
-            bottom: 100px;
-
-            prm-icon md-icon path {
-                color: $accent-color;
-            }
-
-            &.md-button:hover {
-                color: $links-hue-5; // #0a447e
-            }
-
-            &.md-button:hover prm-icon md-icon path {
-                fill: $links-hue-5;
-            }
-        }
-
-    }
-
-    .report-problem-content .report-header {
-        background-color: $background-grey;
-    }
-
-    .report-problem-content.report-menu-content-desktop {
-        border: 1px solid $background-grey;
-    }
-}
-
 // Multiple links for CDI records (View it section, Show More/Less, "View online" links)
 prm-view-online {
     a.arrow-link,
