@@ -1039,10 +1039,18 @@ prm-facet .switch-results {
         }
     }
     .md-button.button-as-link.active:focus:not([disabled]),
-    .md-button.inactive.button-as-link:focus:focus:not([disabled]) ,
-    .md-button.button-as-link.active:hover:not([disabled]) {
+    .md-button.inactive.button-as-link:focus:focus:not([disabled]) {
         color: $accent-color;
         background-color: inherit;
+    }
+    .md-button.button-as-link.active:hover:not([disabled]) {
+        color: $accent-color;
+        background-color: $highlightBlue;
+    }
+
+    .md-button:focus md-switch.md-checked .md-label,
+    .md-button:focus md-switch.md-checked .md-label span {
+        color: $accent-color !important;
     }
     .md-button:hover md-switch.md-checked .md-label {
         color: $links-hue-3 !important;
