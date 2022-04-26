@@ -1100,9 +1100,9 @@ prm-advanced-search {
         }
     }
 
-    & > form > div > div:nth-child(3) div md-select:after {
+    .advanced-search-output div md-select:after {
         content: "\25BC";
-        width: 24px;
+        width: 10px;
         font-size: 0.5rem;
         margin-top: 2px;
         margin-left: 5px;
