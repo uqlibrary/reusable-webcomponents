@@ -1100,29 +1100,14 @@ prm-advanced-search {
         }
     }
 
-    md-card .search-string md-input-container md-select {
-        border-bottom: 5px double #333;
-        margin-bottom: 5px;
+    & > form > div > div:nth-child(3) div md-select:after {
+        content: "\25BC";
+        width: 24px;
+        font-size: 0.5rem;
+        margin-top: 2px;
+        margin-left: 5px;
     }
-
 }
-prm-search-bar .advanced-search-wrapper .search-string .string-field input {
-    border-bottom: 5px double #333
-}
-/*
-working notes:
-prm-advanced-search  md-card .search-string md-input-container md-select {
-        border: 2px dotted #333;
-        padding-right: 2px;
-        padding-left: 2px;
-    padding-top: 4px
-}
-
-prm-search-bar .advanced-search-wrapper .search-string .string-field input {
-      border: 2px dotted #333;
-      padding-right: 120%;
-}
-*/
 
 // Multiple links for CDI records (View it section, Show More/Less, "View online" links)
 prm-view-online {
