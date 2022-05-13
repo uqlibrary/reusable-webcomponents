@@ -2,6 +2,10 @@
 
 Admin is at <https://uq.libwizard.com/admin/settings>
 
+Example live page: <https://uq.libwizard.com/f/metrics> (but I think it is run as an iframe)
+
+Note that we arent running GTM on this page.
+
 ## Page header tab
 
 Select 'display this html' and insert the following html:

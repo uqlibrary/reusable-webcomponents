@@ -1,5 +1,7 @@
 # LibCal documentation
 
+Live at: <https://calendar.library.uq.edu.au/>
+
 ## Kitchen sink
 
 - Production : <https://assets.library.uq.edu.au/reusable-webcomponents/>

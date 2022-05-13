@@ -4,6 +4,8 @@ A third party product that we are theming to match the general library theme.
 
 Current area is the [Library Staff Development workgroup portal](https://studenthub.uq.edu.au/workgroups/library-staff-development/events/). We are theming this by putting our polymer reusable elements in the top of the body of the page via a GUI editor.
 
+Live at <https://www.studenthub.uq.edu.au/workgroups/library-staff-development>
+
 Method to edit the theme:
 
 - Decide what changes are needed and update below
