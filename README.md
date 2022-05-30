@@ -147,8 +147,9 @@ There is a cloudfront behaviour on assets.library.uq.edu.au that maps these buck
 
 ### Current contents
 
-- UQ Header (28 Feb 2021) - [ITS DS](https://design-system.uq.edu.au/?path=/docs/components-header--header)
-- UQ Footer (28 Feb 2021) - [ITS DS](https://design-system.uq.edu.au/?path=/docs/components-footer--footer)
+- UQ Header (Last update 28 Feb 2021) - [ITS DS](https://design-system.uq.edu.au/?path=/docs/components-header--header)
+- UQ Footer (Last update 28 Feb 2021) - [ITS DS](https://design-system.uq.edu.au/?path=/docs/components-footer--footer)
+- Training (Last update June 2021) - [ITS DS](https://design-system.uq.edu.au/?path=/docs/components-accordion--using-divs)
 
 #### _Using UQ Header package as an example_
 

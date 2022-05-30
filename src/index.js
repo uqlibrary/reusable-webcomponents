@@ -1,3 +1,4 @@
+// deliberate use of var as this needs to run on old browsers
 var supportsCustomElements = 'customElements' in window;
 if (!supportsCustomElements) {
     var bodyblock = document.querySelector('body');
