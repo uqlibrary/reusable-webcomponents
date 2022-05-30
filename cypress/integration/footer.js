@@ -27,29 +27,27 @@ describe('UQ Footer', () => {
         });
 
         it('Mobile-width Footer drop down menus work properly', () => {
-            const librarySubmenuVisible = (visible) => {
+            const libraryMenuPlacement = '3'; // The "Library" item is the 4th submenu (zero indexed)
+            const librarySubmenuButton = `[data-testid="button-menu-toggle-${libraryMenuPlacement}"]`;
+
+            const findLibrarySubmenuButton = () => cy.get('uq-footer').shadow().find(librarySubmenuButton);
+
+            const assertLibrarySubmenuVisibility = (visible) => {
                 const visibilityStatement = !!visible ? 'be.visible' : 'not.be.visible';
-                cy.get('uq-footer')
-                    .shadow()
-                    .find('[data-testid="button-menu-toggle-3"]')
-                    .parent()
-                    .find('ul')
-                    .should(visibilityStatement);
+                findLibrarySubmenuButton().parent().find('ul').should(visibilityStatement);
             };
 
+            const toggleLibrarySubmenu = () => findLibrarySubmenuButton().click();
+
             cy.viewport(320, 480);
-            const libraryButton = cy
-                .get('uq-footer')
-                .shadow()
-                // #3 is Library section
-                .find('[data-testid="button-menu-toggle-3"]');
-            cy.get('uq-footer').shadow().find('[data-testid="button-menu-toggle-3"]').scrollIntoView();
-            librarySubmenuVisible(false);
-            cy.get('uq-footer').shadow().find('[data-testid="button-menu-toggle-3"]').click();
-            librarySubmenuVisible(true);
-            cy.get('uq-footer').shadow().find('[data-testid="button-menu-toggle-3"]').click();
-            librarySubmenuVisible(false);
-            cy.log('DONE!');
+            findLibrarySubmenuButton().scrollIntoView();
+            assertLibrarySubmenuVisibility(false);
+
+            toggleLibrarySubmenu();
+            assertLibrarySubmenuVisibility(true);
+
+            toggleLibrarySubmenu();
+            assertLibrarySubmenuVisibility(false);
         });
     });
 });
