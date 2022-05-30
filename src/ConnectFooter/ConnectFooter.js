@@ -1,5 +1,4 @@
 import styles from './css/overrides.css';
-import { default as menuLocale } from '../locale/menu';
 import { default as footerlocale } from './connectfooter.locale';
 
 const template = document.createElement('template');
@@ -17,7 +16,7 @@ template.innerHTML = `
                     <div class="contacts griditem griditem12 gridmd4">
                         <div class="gridcontainer">
                             <div class="griditem gridxsauto">
-                                <h3 class="typography typographyh6">Connect with us</h3>
+                                <h3 data-testid="connect-footer-social-heading" class="typography typographyh6"></h3>
                             </div>
                         </div>
                         <div class="buttons gridcontainer spacingxs1">
@@ -53,46 +52,35 @@ class ConnectFooter extends HTMLElement {
         // Bindings
         this.updateFooterMenuFromJson = this.updateFooterMenuFromJson.bind(this);
         this.createLink = this.createLink.bind(this);
-        this.createFooterInternalLinkEntry = this.createFooterInternalLinkEntry.bind(this);
         this.createFooterGivingButtonEntry = this.createFooterGivingButtonEntry.bind(this);
         this.createFooterSocialButtonEntry = this.createFooterSocialButtonEntry.bind(this);
-        this.createFooterMenuEntry = this.createFooterMenuEntry.bind(this);
         this.createSeparatorForFooterMenu = this.createSeparatorForFooterMenu.bind(this);
         this.socialButtonIdentifier = this.socialButtonIdentifier.bind(this);
         this.internalButtonIdentifier = this.internalButtonIdentifier.bind(this);
-        this.footerButtonIdentifier = this.footerButtonIdentifier.bind(this);
         this.givingButtonIdentifier = this.givingButtonIdentifier.bind(this);
     }
 
     updateFooterMenuFromJson() {
         const footerMenu = template.content.getElementById('footer-menu');
-        /* istanbul ignore else */
-        if (!!footerMenu && !template.content.getElementById('footermenu-home')) {
-            const homelink = this.createLink(
-                'footermenu-homepage',
-                menuLocale.menuhome.linkTo || /* istanbul ignore next */ '',
-                menuLocale.menuhome.primaryText || /* istanbul ignore next */ '',
-            );
+        footerlocale.connectFooter.internalLinks.forEach((button, index) => {
+            /* istanbul ignore else */
+            if (!template.content.getElementById(this.internalButtonIdentifier(index))) {
+                const internalLink = this.createLink(
+                    button.dataTestid,
+                    button.linkTo || /* istanbul ignore next */ '',
+                    button.linklabel || /* istanbul ignore next */ '',
+                );
 
-            const homeMenuItem = document.createElement('li');
-            !!homeMenuItem && homeMenuItem.setAttribute('id', this.footerButtonIdentifier('home'));
-            !!homeMenuItem && homeMenuItem.appendChild(homelink);
+                const internalItem = document.createElement('li');
+                !!internalItem && internalItem.setAttribute('id', this.internalButtonIdentifier(index));
+                !!internalItem && internalItem.appendChild(internalLink);
 
-            const separator = this.createSeparatorForFooterMenu();
-            !!homeMenuItem && !!separator && homeMenuItem.appendChild(separator);
+                const separator = this.createSeparatorForFooterMenu(index);
+                !!internalItem && !!separator && internalItem.appendChild(separator);
 
-            footerMenu.appendChild(homeMenuItem);
-        }
-
-        !!footerMenu &&
-            menuLocale.publicmenu.forEach((linkProperties, index) => {
-                /* istanbul ignore else */
-                if (!template.content.getElementById(this.footerButtonIdentifier(index))) {
-                    const menuItem = this.createFooterMenuEntry(linkProperties, index);
-
-                    !!menuItem && footerMenu.appendChild(menuItem);
-                }
-            });
+                !!internalItem && footerMenu.appendChild(internalItem);
+            }
+        });
 
         const contactsheader = template.content.querySelector('.contacts h3');
         !!contactsheader && (contactsheader.innerHTML = footerlocale.connectFooter.buttonSocialHeader);
@@ -107,16 +95,6 @@ class ConnectFooter extends HTMLElement {
                 }
             });
 
-        const internalbuttonsContainer = template.content.querySelector('.contacts .internalLinks');
-        !!internalbuttonsContainer &&
-            footerlocale.connectFooter.internalLinks.forEach((button, index) => {
-                /* istanbul ignore else */
-                if (!template.content.getElementById(this.internalButtonIdentifier(index))) {
-                    const container = this.createFooterInternalLinkEntry(button, index);
-                    !!container && internalbuttonsContainer.appendChild(container);
-                }
-            });
-
         const givingbuttonsContainer = template.content.querySelector('.givingWrapper div');
         !!givingbuttonsContainer &&
             footerlocale.connectFooter.givingLinks.map((button, index) => {
@@ -126,28 +104,6 @@ class ConnectFooter extends HTMLElement {
                     !!container && givingbuttonsContainer.appendChild(container);
                 }
             });
-    }
-
-    createFooterInternalLinkEntry(button, index) {
-        const linkLabel = document.createTextNode(button.linklabel);
-
-        const link = document.createElement('a');
-        !!link && (link.href = button.linkTo);
-        !!link && link.setAttribute('data-testid', button.dataTestid);
-        !!link && !!linkLabel && link.appendChild(linkLabel);
-
-        const linkLabelSpan = document.createTextNode(' |  ');
-        const span = document.createElement('span');
-        index < footerlocale.connectFooter.internalLinks.length - 1 &&
-            !!span &&
-            !!linkLabelSpan &&
-            span.appendChild(linkLabelSpan);
-
-        const container = document.createElement('span');
-        !!container && (container.id = this.internalButtonIdentifier(index));
-        !!container && !!link && container.appendChild(link);
-        !!container && !!span && container.appendChild(span);
-        return container;
     }
 
     createFooterGivingButtonEntry(button, index) {
@@ -210,38 +166,23 @@ class ConnectFooter extends HTMLElement {
         return container;
     }
 
-    createFooterMenuEntry(linkProperties, index) {
-        const menulink = this.createLink(
-            linkProperties.dataTestid || /* istanbul ignore next */ '',
-            linkProperties.linkTo || /* istanbul ignore next */ '',
-            linkProperties.primaryText || /* istanbul ignore next */ '',
-        );
-
-        const menuItem = document.createElement('li');
-        !!menuItem && menuItem.setAttribute('id', this.footerButtonIdentifier(index));
-        !!menuItem && menuItem.appendChild(menulink);
-
-        const separator = this.createSeparatorForFooterMenu();
-        !!menuItem && !!separator && menuItem.appendChild(separator);
-        return menuItem;
-    }
-
-    createSeparatorForFooterMenu() {
+    createSeparatorForFooterMenu(index) {
         const separator = document.createElement('span');
         !!separator && separator.setAttribute('class', 'separator');
+        !!separator && separator.setAttribute('data-testid', `connect-internal-separator-${index}`);
         !!separator && (separator.textContent = ' | ');
         return separator;
     }
 
     createLink(datatestid, href, linktext) {
-        const homelink = document.createElement('a');
-        !!homelink && homelink.setAttribute('data-testid', datatestid);
-        !!homelink && homelink.setAttribute('href', href);
+        const link = document.createElement('a');
+        !!datatestid && !!link && link.setAttribute('data-testid', datatestid);
+        !!href && !!link && link.setAttribute('href', href);
 
-        const textOfLink = document.createTextNode(linktext);
-        !!homelink && !!textOfLink && homelink.appendChild(textOfLink);
+        const textOfLink = !!linktext && document.createTextNode(linktext);
+        !!link && !!textOfLink && link.appendChild(textOfLink);
 
-        return homelink;
+        return link;
     }
 
     socialButtonIdentifier(index) {
@@ -250,10 +191,6 @@ class ConnectFooter extends HTMLElement {
 
     internalButtonIdentifier(index) {
         return `internalbutton-${index}`;
-    }
-
-    footerButtonIdentifier(index) {
-        return `footermenu-${index}`;
     }
 
     givingButtonIdentifier(index) {

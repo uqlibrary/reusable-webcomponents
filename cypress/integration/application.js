@@ -98,9 +98,9 @@ describe('Dummy Application', () => {
     function hasConnectFooter() {
         cy.get('connect-footer')
             .shadow()
-            .find('ul[data-testid="connect-footer-menu"]')
+            .find('[data-testid="connect-footer-social-heading"]')
             .should('exist')
-            .and('contain', 'Library home');
+            .and('contain', 'Connect with the Library');
     }
 
     function hasNoConnectFooter() {
