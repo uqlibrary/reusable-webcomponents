@@ -4,7 +4,6 @@
 describe('GTM', () => {
     beforeEach(() => {
         cy.visit('http://localhost:8080');
-        // cy.injectAxe();
         cy.intercept('GET', 'https://www.googletagmanager.com/gtm.js', (req) => {
             expect(req.url).to.contain('ABC123');
             req.reply(200);
@@ -17,7 +16,7 @@ describe('GTM', () => {
     context('GTM', () => {
         it('uq-gtm component starts with null gtm value until attr set', () => {
             cy.viewport(1280, 900);
-            // No attributed on load
+            // No attribute on load
             cy.get('uq-gtm').should('not.have.attr', 'gtm');
 
             // Now inject the atttribute as load.js would

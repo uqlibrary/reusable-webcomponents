@@ -173,6 +173,7 @@ describe('Secure Collection', () => {
         // b) something weird is happening in coverage that if we redirect then no coverage is measured, so we get
         // around that
         it('a resource that requires login can have the login redirect link clicked', () => {
+            cy.intercept(/loginuserpass/, 'auth pages that forces the user to login');
             cy.intercept('GET', '/idp/module.php', {
                 // https://auth.uq.edu.au/idp/module.php/core/loginuserpass.php?AuthState=&etc
                 statusCode: 200,
@@ -191,6 +192,7 @@ describe('Secure Collection', () => {
         });
 
         it('a resource that requires login will redirect to auth for the public user', () => {
+            cy.intercept(/loginuserpass/, 'auth pages that forces the user to login');
             cy.intercept('GET', '/idp/module.php', {
                 // https://auth.uq.edu.au/idp/module.php/core/loginuserpass.php?AuthState=&etc
                 statusCode: 200,
@@ -205,6 +207,10 @@ describe('Secure Collection', () => {
         });
 
         it('a resource that requires login will redirect to the resource for a logged in user', () => {
+            cy.intercept(
+                /secure\/exams\/2018\/Semester_Two_Final_Examinations__2018_PHIL2011_281.pdf/,
+                'I am a exam file resource delivered to the user',
+            );
             cy.intercept('GET', '/secure/exams/2018/Semester_Two_Final_Examinations__2018_PHIL2011_281.pdf', {
                 statusCode: 200,
                 body: 'I am a exam file resource delivered to the user',
@@ -218,6 +224,7 @@ describe('Secure Collection', () => {
         });
 
         it('a link that downloads can have the "download" button clicked', () => {
+            cy.intercept(/coursebank\/22222222222.pdf/, 'I am a file resource delivered to the user');
             cy.intercept('GET', '/coursebank/22222222222.pdf', {
                 statusCode: 200,
                 body: 'I am a file resource delivered to the user',
@@ -235,6 +242,7 @@ describe('Secure Collection', () => {
         });
 
         it('a link that downloads will redirect to the resource', () => {
+            cy.intercept(/secure\/exams\/phil1010.pdf/, 'I am a file resource delivered to the user');
             cy.intercept('GET', '/secure/exams/phil1010.pdf', {
                 statusCode: 200,
                 body: 'I am a file resource delivered to the user',
@@ -247,6 +255,10 @@ describe('Secure Collection', () => {
         });
 
         it('a link that does not require acknowledgement will redirect to the file (logged in user only)', () => {
+            cy.intercept(
+                /secure\/thomson\/classic_legal_texts\/Thynne_Accountability_And_Control.pdf/,
+                'I am another file resource delivered to the user',
+            );
             cy.intercept('GET', '/secure/thomson/classic_legal_texts/Thynne_Accountability_And_Control.pdf', {
                 // 'https://files.library.uq.edu.au/secure/thomson/classic_legal_texts/Thynne_Accountability_And_Control.pdf?Expires=1621380128&Signature=longstring&Key-Pair-Id=APKAJNDQICYW445PEOSA',
                 statusCode: 200,
