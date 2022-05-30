@@ -110,9 +110,9 @@ describe('Dummy Application', () => {
     function hasUqFooter() {
         cy.get('uq-footer')
             .shadow()
-            .find('a.uq-footer__acknowledgement__link')
+            .find('.uq-footer__acknowledgement a.uq-footer__link')
             .should('exist')
-            .and('contain', 'Reconciliation statement');
+            .and('contain', 'Reconciliation at UQ');
     }
 
     function hasNoUqFooter() {

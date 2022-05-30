@@ -148,6 +148,7 @@ class UQFooter extends HTMLElement {
                 !!mobileToggleButton &&
                     mobileToggleButton.setAttribute('class', 'uq-accordion__toggle uq-footer__navigation-toggle');
                 !!h2Text && !!mobileToggleButton && mobileToggleButton.appendChild(h2Text);
+                !!mobileToggleButton && mobileToggleButton.setAttribute('data-testid', `button-${toggleId}`);
                 !!mobileToggleButton && !!li1 && li1.appendChild(mobileToggleButton);
 
                 const ul2 = document.createElement('ul');
