@@ -71,10 +71,46 @@ class UQFooter extends HTMLElement {
         // Render the template
         shadowDOM.appendChild(template.content.cloneNode(true));
 
+        this.addButtonListeners(shadowDOM); // always after template rendered!!
+
         // Bindings
         this.loadDesktopFooterMenuFromJson = this.loadDesktopFooterMenuFromJson.bind(this);
         this.loadMobileFooterMenuFromJson = this.loadMobileFooterMenuFromJson.bind(this);
         this.createNavLink = this.createNavLink.bind(this);
+        this.addButtonListeners = this.addButtonListeners.bind(this);
+    }
+
+    addButtonListeners(shadowDOM) {
+        const toggleMenuItem = (elementId) => {
+            const listLeader = shadowDOM.getElementById(elementId);
+
+            if (!listLeader) {
+                return;
+            }
+
+            const button = listLeader.querySelector('button');
+            const ul = listLeader.querySelector('ul');
+
+            if (listLeader.className.match(/uq-accordion__item--is-open/)) {
+                listLeader.classList.remove('uq-accordion__item--is-open');
+                !!button && button.classList.remove('uq-accordion__toggle--active');
+                !!ul && ul.classList.remove('uq-accordion__content--active');
+            } else {
+                listLeader.classList.add('uq-accordion__item--is-open');
+                !!button && button.classList.add('uq-accordion__toggle--active');
+                !!ul && ul.classList.add('uq-accordion__content--active');
+            }
+        };
+
+        navLocale.forEach((unused, index) => {
+            const elementId = `menu-toggle-${index}`;
+            let element = shadowDOM.getElementById(elementId);
+            !!element &&
+                element.addEventListener('click', function clickFooterButton() {
+                    console.log('clickFooterButton');
+                    toggleMenuItem(elementId);
+                });
+        });
     }
 
     createNavLink(href, linktext, datatestid = null) {
@@ -99,8 +135,10 @@ class UQFooter extends HTMLElement {
         !!footerMenu &&
             navLocale.forEach((list, index) => {
                 const li1 = document.createElement('li');
-                const li1Class = 'uq-accordion__item uq-footer__navigation-item uq-footer__navigation--is-open';
+                const li1Class = 'uq-accordion__item uq-footer__navigation-item';
                 !!li1 && li1.setAttribute('class', li1Class);
+                const toggleId = `menu-toggle-${index}`;
+                !!li1 && li1.setAttribute('id', toggleId);
                 !!li1 && !!ul1 && ul1.appendChild(li1);
 
                 const h2Text = document.createTextNode(list.label);
