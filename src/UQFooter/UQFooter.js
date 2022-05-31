@@ -39,7 +39,7 @@ template.innerHTML = `
         </div>
         <nav class="uq-footer__meta" aria-label="Business meta">
           <ul class="uq-footer__footer-list">
-            <li class="uq-footer__footer-item">© The University of Queensland</li>
+            <li class="uq-footer__footer-item">&copy; The University of Queensland</li>
             <li class="uq-footer__footer-item"><abbr title="Australian Business Number">ABN</abbr>: 63 942 912 684 </li>
             <li class="uq-footer__footer-item"><abbr title="Commonwealth Register of Institutions and Courses for Overseas Students">CRICOS</abbr> Provider No: <a class="uq-footer__link" href="https://www.uq.edu.au/about/cricos-link" rel="external" data-gtm-label="CRICOS 00025B">00025B</a></li>
           </ul>
