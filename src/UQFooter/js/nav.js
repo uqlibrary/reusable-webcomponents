@@ -17,7 +17,7 @@ export default [
         ],
     },
     {
-        label: 'Staff',
+        label: 'Working at UQ',
         list: [
             {
                 label: 'Current staff',
@@ -49,7 +49,7 @@ export default [
                 href: 'https://my.uq.edu.au/',
             },
             {
-                label: 'Program and courses',
+                label: 'Programs and courses',
                 href: 'https://my.uq.edu.au/programs-courses/',
             },
             {
@@ -83,7 +83,7 @@ export default [
             },
             {
                 label: 'Research tools',
-                href: 'https://staff.uq.edu.au/information-and-services/health-safety-wellbeing/mental-health',
+                href: 'https://web.library.uq.edu.au/research-tools-techniques',
             },
         ],
     },
@@ -100,14 +100,14 @@ export default [
             },
             {
                 label: 'Faculties, schools, institutes and centres',
-                href: '"https://about.uq.edu.au/faculties-schools-institutes-centres',
+                href: 'https://about.uq.edu.au/faculties-schools-institutes-centres',
             },
             {
                 label: 'Divisions and departments',
                 href: 'https://www.uq.edu.au/departments/',
             },
             {
-                label: 'Campus maps and transport',
+                label: 'Campuses, maps and transport',
                 href: 'https://campuses.uq.edu.au/',
             },
         ],
