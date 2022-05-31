@@ -72,18 +72,22 @@ export default [
             {
                 label: 'Library',
                 href: 'https://www.library.uq.edu.au/',
+                dataTestid: 'uqfooter-nav-library-homepage',
             },
             {
                 label: 'Locations and hours',
                 href: 'https://web.library.uq.edu.au/locations-hours',
+                dataTestid: 'uqfooter-nav-library-locations',
             },
             {
                 label: 'Library services',
                 href: 'https://web.library.uq.edu.au/library-services',
+                dataTestid: 'uqfooter-nav-library-services',
             },
             {
                 label: 'Research tools',
                 href: 'https://web.library.uq.edu.au/research-tools-techniques',
+                dataTestid: 'uqfooter-nav-library-research',
             },
         ],
     },

@@ -114,7 +114,6 @@ class UQFooter extends HTMLElement {
             let element = shadowDOM.getElementById(elementId);
             !!element &&
                 element.addEventListener('click', function clickFooterButton() {
-                    console.log('clickFooterButton');
                     toggleMenuItem(elementId);
                 });
         });
@@ -167,7 +166,8 @@ class UQFooter extends HTMLElement {
                 !!invalidDiv && !!ul2 && ul2.appendChild(invalidDiv);
 
                 list.list.forEach((entry1) => {
-                    const link = this.createNavLink(entry1.href, entry1.label);
+                    const datatestid = !!entry1.dataTestid ? `${entry1.dataTestid}-mobile` : null;
+                    const link = this.createNavLink(entry1.href, entry1.label, datatestid);
 
                     const li2 = document.createElement('li');
                     li2.setAttribute('class', 'uq-footer__navigation-item');
@@ -205,7 +205,8 @@ class UQFooter extends HTMLElement {
                 !!ul2 && !!li1 && li1.appendChild(ul2);
 
                 list.list.forEach((entry1) => {
-                    const link = this.createNavLink(entry1.href, entry1.label);
+                    const datatestid = !!entry1.dataTestid ? `${entry1.dataTestid}-desktop` : null;
+                    const link = this.createNavLink(entry1.href, entry1.label, datatestid);
 
                     const li2 = document.createElement('li');
                     li2.setAttribute('class', 'uq-footer__navigation-item');
