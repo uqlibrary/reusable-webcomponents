@@ -153,7 +153,9 @@ var uq = (function (exports) {
                 value: function init() {
                     var _this2 = this;
 
-                    var mobileToggle = document.querySelector('.'.concat(this.toggleClass));
+                    var mobileToggle = document
+                        .querySelector('uq-header')
+                        .shadowRoot.querySelector('.'.concat(this.toggleClass));
                     var subNavItems = this.nav.querySelectorAll('.'.concat(this.subNavClass));
                     var subNavLinks = this.nav.querySelectorAll('.'.concat(this.subNavClass, ' > a'));
                     var subNavL2Items = this.nav.querySelectorAll(
@@ -307,7 +309,9 @@ var uq = (function (exports) {
                 value: function handleKeyPress(event) {
                     var parent = event.currentTarget.parentNode;
                     var nav = parent.parentNode;
-                    var mobileToggle = document.querySelector('.'.concat(this.toggleClass));
+                    var mobileToggle = document
+                        .querySelector('uq-header')
+                        .shadowRoot.querySelector('.'.concat(this.toggleClass));
 
                     if (parent === nav.firstElementChild) {
                         // If we shift tab past the first child, toggle this level.
@@ -496,9 +500,11 @@ var uq = (function (exports) {
                         } // Scroll to hash (param string) selected accordion
 
                         if (this.hash && this.hash !== '') {
-                            var hashSelectedContent = document.querySelector(
-                                ''.concat(this.hash, '.').concat(this.className, '__content'),
-                            );
+                            var hashSelectedContent = document
+                                .querySelector('uq-header')
+                                .shadowRoot.querySelector(
+                                    ''.concat(this.hash, '.').concat(this.className, '__content'),
+                                );
 
                             if (hashSelectedContent) {
                                 // Only apply classes on load when linking directly to an accordion item.
@@ -512,7 +518,9 @@ var uq = (function (exports) {
                             }
                         }
 
-                        var accordions = document.querySelectorAll('.'.concat(this.className));
+                        var accordions = document
+                            .querySelector('uq-header')
+                            .shadowRoot.querySelectorAll('.'.concat(this.className));
                         accordions.forEach(function (el) {
                             var togglers = el.querySelectorAll('.'.concat(_this7.className, '__toggle'));
                             togglers.forEach(function (el) {
@@ -520,7 +528,9 @@ var uq = (function (exports) {
                             });
                         }); // wrap contents of uq-accordion__content in a wrapper to apply padding and prevent animation jump
 
-                        var accordionContents = document.querySelectorAll('.'.concat(this.className, '__content'));
+                        var accordionContents = document
+                            .querySelector('uq-header')
+                            .shadowRoot.querySelectorAll('.'.concat(this.className, '__content'));
                         var accordionName = this.className;
                         accordionContents.forEach(function (accordionContent) {
                             var innerContent = accordionContent.innerHTML;
