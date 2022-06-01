@@ -11,7 +11,9 @@ template.innerHTML = `
     <header class="uq-header" data-gtm-category="Header">
       <div class="uq-header__container">
         <div class="uq-header__menu-toggle" data-target="global-mobile-nav" data-gtm-category="Primary header">
-          <button type="button" class="nav-primary__toggle nav-primary__menu-toggle slide-menu__control" data-target="global-mobile-nav" data-action="toggle" data-gtm-action="Toggle">Menu</button>
+          <button id="mobile-menu-toggle-button" data-testid="mobile-menu-toggle-button" type="button" class="nav-primary__toggle nav-primary__menu-toggle slide-menu__control" data-target="global-mobile-nav" data-action="toggle" data-gtm-action="Toggle">
+            Menu
+          </button>
         </div>
         <div class="uq-header__logo" data-gtm-category="Primary header">
           <a class="logo--large" href="https://www.uq.edu.au/" data-gtm-label="UQ Logo">
@@ -103,12 +105,41 @@ class UQHeader extends HTMLElement {
         // Render the template
         shadowDOM.appendChild(template.content.cloneNode(true));
 
+        this.addButtonListeners(shadowDOM); // always after template rendered!!
+
         // Bindings
         this.hideLibraryGlobalMenuItem = this.hideLibraryGlobalMenuItem.bind(this);
         this.appendSearchWidgetUrl = this.appendSearchWidgetUrl.bind(this);
         this.changeSearchWidgetLabel = this.changeSearchWidgetLabel.bind(this);
         this.handleSkipNavInsertion = this.handleSkipNavInsertion.bind(this);
         this.loadScript = this.loadScript.bind(this);
+    }
+
+    addButtonListeners(shadowDOM) {
+        const toggleMenuItem = (elementId) => {
+            const button = shadowDOM.getElementById(elementId);
+
+            if (!button) {
+                return;
+            }
+
+            button.classList.toggle('nav-primary__menu-toggle--is-open');
+
+            // the mega menu is within the uq-site-header
+            // sneakily click the hidden button there to open it
+            const siteHeaderHiddenMobileButton = document
+                .querySelector('uq-site-header')
+                .shadowRoot.getElementById('uq-site-header__navigation-toggle');
+            !!siteHeaderHiddenMobileButton && siteHeaderHiddenMobileButton.click();
+        };
+
+        // attach the click listener to the mobile menu button here to open-close the mega menu
+        const elementId = `mobile-menu-toggle-button`;
+        let element = shadowDOM.getElementById(elementId);
+        !!element &&
+            element.addEventListener('click', function clickFooterButton() {
+                toggleMenuItem(elementId);
+            });
     }
 
     attributeChangedCallback(fieldName, oldValue, newValue) {
@@ -205,6 +236,9 @@ class UQHeader extends HTMLElement {
                 initCalled = true;
                 // Initialise the header once this JS file is loaded
                 new uq.header();
+                new uq.accordion();
+                // new uq.siteHeaderNavigation(); // unused?
+                // new uq.Tabs(); // unused?
             };
             //Specify the location of the ITS DS JS file
             script.src = 'uq-header.js';

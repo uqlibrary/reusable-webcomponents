@@ -86,10 +86,28 @@ span.displayText {
         padding-right: 1.5em;
         background-position: right 0.5em top 1.5em;
     }
+
+    .megamenu-global-nav--mobile {
+        display: none;
+    }
 }
 
 /* primo sets some crazy stuff! lets get that proper bolding back on our homepage link! */
 .uq-site-header__title-container__left a {
     -webkit-font-smoothing: initial;
     -webkit-tap-highlight-color: initial;
+}
+
+.megamenu-global-nav--mobile-header {
+    background-color: #51247a;
+    margin-bottom: 0;
+}
+.megamenu-global-nav--mobile-global {
+    background-color: #48206c;
+    margin-bottom: 0;
+}
+.megamenu-global-nav--mobile-header a,
+.megamenu-global-nav--mobile-global a {
+    color: #fff;
+    border-bottom-width: 0;
 }

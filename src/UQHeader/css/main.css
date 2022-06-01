@@ -2534,7 +2534,7 @@ a:hover {
     .uq-footer__footer-list {
         display: flex;
         flex-wrap: wrap;
-        justify-content: start;
+        justify-content: flex-start;
         flex-direction: row;
         margin: 0;
         padding: 0

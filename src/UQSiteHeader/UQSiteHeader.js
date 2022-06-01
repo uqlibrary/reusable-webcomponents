@@ -240,6 +240,74 @@ class UQSiteHeader extends HTMLElement {
 
             listWrapper.appendChild(parentListItem);
         });
+
+        // maybe make this a global somewhere and then generate both uq-header and this from the same entry?
+        const listGlobalNav = [
+            {
+                href: 'https://study.uq.edu.au/',
+                linkLabel: 'Study',
+                className: 'header',
+            },
+            {
+                href: 'https://research.uq.edu.au/',
+                linkLabel: 'Research',
+                className: 'header',
+            },
+            {
+                href: 'https://partners-community.uq.edu.au/',
+                linkLabel: 'Partners and Community',
+                className: 'header',
+            },
+            {
+                href: 'https://about.uq.edu.au/',
+                linkLabel: 'About',
+                className: 'header',
+            },
+            {
+                href: 'https://www.uq.edu.au/',
+                linkLabel: 'UQ home',
+                className: 'global',
+            },
+            {
+                href: 'https://www.uq.edu.au/news/',
+                linkLabel: 'News',
+                className: 'global',
+            },
+            {
+                href: 'https://www.uq.edu.au/uq-events',
+                linkLabel: 'Events',
+                className: 'global',
+            },
+            {
+                href: 'https://alumni.uq.edu.au/giving',
+                linkLabel: 'Give',
+                className: 'global',
+            },
+            {
+                href: 'https://contacts.uq.edu.au/',
+                linkLabel: 'Contact',
+                className: 'global',
+            },
+        ];
+
+        listGlobalNav.forEach((entry) => {
+            const listItemText = document.createTextNode(entry.linkLabel || /* istanbul ignore next */ '');
+
+            const listItemLink = document.createElement('a');
+            !!listItemLink && !!entry.href && (listItemLink.href = entry.href);
+            listItemLink.appendChild(listItemText);
+
+            const listItem = document.createElement('li');
+            !!listItem &&
+                listItem.setAttribute(
+                    'class',
+                    `megamenu-global-nav--mobile megamenu-global-nav--mobile-${entry.className}`,
+                );
+            listItem.appendChild(listItemLink);
+
+            listWrapper.appendChild(listItem);
+        });
+
         return listWrapper;
     }
 
@@ -253,9 +321,11 @@ class UQSiteHeader extends HTMLElement {
         return window.location.hostname === stagingDomain ? stagingLink : linkTo;
     }
 
+    // the button has moved to uq-header :(
+    // sneaky fix: keep this button as a focus for uq-header to programmatically click to show the megamenu in mobile
     unhideMobileMenuButton() {
-        const button = !!this.shadowRoot && this.shadowRoot.getElementById('uq-site-header__navigation-toggle');
-        !!button && (button.style.display = null);
+        // const button = !!this.shadowRoot && this.shadowRoot.getElementById('uq-site-header__navigation-toggle');
+        // !!button && (button.style.display = null);
     }
 
     loadScript() {
