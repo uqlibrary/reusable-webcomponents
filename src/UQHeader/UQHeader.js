@@ -105,41 +105,12 @@ class UQHeader extends HTMLElement {
         // Render the template
         shadowDOM.appendChild(template.content.cloneNode(true));
 
-        this.addButtonListeners(shadowDOM); // always after template rendered!!
-
         // Bindings
         this.hideLibraryGlobalMenuItem = this.hideLibraryGlobalMenuItem.bind(this);
         this.appendSearchWidgetUrl = this.appendSearchWidgetUrl.bind(this);
         this.changeSearchWidgetLabel = this.changeSearchWidgetLabel.bind(this);
         this.handleSkipNavInsertion = this.handleSkipNavInsertion.bind(this);
         this.loadScript = this.loadScript.bind(this);
-    }
-
-    addButtonListeners(shadowDOM) {
-        const toggleMenuItem = (elementId) => {
-            const button = shadowDOM.getElementById(elementId);
-
-            if (!button) {
-                return;
-            }
-
-            button.classList.toggle('nav-primary__menu-toggle--is-open');
-
-            // the mega menu is within the uq-site-header
-            // sneakily click the hidden button there to open it
-            const siteHeaderHiddenMobileButton = document
-                .querySelector('uq-site-header')
-                .shadowRoot.getElementById('uq-site-header__navigation-toggle');
-            !!siteHeaderHiddenMobileButton && siteHeaderHiddenMobileButton.click();
-        };
-
-        // attach the click listener to the mobile menu button here to open-close the mega menu
-        const elementId = `mobile-menu-toggle-button`;
-        let element = shadowDOM.getElementById(elementId);
-        !!element &&
-            element.addEventListener('click', function clickFooterButton() {
-                toggleMenuItem(elementId);
-            });
     }
 
     attributeChangedCallback(fieldName, oldValue, newValue) {
@@ -195,6 +166,8 @@ class UQHeader extends HTMLElement {
         !!skipNavButton && skipNavButton.addEventListener('click', skipToElement);
     }
 
+    // this does not apply to the current version as a Library link didnt make the cut for the top level
+    // lazily leave this here on the assumption this will be fixed at some point
     hideLibraryGlobalMenuItem(newValue) {
         // If the attribute hidelibrarymenuitem is true, remove the global menu item from the DOM
         /* istanbul ignore else  */
@@ -224,7 +197,7 @@ class UQHeader extends HTMLElement {
 
     loadScript() {
         // This loads the external JS file into the HTML head dynamically
-        //Only load js if it has not been loaded before (tracked by the initCalled flag)
+        // Only load js if it has not been loaded before (tracked by the initCalled flag)
         /* istanbul ignore else  */
         if (!initCalled) {
             //Dynamically import the JS file and append it to the document header
@@ -235,7 +208,9 @@ class UQHeader extends HTMLElement {
                 //Code to execute after the library has been downloaded parsed and processed by the browser starts here :)
                 initCalled = true;
                 // Initialise the header once this JS file is loaded
-                new uq.header();
+                const headerElem = document.querySelector('uq-header').shadowRoot.querySelector('.uq-header');
+                !!headerElem && !!uq && !!uq.header && new uq.header(headerElem);
+
                 new uq.accordion();
                 // new uq.siteHeaderNavigation(); // unused?
                 // new uq.Tabs(); // unused?

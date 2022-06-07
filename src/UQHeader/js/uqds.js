@@ -333,6 +333,15 @@ var uq = (function (exports) {
                     this.searchBlock = !!el && el.querySelector('.uq-header__search');
                     this.searchInput = !!el && el.querySelector('.uq-header__search-query-input'); // REFACTOR
 
+                    // clicking the uq-header hamburger button clicks the hidden menu button on uq-site-header
+                    function clickSiteHeaderMenuButton() {
+                        const siteHeader = document.querySelector('uq-site-header');
+                        const siteHeaderHiddenMobileButton =
+                            !!siteHeader && siteHeader.shadowRoot.getElementById('uq-site-header__navigation-toggle');
+                        console.log('clickSiteHeaderMenuButton', siteHeaderHiddenMobileButton);
+                        !!siteHeaderHiddenMobileButton && siteHeaderHiddenMobileButton.click();
+                    }
+
                     !!this.menuToggle &&
                         this.menuToggle.addEventListener('click', function () {
                             document.body.classList.toggle('no-scroll');
@@ -342,6 +351,9 @@ var uq = (function (exports) {
                             _this.searchToggle.classList.remove('nav-primary__search-toggle--is-open');
 
                             _this.searchBlock.classList.remove('uq-header__search--is-open');
+
+                            console.log('clicking');
+                            clickSiteHeaderMenuButton();
                         });
                     !!this.searchToggle &&
                         this.searchToggle.addEventListener('click', function (e) {
@@ -378,7 +390,6 @@ var uq = (function (exports) {
 
     exports.accordion = accordion;
     exports.header = NewHeader;
-    // exports.siteHeaderNavigation = MainNavigation;
     Object.defineProperty(exports, '__esModule', {
         value: true,
     });
