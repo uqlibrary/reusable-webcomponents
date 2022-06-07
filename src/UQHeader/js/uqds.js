@@ -54,75 +54,6 @@ function _createClass(Constructor, protoProps, staticProps) {
 
 var uq = (function (exports) {
     'use strict';
-    /**
-     * NewHeader module
-     * @file Handles interaction behaviour for the Header. Does not output any
-     * HTML elements.
-     * TODO: make this class configurable
-     */
-
-    var NewHeader = /*#__PURE__*/ (function () {
-        function NewHeader(el) {
-            _classCallCheck(this, NewHeader);
-
-            this.init(el);
-        }
-
-        _createClass(NewHeader, [
-            {
-                key: 'init',
-                value: function init(el) {
-                    var _this = this;
-                    console.log('NewHeader el=', el);
-
-                    this.menuToggle = !!el && el.querySelector('.nav-primary__menu-toggle');
-                    this.searchToggle = !!el && el.querySelector('.nav-primary__search-toggle');
-                    this.searchLabel = !!el && el.querySelector('.search-toggle__label');
-                    this.searchBlock = !!el && el.querySelector('.uq-header__search');
-                    this.searchInput = !!el && el.querySelector('.uq-header__search-query-input'); // REFACTOR
-
-                    !!this.menuToggle &&
-                        this.menuToggle.addEventListener('click', function () {
-                            document.body.classList.toggle('no-scroll');
-
-                            _this.menuToggle.classList.toggle('nav-primary__menu-toggle--is-open');
-
-                            _this.searchToggle.classList.remove('nav-primary__search-toggle--is-open');
-
-                            _this.searchBlock.classList.remove('uq-header__search--is-open');
-                        });
-                    !!this.searchToggle &&
-                        this.searchToggle.addEventListener('click', function (e) {
-                            document.body.classList.remove('no-scroll');
-
-                            _this.searchToggle.classList.toggle('nav-primary__search-toggle--is-open');
-
-                            _this.searchBlock.classList.toggle('uq-header__search--is-open');
-
-                            _this.menuToggle.classList.remove('nav-primary__menu-toggle--is-open');
-
-                            if (_this.searchBlock.classList.contains('uq-header__search--is-open')) {
-                                _this.searchInput.focus();
-                            } else {
-                                _this.searchInput.blur();
-
-                                _this.searchToggle.blur();
-                            }
-
-                            if (_this.searchLabel.innerHTML === 'Search') {
-                                _this.searchLabel.innerHTML = 'Close';
-                            } else {
-                                _this.searchLabel.innerHTML = 'Search';
-                            }
-
-                            e.preventDefault();
-                        });
-                },
-            },
-        ]);
-
-        return NewHeader;
-    })();
 
     /**
      * @file
@@ -130,7 +61,6 @@ var uq = (function (exports) {
      * the entire document). You need to make sure your accordion HTML is correctly
      * formatted and the accompanying SCSS/CSS is loaded as well.
      */
-
     var accordion = /*#__PURE__*/ (function () {
         /**
          * @constructor
@@ -154,63 +84,6 @@ var uq = (function (exports) {
         _createClass(
             accordion,
             [
-                {
-                    key: 'init',
-                    value: function init() {
-                        console.log('init accordion');
-                        var _this7 = this;
-
-                        if (window.location.hash) {
-                            this.hash = window.location.hash;
-                        } // Scroll to hash (param string) selected accordion
-
-                        function isHashIgnored() {
-                            console.log('isHashIgnored', this.hash);
-                            return this.hash === '#keyword=;campus=;weekstart=';
-                        }
-
-                        if (this.hash && this.hash !== '' && !isHashIgnored.call(this)) {
-                            var hashSelectedContent = document
-                                .querySelector('uq-header')
-                                .shadowRoot.querySelector(
-                                    ''.concat(this.hash, '.').concat(this.className, '__content'),
-                                );
-
-                            if (hashSelectedContent) {
-                                // Only apply classes on load when linking directly to an accordion item.
-                                var hashSelected = accordion.getPrevSibling(
-                                    hashSelectedContent,
-                                    '.'.concat(this.className, '__toggle'),
-                                );
-                                this.slideContentDown(hashSelected); // Scroll to top of selected item.
-
-                                window.scrollTo(0, hashSelected.getBoundingClientRect().top);
-                            }
-                        }
-
-                        var accordions = document
-                            .querySelector('uq-header')
-                            .shadowRoot.querySelectorAll('.'.concat(this.className));
-                        accordions.forEach(function (el) {
-                            var togglers = el.querySelectorAll('.'.concat(_this7.className, '__toggle'));
-                            togglers.forEach(function (el) {
-                                el.addEventListener('click', _this7.handleToggle(togglers));
-                            });
-                        }); // wrap contents of uq-accordion__content in a wrapper to apply padding and prevent animation jump
-
-                        var accordionContents = document
-                            .querySelector('uq-header')
-                            .shadowRoot.querySelectorAll('.'.concat(this.className, '__content'));
-                        var accordionName = this.className;
-                        accordionContents.forEach(function (accordionContent) {
-                            var innerContent = accordionContent.innerHTML;
-                            accordionContent.innerHTML = '';
-                            var contentWrapper =
-                                '<div class ="' + accordionName + '__content-wrapper">'.concat(innerContent, '</div>');
-                            accordionContent.innerHTML = contentWrapper;
-                        });
-                    },
-                },
                 {
                     key: 'slideContentUp',
                     value:
@@ -315,6 +188,63 @@ var uq = (function (exports) {
                      * @method
                      */
                 },
+                {
+                    key: 'init',
+                    value: function init() {
+                        console.log('init accordion');
+                        var _this7 = this;
+
+                        if (window.location.hash) {
+                            this.hash = window.location.hash;
+                        } // Scroll to hash (param string) selected accordion
+
+                        function isHashIgnored() {
+                            console.log('isHashIgnored', this.hash);
+                            return this.hash === '#keyword=;campus=;weekstart=';
+                        }
+
+                        if (this.hash && this.hash !== '' && !isHashIgnored.call(this)) {
+                            var hashSelectedContent = document
+                                .querySelector('uq-header')
+                                .shadowRoot.querySelector(
+                                    ''.concat(this.hash, '.').concat(this.className, '__content'),
+                                );
+
+                            if (hashSelectedContent) {
+                                // Only apply classes on load when linking directly to an accordion item.
+                                var hashSelected = accordion.getPrevSibling(
+                                    hashSelectedContent,
+                                    '.'.concat(this.className, '__toggle'),
+                                );
+                                this.slideContentDown(hashSelected); // Scroll to top of selected item.
+
+                                window.scrollTo(0, hashSelected.getBoundingClientRect().top);
+                            }
+                        }
+
+                        var accordions = document
+                            .querySelector('uq-header')
+                            .shadowRoot.querySelectorAll('.'.concat(this.className));
+                        accordions.forEach(function (el) {
+                            var togglers = el.querySelectorAll('.'.concat(_this7.className, '__toggle'));
+                            togglers.forEach(function (el) {
+                                el.addEventListener('click', _this7.handleToggle(togglers));
+                            });
+                        }); // wrap contents of uq-accordion__content in a wrapper to apply padding and prevent animation jump
+
+                        var accordionContents = document
+                            .querySelector('uq-header')
+                            .shadowRoot.querySelectorAll('.'.concat(this.className, '__content'));
+                        var accordionName = this.className;
+                        accordionContents.forEach(function (accordionContent) {
+                            var innerContent = accordionContent.innerHTML;
+                            accordionContent.innerHTML = '';
+                            var contentWrapper =
+                                '<div class ="' + accordionName + '__content-wrapper">'.concat(innerContent, '</div>');
+                            accordionContent.innerHTML = contentWrapper;
+                        });
+                    },
+                },
             ],
             [
                 {
@@ -375,6 +305,75 @@ var uq = (function (exports) {
         );
 
         return accordion;
+    })();
+
+    /**
+     * NewHeader module
+     * @file Handles interaction behaviour for the Header. Does not output any
+     * HTML elements.
+     * TODO: make this class configurable
+     */
+    var NewHeader = /*#__PURE__*/ (function () {
+        function NewHeader(el) {
+            _classCallCheck(this, NewHeader);
+
+            this.init(el);
+        }
+
+        _createClass(NewHeader, [
+            {
+                key: 'init',
+                value: function init(el) {
+                    var _this = this;
+                    console.log('NewHeader el=', el);
+
+                    this.menuToggle = !!el && el.querySelector('.nav-primary__menu-toggle');
+                    this.searchToggle = !!el && el.querySelector('.nav-primary__search-toggle');
+                    this.searchLabel = !!el && el.querySelector('.search-toggle__label');
+                    this.searchBlock = !!el && el.querySelector('.uq-header__search');
+                    this.searchInput = !!el && el.querySelector('.uq-header__search-query-input'); // REFACTOR
+
+                    !!this.menuToggle &&
+                        this.menuToggle.addEventListener('click', function () {
+                            document.body.classList.toggle('no-scroll');
+
+                            _this.menuToggle.classList.toggle('nav-primary__menu-toggle--is-open');
+
+                            _this.searchToggle.classList.remove('nav-primary__search-toggle--is-open');
+
+                            _this.searchBlock.classList.remove('uq-header__search--is-open');
+                        });
+                    !!this.searchToggle &&
+                        this.searchToggle.addEventListener('click', function (e) {
+                            document.body.classList.remove('no-scroll');
+
+                            _this.searchToggle.classList.toggle('nav-primary__search-toggle--is-open');
+
+                            _this.searchBlock.classList.toggle('uq-header__search--is-open');
+
+                            _this.menuToggle.classList.remove('nav-primary__menu-toggle--is-open');
+
+                            if (_this.searchBlock.classList.contains('uq-header__search--is-open')) {
+                                _this.searchInput.focus();
+                            } else {
+                                _this.searchInput.blur();
+
+                                _this.searchToggle.blur();
+                            }
+
+                            if (_this.searchLabel.innerHTML === 'Search') {
+                                _this.searchLabel.innerHTML = 'Close';
+                            } else {
+                                _this.searchLabel.innerHTML = 'Search';
+                            }
+
+                            e.preventDefault();
+                        });
+                },
+            },
+        ]);
+
+        return NewHeader;
     })();
 
     exports.accordion = accordion;
