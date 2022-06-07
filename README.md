@@ -33,14 +33,14 @@ When you commit your changes, the above script will require you to have correctl
 - run `npm ci` to install packages.
 - run `npm run start` to run the project locally while developing with a listener (calls api on staging for data)
 - run `npm run start:mock` to run the project locally with mock data
-  - While this is running, you can run `npm run cy:open` to manually run cypress tests
+  - While this is running, you can run `npm run cypress:open` to manually run cypress tests
 - run `npm run build` to run a `local` test build in the `dist` folder (this also replaces `gulp styles` in the old reusable for building css locally for pasting into live pages for test)
 - run `npm run build:staging` to run a `staging` test build in the `dist` folder
 - run `npm run build:production` to run a `production` test build in the `dist` folder
 - run `npm run test:local` to run a test build in the `dist` folder and run all cypress tests
 - run `npm run prettier:test` to check all files for codestyles, and
 - run `npm run prettier:fix` to fix all codestyle issues
-- run `npm run cy:run` to run all cypress tests at the command line
+- run `npm run cypress:run:record` to run all cypress tests at the command line
 
 localhost will run on port 8080: `http://localhost:8080/`
 
