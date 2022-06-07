@@ -2,12 +2,13 @@
 
 describe('Dummy Application', () => {
     context('Works as expected', () => {
-        it('Javascript calls act correctly', () => {
+        it('Where javascript is used to alter the base html acts correctly', () => {
             cy.visit('http://localhost:8080/index-via-js.html');
             cy.injectAxe();
             cy.viewport(1280, 900);
-            // applications/testing can remove the Library entry from the global menu
-            cy.get('uq-header').shadow().find('div.nav-global').find('#menu-item-library').should('not.exist');
+            // (Library link not currently in header)
+            // // applications/testing can remove the Library entry from the global menu
+            // cy.get('uq-header').shadow().find('div.nav-global').find('#menu-item-library').should('not.exist');
             // applications/testing has a skip nav button
             cy.get('uq-header').shadow().find('button[data-testid="skip-nav"]').should('exist');
             // has an askus button
@@ -18,19 +19,18 @@ describe('Dummy Application', () => {
             cy.get('auth-button').shadow().find('button[data-testid="auth-button-logout"]').should('exist');
             // has a mega menu
             // the menu appears on click
-            cy.get('uq-site-header').shadow().find('nav#jsNav').should('be.visible');
+            cy.get('uq-site-header').shadow().find('nav[data-testid="uq-site-header-megamenu"]').should('be.visible');
             // and has the correct children
-            cy.get('uq-site-header').shadow().find('nav#jsNav').find('ul').should('have.length', 7); // should we drive this number from the json?
+            cy.get('uq-site-header')
+                .shadow()
+                .find('nav[data-testid="uq-site-header-megamenu"]')
+                .find('ul')
+                .should('have.length', 7); // length of the megamenu .json
         });
     });
 
     function hasUqHeader() {
-        cy.get('uq-header')
-            .shadow()
-            .find('header[data-testid="uq-header"]')
-            .find('div.nav-global')
-            .find('#menu-item-library')
-            .should('not.exist');
+        cy.get('uq-header').shadow().find('[data-testid="uq-header-logo-large-link"]').should('exist');
     }
 
     function hasNoUqHeader() {
@@ -372,7 +372,7 @@ describe('Dummy Application', () => {
         });
     });
 
-    context('changing properties as required by eSpace works as expected', () => {
+    context('changing properties as will be required by eSpace works as expected', () => {
         it('Javascript load works correctly', () => {
             cy.visit('http://localhost:8080/src/applications/espace/example.html');
             cy.viewport(1280, 900);

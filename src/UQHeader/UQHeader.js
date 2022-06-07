@@ -60,7 +60,7 @@ template.innerHTML = `
               </div>
               <div class="uq-header__search-range">
                 <input type="radio" id="edit-as_sitesearch-on" name="as_sitesearch" value="https://library.uq.edu.au/" checked="checked" class="form-radio uq-header__search-radio" data-testid="edit-as_sitesearch-on">
-                <label for="edit-as_sitesearch-on" data-testid="uq-header-search-label-library" class="option uq-header__search-label">Search this website (library.uq.edu.au)</label>
+                <label for="edit-as_sitesearch-on" id="search-label" data-testid="uq-header-search-label-library" class="option uq-header__search-label">Search this website (library.uq.edu.au)</label>
               </div>
             </fieldset>
           </form>

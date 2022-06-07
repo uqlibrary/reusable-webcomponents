@@ -169,7 +169,7 @@ describe('Alert', () => {
             cy.get('alert-list').shadow().find('[data-testid="alerts-wrapper"]').children().should('have.length', 0);
 
             // some things on the page look right
-            cy.get('uq-header').shadow().find('div.nav-global').find('.search-toggle__button').should('be.visible');
+            cy.get('uq-header').shadow().find('[data-testid="uq-header-search-button"]').should('be.visible');
             cy.get('uq-site-header').shadow().find('[data-testid="site-title"]').contains('Library Test');
         });
     });
