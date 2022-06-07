@@ -43,7 +43,7 @@ template.innerHTML = `
 
       <!-- Navigation Menu  -->
       <div data-testid="mega-menu-container" class="uq-site-header__navigation-container">
-        <nav class="uq-site-header__navigation" id="jsNav">
+        <nav class="uq-site-header__navigation" id="jsNav" data-testid="uq-site-header-megamenu">
           <ul class="uq-site-header__navigation__list uq-site-header__navigation__list--level-1">
           </ul>
         </nav>
@@ -247,6 +247,7 @@ class UQSiteHeader extends HTMLElement {
                 href: 'https://study.uq.edu.au/',
                 linkLabel: 'Study',
                 className: 'header',
+                datatestid: 'uq-header-study-link-mobile',
             },
             {
                 href: 'https://research.uq.edu.au/',
@@ -267,26 +268,31 @@ class UQSiteHeader extends HTMLElement {
                 href: 'https://www.uq.edu.au/',
                 linkLabel: 'UQ home',
                 className: 'global',
+                datatestid: 'uq-header-home-link-mobile',
             },
             {
                 href: 'https://www.uq.edu.au/news/',
                 linkLabel: 'News',
                 className: 'global',
+                datatestid: 'uq-header-news-link-mobile',
             },
             {
                 href: 'https://www.uq.edu.au/uq-events',
                 linkLabel: 'Events',
                 className: 'global',
+                datatestid: 'uq-header-events-link-mobile',
             },
             {
                 href: 'https://alumni.uq.edu.au/giving',
                 linkLabel: 'Give',
                 className: 'global',
+                datatestid: 'uq-header-giving-link-mobile',
             },
             {
                 href: 'https://contacts.uq.edu.au/',
                 linkLabel: 'Contact',
                 className: 'global',
+                datatestid: 'uq-header-contacts-link-mobile',
             },
         ];
 
@@ -295,6 +301,10 @@ class UQSiteHeader extends HTMLElement {
 
             const listItemLink = document.createElement('a');
             !!listItemLink && !!entry.href && (listItemLink.href = entry.href);
+            !!listItemLink &&
+                !!entry.href &&
+                !!entry.datatestid &&
+                listItemLink.setAttribute('data-testid', entry.datatestid);
             listItemLink.appendChild(listItemText);
 
             const listItem = document.createElement('li');

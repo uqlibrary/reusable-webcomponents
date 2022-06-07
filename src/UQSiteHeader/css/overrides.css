@@ -87,7 +87,7 @@ span.displayText {
         background-position: right 0.5em top 1.5em;
     }
 
-    .megamenu-global-nav--mobile {
+    li.megamenu-global-nav--mobile {
         display: none;
     }
 }
