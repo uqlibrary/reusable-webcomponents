@@ -155,6 +155,63 @@ var uq = (function (exports) {
             accordion,
             [
                 {
+                    key: 'init',
+                    value: function init() {
+                        console.log('init accordion');
+                        var _this7 = this;
+
+                        if (window.location.hash) {
+                            this.hash = window.location.hash;
+                        } // Scroll to hash (param string) selected accordion
+
+                        function isHashIgnored() {
+                            console.log('isHashIgnored', this.hash);
+                            return this.hash === '#keyword=;campus=;weekstart=';
+                        }
+
+                        if (this.hash && this.hash !== '' && !isHashIgnored.call(this)) {
+                            var hashSelectedContent = document
+                                .querySelector('uq-header')
+                                .shadowRoot.querySelector(
+                                    ''.concat(this.hash, '.').concat(this.className, '__content'),
+                                );
+
+                            if (hashSelectedContent) {
+                                // Only apply classes on load when linking directly to an accordion item.
+                                var hashSelected = accordion.getPrevSibling(
+                                    hashSelectedContent,
+                                    '.'.concat(this.className, '__toggle'),
+                                );
+                                this.slideContentDown(hashSelected); // Scroll to top of selected item.
+
+                                window.scrollTo(0, hashSelected.getBoundingClientRect().top);
+                            }
+                        }
+
+                        var accordions = document
+                            .querySelector('uq-header')
+                            .shadowRoot.querySelectorAll('.'.concat(this.className));
+                        accordions.forEach(function (el) {
+                            var togglers = el.querySelectorAll('.'.concat(_this7.className, '__toggle'));
+                            togglers.forEach(function (el) {
+                                el.addEventListener('click', _this7.handleToggle(togglers));
+                            });
+                        }); // wrap contents of uq-accordion__content in a wrapper to apply padding and prevent animation jump
+
+                        var accordionContents = document
+                            .querySelector('uq-header')
+                            .shadowRoot.querySelectorAll('.'.concat(this.className, '__content'));
+                        var accordionName = this.className;
+                        accordionContents.forEach(function (accordionContent) {
+                            var innerContent = accordionContent.innerHTML;
+                            accordionContent.innerHTML = '';
+                            var contentWrapper =
+                                '<div class ="' + accordionName + '__content-wrapper">'.concat(innerContent, '</div>');
+                            accordionContent.innerHTML = contentWrapper;
+                        });
+                    },
+                },
+                {
                     key: 'slideContentUp',
                     value:
                         /**
@@ -257,63 +314,6 @@ var uq = (function (exports) {
                      * Initialise accordion behavior
                      * @method
                      */
-                },
-                {
-                    key: 'init',
-                    value: function init() {
-                        console.log('init accordion');
-                        var _this7 = this;
-
-                        if (window.location.hash) {
-                            this.hash = window.location.hash;
-                        } // Scroll to hash (param string) selected accordion
-
-                        function isHashIgnored() {
-                            console.log('isHashIgnored', this.hash);
-                            return this.hash === '#keyword=;campus=;weekstart=';
-                        }
-
-                        if (this.hash && this.hash !== '' && !isHashIgnored.call(this)) {
-                            var hashSelectedContent = document
-                                .querySelector('uq-header')
-                                .shadowRoot.querySelector(
-                                    ''.concat(this.hash, '.').concat(this.className, '__content'),
-                                );
-
-                            if (hashSelectedContent) {
-                                // Only apply classes on load when linking directly to an accordion item.
-                                var hashSelected = accordion.getPrevSibling(
-                                    hashSelectedContent,
-                                    '.'.concat(this.className, '__toggle'),
-                                );
-                                this.slideContentDown(hashSelected); // Scroll to top of selected item.
-
-                                window.scrollTo(0, hashSelected.getBoundingClientRect().top);
-                            }
-                        }
-
-                        var accordions = document
-                            .querySelector('uq-header')
-                            .shadowRoot.querySelectorAll('.'.concat(this.className));
-                        accordions.forEach(function (el) {
-                            var togglers = el.querySelectorAll('.'.concat(_this7.className, '__toggle'));
-                            togglers.forEach(function (el) {
-                                el.addEventListener('click', _this7.handleToggle(togglers));
-                            });
-                        }); // wrap contents of uq-accordion__content in a wrapper to apply padding and prevent animation jump
-
-                        var accordionContents = document
-                            .querySelector('uq-header')
-                            .shadowRoot.querySelectorAll('.'.concat(this.className, '__content'));
-                        var accordionName = this.className;
-                        accordionContents.forEach(function (accordionContent) {
-                            var innerContent = accordionContent.innerHTML;
-                            accordionContent.innerHTML = '';
-                            var contentWrapper =
-                                '<div class ="' + accordionName + '__content-wrapper">'.concat(innerContent, '</div>');
-                            accordionContent.innerHTML = contentWrapper;
-                        });
-                    },
                 },
             ],
             [
