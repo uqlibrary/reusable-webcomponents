@@ -211,7 +211,7 @@ class UQHeader extends HTMLElement {
                 const headerElem = document.querySelector('uq-header').shadowRoot.querySelector('.uq-header');
                 !!headerElem && !!uq && !!uq.header && new uq.header(headerElem);
 
-                new uq.accordion();
+                new uq.accordion(); // opens and closes the Site Search toggle
             };
             //Specify the location of the ITS DS JS file
             script.src = 'uq-header.js';
