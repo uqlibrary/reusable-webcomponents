@@ -37,7 +37,6 @@ var uq = (function (exports) {
             el.setAttribute('aria-expanded', !ariaExpanded);
         });
     }
-
     /**
      * Main Navigation
      * @file Drop down navigation handler.
@@ -46,24 +45,22 @@ var uq = (function (exports) {
     var MainNavigation = /*#__PURE__*/ (function () {
         function MainNavigation(nav, navClass) {
             _classCallCheck(this, MainNavigation);
+
             this.nav = nav;
             this.navClass = navClass;
             this.toggleClass = 'jsNavToggle';
-            this.openModifier = `${this.navClass}__list--open`;
-            this.levelOpenModifier = `${this.navClass}__list-item--open`;
-            this.level1Class = `${this.navClass}__list--level-1`;
-            this.level2Class = `${this.navClass}__list--level-2`;
-            this.reverseClass = `${this.navClass}__list--reverse`;
-            this.subNavClass = `${this.navClass}__list-item--has-subnav`;
-            this.subToggleClass = `${this.navClass}__sub-toggle`;
-
+            this.openModifier = ''.concat(this.navClass, '__list--open');
+            this.levelOpenModifier = ''.concat(this.navClass, '__list-item--open');
+            this.level1Class = ''.concat(this.navClass, '__list--level-1');
+            this.level2Class = ''.concat(this.navClass, '__list--level-2');
+            this.reverseClass = ''.concat(this.navClass, '__list--reverse');
+            this.subNavClass = ''.concat(this.navClass, '__list-item--has-subnav');
+            this.subToggleClass = ''.concat(this.navClass, '__sub-toggle');
             this.init = this.init.bind(this);
             this.handleToggle = this.handleToggle.bind(this);
             this.handleMobileToggle = this.handleMobileToggle.bind(this);
-            this.handleResize = this.handleResize.bind(this);
             this.setOrientation = this.setOrientation.bind(this);
             this.handleKeyPress = this.handleKeyPress.bind(this);
-
             this.init();
         }
 
@@ -71,68 +68,67 @@ var uq = (function (exports) {
             {
                 key: 'init',
                 value: function init() {
-                    const mobileToggle = document
+                    var _this = this;
+
+                    var mobileToggle = document
                         .querySelector('uq-site-header')
-                        .shadowRoot.querySelector(`.${this.toggleClass}`);
-                    const subNavItems = this.nav.querySelectorAll(`.${this.subNavClass}`);
-                    const subNavLinks = this.nav.querySelectorAll(`.${this.subNavClass} > a`);
-                    const subNavL2Items = this.nav.querySelectorAll(`.${this.level2Class} .${this.subNavClass}`);
-                    const subNavL2Links = this.nav.querySelectorAll(`.${this.level2Class} .${this.subNavClass} > a`);
-                    const navLinks = this.nav.querySelectorAll('li > a');
-                    const subNavToggles = this.nav.querySelectorAll(`.${this.subToggleClass}`);
-
+                        .shadowRoot.querySelector('.'.concat(this.toggleClass));
+                    var subNavItems = this.nav.querySelectorAll('.'.concat(this.subNavClass));
+                    var subNavLinks = this.nav.querySelectorAll('.'.concat(this.subNavClass, ' > a'));
+                    var subNavL2Items = this.nav.querySelectorAll(
+                        '.'.concat(this.level2Class, ' .').concat(this.subNavClass),
+                    );
+                    var subNavL2Links = this.nav.querySelectorAll(
+                        '.'.concat(this.level2Class, ' .').concat(this.subNavClass, ' > a'),
+                    );
+                    var navLinks = this.nav.querySelectorAll('li > a');
+                    var subNavToggles = this.nav.querySelectorAll('.'.concat(this.subToggleClass));
                     mobileToggle.addEventListener('click', this.handleMobileToggle);
-                    window.addEventListener('resize', this.handleResize);
+                    subNavItems.forEach(function (item) {
+                        _this.setOrientation(item);
 
-                    subNavItems.forEach((item) => {
-                        this.setOrientation(item);
-                        item.addEventListener('mouseenter', this.handleToggle);
-                        item.addEventListener('mouseleave', this.handleToggle);
+                        item.addEventListener('mouseenter', _this.handleToggle);
+                        item.addEventListener('mouseleave', _this.handleToggle);
                     });
-
-                    subNavLinks.forEach((item) => {
+                    subNavLinks.forEach(function (item) {
                         if (window.matchMedia('(min-width: 1024px)').matches) {
-                            item.addEventListener('touchend', this.handleToggle);
+                            item.addEventListener('touchend', _this.handleToggle);
                         }
                     });
+                    subNavL2Items.forEach(function (item) {
+                        _this.setOrientation(item);
 
-                    subNavL2Items.forEach((item) => {
-                        this.setOrientation(item);
-                        item.addEventListener('mouseenter', this.handleToggle);
-                        item.addEventListener('mouseleave', this.handleToggle);
+                        item.addEventListener('mouseenter', _this.handleToggle);
+                        item.addEventListener('mouseleave', _this.handleToggle);
                     });
-
-                    subNavL2Links.forEach((item) => {
-                        item.addEventListener('touchend', this.handleToggle);
+                    subNavL2Links.forEach(function (item) {
+                        item.addEventListener('touchend', _this.handleToggle);
                     });
-
-                    navLinks.forEach((item) => {
-                        item.addEventListener('keydown', this.handleKeyPress);
+                    navLinks.forEach(function (item) {
+                        item.addEventListener('keydown', _this.handleKeyPress);
                     });
-
-                    subNavToggles.forEach((item) => {
-                        item.addEventListener('click', this.handleToggle);
+                    subNavToggles.forEach(function (item) {
+                        item.addEventListener('click', _this.handleToggle);
                     });
                 },
             },
             {
                 key: 'handleMobileToggle',
                 value: function handleMobileToggle(event) {
-                    const toggle = event.target;
-                    toggleMegaMenu.call(this, toggle);
-                },
-            },
-            {
-                key: 'handleResize',
-                value: function handleResize(event) {
-                    const toggle = document
-                        .querySelector('uq-site-header')
-                        .shadowRoot.querySelector(`.${this.toggleClass}`);
-                    // close the expanded mobile menu if open - otherwise inappropriate classes remain applied
-                    const ariaExpanded = toggle.getAttribute('aria-expanded') === 'true';
-                    if (!!ariaExpanded) {
-                        toggleMegaMenu.call(this, toggle);
-                    }
+                    var _this2 = this;
+
+                    var toggle = event.target;
+                    var target = this.nav.querySelectorAll('.'.concat(this.level1Class));
+                    var ariaExpanded = toggle.getAttribute('aria-expanded') === 'true';
+                    var ariaPressed = toggle.getAttribute('aria-pressed') === 'true';
+                    toggle.classList.toggle(''.concat(this.navClass, '-toggle--close'));
+                    toggle.setAttribute('aria-expanded', !ariaExpanded);
+                    toggle.setAttribute('aria-pressed', !ariaPressed);
+                    target.forEach(function (el) {
+                        el.classList.toggle(_this2.openModifier);
+                        el.setAttribute('aria-expanded', !ariaExpanded);
+                        el.setAttribute('aria-pressed', !ariaPressed);
+                    });
                 },
             },
             {
@@ -140,22 +136,26 @@ var uq = (function (exports) {
                 value: function handleToggle(event) {
                     if (
                         (event.type === 'mouseenter' || event.type === 'mouseleave') &&
-                        window.matchMedia('(max-width: 1023px)').matches
+                        window.matchMedia('(max-width: 1024px)').matches
                     ) {
                         return;
                     }
-                    let menuItem = event.target;
+
+                    var menuItem = event.target;
+
                     if (menuItem.tagName !== 'LI') {
                         menuItem = menuItem.parentElement;
                     }
-                    const subNav = menuItem.querySelector('ul');
 
-                    if (subNav.classList.contains(this.openModifier) || event.type === 'mouseleave') {
+                    var subNav = menuItem.querySelector('ul');
+
+                    if (subNav.classList.contains(this.openModifier)) {
                         this.closeLevel(subNav, menuItem);
                     } else {
                         if (event.type === 'touchend') {
                             event.preventDefault();
                         }
+
                         this.closeAllLevels();
                         this.openLevel(subNav, menuItem);
                     }
@@ -166,42 +166,30 @@ var uq = (function (exports) {
                 value: function openLevel(subNav, menuItem) {
                     subNav.classList.add(this.openModifier);
                     menuItem.classList.add(this.levelOpenModifier);
-
-                    // In Firefox the megamenu is causing the page to have a very large horizontal scrollbar.
-                    // Its seems in firefox, the extra width of multiple columns is still applied even when the menu is closed.
-                    // Multi column in the megamenu is a mandatory user requirement
-                    const child = menuItem.querySelector('ul');
-                    child.classList.contains('multicolumn-2') && child.classList.add('displaymulticolumn-2');
-                    child.classList.contains('multicolumn-3') && child.classList.add('displaymulticolumn-3');
-
-                    !!menuItem && this.setOrientation(menuItem);
-
                     menuItem.querySelector('a').setAttribute('aria-expanded', 'true');
+                    menuItem.querySelector('button').setAttribute('aria-expanded', 'true');
+                    menuItem.querySelector('button').setAttribute('aria-pressed', 'true');
                 },
             },
             {
                 key: 'closeLevel',
                 value: function closeLevel(subNav, menuItem) {
-                    const { reverseClass } = this;
-                    subNav.classList.remove(reverseClass);
-
-                    !!subNav &&
-                        subNav.classList.contains(this.openModifier) &&
-                        subNav.classList.remove(this.openModifier);
-                    !!menuItem && this.setOrientation(menuItem);
-                    !!menuItem &&
-                        menuItem.classList.contains(this.levelOpenModifier) &&
-                        menuItem.classList.remove(this.levelOpenModifier);
-
-                    const child = !!menuItem && menuItem.querySelector('ul');
-                    !!child &&
-                        child.classList.contains('displaymulticolumn-2') &&
-                        child.classList.remove('displaymulticolumn-2');
-                    !!child &&
-                        child.classList.contains('displaymulticolumn-3') &&
-                        child.classList.remove('displaymulticolumn-3');
-
-                    !!menuItem && menuItem.querySelector('a').setAttribute('aria-expanded', 'false');
+                    subNav.classList.remove(this.openModifier);
+                    this.setOrientation(menuItem);
+                    menuItem.classList.remove(this.levelOpenModifier);
+                    menuItem.querySelector('a').setAttribute('aria-expanded', 'false');
+                    menuItem.querySelector('button').setAttribute('aria-expanded', 'false');
+                    menuItem.querySelector('button').setAttribute('aria-pressed', 'false');
+                    menuItem.parentNode.querySelector('ul').setAttribute('aria-expanded', 'false');
+                    menuItem.parentNode.querySelector('ul').setAttribute('aria-pressed', 'false');
+                },
+            },
+            {
+                key: 'closeNav',
+                value: function closeNav(menuItem) {
+                    menuItem.classList.remove(this.openModifier);
+                    menuItem.parentNode.querySelector('ul').setAttribute('aria-expanded', 'false');
+                    menuItem.parentNode.querySelector('ul').setAttribute('aria-pressed', 'false');
                 },
             },
             {
@@ -220,9 +208,10 @@ var uq = (function (exports) {
             {
                 key: 'setOrientation',
                 value: function setOrientation(item) {
-                    const subNav = item.querySelector(`.${this.level2Class}`);
-                    const { reverseClass } = this;
-                    let subNavRight = 0;
+                    var subNav = item.querySelector('.'.concat(this.level2Class));
+                    var reverseClass = this.reverseClass;
+                    var subNavRight = 0;
+
                     if (subNav && subNav.getBoundingClientRect()) {
                         subNavRight = subNav.getBoundingClientRect().right;
                     }
@@ -235,27 +224,40 @@ var uq = (function (exports) {
             {
                 key: 'handleKeyPress',
                 value: function handleKeyPress(event) {
-                    const parent = event.currentTarget.parentNode;
-                    const nav = parent.parentNode;
-                    const mobileToggle = document.querySelector(`.${this.toggleClass}`);
+                    var parent = event.currentTarget.parentNode;
+                    var nav = parent.parentNode;
+                    var mobileToggle = document
+                        .querySelector('uq-site-header')
+                        .shadowRoot.querySelector('.'.concat(this.toggleClass));
 
                     if (parent === nav.firstElementChild) {
                         // If we shift tab past the first child, toggle this level.
                         if (event.key === 'Tab' && event.shiftKey === true) {
-                            this.closeLevel(nav, nav.parentNode);
-                            mobileToggle.classList.toggle(`${this.navClass}-toggle--close`);
-                            mobileToggle.setAttribute('aria-expanded', 'false');
+                            if (nav.classList.contains(this.level2Class)) {
+                                this.closeLevel(nav, nav.parentNode, subNav);
+                                nav.parentNode.classList.remove(this.levelOpenModifier);
+                            } else {
+                                this.closeNav(nav);
+                                mobileToggle.classList.toggle(''.concat(this.navClass, '-toggle--close'));
+                                mobileToggle.setAttribute('aria-expanded', 'false');
+                                mobileToggle.setAttribute('aria-pressed', 'false');
+                            }
                         }
                     } else if (parent === nav.lastElementChild) {
                         // If we tab past the last child, toggle this level.
                         if (event.key === 'Tab' && event.shiftKey === false) {
-                            this.closeLevel(nav, nav.parentNode);
-                            mobileToggle.classList.toggle(`${this.navClass}-toggle--close`);
-                            mobileToggle.setAttribute('aria-expanded', 'false');
+                            if (nav.classList.contains(this.level2Class)) {
+                                this.closeLevel(nav, nav.parentNode);
+                                nav.parentNode.classList.remove(this.levelOpenModifier);
+                            } else {
+                                this.closeNav(nav);
+                                mobileToggle.classList.toggle(''.concat(this.navClass, '-toggle--close'));
+                                mobileToggle.setAttribute('aria-expanded', 'false');
+                                mobileToggle.setAttribute('aria-pressed', 'false');
+                            }
                         }
-                    }
+                    } // Toggle nav on Space (32) or any Arrow key (37-40).
 
-                    // Toggle nav on Space (32) or any Arrow key (37-40).
                     switch (event.keyCode) {
                         case 32:
                         case 37:
@@ -264,8 +266,6 @@ var uq = (function (exports) {
                         case 40:
                             event.preventDefault();
                             this.handleToggle(event);
-                            break;
-                        default:
                             break;
                     }
                 },
@@ -351,7 +351,7 @@ var uq = (function (exports) {
             _classCallCheck(this, accordion);
 
             if (!className) {
-                className = 'accordion';
+                className = 'uq-accordion';
             } else {
                 className = className;
             }
@@ -365,30 +365,31 @@ var uq = (function (exports) {
             [
                 {
                     key: 'slideContentUp',
+                    value:
+                        /**
+                         * Method to hide accordion content
+                         * @method
+                         * @param {HTMLElement} el - 'Toggler' HTML element.
+                         */
+                        function slideContentUp(el) {
+                            var _this5 = this;
 
-                    /**
-                     * Method to hide accordion content
-                     * @method
-                     * @param {HTMLElement} el - 'Toggler' HTML element.
-                     */
-                    value: function slideContentUp(el) {
-                        var _this4 = this;
-
-                        var content = accordion.getNextSibling(el, '.'.concat(this.className, '__content'));
-                        el.classList.remove(''.concat(this.className, '__toggle--active'));
-                        el.setAttribute('aria-expanded', 'false');
-                        content.style.height = '0px';
-                        content.addEventListener(
-                            'transitionend',
-                            function () {
-                                content.classList.remove(''.concat(_this4.className, '__content--active'));
-                            },
-                            {
-                                once: true,
-                            },
-                        );
-                        content.setAttribute('aria-hidden', 'true');
-                    },
+                            var content = accordion.getNextSibling(el, '.'.concat(this.className, '__content'));
+                            el.classList.remove(''.concat(this.className, '__toggle--active'));
+                            el.parentNode.classList.remove(''.concat(this.className, '__item--is-open'));
+                            el.setAttribute('aria-expanded', 'false');
+                            content.style.height = '0px';
+                            content.addEventListener(
+                                'transitionend',
+                                function () {
+                                    content.classList.remove(''.concat(_this5.className, '__content--active'));
+                                },
+                                {
+                                    once: true,
+                                },
+                            );
+                            content.setAttribute('aria-hidden', 'true');
+                        },
                     /**
                      * Method to show accordion content
                      * @method
@@ -400,6 +401,7 @@ var uq = (function (exports) {
                     value: function slideContentDown(el) {
                         var content = accordion.getNextSibling(el, '.'.concat(this.className, '__content'));
                         el.classList.add(''.concat(this.className, '__toggle--active'));
+                        el.parentNode.classList.add(''.concat(this.className, '__item--is-open'));
                         el.setAttribute('aria-expanded', 'true');
                         content.classList.add(''.concat(this.className, '__content--active'));
                         content.style.height = 'auto';
@@ -437,17 +439,26 @@ var uq = (function (exports) {
                 {
                     key: 'handleToggle',
                     value: function handleToggle(togglers) {
-                        var _this5 = this;
+                        var _this6 = this;
 
                         return function (e) {
                             e.preventDefault();
+                            var toggle = e.target.closest('.'.concat(_this6.className, '__toggle'));
 
-                            if (e.target.classList.contains(''.concat(_this5.className, '__toggle--active'))) {
-                                _this5.slideContentUp(e.target);
+                            if (toggle.classList.contains(''.concat(_this6.className, '__toggle--active'))) {
+                                _this6.slideContentUp(toggle);
                             } else {
-                                _this5.slideContentDown(e.target);
+                                if (
+                                    toggle
+                                        .closest('.'.concat(_this6.className))
+                                        .classList.contains(''.concat(_this6.className, '--is-manual'))
+                                ) {
+                                    _this6.slideContentDown(toggle);
+                                } else {
+                                    _this6.slideContentDown(toggle);
 
-                                _this5.slideUpOthers(e.target, togglers);
+                                    _this6.slideUpOthers(toggle, togglers);
+                                }
                             }
                         };
                     },
@@ -459,53 +470,62 @@ var uq = (function (exports) {
                 {
                     key: 'init',
                     value: function init() {
-                        var _this6 = this;
+                        var _this7 = this;
 
-                        ready(function () {
-                            if (window.location.hash) {
-                                _this6.hash = window.location.hash;
-                            } // Scroll to hash (param string) selected accordion
+                        if (window.location.hash) {
+                            this.hash = window.location.hash;
+                        } // Scroll to hash (param string) selected accordion
 
-                            if (_this6.hash && _this6.hash !== '') {
-                                let selectors = ''.concat(_this6.hash, '.').concat(_this6.className, '__content');
-                                // on uqlapp we get weird errors like
-                                // "Failed to execute 'querySelector' on 'DocumentFragment': '#/membership.accordion__content' is not a valid selector."
-                                // where #/membership is a vital part of the url
-                                // note: uqlapp does not display the megamenu
-                                selectors = selectors.replace('#/membership.', '');
-                                if (!isSelectorValid(selectors)) {
-                                    console.log(
-                                        'selector ',
-                                        selectors,
-                                        ' has probably caused the uqsiteheader to silently fail',
-                                    );
-                                }
-                                var hashSelectedContent =
-                                    isSelectorValid(selectors) &&
-                                    document.querySelector('uq-header').shadowRoot.querySelector(selectors);
-
-                                if (hashSelectedContent) {
-                                    // Only apply classes on load when linking directly to an accordion item.
-                                    var hashSelected = accordion.getPrevSibling(
-                                        hashSelectedContent,
-                                        '.'.concat(_this6.className, '__toggle'),
-                                    );
-
-                                    _this6.slideContentDown(hashSelected); // Scroll to top of selected item.
-
-                                    window.scrollTo(0, hashSelected.getBoundingClientRect().top);
-                                }
+                        if (this.hash && this.hash !== '') {
+                            let selectors = ''.concat(this.hash, '.').concat(this.className, '__content');
+                            // on uqlapp we get weird errors like
+                            // "Failed to execute 'querySelector' on 'DocumentFragment': '#/membership.accordion__content' is not a valid selector."
+                            // where #/membership is a vital part of the url
+                            // note: uqlapp does not display the megamenu
+                            selectors = selectors.replace('#/membership.', '');
+                            if (!isSelectorValid(selectors)) {
+                                console.log(
+                                    'selector ',
+                                    selectors,
+                                    ' has probably caused the uqsiteheader to silently fail',
+                                );
                             }
+                            var hashSelectedContent =
+                                isSelectorValid(selectors) &&
+                                document.querySelector('uq-site-header').shadowRoot.querySelector(selectors);
 
-                            var accordions = document
-                                .querySelector('uq-header')
-                                .shadowRoot.querySelectorAll('.'.concat(_this6.className));
-                            accordions.forEach(function (el) {
-                                var togglers = el.querySelectorAll('.'.concat(_this6.className, '__toggle'));
-                                togglers.forEach(function (el) {
-                                    el.addEventListener('click', _this6.handleToggle(togglers));
-                                });
+                            if (hashSelectedContent) {
+                                // Only apply classes on load when linking directly to an accordion item.
+                                var hashSelected = accordion.getPrevSibling(
+                                    hashSelectedContent,
+                                    '.'.concat(this.className, '__toggle'),
+                                );
+                                this.slideContentDown(hashSelected); // Scroll to top of selected item.
+
+                                window.scrollTo(0, hashSelected.getBoundingClientRect().top);
+                            }
+                        }
+
+                        var accordions = document
+                            .querySelector('uq-site-header')
+                            .shadowRoot.querySelectorAll('.'.concat(this.className));
+                        accordions.forEach(function (el) {
+                            var togglers = el.querySelectorAll('.'.concat(_this7.className, '__toggle'));
+                            togglers.forEach(function (el) {
+                                el.addEventListener('click', _this7.handleToggle(togglers));
                             });
+                        }); // wrap contents of uq-accordion__content in a wrapper to apply padding and prevent animation jump
+
+                        var accordionContents = document
+                            .querySelector('uq-site-header')
+                            .shadowRoot.querySelectorAll('.'.concat(this.className, '__content'));
+                        var accordionName = this.className;
+                        accordionContents.forEach(function (accordionContent) {
+                            var innerContent = accordionContent.innerHTML;
+                            accordionContent.innerHTML = '';
+                            var contentWrapper =
+                                '<div class ="' + accordionName + '__content-wrapper">'.concat(innerContent, '</div>');
+                            accordionContent.innerHTML = contentWrapper;
                         });
                     },
                 },
@@ -513,31 +533,31 @@ var uq = (function (exports) {
             [
                 {
                     key: 'getNextSibling',
+                    value:
+                        /**
+                         * Method to replace jQuery's .next() method.
+                         * See: https://gomakethings.com/finding-the-next-and-previous-sibling-elements-that-match-a-selector-with-vanilla-js/
+                         * @static
+                         * @param {HTMLElement} el - HTML element.
+                         * @param {String} selector - CSS selector string.
+                         */
+                        function getNextSibling(el, selector) {
+                            // Get the next sibling element
+                            var sibling = el.nextElementSibling; // If there's no selector, return the first sibling
 
-                    /**
-                     * Method to replace jQuery's .next() method.
-                     * See: https://gomakethings.com/finding-the-next-and-previous-sibling-elements-that-match-a-selector-with-vanilla-js/
-                     * @static
-                     * @param {HTMLElement} el - HTML element.
-                     * @param {String} selector - CSS selector string.
-                     */
-                    value: function getNextSibling(el, selector) {
-                        // Get the next sibling element
-                        var sibling = el.nextElementSibling; // If there's no selector, return the first sibling
-
-                        if (!selector) {
-                            return sibling;
-                        } // If the sibling matches our selector, use it
-                        // If not, jump to the next sibling and continue the loop
-
-                        while (sibling) {
-                            if (sibling.matches(selector)) {
+                            if (!selector) {
                                 return sibling;
-                            }
+                            } // If the sibling matches our selector, use it
+                            // If not, jump to the next sibling and continue the loop
 
-                            sibling = sibling.nextElementSibling;
-                        }
-                    },
+                            while (sibling) {
+                                if (sibling.matches(selector)) {
+                                    return sibling;
+                                }
+
+                                sibling = sibling.nextElementSibling;
+                            }
+                        },
                     /**
                      * Method to get previous sibling element.
                      * @static

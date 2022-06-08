@@ -43,7 +43,7 @@ template.innerHTML = `
 
       <!-- Navigation Menu  -->
       <div data-testid="mega-menu-container" class="uq-site-header__navigation-container">
-        <nav class="uq-site-header__navigation" id="jsNav" data-testid="uq-site-header-megamenu">
+        <nav class="uq-site-header__navigation" id="jsNav" data-testid="uq-site-header-megamenu" aria-label="Site navigation">
           <ul class="uq-site-header__navigation__list uq-site-header__navigation__list--level-1">
           </ul>
         </nav>
@@ -173,6 +173,7 @@ class UQSiteHeader extends HTMLElement {
             parentLink.setAttribute('href', this.getLink(jsonParentItem.linkTo) || /* istanbul ignore next */ '');
             parentLink.appendChild(textOfParentLink);
             parentLink.setAttribute('aria-expanded', 'false');
+            parentLink.setAttribute('aria-haspopup', 'true');
 
             const parentListItem = document.createElement('li');
 
@@ -187,11 +188,18 @@ class UQSiteHeader extends HTMLElement {
             parentListItem.appendChild(parentLink);
 
             if (hasChildren) {
-                const textOfToggle = document.createTextNode('Open');
-                const parentToggle = document.createElement('span');
+                const toggle1label = `Show ${
+                    jsonParentItem.primaryText || /* istanbul ignore next */ ''
+                } sub-navigation`;
+                const textOfToggle = document.createTextNode(toggle1label);
+                const parentToggleSpan = document.createElement('span');
+                parentToggleSpan.setAttribute('class', 'visually-hidden');
+                parentToggleSpan.appendChild(textOfToggle);
+
+                const parentToggle = document.createElement('button');
                 parentToggle.setAttribute('class', 'uq-site-header__navigation__sub-toggle');
                 parentToggle.setAttribute('data-testid', `${datatestid}-open`);
-                parentToggle.appendChild(textOfToggle);
+                parentToggle.appendChild(parentToggleSpan);
 
                 parentListItem.appendChild(parentToggle);
 
@@ -228,7 +236,6 @@ class UQSiteHeader extends HTMLElement {
                         itemLink.setAttribute('href', this.getLink(jsonChild.linkTo));
                         itemLink.appendChild(primaryTextItem);
                         itemLink.appendChild(secondaryTextItem);
-                        itemLink.setAttribute('aria-expanded', 'false');
 
                         listItem.appendChild(itemLink);
                     }

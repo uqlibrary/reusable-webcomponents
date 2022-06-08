@@ -212,8 +212,6 @@ class UQHeader extends HTMLElement {
                 !!headerElem && !!uq && !!uq.header && new uq.header(headerElem);
 
                 new uq.accordion();
-                // new uq.siteHeaderNavigation(); // unused?
-                // new uq.Tabs(); // unused?
             };
             //Specify the location of the ITS DS JS file
             script.src = 'uq-header.js';

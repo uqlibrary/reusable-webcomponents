@@ -12,9 +12,9 @@ The 'applications/' folder allows us to version control changes to the scripts w
 
 3. Create these git hooks to manage branches to project standard:
 
-  ```sh
-  ln -sf "../../scripts/pre-commit" ".git/hooks/pre-commit"
-  ```
+```sh
+ln -sf "../../scripts/pre-commit" ".git/hooks/pre-commit"
+```
 
 It does two things:
 
@@ -26,7 +26,8 @@ It does two things:
   ```sh
     ln -sf "../../scripts/prepare-commit-msg" ".git/hooks/prepare-commit-msg"
   ```
-When you commit your changes, the above script will require you to have correctly formatted code.
+
+  When you commit your changes, the above script will require you to have correctly formatted code.
 
 ## Development
 
@@ -89,8 +90,8 @@ This must be an ANCHOR, not any other html element.
 
 ### Mock user access
 
-* masquerade, web admin (alerts, spotlights) - uqstaff
-* espace - uqstaff, s1111111
+- masquerade, web admin (alerts, spotlights) - uqstaff
+- espace - uqstaff, s1111111
 
 ## Testing
 
@@ -104,11 +105,11 @@ NOTE: CI testing uses environment variables stored on AWS to run cypress success
 
 In addition to the usual branches, the following are in use and should not be deleted from github or AWS Pipelines:
 
-* `feature-drupal` (drupal sandbox calls .js files from this folder cf [drupal readme](src/applications/drupal/readme.md))
-* `primo-prod-dev` (maps to primo env prod-dev. Needed to support uqsvangr cf [primo readme](src/applications/primo/readme.md]))
-* `primo-sandbox` (maps to primo env sandbox-dev. Needed to support uqsvangr)
-* `primo-sandbox-dev` (maps to primo env sandbox-dev. Needed to support uqsvangr)
-* `user-admin-manage` (used by eg uqjtilse to make changes to the megamenu ready for us to merge to master cd [admin user doc](docs/admin-howto.md))
+- `feature-drupal` (drupal sandbox calls .js files from this folder cf [drupal readme](src/applications/drupal/readme.md))
+- `primo-prod-dev` (maps to primo env prod-dev. Needed to support uqsvangr cf [primo readme](src/applications/primo/readme.md]))
+- `primo-sandbox` (maps to primo env sandbox-dev. Needed to support uqsvangr)
+- `primo-sandbox-dev` (maps to primo env sandbox-dev. Needed to support uqsvangr)
+- `user-admin-manage` (used by eg uqjtilse to make changes to the megamenu ready for us to merge to master cd [admin user doc](docs/admin-howto.md))
 
 ## AWS Buckets
 
@@ -154,6 +155,8 @@ There is a cloudfront behaviour on assets.library.uq.edu.au that maps these buck
 #### _Using UQ Header package as an example_
 
 - Follow the export procedure from [ITS Design System github](https://github.com/uq-its-ss/design-system/blob/master/packages/private-design-output/README.md).
+  (Note in June 2022 this required Node v12.12.0 (so do a `nvm use v12.12.0`) - ITS are hoping to update this soon)
+  (`nvm install v12.12.0 && npm cache clear -f && npm ci && npx lerna clean && npx lerna bootstrap && node --version` was a useful string of commands)
 - Copy the exported package to a new folder (eg UQHeader) - or over existing files in the case of an update.
 - Create the Web Component file (eg. UQHeader.js in that folder)
   - Update the reference to the CSS in the css/\*.css

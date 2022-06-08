@@ -35,8 +35,8 @@ span.displayText {
 }
 
 /* https://css-tricks.com/guide-responsive-friendly-css-columns/ */
-.uq-site-header__navigation__list--level-2.displaymulticolumn-2 > li,
-.uq-site-header__navigation__list--level-2.displaymulticolumn-3 > li {
+.uq-site-header__navigation__list--level-2.multicolumn-2 > li,
+.uq-site-header__navigation__list--level-2.multicolumn-3 > li {
     min-height: 2em;
     -webkit-column-break-inside: avoid;
     page-break-inside: avoid;
@@ -45,13 +45,13 @@ span.displayText {
 
 @media (min-width: 64em) {
     /*desktop menu size*/
-    .displaymulticolumn-2 {
+    .multicolumn-2 {
         columns: 2 100px;
         column-gap: 5px;
         column-rule: 1px solid #ccc;
         width: 500px;
     }
-    .displaymulticolumn-3 {
+    .multicolumn-3 {
         columns: 3 100px;
         column-gap: 5px;
         column-rule: 1px solid #ccc;
@@ -110,4 +110,10 @@ span.displayText {
 .megamenu-global-nav--mobile-global a {
     color: #fff;
     border-bottom-width: 0;
+}
+
+@media (min-width: 37.5rem) {
+    .uq-site-header__navigation__sub-toggle {
+        padding-top: 10px;
+    }
 }
