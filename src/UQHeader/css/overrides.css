@@ -29,3 +29,7 @@
 .skip-to-content-link:focus {
     transform: translateY(-5%);
 }
+
+.uq-header__search.uq-header__search--is-open {
+    margin-top: -15px;
+}
