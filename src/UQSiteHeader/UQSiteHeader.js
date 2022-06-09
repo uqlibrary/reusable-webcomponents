@@ -43,7 +43,7 @@ template.innerHTML = `
 
       <!-- Navigation Menu  -->
       <div data-testid="mega-menu-container" class="uq-site-header__navigation-container">
-        <nav class="uq-site-header__navigation" id="jsNav" data-testid="uq-site-header-megamenu" aria-label="Site navigation">
+        <nav class="uq-site-header__navigation slide-menu__slider" id="jsNav" data-testid="uq-site-header-megamenu" aria-label="Site navigation">
         </nav>
       </div>
     </div>
@@ -69,6 +69,7 @@ class UQSiteHeader extends HTMLElement {
         this.loadScript = this.loadScript.bind(this);
         this.updateMegaMenu = this.updateMegaMenu.bind(this);
         this.rewriteMegaMenuFromJson = this.rewriteMegaMenuFromJson.bind(this);
+        this.getMenuListItemHeaderLinkNode = this.getMenuListItemHeaderLinkNode.bind(this);
         this.setTitle = this.setTitle.bind(this);
         this.setSiteUrl = this.setSiteUrl.bind(this);
         this.showMenu = this.showMenu.bind(this);
@@ -166,6 +167,20 @@ class UQSiteHeader extends HTMLElement {
         megaMenu.appendChild(listWrapper);
     }
 
+    createSlideCloseControl(textOfParentLinkNode) {
+        const closeControlNode = document.createElement('a');
+        !!closeControlNode &&
+            closeControlNode.setAttribute('class', 'slide-menu__backlink slide-menu__control mobile-only');
+        !!closeControlNode && closeControlNode.setAttribute('data-action', 'back');
+        !!closeControlNode && !!textOfParentLinkNode && closeControlNode.appendChild(textOfParentLinkNode);
+
+        const listItem = document.createElement('li');
+        !!listItem && listItem.setAttribute('class', 'mobile-only uq-site-header__navigation__list-item-header');
+        !!listItem && !!closeControlNode && listItem.appendChild(closeControlNode);
+
+        return listItem;
+    }
+
     rewriteMegaMenuFromJson(menu) {
         const listWrapper = document.createElement('ul');
         listWrapper.setAttribute('class', 'uq-site-header__navigation__list uq-site-header__navigation__list--level-1');
@@ -174,20 +189,19 @@ class UQSiteHeader extends HTMLElement {
             const datatestid = `menu-group-item-${index}`;
             const hasChildren = !!jsonParentItem.submenuItems && jsonParentItem.submenuItems.length > 0;
 
-            const textOfParentLink = document.createTextNode(
+            const textOfParentLinkNode = document.createTextNode(
                 jsonParentItem.primaryText || /* istanbul ignore next */ '',
             );
 
             // const mobileArrowButton = document.createElement('button');
             // mobileArrowButton.setAttribute('class', 'slide-menu__decorator');
 
-            const parentLink = document.createElement('a');
-            parentLink.setAttribute('data-testid', `${datatestid}-link`);
-            parentLink.setAttribute('href', this.getLink(jsonParentItem.linkTo) || /* istanbul ignore next */ '');
-            parentLink.appendChild(textOfParentLink);
-            parentLink.setAttribute('aria-expanded', 'false');
-            parentLink.setAttribute('aria-haspopup', 'true');
-            parentLink.setAttribute('class', 'slide-menu__control');
+            const parentLink = this.getMenuListItemHeaderLinkNode(
+                datatestid,
+                jsonParentItem.linkTo,
+                textOfParentLinkNode,
+            );
+            console.log('parentLink 1=', parentLink);
 
             const parentListItem = document.createElement('li');
 
@@ -200,22 +214,21 @@ class UQSiteHeader extends HTMLElement {
             parentListItem.setAttribute('data-testid', datatestid);
 
             parentListItem.appendChild(parentLink);
-            // parentListItem.appendChild(mobileArrowButton);
 
             if (hasChildren) {
                 const toggle1label = `Show ${
                     jsonParentItem.primaryText || /* istanbul ignore next */ ''
                 } sub-navigation`;
                 const textOfToggle = document.createTextNode(toggle1label);
+
                 const parentToggleSpan = document.createElement('span');
                 parentToggleSpan.setAttribute('class', 'visually-hidden');
                 parentToggleSpan.appendChild(textOfToggle);
 
                 const parentToggle = document.createElement('button');
-                parentToggle.setAttribute('class', 'uq-site-header__navigation__sub-toggle slide-menu__decorator');
+                parentToggle.setAttribute('class', 'uq-site-header__navigation__sub-toggle');
                 parentToggle.setAttribute('data-testid', `${datatestid}-open`);
                 parentToggle.appendChild(parentToggleSpan);
-
                 parentListItem.appendChild(parentToggle);
 
                 // make child items
@@ -225,6 +238,30 @@ class UQSiteHeader extends HTMLElement {
                     jsonParentItem.columnCount > 1 &&
                     (listItemClass += ' multicolumn-' + jsonParentItem.columnCount);
                 listItemWrapper.setAttribute('class', listItemClass);
+
+                // add two items, one for fake header and one for back arrow here
+                const slideCloseControl = this.createSlideCloseControl(textOfParentLinkNode);
+                console.log('slideCloseControl= ', slideCloseControl);
+                !!listItemWrapper && !!slideCloseControl && listItemWrapper.appendChild(slideCloseControl);
+
+                console.log('jsonParentItem.primaryText=', jsonParentItem.primaryText);
+                const textOfParentLinkNode2 = document.createTextNode(
+                    jsonParentItem.primaryText || /* istanbul ignore next */ '',
+                );
+                console.log('textOfParentLinkNode2=', textOfParentLinkNode2);
+
+                const topMostLink = document.createElement('a');
+                !!jsonParentItem.linkTo && topMostLink.setAttribute('href', this.getLink(jsonParentItem.linkTo));
+                !!topMostLink && !!textOfParentLinkNode && topMostLink.appendChild(textOfParentLinkNode2);
+
+                const repeatParentListItem = document.createElement('li');
+                repeatParentListItem.appendChild(topMostLink);
+                !!repeatParentListItem &&
+                    repeatParentListItem.setAttribute('class', 'uq-site-header__navigation__list-item mobile-only');
+
+                !!listItemWrapper && !!repeatParentListItem && listItemWrapper.appendChild(repeatParentListItem);
+                // this needs to wrap a link!
+
                 jsonParentItem.submenuItems.forEach((jsonChild, indexChild) => {
                     const listItem = document.createElement('li');
                     listItem.setAttribute('class', 'uq-site-header__navigation__list-item');
@@ -233,8 +270,10 @@ class UQSiteHeader extends HTMLElement {
                         `${jsonParentItem.dataTestid}-${indexChild}` || /* istanbul ignore next */ '',
                     );
 
-                    // a missing primary text allows for an empty cell, controlling the spacing of the menu
+                    // a missing primary text allows for an empty cell on desktop, controlling the spacing of the menu
+                    console.log('jsonChild.primaryText = ', jsonChild.primaryText);
                     if (!!jsonChild.primaryText) {
+                        console.log('jsonChild.primaryText found');
                         const primarytextOfLink = document.createTextNode(
                             jsonChild.primaryText || /* istanbul ignore next */ '',
                         );
@@ -242,17 +281,27 @@ class UQSiteHeader extends HTMLElement {
                         primaryTextItem.setAttribute('class', 'displayText');
                         primaryTextItem.appendChild(primarytextOfLink);
 
-                        const secondarytextOfLink = document.createTextNode(jsonChild.secondaryText || ' ');
+                        const secondaryText = jsonChild.secondaryText || ' ';
+                        const secondarytextOfLink = document.createTextNode(secondaryText);
                         const secondaryTextItem = document.createElement('span');
-                        secondaryTextItem.setAttribute('class', 'displayText secondaryText');
+                        let secondaryClassName = 'displayText secondaryText';
+                        secondaryText === ' ' && (secondaryClassName += ' desktop-only');
+                        secondaryTextItem.setAttribute('class', secondaryClassName);
                         secondaryTextItem.appendChild(secondarytextOfLink);
 
                         const itemLink = document.createElement('a');
+                        let itemLinkClassName = ''; // uq-site-header-menu-list-item';
+                        // secondaryText === ' ' && (itemLinkClassName += ' mobile-no-min-height');
+                        secondaryText === ' ' &&
+                            (itemLinkClassName += ' uq-site-header-menu-list-item-no-secondary-child');
+                        itemLink.setAttribute('class', itemLinkClassName);
                         itemLink.setAttribute('href', this.getLink(jsonChild.linkTo));
                         itemLink.appendChild(primaryTextItem);
                         itemLink.appendChild(secondaryTextItem);
 
                         listItem.appendChild(itemLink);
+                    } else {
+                        listItem.setAttribute('class', 'desktop-only');
                     }
 
                     listItemWrapper.appendChild(listItem);
@@ -341,6 +390,17 @@ class UQSiteHeader extends HTMLElement {
         });
 
         return listWrapper;
+    }
+
+    getMenuListItemHeaderLinkNode(datatestid, linkTo, textOfParentLinkNode) {
+        const parentLink = document.createElement('a');
+        parentLink.setAttribute('data-testid', `${datatestid}-link`);
+        parentLink.setAttribute('href', this.getLink(linkTo) || /* istanbul ignore next */ '');
+        parentLink.appendChild(textOfParentLinkNode);
+        parentLink.setAttribute('aria-expanded', 'false');
+        parentLink.setAttribute('aria-haspopup', 'true');
+        parentLink.setAttribute('class', 'slide-menu__control');
+        return parentLink;
     }
 
     // we either use the production link from the json,
