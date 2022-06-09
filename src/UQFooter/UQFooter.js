@@ -89,6 +89,7 @@ class UQFooter extends HTMLElement {
 
     addButtonListeners(shadowDOM) {
         const toggleMenuItem = (elementId) => {
+            // control the open-close of the footer menu that is collapse-expandable in mobile view
             const listLeader = shadowDOM.getElementById(elementId);
 
             if (!listLeader) {
@@ -99,10 +100,20 @@ class UQFooter extends HTMLElement {
             const ul = listLeader.querySelector('ul');
 
             if (listLeader.className.match(/uq-accordion__item--is-open/)) {
+                // close the menu item
                 listLeader.classList.remove('uq-accordion__item--is-open');
                 !!button && button.classList.remove('uq-accordion__toggle--active');
                 !!ul && ul.classList.remove('uq-accordion__content--active');
             } else {
+                // first close any currently open menu item
+                const openItem = shadowDOM.querySelector('.uq-accordion__item--is-open');
+                !!openItem && openItem.classList.remove('uq-accordion__item--is-open');
+                const buttonOpen = shadowDOM.querySelector('.uq-accordion__toggle--active');
+                !!buttonOpen && buttonOpen.classList.remove('uq-accordion__toggle--active');
+                const ulOpen = shadowDOM.querySelector('.uq-accordion__content--active');
+                !!ulOpen && ulOpen.classList.remove('uq-accordion__content--active');
+
+                // open the requested menu item
                 listLeader.classList.add('uq-accordion__item--is-open');
                 !!button && button.classList.add('uq-accordion__toggle--active');
                 !!ul && ul.classList.add('uq-accordion__content--active');

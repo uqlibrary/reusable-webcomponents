@@ -34,6 +34,8 @@ describe('UQ Footer', () => {
         it('Mobile-width Footer drop down menus work properly', () => {
             const libraryMenuPlacement = '3'; // The "Library" item is the 4th submenu (zero indexed)
             const librarySubmenuButton = `[data-testid="button-menu-toggle-${libraryMenuPlacement}"]`;
+            const otherMenuPlacement = '4';
+            const otherSubmenuButton = `[data-testid="button-menu-toggle-${otherMenuPlacement}"]`;
 
             const findLibrarySubmenuButton = () => cy.get('uq-footer').shadow().find(librarySubmenuButton);
 
@@ -46,11 +48,25 @@ describe('UQ Footer', () => {
 
             cy.viewport(320, 480);
             findLibrarySubmenuButton().scrollIntoView();
+
+            // the Library menu item is initially closed
             assertLibrarySubmenuVisibility(false);
 
+            // open the Library menu item
             toggleLibrarySubmenu();
             assertLibrarySubmenuVisibility(true);
 
+            // open another menu item and Library menu item closes
+            cy.get('uq-footer').shadow().find(otherSubmenuButton).click();
+            cy.get('uq-footer').shadow().find(otherSubmenuButton).parent().find('ul').should('be.visible');
+            assertLibrarySubmenuVisibility(false);
+
+            // open the Library menu item and other menu item closes
+            toggleLibrarySubmenu();
+            cy.get('uq-footer').shadow().find(otherSubmenuButton).parent().find('ul').should('not.be.visible');
+            assertLibrarySubmenuVisibility(true);
+
+            // the Library menu item closes on toggle
             toggleLibrarySubmenu();
             assertLibrarySubmenuVisibility(false);
         });
