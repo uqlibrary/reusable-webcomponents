@@ -44,8 +44,6 @@ template.innerHTML = `
       <!-- Navigation Menu  -->
       <div data-testid="mega-menu-container" class="uq-site-header__navigation-container">
         <nav class="uq-site-header__navigation" id="jsNav" data-testid="uq-site-header-megamenu" aria-label="Site navigation">
-          <ul class="uq-site-header__navigation__list uq-site-header__navigation__list--level-1">
-          </ul>
         </nav>
       </div>
     </div>
@@ -75,10 +73,6 @@ class UQSiteHeader extends HTMLElement {
         this.setSiteUrl = this.setSiteUrl.bind(this);
         this.showMenu = this.showMenu.bind(this);
         this.unhideMobileMenuButton = this.unhideMobileMenuButton.bind(this);
-
-        // whether or not a menu is requested, clear any children supplied by ITS
-        const megaMenu = template.content.getElementById('jsNav');
-        !!megaMenu && (megaMenu.textContent = '');
 
         // Render the template
         const shadowDOM = this.attachShadow({ mode: 'open' });
@@ -144,6 +138,22 @@ class UQSiteHeader extends HTMLElement {
                 const navelement = !!this.shadowRoot && this.shadowRoot.getElementById('jsNav');
                 const uq = that.uqReference;
                 new uq.siteHeaderNavigation(navelement, 'uq-site-header__navigation');
+
+                // const menuLeftElem = document.getElementById('global-mobile-nav');
+                //
+                // const menuLeft = !!menuLeftElem && new SlideMenu(menuLeftElem, {
+                //     position: 'left',
+                //     submenuLinkAfter: ' ',
+                //     backLinkBefore: ' ',
+                // });
+                //
+                // var slideMenuBackButtons = document.querySelectorAll('.slide-menu__backlink, .global-mobile-nav__audience-link');
+                //
+                // Array.prototype.forEach.call(slideMenuBackButtons, function(el, i){
+                //     el.addEventListener('click', () => {
+                //         document.querySelector('.global-mobile-nav').scrollTop = 0;
+                //     });
+                // });
             },
             50,
             that,
@@ -168,12 +178,16 @@ class UQSiteHeader extends HTMLElement {
                 jsonParentItem.primaryText || /* istanbul ignore next */ '',
             );
 
+            // const mobileArrowButton = document.createElement('button');
+            // mobileArrowButton.setAttribute('class', 'slide-menu__decorator');
+
             const parentLink = document.createElement('a');
             parentLink.setAttribute('data-testid', `${datatestid}-link`);
             parentLink.setAttribute('href', this.getLink(jsonParentItem.linkTo) || /* istanbul ignore next */ '');
             parentLink.appendChild(textOfParentLink);
             parentLink.setAttribute('aria-expanded', 'false');
             parentLink.setAttribute('aria-haspopup', 'true');
+            parentLink.setAttribute('class', 'slide-menu__control');
 
             const parentListItem = document.createElement('li');
 
@@ -186,6 +200,7 @@ class UQSiteHeader extends HTMLElement {
             parentListItem.setAttribute('data-testid', datatestid);
 
             parentListItem.appendChild(parentLink);
+            // parentListItem.appendChild(mobileArrowButton);
 
             if (hasChildren) {
                 const toggle1label = `Show ${
@@ -197,7 +212,7 @@ class UQSiteHeader extends HTMLElement {
                 parentToggleSpan.appendChild(textOfToggle);
 
                 const parentToggle = document.createElement('button');
-                parentToggle.setAttribute('class', 'uq-site-header__navigation__sub-toggle');
+                parentToggle.setAttribute('class', 'uq-site-header__navigation__sub-toggle slide-menu__decorator');
                 parentToggle.setAttribute('data-testid', `${datatestid}-open`);
                 parentToggle.appendChild(parentToggleSpan);
 
@@ -263,7 +278,7 @@ class UQSiteHeader extends HTMLElement {
             },
             {
                 href: 'https://partners-community.uq.edu.au/',
-                linkLabel: 'Partners and Community',
+                linkLabel: 'Partners and community',
                 className: 'header',
             },
             {
@@ -367,8 +382,9 @@ class UQSiteHeader extends HTMLElement {
                 // store reference so we can initialise the main menu when it is available
                 that.uqReference = uq;
 
-                // Initialise accordions
-                new uq.accordion();
+                // // Initialise accordions
+                // new uq.accordion();
+
                 // Equalised grid menu examples
                 var equaliseGridMenu = uq.gridMenuEqualiser('.uq-grid-menu--equalised>a');
                 equaliseGridMenu.align();
