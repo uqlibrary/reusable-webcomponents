@@ -88,7 +88,8 @@ class UQFooter extends HTMLElement {
     }
 
     addButtonListeners(shadowDOM) {
-        const toggleMenuItem = (elementId) => {
+        const toggleMenuItem = (index) => {
+            const elementId = `menu-toggle-${index}`;
             // control the open-close of the footer menu that is collapse-expandable in mobile view
             const listLeader = shadowDOM.getElementById(elementId);
 
@@ -121,11 +122,11 @@ class UQFooter extends HTMLElement {
         };
 
         navLocale.forEach((unused, index) => {
-            const elementId = `menu-toggle-${index}`;
-            let element = shadowDOM.getElementById(elementId);
-            !!element &&
-                element.addEventListener('click', function clickFooterButton() {
-                    toggleMenuItem(elementId);
+            const buttonId = `button-menu-toggle-${index}`;
+            let button = shadowDOM.getElementById(buttonId);
+            !!button &&
+                button.addEventListener('click', function clickFooterButton() {
+                    toggleMenuItem(index);
                 });
         });
     }
@@ -165,7 +166,9 @@ class UQFooter extends HTMLElement {
                 !!mobileToggleButton &&
                     mobileToggleButton.setAttribute('class', 'uq-accordion__toggle uq-footer__navigation-toggle');
                 !!h2Text && !!mobileToggleButton && mobileToggleButton.appendChild(h2Text);
-                !!mobileToggleButton && mobileToggleButton.setAttribute('data-testid', `button-${toggleId}`);
+                const buttonId = `button-${toggleId}`;
+                !!mobileToggleButton && mobileToggleButton.setAttribute('data-testid', buttonId);
+                !!mobileToggleButton && mobileToggleButton.setAttribute('id', buttonId);
                 !!mobileToggleButton && !!li1 && li1.appendChild(mobileToggleButton);
 
                 const ul2 = document.createElement('ul');
