@@ -47,7 +47,7 @@ template.innerHTML = `
         <nav class="uq-footer__footer" aria-label="Terms and conditions">
           <ul class="uq-footer__footer-list">
               <li class="uq-footer__footer-item">
-                  <a href="https://www.uq.edu.au/terms-of-use/" class="uq-footer__link">Privacy and Terms of use</a>
+                  <a href="https://www.uq.edu.au/legal/terms-of-use/" class="uq-footer__link">Privacy and Terms of use</a>
               </li>
               <li class="uq-footer__footer-item">
                 <a href="https://uq.edu.au/accessibility/" class="uq-footer__link">Accessibility</a>

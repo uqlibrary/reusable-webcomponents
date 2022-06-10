@@ -58,11 +58,11 @@ export default [
             },
             {
                 label: 'Student support',
-                href: 'https://staff.uq.edu.au/information-and-services/health-safety-wellbeing/mental-health',
+                href: 'https://my.uq.edu.au/student-support',
             },
             {
-                label: 'IT support for staff',
-                href: 'https://my.uq.edu.au/student-support',
+                label: 'IT support for students',
+                href: 'https://my.uq.edu.au/information-and-services/information-technology/student-it-support',
             },
         ],
     },
@@ -95,7 +95,7 @@ export default [
         label: 'Contact',
         list: [
             {
-                label: 'UQ contact',
+                label: 'Contact UQ',
                 href: 'https://contacts.uq.edu.au/',
             },
             {
