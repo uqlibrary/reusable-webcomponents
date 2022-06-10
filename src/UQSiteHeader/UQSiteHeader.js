@@ -69,7 +69,8 @@ class UQSiteHeader extends HTMLElement {
         this.loadScript = this.loadScript.bind(this);
         this.updateMegaMenu = this.updateMegaMenu.bind(this);
         this.rewriteMegaMenuFromJson = this.rewriteMegaMenuFromJson.bind(this);
-        this.getMenuListItemHeaderLinkNode = this.getMenuListItemHeaderLinkNode.bind(this);
+        this.getDesktopHeaderItem = this.getDesktopHeaderItem.bind(this);
+        this.getMobileHeaderItem = this.getMobileHeaderItem.bind(this);
         this.setTitle = this.setTitle.bind(this);
         this.setSiteUrl = this.setSiteUrl.bind(this);
         this.showMenu = this.showMenu.bind(this);
@@ -167,12 +168,13 @@ class UQSiteHeader extends HTMLElement {
         megaMenu.appendChild(listWrapper);
     }
 
-    createSlideCloseControl(textOfParentLinkNode) {
+    createSlideCloseControl(linkPrimaryText) {
+        const parentTextNode = document.createTextNode(linkPrimaryText);
         const closeControlNode = document.createElement('a');
         !!closeControlNode &&
             closeControlNode.setAttribute('class', 'slide-menu__backlink slide-menu__control mobile-only');
         !!closeControlNode && closeControlNode.setAttribute('data-action', 'back');
-        !!closeControlNode && !!textOfParentLinkNode && closeControlNode.appendChild(textOfParentLinkNode);
+        !!closeControlNode && !!parentTextNode && closeControlNode.appendChild(parentTextNode);
 
         const listItem = document.createElement('li');
         !!listItem && listItem.setAttribute('class', 'mobile-only uq-site-header__navigation__list-item-header');
@@ -188,17 +190,11 @@ class UQSiteHeader extends HTMLElement {
         menuLocale.publicmenu.forEach((jsonParentItem, index) => {
             const datatestid = `menu-group-item-${index}`;
             const hasChildren = !!jsonParentItem.submenuItems && jsonParentItem.submenuItems.length > 0;
-
             const linkHref = jsonParentItem.linkTo || /* istanbul ignore next */ '';
             const linkPrimaryText = jsonParentItem.primaryText || /* istanbul ignore next */ '';
-            console.log('jsonParentItem.primaryText=', linkPrimaryText);
-            const textOfParentLinkNode = document.createTextNode(linkPrimaryText);
 
-            const parentLink = this.getMenuListItemHeaderLinkNode(datatestid, linkHref, linkPrimaryText);
-            console.log('parentLink 1=', parentLink);
-
+            // desktop has a link at top (submenu opens on mouseover); mobile has a button that opens the submenu
             const parentListItem = document.createElement('li');
-
             let classNavListitem = 'uq-site-header__navigation__list-item';
             !!hasChildren && (classNavListitem += ' uq-site-header__navigation__list-item--has-subnav');
             const activeClassName = ' uq-site-header__navigation__list-item--active';
@@ -208,21 +204,9 @@ class UQSiteHeader extends HTMLElement {
             parentListItem.setAttribute('data-testid', datatestid);
             parentListItem.setAttribute('data-gtm-category', 'Main navigation');
 
-            parentListItem.appendChild(parentLink);
-
+            parentListItem.appendChild(this.getDesktopHeaderItem(datatestid, linkHref, linkPrimaryText));
             if (hasChildren) {
-                const toggle1label = `Show ${linkPrimaryText} sub-navigation`;
-                const textOfToggle = document.createTextNode(toggle1label);
-
-                const parentToggleSpan = document.createElement('span');
-                parentToggleSpan.setAttribute('class', 'visually-hidden');
-                parentToggleSpan.appendChild(textOfToggle);
-
-                const parentToggle = document.createElement('button');
-                parentToggle.setAttribute('class', 'uq-site-header__navigation__sub-toggle');
-                parentToggle.setAttribute('data-testid', `${datatestid}-open`);
-                parentToggle.appendChild(parentToggleSpan);
-                parentListItem.appendChild(parentToggle);
+                parentListItem.appendChild(this.getMobileHeaderItem(linkPrimaryText, datatestid));
 
                 // make child items
                 const listItemWrapper = document.createElement('ul');
@@ -233,17 +217,17 @@ class UQSiteHeader extends HTMLElement {
                 listItemWrapper.setAttribute('class', listItemClass);
 
                 // add two items, one for fake header and one for back arrow here
-                const slideCloseControl = this.createSlideCloseControl(textOfParentLinkNode);
+                console.log('jsonParentItem.primaryText=', jsonParentItem.primaryText);
+                const textOfParentLinkNode = document.createTextNode(linkPrimaryText);
+                console.log('textOfParentLinkNode=', textOfParentLinkNode);
+
+                const slideCloseControl = !!linkPrimaryText && this.createSlideCloseControl(linkPrimaryText);
                 console.log('slideCloseControl= ', slideCloseControl);
                 !!listItemWrapper && !!slideCloseControl && listItemWrapper.appendChild(slideCloseControl);
 
-                console.log('jsonParentItem.primaryText=', jsonParentItem.primaryText);
-                const textOfParentLinkNode2 = document.createTextNode(linkPrimaryText);
-                console.log('textOfParentLinkNode2=', textOfParentLinkNode2);
-
                 const topMostLink = document.createElement('a');
                 !!topMostLink && !!linkHref && topMostLink.setAttribute('href', this.getLink(linkHref));
-                !!topMostLink && !!textOfParentLinkNode && topMostLink.appendChild(textOfParentLinkNode2);
+                !!topMostLink && !!textOfParentLinkNode && topMostLink.appendChild(textOfParentLinkNode);
 
                 const repeatParentListItem = document.createElement('li');
                 repeatParentListItem.appendChild(topMostLink);
@@ -251,7 +235,6 @@ class UQSiteHeader extends HTMLElement {
                     repeatParentListItem.setAttribute('class', 'uq-site-header__navigation__list-item mobile-only');
 
                 !!listItemWrapper && !!repeatParentListItem && listItemWrapper.appendChild(repeatParentListItem);
-                // this needs to wrap a link!
 
                 jsonParentItem.submenuItems.forEach((jsonChild, indexChild) => {
                     const listItem = document.createElement('li');
@@ -286,7 +269,7 @@ class UQSiteHeader extends HTMLElement {
                         secondaryText === ' ' &&
                             (itemLinkClassName += ' uq-site-header-menu-list-item-no-secondary-child');
                         itemLink.setAttribute('class', itemLinkClassName);
-                        itemLink.setAttribute('href', this.getLink(jsonChild.linkTo));
+                        !!jsonChild.linkTo && itemLink.setAttribute('href', this.getLink(jsonChild.linkTo));
                         itemLink.appendChild(primaryTextItem);
                         itemLink.appendChild(secondaryTextItem);
 
@@ -383,17 +366,32 @@ class UQSiteHeader extends HTMLElement {
         return listWrapper;
     }
 
-    getMenuListItemHeaderLinkNode(datatestid, linkTo, primaryText) {
-        const parentLink = document.createElement('a');
-        parentLink.setAttribute('data-testid', `${datatestid}-link`);
-        parentLink.setAttribute('href', this.getLink(linkTo) || /* istanbul ignore next */ '');
-        parentLink.setAttribute('aria-expanded', 'false');
-        parentLink.setAttribute('aria-haspopup', 'true');
-        parentLink.setAttribute('class', 'uq-site-header__navigation-link slide-menu__control');
-        const textOfParentLinkNode = document.createTextNode(primaryText);
-        parentLink.appendChild(textOfParentLinkNode);
-        console.log('getMenuListItemHeaderLinkNode::parentLink=', parentLink);
-        return parentLink;
+    getMobileHeaderItem(linkPrimaryText, datatestid) {
+        const toggle1label = `Show ${linkPrimaryText} sub-navigation`;
+        const textOfToggle = document.createTextNode(toggle1label);
+
+        const parentToggleSpan = document.createElement('span');
+        parentToggleSpan.setAttribute('class', 'visually-hidden');
+        parentToggleSpan.appendChild(textOfToggle);
+
+        const parentMobileToggle = document.createElement('button');
+        parentMobileToggle.setAttribute('class', 'uq-site-header__navigation__sub-toggle');
+        parentMobileToggle.setAttribute('data-testid', `${datatestid}-open`);
+        parentMobileToggle.appendChild(parentToggleSpan);
+        return parentMobileToggle;
+    }
+
+    getDesktopHeaderItem(datatestid, linkTo, primaryText) {
+        const anchor = document.createElement('a');
+        anchor.setAttribute('data-testid', `${datatestid}-link`);
+        anchor.setAttribute('href', this.getLink(linkTo) || /* istanbul ignore next */ '');
+        anchor.setAttribute('aria-expanded', 'false');
+        anchor.setAttribute('aria-haspopup', 'true');
+        anchor.setAttribute('class', 'uq-site-header__navigation-link slide-menu__control');
+        const parentTextNode = document.createTextNode(primaryText);
+        anchor.appendChild(parentTextNode);
+        console.log('getDesktopHeaderItem::anchor=', anchor);
+        return anchor;
     }
 
     // we either use the production link from the json,
