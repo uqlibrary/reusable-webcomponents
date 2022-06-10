@@ -10,7 +10,13 @@
     }
 }
 
-.uq-footer__navigation-level-2 > div {
+.uq-footer--mobile .uq-footer__navigation-level-2 {
+    display: block;
+    height: 0;
+    max-height: 10px;
+    transition: max-height ease 2s 0s;
+}
+.uq-footer--mobile .uq-footer__navigation-level-2 > div {
     line-height: 24px;
 }
 

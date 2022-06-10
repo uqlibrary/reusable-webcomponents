@@ -100,11 +100,15 @@ class UQFooter extends HTMLElement {
             const button = listLeader.querySelector('button');
             const ul = listLeader.querySelector('ul');
 
+            // max-height value is an arbitrary number that should be larger than all menus, used to make transition fire
+            const displayedHeightMenuItem = 'height:auto;max-height:400px';
             if (listLeader.className.match(/uq-accordion__item--is-open/)) {
                 // close the menu item
                 listLeader.classList.remove('uq-accordion__item--is-open');
                 !!button && button.classList.remove('uq-accordion__toggle--active');
                 !!ul && ul.classList.remove('uq-accordion__content--active');
+                !!ul && ul.removeAttribute('style');
+                !!ul && ul.setAttribute('aria-hidden', 'true');
             } else {
                 // first close any currently open menu item
                 const openItem = shadowDOM.querySelector('.uq-accordion__item--is-open');
@@ -113,11 +117,15 @@ class UQFooter extends HTMLElement {
                 !!buttonOpen && buttonOpen.classList.remove('uq-accordion__toggle--active');
                 const ulOpen = shadowDOM.querySelector('.uq-accordion__content--active');
                 !!ulOpen && ulOpen.classList.remove('uq-accordion__content--active');
+                !!ulOpen && ulOpen.removeAttribute('style');
+                !!ulOpen && ulOpen.setAttribute('aria-hidden', 'true');
 
                 // open the requested menu item
                 listLeader.classList.add('uq-accordion__item--is-open');
                 !!button && button.classList.add('uq-accordion__toggle--active');
                 !!ul && ul.classList.add('uq-accordion__content--active');
+                !!ul && ul.setAttribute('style', displayedHeightMenuItem);
+                !!ul && ul.setAttribute('aria-hidden', 'false');
             }
         };
 
