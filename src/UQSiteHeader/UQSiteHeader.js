@@ -189,18 +189,12 @@ class UQSiteHeader extends HTMLElement {
             const datatestid = `menu-group-item-${index}`;
             const hasChildren = !!jsonParentItem.submenuItems && jsonParentItem.submenuItems.length > 0;
 
-            const textOfParentLinkNode = document.createTextNode(
-                jsonParentItem.primaryText || /* istanbul ignore next */ '',
-            );
+            const linkHref = jsonParentItem.linkTo || /* istanbul ignore next */ '';
+            const linkPrimaryText = jsonParentItem.primaryText || /* istanbul ignore next */ '';
+            console.log('jsonParentItem.primaryText=', linkPrimaryText);
+            const textOfParentLinkNode = document.createTextNode(linkPrimaryText);
 
-            // const mobileArrowButton = document.createElement('button');
-            // mobileArrowButton.setAttribute('class', 'slide-menu__decorator');
-
-            const parentLink = this.getMenuListItemHeaderLinkNode(
-                datatestid,
-                jsonParentItem.linkTo,
-                textOfParentLinkNode,
-            );
+            const parentLink = this.getMenuListItemHeaderLinkNode(datatestid, linkHref, linkPrimaryText);
             console.log('parentLink 1=', parentLink);
 
             const parentListItem = document.createElement('li');
@@ -212,13 +206,12 @@ class UQSiteHeader extends HTMLElement {
             jsonParentItem.linkTo === window.location.href && (classNavListitem += activeClassName);
             parentListItem.setAttribute('class', classNavListitem);
             parentListItem.setAttribute('data-testid', datatestid);
+            parentListItem.setAttribute('data-gtm-category', 'Main navigation');
 
             parentListItem.appendChild(parentLink);
 
             if (hasChildren) {
-                const toggle1label = `Show ${
-                    jsonParentItem.primaryText || /* istanbul ignore next */ ''
-                } sub-navigation`;
+                const toggle1label = `Show ${linkPrimaryText} sub-navigation`;
                 const textOfToggle = document.createTextNode(toggle1label);
 
                 const parentToggleSpan = document.createElement('span');
@@ -245,13 +238,11 @@ class UQSiteHeader extends HTMLElement {
                 !!listItemWrapper && !!slideCloseControl && listItemWrapper.appendChild(slideCloseControl);
 
                 console.log('jsonParentItem.primaryText=', jsonParentItem.primaryText);
-                const textOfParentLinkNode2 = document.createTextNode(
-                    jsonParentItem.primaryText || /* istanbul ignore next */ '',
-                );
+                const textOfParentLinkNode2 = document.createTextNode(linkPrimaryText);
                 console.log('textOfParentLinkNode2=', textOfParentLinkNode2);
 
                 const topMostLink = document.createElement('a');
-                !!jsonParentItem.linkTo && topMostLink.setAttribute('href', this.getLink(jsonParentItem.linkTo));
+                !!topMostLink && !!linkHref && topMostLink.setAttribute('href', this.getLink(linkHref));
                 !!topMostLink && !!textOfParentLinkNode && topMostLink.appendChild(textOfParentLinkNode2);
 
                 const repeatParentListItem = document.createElement('li');
@@ -392,14 +383,16 @@ class UQSiteHeader extends HTMLElement {
         return listWrapper;
     }
 
-    getMenuListItemHeaderLinkNode(datatestid, linkTo, textOfParentLinkNode) {
+    getMenuListItemHeaderLinkNode(datatestid, linkTo, primaryText) {
         const parentLink = document.createElement('a');
         parentLink.setAttribute('data-testid', `${datatestid}-link`);
         parentLink.setAttribute('href', this.getLink(linkTo) || /* istanbul ignore next */ '');
-        parentLink.appendChild(textOfParentLinkNode);
         parentLink.setAttribute('aria-expanded', 'false');
         parentLink.setAttribute('aria-haspopup', 'true');
-        parentLink.setAttribute('class', 'slide-menu__control');
+        parentLink.setAttribute('class', 'uq-site-header__navigation-link slide-menu__control');
+        const textOfParentLinkNode = document.createTextNode(primaryText);
+        parentLink.appendChild(textOfParentLinkNode);
+        console.log('getMenuListItemHeaderLinkNode::parentLink=', parentLink);
         return parentLink;
     }
 

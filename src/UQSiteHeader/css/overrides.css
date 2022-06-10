@@ -137,7 +137,10 @@ span.displayText {
         margin-bottom: 0;
     }
     .uq-site-header__navigation__list-item {
-        padding-left: 3.2rem;
+        padding-left: 1.5rem;
+    }
+    a.uq-site-header__navigation-link {
+        padding-left: 0;
     }
     .uq-site-header__navigation__sub-toggle {
         /*display: none;*/
@@ -174,7 +177,7 @@ span.displayText {
     /*    100% { transform: translateX(0%); }*/
     /*}*/
     .uq-site-header__navigation__list--level-2 a {
-        padding-left: 0;
+        padding-left: 0.5rem;
     }
     .uq-site-header__navigation__list--hidden {
         display: none;
@@ -188,7 +191,7 @@ span.displayText {
     }
 
     .uq-site-header__navigation__list--level-2 .slide-menu__backlink {
-        padding-left: 50px;
+        padding-left: 2rem;
         font-weight: bold;
     }
 
@@ -200,7 +203,7 @@ span.displayText {
         height: 1.5rem;
         transform: translateY(50%);
         position: absolute;
-        left: 1.25rem;
+        left: 0;
         top: 0;
     }
 }
