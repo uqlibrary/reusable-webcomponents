@@ -44,7 +44,7 @@ template.innerHTML = `
       <!-- Navigation Menu  -->
       <div data-testid="mega-menu-container" class="uq-site-header__navigation-container">
         <nav class="uq-site-header__navigation slide-menu__slider" id="jsNav" data-testid="uq-site-header-megamenu" aria-label="Site navigation">
-            <ul class="uq-site-header__navigation__list uq-site-header__navigation__list--level-1 uq-site-header__navigation__list--open" aria-expanded="true" aria-pressed="true">
+            <ul class="uq-site-header__navigation__list uq-site-header__navigation__list--level-1" aria-expanded="true">
                 <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-header uq-site-header__navigation__list__first-permanent-child">
                     <a href="https://study.uq.edu.au/" data-testid="uq-header-study-link-mobile">Study</a>
                 </li>
@@ -98,8 +98,8 @@ class UQSiteHeader extends HTMLElement {
         this.loadScript = this.loadScript.bind(this);
         this.updateMegaMenu = this.updateMegaMenu.bind(this);
         this.rewriteMegaMenuFromJson = this.rewriteMegaMenuFromJson.bind(this);
-        this.getDesktopHeaderItem = this.getDesktopHeaderItem.bind(this);
-        this.getMobileHeaderItem = this.getMobileHeaderItem.bind(this);
+        this.createDesktopHeaderItem = this.createDesktopHeaderItem.bind(this);
+        this.createMobileHeaderItem = this.createMobileHeaderItem.bind(this);
         this.setTitle = this.setTitle.bind(this);
         this.setSiteUrl = this.setSiteUrl.bind(this);
         this.showMenu = this.showMenu.bind(this);
@@ -156,11 +156,14 @@ class UQSiteHeader extends HTMLElement {
         this.updateMegaMenu();
 
         this.unhideMobileMenuButton();
+    }
 
+    waitOnUqScript() {
         const that = this;
         // we must wait for the script to finish loading before we can use it
         const waitOnUqScript = setInterval(
             () => {
+                console.log('waitOnUqScript');
                 if (!that.uqReference) {
                     return;
                 }
@@ -169,22 +172,6 @@ class UQSiteHeader extends HTMLElement {
                 const navelement = !!this.shadowRoot && this.shadowRoot.getElementById('jsNav');
                 const uq = that.uqReference;
                 new uq.siteHeaderNavigation(navelement, 'uq-site-header__navigation');
-
-                // const menuLeftElem = document.getElementById('global-mobile-nav');
-                //
-                // const menuLeft = !!menuLeftElem && new SlideMenu(menuLeftElem, {
-                //     position: 'left',
-                //     submenuLinkAfter: ' ',
-                //     backLinkBefore: ' ',
-                // });
-                //
-                // var slideMenuBackButtons = document.querySelectorAll('.slide-menu__backlink, .global-mobile-nav__audience-link');
-                //
-                // Array.prototype.forEach.call(slideMenuBackButtons, function(el, i){
-                //     el.addEventListener('click', () => {
-                //         document.querySelector('.global-mobile-nav').scrollTop = 0;
-                //     });
-                // });
             },
             50,
             that,
@@ -213,8 +200,6 @@ class UQSiteHeader extends HTMLElement {
     }
 
     rewriteMegaMenuFromJson(menu) {
-        // const listWrapper = document.createElement('ul');
-        // listWrapper.setAttribute('class', 'uq-site-header__navigation__list uq-site-header__navigation__list--level-1');
         const listWrapper = !!this.shadowRoot && this.shadowRoot.querySelector('.uq-site-header__navigation__list');
         const insertAboveChild =
             !!this.shadowRoot &&
@@ -237,9 +222,9 @@ class UQSiteHeader extends HTMLElement {
             parentListItem.setAttribute('data-testid', datatestid);
             parentListItem.setAttribute('data-gtm-category', 'Main navigation');
 
-            parentListItem.appendChild(this.getDesktopHeaderItem(datatestid, linkHref, linkPrimaryText));
+            parentListItem.appendChild(this.createDesktopHeaderItem(datatestid, linkHref, linkPrimaryText));
             if (hasChildren) {
-                parentListItem.appendChild(this.getMobileHeaderItem(linkPrimaryText, datatestid));
+                parentListItem.appendChild(this.createMobileHeaderItem(linkPrimaryText, datatestid));
 
                 // make child items
                 const listItemWrapper = document.createElement('ul');
@@ -316,94 +301,13 @@ class UQSiteHeader extends HTMLElement {
                 parentListItem.appendChild(listItemWrapper);
             }
 
-            // listWrapper.appendChild(parentListItem);
-            console.log('listWrapper=', listWrapper);
-            console.log('parentListItem=', parentListItem);
-            console.log('insertAboveChild=', insertAboveChild);
             listWrapper.insertBefore(parentListItem, insertAboveChild);
         });
-
-        // // maybe make this a global somewhere and then generate both uq-header and this from the same entry?
-        // const listGlobalNav = [
-        //     {
-        //         href: 'https://study.uq.edu.au/',
-        //         linkLabel: 'Study',
-        //         className: 'header',
-        //         datatestid: 'uq-header-study-link-mobile',
-        //     },
-        //     {
-        //         href: 'https://research.uq.edu.au/',
-        //         linkLabel: 'Research',
-        //         className: 'header',
-        //     },
-        //     {
-        //         href: 'https://partners-community.uq.edu.au/',
-        //         linkLabel: 'Partners and community',
-        //         className: 'header',
-        //     },
-        //     {
-        //         href: 'https://about.uq.edu.au/',
-        //         linkLabel: 'About',
-        //         className: 'header',
-        //     },
-        //     {
-        //         href: 'https://www.uq.edu.au/',
-        //         linkLabel: 'UQ home',
-        //         className: 'global',
-        //         datatestid: 'uq-header-home-link-mobile',
-        //     },
-        //     {
-        //         href: 'https://www.uq.edu.au/news/',
-        //         linkLabel: 'News',
-        //         className: 'global',
-        //         datatestid: 'uq-header-news-link-mobile',
-        //     },
-        //     {
-        //         href: 'https://www.uq.edu.au/uq-events',
-        //         linkLabel: 'Events',
-        //         className: 'global',
-        //         datatestid: 'uq-header-events-link-mobile',
-        //     },
-        //     {
-        //         href: 'https://alumni.uq.edu.au/giving',
-        //         linkLabel: 'Give',
-        //         className: 'global',
-        //         datatestid: 'uq-header-giving-link-mobile',
-        //     },
-        //     {
-        //         href: 'https://contacts.uq.edu.au/',
-        //         linkLabel: 'Contact',
-        //         className: 'global',
-        //         datatestid: 'uq-header-contacts-link-mobile',
-        //     },
-        // ];
-        //
-        // listGlobalNav.forEach((entry) => {
-        //     const listItemText = document.createTextNode(entry.linkLabel || /* istanbul ignore next */ '');
-        //
-        //     const listItemLink = document.createElement('a');
-        //     !!listItemLink && !!entry.href && (listItemLink.href = entry.href);
-        //     !!listItemLink &&
-        //         !!entry.href &&
-        //         !!entry.datatestid &&
-        //         listItemLink.setAttribute('data-testid', entry.datatestid);
-        //     listItemLink.appendChild(listItemText);
-        //
-        //     const listItem = document.createElement('li');
-        //     !!listItem &&
-        //         listItem.setAttribute(
-        //             'class',
-        //             `megamenu-global-nav--mobile megamenu-global-nav--mobile-${entry.className}`,
-        //         );
-        //     listItem.appendChild(listItemLink);
-        //
-        //     listWrapper.appendChild(listItem);
-        // });
 
         return listWrapper;
     }
 
-    getMobileHeaderItem(linkPrimaryText, datatestid) {
+    createMobileHeaderItem(linkPrimaryText, datatestid) {
         const toggle1label = `Show ${linkPrimaryText} sub-navigation`;
         const textOfToggle = document.createTextNode(toggle1label);
 
@@ -418,7 +322,7 @@ class UQSiteHeader extends HTMLElement {
         return parentMobileToggle;
     }
 
-    getDesktopHeaderItem(datatestid, linkTo, primaryText) {
+    createDesktopHeaderItem(datatestid, linkTo, primaryText) {
         const anchor = document.createElement('a');
         anchor.setAttribute('data-testid', `${datatestid}-link`);
         anchor.setAttribute('href', this.getLink(linkTo) || /* istanbul ignore next */ '');
@@ -427,7 +331,7 @@ class UQSiteHeader extends HTMLElement {
         anchor.setAttribute('class', 'uq-site-header__navigation-link slide-menu__control');
         const parentTextNode = document.createTextNode(primaryText);
         anchor.appendChild(parentTextNode);
-        console.log('getDesktopHeaderItem::anchor=', anchor);
+        console.log('createDesktopHeaderItem::anchor=', anchor);
         return anchor;
     }
 
@@ -457,8 +361,8 @@ class UQSiteHeader extends HTMLElement {
         if (!scriptFound) {
             const that = this;
 
-            const showMenu = this.getAttribute('showmenu');
-            const isMegaMenuDisplayed = !!showMenu || showMenu === '';
+            // const showMenu = this.getAttribute('showmenu');
+            // const isMegaMenuDisplayed = !!showMenu || showMenu === '';
 
             //Dynamically import the JS file and append it to the document header
             const script = document.createElement('script');
@@ -488,6 +392,7 @@ class UQSiteHeader extends HTMLElement {
     connectedCallback() {
         // when this method has fired, the shadow dom is available
         this.loadScript();
+        this.waitOnUqScript();
     }
 }
 
