@@ -4,13 +4,13 @@
 describe('GTM', () => {
     beforeEach(() => {
         cy.visit('http://localhost:8080');
-        cy.intercept('GET', 'https://www.googletagmanager.com/gtm.js', (req) => {
+        cy.intercept(/googletagmanager.com\/gtm.js/, (req) => {
             expect(req.url).to.contain('ABC123');
-            req.reply(200);
+            req.reply(418);
         }).as('gtm');
-        cy.intercept('GET', 'https://www.googletagmanager.com/ns.html', (req) => {
+        cy.intercept(/googletagmanager.com\/ns.html/, (req) => {
             expect(req.url).to.contain('ABC123');
-            req.reply(200);
+            req.reply(418);
         }).as('gtmns');
     });
     context('GTM', () => {
@@ -25,8 +25,8 @@ describe('GTM', () => {
                 gtmElement[0].setAttribute('gtm', 'ABC123');
             });
             // Checks that it tried to call the gtm APIs and got a mocked response
-            cy.wait('@gtm').its('response.statusCode').should('equal', 200);
-            cy.wait('@gtmns').its('response.statusCode').should('equal', 200);
+            cy.wait('@gtm').its('response.statusCode').should('equal', 418);
+            cy.wait('@gtmns').its('response.statusCode').should('equal', 418);
             // The DOM element should have the right attribute
             cy.get('uq-gtm').should('have.attr', 'gtm', 'ABC123');
         });
