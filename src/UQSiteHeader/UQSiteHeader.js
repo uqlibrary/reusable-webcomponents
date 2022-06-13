@@ -44,6 +44,35 @@ template.innerHTML = `
       <!-- Navigation Menu  -->
       <div data-testid="mega-menu-container" class="uq-site-header__navigation-container">
         <nav class="uq-site-header__navigation slide-menu__slider" id="jsNav" data-testid="uq-site-header-megamenu" aria-label="Site navigation">
+            <ul class="uq-site-header__navigation__list uq-site-header__navigation__list--level-1 uq-site-header__navigation__list--open" aria-expanded="true" aria-pressed="true">
+                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-header uq-site-header__navigation__list__first-permanent-child">
+                    <a href="https://study.uq.edu.au/" data-testid="uq-header-study-link-mobile">Study</a>
+                </li>
+                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-header">
+                    <a href="https://research.uq.edu.au/">Research</a>
+                </li>
+                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-header">
+                    <a href="https://partners-community.uq.edu.au/">Partners and community</a>
+                </li>
+                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-header">
+                    <a href="https://about.uq.edu.au/">About</a>
+                </li>
+                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global">
+                    <a href="https://www.uq.edu.au/" data-testid="uq-header-home-link-mobile">UQ home</a>
+                </li>
+                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global">
+                    <a href="https://www.uq.edu.au/news/" data-testid="uq-header-news-link-mobile">News</a>
+                </li>
+                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global">
+                    <a href="https://www.uq.edu.au/uq-events" data-testid="uq-header-events-link-mobile">Events</a>
+                </li>
+                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global">
+                    <a href="https://alumni.uq.edu.au/giving" data-testid="uq-header-giving-link-mobile">Give</a>
+                </li>
+                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global">
+                    <a href="https://contacts.uq.edu.au/" data-testid="uq-header-contacts-link-mobile">Contact</a>
+                </li>
+            </ul>
         </nav>
       </div>
     </div>
@@ -184,8 +213,12 @@ class UQSiteHeader extends HTMLElement {
     }
 
     rewriteMegaMenuFromJson(menu) {
-        const listWrapper = document.createElement('ul');
-        listWrapper.setAttribute('class', 'uq-site-header__navigation__list uq-site-header__navigation__list--level-1');
+        // const listWrapper = document.createElement('ul');
+        // listWrapper.setAttribute('class', 'uq-site-header__navigation__list uq-site-header__navigation__list--level-1');
+        const listWrapper = !!this.shadowRoot && this.shadowRoot.querySelector('.uq-site-header__navigation__list');
+        const insertAboveChild =
+            !!this.shadowRoot &&
+            this.shadowRoot.querySelector('.uq-site-header__navigation__list__first-permanent-child');
 
         menuLocale.publicmenu.forEach((jsonParentItem, index) => {
             const datatestid = `menu-group-item-${index}`;
@@ -283,85 +316,89 @@ class UQSiteHeader extends HTMLElement {
                 parentListItem.appendChild(listItemWrapper);
             }
 
-            listWrapper.appendChild(parentListItem);
+            // listWrapper.appendChild(parentListItem);
+            console.log('listWrapper=', listWrapper);
+            console.log('parentListItem=', parentListItem);
+            console.log('insertAboveChild=', insertAboveChild);
+            listWrapper.insertBefore(parentListItem, insertAboveChild);
         });
 
-        // maybe make this a global somewhere and then generate both uq-header and this from the same entry?
-        const listGlobalNav = [
-            {
-                href: 'https://study.uq.edu.au/',
-                linkLabel: 'Study',
-                className: 'header',
-                datatestid: 'uq-header-study-link-mobile',
-            },
-            {
-                href: 'https://research.uq.edu.au/',
-                linkLabel: 'Research',
-                className: 'header',
-            },
-            {
-                href: 'https://partners-community.uq.edu.au/',
-                linkLabel: 'Partners and community',
-                className: 'header',
-            },
-            {
-                href: 'https://about.uq.edu.au/',
-                linkLabel: 'About',
-                className: 'header',
-            },
-            {
-                href: 'https://www.uq.edu.au/',
-                linkLabel: 'UQ home',
-                className: 'global',
-                datatestid: 'uq-header-home-link-mobile',
-            },
-            {
-                href: 'https://www.uq.edu.au/news/',
-                linkLabel: 'News',
-                className: 'global',
-                datatestid: 'uq-header-news-link-mobile',
-            },
-            {
-                href: 'https://www.uq.edu.au/uq-events',
-                linkLabel: 'Events',
-                className: 'global',
-                datatestid: 'uq-header-events-link-mobile',
-            },
-            {
-                href: 'https://alumni.uq.edu.au/giving',
-                linkLabel: 'Give',
-                className: 'global',
-                datatestid: 'uq-header-giving-link-mobile',
-            },
-            {
-                href: 'https://contacts.uq.edu.au/',
-                linkLabel: 'Contact',
-                className: 'global',
-                datatestid: 'uq-header-contacts-link-mobile',
-            },
-        ];
-
-        listGlobalNav.forEach((entry) => {
-            const listItemText = document.createTextNode(entry.linkLabel || /* istanbul ignore next */ '');
-
-            const listItemLink = document.createElement('a');
-            !!listItemLink && !!entry.href && (listItemLink.href = entry.href);
-            !!listItemLink &&
-                !!entry.href &&
-                !!entry.datatestid &&
-                listItemLink.setAttribute('data-testid', entry.datatestid);
-            listItemLink.appendChild(listItemText);
-
-            const listItem = document.createElement('li');
-            !!listItem &&
-                listItem.setAttribute(
-                    'class',
-                    `megamenu-global-nav--mobile megamenu-global-nav--mobile-${entry.className}`,
-                );
-            listItem.appendChild(listItemLink);
-
-            listWrapper.appendChild(listItem);
-        });
+        // // maybe make this a global somewhere and then generate both uq-header and this from the same entry?
+        // const listGlobalNav = [
+        //     {
+        //         href: 'https://study.uq.edu.au/',
+        //         linkLabel: 'Study',
+        //         className: 'header',
+        //         datatestid: 'uq-header-study-link-mobile',
+        //     },
+        //     {
+        //         href: 'https://research.uq.edu.au/',
+        //         linkLabel: 'Research',
+        //         className: 'header',
+        //     },
+        //     {
+        //         href: 'https://partners-community.uq.edu.au/',
+        //         linkLabel: 'Partners and community',
+        //         className: 'header',
+        //     },
+        //     {
+        //         href: 'https://about.uq.edu.au/',
+        //         linkLabel: 'About',
+        //         className: 'header',
+        //     },
+        //     {
+        //         href: 'https://www.uq.edu.au/',
+        //         linkLabel: 'UQ home',
+        //         className: 'global',
+        //         datatestid: 'uq-header-home-link-mobile',
+        //     },
+        //     {
+        //         href: 'https://www.uq.edu.au/news/',
+        //         linkLabel: 'News',
+        //         className: 'global',
+        //         datatestid: 'uq-header-news-link-mobile',
+        //     },
+        //     {
+        //         href: 'https://www.uq.edu.au/uq-events',
+        //         linkLabel: 'Events',
+        //         className: 'global',
+        //         datatestid: 'uq-header-events-link-mobile',
+        //     },
+        //     {
+        //         href: 'https://alumni.uq.edu.au/giving',
+        //         linkLabel: 'Give',
+        //         className: 'global',
+        //         datatestid: 'uq-header-giving-link-mobile',
+        //     },
+        //     {
+        //         href: 'https://contacts.uq.edu.au/',
+        //         linkLabel: 'Contact',
+        //         className: 'global',
+        //         datatestid: 'uq-header-contacts-link-mobile',
+        //     },
+        // ];
+        //
+        // listGlobalNav.forEach((entry) => {
+        //     const listItemText = document.createTextNode(entry.linkLabel || /* istanbul ignore next */ '');
+        //
+        //     const listItemLink = document.createElement('a');
+        //     !!listItemLink && !!entry.href && (listItemLink.href = entry.href);
+        //     !!listItemLink &&
+        //         !!entry.href &&
+        //         !!entry.datatestid &&
+        //         listItemLink.setAttribute('data-testid', entry.datatestid);
+        //     listItemLink.appendChild(listItemText);
+        //
+        //     const listItem = document.createElement('li');
+        //     !!listItem &&
+        //         listItem.setAttribute(
+        //             'class',
+        //             `megamenu-global-nav--mobile megamenu-global-nav--mobile-${entry.className}`,
+        //         );
+        //     listItem.appendChild(listItemLink);
+        //
+        //     listWrapper.appendChild(listItem);
+        // });
 
         return listWrapper;
     }
