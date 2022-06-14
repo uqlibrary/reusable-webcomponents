@@ -105,8 +105,7 @@ describe('UQ Header', () => {
                 });
         });
 
-        // needs to be fixed but not right now
-        it.skip('the menu draws properly on device rotation', () => {
+        it('the menu draws properly on device rotation', () => {
             cy.viewport(1024, 768); // ipad landscape
             cy.get('uq-site-header')
                 .shadow()

@@ -234,13 +234,9 @@ class UQSiteHeader extends HTMLElement {
                     (listItemClass += ' multicolumn-' + jsonParentItem.columnCount);
                 listItemWrapper.setAttribute('class', listItemClass);
 
-                // add two items, one for fake header and one for back arrow here
-                console.log('jsonParentItem.primaryText=', jsonParentItem.primaryText);
                 const textOfParentLinkNode = document.createTextNode(linkPrimaryText);
-                console.log('textOfParentLinkNode=', textOfParentLinkNode);
 
                 const slideCloseControl = !!linkPrimaryText && this.createSlideCloseControl(linkPrimaryText);
-                console.log('slideCloseControl= ', slideCloseControl);
                 !!listItemWrapper && !!slideCloseControl && listItemWrapper.appendChild(slideCloseControl);
 
                 const topMostLink = document.createElement('a');
@@ -263,9 +259,7 @@ class UQSiteHeader extends HTMLElement {
                     );
 
                     // a missing primary text allows for an empty cell on desktop, controlling the spacing of the menu
-                    console.log('jsonChild.primaryText = ', jsonChild.primaryText);
                     if (!!jsonChild.primaryText) {
-                        console.log('jsonChild.primaryText found');
                         const primarytextOfLink = document.createTextNode(
                             jsonChild.primaryText || /* istanbul ignore next */ '',
                         );
@@ -331,7 +325,6 @@ class UQSiteHeader extends HTMLElement {
         anchor.setAttribute('class', 'uq-site-header__navigation-link slide-menu__control');
         const parentTextNode = document.createTextNode(primaryText);
         anchor.appendChild(parentTextNode);
-        console.log('createDesktopHeaderItem::anchor=', anchor);
         return anchor;
     }
 

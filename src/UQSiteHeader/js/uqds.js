@@ -861,18 +861,21 @@ function _createClass(Constructor, protoProps, staticProps) {
 var uq = (function (exports) {
     'use strict';
 
-    function toggleMegaMenu(toggle) {
-        const target = this.nav.querySelectorAll(`.${this.level1Class}`);
-        const ariaExpanded = toggle.getAttribute('aria-expanded') === 'true';
-
-        toggle.classList.toggle(`${this.navClass}-toggle--close`);
+    function toggleMenu(toggle) {
+        var ariaExpanded = toggle.getAttribute('aria-expanded') === 'true';
+        var ariaPressed = toggle.getAttribute('aria-pressed') === 'true';
+        toggle.classList.toggle(''.concat(this.navClass, '-toggle--close'));
         toggle.setAttribute('aria-expanded', !ariaExpanded);
-
-        target.forEach((el) => {
-            el.classList.toggle(this.openModifier);
+        toggle.setAttribute('aria-pressed', !ariaPressed);
+        var target = this.nav.querySelectorAll('.'.concat(this.level1Class));
+        var _this = this;
+        target.forEach(function (el) {
+            el.classList.toggle(_this.openModifier);
             el.setAttribute('aria-expanded', !ariaExpanded);
+            el.setAttribute('aria-pressed', !ariaPressed);
         });
     }
+
     /**
      * Main Navigation
      * @file Drop down navigation handler.
@@ -896,6 +899,7 @@ var uq = (function (exports) {
             this.init = this.init.bind(this);
             this.handleToggle = this.handleToggle.bind(this);
             this.handleMobileToggle = this.handleMobileToggle.bind(this);
+            this.handleResize = this.handleResize.bind(this);
             this.setOrientation = this.setOrientation.bind(this);
             this.handleKeyPress = this.handleKeyPress.bind(this);
             this.init();
@@ -921,6 +925,7 @@ var uq = (function (exports) {
                     var navLinks = this.nav.querySelectorAll('li > a');
                     var subNavToggles = this.nav.querySelectorAll('.'.concat(this.subToggleClass));
                     mobileToggle.addEventListener('click', this.handleMobileToggle);
+                    window.addEventListener('resize', this.handleResize);
                     subNavItems.forEach(function (item) {
                         _this.setOrientation(item);
 
@@ -953,21 +958,29 @@ var uq = (function (exports) {
                 key: 'handleMobileToggle',
                 value: function handleMobileToggle(event) {
                     // this handles the click on the invisible site header menu button that toggles the mobile megamenu display
-                    var _this2 = this;
-                    console.log('handleMobileToggle: class=', this.navClass);
-
                     var toggle = event.target;
-                    var target = this.nav.querySelectorAll('.'.concat(this.level1Class));
+                    toggleMenu.call(this, toggle);
+                },
+            },
+            {
+                key: 'handleResize',
+                value: function handleResize(event) {
+                    var toggle = document
+                        .querySelector('uq-site-header')
+                        .shadowRoot.querySelector(`.${this.toggleClass}`);
+                    console.log('fn::handleResize toggle=', toggle);
+                    // close the expanded mobile menu if open - otherwise inappropriate classes remain applied
                     var ariaExpanded = toggle.getAttribute('aria-expanded') === 'true';
-                    var ariaPressed = toggle.getAttribute('aria-pressed') === 'true';
-                    toggle.classList.toggle(''.concat(this.navClass, '-toggle--close'));
-                    toggle.setAttribute('aria-expanded', !ariaExpanded);
-                    toggle.setAttribute('aria-pressed', !ariaPressed);
-                    target.forEach(function (el) {
-                        el.classList.toggle(_this2.openModifier);
-                        el.setAttribute('aria-expanded', !ariaExpanded);
-                        el.setAttribute('aria-pressed', !ariaPressed);
-                    });
+                    if (!!ariaExpanded) {
+                        toggleMenu.call(this, toggle);
+                        var topToggleButton = document
+                            .querySelector('uq-header')
+                            .shadowRoot.getElementById('mobile-menu-toggle-button');
+                        var mobileButtonOpenClassName = 'nav-primary__menu-toggle--is-open';
+                        !!topToggleButton &&
+                            topToggleButton.classList.contains(mobileButtonOpenClassName) &&
+                            topToggleButton.classList.remove(mobileButtonOpenClassName);
+                    }
                 },
             },
             {
@@ -1019,7 +1032,6 @@ var uq = (function (exports) {
             {
                 key: 'closeLevel',
                 value: function closeLevel(subNav, menuItem) {
-                    // console.log('toggle::closeLevel', subNav, menuItem);
                     subNav.classList.remove(this.openModifier);
                     this.setOrientation(menuItem);
                     menuItem.classList.remove(this.levelOpenModifier);
@@ -1044,10 +1056,8 @@ var uq = (function (exports) {
                     var _this3 = this;
 
                     var levels = this.nav.querySelectorAll('.'.concat(this.subNavClass));
-                    // console.log('closeAllLevels:: _this3.level2Class=', _this3.level2Class);
                     levels.forEach(function (level) {
                         var item = level.querySelector('.'.concat(_this3.level2Class));
-                        // console.log('closeAllLevels:: item=', item);
 
                         _this3.closeLevel(item, level);
                     });
@@ -1197,15 +1207,15 @@ var uq = (function (exports) {
         throw new Error('Dynamic requires are not currently supported by @rollup/plugin-commonjs');
     }
 
-    // per https://stackoverflow.com/questions/34849001/check-if-css-selector-is-valid/42149818
-    const isSelectorValid = ((dummyElement) => (selector) => {
-        try {
-            dummyElement.querySelector(selector);
-        } catch {
-            return false;
-        }
-        return true;
-    })(document.createDocumentFragment());
+    // // per https://stackoverflow.com/questions/34849001/check-if-css-selector-is-valid/42149818
+    // const isSelectorValid = ((dummyElement) => (selector) => {
+    //     try {
+    //         dummyElement.querySelector(selector);
+    //     } catch {
+    //         return false;
+    //     }
+    //     return true;
+    // })(document.createDocumentFragment());
 
     var ready = createCommonjsModule(function (module) {
         /*!
