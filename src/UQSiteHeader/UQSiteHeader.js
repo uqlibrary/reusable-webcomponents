@@ -283,7 +283,6 @@ class UQSiteHeader extends HTMLElement {
 
                         const itemLink = document.createElement('a');
                         let itemLinkClassName = ''; // uq-site-header-menu-list-item';
-                        // secondaryText === ' ' && (itemLinkClassName += ' mobile-no-min-height');
                         secondaryText === ' ' &&
                             (itemLinkClassName += ' uq-site-header-menu-list-item-no-secondary-child');
                         itemLink.setAttribute('class', itemLinkClassName);
