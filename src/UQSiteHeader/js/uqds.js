@@ -47,6 +47,8 @@ var uq = (function (exports) {
 
     var MainNavigation = /*#__PURE__*/ (function () {
         function MainNavigation(nav, navClass) {
+            // console.log('MainNavigation navClass=', navClass); // uq-site-header__navigation
+            // console.log('MainNavigation nav=', nav); // <nav class="uq-site-header__navigation slide-menu__slider" ... />
             _classCallCheck(this, MainNavigation);
 
             this.nav = nav;
@@ -60,6 +62,7 @@ var uq = (function (exports) {
             this.reverseClass = ''.concat(this.navClass, '__list--reverse');
             this.subNavClass = ''.concat(this.navClass, '__list-item--has-subnav');
             this.subToggleClass = ''.concat(this.navClass, '__sub-toggle');
+            this.closeSubLevel = ''.concat(this.navClass, '__list--close');
             this.init = this.init.bind(this);
             this.handleToggle = this.handleToggle.bind(this);
             this.handleMobileToggle = this.handleMobileToggle.bind(this);
@@ -74,48 +77,71 @@ var uq = (function (exports) {
                 key: 'init',
                 value: function init() {
                     var _this = this;
+                    window.addEventListener('resize', this.handleResize);
 
                     var mobileToggle = document
                         .querySelector('uq-site-header')
                         .shadowRoot.querySelector('.'.concat(this.toggleClass));
-                    var subNavItems = this.nav.querySelectorAll('.'.concat(this.subNavClass));
-                    var subNavLinks = this.nav.querySelectorAll('.'.concat(this.subNavClass, ' > a'));
-                    var subNavL2Items = this.nav.querySelectorAll(
-                        '.'.concat(this.level2Class, ' .').concat(this.subNavClass),
-                    );
-                    var subNavL2Links = this.nav.querySelectorAll(
-                        '.'.concat(this.level2Class, ' .').concat(this.subNavClass, ' > a'),
-                    );
-                    var navLinks = this.nav.querySelectorAll('li > a');
-                    var subNavToggles = this.nav.querySelectorAll('.'.concat(this.subToggleClass));
                     mobileToggle.addEventListener('click', this.handleMobileToggle);
-                    window.addEventListener('resize', this.handleResize);
+
+                    var subNavItems = this.nav.querySelectorAll('.'.concat(this.subNavClass));
                     subNavItems.forEach(function (item) {
                         _this.setOrientation(item);
 
                         item.addEventListener('mouseenter', _this.handleToggle);
                         item.addEventListener('mouseleave', _this.handleToggle);
                     });
+
+                    var subNavLinks = this.nav.querySelectorAll('.'.concat(this.subNavClass, ' > a'));
                     subNavLinks.forEach(function (item) {
                         if (window.matchMedia('(min-width: 1024px)').matches) {
                             item.addEventListener('touchend', _this.handleToggle);
                         }
                     });
+
+                    var subNavL2Items = this.nav.querySelectorAll(
+                        '.'.concat(this.level2Class, ' .').concat(this.subNavClass),
+                    );
                     subNavL2Items.forEach(function (item) {
                         _this.setOrientation(item);
 
                         item.addEventListener('mouseenter', _this.handleToggle);
                         item.addEventListener('mouseleave', _this.handleToggle);
                     });
+
+                    var subNavL2Links = this.nav.querySelectorAll(
+                        '.'.concat(this.level2Class, ' .').concat(this.subNavClass, ' > a'),
+                    );
                     subNavL2Links.forEach(function (item) {
                         item.addEventListener('touchend', _this.handleToggle);
                     });
+
+                    var navLinks = this.nav.querySelectorAll('li > a');
                     navLinks.forEach(function (item) {
                         item.addEventListener('keydown', _this.handleKeyPress);
                     });
+
+                    var subNavToggles = this.nav.querySelectorAll('.'.concat(this.subToggleClass));
                     subNavToggles.forEach(function (item) {
                         item.addEventListener('click', _this.handleToggle);
                     });
+
+                    var closeItems = this.nav.querySelectorAll('.'.concat(this.closeSubLevel));
+                    closeItems.forEach(function (item) {
+                        console.log('1 toggle on back click', item);
+                        item.addEventListener('click', _this.handleToggle);
+                    });
+                    // // closeItems.forEach(function (item) {
+                    // //     console.log('2 toggle on back click', item);
+                    // //     // _this.setOrientation(item);
+                    // //
+                    // //     item.addEventListener('click', _this.handleToggle);
+                    // //     // item.addEventListener('click', function (e) {
+                    // //     //     console.log('back click e', e);
+                    // //     //     console.log('back click _this', _this);
+                    // //     //     _this.handleToggle();
+                    // //     // });
+                    // // });
                 },
             },
             {
@@ -149,7 +175,9 @@ var uq = (function (exports) {
             {
                 key: 'handleToggle',
                 value: function handleToggle(event) {
+                    console.log('handleToggle::toggle', event);
                     if (
+                        !!event.type &&
                         (event.type === 'mouseenter' || event.type === 'mouseleave') &&
                         window.matchMedia('(max-width: 1024px)').matches
                     ) {
@@ -157,17 +185,30 @@ var uq = (function (exports) {
                     }
 
                     var menuItem = event.target;
+                    console.log('handleToggle 1::menuItem=', menuItem);
 
+                    if (menuItem.classList.contains('uq-site-header__navigation__list--close')) {
+                        console.log(menuItem.tagName, '::we are on a button, go up one');
+                        menuItem = menuItem.parentElement.parentElement;
+                    }
                     if (menuItem.tagName !== 'LI') {
+                        console.log(menuItem.tagName, '::still not an li, go up one');
                         menuItem = menuItem.parentElement;
                     }
 
                     var subNav = menuItem.querySelector('ul');
+                    console.log('handleToggle 2::menuItem=', menuItem);
 
+                    // uq-site-header__navigation__list--close
+                    console.log('subNav= ', subNav); // <ul class="uq-site-header__navigation__list uq-site-header__navigation__list--level-2 multicolumn-2 uq-site-header__navigation__list--open
+                    console.log('handleToggle::this.openModifier=', this.openModifier);
+                    console.log('handleToggle::subNav.classList=', subNav.classList);
                     if (subNav.classList.contains(this.openModifier)) {
+                        console.log('handleToggle::closing');
                         this.closeLevel(subNav, menuItem);
                         this.unhideAllLevels();
                     } else {
+                        console.log('handleToggle::opening');
                         if (event.type === 'touchend') {
                             event.preventDefault();
                         }
