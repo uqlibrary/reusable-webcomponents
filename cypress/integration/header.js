@@ -117,6 +117,8 @@ describe('UQ Header', () => {
                         .should('be.lt', 90); // the menu does not wrap
 
                     cy.viewport(768, 1024); // ipad portrait
+
+                    cy.wait(500); // use waitUntil when it is available
                 });
             cy.get('uq-header').shadow().find('[data-testid="mobile-menu-toggle-button"]').should('exist').click();
             cy.get('uq-site-header')
