@@ -235,6 +235,7 @@ class UQSiteHeader extends HTMLElement {
                 !!jsonParentItem.columnCount &&
                     jsonParentItem.columnCount > 1 &&
                     (listItemClass += ' multicolumn-' + jsonParentItem.columnCount);
+                listItemClass += ' menu-undisplayed'; // desktop menus initially have width 0, this stops the page havent a stupidly wide width
                 listItemWrapper.setAttribute('class', listItemClass);
 
                 const textOfParentLinkNode = document.createTextNode(linkPrimaryText);

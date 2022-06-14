@@ -224,6 +224,7 @@ var uq = (function (exports) {
                 key: 'openLevel',
                 value: function openLevel(subNav, menuItem) {
                     subNav.classList.add(this.openModifier);
+                    subNav.classList.contains('menu-undisplayed') && subNav.classList.remove('menu-undisplayed');
                     menuItem.classList.add(this.levelOpenModifier);
                     menuItem.querySelector('a').setAttribute('aria-expanded', 'true');
                     menuItem.querySelector('button').setAttribute('aria-expanded', 'true');
@@ -253,6 +254,7 @@ var uq = (function (exports) {
                 key: 'closeLevel',
                 value: function closeLevel(subNav, menuItem) {
                     subNav.classList.remove(this.openModifier);
+                    !subNav.classList.contains('menu-undisplayed') && subNav.classList.add('menu-undisplayed');
                     this.unhideMenuitemButton(menuItem);
                     this.setOrientation(menuItem);
                     menuItem.classList.remove(this.levelOpenModifier);

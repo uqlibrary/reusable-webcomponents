@@ -52,17 +52,21 @@ span.displayText {
 
 @media (min-width: 64em) {
     /*desktop menu size*/
-    .multicolumn-2 {
+    .multicolumn-2:not(.menu-undisplayed) {
         columns: 2 100px;
         column-gap: 5px;
         column-rule: 1px solid #ccc;
         width: 500px;
     }
-    .multicolumn-3 {
+    .multicolumn-3:not(.menu-undisplayed) {
         columns: 3 100px;
         column-gap: 5px;
         column-rule: 1px solid #ccc;
         width: 750px;
+    }
+    .menu-undisplayed,
+    .menu-undisplayed * {
+        width: 0;
     }
     .uq-site-header__navigation__list--level-2 a {
         padding: 0.2em 0.2em 0.2em 1em;
@@ -99,6 +103,7 @@ span.displayText {
 
     li.megamenu-global-nav--mobile {
         display: none;
+        width: 0;
     }
 }
 
