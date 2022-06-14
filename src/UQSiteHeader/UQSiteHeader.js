@@ -184,7 +184,7 @@ class UQSiteHeader extends HTMLElement {
         megaMenu.appendChild(listWrapper);
     }
 
-    createSubmenuCloseControl(linkPrimaryText) {
+    createSubmenuCloseControl(linkPrimaryText, index) {
         const parentTextNode = document.createTextNode(linkPrimaryText);
         const closeControlNode = document.createElement('button');
         !!closeControlNode &&
@@ -193,6 +193,8 @@ class UQSiteHeader extends HTMLElement {
                 'uq-site-header__navigation__list--close slide-menu__backlink slide-menu__control mobile-only',
             );
         !!closeControlNode && closeControlNode.setAttribute('data-action', 'back');
+        !!closeControlNode &&
+            closeControlNode.setAttribute('data-testid', `uq-site-header__navigation__list--close-${index}`);
         !!closeControlNode && !!parentTextNode && closeControlNode.appendChild(parentTextNode);
 
         const listItem = document.createElement('li');
@@ -240,7 +242,7 @@ class UQSiteHeader extends HTMLElement {
 
                 const textOfParentLinkNode = document.createTextNode(linkPrimaryText);
 
-                const slideCloseControl = !!linkPrimaryText && this.createSubmenuCloseControl(linkPrimaryText);
+                const slideCloseControl = !!linkPrimaryText && this.createSubmenuCloseControl(linkPrimaryText, index);
                 !!listItemWrapper && !!slideCloseControl && listItemWrapper.appendChild(slideCloseControl);
 
                 const topMostLink = document.createElement('a');
