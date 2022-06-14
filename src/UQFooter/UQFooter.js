@@ -34,7 +34,6 @@ template.innerHTML = `
               <li class="uq-footer__footer-item"><a href="https://instagram.com/uniofqld/" class="uq-footer__meta-icons--instagram uq-footer__meta-icons" aria-label="Instagram" data-gtm-label="Instagram"></a></li>
             </ul>
           </nav> 
-          <div class="uq-footer__contact-item uq-footer__contact-login"><a href="#" class="uq-footer__link" rel="nofollow">Web login</a></div>
        
         </div>
         <nav class="uq-footer__meta" aria-label="Business meta">
@@ -47,7 +46,7 @@ template.innerHTML = `
         <nav class="uq-footer__footer" aria-label="Terms and conditions">
           <ul class="uq-footer__footer-list">
               <li class="uq-footer__footer-item">
-                  <a href="https://www.uq.edu.au/legal/terms-of-use/" class="uq-footer__link">Privacy and Terms of use</a>
+                  <a href="https://www.uq.edu.au/legal/terms-of-use/" class="uq-footer__link">Privacy and terms of use</a>
               </li>
               <li class="uq-footer__footer-item">
                 <a href="https://uq.edu.au/accessibility/" class="uq-footer__link">Accessibility</a>

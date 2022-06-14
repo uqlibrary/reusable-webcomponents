@@ -52,7 +52,7 @@ export default {
             },
             {
                 dataTestid: 'connect-sitemap-link',
-                linklabel: 'Site Map',
+                linklabel: 'Site map',
                 linkTo: 'https://web.library.uq.edu.au/sitemap',
             },
         ],
