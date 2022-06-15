@@ -489,7 +489,7 @@
 .footerMenu li span {
     display: none;
 }
-@media all and (max-width: 960px) {
+@media all and (max-width: 959px) {
     .footerMenu li span {
         text-align: center;
         display: inline-block;
