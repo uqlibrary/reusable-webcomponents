@@ -1,10 +1,12 @@
 .uq-footer__navigation-level-2 {
     height: auto;
 }
-@media(min-width: 64rem) {
+@media (min-width: 75rem) {
     .uq-footer__footer ul {
         justify-content: flex-end;
     }
+}
+@media(min-width: 64rem) {
     .uq-footer__navigation-link {
         line-height: 1.5;
     }
