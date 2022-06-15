@@ -191,7 +191,6 @@ var uq = (function (exports) {
                 {
                     key: 'init',
                     value: function init() {
-                        console.log('init accordion');
                         var _this7 = this;
 
                         if (window.location.hash) {
@@ -199,7 +198,6 @@ var uq = (function (exports) {
                         } // Scroll to hash (param string) selected accordion
 
                         function isHashIgnored() {
-                            console.log('isHashIgnored', this.hash);
                             return this.hash === '#keyword=;campus=;weekstart=';
                         }
 
@@ -348,7 +346,9 @@ var uq = (function (exports) {
 
                             _this.menuToggle.classList.toggle('nav-primary__menu-toggle--is-open');
 
-                            _this.searchToggle.classList.remove('nav-primary__search-toggle--is-open');
+                            _this.searchToggle.classList.contains('nav-primary__search-toggle--is-open') &&
+                                _this.searchToggle.classList.remove('nav-primary__search-toggle--is-open');
+                            _this.searchLabel.innerHTML = 'Search';
 
                             _this.searchBlock.classList.remove('uq-header__search--is-open');
 
@@ -363,7 +363,10 @@ var uq = (function (exports) {
 
                             _this.searchBlock.classList.toggle('uq-header__search--is-open');
 
-                            _this.menuToggle.classList.remove('nav-primary__menu-toggle--is-open');
+                            if (_this.menuToggle.classList.contains('nav-primary__menu-toggle--is-open')) {
+                                clickSiteHeaderMenuButton();
+                                _this.menuToggle.classList.remove('nav-primary__menu-toggle--is-open');
+                            }
 
                             if (_this.searchBlock.classList.contains('uq-header__search--is-open')) {
                                 _this.searchInput.focus();
