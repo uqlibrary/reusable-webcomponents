@@ -203,7 +203,7 @@ var uq = (function (exports) {
                     console.log('subNav= ', subNav); // <ul class="uq-site-header__navigation__list uq-site-header__navigation__list--level-2 multicolumn-2 uq-site-header__navigation__list--open
                     console.log('handleToggle::this.openModifier=', this.openModifier);
                     console.log('handleToggle::subNav.classList=', subNav.classList);
-                    if (subNav.classList.contains(this.openModifier)) {
+                    if (subNav.classList.contains(this.openModifier) || event.type === 'mouseleave') {
                         console.log('handleToggle::closing');
                         this.closeLevel(subNav, menuItem);
                         this.unhideAllLevels();
