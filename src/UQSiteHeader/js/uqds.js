@@ -76,6 +76,10 @@ var uq = (function (exports) {
             {
                 key: 'init',
                 value: function init() {
+                    if (!this.nav) {
+                        return;
+                    }
+
                     var _this = this;
                     window.addEventListener('resize', this.handleResize);
 
@@ -131,17 +135,6 @@ var uq = (function (exports) {
                         console.log('1 toggle on back click', item);
                         item.addEventListener('click', _this.handleToggle);
                     });
-                    // // closeItems.forEach(function (item) {
-                    // //     console.log('2 toggle on back click', item);
-                    // //     // _this.setOrientation(item);
-                    // //
-                    // //     item.addEventListener('click', _this.handleToggle);
-                    // //     // item.addEventListener('click', function (e) {
-                    // //     //     console.log('back click e', e);
-                    // //     //     console.log('back click _this', _this);
-                    // //     //     _this.handleToggle();
-                    // //     // });
-                    // // });
                 },
             },
             {
