@@ -352,6 +352,15 @@ var uq = (function (exports) {
 
                             _this.searchBlock.classList.remove('uq-header__search--is-open');
 
+                            // primo: when the mobile menu is open, hide the menu bar
+                            // its the only way to not have them sit on _top_ of the mobile menu :(
+                            var primoNavbar = document.querySelector('.top-nav-bar.layout-row');
+                            if (_this.menuToggle.classList.contains('nav-primary__menu-toggle--is-open')) {
+                                !!primoNavbar && (primoNavbar.style.display = 'none');
+                            } else {
+                                !!primoNavbar && (primoNavbar.style.display = null);
+                            }
+
                             console.log('clicking');
                             clickSiteHeaderMenuButton();
                         });
