@@ -45,31 +45,31 @@ template.innerHTML = `
       <div data-testid="mega-menu-container" class="uq-site-header__navigation-container">
         <nav class="uq-site-header__navigation slide-menu__slider" id="jsNav" data-testid="uq-site-header-megamenu" aria-label="Site navigation">
             <ul class="uq-site-header__navigation__list uq-site-header__navigation__list--level-1" aria-expanded="true">
-                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-header uq-site-header__navigation__list__first-permanent-child">
+                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-header uq-site-header__navigation__list-item uq-site-header__navigation__list__first-permanent-child">
                     <a href="https://study.uq.edu.au/" data-testid="uq-header-study-link-mobile">Study</a>
                 </li>
-                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-header">
+                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-header uq-site-header__navigation__list-item">
                     <a href="https://research.uq.edu.au/">Research</a>
                 </li>
-                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-header">
+                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-header uq-site-header__navigation__list-item">
                     <a href="https://partners-community.uq.edu.au/">Partners and community</a>
                 </li>
-                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-header">
+                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-header uq-site-header__navigation__list-item">
                     <a href="https://about.uq.edu.au/">About</a>
                 </li>
-                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global">
+                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global uq-site-header__navigation__list-item">
                     <a href="https://www.uq.edu.au/" data-testid="uq-header-home-link-mobile">UQ home</a>
                 </li>
-                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global">
+                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global uq-site-header__navigation__list-item">
                     <a href="https://www.uq.edu.au/news/" data-testid="uq-header-news-link-mobile">News</a>
                 </li>
-                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global">
+                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global uq-site-header__navigation__list-item">
                     <a href="https://www.uq.edu.au/uq-events" data-testid="uq-header-events-link-mobile">Events</a>
                 </li>
-                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global">
+                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global uq-site-header__navigation__list-item">
                     <a href="https://alumni.uq.edu.au/giving" data-testid="uq-header-giving-link-mobile">Give</a>
                 </li>
-                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global">
+                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global uq-site-header__navigation__list-item">
                     <a href="https://contacts.uq.edu.au/" data-testid="uq-header-contacts-link-mobile">Contact</a>
                 </li>
             </ul>

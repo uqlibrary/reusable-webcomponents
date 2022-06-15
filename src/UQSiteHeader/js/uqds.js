@@ -50,7 +50,7 @@ var uq = (function (exports) {
             _classCallCheck(this, MainNavigation);
 
             this.nav = nav;
-            this.navClass = navClass;
+            this.navClass = navClass; // uq-site-header__navigation
             this.toggleClass = 'jsNavToggle';
             this.openModifier = ''.concat(this.navClass, '__list--open');
             this.hideModifier = ''.concat(this.navClass, '__list--hidden');
@@ -271,17 +271,12 @@ var uq = (function (exports) {
                 key: 'hideAllLevels',
                 value: function hideAllLevels() {
                     var _this4 = this;
-
-                    var levels = this.nav.querySelectorAll('.'.concat(this.subNavClass));
+                    var listHeaderItem = 'nav > ul.uq-site-header__navigation__list > li';
+                    var levels = this.nav.querySelectorAll(listHeaderItem);
                     levels.forEach(function (level) {
+                        console.log('level=', level);
                         _this4.hideLevel(level);
                     });
-                },
-            },
-            {
-                key: 'hideLevel',
-                value: function hideLevel(level) {
-                    !level.classList.contains(this.hideModifier) && level.classList.add(this.hideModifier);
                 },
             },
             {
@@ -289,10 +284,17 @@ var uq = (function (exports) {
                 value: function hideAllLevels() {
                     var _this5 = this;
 
-                    var levels = this.nav.querySelectorAll('.'.concat(this.subNavClass));
+                    var listHeaderItem = 'nav > ul.uq-site-header__navigation__list > li';
+                    var levels = this.nav.querySelectorAll(listHeaderItem);
                     levels.forEach(function (level) {
                         _this5.unhideLevel(level);
                     });
+                },
+            },
+            {
+                key: 'hideLevel',
+                value: function hideLevel(level) {
+                    !level.classList.contains(this.hideModifier) && level.classList.add(this.hideModifier);
                 },
             },
             {

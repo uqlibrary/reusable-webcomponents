@@ -48,7 +48,7 @@ describe('UQ Header', () => {
         });
 
         it('Responsive Menu operates as expected', () => {
-            function mobile_menu_is_hidden() {
+            function mobileMenuIsHidden() {
                 cy.get('uq-site-header')
                     .shadow()
                     .find('nav[data-testid="uq-site-header-megamenu"] > ul:first-child')
@@ -56,23 +56,35 @@ describe('UQ Header', () => {
                     .should('not.be.visible');
                 cy.get('uq-site-header').shadow().find('li[data-testid="menu-group-item-0"]').should('not.be.visible');
             }
+            function toggleTheMobileMenuButton() {
+                cy.get('uq-header').shadow().find('button[data-testid="mobile-menu-toggle-button"]').trigger('click');
+            }
 
             cy.viewport(768, 1024);
 
             // allow time for menu and ITS script to load
             cy.wait(200);
 
-            mobile_menu_is_hidden();
+            mobileMenuIsHidden();
 
             // open the menu
             cy.get('uq-header').shadow().find('[data-testid="mobile-menu-toggle-button"]').should('be.visible');
-            cy.get('uq-header').shadow().find('button[data-testid="mobile-menu-toggle-button"]').trigger('click');
+
+            toggleTheMobileMenuButton();
 
             cy.get('uq-site-header')
                 .shadow()
                 .within(() => {
+                    function otherItemsAreVisible(isVisible = true) {
+                        const visibility = isVisible ? 'be.visible' : 'not.be.visible';
+                        cy.get('[data-testid="menu-group-item-6"]').should(visibility);
+                        cy.get('.uq-site-header__navigation__list__first-permanent-child').should(visibility);
+                    }
+
                     // the menu appears on click
                     cy.get('[data-testid="uq-site-header-megamenu"]').should('be.visible');
+                    otherItemsAreVisible();
+                    cy.get('.uq-site-header__navigation__list__first-permanent-child').should('be.visible');
 
                     // and has the correct children
                     cy.get('[data-testid="uq-site-header-megamenu"]').find('ul').should('have.length', 7);
@@ -80,22 +92,30 @@ describe('UQ Header', () => {
                     cy.get('li[data-testid="menu-group-item-0"]').should('be.visible');
                     // but its first child is hidden
                     cy.get('li[data-testid="menu-group-services-link-0"]').should('not.be.visible');
+
+                    otherItemsAreVisible();
+
                     // click open its down arrow button
                     cy.get('button[data-testid="menu-group-item-0-open"]').click();
                     // now the first child is visible
                     cy.get('li[data-testid="menu-group-services-link-0"]').should('be.visible');
+
+                    otherItemsAreVisible(false);
+
                     // click the close button
                     cy.get('[data-testid="uq-site-header__navigation__list--close-0"]').should('be.visible').click();
                     // children are hidden again
                     cy.get('li[data-testid="menu-group-services-link-0"]').should('not.be.visible');
 
+                    otherItemsAreVisible();
+
                     cy.get('[data-testid="uq-header-study-link-mobile"]').should('be.visible').and('contain', 'Study');
                     cy.get('[data-testid="uq-header-home-link-mobile"]').should('be.visible').and('contain', 'UQ home');
                 });
             // close the mobile menu
-            cy.get('uq-header').shadow().find('button[data-testid="mobile-menu-toggle-button"]').trigger('click');
+            toggleTheMobileMenuButton();
 
-            mobile_menu_is_hidden();
+            mobileMenuIsHidden();
         });
 
         it('Desktop menu can open', () => {
