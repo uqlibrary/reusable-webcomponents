@@ -47,8 +47,6 @@ var uq = (function (exports) {
 
     var MainNavigation = /*#__PURE__*/ (function () {
         function MainNavigation(nav, navClass) {
-            // console.log('MainNavigation navClass=', navClass); // uq-site-header__navigation
-            // console.log('MainNavigation nav=', nav); // <nav class="uq-site-header__navigation slide-menu__slider" ... />
             _classCallCheck(this, MainNavigation);
 
             this.nav = nav;
@@ -132,7 +130,6 @@ var uq = (function (exports) {
 
                     var closeItems = this.nav.querySelectorAll('.'.concat(this.closeSubLevel));
                     closeItems.forEach(function (item) {
-                        console.log('1 toggle on back click', item);
                         item.addEventListener('click', _this.handleToggle);
                     });
                 },
@@ -168,7 +165,6 @@ var uq = (function (exports) {
             {
                 key: 'handleToggle',
                 value: function handleToggle(event) {
-                    console.log('handleToggle::toggle', event);
                     if (
                         !!event.type &&
                         (event.type === 'mouseenter' || event.type === 'mouseleave') &&
@@ -178,30 +174,22 @@ var uq = (function (exports) {
                     }
 
                     var menuItem = event.target;
-                    console.log('handleToggle 1::menuItem=', menuItem);
 
                     if (menuItem.classList.contains('uq-site-header__navigation__list--close')) {
-                        console.log(menuItem.tagName, '::we are on a button, go up one');
                         menuItem = menuItem.parentElement.parentElement;
                     }
                     if (menuItem.tagName !== 'LI') {
-                        console.log(menuItem.tagName, '::still not an li, go up one');
                         menuItem = menuItem.parentElement;
                     }
 
                     var subNav = menuItem.querySelector('ul');
-                    console.log('handleToggle 2::menuItem=', menuItem);
 
-                    // uq-site-header__navigation__list--close
-                    console.log('subNav= ', subNav); // <ul class="uq-site-header__navigation__list uq-site-header__navigation__list--level-2 multicolumn-2 uq-site-header__navigation__list--open
-                    console.log('handleToggle::this.openModifier=', this.openModifier);
-                    console.log('handleToggle::subNav.classList=', subNav.classList);
                     if (subNav.classList.contains(this.openModifier) || event.type === 'mouseleave') {
-                        console.log('handleToggle::closing');
+                        // closing
                         this.closeLevel(subNav, menuItem);
                         this.unhideAllLevels();
                     } else {
-                        console.log('handleToggle::opening');
+                        // opening
                         if (event.type === 'touchend') {
                             event.preventDefault();
                         }
@@ -401,38 +389,6 @@ var uq = (function (exports) {
         throw new Error('Dynamic requires are not currently supported by @rollup/plugin-commonjs');
     }
 
-    // var ready = createCommonjsModule(function (module) {
-    //     /*!
-    //      * domready (c) Dustin Diaz 2014 - License MIT
-    //      */
-    //     !(function (name, definition) {
-    //         module.exports = definition();
-    //     })('domready', function () {
-    //         var fns = [],
-    //             _listener,
-    //             doc = document,
-    //             hack = doc.documentElement.doScroll,
-    //             domContentLoaded = 'DOMContentLoaded',
-    //             loaded = (hack ? /^loaded|^c/ : /^loaded|^i|^c/).test(doc.readyState);
-    //
-    //         if (!loaded)
-    //             doc.addEventListener(
-    //                 domContentLoaded,
-    //                 (_listener = function listener() {
-    //                     doc.removeEventListener(domContentLoaded, _listener);
-    //                     loaded = 1;
-    //
-    //                     while ((_listener = fns.shift())) {
-    //                         _listener();
-    //                     }
-    //                 }),
-    //             );
-    //         return function (fn) {
-    //             loaded ? setTimeout(fn, 0) : fns.push(fn);
-    //         };
-    //     });
-    // });
-
     /**
      * Equaliser script extracted and modified from Equalizer
      * (https://github.com/skrajewski/Equalizer).
@@ -486,7 +442,6 @@ var uq = (function (exports) {
         return gridMenuEqualiser;
     })();
 
-    // exports.accordion = accordion;
     exports.gridMenuEqualiser = gridMenuEqualiser;
     exports.siteHeaderNavigation = MainNavigation;
     return exports;

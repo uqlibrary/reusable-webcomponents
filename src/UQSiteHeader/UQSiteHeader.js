@@ -372,9 +372,6 @@ class UQSiteHeader extends HTMLElement {
                 // store reference so we can initialise the main menu when it is available
                 that.uqReference = uq;
 
-                // // Initialise accordions
-                // new uq.accordion();
-
                 // Equalised grid menu examples
                 var equaliseGridMenu = uq.gridMenuEqualiser('.uq-grid-menu--equalised>a');
                 equaliseGridMenu.align();
