@@ -64,56 +64,56 @@
     justify-content: flex-start;
     align-items: stretch;
     align-content: flex-start;
-    margin-top: -0.5rem;
+    margin-top: -0.5em;
     margin-bottom: -0.5rem
 }
 
 @media(min-width: 37.5rem) {
     .uq-grid {
-        margin-top: -0.75rem;
+        margin-top: -0.75em;
         margin-bottom: -0.75rem
     }
 }
 
 @media(min-width: 75rem) {
     .uq-grid {
-        margin-top: -1rem;
+        margin-top: -1em;
         margin-bottom: -1rem
     }
 }
 
 .uq-grid__col {
-    padding-left: .5rem;
-    padding-right: .5rem;
-    padding-top: .5rem;
-    padding-bottom: .5rem;
+    padding-left: .5em;
+    padding-right: .5em;
+    padding-top: .5em;
+    padding-bottom: .5em;
     flex: none
 }
 
 @media(min-width: 37.5rem) {
     .uq-grid__col {
-        padding-left: .75rem;
+        padding-left: .75em;
         padding-right: .75rem
     }
 }
 
 @media(min-width: 75rem) {
     .uq-grid__col {
-        padding-left: 1rem;
+        padding-left: 1em;
         padding-right: 1rem
     }
 }
 
 @media(min-width: 37.5rem) {
     .uq-grid__col {
-        padding-top: .75rem;
+        padding-top: .75em;
         padding-bottom: .75rem
     }
 }
 
 @media(min-width: 75rem) {
     .uq-grid__col {
-        padding-top: 1rem;
+        padding-top: 1em;
         padding-bottom: 1rem
     }
 }
@@ -128,14 +128,14 @@
     }
     @media(min-width: 37.5rem) {
         .uq-grid {
-            grid-row-gap: 1.5rem;
+            grid-row-gap: 1.5em;
             margin-top: 0;
             margin-bottom: 0
         }
     }
     @media(min-width: 75rem) {
         .uq-grid {
-            grid-row-gap: 2rem;
+            grid-row-gap: 2em;
             margin-top: 0;
             margin-bottom: 0
         }
@@ -159,7 +159,7 @@
 }
 
 .uq-grid:not(.uq-grid--full-width) {
-    margin-left: 1rem;
+    margin-left: 1em;
     margin-right: 1rem
 }
 
@@ -173,8 +173,8 @@
 
 @media(min-width: 37.5rem) {
     .uq-grid:not(.uq-grid--full-width) {
-        margin-left: 3.25rem;
-        margin-right: 3.25rem;
+        margin-left: 3.25em;
+        margin-right: 3.25em;
         max-width: none
     }
 }
@@ -189,8 +189,8 @@
 
 @media(min-width: 75rem) {
     .uq-grid:not(.uq-grid--full-width) {
-        margin-left: 8.375rem;
-        margin-right: 8.375rem;
+        margin-left: 8.375em;
+        margin-right: 8.375em;
         max-width: none
     }
 }
@@ -204,41 +204,41 @@
 }
 
 .uq-grid--full-width {
-    margin-left: -0.5rem;
-    margin-right: -0.5rem;
+    margin-left: -0.5em;
+    margin-right: -0.5em;
     max-width: none
 }
 
 @media(min-width: 37.5rem) {
     .uq-grid--full-width {
-        margin-left: -0.75rem;
+        margin-left: -0.75em;
         margin-right: -0.75rem
     }
 }
 
 @media(min-width: 75rem) {
     .uq-grid--full-width {
-        margin-left: -1rem;
+        margin-left: -1em;
         margin-right: -1rem
     }
 }
 
 .uq-grid .uq-grid {
-    margin-left: -0.5rem;
-    margin-right: -0.5rem;
+    margin-left: -0.5em;
+    margin-right: -0.5em;
     max-width: none
 }
 
 @media(min-width: 37.5rem) {
     .uq-grid .uq-grid {
-        margin-left: -0.75rem;
+        margin-left: -0.75em;
         margin-right: -0.75rem
     }
 }
 
 @media(min-width: 75rem) {
     .uq-grid .uq-grid {
-        margin-left: -1rem;
+        margin-left: -1em;
         margin-right: -1rem
     }
 }
@@ -751,7 +751,7 @@
 }
 
 .uq-grid--flexible>.uq-grid__col {
-    flex: 1 0 15.625rem;
+    flex: 1 0 15.625em;
     max-width: 100%;
     width: auto
 }
@@ -793,15 +793,15 @@
         overflow: auto
     }
     .uq-grid--scroll-small .uq-grid__col {
-        flex: 1 0 18.75rem;
+        flex: 1 0 18.75em;
         margin-right: 1.5rem
     }
 }
 
 .uq-layout-container {
-    margin-left: 1rem;
-    margin-right: 1rem;
-    padding-left: .5rem;
+    margin-left: 1em;
+    margin-right: 1em;
+    padding-left: .5em;
     padding-right: .5rem
 }
 
@@ -815,8 +815,8 @@
 
 @media(min-width: 37.5rem) {
     .uq-layout-container {
-        margin-left: 3.25rem;
-        margin-right: 3.25rem;
+        margin-left: 3.25em;
+        margin-right: 3.25em;
         max-width: none
     }
 }
@@ -831,8 +831,8 @@
 
 @media(min-width: 75rem) {
     .uq-layout-container {
-        margin-left: 8.375rem;
-        margin-right: 8.375rem;
+        margin-left: 8.375em;
+        margin-right: 8.375em;
         max-width: none
     }
 }
@@ -847,41 +847,41 @@
 
 @media(min-width: 37.5rem) {
     .uq-layout-container {
-        padding-left: .75rem;
+        padding-left: .75em;
         padding-right: .75rem
     }
 }
 
 @media(min-width: 75rem) {
     .uq-layout-container {
-        padding-left: 1rem;
+        padding-left: 1em;
         padding-right: 1rem
     }
 }
 
 .uq-layout-container .uq-grid {
-    margin-left: -0.5rem;
-    margin-right: -0.5rem;
+    margin-left: -0.5em;
+    margin-right: -0.5em;
     max-width: none
 }
 
 @media(min-width: 37.5rem) {
     .uq-layout-container .uq-grid {
-        margin-left: -0.75rem;
+        margin-left: -0.75em;
         margin-right: -0.75rem
     }
 }
 
 @media(min-width: 75rem) {
     .uq-layout-container .uq-grid {
-        margin-left: -1rem;
+        margin-left: -1em;
         margin-right: -1rem
     }
 }
 
 body {
     color: #2b2a29;
-    font-size: 1rem;
+    font-size: 1em;
     font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: 400;
     line-height: 1.5;
@@ -929,39 +929,39 @@ h6 {
 }
 
 h1 {
-    margin-top: 1.5rem;
-    margin-bottom: 2.5rem;
-    font-size: 2.5rem;
+    margin-top: 1.5em;
+    margin-bottom: 2.5em;
+    font-size: 2.5em;
     font-family: "Montserrat", Helvetica, Arial, sans-serif
 }
 
 h2 {
-    margin-top: 2.5rem;
-    margin-bottom: 1.5rem;
+    margin-top: 2.5em;
+    margin-bottom: 1.5em;
     font-size: 2rem
 }
 
 h3 {
-    margin-top: 2rem;
-    margin-bottom: 1rem;
+    margin-top: 2em;
+    margin-bottom: 1em;
     font-size: 1.5rem
 }
 
 h4 {
-    margin-top: 2rem;
-    margin-bottom: 1.5rem;
+    margin-top: 2em;
+    margin-bottom: 1.5em;
     font-size: 1.25rem
 }
 
 h5 {
-    margin-top: 1.5rem;
-    margin-bottom: 1rem;
+    margin-top: 1.5em;
+    margin-bottom: 1em;
     font-size: 1.125rem
 }
 
 h6 {
-    margin-top: 1.5rem;
-    margin-bottom: .5rem;
+    margin-top: 1.5em;
+    margin-bottom: .5em;
     font-size: 1rem
 }
 
@@ -980,8 +980,8 @@ em {
 }
 
 blockquote {
-    margin: 0 0 1.5rem;
-    padding-left: 1.5rem;
+    margin: 0 0 1.5em;
+    padding-left: 1.5em;
     border-left: 6px solid #2b2a29;
     font-family: "Merriweather", Georgia, serif;
     font-style: italic;
@@ -991,7 +991,7 @@ blockquote {
 ol,
 ul {
     margin-top: 0;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.5em;
     padding-left: 1.5rem
 }
 
@@ -1012,14 +1012,14 @@ dl {
 
 dl dt {
     color: #51247a;
-    font-size: .875rem;
+    font-size: .875em;
     text-transform: uppercase;
     font-weight: 500
 }
 
 dl dd {
     margin-left: 0;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.5em;
     font-size: 1.125rem
 }
 
@@ -1245,7 +1245,7 @@ a:hover {
 
 .uq-accordion {
     list-style: none;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.5em;
     padding: 0
 }
 
@@ -1271,11 +1271,11 @@ a:hover {
     cursor: pointer;
     display: inline-block;
     font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 1.25rem;
+    font-size: 1.25em;
     font-weight: 400;
     line-height: 1.4;
     margin: 0;
-    padding: 1rem 3.5rem 1rem 1rem;
+    padding: 1rem 3.5rem 1rem 1em;
     position: relative;
     text-align: left;
     text-decoration: none;
@@ -1293,11 +1293,11 @@ a:hover {
     content: "";
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%2351247A'%3e%3cpath d='m14.285 5.145-6 6.167a.41.41 0 0 1-.598 0L1.715 5.145' fill='none' stroke='%2351247A' stroke-width='.75' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e");
     background-repeat: no-repeat;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.5em;
+    height: 1.5em;
     transform: translateY(50%);
     position: absolute;
-    top: .5rem;
+    top: .5em;
     right: 1rem
 }
 
@@ -1335,7 +1335,7 @@ a:hover {
 }
 
 .uq-accordion__subtitle {
-    font-size: .875rem;
+    font-size: .875em;
     font-weight: 400;
     color: #6f6f6f;
     line-height: 1.4;
@@ -1382,21 +1382,21 @@ a:hover {
 }
 
 .uq-accordion--compact .uq-accordion__toggle {
-    font-size: 1rem;
+    font-size: 1em;
     padding: .5rem 3.5rem .5rem 1rem
 }
 
 .uq-accordion--compact .uq-accordion__toggle::before {
-    width: 1rem;
-    height: 1rem;
-    top: .25rem;
+    width: 1em;
+    height: 1em;
+    top: .25em;
     right: 1rem
 }
 
 .uq-accordion--compact .uq-accordion__toggle--active::before {
-    width: 1rem;
-    height: 1rem;
-    top: .25rem;
+    width: 1em;
+    height: 1em;
+    top: .25em;
     right: 1rem
 }
 
@@ -1420,7 +1420,7 @@ a:hover {
 }
 
 .uq-alert__title {
-    font-size: 1.125rem;
+    font-size: 1.125em;
     font-weight: 500;
     line-height: 1.4;
     color: #181818;
@@ -1429,13 +1429,13 @@ a:hover {
 
 .uq-alert__message {
     position: relative;
-    font-size: .875rem;
+    font-size: .875em;
     font-weight: 300;
     line-height: 1.4;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
     margin-left: 2rem
 }
 
@@ -1443,11 +1443,11 @@ a:hover {
     content: "";
     background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='12' cy='12' r='9.25' transform='rotate(-180 12 12)' stroke='%232b2a29' stroke-width='1.5'%3e%3c/circle%3e%3cpath d='M12 16.2v-4' stroke='%232b2a29' stroke-width='1.5' stroke-linecap='round'%3e%3c/path%3e%3ccircle cx='12' cy='8.4' r='1.1' transform='rotate(-180 12 8.4)' fill='%232b2a29'%3e%3c/circle%3e%3c/svg%3e");
     background-repeat: no-repeat;
-    background-size: 1.5rem;
-    width: 1.5rem;
-    height: 1.5rem;
+    background-size: 1.5em;
+    width: 1.5em;
+    height: 1.5em;
     position: absolute;
-    top: .85rem;
+    top: .85em;
     left: -1rem
 }
 
@@ -1465,12 +1465,12 @@ a:hover {
     right: 0;
     background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m5 5 14 14M19 5 5 19' stroke='%232b2a29' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e");
     background-repeat: no-repeat;
-    background-size: 1rem;
+    background-size: 1em;
     background-position: center;
     background-color: rgba(0, 0, 0, 0);
     border: none;
-    width: 3rem;
-    height: 3rem;
+    width: 3em;
+    height: 3em;
     text-indent: 999px;
     overflow: hidden;
     cursor: pointer
@@ -1517,7 +1517,7 @@ a:hover {
 
 @media(min-width: 37.5rem) {
     .uq-alert--global .uq-alert__container {
-        margin-left: 1rem;
+        margin-left: 1em;
         margin-right: 1rem
     }
 }
@@ -1532,8 +1532,8 @@ a:hover {
 
 @media(min-width: 37.5rem)and (min-width: 37.5rem) {
     .uq-alert--global .uq-alert__container {
-        margin-left: 3.25rem;
-        margin-right: 3.25rem;
+        margin-left: 3.25em;
+        margin-right: 3.25em;
         max-width: none
     }
 }
@@ -1548,8 +1548,8 @@ a:hover {
 
 @media(min-width: 37.5rem)and (min-width: 75rem) {
     .uq-alert--global .uq-alert__container {
-        margin-left: 8.375rem;
-        margin-right: 8.375rem;
+        margin-left: 8.375em;
+        margin-right: 8.375em;
         max-width: none
     }
 }
@@ -1565,7 +1565,7 @@ a:hover {
 .uq-alert--global .uq-alert__message {
     line-height: 1.5;
     font-weight: 400;
-    margin-left: 3rem;
+    margin-left: 3em;
     padding: .75rem 1.5rem .75rem .5rem
 }
 
@@ -1577,11 +1577,11 @@ a:hover {
 
 .uq-alert--global .uq-alert__message::before {
     content: "";
-    background-size: 1.5rem;
-    width: 1.5rem;
-    height: 1.5rem;
+    background-size: 1.5em;
+    width: 1.5em;
+    height: 1.5em;
     position: absolute;
-    top: .75rem;
+    top: .75em;
     left: -1.5rem
 }
 
@@ -1657,8 +1657,8 @@ a:hover {
     color: #51247a;
     font-style: italic;
     height: auto;
-    margin-left: 2rem;
-    padding: 1rem 1.5rem;
+    margin-left: 2em;
+    padding: 1rem 1.5em;
     position: relative;
     width: calc(100% - 2rem)
 }
@@ -1695,7 +1695,7 @@ a:hover {
 
 .blockquote__body {
     font-family: "Merriweather", serif;
-    font-size: 1.25rem;
+    font-size: 1.25em;
     font-weight: 300;
     line-height: 1.4;
     margin-left: 0;
@@ -1722,7 +1722,7 @@ a:hover {
 .uq-breadcrumb {
     box-sizing: border-box;
     font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 1rem;
+    font-size: 1em;
     font-weight: 400;
     line-height: 1.5;
     color: #565452;
@@ -1745,8 +1745,8 @@ a:hover {
 
 .uq-breadcrumb__item::before {
     content: "";
-    margin: .25rem .5rem;
-    padding: .5rem .5rem;
+    margin: .25rem .5em;
+    padding: .5rem .5em;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23565452'%3e%3cpath d='m5.145 14.285 6.167-6a.41.41 0 0 0 0-.598L5.145 1.715' fill='none' stroke='%23565452' stroke-width='.75' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e");
     background-repeat: no-repeat;
     float: left
@@ -1775,16 +1775,16 @@ a:hover {
 .uq-button {
     background-color: #1e72c6;
     border: 2px solid #1e72c6;
-    border-radius: .25rem;
+    border-radius: .25em;
     box-sizing: border-box;
     color: #fff;
     cursor: pointer;
     display: inline-block;
     font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 1rem;
+    font-size: 1em;
     font-weight: normal;
     line-height: normal;
-    padding: .5rem 1.5rem;
+    padding: .5rem 1.5em;
     position: relative;
     text-align: center;
     text-decoration: none;
@@ -1946,17 +1946,17 @@ a:hover {
 }
 
 .uq-button--tiny {
-    font-size: .75rem;
+    font-size: .75em;
     padding: .25rem .5rem
 }
 
 .uq-button--small {
-    font-size: .875rem;
+    font-size: .875em;
     padding: .5rem 1rem
 }
 
 .uq-button--large {
-    font-size: 1.125rem;
+    font-size: 1.125em;
     padding: 1rem 2.5rem
 }
 
@@ -1973,9 +1973,9 @@ a:hover {
     height: 100%;
     background-color: #fff;
     border: 1px solid #efedeb;
-    border-radius: .25rem;
+    border-radius: .25em;
     color: #565452;
-    line-height: 1.5rem;
+    line-height: 1.5em;
     overflow-wrap: break-word;
     word-wrap: break-word
 }
@@ -2057,7 +2057,7 @@ a:hover {
 }
 
 .uq-card__title {
-    font-size: 1.25rem;
+    font-size: 1.25em;
     color: #2b2a29;
     margin: 0 0 .5rem
 }
@@ -2069,7 +2069,7 @@ a:hover {
 }
 
 .uq-card__title-super {
-    font-size: .875rem;
+    font-size: .875em;
     font-weight: 500;
     color: #962a8b;
     text-transform: uppercase;
@@ -2097,7 +2097,7 @@ a:hover {
     .uq-grid__col:first-child:nth-last-child(3)~.uq-grid__col .uq-card--story,
     .uq-grid__col:first-child:nth-last-child(3)~.uq-grid__col .uq-card--event {
         flex-direction: row;
-        padding-bottom: 1rem;
+        padding-bottom: 1em;
         border: none;
         border-bottom: 1px solid #efedeb;
         box-shadow: 0 .25rem .25rem rgba(43, 42, 41, 0)
@@ -2161,7 +2161,7 @@ a:hover {
     .uq-grid__col:first-child:nth-last-child(4)~.uq-grid__col .uq-card--story,
     .uq-grid__col:first-child:nth-last-child(4)~.uq-grid__col .uq-card--event {
         flex-direction: row;
-        padding-bottom: 1rem;
+        padding-bottom: 1em;
         border: none;
         border-bottom: 1px solid #efedeb;
         box-shadow: 0 .25rem .25rem rgba(43, 42, 41, 0)
@@ -2321,11 +2321,11 @@ a:hover {
 }
 
 .uq-footer__acknowledgement {
-    max-width: 73.25rem;
-    padding: 2rem 1.5rem;
+    max-width: 73.25em;
+    padding: 2rem 1.5em;
     color: #d4c8de;
     font-weight: 400;
-    font-size: 1rem;
+    font-size: 1em;
     line-height: 1.5;
     margin: auto;
     display: flex;
@@ -2340,7 +2340,7 @@ a:hover {
 }
 
 .uq-footer__acknowledgement-flag {
-    width: 2.25rem;
+    width: 2.25em;
     height: 1.5rem
 }
 
@@ -2349,7 +2349,7 @@ a:hover {
 }
 
 .uq-footer__acknowledgement-text {
-    margin-top: 1rem;
+    margin-top: 1em;
     flex-basis: 100%
 }
 
@@ -2405,14 +2405,14 @@ a:hover {
 
 .uq-footer__navigation-title {
     color: #d4c8de;
-    font-size: 1rem;
+    font-size: 1em;
     font-weight: 500;
     margin: 0
 }
 
 .uq-footer__navigation-link {
     display: block;
-    padding: 1rem 1.5rem;
+    padding: 1rem 1.5em;
     color: #fff
 }
 
@@ -2492,11 +2492,11 @@ a:hover {
     content: "";
     background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m7 10 5 5 5-5' stroke='%23fff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e");
     background-repeat: no-repeat;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.5em;
+    height: 1.5em;
     transform: translateY(50%);
     position: absolute;
-    top: .25rem;
+    top: .25em;
     right: 1.5rem
 }
 
@@ -2549,7 +2549,7 @@ a:hover {
 }
 
 .uq-footer__contact {
-    font-size: .875rem;
+    font-size: .875em;
     grid-area: FooterSocial
 }
 
@@ -2565,7 +2565,7 @@ a:hover {
 }
 
 .uq-footer__contact-login {
-    margin-top: 2.5rem;
+    margin-top: 2.5em;
     font-size: .875rem
 }
 
@@ -2584,7 +2584,7 @@ a:hover {
 }
 
 .uq-footer__meta {
-    font-size: .875rem;
+    font-size: .875em;
     grid-area: FooterOrg
 }
 
@@ -2595,8 +2595,8 @@ a:hover {
 .uq-footer__meta-icons::before {
     content: "";
     display: inline-block;
-    height: 2rem;
-    width: 2rem;
+    height: 2em;
+    width: 2em;
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
@@ -2656,7 +2656,7 @@ a:hover {
 .uq-footer--mobile {
     display: block;
     min-width: calc(100% + 3rem);
-    margin-left: -1.5rem;
+    margin-left: -1.5em;
     margin-right: -1.5rem
 }
 
@@ -2679,7 +2679,7 @@ a:hover {
 .uq-footer--mobile .uq-accordion__toggle {
     background-color: #51247a;
     color: #fff;
-    font-size: 1rem;
+    font-size: 1em;
     padding-left: 1.5rem
 }
 
@@ -2699,9 +2699,9 @@ a:hover {
 .uq-footer__container {
     display: grid;
     grid-template-areas: "FooterNavigation" "FooterSocial" "FooterOrg" "FooterTerms";
-    row-gap: 2.5rem;
-    padding: 0 1.5rem 2.5rem;
-    max-width: 73.25rem;
+    row-gap: 2.5em;
+    padding: 0 1.5rem 2.5em;
+    max-width: 73.25em;
     width: 100%;
     margin-left: auto;
     margin-right: auto
@@ -2709,7 +2709,7 @@ a:hover {
 
 @media(min-width: 64rem) {
     .uq-footer__container {
-        row-gap: 2rem;
+        row-gap: 2em;
         padding-top: 2rem
     }
 }
@@ -2717,7 +2717,7 @@ a:hover {
 @media(min-width: 75rem) {
     .uq-footer__container {
         grid-template-areas: "FooterNavigation FooterNavigation" "FooterSocial FooterSocial" "FooterOrg FooterTerms";
-        row-gap: 2rem;
+        row-gap: 2em;
         padding: 2rem 1rem 2.5rem
     }
 }
@@ -2747,11 +2747,11 @@ a:hover {
 
 @media(min-width: 64rem) {
     .uq-header__container {
-        max-width: 73.25rem;
+        max-width: 73.25em;
         margin-left: auto;
         margin-right: auto;
         grid-template-areas: "logo mainnav searchtoggle";
-        padding-left: 1rem;
+        padding-left: 1em;
         padding-right: 1rem
     }
 }
@@ -2787,7 +2787,7 @@ a:hover {
     .uq-header__search-toggle .search-toggle__label {
         display: block;
         font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
-        font-size: 1rem;
+        font-size: 1em;
         text-align: right;
         width: 3.2rem
     }
@@ -2796,13 +2796,13 @@ a:hover {
 .uq-header .nav-primary__toggle {
     background: none;
     border: none;
-    padding: 1.75rem 2rem;
+    padding: 1.75rem 2em;
     height: 100%
 }
 
 @media(min-width: 64rem) {
     .uq-header .nav-primary__toggle {
-        padding: 1rem 0 1rem 1.5rem;
+        padding: 1rem 0 1rem 1.5em;
         height: auto
     }
 }
@@ -2819,11 +2819,11 @@ a:hover {
     content: "";
     background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M4 18h16M4 12h16M4 6h16' stroke='%23fff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e");
     background-repeat: no-repeat;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.5em;
+    height: 1.5em;
     transform: translate(50%, 50%);
     position: absolute;
-    top: .625rem;
+    top: .625em;
     right: 2rem
 }
 
@@ -2841,17 +2841,17 @@ a:hover {
     content: "";
     background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M10.5 17a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13Z' stroke='%23fff' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M15.5 15.5 20 20' stroke='%23fff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e");
     background-repeat: no-repeat;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.5em;
+    height: 1.5em;
     transform: translate(50%, 50%);
     position: absolute;
-    top: .625rem;
+    top: .625em;
     right: 2rem
 }
 
 @media(min-width: 64rem) {
     .uq-header .nav-primary__search-toggle::before {
-        top: .1rem;
+        top: .1em;
         left: -1rem
     }
 }
@@ -2944,7 +2944,7 @@ a:hover {
     display: block;
     color: #fff;
     text-decoration: none;
-    padding: 1rem 1.5rem;
+    padding: 1rem 1.5em;
     transition: background-color .25s, border-color .25s;
     font-weight: 400;
     position: relative;
@@ -2970,11 +2970,11 @@ a:hover {
     content: "";
     background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m7 10 5 5 5-5' stroke='%23fff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e");
     background-repeat: no-repeat;
-    width: 1rem;
-    height: 1rem;
+    width: 1em;
+    height: 1em;
     transform: translateY(50%);
     position: absolute;
-    top: 1.7rem;
+    top: 1.7em;
     right: 1.75rem
 }
 
@@ -2993,7 +2993,7 @@ a:hover {
 }
 
 .uq-header .mega-menu li a {
-    padding-left: 3rem;
+    padding-left: 3em;
     color: #51247a
 }
 
@@ -3015,7 +3015,7 @@ a:hover {
 @media(min-width: 64rem) {
     .uq-header__nav-secondary-container {
         text-align: right;
-        max-width: 73.25rem;
+        max-width: 73.25em;
         margin-left: auto;
         margin-right: auto
     }
@@ -3051,7 +3051,7 @@ a:hover {
 
 @media(min-width: 64rem) {
     .uq-header__nav-secondary-link {
-        font-size: .875rem;
+        font-size: .875em;
         padding: .625rem 1rem
     }
 }
@@ -3064,7 +3064,7 @@ a:hover {
     background: #51247a;
     position: absolute;
     width: 100%;
-    top: 3.95rem;
+    top: 3.95em;
     z-index: 20;
     box-shadow: 0 .75rem 1.5rem rgba(24, 24, 24, .2);
     transition: max-height .2s ease-in-out, transform .2s ease-in-out;
@@ -3092,9 +3092,9 @@ a:hover {
 
 @media(min-width: 64rem) {
     .uq-header__search-container {
-        padding-left: 1rem;
-        padding-right: 1rem;
-        max-width: 73.25rem;
+        padding-left: 1em;
+        padding-right: 1em;
+        max-width: 73.25em;
         margin-left: auto;
         margin-right: auto;
         padding-top: 0;
@@ -3108,8 +3108,8 @@ a:hover {
     max-width: 100%;
     min-width: 100%;
     border-radius: 5px;
-    background-position: 1rem;
-    padding-top: 1rem;
+    background-position: 1em;
+    padding-top: 1em;
     padding-bottom: 1rem
 }
 
@@ -3129,14 +3129,14 @@ a:hover {
     border: 2px solid rgba(0, 0, 0, 0);
     color: #51247a;
     display: inline-block;
-    font-size: 1rem;
-    height: 2.75rem;
+    font-size: 1em;
+    height: 2.75em;
     line-height: 1.5;
     margin-bottom: 0;
     margin-right: 0;
     overflow: hidden;
     position: absolute;
-    right: .5rem;
+    right: .5em;
     text-decoration: none;
     text-indent: 0;
     top: calc(50% - 1.375rem);
@@ -3148,10 +3148,10 @@ a:hover {
     content: "";
     position: absolute;
     display: block;
-    width: 1.5rem;
-    height: 1.5rem;
-    top: .5rem;
-    left: .5rem;
+    width: 1.5em;
+    height: 1.5em;
+    top: .5em;
+    left: .5em;
     background-size: 100%;
     background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M10.5 17a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13Z' stroke='%2351247A' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M15.5 15.5 20 20' stroke='%2351247A' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e")
 }
@@ -3212,7 +3212,7 @@ a:hover {
 
 .uq-header__megamenu {
     position: absolute;
-    top: 8.3rem;
+    top: 8.3em;
     left: 0;
     width: 100%;
     z-index: 30;
@@ -3221,10 +3221,10 @@ a:hover {
 }
 
 .uq-header__megamenu-container {
-    max-width: 73.25rem;
+    max-width: 73.25em;
     margin-left: auto;
     margin-right: auto;
-    padding: 1rem 3rem 2.5rem 3rem;
+    padding: 1rem 3rem 2.5rem 3em;
     background: #fff;
     box-shadow: 0 .75rem 1.5rem rgba(24, 24, 24, .2);
     border-radius: 0 0 .25rem .25rem
@@ -3250,7 +3250,7 @@ a:hover {
 .uq-header .megamenu__heading {
     color: #51247a;
     font-weight: 500;
-    padding-top: .25rem;
+    padding-top: .25em;
     padding-bottom: .25rem
 }
 
@@ -3270,7 +3270,7 @@ a:hover {
 
 .uq-header .megamenu__menu ul li a {
     display: inline-block;
-    padding-top: .5rem;
+    padding-top: .5em;
     color: #51247a
 }
 
@@ -3301,11 +3301,11 @@ body.no-scroll {
     z-index: 1000;
     grid-area: mainnav-mobile;
     position: fixed;
-    top: 4.3rem;
+    top: 4.3em;
     right: 0;
     overflow-y: auto;
     overflow-x: hidden;
-    font-size: 1rem;
+    font-size: 1em;
     color: #51247a
 }
 
@@ -3355,15 +3355,15 @@ body.no-scroll {
 }
 
 .slide-menu .slide-menu__control {
-    padding-top: 1rem;
+    padding-top: 1em;
     padding-bottom: 1rem
 }
 
 .slide-menu a {
     cursor: pointer;
-    padding: .75rem 1.5rem;
+    padding: .75rem 1.5em;
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 1em;
     color: #51247a;
     position: relative
 }
@@ -3382,11 +3382,11 @@ body.no-scroll {
     content: "";
     background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m14 7-5 5 5 5' stroke='%2351247A' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e");
     background-repeat: no-repeat;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.5em;
+    height: 1.5em;
     transform: translateY(50%);
     position: absolute;
-    left: 1.25rem;
+    left: 1.25em;
     top: .25rem
 }
 
@@ -3394,11 +3394,11 @@ body.no-scroll {
     content: "";
     background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m10 17 5-5-5-5' stroke='%2351247A' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e");
     background-repeat: no-repeat;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.5em;
+    height: 1.5em;
     transform: translateY(50%);
     position: absolute;
-    right: 1.5rem;
+    right: 1.5em;
     top: .25rem
 }
 
@@ -3408,7 +3408,7 @@ body.no-scroll {
 }
 
 .slide-menu .btn {
-    padding: .75rem 1.5rem;
+    padding: .75rem 1.5em;
     flex: 1 0 auto;
     font-size: 90%;
     color: #51247a;
@@ -3480,13 +3480,13 @@ body.no-scroll {
 
 .global-mobile-nav .uq-site-header__title-container {
     margin: 0;
-    padding-left: 0rem;
+    padding-left: 0em;
     padding-right: 0rem
 }
 
 .global-mobile-nav .uq-site-header__title {
-    padding: 1rem 1.5rem;
-    font-size: 1rem;
+    padding: 1rem 1.5em;
+    font-size: 1em;
     font-weight: 500
 }
 
@@ -3560,12 +3560,12 @@ label,
 legend {
     color: #2b2a29;
     display: block;
-    font-size: .875rem;
+    font-size: .875em;
     font-weight: 500
 }
 
 legend {
-    margin-bottom: 1rem;
+    margin-bottom: 1em;
     line-height: 1.4;
     padding: 0
 }
@@ -3586,7 +3586,7 @@ label {
 label.uq-label--inline {
     align-items: center;
     display: inline-flex;
-    font-size: 1rem;
+    font-size: 1em;
     line-height: 1.5;
     margin-bottom: 1.5rem
 }
@@ -3599,8 +3599,8 @@ label.uq-label--inline+select,
 label.uq-label--inline+textarea {
     max-width: none;
     min-width: 200px;
-    margin-left: 1rem;
-    margin-right: 1.5rem;
+    margin-left: 1em;
+    margin-right: 1.5em;
     width: auto
 }
 
@@ -3640,14 +3640,14 @@ label+textarea {
 label input[type=radio]+*:not(input):not(select):not(textarea),
 label input[type=checkbox]+*:not(input):not(select):not(textarea) {
     display: inline-block;
-    font-size: 1rem;
+    font-size: 1em;
     font-weight: 400;
     line-height: 20px;
-    margin-bottom: 1rem;
-    margin-left: .5rem;
-    margin-right: 1rem;
-    padding-top: .25rem;
-    padding-left: 1.5rem;
+    margin-bottom: 1em;
+    margin-left: .5em;
+    margin-right: 1em;
+    padding-top: .25em;
+    padding-left: 1.5em;
     vertical-align: top
 }
 
@@ -3672,10 +3672,10 @@ textarea {
     background-color: #fff;
     max-width: 100%;
     min-width: 100%;
-    padding: .75rem 1rem;
+    padding: .75rem 1em;
     border: 1px solid #e7e3e0;
     border-radius: 2px;
-    font-size: 1rem;
+    font-size: 1em;
     color: #2b2a29;
     line-height: 1;
     margin-bottom: 1.5rem
@@ -3744,7 +3744,7 @@ textarea.uq-input--success {
 input:not([type=checkbox]):not([type=radio]):not([type=submit]).uq-input--large,
 select.uq-input--large,
 textarea.uq-input--large {
-    padding: 1.15625rem 1.5rem;
+    padding: 1.15625rem 1.5em;
     border-radius: .25rem
 }
 
@@ -3754,7 +3754,7 @@ select+.uq-error-message,
 select+.uq-success-message,
 textarea+.uq-error-message,
 textarea+.uq-success-message {
-    margin-top: -1.5rem;
+    margin-top: -1.5em;
     border-radius: 0 0 2px 2px
 }
 
@@ -3764,7 +3764,7 @@ select {
     background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m7 10 5 5 5-5' stroke='%2351247A' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-position: right .25rem center;
-    padding-right: 2.5rem;
+    padding-right: 2.5em;
     cursor: pointer;
     line-height: 1.2;
     width: 100%
@@ -3814,14 +3814,14 @@ input[type=checkbox]:focus {
 input[type=radio]+label,
 input[type=checkbox]+label {
     display: inline-block;
-    font-size: 1rem;
+    font-size: 1em;
     font-weight: 400;
     line-height: 1.4;
-    margin-bottom: 1rem;
-    margin-left: .5rem;
-    margin-right: 1rem;
-    padding-top: .125rem;
-    padding-left: 1.5rem;
+    margin-bottom: 1em;
+    margin-left: .5em;
+    margin-right: 1em;
+    padding-top: .125em;
+    padding-left: 1.5em;
     vertical-align: top
 }
 
@@ -3947,14 +3947,14 @@ input[type=radio].uq-input--error:checked::after {
 .uq-error-summary {
     background-color: #fff;
     border: 1px solid #951126;
-    border-left-width: .25rem;
-    padding: 1rem;
+    border-left-width: .25em;
+    padding: 1em;
     margin-bottom: 1.5rem
 }
 
 .uq-error-summary__title {
     color: #2b2a29;
-    font-size: 1.125rem;
+    font-size: 1.125em;
     font-weight: 500;
     line-height: 1.4;
     margin: 0 0 1rem 0
@@ -3967,12 +3967,12 @@ input[type=radio].uq-input--error:checked::after {
 
 .uq-error-summary__list {
     color: #2b2a29;
-    font-size: 1rem;
+    font-size: 1em;
     margin: 0
 }
 
 .uq-error-summary__list__item {
-    margin-bottom: .25rem;
+    margin-bottom: .25em;
     line-height: 1.5
 }
 
@@ -3991,12 +3991,12 @@ input[type=radio].uq-input--error:checked::after {
 .uq-success-message {
     color: #fff;
     display: block;
-    font-size: 1rem;
+    font-size: 1em;
     font-style: normal;
     font-weight: 400;
     line-height: 1.5;
-    margin-bottom: 1.5rem;
-    padding: calc(0.5rem - 1px) 1rem .5rem 3rem;
+    margin-bottom: 1.5em;
+    padding: calc(0.5rem - 1px) 1rem .5rem 3em;
     position: relative
 }
 
@@ -4007,9 +4007,9 @@ input[type=radio].uq-input--error:checked::after {
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
-    height: 1.25rem;
-    left: 1rem;
-    margin-right: .5rem;
+    height: 1.25em;
+    left: 1em;
+    margin-right: .5em;
     margin-top: calc(-0.625rem - 1px);
     position: absolute;
     top: 50%;
@@ -4034,7 +4034,7 @@ input[type=radio].uq-input--error:checked::after {
 
 .uq-inline-help {
     display: block;
-    font-size: .75rem;
+    font-size: .75em;
     margin: 0 0 1rem
 }
 
@@ -4104,10 +4104,10 @@ input[type=radio].uq-input--error:checked::after {
     border-bottom: 1px solid #efedeb;
     color: #1e72c6;
     display: block;
-    font-size: 1.375rem;
+    font-size: 1.375em;
     font-weight: 400;
     line-height: normal;
-    padding: 1rem 2rem 1rem 1rem;
+    padding: 1rem 2rem 1rem 1em;
     position: relative;
     height: 100%
 }
@@ -4115,10 +4115,10 @@ input[type=radio].uq-input--error:checked::after {
 .uq-grid-menu__link::after {
     content: "";
     position: absolute;
-    right: 1.5rem;
-    top: 1.25rem;
-    width: 2rem;
-    height: 2rem;
+    right: 1.5em;
+    top: 1.25em;
+    width: 2em;
+    height: 2em;
     transition: ease .3s;
     margin-top: -0.2rem
 }
@@ -4133,7 +4133,7 @@ input[type=radio].uq-input--error:checked::after {
     content: "";
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='m5.145 14.285 6.167-6a.41.41 0 0 0 0-.598L5.145 1.715' fill='none' stroke='%23fff' stroke-width='.75' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e");
     background-repeat: no-repeat;
-    background-size: 1.4rem 1.4rem;
+    background-size: 1.4rem 1.4em;
     right: 0
 }
 
@@ -4149,22 +4149,22 @@ input[type=radio].uq-input--error:checked::after {
 }
 
 .uq-grid-menu__title {
-    font-size: 1.375rem;
+    font-size: 1.375em;
     font-weight: 400
 }
 
 .uq-grid-menu__description {
     color: #2b2a29;
     display: block;
-    font-size: .8rem;
+    font-size: .8em;
     font-weight: 300;
     line-height: normal;
     margin-top: .25rem
 }
 
 .uq-grid-menu__icon {
-    margin-top: -0.3rem;
-    margin-right: .5rem;
+    margin-top: -0.3em;
+    margin-right: .5em;
     transition: filter .2s
 }
 
@@ -4220,13 +4220,13 @@ input[type=radio].uq-input--error:checked::after {
 }
 
 .uq-hero__content {
-    margin-left: 1rem;
-    margin-right: 1rem;
-    padding-left: .5rem;
-    padding-right: .5rem;
+    margin-left: 1em;
+    margin-right: 1em;
+    padding-left: .5em;
+    padding-right: .5em;
     color: #fff;
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+    padding-top: 3em;
+    padding-bottom: 3em;
     position: relative;
     z-index: 2
 }
@@ -4241,8 +4241,8 @@ input[type=radio].uq-input--error:checked::after {
 
 @media(min-width: 37.5rem) {
     .uq-hero__content {
-        margin-left: 3.25rem;
-        margin-right: 3.25rem;
+        margin-left: 3.25em;
+        margin-right: 3.25em;
         max-width: none
     }
 }
@@ -4257,8 +4257,8 @@ input[type=radio].uq-input--error:checked::after {
 
 @media(min-width: 75rem) {
     .uq-hero__content {
-        margin-left: 8.375rem;
-        margin-right: 8.375rem;
+        margin-left: 8.375em;
+        margin-right: 8.375em;
         max-width: none
     }
 }
@@ -4273,21 +4273,21 @@ input[type=radio].uq-input--error:checked::after {
 
 @media(min-width: 37.5rem) {
     .uq-hero__content {
-        padding-left: .75rem;
+        padding-left: .75em;
         padding-right: .75rem
     }
 }
 
 @media(min-width: 75rem) {
     .uq-hero__content {
-        padding-left: 1rem;
+        padding-left: 1em;
         padding-right: 1rem
     }
 }
 
 @media(min-width: 37.5rem) {
     .uq-hero__content {
-        padding-top: 6.5rem;
+        padding-top: 6.5em;
         padding-bottom: 6.5rem
     }
 }
@@ -4295,7 +4295,7 @@ input[type=radio].uq-input--error:checked::after {
 .uq-hero__text .uq-hero__title {
     color: inherit;
     font-family: "Montserrat", Helvetica, Arial, sans-serif;
-    font-size: 2.5rem;
+    font-size: 2.5em;
     margin-top: 0;
     margin-bottom: .5rem
 }
@@ -4396,7 +4396,7 @@ input[type=radio].uq-input--error:checked::after {
 
 @media(min-width: 37.5rem) {
     .uq-hero--large .uq-hero__content {
-        padding-top: 10rem;
+        padding-top: 10em;
         padding-bottom: 10rem
     }
 }
@@ -5568,7 +5568,7 @@ input[type=radio].uq-input--error:checked::after {
 
 .vertical-list {
     list-style-type: none;
-    margin-bottom: 1rem;
+    margin-bottom: 1em;
     padding: 0
 }
 
@@ -5614,7 +5614,7 @@ input[type=radio].uq-input--error:checked::after {
 
 .vertical-list--shaded .vertical-list__item {
     background: #f7f6f5;
-    margin-bottom: .5rem;
+    margin-bottom: .5em;
     padding: 1.5rem
 }
 
@@ -5636,7 +5636,7 @@ input[type=radio].uq-input--error:checked::after {
 .horizontal-list__item {
     float: left;
     list-style: none;
-    padding: 0 1rem;
+    padding: 0 1em;
     margin: 0 0 1rem 0
 }
 
@@ -5658,10 +5658,10 @@ input[type=radio].uq-input--error:checked::after {
     color: #51247a;
     background-color: rgba(0, 0, 0, 0);
     border-radius: 50%;
-    height: 3rem;
-    padding: .25rem;
+    height: 3em;
+    padding: .25em;
     overflow: hidden;
-    width: 3rem;
+    width: 3em;
     -webkit-mask-image: linear-gradient(transparent 50%, #000 0), linear-gradient(90deg, transparent 50%, #000 0);
     mask-image: linear-gradient(transparent 50%, #000 0), linear-gradient(90deg, transparent 50%, #000 0);
     -webkit-animation: pure-material-progress-circular 6s cubic-bezier(0.3, 0.6, 1, 1) infinite;
@@ -5677,7 +5677,7 @@ input[type=radio].uq-input--error:checked::after {
     content: "";
     display: block;
     height: 100%;
-    margin-bottom: .25rem;
+    margin-bottom: .25em;
     width: 100%;
     -webkit-animation: pure-material-progress-circular-pseudo .75s linear infinite alternate;
     animation: pure-material-progress-circular-pseudo .75s linear infinite alternate
@@ -5693,8 +5693,8 @@ input[type=radio].uq-input--error:checked::after {
 }
 
 .uq-loading-spinner--small {
-    height: 1.5rem;
-    width: 1.5rem;
+    height: 1.5em;
+    width: 1.5em;
     padding: .125rem
 }
 
@@ -5836,9 +5836,9 @@ input[type=radio].uq-input--error:checked::after {
 
 .uq-pagination__item .uq-pagination__link {
     color: #1e72c6;
-    font-size: 1rem;
+    font-size: 1em;
     font-weight: 300;
-    padding: 0 .5rem;
+    padding: 0 .5em;
     text-decoration: none
 }
 
@@ -5864,7 +5864,7 @@ input[type=radio].uq-input--error:checked::after {
 }
 
 .uq-pane {
-    padding: 1.5rem;
+    padding: 1.5em;
     margin-bottom: 1.5rem
 }
 
@@ -5918,7 +5918,7 @@ input[type=radio].uq-input--error:checked::after {
 
 .uq-pane__title {
     color: #51247a;
-    font-size: 1.275rem;
+    font-size: 1.275em;
     font-weight: 400
 }
 
@@ -5996,7 +5996,7 @@ input[type=radio].uq-input--error:checked::after {
 
 .uq-previous-next a {
     color: #1e72c6;
-    font-size: 1.7rem;
+    font-size: 1.7em;
     font-weight: 400;
     line-height: 1.2;
     text-decoration: none
@@ -6017,13 +6017,13 @@ input[type=radio].uq-input--error:checked::after {
 
 .uq-previous-next__link-previous {
     position: relative;
-    padding-left: 3rem;
+    padding-left: 3em;
     float: left
 }
 
 .uq-previous-next__link-previous::before {
     content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23D7D1CC'%3e%3cpath d='m10.855 14.285-6.168-6a.41.41 0 0 1 0-.598l6.168-5.972' fill='none' stroke='%23D7D1CC' stroke-width='.75' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e");
-    width: 3rem;
+    width: 3em;
     display: inline-block;
     position: absolute;
     left: 0;
@@ -6034,14 +6034,14 @@ input[type=radio].uq-input--error:checked::after {
 
 .uq-previous-next__link-next {
     position: relative;
-    padding-right: 3rem;
+    padding-right: 3em;
     text-align: right;
     float: right
 }
 
 .uq-previous-next__link-next::after {
     content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23D7D1CC'%3e%3cpath d='m5.145 14.285 6.167-6a.41.41 0 0 0 0-.598L5.145 1.715' fill='none' stroke='%23D7D1CC' stroke-width='.75' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e");
-    width: 3rem;
+    width: 3em;
     display: inline-block;
     position: absolute;
     right: 0;
@@ -6052,7 +6052,7 @@ input[type=radio].uq-input--error:checked::after {
 
 .uq-previous-next__description {
     display: block;
-    font-size: 1rem;
+    font-size: 1em;
     font-style: italic;
     font-weight: 300
 }
@@ -6060,7 +6060,7 @@ input[type=radio].uq-input--error:checked::after {
 .uq-progression {
     display: flex;
     list-style: none;
-    margin: 0 1.5rem;
+    margin: 0 1.5em;
     padding: 0 0 2rem
 }
 
@@ -6114,8 +6114,8 @@ input[type=radio].uq-input--error:checked::after {
     border-radius: 50%;
     color: #fff;
     display: block;
-    height: 1.875rem;
-    line-height: 1.875rem;
+    height: 1.875em;
+    line-height: 1.875em;
     position: relative;
     text-align: center;
     width: 1.875rem
@@ -6123,8 +6123,8 @@ input[type=radio].uq-input--error:checked::after {
 
 @media(min-width: 640px) {
     .uq-progression__step-number {
-        height: 2.5rem;
-        line-height: 2.5rem;
+        height: 2.5em;
+        line-height: 2.5em;
         width: 2.5rem
     }
 }
@@ -6139,7 +6139,7 @@ input[type=radio].uq-input--error:checked::after {
         display: block;
         line-height: 1.2;
         position: absolute;
-        top: 2.75rem;
+        top: 2.75em;
         left: 50%;
         transform: translateX(-50%);
         margin: 0 auto;
@@ -6155,7 +6155,7 @@ input[type=radio].uq-input--error:checked::after {
     display: flex;
     flex: 1;
     height: 10px;
-    height: .625rem;
+    height: .625em;
     margin: 10px 0;
     margin: .625rem 0
 }
@@ -6210,13 +6210,13 @@ input[type=radio].uq-input--error:checked::after {
 }
 
 .uq-section {
-    padding-top: 3.5rem;
-    padding-bottom: 3.5rem;
+    padding-top: 3.5em;
+    padding-bottom: 3.5em;
     overflow: hidden
 }
 
 .uq-section__container {
-    margin-left: 1rem;
+    margin-left: 1em;
     margin-right: 1rem
 }
 
@@ -6230,8 +6230,8 @@ input[type=radio].uq-input--error:checked::after {
 
 @media(min-width: 37.5rem) {
     .uq-section__container {
-        margin-left: 3.25rem;
-        margin-right: 3.25rem;
+        margin-left: 3.25em;
+        margin-right: 3.25em;
         max-width: none
     }
 }
@@ -6246,8 +6246,8 @@ input[type=radio].uq-input--error:checked::after {
 
 @media(min-width: 75rem) {
     .uq-section__container {
-        margin-left: 8.375rem;
-        margin-right: 8.375rem;
+        margin-left: 8.375em;
+        margin-right: 8.375em;
         max-width: none
     }
 }
@@ -6262,15 +6262,15 @@ input[type=radio].uq-input--error:checked::after {
 
 .uq-section__header,
 .uq-section__content {
-    padding-left: .5rem;
-    padding-right: .5rem;
+    padding-left: .5em;
+    padding-right: .5em;
     width: 100%
 }
 
 @media(min-width: 37.5rem) {
     .uq-section__header,
     .uq-section__content {
-        padding-left: .75rem;
+        padding-left: .75em;
         padding-right: .75rem
     }
 }
@@ -6278,7 +6278,7 @@ input[type=radio].uq-input--error:checked::after {
 @media(min-width: 75rem) {
     .uq-section__header,
     .uq-section__content {
-        padding-left: 1rem;
+        padding-left: 1em;
         padding-right: 1rem
     }
 }
@@ -6315,8 +6315,8 @@ input[type=radio].uq-input--error:checked::after {
 @media(min-width: 75rem) {
     .uq-section--narrow .uq-section__header,
     .uq-section--narrow .uq-section__content {
-        padding-left: .5rem;
-        padding-right: .5rem;
+        padding-left: .5em;
+        padding-right: .5em;
         margin-left: 18.75%;
         width: 62.5%;
         float: left
@@ -6326,7 +6326,7 @@ input[type=radio].uq-input--error:checked::after {
 @media(min-width: 75rem)and (min-width: 37.5rem) {
     .uq-section--narrow .uq-section__header,
     .uq-section--narrow .uq-section__content {
-        padding-left: .75rem;
+        padding-left: .75em;
         padding-right: .75rem
     }
 }
@@ -6334,7 +6334,7 @@ input[type=radio].uq-input--error:checked::after {
 @media(min-width: 75rem)and (min-width: 75rem) {
     .uq-section--narrow .uq-section__header,
     .uq-section--narrow .uq-section__content {
-        padding-left: 1rem;
+        padding-left: 1em;
         padding-right: 1rem
     }
 }
@@ -6344,7 +6344,7 @@ input[type=radio].uq-input--error:checked::after {
     border-top: .25rem solid #51247a;
     box-sizing: border-box;
     font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 1rem;
+    font-size: 1em;
     font-weight: 400;
     line-height: 1.5
 }
@@ -6361,7 +6361,7 @@ input[type=radio].uq-input--error:checked::after {
 }
 
 .uq-side-nav__title-link {
-    font-size: 1.25rem;
+    font-size: 1.25em;
     color: #51247a;
     text-decoration: none
 }
@@ -6415,7 +6415,7 @@ input[type=radio].uq-input--error:checked::after {
 
 .uq-side-nav__list-item .uq-side-nav__link {
     display: block;
-    padding: 1rem 1.5rem;
+    padding: 1rem 1.5em;
     color: #2b2a29;
     text-decoration: none
 }
@@ -6434,12 +6434,12 @@ input[type=radio].uq-input--error:checked::after {
     top: 0;
     right: 0;
     display: none;
-    width: 3rem;
-    height: 3.5rem;
-    padding: 1rem 1rem;
+    width: 3em;
+    height: 3.5em;
+    padding: 1rem 1em;
     text-indent: -100vw;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%2351247A'%3e%3cpath d='m14.285 5.145-6 6.167a.41.41 0 0 1-.598 0L1.715 5.145' fill='none' stroke='%2351247A' stroke-width='.75' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e");
-    background-size: 1.2rem;
+    background-size: 1.2em;
     background-position: center center;
     background-repeat: no-repeat;
     overflow: hidden
@@ -6468,7 +6468,7 @@ input[type=radio].uq-input--error:checked::after {
     color: #2b2a29;
     box-sizing: border-box;
     font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 1rem;
+    font-size: 1em;
     font-weight: 400;
     line-height: 1.5
 }
@@ -6482,13 +6482,13 @@ input[type=radio].uq-input--error:checked::after {
 .uq-site-header__title-container {
     margin-left: auto;
     margin-right: auto;
-    max-width: 73.25rem;
+    max-width: 73.25em;
     align-items: center;
     display: flex;
     flex-wrap: wrap;
     float: none;
     justify-content: space-between;
-    padding: .75rem 1.5rem;
+    padding: .75rem 1.5em;
     position: relative
 }
 
@@ -6505,7 +6505,7 @@ input[type=radio].uq-input--error:checked::after {
 
 .uq-site-header__title {
     color: #51247a;
-    font-size: 1.25rem;
+    font-size: 1.25em;
     font-weight: 500;
     margin: 0;
     text-decoration: none
@@ -6522,9 +6522,9 @@ input[type=radio].uq-input--error:checked::after {
     border: 0 none;
     color: #51247a;
     cursor: pointer;
-    height: 1.5rem;
+    height: 1.5em;
     margin-bottom: 0;
-    margin-left: 1rem;
+    margin-left: 1em;
     margin-right: 0;
     overflow: hidden;
     padding: 0;
@@ -6548,7 +6548,7 @@ input[type=radio].uq-input--error:checked::after {
     background-size: 100%;
     content: "";
     display: block;
-    height: 1.5rem;
+    height: 1.5em;
     left: 0;
     position: absolute;
     top: 0;
@@ -6583,7 +6583,7 @@ input[type=radio].uq-input--error:checked::after {
 .uq-site-header__navigation a {
     color: #51247a;
     display: block;
-    padding: 1rem 1rem;
+    padding: 1rem 1em;
     text-decoration: none;
     transition: background-color .25s, border-color .25s
 }
@@ -6673,8 +6673,8 @@ input[type=radio].uq-input--error:checked::after {
 }
 
 .uq-site-header__navigation__list--level-2 a {
-    padding-left: 3rem;
-    padding-top: .75rem;
+    padding-left: 3em;
+    padding-top: .75em;
     padding-bottom: 0
 }
 
@@ -6730,13 +6730,13 @@ input[type=radio].uq-input--error:checked::after {
     top: 0;
     right: 0;
     display: block;
-    width: 3rem;
-    padding: 1.75rem 1.5rem;
+    width: 3em;
+    padding: 1.75rem 1.5em;
     border: 0;
     border-left: 1px solid #e7e3e0;
     text-indent: -100vw;
     background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m7 10 5 5 5-5' stroke='%2351247A' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e");
-    background-size: 1rem;
+    background-size: 1em;
     background-position: center center;
     background-repeat: no-repeat;
     background-color: rgba(0, 0, 0, 0);
@@ -6746,7 +6746,7 @@ input[type=radio].uq-input--error:checked::after {
 
 @media(min-width: 37.5rem) {
     .uq-site-header__navigation__sub-toggle {
-        width: 2rem;
+        width: 2em;
         padding: 1.75rem 1.5rem 1.75rem .5rem
     }
 }
@@ -6781,7 +6781,7 @@ table,
     border-spacing: 0;
     box-sizing: border-box;
     font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 1rem;
+    font-size: 1em;
     font-weight: 400;
     line-height: 1.5;
     color: #2b2a29;
@@ -6816,13 +6816,13 @@ table__wrapper,
 table__wrapper::-webkit-scrollbar,
 .uq-table__wrapper::-webkit-scrollbar {
     -webkit-appearance: none;
-    width: .75rem;
+    width: .75em;
     height: .75rem
 }
 
 table__wrapper::-webkit-scrollbar-thumb,
 .uq-table__wrapper::-webkit-scrollbar-thumb {
-    border-radius: .5rem;
+    border-radius: .5em;
     border: 1px solid #fff;
     background-color: rgba(0, 0, 0, .3)
 }
@@ -6831,12 +6831,12 @@ table caption,
 table .uq-table__caption,
 .uq-table caption,
 .uq-table .uq-table__caption {
-    font-size: 1.25rem;
+    font-size: 1.25em;
     line-height: 1.5;
     font-weight: 500;
     text-align: left;
     display: table-caption;
-    padding-bottom: 1rem;
+    padding-bottom: 1em;
     background-color: #fff
 }
 
@@ -6867,7 +6867,7 @@ table td,
 table .uq-table__cell,
 .uq-table td,
 .uq-table .uq-table__cell {
-    padding: .5rem 1rem;
+    padding: .5rem 1em;
     border: 1px solid #d7d1cc;
     text-align: left
 }
@@ -6876,7 +6876,7 @@ table th,
 table .uq-table__header,
 .uq-table th,
 .uq-table .uq-table__header {
-    padding: .5rem 1rem;
+    padding: .5rem 1em;
     color: #51247a;
     text-align: left;
     border: 1px solid #d7d1cc;
@@ -6951,7 +6951,7 @@ table .uq-table__header,
 .uq-tabs__link {
     display: inline;
     margin-left: auto;
-    padding: 0 1.5rem;
+    padding: 0 1.5em;
     align-self: center;
     white-space: nowrap
 }
@@ -6965,9 +6965,9 @@ table .uq-table__header,
 .uq-tabs__tab {
     position: relative;
     flex: 0 1 auto;
-    padding: 1rem 1.5rem;
-    margin-right: .25rem;
-    font-size: 1rem;
+    padding: 1rem 1.5em;
+    margin-right: .25em;
+    font-size: 1em;
     font-weight: 300;
     color: #2b2a29;
     background-color: #fff;
@@ -6980,8 +6980,8 @@ table .uq-table__header,
 
 @media(min-width: 37.5rem) {
     .uq-tabs__tab {
-        padding: 1.5rem 2rem;
-        margin-right: .25rem;
+        padding: 1.5rem 2em;
+        margin-right: .25em;
         font-size: 1.125rem
     }
 }
@@ -7009,7 +7009,7 @@ table .uq-table__header,
 
 .uq-tabs__tab>span.uq-icon {
     display: block;
-    margin: 0 auto .5rem;
+    margin: 0 auto .5em;
     font-size: .75rem
 }
 
@@ -7021,8 +7021,8 @@ table .uq-table__header,
 }
 
 .uq-tabs__tab-panel {
-    padding: 1rem 1.5rem;
-    font-size: 1rem;
+    padding: 1rem 1.5em;
+    font-size: 1em;
     color: #2b2a29;
     background-color: #fff
 }
