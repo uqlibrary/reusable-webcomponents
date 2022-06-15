@@ -197,6 +197,7 @@ var uq = (function (exports) {
                         this.closeAllLevels();
                         this.hideAllLevels();
                         this.openLevel(subNav, menuItem);
+                        this.setOrientation(menuItem);
                         this.unhideLevel(menuItem);
                     }
                 },
@@ -274,7 +275,6 @@ var uq = (function (exports) {
                     var listHeaderItem = 'nav > ul.uq-site-header__navigation__list > li';
                     var levels = this.nav.querySelectorAll(listHeaderItem);
                     levels.forEach(function (level) {
-                        console.log('level=', level);
                         _this4.hideLevel(level);
                     });
                 },
