@@ -2595,8 +2595,8 @@ a:hover {
 .uq-footer__meta-icons::before {
     content: "";
     display: inline-block;
-    height: 2em;
-    width: 2em;
+    height: 1.5em;
+    width: 1.5em;
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
