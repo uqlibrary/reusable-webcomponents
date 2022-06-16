@@ -22,6 +22,14 @@ function _createClass(Constructor, protoProps, staticProps) {
     return Constructor;
 }
 
+function _removeClassFrom(elem, className) {
+    !!elem.classList.contains(className) && elem.classList.remove(className);
+}
+
+function _addClassTo(elem, className) {
+    !elem.classList.contains(className) && elem.classList.add(className);
+}
+
 var uq = (function (exports) {
     'use strict';
 
@@ -68,14 +76,6 @@ var uq = (function (exports) {
             this.setOrientation = this.setOrientation.bind(this);
             this.handleKeyPress = this.handleKeyPress.bind(this);
             this.init();
-        }
-
-        function removeClassFrom(element, className) {
-            !!element.classList.contains(className) && element.classList.remove(className);
-        }
-
-        function addClassTo(element, className) {
-            !element.classList.contains(className) && element.classList.add(className);
         }
 
         _createClass(MainNavigation, [
@@ -153,7 +153,6 @@ var uq = (function (exports) {
             {
                 key: 'handleResize',
                 value: function handleResize(event) {
-                    console.log('primo: resize');
                     var toggle = document
                         .querySelector('uq-site-header')
                         .shadowRoot.querySelector(`.${this.toggleClass}`);
@@ -170,11 +169,9 @@ var uq = (function (exports) {
                         var topToggleButton = document
                             .querySelector('uq-header')
                             .shadowRoot.getElementById('mobile-menu-toggle-button');
-                        !!topToggleButton && removeClassFrom(topToggleButton, 'nav-primary__menu-toggle--is-open');
-                        console.log('primo: resize menu open hide items');
+                        !!topToggleButton && _removeClassFrom(topToggleButton, 'nav-primary__menu-toggle--is-open');
                         !!primoNavbar && (primoNavbar.style.display = 'none');
                     } else {
-                        console.log('primo: resize menu closed UNhide items');
                         !!primoNavbar && (primoNavbar.style.display = null);
                     }
                 },
@@ -205,12 +202,11 @@ var uq = (function (exports) {
 
                     const _this = this;
                     function openMenu() {
-                        console.log('test: open menu');
                         if (event.type === 'touchend') {
                             event.preventDefault();
                         }
 
-                        _this.closeAllLevels;
+                        _this.closeAllLevels();
                         _this.hideAllLevels();
                         _this.openLevel(subNav, menuItem);
                         _this.setOrientation(menuItem);
@@ -230,9 +226,9 @@ var uq = (function (exports) {
             {
                 key: 'openLevel',
                 value: function openLevel(subNav, menuItem) {
-                    addClassTo(subNav, this.openModifier);
-                    removeClassFrom(subNav, 'menu-undisplayed');
-                    addClassTo(menuItem, this.levelOpenModifier);
+                    _addClassTo(subNav, this.openModifier);
+                    _removeClassFrom(subNav, 'menu-undisplayed');
+                    _addClassTo(menuItem, this.levelOpenModifier);
                     menuItem.querySelector('a').setAttribute('aria-expanded', 'true');
                     menuItem.querySelector('button').setAttribute('aria-expanded', 'true');
                     menuItem.querySelector('button').setAttribute('aria-pressed', 'true');
@@ -242,25 +238,25 @@ var uq = (function (exports) {
             {
                 key: 'hideMenuitemButton',
                 value: function hideMenuitemButton(menuItem) {
-                    addClassTo(menuItem, 'mobile_only');
-                    addClassTo(menuItem.querySelector('a'), 'uq-site-header__navigation-link-hidden');
+                    _addClassTo(menuItem, 'mobile_only');
+                    _addClassTo(menuItem.querySelector('a'), 'uq-site-header__navigation-link-hidden');
                 },
             },
             {
                 key: 'unhideMenuitemButton',
                 value: function unhideMenuitemButton(menuItem) {
-                    removeClassFrom(menuItem, 'mobile_only');
-                    removeClassFrom(menuItem.querySelector('a'), 'uq-site-header__navigation-link-hidden');
+                    _removeClassFrom(menuItem, 'mobile_only');
+                    _removeClassFrom(menuItem.querySelector('a'), 'uq-site-header__navigation-link-hidden');
                 },
             },
             {
                 key: 'closeLevel',
                 value: function closeLevel(subNav, menuItem) {
-                    removeClassFrom(subNav, this.openModifier);
-                    addClassTo(subNav, 'menu-undisplayed');
+                    _removeClassFrom(subNav, this.openModifier);
+                    _addClassTo(subNav, 'menu-undisplayed');
                     this.unhideMenuitemButton(menuItem);
                     this.setOrientation(menuItem);
-                    removeClassFrom(menuItem, this.levelOpenModifier);
+                    _removeClassFrom(menuItem, this.levelOpenModifier);
                     menuItem.querySelector('a').setAttribute('aria-expanded', 'false');
                     menuItem.querySelector('button').setAttribute('aria-expanded', 'false');
                     menuItem.querySelector('button').setAttribute('aria-pressed', 'false');
@@ -271,7 +267,7 @@ var uq = (function (exports) {
             {
                 key: 'closeNav',
                 value: function closeNav(menuItem) {
-                    removeClassFrom(menuItem, this.openModifier);
+                    _removeClassFrom(menuItem, this.openModifier);
                     menuItem.parentNode.querySelector('ul').setAttribute('aria-expanded', 'false');
                     menuItem.parentNode.querySelector('ul').setAttribute('aria-pressed', 'false');
                 },
@@ -315,13 +311,13 @@ var uq = (function (exports) {
             {
                 key: 'hideLevel',
                 value: function hideLevel(level) {
-                    addClassTo(level, this.hideModifier);
+                    _addClassTo(level, this.hideModifier);
                 },
             },
             {
                 key: 'unhideLevel',
                 value: function unhideLevel(level) {
-                    removeClassFrom(level, this.hideModifier);
+                    _removeClassFrom(level, this.hideModifier);
                 },
             },
             {
@@ -336,7 +332,7 @@ var uq = (function (exports) {
                     }
 
                     if (window.innerWidth < subNavRight) {
-                        addClassTo(subNav, reverseClass);
+                        _addClassTo(subNav, reverseClass);
                     }
                 },
             },
@@ -354,7 +350,7 @@ var uq = (function (exports) {
                         if (event.key === 'Tab' && event.shiftKey === true) {
                             if (nav.classList.contains(this.level2Class)) {
                                 this.closeLevel(nav, nav.parentNode, subNav);
-                                removeClassFrom(nav.parentNode, this.levelOpenModifier);
+                                _removeClassFrom(nav.parentNode, this.levelOpenModifier);
                             } else {
                                 this.closeNav(nav);
                                 mobileToggle.classList.toggle(''.concat(this.navClass, '-toggle--close'));
@@ -367,7 +363,7 @@ var uq = (function (exports) {
                         if (event.key === 'Tab' && event.shiftKey === false) {
                             if (nav.classList.contains(this.level2Class)) {
                                 this.closeLevel(nav, nav.parentNode);
-                                removeClassFrom(nav.parentNode, this.levelOpenModifier);
+                                _removeClassFrom(nav.parentNode, this.levelOpenModifier);
                             } else {
                                 this.closeNav(nav);
                                 mobileToggle.classList.toggle(''.concat(this.navClass, '-toggle--close'));

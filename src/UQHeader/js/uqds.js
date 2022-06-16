@@ -52,12 +52,12 @@ function _createClass(Constructor, protoProps, staticProps) {
     return Constructor;
 }
 
-function _removeClassFrom(element, className) {
-    !!element.classList.contains(className) && element.classList.remove(className);
+function _removeClassFrom(elem, className) {
+    !!elem.classList.contains(className) && elem.classList.remove(className);
 }
 
-function _addClassTo(element, className) {
-    !element.classList.contains(className) && element.classList.add(className);
+function _addClassTo(elem, className) {
+    !elem.classList.contains(className) && elem.classList.add(className);
 }
 
 var uq = (function (exports) {
@@ -85,7 +85,6 @@ var uq = (function (exports) {
             }
 
             this.className = className;
-            console.log('create accordion');
             this.init();
         }
 
@@ -331,7 +330,6 @@ var uq = (function (exports) {
                 key: 'init',
                 value: function init(el) {
                     var _this = this;
-                    console.log('NewHeader el=', el);
 
                     this.menuToggle = !!el && el.querySelector('.nav-primary__menu-toggle');
                     this.searchToggle = !!el && el.querySelector('.nav-primary__search-toggle');
@@ -344,7 +342,6 @@ var uq = (function (exports) {
                         const siteHeader = document.querySelector('uq-site-header');
                         const siteHeaderHiddenMobileButton =
                             !!siteHeader && siteHeader.shadowRoot.getElementById('uq-site-header__navigation-toggle');
-                        console.log('clickSiteHeaderMenuButton', siteHeaderHiddenMobileButton);
                         !!siteHeaderHiddenMobileButton && siteHeaderHiddenMobileButton.click();
                     }
 
@@ -364,14 +361,11 @@ var uq = (function (exports) {
                             // NOTE: this code is duplicated in the Resize function of uq-site-header
                             var primoNavbar = document.querySelector('.top-nav-bar.layout-row');
                             if (_this.menuToggle.classList.contains('nav-primary__menu-toggle--is-open')) {
-                                console.log('primo: opening menu hide items');
                                 !!primoNavbar && (primoNavbar.style.display = 'none');
                             } else {
-                                console.log('primo: closing menu UNhide items');
                                 !!primoNavbar && (primoNavbar.style.display = null);
                             }
 
-                            console.log('clicking');
                             clickSiteHeaderMenuButton();
                         });
                     !!this.searchToggle &&

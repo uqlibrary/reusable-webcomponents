@@ -154,13 +154,11 @@ class UQHeader extends HTMLElement {
     // Provides a #id for skip nav
     // if never provided, skip nav is never unhidden
     handleSkipNavInsertion(newValue) {
-        console.log('handleSkipNavInsertion:newValue=', newValue);
         const skipToElement = () => {
             const skipNavLander = document.getElementById(newValue);
             !!skipNavLander && skipNavLander.focus();
         };
         const skipNavButton = this.shadowRoot.getElementById('skip-nav');
-        console.log('skipNavButton=', skipNavButton);
         // element is style="display: none" by default
         !!skipNavButton && (skipNavButton.style.display = null);
         !!skipNavButton && skipNavButton.addEventListener('click', skipToElement);

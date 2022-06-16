@@ -163,7 +163,6 @@ class UQSiteHeader extends HTMLElement {
         // we must wait for the script to finish loading before we can use it
         const waitOnUqScript = setInterval(
             () => {
-                console.log('waitOnUqScript');
                 if (!that.uqReference) {
                     return;
                 }

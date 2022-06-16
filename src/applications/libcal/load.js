@@ -12,8 +12,6 @@ if (window.location.href.indexOf('uq.edu.au') > -1) {
     isOutsideUQ = false;
 }
 
-console.log('Is libcal in edit mode?: ', isOutsideUQ);
-
 function createSlotForButtonInUtilityArea(button, id = null) {
     const slot = document.createElement('span');
     !!slot && slot.setAttribute('slot', 'site-utilities');
@@ -35,7 +33,7 @@ function createMylibraryStub() {
     }
 
     // this just creates a stub - authbutton will insert the actual button if they are logged in when this stub is present
-    mylibraryButton = document.createElement('div');
+    const mylibraryButton = document.createElement('div');
     mylibraryButton.id = stubId;
 
     const slot = !!mylibraryButton && this.createSlotForButtonInUtilityArea(mylibraryButton, mylibraryButtonId);
