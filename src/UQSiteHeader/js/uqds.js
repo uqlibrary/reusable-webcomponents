@@ -70,6 +70,14 @@ var uq = (function (exports) {
             this.init();
         }
 
+        function removeClassFrom(element, className) {
+            !!element.classList.contains(className) && element.classList.remove(className);
+        }
+
+        function addClassTo(element, className) {
+            !element.classList.contains(className) && element.classList.add(className);
+        }
+
         _createClass(MainNavigation, [
             {
                 key: 'init',
@@ -162,10 +170,7 @@ var uq = (function (exports) {
                         var topToggleButton = document
                             .querySelector('uq-header')
                             .shadowRoot.getElementById('mobile-menu-toggle-button');
-                        var mobileButtonOpenClassName = 'nav-primary__menu-toggle--is-open';
-                        !!topToggleButton &&
-                            topToggleButton.classList.contains(mobileButtonOpenClassName) &&
-                            topToggleButton.classList.remove(mobileButtonOpenClassName);
+                        !!topToggleButton && removeClassFrom(topToggleButton, 'nav-primary__menu-toggle--is-open');
                         console.log('primo: resize menu open hide items');
                         !!primoNavbar && (primoNavbar.style.display = 'none');
                     } else {
@@ -217,9 +222,9 @@ var uq = (function (exports) {
             {
                 key: 'openLevel',
                 value: function openLevel(subNav, menuItem) {
-                    subNav.classList.add(this.openModifier);
-                    subNav.classList.contains('menu-undisplayed') && subNav.classList.remove('menu-undisplayed');
-                    menuItem.classList.add(this.levelOpenModifier);
+                    addClassTo(subNav, this.openModifier);
+                    removeClassFrom(subNav, 'menu-undisplayed');
+                    addClassTo(menuItem, this.levelOpenModifier);
                     menuItem.querySelector('a').setAttribute('aria-expanded', 'true');
                     menuItem.querySelector('button').setAttribute('aria-expanded', 'true');
                     menuItem.querySelector('button').setAttribute('aria-pressed', 'true');
@@ -229,29 +234,25 @@ var uq = (function (exports) {
             {
                 key: 'hideMenuitemButton',
                 value: function hideMenuitemButton(menuItem) {
-                    menuItem.classList.add('mobile_only');
-                    const childElement = menuItem.querySelector('a');
-                    !childElement.classList.contains('uq-site-header__navigation-link-hidden') &&
-                        childElement.classList.add('uq-site-header__navigation-link-hidden');
+                    addClassTo(menuItem, 'mobile_only');
+                    addClassTo(menuItem.querySelector('a'), 'uq-site-header__navigation-link-hidden');
                 },
             },
             {
                 key: 'unhideMenuitemButton',
                 value: function unhideMenuitemButton(menuItem) {
-                    menuItem.classList.remove('mobile_only');
-                    const childElement = menuItem.querySelector('a');
-                    !!childElement.classList.contains('uq-site-header__navigation-link-hidden') &&
-                        childElement.classList.remove('uq-site-header__navigation-link-hidden');
+                    removeClassFrom(menuItem, 'mobile_only');
+                    removeClassFrom(menuItem.querySelector('a'), 'uq-site-header__navigation-link-hidden');
                 },
             },
             {
                 key: 'closeLevel',
                 value: function closeLevel(subNav, menuItem) {
-                    subNav.classList.remove(this.openModifier);
-                    !subNav.classList.contains('menu-undisplayed') && subNav.classList.add('menu-undisplayed');
+                    removeClassFrom(subNav, this.openModifier);
+                    addClassTo(subNav, 'menu-undisplayed');
                     this.unhideMenuitemButton(menuItem);
                     this.setOrientation(menuItem);
-                    menuItem.classList.remove(this.levelOpenModifier);
+                    removeClassFrom(menuItem, this.levelOpenModifier);
                     menuItem.querySelector('a').setAttribute('aria-expanded', 'false');
                     menuItem.querySelector('button').setAttribute('aria-expanded', 'false');
                     menuItem.querySelector('button').setAttribute('aria-pressed', 'false');
@@ -262,7 +263,7 @@ var uq = (function (exports) {
             {
                 key: 'closeNav',
                 value: function closeNav(menuItem) {
-                    menuItem.classList.remove(this.openModifier);
+                    removeClassFrom(menuItem, this.openModifier);
                     menuItem.parentNode.querySelector('ul').setAttribute('aria-expanded', 'false');
                     menuItem.parentNode.querySelector('ul').setAttribute('aria-pressed', 'false');
                 },
@@ -306,13 +307,13 @@ var uq = (function (exports) {
             {
                 key: 'hideLevel',
                 value: function hideLevel(level) {
-                    !level.classList.contains(this.hideModifier) && level.classList.add(this.hideModifier);
+                    addClassTo(level, this.hideModifier);
                 },
             },
             {
                 key: 'unhideLevel',
                 value: function unhideLevel(level) {
-                    !!level.classList.contains(this.hideModifier) && level.classList.remove(this.hideModifier);
+                    removeClassFrom(level, this.hideModifier);
                 },
             },
             {
@@ -327,7 +328,7 @@ var uq = (function (exports) {
                     }
 
                     if (window.innerWidth < subNavRight) {
-                        subNav.classList.add(reverseClass);
+                        addClassTo(subNav, reverseClass);
                     }
                 },
             },
@@ -345,7 +346,7 @@ var uq = (function (exports) {
                         if (event.key === 'Tab' && event.shiftKey === true) {
                             if (nav.classList.contains(this.level2Class)) {
                                 this.closeLevel(nav, nav.parentNode, subNav);
-                                nav.parentNode.classList.remove(this.levelOpenModifier);
+                                removeClassFrom(nav.parentNode, this.levelOpenModifier);
                             } else {
                                 this.closeNav(nav);
                                 mobileToggle.classList.toggle(''.concat(this.navClass, '-toggle--close'));
@@ -358,7 +359,7 @@ var uq = (function (exports) {
                         if (event.key === 'Tab' && event.shiftKey === false) {
                             if (nav.classList.contains(this.level2Class)) {
                                 this.closeLevel(nav, nav.parentNode);
-                                nav.parentNode.classList.remove(this.levelOpenModifier);
+                                removeClassFrom(nav.parentNode, this.levelOpenModifier);
                             } else {
                                 this.closeNav(nav);
                                 mobileToggle.classList.toggle(''.concat(this.navClass, '-toggle--close'));
@@ -366,8 +367,9 @@ var uq = (function (exports) {
                                 mobileToggle.setAttribute('aria-pressed', 'false');
                             }
                         }
-                    } // Toggle nav on Space (32) or any Arrow key (37-40).
+                    }
 
+                    // Toggle nav on Space (32) or any Arrow key (37-40).
                     switch (event.keyCode) {
                         case 32:
                         case 37:

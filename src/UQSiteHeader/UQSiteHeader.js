@@ -171,7 +171,7 @@ class UQSiteHeader extends HTMLElement {
 
                 const navelement = !!this.shadowRoot && this.shadowRoot.getElementById('jsNav');
                 const uq = that.uqReference;
-                new uq.siteHeaderNavigation(navelement, 'uq-site-header__navigation');
+                !!navelement && new uq.siteHeaderNavigation(navelement, 'uq-site-header__navigation');
             },
             50,
             that,

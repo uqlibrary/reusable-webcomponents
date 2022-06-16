@@ -163,7 +163,7 @@ describe('UQ Header', () => {
                 .shadow()
                 .within(() => {
                     cy.viewport(1024, 768); // ipad landscape
-                    cy.wait(50);
+                    cy.wait(500);
                     cy.get('[data-testid="mega-menu-container"]')
                         .should('exist')
                         .invoke('css', 'height')

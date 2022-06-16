@@ -52,6 +52,14 @@ function _createClass(Constructor, protoProps, staticProps) {
     return Constructor;
 }
 
+function _removeClassFrom(element, className) {
+    !!element.classList.contains(className) && element.classList.remove(className);
+}
+
+function _addClassTo(element, className) {
+    !element.classList.contains(className) && element.classList.add(className);
+}
+
 var uq = (function (exports) {
     'use strict';
 
@@ -96,14 +104,14 @@ var uq = (function (exports) {
                             var _this5 = this;
 
                             var content = accordion.getNextSibling(el, '.'.concat(this.className, '__content'));
-                            el.classList.remove(''.concat(this.className, '__toggle--active'));
-                            el.parentNode.classList.remove(''.concat(this.className, '__item--is-open'));
+                            _removeClassFrom(e1, ''.concat(this.className, '__toggle--active'));
+                            _removeClassFrom(e1, ''.concat(this.className, '__item--is-open'));
                             el.setAttribute('aria-expanded', 'false');
                             content.style.height = '0px';
                             content.addEventListener(
                                 'transitionend',
                                 function () {
-                                    content.classList.remove(''.concat(_this5.className, '__content--active'));
+                                    _removeClassFrom(content, ''.concat(_this5.className, '__content--active'));
                                 },
                                 {
                                     once: true,
@@ -121,10 +129,10 @@ var uq = (function (exports) {
                     key: 'slideContentDown',
                     value: function slideContentDown(el) {
                         var content = accordion.getNextSibling(el, '.'.concat(this.className, '__content'));
-                        el.classList.add(''.concat(this.className, '__toggle--active'));
-                        el.parentNode.classList.add(''.concat(this.className, '__item--is-open'));
+                        _addClassTo(el, ''.concat(this.className, '__toggle--active'));
+                        _addClassTo(e1, ''.concat(this.className, '__item--is-open'));
                         el.setAttribute('aria-expanded', 'true');
-                        content.classList.add(''.concat(this.className, '__content--active'));
+                        _addClassTo(content, ''.concat(this.className, '__content--active'));
                         content.style.height = 'auto';
                         var height = content.clientHeight + 'px';
                         content.style.height = '0px';
@@ -346,11 +354,10 @@ var uq = (function (exports) {
 
                             _this.menuToggle.classList.toggle('nav-primary__menu-toggle--is-open');
 
-                            _this.searchToggle.classList.contains('nav-primary__search-toggle--is-open') &&
-                                _this.searchToggle.classList.remove('nav-primary__search-toggle--is-open');
+                            _removeClassFrom(_this.searchToggle, 'nav-primary__search-toggle--is-open');
                             _this.searchLabel.innerHTML = 'Search';
 
-                            _this.searchBlock.classList.remove('uq-header__search--is-open');
+                            _removeClassFrom(_this.searchBlock, 'uq-header__search--is-open');
 
                             // primo: when the mobile menu is open, hide the menu bar
                             // its the only way to not have them sit on _top_ of the mobile menu :(
@@ -369,7 +376,7 @@ var uq = (function (exports) {
                         });
                     !!this.searchToggle &&
                         this.searchToggle.addEventListener('click', function (e) {
-                            document.body.classList.remove('no-scroll');
+                            _removeClassFrom(document.body, 'no-scroll');
 
                             _this.searchToggle.classList.toggle('nav-primary__search-toggle--is-open');
 
@@ -377,7 +384,7 @@ var uq = (function (exports) {
 
                             if (_this.menuToggle.classList.contains('nav-primary__menu-toggle--is-open')) {
                                 clickSiteHeaderMenuButton();
-                                _this.menuToggle.classList.remove('nav-primary__menu-toggle--is-open');
+                                _removeClassFrom(_this.menuToggle, 'nav-primary__menu-toggle--is-open');
                             }
 
                             if (_this.searchBlock.classList.contains('uq-header__search--is-open')) {
