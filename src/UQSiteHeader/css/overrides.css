@@ -173,6 +173,8 @@ span.displayText {
 
     .uq-site-header__navigation__list--open {
         transition: transform 0.5s ease;
+    }
+    .uq-site-header__navigation__list--level-2.uq-site-header__navigation__list--open {
         padding-bottom: 0.5em;
     }
     .uq-site-header__navigation__list--level-2 a {
