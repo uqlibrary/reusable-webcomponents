@@ -145,11 +145,18 @@ var uq = (function (exports) {
             {
                 key: 'handleResize',
                 value: function handleResize(event) {
+                    console.log('primo: resize');
                     var toggle = document
                         .querySelector('uq-site-header')
                         .shadowRoot.querySelector(`.${this.toggleClass}`);
                     // close the expanded mobile menu if open - otherwise inappropriate classes remain applied
                     var ariaExpanded = toggle.getAttribute('aria-expanded') === 'true';
+                    // primo: when the mobile menu is open, hide the menu bar
+                    // its the only way to not have them sit on _top_ of the mobile menu :(
+                    // NOTE: this code is duplicated in the menu button click handler function of uq-header
+                    var primoNavbar = document
+                        .querySelector('uq-header')
+                        .shadowRoot.querySelector('.top-nav-bar.layout-row');
                     if (!!ariaExpanded) {
                         toggleMenu.call(this, toggle);
                         var topToggleButton = document
@@ -159,6 +166,11 @@ var uq = (function (exports) {
                         !!topToggleButton &&
                             topToggleButton.classList.contains(mobileButtonOpenClassName) &&
                             topToggleButton.classList.remove(mobileButtonOpenClassName);
+                        console.log('primo: resize menu open hide items');
+                        !!primoNavbar && (primoNavbar.style.display = 'none');
+                    } else {
+                        console.log('primo: resize menu closed UNhide items');
+                        !!primoNavbar && (primoNavbar.style.display = null);
                     }
                 },
             },

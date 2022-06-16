@@ -354,10 +354,13 @@ var uq = (function (exports) {
 
                             // primo: when the mobile menu is open, hide the menu bar
                             // its the only way to not have them sit on _top_ of the mobile menu :(
+                            // NOTE: this code is duplicated in the Resize function of uq-site-header
                             var primoNavbar = document.querySelector('.top-nav-bar.layout-row');
                             if (_this.menuToggle.classList.contains('nav-primary__menu-toggle--is-open')) {
+                                console.log('primo: opening menu hide items');
                                 !!primoNavbar && (primoNavbar.style.display = 'none');
                             } else {
+                                console.log('primo: closing menu UNhide items');
                                 !!primoNavbar && (primoNavbar.style.display = null);
                             }
 
