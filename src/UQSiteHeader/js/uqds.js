@@ -29,6 +29,11 @@ function _removeClassFrom(elem, className) {
 function _addClassTo(elem, className) {
     !elem.classList.contains(className) && elem.classList.add(className);
 }
+function _searchToggleIsOpen() {
+    var uqheader = document.querySelector('uq-header').shadowRoot;
+    var uqheadersearch = !!uqheader && uqheader.querySelector('.uq-header__search');
+    return !!uqheadersearch && uqheadersearch.classList.contains('uq-header__search--is-open');
+}
 
 var uq = (function (exports) {
     'use strict';
@@ -88,6 +93,8 @@ var uq = (function (exports) {
 
                     var _this = this;
                     window.addEventListener('resize', this.handleResize);
+                    // if the user's mouse leaves the window we dont want the menus stuck open
+                    window.addEventListener('mouseleave', this.handleToggle);
 
                     var mobileToggle = document
                         .querySelector('uq-site-header')
@@ -218,8 +225,8 @@ var uq = (function (exports) {
                         clearTimeout(timeout);
                         this.closeLevel(subNav, menuItem);
                         this.unhideAllLevels();
-                    } else {
-                        timeout = setTimeout(openMenu, 250);
+                    } else if (!_searchToggleIsOpen()) {
+                        timeout = setTimeout(openMenu, 50);
                     }
                 },
             },
