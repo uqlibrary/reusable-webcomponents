@@ -199,7 +199,7 @@ button:focus {
     z-index: 9998;
     position: fixed;
     right: 16px;
-    bottom: 64px;
+    bottom: 16px;
 }
 #askus-chat-online {
     background-color: #007200;
