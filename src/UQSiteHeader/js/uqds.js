@@ -205,28 +205,21 @@ var uq = (function (exports) {
 
                     var subNav = menuItem.querySelector('ul');
 
-                    let timeout;
-
-                    const _this = this;
-                    function openMenu() {
+                    if (subNav.classList.contains(this.openModifier) || event.type === 'mouseleave') {
+                        // closing
+                        this.closeLevel(subNav, menuItem);
+                        this.unhideAllLevels();
+                    } else {
+                        // opening
                         if (event.type === 'touchend') {
                             event.preventDefault();
                         }
 
-                        _this.closeAllLevels();
-                        _this.hideAllLevels();
-                        _this.openLevel(subNav, menuItem);
-                        _this.setOrientation(menuItem);
-                        _this.unhideLevel(menuItem);
-                    }
-
-                    if (subNav.classList.contains(this.openModifier) || event.type === 'mouseleave') {
-                        // closing
-                        clearTimeout(timeout);
-                        this.closeLevel(subNav, menuItem);
-                        this.unhideAllLevels();
-                    } else if (!_searchToggleIsOpen()) {
-                        timeout = setTimeout(openMenu, 50);
+                        this.closeAllLevels();
+                        this.hideAllLevels();
+                        this.openLevel(subNav, menuItem);
+                        this.setOrientation(menuItem);
+                        this.unhideLevel(menuItem);
                     }
                 },
             },
