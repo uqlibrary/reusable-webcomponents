@@ -209,7 +209,7 @@ var uq = (function (exports) {
                         // closing
                         this.closeLevel(subNav, menuItem);
                         this.unhideAllLevels();
-                    } else {
+                    } else if (!_searchToggleIsOpen()) {
                         // opening
                         if (event.type === 'touchend') {
                             event.preventDefault();
