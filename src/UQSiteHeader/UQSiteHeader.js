@@ -43,9 +43,36 @@ template.innerHTML = `
 
       <!-- Navigation Menu  -->
       <div data-testid="mega-menu-container" class="uq-site-header__navigation-container">
-        <nav class="uq-site-header__navigation" id="jsNav">
-          <ul class="uq-site-header__navigation__list uq-site-header__navigation__list--level-1">
-          </ul>
+        <nav class="uq-site-header__navigation slide-menu__slider" id="jsNav" data-testid="uq-site-header-megamenu" aria-label="Site navigation">
+            <ul class="uq-site-header__navigation__list uq-site-header__navigation__list--level-1" aria-expanded="true">
+                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-header uq-site-header__navigation__list-item uq-site-header__navigation__list__first-permanent-child">
+                    <a href="https://study.uq.edu.au/" data-testid="uq-header-study-link-mobile">Study</a>
+                </li>
+                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-header uq-site-header__navigation__list-item">
+                    <a href="https://research.uq.edu.au/">Research</a>
+                </li>
+                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-header uq-site-header__navigation__list-item">
+                    <a href="https://partners-community.uq.edu.au/">Partners and community</a>
+                </li>
+                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-header uq-site-header__navigation__list-item">
+                    <a href="https://about.uq.edu.au/">About</a>
+                </li>
+                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global uq-site-header__navigation__list-item">
+                    <a href="https://www.uq.edu.au/" data-testid="uq-header-home-link-mobile">UQ home</a>
+                </li>
+                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global uq-site-header__navigation__list-item">
+                    <a href="https://www.uq.edu.au/news/" data-testid="uq-header-news-link-mobile">News</a>
+                </li>
+                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global uq-site-header__navigation__list-item">
+                    <a href="https://www.uq.edu.au/uq-events" data-testid="uq-header-events-link-mobile">Events</a>
+                </li>
+                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global uq-site-header__navigation__list-item">
+                    <a href="https://alumni.uq.edu.au/giving" data-testid="uq-header-giving-link-mobile">Give</a>
+                </li>
+                <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global uq-site-header__navigation__list-item">
+                    <a href="https://contacts.uq.edu.au/" data-testid="uq-header-contacts-link-mobile">Contact</a>
+                </li>
+            </ul>
         </nav>
       </div>
     </div>
@@ -71,14 +98,12 @@ class UQSiteHeader extends HTMLElement {
         this.loadScript = this.loadScript.bind(this);
         this.updateMegaMenu = this.updateMegaMenu.bind(this);
         this.rewriteMegaMenuFromJson = this.rewriteMegaMenuFromJson.bind(this);
+        this.createDesktopHeaderItem = this.createDesktopHeaderItem.bind(this);
+        this.createMobileHeaderItem = this.createMobileHeaderItem.bind(this);
         this.setTitle = this.setTitle.bind(this);
         this.setSiteUrl = this.setSiteUrl.bind(this);
         this.showMenu = this.showMenu.bind(this);
         this.unhideMobileMenuButton = this.unhideMobileMenuButton.bind(this);
-
-        // whether or not a menu is requested, clear any children supplied by ITS
-        const megaMenu = template.content.getElementById('jsNav');
-        !!megaMenu && (megaMenu.textContent = '');
 
         // Render the template
         const shadowDOM = this.attachShadow({ mode: 'open' });
@@ -131,7 +156,9 @@ class UQSiteHeader extends HTMLElement {
         this.updateMegaMenu();
 
         this.unhideMobileMenuButton();
+    }
 
+    waitOnUqScript() {
         const that = this;
         // we must wait for the script to finish loading before we can use it
         const waitOnUqScript = setInterval(
@@ -143,7 +170,7 @@ class UQSiteHeader extends HTMLElement {
 
                 const navelement = !!this.shadowRoot && this.shadowRoot.getElementById('jsNav');
                 const uq = that.uqReference;
-                new uq.siteHeaderNavigation(navelement, 'uq-site-header__navigation');
+                !!navelement && new uq.siteHeaderNavigation(navelement, 'uq-site-header__navigation');
             },
             50,
             that,
@@ -156,26 +183,40 @@ class UQSiteHeader extends HTMLElement {
         megaMenu.appendChild(listWrapper);
     }
 
+    createSubmenuCloseControl(linkPrimaryText, index) {
+        const parentTextNode = document.createTextNode(linkPrimaryText);
+        const closeControlNode = document.createElement('button');
+        !!closeControlNode &&
+            closeControlNode.setAttribute(
+                'class',
+                'uq-site-header__navigation__list--close slide-menu__backlink slide-menu__control mobile-only',
+            );
+        !!closeControlNode && closeControlNode.setAttribute('data-action', 'back');
+        !!closeControlNode &&
+            closeControlNode.setAttribute('data-testid', `uq-site-header__navigation__list--close-${index}`);
+        !!closeControlNode && !!parentTextNode && closeControlNode.appendChild(parentTextNode);
+
+        const listItem = document.createElement('li');
+        !!listItem && listItem.setAttribute('class', 'mobile-only uq-site-header__navigation__list-item-header');
+        !!listItem && !!closeControlNode && listItem.appendChild(closeControlNode);
+
+        return listItem;
+    }
+
     rewriteMegaMenuFromJson(menu) {
-        const listWrapper = document.createElement('ul');
-        listWrapper.setAttribute('class', 'uq-site-header__navigation__list uq-site-header__navigation__list--level-1');
+        const listWrapper = !!this.shadowRoot && this.shadowRoot.querySelector('.uq-site-header__navigation__list');
+        const insertAboveChild =
+            !!this.shadowRoot &&
+            this.shadowRoot.querySelector('.uq-site-header__navigation__list__first-permanent-child');
 
         menuLocale.publicmenu.forEach((jsonParentItem, index) => {
             const datatestid = `menu-group-item-${index}`;
             const hasChildren = !!jsonParentItem.submenuItems && jsonParentItem.submenuItems.length > 0;
+            const linkHref = jsonParentItem.linkTo || /* istanbul ignore next */ '';
+            const linkPrimaryText = jsonParentItem.primaryText || /* istanbul ignore next */ '';
 
-            const textOfParentLink = document.createTextNode(
-                jsonParentItem.primaryText || /* istanbul ignore next */ '',
-            );
-
-            const parentLink = document.createElement('a');
-            parentLink.setAttribute('data-testid', `${datatestid}-link`);
-            parentLink.setAttribute('href', this.getLink(jsonParentItem.linkTo) || /* istanbul ignore next */ '');
-            parentLink.appendChild(textOfParentLink);
-            parentLink.setAttribute('aria-expanded', 'false');
-
+            // desktop has a link at top (submenu opens on mouseover); mobile has a button that opens the submenu
             const parentListItem = document.createElement('li');
-
             let classNavListitem = 'uq-site-header__navigation__list-item';
             !!hasChildren && (classNavListitem += ' uq-site-header__navigation__list-item--has-subnav');
             const activeClassName = ' uq-site-header__navigation__list-item--active';
@@ -183,17 +224,11 @@ class UQSiteHeader extends HTMLElement {
             jsonParentItem.linkTo === window.location.href && (classNavListitem += activeClassName);
             parentListItem.setAttribute('class', classNavListitem);
             parentListItem.setAttribute('data-testid', datatestid);
+            parentListItem.setAttribute('data-gtm-category', 'Main navigation');
 
-            parentListItem.appendChild(parentLink);
-
+            parentListItem.appendChild(this.createDesktopHeaderItem(datatestid, linkHref, linkPrimaryText));
             if (hasChildren) {
-                const textOfToggle = document.createTextNode('Open');
-                const parentToggle = document.createElement('span');
-                parentToggle.setAttribute('class', 'uq-site-header__navigation__sub-toggle');
-                parentToggle.setAttribute('data-testid', `${datatestid}-open`);
-                parentToggle.appendChild(textOfToggle);
-
-                parentListItem.appendChild(parentToggle);
+                parentListItem.appendChild(this.createMobileHeaderItem(linkPrimaryText, datatestid));
 
                 // make child items
                 const listItemWrapper = document.createElement('ul');
@@ -201,7 +236,25 @@ class UQSiteHeader extends HTMLElement {
                 !!jsonParentItem.columnCount &&
                     jsonParentItem.columnCount > 1 &&
                     (listItemClass += ' multicolumn-' + jsonParentItem.columnCount);
+                listItemClass += ' menu-undisplayed'; // desktop menus initially have width 0, this stops the page havent a stupidly wide width
                 listItemWrapper.setAttribute('class', listItemClass);
+
+                const textOfParentLinkNode = document.createTextNode(linkPrimaryText);
+
+                const slideCloseControl = !!linkPrimaryText && this.createSubmenuCloseControl(linkPrimaryText, index);
+                !!listItemWrapper && !!slideCloseControl && listItemWrapper.appendChild(slideCloseControl);
+
+                const topMostLink = document.createElement('a');
+                !!topMostLink && !!linkHref && topMostLink.setAttribute('href', this.getLink(linkHref));
+                !!topMostLink && !!textOfParentLinkNode && topMostLink.appendChild(textOfParentLinkNode);
+
+                const repeatParentListItem = document.createElement('li');
+                repeatParentListItem.appendChild(topMostLink);
+                !!repeatParentListItem &&
+                    repeatParentListItem.setAttribute('class', 'uq-site-header__navigation__list-item mobile-only');
+
+                !!listItemWrapper && !!repeatParentListItem && listItemWrapper.appendChild(repeatParentListItem);
+
                 jsonParentItem.submenuItems.forEach((jsonChild, indexChild) => {
                     const listItem = document.createElement('li');
                     listItem.setAttribute('class', 'uq-site-header__navigation__list-item');
@@ -210,7 +263,7 @@ class UQSiteHeader extends HTMLElement {
                         `${jsonParentItem.dataTestid}-${indexChild}` || /* istanbul ignore next */ '',
                     );
 
-                    // a missing primary text allows for an empty cell, controlling the spacing of the menu
+                    // a missing primary text allows for an empty cell on desktop, controlling the spacing of the menu
                     if (!!jsonChild.primaryText) {
                         const primarytextOfLink = document.createTextNode(
                             jsonChild.primaryText || /* istanbul ignore next */ '',
@@ -219,18 +272,26 @@ class UQSiteHeader extends HTMLElement {
                         primaryTextItem.setAttribute('class', 'displayText');
                         primaryTextItem.appendChild(primarytextOfLink);
 
-                        const secondarytextOfLink = document.createTextNode(jsonChild.secondaryText || ' ');
+                        const secondaryText = jsonChild.secondaryText || ' ';
+                        const secondarytextOfLink = document.createTextNode(secondaryText);
                         const secondaryTextItem = document.createElement('span');
-                        secondaryTextItem.setAttribute('class', 'displayText secondaryText');
+                        let secondaryClassName = 'displayText secondaryText';
+                        secondaryText === ' ' && (secondaryClassName += ' desktop-only');
+                        secondaryTextItem.setAttribute('class', secondaryClassName);
                         secondaryTextItem.appendChild(secondarytextOfLink);
 
                         const itemLink = document.createElement('a');
-                        itemLink.setAttribute('href', this.getLink(jsonChild.linkTo));
+                        let itemLinkClassName = ''; // uq-site-header-menu-list-item';
+                        secondaryText === ' ' &&
+                            (itemLinkClassName += ' uq-site-header-menu-list-item-no-secondary-child');
+                        itemLink.setAttribute('class', itemLinkClassName);
+                        !!jsonChild.linkTo && itemLink.setAttribute('href', this.getLink(jsonChild.linkTo));
                         itemLink.appendChild(primaryTextItem);
                         itemLink.appendChild(secondaryTextItem);
-                        itemLink.setAttribute('aria-expanded', 'false');
 
                         listItem.appendChild(itemLink);
+                    } else {
+                        listItem.setAttribute('class', 'desktop-only');
                     }
 
                     listItemWrapper.appendChild(listItem);
@@ -238,9 +299,37 @@ class UQSiteHeader extends HTMLElement {
                 parentListItem.appendChild(listItemWrapper);
             }
 
-            listWrapper.appendChild(parentListItem);
+            listWrapper.insertBefore(parentListItem, insertAboveChild);
         });
+
         return listWrapper;
+    }
+
+    createMobileHeaderItem(linkPrimaryText, datatestid) {
+        const toggle1label = `Show ${linkPrimaryText} sub-navigation`;
+        const textOfToggle = document.createTextNode(toggle1label);
+
+        const parentToggleSpan = document.createElement('span');
+        parentToggleSpan.setAttribute('class', 'visually-hidden');
+        parentToggleSpan.appendChild(textOfToggle);
+
+        const parentMobileToggle = document.createElement('button');
+        parentMobileToggle.setAttribute('class', 'uq-site-header__navigation__sub-toggle');
+        parentMobileToggle.setAttribute('data-testid', `${datatestid}-open`);
+        parentMobileToggle.appendChild(parentToggleSpan);
+        return parentMobileToggle;
+    }
+
+    createDesktopHeaderItem(datatestid, linkTo, primaryText) {
+        const anchor = document.createElement('a');
+        anchor.setAttribute('data-testid', `${datatestid}-link`);
+        anchor.setAttribute('href', this.getLink(linkTo) || /* istanbul ignore next */ '');
+        anchor.setAttribute('aria-expanded', 'false');
+        anchor.setAttribute('aria-haspopup', 'true');
+        anchor.setAttribute('class', 'uq-site-header__navigation-link slide-menu__control');
+        const parentTextNode = document.createTextNode(primaryText);
+        anchor.appendChild(parentTextNode);
+        return anchor;
     }
 
     // we either use the production link from the json,
@@ -253,9 +342,11 @@ class UQSiteHeader extends HTMLElement {
         return window.location.hostname === stagingDomain ? stagingLink : linkTo;
     }
 
+    // the button has moved to uq-header :(
+    // sneaky fix: keep this button as a focus for uq-header to programmatically click to show the megamenu in mobile
     unhideMobileMenuButton() {
-        const button = !!this.shadowRoot && this.shadowRoot.getElementById('uq-site-header__navigation-toggle');
-        !!button && (button.style.display = null);
+        // const button = !!this.shadowRoot && this.shadowRoot.getElementById('uq-site-header__navigation-toggle');
+        // !!button && (button.style.display = null);
     }
 
     loadScript() {
@@ -267,8 +358,8 @@ class UQSiteHeader extends HTMLElement {
         if (!scriptFound) {
             const that = this;
 
-            const showMenu = this.getAttribute('showmenu');
-            const isMegaMenuDisplayed = !!showMenu || showMenu === '';
+            // const showMenu = this.getAttribute('showmenu');
+            // const isMegaMenuDisplayed = !!showMenu || showMenu === '';
 
             //Dynamically import the JS file and append it to the document header
             const script = document.createElement('script');
@@ -280,8 +371,6 @@ class UQSiteHeader extends HTMLElement {
                 // store reference so we can initialise the main menu when it is available
                 that.uqReference = uq;
 
-                // Initialise accordions
-                new uq.accordion();
                 // Equalised grid menu examples
                 var equaliseGridMenu = uq.gridMenuEqualiser('.uq-grid-menu--equalised>a');
                 equaliseGridMenu.align();
@@ -297,6 +386,7 @@ class UQSiteHeader extends HTMLElement {
     connectedCallback() {
         // when this method has fired, the shadow dom is available
         this.loadScript();
+        this.waitOnUqScript();
     }
 }
 

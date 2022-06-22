@@ -1,3 +1,13 @@
+header {
+    color: #2b2a29;
+    font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+    background: #fff;
+    margin: 0;
+    padding: 0;
+}
+
 /* for primo */
 
 .uq-header {
@@ -28,4 +38,16 @@
 
 .skip-to-content-link:focus {
     transform: translateY(-5%);
+}
+
+@media(min-width: 64em) {
+    .uq-header__search.uq-header__search--is-open {
+        margin-top: -15px;
+    }
+}
+
+@media(max-width: 64em) {
+    input[type=radio]+label {
+        padding-left: 2em;
+    }
 }

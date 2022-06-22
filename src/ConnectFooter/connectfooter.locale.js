@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 export default {
     connectFooter: {
-        buttonSocialHeader: 'Connect with us',
+        buttonSocialHeader: 'Connect with the Library',
         buttonSocial: [
             {
                 dataTestid: 'connect-blog-link',
@@ -52,7 +52,7 @@ export default {
             },
             {
                 dataTestid: 'connect-sitemap-link',
-                linklabel: 'Site Map',
+                linklabel: 'Site map',
                 linkTo: 'https://web.library.uq.edu.au/sitemap',
             },
         ],

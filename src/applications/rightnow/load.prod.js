@@ -45,16 +45,11 @@ function loadReusableComponentsRightnow() {
 
     if (!document.querySelector('uq-header')) {
         const header = document.createElement('uq-header');
-        console.log('header = ', header);
         header.setAttribute('hideLibraryMenuItem', '');
         if (!!document.querySelector(`#${siteNameId}`)) {
-            console.log('siteNameId found');
             header.setAttribute('skipnavid', siteNameId);
-        } else {
-            console.log('siteNameId NOT found');
         }
         !!header && document.body.insertBefore(header, firstElement);
-        console.log('after');
     }
 
     if (!document.querySelector('uq-site-header')) {
@@ -95,7 +90,6 @@ function addSkipNavLandingPoint(siteNameId) {
     sitenameAnchor.id = siteNameId;
     sitenameAnchor.href = '#';
     pageHeading.parentElement.insertBefore(sitenameAnchor, pageHeading);
-    console.log('addSkipNavLandingPoint done');
 }
 
 /**

@@ -9,8 +9,14 @@ a.uq-site-header__title h1 {
 }
 
 .uq-site-header {
-    font-size: 16px;
+    color: #2b2a29;
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
     background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
 }
 * {
     font-size: 16px;
@@ -20,6 +26,13 @@ a.uq-site-header__title h1 {
     .uq-site-header__title-container {
         padding-top: 1em;
         padding-bottom: 1em;
+    }
+    .uq-site-header__navigation__sub-toggle {
+        width: 2rem;
+        padding: 0.5rem 1.5rem 1.75rem 0.5rem;
+    }
+    .mobile-only {
+        display: none;
     }
 }
 span.displayText {
@@ -35,9 +48,8 @@ span.displayText {
 }
 
 /* https://css-tricks.com/guide-responsive-friendly-css-columns/ */
-.uq-site-header__navigation__list--level-2.displaymulticolumn-2 > li,
-.uq-site-header__navigation__list--level-2.displaymulticolumn-3 > li {
-    min-height: 2em;
+.uq-site-header__navigation__list--level-2.multicolumn-2 > li,
+.uq-site-header__navigation__list--level-2.multicolumn-3 > li {
     -webkit-column-break-inside: avoid;
     page-break-inside: avoid;
     break-inside: avoid-column;
@@ -45,20 +57,23 @@ span.displayText {
 
 @media (min-width: 64em) {
     /*desktop menu size*/
-    .displaymulticolumn-2 {
+    .multicolumn-2:not(.menu-undisplayed) {
         columns: 2 100px;
         column-gap: 5px;
         column-rule: 1px solid #ccc;
         width: 500px;
     }
-    .displaymulticolumn-3 {
+    .multicolumn-3:not(.menu-undisplayed) {
         columns: 3 100px;
         column-gap: 5px;
         column-rule: 1px solid #ccc;
         width: 750px;
     }
+    .menu-undisplayed,
+    .menu-undisplayed * {
+        width: 0;
+    }
     .uq-site-header__navigation__list--level-2 a {
-        padding: 0.2em 0.2em 0.2em 1em;
         border-bottom-width: 0;
     }
 
@@ -66,15 +81,18 @@ span.displayText {
         min-height: auto;
     }
     .uq-site-header__navigation__list--level-2 {
-        padding-top: 1em;
+        padding-top: 0;
+    }
+    .uq-site-header__navigation__list--level-2.uq-site-header__navigation__list--open {
+        top: 3.5em;
     }
 }
-@media (max-width: 80em) {
-    /* when the menu drops to a single lne, we dont need the spacing under the menu item any more */
-    li.uq-site-header__navigation__list-item--has-subnav a {
-        min-height: 4em;
-    }
-}
+/*@media (max-width: 80em) {*/
+/*    !* when the menu drops to a single lne, we dont need the spacing under the menu item any more *!*/
+/*    li.uq-site-header__navigation__list-item--has-subnav a {*/
+/*        min-height: 4em;*/
+/*    }*/
+/*}*/
 
 /* make the megamenu appear as one line where possible */
 @media (min-width: 64em) {
@@ -86,10 +104,122 @@ span.displayText {
         padding-right: 1.5em;
         background-position: right 0.5em top 1.5em;
     }
+
+    li.megamenu-global-nav--mobile {
+        display: none;
+        width: 0;
+    }
 }
 
 /* primo sets some crazy stuff! lets get that proper bolding back on our homepage link! */
 .uq-site-header__title-container__left a {
     -webkit-font-smoothing: initial;
     -webkit-tap-highlight-color: initial;
+}
+
+.megamenu-global-nav--mobile-header {
+    background-color: #51247a;
+    margin-bottom: 0;
+}
+.megamenu-global-nav--mobile-global {
+    background-color: #48206c;
+    margin-bottom: 0;
+}
+.megamenu-global-nav--mobile-header a,
+.megamenu-global-nav--mobile-global a {
+    color: #fff;
+    border-bottom-width: 0;
+}
+
+@media (max-width: 64em) {
+    .desktop-only {
+        display: none !important;
+    }
+    a.uq-site-header__navigation-link-hidden {
+        display: none;
+    }
+    li.uq-site-header__navigation__list-item--has-subnav a.uq-site-header-menu-list-item-no-secondary-child {
+        min-height: initial;
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+    }
+    .uq-site-header__navigation__list-item-header {
+        margin-bottom: 0;
+    }
+    .uq-site-header__navigation__list-item {
+        padding-left: 1.5em;
+    }
+    .uq-site-header__navigation__list--level-2 > li:nth-child(2) {
+        min-height: 3em;
+        padding-top: 1em;
+    }
+    .uq-site-header__navigation__list-item--open.mobile_only {
+        padding-top: 1em;
+    }
+    a.uq-site-header__navigation-link {
+        padding-left: 0;
+    }
+    .uq-site-header__navigation__sub-toggle {
+        background-image: none;
+        border-width: 0;
+    }
+    button.uq-site-header__navigation__sub-toggle:focus {
+        background-color: initial !important;
+        background-image: none !important;
+    }
+    .uq-site-header__navigation__list--level-2 {
+        box-shadow: none;
+    }
+
+    .uq-site-header__navigation__list--open {
+        transition: transform 0.5s ease;
+    }
+    .uq-site-header__navigation__list--level-2.uq-site-header__navigation__list--open {
+        padding-bottom: 0.5em;
+    }
+    .uq-site-header__navigation__list--level-2 a {
+        padding-left: 0.5rem;
+    }
+    .uq-site-header__navigation__list--hidden {
+        display: none;
+    }
+
+    .slide-menu__slider {
+        width: 100%;
+        transform: translateX(0);
+        transition: transform 0.3s ease-in-out;
+        will-change: transform;
+    }
+
+    .uq-site-header__navigation__list--level-2 .slide-menu__backlink {
+        background-color: #fff;
+        border-width: 0;
+        color: #51247a;
+        font-weight: 600;
+        padding-left: 2rem;
+    }
+
+    .slide-menu__backlink::before {
+        content: '';
+        background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m14 7-5 5 5 5' stroke='%2351247A' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        width: 1.5rem;
+        height: 1.5rem;
+        transform: translateY(50%);
+        position: absolute;
+        left: 0;
+        top: -0.8em;
+    }
+
+    .uq-site-header__navigation__list-item-header + .uq-site-header__navigation__list-item a {
+        height: 3em;
+    }
+
+    .uq-site-header__title {
+        font-size: 1em;
+    }
+}
+
+.uq-site-header__navigation__list--level-1.uq-site-header__navigation__list--open {
+    border-top: none;
 }

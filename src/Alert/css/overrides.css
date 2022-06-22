@@ -48,7 +48,7 @@
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
-    align-items: start;
+    align-items: flex-start;
     padding: 18px 24px 18px 12px !important;
 }
 

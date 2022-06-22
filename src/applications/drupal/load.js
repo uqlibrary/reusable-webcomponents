@@ -119,9 +119,9 @@ function localScriptName() {
 function loadReusableComponentsDrupal() {
     insertScript(localScriptName(), true);
 
-    fontLoader('https://static.uq.net.au/v6/fonts/Roboto/roboto.css');
-    fontLoader('https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css');
-    fontLoader('https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css');
+    fontLoader('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
+    fontLoader('https://static.uq.net.au/v15/fonts/Merriweather/merriweather.css');
+    fontLoader('https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css');
     fontLoader('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
 
     if (drupalHosts.includes(window.location.host) && pagesWithoutComponents.includes(window.location.pathname)) {

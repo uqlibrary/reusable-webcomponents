@@ -9,7 +9,7 @@ prm-voice-search-toast {
         .voice-mobile-view {
             .__xs & {
                 flex-direction: column;
-                justify-content: start !important;
+                justify-content: flex-start !important;
                 padding-top: 7em;
             }
         }

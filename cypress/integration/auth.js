@@ -57,6 +57,7 @@ describe('Auth button', () => {
             cy.get('auth-button').shadow().find('#auth-log-in-label').should('contain', 'Log in');
 
             cy.wait(1500);
+            cy.intercept(/loginuserpass/, 'user visits login page'); // from https://auth.uq.edu.au/idp/module.php/core/loginuserpass.php?&etc
             cy.intercept('GET', authLocale.AUTH_URL_LOGIN, {
                 statusCode: 200,
                 body: 'user visits login page',
@@ -72,6 +73,7 @@ describe('Auth button', () => {
             cy.get('uq-site-header').find('auth-button').should('exist');
             cy.get('auth-button').shadow().find('#auth-log-out-label').should('contain', 'Log out');
             cy.wait(1500);
+            cy.intercept(/localhost/, 'user visits logout page');
             cy.intercept('GET', authLocale.AUTH_URL_LOGOUT, {
                 statusCode: 200,
                 body: 'user visits logout page',

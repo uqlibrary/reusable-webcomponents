@@ -3,80 +3,89 @@ import overrides from './css/overrides.css';
 
 const template = document.createElement('template');
 template.innerHTML = `
-  <style>${styles.toString()}</style>
-  <style>${overrides.toString()}</style>
+    <style>${styles.toString()}</style>
+    <style>${overrides.toString()}</style>
     <button style="display: none" tabindex="0" class="skip-to-content-link" id="skip-nav" data-testid="skip-nav" aria-label="Click to skip to the sites main content">
         Skip to site content
     </button>
-  <header class="uq-header" id="uq-header" data-testid="uq-header">
+    <header class="uq-header" data-gtm-category="Header" data-testid="uq-header">
       <div class="uq-header__container">
-        <div class="nav-global">
-          <div class="logo">
-            <a class="logo--large" id="logo--large" href="https://www.uq.edu.au/" data-testid="uq-header-logo-large-link"><img alt="The University of Queensland" src="https://static.uq.net.au/v11/logos/corporate/uq-lockup-landscape--reversed.svg"></a>
-            <a class="logo--small" id="logo--small" href="https://www.uq.edu.au/" data-testid="uq-header-logo-small-link"><img alt="The University of Queensland" src="https://static.uq.net.au/v11/logos/corporate/uq-logo--reversed.svg"></a>
-          </div>
-          <nav class="menu-global" data-testid="uq-header-nav">
-            <ul>
-              <li><a href="https://contacts.uq.edu.au/" data-testid="uq-header-contacts-link">Contacts</a></li>
-              <li><a href="https://future-students.uq.edu.au/" data-testid="uq-header-study-link">Study</a></li>
-              <li><a href="https://maps.uq.edu.au/" data-testid="uq-header-maps-link">Maps</a></li>
-              <li><a href="https://www.uq.edu.au/news/" data-testid="uq-header-news-link">News</a></li>
-              <li><a href="https://www.uq.edu.au/events/" data-testid="uq-header-events-link">Events</a></li>
-              <li><a href="https://jobs.uq.edu.au/" data-testid="uq-header-jobs-link">Jobs</a></li>
-              <li id="menu-item-library"><a href="https://www.library.uq.edu.au/" data-testid="uq-header-library-link">Library</a></li>
-              <li><a href="https://giving.uq.edu.au/" data-testid="uq-header-givenow-link">Give now</a></li>
-              <li><a href="https://my.uq.edu.au/" data-testid="uq-header-myuq-link">my.UQ</a></li>
-              <li class="menu-global__search-toggle">
-                <button class="search-toggle__button" data-testid="uq-header-search-button">Search</button>
-              </li>
+        <div class="uq-header__menu-toggle" data-target="global-mobile-nav" data-gtm-category="Primary header">
+          <button id="mobile-menu-toggle-button" data-testid="mobile-menu-toggle-button" type="button" class="nav-primary__toggle nav-primary__menu-toggle slide-menu__control" data-target="global-mobile-nav" data-action="toggle" data-gtm-action="Toggle">
+            Menu
+          </button>
+        </div>
+        <div class="uq-header__logo" data-testid="uq-header-logo" data-gtm-category="Primary header">
+          <a class="logo--large" href="https://www.uq.edu.au/" data-gtm-label="UQ Logo" data-testid="uq-header-logo-large-link">
+            <img alt="The University of Queensland" src="https://static.uq.net.au/v15/logos/corporate/uq-logo--reversed.svg">
+          </a>
+        </div>        
+        <div class="uq-header__nav-primary" data-testid="uq-header-primary-nav" data-gtm-category="Primary header">
+          <nav class="uq-header__nav-primary-container" aria-label="primary navigation">
+            <ul class="uq-header__nav-primary-list">
+              <li><a class="uq-header__nav-primary-link" href="https://study.uq.edu.au/" data-testid="uq-header-study-link">Study</a></li>
+              <li><a class="uq-header__nav-primary-link" href="https://research.uq.edu.au/">Research</a></li>
+              <li><a class="uq-header__nav-primary-link" href="https://partners-community.uq.edu.au">Partners and Community</a></li>
+              <li><a class="uq-header__nav-primary-link" href="https://about.uq.edu.au/">About</a></li>
             </ul>
           </nav>
         </div>
-        <div class="nav-search" data-testid="uqheader-nav-search">
-          <form class="nav-search__form" action="https://www.uq.edu.au/search/" method="get" accept-charset="UTF-8">
-            <fieldset class="nav-search__wrapper">
-              <legend class="hidden">
-                <span class="nav-search__title">What are you looking for?</span>
-              </legend>
-              <span class="nav-search__title">What are you looking for?</span>
-              <div class="nav-search__scope">
-                <div class="nav-search__scope__radio-wrapper">
-                  <div class="form-item">
-                    <input type="radio" id="edit-as_sitesearch-off" data-testid="edit-as_sitesearch-off" name="as_sitesearch" value="" class="form-radio">
-                    <label for="edit-as_sitesearch-off" class="option">Search all UQ websites</label>
-                  </div>
-                  <div class="form-item">
-                    <input type="radio" id="edit-as_sitesearch-on" data-testid="edit-as_sitesearch-on" name="as_sitesearch" value="https://library.uq.edu.au/" checked="checked" class="form-radio">
-                    <label for="edit-as_sitesearch-on" class="option" id="search-label">Search this website (library.uq.edu.au)</label>
-                  </div>
-                </div>
+        <div class="uq-header__search-toggle" data-gtm-category="Search">
+          <button class="nav-primary__toggle nav-primary__search-toggle" data-testid="uq-header-search-button" data-gtm-action="Toggle">
+            <div class="search-toggle__label">Search</div>
+          </button>
+        </div>
+      </div>
+      <nav class="slide-menu global-mobile-nav" id="global-mobile-nav" aria-label="primary navigation mobile">
+        <div class="uq-site-header__title-container">
+          <div class="uq-site-header__title-container__left">
+            <a href="/" class="uq-site-header__title">Site title</a>
+          </div>
+        </div>
+      </nav>
+      <div class="uq-header__search" data-gtm-category="Search" data-testid="uqheader-nav-search">
+        <div class="uq-header__search-container">
+          <form action="https://www.uq.edu.au/search/" method="get">
+            <fieldset>
+              <div class="uq-header__search-query">
+                <label for="edit-q" class="visually-hidden uq-header__search-query-label">Search term</label>
+                <input type="text" id="edit-q" data-testid="uq-header-search-input" name="q" value="" maxlength="128" placeholder="Search by keyword" class="uq-header__search-query-input">
+                <span class="uq-header__search-query-button">
+                  <input type="submit" name="op" value="Search" class="uq-header__search-query-submit" data-testid="uq-header-search-submit">
+                </span>
+              </div>
+              <div class="uq-header__search-range">
+                <input type="radio" id="edit-as_sitesearch-off" name="as_sitesearch" value="" class="form-radio uq-header__search-radio" data-testid="edit-as_sitesearch-off">
+                <label for="edit-as_sitesearch-off" class="option uq-header__search-label">Search all UQ websites</label>
+              </div>
+              <div class="uq-header__search-range">
+                <input type="radio" id="edit-as_sitesearch-on" name="as_sitesearch" value="https://library.uq.edu.au/" checked="checked" class="form-radio uq-header__search-radio" data-testid="edit-as_sitesearch-on">
+                <label for="edit-as_sitesearch-on" id="search-label" data-testid="uq-header-search-label-library" class="option uq-header__search-label">Search this website (library.uq.edu.au)</label>
               </div>
             </fieldset>
-            <div class="nav-search__query">
-                <span class="search-query__wrapper">
-                    <label for="edit-q" class="visually-hidden">Search term</label>
-                    <input type="text" id="edit-q" data-testid="uq-header-search-input" name="q" value="" size="60" maxlength="128" class="search-query__input">
-                    <span class="search-query__button">
-                        <input type="submit" name="op" id="op" data-testid="uq-header-search-submit" value="Search" class="search-query__submit">
-                    </span>
-                </span>
-            </div>
-            </form>
-
-            <nav class="menu-global">
-              <ul>
-                <li><a href="https://contacts.uq.edu.au/" data-testid="uq-header-contacts-link-mobile">Contacts</a></li>
-                <li><a href="https://www.uq.edu.au/news/" data-testid="uq-header-news-link-mobile">News</a></li>
-                <li id="menu-item-library-mobile"><a href="https://www.library.uq.edu.au/" data-testid="uq-header-library-link-mobile">Library</a></li>
-                <li><a href="https://future-students.uq.edu.au/" data-testid="uq-header-study-link-mobile">Study</a></li>
-                <li><a href="https://www.uq.edu.au/events/" data-testid="uq-header-events-link-mobile">Events</a></li>
-                <li><a href="https://giving.uq.edu.au/" data-testid="uq-header-giving-link-mobile">Give now</a></li>
-                <li><a href="https://maps.uq.edu.au/" data-testid="uq-header-maps-link-mobile">Maps</a></li>
-                <li><a href="https://jobs.uq.edu.au/" data-testid="uq-header-jobs-link-mobile">Jobs</a></li>
-                <li><a href="https://my.uq.edu.au/" data-testid="uq-header-myuq-link-mobile">my.UQ</a></li>
-              </ul>
-            </nav>
+          </form>
         </div>
+      </div>
+      <div class="uq-header__nav-secondary">
+        <nav class="uq-header__nav-secondary-container" data-testid="uq-header-nav">
+          <ul class="uq-header__nav-secondary-list" data-testid="uq-header-secondary-nav">
+              <li class="uq-header__nav-secondary-item">
+                 <a href="https://www.uq.edu.au/" rel="external" class="uq-header__nav-secondary-link" data-testid="uq-header-logo-small-link">UQ home</a>
+              </li>
+              <li class="uq-header__nav-secondary-item">
+                  <a href="https://www.uq.edu.au/news/" rel="external" class="uq-header__nav-secondary-link" data-testid="uq-header-news-link">News</a>
+              </li>
+              <li class="uq-header__nav-secondary-item">
+                  <a href="https://www.uq.edu.au/uq-events" rel="external" class="uq-header__nav-secondary-link" data-testid="uq-header-events-link">Events</a>
+              </li>
+              <li class="uq-header__nav-secondary-item">
+                  <a href="https://alumni.uq.edu.au/giving" rel="external" class="uq-header__nav-secondary-link" data-testid="uq-header-giving-link">Give</a>
+              </li>
+              <li class="uq-header__nav-secondary-item">
+                <a href="https://contacts.uq.edu.au/" rel="external" class="uq-header__nav-secondary-link" data-testid="uq-header-contacts-link">Contact</a>
+              </li>
+          </ul>
+        </nav>
       </div>
     </header>
 `;
@@ -155,6 +164,8 @@ class UQHeader extends HTMLElement {
         !!skipNavButton && skipNavButton.addEventListener('click', skipToElement);
     }
 
+    // this does not apply to the current version as a Library link didnt make the cut for the top level
+    // lazily leave this here on the assumption this will be fixed at some point
     hideLibraryGlobalMenuItem(newValue) {
         // If the attribute hidelibrarymenuitem is true, remove the global menu item from the DOM
         /* istanbul ignore else  */
@@ -184,7 +195,7 @@ class UQHeader extends HTMLElement {
 
     loadScript() {
         // This loads the external JS file into the HTML head dynamically
-        //Only load js if it has not been loaded before (tracked by the initCalled flag)
+        // Only load js if it has not been loaded before (tracked by the initCalled flag)
         /* istanbul ignore else  */
         if (!initCalled) {
             //Dynamically import the JS file and append it to the document header
@@ -195,7 +206,10 @@ class UQHeader extends HTMLElement {
                 //Code to execute after the library has been downloaded parsed and processed by the browser starts here :)
                 initCalled = true;
                 // Initialise the header once this JS file is loaded
-                new uq.header();
+                const headerElem = document.querySelector('uq-header').shadowRoot.querySelector('.uq-header');
+                !!headerElem && !!uq && !!uq.header && new uq.header(headerElem);
+
+                new uq.accordion(); // opens and closes the Site Search toggle
             };
             //Specify the location of the ITS DS JS file
             script.src = 'uq-header.js';

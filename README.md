@@ -12,9 +12,9 @@ The 'applications/' folder allows us to version control changes to the scripts w
 
 3. Create these git hooks to manage branches to project standard:
 
-  ```sh
-  ln -sf "../../scripts/pre-commit" ".git/hooks/pre-commit"
-  ```
+```sh
+ln -sf "../../scripts/pre-commit" ".git/hooks/pre-commit"
+```
 
 It does two things:
 
@@ -26,21 +26,22 @@ It does two things:
   ```sh
     ln -sf "../../scripts/prepare-commit-msg" ".git/hooks/prepare-commit-msg"
   ```
-When you commit your changes, the above script will require you to have correctly formatted code.
+
+  When you commit your changes, the above script will require you to have correctly formatted code.
 
 ## Development
 
 - run `npm ci` to install packages.
 - run `npm run start` to run the project locally while developing with a listener (calls api on staging for data)
 - run `npm run start:mock` to run the project locally with mock data
-  - While this is running, you can run `npm run cy:open` to manually run cypress tests
+  - While this is running, you can run `npm run cypress:open` to manually run cypress tests
 - run `npm run build` to run a `local` test build in the `dist` folder (this also replaces `gulp styles` in the old reusable for building css locally for pasting into live pages for test)
 - run `npm run build:staging` to run a `staging` test build in the `dist` folder
 - run `npm run build:production` to run a `production` test build in the `dist` folder
 - run `npm run test:local` to run a test build in the `dist` folder and run all cypress tests
 - run `npm run prettier:test` to check all files for codestyles, and
 - run `npm run prettier:fix` to fix all codestyle issues
-- run `npm run cy:run` to run all cypress tests at the command line
+- run `npm run cypress:run:record` to run all cypress tests at the command line
 
 localhost will run on port 8080: `http://localhost:8080/`
 
@@ -58,9 +59,9 @@ Add the following line at the end of your HTML document to initialise the compon
 Note that the _defer_ is important.
 
 ```html
-<link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v6/fonts/Roboto/roboto.css" />
-<link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v9/fonts/Merriweather/merriweather.css" />
-<link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v13/fonts/Montserrat/montserrat.css" />
+<link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v15/fonts/Roboto/roboto.css" />
+<link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v15/fonts/Merriweather/merriweather.css" />
+<link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css" />
 <script
   type="text/javascript"
   src="https://assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js"
@@ -89,8 +90,8 @@ This must be an ANCHOR, not any other html element.
 
 ### Mock user access
 
-* masquerade, web admin (alerts, spotlights) - uqstaff
-* espace - uqstaff, s1111111
+- masquerade, web admin (alerts, spotlights) - uqstaff
+- espace - uqstaff, s1111111
 
 ## Testing
 
@@ -104,11 +105,11 @@ NOTE: CI testing uses environment variables stored on AWS to run cypress success
 
 In addition to the usual branches, the following are in use and should not be deleted from github or AWS Pipelines:
 
-* `feature-drupal` (drupal sandbox calls .js files from this folder cf [drupal readme](src/applications/drupal/readme.md))
-* `primo-prod-dev` (maps to primo env prod-dev. Needed to support uqsvangr cf [primo readme](src/applications/primo/readme.md]))
-* `primo-sandbox` (maps to primo env sandbox-dev. Needed to support uqsvangr)
-* `primo-sandbox-dev` (maps to primo env sandbox-dev. Needed to support uqsvangr)
-* `user-admin-manage` (used by eg uqjtilse to make changes to the megamenu ready for us to merge to master cd [admin user doc](docs/admin-howto.md))
+- `feature-drupal` (drupal sandbox calls .js files from this folder cf [drupal readme](src/applications/drupal/readme.md))
+- `primo-prod-dev` (maps to primo env prod-dev. Needed to support uqsvangr cf [primo readme](src/applications/primo/readme.md]))
+- `primo-sandbox` (maps to primo env sandbox-dev. Needed to support uqsvangr)
+- `primo-sandbox-dev` (maps to primo env sandbox-dev. Needed to support uqsvangr)
+- `user-admin-manage` (used by eg uqjtilse to make changes to the megamenu ready for us to merge to master cd [admin user doc](docs/admin-howto.md))
 
 ## AWS Buckets
 
@@ -147,12 +148,15 @@ There is a cloudfront behaviour on assets.library.uq.edu.au that maps these buck
 
 ### Current contents
 
-- UQ Header (28 Feb 2021) - [ITS DS](https://design-system.uq.edu.au/?path=/docs/components-header--header)
-- UQ Footer (28 Feb 2021) - [ITS DS](https://design-system.uq.edu.au/?path=/docs/components-footer--footer)
+- UQ Header (Last update 28 Feb 2021) - [ITS DS](https://design-system.uq.edu.au/?path=/docs/components-header--header)
+- UQ Footer (Last update 28 Feb 2021) - [ITS DS](https://design-system.uq.edu.au/?path=/docs/components-footer--footer)
+- Training (Last update June 2021) - [ITS DS](https://design-system.uq.edu.au/?path=/docs/components-accordion--using-divs)
 
 #### _Using UQ Header package as an example_
 
 - Follow the export procedure from [ITS Design System github](https://github.com/uq-its-ss/design-system/blob/master/packages/private-design-output/README.md).
+  (Note in June 2022 this required Node v12.12.0 (so do a `nvm use v12.12.0`) - ITS are hoping to update this soon)
+  (`nvm install v12.12.0 && npm cache clear -f && npm ci && npx lerna clean && npx lerna bootstrap && node --version` was a useful string of commands)
 - Copy the exported package to a new folder (eg UQHeader) - or over existing files in the case of an update.
 - Create the Web Component file (eg. UQHeader.js in that folder)
   - Update the reference to the CSS in the css/\*.css

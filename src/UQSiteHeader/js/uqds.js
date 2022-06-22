@@ -22,19 +22,34 @@ function _createClass(Constructor, protoProps, staticProps) {
     return Constructor;
 }
 
+function _removeClassFrom(elem, className) {
+    !!elem.classList.contains(className) && elem.classList.remove(className);
+}
+
+function _addClassTo(elem, className) {
+    !elem.classList.contains(className) && elem.classList.add(className);
+}
+function _searchToggleIsOpen() {
+    var uqheader = document.querySelector('uq-header').shadowRoot;
+    var uqheadersearch = !!uqheader && uqheader.querySelector('.uq-header__search');
+    return !!uqheadersearch && uqheadersearch.classList.contains('uq-header__search--is-open');
+}
+
 var uq = (function (exports) {
     'use strict';
 
-    function toggleMegaMenu(toggle) {
-        const target = this.nav.querySelectorAll(`.${this.level1Class}`);
-        const ariaExpanded = toggle.getAttribute('aria-expanded') === 'true';
-
-        toggle.classList.toggle(`${this.navClass}-toggle--close`);
+    function toggleMenu(toggle) {
+        var ariaExpanded = toggle.getAttribute('aria-expanded') === 'true';
+        var ariaPressed = toggle.getAttribute('aria-pressed') === 'true';
+        toggle.classList.toggle(''.concat(this.navClass, '-toggle--close'));
         toggle.setAttribute('aria-expanded', !ariaExpanded);
-
-        target.forEach((el) => {
-            el.classList.toggle(this.openModifier);
+        toggle.setAttribute('aria-pressed', !ariaPressed);
+        var target = this.nav.querySelectorAll('.'.concat(this.level1Class));
+        var _this = this;
+        target.forEach(function (el) {
+            el.classList.toggle(_this.openModifier);
             el.setAttribute('aria-expanded', !ariaExpanded);
+            el.setAttribute('aria-pressed', !ariaPressed);
         });
     }
 
@@ -46,24 +61,25 @@ var uq = (function (exports) {
     var MainNavigation = /*#__PURE__*/ (function () {
         function MainNavigation(nav, navClass) {
             _classCallCheck(this, MainNavigation);
-            this.nav = nav;
-            this.navClass = navClass;
-            this.toggleClass = 'jsNavToggle';
-            this.openModifier = `${this.navClass}__list--open`;
-            this.levelOpenModifier = `${this.navClass}__list-item--open`;
-            this.level1Class = `${this.navClass}__list--level-1`;
-            this.level2Class = `${this.navClass}__list--level-2`;
-            this.reverseClass = `${this.navClass}__list--reverse`;
-            this.subNavClass = `${this.navClass}__list-item--has-subnav`;
-            this.subToggleClass = `${this.navClass}__sub-toggle`;
 
+            this.nav = nav;
+            this.navClass = navClass; // uq-site-header__navigation
+            this.toggleClass = 'jsNavToggle';
+            this.openModifier = ''.concat(this.navClass, '__list--open');
+            this.hideModifier = ''.concat(this.navClass, '__list--hidden');
+            this.levelOpenModifier = ''.concat(this.navClass, '__list-item--open');
+            this.level1Class = ''.concat(this.navClass, '__list--level-1');
+            this.level2Class = ''.concat(this.navClass, '__list--level-2');
+            this.reverseClass = ''.concat(this.navClass, '__list--reverse');
+            this.subNavClass = ''.concat(this.navClass, '__list-item--has-subnav');
+            this.subToggleClass = ''.concat(this.navClass, '__sub-toggle');
+            this.closeSubLevel = ''.concat(this.navClass, '__list--close');
             this.init = this.init.bind(this);
             this.handleToggle = this.handleToggle.bind(this);
             this.handleMobileToggle = this.handleMobileToggle.bind(this);
             this.handleResize = this.handleResize.bind(this);
             this.setOrientation = this.setOrientation.bind(this);
             this.handleKeyPress = this.handleKeyPress.bind(this);
-
             this.init();
         }
 
@@ -71,67 +87,99 @@ var uq = (function (exports) {
             {
                 key: 'init',
                 value: function init() {
-                    const mobileToggle = document
-                        .querySelector('uq-site-header')
-                        .shadowRoot.querySelector(`.${this.toggleClass}`);
-                    const subNavItems = this.nav.querySelectorAll(`.${this.subNavClass}`);
-                    const subNavLinks = this.nav.querySelectorAll(`.${this.subNavClass} > a`);
-                    const subNavL2Items = this.nav.querySelectorAll(`.${this.level2Class} .${this.subNavClass}`);
-                    const subNavL2Links = this.nav.querySelectorAll(`.${this.level2Class} .${this.subNavClass} > a`);
-                    const navLinks = this.nav.querySelectorAll('li > a');
-                    const subNavToggles = this.nav.querySelectorAll(`.${this.subToggleClass}`);
+                    if (!this.nav) {
+                        return;
+                    }
 
-                    mobileToggle.addEventListener('click', this.handleMobileToggle);
+                    var _this = this;
                     window.addEventListener('resize', this.handleResize);
+                    // if the user's mouse leaves the window we dont want the menus stuck open
+                    window.addEventListener('mouseleave', this.handleToggle);
 
-                    subNavItems.forEach((item) => {
-                        this.setOrientation(item);
-                        item.addEventListener('mouseenter', this.handleToggle);
-                        item.addEventListener('mouseleave', this.handleToggle);
+                    var mobileToggle = document
+                        .querySelector('uq-site-header')
+                        .shadowRoot.querySelector('.'.concat(this.toggleClass));
+                    mobileToggle.addEventListener('click', this.handleMobileToggle);
+
+                    var subNavItems = this.nav.querySelectorAll('.'.concat(this.subNavClass));
+                    subNavItems.forEach(function (item) {
+                        _this.setOrientation(item);
+
+                        item.addEventListener('mouseenter', _this.handleToggle);
+                        item.addEventListener('mouseleave', _this.handleToggle);
                     });
 
-                    subNavLinks.forEach((item) => {
+                    var subNavLinks = this.nav.querySelectorAll('.'.concat(this.subNavClass, ' > a'));
+                    subNavLinks.forEach(function (item) {
                         if (window.matchMedia('(min-width: 1024px)').matches) {
-                            item.addEventListener('touchend', this.handleToggle);
+                            item.addEventListener('touchend', _this.handleToggle);
                         }
                     });
 
-                    subNavL2Items.forEach((item) => {
-                        this.setOrientation(item);
-                        item.addEventListener('mouseenter', this.handleToggle);
-                        item.addEventListener('mouseleave', this.handleToggle);
+                    var subNavL2Items = this.nav.querySelectorAll(
+                        '.'.concat(this.level2Class, ' .').concat(this.subNavClass),
+                    );
+                    subNavL2Items.forEach(function (item) {
+                        _this.setOrientation(item);
+
+                        item.addEventListener('mouseenter', _this.handleToggle);
+                        item.addEventListener('mouseleave', _this.handleToggle);
                     });
 
-                    subNavL2Links.forEach((item) => {
-                        item.addEventListener('touchend', this.handleToggle);
+                    var subNavL2Links = this.nav.querySelectorAll(
+                        '.'.concat(this.level2Class, ' .').concat(this.subNavClass, ' > a'),
+                    );
+                    subNavL2Links.forEach(function (item) {
+                        item.addEventListener('touchend', _this.handleToggle);
                     });
 
-                    navLinks.forEach((item) => {
-                        item.addEventListener('keydown', this.handleKeyPress);
+                    var navLinks = this.nav.querySelectorAll('li > a');
+                    navLinks.forEach(function (item) {
+                        item.addEventListener('keydown', _this.handleKeyPress);
                     });
 
-                    subNavToggles.forEach((item) => {
-                        item.addEventListener('click', this.handleToggle);
+                    var subNavToggles = this.nav.querySelectorAll('.'.concat(this.subToggleClass));
+                    subNavToggles.forEach(function (item) {
+                        item.addEventListener('click', _this.handleToggle);
+                    });
+
+                    var closeItems = this.nav.querySelectorAll('.'.concat(this.closeSubLevel));
+                    closeItems.forEach(function (item) {
+                        item.addEventListener('click', _this.handleToggle);
                     });
                 },
             },
             {
                 key: 'handleMobileToggle',
                 value: function handleMobileToggle(event) {
-                    const toggle = event.target;
-                    toggleMegaMenu.call(this, toggle);
+                    // this handles the click on the invisible site header menu button that toggles the mobile megamenu display
+                    var toggle = event.target;
+                    toggleMenu.call(this, toggle);
                 },
             },
             {
                 key: 'handleResize',
                 value: function handleResize(event) {
-                    const toggle = document
+                    var toggle = document
                         .querySelector('uq-site-header')
                         .shadowRoot.querySelector(`.${this.toggleClass}`);
                     // close the expanded mobile menu if open - otherwise inappropriate classes remain applied
-                    const ariaExpanded = toggle.getAttribute('aria-expanded') === 'true';
+                    var ariaExpanded = toggle.getAttribute('aria-expanded') === 'true';
+                    // primo: when the mobile menu is open, hide the menu bar
+                    // its the only way to not have them sit on _top_ of the mobile menu :(
+                    // NOTE: this code is duplicated in the menu button click handler function of uq-header
+                    var primoNavbar = document
+                        .querySelector('uq-header')
+                        .shadowRoot.querySelector('.top-nav-bar.layout-row');
                     if (!!ariaExpanded) {
-                        toggleMegaMenu.call(this, toggle);
+                        toggleMenu.call(this, toggle);
+                        var topToggleButton = document
+                            .querySelector('uq-header')
+                            .shadowRoot.getElementById('mobile-menu-toggle-button');
+                        !!topToggleButton && _removeClassFrom(topToggleButton, 'nav-primary__menu-toggle--is-open');
+                        !!primoNavbar && (primoNavbar.style.display = 'none');
+                    } else {
+                        !!primoNavbar && (primoNavbar.style.display = null);
                     }
                 },
             },
@@ -139,69 +187,89 @@ var uq = (function (exports) {
                 key: 'handleToggle',
                 value: function handleToggle(event) {
                     if (
+                        !!event.type &&
                         (event.type === 'mouseenter' || event.type === 'mouseleave') &&
-                        window.matchMedia('(max-width: 1023px)').matches
+                        window.matchMedia('(max-width: 1024px)').matches
                     ) {
                         return;
                     }
-                    let menuItem = event.target;
+
+                    var menuItem = event.target;
+
+                    if (menuItem.classList.contains('uq-site-header__navigation__list--close')) {
+                        menuItem = menuItem.parentElement.parentElement;
+                    }
                     if (menuItem.tagName !== 'LI') {
                         menuItem = menuItem.parentElement;
                     }
-                    const subNav = menuItem.querySelector('ul');
+
+                    var subNav = menuItem.querySelector('ul');
 
                     if (subNav.classList.contains(this.openModifier) || event.type === 'mouseleave') {
+                        // closing
                         this.closeLevel(subNav, menuItem);
-                    } else {
+                        this.unhideAllLevels();
+                    } else if (!_searchToggleIsOpen()) {
+                        // opening
                         if (event.type === 'touchend') {
                             event.preventDefault();
                         }
+
                         this.closeAllLevels();
+                        this.hideAllLevels();
                         this.openLevel(subNav, menuItem);
+                        this.setOrientation(menuItem);
+                        this.unhideLevel(menuItem);
                     }
                 },
             },
             {
                 key: 'openLevel',
                 value: function openLevel(subNav, menuItem) {
-                    subNav.classList.add(this.openModifier);
-                    menuItem.classList.add(this.levelOpenModifier);
-
-                    // In Firefox the megamenu is causing the page to have a very large horizontal scrollbar.
-                    // Its seems in firefox, the extra width of multiple columns is still applied even when the menu is closed.
-                    // Multi column in the megamenu is a mandatory user requirement
-                    const child = menuItem.querySelector('ul');
-                    child.classList.contains('multicolumn-2') && child.classList.add('displaymulticolumn-2');
-                    child.classList.contains('multicolumn-3') && child.classList.add('displaymulticolumn-3');
-
-                    !!menuItem && this.setOrientation(menuItem);
-
+                    _addClassTo(subNav, this.openModifier);
+                    _removeClassFrom(subNav, 'menu-undisplayed');
+                    _addClassTo(menuItem, this.levelOpenModifier);
                     menuItem.querySelector('a').setAttribute('aria-expanded', 'true');
+                    menuItem.querySelector('button').setAttribute('aria-expanded', 'true');
+                    menuItem.querySelector('button').setAttribute('aria-pressed', 'true');
+                    this.hideMenuitemButton(menuItem);
+                },
+            },
+            {
+                key: 'hideMenuitemButton',
+                value: function hideMenuitemButton(menuItem) {
+                    _addClassTo(menuItem, 'mobile_only');
+                    _addClassTo(menuItem.querySelector('a'), 'uq-site-header__navigation-link-hidden');
+                },
+            },
+            {
+                key: 'unhideMenuitemButton',
+                value: function unhideMenuitemButton(menuItem) {
+                    _removeClassFrom(menuItem, 'mobile_only');
+                    _removeClassFrom(menuItem.querySelector('a'), 'uq-site-header__navigation-link-hidden');
                 },
             },
             {
                 key: 'closeLevel',
                 value: function closeLevel(subNav, menuItem) {
-                    const { reverseClass } = this;
-                    subNav.classList.remove(reverseClass);
-
-                    !!subNav &&
-                        subNav.classList.contains(this.openModifier) &&
-                        subNav.classList.remove(this.openModifier);
-                    !!menuItem && this.setOrientation(menuItem);
-                    !!menuItem &&
-                        menuItem.classList.contains(this.levelOpenModifier) &&
-                        menuItem.classList.remove(this.levelOpenModifier);
-
-                    const child = !!menuItem && menuItem.querySelector('ul');
-                    !!child &&
-                        child.classList.contains('displaymulticolumn-2') &&
-                        child.classList.remove('displaymulticolumn-2');
-                    !!child &&
-                        child.classList.contains('displaymulticolumn-3') &&
-                        child.classList.remove('displaymulticolumn-3');
-
-                    !!menuItem && menuItem.querySelector('a').setAttribute('aria-expanded', 'false');
+                    _removeClassFrom(subNav, this.openModifier);
+                    _addClassTo(subNav, 'menu-undisplayed');
+                    this.unhideMenuitemButton(menuItem);
+                    this.setOrientation(menuItem);
+                    _removeClassFrom(menuItem, this.levelOpenModifier);
+                    menuItem.querySelector('a').setAttribute('aria-expanded', 'false');
+                    menuItem.querySelector('button').setAttribute('aria-expanded', 'false');
+                    menuItem.querySelector('button').setAttribute('aria-pressed', 'false');
+                    menuItem.parentNode.querySelector('ul').setAttribute('aria-expanded', 'false');
+                    menuItem.parentNode.querySelector('ul').setAttribute('aria-pressed', 'false');
+                },
+            },
+            {
+                key: 'closeNav',
+                value: function closeNav(menuItem) {
+                    _removeClassFrom(menuItem, this.openModifier);
+                    menuItem.parentNode.querySelector('ul').setAttribute('aria-expanded', 'false');
+                    menuItem.parentNode.querySelector('ul').setAttribute('aria-pressed', 'false');
                 },
             },
             {
@@ -218,40 +286,90 @@ var uq = (function (exports) {
                 },
             },
             {
+                key: 'hideAllLevels',
+                value: function hideAllLevels() {
+                    var _this4 = this;
+                    var listHeaderItem = 'nav > ul.uq-site-header__navigation__list > li';
+                    var levels = this.nav.querySelectorAll(listHeaderItem);
+                    levels.forEach(function (level) {
+                        _this4.hideLevel(level);
+                    });
+                },
+            },
+            {
+                key: 'unhideAllLevels',
+                value: function hideAllLevels() {
+                    var _this5 = this;
+
+                    var listHeaderItem = 'nav > ul.uq-site-header__navigation__list > li';
+                    var levels = this.nav.querySelectorAll(listHeaderItem);
+                    levels.forEach(function (level) {
+                        _this5.unhideLevel(level);
+                    });
+                },
+            },
+            {
+                key: 'hideLevel',
+                value: function hideLevel(level) {
+                    _addClassTo(level, this.hideModifier);
+                },
+            },
+            {
+                key: 'unhideLevel',
+                value: function unhideLevel(level) {
+                    _removeClassFrom(level, this.hideModifier);
+                },
+            },
+            {
                 key: 'setOrientation',
                 value: function setOrientation(item) {
-                    const subNav = item.querySelector(`.${this.level2Class}`);
-                    const { reverseClass } = this;
-                    let subNavRight = 0;
+                    var subNav = item.querySelector('.'.concat(this.level2Class));
+                    var reverseClass = this.reverseClass;
+                    var subNavRight = 0;
+
                     if (subNav && subNav.getBoundingClientRect()) {
                         subNavRight = subNav.getBoundingClientRect().right;
                     }
 
                     if (window.innerWidth < subNavRight) {
-                        subNav.classList.add(reverseClass);
+                        _addClassTo(subNav, reverseClass);
                     }
                 },
             },
             {
                 key: 'handleKeyPress',
                 value: function handleKeyPress(event) {
-                    const parent = event.currentTarget.parentNode;
-                    const nav = parent.parentNode;
-                    const mobileToggle = document.querySelector(`.${this.toggleClass}`);
+                    var parent = event.currentTarget.parentNode;
+                    var nav = parent.parentNode;
+                    var mobileToggle = document
+                        .querySelector('uq-site-header')
+                        .shadowRoot.querySelector('.'.concat(this.toggleClass));
 
                     if (parent === nav.firstElementChild) {
                         // If we shift tab past the first child, toggle this level.
                         if (event.key === 'Tab' && event.shiftKey === true) {
-                            this.closeLevel(nav, nav.parentNode);
-                            mobileToggle.classList.toggle(`${this.navClass}-toggle--close`);
-                            mobileToggle.setAttribute('aria-expanded', 'false');
+                            if (nav.classList.contains(this.level2Class)) {
+                                this.closeLevel(nav, nav.parentNode, subNav);
+                                _removeClassFrom(nav.parentNode, this.levelOpenModifier);
+                            } else {
+                                this.closeNav(nav);
+                                mobileToggle.classList.toggle(''.concat(this.navClass, '-toggle--close'));
+                                mobileToggle.setAttribute('aria-expanded', 'false');
+                                mobileToggle.setAttribute('aria-pressed', 'false');
+                            }
                         }
                     } else if (parent === nav.lastElementChild) {
                         // If we tab past the last child, toggle this level.
                         if (event.key === 'Tab' && event.shiftKey === false) {
-                            this.closeLevel(nav, nav.parentNode);
-                            mobileToggle.classList.toggle(`${this.navClass}-toggle--close`);
-                            mobileToggle.setAttribute('aria-expanded', 'false');
+                            if (nav.classList.contains(this.level2Class)) {
+                                this.closeLevel(nav, nav.parentNode);
+                                _removeClassFrom(nav.parentNode, this.levelOpenModifier);
+                            } else {
+                                this.closeNav(nav);
+                                mobileToggle.classList.toggle(''.concat(this.navClass, '-toggle--close'));
+                                mobileToggle.setAttribute('aria-expanded', 'false');
+                                mobileToggle.setAttribute('aria-pressed', 'false');
+                            }
                         }
                     }
 
@@ -264,8 +382,6 @@ var uq = (function (exports) {
                         case 40:
                             event.preventDefault();
                             this.handleToggle(event);
-                            break;
-                        default:
                             break;
                     }
                 },
@@ -293,283 +409,6 @@ var uq = (function (exports) {
         throw new Error('Dynamic requires are not currently supported by @rollup/plugin-commonjs');
     }
 
-    // per https://stackoverflow.com/questions/34849001/check-if-css-selector-is-valid/42149818
-    const isSelectorValid = ((dummyElement) => (selector) => {
-        try {
-            dummyElement.querySelector(selector);
-        } catch {
-            return false;
-        }
-        return true;
-    })(document.createDocumentFragment());
-
-    var ready = createCommonjsModule(function (module) {
-        /*!
-         * domready (c) Dustin Diaz 2014 - License MIT
-         */
-        !(function (name, definition) {
-            module.exports = definition();
-        })('domready', function () {
-            var fns = [],
-                _listener,
-                doc = document,
-                hack = doc.documentElement.doScroll,
-                domContentLoaded = 'DOMContentLoaded',
-                loaded = (hack ? /^loaded|^c/ : /^loaded|^i|^c/).test(doc.readyState);
-
-            if (!loaded)
-                doc.addEventListener(
-                    domContentLoaded,
-                    (_listener = function listener() {
-                        doc.removeEventListener(domContentLoaded, _listener);
-                        loaded = 1;
-
-                        while ((_listener = fns.shift())) {
-                            _listener();
-                        }
-                    }),
-                );
-            return function (fn) {
-                loaded ? setTimeout(fn, 0) : fns.push(fn);
-            };
-        });
-    });
-    /**
-     * @file
-     * UQ Accordion JS (instantiates an object that controls "accordion" nodes for
-     * the entire document). You need to make sure your accordion HTML is correctly
-     * formatted and the accompanying SCSS/CSS is loaded as well.
-     */
-
-    var accordion = /*#__PURE__*/ (function () {
-        /**
-         * @constructor
-         * @param {String} [className] - Class name of accordion wrappers (optional;
-         * default: "accordion").
-         */
-        function accordion(className) {
-            _classCallCheck(this, accordion);
-
-            if (!className) {
-                className = 'accordion';
-            } else {
-                className = className;
-            }
-
-            this.className = className;
-            this.init();
-        }
-
-        _createClass(
-            accordion,
-            [
-                {
-                    key: 'slideContentUp',
-
-                    /**
-                     * Method to hide accordion content
-                     * @method
-                     * @param {HTMLElement} el - 'Toggler' HTML element.
-                     */
-                    value: function slideContentUp(el) {
-                        var _this4 = this;
-
-                        var content = accordion.getNextSibling(el, '.'.concat(this.className, '__content'));
-                        el.classList.remove(''.concat(this.className, '__toggle--active'));
-                        el.setAttribute('aria-expanded', 'false');
-                        content.style.height = '0px';
-                        content.addEventListener(
-                            'transitionend',
-                            function () {
-                                content.classList.remove(''.concat(_this4.className, '__content--active'));
-                            },
-                            {
-                                once: true,
-                            },
-                        );
-                        content.setAttribute('aria-hidden', 'true');
-                    },
-                    /**
-                     * Method to show accordion content
-                     * @method
-                     * @param {HTMLElement} el - 'Toggler' HTML element.
-                     */
-                },
-                {
-                    key: 'slideContentDown',
-                    value: function slideContentDown(el) {
-                        var content = accordion.getNextSibling(el, '.'.concat(this.className, '__content'));
-                        el.classList.add(''.concat(this.className, '__toggle--active'));
-                        el.setAttribute('aria-expanded', 'true');
-                        content.classList.add(''.concat(this.className, '__content--active'));
-                        content.style.height = 'auto';
-                        var height = content.clientHeight + 'px';
-                        content.style.height = '0px';
-                        setTimeout(function () {
-                            content.style.height = height;
-                        }, 0);
-                        content.setAttribute('aria-hidden', 'false');
-                    },
-                    /**
-                     * Method to hide all other accordion content except for passed element.
-                     * @method
-                     * @param {HTMLElement} el - Excluded 'Toggler' HTML element.
-                     * @param {HTMLElement[]} togglers - List of 'toggler' elements.
-                     */
-                },
-                {
-                    key: 'slideUpOthers',
-                    value: function slideUpOthers(el, togglers) {
-                        for (var i = 0; i < togglers.length; i++) {
-                            if (togglers[i] !== el) {
-                                if (togglers[i].classList.contains(''.concat(this.className, '__toggle--active'))) {
-                                    this.slideContentUp(togglers[i]);
-                                }
-                            }
-                        }
-                    },
-                    /**
-                     * Click handler for 'togglers'
-                     * @method
-                     * @param {HTMLElement[]} togglers - List of 'toggler' elements.
-                     */
-                },
-                {
-                    key: 'handleToggle',
-                    value: function handleToggle(togglers) {
-                        var _this5 = this;
-
-                        return function (e) {
-                            e.preventDefault();
-
-                            if (e.target.classList.contains(''.concat(_this5.className, '__toggle--active'))) {
-                                _this5.slideContentUp(e.target);
-                            } else {
-                                _this5.slideContentDown(e.target);
-
-                                _this5.slideUpOthers(e.target, togglers);
-                            }
-                        };
-                    },
-                    /**
-                     * Initialise accordion behavior
-                     * @method
-                     */
-                },
-                {
-                    key: 'init',
-                    value: function init() {
-                        var _this6 = this;
-
-                        ready(function () {
-                            if (window.location.hash) {
-                                _this6.hash = window.location.hash;
-                            } // Scroll to hash (param string) selected accordion
-
-                            if (_this6.hash && _this6.hash !== '') {
-                                let selectors = ''.concat(_this6.hash, '.').concat(_this6.className, '__content');
-                                // on uqlapp we get weird errors like
-                                // "Failed to execute 'querySelector' on 'DocumentFragment': '#/membership.accordion__content' is not a valid selector."
-                                // where #/membership is a vital part of the url
-                                // note: uqlapp does not display the megamenu
-                                selectors = selectors.replace('#/membership.', '');
-                                if (!isSelectorValid(selectors)) {
-                                    console.log(
-                                        'selector ',
-                                        selectors,
-                                        ' has probably caused the uqsiteheader to silently fail',
-                                    );
-                                }
-                                var hashSelectedContent =
-                                    isSelectorValid(selectors) &&
-                                    document.querySelector('uq-header').shadowRoot.querySelector(selectors);
-
-                                if (hashSelectedContent) {
-                                    // Only apply classes on load when linking directly to an accordion item.
-                                    var hashSelected = accordion.getPrevSibling(
-                                        hashSelectedContent,
-                                        '.'.concat(_this6.className, '__toggle'),
-                                    );
-
-                                    _this6.slideContentDown(hashSelected); // Scroll to top of selected item.
-
-                                    window.scrollTo(0, hashSelected.getBoundingClientRect().top);
-                                }
-                            }
-
-                            var accordions = document
-                                .querySelector('uq-header')
-                                .shadowRoot.querySelectorAll('.'.concat(_this6.className));
-                            accordions.forEach(function (el) {
-                                var togglers = el.querySelectorAll('.'.concat(_this6.className, '__toggle'));
-                                togglers.forEach(function (el) {
-                                    el.addEventListener('click', _this6.handleToggle(togglers));
-                                });
-                            });
-                        });
-                    },
-                },
-            ],
-            [
-                {
-                    key: 'getNextSibling',
-
-                    /**
-                     * Method to replace jQuery's .next() method.
-                     * See: https://gomakethings.com/finding-the-next-and-previous-sibling-elements-that-match-a-selector-with-vanilla-js/
-                     * @static
-                     * @param {HTMLElement} el - HTML element.
-                     * @param {String} selector - CSS selector string.
-                     */
-                    value: function getNextSibling(el, selector) {
-                        // Get the next sibling element
-                        var sibling = el.nextElementSibling; // If there's no selector, return the first sibling
-
-                        if (!selector) {
-                            return sibling;
-                        } // If the sibling matches our selector, use it
-                        // If not, jump to the next sibling and continue the loop
-
-                        while (sibling) {
-                            if (sibling.matches(selector)) {
-                                return sibling;
-                            }
-
-                            sibling = sibling.nextElementSibling;
-                        }
-                    },
-                    /**
-                     * Method to get previous sibling element.
-                     * @static
-                     * @param {HTMLElement} el - HTML element.
-                     * @param {String} selector - CSS selector string.
-                     */
-                },
-                {
-                    key: 'getPrevSibling',
-                    value: function getPrevSibling(el, selector) {
-                        // Get the next sibling element
-                        var sibling = el.previousElementSibling; // If there's no selector, return the first sibling
-
-                        if (!selector) {
-                            return sibling;
-                        } // If the sibling matches our selector, use it
-                        // If not, jump to the next sibling and continue the loop
-
-                        while (sibling) {
-                            if (sibling.matches(selector)) {
-                                return sibling;
-                            }
-
-                            sibling = sibling.previousElementSibling;
-                        }
-                    },
-                },
-            ],
-        );
-
-        return accordion;
-    })();
     /**
      * Equaliser script extracted and modified from Equalizer
      * (https://github.com/skrajewski/Equalizer).
@@ -623,7 +462,6 @@ var uq = (function (exports) {
         return gridMenuEqualiser;
     })();
 
-    exports.accordion = accordion;
     exports.gridMenuEqualiser = gridMenuEqualiser;
     exports.siteHeaderNavigation = MainNavigation;
     return exports;
