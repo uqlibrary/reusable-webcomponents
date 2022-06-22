@@ -6710,7 +6710,7 @@ input[type=radio].uq-input--error:checked::after {
 }
 
 .uq-site-header__navigation__list-item--active>a {
-    border-left: 2px solid #51247a
+    /* border-left: 2px solid #51247a */
 }
 
 @media(min-width: 64em) {
@@ -6733,7 +6733,7 @@ input[type=radio].uq-input--error:checked::after {
     padding: 1.75em 1.5em;
     border: 0;
     border-left: 1px solid #e7e3e0;
-    text-indent: -100vw;
+    text-indent: -1000vw;
     background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m7 10 5 5 5-5' stroke='%2351247A' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e");
     background-size: 1em;
     background-position: center center;
