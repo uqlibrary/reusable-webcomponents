@@ -25,7 +25,7 @@ template.innerHTML = `
             <ul class="uq-header__nav-primary-list">
               <li><a class="uq-header__nav-primary-link" href="https://study.uq.edu.au/" data-testid="uq-header-study-link">Study</a></li>
               <li><a class="uq-header__nav-primary-link" href="https://research.uq.edu.au/">Research</a></li>
-              <li><a class="uq-header__nav-primary-link" href="https://partners-community.uq.edu.au">Partners and Community</a></li>
+              <li><a class="uq-header__nav-primary-link" href="https://partners-community.uq.edu.au">Partners and community</a></li>
               <li><a class="uq-header__nav-primary-link" href="https://about.uq.edu.au/">About</a></li>
             </ul>
           </nav>
