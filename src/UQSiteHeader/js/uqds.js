@@ -247,24 +247,35 @@ var uq = (function (exports) {
             {
                 key: 'closeLevel',
                 value: function closeLevel(subNav, menuItem) {
-                    _removeClassFrom(subNav, this.openModifier);
-                    _addClassTo(subNav, 'menu-undisplayed');
+                    /*
+                     * subnav is the nav sub menu that drops down
+                     * menuitem is the parent that includes the menu label and the submenu
+                     */
+                    if (!menuItem) {
+                        return;
+                    }
+                    !!subNav && _removeClassFrom(subNav, this.openModifier);
+                    !!subNav && _addClassTo(subNav, 'menu-undisplayed');
                     this.unhideMenuitemButton(menuItem);
                     this.setOrientation(menuItem);
                     _removeClassFrom(menuItem, this.levelOpenModifier);
-                    menuItem.querySelector('a').setAttribute('aria-expanded', 'false');
-                    menuItem.querySelector('button').setAttribute('aria-expanded', 'false');
-                    menuItem.querySelector('button').setAttribute('aria-pressed', 'false');
-                    menuItem.parentNode.querySelector('ul').setAttribute('aria-expanded', 'false');
-                    menuItem.parentNode.querySelector('ul').setAttribute('aria-pressed', 'false');
+                    var anchor = menuItem.querySelector('a');
+                    !!anchor && anchor.setAttribute('aria-expanded', 'false');
+                    var button = menuItem.querySelector('button');
+                    !!button && button.setAttribute('aria-expanded', 'false');
+                    !!button && button.setAttribute('aria-pressed', 'false');
+                    var ul = menuItem.parentNode.querySelector('ul');
+                    !!ul && ul.setAttribute('aria-expanded', 'false');
+                    !!ul && ul.setAttribute('aria-pressed', 'false');
                 },
             },
             {
                 key: 'closeNav',
                 value: function closeNav(menuItem) {
                     _removeClassFrom(menuItem, this.openModifier);
-                    menuItem.parentNode.querySelector('ul').setAttribute('aria-expanded', 'false');
-                    menuItem.parentNode.querySelector('ul').setAttribute('aria-pressed', 'false');
+                    var ul = menuItem.parentNode.querySelector('ul');
+                    !!ul && ul.setAttribute('aria-expanded', 'false');
+                    !!ul && ul.setAttribute('aria-pressed', 'false');
                 },
             },
             {
