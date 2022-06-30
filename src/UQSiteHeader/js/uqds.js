@@ -39,11 +39,11 @@ var uq = (function (exports) {
     'use strict';
 
     function toggleMenu(toggle) {
-        var ariaExpanded = toggle.getAttribute('aria-expanded') === 'true';
-        var ariaPressed = toggle.getAttribute('aria-pressed') === 'true';
-        toggle.classList.toggle(''.concat(this.navClass, '-toggle--close'));
-        toggle.setAttribute('aria-expanded', !ariaExpanded);
-        toggle.setAttribute('aria-pressed', !ariaPressed);
+        var ariaExpanded = !!toggle && toggle.getAttribute('aria-expanded') === 'true';
+        var ariaPressed = !!toggle && toggle.getAttribute('aria-pressed') === 'true';
+        !!toggle && toggle.classList.toggle(''.concat(this.navClass, '-toggle--close'));
+        !!toggle && toggle.setAttribute('aria-expanded', !ariaExpanded);
+        !!toggle && toggle.setAttribute('aria-pressed', !ariaPressed);
         var target = this.nav.querySelectorAll('.'.concat(this.level1Class));
         var _this = this;
         target.forEach(function (el) {
@@ -163,8 +163,8 @@ var uq = (function (exports) {
                     var toggle = document
                         .querySelector('uq-site-header')
                         .shadowRoot.querySelector(`.${this.toggleClass}`);
-                    // close the expanded mobile menu if open - otherwise inappropriate classes remain applied
                     var ariaExpanded = toggle.getAttribute('aria-expanded') === 'true';
+
                     // primo: when the mobile menu is open, hide the menu bar
                     // its the only way to not have them sit on _top_ of the mobile menu :(
                     // NOTE: this code is duplicated in the menu button click handler function of uq-header
@@ -172,11 +172,6 @@ var uq = (function (exports) {
                         .querySelector('uq-header')
                         .shadowRoot.querySelector('.top-nav-bar.layout-row');
                     if (!!ariaExpanded) {
-                        toggleMenu.call(this, toggle);
-                        var topToggleButton = document
-                            .querySelector('uq-header')
-                            .shadowRoot.getElementById('mobile-menu-toggle-button');
-                        !!topToggleButton && _removeClassFrom(topToggleButton, 'nav-primary__menu-toggle--is-open');
                         !!primoNavbar && (primoNavbar.style.display = 'none');
                     } else {
                         !!primoNavbar && (primoNavbar.style.display = null);
