@@ -119,12 +119,12 @@ describe('Dummy Application', () => {
         cy.get('uq-footer').should('not.exist');
     }
 
-    function hasAuthButton() {
+    function hasAuthButton(username = 'Vanilla User') {
         cy.get('auth-button')
             .shadow()
             .find('button[data-testid="auth-button-logout')
             .should('exist')
-            .and('contain', 'Log out');
+            .and('contain', username);
     }
 
     function hasMyLibraryButton() {

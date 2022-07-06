@@ -14,11 +14,11 @@ const authorisedtemplate = document.createElement('template');
 authorisedtemplate.innerHTML = `
     <style>${styles.toString()}</style>
     <div id="auth">
-     <button id="auth-button-logout" data-testid="auth-button-logout">
+     <button id="auth-button-logout" data-testid="auth-button-logout" title="Log out">
         <svg id="auth-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true" id="logged-in-icon">
             <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
         </svg>
-        <div id="auth-log-out-label">Log out</div>
+        <div id="auth-log-out-label" data-testid="auth-button-logout-label"></div>
     </button>
     </div>
 `;
@@ -30,7 +30,7 @@ unauthorisedtemplate.innerHTML = `
             <svg id="auth-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true" id="logged-out-icon">
                 <path d="M12 5.9c1.16 0 2.1.94 2.1 2.1s-.94 2.1-2.1 2.1S9.9 9.16 9.9 8s.94-2.1 2.1-2.1m0 9c2.97 0 6.1 1.46 6.1 2.1v1.1H5.9V17c0-.64 3.13-2.1 6.1-2.1M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 9c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z"></path>
             </svg>
-            <div id="auth-log-in-label">Log in</div>
+            <div id="auth-log-in-label" data-testid="auth-button-login-label">Log in</div>
         </button>
     </div>
 `;
@@ -55,12 +55,14 @@ class AuthButton extends HTMLElement {
         this.showLoginFromAuthStatus = this.showLoginFromAuthStatus.bind(this);
         this.addButtonListeners = this.addButtonListeners.bind(this);
         this.checkAuthorisedUser = this.checkAuthorisedUser.bind(this);
+        this.displayUserNameOnLogoutButton = this.displayUserNameOnLogoutButton.bind(this);
         this.isOverwriteAsLoggedOutRequested = this.isOverwriteAsLoggedOutRequested.bind(this);
     }
 
     async showLoginFromAuthStatus(shadowDOM) {
         const that = this;
-        this.checkAuthorisedUser().then((isAuthorised) => {
+        this.checkAuthorisedUser(shadowDOM).then((account) => {
+            const isAuthorised = !!account.id;
             const template = !!isAuthorised ? authorisedtemplate : unauthorisedtemplate;
 
             // Render the template
@@ -68,6 +70,8 @@ class AuthButton extends HTMLElement {
             that.addButtonListeners(shadowDOM);
 
             if (!!isAuthorised) {
+                this.displayUserNameOnLogoutButton(shadowDOM, account);
+
                 // if we can find the stub we built for mylibrary, replace it with the button
                 const mylibraryStub = document.getElementById(mylibraryLocale.MYLIBRARY_STUB_ID);
                 if (!mylibraryStub || mylibraryStub.children.length > 0) {
@@ -79,6 +83,41 @@ class AuthButton extends HTMLElement {
                 !!mylibraryButton && mylibraryStub.parentNode.replaceChild(mylibraryButton, mylibraryStub);
             }
         });
+    }
+
+    displayUserNameOnLogoutButton(shadowDOM, account) {
+        function getShortName() {
+            /* istanbul ignore next */
+            if (!account.firstName || !account.lastName) {
+                return authLocale.logoutButtonLabelDefault;
+            }
+
+            // some people have a '.' or a '-' for their last name.
+            // Assume this is notation for 'user uses a single word name'
+            const lastName = account.lastName.trim();
+            const usesASingleName = lastName.length <= 1 && !lastName.match(/[a-z]/i);
+            const cleanedLastName = usesASingleName ? '' : lastName;
+
+            const maxLength = 12;
+            const firstInitial = account.firstName.substring(0, 1);
+
+            if (cleanedLastName.length > maxLength || (usesASingleName && account.firstName.length > maxLength)) {
+                /* istanbul ignore next */
+                if (!account.id) {
+                    return authLocale.logoutButtonLabelDefault;
+                }
+                return account.id;
+            }
+            const fullDisplayName = `${account.firstName} ${cleanedLastName}`.trim();
+            if (fullDisplayName.length > maxLength) {
+                return `${firstInitial} ${cleanedLastName}`;
+            }
+            return fullDisplayName;
+        }
+
+        const userNameField = !!shadowDOM && shadowDOM.getElementById('auth-log-out-label');
+        const textNode = document.createTextNode(getShortName());
+        !!userNameField && userNameField.appendChild(textNode);
     }
 
     addButtonListeners(shadowDOM) {
@@ -105,7 +144,7 @@ class AuthButton extends HTMLElement {
             /* istanbul ignore next */ console.log('neither logged in nor logged out buttons exist');
     }
 
-    async checkAuthorisedUser() {
+    async checkAuthorisedUser(shadowDOM) {
         this.accountLoading = true;
         this.account = {};
         let loggedin = null;
@@ -120,14 +159,12 @@ class AuthButton extends HTMLElement {
                     that.account = account;
                 }
                 that.accountLoading = false;
-
-                loggedin = !!that.account && !!that.account.id;
             })
             .catch((error) => {
                 that.accountLoading = false;
-                loggedin = false;
             });
-        return loggedin;
+
+        return that.account;
     }
 
     // we have an option to add the attribute `overwriteasloggedout` to the authbutton

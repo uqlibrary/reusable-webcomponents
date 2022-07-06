@@ -6,36 +6,17 @@ import { authLocale } from '../../src/UtilityArea/auth.locale';
 
 describe('Auth button', () => {
     context('Auth button', () => {
-        it('logged in user sees a "Log out" button', () => {
-            cy.visit('http://localhost:8080');
-            cy.viewport(1280, 900);
+        function nameIsDisplayedOnLogOutButtonCorrectly(userName, displayName) {
+            cy.visit('http://localhost:8080/?user=' + userName);
             cy.wait(100);
             cy.get('uq-site-header').find('auth-button').should('exist');
-            cy.injectAxe();
-            cy.checkA11y('auth-button', {
-                reportName: 'Auth Loggedin',
-                scopeName: 'Accessibility',
-                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
-            });
-            cy.get('auth-button').shadow().find('#auth-log-out-label').should('contain', 'Log out');
-        });
+            cy.get('auth-button')
+                .shadow()
+                .find('[data-testid="auth-button-logout-label"]')
+                .should('contain', displayName);
+        }
 
-        it('`overwriteasloggedout` attribute always show them as logged out', () => {
-            cy.visit('http://localhost:8080/index-primo.html');
-            cy.viewport(1280, 900);
-            cy.wait(100);
-            cy.get('auth-button').shadow().find('#auth-log-in-label').should('contain', 'Log in');
-        });
-
-        it('another logged in user sees a "Log out" button', () => {
-            cy.visit('http://localhost:8080/?user=s1111111');
-            cy.viewport(1280, 900);
-            cy.wait(100);
-            cy.get('uq-site-header').find('auth-button').should('exist');
-            cy.get('auth-button').shadow().find('#auth-log-out-label').should('contain', 'Log out');
-        });
-
-        it('logged out user sees a "Log in" button"', () => {
+        it('logged out user sees a "Log in" button" and widget is accessible', () => {
             cy.visit('http://localhost:8080/?user=public');
             cy.viewport(1280, 900);
             cy.injectAxe();
@@ -46,33 +27,49 @@ describe('Auth button', () => {
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
             });
             cy.get('uq-site-header').find('auth-button').should('exist');
-            cy.get('auth-button').shadow().find('#auth-log-in-label').should('contain', 'Log in');
+            cy.get('auth-button').shadow().find('[data-testid="auth-button-login-label"]').should('contain', 'Log in');
         });
 
-        it('Navigates to login page', () => {
-            cy.visit('http://localhost:8080/?user=public');
+        it('the auth button widget is accessible', () => {
+            cy.visit('http://localhost:8080');
             cy.viewport(1280, 900);
             cy.wait(100);
             cy.get('uq-site-header').find('auth-button').should('exist');
-            cy.get('auth-button').shadow().find('#auth-log-in-label').should('contain', 'Log in');
+            cy.injectAxe();
+            cy.checkA11y('auth-button', {
+                reportName: 'Auth Loggedin',
+                scopeName: 'Accessibility',
+                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+            });
+        });
 
-            cy.wait(1500);
+        it('`overwriteasloggedout` attribute always show them as logged out', () => {
+            cy.visit('http://localhost:8080/index-primo.html');
+            cy.viewport(1280, 900);
+            cy.wait(100);
+            cy.get('auth-button').shadow().find('[data-testid="auth-button-login-label"]').should('contain', 'Log in');
+        });
+
+        it('Navigates to login page', () => {
             cy.intercept(/loginuserpass/, 'user visits login page'); // from https://auth.uq.edu.au/idp/module.php/core/loginuserpass.php?&etc
             cy.intercept('GET', authLocale.AUTH_URL_LOGIN, {
                 statusCode: 200,
                 body: 'user visits login page',
             });
+
+            cy.visit('http://localhost:8080/?user=public');
+            cy.viewport(1280, 900);
+            cy.wait(100);
+            cy.get('uq-site-header').find('auth-button').should('exist');
+            cy.get('auth-button').shadow().find('[data-testid="auth-button-login-label"]').should('contain', 'Log in');
+
+            cy.wait(1500);
             cy.get('auth-button').shadow().find('[data-testid="auth-button-login"]').click();
             cy.get('body').contains('user visits login page');
         });
 
         it('Navigates to logout page', () => {
-            cy.visit('http://localhost:8080/?user=s1111111');
-            cy.viewport(1280, 900);
-            cy.wait(100);
-            cy.get('uq-site-header').find('auth-button').should('exist');
-            cy.get('auth-button').shadow().find('#auth-log-out-label').should('contain', 'Log out');
-            cy.wait(1500);
+            nameIsDisplayedOnLogOutButtonCorrectly('s1111111', 's1111111');
             cy.intercept(/localhost/, 'user visits logout page');
             cy.intercept('GET', authLocale.AUTH_URL_LOGOUT, {
                 statusCode: 200,
@@ -126,16 +123,29 @@ describe('Auth button', () => {
             }, 5500);
         });
 
-        it(' user with expired stored session is not logged in', () => {
+        it('user with expired stored session is not logged in', () => {
             const store = new ApiAccess();
             store.storeAccount(accounts.s1111111, -24); // put info in the session storage
             // console.log('sessionStorage: ', sessionStorage.getItem('userAccount'));
 
-            cy.visit('http://localhost:8080/?user=s1111111');
-            cy.viewport(1280, 900);
-            cy.wait(100);
-            cy.get('uq-site-header').find('auth-button').should('exist');
-            cy.get('auth-button').shadow().find('#auth-log-out-label').should('contain', 'Log out');
+            nameIsDisplayedOnLogOutButtonCorrectly('s1111111', 's1111111');
+        });
+
+        it('user with a short name will show their complete name on the Log Out button', () => {
+            nameIsDisplayedOnLogOutButtonCorrectly('emfryer', 'Fryer User');
+            cy.get('auth-button')
+                .shadow()
+                .find('[data-testid="auth-button-logout"]')
+                .should('have.attr', 'title', 'Log out');
+        });
+        it('user with a medium length name will show their last name with initial on the Log Out button', () => {
+            nameIsDisplayedOnLogOutButtonCorrectly('emhospital', 'H User');
+        });
+        it('user with a long name will show their user name on the Log Out button', () => {
+            nameIsDisplayedOnLogOutButtonCorrectly('digiteamMember', 'digiteamMember');
+        });
+        it('user who uses a single name will not show the "." as a surname', () => {
+            nameIsDisplayedOnLogOutButtonCorrectly('emhonorary', 'Honorary');
         });
     });
 });
