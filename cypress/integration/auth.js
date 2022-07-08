@@ -6,7 +6,7 @@ import { authLocale } from '../../src/UtilityArea/auth.locale';
 
 describe('Auth button', () => {
     context('Auth button', () => {
-        function nameIsDisplayedOnLogOutButtonCorrectly(userName, displayName) {
+        function nameIsDisplayedOnAccountOptionsButtonCorrectly(userName, displayName) {
             cy.visit('http://localhost:8080/?user=' + userName);
             cy.wait(100);
             cy.get('uq-site-header').find('auth-button').should('exist');
@@ -69,13 +69,15 @@ describe('Auth button', () => {
         });
 
         it('Navigates to logout page', () => {
-            nameIsDisplayedOnLogOutButtonCorrectly('s1111111', 's1111111');
+            nameIsDisplayedOnAccountOptionsButtonCorrectly('s1111111', 'Undergraduate, John');
             cy.intercept(/localhost/, 'user visits logout page');
             cy.intercept('GET', authLocale.AUTH_URL_LOGOUT, {
                 statusCode: 200,
                 body: 'user visits logout page',
             });
+            cy.get('auth-button').shadow().find('[data-testid="account-option-button"]').click();
             cy.get('auth-button').shadow().find('[data-testid="auth-button-logout"]').click();
+
             cy.get('body').contains('user visits logout page');
         });
 
@@ -128,24 +130,24 @@ describe('Auth button', () => {
             store.storeAccount(accounts.s1111111, -24); // put info in the session storage
             // console.log('sessionStorage: ', sessionStorage.getItem('userAccount'));
 
-            nameIsDisplayedOnLogOutButtonCorrectly('s1111111', 's1111111');
+            nameIsDisplayedOnAccountOptionsButtonCorrectly('s1111111', 'Undergraduate, John');
         });
 
         it('user with a short name will show their complete name on the Log Out button', () => {
-            nameIsDisplayedOnLogOutButtonCorrectly('emfryer', 'Fryer User');
+            nameIsDisplayedOnAccountOptionsButtonCorrectly('emfryer', 'User, Fryer');
             cy.get('auth-button')
                 .shadow()
                 .find('[data-testid="auth-button-logout"]')
                 .should('have.attr', 'title', 'Log out');
         });
-        it('user with a medium length name will show their last name with initial on the Log Out button', () => {
-            nameIsDisplayedOnLogOutButtonCorrectly('emhospital', 'H User');
-        });
-        it('user with a long name will show their user name on the Log Out button', () => {
-            nameIsDisplayedOnLogOutButtonCorrectly('digiteamMember', 'digiteamMember');
+        it('user with a long length name will show their last name with initial on the Log Out button', () => {
+            nameIsDisplayedOnAccountOptionsButtonCorrectly(
+                'digiteamMember',
+                'C STAFF MEMBER WITH MEGA REALLY TRULY STUPENDOUSLY LONG NAME',
+            );
         });
         it('user who uses a single name will not show the "." as a surname', () => {
-            nameIsDisplayedOnLogOutButtonCorrectly('emhonorary', 'Honorary');
+            nameIsDisplayedOnAccountOptionsButtonCorrectly('emhonorary', 'Honorary');
         });
     });
 });

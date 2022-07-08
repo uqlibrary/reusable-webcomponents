@@ -119,10 +119,10 @@ describe('Dummy Application', () => {
         cy.get('uq-footer').should('not.exist');
     }
 
-    function hasAuthButton(username = 'Vanilla User') {
+    function hasAuthButton(username = 'User, Vanilla') {
         cy.get('auth-button')
             .shadow()
-            .find('button[data-testid="auth-button-logout')
+            .find('button[data-testid="account-option-button')
             .should('exist')
             .and('contain', username);
     }
@@ -158,7 +158,7 @@ describe('Dummy Application', () => {
         });
     });
 
-    context('Uqlapp works as expected', () => {
+    context('app.library.uq.edu.au works as expected', () => {
         it('Javascript load works correctly', () => {
             cy.visit('http://localhost:8080/src/applications/uqlapp/demo.html');
             cy.viewport(1280, 900);

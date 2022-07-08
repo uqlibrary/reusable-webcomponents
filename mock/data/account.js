@@ -226,8 +226,8 @@ export const accounts = {
         "type": 3,
         "homeLib": "St Lucia",
         "firstName": "Caroline",
-        "lastName": "STAFF MEMBER WITH LONG NAME",
-        "name": "Caroline STAFF MEMBER WITH LONG NAME", // long name means uid is shown on auth button instead of name
+        "lastName": "STAFF MEMBER WITH MEGA REALLY TRULY STUPENDOUSLY LONG NAME",
+        "name": "Caroline STAFF MEMBER WITH MEGA REALLY TRULY STUPENDOUSLY LONG NAME", // long name means uid is shown on auth button instead of name
         "mail": "j.Researcher@uq.edu.au",
         "barcode": "240675201000000",
         "groups": ["CN=lib_digistore_users,OU=lib-libshare-groups,OU=LIB-groups,OU=University of Queensland Library,OU=Deputy Vice-Chancellor (Academic),OU=Vice-Chancellor,DC=uq,DC=edu,DC=au"],
