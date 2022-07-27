@@ -145,8 +145,6 @@ button.login-button:active {
     display: inline-block;
     position: relative;
     cursor: pointer;
-    min-height: 36px;
-    min-width: 88px;
     line-height: 36px;
     vertical-align: middle;
     align-items: center;
@@ -159,9 +157,6 @@ button.login-button:active {
     user-select: none;
     outline: none;
     border: 0;
-    padding: 0 6px;
-    margin: 6px 8px;
-    background: transparent;
     white-space: nowrap;
     text-transform: uppercase;
     font-weight: 500;
@@ -177,16 +172,18 @@ button.login-button:active {
 
     flex: 1;
 }
-.md-button.md-primary,
 .md-button.md-primary span {
-    color: #2377cb;
-    background-color: #fff;
-}
-.md-button.md-primary:hover:not([disabled]), .md-button.md-primary:hover:not([disabled]) span,
-.md-button.md-primary:focus:not([disabled]), .md-button.md-primary:focus:not([disabled]) span,
-.md-button.md-primary.hovered:not([disabled]), .md-button.md-primary.hovered:not([disabled]) span {
-    color: #fff;
+    min-height: 36px;
+    min-width: 88px;
+    padding: 12px;
     background-color: #2377cb;
+    color: #fff;
+}
+.md-button.md-primary:hover:not([disabled]) span,
+.md-button.md-primary:focus:not([disabled]) span,
+.md-button.md-primary.hovered:not([disabled]) span {
+    background-color: #fff;
+    color: #2377cb;
 }
 .md-menu-item {
     border-bottom: thin solid lightgrey;
