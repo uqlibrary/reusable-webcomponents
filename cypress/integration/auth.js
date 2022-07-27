@@ -4,18 +4,72 @@ import ApiAccess from '../../src/ApiAccess/ApiAccess';
 import { apiLocale } from '../../src/ApiAccess/ApiAccess.locale';
 import { authLocale } from '../../src/UtilityArea/auth.locale';
 
+function assertLogoutButtonVisible(expected = true) {
+    if (expected) {
+        cy.get('auth-button').shadow().find('button:contains("Log out")').should('be.visible');
+    } else {
+        cy.get('auth-button').shadow().find('button:contains("Log out")').should('not.be.visible');
+    }
+}
+
+function openAccountDropdown() {
+    cy.get('auth-button').shadow().find('[data-testid="account-option-button"]').click();
+    cy.wait(500);
+}
+
+function assertUserHasStandardMyLibraryOptions() {
+    cy.get('li a[data-testid="mylibrary-menu-borrowing"]').should('exist').contains('Borrowing');
+    cy.get('li a[data-testid="mylibrary-menu-document-delivery"]').should('exist').contains('Document delivery');
+    cy.get('li a[data-testid="mylibrary-menu-course-resources"]').should('exist').contains('Learning resources');
+    cy.get('li a[data-testid="mylibrary-menu-document-delivery"]').should('exist').contains('Document delivery');
+    cy.get('li a[data-testid="mylibrary-menu-print-balance"]').should('exist').contains('Print balance');
+    cy.get('li a[data-testid="mylibrary-menu-room-bookings"]').should('exist').contains('Room bookings');
+    cy.get('li a[data-testid="mylibrary-menu-saved-items"]').should('exist').contains('Saved items');
+    cy.get('li a[data-testid="mylibrary-menu-saved-searches"]').should('exist').contains('Saved searches');
+    cy.get('li a[data-testid="mylibrary-menu-feedback"]').should('exist').contains('Feedback');
+}
+
+function assertUserHasMasquerade(expected) {
+    if (!!expected) {
+        cy.get('li[data-testid="mylibrary-masquerade"]').should('exist').contains('Masquerade');
+    } else {
+        cy.get('li[data-testid="mylibrary-masquerade"]').should('not.exist');
+    }
+}
+
+function assertUserHasAlertsAdmin(expected) {
+    if (!!expected) {
+        cy.get('li[data-testid="alerts-admin"]').should('exist').contains('Website alerts');
+    } else {
+        cy.get('li[data-testid="alerts-admin"]').should('not.exist');
+    }
+}
+
+function assertUserHasSpotlightAdmin(expected) {
+    if (!!expected) {
+        cy.get('li[data-testid="spotlights-admin"]').should('exist').contains('Website spotlights');
+    } else {
+        cy.get('li[data-testid="spotlights-admin"]').should('not.exist');
+    }
+}
+
+function assertUserHasEspaceDashboard(expected) {
+    if (!!expected) {
+        cy.get('li[data-testid="mylibrary-espace"]').should('exist').contains('eSpace dashboard');
+    } else {
+        cy.get('li[data-testid="mylibrary-espace"]').should('not.exist');
+    }
+}
+
+function assertNameIsDisplayedOnAccountOptionsButtonCorrectly(userName, displayName) {
+    cy.visit('http://localhost:8080/?user=' + userName);
+    cy.wait(100);
+    cy.get('uq-site-header').find('auth-button').should('exist');
+    cy.get('auth-button').shadow().find('[data-testid="username-area-label"]').should('contain', displayName);
+}
+
 describe('Auth button', () => {
     context('Auth button', () => {
-        function nameIsDisplayedOnAccountOptionsButtonCorrectly(userName, displayName) {
-            cy.visit('http://localhost:8080/?user=' + userName);
-            cy.wait(100);
-            cy.get('uq-site-header').find('auth-button').should('exist');
-            cy.get('auth-button')
-                .shadow()
-                .find('[data-testid="auth-button-logout-label"]')
-                .should('contain', displayName);
-        }
-
         it('logged out user sees a "Log in" button" and widget is accessible', () => {
             cy.visit('http://localhost:8080/?user=public');
             cy.viewport(1280, 900);
@@ -38,6 +92,13 @@ describe('Auth button', () => {
             cy.injectAxe();
             cy.checkA11y('auth-button', {
                 reportName: 'Auth Loggedin',
+                scopeName: 'Accessibility',
+                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+            });
+            openAccountDropdown();
+            cy.wait(500);
+            cy.checkA11y('auth-button', {
+                reportName: 'Auth Loggedin Dialog Open',
                 scopeName: 'Accessibility',
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
             });
@@ -69,14 +130,14 @@ describe('Auth button', () => {
         });
 
         it('Navigates to logout page', () => {
-            nameIsDisplayedOnAccountOptionsButtonCorrectly('s1111111', 'Undergraduate, John');
+            assertNameIsDisplayedOnAccountOptionsButtonCorrectly('s1111111', 'Undergraduate, John');
             cy.intercept(/localhost/, 'user visits logout page');
             cy.intercept('GET', authLocale.AUTH_URL_LOGOUT, {
                 statusCode: 200,
                 body: 'user visits logout page',
             });
             cy.get('auth-button').shadow().find('[data-testid="account-option-button"]').click();
-            cy.get('auth-button').shadow().find('[data-testid="auth-button-logout"]').click();
+            cy.get('auth-button').shadow().find('button:contains("Log out")').click();
 
             cy.get('body').contains('user visits logout page');
         });
@@ -130,24 +191,144 @@ describe('Auth button', () => {
             store.storeAccount(accounts.s1111111, -24); // put info in the session storage
             // console.log('sessionStorage: ', sessionStorage.getItem('userAccount'));
 
-            nameIsDisplayedOnAccountOptionsButtonCorrectly('s1111111', 'Undergraduate, John');
+            assertNameIsDisplayedOnAccountOptionsButtonCorrectly('s1111111', 'Undergraduate, John');
         });
 
         it('user with a short name will show their complete name on the Log Out button', () => {
-            nameIsDisplayedOnAccountOptionsButtonCorrectly('emfryer', 'User, Fryer');
+            assertNameIsDisplayedOnAccountOptionsButtonCorrectly('emfryer', 'User, Fryer');
             cy.get('auth-button')
                 .shadow()
-                .find('[data-testid="auth-button-logout"]')
-                .should('have.attr', 'title', 'Log out');
+                .find('button:contains("Log out")')
+                .should('have.attr', 'aria-label', 'Log out');
         });
         it('user with a long length name will show their last name with initial on the Log Out button', () => {
-            nameIsDisplayedOnAccountOptionsButtonCorrectly(
+            assertNameIsDisplayedOnAccountOptionsButtonCorrectly(
                 'digiteamMember',
                 'C STAFF MEMBER WITH MEGA REALLY TRULY STUPENDOUSLY LONG NAME',
             );
         });
         it('user who uses a single name will not show the "." as a surname', () => {
-            nameIsDisplayedOnAccountOptionsButtonCorrectly('emhonorary', 'Honorary');
+            assertNameIsDisplayedOnAccountOptionsButtonCorrectly('emhonorary', 'Honorary');
+        });
+
+        it('Pressing esc closes the account menu', () => {
+            cy.visit('http://localhost:8080');
+            cy.viewport(1280, 900);
+            openAccountDropdown();
+            assertLogoutButtonVisible();
+            cy.get('body').type('{enter}', { force: true });
+            cy.wait(500);
+            assertLogoutButtonVisible();
+            cy.get('body').type('{esc}', { force: true });
+            cy.wait(500);
+            assertLogoutButtonVisible(false);
+        });
+
+        it('Clicking the pane closes the account menu', () => {
+            cy.visit('http://localhost:8080');
+            cy.viewport(1280, 900);
+            openAccountDropdown();
+            assertLogoutButtonVisible();
+            cy.get('body').click(0, 0);
+            cy.wait(500);
+            assertLogoutButtonVisible(false);
+        });
+    });
+
+    context('My Library Menu', () => {
+        it('Admin gets admin entries', () => {
+            cy.visit('http://localhost:8080?user=uqstaff');
+            cy.viewport(1280, 900);
+            openAccountDropdown();
+            cy.get('auth-button')
+                .shadow()
+                .within(() => {
+                    assertUserHasStandardMyLibraryOptions();
+                    assertUserHasMasquerade(true);
+                    assertUserHasAlertsAdmin(true);
+                    assertUserHasSpotlightAdmin(true);
+                    assertUserHasEspaceDashboard(true);
+                });
+        });
+
+        it('An espace masquerader non-admin sees masquerade but not other admin functions', () => {
+            cy.visit('http://localhost:8080?user=uqmasquerade');
+            cy.viewport(1280, 900);
+            openAccountDropdown();
+            cy.get('auth-button')
+                .shadow()
+                .within(() => {
+                    assertUserHasStandardMyLibraryOptions();
+                    assertUserHasMasquerade(true);
+                    assertUserHasAlertsAdmin(false);
+                    assertUserHasSpotlightAdmin(false);
+                    assertUserHasEspaceDashboard(true);
+                });
+        });
+
+        it('Researcher gets espace but not admin entries', () => {
+            cy.visit('http://localhost:8080?user=s1111111');
+            cy.viewport(1280, 900);
+            openAccountDropdown();
+            cy.get('auth-button')
+                .shadow()
+                .within(() => {
+                    assertUserHasStandardMyLibraryOptions();
+                    assertUserHasEspaceDashboard(true);
+                    assertUserHasMasquerade(false);
+                    assertUserHasAlertsAdmin(false);
+                    assertUserHasSpotlightAdmin(false);
+                    // the admin block has been removed so we dont see the admin border
+                    cy.get('[data-testid="admin-options"]').should('not.exist');
+                });
+        });
+
+        it('A digiteam member gets espace & masquerade but not other admin entries', () => {
+            cy.visit('http://localhost:8080?user=digiteamMember');
+            cy.viewport(1280, 900);
+            openAccountDropdown();
+            cy.get('auth-button')
+                .shadow()
+                .within(() => {
+                    assertUserHasStandardMyLibraryOptions();
+                    assertUserHasEspaceDashboard(true);
+                    assertUserHasMasquerade(true);
+                    assertUserHasAlertsAdmin(false);
+                    assertUserHasSpotlightAdmin(false);
+                });
+        });
+
+        it('non-Researcher gets neither espace nor admin entries', () => {
+            cy.visit('http://localhost:8080?user=s3333333');
+            cy.viewport(1280, 900);
+            openAccountDropdown();
+            cy.get('auth-button')
+                .shadow()
+                .within(() => {
+                    assertUserHasStandardMyLibraryOptions();
+                    assertUserHasMasquerade(false);
+                    assertUserHasAlertsAdmin(false);
+                    assertUserHasSpotlightAdmin(false);
+                    assertUserHasEspaceDashboard(false);
+                });
+        });
+
+        it('Navigates to page from mylibrary menu', () => {
+            cy.visit('http://localhost:8080?user=s1111111');
+            cy.viewport(1280, 900);
+            cy.wait(1500);
+            cy.intercept('GET', 'https://support.my.uq.edu.au/app/library/feedback', {
+                statusCode: 200,
+                body: 'user is on library feedback page',
+            });
+            openAccountDropdown();
+            cy.get('auth-button')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="mylibrary-menu-feedback"]').should('be.visible');
+                    cy.get('[data-testid="mylibrary-menu-feedback"]').click();
+                });
+            cy.get('body').contains('user is on library feedback page');
         });
     });
 });
