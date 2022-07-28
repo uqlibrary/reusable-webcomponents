@@ -18,15 +18,11 @@ function openAccountDropdown() {
 }
 
 function assertUserHasStandardMyLibraryOptions() {
-    cy.get('li a[data-testid="mylibrary-menu-borrowing"]').should('exist').contains('Borrowing');
-    cy.get('li a[data-testid="mylibrary-menu-document-delivery"]').should('exist').contains('Document delivery');
+    cy.get('li a[data-testid="mylibrary-menu-borrowing"]').should('exist').contains('Library account');
     cy.get('li a[data-testid="mylibrary-menu-course-resources"]').should('exist').contains('Learning resources');
-    cy.get('li a[data-testid="mylibrary-menu-document-delivery"]').should('exist').contains('Document delivery');
     cy.get('li a[data-testid="mylibrary-menu-print-balance"]').should('exist').contains('Print balance');
     cy.get('li a[data-testid="mylibrary-menu-room-bookings"]').should('exist').contains('Room bookings');
-    cy.get('li a[data-testid="mylibrary-menu-saved-items"]').should('exist').contains('Saved items');
-    cy.get('li a[data-testid="mylibrary-menu-saved-searches"]').should('exist').contains('Saved searches');
-    cy.get('li a[data-testid="mylibrary-menu-feedback"]').should('exist').contains('Feedback');
+    cy.get('li a[data-testid="mylibrary-menu-saved-items"]').should('exist').contains('Favourites');
 }
 
 function assertUserHasMasquerade(expected) {
@@ -53,14 +49,6 @@ function assertUserHasSpotlightAdmin(expected) {
     }
 }
 
-function assertUserHasEspaceDashboard(expected) {
-    if (!!expected) {
-        cy.get('li[data-testid="mylibrary-espace"]').should('exist').contains('eSpace dashboard');
-    } else {
-        cy.get('li[data-testid="mylibrary-espace"]').should('not.exist');
-    }
-}
-
 function assertNameIsDisplayedOnAccountOptionsButtonCorrectly(userName, displayName) {
     cy.visit('http://localhost:8080/?user=' + userName);
     cy.wait(100);
@@ -84,7 +72,7 @@ describe('Auth button', () => {
             cy.get('auth-button').shadow().find('[data-testid="auth-button-login-label"]').should('contain', 'Log in');
         });
 
-        it('the auth button widget is accessible', () => {
+        it('logged in user auth button widget is accessible', () => {
             cy.visit('http://localhost:8080');
             cy.viewport(1280, 900);
             cy.wait(100);
@@ -247,7 +235,6 @@ describe('Auth button', () => {
                     assertUserHasMasquerade(true);
                     assertUserHasAlertsAdmin(true);
                     assertUserHasSpotlightAdmin(true);
-                    assertUserHasEspaceDashboard(true);
                 });
         });
 
@@ -262,7 +249,6 @@ describe('Auth button', () => {
                     assertUserHasMasquerade(true);
                     assertUserHasAlertsAdmin(false);
                     assertUserHasSpotlightAdmin(false);
-                    assertUserHasEspaceDashboard(true);
                 });
         });
 
@@ -274,7 +260,6 @@ describe('Auth button', () => {
                 .shadow()
                 .within(() => {
                     assertUserHasStandardMyLibraryOptions();
-                    assertUserHasEspaceDashboard(true);
                     assertUserHasMasquerade(false);
                     assertUserHasAlertsAdmin(false);
                     assertUserHasSpotlightAdmin(false);
@@ -291,7 +276,6 @@ describe('Auth button', () => {
                 .shadow()
                 .within(() => {
                     assertUserHasStandardMyLibraryOptions();
-                    assertUserHasEspaceDashboard(true);
                     assertUserHasMasquerade(true);
                     assertUserHasAlertsAdmin(false);
                     assertUserHasSpotlightAdmin(false);
@@ -309,7 +293,6 @@ describe('Auth button', () => {
                     assertUserHasMasquerade(false);
                     assertUserHasAlertsAdmin(false);
                     assertUserHasSpotlightAdmin(false);
-                    assertUserHasEspaceDashboard(false);
                 });
         });
 
@@ -317,16 +300,20 @@ describe('Auth button', () => {
             cy.visit('http://localhost:8080?user=s1111111');
             cy.viewport(1280, 900);
             cy.wait(1500);
-            cy.intercept('GET', 'https://support.my.uq.edu.au/app/library/feedback', {
-                statusCode: 200,
-                body: 'user is on library feedback page',
-            });
+            cy.intercept(
+                'GET',
+                'https://search.library.uq.edu.au/primo-explore/account?vid=61UQ&section=overview&lang=en_US',
+                {
+                    statusCode: 200,
+                    body: 'user is on library feedback page',
+                },
+            );
             openAccountDropdown();
             cy.get('auth-button')
                 .shadow()
                 .within(() => {
-                    cy.get('[data-testid="mylibrary-menu-feedback"]').should('be.visible');
-                    cy.get('[data-testid="mylibrary-menu-feedback"]').click();
+                    cy.get('[data-testid="mylibrary-menu-borrowing"]').should('be.visible');
+                    cy.get('[data-testid="mylibrary-menu-borrowing"]').click();
                 });
             cy.get('body').contains('user is on library feedback page');
         });

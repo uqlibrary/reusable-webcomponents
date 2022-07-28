@@ -93,7 +93,7 @@ button.login-button:active {
         left: auto;
         right: 0;
         position: absolute;
-        min-width: 400px;
+        min-width: 320px;
         transition: transform 0.2s ease-out, opacity 0.2s ease-out; /* Animation */
         transform: scale(1);
         transform-origin: 50% 50%;
@@ -108,8 +108,6 @@ button.login-button:active {
     list-style: none;
 }
 .mylibrary-menu-list {
-    columns: 2 100px;
-    column-gap: 5px;
     padding-left: 0;
 }
 .mylibrary-menu-list li svg {
@@ -182,14 +180,17 @@ button.login-button:active {
 .md-button.md-primary:hover:not([disabled]) span,
 .md-button.md-primary:focus:not([disabled]) span,
 .md-button.md-primary.hovered:not([disabled]) span {
-    background-color: #fff;
-    color: #2377cb;
+    background-color: #195794;
 }
 .md-menu-item {
     border-bottom: thin solid lightgrey;
 }
 .admin-options {
     border-top: thin solid lightgrey;
+    margin-top: 10px;
+}
+.prm-user-menu-content {
+    padding-bottom: 10px;
 }
 .account-options-menu-closed {
     opacity: 0 !important;
@@ -245,8 +246,7 @@ button.login-button:active {
 
 @media screen and (min-width: 430px) {
     .mylibrary-menu-list li {
-        /*display: inline-block;*/
-        padding: 0 !important;
+        padding: 10px 0!important;
         margin: 0 !important;
         height: 35px !important;
     }
@@ -288,4 +288,12 @@ button.login-button:active {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.subtext {
+    font-size: .75em;
+    min-height: 1em;
+    font-weight: 300;
+    margin-bottom: 2px;
+    margin-left: 40px;
 }
