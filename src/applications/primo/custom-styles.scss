@@ -1145,3 +1145,60 @@ prm-view-online {
         padding-left: 10px;
     }
 }
+
+// restyle the account area to allow for inclusion of standard Library Account items PT #182204834
+mylibrary-list, .mylibrary-list li {
+    list-style: none;
+    padding-left: 0;
+    margin-left: 0;
+
+}
+.mylibrary-list li {
+    display: flex;
+}
+.mylibrary-list svg {
+    width: 24px;
+    fill: rgb(51, 51, 51, 0.5);
+    margin-left: 30px;
+    padding-top: 8px;
+}
+.mylibrary-list button {
+    display: flex;
+    margin-left: -20px;
+    margin-top: 0;
+    margin-bottom: 0;
+    align-items: flex-start;
+    min-height: 4em;
+}
+.mylibrary-list .textwrapper {
+    text-transform: initial;
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+}
+.mylibrary-list .primaryText {
+    padding-left: 10px;
+    font-weight: 400;
+
+}
+.mylibrary-list .subtext {
+    font-size: .75em;
+    min-height: 1em;
+    font-weight: 300;
+    margin-top: -20px;
+    margin-bottom: 2px;
+    margin-left: 10px;
+    text-transform: capitalize;
+}
+.mylibrary-list .textwrapper span {
+    text-align: left;
+}
+/* make the logout button blue properly */
+md-menu-content .user-menu-header button.md-button.md-primary {
+    background-color: #2377cb /* $accent-color*/;
+    color: #fff;
+}
+md-menu-content .user-menu-header button.md-button.md-primary:focus:not([disabled]),
+md-menu-content .user-menu-header button.md-button.md-primary:hover:not([disabled]) {
+    background-color: #195794;
+}
