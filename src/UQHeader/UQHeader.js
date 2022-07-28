@@ -54,7 +54,7 @@ template.innerHTML = `
                   <input type="submit" name="op" value="Search" class="uq-header__search-query-submit" data-testid="uq-header-search-submit">
                 </span>
               </div>
-              <input type="hidden" value="https://bel.uq.edu.au" name="as_sitesearch" id="edit-as_sitesearch-on">
+              <input type="hidden" value="https://bel.uq.edu.au" name="as_sitesearch" id="edit-as_sitesearch-on" data-testid="uq-header-search-input-as-sitesearch">
             </fieldset>
           </form>
         </div>
