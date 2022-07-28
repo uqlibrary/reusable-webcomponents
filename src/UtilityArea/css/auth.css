@@ -282,3 +282,10 @@ button.login-button:active {
     margin-right: 4px;
     margin-left: 6px;
 }
+
+.username-area-label {
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

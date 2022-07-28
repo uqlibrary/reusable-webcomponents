@@ -15,7 +15,8 @@ authorisedtemplate.innerHTML = `
     <div id="auth" class="auth">
         <button id="account-option-button" data-testid="account-option-button">
             <div id="username-area" data-testid="username-area-label" class="username-area">
-                <svg id="options-dropdown-arrow" class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium  css-w2bhrx" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ArrowDropDownIcon" aria-label="fontSize medium">
+                <span id="username-area-label" class="username-area-label"></span>
+                <svg id="options-dropdown-arrow" class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium  css-w2bhrx" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ArrowDropDownIcon" aria-label="Open account panel">
                     <path d="m7 10 5 5 5-5z"></path>
                 </svg>
             </div>
@@ -29,7 +30,7 @@ authorisedtemplate.innerHTML = `
                         <div class="user-menu-header">
                             <div layout="column" flex="" class="layout-column flex">
                                 <span class="tiny-uppercase-text">Logged in as:</span>
-                                <span id="user-display-name" class="bold-text" style="padding-right:1rem"></span>
+                                <span id="user-display-name" class="user-display-name bold-text" style="padding-right:1rem"></span>
                             </div>
                             <button class="logout md-primary md-button md-primoExplore-theme md-ink-ripple" type="button" data-testid="auth-button-logout" id="signOutButton" aria-label="Log out" role="menuitem">
                                 <span class="bold-text">Log out</span>
@@ -182,7 +183,7 @@ class AuthButton extends HTMLElement {
         this.addLoginButtonListener = this.addLoginButtonListener.bind(this);
         this.addLogoutButtonListeners = this.addLogoutButtonListeners.bind(this);
         this.checkAuthorisedUser = this.checkAuthorisedUser.bind(this);
-        this.displayUserNameOnLogoutButton = this.displayUserNameOnLogoutButton.bind(this);
+        this.displayUserNameAsButtonLabel = this.displayUserNameAsButtonLabel.bind(this);
         this.isOverwriteAsLoggedOutRequested = this.isOverwriteAsLoggedOutRequested.bind(this);
         this.showHideMylibraryEspaceOption = this.showHideMylibraryEspaceOption.bind(this);
     }
@@ -199,7 +200,7 @@ class AuthButton extends HTMLElement {
             that.addLogoutButtonListeners(shadowDOM);
 
             if (!!isAuthorised) {
-                this.displayUserNameOnLogoutButton(shadowDOM, account);
+                this.displayUserNameAsButtonLabel(shadowDOM, account);
 
                 // // if we can find the stub we built for mylibrary, replace it with the button
                 // const mylibraryStub = document.getElementById(mylibraryLocale.MYLIBRARY_STUB_ID);
@@ -258,11 +259,10 @@ class AuthButton extends HTMLElement {
         return lastName.length <= 1 && !lastName.match(/[a-z]/i);
     }
 
-    displayUserNameOnLogoutButton(shadowDOM, account) {
-        const parentUserNameArea = !!shadowDOM && shadowDOM.getElementById('username-area');
-        const childArrow = !!shadowDOM && shadowDOM.getElementById('options-dropdown-arrow');
+    displayUserNameAsButtonLabel(shadowDOM, account) {
+        const parentUserNameArea = !!shadowDOM && shadowDOM.getElementById('username-area-label');
         const textNode = document.createTextNode(this.getUserDisplayName(account));
-        !!parentUserNameArea && !!childArrow && !!textNode && parentUserNameArea.insertBefore(textNode, childArrow);
+        !!parentUserNameArea && parentUserNameArea.appendChild(textNode);
     }
 
     addLoginButtonListener(shadowDOM) {
