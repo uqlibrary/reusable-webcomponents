@@ -126,7 +126,7 @@ class UQHeader extends HTMLElement {
 
                     break;
                 case 'searchlabel':
-                    this.changeSearchWidgetLabel(newValue);
+                    //this.changeSearchWidgetLabel(newValue);
 
                     break;
                 case 'searchurl':
