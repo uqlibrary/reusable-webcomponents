@@ -1165,6 +1165,10 @@ prm-view-online {
         margin-left: 30px;
         padding-top: 8px;
     }
+    button:active svg,
+    button:hover svg {
+        fill: #333;
+    }
 
     button {
         display: flex;
