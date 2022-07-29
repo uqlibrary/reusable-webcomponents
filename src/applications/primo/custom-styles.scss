@@ -1163,7 +1163,6 @@ prm-view-online {
         width: 24px;
         fill: rgba(51, 51, 51, 0.5);
         margin-left: 30px;
-        padding-top: 8px;
     }
     button:active svg,
     button:hover svg {
@@ -1174,7 +1173,7 @@ prm-view-online {
         display: flex;
         margin-left: -20px;
         margin-top: 0;
-        margin-bottom: 0;
+        margin-bottom: -10px;
         align-items: flex-start;
         min-height: 4em;
         background-color: #fff;
@@ -1205,7 +1204,6 @@ prm-view-online {
         font-size: .75em;
         min-height: 1em;
         font-weight: 300;
-        margin-top: -20px;
         margin-bottom: 2px;
         margin-left: 10px;
         text-transform: capitalize;
