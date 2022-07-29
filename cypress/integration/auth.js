@@ -18,11 +18,13 @@ function openAccountDropdown() {
 }
 
 function assertUserHasStandardMyLibraryOptions() {
+    cy.get('ul[data-testid="mylibrary-menu-list-public"]').should('exist').children().should('have.length', 6);
     cy.get('li a[data-testid="mylibrary-menu-borrowing"]').should('exist').contains('Library account');
     cy.get('li a[data-testid="mylibrary-menu-course-resources"]').should('exist').contains('Learning resources');
     cy.get('li a[data-testid="mylibrary-menu-print-balance"]').should('exist').contains('Print balance');
     cy.get('li a[data-testid="mylibrary-menu-room-bookings"]').should('exist').contains('Book a room or desk');
     cy.get('li a[data-testid="mylibrary-menu-saved-items"]').should('exist').contains('Favourites');
+    cy.get('li a[data-testid="mylibrary-menu-feedback"]').should('exist').contains('Feedback');
 }
 
 function assertUserHasMasquerade(expected) {
@@ -54,6 +56,14 @@ function assertNameIsDisplayedOnAccountOptionsButtonCorrectly(userName, displayN
     cy.wait(100);
     cy.get('uq-site-header').find('auth-button').should('exist');
     cy.get('auth-button').shadow().find('[data-testid="username-area-label"]').should('contain', displayName);
+}
+
+function assertUserSeesNOAdminOptions() {
+    assertUserHasMasquerade(false);
+    assertUserHasAlertsAdmin(false);
+    assertUserHasSpotlightAdmin(false);
+    // the admin block has been removed so we dont see the admin border
+    cy.get('[data-testid="admin-options"]').should('not.exist');
 }
 
 describe('Auth button', () => {
@@ -252,7 +262,8 @@ describe('Auth button', () => {
                 });
         });
 
-        it('Researcher gets espace but not admin entries', () => {
+        // if we ever add espace back, this user should see it
+        it('Researcher does not admin entries', () => {
             cy.visit('http://localhost:8080?user=s1111111');
             cy.viewport(1280, 900);
             openAccountDropdown();
@@ -260,11 +271,7 @@ describe('Auth button', () => {
                 .shadow()
                 .within(() => {
                     assertUserHasStandardMyLibraryOptions();
-                    assertUserHasMasquerade(false);
-                    assertUserHasAlertsAdmin(false);
-                    assertUserHasSpotlightAdmin(false);
-                    // the admin block has been removed so we dont see the admin border
-                    cy.get('[data-testid="admin-options"]').should('not.exist');
+                    assertUserSeesNOAdminOptions();
                 });
         });
 
@@ -290,9 +297,7 @@ describe('Auth button', () => {
                 .shadow()
                 .within(() => {
                     assertUserHasStandardMyLibraryOptions();
-                    assertUserHasMasquerade(false);
-                    assertUserHasAlertsAdmin(false);
-                    assertUserHasSpotlightAdmin(false);
+                    assertUserSeesNOAdminOptions();
                 });
         });
 

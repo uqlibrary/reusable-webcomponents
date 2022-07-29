@@ -38,7 +38,7 @@ authorisedtemplate.innerHTML = `
                             </button>
                         </div>
                     </div>
-                    <ul class="mylibrary-menu-list" role="menu">
+                    <ul data-testid="mylibrary-menu-list-public" class="mylibrary-menu-list" role="menu">
                         <!-- Primo account -->
                         <li role="menuitem" aria-disabled="false">
                             <a data-testid="mylibrary-menu-borrowing" href="https://search.library.uq.edu.au/primo-explore/account?vid=61UQ&section=overview&lang=en_US" rel="noreferrer">
@@ -81,6 +81,14 @@ authorisedtemplate.innerHTML = `
                                 <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M2 17h20v2H2zm11.84-9.21c.1-.24.16-.51.16-.79 0-1.1-.9-2-2-2s-2 .9-2 2c0 .28.06.55.16.79C6.25 8.6 3.27 11.93 3 16h18c-.27-4.07-3.25-7.4-7.16-8.21z"></path></svg>
                                 <span>Book a room or desk</span>
                                 <div class="subtext">Student meeting & study spaces</div>
+                            </a>
+                        </li>
+
+                        <!-- Feedback -->
+                        <li role="menuitem" aria-disabled="false">
+                            <a data-testid="mylibrary-menu-feedback" href="https://support.my.uq.edu.au/app/library/feedback" rel="noreferrer">
+                                <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 12h-2v-2h2v2zm0-4h-2V6h2v4z"></path></svg>
+                                <span>Feedback</span>
                             </a>
                         </li>
                     </ul>
