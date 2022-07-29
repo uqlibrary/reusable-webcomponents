@@ -18,13 +18,13 @@ function openAccountDropdown() {
 }
 
 function assertUserHasStandardMyLibraryOptions() {
-    cy.get('ul[data-testid="mylibrary-menu-list-public"]').should('exist').children().should('have.length', 6);
     cy.get('li a[data-testid="mylibrary-menu-borrowing"]').should('exist').contains('Library account');
     cy.get('li a[data-testid="mylibrary-menu-course-resources"]').should('exist').contains('Learning resources');
     cy.get('li a[data-testid="mylibrary-menu-print-balance"]').should('exist').contains('Print balance');
     cy.get('li a[data-testid="mylibrary-menu-room-bookings"]').should('exist').contains('Book a room or desk');
     cy.get('li a[data-testid="mylibrary-menu-saved-items"]').should('exist').contains('Favourites');
     cy.get('li a[data-testid="mylibrary-menu-feedback"]').should('exist').contains('Feedback');
+    cy.get('ul[data-testid="mylibrary-menu-list-public"]').should('exist').children().its('length').should('be.gte', 6);
 }
 
 function assertUserHasMasquerade(expected) {
@@ -48,6 +48,14 @@ function assertUserHasSpotlightAdmin(expected) {
         cy.get('li[data-testid="spotlights-admin"]').should('exist').contains('Website spotlights');
     } else {
         cy.get('li[data-testid="spotlights-admin"]').should('not.exist');
+    }
+}
+
+function assertUserHasEspaceDashboard(expected) {
+    if (!!expected) {
+        cy.get('li[data-testid="mylibrary-espace"]').should('exist').contains('UQ eSpace dashboard');
+    } else {
+        cy.get('li[data-testid="mylibrary-espace"]').should('not.exist');
     }
 }
 
@@ -245,6 +253,7 @@ describe('Auth button', () => {
                     assertUserHasMasquerade(true);
                     assertUserHasAlertsAdmin(true);
                     assertUserHasSpotlightAdmin(true);
+                    assertUserHasEspaceDashboard(true); // not an admin function, this user happens to have an author account
                 });
         });
 
@@ -259,11 +268,11 @@ describe('Auth button', () => {
                     assertUserHasMasquerade(true);
                     assertUserHasAlertsAdmin(false);
                     assertUserHasSpotlightAdmin(false);
+                    assertUserHasEspaceDashboard(true);
                 });
         });
 
-        // if we ever add espace back, this user should see it
-        it('Researcher does not admin entries', () => {
+        it('Researcher gets espace but not admin entries', () => {
             cy.visit('http://localhost:8080?user=s1111111');
             cy.viewport(1280, 900);
             openAccountDropdown();
@@ -271,6 +280,7 @@ describe('Auth button', () => {
                 .shadow()
                 .within(() => {
                     assertUserHasStandardMyLibraryOptions();
+                    assertUserHasEspaceDashboard(true);
                     assertUserSeesNOAdminOptions();
                 });
         });
@@ -283,6 +293,7 @@ describe('Auth button', () => {
                 .shadow()
                 .within(() => {
                     assertUserHasStandardMyLibraryOptions();
+                    assertUserHasEspaceDashboard(true);
                     assertUserHasMasquerade(true);
                     assertUserHasAlertsAdmin(false);
                     assertUserHasSpotlightAdmin(false);
@@ -298,6 +309,7 @@ describe('Auth button', () => {
                 .within(() => {
                     assertUserHasStandardMyLibraryOptions();
                     assertUserSeesNOAdminOptions();
+                    assertUserHasEspaceDashboard(false);
                 });
         });
 
@@ -305,20 +317,16 @@ describe('Auth button', () => {
             cy.visit('http://localhost:8080?user=s1111111');
             cy.viewport(1280, 900);
             cy.wait(1500);
-            cy.intercept(
-                'GET',
-                'https://search.library.uq.edu.au/primo-explore/account?vid=61UQ&section=overview&lang=en_US',
-                {
-                    statusCode: 200,
-                    body: 'user is on library feedback page',
-                },
-            );
+            cy.intercept('GET', 'https://support.my.uq.edu.au/app/library/feedback', {
+                statusCode: 200,
+                body: 'user is on library feedback page',
+            });
             openAccountDropdown();
             cy.get('auth-button')
                 .shadow()
                 .within(() => {
-                    cy.get('[data-testid="mylibrary-menu-borrowing"]').should('be.visible');
-                    cy.get('[data-testid="mylibrary-menu-borrowing"]').click();
+                    cy.get('[data-testid="mylibrary-menu-feedback"]').should('be.visible');
+                    cy.get('[data-testid="mylibrary-menu-feedback"]').click();
                 });
             cy.get('body').contains('user is on library feedback page');
         });

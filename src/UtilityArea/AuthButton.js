@@ -10,6 +10,7 @@ import { authLocale } from './auth.locale';
  */
 
 // THESE LINKS MUST BE DUPLICATED PRIMO! (see repo exlibris-primo)
+// (NOTE: due to complexity of an account check in primo, we are not showing the espace dashboard link there)
 const authorisedtemplate = document.createElement('template');
 authorisedtemplate.innerHTML = `
     <style>${styles.toString()}</style>
@@ -81,6 +82,15 @@ authorisedtemplate.innerHTML = `
                                 <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M2 17h20v2H2zm11.84-9.21c.1-.24.16-.51.16-.79 0-1.1-.9-2-2-2s-2 .9-2 2c0 .28.06.55.16.79C6.25 8.6 3.27 11.93 3 16h18c-.27-4.07-3.25-7.4-7.16-8.21z"></path></svg>
                                 <span>Book a room or desk</span>
                                 <div class="subtext">Student meeting & study spaces</div>
+                            </a>
+                        </li>
+                        
+                        <!-- eSpace dashboard -->
+                        <li data-testid="mylibrary-espace" id="mylibrary-espace" role="menuitem" aria-disabled="false">
+                            <a data-testid="mylibrary-menu-espace-dashboard" href="https://espace.library.uq.edu.au/dashboard" rel="noreferrer">
+                                <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"></path></svg>
+                                <span>UQ eSpace dashboard</span>
+                                <div class="subtext">Your UQ research & more</div>
                             </a>
                         </li>
 
@@ -167,6 +177,7 @@ class AuthButton extends HTMLElement {
         this.checkAuthorisedUser = this.checkAuthorisedUser.bind(this);
         this.displayUserNameAsButtonLabel = this.displayUserNameAsButtonLabel.bind(this);
         this.isOverwriteAsLoggedOutRequested = this.isOverwriteAsLoggedOutRequested.bind(this);
+        this.showHideMylibraryEspaceOption = this.showHideMylibraryEspaceOption.bind(this);
     }
 
     async showLoginFromAuthStatus(shadowDOM) {
@@ -191,6 +202,8 @@ class AuthButton extends HTMLElement {
 
                 const spotlightsAdminElement = !!shadowDOM && shadowDOM.getElementById('spotlights-admin');
                 !this.canSeeSpotlightsAdmin(account) && !!spotlightsAdminElement && spotlightsAdminElement.remove();
+
+                this.showHideMylibraryEspaceOption(shadowDOM);
 
                 // if admin area has no entries, delete the area so we lose the border at the top
                 const adminarealist = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-list');
@@ -367,6 +380,16 @@ class AuthButton extends HTMLElement {
 
     canSeeSpotlightsAdmin(account) {
         return !!account && !!this.hasWebContentAdminAccess(account);
+    }
+
+    async showHideMylibraryEspaceOption(shadowDOM) {
+        const api = new ApiAccess();
+        return await api.loadAuthorApi().then((author) => {
+            const espaceitem = !!shadowDOM && shadowDOM.getElementById('mylibrary-espace');
+            const isAuthor = !!author && !!author.data && !!author.data.hasOwnProperty('aut_id');
+            !!espaceitem && !isAuthor && espaceitem.remove();
+            return author;
+        });
     }
 }
 
