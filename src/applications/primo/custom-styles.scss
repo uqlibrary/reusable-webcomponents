@@ -1177,7 +1177,14 @@ prm-view-online {
         margin-bottom: 0;
         align-items: flex-start;
         min-height: 4em;
+        background-color: #fff;
+        border-width: 0;
+        padding-top: 10px;
+        &:hover {
+            background-color: rgba(210, 210, 210, 0.5);
+        }
     }
+
 
     .textwrapper {
         text-transform: initial;
@@ -1196,10 +1203,12 @@ prm-view-online {
         font-size: .75em;
         min-height: 1em;
         font-weight: 300;
-        margin-top: -20px;
         margin-bottom: 2px;
         margin-left: 10px;
-        text-transform: capitalize;
+        text-transform: capitalize
+    }
+    button:not(:first-child) .subtext {
+        margin-top: -20px;
     }
 
     .textwrapper span {
