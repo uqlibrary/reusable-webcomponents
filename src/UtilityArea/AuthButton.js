@@ -9,7 +9,7 @@ import { authLocale } from './auth.locale';
  *
  */
 
-// THESE LINKS MUST BE DUPLICATED PRIMO! (see repo exlibris-primo)
+// THESE LINKS MUST BE DUPLICATED ON PRIMO! (see repo exlibris-primo)
 // (NOTE: due to complexity of an account check in primo, we are not showing the espace dashboard link there)
 const authorisedtemplate = document.createElement('template');
 authorisedtemplate.innerHTML = `

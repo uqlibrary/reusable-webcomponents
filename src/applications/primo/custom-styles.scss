@@ -1180,6 +1180,8 @@ prm-view-online {
         background-color: #fff;
         border-width: 0;
         padding-top: 10px;
+        width: 100%;
+        &:active,
         &:hover {
             background-color: rgba(210, 210, 210, 0.5);
         }
@@ -1203,12 +1205,10 @@ prm-view-online {
         font-size: .75em;
         min-height: 1em;
         font-weight: 300;
+        margin-top: -20px;
         margin-bottom: 2px;
         margin-left: 10px;
-        text-transform: capitalize
-    }
-    button:not(:first-child) .subtext {
-        margin-top: -20px;
+        text-transform: capitalize;
     }
 
     .textwrapper span {
