@@ -21,7 +21,7 @@ function assertUserHasStandardMyLibraryOptions() {
     cy.get('li a[data-testid="mylibrary-menu-borrowing"]').should('exist').contains('Library account');
     cy.get('li a[data-testid="mylibrary-menu-course-resources"]').should('exist').contains('Learning resources');
     cy.get('li a[data-testid="mylibrary-menu-print-balance"]').should('exist').contains('Print balance');
-    cy.get('li a[data-testid="mylibrary-menu-room-bookings"]').should('exist').contains('Room bookings');
+    cy.get('li a[data-testid="mylibrary-menu-room-bookings"]').should('exist').contains('Book a room or desk');
     cy.get('li a[data-testid="mylibrary-menu-saved-items"]').should('exist').contains('Favourites');
 }
 
@@ -223,7 +223,7 @@ describe('Auth button', () => {
         });
     });
 
-    context('My Library Menu', () => {
+    context('User-specific account links', () => {
         it('Admin gets admin entries', () => {
             cy.visit('http://localhost:8080?user=uqstaff');
             cy.viewport(1280, 900);
