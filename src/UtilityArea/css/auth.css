@@ -32,6 +32,11 @@
     transition-duration: .15s;
     transition-property: background-color;
     transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+}
+.auth.loggedout button:hover {
+    border-radius: 50%;
+}
+.auth.loggedin button:hover {
     border-radius: 20px;
 }
 .account-options-menu-list button,
