@@ -17,7 +17,6 @@
 .auth button {
     line-height: 20px !important;
     background: rgba(0, 0, 0, 0);
-    border-radius: 50%;
     border: none;
     margin: -12px 0;
     padding: 6px;
@@ -27,14 +26,20 @@
     transition-property: background-color;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
-
+.auth button:hover {
+    background: rgba(0, 0, 0, .04);
+    transition-delay: 0s;
+    transition-duration: .15s;
+    transition-property: background-color;
+    transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+    border-radius: 20px;
+}
 .account-options-menu-list button,
 .username-area {
     display: flex;
     align-items: center;
     font-weight: 500;
     font-family: Roboto, Helvetica, sans-serif;
-    padding-right: 22px;
 }
 .username-area svg {
     width: 22px;
