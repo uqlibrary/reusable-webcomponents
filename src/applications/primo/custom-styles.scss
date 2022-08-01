@@ -1152,7 +1152,6 @@ prm-view-online {
         list-style: none;
         padding-left: 0;
         margin-left: 0;
-
     }
 
     li {
@@ -1182,7 +1181,6 @@ prm-view-online {
         }
     }
 
-
     .textwrapper {
         text-transform: initial;
         display: flex;
@@ -1211,12 +1209,8 @@ prm-view-online {
 .user-menu-header>div span:first-child {
     text-transform: initial!important;
 }
-.md-open-menu-container {
-    overflow: hidden;
-}
 // make the account dropdown logout button blue properly
 md-menu-content {
-    margin-bottom: -20px;
     min-height: 180px;
     .user-menu-header button.md-button {
         &.md-primary {
