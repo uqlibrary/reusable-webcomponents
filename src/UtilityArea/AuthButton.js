@@ -31,7 +31,7 @@ authorisedtemplate.innerHTML = `
                     <div class="md-menu-item">
                         <div class="user-menu-header">
                             <div layout="column" flex="" class="layout-column flex">
-                                <span class="tiny-uppercase-text">Logged in as:</span>
+                                <span class="tiny-text">Logged in as:</span>
                                 <span id="user-display-name" class="user-display-name bold-text" style="padding-right:1rem"></span>
                             </div>
                             <button class="logout md-primary md-button md-primoExplore-theme md-ink-ripple" type="button" data-testid="auth-button-logout" id="signOutButton" aria-label="Log out" role="menuitem">

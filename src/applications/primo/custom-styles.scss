@@ -1212,20 +1212,23 @@ prm-view-online {
         text-align: left;
     }
 }
+.user-menu-header>div span:first-child {
+    text-transform: initial!important;
+}
 .md-open-menu-container {
     overflow: hidden;
 }
+// make the account dropdown logout button blue properly
 md-menu-content {
     margin-bottom: -20px;
-}
-// make the account dropdown logout button blue properly
-md-menu-content .user-menu-header button.md-button {
-    &.md-primary {
-        background-color: $accent-color;
-        color: #fff;
-    }
+    .user-menu-header button.md-button {
+        &.md-primary {
+            background-color: $accent-color;
+            color: #fff;
+        }
 
-    &.md-primary:hover:not([disabled]) {
-        background-color: #195794;
+        &.md-primary:hover:not([disabled]) {
+            background-color: #195794;
+        }
     }
 }
