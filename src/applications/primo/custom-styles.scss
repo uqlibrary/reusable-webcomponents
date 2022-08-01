@@ -1221,6 +1221,7 @@ prm-view-online {
 // make the account dropdown logout button blue properly
 md-menu-content {
     margin-bottom: -20px;
+    min-height: 180px;
     .user-menu-header button.md-button {
         &.md-primary {
             background-color: $accent-color;
