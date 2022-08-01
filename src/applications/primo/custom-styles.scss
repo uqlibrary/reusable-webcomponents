@@ -1206,12 +1206,17 @@ prm-view-online {
         font-weight: 300;
         margin-bottom: 2px;
         margin-left: 10px;
-        text-transform: capitalize;
     }
 
     .textwrapper span {
         text-align: left;
     }
+}
+.md-open-menu-container {
+    overflow: hidden;
+}
+md-menu-content {
+    margin-bottom: -20px;
 }
 // make the account dropdown logout button blue properly
 md-menu-content .user-menu-header button.md-button {
