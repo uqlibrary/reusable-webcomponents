@@ -1161,12 +1161,8 @@ prm-view-online {
 
     svg {
         width: 24px;
-        fill: rgba(51, 51, 51, 0.5);
+        fill: #595959;
         margin-left: 30px;
-    }
-    button:active svg,
-    button:hover svg {
-        fill: #333;
     }
 
     button {
@@ -1197,7 +1193,7 @@ prm-view-online {
     .primaryText {
         padding-left: 10px;
         font-weight: 400;
-
+        color: #595959;
     }
 
     .subtext {
