@@ -305,4 +305,5 @@ button.login-button:active {
     font-weight: 300;
     margin-bottom: 2px;
     margin-left: 40px;
+    margin-top: -4px;
 }
