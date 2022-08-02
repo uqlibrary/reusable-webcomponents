@@ -1200,12 +1200,33 @@ prm-view-online {
         font-weight: 300;
         margin-bottom: 2px;
         margin-left: 10px;
+        color: #595959;
     }
 
     .textwrapper span {
         text-align: left;
     }
 }
+
+// style the mobile account menu
+.mobile-main-menu-bg .mylibrary-list {
+    margin-left: -5px;
+    .primaryText,
+     button,
+     li,
+     {
+        background-color: inherit;
+        color: #fff;
+    }
+
+     svg {
+        fill: #fff;
+    }
+}
+prm-authentication span[translate="eshelf.signout.title.link"] {
+    padding-left: 8px;
+}
+
 .user-menu-header>div span:first-child {
     text-transform: initial!important;
 }
