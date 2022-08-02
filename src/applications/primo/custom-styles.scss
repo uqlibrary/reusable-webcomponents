@@ -1211,7 +1211,10 @@ prm-view-online {
 // style the mobile account menu
 .mobile-main-menu-bg .mylibrary-list {
     margin-left: -5px;
+    width: 100%;
+
     .primaryText,
+    .subtext,
      button,
      li,
      {
@@ -1223,6 +1226,7 @@ prm-view-online {
         fill: #fff;
     }
 }
+// line up the logout button text with our account items
 prm-authentication span[translate="eshelf.signout.title.link"] {
     padding-left: 8px;
 }
