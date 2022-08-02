@@ -1230,6 +1230,14 @@ prm-view-online {
 prm-authentication span[translate="eshelf.signout.title.link"] {
     padding-left: 8px;
 }
+// move the "account" link down from under the X now it has such long text
+prm-library-card-menu {
+    margin-top: 2.8em;
+    // and let the icon breath
+    span[translate="nui.menu.librarycard"] {
+        padding-left: 8px;
+    }
+}
 
 .user-menu-header>div span:first-child {
     text-transform: initial!important;
