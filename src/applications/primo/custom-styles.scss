@@ -1,4 +1,4 @@
-$accent-color-half-opacity: rgba(35, 119, 203, 0.5);
+$accent-color-half-opacity: rgba(35, 119, 203, 0.1);
 $background-grey: #5f5f5f;
 
 /* cyrillic-ext */
@@ -1027,44 +1027,38 @@ md-toolbar.bottom-fixed-toolbar.mobile-toolbar  {
 
 // Sidebar "Adjust results" section
 prm-facet .switch-results {
-    .md-button.active.button-as-link,
-    .md-button md-switch.md-checked .md-label {
+    md-switch:hover.inactive:hover:not([disabled]) {
+        color: $links-hue-3 !important;
+        background-color: $accent-color-half-opacity
+    }
+    md-switch._md-checked ._md-label,
+    md-switch._md-checked .md-label,
+    md-switch.md-checked ._md-label,
+    md-switch.md-checked .md-label {
         color: $accent-color;
     }
-    .md-button md-switch.md-checked {
+    md-switch.md-checked {
         .md-thumb,
         .md-bar {
             color: $accent-color;
             background-color: $accent-color;
         }
     }
-    .md-button.button-as-link.active:focus:not([disabled]),
-    .md-button.inactive.button-as-link:focus:focus:not([disabled]) {
-        color: $accent-color;
-        background-color: inherit;
-    }
-    .md-button.button-as-link.active:hover:not([disabled]) {
+    md-switch:focus.active,
+    md-switch:hover.active {
         color: $accent-color;
         background-color: $highlightBlue;
     }
 
-    .md-button:focus md-switch.md-checked .md-label,
-    .md-button:focus md-switch.md-checked .md-label span {
-        color: $accent-color !important;
-    }
-    .md-button:hover md-switch.md-checked .md-label {
+    md-switch:hover.md-checked .md-label {
         color: $links-hue-3 !important;
-    }
-    .md-button.inactive.button-as-link:hover:hover:not([disabled])  {
-        color: $links-hue-3 !important;
-        background-color: $highlightBlue;
     }
 
     md-switch span {
         position: relative;
     }
 
-    button:first-child {
+    md-switch:first-child {
         padding-top: 0.5em;
         padding-bottom: 1.5em;
         a {
@@ -1143,5 +1137,34 @@ prm-view-online {
     }
     button:first-child {
         padding-left: 10px;
+    }
+}
+
+// My Account > Settings area toggle issues - When toggled, the Settings colour is teal and should be our blue, just like the toggles in main search
+prm-personal-settings .switch-options .switch-without-button md-switch {
+    &._md-checked ._md-thumb,
+    &._md-checked .md-thumb,
+    &.md-checked ._md-thumb,
+    &.md-checked .md-thumb,
+    &._md-checked ._md-bar,
+    &._md-checked .md-bar,
+    &.md-checked ._md-bar,
+    &.md-checked .md-bar {
+        color: $accent-color;
+        background-color: $accent-color;
+    }
+}
+
+// My Account > Settings area Details section with large amount of white space
+prm-personal-info {
+    md-card-header {
+        padding: 0;
+
+        .md-toolbar-tools {
+            height: 0;
+        }
+    }
+    md-card-content {
+        padding: 0;
     }
 }
