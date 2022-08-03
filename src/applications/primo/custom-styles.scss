@@ -1191,7 +1191,8 @@ prm-personal-info {
 
 // My account - settings area - hide Account expiry date
 prm-personal-info .header-subtitle div:first-child {
-    padding-bottom: 1em;
+    padding-bottom: 0.5em;
+    margin-left: 0.3rem;
     span:first-child {
         display: none;
     }
