@@ -1027,6 +1027,15 @@ md-toolbar.bottom-fixed-toolbar.mobile-toolbar  {
 
 // Sidebar "Adjust results" section
 prm-facet .switch-results {
+    md-switch:focus.inactive._md-focused:not([disabled]),
+    md-switch:focus.inactive.hovered:not([disabled]),
+    md-switch:focus.inactive.md-focused:not([disabled]),
+    md-switch:focus.inactive:focus:not([disabled]),
+    md-switch:focus.inactive:hover:not([disabled]),
+    md-switch:hover.inactive._md-focused:not([disabled]),
+    md-switch:hover.inactive.hovered:not([disabled]),
+    md-switch:hover.inactive.md-focused:not([disabled]),
+    md-switch:hover.inactive:focus:not([disabled]),
     md-switch:hover.inactive:hover:not([disabled]) {
         color: $links-hue-3 !important;
         background-color: $accent-color-half-opacity
@@ -1067,6 +1076,10 @@ prm-facet .switch-results {
             right: 0;
 
         }
+    }
+
+    md-switch .slider-text-wrap {
+        font-weight: 500;
     }
 
     // the "whats this" link
