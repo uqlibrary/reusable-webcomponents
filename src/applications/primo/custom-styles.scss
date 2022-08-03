@@ -1196,8 +1196,15 @@ prm-personal-info .header-subtitle div:first-child {
         display: none;
     }
 }
+// and then fix the width of the email box
 prm-personal-info h2 {
-    min-width: 50em;
+    min-width: 20em;
+}
+@media (max-width: 1280px) {
+    prm-personal-info h2 {
+        width: 90%;
+        min-width: 45em;
+    }
 }
 
 // My account - settings area - hide "language display" (because we only offer English)
