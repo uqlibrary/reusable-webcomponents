@@ -1256,3 +1256,8 @@ md-menu-content {
         }
     }
 }
+
+// account link list dropdown - when the user is logged out we have to hide this
+prm-user-area-expandable .mylibrary-list {
+    display: none;
+}
