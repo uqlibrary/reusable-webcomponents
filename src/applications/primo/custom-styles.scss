@@ -1046,12 +1046,37 @@ prm-facet .switch-results {
     md-switch.md-checked .md-label {
         color: $accent-color;
     }
+    md-switch:focus._md-checked ._md-bar,
+    md-switch:focus._md-checked ._md-label,
+    md-switch:focus._md-checked ._md-thumb,
+    md-switch:focus._md-checked .md-bar,
+    md-switch:focus._md-checked .md-label,
+    md-switch:focus._md-checked .md-thumb,
+    md-switch:focus.md-checked ._md-bar,
+    md-switch:focus.md-checked ._md-label,
+    md-switch:focus.md-checked ._md-thumb,
+    md-switch:focus.md-checked .md-bar,
+    md-switch:focus.md-checked .md-label,
+    md-switch:focus.md-checked .md-thumb,
+    md-switch:hover._md-checked ._md-bar,
+    md-switch:hover._md-checked ._md-label,
+    md-switch:hover._md-checked ._md-thumb,
+    md-switch:hover._md-checked .md-bar,
+    md-switch:hover._md-checked .md-label,
+    md-switch:hover._md-checked .md-thumb,
+    md-switch:hover.md-checked ._md-bar,
+    md-switch:hover.md-checked ._md-label,
+    md-switch:hover.md-checked ._md-thumb,
+    md-switch:hover.md-checked .md-bar,
+    md-switch:hover.md-checked .md-label,
+    md-switch:hover.md-checked .md-thumb {
+        color: $accent-color!important;
+    }
 
     md-switch:focus.active,
     md-switch:hover.active {
         background-color: $accent-color-half-opacity;
     }
-
 
     div.active.button-as-link,
     div md-switch.md-checked .md-label {
@@ -1088,6 +1113,10 @@ prm-facet .switch-results {
 
     md-switch span {
         position: relative;
+    }
+
+    md-switch .slider-text-wrap {
+        font-weight: 500;
     }
 
     div:first-child {
