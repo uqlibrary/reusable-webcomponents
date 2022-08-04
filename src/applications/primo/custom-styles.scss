@@ -1038,7 +1038,7 @@ prm-facet .switch-results {
     md-switch:hover.inactive:focus:not([disabled]),
     md-switch:hover.inactive:hover:not([disabled]) {
         color: $links-hue-3 !important;
-        background-color: $accent-color-half-opacity
+        background-color: $accent-color-half-opacity;
     }
     md-switch._md-checked ._md-label,
     md-switch._md-checked .md-label,
@@ -1046,53 +1046,73 @@ prm-facet .switch-results {
     md-switch.md-checked .md-label {
         color: $accent-color;
     }
-    md-switch.md-checked {
+
+    md-switch:focus.active,
+    md-switch:hover.active {
+        background-color: $accent-color-half-opacity;
+    }
+
+
+    div.active.button-as-link,
+    div md-switch.md-checked .md-label {
+        color: $accent-color;
+    }
+    div md-switch.md-checked {
         .md-thumb,
         .md-bar {
             color: $accent-color;
             background-color: $accent-color;
         }
     }
-    md-switch:focus.active,
-    md-switch:hover.active {
+    div.button-as-link.active:focus:not([disabled]),
+    div.inactive.button-as-link:focus:focus:not([disabled]) {
+        color: $accent-color;
+        background-color: inherit;
+    }
+    div.button-as-link.active:hover:not([disabled]) {
         color: $accent-color;
         background-color: $highlightBlue;
     }
 
-    md-switch:hover.md-checked .md-label {
+    div:focus md-switch.md-checked .md-label,
+    div:focus md-switch.md-checked .md-label span {
+        color: $accent-color !important;
+    }
+    div:hover md-switch.md-checked .md-label {
         color: $links-hue-3 !important;
+    }
+    div.inactive.button-as-link:hover:hover:not([disabled])  {
+        color: $links-hue-3 !important;
+        background-color: $highlightBlue;
     }
 
     md-switch span {
         position: relative;
     }
 
-    md-switch:first-child {
-        padding-top: 0.5em;
-        padding-bottom: 1.5em;
+    div:first-child {
+        md-switch {
+            padding-top: 0.5em;
+            padding-bottom: 1.5em;
+        }
+        // the "whats this" link
         a {
             position: absolute;
             top: 0.8em;
             right: 0;
-
+        }
+        &:hover a,
+        & a:hover {
+            color: $links-hue-3 !important;
+            box-shadow: none;
+        }
+        & a:hover {
+            text-decoration-color: $links-hue-3;
+            text-decoration-line: underline;
         }
     }
-
-    md-switch .slider-text-wrap {
-        font-weight: 500;
-    }
-
-    // the "whats this" link
-    button:first-child:hover a,
-    button.md-button.button-as-link:first-child a:hover {
-        color: $links-hue-3 !important;
-        box-shadow: none;
-    }
-    button.md-button.button-as-link:first-child a:hover {
-        text-decoration-color: $links-hue-3;
-        text-decoration-line: underline;
-    }
 }
+
 
 // Collapsed Advanced Search block at top of search results
 prm-advanced-search {
