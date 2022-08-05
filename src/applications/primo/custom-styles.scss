@@ -1264,7 +1264,7 @@ prm-user-area-expandable .mylibrary-list {
 // make the mobile items to be deleted color on color so there is no flash
 .mobile-main-menu-bg {
     button.button-with-icon.md-button.md-primoExplore-theme.md-ink-ripple,
-    button.button-with-icon.zero-margin.md-button.md-primoExplore-theme.md-ink-ripple {
+    not(prm-authentication) button.button-with-icon.zero-margin.md-button.md-primoExplore-theme.md-ink-ripple {
         color: #0D1A26;
     }
 }
