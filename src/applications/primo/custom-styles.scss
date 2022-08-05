@@ -1268,3 +1268,7 @@ prm-user-area-expandable .mylibrary-list {
         color: #0D1A26;
     }
 }
+// bottom bar is scrolling
+prm-main-menu md-content {
+    overflow: hidden;
+}
