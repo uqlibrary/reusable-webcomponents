@@ -1,4 +1,4 @@
-$accent-color-half-opacity: rgba(35, 119, 203, 0.5);
+$accent-color-half-opacity: rgba(35, 119, 203, 0.1);
 $background-grey: #5f5f5f;
 
 /* cyrillic-ext */
@@ -1027,35 +1027,74 @@ md-toolbar.bottom-fixed-toolbar.mobile-toolbar  {
 
 // Sidebar "Adjust results" section
 prm-facet .switch-results {
-    .md-button.active.button-as-link,
-    .md-button md-switch.md-checked .md-label {
+    md-switch:focus.inactive,
+    md-switch:hover.inactive {
+        &._md-focused:not([disabled]),
+        &.hovered:not([disabled]),
+        &.md-focused:not([disabled]),
+        &:focus:not([disabled]),
+        &:hover:not([disabled]) {
+            color: $links-hue-3 !important;
+            background-color: $accent-color-half-opacity;
+        }
+    }
+    md-switch {
+        &._md-checked,
+        &.md-checked {
+            ._md-label,
+            .md-label {
+                color: $accent-color;
+            }
+        }
+    }
+    md-switch:focus._md-checked,
+    md-switch:focus.md-checked,
+    md-switch:hover._md-checked,
+    md-switch:hover.md-checked {
+        ._md-bar,
+        ._md-label,
+        ._md-thumb,
+        .md-bar,
+        .md-label,
+        .md-thumb {
+            color: $accent-color !important;
+        }
+    }
+
+    md-switch:focus.active,
+    md-switch:hover.active {
+        background-color: $accent-color-half-opacity;
+    }
+
+    div.active.button-as-link,
+    div md-switch.md-checked .md-label {
         color: $accent-color;
     }
-    .md-button md-switch.md-checked {
+    div md-switch.md-checked {
         .md-thumb,
         .md-bar {
             color: $accent-color;
             background-color: $accent-color;
         }
     }
-    .md-button.button-as-link.active:focus:not([disabled]),
-    .md-button.inactive.button-as-link:focus:focus:not([disabled]) {
+    div.button-as-link.active:focus:not([disabled]),
+    div.inactive.button-as-link:focus:focus:not([disabled]) {
         color: $accent-color;
         background-color: inherit;
     }
-    .md-button.button-as-link.active:hover:not([disabled]) {
+    div.button-as-link.active:hover:not([disabled]) {
         color: $accent-color;
         background-color: $highlightBlue;
     }
 
-    .md-button:focus md-switch.md-checked .md-label,
-    .md-button:focus md-switch.md-checked .md-label span {
+    div:focus md-switch.md-checked .md-label,
+    div:focus md-switch.md-checked .md-label span {
         color: $accent-color !important;
     }
-    .md-button:hover md-switch.md-checked .md-label {
+    div:hover md-switch.md-checked .md-label {
         color: $links-hue-3 !important;
     }
-    .md-button.inactive.button-as-link:hover:hover:not([disabled])  {
+    div.inactive.button-as-link:hover:hover:not([disabled])  {
         color: $links-hue-3 !important;
         background-color: $highlightBlue;
     }
@@ -1064,28 +1103,33 @@ prm-facet .switch-results {
         position: relative;
     }
 
-    button:first-child {
-        padding-top: 0.5em;
-        padding-bottom: 1.5em;
+    md-switch .slider-text-wrap {
+        font-weight: 500;
+    }
+
+    div:first-child {
+        md-switch {
+            padding-top: 0.5em;
+            padding-bottom: 1.5em;
+        }
+        // the "whats this" link
         a {
             position: absolute;
             top: 0.8em;
             right: 0;
-
+        }
+        &:hover a,
+        & a:hover {
+            color: $links-hue-3 !important;
+            box-shadow: none;
+        }
+        & a:hover {
+            text-decoration-color: $links-hue-3;
+            text-decoration-line: underline;
         }
     }
-
-    // the "whats this" link
-    button:first-child:hover a,
-    button.md-button.button-as-link:first-child a:hover {
-        color: $links-hue-3 !important;
-        box-shadow: none;
-    }
-    button.md-button.button-as-link:first-child a:hover {
-        text-decoration-color: $links-hue-3;
-        text-decoration-line: underline;
-    }
 }
+
 
 // Collapsed Advanced Search block at top of search results
 prm-advanced-search {
@@ -1145,6 +1189,68 @@ prm-view-online {
         padding-left: 10px;
     }
 }
+
+// My Account > Settings area toggle issues - When toggled, the Settings colour is teal and should be our blue, just like the toggles in main search
+prm-personal-settings .switch-options .switch-without-button md-switch {
+    &._md-checked ._md-thumb,
+    &._md-checked .md-thumb,
+    &.md-checked ._md-thumb,
+    &.md-checked .md-thumb,
+    &._md-checked ._md-bar,
+    &._md-checked .md-bar,
+    &.md-checked ._md-bar,
+    &.md-checked .md-bar {
+        color: $accent-color;
+        background-color: $accent-color;
+    }
+}
+
+// My Account > Settings area Details section with large amount of white space in email box
+prm-personal-info {
+    md-card-header {
+        padding: 0;
+
+        .md-toolbar-tools {
+            height: 0;
+        }
+    }
+    md-card-content {
+        padding: 0;
+        md-divder {
+            margin-top: 0;
+            margin-bottom: 0.2em!important;
+        }
+        md-divder:nth-of-type(2) {
+            display: none;
+        }
+    }
+}
+
+// My account - settings area - hide Account expiry date
+prm-personal-info .header-subtitle div:first-child {
+    padding-bottom: 0.5em;
+    margin-left: 0.3rem;
+    span:first-child {
+        display: none;
+    }
+}
+// and then fix the width of the email box
+prm-personal-info h2 {
+    min-width: 20em;
+}
+@media (max-width: 1280px) {
+    prm-personal-info h2 {
+        width: 90%;
+        min-width: 45em;
+    }
+}
+
+// My account - settings area - hide "language display" (because we only offer English)
+prm-personal-info md-divider,
+prm-personal-info prm-change-lang {
+    display: none!important;
+}
+
 
 // restyle the account area to allow for inclusion of standard Library Account items PT #182204834
 .mylibrary-list {
@@ -1215,14 +1321,14 @@ prm-view-online {
 
     .primaryText,
     .subtext,
-     button,
-     li,
-     {
+    button,
+    li,
+    {
         background-color: inherit;
         color: #fff;
     }
 
-     svg {
+    svg {
         fill: #fff;
     }
 }
@@ -1265,8 +1371,8 @@ prm-user-area-expandable .mylibrary-list {
 .mobile-main-menu-bg {
     button.button-with-icon.md-button.md-primoExplore-theme.md-ink-ripple,
     not(prm-authentication) button.button-with-icon.zero-margin.md-button.md-primoExplore-theme.md-ink-ripple {
-        color: #0D1A26;
-    }
+    color: #0D1A26;
+}
 }
 // bottom bar is scrolling
 prm-main-menu md-content {

@@ -183,9 +183,9 @@ export default {
                     linkTo: 'https://web.library.uq.edu.au/research-tools-techniques/digital-essentials',
                 },
                 {
-                    primaryText: 'Discover health information',
-                    secondaryText: 'Health research & evidence-based practice',
-                    linkTo: 'https://web.library.uq.edu.au/research-tools-techniques/discover-health-information',
+                    primaryText: 'Online learning',
+                    secondaryText: 'Self-paced online modules & videos',
+                    linkTo: 'https://web.library.uq.edu.au/library-services/training/online-learning',
                 },
                 {
                     primaryText: 'Digital Researcher Lab',
