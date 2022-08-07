@@ -1250,3 +1250,131 @@ prm-personal-info md-divider,
 prm-personal-info prm-change-lang {
     display: none!important;
 }
+
+
+// restyle the account area to allow for inclusion of standard Library Account items PT #182204834
+.mylibrary-list {
+    &, li {
+        list-style: none;
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+    li {
+        display: flex;
+    }
+
+    svg {
+        width: 24px;
+        fill: #595959;
+        margin-left: 30px;
+    }
+
+    button {
+        display: flex;
+        margin-left: -20px;
+        margin-top: 0;
+        margin-bottom: -10px;
+        align-items: flex-start;
+        min-height: 4em;
+        background-color: #fff;
+        border-width: 0;
+        padding-top: 10px;
+        width: 100%;
+        &:active,
+        &:hover {
+            background-color: rgba(210, 210, 210, 0.5);
+        }
+    }
+
+    .textwrapper {
+        text-transform: initial;
+        display: flex;
+        flex-direction: column;
+        font-size: 16px;
+    }
+
+    .primaryText {
+        padding-left: 10px;
+        font-weight: 400;
+        color: #595959;
+    }
+
+    .subtext {
+        font-size: .75em;
+        min-height: 1em;
+        font-weight: 300;
+        margin-bottom: 2px;
+        margin-left: 10px;
+        color: #595959;
+    }
+
+    .textwrapper span {
+        text-align: left;
+    }
+}
+
+// style the mobile account menu
+.mobile-main-menu-bg .mylibrary-list {
+    margin-left: -5px;
+    width: 100%;
+
+    .primaryText,
+    .subtext,
+    button,
+    li,
+    {
+        background-color: inherit;
+        color: #fff;
+    }
+
+    svg {
+        fill: #fff;
+    }
+}
+// line up the logout button text with our account items
+prm-authentication span[translate="eshelf.signout.title.link"] {
+    padding-left: 8px;
+}
+// move the "account" link down from under the X now it has such long text
+prm-library-card-menu {
+    margin-top: 2.8em;
+    // and let the icon breath
+    span[translate="nui.menu.librarycard"] {
+        padding-left: 8px;
+    }
+}
+
+.user-menu-header>div span:first-child {
+    text-transform: initial!important;
+}
+// make the account dropdown logout button blue properly
+md-menu-content {
+    min-height: 180px;
+    .user-menu-header button.md-button {
+        &.md-primary {
+            background-color: $accent-color;
+            color: #fff;
+        }
+
+        &.md-primary:hover:not([disabled]) {
+            background-color: #195794;
+        }
+    }
+}
+
+// account link list dropdown - when the user is logged out we have to hide this
+prm-user-area-expandable .mylibrary-list {
+    display: none;
+}
+// make the mobile items to be deleted color on color so there is no flash
+.mobile-main-menu-bg {
+    button.button-with-icon.md-button.md-primoExplore-theme.md-ink-ripple,
+    not(prm-authentication) button.button-with-icon.zero-margin.md-button.md-primoExplore-theme.md-ink-ripple {
+    color: #0D1A26;
+}
+}
+// bottom bar is scrolling
+prm-main-menu md-content {
+    overflow: hidden;
+}
