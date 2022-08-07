@@ -27,10 +27,9 @@ describe('UQ Header', () => {
                     cy.get('.uq-header__search-query-input').should('exist').should('be.visible');
                     cy.get('[data-testid="uq-header-search-input"]').should('exist').should('be.visible');
                     cy.get('input[placeholder="Search by keyword"]').should('exist').should('be.visible');
-                    cy.get('[data-testid="uq-header-search-label-library"]').should(
-                        'contain',
-                        'Search this website (library.uq.edu.au)',
-                    );
+                    cy.get('[data-testid="uq-header-search-input-as-sitesearch"]')
+                        .should('exist')
+                        .should('not.be.visible');
                     cy.get('[data-testid="uq-header-search-submit"]').should('be.visible');
                     cy.get('[data-testid="uq-header-search-button"]').click();
                     cy.get('.uq-header__search-query-input').should('not.be.visible');
