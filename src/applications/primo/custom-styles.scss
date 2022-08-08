@@ -1378,3 +1378,42 @@ prm-user-area-expandable .mylibrary-list {
 prm-main-menu md-content {
     overflow: hidden;
 }
+
+// desktop & mobile logged out menu feedback item styling
+.my-feedback-ctm {
+    .svgwrapper {
+        width: 24px;
+    }
+    .account-link-title {
+        margin-left: 10px;
+    }
+}
+// desktop logged out menu feedback item styling
+md-menu-content .my-feedback-ctm {
+    svg {
+        margin-top: 13px;
+    }
+    path {
+        fill: rgba(51, 51, 51, 0.5);
+    }
+    button:hover path {
+        fill: #000;
+    }
+}
+
+// mobile logged out menu feedback item styling
+prm-main-menu .my-feedback-ctm {
+    svg {
+        margin-top: 5px;
+    }
+    path {
+        fill: rgba(255, 255, 255, 0.9);
+    }
+    button:hover {
+        color: #2377cb;
+        background-color: #fff;
+        path {
+            fill: #2377cb;
+        }
+    }
+}
