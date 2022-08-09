@@ -1253,16 +1253,98 @@ prm-personal-info prm-change-lang {
 
 
 // restyle the account area to allow for inclusion of standard Library Account items PT #182204834
+
+.my-library-card-ctm .textwrapper, .my-search-history-ctm .textwrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.my-library-card-ctm .primaryText, .my-search-history-ctm     .primaryText {
+    padding-left: 10px;
+    font-weight: 400;
+    color: #595959;
+    margin-top: 10px;
+}
+
+prm-library-card-menu .subtext,
+.my-library-card-ctm .subtext, .my-search-history-ctm     .subtext {
+    font-size: .75em;
+    min-height: 1em;
+    font-weight: 300;
+    margin-bottom: 2px;
+    margin-left: 10px;
+    color: #595959;
+    margin-top: -20px;
+}
+
+.my-library-card-ctm svg, .my-search-history-ctm     .textwrapper span {
+    text-align: left;
+}
+.my-library-card-ctm svg ,
+.my-search-history-ctm svg {
+    width: 24px;
+    fill: #595959;
+}
+.mobile-main-menu-bg .my-search-history-ctm .primaryText,
+.mobile-main-menu-bg .my-search-history-ctm .subtext,
+.mobile-main-menu-bg .my-search-history-ctm button,
+{
+    background-color: inherit;
+    color: #fff;
+}
+
+.mobile-main-menu-bg .my-search-history-ctm svg {
+    fill: #fff;
+}
+
+.mobile-main-menu-bg prm-library-card-menu svg {
+    fill: #fff;
+    width: 24px;
+}
+
+.mobile-main-menu-bg prm-library-card-menu span{
+    margin-left: 10px;
+    text-align: left;
+}
+.mobile-main-menu-bg prm-library-card-menu .primaryText {
+    margin-top: 15px;
+}
+.mobile-main-menu-bg prm-library-card-menu .subtext {
+
+}
+.mobile-main-menu-bg prm-library-card-menu button {
+    display: flex;
+}
+.mobile-main-menu-bg prm-library-card-menu .textwrapper {
+    display: flex;
+    flex-direction: column;
+}
+.mobile-main-menu-bg prm-library-card-menu span,
+.mobile-main-menu-bg .my-search-history-ctm     span {
+    text-transform: initial;
+    color: #fff
+
+}
+.mobile-main-menu-bg prm-authentication {
+    margin-top: -20px;
+    margin-bottom: -10px;
+}
+
+.mobile-main-menu-bg prm-library-card-menu {
+    width: 100%;
+}
+
 .mylibrary-list {
     &, li {
         list-style: none;
         padding-left: 0;
         margin-left: 0;
+        margin-top: 0;
     }
 
-    li {
-        display: flex;
-    }
+    //li {
+    //    display: flex;
+    //}
 
     svg {
         width: 24px;
@@ -1292,12 +1374,15 @@ prm-personal-info prm-change-lang {
         display: flex;
         flex-direction: column;
         font-size: 16px;
+        span {
+            text-align: left;
+            color: #595959;
+        }
     }
 
     .primaryText {
         padding-left: 10px;
         font-weight: 400;
-        color: #595959;
     }
 
     .subtext {
@@ -1306,11 +1391,6 @@ prm-personal-info prm-change-lang {
         font-weight: 300;
         margin-bottom: 2px;
         margin-left: 10px;
-        color: #595959;
-    }
-
-    .textwrapper span {
-        text-align: left;
     }
 }
 
@@ -1318,6 +1398,7 @@ prm-personal-info prm-change-lang {
 .mobile-main-menu-bg .mylibrary-list {
     margin-left: -5px;
     width: 100%;
+    margin-top: 0;
 
     .primaryText,
     .subtext,
