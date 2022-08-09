@@ -1332,6 +1332,10 @@ prm-library-card-menu .subtext,
 
 .mobile-main-menu-bg prm-library-card-menu {
     width: 100%;
+    margin-bottom: -10px;
+}
+.mobile-main-menu-bg .settings-container>div {
+    margin-top: -60px;
 }
 
 .mylibrary-list {
