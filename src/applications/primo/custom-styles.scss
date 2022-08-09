@@ -1253,7 +1253,6 @@ prm-personal-info prm-change-lang {
 
 
 // restyle the account area to allow for inclusion of standard Library Account items PT #182204834
-
 prm-library-card-menu .subtext,
 .my-library-card-ctm .subtext,
 .my-search-history-ctm .subtext,
@@ -1271,34 +1270,35 @@ prm-library-card-menu .subtext,
     margin-top: -20px;
 }
 
-.my-library-card-ctm {
-    .textwrapper, .my-search-history-ctm .textwrapper {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .primaryText, .my-search-history-ctm .primaryText {
-        padding-left: 10px;
-        font-weight: 400;
-        color: #595959;
-        margin-top: 10px;
-    }
-
-    svg,
-    .my-search-history-ctm .textwrapper span {
-        text-align: left;
-    }
-
-    svg,
-    .my-search-history-ctm svg {
-        width: 24px;
-        fill: #595959;
-    }
+.my-library-card-ctm .textwrapper,
+.my-search-history-ctm .textwrapper {
+    display: flex;
+    flex-direction: column;
 }
+
+.my-library-card-ctm .primaryText,
+.my-search-history-ctm .primaryText {
+    padding-left: 10px;
+    font-weight: 400;
+    color: #595959;
+    margin-top: 10px;
+}
+
+.my-library-card-ctm svg,
+.my-search-history-ctm .textwrapper span {
+    text-align: left;
+}
+
+.my-library-card-ctm svg,
+.my-search-history-ctm svg {
+    width: 24px;
+    fill: #595959;
+}
+
 .mobile-main-menu-bg {
     .my-search-history-ctm .primaryText,
     .my-search-history-ctm .subtext,
-    .my-search-history-ctm button,
+    .my-search-history-ctm button
     {
         background-color: inherit;
         color: #fff;
