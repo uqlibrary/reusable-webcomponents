@@ -1253,15 +1253,103 @@ prm-personal-info prm-change-lang {
 
 
 // restyle the account area to allow for inclusion of standard Library Account items PT #182204834
+prm-library-card-menu .subtext,
+.my-library-card-ctm .subtext,
+.my-favorties-ctm .subtext,
+.mylibrary-list .subtext {
+    font-size: .75em;
+    min-height: 1em;
+    font-weight: 300;
+    margin-bottom: 2px;
+    margin-left: 10px;
+}
+prm-library-card-menu .subtext,
+.my-library-card-ctm .subtext,
+.my-favorties-ctm .subtext {
+    color: #595959;
+    margin-top: -20px;
+}
+
+.my-library-card-ctm .textwrapper,
+.my-favorties-ctm .textwrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.my-library-card-ctm .primaryText,
+.my-favorties-ctm .primaryText {
+    padding-left: 10px;
+    font-weight: 400;
+    color: #595959;
+    margin-top: 10px;
+}
+
+.my-library-card-ctm svg,
+.my-favorties-ctm .textwrapper span {
+    text-align: left;
+}
+
+.my-library-card-ctm svg,
+.my-favorties-ctm svg {
+    width: 24px;
+    fill: #595959;
+}
+
+.mobile-main-menu-bg {
+    .my-favorties-ctm .primaryText,
+    .my-favorties-ctm .subtext,
+    .my-favorties-ctm button
+    {
+        background-color: inherit;
+        color: #fff;
+    }
+
+    .my-favorties-ctm svg {
+        fill: #fff;
+    }
+
+    prm-library-card-menu span,
+    .my-favorties-ctm span {
+        text-transform: initial;
+        color: #fff
+
+    }
+
+    prm-library-card-menu {
+        width: 100%;
+        margin-bottom: -10px;
+        svg {
+            fill: #fff;
+            width: 24px;
+        }
+        .textwrapper {
+            display: flex;
+            flex-direction: column;
+        }
+        span {
+            margin-left: 10px;
+            text-align: left;
+        }
+        .primaryText {
+            margin-top: 15px;
+        }
+        button {
+            display: flex;
+        }
+    }
+
+    prm-authentication {
+        margin-top: -20px;
+        margin-bottom: -10px;
+    }
+}
+
 .mylibrary-list {
     &, li {
         list-style: none;
         padding-left: 0;
         margin-left: 0;
-    }
-
-    li {
-        display: flex;
+        margin-top: 0;
     }
 
     svg {
@@ -1281,6 +1369,7 @@ prm-personal-info prm-change-lang {
         border-width: 0;
         padding-top: 10px;
         width: 100%;
+
         &:active,
         &:hover {
             background-color: rgba(210, 210, 210, 0.5);
@@ -1292,25 +1381,16 @@ prm-personal-info prm-change-lang {
         display: flex;
         flex-direction: column;
         font-size: 16px;
+
+        span {
+            text-align: left;
+            color: #595959;
+        }
     }
 
     .primaryText {
         padding-left: 10px;
         font-weight: 400;
-        color: #595959;
-    }
-
-    .subtext {
-        font-size: .75em;
-        min-height: 1em;
-        font-weight: 300;
-        margin-bottom: 2px;
-        margin-left: 10px;
-        color: #595959;
-    }
-
-    .textwrapper span {
-        text-align: left;
     }
 }
 
@@ -1318,6 +1398,7 @@ prm-personal-info prm-change-lang {
 .mobile-main-menu-bg .mylibrary-list {
     margin-left: -5px;
     width: 100%;
+    margin-top: 0;
 
     .primaryText,
     .subtext,
