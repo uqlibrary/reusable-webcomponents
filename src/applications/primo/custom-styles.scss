@@ -1504,3 +1504,8 @@ prm-main-menu .my-feedback-ctm {
         }
     }
 }
+
+// list of Reading List links need a little space
+ul.readingListCitations li {
+    padding-bottom: 0.4rem;
+}
