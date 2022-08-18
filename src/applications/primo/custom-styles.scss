@@ -1505,14 +1505,13 @@ prm-main-menu .my-feedback-ctm {
     }
 }
 
-// list of Reading List links need a little space
-ul.readingListCitations li {
+// some primo items are on a reading list - style the display of these links (and indicator of same in header)
+.readingListCitations ul li {
     padding-bottom: 0.4rem;
-}
-
-.talisReadingListIndicator {
-    margin-left: 160px;
-    text-transform: uppercase;
-    color: #2377cb;
-    font-weight: 700;
+    h4 {
+        color: #333;
+        font-weight: 300;
+        font-size: 18px;
+        margin-top: 20px;
+    }
 }
