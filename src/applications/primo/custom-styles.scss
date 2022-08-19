@@ -1517,3 +1517,25 @@ prm-main-menu .my-feedback-ctm {
         margin-top: 20px;
     }
 }
+.readingListMark {
+    padding: 0.25em 0;
+    position: relative;
+    left: -2px;
+    path {
+        fill: $green;
+    }
+    .readingListMarkIcon {
+        margin-left: 10px;
+    }
+    md-icon {
+        width: 18px;
+        height: 18px;
+        min-width: 18px;
+        min-height: 18px;
+    }
+    .readingListMarkLabel {
+        padding-left: 2px;
+        font-weight: 600;
+        font-size: 12px;
+    }
+}
