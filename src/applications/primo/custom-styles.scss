@@ -1538,4 +1538,12 @@ prm-main-menu .my-feedback-ctm {
         font-weight: 600;
         font-size: 12px;
     }
+    a {
+        background-position: center right;
+        padding-right: 20px;
+        // better to have a raw svg here?
+        background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0MHXPnYMYlfqLxpXjPA7_Yvb2c_fsiZsfonAAE-dvuOnJ46zY8D6zx2YjTmfX1Ceefdk&usqp=CAU);
+        background-repeat: no-repeat;
+        background-size: 11px;
+    }
 }
