@@ -1512,10 +1512,13 @@ prm-main-menu .my-feedback-ctm {
     }
     h4 {
         color: #333;
-        font-weight: 300;
+        font-weight: 400;
         font-size: 18px;
         margin-top: 20px;
     }
+}
+.result-item-text>.readingListMark .readingListMarkIcon {
+    margin-left: -10px;
 }
 .readingListMark {
     padding: 0.25em 0;
@@ -1523,9 +1526,6 @@ prm-main-menu .my-feedback-ctm {
     left: -2px;
     path {
         fill: $green;
-    }
-    .readingListMarkIcon {
-        margin-left: -10px;
     }
     md-icon {
         width: 18px;
