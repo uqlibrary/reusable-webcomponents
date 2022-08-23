@@ -53,6 +53,7 @@ span.displayText {
     -webkit-column-break-inside: avoid;
     page-break-inside: avoid;
     break-inside: avoid-column;
+    min-height: 20px; /* force the empty li-s to take up space */
 }
 
 @media (min-width: 64em) {
