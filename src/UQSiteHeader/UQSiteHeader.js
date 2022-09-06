@@ -1,7 +1,6 @@
 import styles from './css/main.css';
 import overrides from './css/overrides.css';
 import { default as menuLocale } from '../locale/menu';
-import myLibStyles from '../UtilityArea/css/mylibrary.css';
 
 /**
  * API:
@@ -12,9 +11,6 @@ import myLibStyles from '../UtilityArea/css/mylibrary.css';
  *   >
  *       <span slot="site-utilities">
  *           <askus-button />
- *       </span>
- *       <span slot="site-utilities">
- *           <div id="mylibrarystub" />         // provide a stub and let auth-button handle replacing with the mylibrary button if the user is logged in
  *       </span>
  *       <span slot="site-utilities">
  *           <auth-button />
@@ -28,7 +24,6 @@ const template = document.createElement('template');
 template.innerHTML = `
     <style>${styles.toString()}</style>
     <style>${overrides.toString()}</style>
-    <style>${myLibStyles.toString()}</style>
   <div class="uq-site-header" part="root">
       <!-- Site title and utility area with mobile nav toggler (JS) -->
       <div class="uq-site-header__title-container" part="title">

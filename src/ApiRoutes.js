@@ -52,7 +52,7 @@ class ApiRoutes {
     });
 
     SUGGESTIONS_API_PAST_COURSE = (keyword) => ({
-        apiUrl: 'learning_resource_suggestions?hint=' + keyword,
+        apiUrl: 'learning_resources/suggestions/' + keyword,
     });
 
     TRAINING_API() {

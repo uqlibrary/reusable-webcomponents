@@ -55,7 +55,9 @@ template.innerHTML = `
                   <a href="https://www.uq.edu.au/rti/" class="uq-footer__link">Right to information</a>
               </li>
               <li class="uq-footer__footer-menu__item">
-                <a href="https://my.uq.edu.au/feedback?r=" class="uq-footer__link">Feedback</a>
+                <a href="https://my.uq.edu.au/feedback?r=${encodeURIComponent(
+                    window.location.href,
+                )}" class="uq-footer__link">Feedback</a>
               </li>
           </ul>
            </nav>

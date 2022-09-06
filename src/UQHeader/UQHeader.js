@@ -25,7 +25,7 @@ template.innerHTML = `
             <ul class="uq-header__nav-primary-list">
               <li><a class="uq-header__nav-primary-link" href="https://study.uq.edu.au/" data-testid="uq-header-study-link">Study</a></li>
               <li><a class="uq-header__nav-primary-link" href="https://research.uq.edu.au/">Research</a></li>
-              <li><a class="uq-header__nav-primary-link" href="https://partners-community.uq.edu.au">Partners and Community</a></li>
+              <li><a class="uq-header__nav-primary-link" href="https://partners-community.uq.edu.au">Partners and community</a></li>
               <li><a class="uq-header__nav-primary-link" href="https://about.uq.edu.au/">About</a></li>
             </ul>
           </nav>
@@ -54,14 +54,7 @@ template.innerHTML = `
                   <input type="submit" name="op" value="Search" class="uq-header__search-query-submit" data-testid="uq-header-search-submit">
                 </span>
               </div>
-              <div class="uq-header__search-range">
-                <input type="radio" id="edit-as_sitesearch-off" name="as_sitesearch" value="" class="form-radio uq-header__search-radio" data-testid="edit-as_sitesearch-off">
-                <label for="edit-as_sitesearch-off" class="option uq-header__search-label">Search all UQ websites</label>
-              </div>
-              <div class="uq-header__search-range">
-                <input type="radio" id="edit-as_sitesearch-on" name="as_sitesearch" value="https://library.uq.edu.au/" checked="checked" class="form-radio uq-header__search-radio" data-testid="edit-as_sitesearch-on">
-                <label for="edit-as_sitesearch-on" id="search-label" data-testid="uq-header-search-label-library" class="option uq-header__search-label">Search this website (library.uq.edu.au)</label>
-              </div>
+              <input type="hidden" value="https://library.uq.edu.au" name="as_sitesearch" id="edit-as_sitesearch-on" data-testid="uq-header-search-input-as-sitesearch">
             </fieldset>
           </form>
         </div>
@@ -133,7 +126,7 @@ class UQHeader extends HTMLElement {
 
                     break;
                 case 'searchlabel':
-                    this.changeSearchWidgetLabel(newValue);
+                    //this.changeSearchWidgetLabel(newValue);
 
                     break;
                 case 'searchurl':

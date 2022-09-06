@@ -27,10 +27,9 @@ describe('UQ Header', () => {
                     cy.get('.uq-header__search-query-input').should('exist').should('be.visible');
                     cy.get('[data-testid="uq-header-search-input"]').should('exist').should('be.visible');
                     cy.get('input[placeholder="Search by keyword"]').should('exist').should('be.visible');
-                    cy.get('[data-testid="uq-header-search-label-library"]').should(
-                        'contain',
-                        'Search this website (library.uq.edu.au)',
-                    );
+                    cy.get('[data-testid="uq-header-search-input-as-sitesearch"]')
+                        .should('exist')
+                        .should('not.be.visible');
                     cy.get('[data-testid="uq-header-search-submit"]').should('be.visible');
                     cy.get('[data-testid="uq-header-search-button"]').click();
                     cy.get('.uq-header__search-query-input').should('not.be.visible');
@@ -69,7 +68,6 @@ describe('UQ Header', () => {
 
             // open the menu
             cy.get('uq-header').shadow().find('[data-testid="mobile-menu-toggle-button"]').should('be.visible');
-
             toggleTheMobileMenuButton();
 
             cy.get('uq-site-header')
@@ -140,35 +138,6 @@ describe('UQ Header', () => {
 
                     cy.get('[data-testid="uq-header-study-link-mobile"]').should('not.be.visible');
                     cy.get('[data-testid="uq-header-home-link-mobile"]').should('not.be.visible');
-                });
-        });
-
-        it('the menu draws properly on device rotation', () => {
-            cy.viewport(1024, 768); // ipad landscape
-            cy.get('uq-site-header')
-                .shadow()
-                .within(() => {
-                    cy.get('[data-testid="mega-menu-container"]')
-                        .should('exist')
-                        .invoke('css', 'height')
-                        .then((str) => parseInt(str))
-                        .should('be.lt', 90); // the menu does not wrap
-
-                    cy.viewport(768, 1024); // ipad portrait
-
-                    cy.wait(500); // use waitUntil when it is available
-                });
-            cy.get('uq-header').shadow().find('[data-testid="mobile-menu-toggle-button"]').should('exist').click();
-            cy.get('uq-site-header')
-                .shadow()
-                .within(() => {
-                    cy.viewport(1024, 768); // ipad landscape
-                    cy.wait(500);
-                    cy.get('[data-testid="mega-menu-container"]')
-                        .should('exist')
-                        .invoke('css', 'height')
-                        .then((str) => parseInt(str))
-                        .should('be.lt', 90); // the menu does not wrap
                 });
         });
     });

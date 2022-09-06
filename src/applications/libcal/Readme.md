@@ -31,7 +31,7 @@ To install the reusable web components, enter the libguides "look and feel" page
 />
 ```
 
-- NOTE: The `load.js` will check if the current page is on the \*.uq.edu.au domain and hide the login/askus/mylibrary utility buttons if not due to API CORS not being allowed outside UQ.
+- NOTE: The `load.js` will check if the current page is on the \*.uq.edu.au domain and hide the login/account/askus utility buttons if not due to API CORS not being allowed outside UQ.
 - NOTE: `custom-styles.css` has a bunch of css overrides for the default libguides skin to make it work.
 
 When complete, click save.

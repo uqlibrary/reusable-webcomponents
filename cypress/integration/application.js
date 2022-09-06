@@ -13,8 +13,6 @@ describe('Dummy Application', () => {
             cy.get('uq-header').shadow().find('button[data-testid="skip-nav"]').should('exist');
             // has an askus button
             cy.get('askus-button').shadow().find('button[data-testid="askus-button"]').should('exist');
-            // has a mylibrary button
-            cy.get('mylibrary-button').shadow().find('button[data-testid="mylibrary-button"]').should('exist');
             // has an auth button
             cy.get('auth-button').shadow().find('button[data-testid="auth-button-logout"]').should('exist');
             // has a mega menu
@@ -119,20 +117,12 @@ describe('Dummy Application', () => {
         cy.get('uq-footer').should('not.exist');
     }
 
-    function hasAuthButton() {
+    function hasAuthButton(username = 'User, Vanilla') {
         cy.get('auth-button')
             .shadow()
-            .find('button[data-testid="auth-button-logout')
+            .find('button[data-testid="account-option-button')
             .should('exist')
-            .and('contain', 'Log out');
-    }
-
-    function hasMyLibraryButton() {
-        cy.get('mylibrary-button')
-            .shadow()
-            .find('button[data-testid="mylibrary-button')
-            .should('exist')
-            .and('contain', 'MyLibrary');
+            .and('contain', username);
     }
 
     // these tests check that the application load.js files load properly and that each application has only the expected inclusions
@@ -158,7 +148,7 @@ describe('Dummy Application', () => {
         });
     });
 
-    context('Uqlapp works as expected', () => {
+    context('app.library.uq.edu.au works as expected', () => {
         it('Javascript load works correctly', () => {
             cy.visit('http://localhost:8080/src/applications/uqlapp/demo.html');
             cy.viewport(1280, 900);
@@ -171,7 +161,6 @@ describe('Dummy Application', () => {
 
             hasAskusButton();
             hasAuthButton();
-            hasMyLibraryButton();
 
             hasAnAlert();
 
@@ -306,7 +295,6 @@ describe('Dummy Application', () => {
 
             hasAskusButton();
             hasAuthButton();
-            hasMyLibraryButton();
 
             hasAnAlert();
             // a drupal specific alert appears
