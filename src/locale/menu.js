@@ -80,7 +80,7 @@ export default {
                 {
                     primaryText: 'Contact the Librarian Team',
                     secondaryText: 'Expert advice for your discipline',
-                    linkTo: 'https://web.library.uq.edu.au/library-services/contact-librarian-team',
+                    linkTo: 'https://web.library.uq.edu.au/library-services/contact-faculty-services-librarians',
                 },
                 {
                     primaryText: 'Book a room or desk',
