@@ -72,18 +72,6 @@ describe('AskUs menu', () => {
                 .find('a[data-testid="askus-menu-moreways"')
                 .should('have.attr', 'href', 'https://web.library.uq.edu.au/contact-us');
         });
-
-        it('Navigates to contact from offline chat icon', () => {
-            cy.visit('http://localhost:8080?chatstatusoffline=true');
-            cy.viewport(1280, 900);
-            cy.wait(1500);
-            cy.intercept('GET', 'https://support.my.uq.edu.au/app/library/contact', {
-                statusCode: 200,
-                body: 'it worked!',
-            });
-            cy.get('askus-button').shadow().find('div#askus-chat-offline').click();
-            cy.get('body').contains('it worked!');
-        });
     });
 
     context('Proactive chat', () => {
@@ -138,6 +126,18 @@ describe('AskUs menu', () => {
             cy.wait(1500);
             cy.get('askus-button').shadow().find('div#askus-proactive-chat').should('have.class', 'show');
             cy.get('askus-button').shadow().find('button#askus-proactive-chat-button-open').click();
+            cy.window().its('open').should('be.called');
+        });
+
+        it('Navigates to contact from offline proactive chat icon', () => {
+            cy.visit('http://localhost:8080?chatstatusoffline=true', {
+                onBeforeLoad(win) {
+                    cy.stub(win, 'open');
+                },
+            });
+            cy.viewport(1280, 900);
+            cy.wait(1500);
+            cy.get('askus-button').shadow().find('div#askus-chat-offline').click();
             cy.window().its('open').should('be.called');
         });
 
