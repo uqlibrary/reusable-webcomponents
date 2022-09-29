@@ -252,7 +252,9 @@ class UQSiteHeader extends HTMLElement {
 
                 jsonParentItem.submenuItems.forEach((jsonChild, indexChild) => {
                     const listItem = document.createElement('li');
-                    listItem.setAttribute('class', 'uq-site-header__navigation__list-item');
+                    let theClassName = 'uq-site-header__navigation__list-item';
+                    indexChild === 0 && (theClassName = `${theClassName} first-child`);
+                    listItem.setAttribute('class', theClassName);
                     listItem.setAttribute(
                         'data-testid',
                         `${jsonParentItem.dataTestid}-${indexChild}` || /* istanbul ignore next */ '',

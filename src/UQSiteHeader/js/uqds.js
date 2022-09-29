@@ -1,5 +1,17 @@
 'use strict';
 
+function isKeyPressed(e, charKeyInput, numericKeyInput) {
+    const keyNumeric = e.charCode || e.keyCode;
+    const keyChar = e.key || e.code;
+    return keyChar === charKeyInput || keyNumeric === numericKeyInput;
+}
+function isTabKeyPressed(e) {
+    return isKeyPressed(e, 'Tab', 9);
+}
+function isBackTabKeyPressed(e) {
+    return isKeyPressed(e, 'Tab', 9) && /* istanbul ignore next */ !!e.shiftKey;
+}
+
 function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError('Cannot call a class as a function');
@@ -76,6 +88,8 @@ var uq = (function (exports) {
             this.closeSubLevel = ''.concat(this.navClass, '__list--close');
             this.init = this.init.bind(this);
             this.handleToggle = this.handleToggle.bind(this);
+            this.handleToggleOnTab = this.handleToggleOnTab.bind(this);
+            this.handleToggleOnBackTab = this.handleToggleOnBackTab.bind(this);
             this.handleMobileToggle = this.handleMobileToggle.bind(this);
             this.handleResize = this.handleResize.bind(this);
             this.setOrientation = this.setOrientation.bind(this);
@@ -141,6 +155,19 @@ var uq = (function (exports) {
                     var subNavToggles = this.nav.querySelectorAll('.'.concat(this.subToggleClass));
                     subNavToggles.forEach(function (item) {
                         item.addEventListener('click', _this.handleToggle);
+                        item.addEventListener('keydown', _this.handleToggleOnBackTab);
+                    });
+
+                    var finalNavLinks = this.nav.querySelectorAll(
+                        '.uq-site-header__navigation__list--level-2 li:last-child',
+                    );
+                    finalNavLinks.forEach(function (item) {
+                        item.addEventListener('keydown', _this.handleToggleOnTab);
+                    });
+
+                    var firstNavLinks = this.nav.querySelectorAll('.first-child a');
+                    firstNavLinks.forEach(function (item) {
+                        item.addEventListener('keydown', _this.handleToggleOnBackTab);
                     });
 
                     var closeItems = this.nav.querySelectorAll('.'.concat(this.closeSubLevel));
@@ -179,6 +206,22 @@ var uq = (function (exports) {
                 },
             },
             {
+                key: 'handleToggleOnBackTab',
+                value: function handleToggleOnBackTab(e) {
+                    if (isBackTabKeyPressed(e)) {
+                        this.handleToggle(e);
+                    }
+                },
+            },
+            {
+                key: 'handleToggleOnTab',
+                value: function handleToggleOnTab(e) {
+                    if (isTabKeyPressed(e)) {
+                        this.handleToggle(e);
+                    }
+                },
+            },
+            {
                 key: 'handleToggle',
                 value: function handleToggle(event) {
                     if (
@@ -197,10 +240,18 @@ var uq = (function (exports) {
                     if (menuItem.tagName !== 'LI') {
                         menuItem = menuItem.parentElement;
                     }
+                    if (menuItem.classList.contains('first-child')) {
+                        menuItem = menuItem.parentElement.parentElement;
+                    }
 
                     var subNav = menuItem.querySelector('ul');
 
-                    if (subNav.classList.contains(this.openModifier) || event.type === 'mouseleave') {
+                    if (
+                        (!!subNav && subNav.classList.contains(this.openModifier)) ||
+                        event.type === 'mouseleave' ||
+                        isTabKeyPressed(event) ||
+                        isBackTabKeyPressed(event)
+                    ) {
                         // closing
                         this.closeLevel(subNav, menuItem);
                         this.unhideAllLevels();
