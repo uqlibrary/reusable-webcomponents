@@ -224,3 +224,10 @@ span.displayText {
 .uq-site-header__navigation__list--level-1.uq-site-header__navigation__list--open {
     border-top: none;
 }
+
+li.uq-site-header__navigation__list-item:focus-visible,
+li.uq-site-header__navigation__list-item a:focus-visible,
+button.uq-site-header__navigation__sub-toggle:focus-visible,
+a.uq-site-header__navigation-link.slide-menu__control:focus-visible {
+    outline: -webkit-focus-ring-color auto 1px;
+}
