@@ -313,7 +313,7 @@ describe('Auth button', () => {
                 });
         });
 
-        it('Navigates to page from mylibrary menu', () => {
+        it('Navigates to page from user popup', () => {
             cy.visit('http://localhost:8080?user=s1111111');
             cy.viewport(1280, 900);
             cy.wait(1500);
