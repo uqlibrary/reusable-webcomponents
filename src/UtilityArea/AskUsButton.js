@@ -1,6 +1,7 @@
 import askus from './css/askus.css';
 import ApiAccess from '../ApiAccess/ApiAccess';
 import { cookieNotFound, setCookie } from '../helpers/cookie';
+import { isBackTabKeyPressed, isTabKeyPressed } from '../helpers/keyDetection';
 
 /**
  * API
@@ -30,7 +31,7 @@ template.innerHTML = `
             <div style="text-align: center; padding-top: 0.5em; color: #595959; font-size: 0.9em;">All links open in a new window</div>
             <ul class="askus-menu-list" role="menu" >
                 <!-- FAQ -->
-                <li role="menuitem" aria-disabled="false">
+                <li id="askus-faq-li" role="menuitem" aria-disabled="false">
                     <a href="https://support.my.uq.edu.au/app/library/faqs" rel="noreferrer" data-testid="askus-menu-faq" target="_blank">
                         <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M17.5 4.5c-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .65.73.45.75.45C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.41.21.75-.19.75-.45V6c-1.49-1.12-3.63-1.5-5.5-1.5zm3.5 14c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"></path></svg>
                         <span>FAQ</span>
@@ -196,7 +197,7 @@ class AskUsButton extends HTMLElement {
 
     addButtonListeners(shadowDOM, isOnline) {
         let askUsClosed = true;
-        function openMenu() {
+        function openAskusMenu() {
             askUsClosed = false;
             const askusMenu = shadowDOM.getElementById('askus-menu');
             !!askusMenu && (askusMenu.style.display = 'block');
@@ -212,12 +213,12 @@ class AskUsButton extends HTMLElement {
             document.onkeydown = function (evt) {
                 const escapeKeyCode = 27;
                 if ((evt.key === escapeKeyCode || evt.keyCode === escapeKeyCode) && askUsClosed === false) {
-                    closeMenu();
+                    closeAskusMenu();
                 }
             };
         }
 
-        function closeMenu() {
+        function closeAskusMenu() {
             askUsClosed = true;
             const askusMenu = shadowDOM.getElementById('askus-menu');
             const askusPane = shadowDOM.getElementById('askus-pane');
@@ -236,7 +237,7 @@ class AskUsButton extends HTMLElement {
         function handleAskUsButton() {
             const askusPane = shadowDOM.getElementById('askus-pane');
             !!askusPane && askusPane.addEventListener('click', handleMouseOut);
-            openMenu();
+            openAskusMenu();
         }
 
         function handleMouseOut() {
@@ -244,7 +245,7 @@ class AskUsButton extends HTMLElement {
 
             askUsClosed = !askUsClosed;
             !!askusPane && askusPane.removeEventListener('mouseleave', handleMouseOut);
-            closeMenu();
+            closeAskusMenu();
         }
 
         // Attach a listener to the askus button
@@ -283,6 +284,19 @@ class AskUsButton extends HTMLElement {
         }
         shadowDOM.getElementById('askus-proactive-chat-button-close').addEventListener('click', closeProactiveChat);
         shadowDOM.getElementById('askus-proactive-chat-button-open').addEventListener('click', openChat);
+        // in practice, cypress can't test the tab key :(
+        /* istanbul ignore next */
+        shadowDOM.getElementById('askus-faq-li').addEventListener('keydown', function (e) {
+            if (isBackTabKeyPressed(e)) {
+                closeAskusMenu();
+            }
+        });
+        /* istanbul ignore next */
+        shadowDOM.getElementById('askus-menu-item-moreways').addEventListener('keydown', function (e) {
+            if (isTabKeyPressed(e)) {
+                closeAskusMenu();
+            }
+        });
     }
 
     isPaneButtonOpacityDropRequested() {
