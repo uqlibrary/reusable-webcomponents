@@ -63,13 +63,13 @@ describe('AskUs menu', () => {
             cy.get('askus-button').shadow().find('div#askus-menu').should('not.be.visible');
         });
 
-        it('Navigates to contact from askus menu', () => {
+        it('Randomly chosen entry in askus dialog has a link', () => {
             cy.visit('http://localhost:8080');
             cy.viewport(1280, 900);
             cy.get('askus-button').shadow().find('button#askus-button').click();
             cy.get('askus-button')
                 .shadow()
-                .find('a[data-testid="askus-menu-moreways"')
+                .contains('More ways to contact us')
                 .should('have.attr', 'href', 'https://web.library.uq.edu.au/contact-us');
         });
     });

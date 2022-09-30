@@ -14,20 +14,15 @@
     color: #51247a;
 }
 
-.askus-proactive-chat-button,
-#askus-button {
+#askus button {
+    line-height: 20px !important;
+    background: rgba(0, 0, 0, 0);
     border-radius: 50%;
+    border: none;
     margin: -12px 0;
     padding: 6px;
     width: 60px;
     height: 60px;
-}
-
-#askus button {
-    line-height: 20px !important;
-    background: rgba(0, 0, 0, 0);
-    border: none;
-    padding: 12px;
     transition-delay: 0s;
     transition-duration: 0.15s;
     transition-property: background-color;
@@ -136,43 +131,44 @@ button:focus {
     }
 }
 
-.askus-menu-list li button {
+.askus-menu-list li a {
     display: inline-block;
     width: 100% !important;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    padding: 4px;
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+    padding-left: 4px !important;
+    padding-right: 4px !important;
     margin: 2px !important;
     margin-bottom: 0 !important;
     text-decoration: none;
     color: #595959;
-    text-align: left;
-    font-size: 16px;
 }
 
 @media screen and (max-width: 420px) {
-    #askus-menu-item-moreways button {
+    #askus-menu-item-moreways a {
         text-align: left;
     }
 }
 @media screen and (min-width: 420px) {
-    #askus-menu-item-moreways button {
+    #askus-menu-item-moreways a {
         text-align: center;
     }
 }
 
-.askus-menu-list li button:hover {
+.askus-menu-list li a:hover {
     background-color: rgba(0, 0, 0, 0.05);
     text-decoration: none;
     cursor: pointer;
 }
 
-.askus-menu-list li button[disabled='true'] {
+.askus-menu-list li a[disabled='true'] {
     cursor: unset;
 }
 
-.askus-menu-list li button[disabled='true']:hover {
+.askus-menu-list li a[disabled='true']:hover {
     background-color: transparent;
 }
 
@@ -185,7 +181,7 @@ button:focus {
     margin-left: 6px;
 }
 
-.askus-menu-list li button .chatTimes {
+.askus-menu-list li a .chatTimes {
     font-size: 12px;
 }
 
