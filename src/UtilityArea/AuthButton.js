@@ -1,7 +1,7 @@
 import styles from './css/auth.css';
 import ApiAccess from '../ApiAccess/ApiAccess';
 import { authLocale } from './auth.locale';
-import { isBackTabKeyPressed, isTabKeyPressed } from '../helpers/keyDetection';
+import { isBackTabKeyPressed, isEscapeKeyPressed, isTabKeyPressed } from '../helpers/keyDetection';
 
 /*
  * usage:
@@ -282,11 +282,9 @@ class AuthButton extends HTMLElement {
             }
 
             setTimeout(showDisplay, 100);
-            document.onkeydown = function (evt) {
-                evt = evt || /* istanbul ignore next */ window.event;
-                const escapeKeyCode = 27;
-                if ((evt.key === escapeKeyCode || evt.keyCode === escapeKeyCode) && accountOptionsClosed === false) {
-                    console.log('options: escapekey');
+            document.onkeydown = function (e) {
+                const evt = e || /* istanbul ignore next */ window.event;
+                if (isEscapeKeyPressed(evt) && accountOptionsClosed === false) {
                     closeAccountOptionsMenu();
                 }
             };

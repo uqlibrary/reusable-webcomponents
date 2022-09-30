@@ -1,7 +1,7 @@
 import askus from './css/askus.css';
 import ApiAccess from '../ApiAccess/ApiAccess';
 import { cookieNotFound, setCookie } from '../helpers/cookie';
-import { isBackTabKeyPressed, isTabKeyPressed } from '../helpers/keyDetection';
+import { isBackTabKeyPressed, isEscapeKeyPressed, isTabKeyPressed } from '../helpers/keyDetection';
 
 /**
  * API
@@ -210,9 +210,9 @@ class AskUsButton extends HTMLElement {
             }
 
             setTimeout(showDisplay, 100);
-            document.onkeydown = function (evt) {
-                const escapeKeyCode = 27;
-                if ((evt.key === escapeKeyCode || evt.keyCode === escapeKeyCode) && askUsClosed === false) {
+            document.onkeydown = function (e) {
+                const evt = e || /* istanbul ignore next */ window.event;
+                if (isEscapeKeyPressed(evt) && askUsClosed === false) {
                     closeAskusMenu();
                 }
             };
