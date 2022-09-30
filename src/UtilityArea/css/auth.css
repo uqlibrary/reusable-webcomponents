@@ -261,7 +261,7 @@ button.login-button:active {
     }
 }
 
-.mylibrary-menu-list li button {
+.mylibrary-menu-list li a {
     display: inline-block;
     width: 100% !important;
     white-space: nowrap;
@@ -279,7 +279,7 @@ button.login-button:active {
     font-size: 16px;
 }
 
-.mylibrary-menu-list li button:hover {
+.mylibrary-menu-list li a:hover {
     background-color: rgba(0, 0, 0, 0.05);
     text-decoration: none;
     cursor: pointer;
