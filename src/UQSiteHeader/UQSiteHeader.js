@@ -220,6 +220,8 @@ class UQSiteHeader extends HTMLElement {
             parentListItem.setAttribute('class', classNavListitem);
             parentListItem.setAttribute('data-testid', datatestid);
             parentListItem.setAttribute('data-gtm-category', 'Main navigation');
+            parentListItem.setAttribute('aria-haspopup', 'true');
+            parentListItem.setAttribute('aria-expanded', 'false');
 
             parentListItem.appendChild(this.createDesktopHeaderItem(datatestid, linkHref, linkPrimaryText));
             if (hasChildren) {
@@ -282,6 +284,7 @@ class UQSiteHeader extends HTMLElement {
                         secondaryText === ' ' &&
                             (itemLinkClassName += ' uq-site-header-menu-list-item-no-secondary-child');
                         itemLink.setAttribute('class', itemLinkClassName);
+                        itemLink.setAttribute('tabindex', '0');
                         !!jsonChild.linkTo && itemLink.setAttribute('href', this.getLink(jsonChild.linkTo));
                         itemLink.appendChild(primaryTextItem);
                         itemLink.appendChild(secondaryTextItem);

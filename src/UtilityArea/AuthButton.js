@@ -291,7 +291,6 @@ class AuthButton extends HTMLElement {
         }
 
         function closeAccountOptionsMenu() {
-            console.log('options: closeAccountOptionsMenu');
             accountOptionsClosed = true;
             const shadowMenu = shadowDOM.getElementById('account-options-menu');
             shadowMenu.classList.add('account-options-menu-closed');
@@ -299,7 +298,6 @@ class AuthButton extends HTMLElement {
             shadowPane.classList.add('account-options-pane-closed');
 
             function hideAccountOptionsDisplay() {
-                console.log('options: hideAccountOptionsDisplay');
                 !!shadowMenu && (shadowMenu.style.display = 'none');
                 !!shadowPane && (shadowPane.style.display = 'none');
             }
@@ -308,7 +306,6 @@ class AuthButton extends HTMLElement {
         }
 
         function handleAccountOptionsButton() {
-            console.log('options: handleAccountOptionsButton');
             const shadowButton = shadowDOM.getElementById('account-options-button');
             accountOptionsClosed
                 ? !!shadowButton && shadowButton.blur()
@@ -319,7 +316,6 @@ class AuthButton extends HTMLElement {
         }
 
         function handleAccountOptionsMouseOut() {
-            console.log('options: handleAccountOptionsMouseOut');
             accountOptionsClosed = !accountOptionsClosed;
             const shadowPane = shadowDOM.getElementById('account-options-pane');
             !!shadowPane && shadowPane.removeEventListener('mouseleave', handleAccountOptionsMouseOut);

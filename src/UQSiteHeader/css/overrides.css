@@ -231,3 +231,9 @@ button.uq-site-header__navigation__sub-toggle:focus-visible,
 a.uq-site-header__navigation-link.slide-menu__control:focus-visible {
     outline: -webkit-focus-ring-color auto 1px;
 }
+li.uq-site-header__navigation__list-item:-moz-focusring,
+li.uq-site-header__navigation__list-item a:-moz-focusring,
+button.uq-site-header__navigation__sub-toggle:-moz-focusring,
+a.uq-site-header__navigation-link.slide-menu__control:-moz-focusring {
+    outline: Highlight auto 1px;
+}

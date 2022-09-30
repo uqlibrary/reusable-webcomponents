@@ -162,12 +162,14 @@ var uq = (function (exports) {
                         '.uq-site-header__navigation__list--level-2 li:last-child',
                     );
                     finalNavLinks.forEach(function (item) {
+                        // a tab click out of the final child in the opened submenu should close the submenu
                         item.addEventListener('keydown', _this.handleToggleOnTab);
                     });
 
                     var firstNavLinks = this.nav.querySelectorAll('.first-child a');
                     firstNavLinks.forEach(function (item) {
-                        item.addEventListener('keydown', _this.handleToggleOnBackTab);
+                        // a back tab out of the first child in an opened submenu should close the submenu
+                        item.addEventListener('keydown', _this.handleToggleOnBackTab, false);
                     });
 
                     var closeItems = this.nav.querySelectorAll('.'.concat(this.closeSubLevel));
@@ -210,6 +212,8 @@ var uq = (function (exports) {
                 value: function handleToggleOnBackTab(e) {
                     if (isBackTabKeyPressed(e)) {
                         this.handleToggle(e);
+                    } else if (isTabKeyPressed(e)) {
+                        return true;
                     }
                 },
             },
@@ -255,30 +259,44 @@ var uq = (function (exports) {
                         // closing
                         this.closeLevel(subNav, menuItem);
                         this.unhideAllLevels();
+                        menuItem.setAttribute('aria-expanded', 'false');
+                        menuItem.setAttribute('aria-haspopup', 'false');
                     } else if (!_searchToggleIsOpen()) {
                         // opening
                         if (event.type === 'touchend') {
                             event.preventDefault();
                         }
 
+                        // first close any other submenu that is open
                         this.closeAllLevels();
                         this.hideAllLevels();
+
+                        // then open the requested submenu
                         this.openLevel(subNav, menuItem);
                         this.setOrientation(menuItem);
                         this.unhideLevel(menuItem);
+                        menuItem.setAttribute('aria-expanded', 'true');
+                        menuItem.setAttribute('aria-haspopup', 'true');
                     }
                 },
             },
             {
                 key: 'openLevel',
                 value: function openLevel(subNav, menuItem) {
-                    _addClassTo(subNav, this.openModifier);
-                    _removeClassFrom(subNav, 'menu-undisplayed');
-                    _addClassTo(menuItem, this.levelOpenModifier);
-                    menuItem.querySelector('a').setAttribute('aria-expanded', 'true');
-                    menuItem.querySelector('button').setAttribute('aria-expanded', 'true');
-                    menuItem.querySelector('button').setAttribute('aria-pressed', 'true');
+                    !!subNav && _addClassTo(subNav, this.openModifier);
+                    !!subNav && _removeClassFrom(subNav, 'menu-undisplayed');
+                    !!menuItem && _addClassTo(menuItem, this.levelOpenModifier);
+                    !!menuItem && menuItem.setAttribute('aria-expanded', '2true');
+                    !!menuItem && menuItem.setAttribute('aria-haspopup', 'true');
+                    var anchor = menuItem.querySelector('a');
+                    !!anchor && anchor.setAttribute('aria-expanded', 'true');
+                    var button = menuItem.querySelector('button');
+                    !!button && button.setAttribute('aria-expanded', 'true');
+                    !!button && button.setAttribute('aria-pressed', 'true');
                     this.hideMenuitemButton(menuItem);
+                    var ul = menuItem.parentNode.querySelector('ul');
+                    !!ul && ul.setAttribute('aria-expanded', 'true');
+                    !!ul && ul.setAttribute('aria-pressed', 'true');
                 },
             },
             {
@@ -307,6 +325,8 @@ var uq = (function (exports) {
                     }
                     !!subNav && _removeClassFrom(subNav, this.openModifier);
                     !!subNav && _addClassTo(subNav, 'menu-undisplayed');
+                    menuItem.setAttribute('aria-expanded', 'false');
+                    menuItem.setAttribute('aria-haspopup', 'false');
                     this.unhideMenuitemButton(menuItem);
                     this.setOrientation(menuItem);
                     _removeClassFrom(menuItem, this.levelOpenModifier);
@@ -337,6 +357,8 @@ var uq = (function (exports) {
                     var levels = this.nav.querySelectorAll('.'.concat(this.subNavClass));
                     levels.forEach(function (level) {
                         var item = level.querySelector('.'.concat(_this3.level2Class));
+                        item.setAttribute('aria-expanded', 'false');
+                        item.setAttribute('aria-haspopup', 'false');
 
                         _this3.closeLevel(item, level);
                     });
@@ -408,6 +430,8 @@ var uq = (function (exports) {
                             if (nav.classList.contains(this.level2Class)) {
                                 this.closeLevel(nav, nav.parentNode, subNav);
                                 _removeClassFrom(nav.parentNode, this.levelOpenModifier);
+                                nav.setAttribute('aria-expanded', 'false');
+                                nav.setAttribute('aria-pressed', 'false');
                             } else {
                                 this.closeNav(nav);
                                 mobileToggle.classList.toggle(''.concat(this.navClass, '-toggle--close'));
@@ -421,6 +445,8 @@ var uq = (function (exports) {
                             if (nav.classList.contains(this.level2Class)) {
                                 this.closeLevel(nav, nav.parentNode);
                                 _removeClassFrom(nav.parentNode, this.levelOpenModifier);
+                                nav.setAttribute('aria-expanded', 'false');
+                                nav.setAttribute('aria-pressed', 'false');
                             } else {
                                 this.closeNav(nav);
                                 mobileToggle.classList.toggle(''.concat(this.navClass, '-toggle--close'));
