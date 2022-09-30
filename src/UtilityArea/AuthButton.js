@@ -43,7 +43,7 @@ authorisedtemplate.innerHTML = `
                     <ul data-testid="mylibrary-menu-list-public" class="mylibrary-menu-list" role="menu">
                         <!-- Primo account -->
                         <li role="menuitem" aria-disabled="false">
-                            <button data-testid="mylibrary-menu-borrowing" onclick="location.href='https://search.library.uq.edu.au/primo-explore/login?vid=61UQ&targetURL=https%3A%2F%2Fsearch.library.uq.edu.au%2Fprimo-explore%2Faccount%3Fvid%3D61UQ%26section%3Doverview%26lang%3Den_US';" rel="noreferrer">
+                            <button data-testid="mylibrary-menu-borrowing" onclick="window.open('https://search.library.uq.edu.au/primo-explore/login?vid=61UQ&targetURL=https%3A%2F%2Fsearch.library.uq.edu.au%2Fprimo-explore%2Faccount%3Fvid%3D61UQ%26section%3Doverview%26lang%3Den_US', '_blank')" rel="noreferrer">
                                 <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M2,3H22C23.05,3 24,3.95 24,5V19C24,20.05 23.05,21 22,21H2C0.95,21 0,20.05 0,19V5C0,3.95 0.95,3 2,3M14,6V7H22V6H14M14,8V9H21.5L22,9V8H14M14,10V11H21V10H14M8,13.91C6,13.91 2,15 2,17V18H14V17C14,15 10,13.91 8,13.91M8,6A3,3 0 0,0 5,9A3,3 0 0,0 8,12A3,3 0 0,0 11,9A3,3 0 0,0 8,6Z"></path></svg>
                                 <span>Library account</span>
                                 <div class="subtext">Loans, requests & settings</div>
@@ -52,7 +52,7 @@ authorisedtemplate.innerHTML = `
                                 
                         <!-- Primo Favourites -->
                         <li role="menuitem" aria-disabled="false">
-                            <button data-testid="mylibrary-menu-saved-items" onclick="location.href='https://search.library.uq.edu.au/primo-explore/login?vid=61UQ&targetURL=https%3A%2F%2Fsearch.library.uq.edu.au%2Fprimo-explore%2Ffavorites%3Fvid%3D61UQ%26lang%3Den_US%26section%3Ditems';" rel="noreferrer">
+                            <button data-testid="mylibrary-menu-saved-items" onclick="window.open('https://search.library.uq.edu.au/primo-explore/login?vid=61UQ&targetURL=https%3A%2F%2Fsearch.library.uq.edu.au%2Fprimo-explore%2Ffavorites%3Fvid%3D61UQ%26lang%3Den_US%26section%3Ditems', '_blank')" rel="noreferrer">
                                 <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path></svg>
                                 <span>Favourites</span>
                                 <div class="subtext">Saved items, searches & search history</div>
@@ -61,7 +61,7 @@ authorisedtemplate.innerHTML = `
 
                         <!-- Learning resources -->
                         <li role="menuitem" aria-disabled="false">
-                            <button data-testid="mylibrary-menu-course-resources" onclick="location.href=https://www.library.uq.edu.au/learning-resources';" rel="noreferrer">
+                            <button data-testid="mylibrary-menu-course-resources" onclick="location.href=https://www.library.uq.edu.au/learning-resources', '_blank')" rel="noreferrer">
                                 <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"></path></svg>
                                 <span>Learning resources</span>
                                 <div class="subtext">Course readings & exam papers</div>
@@ -70,7 +70,7 @@ authorisedtemplate.innerHTML = `
                         
                         <!-- Printing balance -->
                         <li role="menuitem" aria-disabled="false">
-                            <button data-testid="mylibrary-menu-print-balance" onclick="location.href='https://lib-print.library.uq.edu.au:9192/user';" rel="noreferrer">
+                            <button data-testid="mylibrary-menu-print-balance" onclick="window.open('https://lib-print.library.uq.edu.au:9192/user', '_blank')" rel="noreferrer">
                                 <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"></path></svg>
                                 <span>Print balance</span>
                                 <div class="subtext">Log in to your print account</div>
@@ -79,7 +79,7 @@ authorisedtemplate.innerHTML = `
                         
                         <!-- Room bookings -->
                         <li role="menuitem" aria-disabled="false">
-                            <button data-testid="mylibrary-menu-room-bookings" onclick="location.href='https://uqbookit.uq.edu.au/#/app/booking-types/77b52dde-d704-4b6d-917e-e820f7df07cb';" rel="noreferrer">
+                            <button data-testid="mylibrary-menu-room-bookings" onclick="window.open('https://uqbookit.uq.edu.au/#/app/booking-types/77b52dde-d704-4b6d-917e-e820f7df07cb', '_blank')" rel="noreferrer">
                                 <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M2 17h20v2H2zm11.84-9.21c.1-.24.16-.51.16-.79 0-1.1-.9-2-2-2s-2 .9-2 2c0 .28.06.55.16.79C6.25 8.6 3.27 11.93 3 16h18c-.27-4.07-3.25-7.4-7.16-8.21z"></path></svg>
                                 <span>Book a room or desk</span>
                                 <div class="subtext">Student meeting & study spaces</div>
@@ -88,7 +88,7 @@ authorisedtemplate.innerHTML = `
                         
                         <!-- eSpace dashboard -->
                         <li data-testid="mylibrary-espace" id="mylibrary-espace" role="menuitem" aria-disabled="false">
-                            <button data-testid="mylibrary-menu-espace-dashboard" onclick="location.href='https://espace.library.uq.edu.au/dashboard';" rel="noreferrer">
+                            <button data-testid="mylibrary-menu-espace-dashboard" onclick="window.open('https://espace.library.uq.edu.au/dashboard', '_blank')" rel="noreferrer">
                                 <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"></path></svg>
                                 <span>UQ eSpace dashboard</span>
                                 <div class="subtext">Your UQ research & more</div>
@@ -97,7 +97,7 @@ authorisedtemplate.innerHTML = `
 
                         <!-- Feedback -->
                         <li role="menuitem" aria-disabled="false">
-                            <button id="mylibrary-menu-feedback" data-testid="mylibrary-menu-feedback" onclick="location.href='https://support.my.uq.edu.au/app/library/feedback';" rel="noreferrer">
+                            <button id="mylibrary-menu-feedback" data-testid="mylibrary-menu-feedback" onclick="window.open('https://support.my.uq.edu.au/app/library/feedback', '_blank')" rel="noreferrer">
                                 <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 12h-2v-2h2v2zm0-4h-2V6h2v4z"></path></svg>
                                 <span>Feedback</span>
                             </a>
@@ -108,7 +108,7 @@ authorisedtemplate.innerHTML = `
                                                        
                             <!-- Masquerade -->
                             <li data-testid="mylibrary-masquerade" id="mylibrary-masquerade" role="menuitem" aria-disabled="false">
-                                <button id="mylibrary-menu-masquerade" data-testid="mylibrary-menu-masquerade" onclick="location.href='https://www.library.uq.edu.au/admin/masquerade';" rel="noreferrer">
+                                <button id="mylibrary-menu-masquerade" data-testid="mylibrary-menu-masquerade" onclick="location.href='https://www.library.uq.edu.au/admin/masquerade', '_blank')" rel="noreferrer">
                                     <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;">
                                         <path d="M16.5 12c1.38 0 2.49-1.12 2.49-2.5S17.88 7 16.5 7C15.12 7 14 8.12 14 9.5s1.12 2.5 2.5 2.5zM9 11c1.66 0 2.99-1.34 2.99-3S10.66 5 9 5C7.34 5 6 6.34 6 8s1.34 3 3 3zm7.5 3c-1.83 0-5.5.92-5.5 2.75V19h11v-2.25c0-1.83-3.67-2.75-5.5-2.75zM9 13c-2.33 0-7 1.17-7 3.5V19h7v-2.25c0-.85.33-2.34 2.37-3.47C10.5 13.1 9.66 13 9 13z"></path>
                                     </svg>
@@ -118,7 +118,7 @@ authorisedtemplate.innerHTML = `
                              
                             <!-- Alerts Admin -->
                             <li data-testid="alerts-admin" id="alerts-admin" role="menuitem" aria-disabled="false">
-                                <button id="mylibrary-menu-alerts-admin" data-testid="mylibrary-menu-alerts-admin" onclick="location.href='https://www.library.uq.edu.au/admin/alerts';" rel="noreferrer">
+                                <button id="mylibrary-menu-alerts-admin" data-testid="mylibrary-menu-alerts-admin" onclick="location.href='https://www.library.uq.edu.au/admin/alerts', '_blank')" rel="noreferrer">
                                     <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path></svg>
                                     <span>Website alerts</span>
                                 </a>
@@ -126,7 +126,7 @@ authorisedtemplate.innerHTML = `
                                             
                             <!-- Spotlights Admin -->
                             <li data-testid="spotlights-admin" id="spotlights-admin" role="menuitem" aria-disabled="false">
-                                <button id="mylibrary-menu-spotlights-admin" data-testid="mylibrary-menu-spotlights-admin" onclick="location.href='https://www.library.uq.edu.au/admin/spotlights';" rel="noreferrer">
+                                <button id="mylibrary-menu-spotlights-admin" data-testid="mylibrary-menu-spotlights-admin" onclick="location.href='https://www.library.uq.edu.au/admin/spotlights', '_blank')" rel="noreferrer">
                                     <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path></svg>
                                     <span>Website spotlights</span>
                                 </a>
