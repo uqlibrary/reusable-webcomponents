@@ -204,6 +204,16 @@ class UQSiteHeader extends HTMLElement {
             !!this.shadowRoot &&
             this.shadowRoot.querySelector('.uq-site-header__navigation__list__first-permanent-child');
 
+        // get the id of the last list item which has primary text (ie, its not a placeholder)
+        // so we can tab out of the last _visible_ menu item
+        function getIdOfLastVisibleMenuItem(jsonParentItem) {
+            let lastId = 0;
+            jsonParentItem.submenuItems.forEach((jsonChild, indexChild) => {
+                !!jsonChild.primaryText && (lastId = indexChild);
+            });
+            return lastId;
+        }
+
         menuLocale.publicmenu.forEach((jsonParentItem, index) => {
             const datatestid = `menu-group-item-${index}`;
             const hasChildren = !!jsonParentItem.submenuItems && jsonParentItem.submenuItems.length > 0;
@@ -252,17 +262,19 @@ class UQSiteHeader extends HTMLElement {
 
                 !!listItemWrapper && !!repeatParentListItem && listItemWrapper.appendChild(repeatParentListItem);
 
+                let lastId = getIdOfLastVisibleMenuItem(jsonParentItem);
                 jsonParentItem.submenuItems.forEach((jsonChild, indexChild) => {
                     const listItem = document.createElement('li');
                     let theClassName = 'uq-site-header__navigation__list-item';
                     indexChild === 0 && (theClassName = `${theClassName} first-child`);
+                    indexChild === lastId && (theClassName = `${theClassName} final-child`);
                     listItem.setAttribute('class', theClassName);
                     listItem.setAttribute(
                         'data-testid',
                         `${jsonParentItem.dataTestid}-${indexChild}` || /* istanbul ignore next */ '',
                     );
 
-                    // a missing primary text allows for an empty cell on desktop, controlling the spacing of the menu
+                    // a missing primary text allows for an empty list item on desktop, controlling the spacing of the menu
                     if (!!jsonChild.primaryText) {
                         const primarytextOfLink = document.createTextNode(
                             jsonChild.primaryText || /* istanbul ignore next */ '',

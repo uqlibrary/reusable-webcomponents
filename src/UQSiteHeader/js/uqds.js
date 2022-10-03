@@ -6,7 +6,7 @@ function isKeyPressed(e, charKeyInput, numericKeyInput) {
     return keyChar === charKeyInput || keyNumeric === numericKeyInput;
 }
 function isTabKeyPressed(e) {
-    return isKeyPressed(e, 'Tab', 9);
+    return isKeyPressed(e, 'Tab', 9) && !e.shiftKey;
 }
 function isBackTabKeyPressed(e) {
     return isKeyPressed(e, 'Tab', 9) && /* istanbul ignore next */ !!e.shiftKey;
@@ -156,14 +156,6 @@ var uq = (function (exports) {
                     subNavToggles.forEach(function (item) {
                         item.addEventListener('click', _this.handleToggle);
                         item.addEventListener('keydown', _this.handleToggleOnBackTab);
-                    });
-
-                    var finalNavLinks = this.nav.querySelectorAll(
-                        '.uq-site-header__navigation__list--level-2 li:last-child',
-                    );
-                    finalNavLinks.forEach(function (item) {
-                        // a tab click out of the final child in the opened submenu should close the submenu
-                        item.addEventListener('keydown', _this.handleToggleOnTab);
                     });
 
                     var firstNavLinks = this.nav.querySelectorAll('.first-child a');
@@ -424,24 +416,9 @@ var uq = (function (exports) {
                         .querySelector('uq-site-header')
                         .shadowRoot.querySelector('.'.concat(this.toggleClass));
 
-                    if (parent === nav.firstElementChild) {
-                        // If we shift tab past the first child, toggle this level.
-                        if (event.key === 'Tab' && event.shiftKey === true) {
-                            if (nav.classList.contains(this.level2Class)) {
-                                this.closeLevel(nav, nav.parentNode, subNav);
-                                _removeClassFrom(nav.parentNode, this.levelOpenModifier);
-                                nav.setAttribute('aria-expanded', 'false');
-                                nav.setAttribute('aria-pressed', 'false');
-                            } else {
-                                this.closeNav(nav);
-                                mobileToggle.classList.toggle(''.concat(this.navClass, '-toggle--close'));
-                                mobileToggle.setAttribute('aria-expanded', 'false');
-                                mobileToggle.setAttribute('aria-pressed', 'false');
-                            }
-                        }
-                    } else if (parent === nav.lastElementChild) {
+                    if (parent.classList.contains('final-child')) {
                         // If we tab past the last child, toggle this level.
-                        if (event.key === 'Tab' && event.shiftKey === false) {
+                        if (isTabKeyPressed(event)) {
                             if (nav.classList.contains(this.level2Class)) {
                                 this.closeLevel(nav, nav.parentNode);
                                 _removeClassFrom(nav.parentNode, this.levelOpenModifier);
