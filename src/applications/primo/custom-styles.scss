@@ -132,13 +132,13 @@ uqlibrary-alerts {
 }
 
 // Hide the article full view side menu item "Tags"
-// more info: https://knowledge.exlibrisgroup.com/Primo/Knowledge_Articles/How_to_disable_the_tags_in_Primo_classic_and_new_UI
 // note: aria-label can be flakey as sometime the markup is eg aria-label="Tags" and sometimes it is aria-label="brief.results.tabs.tags"
-// there was a second problem here where the Collection button had 'aria-label="Tags"' so we had to resort to this alternate attribute
-button.zero-margin.button-right-align.button-link.md-button.md-primoExplore-theme[translate-values="{'service': 'Tags'}"] {
-    display: none;
+.services-index-under {
+    button[aria-label="brief.results.tabs.tags"],
+    button[aria-label="Tags"] {
+        display: none;
+    }
 }
-
 //Hide the "Tags" content area on the article full view
 div.full-view-section#tags {
     display: none;
