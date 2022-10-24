@@ -235,6 +235,10 @@ prm-citation-trails-item.active-item .item-title,
 prm-tags-results-list md-list.prm-list.prm-linkable-list-items md-list-item .item-title {
     color: $links !important;
 }
+// does prm-links even exist anymore? Override it in the account overview area
+prm-account-overview .prm-links:hover {
+    color: #fff !important;
+}
 
 .tiles-grid-tile {
     background: $white;
