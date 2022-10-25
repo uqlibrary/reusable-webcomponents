@@ -1388,7 +1388,8 @@ prm-library-card-menu .subtext,
 }
 
 // style the mobile account menu
-.mobile-main-menu-bg .mylibrary-list {
+.mobile-main-menu-bg ul.mylibrary-list {
+    margin-bottom: 0;
     margin-left: -5px;
     width: 100%;
     margin-top: 0;
@@ -1405,6 +1406,10 @@ prm-library-card-menu .subtext,
     svg {
         fill: #fff;
     }
+}
+// make the builtinAccountButton have similar spacing under it to the other items
+.mobile-main-menu-bg prm-library-card-menu {
+    margin-bottom: 0.4em
 }
 // line up the logout button text with our account items
 prm-authentication span[translate="eshelf.signout.title.link"] {
