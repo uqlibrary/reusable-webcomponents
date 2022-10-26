@@ -236,7 +236,7 @@ prm-tags-results-list md-list.prm-list.prm-linkable-list-items md-list-item .ite
     color: $links !important;
 }
 // does prm-links even exist anymore? Override it in the account overview area
-prm-account-overview .prm-links:hover {
+prm-account-overview button.prm-links:hover {
     color: #fff !important;
 }
 
