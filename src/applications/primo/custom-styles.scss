@@ -1496,3 +1496,30 @@ prm-main-menu .my-feedback-ctm {
         }
     }
 }
+
+// "the Favourite pin popup" - the popup that sometimes appears on Favourite pin icon after clicking the pin on an item
+// the default yellow border is ugly
+prm-favorites-warning-message div.favorites-guest-warning {
+    border-color: #51247a;
+    padding: 2px;
+}
+prm-topbar prm-favorites-warning-message .favorites-guest-warning-triangle {
+    border-bottom-color: #51247a;
+}
+// also has fancy positioning js to make it "stick" to the pin
+
+// the Favourite pin popup close button turns white on hover. Fix.
+prm-topbar prm-search-bookmark-filter div.favorites-guest-warning .md-button:not(.disable-hover):hover:not([disabled]):hover:not([disabled]) {
+    color: #fff!important;
+    border-radius: 50%;
+    background-color: grey;
+}
+prm-topbar prm-favorites-warning-message button.close-btn.md-button:hover prm-icon {
+    color: #fff;
+}
+
+.favouritesDialogInitialPosition {
+    margin-top: 130px;
+    margin-right: 60px;
+    transition: margin 0.2s;
+}
