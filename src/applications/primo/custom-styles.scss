@@ -1100,10 +1100,15 @@ prm-facet .switch-results {
             padding-bottom: 1.5em;
         }
         // the "whats this" link
+        span.slider-text-wrap {
+            display: block;
+        }
         a {
             position: absolute;
-            top: 4.5em;
-            right: 1em;
+            top: 1.2em;
+            right: 0;
+            white-space: nowrap;
+            padding-left: 0.3em;
         }
         &:hover a,
         & a:hover {
