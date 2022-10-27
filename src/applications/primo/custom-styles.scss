@@ -1527,9 +1527,15 @@ prm-brief-result-container .result-item-actions  prm-save-to-favorites-button  .
         }
     }
 }
-
 prm-topbar prm-favorites-warning-message button.close-btn.md-button:hover prm-icon {
     color: #fff;
+}
+
+// make the mobile toast dialog version have our standard alert colour
+prm-favorites-warning-message div.mobile-favorites-warning-message,
+prm-favorites-warning-message md-toast,
+prm-favorites-warning-message md-toast div {
+    background-color: $alert
 }
 
 .favouritesDialogInitialPosition {
