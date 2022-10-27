@@ -1508,17 +1508,26 @@ prm-favorites-warning-message div.favorites-guest-warning {
     border-color: #51247a;
     padding: 2px;
 }
-prm-topbar prm-favorites-warning-message .favorites-guest-warning-triangle {
+prm-favorites-warning-message .favorites-guest-warning-triangle {
     border-bottom-color: #51247a;
 }
-// also has fancy positioning js to make it "stick" to the pin
+// also has fancy positioning js in exlibris-primo repo custom.js file to make it "stick" to the pin
 
 // the Favourite pin popup close button turns white on hover. Fix.
-prm-topbar prm-search-bookmark-filter div.favorites-guest-warning .md-button:not(.disable-hover):hover:not([disabled]):hover:not([disabled]) {
+prm-search-bookmark-filter div.favorites-guest-warning .md-button:not(.disable-hover):hover:not([disabled]):hover:not([disabled]) {
     color: #fff!important;
     border-radius: 50%;
     background-color: grey;
 }
+prm-brief-result-container .result-item-actions  prm-save-to-favorites-button  .md-icon-button {
+    &:hover,
+    &:focus {
+        &:not([disabled]) {
+            background-color: grey !important;
+        }
+    }
+}
+
 prm-topbar prm-favorites-warning-message button.close-btn.md-button:hover prm-icon {
     color: #fff;
 }
