@@ -176,7 +176,7 @@ class Training extends HTMLElement {
             }
         }, this);
 
-        const keywordRegExp = new RegExp(filters.keyword, 'i');
+        const keywordRegExp = new RegExp(decodeURIComponent(filters.keyword), 'i');
 
         let weekStart;
         let weekEnd;

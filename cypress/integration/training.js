@@ -737,6 +737,68 @@ describe('Training', () => {
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
             });
         });
+        it('user can select a chip and it will filter correctly, simple example', () => {
+            cy.visit('http://localhost:8080/index-training.html');
+            cy.viewport(1280, 900);
+            cy.get('library-training[id="test-with-filter"]')
+                .should('exist')
+                .shadow()
+                .within(() => {
+                    cy.get('training-list')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            cy.get('h4:first-child').should(
+                                'contain',
+                                'Python with Spyder: Introduction to Data Science',
+                            );
+                        });
+                    cy.get('training-filter')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            // this test is dependent on the chips currently in the system
+                            cy.get('.quicklinks button').contains('Excel').click();
+                        });
+                    cy.get('training-list')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            cy.get('h4:first-child').should('contain', 'Excel: processing data');
+                        });
+                });
+        });
+        it('user can select a chip and it will filter correctly, example with space to remove', () => {
+            cy.visit('http://localhost:8080/index-training.html');
+            cy.viewport(1280, 900);
+            cy.get('library-training[id="test-with-filter"]')
+                .should('exist')
+                .shadow()
+                .within(() => {
+                    cy.get('training-list')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            cy.get('h4:first-child').should(
+                                'contain',
+                                'Python with Spyder: Introduction to Data Science',
+                            );
+                        });
+                    cy.get('training-filter')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            // this test is dependent on the chips currently in the system
+                            cy.get('.quicklinks button').contains('Creating a Structured Thesis').click();
+                        });
+                    cy.get('training-list')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            cy.get('h4:first-child').should('contain', 'Word: Creating a Structured Thesis (CaST)');
+                        });
+                });
+        });
         it('user can enter a keyword', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
