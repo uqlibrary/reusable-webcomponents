@@ -1544,13 +1544,17 @@ prm-main-menu .my-feedback-ctm {
 
 
 // "the Favourite pin popup" - the popup that sometimes appears on Favourite pin icon after clicking the pin on an item
-// the default yellow border is ugly
-prm-favorites-warning-message div.favorites-guest-warning {
-    border-color: #51247a;
-    padding: 2px;
-}
-prm-favorites-warning-message .favorites-guest-warning-triangle {
-    border-bottom-color: #51247a;
+prm-explore-main div.header {
+    // the default yellow border is ugly
+    prm-favorites-warning-message div.favorites-guest-warning {
+        border-color: #51247a;
+        padding: 2px;
+        background-color: #fff;
+    }
+
+    prm-favorites-warning-message .favorites-guest-warning-triangle {
+        border-bottom-color: #51247a;
+    }
 }
 // also has fancy positioning js in exlibris-primo repo custom.js file to make it "stick" to the pin
 
