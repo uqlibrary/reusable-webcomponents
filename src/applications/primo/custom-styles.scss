@@ -646,8 +646,10 @@ prm-search-result-tool-bar {
 
 .result-item-actions {
     prm-save-to-favorites-button {
+        .unpin-button,
         .pin-button {
             color: $primary-hue2;
+            &.unpinned,
             &.pinned {
                 &:focus,
                 &:hover {
@@ -1547,13 +1549,13 @@ prm-main-menu .my-feedback-ctm {
 prm-explore-main div.header {
     // the default yellow border is ugly
     prm-favorites-warning-message div.favorites-guest-warning {
-        border-color: #51247a;
+        border-color: $theme-color;
         padding: 2px;
         background-color: #fff;
     }
 
     prm-favorites-warning-message .favorites-guest-warning-triangle {
-        border-bottom-color: #51247a;
+        border-bottom-color: $theme-color;
     }
 }
 // also has fancy positioning js in exlibris-primo repo custom.js file to make it "stick" to the pin
