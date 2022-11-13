@@ -46,11 +46,6 @@ export default {
                 linkTo: 'https://support.my.uq.edu.au/app/library/feedback',
             },
             {
-                dataTestid: 'connect-participate-link',
-                linklabel: 'Help us improve',
-                linkTo: 'https://web.library.uq.edu.au/about-us/participate-customer-research',
-            },
-            {
                 dataTestid: 'connect-sitemap-link',
                 linklabel: 'Site map',
                 linkTo: 'https://web.library.uq.edu.au/sitemap',
