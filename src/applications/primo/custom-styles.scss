@@ -1489,10 +1489,10 @@ prm-main-menu .my-feedback-ctm {
         fill: rgba(255, 255, 255, 0.9);
     }
     button:hover {
-        color: #2377cb;
+        color: $accent-color;
         background-color: #fff;
         path {
-            fill: #2377cb;
+            fill: $accent-color;
         }
     }
 }
@@ -1509,23 +1509,24 @@ prm-main-menu .my-feedback-ctm {
         margin-top: 20px;
     }
 }
-.result-item-text > .readingListMark .readingListMarkIcon {
+.result-item-text > .readingListMark .readingListMarkIcon, // should be able to remove this line after CA golive
+.result-item-text > .customIndicator .indicatorIcon {
     margin-left: -10px;
 }
-.readingListMark {
+.readingListMark, // should be able to remove this line after CA golive
+.customIndicator {
     padding: 0.25em 0;
     position: relative;
     left: -2px;
-    path {
-        fill: $green;
-    }
+
     md-icon {
         width: 18px;
         height: 18px;
         min-width: 18px;
         min-height: 18px;
     }
-    .readingListMarkLabel {
+    .readingListMarkLabel, // should be able to remove this line after CA golive
+    .customIndicatorLabel {
         padding-left: 12px;
         font-weight: 600;
         font-size: 12px;
@@ -1539,6 +1540,13 @@ prm-main-menu .my-feedback-ctm {
         background-size: 11px;
     }
 }
+.readingListMarkIcon  path {
+    fill: $green;
+}
+.culturalAdviceMarkIcon path {
+    fill: $accent-color;
+}
+
 
 // "the Favourite pin popup" - the popup that sometimes appears on Favourite pin icon after clicking the pin on an item
 prm-explore-main div.header {
