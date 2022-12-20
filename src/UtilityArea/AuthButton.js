@@ -131,6 +131,14 @@ authorisedtemplate.innerHTML = `
                                     <span>Website spotlights</span>
                                 </a>
                             </li>
+                                            
+                            <!-- Test & Tag -->
+                            <li data-testid="testTag-admin" id="testTag-admin" role="menuitem" aria-disabled="false">
+                                <a tabindex="0" id="mylibrary-menu-testTag-admin"  data-testid="mylibrary-menu-testTag-admin" href="https://www.library.uq.edu.au/admin/testntag" rel="noreferrer">
+                                    <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path></svg>
+                                    <span>Test and Tag</span>
+                                </a>
+                            </li>
             
                         </ul>
                     </div>
@@ -203,6 +211,9 @@ class AuthButton extends HTMLElement {
 
                 const spotlightsAdminElement = !!shadowDOM && shadowDOM.getElementById('spotlights-admin');
                 !this.canSeeSpotlightsAdmin(account) && !!spotlightsAdminElement && spotlightsAdminElement.remove();
+
+                const testTagAdminElement = !!shadowDOM && shadowDOM.getElementById('testTag-admin');
+                !this.canSeeTestTagAdmin(account) && !!testTagAdminElement && testTagAdminElement.remove();
 
                 this.showHideMylibraryEspaceOption(shadowDOM);
 
@@ -337,7 +348,14 @@ class AuthButton extends HTMLElement {
         }
 
         // these ifs must match the reverse order of display
-        if (this.canSeeSpotlightsAdmin(account)) {
+        if (this.canSeeTestTagAdmin(account)) {
+            !!shadowDOM &&
+                shadowDOM.getElementById('mylibrary-menu-testTag-admin').addEventListener('keydown', function (e) {
+                    if (isTabKeyPressed(e)) {
+                        closeAccountOptionsMenu();
+                    }
+                });
+        } else if (this.canSeeSpotlightsAdmin(account)) {
             !!shadowDOM &&
                 shadowDOM.getElementById('mylibrary-menu-spotlights-admin').addEventListener('keydown', function (e) {
                     if (isTabKeyPressed(e)) {
@@ -408,12 +426,25 @@ class AuthButton extends HTMLElement {
         );
     }
 
+    // access controlled via Active Directory (AD)
+    hasTestTagAdminAccess(account) {
+        return (
+            !!account &&
+            !!account.groups &&
+            account.groups.find((group) => group.includes('lib_libapi_TestTagUsers'))
+        );
+    }
+
     canSeeAlertsAdmin(account) {
         return !!account && !!this.hasWebContentAdminAccess(account);
     }
 
     canSeeSpotlightsAdmin(account) {
         return !!account && !!this.hasWebContentAdminAccess(account);
+    }
+
+    canSeeTestTagAdmin(account) {
+        return !!account && !!this.hasTestTagAdminAccess(account);
     }
 
     async showHideMylibraryEspaceOption(shadowDOM) {
