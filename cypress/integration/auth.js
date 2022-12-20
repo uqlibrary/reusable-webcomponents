@@ -51,6 +51,14 @@ function assertUserHasSpotlightAdmin(expected) {
     }
 }
 
+function assertUserHasTestTagAdmin(expected) {
+    if (!!expected) {
+        cy.get('li[data-testid="testTag-admin"]').should('exist').contains('Test and Tag');
+    } else {
+        cy.get('li[data-testid="testTag-admin"]').should('not.exist');
+    }
+}
+
 function assertUserHasEspaceDashboard(expected) {
     if (!!expected) {
         cy.get('li[data-testid="mylibrary-espace"]').should('exist').contains('UQ eSpace dashboard');
@@ -70,6 +78,7 @@ function assertUserSeesNOAdminOptions() {
     assertUserHasMasquerade(false);
     assertUserHasAlertsAdmin(false);
     assertUserHasSpotlightAdmin(false);
+    assertUserHasTestTagAdmin(false);
     // the admin block has been removed so we dont see the admin border
     cy.get('[data-testid="admin-options"]').should('not.exist');
 }
@@ -253,7 +262,20 @@ describe('Auth button', () => {
                     assertUserHasMasquerade(true);
                     assertUserHasAlertsAdmin(true);
                     assertUserHasSpotlightAdmin(true);
+                    assertUserHasTestTagAdmin(false); // admins do not get T&T by default
                     assertUserHasEspaceDashboard(true); // not an admin function, this user happens to have an author account
+                });
+        });
+
+        it('Test Tag user gets Test and Tag entry', () => {
+            cy.visit('http://localhost:8080?user=uqtesttag');
+            cy.viewport(1280, 900);
+            openAccountDropdown();
+            cy.get('auth-button')
+                .shadow()
+                .within(() => {
+                    assertUserHasStandardMyLibraryOptions();
+                    assertUserHasTestTagAdmin(true);
                 });
         });
 
@@ -268,6 +290,7 @@ describe('Auth button', () => {
                     assertUserHasMasquerade(true);
                     assertUserHasAlertsAdmin(false);
                     assertUserHasSpotlightAdmin(false);
+                    assertUserHasTestTagAdmin(false);
                     assertUserHasEspaceDashboard(true);
                 });
         });
@@ -297,6 +320,7 @@ describe('Auth button', () => {
                     assertUserHasMasquerade(true);
                     assertUserHasAlertsAdmin(false);
                     assertUserHasSpotlightAdmin(false);
+                    assertUserHasTestTagAdmin(false);
                 });
         });
 
