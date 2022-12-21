@@ -28,8 +28,7 @@ authorisedtemplate.innerHTML = `
         <div id="account-options-menu" class="auth-menu" data-testid="account-options-menu" class="account-options-menu-closed" style="display: none;">
             <div class="account-options-menu-list">
                 <div width="5" class="md-menu-content prm-user-menu-content md-primoExplore-theme" role="menu">
-                    <h2 class="accessible-only">Menu</h2>
-                    <div class="md-menu-item">
+                    <div class="md-menu-item"  >
                         <div class="user-menu-header">
                             <div layout="column" flex="" class="layout-column flex">
                                 <span class="tiny-text">Logged in as:</span>
