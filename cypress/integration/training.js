@@ -465,7 +465,7 @@ describe('Training', () => {
                     cy.get('training-list')
                         .should('exist')
                         .shadow()
-                        .find('.uq-card__header h3')
+                        .find('.uq-card__header h2')
                         .should('have.class', 'visually-hidden');
                 });
         });
@@ -748,7 +748,7 @@ describe('Training', () => {
                         .should('exist')
                         .shadow()
                         .within(() => {
-                            cy.get('h4:first-child').should(
+                            cy.get('h3:first-child').should(
                                 'contain',
                                 'Python with Spyder: Introduction to Data Science',
                             );
@@ -764,7 +764,7 @@ describe('Training', () => {
                         .should('exist')
                         .shadow()
                         .within(() => {
-                            cy.get('h4:first-child').should('contain', 'Excel: processing data');
+                            cy.get('h3:first-child').should('contain', 'Excel: processing data');
                         });
                 });
         });
@@ -779,7 +779,7 @@ describe('Training', () => {
                         .should('exist')
                         .shadow()
                         .within(() => {
-                            cy.get('h4:first-child').should(
+                            cy.get('h3:first-child').should(
                                 'contain',
                                 'Python with Spyder: Introduction to Data Science',
                             );
@@ -795,7 +795,7 @@ describe('Training', () => {
                         .should('exist')
                         .shadow()
                         .within(() => {
-                            cy.get('h4:first-child').should('contain', 'Word: Creating a Structured Thesis (CaST)');
+                            cy.get('h3:first-child').should('contain', 'Word: Creating a Structured Thesis (CaST)');
                         });
                 });
         });
