@@ -5,3 +5,4 @@ cypress/videos
 .idea
 coverage/
 .nyc_output
+/.vscode

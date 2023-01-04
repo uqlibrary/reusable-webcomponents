@@ -27,9 +27,9 @@ authorisedtemplate.innerHTML = `
         <!-- Menu -->
         <div id="account-options-menu" class="auth-menu" data-testid="account-options-menu" class="account-options-menu-closed" style="display: none;">
             <div class="account-options-menu-list">
+                <h2 class="accessible-only">Menu</h2>
                 <div width="5" class="md-menu-content prm-user-menu-content md-primoExplore-theme" role="menu">
-                    <h2 class="accessible-only">Menu</h2>
-                    <div class="md-menu-item">
+                    <div class="md-menu-item"  >
                         <div class="user-menu-header">
                             <div layout="column" flex="" class="layout-column flex">
                                 <span class="tiny-text">Logged in as:</span>
@@ -131,6 +131,14 @@ authorisedtemplate.innerHTML = `
                                     <span>Website spotlights</span>
                                 </a>
                             </li>
+                                            
+                            <!-- Test & Tag -->
+                            <li data-testid="testTag-admin" id="testTag-admin" role="menuitem" aria-disabled="false">
+                                <a tabindex="0" id="mylibrary-menu-testTag-admin"  data-testid="mylibrary-menu-testTag-admin" href="https://www.library.uq.edu.au/admin/testntag" rel="noreferrer">
+                                <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M19 1H5c-1.1 0-1.99.9-1.99 2L3 15.93c0 .69.35 1.3.88 1.66L12 23l8.11-5.41c.53-.36.88-.97.88-1.66L21 3c0-1.1-.9-2-2-2zm-9 15l-5-5 1.41-1.41L10 13.17l7.59-7.59L19 7l-9 9z"></path></svg>    
+                                    <span>Test and Tag</span>
+                                </a>
+                            </li>
             
                         </ul>
                     </div>
@@ -203,6 +211,9 @@ class AuthButton extends HTMLElement {
 
                 const spotlightsAdminElement = !!shadowDOM && shadowDOM.getElementById('spotlights-admin');
                 !this.canSeeSpotlightsAdmin(account) && !!spotlightsAdminElement && spotlightsAdminElement.remove();
+
+                const testTagAdminElement = !!shadowDOM && shadowDOM.getElementById('testTag-admin');
+                !this.canSeeTestTagAdmin(account) && !!testTagAdminElement && testTagAdminElement.remove();
 
                 this.showHideMylibraryEspaceOption(shadowDOM);
 
@@ -337,7 +348,14 @@ class AuthButton extends HTMLElement {
         }
 
         // these ifs must match the reverse order of display
-        if (this.canSeeSpotlightsAdmin(account)) {
+        if (this.canSeeTestTagAdmin(account)) {
+            !!shadowDOM &&
+                shadowDOM.getElementById('mylibrary-menu-testTag-admin').addEventListener('keydown', function (e) {
+                    if (isTabKeyPressed(e)) {
+                        closeAccountOptionsMenu();
+                    }
+                });
+        } else if (this.canSeeSpotlightsAdmin(account)) {
             !!shadowDOM &&
                 shadowDOM.getElementById('mylibrary-menu-spotlights-admin').addEventListener('keydown', function (e) {
                     if (isTabKeyPressed(e)) {
@@ -408,12 +426,23 @@ class AuthButton extends HTMLElement {
         );
     }
 
+    // access controlled via Active Directory (AD)
+    hasTestTagAdminAccess(account) {
+        return (
+            !!account && !!account.groups && account.groups.find((group) => group.includes('lib_libapi_TestTagUsers'))
+        );
+    }
+
     canSeeAlertsAdmin(account) {
         return !!account && !!this.hasWebContentAdminAccess(account);
     }
 
     canSeeSpotlightsAdmin(account) {
         return !!account && !!this.hasWebContentAdminAccess(account);
+    }
+
+    canSeeTestTagAdmin(account) {
+        return !!account && !!this.hasTestTagAdminAccess(account);
     }
 
     async showHideMylibraryEspaceOption(shadowDOM) {

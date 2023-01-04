@@ -37,9 +37,9 @@ template.innerHTML = `
                         </div>
                     </div>
                     <div id="input-field-wrapper" class="MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-true">
-                        <div id="search-portal-autocomplete" class="MuiAutocomplete-root" aria-expanded="false" data-testid="primo-search-autocomplete" aria-label="Select Search Type">
+                        <div id="search-portal-autocomplete" class="MuiAutocomplete-root" data-testid="primo-search-autocomplete" aria-label="Select Search Type">
                             <div class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth">
-                                <div id="inputFieldParent" role="combobox" aria-expanded="false" aria-owns="search-portal-autocomplete-listbox" class="MuiInputBase-root MuiInput-root MuiInput-underline MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd">
+                                <div id="inputFieldParent" role="combobox" aria-expanded="false" aria-controls="search-portal-autocomplete-listbox" class="MuiInputBase-root MuiInput-root MuiInput-underline MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd">
                                     <!--  aria-controls="search-portal-autocomplete-listbox" invalid per AXE --> 
                                     <input type="text" id="current-inputfield" name="currentInputfield" aria-invalid="false" autocomplete="off" placeholder="Find books, articles, databases, Library guides &amp; more" type="search" class="MuiInputBase-input MuiInput-input selectInput MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch" aria-autocomplete="list" autocapitalize="none" spellcheck="false" aria-label="Enter your search terms" data-testid="primo-search-autocomplete-input" value="">
                                     <div class="MuiAutocomplete-endAdornment"></div>
@@ -226,6 +226,9 @@ class SearchPortal extends HTMLElement {
                     !!anchor && anchor.setAttribute('id', `suggestion-link-${index}`);
                     !!anchor && anchor.setAttribute('data-testid', 'primo-search-submit');
                     !!anchor && anchor.setAttribute('tabindex', '0');
+                    !!anchor && anchor.setAttribute('role', 'option');
+                    !!anchor && anchor.setAttribute('aria-disabled', 'false');
+                    !!anchor && anchor.setAttribute('aria-selected', 'false');
                     !!anchor &&
                         anchor.addEventListener('click', function (e) {
                             that.sendSubmitToGTM(e); // submit the GTM info, then carry on to the normal href navigation
@@ -268,13 +271,11 @@ class SearchPortal extends HTMLElement {
                             }
                         });
 
-                    !!suggestion && suggestiondisplay.setAttribute('role', 'option');
+                    !!suggestion && suggestiondisplay.setAttribute('role', 'presentation');
                     !!suggestion && suggestiondisplay.setAttribute('id', `search-portal-autocomplete-option-${index}`);
                     !!suggestion &&
                         suggestiondisplay.setAttribute('data-testid', `search-portal-autocomplete-option-${index}`);
                     !!suggestion && suggestiondisplay.setAttribute('data-option-index', index);
-                    !!suggestion && suggestiondisplay.setAttribute('aria-disabled', 'false');
-                    !!suggestion && suggestiondisplay.setAttribute('aria-selected', 'false');
                     !!suggestion && (suggestiondisplay.className = 'MuiAutocomplete-option');
                     suggestiondisplay.addEventListener('keydown', function (e) {
                         const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
