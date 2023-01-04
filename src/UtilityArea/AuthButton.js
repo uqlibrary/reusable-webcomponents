@@ -27,6 +27,7 @@ authorisedtemplate.innerHTML = `
         <!-- Menu -->
         <div id="account-options-menu" class="auth-menu" data-testid="account-options-menu" class="account-options-menu-closed" style="display: none;">
             <div class="account-options-menu-list">
+                <h2 class="accessible-only">Menu</h2>
                 <div width="5" class="md-menu-content prm-user-menu-content md-primoExplore-theme" role="menu">
                     <div class="md-menu-item"  >
                         <div class="user-menu-header">
@@ -428,9 +429,7 @@ class AuthButton extends HTMLElement {
     // access controlled via Active Directory (AD)
     hasTestTagAdminAccess(account) {
         return (
-            !!account &&
-            !!account.groups &&
-            account.groups.find((group) => group.includes('lib_libapi_TestTagUsers'))
+            !!account && !!account.groups && account.groups.find((group) => group.includes('lib_libapi_TestTagUsers'))
         );
     }
 
