@@ -14,7 +14,7 @@ template.innerHTML = `
     <style>${overrides.toString()}</style>
     <section id="training-filter" class="uq-pane" role="search" aria-live="polite">
         <div class="header uq-pane__title" data-testid="training-filter-header">
-            <h3 tabindex="0" class="title-text paper-card">Filter events</h3>
+            <h2 tabindex="0" class="title-text paper-card">Filter events</h2>
         </div>
         <div class="uq-pane__content" data-testid="training-filter-container">
             <div class="keywordcontainer">
@@ -52,7 +52,7 @@ template.innerHTML = `
             </div>
         </div>
         <div id="quicklinks" class="quicklinks">
-            <h4>Popular events:</h4>
+            <h3>Popular events:</h3>
         </div>
     </section>
 `;
