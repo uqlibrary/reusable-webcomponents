@@ -507,7 +507,6 @@ a:hover {
     font-size: 1.25rem;
     color: #2b2a29;
     margin: 0 0 0.5rem;
-    line-height: 1.4;
 }
 @media (min-width: 37.5rem) {
     .uq-card__title {
