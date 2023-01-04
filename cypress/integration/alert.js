@@ -64,7 +64,7 @@ describe('Alert', () => {
                 .shadow()
                 .find(`uq-alert[id="alert-${INFO}"]`)
                 .shadow()
-                .find('div#alert-icon')
+                .find('div#alert')
                 .should('have.attr', 'aria-label', 'Alert.');
             cy.get('alert-list')
                 .shadow()
@@ -80,13 +80,13 @@ describe('Alert', () => {
                 .shadow()
                 .find(`uq-alert[id="alert-${URGENT}"]`)
                 .shadow()
-                .find('div#alert-icon')
+                .find('div#alert')
                 .should('have.attr', 'aria-label', 'Important alert.');
             cy.get('alert-list')
                 .shadow()
                 .find(`uq-alert[id="alert-${EXTREME}"]`)
                 .shadow()
-                .find('div#alert-icon')
+                .find('div#alert')
                 .should('have.attr', 'aria-label', 'Very important alert.');
         });
 
