@@ -1,7 +1,7 @@
 .uq-pane {
     background-color: #fff;
 }
-h2.title-text {
+h3.title-text {
     margin: 0 auto 0 -1px;
 }
 
@@ -117,7 +117,7 @@ button.campus {
     margin-top: -6px;
 }
 
-.quicklinks h3 {
+.quicklinks h4 {
     color: #1d1d1d;
     display: inline;
     font-size: 0.75rem;
