@@ -241,24 +241,24 @@ body {
 *::after {
     box-sizing: border-box;
 }
-h2,
 h3,
-h4 {
+h4,
+h5 {
     font-weight: 500;
     line-height: 1.4;
     color: #51247a;
 }
-h2 {
+h3 {
     margin-top: 2rem;
     margin-bottom: 1rem;
     font-size: 1.5rem;
 }
-h3 {
+h4 {
     margin-top: 2rem;
     margin-bottom: 1.5rem;
     font-size: 1.25rem;
 }
-h4 {
+h5 {
     margin-top: 1.5rem;
     margin-bottom: 1rem;
     font-size: 1.125rem;
@@ -507,7 +507,6 @@ a:hover {
     font-size: 1.25rem;
     color: #2b2a29;
     margin: 0 0 0.5rem;
-    line-height: 1.4;
 }
 @media (min-width: 37.5rem) {
     .uq-card__title {
