@@ -321,7 +321,7 @@ describe('Dummy Application', () => {
                 .shadow()
                 .find('training-filter')
                 .shadow()
-                .find('h2')
+                .find('h3')
                 .and('contain', 'Filter events');
         });
         it('does not have any web components on a specifically named Drupal page', () => {
