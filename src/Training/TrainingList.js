@@ -71,7 +71,7 @@ class TrainingList extends HTMLElement {
             !!actionButton & (actionButton.id = `${buttonIdPrefix}${index}`);
 
             categoryCard.getElementsByClassName('uq-card__header').item(0).innerHTML = `
-                <h2 class="uq-card__title${this.hideCategoryTitle ? ' visually-hidden' : ''}">${categoryName}</h2>
+                <h3 class="uq-card__title${this.hideCategoryTitle ? ' visually-hidden' : ''}">${categoryName}</h3>
             `;
 
             const categoryListElement = categoryCard.getElementsByClassName('uq-accordion').item(0);
@@ -163,7 +163,7 @@ class TrainingList extends HTMLElement {
         const eventDate = new Date(event.start);
         toggleButton.innerHTML = `
             <div class="group-first" tab-index="-1">
-                <h3 id="event-name-${event.entityId}">${event.name}</h3>
+                <h4 id="event-name-${event.entityId}">${event.name}</h4>
                 <time datetime="${eventDate.toISOString()}" id="event-date-${event.entityId}">
                     ${eventDate.toLocaleDateString('default', {
                         day: 'numeric',
