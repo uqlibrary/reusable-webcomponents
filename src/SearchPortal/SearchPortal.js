@@ -355,7 +355,7 @@ class SearchPortal extends HTMLElement {
                         return element.selectId === formObject.portaltype;
                     });
                     const searchType = matches.length > 0 ? matches[0] : /* istanbul ignore next */ false;
-                    const keyword = formObject.currentInputfield;
+                    const keyword = encodeURIComponent(formObject.currentInputfield);
                     const link =
                         !!searchType &&
                         !!searchType.link &&
