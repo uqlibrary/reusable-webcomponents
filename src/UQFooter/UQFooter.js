@@ -40,7 +40,8 @@ template.innerHTML = `
           <ul class="uq-footer__footer-list">
             <li class="uq-footer__footer-item">&copy; The University of Queensland</li>
             <li class="uq-footer__footer-item"><abbr title="Australian Business Number">ABN</abbr>: 63 942 912 684 </li>
-            <li class="uq-footer__footer-item"><a class="uq-footer__link" href="https://www.uq.edu.au/about/cricos-link" rel="external" data-gtm-label="CRICOS 00025B"><abbr title="Commonwealth Register of Institutions and Courses for Overseas Students">CRICOS</abbr> Provider No: 00025B</a></li>
+            <li class="uq-footer__footer-item"><a class="uq-footer__link" href="https://www.uq.edu.au/about/cricos-link" rel="external" data-gtm-label="CRICOS 00025B"><abbr title="Commonwealth Register of Institutions and Courses for Overseas Students">CRICOS</abbr>: 00025B</a></li>
+            <li class="uq-footer__footer-item"><abbr title="Tertiary Education Quality and Standards Agency">TEQSA</abbr>: <a class="uq-footer__link" href="https://www.teqsa.gov.au/national-register/provider/university-queensland" rel="external" data-gtm-label="TEQSA PRV12080">PRV12080</a></li>
           </ul>
         </nav>
         <nav class="uq-footer__footer" aria-label="Terms and conditions">
@@ -54,7 +55,7 @@ template.innerHTML = `
               <li class="uq-footer__footer-item">
                   <a href="https://www.uq.edu.au/rti/" class="uq-footer__link">Right to information</a>
               </li>
-              <li class="uq-footer__footer-menu__item">
+              <li class="uq-footer__footer-item">
                 <a href="https://my.uq.edu.au/feedback?r=${encodeURIComponent(
                     window.location.href,
                 )}" class="uq-footer__link">Feedback</a>

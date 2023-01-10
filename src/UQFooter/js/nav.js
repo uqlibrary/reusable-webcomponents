@@ -33,7 +33,7 @@ export default [
             },
             {
                 label: 'Staff support',
-                href: 'https://staff.uq.edu.au/information-and-services/health-safety-wellbeing/mental-health',
+                href: 'https://staff.uq.edu.au/information-and-services/health-safety-wellbeing',
             },
             {
                 label: 'IT support for staff',

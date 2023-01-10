@@ -882,7 +882,7 @@
 body {
     color: #2b2a29;
     font-size: 1em;
-    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
     font-weight: 400;
     line-height: 1.5;
     font-size: 100%;
@@ -2362,7 +2362,7 @@ a:hover {
 }
 
 .uq-footer__link {
-    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
     font-style: normal;
     font-weight: 400;
     color: #fff
@@ -2394,7 +2394,8 @@ a:hover {
     display: block;
     margin: 0;
     padding: 0;
-    position: relative
+    position: relative;
+    opacity: 0.9;
 }
 
 @media(min-width: 64rem) {
@@ -2545,7 +2546,14 @@ a:hover {
 }
 
 .uq-footer__footer-item {
-    padding-right: 1rem
+    padding-right: 1rem;
+    opacity: 0.8;
+}
+.uq-footer__meta .uq-footer__footer-item {
+    padding-right: 1em;
+}
+.uq-footer__footer-item:last-child {
+    padding-right: 0;
 }
 
 .uq-footer__contact {
@@ -2718,7 +2726,8 @@ a:hover {
     .uq-footer__container {
         grid-template-areas: "FooterNavigation FooterNavigation" "FooterSocial FooterSocial" "FooterOrg FooterTerms";
         row-gap: 2em;
-        padding: 2rem 1rem 2.5rem
+        padding: 2rem 1rem 2.5rem;
+        grid-template-columns: 55% 45%;;
     }
 }
 
