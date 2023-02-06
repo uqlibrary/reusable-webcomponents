@@ -117,8 +117,8 @@ uqlibrary-alerts {
 // Hide the article full view side menu item "Tags"
 // note: aria-label can be flakey as sometime the markup is eg aria-label="Tags" and sometimes it is aria-label="brief.results.tabs.tags"
 .services-index-under {
-    button[aria-label="brief.results.tabs.tags"],
-    button[aria-label="Tags"] {
+    button[aria-label='brief.results.tabs.tags'],
+    button[aria-label='Tags'] {
         display: none;
     }
 }
@@ -731,7 +731,7 @@ md-toast .md-toast-content .md-button {
             &:focus,
             &:hover {
                 color: #000;
-                background-color: rgba(51,51,51,0.1);
+                background-color: rgba(51, 51, 51, 0.1);
             }
         }
     }
@@ -912,44 +912,44 @@ prm-explore-main {
 
 // availability statements should be either blue (for mostly available now), or grey (for mostly available by request).
 prm-search-result-availability-line button {
-  // default to blue unless specified as grey, thus we never get orange!
-  span.availability-status {
-    color: $accent-color !important;
-  }
-  // attempt to collate all possible "check availability" and "unavailable" codes
-  span.availability-status.check_holding_in_institution,
-  span.availability-status.check_holding_in_library,
-  span.availability-status.check_holdings,
-  span.availability-status.check_holdings_in_institution,
-  span.availability-status.check_holdings_in_library,
-  span.availability-status.check_holdings_in_maininstitution,
-  span.availability-status.does_not_exist_in_maininstitution,
-  span.availability-status.does_not_exist_in_my_institution_available,
-  span.availability-status.does_not_exist_in_my_institution_check_holdings,
-  span.availability-status.does_not_exist_in_my_institution_unavailable,
-  span.availability-status.fulltext_unknown,
-  span.availability-status.getit,
-  span.availability-status.may_be_restricted,
-  span.availability-status.no_fulltext_linktorsrc,
-  span.availability-status.no_fulltext_linktorsrc_newspaper,
-  span.availability-status.no_fulltext_newspaper,
-  span.availability-status.no_fulltext,
-  span.availability-status.restricted,
-  span.availability-status.unavailable_in_all_institutions,
-  span.availability-status.unavailable_in_institution,
-  span.availability-status.unavailable_in_library,
-  span.availability-status.unavailable_in_maininstitution_more,
-  span.availability-status.unavailable_in_maininstitution_nomore,
-  span.availability-status.viewit_getit_NFT,
-  span.availability-status.viewit_NFT {
-    &>span {
-      color: #555555 !important;
+    // default to blue unless specified as grey, thus we never get orange!
+    span.availability-status {
+        color: $accent-color !important;
     }
-    color: #555555 !important;
-  }
+    // attempt to collate all possible "check availability" and "unavailable" codes
+    span.availability-status.check_holding_in_institution,
+    span.availability-status.check_holding_in_library,
+    span.availability-status.check_holdings,
+    span.availability-status.check_holdings_in_institution,
+    span.availability-status.check_holdings_in_library,
+    span.availability-status.check_holdings_in_maininstitution,
+    span.availability-status.does_not_exist_in_maininstitution,
+    span.availability-status.does_not_exist_in_my_institution_available,
+    span.availability-status.does_not_exist_in_my_institution_check_holdings,
+    span.availability-status.does_not_exist_in_my_institution_unavailable,
+    span.availability-status.fulltext_unknown,
+    span.availability-status.getit,
+    span.availability-status.may_be_restricted,
+    span.availability-status.no_fulltext_linktorsrc,
+    span.availability-status.no_fulltext_linktorsrc_newspaper,
+    span.availability-status.no_fulltext_newspaper,
+    span.availability-status.no_fulltext,
+    span.availability-status.restricted,
+    span.availability-status.unavailable_in_all_institutions,
+    span.availability-status.unavailable_in_institution,
+    span.availability-status.unavailable_in_library,
+    span.availability-status.unavailable_in_maininstitution_more,
+    span.availability-status.unavailable_in_maininstitution_nomore,
+    span.availability-status.viewit_getit_NFT,
+    span.availability-status.viewit_NFT {
+        & > span {
+            color: #555555 !important;
+        }
+        color: #555555 !important;
+    }
 }
 
-prm-alphabet-toolbar  {
+prm-alphabet-toolbar {
     .md-button {
         &.active {
             color: $accent-color !important;
@@ -965,7 +965,8 @@ prm-alphabet-toolbar  {
         }
     }
     .bar {
-        button, &.alert-bar {
+        button,
+        &.alert-bar {
             color: #fff;
         }
     }
@@ -1006,7 +1007,7 @@ prm-authentication button.button-with-icon prm-icon {
 }
 
 // apply appropriate colours to filter bar in mobile view
-md-toolbar.bottom-fixed-toolbar.mobile-toolbar  {
+md-toolbar.bottom-fixed-toolbar.mobile-toolbar {
     background-color: $blueGrey;
     div:first-child button:nth-child(2) {
         background-color: $accent-color;
@@ -1083,7 +1084,7 @@ prm-facet .switch-results {
     div:hover md-switch.md-checked .md-label {
         color: $links-hue-3 !important;
     }
-    div.inactive.button-as-link:hover:hover:not([disabled])  {
+    div.inactive.button-as-link:hover:hover:not([disabled]) {
         color: $links-hue-3 !important;
         background-color: $highlightBlue;
     }
@@ -1124,7 +1125,6 @@ prm-facet .switch-results {
     }
 }
 
-
 // Collapsed Advanced Search block at top of search results
 prm-advanced-search {
     .collapsed-area {
@@ -1140,7 +1140,7 @@ prm-advanced-search {
 
     // put dropdown arrows on each select in the advanced search footer section
     .advanced-search-output md-select:after {
-        content: "\25BC";
+        content: '\25BC';
         width: 10px;
         font-size: 0.5rem;
         margin-top: 6px;
@@ -1151,7 +1151,6 @@ prm-advanced-search {
     .advanced-search-output md-select md-select-value span {
         padding-top: 2px;
     }
-
 }
 
 // Multiple links for CDI records (View it section, Show More/Less, "View online" links)
@@ -1212,7 +1211,7 @@ prm-personal-info {
         padding: 0;
         md-divder {
             margin-top: 0;
-            margin-bottom: 0.2em!important;
+            margin-bottom: 0.2em !important;
         }
         md-divder:nth-of-type(2) {
             display: none;
@@ -1239,9 +1238,8 @@ prm-personal-info h2 {
 // My account - settings area - hide "language display" (because we only offer English)
 prm-personal-info md-divider,
 prm-personal-info prm-change-lang {
-    display: none!important;
+    display: none !important;
 }
-
 
 // restyle the account area to allow for inclusion of standard Library Account items PT #182204834
 prm-library-card-menu .subtext,
@@ -1249,7 +1247,7 @@ prm-library-card-menu .subtext,
 .my-search-history-ctm .subtext,
 .my-favorties-ctm .subtext,
 .mylibrary-list .subtext {
-    font-size: .75em;
+    font-size: 0.75em;
     min-height: 1em;
     font-weight: 300;
     margin-bottom: 2px;
@@ -1295,8 +1293,7 @@ prm-library-card-menu .subtext,
 .mobile-main-menu-bg {
     .my-search-history-ctm .primaryText,
     .my-search-history-ctm .subtext,
-    .my-search-history-ctm button
-    {
+    .my-search-history-ctm button {
         background-color: inherit;
         color: #fff;
     }
@@ -1308,8 +1305,7 @@ prm-library-card-menu .subtext,
     prm-library-card-menu span,
     .my-search-history-ctm span {
         text-transform: initial;
-        color: #fff
-
+        color: #fff;
     }
 
     prm-library-card-menu {
@@ -1342,7 +1338,8 @@ prm-library-card-menu .subtext,
 }
 
 .mylibrary-list {
-    &, li {
+    &,
+    li {
         list-style: none;
         padding-left: 0;
         margin-left: 0;
@@ -1401,8 +1398,7 @@ prm-library-card-menu .subtext,
     .primaryText,
     .subtext,
     button,
-    li,
-    {
+    li {
         background-color: inherit;
         color: #fff;
     }
@@ -1413,23 +1409,23 @@ prm-library-card-menu .subtext,
 }
 // make the builtinAccountButton have similar spacing under it to the other items
 .mobile-main-menu-bg prm-library-card-menu {
-    margin-bottom: 0.4em
+    margin-bottom: 0.4em;
 }
 // line up the logout button text with our account items
-prm-authentication span[translate="eshelf.signout.title.link"] {
+prm-authentication span[translate='eshelf.signout.title.link'] {
     padding-left: 8px;
 }
 // move the "account" link down from under the X now it has such long text
 prm-library-card-menu {
     margin-top: 2.8em;
     // and let the icon breath
-    span[translate="nui.menu.librarycard"] {
+    span[translate='nui.menu.librarycard'] {
         padding-left: 8px;
     }
 }
 
-.user-menu-header>div span:first-child {
-    text-transform: initial!important;
+.user-menu-header > div span:first-child {
+    text-transform: initial !important;
 }
 // make the account dropdown logout button blue properly
 md-menu-content {
@@ -1454,8 +1450,8 @@ prm-user-area-expandable .mylibrary-list {
 .mobile-main-menu-bg {
     button.button-with-icon.md-button.md-primoExplore-theme.md-ink-ripple,
     not(prm-authentication) button.button-with-icon.zero-margin.md-button.md-primoExplore-theme.md-ink-ripple {
-    color: #0D1A26;
-}
+        color: #0d1a26;
+    }
 }
 // bottom bar is scrolling
 prm-main-menu md-content {
@@ -1513,7 +1509,7 @@ prm-main-menu .my-feedback-ctm {
         margin-top: 20px;
     }
 }
-.result-item-text>.readingListMark .readingListMarkIcon {
+.result-item-text > .readingListMark .readingListMarkIcon {
     margin-left: -10px;
 }
 .readingListMark {
@@ -1544,7 +1540,6 @@ prm-main-menu .my-feedback-ctm {
     }
 }
 
-
 // "the Favourite pin popup" - the popup that sometimes appears on Favourite pin icon after clicking the pin on an item
 prm-explore-main div.header {
     // the default yellow border is ugly
@@ -1561,12 +1556,14 @@ prm-explore-main div.header {
 // also has fancy positioning js in exlibris-primo repo custom.js file to make it "stick" to the pin
 
 // the Favourite pin popup close button turns white on hover. Fix.
-prm-search-bookmark-filter div.favorites-guest-warning .md-button:not(.disable-hover):hover:not([disabled]):hover:not([disabled]) {
-    color: #fff!important;
+prm-search-bookmark-filter
+    div.favorites-guest-warning
+    .md-button:not(.disable-hover):hover:not([disabled]):hover:not([disabled]) {
+    color: #fff !important;
     border-radius: 50%;
     background-color: grey;
 }
-prm-brief-result-container .result-item-actions  prm-save-to-favorites-button  .md-icon-button {
+prm-brief-result-container .result-item-actions prm-save-to-favorites-button .md-icon-button {
     &:hover,
     &:focus {
         &:not([disabled]) {
@@ -1582,7 +1579,7 @@ prm-topbar prm-favorites-warning-message button.close-btn.md-button:hover prm-ic
 prm-favorites-warning-message div.mobile-favorites-warning-message,
 prm-favorites-warning-message md-toast,
 prm-favorites-warning-message md-toast div {
-    background-color: $alert
+    background-color: $alert;
 }
 
 .favouritesDialogInitialPosition {
