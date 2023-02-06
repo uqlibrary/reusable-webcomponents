@@ -59,8 +59,8 @@ export default {
                     linkTo: 'https://web.library.uq.edu.au/library-services/services-for-community',
                 },
                 {
-                    primaryText: 'for Secondary schools',
-                    linkTo: 'https://web.library.uq.edu.au/library-services/services-for-secondary-schools',
+                    primaryText: 'for High schools',
+                    linkTo: 'https://web.library.uq.edu.au/library-services/services-for-high-schools',
                 },
                 {
                     primaryText: 'for Clients with disabilities',
@@ -71,11 +71,6 @@ export default {
                     primaryText: 'for Other libraries',
                     secondaryText: 'Document supply, off-air recordings',
                     linkTo: 'https://web.library.uq.edu.au/library-services/for-other-libraries',
-                },
-                {
-                    primaryText: 'COVID-19',
-                    secondaryText: 'Latest updates and service info',
-                    linkTo: 'https://web.library.uq.edu.au/library-services/covid-19',
                 },
                 {
                     primaryText: 'Contact the Librarian Team',
