@@ -6801,10 +6801,10 @@ table__wrapper,
     width: 100%;
     overflow-x: auto;
     background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, #fff), color-stop(100%, rgba(255, 255, 255, 0))), -webkit-gradient(linear, 100% 50%, 0% 50%, color-stop(0%, #fff), color-stop(100%, rgba(255, 255, 255, 0))), -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, #aca7a3), color-stop(100%, rgba(195, 195, 197, 0))), -webkit-gradient(linear, 100% 50%, 0% 50%, color-stop(0%, #aca7a3), color-stop(100%, rgba(195, 195, 197, 0)));
-    background-image: -webkit-linear-gradient(to left, #fff, rgba(255, 255, 255, 0)), -webkit-linear-gradient(to right, #fff, rgba(255, 255, 255, 0)), -webkit-linear-gradient(to left, #D7D1CC, rgba(195, 195, 197, 0)), -webkit-linear-gradient(to right, #D7D1CC, rgba(195, 195, 197, 0));
-    background-image: -moz-linear-gradient(to left, #fff, rgba(255, 255, 255, 0)), -moz-linear-gradient(to right, #fff, rgba(255, 255, 255, 0)), -moz-linear-gradient(to left, #D7D1CC, rgba(195, 195, 197, 0)), -moz-linear-gradient(to right, #D7D1CC, rgba(195, 195, 197, 0));
-    background-image: -o-linear-gradient(to left, #fff, rgba(255, 255, 255, 0)), -o-linear-gradient(to right, #fff, rgba(255, 255, 255, 0)), -o-linear-gradient(to left, #D7D1CC, rgba(195, 195, 197, 0)), -o-linear-gradient(to right, #D7D1CC, rgba(195, 195, 197, 0));
-    background-image: linear-gradient(to left, #fff, rgba(255, 255, 255, 0)), linear-gradient(to right, #fff, rgba(255, 255, 255, 0)), linear-gradient(to left, #D7D1CC, rgba(195, 195, 197, 0)), linear-gradient(to right, #D7D1CC, rgba(195, 195, 197, 0));
+    background-image: -webkit-linear-gradient(left, #fff, rgba(255, 255, 255, 0)), -webkit-linear-gradient(right, #fff, rgba(255, 255, 255, 0)), -webkit-linear-gradient(left, #D7D1CC, rgba(195, 195, 197, 0)), -webkit-linear-gradient(right, #D7D1CC, rgba(195, 195, 197, 0));
+    background-image: -moz-linear-gradient(left, #fff, rgba(255, 255, 255, 0)), -moz-linear-gradient(right, #fff, rgba(255, 255, 255, 0)), -moz-linear-gradient(left, #D7D1CC, rgba(195, 195, 197, 0)), -moz-linear-gradient(right, #D7D1CC, rgba(195, 195, 197, 0));
+    background-image: -o-linear-gradient(left, #fff, rgba(255, 255, 255, 0)), -o-linear-gradient(right, #fff, rgba(255, 255, 255, 0)), -o-linear-gradient(left, #D7D1CC, rgba(195, 195, 197, 0)), -o-linear-gradient(right, #D7D1CC, rgba(195, 195, 197, 0));
+    background-image: linear-gradient(left, #fff, rgba(255, 255, 255, 0)), linear-gradient(right, #fff, rgba(255, 255, 255, 0)), linear-gradient(left, #D7D1CC, rgba(195, 195, 197, 0)), linear-gradient(right, #D7D1CC, rgba(195, 195, 197, 0));
     background-position: 0 0, 100% 0, 0 0, 100% 0;
     background-repeat: no-repeat;
     background-color: #fff;

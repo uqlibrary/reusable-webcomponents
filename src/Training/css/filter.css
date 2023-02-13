@@ -76,7 +76,7 @@ button.campus {
     width: 10rem;
 }
 .selectorlist button:focus {
-    background-color: #4085C6; /* uqblue */
+    background-color: #4085c6; /* uqblue */
     color: #fff;
     outline: none;
 }
