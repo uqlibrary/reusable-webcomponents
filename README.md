@@ -116,7 +116,7 @@ In addition to the usual branches, the following are in use and should not be de
 Code is deployed to 3 buckets:
 
 - uql-reusable-webcomponents-production (viewable at <https://www.library.uq.edu.au/> or <https://assets.library.uq.edu.au/reusable-webcomponents/>)
-- uql-reusable-webcomponents-staging (viewable at <https://assets.library.uq.edu.au/reusable-webcomponents-staging/> or  special route <https://homepage-development.library.uq.edu.au/reusable-staging/#/>)
+- uql-reusable-webcomponents-staging (viewable at <https://assets.library.uq.edu.au/reusable-webcomponents-staging/> or special route <https://homepage-development.library.uq.edu.au/reusable-staging/#/>)
 - uql-reusable-webcomponents-development (master branch viewable at https://assets.library.uq.edu.au/reusable-webcomponents-development/master/ or swap "master" for the name of your branch which has had a pipeline created on AWS)
 
 Cloudfront behaviour on assets.library.uq.edu.au map these buckets to assets address for use in deployment

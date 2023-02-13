@@ -59,6 +59,14 @@ function assertUserHasTestTagAdmin(expected) {
     }
 }
 
+function assertUserHasPromoPanelAdmin(expected) {
+    if (!!expected) {
+        cy.get('li[data-testid="promopanel-admin"]').should('exist').contains('Promo panels');
+    } else {
+        cy.get('li[data-testid="promopanel-admin"]').should('not.exist');
+    }
+}
+
 function assertUserHasEspaceDashboard(expected) {
     if (!!expected) {
         cy.get('li[data-testid="mylibrary-espace"]').should('exist').contains('UQ eSpace dashboard');
@@ -78,13 +86,14 @@ function assertUserSeesNOAdminOptions() {
     assertUserHasMasquerade(false);
     assertUserHasAlertsAdmin(false);
     assertUserHasSpotlightAdmin(false);
+    assertUserHasPromoPanelAdmin(false)
     assertUserHasTestTagAdmin(false);
     // the admin block has been removed so we dont see the admin border
     cy.get('[data-testid="admin-options"]').should('not.exist');
 }
 
-describe('Auth button', () => {
-    context('Auth button', () => {
+describe('Account menu button', () => {
+    context('Account menu button', () => {
         it('logged out user sees a "Log in" button" and widget is accessible', () => {
             cy.visit('http://localhost:8080/?user=public');
             cy.viewport(1280, 900);
@@ -99,21 +108,21 @@ describe('Auth button', () => {
             cy.get('auth-button').shadow().find('[data-testid="auth-button-login-label"]').should('contain', 'Log in');
         });
 
-        it('logged in user auth button widget is accessible', () => {
+        it('logged in user account button widget is accessible', () => {
             cy.visit('http://localhost:8080');
             cy.viewport(1280, 900);
             cy.wait(100);
             cy.get('uq-site-header').find('auth-button').should('exist');
             cy.injectAxe();
             cy.checkA11y('auth-button', {
-                reportName: 'Auth Loggedin',
+                reportName: 'Account Loggedin',
                 scopeName: 'Accessibility',
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
             });
             openAccountDropdown();
             cy.wait(500);
             cy.checkA11y('auth-button', {
-                reportName: 'Auth Loggedin Dialog Open',
+                reportName: 'Account Loggedin Dialog Open',
                 scopeName: 'Accessibility',
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
             });
@@ -262,6 +271,7 @@ describe('Auth button', () => {
                     assertUserHasMasquerade(true);
                     assertUserHasAlertsAdmin(true);
                     assertUserHasSpotlightAdmin(true);
+                    assertUserHasPromoPanelAdmin(true);
                     assertUserHasTestTagAdmin(false); // admins do not get T&T by default
                     assertUserHasEspaceDashboard(true); // not an admin function, this user happens to have an author account
                 });
@@ -290,6 +300,7 @@ describe('Auth button', () => {
                     assertUserHasMasquerade(true);
                     assertUserHasAlertsAdmin(false);
                     assertUserHasSpotlightAdmin(false);
+                    assertUserHasPromoPanelAdmin(false);
                     assertUserHasTestTagAdmin(false);
                     assertUserHasEspaceDashboard(true);
                 });
@@ -320,6 +331,7 @@ describe('Auth button', () => {
                     assertUserHasMasquerade(true);
                     assertUserHasAlertsAdmin(false);
                     assertUserHasSpotlightAdmin(false);
+                    assertUserHasPromoPanelAdmin(false);
                     assertUserHasTestTagAdmin(false);
                 });
         });
