@@ -157,7 +157,7 @@ authorisedtemplate.innerHTML = `
                                 <a tabindex="0" id="mylibrary-menu-promopanel-admin"  data-testid="mylibrary-menu-promopanel-admin" href="https://www.library.uq.edu.au/admin/promopanel" rel="noreferrer">
                                 
                                 <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="${ICON_MUI_CAMPAIGN_FILLED}"></path></svg>
-                                    <span>Promo Panel</span>
+                                    <span>Promo panels</span>
                                 </a>
                             </li>
             
