@@ -10,6 +10,18 @@ import { isBackTabKeyPressed, isEscapeKeyPressed, isTabKeyPressed } from '../hel
  *
  */
 
+// MUI icons from https://mui.com/material-ui/material-icons/ (masquerade icon predates system)
+const ICON_TWO_PEOPLE =
+    'M16.5 12c1.38 0 2.49-1.12 2.49-2.5S17.88 7 16.5 7C15.12 7 14 8.12 14 9.5s1.12 2.5 2.5 2.5zM9 11c1.66 0 2.99-1.34 2.99-3S10.66 5 9 5C7.34 5 6 6.34 6 8s1.34 3 3 3zm7.5 3c-1.83 0-5.5.92-5.5 2.75V19h11v-2.25c0-1.83-3.67-2.75-5.5-2.75zM9 13c-2.33 0-7 1.17-7 3.5V19h7v-2.25c0-.85.33-2.34 2.37-3.47C10.5 13.1 9.66 13 9 13z';
+const ICON_MUI_INFO_OUTLINED =
+    'M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z';
+const ICON_MUI_IMAGE_FILLED =
+    'M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z';
+const ICON_MUI_CAMPAIGN_FILLED =
+    'M18 11v2h4v-2h-4zm-2 6.61c.96.71 2.21 1.65 3.2 2.39.4-.53.8-1.07 1.2-1.6-.99-.74-2.24-1.68-3.2-2.4-.4.54-.8 1.08-1.2 1.61zM20.4 5.6c-.4-.53-.8-1.07-1.2-1.6-.99.74-2.24 1.68-3.2 2.4.4.53.8 1.07 1.2 1.6.96-.72 2.21-1.65 3.2-2.4zM4 9c-1.1 0-2 .9-2 2v2c0 1.1.9 2 2 2h1v4h2v-4h1l5 3V6L8 9H4zm11.5 3c0-1.33-.58-2.53-1.5-3.35v6.69c.92-.81 1.5-2.01 1.5-3.34z';
+const ICON_MUI_BEENHERE_FILLED =
+    'M19 1H5c-1.1 0-1.99.9-1.99 2L3 15.93c0 .69.35 1.3.88 1.66L12 23l8.11-5.41c.53-.36.88-.97.88-1.66L21 3c0-1.1-.9-2-2-2zm-9 15l-5-5 1.41-1.41L10 13.17l7.59-7.59L19 7l-9 9z';
+
 // THESE LINKS MUST BE DUPLICATED ON PRIMO! (see repo exlibris-primo)
 // (NOTE: due to complexity of an account check in primo, we are not showing the espace dashboard link or admin items there)
 const authorisedtemplate = document.createElement('template');
@@ -110,7 +122,7 @@ authorisedtemplate.innerHTML = `
                             <li data-testid="mylibrary-masquerade" id="mylibrary-masquerade" role="menuitem" aria-disabled="false">
                                 <a tabindex="0" id="mylibrary-menu-masquerade" data-testid="mylibrary-menu-masquerade" href="https://www.library.uq.edu.au/admin/masquerade" rel="noreferrer">
                                     <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;">
-                                        <path d="M16.5 12c1.38 0 2.49-1.12 2.49-2.5S17.88 7 16.5 7C15.12 7 14 8.12 14 9.5s1.12 2.5 2.5 2.5zM9 11c1.66 0 2.99-1.34 2.99-3S10.66 5 9 5C7.34 5 6 6.34 6 8s1.34 3 3 3zm7.5 3c-1.83 0-5.5.92-5.5 2.75V19h11v-2.25c0-1.83-3.67-2.75-5.5-2.75zM9 13c-2.33 0-7 1.17-7 3.5V19h7v-2.25c0-.85.33-2.34 2.37-3.47C10.5 13.1 9.66 13 9 13z"></path>
+                                        <path d="${ICON_TWO_PEOPLE}"></path>
                                     </svg>
                                     <span>Masquerade</span>
                                 </a>
@@ -119,7 +131,7 @@ authorisedtemplate.innerHTML = `
                             <!-- Alerts Admin -->
                             <li data-testid="alerts-admin" id="alerts-admin" role="menuitem" aria-disabled="false">
                                 <a tabindex="0" id="mylibrary-menu-alerts-admin" data-testid="mylibrary-menu-alerts-admin" href="https://www.library.uq.edu.au/admin/alerts" rel="noreferrer">
-                                    <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path></svg>
+                                    <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="${ICON_MUI_INFO_OUTLINED}"></path></svg>
                                     <span>Website alerts</span>
                                 </a>
                             </li>
@@ -127,7 +139,7 @@ authorisedtemplate.innerHTML = `
                             <!-- Spotlights Admin -->
                             <li data-testid="spotlights-admin" id="spotlights-admin" role="menuitem" aria-disabled="false">
                                 <a tabindex="0" id="mylibrary-menu-spotlights-admin"  data-testid="mylibrary-menu-spotlights-admin" href="https://www.library.uq.edu.au/admin/spotlights" rel="noreferrer">
-                                    <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path></svg>
+                                    <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="${ICON_MUI_IMAGE_FILLED}"></path></svg>
                                     <span>Website spotlights</span>
                                 </a>
                             </li>
@@ -135,7 +147,7 @@ authorisedtemplate.innerHTML = `
                             <!-- Test & Tag -->
                             <li data-testid="testTag-admin" id="testTag-admin" role="menuitem" aria-disabled="false">
                                 <a tabindex="0" id="mylibrary-menu-testTag-admin"  data-testid="mylibrary-menu-testTag-admin" href="https://www.library.uq.edu.au/admin/testntag" rel="noreferrer">
-                                <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M19 1H5c-1.1 0-1.99.9-1.99 2L3 15.93c0 .69.35 1.3.88 1.66L12 23l8.11-5.41c.53-.36.88-.97.88-1.66L21 3c0-1.1-.9-2-2-2zm-9 15l-5-5 1.41-1.41L10 13.17l7.59-7.59L19 7l-9 9z"></path></svg>    
+                                <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="${ICON_MUI_BEENHERE_FILLED}"></path></svg>    
                                     <span>Test and Tag</span>
                                 </a>
                             </li>
@@ -144,7 +156,7 @@ authorisedtemplate.innerHTML = `
                             <li data-testid="promopanel-admin" id="promopanel-admin" role="menuitem" aria-disabled="false">
                                 <a tabindex="0" id="mylibrary-menu-promopanel-admin"  data-testid="mylibrary-menu-promopanel-admin" href="https://www.library.uq.edu.au/admin/promopanel" rel="noreferrer">
                                 
-                                <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M18 11v2h4v-2h-4zm-2 6.61c.96.71 2.21 1.65 3.2 2.39.4-.53.8-1.07 1.2-1.6-.99-.74-2.24-1.68-3.2-2.4-.4.54-.8 1.08-1.2 1.61zM20.4 5.6c-.4-.53-.8-1.07-1.2-1.6-.99.74-2.24 1.68-3.2 2.4.4.53.8 1.07 1.2 1.6.96-.72 2.21-1.65 3.2-2.4zM4 9c-1.1 0-2 .9-2 2v2c0 1.1.9 2 2 2h1v4h2v-4h1l5 3V6L8 9H4zm11.5 3c0-1.33-.58-2.53-1.5-3.35v6.69c.92-.81 1.5-2.01 1.5-3.34z"></path></svg>
+                                <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="${ICON_MUI_CAMPAIGN_FILLED}"></path></svg>
                                     <span>Promo Panel</span>
                                 </a>
                             </li>
