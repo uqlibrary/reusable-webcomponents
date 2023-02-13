@@ -92,6 +92,10 @@ button.login-button:active {
         transform-origin: 50% 50%;
         opacity: 1;
     }
+    #account-options-menu {
+        overflow-y: auto;
+        height: calc(100vh - 70px);
+    }
 }
 @media screen and (min-width: 600px) {
     .auth-menu {
