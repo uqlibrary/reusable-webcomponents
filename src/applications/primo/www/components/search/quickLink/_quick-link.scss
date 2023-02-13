@@ -1,50 +1,49 @@
 prm-quick-link {
-
-  .quick-links-icons {
-    opacity: 0.8;
-  }
-
-  a {
-    color: $dark;
-    //margin-top: 0.4em;
-    margin: 0.4em 3em 0 0;
-    [dir="rtl"] & {
-      margin: 0.4em 0 0 3em;
-    }
-    width: fit-content;
-    span {
-      color: $accent-color;
-      margin: 0 3px 0 3px;
+    .quick-links-icons {
+        opacity: 0.8;
     }
 
-    [link-arrow] {
-      color: $links;
+    a {
+        color: $dark;
+        //margin-top: 0.4em;
+        margin: 0.4em 3em 0 0;
+        [dir='rtl'] & {
+            margin: 0.4em 0 0 3em;
+        }
+        width: fit-content;
+        span {
+            color: $accent-color;
+            margin: 0 3px 0 3px;
+        }
+
+        [link-arrow] {
+            color: $links;
+        }
+
+        .quick-link-type {
+            color: $accent-color;
+            margin: 0 3px 0 0;
+            [dir='rtl'] & {
+                margin: 0 0 0 3px;
+            }
+        }
     }
 
-    .quick-link-type {
-      color: $accent-color;
-      margin: 0 3px 0 0;
-      [dir="rtl"] & {
-        margin: 0 0 0 3px;
-      }
+    prm-icon {
+        md-icon {
+            height: 18px;
+            width: 18px;
+            min-height: 18px;
+            min-width: 18px;
+            top: -2px;
+            position: relative;
+        }
     }
-  }
 
-  prm-icon {
-    md-icon {
-      height: 18px;
-      width: 18px;
-      min-height: 18px;
-      min-width: 18px;
-      top: -2px;
-      position: relative;
+    prm-icon {
+        md-icon,
+        md-icon.md-primoExplore-theme {
+            color: $red;
+        }
     }
-  }
-
-  prm-icon {
-    md-icon,
-    md-icon.md-primoExplore-theme {
-      color: $red;
-    }
-  }
 }
