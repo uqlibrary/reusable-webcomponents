@@ -59,6 +59,14 @@ function assertUserHasTestTagAdmin(expected) {
     }
 }
 
+function assertUserHasPromopanelAdmin(expected) {
+    if (!!expected) {
+        cy.get('li[data-testid="promopanel-admin"]').should('exist').contains('Promo Panel');
+    } else {
+        cy.get('li[data-testid="promopanel-admin"]').should('not.exist');
+    }
+}
+
 function assertUserHasEspaceDashboard(expected) {
     if (!!expected) {
         cy.get('li[data-testid="mylibrary-espace"]').should('exist').contains('UQ eSpace dashboard');
@@ -276,6 +284,18 @@ describe('Auth button', () => {
                 .within(() => {
                     assertUserHasStandardMyLibraryOptions();
                     assertUserHasTestTagAdmin(true);
+                });
+        });
+
+        it('Promo Panel user gets Promo Panel entry', () => {
+            cy.visit('http://localhost:8080?user=uqstaff');
+            cy.viewport(1280, 900);
+            openAccountDropdown();
+            cy.get('auth-button')
+                .shadow()
+                .within(() => {
+                    assertUserHasStandardMyLibraryOptions();
+                    assertUserHasPromopanelAdmin(true);
                 });
         });
 
