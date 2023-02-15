@@ -1534,13 +1534,13 @@ prm-main-menu .my-feedback-ctm {
     a {
         background-position: center right;
         padding-right: 20px;
-        // better to have a raw svg here?
+        // better to have a raw svg here? icon is "file opens in new window" eg MUI icon OpenInNew
         background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0MHXPnYMYlfqLxpXjPA7_Yvb2c_fsiZsfonAAE-dvuOnJ46zY8D6zx2YjTmfX1Ceefdk&usqp=CAU);
         background-repeat: no-repeat;
         background-size: 11px;
     }
 }
-.readingListMarkIcon  path {
+.readingListMarkIcon path {
     fill: $green;
 }
 .culturalAdviceMarkIcon path {
@@ -1549,7 +1549,28 @@ prm-main-menu .my-feedback-ctm {
 .indicatorWrapper {
     margin-left: -10px;
 }
+.culturalAdviceBanner p {
+    background-color: #bbd8f5;
+    border-color: #bbd8f5;
+    border-radius: 3px;
+    color: #000;
+    padding: 1em;
+}
+@media (min-width: 600px) {
+    .culturalAdviceBanner p {
+        margin-right: -2.50em;
+    }
+}
 
+// stop the indicator from duping in that rare edge case where it might
+.indicatorWrapper .readingListMark,
+.indicatorWrapper .culturalAdviceMark {
+    display: none;
+}
+.indicatorWrapper .readingListMark:first-child,
+.indicatorWrapper .culturalAdviceMark:first-child {
+    display: inline;
+}
 
 // "the Favourite pin popup" - the popup that sometimes appears on Favourite pin icon after clicking the pin on an item
 prm-explore-main div.header {
