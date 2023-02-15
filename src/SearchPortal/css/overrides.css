@@ -854,7 +854,7 @@ input[type='search'] {
     will-change: transform;
     transform: translate3d(203px, 325px, 0px);
     z-index: 1300;
-    top: -255px;
+    top: -240px;
     left: -70px;
 }
 
