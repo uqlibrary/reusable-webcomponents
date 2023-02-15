@@ -19,7 +19,7 @@ template.innerHTML = `
             <div class="MuiCardContent-root libraryContent" data-testid="primo-search-content">
                 <form id="primo-search-form" class="searchForm" role="search">
                     <div class="MuiFormControl-root searchPanel" style="margin-bottom: -0.75rem; padding-top: 1rem;">
-                        <label id="search-portal-type-select-label" class="searchPortalLabel MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled" data-shrink="true" aria-label="Search UQ Library">Library Search</label>
+                        <h2 id="search-portal-type-select-label" class="searchPortalLabel MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled" data-shrink="true" aria-label="Search UQ Library">Library Search</h2>
                     </div>
                     <div id="search-parent" class="searchPanel MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-flex-end">
                         <div id="search-portal-type-select" class="MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-auto">
@@ -78,8 +78,8 @@ template.innerHTML = `
                 </form>
             </div>
         </div>
-        <div aria-labelledby="cultural-advice-heading" class="cultural-advice MuiPaper-root MuiCard-root libraryCard StandardCard MuiPaper-elevation1 MuiPaper-rounded">
-            <p class="cultural-advice-heading">Cultural advice</p>
+        <div class="cultural-advice MuiPaper-root MuiCard-root libraryCard StandardCard MuiPaper-elevation1 MuiPaper-rounded">
+            <h3>Cultural advice</h3>
             <p>Aboriginal and Torres Strait Islander peoples are advised that our collections and sites may contain images, voices or names of persons now deceased. Information may be culturally sensitive for some individuals and communities.</p>
             <p class="readmore"><a href="https://web.library.uq.edu.au/collections/culturally-sensitive-collections">Read our Cultural Advice statement</a></p>
         </div>

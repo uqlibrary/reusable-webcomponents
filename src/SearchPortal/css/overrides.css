@@ -1,3 +1,11 @@
+h2, h3 {
+    color: #000;
+    font-size: 16px;
+    font-weight: 400;
+    padding-top: 0;
+    margin-top: 0;
+}
+
 /** MuiPaper */
 
 .MuiPaper-root {
@@ -923,12 +931,7 @@ li.MuiAutocomplete-option:focus {
 
 .cultural-advice {
     margin-top: 1em;
-    padding: 0.5em 38px 0.5em 2em;
-}
-.cultural-advice-heading {
-    font-size: 16px;
-    color: #000;
-    font-weight: 400;
+    padding: 1em 38px 4px 2em;
 }
 .cultural-advice p {
     margin-block-end: 0.5em;
