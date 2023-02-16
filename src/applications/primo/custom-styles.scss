@@ -1563,12 +1563,13 @@ prm-main-menu .my-feedback-ctm {
 }
 
 // stop the indicator from duping in that rare edge case where it might
-.indicatorWrapper .readingListMark,
-.indicatorWrapper .culturalAdviceMark {
+// per https://stackoverflow.com/a/8539107/1246313
+.indicatorWrapper > .readingListMark,
+.indicatorWrapper > .culturalAdviceMark {
     display: none;
 }
-.indicatorWrapper .readingListMark:first-child,
-.indicatorWrapper .culturalAdviceMark:first-child {
+.indicatorWrapper > .readingListMark ~ .readingListMark,
+.indicatorWrapper > .culturalAdviceMark ~ .culturalAdviceMark {
     display: inline;
 }
 
