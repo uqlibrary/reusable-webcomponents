@@ -6,9 +6,7 @@ import { isBackTabKeyPressed, isEscapeKeyPressed, isTabKeyPressed } from '../hel
  * API
  * <span slot="site-utilities">             -- tells uqsiteheader where to insert it in the dom
  *  <askus-button
- *      hideProactiveChat                   -- libwizard: dont show proactive chat at all
  *      nopaneopacity                       -- primo: dont put a background on it
- *      secondsTilProactiveChatAppears=3    -- default 60
  *  />
  * </span>
  *
@@ -82,16 +80,10 @@ template.innerHTML = `
     <div id="askus-pane" data-testid="askus-pane" aria-hidden="true" class=closed-pane style="display: none" />
 `;
 
-let initCalled;
-
-// const PROACTIVE_CHAT_HIDDEN_COOKIE_NAME = 'UQ_ASKUS_PROACTIVE_CHAT';
-// const PROACTIVE_CHAT_HIDDEN_COOKIE_VALUE = 'hidden';
-
 class AskUsButton extends HTMLElement {
     constructor() {
         super();
         // Add a shadow DOM
-        // const secondsTilProactiveChatAppears = this.getAttribute('secondsTilProactiveChatAppears') || 60;
         const shadowDOM = this.attachShadow({ mode: 'open' });
 
         if (this.isPaneButtonOpacityDropRequested()) {
@@ -112,48 +104,16 @@ class AskUsButton extends HTMLElement {
         this.isPaneButtonOpacityDropRequested = this.isPaneButtonOpacityDropRequested.bind(this);
     }
 
-    // isProactiveChatHidden() {
-    //    const hideProactiveChat = this.getAttribute('hideProactiveChat');
-    //    return hideProactiveChat === 'true' || hideProactiveChat === '';
-    // }
-
     async updateAskusDOM(shadowRoot) {
-        //  const isProactiveChatHidden = this.isProactiveChatHidden();
-
-        // const isPrimoPage = (hostname) => {
-        //     var regExp = /(.*)exlibrisgroup.com/i;
-        //     return 'search.library.uq.edu.au' === hostname || regExp.test(hostname);
-        // };
-        // const showProactiveChat = () => {
-        //     shadowRoot.getElementById('askus-proactive-chat').classList.add('show');
-        // };
-        // const showProactiveChatWrapper = () => {
-        //     shadowRoot.getElementById('askus-proactive-chat-wrapper').removeAttribute('style');
-        // };
         const api = new ApiAccess();
         await api.loadChatStatus().then((isOnline) => {
-            if (!!isOnline) {
-                // Chat status
-                // !isProactiveChatHidden && shadowRoot.getElementById('askus-chat-online').removeAttribute('style');
-                // Show the proactive chat if we're not in primo & they havent asked for it to be hidden
-                //if (
-                //    !isProactiveChatHidden &&
-                //    !isPrimoPage(window.location.hostname) &&
-                //    cookieNotFound(PROACTIVE_CHAT_HIDDEN_COOKIE_NAME, PROACTIVE_CHAT_HIDDEN_COOKIE_VALUE)
-                //) {
-                //    setTimeout(showProactiveChatWrapper, secondsTilProactiveChatAppears * 1000 - 1000);
-                //    setTimeout(showProactiveChat, secondsTilProactiveChatAppears * 1000);
-                //}
-            } else {
+            if (!!!isOnline) {
                 // Chat disabled
                 shadowRoot.getElementById('askus-chat-li').style.opacity = '0.6';
                 shadowRoot.getElementById('askus-chat-link').removeAttribute('onclick');
 
                 shadowRoot.getElementById('askus-phone-li').style.opacity = '0.6';
                 shadowRoot.getElementById('askus-phone-link').removeAttribute('href');
-
-                // Chat status
-                // !isProactiveChatHidden && shadowRoot.getElementById('askus-chat-offline').removeAttribute('style');
             }
         });
 
@@ -232,31 +192,6 @@ class AskUsButton extends HTMLElement {
                 'toolbar=no, location=no, status=no, width=400, height=400',
             );
         }
-
-        function navigateToContactUs() {
-            window.open('https://support.my.uq.edu.au/app/library/contact', '_blank');
-        }
-
-        // Chat status listeners
-        //shadowDOM.getElementById('askus-chat-online').addEventListener('click', openChat);
-        //shadowDOM.getElementById('askus-chat-offline').addEventListener('click', navigateToContactUs);
-
-        // Proactive chat
-        //function hideProactiveChatWrapper() {
-        //    const pcWrapper = shadowDOM.getElementById('askus-proactive-chat-wrapper');
-        //    !!pcWrapper && pcWrapper.remove();
-        //}
-        // function closeProactiveChat() {
-        //     shadowDOM.getElementById('askus-proactive-chat').classList.remove('show');
-        //     setTimeout(hideProactiveChatWrapper, 1000);
-        //     //set cookie for 24 hours
-        //     const date = new Date();
-        //     date.setTime(date.getTime() + 24 * 60 * 60 * 1000);
-        //     setCookie(PROACTIVE_CHAT_HIDDEN_COOKIE_NAME, PROACTIVE_CHAT_HIDDEN_COOKIE_VALUE, date);
-        // }
-        // shadowDOM.getElementById('askus-proactive-chat-button-close').addEventListener('click', closeProactiveChat);
-        // shadowDOM.getElementById('askus-proactive-chat-button-open').addEventListener('click', openChat);
-        // in practice, cypress can't test the tab key :(
         /* istanbul ignore next */
         shadowDOM.getElementById('askus-faq-li').addEventListener('keydown', function (e) {
             if (isBackTabKeyPressed(e)) {

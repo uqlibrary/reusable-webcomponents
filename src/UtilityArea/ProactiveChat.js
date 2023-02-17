@@ -1,17 +1,14 @@
 import askus from './css/askus.css';
 import ApiAccess from '../ApiAccess/ApiAccess';
 import { cookieNotFound, setCookie } from '../helpers/cookie';
-//import { isBackTabKeyPressed, isEscapeKeyPressed, isTabKeyPressed } from '../helpers/keyDetection';
 
 /**
  * API
- * <span slot="site-utilities">             -- tells uqsiteheader where to insert it in the dom
- *  <askus-button
+ *  <proactive-chat
  *      hideProactiveChat                   -- libwizard: dont show proactive chat at all
- *      nopaneopacity                       -- primo: dont put a background on it
  *      secondsTilProactiveChatAppears=3    -- default 60
  *  />
- * </span>
+ * </proactive-chat>
  *
  */
 
@@ -46,8 +43,6 @@ template.innerHTML = `
     </div>
 `;
 
-let initCalled;
-
 const PROACTIVE_CHAT_HIDDEN_COOKIE_NAME = 'UQ_PROACTIVE_CHAT';
 const PROACTIVE_CHAT_HIDDEN_COOKIE_VALUE = 'hidden';
 
@@ -58,22 +53,10 @@ class ProactiveChat extends HTMLElement {
         const secondsTilProactiveChatAppears = this.getAttribute('secondsTilProactiveChatAppears') || 60;
         const shadowDOM = this.attachShadow({ mode: 'open' });
 
-        // if (this.isPaneButtonOpacityDropRequested()) {
-        //     // primo needs the opacity on the background turned off because it interacts weirdly with the Primo styles
-        //     // add a class to the pane, and turn off the background colour on that class
-        //     const pane = template.content.getElementById('askus-pane');
-        //     !!pane && pane.classList.add('noOpacity');
-        // }
-
         // Render the template
         shadowDOM.appendChild(template.content.cloneNode(true));
         this.updateAskusDOM(shadowDOM, secondsTilProactiveChatAppears);
         this.addButtonListeners(shadowDOM);
-
-        // Bindings
-        // this.updateAskusDOM = this.updateAskusDOM.bind(this);
-        // this.addButtonListeners = this.addButtonListeners.bind(this);
-        // this.isPaneButtonOpacityDropRequested = this.isPaneButtonOpacityDropRequested.bind(this);
     }
 
     isProactiveChatHidden() {
@@ -109,85 +92,13 @@ class ProactiveChat extends HTMLElement {
                     setTimeout(showProactiveChat, secondsTilProactiveChatAppears * 1000);
                 }
             } else {
-                // Chat disabled
-                // shadowRoot.getElementById('askus-chat-li').style.opacity = '0.6';
-                // shadowRoot.getElementById('askus-chat-link').removeAttribute('onclick');
-
-                // shadowRoot.getElementById('askus-phone-li').style.opacity = '0.6';
-                // shadowRoot.getElementById('askus-phone-link').removeAttribute('href');
-
                 // Chat status
                 !isProactiveChatHidden && shadowRoot.getElementById('proactive-chat-offline').removeAttribute('style');
             }
         });
-
-        // await api.loadOpeningHours().then((hours) => {
-        //     // display opening hours in the askus widget
-        //     const chatitem = shadowRoot.getElementById('askus-chat-time');
-        //     !!hours && !!hours.chat && !!chatitem && (chatitem.innerHTML = hours.chat);
-
-        //     const phoneitem = shadowRoot.getElementById('askus-phone-time');
-        //     !!hours && !!hours.phone && !!phoneitem && (phoneitem.innerText = hours.phone);
-        // });
     }
 
     addButtonListeners(shadowDOM, isOnline) {
-        let askUsClosed = true;
-        // function openAskusMenu() {
-        //     askUsClosed = false;
-        //     const askusMenu = shadowDOM.getElementById('askus-menu');
-        //     !!askusMenu && (askusMenu.style.display = 'block');
-        //     const askusPane = shadowDOM.getElementById('askus-pane');
-        //     !!askusPane && (askusPane.style.display = 'block');
-
-        //     function showDisplay() {
-        //         !!askusMenu && askusMenu.classList.remove('closed-menu');
-        //         !!askusPane && askusPane.classList.remove('closed-pane');
-        //     }
-
-        //     setTimeout(showDisplay, 100);
-        //     document.onkeydown = function (e) {
-        //         const evt = e || /* istanbul ignore next */ window.event;
-        //         if (isEscapeKeyPressed(evt) && askUsClosed === false) {
-        //             closeAskusMenu();
-        //         }
-        //     };
-        // }
-
-        // function closeAskusMenu() {
-        //     askUsClosed = true;
-        //     const askusMenu = shadowDOM.getElementById('askus-menu');
-        //     const askusPane = shadowDOM.getElementById('askus-pane');
-
-        //     !!askusMenu && askusMenu.classList.add('closed-menu');
-        //     !!askusPane && askusPane.classList.add('closed-pane');
-
-        //     function hideDisplay() {
-        //         !!askusMenu && (askusMenu.style.display = 'none');
-        //         !!askusPane && (askusPane.style.display = 'none');
-        //     }
-
-        //     setTimeout(hideDisplay, 500);
-        // }
-
-        // function handleAskUsButton() {
-        //     const askusPane = shadowDOM.getElementById('askus-pane');
-        //     !!askusPane && askusPane.addEventListener('click', handleMouseOut);
-        //     openAskusMenu();
-        // }
-
-        // function handleMouseOut() {
-        //     const askusPane = shadowDOM.getElementById('askus-pane');
-
-        //     askUsClosed = !askUsClosed;
-        //     !!askusPane && askusPane.removeEventListener('mouseleave', handleMouseOut);
-        //     closeAskusMenu();
-        // }
-
-        // Attach a listener to the askus button
-        // const askusButton = shadowDOM.getElementById('askus-button');
-        // !!askusButton && askusButton.addEventListener('click', handleAskUsButton);
-
         // Chat status
         function openChat() {
             window.open(
@@ -220,26 +131,7 @@ class ProactiveChat extends HTMLElement {
         }
         shadowDOM.getElementById('proactive-chat-button-close').addEventListener('click', closeProactiveChat);
         shadowDOM.getElementById('proactive-chat-button-open').addEventListener('click', openChat);
-        // in practice, cypress can't test the tab key :(
-        /* istanbul ignore next */
-        // shadowDOM.getElementById('askus-faq-li').addEventListener('keydown', function (e) {
-        //     if (isBackTabKeyPressed(e)) {
-        //         closeAskusMenu();
-        //     }
-        // });
-        /* istanbul ignore next */
-        // shadowDOM.getElementById('askus-menu-item-moreways').addEventListener('keydown', function (e) {
-        //     if (isTabKeyPressed(e)) {
-        //         closeAskusMenu();
-        //     }
-        // });
     }
-
-    // isPaneButtonOpacityDropRequested() {
-    //     // primo only provides the attributes in lower case :(
-    //     const noPaneOpacity = this.getAttribute('nopaneopacity');
-    //     return !!noPaneOpacity || noPaneOpacity === '';
-    // }
 }
 
 export default ProactiveChat;
