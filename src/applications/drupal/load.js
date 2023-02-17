@@ -25,11 +25,11 @@ function createAuthButton() {
 }
 
 function createAskusButton() {
-    if (!!document.querySelector('askus-button')) {
+    if (!!document.querySelector('new-askus-button')) {
         return false;
     }
 
-    const askusButton = document.createElement('askus-button');
+    const askusButton = document.createElement('new-askus-button');
     return !!askusButton && createSlotForButtonInUtilityArea(askusButton, 'askus');
 }
 

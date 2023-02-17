@@ -1,15 +1,12 @@
 import askus from './css/askus.css';
 import ApiAccess from '../ApiAccess/ApiAccess';
-import { cookieNotFound, setCookie } from '../helpers/cookie';
 import { isBackTabKeyPressed, isEscapeKeyPressed, isTabKeyPressed } from '../helpers/keyDetection';
 
 /**
  * API
  * <span slot="site-utilities">             -- tells uqsiteheader where to insert it in the dom
  *  <askus-button
- *      hideProactiveChat                   -- libwizard: dont show proactive chat at all
  *      nopaneopacity                       -- primo: dont put a background on it
- *      secondsTilProactiveChatAppears=3    -- default 60
  *  />
  * </span>
  *
@@ -37,7 +34,6 @@ template.innerHTML = `
                         <span>FAQ</span>
                     </a>
                 </li>
-                
                 <!-- Chat -->
                 <li id="askus-chat-li" role="menuitem" aria-disabled="false">
                     <a tabindex="0" id="askus-chat-link" data-testid="askus-menu-chat" onclick="javascript: window.open('https://support.my.uq.edu.au/app/chat/chat_launch_lib/p/45', 'chat', 'toolbar=no, location=no, status=no, width=400, height=400');">
@@ -79,47 +75,15 @@ template.innerHTML = `
                 </li>
             </ul>
         </div>
-        <!-- Chat status -->
-        <div id="askus-chat-status">
-            <div id="askus-chat-online" data-testid="askus-chat-online" style="display: none;" title="Click to open online chat">
-                <svg id="askus-chat-status-icon-online" focusable="false" viewBox="0 0 24 24" aria-hidden="true" id="chat-status-icon-online" data-testid="chat-status-icon-online"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path></svg>
-            </div>
-           <div id="askus-chat-offline" data-testid="askus-chat-offline" style="display: none;" title="Chat currently offline">
-                <svg id="askus-chat-status-icon-offline" focusable="false" viewBox="0 0 24 24" aria-hidden="true" id="chat-status-icon-offline" data-testid="chat-status-icon-online"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path></svg>
-            </div>
-        </div>
-        
-        <!-- Proactive chat -->
-        <div id="askus-proactive-chat-wrapper" data-testid="askus-proactive-chat-wrapper" style="display: none">
-            <div id="askus-proactive-chat" data-testid="askus-proactive-chat">
-                <div class="askus-proactive-chat-text">
-                    <div class="title">Chat is online now</div>
-                    <div class="message">Library staff are here to assist.<br/>Would you like to chat?</div>
-                </div>
-                <div class="askus-proactive-chat-left-button">
-                    <button id="askus-proactive-chat-button-open" data-testid="askus-proactive-chat-button-open" class="askus-proactive-chat-button">Chat&nbsp;now</button>
-                </div>
-                <div class="askus-proactive-chat-right-button">
-                    <button id="askus-proactive-chat-button-close" data-testid="askus-proactive-chat-button-close" class="askus-proactive-chat-button">Maybe&nbsp;later</button>
-                </div>
-            </div>
-        </div>
-        
     </div>
     <!-- Screen wrapper -->
     <div id="askus-pane" data-testid="askus-pane" aria-hidden="true" class=closed-pane style="display: none" />
 `;
 
-let initCalled;
-
-const PROACTIVE_CHAT_HIDDEN_COOKIE_NAME = 'UQ_ASKUS_PROACTIVE_CHAT';
-const PROACTIVE_CHAT_HIDDEN_COOKIE_VALUE = 'hidden';
-
-class AskUsButton extends HTMLElement {
+class NewAskUsButton extends HTMLElement {
     constructor() {
         super();
         // Add a shadow DOM
-        const secondsTilProactiveChatAppears = this.getAttribute('secondsTilProactiveChatAppears') || 60;
         const shadowDOM = this.attachShadow({ mode: 'open' });
 
         if (this.isPaneButtonOpacityDropRequested()) {
@@ -129,9 +93,9 @@ class AskUsButton extends HTMLElement {
             !!pane && pane.classList.add('noOpacity');
         }
 
-        // Render the template
+        // // Render the template
         shadowDOM.appendChild(template.content.cloneNode(true));
-        this.updateAskusDOM(shadowDOM, secondsTilProactiveChatAppears);
+        this.updateAskusDOM(shadowDOM);
         this.addButtonListeners(shadowDOM);
 
         // Bindings
@@ -140,48 +104,16 @@ class AskUsButton extends HTMLElement {
         this.isPaneButtonOpacityDropRequested = this.isPaneButtonOpacityDropRequested.bind(this);
     }
 
-    isProactiveChatHidden() {
-        const hideProactiveChat = this.getAttribute('hideProactiveChat');
-        return hideProactiveChat === 'true' || hideProactiveChat === '';
-    }
-
-    async updateAskusDOM(shadowRoot, secondsTilProactiveChatAppears) {
-        const isProactiveChatHidden = this.isProactiveChatHidden();
-
-        const isPrimoPage = (hostname) => {
-            var regExp = /(.*)exlibrisgroup.com/i;
-            return 'search.library.uq.edu.au' === hostname || regExp.test(hostname);
-        };
-        const showProactiveChat = () => {
-            shadowRoot.getElementById('askus-proactive-chat').classList.add('show');
-        };
-        const showProactiveChatWrapper = () => {
-            shadowRoot.getElementById('askus-proactive-chat-wrapper').removeAttribute('style');
-        };
+    async updateAskusDOM(shadowRoot) {
         const api = new ApiAccess();
         await api.loadChatStatus().then((isOnline) => {
-            if (!!isOnline) {
-                // Chat status
-                !isProactiveChatHidden && shadowRoot.getElementById('askus-chat-online').removeAttribute('style');
-                // Show the proactive chat if we're not in primo & they havent asked for it to be hidden
-                if (
-                    !isProactiveChatHidden &&
-                    !isPrimoPage(window.location.hostname) &&
-                    cookieNotFound(PROACTIVE_CHAT_HIDDEN_COOKIE_NAME, PROACTIVE_CHAT_HIDDEN_COOKIE_VALUE)
-                ) {
-                    setTimeout(showProactiveChatWrapper, secondsTilProactiveChatAppears * 1000 - 1000);
-                    setTimeout(showProactiveChat, secondsTilProactiveChatAppears * 1000);
-                }
-            } else {
+            if (!!!isOnline) {
                 // Chat disabled
                 shadowRoot.getElementById('askus-chat-li').style.opacity = '0.6';
                 shadowRoot.getElementById('askus-chat-link').removeAttribute('onclick');
 
                 shadowRoot.getElementById('askus-phone-li').style.opacity = '0.6';
                 shadowRoot.getElementById('askus-phone-link').removeAttribute('href');
-
-                // Chat status
-                !isProactiveChatHidden && shadowRoot.getElementById('askus-chat-offline').removeAttribute('style');
             }
         });
 
@@ -260,31 +192,6 @@ class AskUsButton extends HTMLElement {
                 'toolbar=no, location=no, status=no, width=400, height=400',
             );
         }
-
-        function navigateToContactUs() {
-            window.open('https://support.my.uq.edu.au/app/library/contact', '_blank');
-        }
-
-        // Chat status listeners
-        shadowDOM.getElementById('askus-chat-online').addEventListener('click', openChat);
-        shadowDOM.getElementById('askus-chat-offline').addEventListener('click', navigateToContactUs);
-
-        // Proactive chat
-        function hideProactiveChatWrapper() {
-            const pcWrapper = shadowDOM.getElementById('askus-proactive-chat-wrapper');
-            !!pcWrapper && pcWrapper.remove();
-        }
-        function closeProactiveChat() {
-            shadowDOM.getElementById('askus-proactive-chat').classList.remove('show');
-            setTimeout(hideProactiveChatWrapper, 1000);
-            //set cookie for 24 hours
-            const date = new Date();
-            date.setTime(date.getTime() + 24 * 60 * 60 * 1000);
-            setCookie(PROACTIVE_CHAT_HIDDEN_COOKIE_NAME, PROACTIVE_CHAT_HIDDEN_COOKIE_VALUE, date);
-        }
-        shadowDOM.getElementById('askus-proactive-chat-button-close').addEventListener('click', closeProactiveChat);
-        shadowDOM.getElementById('askus-proactive-chat-button-open').addEventListener('click', openChat);
-        // in practice, cypress can't test the tab key :(
         /* istanbul ignore next */
         shadowDOM.getElementById('askus-faq-li').addEventListener('keydown', function (e) {
             if (isBackTabKeyPressed(e)) {
@@ -306,4 +213,4 @@ class AskUsButton extends HTMLElement {
     }
 }
 
-export default AskUsButton;
+export default NewAskUsButton;

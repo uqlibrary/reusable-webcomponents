@@ -94,12 +94,12 @@ function loadReusableComponentsLibGuides() {
     document.body.appendChild(subFooter);
 
     // Proactive Chat button
-    if (!isOutsideUQ) {
-        if (!document.querySelector('proactive-chat')) {
-            const proactiveChat = document.createElement('proactive-chat');
-            !!proactiveChat && document.body.appendChild(proactiveChat);
-        }
-    }
+    // if (!isOutsideUQ) {
+    //     if (!document.querySelector('proactive-chat')) {
+    //         const proactiveChat = document.createElement('proactive-chat');
+    //         !!proactiveChat && document.body.appendChild(proactiveChat);
+    //     }
+    // }
 }
 
 ready(loadReusableComponentsLibGuides);
