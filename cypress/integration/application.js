@@ -169,8 +169,8 @@ describe('Dummy Application', () => {
 
             hasNoMegaMenu();
 
-            hasAskusButton();
-            //hasProactiveChat();
+            hasNewAskusButton();
+            hasProactiveChat();
             hasAuthButton();
 
             hasAnAlert();

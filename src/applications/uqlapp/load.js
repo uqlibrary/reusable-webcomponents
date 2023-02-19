@@ -25,11 +25,11 @@ function createAuthButton() {
 }
 
 function createAskusButton() {
-    if (!!document.querySelector('askus-button')) {
+    if (!!document.querySelector('new-askus-button')) {
         return false;
     }
 
-    const askusButton = document.createElement('askus-button');
+    const askusButton = document.createElement('new-askus-button');
     return !!askusButton && createSlotForButtonInUtilityArea(askusButton, 'askus');
 }
 
@@ -93,10 +93,10 @@ function loadReusableComponents() {
         !!subFooter && document.body.appendChild(subFooter);
     }
     // Proactive Chat button
-    // if (!document.querySelector('proactive-chat')) {
-    //     const proactiveChat = document.createElement('proactive-chat');
-    //     !!proactiveChat && document.body.appendChild(proactiveChat);
-    // }
+    if (!document.querySelector('proactive-chat')) {
+        const proactiveChat = document.createElement('proactive-chat');
+        !!proactiveChat && document.body.appendChild(proactiveChat);
+    }
 }
 
 ready(loadReusableComponents);
