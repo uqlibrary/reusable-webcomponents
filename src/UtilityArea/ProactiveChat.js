@@ -65,7 +65,6 @@ class ProactiveChat extends HTMLElement {
     }
 
     async updateAskusDOM(shadowRoot, secondsTilProactiveChatAppears) {
-        console.log('Firing updateAskusDOM');
         const isProactiveChatHidden = this.isProactiveChatHidden();
 
         const isPrimoPage = (hostname) => {
@@ -73,7 +72,6 @@ class ProactiveChat extends HTMLElement {
             return 'search.library.uq.edu.au' === hostname || regExp.test(hostname);
         };
         const showProactiveChat = () => {
-            console.log('Attempting to fire showProactiveChat');
             shadowRoot.getElementById('proactive-chat').classList.add('show');
         };
         const showProactiveChatWrapper = () => {
