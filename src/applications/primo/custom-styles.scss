@@ -818,7 +818,8 @@ uq-site-header {
     }
 }
 
-askus-button {
+askus-button,
+new-askus-button {
     &::part(button) {
         height: 42px;
         width: 42px;
