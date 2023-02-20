@@ -63,6 +63,15 @@ describe('Dummy Application', () => {
     function hasAskusButton() {
         cy.get('askus-button').shadow().find('button[data-testid="askus-button"]').should('exist');
     }
+    function hasNewAskusButton() {
+        cy.get('new-askus-button').shadow().find('button[data-testid="askus-button"]').should('exist');
+    }
+
+    function hasProactiveChat() {
+        cy.get('proactive-chat').shadow().find('[data-testid="proactive-chat-online"]').should('exist');
+        cy.get('proactive-chat').shadow().find('[data-testid="proactive-chat-offline"]').should('exist');
+        cy.get('proactive-chat').shadow().find('[data-testid="proactive-chat-wrapper"]').should('exist');
+    }
 
     function hasNoAskusButton() {
         cy.get('askus-button').should('not.exist');
@@ -139,6 +148,7 @@ describe('Dummy Application', () => {
             hasNoMegaMenu();
 
             hasAskusButton();
+            // hasProactiveChat();
             hasNoAuthButton();
 
             hasAnAlert();
@@ -159,7 +169,8 @@ describe('Dummy Application', () => {
 
             hasNoMegaMenu();
 
-            hasAskusButton();
+            hasNewAskusButton();
+            hasProactiveChat();
             hasAuthButton();
 
             hasAnAlert();
@@ -203,6 +214,7 @@ describe('Dummy Application', () => {
             hasMegaMenu();
 
             hasAskusButton();
+            //hasProactiveChat();
             hasNoAuthButton();
 
             hasAnAlert();
@@ -231,6 +243,7 @@ describe('Dummy Application', () => {
             hasNoAuthButton();
 
             hasNoAlerts();
+            //hasProactiveChat();
 
             hasNoConnectFooter();
 
@@ -293,7 +306,8 @@ describe('Dummy Application', () => {
 
             hasMegaMenu();
 
-            hasAskusButton();
+            hasNewAskusButton();
+            hasProactiveChat();
             hasAuthButton();
 
             hasAnAlert();
@@ -352,6 +366,7 @@ describe('Dummy Application', () => {
             hasNoMegaMenu();
 
             hasAskusButton();
+            //hasProactiveChat();
             hasNoAuthButton();
 
             hasAnAlert();
