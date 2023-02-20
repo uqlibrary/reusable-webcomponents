@@ -29,7 +29,7 @@ import Alert from './Alert/Alert';
 import Alerts from './Alerts/Alerts';
 import ApiAccess from './ApiAccess/ApiAccess';
 import AskUsButton from './UtilityArea/AskUsButton';
-import NewAskUsButton from './UtilityArea/NewAskUsButton';
+// import NewAskUsButton from './UtilityArea/NewAskUsButton';
 import ProactiveChat from './UtilityArea/ProactiveChat';
 import AuthButton from './UtilityArea/AuthButton';
 import ConnectFooter from './ConnectFooter/ConnectFooter';
@@ -50,7 +50,7 @@ if (process.env.USE_MOCK) {
 customElements.define('alert-list', Alerts);
 customElements.define('api-access', ApiAccess);
 customElements.define('askus-button', AskUsButton);
-customElements.define('new-askus-button', NewAskUsButton);
+//customElements.define('new-askus-button', NewAskUsButton);
 customElements.define('proactive-chat', ProactiveChat);
 customElements.define('auth-button', AuthButton);
 customElements.define('connect-footer', ConnectFooter);
