@@ -4,7 +4,7 @@ The 'applications/' folder allows us to version control changes to the scripts w
 
 A load.js file and custom-styles.css is available for most applications. `npm run build` will build them into the `dist` folder.
 
-(Note: where in old reusable we did a `gulp styles` to get access to the .css file generated from the .scss file during dev, here we do a `nom run bulld` and then find the file of interest in the dist folder)
+(Note: where in old reusable we did a `gulp styles` to get access to the .css file generated from the .scss file during dev, here we do a `npm run bulld` and then find the file of interest in the dist folder)
 
 The custom-styles.css is moved into the correct location in aws during the build via the `compilesass` command in package.json
 
@@ -13,9 +13,11 @@ Each application has a specific readme file - cf.
 We add the header-footer to many third party systems, usually by creating a load.js file which is inserted in the backend of that system, and that load script pulls in the .min.js reusable file and creates the header-footer elements. Read each application's readme file to get full details on each system
 
 - Library homepage
-  - code in repo homepage-react
+  - code in repo homepage-react 
   - no load.js file
+  - make changes in components/App.js
   - live at <https://www.library.uq.edu.au/>
+  - staging at <https://homepage-development.library.uq.edu.au/reusable-staging/#/> (merge reusable into branch reusable-staging; match homepage branch will call that reusable branch. It's the only homepage branch that cals a non-prod reusable.)
 - Auth
   - library authentication & authorization check for SSO login
   - code at /src/applications/auth and called from src/resources/views/layout/default.blade.php in repo `auth`
