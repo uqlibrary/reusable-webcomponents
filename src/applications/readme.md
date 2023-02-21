@@ -13,33 +13,31 @@ Each application has a specific readme file - cf.
 We add the header-footer to many third party systems, usually by creating a load.js file which is inserted in the backend of that system, and that load script pulls in the .min.js reusable file and creates the header-footer elements. Read each application's readme file to get full details on each system
 
 - Library homepage
-  - code in repo homepage-react 
-  - no load.js file
-  - make changes in components/App.js
+  - no load.js file, make changes in components/App.js in repo [homepage-react](https://github.com/uqlibrary/homepage-react)
   - live at <https://www.library.uq.edu.au/>
-  - staging at <https://homepage-development.library.uq.edu.au/reusable-staging/#/> (merge reusable into branch reusable-staging; match homepage branch will call that reusable branch. It's the only homepage branch that cals a non-prod reusable.)
+  - staging at <https://homepage-development.library.uq.edu.au/reusable-staging/#/> (merge reusable into branch `reusable-staging`; matching homepage branch will call that reusable branch. It's the only homepage branch that calls a non-prod reusable.)
 - Auth
   - library authentication & authorization check for SSO login
-  - code at /src/applications/auth and called from src/resources/views/layout/default.blade.php in repo `auth`
+  - load.js at /src/applications/auth and called from src/resources/views/layout/default.blade.php in repo [auth](https://github.com/uqlibrary/auth)
   - live at <https://auth.library.uq.edu.au>
   - staging at <https://auth-staging.library.uq.edu.au/>
 - Drupal
   - the Library public CMS
-  - code at /src/applications/drupal
+  - load.js at /src/applications/drupal
   - live at eg <https://web.library.uq.edu.au/contact-us>
-  - drupal staging at eg <https://library.stage.drupal.uq.edu.au/library-services/services-students> is tied to the feature-drupal branch in this repo
+  - drupal staging at eg <https://library.stage.drupal.uq.edu.au/library-services/services-students> is tied to the `feature-drupal` branch in this repo
 - Libcal
   - used for various booking pages
-  - code at /src/applications/libcal
+  - load.js at /src/applications/libcal
   - live at eg <https://calendar.library.uq.edu.au/reserve/spaces/reading-room>
 - Libguides
   - guides on many subjects to help students
-  - code at /src/applications/libguides
+  - load.js at /src/applications/libguides, inserted into page at <https://uq.libapps.com/libguides/lookfeel.php?action=1>
   - live at <https://guides.library.uq.edu.au/>
   - staging at the time by arrangement with Springshare
 - Libwizard
   - used for training forms
-  - code at /src/applications/libwizard
+  - load.js at /src/applications/libwizard
   - live at eg <https://uq.libwizard.com/f/metrics>
   - Springshare cant do a library subdomain, we asked
 - Primo
@@ -51,17 +49,19 @@ We add the header-footer to many third party systems, usually by creating a load
   - has multiple branches assigned to it
 - Rightnow
   - the UQ CRM
-  - code at /src/applications/rightnow
+  - load.js at /src/applications/rightnow
   - see readme for many live pages
 - Shared
   - a bunch of scripts runnng on the enki servers
   - managed by Dan
-  - code at /src/applications/shared
+  - load.js at /src/applications/shared
 - Studenthub
   - a small group of pages that displays staff-training to logged in staff
-  - code at /src/applications/studenthub
+  - load.js at /src/applications/studenthub
   - live at <https://www.studenthub.uq.edu.au/workgroups/library-staff-development>
 - UQLAPP
-  - legacy system in Angular V1 offering 4 products. Only membership is current for development
-  - code at /src/applications/uqlapp
+  - legacy system in Angular V1 offering a number of subsites. Only membership is current for development
+  - load.js at /src/applications/uqlapp
   - live at <https://app.library.uq.edu.au/>
+  - staging at <https://app-testing.library.uq.edu.au/> is tied to the staging branch of this repo
+  - (repo is [uqlapp-frontend](https://github.com/uqlibrary/uqlapp-frontend))
