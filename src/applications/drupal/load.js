@@ -159,6 +159,11 @@ function loadReusableComponentsDrupal() {
         const subFooter = document.createElement('uq-footer');
         !!subFooter && document.body.appendChild(subFooter);
     }
+    // Proactive Chat button
+    if (!document.querySelector('proactive-chat')) {
+        const proactiveChat = document.createElement('proactive-chat');
+        !!proactiveChat && document.body.appendChild(proactiveChat);
+    }
 }
 
 ready(loadReusableComponentsDrupal);

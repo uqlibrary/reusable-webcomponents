@@ -64,14 +64,13 @@
         <uq-header hidelibrarymenuitem skipnavid="skiptohere"></uq-header>
         <uq-site-header sitetitle="Library Test" showmenu>
             <span slot="site-utilities">
-                <askus-button secondsTilProactiveChatAppears="3" />
+                <askus-button />
             </span>
             <span slot="site-utilities">
                 <auth-button />
             </span>
         </uq-site-header>
         <alert-list system="homepage"></alert-list>
-
         <div class="layout-card" style="min-height: 300px">
             <h1 id="skiptohere" tabindex="-1">UQ Library - Reusable Web Components sampler</h1>
             <p data-testid="random-page-element">Lorem ipsum</p>
@@ -87,8 +86,8 @@
             <h2>Demo Training</h2>
             <library-training></library-training>
         </div>
-
         <connect-footer></connect-footer>
         <uq-footer loginurl="http://library.uq.edu.au"></uq-footer>
+        <proactive-chat secondsTilProactiveChatAppears="3"></proactive-chat>
     </body>
 </html>
