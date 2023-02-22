@@ -1,6 +1,8 @@
 describe('EzProxy', () => {
     beforeEach(() => {
         cy.visit('http://localhost:8080');
+        // Close the cultural Advice popup.
+        cy.get('cultural-advice-popup').shadow().find('span#culturaladvice-container-dismiss').click();
     });
 
     context('default mode', () => {
