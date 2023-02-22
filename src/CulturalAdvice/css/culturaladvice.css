@@ -1,7 +1,7 @@
 .culturaladvice-initial {
     position: fixed;
     bottom: 10px;
-    padding: 10px;
+    padding: 15px;
     transition: left 0.3s, opacity 0.4s;
     transition-delay: 0.3s;
     transition-timing-function: ease-in-out;
@@ -19,24 +19,26 @@
     transition-delay: 0.3s;
     transition-timing-function: ease-in-out;
 }
-#culturaladvice-container {
-}
+
 #culturaladvice-tab {
     cursor: pointer;
     transform: rotate(90deg);
     transform-origin: bottom left;
     position: fixed;
     z-index: 9998;
-    bottom: 130px;
+    bottom: 170px;
     left: 0px;
     opacity: 1;
-    padding: 5px;
+    padding: 10px 25px;
     color: white;
     background-color: #2377cb;
     transition: left 0.3s, opacity 0.4s;
     transition-delay: 0.3s;
     transition-timing-function: ease-in-out;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+#culturaladvice-tab:hover {
+    background-color: #195794;
 }
 #culturaladvice-tab.culturaladvice-tab-hidden {
     left: -100px;
@@ -53,6 +55,16 @@
 }
 #culturaladvice-container-dismiss {
     cursor: pointer;
+    /* float: right; */
+    font-size: 1.5em;
+    /* line-height: 2em; */
+    /* margin-top: -10px; */
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: center;
 }
 .culturaladvice-wording {
     padding-top: 1px;
