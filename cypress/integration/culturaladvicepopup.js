@@ -1,7 +1,7 @@
 describe('Cultural Advice', () => {
     context('Popup', () => {
         it('Appears as expected', () => {
-            cy.visit('http://localhost:8080');
+            cy.visit('http://localhost:8080/index-culturaladvice.html');
             cy.viewport(1280, 900);
             cy.get('cultural-advice-popup').shadow().find('#culturaladvice-container').should('be.visible');
             cy.wait(1500);
@@ -9,7 +9,7 @@ describe('Cultural Advice', () => {
         });
 
         it('Cultural Advice passes accessibility', () => {
-            cy.visit('http://localhost:8080');
+            cy.visit('http://localhost:8080/index-culturaladvice.html');
             cy.injectAxe();
             cy.viewport(1280, 900);
             cy.wait(1500);
@@ -21,7 +21,7 @@ describe('Cultural Advice', () => {
         });
 
         it('Can hide and show cultural advice', () => {
-            cy.visit('http://localhost:8080');
+            cy.visit('http://localhost:8080/index-culturaladvice.html');
             cy.viewport(1280, 900);
             cy.get('cultural-advice-popup').shadow().find('#culturaladvice-container').should('be.visible');
             cy.get('cultural-advice-popup').shadow().find('#culturaladvice-tab').should('not.be.visible');
