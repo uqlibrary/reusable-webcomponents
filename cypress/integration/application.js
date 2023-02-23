@@ -63,9 +63,9 @@ describe('Dummy Application', () => {
     function hasAskusButton() {
         cy.get('askus-button').shadow().find('button[data-testid="askus-button"]').should('exist');
     }
-    function hasNewAskusButton() {
-        cy.get('new-askus-button').shadow().find('button[data-testid="askus-button"]').should('exist');
-    }
+    // function hasNewAskusButton() {
+    //     cy.get('new-askus-button').shadow().find('button[data-testid="askus-button"]').should('exist');
+    // }
 
     function hasProactiveChat() {
         cy.get('proactive-chat').shadow().find('[data-testid="proactive-chat-online"]').should('exist');
@@ -169,7 +169,7 @@ describe('Dummy Application', () => {
 
             hasNoMegaMenu();
 
-            hasNewAskusButton();
+            hasAskusButton();
             hasProactiveChat();
             hasAuthButton();
 
@@ -306,7 +306,7 @@ describe('Dummy Application', () => {
 
             hasMegaMenu();
 
-            hasNewAskusButton();
+            hasAskusButton();
             hasProactiveChat();
             hasAuthButton();
 

@@ -25,11 +25,11 @@ function createAuthButton() {
 }
 
 function createAskusButton() {
-    if (!!document.querySelector('new-askus-button')) {
+    if (!!document.querySelector('askus-button')) {
         return false;
     }
 
-    const askusButton = document.createElement('new-askus-button');
+    const askusButton = document.createElement('askus-button');
     return !!askusButton && createSlotForButtonInUtilityArea(askusButton, 'askus');
 }
 
@@ -153,6 +153,11 @@ function loadReusableComponentsDrupal() {
     if (!document.querySelector('connect-footer')) {
         const connectFooter = document.createElement('connect-footer');
         !!connectFooter && document.body.appendChild(connectFooter);
+    }
+    // cultural advice popup
+    if (!document.querySelector('cultural-advice-popup')) {
+        const culturalAdvice = document.createElement('cultural-advice-popup');
+        !!culturalAdvice && document.body.appendChild(culturalAdvice);
     }
 
     if (!document.querySelector('uq-footer')) {
