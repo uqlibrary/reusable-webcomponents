@@ -26,7 +26,7 @@ template.innerHTML = `
                 </p>    
             </div>
         </div>
-        <div id="culturaladvice-tab" class="culturaladvice-tab-hidden">
+        <div id="culturaladvice-tab" data-testid="culturaladvice-tab" class="culturaladvice-tab-hidden">
                 <span>Cultural advice</span>
         </div>
     </div>
