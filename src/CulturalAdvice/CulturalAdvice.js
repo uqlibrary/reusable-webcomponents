@@ -102,7 +102,7 @@ class CulturalAdvice extends HTMLElement {
             if (cookieNotFound(CULTURAL_ADVICE_HIDDEN_COOKIE_NAME, CULTURAL_ADVICE_HIDDEN_COOKIE_VALUE)) {
                 showCA();
             } else {
-                dismissCA;
+                dismissCA();
             }
         }, secondsTilCAAppears * 1000);
     }
