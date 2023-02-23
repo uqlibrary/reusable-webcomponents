@@ -20,8 +20,7 @@ template.innerHTML = `
             <div class="culturaladvice-wording" style="clear:both">
                 <p>Aboriginal and Torres Strait Islander peoples are advised that our collections and sites may contain images, voices or names of persons now deceased. Information may be culturally sensitive for some individuals and communities.</p>
                 <p style="text-align: left">
-                    <a id="cultural-advice-read-more" data-testid="cultural-advice-read-more" 
-                    href="https://web.library.uq.edu.au/collections/culturally-sensitive-collections">
+                    <a id="cultural-advice-read-more" data-testid="cultural-advice-read-more" href="https://web.library.uq.edu.au/collections/culturally-sensitive-collections">
                     Culturally sensitive collections
                     </a>
                 </p>    
@@ -55,16 +54,22 @@ class CulturalAdvice extends HTMLElement {
 
     async updateCADom(shadowRoot, secondsTilCAAppears) {
         // Get the dom for Proactive Chat.
-
+        const setCACookie = () => {
+            const date = new Date();
+            date.setTime(date.getTime() + 365 * 24 * 60 * 60 * 1000);
+            setCookie(CULTURAL_ADVICE_HIDDEN_COOKIE_NAME, CULTURAL_ADVICE_HIDDEN_COOKIE_VALUE, date);
+        };
+        const navigateToCSC = () => {
+            setCACookie();
+            // window.location.assign('https://web.library.uq.edu.au/collections/culturally-sensitive-collections');
+        };
         const dismissCA = () => {
             const proactiveChatElement = document.getElementsByTagName('proactive-chat');
             proactiveChatElement.length > 0 && proactiveChatElement[0].setAttribute('caforcehidemobile', 'false');
             shadowRoot.getElementById('culturaladvice-container').classList.remove('culturaladvice-popup-shown');
             shadowRoot.getElementById('culturaladvice-container').classList.add('culturaladvice-popup-hidden');
             shadowRoot.getElementById('culturaladvice-tab').classList.remove('culturaladvice-tab-hidden');
-            const date = new Date();
-            date.setTime(date.getTime() + 365 * 24 * 60 * 60 * 1000);
-            setCookie(CULTURAL_ADVICE_HIDDEN_COOKIE_NAME, CULTURAL_ADVICE_HIDDEN_COOKIE_VALUE, date);
+            setCACookie();
         };
         const showCA = () => {
             const proactiveChatElement = document.getElementsByTagName('proactive-chat');
@@ -76,6 +81,7 @@ class CulturalAdvice extends HTMLElement {
         // Add event listeners to Close and Tab
         shadowRoot.getElementById('culturaladvice-container-dismiss').addEventListener('click', dismissCA);
         shadowRoot.getElementById('culturaladvice-tab').addEventListener('click', showCA);
+        shadowRoot.getElementById('cultural-advice-read-more').addEventListener('click', navigateToCSC);
         // Start presentation timer - show Tab OR advice based on cookie.
         setTimeout(() => {
             const proactiveChatElement = document.getElementsByTagName('proactive-chat');
