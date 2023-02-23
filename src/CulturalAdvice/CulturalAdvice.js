@@ -54,14 +54,27 @@ class CulturalAdvice extends HTMLElement {
 
     async updateCADom(shadowRoot, secondsTilCAAppears) {
         // Get the dom for Proactive Chat.
+
+        const isPrimoPage = (hostname) => {
+            var regExp = /(.*)exlibrisgroup.com/i;
+            return 'search.library.uq.edu.au' === hostname || regExp.test(hostname);
+        };
         const setCACookie = () => {
             const date = new Date();
             date.setTime(date.getTime() + 365 * 24 * 60 * 60 * 1000);
             setCookie(CULTURAL_ADVICE_HIDDEN_COOKIE_NAME, CULTURAL_ADVICE_HIDDEN_COOKIE_VALUE, date);
         };
-        const navigateToCSC = () => {
+        const navigateToCSC = (event) => {
+            const url = 'https://web.library.uq.edu.au/collections/culturally-sensitive-collections';
+            event.preventDefault();
             setCACookie();
-            // window.location.assign('https://web.library.uq.edu.au/collections/culturally-sensitive-collections');
+            // Potentially Dismiss CA here if requested, with dismissCA();
+
+            if (!isPrimoPage(window.location.hostname)) {
+                window.location.assign(url);
+            } else {
+                window.open(url);
+            }
         };
         const dismissCA = () => {
             const proactiveChatElement = document.getElementsByTagName('proactive-chat');
@@ -86,19 +99,10 @@ class CulturalAdvice extends HTMLElement {
         shadowRoot.getElementById('cultural-advice-read-more').addEventListener('click', navigateToCSC);
         // Start presentation timer - show Tab OR advice based on cookie.
         setTimeout(() => {
-            const proactiveChatElement = document.getElementsByTagName('proactive-chat');
             if (cookieNotFound(CULTURAL_ADVICE_HIDDEN_COOKIE_NAME, CULTURAL_ADVICE_HIDDEN_COOKIE_VALUE)) {
-                proactiveChatElement.length > 0 && proactiveChatElement[0].setAttribute('caforcehidemobile', 'true');
-                shadowRoot.getElementById('culturaladvice-container').classList.remove('culturaladvice-popup-hidden');
-                shadowRoot.getElementById('culturaladvice-container').classList.add('culturaladvice-popup-shown');
-                shadowRoot.getElementById('culturaladvice-tab').classList.remove('culturaladvice-tab-shown');
-                shadowRoot.getElementById('culturaladvice-tab').classList.add('culturaladvice-tab-hidden');
+                showCA();
             } else {
-                proactiveChatElement.length > 0 && proactiveChatElement[0].setAttribute('caforcehidemobile', 'false');
-                shadowRoot.getElementById('culturaladvice-container').classList.add('culturaladvice-popup-hidden');
-                shadowRoot.getElementById('culturaladvice-container').classList.remove('culturaladvice-popup-shown');
-                shadowRoot.getElementById('culturaladvice-tab').classList.remove('culturaladvice-tab-hidden');
-                shadowRoot.getElementById('culturaladvice-tab').classList.add('culturaladvice-tab-shown');
+                dismissCA;
             }
         }, secondsTilCAAppears * 1000);
     }
