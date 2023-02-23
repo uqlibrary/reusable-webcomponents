@@ -14,7 +14,7 @@ import {
 const template = document.createElement('template');
 template.innerHTML = `
     <style>${overrides.toString()}</style>
-    <div>
+    <p>
         <div id="search-portal" class="MuiPaper-root MuiCard-root libraryCard StandardCard MuiPaper-elevation1 MuiPaper-rounded" data-testid="primo-search" role="region" aria-live="polite">
             <div class="MuiCardContent-root libraryContent" data-testid="primo-search-content">
                 <form id="primo-search-form" class="searchForm" role="search">
@@ -73,15 +73,14 @@ template.innerHTML = `
                             </button>
                         </div>
                     </div>
+                    <p class="cultural-advice">
+                        <b>Cultural advice</b> - Aboriginal and Torres Strait Islander peoples are advised that our collections and sites may contain images, voices or names of persons now deceased. Information may be culturally sensitive for some individuals and communities.
+                        <span class="readmore"><a href="https://web.library.uq.edu.au/collections/culturally-sensitive-collections">Read our Cultural Advice statement</a></span>
+                    </p>
                     <div id="footer-links" class="searchPanel MuiGrid-container MuiFormControlMuiGrid-spacing-xs-2" data-testid="primo-search-links">
                     </div>
                 </form>
             </div>
-        </div>
-        <div class="cultural-advice MuiPaper-root MuiCard-root libraryCard StandardCard MuiPaper-elevation1 MuiPaper-rounded">
-            <h3>Cultural advice</h3>
-            <p>Aboriginal and Torres Strait Islander peoples are advised that our collections and sites may contain images, voices or names of persons now deceased. Information may be culturally sensitive for some individuals and communities.</p>
-            <p class="readmore"><a href="https://web.library.uq.edu.au/collections/culturally-sensitive-collections">Read our Cultural Advice statement</a></p>
         </div>
     </div>
 `;
