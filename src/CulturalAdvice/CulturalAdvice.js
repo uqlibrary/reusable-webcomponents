@@ -26,7 +26,7 @@ template.innerHTML = `
                 </p>    
             </div>
         </div>
-        <div id="culturaladvice-tab" data-testid="culturaladvice-tab" class="culturaladvice-tab-hidden">
+        <div id="culturaladvice-tab" data-testid="culturaladvice-tab" class="culturaladvice-tab-shown">
                 <span>Cultural advice</span>
         </div>
     </div>
@@ -69,6 +69,7 @@ class CulturalAdvice extends HTMLElement {
             shadowRoot.getElementById('culturaladvice-container').classList.remove('culturaladvice-popup-shown');
             shadowRoot.getElementById('culturaladvice-container').classList.add('culturaladvice-popup-hidden');
             shadowRoot.getElementById('culturaladvice-tab').classList.remove('culturaladvice-tab-hidden');
+            shadowRoot.getElementById('culturaladvice-tab').classList.add('culturaladvice-tab-shown');
             setCACookie();
         };
         const showCA = () => {
@@ -76,6 +77,7 @@ class CulturalAdvice extends HTMLElement {
             proactiveChatElement.length > 0 && proactiveChatElement[0].setAttribute('caforcehidemobile', 'true');
             shadowRoot.getElementById('culturaladvice-container').classList.remove('culturaladvice-popup-hidden');
             shadowRoot.getElementById('culturaladvice-container').classList.add('culturaladvice-popup-shown');
+            shadowRoot.getElementById('culturaladvice-tab').classList.remove('culturaladvice-tab-shown');
             shadowRoot.getElementById('culturaladvice-tab').classList.add('culturaladvice-tab-hidden');
         };
         // Add event listeners to Close and Tab
@@ -89,11 +91,14 @@ class CulturalAdvice extends HTMLElement {
                 proactiveChatElement.length > 0 && proactiveChatElement[0].setAttribute('caforcehidemobile', 'true');
                 shadowRoot.getElementById('culturaladvice-container').classList.remove('culturaladvice-popup-hidden');
                 shadowRoot.getElementById('culturaladvice-container').classList.add('culturaladvice-popup-shown');
+                shadowRoot.getElementById('culturaladvice-tab').classList.remove('culturaladvice-tab-shown');
+                shadowRoot.getElementById('culturaladvice-tab').classList.add('culturaladvice-tab-hidden');
             } else {
                 proactiveChatElement.length > 0 && proactiveChatElement[0].setAttribute('caforcehidemobile', 'false');
                 shadowRoot.getElementById('culturaladvice-container').classList.add('culturaladvice-popup-hidden');
                 shadowRoot.getElementById('culturaladvice-container').classList.remove('culturaladvice-popup-shown');
                 shadowRoot.getElementById('culturaladvice-tab').classList.remove('culturaladvice-tab-hidden');
+                shadowRoot.getElementById('culturaladvice-tab').classList.add('culturaladvice-tab-shown');
             }
         }, secondsTilCAAppears * 1000);
     }

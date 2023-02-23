@@ -54,6 +54,13 @@
     transition-delay: 0.3s;
     transition-timing-function: ease-in-out;
 }
+#culturaladvice-tab.culturaladvice-tab-shown {
+    left: 0px;
+    opacity: 1;
+    transition: left 0.3s, opacity 0.4s;
+    transition-delay: 0.3s;
+    transition-timing-function: ease-in-out;
+}
 #culturaladvice-container .title {
     margin-bottom: 0;
     margin-top: 0;
