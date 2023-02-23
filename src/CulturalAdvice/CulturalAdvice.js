@@ -20,7 +20,7 @@ template.innerHTML = `
             <div class="culturaladvice-wording" style="clear:both">
                 <p>Aboriginal and Torres Strait Islander peoples are advised that our collections and sites may contain images, voices or names of persons now deceased. Information may be culturally sensitive for some individuals and communities.</p>
                 <p style="text-align: left">
-                    <a id="cultural-advice-read-more" data-testid="cultural-advice-read-more" href="https://web.library.uq.edu.au/collections/culturally-sensitive-collections">
+                    <a id="cultural-advice-read-more" data-testid="cultural-advice-read-more" href="https://web.library.uq.edu.au/collections/culturally-sensitive-collections" target="_blank">
                     Culturally sensitive collections
                     </a>
                 </p>    
