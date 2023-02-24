@@ -74,7 +74,7 @@ template.innerHTML = `
                         </div>
                     </div>
                     <p class="cultural-advice">
-                        <span><a href="https://web.library.uq.edu.au/collections/culturally-sensitive-collections">Culturally sensitive collections</a> - </span>
+                        <span><a id="cultural-advice-statement-link" href="https://web.library.uq.edu.au/collections/culturally-sensitive-collections">Culturally sensitive collections</a> - </span>
                         Aboriginal and Torres Strait Islander peoples are advised that our collections and sites may contain images, voices or names of persons now deceased. Information may be culturally sensitive for some individuals and communities.
                     </p>
                     <div id="footer-links" class="searchPanel MuiGrid-container MuiFormControlMuiGrid-spacing-xs-2" data-testid="primo-search-links">
@@ -424,10 +424,20 @@ class SearchPortal extends HTMLElement {
                 clearSearchTerm();
                 that.clearSearchResults();
             });
+
+        // add click handler to cultural advice link for gtm tracking
+        const CaAnchor = this.shadowRoot.getElementById('cultural-advice-statement-link');
+        CaAnchor.addEventListener(
+            'click',
+            /* istanbul ignore next */ function (e) {
+                /* istanbul ignore next */
+                that.sendSubmitToGTM(e); // submit the GTM info
+            },
+        );
     }
 
     /**
-     * Events arent sending properly to GTM, so we force them manually here
+     * Events aren't sending properly to GTM, so we force them manually here
      * @param formObject
      */
     sendSubmitToGTM(formObject) {
@@ -440,6 +450,11 @@ class SearchPortal extends HTMLElement {
             !!formObject.target &&
             !!formObject.target.id &&
             formObject.target.id === 'primo-search-form';
+        const userHasClickedCulturalAdviceLink =
+            !!formObject &&
+            !!formObject.target &&
+            !!formObject.target.id &&
+            formObject.target.id === 'cultural-advice-statement-link';
         const userHasClickedFooterLink =
             !!formObject &&
             !!formObject.target &&
@@ -453,16 +468,16 @@ class SearchPortal extends HTMLElement {
                 'gtm.element.elements.primo-search-autocomplete.value': userSearchTerm,
                 'gtm.element.elements.primo-search-select-input.value': portaltype,
             };
-        } /* istanbul ignore next */ else if (userHasClickedFooterLink) {
-            // the user has clicked one of the built in footer links under the widget
-            const footerLinkLabel = !!formObject && !!formObject.target && formObject.target.innerHTML;
+        } /* istanbul ignore next */ else if (userHasClickedFooterLink || userHasClickedCulturalAdviceLink) {
+            // the user has clicked a link that we have attached a click handler to
+            const linkLabel = !!formObject && !!formObject.target && formObject.target.innerHTML;
             gtmItems = {
                 event: 'gtm.linkClick',
                 'gtm.elementId': formObject.target.id,
-                'gtm.element': footerLinkLabel,
+                'gtm.element': linkLabel,
             };
         } else {
-            // the user has clicked on a suggestion link
+            // the user has clicked on a link in the suggestion dropdown
             const suggestionText = !!formObject && !!formObject.target && formObject.target.innerHTML;
             gtmItems = {
                 event: 'gtm.formSubmit',
