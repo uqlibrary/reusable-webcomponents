@@ -74,7 +74,7 @@ template.innerHTML = `
                         </div>
                     </div>
                     <p class="cultural-advice">
-                        <span><a href="https://web.library.uq.edu.au/collections/culturally-sensitive-collections">Cultural advice</a> - </span>
+                        <span><a href="https://web.library.uq.edu.au/collections/culturally-sensitive-collections">Culturally sensitive collections</a> - </span>
                         Aboriginal and Torres Strait Islander peoples are advised that our collections and sites may contain images, voices or names of persons now deceased. Information may be culturally sensitive for some individuals and communities.
                     </p>
                     <div id="footer-links" class="searchPanel MuiGrid-container MuiFormControlMuiGrid-spacing-xs-2" data-testid="primo-search-links">
