@@ -933,8 +933,8 @@ li.MuiAutocomplete-option:focus {
 }
 
 .cultural-advice {
-    margin-block-end: 5px;
-    margin-block-start: 5px;
+    margin-block-end: 0;
+    margin-block-start: 0;
     padding: 1em 38px 4px 2em;
 }
 .cultural-advice p {
