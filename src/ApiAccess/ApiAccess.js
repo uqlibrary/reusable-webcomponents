@@ -305,9 +305,12 @@ class ApiAccess {
         }
     }
 
-    storeAccount(account, numberOfHoursUntilExpiry = 8) {
+    storeAccount(account, numberOfHoursUntilExpiry = 1) {
         // for improved UX, expire the session storage when the token must surely be expired, for those rare long sessions
         // session lasts 8 hours, per https://auth.uq.edu.au/about/
+        // because we cant predict what other system the user first logged into we don't actually know
+        // how much more of their session is left
+        // lets make this just 1 hour, purely to minimse the calls to account api just a little
 
         const millisecondsUntilExpiry = numberOfHoursUntilExpiry * 60 /*min*/ * 60 /*sec*/ * 1000; /* milliseconds */
         const storageExpiryDate = {
