@@ -45,6 +45,7 @@ class CulturalAdvice extends HTMLElement {
         const shadowDOM = this.attachShadow({ mode: 'open' });
 
         // Render the template
+        console.log('Rendering shadowdom child');
         shadowDOM.appendChild(template.content.cloneNode(true));
         this.updateCADom(shadowDOM, secondsTilCAAppears);
     }
@@ -54,8 +55,8 @@ class CulturalAdvice extends HTMLElement {
         return hideCulturalAdvice === 'true' || hideCulturalAdvice === '';
     }
 
-    async updateCADom(shadowRoot, secondsTilCAAppears) {
-        // Get the dom for Proactive Chat.
+    bindScrollFunction(shadowRoot) {
+        console.log('Adding the event listener');
         window.addEventListener('scroll', (event) => {
             if (document.body.scrollHeight - window.scrollY - 155 * 2 < 820) {
                 //console.log('Fix it here');
@@ -79,6 +80,10 @@ class CulturalAdvice extends HTMLElement {
                 //shadowRoot.getElementById('culturaladvice-tab').setAttribute('style', '');
             }
         });
+    }
+
+    async updateCADom(shadowRoot, secondsTilCAAppears) {
+        // Get the dom for Proactive Chat.
 
         const isPrimoPage = (hostname) => {
             var regExp = /(.*)exlibrisgroup.com/i;
@@ -129,6 +134,7 @@ class CulturalAdvice extends HTMLElement {
             } else {
                 dismissCA();
             }
+            this.bindScrollFunction(shadowRoot);
         }, secondsTilCAAppears * 1000);
     }
 }
