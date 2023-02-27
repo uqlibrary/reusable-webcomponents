@@ -34,6 +34,8 @@ template.innerHTML = `
 
 const CULTURAL_ADVICE_HIDDEN_COOKIE_NAME = 'UQ_CULTURAL_ADVICE';
 const CULTURAL_ADVICE_HIDDEN_COOKIE_VALUE = 'hidden';
+let addClass = true;
+let removeClass = true;
 
 class CulturalAdvice extends HTMLElement {
     constructor() {
@@ -54,6 +56,31 @@ class CulturalAdvice extends HTMLElement {
 
     async updateCADom(shadowRoot, secondsTilCAAppears) {
         // Get the dom for Proactive Chat.
+        window.addEventListener('scroll', (event) => {
+            console.log('Position', window.scrollY, document.body.scrollHeight);
+            console.log('Calculation:');
+            if (document.body.scrollHeight - window.scrollY - 155 * 2 < 820) {
+                //console.log('Fix it here');
+                if (addClass) {
+                    shadowRoot.getElementById('culturaladvice-tab').classList.add('compensate-mobile');
+                    shadowRoot.getElementById('culturaladvice-container').classList.add('compensate-mobile');
+                    addClass = false;
+                    removeClass = true;
+                    console.log('Adding the class');
+                }
+
+                //shadowRoot.getElementById('culturaladvice-tab').setAttribute('style', 'position: fixed; bottom: 300px');
+            } else {
+                if (removeClass) {
+                    shadowRoot.getElementById('culturaladvice-tab').classList.remove('compensate-mobile');
+                    shadowRoot.getElementById('culturaladvice-container').classList.remove('compensate-mobile');
+                    addClass = true;
+                    removeClass = false;
+                    console.log('Removing the class');
+                }
+                //shadowRoot.getElementById('culturaladvice-tab').setAttribute('style', '');
+            }
+        });
 
         const isPrimoPage = (hostname) => {
             var regExp = /(.*)exlibrisgroup.com/i;

@@ -44,6 +44,7 @@
     transition-timing-function: ease-in-out;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
+
 #culturaladvice-tab:hover {
     background-color: #195794;
 }
@@ -86,4 +87,12 @@
 }
 #cultural-advice-read-more:hover {
     text-decoration: underline;
+}
+@media screen and (max-width: 1023px) {
+    #culturaladvice-tab.compensate-mobile {
+        bottom: 330px;
+    }
+    #culturaladvice-container.compensate-mobile {
+        bottom: 160px;
+    }
 }
