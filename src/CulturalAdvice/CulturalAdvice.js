@@ -57,8 +57,6 @@ class CulturalAdvice extends HTMLElement {
     async updateCADom(shadowRoot, secondsTilCAAppears) {
         // Get the dom for Proactive Chat.
         window.addEventListener('scroll', (event) => {
-            console.log('Position', window.scrollY, document.body.scrollHeight);
-            console.log('Calculation:');
             if (document.body.scrollHeight - window.scrollY - 155 * 2 < 820) {
                 //console.log('Fix it here');
                 if (addClass) {
