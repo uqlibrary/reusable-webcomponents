@@ -56,34 +56,51 @@ class CulturalAdvice extends HTMLElement {
     }
 
     bindScrollFunction(shadowRoot) {
-        console.log('Adding the event listener');
-        window.addEventListener('scroll', (event) => {
-            if (document.body.scrollHeight - window.scrollY - 155 * 2 < 820) {
-                //console.log('Fix it here');
-                if (addClass) {
-                    shadowRoot.getElementById('culturaladvice-tab').classList.add('compensate-mobile');
-                    shadowRoot.getElementById('culturaladvice-container').classList.add('compensate-mobile');
-                    addClass = false;
-                    removeClass = true;
-                    console.log('Adding the class');
-                }
-
-                //shadowRoot.getElementById('culturaladvice-tab').setAttribute('style', 'position: fixed; bottom: 300px');
-            } else {
-                if (removeClass) {
-                    shadowRoot.getElementById('culturaladvice-tab').classList.remove('compensate-mobile');
-                    shadowRoot.getElementById('culturaladvice-container').classList.remove('compensate-mobile');
-                    addClass = true;
-                    removeClass = false;
-                    console.log('Removing the class');
-                }
-                //shadowRoot.getElementById('culturaladvice-tab').setAttribute('style', '');
+        //console.log('Adding the event listener');
+        //try {
+        //    document.addEventListener('scroll', (event) => {
+        //       const footerElement = document.querySelector('uq-footer').shadowRoot.getElementById('footer');
+        //       console.log('Footer', footerElement.scrollTop);
+        if (document.body.scrollHeight - window.scrollY - 155 * 2 < 820) {
+            //console.log('Fix it here');
+            if (addClass) {
+                shadowRoot.getElementById('culturaladvice-tab').classList.add('compensate-mobile');
+                shadowRoot.getElementById('culturaladvice-container').classList.add('compensate-mobile');
+                // To stop dom throttling - Just add the class ONCE.
+                addClass = false;
+                removeClass = true;
+                console.log('Adding the class');
             }
-        });
+
+            //shadowRoot.getElementById('culturaladvice-tab').setAttribute('style', 'position: fixed; bottom: 300px');
+        } else {
+            if (removeClass) {
+                shadowRoot.getElementById('culturaladvice-tab').classList.remove('compensate-mobile');
+                shadowRoot.getElementById('culturaladvice-container').classList.remove('compensate-mobile');
+                // To stop dom throttling - Just remove the class ONCE.
+                addClass = true;
+                removeClass = false;
+                console.log('Removing the class');
+            }
+            //shadowRoot.getElementById('culturaladvice-tab').setAttribute('style', '');
+        }
+        // });
+        //} catch (e) {
+        //   console.log('Binding Problem', e);
+        // }
     }
 
     async updateCADom(shadowRoot, secondsTilCAAppears) {
         // Get the dom for Proactive Chat.
+
+        // Try this
+        try {
+            document.addEventListener('scroll', (event) => {
+                this.bindScrollFunction(shadowRoot);
+            });
+        } catch (e) {
+            console.log('Failed to bind', e);
+        }
 
         const isPrimoPage = (hostname) => {
             var regExp = /(.*)exlibrisgroup.com/i;
@@ -134,7 +151,7 @@ class CulturalAdvice extends HTMLElement {
             } else {
                 dismissCA();
             }
-            this.bindScrollFunction(shadowRoot);
+            //this.bindScrollFunction(shadowRoot);
         }, secondsTilCAAppears * 1000);
     }
 }
