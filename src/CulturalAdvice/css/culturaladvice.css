@@ -2,7 +2,7 @@
     position: fixed;
     bottom: 10px;
     padding: 15px;
-    transition: left 0.3s, opacity 0.4s;
+    transition: left 0.3s, opacity 0.3s, bottom 0.3s;
     transition-delay: 0.3s;
     transition-timing-function: ease-in-out;
     z-index: 9999;
@@ -22,7 +22,7 @@
     width: 300px;
     opacity: 0;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    transition: left 0.3s, opacity 0.4s;
+    transition: left 0.3s, opacity 0.3s, bottom 0.3s;
     transition-delay: 0.3s;
     transition-timing-function: ease-in-out;
 }
@@ -39,7 +39,7 @@
     padding: 10px 25px;
     color: white;
     background-color: #2377cb;
-    transition: left 0.3s, opacity 0.4s, bottom 0.4s;
+    transition: left 0.3s, opacity 0.3s, bottom 0.3s;
     transition-delay: 0.3s;
     transition-timing-function: ease-in-out;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -51,14 +51,14 @@
 #culturaladvice-tab.culturaladvice-tab-hidden {
     left: -100px;
     opacity: 0;
-    transition: left 0.3s, opacity 0.4s;
+    transition: left 0.3s, opacity 0.3s, bottom 0.3s;
     transition-delay: 0.3s;
     transition-timing-function: ease-in-out;
 }
 #culturaladvice-tab.culturaladvice-tab-shown {
     left: 0px;
     opacity: 1;
-    transition: left 0.3s, opacity 0.4s, bottom 0.4s;
+    transition: left 0.3s, opacity 0.3s, bottom 0.3s;
     transition-delay: 0.3s;
     transition-timing-function: ease-in-out;
 }
@@ -91,7 +91,9 @@
 @media screen and (max-width: 1023px) {
     #culturaladvice-tab.compensate-mobile {
         bottom: 330px;
-        transition: left 0.3s, opacity 0.4s, bottom 0.4s;
+        transition: left 0.3s, opacity 0.3s, bottom 0.3s;
+        transition-delay: 0.3s;
+        transition-timing-function: ease-in-out;
     }
     #culturaladvice-container.compensate-mobile {
         bottom: 160px;
