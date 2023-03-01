@@ -95,18 +95,20 @@ class CulturalAdvice extends HTMLElement {
         };
 
         // Try this
-        try {
-            document.addEventListener('scroll', (event) => {
-                bindScrollFunction(shadowRoot);
-            });
-        } catch (e) {
-            console.log('Failed to bind', e);
-        }
-
         const isPrimoPage = (hostname) => {
             var regExp = /(.*)exlibrisgroup.com/i;
             return 'search.library.uq.edu.au' === hostname || regExp.test(hostname);
         };
+        if (!isPrimoPage(window.location.hostname)) {
+            try {
+                document.addEventListener('scroll', (event) => {
+                    bindScrollFunction(shadowRoot);
+                });
+            } catch (e) {
+                console.log('Failed to bind', e);
+            }
+        }
+
         const setCACookie = () => {
             const date = new Date();
             date.setTime(date.getTime() + 365 * 24 * 60 * 60 * 1000);
