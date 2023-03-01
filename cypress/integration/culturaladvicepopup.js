@@ -28,7 +28,7 @@ describe('Cultural Advice', () => {
             // cy.get('proactive-chat').shadow().find('div#proactive-chat').should('not.have.class', 'show');
             cy.getCookie('UQ_CULTURAL_ADVICE').should('not.exist');
             cy.wait(1500);
-            cy.get('cultural-advice-popup').shadow().find('span#culturaladvice-container-dismiss').click();
+            cy.get('cultural-advice-popup').shadow().find('culturaladvice-container-dismiss').click();
             cy.getCookie('UQ_CULTURAL_ADVICE').should('have.property', 'value', 'hidden');
             cy.get('cultural-advice-popup').shadow().find('#culturaladvice-container').should('not.be.visible');
             cy.get('cultural-advice-popup').shadow().find('#culturaladvice-tab').should('be.visible');
