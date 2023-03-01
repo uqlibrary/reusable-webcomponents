@@ -64,7 +64,7 @@ class CulturalAdvice extends HTMLElement {
                 //console.log('Fix it here');
                 if (addClass) {
                     shadowRoot.getElementById('culturaladvice-tab').classList.add('compensate-mobile');
-                    shadowRoot.getElementById('culturaladvice-container').classList.add('compensate-mobile');
+                    //shadowRoot.getElementById('culturaladvice-container').classList.add('compensate-mobile');
                     // To stop dom throttling - Just add the class ONCE.
                     addClass = false;
                     removeClass = true;
@@ -75,7 +75,7 @@ class CulturalAdvice extends HTMLElement {
             } else {
                 if (removeClass) {
                     shadowRoot.getElementById('culturaladvice-tab').classList.remove('compensate-mobile');
-                    shadowRoot.getElementById('culturaladvice-container').classList.remove('compensate-mobile');
+                    //shadowRoot.getElementById('culturaladvice-container').classList.remove('compensate-mobile');
                     // To stop dom throttling - Just remove the class ONCE.
                     addClass = true;
                     removeClass = false;
