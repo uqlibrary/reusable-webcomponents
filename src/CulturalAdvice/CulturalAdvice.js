@@ -64,37 +64,25 @@ class CulturalAdvice extends HTMLElement {
         // Get the dom for Proactive Chat.
 
         const bindScrollFunction = (shadowRoot) => {
-            console.log('scrolling');
-            if (document.body.scrollHeight - window.scrollY - 155 * 2 < 820) {
-                //console.log('Fix it here');
+            const TAB_PARAM = 155;
+            const HEIGHT_LIMIT = 820;
+            if (document.body.scrollHeight - window.scrollY - TAB_PARAM * 2 < HEIGHT_LIMIT) {
                 if (addClass) {
                     shadowRoot.getElementById('culturaladvice-tab').classList.add('compensate-mobile');
-                    //shadowRoot.getElementById('culturaladvice-container').classList.add('compensate-mobile');
                     // To stop dom throttling - Just add the class ONCE.
                     addClass = false;
                     removeClass = true;
-                    console.log('Adding the class');
                 }
-
-                //shadowRoot.getElementById('culturaladvice-tab').setAttribute('style', 'position: fixed; bottom: 300px');
             } else {
                 if (removeClass) {
                     shadowRoot.getElementById('culturaladvice-tab').classList.remove('compensate-mobile');
-                    //shadowRoot.getElementById('culturaladvice-container').classList.remove('compensate-mobile');
                     // To stop dom throttling - Just remove the class ONCE.
                     addClass = true;
                     removeClass = false;
-                    console.log('Removing the class');
                 }
-                //shadowRoot.getElementById('culturaladvice-tab').setAttribute('style', '');
             }
-            // });
-            //} catch (e) {
-            //   console.log('Binding Problem', e);
-            // }
         };
 
-        // Try this
         const isPrimoPage = (hostname) => {
             var regExp = /(.*)exlibrisgroup.com/i;
             return 'search.library.uq.edu.au' === hostname || regExp.test(hostname);
@@ -154,7 +142,6 @@ class CulturalAdvice extends HTMLElement {
             } else {
                 dismissCA();
             }
-            //this.bindScrollFunction(shadowRoot);
         }, secondsTilCAAppears * 1000);
     }
 }
