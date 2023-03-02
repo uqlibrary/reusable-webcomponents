@@ -31,7 +31,7 @@ template.innerHTML = `
                 </p>    
             </div>
         </div>
-        <div id="culturaladvice-tab" data-testid="culturaladvice-tab" class="culturaladvice-tab-shown">
+        <div id="culturaladvice-tab" role="button" title="Cultural Advice" data-testid="culturaladvice-tab" class="culturaladvice-tab-shown">
                 <span>Cultural advice</span>
         </div>
     </div>
@@ -102,6 +102,7 @@ class CulturalAdvice extends HTMLElement {
             date.setTime(date.getTime() + 365 * 24 * 60 * 60 * 1000);
             setCookie(CULTURAL_ADVICE_HIDDEN_COOKIE_NAME, CULTURAL_ADVICE_HIDDEN_COOKIE_VALUE, date);
         };
+
         const navigateToCSC = (event) => {
             const url = 'https://web.library.uq.edu.au/collections/culturally-sensitive-collections';
             event.preventDefault();
@@ -121,6 +122,7 @@ class CulturalAdvice extends HTMLElement {
             shadowRoot.getElementById('culturaladvice-container').classList.add('culturaladvice-popup-hidden');
             shadowRoot.getElementById('culturaladvice-tab').classList.remove('culturaladvice-tab-hidden');
             shadowRoot.getElementById('culturaladvice-tab').classList.add('culturaladvice-tab-shown');
+            shadowRoot.getElementById('culturaladvice-container').setAttribute('aria-hidden', 'true');
             setCACookie();
         };
         const showCA = () => {
@@ -130,6 +132,7 @@ class CulturalAdvice extends HTMLElement {
             shadowRoot.getElementById('culturaladvice-container').classList.add('culturaladvice-popup-shown');
             shadowRoot.getElementById('culturaladvice-tab').classList.remove('culturaladvice-tab-shown');
             shadowRoot.getElementById('culturaladvice-tab').classList.add('culturaladvice-tab-hidden');
+            shadowRoot.getElementById('culturaladvice-container').setAttribute('aria-hidden', 'false');
         };
         // Add event listeners to Close and Tab
         shadowRoot.getElementById('culturaladvice-container-dismiss').addEventListener('click', dismissCA);
@@ -137,6 +140,7 @@ class CulturalAdvice extends HTMLElement {
         shadowRoot.getElementById('cultural-advice-read-more').addEventListener('click', navigateToCSC);
         // Start presentation timer - show Tab OR advice based on cookie.
         setTimeout(() => {
+            console.log('Firing');
             if (cookieNotFound(CULTURAL_ADVICE_HIDDEN_COOKIE_NAME, CULTURAL_ADVICE_HIDDEN_COOKIE_VALUE)) {
                 showCA();
             } else {
