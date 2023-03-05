@@ -1,3 +1,11 @@
+h2, h3 {
+    color: #000;
+    font-size: 16px;
+    font-weight: 400;
+    padding-top: 0;
+    margin-top: 0;
+}
+
 /** MuiPaper */
 
 .MuiPaper-root {
@@ -700,7 +708,7 @@ label + .MuiInput-formControl {
 }
 
 .searchPanel {
-    padding-top: 12px;
+    padding-top: 0;
     padding-left: 30px;
     padding-right: 30px;
     padding-bottom: 0;
@@ -729,6 +737,9 @@ label + .MuiInput-formControl {
 .searchUnderlinks {
     margin-bottom: 4px;
     padding: 8px;
+}
+.searchUnderlinks:first-child {
+    padding-left: 0;
 }
 .searchUnderlinks a {
     color: #2377cb !important;
@@ -846,7 +857,7 @@ input[type='search'] {
     will-change: transform;
     transform: translate3d(203px, 325px, 0px);
     z-index: 1300;
-    top: -255px;
+    top: -240px;
     left: -70px;
 }
 
@@ -919,4 +930,23 @@ li.MuiAutocomplete-option:focus {
     font-size: 20px;
     color: black;
     font-weight: 400;
+}
+
+.cultural-advice {
+    margin-block-end: 0;
+    margin-block-start: 0;
+    padding: 1em 38px 4px 2em;
+}
+.cultural-advice p {
+    margin-block-end: 0.5em;
+}
+.cultural-advice a {
+    text-decoration: none;
+    background-color: #fff;
+    color: #2377cb;
+}
+.cultural-advice a:hover,
+.cultural-advice a:visited,
+.cultural-advice a:active {
+    text-decoration: underline;
 }
