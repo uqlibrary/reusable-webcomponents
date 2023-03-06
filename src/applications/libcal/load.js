@@ -87,6 +87,11 @@ function loadReusableComponentsLibGuides() {
         !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
     }
 
+    if (!document.querySelector('cultural-advice-popup')) {
+        const culturalAdvice = document.createElement('cultural-advice-popup');
+        !!culturalAdvice && document.body.appendChild(culturalAdvice);
+    }
+
     document.body.insertBefore(siteHeader, firstElement);
 
     if (!document.querySelector('alert-list')) {
