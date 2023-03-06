@@ -13,7 +13,7 @@ import { cookieNotFound, setCookie } from '../helpers/cookie';
 const template = document.createElement('template');
 template.innerHTML = `
     <style>${culturalcss}</style>
-    <div id="culturaladvice-popup" data-testid="culturaladvice-popup">
+    <div id="culturaladvice-popup" data-testid="culturaladvice-popup" style="font-family: 'Roboto', sans-serif;">
         <div id="culturaladvice-container" data-testid="culturaladvice-container" class="culturaladvice-popup-hidden">
             <h2 class="title" style="float: left;">Cultural advice</h2>
             <button type="button" title="close cultural advice" class="culturaladvice-dismiss" id="culturaladvice-container-dismiss" data-testid="culturaladvice-container-dismiss">
