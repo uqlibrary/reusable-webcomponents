@@ -46,7 +46,18 @@ template.innerHTML = `
 const PROACTIVE_CHAT_HIDDEN_COOKIE_NAME = 'UQ_PROACTIVE_CHAT';
 const PROACTIVE_CHAT_HIDDEN_COOKIE_VALUE = 'hidden';
 
+// CAForceHideMobile
+// Forces the proactive chat to not show if the Cultural Advice statement is showing.
+// (Stops both windows overlapping)
+// Handled by attribute applied to component "CAforceHideMobile".
+// if attribute exists when time to show, also apply .forceHideMobile class to component.
+
+let CAforceHideMobile = false;
+
 class ProactiveChat extends HTMLElement {
+    static get observedAttributes() {
+        return ['caforcehidemobile'];
+    }
     constructor() {
         super();
         // Add a shadow DOM
@@ -57,6 +68,32 @@ class ProactiveChat extends HTMLElement {
         shadowDOM.appendChild(template.content.cloneNode(true));
         this.updateAskusDOM(shadowDOM, secondsTilProactiveChatAppears);
         this.addButtonListeners(shadowDOM);
+    }
+
+    attributeChangedCallback(fieldName, oldValue, newValue) {
+        const that = this;
+        const awaitShadowDom = setInterval(() => {
+            /* istanbul ignore next */
+            if (!that.shadowRoot) {
+                return;
+            }
+
+            clearInterval(awaitShadowDom);
+            switch (fieldName) {
+                case 'caforcehidemobile':
+                    CAforceHideMobile = newValue === 'true' ? true : false;
+                    break;
+                /* istanbul ignore next  */
+                default:
+                    console.log(`unhandled attribute ${fieldName} received for ProactiveChat`);
+            }
+            // Change the attribs here?
+            if (CAforceHideMobile) {
+                that.shadowRoot.getElementById('proactive-chat').classList.add('ca-force-hide-mobile');
+            } else {
+                that.shadowRoot.getElementById('proactive-chat').classList.remove('ca-force-hide-mobile');
+            }
+        }, 50);
     }
 
     isProactiveChatHidden() {
@@ -72,6 +109,11 @@ class ProactiveChat extends HTMLElement {
             return 'search.library.uq.edu.au' === hostname || regExp.test(hostname);
         };
         const showProactiveChat = () => {
+            if (CAforceHideMobile) {
+                shadowRoot.getElementById('proactive-chat').classList.add('ca-force-hide-mobile');
+            } else {
+                shadowRoot.getElementById('proactive-chat').classList.remove('ca-force-hide-mobile');
+            }
             shadowRoot.getElementById('proactive-chat').classList.add('show');
         };
         const showProactiveChatWrapper = () => {

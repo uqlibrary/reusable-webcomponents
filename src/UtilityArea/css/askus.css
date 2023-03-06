@@ -346,3 +346,8 @@ button:focus {
     border-radius: 0px !important;
     text-transform: uppercase;
 }
+@media screen and (max-width: 650px) {
+    .ca-force-hide-mobile {
+        right: -300px !important;
+    }
+}

@@ -1559,7 +1559,7 @@ prm-main-menu .my-feedback-ctm {
 }
 @media (min-width: 600px) {
     .culturalAdviceBanner p {
-        margin-right: -2.50em;
+        margin-right: -2.5em;
     }
 }
 
@@ -1608,4 +1608,14 @@ prm-favorites-warning-message md-toast div {
 .favouritesDialogInitialPosition {
     margin-top: 130px;
     margin-right: 60px;
+}
+
+// Move navigation components a 20px to the right to cater for cultural advice.
+#speedDialWidget {
+    margin-left: 20px;
+}
+@media screen and (max-width: 600px) {
+    #speedDialWidget {
+        margin-left: 40px;
+    }
 }
