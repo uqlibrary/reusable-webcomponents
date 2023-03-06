@@ -16,7 +16,6 @@ template.innerHTML = `
     <div id="culturaladvice-popup" data-testid="culturaladvice-popup">
         <div id="culturaladvice-container" data-testid="culturaladvice-container" class="culturaladvice-popup-hidden">
             <h2 class="title" style="float: left;">Cultural advice</h2>
-            <!-- <span id="culturaladvice-container-dismiss" data-testid="culturaladvice-container-dismiss">&times;</span> -->
             <button type="button" title="close cultural advice" class="culturaladvice-dismiss" id="culturaladvice-container-dismiss" data-testid="culturaladvice-container-dismiss">
             <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
@@ -50,7 +49,6 @@ class CulturalAdvice extends HTMLElement {
         const shadowDOM = this.attachShadow({ mode: 'open' });
 
         // Render the template
-        console.log('Rendering shadowdom child');
         shadowDOM.appendChild(template.content.cloneNode(true));
         this.updateCADom(shadowDOM, secondsTilCAAppears);
     }
@@ -140,7 +138,6 @@ class CulturalAdvice extends HTMLElement {
         shadowRoot.getElementById('cultural-advice-read-more').addEventListener('click', navigateToCSC);
         // Start presentation timer - show Tab OR advice based on cookie.
         setTimeout(() => {
-            console.log('Firing');
             if (cookieNotFound(CULTURAL_ADVICE_HIDDEN_COOKIE_NAME, CULTURAL_ADVICE_HIDDEN_COOKIE_VALUE)) {
                 showCA();
             } else {
