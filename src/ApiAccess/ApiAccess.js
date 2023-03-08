@@ -7,20 +7,16 @@ import { clearCookie, getCookieValue } from '../helpers/cookie';
 let initCalled;
 
 class ApiAccess {
-    constructor() {
-        this.STORAGE_ACCOUNT_KEYNAME = locale.STORAGE_ACCOUNT_KEYNAME;
-    }
-
     async getAccount() {
+        // cleanup sessionStorage as we are no longer using sessionstorage to hold the account
+        // can be removed some months after March 2023
+        // (it generated too many errors as it turns out we cant know when their session expires because
+        // other UQ sites may have crrated the session)
+        this.removeAccountStorage();
+
         if (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined) {
             // no cookie, force them to log in again
-            this.removeAccountStorage();
             return false;
-        }
-
-        let accountData = this.getAccountFromStorage();
-        if (accountData !== null) {
-            return accountData;
         }
 
         const accountApi = new ApiRoutes().CURRENT_ACCOUNT_API();
@@ -28,8 +24,6 @@ class ApiAccess {
         // const options = !!accountApi.options ? accountApi.options : {};
         const options = {}; // options not currently used
         return await this.fetchAPI(urlPath, options, true).then((account) => {
-            this.storeAccount(account);
-
             return account;
         });
     }
@@ -303,64 +297,6 @@ class ApiAccess {
             }
             return await response.json();
         }
-    }
-
-    storeAccount(account, numberOfHoursUntilExpiry = 1) {
-        // for improved UX, expire the session storage when the token must surely be expired, for those rare long sessions
-        // session lasts 8 hours, per https://auth.uq.edu.au/about/
-        // because we cant predict what other system the user first logged into we don't actually know
-        // how much more of their session is left
-        // lets make this just 1 hour, purely to minimse the calls to account api just a little
-
-        const millisecondsUntilExpiry = numberOfHoursUntilExpiry * 60 /*min*/ * 60 /*sec*/ * 1000; /* milliseconds */
-        const storageExpiryDate = {
-            storageExpiryDate: new Date().setTime(new Date().getTime() + millisecondsUntilExpiry),
-        };
-        // structure must match that used in homepage as they both write to the same storage
-        // (has to, as reusable will remove storage to log homepage out!)
-        let storeableAccount = {
-            account: {
-                ...account,
-            },
-            ...storageExpiryDate,
-        };
-        storeableAccount = JSON.stringify(storeableAccount);
-        sessionStorage.setItem(this.STORAGE_ACCOUNT_KEYNAME, storeableAccount);
-    }
-
-    getAccountFromStorage() {
-        const storedAccount = JSON.parse(sessionStorage.getItem(this.STORAGE_ACCOUNT_KEYNAME));
-
-        if (storedAccount === null) {
-            return null;
-        }
-
-        if (this.isMock()) {
-            const mockUserHasChanged =
-                !!storedAccount.account &&
-                !!storedAccount.account.id &&
-                storedAccount.account.id !== new MockApi().user;
-            if (mockUserHasChanged || !storedAccount.account || !storedAccount.account.id) {
-                // allow developer to swap between users in the same tab
-                this.removeAccountStorage();
-                return null;
-            }
-        }
-
-        // short term during upgrade - if older structure that doesnt have .account, clear
-        // this clause can be removed a day or so after day golive, written Jan/2022
-        if (!storedAccount.account) {
-            this.removeAccountStorage();
-            return null;
-        }
-
-        const now = new Date().getTime();
-        if (!storedAccount.storageExpiryDate || storedAccount.storageExpiryDate < now) {
-            this.removeAccountStorage();
-            return null;
-        }
-
-        return storedAccount.account;
     }
 
     removeAccountStorage() {
