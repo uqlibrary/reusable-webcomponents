@@ -80,6 +80,11 @@ function loadReusableComponentsLibGuides() {
         !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
     }
 
+    if (!document.querySelector('cultural-advice-popup')) {
+        const culturalAdvice = document.createElement('cultural-advice-popup');
+        !!culturalAdvice && document.body.appendChild(culturalAdvice);
+    }
+
     document.body.insertBefore(siteHeader, firstElement);
 
     if (!document.querySelector('alert-list')) {
@@ -92,6 +97,14 @@ function loadReusableComponentsLibGuides() {
 
     const subFooter = document.createElement('uq-footer');
     document.body.appendChild(subFooter);
+
+    // Proactive Chat button
+    if (!isOutsideUQ) {
+        if (!document.querySelector('proactive-chat')) {
+            const proactiveChat = document.createElement('proactive-chat');
+            !!proactiveChat && document.body.appendChild(proactiveChat);
+        }
+    }
 }
 
 ready(loadReusableComponentsLibGuides);

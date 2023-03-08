@@ -219,6 +219,11 @@ export default {
                     linkTo: 'https://web.library.uq.edu.au/collections/collection-management',
                 },
                 {
+                    primaryText: 'Culturally sensitive collections',
+                    secondaryText: 'Flag a resource for review or takedown',
+                    linkTo: 'https://web.library.uq.edu.au/collections/culturally-sensitive-collections',
+                },
+                {
                     primaryText: 'UQ Archives',
                     linkTo: 'https://web.library.uq.edu.au/collections/university-queensland-archives',
                 },

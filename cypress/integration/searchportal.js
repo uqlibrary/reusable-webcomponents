@@ -241,7 +241,7 @@ describe('Search Portal', () => {
                     });
                 });
         });
-        //
+
         it('Books search should have the expected items', () => {
             cy.viewport(1300, 1000);
             cy.get('search-portal')

@@ -154,10 +154,20 @@ function loadReusableComponentsDrupal() {
         const connectFooter = document.createElement('connect-footer');
         !!connectFooter && document.body.appendChild(connectFooter);
     }
+    // cultural advice popup
+    if (!document.querySelector('cultural-advice-popup')) {
+        const culturalAdvice = document.createElement('cultural-advice-popup');
+        !!culturalAdvice && document.body.appendChild(culturalAdvice);
+    }
 
     if (!document.querySelector('uq-footer')) {
         const subFooter = document.createElement('uq-footer');
         !!subFooter && document.body.appendChild(subFooter);
+    }
+    // Proactive Chat button
+    if (!document.querySelector('proactive-chat')) {
+        const proactiveChat = document.createElement('proactive-chat');
+        !!proactiveChat && document.body.appendChild(proactiveChat);
     }
 }
 

@@ -52,6 +52,11 @@ function loadReusableComponents() {
         !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
     }
 
+    if (!document.querySelector('cultural-advice-popup')) {
+        const culturalAdvice = document.createElement('cultural-advice-popup');
+        !!culturalAdvice && document.body.appendChild(culturalAdvice);
+    }
+
     if (!document.querySelector('alert-list')) {
         const alerts = document.createElement('alert-list');
         !!alerts && document.body.insertBefore(alerts, firstElement);
@@ -61,6 +66,11 @@ function loadReusableComponents() {
     if (!document.querySelector('uq-footer')) {
         const subFooter = document.createElement('uq-footer');
         !!subFooter && document.body.appendChild(subFooter);
+    }
+    // Proactive Chat button
+    if (!document.querySelector('proactive-chat')) {
+        const proactiveChat = document.createElement('proactive-chat');
+        !!proactiveChat && document.body.appendChild(proactiveChat);
     }
 }
 

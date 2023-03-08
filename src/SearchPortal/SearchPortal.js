@@ -14,67 +14,73 @@ import {
 const template = document.createElement('template');
 template.innerHTML = `
     <style>${overrides.toString()}</style>
-    <div id="search-portal" class="MuiPaper-root MuiCard-root libraryCard StandardCard MuiPaper-elevation1 MuiPaper-rounded" data-testid="primo-search" role="region" aria-live="polite">
-        <div class="MuiCardContent-root libraryContent" data-testid="primo-search-content">
-            <form id="primo-search-form" class="searchForm" role="search">
-                <div class="MuiFormControl-root searchPanel" style="margin-bottom: -0.75rem; padding-top: 1rem;">
-                    <label id="search-portal-type-select-label" class="searchPortalLabel MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled" data-shrink="true" aria-label="Search UQ Library">Library Search</label>
-                </div>
-                <div id="search-parent" class="searchPanel MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-flex-end">
-                    <div id="search-portal-type-select" class="MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-auto">
-                        <div class="MuiFormControl-root portaltype-dropdown-container">
-                            <div id="portaltype-dropdown" data-testid="search-portal-type-select-wrapper" class="search-type-button MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl">
-                                <button type="button" class="search-type-button MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input" tabindex="0" aria-labelledby="search-portal-type-select-label" data-testid="primo-search-select">
-                                    <svg data-testid="portaltype-current-svg" class="search-type-button MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                                        <path id="portaltype-current-icon" class="search-type-button" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"></path>
-                                    </svg>&nbsp;<span id="portaltype-current-label" class="search-type-button" data-testid="portaltype-current-label">Library</span>
-                                    <input data-testid="primo-search-select-input" id="search-type-current-value" type="hidden" name="portaltype">
-                                </button>
-                                <svg class="MuiSvgIcon-root MuiSelect-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path d="M7 10l5 5 5-5z"></path>
-                                </svg>
-                            </div>
-                        </div>
+    <p>
+        <div id="search-portal" class="MuiPaper-root MuiCard-root libraryCard StandardCard MuiPaper-elevation1 MuiPaper-rounded" data-testid="primo-search" role="region" aria-live="polite">
+            <div class="MuiCardContent-root libraryContent" data-testid="primo-search-content">
+                <form id="primo-search-form" class="searchForm" role="search">
+                    <div class="MuiFormControl-root searchPanel" style="margin-bottom: -0.75rem; padding-top: 1rem;">
+                        <h2 id="search-portal-type-select-label" class="searchPortalLabel MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled" data-shrink="true" aria-label="Search UQ Library">Library Search</h2>
                     </div>
-                    <div id="input-field-wrapper" class="MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-true">
-                        <div id="search-portal-autocomplete" class="MuiAutocomplete-root" data-testid="primo-search-autocomplete" aria-label="Select Search Type">
-                            <div class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth">
-                                <div id="inputFieldParent" role="combobox" aria-expanded="false" aria-controls="search-portal-autocomplete-listbox" class="MuiInputBase-root MuiInput-root MuiInput-underline MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd">
-                                    <!--  aria-controls="search-portal-autocomplete-listbox" invalid per AXE --> 
-                                    <input type="text" id="current-inputfield" name="currentInputfield" aria-invalid="false" autocomplete="off" placeholder="Find books, articles, databases, Library guides &amp; more" type="search" class="MuiInputBase-input MuiInput-input selectInput MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch" aria-autocomplete="list" autocapitalize="none" spellcheck="false" aria-label="Enter your search terms" data-testid="primo-search-autocomplete-input" value="">
-                                    <div class="MuiAutocomplete-endAdornment"></div>
+                    <div id="search-parent" class="searchPanel MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-flex-end">
+                        <div id="search-portal-type-select" class="MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-auto">
+                            <div class="MuiFormControl-root portaltype-dropdown-container">
+                                <div id="portaltype-dropdown" data-testid="search-portal-type-select-wrapper" class="search-type-button MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl">
+                                    <button type="button" class="search-type-button MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input" tabindex="0" aria-labelledby="search-portal-type-select-label" data-testid="primo-search-select">
+                                        <svg data-testid="portaltype-current-svg" class="search-type-button MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path id="portaltype-current-icon" class="search-type-button" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"></path>
+                                        </svg>&nbsp;<span id="portaltype-current-label" class="search-type-button" data-testid="portaltype-current-label">Library</span>
+                                        <input data-testid="primo-search-select-input" id="search-type-current-value" type="hidden" name="portaltype">
+                                    </button>
+                                    <svg class="MuiSvgIcon-root MuiSelect-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path d="M7 10l5 5 5-5z"></path>
+                                    </svg>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div id="clearButton" class="MuiGrid-item MuiGrid-grid-xs-auto utilityarea">
-                        <div class="MuiGrid-container">
-                            <div class="MuiGrid-item MuiGrid-grid-xs-auto">
-                                <button type="button" id="clear-search-term" class="clear-search-term MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall" tabindex="0" type="button" title="Clear your search term" data-testid="primo-search-autocomplete-voice-clear">
-                                    <span class="MuiIconButton-label">
-                                        <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                                            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
-                                        </svg>
-                                    </span>
-                                    <span class="MuiTouchRipple-root"></span>
-                                </button>
+                        <div id="input-field-wrapper" class="MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-true">
+                            <div id="search-portal-autocomplete" class="MuiAutocomplete-root" data-testid="primo-search-autocomplete" aria-label="Select Search Type">
+                                <div class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth">
+                                    <div id="inputFieldParent" role="combobox" aria-expanded="false" aria-controls="search-portal-autocomplete-listbox" class="MuiInputBase-root MuiInput-root MuiInput-underline MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd">
+                                        <!--  aria-controls="search-portal-autocomplete-listbox" invalid per AXE --> 
+                                        <input type="text" id="current-inputfield" name="currentInputfield" aria-invalid="false" autocomplete="off" placeholder="Find books, articles, databases, Library guides &amp; more" type="search" class="MuiInputBase-input MuiInput-input selectInput MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch" aria-autocomplete="list" autocapitalize="none" spellcheck="false" aria-label="Enter your search terms" data-testid="primo-search-autocomplete-input" value="">
+                                        <div class="MuiAutocomplete-endAdornment"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <div id="clearButton" class="MuiGrid-item MuiGrid-grid-xs-auto utilityarea">
+                            <div class="MuiGrid-container">
+                                <div class="MuiGrid-item MuiGrid-grid-xs-auto">
+                                    <button type="button" id="clear-search-term" class="clear-search-term MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall" tabindex="0" type="button" title="Clear your search term" data-testid="primo-search-autocomplete-voice-clear">
+                                        <span class="MuiIconButton-label">
+                                            <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                                                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+                                            </svg>
+                                        </span>
+                                        <span class="MuiTouchRipple-root"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-auto">
+                            <button id="search-portal-submit" class="MuiButtonBase-root MuiButton-root MuiButton-contained searchButton MuiButton-containedPrimary MuiButton-containedSizeLarge MuiButton-sizeLarge MuiButton-fullWidth" tabindex="0" type="submit" data-testid="primo-search-submit" value="Submit" title="Perform your search">
+                                <span class="MuiButton-label">
+                                    <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+                                    </svg>
+                                </span>
+                                <span class="MuiTouchRipple-root"></span>
+                            </button>
+                        </div>
                     </div>
-                    <div class="MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-auto">
-                        <button id="search-portal-submit" class="MuiButtonBase-root MuiButton-root MuiButton-contained searchButton MuiButton-containedPrimary MuiButton-containedSizeLarge MuiButton-sizeLarge MuiButton-fullWidth" tabindex="0" type="submit" data-testid="primo-search-submit" value="Submit" title="Perform your search">
-                            <span class="MuiButton-label">
-                                <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
-                                </svg>
-                            </span>
-                            <span class="MuiTouchRipple-root"></span>
-                        </button>
+                    <p class="cultural-advice">
+                        <span><a id="cultural-advice-statement-link" href="https://web.library.uq.edu.au/collections/culturally-sensitive-collections">Culturally sensitive collections</a> - </span>
+                        Aboriginal and Torres Strait Islander peoples are advised that our collections and sites may contain images, voices or names of persons now deceased. Information may be culturally sensitive for some individuals and communities.
+                    </p>
+                    <div id="footer-links" class="searchPanel MuiGrid-container MuiFormControlMuiGrid-spacing-xs-2" data-testid="primo-search-links">
                     </div>
-                </div>
-                <div id="footer-links" class="searchPanel MuiGrid-container MuiFormControlMuiGrid-spacing-xs-2" data-testid="primo-search-links">
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 `;
@@ -418,10 +424,20 @@ class SearchPortal extends HTMLElement {
                 clearSearchTerm();
                 that.clearSearchResults();
             });
+
+        // add click handler to cultural advice link for gtm tracking
+        const CaAnchor = this.shadowRoot.getElementById('cultural-advice-statement-link');
+        CaAnchor.addEventListener(
+            'click',
+            /* istanbul ignore next */ function (e) {
+                /* istanbul ignore next */
+                that.sendSubmitToGTM(e); // submit the GTM info
+            },
+        );
     }
 
     /**
-     * Events arent sending properly to GTM, so we force them manually here
+     * Events aren't sending properly to GTM, so we force them manually here
      * @param formObject
      */
     sendSubmitToGTM(formObject) {
@@ -434,6 +450,11 @@ class SearchPortal extends HTMLElement {
             !!formObject.target &&
             !!formObject.target.id &&
             formObject.target.id === 'primo-search-form';
+        const userHasClickedCulturalAdviceLink =
+            !!formObject &&
+            !!formObject.target &&
+            !!formObject.target.id &&
+            formObject.target.id === 'cultural-advice-statement-link';
         const userHasClickedFooterLink =
             !!formObject &&
             !!formObject.target &&
@@ -447,16 +468,16 @@ class SearchPortal extends HTMLElement {
                 'gtm.element.elements.primo-search-autocomplete.value': userSearchTerm,
                 'gtm.element.elements.primo-search-select-input.value': portaltype,
             };
-        } /* istanbul ignore next */ else if (userHasClickedFooterLink) {
-            // the user has clicked one of the built in footer links under the widget
-            const footerLinkLabel = !!formObject && !!formObject.target && formObject.target.innerHTML;
+        } /* istanbul ignore next */ else if (userHasClickedFooterLink || userHasClickedCulturalAdviceLink) {
+            // the user has clicked a link that we have attached a click handler to
+            const linkLabel = !!formObject && !!formObject.target && formObject.target.innerHTML;
             gtmItems = {
                 event: 'gtm.linkClick',
                 'gtm.elementId': formObject.target.id,
-                'gtm.element': footerLinkLabel,
+                'gtm.element': linkLabel,
             };
         } else {
-            // the user has clicked on a suggestion link
+            // the user has clicked on a link in the suggestion dropdown
             const suggestionText = !!formObject && !!formObject.target && formObject.target.innerHTML;
             gtmItems = {
                 event: 'gtm.formSubmit',

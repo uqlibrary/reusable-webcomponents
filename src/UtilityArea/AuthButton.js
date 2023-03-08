@@ -296,6 +296,7 @@ class AuthButton extends HTMLElement {
 
     addLogoutButtonListeners(shadowDOM, account = null) {
         function visitLogOutPage() {
+            // can be removed some months after March 2023
             new ApiAccess().removeAccountStorage();
 
             const returnUrl = window.location.href;
@@ -422,7 +423,6 @@ class AuthButton extends HTMLElement {
     async checkAuthorisedUser(shadowDOM) {
         this.accountLoading = true;
         this.account = {};
-        let loggedin = null;
 
         const that = this;
         const api = new ApiAccess();

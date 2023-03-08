@@ -1,6 +1,8 @@
 describe('EzProxy', () => {
     beforeEach(() => {
         cy.visit('http://localhost:8080');
+        // hide CA Popup by default.
+        cy.setCookie('UQ_CULTURAL_ADVICE', 'hidden');
     });
 
     context('default mode', () => {

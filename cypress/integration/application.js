@@ -63,6 +63,15 @@ describe('Dummy Application', () => {
     function hasAskusButton() {
         cy.get('askus-button').shadow().find('button[data-testid="askus-button"]').should('exist');
     }
+    // function hasNewAskusButton() {
+    //     cy.get('new-askus-button').shadow().find('button[data-testid="askus-button"]').should('exist');
+    // }
+
+    function hasProactiveChat() {
+        cy.get('proactive-chat').shadow().find('[data-testid="proactive-chat-online"]').should('exist');
+        cy.get('proactive-chat').shadow().find('[data-testid="proactive-chat-offline"]').should('exist');
+        cy.get('proactive-chat').shadow().find('[data-testid="proactive-chat-wrapper"]').should('exist');
+    }
 
     function hasNoAskusButton() {
         cy.get('askus-button').should('not.exist');
@@ -139,6 +148,7 @@ describe('Dummy Application', () => {
             hasNoMegaMenu();
 
             hasAskusButton();
+            // hasProactiveChat();
             hasNoAuthButton();
 
             hasAnAlert();
@@ -160,6 +170,7 @@ describe('Dummy Application', () => {
             hasNoMegaMenu();
 
             hasAskusButton();
+            hasProactiveChat();
             hasAuthButton();
 
             hasAnAlert();
@@ -203,6 +214,7 @@ describe('Dummy Application', () => {
             hasMegaMenu();
 
             hasAskusButton();
+            //hasProactiveChat();
             hasNoAuthButton();
 
             hasAnAlert();
@@ -231,6 +243,7 @@ describe('Dummy Application', () => {
             hasNoAuthButton();
 
             hasNoAlerts();
+            //hasProactiveChat();
 
             hasNoConnectFooter();
 
@@ -294,6 +307,7 @@ describe('Dummy Application', () => {
             hasMegaMenu();
 
             hasAskusButton();
+            hasProactiveChat();
             hasAuthButton();
 
             hasAnAlert();
@@ -311,7 +325,7 @@ describe('Dummy Application', () => {
             hasUqFooter();
 
             // simple check that the components exist, now that we are splitting them out from the main reusable.min file
-            cy.get('search-portal').shadow().find('form label').should('contain', 'Library Search');
+            cy.get('search-portal').shadow().find('h2').should('contain', 'Library Search');
             cy.get('ez-proxy')
                 .shadow()
                 .find('fieldset input')
@@ -352,6 +366,7 @@ describe('Dummy Application', () => {
             hasNoMegaMenu();
 
             hasAskusButton();
+            //hasProactiveChat();
             hasNoAuthButton();
 
             hasAnAlert();
