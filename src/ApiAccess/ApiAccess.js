@@ -2,16 +2,16 @@ import MockApi from '../../mock/MockApi';
 import ApiRoutes from '../ApiRoutes';
 import { apiLocale as locale } from './ApiAccess.locale';
 import fetchJsonp from 'fetch-jsonp';
-import { clearCookie, getCookieValue } from '../helpers/cookie';
+import { getCookieValue } from '../helpers/cookie';
 
 let initCalled;
 
 class ApiAccess {
-    async getAccount() {
+    async loadAccountApi() {
         // cleanup sessionStorage as we are no longer using sessionstorage to hold the account
         // can be removed some months after March 2023
         // (it generated too many errors as it turns out we cant know when their session expires because
-        // other UQ sites may have crrated the session)
+        // other UQ sites may have created the session)
         this.removeAccountStorage();
 
         if (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined) {
@@ -19,21 +19,18 @@ class ApiAccess {
             return false;
         }
 
-        const accountApi = new ApiRoutes().CURRENT_ACCOUNT_API();
-        const urlPath = accountApi.apiUrl;
-        // const options = !!accountApi.options ? accountApi.options : {};
-        const options = {}; // options not currently used
-        return await this.fetchAPI(urlPath, options, true).then((account) => {
-            return account;
-        });
+        return await this.fetchAPI(new ApiRoutes().CURRENT_ACCOUNT_API().apiUrl, {}, true)
+            .then((account) => {
+                return account;
+            })
+            .catch((error) => {
+                console.log('error loading account ', error);
+                return {};
+            });
     }
 
     async loadAuthorApi() {
-        const api = new ApiRoutes().CURRENT_AUTHOR_API();
-        const urlPath = api.apiUrl;
-        // const options = !!api.options ? api.options : {};
-        const options = {}; // options not currently used
-        return await this.fetchAPI(urlPath, options, true)
+        return await this.fetchAPI(new ApiRoutes().CURRENT_AUTHOR_API().apiUrl, {}, true)
             .then((author) => {
                 return author;
             })
@@ -45,11 +42,7 @@ class ApiAccess {
 
     async loadChatStatus() {
         let isOnline = false;
-        const chatstatusApi = new ApiRoutes().CHAT_API();
-        const urlPath = chatstatusApi.apiUrl;
-        // const options = !!chatstatusApi.options ? chatstatusApi.options : {};
-        const options = {}; // options not currently used
-        await this.fetchAPI(urlPath, options)
+        await this.fetchAPI(new ApiRoutes().CHAT_API().apiUrl)
             .then((chatResponse) => {
                 isOnline = !!chatResponse.online;
             })
@@ -61,11 +54,7 @@ class ApiAccess {
 
     async loadOpeningHours() {
         let result;
-        const hoursApi = new ApiRoutes().LIB_HOURS_API();
-        const urlPath = hoursApi.apiUrl;
-        // const options = !!hoursApi.options ? hoursApi.options : {};
-        const options = {}; // options not currently used
-        await this.fetchAPI(urlPath, options)
+        await this.fetchAPI(new ApiRoutes().LIB_HOURS_API().apiUrl)
             .then((hoursResponse) => {
                 let askusHours = null;
                 /* istanbul ignore else */
@@ -90,11 +79,7 @@ class ApiAccess {
     }
 
     async loadAlerts(system) {
-        const alertApi = new ApiRoutes().ALERT_API(system);
-        const urlPath = alertApi.apiUrl;
-        // const options = !!alertApi.options ? alertApi.options : {};
-        const options = {}; // options not currently used
-        return await this.fetchAPI(urlPath, options)
+        return await this.fetchAPI(new ApiRoutes().ALERT_API(system).apiUrl)
             .then((alerts) => {
                 return alerts;
             })
@@ -105,8 +90,6 @@ class ApiAccess {
     }
 
     async loadTrainingEvents(maxEventCount, filterId) {
-        const trainingApi = new ApiRoutes().TRAINING_API();
-        const urlPath = trainingApi.apiUrl;
         const filter = {
             take: maxEventCount,
             // filterIds should be an array. Passing an array as value to
@@ -115,6 +98,7 @@ class ApiAccess {
         };
         const filterParams = new URLSearchParams(filter).toString();
 
+        const urlPath = new ApiRoutes().TRAINING_API().apiUrl;
         // Need to decode the url-encoded version of '[]' in filterIds.
         const url = urlPath.concat('?', decodeURIComponent(filterParams));
 
@@ -132,9 +116,7 @@ class ApiAccess {
      * @returns {function(*)}
      */
     async loadPrimoSuggestions(keyword) {
-        console.log('loadPrimoSuggestions: ', keyword);
-        const route = new ApiRoutes().PRIMO_SUGGESTIONS_API_GENERIC(keyword);
-        const url = route.apiUrl;
+        const url = new ApiRoutes().PRIMO_SUGGESTIONS_API_GENERIC(keyword).apiUrl;
         return await this.fetchJsonpAPI(url, {
             jsonpCallbackFunction: 'byutv_jsonp_callback_c631f96adec14320b23f1cac342d30f6',
             timeout: 3000,
@@ -228,10 +210,10 @@ class ApiAccess {
             );
     }
 
-    async fetchAPI(urlPath, headers, tokenRequired = false, timestampRequired = true) {
+    async fetchAPI(urlPath, headers = {}, tokenRequired = false, timestampRequired = true) {
         /* istanbul ignore next */
         if (!!tokenRequired && (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)) {
-            // no cookie so we wont bother asking for the account api that cant be returned
+            // no cookie so we won't bother asking for the account api that cant be returned
             console.log('no cookie so we wont bother asking for an api that cant be returned');
             return false;
         }
@@ -263,10 +245,18 @@ class ApiAccess {
                 headers: options,
             });
 
+            // when the account api call returns a 403, it simply means the user isn't logged in, we don't need to report this
+            const isAccountApiCall = urlPath === new ApiRoutes().CURRENT_ACCOUNT_API().apiUrl;
+            const userIsNotLoggedIn = !!isAccountApiCall && response.status === 403;
             if (!response.ok) {
-                console.log(`ApiAccess console [A3]: An error has occured: ${response.status} ${response.statusText}`);
-                const message = `ApiAccess [A1]: An error has occured: ${response.status} ${response.statusText}`;
-                throw new Error(message);
+                if (!userIsNotLoggedIn) {
+                    console.log(
+                        `ApiAccess console [A3]: An error has occured: ${response.status} ${response.statusText}`,
+                    );
+                    const message = `ApiAccess [A1]: An error has occured: ${response.status} ${response.statusText}`;
+                    throw new Error(message);
+                }
+                return null;
             }
             return await response.json();
         }
