@@ -1621,3 +1621,8 @@ prm-favorites-warning-message md-toast div {
         margin-left: 40px;
     }
 }
+
+.menu-footer prm-icon md-icon svg path,
+md-menu-content button prm-icon md-icon svg path {
+    color: $accent-color;
+}
