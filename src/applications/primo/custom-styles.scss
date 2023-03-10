@@ -644,23 +644,6 @@ prm-search-result-tool-bar {
     }
 }
 
-.result-item-actions {
-    prm-save-to-favorites-button {
-        .unpin-button,
-        .pin-button {
-            color: $primary-hue2;
-            &.unpinned,
-            &.pinned {
-                &:focus,
-                &:hover {
-                    color: $white !important;
-                    background-color: $primary-hue2 !important;
-                }
-            }
-        }
-    }
-}
-
 .md-button.arrow-link-button .button-content:focus,
 .md-button.arrow-link-button .button-content:hover,
 .md-button.arrow-link-button .hover.button-content,
@@ -1588,14 +1571,32 @@ prm-search-bookmark-filter
     border-radius: 50%;
     background-color: grey;
 }
-prm-brief-result-container .result-item-actions prm-save-to-favorites-button .md-icon-button {
-    &:hover,
-    &:focus {
-        &:not([disabled]) {
-            background-color: grey !important;
+prm-brief-result-container .result-item-actions {
+    prm-save-to-favorites-button {
+        .unpin-button,
+        .pin-button {
+            color: $primary-hue2;
+            &.unpinned,
+            &.pinned {
+                &:focus:not([disabled]),
+                &:hover:not([disabled]) {
+                    color: $white !important;
+                    background-color: $primary-hue2 !important;
+                }
+            }
+        }
+        .md-icon-button:hover:not([disabled]),
+        .md-icon-button:focus:not([disabled]) {
+            &:hover,
+            &:focus {
+                &:not([disabled]) {
+                    background-color: $accent-color !important;;
+                }
+            }
         }
     }
 }
+
 prm-topbar prm-favorites-warning-message button.close-btn.md-button:hover prm-icon {
     color: #fff;
 }
