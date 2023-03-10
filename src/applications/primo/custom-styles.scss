@@ -1637,3 +1637,23 @@ prm-search-result-page-range md-select {
     border-radius: 2px;
     padding-left: 10px;
 }
+
+// search Saved items in Favourites should be more obvious
+// reverse the dark-placeholder and greyed submit button to a more conventional
+// grey placeholder and enabled-looking button
+div.search-within {
+    md-input-container.search-input {
+        margin-right: -2px;
+        input.search-within-input {
+            border-bottom: 1px solid black;
+            &::placeholder {
+                color: #aaa;
+            }
+        }
+    }
+    button.search-button {
+        border-bottom: 1px solid black;
+        color: #333 !important;
+        margin-bottom: 8px;
+    }
+}
