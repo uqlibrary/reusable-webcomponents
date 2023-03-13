@@ -296,7 +296,6 @@ class AuthButton extends HTMLElement {
 
     addLogoutButtonListeners(shadowDOM, account = null) {
         function visitLogOutPage() {
-            // can be removed some months after March 2023
             new ApiAccess().removeAccountStorage();
 
             const returnUrl = window.location.href;
