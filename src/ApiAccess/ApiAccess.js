@@ -326,6 +326,10 @@ class ApiAccess {
         };
         storeableAccount = JSON.stringify(storeableAccount);
         sessionStorage.setItem(this.STORAGE_ACCOUNT_KEYNAME, storeableAccount);
+
+        // let the calling page know account is available
+        const bc = new BroadcastChannel('account_availability');
+        bc.postMessage('account_updated');
     }
 
     getAccountFromStorage() {
@@ -365,6 +369,10 @@ class ApiAccess {
 
     removeAccountStorage() {
         sessionStorage.removeItem(this.STORAGE_ACCOUNT_KEYNAME);
+
+        // let the calling page know account has been removed
+        const bc = new BroadcastChannel('account_availability');
+        bc.postMessage('account_removed');
     }
 
     getSessionCookie() {
