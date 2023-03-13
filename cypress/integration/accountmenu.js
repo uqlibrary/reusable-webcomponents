@@ -166,11 +166,33 @@ describe('Account menu button', () => {
             cy.get('body').contains('user visits logout page');
         });
 
+        it('account with out of date session storage is not used', () => {
+            const store = new ApiAccess();
+            store.storeAccount(uqrdav10, -24);
+
+            checkStorage();
+
+            let testValid = false;
+            async function checkStorage() {
+                await new ApiAccess().loadAccountApi().then((newAccount) => {
+                    expect(newAccount).to.be.equal(false);
+                    expect(sessionStorage.length).to.be.equal(0);
+                    testValid = true;
+                });
+            }
+
+            setTimeout(() => {
+                // just a paranoia check that the above test inside an await actually happened. 50 ms was not enough!
+                expect(testValid).to.be.equal(true);
+            }, 1000);
+        });
+
         it('does not call a tokenised api if the cookies arent available', () => {
             cy.clearCookie(apiLocale.SESSION_COOKIE_NAME);
             cy.clearCookie(apiLocale.SESSION_USER_GROUP_COOKIE_NAME);
 
             const api = new ApiAccess();
+            api.removeAccountStorage();
 
             let testValid = false;
             async function checkCookies() {
@@ -186,6 +208,14 @@ describe('Account menu button', () => {
                 // just a paranoia check that the above test inside an await actually happened.
                 expect(testValid).to.be.equal(true);
             }, 5500);
+        });
+
+        it('user with expired stored session is not logged in', () => {
+            const store = new ApiAccess();
+            store.storeAccount(accounts.s1111111, -24); // put info in the session storage
+            // console.log('sessionStorage: ', sessionStorage.getItem('userAccount'));
+
+            assertNameIsDisplayedOnAccountOptionsButtonCorrectly('s1111111', 'Undergraduate, John');
         });
 
         it('user with a short name will show their complete name on the Log Out button', () => {

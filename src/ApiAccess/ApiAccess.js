@@ -2,35 +2,44 @@ import MockApi from '../../mock/MockApi';
 import ApiRoutes from '../ApiRoutes';
 import { apiLocale as locale } from './ApiAccess.locale';
 import fetchJsonp from 'fetch-jsonp';
-import { getCookieValue } from '../helpers/cookie';
+import { clearCookie, getCookieValue } from '../helpers/cookie';
 
 let initCalled;
 
 class ApiAccess {
-    async loadAccountApi() {
-        // cleanup sessionStorage as we are no longer using sessionstorage to hold the account
-        // can be removed some months after March 2023
-        // (it generated too many errors as it turns out we cant know when their session expires because
-        // other UQ sites may have created the session)
-        this.removeAccountStorage();
+    constructor() {
+        this.STORAGE_ACCOUNT_KEYNAME = locale.STORAGE_ACCOUNT_KEYNAME;
+    }
 
+    async loadAccountApi() {
         if (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined) {
             // no cookie, force them to log in again
+            this.removeAccountStorage();
             return false;
         }
 
-        return await this.fetchAPI(new ApiRoutes().CURRENT_ACCOUNT_API().apiUrl, {}, true)
-            .then((account) => {
-                return account;
-            })
-            .catch((error) => {
-                console.log('error loading account ', error);
-                return {};
-            });
+        let accountData = this.getAccountFromStorage();
+        if (accountData !== null) {
+            return accountData;
+        }
+
+        const accountApi = new ApiRoutes().CURRENT_ACCOUNT_API();
+        const urlPath = accountApi.apiUrl;
+        // const options = !!accountApi.options ? accountApi.options : {};
+        const options = {}; // options not currently used
+        return await this.fetchAPI(urlPath, options, true).then((account) => {
+            this.storeAccount(account);
+
+            return account;
+        });
     }
 
     async loadAuthorApi() {
-        return await this.fetchAPI(new ApiRoutes().CURRENT_AUTHOR_API().apiUrl, {}, true)
+        const api = new ApiRoutes().CURRENT_AUTHOR_API();
+        const urlPath = api.apiUrl;
+        // const options = !!api.options ? api.options : {};
+        const options = {}; // options not currently used
+        return await this.fetchAPI(urlPath, options, true)
             .then((author) => {
                 return author;
             })
@@ -42,7 +51,11 @@ class ApiAccess {
 
     async loadChatStatus() {
         let isOnline = false;
-        await this.fetchAPI(new ApiRoutes().CHAT_API().apiUrl)
+        const chatstatusApi = new ApiRoutes().CHAT_API();
+        const urlPath = chatstatusApi.apiUrl;
+        // const options = !!chatstatusApi.options ? chatstatusApi.options : {};
+        const options = {}; // options not currently used
+        await this.fetchAPI(urlPath, options)
             .then((chatResponse) => {
                 isOnline = !!chatResponse.online;
             })
@@ -54,7 +67,11 @@ class ApiAccess {
 
     async loadOpeningHours() {
         let result;
-        await this.fetchAPI(new ApiRoutes().LIB_HOURS_API().apiUrl)
+        const hoursApi = new ApiRoutes().LIB_HOURS_API();
+        const urlPath = hoursApi.apiUrl;
+        // const options = !!hoursApi.options ? hoursApi.options : {};
+        const options = {}; // options not currently used
+        await this.fetchAPI(urlPath, options)
             .then((hoursResponse) => {
                 let askusHours = null;
                 /* istanbul ignore else */
@@ -79,7 +96,11 @@ class ApiAccess {
     }
 
     async loadAlerts(system) {
-        return await this.fetchAPI(new ApiRoutes().ALERT_API(system).apiUrl)
+        const alertApi = new ApiRoutes().ALERT_API(system);
+        const urlPath = alertApi.apiUrl;
+        // const options = !!alertApi.options ? alertApi.options : {};
+        const options = {}; // options not currently used
+        return await this.fetchAPI(urlPath, options)
             .then((alerts) => {
                 return alerts;
             })
@@ -90,6 +111,8 @@ class ApiAccess {
     }
 
     async loadTrainingEvents(maxEventCount, filterId) {
+        const trainingApi = new ApiRoutes().TRAINING_API();
+        const urlPath = trainingApi.apiUrl;
         const filter = {
             take: maxEventCount,
             // filterIds should be an array. Passing an array as value to
@@ -98,7 +121,6 @@ class ApiAccess {
         };
         const filterParams = new URLSearchParams(filter).toString();
 
-        const urlPath = new ApiRoutes().TRAINING_API().apiUrl;
         // Need to decode the url-encoded version of '[]' in filterIds.
         const url = urlPath.concat('?', decodeURIComponent(filterParams));
 
@@ -116,7 +138,9 @@ class ApiAccess {
      * @returns {function(*)}
      */
     async loadPrimoSuggestions(keyword) {
-        const url = new ApiRoutes().PRIMO_SUGGESTIONS_API_GENERIC(keyword).apiUrl;
+        console.log('loadPrimoSuggestions: ', keyword);
+        const route = new ApiRoutes().PRIMO_SUGGESTIONS_API_GENERIC(keyword);
+        const url = route.apiUrl;
         return await this.fetchJsonpAPI(url, {
             jsonpCallbackFunction: 'byutv_jsonp_callback_c631f96adec14320b23f1cac342d30f6',
             timeout: 3000,
@@ -210,10 +234,10 @@ class ApiAccess {
             );
     }
 
-    async fetchAPI(urlPath, headers = {}, tokenRequired = false, timestampRequired = true) {
+    async fetchAPI(urlPath, headers, tokenRequired = false, timestampRequired = true) {
         /* istanbul ignore next */
         if (!!tokenRequired && (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)) {
-            // no cookie so we won't bother asking for the account api that cant be returned
+            // no cookie so we wont bother asking for the account api that cant be returned
             console.log('no cookie so we wont bother asking for an api that cant be returned');
             return false;
         }
@@ -245,18 +269,10 @@ class ApiAccess {
                 headers: options,
             });
 
-            // when the account api call returns a 403, it simply means the user isn't logged in, we don't need to report this
-            const isAccountApiCall = urlPath === new ApiRoutes().CURRENT_ACCOUNT_API().apiUrl;
-            const userIsNotLoggedIn = !!isAccountApiCall && response.status === 403;
             if (!response.ok) {
-                if (!userIsNotLoggedIn) {
-                    console.log(
-                        `ApiAccess console [A3]: An error has occured: ${response.status} ${response.statusText}`,
-                    );
-                    const message = `ApiAccess [A1]: An error has occured: ${response.status} ${response.statusText}`;
-                    throw new Error(message);
-                }
-                return null;
+                console.log(`ApiAccess console [A3]: An error has occured: ${response.status} ${response.statusText}`);
+                const message = `ApiAccess [A1]: An error has occured: ${response.status} ${response.statusText}`;
+                throw new Error(message);
             }
             return await response.json();
         }
@@ -287,6 +303,64 @@ class ApiAccess {
             }
             return await response.json();
         }
+    }
+
+    storeAccount(account, numberOfHoursUntilExpiry = 1) {
+        // for improved UX, expire the session storage when the token must surely be expired, for those rare long sessions
+        // session lasts 8 hours, per https://auth.uq.edu.au/about/
+        // because we cant predict what other system the user first logged into we don't actually know
+        // how much more of their session is left
+        // lets make this just 1 hour, purely to minimse the calls to account api just a little
+
+        const millisecondsUntilExpiry = numberOfHoursUntilExpiry * 60 /*min*/ * 60 /*sec*/ * 1000; /* milliseconds */
+        const storageExpiryDate = {
+            storageExpiryDate: new Date().setTime(new Date().getTime() + millisecondsUntilExpiry),
+        };
+        // structure must match that used in homepage as they both write to the same storage
+        // (has to, as reusable will remove storage to log homepage out!)
+        let storeableAccount = {
+            account: {
+                ...account,
+            },
+            ...storageExpiryDate,
+        };
+        storeableAccount = JSON.stringify(storeableAccount);
+        sessionStorage.setItem(this.STORAGE_ACCOUNT_KEYNAME, storeableAccount);
+    }
+
+    getAccountFromStorage() {
+        const storedAccount = JSON.parse(sessionStorage.getItem(this.STORAGE_ACCOUNT_KEYNAME));
+
+        if (storedAccount === null) {
+            return null;
+        }
+
+        if (this.isMock()) {
+            const mockUserHasChanged =
+                !!storedAccount.account &&
+                !!storedAccount.account.id &&
+                storedAccount.account.id !== new MockApi().user;
+            if (mockUserHasChanged || !storedAccount.account || !storedAccount.account.id) {
+                // allow developer to swap between users in the same tab
+                this.removeAccountStorage();
+                return null;
+            }
+        }
+
+        // short term during upgrade - if older structure that doesnt have .account, clear
+        // this clause can be removed a day or so after day golive, written Jan/2022
+        if (!storedAccount.account) {
+            this.removeAccountStorage();
+            return null;
+        }
+
+        const now = new Date().getTime();
+        if (!storedAccount.storageExpiryDate || storedAccount.storageExpiryDate < now) {
+            this.removeAccountStorage();
+            return null;
+        }
+
+        return storedAccount.account;
     }
 
     removeAccountStorage() {
