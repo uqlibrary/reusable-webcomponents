@@ -1,5 +1,3 @@
-import { searchPortalLocale } from '../../src/SearchPortal/searchPortal.locale';
-
 const DOWN_ARROW_KEYCODE = 40;
 const ESCAPE_KEYCODE = 27;
 const RETURN_KEYCODE = 13;
@@ -383,8 +381,8 @@ describe('Search Portal', () => {
 
         it('Course reading lists should have the expected items', () => {
             cy.viewport(1300, 1000);
-            // cy.intercept('GET', 'https://uq.rl.talis.com/search.html?q=PHIL1013', {
-            cy.intercept('GET', '/search.html?q=PHIL1013', {
+            // cy.intercept('GET', 'https://uq.rl.talis.com/search.html?q=PHIL1013&login=1', {
+            cy.intercept('GET', '/search.html?q=PHIL1013&login=1', {
                 // statusCode: 200,
                 body: 'user is on a Talis result page',
             });
