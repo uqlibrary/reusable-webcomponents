@@ -644,23 +644,6 @@ prm-search-result-tool-bar {
     }
 }
 
-.result-item-actions {
-    prm-save-to-favorites-button {
-        .unpin-button,
-        .pin-button {
-            color: $primary-hue2;
-            &.unpinned,
-            &.pinned {
-                &:focus,
-                &:hover {
-                    color: $white !important;
-                    background-color: $primary-hue2 !important;
-                }
-            }
-        }
-    }
-}
-
 .md-button.arrow-link-button .button-content:focus,
 .md-button.arrow-link-button .button-content:hover,
 .md-button.arrow-link-button .hover.button-content,
@@ -1490,10 +1473,10 @@ prm-main-menu .my-feedback-ctm {
         fill: rgba(255, 255, 255, 0.9);
     }
     button:hover {
-        color: #2377cb;
+        color: $accent-color;
         background-color: #fff;
         path {
-            fill: #2377cb;
+            fill: $accent-color;
         }
     }
 }
@@ -1564,6 +1547,8 @@ prm-main-menu .my-feedback-ctm {
 }
 
 // "the Favourite pin popup" - the popup that sometimes appears on Favourite pin icon after clicking the pin on an item
+prm-full-view div,
+prm-full-view-cont div,
 prm-explore-main div.header {
     // the default yellow border is ugly
     prm-favorites-warning-message div.favorites-guest-warning {
@@ -1586,14 +1571,32 @@ prm-search-bookmark-filter
     border-radius: 50%;
     background-color: grey;
 }
-prm-brief-result-container .result-item-actions prm-save-to-favorites-button .md-icon-button {
-    &:hover,
-    &:focus {
-        &:not([disabled]) {
-            background-color: grey !important;
+prm-brief-result-container .result-item-actions {
+    prm-save-to-favorites-button {
+        .unpin-button,
+        .pin-button {
+            color: $primary-hue2;
+            &.unpinned,
+            &.pinned {
+                &:focus:not([disabled]),
+                &:hover:not([disabled]) {
+                    color: $white !important;
+                    background-color: $primary-hue2 !important;
+                }
+            }
+        }
+        .md-icon-button:hover:not([disabled]),
+        .md-icon-button:focus:not([disabled]) {
+            &:hover,
+            &:focus {
+                &:not([disabled]) {
+                    background-color: $accent-color !important;;
+                }
+            }
         }
     }
 }
+
 prm-topbar prm-favorites-warning-message button.close-btn.md-button:hover prm-icon {
     color: #fff;
 }
@@ -1618,4 +1621,43 @@ prm-favorites-warning-message md-toast div {
     #speedDialWidget {
         margin-left: 40px;
     }
+}
+
+// item check box in brief results favourite pin opens a menu - menu icons should be uq blue
+md-menu-content button prm-icon md-icon svg path,
+.menu-footer prm-icon md-icon svg path {
+    color: $accent-color;
+}
+
+// make the option to change the number of results per page at the top of the brief results more obvious
+prm-search-result-page-range md-select {
+    background-color: #eee; // just faintly visible
+    padding-left: 10px;
+}
+
+// search Saved items in Favourites should be more obvious
+// reverse the dark-placeholder and greyed submit button to a more conventional
+// grey placeholder and enabled-looking button
+prm-favorites div.search-within {
+    md-input-container.search-input {
+        margin-right: -2px;
+        input.search-within-input {
+            border-bottom: 1px solid black;
+            &::placeholder {
+                color: #aaa;
+            }
+        }
+    }
+    button.search-button {
+        border-bottom: 1px solid black;
+        color: #333 !important;
+        margin-bottom: 8px;
+    }
+}
+
+// make inputs of type number standard out from background a little
+// (specifically aimed at the publication date in the filters in this instance)
+input[type="number"] {
+    background-color: #eee;
+    border-bottom: 1px solid #a9a9a9;
 }
