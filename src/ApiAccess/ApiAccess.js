@@ -328,8 +328,10 @@ class ApiAccess {
         sessionStorage.setItem(this.STORAGE_ACCOUNT_KEYNAME, storeableAccount);
 
         // let the calling page know account is available
-        const bc = new BroadcastChannel('account_availability');
-        bc.postMessage('account_updated');
+        if ('BroadcastChannel' in window) {
+            const bc = new BroadcastChannel('account_availability');
+            bc.postMessage('account_updated');
+        }
     }
 
     getAccountFromStorage() {
@@ -367,12 +369,30 @@ class ApiAccess {
         return storedAccount.account;
     }
 
+    addCurrentAuthorToStoredAccount(currentAuthor) {
+        const storedAccount = this.getAccountFromStorage();
+        /* istanbul ignore next */
+        if (storedAccount === null) {
+            return;
+        }
+        let storeableAccount = {
+            ...storedAccount,
+            currentAuthor: {
+                ...currentAuthor,
+            },
+        };
+        storeableAccount = JSON.stringify(storeableAccount);
+        sessionStorage.setItem(this.STORAGE_ACCOUNT_KEYNAME, storeableAccount);
+    }
+
     removeAccountStorage() {
         sessionStorage.removeItem(this.STORAGE_ACCOUNT_KEYNAME);
 
-        // let the calling page know account has been removed
-        const bc = new BroadcastChannel('account_availability');
-        bc.postMessage('account_removed');
+        if ('BroadcastChannel' in window) {
+            // let the calling page know account has been removed
+            const bc = new BroadcastChannel('account_availability');
+            bc.postMessage('account_removed');
+        }
     }
 
     getSessionCookie() {

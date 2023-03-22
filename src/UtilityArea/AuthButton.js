@@ -487,6 +487,9 @@ class AuthButton extends HTMLElement {
             const espaceitem = !!shadowDOM && shadowDOM.getElementById('mylibrary-espace');
             const isAuthor = !!author && !!author.data && !!author.data.hasOwnProperty('aut_id');
             !!espaceitem && !isAuthor && espaceitem.remove();
+
+            new ApiAccess().addCurrentAuthorToStoredAccount(author);
+
             return author;
         });
     }
