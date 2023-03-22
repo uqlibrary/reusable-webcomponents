@@ -25,7 +25,6 @@ class Alerts extends HTMLElement {
         // because the system attribute is sometimes set via javascript, not inline on an element, we have to give
         // a short delay to allow that next line of js to be reached
         const shortDelayForAttributes = setInterval(() => {
-            console.log('### shortDelayForAttributes');
             clearInterval(shortDelayForAttributes);
 
             const shadowDOM = this.attachShadow({ mode: 'open' });
