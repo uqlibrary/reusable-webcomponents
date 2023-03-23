@@ -226,14 +226,20 @@ class AuthButton extends HTMLElement {
                 // two things:
                 // remove the admin links the current user doesn't have access to
                 // when in dev branch, reset the links in the account menu
-                let adminLinkRoot = `${window.location.protocol}//${window.location.hostname}`;
-                const isDevBranch = window.location.hostname === 'homepage-development.library.uq.edu.au';
-                adminLinkRoot += isDevBranch ? /* istanbul ignore next */ window.location.pathname + '#/' : '/';
+                let linkRoot = `${window.location.protocol}//${window.location.hostname}/`;
+                let linkAppend = '';
+                if (window.location.hostname === 'homepage-development.library.uq.edu.au') {
+                    linkRoot = `${window.location.protocol}//${window.location.hostname}${window.location.pathname}#/`;
+                } else if (window.location.hostname === 'localhost') {
+                    const homepagePort = '2020';
+                    linkRoot = `${window.location.protocol}//${window.location.hostname}:${homepagePort}/`;
+                    linkAppend = !!window.location.search ? window.location.search : '';
+                }
 
                 const masqueradeElement = !!shadowDOM && shadowDOM.getElementById('mylibrary-masquerade');
                 !account.canMasquerade && !!masqueradeElement && masqueradeElement.remove();
                 if (!!account.canMasquerade && !!masqueradeElement) {
-                    const masqueradePageLink = adminLinkRoot + 'admin/masquerade';
+                    const masqueradePageLink = `${linkRoot}admin/masquerade${linkAppend}`;
                     const masqueradeLinkElement = masqueradeElement.querySelector('a');
                     !!masqueradePageLink &&
                         !!masqueradeLinkElement &&
@@ -243,7 +249,7 @@ class AuthButton extends HTMLElement {
                 const alertsAdminElement = !!shadowDOM && shadowDOM.getElementById('alerts-admin');
                 !this.canSeeAlertsAdmin(account) && !!alertsAdminElement && alertsAdminElement.remove();
                 if (!!this.canSeeAlertsAdmin(account) && !!alertsAdminElement) {
-                    const alertsPageLink = adminLinkRoot + 'admin/alerts';
+                    const alertsPageLink = `${linkRoot}admin/alerts${linkAppend}`;
                     const alertsLinkElement = alertsAdminElement.querySelector('a');
                     !!alertsPageLink && !!alertsLinkElement && alertsLinkElement.setAttribute('href', alertsPageLink);
                 }
@@ -251,7 +257,7 @@ class AuthButton extends HTMLElement {
                 const spotlightsAdminElement = !!shadowDOM && shadowDOM.getElementById('spotlights-admin');
                 !this.canSeeSpotlightsAdmin(account) && !!spotlightsAdminElement && spotlightsAdminElement.remove();
                 if (!!this.canSeeSpotlightsAdmin(account) && !!spotlightsAdminElement) {
-                    const spotlightsPageLink = adminLinkRoot + 'admin/spotlights';
+                    const spotlightsPageLink = `${linkRoot}admin/spotlights${linkAppend}`;
                     const spotlightsLinkElement = spotlightsAdminElement.querySelector('a');
                     !!spotlightsPageLink &&
                         !!spotlightsLinkElement &&
@@ -261,7 +267,7 @@ class AuthButton extends HTMLElement {
                 const testTagAdminElement = !!shadowDOM && shadowDOM.getElementById('testTag-admin');
                 !this.canSeeTestTagAdmin(account) && !!testTagAdminElement && testTagAdminElement.remove();
                 if (!!this.canSeeTestTagAdmin(account) && !!testTagAdminElement) {
-                    const testTagPageLink = adminLinkRoot + 'admin/testntag';
+                    const testTagPageLink = `${linkRoot}admin/testntag${linkAppend}`;
                     const testTagLinkElement = testTagAdminElement.querySelector('a');
                     !!testTagPageLink &&
                         !!testTagLinkElement &&
@@ -271,7 +277,7 @@ class AuthButton extends HTMLElement {
                 const promoPanelElement = !!shadowDOM && shadowDOM.getElementById('promopanel-admin');
                 !this.canSeePromopanelAdmin(account) && !!promoPanelElement && promoPanelElement.remove();
                 if (!!this.canSeePromopanelAdmin(account) && !!promoPanelElement) {
-                    const promoPanelPageLink = adminLinkRoot + 'admin/testntag';
+                    const promoPanelPageLink = `${linkRoot}admin/promopanel${linkAppend}`;
                     const promoPanelLinkElement = promoPanelElement.querySelector('a');
                     !!promoPanelPageLink &&
                         !!promoPanelLinkElement &&
