@@ -120,7 +120,7 @@ authorisedtemplate.innerHTML = `
                                                        
                             <!-- Masquerade -->
                             <li data-testid="mylibrary-masquerade" id="mylibrary-masquerade" role="menuitem" aria-disabled="false">
-                                <a tabindex="0" id="mylibrary-menu-masquerade" data-testid="mylibrary-menu-masquerade" href="https://www.library.uq.edu.au/admin/masquerade" rel="noreferrer">
+                                <a tabindex="0" id="mylibrary-menu-masquerade" data-testid="mylibrary-menu-masquerade" rel="noreferrer">
                                     <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;">
                                         <path d="${ICON_TWO_PEOPLE}"></path>
                                     </svg>
@@ -130,7 +130,7 @@ authorisedtemplate.innerHTML = `
                              
                             <!-- Alerts Admin -->
                             <li data-testid="alerts-admin" id="alerts-admin" role="menuitem" aria-disabled="false">
-                                <a tabindex="0" id="mylibrary-menu-alerts-admin" data-testid="mylibrary-menu-alerts-admin" href="https://www.library.uq.edu.au/admin/alerts" rel="noreferrer">
+                                <a tabindex="0" id="mylibrary-menu-alerts-admin" data-testid="mylibrary-menu-alerts-admin" rel="noreferrer">
                                     <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="${ICON_MUI_INFO_OUTLINED}"></path></svg>
                                     <span>Website alerts</span>
                                 </a>
@@ -138,7 +138,7 @@ authorisedtemplate.innerHTML = `
                                             
                             <!-- Spotlights Admin -->
                             <li data-testid="spotlights-admin" id="spotlights-admin" role="menuitem" aria-disabled="false">
-                                <a tabindex="0" id="mylibrary-menu-spotlights-admin"  data-testid="mylibrary-menu-spotlights-admin" href="https://www.library.uq.edu.au/admin/spotlights" rel="noreferrer">
+                                <a tabindex="0" id="mylibrary-menu-spotlights-admin"  data-testid="mylibrary-menu-spotlights-admin" rel="noreferrer">
                                     <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="${ICON_MUI_IMAGE_FILLED}"></path></svg>
                                     <span>Website spotlights</span>
                                 </a>
@@ -146,7 +146,7 @@ authorisedtemplate.innerHTML = `
                                             
                             <!-- Test & Tag -->
                             <li data-testid="testTag-admin" id="testTag-admin" role="menuitem" aria-disabled="false">
-                                <a tabindex="0" id="mylibrary-menu-testTag-admin"  data-testid="mylibrary-menu-testTag-admin" href="https://www.library.uq.edu.au/admin/testntag" rel="noreferrer">
+                                <a tabindex="0" id="mylibrary-menu-testTag-admin"  data-testid="mylibrary-menu-testTag-admin" rel="noreferrer">
                                 <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="${ICON_MUI_BEENHERE_FILLED}"></path></svg>    
                                     <span>Test and Tag</span>
                                 </a>
@@ -154,8 +154,7 @@ authorisedtemplate.innerHTML = `
 
                             <!-- Promo Panel Admin -->
                             <li data-testid="promopanel-admin" id="promopanel-admin" role="menuitem" aria-disabled="false">
-                                <a tabindex="0" id="mylibrary-menu-promopanel-admin"  data-testid="mylibrary-menu-promopanel-admin" href="https://www.library.uq.edu.au/admin/promopanel" rel="noreferrer">
-                                
+                                <a tabindex="0" id="mylibrary-menu-promopanel-admin"  data-testid="mylibrary-menu-promopanel-admin" rel="noreferrer">
                                 <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="${ICON_MUI_CAMPAIGN_FILLED}"></path></svg>
                                     <span>Promo panels</span>
                                 </a>
@@ -224,20 +223,60 @@ class AuthButton extends HTMLElement {
             if (!!isAuthorised) {
                 this.displayUserNameAsButtonLabel(shadowDOM, account);
 
+                // two things:
+                // remove the admin links the current user doesn't have access to
+                // when in dev branch, reset the links in the account menu
+                let adminLinkRoot = `${window.location.protocol}//${window.location.hostname}`;
+                const isDevBranch = window.location.hostname === 'homepage-development.library.uq.edu.au';
+                adminLinkRoot += isDevBranch ? /* istanbul ignore next */ window.location.pathname + '#/' : '/';
+
                 const masqueradeElement = !!shadowDOM && shadowDOM.getElementById('mylibrary-masquerade');
                 !account.canMasquerade && !!masqueradeElement && masqueradeElement.remove();
+                if (!!account.canMasquerade && !!masqueradeElement) {
+                    const masqueradePageLink = adminLinkRoot + 'admin/masquerade';
+                    const masqueradeLinkElement = masqueradeElement.querySelector('a');
+                    !!masqueradePageLink &&
+                        !!masqueradeLinkElement &&
+                        masqueradeLinkElement.setAttribute('href', masqueradePageLink);
+                }
 
                 const alertsAdminElement = !!shadowDOM && shadowDOM.getElementById('alerts-admin');
                 !this.canSeeAlertsAdmin(account) && !!alertsAdminElement && alertsAdminElement.remove();
+                if (!!this.canSeeAlertsAdmin(account) && !!alertsAdminElement) {
+                    const alertsPageLink = adminLinkRoot + 'admin/alerts';
+                    const alertsLinkElement = alertsAdminElement.querySelector('a');
+                    !!alertsPageLink && !!alertsLinkElement && alertsLinkElement.setAttribute('href', alertsPageLink);
+                }
 
                 const spotlightsAdminElement = !!shadowDOM && shadowDOM.getElementById('spotlights-admin');
                 !this.canSeeSpotlightsAdmin(account) && !!spotlightsAdminElement && spotlightsAdminElement.remove();
+                if (!!this.canSeeSpotlightsAdmin(account) && !!spotlightsAdminElement) {
+                    const spotlightsPageLink = adminLinkRoot + 'admin/spotlights';
+                    const spotlightsLinkElement = spotlightsAdminElement.querySelector('a');
+                    !!spotlightsPageLink &&
+                        !!spotlightsLinkElement &&
+                        spotlightsLinkElement.setAttribute('href', spotlightsPageLink);
+                }
 
                 const testTagAdminElement = !!shadowDOM && shadowDOM.getElementById('testTag-admin');
                 !this.canSeeTestTagAdmin(account) && !!testTagAdminElement && testTagAdminElement.remove();
+                if (!!this.canSeeTestTagAdmin(account) && !!testTagAdminElement) {
+                    const testTagPageLink = adminLinkRoot + 'admin/testntag';
+                    const testTagLinkElement = testTagAdminElement.querySelector('a');
+                    !!testTagPageLink &&
+                        !!testTagLinkElement &&
+                        testTagLinkElement.setAttribute('href', testTagPageLink);
+                }
 
                 const promoPanelElement = !!shadowDOM && shadowDOM.getElementById('promopanel-admin');
                 !this.canSeePromopanelAdmin(account) && !!promoPanelElement && promoPanelElement.remove();
+                if (!!this.canSeePromopanelAdmin(account) && !!promoPanelElement) {
+                    const promoPanelPageLink = adminLinkRoot + 'admin/testntag';
+                    const promoPanelLinkElement = promoPanelElement.querySelector('a');
+                    !!promoPanelPageLink &&
+                        !!promoPanelLinkElement &&
+                        promoPanelLinkElement.setAttribute('href', promoPanelPageLink);
+                }
 
                 this.showHideMylibraryEspaceOption(shadowDOM);
 
@@ -433,6 +472,7 @@ class AuthButton extends HTMLElement {
                 if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
                     that.account = account;
                 }
+                // change masq link here?
                 that.accountLoading = false;
             })
             .catch((error) => {
