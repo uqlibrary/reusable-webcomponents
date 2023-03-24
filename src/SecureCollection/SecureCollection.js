@@ -458,7 +458,7 @@ class SecureCollection extends HTMLElement {
     async checkLoggedInStatus() {
         const that = this;
         return await new ApiAccess()
-            .getAccount()
+            .loadAccountApi()
             .then((account) => {
                 let libraryUser;
                 /* istanbul ignore else */

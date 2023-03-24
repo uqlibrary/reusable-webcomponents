@@ -52,6 +52,7 @@ function assertUserHasSpotlightAdmin(expected) {
 }
 
 function assertUserHasTestTagAdmin(expected) {
+    // only staff who are Licensed Electrical Testers (or are on dev team) should have this
     if (!!expected) {
         cy.get('li[data-testid="testTag-admin"]').should('exist').contains('Test and Tag');
     } else {
@@ -86,7 +87,7 @@ function assertUserSeesNOAdminOptions() {
     assertUserHasMasquerade(false);
     assertUserHasAlertsAdmin(false);
     assertUserHasSpotlightAdmin(false);
-    assertUserHasPromoPanelAdmin(false)
+    assertUserHasPromoPanelAdmin(false);
     assertUserHasTestTagAdmin(false);
     // the admin block has been removed so we dont see the admin border
     cy.get('[data-testid="admin-options"]').should('not.exist');
@@ -174,7 +175,7 @@ describe('Account menu button', () => {
 
             let testValid = false;
             async function checkStorage() {
-                await new ApiAccess().getAccount().then((newAccount) => {
+                await new ApiAccess().loadAccountApi().then((newAccount) => {
                     expect(newAccount).to.be.equal(false);
                     expect(sessionStorage.length).to.be.equal(0);
                     testValid = true;

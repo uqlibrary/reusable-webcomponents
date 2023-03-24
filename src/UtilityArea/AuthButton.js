@@ -138,7 +138,7 @@ authorisedtemplate.innerHTML = `
                                             
                             <!-- Spotlights Admin -->
                             <li data-testid="spotlights-admin" id="spotlights-admin" role="menuitem" aria-disabled="false">
-                                <a tabindex="0" id="mylibrary-menu-spotlights-admin"  data-testid="mylibrary-menu-spotlights-admin" rel="noreferrer">
+                                <a tabindex="0" id="mylibrary-menu-spotlights-admin" data-testid="mylibrary-menu-spotlights-admin" rel="noreferrer">
                                     <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="${ICON_MUI_IMAGE_FILLED}"></path></svg>
                                     <span>Website spotlights</span>
                                 </a>
@@ -146,7 +146,7 @@ authorisedtemplate.innerHTML = `
                                             
                             <!-- Test & Tag -->
                             <li data-testid="testTag-admin" id="testTag-admin" role="menuitem" aria-disabled="false">
-                                <a tabindex="0" id="mylibrary-menu-testTag-admin"  data-testid="mylibrary-menu-testTag-admin" rel="noreferrer">
+                                <a tabindex="0" id="mylibrary-menu-testTag-admin" data-testid="mylibrary-menu-testTag-admin" rel="noreferrer">
                                 <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="${ICON_MUI_BEENHERE_FILLED}"></path></svg>    
                                     <span>Test and Tag</span>
                                 </a>
@@ -154,7 +154,7 @@ authorisedtemplate.innerHTML = `
 
                             <!-- Promo Panel Admin -->
                             <li data-testid="promopanel-admin" id="promopanel-admin" role="menuitem" aria-disabled="false">
-                                <a tabindex="0" id="mylibrary-menu-promopanel-admin"  data-testid="mylibrary-menu-promopanel-admin" rel="noreferrer">
+                                <a tabindex="0" id="mylibrary-menu-promopanel-admin" data-testid="mylibrary-menu-promopanel-admin" rel="noreferrer">
                                 <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="${ICON_MUI_CAMPAIGN_FILLED}"></path></svg>
                                     <span>Promo panels</span>
                                 </a>
@@ -244,6 +244,7 @@ class AuthButton extends HTMLElement {
                     !!masqueradePageLink &&
                         !!masqueradeLinkElement &&
                         masqueradeLinkElement.setAttribute('href', masqueradePageLink);
+                    // add onclick closeAccountOptionsMenu();
                 }
 
                 const alertsAdminElement = !!shadowDOM && shadowDOM.getElementById('alerts-admin');
@@ -472,13 +473,12 @@ class AuthButton extends HTMLElement {
         const that = this;
         const api = new ApiAccess();
         await api
-            .getAccount()
+            .loadAccountApi()
             .then((account) => {
                 /* istanbul ignore else */
                 if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
                     that.account = account;
                 }
-                // change masq link here?
                 that.accountLoading = false;
             })
             .catch((error) => {
@@ -534,7 +534,7 @@ class AuthButton extends HTMLElement {
             const isAuthor = !!author && !!author.data && !!author.data.hasOwnProperty('aut_id');
             !!espaceitem && !isAuthor && espaceitem.remove();
 
-            new ApiAccess().addCurrentAuthorToStoredAccount(author);
+            !!isAuthor && !!author.data && new ApiAccess().addCurrentAuthorToStoredAccount(author.data);
 
             return author;
         });

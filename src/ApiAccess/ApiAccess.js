@@ -11,7 +11,7 @@ class ApiAccess {
         this.STORAGE_ACCOUNT_KEYNAME = locale.STORAGE_ACCOUNT_KEYNAME;
     }
 
-    async getAccount() {
+    async loadAccountApi() {
         if (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined) {
             // no cookie, force them to log in again
             this.removeAccountStorage();

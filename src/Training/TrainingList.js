@@ -220,7 +220,7 @@ class TrainingList extends HTMLElement {
         const that = this;
         const api = new ApiAccess();
         await api
-            .getAccount()
+            .loadAccountApi()
             .then((account) => {
                 /* istanbul ignore else */
                 if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
