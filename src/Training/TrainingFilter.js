@@ -575,10 +575,9 @@ class TrainingFilter extends HTMLElement {
 
     listenForKeyClicks(e) {
         const that = this;
+        const lt = document.querySelector('library-training');
         const trainingFilter =
-            document
-                .querySelector('library-training')
-                .shadowRoot.querySelector('training-filter') /* istanbul ignore next */ ||
+            (!!lt && lt.shadowRoot.querySelector('training-filter')) /* istanbul ignore next */ ||
             document.querySelector('training-filter');
         /* istanbul ignore else */
         if (isEscapeKeyPressed(e)) {

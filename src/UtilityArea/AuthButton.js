@@ -244,7 +244,6 @@ class AuthButton extends HTMLElement {
                     !!masqueradePageLink &&
                         !!masqueradeLinkElement &&
                         masqueradeLinkElement.setAttribute('href', masqueradePageLink);
-                    // add onclick closeAccountOptionsMenu();
                 }
 
                 const alertsAdminElement = !!shadowDOM && shadowDOM.getElementById('alerts-admin');
@@ -374,9 +373,9 @@ class AuthButton extends HTMLElement {
         function closeAccountOptionsMenu() {
             accountOptionsClosed = true;
             const shadowMenu = shadowDOM.getElementById('account-options-menu');
-            shadowMenu.classList.add('account-options-menu-closed');
+            !!shadowMenu && shadowMenu.classList.add('account-options-menu-closed');
             const shadowPane = shadowDOM.getElementById('account-options-pane');
-            shadowPane.classList.add('account-options-pane-closed');
+            !!shadowPane && shadowPane.classList.add('account-options-pane-closed');
 
             function hideAccountOptionsDisplay() {
                 !!shadowMenu && (shadowMenu.style.display = 'none');
