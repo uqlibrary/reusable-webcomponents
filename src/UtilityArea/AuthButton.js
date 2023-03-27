@@ -10,6 +10,15 @@ import { isBackTabKeyPressed, isEscapeKeyPressed, isTabKeyPressed } from '../hel
  *
  */
 
+// ===============================
+// ===============================
+//
+// IF YOU ARE MASQUERADING YOU WILL SEE ***YOUR*** ADMIN MENU OPTIONS, NOT THOSE OF ThE MASQUERADED USER
+// This is because your AD groups are not wiped by the masquerade - we have tried, see repo auth
+//
+// ===============================
+// ===============================
+
 // MUI icons from https://mui.com/material-ui/material-icons/ (masquerade icon predates system)
 const ICON_TWO_PEOPLE =
     'M16.5 12c1.38 0 2.49-1.12 2.49-2.5S17.88 7 16.5 7C15.12 7 14 8.12 14 9.5s1.12 2.5 2.5 2.5zM9 11c1.66 0 2.99-1.34 2.99-3S10.66 5 9 5C7.34 5 6 6.34 6 8s1.34 3 3 3zm7.5 3c-1.83 0-5.5.92-5.5 2.75V19h11v-2.25c0-1.83-3.67-2.75-5.5-2.75zM9 13c-2.33 0-7 1.17-7 3.5V19h7v-2.25c0-.85.33-2.34 2.37-3.47C10.5 13.1 9.66 13 9 13z';
@@ -117,50 +126,6 @@ authorisedtemplate.innerHTML = `
                     </ul>
                     <div id="admin-options" class="admin-options" data-testid="admin-options">
                         <ul class="mylibrary-menu-list" id="mylibrary-menu-list" role="menu">
-                                                       
-                            <!-- Masquerade -->
-                            <li data-testid="mylibrary-masquerade" id="mylibrary-masquerade" role="menuitem" aria-disabled="false">
-                                <a tabindex="0" id="mylibrary-menu-masquerade" data-testid="mylibrary-menu-masquerade" href="https://www.library.uq.edu.au/admin/masquerade" rel="noreferrer">
-                                    <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;">
-                                        <path d="${ICON_TWO_PEOPLE}"></path>
-                                    </svg>
-                                    <span>Masquerade</span>
-                                </a>
-                            </li>
-                             
-                            <!-- Alerts Admin -->
-                            <li data-testid="alerts-admin" id="alerts-admin" role="menuitem" aria-disabled="false">
-                                <a tabindex="0" id="mylibrary-menu-alerts-admin" data-testid="mylibrary-menu-alerts-admin" href="https://www.library.uq.edu.au/admin/alerts" rel="noreferrer">
-                                    <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="${ICON_MUI_INFO_OUTLINED}"></path></svg>
-                                    <span>Website alerts</span>
-                                </a>
-                            </li>
-                                            
-                            <!-- Spotlights Admin -->
-                            <li data-testid="spotlights-admin" id="spotlights-admin" role="menuitem" aria-disabled="false">
-                                <a tabindex="0" id="mylibrary-menu-spotlights-admin"  data-testid="mylibrary-menu-spotlights-admin" href="https://www.library.uq.edu.au/admin/spotlights" rel="noreferrer">
-                                    <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="${ICON_MUI_IMAGE_FILLED}"></path></svg>
-                                    <span>Website spotlights</span>
-                                </a>
-                            </li>
-                                            
-                            <!-- Test & Tag -->
-                            <li data-testid="testTag-admin" id="testTag-admin" role="menuitem" aria-disabled="false">
-                                <a tabindex="0" id="mylibrary-menu-testTag-admin"  data-testid="mylibrary-menu-testTag-admin" href="https://www.library.uq.edu.au/admin/testntag" rel="noreferrer">
-                                <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="${ICON_MUI_BEENHERE_FILLED}"></path></svg>    
-                                    <span>Test and Tag</span>
-                                </a>
-                            </li>
-
-                            <!-- Promo Panel Admin -->
-                            <li data-testid="promopanel-admin" id="promopanel-admin" role="menuitem" aria-disabled="false">
-                                <a tabindex="0" id="mylibrary-menu-promopanel-admin"  data-testid="mylibrary-menu-promopanel-admin" href="https://www.library.uq.edu.au/admin/promopanel" rel="noreferrer">
-                                
-                                <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="${ICON_MUI_CAMPAIGN_FILLED}"></path></svg>
-                                    <span>Promo panels</span>
-                                </a>
-                            </li>
-            
                         </ul>
                     </div>
                 </div>
@@ -221,23 +186,70 @@ class AuthButton extends HTMLElement {
             this.addLoginButtonListener(shadowDOM);
             that.addLogoutButtonListeners(shadowDOM, account);
 
+            function addAdminMenuOption(elementId, linkId, link, iconPath, path) {
+                const menuList = shadowDOM.getElementById('mylibrary-menu-list');
+                const template = document.createElement('template');
+                template.innerHTML = `
+                <li data-testid="${elementId}" id="${elementId}" role="menuitem" aria-disabled="false">
+                    <a tabIndex="0" id="${linkId}" data-testid="${linkId}"
+                       href="${link}" rel="noreferrer">
+                        <svg className="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24"
+                             aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;">
+                            <path d="${iconPath}"></path>
+                        </svg>
+                        <span>${path}</span>
+                    </a>
+                </li>`;
+                menuList.appendChild(template.content.cloneNode(true));
+            }
+
             if (!!isAuthorised) {
                 this.displayUserNameAsButtonLabel(shadowDOM, account);
 
-                const masqueradeElement = !!shadowDOM && shadowDOM.getElementById('mylibrary-masquerade');
-                !account.canMasquerade && !!masqueradeElement && masqueradeElement.remove();
+                !!account.canMasquerade &&
+                    addAdminMenuOption(
+                        'mylibrary-masquerade',
+                        'mylibrary-menu-masquerade',
+                        'https://www.library.uq.edu.au/admin/masquerade',
+                        ICON_TWO_PEOPLE,
+                        'Masquerade',
+                    );
 
-                const alertsAdminElement = !!shadowDOM && shadowDOM.getElementById('alerts-admin');
-                !this.canSeeAlertsAdmin(account) && !!alertsAdminElement && alertsAdminElement.remove();
+                !!this.canSeeAlertsAdmin(account) &&
+                    addAdminMenuOption(
+                        'alerts-admin',
+                        'mylibrary-menu-alerts-admin',
+                        'https://www.library.uq.edu.au/admin/alerts',
+                        ICON_MUI_INFO_OUTLINED,
+                        'Website alerts',
+                    );
 
-                const spotlightsAdminElement = !!shadowDOM && shadowDOM.getElementById('spotlights-admin');
-                !this.canSeeSpotlightsAdmin(account) && !!spotlightsAdminElement && spotlightsAdminElement.remove();
+                !!this.canSeeSpotlightsAdmin(account) &&
+                    addAdminMenuOption(
+                        'spotlights-admin',
+                        'mylibrary-menu-spotlights-admin',
+                        'https://www.library.uq.edu.au/admin/spotlights',
+                        ICON_MUI_IMAGE_FILLED,
+                        'Website spotlights',
+                    );
 
-                const testTagAdminElement = !!shadowDOM && shadowDOM.getElementById('testTag-admin');
-                !this.canSeeTestTagAdmin(account) && !!testTagAdminElement && testTagAdminElement.remove();
+                !!this.canSeeTestTagAdmin(account) &&
+                    addAdminMenuOption(
+                        'testTag-admin',
+                        'mylibrary-menu-testTag-admin',
+                        'https://www.library.uq.edu.au/admin/testntag',
+                        ICON_MUI_BEENHERE_FILLED,
+                        'Test and Tag',
+                    );
 
-                const promoPanelElement = !!shadowDOM && shadowDOM.getElementById('promopanel-admin');
-                !this.canSeePromopanelAdmin(account) && !!promoPanelElement && promoPanelElement.remove();
+                !!this.canSeePromopanelAdmin(account) &&
+                    addAdminMenuOption(
+                        'promopanel-admin',
+                        'mylibrary-menu-promopanel-admin',
+                        'https://www.library.uq.edu.au/admin/promopanel',
+                        ICON_MUI_CAMPAIGN_FILLED,
+                        'Promo panels',
+                    );
 
                 this.showHideMylibraryEspaceOption(shadowDOM);
 
@@ -373,37 +385,41 @@ class AuthButton extends HTMLElement {
 
         // these ifs must match the reverse order of display
         if (this.canSeePromopanelAdmin(account)) {
-            !!shadowDOM &&
-                shadowDOM.getElementById('mylibrary-menu-promopanel-admin').addEventListener('keydown', function (e) {
+            const promopanelOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-promopanel-admin');
+            !!promopanelOption &&
+                promopanelOption.addEventListener('keydown', function (e) {
                     if (isTabKeyPressed(e)) {
                         closeAccountOptionsMenu();
                     }
                 });
-        }
-        if (this.canSeeTestTagAdmin(account)) {
-            !!shadowDOM &&
-                shadowDOM.getElementById('mylibrary-menu-testTag-admin').addEventListener('keydown', function (e) {
+        } else if (this.canSeeTestTagAdmin(account)) {
+            const testntagOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-testTag-admin');
+            !!testntagOption &&
+                testntagOption.addEventListener('keydown', function (e) {
                     if (isTabKeyPressed(e)) {
                         closeAccountOptionsMenu();
                     }
                 });
         } else if (this.canSeeSpotlightsAdmin(account)) {
-            !!shadowDOM &&
-                shadowDOM.getElementById('mylibrary-menu-spotlights-admin').addEventListener('keydown', function (e) {
+            const spotlightsOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-spotlights-admin');
+            !!spotlightsOption &&
+                spotlightsOption.addEventListener('keydown', function (e) {
                     if (isTabKeyPressed(e)) {
                         closeAccountOptionsMenu();
                     }
                 });
         } else if (this.canSeeAlertsAdmin(account)) {
-            !!shadowDOM &&
-                shadowDOM.getElementById('mylibrary-menu-alerts-admin').addEventListener('keydown', function (e) {
+            const alertsOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-alerts-admin');
+            !!alertsOption &&
+                alertsOption.addEventListener('keydown', function (e) {
                     if (isTabKeyPressed(e)) {
                         closeAccountOptionsMenu();
                     }
                 });
         } else if (!!account?.canMasquerade) {
-            !!shadowDOM &&
-                shadowDOM.getElementById('mylibrary-menu-masquerade').addEventListener('keydown', function (e) {
+            const masquradeOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-masquerade');
+            !!masquradeOption &&
+                masquradeOption.addEventListener('keydown', function (e) {
                     if (isTabKeyPressed(e)) {
                         closeAccountOptionsMenu();
                     }
