@@ -32,9 +32,14 @@ function assertUserHasStandardMyLibraryOptions(userid = 'uqstaff') {
     cy.get('ul[data-testid="mylibrary-menu-list-public"]').should('exist').children().its('length').should('be.gte', 6);
 }
 
-function assertUserHasMasquerade(expected) {
+function assertUserHasMasquerade(expected, userid = 'uqstaff') {
     if (!!expected) {
         cy.get('li[data-testid="mylibrary-masquerade"]').should('exist').contains('Masquerade');
+        cy.get('li a[data-testid="mylibrary-menu-masquerade"]').should(
+            'have.attr',
+            'href',
+            `http://localhost:2020/admin/masquerade?user=${userid}`,
+        );
     } else {
         cy.get('li[data-testid="mylibrary-masquerade"]').should('not.exist');
     }
@@ -323,7 +328,7 @@ describe('Account menu button', () => {
                 .shadow()
                 .within(() => {
                     assertUserHasStandardMyLibraryOptions('uqmasquerade');
-                    assertUserHasMasquerade(true);
+                    assertUserHasMasquerade(true, 'uqmasquerade');
                     assertUserHasAlertsAdmin(false);
                     assertUserHasSpotlightAdmin(false);
                     assertUserHasPromoPanelAdmin(false);
@@ -354,7 +359,7 @@ describe('Account menu button', () => {
                 .within(() => {
                     assertUserHasStandardMyLibraryOptions('digiteamMember');
                     assertUserHasEspaceDashboard(true);
-                    assertUserHasMasquerade(true);
+                    assertUserHasMasquerade(true, 'digiteamMember');
                     assertUserHasAlertsAdmin(false);
                     assertUserHasSpotlightAdmin(false);
                     assertUserHasPromoPanelAdmin(false);
