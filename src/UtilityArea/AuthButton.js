@@ -201,8 +201,6 @@ class AuthButton extends HTMLElement {
 
             // Render the template
             shadowDOM.appendChild(template.content.cloneNode(true));
-            this.addLoginButtonListener(shadowDOM);
-            that.addLogoutButtonListeners(shadowDOM, account);
 
             if (!!isAuthorised) {
                 this.displayUserNameAsButtonLabel(shadowDOM, account);
@@ -219,6 +217,12 @@ class AuthButton extends HTMLElement {
                     linkRoot = `${window.location.protocol}//${window.location.hostname}:${homepagePort}/`;
                     linkAppend = !!window.location.search ? window.location.search : ''; // get the user id
                 }
+
+                const learningResourcePageLink = `${linkRoot}learning-resources${linkAppend}`;
+                const learningResourceLinkElement = shadowDOM.querySelector('mylibrary-menu-course-resources');
+                !!learningResourcePageLink &&
+                    !!learningResourceLinkElement &&
+                    learningResourceLinkElement.setAttribute('href', learningResourcePageLink);
 
                 !!account.canMasquerade &&
                     addAdminMenuOption(
@@ -279,6 +283,9 @@ class AuthButton extends HTMLElement {
                 const textNode = document.createTextNode(this.getUserDisplayName(account));
                 !!userNameArea && !!textNode && userNameArea.appendChild(textNode);
             }
+
+            this.addLoginButtonListener(shadowDOM);
+            this.addLogoutButtonListeners(shadowDOM, account);
         });
     }
 
