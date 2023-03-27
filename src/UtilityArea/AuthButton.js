@@ -219,7 +219,7 @@ class AuthButton extends HTMLElement {
                 }
 
                 const learningResourcePageLink = `${linkRoot}learning-resources${linkAppend}`;
-                const learningResourceLinkElement = shadowDOM.querySelector('mylibrary-menu-course-resources');
+                const learningResourceLinkElement = shadowDOM.getElementById('mylibrary-menu-course-resources');
                 !!learningResourcePageLink &&
                     !!learningResourceLinkElement &&
                     learningResourceLinkElement.setAttribute('href', learningResourcePageLink);

@@ -17,9 +17,14 @@ function openAccountDropdown() {
     cy.wait(500);
 }
 
-function assertUserHasStandardMyLibraryOptions() {
+function assertUserHasStandardMyLibraryOptions(userid = 'uqstaff') {
     cy.get('li a[data-testid="mylibrary-menu-borrowing"]').should('exist').contains('Library account');
     cy.get('li a[data-testid="mylibrary-menu-course-resources"]').should('exist').contains('Learning resources');
+    cy.get('li a[data-testid="mylibrary-menu-course-resources"]').should(
+        'have.attr',
+        'href',
+        `http://localhost:2020/learning-resources?user=${userid}`,
+    );
     cy.get('li a[data-testid="mylibrary-menu-print-balance"]').should('exist').contains('Print balance');
     cy.get('li a[data-testid="mylibrary-menu-room-bookings"]').should('exist').contains('Book a room or desk');
     cy.get('li a[data-testid="mylibrary-menu-saved-items"]').should('exist').contains('Favourites');
@@ -38,6 +43,11 @@ function assertUserHasMasquerade(expected) {
 function assertUserHasAlertsAdmin(expected) {
     if (!!expected) {
         cy.get('li[data-testid="alerts-admin"]').should('exist').contains('Website alerts');
+        cy.get('[data-testid="mylibrary-menu-alerts-admin"]').should(
+            'have.attr',
+            'href',
+            'http://localhost:2020/admin/alerts?user=uqstaff',
+        );
     } else {
         cy.get('li[data-testid="alerts-admin"]').should('not.exist');
     }
@@ -46,6 +56,11 @@ function assertUserHasAlertsAdmin(expected) {
 function assertUserHasSpotlightAdmin(expected) {
     if (!!expected) {
         cy.get('li[data-testid="spotlights-admin"]').should('exist').contains('Website spotlights');
+        cy.get('[data-testid="mylibrary-menu-spotlights-admin"]').should(
+            'have.attr',
+            'href',
+            'http://localhost:2020/admin/spotlights?user=uqstaff',
+        );
     } else {
         cy.get('li[data-testid="spotlights-admin"]').should('not.exist');
     }
@@ -55,6 +70,11 @@ function assertUserHasTestTagAdmin(expected) {
     // only staff who are Licensed Electrical Testers (or are on dev team) should have this
     if (!!expected) {
         cy.get('li[data-testid="testTag-admin"]').should('exist').contains('Test and Tag');
+        cy.get('[data-testid="mylibrary-menu-testTag-admin"]').should(
+            'have.attr',
+            'href',
+            'http://localhost:2020/admin/testntag?user=uqtesttag',
+        );
     } else {
         cy.get('li[data-testid="testTag-admin"]').should('not.exist');
     }
@@ -63,6 +83,11 @@ function assertUserHasTestTagAdmin(expected) {
 function assertUserHasPromoPanelAdmin(expected) {
     if (!!expected) {
         cy.get('li[data-testid="promopanel-admin"]').should('exist').contains('Promo panels');
+        cy.get('[data-testid="mylibrary-menu-promopanel-admin"]').should(
+            'have.attr',
+            'href',
+            'http://localhost:2020/admin/promopanel?user=uqstaff',
+        );
     } else {
         cy.get('li[data-testid="promopanel-admin"]').should('not.exist');
     }
@@ -285,7 +310,7 @@ describe('Account menu button', () => {
             cy.get('auth-button')
                 .shadow()
                 .within(() => {
-                    assertUserHasStandardMyLibraryOptions();
+                    assertUserHasStandardMyLibraryOptions('uqtesttag');
                     assertUserHasTestTagAdmin(true);
                 });
         });
@@ -297,7 +322,7 @@ describe('Account menu button', () => {
             cy.get('auth-button')
                 .shadow()
                 .within(() => {
-                    assertUserHasStandardMyLibraryOptions();
+                    assertUserHasStandardMyLibraryOptions('uqmasquerade');
                     assertUserHasMasquerade(true);
                     assertUserHasAlertsAdmin(false);
                     assertUserHasSpotlightAdmin(false);
@@ -314,7 +339,7 @@ describe('Account menu button', () => {
             cy.get('auth-button')
                 .shadow()
                 .within(() => {
-                    assertUserHasStandardMyLibraryOptions();
+                    assertUserHasStandardMyLibraryOptions('s1111111');
                     assertUserHasEspaceDashboard(true);
                     assertUserSeesNOAdminOptions();
                 });
@@ -327,7 +352,7 @@ describe('Account menu button', () => {
             cy.get('auth-button')
                 .shadow()
                 .within(() => {
-                    assertUserHasStandardMyLibraryOptions();
+                    assertUserHasStandardMyLibraryOptions('digiteamMember');
                     assertUserHasEspaceDashboard(true);
                     assertUserHasMasquerade(true);
                     assertUserHasAlertsAdmin(false);
@@ -344,7 +369,7 @@ describe('Account menu button', () => {
             cy.get('auth-button')
                 .shadow()
                 .within(() => {
-                    assertUserHasStandardMyLibraryOptions();
+                    assertUserHasStandardMyLibraryOptions('s3333333');
                     assertUserSeesNOAdminOptions();
                     assertUserHasEspaceDashboard(false);
                 });
