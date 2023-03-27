@@ -212,10 +212,12 @@ class AuthButton extends HTMLElement {
                 let linkAppend = '';
                 if (window.location.hostname === 'homepage-development.library.uq.edu.au') {
                     linkRoot = `${window.location.protocol}//${window.location.hostname}${window.location.pathname}#/`;
+                } else if (window.location.hostname === 'assets.library.uq.edu.au') {
+                    linkRoot = `${window.location.protocol}//www.library.uq.edu.au/`;
                 } else if (window.location.hostname === 'localhost') {
                     const homepagePort = '2020';
                     linkRoot = `${window.location.protocol}//${window.location.hostname}:${homepagePort}/`;
-                    linkAppend = !!window.location.search ? window.location.search : ''; //get the user id
+                    linkAppend = !!window.location.search ? window.location.search : ''; // get the user id
                 }
 
                 !!account.canMasquerade &&
