@@ -82,7 +82,7 @@ authorisedtemplate.innerHTML = `
 
                         <!-- Learning resources -->
                         <li role="menuitem" aria-disabled="false">
-                            <a tabindex="0" data-testid="mylibrary-menu-course-resources" href="https://www.library.uq.edu.au/learning-resources" rel="noreferrer">
+                            <a tabindex="0" id="mylibrary-menu-course-resources" data-testid="mylibrary-menu-course-resources" href="https://www.library.uq.edu.au/learning-resources" rel="noreferrer">
                                 <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"></path></svg>
                                 <span>Learning resources</span>
                                 <div class="subtext">Course readings & exam papers</div>
@@ -397,7 +397,16 @@ class AuthButton extends HTMLElement {
             });
         }
 
-        // these ifs must match the reverse order of display
+        function closeAccountMenuOnLinkClick(elementId) {
+            const link = !!shadowDOM && shadowDOM.getElementById(elementId);
+            !!link &&
+                link.addEventListener('click', function () {
+                    closeAccountOptionsMenu();
+                });
+        }
+
+        // on whatever is the last link in the list for this user, tabbing out closes the popup account menu
+        // (these ifs must match the reverse order of display)
         if (this.canSeePromopanelAdmin(account)) {
             const promopanelOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-promopanel-admin');
             !!promopanelOption &&
@@ -447,6 +456,14 @@ class AuthButton extends HTMLElement {
                     }
                 });
         }
+
+        // when the user clicks a homepage link the account menu closes
+        closeAccountMenuOnLinkClick('mylibrary-menu-masquerade');
+        closeAccountMenuOnLinkClick('mylibrary-menu-alerts-admin');
+        closeAccountMenuOnLinkClick('mylibrary-menu-spotlights-admin');
+        closeAccountMenuOnLinkClick('mylibrary-menu-testTag-admin');
+        closeAccountMenuOnLinkClick('mylibrary-menu-promopanel-admin');
+        closeAccountMenuOnLinkClick('mylibrary-menu-course-resources');
     }
 
     async checkAuthorisedUser(shadowDOM) {
