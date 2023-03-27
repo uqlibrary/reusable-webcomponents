@@ -177,19 +177,11 @@ class AuthButton extends HTMLElement {
 
     async showLoginFromAuthStatus(shadowDOM) {
         const that = this;
-        this.checkAuthorisedUser(shadowDOM).then((account) => {
-            const isAuthorised = !!account.id;
-            const template = !!isAuthorised ? authorisedtemplate : unauthorisedtemplate;
 
-            // Render the template
-            shadowDOM.appendChild(template.content.cloneNode(true));
-            this.addLoginButtonListener(shadowDOM);
-            that.addLogoutButtonListeners(shadowDOM, account);
-
-            function addAdminMenuOption(elementId, linkId, link, iconPath, path) {
-                const menuList = shadowDOM.getElementById('mylibrary-menu-list');
-                const template = document.createElement('template');
-                template.innerHTML = `
+        function addAdminMenuOption(elementId, linkId, link, iconPath, path) {
+            const menuList = shadowDOM.getElementById('mylibrary-menu-list');
+            const template = document.createElement('template');
+            template.innerHTML = `
                 <li data-testid="${elementId}" id="${elementId}" role="menuitem" aria-disabled="false">
                     <a tabIndex="0" id="${linkId}" data-testid="${linkId}"
                        href="${link}" rel="noreferrer">
@@ -200,17 +192,37 @@ class AuthButton extends HTMLElement {
                         <span>${path}</span>
                     </a>
                 </li>`;
-                menuList.appendChild(template.content.cloneNode(true));
-            }
+            menuList.appendChild(template.content.cloneNode(true));
+        }
+
+        this.checkAuthorisedUser(shadowDOM).then((account) => {
+            const isAuthorised = !!account.id;
+            const template = !!isAuthorised ? authorisedtemplate : unauthorisedtemplate;
+
+            // Render the template
+            shadowDOM.appendChild(template.content.cloneNode(true));
+            this.addLoginButtonListener(shadowDOM);
+            that.addLogoutButtonListeners(shadowDOM, account);
 
             if (!!isAuthorised) {
                 this.displayUserNameAsButtonLabel(shadowDOM, account);
+
+                // when in dev branch or localhost, reset the links in the account menu
+                let linkRoot = `${window.location.protocol}//${window.location.hostname}/`;
+                let linkAppend = '';
+                if (window.location.hostname === 'homepage-development.library.uq.edu.au') {
+                    linkRoot = `${window.location.protocol}//${window.location.hostname}${window.location.pathname}#/`;
+                } else if (window.location.hostname === 'localhost') {
+                    const homepagePort = '2020';
+                    linkRoot = `${window.location.protocol}//${window.location.hostname}:${homepagePort}/`;
+                    linkAppend = !!window.location.search ? window.location.search : ''; //get the user id
+                }
 
                 !!account.canMasquerade &&
                     addAdminMenuOption(
                         'mylibrary-masquerade',
                         'mylibrary-menu-masquerade',
-                        'https://www.library.uq.edu.au/admin/masquerade',
+                        `${linkRoot}admin/masquerade${linkAppend}`,
                         ICON_TWO_PEOPLE,
                         'Masquerade',
                     );
@@ -219,7 +231,7 @@ class AuthButton extends HTMLElement {
                     addAdminMenuOption(
                         'alerts-admin',
                         'mylibrary-menu-alerts-admin',
-                        'https://www.library.uq.edu.au/admin/alerts',
+                        `${linkRoot}admin/alerts${linkAppend}`,
                         ICON_MUI_INFO_OUTLINED,
                         'Website alerts',
                     );
@@ -228,7 +240,7 @@ class AuthButton extends HTMLElement {
                     addAdminMenuOption(
                         'spotlights-admin',
                         'mylibrary-menu-spotlights-admin',
-                        'https://www.library.uq.edu.au/admin/spotlights',
+                        `${linkRoot}admin/spotlights${linkAppend}`,
                         ICON_MUI_IMAGE_FILLED,
                         'Website spotlights',
                     );
@@ -237,7 +249,7 @@ class AuthButton extends HTMLElement {
                     addAdminMenuOption(
                         'testTag-admin',
                         'mylibrary-menu-testTag-admin',
-                        'https://www.library.uq.edu.au/admin/testntag',
+                        `${linkRoot}admin/testntag${linkAppend}`,
                         ICON_MUI_BEENHERE_FILLED,
                         'Test and Tag',
                     );
@@ -246,7 +258,7 @@ class AuthButton extends HTMLElement {
                     addAdminMenuOption(
                         'promopanel-admin',
                         'mylibrary-menu-promopanel-admin',
-                        'https://www.library.uq.edu.au/admin/promopanel',
+                        `${linkRoot}admin/promopanel${linkAppend}`,
                         ICON_MUI_CAMPAIGN_FILLED,
                         'Promo panels',
                     );
