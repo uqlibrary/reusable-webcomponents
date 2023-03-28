@@ -331,6 +331,7 @@ class ApiAccess {
         if ('BroadcastChannel' in window) {
             const bc = new BroadcastChannel('account_availability');
             bc.postMessage('account_updated');
+            console.log('reusable: BroadcastChannel account_updated');
         }
     }
 
@@ -392,6 +393,7 @@ class ApiAccess {
             // let the calling page know account has been removed
             const bc = new BroadcastChannel('account_availability');
             bc.postMessage('account_removed');
+            console.log('reusable: BroadcastChannel account_removed');
         }
     }
 

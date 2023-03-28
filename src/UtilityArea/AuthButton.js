@@ -346,7 +346,9 @@ class AuthButton extends HTMLElement {
                 homepagelink = `${window.location.protocol}//${window.location.hostname}:${homepagePort}/${linkAppend}`;
             }
             console.log('homepagelink=', homepagelink);
-            const returnUrl = window.location.href.includes('/admin/') ? homepagelink : window.location.href;
+            let isPageRestrictedAccess =
+                window.location.href.includes('/admin/') || window.location.href.endsWith('learning-resources');
+            const returnUrl = isPageRestrictedAccess ? homepagelink : window.location.href;
             const urldebug = `${authLocale.AUTH_URL_LOGOUT}${window.btoa(returnUrl)}`;
             console.log('urldebug', urldebug);
             console.log('debug sessionStorage', sessionStorage);
