@@ -332,10 +332,25 @@ class AuthButton extends HTMLElement {
         let accountOptionsClosed = true;
 
         function visitLogOutPage() {
+            console.log('debug sessionStorage before', sessionStorage);
             new ApiAccess().removeAccountStorage();
 
-            const returnUrl = window.location.href;
-            window.location.assign(`${authLocale.AUTH_URL_LOGOUT}${window.btoa(returnUrl)}`);
+            let homepagelink = 'http://www.library.uq.edu.au';
+            /* istanbul ignore next */
+            if (window.location.hostname === 'homepage-development.library.uq.edu.au') {
+                homepagelink = `${window.location.protocol}//${window.location.hostname}${window.location.pathname}#/`;
+            } else if (window.location.hostname === 'localhost') {
+                const homepagePort = '2020';
+                // const linkAppend = !!window.location.search ? window.location.search : ''; // get the user id
+                const linkAppend = '?user=public';
+                homepagelink = `${window.location.protocol}//${window.location.hostname}:${homepagePort}/${linkAppend}`;
+            }
+            console.log('homepagelink=', homepagelink);
+            const returnUrl = window.location.href.includes('/admin/') ? homepagelink : window.location.href;
+            const urldebug = `${authLocale.AUTH_URL_LOGOUT}${window.btoa(returnUrl)}`;
+            console.log('urldebug', urldebug);
+            console.log('debug sessionStorage', sessionStorage);
+            window.location.assign(urldebug);
         }
 
         function openAccountOptionsMenu() {
