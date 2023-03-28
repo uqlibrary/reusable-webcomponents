@@ -328,14 +328,15 @@ class AuthButton extends HTMLElement {
     }
 
     addLogoutButtonListeners(shadowDOM, account = null) {
+        const that = this;
+        let accountOptionsClosed = true;
+
         function visitLogOutPage() {
             new ApiAccess().removeAccountStorage();
 
             const returnUrl = window.location.href;
             window.location.assign(`${authLocale.AUTH_URL_LOGOUT}${window.btoa(returnUrl)}`);
         }
-
-        let accountOptionsClosed = true;
 
         function openAccountOptionsMenu() {
             accountOptionsClosed = false;
@@ -390,6 +391,69 @@ class AuthButton extends HTMLElement {
             closeAccountOptionsMenu();
         }
 
+        // when the user clicks a link that is supplied by the homepage repo, manually close the account menu
+        function closeAccountMenuOnLinkClick(elementId) {
+            const link = !!shadowDOM && shadowDOM.getElementById(elementId);
+            !!link &&
+                link.addEventListener('click', function () {
+                    closeAccountOptionsMenu();
+                });
+        }
+
+        // on whatever is the bottom-most link in the account menu for this user, tabbing out closes the popup account menu
+        function closeMenuWhenBottomMostLinkClicked() {
+            // the order of these ifs must match the reverse order they are displayed in
+            if (that.canSeePromopanelAdmin(account)) {
+                const promopanelOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-promopanel-admin');
+                !!promopanelOption &&
+                    promopanelOption.addEventListener('keydown', function (e) {
+                        if (isTabKeyPressed(e)) {
+                            closeAccountOptionsMenu();
+                        }
+                    });
+            } else if (that.canSeeTestTagAdmin(account)) {
+                const testntagOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-testTag-admin');
+                !!testntagOption &&
+                    testntagOption.addEventListener('keydown', function (e) {
+                        if (isTabKeyPressed(e)) {
+                            closeAccountOptionsMenu();
+                        }
+                    });
+            } else if (that.canSeeSpotlightsAdmin(account)) {
+                const spotlightsOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-spotlights-admin');
+                !!spotlightsOption &&
+                    spotlightsOption.addEventListener('keydown', function (e) {
+                        if (isTabKeyPressed(e)) {
+                            closeAccountOptionsMenu();
+                        }
+                    });
+            } else if (that.canSeeAlertsAdmin(account)) {
+                const alertsOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-alerts-admin');
+                !!alertsOption &&
+                    alertsOption.addEventListener('keydown', function (e) {
+                        if (isTabKeyPressed(e)) {
+                            closeAccountOptionsMenu();
+                        }
+                    });
+            } else if (!!account?.canMasquerade) {
+                const masquradeOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-masquerade');
+                !!masquradeOption &&
+                    masquradeOption.addEventListener('keydown', function (e) {
+                        if (isTabKeyPressed(e)) {
+                            closeAccountOptionsMenu();
+                        }
+                    });
+            } else {
+                const feedbackButton = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-feedback');
+                !!feedbackButton &&
+                    feedbackButton.addEventListener('keydown', function (e) {
+                        if (isTabKeyPressed(e)) {
+                            closeAccountOptionsMenu();
+                        }
+                    });
+            }
+        }
+
         // Attach a listener to the options button
         const accountOptionsButton = !!shadowDOM && shadowDOM.getElementById('account-option-button');
         !!accountOptionsButton && accountOptionsButton.addEventListener('click', handleAccountOptionsButton);
@@ -404,67 +468,8 @@ class AuthButton extends HTMLElement {
             });
         }
 
-        function closeAccountMenuOnLinkClick(elementId) {
-            const link = !!shadowDOM && shadowDOM.getElementById(elementId);
-            !!link &&
-                link.addEventListener('click', function () {
-                    closeAccountOptionsMenu();
-                });
-        }
+        closeMenuWhenBottomMostLinkClicked();
 
-        // on whatever is the last link in the list for this user, tabbing out closes the popup account menu
-        // (these ifs must match the reverse order of display)
-        if (this.canSeePromopanelAdmin(account)) {
-            const promopanelOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-promopanel-admin');
-            !!promopanelOption &&
-                promopanelOption.addEventListener('keydown', function (e) {
-                    if (isTabKeyPressed(e)) {
-                        closeAccountOptionsMenu();
-                    }
-                });
-        } else if (this.canSeeTestTagAdmin(account)) {
-            const testntagOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-testTag-admin');
-            !!testntagOption &&
-                testntagOption.addEventListener('keydown', function (e) {
-                    if (isTabKeyPressed(e)) {
-                        closeAccountOptionsMenu();
-                    }
-                });
-        } else if (this.canSeeSpotlightsAdmin(account)) {
-            const spotlightsOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-spotlights-admin');
-            !!spotlightsOption &&
-                spotlightsOption.addEventListener('keydown', function (e) {
-                    if (isTabKeyPressed(e)) {
-                        closeAccountOptionsMenu();
-                    }
-                });
-        } else if (this.canSeeAlertsAdmin(account)) {
-            const alertsOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-alerts-admin');
-            !!alertsOption &&
-                alertsOption.addEventListener('keydown', function (e) {
-                    if (isTabKeyPressed(e)) {
-                        closeAccountOptionsMenu();
-                    }
-                });
-        } else if (!!account?.canMasquerade) {
-            const masquradeOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-masquerade');
-            !!masquradeOption &&
-                masquradeOption.addEventListener('keydown', function (e) {
-                    if (isTabKeyPressed(e)) {
-                        closeAccountOptionsMenu();
-                    }
-                });
-        } else {
-            const feedbackButton = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-feedback');
-            !!feedbackButton &&
-                feedbackButton.addEventListener('keydown', function (e) {
-                    if (isTabKeyPressed(e)) {
-                        closeAccountOptionsMenu();
-                    }
-                });
-        }
-
-        // when the user clicks a homepage link the account menu closes
         closeAccountMenuOnLinkClick('mylibrary-menu-masquerade');
         closeAccountMenuOnLinkClick('mylibrary-menu-alerts-admin');
         closeAccountMenuOnLinkClick('mylibrary-menu-spotlights-admin');
