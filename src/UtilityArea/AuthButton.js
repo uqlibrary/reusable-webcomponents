@@ -185,7 +185,7 @@ class AuthButton extends HTMLElement {
                 <li data-testid="${elementId}" id="${elementId}" role="menuitem" aria-disabled="false">
                     <a tabIndex="0" id="${linkId}" data-testid="${linkId}"
                        href="${link}" rel="noreferrer">
-                        <svg className="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24"
+                        <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24"
                              aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;">
                             <path d="${iconPath}"></path>
                         </svg>
