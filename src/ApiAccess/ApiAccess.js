@@ -12,6 +12,7 @@ class ApiAccess {
     }
 
     async loadAccountApi() {
+        console.log('reusable: session=start loadAccountApi');
         if (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined) {
             // no cookie, force them to log in again
             this.removeAccountStorage();
@@ -19,8 +20,8 @@ class ApiAccess {
         }
 
         let accountData = this.getAccountFromStorage();
-        if (accountData !== null) {
-            return accountData;
+        if (!!accountData && accountData.account !== null) {
+            return accountData.account;
         }
 
         const accountApi = new ApiRoutes().CURRENT_ACCOUNT_API();
@@ -35,6 +36,12 @@ class ApiAccess {
     }
 
     async loadAuthorApi() {
+        const storedAccount = this.getAccountFromStorage();
+        if (!!storedAccount && storedAccount.currentAuthor !== null) {
+            console.log('got author data from session storage ', storedAccount);
+            return storedAccount.currentAuthor;
+        }
+
         const api = new ApiRoutes().CURRENT_AUTHOR_API();
         const urlPath = api.apiUrl;
         // const options = !!api.options ? api.options : {};
@@ -306,6 +313,7 @@ class ApiAccess {
     }
 
     storeAccount(account, numberOfHoursUntilExpiry = 1) {
+        console.log('reusable: session=start storeAccount', account);
         // for improved UX, expire the session storage when the token must surely be expired, for those rare long sessions
         // session lasts 8 hours, per https://auth.uq.edu.au/about/
         // because we cant predict what other system the user first logged into we don't actually know
@@ -319,11 +327,13 @@ class ApiAccess {
         // structure must match that used in homepage as they both write to the same storage
         // (has to, as reusable will remove storage to log homepage out!)
         let storeableAccount = {
+            status: 'loggedin',
             account: {
                 ...account,
             },
             ...storageExpiryDate,
         };
+        console.log('reusable: session=set account', storeableAccount);
         storeableAccount = JSON.stringify(storeableAccount);
         sessionStorage.setItem(this.STORAGE_ACCOUNT_KEYNAME, storeableAccount);
 
@@ -337,6 +347,7 @@ class ApiAccess {
 
     getAccountFromStorage() {
         const storedAccount = JSON.parse(sessionStorage.getItem(this.STORAGE_ACCOUNT_KEYNAME));
+        console.log('reusable: session=getAccountFromStorage storedAccount=', storedAccount);
 
         if (storedAccount === null) {
             return null;
@@ -367,7 +378,7 @@ class ApiAccess {
             return null;
         }
 
-        return storedAccount.account;
+        return storedAccount;
     }
 
     addCurrentAuthorToStoredAccount(currentAuthor) {
@@ -384,10 +395,13 @@ class ApiAccess {
         };
         storeableAccount = JSON.stringify(storeableAccount);
         sessionStorage.setItem(this.STORAGE_ACCOUNT_KEYNAME, storeableAccount);
+        console.log('reusable: session=add author', storedAccount);
     }
 
     removeAccountStorage() {
         sessionStorage.removeItem(this.STORAGE_ACCOUNT_KEYNAME);
+        sessionStorage.setItem(this.STORAGE_ACCOUNT_KEYNAME, JSON.stringify({ status: 'loggedout' }));
+        console.log('reusable: session=set loggedout');
 
         if ('BroadcastChannel' in window) {
             // let the calling page know account has been removed

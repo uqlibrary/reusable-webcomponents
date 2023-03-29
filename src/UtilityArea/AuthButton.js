@@ -269,14 +269,14 @@ class AuthButton extends HTMLElement {
                         'Promo panels',
                     );
 
-                this.showHideMylibraryEspaceOption(shadowDOM);
-
                 // if admin area has no entries, delete the area so we lose the border at the top
                 const adminarealist = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-list');
                 if (!!adminarealist && adminarealist.children.length === 0) {
                     const adminarea = !!shadowDOM && shadowDOM.getElementById('admin-options');
                     !!adminarea && adminarea.remove();
                 }
+
+                this.showHideMylibraryEspaceOption(shadowDOM);
 
                 // add the user's name to the account button
                 const userNameArea = !!shadowDOM && shadowDOM.getElementById('user-display-name');
@@ -560,11 +560,10 @@ class AuthButton extends HTMLElement {
     async showHideMylibraryEspaceOption(shadowDOM) {
         const api = new ApiAccess();
         return await api.loadAuthorApi().then((author) => {
+            // if this user is not an espace author, remove the espace item from the personalised panel
             const espaceitem = !!shadowDOM && shadowDOM.getElementById('mylibrary-espace');
             const isAuthor = !!author && !!author.data && !!author.data.hasOwnProperty('aut_id');
             !!espaceitem && !isAuthor && espaceitem.remove();
-
-            !!isAuthor && !!author.data && new ApiAccess().addCurrentAuthorToStoredAccount(author.data);
 
             return author;
         });
