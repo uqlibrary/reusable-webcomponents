@@ -37,8 +37,7 @@ class ApiAccess {
 
     async loadAuthorApi() {
         const storedAccount = this.getAccountFromStorage();
-        if (!!storedAccount && storedAccount.currentAuthor !== null) {
-            console.log('got author data from session storage ', storedAccount);
+        if (!!storedAccount && !!storedAccount.currentAuthor) {
             return storedAccount.currentAuthor;
         }
 
@@ -244,7 +243,7 @@ class ApiAccess {
     async fetchAPI(urlPath, headers, tokenRequired = false, timestampRequired = true) {
         /* istanbul ignore next */
         if (!!tokenRequired && (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)) {
-            // no cookie so we wont bother asking for the account api that cant be returned
+            // no cookie so we won't bother asking for the account api that cant be returned
             console.log('no cookie so we wont bother asking for an api that cant be returned');
             return false;
         }

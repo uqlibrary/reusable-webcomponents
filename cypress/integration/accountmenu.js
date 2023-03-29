@@ -108,8 +108,7 @@ function assertUserHasEspaceDashboard(expected) {
 
 function assertNameIsDisplayedOnAccountOptionsButtonCorrectly(userName, displayName) {
     cy.visit('http://localhost:8080/?user=' + userName);
-    cy.wait(100);
-    cy.get('uq-site-header').find('auth-button').should('exist');
+    cy.waitUntil(() => cy.get('uq-site-header').find('auth-button').should('exist'));
     cy.get('auth-button').shadow().find('[data-testid="username-area-label"]').should('contain', displayName);
 }
 
@@ -119,7 +118,7 @@ function assertUserSeesNOAdminOptions() {
     assertUserHasSpotlightAdmin(false);
     assertUserHasPromoPanelAdmin(false);
     assertUserHasTestTagAdmin(false);
-    // the admin block has been removed so we dont see the admin border
+    // the admin block has been removed so we don't see the admin border
     cy.get('[data-testid="admin-options"]').should('not.exist');
 }
 
@@ -207,7 +206,8 @@ describe('Account menu button', () => {
             async function checkStorage() {
                 await new ApiAccess().loadAccountApi().then((newAccount) => {
                     expect(newAccount).to.be.equal(false);
-                    expect(sessionStorage.length).to.be.equal(0);
+                    const s2 = JSON.parse(sessionStorage.userAccount);
+                    expect(s2.status).to.be.equal('loggedout');
                     testValid = true;
                 });
             }
@@ -229,7 +229,8 @@ describe('Account menu button', () => {
             async function checkCookies() {
                 await new ApiAccess().loadAuthorApi().then((result) => {
                     expect(result).to.be.equal(false);
-                    expect(sessionStorage.length).to.be.equal(0);
+                    const s2 = JSON.parse(sessionStorage.userAccount);
+                    expect(s2.status).to.be.equal('loggedout');
                     testValid = true;
                 });
             }
@@ -244,7 +245,6 @@ describe('Account menu button', () => {
         it('user with expired stored session is not logged in', () => {
             const store = new ApiAccess();
             store.storeAccount(accounts.s1111111, -24); // put info in the session storage
-            // console.log('sessionStorage: ', sessionStorage.getItem('userAccount'));
 
             assertNameIsDisplayedOnAccountOptionsButtonCorrectly('s1111111', 'Undergraduate, John');
         });
