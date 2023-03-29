@@ -6,15 +6,20 @@ import { authLocale } from '../../src/UtilityArea/auth.locale';
 
 function assertLogoutButtonVisible(expected = true) {
     if (expected) {
+        cy.waitUntil(() => cy.get('auth-button').shadow().find('button:contains("Log out")'));
         cy.get('auth-button').shadow().find('button:contains("Log out")').should('be.visible');
     } else {
+        cy.waitUntil(() => cy.get('auth-button').shadow().find('button:contains("Log out")'));
         cy.get('auth-button').shadow().find('button:contains("Log out")').should('not.be.visible');
     }
 }
 
 function openAccountDropdown() {
+    cy.waitUntil(() => cy.get('auth-button').shadow().find('[data-testid="account-option-button"]').should('exist'));
     cy.get('auth-button').shadow().find('[data-testid="account-option-button"]').click();
-    cy.wait(500);
+    cy.waitUntil(() =>
+        cy.get('auth-button').shadow().find('[data-testid="mylibrary-menu-borrowing"]').should('be.visible'),
+    );
 }
 
 function assertUserHasStandardMyLibraryOptions(userid = 'uqstaff') {
@@ -128,7 +133,7 @@ describe('Account menu button', () => {
             cy.visit('http://localhost:8080/?user=public');
             cy.viewport(1280, 900);
             cy.injectAxe();
-            cy.wait(100);
+            cy.waitUntil(() => cy.get('uq-site-header').find('auth-button').should('exist'));
             cy.checkA11y('auth-button', {
                 reportName: 'Auth Loggedout',
                 scopeName: 'Accessibility',
@@ -141,8 +146,7 @@ describe('Account menu button', () => {
         it('logged in user account button widget is accessible', () => {
             cy.visit('http://localhost:8080');
             cy.viewport(1280, 900);
-            cy.wait(100);
-            cy.get('uq-site-header').find('auth-button').should('exist');
+            cy.waitUntil(() => cy.get('uq-site-header').find('auth-button').should('exist'));
             cy.injectAxe();
             cy.checkA11y('auth-button', {
                 reportName: 'Account Loggedin',
@@ -150,7 +154,6 @@ describe('Account menu button', () => {
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
             });
             openAccountDropdown();
-            cy.wait(500);
             cy.checkA11y('auth-button', {
                 reportName: 'Account Loggedin Dialog Open',
                 scopeName: 'Accessibility',
@@ -161,7 +164,9 @@ describe('Account menu button', () => {
         it('`overwriteasloggedout` attribute always show them as logged out', () => {
             cy.visit('http://localhost:8080/index-primo.html');
             cy.viewport(1280, 900);
-            cy.wait(100);
+            cy.waitUntil(() =>
+                cy.get('auth-button').shadow().find('[data-testid="auth-button-login-label"]').should('exist'),
+            );
             cy.get('auth-button').shadow().find('[data-testid="auth-button-login-label"]').should('contain', 'Log in');
         });
 
@@ -174,11 +179,12 @@ describe('Account menu button', () => {
 
             cy.visit('http://localhost:8080/?user=public');
             cy.viewport(1280, 900);
-            cy.wait(100);
-            cy.get('uq-site-header').find('auth-button').should('exist');
+            cy.waitUntil(() => cy.get('uq-site-header').find('auth-button').should('exist'));
             cy.get('auth-button').shadow().find('[data-testid="auth-button-login-label"]').should('contain', 'Log in');
 
-            cy.wait(1500);
+            cy.waitUntil(() =>
+                cy.get('auth-button').shadow().find('[data-testid="auth-button-login"]').should('exist'),
+            );
             cy.get('auth-button').shadow().find('[data-testid="auth-button-login"]').click();
             cy.get('body').contains('user visits login page');
         });
@@ -191,6 +197,7 @@ describe('Account menu button', () => {
                 body: 'user visits logout page',
             });
             cy.get('auth-button').shadow().find('[data-testid="account-option-button"]').click();
+            assertLogoutButtonVisible(true);
             cy.get('auth-button').shadow().find('button:contains("Log out")').click();
 
             cy.get('body').contains('user visits logout page');
@@ -272,10 +279,8 @@ describe('Account menu button', () => {
             openAccountDropdown();
             assertLogoutButtonVisible();
             cy.get('body').type('{enter}', { force: true });
-            cy.wait(500);
             assertLogoutButtonVisible();
             cy.get('body').type('{esc}', { force: true });
-            cy.wait(500);
             assertLogoutButtonVisible(false);
         });
 
@@ -285,7 +290,6 @@ describe('Account menu button', () => {
             openAccountDropdown();
             assertLogoutButtonVisible();
             cy.get('body').click(0, 0);
-            cy.wait(500);
             assertLogoutButtonVisible(false);
         });
     });
@@ -383,7 +387,6 @@ describe('Account menu button', () => {
         it('Navigates to page from user popup', () => {
             cy.visit('http://localhost:8080?user=s1111111');
             cy.viewport(1280, 900);
-            cy.wait(1500);
             cy.intercept('GET', 'https://support.my.uq.edu.au/app/library/feedback', {
                 statusCode: 200,
                 body: 'user is on library feedback page',
