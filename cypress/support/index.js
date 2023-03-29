@@ -17,6 +17,7 @@ require('cypress-plugin-tab');
 import './commands';
 import 'cypress-axe';
 import '@cypress/code-coverage/support';
+import 'cypress-wait-until';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
