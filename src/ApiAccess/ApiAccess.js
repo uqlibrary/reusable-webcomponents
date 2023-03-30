@@ -2,56 +2,62 @@ import MockApi from '../../mock/MockApi';
 import ApiRoutes from '../ApiRoutes';
 import { apiLocale as locale } from './ApiAccess.locale';
 import fetchJsonp from 'fetch-jsonp';
-import { clearCookie, getCookieValue } from '../helpers/cookie';
+import { getCookieValue } from '../helpers/cookie';
 
 let initCalled;
 
 class ApiAccess {
     constructor() {
-        this.STORAGE_ACCOUNT_KEYNAME = locale.STORAGE_ACCOUNT_KEYNAME;
+        this.LOGGED_OUT_ACCOUNT = { status: locale.USER_LOGGED_OUT };
     }
 
     async loadAccountApi() {
-        console.log('reusable: session=start loadAccountApi');
         if (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined) {
             // no cookie, force them to log in again
             this.removeAccountStorage();
             return false;
         }
 
-        let accountData = this.getAccountFromStorage();
-        if (!!accountData && accountData.account !== null) {
-            return accountData.account;
+        const userDetails = this.getAccountFromStorage();
+        if (
+            userDetails?.hasOwnProperty('status') &&
+            userDetails.status === locale.USER_LOGGED_IN &&
+            userDetails.hasOwnProperty('account') &&
+            userDetails.account.hasOwnProperty('id')
+        ) {
+            return true; // userDetails.account;
         }
 
         const accountApi = new ApiRoutes().CURRENT_ACCOUNT_API();
         const urlPath = accountApi.apiUrl;
-        // const options = !!accountApi.options ? accountApi.options : {};
-        const options = {}; // options not currently used
-        return await this.fetchAPI(urlPath, options, true).then((account) => {
-            this.storeAccount(account);
+        let accountCallStatus = 'incomplete';
+        return await this.fetchAPI(urlPath, {}, true)
+            .then((account) => {
+                if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
+                    this.storeAccount(account);
+                    accountCallStatus = 'done';
 
-            return account;
-        });
-    }
-
-    async loadAuthorApi() {
-        const storedAccount = this.getAccountFromStorage();
-        if (!!storedAccount && !!storedAccount.currentAuthor) {
-            return storedAccount.currentAuthor;
-        }
-
-        const api = new ApiRoutes().CURRENT_AUTHOR_API();
-        const urlPath = api.apiUrl;
-        // const options = !!api.options ? api.options : {};
-        const options = {}; // options not currently used
-        return await this.fetchAPI(urlPath, options, true)
+                    const authorApi = new ApiRoutes().CURRENT_AUTHOR_API();
+                    const urlPath = authorApi.apiUrl;
+                    return this.fetchAPI(urlPath, {}, true);
+                } else {
+                    this.removeAccountStorage();
+                    accountCallStatus = 'done';
+                    return false;
+                }
+            })
             .then((author) => {
-                return author;
+                this.addCurrentAuthorToStoredAccount(author);
+                return true;
             })
             .catch((error) => {
-                console.log('error loading authors ', error);
-                return {};
+                if (accountCallStatus === 'incomplete') {
+                    // it was the account call that had an error; authors was never called
+                    this.removeAccountStorage();
+                    return false;
+                }
+                this.addCurrentAuthorToStoredAccount({ data: null });
+                return true;
             });
     }
 
@@ -59,9 +65,7 @@ class ApiAccess {
         let isOnline = false;
         const chatstatusApi = new ApiRoutes().CHAT_API();
         const urlPath = chatstatusApi.apiUrl;
-        // const options = !!chatstatusApi.options ? chatstatusApi.options : {};
-        const options = {}; // options not currently used
-        await this.fetchAPI(urlPath, options)
+        await this.fetchAPI(urlPath)
             .then((chatResponse) => {
                 isOnline = !!chatResponse.online;
             })
@@ -75,9 +79,7 @@ class ApiAccess {
         let result;
         const hoursApi = new ApiRoutes().LIB_HOURS_API();
         const urlPath = hoursApi.apiUrl;
-        // const options = !!hoursApi.options ? hoursApi.options : {};
-        const options = {}; // options not currently used
-        await this.fetchAPI(urlPath, options)
+        await this.fetchAPI(urlPath)
             .then((hoursResponse) => {
                 let askusHours = null;
                 /* istanbul ignore else */
@@ -104,9 +106,7 @@ class ApiAccess {
     async loadAlerts(system) {
         const alertApi = new ApiRoutes().ALERT_API(system);
         const urlPath = alertApi.apiUrl;
-        // const options = !!alertApi.options ? alertApi.options : {};
-        const options = {}; // options not currently used
-        return await this.fetchAPI(urlPath, options)
+        return await this.fetchAPI(urlPath)
             .then((alerts) => {
                 return alerts;
             })
@@ -144,7 +144,6 @@ class ApiAccess {
      * @returns {function(*)}
      */
     async loadPrimoSuggestions(keyword) {
-        console.log('loadPrimoSuggestions: ', keyword);
         const route = new ApiRoutes().PRIMO_SUGGESTIONS_API_GENERIC(keyword);
         const url = route.apiUrl;
         return await this.fetchJsonpAPI(url, {
@@ -240,7 +239,7 @@ class ApiAccess {
             );
     }
 
-    async fetchAPI(urlPath, headers, tokenRequired = false, timestampRequired = true) {
+    async fetchAPI(urlPath, headers = {}, tokenRequired = false, timestampRequired = true) {
         /* istanbul ignore next */
         if (!!tokenRequired && (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)) {
             // no cookie so we won't bother asking for the account api that cant be returned
@@ -312,7 +311,6 @@ class ApiAccess {
     }
 
     storeAccount(account, numberOfHoursUntilExpiry = 1) {
-        console.log('reusable: session=start storeAccount', account);
         // for improved UX, expire the session storage when the token must surely be expired, for those rare long sessions
         // session lasts 8 hours, per https://auth.uq.edu.au/about/
         // because we cant predict what other system the user first logged into we don't actually know
@@ -326,58 +324,50 @@ class ApiAccess {
         // structure must match that used in homepage as they both write to the same storage
         // (has to, as reusable will remove storage to log homepage out!)
         let storeableAccount = {
-            status: 'loggedin',
+            status: locale.USER_LOGGED_IN,
             account: {
                 ...account,
             },
             ...storageExpiryDate,
         };
-        console.log('reusable: session=set account', storeableAccount);
         storeableAccount = JSON.stringify(storeableAccount);
-        sessionStorage.setItem(this.STORAGE_ACCOUNT_KEYNAME, storeableAccount);
+        sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, storeableAccount);
 
         // let the calling page know account is available
         if ('BroadcastChannel' in window) {
             const bc = new BroadcastChannel('account_availability');
             bc.postMessage('account_updated');
-            console.log('reusable: BroadcastChannel account_updated');
+            console.log('reusable: ApiAccess storeAccount BroadcastChannel account_updated');
         }
     }
 
+    // this is called from loadAccountApi, above, via authbutton once and if that fails,
+    // it will call the apis to get the account details and load them into sessionstorage.
+    // It is called from other components (training, secure collection, etc.) in a loop, waiting on
+    // the authbutton's call to loadAccountApi, above, to load the account into the sessionstorage
     getAccountFromStorage() {
-        const storedAccount = JSON.parse(sessionStorage.getItem(this.STORAGE_ACCOUNT_KEYNAME));
-        console.log('reusable: session=getAccountFromStorage storedAccount=', storedAccount);
-
-        if (storedAccount === null) {
-            return null;
-        }
+        const storedUserDetailsRaw = sessionStorage.getItem(locale.STORAGE_ACCOUNT_KEYNAME);
+        const storedUserDetails = !!storedUserDetailsRaw && JSON.parse(storedUserDetailsRaw);
 
         if (this.isMock()) {
             const mockUserHasChanged =
-                !!storedAccount.account &&
-                !!storedAccount.account.id &&
-                storedAccount.account.id !== new MockApi().user;
-            if (mockUserHasChanged || !storedAccount.account || !storedAccount.account.id) {
+                !!storedUserDetails.account &&
+                !!storedUserDetails.account.id &&
+                storedUserDetails.account.id !== new MockApi().user;
+            if (!!mockUserHasChanged) {
                 // allow developer to swap between users in the same tab
                 this.removeAccountStorage();
                 return null;
             }
         }
 
-        // short term during upgrade - if older structure that doesnt have .account, clear
-        // this clause can be removed a day or so after day golive, written Jan/2022
-        if (!storedAccount.account) {
-            this.removeAccountStorage();
-            return null;
-        }
-
         const now = new Date().getTime();
-        if (!storedAccount.storageExpiryDate || storedAccount.storageExpiryDate < now) {
+        if (!!storedUserDetails.hasOwnProperty('storageExpiryDate') && storedUserDetails.storageExpiryDate < now) {
             this.removeAccountStorage();
-            return null;
+            return this.LOGGED_OUT_ACCOUNT;
         }
 
-        return storedAccount;
+        return storedUserDetails;
     }
 
     addCurrentAuthorToStoredAccount(currentAuthor) {
@@ -389,18 +379,16 @@ class ApiAccess {
         let storeableAccount = {
             ...storedAccount,
             currentAuthor: {
-                ...currentAuthor,
+                ...currentAuthor.data,
             },
         };
         storeableAccount = JSON.stringify(storeableAccount);
-        sessionStorage.setItem(this.STORAGE_ACCOUNT_KEYNAME, storeableAccount);
-        console.log('reusable: session=add author', storedAccount);
+        sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, storeableAccount);
     }
 
     removeAccountStorage() {
-        sessionStorage.removeItem(this.STORAGE_ACCOUNT_KEYNAME);
-        sessionStorage.setItem(this.STORAGE_ACCOUNT_KEYNAME, JSON.stringify({ status: 'loggedout' }));
-        console.log('reusable: session=set loggedout');
+        sessionStorage.removeItem(locale.STORAGE_ACCOUNT_KEYNAME);
+        sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, JSON.stringify(this.LOGGED_OUT_ACCOUNT));
 
         if ('BroadcastChannel' in window) {
             // let the calling page know account has been removed

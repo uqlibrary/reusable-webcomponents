@@ -2,6 +2,7 @@ import styles from './css/auth.css';
 import ApiAccess from '../ApiAccess/ApiAccess';
 import { authLocale } from './auth.locale';
 import { isBackTabKeyPressed, isEscapeKeyPressed, isTabKeyPressed } from '../helpers/keyDetection';
+import { apiLocale } from '../ApiAccess/ApiAccess.locale';
 
 /*
  * usage:
@@ -196,6 +197,7 @@ class AuthButton extends HTMLElement {
         }
 
         this.checkAuthorisedUser(shadowDOM).then((account) => {
+            console.log('start checkAuthorisedUser account=', account);
             const isAuthorised = !!account.id;
             const template = !!isAuthorised ? authorisedtemplate : unauthorisedtemplate;
 
@@ -290,6 +292,7 @@ class AuthButton extends HTMLElement {
     }
 
     getUserDisplayName(account) {
+        console.log('getUserDisplayName account=', account);
         const maxLength = 40;
         const firstInitial = account.firstName.substring(0, 1);
 
@@ -496,24 +499,36 @@ class AuthButton extends HTMLElement {
     }
 
     async checkAuthorisedUser(shadowDOM) {
+        console.log('AuthButton checkAuthorisedUser start');
         this.accountLoading = true;
         this.account = {};
-        let loggedin = null;
 
         const that = this;
-        const api = new ApiAccess();
-        await api
+        // auth button is the place where the api function that writes account etc into session storage is called
+        // anything that relies on the account MUST show the auth button
+        let accountFound = false;
+        console.log('AuthButton checkAuthorisedUser about to call api');
+        await new ApiAccess()
             .loadAccountApi()
-            .then((account) => {
+            .then((accountFound) => {
+                console.log('AuthButton checkAuthorisedUser post loadAccountApi accountFound=', accountFound);
                 /* istanbul ignore else */
-                if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
-                    that.account = account;
+                const currentUserDetails = new ApiAccess().getAccountFromStorage();
+                if (
+                    currentUserDetails?.hasOwnProperty('status') &&
+                    currentUserDetails?.status === apiLocale.USER_LOGGED_IN
+                ) {
+                    /* istanbul ignore else */
+                    that.account = currentUserDetails.account;
                 }
                 that.accountLoading = false;
             })
             .catch((error) => {
+                console.log('AuthButton checkAuthorisedUser post loadAccountApi problem=', error);
                 that.accountLoading = false;
             });
+
+        that.accountLoading = false;
 
         return that.account;
     }
@@ -558,15 +573,23 @@ class AuthButton extends HTMLElement {
     }
 
     async showHideMylibraryEspaceOption(shadowDOM) {
-        const api = new ApiAccess();
-        return await api.loadAuthorApi().then((author) => {
-            // if this user is not an espace author, remove the espace item from the personalised panel
+        let storedUserDetails = {};
+        const getStoredUserDetails = setInterval(() => {
+            storedUserDetails = new ApiAccess().getAccountFromStorage();
+            console.log('AuthButton showHideMylibraryEspaceOption 1 storedUserDetails=', storedUserDetails);
+            if (
+                storedUserDetails?.hasOwnProperty('status') &&
+                (storedUserDetails.status === apiLocale.USER_LOGGED_IN ||
+                    storedUserDetails.status === apiLocale.USER_LOGGED_OUT)
+            ) {
+                clearInterval(getStoredUserDetails);
+            }
             const espaceitem = !!shadowDOM && shadowDOM.getElementById('mylibrary-espace');
-            const isAuthor = !!author && !!author.data && !!author.data.hasOwnProperty('aut_id');
+            const isAuthor =
+                storedUserDetails?.hasOwnProperty('currentAuthor') &&
+                !!storedUserDetails.currentAuthor.hasOwnProperty('aut_id');
             !!espaceitem && !isAuthor && espaceitem.remove();
-
-            return author;
-        });
+        }, 100);
     }
 }
 

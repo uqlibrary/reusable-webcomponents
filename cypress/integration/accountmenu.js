@@ -234,7 +234,7 @@ describe('Account menu button', () => {
 
             let testValid = false;
             async function checkCookies() {
-                await new ApiAccess().loadAuthorApi().then((result) => {
+                await new ApiAccess().loadAccountApi().then((result) => {
                     expect(result).to.be.equal(false);
                     const s2 = JSON.parse(sessionStorage.userAccount);
                     expect(s2.status).to.be.equal('loggedout');
@@ -257,6 +257,7 @@ describe('Account menu button', () => {
         });
 
         it('user with a short name will show their complete name on the Log Out button', () => {
+            sessionStorage.removeItem('userAccount');
             assertNameIsDisplayedOnAccountOptionsButtonCorrectly('emfryer', 'User, Fryer');
             cy.get('auth-button')
                 .shadow()
@@ -264,6 +265,7 @@ describe('Account menu button', () => {
                 .should('have.attr', 'aria-label', 'Log out');
         });
         it('user with a long length name will show their last name with initial on the Log Out button', () => {
+            sessionStorage.removeItem('userAccount');
             assertNameIsDisplayedOnAccountOptionsButtonCorrectly(
                 'digiteamMember',
                 'C STAFF MEMBER WITH MEGA REALLY TRULY STUPENDOUSLY LONG NAME',
