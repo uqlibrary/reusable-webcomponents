@@ -173,7 +173,7 @@ class AuthButton extends HTMLElement {
         this.checkAuthorisedUser = this.checkAuthorisedUser.bind(this);
         this.displayUserNameAsButtonLabel = this.displayUserNameAsButtonLabel.bind(this);
         this.isOverwriteAsLoggedOutRequested = this.isOverwriteAsLoggedOutRequested.bind(this);
-        this.showHideMylibraryEspaceOption = this.showHideMylibraryEspaceOption.bind(this);
+        this.removeEspaceMenuOptionWhenNotAuthor = this.removeEspaceMenuOptionWhenNotAuthor.bind(this);
     }
 
     async showLoginFromAuthStatus(shadowDOM) {
@@ -278,7 +278,7 @@ class AuthButton extends HTMLElement {
                     !!adminarea && adminarea.remove();
                 }
 
-                this.showHideMylibraryEspaceOption(shadowDOM);
+                this.removeEspaceMenuOptionWhenNotAuthor(shadowDOM);
 
                 // add the user's name to the account button
                 const userNameArea = !!shadowDOM && shadowDOM.getElementById('user-display-name');
@@ -574,29 +574,26 @@ class AuthButton extends HTMLElement {
         return !!account && !!this.hasWebContentAdminAccess(account);
     }
 
-    async showHideMylibraryEspaceOption(shadowDOM) {
+    async removeEspaceMenuOptionWhenNotAuthor(shadowDOM) {
+        const espaceitem = !!shadowDOM && shadowDOM.getElementById('mylibrary-espace');
+        if (!espaceitem) {
+            return;
+        }
+
         let storedUserDetails = {};
         const getStoredUserDetails = setInterval(() => {
             storedUserDetails = new ApiAccess().getAccountFromStorage();
-            console.log('AuthButton showHideMylibraryEspaceOption 1 storedUserDetails=', storedUserDetails);
             if (
                 storedUserDetails?.hasOwnProperty('status') &&
                 (storedUserDetails.status === apiLocale.USER_LOGGED_IN ||
                     storedUserDetails.status === apiLocale.USER_LOGGED_OUT)
             ) {
                 clearInterval(getStoredUserDetails);
-            }
-            const espaceitem = !!shadowDOM && shadowDOM.getElementById('mylibrary-espace');
-            console.log('AuthButton showHideMylibraryEspaceOption espaceitem=', espaceitem);
-            const isAuthor =
-                storedUserDetails?.hasOwnProperty('currentAuthor') &&
-                !!storedUserDetails.currentAuthor.hasOwnProperty('aut_id');
-            console.log('AuthButton showHideMylibraryEspaceOption isAuthor=', isAuthor);
-            if (!!espaceitem && !isAuthor) {
-                console.log('AuthButton showHideMylibraryEspaceOption REMOVE espace');
-                espaceitem.remove();
-            } else {
-                console.log('AuthButton showHideMylibraryEspaceOption DONT remove espace');
+
+                const isAuthor =
+                    storedUserDetails?.hasOwnProperty('currentAuthor') &&
+                    !!storedUserDetails.currentAuthor.hasOwnProperty('aut_id');
+                !isAuthor && espaceitem.remove();
             }
         }, 100);
     }
