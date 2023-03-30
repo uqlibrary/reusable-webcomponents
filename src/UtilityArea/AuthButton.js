@@ -335,7 +335,8 @@ class AuthButton extends HTMLElement {
         let accountOptionsClosed = true;
 
         function visitLogOutPage() {
-            console.log('debug sessionStorage before', sessionStorage);
+            console.log('visitLogOutPage');
+            console.log('logging out: debug sessionStorage before', sessionStorage);
             new ApiAccess().removeAccountStorage();
 
             let homepagelink = 'http://www.library.uq.edu.au';
@@ -348,13 +349,14 @@ class AuthButton extends HTMLElement {
                 const linkAppend = '?user=public';
                 homepagelink = `${window.location.protocol}//${window.location.hostname}:${homepagePort}/${linkAppend}`;
             }
-            console.log('homepagelink=', homepagelink);
+            console.log('logging out: homepagelink=', homepagelink);
             let isPageRestrictedAccess =
                 window.location.href.includes('/admin/') || window.location.href.endsWith('learning-resources');
             const returnUrl = isPageRestrictedAccess ? homepagelink : window.location.href;
+            console.log('logging out: returnUrl', returnUrl);
             const urldebug = `${authLocale.AUTH_URL_LOGOUT}${window.btoa(returnUrl)}`;
-            console.log('urldebug', urldebug);
-            console.log('debug sessionStorage', sessionStorage);
+            console.log('logging out: urldebug', urldebug);
+            console.log('logging out: debug sessionStorage', sessionStorage);
             window.location.assign(urldebug);
         }
 
@@ -585,10 +587,17 @@ class AuthButton extends HTMLElement {
                 clearInterval(getStoredUserDetails);
             }
             const espaceitem = !!shadowDOM && shadowDOM.getElementById('mylibrary-espace');
+            console.log('AuthButton showHideMylibraryEspaceOption espaceitem=', espaceitem);
             const isAuthor =
                 storedUserDetails?.hasOwnProperty('currentAuthor') &&
                 !!storedUserDetails.currentAuthor.hasOwnProperty('aut_id');
-            !!espaceitem && !isAuthor && espaceitem.remove();
+            console.log('AuthButton showHideMylibraryEspaceOption isAuthor=', isAuthor);
+            if (!!espaceitem && !isAuthor) {
+                console.log('AuthButton showHideMylibraryEspaceOption REMOVE espace');
+                espaceitem.remove();
+            } else {
+                console.log('AuthButton showHideMylibraryEspaceOption DONT remove espace');
+            }
         }, 100);
     }
 }
