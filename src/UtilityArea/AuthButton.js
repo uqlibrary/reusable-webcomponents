@@ -349,6 +349,8 @@ class AuthButton extends HTMLElement {
                 const linkAppend = '?user=public';
                 homepagelink = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/${linkAppend}`;
             }
+            // if we're on a login-required page, the NotFound component will force login before we can fully logout
+            window.history.pushState({ user: 'public' }, '', homepagelink);
 
             console.log('logging out: homepagelink=', homepagelink);
             const returnUrl = homepagelink;
