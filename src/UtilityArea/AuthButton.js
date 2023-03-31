@@ -341,10 +341,10 @@ class AuthButton extends HTMLElement {
 
             let homepagelink = 'http://www.library.uq.edu.au';
             /* istanbul ignore next */
-            if (window.location.hostname.endsWith('.library.uq.edu.au')) {
-                homepagelink = `${window.location.protocol}//${window.location.hostname}${window.location.pathname}`;
-            } else if (window.location.hostname === 'homepage-development.library.uq.edu.au') {
+            if (window.location.hostname === 'homepage-development.library.uq.edu.au') {
                 homepagelink = `${window.location.protocol}//${window.location.hostname}${window.location.pathname}#/`;
+            } else if (window.location.hostname.endsWith('.library.uq.edu.au')) {
+                homepagelink = `${window.location.protocol}//${window.location.hostname}${window.location.pathname}`;
             } else if (window.location.hostname === 'localhost') {
                 const linkAppend = '?user=public';
                 homepagelink = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/${linkAppend}`;
