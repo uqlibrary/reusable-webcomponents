@@ -26,7 +26,7 @@ export const accounts = {
         "type": 18,
         "homeLib": "St Lucia",
         "firstName": "UQ",
-        "lastName": "Staff 1",
+        "lastName": "Staff",
         "name": "UQ STAFF",
         "mail": "uq.staff@example.uq.edu.au",
         "barcode": "111111111111111",

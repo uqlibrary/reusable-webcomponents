@@ -2,7 +2,7 @@ import MockApi from '../../mock/MockApi';
 import ApiRoutes from '../ApiRoutes';
 import { apiLocale as locale } from './ApiAccess.locale';
 import fetchJsonp from 'fetch-jsonp';
-import { getCookieValue } from '../helpers/cookie';
+import { clearCookie, getCookieValue } from '../helpers/cookie';
 
 let initCalled;
 
@@ -389,13 +389,17 @@ class ApiAccess {
     removeAccountStorage() {
         sessionStorage.removeItem(locale.STORAGE_ACCOUNT_KEYNAME);
         sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, JSON.stringify(this.LOGGED_OUT_ACCOUNT));
+        clearCookie(locale.SESSION_COOKIE_NAME);
 
-        if ('BroadcastChannel' in window) {
-            // let the calling page know account has been removed
-            const bc = new BroadcastChannel('account_availability');
-            bc.postMessage('account_removed');
-            console.log('reusable: BroadcastChannel account_removed');
-        }
+        setTimeout(() => {
+            // a short delay so the above removals have firmly happened before the notified apps can action it
+            if ('BroadcastChannel' in window) {
+                // let the calling page know account has been removed
+                const bc = new BroadcastChannel('account_availability');
+                bc.postMessage('account_removed');
+                console.log('reusable: BroadcastChannel account_removed');
+            }
+        }, 15);
     }
 
     getSessionCookie() {
