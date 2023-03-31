@@ -399,7 +399,7 @@ class ApiAccess {
                 bc.postMessage('account_removed');
                 console.log('reusable: BroadcastChannel account_removed');
             }
-        }, 500);
+        }, 750);
     }
 
     getSessionCookie() {
