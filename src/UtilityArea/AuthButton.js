@@ -321,6 +321,9 @@ class AuthButton extends HTMLElement {
 
     addLoginButtonListener(shadowDOM) {
         function visitLoginPage() {
+            if (!window.sessionStorage) {
+                alert('Please enable browser Session Storage to log into the Library');
+            }
             const returnUrl = window.location.href;
             window.location.assign(`${authLocale.AUTH_URL_LOGIN}${window.btoa(returnUrl)}`);
         }
