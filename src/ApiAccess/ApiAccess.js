@@ -8,7 +8,10 @@ let initCalled;
 
 class ApiAccess {
     constructor() {
-        this.LOGGED_OUT_ACCOUNT = { status: locale.USER_LOGGED_OUT };
+        this.LOGGED_OUT_ACCOUNT = {
+            status: locale.USER_LOGGED_OUT,
+            account: 'empty', // this is temporary code - account needs to exist for old homepage to not trip some bad code. Remove after May 2023
+        };
     }
 
     async loadAccountApi() {
@@ -25,7 +28,7 @@ class ApiAccess {
             userDetails.hasOwnProperty('account') &&
             userDetails.account.hasOwnProperty('id')
         ) {
-            return true; // userDetails.account;
+            return true;
         }
 
         const accountApi = new ApiRoutes().CURRENT_ACCOUNT_API();
@@ -351,8 +354,9 @@ class ApiAccess {
 
         if (this.isMock()) {
             const mockUserHasChanged =
-                !!storedUserDetails.account &&
-                !!storedUserDetails.account.id &&
+                !!storedUserDetails &&
+                storedUserDetails.hasOwnProperty('account') &&
+                storedUserDetails.account.hasOwnProperty('id') &&
                 storedUserDetails.account.id !== new MockApi().user;
             if (!!mockUserHasChanged) {
                 // allow developer to swap between users in the same tab
