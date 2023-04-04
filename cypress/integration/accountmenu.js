@@ -147,6 +147,7 @@ describe('Account menu button', () => {
             cy.visit('http://localhost:8080');
             cy.viewport(1280, 900);
             cy.waitUntil(() => cy.get('uq-site-header').find('auth-button').should('exist'));
+            assertNameIsDisplayedOnAccountOptionsButtonCorrectly('vanilla', 'User, Vanilla');
             cy.injectAxe();
             cy.checkA11y('auth-button', {
                 reportName: 'Account Loggedin',
@@ -180,11 +181,11 @@ describe('Account menu button', () => {
             cy.visit('http://localhost:8080/?user=public');
             cy.viewport(1280, 900);
             cy.waitUntil(() => cy.get('uq-site-header').find('auth-button').should('exist'));
-            cy.get('auth-button').shadow().find('[data-testid="auth-button-login-label"]').should('contain', 'Log in');
 
             cy.waitUntil(() =>
                 cy.get('auth-button').shadow().find('[data-testid="auth-button-login"]').should('exist'),
             );
+            cy.get('auth-button').shadow().find('[data-testid="auth-button-login-label"]').should('contain', 'Log in');
             cy.get('auth-button').shadow().find('[data-testid="auth-button-login"]').click();
             cy.get('body').contains('user visits login page');
         });
@@ -300,6 +301,7 @@ describe('Account menu button', () => {
         it('Admin gets admin entries', () => {
             cy.visit('http://localhost:8080?user=uqstaff');
             cy.viewport(1280, 900);
+            assertNameIsDisplayedOnAccountOptionsButtonCorrectly('uqstaff', 'Staff, UQ');
             openAccountDropdown();
             cy.get('auth-button')
                 .shadow()
@@ -317,6 +319,7 @@ describe('Account menu button', () => {
         it('Test Tag user gets Test and Tag entry', () => {
             cy.visit('http://localhost:8080?user=uqtesttag');
             cy.viewport(1280, 900);
+            assertNameIsDisplayedOnAccountOptionsButtonCorrectly('uqtesttag', 'Licensed tester, UQ');
             openAccountDropdown();
             cy.get('auth-button')
                 .shadow()
@@ -329,6 +332,7 @@ describe('Account menu button', () => {
         it('An espace masquerader non-admin sees masquerade but not other admin functions', () => {
             cy.visit('http://localhost:8080?user=uqmasquerade');
             cy.viewport(1280, 900);
+            assertNameIsDisplayedOnAccountOptionsButtonCorrectly('uqmasquerade', 'Masquerader, UQ');
             openAccountDropdown();
             cy.get('auth-button')
                 .shadow()
@@ -346,6 +350,7 @@ describe('Account menu button', () => {
         it('Researcher gets espace but not admin entries', () => {
             cy.visit('http://localhost:8080?user=s1111111');
             cy.viewport(1280, 900);
+            assertNameIsDisplayedOnAccountOptionsButtonCorrectly('s1111111', 'Undergraduate, John');
             openAccountDropdown();
             cy.get('auth-button')
                 .shadow()
@@ -359,6 +364,10 @@ describe('Account menu button', () => {
         it('A digiteam member gets espace & masquerade but not other admin entries', () => {
             cy.visit('http://localhost:8080?user=digiteamMember');
             cy.viewport(1280, 900);
+            assertNameIsDisplayedOnAccountOptionsButtonCorrectly(
+                'digiteamMember',
+                'C STAFF MEMBER WITH MEGA REALLY TRULY STUPENDOUSLY LONG NAME',
+            );
             openAccountDropdown();
             cy.get('auth-button')
                 .shadow()
@@ -376,6 +385,7 @@ describe('Account menu button', () => {
         it('non-Researcher gets neither espace nor admin entries', () => {
             cy.visit('http://localhost:8080?user=s3333333');
             cy.viewport(1280, 900);
+            assertNameIsDisplayedOnAccountOptionsButtonCorrectly('s3333333', 'Juno');
             openAccountDropdown();
             cy.get('auth-button')
                 .shadow()
@@ -386,13 +396,14 @@ describe('Account menu button', () => {
                 });
         });
 
-        it('Navigates to page from user popup', () => {
+        it('can navigate to some page from account menu', () => {
             cy.visit('http://localhost:8080?user=s1111111');
             cy.viewport(1280, 900);
             cy.intercept('GET', 'https://support.my.uq.edu.au/app/library/feedback', {
                 statusCode: 200,
                 body: 'user is on library feedback page',
             });
+            assertNameIsDisplayedOnAccountOptionsButtonCorrectly('s1111111', 'Undergraduate, John');
             openAccountDropdown();
             cy.get('auth-button')
                 .shadow()

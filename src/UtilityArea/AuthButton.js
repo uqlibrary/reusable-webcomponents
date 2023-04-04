@@ -15,7 +15,10 @@ import { apiLocale } from '../ApiAccess/ApiAccess.locale';
 // ===============================
 //
 // IF YOU ARE MASQUERADING YOU WILL SEE ***YOUR*** ADMIN MENU OPTIONS, NOT THOSE OF ThE MASQUERADED USER
-// This is because your AD groups are not wiped by the masquerade - we have tried, see repo auth
+// This is because your AD groups are not wiped by the masquerade - we have tried, see repo `auth`
+//
+// auth button is the place where the api function that writes account etc into session storage is called
+// any page that show-hides things based on the account MUST show the auth button web component
 //
 // ===============================
 // ===============================
@@ -170,15 +173,51 @@ class AuthButton extends HTMLElement {
         this.showLoginFromAuthStatus = this.showLoginFromAuthStatus.bind(this);
         this.addLoginButtonListener = this.addLoginButtonListener.bind(this);
         this.addLogoutButtonListeners = this.addLogoutButtonListeners.bind(this);
-        this.checkAuthorisedUser = this.checkAuthorisedUser.bind(this);
+        this.addAdminMenuOptions = this.addAdminMenuOptions.bind(this);
         this.displayUserNameAsButtonLabel = this.displayUserNameAsButtonLabel.bind(this);
         this.isOverwriteAsLoggedOutRequested = this.isOverwriteAsLoggedOutRequested.bind(this);
         this.removeEspaceMenuOptionWhenNotAuthor = this.removeEspaceMenuOptionWhenNotAuthor.bind(this);
+        this.isLogInComplete = this.isLogInComplete.bind(this);
     }
 
     async showLoginFromAuthStatus(shadowDOM) {
-        const that = this;
+        await new ApiAccess().loadAccountApi().then((accountFound) => {
+            const waitOnStorage = setInterval(() => {
+                const currentUserDetails = new ApiAccess().getAccountFromStorage();
 
+                if (this.isLogInComplete(currentUserDetails)) {
+                    clearInterval(waitOnStorage);
+
+                    if (currentUserDetails.status === apiLocale.USER_LOGGED_IN) {
+                        shadowDOM.appendChild(authorisedtemplate.content.cloneNode(true));
+                        const account = currentUserDetails.account;
+
+                        const isAuthorised = !!account && account.hasOwnProperty('id') && !!account.id;
+                        if (!!isAuthorised) {
+                            this.displayUserNameAsButtonLabel(shadowDOM, account);
+                            this.addAdminMenuOptions(shadowDOM, account);
+                            this.removeEspaceMenuOptionWhenNotAuthor(shadowDOM);
+                            this.addLogoutButtonListeners(shadowDOM, account);
+                        }
+                    } else if (currentUserDetails.status === apiLocale.USER_LOGGED_OUT) {
+                        shadowDOM.appendChild(unauthorisedtemplate.content.cloneNode(true));
+                        this.addLoginButtonListener(shadowDOM);
+                    }
+                }
+            }, 200);
+        });
+    }
+
+    isLogInComplete(currentUserDetails) {
+        return (
+            !!currentUserDetails &&
+            currentUserDetails.hasOwnProperty('status') &&
+            (currentUserDetails.status === apiLocale.USER_LOGGED_IN ||
+                currentUserDetails.status === apiLocale.USER_LOGGED_OUT)
+        );
+    }
+
+    addAdminMenuOptions(shadowDOM, account) {
         function addAdminMenuOption(elementId, linkId, link, iconPath, path) {
             const menuList = shadowDOM.getElementById('mylibrary-menu-list');
             const template = document.createElement('template');
@@ -196,98 +235,79 @@ class AuthButton extends HTMLElement {
             menuList.appendChild(template.content.cloneNode(true));
         }
 
-        this.checkAuthorisedUser().then((account) => {
-            console.log('start checkAuthorisedUser account=', account);
-            const isAuthorised = !!account && account.hasOwnProperty('id') && !!account.id;
-            const template = !!isAuthorised ? authorisedtemplate : unauthorisedtemplate;
+        // when in dev branch or localhost, reset the links in the account menu
+        let linkRoot = `${window.location.protocol}//${window.location.hostname}/`;
+        let linkAppend = '';
+        if (window.location.hostname === 'homepage-development.library.uq.edu.au') {
+            linkRoot = `${window.location.protocol}//${window.location.hostname}${window.location.pathname}#/`;
+        } else if (window.location.hostname === 'assets.library.uq.edu.au') {
+            linkRoot = `${window.location.protocol}//www.library.uq.edu.au/`;
+        } else if (window.location.hostname === 'localhost') {
+            const homepagePort = '2020';
+            linkRoot = `${window.location.protocol}//${window.location.hostname}:${homepagePort}/`;
+            linkAppend = !!window.location.search ? window.location.search : ''; // get the user id
+        }
 
-            // Render the template
-            shadowDOM.appendChild(template.content.cloneNode(true));
+        const learningResourcePageLink = `${linkRoot}learning-resources${linkAppend}`;
+        const learningResourceLinkElement = shadowDOM.getElementById('mylibrary-menu-course-resources');
+        !!learningResourcePageLink &&
+            !!learningResourceLinkElement &&
+            learningResourceLinkElement.setAttribute('href', learningResourcePageLink);
 
-            if (!!isAuthorised) {
-                this.displayUserNameAsButtonLabel(shadowDOM, account);
+        !!account.canMasquerade &&
+            addAdminMenuOption(
+                'mylibrary-masquerade',
+                'mylibrary-menu-masquerade',
+                `${linkRoot}admin/masquerade${linkAppend}`,
+                ICON_TWO_PEOPLE,
+                'Masquerade',
+            );
 
-                // when in dev branch or localhost, reset the links in the account menu
-                let linkRoot = `${window.location.protocol}//${window.location.hostname}/`;
-                let linkAppend = '';
-                if (window.location.hostname === 'homepage-development.library.uq.edu.au') {
-                    linkRoot = `${window.location.protocol}//${window.location.hostname}${window.location.pathname}#/`;
-                } else if (window.location.hostname === 'assets.library.uq.edu.au') {
-                    linkRoot = `${window.location.protocol}//www.library.uq.edu.au/`;
-                } else if (window.location.hostname === 'localhost') {
-                    const homepagePort = '2020';
-                    linkRoot = `${window.location.protocol}//${window.location.hostname}:${homepagePort}/`;
-                    linkAppend = !!window.location.search ? window.location.search : ''; // get the user id
-                }
+        !!this.canSeeAlertsAdmin(account) &&
+            addAdminMenuOption(
+                'alerts-admin',
+                'mylibrary-menu-alerts-admin',
+                `${linkRoot}admin/alerts${linkAppend}`,
+                ICON_MUI_INFO_OUTLINED,
+                'Website alerts',
+            );
 
-                const learningResourcePageLink = `${linkRoot}learning-resources${linkAppend}`;
-                const learningResourceLinkElement = shadowDOM.getElementById('mylibrary-menu-course-resources');
-                !!learningResourcePageLink &&
-                    !!learningResourceLinkElement &&
-                    learningResourceLinkElement.setAttribute('href', learningResourcePageLink);
+        !!this.canSeeSpotlightsAdmin(account) &&
+            addAdminMenuOption(
+                'spotlights-admin',
+                'mylibrary-menu-spotlights-admin',
+                `${linkRoot}admin/spotlights${linkAppend}`,
+                ICON_MUI_IMAGE_FILLED,
+                'Website spotlights',
+            );
 
-                !!account.canMasquerade &&
-                    addAdminMenuOption(
-                        'mylibrary-masquerade',
-                        'mylibrary-menu-masquerade',
-                        `${linkRoot}admin/masquerade${linkAppend}`,
-                        ICON_TWO_PEOPLE,
-                        'Masquerade',
-                    );
+        !!this.canSeeTestTagAdmin(account) &&
+            addAdminMenuOption(
+                'testTag-admin',
+                'mylibrary-menu-testTag-admin',
+                `${linkRoot}admin/testntag${linkAppend}`,
+                ICON_MUI_BEENHERE_FILLED,
+                'Test and Tag',
+            );
 
-                !!this.canSeeAlertsAdmin(account) &&
-                    addAdminMenuOption(
-                        'alerts-admin',
-                        'mylibrary-menu-alerts-admin',
-                        `${linkRoot}admin/alerts${linkAppend}`,
-                        ICON_MUI_INFO_OUTLINED,
-                        'Website alerts',
-                    );
+        !!this.canSeePromopanelAdmin(account) &&
+            addAdminMenuOption(
+                'promopanel-admin',
+                'mylibrary-menu-promopanel-admin',
+                `${linkRoot}admin/promopanel${linkAppend}`,
+                ICON_MUI_CAMPAIGN_FILLED,
+                'Promo panels',
+            );
 
-                !!this.canSeeSpotlightsAdmin(account) &&
-                    addAdminMenuOption(
-                        'spotlights-admin',
-                        'mylibrary-menu-spotlights-admin',
-                        `${linkRoot}admin/spotlights${linkAppend}`,
-                        ICON_MUI_IMAGE_FILLED,
-                        'Website spotlights',
-                    );
-
-                !!this.canSeeTestTagAdmin(account) &&
-                    addAdminMenuOption(
-                        'testTag-admin',
-                        'mylibrary-menu-testTag-admin',
-                        `${linkRoot}admin/testntag${linkAppend}`,
-                        ICON_MUI_BEENHERE_FILLED,
-                        'Test and Tag',
-                    );
-
-                !!this.canSeePromopanelAdmin(account) &&
-                    addAdminMenuOption(
-                        'promopanel-admin',
-                        'mylibrary-menu-promopanel-admin',
-                        `${linkRoot}admin/promopanel${linkAppend}`,
-                        ICON_MUI_CAMPAIGN_FILLED,
-                        'Promo panels',
-                    );
-
-                // if admin area has no entries, delete the area so we lose the border at the top
-                const adminarealist = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-list');
-                if (!!adminarealist && adminarealist.children.length === 0) {
-                    const adminarea = !!shadowDOM && shadowDOM.getElementById('admin-options');
-                    !!adminarea && adminarea.remove();
-                }
-
-                this.removeEspaceMenuOptionWhenNotAuthor(shadowDOM);
-            }
-
-            this.addLoginButtonListener(shadowDOM);
-            this.addLogoutButtonListeners(shadowDOM, account);
-        });
+        // if admin area has no entries, delete the area so we lose the border at the top
+        const adminarealist = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-list');
+        if (!!adminarealist && adminarealist.children.length === 0) {
+            const adminarea = !!shadowDOM && shadowDOM.getElementById('admin-options');
+            !!adminarea && adminarea.remove();
+        }
     }
 
     getUserDisplayName(account) {
-        console.log('getUserDisplayName account=', account);
         const maxLength = 40;
         const firstInitial = account.firstName.substring(0, 1);
 
@@ -333,8 +353,6 @@ class AuthButton extends HTMLElement {
         let accountOptionsClosed = true;
 
         function visitLogOutPage() {
-            console.log('visitLogOutPage');
-            console.log('logging out: debug sessionStorage before', sessionStorage);
             new ApiAccess().removeAccountStorage();
 
             let homepagelink = 'http://www.library.uq.edu.au';
@@ -350,13 +368,8 @@ class AuthButton extends HTMLElement {
             // if we're on a login-required page, the NotFound component will force login before we can fully logout
             window.history.pushState({ user: 'public' }, '', homepagelink);
 
-            console.log('logging out: homepagelink=', homepagelink);
             const returnUrl = homepagelink;
-            console.log('logging out: returnUrl', returnUrl);
-            const urldebug = `${authLocale.AUTH_URL_LOGOUT}${window.btoa(returnUrl)}`;
-            console.log('logging out: urldebug', urldebug);
-            console.log('logging out: debug sessionStorage', sessionStorage);
-            window.location.assign(urldebug);
+            window.location.assign(`${authLocale.AUTH_URL_LOGOUT}${window.btoa(returnUrl)}`);
         }
 
         function openAccountOptionsMenu() {
@@ -499,43 +512,8 @@ class AuthButton extends HTMLElement {
         closeAccountMenuOnLinkClick('mylibrary-menu-course-resources');
     }
 
-    async checkAuthorisedUser() {
-        console.log('AuthButton checkAuthorisedUser start');
-        this.accountLoading = true;
-        this.account = {};
-
-        const that = this;
-        // auth button is the place where the api function that writes account etc into session storage is called
-        // anything that relies on the account MUST show the auth button
-        let accountFound = false;
-        console.log('AuthButton checkAuthorisedUser about to call api');
-        await new ApiAccess()
-            .loadAccountApi()
-            .then((accountFound) => {
-                console.log('AuthButton checkAuthorisedUser post loadAccountApi accountFound=', accountFound);
-                /* istanbul ignore else */
-                const currentUserDetails = new ApiAccess().getAccountFromStorage();
-                if (
-                    currentUserDetails?.hasOwnProperty('status') &&
-                    currentUserDetails?.status === apiLocale.USER_LOGGED_IN
-                ) {
-                    /* istanbul ignore else */
-                    that.account = currentUserDetails.account;
-                }
-                that.accountLoading = false;
-            })
-            .catch((error) => {
-                console.log('AuthButton checkAuthorisedUser post loadAccountApi problem=', error);
-                that.accountLoading = false;
-            });
-
-        that.accountLoading = false;
-
-        return that.account;
-    }
-
     // we have an option to add the attribute `overwriteasloggedout` to the authbutton
-    // this will include the auth button, but always show them as logged out
+    // this will display the auth button, but always show them as logged out
     isOverwriteAsLoggedOutRequested() {
         const isOverwriteRequired = this.getAttribute('overwriteasloggedout');
         return (!!isOverwriteRequired || isOverwriteRequired === '') && isOverwriteRequired !== 'false';
@@ -582,11 +560,7 @@ class AuthButton extends HTMLElement {
         let storedUserDetails = {};
         const getStoredUserDetails = setInterval(() => {
             storedUserDetails = new ApiAccess().getAccountFromStorage();
-            if (
-                storedUserDetails?.hasOwnProperty('status') &&
-                (storedUserDetails.status === apiLocale.USER_LOGGED_IN ||
-                    storedUserDetails.status === apiLocale.USER_LOGGED_OUT)
-            ) {
+            if (this.isLogInComplete(storedUserDetails)) {
                 clearInterval(getStoredUserDetails);
 
                 const isAuthor =
