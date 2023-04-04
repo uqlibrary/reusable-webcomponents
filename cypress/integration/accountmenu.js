@@ -128,7 +128,7 @@ function assertUserSeesNOAdminOptions() {
 }
 
 describe('Account menu button', () => {
-    context('Account menu button', () => {
+    context('Accessibility', () => {
         it('logged out user sees a "Log in" button" and widget is accessible', () => {
             cy.visit('http://localhost:8080/?user=public');
             cy.viewport(1280, 900);
@@ -161,7 +161,8 @@ describe('Account menu button', () => {
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
             });
         });
-
+    });
+    context('Account menu button', () => {
         it('`overwriteasloggedout` attribute always show them as logged out', () => {
             cy.visit('http://localhost:8080/index-primo.html');
             cy.viewport(1280, 900);
@@ -231,7 +232,7 @@ describe('Account menu button', () => {
             cy.clearCookie(apiLocale.SESSION_USER_GROUP_COOKIE_NAME);
 
             const api = new ApiAccess();
-            api.removeAccountStorage();
+            api.markAccountStorageLoggedOut();
 
             let testValid = false;
             async function checkCookies() {
@@ -265,17 +266,6 @@ describe('Account menu button', () => {
                 .find('button:contains("Log out")')
                 .should('have.attr', 'aria-label', 'Log out');
         });
-        it('user with a long length name will show their last name with initial on the Log Out button', () => {
-            sessionStorage.removeItem('userAccount');
-            assertNameIsDisplayedOnAccountOptionsButtonCorrectly(
-                'digiteamMember',
-                'C STAFF MEMBER WITH MEGA REALLY TRULY STUPENDOUSLY LONG NAME',
-            );
-        });
-        it('user who uses a single name will not show the "." as a surname', () => {
-            assertNameIsDisplayedOnAccountOptionsButtonCorrectly('emhonorary', 'Honorary');
-        });
-
         it('Pressing esc closes the account menu', () => {
             cy.visit('http://localhost:8080');
             cy.viewport(1280, 900);
@@ -296,7 +286,18 @@ describe('Account menu button', () => {
             assertLogoutButtonVisible(false);
         });
     });
-
+    context('Display names', () => {
+        it('user with a long length name will show their last name with initial on the Log Out button', () => {
+            sessionStorage.removeItem('userAccount');
+            assertNameIsDisplayedOnAccountOptionsButtonCorrectly(
+                'digiteamMember',
+                'C STAFF MEMBER WITH MEGA REALLY TRULY STUPENDOUSLY LONG NAME',
+            );
+        });
+        it('user who uses a single name will not show the "." as a surname', () => {
+            assertNameIsDisplayedOnAccountOptionsButtonCorrectly('emhonorary', 'Honorary');
+        });
+    });
     context('User-specific account links', () => {
         it('Admin gets admin entries', () => {
             cy.visit('http://localhost:8080?user=uqstaff');

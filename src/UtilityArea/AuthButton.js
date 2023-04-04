@@ -182,6 +182,14 @@ class AuthButton extends HTMLElement {
 
     async showLoginFromAuthStatus(shadowDOM) {
         await new ApiAccess().loadAccountApi().then((accountFound) => {
+            const template = !!accountFound ? authorisedtemplate : unauthorisedtemplate;
+            shadowDOM.appendChild(template.content.cloneNode(true));
+
+            if (!accountFound) {
+                this.addLoginButtonListener(shadowDOM);
+                return;
+            }
+
             const waitOnStorage = setInterval(() => {
                 const currentUserDetails = new ApiAccess().getAccountFromStorage();
 
@@ -189,9 +197,7 @@ class AuthButton extends HTMLElement {
                     clearInterval(waitOnStorage);
 
                     if (currentUserDetails.status === apiLocale.USER_LOGGED_IN) {
-                        shadowDOM.appendChild(authorisedtemplate.content.cloneNode(true));
                         const account = currentUserDetails.account;
-
                         const isAuthorised = !!account && account.hasOwnProperty('id') && !!account.id;
                         if (!!isAuthorised) {
                             this.displayUserNameAsButtonLabel(shadowDOM, account);
@@ -199,9 +205,6 @@ class AuthButton extends HTMLElement {
                             this.removeEspaceMenuOptionWhenNotAuthor(shadowDOM);
                             this.addLogoutButtonListeners(shadowDOM, account);
                         }
-                    } else if (currentUserDetails.status === apiLocale.USER_LOGGED_OUT) {
-                        shadowDOM.appendChild(unauthorisedtemplate.content.cloneNode(true));
-                        this.addLoginButtonListener(shadowDOM);
                     }
                 }
             }, 200);
@@ -353,7 +356,7 @@ class AuthButton extends HTMLElement {
         let accountOptionsClosed = true;
 
         function visitLogOutPage() {
-            new ApiAccess().removeAccountStorage();
+            new ApiAccess().markAccountStorageLoggedOut();
 
             let homepagelink = 'http://www.library.uq.edu.au';
             /* istanbul ignore next */

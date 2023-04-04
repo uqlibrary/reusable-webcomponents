@@ -16,9 +16,12 @@ class ApiAccess {
 
     async loadAccountApi() {
         console.log('loadAccountApi start');
+        const ACCOUNT_CALL_INCOMPLETE = 'incomplete';
+        const ACCOUNT_CALL_DONE = 'done';
+
         if (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined) {
             // no cookie, force them to log in again
-            this.removeAccountStorage();
+            this.markAccountStorageLoggedOut();
             return false;
         }
 
@@ -35,22 +38,22 @@ class ApiAccess {
 
         const accountApi = new ApiRoutes().CURRENT_ACCOUNT_API();
         const urlPath = accountApi.apiUrl;
-        let accountCallStatus = 'incomplete';
+        let accountCallStatus = ACCOUNT_CALL_INCOMPLETE;
         return await this.fetchAPI(urlPath, {}, true)
             .then((account) => {
                 console.log('loadAccountApi got account', account);
                 if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
                     console.log('loadAccountApi has session');
                     this.storeAccount(account);
-                    accountCallStatus = 'done';
+                    accountCallStatus = ACCOUNT_CALL_DONE;
 
                     const authorApi = new ApiRoutes().CURRENT_AUTHOR_API();
                     const urlPath = authorApi.apiUrl;
                     return this.fetchAPI(urlPath, {}, true);
                 } else {
                     console.log('loadAccountApi no session');
-                    this.removeAccountStorage();
-                    accountCallStatus = 'done';
+                    this.markAccountStorageLoggedOut();
+                    accountCallStatus = ACCOUNT_CALL_DONE;
                     return false;
                 }
             })
@@ -61,9 +64,9 @@ class ApiAccess {
             })
             .catch((error) => {
                 console.log('loadAccountApi error', error);
-                if (accountCallStatus === 'incomplete') {
+                if (accountCallStatus === ACCOUNT_CALL_INCOMPLETE) {
                     // it was the account call that had an error; authors was never called
-                    this.removeAccountStorage();
+                    this.markAccountStorageLoggedOut();
                     return false;
                 }
                 this.addCurrentAuthorToStoredAccount({ data: null });
@@ -367,14 +370,14 @@ class ApiAccess {
                 storedUserDetails.account.id !== new MockApi().user;
             if (!!mockUserHasChanged) {
                 // allow developer to swap between users in the same tab
-                this.removeAccountStorage();
+                this.markAccountStorageLoggedOut();
                 return null;
             }
         }
 
         const now = new Date().getTime();
         if (!!storedUserDetails.hasOwnProperty('storageExpiryDate') && storedUserDetails.storageExpiryDate < now) {
-            this.removeAccountStorage();
+            this.markAccountStorageLoggedOut();
             return this.LOGGED_OUT_ACCOUNT;
         }
 
@@ -397,7 +400,7 @@ class ApiAccess {
         sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, storeableAccount);
     }
 
-    removeAccountStorage() {
+    markAccountStorageLoggedOut() {
         sessionStorage.removeItem(locale.STORAGE_ACCOUNT_KEYNAME);
         sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, JSON.stringify(this.LOGGED_OUT_ACCOUNT));
         clearCookie(locale.SESSION_COOKIE_NAME);
