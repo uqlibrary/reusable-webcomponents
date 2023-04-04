@@ -196,15 +196,17 @@ class AuthButton extends HTMLElement {
                 if (this.isLogInComplete(currentUserDetails)) {
                     clearInterval(waitOnStorage);
 
-                    if (currentUserDetails.status === apiLocale.USER_LOGGED_IN) {
+                    let accountIsSet =
+                        currentUserDetails.hasOwnProperty('account') &&
+                        !!currentUserDetails.account &&
+                        currentUserDetails.account.hasOwnProperty('id') &&
+                        !!currentUserDetails.account.id;
+                    if (!!accountIsSet) {
                         const account = currentUserDetails.account;
-                        const isAuthorised = !!account && account.hasOwnProperty('id') && !!account.id;
-                        if (!!isAuthorised) {
-                            this.displayUserNameAsButtonLabel(shadowDOM, account);
-                            this.addAdminMenuOptions(shadowDOM, account);
-                            this.removeEspaceMenuOptionWhenNotAuthor(shadowDOM);
-                            this.addLogoutButtonListeners(shadowDOM, account);
-                        }
+                        this.displayUserNameAsButtonLabel(shadowDOM, account);
+                        this.addAdminMenuOptions(shadowDOM, account);
+                        this.removeEspaceMenuOptionWhenNotAuthor(shadowDOM);
+                        this.addLogoutButtonListeners(shadowDOM, account);
                     }
                 }
             }, 200);
