@@ -279,11 +279,6 @@ class AuthButton extends HTMLElement {
                 }
 
                 this.removeEspaceMenuOptionWhenNotAuthor(shadowDOM);
-
-                // add the user's name to the account button
-                const userNameArea = !!shadowDOM && shadowDOM.getElementById('user-display-name');
-                const textNode = document.createTextNode(this.getUserDisplayName(account));
-                !!userNameArea && !!textNode && userNameArea.appendChild(textNode);
             }
 
             this.addLoginButtonListener(shadowDOM);
