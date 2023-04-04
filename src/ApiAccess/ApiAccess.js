@@ -15,6 +15,7 @@ class ApiAccess {
     }
 
     async loadAccountApi() {
+        console.log('loadAccountApi start');
         if (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined) {
             // no cookie, force them to log in again
             this.removeAccountStorage();
@@ -28,6 +29,7 @@ class ApiAccess {
             userDetails.hasOwnProperty('account') &&
             userDetails.account.hasOwnProperty('id')
         ) {
+            console.log('loadAccountApi already logged in ', userDetails);
             return true;
         }
 
@@ -36,7 +38,9 @@ class ApiAccess {
         let accountCallStatus = 'incomplete';
         return await this.fetchAPI(urlPath, {}, true)
             .then((account) => {
+                console.log('loadAccountApi got account', account);
                 if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
+                    console.log('loadAccountApi has session');
                     this.storeAccount(account);
                     accountCallStatus = 'done';
 
@@ -44,16 +48,19 @@ class ApiAccess {
                     const urlPath = authorApi.apiUrl;
                     return this.fetchAPI(urlPath, {}, true);
                 } else {
+                    console.log('loadAccountApi no session');
                     this.removeAccountStorage();
                     accountCallStatus = 'done';
                     return false;
                 }
             })
             .then((author) => {
+                console.log('loadAccountApi got autor', author);
                 this.addCurrentAuthorToStoredAccount(author);
                 return true;
             })
             .catch((error) => {
+                console.log('loadAccountApi error', error);
                 if (accountCallStatus === 'incomplete') {
                     // it was the account call that had an error; authors was never called
                     this.removeAccountStorage();

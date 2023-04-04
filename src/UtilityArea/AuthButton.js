@@ -196,9 +196,9 @@ class AuthButton extends HTMLElement {
             menuList.appendChild(template.content.cloneNode(true));
         }
 
-        this.checkAuthorisedUser(shadowDOM).then((account) => {
+        this.checkAuthorisedUser().then((account) => {
             console.log('start checkAuthorisedUser account=', account);
-            const isAuthorised = !!account.id;
+            const isAuthorised = !!account && account.hasOwnProperty('id') && !!account.id;
             const template = !!isAuthorised ? authorisedtemplate : unauthorisedtemplate;
 
             // Render the template
@@ -504,7 +504,7 @@ class AuthButton extends HTMLElement {
         closeAccountMenuOnLinkClick('mylibrary-menu-course-resources');
     }
 
-    async checkAuthorisedUser(shadowDOM) {
+    async checkAuthorisedUser() {
         console.log('AuthButton checkAuthorisedUser start');
         this.accountLoading = true;
         this.account = {};
