@@ -1,14 +1,12 @@
-// Styles from libguides backend
-
 .s-lib-box h2.s-lib-box-title {
     font-size: 16px;
 }
 .s-lib-box .s-lib-box-title {
     margin-bottom: 0;
     padding: 12px 9px;
-    color: #fff;
+    color: #51247a !important;
     font-weight: 400;
-    background: #51247a;
+    background: #fff !important;
     border-bottom: 5px solid #fff;
 }
 
@@ -524,10 +522,8 @@ ol {
 }
 
 .s-lib-box {
-    border-radius: 2px;
-    border: none;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
-    background-color: #fefefe;
+    border: none !important;
+    box-shadow: none !important;
 }
 
 #s-lg-guide-main {
