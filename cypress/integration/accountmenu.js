@@ -50,26 +50,26 @@ function assertUserHasMasquerade(expected, userid = 'uqstaff') {
     }
 }
 
-function assertUserHasAlertsAdmin(expected) {
+function assertUserHasAlertsAdmin(expected, userid = 'uqstaff') {
     if (!!expected) {
         cy.get('li[data-testid="alerts-admin"]').should('exist').contains('Website alerts');
         cy.get('[data-testid="mylibrary-menu-alerts-admin"]').should(
             'have.attr',
             'href',
-            'http://localhost:2020/admin/alerts?user=uqstaff',
+            `http://localhost:2020/admin/alerts?user=${userid}`,
         );
     } else {
         cy.get('li[data-testid="alerts-admin"]').should('not.exist');
     }
 }
 
-function assertUserHasSpotlightAdmin(expected) {
+function assertUserHasSpotlightAdmin(expected, userid = 'uqstaff') {
     if (!!expected) {
         cy.get('li[data-testid="spotlights-admin"]').should('exist').contains('Website spotlights');
         cy.get('[data-testid="mylibrary-menu-spotlights-admin"]').should(
             'have.attr',
             'href',
-            'http://localhost:2020/admin/spotlights?user=uqstaff',
+            `http://localhost:2020/admin/spotlights?user=${userid}`,
         );
     } else {
         cy.get('li[data-testid="spotlights-admin"]').should('not.exist');
@@ -90,13 +90,13 @@ function assertUserHasTestTagAdmin(expected) {
     }
 }
 
-function assertUserHasPromoPanelAdmin(expected) {
+function assertUserHasPromoPanelAdmin(expected, userid = 'uqstaff') {
     if (!!expected) {
         cy.get('li[data-testid="promopanel-admin"]').should('exist').contains('Promo panels');
         cy.get('[data-testid="mylibrary-menu-promopanel-admin"]').should(
             'have.attr',
             'href',
-            'http://localhost:2020/admin/promopanel?user=uqstaff',
+            `http://localhost:2020/admin/promopanel?user=${userid}`,
         );
     } else {
         cy.get('li[data-testid="promopanel-admin"]').should('not.exist');
@@ -383,7 +383,7 @@ describe('Account menu button', () => {
                 });
         });
 
-        it('non-Researcher gets neither espace nor admin entries', () => {
+        it('non-Researcher doesnt get espace (and not admin entries)', () => {
             cy.visit('http://localhost:8080?user=s3333333');
             cy.viewport(1280, 900);
             assertNameIsDisplayedOnAccountOptionsButtonCorrectly('s3333333', 'Juno');
@@ -393,6 +393,24 @@ describe('Account menu button', () => {
                 .within(() => {
                     assertUserHasStandardMyLibraryOptions('s3333333');
                     assertUserSeesNOAdminOptions();
+                    assertUserHasEspaceDashboard(false);
+                });
+        });
+
+        // need to also test a user that gets a null from the author call; s3333333 has this odd incomplete record
+        it('other non-Researcher does not get espace', () => {
+            cy.visit('http://localhost:8080?user=uqrdav10');
+            cy.viewport(1280, 900);
+            assertNameIsDisplayedOnAccountOptionsButtonCorrectly('uqrdav10', 'DAVIDSON, Robert');
+            openAccountDropdown();
+            cy.get('auth-button')
+                .shadow()
+                .within(() => {
+                    assertUserHasStandardMyLibraryOptions('uqrdav10');
+                    assertUserHasAlertsAdmin(true, 'uqrdav10');
+                    assertUserHasSpotlightAdmin(true, 'uqrdav10');
+                    assertUserHasPromoPanelAdmin(true, 'uqrdav10');
+                    assertUserHasTestTagAdmin(false);
                     assertUserHasEspaceDashboard(false);
                 });
         });

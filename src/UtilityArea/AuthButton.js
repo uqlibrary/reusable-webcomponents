@@ -177,7 +177,6 @@ class AuthButton extends HTMLElement {
         this.displayUserNameAsButtonLabel = this.displayUserNameAsButtonLabel.bind(this);
         this.isOverwriteAsLoggedOutRequested = this.isOverwriteAsLoggedOutRequested.bind(this);
         this.removeEspaceMenuOptionWhenNotAuthor = this.removeEspaceMenuOptionWhenNotAuthor.bind(this);
-        this.isLogInComplete = this.isLogInComplete.bind(this);
     }
 
     async showLoginFromAuthStatus(shadowDOM) {
@@ -193,35 +192,36 @@ class AuthButton extends HTMLElement {
             const waitOnStorage = setInterval(() => {
                 const currentUserDetails = new ApiAccess().getAccountFromStorage();
 
-                if (this.isLogInComplete(currentUserDetails)) {
+                const accountIsSet =
+                    currentUserDetails.hasOwnProperty('account') &&
+                    !!currentUserDetails.account &&
+                    currentUserDetails.account.hasOwnProperty('id') &&
+                    !!currentUserDetails.account.id;
+                if (!!accountIsSet) {
                     clearInterval(waitOnStorage);
 
-                    let accountIsSet =
-                        currentUserDetails.hasOwnProperty('account') &&
-                        !!currentUserDetails.account &&
-                        currentUserDetails.account.hasOwnProperty('id') &&
-                        !!currentUserDetails.account.id;
-                    if (!!accountIsSet) {
-                        const account = currentUserDetails.account;
-                        this.displayUserNameAsButtonLabel(shadowDOM, account);
-                        this.addAdminMenuOptions(shadowDOM, account);
-                        this.removeEspaceMenuOptionWhenNotAuthor(shadowDOM);
-                        this.addLogoutButtonListeners(shadowDOM, account);
+                    const account = currentUserDetails.account;
+                    this.displayUserNameAsButtonLabel(shadowDOM, account);
+                    this.addAdminMenuOptions(shadowDOM, account);
+                    this.removeEspaceMenuOptionWhenNotAuthor(shadowDOM);
+                    this.addLogoutButtonListeners(shadowDOM, account);
+                } else if (
+                    !!currentUserDetails &&
+                    currentUserDetails.hasOwnProperty('status') &&
+                    currentUserDetails.status === apiLocale.USER_LOGGED_OUT
+                ) {
+                    // final check to add logged out button - should never happen
+                    const authButton = document.querySelector('auth-button');
+                    const authshadowdom = !!authButton && authButton.shadowRoot;
+                    const unauthbutton = !!authshadowdom && authshadowdom.getElementById('auth-button-login');
+                    if (!unauthbutton) {
+                        shadowDOM.appendChild(unauthorisedtemplate.content.cloneNode(true));
+                        this.addLoginButtonListener(shadowDOM);
                     }
                 }
             }, 200);
         });
     }
-
-    isLogInComplete(currentUserDetails) {
-        return (
-            !!currentUserDetails &&
-            currentUserDetails.hasOwnProperty('status') &&
-            (currentUserDetails.status === apiLocale.USER_LOGGED_IN ||
-                currentUserDetails.status === apiLocale.USER_LOGGED_OUT)
-        );
-    }
-
     addAdminMenuOptions(shadowDOM, account) {
         function addAdminMenuOption(elementId, linkId, link, iconPath, path) {
             const menuList = shadowDOM.getElementById('mylibrary-menu-list');
@@ -565,7 +565,12 @@ class AuthButton extends HTMLElement {
         let storedUserDetails = {};
         const getStoredUserDetails = setInterval(() => {
             storedUserDetails = new ApiAccess().getAccountFromStorage();
-            if (this.isLogInComplete(storedUserDetails)) {
+            let isLoggedIn =
+                !!storedUserDetails &&
+                storedUserDetails.hasOwnProperty('status') &&
+                (storedUserDetails.status === apiLocale.USER_LOGGED_IN ||
+                    storedUserDetails.status === apiLocale.USER_LOGGED_OUT);
+            if (isLoggedIn) {
                 clearInterval(getStoredUserDetails);
 
                 const isAuthor =
