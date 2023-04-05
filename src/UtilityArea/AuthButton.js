@@ -181,15 +181,14 @@ class AuthButton extends HTMLElement {
 
     async showLoginFromAuthStatus(shadowDOM) {
         await new ApiAccess().loadAccountApi().then((accountFound) => {
-            const template = !!accountFound ? authorisedtemplate : unauthorisedtemplate;
-            shadowDOM.appendChild(template.content.cloneNode(true));
-
             if (!accountFound) {
+                shadowDOM.appendChild(unauthorisedtemplate.content.cloneNode(true));
                 this.addLoginButtonListener(shadowDOM);
                 return;
             }
 
             const waitOnStorage = setInterval(() => {
+                // sometimes it takes a moment before it is readable
                 const currentUserDetails = new ApiAccess().getAccountFromStorage();
 
                 const accountIsSet =
@@ -200,6 +199,7 @@ class AuthButton extends HTMLElement {
                 if (!!accountIsSet) {
                     clearInterval(waitOnStorage);
 
+                    shadowDOM.appendChild(authorisedtemplate.content.cloneNode(true));
                     const account = currentUserDetails.account;
                     this.displayUserNameAsButtonLabel(shadowDOM, account);
                     this.addAdminMenuOptions(shadowDOM, account);
