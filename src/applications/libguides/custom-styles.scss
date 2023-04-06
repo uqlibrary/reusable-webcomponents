@@ -376,7 +376,6 @@ ol {
         & > .active {
             & > a {
                 color: #333;
-                background-color: transparent;
                 background: url('https://assets.library.uq.edu.au/reusable-webcomponents-staging/applications/libguides/arrow-down.png')
                     no-repeat scroll right 12px transparent;
                 font-weight: normal;
@@ -744,4 +743,16 @@ blockquote {
 
 #s-lg-tabs-container .nav-pills > li > a.s-lg-tab-top-link:hover {
     font-weight: normal !important;
+}
+
+.s-lg-col-boxes li {
+    &.active {
+        font-weight: bold;
+        max-width: 50%;
+    }
+    &:not(.active) a {
+        background-color: #eee;
+        border-bottom-color: rgb(221, 221, 221);
+        color: #000;
+    }
 }
