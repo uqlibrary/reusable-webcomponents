@@ -162,6 +162,9 @@ h4 {
     font-weight: bold !important;
 }
 
+body .s-lib-box-container > div.s-lib-box > h2 {
+    padding-bottom: 0 !important;
+}
 body h3,
 body .s-lib-box-container .s-lib-box-content h3 {
     font-size: 18px;
@@ -621,10 +624,7 @@ ol {
 }
 
 #s-lg-hp-nav-bottom {
-    border: 1px solid #ccc;
-    border-radius: 2px;
     background-color: #fefefe;
-    box-shadow: 0 2px 8px #ccc;
 }
 
 #s-lg-hp-nav {
@@ -755,4 +755,18 @@ blockquote {
         border-bottom-color: rgb(221, 221, 221);
         color: #000;
     }
+}
+
+.s-lib-box-content {
+    div {
+        box-shadow: none !important;
+        background-color: #fff !important;
+    }
+    // when the pills wrap, put some vertical space between the rows
+    p:has(a.btn-secondary) {
+        line-height: 2.5;
+    }
+}
+* {
+    box-shadow: none !important;
 }
