@@ -18,15 +18,16 @@ export function getCookieValue(name) {
 export function setCookie(cookieId, cookieValue, expiryDate) {
     const endswith = window.location.hostname.endsWith('.library.uq.edu.au');
     const cookieDomain = endswith ? /* istanbul ignore next */ 'domain=.library.uq.edu.au;path=/' : '';
-    document.cookie = cookieId + '=' + cookieValue + ';expires=' + expiryDate.toGMTString() + ';' + cookieDomain;
+    let temp = cookieId + '=' + cookieValue + ';expires=' + expiryDate.toGMTString() + ';' + cookieDomain;
+    console.log('setting cookie ', temp);
+    document.cookie = temp;
 }
 
-// not currently used but left here for completeness of "cookie functions"
-/* istanbul ignore next */
 export function clearCookie(cookieId) {
     const numHours = -24; // date in the past
     const expiryDate = new Date();
     expiryDate.setTime(expiryDate.getTime() + numHours * 60 * 60 * 1000);
 
-    this.setCookie(cookieId, '', expiryDate);
+    console.log('clearCookie', cookieId, expiryDate);
+    setCookie(cookieId, '; Path=/', expiryDate);
 }

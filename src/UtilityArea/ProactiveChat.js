@@ -88,10 +88,11 @@ class ProactiveChat extends HTMLElement {
                     console.log(`unhandled attribute ${fieldName} received for ProactiveChat`);
             }
             // Change the attribs here?
+            const proactiveChatElement = that.shadowRoot.getElementById('proactive-chat');
             if (CAforceHideMobile) {
-                that.shadowRoot.getElementById('proactive-chat').classList.add('ca-force-hide-mobile');
+                !!proactiveChatElement && proactiveChatElement.classList.add('ca-force-hide-mobile');
             } else {
-                that.shadowRoot.getElementById('proactive-chat').classList.remove('ca-force-hide-mobile');
+                !!proactiveChatElement && proactiveChatElement.classList.remove('ca-force-hide-mobile');
             }
         }, 50);
     }
@@ -109,12 +110,13 @@ class ProactiveChat extends HTMLElement {
             return 'search.library.uq.edu.au' === hostname || regExp.test(hostname);
         };
         const showProactiveChat = () => {
+            const proactiveChatElement = shadowRoot.getElementById('proactive-chat');
             if (CAforceHideMobile) {
-                shadowRoot.getElementById('proactive-chat').classList.add('ca-force-hide-mobile');
+                !!proactiveChatElement && proactiveChatElement.classList.add('ca-force-hide-mobile');
             } else {
-                shadowRoot.getElementById('proactive-chat').classList.remove('ca-force-hide-mobile');
+                !!proactiveChatElement && proactiveChatElement.classList.remove('ca-force-hide-mobile');
             }
-            shadowRoot.getElementById('proactive-chat').classList.add('show');
+            !!proactiveChatElement && proactiveChatElement.classList.add('show');
         };
         const showProactiveChatWrapper = () => {
             shadowRoot.getElementById('proactive-chat-wrapper').removeAttribute('style');
@@ -155,8 +157,10 @@ class ProactiveChat extends HTMLElement {
         }
 
         // Chat status listeners
-        shadowDOM.getElementById('proactive-chat-online').addEventListener('click', openChat);
-        shadowDOM.getElementById('proactive-chat-offline').addEventListener('click', navigateToContactUs);
+        const proactiveChatElementOnline = shadowDOM.getElementById('proactive-chat-online');
+        !!proactiveChatElementOnline && proactiveChatElementOnline.addEventListener('click', openChat);
+        const proactiveChatElementOffline = shadowDOM.getElementById('proactive-chat-offline');
+        !!proactiveChatElementOffline && proactiveChatElementOffline.addEventListener('click', navigateToContactUs);
 
         // Proactive chat
         function hideProactiveChatWrapper() {
@@ -164,15 +168,19 @@ class ProactiveChat extends HTMLElement {
             !!pcWrapper && pcWrapper.remove();
         }
         function closeProactiveChat() {
-            shadowDOM.getElementById('proactive-chat').classList.remove('show');
+            const proactiveChatElement = shadowDOM.getElementById('proactive-chat');
+            !!proactiveChatElement && proactiveChatElement.classList.remove('show');
             setTimeout(hideProactiveChatWrapper, 1000);
             //set cookie for 24 hours
             const date = new Date();
             date.setTime(date.getTime() + 24 * 60 * 60 * 1000);
             setCookie(PROACTIVE_CHAT_HIDDEN_COOKIE_NAME, PROACTIVE_CHAT_HIDDEN_COOKIE_VALUE, date);
         }
-        shadowDOM.getElementById('proactive-chat-button-close').addEventListener('click', closeProactiveChat);
-        shadowDOM.getElementById('proactive-chat-button-open').addEventListener('click', openChat);
+
+        const proactiveChatElementClose = shadowDOM.getElementById('proactive-chat-button-close');
+        !!proactiveChatElementClose && proactiveChatElementClose.addEventListener('click', closeProactiveChat);
+        const proactiveChatElementOpen = shadowDOM.getElementById('proactive-chat-button-open');
+        !!proactiveChatElementOpen && proactiveChatElementOpen.addEventListener('click', openChat);
     }
 }
 
