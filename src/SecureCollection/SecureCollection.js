@@ -1,6 +1,7 @@
 import ApiAccess from '../ApiAccess/ApiAccess';
 import overrides from './css/overrides.css';
 import { authLocale } from '../UtilityArea/auth.locale';
+import { apiLocale as apilocale, apiLocale as locale } from '../ApiAccess/ApiAccess.locale';
 
 const fileExtensionElement = document.createElement('template');
 fileExtensionElement.innerHTML = `
@@ -107,7 +108,6 @@ class SecureCollection extends HTMLElement {
         this.getSecureCollectionCheck(currentSearchParams);
 
         this.appendExtensionsSavePrompt = this.appendExtensionsSavePrompt.bind(this);
-        this.checkLoggedInStatus = this.checkLoggedInStatus.bind(this);
         this.displayApiErrorPanel = this.displayApiErrorPanel.bind(this);
         this.displayCommercialCopyrightAcknowledgementPanel = this.displayCommercialCopyrightAcknowledgementPanel.bind(
             this,
@@ -132,20 +132,22 @@ class SecureCollection extends HTMLElement {
             .loadSecureCollectionCheck(path)
             .then((data) => {
                 if (data.response === 'Login required') {
-                    this.checkLoggedInStatus()
-                        .then((isLoggedIn) => {
-                            if (!!isLoggedIn) {
+                    const getStoredUserDetails = setInterval(() => {
+                        const accountData = new ApiAccess().getAccountFromStorage();
+                        if (
+                            accountData?.hasOwnProperty('status') &&
+                            (accountData.status === apilocale.USER_LOGGED_IN ||
+                                accountData.status === apilocale.USER_LOGGED_OUT)
+                        ) {
+                            clearInterval(getStoredUserDetails);
+                            if (accountData.status === apilocale.USER_LOGGED_IN) {
                                 // they are logged in! now we ask for the actual file they want
                                 that.getSecureCollectionFile(currentSearchParams);
                             } else {
                                 this.displayLoginRequiredRedirectorPanel();
                             }
-                        })
-                        .catch(
-                            /* istanbul ignore next */ () => {
-                                this.displayApiErrorPanel();
-                            },
-                        );
+                        }
+                    }, 100);
                 } else {
                     that.evaluateApiResponse(data);
                 }
@@ -453,23 +455,6 @@ class SecureCollection extends HTMLElement {
         blockwrapper.style.paddingBottom = '24px';
         blockwrapper.appendChild(fragment);
         block.appendChild(blockwrapper);
-    }
-
-    async checkLoggedInStatus() {
-        const that = this;
-        return await new ApiAccess()
-            .getAccount()
-            .then((account) => {
-                let libraryUser;
-                /* istanbul ignore else */
-                if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
-                    libraryUser = account;
-                }
-                return !!libraryUser && !!libraryUser.id;
-            })
-            .catch((error) => {
-                return false;
-            });
     }
 
     evaluateApiResponse(apiResponse) {

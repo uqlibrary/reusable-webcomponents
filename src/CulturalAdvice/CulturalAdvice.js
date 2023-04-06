@@ -1,5 +1,6 @@
 import culturalcss from './css/culturaladvice.css';
 import { cookieNotFound, setCookie } from '../helpers/cookie';
+import { addClassToElement, removeClassFromElement } from '../helpers/classManager';
 
 /**
  * API
@@ -66,14 +67,14 @@ class CulturalAdvice extends HTMLElement {
             const HEIGHT_LIMIT = 820;
             if (document.body.scrollHeight - window.scrollY - TAB_PARAM * 2 < HEIGHT_LIMIT) {
                 if (addClass) {
-                    shadowRoot.getElementById('culturaladvice-tab').classList.add('compensate-mobile');
+                    addClassToElement(shadowRoot, 'culturaladvice-tab', 'compensate-mobile');
                     // To stop dom throttling - Just add the class ONCE.
                     addClass = false;
                     removeClass = true;
                 }
             } else {
                 if (removeClass) {
-                    shadowRoot.getElementById('culturaladvice-tab').classList.remove('compensate-mobile');
+                    removeClassFromElement(shadowRoot, 'culturaladvice-tab', 'compensate-mobile');
                     // To stop dom throttling - Just remove the class ONCE.
                     addClass = true;
                     removeClass = false;
@@ -116,26 +117,31 @@ class CulturalAdvice extends HTMLElement {
         const dismissCA = () => {
             const proactiveChatElement = document.getElementsByTagName('proactive-chat');
             proactiveChatElement.length > 0 && proactiveChatElement[0].setAttribute('caforcehidemobile', 'false');
-            shadowRoot.getElementById('culturaladvice-container').classList.remove('culturaladvice-popup-shown');
-            shadowRoot.getElementById('culturaladvice-container').classList.add('culturaladvice-popup-hidden');
-            shadowRoot.getElementById('culturaladvice-tab').classList.remove('culturaladvice-tab-hidden');
-            shadowRoot.getElementById('culturaladvice-tab').classList.add('culturaladvice-tab-shown');
-            shadowRoot.getElementById('culturaladvice-container').setAttribute('aria-hidden', 'true');
+            removeClassFromElement(shadowRoot, 'culturaladvice-container', 'culturaladvice-popup-shown');
+            addClassToElement(shadowRoot, 'culturaladvice-container', 'culturaladvice-popup-hidden');
+            removeClassFromElement(shadowRoot, 'culturaladvice-tab', 'culturaladvice-tab-hidden');
+            addClassToElement(shadowRoot, 'culturaladvice-tab', 'culturaladvice-tab-shown');
+            const CAContainer = shadowRoot.getElementById('culturaladvice-container');
+            !!CAContainer && CAContainer.setAttribute('aria-hidden', 'true');
             setCACookie();
         };
         const showCA = () => {
             const proactiveChatElement = document.getElementsByTagName('proactive-chat');
             proactiveChatElement.length > 0 && proactiveChatElement[0].setAttribute('caforcehidemobile', 'true');
-            shadowRoot.getElementById('culturaladvice-container').classList.remove('culturaladvice-popup-hidden');
-            shadowRoot.getElementById('culturaladvice-container').classList.add('culturaladvice-popup-shown');
-            shadowRoot.getElementById('culturaladvice-tab').classList.remove('culturaladvice-tab-shown');
-            shadowRoot.getElementById('culturaladvice-tab').classList.add('culturaladvice-tab-hidden');
-            shadowRoot.getElementById('culturaladvice-container').setAttribute('aria-hidden', 'false');
+            removeClassFromElement(shadowRoot, 'culturaladvice-container', 'culturaladvice-popup-hidden');
+            addClassToElement(shadowRoot, 'culturaladvice-container', 'culturaladvice-popup-shown');
+            removeClassFromElement(shadowRoot, 'culturaladvice-tab', 'culturaladvice-tab-shown');
+            addClassToElement(shadowRoot, 'culturaladvice-tab', 'culturaladvice-tab-hidden');
+            const container = shadowRoot.getElementById('culturaladvice-container');
+            !!container && container.setAttribute('aria-hidden', 'false');
         };
         // Add event listeners to Close and Tab
-        shadowRoot.getElementById('culturaladvice-container-dismiss').addEventListener('click', dismissCA);
-        shadowRoot.getElementById('culturaladvice-tab').addEventListener('click', showCA);
-        shadowRoot.getElementById('cultural-advice-read-more').addEventListener('click', navigateToCSC);
+        const CAContainer = shadowRoot.getElementById('culturaladvice-container-dismiss');
+        !!CAContainer && CAContainer.addEventListener('click', dismissCA);
+        const CATab = shadowRoot.getElementById('culturaladvice-tab');
+        !!CATab && CATab.addEventListener('click', showCA);
+        const CAREadMore = shadowRoot.getElementById('cultural-advice-read-more');
+        !!CAREadMore && CAREadMore.addEventListener('click', navigateToCSC);
         // Start presentation timer - show Tab OR advice based on cookie.
         setTimeout(() => {
             if (cookieNotFound(CULTURAL_ADVICE_HIDDEN_COOKIE_NAME, CULTURAL_ADVICE_HIDDEN_COOKIE_VALUE)) {

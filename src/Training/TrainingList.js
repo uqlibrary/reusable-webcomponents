@@ -2,6 +2,7 @@ import styles from './css/main.css';
 import listStyles from './css/list.css';
 import uqds from './js/uqds';
 import ApiAccess from '../ApiAccess/ApiAccess';
+import { apiLocale } from '../ApiAccess/ApiAccess.locale';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -214,27 +215,24 @@ class TrainingList extends HTMLElement {
     }
 
     async checkAuthorisedUser() {
-        this.account = {};
-        let loggedin = null;
-
         const that = this;
-        const api = new ApiAccess();
-        await api
-            .getAccount()
-            .then((account) => {
-                /* istanbul ignore else */
-                if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
-                    that.account = account;
+        that.account = {};
+        let accountData = {};
+        const getStoredUserDetails = setInterval(() => {
+            accountData = new ApiAccess().getAccountFromStorage();
+            if (
+                accountData?.hasOwnProperty('status') &&
+                (accountData.status === apiLocale.USER_LOGGED_IN || accountData.status === apiLocale.USER_LOGGED_OUT)
+            ) {
+                clearInterval(getStoredUserDetails);
+                if (accountData.status === apiLocale.USER_LOGGED_IN) {
+                    console.log('training got account ', accountData);
+                    that.account = accountData.account;
+                    return true;
                 }
-
-                loggedin = !!that.account && !!that.account.id;
-            })
-            .catch(
-                /* istanbul ignore next */ () => {
-                    loggedin = false;
-                },
-            );
-        return loggedin;
+                return false;
+            }
+        }, 100);
     }
 }
 

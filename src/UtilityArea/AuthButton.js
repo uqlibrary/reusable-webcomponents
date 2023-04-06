@@ -2,6 +2,7 @@ import styles from './css/auth.css';
 import ApiAccess from '../ApiAccess/ApiAccess';
 import { authLocale } from './auth.locale';
 import { isBackTabKeyPressed, isEscapeKeyPressed, isTabKeyPressed } from '../helpers/keyDetection';
+import { apiLocale } from '../ApiAccess/ApiAccess.locale';
 
 /*
  * usage:
@@ -9,6 +10,18 @@ import { isBackTabKeyPressed, isEscapeKeyPressed, isTabKeyPressed } from '../hel
  *  <auth-button overwriteasloggedout />
  *
  */
+
+// ===============================
+// ===============================
+//
+// IF YOU ARE MASQUERADING YOU WILL SEE ***YOUR*** ADMIN MENU OPTIONS, NOT THOSE OF ThE MASQUERADED USER
+// This is because your AD groups are not wiped by the masquerade - we have tried, see repo `auth`
+//
+// auth button is the place where the api function that writes account etc into session storage is called
+// any page that show-hides things based on the account MUST show the auth button web component
+//
+// ===============================
+// ===============================
 
 // MUI icons from https://mui.com/material-ui/material-icons/ (masquerade icon predates system)
 const ICON_TWO_PEOPLE =
@@ -73,7 +86,7 @@ authorisedtemplate.innerHTML = `
 
                         <!-- Learning resources -->
                         <li role="menuitem" aria-disabled="false">
-                            <a tabindex="0" data-testid="mylibrary-menu-course-resources" href="https://www.library.uq.edu.au/learning-resources" rel="noreferrer">
+                            <a tabindex="0" id="mylibrary-menu-course-resources" data-testid="mylibrary-menu-course-resources" href="https://www.library.uq.edu.au/learning-resources" rel="noreferrer">
                                 <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"></path></svg>
                                 <span>Learning resources</span>
                                 <div class="subtext">Course readings & exam papers</div>
@@ -117,50 +130,6 @@ authorisedtemplate.innerHTML = `
                     </ul>
                     <div id="admin-options" class="admin-options" data-testid="admin-options">
                         <ul class="mylibrary-menu-list" id="mylibrary-menu-list" role="menu">
-                                                       
-                            <!-- Masquerade -->
-                            <li data-testid="mylibrary-masquerade" id="mylibrary-masquerade" role="menuitem" aria-disabled="false">
-                                <a tabindex="0" id="mylibrary-menu-masquerade" data-testid="mylibrary-menu-masquerade" href="https://www.library.uq.edu.au/admin/masquerade" rel="noreferrer">
-                                    <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;">
-                                        <path d="${ICON_TWO_PEOPLE}"></path>
-                                    </svg>
-                                    <span>Masquerade</span>
-                                </a>
-                            </li>
-                             
-                            <!-- Alerts Admin -->
-                            <li data-testid="alerts-admin" id="alerts-admin" role="menuitem" aria-disabled="false">
-                                <a tabindex="0" id="mylibrary-menu-alerts-admin" data-testid="mylibrary-menu-alerts-admin" href="https://www.library.uq.edu.au/admin/alerts" rel="noreferrer">
-                                    <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="${ICON_MUI_INFO_OUTLINED}"></path></svg>
-                                    <span>Website alerts</span>
-                                </a>
-                            </li>
-                                            
-                            <!-- Spotlights Admin -->
-                            <li data-testid="spotlights-admin" id="spotlights-admin" role="menuitem" aria-disabled="false">
-                                <a tabindex="0" id="mylibrary-menu-spotlights-admin"  data-testid="mylibrary-menu-spotlights-admin" href="https://www.library.uq.edu.au/admin/spotlights" rel="noreferrer">
-                                    <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="${ICON_MUI_IMAGE_FILLED}"></path></svg>
-                                    <span>Website spotlights</span>
-                                </a>
-                            </li>
-                                            
-                            <!-- Test & Tag -->
-                            <li data-testid="testTag-admin" id="testTag-admin" role="menuitem" aria-disabled="false">
-                                <a tabindex="0" id="mylibrary-menu-testTag-admin"  data-testid="mylibrary-menu-testTag-admin" href="https://www.library.uq.edu.au/admin/testntag" rel="noreferrer">
-                                <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="${ICON_MUI_BEENHERE_FILLED}"></path></svg>    
-                                    <span>Test and Tag</span>
-                                </a>
-                            </li>
-
-                            <!-- Promo Panel Admin -->
-                            <li data-testid="promopanel-admin" id="promopanel-admin" role="menuitem" aria-disabled="false">
-                                <a tabindex="0" id="mylibrary-menu-promopanel-admin"  data-testid="mylibrary-menu-promopanel-admin" href="https://www.library.uq.edu.au/admin/promopanel" rel="noreferrer">
-                                
-                                <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="${ICON_MUI_CAMPAIGN_FILLED}"></path></svg>
-                                    <span>Promo panels</span>
-                                </a>
-                            </li>
-            
                         </ul>
                     </div>
                 </div>
@@ -204,56 +173,143 @@ class AuthButton extends HTMLElement {
         this.showLoginFromAuthStatus = this.showLoginFromAuthStatus.bind(this);
         this.addLoginButtonListener = this.addLoginButtonListener.bind(this);
         this.addLogoutButtonListeners = this.addLogoutButtonListeners.bind(this);
-        this.checkAuthorisedUser = this.checkAuthorisedUser.bind(this);
+        this.addAdminMenuOptions = this.addAdminMenuOptions.bind(this);
         this.displayUserNameAsButtonLabel = this.displayUserNameAsButtonLabel.bind(this);
         this.isOverwriteAsLoggedOutRequested = this.isOverwriteAsLoggedOutRequested.bind(this);
-        this.showHideMylibraryEspaceOption = this.showHideMylibraryEspaceOption.bind(this);
+        this.removeEspaceMenuOptionWhenNotAuthor = this.removeEspaceMenuOptionWhenNotAuthor.bind(this);
     }
 
     async showLoginFromAuthStatus(shadowDOM) {
-        const that = this;
-        this.checkAuthorisedUser(shadowDOM).then((account) => {
-            const isAuthorised = !!account.id;
-            const template = !!isAuthorised ? authorisedtemplate : unauthorisedtemplate;
-
-            // Render the template
-            shadowDOM.appendChild(template.content.cloneNode(true));
-            this.addLoginButtonListener(shadowDOM);
-            that.addLogoutButtonListeners(shadowDOM, account);
-
-            if (!!isAuthorised) {
-                this.displayUserNameAsButtonLabel(shadowDOM, account);
-
-                const masqueradeElement = !!shadowDOM && shadowDOM.getElementById('mylibrary-masquerade');
-                !account.canMasquerade && !!masqueradeElement && masqueradeElement.remove();
-
-                const alertsAdminElement = !!shadowDOM && shadowDOM.getElementById('alerts-admin');
-                !this.canSeeAlertsAdmin(account) && !!alertsAdminElement && alertsAdminElement.remove();
-
-                const spotlightsAdminElement = !!shadowDOM && shadowDOM.getElementById('spotlights-admin');
-                !this.canSeeSpotlightsAdmin(account) && !!spotlightsAdminElement && spotlightsAdminElement.remove();
-
-                const testTagAdminElement = !!shadowDOM && shadowDOM.getElementById('testTag-admin');
-                !this.canSeeTestTagAdmin(account) && !!testTagAdminElement && testTagAdminElement.remove();
-
-                const promoPanelElement = !!shadowDOM && shadowDOM.getElementById('promopanel-admin');
-                !this.canSeePromopanelAdmin(account) && !!promoPanelElement && promoPanelElement.remove();
-
-                this.showHideMylibraryEspaceOption(shadowDOM);
-
-                // if admin area has no entries, delete the area so we lose the border at the top
-                const adminarealist = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-list');
-                if (!!adminarealist && adminarealist.children.length === 0) {
-                    const adminarea = !!shadowDOM && shadowDOM.getElementById('admin-options');
-                    !!adminarea && adminarea.remove();
-                }
-
-                // add the user's name to the account button
-                const userNameArea = !!shadowDOM && shadowDOM.getElementById('user-display-name');
-                const textNode = document.createTextNode(this.getUserDisplayName(account));
-                !!userNameArea && !!textNode && userNameArea.appendChild(textNode);
+        await new ApiAccess().loadAccountApi().then((accountFound) => {
+            if (!accountFound) {
+                shadowDOM.appendChild(unauthorisedtemplate.content.cloneNode(true));
+                this.addLoginButtonListener(shadowDOM);
+                return;
             }
+
+            const waitOnStorage = setInterval(() => {
+                // sometimes it takes a moment before it is readable
+                const currentUserDetails = new ApiAccess().getAccountFromStorage();
+
+                const accountIsSet =
+                    currentUserDetails.hasOwnProperty('account') &&
+                    !!currentUserDetails.account &&
+                    currentUserDetails.account.hasOwnProperty('id') &&
+                    !!currentUserDetails.account.id;
+                if (!!accountIsSet) {
+                    clearInterval(waitOnStorage);
+
+                    shadowDOM.appendChild(authorisedtemplate.content.cloneNode(true));
+                    const account = currentUserDetails.account;
+                    this.displayUserNameAsButtonLabel(shadowDOM, account);
+                    this.addAdminMenuOptions(shadowDOM, account);
+                    this.removeEspaceMenuOptionWhenNotAuthor(shadowDOM);
+                    this.addLogoutButtonListeners(shadowDOM, account);
+                } else if (
+                    !!currentUserDetails &&
+                    currentUserDetails.hasOwnProperty('status') &&
+                    currentUserDetails.status === apiLocale.USER_LOGGED_OUT
+                ) {
+                    // final check to add logged out button - should never happen
+                    const authButton = document.querySelector('auth-button');
+                    const authshadowdom = !!authButton && authButton.shadowRoot;
+                    const unauthbutton = !!authshadowdom && authshadowdom.getElementById('auth-button-login');
+                    if (!unauthbutton) {
+                        shadowDOM.appendChild(unauthorisedtemplate.content.cloneNode(true));
+                        this.addLoginButtonListener(shadowDOM);
+                    }
+                }
+            }, 200);
         });
+    }
+    addAdminMenuOptions(shadowDOM, account) {
+        function addAdminMenuOption(elementId, linkId, link, iconPath, path) {
+            const menuList = shadowDOM.getElementById('mylibrary-menu-list');
+            const template = document.createElement('template');
+            template.innerHTML = `
+                <li data-testid="${elementId}" id="${elementId}" role="menuitem" aria-disabled="false">
+                    <a tabIndex="0" id="${linkId}" data-testid="${linkId}"
+                       href="${link}" rel="noreferrer">
+                        <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24"
+                             aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;">
+                            <path d="${iconPath}"></path>
+                        </svg>
+                        <span>${path}</span>
+                    </a>
+                </li>`;
+            menuList.appendChild(template.content.cloneNode(true));
+        }
+
+        // when in dev branch or localhost, reset the links in the account menu
+        let linkRoot = `${window.location.protocol}//${window.location.hostname}/`;
+        let linkAppend = '';
+        if (window.location.hostname === 'homepage-development.library.uq.edu.au') {
+            linkRoot = `${window.location.protocol}//${window.location.hostname}${window.location.pathname}#/`;
+        } else if (window.location.hostname === 'assets.library.uq.edu.au') {
+            linkRoot = `${window.location.protocol}//www.library.uq.edu.au/`;
+        } else if (window.location.hostname === 'localhost') {
+            const homepagePort = '2020';
+            linkRoot = `${window.location.protocol}//${window.location.hostname}:${homepagePort}/`;
+            linkAppend = !!window.location.search ? window.location.search : ''; // get the user id
+        }
+
+        const learningResourcePageLink = `${linkRoot}learning-resources${linkAppend}`;
+        const learningResourceLinkElement = shadowDOM.getElementById('mylibrary-menu-course-resources');
+        !!learningResourcePageLink &&
+            !!learningResourceLinkElement &&
+            learningResourceLinkElement.setAttribute('href', learningResourcePageLink);
+
+        !!account.canMasquerade &&
+            addAdminMenuOption(
+                'mylibrary-masquerade',
+                'mylibrary-menu-masquerade',
+                `${linkRoot}admin/masquerade${linkAppend}`,
+                ICON_TWO_PEOPLE,
+                'Masquerade',
+            );
+
+        !!this.canSeeAlertsAdmin(account) &&
+            addAdminMenuOption(
+                'alerts-admin',
+                'mylibrary-menu-alerts-admin',
+                `${linkRoot}admin/alerts${linkAppend}`,
+                ICON_MUI_INFO_OUTLINED,
+                'Website alerts',
+            );
+
+        !!this.canSeeSpotlightsAdmin(account) &&
+            addAdminMenuOption(
+                'spotlights-admin',
+                'mylibrary-menu-spotlights-admin',
+                `${linkRoot}admin/spotlights${linkAppend}`,
+                ICON_MUI_IMAGE_FILLED,
+                'Website spotlights',
+            );
+
+        !!this.canSeeTestTagAdmin(account) &&
+            addAdminMenuOption(
+                'testTag-admin',
+                'mylibrary-menu-testTag-admin',
+                `${linkRoot}admin/testntag${linkAppend}`,
+                ICON_MUI_BEENHERE_FILLED,
+                'Test and Tag',
+            );
+
+        !!this.canSeePromopanelAdmin(account) &&
+            addAdminMenuOption(
+                'promopanel-admin',
+                'mylibrary-menu-promopanel-admin',
+                `${linkRoot}admin/promopanel${linkAppend}`,
+                ICON_MUI_CAMPAIGN_FILLED,
+                'Promo panels',
+            );
+
+        // if admin area has no entries, delete the area so we lose the border at the top
+        const adminarealist = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-list');
+        if (!!adminarealist && adminarealist.children.length === 0) {
+            const adminarea = !!shadowDOM && shadowDOM.getElementById('admin-options');
+            !!adminarea && adminarea.remove();
+        }
     }
 
     getUserDisplayName(account) {
@@ -285,6 +341,9 @@ class AuthButton extends HTMLElement {
 
     addLoginButtonListener(shadowDOM) {
         function visitLoginPage() {
+            if (!window.sessionStorage) {
+                alert('Please enable browser Session Storage to log into the Library');
+            }
             const returnUrl = window.location.href;
             window.location.assign(`${authLocale.AUTH_URL_LOGIN}${window.btoa(returnUrl)}`);
         }
@@ -295,14 +354,28 @@ class AuthButton extends HTMLElement {
     }
 
     addLogoutButtonListeners(shadowDOM, account = null) {
-        function visitLogOutPage() {
-            new ApiAccess().removeAccountStorage();
+        const that = this;
+        let accountOptionsClosed = true;
 
-            const returnUrl = window.location.href;
+        function visitLogOutPage() {
+            new ApiAccess().markAccountStorageLoggedOut();
+
+            let homepagelink = 'http://www.library.uq.edu.au';
+            /* istanbul ignore next */
+            if (window.location.hostname === 'homepage-development.library.uq.edu.au') {
+                homepagelink = `${window.location.protocol}//${window.location.hostname}${window.location.pathname}#/`;
+            } else if (window.location.hostname.endsWith('.library.uq.edu.au')) {
+                homepagelink = `${window.location.protocol}//${window.location.hostname}${window.location.pathname}`;
+            } else if (window.location.hostname === 'localhost') {
+                const linkAppend = '?user=public';
+                homepagelink = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/${linkAppend}`;
+            }
+            // if we're on a login-required page, the NotFound component will force login before we can fully logout
+            window.history.pushState({ user: 'public' }, '', homepagelink);
+
+            const returnUrl = homepagelink;
             window.location.assign(`${authLocale.AUTH_URL_LOGOUT}${window.btoa(returnUrl)}`);
         }
-
-        let accountOptionsClosed = true;
 
         function openAccountOptionsMenu() {
             accountOptionsClosed = false;
@@ -328,9 +401,9 @@ class AuthButton extends HTMLElement {
         function closeAccountOptionsMenu() {
             accountOptionsClosed = true;
             const shadowMenu = shadowDOM.getElementById('account-options-menu');
-            shadowMenu.classList.add('account-options-menu-closed');
+            !!shadowMenu && shadowMenu.classList.add('account-options-menu-closed');
             const shadowPane = shadowDOM.getElementById('account-options-pane');
-            shadowPane.classList.add('account-options-pane-closed');
+            !!shadowPane && shadowPane.classList.add('account-options-pane-closed');
 
             function hideAccountOptionsDisplay() {
                 !!shadowMenu && (shadowMenu.style.display = 'none');
@@ -357,6 +430,69 @@ class AuthButton extends HTMLElement {
             closeAccountOptionsMenu();
         }
 
+        // when the user clicks a link that is supplied by the homepage repo, manually close the account menu
+        function closeAccountMenuOnLinkClick(elementId) {
+            const link = !!shadowDOM && shadowDOM.getElementById(elementId);
+            !!link &&
+                link.addEventListener('click', function () {
+                    closeAccountOptionsMenu();
+                });
+        }
+
+        // on whatever is the bottom-most link in the account menu for this user, tabbing out closes the popup account menu
+        function closeMenuWhenBottomMostLinkClicked() {
+            // the order of these ifs must match the reverse order they are displayed in
+            if (that.canSeePromopanelAdmin(account)) {
+                const promopanelOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-promopanel-admin');
+                !!promopanelOption &&
+                    promopanelOption.addEventListener('keydown', function (e) {
+                        if (isTabKeyPressed(e)) {
+                            closeAccountOptionsMenu();
+                        }
+                    });
+            } else if (that.canSeeTestTagAdmin(account)) {
+                const testntagOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-testTag-admin');
+                !!testntagOption &&
+                    testntagOption.addEventListener('keydown', function (e) {
+                        if (isTabKeyPressed(e)) {
+                            closeAccountOptionsMenu();
+                        }
+                    });
+            } else if (that.canSeeSpotlightsAdmin(account)) {
+                const spotlightsOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-spotlights-admin');
+                !!spotlightsOption &&
+                    spotlightsOption.addEventListener('keydown', function (e) {
+                        if (isTabKeyPressed(e)) {
+                            closeAccountOptionsMenu();
+                        }
+                    });
+            } else if (that.canSeeAlertsAdmin(account)) {
+                const alertsOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-alerts-admin');
+                !!alertsOption &&
+                    alertsOption.addEventListener('keydown', function (e) {
+                        if (isTabKeyPressed(e)) {
+                            closeAccountOptionsMenu();
+                        }
+                    });
+            } else if (!!account?.canMasquerade) {
+                const masquradeOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-masquerade');
+                !!masquradeOption &&
+                    masquradeOption.addEventListener('keydown', function (e) {
+                        if (isTabKeyPressed(e)) {
+                            closeAccountOptionsMenu();
+                        }
+                    });
+            } else {
+                const feedbackButton = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-feedback');
+                !!feedbackButton &&
+                    feedbackButton.addEventListener('keydown', function (e) {
+                        if (isTabKeyPressed(e)) {
+                            closeAccountOptionsMenu();
+                        }
+                    });
+            }
+        }
+
         // Attach a listener to the options button
         const accountOptionsButton = !!shadowDOM && shadowDOM.getElementById('account-option-button');
         !!accountOptionsButton && accountOptionsButton.addEventListener('click', handleAccountOptionsButton);
@@ -371,79 +507,18 @@ class AuthButton extends HTMLElement {
             });
         }
 
-        // these ifs must match the reverse order of display
-        if (this.canSeePromopanelAdmin(account)) {
-            !!shadowDOM &&
-                shadowDOM.getElementById('mylibrary-menu-promopanel-admin').addEventListener('keydown', function (e) {
-                    if (isTabKeyPressed(e)) {
-                        closeAccountOptionsMenu();
-                    }
-                });
-        }
-        if (this.canSeeTestTagAdmin(account)) {
-            !!shadowDOM &&
-                shadowDOM.getElementById('mylibrary-menu-testTag-admin').addEventListener('keydown', function (e) {
-                    if (isTabKeyPressed(e)) {
-                        closeAccountOptionsMenu();
-                    }
-                });
-        } else if (this.canSeeSpotlightsAdmin(account)) {
-            !!shadowDOM &&
-                shadowDOM.getElementById('mylibrary-menu-spotlights-admin').addEventListener('keydown', function (e) {
-                    if (isTabKeyPressed(e)) {
-                        closeAccountOptionsMenu();
-                    }
-                });
-        } else if (this.canSeeAlertsAdmin(account)) {
-            !!shadowDOM &&
-                shadowDOM.getElementById('mylibrary-menu-alerts-admin').addEventListener('keydown', function (e) {
-                    if (isTabKeyPressed(e)) {
-                        closeAccountOptionsMenu();
-                    }
-                });
-        } else if (!!account?.canMasquerade) {
-            !!shadowDOM &&
-                shadowDOM.getElementById('mylibrary-menu-masquerade').addEventListener('keydown', function (e) {
-                    if (isTabKeyPressed(e)) {
-                        closeAccountOptionsMenu();
-                    }
-                });
-        } else {
-            const feedbackButton = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-feedback');
-            !!feedbackButton &&
-                feedbackButton.addEventListener('keydown', function (e) {
-                    if (isTabKeyPressed(e)) {
-                        closeAccountOptionsMenu();
-                    }
-                });
-        }
-    }
+        closeMenuWhenBottomMostLinkClicked();
 
-    async checkAuthorisedUser(shadowDOM) {
-        this.accountLoading = true;
-        this.account = {};
-        let loggedin = null;
-
-        const that = this;
-        const api = new ApiAccess();
-        await api
-            .getAccount()
-            .then((account) => {
-                /* istanbul ignore else */
-                if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
-                    that.account = account;
-                }
-                that.accountLoading = false;
-            })
-            .catch((error) => {
-                that.accountLoading = false;
-            });
-
-        return that.account;
+        closeAccountMenuOnLinkClick('mylibrary-menu-masquerade');
+        closeAccountMenuOnLinkClick('mylibrary-menu-alerts-admin');
+        closeAccountMenuOnLinkClick('mylibrary-menu-spotlights-admin');
+        closeAccountMenuOnLinkClick('mylibrary-menu-testTag-admin');
+        closeAccountMenuOnLinkClick('mylibrary-menu-promopanel-admin');
+        closeAccountMenuOnLinkClick('mylibrary-menu-course-resources');
     }
 
     // we have an option to add the attribute `overwriteasloggedout` to the authbutton
-    // this will include the auth button, but always show them as logged out
+    // this will display the auth button, but always show them as logged out
     isOverwriteAsLoggedOutRequested() {
         const isOverwriteRequired = this.getAttribute('overwriteasloggedout');
         return (!!isOverwriteRequired || isOverwriteRequired === '') && isOverwriteRequired !== 'false';
@@ -481,14 +556,29 @@ class AuthButton extends HTMLElement {
         return !!account && !!this.hasWebContentAdminAccess(account);
     }
 
-    async showHideMylibraryEspaceOption(shadowDOM) {
-        const api = new ApiAccess();
-        return await api.loadAuthorApi().then((author) => {
-            const espaceitem = !!shadowDOM && shadowDOM.getElementById('mylibrary-espace');
-            const isAuthor = !!author && !!author.data && !!author.data.hasOwnProperty('aut_id');
-            !!espaceitem && !isAuthor && espaceitem.remove();
-            return author;
-        });
+    async removeEspaceMenuOptionWhenNotAuthor(shadowDOM) {
+        const espaceitem = !!shadowDOM && shadowDOM.getElementById('mylibrary-espace');
+        if (!espaceitem) {
+            return;
+        }
+
+        let storedUserDetails = {};
+        const getStoredUserDetails = setInterval(() => {
+            storedUserDetails = new ApiAccess().getAccountFromStorage();
+            let isLoggedIn =
+                !!storedUserDetails &&
+                storedUserDetails.hasOwnProperty('status') &&
+                (storedUserDetails.status === apiLocale.USER_LOGGED_IN ||
+                    storedUserDetails.status === apiLocale.USER_LOGGED_OUT);
+            if (isLoggedIn) {
+                clearInterval(getStoredUserDetails);
+
+                const isAuthor =
+                    storedUserDetails?.hasOwnProperty('currentAuthor') &&
+                    !!storedUserDetails.currentAuthor.hasOwnProperty('aut_id');
+                !isAuthor && espaceitem.remove();
+            }
+        }, 100);
     }
 }
 

@@ -257,7 +257,6 @@ describe('Search Portal', () => {
                     cy.get('button[data-testid="primo-search-autocomplete-voice-clear"]').click();
                     // force is required because otherwise it sometimes thinks the text field is disabled when the width of the search type dropdown has changed after search type selection
                     cy.get('input[data-testid="primo-search-autocomplete-input"]').type('beard', { force: true });
-                    // cy.wait(2000); // wait for api
                     cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
                         .find('li')
                         .its('length')

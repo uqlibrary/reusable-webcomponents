@@ -114,9 +114,11 @@ class Alert extends HTMLElement {
                         setCookie(alertHiddenCookieID, alertCookieHidddenValue, date);
                     }
                 };
-                shadowDOM.getElementById('alert-close').addEventListener('click', closeAlert);
+                let alertClose = shadowDOM.getElementById('alert-close');
+                !!alertClose && alertClose.addEventListener('click', closeAlert);
             } else {
-                shadowDOM.getElementById('alert-close').remove();
+                let alertClose = shadowDOM.getElementById('alert-close');
+                !!alertClose && alertClose.remove();
             }
 
             // Show or hide the action button and attach the function to do so
