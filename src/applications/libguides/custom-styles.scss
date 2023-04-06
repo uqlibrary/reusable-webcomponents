@@ -51,12 +51,12 @@
     border-radius: 0 2px 2px 0 !important;
     font-size: 14px/1.2;
     cursor: pointer;
-    color: #51247a;
+    color: #000 !important;
     margin: 0 0 1px;
     background: url(https://assets.library.uq.edu.au/reusable-components/resources/images/arrow-right.png) right 12px
         no-repeat;
     padding: 10px;
-    border-left: 4px solid #51247a;
+    border-left: 0 none transparent !important;
 }
 
 #s-lg-tabs-container .nav-pills > .active > a,
@@ -66,7 +66,7 @@
 #s-lg-tabs-container .nav-pills > li.active > a,
 #s-lg-tabs-container .nav-pills > li:not(.dropdown-menu) > a:hover,
 #s-lg-tabs-container .nav-tabs > li.active > a {
-    border-left: 4px solid #51247a;
+    border-left: 0 none transparent !important;
     padding: 10px;
 }
 
@@ -735,4 +735,13 @@ li.uql-global-links {
 blockquote {
     font-size: 16px;
     margin-left: 1em;
+}
+
+#s-lg-tabs-container .nav-pills > li > a.s-lg-tab-top-link,
+#s-lg-tabs-container .nav-pills > li > a.s-lg-tab-top-link:hover {
+    font-weight: normal !important;
+}
+
+#s-lg-tabs-container .nav-pills > li > a.s-lg-tab-top-link:hover {
+    font-weight: normal !important;
 }
