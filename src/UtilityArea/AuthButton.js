@@ -3,6 +3,14 @@ import ApiAccess from '../ApiAccess/ApiAccess';
 import { authLocale } from './auth.locale';
 import { isBackTabKeyPressed, isEscapeKeyPressed, isTabKeyPressed } from '../helpers/keyDetection';
 import { apiLocale } from '../ApiAccess/ApiAccess.locale';
+import {
+    canSeeAlertsAdmin,
+    canSeeEspace,
+    canSeeLearningResources,
+    canSeePromopanelAdmin,
+    canSeeSpotlightsAdmin,
+    canSeeTestTagAdmin,
+} from '../helpers/access';
 
 /*
  * usage:
@@ -85,7 +93,7 @@ authorisedtemplate.innerHTML = `
                         </li>
 
                         <!-- Learning resources -->
-                        <li role="menuitem" aria-disabled="false">
+                        <li role="menuitem" aria-disabled="false" id="mylibrary-menu-course-resources-listitem" data-testid="mylibrary-menu-course-resources-listitem">
                             <a tabindex="0" id="mylibrary-menu-course-resources" data-testid="mylibrary-menu-course-resources" href="https://www.library.uq.edu.au/learning-resources" rel="noreferrer">
                                 <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"></path></svg>
                                 <span>Learning resources</span>
@@ -204,6 +212,7 @@ class AuthButton extends HTMLElement {
                     this.displayUserNameAsButtonLabel(shadowDOM, account);
                     this.addAdminMenuOptions(shadowDOM, account);
                     this.removeEspaceMenuOptionWhenNotAuthor(shadowDOM);
+                    this.removeLRMenuOptionWhenNoPriv(shadowDOM);
                     this.addLogoutButtonListeners(shadowDOM, account);
                 } else if (
                     !!currentUserDetails &&
@@ -268,7 +277,7 @@ class AuthButton extends HTMLElement {
                 'Masquerade',
             );
 
-        !!this.canSeeAlertsAdmin(account) &&
+        !!canSeeAlertsAdmin(account) &&
             addAdminMenuOption(
                 'alerts-admin',
                 'mylibrary-menu-alerts-admin',
@@ -277,7 +286,7 @@ class AuthButton extends HTMLElement {
                 'Website alerts',
             );
 
-        !!this.canSeeSpotlightsAdmin(account) &&
+        !!canSeeSpotlightsAdmin(account) &&
             addAdminMenuOption(
                 'spotlights-admin',
                 'mylibrary-menu-spotlights-admin',
@@ -286,7 +295,7 @@ class AuthButton extends HTMLElement {
                 'Website spotlights',
             );
 
-        !!this.canSeeTestTagAdmin(account) &&
+        !!canSeeTestTagAdmin(account) &&
             addAdminMenuOption(
                 'testTag-admin',
                 'mylibrary-menu-testTag-admin',
@@ -295,7 +304,7 @@ class AuthButton extends HTMLElement {
                 'Test and Tag',
             );
 
-        !!this.canSeePromopanelAdmin(account) &&
+        !!canSeePromopanelAdmin(account) &&
             addAdminMenuOption(
                 'promopanel-admin',
                 'mylibrary-menu-promopanel-admin',
@@ -376,7 +385,6 @@ class AuthButton extends HTMLElement {
                 homepagelink = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/${linkAppend}`;
             }
             // if we're on a login-required page, the NotFound component will force login before we can fully logout
-            window.history.pushState({ user: 'public' }, '', homepagelink);
 
             const returnUrl = homepagelink;
             window.location.assign(`${authLocale.AUTH_URL_LOGOUT}${window.btoa(returnUrl)}`);
@@ -447,7 +455,7 @@ class AuthButton extends HTMLElement {
         // on whatever is the bottom-most link in the account menu for this user, tabbing out closes the popup account menu
         function closeMenuWhenBottomMostLinkClicked() {
             // the order of these ifs must match the reverse order they are displayed in
-            if (that.canSeePromopanelAdmin(account)) {
+            if (canSeePromopanelAdmin(account)) {
                 const promopanelOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-promopanel-admin');
                 !!promopanelOption &&
                     promopanelOption.addEventListener('keydown', function (e) {
@@ -455,7 +463,7 @@ class AuthButton extends HTMLElement {
                             closeAccountOptionsMenu();
                         }
                     });
-            } else if (that.canSeeTestTagAdmin(account)) {
+            } else if (canSeeTestTagAdmin(account)) {
                 const testntagOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-testTag-admin');
                 !!testntagOption &&
                     testntagOption.addEventListener('keydown', function (e) {
@@ -463,7 +471,7 @@ class AuthButton extends HTMLElement {
                             closeAccountOptionsMenu();
                         }
                     });
-            } else if (that.canSeeSpotlightsAdmin(account)) {
+            } else if (canSeeSpotlightsAdmin(account)) {
                 const spotlightsOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-spotlights-admin');
                 !!spotlightsOption &&
                     spotlightsOption.addEventListener('keydown', function (e) {
@@ -471,7 +479,7 @@ class AuthButton extends HTMLElement {
                             closeAccountOptionsMenu();
                         }
                     });
-            } else if (that.canSeeAlertsAdmin(account)) {
+            } else if (canSeeAlertsAdmin(account)) {
                 const alertsOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-alerts-admin');
                 !!alertsOption &&
                     alertsOption.addEventListener('keydown', function (e) {
@@ -529,41 +537,34 @@ class AuthButton extends HTMLElement {
         return (!!isOverwriteRequired || isOverwriteRequired === '') && isOverwriteRequired !== 'false';
     }
 
-    // access controlled via Active Directory (AD)
-    hasWebContentAdminAccess(account) {
-        return (
-            !!account &&
-            !!account.groups &&
-            account.groups.find((group) => group.includes('lib_libapi_SpotlightAdmins'))
-        );
-    }
-
-    // access controlled via Active Directory (AD)
-    hasTestTagAdminAccess(account) {
-        return (
-            !!account && !!account.groups && account.groups.find((group) => group.includes('lib_libapi_TestTagUsers'))
-        );
-    }
-
-    canSeeAlertsAdmin(account) {
-        return !!account && !!this.hasWebContentAdminAccess(account);
-    }
-
-    canSeeSpotlightsAdmin(account) {
-        return !!account && !!this.hasWebContentAdminAccess(account);
-    }
-
-    canSeeTestTagAdmin(account) {
-        return !!account && !!this.hasTestTagAdminAccess(account);
-    }
-
-    canSeePromopanelAdmin(account) {
-        return !!account && !!this.hasWebContentAdminAccess(account);
-    }
-
     async removeEspaceMenuOptionWhenNotAuthor(shadowDOM) {
         const espaceitem = !!shadowDOM && shadowDOM.getElementById('mylibrary-espace');
         if (!espaceitem) {
+            return;
+        }
+
+        let storedUserDetails = {};
+
+        const getStoredUserDetails = setInterval(() => {
+            storedUserDetails = new ApiAccess().getAccountFromStorage();
+            let isLoggedIn =
+                !!storedUserDetails &&
+                storedUserDetails.hasOwnProperty('status') &&
+                (storedUserDetails.status === apiLocale.USER_LOGGED_IN ||
+                    storedUserDetails.status === apiLocale.USER_LOGGED_OUT);
+            if (isLoggedIn) {
+                clearInterval(getStoredUserDetails);
+
+                !canSeeEspace(storedUserDetails) && espaceitem.remove();
+            }
+        }, 100);
+    }
+
+    // only certain user types can open Learning Resources
+    async removeLRMenuOptionWhenNoPriv(shadowDOM) {
+        const LRitem = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-course-resources-listitem');
+        console.log('LRitem=', LRitem);
+        if (!LRitem) {
             return;
         }
 
@@ -578,10 +579,7 @@ class AuthButton extends HTMLElement {
             if (isLoggedIn) {
                 clearInterval(getStoredUserDetails);
 
-                const isAuthor =
-                    storedUserDetails?.hasOwnProperty('currentAuthor') &&
-                    !!storedUserDetails.currentAuthor.hasOwnProperty('aut_id');
-                !isAuthor && espaceitem.remove();
+                !canSeeLearningResources(storedUserDetails) && LRitem.remove();
             }
         }, 100);
     }
