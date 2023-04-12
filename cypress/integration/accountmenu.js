@@ -114,7 +114,9 @@ function assertUserHasEspaceDashboard(expected) {
 function assertNameIsDisplayedOnAccountOptionsButtonCorrectly(userName, displayName) {
     cy.visit('http://localhost:8080/?user=' + userName);
     cy.waitUntil(() => cy.get('uq-site-header').find('auth-button').should('exist'));
+    cy.log('looking for', displayName);
     cy.get('auth-button').shadow().find('[data-testid="username-area-label"]').should('contain', displayName);
+    cy.get('auth-button').shadow().find('[data-testid="user-display-name"]').should('contain', displayName);
 }
 
 function assertUserSeesNOAdminOptions() {

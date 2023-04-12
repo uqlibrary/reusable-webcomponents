@@ -58,7 +58,7 @@ authorisedtemplate.innerHTML = `
                         <div class="user-menu-header">
                             <div layout="column" flex="" class="layout-column flex">
                                 <span class="tiny-text">Logged in as:</span>
-                                <span id="user-display-name" class="user-display-name bold-text" style="padding-right:1rem"></span>
+                                <span id="user-display-name" data-testid="user-display-name" class="user-display-name bold-text" style="padding-right:1rem"></span>
                             </div>
                             <button class="logout md-primary md-button md-primoExplore-theme md-ink-ripple" type="button" data-testid="auth-button-logout" id="signOutButton" aria-label="Log out" role="menuitem">
                                 <span class="bold-text">Log out</span>
@@ -310,6 +310,11 @@ class AuthButton extends HTMLElement {
             const adminarea = !!shadowDOM && shadowDOM.getElementById('admin-options');
             !!adminarea && adminarea.remove();
         }
+
+        // add the user's name to the open menu
+        const userNameArea = !!shadowDOM && shadowDOM.getElementById('user-display-name');
+        const textNode = document.createTextNode(this.getUserDisplayName(account));
+        !!userNameArea && !!textNode && userNameArea.appendChild(textNode);
     }
 
     getUserDisplayName(account) {
