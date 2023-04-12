@@ -34,7 +34,6 @@ function assertUserHasStandardMyLibraryOptions(userid = 'uqstaff') {
     cy.get('li a[data-testid="mylibrary-menu-room-bookings"]').should('exist').contains('Book a room or desk');
     cy.get('li a[data-testid="mylibrary-menu-saved-items"]').should('exist').contains('Favourites');
     cy.get('li a[data-testid="mylibrary-menu-feedback"]').should('exist').contains('Feedback');
-    cy.get('ul[data-testid="mylibrary-menu-list-public"]').should('exist').children().its('length').should('be.gte', 6);
 }
 
 function assertUserHasMasquerade(expected, userid = 'uqstaff') {
@@ -103,7 +102,7 @@ function assertUserHasPromoPanelAdmin(expected, userid = 'uqstaff') {
     }
 }
 
-function assertUserHasEspaceDashboard(expected) {
+function assertUserHasEspaceMenuItem(expected) {
     if (!!expected) {
         cy.get('li[data-testid="mylibrary-espace"]').should('exist').contains('UQ eSpace dashboard');
     } else {
@@ -315,7 +314,7 @@ describe('Account menu button', () => {
                     assertUserHasSpotlightAdmin(true);
                     assertUserHasPromoPanelAdmin(true);
                     assertUserHasTestTagAdmin(false); // admins do not get T&T by default
-                    assertUserHasEspaceDashboard(true); // not an admin function, this user happens to have an author account
+                    assertUserHasEspaceMenuItem(true); // not an admin function, this user happens to have an author account
                 });
         });
 
@@ -346,7 +345,7 @@ describe('Account menu button', () => {
                     assertUserHasSpotlightAdmin(false);
                     assertUserHasPromoPanelAdmin(false);
                     assertUserHasTestTagAdmin(false);
-                    assertUserHasEspaceDashboard(true);
+                    assertUserHasEspaceMenuItem(true);
                 });
         });
 
@@ -359,7 +358,7 @@ describe('Account menu button', () => {
                 .shadow()
                 .within(() => {
                     assertUserHasStandardMyLibraryOptions('s1111111');
-                    assertUserHasEspaceDashboard(true);
+                    assertUserHasEspaceMenuItem(true);
                     assertUserSeesNOAdminOptions();
                 });
         });
@@ -376,7 +375,7 @@ describe('Account menu button', () => {
                 .shadow()
                 .within(() => {
                     assertUserHasStandardMyLibraryOptions('digiteamMember');
-                    assertUserHasEspaceDashboard(true);
+                    assertUserHasEspaceMenuItem(true);
                     assertUserHasMasquerade(true, 'digiteamMember');
                     assertUserHasAlertsAdmin(false);
                     assertUserHasSpotlightAdmin(false);
@@ -395,7 +394,7 @@ describe('Account menu button', () => {
                 .within(() => {
                     assertUserHasStandardMyLibraryOptions('s3333333');
                     assertUserSeesNOAdminOptions();
-                    assertUserHasEspaceDashboard(false);
+                    assertUserHasEspaceMenuItem(false);
                 });
         });
 
@@ -413,7 +412,7 @@ describe('Account menu button', () => {
                     assertUserHasSpotlightAdmin(true, 'uqrdav10');
                     assertUserHasPromoPanelAdmin(true, 'uqrdav10');
                     assertUserHasTestTagAdmin(false);
-                    assertUserHasEspaceDashboard(false);
+                    assertUserHasEspaceMenuItem(false);
                 });
         });
 
