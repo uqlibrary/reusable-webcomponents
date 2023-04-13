@@ -211,6 +211,7 @@ class AuthButton extends HTMLElement {
                     currentUserDetails.status === apiLocale.USER_LOGGED_OUT
                 ) {
                     // final check to add logged out button - should never happen
+                    clearInterval(waitOnStorage);
                     const authButton = document.querySelector('auth-button');
                     const authshadowdom = !!authButton && authButton.shadowRoot;
                     const unauthbutton = !!authshadowdom && authshadowdom.getElementById('auth-button-login');
