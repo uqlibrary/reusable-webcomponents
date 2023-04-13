@@ -1,5 +1,3 @@
-import { searchPortalLocale } from '../../src/SearchPortal/searchPortal.locale';
-
 const DOWN_ARROW_KEYCODE = 40;
 const ESCAPE_KEYCODE = 27;
 const RETURN_KEYCODE = 13;
@@ -259,7 +257,6 @@ describe('Search Portal', () => {
                     cy.get('button[data-testid="primo-search-autocomplete-voice-clear"]').click();
                     // force is required because otherwise it sometimes thinks the text field is disabled when the width of the search type dropdown has changed after search type selection
                     cy.get('input[data-testid="primo-search-autocomplete-input"]').type('beard', { force: true });
-                    // cy.wait(2000); // wait for api
                     cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
                         .find('li')
                         .its('length')
@@ -383,8 +380,8 @@ describe('Search Portal', () => {
 
         it('Course reading lists should have the expected items', () => {
             cy.viewport(1300, 1000);
-            // cy.intercept('GET', 'https://uq.rl.talis.com/search.html?q=PHIL1013', {
-            cy.intercept('GET', '/search.html?q=PHIL1013', {
+            // cy.intercept('GET', 'https://uq.rl.talis.com/search.html?q=PHIL1013&login=1', {
+            cy.intercept('GET', '/search.html?q=PHIL1013&login=1', {
                 // statusCode: 200,
                 body: 'user is on a Talis result page',
             });

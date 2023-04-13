@@ -1,14 +1,9 @@
-// Styles from libguides backend
-
-.s-lib-box h2.s-lib-box-title {
-    font-size: 16px;
-}
 .s-lib-box .s-lib-box-title {
     margin-bottom: 0;
     padding: 12px 9px;
-    color: #fff;
+    color: #51247a !important;
     font-weight: 400;
-    background: #51247a;
+    background: #fff !important;
     border-bottom: 5px solid #fff;
 }
 
@@ -53,12 +48,12 @@
     border-radius: 0 2px 2px 0 !important;
     font-size: 14px/1.2;
     cursor: pointer;
-    color: #51247a;
+    color: #000 !important;
     margin: 0 0 1px;
     background: url(https://assets.library.uq.edu.au/reusable-components/resources/images/arrow-right.png) right 12px
         no-repeat;
     padding: 10px;
-    border-left: 4px solid #51247a;
+    border-left: 0 none transparent !important;
 }
 
 #s-lg-tabs-container .nav-pills > .active > a,
@@ -68,7 +63,7 @@
 #s-lg-tabs-container .nav-pills > li.active > a,
 #s-lg-tabs-container .nav-pills > li:not(.dropdown-menu) > a:hover,
 #s-lg-tabs-container .nav-tabs > li.active > a {
-    border-left: 4px solid #51247a;
+    border-left: 0 none transparent !important;
     padding: 10px;
 }
 
@@ -80,7 +75,7 @@
 
 $font: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $nav-border: 4px solid #51247a;
-$page-background-color: #fafafa;
+$page-background-color: #fff;
 $button-color: #0e62eb;
 
 %navlinks {
@@ -156,7 +151,7 @@ body .s-lib-header h1 {
 }
 
 body h2 {
-    font-size: 20px;
+    font-size: 20px !important;
 }
 
 h3,
@@ -164,6 +159,9 @@ h4 {
     font-weight: bold !important;
 }
 
+body .s-lib-box-container > div.s-lib-box > h2 {
+    padding-bottom: 0 !important;
+}
 body h3,
 body .s-lib-box-container .s-lib-box-content h3 {
     font-size: 18px;
@@ -378,7 +376,6 @@ ol {
         & > .active {
             & > a {
                 color: #333;
-                background-color: transparent;
                 background: url('https://assets.library.uq.edu.au/reusable-webcomponents-staging/applications/libguides/arrow-down.png')
                     no-repeat scroll right 12px transparent;
                 font-weight: normal;
@@ -524,10 +521,9 @@ ol {
 }
 
 .s-lib-box {
-    border-radius: 2px;
-    border: none;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
-    background-color: #fefefe;
+    border: none !important;
+    box-shadow: none !important;
+    margin-bottom: 0;
 }
 
 #s-lg-guide-main {
@@ -626,10 +622,7 @@ ol {
 }
 
 #s-lg-hp-nav-bottom {
-    border: 1px solid #ccc;
-    border-radius: 2px;
     background-color: #fefefe;
-    box-shadow: 0 2px 8px #ccc;
 }
 
 #s-lg-hp-nav {
@@ -734,4 +727,44 @@ li.uql-global-links {
             margin-right: 8px;
         }
     }
+}
+
+blockquote {
+    font-size: 16px;
+    margin-left: 1em;
+}
+
+#s-lg-tabs-container .nav-pills > li > a.s-lg-tab-top-link,
+#s-lg-tabs-container .nav-pills > li > a.s-lg-tab-top-link:hover {
+    font-weight: normal !important;
+}
+
+#s-lg-tabs-container .nav-pills > li > a.s-lg-tab-top-link:hover {
+    font-weight: normal !important;
+}
+
+ul.nav-tabs li {
+    &.active {
+        font-weight: bold;
+        max-width: 50%;
+    }
+    &:not(.active) a {
+        background-color: #eee;
+        border-bottom-color: rgb(221, 221, 221);
+        color: #000;
+    }
+}
+
+.s-lib-box-content {
+    div {
+        box-shadow: none !important;
+        background-color: #fff !important;
+    }
+    // when the pills wrap, put some vertical space between the rows
+    p:has(a.btn-secondary) {
+        line-height: 2.5;
+    }
+}
+* {
+    box-shadow: none !important;
 }

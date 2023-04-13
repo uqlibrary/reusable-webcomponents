@@ -10,7 +10,7 @@ export const printBalance = {
 };
 
 export const loans = {
-    'recordNumber': 'uqvanilla',
+    'recordNumber': 'vanilla',
     'fines': [{
         'title': 'CRITICAL SOCIOLINGUISTIC RESEARCH METHODS',
         'fineAmount': 48.93,

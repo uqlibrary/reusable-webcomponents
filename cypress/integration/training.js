@@ -102,7 +102,6 @@ describe('Training', () => {
                         .within(() => {
                             // can clear text with the escape key
                             cy.get('[data-testid="training-filter-keyword-entry"]').should('exist').type('e');
-                            // cy.wait(1500); // dev, so we can see focus is on that element
                             cy.url().should(
                                 'eq',
                                 'http://localhost:8080/index-training.html#keyword=e;campus=;weekstart=',
@@ -168,7 +167,6 @@ describe('Training', () => {
                                 .trigger('keydown', { keyCode: TAB_KEYCODE })
                                 .then((e) => {
                                     cy.log('after tab');
-                                    // cy.wait(1500); // debug, so we can see focus is on that element :(
                                     cy.get('[data-testid="training-filter-clear-keyword"]').should('have.focus');
                                 });
                         });
@@ -190,7 +188,6 @@ describe('Training', () => {
                                 .should('exist')
                                 .should('have.class', 'hidden');
                             cy.get('[data-testid="training-filter-campus-container"]').type('{enter}', { force: true });
-                            // cy.wait(1500);
                             cy.get('[data-testid="training-filter-campus-list"]').should('not.have.class', 'hidden');
                             cy.get('[data-testid="training-filter-campus-list"]').find('button').should('length', 3);
 
@@ -332,7 +329,6 @@ describe('Training', () => {
                                 .should('exist')
                                 .should('have.class', 'hidden');
                             cy.get('[data-testid="training-filter-week-container"]').type('{enter}', { force: true });
-                            // cy.wait(1500);
                             cy.get('[data-testid="training-filter-week-list"]').should('not.have.class', 'hidden');
                             cy.get('[data-testid="training-filter-week-list"]').find('button').should('length', 15);
 
@@ -684,7 +680,7 @@ describe('Training', () => {
         it('Correct error shows when an empty result is return by Training api', () => {
             cy.visit('http://localhost:8080/index-training.html?user=emptyUser');
             cy.viewport(1280, 900);
-            cy.wait(1500);
+            cy.waitUntil(() => cy.get('library-training[id="test-with-filter"]').should('exist'));
             cy.get('library-training[id="test-with-filter"]')
                 .should('exist')
                 .shadow()
@@ -698,7 +694,7 @@ describe('Training', () => {
         it('Correct error shows when Training api doesnt load', () => {
             cy.visit('http://localhost:8080/index-training.html?user=errorUser');
             cy.viewport(1280, 900);
-            cy.wait(1500);
+            cy.waitUntil(() => cy.get('library-training[id="test-with-filter"]').should('exist'));
             cy.get('library-training[id="test-with-filter"]')
                 .should('exist')
                 .shadow()
@@ -1082,20 +1078,4 @@ describe('Training', () => {
             cy.window().its('dataLayer').should('have.length', 1);
         });
     });
-    // it.only('test template', () => {
-    //     cy.visit('http://localhost:8080/index-training.html');
-    //     cy.viewport(1280, 1280);
-    //     cy.get('library-training[id="test-with-filter"]')
-    //         .should('exist')
-    //         .shadow()
-    //         .within(() => {
-    //             cy.get('training-filter')
-    //                 .should('exist')
-    //                 .shadow()
-    //                 .within(() => {
-    //                     cy.get('[data-testid="training-filter-keyword-entry"]')
-    //                         .should('exist');
-    //                 });
-    //         });
-    // });
 });
