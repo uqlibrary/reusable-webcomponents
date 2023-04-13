@@ -16,16 +16,16 @@ const template = document.createElement('template');
 template.innerHTML = `
     <style>${askus.toString()}</style>
     <div id="proactivechat">
-    <!-- Chat status -->
+        <!-- Proactive Chat minimised -->
         <div id="proactive-chat-status">
             <div id="proactive-chat-online" data-testid="proactive-chat-online" style="display: none;" title="Click to open online chat">
                 <svg id="proactive-chat-status-icon-online" focusable="false" viewBox="0 0 24 24" aria-hidden="true" id="chat-status-icon-online" data-testid="chat-status-icon-online"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path></svg>
             </div>
            <div id="proactive-chat-offline" data-testid="proactive-chat-offline" style="display: none;" title="Chat currently offline">
-                <svg id="proactive-chat-status-icon-offline" focusable="false" viewBox="0 0 24 24" aria-hidden="true" id="chat-status-icon-offline" data-testid="chat-status-icon-online"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path></svg>
+                <svg id="proactive-chat-status-icon-offline" focusable="false" viewBox="0 0 24 24" aria-hidden="true" id="chat-status-icon-offline" data-testid="chat-status-icon-offline"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path></svg>
             </div>
         </div>
-        <!-- Proactive chat -->
+        <!-- Proactive chat larger dialog -->
         <div id="proactive-chat-wrapper" data-testid="proactive-chat-wrapper" style="display: none">
             <div id="proactive-chat" data-testid="proactive-chat">
                 <div class="proactive-chat-text">
