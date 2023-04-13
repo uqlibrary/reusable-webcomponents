@@ -29,6 +29,14 @@ It does two things:
 
   When you commit your changes, the above script will require you to have correctly formatted code.
 
+## Environments
+
+| env     | view at                                                                                                                                                                                                               | bucket |
+|---------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
+| prod    | <https://www.library.uq.edu.au/> <br/>or <https://assets.library.uq.edu.au/reusable-webcomponents/>                                                                                                                   | s3://uql-reusable-webcomponents-production/ |
+| staging | <https://assets.library.uq.edu.au/reusable-webcomponents-staging/> <br/>or special route <https://homepage-development.library.uq.edu.au/reusable-staging/#/> - it is the only branch that will call reusable staging | s3://uql-reusable-webcomponents-staging/ |
+| dev     | master branch viewable at https://assets.library.uq.edu.au/reusable-webcomponents-development/master/ <br/>or swap "master" for the name of your branch which has had a pipeline created on AWS                       | s3://uql-reusable-webcomponents-development/ + subfolder |
+
 ## Development
 
 - run `npm ci` to install packages.
@@ -110,20 +118,6 @@ In addition to the usual branches, the following are in use and should not be de
 - `primo-sandbox` (maps to primo env sandbox-dev. Needed to support uqsvangr)
 - `primo-sandbox-dev` (maps to primo env sandbox-dev. Needed to support uqsvangr)
 - `user-admin-manage` (used by eg uqjtilse to make changes to the megamenu ready for us to merge to master cf [admin user doc](docs/admin-howto.md))
-
-## AWS Buckets
-
-Code is deployed to 3 buckets:
-
-- uql-reusable-webcomponents-production (viewable at <https://www.library.uq.edu.au/> or <https://assets.library.uq.edu.au/reusable-webcomponents/>)
-- uql-reusable-webcomponents-staging (viewable at <https://assets.library.uq.edu.au/reusable-webcomponents-staging/> or special route <https://homepage-development.library.uq.edu.au/reusable-staging/#/>)
-- uql-reusable-webcomponents-development (master branch viewable at https://assets.library.uq.edu.au/reusable-webcomponents-development/master/ or swap "master" for the name of your branch which has had a pipeline created on AWS)
-
-Cloudfront behaviour on assets.library.uq.edu.au map these buckets to assets address for use in deployment
-
-- <https://assets.library.uq.edu.au/reusable-webcomponents/> ==> s3://uql-reusable-webcomponents-production/
-- <https://assets.library.uq.edu.au/reusable-webcomponents-staging/> ==> s3://uql-reusable-webcomponents-staging/
-- <https://assets.library.uq.edu.au/reusable-webcomponents-development/> ==> s3://uql-reusable-webcomponents-development/
 
 ## Reference Material
 
