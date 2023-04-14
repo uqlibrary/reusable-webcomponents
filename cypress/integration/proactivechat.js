@@ -31,13 +31,13 @@ function assertOfflineButtonVisible() {
         .should('have.css', 'right', '16px');
     cy.get('proactive-chat')
         .shadow()
-        .find('[data-testid="proactive-chat-online"]')
+        .find('[data-testid="chat-status-icon-online"]')
         .should('exist')
         .should('not.be.visible')
         .should('have.css', 'display', 'none');
     cy.get('proactive-chat')
         .shadow()
-        .find('[data-testid="proactive-chat-offline"]')
+        .find('[data-testid="chat-status-icon-offline"]')
         .should('exist')
         .should('be.visible')
         .should('not.have.css', 'display', 'none')
@@ -51,7 +51,7 @@ function assertOnlineMinimisedButtonVisible() {
         .should('have.css', 'right', '16px');
     cy.get('proactive-chat')
         .shadow()
-        .find('[data-testid="proactive-chat-online"]')
+        .find('[data-testid="chat-status-icon-online"]')
         .should('exist')
         .should('be.visible')
         .should('not.have.css', 'display', 'none')
@@ -129,7 +129,7 @@ describe('Proactive Chat', () => {
             });
             cy.viewport(1280, 900);
             cy.wait(1500);
-            cy.get('proactive-chat').shadow().find('[data-testid="proactive-chat-offline"]').click();
+            cy.get('proactive-chat').shadow().find('[data-testid="chat-status-icon-offline"]').click();
             cy.window().its('open').should('be.called');
         });
 
