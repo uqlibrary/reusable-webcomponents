@@ -17,17 +17,17 @@ template.innerHTML = `
     <style>${proactivecss.toString()}</style>
     <div id="proactivechat" class="proactive-chat">
         <!-- Proactive Chat minimised -->
-        <div id="proactive-chat-status">
-            <div role="button" id="proactive-chat-online" style="display: none;" title="Click to open online chat">
+        <div class="proactive-chat-minimised">
+            <div role="button" id="proactive-chat-online" data-testid="proactive-chat-online" style="display: none;" title="Click to open online chat">
                 <svg id="chat-status-icon-online" data-testid="chat-status-icon-online" class="proactive-chat-status-icon-online" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path></svg>
             </div>
-           <div role="button" id="proactive-chat-offline" style="display: none;" title="Chat currently offline">
+           <div role="button" id="proactive-chat-offline" class="proactive-chat-offline-button" data-testid="proactive-chat-offline" style="display: none;" title="Chat currently offline">
                 <svg id="chat-status-icon-offline" data-testid="chat-status-icon-offline" class="proactive-chat-status-icon-offline" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path></svg>
             </div>
         </div>
         <!-- Proactive Chat larger dialog -->
-        <div id="proactive-chat-wrapper" style="display: none">
-            <div id="proactive-chat">
+        <div id="proactive-chat-wrapper" data-testid="proactive-chat-wrapper" style="display: none">
+            <div id="proactive-chat" data-testid="proactive-chat-open">
                 <div class="proactive-chat-text">
                     <div class="title">Chat is online now</div>
                     <div class="message">Library staff are here to assist.<br/>Would you like to chat?</div>
@@ -36,7 +36,7 @@ template.innerHTML = `
                     <button id="proactive-chat-button-open" data-testid="askus-proactive-chat-button-open" class="proactive-chat-button">Chat&nbsp;now</button>
                 </div>
                 <div class="proactive-chat-right-button">
-                    <button id="proactive-chat-button-close" class="proactive-chat-button">Maybe&nbsp;later</button>
+                    <button id="proactive-chat-button-close" data-testid="proactive-chat-button-close" class="proactive-chat-button">Maybe&nbsp;later</button>
                 </div>
             </div>
         </div>

@@ -195,7 +195,7 @@ button:focus {
 
 /* Chat status */
 
-#proactive-chat-status {
+.proactive-chat-minimised {
     z-index: 9998;
     position: fixed;
     right: 16px;
@@ -218,7 +218,7 @@ button:focus {
 }
 
 #askus-chat-offline,
-#proactive-chat-offline {
+.proactive-chat-offline-button {
     background-color: #c40000;
     width: 24px;
     height: 24px;
@@ -229,16 +229,16 @@ button:focus {
     transition-property: background-color;
 }
 #askus-chat-offline:hover,
-#proactive-chat-offline:hover {
+.proactive-chat-offline-button:hover {
     background-color: #ac0000;
 }
 
-#proactive-chat-status:hover {
+.proactive-chat-minimised:hover {
     cursor: pointer;
 }
 
-#proactive-chat-status .proactive-chat-status-icon-online,
-#proactive-chat-status .proactive-chat-status-icon-offline {
+.proactive-chat-minimised .proactive-chat-status-icon-online,
+.proactive-chat-minimised .proactive-chat-status-icon-offline {
     fill: #fff;
     width: 100%;
     height: 100%;
