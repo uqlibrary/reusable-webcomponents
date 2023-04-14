@@ -70,5 +70,11 @@ describe('AskUs menu', () => {
                 .contains('More ways to contact us')
                 .should('have.attr', 'href', 'https://web.library.uq.edu.au/contact-us');
         });
+        it('Displays as offline when chat status api is 403', () => {
+            cy.visit('http://localhost:8080/?user=errorUser');
+            cy.viewport(1280, 900);
+            cy.get('askus-button').shadow().find('#askus-chat-time').should('exist').should('have.value', '');
+            cy.get('askus-button').shadow().find('#askus-phone-time').should('exist').should('have.value', '');
+        });
     });
 });
