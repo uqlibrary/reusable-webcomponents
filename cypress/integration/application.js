@@ -68,8 +68,8 @@ describe('Dummy Application', () => {
     // }
 
     function hasProactiveChat() {
-        cy.get('proactive-chat').shadow().find('[data-testid="proactive-chat-online"]').should('exist');
-        cy.get('proactive-chat').shadow().find('[data-testid="proactive-chat-offline"]').should('exist');
+        cy.get('proactive-chat').shadow().find('[data-testid="chat-status-icon-online"]').should('exist');
+        cy.get('proactive-chat').shadow().find('[data-testid="chat-status-icon-offline"]').should('exist');
         cy.get('proactive-chat').shadow().find('[data-testid="proactive-chat-wrapper"]').should('exist');
     }
 

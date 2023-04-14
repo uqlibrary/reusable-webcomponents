@@ -18,11 +18,11 @@ template.innerHTML = `
     <div id="proactivechat" class="proactive-chat">
         <!-- Proactive Chat minimised -->
         <div class="pcminimised" data-testid="proactive-chat-minimised">
-            <div role="button" id="proactive-chat-online" class="pconline" data-testid="proactive-chat-online" style="display: none;" title="Click to open online chat">
-                <svg id="chat-status-icon-online" data-testid="chat-status-icon-online" class="pcOnlineIcon" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path></svg>
+            <div role="button" id="proactive-chat-online" class="pconline" data-testid="chat-status-icon-online" style="display: none;" title="Click to open online chat">
+                <svg class="pcOnlineIcon" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path></svg>
             </div>
-           <div role="button" id="proactive-chat-offline" class="pcOffline" data-testid="proactive-chat-offline" style="display: none;" title="Chat currently offline">
-                <svg id="chat-status-icon-offline" data-testid="chat-status-icon-offline" class="pcOfflineIcon" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path></svg>
+           <div role="button" id="proactive-chat-offline" class="pcOffline" data-testid="chat-status-icon-offline" style="display: none;" title="Chat currently offline">
+                <svg class="pcOfflineIcon" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path></svg>
             </div>
         </div>
         <!-- Proactive Chat larger dialog -->
