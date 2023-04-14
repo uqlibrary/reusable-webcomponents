@@ -27,6 +27,10 @@ function assertPopupIsOpen() {
 function assertOfflineButtonVisible() {
     cy.get('proactive-chat')
         .shadow()
+        .find('[data-testid="proactive-chat-minimised"]')
+        .should('have.css', 'right', '16px');
+    cy.get('proactive-chat')
+        .shadow()
         .find('[data-testid="proactive-chat-online"]')
         .should('exist')
         .should('not.be.visible')
@@ -41,6 +45,10 @@ function assertOfflineButtonVisible() {
 }
 
 function assertOnlineMinimisedButtonVisible() {
+    cy.get('proactive-chat')
+        .shadow()
+        .find('[data-testid="proactive-chat-minimised"]')
+        .should('have.css', 'right', '16px');
     cy.get('proactive-chat')
         .shadow()
         .find('[data-testid="proactive-chat-online"]')

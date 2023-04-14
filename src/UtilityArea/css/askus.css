@@ -195,14 +195,13 @@ button:focus {
 
 /* Chat status */
 
-.proactive-chat-minimised {
+.pcminimised {
     z-index: 9998;
     position: fixed;
     right: 16px;
     bottom: 16px;
 }
-#askus-chat-online,
-#proactive-chat-online {
+.pcminimised .pconline {
     background-color: #007200;
     width: 24px;
     height: 24px;
@@ -212,13 +211,11 @@ button:focus {
     transition-duration: 0.2s;
     transition-property: background-color;
 }
-#askus-chat-online:hover,
-#proactive-chat-online:hover {
+.pcminimised .pconline:hover {
     background-color: #005f00;
 }
 
-#askus-chat-offline,
-.proactive-chat-offline-button {
+.pcOffline {
     background-color: #c40000;
     width: 24px;
     height: 24px;
@@ -228,24 +225,22 @@ button:focus {
     transition-duration: 0.2s;
     transition-property: background-color;
 }
-#askus-chat-offline:hover,
-.proactive-chat-offline-button:hover {
+.pcOffline:hover {
     background-color: #ac0000;
 }
 
-.proactive-chat-minimised:hover {
+.pcminimised:hover {
     cursor: pointer;
 }
 
-.proactive-chat-minimised .proactive-chat-status-icon-online,
-.proactive-chat-minimised .proactive-chat-status-icon-offline {
+.pcminimised .pcOnlineIcon,
+.pcminimised .pcOfflineIcon {
     fill: #fff;
     width: 100%;
     height: 100%;
 }
 
-#askus-proactive-chat,
-#proactive-chat {
+.proactive-chat .pcwrapper .pcopen {
     display: flex;
     flex-wrap: wrap;
     position: fixed;
@@ -259,8 +254,7 @@ button:focus {
     transition-delay: 0.3s;
     transition-timing-function: ease-in-out;
 }
-#askus-proactive-chat-wrapper,
-#proactive-chat-wrapper {
+.pcwrapper {
     z-index: 9999;
     position: fixed;
     bottom: 0px;
@@ -269,50 +263,40 @@ button:focus {
     height: 220px;
     overflow: hidden !important;
 }
-#askus-proactive-chat.show,
-#proactive-chat.show {
+.proactive-chat .pcwrapper .pcopen.show {
     right: 12px;
     transition: right 0.3s;
     transition-delay: 0.3s;
     transition-timing-function: ease-in-out;
 }
-#askus-proactive-chat .askus-proactive-chat-text,
-#proactive-chat .proactive-chat-text {
+.proactive-chat .pcwrapper .pcopen .pcText {
     flex: 0 0 100%;
 }
-#askus-proactive-chat .askus-proactive-chat-text .title,
-#proactive-chat .proactive-chat-text .title {
+.proactive-chat .pcwrapper .pcopen .pcText .pcTitle {
     font-size: 22px !important;
     font-weight: bold;
     text-transform: uppercase;
     color: #51247a;
 }
-#askus-proactive-chat .askus-proactive-chat-text .message,
-#proactive-chat .proactive-chat-text .message {
+.pcopen .pcText .pcMessage {
     font-size: 14px !important;
     font-weight: normal;
     margin-bottom: 22px;
 }
-#askus-proactive-chat .askus-proactive-chat-button,
-#proactive-chat .proactive-chat-button {
+.pcopen button {
     width: 100%;
 }
-#askus-proactive-chat .askus-proactive-chat-left-button,
-#askus-proactive-chat .askus-proactive-chat-right-button,
-#proactive-chat .proactive-chat-left-button,
-#proactive-chat .proactive-chat-right-button {
+.pcopen .pcOpenChat,
+.pcopen .pcMinimisePopup {
     flex-grow: 1;
 }
-#askus-proactive-chat .askus-proactive-chat-left-button,
-#proactive-chat .proactive-chat-left-button {
+.pcopen .pcOpenChat {
     margin: 0 5px 0 0;
 }
-#askus-proactive-chat .askus-proactive-chat-right-button,
-#proactive-chat .proactive-chat-right-button {
+.pcopen .pcMinimisePopup {
     margin: 0 0 0 5px;
 }
-#askus-proactive-chat .askus-proactive-chat-left-button button,
-#proactive-chat .proactive-chat-left-button button {
+.pcopen .pcOpenChat button {
     color: #ffffff !important;
     background-color: #2377cb;
     border-radius: 4px !important;
@@ -320,8 +304,7 @@ button:focus {
     padding: 0px !important;
     margin: 0px !important;
 }
-#askus-proactive-chat .askus-proactive-chat-right-button button,
-#proactive-chat .proactive-chat-right-button button {
+.pcopen .pcMinimisePopup button {
     color: #333333 !important;
     background-color: #cccccc;
     border-radius: 4px !important;
@@ -329,16 +312,13 @@ button:focus {
     padding: 0px !important;
     margin: 0px !important;
 }
-#askus-proactive-chat .askus-proactive-chat-right-button button:hover,
-#proactive-chat .proactive-chat-right-button button:hover {
+.pcopen .pcMinimisePopup button:hover {
     background-color: #a8a8a8;
 }
-#askus-proactive-chat .askus-proactive-chat-left-button button:hover,
-#proactive-chat .proactive-chat-left-button button:hover {
+.pcopen .pcOpenChat button:hover {
     background-color: #195794;
 }
-#askus-proactive-chat button,
-#proactive-chat button {
+.pcopen button {
     border-radius: 0px !important;
     text-transform: uppercase;
 }
