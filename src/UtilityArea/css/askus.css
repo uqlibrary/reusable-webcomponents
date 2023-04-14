@@ -1,5 +1,5 @@
 #askus,
-#proactivechat {
+.proactive-chat {
     position: relative;
 }
 #askus #askus-icon {
@@ -16,7 +16,7 @@
 }
 
 #askus button,
-#proactivechat button {
+.proactive-chat button {
     line-height: 20px !important;
     background: rgba(0, 0, 0, 0);
     border-radius: 50%;
@@ -32,7 +32,7 @@
 }
 
 #askus button:hover,
-#proactivechat button:hover,
+.proactive-chat button:hover,
 button:active,
 button:focus {
     background: rgba(0, 0, 0, 0.04);
@@ -44,7 +44,7 @@ button:focus {
 }
 
 #askus button:active,
-#proactivechat button:active {
+.proactive-chat button:active {
     outline: none;
     background: rgba(81, 36, 122, 0.3) !important;
     transition-delay: 0s;
@@ -195,7 +195,6 @@ button:focus {
 
 /* Chat status */
 
-#askus-chat-status,
 #proactive-chat-status {
     z-index: 9998;
     position: fixed;
@@ -234,15 +233,12 @@ button:focus {
     background-color: #ac0000;
 }
 
-#askus-chat-status:hover,
 #proactive-chat-status:hover {
     cursor: pointer;
 }
 
-#askus-chat-status #askus-chat-status-icon-online,
-#askus-chat-status #askus-chat-status-icon-offline,
-#proactive-chat-status #proactive-chat-status-icon-online,
-#proactive-chat-status #proactive-chat-status-icon-offline {
+#proactive-chat-status .proactive-chat-status-icon-online,
+#proactive-chat-status .proactive-chat-status-icon-offline {
     fill: #fff;
     width: 100%;
     height: 100%;
