@@ -20,7 +20,7 @@ function assertPopupIsOpen() {
     // grey 'maybe later' (minimise popup) button is present
     cy.get('proactive-chat')
         .shadow()
-        .find('[data-testid="proactive-chat-button-close"]')
+        .find('[data-testid="askus-proactive-chat-button-close"]')
         .should('have.css', 'background-color', 'rgb(204, 204, 204)');
 }
 
@@ -94,7 +94,7 @@ describe('Proactive Chat', () => {
             cy.getCookie('UQ_PROACTIVE_CHAT').should('not.exist');
             cy.wait(1500);
             assertPopupIsOpen();
-            cy.get('proactive-chat').shadow().find('[data-testid="proactive-chat-button-close"]').click();
+            cy.get('proactive-chat').shadow().find('[data-testid="askus-proactive-chat-button-close"]').click();
             cy.getCookie('UQ_PROACTIVE_CHAT').should('have.property', 'value', 'hidden');
             cy.get('proactive-chat').shadow().find('[data-testid="proactive-chat-wrapper"]').should('not.exist');
 

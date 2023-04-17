@@ -36,7 +36,7 @@ template.innerHTML = `
                     <button id="proactive-chat-button-open" data-testid="askus-proactive-chat-button-open" class="proactive-chat-button">Chat&nbsp;now</button>
                 </div>
                 <div class="pcMinimisePopup">
-                    <button id="proactive-chat-button-close" data-testid="proactive-chat-button-close" class="proactive-chat-button">Maybe&nbsp;later</button>
+                    <button id="proactive-chat-button-close" data-testid="askus-proactive-chat-button-close" class="proactive-chat-button">Maybe&nbsp;later</button>
                 </div>
             </div>
         </div>
