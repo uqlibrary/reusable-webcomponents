@@ -159,6 +159,7 @@ class TrainingList extends HTMLElement {
         const toggleButton = eventElement.getElementsByClassName('uq-accordion__toggle').item(0);
         toggleButton.setAttribute('id', toggleButtonId);
         toggleButton.setAttribute('data-testid', toggleButtonId);
+        toggleButton.setAttribute('data-analyticsid', toggleButtonId);
         toggleButton.setAttribute('aria-controls', detailContainerId);
 
         const eventDate = new Date(event.start);

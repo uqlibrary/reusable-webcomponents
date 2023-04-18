@@ -16,14 +16,14 @@ template.innerHTML = `
           </button>
         </div>
         <div class="uq-header__logo" data-testid="uq-header-logo" data-gtm-category="Primary header">
-          <a class="logo--large" href="https://www.uq.edu.au/" data-gtm-label="UQ Logo" data-testid="uq-header-logo-large-link">
+          <a class="logo--large" href="https://www.uq.edu.au/" data-gtm-label="UQ Logo" data-testid="uq-header-logo-large-link" data-analyticsid="uq-header-logo-large-link">
             <img alt="The University of Queensland" src="https://static.uq.net.au/v15/logos/corporate/uq-logo--reversed.svg">
           </a>
         </div>        
-        <div class="uq-header__nav-primary" data-testid="uq-header-primary-nav" data-gtm-category="Primary header">
+        <div class="uq-header__nav-primary" data-testid="uq-header-primary-nav" data-analyticsid="uq-header-primary-nav" data-gtm-category="Primary header">
           <nav class="uq-header__nav-primary-container" aria-label="primary navigation">
             <ul class="uq-header__nav-primary-list">
-              <li><a class="uq-header__nav-primary-link" href="https://study.uq.edu.au/" data-testid="uq-header-study-link">Study</a></li>
+              <li><a class="uq-header__nav-primary-link" href="https://study.uq.edu.au/" data-testid="uq-header-study-link" data-analyticsid="uq-header-study-link">Study</a></li>
               <li><a class="uq-header__nav-primary-link" href="https://research.uq.edu.au/">Research</a></li>
               <li><a class="uq-header__nav-primary-link" href="https://partners-community.uq.edu.au">Partners and community</a></li>
               <li><a class="uq-header__nav-primary-link" href="https://about.uq.edu.au/">About</a></li>
@@ -63,19 +63,19 @@ template.innerHTML = `
         <nav class="uq-header__nav-secondary-container" data-testid="uq-header-nav">
           <ul class="uq-header__nav-secondary-list" data-testid="uq-header-secondary-nav">
               <li class="uq-header__nav-secondary-item">
-                 <a href="https://www.uq.edu.au/" rel="external" class="uq-header__nav-secondary-link" data-testid="uq-header-logo-small-link">UQ home</a>
+                 <a href="https://www.uq.edu.au/" rel="external" class="uq-header__nav-secondary-link" data-testid="uq-header-logo-small-link" data-analyticsid="uq-header-logo-small-link">UQ home</a>
               </li>
               <li class="uq-header__nav-secondary-item">
-                  <a href="https://www.uq.edu.au/news/" rel="external" class="uq-header__nav-secondary-link" data-testid="uq-header-news-link">News</a>
+                  <a href="https://www.uq.edu.au/news/" rel="external" class="uq-header__nav-secondary-link" data-testid="uq-header-news-link" data-analyticsid="uq-header-news-link">News</a>
               </li>
               <li class="uq-header__nav-secondary-item">
-                  <a href="https://www.uq.edu.au/uq-events" rel="external" class="uq-header__nav-secondary-link" data-testid="uq-header-events-link">Events</a>
+                  <a href="https://www.uq.edu.au/uq-events" rel="external" class="uq-header__nav-secondary-link" data-testid="uq-header-events-link" data-analyticsid="uq-header-events-link">Events</a>
               </li>
               <li class="uq-header__nav-secondary-item">
-                  <a href="https://alumni.uq.edu.au/giving" rel="external" class="uq-header__nav-secondary-link" data-testid="uq-header-giving-link">Give</a>
+                  <a href="https://alumni.uq.edu.au/giving" rel="external" class="uq-header__nav-secondary-link" data-testid="uq-header-giving-link" data-analyticsid="uq-header-giving-link">Give</a>
               </li>
               <li class="uq-header__nav-secondary-item">
-                <a href="https://contacts.uq.edu.au/" rel="external" class="uq-header__nav-secondary-link" data-testid="uq-header-contacts-link">Contact</a>
+                <a href="https://contacts.uq.edu.au/" rel="external" class="uq-header__nav-secondary-link" data-testid="uq-header-contacts-link" data-analyticsid="uq-header-contacts-link">Contact</a>
               </li>
           </ul>
         </nav>

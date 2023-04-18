@@ -18,10 +18,10 @@ template.innerHTML = `
     <div id="proactivechat" class="proactive-chat">
         <!-- Proactive Chat minimised -->
         <div class="pcminimised" data-testid="proactive-chat-minimised">
-            <div role="button" id="proactive-chat-online" class="pconline" data-testid="chat-status-icon-online" style="display: none;" title="Click to open online chat">
+            <div role="button" id="proactive-chat-online" class="pconline" data-testid="chat-status-icon-online" data-analyticsid="chat-status-icon-online" style="display: none;" title="Click to open online chat">
                 <svg class="pcOnlineIcon" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path></svg>
             </div>
-           <div role="button" id="proactive-chat-offline" class="pcOffline" data-testid="chat-status-icon-offline" style="display: none;" title="Chat currently offline">
+           <div role="button" id="proactive-chat-offline" class="pcOffline" data-testid="chat-status-icon-offline" data-analyticsid="chat-status-icon-offline" style="display: none;" title="Chat currently offline">
                 <svg class="pcOfflineIcon" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path></svg>
             </div>
         </div>
@@ -33,10 +33,10 @@ template.innerHTML = `
                     <div class="pcMessage">Library staff are here to assist.<br/>Would you like to chat?</div>
                 </div>
                 <div class="pcOpenChat">
-                    <button id="proactive-chat-button-open" data-testid="askus-proactive-chat-button-open" class="proactive-chat-button">Chat&nbsp;now</button>
+                    <button id="proactive-chat-button-open" data-testid="askus-proactive-chat-button-open" data-analyticsid="askus-proactive-chat-button-open" class="proactive-chat-button">Chat&nbsp;now</button>
                 </div>
                 <div class="pcMinimisePopup">
-                    <button id="proactive-chat-button-close" data-testid="askus-proactive-chat-button-close" class="proactive-chat-button">Maybe&nbsp;later</button>
+                    <button id="proactive-chat-button-close" data-testid="askus-proactive-chat-button-close" data-analyticsid="askus-proactive-chat-button-close" class="proactive-chat-button">Maybe&nbsp;later</button>
                 </div>
             </div>
         </div>
