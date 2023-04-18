@@ -260,14 +260,6 @@ describe('Account menu button', () => {
             assertNameIsDisplayedOnAccountOptionsButtonCorrectly('s1111111', 'Undergraduate, John');
         });
 
-        it('user with a short name will show their complete name on the Log Out button', () => {
-            sessionStorage.removeItem('userAccount');
-            assertNameIsDisplayedOnAccountOptionsButtonCorrectly('emfryer', 'User, Fryer');
-            cy.get('auth-button')
-                .shadow()
-                .find('button:contains("Log out")')
-                .should('have.attr', 'aria-label', 'Log out');
-        });
         it('Pressing esc closes the account menu', () => {
             cy.visit('http://localhost:8080');
             cy.viewport(1280, 900);
@@ -289,6 +281,14 @@ describe('Account menu button', () => {
         });
     });
     context('Display names', () => {
+        it('user with a short name will show their complete name on the Log Out button', () => {
+            sessionStorage.removeItem('userAccount');
+            assertNameIsDisplayedOnAccountOptionsButtonCorrectly('emfryer', 'User, Fryer');
+            cy.get('auth-button')
+                .shadow()
+                .find('button:contains("Log out")')
+                .should('have.attr', 'aria-label', 'Log out');
+        });
         it('user with a long length name will show their last name with initial on the Log Out button', () => {
             sessionStorage.removeItem('userAccount');
             assertNameIsDisplayedOnAccountOptionsButtonCorrectly(
