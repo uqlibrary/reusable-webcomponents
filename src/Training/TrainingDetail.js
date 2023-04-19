@@ -78,7 +78,7 @@ template.innerHTML = `
         </div>
     </div>
     <div class="uq-pane__footer">
-        <button id="bookTraining" data-testid="training-details-book-training-button" class="uq-button" role="button" tabindex="0" animated="" aria-disabled="false" elevation="0">Log in and book</button>
+        <button id="bookTraining" data-testid="training-details-book-training-button" data-analyticsid="training-details-book-training-button" class="uq-button" role="button" tabindex="0" animated="" aria-disabled="false" elevation="0">Log in and book</button>
     </div>
 </div>
 `;

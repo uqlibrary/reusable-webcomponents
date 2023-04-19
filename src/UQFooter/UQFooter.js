@@ -146,6 +146,7 @@ class UQFooter extends HTMLElement {
         !!link && link.setAttribute('href', href);
         !!link && link.setAttribute('class', 'uq-footer__navigation-link');
         !!datatestid && !!link && link.setAttribute('data-testid', datatestid);
+        !!datatestid && !!link && link.setAttribute('data-analyticsid', datatestid);
 
         const textOfLink = document.createTextNode(linktext);
         !!link && !!textOfLink && link.appendChild(textOfLink);
@@ -178,6 +179,7 @@ class UQFooter extends HTMLElement {
                 !!h2Text && !!mobileToggleButton && mobileToggleButton.appendChild(h2Text);
                 const buttonId = `button-${toggleId}`;
                 !!mobileToggleButton && mobileToggleButton.setAttribute('data-testid', buttonId);
+                !!mobileToggleButton && mobileToggleButton.setAttribute('data-analyticsid', buttonId);
                 !!mobileToggleButton && mobileToggleButton.setAttribute('id', buttonId);
                 !!mobileToggleButton && !!li1 && li1.appendChild(mobileToggleButton);
 
