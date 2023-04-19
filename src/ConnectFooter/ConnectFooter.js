@@ -4,19 +4,19 @@ import { default as footerlocale } from './connectfooter.locale';
 const template = document.createElement('template');
 template.innerHTML = `
     <style>${styles.toString()}</style>
-    <div data-testid="connect-footer" id="connect-footer" class="connect-footer connectfooter-wrapper griditem griditem12" data-gtm-category="Footer">
+    <div data-testid="connect-footer" data-analyticsid="connect-footer" id="connect-footer" class="connect-footer connectfooter-wrapper griditem griditem12" data-gtm-category="Footer">
         <div class="uq-footer__container connectfooter-wrapper2 griditem griditem12">
             <div class="connectfooter-wrapper3">
                 <div class="layout-card">
-                    <div class="gridcontainer flexstart justifyxscenter" data-testid="connect-footer" id="connect-footer-block">
+                    <div class="gridcontainer flexstart justifyxscenter" data-testid="connect-footer" data-analyticsid="connect-footer" id="connect-footer-block">
                         <div class="navigation griditem griditem12 gridmd4">
-                            <ul id="footer-menu" data-testid="connect-footer-menu" class="footerMenu">
+                            <ul id="footer-menu" data-testid="connect-footer-menu" data-analyticsid="connect-footer-menu" class="footerMenu">
                             </ul>
                         </div>
                     <div class="contacts griditem griditem12 gridmd4">
                         <div class="gridcontainer">
                             <div class="griditem gridxsauto">
-                                <h3 data-testid="connect-footer-social-heading" class="typography typographyh6"></h3>
+                                <h3 data-testid="connect-footer-social-heading" data-analyticsid="connect-footer-social-heading" class="typography typographyh6"></h3>
                             </div>
                         </div>
                         <div class="buttons gridcontainer spacingxs1">
@@ -115,6 +115,7 @@ class ConnectFooter extends HTMLElement {
         !!link && (link.tabIndex = '0');
         !!link && (link.type = 'button');
         !!link && link.setAttribute('data-testid', button.dataTestid);
+        !!link && link.setAttribute('data-analyticsid', button.dataTestid);
         !!link && !!linkLabel && link.appendChild(linkLabel);
 
         const ripplespan = document.createElement('span');
@@ -154,6 +155,7 @@ class ConnectFooter extends HTMLElement {
         !!link && (link.type = 'button');
         !!link && (link.ariaLabel = button.linkMouseOver);
         !!link && link.setAttribute('data-testid', button.dataTestid);
+        !!link && link.setAttribute('data-analyticsid', button.dataTestid);
         !!link && (link.id = this.socialButtonIdentifier(index));
         !!link && (link.title = button.linkMouseOver);
         !!link && !!span && link.appendChild(span);
@@ -177,6 +179,7 @@ class ConnectFooter extends HTMLElement {
     createLink(datatestid, href, linktext) {
         const link = document.createElement('a');
         !!datatestid && !!link && link.setAttribute('data-testid', datatestid);
+        !!datatestid && !!link && link.setAttribute('data-analyticsid', datatestid);
         !!href && !!link && link.setAttribute('href', href);
 
         const textOfLink = !!linktext && document.createTextNode(linktext);

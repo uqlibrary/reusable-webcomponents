@@ -15,15 +15,15 @@ template.innerHTML = `
             Menu
           </button>
         </div>
-        <div class="uq-header__logo" data-testid="uq-header-logo" data-gtm-category="Primary header">
-          <a class="logo--large" href="https://www.uq.edu.au/" data-gtm-label="UQ Logo" data-testid="uq-header-logo-large-link">
+        <div class="uq-header__logo" data-testid="uq-header-logo" data-analyticsid="uq-header-logo" data-gtm-category="Primary header">
+          <a class="logo--large" href="https://www.uq.edu.au/" data-gtm-label="UQ Logo" data-testid="uq-header-logo-large-link" data-analyticsid="uq-header-logo-large-link">
             <img alt="The University of Queensland" src="https://static.uq.net.au/v15/logos/corporate/uq-logo--reversed.svg">
           </a>
         </div>        
-        <div class="uq-header__nav-primary" data-testid="uq-header-primary-nav" data-gtm-category="Primary header">
+        <div class="uq-header__nav-primary" data-testid="uq-header-primary-nav" data-analyticsid="uq-header-primary-nav" data-gtm-category="Primary header">
           <nav class="uq-header__nav-primary-container" aria-label="primary navigation">
             <ul class="uq-header__nav-primary-list">
-              <li><a class="uq-header__nav-primary-link" href="https://study.uq.edu.au/" data-testid="uq-header-study-link">Study</a></li>
+              <li><a class="uq-header__nav-primary-link" href="https://study.uq.edu.au/" data-testid="uq-header-study-link" data-analyticsid="uq-header-study-link">Study</a></li>
               <li><a class="uq-header__nav-primary-link" href="https://research.uq.edu.au/">Research</a></li>
               <li><a class="uq-header__nav-primary-link" href="https://partners-community.uq.edu.au">Partners and community</a></li>
               <li><a class="uq-header__nav-primary-link" href="https://about.uq.edu.au/">About</a></li>
@@ -31,7 +31,7 @@ template.innerHTML = `
           </nav>
         </div>
         <div class="uq-header__search-toggle" data-gtm-category="Search">
-          <button class="nav-primary__toggle nav-primary__search-toggle" data-testid="uq-header-search-button" data-gtm-action="Toggle">
+          <button class="nav-primary__toggle nav-primary__search-toggle" data-testid="uq-header-search-button" data-analyticsid="uq-header-search-button" data-gtm-action="Toggle">
             <div class="search-toggle__label">Search</div>
           </button>
         </div>
@@ -49,33 +49,33 @@ template.innerHTML = `
             <fieldset>
               <div class="uq-header__search-query">
                 <label for="edit-q" class="visually-hidden uq-header__search-query-label">Search term</label>
-                <input type="text" id="edit-q" data-testid="uq-header-search-input" name="q" value="" maxlength="128" placeholder="Search by keyword" class="uq-header__search-query-input">
+                <input type="text" id="edit-q" data-testid="uq-header-search-input" data-analyticsid="uq-header-search-input" name="q" value="" maxlength="128" placeholder="Search by keyword" class="uq-header__search-query-input">
                 <span class="uq-header__search-query-button">
-                  <input type="submit" name="op" value="Search" class="uq-header__search-query-submit" data-testid="uq-header-search-submit">
+                  <input type="submit" name="op" value="Search" class="uq-header__search-query-submit" data-testid="uq-header-search-submit" data-analyticsid="uq-header-search-submit">
                 </span>
               </div>
-              <input type="hidden" value="https://library.uq.edu.au" name="as_sitesearch" id="edit-as_sitesearch-on" data-testid="uq-header-search-input-as-sitesearch">
+              <input type="hidden" value="https://library.uq.edu.au" name="as_sitesearch" id="edit-as_sitesearch-on" data-testid="uq-header-search-input-as-sitesearch" data-analyticsid="uq-header-search-input-as-sitesearch">
             </fieldset>
           </form>
         </div>
       </div>
       <div class="uq-header__nav-secondary">
-        <nav class="uq-header__nav-secondary-container" data-testid="uq-header-nav">
-          <ul class="uq-header__nav-secondary-list" data-testid="uq-header-secondary-nav">
+        <nav class="uq-header__nav-secondary-container" data-testid="uq-header-nav" data-analyticsid="uq-header-nav">
+          <ul class="uq-header__nav-secondary-list" data-testid="uq-header-secondary-nav" data-analyticsid="uq-header-secondary-nav">
               <li class="uq-header__nav-secondary-item">
-                 <a href="https://www.uq.edu.au/" rel="external" class="uq-header__nav-secondary-link" data-testid="uq-header-logo-small-link">UQ home</a>
+                 <a href="https://www.uq.edu.au/" rel="external" class="uq-header__nav-secondary-link" data-testid="uq-header-logo-small-link" data-analyticsid="uq-header-logo-small-link">UQ home</a>
               </li>
               <li class="uq-header__nav-secondary-item">
-                  <a href="https://www.uq.edu.au/news/" rel="external" class="uq-header__nav-secondary-link" data-testid="uq-header-news-link">News</a>
+                  <a href="https://www.uq.edu.au/news/" rel="external" class="uq-header__nav-secondary-link" data-testid="uq-header-news-link" data-analyticsid="uq-header-news-link">News</a>
               </li>
               <li class="uq-header__nav-secondary-item">
-                  <a href="https://www.uq.edu.au/uq-events" rel="external" class="uq-header__nav-secondary-link" data-testid="uq-header-events-link">Events</a>
+                  <a href="https://www.uq.edu.au/uq-events" rel="external" class="uq-header__nav-secondary-link" data-testid="uq-header-events-link" data-analyticsid="uq-header-events-link">Events</a>
               </li>
               <li class="uq-header__nav-secondary-item">
-                  <a href="https://alumni.uq.edu.au/giving" rel="external" class="uq-header__nav-secondary-link" data-testid="uq-header-giving-link">Give</a>
+                  <a href="https://alumni.uq.edu.au/giving" rel="external" class="uq-header__nav-secondary-link" data-testid="uq-header-giving-link" data-analyticsid="uq-header-giving-link">Give</a>
               </li>
               <li class="uq-header__nav-secondary-item">
-                <a href="https://contacts.uq.edu.au/" rel="external" class="uq-header__nav-secondary-link" data-testid="uq-header-contacts-link">Contact</a>
+                <a href="https://contacts.uq.edu.au/" rel="external" class="uq-header__nav-secondary-link" data-testid="uq-header-contacts-link" data-analyticsid="uq-header-contacts-link">Contact</a>
               </li>
           </ul>
         </nav>

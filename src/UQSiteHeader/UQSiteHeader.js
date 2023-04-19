@@ -41,7 +41,7 @@ template.innerHTML = `
         <nav class="uq-site-header__navigation slide-menu__slider" id="jsNav" data-testid="uq-site-header-megamenu" aria-label="Site navigation">
             <ul class="uq-site-header__navigation__list uq-site-header__navigation__list--level-1" aria-expanded="true">
                 <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-header uq-site-header__navigation__list-item uq-site-header__navigation__list__first-permanent-child">
-                    <a href="https://study.uq.edu.au/" data-testid="uq-header-study-link-mobile">Study</a>
+                    <a href="https://study.uq.edu.au/" data-testid="uq-header-study-link-mobile" data-analyticsid="uq-header-study-link-mobile">Study</a>
                 </li>
                 <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-header uq-site-header__navigation__list-item">
                     <a href="https://research.uq.edu.au/">Research</a>
@@ -53,19 +53,19 @@ template.innerHTML = `
                     <a href="https://about.uq.edu.au/">About</a>
                 </li>
                 <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global uq-site-header__navigation__list-item">
-                    <a href="https://www.uq.edu.au/" data-testid="uq-header-home-link-mobile">UQ home</a>
+                    <a href="https://www.uq.edu.au/" data-testid="uq-header-home-link-mobile" data-analyticsid="uq-header-home-link-mobile">UQ home</a>
                 </li>
                 <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global uq-site-header__navigation__list-item">
-                    <a href="https://www.uq.edu.au/news/" data-testid="uq-header-news-link-mobile">News</a>
+                    <a href="https://www.uq.edu.au/news/" data-testid="uq-header-news-link-mobile" data-analyticsid="uq-header-news-link-mobile">News</a>
                 </li>
                 <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global uq-site-header__navigation__list-item">
-                    <a href="https://www.uq.edu.au/uq-events" data-testid="uq-header-events-link-mobile">Events</a>
+                    <a href="https://www.uq.edu.au/uq-events" data-testid="uq-header-events-link-mobile" data-analyticsid="uq-header-events-link-mobile">Events</a>
                 </li>
                 <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global uq-site-header__navigation__list-item">
-                    <a href="https://alumni.uq.edu.au/giving" data-testid="uq-header-giving-link-mobile">Give</a>
+                    <a href="https://alumni.uq.edu.au/giving" data-testid="uq-header-giving-link-mobile" data-analyticsid="uq-header-giving-link-mobile">Give</a>
                 </li>
                 <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global uq-site-header__navigation__list-item">
-                    <a href="https://contacts.uq.edu.au/" data-testid="uq-header-contacts-link-mobile">Contact</a>
+                    <a href="https://contacts.uq.edu.au/" data-testid="uq-header-contacts-link-mobile" data-analyticsid="uq-header-contacts-link-mobile">Contact</a>
                 </li>
             </ul>
         </nav>
@@ -229,6 +229,7 @@ class UQSiteHeader extends HTMLElement {
             jsonParentItem.linkTo === window.location.href && (classNavListitem += activeClassName);
             parentListItem.setAttribute('class', classNavListitem);
             parentListItem.setAttribute('data-testid', datatestid);
+            parentListItem.setAttribute('data-analyticsid', datatestid);
             parentListItem.setAttribute('data-gtm-category', 'Main navigation');
             parentListItem.setAttribute('aria-haspopup', 'true');
             parentListItem.setAttribute('aria-expanded', 'false');
@@ -271,6 +272,10 @@ class UQSiteHeader extends HTMLElement {
                     listItem.setAttribute('class', theClassName);
                     listItem.setAttribute(
                         'data-testid',
+                        `${jsonParentItem.dataTestid}-${indexChild}` || /* istanbul ignore next */ '',
+                    );
+                    listItem.setAttribute(
+                        'data-analyticsid',
                         `${jsonParentItem.dataTestid}-${indexChild}` || /* istanbul ignore next */ '',
                     );
 
@@ -328,6 +333,7 @@ class UQSiteHeader extends HTMLElement {
         const parentMobileToggle = document.createElement('button');
         parentMobileToggle.setAttribute('class', 'uq-site-header__navigation__sub-toggle');
         parentMobileToggle.setAttribute('data-testid', `${datatestid}-open`);
+        parentMobileToggle.setAttribute('data-analyticsid', `${datatestid}-open`);
         parentMobileToggle.appendChild(parentToggleSpan);
         return parentMobileToggle;
     }
@@ -335,6 +341,7 @@ class UQSiteHeader extends HTMLElement {
     createDesktopHeaderItem(datatestid, linkTo, primaryText) {
         const anchor = document.createElement('a');
         anchor.setAttribute('data-testid', `${datatestid}-link`);
+        anchor.setAttribute('data-analyticsid', `${datatestid}-link`);
         anchor.setAttribute('href', this.getLink(linkTo) || /* istanbul ignore next */ '');
         anchor.setAttribute('aria-expanded', 'false');
         anchor.setAttribute('aria-haspopup', 'true');

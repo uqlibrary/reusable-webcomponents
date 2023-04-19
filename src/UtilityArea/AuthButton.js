@@ -3,6 +3,13 @@ import ApiAccess from '../ApiAccess/ApiAccess';
 import { authLocale } from './auth.locale';
 import { isBackTabKeyPressed, isEscapeKeyPressed, isTabKeyPressed } from '../helpers/keyDetection';
 import { apiLocale } from '../ApiAccess/ApiAccess.locale';
+import {
+    canSeeAlertsAdmin,
+    canSeeEspace,
+    canSeePromopanelAdmin,
+    canSeeSpotlightsAdmin,
+    canSeeTestTagAdmin,
+} from '../helpers/access';
 
 /*
  * usage:
@@ -41,10 +48,10 @@ const authorisedtemplate = document.createElement('template');
 authorisedtemplate.innerHTML = `
     <style>${styles.toString()}</style>
     <div id="auth" class="auth loggedin">
-        <button id="account-option-button" data-testid="account-option-button">
-            <div id="username-area" data-testid="username-area-label" class="username-area">
+        <button id="account-option-button" data-testid="account-option-button" data-analyticsid="account-option-button">
+            <div id="username-area" data-testid="username-area-label" data-analyticsid="username-area-label" class="username-area">
                 <span id="username-area-label" class="username-area-label"></span>
-                <svg id="options-dropdown-arrow" class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium  css-w2bhrx" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ArrowDropDownIcon" aria-label="Open account panel">
+                <svg id="options-dropdown-arrow" class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium  css-w2bhrx" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ArrowDropDownIcon" data-analyticsid="ArrowDropDownIcon" aria-label="Open account panel">
                     <path d="m7 10 5 5 5-5z"></path>
                 </svg>
             </div>
@@ -60,15 +67,15 @@ authorisedtemplate.innerHTML = `
                                 <span class="tiny-text">Logged in as:</span>
                                 <span id="user-display-name" data-testid="user-display-name" class="user-display-name bold-text" style="padding-right:1rem"></span>
                             </div>
-                            <button class="logout md-primary md-button md-primoExplore-theme md-ink-ripple" type="button" data-testid="auth-button-logout" id="signOutButton" aria-label="Log out" role="menuitem">
+                            <button class="logout md-primary md-button md-primoExplore-theme md-ink-ripple" type="button" data-testid="auth-button-logout" data-analyticsid="auth-button-logout" id="signOutButton" aria-label="Log out" role="menuitem">
                                 <span class="bold-text">Log out</span>
                             </button>
                         </div>
                     </div>
-                    <ul data-testid="mylibrary-menu-list-public" class="mylibrary-menu-list" role="menu">
+                    <ul data-testid="mylibrary-menu-list-public" data-analyticsid="mylibrary-menu-list-public" class="mylibrary-menu-list" role="menu">
                         <!-- Primo account -->
                         <li role="menuitem" aria-disabled="false">
-                            <a tabindex="0" data-testid="mylibrary-menu-borrowing" href="https://search.library.uq.edu.au/primo-explore/login?vid=61UQ&targetURL=https%3A%2F%2Fsearch.library.uq.edu.au%2Fprimo-explore%2Faccount%3Fvid%3D61UQ%26section%3Doverview%26lang%3Den_US" rel="noreferrer">
+                            <a tabindex="0" data-testid="mylibrary-menu-borrowing" data-analyticsid="mylibrary-menu-borrowing" href="https://search.library.uq.edu.au/primo-explore/login?vid=61UQ&targetURL=https%3A%2F%2Fsearch.library.uq.edu.au%2Fprimo-explore%2Faccount%3Fvid%3D61UQ%26section%3Doverview%26lang%3Den_US" rel="noreferrer">
                                 <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M2,3H22C23.05,3 24,3.95 24,5V19C24,20.05 23.05,21 22,21H2C0.95,21 0,20.05 0,19V5C0,3.95 0.95,3 2,3M14,6V7H22V6H14M14,8V9H21.5L22,9V8H14M14,10V11H21V10H14M8,13.91C6,13.91 2,15 2,17V18H14V17C14,15 10,13.91 8,13.91M8,6A3,3 0 0,0 5,9A3,3 0 0,0 8,12A3,3 0 0,0 11,9A3,3 0 0,0 8,6Z"></path></svg>
                                 <span>Library account</span>
                                 <div class="subtext">Loans, requests & settings</div>
@@ -77,7 +84,7 @@ authorisedtemplate.innerHTML = `
                                 
                         <!-- Primo Favourites -->
                         <li role="menuitem" aria-disabled="false">
-                            <a tabindex="0" data-testid="mylibrary-menu-saved-items" href="https://search.library.uq.edu.au/primo-explore/login?vid=61UQ&targetURL=https%3A%2F%2Fsearch.library.uq.edu.au%2Fprimo-explore%2Ffavorites%3Fvid%3D61UQ%26lang%3Den_US%26section%3Ditems" rel="noreferrer">
+                            <a tabindex="0" data-testid="mylibrary-menu-saved-items" data-analyticsid="mylibrary-menu-saved-items" href="https://search.library.uq.edu.au/primo-explore/login?vid=61UQ&targetURL=https%3A%2F%2Fsearch.library.uq.edu.au%2Fprimo-explore%2Ffavorites%3Fvid%3D61UQ%26lang%3Den_US%26section%3Ditems" rel="noreferrer">
                                 <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path></svg>
                                 <span>Favourites</span>
                                 <div class="subtext">Saved items, searches & search history</div>
@@ -95,7 +102,7 @@ authorisedtemplate.innerHTML = `
                         
                         <!-- Printing balance -->
                         <li role="menuitem" aria-disabled="false">
-                            <a tabindex="0" data-testid="mylibrary-menu-print-balance" href="https://lib-print.library.uq.edu.au:9192/user" rel="noreferrer">
+                            <a tabindex="0" data-testid="mylibrary-menu-print-balance" data-analyticsid="mylibrary-menu-print-balance" href="https://lib-print.library.uq.edu.au:9192/user" rel="noreferrer">
                                 <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"></path></svg>
                                 <span>Print balance</span>
                                 <div class="subtext">Log in to your print account</div>
@@ -104,7 +111,7 @@ authorisedtemplate.innerHTML = `
                         
                         <!-- Room bookings -->
                         <li role="menuitem" aria-disabled="false">
-                            <a tabindex="0" data-testid="mylibrary-menu-room-bookings" href="https://uqbookit.uq.edu.au/#/app/booking-types/77b52dde-d704-4b6d-917e-e820f7df07cb" rel="noreferrer">
+                            <a tabindex="0" data-testid="mylibrary-menu-room-bookings" data-analyticsid="mylibrary-menu-room-bookings" href="https://uqbookit.uq.edu.au/#/app/booking-types/77b52dde-d704-4b6d-917e-e820f7df07cb" rel="noreferrer">
                                 <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M2 17h20v2H2zm11.84-9.21c.1-.24.16-.51.16-.79 0-1.1-.9-2-2-2s-2 .9-2 2c0 .28.06.55.16.79C6.25 8.6 3.27 11.93 3 16h18c-.27-4.07-3.25-7.4-7.16-8.21z"></path></svg>
                                 <span>Book a room or desk</span>
                                 <div class="subtext">Student meeting & study spaces</div>
@@ -113,7 +120,7 @@ authorisedtemplate.innerHTML = `
                         
                         <!-- eSpace dashboard -->
                         <li data-testid="mylibrary-espace" id="mylibrary-espace" role="menuitem" aria-disabled="false">
-                            <a tabindex="0" data-testid="mylibrary-menu-espace-dashboard" href="https://espace.library.uq.edu.au/dashboard" rel="noreferrer">
+                            <a tabindex="0" data-testid="mylibrary-menu-espace-dashboard" data-analyticsid="mylibrary-menu-espace-dashboard" href="https://espace.library.uq.edu.au/dashboard" rel="noreferrer">
                                 <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"></path></svg>
                                 <span>UQ eSpace dashboard</span>
                                 <div class="subtext">Your UQ research & more</div>
@@ -122,7 +129,7 @@ authorisedtemplate.innerHTML = `
 
                         <!-- Feedback -->
                         <li role="menuitem" aria-disabled="false">
-                            <a tabindex="0" id="mylibrary-menu-feedback" data-testid="mylibrary-menu-feedback" href="https://support.my.uq.edu.au/app/library/feedback" rel="noreferrer">
+                            <a tabindex="0" id="mylibrary-menu-feedback" data-testid="mylibrary-menu-feedback" data-analyticsid="mylibrary-menu-feedback" href="https://support.my.uq.edu.au/app/library/feedback" rel="noreferrer">
                                 <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 12h-2v-2h2v2zm0-4h-2V6h2v4z"></path></svg>
                                 <span>Feedback</span>
                             </a>
@@ -143,7 +150,7 @@ const unauthorisedtemplate = document.createElement('template');
 unauthorisedtemplate.innerHTML = `
     <style>${styles.toString()}</style>
     <div class="auth loggedout">
-        <button id="auth-button-login" class="login-button" data-testid="auth-button-login">
+        <button id="auth-button-login" class="login-button" data-testid="auth-button-login" data-analyticsid="auth-button-login">
             <svg class="auth-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true" id="logged-out-icon">
                 <path d="M12 5.9c1.16 0 2.1.94 2.1 2.1s-.94 2.1-2.1 2.1S9.9 9.16 9.9 8s.94-2.1 2.1-2.1m0 9c2.97 0 6.1 1.46 6.1 2.1v1.1H5.9V17c0-.64 3.13-2.1 6.1-2.1M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 9c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z"></path>
             </svg>
@@ -228,8 +235,8 @@ class AuthButton extends HTMLElement {
             const menuList = shadowDOM.getElementById('mylibrary-menu-list');
             const template = document.createElement('template');
             template.innerHTML = `
-                <li data-testid="${elementId}" id="${elementId}" role="menuitem" aria-disabled="false">
-                    <a tabIndex="0" id="${linkId}" data-testid="${linkId}"
+                <li data-testid="${elementId}" data-analyticsid="${elementId}" id="${elementId}" role="menuitem" aria-disabled="false">
+                    <a tabIndex="0" id="${linkId}" data-testid="${linkId}" data-analyticsid="${linkId}"
                        href="${link}" rel="noreferrer">
                         <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24"
                              aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;">
@@ -269,7 +276,7 @@ class AuthButton extends HTMLElement {
                 'Masquerade',
             );
 
-        !!this.canSeeAlertsAdmin(account) &&
+        !!canSeeAlertsAdmin(account) &&
             addAdminMenuOption(
                 'alerts-admin',
                 'mylibrary-menu-alerts-admin',
@@ -278,7 +285,7 @@ class AuthButton extends HTMLElement {
                 'Website alerts',
             );
 
-        !!this.canSeeSpotlightsAdmin(account) &&
+        !!canSeeSpotlightsAdmin(account) &&
             addAdminMenuOption(
                 'spotlights-admin',
                 'mylibrary-menu-spotlights-admin',
@@ -287,7 +294,7 @@ class AuthButton extends HTMLElement {
                 'Website spotlights',
             );
 
-        !!this.canSeeTestTagAdmin(account) &&
+        !!canSeeTestTagAdmin(account) &&
             addAdminMenuOption(
                 'testTag-admin',
                 'mylibrary-menu-testTag-admin',
@@ -296,7 +303,7 @@ class AuthButton extends HTMLElement {
                 'Test and Tag',
             );
 
-        !!this.canSeePromopanelAdmin(account) &&
+        !!canSeePromopanelAdmin(account) &&
             addAdminMenuOption(
                 'promopanel-admin',
                 'mylibrary-menu-promopanel-admin',
@@ -377,7 +384,6 @@ class AuthButton extends HTMLElement {
                 homepagelink = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/${linkAppend}`;
             }
             // if we're on a login-required page, the NotFound component will force login before we can fully logout
-            window.history.pushState({ user: 'public' }, '', homepagelink);
 
             const returnUrl = homepagelink;
             window.location.assign(`${authLocale.AUTH_URL_LOGOUT}${window.btoa(returnUrl)}`);
@@ -448,7 +454,7 @@ class AuthButton extends HTMLElement {
         // on whatever is the bottom-most link in the account menu for this user, tabbing out closes the popup account menu
         function closeMenuWhenBottomMostLinkClicked() {
             // the order of these ifs must match the reverse order they are displayed in
-            if (that.canSeePromopanelAdmin(account)) {
+            if (canSeePromopanelAdmin(account)) {
                 const promopanelOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-promopanel-admin');
                 !!promopanelOption &&
                     promopanelOption.addEventListener('keydown', function (e) {
@@ -456,7 +462,7 @@ class AuthButton extends HTMLElement {
                             closeAccountOptionsMenu();
                         }
                     });
-            } else if (that.canSeeTestTagAdmin(account)) {
+            } else if (canSeeTestTagAdmin(account)) {
                 const testntagOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-testTag-admin');
                 !!testntagOption &&
                     testntagOption.addEventListener('keydown', function (e) {
@@ -464,7 +470,7 @@ class AuthButton extends HTMLElement {
                             closeAccountOptionsMenu();
                         }
                     });
-            } else if (that.canSeeSpotlightsAdmin(account)) {
+            } else if (canSeeSpotlightsAdmin(account)) {
                 const spotlightsOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-spotlights-admin');
                 !!spotlightsOption &&
                     spotlightsOption.addEventListener('keydown', function (e) {
@@ -472,7 +478,7 @@ class AuthButton extends HTMLElement {
                             closeAccountOptionsMenu();
                         }
                     });
-            } else if (that.canSeeAlertsAdmin(account)) {
+            } else if (canSeeAlertsAdmin(account)) {
                 const alertsOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-alerts-admin');
                 !!alertsOption &&
                     alertsOption.addEventListener('keydown', function (e) {
@@ -530,38 +536,6 @@ class AuthButton extends HTMLElement {
         return (!!isOverwriteRequired || isOverwriteRequired === '') && isOverwriteRequired !== 'false';
     }
 
-    // access controlled via Active Directory (AD)
-    hasWebContentAdminAccess(account) {
-        return (
-            !!account &&
-            !!account.groups &&
-            account.groups.find((group) => group.includes('lib_libapi_SpotlightAdmins'))
-        );
-    }
-
-    // access controlled via Active Directory (AD)
-    hasTestTagAdminAccess(account) {
-        return (
-            !!account && !!account.groups && account.groups.find((group) => group.includes('lib_libapi_TestTagUsers'))
-        );
-    }
-
-    canSeeAlertsAdmin(account) {
-        return !!account && !!this.hasWebContentAdminAccess(account);
-    }
-
-    canSeeSpotlightsAdmin(account) {
-        return !!account && !!this.hasWebContentAdminAccess(account);
-    }
-
-    canSeeTestTagAdmin(account) {
-        return !!account && !!this.hasTestTagAdminAccess(account);
-    }
-
-    canSeePromopanelAdmin(account) {
-        return !!account && !!this.hasWebContentAdminAccess(account);
-    }
-
     async removeEspaceMenuOptionWhenNotAuthor(shadowDOM) {
         const espaceitem = !!shadowDOM && shadowDOM.getElementById('mylibrary-espace');
         if (!espaceitem) {
@@ -569,6 +543,7 @@ class AuthButton extends HTMLElement {
         }
 
         let storedUserDetails = {};
+
         const getStoredUserDetails = setInterval(() => {
             storedUserDetails = new ApiAccess().getAccountFromStorage();
             let isLoggedIn =
@@ -579,10 +554,7 @@ class AuthButton extends HTMLElement {
             if (isLoggedIn) {
                 clearInterval(getStoredUserDetails);
 
-                const isAuthor =
-                    storedUserDetails?.hasOwnProperty('currentAuthor') &&
-                    !!storedUserDetails.currentAuthor.hasOwnProperty('aut_id');
-                !isAuthor && espaceitem.remove();
+                !canSeeEspace(storedUserDetails) && espaceitem.remove();
             }
         }, 100);
     }
