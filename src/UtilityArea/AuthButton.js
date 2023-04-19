@@ -6,7 +6,6 @@ import { apiLocale } from '../ApiAccess/ApiAccess.locale';
 import {
     canSeeAlertsAdmin,
     canSeeEspace,
-    canSeeLearningResources,
     canSeePromopanelAdmin,
     canSeeSpotlightsAdmin,
     canSeeTestTagAdmin,
@@ -93,7 +92,7 @@ authorisedtemplate.innerHTML = `
                         </li>
 
                         <!-- Learning resources -->
-                        <li role="menuitem" aria-disabled="false" id="mylibrary-menu-course-resources-listitem" data-testid="mylibrary-menu-course-resources-listitem">
+                        <li role="menuitem" aria-disabled="false" data-testid="mylibrary-menu-course-resources-listitem">
                             <a tabindex="0" id="mylibrary-menu-course-resources" data-testid="mylibrary-menu-course-resources" href="https://www.library.uq.edu.au/learning-resources" rel="noreferrer">
                                 <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"></path></svg>
                                 <span>Learning resources</span>
@@ -212,7 +211,6 @@ class AuthButton extends HTMLElement {
                     this.displayUserNameAsButtonLabel(shadowDOM, account);
                     this.addAdminMenuOptions(shadowDOM, account);
                     this.removeEspaceMenuOptionWhenNotAuthor(shadowDOM);
-                    this.removeLRMenuOptionWhenNoPriv(shadowDOM);
                     this.addLogoutButtonListeners(shadowDOM, account);
                 } else if (
                     !!currentUserDetails &&
@@ -557,30 +555,6 @@ class AuthButton extends HTMLElement {
                 clearInterval(getStoredUserDetails);
 
                 !canSeeEspace(storedUserDetails) && espaceitem.remove();
-            }
-        }, 100);
-    }
-
-    // only certain user types can open Learning Resources
-    async removeLRMenuOptionWhenNoPriv(shadowDOM) {
-        const LRitem = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-course-resources-listitem');
-        console.log('LRitem=', LRitem);
-        if (!LRitem) {
-            return;
-        }
-
-        let storedUserDetails = {};
-        const getStoredUserDetails = setInterval(() => {
-            storedUserDetails = new ApiAccess().getAccountFromStorage();
-            let isLoggedIn =
-                !!storedUserDetails &&
-                storedUserDetails.hasOwnProperty('status') &&
-                (storedUserDetails.status === apiLocale.USER_LOGGED_IN ||
-                    storedUserDetails.status === apiLocale.USER_LOGGED_OUT);
-            if (isLoggedIn) {
-                clearInterval(getStoredUserDetails);
-
-                !canSeeLearningResources(storedUserDetails) && LRitem.remove();
             }
         }, 100);
     }
