@@ -383,10 +383,7 @@ class AuthButton extends HTMLElement {
                 const linkAppend = '?user=public';
                 homepagelink = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/${linkAppend}`;
             }
-            // if we're on a login-required page, the NotFound component will force login before we can fully logout
-
-            const returnUrl = homepagelink;
-            window.location.assign(`${authLocale.AUTH_URL_LOGOUT}${window.btoa(returnUrl)}`);
+            window.location.assign(`${authLocale.AUTH_URL_LOGOUT}${window.btoa(homepagelink)}`);
         }
 
         function openAccountOptionsMenu() {
