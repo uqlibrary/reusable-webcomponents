@@ -274,6 +274,10 @@ class UQSiteHeader extends HTMLElement {
                         'data-testid',
                         `${jsonParentItem.dataTestid}-${indexChild}` || /* istanbul ignore next */ '',
                     );
+                    listItem.setAttribute(
+                        'data-analyticsid',
+                        `${jsonParentItem.dataTestid}-${indexChild}` || /* istanbul ignore next */ '',
+                    );
 
                     // a missing primary text allows for an empty list item on desktop, controlling the spacing of the menu
                     if (!!jsonChild.primaryText) {

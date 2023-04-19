@@ -236,7 +236,7 @@ class AuthButton extends HTMLElement {
             const template = document.createElement('template');
             template.innerHTML = `
                 <li data-testid="${elementId}" data-analyticsid="${elementId}" id="${elementId}" role="menuitem" aria-disabled="false">
-                    <a tabIndex="0" id="${linkId}" data-testid="${linkId}"
+                    <a tabIndex="0" id="${linkId}" data-testid="${linkId}" data-analyticsid="${linkId}"
                        href="${link}" rel="noreferrer">
                         <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24"
                              aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;">
