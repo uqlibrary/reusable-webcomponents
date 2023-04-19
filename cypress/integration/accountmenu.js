@@ -24,6 +24,12 @@ function openAccountDropdown() {
 
 function assertUserHasStandardMyLibraryOptions(userid = 'uqstaff') {
     cy.get('li a[data-testid="mylibrary-menu-borrowing"]').should('exist').contains('Library account');
+    cy.get('li a[data-testid="mylibrary-menu-course-resources"]').should('exist').contains('Learning resources');
+    cy.get('li a[data-testid="mylibrary-menu-course-resources"]').should(
+        'have.attr',
+        'href',
+        `http://localhost:2020/learning-resources?user=${userid}`,
+    );
     cy.get('li a[data-testid="mylibrary-menu-print-balance"]').should('exist').contains('Print balance');
     cy.get('li a[data-testid="mylibrary-menu-room-bookings"]').should('exist').contains('Book a room or desk');
     cy.get('li a[data-testid="mylibrary-menu-saved-items"]').should('exist').contains('Favourites');
@@ -101,21 +107,6 @@ function assertUserHasEspaceMenuItem(expected) {
         cy.get('li[data-testid="mylibrary-espace"]').should('exist').contains('UQ eSpace dashboard');
     } else {
         cy.get('li[data-testid="mylibrary-espace"]').should('not.exist');
-    }
-}
-
-function assertUserHasLearningResourceMenuItem(expected, userid) {
-    if (!!expected) {
-        cy.get('li[data-testid="mylibrary-menu-course-resources-listitem"]').should('exist');
-        cy.get('li a[data-testid="mylibrary-menu-course-resources"]').should('exist').contains('Learning resources');
-        cy.get('li a[data-testid="mylibrary-menu-course-resources"]').should(
-            'have.attr',
-            'href',
-            `http://localhost:2020/learning-resources?user=${userid}`,
-        );
-    } else {
-        cy.get('li[data-testid="mylibrary-menu-course-resources-listitem"]').should('not.exist');
-        cy.get('li a[data-testid="mylibrary-menu-course-resources"]').should('not.exist');
     }
 }
 
@@ -324,7 +315,6 @@ describe('Account menu button', () => {
                     assertUserHasPromoPanelAdmin(true);
                     assertUserHasTestTagAdmin(false); // admins do not get T&T by default
                     assertUserHasEspaceMenuItem(true); // not an admin function, this user happens to have an author account
-                    assertUserHasLearningResourceMenuItem(true, 'uqstaff');
                 });
         });
 
@@ -356,7 +346,6 @@ describe('Account menu button', () => {
                     assertUserHasPromoPanelAdmin(false);
                     assertUserHasTestTagAdmin(false);
                     assertUserHasEspaceMenuItem(true);
-                    assertUserHasLearningResourceMenuItem(true, 'uqmasquerade');
                 });
         });
 
@@ -370,7 +359,6 @@ describe('Account menu button', () => {
                 .within(() => {
                     assertUserHasStandardMyLibraryOptions('s1111111');
                     assertUserHasEspaceMenuItem(true);
-                    assertUserHasLearningResourceMenuItem(true, 's1111111');
                     assertUserSeesNOAdminOptions();
                 });
         });
@@ -388,7 +376,6 @@ describe('Account menu button', () => {
                 .within(() => {
                     assertUserHasStandardMyLibraryOptions('digiteamMember');
                     assertUserHasEspaceMenuItem(true);
-                    assertUserHasLearningResourceMenuItem(true, 'digiteamMember');
                     assertUserHasMasquerade(true, 'digiteamMember');
                     assertUserHasAlertsAdmin(false);
                     assertUserHasSpotlightAdmin(false);
@@ -408,7 +395,6 @@ describe('Account menu button', () => {
                     assertUserHasStandardMyLibraryOptions('s3333333');
                     assertUserSeesNOAdminOptions();
                     assertUserHasEspaceMenuItem(false);
-                    assertUserHasLearningResourceMenuItem(true, 's3333333');
                 });
         });
 
@@ -427,22 +413,6 @@ describe('Account menu button', () => {
                     assertUserHasPromoPanelAdmin(true, 'uqrdav10');
                     assertUserHasTestTagAdmin(false);
                     assertUserHasEspaceMenuItem(false);
-                    assertUserHasLearningResourceMenuItem(false);
-                });
-        });
-
-        it('some users dont get learning resources', () => {
-            cy.visit('http://localhost:8080?user=s2222222');
-            cy.viewport(1280, 900);
-            assertNameIsDisplayedOnAccountOptionsButtonCorrectly('s2222222', 'RHD Student, Jane');
-            openAccountDropdown();
-            cy.get('auth-button')
-                .shadow()
-                .within(() => {
-                    assertUserHasStandardMyLibraryOptions('s2222222');
-                    assertUserSeesNOAdminOptions();
-                    assertUserHasEspaceMenuItem(true);
-                    assertUserHasLearningResourceMenuItem(false);
                 });
         });
 
