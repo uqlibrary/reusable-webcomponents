@@ -52,8 +52,10 @@ var uq = (function (exports) {
     'use strict';
 
     function toggleMenu(toggle) {
-        var ariaExpanded = !!toggle && toggle.getAttribute('aria-expanded') === 'true';
-        var ariaPressed = !!toggle && toggle.getAttribute('aria-pressed') === 'true';
+        var ariaExpanded =
+            !!toggle && toggle.hasAttribute('aria-expanded') && toggle.getAttribute('aria-expanded') === 'true';
+        var ariaPressed =
+            !!toggle && toggle.hasAttribute('aria-pressed') && toggle.getAttribute('aria-pressed') === 'true';
         !!toggle && toggle.classList.toggle(''.concat(this.navClass, '-toggle--close'));
         !!toggle && toggle.setAttribute('aria-expanded', !ariaExpanded);
         !!toggle && toggle.setAttribute('aria-pressed', !ariaPressed);
@@ -182,8 +184,11 @@ var uq = (function (exports) {
                 key: 'handleResize',
                 value: function handleResize(event) {
                     var sh = document.querySelector('uq-site-header');
-                    var toggle = !!sh && sh.shadowRoot.querySelector(`.${this.toggleClass}`);
-                    var ariaExpanded = toggle.getAttribute('aria-expanded') === 'true';
+                    var toggle = !!sh && !!sh.shadowRoot && sh.shadowRoot.querySelector(`.${this.toggleClass}`);
+                    var ariaExpanded =
+                        !!toggle &&
+                        toggle.hasAttribute('aria-expanded') &&
+                        toggle.getAttribute('aria-expanded') === 'true';
 
                     // primo: when the mobile menu is open, hide the menu bar
                     // its the only way to not have them sit on _top_ of the mobile menu :(

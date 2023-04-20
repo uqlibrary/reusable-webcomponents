@@ -3,6 +3,13 @@ import ApiAccess from '../ApiAccess/ApiAccess';
 import { authLocale } from './auth.locale';
 import { isBackTabKeyPressed, isEscapeKeyPressed, isTabKeyPressed } from '../helpers/keyDetection';
 import { apiLocale } from '../ApiAccess/ApiAccess.locale';
+import {
+    canSeeAlertsAdmin,
+    canSeeEspace,
+    canSeePromopanelAdmin,
+    canSeeSpotlightsAdmin,
+    canSeeTestTagAdmin,
+} from '../helpers/access';
 
 /*
  * usage:
@@ -60,12 +67,12 @@ authorisedtemplate.innerHTML = `
                                 <span class="tiny-text">Logged in as:</span>
                                 <span id="user-display-name" data-testid="user-display-name" class="user-display-name bold-text" style="padding-right:1rem"></span>
                             </div>
-                            <button class="logout md-primary md-button md-primoExplore-theme md-ink-ripple" type="button" data-testid="auth-button-logout" data-analyticsid="auth-button-logout" id="signOutButton" aria-label="Log out" role="menuitem">
+                            <button class="logout md-primary md-button md-primoExplore-theme md-ink-ripple" type="button" data-analyticsid="auth-button-logout" id="signOutButton" aria-label="Log out" role="menuitem">
                                 <span class="bold-text">Log out</span>
                             </button>
                         </div>
                     </div>
-                    <ul data-testid="mylibrary-menu-list-public" data-analyticsid="mylibrary-menu-list-public" class="mylibrary-menu-list" role="menu">
+                    <ul data-analyticsid="mylibrary-menu-list-public" class="mylibrary-menu-list" role="menu">
                         <!-- Primo account -->
                         <li role="menuitem" aria-disabled="false">
                             <a tabindex="0" data-testid="mylibrary-menu-borrowing" data-analyticsid="mylibrary-menu-borrowing" href="https://search.library.uq.edu.au/primo-explore/login?vid=61UQ&targetURL=https%3A%2F%2Fsearch.library.uq.edu.au%2Fprimo-explore%2Faccount%3Fvid%3D61UQ%26section%3Doverview%26lang%3Den_US" rel="noreferrer">
@@ -86,7 +93,7 @@ authorisedtemplate.innerHTML = `
 
                         <!-- Learning resources -->
                         <li role="menuitem" aria-disabled="false">
-                            <a tabindex="0" id="mylibrary-menu-course-resources" data-testid="mylibrary-menu-course-resources" data-analyticsid="mylibrary-menu-course-resources" href="https://www.library.uq.edu.au/learning-resources" rel="noreferrer">
+                            <a tabindex="0" id="mylibrary-menu-course-resources" data-testid="mylibrary-menu-course-resources" href="https://www.library.uq.edu.au/learning-resources" rel="noreferrer">
                                 <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"></path></svg>
                                 <span>Learning resources</span>
                                 <div class="subtext">Course readings & exam papers</div>
@@ -113,7 +120,7 @@ authorisedtemplate.innerHTML = `
                         
                         <!-- eSpace dashboard -->
                         <li data-testid="mylibrary-espace" id="mylibrary-espace" role="menuitem" aria-disabled="false">
-                            <a tabindex="0" data-testid="mylibrary-menu-espace-dashboard" data-analyticsid="mylibrary-menu-espace-dashboard" href="https://espace.library.uq.edu.au/dashboard" rel="noreferrer">
+                            <a tabindex="0" data-analyticsid="mylibrary-menu-espace-dashboard" href="https://espace.library.uq.edu.au/dashboard" rel="noreferrer">
                                 <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"></path></svg>
                                 <span>UQ eSpace dashboard</span>
                                 <div class="subtext">Your UQ research & more</div>
@@ -229,7 +236,7 @@ class AuthButton extends HTMLElement {
             const template = document.createElement('template');
             template.innerHTML = `
                 <li data-testid="${elementId}" data-analyticsid="${elementId}" id="${elementId}" role="menuitem" aria-disabled="false">
-                    <a tabIndex="0" id="${linkId}" data-testid="${linkId}"
+                    <a tabIndex="0" id="${linkId}" data-testid="${linkId}" data-analyticsid="${linkId}"
                        href="${link}" rel="noreferrer">
                         <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24"
                              aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;">
@@ -269,7 +276,7 @@ class AuthButton extends HTMLElement {
                 'Masquerade',
             );
 
-        !!this.canSeeAlertsAdmin(account) &&
+        !!canSeeAlertsAdmin(account) &&
             addAdminMenuOption(
                 'alerts-admin',
                 'mylibrary-menu-alerts-admin',
@@ -278,7 +285,7 @@ class AuthButton extends HTMLElement {
                 'Website alerts',
             );
 
-        !!this.canSeeSpotlightsAdmin(account) &&
+        !!canSeeSpotlightsAdmin(account) &&
             addAdminMenuOption(
                 'spotlights-admin',
                 'mylibrary-menu-spotlights-admin',
@@ -287,7 +294,7 @@ class AuthButton extends HTMLElement {
                 'Website spotlights',
             );
 
-        !!this.canSeeTestTagAdmin(account) &&
+        !!canSeeTestTagAdmin(account) &&
             addAdminMenuOption(
                 'testTag-admin',
                 'mylibrary-menu-testTag-admin',
@@ -296,7 +303,7 @@ class AuthButton extends HTMLElement {
                 'Test and Tag',
             );
 
-        !!this.canSeePromopanelAdmin(account) &&
+        !!canSeePromopanelAdmin(account) &&
             addAdminMenuOption(
                 'promopanel-admin',
                 'mylibrary-menu-promopanel-admin',
@@ -377,7 +384,6 @@ class AuthButton extends HTMLElement {
                 homepagelink = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/${linkAppend}`;
             }
             // if we're on a login-required page, the NotFound component will force login before we can fully logout
-            window.history.pushState({ user: 'public' }, '', homepagelink);
 
             const returnUrl = homepagelink;
             window.location.assign(`${authLocale.AUTH_URL_LOGOUT}${window.btoa(returnUrl)}`);
@@ -448,7 +454,7 @@ class AuthButton extends HTMLElement {
         // on whatever is the bottom-most link in the account menu for this user, tabbing out closes the popup account menu
         function closeMenuWhenBottomMostLinkClicked() {
             // the order of these ifs must match the reverse order they are displayed in
-            if (that.canSeePromopanelAdmin(account)) {
+            if (canSeePromopanelAdmin(account)) {
                 const promopanelOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-promopanel-admin');
                 !!promopanelOption &&
                     promopanelOption.addEventListener('keydown', function (e) {
@@ -456,7 +462,7 @@ class AuthButton extends HTMLElement {
                             closeAccountOptionsMenu();
                         }
                     });
-            } else if (that.canSeeTestTagAdmin(account)) {
+            } else if (canSeeTestTagAdmin(account)) {
                 const testntagOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-testTag-admin');
                 !!testntagOption &&
                     testntagOption.addEventListener('keydown', function (e) {
@@ -464,7 +470,7 @@ class AuthButton extends HTMLElement {
                             closeAccountOptionsMenu();
                         }
                     });
-            } else if (that.canSeeSpotlightsAdmin(account)) {
+            } else if (canSeeSpotlightsAdmin(account)) {
                 const spotlightsOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-spotlights-admin');
                 !!spotlightsOption &&
                     spotlightsOption.addEventListener('keydown', function (e) {
@@ -472,7 +478,7 @@ class AuthButton extends HTMLElement {
                             closeAccountOptionsMenu();
                         }
                     });
-            } else if (that.canSeeAlertsAdmin(account)) {
+            } else if (canSeeAlertsAdmin(account)) {
                 const alertsOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-alerts-admin');
                 !!alertsOption &&
                     alertsOption.addEventListener('keydown', function (e) {
@@ -530,38 +536,6 @@ class AuthButton extends HTMLElement {
         return (!!isOverwriteRequired || isOverwriteRequired === '') && isOverwriteRequired !== 'false';
     }
 
-    // access controlled via Active Directory (AD)
-    hasWebContentAdminAccess(account) {
-        return (
-            !!account &&
-            !!account.groups &&
-            account.groups.find((group) => group.includes('lib_libapi_SpotlightAdmins'))
-        );
-    }
-
-    // access controlled via Active Directory (AD)
-    hasTestTagAdminAccess(account) {
-        return (
-            !!account && !!account.groups && account.groups.find((group) => group.includes('lib_libapi_TestTagUsers'))
-        );
-    }
-
-    canSeeAlertsAdmin(account) {
-        return !!account && !!this.hasWebContentAdminAccess(account);
-    }
-
-    canSeeSpotlightsAdmin(account) {
-        return !!account && !!this.hasWebContentAdminAccess(account);
-    }
-
-    canSeeTestTagAdmin(account) {
-        return !!account && !!this.hasTestTagAdminAccess(account);
-    }
-
-    canSeePromopanelAdmin(account) {
-        return !!account && !!this.hasWebContentAdminAccess(account);
-    }
-
     async removeEspaceMenuOptionWhenNotAuthor(shadowDOM) {
         const espaceitem = !!shadowDOM && shadowDOM.getElementById('mylibrary-espace');
         if (!espaceitem) {
@@ -569,6 +543,7 @@ class AuthButton extends HTMLElement {
         }
 
         let storedUserDetails = {};
+
         const getStoredUserDetails = setInterval(() => {
             storedUserDetails = new ApiAccess().getAccountFromStorage();
             let isLoggedIn =
@@ -579,10 +554,7 @@ class AuthButton extends HTMLElement {
             if (isLoggedIn) {
                 clearInterval(getStoredUserDetails);
 
-                const isAuthor =
-                    storedUserDetails?.hasOwnProperty('currentAuthor') &&
-                    !!storedUserDetails.currentAuthor.hasOwnProperty('aut_id');
-                !isAuthor && espaceitem.remove();
+                !canSeeEspace(storedUserDetails) && espaceitem.remove();
             }
         }, 100);
     }

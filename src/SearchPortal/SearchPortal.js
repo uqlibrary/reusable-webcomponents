@@ -706,6 +706,7 @@ class SearchPortal extends HTMLElement {
         !!button && button.setAttribute('aria-label', `Search in ${entry.name}`);
         !!button && button.setAttribute('id', `search-portal-type-select-item-${index}`);
         !!button && button.setAttribute('data-testid', `primo-search-item-${index}`);
+        !!button && button.setAttribute('data-analyticsid', `primo-search-item-${index}`);
         !!button && button.setAttribute('data-primo-search-form', `primo-search-item-${index}`);
         !!button && !!svg && button.appendChild(svg);
         !!button && !!svg && button.appendChild(label);

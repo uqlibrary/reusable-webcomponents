@@ -6,7 +6,7 @@ const template = document.createElement('template');
 template.innerHTML = `
   <style>${styles.toString()}</style>
   <style>${overrides.toString()}</style>
-  <footer data-testid="uq-footer" id="footer" class="uq-footer" data-gtm-category="Footer">
+  <footer id="footer" class="uq-footer" data-gtm-category="Footer">
       <div class="uq-footer__reconciliation">
         <div class="uq-footer__acknowledgement">
           <img class="uq-footer__acknowledgement-flag" alt="Australian Aboriginal Flag" src="https://static.uq.net.au/v15/images/rap/aboriginal.svg">
@@ -145,7 +145,6 @@ class UQFooter extends HTMLElement {
         const link = document.createElement('a');
         !!link && link.setAttribute('href', href);
         !!link && link.setAttribute('class', 'uq-footer__navigation-link');
-        !!datatestid && !!link && link.setAttribute('data-testid', datatestid);
         !!datatestid && !!link && link.setAttribute('data-analyticsid', datatestid);
 
         const textOfLink = document.createTextNode(linktext);

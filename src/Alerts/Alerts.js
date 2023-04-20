@@ -4,7 +4,7 @@ import ApiAccess from '../ApiAccess/ApiAccess';
 const template = document.createElement('template');
 template.innerHTML = `
     <style>${styles.toString()}</style>
-    <div role="region" aria-label="UQ Library Alerts" data-testid="alerts">
+    <div role="region" aria-label="UQ Library Alerts">
         <div style="width: 100%" data-testid="alerts-wrapper" id="alerts-wrapper">
         </div>
     </div>

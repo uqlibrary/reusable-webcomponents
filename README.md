@@ -109,6 +109,9 @@ This repo uses [Cypress.io](https://cypress.io/) tests. To run tests:
 
 NOTE: CI testing uses environment variables stored on AWS to run cypress successfully and reporting to the cypress dashboard.
 
+- data-testid attributes are used to identify elements for tests
+- data-analyticsid attributes are used for GTM/GA tagging and are supplied by the customer (although we often advise).
+
 ## Branches
 
 In addition to the usual branches, the following are in use and should not be deleted from github or AWS Pipelines:

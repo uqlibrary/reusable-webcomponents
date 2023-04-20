@@ -65,7 +65,7 @@ class EzProxy extends HTMLElement {
     }
 
     get inputValidator() {
-        const valid = this.getAttribute('valid') === 'true';
+        const valid = this.hasAttribute('valid') && this.getAttribute('valid') === 'true';
         return { valid };
     }
 

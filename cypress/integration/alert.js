@@ -122,7 +122,11 @@ describe('Alert', () => {
             cy.get('.multipleAlerts alert-list').should('have.length', 2);
 
             // first one has the alerts
-            cy.get('.multipleAlerts alert-list').first().shadow().find('[data-testid="alerts"]').should('exist');
+            cy.get('.multipleAlerts alert-list')
+                .first()
+                .shadow()
+                .find('[aria-label="UQ Library Alerts"]')
+                .should('exist');
             cy.get('.multipleAlerts alert-list')
                 .first()
                 .shadow()
@@ -135,7 +139,12 @@ describe('Alert', () => {
                 .find('uq-alert')
                 .should('have.length', 2);
             // second does not have any alerts
-            cy.get('.multipleAlerts alert-list').first().next().shadow().find('[data-testid="alerts"]').should('exist');
+            cy.get('.multipleAlerts alert-list')
+                .first()
+                .next()
+                .shadow()
+                .find('[aria-label="UQ Library Alerts"]')
+                .should('exist');
             cy.get('.multipleAlerts alert-list')
                 .first()
                 .next()

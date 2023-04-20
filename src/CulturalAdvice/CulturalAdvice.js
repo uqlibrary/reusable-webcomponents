@@ -14,10 +14,10 @@ import { addClassToElement, removeClassFromElement } from '../helpers/classManag
 const template = document.createElement('template');
 template.innerHTML = `
     <style>${culturalcss}</style>
-    <div id="culturaladvice-popup" data-testid="culturaladvice-popup" style="font-family: 'Roboto', sans-serif;">
+    <div id="culturaladvice-popup" style="font-family: 'Roboto', sans-serif;">
         <div id="culturaladvice-container" data-testid="culturaladvice-container" class="culturaladvice-popup-hidden">
             <h2 class="title" style="float: left;">Cultural advice</h2>
-            <button type="button" title="close cultural advice" class="culturaladvice-dismiss" id="culturaladvice-container-dismiss" data-testid="culturaladvice-container-dismiss" data-analyticsid="culturaladvice-container-dismiss">
+            <button type="button" title="close cultural advice" class="culturaladvice-dismiss" id="culturaladvice-container-dismiss" data-analyticsid="culturaladvice-container-dismiss">
             <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
             </svg>
@@ -25,7 +25,7 @@ template.innerHTML = `
             <div id="cultural-advice-title" class="culturaladvice-wording"  style="clear:both">
                 <p id="cultural-advice-content">Aboriginal and Torres Strait Islander peoples are advised that our collections and sites may contain images, voices or names of persons now deceased. Information may be culturally sensitive for some individuals and communities.</p>
                 <p style="text-align: left">
-                    <a id="cultural-advice-read-more" data-testid="cultural-advice-read-more" data-analyticsid="cultural-advice-read-more" href="https://web.library.uq.edu.au/collections/culturally-sensitive-collections" target="_blank">
+                    <a id="cultural-advice-read-more" data-analyticsid="cultural-advice-read-more" href="https://web.library.uq.edu.au/collections/culturally-sensitive-collections" target="_blank">
                     Culturally sensitive collections
                     </a>
                 </p>    
