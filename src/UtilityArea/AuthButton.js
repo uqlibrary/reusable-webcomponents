@@ -371,6 +371,7 @@ class AuthButton extends HTMLElement {
         let accountOptionsClosed = true;
 
         function visitLogOutPage() {
+            console.log('click log out markAccountStorageLoggedOut');
             new ApiAccess().markAccountStorageLoggedOut();
 
             let homepagelink = 'https://www.library.uq.edu.au';

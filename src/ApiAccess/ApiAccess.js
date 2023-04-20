@@ -20,6 +20,7 @@ class ApiAccess {
 
         if (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined) {
             // no cookie, force them to log in again
+            console.log('loadAccountApi no cookie markAccountStorageLoggedOut');
             this.markAccountStorageLoggedOut();
             return false;
         }
@@ -47,6 +48,7 @@ class ApiAccess {
                     const urlPath = authorApi.apiUrl;
                     return this.fetchAPI(urlPath, {}, true);
                 } else {
+                    console.log('loadAccountApi no account markAccountStorageLoggedOut');
                     this.markAccountStorageLoggedOut();
                     accountCallStatus = ACCOUNT_CALL_DONE;
                     return false;
@@ -59,6 +61,7 @@ class ApiAccess {
             .catch((error) => {
                 if (accountCallStatus === ACCOUNT_CALL_INCOMPLETE) {
                     // it was the account call that had an error; authors was never called
+                    console.log('loadAccountApi account incomplete markAccountStorageLoggedOut');
                     this.markAccountStorageLoggedOut();
                     return false;
                 }
@@ -347,6 +350,7 @@ class ApiAccess {
         const watchforAccountExpiry = setInterval(() => {
             if (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined) {
                 const datestamp = new Date();
+                console.log('loadAccountApi cookie gone markAccountStorageLoggedOut');
                 console.log('###', datestamp, 'debug - cookie gone');
                 // no cookie, force them to log in again
                 this.markAccountStorageLoggedOut();
@@ -372,6 +376,7 @@ class ApiAccess {
                 storedUserDetails.account.id !== new MockApi().user;
             if (!!mockUserHasChanged) {
                 // allow developer to swap between users in the same tab
+                console.log('getAccountFromStorage mock markAccountStorageLoggedOut');
                 this.markAccountStorageLoggedOut();
                 return null;
             }
@@ -379,6 +384,11 @@ class ApiAccess {
 
         const now = new Date().getTime();
         if (!!storedUserDetails.hasOwnProperty('storageExpiryDate') && storedUserDetails.storageExpiryDate < now) {
+            console.log(
+                'getAccountFromStorage expired markAccountStorageLoggedOut',
+                storedUserDetails.storageExpiryDate,
+                now,
+            );
             this.markAccountStorageLoggedOut();
             return this.LOGGED_OUT_ACCOUNT;
         }
