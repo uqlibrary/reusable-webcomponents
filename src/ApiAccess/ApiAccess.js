@@ -2,7 +2,7 @@ import MockApi from '../../mock/MockApi';
 import ApiRoutes from '../ApiRoutes';
 import { apiLocale as locale } from './ApiAccess.locale';
 import fetchJsonp from 'fetch-jsonp';
-import { clearCookie, getCookieValue } from '../helpers/cookie';
+import { clearCookie, cookieFound, getCookieValue } from '../helpers/cookie';
 
 let initCalled;
 
@@ -404,7 +404,7 @@ class ApiAccess {
         !!sessionStorage && sessionStorage.removeItem(locale.STORAGE_ACCOUNT_KEYNAME);
         const emptyAccount = JSON.stringify(this.LOGGED_OUT_ACCOUNT);
         !!sessionStorage && sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, emptyAccount);
-        clearCookie(locale.SESSION_COOKIE_NAME);
+        !!cookieFound(locale.SESSION_COOKIE_NAME) && clearCookie(locale.SESSION_COOKIE_NAME);
 
         setTimeout(() => {
             // a short delay so the above removals have firmly happened before the notified apps can action it

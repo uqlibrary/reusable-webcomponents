@@ -3,6 +3,9 @@ export function cookieNotFound(cookieId, cookievalue = '') {
     return document.cookie.indexOf(searchString) <= -1;
 }
 
+export function cookieFound(cookieId, cookievalue = '') {
+    return !cookieNotFound(cookieId, cookievalue);
+}
 export function getCookieValue(name) {
     const cookies = document.cookie.split(';');
     for (let i = 0; i < cookies.length; ++i) {
