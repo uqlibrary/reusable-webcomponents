@@ -346,6 +346,8 @@ class ApiAccess {
         // watch the cookie for expiry
         const watchforAccountExpiry = setInterval(() => {
             if (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined) {
+                const datestamp = new Date();
+                console.log('###', datestamp, 'debug - cookie gone');
                 // no cookie, force them to log in again
                 this.markAccountStorageLoggedOut();
 
