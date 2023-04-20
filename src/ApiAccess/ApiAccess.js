@@ -352,6 +352,16 @@ class ApiAccess {
             bc.postMessage('account_updated');
             console.log('reusable: ApiAccess storeAccount BroadcastChannel account_updated');
         }
+
+        // watch the cookie for expiry
+        const watchforAccountExpiry = setInterval(() => {
+            if (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined) {
+                // no cookie, force them to log in again
+                this.markAccountStorageLoggedOut();
+
+                clearInterval(watchforAccountExpiry);
+            }
+        }, 1000);
     }
 
     // this is called from loadAccountApi, above, via authbutton once and if that fails,
@@ -411,7 +421,6 @@ class ApiAccess {
                 // let the calling page know account has been removed
                 const bc = new BroadcastChannel('account_availability');
                 bc.postMessage('account_removed');
-                console.log('reusable: BroadcastChannel account_removed');
             }
         }, 100);
     }
