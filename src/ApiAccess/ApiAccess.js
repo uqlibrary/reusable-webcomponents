@@ -335,7 +335,7 @@ class ApiAccess {
             ...storageExpiryDate,
         };
         storeableAccount = JSON.stringify(storeableAccount);
-        sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, storeableAccount);
+        !!sessionStorage && sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, storeableAccount);
 
         // let the calling page know account is available
         if ('BroadcastChannel' in window) {
@@ -359,7 +359,7 @@ class ApiAccess {
     // It is called from other components (training, secure collection, etc.) in a loop, waiting on
     // the authbutton's call to loadAccountApi, above, to load the account into the sessionstorage
     getAccountFromStorage() {
-        const storedUserDetailsRaw = sessionStorage.getItem(locale.STORAGE_ACCOUNT_KEYNAME);
+        const storedUserDetailsRaw = !!sessionStorage && sessionStorage.getItem(locale.STORAGE_ACCOUNT_KEYNAME);
         const storedUserDetails = !!storedUserDetailsRaw && JSON.parse(storedUserDetailsRaw);
 
         if (this.isMock()) {
@@ -397,12 +397,13 @@ class ApiAccess {
             },
         };
         storeableAccount = JSON.stringify(storeableAccount);
-        sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, storeableAccount);
+        !!sessionStorage && sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, storeableAccount);
     }
 
     markAccountStorageLoggedOut() {
-        sessionStorage.removeItem(locale.STORAGE_ACCOUNT_KEYNAME);
-        sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, JSON.stringify(this.LOGGED_OUT_ACCOUNT));
+        !!sessionStorage && sessionStorage.removeItem(locale.STORAGE_ACCOUNT_KEYNAME);
+        const emptyAccount = JSON.stringify(this.LOGGED_OUT_ACCOUNT);
+        !!sessionStorage && sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, emptyAccount);
         clearCookie(locale.SESSION_COOKIE_NAME);
 
         setTimeout(() => {
