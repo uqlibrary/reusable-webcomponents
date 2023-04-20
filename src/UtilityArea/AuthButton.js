@@ -236,7 +236,7 @@ class AuthButton extends HTMLElement {
             const template = document.createElement('template');
             template.innerHTML = `
                 <li data-testid="${elementId}" data-analyticsid="${elementId}" id="${elementId}" role="menuitem" aria-disabled="false">
-                    <a tabIndex="0" id="${linkId}" data-testid="${linkId}"
+                    <a tabIndex="0" id="${linkId}" data-testid="${linkId}" data-analyticsid="${linkId}"
                        href="${link}" rel="noreferrer">
                         <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24"
                              aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;">
@@ -373,7 +373,7 @@ class AuthButton extends HTMLElement {
         function visitLogOutPage() {
             new ApiAccess().markAccountStorageLoggedOut();
 
-            let homepagelink = 'http://www.library.uq.edu.au';
+            let homepagelink = 'https://www.library.uq.edu.au';
             /* istanbul ignore next */
             if (window.location.hostname === 'homepage-development.library.uq.edu.au') {
                 homepagelink = `${window.location.protocol}//${window.location.hostname}${window.location.pathname}#/`;
@@ -383,10 +383,7 @@ class AuthButton extends HTMLElement {
                 const linkAppend = '?user=public';
                 homepagelink = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/${linkAppend}`;
             }
-            // if we're on a login-required page, the NotFound component will force login before we can fully logout
-
-            const returnUrl = homepagelink;
-            window.location.assign(`${authLocale.AUTH_URL_LOGOUT}${window.btoa(returnUrl)}`);
+            window.location.assign(`${authLocale.AUTH_URL_LOGOUT}${window.btoa(homepagelink)}`);
         }
 
         function openAccountOptionsMenu() {

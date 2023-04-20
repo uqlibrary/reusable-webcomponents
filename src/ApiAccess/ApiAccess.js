@@ -15,7 +15,6 @@ class ApiAccess {
     }
 
     async loadAccountApi() {
-        console.log('loadAccountApi start');
         const ACCOUNT_CALL_INCOMPLETE = 'incomplete';
         const ACCOUNT_CALL_DONE = 'done';
 
@@ -32,7 +31,6 @@ class ApiAccess {
             userDetails.hasOwnProperty('account') &&
             userDetails.account.hasOwnProperty('id')
         ) {
-            console.log('loadAccountApi already logged in ', userDetails);
             return true;
         }
 
@@ -41,9 +39,7 @@ class ApiAccess {
         let accountCallStatus = ACCOUNT_CALL_INCOMPLETE;
         return await this.fetchAPI(urlPath, {}, true)
             .then((account) => {
-                console.log('loadAccountApi got account', account);
                 if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
-                    console.log('loadAccountApi has session');
                     this.storeAccount(account);
                     accountCallStatus = ACCOUNT_CALL_DONE;
 
@@ -51,19 +47,16 @@ class ApiAccess {
                     const urlPath = authorApi.apiUrl;
                     return this.fetchAPI(urlPath, {}, true);
                 } else {
-                    console.log('loadAccountApi no session');
                     this.markAccountStorageLoggedOut();
                     accountCallStatus = ACCOUNT_CALL_DONE;
                     return false;
                 }
             })
             .then((author) => {
-                console.log('loadAccountApi got autor', author);
                 this.addCurrentAuthorToStoredAccount(author);
                 return true;
             })
             .catch((error) => {
-                console.log('loadAccountApi error', error);
                 if (accountCallStatus === ACCOUNT_CALL_INCOMPLETE) {
                     // it was the account call that had an error; authors was never called
                     this.markAccountStorageLoggedOut();
@@ -256,7 +249,6 @@ class ApiAccess {
         /* istanbul ignore next */
         if (!!tokenRequired && (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)) {
             // no cookie so we won't bother asking for the account api that cant be returned
-            console.log('no cookie so we wont bother asking for an api that cant be returned');
             return false;
         }
 
@@ -304,7 +296,6 @@ class ApiAccess {
         /* istanbul ignore else  */
         if (this.isMock()) {
             try {
-                console.log('mocking url : ', url);
                 return this.fetchMock(url);
             } catch (e) {
                 const msg = `mock api error: ${e.message}`;
@@ -350,8 +341,17 @@ class ApiAccess {
         if ('BroadcastChannel' in window) {
             const bc = new BroadcastChannel('account_availability');
             bc.postMessage('account_updated');
-            console.log('reusable: ApiAccess storeAccount BroadcastChannel account_updated');
         }
+
+        // watch the cookie for expiry
+        const watchforAccountExpiry = setInterval(() => {
+            if (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined) {
+                // no cookie, force them to log in again
+                this.markAccountStorageLoggedOut();
+
+                clearInterval(watchforAccountExpiry);
+            }
+        }, 1000);
     }
 
     // this is called from loadAccountApi, above, via authbutton once and if that fails,
@@ -411,7 +411,6 @@ class ApiAccess {
                 // let the calling page know account has been removed
                 const bc = new BroadcastChannel('account_availability');
                 bc.postMessage('account_removed');
-                console.log('reusable: BroadcastChannel account_removed');
             }
         }, 100);
     }

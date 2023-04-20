@@ -18,9 +18,7 @@ export function getCookieValue(name) {
 export function setCookie(cookieId, cookieValue, expiryDate) {
     const endswith = window.location.hostname.endsWith('.library.uq.edu.au');
     const cookieDomain = endswith ? /* istanbul ignore next */ 'domain=.library.uq.edu.au;path=/' : '';
-    let temp = cookieId + '=' + cookieValue + ';expires=' + expiryDate.toGMTString() + ';' + cookieDomain;
-    console.log('setting cookie ', temp);
-    document.cookie = temp;
+    document.cookie = cookieId + '=' + cookieValue + ';expires=' + expiryDate.toGMTString() + ';' + cookieDomain;
 }
 
 export function clearCookie(cookieId) {
