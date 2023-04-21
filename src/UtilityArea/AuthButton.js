@@ -372,6 +372,7 @@ class AuthButton extends HTMLElement {
 
         function visitLogOutPage() {
             new ApiAccess().markAccountStorageLoggedOut();
+            new ApiAccess().recreateAuthButton();
 
             let homepagelink = 'https://www.library.uq.edu.au';
             /* istanbul ignore next */
