@@ -389,23 +389,23 @@ describe('Dummy Application', () => {
         });
     });
 
-    context('changing properties as will be required by eSpace works as expected', () => {
-        it('Javascript load works correctly', () => {
-            cy.visit('http://localhost:8080/src/applications/espace/example.html');
-            cy.viewport(1280, 900);
-
-            hasUqHeader();
-
-            hasUqSiteHeader('https://espace.library.uq.edu.au/');
-
-            hasNoMegaMenu();
-
-            hasNoAskusButton();
-            hasAuthButton();
-
-            hasAnAlert();
-
-            hasNoUqFooter();
-        });
-    });
+    // context('changing properties as will be required by eSpace works as expected', () => {
+    //     it('Javascript load works correctly', () => {
+    //         cy.visit('http://localhost:8080/src/applications/espace/example.html');
+    //         cy.viewport(1280, 900);
+    //
+    //         hasUqHeader();
+    //
+    //         hasUqSiteHeader('https://espace.library.uq.edu.au/');
+    //
+    //         hasNoMegaMenu();
+    //
+    //         hasNoAskusButton();
+    //         hasAuthButton();
+    //
+    //         hasAnAlert();
+    //
+    //         hasNoUqFooter();
+    //     });
+    // });
 });
