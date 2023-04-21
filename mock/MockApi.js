@@ -32,7 +32,6 @@ class MockApi {
         }
 
         // default user is researcher if user is not defined
-        // console.log('MockAPi user = ', user);
         this.user = user || 'vanilla';
     }
 
