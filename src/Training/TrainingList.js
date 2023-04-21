@@ -227,7 +227,6 @@ class TrainingList extends HTMLElement {
             ) {
                 clearInterval(getStoredUserDetails);
                 if (accountData.status === apiLocale.USER_LOGGED_IN) {
-                    console.log('training got account ', accountData);
                     that.account = accountData.account;
                     return true;
                 }
