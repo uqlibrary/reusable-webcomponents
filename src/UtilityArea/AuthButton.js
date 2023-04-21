@@ -67,12 +67,12 @@ authorisedtemplate.innerHTML = `
                                 <span class="tiny-text">Logged in as:</span>
                                 <span id="user-display-name" data-testid="user-display-name" class="user-display-name bold-text" style="padding-right:1rem"></span>
                             </div>
-                            <button class="logout md-primary md-button md-primoExplore-theme md-ink-ripple" type="button" data-testid="auth-button-logout" data-analyticsid="auth-button-logout" id="signOutButton" aria-label="Log out" role="menuitem">
+                            <button class="logout md-primary md-button md-primoExplore-theme md-ink-ripple" type="button" data-analyticsid="auth-button-logout" id="signOutButton" aria-label="Log out" role="menuitem">
                                 <span class="bold-text">Log out</span>
                             </button>
                         </div>
                     </div>
-                    <ul data-testid="mylibrary-menu-list-public" data-analyticsid="mylibrary-menu-list-public" class="mylibrary-menu-list" role="menu">
+                    <ul data-analyticsid="mylibrary-menu-list-public" class="mylibrary-menu-list" role="menu">
                         <!-- Primo account -->
                         <li role="menuitem" aria-disabled="false">
                             <a tabindex="0" data-testid="mylibrary-menu-borrowing" data-analyticsid="mylibrary-menu-borrowing" href="https://search.library.uq.edu.au/primo-explore/login?vid=61UQ&targetURL=https%3A%2F%2Fsearch.library.uq.edu.au%2Fprimo-explore%2Faccount%3Fvid%3D61UQ%26section%3Doverview%26lang%3Den_US" rel="noreferrer">
@@ -120,7 +120,7 @@ authorisedtemplate.innerHTML = `
                         
                         <!-- eSpace dashboard -->
                         <li data-testid="mylibrary-espace" id="mylibrary-espace" role="menuitem" aria-disabled="false">
-                            <a tabindex="0" data-testid="mylibrary-menu-espace-dashboard" data-analyticsid="mylibrary-menu-espace-dashboard" href="https://espace.library.uq.edu.au/dashboard" rel="noreferrer">
+                            <a tabindex="0" data-analyticsid="mylibrary-menu-espace-dashboard" href="https://espace.library.uq.edu.au/dashboard" rel="noreferrer">
                                 <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"></path></svg>
                                 <span>UQ eSpace dashboard</span>
                                 <div class="subtext">Your UQ research & more</div>

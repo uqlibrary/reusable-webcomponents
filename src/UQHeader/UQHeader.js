@@ -8,7 +8,7 @@ template.innerHTML = `
     <button style="display: none" tabindex="0" class="skip-to-content-link" id="skip-nav" data-testid="skip-nav" aria-label="Click to skip to the sites main content">
         Skip to site content
     </button>
-    <header class="uq-header" data-gtm-category="Header" data-testid="uq-header">
+    <header class="uq-header" data-gtm-category="Header">
       <div class="uq-header__container">
         <div class="uq-header__menu-toggle" data-target="global-mobile-nav" data-gtm-category="Primary header">
           <button id="mobile-menu-toggle-button" data-testid="mobile-menu-toggle-button" type="button" class="nav-primary__toggle nav-primary__menu-toggle slide-menu__control" data-target="global-mobile-nav" data-action="toggle" data-gtm-action="Toggle">
@@ -23,7 +23,7 @@ template.innerHTML = `
         <div class="uq-header__nav-primary" data-testid="uq-header-primary-nav" data-analyticsid="uq-header-primary-nav" data-gtm-category="Primary header">
           <nav class="uq-header__nav-primary-container" aria-label="primary navigation">
             <ul class="uq-header__nav-primary-list">
-              <li><a class="uq-header__nav-primary-link" href="https://study.uq.edu.au/" data-testid="uq-header-study-link" data-analyticsid="uq-header-study-link">Study</a></li>
+              <li><a class="uq-header__nav-primary-link" href="https://study.uq.edu.au/" data-analyticsid="uq-header-study-link">Study</a></li>
               <li><a class="uq-header__nav-primary-link" href="https://research.uq.edu.au/">Research</a></li>
               <li><a class="uq-header__nav-primary-link" href="https://partners-community.uq.edu.au">Partners and community</a></li>
               <li><a class="uq-header__nav-primary-link" href="https://about.uq.edu.au/">About</a></li>
@@ -43,7 +43,7 @@ template.innerHTML = `
           </div>
         </div>
       </nav>
-      <div class="uq-header__search" data-gtm-category="Search" data-testid="uqheader-nav-search">
+      <div class="uq-header__search" data-gtm-category="Search">
         <div class="uq-header__search-container">
           <form action="https://www.uq.edu.au/search/" method="get">
             <fieldset>
@@ -60,22 +60,22 @@ template.innerHTML = `
         </div>
       </div>
       <div class="uq-header__nav-secondary">
-        <nav class="uq-header__nav-secondary-container" data-testid="uq-header-nav" data-analyticsid="uq-header-nav">
+        <nav class="uq-header__nav-secondary-container" data-analyticsid="uq-header-nav">
           <ul class="uq-header__nav-secondary-list" data-testid="uq-header-secondary-nav" data-analyticsid="uq-header-secondary-nav">
               <li class="uq-header__nav-secondary-item">
-                 <a href="https://www.uq.edu.au/" rel="external" class="uq-header__nav-secondary-link" data-testid="uq-header-logo-small-link" data-analyticsid="uq-header-logo-small-link">UQ home</a>
+                 <a href="https://www.uq.edu.au/" rel="external" class="uq-header__nav-secondary-link" data-analyticsid="uq-header-logo-small-link">UQ home</a>
               </li>
               <li class="uq-header__nav-secondary-item">
-                  <a href="https://www.uq.edu.au/news/" rel="external" class="uq-header__nav-secondary-link" data-testid="uq-header-news-link" data-analyticsid="uq-header-news-link">News</a>
+                  <a href="https://www.uq.edu.au/news/" rel="external" class="uq-header__nav-secondary-link" data-analyticsid="uq-header-news-link">News</a>
               </li>
               <li class="uq-header__nav-secondary-item">
-                  <a href="https://www.uq.edu.au/uq-events" rel="external" class="uq-header__nav-secondary-link" data-testid="uq-header-events-link" data-analyticsid="uq-header-events-link">Events</a>
+                  <a href="https://www.uq.edu.au/uq-events" rel="external" class="uq-header__nav-secondary-link" data-analyticsid="uq-header-events-link">Events</a>
               </li>
               <li class="uq-header__nav-secondary-item">
-                  <a href="https://alumni.uq.edu.au/giving" rel="external" class="uq-header__nav-secondary-link" data-testid="uq-header-giving-link" data-analyticsid="uq-header-giving-link">Give</a>
+                  <a href="https://alumni.uq.edu.au/giving" rel="external" class="uq-header__nav-secondary-link" data-analyticsid="uq-header-giving-link">Give</a>
               </li>
               <li class="uq-header__nav-secondary-item">
-                <a href="https://contacts.uq.edu.au/" rel="external" class="uq-header__nav-secondary-link" data-testid="uq-header-contacts-link" data-analyticsid="uq-header-contacts-link">Contact</a>
+                <a href="https://contacts.uq.edu.au/" rel="external" class="uq-header__nav-secondary-link" data-analyticsid="uq-header-contacts-link">Contact</a>
               </li>
           </ul>
         </nav>
