@@ -51,7 +51,8 @@ class ApiAccess {
 
         const userDetails = this.getAccountFromStorage();
         if (
-            userDetails?.hasOwnProperty('status') &&
+            !!userDetails &&
+            userDetails.hasOwnProperty('status') &&
             userDetails.status === locale.USER_LOGGED_IN &&
             userDetails.hasOwnProperty('account') &&
             userDetails.account.hasOwnProperty('id')
