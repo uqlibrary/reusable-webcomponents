@@ -53,11 +53,11 @@ function _createClass(Constructor, protoProps, staticProps) {
 }
 
 function _removeClassFrom(elem, className) {
-    !!elem.classList.contains(className) && elem.classList.remove(className);
+    !!elem && !!elem.classList.contains(className) && elem.classList.remove(className);
 }
 
 function _addClassTo(elem, className) {
-    !elem.classList.contains(className) && elem.classList.add(className);
+    !!elem && !elem.classList.contains(className) && elem.classList.add(className);
 }
 
 var uq = (function (exports) {

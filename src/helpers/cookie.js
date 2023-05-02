@@ -3,6 +3,9 @@ export function cookieNotFound(cookieId, cookievalue = '') {
     return document.cookie.indexOf(searchString) <= -1;
 }
 
+export function cookieFound(cookieId, cookievalue = '') {
+    return !cookieNotFound(cookieId, cookievalue);
+}
 export function getCookieValue(name) {
     const cookies = document.cookie.split(';');
     for (let i = 0; i < cookies.length; ++i) {
@@ -18,9 +21,7 @@ export function getCookieValue(name) {
 export function setCookie(cookieId, cookieValue, expiryDate) {
     const endswith = window.location.hostname.endsWith('.library.uq.edu.au');
     const cookieDomain = endswith ? /* istanbul ignore next */ 'domain=.library.uq.edu.au;path=/' : '';
-    let temp = cookieId + '=' + cookieValue + ';expires=' + expiryDate.toGMTString() + ';' + cookieDomain;
-    console.log('setting cookie ', temp);
-    document.cookie = temp;
+    document.cookie = cookieId + '=' + cookieValue + ';expires=' + expiryDate.toGMTString() + ';' + cookieDomain;
 }
 
 export function clearCookie(cookieId) {
