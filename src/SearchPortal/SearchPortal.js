@@ -208,7 +208,8 @@ class SearchPortal extends HTMLElement {
             const searchType = that.shadowRoot.getElementById('search-type-current-value');
             // searchType.value returns 0,1, ... 8; ie the current dropdown id
             let type =
-                !!searchPortalLocale.typeSelect?.items &&
+                !!searchPortalLocale.typeSelect &&
+                !!searchPortalLocale.typeSelect.items &&
                 searchPortalLocale.typeSelect.items.filter((item, index) => {
                     return item.selectId === searchType.value;
                 });
@@ -631,7 +632,8 @@ class SearchPortal extends HTMLElement {
             const portalTypeCurrentLabelText =
                 !!portalTypeCurrentLabel && portalTypeCurrentLabel.innerHTML.replace('&amp;', '_');
             let matchingID = 0;
-            !!searchPortalLocale.typeSelect?.items &&
+            !!searchPortalLocale.typeSelect &&
+                !!searchPortalLocale.typeSelect.items &&
                 searchPortalLocale.typeSelect.items.forEach((item, index) => {
                     item.name.replace('&', '_') === portalTypeCurrentLabelText && (matchingID = index);
                 });
@@ -779,24 +781,32 @@ class SearchPortal extends HTMLElement {
         // put the icon on the display
         const portalTypeCurrentIcon = this.shadowRoot.getElementById('portaltype-current-icon');
         !!portalTypeCurrentIcon &&
-            !!searchPortalLocale.typeSelect?.items[useSearchType]?.iconPath &&
+            !!searchPortalLocale.typeSelect &&
+            !!searchPortalLocale.typeSelect.items[useSearchType] &&
+            !!searchPortalLocale.typeSelect.items[useSearchType].iconPath &&
             portalTypeCurrentIcon.setAttribute('d', searchPortalLocale.typeSelect.items[useSearchType].iconPath);
 
         // put the text label on the display
         const portalTypeCurrentLabel = this.shadowRoot.getElementById('portaltype-current-label');
         !!portalTypeCurrentLabel &&
-            !!searchPortalLocale.typeSelect?.items[useSearchType]?.name &&
+            !!searchPortalLocale.typeSelect &&
+            !!searchPortalLocale.typeSelect.items[useSearchType] &&
+            !!searchPortalLocale.typeSelect.items[useSearchType].name &&
             (portalTypeCurrentLabel.innerHTML = searchPortalLocale.typeSelect.items[useSearchType].name);
 
         const portalTypeCurrentSave = this.shadowRoot.getElementById('search-type-current-value');
         !!portalTypeCurrentSave &&
-            !!searchPortalLocale.typeSelect?.items[useSearchType]?.selectId &&
+            !!searchPortalLocale.typeSelect &&
+            !!searchPortalLocale.typeSelect.items[useSearchType] &&
+            !!searchPortalLocale.typeSelect.items[useSearchType].selectId &&
             (portalTypeCurrentSave.value = searchPortalLocale.typeSelect.items[useSearchType].selectId);
 
         // supply the placeholder text
         const inputField = this.shadowRoot.getElementById('current-inputfield');
         !!inputField &&
-            !!searchPortalLocale.typeSelect?.items[useSearchType]?.placeholder &&
+            !!searchPortalLocale.typeSelect &&
+            !!searchPortalLocale.typeSelect.items[useSearchType] &&
+            !!searchPortalLocale.typeSelect.items[useSearchType].placeholder &&
             (inputField.placeholder = searchPortalLocale.typeSelect.items[useSearchType].placeholder);
 
         // add an extra class to the button to say which label it is currently showing
@@ -831,7 +841,8 @@ class SearchPortal extends HTMLElement {
         !!portalTypeDropdown && portalTypeDropdown.setAttribute('data-testid', 'search-type-selector');
 
         !!portalTypeDropdown &&
-            searchPortalLocale.typeSelect?.items.forEach((entry, index) => {
+            !!searchPortalLocale.typeSelect &&
+            searchPortalLocale.typeSelect.items.forEach((entry, index) => {
                 const container = this.createPortalTypeSelectionEntry(entry, index);
                 !!container && portalTypeDropdown.appendChild(container);
             });

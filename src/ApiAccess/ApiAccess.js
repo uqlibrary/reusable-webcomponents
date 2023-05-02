@@ -2,7 +2,7 @@ import MockApi from '../../mock/MockApi';
 import ApiRoutes from '../ApiRoutes';
 import { apiLocale as locale } from './ApiAccess.locale';
 import fetchJsonp from 'fetch-jsonp';
-import { clearCookie, getCookieValue } from '../helpers/cookie';
+import { clearCookie, cookieFound, getCookieValue } from '../helpers/cookie';
 
 let initCalled;
 
@@ -10,12 +10,36 @@ class ApiAccess {
     constructor() {
         this.LOGGED_OUT_ACCOUNT = {
             status: locale.USER_LOGGED_OUT,
-            account: 'empty', // this is temporary code - account needs to exist for old homepage to not trip some bad code. Remove after May 2023
+            account: 'empty', // this is temporary code - account needs to exist for old homepage version to not trip some bad code. Remove after May 2023
         };
     }
 
+    watchForSessionExpiry() {
+        // let the calling page know account is available
+        if ('BroadcastChannel' in window) {
+            const bc = new BroadcastChannel('account_availability');
+            bc.postMessage('account_updated');
+
+            bc.onmessage = (messageEvent) => {
+                if (messageEvent.data === 'account_removed') {
+                    this.markAccountStorageLoggedOut();
+                    this.recreateAuthButton();
+                }
+            };
+        }
+
+        // watch the session cookie for expiry when the user is logged in
+        if (this.getSessionCookie() !== undefined && this.getLibraryGroupCookie() !== undefined) {
+            const watchforAccountExpiry = setInterval(() => {
+                if (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined) {
+                    this.announceUserLoggedOut();
+                    clearInterval(watchforAccountExpiry);
+                }
+            }, 1000);
+        }
+    }
+
     async loadAccountApi() {
-        console.log('loadAccountApi start');
         const ACCOUNT_CALL_INCOMPLETE = 'incomplete';
         const ACCOUNT_CALL_DONE = 'done';
 
@@ -27,12 +51,13 @@ class ApiAccess {
 
         const userDetails = this.getAccountFromStorage();
         if (
-            userDetails?.hasOwnProperty('status') &&
+            !!userDetails &&
+            userDetails.hasOwnProperty('status') &&
             userDetails.status === locale.USER_LOGGED_IN &&
             userDetails.hasOwnProperty('account') &&
             userDetails.account.hasOwnProperty('id')
         ) {
-            console.log('loadAccountApi already logged in ', userDetails);
+            this.watchForSessionExpiry();
             return true;
         }
 
@@ -41,32 +66,29 @@ class ApiAccess {
         let accountCallStatus = ACCOUNT_CALL_INCOMPLETE;
         return await this.fetchAPI(urlPath, {}, true)
             .then((account) => {
-                console.log('loadAccountApi got account', account);
                 if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
-                    console.log('loadAccountApi has session');
                     this.storeAccount(account);
                     accountCallStatus = ACCOUNT_CALL_DONE;
+
+                    this.watchForSessionExpiry();
 
                     const authorApi = new ApiRoutes().CURRENT_AUTHOR_API();
                     const urlPath = authorApi.apiUrl;
                     return this.fetchAPI(urlPath, {}, true);
                 } else {
-                    console.log('loadAccountApi no session');
-                    this.markAccountStorageLoggedOut();
+                    this.announceUserLoggedOut();
                     accountCallStatus = ACCOUNT_CALL_DONE;
                     return false;
                 }
             })
             .then((author) => {
-                console.log('loadAccountApi got autor', author);
                 this.addCurrentAuthorToStoredAccount(author);
                 return true;
             })
             .catch((error) => {
-                console.log('loadAccountApi error', error);
                 if (accountCallStatus === ACCOUNT_CALL_INCOMPLETE) {
                     // it was the account call that had an error; authors was never called
-                    this.markAccountStorageLoggedOut();
+                    this.announceUserLoggedOut();
                     return false;
                 }
                 this.addCurrentAuthorToStoredAccount({ data: null });
@@ -256,7 +278,6 @@ class ApiAccess {
         /* istanbul ignore next */
         if (!!tokenRequired && (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)) {
             // no cookie so we won't bother asking for the account api that cant be returned
-            console.log('no cookie so we wont bother asking for an api that cant be returned');
             return false;
         }
 
@@ -304,7 +325,6 @@ class ApiAccess {
         /* istanbul ignore else  */
         if (this.isMock()) {
             try {
-                console.log('mocking url : ', url);
                 return this.fetchMock(url);
             } catch (e) {
                 const msg = `mock api error: ${e.message}`;
@@ -344,14 +364,7 @@ class ApiAccess {
             ...storageExpiryDate,
         };
         storeableAccount = JSON.stringify(storeableAccount);
-        sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, storeableAccount);
-
-        // let the calling page know account is available
-        if ('BroadcastChannel' in window) {
-            const bc = new BroadcastChannel('account_availability');
-            bc.postMessage('account_updated');
-            console.log('reusable: ApiAccess storeAccount BroadcastChannel account_updated');
-        }
+        !!sessionStorage && sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, storeableAccount);
     }
 
     // this is called from loadAccountApi, above, via authbutton once and if that fails,
@@ -359,7 +372,7 @@ class ApiAccess {
     // It is called from other components (training, secure collection, etc.) in a loop, waiting on
     // the authbutton's call to loadAccountApi, above, to load the account into the sessionstorage
     getAccountFromStorage() {
-        const storedUserDetailsRaw = sessionStorage.getItem(locale.STORAGE_ACCOUNT_KEYNAME);
+        const storedUserDetailsRaw = !!sessionStorage && sessionStorage.getItem(locale.STORAGE_ACCOUNT_KEYNAME);
         const storedUserDetails = !!storedUserDetailsRaw && JSON.parse(storedUserDetailsRaw);
 
         if (this.isMock()) {
@@ -377,6 +390,7 @@ class ApiAccess {
 
         const now = new Date().getTime();
         if (!!storedUserDetails.hasOwnProperty('storageExpiryDate') && storedUserDetails.storageExpiryDate < now) {
+            this.announceUserLoggedOut();
             this.markAccountStorageLoggedOut();
             return this.LOGGED_OUT_ACCOUNT;
         }
@@ -397,49 +411,51 @@ class ApiAccess {
             },
         };
         storeableAccount = JSON.stringify(storeableAccount);
-        sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, storeableAccount);
+        !!sessionStorage && sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, storeableAccount);
+    }
+
+    recreateAuthButton() {
+        const authButton = document.querySelector('auth-button');
+        if (!!authButton) {
+            // create temporary reference element so we know where to paste the new logged out auth
+            const referenceElement = document.createElement('span');
+            !!referenceElement && authButton.parentNode.insertBefore(referenceElement, authButton.nextSibling);
+
+            authButton.parentNode.removeChild(authButton);
+            const recreatedAuthButton = document.createElement('auth-button');
+            !!referenceElement &&
+                !!recreatedAuthButton &&
+                referenceElement.parentNode.insertBefore(recreatedAuthButton, referenceElement);
+
+            !!referenceElement && referenceElement.parentNode.removeChild(referenceElement);
+        }
     }
 
     markAccountStorageLoggedOut() {
-        sessionStorage.removeItem(locale.STORAGE_ACCOUNT_KEYNAME);
-        sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, JSON.stringify(this.LOGGED_OUT_ACCOUNT));
-        clearCookie(locale.SESSION_COOKIE_NAME);
+        !!sessionStorage && sessionStorage.removeItem(locale.STORAGE_ACCOUNT_KEYNAME);
+        const emptyAccount = JSON.stringify(this.LOGGED_OUT_ACCOUNT);
+        !!sessionStorage && sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, emptyAccount);
+        !!cookieFound(locale.SESSION_COOKIE_NAME) && clearCookie(locale.SESSION_COOKIE_NAME);
+    }
 
+    announceUserLoggedOut() {
         setTimeout(() => {
             // a short delay so the above removals have firmly happened before the notified apps can action it
             if ('BroadcastChannel' in window) {
                 // let the calling page know account has been removed
                 const bc = new BroadcastChannel('account_availability');
                 bc.postMessage('account_removed');
-                console.log('reusable: BroadcastChannel account_removed');
             }
         }, 100);
     }
 
     getSessionCookie() {
-        if (!this.isMock()) {
-            /* istanbul ignore next */
-            return getCookieValue(locale.SESSION_COOKIE_NAME);
-        }
-
-        if (new MockApi().getUserParameter() !== 'public') {
-            return locale.UQLID_COOKIE_MOCK;
-        }
-        return undefined;
+        return getCookieValue(locale.SESSION_COOKIE_NAME);
     }
 
     getLibraryGroupCookie() {
         // I am guessing this field is used as a proxy for 'has a Library account, not just a general UQ login'
-        /* istanbul ignore next */
-        if (!this.isMock()) {
-            return getCookieValue(locale.SESSION_USER_GROUP_COOKIE_NAME);
-        }
-        /* istanbul ignore else */
-        if (new MockApi().getUserParameter() !== 'public') {
-            return locale.USERGROUP_COOKIE_MOCK;
-        }
-        /* istanbul ignore next */
-        return undefined;
+        return getCookieValue(locale.SESSION_USER_GROUP_COOKIE_NAME);
     }
 
     fetchMock(url, options = null) {

@@ -128,23 +128,30 @@ function assertUserSeesNOAdminOptions() {
     cy.get('[data-testid="admin-options"]').should('not.exist');
 }
 
+function assertUserisLoggedOut() {
+    cy.waitUntil(() => cy.get('auth-button').shadow().find('[data-testid="auth-button-login-label"]').should('exist'));
+    cy.get('auth-button')
+        .shadow()
+        .find('[data-testid="auth-button-login-label"]')
+        .should('be.visible')
+        .should('contain', 'Log in');
+}
+
 describe('Account menu button', () => {
     context('Accessibility', () => {
-        it('logged out user sees a "Log in" button" and widget is accessible', () => {
+        it('logged OUT user is accessible', () => {
             cy.visit('http://localhost:8080/?user=public');
             cy.viewport(1280, 900);
             cy.injectAxe();
-            cy.waitUntil(() => cy.get('uq-site-header').find('auth-button').should('exist'));
+            assertUserisLoggedOut();
             cy.checkA11y('auth-button', {
                 reportName: 'Auth Loggedout',
                 scopeName: 'Accessibility',
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
             });
-            cy.get('uq-site-header').find('auth-button').should('exist');
-            cy.get('auth-button').shadow().find('[data-testid="auth-button-login-label"]').should('contain', 'Log in');
         });
 
-        it('logged in user account button widget is accessible', () => {
+        it('logged IN user is accessible', () => {
             cy.visit('http://localhost:8080');
             cy.viewport(1280, 900);
             cy.waitUntil(() => cy.get('uq-site-header').find('auth-button').should('exist'));
@@ -167,10 +174,7 @@ describe('Account menu button', () => {
         it('`overwriteasloggedout` attribute always show them as logged out', () => {
             cy.visit('http://localhost:8080/index-primo.html');
             cy.viewport(1280, 900);
-            cy.waitUntil(() =>
-                cy.get('auth-button').shadow().find('[data-testid="auth-button-login-label"]').should('exist'),
-            );
-            cy.get('auth-button').shadow().find('[data-testid="auth-button-login-label"]').should('contain', 'Log in');
+            assertUserisLoggedOut();
         });
 
         it('Navigates to login page', () => {
@@ -184,10 +188,7 @@ describe('Account menu button', () => {
             cy.viewport(1280, 900);
             cy.waitUntil(() => cy.get('uq-site-header').find('auth-button').should('exist'));
 
-            cy.waitUntil(() =>
-                cy.get('auth-button').shadow().find('[data-testid="auth-button-login"]').should('exist'),
-            );
-            cy.get('auth-button').shadow().find('[data-testid="auth-button-login-label"]').should('contain', 'Log in');
+            assertUserisLoggedOut();
             cy.get('auth-button').shadow().find('[data-testid="auth-button-login"]').click();
             cy.get('body').contains('user visits login page');
         });
@@ -210,22 +211,31 @@ describe('Account menu button', () => {
             const store = new ApiAccess();
             store.storeAccount(uqrdav10, -24);
 
-            checkStorage();
-
-            let testValid = false;
             async function checkStorage() {
+                let testValid = false;
                 await new ApiAccess().loadAccountApi().then((newAccount) => {
                     expect(newAccount).to.be.equal(false);
                     const s2 = JSON.parse(sessionStorage.userAccount);
                     expect(s2.status).to.be.equal('loggedout');
                     testValid = true;
                 });
+                return testValid;
             }
-
-            setTimeout(() => {
-                // just a paranoia check that the above test inside an await actually happened. 50 ms was not enough!
+            checkStorage().then((testValid) => {
+                // just a paranoia check that the above test inside an await actually happened.
                 expect(testValid).to.be.equal(true);
-            }, 1000);
+            });
+        });
+
+        it('user with expired stored session is not logged in', () => {
+            sessionStorage.removeItem('userAccount');
+            const store = new ApiAccess();
+            store.storeAccount(accounts.s1111111, -24); // put info in the session storage
+            console.log('session=', sessionStorage.getItem('userAccount'));
+
+            cy.visit('http://localhost:8080?user=s1111111');
+            cy.viewport(1280, 900);
+            assertUserisLoggedOut();
         });
 
         it('does not call a tokenised api if the cookies arent available', () => {
@@ -233,38 +243,40 @@ describe('Account menu button', () => {
             cy.clearCookie(apiLocale.SESSION_USER_GROUP_COOKIE_NAME);
 
             const api = new ApiAccess();
-            api.markAccountStorageLoggedOut();
+            api.announceUserLoggedOut();
 
-            let testValid = false;
             async function checkCookies() {
+                let testResult = false;
                 await new ApiAccess().loadAccountApi().then((result) => {
                     expect(result).to.be.equal(false);
                     const s2 = JSON.parse(sessionStorage.userAccount);
                     expect(s2.status).to.be.equal('loggedout');
-                    testValid = true;
+                    testResult = true;
                 });
+                return testResult;
             }
-            checkCookies();
-
-            setTimeout(() => {
+            checkCookies().then((testValid) => {
                 // just a paranoia check that the above test inside an await actually happened.
                 expect(testValid).to.be.equal(true);
-            }, 5500);
+            });
         });
 
-        it('user with expired stored session is not logged in', () => {
-            const store = new ApiAccess();
-            store.storeAccount(accounts.s1111111, -24); // put info in the session storage
+        it('when session cookie auto expires the user logs out', () => {
+            sessionStorage.removeItem('userAccount');
+            cy.visit('http://localhost:8080?user=uqstaff');
+            cy.viewport(1280, 900);
+            assertNameIsDisplayedOnAccountOptionsButtonCorrectly('uqstaff', 'Staff, UQ');
 
-            assertNameIsDisplayedOnAccountOptionsButtonCorrectly('s1111111', 'Undergraduate, John');
+            cy.wait(1000);
+            cy.clearCookie(apiLocale.SESSION_COOKIE_NAME);
+            cy.wait(1000);
+            assertUserisLoggedOut();
         });
 
         it('Pressing esc closes the account menu', () => {
             cy.visit('http://localhost:8080');
             cy.viewport(1280, 900);
             openAccountDropdown();
-            assertLogoutButtonVisible();
-            cy.get('body').type('{enter}', { force: true });
             assertLogoutButtonVisible();
             cy.get('body').type('{esc}', { force: true });
             assertLogoutButtonVisible(false);
@@ -283,10 +295,7 @@ describe('Account menu button', () => {
         it('user with a short name will show their complete name on the Log Out button', () => {
             sessionStorage.removeItem('userAccount');
             assertNameIsDisplayedOnAccountOptionsButtonCorrectly('emfryer', 'User, Fryer');
-            cy.get('auth-button')
-                .shadow()
-                .find('button:contains("Log out")')
-                .should('have.attr', 'aria-label', 'Log out');
+            assertLogoutButtonVisible;
         });
         it('user with a long length name will show their last name with initial on the Log Out button', () => {
             sessionStorage.removeItem('userAccount');
@@ -296,6 +305,7 @@ describe('Account menu button', () => {
             );
         });
         it('user who uses a single name will not show the "." as a surname', () => {
+            sessionStorage.removeItem('userAccount');
             assertNameIsDisplayedOnAccountOptionsButtonCorrectly('emhonorary', 'Honorary');
         });
     });

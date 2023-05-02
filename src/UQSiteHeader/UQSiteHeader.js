@@ -32,13 +32,13 @@ template.innerHTML = `
         </div>
         <div class="uq-site-header__title-container__right">
           <slot name="site-utilities"></slot>
-          <button style="display: none" id="uq-site-header__navigation-toggle" data-testid="uq-site-header__navigation-toggle" class="uq-site-header__navigation-toggle jsNavToggle">Menu</button>
+          <button style="display: none" id="uq-site-header__navigation-toggle" class="uq-site-header__navigation-toggle jsNavToggle">Menu</button>
         </div>
       </div>
 
       <!-- Navigation Menu  -->
-      <div data-testid="mega-menu-container" class="uq-site-header__navigation-container">
-        <nav class="uq-site-header__navigation slide-menu__slider" id="jsNav" data-testid="uq-site-header-megamenu" aria-label="Site navigation">
+      <div class="uq-site-header__navigation-container">
+        <nav class="uq-site-header__navigation slide-menu__slider" id="jsNav" aria-label="Site navigation">
             <ul class="uq-site-header__navigation__list uq-site-header__navigation__list--level-1" aria-expanded="true">
                 <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-header uq-site-header__navigation__list-item uq-site-header__navigation__list__first-permanent-child">
                     <a href="https://study.uq.edu.au/" data-testid="uq-header-study-link-mobile" data-analyticsid="uq-header-study-link-mobile">Study</a>
@@ -56,16 +56,16 @@ template.innerHTML = `
                     <a href="https://www.uq.edu.au/" data-testid="uq-header-home-link-mobile" data-analyticsid="uq-header-home-link-mobile">UQ home</a>
                 </li>
                 <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global uq-site-header__navigation__list-item">
-                    <a href="https://www.uq.edu.au/news/" data-testid="uq-header-news-link-mobile" data-analyticsid="uq-header-news-link-mobile">News</a>
+                    <a href="https://www.uq.edu.au/news/" data-analyticsid="uq-header-news-link-mobile">News</a>
                 </li>
                 <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global uq-site-header__navigation__list-item">
-                    <a href="https://www.uq.edu.au/uq-events" data-testid="uq-header-events-link-mobile" data-analyticsid="uq-header-events-link-mobile">Events</a>
+                    <a href="https://www.uq.edu.au/uq-events" data-analyticsid="uq-header-events-link-mobile">Events</a>
                 </li>
                 <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global uq-site-header__navigation__list-item">
-                    <a href="https://alumni.uq.edu.au/giving" data-testid="uq-header-giving-link-mobile" data-analyticsid="uq-header-giving-link-mobile">Give</a>
+                    <a href="https://alumni.uq.edu.au/giving" data-analyticsid="uq-header-giving-link-mobile">Give</a>
                 </li>
                 <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global uq-site-header__navigation__list-item">
-                    <a href="https://contacts.uq.edu.au/" data-testid="uq-header-contacts-link-mobile" data-analyticsid="uq-header-contacts-link-mobile">Contact</a>
+                    <a href="https://contacts.uq.edu.au/" data-analyticsid="uq-header-contacts-link-mobile">Contact</a>
                 </li>
             </ul>
         </nav>

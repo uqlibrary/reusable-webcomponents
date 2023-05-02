@@ -50,7 +50,7 @@ describe('UQ Header', () => {
             function mobileMenuIsHidden() {
                 cy.get('uq-site-header')
                     .shadow()
-                    .find('nav[data-testid="uq-site-header-megamenu"] > ul:first-child')
+                    .find('nav[aria-label="Site navigation"] > ul:first-child')
                     .should('exist')
                     .should('not.be.visible');
                 cy.get('uq-site-header').shadow().find('li[data-testid="menu-group-item-0"]').should('not.be.visible');
@@ -80,12 +80,12 @@ describe('UQ Header', () => {
                     }
 
                     // the menu appears on click
-                    cy.get('[data-testid="uq-site-header-megamenu"]').should('be.visible');
+                    cy.get('[aria-label="Site navigation"]').should('be.visible');
                     otherItemsAreVisible();
                     cy.get('.uq-site-header__navigation__list__first-permanent-child').should('be.visible');
 
                     // and has the correct children
-                    cy.get('[data-testid="uq-site-header-megamenu"]').find('ul').should('have.length', 7);
+                    cy.get('[aria-label="Site navigation"]').find('ul').should('have.length', 7);
                     // a child shows in the menu
                     cy.get('li[data-testid="menu-group-item-0"]').should('be.visible');
                     // but its first child is hidden
@@ -128,7 +128,7 @@ describe('UQ Header', () => {
             cy.get('uq-site-header')
                 .shadow()
                 .within(() => {
-                    cy.get('[data-testid="uq-site-header-megamenu"]').should('be.visible');
+                    cy.get('[aria-label="Site navigation"]').should('be.visible');
                     // but its first child is hidden
                     cy.get('li[data-testid="menu-group-services-link-0"]').should('not.be.visible');
                     // hover over the first item
