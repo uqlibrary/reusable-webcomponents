@@ -1528,6 +1528,11 @@ prm-main-menu .my-feedback-ctm {
         background-size: 11px;
     }
 }
+// very rarely, angular misfires and places a duplicate custom indicator. Ensure it is invisible if it happens
+.culturalAdviceMark ~ .culturalAdviceMark,
+.readingListMark ~ .readingListMark {
+    display: none;
+}
 .readingListMarkIcon path {
     fill: $green;
 }
