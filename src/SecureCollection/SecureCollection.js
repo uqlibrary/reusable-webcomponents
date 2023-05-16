@@ -135,7 +135,8 @@ class SecureCollection extends HTMLElement {
                     const getStoredUserDetails = setInterval(() => {
                         const accountData = new ApiAccess().getAccountFromStorage();
                         if (
-                            accountData?.hasOwnProperty('status') &&
+                            !!accountData &&
+                            accountData.hasOwnProperty('status') &&
                             (accountData.status === apilocale.USER_LOGGED_IN ||
                                 accountData.status === apilocale.USER_LOGGED_OUT)
                         ) {

@@ -485,7 +485,7 @@ class AuthButton extends HTMLElement {
                             closeAccountOptionsMenu();
                         }
                     });
-            } else if (!!account?.canMasquerade) {
+            } else if (!!account && !!account.canMasquerade) {
                 const masquradeOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-masquerade');
                 !!masquradeOption &&
                     masquradeOption.addEventListener('keydown', function (e) {

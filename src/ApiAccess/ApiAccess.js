@@ -52,7 +52,8 @@ class ApiAccess {
 
         const userDetails = this.getAccountFromStorage();
         if (
-            userDetails?.hasOwnProperty('status') &&
+            !!userDetails &&
+            userDetails.hasOwnProperty('status') &&
             userDetails.status === locale.USER_LOGGED_IN &&
             userDetails.hasOwnProperty('account') &&
             userDetails.account.hasOwnProperty('id')
@@ -372,10 +373,11 @@ class ApiAccess {
     // It is called from other components (training, secure collection, etc.) in a loop, waiting on
     // the authbutton's call to loadAccountApi, above, to load the account into the sessionstorage
     getAccountFromStorage() {
-        const storedUserDetailsRaw = !!sessionStorage && sessionStorage.getItem(locale.STORAGE_ACCOUNT_KEYNAME);
-        const storedUserDetails = !!storedUserDetailsRaw && JSON.parse(storedUserDetailsRaw);
+        let storedUserDetailsRaw = !!sessionStorage && sessionStorage.getItem(locale.STORAGE_ACCOUNT_KEYNAME);
+        let storedUserDetails;
 
         if (this.isMock()) {
+            storedUserDetails = !!storedUserDetailsRaw && JSON.parse(storedUserDetailsRaw);
             const mockUserHasChanged =
                 !!storedUserDetails &&
                 storedUserDetails.hasOwnProperty('account') &&
@@ -389,6 +391,11 @@ class ApiAccess {
             }
         }
 
+        if (storedUserDetailsRaw === null) {
+            this.setStorageLoggedOut(); // never allow there to be no account storage (weird thing happening on Secure COllection)
+            storedUserDetailsRaw = !!sessionStorage && sessionStorage.getItem(locale.STORAGE_ACCOUNT_KEYNAME);
+        }
+        storedUserDetails = !!storedUserDetailsRaw && JSON.parse(storedUserDetailsRaw);
         const now = new Date().getTime();
         if (!!storedUserDetails.hasOwnProperty('storageExpiryDate') && storedUserDetails.storageExpiryDate < now) {
             this.announceUserLoggedOut();
@@ -434,9 +441,13 @@ class ApiAccess {
 
     markAccountStorageLoggedOut() {
         !!sessionStorage && sessionStorage.removeItem(locale.STORAGE_ACCOUNT_KEYNAME);
+        this.setStorageLoggedOut();
+        !!cookieFound(locale.SESSION_COOKIE_NAME) && clearCookie(locale.SESSION_COOKIE_NAME);
+    }
+
+    setStorageLoggedOut() {
         const emptyAccount = JSON.stringify(this.LOGGED_OUT_ACCOUNT);
         !!sessionStorage && sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, emptyAccount);
-        !!cookieFound(locale.SESSION_COOKIE_NAME) && clearCookie(locale.SESSION_COOKIE_NAME);
     }
 
     announceUserLoggedOut() {

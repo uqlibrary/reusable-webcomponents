@@ -222,7 +222,8 @@ class TrainingList extends HTMLElement {
         const getStoredUserDetails = setInterval(() => {
             accountData = new ApiAccess().getAccountFromStorage();
             if (
-                accountData?.hasOwnProperty('status') &&
+                !!accountData &&
+                accountData.hasOwnProperty('status') &&
                 (accountData.status === apiLocale.USER_LOGGED_IN || accountData.status === apiLocale.USER_LOGGED_OUT)
             ) {
                 clearInterval(getStoredUserDetails);
