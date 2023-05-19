@@ -4,7 +4,7 @@ import ApiAccess from '../ApiAccess/ApiAccess';
 const template = document.createElement('template');
 template.innerHTML = `
     <style>${styles.toString()}</style>
-    <div role="region" aria-label="UQ Library Alerts" data-testid="alerts">
+    <div role="region" aria-label="UQ Library Alerts">
         <div style="width: 100%" data-testid="alerts-wrapper" id="alerts-wrapper">
         </div>
     </div>
@@ -25,7 +25,6 @@ class Alerts extends HTMLElement {
         // because the system attribute is sometimes set via javascript, not inline on an element, we have to give
         // a short delay to allow that next line of js to be reached
         const shortDelayForAttributes = setInterval(() => {
-            console.log('### shortDelayForAttributes');
             clearInterval(shortDelayForAttributes);
 
             const shadowDOM = this.attachShadow({ mode: 'open' });
@@ -64,7 +63,7 @@ class Alerts extends HTMLElement {
                         !!alertData.id && alert.setAttribute('id', `alert-${alertData.id}`);
                         !!alertData.body && alert.setAttribute('alertmessage', alertData.body);
                         !!alertData.title && alert.setAttribute('alerttitle', alertData.title);
-                        const alertIconIndex = alertData?.priority_type || 'info';
+                        const alertIconIndex = (!!alertData && alertData.priority_type) || 'info';
                         alert.setAttribute('prioritytype', alertIconIndex);
                         if (document.cookie.indexOf('UQ_ALERT_' + alert.id + '=hidden') <= -1) {
                             alertWrapper.appendChild(alert);

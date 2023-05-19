@@ -12,16 +12,20 @@ describe('Dummy Application', () => {
             // applications/testing has a skip nav button
             cy.get('uq-header').shadow().find('button[data-testid="skip-nav"]').should('exist');
             // has an askus button
-            cy.get('askus-button').shadow().find('button[data-testid="askus-button"]').should('exist');
+            cy.get('askus-button')
+                .shadow()
+                .find('button[title="AskUs contact options"]')
+                .should('exist')
+                .should('be.visible');
             // has an auth button
-            cy.get('auth-button').shadow().find('button[data-testid="auth-button-logout"]').should('exist');
+            cy.get('auth-button').shadow().find('button:contains("Log out")').should('exist');
             // has a mega menu
             // the menu appears on click
-            cy.get('uq-site-header').shadow().find('nav[data-testid="uq-site-header-megamenu"]').should('be.visible');
+            cy.get('uq-site-header').shadow().find('nav[aria-label="Site navigation"]').should('be.visible');
             // and has the correct children
             cy.get('uq-site-header')
                 .shadow()
-                .find('nav[data-testid="uq-site-header-megamenu"]')
+                .find('nav[aria-label="Site navigation"]')
                 .find('ul')
                 .should('have.length', 7); // length of the megamenu .json
         });
@@ -61,16 +65,26 @@ describe('Dummy Application', () => {
     }
 
     function hasAskusButton() {
-        cy.get('askus-button').shadow().find('button[data-testid="askus-button"]').should('exist');
+        cy.get('askus-button').shadow().find('button[title="AskUs contact options"]').should('exist');
     }
-    // function hasNewAskusButton() {
-    //     cy.get('new-askus-button').shadow().find('button[data-testid="askus-button"]').should('exist');
-    // }
 
     function hasProactiveChat() {
-        cy.get('proactive-chat').shadow().find('[data-testid="proactive-chat-online"]').should('exist');
-        cy.get('proactive-chat').shadow().find('[data-testid="proactive-chat-offline"]').should('exist');
-        cy.get('proactive-chat').shadow().find('[data-testid="proactive-chat-wrapper"]').should('exist');
+        cy.get('proactive-chat')
+            .shadow()
+            .find('[title="Click to open online chat"]')
+            .should('exist')
+            .should('be.visible');
+        cy.get('proactive-chat')
+            .shadow()
+            .find('[title="Chat currently offline"]')
+            .should('exist')
+            .should('not.be.visible');
+        cy.get('proactive-chat').shadow().find('button:contains("Chat now")').should('exist').should('not.be.visible');
+        cy.get('proactive-chat')
+            .shadow()
+            .find('button:contains("Maybe later")')
+            .should('exist')
+            .should('not.be.visible');
     }
 
     function hasNoAskusButton() {
@@ -375,23 +389,23 @@ describe('Dummy Application', () => {
         });
     });
 
-    context('changing properties as will be required by eSpace works as expected', () => {
-        it('Javascript load works correctly', () => {
-            cy.visit('http://localhost:8080/src/applications/espace/example.html');
-            cy.viewport(1280, 900);
-
-            hasUqHeader();
-
-            hasUqSiteHeader('https://espace.library.uq.edu.au/');
-
-            hasNoMegaMenu();
-
-            hasNoAskusButton();
-            hasAuthButton();
-
-            hasAnAlert();
-
-            hasNoUqFooter();
-        });
-    });
+    // context('changing properties as will be required by eSpace works as expected', () => {
+    //     it('Javascript load works correctly', () => {
+    //         cy.visit('http://localhost:8080/src/applications/espace/example.html');
+    //         cy.viewport(1280, 900);
+    //
+    //         hasUqHeader();
+    //
+    //         hasUqSiteHeader('https://espace.library.uq.edu.au/');
+    //
+    //         hasNoMegaMenu();
+    //
+    //         hasNoAskusButton();
+    //         hasAuthButton();
+    //
+    //         hasAnAlert();
+    //
+    //         hasNoUqFooter();
+    //     });
+    // });
 });

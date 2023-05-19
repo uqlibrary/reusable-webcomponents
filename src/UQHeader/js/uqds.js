@@ -53,11 +53,11 @@ function _createClass(Constructor, protoProps, staticProps) {
 }
 
 function _removeClassFrom(elem, className) {
-    !!elem.classList.contains(className) && elem.classList.remove(className);
+    !!elem && !!elem.classList.contains(className) && elem.classList.remove(className);
 }
 
 function _addClassTo(elem, className) {
-    !elem.classList.contains(className) && elem.classList.add(className);
+    !!elem && !elem.classList.contains(className) && elem.classList.add(className);
 }
 
 var uq = (function (exports) {
@@ -208,10 +208,11 @@ var uq = (function (exports) {
                             return this.hash === '#keyword=;campus=;weekstart=';
                         }
 
+                        var h = document.querySelector('uq-header');
                         if (this.hash && this.hash !== '' && !isHashIgnored.call(this)) {
-                            var hashSelectedContent = document
-                                .querySelector('uq-header')
-                                .shadowRoot.querySelector(
+                            var hashSelectedContent =
+                                !!h &&
+                                h.shadowRoot.querySelector(
                                     ''.concat(this.hash, '.').concat(this.className, '__content'),
                                 );
 
@@ -227,9 +228,7 @@ var uq = (function (exports) {
                             }
                         }
 
-                        var accordions = document
-                            .querySelector('uq-header')
-                            .shadowRoot.querySelectorAll('.'.concat(this.className));
+                        var accordions = !!h && h.shadowRoot.querySelectorAll('.'.concat(this.className));
                         accordions.forEach(function (el) {
                             var togglers = el.querySelectorAll('.'.concat(_this7.className, '__toggle'));
                             togglers.forEach(function (el) {
@@ -237,9 +236,8 @@ var uq = (function (exports) {
                             });
                         }); // wrap contents of uq-accordion__content in a wrapper to apply padding and prevent animation jump
 
-                        var accordionContents = document
-                            .querySelector('uq-header')
-                            .shadowRoot.querySelectorAll('.'.concat(this.className, '__content'));
+                        var accordionContents =
+                            !!h && h.shadowRoot.querySelectorAll('.'.concat(this.className, '__content'));
                         var accordionName = this.className;
                         accordionContents.forEach(function (accordionContent) {
                             var innerContent = accordionContent.innerHTML;

@@ -42,8 +42,9 @@ function _addClassTo(elem, className) {
     !elem.classList.contains(className) && elem.classList.add(className);
 }
 function _searchToggleIsOpen() {
-    var uqheader = document.querySelector('uq-header').shadowRoot;
-    var uqheadersearch = !!uqheader && uqheader.querySelector('.uq-header__search');
+    var uqheader = document.querySelector('uq-header');
+    var shadowDom = !!uqheader && uqheader.shadowRoot;
+    var uqheadersearch = !!shadowDom && shadowDom.querySelector('.uq-header__search');
     return !!uqheadersearch && uqheadersearch.classList.contains('uq-header__search--is-open');
 }
 
@@ -51,8 +52,10 @@ var uq = (function (exports) {
     'use strict';
 
     function toggleMenu(toggle) {
-        var ariaExpanded = !!toggle && toggle.getAttribute('aria-expanded') === 'true';
-        var ariaPressed = !!toggle && toggle.getAttribute('aria-pressed') === 'true';
+        var ariaExpanded =
+            !!toggle && toggle.hasAttribute('aria-expanded') && toggle.getAttribute('aria-expanded') === 'true';
+        var ariaPressed =
+            !!toggle && toggle.hasAttribute('aria-pressed') && toggle.getAttribute('aria-pressed') === 'true';
         !!toggle && toggle.classList.toggle(''.concat(this.navClass, '-toggle--close'));
         !!toggle && toggle.setAttribute('aria-expanded', !ariaExpanded);
         !!toggle && toggle.setAttribute('aria-pressed', !ariaPressed);
@@ -110,9 +113,8 @@ var uq = (function (exports) {
                     // if the user's mouse leaves the window we dont want the menus stuck open
                     window.addEventListener('mouseleave', this.handleToggle);
 
-                    var mobileToggle = document
-                        .querySelector('uq-site-header')
-                        .shadowRoot.querySelector('.'.concat(this.toggleClass));
+                    var h = document.querySelector('uq-site-header');
+                    var mobileToggle = !!h && h.shadowRoot.querySelector('.'.concat(this.toggleClass));
                     mobileToggle.addEventListener('click', this.handleMobileToggle);
 
                     var subNavItems = this.nav.querySelectorAll('.'.concat(this.subNavClass));
@@ -181,17 +183,18 @@ var uq = (function (exports) {
             {
                 key: 'handleResize',
                 value: function handleResize(event) {
-                    var toggle = document
-                        .querySelector('uq-site-header')
-                        .shadowRoot.querySelector(`.${this.toggleClass}`);
-                    var ariaExpanded = toggle.getAttribute('aria-expanded') === 'true';
+                    var sh = document.querySelector('uq-site-header');
+                    var toggle = !!sh && !!sh.shadowRoot && sh.shadowRoot.querySelector(`.${this.toggleClass}`);
+                    var ariaExpanded =
+                        !!toggle &&
+                        toggle.hasAttribute('aria-expanded') &&
+                        toggle.getAttribute('aria-expanded') === 'true';
 
                     // primo: when the mobile menu is open, hide the menu bar
                     // its the only way to not have them sit on _top_ of the mobile menu :(
                     // NOTE: this code is duplicated in the menu button click handler function of uq-header
-                    var primoNavbar = document
-                        .querySelector('uq-header')
-                        .shadowRoot.querySelector('.top-nav-bar.layout-row');
+                    var h = document.querySelector('uq-header');
+                    var primoNavbar = !!h && h.shadowRoot.querySelector('.top-nav-bar.layout-row');
                     if (!!ariaExpanded) {
                         !!primoNavbar && (primoNavbar.style.display = 'none');
                     } else {
@@ -412,9 +415,8 @@ var uq = (function (exports) {
                 value: function handleKeyPress(event) {
                     var parent = event.currentTarget.parentNode;
                     var nav = parent.parentNode;
-                    var mobileToggle = document
-                        .querySelector('uq-site-header')
-                        .shadowRoot.querySelector('.'.concat(this.toggleClass));
+                    let sh = document.querySelector('uq-site-header');
+                    var mobileToggle = !!sh && sh.shadowRoot.querySelector('.'.concat(this.toggleClass));
 
                     if (parent.classList.contains('final-child')) {
                         // If we tab past the last child, toggle this level.
@@ -494,7 +496,8 @@ var uq = (function (exports) {
             }
 
             if (typeof blocks === 'string') {
-                this.blocks = document.querySelector('uq-header').shadowRoot.querySelectorAll(blocks);
+                var h = document.querySelector('uq-header');
+                this.blocks = !!h && h.shadowRoot.querySelectorAll(blocks);
                 return;
             }
 

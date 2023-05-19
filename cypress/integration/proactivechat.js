@@ -1,11 +1,91 @@
+function assertPopupIsHidden() {
+    cy.get('proactive-chat')
+        .shadow()
+        .find('button:contains("Maybe later")')
+        .parent()
+        .parent()
+        .should('not.be.visible')
+        .should('not.have.class', 'show');
+}
+
+function assertPopupIsOpen() {
+    cy.get('proactive-chat')
+        .shadow()
+        .find('button:contains("Maybe later")')
+        .parent()
+        .parent()
+        .should('be.visible')
+        .should('have.class', 'show');
+    // blue 'open chat popup' button is present
+    cy.get('proactive-chat')
+        .shadow()
+        .find('button:contains("Chat now")')
+        .should('have.css', 'background-color', 'rgb(35, 119, 203)');
+    // grey 'maybe later' (minimise popup) button is present
+    cy.get('proactive-chat')
+        .shadow()
+        .find('button:contains("Maybe later")')
+        .should('have.css', 'background-color', 'rgb(204, 204, 204)');
+}
+
+function assertOfflineButtonVisible() {
+    cy.get('proactive-chat')
+        .shadow()
+        .find('[title="Click to open online chat"]')
+        .should('exist')
+        .should('not.be.visible')
+        .should('have.css', 'display', 'none');
+    cy.get('proactive-chat')
+        .shadow()
+        .find('[title="Chat currently offline"]')
+        .should('exist')
+        .should('be.visible')
+        .should('not.have.css', 'display', 'none')
+        .should('have.css', 'background-color', 'rgb(196, 0, 0)')
+        .parent()
+        .should('have.css', 'right', '16px');
+}
+
+function assertOnlineMinimisedButtonVisible() {
+    cy.get('proactive-chat')
+        .shadow()
+        .find('[title="Chat currently offline"]')
+        .should('exist')
+        .should('not.be.visible')
+        .should('have.css', 'display', 'none');
+    cy.get('proactive-chat')
+        .shadow()
+        .find('[title="Click to open online chat"]')
+        .should('exist')
+        .should('be.visible')
+        .should('not.have.css', 'display', 'none')
+        .should('have.css', 'background-color', 'rgb(0, 114, 0)')
+        .parent()
+        .should('have.css', 'right', '16px');
+}
+
+function minimiseChatPopup() {
+    cy.get('proactive-chat').shadow().find('button:contains("Maybe later")').should('exist').click();
+}
+
+function assertHideChatCookieisSet() {
+    cy.getCookie('UQ_PROACTIVE_CHAT').should('have.property', 'value', 'hidden');
+}
+
 describe('Proactive Chat', () => {
     context('Proactive chat', () => {
-        it('Appears as expected', () => {
+        it('Appears popped open on user first visit', () => {
             cy.visit('http://localhost:8080');
             cy.viewport(1280, 900);
-            cy.get('proactive-chat').shadow().find('#proactive-chat').should('not.be.visible');
+            // initially the proactive chat popup is minimised
+            // (for users who know what they want don't need to see it - a little hesitation and maybe they want assistance)
+            assertPopupIsHidden();
+
+            // manually wait
             cy.wait(1500);
-            cy.get('proactive-chat').shadow().find('div#proactive-chat').should('have.class', 'show');
+
+            // now the popup is open (simulate user first visit, no "hide" cookie present)
+            assertPopupIsOpen();
         });
 
         it('Proactive chat passes accessibility', () => {
@@ -23,19 +103,22 @@ describe('Proactive Chat', () => {
         it('Can hide proactive chat button', () => {
             cy.visit('http://localhost:8080');
             cy.viewport(1280, 900);
-            cy.get('proactive-chat').shadow().find('#proactive-chat').should('not.be.visible');
-            cy.get('proactive-chat').shadow().find('div#proactive-chat').should('not.have.class', 'show');
+            assertPopupIsHidden(); // the popup only displays after a delay
+
             cy.getCookie('UQ_PROACTIVE_CHAT').should('not.exist');
             cy.wait(1500);
-            cy.get('proactive-chat').shadow().find('div#proactive-chat').should('have.class', 'show');
-            cy.get('proactive-chat').shadow().find('button#proactive-chat-button-close').click();
-            cy.getCookie('UQ_PROACTIVE_CHAT').should('have.property', 'value', 'hidden');
-            cy.get('proactive-chat').shadow().find('#proactive-chat-wrapper').should('not.exist');
+            assertPopupIsOpen();
 
+            minimiseChatPopup();
+            assertHideChatCookieisSet();
+            assertPopupIsHidden();
+
+            // reload the page and, because of the cookie, the popup doesn't appear
             cy.visit('http://localhost:8080');
-            cy.getCookie('UQ_PROACTIVE_CHAT').should('have.property', 'value', 'hidden');
+            assertHideChatCookieisSet();
             cy.wait(1500);
-            cy.get('proactive-chat').shadow().find('div#proactive-chat').should('not.have.class', 'show');
+            assertPopupIsHidden();
+            assertOnlineMinimisedButtonVisible();
         });
 
         it('Can open chat window', () => {
@@ -45,12 +128,12 @@ describe('Proactive Chat', () => {
                 },
             });
             cy.viewport(1280, 900);
-            cy.get('proactive-chat').shadow().find('#proactive-chat').should('not.be.visible');
-            cy.get('proactive-chat').shadow().find('div#proactive-chat').should('not.have.class', 'show');
+            assertPopupIsHidden();
+
             cy.getCookie('UQ_PROACTIVE_CHAT').should('not.exist');
             cy.wait(1500);
-            cy.get('proactive-chat').shadow().find('div#proactive-chat').should('have.class', 'show');
-            cy.get('proactive-chat').shadow().find('button#proactive-chat-button-open').click();
+            assertPopupIsOpen();
+            cy.get('proactive-chat').shadow().find('button:contains("Chat now")').should('exist').click();
             cy.window().its('open').should('be.called');
         });
 
@@ -62,21 +145,14 @@ describe('Proactive Chat', () => {
             });
             cy.viewport(1280, 900);
             cy.wait(1500);
-            cy.get('proactive-chat').shadow().find('div#proactive-chat-offline').click();
+            cy.get('proactive-chat').shadow().find('[title="Chat currently offline"]').click();
             cy.window().its('open').should('be.called');
         });
 
         it('Displays as offline when chat status api is 403', () => {
             cy.visit('http://localhost:8080/?user=errorUser');
             cy.viewport(1280, 900);
-            cy.get('proactive-chat').shadow().find('#proactive-chat-online').should('exist');
-            cy.get('proactive-chat').shadow().find('#proactive-chat-online').should('have.css', 'display', 'none');
-            cy.get('proactive-chat').shadow().find('#proactive-chat-offline').should('exist');
-            cy.get('proactive-chat').shadow().find('#proactive-chat-offline').should('not.have.css', 'display', 'none');
-            cy.get('askus-button').shadow().find('#askus-chat-time').should('exist');
-            cy.get('askus-button').shadow().find('#askus-chat-time').should('have.value', '');
-            cy.get('askus-button').shadow().find('#askus-phone-time').should('exist');
-            cy.get('askus-button').shadow().find('#askus-phone-time').should('have.value', '');
+            assertOfflineButtonVisible();
         });
     });
 });

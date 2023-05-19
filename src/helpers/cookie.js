@@ -3,6 +3,9 @@ export function cookieNotFound(cookieId, cookievalue = '') {
     return document.cookie.indexOf(searchString) <= -1;
 }
 
+export function cookieFound(cookieId, cookievalue = '') {
+    return !cookieNotFound(cookieId, cookievalue);
+}
 export function getCookieValue(name) {
     const cookies = document.cookie.split(';');
     for (let i = 0; i < cookies.length; ++i) {
@@ -21,12 +24,11 @@ export function setCookie(cookieId, cookieValue, expiryDate) {
     document.cookie = cookieId + '=' + cookieValue + ';expires=' + expiryDate.toGMTString() + ';' + cookieDomain;
 }
 
-// not currently used but left here for completeness of "cookie functions"
-/* istanbul ignore next */
 export function clearCookie(cookieId) {
     const numHours = -24; // date in the past
     const expiryDate = new Date();
     expiryDate.setTime(expiryDate.getTime() + numHours * 60 * 60 * 1000);
 
-    this.setCookie(cookieId, '', expiryDate);
+    console.log('clearCookie', cookieId, expiryDate);
+    setCookie(cookieId, '; Path=/', expiryDate);
 }
