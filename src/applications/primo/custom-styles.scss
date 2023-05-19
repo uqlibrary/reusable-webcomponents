@@ -544,6 +544,10 @@ prm-breadcrumbs .md-chip.persistent-facet {
         // reduce the padding on the locked facets
         padding-left: 12px;
     }
+    // when a facet is excluded and then locked in place, there is now a some extra padding between the lock icon and the text, with only the strikethrough line in that space.
+    .md-chip-content del {
+        padding-left: 15px;
+    }
 }
 
 // uqblue (#2377CB) isn't accessible on the primo grey background, so slightly different colour is needed
