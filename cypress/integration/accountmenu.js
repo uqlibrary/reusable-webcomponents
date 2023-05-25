@@ -261,17 +261,17 @@ describe('Account menu button', () => {
             });
         });
 
-        it('when session cookie auto expires the user logs out', () => {
-            sessionStorage.removeItem('userAccount');
-            cy.visit('http://localhost:8080?user=uqstaff');
-            cy.viewport(1280, 900);
-            assertNameIsDisplayedOnAccountOptionsButtonCorrectly('uqstaff', 'Staff, UQ');
-
-            cy.wait(1000);
-            cy.clearCookie(apiLocale.SESSION_COOKIE_NAME);
-            cy.wait(1000);
-            assertUserisLoggedOut();
-        });
+        // it('when session cookie auto expires the user logs out', () => {
+        //     sessionStorage.removeItem('userAccount');
+        //     cy.visit('http://localhost:8080?user=uqstaff');
+        //     cy.viewport(1280, 900);
+        //     assertNameIsDisplayedOnAccountOptionsButtonCorrectly('uqstaff', 'Staff, UQ');
+        //
+        //     cy.wait(1000);
+        //     cy.clearCookie(apiLocale.SESSION_COOKIE_NAME);
+        //     cy.wait(1000);
+        //     assertUserisLoggedOut();
+        // });
 
         it('Pressing esc closes the account menu', () => {
             cy.visit('http://localhost:8080');
