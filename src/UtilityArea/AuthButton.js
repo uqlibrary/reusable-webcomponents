@@ -9,6 +9,7 @@ import {
     canSeePromopanelAdmin,
     canSeeSpotlightsAdmin,
     canSeeTestTagAdmin,
+    getHomepageLink,
 } from '../helpers/access';
 
 /*
@@ -373,17 +374,7 @@ class AuthButton extends HTMLElement {
         function visitLogOutPage() {
             new ApiAccess().markAccountStorageLoggedOut();
             new ApiAccess().recreateAuthButton();
-
-            let homepagelink = 'https://www.library.uq.edu.au';
-            /* istanbul ignore next */
-            if (window.location.hostname === 'homepage-development.library.uq.edu.au') {
-                homepagelink = `${window.location.protocol}//${window.location.hostname}${window.location.pathname}#/`;
-            } else if (window.location.hostname.endsWith('.library.uq.edu.au')) {
-                homepagelink = `${window.location.protocol}//${window.location.hostname}${window.location.pathname}`;
-            } else if (window.location.hostname === 'localhost') {
-                const linkAppend = '?user=public';
-                homepagelink = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/${linkAppend}`;
-            }
+            let homepagelink = getHomepageLink();
             window.location.assign(`${authLocale.AUTH_URL_LOGOUT}${window.btoa(homepagelink)}`);
         }
 
