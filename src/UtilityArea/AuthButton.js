@@ -9,7 +9,6 @@ import {
     canSeePromopanelAdmin,
     canSeeSpotlightsAdmin,
     canSeeTestTagAdmin,
-    getHomepageLink,
 } from '../helpers/access';
 
 /*
@@ -372,10 +371,9 @@ class AuthButton extends HTMLElement {
         let accountOptionsClosed = true;
 
         function visitLogOutPage() {
-            new ApiAccess().markAccountStorageLoggedOut();
-            new ApiAccess().recreateAuthButton();
-            let homepagelink = getHomepageLink();
-            window.location.assign(`${authLocale.AUTH_URL_LOGOUT}${window.btoa(homepagelink)}`);
+            const apiAccess = new ApiAccess();
+            apiAccess.markAccountStorageLoggedOut();
+            apiAccess.logUserOut();
         }
 
         function openAccountOptionsMenu() {
