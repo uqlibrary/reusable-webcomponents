@@ -20,8 +20,10 @@ export function getCookieValue(name) {
 
 export function setCookie(cookieId, cookieValue, expiryDate) {
     const endswith = window.location.hostname.endsWith('.library.uq.edu.au');
+    const sameSite = endswith ? 'SameSite=None;Secure' : ''; // Add SameSite and Secure for cross-site cookies
     const cookieDomain = endswith ? /* istanbul ignore next */ 'domain=.library.uq.edu.au;path=/' : '';
-    document.cookie = cookieId + '=' + cookieValue + ';expires=' + expiryDate.toGMTString() + ';' + cookieDomain;
+    document.cookie =
+        cookieId + '=' + cookieValue + ';expires=' + expiryDate.toGMTString() + ';' + cookieDomain + ';' + sameSite;
 }
 
 export function clearCookie(cookieId) {
