@@ -99,7 +99,7 @@ class CulturalAdvice extends HTMLElement {
         const setCACookie = () => {
             const date = new Date();
             date.setTime(date.getTime() + 365 * 24 * 60 * 60 * 1000);
-            setCookie(CULTURAL_ADVICE_HIDDEN_COOKIE_NAME, CULTURAL_ADVICE_HIDDEN_COOKIE_VALUE, date);
+            setCookie(CULTURAL_ADVICE_HIDDEN_COOKIE_NAME, CULTURAL_ADVICE_HIDDEN_COOKIE_VALUE, date, true);
         };
 
         const navigateToCSC = (event) => {
