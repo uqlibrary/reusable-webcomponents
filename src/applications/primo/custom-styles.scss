@@ -544,6 +544,10 @@ prm-breadcrumbs .md-chip.persistent-facet {
         // reduce the padding on the locked facets
         padding-left: 12px;
     }
+    // when a facet is excluded and then locked in place, there is now a some extra padding between the lock icon and the text, with only the strikethrough line in that space.
+    .md-chip-content del {
+        padding-left: 15px;
+    }
 }
 
 // uqblue (#2377CB) isn't accessible on the primo grey background, so slightly different colour is needed
@@ -1665,4 +1669,39 @@ prm-favorites div.search-within {
 input[type="number"] {
     background-color: #eee;
     border-bottom: 1px solid #a9a9a9;
+}
+
+// "resource type" bar under search field colour contrast wrong (unsure if this will be turned on or not at this point)
+prm-resource-type-filter-bar {
+    .container .box {
+        div {
+            color: $secondary-color-dark;
+            font-weight: 500;
+            prm-icon {
+                color: $secondary-color-dark !important;
+            }
+        }
+        .md-button:not([disabled]) {
+            border-radius: 1px;
+            &:hover {
+                background-color: #5f5f5f !important;
+                color: #fff !important;
+                cursor: pointer;
+                div {
+                    color: #fff;
+                    prm-icon {
+                        color: #fff !important;
+                    }
+                }
+            }
+        }
+    }
+    md-input-container {
+        color: $secondary-color-dark;
+        font-weight: 500;
+    }
+}
+// popup menu at right end of "resource type" bar
+md-select-menu.md-primoExplore-theme md-content md-option:not([disabled]):hover {
+    background: rgba(35,119,203,0.1);;
 }
