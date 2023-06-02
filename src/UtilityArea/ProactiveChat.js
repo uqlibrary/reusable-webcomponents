@@ -172,7 +172,7 @@ class ProactiveChat extends HTMLElement {
             //set cookie for 24 hours
             const date = new Date();
             date.setTime(date.getTime() + 24 * 60 * 60 * 1000);
-            setCookie(PROACTIVE_CHAT_HIDDEN_COOKIE_NAME, PROACTIVE_CHAT_HIDDEN_COOKIE_VALUE, date);
+            setCookie(PROACTIVE_CHAT_HIDDEN_COOKIE_NAME, PROACTIVE_CHAT_HIDDEN_COOKIE_VALUE, date, true);
         }
 
         const proactiveChatElementClose = shadowDOM.getElementById('proactive-chat-button-close');
