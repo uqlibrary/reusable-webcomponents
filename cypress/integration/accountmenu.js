@@ -195,16 +195,11 @@ describe('Account menu button', () => {
 
         it('Navigates to logout page', () => {
             assertNameIsDisplayedOnAccountOptionsButtonCorrectly('s1111111', 'Undergraduate, John');
-            cy.intercept(/localhost/, 'user visits logout page');
-            cy.intercept('GET', authLocale.AUTH_URL_LOGOUT, {
-                statusCode: 200,
-                body: 'user visits logout page',
-            });
             cy.get('auth-button').shadow().find('[data-testid="account-option-button"]').click();
             assertLogoutButtonVisible(true);
             cy.get('auth-button').shadow().find('button:contains("Log out")').click();
 
-            cy.get('body').contains('user visits logout page');
+            assertUserisLoggedOut();
         });
 
         it('account with out of date session storage is not used', () => {
@@ -261,17 +256,19 @@ describe('Account menu button', () => {
             });
         });
 
-        // it('when session cookie auto expires the user logs out', () => {
-        //     sessionStorage.removeItem('userAccount');
-        //     cy.visit('http://localhost:8080?user=uqstaff');
-        //     cy.viewport(1280, 900);
-        //     assertNameIsDisplayedOnAccountOptionsButtonCorrectly('uqstaff', 'Staff, UQ');
-        //
-        //     cy.wait(1000);
-        //     cy.clearCookie(apiLocale.SESSION_COOKIE_NAME);
-        //     cy.wait(1000);
-        //     assertUserisLoggedOut();
-        // });
+        // this is failing on aws, and it's a bit of a hack to manually remove the cookie like that,
+        // so lets call it an invalid test for the momeent
+        it.skip('when session cookie auto expires the user logs out', () => {
+            sessionStorage.removeItem('userAccount');
+            cy.visit('http://localhost:8080?user=uqstaff');
+            cy.viewport(1280, 900);
+            assertNameIsDisplayedOnAccountOptionsButtonCorrectly('uqstaff', 'Staff, UQ');
+
+            cy.wait(1000);
+            cy.clearCookie(apiLocale.SESSION_COOKIE_NAME);
+            cy.wait(1000);
+            assertUserisLoggedOut();
+        });
 
         it('Pressing esc closes the account menu', () => {
             cy.visit('http://localhost:8080');

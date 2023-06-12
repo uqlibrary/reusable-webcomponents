@@ -93,7 +93,7 @@ authorisedtemplate.innerHTML = `
 
                         <!-- Learning resources -->
                         <li role="menuitem" aria-disabled="false">
-                            <a tabindex="0" id="mylibrary-menu-course-resources" data-testid="mylibrary-menu-course-resources" href="https://www.library.uq.edu.au/learning-resources" rel="noreferrer">
+                            <a tabindex="0" id="mylibrary-menu-course-resources" data-analyticsid="mylibrary-menu-course-resources" data-testid="mylibrary-menu-course-resources" href="https://www.library.uq.edu.au/learning-resources" rel="noreferrer">
                                 <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"></path></svg>
                                 <span>Learning resources</span>
                                 <div class="subtext">Course readings & exam papers</div>
@@ -371,21 +371,9 @@ class AuthButton extends HTMLElement {
         let accountOptionsClosed = true;
 
         function visitLogOutPage() {
-            console.log('click log out markAccountStorageLoggedOut');
-            new ApiAccess().markAccountStorageLoggedOut();
-            new ApiAccess().recreateAuthButton();
-
-            let homepagelink = 'https://www.library.uq.edu.au';
-            /* istanbul ignore next */
-            if (window.location.hostname === 'homepage-development.library.uq.edu.au') {
-                homepagelink = `${window.location.protocol}//${window.location.hostname}${window.location.pathname}#/`;
-            } else if (window.location.hostname.endsWith('.library.uq.edu.au')) {
-                homepagelink = `${window.location.protocol}//${window.location.hostname}${window.location.pathname}`;
-            } else if (window.location.hostname === 'localhost') {
-                const linkAppend = '?user=public';
-                homepagelink = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/${linkAppend}`;
-            }
-            window.location.assign(`${authLocale.AUTH_URL_LOGOUT}${window.btoa(homepagelink)}`);
+            const apiAccess = new ApiAccess();
+            apiAccess.markAccountStorageLoggedOut();
+            apiAccess.logUserOut();
         }
 
         function openAccountOptionsMenu() {

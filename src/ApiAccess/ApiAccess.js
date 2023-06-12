@@ -3,6 +3,8 @@ import ApiRoutes from '../ApiRoutes';
 import { apiLocale as locale } from './ApiAccess.locale';
 import fetchJsonp from 'fetch-jsonp';
 import { clearCookie, cookieFound, getCookieValue } from '../helpers/cookie';
+import { authLocale } from '../UtilityArea/auth.locale';
+import { getHomepageLink } from '../helpers/access';
 
 let initCalled;
 
@@ -12,6 +14,11 @@ class ApiAccess {
             status: locale.USER_LOGGED_OUT,
             account: 'empty', // this is temporary code - account needs to exist for old homepage version to not trip some bad code. Remove after May 2023
         };
+
+        const storedUserDetailsRaw = !!sessionStorage && sessionStorage.getItem(locale.STORAGE_ACCOUNT_KEYNAME);
+        if (storedUserDetailsRaw === null) {
+            this.setStorageLoggedOut(); // never allow there to be no account storage (weird thing happening on Secure Collection)
+        }
     }
 
     watchForSessionExpiry() {
@@ -23,6 +30,7 @@ class ApiAccess {
             bc.onmessage = (messageEvent) => {
                 if (messageEvent.data === 'account_removed') {
                     this.markAccountStorageLoggedOut();
+                    this.logUserOut();
                     this.recreateAuthButton();
                 }
             };
@@ -373,11 +381,10 @@ class ApiAccess {
     // It is called from other components (training, secure collection, etc.) in a loop, waiting on
     // the authbutton's call to loadAccountApi, above, to load the account into the sessionstorage
     getAccountFromStorage() {
-        let storedUserDetailsRaw = !!sessionStorage && sessionStorage.getItem(locale.STORAGE_ACCOUNT_KEYNAME);
-        let storedUserDetails;
+        const storedUserDetailsRaw = !!sessionStorage && sessionStorage.getItem(locale.STORAGE_ACCOUNT_KEYNAME);
+        const storedUserDetails = !!storedUserDetailsRaw && JSON.parse(storedUserDetailsRaw);
 
         if (this.isMock()) {
-            storedUserDetails = !!storedUserDetailsRaw && JSON.parse(storedUserDetailsRaw);
             const mockUserHasChanged =
                 !!storedUserDetails &&
                 storedUserDetails.hasOwnProperty('account') &&
@@ -391,15 +398,11 @@ class ApiAccess {
             }
         }
 
-        if (storedUserDetailsRaw === null) {
-            this.setStorageLoggedOut(); // never allow there to be no account storage (weird thing happening on Secure COllection)
-            storedUserDetailsRaw = !!sessionStorage && sessionStorage.getItem(locale.STORAGE_ACCOUNT_KEYNAME);
-        }
-        storedUserDetails = !!storedUserDetailsRaw && JSON.parse(storedUserDetailsRaw);
         const now = new Date().getTime();
         if (!!storedUserDetails.hasOwnProperty('storageExpiryDate') && storedUserDetails.storageExpiryDate < now) {
             this.announceUserLoggedOut();
             this.markAccountStorageLoggedOut();
+            this.logUserOut();
             return this.LOGGED_OUT_ACCOUNT;
         }
 
@@ -440,14 +443,19 @@ class ApiAccess {
     }
 
     markAccountStorageLoggedOut() {
-        !!sessionStorage && sessionStorage.removeItem(locale.STORAGE_ACCOUNT_KEYNAME);
         this.setStorageLoggedOut();
         !!cookieFound(locale.SESSION_COOKIE_NAME) && clearCookie(locale.SESSION_COOKIE_NAME);
     }
 
     setStorageLoggedOut() {
+        !!sessionStorage && sessionStorage.removeItem(locale.STORAGE_ACCOUNT_KEYNAME);
         const emptyAccount = JSON.stringify(this.LOGGED_OUT_ACCOUNT);
         !!sessionStorage && sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, emptyAccount);
+    }
+
+    logUserOut() {
+        let homepagelink = getHomepageLink();
+        window.location.assign(`${authLocale.AUTH_URL_LOGOUT}${window.btoa(homepagelink)}`);
     }
 
     announceUserLoggedOut() {
