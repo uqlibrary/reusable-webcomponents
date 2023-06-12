@@ -115,7 +115,7 @@ var uq = (function (exports) {
 
                     var h = document.querySelector('uq-site-header');
                     var mobileToggle = !!h && h.shadowRoot.querySelector('.'.concat(this.toggleClass));
-                    mobileToggle.addEventListener('click', this.handleMobileToggle);
+                    !!mobileToggle && mobileToggle.addEventListener('click', this.handleMobileToggle);
 
                     var subNavItems = this.nav.querySelectorAll('.'.concat(this.subNavClass));
                     subNavItems.forEach(function (item) {
@@ -428,9 +428,10 @@ var uq = (function (exports) {
                                 nav.setAttribute('aria-pressed', 'false');
                             } else {
                                 this.closeNav(nav);
-                                mobileToggle.classList.toggle(''.concat(this.navClass, '-toggle--close'));
-                                mobileToggle.setAttribute('aria-expanded', 'false');
-                                mobileToggle.setAttribute('aria-pressed', 'false');
+                                !!mobileToggle &&
+                                    mobileToggle.classList.toggle(''.concat(this.navClass, '-toggle--close'));
+                                !!mobileToggle && mobileToggle.setAttribute('aria-expanded', 'false');
+                                !!mobileToggle && mobileToggle.setAttribute('aria-pressed', 'false');
                             }
                         }
                     }

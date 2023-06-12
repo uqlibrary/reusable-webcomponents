@@ -1,10 +1,48 @@
 /// <reference types="cypress" />
 
+import { getHomepageLink } from '../../src/helpers/access';
+
 describe('UQ Header', () => {
-    beforeEach(() => {
-        cy.visit('http://localhost:8080');
+    context('Helpers', () => {
+        function expectHomePageOfLinkIs(currentUrl, expectedHomepage) {
+            const currentUrlParts = new URL(currentUrl);
+            const loggedoutHomepageLink = getHomepageLink(
+                currentUrlParts.hostname,
+                currentUrlParts.protocol,
+                currentUrlParts.port,
+                currentUrlParts.pathname,
+            );
+            expect(loggedoutHomepageLink).to.be.equal(expectedHomepage);
+        }
+
+        it('should generate the correct homepage links', () => {
+            expectHomePageOfLinkIs(
+                'https://www.library.uq.edu.au/learning-resources?coursecode=PHYS1001&campus=St%20Lucia&semester=Semester%201%202023',
+                'https://www.library.uq.edu.au',
+            );
+
+            expectHomePageOfLinkIs(
+                'https://homepage-development.library.uq.edu.au/reusable-staging/#/admin/masquerade',
+                'https://homepage-development.library.uq.edu.au/reusable-staging/#/',
+            );
+
+            expectHomePageOfLinkIs(
+                'https://homepage-staging.library.uq.edu.au/learning-resources?coursecode=FREN1020&campus=St%20Lucia&semester=Semester%202%202023',
+                'https://homepage-staging.library.uq.edu.au',
+            );
+
+            expectHomePageOfLinkIs('https://app.library.uq.edu.au/#/membership/admin', 'https://app.library.uq.edu.au');
+
+            expectHomePageOfLinkIs(
+                'http://localhost:8080/#keyword=;campus=;weekstart=',
+                'http://localhost:8080/?user=public',
+            );
+        });
     });
     context('Header', () => {
+        beforeEach(() => {
+            cy.visit('http://localhost:8080');
+        });
         it('UQ Header operates as expected', () => {
             cy.viewport(1280, 900);
             cy.get('uq-header')

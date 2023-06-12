@@ -3,6 +3,8 @@ import ApiRoutes from '../ApiRoutes';
 import { apiLocale as locale } from './ApiAccess.locale';
 import fetchJsonp from 'fetch-jsonp';
 import { clearCookie, cookieFound, getCookieValue } from '../helpers/cookie';
+import { authLocale } from '../UtilityArea/auth.locale';
+import { getHomepageLink } from '../helpers/access';
 
 let initCalled;
 
@@ -12,6 +14,11 @@ class ApiAccess {
             status: locale.USER_LOGGED_OUT,
             account: 'empty', // this is temporary code - account needs to exist for old homepage version to not trip some bad code. Remove after May 2023
         };
+
+        const storedUserDetailsRaw = !!sessionStorage && sessionStorage.getItem(locale.STORAGE_ACCOUNT_KEYNAME);
+        if (storedUserDetailsRaw === null) {
+            this.setStorageLoggedOut(); // never allow there to be no account storage (weird thing happening on Secure Collection)
+        }
     }
 
     watchForSessionExpiry() {
@@ -23,6 +30,7 @@ class ApiAccess {
             bc.onmessage = (messageEvent) => {
                 if (messageEvent.data === 'account_removed') {
                     this.markAccountStorageLoggedOut();
+                    this.logUserOut();
                     this.recreateAuthButton();
                 }
             };
@@ -392,6 +400,7 @@ class ApiAccess {
         if (!!storedUserDetails.hasOwnProperty('storageExpiryDate') && storedUserDetails.storageExpiryDate < now) {
             this.announceUserLoggedOut();
             this.markAccountStorageLoggedOut();
+            this.logUserOut();
             return this.LOGGED_OUT_ACCOUNT;
         }
 
@@ -432,10 +441,19 @@ class ApiAccess {
     }
 
     markAccountStorageLoggedOut() {
+        this.setStorageLoggedOut();
+        !!cookieFound(locale.SESSION_COOKIE_NAME) && clearCookie(locale.SESSION_COOKIE_NAME);
+    }
+
+    setStorageLoggedOut() {
         !!sessionStorage && sessionStorage.removeItem(locale.STORAGE_ACCOUNT_KEYNAME);
         const emptyAccount = JSON.stringify(this.LOGGED_OUT_ACCOUNT);
         !!sessionStorage && sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, emptyAccount);
-        !!cookieFound(locale.SESSION_COOKIE_NAME) && clearCookie(locale.SESSION_COOKIE_NAME);
+    }
+
+    logUserOut() {
+        let homepagelink = getHomepageLink();
+        window.location.assign(`${authLocale.AUTH_URL_LOGOUT}${window.btoa(homepagelink)}`);
     }
 
     announceUserLoggedOut() {

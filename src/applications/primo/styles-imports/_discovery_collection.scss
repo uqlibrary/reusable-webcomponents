@@ -22,8 +22,8 @@ prm-collection-gallery-header {
         background-color: $white !important;
     }
     .result-item-actions prm-save-to-favorites-button:not([disabled]) {
-        &.pin-button.pinned,
-        &.unpin-button.unpinned {
+        .pin-button .pinned,
+        .unpin-button .unpinned {
             &:focus,
             &:hover {
                 color: $white !important;

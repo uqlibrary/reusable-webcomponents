@@ -18,10 +18,12 @@ export function getCookieValue(name) {
     return undefined;
 }
 
-export function setCookie(cookieId, cookieValue, expiryDate) {
+export function setCookie(cookieId, cookieValue, expiryDate, secure = false) {
     const endswith = window.location.hostname.endsWith('.library.uq.edu.au');
+    const sameSite = endswith && secure ? 'SameSite=None;Secure' : ''; // Add SameSite and Secure for cross-site cookies
     const cookieDomain = endswith ? /* istanbul ignore next */ 'domain=.library.uq.edu.au;path=/' : '';
-    document.cookie = cookieId + '=' + cookieValue + ';expires=' + expiryDate.toGMTString() + ';' + cookieDomain;
+    document.cookie =
+        cookieId + '=' + cookieValue + ';expires=' + expiryDate.toGMTString() + ';' + cookieDomain + ';' + sameSite;
 }
 
 export function clearCookie(cookieId) {
