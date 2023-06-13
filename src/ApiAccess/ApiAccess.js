@@ -16,8 +16,14 @@ class ApiAccess {
         };
 
         const storedUserDetailsRaw = !!sessionStorage && sessionStorage.getItem(locale.STORAGE_ACCOUNT_KEYNAME);
+        // never allow there to be no or invalid account storage (weird thing happening on Secure Collection)
         if (storedUserDetailsRaw === null) {
-            this.setStorageLoggedOut(); // never allow there to be no account storage (weird thing happening on Secure Collection)
+            this.setStorageLoggedOut();
+        } else {
+            const storedUserDetails = !!storedUserDetailsRaw && JSON.parse(storedUserDetailsRaw);
+            if (!storedUserDetails.hasOwnProperty('status')) {
+                this.setStorageLoggedOut();
+            }
         }
     }
 
