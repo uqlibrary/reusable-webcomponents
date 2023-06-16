@@ -195,16 +195,11 @@ describe('Account menu button', () => {
 
         it('Navigates to logout page', () => {
             assertNameIsDisplayedOnAccountOptionsButtonCorrectly('s1111111', 'Undergraduate, John');
-            cy.intercept(/localhost/, 'user visits logout page');
-            cy.intercept('GET', authLocale.AUTH_URL_LOGOUT, {
-                statusCode: 200,
-                body: 'user visits logout page',
-            });
             cy.get('auth-button').shadow().find('[data-testid="account-option-button"]').click();
             assertLogoutButtonVisible(true);
             cy.get('auth-button').shadow().find('button:contains("Log out")').click();
 
-            cy.get('body').contains('user visits logout page');
+            assertUserisLoggedOut();
         });
 
         it('account with out of date session storage is not used', () => {
