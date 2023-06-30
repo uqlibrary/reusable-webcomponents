@@ -196,7 +196,7 @@ describe('Dummy Application', () => {
 
     context('Shared works as expected', () => {
         it('Javascript load works correctly', () => {
-            cy.visit('http://localhost:8080/src/applications/shared/demo-ezproxy.html');
+            cy.visit('http://localhost:8080/src/applications/shared/demo-randompage.html');
             cy.viewport(1280, 900);
 
             hasUqHeader();
@@ -340,11 +340,6 @@ describe('Dummy Application', () => {
 
             // simple check that the components exist, now that we are splitting them out from the main reusable.min file
             cy.get('search-portal').shadow().find('h2').should('contain', 'Library Search');
-            cy.get('ez-proxy')
-                .shadow()
-                .find('fieldset input')
-                .should('have.attr', 'placeholder')
-                .and('include', 'DOI or URL');
             cy.get('library-training')
                 .shadow()
                 .find('training-filter')
