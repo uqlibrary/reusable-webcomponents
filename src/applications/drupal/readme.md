@@ -60,7 +60,6 @@ Drupal staging has the following code
 
 - uqlibrary-training on <https://web.library.uq.edu.au/library-services/training>
 - uqlibrary-search on <https://web.library.uq.edu.au/research-tools-techniques/library-search>
-- uql-ezproxy on <https://web.library.uq.edu.au/research-tools-techniques/off-campus-access> and <https://web.library.uq.edu.au/library-services/teaching-staff/linking-resources-courses>
 
 This is so the old polymer tags will work.
 ITS are detecting that the tag is on the page, so as we migrate away from the polymer and replace the tag, the old headers will automatically stop being included.
