@@ -1,5 +1,5 @@
 import culturalcss from './css/culturaladvice.css';
-import { cookieNotFound, setCookie } from '../helpers/cookie';
+import { cookieFound, getCookieValue, setCookie } from '../helpers/cookie';
 import { addClassToElement, removeClassFromElement } from '../helpers/classManager';
 
 /**
@@ -46,15 +46,16 @@ class CulturalAdvice extends HTMLElement {
     constructor() {
         super();
         // Add a shadow DOM
-        const secondsTilCAAppears = this.getAttribute('secondsTilCulturalAdviceAppears') || 1;
         const shadowDOM = this.attachShadow({ mode: 'open' });
+
+        const secondsTillPopupAppears = this.getAttribute('secondsTilCulturalAdviceAppears') || 1;
 
         // Render the template
         shadowDOM.appendChild(template.content.cloneNode(true));
-        this.updateCADom(shadowDOM, secondsTilCAAppears);
+        this.updateCADom(shadowDOM, secondsTillPopupAppears);
     }
 
-    isCAHidden() {
+    isPopupMinimised() {
         const hideCulturalAdvice = this.getAttribute('hideCulturalAdvice');
         return hideCulturalAdvice === 'true' || hideCulturalAdvice === '';
     }
@@ -96,17 +97,20 @@ class CulturalAdvice extends HTMLElement {
             }
         }
 
-        const setCACookie = () => {
-            const date = new Date();
-            date.setTime(date.getTime() + 365 * 24 * 60 * 60 * 1000);
-            setCookie(CULTURAL_ADVICE_HIDDEN_COOKIE_NAME, CULTURAL_ADVICE_HIDDEN_COOKIE_VALUE, date, true);
+        const storeHidePopupStatus = () => {
+            if (getCookieValue(CULTURAL_ADVICE_HIDDEN_COOKIE_NAME) !== undefined) {
+                return;
+            }
+            const expiryDate = new Date();
+            expiryDate.setTime(expiryDate.getTime() + 365 * 24 * 60 * 60 * 1000);
+            setCookie(CULTURAL_ADVICE_HIDDEN_COOKIE_NAME, CULTURAL_ADVICE_HIDDEN_COOKIE_VALUE, expiryDate, true);
         };
 
-        const navigateToCSC = (event) => {
+        const navigateToReadMorePage = (event) => {
             const url = 'https://web.library.uq.edu.au/collections/culturally-sensitive-collections';
             event.preventDefault();
-            setCACookie();
-            // Potentially Dismiss CA here if requested, with dismissCA();
+            storeHidePopupStatus();
+            // Potentially minimise popup here if requested, with dismissCulturalAdvicePopup();
 
             if (!isPrimoPage(window.location.hostname)) {
                 window.location.assign(url);
@@ -114,40 +118,55 @@ class CulturalAdvice extends HTMLElement {
                 window.open(url);
             }
         };
-        const dismissCA = () => {
-            const proactiveChatElement = document.getElementsByTagName('proactive-chat');
-            proactiveChatElement.length > 0 && proactiveChatElement[0].setAttribute('caforcehidemobile', 'false');
-            removeClassFromElement(shadowRoot, 'culturaladvice-container', 'culturaladvice-popup-shown');
-            addClassToElement(shadowRoot, 'culturaladvice-container', 'culturaladvice-popup-hidden');
-            removeClassFromElement(shadowRoot, 'culturaladvice-tab', 'culturaladvice-tab-hidden');
-            addClassToElement(shadowRoot, 'culturaladvice-tab', 'culturaladvice-tab-shown');
-            const CAContainer = shadowRoot.getElementById('culturaladvice-container');
-            !!CAContainer && CAContainer.setAttribute('aria-hidden', 'true');
-            setCACookie();
-        };
-        const showCA = () => {
-            const proactiveChatElement = document.getElementsByTagName('proactive-chat');
-            proactiveChatElement.length > 0 && proactiveChatElement[0].setAttribute('caforcehidemobile', 'true');
-            removeClassFromElement(shadowRoot, 'culturaladvice-container', 'culturaladvice-popup-hidden');
-            addClassToElement(shadowRoot, 'culturaladvice-container', 'culturaladvice-popup-shown');
-            removeClassFromElement(shadowRoot, 'culturaladvice-tab', 'culturaladvice-tab-shown');
-            addClassToElement(shadowRoot, 'culturaladvice-tab', 'culturaladvice-tab-hidden');
+
+        // when we are in narrow width screens (mobile) this popup and the askus popup don't both fit
+        // we add this attribute to askus when this popup is maximised and then askus knows to auto-minimise
+        function forceAskusPopupToMinimise(proactiveChatElement, value) {
+            proactiveChatElement.length > 0 && proactiveChatElement[0].setAttribute('caforcehidemobile', value);
+        }
+
+        function markHiddenWithAria(value) {
             const container = shadowRoot.getElementById('culturaladvice-container');
-            !!container && container.setAttribute('aria-hidden', 'false');
+            !!container && container.setAttribute('aria-hidden', value);
+        }
+
+        function showElement(elementId, classPrefix, shadowRoot) {
+            removeClassFromElement(shadowRoot, elementId, classPrefix + '-hidden');
+            addClassToElement(shadowRoot, elementId, classPrefix + '-shown');
+        }
+        function hideElement(elementId, classPrefixName, shadowRoot) {
+            removeClassFromElement(shadowRoot, elementId, `${classPrefixName}-shown`);
+            addClassToElement(shadowRoot, elementId, `${classPrefixName}-hidden`);
+        }
+
+        const dismissCulturalAdvicePopup = () => {
+            const proactiveChatElement = document.getElementsByTagName('proactive-chat');
+            forceAskusPopupToMinimise(proactiveChatElement, 'false');
+            hideElement('culturaladvice-container', 'culturaladvice-popup', shadowRoot);
+            showElement('culturaladvice-tab', 'culturaladvice-tab', shadowRoot);
+            markHiddenWithAria('true');
+            storeHidePopupStatus();
+        };
+        const showCulturalAdvicePopup = () => {
+            const proactiveChatElement = document.getElementsByTagName('proactive-chat');
+            forceAskusPopupToMinimise(proactiveChatElement, 'true');
+            showElement('culturaladvice-container', 'culturaladvice-popup', shadowRoot);
+            hideElement('culturaladvice-tab', 'culturaladvice-tab', shadowRoot);
+            markHiddenWithAria('false');
         };
         // Add event listeners to Close and Tab
         const CAContainer = shadowRoot.getElementById('culturaladvice-container-dismiss');
-        !!CAContainer && CAContainer.addEventListener('click', dismissCA);
+        !!CAContainer && CAContainer.addEventListener('click', dismissCulturalAdvicePopup);
         const CATab = shadowRoot.getElementById('culturaladvice-tab');
-        !!CATab && CATab.addEventListener('click', showCA);
+        !!CATab && CATab.addEventListener('click', showCulturalAdvicePopup);
         const CAREadMore = shadowRoot.getElementById('cultural-advice-read-more');
-        !!CAREadMore && CAREadMore.addEventListener('click', navigateToCSC);
+        !!CAREadMore && CAREadMore.addEventListener('click', navigateToReadMorePage);
         // Start presentation timer - show Tab OR advice based on cookie.
         setTimeout(() => {
-            if (cookieNotFound(CULTURAL_ADVICE_HIDDEN_COOKIE_NAME, CULTURAL_ADVICE_HIDDEN_COOKIE_VALUE)) {
-                showCA();
+            if (cookieFound(CULTURAL_ADVICE_HIDDEN_COOKIE_NAME, CULTURAL_ADVICE_HIDDEN_COOKIE_VALUE)) {
+                dismissCulturalAdvicePopup();
             } else {
-                dismissCA();
+                showCulturalAdvicePopup();
             }
         }, secondsTilCAAppears * 1000);
     }
