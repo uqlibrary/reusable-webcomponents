@@ -7,7 +7,7 @@ function closeCulturalAdvicePopup() {
 }
 
 function assertCulturalAdvicePopupClosed() {
-    cy.get('cultural-advice-popup').shadow().find('[data-testid="culturaladvice-container"]').should('not.be.visible');
+    cy.get('cultural-advice-popup').shadow().find('[data-testid="culturaladvice-container"]').should('not.exist');
     cy.get('cultural-advice-popup').shadow().find('[data-testid="culturaladvice-tab"]').should('be.visible');
 }
 
