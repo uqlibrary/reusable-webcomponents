@@ -287,7 +287,7 @@ class MockApi {
                             },
                         );
 
-                    // (list of example Thomson papers at http://ezproxy.library.uq.edu.au/loggedin/UQ/resources/thomson_classic_legal.html )
+                    // (list of example Thomson papers at http://ezproxy.library.uq.edu.au/loggedin/UQ/resources/thomson_classic_legal.html note, url will change as ezproxy is decommissioned)
                     // https://files.library.uq.edu.au/thomson/classic_legal_texts/Thynne_Accountability_And_Control.pdf
                     // http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=thomson&file=classic_legal_texts/Thynne_Accountability_And_Control.pdf
                     case apiRoute.SECURE_COLLECTION_CHECK_API({ path: 'thomson/classic_legal_texts/Thynne_Accountability_And_Control.pdf' })
