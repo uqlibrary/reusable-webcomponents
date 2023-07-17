@@ -152,7 +152,8 @@ export default {
                     secondaryText: 'Access full-text from anywhere',
                     linkTo: 'https://web.library.uq.edu.au/research-tools-techniques/campus-access',
                 },
-                // Extra blank field to put an item on the right.
+                // Extra blank entries to force the start of the next column
+                {},
                 {},
                 {
                     primaryText: 'Search techniques',
