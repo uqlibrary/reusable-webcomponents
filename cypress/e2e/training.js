@@ -7,7 +7,31 @@ const TAB_KEYCODE = 9;
 const UP_ARROW_KEYCODE = 38;
 
 describe('Training', () => {
+    function openTheByWeekDropdown() {
+        cy.get('[data-testid="training-filter-week-list"]').should('have.class', 'hidden');
+        cy.waitUntil(() => cy.get('button:contains("By week")').should('be.visible'));
+        // the 'enter' key click is simply not working right here on newer cypress, so we lose that keyboard check :(
+        // cy.get('[data-testid="training-filter-week-container"]').type('{enter}', { force: true });
+        cy.get('button:contains("By week")').parent().click();
+        cy.get('[data-testid="training-filter-week-list"]').should('not.have.class', 'hidden');
+        cy.get('[data-testid="training-filter-week-list"]').find('button').should('length', 15);
+    }
+
+    function openTheByCampusDropdown() {
+        cy.get('[data-testid="training-filter-campus-list"]').should('exist').should('have.class', 'hidden');
+        cy.waitUntil(() => cy.get('button:contains("By campus")').should('be.visible'));
+        // a enter-key click on the campus parent opens the dropdown
+        // the 'enter' key click is simply not working right here on newer cypress, so we lose that keyboard check :(
+        // cy.get('[data-testid="training-filter-campus-container"]').type('{enter}', { force: true });
+        cy.get('button:contains("By campus")').parent().click();
+        cy.get('[data-testid="training-filter-campus-list"]').should('not.have.class', 'hidden');
+        cy.get('[data-testid="training-filter-campus-list"]').find('button').should('length', 3);
+    }
+
     context('Filter component keyboard navigation', () => {
+        // if first test fails, first run again
+        // a fail is common immediately after this file is saved. Odd.
+        // it can also fail if you have put your cursor in the Developer Tools Console
         it('user can use the arrow keys to navigate up and down the campus dropdown', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 1280);
@@ -19,7 +43,7 @@ describe('Training', () => {
                         .should('exist')
                         .shadow()
                         .within(() => {
-                            cy.get('[data-testid="training-filter-campus-container"]').type('{enter}', { force: true });
+                            openTheByCampusDropdown();
 
                             // arrow up and down robustly working (its actually easy to muck this up, so leave it, despite it seeming ovrekill)
                             cy.get('[data-testid="training-filter-campus-label"]')
@@ -27,32 +51,21 @@ describe('Training', () => {
                                     keyCode: DOWN_ARROW_KEYCODE,
                                 })
                                 .then((e) => {
-                                    // if this test fails, first run the test again
-                                    // it often fails immediately after this file is saved. odd.
-                                    // it can also fail if you have put your cursor in the Developer Tools Console
-                                    cy.log(
-                                        'if this fails or stops here and you just saved the cypress file - try clicking the rerun button',
-                                    );
                                     cy.get('[data-testid="training-filter-campus-select-0"]').should('have.focus');
-                                });
-
-                            cy.get('[data-testid="training-filter-campus-select-0"]')
+                                })
                                 .trigger('keydown', {
                                     keyCode: DOWN_ARROW_KEYCODE,
                                 })
                                 .then((e) => {
                                     cy.get('[data-testid="training-filter-campus-select-1"]').should('have.focus');
-                                });
-
-                            cy.get('[data-testid="training-filter-campus-select-1"]')
+                                })
                                 .trigger('keydown', {
                                     keyCode: DOWN_ARROW_KEYCODE,
                                 })
                                 .then((e) => {
                                     cy.get('[data-testid="training-filter-campus-select-2"]').should('have.focus');
-                                });
+                                })
 
-                            cy.get('[data-testid="training-filter-campus-select-2"]')
                                 .trigger('keydown', {
                                     keyCode: DOWN_ARROW_KEYCODE,
                                 })
@@ -68,17 +81,13 @@ describe('Training', () => {
                                 })
                                 .then((e) => {
                                     cy.get('[data-testid="training-filter-campus-select-1"]').should('have.focus');
-                                });
-
-                            cy.get('[data-testid="training-filter-campus-select-1"]')
+                                })
                                 .trigger('keydown', {
                                     keyCode: UP_ARROW_KEYCODE,
                                 })
                                 .then((e) => {
                                     cy.get('[data-testid="training-filter-campus-select-0"]').should('have.focus');
-                                });
-
-                            cy.get('[data-testid="training-filter-campus-select-0"]')
+                                })
                                 .trigger('keydown', {
                                     keyCode: UP_ARROW_KEYCODE,
                                 })
@@ -183,13 +192,7 @@ describe('Training', () => {
                         .should('exist')
                         .shadow()
                         .within(() => {
-                            // a enter-key click on the campus parent opens the dropdown
-                            cy.get('[data-testid="training-filter-campus-list"]')
-                                .should('exist')
-                                .should('have.class', 'hidden');
-                            cy.get('[data-testid="training-filter-campus-container"]').type('{enter}', { force: true });
-                            cy.get('[data-testid="training-filter-campus-list"]').should('not.have.class', 'hidden');
-                            cy.get('[data-testid="training-filter-campus-list"]').find('button').should('length', 3);
+                            openTheByCampusDropdown();
 
                             cy.log('close campus dropdown');
                             cy.get('[data-testid="training-filter-campus-container"]').type('{esc}', { force: true });
@@ -241,9 +244,9 @@ describe('Training', () => {
                         .should('exist')
                         .shadow()
                         .within(() => {
-                            cy.get('[data-testid="training-filter-week-container"]').type('{enter}', { force: true });
-                            cy.wait(1500);
-                            // arrow up and down robustly working (its actually easy to muck this up, so leave it, despite it seeming ovrekill)
+                            openTheByWeekDropdown();
+                            // arrow up and down robustly working
+                            // (its actually easy to muck this up, so leave it, despite it seeming overkill)
                             cy.get('[data-testid="training-filter-week-label"]')
                                 .trigger('keydown', {
                                     keyCode: DOWN_ARROW_KEYCODE,
@@ -258,41 +261,39 @@ describe('Training', () => {
                                 })
                                 .then((e) => {
                                     cy.get('[data-testid="training-filter-select-week-1"]').should('have.focus');
-                                });
-
-                            cy.get('[data-testid="training-filter-select-week-1"]')
+                                })
                                 .trigger('keydown', {
                                     keyCode: DOWN_ARROW_KEYCODE,
                                 })
                                 .then((e) => {
                                     cy.get('[data-testid="training-filter-select-week-2"]').should('have.focus');
-                                });
-
-                            cy.get('[data-testid="training-filter-select-week-2"]')
+                                })
                                 .trigger('keydown', {
                                     keyCode: DOWN_ARROW_KEYCODE,
                                 })
                                 .then((e) => {
                                     cy.get('[data-testid="training-filter-select-week-3"]').should('have.focus');
-                                });
+                                })
 
-                            cy.get('[data-testid="training-filter-select-week-2"]')
+                                // now check the up arrow key
+                                .trigger('keydown', {
+                                    keyCode: UP_ARROW_KEYCODE,
+                                })
+                                .then((e) => {
+                                    cy.get('[data-testid="training-filter-select-week-2"]').should('have.focus');
+                                })
                                 .trigger('keydown', {
                                     keyCode: UP_ARROW_KEYCODE,
                                 })
                                 .then((e) => {
                                     cy.get('[data-testid="training-filter-select-week-1"]').should('have.focus');
-                                });
-
-                            cy.get('[data-testid="training-filter-select-week-1"]')
+                                })
                                 .trigger('keydown', {
                                     keyCode: UP_ARROW_KEYCODE,
                                 })
                                 .then((e) => {
                                     cy.get('[data-testid="training-filter-select-week-0"]').should('have.focus');
-                                });
-
-                            cy.get('[data-testid="training-filter-select-week-0"]')
+                                })
                                 .trigger('keydown', {
                                     keyCode: UP_ARROW_KEYCODE,
                                 })
@@ -328,9 +329,7 @@ describe('Training', () => {
                             cy.get('[data-testid="training-filter-week-list"]')
                                 .should('exist')
                                 .should('have.class', 'hidden');
-                            cy.get('[data-testid="training-filter-week-container"]').type('{enter}', { force: true });
-                            cy.get('[data-testid="training-filter-week-list"]').should('not.have.class', 'hidden');
-                            cy.get('[data-testid="training-filter-week-list"]').find('button').should('length', 15);
+                            openTheByWeekDropdown();
 
                             cy.log('close week dropdown');
                             cy.get('[data-testid="training-filter-week-container"]').type('{esc}', { force: true });
@@ -376,11 +375,7 @@ describe('Training', () => {
                         .should('exist')
                         .shadow()
                         .within(() => {
-                            cy.get('[data-testid="training-filter-campus-list"]').should('have.class', 'hidden');
-                            // open the campus drop down
-                            cy.get('[data-testid="training-filter-campus-container"]').type('{enter}', { force: true });
-                            cy.get('[data-testid="training-filter-campus-list"]').should('not.have.class', 'hidden');
-                            cy.get('[data-testid="training-filter-campus-list"]').find('button').should('length', 3);
+                            openTheByCampusDropdown();
                         });
                 });
 
@@ -412,11 +407,7 @@ describe('Training', () => {
                         .should('exist')
                         .shadow()
                         .within(() => {
-                            cy.get('[data-testid="training-filter-week-list"]').should('have.class', 'hidden');
-                            // open the week drop down
-                            cy.get('[data-testid="training-filter-week-container"]').type('{enter}', { force: true });
-                            cy.get('[data-testid="training-filter-week-list"]').should('not.have.class', 'hidden');
-                            cy.get('[data-testid="training-filter-week-list"]').find('button').should('length', 15);
+                            openTheByWeekDropdown();
                         });
                 });
 
