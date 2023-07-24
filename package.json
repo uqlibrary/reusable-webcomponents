@@ -77,9 +77,9 @@
     "rename-output-webpack-plugin": "^1.0.1",
     "sass-loader": "^10.4.1",
     "start-server-and-test": "^1.15.4",
-    "webpack": "^4.46.0",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.3"
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
     "@babel/core": "^7.22.9",
@@ -107,8 +107,7 @@
   },
   "browserslist": [
     "defaults",
-    "not IE 11",
-    "maintained node versions"
+    "not IE 11"
   ],
   "nyc": {
     "all": false,
