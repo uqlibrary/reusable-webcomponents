@@ -1,6 +1,6 @@
 const path = require('path');
+const fs = require('fs');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-const renameOutputPlugin = require('rename-output-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const ReplaceInFileWebpackPlugin = require('replace-in-file-webpack-plugin');
@@ -14,6 +14,19 @@ const environment = branch === 'production' || branch === 'staging' ? branch : '
 const config = require('./config').default[environment] || require('./config').default.development;
 
 const useMock = !!process.env.USE_MOCK || false;
+
+var htmlFiles = [];
+htmlFiles.push('index.html');
+var directories = ['.'];
+while (directories.length > 0) {
+    let directory = directories.pop();
+    if (!directory.startsWith('src') && directory !== '.') {
+        continue;
+    }
+    let dirContents = fs.readdirSync(directory).map((file) => path.join(directory, file));
+    htmlFiles.push(...dirContents.filter((file) => file.endsWith('.html')));
+    directories.push(...dirContents.filter((file) => fs.statSync(file).isDirectory()));
+}
 
 module.exports = () => {
     const componentJsPath = {
@@ -41,8 +54,8 @@ module.exports = () => {
     console.log('------------------------------------------------------------');
     return {
         entry: {
-            reusable: './src/index.js',
-            drupal: './src/drupal.js',
+            'uq-lib-reusable': './src/index.js',
+            'drupal-lib-reusable': './src/drupal.js',
         },
         output: {
             path: buildPath(process.env.NODE_ENV, '[name]'),
@@ -73,7 +86,7 @@ module.exports = () => {
                             loader: 'url-loader',
                             options: {
                                 limit: 20000, // Convert images < 8kb to base64 strings
-                                name: 'img/[hash]-[name].[ext]',
+                                name: 'img/[contenthash]-[name].[ext]',
                             },
                         },
                     ],
@@ -85,7 +98,7 @@ module.exports = () => {
                             loader: 'url-loader',
                             options: {
                                 limit: 20000, // Convert images < 8kb to base64 strings
-                                name: 'img/[hash]-[name].[ext]',
+                                name: 'img/[contenthash]-[name].[ext]',
                             },
                         },
                     ],
@@ -106,10 +119,14 @@ module.exports = () => {
         },
         plugins: [
             // https://stackoverflow.com/questions/60589413/how-to-create-multi-output-files
-            new HTMLWebpackPlugin({
-                template: path.resolve(__dirname, 'index.html'),
+            // https://yonatankra.com/how-to-use-htmlwebpackplugin-for-multiple-entries/
+            ...htmlFiles.map((htmlFile) => {
+                return new HTMLWebpackPlugin({
+                    template: path.resolve(__dirname, htmlFile),
+                    filename: htmlFile, // normalise,
+                    inject: htmlFile === 'index.html', // our test .html already have script tags
+                });
             }),
-            new webpack.HotModuleReplacementPlugin(),
             new CopyPlugin({
                 patterns: [
                     // copy the external js from ITS DS into the dist and rename it
@@ -133,10 +150,6 @@ module.exports = () => {
                     { from: 'src/applications/studenthub/load.js', to: 'applications/studenthub/load.js' },
                     { from: 'src/applications/uqlapp/load.js', to: 'applications/uqlapp/load.js' },
                 ],
-            }),
-            new renameOutputPlugin({
-                reusable: 'uq-lib-reusable.min.js',
-                drupal: 'drupal-lib-reusable.min.js',
             }),
             // Rename the external js imports to full paths when deployed & remove the drupal.js from homepage
             process.env.NODE_ENV !== 'local' &&
@@ -165,6 +178,6 @@ module.exports = () => {
                 'process.env.API_URL': JSON.stringify(config.api),
             }),
         ].filter(Boolean),
-        mode: 'none',
+        mode: 'development',
     };
 };

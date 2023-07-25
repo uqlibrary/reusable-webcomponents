@@ -28,11 +28,11 @@ Edit [footer.locale.js](https://github.com/uqlibrary/reusable-webcomponents/blob
 
 ## Viewing what each user type sees
 
-Visit [the homepage test file](https://github.com/uqlibrary/homepage-react/blob/user-admin-manage/cypress/integration/homepage.spec.js#L9) to view what elements many user types can see on the Homepage. (Developers can add remaining types on request)
+Visit [the homepage test file](https://github.com/uqlibrary/homepage-react/blob/user-admin-manage/cypress/e2e/homepage.spec.js#L9) to view what elements many user types can see on the Homepage. (Developers can add remaining types on request)
 
 ## Viewing what each external application should have
 
-Visit [the application test file](https://github.com/uqlibrary/reusable-webcomponents/blob/user-admin-manage/cypress/integration/application.js#L123)
+Visit [the application test file](https://github.com/uqlibrary/reusable-webcomponents/blob/user-admin-manage/cypress/e2e/application.js#L123)
 
 ## To edit the Promo Panel on the homepage
 
