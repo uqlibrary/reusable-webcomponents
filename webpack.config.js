@@ -17,36 +17,14 @@ const useMock = !!process.env.USE_MOCK || false;
 
 var htmlFiles = [];
 htmlFiles.push('index.html');
-// per https://yonatankra.com/how-to-use-htmlwebpackplugin-for-multiple-entries/
-// var appDirectories = ['src/applications'];
-// while (appDirectories.length > 0) {
-//     let directory = appDirectories.pop();
-//     let dirContents = fs.readdirSync(directory).map((file) => path.join(directory, file));
-//     // console.log('dirContents=', dirContents);
-//     htmlFiles.push(
-//         ...dirContents.filter((file) => {
-//             !!file.endsWith('load.js') && console.log(file);
-//             return file.endsWith('load.js');
-//         }),
-//     );
-//     appDirectories.push(...dirContents.filter((file) => fs.statSync(file).isDirectory()));
-// }
-// this won't be needed in prod - two webpack.config files?
 var directories = ['.'];
 while (directories.length > 0) {
     let directory = directories.pop();
     if (!directory.startsWith('src') && directory !== '.') {
         continue;
     }
-    // console.log(directory);
     let dirContents = fs.readdirSync(directory).map((file) => path.join(directory, file));
-    // console.log('dirContents=', dirContents);
-    htmlFiles.push(
-        ...dirContents.filter((file) => {
-            // console.log(file, !!file.endsWith('.html') ? ' :: INCLUDE' : '');
-            return file.endsWith('.html');
-        }),
-    );
+    htmlFiles.push(...dirContents.filter((file) => file.endsWith('.html')));
     directories.push(...dirContents.filter((file) => fs.statSync(file).isDirectory()));
 }
 
@@ -74,7 +52,6 @@ module.exports = () => {
     console.log('BUILD URL        : ', componentJsPath[process.env.NODE_ENV]);
     console.log('BUILD PATH       : ', buildPath(process.env.NODE_ENV, 'index'));
     console.log('------------------------------------------------------------');
-
     return {
         entry: {
             'uq-lib-reusable': './src/index.js',
@@ -106,7 +83,7 @@ module.exports = () => {
                     test: /\.(png|jp(e*)g|svg)$/,
                     use: [
                         {
-                            loader: 'url-loader', // ?? "please use Asset Modules instead as they're going to be deprecated in near future."
+                            loader: 'url-loader',
                             options: {
                                 limit: 20000, // Convert images < 8kb to base64 strings
                                 name: 'img/[contenthash]-[name].[ext]',
@@ -144,15 +121,12 @@ module.exports = () => {
             // https://stackoverflow.com/questions/60589413/how-to-create-multi-output-files
             // https://yonatankra.com/how-to-use-htmlwebpackplugin-for-multiple-entries/
             ...htmlFiles.map((htmlFile) => {
-                console.log('file=', htmlFile);
-                console.log('resolve=', path.resolve(__dirname, htmlFile));
                 return new HTMLWebpackPlugin({
                     template: path.resolve(__dirname, htmlFile),
                     filename: htmlFile, // normalise,
                     inject: htmlFile === 'index.html', // our test .html already have script tags
                 });
             }),
-            // new webpack.HotModuleReplacementPlugin(),
             new CopyPlugin({
                 patterns: [
                     // copy the external js from ITS DS into the dist and rename it
@@ -204,7 +178,6 @@ module.exports = () => {
                 'process.env.API_URL': JSON.stringify(config.api),
             }),
         ].filter(Boolean),
-        // mode: 'none',
         mode: 'development',
     };
 };
