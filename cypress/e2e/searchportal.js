@@ -13,6 +13,24 @@ describe('Search Portal', () => {
         cy.get('div[data-testid="primo-search-links"]').find('div').its('length').should('eq', numLinks);
     }
 
+    function openSearchTypeDropdown() {
+        cy.get('[data-testid="primo-search"]').contains('Search');
+        cy.waitUntil(() => cy.get('[data-testid="primo-search-select"]').should('exist'));
+        cy.get('[data-testid="primo-search-select"]').click();
+    }
+
+    function typeTextStringIntoInputField(text, numberOfResults = null) {
+        // force is required because otherwise it sometimes thinks the text field is disabled when the width of the search type dropdown has changed after search type selection
+        cy.get('input[data-testid="primo-search-autocomplete-input"]').type(text, { force: true });
+        if (!!numberOfResults) {
+            // the dropdown is now open & there will be search suggestions
+            cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
+                .find('li')
+                .its('length')
+                .should('eq', numberOfResults);
+        }
+    }
+
     context('Search Portal', () => {
         beforeEach(() => {
             cy.visit('/');
@@ -23,30 +41,23 @@ describe('Search Portal', () => {
             cy.get('search-portal')
                 .shadow()
                 .within(() => {
-                    cy.get('input[data-testid="primo-search-autocomplete-input"]').type('beard', { force: true });
-                    cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
-                        .find('li')
-                        .its('length')
-                        .should('eq', 10);
-
-                    // arrow down from the search text to the first suggestion
-                    cy.log('arrow down from input field');
-
-                    //cy.get('[data-testid="primo-search-autocomplete-input"]').type('{downarrow}');
+                    typeTextStringIntoInputField('beard', 10);
 
                     cy.get('[data-testid="primo-search-autocomplete-input"]').focus().trigger('keydown', {
                         keyCode: DOWN_ARROW_KEYCODE,
                     });
-                    cy.wait(50);
-                    cy.get('[data-testid="search-portal-autocomplete-option-0"] a').should('have.focus');
+                    cy.waitUntil(() =>
+                        cy.get('[data-testid="search-portal-autocomplete-option-0"] a').should('have.focus'),
+                    );
 
                     // focus on suggestion N and arrow down, and focus should be on N+1
                     cy.log('arrow up between suggestions');
                     cy.get('[data-testid="search-portal-autocomplete-option-1"] a')
                         .focus()
                         .trigger('keydown', { keyCode: DOWN_ARROW_KEYCODE });
-                    cy.wait(50);
-                    cy.get('[data-testid="search-portal-autocomplete-option-2"] a').should('have.focus');
+                    cy.waitUntil(() =>
+                        cy.get('[data-testid="search-portal-autocomplete-option-2"] a').should('have.focus'),
+                    );
 
                     // focus on suggestion N and arrow up, and focus should be on N-1
                     cy.log('arrow up between suggestions');
@@ -56,7 +67,7 @@ describe('Search Portal', () => {
                     cy.get('[data-testid="search-portal-autocomplete-option-5"] a').should('have.focus');
 
                     // focus on suggestion 1 and arrow up, and focus should be on the input field
-                    cy.log('arrow up from first suggestion yo input field');
+                    cy.log('arrow up from first suggestion to input field');
                     cy.get('[data-testid="search-portal-autocomplete-option-0"] a')
                         .focus()
                         .trigger('keydown', { keyCode: UP_ARROW_KEYCODE });
@@ -71,7 +82,7 @@ describe('Search Portal', () => {
 
                     cy.log('focus on a suggestion and hit escape and suggestions are cleared');
                     cy.get('button[data-testid="primo-search-autocomplete-voice-clear"]').click();
-                    cy.get('input[data-testid="primo-search-autocomplete-input"]').type('beard', { force: true });
+                    typeTextStringIntoInputField('beard');
                     cy.get('[data-testid="search-portal-autocomplete-option-0"] a')
                         .focus()
                         .trigger('keydown', { keyCode: ESCAPE_KEYCODE });
@@ -99,11 +110,7 @@ describe('Search Portal', () => {
         //         .within(() => {
         //             // the enter key will navigate to the suggestion link
         //             cy.get('button[data-testid="primo-search-autocomplete-voice-clear"]').click();
-        //             cy.get('input[data-testid="primo-search-autocomplete-input"]').type('beard', { force: true });
-        //             cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
-        //                 .find('li')
-        //                 .its('length')
-        //                 .should('eq', 10);
+        //             searchForText('beard', 10);
         //
         //             cy.get('[data-testid="search-portal-autocomplete-option-2"] a')
         //                 .should('have.attr', 'href')
@@ -134,8 +141,7 @@ describe('Search Portal', () => {
                     cy.get('[data-testid="primo-search-item-4"]').focus().trigger('keydown', {
                         keyCode: UP_ARROW_KEYCODE,
                     });
-                    cy.wait(5000);
-                    cy.get('[data-testid="primo-search-item-3"]').should('have.focus');
+                    cy.waitUntil(() => cy.get('[data-testid="primo-search-item-3"]').should('have.focus'));
 
                     // cy.log('tab from final item goes to next field');
                     // cy.get('[data-testid="primo-search-item-8"]')
@@ -149,11 +155,7 @@ describe('Search Portal', () => {
 
                     // the user types a search on 'Library'
                     cy.log('the user can change search types and resue their current query');
-                    cy.get('input[data-testid="primo-search-autocomplete-input"]').type('beard', { force: true });
-                    cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
-                        .find('li')
-                        .its('length')
-                        .should('eq', 10);
+                    typeTextStringIntoInputField('beard', 10);
                     cy.get('[data-testid="search-portal-autocomplete-option-0"] a')
                         .should('have.attr', 'href')
                         .and('match', /facet=rtype,exclude,newspaper_articles,lk&facet=rtype,exclude,reviews,lk/);
@@ -181,11 +183,7 @@ describe('Search Portal', () => {
             cy.get('search-portal')
                 .shadow()
                 .within(() => {
-                    cy.get('input[data-testid="primo-search-autocomplete-input"]').type('beard', { force: true });
-                    cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
-                        .find('li')
-                        .its('length')
-                        .should('eq', 10);
+                    typeTextStringIntoInputField('beard', 10);
                     cy.get('[data-testid="primo-search-autocomplete-input"]')
                         .focus()
                         .trigger('keydown', { keyCode: ESCAPE_KEYCODE });
@@ -200,10 +198,9 @@ describe('Search Portal', () => {
                 .shadow()
                 .within(() => {
                     cy.get('[data-testid="primo-search"]').contains('Search');
-                    cy.wait(1000);
 
                     // on first load, the library drop down displays "Library"
-                    cy.get('[data-testid="primo-search-select"]').contains('Library');
+                    cy.waitUntil(() => cy.get('[data-testid="primo-search-select"]').contains('Library'));
                     hasCorrectNumberOfFooterLinks(4);
 
                     // there are the correct number of options in the search dropdown
@@ -223,14 +220,15 @@ describe('Search Portal', () => {
                 .within(() => {
                     cy.get('div[data-testid="primo-search"]').contains('Search');
                     cy.log('Primo Search - as at initial load');
-                    // cy.checkA11y('div[data-testid="primo-search"]', {
                     cy.checkA11y('search-portal', {
                         reportName: 'Search Portal',
                         scopeName: 'Pristine',
                         includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
                     });
-                    cy.get('input[data-testid="primo-search-autocomplete-input"]').wait(1000).type('beard');
-                    cy.get('ul[data-testid="primo-search-autocomplete-listbox"]').wait(1000).contains('beard');
+                    cy.waitUntil(() => cy.get('input[data-testid="primo-search-autocomplete-input"]').should('exist'));
+                    typeTextStringIntoInputField('beard');
+                    cy.waitUntil(() => cy.get('ul[data-testid="primo-search-autocomplete-listbox"]').should('exist'));
+                    cy.get('ul[data-testid="primo-search-autocomplete-listbox"]').contains('beard');
                     cy.log('Primo Search - with autosuggestions present');
                     cy.checkA11y('search-portal', {
                         reportName: 'Search Portal',
@@ -256,11 +254,7 @@ describe('Search Portal', () => {
                     // typing in the text area shows the correct entries from the api
                     cy.get('button[data-testid="primo-search-autocomplete-voice-clear"]').click();
                     // force is required because otherwise it sometimes thinks the text field is disabled when the width of the search type dropdown has changed after search type selection
-                    cy.get('input[data-testid="primo-search-autocomplete-input"]').type('beard', { force: true });
-                    cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
-                        .find('li')
-                        .its('length')
-                        .should('eq', 10);
+                    typeTextStringIntoInputField('beard', 10);
 
                     // clear 'X' button works
                     cy.get('input[data-testid="primo-search-autocomplete-input"]').should('have.value', 'beard');
@@ -275,10 +269,8 @@ describe('Search Portal', () => {
             cy.get('search-portal')
                 .shadow()
                 .within(() => {
-                    cy.get('[data-testid="primo-search"]').contains('Search');
-                    cy.wait(1000);
-                    // main library search (choose Journal articles)
-                    cy.get('[data-testid="primo-search-select"]').click();
+                    openSearchTypeDropdown();
+                    // choose Journal articles type
                     cy.get('button[data-testid="primo-search-item-2"]').click();
                     cy.get('[data-testid="portaltype-current-label"]').contains('Journal articles');
 
@@ -286,11 +278,7 @@ describe('Search Portal', () => {
 
                     // typing in the text area shows the correct entries from the api
                     cy.get('button[data-testid="primo-search-autocomplete-voice-clear"]').click();
-                    cy.get('input[data-testid="primo-search-autocomplete-input"]').type('beard', { force: true });
-                    cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
-                        .find('li')
-                        .its('length')
-                        .should('eq', 10);
+                    typeTextStringIntoInputField('beard', 10);
 
                     // the user clicks the button to load the search
                     cy.intercept(
@@ -311,9 +299,7 @@ describe('Search Portal', () => {
             cy.get('search-portal')
                 .shadow()
                 .within(() => {
-                    cy.get('[data-testid="primo-search"]').contains('Search');
-                    cy.wait(1000);
-                    cy.get('[data-testid="primo-search-select"]').click();
+                    openSearchTypeDropdown();
                     cy.get('button[data-testid="primo-search-item-6"]').click();
                     cy.get('[data-testid="portaltype-current-label"]').contains('Databases');
 
@@ -321,7 +307,7 @@ describe('Search Portal', () => {
 
                     //  no suggestion api available
                     cy.get('button[data-testid="primo-search-autocomplete-voice-clear"]').click();
-                    cy.get('input[data-testid="primo-search-autocomplete-input"]').type('history', { force: true });
+                    typeTextStringIntoInputField('history');
                     cy.get('ul[data-testid="primo-search-autocomplete-listbox"]').should('not.exist');
                 });
         });
@@ -331,10 +317,8 @@ describe('Search Portal', () => {
             cy.get('search-portal')
                 .shadow()
                 .within(() => {
-                    cy.get('[data-testid="primo-search"]').contains('Search');
-                    cy.wait(1000);
+                    openSearchTypeDropdown();
                     // exams occurs in the dropdown
-                    cy.get('[data-testid="primo-search-select"]').click();
                     cy.get('button[data-testid="primo-search-item-7"]').click();
                     cy.get('[data-testid="portaltype-current-label"]').contains('exam paper');
 
@@ -346,11 +330,7 @@ describe('Search Portal', () => {
 
                     // typing in the exams text area shows the correct entries from the api
                     cy.get('button[data-testid="primo-search-autocomplete-voice-clear"]').click();
-                    cy.get('input[data-testid="primo-search-autocomplete-input"]').type('PHIL', { force: true });
-                    cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
-                        .find('li')
-                        .its('length')
-                        .should('eq', 3);
+                    typeTextStringIntoInputField('PHIL', 3);
 
                     // check the link is as expected, but don't check the link out - because the exam link diverts to auth it is reliant on outside :(
                     cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
@@ -373,9 +353,8 @@ describe('Search Portal', () => {
                         body: 'user is on an Exams result page',
                     });
                     cy.get('li[data-testid="search-portal-autocomplete-option-1"] a').click();
-                    cy.wait(50);
                 });
-            cy.get('body').contains('user is on an Exams result page');
+            cy.waitUntil(() => cy.get('body').contains('user is on an Exams result page'));
         });
 
         it('Course reading lists should have the expected items', () => {
@@ -388,10 +367,8 @@ describe('Search Portal', () => {
             cy.get('search-portal')
                 .shadow()
                 .within(() => {
-                    cy.get('[data-testid="primo-search"]').contains('Search');
-                    cy.wait(1000);
-                    // course reading list occurs in the dropdown
-                    cy.get('[data-testid="primo-search-select"]').click();
+                    openSearchTypeDropdown();
+                    // choose course reading list in the dropdown
                     cy.get('button[data-testid="primo-search-item-8"]').click();
                     cy.get('[data-testid="portaltype-current-label"]').contains('Course reading lists');
 
@@ -402,33 +379,23 @@ describe('Search Portal', () => {
                         .and('include', 'talis.com');
 
                     // typing in the text area when in  course reading list mode shows the correct entries from the mock api
-                    cy.get('input[data-testid="primo-search-autocomplete-input"]').type('PHIL', { force: true });
-                    cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
-                        .find('li')
-                        .its('length')
-                        .should('eq', 3);
+                    typeTextStringIntoInputField('PHIL', 3);
 
                     cy.get('li[data-testid="search-portal-autocomplete-option-1"] a').click();
                 });
             cy.get('body').contains('user is on a Talis result page');
         });
 
-        it('When the search type is changed the search sugestions reload', () => {
+        it('When the search type is changed the search suggestions reload', () => {
             cy.viewport(1300, 1000);
             cy.get('search-portal')
                 .shadow()
                 .within(() => {
                     cy.get('[data-testid="primo-search"]').contains('Search');
-                    cy.wait(1000);
+                    cy.waitUntil(() => cy.get('input[data-testid="primo-search-autocomplete-input"]').should('exist'));
 
                     // load a search against the Library search type
-                    const searchTerm = 'beard';
-                    cy.get('input[data-testid="primo-search-autocomplete-input"]').type(searchTerm, { force: true });
-                    // there will be 10 search suggestions
-                    cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
-                        .find('li')
-                        .its('length')
-                        .should('eq', 10);
+                    typeTextStringIntoInputField('beard', 10);
 
                     // and the suggestion on the first link will be a library-type link
                     cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
@@ -441,7 +408,7 @@ describe('Search Portal', () => {
                     // change to a different search type
                     cy.get('[data-testid="primo-search-select"]').click();
                     cy.get('button[data-testid="primo-search-item-1"]').click();
-                    cy.wait(1000); // it never takes this long locally!
+                    cy.waitUntil(() => cy.get('[data-testid="portal-type-selector"]').should('exist'));
                     // the search type list will close
                     cy.get('[data-testid="portal-type-selector"]').should('have.class', 'hidden');
 
@@ -464,11 +431,7 @@ describe('Search Portal', () => {
             cy.get('search-portal')
                 .shadow()
                 .within(() => {
-                    cy.wait(1000);
-
-                    // open the search type dropdown
-                    cy.get('[data-testid="primo-search-select"]').click();
-                    // the dropdown is open
+                    openSearchTypeDropdown();
                     cy.get('[data-testid="portal-type-selector"]').should('not.have.class', 'hidden');
                 });
             // click somewhere on the page outside the Search type dropdown
@@ -485,15 +448,10 @@ describe('Search Portal', () => {
             cy.get('search-portal')
                 .shadow()
                 .within(() => {
-                    cy.wait(1000);
+                    cy.waitUntil(() => cy.get('input[data-testid="primo-search-autocomplete-input"]').should('exist'));
 
                     // type a search query
-                    cy.get('input[data-testid="primo-search-autocomplete-input"]').type('beard', { force: true });
-                    // the dropdown is open
-                    cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
-                        .find('li')
-                        .its('length')
-                        .should('eq', 10);
+                    typeTextStringIntoInputField('beard', 10);
                 });
             // click somewhere on the page outside the Search type dropdown
             cy.get('[data-testid="random-page-element"]').click();
@@ -509,15 +467,11 @@ describe('Search Portal', () => {
             cy.get('search-portal')
                 .shadow()
                 .within(() => {
-                    cy.wait(1000);
+                    cy.waitUntil(() => cy.get('input[data-testid="primo-search-autocomplete-input"]').should('exist'));
 
                     // type a search query
-                    cy.get('input[data-testid="primo-search-autocomplete-input"]').type('beard', { force: true });
+                    typeTextStringIntoInputField('beard', 10);
                     // the dropdown is open
-                    cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
-                        .find('li')
-                        .its('length')
-                        .should('eq', 10);
 
                     // click on the lowest level item of the search type display label
                     // we cant test portaltype-current-icon because it is covered by its owning svg, but sometimes the user does click on that!
@@ -586,10 +540,10 @@ describe('Search Portal', () => {
                 .shadow()
                 .within(() => {
                     cy.get('[data-testid="primo-search"]').contains('Search');
-                    cy.wait(1000);
+                    cy.waitUntil(() => cy.get('input[data-testid="primo-search-autocomplete-input"]').should('exist'));
 
                     // enter a repeating string
-                    cy.get('input[data-testid="primo-search-autocomplete-input"]').type('DDDDD', { force: true });
+                    typeTextStringIntoInputField('DDDDD');
                     cy.get('ul[data-testid="primo-search-autocomplete-listbox"]').should('not.exist');
                 });
         });
@@ -607,12 +561,7 @@ describe('Search Portal', () => {
             cy.get('search-portal')
                 .shadow()
                 .within(() => {
-                    // force is required because otherwise it sometimes thinks the text field is disabled when the width of the search type dropdown has changed after search type selection
-                    cy.get('input[data-testid="primo-search-autocomplete-input"]').type('beard', { force: true });
-                    cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
-                        .find('li')
-                        .its('length')
-                        .should('eq', 10);
+                    typeTextStringIntoInputField('beard', 10);
 
                     cy.get('button[data-testid="primo-search-submit"]').click();
                 });
@@ -625,14 +574,7 @@ describe('Search Portal', () => {
             cy.get('search-portal')
                 .shadow()
                 .within(() => {
-                    cy.get('input[data-testid="primo-search-autocomplete-input"]')
-                        .focus()
-                        .type('beard', { force: true });
-                    cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
-                        .find('li')
-                        .should('be.visible')
-                        .its('length')
-                        .should('eq', 10);
+                    typeTextStringIntoInputField('beard', 10);
                     cy.get('[data-testid="search-portal-suggestion-parent"]').then((e) => {
                         expect(e).to.have.css('left', '-160px');
                     });
@@ -648,7 +590,7 @@ describe('Search Portal', () => {
                 .within(() => {
                     cy.get('[data-testid="primo-search-select"]').click();
                     cy.get('button[data-testid="primo-search-item-1"]').click();
-                    cy.get('input[data-testid="primo-search-autocomplete-input"]').type('PHIL', { force: true });
+                    typeTextStringIntoInputField('PHIL');
                 });
 
             cy.wait(500);
@@ -661,7 +603,7 @@ describe('Search Portal', () => {
                 .within(() => {
                     cy.get('[data-testid="primo-search-select"]').click();
                     cy.get('button[data-testid="primo-search-item-7"]').click();
-                    cy.get('input[data-testid="primo-search-autocomplete-input"]').type('PHIL', { force: true });
+                    typeTextStringIntoInputField('PHIL');
                 });
             cy.wait(500);
             cy.get('[data-testid="search-portal-suggestion-parent"]').should('not.exist');
@@ -673,7 +615,7 @@ describe('Search Portal', () => {
                 .within(() => {
                     cy.get('[data-testid="primo-search-select"]').click();
                     cy.get('button[data-testid="primo-search-item-8"]').click();
-                    cy.get('input[data-testid="primo-search-autocomplete-input"]').type('PHIL', { force: true });
+                    typeTextStringIntoInputField('PHIL');
                 });
             cy.wait(500);
             cy.get('[data-testid="search-portal-suggestion-parent"]').should('not.exist');

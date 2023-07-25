@@ -36,13 +36,13 @@ class MockApi {
     }
 
     getUserParameter() {
-        const queryString = require('query-string');
-        return queryString.parse(location.search || location.hash.substring(location.hash.indexOf('?'))).user;
+        const queryString = new URLSearchParams(window.location.search);
+        return !!queryString ? queryString.get('user') : window.location.hash.substring(window.location.hash.indexOf('?')).user;
     }
 
     getChatStatusParameter() {
-        const queryString = require('query-string');
-        return queryString.parse(location.search || location.hash.substring(location.hash.indexOf('?'))).chatstatusoffline;
+        const queryString = new URLSearchParams(window.location.search);
+        return !!queryString ? queryString.get('chatstatusoffline') : window.location.hash.substring(window.location.hash.indexOf('?')).chatstatusoffline;
     }
 
     response(httpstatus, body, withDelay) {

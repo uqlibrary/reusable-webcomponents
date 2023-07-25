@@ -109,16 +109,14 @@ class SecureCollection extends HTMLElement {
 
         this.appendExtensionsSavePrompt = this.appendExtensionsSavePrompt.bind(this);
         this.displayApiErrorPanel = this.displayApiErrorPanel.bind(this);
-        this.displayCommercialCopyrightAcknowledgementPanel = this.displayCommercialCopyrightAcknowledgementPanel.bind(
-            this,
-        );
+        this.displayCommercialCopyrightAcknowledgementPanel =
+            this.displayCommercialCopyrightAcknowledgementPanel.bind(this);
         this.displayCorrectPanel = this.displayCorrectPanel.bind(this);
         this.displayLoginRequiredRedirectorPanel = this.displayLoginRequiredRedirectorPanel.bind(this);
         this.displayNoAccessPanel = this.displayNoAccessPanel.bind(this);
         this.displayRedirectingPanel = this.displayRedirectingPanel.bind(this);
-        this.displayStatutoryCopyrightAcknowledgementPanel = this.displayStatutoryCopyrightAcknowledgementPanel.bind(
-            this,
-        );
+        this.displayStatutoryCopyrightAcknowledgementPanel =
+            this.displayStatutoryCopyrightAcknowledgementPanel.bind(this);
         this.displayUnknownCollectionPanel = this.displayUnknownCollectionPanel.bind(this);
         this.evaluateApiResponse = this.evaluateApiResponse.bind(this);
         this.getSecureCollectionCheck = this.getSecureCollectionCheck.bind(this);
@@ -394,10 +392,10 @@ class SecureCollection extends HTMLElement {
         if (window.location.host !== 'localhost:8080') {
             return false;
         }
-        const queryString = require('query-string');
-        const user = queryString.parse(
-            location.search || /* istanbul ignore next */ location.hash.substring(location.hash.indexOf('?')),
-        ).user;
+        const queryString = new URLSearchParams(window.location.search);
+        const user = !!queryString
+            ? queryString.get('user')
+            : window.location.hash.substring(window.location.hash.indexOf('?')).user;
         return user === 'test';
     }
 

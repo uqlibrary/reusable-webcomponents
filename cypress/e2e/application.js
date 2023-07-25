@@ -3,12 +3,8 @@
 describe('Dummy Application', () => {
     context('Works as expected', () => {
         it('Where javascript is used to alter the base html acts correctly', () => {
-            cy.visit('http://localhost:8080/index-via-js.html');
-            cy.injectAxe();
+            cy.visit('http://localhost:8080/index.html');
             cy.viewport(1280, 900);
-            // (Library link not currently in header)
-            // // applications/testing can remove the Library entry from the global menu
-            // cy.get('uq-header').shadow().find('div.nav-global').find('#menu-item-library').should('not.exist');
             // applications/testing has a skip nav button
             cy.get('uq-header').shadow().find('button[data-testid="skip-nav"]').should('exist');
             // has an askus button
