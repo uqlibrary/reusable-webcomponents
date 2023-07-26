@@ -178,6 +178,6 @@ module.exports = () => {
                 'process.env.API_URL': JSON.stringify(config.api),
             }),
         ].filter(Boolean),
-        mode: 'development',
+        mode: 'none',
     };
 };
