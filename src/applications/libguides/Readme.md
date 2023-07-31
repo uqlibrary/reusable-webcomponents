@@ -6,7 +6,9 @@ It's an off site 3rd party tool used by the library to provide study guides to s
 
 The supplier is called Springshare and the admin can be logged in here: https://uq.libapps.com/libguides/
 
-Jake, Rob Bowen, Dan and some others can create you an admin account should you need one - if in doubt, start your access request with WSS.
+You should log in using your @library.uq.edu.au email and a password that is specifically for LibApps, not your UQ password.
+
+If you don't have an account yet, Jake, Rob Bowen, Dan, and some others can create an admin account for you if you need one. If in doubt, begin your access request with WSS.
 
 The load.js has special code detecting whether the user is in the admin page because the Librarians asked not to have the proactive chat popup there.
 
