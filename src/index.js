@@ -30,7 +30,6 @@ import Alerts from './Alerts/Alerts';
 import ApiAccess from './ApiAccess/ApiAccess';
 import AskUsButton from './UtilityArea/AskUsButton';
 import CulturalAdvice from './CulturalAdvice/CulturalAdvice';
-// import NewAskUsButton from './UtilityArea/NewAskUsButton';
 import ProactiveChat from './UtilityArea/ProactiveChat';
 import AuthButton from './UtilityArea/AuthButton';
 import ConnectFooter from './ConnectFooter/ConnectFooter';

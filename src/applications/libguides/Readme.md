@@ -8,7 +8,7 @@ The supplier is called Springshare and the admin can be logged in here: https://
 
 You should log in using your @library.uq.edu.au email and a password that is specifically for LibApps, not your UQ password.
 
-If you don't have an account yet, Jake, Rob Bowen, Dan, and some others can create an admin account for you if you need one. If in doubt, begin your access request with WSS.
+If you don't have an account yet, Jake, Rob Bowen, Dan, and some others can create an admin account for you if you need one. If in doubt, begin your access request with WSS via teams LTS-WSS channel or ithelp@library.uq.edu.au.
 
 The load.js has special code detecting whether the user is in the admin page because the Librarians asked not to have the proactive chat popup there.
 

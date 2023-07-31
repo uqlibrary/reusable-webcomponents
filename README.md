@@ -34,7 +34,7 @@ It does two things:
 | env     | view at                                                                                                                                                                                                               | bucket |
 |---------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
 | prod    | <https://www.library.uq.edu.au/> <br/>or <https://assets.library.uq.edu.au/reusable-webcomponents/>                                                                                                                   | s3://uql-reusable-webcomponents-production/ |
-| staging | <https://assets.library.uq.edu.au/reusable-webcomponents-staging/> <br/>or special route <https://homepage-development.library.uq.edu.au/reusable-staging/#/> - it is the only branch that will call reusable staging | s3://uql-reusable-webcomponents-staging/ |
+| staging | <https://assets.library.uq.edu.au/reusable-webcomponents-staging/> <br/>or <https://homepage-staging.library.uq.edu.au/> - it is the only branch that will call reusable staging | s3://uql-reusable-webcomponents-staging/ |
 | dev     | master branch viewable at https://assets.library.uq.edu.au/reusable-webcomponents-development/master/ <br/>or swap "master" for the name of your branch which has had a pipeline created on AWS                       | s3://uql-reusable-webcomponents-development/ + subfolder |
 
 ## Development
