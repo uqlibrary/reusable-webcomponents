@@ -37,6 +37,8 @@ template.innerHTML = `
     </div>
 `;
 
+// gtm sent in searchportal
+
 const CULTURAL_ADVICE_HIDDEN_COOKIE_NAME = 'UQ_CULTURAL_ADVICE';
 const CULTURAL_ADVICE_HIDDEN_COOKIE_VALUE = 'hidden';
 let addClass = true;
