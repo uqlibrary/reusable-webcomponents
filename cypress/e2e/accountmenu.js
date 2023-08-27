@@ -271,7 +271,7 @@ describe('Account menu button', () => {
         });
 
         it('Pressing esc closes the account menu', () => {
-            cy.visit('http://localhost:8080');
+            cy.visit('http://localhost:8080?user=uqstaff');
             cy.viewport(1280, 900);
             openAccountDropdown();
             assertLogoutButtonVisible();
@@ -280,7 +280,7 @@ describe('Account menu button', () => {
         });
 
         it('Clicking the pane closes the account menu', () => {
-            cy.visit('http://localhost:8080');
+            cy.visit('http://localhost:8080?user=s1111111');
             cy.viewport(1280, 900);
             openAccountDropdown();
             assertLogoutButtonVisible();

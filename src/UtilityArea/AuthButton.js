@@ -257,11 +257,10 @@ class AuthButton extends HTMLElement {
         // when in dev branch or localhost, reset the links in the account menu
         let linkRoot = `${window.location.protocol}//www.library.uq.edu.au/`;
         let linkAppend = '';
-        if (
-            window.location.hostname === 'homepage-development.library.uq.edu.au' ||
-            window.location.hostname === 'homepage-staging.library.uq.edu.au'
-        ) {
+        if (window.location.hostname === 'homepage-development.library.uq.edu.au') {
             linkRoot = `${window.location.protocol}//${window.location.hostname}${window.location.pathname}#/`;
+        } else if (window.location.hostname === 'homepage-staging.library.uq.edu.au') {
+            linkRoot = `${window.location.protocol}//${window.location.hostname}${window.location.pathname}/`;
         } else if (window.location.hostname === 'localhost') {
             const homepagePort = '2020';
             linkRoot = `${window.location.protocol}//${window.location.hostname}:${homepagePort}/`;

@@ -31,6 +31,5 @@ export function clearCookie(cookieId) {
     const expiryDate = new Date();
     expiryDate.setTime(expiryDate.getTime() + numHours * 60 * 60 * 1000);
 
-    console.log('clearCookie', cookieId, expiryDate);
     setCookie(cookieId, '; Path=/', expiryDate);
 }
