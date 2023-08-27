@@ -1705,3 +1705,8 @@ prm-resource-type-filter-bar {
 md-select-menu.md-primoExplore-theme md-content md-option:not([disabled]):hover {
     background: rgba(35,119,203,0.1);;
 }
+
+// user name in account button should be black on hover, not exlibris-aqua
+prm-explore-main prm-user-area-expandable md-menu button.user-button.user-menu-button.button-with-menu-arrow.md-button.md-primoExplore-theme.md-ink-ripple:hover {
+    color: #000;
+}
