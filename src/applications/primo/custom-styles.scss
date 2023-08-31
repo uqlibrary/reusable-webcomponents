@@ -1447,22 +1447,23 @@ md-menu-item.uql-account-menu-option button {
 }
 
 // style the mobile account menu
-.mobile-main-menu-bg md-menu-item.uql-account-menu-option button {
-    //margin-bottom: 0;
-    margin-left: -5px;
-    //width: 100%;
-    //margin-top: 0;
-    background-color: inherit;
-
-    .primaryText,
-    .subtext,
-    {
+.mobile-main-menu-bg md-menu-item.uql-account-menu-option {
+    width: 100%;
+    margin-top: 2px;
+    button {
+        margin-left: -30px;
         background-color: inherit;
-        color: #fff;
-    }
 
-    svg {
-        fill: #fff;
+        .primaryText,
+        .subtext,
+        {
+            background-color: inherit;
+            color: #fff;
+        }
+
+        svg {
+            fill: #fff;
+        }
     }
 }
 
