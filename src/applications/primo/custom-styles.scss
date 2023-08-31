@@ -1469,7 +1469,8 @@ md-menu-item.uql-account-menu-option button {
 
 // make the builtinAccountButton have similar spacing under it to the other items
 .mobile-main-menu-bg prm-library-card-menu {
-    margin-bottom: 0.4em;
+    margin-bottom: 2px;
+    margin-top: 0;
 }
 // line up the logout button text with our account items
 prm-authentication span[translate='eshelf.signout.title.link'] {
