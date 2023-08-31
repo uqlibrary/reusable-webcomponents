@@ -1325,7 +1325,8 @@ prm-library-card-menu .subtext,
     }
 }
 
-.mylibrary-list {
+// can be removed when old custom.js is presumed stale, presumably after sept 2023
+ul.mylibrary-list {
     &,
     li {
         list-style: none;
@@ -1376,6 +1377,7 @@ prm-library-card-menu .subtext,
     }
 }
 
+// can be removed when old custom.js is presumed stale, presumably after sept 2023
 // style the mobile account menu
 .mobile-main-menu-bg ul.mylibrary-list {
     margin-bottom: 0;
@@ -1395,6 +1397,67 @@ prm-library-card-menu .subtext,
         fill: #fff;
     }
 }
+
+button.uql-account-menu-option {
+    display: flex;
+    margin-left: -20px;
+    margin-top: 0;
+    margin-bottom: -10px;
+    align-items: flex-start;
+    min-height: 4em;
+    background-color: #fff;
+    border-width: 0;
+    //padding-top: 10px;
+    //width: 100%;
+
+    &:active,
+    &:hover {
+        background-color: rgba(210, 210, 210, 0.5);
+    }
+
+    svg {
+        width: 24px;
+        fill: #595959;
+        margin-left: 30px;
+    }
+    .textwrapper {
+        text-transform: initial;
+        display: flex;
+        flex-direction: column;
+        font-size: 16px;
+
+        span {
+            text-align: left;
+            color: #595959;
+        }
+    }
+
+    .primaryText {
+        padding-left: 10px;
+        font-weight: 400;
+    }
+}
+
+// style the mobile account menu
+.mobile-main-menu-bg button.uql-account-menu-option {
+    //margin-bottom: 0;
+    //margin-left: -5px;
+    //width: 100%;
+    //margin-top: 0;
+
+    .primaryText,
+    .subtext,
+    button,
+    li {
+        background-color: inherit;
+        color: #fff;
+    }
+
+    svg {
+        fill: #fff;
+    }
+}
+
 // make the builtinAccountButton have similar spacing under it to the other items
 .mobile-main-menu-bg prm-library-card-menu {
     margin-bottom: 0.4em;
