@@ -1466,6 +1466,20 @@ md-menu-item.uql-account-menu-option button {
         }
     }
 }
+md-menu-item.mobile-loggedout-feedback-item {
+    button {
+        background-color: transparent;
+
+        .textwrapper span {
+            color: #fff
+        }
+    }
+
+    svg.mobile-loggedout-feedback-item {
+        margin-left: 12px !important;
+        width: 45px;
+    }
+}
 
 // make the builtinAccountButton have similar spacing under it to the other items
 .mobile-main-menu-bg prm-library-card-menu {
