@@ -1403,7 +1403,7 @@ prm-user-menu-content {
     overflow-y: hidden;
 }
 
-button.uql-account-menu-option {
+md-menu-item.uql-account-menu-option button {
     display: flex;
     margin-left: -20px;
     margin-top: 10px;
@@ -1447,16 +1447,16 @@ button.uql-account-menu-option {
 }
 
 // style the mobile account menu
-.mobile-main-menu-bg button.uql-account-menu-option {
+.mobile-main-menu-bg md-menu-item.uql-account-menu-option button {
     //margin-bottom: 0;
-    //margin-left: -5px;
+    margin-left: -5px;
     //width: 100%;
     //margin-top: 0;
+    background-color: inherit;
 
     .primaryText,
     .subtext,
-    button,
-    li {
+    {
         background-color: inherit;
         color: #fff;
     }
