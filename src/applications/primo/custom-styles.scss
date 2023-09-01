@@ -1249,7 +1249,6 @@ prm-library-card-menu .subtext,
     margin-top: -20px;
 }
 
-
 .my-library-card-ctm .textwrapper,
 .my-favorties-ctm .textwrapper,
 .my-search-history-ctm .textwrapper {
@@ -1422,6 +1421,7 @@ md-menu-item.uql-account-menu-option button {
         fill: #595959;
         margin-left: 20px;
         width: 24px;
+        margin-top: 0; // maybe not needed when old styling removed, when old custom.js is presumed stale (below here)
     }
     .textwrapper {
         display: flex;
@@ -1476,8 +1476,8 @@ md-menu-item.mobile-loggedout-feedback-item {
     }
 
     svg.mobile-loggedout-feedback-item {
-        margin-left: 12px !important;
         width: 45px;
+        fill: #fff;
     }
 }
 
@@ -1542,6 +1542,8 @@ prm-main-menu md-content {
         margin-left: 10px;
     }
 }
+
+// check if can be removed when old custom.js is presumed stale, presumably after sept 2023 ???
 // desktop logged out menu feedback item styling
 md-menu-content .my-feedback-ctm {
     svg {
