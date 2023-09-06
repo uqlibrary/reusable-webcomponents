@@ -3,6 +3,7 @@ import uqrdav10, { accounts } from '../../mock/data/account';
 import ApiAccess from '../../src/ApiAccess/ApiAccess';
 import { apiLocale } from '../../src/ApiAccess/ApiAccess.locale';
 import { authLocale } from '../../src/UtilityArea/auth.locale';
+import { getAccountMenuRoot } from '../../src/UtilityArea/helpers';
 
 function assertLogoutButtonVisible(expected = true) {
     if (expected) {
@@ -273,6 +274,7 @@ describe('Account menu button', () => {
         it('Pressing esc closes the account menu', () => {
             cy.visit('http://localhost:8080?user=uqstaff');
             cy.viewport(1280, 900);
+            assertNameIsDisplayedOnAccountOptionsButtonCorrectly('uqstaff', 'Staff, UQ');
             openAccountDropdown();
             assertLogoutButtonVisible();
             cy.get('body').type('{esc}', { force: true });
@@ -282,6 +284,7 @@ describe('Account menu button', () => {
         it('Clicking the pane closes the account menu', () => {
             cy.visit('http://localhost:8080?user=s1111111');
             cy.viewport(1280, 900);
+            assertNameIsDisplayedOnAccountOptionsButtonCorrectly('s1111111', 'Undergraduate, John');
             openAccountDropdown();
             assertLogoutButtonVisible();
             cy.get('body').click(0, 0);
@@ -439,6 +442,19 @@ describe('Account menu button', () => {
                     cy.get('[data-testid="mylibrary-menu-feedback"]').click();
                 });
             cy.get('body').contains('user is on library feedback page');
+        });
+        it('can generate correct admin roots', () => {
+            // take the passed in values directly from a console.log(window.location) in the actual live env of interest
+            expect(getAccountMenuRoot('www.library.uq.edu.au', 'https:', '/')).to.be.equal(
+                'https://www.library.uq.edu.au/',
+            );
+            expect(getAccountMenuRoot('homepage-development.library.uq.edu.au', 'https:', '/master/')).to.be.equal(
+                'https://homepage-development.library.uq.edu.au/master/#/',
+            );
+            expect(getAccountMenuRoot('homepage-staging.library.uq.edu.au', 'https:', '/')).to.be.equal(
+                'https://homepage-staging.library.uq.edu.au/',
+            );
+            expect(getAccountMenuRoot('localhost', 'http:', '/')).to.be.equal('http://localhost:2020/');
         });
     });
 });
