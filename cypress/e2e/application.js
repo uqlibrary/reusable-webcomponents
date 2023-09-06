@@ -380,6 +380,16 @@ describe('Dummy Application', () => {
         });
     });
 
+    context('Atom works as expected', () => {
+        it('Sample page load works correctly', () => {
+            cy.visit('http://localhost:8080/src/applications/atom/demo.html');
+            cy.viewport(1280, 900);
+
+            // we have managed to change the homepage link
+            cy.get('#logo').should('exist').should('have.attr', 'href', 'https://www.uq.edu.au/');
+        });
+    });
+
     // context('changing properties as will be required by eSpace works as expected', () => {
     //     it('Javascript load works correctly', () => {
     //         cy.visit('http://localhost:8080/src/applications/espace/example.html');

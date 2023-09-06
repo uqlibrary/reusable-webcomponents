@@ -6,6 +6,11 @@ function ready(fn) {
     }
 }
 
+function updateLogoLink() {
+    const logoElement = document.getElementById('logo');
+    !!logoElement && logoElement.setAttribute('href', 'https://www.uq.edu.au/');
+}
+
 // function fontLoader(font) {
 //     var headID = document.getElementsByTagName('head')[0];
 //     var link = document.createElement('link');
@@ -32,8 +37,10 @@ function insertScript(url, defer = false) {
     }
 }
 
-function loadReusableComponentsDrupal() {
+function loadReusableComponentsAtom() {
     insertScript('https://assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js', true);
+
+    updateLogoLink();
 
     // fontLoader('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
     // fontLoader('https://static.uq.net.au/v15/fonts/Merriweather/merriweather.css');
@@ -41,4 +48,4 @@ function loadReusableComponentsDrupal() {
     // fontLoader('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
 }
 
-ready(loadReusableComponentsDrupal);
+ready(loadReusableComponentsAtom);
