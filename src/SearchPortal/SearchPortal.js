@@ -38,7 +38,7 @@ template.innerHTML = `
                             </div>
                         </div>
                         <div id="input-field-wrapper" class="MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-true">
-                            <div id="search-portal-autocomplete" class="MuiAutocomplete-root" data-testid="primo-search-autocomplete" data-analyticsid="primo-search-autocomplete" aria-label="Select Search Type">
+                            <div id="search-portal-autocomplete" class="MuiAutocomplete-root" data-testid="primo-search-autocomplete" data-analyticsid="primo-search-autocomplete">
                                 <div class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth">
                                     <div id="inputFieldParent" role="combobox" aria-expanded="false" aria-controls="search-portal-autocomplete-listbox" class="MuiInputBase-root MuiInput-root MuiInput-underline MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd">
                                         <!--  aria-controls="search-portal-autocomplete-listbox" invalid per AXE --> 
