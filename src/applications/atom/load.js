@@ -13,16 +13,23 @@ function updateLogoLink() {
 
 // TODO: move styles into an included .scss file and add hover styling, as per RaP button
 function addBookNowLink() {
-    const sidebarMenu = document.getElementById('context-menu');
-    if (!!sidebarMenu) {
-        const buttonlabel = 'Book now to view this item';
-        const bookingUrl = 'https://calendar.library.uq.edu.au/reserve/spaces/reading-room';
-        const styles =
-            'background-color: #2377CB; color: #fff !important; padding: 9px; max-width: 180px; display: block; text-align: center; font-size: 14px; border-radius: 2px; margin: 0.5em;';
-        const bookingLinkContainer = `<div data-testid="booknowLink"><a class="booknow" href="${bookingUrl}" style="${styles}">${buttonlabel}</a></div>`;
+    setInterval(() => {
+        const sidebarMenu = document.getElementById('context-menu');
+        const bookNowWrapperIdentifier = 'booknowLink';
+        const buttonWrapper = document.getElementById(bookNowWrapperIdentifier);
+        if (!!sidebarMenu && !buttonWrapper) {
+            const buttonlabel = 'Book now to view this item';
+            const bookingUrl = 'https://calendar.library.uq.edu.au/reserve/spaces/reading-room';
+            const styles =
+                'background-color: #2377CB; color: #fff !important; padding: 9px; max-width: 180px; display: block; text-align: center; font-size: 14px; border-radius: 2px; margin: 0.5em;';
+            const bookingLinkContainer =
+                `<div id="${bookNowWrapperIdentifier}" data-testid="booknowLink">` +
+                `<a class="booknow" target="_blank" href="${bookingUrl}" style="${styles}">${buttonlabel}</a>` +
+                '</div>';
 
-        sidebarMenu.insertAdjacentHTML('beforebegin', bookingLinkContainer);
-    }
+            sidebarMenu.insertAdjacentHTML('beforebegin', bookingLinkContainer);
+        }
+    }, 100);
 }
 
 function insertScript(url, defer = false) {
