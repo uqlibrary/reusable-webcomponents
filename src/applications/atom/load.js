@@ -11,14 +11,17 @@ function updateLogoLink() {
     !!logoElement && logoElement.setAttribute('href', 'https://www.uq.edu.au/');
 }
 
-// function fontLoader(font) {
-//     var headID = document.getElementsByTagName('head')[0];
-//     var link = document.createElement('link');
-//     link.type = 'text/css';
-//     link.rel = 'stylesheet';
-//     headID.appendChild(link);
-//     link.href = font;
-// }
+// TODO: move styles into an included .scss file and add hover styling, as per RaP button
+function addBookNowLink() {
+    const buttonlabel = 'Book now to view this item';
+    const bookingUrl = 'https://calendar.library.uq.edu.au/reserve/spaces/reading-room';
+    const styles =
+        'background-color: #2377CB; color: #fff; padding: 9px; max-width: 180px; display: block; text-align: center; font-size: 14px; border-radius: 2px; margin: 0.5em;';
+    const html = `<div><a href="${bookingUrl}" style="${styles}">${buttonlabel}</a></div>`;
+
+    const parentElement = document.getElementById('context-menu');
+    !!parentElement && parentElement.insertAdjacentHTML('beforebegin', html);
+}
 
 function insertScript(url, defer = false) {
     const scriptfound = document.querySelector("script[src*='" + url + "']");
@@ -42,10 +45,7 @@ function loadReusableComponentsAtom() {
 
     updateLogoLink();
 
-    // fontLoader('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
-    // fontLoader('https://static.uq.net.au/v15/fonts/Merriweather/merriweather.css');
-    // fontLoader('https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css');
-    // fontLoader('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
+    addBookNowLink();
 }
 
 ready(loadReusableComponentsAtom);
