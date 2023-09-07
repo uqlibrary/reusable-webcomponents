@@ -10,6 +10,7 @@ import {
     canSeeSpotlightsAdmin,
     canSeeTestTagAdmin,
 } from '../helpers/access';
+import { getAccountMenuRoot } from './helpers';
 
 /*
  * usage:
@@ -254,20 +255,12 @@ class AuthButton extends HTMLElement {
             menuList.appendChild(template.content.cloneNode(true));
         }
 
-        // when in dev branch or localhost, reset the links in the account menu
-        let linkRoot = `${window.location.protocol}//www.library.uq.edu.au/`;
-        let linkAppend = '';
-        if (window.location.hostname === 'homepage-development.library.uq.edu.au') {
-            linkRoot = `${window.location.protocol}//${window.location.hostname}${window.location.pathname}#/`;
-        } else if (window.location.hostname === 'homepage-staging.library.uq.edu.au') {
-            linkRoot = `${window.location.protocol}//${window.location.hostname}${window.location.pathname}/`;
-        } else if (window.location.hostname === 'localhost') {
-            const homepagePort = '2020';
-            linkRoot = `${window.location.protocol}//${window.location.hostname}:${homepagePort}/`;
-            linkAppend = !!window.location.search ? window.location.search : ''; // get the user id
-        }
+        // we reset the links in the account menu according to the current branch
+        const linkRoot = getAccountMenuRoot();
+        const linkAppend = // get the user id for local use
+            window.location.hostname === 'localhost' && !!window.location.search ? window.location.search : '';
 
-        // for convenience, rewrite the LR link when we are in a feature branch
+        // for convenience, rewrite the LR link when we are not in prod
         const learningResourcePageLink = `${linkRoot}learning-resources${linkAppend}`;
         const learningResourceLinkElement = shadowDOM.getElementById('mylibrary-menu-course-resources');
         !!learningResourcePageLink &&
