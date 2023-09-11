@@ -6,11 +6,6 @@ function ready(fn) {
     }
 }
 
-// function updateLogoLink() {
-//     const logoElement = document.getElementById('logo');
-//     !!logoElement && logoElement.setAttribute('href', 'https://www.uq.edu.au/');
-// }
-
 function insertScript(url, defer = false) {
     const scriptfound = document.querySelector("script[src*='" + url + "']");
     if (!scriptfound) {
@@ -28,50 +23,58 @@ function insertScript(url, defer = false) {
     }
 }
 
-function createSlotForButtonInUtilityArea(button, id = null) {
+function createSlotForButtonInUtilityArea(button, id, slotName = 'site-utilities') {
     const slot = document.createElement('span');
-    !!slot && slot.setAttribute('slot', 'site-utilities');
+    !!slot && slot.setAttribute('slot', slotName);
     !!slot && !!id && slot.setAttribute('id', id);
     !!button && !!slot && slot.appendChild(button);
 
     return slot;
 }
 
-function createAskusButton() {
-    if (!!document.querySelector('askus-button')) {
-        return false;
-    }
+// function createAskusButton() {
+//     const askusButton = document.createElement('askus-button');
+//     const slot = !!askusButton && createSlotForButtonInUtilityArea(askusButton, 'askus');
+//     !!siteHeader && !!slot && siteHeader.appendChild(slot);
+// }
 
-    const askusButton = document.createElement('askus-button');
-    return !!askusButton && createSlotForButtonInUtilityArea(askusButton, 'askus');
-}
-
-function moveBrowseButton() {
+function moveBrowseButton(siteHeader) {
     const browseButton = document.getElementById('browse-menu');
-    return !!browseButton && createSlotForButtonInUtilityArea(browseButton, 'browseButton');
+    const slot = !!browseButton && createSlotForButtonInUtilityArea(browseButton, 'browseButton');
+    !!siteHeader && !!slot && siteHeader.appendChild(slot);
 }
 
-function moveQuickLinks() {
+function moveQuickLinks(siteHeader) {
     const quickLinksButton = document.getElementById('quick-links-menu');
-    return !!quickLinksButton && createSlotForButtonInUtilityArea(quickLinksButton, 'quickLinksButton');
+    const slot = !!quickLinksButton && createSlotForButtonInUtilityArea(quickLinksButton, 'quickLinksButton');
+    !!siteHeader && !!slot && siteHeader.appendChild(slot);
 }
 
-function addUqHeader() {
+function moveAtomSearch(header) {
+    // move the existing atom search into the UQ Header
+    const fryerSearchButton = document.querySelector('#top-bar #search-bar');
+    const slot =
+        !!fryerSearchButton && createSlotForButtonInUtilityArea(fryerSearchButton, 'atomSearch', 'header-extras');
+    !!fryerSearchButton && !!slot && slot.appendChild(fryerSearchButton);
+    !!slot && !!header && header.appendChild(slot);
+}
+
+function addUqHeader(firstElement) {
     // add UQ Header and move search bar into it
     const header = document.createElement('uq-header');
     !!header && header.setAttribute('hideLibraryMenuItem', '');
     !!header && header.setAttribute('hideUqSearch', '');
 
-    const slot = document.createElement('span');
-    !!slot && slot.setAttribute('slot', 'header-extras');
-    !!slot && slot.setAttribute('id', 'atomSearch');
-
-    // we find the existing atom search, then we find the slot we provided the attribute for above, then we stick a in b
-    const fryerSearchButton = document.querySelector('#top-bar #search-bar');
-    !!fryerSearchButton && !!slot && slot.appendChild(fryerSearchButton);
-    !!slot && !!header && header.appendChild(slot);
+    moveAtomSearch(header);
 
     document.body.insertBefore(header, firstElement);
+}
+
+function addCulturalAdvicePopup() {
+    if (!document.querySelector('cultural-advice-popup')) {
+        const culturalAdvice = document.createElement('cultural-advice-popup');
+        !!culturalAdvice && document.body.appendChild(culturalAdvice);
+    }
 }
 
 function addUqSiteheader(firstElement) {
@@ -80,32 +83,31 @@ function addUqSiteheader(firstElement) {
     const siteTitle =
         window.location.hostname === 'manuscripts.library.uq.edu.au'
             ? 'Fryer Library Manuscripts'
-            : 'localhost'
+            : window.location.hostname === 'localhost'
             ? 'Fryer Library DEV'
-            : 'Fryer Library SANDBOX';
+            : 'Fryer Library SANDBOX'; // more?
     !!siteHeader && siteHeader.setAttribute('sitetitle', siteTitle);
     !!siteHeader && siteHeader.setAttribute('siteurl', 'https://manuscripts.library.uq.edu.au/');
 
-    const askusButton = createAskusButton();
-    !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
+    // askus button not required? TBC
+    // createAskusButton();
 
-    const browseButton = moveBrowseButton();
-    !!siteHeader && !!browseButton && siteHeader.appendChild(browseButton);
+    moveBrowseButton(siteHeader);
 
-    const quickLinksButton = moveQuickLinks();
-    !!siteHeader && !!quickLinksButton && siteHeader.appendChild(quickLinksButton);
+    moveQuickLinks(siteHeader);
 
-    if (!document.querySelector('cultural-advice-popup')) {
-        const culturalAdvice = document.createElement('cultural-advice-popup');
-        !!culturalAdvice && document.body.appendChild(culturalAdvice);
-    }
+    addCulturalAdvicePopup();
+
+    // no proactive chat
 
     document.body.insertBefore(siteHeader, firstElement);
 }
 
 function loadReusableComponentsAtom() {
-    // const scriptLink = 'https://assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js';
-    const scriptLink = '/uq-lib-reusable.min.js';
+    let scriptLink = '/uq-lib-reusable.min.js';
+    if (window.location.hostname !== 'localhost') {
+        scriptLink = `https://assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js`;
+    }
     insertScript(scriptLink, true);
 
     const firstElement = document.body.children[0];
@@ -115,8 +117,6 @@ function loadReusableComponentsAtom() {
     // then remove the supplied atom header block
     const existingAtomHeader = document.getElementById('top-bar');
     !!existingAtomHeader && existingAtomHeader.remove();
-
-    // updateLogoLink();
 }
 
 ready(loadReusableComponentsAtom);
