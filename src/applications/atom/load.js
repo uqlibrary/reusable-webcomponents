@@ -32,6 +32,13 @@ function addBookNowLink() {
     }, 100);
 }
 
+function addCulturalAdvicePopup() {
+    if (!document.querySelector('cultural-advice-popup')) {
+        const culturalAdvice = document.createElement('cultural-advice-popup');
+        !!culturalAdvice && document.body.appendChild(culturalAdvice);
+    }
+}
+
 function insertScript(url, defer = false) {
     const scriptfound = document.querySelector("script[src*='" + url + "']");
     if (!scriptfound) {
@@ -55,6 +62,8 @@ function loadReusableComponentsAtom() {
     updateLogoLink();
 
     addBookNowLink();
+
+    addCulturalAdvicePopup();
 }
 
 ready(loadReusableComponentsAtom);

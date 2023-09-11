@@ -144,6 +144,21 @@ describe('Dummy Application', () => {
             .and('contain', username);
     }
 
+    function hasCulturalAdvicePopup() {
+        cy.waitUntil(() =>
+            cy
+                .get('cultural-advice-popup')
+                .shadow()
+                .find('#cultural-advice-content')
+                .should('exist')
+                .should('be.visible'),
+        );
+        cy.get('cultural-advice-popup')
+            .shadow()
+            .find('#cultural-advice-content')
+            .should('contain', 'Aboriginal and Torres Strait Islander peoples are advised');
+    }
+
     // these tests check that the application load.js files load properly and that each application has only the expected inclusions
 
     context('Studenthub works as expected', () => {
@@ -380,13 +395,15 @@ describe('Dummy Application', () => {
         });
     });
 
-    context('Atom works as expected', () => {
+    context.only('Atom works as expected', () => {
         it('Sample home page load works correctly', () => {
             cy.visit('http://localhost:8080/src/applications/atom/demo-homepage.html');
             cy.viewport(1280, 900);
 
             // we have managed to change the homepage link
             cy.get('#logo').should('exist').should('have.attr', 'href', 'https://www.uq.edu.au/');
+
+            hasCulturalAdvicePopup();
         });
         it('Sample detail page load works correctly', () => {
             cy.visit('http://localhost:8080/src/applications/atom/demo-detailpage.html');
@@ -399,6 +416,8 @@ describe('Dummy Application', () => {
                 .find('[data-testid="booknowLink"] a')
                 .should('exist')
                 .should('have.attr', 'href', bookingUrl);
+
+            hasCulturalAdvicePopup();
         });
     });
 
