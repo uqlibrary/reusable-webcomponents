@@ -6,18 +6,9 @@ function ready(fn) {
     }
 }
 
-function updateLogoLink() {
-    const logoElement = document.getElementById('logo');
-    !!logoElement && logoElement.setAttribute('href', 'https://www.uq.edu.au/');
-}
-
-// function fontLoader(font) {
-//     var headID = document.getElementsByTagName('head')[0];
-//     var link = document.createElement('link');
-//     link.type = 'text/css';
-//     link.rel = 'stylesheet';
-//     headID.appendChild(link);
-//     link.href = font;
+// function updateLogoLink() {
+//     const logoElement = document.getElementById('logo');
+//     !!logoElement && logoElement.setAttribute('href', 'https://www.uq.edu.au/');
 // }
 
 function insertScript(url, defer = false) {
@@ -65,32 +56,26 @@ function moveQuickLinks() {
     return !!quickLinksButton && createSlotForButtonInUtilityArea(quickLinksButton, 'quickLinksButton');
 }
 
-// function moveSearchBar(header) {
-//     const uqSearchArea = header.querySelector('header.uq-header div.uq-header__search-toggle');
-//     const uqSearchButton = header.querySelector('header.uq-header div.uq-header__search-toggle button');
-//     const fryerSearchButton = document.querySelector('#top-bar #search-bar');
-//
-//     !!uqSearchButton && uqSearchButton.remove();
-//     !!uqSearchArea && uqSearchArea.appendChild(fryerSearchButton);
-// }
-
-function loadReusableComponentsAtom() {
-    insertScript('https://assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js', true);
-
-    updateLogoLink();
-
-    // fontLoader('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
-    // fontLoader('https://static.uq.net.au/v15/fonts/Merriweather/merriweather.css');
-    // fontLoader('https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css');
-    // fontLoader('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
-
-    const firstElement = document.body.children[0];
-
+function addUqHeader() {
+    // add UQ Header and move search bar into it
     const header = document.createElement('uq-header');
     !!header && header.setAttribute('hideLibraryMenuItem', '');
-    // moveSearchBar(header);
-    document.body.insertBefore(header, firstElement);
+    !!header && header.setAttribute('hideUqSearch', '');
 
+    const slot = document.createElement('span');
+    !!slot && slot.setAttribute('slot', 'header-extras');
+    !!slot && slot.setAttribute('id', 'atomSearch');
+
+    // we find the existing atom search, then we find the slot we provided the attribute for above, then we stick a in b
+    const fryerSearchButton = document.querySelector('#top-bar #search-bar');
+    !!fryerSearchButton && !!slot && slot.appendChild(fryerSearchButton);
+    !!slot && !!header && header.appendChild(slot);
+
+    document.body.insertBefore(header, firstElement);
+}
+
+function addUqSiteheader(firstElement) {
+    // add UQ Site Header, then move various atom elements into it
     const siteHeader = document.createElement('uq-site-header');
     const siteTitle =
         window.location.hostname === 'manuscripts.library.uq.edu.au'
@@ -100,17 +85,38 @@ function loadReusableComponentsAtom() {
             : 'Fryer Library SANDBOX';
     !!siteHeader && siteHeader.setAttribute('sitetitle', siteTitle);
     !!siteHeader && siteHeader.setAttribute('siteurl', 'https://manuscripts.library.uq.edu.au/');
+
     const askusButton = createAskusButton();
     !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
+
     const browseButton = moveBrowseButton();
     !!siteHeader && !!browseButton && siteHeader.appendChild(browseButton);
+
     const quickLinksButton = moveQuickLinks();
     !!siteHeader && !!quickLinksButton && siteHeader.appendChild(quickLinksButton);
+
     if (!document.querySelector('cultural-advice-popup')) {
         const culturalAdvice = document.createElement('cultural-advice-popup');
         !!culturalAdvice && document.body.appendChild(culturalAdvice);
     }
+
     document.body.insertBefore(siteHeader, firstElement);
+}
+
+function loadReusableComponentsAtom() {
+    // const scriptLink = 'https://assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js';
+    const scriptLink = '/uq-lib-reusable.min.js';
+    insertScript(scriptLink, true);
+
+    const firstElement = document.body.children[0];
+    addUqHeader(firstElement);
+    addUqSiteheader(firstElement);
+
+    // then remove the supplied atom header block
+    const existingAtomHeader = document.getElementById('top-bar');
+    !!existingAtomHeader && existingAtomHeader.remove();
+
+    // updateLogoLink();
 }
 
 ready(loadReusableComponentsAtom);

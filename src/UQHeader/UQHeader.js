@@ -1,6 +1,18 @@
 import styles from './css/main.css';
 import overrides from './css/overrides.css';
 
+/**
+ * API:
+ *   <uq-header
+ *       searchurl                  // change the url that will be the base search used (possibly used if we ever add this to espace?)
+ *       searchlabel                // would change the displayed label from library to something else, but we ended up not displaying a word
+ *       skipnavid                  // the id of the skip-nav element. default "skip-nav"
+ *       hidelibrarymenuitem        // hide the Library entry in the global nav (except they didn't include Library in this version!)
+ *       hideuqsearch               // whether the global uq search should be included  (just include, don't put ="true" on the end)
+ *   >
+ *   </uq-site-header>
+ */
+
 const template = document.createElement('template');
 template.innerHTML = `
     <style>${styles.toString()}</style>
@@ -9,7 +21,7 @@ template.innerHTML = `
         Skip to site content
     </button>
     <header class="uq-header" data-gtm-category="Header">
-      <div class="uq-header__container">
+      <div class="uq-header__container" id="uq-header__container">
         <div class="uq-header__menu-toggle" data-target="global-mobile-nav" data-gtm-category="Primary header">
           <button id="mobile-menu-toggle-button" data-testid="mobile-menu-toggle-button" type="button" class="nav-primary__toggle nav-primary__menu-toggle slide-menu__control" data-target="global-mobile-nav" data-action="toggle" data-gtm-action="Toggle">
             Menu
@@ -30,7 +42,7 @@ template.innerHTML = `
             </ul>
           </nav>
         </div>
-        <div class="uq-header__search-toggle" data-gtm-category="Search">
+        <div id="global-search-toggle" class="uq-header__search-toggle" data-gtm-category="Search">
           <button class="nav-primary__toggle nav-primary__search-toggle" data-testid="uq-header-search-button" data-analyticsid="uq-header-search-button" data-gtm-action="Toggle">
             <div class="search-toggle__label">Search</div>
           </button>
@@ -43,7 +55,7 @@ template.innerHTML = `
           </div>
         </div>
       </nav>
-      <div class="uq-header__search" data-gtm-category="Search">
+      <div id="global-search-open" class="uq-header__search" data-gtm-category="Search">
         <div class="uq-header__search-container">
           <form action="https://www.uq.edu.au/search/" method="get">
             <fieldset>
@@ -87,7 +99,7 @@ let initCalled;
 
 class UQHeader extends HTMLElement {
     static get observedAttributes() {
-        return ['skipnavid', 'searchlabel', 'searchurl', 'hidelibrarymenuitem'];
+        return ['skipnavid', 'searchlabel', 'searchurl', 'hidelibrarymenuitem', 'hideuqsearch'];
     }
 
     constructor() {
@@ -137,6 +149,10 @@ class UQHeader extends HTMLElement {
                     this.hideLibraryGlobalMenuItem(newValue);
 
                     break;
+                case 'hideuqsearch':
+                    this.hideUqSearchBar(newValue);
+
+                    break;
                 /* istanbul ignore next  */
                 default:
                     console.log(`unhandled attribute ${fieldName} received for UQHeader`);
@@ -167,6 +183,25 @@ class UQHeader extends HTMLElement {
             !!libraryMenuItem && libraryMenuItem.remove();
             const libraryMobileMenuItem = this.shadowRoot.getElementById('menu-item-library-mobile');
             !!libraryMobileMenuItem && libraryMenuItem.remove();
+        }
+    }
+
+    hideUqSearchBar(newValue) {
+        // If the attribute hideuqsearch is true, remove the global search item and associated items from the DOM
+        // and add a slot to include a local entry
+        /* istanbul ignore else  */
+        if (!(newValue === 'false' || newValue === null)) {
+            ['global-search-toggle', 'global-mobile-nav', 'global-search-open'].forEach((id) => {
+                const domElement = this.shadowRoot.getElementById(id);
+                !!domElement && domElement.remove();
+            });
+
+            // add the slot for some external program's use
+            const slot = document.createElement('slot');
+            !!slot && slot.setAttribute('name', 'header-extras');
+
+            const parent = this.shadowRoot.getElementById('uq-header__container');
+            !!parent && !!slot && parent.appendChild(slot);
         }
     }
 
