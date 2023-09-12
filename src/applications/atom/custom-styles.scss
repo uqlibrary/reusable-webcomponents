@@ -9,6 +9,7 @@
   padding: 9px;
   position: absolute;
   top: 0;
+  border: thin solid #2377CB;
 
   a {
     color: #fff !important;
@@ -18,4 +19,10 @@
     border-radius: 2px;
     margin: 0.5em;
   }
+}
+.bookNowBlock:hover,
+.bookNowBlock:hover a,
+.bookNowBlock a:hover {
+  color: #2377CB !important;
+  background-color: #fff;
 }

@@ -11,7 +11,6 @@ function updateLogoLink() {
     !!logoElement && logoElement.setAttribute('href', 'https://www.uq.edu.au/');
 }
 
-// TODO: move styles into an included .scss file and add hover styling, as per RaP button
 function addBookNowLink() {
     setInterval(() => {
         const sidebarMenu = document.getElementById('context-menu');
