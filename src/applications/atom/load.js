@@ -29,6 +29,32 @@ function addBookNowLink() {
     }, 100);
 }
 
+const createIcon = (svgPath, size) => {
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    !!path && path.setAttribute('d', svgPath);
+
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    !!svg && svg.setAttribute('class', 'svgIcon');
+    !!svg && svg.setAttribute('focusable', 'false');
+    !!svg && svg.setAttribute('viewBox', '0 0 24 24');
+    !!svg && svg.setAttribute('ariaHidden', 'true');
+    !!svg && svg.setAttribute('width', size);
+    !!svg && svg.setAttribute('height', size);
+    !!svg && !!path && svg.appendChild(path);
+
+    return svg;
+};
+
+// they supply an 'i' as a font on the button - we want a better icon
+// css in custom-styles to override built in entry
+function swapQuickMenuIcon() {
+    // https://mui.com/material-ui/material-icons/?query=hamburger&selected=Menu
+    const hamburgerIconSvg = 'M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z';
+    const quickMenuButton = document.querySelector('#quick-links-menu button');
+    const hamburgerIcon = createIcon(hamburgerIconSvg, 28);
+    !!quickMenuButton && !!hamburgerIcon && quickMenuButton.appendChild(hamburgerIcon);
+}
+
 function addCulturalAdvicePopup() {
     if (!document.querySelector('cultural-advice-popup')) {
         const culturalAdvice = document.createElement('cultural-advice-popup');
@@ -69,18 +95,13 @@ function isEnvironmentProduction() {
 }
 
 function getCssFileLocation() {
-    let cssFileLocation = '/applications/atom/custom-styles.css';
-    if (window.location.hostname !== 'localhost') {
-        let environmentLocation = '';
-        if (!isEnvironmentProduction()) {
-            const atomGitStagingBranch = 'atom-staging';
-            environmentLocation = `-development/${atomGitStagingBranch}`;
-        }
-        cssFileLocation =
-            'https://assets.library.uq.edu.au/reusable-webcomponents' +
-            (window.location.host === 'sandbox-fryer.library.uq.edu.au' ? environmentLocation : '') +
-            '/applications/atom/custom-styles.css';
-    }
+    const atomGitStagingBranch = 'atom-staging';
+    const stagingEnvironmentLocation = `-development/${atomGitStagingBranch}`;
+    cssFileLocation =
+        'https://assets.library.uq.edu.au/reusable-webcomponents' +
+        (isEnvironmentProduction() ? '' : stagingEnvironmentLocation) +
+        '/applications/atom/custom-styles.css';
+    console.log('cssFileLocation=', cssFileLocation);
     return cssFileLocation;
 }
 
@@ -97,6 +118,8 @@ function loadReusableComponentsAtom() {
     updateLogoLink();
 
     addBookNowLink();
+
+    swapQuickMenuIcon();
 
     addCulturalAdvicePopup();
 }

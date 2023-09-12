@@ -1,3 +1,5 @@
+// provide a space at the top of the sidebar for the new button to sit in
+// (this makes the page flicker less when they load new content with the weird tree structure at the top of the page)
 #main-column .span2 {
   padding-top: 60px;
   position: relative;
@@ -15,7 +17,7 @@
     color: #fff !important;
     max-width: 180px;
     text-align: center;
-    font-size: 14px;
+    font-size: 12px;
     border-radius: 2px;
     margin: 0.5em;
   }
@@ -25,4 +27,16 @@
 .bookNowBlock a:hover {
   color: #2377CB !important;
   background-color: #fff;
+}
+
+// hide the built in "i" font applied to the button
+#quick-links-menu button.top-item:before {
+  content: "";
+}
+// style the icon we add with js
+.top-item svg {
+  height: 35px;
+}
+.top-item svg path {
+  fill: #fff;
 }
