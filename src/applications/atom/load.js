@@ -12,6 +12,11 @@ function updateLogoLink() {
 }
 
 function addBookNowLink() {
+    // Only pages with a Reference code are for an item that the patron can make a booking to view
+    const hasCode = document.querySelector('.referenceCode');
+    if (!hasCode) {
+        return;
+    }
     // the tree in the area at the top of the detail page reloads the page. Re-add the button each time.
     // note, the button sits in the top padding of the sidebar so the sidebar doesn't flicker as this redraws.
     setInterval(() => {
