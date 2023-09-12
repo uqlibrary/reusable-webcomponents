@@ -1,6 +1,6 @@
 // provide a space at the top of the sidebar for the new button to sit in
 // (this makes the page flicker less when they load new content with the weird tree structure at the top of the page)
-#main-column .span2 {
+#main-column .sidebarParent {
   padding-top: 60px;
   position: relative;
 }

@@ -24,6 +24,10 @@ function addBookNowLink() {
         const bookNowWrapperIdentifier = 'booknowLink';
         const buttonWrapper = document.getElementById(bookNowWrapperIdentifier);
         if (!!sidebarMenu && !buttonWrapper) {
+            const sidebarParent = sidebarMenu.parentNode;
+            !!sidebarParent &&
+                !sidebarParent.classList.contains('sidebarParent') &&
+                sidebarParent.classList.add('sidebarParent');
             const buttonlabel = 'Book now to view this item';
             const bookingUrl = 'https://calendar.library.uq.edu.au/reserve/spaces/reading-room';
             const bookingLinkContainer =
