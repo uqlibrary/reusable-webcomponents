@@ -20,11 +20,9 @@ function addBookNowLink() {
         if (!!sidebarMenu && !buttonWrapper) {
             const buttonlabel = 'Book now to view this item';
             const bookingUrl = 'https://calendar.library.uq.edu.au/reserve/spaces/reading-room';
-            const styles =
-                'background-color: #2377CB; color: #fff !important; padding: 9px; max-width: 180px; display: block; text-align: center; font-size: 12px; border-radius: 2px; margin: 0.5em;';
             const bookingLinkContainer =
-                `<div id="${bookNowWrapperIdentifier}" data-testid="booknowLink">` +
-                `<a class="booknow" target="_blank" href="${bookingUrl}" style="${styles}">${buttonlabel}</a>` +
+                `<div id="${bookNowWrapperIdentifier}" data-testid="booknowLink" class="bookNowBlock">` +
+                `<a class="booknow" target="_blank" href="${bookingUrl}">${buttonlabel}</a>` +
                 '</div>';
 
             sidebarMenu.insertAdjacentHTML('beforebegin', bookingLinkContainer);
@@ -56,8 +54,46 @@ function insertScript(url, defer = false) {
     }
 }
 
+function addCss(fileName) {
+    var head = document.head,
+        link = document.createElement('link');
+
+    link.type = 'text/css';
+    link.rel = 'stylesheet';
+    link.href = fileName;
+
+    head.appendChild(link);
+}
+
+function isEnvironmentProduction() {
+    return window.location.host === 'manuscripts.library.uq.edu.au';
+}
+
+function getCssFileLocation() {
+    let cssFileLocation = '/applications/atom/custom-styles.css';
+    if (window.location.hostname !== 'localhost') {
+        let environmentLocation = '';
+        if (!isEnvironmentProduction()) {
+            const atomGitStagingBranch = 'atom-staging';
+            environmentLocation = `-development/${atomGitStagingBranch}`;
+        }
+        cssFileLocation =
+            'https://assets.library.uq.edu.au/reusable-webcomponents' +
+            (window.location.host === 'sandbox-fryer.library.uq.edu.au' ? environmentLocation : '') +
+            '/applications/atom/custom-styles.css';
+    }
+    return cssFileLocation;
+}
+
 function loadReusableComponentsAtom() {
-    insertScript('https://assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js', true);
+    const cssFile = getCssFileLocation();
+    addCss(cssFile);
+
+    let scriptLink = '/uq-lib-reusable.min.js';
+    if (window.location.hostname !== 'localhost') {
+        scriptLink = `https://assets.library.uq.edu.au/reusable-webcomponents/applications/atom/custom-styles.css`;
+    }
+    insertScript(scriptLink, true);
 
     updateLogoLink();
 

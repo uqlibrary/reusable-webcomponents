@@ -1,0 +1,21 @@
+#main-column .span2 {
+  padding-top: 60px;
+  position: relative;
+}
+
+.bookNowBlock {
+  background-color: #2377CB;
+  text-align: center;
+  padding: 9px;
+  position: absolute;
+  top: 0;
+
+  a {
+    color: #fff !important;
+    max-width: 180px;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 2px;
+    margin: 0.5em;
+  }
+}
