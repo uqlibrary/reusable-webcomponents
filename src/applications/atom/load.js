@@ -21,7 +21,7 @@ function addBookNowLink() {
             const buttonlabel = 'Book now to view this item';
             const bookingUrl = 'https://calendar.library.uq.edu.au/reserve/spaces/reading-room';
             const styles =
-                'background-color: #2377CB; color: #fff !important; padding: 9px; max-width: 180px; display: block; text-align: center; font-size: 14px; border-radius: 2px; margin: 0.5em;';
+                'background-color: #2377CB; color: #fff !important; padding: 9px; max-width: 180px; display: block; text-align: center; font-size: 12px; border-radius: 2px; margin: 0.5em;';
             const bookingLinkContainer =
                 `<div id="${bookNowWrapperIdentifier}" data-testid="booknowLink">` +
                 `<a class="booknow" target="_blank" href="${bookingUrl}" style="${styles}">${buttonlabel}</a>` +
