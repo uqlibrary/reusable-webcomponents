@@ -12,6 +12,8 @@ function updateLogoLink() {
 }
 
 function addBookNowLink() {
+    // the tree in the area at the top of the detail page reloads the page. Re-add the button each time.
+    // note, the button sits in the top padding of the sidebar so the sidebar doesn't flicker as this redraws.
     setInterval(() => {
         const sidebarMenu = document.getElementById('context-menu');
         const bookNowWrapperIdentifier = 'booknowLink';
@@ -50,8 +52,8 @@ const createIcon = (svgPath, size) => {
 function swapQuickMenuIcon() {
     // https://mui.com/material-ui/material-icons/?query=hamburger&selected=Menu
     const hamburgerIconSvg = 'M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z';
-    const quickMenuButton = document.querySelector('#quick-links-menu button');
     const hamburgerIcon = createIcon(hamburgerIconSvg, 28);
+    const quickMenuButton = document.querySelector('#quick-links-menu button');
     !!quickMenuButton && !!hamburgerIcon && quickMenuButton.appendChild(hamburgerIcon);
 }
 
@@ -65,29 +67,24 @@ function addCulturalAdvicePopup() {
 function insertScript(url, defer = false) {
     const scriptfound = document.querySelector("script[src*='" + url + "']");
     if (!scriptfound) {
-        const heads = document.getElementsByTagName('head');
-        if (heads && heads.length) {
-            const head = heads[0];
-            if (head) {
-                const script = document.createElement('script');
-                script.setAttribute('type', 'text/javascript');
-                script.setAttribute('src', url);
-                !!defer && script.setAttribute('defer', '');
-                head.appendChild(script);
-            }
-        }
+        const script = document.createElement('script');
+        !!script && script.setAttribute('type', 'text/javascript');
+        !!script && script.setAttribute('src', url);
+        !!defer && !!script && script.setAttribute('defer', '');
+
+        const head = document.head;
+        head.appendChild(script);
     }
 }
 
-function addCss(fileName) {
-    var head = document.head,
-        link = document.createElement('link');
+function insertCss(fileName) {
+    const link = document.createElement('link');
+    !!link && (link.type = 'text/css');
+    !!link && (link.rel = 'stylesheet');
+    !!link && (link.href = fileName);
 
-    link.type = 'text/css';
-    link.rel = 'stylesheet';
-    link.href = fileName;
-
-    head.appendChild(link);
+    const head = document.head;
+    !!head && !!link && head.appendChild(link);
 }
 
 function isEnvironmentProduction() {
@@ -97,14 +94,14 @@ function isEnvironmentProduction() {
 function getIncludeFileLocation(filename) {
     const atomStagingBranch = 'atom-staging'; // this is the git branch that atom installed at sandbox-fryer.library.uq.edu.au knows about
     const stagingFileLocationFragment = `-development/${atomStagingBranch}`;
-    const environmentLocation = isEnvironmentProduction() ? '' : stagingFileLocationFragment;
-    return `https://assets.library.uq.edu.au/reusable-webcomponents${environmentLocation}/${filename}`;
+    const fileLocationFragment = isEnvironmentProduction() ? '' : stagingFileLocationFragment;
+    return `https://assets.library.uq.edu.au/reusable-webcomponents${fileLocationFragment}/${filename}`;
 }
 
 function loadReusableComponentsAtom() {
-    // we cannot reach css in the dist folder?
     const cssFile = getIncludeFileLocation('applications/atom/custom-styles.css');
-    addCss(cssFile);
+    // note: we cannot reach css in the localhost dist folder for test
+    insertCss(cssFile);
 
     let scriptLink = '/uq-lib-reusable.min.js';
     if (window.location.hostname !== 'localhost') {
