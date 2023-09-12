@@ -6,6 +6,22 @@ function ready(fn) {
     }
 }
 
+function centerheaderBlock() {
+    // insert a wrapping elemnet as the first child of the header, so we can center the block
+    const wrapper = document.createElement('div');
+    !!wrapper && wrapper.classList.add('header-outer');
+
+    const header = document.querySelector('header#top-bar');
+
+    if (!!header && !!wrapper) {
+        while (header.firstChild) {
+            wrapper.appendChild(header.firstChild);
+        }
+
+        header.appendChild(wrapper);
+    }
+}
+
 function updateLogoLink() {
     const logoElement = document.getElementById('logo');
     !!logoElement && logoElement.setAttribute('href', 'https://www.uq.edu.au/');
@@ -117,6 +133,8 @@ function loadReusableComponentsAtom() {
         scriptLink = getIncludeFileLocation('uq-lib-reusable.min.js');
     }
     insertScript(scriptLink, true);
+
+    centerheaderBlock();
 
     updateLogoLink();
 

@@ -40,3 +40,14 @@
 .top-item svg path {
   fill: #fff;
 }
+
+.header-outer {
+  width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (min-width: 1200px) {
+  .header-outer {
+    width: 1170px
+  }
+}
