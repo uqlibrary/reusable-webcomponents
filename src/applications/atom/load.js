@@ -94,24 +94,21 @@ function isEnvironmentProduction() {
     return window.location.host === 'manuscripts.library.uq.edu.au';
 }
 
-function getCssFileLocation() {
-    const atomGitStagingBranch = 'atom-staging';
-    const stagingEnvironmentLocation = `-development/${atomGitStagingBranch}`;
-    cssFileLocation =
-        'https://assets.library.uq.edu.au/reusable-webcomponents' +
-        (isEnvironmentProduction() ? '' : stagingEnvironmentLocation) +
-        '/applications/atom/custom-styles.css';
-    console.log('cssFileLocation=', cssFileLocation);
-    return cssFileLocation;
+function getIncludeFileLocation(filename) {
+    const atomStagingBranch = 'atom-staging'; // this is the git branch that atom installed at sandbox-fryer.library.uq.edu.au knows about
+    const stagingFileLocationFragment = `-development/${atomStagingBranch}`;
+    const environmentLocation = isEnvironmentProduction() ? '' : stagingFileLocationFragment;
+    return `https://assets.library.uq.edu.au/reusable-webcomponents${environmentLocation}/${filename}`;
 }
 
 function loadReusableComponentsAtom() {
-    const cssFile = getCssFileLocation();
+    // we cannot reach css in the dist folder?
+    const cssFile = getIncludeFileLocation('applications/atom/custom-styles.css');
     addCss(cssFile);
 
     let scriptLink = '/uq-lib-reusable.min.js';
     if (window.location.hostname !== 'localhost') {
-        scriptLink = `https://assets.library.uq.edu.au/reusable-webcomponents/applications/atom/custom-styles.css`;
+        scriptLink = getIncludeFileLocation('uq-lib-reusable.min.js');
     }
     insertScript(scriptLink, true);
 
