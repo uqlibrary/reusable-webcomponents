@@ -395,7 +395,7 @@ describe('Dummy Application', () => {
         });
     });
 
-    context.only('Atom works as expected', () => {
+    context('Atom works as expected', () => {
         it('Sample home page load works correctly', () => {
             cy.visit('http://localhost:8080/src/applications/atom/demo-homepage.html');
             cy.viewport(1280, 900);
