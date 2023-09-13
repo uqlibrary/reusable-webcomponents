@@ -138,7 +138,7 @@ function loadReusableComponentsAtom() {
 
     updateLogoLink();
 
-    addBookNowLink();
+    // addBookNowLink();
 
     swapQuickMenuIcon();
 
