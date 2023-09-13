@@ -93,9 +93,9 @@ export default {
                     linkTo: 'https://web.library.uq.edu.au/library-services/it',
                 },
                 {
-                    primaryText: 'Copyright advice',
-                    secondaryText: 'For teaching, research, publishing ...',
-                    linkTo: 'https://web.library.uq.edu.au/library-services/copyright-advice',
+                    primaryText: 'Copyright',
+                    secondaryText: 'For teaching, research, theses ...',
+                    linkTo: 'https://web.library.uq.edu.au/library-services/copyright',
                 },
                 {
                     primaryText: 'Digitisation',
