@@ -93,6 +93,11 @@ export default {
                     linkTo: 'https://web.library.uq.edu.au/library-services/it',
                 },
                 {
+                    primaryText: 'Indigenising Curriculum',
+                    secondaryText: 'Resources for teachers',
+                    linkTo: 'https://web.library.uq.edu.au/library-services/teaching-staff/indigenising-curriculum-resources',
+                },
+                {
                     primaryText: 'Copyright',
                     secondaryText: 'For teaching, research, theses ...',
                     linkTo: 'https://web.library.uq.edu.au/library-services/copyright',
