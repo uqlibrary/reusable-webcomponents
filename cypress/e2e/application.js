@@ -396,26 +396,39 @@ describe('Dummy Application', () => {
     });
 
     context('Atom works as expected', () => {
+        function assert_homepage_link_is_to_uq() {
+            // not yet live
+            // // we have managed to change the homepage link
+            // cy.get('#logo').should('exist').should('have.attr', 'href', 'https://www.uq.edu.au/');
+        }
+
+        function assert_has_book_now_link() {
+            // not yet live
+            // // added a book now link to the sidebar
+            // const bookingUrl = 'https://calendar.library.uq.edu.au/reserve/spaces/reading-room';
+            // cy.get('#context-menu')
+            //     .parent()
+            //     .find('[data-testid="booknowLink"] a')
+            //     .should('exist')
+            //     .should('have.attr', 'href', bookingUrl);
+        }
+
         it('Sample home page load works correctly', () => {
             cy.visit('http://localhost:8080/src/applications/atom/demo-homepage.html');
             cy.viewport(1280, 900);
 
-            // we have managed to change the homepage link
-            cy.get('#logo').should('exist').should('have.attr', 'href', 'https://www.uq.edu.au/');
+            assert_homepage_link_is_to_uq();
 
             hasCulturalAdvicePopup();
         });
+
         it('Sample detail page load works correctly', () => {
             cy.visit('http://localhost:8080/src/applications/atom/demo-detailpage.html');
             cy.viewport(1280, 900);
 
-            // added a book now link to the sidebar
-            const bookingUrl = 'https://calendar.library.uq.edu.au/reserve/spaces/reading-room';
-            cy.get('#context-menu')
-                .parent()
-                .find('[data-testid="booknowLink"] a')
-                .should('exist')
-                .should('have.attr', 'href', bookingUrl);
+            assert_homepage_link_is_to_uq();
+
+            assert_has_book_now_link();
 
             hasCulturalAdvicePopup();
         });

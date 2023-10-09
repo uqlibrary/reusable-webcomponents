@@ -7,7 +7,7 @@ function ready(fn) {
 }
 
 function centerheaderBlock() {
-    // insert a wrapping elemnet as the first child of the header, so we can center the block
+    // insert a wrapping element as the first child of the header, so we can center the block
     const wrapper = document.createElement('div');
     !!wrapper && wrapper.classList.add('header-outer');
 
@@ -134,11 +134,13 @@ function loadReusableComponentsAtom() {
     }
     insertScript(scriptLink, true);
 
-    centerheaderBlock();
+    // centerheaderBlock(); // not yet approved
 
     // updateLogoLink(); // not yet approved
+    // when approved, uncomment cypress test
 
     // addBookNowLink(); // not yet approved
+    // when approved, uncomment cypress test
 
     // swapQuickMenuIcon(); // not yet approved
 
