@@ -30,9 +30,9 @@
 }
 
 // hide the built in "i" font applied to the button
-#quick-links-menu button.top-item:before {
-  content: "";
-}
+//#quick-links-menu button.top-item:before {
+//  content: "";
+//}
 // style the icon we add with js
 .top-item svg {
   height: 35px;
