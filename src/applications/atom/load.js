@@ -136,11 +136,11 @@ function loadReusableComponentsAtom() {
 
     centerheaderBlock();
 
-    updateLogoLink();
+    // updateLogoLink(); // not yet approved
 
-    // addBookNowLink();
+    // addBookNowLink(); // not yet approved
 
-    swapQuickMenuIcon();
+    // swapQuickMenuIcon(); // not yet approved
 
     addCulturalAdvicePopup();
 }
