@@ -140,6 +140,7 @@ module.exports = () => {
                     { from: 'src/applications/libguides/arrow-down.png', to: 'applications/libguides/arrow-down.png' },
                     { from: 'src/favicon.ico', to: 'favicon.ico' },
                     // all load.js for applications should be included here
+                    { from: 'src/applications/atom/load.js', to: 'applications/atom/load.js' },
                     { from: 'src/applications/auth/load.js', to: 'applications/auth/load.js' },
                     { from: 'src/applications/drupal/load.js', to: 'applications/drupal/load.js' },
                     { from: 'src/applications/libcal/load.js', to: 'applications/libcal/load.js' },
