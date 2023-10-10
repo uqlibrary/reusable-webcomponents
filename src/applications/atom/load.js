@@ -136,8 +136,7 @@ function loadReusableComponentsAtom() {
 
     // centerheaderBlock(); // not yet approved
 
-    // updateLogoLink(); // not yet approved
-    // when approved, uncomment cypress test
+    updateLogoLink();
 
     // addBookNowLink(); // not yet approved
     // when approved, uncomment cypress test
