@@ -402,14 +402,13 @@ describe('Dummy Application', () => {
         }
 
         function assert_has_book_now_link() {
-            // not yet live
-            // // added a book now link to the sidebar
-            // const bookingUrl = 'https://calendar.library.uq.edu.au/reserve/spaces/reading-room';
-            // cy.get('#context-menu')
-            //     .parent()
-            //     .find('[data-testid="booknowLink"] a')
-            //     .should('exist')
-            //     .should('have.attr', 'href', bookingUrl);
+            // there is a "book now" type link in the sidebar
+            const bookingUrl = 'https://calendar.library.uq.edu.au/reserve/spaces/reading-room';
+            cy.get('#context-menu')
+                .parent()
+                .find('[data-testid="booknowLink"] a')
+                .should('exist')
+                .should('have.attr', 'href', bookingUrl);
         }
 
         it('Sample home page load works correctly', () => {

@@ -26,7 +26,10 @@ function updateLogoLink() {
     !!logoElement && logoElement.setAttribute('href', 'https://www.uq.edu.au/');
 }
 
-function addBookNowLink() {
+function addBookNowButton() {
+    const buttonLabel = 'Book now to view this item';
+    const bookingLandingPage = 'https://calendar.library.uq.edu.au/reserve/spaces/reading-room';
+
     // Only pages with a Reference code are for an item that the patron can make a booking to view
     const hasCode = document.querySelector('.referenceCode');
     if (!hasCode) {
@@ -43,11 +46,9 @@ function addBookNowLink() {
             !!sidebarParent &&
                 !sidebarParent.classList.contains('sidebarParent') &&
                 sidebarParent.classList.add('sidebarParent');
-            const buttonlabel = 'Book now to view this item';
-            const bookingUrl = 'https://calendar.library.uq.edu.au/reserve/spaces/reading-room';
             const bookingLinkContainer =
                 `<div id="${bookNowWrapperIdentifier}" data-testid="booknowLink" class="bookNowBlock">` +
-                `<a class="booknow" target="_blank" href="${bookingUrl}">${buttonlabel}</a>` +
+                `<a class="booknow" target="_blank" href="${bookingLandingPage}">${buttonLabel}</a>` +
                 '</div>';
 
             sidebarMenu.insertAdjacentHTML('beforebegin', bookingLinkContainer);
@@ -137,8 +138,7 @@ function loadReusableComponentsAtom() {
 
     updateLogoLink();
 
-    // addBookNowLink(); // not yet approved
-    // when approved, uncomment cypress test
+    addBookNowButton();
 
     swapQuickMenuIcon();
 
