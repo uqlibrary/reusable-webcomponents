@@ -12,12 +12,11 @@ function centerheaderBlock() {
     !!wrapper && wrapper.classList.add('header-outer');
 
     const header = document.querySelector('header#top-bar');
-
+    // move the existing children of the header to the wrapper, so they can sit inside the centered area
     if (!!header && !!wrapper) {
         while (header.firstChild) {
             wrapper.appendChild(header.firstChild);
         }
-
         header.appendChild(wrapper);
     }
 }
@@ -134,7 +133,7 @@ function loadReusableComponentsAtom() {
     }
     insertScript(scriptLink, true);
 
-    // centerheaderBlock(); // not yet approved
+    centerheaderBlock();
 
     updateLogoLink();
 
