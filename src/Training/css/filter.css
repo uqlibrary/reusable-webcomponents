@@ -163,6 +163,10 @@ button.chip {
 
 .keywordPlaceholderMovement input {
     padding: 10px;
+    /* in safari, which now has significant usage, the fields pack together unexpectedly */
+    max-width: 210px;
+    /* and make the heights match the other filter fields */
+    min-height: 48px;
 }
 
 .keywordPlaceholderMovement input:focus + span,
@@ -170,6 +174,11 @@ button.chip {
     opacity: 1;
     transform: scale(0.75) translateY(-90%) translateX(-25px);
     color: #51247a;
+}
+
+.filterFieldLabel {
+    font-size: 16px;
+    font-weight: 400;
 }
 
 .hovertext.above {
