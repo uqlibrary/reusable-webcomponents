@@ -3,12 +3,8 @@
 describe('Dummy Application', () => {
     context('Works as expected', () => {
         it('Where javascript is used to alter the base html acts correctly', () => {
-            cy.visit('http://localhost:8080/index-via-js.html');
-            cy.injectAxe();
+            cy.visit('http://localhost:8080/index.html');
             cy.viewport(1280, 900);
-            // (Library link not currently in header)
-            // // applications/testing can remove the Library entry from the global menu
-            // cy.get('uq-header').shadow().find('div.nav-global').find('#menu-item-library').should('not.exist');
             // applications/testing has a skip nav button
             cy.get('uq-header').shadow().find('button[data-testid="skip-nav"]').should('exist');
             // has an askus button
@@ -146,6 +142,21 @@ describe('Dummy Application', () => {
             .find('button[data-testid="account-option-button')
             .should('exist')
             .and('contain', username);
+    }
+
+    function hasCulturalAdvicePopup() {
+        cy.waitUntil(() =>
+            cy
+                .get('cultural-advice-popup')
+                .shadow()
+                .find('#cultural-advice-content')
+                .should('exist')
+                .should('be.visible'),
+        );
+        cy.get('cultural-advice-popup')
+            .shadow()
+            .find('#cultural-advice-content')
+            .should('contain', 'Aboriginal and Torres Strait Islander peoples are advised');
     }
 
     // these tests check that the application load.js files load properly and that each application has only the expected inclusions
@@ -381,6 +392,45 @@ describe('Dummy Application', () => {
             hasAnAlert();
 
             hasUqFooter();
+        });
+    });
+
+    context('Atom works as expected', () => {
+        function assert_homepage_link_is_to_uq() {
+            // not yet live
+            // // we have managed to change the homepage link
+            // cy.get('#logo').should('exist').should('have.attr', 'href', 'https://www.uq.edu.au/');
+        }
+
+        function assert_has_book_now_link() {
+            // not yet live
+            // // added a book now link to the sidebar
+            // const bookingUrl = 'https://calendar.library.uq.edu.au/reserve/spaces/reading-room';
+            // cy.get('#context-menu')
+            //     .parent()
+            //     .find('[data-testid="booknowLink"] a')
+            //     .should('exist')
+            //     .should('have.attr', 'href', bookingUrl);
+        }
+
+        it('Sample home page load works correctly', () => {
+            cy.visit('http://localhost:8080/src/applications/atom/demo-homepage.html');
+            cy.viewport(1280, 900);
+
+            assert_homepage_link_is_to_uq();
+
+            hasCulturalAdvicePopup();
+        });
+
+        it('Sample detail page load works correctly', () => {
+            cy.visit('http://localhost:8080/src/applications/atom/demo-detailpage.html');
+            cy.viewport(1280, 900);
+
+            assert_homepage_link_is_to_uq();
+
+            assert_has_book_now_link();
+
+            hasCulturalAdvicePopup();
         });
     });
 

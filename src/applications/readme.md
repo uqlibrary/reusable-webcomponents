@@ -15,7 +15,7 @@ We add the header-footer to many third party systems, usually by creating a load
 - Library homepage
   - no load.js file, make changes in components/App.js in repo [homepage-react](https://github.com/uqlibrary/homepage-react)
   - live at <https://www.library.uq.edu.au/>
-  - staging at <https://homepage-development.library.uq.edu.au/reusable-staging/#/> (merge reusable into branch `staging`; homepage branch `reusable-staging` will call that reusable branch. It's the only homepage branch that calls a non-prod reusable.)
+  - staging at <https://homepage-staging.library.uq.edu.au/> (Staging is the only homepage branch that calls a non-prod reusable, but you can use non-prod locally by changing the value in .env)
 - Auth
   - library authentication & authorization check for SSO login
   - load.js at /src/applications/auth and called from src/resources/views/layout/default.blade.php in repo [auth](https://github.com/uqlibrary/auth)
@@ -63,7 +63,7 @@ We add the header-footer to many third party systems, usually by creating a load
   - legacy system in Angular V1 offering a number of subsites. Only membership is current for development
   - load.js at /src/applications/uqlapp
   - live at <https://app.library.uq.edu.au/>
-  - staging at <https://app-testing.library.uq.edu.au/> is tied to the staging branch of this repo
+  - staging at <https://app-testing.library.uq.edu.au/> is tied to the staging branch of this repo - vpn required
   - (repo is [uqlapp-frontend](https://github.com/uqlibrary/uqlapp-frontend))
 - Secure Collection
   - Secure collections are files that appear at eg <https://files.library.uq.edu.au/collection/?collection=documents&file=Tincture_Journal_Issue_Thirteen_(Autumn_2016).pdf> 

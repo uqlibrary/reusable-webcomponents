@@ -93,9 +93,14 @@ export default {
                     linkTo: 'https://web.library.uq.edu.au/library-services/it',
                 },
                 {
-                    primaryText: 'Copyright advice',
-                    secondaryText: 'For teaching, research, publishing ...',
-                    linkTo: 'https://web.library.uq.edu.au/library-services/copyright-advice',
+                    primaryText: 'Indigenising Curriculum',
+                    secondaryText: 'Resources for teachers',
+                    linkTo: 'https://web.library.uq.edu.au/library-services/teaching-staff/indigenising-curriculum-resources',
+                },
+                {
+                    primaryText: 'Copyright',
+                    secondaryText: 'For teaching, research, theses ...',
+                    linkTo: 'https://web.library.uq.edu.au/library-services/copyright',
                 },
                 {
                     primaryText: 'Digitisation',
@@ -152,7 +157,8 @@ export default {
                     secondaryText: 'Access full-text from anywhere',
                     linkTo: 'https://web.library.uq.edu.au/research-tools-techniques/campus-access',
                 },
-                // Extra blank field to put an item on the right.
+                // Extra blank entries to force the start of the next column
+                {},
                 {},
                 {
                     primaryText: 'Search techniques',

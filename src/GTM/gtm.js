@@ -54,7 +54,6 @@ class gtm extends HTMLElement {
         return ['gtm'];
     }
     attributeChangedCallback(name, oldValue, newValue) {
-        console.log(`${name} value has been changed from ${oldValue} to ${newValue}`);
         this.loadJS(newValue);
     }
 }

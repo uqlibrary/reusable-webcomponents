@@ -242,36 +242,38 @@ describe('Secure Collection', () => {
         });
 
         it('a link that downloads will redirect to the resource', () => {
-            cy.intercept(/secure\/exams\/phil1010.pdf/, 'I am file resource B delivered to the user');
+            const interceptContent = 'I am file resource B delivered to the user';
+            cy.intercept(/secure\/exams\/phil1010.pdf/, interceptContent);
             cy.intercept('GET', '/secure/exams/phil1010.pdf', {
                 statusCode: 200,
-                body: 'I am a file resource delivered to the user',
+                body: interceptContent,
             });
             cy.visit(
                 'http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=exams&file=phil1010.pdf',
             );
             cy.viewport(1300, 1000);
-            cy.waitUntil(() => cy.get('body pre').should('exist'));
-            cy.get('body').contains('I am file resource B delivered to the user');
+            cy.waitUntil(() => cy.get('body').should('have.length.greaterThan', 0));
+            cy.get('body').contains(interceptContent);
         });
 
         it('a link that does not require acknowledgement will redirect to the file (logged in user only)', () => {
+            const interceptContent = 'I am file resource C delivered to the user';
             cy.intercept(
                 /secure\/thomson\/classic_legal_texts\/Thynne_Accountability_And_Control.pdf/,
-                'I am file resource C delivered to the user',
+                interceptContent,
             );
             cy.intercept('GET', '/secure/thomson/classic_legal_texts/Thynne_Accountability_And_Control.pdf', {
                 // 'https://files.library.uq.edu.au/secure/thomson/classic_legal_texts/Thynne_Accountability_And_Control.pdf?Expires=1621380128&Signature=longstring&Key-Pair-Id=APKAJNDQICYW445PEOSA',
                 statusCode: 200,
-                body: 'I am file resource C delivered to the user',
+                body: interceptContent,
             });
             cy.visit(
                 'http://localhost:8080/src/applications/securecollection/demo.html?user=s1111111&collection=thomson&file=classic_legal_texts/Thynne_Accountability_And_Control.pdf',
             );
             cy.viewport(1300, 1000);
             // then check redirection
-            cy.waitUntil(() => cy.get('body pre').should('exist'));
-            cy.get('body').contains('I am file resource C delivered to the user');
+            cy.waitUntil(() => cy.get('body').should('have.length.greaterThan', 0));
+            cy.get('body').contains(interceptContent);
         });
     });
 });
