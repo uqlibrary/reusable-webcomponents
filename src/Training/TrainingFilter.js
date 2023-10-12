@@ -34,10 +34,10 @@ template.innerHTML = `
             </div>
             <div aria-label="filter by campus" id="campusDropdown" data-testid="training-filter-campus-dropdown" data-analyticsid="training-filter-campus-dropdown" class="listHolder" aria-disabled="false">
                 <button data-testid="training-filter-campus-container" data-analyticsid="training-filter-campus-container" id="campusOpener" class="campus opener filterer" aria-haspopup="listbox" aria-labelledby="campushover">
-                    <span class="hidden">By campus 1</span>
+                    <span class="hidden">By campus</span>
                 </button>
                 <div id="campushoverblock" class="hoverblock">
-                    <div data-testid="training-filter-campus-label" data-analyticsid="training-filter-campus-label" id="campushover" class="campushover hovertext filterFieldLabel">By campus 2</div>
+                    <div data-testid="training-filter-campus-label" data-analyticsid="training-filter-campus-label" id="campushover" class="campushover hovertext filterFieldLabel">By campus</div>
                 </div>
                 <div tabindex="-1" data-testid="training-filter-campus-list" data-analyticsid="training-filter-campus-list" id="campuslist" class="selectorlist campuslist hidden" aria-expanded="false"></div>
             </div>
