@@ -172,6 +172,11 @@ button.chip {
     color: #51247a;
 }
 
+.filterFieldLabel {
+    font-size: 16px;
+    font-weight: 400;
+}
+
 .hovertext.above {
     font-size: 0.8rem;
     color: #51247a;
