@@ -55,6 +55,16 @@
                     padding-right: 1rem;
                 }
             }
+            .trainingWrapper {display: flex; padding-right: 30px; padding-left: 30px;}
+            .trainingLeft {flex-grow: 1}
+            .trainingRight {width: 380px; margin-left: 5%;}
+            @media only screen and (max-width: 1096px) {
+                .trainingWrapper { display: block;}
+                .trainingLeft,
+                .trainingRight {
+                    width: 100%;
+                }
+            }
         </style>
     </head>
     <body style="padding: 0; margin: 0; font-family: 'Roboto', sans-serif; background-color: #f7f7f7">
@@ -78,12 +88,12 @@
 
             <search-portal></search-portal>
 
-            <div style="display: flex; padding-right: 30px; padding-left: 30px;">
-                <div style="flex-grow: 1">
+            <div class="trainingWrapper">
+                <div class="trainingLeft">
                     <h2>Demo Training</h2>
                     <library-training></library-training>
                 </div>
-                <div style="width: 380px; margin-left: 5%;">
+                <div class="trainingRight">
                     <div class="panel-pane pane-fieldable-panels-pane pane-uuid-a74e39c3-5e14-41fb-b99e-07b7ff42f08b pane-bundle-rich-text">
                         <div class="panel-pane__content">
                             <div class="fieldable-panels-pane">
