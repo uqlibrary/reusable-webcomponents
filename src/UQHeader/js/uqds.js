@@ -345,7 +345,9 @@ var uq = (function (exports) {
 
                     !!this.menuToggle &&
                         this.menuToggle.addEventListener('click', function () {
-                            document.body.classList.toggle('no-scroll');
+                            // Disable no scroll toggle, which re-enables scrolling for
+                            // library page when mobile menu open
+                            // document.body.classList.toggle('no-scroll');
 
                             _this.menuToggle.classList.toggle('nav-primary__menu-toggle--is-open');
 
