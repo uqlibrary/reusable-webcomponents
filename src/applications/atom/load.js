@@ -134,7 +134,7 @@ function loadReusableComponentsAtom() {
     }
     insertScript(scriptLink, true);
 
-    // centerheaderBlock(); // not yet approved
+    centerheaderBlock(); // not yet approved
 
     updateLogoLink();
 
