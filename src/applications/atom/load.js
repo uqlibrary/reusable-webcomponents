@@ -141,7 +141,7 @@ function loadReusableComponentsAtom() {
     // addBookNowLink(); // not yet approved
     // when approved, uncomment cypress test
 
-    // swapQuickMenuIcon(); // not yet approved
+    swapQuickMenuIcon();
 
     addCulturalAdvicePopup();
 }
