@@ -397,9 +397,8 @@ describe('Dummy Application', () => {
 
     context('Atom works as expected', () => {
         function assert_homepage_link_is_to_uq() {
-            // not yet live
-            // // we have managed to change the homepage link
-            // cy.get('#logo').should('exist').should('have.attr', 'href', 'https://www.uq.edu.au/');
+            // the big-icon homepage link has been changed from a fryer link to the uq homepage
+            cy.get('#logo').should('exist').should('have.attr', 'href', 'https://www.uq.edu.au/');
         }
 
         function assert_has_book_now_link() {
