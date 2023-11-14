@@ -1799,3 +1799,25 @@ md-select-menu.md-primoExplore-theme md-content md-option:not([disabled]):hover 
 prm-explore-main prm-user-area-expandable md-menu button.user-button.user-menu-button.button-with-menu-arrow.md-button.md-primoExplore-theme.md-ink-ripple:hover {
     color: #000;
 }
+
+// fix hover issues with "Include results regardless of availability" feature in the Citation Trail  [PT #186320477]
+prm-citation-trails-expand-button .switch-results md-switch.tiny-switch {
+    &:focus.active:focus:not([disabled]),
+    &:hover.active:hover:not([disabled]),
+    &:focus.inactive:focus:not([disabled]),
+    &:hover.inactive:hover:not([disabled]),
+    &:hover.md-checked .md-label {
+        color: $links-hue-3 !important;
+        background-color: $accent-color-half-opacity;
+    }
+
+    &.md-checked {
+        div {
+            color: $dark;
+        }
+        .md-container .md-bar,
+        .md-thumb-container .md-thumb {
+            background-color: $accent-color;
+        }
+    }
+}
