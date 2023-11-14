@@ -546,6 +546,10 @@ prm-breadcrumbs .md-chip.persistent-facet {
         }
         del {
             padding-left: 15px; // when a facet is excluded and then locked in place, there is now a some extra padding between the lock icon and the text, with only the strikethrough line in that space.
+            // locked facets with long text overrun the button area [PT #186320477]
+            text-wrap: nowrap;
+            white-space-collapse: collapse;
+            overflow: hidden;
         }
     }
 }
