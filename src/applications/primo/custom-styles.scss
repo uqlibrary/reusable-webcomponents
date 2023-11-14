@@ -540,13 +540,13 @@ button.md-button.link-alt-color {
 
 prm-breadcrumbs .md-chip.persistent-facet {
     background-color: $uqWarningLight;
-    .md-chip-content strong {
-        // reduce the padding on the locked facets
-        padding-left: 12px;
-    }
-    // when a facet is excluded and then locked in place, there is now a some extra padding between the lock icon and the text, with only the strikethrough line in that space.
-    .md-chip-content del {
-        padding-left: 15px;
+    .md-chip-content {
+        strong {
+            padding-left: 12px; // reduce the padding on the locked facets
+        }
+        del {
+            padding-left: 15px; // when a facet is excluded and then locked in place, there is now a some extra padding between the lock icon and the text, with only the strikethrough line in that space.
+        }
     }
 }
 
