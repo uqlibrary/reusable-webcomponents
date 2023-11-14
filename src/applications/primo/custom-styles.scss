@@ -1632,8 +1632,8 @@ prm-main-menu .my-feedback-ctm {
     margin-left: -10px;
 }
 .culturalAdviceBanner p {
-    background-color: #bbd8f5;
-    border-color: #bbd8f5;
+    background-color: $uqInformationLight;
+    border-color: $uqInformationLight;
     border-radius: 3px;
     color: #000;
     padding: 1em;
@@ -1819,5 +1819,14 @@ prm-citation-trails-expand-button .switch-results md-switch.tiny-switch {
         .md-thumb-container .md-thumb {
             background-color: $accent-color;
         }
+    }
+}
+
+// highlight "Your search results were expanded to include results regardless of availability" message  [PT #186320477]
+prm-search-result-list .list-items-list md-card  {
+    background-color: $uqInformationLight;
+    text-align: center;
+    span  {
+        font-style: normal
     }
 }
