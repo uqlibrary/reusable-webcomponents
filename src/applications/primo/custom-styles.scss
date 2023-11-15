@@ -281,6 +281,9 @@ prm-breadcrumbs {
         transform: none;
         padding-left: -2px;
     }
+    del {
+        text-decoration: unset; // remove the duplicate line through on the del when its manually applied to th wrapping div PT #183460865
+    }
     .md-chip.persistent-facet {
         strong {
             padding-left: 0;
