@@ -1245,7 +1245,7 @@ prm-library-card-menu .subtext,
 .my-search-history-ctm .subtext,
 .my-favorties-ctm .subtext,
 .mylibrary-list .subtext {
-    font-size: 0.75em;
+    font-size: 12px;
     min-height: 1em;
     font-weight: 300;
     margin-bottom: 2px;
@@ -1335,7 +1335,8 @@ prm-library-card-menu .subtext,
     }
 }
 
-.mylibrary-list {
+// can be removed when old custom.js is presumed stale, presumably after sept 2023
+ul.mylibrary-list {
     &,
     li {
         list-style: none;
@@ -1386,6 +1387,7 @@ prm-library-card-menu .subtext,
     }
 }
 
+// can be removed when old custom.js is presumed stale, presumably after sept 2023
 // style the mobile account menu
 .mobile-main-menu-bg ul.mylibrary-list {
     margin-bottom: 0;
@@ -1405,9 +1407,94 @@ prm-library-card-menu .subtext,
         fill: #fff;
     }
 }
+
+.prm-user-menu-content {
+    overflow-y: hidden;
+}
+
+md-menu-item.uql-account-menu-option button {
+    display: flex;
+    margin-left: -20px;
+    margin-top: 10px;
+    margin-bottom: -10px;
+    align-items: flex-start;
+    min-height: 4em;
+    background-color: #fff;
+    border-width: 0;
+
+    &:active,
+    &:hover {
+        background-color: rgba(210, 210, 210, 0.5);
+    }
+
+    svg {
+        fill: #595959;
+        margin-left: 20px;
+        width: 24px;
+        margin-top: 0; // maybe not needed when old styling removed, when old custom.js is presumed stale (below here)
+    }
+    .textwrapper {
+        display: flex;
+        flex-direction: column;
+        font-size: 16px;
+        text-transform: initial;
+
+        span {
+            color: #595959;
+            text-align: left;
+        }
+    }
+
+    .primaryText {
+        font-weight: 400;
+        padding-left: 10px;
+    }
+    .subtext {
+        font-size: 12px;
+        font-weight: 300;
+        margin-left: 10px;
+    }
+}
+
+// style the mobile account menu
+.mobile-main-menu-bg md-menu-item.uql-account-menu-option {
+    width: 100%;
+    margin-top: 2px;
+    button {
+        margin-left: -30px;
+        background-color: inherit;
+
+        .primaryText,
+        .subtext,
+        {
+            background-color: inherit;
+            color: #fff;
+        }
+
+        svg {
+            fill: #fff;
+        }
+    }
+}
+md-menu-item.mobile-loggedout-feedback-item {
+    button {
+        background-color: transparent;
+
+        .textwrapper span {
+            color: #fff
+        }
+    }
+
+    svg.mobile-loggedout-feedback-item {
+        width: 45px;
+        fill: #fff;
+    }
+}
+
 // make the builtinAccountButton have similar spacing under it to the other items
 .mobile-main-menu-bg prm-library-card-menu {
-    margin-bottom: 0.4em;
+    margin-bottom: 2px;
+    margin-top: 0;
 }
 // line up the logout button text with our account items
 prm-authentication span[translate='eshelf.signout.title.link'] {
@@ -1465,6 +1552,8 @@ prm-main-menu md-content {
         margin-left: 10px;
     }
 }
+
+// check if can be removed when old custom.js is presumed stale, presumably after sept 2023 ???
 // desktop logged out menu feedback item styling
 md-menu-content .my-feedback-ctm {
     svg {
