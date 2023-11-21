@@ -27,7 +27,7 @@ function updateLogoLink() {
 }
 
 function addBookNowButton() {
-    const buttonLabel = 'Book now to view this item';
+    const buttonLabel = 'Book now';
     const bookingLandingPage = 'https://calendar.library.uq.edu.au/reserve/spaces/reading-room';
 
     // Only pages with a Reference code are for an item that the patron can make a booking to view
@@ -38,17 +38,24 @@ function addBookNowButton() {
     // the tree in the area at the top of the detail page reloads the page. Re-add the button each time.
     // note, the button sits in the top padding of the sidebar so the sidebar doesn't flicker as this redraws.
     setInterval(() => {
+        const buttonLabel = 'Book now';
+        const bookingLandingPage = 'https://calendar.library.uq.edu.au/reserve/spaces/reading-room';
+
         const sidebarMenu = document.getElementById('context-menu');
         const bookNowWrapperIdentifier = 'booknowLink';
         const buttonWrapper = document.getElementById(bookNowWrapperIdentifier);
+        const linkstyletemp =
+            'background-color: #2377CB; color: white; text-align: center; padding: 1em; margin-top: 1em; display: block; font-size: 14px;';
+        const divstyletemp = 'padding: 1rem; text-align: center; background-color: rgba(0,0,0,0.1);';
         if (!!sidebarMenu && !buttonWrapper) {
             const sidebarParent = sidebarMenu.parentNode;
             !!sidebarParent &&
                 !sidebarParent.classList.contains('sidebarParent') &&
                 sidebarParent.classList.add('sidebarParent');
             const bookingLinkContainer =
-                `<div id="${bookNowWrapperIdentifier}" data-testid="booknowLink" class="bookNowBlock">` +
-                `<a class="booknow" target="_blank" href="${bookingLandingPage}">${buttonLabel}</a>` +
+                `<div id="${bookNowWrapperIdentifier}" data-testid="booknowLink" class="bookNowWrapper" style="${divstyletemp}">` +
+                '<p>Make an appointment to request access</p>' +
+                `<a class="booknow bookNowLink" target="_blank" href="${bookingLandingPage}" style="${linkstyletemp}">${buttonLabel}</a>` +
                 '</div>';
 
             sidebarMenu.insertAdjacentHTML('beforebegin', bookingLinkContainer);
