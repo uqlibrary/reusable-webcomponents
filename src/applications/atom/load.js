@@ -31,8 +31,8 @@ function addBookNowButton() {
     const bookingLandingPage = 'https://calendar.library.uq.edu.au/reserve/spaces/reading-room';
 
     // Only pages with a Reference code are for an item that the patron can make a booking to view
-    const hasCode = document.querySelector('.referenceCode');
-    if (!hasCode) {
+    const hasReferenceCode = document.querySelector('.referenceCode');
+    if (!hasReferenceCode) {
         return;
     }
     // the tree in the area at the top of the detail page reloads the page. Re-add the button each time.

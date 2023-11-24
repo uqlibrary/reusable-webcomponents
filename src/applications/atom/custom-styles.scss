@@ -1,7 +1,7 @@
 // provide a space at the top of the sidebar for the new button-block to sit in
 // (this makes the page flicker less when they load new content with the weird tree structure at the top of the page)
 #main-column .sidebarParent {
-  //padding-top: 60px;
+  padding-top: 155px;
   position: relative;
 }
 
@@ -23,6 +23,8 @@
   background-color: rgba(0,0,0,0.1);
   padding: 1rem;
   text-align: center;
+  position: absolute;
+  top: 0;
 }
 
 // hide the built in "i" font applied to the button
