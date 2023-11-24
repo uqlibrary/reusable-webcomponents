@@ -44,18 +44,15 @@ function addBookNowButton() {
         const sidebarMenu = document.getElementById('context-menu');
         const bookNowWrapperIdentifier = 'booknowLink';
         const buttonWrapper = document.getElementById(bookNowWrapperIdentifier);
-        const linkstyletemp =
-            'background-color: #2377CB; color: white; text-align: center; padding: 1em; margin-top: 1em; display: block; font-size: 14px;';
-        const divstyletemp = 'padding: 1rem; text-align: center; background-color: rgba(0,0,0,0.1);';
         if (!!sidebarMenu && !buttonWrapper) {
             const sidebarParent = sidebarMenu.parentNode;
             !!sidebarParent &&
                 !sidebarParent.classList.contains('sidebarParent') &&
                 sidebarParent.classList.add('sidebarParent');
             const bookingLinkContainer =
-                `<div id="${bookNowWrapperIdentifier}" data-testid="booknowLink" class="bookNowWrapper" style="${divstyletemp}">` +
+                `<div id="${bookNowWrapperIdentifier}" data-testid="booknowLink" class="bookNowWrapper"">` +
                 '<p>Make an appointment to request access</p>' +
-                `<a class="booknow bookNowLink" target="_blank" href="${bookingLandingPage}" style="${linkstyletemp}">${buttonLabel}</a>` +
+                `<a class="booknow bookNowLink" target="_blank" href="${bookingLandingPage}">${buttonLabel}</a>` +
                 '</div>';
 
             sidebarMenu.insertAdjacentHTML('beforebegin', bookingLinkContainer);
