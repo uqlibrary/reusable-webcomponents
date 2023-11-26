@@ -12,12 +12,11 @@ function centerheaderBlock() {
     !!wrapper && wrapper.classList.add('header-outer');
 
     const header = document.querySelector('header#top-bar');
-
+    // move the existing children of the header to the wrapper, so they can sit inside the centered area
     if (!!header && !!wrapper) {
         while (header.firstChild) {
             wrapper.appendChild(header.firstChild);
         }
-
         header.appendChild(wrapper);
     }
 }
@@ -27,15 +26,21 @@ function updateLogoLink() {
     !!logoElement && logoElement.setAttribute('href', 'https://www.uq.edu.au/');
 }
 
-function addBookNowLink() {
+function addBookNowButton() {
+    const buttonLabel = 'Book now';
+    const bookingLandingPage = 'https://calendar.library.uq.edu.au/reserve/spaces/reading-room';
+
     // Only pages with a Reference code are for an item that the patron can make a booking to view
-    const hasCode = document.querySelector('.referenceCode');
-    if (!hasCode) {
+    const hasReferenceCode = document.querySelector('.referenceCode');
+    if (!hasReferenceCode) {
         return;
     }
     // the tree in the area at the top of the detail page reloads the page. Re-add the button each time.
     // note, the button sits in the top padding of the sidebar so the sidebar doesn't flicker as this redraws.
     setInterval(() => {
+        const buttonLabel = 'Book now';
+        const bookingLandingPage = 'https://calendar.library.uq.edu.au/reserve/spaces/reading-room';
+
         const sidebarMenu = document.getElementById('context-menu');
         const bookNowWrapperIdentifier = 'booknowLink';
         const buttonWrapper = document.getElementById(bookNowWrapperIdentifier);
@@ -44,11 +49,10 @@ function addBookNowLink() {
             !!sidebarParent &&
                 !sidebarParent.classList.contains('sidebarParent') &&
                 sidebarParent.classList.add('sidebarParent');
-            const buttonlabel = 'Book now to view this item';
-            const bookingUrl = 'https://calendar.library.uq.edu.au/reserve/spaces/reading-room';
             const bookingLinkContainer =
-                `<div id="${bookNowWrapperIdentifier}" data-testid="booknowLink" class="bookNowBlock">` +
-                `<a class="booknow" target="_blank" href="${bookingUrl}">${buttonlabel}</a>` +
+                `<div id="${bookNowWrapperIdentifier}" data-testid="booknowLink" class="bookNowWrapper"">` +
+                '<p>Make an appointment to request access</p>' +
+                `<a class="booknow bookNowLink" target="_blank" href="${bookingLandingPage}">${buttonLabel}</a>` +
                 '</div>';
 
             sidebarMenu.insertAdjacentHTML('beforebegin', bookingLinkContainer);
@@ -138,8 +142,7 @@ function loadReusableComponentsAtom() {
 
     updateLogoLink();
 
-    // addBookNowLink(); // not yet approved
-    // when approved, uncomment cypress test
+    addBookNowButton();
 
     swapQuickMenuIcon();
 
