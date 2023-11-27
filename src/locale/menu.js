@@ -167,7 +167,7 @@ export default {
                 },
                 {
                     primaryText: 'Referencing style guides',
-                    secondaryText: 'APA, AGLC, Harvard, Chicago ...',
+                    secondaryText: 'APA, AGLC, Chicago ...',
                     linkTo: 'https://guides.library.uq.edu.au/referencing',
                 },
                 {
