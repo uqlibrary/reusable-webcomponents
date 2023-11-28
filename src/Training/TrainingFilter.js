@@ -20,8 +20,8 @@ template.innerHTML = `
             <div class="keywordcontainer">
                 <div class="keywordPlaceholderMovement">
                     <label aria-label="filter by keyword">
-                        <input id="inputKeyword" data-testid="training-filter-keyword-entry" data-analyticsid="training-filter-keyword-entry" class="paper-input" autocomplete="off" placeholder=" " autocapitalize="none" autocorrect="off" aria-describedby="" aria-labelledby="keywordhover" tabindex="0">
-                        <span id="keywordhover" data-testid="training-filter-keyword-label" data-analyticsid="training-filter-keyword-label">By keyword</span>
+                        <input type="text" id="inputKeyword" data-testid="training-filter-keyword-entry" data-analyticsid="training-filter-keyword-entry" class="paper-input" autocomplete="off" placeholder=" " autocapitalize="none" autocorrect="off" aria-describedby="" aria-labelledby="keywordhover" tabindex="0">
+                        <span id="keywordhover" data-testid="training-filter-keyword-label" data-analyticsid="training-filter-keyword-label" class="filterFieldLabel">By keyword</span>
                     </label>                        
                     <button class="clearKeyword" id="clearKeyword" data-testid="training-filter-clear-keyword" data-analyticsid="training-filter-clear-keyword" aria-label="Clear Keyword">
                         <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="iron-icon" style="pointer-events: none; display: block; width: 100%; height: 100%;">
@@ -37,16 +37,16 @@ template.innerHTML = `
                     <span class="hidden">By campus</span>
                 </button>
                 <div id="campushoverblock" class="hoverblock">
-                    <div data-testid="training-filter-campus-label" data-analyticsid="training-filter-campus-label" id="campushover" class="campushover hovertext">By campus</div>
+                    <div data-testid="training-filter-campus-label" data-analyticsid="training-filter-campus-label" id="campushover" class="campushover hovertext filterFieldLabel">By campus</div>
                 </div>
                 <div tabindex="-1" data-testid="training-filter-campus-list" data-analyticsid="training-filter-campus-list" id="campuslist" class="selectorlist campuslist hidden" aria-expanded="false"></div>
             </div>
-            <div aria-label="filter by week" id="weekDropdown" data-testid="training-filter-week-dropdown" data-analyticsid="training-filter-week-dropdown" class="listHolder" aria-disabled="false">
+            <div aria-label="filter by week" id="weekDropdown" data-testid="training-filter-week-dropdown" data-analyticsid="training-filter-week-dropdown" class="listHolder weekSelector" aria-disabled="false">
                 <button data-testid="training-filter-week-container" data-analyticsid="training-filter-week-container" id="weekOpener" class="week opener filterer" aria-labelledby="weekhover">
                     <span class="hidden">By week</span>
                 </button>
                 <div id="weekhoverblock" class="hoverblock">
-                    <div data-testid="training-filter-week-label" data-analyticsid="training-filter-week-label" id="weekhover" class="weekhover hovertext">By week</div>
+                    <div data-testid="training-filter-week-label" data-analyticsid="training-filter-week-label" id="weekhover" class="weekhover hovertext filterFieldLabel">By week</div>
                 </div>
                 <div tabindex="-1" data-testid="training-filter-week-list" data-analyticsid="training-filter-week-list" id="weeklist" class="selectorlist weeklist hidden" aria-expanded="false"></div>
             </div>
