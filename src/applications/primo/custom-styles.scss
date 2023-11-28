@@ -281,6 +281,12 @@ prm-breadcrumbs {
         transform: none;
         padding-left: -2px;
     }
+    del {
+        text-decoration: unset; // remove the duplicate line through on the del when its manually applied to the wrapping div PT #183460865
+    }
+    .md-chip.facet-excluded.wrapping-chip .md-chip-content del.direction-ltr {
+        padding-left: 4px; // make the included chips line up with the excluded chips [PT #183460865]
+    }
     .md-chip.persistent-facet {
         strong {
             padding-left: 0;
@@ -540,13 +546,17 @@ button.md-button.link-alt-color {
 
 prm-breadcrumbs .md-chip.persistent-facet {
     background-color: $uqWarningLight;
-    .md-chip-content strong {
-        // reduce the padding on the locked facets
-        padding-left: 12px;
-    }
-    // when a facet is excluded and then locked in place, there is now a some extra padding between the lock icon and the text, with only the strikethrough line in that space.
-    .md-chip-content del {
-        padding-left: 15px;
+    .md-chip-content {
+        strong {
+            padding-left: 12px; // reduce the padding on the locked facets
+        }
+        del {
+            padding-left: 15px; // when a facet is excluded and then locked in place, there is now a some extra padding between the lock icon and the text, with only the strikethrough line in that space.
+            // locked facets with long text overrun the button area [PT #186320477]
+            text-wrap: nowrap;
+            white-space-collapse: collapse;
+            overflow: hidden;
+        }
     }
 }
 
@@ -1235,7 +1245,7 @@ prm-library-card-menu .subtext,
 .my-search-history-ctm .subtext,
 .my-favorties-ctm .subtext,
 .mylibrary-list .subtext {
-    font-size: 0.75em;
+    font-size: 12px;
     min-height: 1em;
     font-weight: 300;
     margin-bottom: 2px;
@@ -1325,7 +1335,8 @@ prm-library-card-menu .subtext,
     }
 }
 
-.mylibrary-list {
+// can be removed when old custom.js is presumed stale, presumably after sept 2023
+ul.mylibrary-list {
     &,
     li {
         list-style: none;
@@ -1376,6 +1387,7 @@ prm-library-card-menu .subtext,
     }
 }
 
+// can be removed when old custom.js is presumed stale, presumably after sept 2023
 // style the mobile account menu
 .mobile-main-menu-bg ul.mylibrary-list {
     margin-bottom: 0;
@@ -1395,9 +1407,94 @@ prm-library-card-menu .subtext,
         fill: #fff;
     }
 }
+
+.prm-user-menu-content {
+    overflow-y: hidden;
+}
+
+md-menu-item.uql-account-menu-option button {
+    display: flex;
+    margin-left: -20px;
+    margin-top: 10px;
+    margin-bottom: -10px;
+    align-items: flex-start;
+    min-height: 4em;
+    background-color: #fff;
+    border-width: 0;
+
+    &:active,
+    &:hover {
+        background-color: rgba(210, 210, 210, 0.5);
+    }
+
+    svg {
+        fill: #595959;
+        margin-left: 20px;
+        width: 24px;
+        margin-top: 0; // maybe not needed when old styling removed, when old custom.js is presumed stale (below here)
+    }
+    .textwrapper {
+        display: flex;
+        flex-direction: column;
+        font-size: 16px;
+        text-transform: initial;
+
+        span {
+            color: #595959;
+            text-align: left;
+        }
+    }
+
+    .primaryText {
+        font-weight: 400;
+        padding-left: 10px;
+    }
+    .subtext {
+        font-size: 12px;
+        font-weight: 300;
+        margin-left: 10px;
+    }
+}
+
+// style the mobile account menu
+.mobile-main-menu-bg md-menu-item.uql-account-menu-option {
+    width: 100%;
+    margin-top: 2px;
+    button {
+        margin-left: -30px;
+        background-color: inherit;
+
+        .primaryText,
+        .subtext,
+        {
+            background-color: inherit;
+            color: #fff;
+        }
+
+        svg {
+            fill: #fff;
+        }
+    }
+}
+md-menu-item.mobile-loggedout-feedback-item {
+    button {
+        background-color: transparent;
+
+        .textwrapper span {
+            color: #fff
+        }
+    }
+
+    svg.mobile-loggedout-feedback-item {
+        width: 45px;
+        fill: #fff;
+    }
+}
+
 // make the builtinAccountButton have similar spacing under it to the other items
 .mobile-main-menu-bg prm-library-card-menu {
-    margin-bottom: 0.4em;
+    margin-bottom: 2px;
+    margin-top: 0;
 }
 // line up the logout button text with our account items
 prm-authentication span[translate='eshelf.signout.title.link'] {
@@ -1455,6 +1552,8 @@ prm-main-menu md-content {
         margin-left: 10px;
     }
 }
+
+// check if can be removed when old custom.js is presumed stale, presumably after sept 2023 ???
 // desktop logged out menu feedback item styling
 md-menu-content .my-feedback-ctm {
     svg {
@@ -1543,8 +1642,8 @@ prm-main-menu .my-feedback-ctm {
     margin-left: -10px;
 }
 .culturalAdviceBanner p {
-    background-color: #bbd8f5;
-    border-color: #bbd8f5;
+    background-color: $uqInformationLight;
+    border-color: $uqInformationLight;
     border-radius: 3px;
     color: #000;
     padding: 1em;
@@ -1709,4 +1808,35 @@ md-select-menu.md-primoExplore-theme md-content md-option:not([disabled]):hover 
 // user name in account button should be black on hover, not exlibris-aqua
 prm-explore-main prm-user-area-expandable md-menu button.user-button.user-menu-button.button-with-menu-arrow.md-button.md-primoExplore-theme.md-ink-ripple:hover {
     color: #000;
+}
+
+// fix hover issues with "Include results regardless of availability" feature in the Citation Trail  [PT #186320477]
+prm-citation-trails-expand-button .switch-results md-switch.tiny-switch {
+    &:focus.active:focus:not([disabled]),
+    &:hover.active:hover:not([disabled]),
+    &:focus.inactive:focus:not([disabled]),
+    &:hover.inactive:hover:not([disabled]),
+    &:hover.md-checked .md-label {
+        color: $links-hue-3 !important;
+        background-color: $accent-color-half-opacity;
+    }
+
+    &.md-checked {
+        div {
+            color: $dark;
+        }
+        .md-container .md-bar,
+        .md-thumb-container .md-thumb {
+            background-color: $accent-color;
+        }
+    }
+}
+
+// highlight "Your search results were expanded to include results regardless of availability" message  [PT #186320477]
+prm-search-result-list .list-items-list .message-margin md-card  {
+    background-color: $uqInformationLight;
+    text-align: center;
+    span  {
+        font-style: normal
+    }
 }

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-Ua-Compatible" content="IE=edge,chrome=1" />
+    <meta name="title" content="SANDBOX University of Queensland - Fryer Library SANDBOX - Fryer Library SANDBOX" />
+    <meta name="description" content="Access to memory - Open information management toolkit" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <title>SANDBOX University of Queensland - Fryer Library SANDBOX - Fryer Library SANDBOX</title>
+    <link rel="shortcut icon" href="/favicon.ico"/>
+    <link media="all" href="https://manuscripts.library.uq.edu.au/plugins/arDominionPlugin/css/main.css" rel="stylesheet" type="text/css" />
+<body class="yui-skin-sam staticpage home">
+<header id="top-bar">
+
+    <a id="logo" rel="home" href="/index.php/" title=""><img alt="AtoM" src="https://manuscripts.library.uq.edu.au/images/logo.png" /></a>
+    <h1 id="site-name">
+        <a rel="home" title="Home" href="/index.php/"><span>Fryer Library SANDBOX</span></a>    </h1>
+
+    <nav>
+
+
+        <div id="user-menu">
+            <button class="top-item top-dropdown" data-toggle="dropdown" data-target="#"
+                    aria-expanded="false">
+                Log in    </button>
+
+            <div class="top-dropdown-container">
+
+                <div class="top-dropdown-arrow">
+                    <div class="arrow"></div>
+                </div>
+
+                <div class="top-dropdown-header">
+                    <h2>Have an account?</h2>
+                </div>
+
+                <div class="top-dropdown-body">
+
+                    <form action="/index.php/user/login" method="post">
+                        <input type="hidden" name="next" value="https://sandbox-fryer.library.uq.edu.au/" id="next" />
+                        <div class="form-item form-item-email">
+                            <label for="email">Email <span class="form-required" title="This field is required.">*</span></label>
+                            <input type="text" name="email" id="email" />
+
+                        </div>
+
+                        <div class="form-item form-item-password">
+                            <label for="password">Password <span class="form-required" title="This field is required.">*</span></label>
+                            <input type="password" name="password" autocomplete="off" id="password" />
+
+                        </div>
+
+                        <button type="submit">Log in</button>
+
+                    </form>
+
+                </div>
+
+                <div class="top-dropdown-bottom"></div>
+
+            </div>
+        </div>
+
+
+        <div id="quick-links-menu" data-toggle="tooltip" data-title="Quick links">
+
+            <button class="top-item" data-toggle="dropdown" data-target="#" aria-expanded="false">Quick links</button>
+
+            <div class="top-dropdown-container">
+
+                <div class="top-dropdown-arrow">
+                    <div class="arrow"></div>
+                </div>
+
+                <div class="top-dropdown-header">
+                    <h2>Quick links</h2>
+                </div>
+
+                <div class="top-dropdown-body">
+                    <ul>
+                        <li><a href="https://web.library.uq.edu.au/locations-hours/fryer-library" title="Fryer Library Home">Fryer Library Home</a></li>
+                        <li><a href="https://web.library.uq.edu.au/locations-hours/fryer-library/request-fryer-item/fryer-item-request-form" title="Request Fryer Library item">Request Fryer Library item</a></li>
+                        <li><a href="https://guides.library.uq.edu.au/referencing-fryer-manuscripts" title="Manuscripts referencing guide">Manuscripts referencing guide</a></li>
+                        <li><a href="https://www.uq.edu.au/" title="UQ Home">UQ Home</a></li>
+                        <li><a href="http://www.uq.edu.au/terms-of-use/" title="Privacy Policy">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+                <div class="top-dropdown-bottom"></div>
+
+            </div>
+
+        </div>
+
+        <div id="language-menu" data-toggle="tooltip" data-title="Language">
+
+            <button class="top-item" data-toggle="dropdown" data-target="#" aria-expanded="false">Language</button>
+
+            <div class="top-dropdown-container">
+
+                <div class="top-dropdown-arrow">
+                    <div class="arrow"></div>
+                </div>
+
+                <div class="top-dropdown-header">
+                    <h2>Language</h2>
+                </div>
+
+                <div class="top-dropdown-body">
+                    <ul>
+                        <li class="active">
+                            <a href="/index.php/?sf_culture=en" title="English">English</a>          </li>
+                        <li>
+                            <a href="/index.php/?sf_culture=fr" title="français">français</a>          </li>
+                        <li>
+                            <a href="/index.php/?sf_culture=es" title="español">español</a>          </li>
+                        <li>
+                            <a href="/index.php/?sf_culture=nl" title="Nederlands">Nederlands</a>          </li>
+                        <li>
+                            <a href="/index.php/?sf_culture=de" title="Deutsch">Deutsch</a>          </li>
+                    </ul>
+                </div>
+
+                <div class="top-dropdown-bottom"></div>
+
+            </div>
+
+        </div>
+
+        <div id="clipboard-menu" data-toggle="tooltip" data-title="Clipboard" data-clipboard-status-url="/index.php/user/clipboardStatus" data-alert-message="Note: clipboard items unclipped in this page will be removed from the clipboard when the page is refreshed. You can re-select them now, or reload the page to remove them completely. Using the sort or print preview buttons will also cause a page reload - so anything currently deselected will be lost!">
+
+            <button class="top-item" data-toggle="dropdown" data-target="#" aria-expanded="false">
+                Clipboard  </button>
+
+            <div class="top-dropdown-container">
+
+                <div class="top-dropdown-arrow">
+                    <div class="arrow"></div>
+                </div>
+
+                <div class="top-dropdown-header">
+                    <h2>Clipboard</h2>
+                    <span id="count-block" data-information-object-label="Archival description" data-actor-object-label="Authority record" data-repository-object-label="Archival institution"></span>
+                </div>
+
+                <div class="top-dropdown-body">
+                    <ul>
+                        <li class="leaf" id="node_clearClipboard"><a href="/index.php/user/clipboardClear" title="Clear all selections">Clear all selections</a></li><li class="leaf" id="node_goToClipboard"><a href="/index.php/user/clipboard" title="Go to clipboard">Go to clipboard</a></li><li class="leaf" id="node_loadClipboard"><a href="/index.php/user/clipboardLoad" title="Load clipboard">Load clipboard</a></li><li class="leaf" id="node_saveClipboard"><a href="/index.php/user/clipboardSave" title="Save clipboard">Save clipboard</a></li>      </ul>
+                </div>
+
+                <div class="top-dropdown-bottom"></div>
+
+            </div>
+
+        </div>
+
+
+    </nav>
+
+    <div id="search-bar">
+
+        <div id="browse-menu">
+
+            <button class="top-item top-dropdown" data-toggle="dropdown" data-target="#" aria-expanded="false">Browse</button>
+
+            <div class="top-dropdown-container top-dropdown-container-right">
+
+                <div class="top-dropdown-arrow">
+                    <div class="arrow"></div>
+                </div>
+
+                <div class="top-dropdown-header">
+                    <h2>Browse</h2>
+                </div>
+
+                <div class="top-dropdown-body">
+                    <ul>
+                        <li class="leaf" id="node_browseInformationObjects"><a href="/index.php/informationobject/browse" title="Archival descriptions">Archival descriptions</a></li><li class="leaf" id="node_browseActors"><a href="/index.php/actor/browse" title="Authority records">Authority records</a></li><li class="leaf" id="node_browseRepositories"><a href="/index.php/repository/browse" title="Archival institutions">Archival institutions</a></li><li class="leaf" id="node_browseSubjects"><a href="/index.php/taxonomy/index/id/35" title="Subjects">Subjects</a></li><li class="leaf" id="node_browsePlaces"><a href="/index.php/taxonomy/index/id/42" title="Places">Places</a></li><li class="leaf" id="node_browseDigitalObjects"><a href="/index.php/informationobject/browse?view=card&amp;onlyMedia=1&amp;topLod=0" title="Digital objects">Digital objects</a></li><li class="leaf" id="node_browseFunctions"><a href="/index.php/function/browse" title="Functions">Functions</a></li><li class="leaf" id="node_browseGenre"><a href="/index.php/taxonomy/browse/id/78" title="Genre">Genre</a></li>      </ul>
+                </div>
+
+                <div class="top-dropdown-bottom"></div>
+
+            </div>
+
+        </div>
+
+        <div id="search-form-wrapper" role="search">
+
+            <h2>Search</h2>
+
+            <form action="/index.php/informationobject/browse" data-autocomplete="/index.php/search/autocomplete" autocomplete="off">
+
+                <input type="hidden" name="topLod" value="0"/>
+                <input type="hidden" name="sort" value="relevance"/>
+
+                <input type="text" name="query" value="" placeholder="Search"/>
+
+                <button><span>Search</span></button>
+
+                <div id="search-realm" class="search-popover">
+
+
+                    <div class="search-realm-advanced">
+                        <a href="/index.php/informationobject/browse?showAdvanced=1&topLod=0">
+                            Advanced search&nbsp;&raquo;
+                        </a>
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+</header>
+
+
+
+<div id="wrapper" class="container" role="main">
+
+
+
+    <div class="row">
+
+        <div class="span3">
+
+            <div id="sidebar">
+
+
+
+                <section>
+                    <h2>Browse by</h2>
+                    <ul>
+                        <li><a href="/index.php/informationobject/browse">Archival descriptions</a></li>
+                        <li><a href="/index.php/actor/browse">Authority records</a></li>
+                        <li><a href="/index.php/repository/browse">Archival institutions</a></li>
+                        <li><a href="/index.php/taxonomy/index/id/35">Subjects</a></li>
+                        <li><a href="/index.php/taxonomy/index/id/42">Places</a></li>
+                        <li><a href="/index.php/informationobject/browse?view=card&onlyMedia=1&topLod=0">Digital objects</a></li>
+                        <li><a href="/index.php/function/browse">Functions</a></li>
+                        <li><a href="/index.php/taxonomy/browse/id/78">Genre</a></li>
+                    </ul>
+                </section>
+
+                <section id="popular-this-week">
+
+                    <h2>Popular this week</h2>
+                    <ul>
+                        <li><a href="/index.php/test-identifier-field">TEST TITLE FIELD<strong>&nbsp;&nbsp;13 visits</strong></a></li>
+                        <li><a href="/index.php/uqfl96">James G. Drake Papers<strong>&nbsp;&nbsp;9 visits</strong></a></li>
+                        <li><a href="/index.php/uqfl163">David Malouf Papers<strong>&nbsp;&nbsp;4 visits</strong></a></li>
+                        <li><a href="/index.php/uqfl84-series-a-subseries-1-item-1">Notebook titled 'Prose'<strong>&nbsp;&nbsp;3 visits</strong></a></li>
+                        <li><a href="/index.php/uqfl399">Ron Leeks Political posters<strong>&nbsp;&nbsp;2 visits</strong></a></li>
+                        <li><a href="/index.php/uqfl489">Caroline Kelly Papers<strong>&nbsp;&nbsp;2 visits</strong></a></li>
+                        <li><a href="/index.php/uqfl84">Oodgeroo Noonuccal Papers<strong>&nbsp;&nbsp;2 visits</strong></a></li>
+                        <li><a href="/index.php/uqfl28">Philp Family Papers<strong>&nbsp;&nbsp;1 visits</strong></a></li>
+                        <li><a href="/index.php/uqfl117">James Birrell Papers [TEMPORARILY UNAVAILABLE]<strong>&nbsp;&nbsp;1 visits</strong></a></li>
+                        <li><a href="/index.php/fvf16-a32-1">Polemic. (Brisbane, 1978?) 3 issues.<strong>&nbsp;&nbsp;1 visits</strong></a></li>
+                    </ul>
+
+                </section>
+
+
+            </div>
+
+        </div>
+
+        <div class="span9">
+
+            <div id="main-column">
+
+                <h1>SANDBOX University of Queensland - Fryer Library SANDBOX</h1>
+
+
+                <div id="content">
+
+
+
+                    <div class="page">
+                        <h2>Using the FRYER LIBRARY SANDBOX</h2>
+                        <p>Use this sandbox to test stuff.</p>
+                        <h2>This is a test of the altered home page wording as at 31 August 2023</h2>
+                        <h1>Find Fryer Library manuscript collections</h1>
+                        <p>Use this discovery service to search or browse personal papers, records and more. Manuscripts are generally arranged in collections according to who created or collected the material.</p>
+                        <p>Search for keywords using the search box or try <a href="https://manuscripts.library.uq.edu.au/index.php/informationobject/browse?showAdvanced=1&topLod=0">Advanced search</a>.</p>
+                        <p>Browse by <a href="https://manuscripts.library.uq.edu.au/index.php/actor/browse">people or organisations</a> or by <a href="https://manuscripts.library.uq.edu.au/index.php/subjects">subject</a>.</p>
+                        <p>Use <a href="https://library.uq.edu.au">Library Search</a> to explore Fryer Library's published material.</p>
+                        <h2>Apply for Fryer Library membership</h2>
+                        <p>Fryer Library visitors without University of Queensland identification must apply for free <a href="https://app.library.uq.edu.au/#/membership/form/fryer">Fryer Library membership</a> . Fryer Library membership allows visitors access to Fryer Library material only in the FW Robinson Reading Room.</p>
+                        <h2>Access Fryer Library materials by appointment</h2>
+                        <p><a href="https://web.library.uq.edu.au/locations-hours/fw-robinson-reading-room">Make an appointment</a> to access Fryer Library materials in the FW Robinson Reading Room. Bookings are made at least five days in advance to allow retrieval from offsite locations. Appointments are available Monday to Thursday, 9.30am-12.30pm and 1.30-4.30pm. Your booking confirmation letter will contain a link to request the Fryer Library material.</p>
+                        <p><a href="https://web.library.uq.edu.au/locations-hours/fw-robinson-reading-room">More about the FW Robinson Reading Room</a></p>
+                        <h1>Reconciliation at UQ</h1>
+                        <p>UQ acknowledges and respects Aboriginal and Torres Strait Islander peoples as First Australians, whose knowledge, cultures, histories and languages have been created and shared for at least 65,000 years.</p>
+                        <p>UQ affirms its support for the Uluru Statement from the Heart, noting that the crucial details of Voice to Parliament and a process for Treaty Making and truth telling are the subject of continuing consultations among First Nations representatives, Federal and State Governments and the broader Australian community.</p>
+                        <p>Our vision is to build a strong sense of belonging in an inclusive UQ that works respectfully with Aboriginal and Torres Strait Islander students, staff, and communities in teaching, research and collaboration</p>
+                        <h2>Cultural advice</h2>
+                        <p>Aboriginal and Torres Strait Islander peoples are advised that our manuscript material may contain images, voices, or names of persons now deceased. Information may be culturally sensitive for some individuals and communities.</p>
+                        <p>If you would like to notify the us of culturally sensitive information, you can follow the steps on <a href="https://web.library.uq.edu.au/collections/culturally-sensitive-collections">Culturally sensitive collections</a>, and we will investigate the materials and work with you to resolve the matter promptly.</p>
+                        <h1>Sensitivity message</h1>
+                        <p>The Fryer Library Special Collections consist of historical items and records that may contain outdated and offensive language in their titles and descriptions, and/or may depict individuals or groups in a negative way. Contact us in the Fryer Library if you have concerns.</p>
+                        <h3>About this database</h3>
+                        <p>Fryer Library Manuscripts is built with <a href="https://wiki.accesstomemory.org/wiki/Main_Page">AtoM (Access to Memory)</a>, a web-based, open-source application for archival description and access, based on international standards.</p>
+                        <h3>Privacy Policy</h3>
+                        <p>View the <a href="http://www.uq.edu.au/terms-of-use/">Privacy policy</a> of the University of Queensland.</p>
+                        <h3>Contact us</h3>
+                        <p>For more information contact Fryer Library directly at <a href="mailto:fryer@library.uq.edu.au">fryer@library.uq.edu.au</a>.</p></div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<footer>
+
+
+
+    <div id="print-date">
+        Printed: 2023-09-06  </div>
+
+    <script type="text/javascript" defer="defer" src="/applications/atom/load.js"></script>
+
+</footer>
+
+
+</body>
+</html>

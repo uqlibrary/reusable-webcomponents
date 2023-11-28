@@ -93,9 +93,14 @@ export default {
                     linkTo: 'https://web.library.uq.edu.au/library-services/it',
                 },
                 {
-                    primaryText: 'Copyright advice',
-                    secondaryText: 'For teaching, research, publishing ...',
-                    linkTo: 'https://web.library.uq.edu.au/library-services/copyright-advice',
+                    primaryText: 'Indigenising Curriculum',
+                    secondaryText: 'Resources for teachers',
+                    linkTo: 'https://web.library.uq.edu.au/library-services/teaching-staff/indigenising-curriculum-resources',
+                },
+                {
+                    primaryText: 'Copyright',
+                    secondaryText: 'For teaching, research, theses ...',
+                    linkTo: 'https://web.library.uq.edu.au/library-services/copyright',
                 },
                 {
                     primaryText: 'Digitisation',
@@ -167,7 +172,7 @@ export default {
                 },
                 {
                     primaryText: 'Referencing style guides',
-                    secondaryText: 'APA, AGLC, Harvard, Chicago ...',
+                    secondaryText: 'APA, AGLC, Chicago ...',
                     linkTo: 'https://guides.library.uq.edu.au/referencing',
                 },
                 {
