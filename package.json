@@ -39,7 +39,7 @@
   },
   "engines": {
     "npm": "^8",
-    "node": ">=16.13.2"
+    "node": ">=16.20.2"
   },
   "repository": {
     "type": "git",
