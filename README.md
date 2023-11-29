@@ -8,7 +8,7 @@ The 'applications/' folder allows us to version control changes to the scripts w
 
 1. Clone from github
 
-2. install npm: `nvm use 16.13.2 && npm i -g npm@8 webpack-dev-server`
+2. install npm: `nvm use 16.20.2 && npm i -g npm@8 webpack-dev-server`
 
 3. Create these git hooks to manage branches to project standard:
 
