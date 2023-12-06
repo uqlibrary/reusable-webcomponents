@@ -1,6 +1,7 @@
-const productionDomain = 'web.library.uq.edu.au';
-const stagingDomain = 'web-staging.library.uq.edu.au';
-const featureBranchName = 'drupal-staging';
+const libraryProductionDomain = 'web.library.uq.edu.au';
+const libraryStagingDomain = 'web-staging.library.uq.edu.au';
+const libraryFeatureBranchName = 'drupal-staging';
+const libraryAssetsRootLocation = 'https://assets.library.uq.edu.au/reusable-webcomponents';
 
 function ready(fn) {
     if (document.readyState !== 'loading') {
@@ -57,9 +58,8 @@ function addCss(fileName) {
     head.appendChild(link);
 }
 
-const validDrupalHosts = [productionDomain, stagingDomain, 'localhost:8080'];
 // certain admin pages in drupal don't take the webcomponents because they interact badly
-const pagesWithoutComponents = [
+const libraryPagesWithoutComponents = [
     '/src/applications/drupal/pageWithoutComponents.html', // localhost test this concept
     '/ckfinder/browse',
     '/ckfinder/browse/images',
@@ -69,18 +69,25 @@ const pagesWithoutComponents = [
 function insertScript(url, defer = false) {
     const scriptfound = document.querySelector("script[src*='" + url + "']");
     if (!scriptfound) {
-        const heads = document.getElementsByTagName('head');
-        if (heads && heads.length) {
-            const head = heads[0];
-            if (head) {
-                const script = document.createElement('script');
-                script.setAttribute('type', 'text/javascript');
-                script.setAttribute('src', url);
-                !!defer && script.setAttribute('defer', '');
-                head.appendChild(script);
-            }
+        const head = document.querySelector('head');
+        if (head) {
+            const script = document.createElement('script');
+            script.setAttribute('type', 'text/javascript');
+            script.setAttribute('src', url);
+            !!defer && script.setAttribute('defer', '');
+            head.appendChild(script);
         }
     }
+}
+
+const stagingHosts = [libraryStagingDomain, 'dev-library-uq.pantheonsite.io'];
+function isStagingSite() {
+    return stagingHosts.includes(window.location.hostname);
+}
+
+function isValidDrupalHost() {
+    const validHosts = [libraryProductionDomain, ...stagingHosts, 'localhost:8080'];
+    return validHosts.includes(window.location.host);
 }
 
 function localScriptName() {
@@ -89,18 +96,18 @@ function localScriptName() {
         return '/' + drupalJsFilename;
     }
     let folder = '/'; // default. Use for prod.
-    if (window.location.hostname === stagingDomain) {
-        folder = `-development/${featureBranchName}/`;
+    if (isStagingSite()) {
+        folder = `-development/${libraryFeatureBranchName}/`;
     } else if (window.location.hostname === 'assets.library.uq.edu.au') {
         if (/reusable-webcomponents-staging/.test(window.location.href)) {
             folder = '-staging/';
         } else if (/reusable-webcomponents-development\/master/.test(window.location.href)) {
             folder = '-development/master/';
         } else {
-            folder = `-development/${featureBranchName}/`;
+            folder = `-development/${libraryFeatureBranchName}/`;
         }
     }
-    return 'https://assets.library.uq.edu.au/reusable-webcomponents' + folder + drupalJsFilename;
+    return libraryAssetsRootLocation + folder + drupalJsFilename;
 }
 
 function loadReusableComponentsDrupal() {
@@ -111,15 +118,13 @@ function loadReusableComponentsDrupal() {
     fontLoader('https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css');
     fontLoader('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
 
-    if (validDrupalHosts.includes(window.location.host) && pagesWithoutComponents.includes(window.location.pathname)) {
+    if (isValidDrupalHost() && libraryPagesWithoutComponents.includes(window.location.pathname)) {
         return;
     }
 
-    const stagingLocation = `-development/${featureBranchName}`;
+    const stagingLocation = `-development/${libraryFeatureBranchName}`;
     const cssFile =
-        '//assets.library.uq.edu.au/reusable-webcomponents' +
-        (window.location.host === stagingDomain ? stagingLocation : '') +
-        '/applications/drupal/custom-styles.css';
+        libraryAssetsRootLocation + (isStagingSite() ? stagingLocation : '') + '/applications/drupal/custom-styles.css';
     addCss(cssFile);
 
     const firstElement = document.body.children[0];
@@ -129,46 +134,59 @@ function loadReusableComponentsDrupal() {
 
     // gtm is inserted by drupal
 
-    // if (!document.querySelector('uq-header')) {
-    //     const header = document.createElement('uq-header');
-    //     !!header && header.setAttribute('hideLibraryMenuItem', '');
-    //     // no 'skip to content' as drupal provides a 'skip to menu' on first click
-    //     !!header && document.body.insertBefore(header, firstElement);
-    // }
+    // uq-header is done manually by drupal
 
     if (!document.querySelector('uq-site-header')) {
-        const siteHeader = document.createElement('uq-site-header');
-        // !!siteHeader && siteHeader.setAttribute('showmenu', '');
+        const librarySiteHeader = document.createElement('uq-site-header');
 
         const askusButton = createAskusButton();
-        !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
+        !!librarySiteHeader && !!askusButton && librarySiteHeader.appendChild(askusButton);
 
         const authButton = createAuthButton();
-        !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
+        !!librarySiteHeader && !!authButton && librarySiteHeader.appendChild(authButton);
 
-        !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
+        const replaceableUqHeader = document.querySelector('.uq-site-header');
+        if (!!replaceableUqHeader) {
+            !!librarySiteHeader && replaceableUqHeader.parentNode.replaceChild(librarySiteHeader, replaceableUqHeader);
+        } else {
+            // if drupal have changed the markup insert the element _somewhere_ anyway
+            !!librarySiteHeader && document.body.insertBefore(librarySiteHeader, firstElement);
+        }
     }
 
     if (!document.querySelector('alert-list')) {
         const alerts = document.createElement('alert-list');
         !!alerts && alerts.setAttribute('system', 'drupal');
-        !!alerts && document.body.insertBefore(alerts, firstElement);
+        const librarySiteHeader = document.querySelector('uq-site-header');
+        if (!!librarySiteHeader) {
+            !!alerts && librarySiteHeader.parentNode.insertBefore(alerts, librarySiteHeader.nextSibling);
+        } else {
+            // if drupal have changed the markup insert the element _somewhere_ anyway
+            !!alerts && document.body.insertBefore(alerts, firstElement);
+        }
     }
 
-    if (!document.querySelector('connect-footer')) {
-        const connectFooter = document.createElement('connect-footer');
-        !!connectFooter && document.body.appendChild(connectFooter);
-    }
-    // cultural advice popup
+    const uqFooter = document.querySelector('footer.uq-footer');
     if (!document.querySelector('cultural-advice-popup')) {
         const culturalAdvice = document.createElement('cultural-advice-popup');
-        !!culturalAdvice && document.body.appendChild(culturalAdvice);
+        if (!!uqFooter) {
+            !!culturalAdvice && uqFooter.insertBefore(culturalAdvice, uqFooter.firstChild);
+        } else {
+            // if drupal have changed the markup insert the element _somewhere_ anyway
+            !!culturalAdvice && document.body.appendChild(culturalAdvice);
+        }
+    }
+    if (!document.querySelector('connect-footer')) {
+        const connectFooter = document.createElement('connect-footer');
+        if (!!uqFooter) {
+            !!connectFooter && uqFooter.insertBefore(connectFooter, uqFooter.firstChild);
+        } else {
+            // if drupal have changed the markup insert the element _somewhere_ anyway
+            !!connectFooter && document.body.appendChild(connectFooter);
+        }
     }
 
-    // if (!document.querySelector('uq-footer')) {
-    //     const subFooter = document.createElement('uq-footer');
-    //     !!subFooter && document.body.appendChild(subFooter);
-    // }
+    // uq-footer is done manually by drupal
 
     // Proactive Chat button
     if (!document.querySelector('proactive-chat')) {
@@ -178,3 +196,7 @@ function loadReusableComponentsDrupal() {
 }
 
 ready(loadReusableComponentsDrupal);
+
+// may need to put
+// <script type="text/javascript" src="https://assets.library.uq.edu.au/reusable-webcomponents-development/drupal-staging/drupal-lib-reusable.min.js" defer=""></script>
+// in from drupal too. It doesnt seem to fire the include?
