@@ -158,10 +158,16 @@ function loadReusableComponentsDrupal() {
         const alerts = document.createElement('alert-list');
         !!alerts && alerts.setAttribute('system', 'drupal');
         const librarySiteHeader = document.querySelector('uq-site-header');
+        const globalAlerts = document.querySelector('.uq-alerts-global-container');
+        const pageHeader = document.querySelector('header');
         if (!!librarySiteHeader) {
             !!alerts && librarySiteHeader.parentNode.insertBefore(alerts, librarySiteHeader.nextSibling);
-        } else {
             // if drupal have changed the markup insert the element _somewhere_ anyway
+        } else if (!!globalAlerts) {
+            globalAlerts.parentNode.insertBefore(alerts, globalAlerts.nextSibling);
+        } else if (!!pageHeader) {
+            !!alerts && pageHeader.insertBefore(alerts, pageHeader.firstChild);
+        } else {
             !!alerts && document.body.insertBefore(alerts, firstElement);
         }
     }
