@@ -1,3 +1,5 @@
+const productionDomain = 'web.library.uq.edu.au';
+const stagingDomain = 'web-staging.library.uq.edu.au';
 const featureBranchName = 'drupal-staging';
 
 function ready(fn) {
@@ -35,19 +37,19 @@ function createAskusButton() {
     return !!askusButton && createSlotForButtonInUtilityArea(askusButton, 'askus');
 }
 
-function fontLoader(font) {
-    var headID = document.getElementsByTagName('head')[0];
-    var link = document.createElement('link');
+// example usage: fontLoader('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
+function fontLoader(fontFileFullLink) {
+    const headID = document.getElementsByTagName('head')[0];
+    const link = document.createElement('link');
     link.type = 'text/css';
     link.rel = 'stylesheet';
-    headID.appendChild(link);
-    link.href = font;
+    !!headID && headID.appendChild(link);
+    link.href = fontFileFullLink;
 }
 
 function addCss(fileName) {
-    var head = document.head,
-        link = document.createElement('link');
-
+    const head = document.head;
+    const link = document.createElement('link');
     link.type = 'text/css';
     link.rel = 'stylesheet';
     link.href = fileName;
@@ -55,10 +57,10 @@ function addCss(fileName) {
     head.appendChild(link);
 }
 
-// certain admin pages in drupal dont take the webcomponents because they interact badly
-const drupalHosts = ['web.library.uq.edu.au', 'library.stage.drupal.uq.edu.au', 'localhost:8080'];
+const validDrupalHosts = [productionDomain, stagingDomain, 'localhost:8080'];
+// certain admin pages in drupal don't take the webcomponents because they interact badly
 const pagesWithoutComponents = [
-    '/src/applications/drupal/pageWithoutComponents.html', // localhost
+    '/src/applications/drupal/pageWithoutComponents.html', // localhost test this concept
     '/ckfinder/browse',
     '/ckfinder/browse/images',
     '/ckfinder/browse/files',
@@ -82,12 +84,12 @@ function insertScript(url, defer = false) {
 }
 
 function localScriptName() {
-    const drupaljs = 'drupal-lib-reusable.min.js';
+    const drupalJsFilename = 'drupal-lib-reusable.min.js';
     if (window.location.host === 'localhost:8080') {
-        return '/' + drupaljs;
+        return '/' + drupalJsFilename;
     }
-    var folder = '/'; // default. Use for prod.
-    if (window.location.hostname === 'library.stage.drupal.uq.edu.au') {
+    let folder = '/'; // default. Use for prod.
+    if (window.location.hostname === stagingDomain) {
         folder = `-development/${featureBranchName}/`;
     } else if (window.location.hostname === 'assets.library.uq.edu.au') {
         if (/reusable-webcomponents-staging/.test(window.location.href)) {
@@ -98,7 +100,7 @@ function localScriptName() {
             folder = `-development/${featureBranchName}/`;
         }
     }
-    return 'https://assets.library.uq.edu.au/reusable-webcomponents' + folder + drupaljs;
+    return 'https://assets.library.uq.edu.au/reusable-webcomponents' + folder + drupalJsFilename;
 }
 
 function loadReusableComponentsDrupal() {
@@ -109,14 +111,14 @@ function loadReusableComponentsDrupal() {
     fontLoader('https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css');
     fontLoader('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
 
-    if (drupalHosts.includes(window.location.host) && pagesWithoutComponents.includes(window.location.pathname)) {
+    if (validDrupalHosts.includes(window.location.host) && pagesWithoutComponents.includes(window.location.pathname)) {
         return;
     }
 
     const stagingLocation = `-development/${featureBranchName}`;
     const cssFile =
         '//assets.library.uq.edu.au/reusable-webcomponents' +
-        (window.location.host === 'library.stage.drupal.uq.edu.au' ? stagingLocation : '') +
+        (window.location.host === stagingDomain ? stagingLocation : '') +
         '/applications/drupal/custom-styles.css';
     addCss(cssFile);
 
