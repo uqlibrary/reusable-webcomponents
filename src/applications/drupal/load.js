@@ -1,3 +1,5 @@
+const featureBranchName = 'drupal-staging';
+
 function ready(fn) {
     if (document.readyState !== 'loading') {
         fn();
@@ -78,6 +80,7 @@ function insertScript(url, defer = false) {
         }
     }
 }
+
 function localScriptName() {
     const drupaljs = 'drupal-lib-reusable.min.js';
     if (window.location.host === 'localhost:8080') {
@@ -85,14 +88,14 @@ function localScriptName() {
     }
     var folder = '/'; // default. Use for prod.
     if (window.location.hostname === 'library.stage.drupal.uq.edu.au') {
-        folder = '-development/feature-drupal/';
+        folder = `-development/${featureBranchName}/`;
     } else if (window.location.hostname === 'assets.library.uq.edu.au') {
         if (/reusable-webcomponents-staging/.test(window.location.href)) {
             folder = '-staging/';
         } else if (/reusable-webcomponents-development\/master/.test(window.location.href)) {
             folder = '-development/master/';
         } else {
-            folder = '-development/feature-drupal/';
+            folder = `-development/${featureBranchName}/`;
         }
     }
     return 'https://assets.library.uq.edu.au/reusable-webcomponents' + folder + drupaljs;
@@ -110,7 +113,7 @@ function loadReusableComponentsDrupal() {
         return;
     }
 
-    const stagingLocation = '-development/feature-drupal';
+    const stagingLocation = `-development/${featureBranchName}`;
     const cssFile =
         '//assets.library.uq.edu.au/reusable-webcomponents' +
         (window.location.host === 'library.stage.drupal.uq.edu.au' ? stagingLocation : '') +
@@ -124,16 +127,16 @@ function loadReusableComponentsDrupal() {
 
     // gtm is inserted by drupal
 
-    if (!document.querySelector('uq-header')) {
-        const header = document.createElement('uq-header');
-        !!header && header.setAttribute('hideLibraryMenuItem', '');
-        // no 'skip to content' as drupal provides a 'skip to menu' on first click
-        !!header && document.body.insertBefore(header, firstElement);
-    }
+    // if (!document.querySelector('uq-header')) {
+    //     const header = document.createElement('uq-header');
+    //     !!header && header.setAttribute('hideLibraryMenuItem', '');
+    //     // no 'skip to content' as drupal provides a 'skip to menu' on first click
+    //     !!header && document.body.insertBefore(header, firstElement);
+    // }
 
     if (!document.querySelector('uq-site-header')) {
         const siteHeader = document.createElement('uq-site-header');
-        !!siteHeader && siteHeader.setAttribute('showmenu', '');
+        // !!siteHeader && siteHeader.setAttribute('showmenu', '');
 
         const askusButton = createAskusButton();
         !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
@@ -142,11 +145,6 @@ function loadReusableComponentsDrupal() {
         !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
 
         !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
-    }
-    // Proactive Chat button
-    if (!document.querySelector('proactive-chat')) {
-        const proactiveChat = document.createElement('proactive-chat');
-        !!proactiveChat && document.body.insertBefore(proactiveChat, firstElement);
     }
 
     if (!document.querySelector('alert-list')) {
@@ -165,9 +163,15 @@ function loadReusableComponentsDrupal() {
         !!culturalAdvice && document.body.appendChild(culturalAdvice);
     }
 
-    if (!document.querySelector('uq-footer')) {
-        const subFooter = document.createElement('uq-footer');
-        !!subFooter && document.body.appendChild(subFooter);
+    // if (!document.querySelector('uq-footer')) {
+    //     const subFooter = document.createElement('uq-footer');
+    //     !!subFooter && document.body.appendChild(subFooter);
+    // }
+
+    // Proactive Chat button
+    if (!document.querySelector('proactive-chat')) {
+        const proactiveChat = document.createElement('proactive-chat');
+        !!proactiveChat && document.body.appendChild(proactiveChat);
     }
 }
 
