@@ -127,6 +127,11 @@ function getIncludeFileLocation(filename) {
     return `https://assets.library.uq.edu.au/reusable-webcomponents${fileLocationFragment}/${filename}`;
 }
 
+function relabelMenuDropdown() {
+    const hamburgerMenuHeading = document.querySelector('#quick-links-menu .top-dropdown-header h2');
+    !!hamburgerMenuHeading && (hamburgerMenuHeading.textContent = 'Menu');
+}
+
 function loadReusableComponentsAtom() {
     const cssFile = getIncludeFileLocation('applications/atom/custom-styles.css');
     // note: we cannot reach css in the localhost dist folder for test
@@ -147,6 +152,8 @@ function loadReusableComponentsAtom() {
     swapQuickMenuIcon();
 
     addCulturalAdvicePopup();
+
+    relabelMenuDropdown();
 }
 
 ready(loadReusableComponentsAtom);

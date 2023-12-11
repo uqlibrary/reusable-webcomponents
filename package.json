@@ -38,8 +38,8 @@
     "test": "start-server-and-test start-test-server http://localhost:8080 cypress:run:record"
   },
   "engines": {
-    "npm": "^8",
-    "node": ">=16.20.2"
+    "npm": "~10.2.3",
+    "node": ">=18.19.0"
   },
   "repository": {
     "type": "git",
