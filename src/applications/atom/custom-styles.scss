@@ -69,3 +69,11 @@
     margin-top: 6px;
   }
 }
+
+// hide the "Quick links" tool tip that appears when the user mouses over the hamburger button
+nav {
+  .tooltip-arrow,
+  .tooltip-inner {
+    display: none;
+  }
+}

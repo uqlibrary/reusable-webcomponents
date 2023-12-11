@@ -28,8 +28,8 @@ phases:
     runtime-versions:
       java: corretto11
       nodejs: 14
-    #commands:
-      # - command
+    commands:
+      - n 18
       # - command
   pre_build:
     commands:
