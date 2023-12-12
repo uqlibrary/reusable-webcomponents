@@ -29,6 +29,7 @@ phases:
       java: corretto11
       nodejs: 14
     commands:
+      - n 16
       - set
       - sysctl fs.inotify.max_user_watches
       - sysctl fs.inotify.max_user_watches=524288
