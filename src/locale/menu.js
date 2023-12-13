@@ -351,7 +351,7 @@ export default {
                 },
                 {
                     primaryText: 'Rural Clinical School',
-                    linkTo: 'https://web.library.uq.edu.au/locations-hours/rural-clinical-school-rcs-library',
+                    linkTo: 'https://web.library.uq.edu.au/locations-hours/rural-clinical-school',
                 },
                 {
                     primaryText: 'Warehouse',
