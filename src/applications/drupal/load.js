@@ -202,7 +202,3 @@ function loadReusableComponentsDrupal() {
 }
 
 ready(loadReusableComponentsDrupal);
-
-// may need to put
-// <script type="text/javascript" src="https://assets.library.uq.edu.au/reusable-webcomponents-development/drupal-staging/drupal-lib-reusable.min.js" defer=""></script>
-// in from drupal too. It doesnt seem to fire the include?
