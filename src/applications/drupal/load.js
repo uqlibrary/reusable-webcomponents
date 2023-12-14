@@ -90,10 +90,9 @@ function isValidDrupalHost() {
     return validHosts.includes(window.location.host);
 }
 
-function localScriptName() {
-    const drupalJsFilename = 'drupal-lib-reusable.min.js';
+function localScriptName(jsFilename) {
     if (window.location.host === 'localhost:8080') {
-        return '/' + drupalJsFilename;
+        return '/' + jsFilename;
     }
     let folder = '/'; // default. Use for prod.
     if (isStagingSite()) {
@@ -107,11 +106,12 @@ function localScriptName() {
             folder = `-development/${libraryFeatureBranchName}/`;
         }
     }
-    return libraryAssetsRootLocation + folder + drupalJsFilename;
+    return libraryAssetsRootLocation + folder + jsFilename;
 }
 
 function loadReusableComponentsDrupal() {
-    insertScript(localScriptName(), true);
+    insertScript(localScriptName('drupal-lib-reusable.min.js'), true);
+    insertScript(localScriptName('uq-lib-reusable.min.js'), true);
 
     fontLoader('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
     fontLoader('https://static.uq.net.au/v15/fonts/Merriweather/merriweather.css');
