@@ -25,7 +25,8 @@ We add the header-footer to many third party systems, usually by creating a load
   - the Library public CMS
   - load.js at /src/applications/drupal
   - live at eg <https://web.library.uq.edu.au/contact-us>
-  - drupal staging at eg <https://library.stage.drupal.uq.edu.au/library-services/services-students> is tied to the `feature-drupal` branch in this repo
+  - -- needs update to new drupal10 location!
+  - drupal staging at eg <https://library.stage.drupal.uq.edu.au/library-services/services-students> is tied to the `drupal-staging` branch in this repo
 - Libcal
   - used for various booking pages
   - load.js at /src/applications/libcal

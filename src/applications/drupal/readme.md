@@ -20,40 +20,24 @@ Production Drupal includes this code chunk to include the Library header and foo
 />
 ```
 
-Changes on drupal can be tested on branch `feature-drupal` before going live on the staging environment at eg <https://library.stage.drupal.uq.edu.au/library-services/services-students>
+Changes on drupal can be tested on branch `drupal-staging` before going live on the staging environment at (update this url) eg <https://library.stage.drupal.uq.edu.au/library-services/services-students>
 
 ```html
 <script
-  defer
-  src="http://homepage-staging.library.uq.edu.au/reusable-web-components-development/feature-drupal/uq-lib-reusable.min.js"
-></script>
-<script
   async
-  src="http://homepage-staging.library.uq.edu.au/reusable-web-components-development/feature-drupal/applications/drupal/load.js"
+  src="http://homepage-staging.library.uq.edu.au/reusable-web-components-development/drupal-staging/applications/drupal/load.js"
 ></script>
-<link
-  rel="stylesheet"
-  href="http://homepage-staging.library.uq.edu.au/reusable-web-components-development/feature-drupal/applications/drupal/custom-styles.css"
-/>
 ```
 
-(I believe ITS have to give individual access to make library.staging visible to a developer - make a Change Request, above)
+(I believe ITS have to give individual access to make drupal staging visible to a developer - make a Change Request, above)
 
 Drupal staging has the following code
 
 ```html
 <script
   type="text/javascript"
-  src="https://homepage-staging.library.uq.edu.au/test-web-components/uq-lib-reusable.min.js"
+  src="https://assets.library.uq.edu.au/drupal-staging/reusable-components/drupal/load.js"
 ></script>
-<script
-  type="text/javascript"
-  src="https://assets.library.uq.edu.au/feature-drupal/reusable-components/libwww/load.js"
-></script>
-<link
-  rel="stylesheet"
-  href="https://assets.library.uq.edu.au/feature-drupal/reusable-components/libwww/custom-styles.css"
-/>
 ```
 
 2021: while some of the polymer tags are being redeveloped, these pages have both the old polymer headers and the new reusable headers.
