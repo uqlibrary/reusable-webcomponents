@@ -116,7 +116,7 @@ NOTE: CI testing uses environment variables stored on AWS to run cypress success
 
 In addition to the usual branches, the following are in use and should not be deleted from github or AWS Pipelines:
 
-- `feature-drupal` (drupal sandbox calls .js files from this folder cf [drupal readme](src/applications/drupal/readme.md))
+- `drupal-staging` (drupal sandbox calls .js files from this folder cf [drupal readme](src/applications/drupal/readme.md))
 - `primo-prod-dev` (maps to primo env prod-dev. Needed to support uqsvangr cf [primo readme](src/applications/primo/readme.md]))
 - `primo-sandbox` (maps to primo env sandbox-dev. Needed to support uqsvangr)
 - `primo-sandbox-dev` (maps to primo env sandbox-dev. Needed to support uqsvangr)
