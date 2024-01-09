@@ -199,7 +199,8 @@ class UQHeader extends HTMLElement {
                 //Code to execute after the library has been downloaded parsed and processed by the browser starts here :)
                 initCalled = true;
                 // Initialise the header once this JS file is loaded
-                const headerElem = document.querySelector('uq-header').shadowRoot.querySelector('.uq-header');
+                const rootHeaderElement = document.querySelector('uq-header');
+                const headerElem = !!rootHeaderElement && rootHeaderElement.shadowRoot.querySelector('.uq-header');
                 !!headerElem && !!uq && !!uq.header && new uq.header(headerElem);
 
                 new uq.accordion(); // opens and closes the Site Search toggle

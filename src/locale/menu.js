@@ -332,6 +332,11 @@ export default {
                         'https://web.library.uq.edu.au/locations-hours/dorothy-hill-engineering-and-sciences-library',
                 },
                 {
+                    primaryText: 'Dutton Park Health Sciences',
+                    secondaryText: 'Formerly PACE Health Sciences',
+                    linkTo: 'https://web.library.uq.edu.au/locations-hours/dutton-park-health-sciences-library',
+                },
+                {
                     primaryText: 'FW Robinson Reading Room',
                     secondaryText: 'Fryer Library & UQ Archives',
                     linkTo: 'https://web.library.uq.edu.au/locations-hours/fw-robinson-reading-room',
@@ -351,12 +356,8 @@ export default {
                     linkTo: 'https://web.library.uq.edu.au/locations-hours/law-library-walter-harrison-library',
                 },
                 {
-                    primaryText: 'PACE Health Sciences',
-                    linkTo: 'https://web.library.uq.edu.au/locations-hours/pace-health-sciences-library',
-                },
-                {
                     primaryText: 'Rural Clinical School',
-                    linkTo: 'https://web.library.uq.edu.au/locations-hours/rural-clinical-school-rcs-library',
+                    linkTo: 'https://web.library.uq.edu.au/locations-hours/rural-clinical-school',
                 },
                 {
                     primaryText: 'Warehouse',

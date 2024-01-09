@@ -67,6 +67,16 @@ template.innerHTML = `
                         <span>Contact form</span>
                     </a>
                 </li>
+                
+                <!-- Video -->
+                <li id="askus-video-li" role="menuitem" aria-disabled="false">
+                    <a tabindex="0" id="askus-video-link" href="https://video-chat.service-centre.uq.edu.au/" data-analyticsid="askus-menu-video" target="_blank">
+                        <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"></path></svg>
+                        <span>Video call</span>
+                        <span class="chatTimes"><span id="askus-video-time"></span></span>
+                    </a>
+                </li>
+
                 <!-- More ways -->
                 <li id="askus-menu-item-moreways" role="menuitem" aria-disabled="false" style="width: 99%">
                     <a tabindex="0" href="https://web.library.uq.edu.au/contact-us" rel="noreferrer" data-analyticsid="askus-menu-moreways" target="_blank">
@@ -114,6 +124,9 @@ class AskUsButton extends HTMLElement {
 
                 shadowRoot.getElementById('askus-phone-li').style.opacity = '0.6';
                 shadowRoot.getElementById('askus-phone-link').removeAttribute('href');
+
+                shadowRoot.getElementById('askus-video-li').style.opacity = '0.6';
+                shadowRoot.getElementById('askus-video-link').removeAttribute('href');
             }
         });
 
@@ -124,6 +137,9 @@ class AskUsButton extends HTMLElement {
 
             const phoneitem = shadowRoot.getElementById('askus-phone-time');
             !!hours && !!hours.phone && !!phoneitem && (phoneitem.innerText = hours.phone);
+
+            const videoitem = shadowRoot.getElementById('askus-video-time');
+            !!hours && !!hours.phone && !!videoitem && (videoitem.innerText = hours.phone);
         });
     }
 
