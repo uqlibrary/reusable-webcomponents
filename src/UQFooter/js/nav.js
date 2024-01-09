@@ -21,11 +21,11 @@ export default [
         list: [
             {
                 label: 'Current staff',
-                href: 'https://staff.uq.edu.au/',
+                href: 'https://staff.uq.edu.au',
             },
             {
-                label: 'Jobs at UQ',
-                href: 'https://careers.uq.edu.au/',
+                label: 'Careers at UQ',
+                href: 'https://careers.uq.edu.au',
             },
             {
                 label: 'Strategic plan',
@@ -46,11 +46,11 @@ export default [
         list: [
             {
                 label: 'my.UQ',
-                href: 'https://my.uq.edu.au/',
+                href: 'https://my.uq.edu.au',
             },
             {
                 label: 'Programs and courses',
-                href: 'https://my.uq.edu.au/programs-courses/',
+                href: 'https://my.uq.edu.au/programs-courses',
             },
             {
                 label: 'Key dates',
@@ -71,7 +71,7 @@ export default [
         list: [
             {
                 label: 'Library',
-                href: 'https://www.library.uq.edu.au/',
+                href: 'https://www.library.uq.edu.au',
                 dataTestid: 'uqfooter-nav-library-homepage',
             },
             {
@@ -96,11 +96,11 @@ export default [
         list: [
             {
                 label: 'Contact UQ',
-                href: 'https://contacts.uq.edu.au/',
+                href: 'https://contacts.uq.edu.au/contacts',
             },
             {
                 label: 'Find a researcher',
-                href: 'https://researchers.uq.edu.au/',
+                href: 'https://researchers.uq.edu.au',
             },
             {
                 label: 'Faculties, schools, institutes and centres',
@@ -112,7 +112,7 @@ export default [
             },
             {
                 label: 'Campuses, maps and transport',
-                href: 'https://campuses.uq.edu.au/',
+                href: 'https://campuses.uq.edu.au',
             },
         ],
     },
