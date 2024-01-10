@@ -28,10 +28,10 @@ template.innerHTML = `
           <nav class="uq-footer__contact-item" aria-label="Social Media" data-gtm-category="Social share link">
             <ul class="uq-footer__footer-list uq-footer__contact-social"> 
               <li class="uq-footer__footer-item"><a href="https://www.facebook.com/uniofqld" class="uq-footer__meta-icons--facebook uq-footer__meta-icons" aria-label="Facebook" data-gtm-label="Facebook"></a></li> 
-              <li class="uq-footer__footer-item"><a href="https://www.linkedin.com/edu/school?id=10238" class="uq-footer__meta-icons--linkedin uq-footer__meta-icons" aria-label="linkedin" data-gtm-label="Linkedin"></a></li> 
+              <li class="uq-footer__footer-item"><a href="https://www.linkedin.com/school/university-of-queensland" class="uq-footer__meta-icons--linkedin uq-footer__meta-icons" aria-label="linkedin" data-gtm-label="Linkedin"></a></li> 
               <li class="uq-footer__footer-item"><a href="https://twitter.com/uq_news" class="uq-footer__meta-icons--twitter uq-footer__meta-icons" aria-label="Twitter" data-gtm-label="Twitter"></a></li>
               <li class="uq-footer__footer-item"><a href="https://www.youtube.com/user/universityqueensland" class="uq-footer__meta-icons--youtube uq-footer__meta-icons" aria-label="Youtube" data-gtm-label="Youtube"></a></li>
-              <li class="uq-footer__footer-item"><a href="https://instagram.com/uniofqld/" class="uq-footer__meta-icons--instagram uq-footer__meta-icons" aria-label="Instagram" data-gtm-label="Instagram"></a></li>
+              <li class="uq-footer__footer-item"><a href="https://instagram.com/uniofqld" class="uq-footer__meta-icons--instagram uq-footer__meta-icons" aria-label="Instagram" data-gtm-label="Instagram"></a></li>
             </ul>
           </nav> 
        
@@ -47,13 +47,13 @@ template.innerHTML = `
         <nav class="uq-footer__footer" aria-label="Terms and conditions">
           <ul class="uq-footer__footer-list">
               <li class="uq-footer__footer-item">
-                  <a href="https://www.uq.edu.au/legal/terms-of-use/" class="uq-footer__link">Privacy and terms of use</a>
+                  <a href="https://www.uq.edu.au/legal/terms-of-use" class="uq-footer__link">Privacy and terms of use</a>
               </li>
               <li class="uq-footer__footer-item">
-                <a href="https://uq.edu.au/accessibility/" class="uq-footer__link">Accessibility</a>
+                <a href="https://uq.edu.au/accessibility" class="uq-footer__link">Accessibility</a>
               </li>
               <li class="uq-footer__footer-item">
-                  <a href="https://www.uq.edu.au/rti/" class="uq-footer__link">Right to information</a>
+                  <a href="https://www.uq.edu.au/rti" class="uq-footer__link">Right to information</a>
               </li>
               <li class="uq-footer__footer-item">
                 <a href="https://my.uq.edu.au/feedback?r=${encodeURIComponent(

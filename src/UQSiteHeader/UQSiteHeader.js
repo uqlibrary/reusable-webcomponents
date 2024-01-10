@@ -56,7 +56,7 @@ template.innerHTML = `
                     <a href="https://www.uq.edu.au/" data-testid="uq-header-home-link-mobile" data-analyticsid="uq-header-home-link-mobile">UQ home</a>
                 </li>
                 <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global uq-site-header__navigation__list-item">
-                    <a href="https://www.uq.edu.au/news/" data-analyticsid="uq-header-news-link-mobile">News</a>
+                    <a href="https://www.uq.edu.au/news" data-analyticsid="uq-header-news-link-mobile">News</a>
                 </li>
                 <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global uq-site-header__navigation__list-item">
                     <a href="https://www.uq.edu.au/uq-events" data-analyticsid="uq-header-events-link-mobile">Events</a>
@@ -65,7 +65,7 @@ template.innerHTML = `
                     <a href="https://alumni.uq.edu.au/giving" data-analyticsid="uq-header-giving-link-mobile">Give</a>
                 </li>
                 <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global uq-site-header__navigation__list-item">
-                    <a href="https://contacts.uq.edu.au/" data-analyticsid="uq-header-contacts-link-mobile">Contact</a>
+                    <a href="https://contacts.uq.edu.au/contacts" data-analyticsid="uq-header-contacts-link-mobile">Contact</a>
                 </li>
             </ul>
         </nav>
