@@ -173,15 +173,6 @@ function loadReusableComponentsDrupal() {
     }
 
     const uqFooter = document.querySelector('footer.uq-footer');
-    if (!document.querySelector('cultural-advice-popup')) {
-        const culturalAdvice = document.createElement('cultural-advice-popup');
-        if (!!uqFooter) {
-            !!culturalAdvice && uqFooter.insertBefore(culturalAdvice, uqFooter.firstChild);
-        } else {
-            // if drupal have changed the markup insert the element _somewhere_ anyway
-            !!culturalAdvice && document.body.appendChild(culturalAdvice);
-        }
-    }
     if (!document.querySelector('connect-footer')) {
         const connectFooter = document.createElement('connect-footer');
         if (!!uqFooter) {
@@ -189,6 +180,15 @@ function loadReusableComponentsDrupal() {
         } else {
             // if drupal have changed the markup insert the element _somewhere_ anyway
             !!connectFooter && document.body.appendChild(connectFooter);
+        }
+    }
+    if (!document.querySelector('cultural-advice-popup')) {
+        const culturalAdvice = document.createElement('cultural-advice-popup');
+        if (!!uqFooter) {
+            !!culturalAdvice && uqFooter.parentNode.insertBefore(culturalAdvice, uqFooter);
+        } else {
+            // if drupal have changed the markup insert the element _somewhere_ anyway
+            !!culturalAdvice && document.body.appendChild(culturalAdvice);
         }
     }
 
