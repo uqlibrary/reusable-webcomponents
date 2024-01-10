@@ -185,7 +185,7 @@ function loadReusableComponentsDrupal() {
     if (!document.querySelector('connect-footer')) {
         const connectFooter = document.createElement('connect-footer');
         if (!!uqFooter) {
-            !!connectFooter && uqFooter.insertBefore(connectFooter, uqFooter);
+            !!connectFooter && uqFooter.parentNode.insertBefore(connectFooter, uqFooter);
         } else {
             // if drupal have changed the markup insert the element _somewhere_ anyway
             !!connectFooter && document.body.appendChild(connectFooter);
