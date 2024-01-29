@@ -71,8 +71,15 @@ describe('AskUs menu', () => {
         });
         it('Displays as offline when chat status api is 403', () => {
             cy.visit('http://localhost:8080/?user=errorUser');
+            cy.injectAxe();
             cy.viewport(1280, 900);
             openAskusPopup();
+            cy.wait(500);
+            cy.checkA11y('askus-button', {
+                reportName: 'AskUs',
+                scopeName: 'Accessibility',
+                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+            });
             cy.get('askus-button')
                 .shadow()
                 .find('[data-testid="askus-chat-link"]')
