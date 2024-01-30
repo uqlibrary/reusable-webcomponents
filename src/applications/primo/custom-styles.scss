@@ -1833,7 +1833,7 @@ prm-citation-trails-expand-button .switch-results md-switch.tiny-switch {
 }
 
 // highlight "Your search results were expanded to include results regardless of availability" message  [PT #186320477]
-prm-search-result-list .list-items-list .message-margin md-card  {
+prm-search-result-list .list-items-list .margin-bottom-medium md-card  {
     background-color: $uqInformationLight;
     text-align: center;
     span  {
