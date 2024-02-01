@@ -128,6 +128,9 @@ class AskUsButton extends HTMLElement {
 
                 const icons = shadowRoot.querySelectorAll('svg.interactiveContact');
                 !!icons && icons.forEach((l) => (l.style.fill = '#c40000'));
+
+                const chatTimes = shadowRoot.querySelectorAll('.chatTimes');
+                !!chatTimes && chatTimes.forEach((l) => (l.style.display = 'none'));
             }
         });
 
