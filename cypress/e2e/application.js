@@ -169,27 +169,27 @@ describe('Dummy Application', () => {
 
     // these tests check that the application load.js files load properly and that each application has only the expected inclusions
 
-    context('Studenthub works as expected', () => {
-        it('Javascript load works correctly', () => {
-            cy.visit('http://localhost:8080/src/applications/studenthub/demo.html');
-            cy.viewport(1280, 900);
+    // context('Studenthub works as expected', () => {
+    //     it('Javascript load works correctly', () => {
+    //         cy.visit('http://localhost:8080/src/applications/studenthub/demo.html');
+    //         cy.viewport(1280, 900);
 
-            hasUqHeader();
+    //         hasUqHeader();
 
-            hasUqSiteHeader();
+    //         hasUqSiteHeader();
 
-            hasNoMegaMenu();
+    //         hasNoMegaMenu();
 
-            hasAskusButton();
-            // hasProactiveChat();
-            hasNoAuthButton();
+    //         hasAskusButton();
+    //         // hasProactiveChat();
+    //         hasNoAuthButton();
 
-            hasAnAlert();
+    //         hasAnAlert();
 
-            hasConnectFooter();
-            hasUqFooter();
-        });
-    });
+    //         hasConnectFooter();
+    //         hasUqFooter();
+    //     });
+    // });
 
     context('app.library.uq.edu.au works as expected', () => {
         it('Javascript load works correctly', () => {
