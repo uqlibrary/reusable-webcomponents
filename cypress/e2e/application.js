@@ -167,30 +167,6 @@ describe('Dummy Application', () => {
             .should('contain', 'Aboriginal and Torres Strait Islander peoples are advised');
     }
 
-    // these tests check that the application load.js files load properly and that each application has only the expected inclusions
-
-    // context('Studenthub works as expected', () => {
-    //     it('Javascript load works correctly', () => {
-    //         cy.visit('http://localhost:8080/src/applications/studenthub/demo.html');
-    //         cy.viewport(1280, 900);
-
-    //         hasUqHeader();
-
-    //         hasUqSiteHeader();
-
-    //         hasNoMegaMenu();
-
-    //         hasAskusButton();
-    //         // hasProactiveChat();
-    //         hasNoAuthButton();
-
-    //         hasAnAlert();
-
-    //         hasConnectFooter();
-    //         hasUqFooter();
-    //     });
-    // });
-
     context('app.library.uq.edu.au works as expected', () => {
         it('Javascript load works correctly', () => {
             cy.visit('http://localhost:8080/src/applications/uqlapp/demo.html');
