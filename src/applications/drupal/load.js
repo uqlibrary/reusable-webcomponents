@@ -156,7 +156,7 @@ function loadReusableComponentsDrupal() {
         }
 
         if (!!drupalSiteHeader) {
-            !!librarySiteHeader && drupalSiteHeader.remove();
+            !!drupalSiteHeader && drupalSiteHeader.remove();
         }
     }
 
