@@ -137,6 +137,8 @@ function loadReusableComponentsDrupal() {
     // uq-header is done manually by drupal
 
     if (!document.querySelector('uq-site-header')) {
+        const drupalSiteHeader = document.querySelector('.uq-site-header');
+
         const librarySiteHeader = document.createElement('uq-site-header');
 
         const askusButton = createAskusButton();
@@ -145,12 +147,16 @@ function loadReusableComponentsDrupal() {
         const authButton = createAuthButton();
         !!librarySiteHeader && !!authButton && librarySiteHeader.appendChild(authButton);
 
-        const replaceableUqHeader = document.querySelector('.uq-site-header');
-        if (!!replaceableUqHeader) {
-            !!librarySiteHeader && replaceableUqHeader.parentNode.replaceChild(librarySiteHeader, replaceableUqHeader);
+        const uqHeader = document.querySelector('header.uq-header');
+        if (!!uqHeader) {
+            !!librarySiteHeader && uqHeader.parentNode.insertBefore(librarySiteHeader, uqHeader.nextSibling);
         } else {
             // if drupal have changed the markup insert the element _somewhere_ anyway
             !!librarySiteHeader && document.body.insertBefore(librarySiteHeader, firstElement);
+        }
+
+        if (!!drupalSiteHeader) {
+            !!librarySiteHeader && drupalSiteHeader.remove();
         }
     }
 
