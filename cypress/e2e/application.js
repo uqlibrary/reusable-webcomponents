@@ -328,14 +328,14 @@ describe('Dummy Application', () => {
             // hasUqHeader();
             hasNoUqHeader();
 
-            // hasUqSiteHeader(); // temo
+            // hasUqSiteHeader();
 
             // hasMegaMenu();
-            // hasNoMegaMenu(); // temo
+            // hasNoMegaMenu();
 
-            // hasAskusButton(); // temo
+            hasAskusButton();
             hasProactiveChat();
-            // hasAuthButton(); // temo
+            hasAuthButton();
 
             hasAnAlert();
             // a drupal specific alert appears

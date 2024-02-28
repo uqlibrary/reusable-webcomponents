@@ -136,9 +136,19 @@ function loadReusableComponentsDrupal() {
 
     // uq-header is done manually by drupal
 
-    // dont forget to uncomment cypress test line when you uncomment this block
+    if (!document.querySelector('askus-button')) {
+        const uqheaderRight = document.querySelector('.uq-site-header__title-container__right');
+        const askusButton = createAskusButton();
+        !!uqheaderRight && !!askusButton && uqheaderRight.appendChild(askusButton);
+
+        const authButton = createAuthButton();
+        !!uqheaderRight && !!authButton && uqheaderRight.appendChild(authButton);
+    }
+
+    // while we need the mega menu in the drupal header, use the above
     // if (!document.querySelector('uq-site-header')) {
     //     const drupalSiteHeader = document.querySelector('.uq-site-header');
+    // // const megamMenu = document.getElementById('block-mainnavigation');
     //
     //     const librarySiteHeader = document.createElement('uq-site-header');
     //
@@ -147,6 +157,8 @@ function loadReusableComponentsDrupal() {
     //
     //     const authButton = createAuthButton();
     //     !!librarySiteHeader && !!authButton && librarySiteHeader.appendChild(authButton);
+    //
+    // // !!librarySiteHeader && !!megamMenu && librarySiteHeader.insertBefore(megamMenu, null);
     //
     //     const uqHeader = document.querySelector('header.uq-header');
     //     if (!!uqHeader) {
