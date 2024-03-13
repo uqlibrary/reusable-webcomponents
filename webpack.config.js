@@ -138,6 +138,7 @@ module.exports = () => {
                         to: 'applications/libguides/arrow-right.png',
                     },
                     { from: 'src/applications/libguides/arrow-down.png', to: 'applications/libguides/arrow-down.png' },
+                    { from: 'src/applications/shared/mapuq.png', to: 'applications/shared/mapuq.png' },
                     { from: 'src/favicon.ico', to: 'favicon.ico' },
                     // all load.js for applications should be included here
                     { from: 'src/applications/atom/load.js', to: 'applications/atom/load.js' },
