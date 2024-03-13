@@ -15,15 +15,15 @@ describe('Dummy Application', () => {
                 .should('be.visible');
             // has an auth button
             cy.get('auth-button').shadow().find('button:contains("Log out")').should('exist');
-            // has a mega menu
-            // the menu appears on click
-            cy.get('uq-site-header').shadow().find('nav[aria-label="Site navigation"]').should('be.visible');
-            // and has the correct children
-            cy.get('uq-site-header')
-                .shadow()
-                .find('nav[aria-label="Site navigation"]')
-                .find('ul')
-                .should('have.length', 7); // length of the megamenu .json
+            // // has a mega menu
+            // // the menu appears on click
+            // cy.get('uq-site-header').shadow().find('nav[aria-label="Site navigation"]').should('be.visible');
+            // // and has the correct children
+            // cy.get('uq-site-header')
+            //     .shadow()
+            //     .find('nav[aria-label="Site navigation"]')
+            //     .find('ul')
+            //     .should('have.length', 7); // length of the megamenu .json
         });
     });
 
@@ -220,7 +220,7 @@ describe('Dummy Application', () => {
 
             hasUqSiteHeader();
 
-            hasMegaMenu();
+            // hasMegaMenu();
 
             hasAskusButton();
             //hasProactiveChat();
@@ -313,7 +313,7 @@ describe('Dummy Application', () => {
 
             hasUqSiteHeader();
 
-            hasMegaMenu();
+            // hasMegaMenu();
 
             hasAskusButton();
             hasProactiveChat();

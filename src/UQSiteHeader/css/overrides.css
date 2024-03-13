@@ -237,3 +237,147 @@ button.uq-site-header__navigation__sub-toggle:-moz-focusring,
 a.uq-site-header__navigation-link.slide-menu__control:-moz-focusring {
     outline: Highlight auto 1px;
 }
+
+.new-nav {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+@media (min-width: 37.5rem) {
+    .new-nav {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+        margin-left: 3.25rem;
+        margin-right: 3.25rem;
+        max-width: none;
+    }
+}
+
+@media (min-width: 69.25rem) {
+    .new-nav {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 61.5rem;
+    }
+}
+
+@media (min-width: 80rem) {
+    .new-nav {
+        margin-left: 8.375rem;
+        margin-right: 8.375rem;
+        max-width: none;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+@media (min-width: 90rem) {
+    .new-nav {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 71rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+.nav-wrapper {
+    background-color: white;
+}
+.new-panels {
+    /*background-color: rgb(247, 247, 247);*/
+}
+.new-nav-buttons {
+    display: flex;
+    justify-content: space-evenly;
+}
+.new-icon svg {
+    width: 40px;
+    max-height: 40px;
+}
+.nav-button {
+    display: flex;
+    align-items: center;
+    /*justify-content: space-evenly;*/
+    width: calc(100% / 6);
+    /*color: #51247a;*/
+    border: 1px solid grey;
+    border-radius: 3px;
+    margin-inline: 2px;
+    padding: 4px;
+    background-color: #fff;
+}
+.nav-button:hover {
+    cursor: grab;
+}
+.new-label {
+    color: #51247a; /* #333; */
+}
+.new-label {
+    margin-left: 5px;
+    font-size: 0.95rem;
+}
+.icon-explore svg {
+    max-height: 55px;
+    margin-top: 10px;
+}
+.icon-research svg,
+.icon-whiteboard svg {
+    margin-top: 14px;
+}
+.icon-askus svg {
+    margin-top: 8px;
+}
+.panel-hidden {
+    display: none;
+}
+.panel-showing {
+    display: block;
+}
+.new-panels .panel {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid grey;
+}
+
+.textWithIcon svg {
+    width: 25px;
+    margin-right: 4px;
+}
+.textWithIcon a {
+    display: flex;
+    align-items: center;
+}
+.inOneLine {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.littlePanels {
+    display: flex;
+    flex-wrap: wrap;
+    /*justify-content: space-between;*/
+    padding: 0;
+    margin: 0;
+}
+.littlePanels a {
+    color: #2377cb;
+    text-decoration: none;
+}
+.littlePanels li {
+    flex-basis: 30%; /* calc(33.33% - 100px); */ /* Adjust the width to fit 3 items per row */
+    margin: 15px; /* Optional: for spacing between items */
+    list-style-type: none;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid grey;
+    min-height: 3rem;
+    line-height: 1.3;
+    position: relative;
+}
+.readmorelink {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+}
