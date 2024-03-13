@@ -197,6 +197,35 @@
                 display: flex;
                 justify-content: space-evenly;
             }
+
+            .littlePanels {
+                display: flex;
+                flex-wrap: wrap;
+                /*justify-content: space-between;*/
+                padding: 0;
+                margin: 0;
+            }
+            .littlePanels a {
+                color: #2377cb;
+                text-decoration: none;
+            }
+            .littlePanels li {
+                flex-basis: 30%;/* calc(33.33% - 100px); */ /* Adjust the width to fit 3 items per row */
+                margin: 15px; /* Optional: for spacing between items */
+                list-style-type: none;
+                box-sizing: border-box;
+                padding: 10px;
+                border: 1px solid grey;
+                min-height: 3rem;
+                line-height: 1.3;
+                position: relative;
+            }
+            .readmorelink {
+                position: absolute;
+                bottom: 1rem;
+                right: 1rem;
+            }
+
         </style>
         <script>
             function handlePanelClick(panelId) {
@@ -249,19 +278,19 @@
                 </div>
                 <div class="new-panels">
                     <div class="panel panel-hidden panel-findborrow" id="panel-findborrow">
-                        <p>UQ Library provides all the resources you need to support your studies.</p>
-                        <ul>
-                            <li><a href="">Search the Library</a> or <a href="">learn more about How to Search</a></li>
+                        <p>UQ Library provides searching and borrowing facilities</p>
+                        <ul class="littlePanels">
+                            <li><a href="">Search</a> our full collection of resources <div class="readmorelink"> <a href="">Read more</a></div></li>
                             <li>We hold significant <a href="">Collections and resources</a> that support the teaching, learning and research needs of the UQ community.</li>
                             <li><a href="">The University of Queensland Archives</a> collects and preserves university records of enduring value, to document the administrative history and support corporate accountability.</li>
-                            <li><a href="">Borrow</a></li>
-                            <li><a href="">Request</a></li>
-                            <li><a href="">Become a Library member</a></li>
+                            <li>Students, staff and members can <a href="">borrow</a> library resources. <div class="readmorelink"> <a href="">Read more</a></div></li>
+                            <li>You can <a href="">request</a> the resources you need for teaching, learning, and research.</li>
+                            <li><a href="">Become a Library member</a><br /><a href="">Join or renew your membership</a><br />Our Friends play a vital role in supporting the Library to build and showcase our collection.  Become a Friend of the Library to attend a great program of events or to support our work!</li>
                         </ul>
                     </div>
                     <div class="panel panel-hidden panel-study-learning" id="panel-study-learning">
                         <p>UQ Library Study and Learning support blah blah blah</p>
-                        <ul>
+                        <ul class="littlePanels">
                            <li><a href="">Library orientation events</a></li>
                            <li><a href="">Course work</a></li>
                            <li><a href="">Training and workshops</a></li>
@@ -272,36 +301,41 @@
                     </div>
                     <div class="panel panel-hidden panel-visit" id="panel-visit">
                         <p>UQ Library locations offer many features blah blah blah</p>
-
-                        <div class="inOneLine">
-                            <span class="textWithIcon"><a href="">
-                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" version="1.1" style="shape-rendering:geometricPrecision;text-rendering:geometricPrecision;image-rendering:optimizeQuality;" viewBox="0 0 226 421.25" x="0px" y="0px" fill-rule="evenodd" clip-rule="evenodd"><g><circle class="fil0" cx="113" cy="296" r="41" style="&#10;    fill: #51247a;&#10;"/><path class="fil1" d="M0 95l4 -13c13,-50 57,-82 108,-82 61,0 114,48 114,110 0,50 -34,92 -81,105l0 22 -65 0 0 -39c0,-22 16,-41 38,-43 24,-3 44,-21 44,-45 0,-27 -24,-45 -50,-45 -22,0 -40,12 -46,34l-4 13 -62 -17z" style="&#10;    fill: #51247a;&#10;"/></g></svg>
-                                <span>All opening hours</span>
-                            </a></span>
-                            <span class="textWithIcon"><a href="">
-                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" version="1.1" style="shape-rendering:geometricPrecision;text-rendering:geometricPrecision;image-rendering:optimizeQuality;" viewBox="0 0 226 421.25" x="0px" y="0px" fill-rule="evenodd" clip-rule="evenodd"><g><circle class="fil0" cx="113" cy="296" r="41" style="&#10;    fill: #51247a;&#10;"/><path class="fil1" d="M0 95l4 -13c13,-50 57,-82 108,-82 61,0 114,48 114,110 0,50 -34,92 -81,105l0 22 -65 0 0 -39c0,-22 16,-41 38,-43 24,-3 44,-21 44,-45 0,-27 -24,-45 -50,-45 -22,0 -40,12 -46,34l-4 13 -62 -17z" style="&#10;    fill: #51247a;&#10;"/></g></svg>
-                                <span>Using library study spaces</span>
-                            </a></span>
-                        </div>
-                        <img src="https://assets.library.uq.edu.au/reusable-webcomponents-development/BRANCH_NAME_HERE/applications/shared/mapuq.png"  style=" min-width: 768px; min-height: 439px; width: 100%; margin-top: 1rem" />
-                        <!--
-                        <ul>
-                            <li><a href="">Architecture and Music Library</a></li>
-                            <li><a href="">Biological Sciences Library</a></li>
-                            <li><a href="">Central Library</a></li>
-                            <li><a href="">Dorothy Hill Engineering and Sciences Library</a></li>
-                            <li><a href="">Duhig Tower</a></li>
-                            <li><a href="">Dutton Park Health Sciences Library</a></li>
-                            <li><a href="">Fryer Library</a></li>
-                            <li><a href="">Gatton Library</a></li>
-                            <li><a href="">Herston Health Sciences Libraryï»¿ï»¿</a></li>
-                            <li><a href="">Law Library</a></li>
-                        </ul>
-                        -->
+                        <ul class="littlePanels">
+                            <li>
+                                    <span class="textWithIcon"><a href="">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" version="1.1" style="shape-rendering:geometricPrecision;text-rendering:geometricPrecision;image-rendering:optimizeQuality;" viewBox="0 0 226 421.25" x="0px" y="0px" fill-rule="evenodd" clip-rule="evenodd"><g><circle class="fil0" cx="113" cy="296" r="41" style="&#10;    fill: #51247a;&#10;"/><path class="fil1" d="M0 95l4 -13c13,-50 57,-82 108,-82 61,0 114,48 114,110 0,50 -34,92 -81,105l0 22 -65 0 0 -39c0,-22 16,-41 38,-43 24,-3 44,-21 44,-45 0,-27 -24,-45 -50,-45 -22,0 -40,12 -46,34l-4 13 -62 -17z" style="&#10;    fill: #51247a;&#10;"/></g></svg>
+                                        <span>All opening hours</span>
+                                    </a></span>
+                            </li>
+                            <li>
+                                    <span class="textWithIcon"><a href="">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" version="1.1" style="shape-rendering:geometricPrecision;text-rendering:geometricPrecision;image-rendering:optimizeQuality;" viewBox="0 0 226 421.25" x="0px" y="0px" fill-rule="evenodd" clip-rule="evenodd"><g><circle class="fil0" cx="113" cy="296" r="41" style="&#10;    fill: #51247a;&#10;"/><path class="fil1" d="M0 95l4 -13c13,-50 57,-82 108,-82 61,0 114,48 114,110 0,50 -34,92 -81,105l0 22 -65 0 0 -39c0,-22 16,-41 38,-43 24,-3 44,-21 44,-45 0,-27 -24,-45 -50,-45 -22,0 -40,12 -46,34l-4 13 -62 -17z" style="&#10;    fill: #51247a;&#10;"/></g></svg>
+                                        <span>Using library study spaces</span>
+                                    </a></span>
+                            </li>
+                            <li>
+                                <img src="https://assets.library.uq.edu.au/reusable-webcomponents-development/BRANCH_NAME_HERE/applications/shared/mapuq.png"  style=" min-width: 768px; min-height: 439px; width: 100%; margin-top: 1rem" />
+                                <!--
+                                <ul>
+                                    <li><a href="">Architecture and Music Library</a></li>
+                                    <li><a href="">Biological Sciences Library</a></li>
+                                    <li><a href="">Central Library</a></li>
+                                    <li><a href="">Dorothy Hill Engineering and Sciences Library</a></li>
+                                    <li><a href="">Duhig Tower</a></li>
+                                    <li><a href="">Dutton Park Health Sciences Library</a></li>
+                                    <li><a href="">Fryer Library</a></li>
+                                    <li><a href="">Gatton Library</a></li>
+                                    <li><a href="">Herston Health Sciences Libraryï»¿ï»¿</a></li>
+                                    <li><a href="">Law Library</a></li>
+                                </ul>
+                                -->
+                        </li>
+                    </ul>
                     </div>
                     <div class="panel panel-hidden panel-research" id="panel-research">
                         <p>UQ Library Research and publish blah blah blah</p>
-                        <ul>
+                        <ul class="littlePanels">
                             <li><a href="">Open Scholarship</a></li>
                             <li><a href="">ORCID and researcher IDs</a></li>
                             <li><a href="">Find funding</a></li>
@@ -315,7 +349,7 @@
                     </div>
                     <div class="panel panel-hidden panel-askus" id="panel-askus">
                         <p>UQ Library AskUs and IT support blah blah blah</p>
-                        <ul>
+                        <ul class="littlePanels">
                             <li><a href="">Print, scan and copy</a></li>
                             <li><a href="">Software</a></li>
                             <li><a href="">Referencing software</a></li>
@@ -328,8 +362,8 @@
                     </div>
                     <div class="panel panel-hidden panel-about" id="panel-about">
                         <p>About UQ Library blah blah blah</p>
-                        <ul>
-                            <li><a href="">History</a></li>
+                        <ul class="littlePanels">
+                            <li>Read about the <a href="">History</a> of the Library</li>
                             <li><a href="">Our People</a></li>
                             <li><a href="">Employment</a></li>
                             <li><a href="">Policies</a></li>
