@@ -203,7 +203,10 @@ class UQSiteHeader extends HTMLElement {
                     <ul class="littlePanels">
                         <li><a href="">Search</a> our full collection of resources <div class="readmorelink"> <a href="">Read more</a></div></li>
                         <li>We hold significant <a href="">Collections and resources</a> that support the teaching, learning and research needs of the UQ community.</li>
-                        <li><a href="">The University of Queensland Archives</a> collects and preserves university records of enduring value, to document the administrative history and support corporate accountability.</li>
+                        <li>
+                            <img src="https://assets.library.uq.edu.au/reusable-webcomponents-development/redo-nav/applications/shared/forgen-smith.jpg" height="100" width="100"  style="float: left; margin-right: 10px;" />
+                            <a href="">The University of Queensland Archives</a> collects and preserves university records of enduring value, to document the administrative history and support corporate accountability.
+                        </li>
                         <li>Students, staff and members can <a href="">borrow</a> library resources. <div class="readmorelink"> <a href="">Read more</a></div></li>
                         <li>You can <a href="">request</a> the resources you need for teaching, learning, and research.</li>
                         <li style="margin-bottom: 15px"><a href="">Become a Library member</a><br /><a href="">Join or renew your membership</a><br />Our Friends play a vital role in supporting the Library to build and showcase our collection.  Become a Friend of the Library to attend a great program of events or to support our work!</li>
