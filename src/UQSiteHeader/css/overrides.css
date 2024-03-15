@@ -292,6 +292,9 @@ a.uq-site-header__navigation-link.slide-menu__control:-moz-focusring {
     display: flex;
     justify-content: space-evenly;
 }
+.new-nav-buttons button.selected {
+    background-color: #f4f4f4;
+}
 .new-icon svg {
     width: 40px;
     max-height: 40px;
@@ -380,4 +383,22 @@ a.uq-site-header__navigation-link.slide-menu__control:-moz-focusring {
     position: absolute;
     bottom: 1rem;
     right: 1rem;
+}
+
+.mapselector {
+    margin-top: -10px;
+}
+
+.mapselector button {
+    border-width: 1px;
+    padding: 12px 6px 6px 6px;
+    width: 20%;
+}
+
+.mapselector button:not(.selected) {
+    background-color: #fff;
+}
+
+.mapselector button.selected {
+    border-top-width: 0;
 }

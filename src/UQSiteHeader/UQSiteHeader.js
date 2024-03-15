@@ -120,10 +120,8 @@ class UQSiteHeader extends HTMLElement {
     }
 
     handlePanelClick(panelId) {
-        console.log('handlePanelClick panelId= ', panelId);
         const panelIdFull = `panel-${panelId}`;
         const clickedPanel = this.shadowRoot.getElementById(panelIdFull);
-        console.log('handlePanelClick clickedPanel= ', clickedPanel);
         if (!clickedPanel) {
             return;
         }
@@ -131,7 +129,7 @@ class UQSiteHeader extends HTMLElement {
         if (clickedPanel.classList.contains('panel-showing')) {
             // click on an open panel
             clickedPanel.classList.remove('panel-showing');
-            clickedPanel.classList.add('panel-panel-hidden');
+            clickedPanel.classList.add('panel-hidden');
         } else {
             // click on a closed panel - close any that are open and opened the clickee
             const listAllPanels = this.shadowRoot.querySelectorAll('.new-panels .panel-showing');
@@ -142,6 +140,14 @@ class UQSiteHeader extends HTMLElement {
                 });
             !!clickedPanel && clickedPanel.classList.add('panel-showing');
         }
+        const listAllButton = this.shadowRoot.querySelectorAll('button.nav-button.selected');
+        !!listAllButton &&
+            listAllButton.forEach((p) => {
+                p.classList.remove('selected');
+            });
+        const buttonId = `nav-button-${panelId}`;
+        const clickedButton = this.shadowRoot.getElementById(buttonId);
+        !!clickedButton && clickedButton.classList.add('selected');
     }
 
     showMenu() {
@@ -241,6 +247,13 @@ class UQSiteHeader extends HTMLElement {
                         <li>
                         <p>(maybe we could put a dynamic map here, with icons on our library location that load the page about that Library when clicked)</p>
                             <img src="https://assets.library.uq.edu.au/reusable-webcomponents-development/redo-nav/applications/shared/mapuq.png"  style=" min-width: 768px; min-height: 439px; width: 100%; margin-top: 1rem" />
+                            <div class="mapselector">
+                                <button>Gatton</button>
+                                <button class="selected">St Lucia</button>
+                                <button>Herston</button>
+                                <button>Dutton Park</button>
+                            </div>
+
                             <!--
                             <ul>
                                 <li><a href="">Architecture and Music Library</a></li>
@@ -312,38 +325,38 @@ class UQSiteHeader extends HTMLElement {
             // this is inefficient but is fine for a demo
             const findbutton = that.shadowRoot.getElementById('nav-button-findborrow');
             if (!!findbutton) {
-                findbutton.addEventListener('click', function clickFindPanel() {
+                findbutton.addEventListener('click', function clickFindPanel(e) {
                     that.handlePanelClick('findborrow');
                 });
             }
 
             const studylearningbutton = that.shadowRoot.getElementById('nav-button-study-learning');
             !!studylearningbutton &&
-                studylearningbutton.addEventListener('click', function clickStudyPanel() {
+                studylearningbutton.addEventListener('click', function clickStudyPanel(e) {
                     that.handlePanelClick('study-learning');
                 });
 
             const visitbutton = that.shadowRoot.getElementById('nav-button-visit');
             !!visitbutton &&
-                visitbutton.addEventListener('click', function clickVisitPanel() {
+                visitbutton.addEventListener('click', function clickVisitPanel(e) {
                     that.handlePanelClick('visit');
                 });
 
             const researchbutton = that.shadowRoot.getElementById('nav-button-research');
             !!researchbutton &&
-                researchbutton.addEventListener('click', function clickResearchPanel() {
+                researchbutton.addEventListener('click', function clickResearchPanel(e) {
                     that.handlePanelClick('research');
                 });
 
             const askusbutton = that.shadowRoot.getElementById('nav-button-askus');
             !!askusbutton &&
-                askusbutton.addEventListener('click', function clickAsusPanel() {
+                askusbutton.addEventListener('click', function clickAsusPanel(e) {
                     that.handlePanelClick('askus');
                 });
 
             const aboutbutton = that.shadowRoot.getElementById('nav-button-about');
             !!aboutbutton &&
-                aboutbutton.addEventListener('click', function clickAboutPanel() {
+                aboutbutton.addEventListener('click', function clickAboutPanel(e) {
                     // this.currentPanelId = 'about';
                     that.handlePanelClick('about');
                 });
