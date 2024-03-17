@@ -104,9 +104,9 @@ function addVideoCallLinkToSidebar() {
         </span>
     </li>`;
 
-    const askusEmailLink = document.querySelector('#uq_AskQuestionContent .menu a[href="tel:61733464312"]');
-    const emailListItem = !!askusEmailLink && askusEmailLink.parentNode.parentNode;
-    !!emailListItem && emailListItem.insertAdjacentHTML('afterend', newHtml);
+    const phoneLink = document.querySelector('#uq_AskQuestionContent .menu a[href="tel:61733464312"]');
+    const phoneListItem = !!phoneLink && phoneLink.parentNode.parentNode;
+    !!phoneListItem && phoneListItem.insertAdjacentHTML('afterend', newHtml);
 }
 
 function loadReusableComponents() {

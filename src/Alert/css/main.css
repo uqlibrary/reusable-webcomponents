@@ -54,7 +54,10 @@ a:hover {
     margin-right: 1em;
 }
 
-@media (min-width: 32.5em) {
+.alert--default {
+    container-type: inline-size;
+}
+@container (min-width: 32.5em) {
     .alert__container {
         margin-left: auto;
         margin-right: auto;
@@ -62,7 +65,7 @@ a:hover {
     }
 }
 
-@media (min-width: 37.5em) {
+@container (min-width: 37.5em) {
     .alert__container {
         margin-left: 3.25em;
         margin-right: 3.25em;
@@ -70,7 +73,7 @@ a:hover {
     }
 }
 
-@media (min-width: 64.25em) {
+@container (min-width: 64.25em) {
     .alert__container {
         margin-left: auto;
         margin-right: auto;
@@ -78,7 +81,7 @@ a:hover {
     }
 }
 
-@media (min-width: 75em) {
+@container (min-width: 75em) {
     .alert__container {
         margin-left: 8.375em;
         margin-right: 8.375em;
@@ -86,7 +89,7 @@ a:hover {
     }
 }
 
-@media (min-width: 90em) {
+@container (min-width: 90em) {
     .alert__container {
         margin-left: auto;
         margin-right: auto;
@@ -100,7 +103,7 @@ a:hover {
     padding-right: 0.5em;
 }
 
-@media (min-width: 37.5em) {
+@container (min-width: 37.5em) {
     .alert__container > .alert__message,
     .alert__container > .alert__action {
         padding-left: 0.75em;
@@ -108,7 +111,7 @@ a:hover {
     }
 }
 
-@media (min-width: 75em) {
+@container (min-width: 75em) {
     .alert__container > .alert__message,
     .alert__container > .alert__action {
         padding-left: 1em;

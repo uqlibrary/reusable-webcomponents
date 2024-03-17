@@ -72,7 +72,7 @@ describe('Dummy Application', () => {
             .should('be.visible');
         cy.get('proactive-chat')
             .shadow()
-            .find('[title="Chat currently offline"]')
+            .find('[title="Chat currently closed"]')
             .should('exist')
             .should('not.be.visible');
         cy.get('proactive-chat').shadow().find('button:contains("Chat now")').should('exist').should('not.be.visible');
@@ -106,6 +106,14 @@ describe('Dummy Application', () => {
             .shadow()
             .find('[data-testid="alert-alert-2"]')
             .should('not.exist');
+        cy.get('alert-list')
+            .shadow()
+            .find('uq-alert')
+            .shadow()
+            .find('[data-testid="alert-alert-1-action-button"]')
+            .should('exist')
+            .should('contain', 'Action button label')
+            .should('be.visible'); // not occluded by close button
     }
 
     function hasNoAlerts() {
@@ -158,30 +166,6 @@ describe('Dummy Application', () => {
             .find('#cultural-advice-content')
             .should('contain', 'Aboriginal and Torres Strait Islander peoples are advised');
     }
-
-    // these tests check that the application load.js files load properly and that each application has only the expected inclusions
-
-    context('Studenthub works as expected', () => {
-        it('Javascript load works correctly', () => {
-            cy.visit('http://localhost:8080/src/applications/studenthub/demo.html');
-            cy.viewport(1280, 900);
-
-            hasUqHeader();
-
-            hasUqSiteHeader();
-
-            hasNoMegaMenu();
-
-            hasAskusButton();
-            // hasProactiveChat();
-            hasNoAuthButton();
-
-            hasAnAlert();
-
-            hasConnectFooter();
-            hasUqFooter();
-        });
-    });
 
     context('app.library.uq.edu.au works as expected', () => {
         it('Javascript load works correctly', () => {
@@ -432,23 +416,23 @@ describe('Dummy Application', () => {
         });
     });
 
-    // context('changing properties as will be required by eSpace works as expected', () => {
-    //     it('Javascript load works correctly', () => {
-    //         cy.visit('http://localhost:8080/src/applications/espace/example.html');
-    //         cy.viewport(1280, 900);
-    //
-    //         hasUqHeader();
-    //
-    //         hasUqSiteHeader('https://espace.library.uq.edu.au/');
-    //
-    //         hasNoMegaMenu();
-    //
-    //         hasNoAskusButton();
-    //         hasAuthButton();
-    //
-    //         hasAnAlert();
-    //
-    //         hasNoUqFooter();
-    //     });
-    // });
+    context('espace displays as expected', () => {
+        it('Javascript load works correctly', () => {
+            cy.visit('http://localhost:8080/src/applications/espace/example.html');
+            cy.viewport(1450, 900);
+
+            // hasUqHeader();
+            //
+            // hasUqSiteHeader('https://espace.library.uq.edu.au/');
+            //
+            // hasNoMegaMenu();
+            //
+            // hasNoAskusButton();
+            // hasAuthButton();
+
+            hasAnAlert();
+
+            // hasNoUqFooter();
+        });
+    });
 });

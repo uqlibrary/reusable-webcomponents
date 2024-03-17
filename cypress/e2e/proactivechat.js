@@ -28,42 +28,6 @@ function assertPopupIsOpen() {
         .should('have.css', 'background-color', 'rgb(204, 204, 204)');
 }
 
-function assertOfflineButtonVisible() {
-    cy.get('proactive-chat')
-        .shadow()
-        .find('[title="Click to open online chat"]')
-        .should('exist')
-        .should('not.be.visible')
-        .should('have.css', 'display', 'none');
-    cy.get('proactive-chat')
-        .shadow()
-        .find('[title="Chat currently offline"]')
-        .should('exist')
-        .should('be.visible')
-        .should('not.have.css', 'display', 'none')
-        .should('have.css', 'background-color', 'rgb(196, 0, 0)')
-        .parent()
-        .should('have.css', 'right', '16px');
-}
-
-function assertOnlineMinimisedButtonVisible() {
-    cy.get('proactive-chat')
-        .shadow()
-        .find('[title="Chat currently offline"]')
-        .should('exist')
-        .should('not.be.visible')
-        .should('have.css', 'display', 'none');
-    cy.get('proactive-chat')
-        .shadow()
-        .find('[title="Click to open online chat"]')
-        .should('exist')
-        .should('be.visible')
-        .should('not.have.css', 'display', 'none')
-        .should('have.css', 'background-color', 'rgb(0, 114, 0)')
-        .parent()
-        .should('have.css', 'right', '16px');
-}
-
 function minimiseChatPopup() {
     cy.get('proactive-chat').shadow().find('button:contains("Maybe later")').should('exist').click();
 }
@@ -118,7 +82,23 @@ describe('Proactive Chat', () => {
             assertHideChatCookieisSet();
             cy.wait(1500);
             assertPopupIsHidden();
-            assertOnlineMinimisedButtonVisible();
+            // "offline Minimised" button is hodden
+            cy.get('proactive-chat')
+                .shadow()
+                .find('[title="Chat currently closed"]')
+                .should('exist')
+                .should('not.be.visible')
+                .should('have.css', 'display', 'none');
+            // "online Minimised" button is visible
+            cy.get('proactive-chat')
+                .shadow()
+                .find('[title="Click to open online chat"]')
+                .should('exist')
+                .should('be.visible')
+                .should('not.have.css', 'display', 'none')
+                .should('have.css', 'background-color', 'rgb(0, 114, 0)')
+                .parent()
+                .should('have.css', 'right', '16px');
         });
 
         it('Can open chat window', () => {
@@ -145,14 +125,31 @@ describe('Proactive Chat', () => {
             });
             cy.viewport(1280, 900);
             cy.wait(1500);
-            cy.get('proactive-chat').shadow().find('[title="Chat currently offline"]').click();
+            cy.get('proactive-chat').shadow().find('[title="Chat currently closed"]').click();
             cy.window().its('open').should('be.called');
         });
 
         it('Displays as offline when chat status api is 403', () => {
             cy.visit('http://localhost:8080/?user=errorUser');
             cy.viewport(1280, 900);
-            assertOfflineButtonVisible();
+
+            // "online Minimised" button is hidden
+            cy.get('proactive-chat')
+                .shadow()
+                .find('[title="Click to open online chat"]')
+                .should('exist')
+                .should('not.be.visible')
+                .should('have.css', 'display', 'none');
+            // "offline Minimised" button shows
+            cy.get('proactive-chat')
+                .shadow()
+                .find('[title="Chat currently closed"]')
+                .should('exist')
+                .should('be.visible')
+                .should('not.have.css', 'display', 'none')
+                .should('have.css', 'background-color', 'rgb(196, 0, 0)')
+                .parent()
+                .should('have.css', 'right', '16px');
         });
     });
 });

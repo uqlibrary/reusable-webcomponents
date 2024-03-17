@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html style="padding: 0; margin: 0" lang="en">
     <head>
-        <title>eSpace</title>
+        <title>eSpace localhost</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
         <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v15/fonts/Roboto/roboto.css" />
         <link
@@ -12,8 +12,119 @@
         <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css" />
         <script type="text/javascript" src="/applications/espace/load.js"></script>
         <script type="text/javascript" src="/uq-lib-reusable.min.js"></script>
+        <style>
+            .css-sb9rrm {
+                background-color: rgb(81, 36, 122);
+            }
+
+        </style>
     </head>
     <body style="padding: 0; margin: 0; font-family: 'Roboto', sans-serif">
-        <div id="container">body</div>
+    <div id="react-root" class="layout-fill">
+        <div class="MuiGrid-root MuiGrid-container css-1mdm0tw">
+            <header class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed AppBar mui-fixed css-sb9rrm">
+                <div class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular css-1ab4mzh">
+                    <div class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-wrap-xs-nowrap css-18k5tkh">
+                        <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-true css-kxu0dz" style="padding-left: 284px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                            <div class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-wrap-xs-nowrap css-18nngrd">
+                                <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-auto css-19g2724" style="overflow: hidden; text-overflow: ellipsis;">
+                                    <h1 class="MuiTypography-root MuiTypography-h5 MuiTypography-noWrap css-1uwuexz"><a href="/" class="appTitle" title="Click to return to the eSpace home page" style="color: rgb(255, 255, 255);">UQ eSpace </a></h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-2 MuiGrid-grid-sm-4 css-148m3xg">
+                            <form style="margin: 8px;">
+                                <div class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-wrap-xs-nowrap css-4601mx">
+                                    <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-auto css-g9eqhd"></div>
+                                    <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-true css-mpbfr2">
+                                        <div class="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root css-feqhe6" data-testid="simple-search">
+                                            <div class="MuiInputBase-root MuiInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-1jfo4x9"><input aria-invalid="false" autocomplete="search" id="simple-search-input" placeholder="Search eSpace" type="search" data-analyticsid="simple-search-input" data-testid="simple-search-input" label="" aria-label="" class="MuiInputBase-input MuiInput-input MuiInputBase-inputTypeSearch css-c6bojz" value=""></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="MuiBox-root css-10q9jzs"><button class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeLarge css-11ny87w" tabindex="0" type="button" aria-label="Click to search eSpace"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-txvw6l" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="SearchIcon">
+                                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+                                </svg><span class="MuiTouchRipple-root css-w0pj6f"></span></button></div>
+                            </form>
+                        </div>
+                        <div class="MuiGrid-root MuiGrid-item css-1wxaqej">
+                            <div class="auth-button-wrapper"><button class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeLarge log-out-button css-11ny87w" tabindex="0" type="button" aria-label="Log out - Lea DE GROOT"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1w2t4ga" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="PersonIcon" id="logged-in-icon">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
+                            </svg><span class="MuiTouchRipple-root css-w0pj6f"></span></button></div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="MuiDrawer-root MuiDrawer-docked css-12tvli7" id="menudrawer">
+                <div class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation0 MuiDrawer-paper MuiDrawer-paperAnchorLeft MuiDrawer-paperAnchorDockedLeft css-1l8j5k8">
+
+                </div>
+            </div>
+            <div class="content-container" id="content-container" style="padding-left: 260px;">
+                <div role="region" aria-label="eSpace alerts" style="padding-bottom: 24px;">
+                    <alert-list system="espace"></alert-list>
+                </div><span class="MuiBox-root css-0" data-testid="confirmDialogBox"></span>
+                <div class="MuiGrid-root MuiGrid-container StandardPage css-1d3bbye">
+                    <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-15j76c0"></div>
+                    <div class="MuiGrid-root MuiGrid-item css-1k0n8xt">
+                        <div class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3 css-1h77wgb">
+                            <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-15j76c0">
+                                <div class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-4mcid">
+                                    <div class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3 css-186a5ki">
+                                        <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-true css-kxu0dz">
+                                            <div class="MuiGrid-root MuiGrid-container css-1d3bbye">
+                                                <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-15j76c0">
+                                                    <div class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-tuxzvu">
+                                                        <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-15j76c0">
+                                                            <h6 class="MuiTypography-root MuiTypography-h6 css-48xz2i">Ms&nbsp;Lea&nbsp;de Groot</h6>
+                                                        </div>
+                                                        <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-15j76c0"><span class="MuiTypography-root MuiTypography-caption css-s3x4xj"><b>Senior Web Developer</b>, University of Queensland Library</span></div>
+                                                    </div>
+                                                </div>
+                                                <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-15j76c0">
+                                                    <div class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-11hlwqc" style="margin-top: 12px;">
+                                                        <div class="MuiGrid-root MuiGrid-item css-1wxaqej"><a id="researcher-link" href="http://guides.library.uq.edu.au/for-researchers/researcher-identifier/researcherid" rel="noopener noreferrer" target="_blank" tabindex="0" class="css-hi05s4" data-analyticsid="researcher-link" data-testid="researcher-link">
+                                                            <div class="fez-icon researcher error" aria-label="You are not linked to Researcher (ISI) - Click for more information" style="width: 32px; height: 32px; border-radius: 32px;"></div>
+                                                        </a></div>
+                                                        <div class="MuiGrid-root MuiGrid-item css-1wxaqej"><a id="scopus-link" href="http://guides.library.uq.edu.au/for-researchers/researcher-identifier/scopus-authorid" rel="noopener noreferrer" target="_blank" tabindex="0" class="css-hi05s4" data-analyticsid="scopus-link" data-testid="scopus-link">
+                                                            <div class="fez-icon scopus error" aria-label="You are not linked to Scopus - Click for more information" style="width: 32px; height: 32px; border-radius: 32px;"></div>
+                                                        </a></div>
+                                                        <div class="MuiGrid-root MuiGrid-item css-1wxaqej"><a id="google_scholar-link" href="http://guides.library.uq.edu.au/for-researchers/researcher-identifier/google-scholar-profile" rel="noopener noreferrer" target="_blank" tabindex="0" class="css-hi05s4" data-analyticsid="google_scholar-link" data-testid="google_scholar-link">
+                                                            <div class="fez-icon google_scholar error" aria-label="You are not linked to Google Scholar - Click for more information" style="width: 32px; height: 32px; border-radius: 32px;"></div>
+                                                        </a></div>
+                                                        <div class="MuiGrid-root MuiGrid-item css-1wxaqej"><a id="orcid-link" href="https://orcid.org/0000-0001-5877-6213" rel="noopener noreferrer" target="_blank" tabindex="0" class="css-hi05s4" data-analyticsid="orcid-link" data-testid="orcid-link">
+                                                            <div class="fez-icon orcid ok" aria-label="Your ORCID ID is 0000-0001-5877-6213 - Click to review" style="width: 32px; height: 32px; border-radius: 32px;"></div>
+                                                        </a></div>
+                                                        <div class="MuiGrid-root MuiGrid-item css-1wxaqej"><a href="https://sandbox.orcid.org/0000-0001-5877-6213" id="orcid" target="_blank" aria-label="Click to visit your ORCID profile" title="Click to visit your ORCID profile" tabindex="0"><span class="MuiTypography-root MuiTypography-caption css-s3x4xj"> orcid.org/0000-0001-5877-6213</span></a></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-auto css-1hrc8u3">
+                                            <div class="MuiGrid-root MuiGrid-container MuiGrid-direction-xs-column css-1wkwmmc"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-15j76c0" style="margin-top: -27px;">
+                                <div data-testid="alert" style="margin-top: 5px;">
+                                    <div class="MuiGrid-root MuiGrid-container css-rou24u">
+                                        <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-true css-1tlt3h">
+                                            <div class="MuiGrid-root MuiGrid-container css-1trjs5e">
+                                                <div class="MuiGrid-root MuiGrid-item alert-icon css-1v9mnje"></div>
+                                                <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-true alert-text css-1aq99ma"><b>Add your work to eSpace - </b>We found nothing new for you to claim, but you may add a work any time.</div>
+                                            </div>
+                                        </div>
+                                        <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-true MuiGrid-grid-sm-auto css-ozxq3m"><button class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-fullWidth MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-fullWidth action alert-button css-1y7e82b" tabindex="0" type="button" id="action-button" data-analyticsid="action-button" data-testid="action-button">Add a missing work<span class="MuiTouchRipple-root css-w0pj6f"></span></button></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="offlineSnackbar"></div>
+        </div>
+    </div>
     </body>
 </html>
