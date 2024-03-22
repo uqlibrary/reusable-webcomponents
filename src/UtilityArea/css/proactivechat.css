@@ -32,19 +32,6 @@ button:focus {
     transition-property: background-color;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
-
-.closed-menu {
-    opacity: 0 !important;
-    transition: transform 0.2s ease-in, opacity 0.2s ease-in; /* Animation */
-    transform: scale(0.5) !important;
-    transform-origin: 66% 10%;
-}
-.closed-pane {
-    opacity: 0 !important;
-    transition: opacity 0.2s ease-in; /* Animation */
-    transition-delay: 0s;
-}
-
 .pcminimised {
     z-index: 9998;
     position: fixed;
@@ -134,20 +121,19 @@ button:focus {
     margin-bottom: 22px;
     text-align: center;
 }
-.pcopen button {
-    width: 100%;
+.pcOpenChat button {
+    width: 60%;
+    align-items: unset;
 }
 .pcopen .pcOpenChat {
     flex-grow: 1;
-}
-.pcopen .pcOpenChat {
-    margin: 0 5px 0 0;
+    text-align: center;
 }
 .pcopen button {
     border-radius: 4px !important;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
-    padding: 0px !important;
-    margin: 0px !important;
+    padding: 0 ;
+    margin: 0 auto 0 auto;
     white-space: nowrap;
 }
 .pcopen .pcOpenChat button {
@@ -159,7 +145,7 @@ button:focus {
 }
 .pcopen button {
     border-radius: 0px !important;
-    text-transform: uppercase;
+    font-size: 1em;
 }
 @media screen and (max-width: 650px) {
     .ca-force-hide-mobile {
@@ -173,14 +159,16 @@ button:focus {
     position: relative;
     padding-top: 50px;
 }
-.proactive-chat-button:focus, /* temp */
-.proactive-chat-small-button:focus {
-    border: thin solid red;
+.pcopen button.proactive-chat-small-button {
+    position: absolute;
+    top: 0;
+    right: 6px;
+    width: 44px;
+    border-color: transparent;
+    background-color: #fff;
+    box-shadow: none;
 }
 .proactive-chat-small-button svg {
     fill: #333;
     width: 44px;
-    position: absolute;
-    top: 0;
-    right: 0;
 }
