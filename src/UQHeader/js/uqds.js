@@ -229,23 +229,31 @@ var uq = (function (exports) {
                         }
 
                         var accordions = !!h && h.shadowRoot.querySelectorAll('.'.concat(this.className));
-                        accordions.forEach(function (el) {
-                            var togglers = el.querySelectorAll('.'.concat(_this7.className, '__toggle'));
-                            togglers.forEach(function (el) {
-                                el.addEventListener('click', _this7.handleToggle(togglers));
-                            });
-                        }); // wrap contents of uq-accordion__content in a wrapper to apply padding and prevent animation jump
+                        !!accordions &&
+                            accordions.length > 0 &&
+                            accordions.forEach(function (el) {
+                                var togglers = el.querySelectorAll('.'.concat(_this7.className, '__toggle'));
+                                !!togglers &&
+                                    togglers.length > 0 &&
+                                    togglers.forEach(function (el) {
+                                        el.addEventListener('click', _this7.handleToggle(togglers));
+                                    });
+                            }); // wrap contents of uq-accordion__content in a wrapper to apply padding and prevent animation jump
 
                         var accordionContents =
                             !!h && h.shadowRoot.querySelectorAll('.'.concat(this.className, '__content'));
                         var accordionName = this.className;
-                        accordionContents.forEach(function (accordionContent) {
-                            var innerContent = accordionContent.innerHTML;
-                            accordionContent.innerHTML = '';
-                            var contentWrapper =
-                                '<div class ="' + accordionName + '__content-wrapper">'.concat(innerContent, '</div>');
-                            accordionContent.innerHTML = contentWrapper;
-                        });
+                        !!accordionContents &&
+                            accordionContents.length > 0 &&
+                            accordionContents.forEach(function (accordionContent) {
+                                var innerContent = accordionContent.innerHTML;
+                                accordionContent.innerHTML = '';
+                                var contentWrapper =
+                                    '<div class ="' +
+                                    accordionName +
+                                    '__content-wrapper">'.concat(innerContent, '</div>');
+                                accordionContent.innerHTML = contentWrapper;
+                            });
                     },
                 },
             ],
