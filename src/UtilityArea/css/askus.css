@@ -309,7 +309,7 @@ button:focus {
 }
 .pcopen button {
     border-radius: 0px !important;
-    text-transform: uppercase;
+    font-size: 1em;
 }
 @media screen and (max-width: 650px) {
     .ca-force-hide-mobile {
