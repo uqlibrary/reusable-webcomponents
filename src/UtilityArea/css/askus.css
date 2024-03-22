@@ -275,19 +275,20 @@ button:focus {
 .proactive-chat .pcwrapper .pcopen .pcText .pcTitle {
     font-size: 22px !important;
     font-weight: bold;
-    text-transform: uppercase;
     color: #51247a;
+    text-align: center;
 }
 .pcopen .pcText .pcMessage {
     font-size: 14px !important;
     font-weight: normal;
     margin-bottom: 22px;
+    text-align: center;
 }
 .pcopen button {
     width: 100%;
 }
-.pcopen .pcOpenChat,
-.pcopen .pcMinimisePopup {
+/*.pcopen .pcMinimisePopup,*/
+.pcopen .pcOpenChat {
     flex-grow: 1;
 }
 .pcopen .pcOpenChat {
@@ -300,20 +301,20 @@ button:focus {
     margin: 0px !important;
     white-space: nowrap;
 }
-.pcopen .pcMinimisePopup {
-    margin: 0 0 0 5px;
-}
+/*.pcopen .pcMinimisePopup {*/
+/*    margin: 0 0 0 5px;*/
+/*}*/
 .pcopen .pcOpenChat button {
     color: #ffffff !important;
     background-color: #2377cb;
 }
-.pcopen .pcMinimisePopup button {
-    color: #333333 !important;
-    background-color: #cccccc;
-}
-.pcopen .pcMinimisePopup button:hover {
-    background-color: #a8a8a8;
-}
+/*.pcopen .pcMinimisePopup button {*/
+/*    color: #333333 !important;*/
+/*    background-color: #cccccc;*/
+/*}*/
+/*.pcopen .pcMinimisePopup button:hover {*/
+/*    background-color: #a8a8a8;*/
+/*}*/
 .pcopen .pcOpenChat button:hover {
     background-color: #195794;
 }
@@ -325,4 +326,17 @@ button:focus {
     .ca-force-hide-mobile {
         right: -300px !important;
     }
+}
+
+.pcMinimisePopup {
+}
+.pcwrapper {
+    position: relative;
+    padding-top: 50px;
+}
+.proactive-chat-small-button svg {
+    width: 44px;
+    position: absolute;
+    top: 0;
+    right: 0;
 }
