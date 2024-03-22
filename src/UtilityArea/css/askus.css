@@ -287,7 +287,6 @@ button:focus {
 .pcopen button {
     width: 100%;
 }
-/*.pcopen .pcMinimisePopup,*/
 .pcopen .pcOpenChat {
     flex-grow: 1;
 }
@@ -301,20 +300,10 @@ button:focus {
     margin: 0px !important;
     white-space: nowrap;
 }
-/*.pcopen .pcMinimisePopup {*/
-/*    margin: 0 0 0 5px;*/
-/*}*/
 .pcopen .pcOpenChat button {
     color: #ffffff !important;
     background-color: #2377cb;
 }
-/*.pcopen .pcMinimisePopup button {*/
-/*    color: #333333 !important;*/
-/*    background-color: #cccccc;*/
-/*}*/
-/*.pcopen .pcMinimisePopup button:hover {*/
-/*    background-color: #a8a8a8;*/
-/*}*/
 .pcopen .pcOpenChat button:hover {
     background-color: #195794;
 }
@@ -334,7 +323,12 @@ button:focus {
     position: relative;
     padding-top: 50px;
 }
+.proactive-chat-button:focus, /* temp */
+.proactive-chat-small-button:focus {
+    border: thin solid red;
+}
 .proactive-chat-small-button svg {
+    fill: #333;
     width: 44px;
     position: absolute;
     top: 0;

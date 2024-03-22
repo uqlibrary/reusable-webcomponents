@@ -42,9 +42,6 @@ template.innerHTML = `
                 <div class="pcOpenChat">
                     <button id="proactive-chat-button-open" data-analyticsid="askus-proactive-chat-button-open" class="proactive-chat-button">Chat now</button>
                 </div>
-<!--                <div class="pcMinimisePopup">-->
-<!--                    <button id="proactive-chat-button-close" data-analyticsid="askus-proactive-chat-button-close" class="proactive-chat-button">Maybe later</button>-->
-<!--                </div>-->
             </div>
         </div>
     </div>
