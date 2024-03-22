@@ -152,18 +152,25 @@ const uq = (function (exports) {
                     value: function init() {
                         var _this3 = this;
 
-                        document
-                            .querySelectorAll('library-training[events-loaded]:not([accordions-active])')
-                            .forEach((trainingInstance) => {
+                        const activeAccordions = document.querySelectorAll(
+                            'library-training[events-loaded]:not([accordions-active])',
+                        );
+                        !!activeAccordions &&
+                            activeAccordions.length > 0 &&
+                            activeAccordions.forEach((trainingInstance) => {
                                 trainingInstance.setAttribute('accordions-active', '');
                                 const document = trainingInstance.shadowRoot.querySelector('training-list').shadowRoot;
                                 const accordions = document.querySelectorAll('.'.concat(_this3.className));
-                                accordions.forEach(function (el) {
-                                    const togglers = el.querySelectorAll('.'.concat(_this3.className, '__toggle'));
-                                    togglers.forEach(function (el) {
-                                        el.addEventListener('click', _this3.handleToggle(togglers));
+                                !!accordions &&
+                                    accordions.length > 0 &&
+                                    accordions.forEach(function (el) {
+                                        const togglers = el.querySelectorAll('.'.concat(_this3.className, '__toggle'));
+                                        !!togglers &&
+                                            togglers.length > 0 &&
+                                            togglers.forEach(function (el) {
+                                                el.addEventListener('click', _this3.handleToggle(togglers));
+                                            });
                                     });
-                                });
                             });
                     },
                 },
