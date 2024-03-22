@@ -201,16 +201,25 @@ button:focus {
     right: 16px;
     bottom: 16px;
 }
+.pcminimised [role="button"] {
+    color: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+    width: 90px;
+    height: 90px;
+    text-align: center;
+}
 .pcminimised .pconline {
     background-color: #007200;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
     padding: 12px;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
     transition-duration: 0.2s;
     transition-property: background-color;
 }
+.pcminimised [role="button"] svg {
+    width: 36px;
+    height: 36px;
+}
+
 .pcminimised .pconline:hover {
     background-color: #005f00;
 }
