@@ -1,4 +1,4 @@
-import proactivecss from './css/askus.css';
+import proactivecss from './css/proactivechat.css';
 import ApiAccess from '../ApiAccess/ApiAccess';
 import { cookieNotFound, setCookie } from '../helpers/cookie';
 
