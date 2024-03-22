@@ -284,7 +284,7 @@ button:focus {
     margin-bottom: 22px;
     text-align: center;
 }
-.pcopen button {
+.pcOpenChat button {
     width: 100%;
 }
 .pcopen .pcOpenChat {
@@ -323,14 +323,16 @@ button:focus {
     position: relative;
     padding-top: 50px;
 }
-.proactive-chat-button:focus, /* temp */
-.proactive-chat-small-button:focus {
-    border: thin solid red;
+.pcopen button.proactive-chat-small-button {
+    position: absolute;
+    top: 0;
+    right: 6px;
+    width: 44px;
+    border-color: transparent;
+    background-color: #fff;
+    box-shadow: none;
 }
 .proactive-chat-small-button svg {
     fill: #333;
     width: 44px;
-    position: absolute;
-    top: 0;
-    right: 0;
 }
