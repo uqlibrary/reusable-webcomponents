@@ -26,19 +26,19 @@ template.innerHTML = `
             </div>
         </div>
         <!-- Proactive Chat larger dialog -->
-        <div id="proactive-chat-wrapper"  class="openWrapper" style="display: none">
-            <div id="proactive-chat" class="pcopen">
+        <div id="proactive-chat-wrapper" class="openWrapper" style="display: none">
+            <div id="proactive-chat" data-testid="popupIsOpen" class="pcopen">
                 <div class="pcText">
                     <div class="pcTitle">Chat is live now</div>
                     <div class="pcMessage">Library staff are here to help.</div>
                 </div>
-                <button id="proactive-chat-button-close" data-analyticsid="askus-proactive-chat-button-close" class="small-button" title="Minimise this popup">
+                <button id="proactive-chat-button-close" data-analyticsid="askus-proactive-chat-button-close" data-testid="close-button" class="small-button" title="Minimise this popup">
                     <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
                     </svg>
                 </button>
                 <div class="pcOpenChat">
-                    <button id="proactive-chat-button-open" data-analyticsid="askus-proactive-chat-button-open">Chat now</button>
+                    <button id="proactive-chat-button-open" data-analyticsid="askus-proactive-chat-button-open" data-testid="popopen-button">Chat now</button>
                 </div>
             </div>
         </div>
@@ -116,6 +116,7 @@ class ProactiveChat extends HTMLElement {
             } else {
                 !!proactiveChatElement && proactiveChatElement.classList.remove('ca-force-hide-mobile');
             }
+            console.log('proactiveChatElement', proactiveChatElement);
             !!proactiveChatElement && proactiveChatElement.classList.add('show');
         };
         const showProactiveChatWrapper = () => {
