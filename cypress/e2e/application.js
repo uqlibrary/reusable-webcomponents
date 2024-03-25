@@ -76,11 +76,7 @@ describe('Dummy Application', () => {
             .should('exist')
             .should('not.be.visible');
         cy.get('proactive-chat').shadow().find('button:contains("Chat now")').should('exist').should('not.be.visible');
-        cy.get('proactive-chat')
-            .shadow()
-            .find('button:contains("Maybe later")')
-            .should('exist')
-            .should('not.be.visible');
+        cy.get('proactive-chat').shadow().find('[data-testid="close-button"]').should('exist').should('not.be.visible');
     }
 
     function hasNoAskusButton() {
