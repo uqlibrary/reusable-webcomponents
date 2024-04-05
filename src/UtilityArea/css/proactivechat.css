@@ -37,8 +37,8 @@ button:focus {
     color: #fff;
     border-radius: 50%;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
-    width: 90px;
-    height: 90px;
+    width: 55px;
+    height: 55px;
     text-align: center;
 }
 .minimisedWrapper .pconline {
@@ -46,6 +46,9 @@ button:focus {
     padding: 12px;
     transition-duration: 0.2s;
     transition-property: background-color;
+}
+.minimisedWrapper .pcmin div {
+    margin-top: -5px;
 }
 .minimisedWrapper [role="button"] svg {
     width: 36px;
