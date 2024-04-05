@@ -97,35 +97,38 @@ button:focus {
     display: flex;
     flex-wrap: wrap;
     position: fixed;
-    bottom: 12px;
+    bottom: -300px;
     background-color: white;
     width: 250px;
     padding: 12px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    right: -300px;
+    right: 12px;
     transition: right 0.3s;
     transition-delay: 0.3s;
     transition-timing-function: ease-in-out;
 }
 .openWrapper .pcopen.show {
-    right: 12px;
-    transition: right 0.3s;
+    bottom: 0;
+    transition: bottom 0.3s;
     transition-delay: 0.3s;
     transition-timing-function: ease-in-out;
 }
 .pcText {
     flex: 0 0 100%;
 }
+.pcTextTop {
+    margin-bottom: 10px;
+}
+.pcTextBottom {
+    margin-top: 10px;
+    font-size: 14px !important;
+    font-weight: normal;
+    text-align: center;
+}
 .pcTitle {
     font-size: 22px !important;
     font-weight: bold;
     color: #51247a;
-    text-align: center;
-}
-.pcMessage {
-    font-size: 14px !important;
-    font-weight: normal;
-    margin-bottom: 10px;
     text-align: center;
 }
 .pcOpenChat {
@@ -152,15 +155,16 @@ button:hover {
 .pcopen button.small-button {
     position: absolute;
     top: 0;
-    right: 6px;
+    right: 0;
     width: 44px;
+    height: 44px;
     border-color: transparent;
     background-color: #fff;
     box-shadow: none;
 }
 .small-button svg {
     fill: #333;
-    width: 44px;
+    width: 30px;
 }
 .small-button:hover svg {
     fill: #000;

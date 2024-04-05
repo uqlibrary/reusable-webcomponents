@@ -30,9 +30,8 @@ template.innerHTML = `
         <!-- Proactive Chat larger dialog -->
         <div id="proactive-chat-wrapper" class="openWrapper" style="display: none">
             <div id="proactive-chat" data-testid="popupIsOpen" class="pcopen">
-                <div class="pcText">
-                    <div class="pcTitle">Chat is live now</div>
-                    <div class="pcMessage">Library staff are here to help.</div>
+                <div class="pcText pcTextTop">
+                    <div class="pcTitle">Need help?</div>
                 </div>
                 <button id="proactive-chat-button-close" data-analyticsid="askus-proactive-chat-button-close" data-testid="close-button" class="small-button" title="Minimise this popup">
                     <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
@@ -41,6 +40,9 @@ template.innerHTML = `
                 </button>
                 <div class="pcOpenChat">
                     <button id="proactive-chat-button-open" data-analyticsid="askus-proactive-chat-button-open" data-testid="popopen-button">Chat now</button>
+                </div>
+                <div class="pcText pcTextBottom">
+                    <div>Library staff are here to help.</div>
                 </div>
             </div>
         </div>
