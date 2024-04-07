@@ -79,7 +79,7 @@ describe('Proactive Chat', () => {
             // "offline Minimised" button is hodden
             cy.get('proactive-chat')
                 .shadow()
-                .find('[title="Chat currently closed"]')
+                .find('[title="Chat currently closed - click for offline contact methods"]')
                 .should('exist')
                 .should('not.be.visible')
                 .should('have.css', 'display', 'none');
@@ -119,7 +119,10 @@ describe('Proactive Chat', () => {
             });
             cy.viewport(1280, 900);
             cy.wait(1500);
-            cy.get('proactive-chat').shadow().find('[title="Chat currently closed"]').click();
+            cy.get('proactive-chat')
+                .shadow()
+                .find('[title="Chat currently closed - click for offline contact methods"]')
+                .click();
             cy.window().its('open').should('be.called');
         });
 
@@ -137,7 +140,7 @@ describe('Proactive Chat', () => {
             // "offline Minimised" button shows
             cy.get('proactive-chat')
                 .shadow()
-                .find('[title="Chat currently closed"]')
+                .find('[title="Chat currently closed - click for offline contact methods"]')
                 .should('exist')
                 .should('be.visible')
                 .should('not.have.css', 'display', 'none')

@@ -22,7 +22,7 @@ template.innerHTML = `
                 <svg class="pcOnlineIcon" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path></svg>
                 <div>Chat</div>
             </div>
-            <div role="button" id="proactive-chat-offline" class="pcmin pcOffline" data-analyticsid="chat-status-icon-offline" style="display: none;" title="Chat currently closed" aria-label="Chat currently closed">
+            <div role="button" id="proactive-chat-offline" class="pcmin pcOffline" data-analyticsid="chat-status-icon-offline" style="display: none;" title="Chat currently closed - click for offline contact methods" aria-label="Chat currently closed - click for offline contact methods">
                 <svg class="pcOfflineIcon" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path></svg>
                 <div><s>Chat</s></div>
             </div>
