@@ -72,7 +72,7 @@ describe('Dummy Application', () => {
             .should('be.visible');
         cy.get('proactive-chat')
             .shadow()
-            .find('[title="Chat currently closed"]')
+            .find('[title="Chat currently closed - click for offline contact methods"]')
             .should('exist')
             .should('not.be.visible');
         cy.get('proactive-chat').shadow().find('button:contains("Chat now")').should('exist').should('not.be.visible');
