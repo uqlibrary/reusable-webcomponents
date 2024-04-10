@@ -33,7 +33,7 @@ button:focus {
     right: 16px;
     bottom: 16px;
 }
-.closedWrapper [role="button"] {
+.smallButton {
     color: #000;
     border-radius: 50%;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
@@ -41,44 +41,38 @@ button:focus {
     height: 55px;
     text-align: center;
 }
-.closedWrapper .smallButtonOnline {
+.smallButton div {
+    margin-top: -5px;
+}
+.smallButton svg {
+    width: 36px;
+    height: 36px;
+    fill: #000;
+}
+
+.onlineSmallButton {
     background-color: #2ea836;
     padding: 12px;
     transition-duration: 0.2s;
     transition-property: background-color;
 }
-.closedWrapper .smallButton div {
-    margin-top: -5px;
-}
-.closedWrapper [role="button"] svg {
-    width: 36px;
-    height: 36px;
-}
-.closedWrapper .smallButtonOnline:hover {
+.onlineSmallButton:hover {
     background-color: #005f00;
 }
 
-.smallButtonOffline {
+.offlineSmallButton {
     background-color: #e62645;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
     padding: 12px;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
     transition-duration: 0.2s;
     transition-property: background-color;
 }
-.smallButtonOffline:hover {
+.offlineSmallButton:hover {
     background-color: #ac0000;
 }
 
 .closedWrapper:hover {
     cursor: pointer;
-}
-
-.closedWrapper .smallButtonOnline svg,
-.closedWrapper .smallButtonOffline svg {
-    fill: #000;
 }
 
 .openWrapper {
@@ -134,7 +128,7 @@ button:focus {
 .openSubWrapper button {
     border-radius: 4px !important;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
-    padding: 0 ;
+    padding: 0;
     margin: 0 auto 0 auto;
     white-space: nowrap;
     font-size: 1em;

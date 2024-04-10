@@ -18,11 +18,11 @@ template.innerHTML = `
     <div id="proactivechat" data-testid="proactivechat" class="proactive-chat">
         <!-- Proactive Chat closed -->
         <div class="closedWrapper">
-            <div role="button" id="proactive-chat-online" class="smallButton smallButtonOnline" data-analyticsid="chat-status-icon-online" style="display: none;" title="Click to open online chat">
+            <div role="button" id="proactive-chat-online" class="smallButton onlineSmallButton" data-analyticsid="chat-status-icon-online" style="display: none;" title="Click to open online chat">
                 <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path></svg>
                 <div>Chat</div>
             </div>
-            <div role="button" id="proactive-chat-offline" class="smallButton smallButtonOffline" data-analyticsid="chat-status-icon-offline" style="display: none;" title="Chat currently closed - click for offline contact methods" aria-label="Chat currently closed - click for offline contact methods">
+            <div role="button" id="proactive-chat-offline" class="smallButton offlineSmallButton" data-analyticsid="chat-status-icon-offline" style="display: none;" title="Chat currently closed - click for offline contact methods" aria-label="Chat currently closed - click for offline contact methods">
                 <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path></svg>
                 <div><s>Chat</s></div>
             </div>
