@@ -27,13 +27,13 @@ button:focus {
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
 }
-.minimisedWrapper {
+.closedWrapper {
     z-index: 9998;
     position: fixed;
     right: 16px;
     bottom: 16px;
 }
-.minimisedWrapper [role="button"] {
+.closedWrapper [role="button"] {
     color: #fff;
     border-radius: 50%;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
@@ -41,24 +41,24 @@ button:focus {
     height: 55px;
     text-align: center;
 }
-.minimisedWrapper .pconline {
+.closedWrapper .smallButtonOnline {
     background-color: #007200;
     padding: 12px;
     transition-duration: 0.2s;
     transition-property: background-color;
 }
-.minimisedWrapper .pcmin div {
+.closedWrapper .smallButton div {
     margin-top: -5px;
 }
-.minimisedWrapper [role="button"] svg {
+.closedWrapper [role="button"] svg {
     width: 36px;
     height: 36px;
 }
-.minimisedWrapper .pconline:hover {
+.closedWrapper .smallButtonOnline:hover {
     background-color: #005f00;
 }
 
-.pcOffline {
+.smallButtonOffline {
     background-color: #c40000;
     width: 24px;
     height: 24px;
@@ -68,19 +68,19 @@ button:focus {
     transition-duration: 0.2s;
     transition-property: background-color;
 }
-.pcOffline:hover {
+.smallButtonOffline:hover {
     background-color: #ac0000;
 }
 
-.minimisedWrapper:hover {
+.closedWrapper:hover {
     cursor: pointer;
 }
 
-.minimisedWrapper .pcOnlineIcon,
-.minimisedWrapper .pcOfflineIcon {
+.closedWrapper .smallButtonOnline svg,
+.closedWrapper .smallButtonOffline svg {
     fill: #fff;
-    width: 100%;
-    height: 100%;
+    /*width: 100%;*/
+    /*height: 100%;*/
 }
 
 .openWrapper {
@@ -93,7 +93,7 @@ button:focus {
     position: relative;
     padding-top: 50px;
 }
-.pcopen {
+.openSubWrapper {
     display: flex;
     flex-wrap: wrap;
     position: fixed;
@@ -107,35 +107,33 @@ button:focus {
     transition-delay: 0.3s;
     transition-timing-function: ease-in-out;
 }
-.openWrapper .pcopen.show {
+.openWrapper .openSubWrapper.show {
     bottom: 0;
     transition: bottom 0.3s;
     transition-delay: 0.3s;
     transition-timing-function: ease-in-out;
 }
-.pcText {
+.openLabel {
     flex: 0 0 100%;
 }
-.pcTextTop {
+.openLabelTop {
+    font-size: 22px !important;
+    font-weight: bold;
+    color: #51247a;
+    text-align: center;
     margin-bottom: 10px;
 }
-.pcTextBottom {
+.openLabelBottom {
     margin-top: 10px;
     font-size: 14px !important;
     font-weight: normal;
     text-align: center;
 }
-.pcTitle {
-    font-size: 22px !important;
-    font-weight: bold;
-    color: #51247a;
-    text-align: center;
-}
-.pcOpenChat {
+.openChatWindowButtonWrapper {
     flex-grow: 1;
     text-align: center;
 }
-.pcopen button {
+.openSubWrapper button {
     border-radius: 4px !important;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
     padding: 0 ;
@@ -152,7 +150,7 @@ button:hover {
     }
 }
 
-.pcopen button.small-button {
+.openSubWrapper button.close-button {
     position: absolute;
     top: 0;
     right: 0;
@@ -162,11 +160,11 @@ button:hover {
     background-color: #fff;
     box-shadow: none;
 }
-.small-button svg {
+.close-button svg {
     fill: #333;
     width: 30px;
 }
-.small-button:hover svg {
+.close-button:hover svg {
     fill: #000;
     font-weight: bold;
 }
