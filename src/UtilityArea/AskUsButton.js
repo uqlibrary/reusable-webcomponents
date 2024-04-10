@@ -118,7 +118,7 @@ class AskUsButton extends HTMLElement {
                 !!labels && labels.forEach((l) => (l.textContent += ' - Closed'));
 
                 const icons = shadowRoot.querySelectorAll('svg.interactiveContact');
-                !!icons && icons.forEach((l) => (l.style.fill = '#c40000'));
+                !!icons && icons.forEach((l) => (l.style.fill = '##e62645'));
 
                 const chatTimes = shadowRoot.querySelectorAll('.chatTimes');
                 !!chatTimes && chatTimes.forEach((l) => (l.style.display = 'none'));

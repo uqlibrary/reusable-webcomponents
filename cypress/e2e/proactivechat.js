@@ -31,7 +31,7 @@ function assertHideChatCookieisSet() {
 }
 
 describe('Proactive Chat', () => {
-    context.only('is accessible', () => {
+    context('is accessible', () => {
         it('Proactive chat online pill passes accessibility', () => {
             cy.visit('http://localhost:8080');
             cy.injectAxe();
