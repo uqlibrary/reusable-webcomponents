@@ -34,7 +34,7 @@ button:focus {
     bottom: 16px;
 }
 .closedWrapper [role="button"] {
-    color: #fff;
+    color: #000;
     border-radius: 50%;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
     width: 55px;
@@ -42,7 +42,7 @@ button:focus {
     text-align: center;
 }
 .closedWrapper .smallButtonOnline {
-    background-color: #007200;
+    background-color: #2ea836;
     padding: 12px;
     transition-duration: 0.2s;
     transition-property: background-color;
@@ -59,7 +59,7 @@ button:focus {
 }
 
 .smallButtonOffline {
-    background-color: #c40000;
+    background-color: #e62645;
     width: 24px;
     height: 24px;
     border-radius: 50%;
@@ -78,9 +78,7 @@ button:focus {
 
 .closedWrapper .smallButtonOnline svg,
 .closedWrapper .smallButtonOffline svg {
-    fill: #fff;
-    /*width: 100%;*/
-    /*height: 100%;*/
+    fill: #000;
 }
 
 .openWrapper {
