@@ -16,32 +16,32 @@ const template = document.createElement('template');
 template.innerHTML = `
     <style>${proactivecss.toString()}</style>
     <div id="proactivechat" data-testid="proactivechat" class="proactive-chat">
-        <!-- Proactive Chat minimised -->
-        <div class="minimisedWrapper">
-            <div role="button" id="proactive-chat-online" class="pcmin pconline" data-analyticsid="chat-status-icon-online" style="display: none;" title="Click to open online chat">
-                <svg class="pcOnlineIcon" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path></svg>
+        <!-- Proactive Chat closed -->
+        <div class="closedWrapper">
+            <div role="button" id="proactive-chat-online" class="smallButton smallButtonOnline" data-analyticsid="chat-status-icon-online" style="display: none;" title="Click to open online chat">
+                <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path></svg>
                 <div>Chat</div>
             </div>
-            <div role="button" id="proactive-chat-offline" class="pcmin pcOffline" data-analyticsid="chat-status-icon-offline" style="display: none;" title="Chat currently closed - click for offline contact methods" aria-label="Chat currently closed - click for offline contact methods">
-                <svg class="pcOfflineIcon" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path></svg>
+            <div role="button" id="proactive-chat-offline" class="smallButton smallButtonOffline" data-analyticsid="chat-status-icon-offline" style="display: none;" title="Chat currently closed - click for offline contact methods" aria-label="Chat currently closed - click for offline contact methods">
+                <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path></svg>
                 <div><s>Chat</s></div>
             </div>
         </div>
         <!-- Proactive Chat larger dialog -->
         <div id="proactive-chat-wrapper" class="openWrapper" style="display: none">
-            <div id="proactive-chat" data-testid="popupIsOpen" class="pcopen">
-                <div class="pcText pcTextTop">
-                    <div class="pcTitle">Need help?</div>
+            <div id="proactive-chat" data-testid="popupIsOpen" class="openSubWrapper">
+                <div class="openLabel openLabelTop">
+                    <div>Need help?</div>
                 </div>
-                <button id="proactive-chat-button-close" data-analyticsid="askus-proactive-chat-button-close" data-testid="close-button" class="small-button" title="Minimise this popup">
+                <button id="proactive-chat-button-close" data-analyticsid="askus-proactive-chat-button-close" data-testid="close-button" class="close-button" title="Minimise this popup">
                     <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
                     </svg>
                 </button>
-                <div class="pcOpenChat">
+                <div class="openChatWindowButtonWrapper">
                     <button id="proactive-chat-button-open" data-analyticsid="askus-proactive-chat-button-open" data-testid="popopen-button">Chat now</button>
                 </div>
-                <div class="pcText pcTextBottom">
+                <div class="openLabel openLabelBottom">
                     <div>Library staff are here to help.</div>
                 </div>
             </div>

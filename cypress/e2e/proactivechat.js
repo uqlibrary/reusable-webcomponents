@@ -31,22 +31,8 @@ function assertHideChatCookieisSet() {
 }
 
 describe('Proactive Chat', () => {
-    context('Proactive chat', () => {
-        it('Appears popped open on user first visit', () => {
-            cy.visit('http://localhost:8080');
-            cy.viewport(1280, 900);
-            // initially the proactive chat popup is minimised
-            // (for users who know what they want don't need to see it - a little hesitation and maybe they want assistance)
-            assertPopupIsHidden();
-
-            // manually wait
-            cy.wait(1500);
-
-            // now the popup is open (simulate user first visit, no "hide" cookie present)
-            assertPopupIsOpen();
-        });
-
-        it('Proactive chat passes accessibility', () => {
+    context.only('is accessible', () => {
+        it('Proactive chat online pill passes accessibility', () => {
             cy.visit('http://localhost:8080');
             cy.injectAxe();
             cy.viewport(1280, 900);
@@ -56,6 +42,46 @@ describe('Proactive Chat', () => {
                 scopeName: 'Accessibility',
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
             });
+        });
+
+        it('Proactive chat popup passes accessibility', () => {
+            cy.visit('http://localhost:8080');
+            cy.injectAxe();
+            cy.viewport(1280, 900);
+            cy.wait(4000);
+            cy.checkA11y('proactive-chat', {
+                reportName: 'Proactive chat popup',
+                scopeName: 'Accessibility',
+                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+            });
+        });
+
+        it('offline is accessible', () => {
+            cy.visit('http://localhost:8080?chatstatusoffline=true');
+            cy.injectAxe();
+            cy.viewport(1280, 900);
+            cy.wait(1500);
+            cy.checkA11y('proactive-chat', {
+                reportName: 'Proactive chat offline',
+                scopeName: 'Accessibility',
+                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+            });
+        });
+    });
+
+    context('works correctly', () => {
+        it("will pop open on user's first visit", () => {
+            cy.visit('http://localhost:8080');
+            cy.viewport(1280, 900);
+            // initially the proactive chat popup is closed
+            // (for users who know what they want don't need to see it - a little hesitation and maybe they want assistance)
+            assertPopupIsHidden();
+
+            // manually wait
+            cy.wait(1500);
+
+            // now the popup is open (simulate user first visit, no "hide" cookie present)
+            assertPopupIsOpen();
         });
 
         it('Can hide proactive chat button', () => {
@@ -76,7 +102,7 @@ describe('Proactive Chat', () => {
             assertHideChatCookieisSet();
             cy.wait(1500);
             assertPopupIsHidden();
-            // "offline Minimised" button is hodden
+            // "offline closed" button is hodden
             cy.get('proactive-chat')
                 .shadow()
                 .find('[title="Chat currently closed - click for offline contact methods"]')
@@ -90,7 +116,7 @@ describe('Proactive Chat', () => {
                 .should('exist')
                 .should('be.visible')
                 .should('not.have.css', 'display', 'none')
-                .should('have.css', 'background-color', 'rgb(0, 114, 0)')
+                .should('have.css', 'background-color', 'rgb(46, 168, 54)')
                 .parent()
                 .should('have.css', 'right', '16px');
         });
@@ -130,21 +156,21 @@ describe('Proactive Chat', () => {
             cy.visit('http://localhost:8080/?user=errorUser&chatstatusoffline');
             cy.viewport(1280, 900);
 
-            // "online Minimised" button is hidden
+            // "online" button is hidden
             cy.get('proactive-chat')
                 .shadow()
                 .find('[title="Click to open online chat"]')
                 .should('exist')
                 .should('not.be.visible')
                 .should('have.css', 'display', 'none');
-            // "offline Minimised" button shows
+            // "offline closed" button shows
             cy.get('proactive-chat')
                 .shadow()
                 .find('[title="Chat currently closed - click for offline contact methods"]')
                 .should('exist')
                 .should('be.visible')
                 .should('not.have.css', 'display', 'none')
-                .should('have.css', 'background-color', 'rgb(196, 0, 0)')
+                .should('have.css', 'background-color', 'rgb(230, 38, 69)')
                 .parent()
                 .should('have.css', 'right', '16px');
         });
