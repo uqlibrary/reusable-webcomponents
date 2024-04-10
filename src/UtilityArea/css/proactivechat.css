@@ -49,6 +49,10 @@ button:focus {
     height: 36px;
     fill: #000;
 }
+.smallButton:focus svg,
+.smallButton:hover svg {
+    fill: #fff;
+}
 
 .onlineSmallButton {
     background-color: #2ea836;
@@ -56,8 +60,10 @@ button:focus {
     transition-duration: 0.2s;
     transition-property: background-color;
 }
+.onlineSmallButton:focus,
 .onlineSmallButton:hover {
     background-color: #005f00;
+    color: #fff;
 }
 
 .offlineSmallButton {
@@ -67,8 +73,10 @@ button:focus {
     transition-duration: 0.2s;
     transition-property: background-color;
 }
+.offlineSmallButton:focus,
 .offlineSmallButton:hover {
     background-color: #ac0000;
+    color: #fff;
 }
 
 .closedWrapper:hover {
