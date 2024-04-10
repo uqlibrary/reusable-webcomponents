@@ -335,6 +335,9 @@ a.uq-site-header__navigation-link.slide-menu__control:-moz-focusring {
 .panel-hidden {
     display: none;
 }
+.panel-showing p:first-child {
+    display: flex; align-items: center; margin-left: 16px; margin-top: 16px;
+}
 .panel-showing {
     display: block;
 }
@@ -382,7 +385,16 @@ a.uq-site-header__navigation-link.slide-menu__control:-moz-focusring {
 .readmorelink {
     position: absolute;
     bottom: 1rem;
-    right: 1rem;
+    left: 1rem;
+}
+.readmorelink a {
+    display: flex;
+    align-items: center;
+    font-size: 0.9em;
+}
+.readmorelink svg {
+    width: 20px;
+    fill: #2377cb;
 }
 
 .mapselector {
