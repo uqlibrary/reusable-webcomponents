@@ -13,7 +13,7 @@ describe('AskUs menu', () => {
             cy.get('uq-site-header').find('askus-button').should('exist');
             openAskusPopup();
             cy.wait(500);
-            cy.get('askus-button').shadow().find('ul.askus-menu-list').find('li').should('have.length', 7);
+            cy.get('askus-button').shadow().find('ul.askus-menu-list').find('li').should('have.length', 6);
         });
 
         it('AskUs passes accessibility', () => {
