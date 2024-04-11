@@ -38,7 +38,7 @@
     "test": "start-server-and-test start-test-server http://localhost:8080 cypress:run:record"
   },
   "engines": {
-    "npm": "~10.2.3",
+    "npm": "~10.5.0",
     "node": ">=18.19.0"
   },
   "repository": {
