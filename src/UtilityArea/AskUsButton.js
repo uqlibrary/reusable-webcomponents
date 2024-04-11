@@ -109,9 +109,10 @@ class AskUsButton extends HTMLElement {
         await api.loadChatStatus().then((isOnline) => {
             if (!isOnline) {
                 // Chat disabled
-                shadowRoot.getElementById('askus-chat-link').removeAttribute('onclick');
-                shadowRoot.getElementById('askus-phone-link').removeAttribute('href');
-                shadowRoot.getElementById('askus-video-link').removeAttribute('href');
+                const chatLink = shadowRoot.getElementById('askus-chat-link');
+                !!chatLink && chatLink.removeAttribute('onclick');
+                const phoneLink = shadowRoot.getElementById('askus-phone-link');
+                !!phoneLink && phoneLink.removeAttribute('href');
 
                 const labels = shadowRoot.querySelectorAll('span.interactiveContact');
                 !!labels && labels.forEach((l) => (l.textContent += ' - Closed'));
@@ -131,9 +132,6 @@ class AskUsButton extends HTMLElement {
 
             const phoneitem = shadowRoot.getElementById('askus-phone-time');
             !!hours && !!hours.phone && !!phoneitem && (phoneitem.innerText = hours.phone);
-
-            const videoitem = shadowRoot.getElementById('askus-video-time');
-            !!hours && !!hours.phone && !!videoitem && (videoitem.innerText = hours.phone);
         });
     }
 
