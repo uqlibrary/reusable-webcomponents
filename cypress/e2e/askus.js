@@ -5,6 +5,31 @@ function openAskusPopup() {
 }
 
 describe('AskUs menu', () => {
+    context('is accessible', () => {
+        it('before opening', () => {
+            cy.visit('http://localhost:8080');
+            cy.injectAxe();
+            cy.viewport(1280, 900);
+            cy.wait(500);
+            cy.checkA11y('askus-button', {
+                reportName: 'AskUs initial',
+                scopeName: 'Accessibility',
+                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+            });
+        });
+        it('when open', () => {
+            cy.visit('http://localhost:8080');
+            cy.injectAxe();
+            cy.viewport(1280, 900);
+            openAskusPopup();
+            cy.wait(500);
+            cy.checkA11y('askus-button', {
+                reportName: 'AskUs open',
+                scopeName: 'Accessibility',
+                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+            });
+        });
+    });
     context('AskUs Menu', () => {
         it('Appears as expected', () => {
             cy.visit('http://localhost:8080');
@@ -14,19 +39,6 @@ describe('AskUs menu', () => {
             openAskusPopup();
             cy.wait(500);
             cy.get('askus-button').shadow().find('ul.askus-menu-list').find('li').should('have.length', 6);
-        });
-
-        it('AskUs passes accessibility', () => {
-            cy.visit('http://localhost:8080');
-            cy.injectAxe();
-            cy.viewport(1280, 900);
-            openAskusPopup();
-            cy.wait(500);
-            cy.checkA11y('askus-button', {
-                reportName: 'AskUs',
-                scopeName: 'Accessibility',
-                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
-            });
         });
 
         it('Askus Pane Opacity can be removed, as needed for Primo', () => {
