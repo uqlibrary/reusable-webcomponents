@@ -170,7 +170,7 @@ describe('Proactive Chat', () => {
                 .should('exist')
                 .should('be.visible')
                 .should('not.have.css', 'display', 'none')
-                .should('have.css', 'background-color', 'rgb(230, 38, 69)')
+                .should('have.css', 'background-color', 'rgb(212, 200, 222)')
                 .parent()
                 .should('have.css', 'right', '16px');
         });
