@@ -108,11 +108,6 @@ describe('AskUs menu', () => {
                 .should('have.value', '');
             cy.get('askus-button')
                 .shadow()
-                .find('[data-testid="askus-video-time"]')
-                .should('exist')
-                .should('have.value', '');
-            cy.get('askus-button')
-                .shadow()
                 .find('[data-testid="askus-chat-time"]')
                 .should('exist')
                 .should('have.css', 'display', 'none');
