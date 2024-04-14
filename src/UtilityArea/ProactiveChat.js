@@ -23,7 +23,7 @@ template.innerHTML = `
                 <div>Chat</div>
             </div>
             <div role="button" id="proactive-chat-offline" class="smallButton offlineSmallButton" data-analyticsid="chat-status-icon-offline" style="display: none;" title="Chat currently closed - click for offline contact methods" aria-label="Chat currently closed - click for offline contact methods">
-                <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path></svg>
+                <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2m0 14H6l-2 2V4h16z"></path></svg>
             </div>
         </div>
         <!-- Proactive Chat larger dialog -->
