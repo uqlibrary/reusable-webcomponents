@@ -190,15 +190,17 @@ class UQFooter extends HTMLElement {
                 const invalidDiv = document.createElement('div');
                 !!invalidDiv && !!ul2 && ul2.appendChild(invalidDiv);
 
-                list.list.forEach((entry1) => {
-                    const datatestid = !!entry1.dataTestid ? `${entry1.dataTestid}-mobile` : null;
-                    const link = this.createNavLink(entry1.href, entry1.label, datatestid);
+                !!list.list &&
+                    list.list.length > 0 &&
+                    list.list.forEach((entry1) => {
+                        const datatestid = !!entry1.dataTestid ? `${entry1.dataTestid}-mobile` : null;
+                        const link = this.createNavLink(entry1.href, entry1.label, datatestid);
 
-                    const li2 = document.createElement('li');
-                    li2.setAttribute('class', 'uq-footer__navigation-item');
-                    !!link && !!li2 && li2.appendChild(link);
-                    !!li2 && !!invalidDiv && invalidDiv.appendChild(li2);
-                });
+                        const li2 = document.createElement('li');
+                        li2.setAttribute('class', 'uq-footer__navigation-item');
+                        !!link && !!li2 && li2.appendChild(link);
+                        !!li2 && !!invalidDiv && invalidDiv.appendChild(li2);
+                    });
             });
     }
 
@@ -229,15 +231,17 @@ class UQFooter extends HTMLElement {
                 !!ul2 && ul2.setAttribute('class', 'uq-footer__navigation-list uq-footer__navigation-level-2');
                 !!ul2 && !!li1 && li1.appendChild(ul2);
 
-                list.list.forEach((entry1) => {
-                    const datatestid = !!entry1.dataTestid ? `${entry1.dataTestid}-desktop` : null;
-                    const link = this.createNavLink(entry1.href, entry1.label, datatestid);
+                !!list &&
+                    list.length > 0 &&
+                    list.list.forEach((entry1) => {
+                        const datatestid = !!entry1.dataTestid ? `${entry1.dataTestid}-desktop` : null;
+                        const link = this.createNavLink(entry1.href, entry1.label, datatestid);
 
-                    const li2 = document.createElement('li');
-                    li2.setAttribute('class', 'uq-footer__navigation-item');
-                    !!link && !!li2 && li2.appendChild(link);
-                    !!li2 && !!ul2 && ul2.appendChild(li2);
-                });
+                        const li2 = document.createElement('li');
+                        li2.setAttribute('class', 'uq-footer__navigation-item');
+                        !!link && !!li2 && li2.appendChild(link);
+                        !!li2 && !!ul2 && ul2.appendChild(li2);
+                    });
             });
     }
 }
