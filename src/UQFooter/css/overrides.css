@@ -1,39 +1,8 @@
-footer {
-    font-family: Roboto, Helvetica, Arial, sans-serif;
-}
-.uq-footer__navigation-list {
-    font-size: 16px;
+.uq-footer {
+    font-size: 100%;
+    font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-weight: 400;
     line-height: 1.5;
-    margin: 0;
-    padding: 0;
-}
-.uq-footer__navigation-level-2 {
-    height: auto;
-}
-@media (min-width: 75rem) {
-    .uq-footer__footer ul {
-        justify-content: flex-end;
-    }
-}
-@media (min-width: 64rem) {
-    .uq-footer__navigation-link {
-        line-height: 1.5;
-    }
-}
-
-.uq-footer--mobile .uq-footer__navigation-level-2 {
-    display: block;
-    height: 0;
-    max-height: 10px;
-    transition: max-height ease 2s 0s;
-}
-.uq-footer--mobile .uq-footer__navigation-level-2 > div {
-    line-height: 24px;
-}
-.uq-footer__meta .uq-footer__footer-item {
-    font-size: 0.875rem;
-}
-.uq-footer__footer {
-    margin-top: 0.1em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }

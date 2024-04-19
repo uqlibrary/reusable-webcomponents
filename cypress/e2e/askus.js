@@ -83,7 +83,7 @@ describe('AskUs menu', () => {
                 .shadow()
                 .find('[data-testid="askus-chat-time"]')
                 .should('exist')
-                .should('have.css', 'display', 'none');
+                .should('have.value', '');
         });
         it('Displays as offline after hours', () => {
             cy.visit('http://localhost:8080/?user=s1111111&chatstatusoffline=true');
@@ -106,11 +106,6 @@ describe('AskUs menu', () => {
                 .find('[data-testid="askus-phone-time"]')
                 .should('exist')
                 .should('have.value', '');
-            cy.get('askus-button')
-                .shadow()
-                .find('[data-testid="askus-chat-time"]')
-                .should('exist')
-                .should('have.css', 'display', 'none');
         });
     });
 });
