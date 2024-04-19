@@ -1290,6 +1290,12 @@ html {
 .uq-footer .uq-accordion__toggle--active:before {
     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m17 14-5-5-5 5'/%3E%3C/svg%3E")
 }
+.uq-footer--mobile .uq-accordion__toggle {
+    background-color: #51247a;
+    color: #fff;
+    font-size: 1rem;
+    padding-left: 1.5rem
+}
 
 .uq-footer__footer {
     grid-area: FooterTerms
