@@ -6,3 +6,18 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+@media(max-width: 37.5rem) {
+    .uq-footer__footer-list abbr[title] {
+        text-underline-offset: 2px;
+    }
+}
+
+.uq-footer--mobile .uq-accordion__toggle--active {
+    text-decoration-color: rgb(255, 255, 255) !important;
+    text-decoration-line: none !important;
+}
+
+.uq-footer--mobile .uq-accordion__toggle:hover {
+    color: #fff;
+}
