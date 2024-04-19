@@ -280,7 +280,7 @@ describe('UQ Footer', () => {
                 .should('be.gt', 2); // while the length varies, we're always going to have some!
         });
 
-        it('Footer passes accessibility', () => {
+        it('Footer passes accessibility on desktop', () => {
             cy.viewport(1280, 900);
             cy.injectAxe();
             cy.wait(1000);
@@ -288,6 +288,23 @@ describe('UQ Footer', () => {
                 reportName: 'Footer',
                 scopeName: 'Accessibility',
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+                rules: {
+                    'link-in-text-block': { enabled: false }, // the link styling is centrally mandated :(
+                },
+            });
+        });
+
+        it('Footer passes accessibility on mobile', () => {
+            cy.viewport(320, 480);
+            cy.injectAxe();
+            cy.wait(1000);
+            cy.checkA11y('uq-footer', {
+                reportName: 'Footer',
+                scopeName: 'Accessibility',
+                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+                rules: {
+                    'link-in-text-block': { enabled: false }, // the link styling is centrally mandated :(
+                },
             });
         });
 
