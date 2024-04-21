@@ -40,28 +40,28 @@ template.innerHTML = `
           <ul class="uq-footer__footer-list">
             <li class="uq-footer__footer-item">&copy; The University of Queensland</li>
             <li class="uq-footer__footer-item"><abbr title="Australian Business Number">ABN</abbr>: 63 942 912 684 </li>
-            <li class="uq-footer__footer-item"><a class="uq-footer__link" href="https://www.uq.edu.au/about/cricos-link" rel="external" data-gtm-label="CRICOS 00025B"><abbr title="Commonwealth Register of Institutions and Courses for Overseas Students">CRICOS</abbr>: 00025B</a></li>
+            <li class="uq-footer__footer-item"><abbr title="Commonwealth Register of Institutions and Courses for Overseas Students">CRICOS</abbr>: <a class="uq-footer__link" href="https://www.uq.edu.au/about/cricos-link" rel="external">00025B</a></li>
             <li class="uq-footer__footer-item"><abbr title="Tertiary Education Quality and Standards Agency">TEQSA</abbr>: <a class="uq-footer__link" href="https://www.teqsa.gov.au/national-register/provider/university-queensland" rel="external" data-gtm-label="TEQSA PRV12080">PRV12080</a></li>
           </ul>
         </nav>
         <nav class="uq-footer__footer" aria-label="Terms and conditions">
           <ul class="uq-footer__footer-list">
               <li class="uq-footer__footer-item">
-                  <a href="https://www.uq.edu.au/legal/terms-of-use" class="uq-footer__link">Privacy and terms of use</a>
+                  <a href="https://www.uq.edu.au/legal/website-terms-of-use/" class="uq-footer__link">Privacy and terms of use</a>
               </li>
               <li class="uq-footer__footer-item">
-                <a href="https://uq.edu.au/accessibility" class="uq-footer__link">Accessibility</a>
+                <a href="https://uq.edu.au/accessibility/" class="uq-footer__link">Accessibility</a>
               </li>
               <li class="uq-footer__footer-item">
-                  <a href="https://www.uq.edu.au/rti" class="uq-footer__link">Right to information</a>
+                  <a href="https://governance-risk.uq.edu.au/rtip" class="uq-footer__link">Right to information</a>
               </li>
-              <li class="uq-footer__footer-item">
+              <li class="uq-footer__footer-menu__item">
                 <a href="https://my.uq.edu.au/feedback?r=${encodeURIComponent(
                     window.location.href,
                 )}" class="uq-footer__link">Feedback</a>
               </li>
           </ul>
-           </nav>
+        </nav>
       </div>
     </footer>
 `;

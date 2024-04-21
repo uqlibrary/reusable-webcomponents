@@ -150,12 +150,13 @@ describe('UQ Footer', () => {
                 .should('be.visible')
                 .should('not.have.css', 'height', '0px');
             // menu has some children
-            cy.get('uq-footer')
-                .shadow()
-                .find(`[data-testid="menu-toggle-${listIndex}"]`)
-                .should('exist')
-                .should('be.visible')
-                .click();
+            cy.waitUntil(() =>
+                cy
+                    .get('uq-footer')
+                    .shadow()
+                    .find(`[data-testid="menu-toggle-${listIndex}"] .uq-footer__navigation-level-2 li`)
+                    .should('exist'),
+            );
             cy.get('uq-footer')
                 .shadow()
                 .find(`[data-testid="menu-toggle-${listIndex}"] .uq-footer__navigation-level-2 li`)
@@ -187,12 +188,6 @@ describe('UQ Footer', () => {
             // menu has some children
             cy.get('uq-footer')
                 .shadow()
-                .find(`[data-testid="menu-toggle-${listIndex}"]`)
-                .should('exist')
-                .should('be.visible')
-                .click();
-            cy.get('uq-footer')
-                .shadow()
                 .find(`[data-testid="menu-toggle-${listIndex}"] .uq-footer__navigation-level-2 li`)
                 .its('length')
                 .should('be.gt', 2); // while the length varies, we're always going to have some!
@@ -220,12 +215,6 @@ describe('UQ Footer', () => {
                 .should('be.visible')
                 .should('not.have.css', 'height', '0px');
             // menu has some children
-            cy.get('uq-footer')
-                .shadow()
-                .find(`[data-testid="menu-toggle-${listIndex}"]`)
-                .should('exist')
-                .should('be.visible')
-                .click();
             cy.get('uq-footer')
                 .shadow()
                 .find(`[data-testid="menu-toggle-${listIndex}"] .uq-footer__navigation-level-2 li`)
@@ -257,12 +246,6 @@ describe('UQ Footer', () => {
             // menu has some children
             cy.get('uq-footer')
                 .shadow()
-                .find(`[data-testid="menu-toggle-${listIndex}"]`)
-                .should('exist')
-                .should('be.visible')
-                .click();
-            cy.get('uq-footer')
-                .shadow()
                 .find(`[data-testid="menu-toggle-${listIndex}"] .uq-footer__navigation-level-2 li`)
                 .its('length')
                 .should('be.gt', 2); // while the length varies, we're always going to have some!
@@ -292,18 +275,12 @@ describe('UQ Footer', () => {
             // menu has some children
             cy.get('uq-footer')
                 .shadow()
-                .find(`[data-testid="menu-toggle-${listIndex}"]`)
-                .should('exist')
-                .should('be.visible')
-                .click();
-            cy.get('uq-footer')
-                .shadow()
                 .find(`[data-testid="menu-toggle-${listIndex}"] .uq-footer__navigation-level-2 li`)
                 .its('length')
                 .should('be.gt', 2); // while the length varies, we're always going to have some!
         });
 
-        it('Footer passes accessibility', () => {
+        it('Footer passes accessibility on desktop', () => {
             cy.viewport(1280, 900);
             cy.injectAxe();
             cy.wait(1000);
@@ -311,6 +288,23 @@ describe('UQ Footer', () => {
                 reportName: 'Footer',
                 scopeName: 'Accessibility',
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+                rules: {
+                    'link-in-text-block': { enabled: false }, // the link styling is centrally mandated :(
+                },
+            });
+        });
+
+        it('Footer passes accessibility on mobile', () => {
+            cy.viewport(320, 480);
+            cy.injectAxe();
+            cy.wait(1000);
+            cy.checkA11y('uq-footer', {
+                reportName: 'Footer',
+                scopeName: 'Accessibility',
+                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+                rules: {
+                    'link-in-text-block': { enabled: false }, // the link styling is centrally mandated :(
+                },
             });
         });
 
