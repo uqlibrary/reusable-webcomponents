@@ -61,11 +61,13 @@ var uq = (function (exports) {
         !!toggle && toggle.setAttribute('aria-pressed', !ariaPressed);
         var target = this.nav.querySelectorAll('.'.concat(this.level1Class));
         var _this = this;
-        target.forEach(function (el) {
-            el.classList.toggle(_this.openModifier);
-            el.setAttribute('aria-expanded', !ariaExpanded);
-            el.setAttribute('aria-pressed', !ariaPressed);
-        });
+        !!target &&
+            target.length > 0 &&
+            target.forEach(function (el) {
+                el.classList.toggle(_this.openModifier);
+                el.setAttribute('aria-expanded', !ariaExpanded);
+                el.setAttribute('aria-pressed', !ariaPressed);
+            });
     }
 
     /**
@@ -118,58 +120,74 @@ var uq = (function (exports) {
                     !!mobileToggle && mobileToggle.addEventListener('click', this.handleMobileToggle);
 
                     var subNavItems = this.nav.querySelectorAll('.'.concat(this.subNavClass));
-                    subNavItems.forEach(function (item) {
-                        _this.setOrientation(item);
+                    !!subNavItems &&
+                        subNavItems.length > 0 &&
+                        subNavItems.forEach(function (item) {
+                            _this.setOrientation(item);
 
-                        item.addEventListener('mouseenter', _this.handleToggle);
-                        item.addEventListener('mouseleave', _this.handleToggle);
-                    });
+                            item.addEventListener('mouseenter', _this.handleToggle);
+                            item.addEventListener('mouseleave', _this.handleToggle);
+                        });
 
                     var subNavLinks = this.nav.querySelectorAll('.'.concat(this.subNavClass, ' > a'));
-                    subNavLinks.forEach(function (item) {
-                        if (window.matchMedia('(min-width: 1024px)').matches) {
-                            item.addEventListener('touchend', _this.handleToggle);
-                        }
-                    });
+                    !!subNavLinks &&
+                        subNavLinks.length > 0 &&
+                        subNavLinks.forEach(function (item) {
+                            if (window.matchMedia('(min-width: 1024px)').matches) {
+                                item.addEventListener('touchend', _this.handleToggle);
+                            }
+                        });
 
                     var subNavL2Items = this.nav.querySelectorAll(
                         '.'.concat(this.level2Class, ' .').concat(this.subNavClass),
                     );
-                    subNavL2Items.forEach(function (item) {
-                        _this.setOrientation(item);
+                    !!subNavL2Items &&
+                        subNavL2Items.length > 0 &&
+                        subNavL2Items.forEach(function (item) {
+                            _this.setOrientation(item);
 
-                        item.addEventListener('mouseenter', _this.handleToggle);
-                        item.addEventListener('mouseleave', _this.handleToggle);
-                    });
+                            item.addEventListener('mouseenter', _this.handleToggle);
+                            item.addEventListener('mouseleave', _this.handleToggle);
+                        });
 
                     var subNavL2Links = this.nav.querySelectorAll(
                         '.'.concat(this.level2Class, ' .').concat(this.subNavClass, ' > a'),
                     );
-                    subNavL2Links.forEach(function (item) {
-                        item.addEventListener('touchend', _this.handleToggle);
-                    });
+                    !!subNavL2Links &&
+                        subNavL2Links.length > 0 &&
+                        subNavL2Links.forEach(function (item) {
+                            item.addEventListener('touchend', _this.handleToggle);
+                        });
 
                     var navLinks = this.nav.querySelectorAll('li > a');
-                    navLinks.forEach(function (item) {
-                        item.addEventListener('keydown', _this.handleKeyPress);
-                    });
+                    !!navLinks &&
+                        navLinks.length > 0 &&
+                        navLinks.forEach(function (item) {
+                            item.addEventListener('keydown', _this.handleKeyPress);
+                        });
 
                     var subNavToggles = this.nav.querySelectorAll('.'.concat(this.subToggleClass));
-                    subNavToggles.forEach(function (item) {
-                        item.addEventListener('click', _this.handleToggle);
-                        item.addEventListener('keydown', _this.handleToggleOnBackTab);
-                    });
+                    !!subNavToggles &&
+                        subNavToggles.length > 0 &&
+                        subNavToggles.forEach(function (item) {
+                            item.addEventListener('click', _this.handleToggle);
+                            item.addEventListener('keydown', _this.handleToggleOnBackTab);
+                        });
 
                     var firstNavLinks = this.nav.querySelectorAll('.first-child a');
-                    firstNavLinks.forEach(function (item) {
-                        // a back tab out of the first child in an opened submenu should close the submenu
-                        item.addEventListener('keydown', _this.handleToggleOnBackTab, false);
-                    });
+                    !!firstNavLinks &&
+                        firstNavLinks.length > 0 &&
+                        firstNavLinks.forEach(function (item) {
+                            // a back tab out of the first child in an opened submenu should close the submenu
+                            item.addEventListener('keydown', _this.handleToggleOnBackTab, false);
+                        });
 
                     var closeItems = this.nav.querySelectorAll('.'.concat(this.closeSubLevel));
-                    closeItems.forEach(function (item) {
-                        item.addEventListener('click', _this.handleToggle);
-                    });
+                    !!closeItems &&
+                        closeItems.length > 0 &&
+                        closeItems.forEach(function (item) {
+                            item.addEventListener('click', _this.handleToggle);
+                        });
                 },
             },
             {
@@ -350,13 +368,15 @@ var uq = (function (exports) {
                     var _this3 = this;
 
                     var levels = this.nav.querySelectorAll('.'.concat(this.subNavClass));
-                    levels.forEach(function (level) {
-                        var item = level.querySelector('.'.concat(_this3.level2Class));
-                        item.setAttribute('aria-expanded', 'false');
-                        item.setAttribute('aria-haspopup', 'false');
+                    !!levels &&
+                        levels.length > 0 &&
+                        levels.forEach(function (level) {
+                            var item = level.querySelector('.'.concat(_this3.level2Class));
+                            item.setAttribute('aria-expanded', 'false');
+                            item.setAttribute('aria-haspopup', 'false');
 
-                        _this3.closeLevel(item, level);
-                    });
+                            _this3.closeLevel(item, level);
+                        });
                 },
             },
             {
@@ -365,9 +385,11 @@ var uq = (function (exports) {
                     var _this4 = this;
                     var listHeaderItem = 'nav > ul.uq-site-header__navigation__list > li';
                     var levels = this.nav.querySelectorAll(listHeaderItem);
-                    levels.forEach(function (level) {
-                        _this4.hideLevel(level);
-                    });
+                    !!levels &&
+                        levels.length > 0 &&
+                        levels.forEach(function (level) {
+                            _this4.hideLevel(level);
+                        });
                 },
             },
             {
@@ -377,9 +399,11 @@ var uq = (function (exports) {
 
                     var listHeaderItem = 'nav > ul.uq-site-header__navigation__list > li';
                     var levels = this.nav.querySelectorAll(listHeaderItem);
-                    levels.forEach(function (level) {
-                        _this5.unhideLevel(level);
-                    });
+                    !!levels &&
+                        levels.length > 0 &&
+                        levels.forEach(function (level) {
+                            _this5.unhideLevel(level);
+                        });
                 },
             },
             {

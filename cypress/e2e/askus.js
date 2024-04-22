@@ -74,6 +74,22 @@ describe('AskUs menu', () => {
             cy.injectAxe();
             cy.viewport(1280, 900);
             openAskusPopup();
+            cy.get('askus-button')
+                .shadow()
+                .find('[data-testid="askus-chat-link"]')
+                .should('exist')
+                .should('have.value', '');
+            cy.get('askus-button')
+                .shadow()
+                .find('[data-testid="askus-chat-time"]')
+                .should('exist')
+                .should('have.value', '');
+        });
+        it('Displays as offline after hours', () => {
+            cy.visit('http://localhost:8080/?user=s1111111&chatstatusoffline=true');
+            cy.injectAxe();
+            cy.viewport(1280, 900);
+            openAskusPopup();
             cy.wait(500);
             cy.checkA11y('askus-button', {
                 reportName: 'AskUs',
