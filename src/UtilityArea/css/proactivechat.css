@@ -68,7 +68,7 @@ button:focus {
 }
 
 .offlineSmallButton {
-    background-color: #d4c8de;
+    background-color: #2377cb; /* uqblue */
     padding: 12px;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
     transition-duration: 0.2s;
@@ -77,12 +77,12 @@ button:focus {
 }
 .offlineSmallButton:focus,
 .offlineSmallButton:hover {
-    background-color: #baa7ca;
+    background-color: #2377cb; /* uqblue */
 }
 .offlineSmallButton svg {
     width: 42px;
     height: 42px;
-    fill: #51247a;
+    fill: #fff;
 }
 
 .closedWrapper:hover {
