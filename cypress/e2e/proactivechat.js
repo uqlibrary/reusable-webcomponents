@@ -101,12 +101,8 @@ describe('Proactive Chat', () => {
                 .should('have.css', 'right', '16px');
         });
 
-        it('Can open chat window', () => {
-            cy.visit('http://localhost:8080', {
-                onBeforeLoad(win) {
-                    cy.stub(win, 'open');
-                },
-            });
+        it('AI chatbot iframe opens', () => {
+            cy.visit('http://localhost:8080');
             cy.viewport(1280, 900);
             assertPopupIsHidden();
 
@@ -114,7 +110,18 @@ describe('Proactive Chat', () => {
             cy.wait(1500);
             assertPopupIsOpen();
             cy.get('proactive-chat').shadow().find('button:contains("Chat now")').should('exist').click();
-            cy.window().its('open').should('be.called');
+
+            // let the iframe finish drawing
+            cy.wait(4000);
+
+            cy.get('proactive-chat').shadow().find('[data-testid="chatbot-wrapper"]').should('exist'); // well, at least we know the iframe reaches the page!
+
+            // hmm... may not be able to check "the iframe we expected" loaded. But, then... it is an external resource - maybe we shouldn't?
+            // cy.getIframeBodyInShadow('[data-testid="chatbot-wrapper"]') // Replace '#your-iframe-id' with your iframe's selector
+            //     // .find('body') // You can replace 'body' with any selector to find elements inside the iframe
+            //     // .should('be.visible')
+            //     // .contains("UQ Library's AskAI service")
+            // ;
         });
 
         it('Navigates to contact from offline proactive chat icon', () => {

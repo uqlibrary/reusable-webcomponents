@@ -12,8 +12,8 @@ import { cookieNotFound, setCookie } from '../helpers/cookie';
  *
  */
 
-const template = document.createElement('template');
-template.innerHTML = `
+const userPromptTemplate = document.createElement('template');
+userPromptTemplate.innerHTML = `
     <style>${proactivecss.toString()}</style>
     <div id="proactivechat" data-testid="proactivechat" class="proactive-chat">
         <!-- Proactive Chat minimised -->
@@ -27,13 +27,13 @@ template.innerHTML = `
         </div>
         <!-- Proactive Chat larger dialog -->
         <div id="proactive-chat-wrapper"  class="pcwrapper" style="display: none">
-            <div id="proactive-chat" class="pcopen">
+            <div id="proactive-chat" data-testid="popupIsOpen" class="pcopen">
                 <div class="pcText">
                     <div class="pcTitle">Chat is online now</div>
                     <div class="pcMessage">Library staff are here to assist.<br/>Would you like to chat?</div>
                 </div>
                 <div class="pcOpenChat">
-                    <button id="proactive-chat-button-open" data-analyticsid="askus-proactive-chat-button-open" class="proactive-chat-button">Chat now</button>
+                    <button id="proactive-chat-button-open" data-analyticsid="askus-proactive-chat-button-open" data-testid="popopen-button" class="proactive-chat-button">Chat now</button>
                 </div>
                 <div class="pcMinimisePopup">
                     <button id="proactive-chat-button-close" data-analyticsid="askus-proactive-chat-button-close" class="proactive-chat-button">Maybe later</button>
@@ -42,6 +42,15 @@ template.innerHTML = `
         </div>
     </div>
 `;
+
+const chatbotIframeTemplate = document.createElement('template');
+chatbotIframeTemplate.innerHTML = `<div data-testid="chatbot-wrapper" style="right: 0px; bottom: 0; border: 0px none; position: fixed; height: 400px; width: 300px; overflow: hidden;">
+<iframe 
+    src="https://copilotstudio.microsoft.com/environments/2a892934-221c-eaa4-9f1a-4790000854ca/bots/cr546_uqAssistGenAiChatBot/webchat?__version__=2"
+    frameborder="0" 
+    style="width: 100%; height: 100%;"
+></iframe>
+</div>`;
 
 const PROACTIVE_CHAT_HIDDEN_COOKIE_NAME = 'UQ_PROACTIVE_CHAT';
 const PROACTIVE_CHAT_HIDDEN_COOKIE_VALUE = 'hidden';
@@ -62,8 +71,8 @@ class ProactiveChat extends HTMLElement {
         const secondsTilProactiveChatAppears = this.getAttribute('secondsTilProactiveChatAppears') || 60;
         const shadowDOM = this.attachShadow({ mode: 'open' });
 
-        // Render the template
-        shadowDOM.appendChild(template.content.cloneNode(true));
+        // Render the userPromptTemplate
+        shadowDOM.appendChild(userPromptTemplate.content.cloneNode(true));
         this.updateAskusDOM(shadowDOM, secondsTilProactiveChatAppears);
         this.addButtonListeners(shadowDOM);
     }
@@ -143,11 +152,13 @@ class ProactiveChat extends HTMLElement {
     addButtonListeners(shadowDOM, isOnline) {
         // Chat status
         function openChat() {
-            window.open(
-                'https://support.my.uq.edu.au/app/chat/chat_launch_lib/p/45',
-                'chat',
-                'toolbar=no, location=no, status=no, width=400, height=400',
-            );
+            const proactivechatArea = shadowDOM.getElementById('proactivechat');
+            !!proactivechatArea && (proactivechatArea.style.display = 'none');
+
+            const minimisedOnlineButton = shadowDOM.getElementById('proactive-chat-online');
+            !!minimisedOnlineButton && (minimisedOnlineButton.style.display = 'none');
+
+            shadowDOM.appendChild(chatbotIframeTemplate.content.cloneNode(true));
         }
 
         function navigateToContactUs() {
