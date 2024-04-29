@@ -413,6 +413,11 @@ describe('Dummy Application', () => {
             assert_has_book_now_link();
 
             hasCulturalAdvicePopup();
+
+            // has cultural advice banner
+            cy.get('.culturalAdviceBanner')
+                .should('exist')
+                .contains ('Aboriginal and Torres Strait Islander people are warned that');
         });
     });
 
