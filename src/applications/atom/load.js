@@ -132,6 +132,48 @@ function relabelMenuDropdown() {
     !!hamburgerMenuHeading && (hamburgerMenuHeading.textContent = 'Menu');
 }
 
+function addCulturalAdviceBanner(displayText) {
+    // eg "Aboriginal and Torres Strait Islander people are warned that this resource may contain images transcripts or names of Aboriginal and Torres Strait Islander people now deceased.  It may also contain historically and culturally sensitive words, terms, and descriptions."
+    const displayBlockClassName = 'culturalAdviceBanner';
+    const displayBlock = document.querySelector(`.${displayBlockClassName}`);
+    if (!!displayBlock) {
+        // block already exists - don't duplicate
+        return;
+    }
+
+    const para = document.createElement('p');
+    !!para && (para.innerHTML = displayText);
+
+    const block = document.createElement('div');
+    !!block && (block.className = displayBlockClassName);
+    !!para && !!para && block.appendChild(para);
+
+    const waitforWrapperToExist = setInterval(() => {
+        const parent = document.querySelector('#main-column h1');
+        if (!!parent) {
+            clearInterval(waitforWrapperToExist);
+            parent.appendChild(block);
+        }
+    }, 100);
+}
+
+function highlightCulturallySignificantEntries() {
+    const contentAndStructureAreaElement = document.querySelectorAll('#contentAndStructureArea p');
+    const contentAdvisoryParagraph = Array.from(contentAndStructureAreaElement).filter(paragraph => paragraph.textContent.startsWith("Content advice:"));
+
+    let bannerText = null;
+    !!contentAdvisoryParagraph &&
+        contentAdvisoryParagraph.forEach((paragraph) => {
+            const contentAdvice = paragraph.textContent;
+            if (!!contentAdvice.startsWith('Content advice: Aboriginal and Torres Strait Islander')) {
+                bannerText = contentAdvice.replace('Content advice: ', '');
+            } else if (!!contentAdvice.startsWith('Content advice: Aboriginal, Torres Strait Islander')) {
+                bannerText = contentAdvice.replace('Content advice: ', '');
+            }
+            !!bannerText && addCulturalAdviceBanner(bannerText);
+        });
+}
+
 function loadReusableComponentsAtom() {
     const cssFile = getIncludeFileLocation('applications/atom/custom-styles.css');
     // note: we cannot reach css in the localhost dist folder for test
@@ -154,6 +196,8 @@ function loadReusableComponentsAtom() {
     addCulturalAdvicePopup();
 
     relabelMenuDropdown();
+
+    highlightCulturallySignificantEntries();
 }
 
 ready(loadReusableComponentsAtom);
