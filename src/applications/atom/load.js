@@ -157,9 +157,13 @@ function addCulturalAdviceBanner(displayText) {
     }, 100);
 }
 
-function highlightCulturallySignificantEntries() {
+function highlightCulturallySignificantEntriesOnDetailPage() {
     const contentAndStructureAreaElement = document.querySelectorAll('#contentAndStructureArea p');
-    const contentAdvisoryParagraph = Array.from(contentAndStructureAreaElement).filter(paragraph => paragraph.textContent.startsWith("Content advice:"));
+    const contentAdvisoryParagraph =
+        !!contentAndStructureAreaElement &&
+        Array.from(contentAndStructureAreaElement).filter((paragraph) =>
+            paragraph.textContent.startsWith('Content advice:'),
+        );
 
     let bannerText = null;
     !!contentAdvisoryParagraph &&
@@ -171,6 +175,83 @@ function highlightCulturallySignificantEntries() {
                 bannerText = contentAdvice.replace('Content advice: ', '');
             }
             !!bannerText && addCulturalAdviceBanner(bannerText);
+        });
+}
+
+function createCustomIconIndicator(svgPathValue, iconWrapperClassName, labelText) {
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    !!path && path.setAttribute('d', svgPathValue);
+    !!path && path.setAttribute('d', svgPathValue);
+
+    const svgCR = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    !!svgCR && svgCR.setAttribute('width', '100%');
+    !!svgCR && svgCR.setAttribute('height', '100%');
+    !!svgCR && svgCR.setAttribute('viewBox', '0 0 24 24');
+    !!svgCR && svgCR.setAttribute('focusable', 'false');
+    !!svgCR && svgCR.setAttribute('class', 'icon-after-icon');
+    !!svgCR && !!path && svgCR.appendChild(path);
+
+    const mdIcon = document.createElement('md-icon');
+    !!mdIcon && mdIcon.setAttribute('role', 'presentation');
+    !!mdIcon && (mdIcon.className = 'md-primoExplore-theme');
+    !!mdIcon && !!svgCR && mdIcon.appendChild(svgCR);
+
+    const contentLabel = document.createElement('span');
+    !!contentLabel && (contentLabel.className = 'customIndicatorLabel');
+    !!contentLabel && (contentLabel.innerHTML = labelText);
+
+    const iconWrapper = document.createElement('span');
+    // iconWrapperClassName is used to hide any duplicate icons, which shouldnt happen, but rarely there is a race condition
+    !!iconWrapper && (iconWrapper.className = `customIndicator ${iconWrapperClassName}`);
+    !!iconWrapper && !!mdIcon && iconWrapper.appendChild(mdIcon);
+    !!iconWrapper && !!contentLabel && iconWrapper.appendChild(contentLabel);
+
+    return iconWrapper;
+}
+
+function listItemContainsContentAdvice(article) {
+    const possibleContentAdvice = article.querySelectorAll('#content .summary em');
+    const contentAdvisoryParagraph =
+        !!possibleContentAdvice &&
+        Array.from(possibleContentAdvice).filter((paragraph) => paragraph.textContent.startsWith('Content advice:'));
+    let hasContentAdvice = false;
+    !!contentAdvisoryParagraph &&
+        contentAdvisoryParagraph.forEach((para) => {
+            const contentAdvice = para.textContent;
+            if (!!contentAdvice.startsWith('Content advice: Aboriginal and Torres Strait Islander')) {
+                hasContentAdvice = true;
+            } else if (!!contentAdvice.startsWith('Content advice: Aboriginal, Torres Strait Islander')) {
+                hasContentAdvice = true;
+            }
+        });
+    return hasContentAdvice;
+}
+
+function highlightCulturallySignificantEntriesOnListPage() {
+    // for each article on the page
+    const articleList = document.querySelectorAll('article.search-result');
+    !!articleList &&
+        articleList.forEach(function (a) {
+            if (!listItemContainsContentAdvice(a)) {
+                return;
+            }
+
+            // svg for "Info" icon from MUI icon set
+            const muiIconInfoSvgPath =
+                'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z';
+            const createdIndicator = createCustomIconIndicator(
+                muiIconInfoSvgPath,
+                'culturalAdviceMark',
+                'CULTURAL ADVICE',
+            );
+            if (!createdIndicator) {
+                return;
+            }
+            const newElement = document.createElement('div');
+            !!newElement && newElement.appendChild(createdIndicator);
+
+            const targetSibling = a.querySelector('.scope-and-content');
+            targetSibling.parentNode.insertBefore(newElement, targetSibling);
         });
 }
 
@@ -197,7 +278,8 @@ function loadReusableComponentsAtom() {
 
     relabelMenuDropdown();
 
-    highlightCulturallySignificantEntries();
+    highlightCulturallySignificantEntriesOnDetailPage();
+    highlightCulturallySignificantEntriesOnListPage();
 }
 
 ready(loadReusableComponentsAtom);
