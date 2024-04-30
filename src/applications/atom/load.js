@@ -210,13 +210,17 @@ function createCustomIconIndicator(svgPathValue, iconWrapperClassName, labelText
 }
 
 function listItemContainsContentAdvice(article) {
+    console.log('111 listItemContainsContentAdvice', article);
     const possibleContentAdvice = article.querySelectorAll('#content .summary em');
+    console.log('111 possibleContentAdvice', possibleContentAdvice);
     const contentAdvisoryParagraph =
         !!possibleContentAdvice &&
         Array.from(possibleContentAdvice).filter((paragraph) => paragraph.textContent.startsWith('Content advice:'));
+    console.log('111 contentAdvisoryParagraph', contentAdvisoryParagraph);
     let hasContentAdvice = false;
     !!contentAdvisoryParagraph &&
         contentAdvisoryParagraph.forEach((para) => {
+            console.log('111 para', para);
             const contentAdvice = para.textContent;
             if (!!contentAdvice.startsWith('Content advice: Aboriginal and Torres Strait Islander')) {
                 hasContentAdvice = true;
@@ -232,7 +236,9 @@ function highlightCulturallySignificantEntriesOnListPage() {
     const articleList = document.querySelectorAll('article.search-result');
     !!articleList &&
         articleList.forEach(function (a) {
+            console.log('a=', a);
             if (!listItemContainsContentAdvice(a)) {
+                console.log('no advice');
                 return;
             }
 
