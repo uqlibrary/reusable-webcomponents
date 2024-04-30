@@ -210,7 +210,7 @@ function createCustomIconIndicator(svgPathValue, iconWrapperClassName, labelText
 }
 
 function highlightCulturallySignificantEntriesOnListPage() {
-    const contentlist = document.querySelectorAll('article.search-result .summary em');
+    const contentlist = document.querySelectorAll('article.search-result .scope-and-content em');
     !!contentlist &&
         contentlist.forEach(function (possibleContentAdvice) {
             console.log('111 possibleContentAdvice', possibleContentAdvice);
@@ -240,9 +240,13 @@ function highlightCulturallySignificantEntriesOnListPage() {
             const newElement = document.createElement('div');
             !!newElement && newElement.appendChild(createdIndicator);
 
-            // const targetSibling = article.querySelector('.scope-and-content');
-            const targetSibling = possibleContentAdvice.parentNode.parentNode.parentNode;
-            targetSibling.parentNode.insertBefore(newElement, targetSibling);
+            const targetParent = possibleContentAdvice.parentNode.parentNode.parentNode.parentNode;
+            const checkExists = targetParent.querySelectorAll('.culturalAdviceMark');
+            console.log('111 checkExists=', checkExists);
+            if (checkExists.length === 0) {
+                const targetSibling = possibleContentAdvice.parentNode.parentNode.parentNode;
+                targetSibling.parentNode.insertBefore(newElement, targetSibling);
+            }
         });
 }
 
