@@ -184,8 +184,8 @@ function createCustomIconIndicator(svgPathValue, iconWrapperClassName, labelText
     !!path && path.setAttribute('d', svgPathValue);
 
     const svgCR = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    !!svgCR && svgCR.setAttribute('width', '100%');
-    !!svgCR && svgCR.setAttribute('height', '100%');
+    !!svgCR && svgCR.setAttribute('width', '18px');
+    !!svgCR && svgCR.setAttribute('height', '18px');
     !!svgCR && svgCR.setAttribute('viewBox', '0 0 24 24');
     !!svgCR && svgCR.setAttribute('focusable', 'false');
     !!svgCR && svgCR.setAttribute('class', 'icon-after-icon');
@@ -212,13 +212,13 @@ function createCustomIconIndicator(svgPathValue, iconWrapperClassName, labelText
 function highlightCulturallySignificantEntriesOnListPage() {
     const contentlist = document.querySelectorAll('article.search-result .scope-and-content em');
     !!contentlist &&
-        contentlist.forEach(function (possibleContentAdvice) {
-            console.log('111 possibleContentAdvice', possibleContentAdvice);
+        contentlist.forEach(function (contentAdvice) {
+            console.log('111 contentAdvice', contentAdvice);
             let hasContentAdvice = false;
-            const contentAdvice = possibleContentAdvice.textContent;
-            if (!!contentAdvice.startsWith('Content advice: Aboriginal and Torres Strait Islander')) {
+            const contentAdviceText = contentAdvice.textContent;
+            if (!!contentAdviceText.startsWith('Content advice: Aboriginal and Torres Strait Islander')) {
                 hasContentAdvice = true;
-            } else if (!!contentAdvice.startsWith('Content advice: Aboriginal, Torres Strait Islander')) {
+            } else if (!!contentAdviceText.startsWith('Content advice: Aboriginal, Torres Strait Islander')) {
                 hasContentAdvice = true;
             }
             if (!hasContentAdvice) {
@@ -229,9 +229,10 @@ function highlightCulturallySignificantEntriesOnListPage() {
             // svg for "Info" icon from MUI icon set
             const muiIconInfoSvgPath =
                 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z';
+            let culturalAdviceMarkClassName = 'culturalAdviceMark';
             const createdIndicator = createCustomIconIndicator(
                 muiIconInfoSvgPath,
-                'culturalAdviceMark',
+                culturalAdviceMarkClassName,
                 'CULTURAL ADVICE',
             );
             if (!createdIndicator) {
@@ -240,12 +241,19 @@ function highlightCulturallySignificantEntriesOnListPage() {
             const newElement = document.createElement('div');
             !!newElement && newElement.appendChild(createdIndicator);
 
-            const targetParent = possibleContentAdvice.parentNode.parentNode.parentNode.parentNode;
-            const checkExists = targetParent.querySelectorAll('.culturalAdviceMark');
+            console.log('contentAdvice=', contentAdvice);
+            console.log('contentAdvice p1=', contentAdvice.parentNode);
+            console.log('contentAdvice p2=', contentAdvice.parentNode.parentNode);
+            console.log('contentAdvice p3=', contentAdvice.parentNode.parentNode.parentNode);
+            console.log('contentAdvice p4=', contentAdvice.parentNode.parentNode.parentNode.parentNode);
+            const targetSibling = contentAdvice.parentNode; //.querySelector('.scope-and-content');
+            console.log('targetSibling=', targetSibling);
+            const targetParent = targetSibling.parentNode;
+            console.log('targetParent=', targetParent);
+            const checkExists = targetParent.querySelectorAll(`.${culturalAdviceMarkClassName}`);
             console.log('111 checkExists=', checkExists);
             if (checkExists.length === 0) {
-                const targetSibling = possibleContentAdvice.parentNode.parentNode.parentNode;
-                targetSibling.parentNode.insertBefore(newElement, targetSibling);
+                targetParent.insertBefore(newElement, targetSibling);
             }
         });
 }
