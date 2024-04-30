@@ -422,7 +422,29 @@ describe('Dummy Application', () => {
             // has cultural advice banner
             cy.get('.culturalAdviceBanner')
                 .should('exist')
-                .contains ('Aboriginal and Torres Strait Islander people are warned that');
+                .contains('Aboriginal and Torres Strait Islander people are warned that');
+        });
+
+        it('Sample list page load works correctly', () => {
+            cy.visit('http://localhost:8080/src/applications/atom/demo-listpage.html');
+            cy.viewport(1280, 900);
+            assert_homepage_link_is_to_uq();
+            hasCulturalAdvicePopup();
+
+            // has cultural advice indicator, only on CA entries
+            cy.get('#content article')
+                .children()
+                .each((el, index) => {
+                    switch (index) {
+                        case 0:
+                        case 2:
+                            cy.wrap(el).find('.culturalAdviceMark').should('exist');
+                            break;
+                        case 1:
+                        case 3:
+                            cy.wrap(el).find('.culturalAdviceMark').should('not.exist');
+                    }
+                });
         });
     });
 
