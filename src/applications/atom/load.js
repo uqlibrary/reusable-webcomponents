@@ -6,6 +6,11 @@ function ready(fn) {
     }
 }
 
+function hasDebugParam() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.has('debug') && urlParams.get('debug') === 'true';
+}
+
 function centerheaderBlock() {
     // insert a wrapping element as the first child of the header, so we can center the block
     const wrapper = document.createElement('div');
@@ -210,6 +215,9 @@ function createCustomIconIndicator(svgPathValue, iconWrapperClassName, labelText
 }
 
 function highlightCulturallySignificantEntriesOnListPage() {
+    if (hasDebugParam() && window.location.host === 'sandbox-fryer.library.uq.edu.au') {
+        return;
+    }
     const contentlist = document.querySelectorAll('article.search-result .scope-and-content em');
     !!contentlist &&
         contentlist.forEach(function (contentAdvice) {
@@ -246,10 +254,10 @@ function highlightCulturallySignificantEntriesOnListPage() {
             console.log('contentAdvice p2=', contentAdvice.parentNode.parentNode);
             console.log('contentAdvice p3=', contentAdvice.parentNode.parentNode.parentNode);
             console.log('contentAdvice p4=', contentAdvice.parentNode.parentNode.parentNode.parentNode);
-            const targetSibling = contentAdvice.parentNode; //.querySelector('.scope-and-content');
-            console.log('targetSibling=', targetSibling);
-            const targetParent = targetSibling.parentNode;
+            const targetParent = contentAdvice.parentNode.parentNode;
             console.log('targetParent=', targetParent);
+            const targetSibling = targetParent.firstChild; //.querySelector('.scope-and-content');
+            console.log('targetSibling=', targetSibling);
             const checkExists = targetParent.querySelectorAll(`.${culturalAdviceMarkClassName}`);
             console.log('111 checkExists=', checkExists);
             if (checkExists.length === 0) {
