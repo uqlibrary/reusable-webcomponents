@@ -354,7 +354,7 @@ class AuthButton extends HTMLElement {
 
     addLoginButtonListener(shadowDOM) {
         function visitLoginPage() {
-            if (!window.sessionStorage) {
+            if (!(new ApiAccess().isSessionStorageEnabled)) {
                 alert('Please enable browser Session Storage to log into the Library');
             }
             const returnUrl = window.location.href;
