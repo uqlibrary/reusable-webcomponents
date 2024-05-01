@@ -182,11 +182,11 @@ button:focus {
 }
 
 .chatbotWrapper {
-    right: 0;
+    right: 10px;
     bottom: 0;
     border: 1px solid grey;
     position: fixed;
-    height: 400px;
+    height: 450px;
     width: 300px;
     overflow: hidden;
     max-width: 100%;
@@ -199,4 +199,5 @@ button:focus {
     text-align: right;
     padding-top: 6px;
     padding-right: 2px;
+    height: 21px;
 }
