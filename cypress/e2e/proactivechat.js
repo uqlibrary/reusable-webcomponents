@@ -124,6 +124,34 @@ describe('Proactive Chat', () => {
             // ;
         });
 
+        it('AI chatbot iframe close button works properlu', () => {
+            cy.visit('http://localhost:8080');
+            cy.viewport(1280, 900);
+            cy.get('proactive-chat').shadow().find('[data-testid="proactive-chat-online"]').should('exist').click();
+
+            cy.get('proactive-chat')
+                .shadow()
+                .find('[data-testid="chatbot-wrapper"]')
+                .should('exist')
+                .should('be.visible');
+
+            // can close iframe
+            cy.get('proactive-chat').shadow().find('[data-testid="closeIframeButton"]').should('exist').click();
+            cy.get('proactive-chat')
+                .shadow()
+                .find('[data-testid="chatbot-wrapper"]')
+                .should('exist')
+                .should('not.be.visible');
+
+            // can reopen iframe
+            cy.get('proactive-chat').shadow().find('[data-testid="proactive-chat-online"]').should('exist').click();
+            cy.get('proactive-chat')
+                .shadow()
+                .find('[data-testid="chatbot-wrapper"]')
+                .should('exist')
+                .should('be.visible');
+        });
+
         it('Navigates to contact from offline proactive chat icon', () => {
             cy.visit('http://localhost:8080?chatstatusoffline=true', {
                 onBeforeLoad(win) {
