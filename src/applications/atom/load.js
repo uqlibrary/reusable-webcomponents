@@ -6,7 +6,10 @@ function ready(fn) {
     }
 }
 
-function hasDebugParam() {
+function hasDebugParam(testHost) {
+    if (window.location.host !== testHost) {
+        return false;
+    }
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.has('debug') && urlParams.get('debug') === 'true';
 }
@@ -189,39 +192,35 @@ function createCustomIconIndicator(svgPathValue, iconWrapperClassName, labelText
     !!path && path.setAttribute('d', svgPathValue);
 
     const svgCR = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    !!svgCR && svgCR.setAttribute('width', '18px');
-    !!svgCR && svgCR.setAttribute('height', '18px');
+    !!svgCR && svgCR.setAttribute('width', '16px'); // hard code here so we don't get a FOUC
+    !!svgCR && svgCR.setAttribute('height', '16px');
     !!svgCR && svgCR.setAttribute('viewBox', '0 0 24 24');
     !!svgCR && svgCR.setAttribute('focusable', 'false');
     !!svgCR && svgCR.setAttribute('class', 'icon-after-icon');
     !!svgCR && !!path && svgCR.appendChild(path);
 
-    const mdIcon = document.createElement('md-icon');
-    !!mdIcon && mdIcon.setAttribute('role', 'presentation');
-    !!mdIcon && (mdIcon.className = 'md-primoExplore-theme');
-    !!mdIcon && !!svgCR && mdIcon.appendChild(svgCR);
+    const indicatorLabel = document.createElement('span');
+    !!indicatorLabel && (indicatorLabel.className = 'customIndicatorLabel');
+    !!indicatorLabel && (indicatorLabel.innerHTML = labelText);
 
-    const contentLabel = document.createElement('span');
-    !!contentLabel && (contentLabel.className = 'customIndicatorLabel');
-    !!contentLabel && (contentLabel.innerHTML = labelText);
-
-    const iconWrapper = document.createElement('span');
+    const indicatorWrapper = document.createElement('span');
     // iconWrapperClassName is used to hide any duplicate icons, which shouldnt happen, but rarely there is a race condition
-    !!iconWrapper && (iconWrapper.className = `customIndicator ${iconWrapperClassName}`);
-    !!iconWrapper && !!mdIcon && iconWrapper.appendChild(mdIcon);
-    !!iconWrapper && !!contentLabel && iconWrapper.appendChild(contentLabel);
+    !!indicatorWrapper && (indicatorWrapper.className = `customIndicator ${iconWrapperClassName}`);
+    !!indicatorWrapper && !!svgCR && indicatorWrapper.appendChild(svgCR);
+    !!indicatorWrapper && !!indicatorLabel && indicatorWrapper.appendChild(indicatorLabel);
 
-    return iconWrapper;
+    return indicatorWrapper;
 }
 
 function highlightCulturallySignificantEntriesOnListPage() {
-    if (hasDebugParam() && window.location.host === 'sandbox-fryer.library.uq.edu.au') {
+    if (hasDebugParam('sandbox-fryer.library.uq.edu.au')) {
         return;
     }
+
+    // get text blocks which may have content advice
     const contentlist = document.querySelectorAll('article.search-result .scope-and-content em');
     !!contentlist &&
         contentlist.forEach(function (contentAdvice) {
-            console.log('111 contentAdvice', contentAdvice);
             let hasContentAdvice = false;
             const contentAdviceText = contentAdvice.textContent;
             if (!!contentAdviceText.startsWith('Content advice: Aboriginal and Torres Strait Islander')) {
@@ -230,7 +229,6 @@ function highlightCulturallySignificantEntriesOnListPage() {
                 hasContentAdvice = true;
             }
             if (!hasContentAdvice) {
-                console.log('no advice');
                 return;
             }
 
@@ -238,30 +236,27 @@ function highlightCulturallySignificantEntriesOnListPage() {
             const muiIconInfoSvgPath =
                 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z';
             let culturalAdviceMarkClassName = 'culturalAdviceMark';
-            const createdIndicator = createCustomIconIndicator(
+            const createdCAIndicator = createCustomIconIndicator(
                 muiIconInfoSvgPath,
                 culturalAdviceMarkClassName,
                 'CULTURAL ADVICE',
             );
-            if (!createdIndicator) {
+            if (!createdCAIndicator) {
                 return;
             }
-            const newElement = document.createElement('div');
-            !!newElement && newElement.appendChild(createdIndicator);
 
-            console.log('contentAdvice=', contentAdvice);
-            console.log('contentAdvice p1=', contentAdvice.parentNode);
-            console.log('contentAdvice p2=', contentAdvice.parentNode.parentNode);
-            console.log('contentAdvice p3=', contentAdvice.parentNode.parentNode.parentNode);
-            console.log('contentAdvice p4=', contentAdvice.parentNode.parentNode.parentNode.parentNode);
+            const indicatorList = document.createElement('div');
+            !!indicatorList && indicatorList.setAttribute('class', 'customIndicatorList');
+            !!indicatorList && indicatorList.appendChild(createdCAIndicator);
+
             const targetParent = contentAdvice.parentNode.parentNode;
-            console.log('targetParent=', targetParent);
-            const targetSibling = targetParent.firstChild; //.querySelector('.scope-and-content');
-            console.log('targetSibling=', targetSibling);
             const checkExists = targetParent.querySelectorAll(`.${culturalAdviceMarkClassName}`);
-            console.log('111 checkExists=', checkExists);
-            if (checkExists.length === 0) {
-                targetParent.insertBefore(newElement, targetSibling);
+            if (
+                checkExists.length === 0 && // dont insert it twice
+                !!targetParent &&
+                !!indicatorList
+            ) {
+                targetParent.insertBefore(indicatorList, targetParent.firstChild);
             }
         });
 }
