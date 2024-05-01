@@ -147,6 +147,7 @@ module.exports = () => {
                     { from: 'src/applications/libguides/load.js', to: 'applications/libguides/load.js' },
                     { from: 'src/applications/libwizard/load.js', to: 'applications/libwizard/load.js' },
                     { from: 'src/applications/rightnow/load.js', to: 'applications/rightnow/load.js' },
+                    { from: 'src/applications/rightnow/chatload.js', to: 'applications/rightnow/chatload.js' },
                     { from: 'src/applications/shared/load.js', to: 'applications/shared/load.js' },
                     { from: 'src/applications/uqlapp/load.js', to: 'applications/uqlapp/load.js' },
                 ],
