@@ -15,7 +15,8 @@ class ApiAccess {
             account: 'empty', // this is temporary code - account needs to exist for old homepage version to not trip some bad code. Remove after May 2023
         };
 
-        const storedUserDetailsRaw = !!sessionStorage && sessionStorage.getItem(locale.STORAGE_ACCOUNT_KEYNAME);
+        this.isSessionStorageEnabled = this.sessionStorageCheck();
+        const storedUserDetailsRaw = this.isSessionStorageEnabled && sessionStorage.getItem(locale.STORAGE_ACCOUNT_KEYNAME) || null;
         // never allow there to be no or invalid account storage (weird thing happening on Secure Collection)
         if (storedUserDetailsRaw === null) {
             this.setStorageLoggedOut();
@@ -26,6 +27,17 @@ class ApiAccess {
             }
         }
     }
+
+    sessionStorageCheck() {
+        try {
+            const key = `__storage__test`;
+            sessionStorage.setItem(key, null);
+            sessionStorage.removeItem(key);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    };
 
     watchForSessionExpiry() {
         // let the calling page know account is available
@@ -378,7 +390,7 @@ class ApiAccess {
             ...storageExpiryDate,
         };
         storeableAccount = JSON.stringify(storeableAccount);
-        !!sessionStorage && sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, storeableAccount);
+        this.isSessionStorageEnabled && sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, storeableAccount);
     }
 
     // this is called from loadAccountApi, above, via authbutton once and if that fails,
@@ -386,9 +398,8 @@ class ApiAccess {
     // It is called from other components (training, secure collection, etc.) in a loop, waiting on
     // the authbutton's call to loadAccountApi, above, to load the account into the sessionstorage
     getAccountFromStorage() {
-        const storedUserDetailsRaw = !!sessionStorage && sessionStorage.getItem(locale.STORAGE_ACCOUNT_KEYNAME);
+        const storedUserDetailsRaw = this.isSessionStorageEnabled && sessionStorage.getItem(locale.STORAGE_ACCOUNT_KEYNAME);
         const storedUserDetails = !!storedUserDetailsRaw && JSON.parse(storedUserDetailsRaw);
-
         if (this.isMock()) {
             const mockUserHasChanged =
                 !!storedUserDetails &&
@@ -416,7 +427,7 @@ class ApiAccess {
     addCurrentAuthorToStoredAccount(currentAuthor) {
         const storedAccount = this.getAccountFromStorage();
         /* istanbul ignore next */
-        if (storedAccount === null) {
+        if (!this.isSessionStorageEnabled || storedAccount === null) {
             return;
         }
         let storeableAccount = {
@@ -426,7 +437,7 @@ class ApiAccess {
             },
         };
         storeableAccount = JSON.stringify(storeableAccount);
-        !!sessionStorage && sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, storeableAccount);
+        this.isSessionStorageEnabled && sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, storeableAccount);
     }
 
     recreateAuthButton() {
@@ -452,9 +463,9 @@ class ApiAccess {
     }
 
     setStorageLoggedOut() {
-        !!sessionStorage && sessionStorage.removeItem(locale.STORAGE_ACCOUNT_KEYNAME);
+        this.isSessionStorageEnabled && sessionStorage.removeItem(locale.STORAGE_ACCOUNT_KEYNAME);
         const emptyAccount = JSON.stringify(this.LOGGED_OUT_ACCOUNT);
-        !!sessionStorage && sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, emptyAccount);
+        this.isSessionStorageEnabled && sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, emptyAccount);
     }
 
     logUserOut() {
