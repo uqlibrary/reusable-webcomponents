@@ -277,6 +277,12 @@ function loadReusableComponentsAtom() {
     }
     insertScript(scriptLink, true);
 
+    const firstElement = document.body.children[0];
+
+    const gtm = document.createElement('uq-gtm');
+    !!gtm && gtm.setAttribute('gtm', 'GTM-NC7M38Q');
+    document.body.insertBefore(gtm, firstElement);
+
     centerheaderBlock();
 
     updateLogoLink();
