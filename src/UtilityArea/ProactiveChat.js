@@ -48,16 +48,17 @@ chatbotIframeTemplate.innerHTML = `<div
     id="chatbot-wrapper"
     data-testid="chatbot-wrapper"
     class="chatbotWrapper"
+    style="display: none"
 >
-<div class="chatbotCloseWrapper">
-    <button id="closeIframeButton" data-testid="closeIframeButton">Close</button>
-</div>
-<iframe 
-    id="chatbotIframe"
-    src="https://copilotstudio.microsoft.com/environments/2a892934-221c-eaa4-9f1a-4790000854ca/bots/cr546_uqAssistGenAiChatBot/webchat?__version__=2"
-    frameborder="0" 
-    style="width: 100%; height: calc(100% - 21px)"
-></iframe>
+    <div class="chatbotCloseWrapper">
+        <button id="closeIframeButton" data-testid="closeIframeButton">Close</button>
+    </div>
+    <iframe 
+        id="chatbotIframe"
+        src="https://copilotstudio.microsoft.com/environments/2a892934-221c-eaa4-9f1a-4790000854ca/bots/cr546_uqAssistGenAiChatBot/webchat?__version__=2"
+        frameborder="0" 
+        style="width: 100%; height: calc(100% - 21px)"
+    ></iframe>
 </div>`;
 
 const PROACTIVE_CHAT_HIDDEN_COOKIE_NAME = 'UQ_PROACTIVE_CHAT';
@@ -79,7 +80,8 @@ class ProactiveChat extends HTMLElement {
         const secondsTilProactiveChatAppears = this.getAttribute('secondsTilProactiveChatAppears') || 60;
         const shadowDOM = this.attachShadow({ mode: 'open' });
 
-        // Render the userPromptTemplate
+        // Render the templates
+        shadowDOM.appendChild(chatbotIframeTemplate.content.cloneNode(true));
         shadowDOM.appendChild(userPromptTemplate.content.cloneNode(true));
         this.updateAskusDOM(shadowDOM, secondsTilProactiveChatAppears);
         this.addButtonListeners(shadowDOM);
@@ -171,6 +173,7 @@ class ProactiveChat extends HTMLElement {
         }
 
         function openChatBotIframe() {
+            console.log('openChatBotIframe start');
             const proactivechatArea = shadowDOM.getElementById('proactivechat');
             !!proactivechatArea && (proactivechatArea.style.display = 'none');
 
@@ -178,10 +181,9 @@ class ProactiveChat extends HTMLElement {
             !!minimisedOnlineButton && (minimisedOnlineButton.style.display = 'none');
 
             const chatbotIframe = shadowDOM.getElementById('chatbot-wrapper');
+            console.log('openChatBotIframe chatbotIframe=', chatbotIframe);
             if (!!chatbotIframe) {
                 chatbotIframe.style.display = 'block';
-            } else {
-                shadowDOM.appendChild(chatbotIframeTemplate.content.cloneNode(true));
             }
             /*
             shadowDOM.getElementById('alert-title').innerText =
