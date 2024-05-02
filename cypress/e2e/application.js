@@ -432,11 +432,27 @@ describe('Dummy Application', () => {
                 .each((el, index) => {
                     switch (index) {
                         case 0:
-                        case 2:
+                            cy.wrap(el)
+                                .find('.title a')
+                                .contains(
+                                    'Submisions to the Queensland State Government for equality of wages and working conditions for Aborigines in the pastoral industry',
+                                );
                             cy.wrap(el).find('.culturalAdviceMark').should('exist');
                             break;
                         case 1:
+                            cy.wrap(el)
+                                .find('.title a')
+                                .contains(
+                                    'Briefing material : Commonwealth Games Act, street march ban, award wages on reserves.',
+                                );
+                            cy.wrap(el).find('.culturalAdviceMark').should('not.exist');
+                            break;
+                        case 2:
+                            cy.wrap(el).find('.title a').contains('Terrible wages discrimination, [1967]');
+                            cy.wrap(el).find('.culturalAdviceMark').should('exist');
+                            break;
                         case 3:
+                            cy.wrap(el).find('.title a').contains('Cherbourgh settlement, Thursday March 24, 1966');
                             cy.wrap(el).find('.culturalAdviceMark').should('not.exist');
                     }
                 });
