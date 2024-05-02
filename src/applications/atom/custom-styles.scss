@@ -110,11 +110,12 @@ nav {
     }
 }
 
-
-.jstree-anchor, .jstree-anchor:link, .jstree-anchor:visited, .jstree-anchor:hover, .jstree-anchor:active {
-    color: #000 !important;
-}
-
 .jstree-default .jstree-clicked {
-    background: #00a2c7;
+    &:active,
+    &:focus,
+    &:hover {
+        background: #edf6ed;
+    }
+    color: #000 !important;
+    background: #dbeddc;
 }
