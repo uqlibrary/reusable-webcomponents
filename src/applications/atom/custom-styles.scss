@@ -110,6 +110,11 @@ nav {
     }
 }
 
+.jstree-default .jstree-clicked {
+    color: #000 !important;
+    background: #dbeddc; // success-100
+}
+
 .jstree-anchor,
 .jstree-default {
     &:active,
@@ -117,9 +122,4 @@ nav {
     &:hover {
         background: #edf6ed; // successs-50
     }
-}
-
-.jstree-default .jstree-clicked {
-    color: #000 !important;
-    background: #dbeddc; // success-100
 }
