@@ -110,16 +110,48 @@ nav {
     }
 }
 
-.jstree-default .jstree-clicked {
-    color: #000 !important;
-    background: #dbeddc; // success-100
+// colours: https://design-system.ads-staging.aws.uq.edu.au/?path=/docs/core-colour--docs
+$color-success-50: #edf6ed;
+$color-success-100: #dbeddc;
+
+// override tree colours in https://sandbox-fryer.library.uq.edu.au/vendor/jstree/themes/default/style.min.css
+.jstree-default .jstree-hovered {
+    background: $color-success-50;
 }
 
+.jstree-default .jstree-context {
+    background: $color-success-50;
+}
+
+.jstree-default .jstree-clicked {
+    color: #000 !important;
+    background: $color-success-100;
+}
+.jstree-default.jstree-checkbox-no-clicked .jstree-clicked.jstree-hovered {
+    background: $color-success-50;
+}
+
+.jstree-default.jstree-checkbox-no-clicked>.jstree-wholerow-ul .jstree-wholerow-clicked.jstree-wholerow-hovered {
+    background: $color-success-50;
+}
+.jstree-default .jstree-wholerow-hovered {
+    background: $color-success-50;
+}
+
+.jstree-default .jstree-wholerow-clicked {
+    background: $color-success-100;
+    background: linear-gradient(to bottom,$color-success-100 0,$color-success-50 100%)
+}
+.jstree-default-responsive .jstree-wholerow-hovered {
+    background: $color-success-50;
+}
+
+.jstree-default-responsive .jstree-wholerow-clicked {
+    background: $color-success-100;
+}
 .jstree-anchor,
 .jstree-default {
-    &:active,
-    &:focus,
     &:hover {
-        background: #edf6ed; // successs-50
+        background: $color-success-50;
     }
 }
