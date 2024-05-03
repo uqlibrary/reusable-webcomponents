@@ -52,7 +52,7 @@ We add the header-footer to many third party systems, usually by creating a load
   - load.js at /src/applications/rightnow
   - see readme for many live pages
 - Shared
-  - a bunch of scripts runnng on the enki servers
+  - a bunch of scripts running on the enki servers
   - managed by Dan
   - load.js at /src/applications/shared
 - Studenthub
@@ -67,3 +67,8 @@ We add the header-footer to many third party systems, usually by creating a load
   - (repo is [uqlapp-frontend](https://github.com/uqlibrary/uqlapp-frontend))
 - Secure Collection
   - Secure collections are files that appear at eg <https://files.library.uq.edu.au/collection/?collection=documents&file=Tincture_Journal_Issue_Thirteen_(Autumn_2016).pdf> 
+- Atom/Fryer
+  - system used for Fryer library
+  - load.js at /src/applications/atom
+  - live at <https://manuscripts.library.uq.edu.au/>
+  - see readme for access details
