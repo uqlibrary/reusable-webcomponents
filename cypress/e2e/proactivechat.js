@@ -101,7 +101,7 @@ describe('Proactive Chat', () => {
                 .should('have.css', 'right', '16px');
         });
 
-        it('AI chatbot iframe opens', () => {
+        it('AI chatbot iframe opens from proactive dialog', () => {
             cy.visit('http://localhost:8080');
             cy.viewport(1280, 900);
             assertPopupIsHidden();
@@ -124,11 +124,12 @@ describe('Proactive Chat', () => {
             // ;
         });
 
-        it('AI chatbot iframe close button works properlu', () => {
-            cy.visit('http://localhost:8080');
+        it('AI chatbot iframe opens from minimised button and close button works properly', () => {
+            cy.visit('http://localhost:8080/index-chat-slow.html');
             cy.viewport(1280, 900);
             cy.get('proactive-chat').shadow().find('[data-testid="proactive-chat-online"]').should('exist').click();
 
+            // can see iframe
             cy.get('proactive-chat')
                 .shadow()
                 .find('[data-testid="chatbot-wrapper"]')
@@ -137,6 +138,8 @@ describe('Proactive Chat', () => {
 
             // can close iframe
             cy.get('proactive-chat').shadow().find('[data-testid="closeIframeButton"]').should('exist').click();
+
+            // iframe now hidden - close button works
             cy.get('proactive-chat')
                 .shadow()
                 .find('[data-testid="chatbot-wrapper"]')
