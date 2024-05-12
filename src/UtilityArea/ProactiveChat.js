@@ -85,6 +85,8 @@ class ProactiveChat extends HTMLElement {
         shadowDOM.appendChild(userPromptTemplate.content.cloneNode(true));
         this.updateAskusDOM(shadowDOM, secondsTilProactiveChatAppears);
         this.addButtonListeners(shadowDOM);
+
+        this.chatbotHasAppeared = false;
     }
 
     attributeChangedCallback(fieldName, oldValue, newValue) {
@@ -127,6 +129,9 @@ class ProactiveChat extends HTMLElement {
             return 'search.library.uq.edu.au' === hostname || regExp.test(hostname);
         };
         const showProactiveChat = () => {
+            if (!!this.chatbotHasAppeared) {
+                return;
+            }
             const proactiveChatElement = shadowRoot.getElementById('proactive-chat');
             if (CAforceHideMobile) {
                 !!proactiveChatElement && proactiveChatElement.classList.add('ca-force-hide-mobile');
@@ -136,6 +141,9 @@ class ProactiveChat extends HTMLElement {
             !!proactiveChatElement && proactiveChatElement.classList.add('show');
         };
         const showProactiveChatWrapper = () => {
+            if (!!this.chatbotHasAppeared) {
+                return;
+            }
             shadowRoot.getElementById('proactive-chat-wrapper').removeAttribute('style');
         };
         const api = new ApiAccess();
@@ -173,7 +181,8 @@ class ProactiveChat extends HTMLElement {
         }
 
         function openChatBotIframe() {
-            console.log('openChatBotIframe start');
+            this.chatbotHasAppeared = true;
+
             const proactivechatArea = shadowDOM.getElementById('proactivechat');
             !!proactivechatArea && (proactivechatArea.style.display = 'none');
 
@@ -181,7 +190,6 @@ class ProactiveChat extends HTMLElement {
             !!minimisedOnlineButton && (minimisedOnlineButton.style.display = 'none');
 
             const chatbotIframe = shadowDOM.getElementById('chatbot-wrapper');
-            console.log('openChatBotIframe chatbotIframe=', chatbotIframe);
             if (!!chatbotIframe) {
                 chatbotIframe.style.display = 'block';
             }
