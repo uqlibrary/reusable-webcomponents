@@ -155,16 +155,18 @@ describe('Proactive Chat', () => {
                 .should('be.visible');
         });
 
-        it('Navigates to contact from offline proactive chat icon', () => {
-            cy.visit('http://localhost:8080?chatstatusoffline=true', {
-                onBeforeLoad(win) {
-                    cy.stub(win, 'open');
-                },
-            });
+        it('Navigates to chatbot from offline proactive chat icon', () => {
+            cy.visit('http://localhost:8080?chatstatusoffline=true');
             cy.viewport(1280, 900);
             cy.wait(1500);
             cy.get('proactive-chat').shadow().find('[title="Chat currently closed"]').click();
-            cy.window().its('open').should('be.called');
+
+            // can see iframe
+            cy.get('proactive-chat')
+                .shadow()
+                .find('[data-testid="chatbot-wrapper"]')
+                .should('exist')
+                .should('be.visible');
         });
 
         it('Displays as offline when chat status api is 403', () => {

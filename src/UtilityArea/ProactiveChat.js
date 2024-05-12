@@ -87,6 +87,7 @@ class ProactiveChat extends HTMLElement {
         this.addButtonListeners(shadowDOM);
 
         this.chatbotHasAppeared = false;
+        this.askUsStatus = null;
     }
 
     attributeChangedCallback(fieldName, oldValue, newValue) {
@@ -147,8 +148,10 @@ class ProactiveChat extends HTMLElement {
             shadowRoot.getElementById('proactive-chat-wrapper').removeAttribute('style');
         };
         const api = new ApiAccess();
+        const that = this;
         await api.loadChatStatus().then((isOnline) => {
             if (!!isOnline) {
+                that.askUsStatus = 'online';
                 // Chat status
                 if (!isProactiveChatHidden) {
                     const onlineMiniimisedButton = shadowRoot.getElementById('proactive-chat-online');
@@ -165,23 +168,27 @@ class ProactiveChat extends HTMLElement {
                 }
             } else {
                 // Chat status
+                that.askUsStatus = 'offline';
                 !isProactiveChatHidden && shadowRoot.getElementById('proactive-chat-offline').removeAttribute('style');
             }
         });
     }
 
     addButtonListeners(shadowDOM, isOnline) {
+        const that = this;
         function closeChatBotIframe() {
             const chatbotIframe = shadowDOM.getElementById('chatbot-wrapper');
             !!chatbotIframe && (chatbotIframe.style.display = 'none');
             const proactivechatArea = shadowDOM.getElementById('proactivechat');
             !!proactivechatArea && (proactivechatArea.style.display = 'block');
-            const onlineMiniimisedButton = shadowDOM.getElementById('proactive-chat-online');
-            !!onlineMiniimisedButton && onlineMiniimisedButton.removeAttribute('style');
+            if (that.askUsStatus === 'online') {
+                const onlineMinimisedButton = shadowDOM.getElementById('proactive-chat-online');
+                !!onlineMinimisedButton && onlineMinimisedButton.removeAttribute('style');
+            }
         }
 
         function openChatBotIframe() {
-            this.chatbotHasAppeared = true;
+            that.chatbotHasAppeared = true;
 
             const proactivechatArea = shadowDOM.getElementById('proactivechat');
             !!proactivechatArea && (proactivechatArea.style.display = 'none');
@@ -209,7 +216,7 @@ class ProactiveChat extends HTMLElement {
         const proactiveChatElementOnline = shadowDOM.getElementById('proactive-chat-online');
         !!proactiveChatElementOnline && proactiveChatElementOnline.addEventListener('click', openChatBotIframe);
         const proactiveChatElementOffline = shadowDOM.getElementById('proactive-chat-offline');
-        !!proactiveChatElementOffline && proactiveChatElementOffline.addEventListener('click', navigateToContactUs);
+        !!proactiveChatElementOffline && proactiveChatElementOffline.addEventListener('click', openChatBotIframe);
 
         // Proactive chat
         function hideProactiveChatWrapper() {
