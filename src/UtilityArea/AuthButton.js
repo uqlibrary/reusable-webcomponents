@@ -8,7 +8,7 @@ import {
     canSeeEspace,
     canSeePromopanelAdmin,
     canSeeSpotlightsAdmin,
-    canSeeTestTagAdmin,
+    canSeeTestTag,
 } from '../helpers/access';
 import { getAccountMenuRoot } from './helpers';
 
@@ -294,7 +294,7 @@ class AuthButton extends HTMLElement {
                 'Website spotlights',
             );
 
-        !!canSeeTestTagAdmin(account) &&
+        !!canSeeTestTag(account) &&
             addAdminMenuOption(
                 'testTag-admin',
                 'mylibrary-menu-testTag-admin',
@@ -354,7 +354,7 @@ class AuthButton extends HTMLElement {
 
     addLoginButtonListener(shadowDOM) {
         function visitLoginPage() {
-            if (!(new ApiAccess().isSessionStorageEnabled)) {
+            if (!new ApiAccess().isSessionStorageEnabled) {
                 alert('Please enable browser Session Storage to log into the Library');
             }
             const returnUrl = window.location.href;
@@ -449,7 +449,7 @@ class AuthButton extends HTMLElement {
                             closeAccountOptionsMenu();
                         }
                     });
-            } else if (canSeeTestTagAdmin(account)) {
+            } else if (canSeeTestTag(account)) {
                 const testntagOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-testTag-admin');
                 !!testntagOption &&
                     testntagOption.addEventListener('keydown', function (e) {
