@@ -19,29 +19,24 @@ export function canSeeEspace(account) {
     return !!account && account.hasOwnProperty('currentAuthor') && !!account.currentAuthor.hasOwnProperty('aut_id');
 }
 
-// access controlled via Active Directory (AD)
-export function canSeeTestTagAdmin(account) {
-    const hasTestTagAdminAccess = (account) =>
-        !!account && !!account.groups && account.groups.find((group) => group.includes('lib_libapi_TestTagUsers'));
+const hasAdGroup = (account, adGroup) => account?.groups?.find((group) => group.includes(adGroup));
 
-    return !!account && !!hasTestTagAdminAccess(account);
+export function canSeeTestTag(account) {
+    return hasAdGroup(account, 'lib_libapi_TestTagUsers');
 }
 
-// access controlled via Active Directory (AD)
 function hasWebContentAdminAccess(account) {
-    return (
-        !!account && !!account.groups && account.groups.find((group) => group.includes('lib_libapi_SpotlightAdmins'))
-    );
+    return hasAdGroup(account, 'lib_libapi_SpotlightAdmins');
 }
 
 export function canSeeAlertsAdmin(account) {
-    return !!account && !!hasWebContentAdminAccess(account);
+    return hasWebContentAdminAccess(account);
 }
 
 export function canSeeSpotlightsAdmin(account) {
-    return !!account && !!hasWebContentAdminAccess(account);
+    return hasWebContentAdminAccess(account);
 }
 
 export function canSeePromopanelAdmin(account) {
-    return !!account && !!hasWebContentAdminAccess(account);
+    return hasWebContentAdminAccess(account);
 }
