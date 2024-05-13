@@ -92,7 +92,7 @@ function assertUserHasTestTagAdmin(expected) {
 
 function assertUserHasDlorAdmin(expected) {
     if (!!expected) {
-        cy.get('li[data-testid="dlor-admin"]').should('exist').contains('Dlor management');
+        cy.get('li[data-testid="dlor-admin"]').should('exist').contains('Digital learning hub');
         cy.get('[data-testid="mylibrary-menu-dlor-admin"]').should(
             'have.attr',
             'href',

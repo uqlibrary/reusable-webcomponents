@@ -321,7 +321,7 @@ class AuthButton extends HTMLElement {
                 'mylibrary-menu-dlor-admin',
                 `${linkRoot}admin/dlor${linkAppend}`,
                 ICON_MUI_LOCALLIBRARY,
-                'Dlor management',
+                'Digital learning hub',
             );
 
         // if admin area has no entries, delete the area so we lose the border at the top
