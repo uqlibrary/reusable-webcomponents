@@ -40,3 +40,8 @@ export function canSeeSpotlightsAdmin(account) {
 export function canSeePromopanelAdmin(account) {
     return hasWebContentAdminAccess(account);
 }
+
+// digital learning hub admin access
+export function canSeeDlorAdmin(account) {
+    return hasAdGroup(account, 'lib_dlor_admins');
+}
