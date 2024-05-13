@@ -5,6 +5,7 @@ import { isBackTabKeyPressed, isEscapeKeyPressed, isTabKeyPressed } from '../hel
 import { apiLocale } from '../ApiAccess/ApiAccess.locale';
 import {
     canSeeAlertsAdmin,
+    canSeeDlorAdmin,
     canSeeEspace,
     canSeePromopanelAdmin,
     canSeeSpotlightsAdmin,
@@ -44,6 +45,8 @@ const ICON_MUI_BEENHERE_FILLED =
     'M19 1H5c-1.1 0-1.99.9-1.99 2L3 15.93c0 .69.35 1.3.88 1.66L12 23l8.11-5.41c.53-.36.88-.97.88-1.66L21 3c0-1.1-.9-2-2-2zm-9 15l-5-5 1.41-1.41L10 13.17l7.59-7.59L19 7l-9 9z';
 const ICON_MUI_LOCALPRINTSHOP =
     'M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z';
+const ICON_MUI_LOCALLIBRARY =
+    'M12 11.55C9.64 9.35 6.48 8 3 8v11c3.48 0 6.64 1.35 9 3.55 2.36-2.19 5.52-3.55 9-3.55V8c-3.48 0-6.64 1.35-9 3.55M12 8c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3';
 
 // THESE LINKS MUST BE DUPLICATED ON PRIMO! (see repo exlibris-primo)
 // (NOTE: due to complexity of an account check in primo, we are not showing the espace dashboard link or admin items there)
@@ -310,6 +313,15 @@ class AuthButton extends HTMLElement {
                 `${linkRoot}admin/promopanel${linkAppend}`,
                 ICON_MUI_CAMPAIGN_FILLED,
                 'Promo panels',
+            );
+
+        !!canSeeDlorAdmin(account) &&
+            addAdminMenuOption(
+                'dlor-admin',
+                'mylibrary-menu-dlor-admin',
+                `${linkRoot}admin/dlor${linkAppend}`,
+                ICON_MUI_LOCALLIBRARY,
+                'Dlor management',
             );
 
         // if admin area has no entries, delete the area so we lose the border at the top
