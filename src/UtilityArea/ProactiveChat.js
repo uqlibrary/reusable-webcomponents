@@ -145,7 +145,8 @@ class ProactiveChat extends HTMLElement {
             if (!!this.chatbotHasAppeared) {
                 return;
             }
-            shadowRoot.getElementById('proactive-chat-wrapper').removeAttribute('style');
+            const wrapper = shadowRoot.getElementById('proactive-chat-wrapper');
+            !!wrapper && wrapper.removeAttribute('style');
         };
         const api = new ApiAccess();
         const that = this;
@@ -182,8 +183,12 @@ class ProactiveChat extends HTMLElement {
             const proactivechatArea = shadowDOM.getElementById('proactivechat');
             !!proactivechatArea && (proactivechatArea.style.display = 'block');
             if (that.askUsStatus === 'online') {
+                // show the minimised button
                 const onlineMinimisedButton = shadowDOM.getElementById('proactive-chat-online');
                 !!onlineMinimisedButton && onlineMinimisedButton.removeAttribute('style');
+                // make sure the proactive dialog is hidden
+                const wrapper = shadowDOM.getElementById('proactive-chat-wrapper');
+                !!wrapper && (wrapper.style.display = 'none');
             }
         }
 
