@@ -116,12 +116,14 @@ describe('Proactive Chat', () => {
 
             cy.get('proactive-chat').shadow().find('[data-testid="chatbot-wrapper"]').should('exist'); // well, at least we know the iframe reaches the page!
 
-            // hmm... may not be able to check "the iframe we expected" loaded. But, then... it is an external resource - maybe we shouldn't?
-            // cy.getIframeBodyInShadow('[data-testid="chatbot-wrapper"]') // Replace '#your-iframe-id' with your iframe's selector
-            //     // .find('body') // You can replace 'body' with any selector to find elements inside the iframe
-            //     // .should('be.visible')
-            //     // .contains("UQ Library's AskAI service")
-            // ;
+            // can close iframe
+            cy.get('proactive-chat').shadow().find('[data-testid="closeIframeButton"]').should('exist').click();
+            // once the chatbot is closed, the minimised icon appears
+            cy.get('proactive-chat')
+                .shadow()
+                .find('[data-testid="proactive-chat-online"]')
+                .should('exist')
+                .should('be.visible');
         });
 
         it('AI chatbot iframe opens from minimised button and close button works properly', () => {
@@ -138,8 +140,14 @@ describe('Proactive Chat', () => {
 
             // can close iframe
             cy.get('proactive-chat').shadow().find('[data-testid="closeIframeButton"]').should('exist').click();
+            // once the chatbot is closed, the minimised icon appears
+            cy.get('proactive-chat')
+                .shadow()
+                .find('[data-testid="proactive-chat-online"]')
+                .should('exist')
+                .should('be.visible');
 
-            // iframe now hidden - close button works
+            // iframe now hidden, showing the close button works
             cy.get('proactive-chat')
                 .shadow()
                 .find('[data-testid="chatbot-wrapper"]')
