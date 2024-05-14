@@ -57,8 +57,9 @@ chatbotIframeTemplate.innerHTML = `<div
         id="chatbotIframe"
         src="https://copilotstudio.microsoft.com/environments/2a892934-221c-eaa4-9f1a-4790000854ca/bots/cr546_uqAssistGenAiChatBot/webchat?__version__=2"
         frameborder="0" 
-        style="width: 100%; height: calc(100% - 21px)"
+        style="width: 100%; height: calc(100% - 70px)"
     ></iframe>
+    <p class="refCheck">Please confirm any references provided.</p>
 </div>`;
 
 const PROACTIVE_CHAT_HIDDEN_COOKIE_NAME = 'UQ_PROACTIVE_CHAT';

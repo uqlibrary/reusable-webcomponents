@@ -182,11 +182,12 @@ button:focus {
 }
 
 .chatbotWrapper {
+    background-color: #fff;
     right: 10px;
     bottom: 0;
     border: 1px solid grey;
     position: fixed;
-    height: 450px;
+    height: 500px;
     width: 350px;
     overflow: hidden;
     max-width: 100%;
@@ -200,4 +201,11 @@ button:focus {
     padding-top: 6px;
     padding-right: 2px;
     height: 21px;
+}
+.refCheck {
+    background-color: white;
+    color: rgb(50, 49, 48);
+    padding-left: 6px;
+    font-size: 14px;
+    font-style: italic;
 }
