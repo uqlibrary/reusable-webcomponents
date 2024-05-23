@@ -202,9 +202,11 @@ class ProactiveChat extends HTMLElement {
             // minimise chatbot iframe
             closeChatBotIframe();
 
-            // open crm
+            const productionDomain = 'www.library.uq.edu.au';
+            const crmDomain =
+                window.location.hostname === productionDomain ? 'support.my.uq.edu.au' : 'uqcurrent.crm.test.uq.edu.au';
             window.open(
-                'https://support.my.uq.edu.au/app/chat/chat_launch_lib/p/45',
+                `https://${crmDomain}/app/chat/chat_launch_lib/p/45`,
                 'chat',
                 'toolbar=no, location=no, status=no, width=400, height=400',
             );
