@@ -50,8 +50,13 @@ chatbotIframeTemplate.innerHTML = `<div
     class="chatbotWrapper"
     style="display: none"
 >
-    <div class="chatbotCloseWrapper">
-        <button id="closeIframeButton" data-testid="closeIframeButton">Close</button>
+    <div class="buttonHolder">
+        <div class="headerButton headerButtonCrm">
+            <button id="openCrm" data-testid="openCrm">Person</button>
+        </div>
+        <div class="headerButton headerButtonClose">
+            <button id="closeIframeButton" data-testid="closeIframeButton">Close</button>
+        </div>
     </div>
     <iframe 
         id="chatbotIframe"
@@ -193,6 +198,18 @@ class ProactiveChat extends HTMLElement {
             }
         }
 
+        function openCrm() {
+            // minimise chatbot iframe
+            closeChatBotIframe();
+
+            // open crm
+            window.open(
+                'https://support.my.uq.edu.au/app/chat/chat_launch_lib/p/45',
+                'chat',
+                'toolbar=no, location=no, status=no, width=400, height=400',
+            );
+        }
+
         function openChatBotIframe() {
             that.chatbotHasAppeared = true;
 
@@ -206,10 +223,8 @@ class ProactiveChat extends HTMLElement {
             if (!!chatbotIframe) {
                 chatbotIframe.style.display = 'block';
             }
-            /*
-            shadowDOM.getElementById('alert-title').innerText =
-                !!title && title.length > 0 ? title.trim() : 'No title supplied';
-             */
+            const openCrmButton = shadowDOM.getElementById('openCrm');
+            !!openCrmButton && openCrmButton.addEventListener('click', openCrm);
             const chatbotCloseButton = shadowDOM.getElementById('closeIframeButton');
             !!chatbotCloseButton && chatbotCloseButton.addEventListener('click', closeChatBotIframe);
         }
