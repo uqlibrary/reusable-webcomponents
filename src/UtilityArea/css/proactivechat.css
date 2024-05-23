@@ -195,13 +195,15 @@ button:focus {
     opacity: 1;
 }
 
-.chatbotCloseWrapper {
+.buttonHolder {
+    display: flex;
+    justify-content: space-between;
     background-color: #51247a;
-    text-align: right;
     padding-top: 6px;
     padding-right: 2px;
     height: 21px;
 }
+
 .refCheck {
     background-color: white;
     color: rgb(50, 49, 48);

@@ -39,14 +39,11 @@ function assertHideChatCookieisSet() {
 describe('Proactive Chat', () => {
     context('Proactive chat', () => {
         it('Appears popped open on user first visit', () => {
-            cy.visit('http://localhost:8080');
+            cy.visit('http://localhost:8080/index-chat-fast.html');
             cy.viewport(1280, 900);
-            // initially the proactive chat popup is minimised
-            // (for users who know what they want don't need to see it - a little hesitation and maybe they want assistance)
-            assertPopupIsHidden();
 
             // manually wait
-            cy.wait(1500);
+            cy.wait(100);
 
             // now the popup is open (simulate user first visit, no "hide" cookie present)
             assertPopupIsOpen();
@@ -56,21 +53,28 @@ describe('Proactive Chat', () => {
             cy.visit('http://localhost:8080');
             cy.injectAxe();
             cy.viewport(1280, 900);
+            cy.checkA11y('proactive-chat', {
+                reportName: 'Proactive chat green icon',
+                scopeName: 'Accessibility',
+                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+            });
+
             cy.wait(1500);
             cy.checkA11y('proactive-chat', {
-                reportName: 'Proactive chat',
+                reportName: 'Proactive chat dialog open',
                 scopeName: 'Accessibility',
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
             });
         });
 
         it('Can hide proactive chat button', () => {
-            cy.visit('http://localhost:8080');
+            cy.visit('http://localhost:8080/index-chat-fast.html');
             cy.viewport(1280, 900);
-            assertPopupIsHidden(); // the popup only displays after a delay
 
             cy.getCookie('UQ_PROACTIVE_CHAT').should('not.exist');
-            cy.wait(1500);
+
+            // manually wait
+            cy.wait(100);
             assertPopupIsOpen();
 
             minimiseChatPopup();
@@ -80,7 +84,7 @@ describe('Proactive Chat', () => {
             // reload the page and, because of the cookie, the popup doesn't appear
             cy.visit('http://localhost:8080');
             assertHideChatCookieisSet();
-            cy.wait(1500);
+            cy.wait(1500); //give it a long time to confirm
             assertPopupIsHidden();
             // "offline Minimised" button is hodden
             cy.get('proactive-chat')
@@ -101,13 +105,40 @@ describe('Proactive Chat', () => {
                 .should('have.css', 'right', '16px');
         });
 
-        it('AI chatbot iframe opens from proactive dialog', () => {
-            cy.visit('http://localhost:8080');
+        it('Navigates to CRM from iframe "Person" button', () => {
+            // Stub the window.open method
+            cy.visit('http://localhost:8080/index-chat-slow.html', {
+                onBeforeLoad(win) {
+                    cy.stub(win, 'open');
+                },
+            });
+
             cy.viewport(1280, 900);
-            assertPopupIsHidden();
+            cy.get('proactive-chat').shadow().find('[data-testid="proactive-chat-online"]').should('exist').click();
+
+            // can see iframe
+            cy.get('proactive-chat')
+                .shadow()
+                .find('[data-testid="chatbot-wrapper"]')
+                .should('exist')
+                .should('be.visible');
+
+            // can click "person" button
+            cy.get('proactive-chat').shadow().find('[data-testid="openCrm"]').should('exist').click();
+
+            // Assert that window.open was called
+            cy.window().its('open').should('be.called');
+        });
+
+        it('AI chatbot iframe opens from proactive dialog', () => {
+            cy.visit('http://localhost:8080/index-chat-fast.html');
+            cy.viewport(1280, 900);
 
             cy.getCookie('UQ_PROACTIVE_CHAT').should('not.exist');
-            cy.wait(1500);
+
+            // manually wait
+            cy.wait(100);
+
             assertPopupIsOpen();
             cy.get('proactive-chat').shadow().find('button:contains("Chat now")').should('exist').click();
 
@@ -127,6 +158,7 @@ describe('Proactive Chat', () => {
         });
 
         it('AI chatbot iframe opens from minimised button and close button works properly', () => {
+            // delay the proactive apearance so we can reliably click on the green button
             cy.visit('http://localhost:8080/index-chat-slow.html');
             cy.viewport(1280, 900);
             cy.get('proactive-chat').shadow().find('[data-testid="proactive-chat-online"]').should('exist').click();
