@@ -2,15 +2,16 @@
     position: relative;
 }
 
+.openSubWrapper button {
+    width: 80%;
+    border-radius: 4px !important;
+    margin-inline: auto;
+    white-space: nowrap;
+    font-size: 1em;
+}
+
 .proactive-chat button {
-    line-height: 20px !important;
-    background: rgba(0, 0, 0, 0);
-    border-radius: 50%;
     border: none;
-    margin: -12px 0;
-    padding: 6px;
-    width: 60px;
-    height: 60px;
     transition-delay: 0s;
     transition-duration: 0.15s;
     transition-property: background-color;
@@ -20,21 +21,65 @@
 .proactive-chat button:hover,
 button:active,
 button:focus {
-    background: rgba(0, 0, 0, 0.04);
     transition-delay: 0s;
     transition-duration: 0.15s;
     transition-property: background-color;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
 }
-
 .proactive-chat button:active {
     outline: none;
-    background: rgba(81, 36, 122, 0.3) !important;
     transition-delay: 0s;
     transition-duration: 0.15s;
     transition-property: background-color;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.proactive-chat button.proactive-chat-button {
+    line-height: 20px !important;
+    background: rgba(0, 0, 0, 0);
+    border-radius: 50%;
+    margin: 5px 0 -12px 0;
+    padding: 6px;
+    height: 60px;
+    color: #ffffff !important;
+    background-color: #2377cb;
+}
+
+.proactive-chat button.proactive-chat-button:hover,
+button.proactive-chat-button:active,
+button.proactive-chat-button:focus {
+    background-color: #195794;
+}
+
+.proactive-chat button.proactive-chat-button:active {
+    background: rgba(81, 36, 122, 0.3) !important;
+}
+
+.crmChatPrompt {
+    text-align: center;
+}
+
+.crmChatPrompt button {
+    background-color: transparent;
+    margin-top: 20px;
+    padding-top: 5px;
+    text-decoration: underline;
+}
+
+.proactive-chat button.close-button {
+    background: rgba(0, 0, 0, 0);
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 44px;
+    height: 44px;
+    box-shadow: none;
+    padding: 0 35px 0 60px;
+}
+
+.proactive-chat button.close-button svg {
+    width: 30px;
 }
 
 .closed-menu {
@@ -94,9 +139,7 @@ button:focus {
     height: 100%;
 }
 
-.proactive-chat .pcwrapper .pcopen {
-    display: flex;
-    flex-wrap: wrap;
+.proactive-chat .pcwrapper .openSubWrapper {
     position: fixed;
     bottom: 12px;
     background-color: white;
@@ -111,69 +154,49 @@ button:focus {
 .pcwrapper {
     z-index: 9999;
     position: fixed;
-    bottom: 0px;
-    right: 0px;
+    bottom: 0;
+    right: 0;
     width: 300px;
     height: 220px;
     overflow: hidden !important;
 }
-.proactive-chat .pcwrapper .pcopen.show {
+.proactive-chat .pcwrapper .openSubWrapper.show {
     right: 12px;
     transition: right 0.3s;
     transition-delay: 0.3s;
     transition-timing-function: ease-in-out;
 }
-.proactive-chat .pcwrapper .pcopen .pcText {
+.proactive-chat .pcwrapper .openSubWrapper .pcText {
     flex: 0 0 100%;
 }
-.proactive-chat .pcwrapper .pcopen .pcText .pcTitle {
+.proactive-chat .pcwrapper .openSubWrapper .pcText .pcTitle {
     font-size: 22px !important;
     font-weight: bold;
     text-transform: uppercase;
     color: #51247a;
 }
-.pcopen .pcText .pcMessage {
-    font-size: 14px !important;
-    font-weight: normal;
-    margin-bottom: 22px;
+.openSubWrapper .pcText .pcMessage {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-left: 10px; /* make it _feel_ centered */
 }
-.pcopen button {
-    width: 100%;
-}
-.pcopen .pcOpenChat,
-.pcopen .pcMinimisePopup {
+.openSubWrapper .pcMinimisePopup {
     flex-grow: 1;
 }
-.pcopen .pcOpenChat {
-    margin: 0 5px 0 0;
+.openSubWrapper .pcOpenChat {
+    text-align: center;
 }
-.pcopen button {
-    border-radius: 4px !important;
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
-    padding: 0px !important;
-    margin: 0px !important;
-    white-space: nowrap;
-}
-.pcopen .pcMinimisePopup {
+.openSubWrapper .pcMinimisePopup {
     margin: 0 0 0 5px;
 }
-.pcopen .pcOpenChat button {
-    color: #ffffff !important;
-    background-color: #2377cb;
-}
-.pcopen .pcMinimisePopup button {
+.openSubWrapper .pcMinimisePopup button {
     color: #333333 !important;
     background-color: #cccccc;
 }
-.pcopen .pcMinimisePopup button:hover {
+.openSubWrapper .pcMinimisePopup button:hover {
     background-color: #a8a8a8;
-}
-.pcopen .pcOpenChat button:hover {
-    background-color: #195794;
-}
-.pcopen button {
-    border-radius: 0px !important;
-    text-transform: uppercase;
 }
 @media screen and (max-width: 650px) {
     .ca-force-hide-mobile {
@@ -191,7 +214,8 @@ button:focus {
     width: 350px;
     overflow: hidden;
     max-width: 100%;
-    max-height: 100%;  transition: opacity 1s ease-in-out;
+    max-height: 100%;
+    transition: opacity 1s ease-in-out;
     opacity: 1;
 }
 
