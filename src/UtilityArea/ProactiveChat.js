@@ -27,16 +27,20 @@ userPromptTemplate.innerHTML = `
         </div>
         <!-- Proactive Chat larger dialog -->
         <div id="proactive-chat-wrapper"  class="pcwrapper" style="display: none">
-            <div id="proactive-chat" data-testid="popupIsOpen" class="pcopen">
+            <div id="proactive-chat" data-testid="popupIsOpen" class="openSubWrapper">
                 <div class="pcText">
-                    <div class="pcTitle">Chat is online now</div>
-                    <div class="pcMessage">Library staff are here to assist.<br/>Would you like to chat?</div>
+                    <div class="pcMessage">Need help?</div>
                 </div>
+                <button id="proactive-chat-button-close" data-analyticsid="askus-proactive-chat-button-close" data-testid="close-button" class="close-button" title="Minimise this popup">
+                    <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+                    </svg>
+                </button>
                 <div class="pcOpenChat">
-                    <button id="proactive-chat-button-open" data-analyticsid="askus-proactive-chat-button-open" data-testid="popopen-button" class="proactive-chat-button">Chat now</button>
+                    <button id="proactive-chat-button-open" data-analyticsid="askus-proactive-chatbot-button-open" data-testid="popopen-button" class="proactive-chat-button">Ask Library Chatbot</button>
                 </div>
-                <div class="pcMinimisePopup">
-                    <button id="proactive-chat-button-close" data-analyticsid="askus-proactive-chat-button-close" class="proactive-chat-button">Maybe later</button>
+                <div class="crmChatPrompt">
+                    <button id="crmChatPrompt" data-analyticsid="askus-proactive-chat-button-open" data-analytitecsid="askus-proactive-crm-button" class="crmchat-button">Chat with Library staff</button>
                 </div>
             </div>
         </div>
@@ -212,6 +216,14 @@ class ProactiveChat extends HTMLElement {
             );
         }
 
+        function openCrmChat() {
+            window.open(
+                'https://support.my.uq.edu.au/app/chat/chat_launch_lib/p/45',
+                'chat',
+                'toolbar=no, location=no, status=no, width=400, height=400',
+            );
+        }
+
         function openChatBotIframe() {
             that.chatbotHasAppeared = true;
 
@@ -235,12 +247,6 @@ class ProactiveChat extends HTMLElement {
             window.open('https://support.my.uq.edu.au/app/library/contact', '_blank');
         }
 
-        // Chat status listeners
-        const proactiveChatElementOnline = shadowDOM.getElementById('proactive-chat-online');
-        !!proactiveChatElementOnline && proactiveChatElementOnline.addEventListener('click', openChatBotIframe);
-        const proactiveChatElementOffline = shadowDOM.getElementById('proactive-chat-offline');
-        !!proactiveChatElementOffline && proactiveChatElementOffline.addEventListener('click', openChatBotIframe);
-
         // Proactive chat
         function hideProactiveChatWrapper() {
             const pcWrapper = shadowDOM.getElementById('proactive-chat-wrapper');
@@ -256,6 +262,13 @@ class ProactiveChat extends HTMLElement {
             setCookie(PROACTIVE_CHAT_HIDDEN_COOKIE_NAME, PROACTIVE_CHAT_HIDDEN_COOKIE_VALUE, date, true);
         }
 
+        // Chat status listeners
+        const crmChatprompt = shadowDOM.getElementById('crmChatPrompt');
+        !!crmChatprompt && crmChatprompt.addEventListener('click', openCrmChat);
+        const proactiveChatElementOnline = shadowDOM.getElementById('proactive-chat-online');
+        !!proactiveChatElementOnline && proactiveChatElementOnline.addEventListener('click', openChatBotIframe);
+        const proactiveChatElementOffline = shadowDOM.getElementById('proactive-chat-offline');
+        !!proactiveChatElementOffline && proactiveChatElementOffline.addEventListener('click', openChatBotIframe);
         const proactiveChatElementClose = shadowDOM.getElementById('proactive-chat-button-close');
         !!proactiveChatElementClose && proactiveChatElementClose.addEventListener('click', closeProactiveChat);
         const proactiveChatElementOpen = shadowDOM.getElementById('proactive-chat-button-open');
