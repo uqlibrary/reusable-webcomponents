@@ -79,10 +79,11 @@ const PROACTIVE_CHAT_HIDDEN_COOKIE_VALUE = 'hidden';
 // Handled by attribute "CAforceHideMobile" applied to component
 // if attribute exists when time to show, also apply .forceHideMobile class to component.
 let CAforceHideMobile = false;
+let ShowChatBot = false;
 
 class ProactiveChat extends HTMLElement {
     static get observedAttributes() {
-        return ['caforcehidemobile'];
+        return ['caforcehidemobile', 'showchatbot'];
     }
     constructor() {
         super();
@@ -110,6 +111,9 @@ class ProactiveChat extends HTMLElement {
 
             clearInterval(awaitShadowDom);
             switch (fieldName) {
+                case 'showchatbot':
+                    ShowChatBot = newValue === 'true' ? true : false;
+                    break;
                 case 'caforcehidemobile':
                     CAforceHideMobile = newValue === 'true' ? true : false;
                     break;
@@ -123,6 +127,11 @@ class ProactiveChat extends HTMLElement {
                 !!proactiveChatElement && proactiveChatElement.classList.add('ca-force-hide-mobile');
             } else {
                 !!proactiveChatElement && proactiveChatElement.classList.remove('ca-force-hide-mobile');
+            }
+
+            if (ShowChatBot) {
+                const button = that.shadowRoot.getElementById('proactive-chat-online');
+                !!button && button.click();
             }
         }, 50);
     }

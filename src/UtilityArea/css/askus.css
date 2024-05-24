@@ -58,7 +58,6 @@ button:focus {
     transform: scale(1);
     transform-origin: 50% 50%;
     opacity: 1;
-    padding-bottom: 0.8em;
 }
 
 @media screen and (max-width: 600px) {
@@ -110,27 +109,34 @@ button:focus {
     margin: 0;
     list-style-type: none;
 }
+@media screen and (min-width: 420px) {
+    .askus-menu-list {
+        column-count: 2;
+        column-gap: 20px;
+    }
+}
 
 @media screen and (max-width: 420px) {
     .askus-menu-list li {
-        display: inline-block;
-        width: calc(100% - 4px);
+        /*display: inline-block;*/
+        /*width: calc(100% - 4px);*/
         padding: 0 !important;
         margin: 0 !important;
-        height: 35px !important;
+        min-height: 35px !important;
     }
 }
 
 @media screen and (min-width: 420px) {
     .askus-menu-list li {
-        display: inline-block;
-        width: calc(50% - 4px);
+        /*display: inline-block;*/
+        /*width: calc(50% - 4px);*/
         padding: 0 !important;
         margin: 0 !important;
-        height: 35px !important;
+        min-height: 35px !important;
     }
 }
 
+.moreWays a,
 .askus-menu-list li a {
     display: inline-block;
     width: 100% !important;
@@ -180,11 +186,28 @@ button:focus {
     margin-right: 4px;
     margin-left: 6px;
 }
+.askus-menu-list li.askus-aibot-li svg path {
+    stroke: #595959;
+}
 
 .askus-menu-list li a .chatTimes {
     font-size: 12px;
+    display: block;
+    margin-left: 40px;
 }
 
 #askus-chat-li .disabled {
     border: 3px solid red;
+}
+
+.moreWays {
+    text-align: center;
+    margin-top: 0;
+}
+.askusListItem {
+    margin-right: 6px;
+    margin-bottom: -6px;
+}
+.closedLabel {
+    margin-left: 40px;
 }
