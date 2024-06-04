@@ -55,21 +55,22 @@ chatbotIframeTemplate.innerHTML = `<div
     class="chatbotWrapper"
     style="display: none"
 >
-    <div class="buttonHolder">
-        <div class="headerButton headerButtonCrm">
-            <button id="openCrm" data-testid="openCrm">Person</button>
+    <div class="resizeHandleRepositionWrapper">
+        <div class="buttonHolder">
+            <div class="headerButton headerButtonCrm">
+                <button id="openCrm" data-testid="openCrm">Person</button>
+            </div>
+            <div class="headerButton headerButtonClose">
+                <button id="closeIframeButton" data-testid="closeIframeButton">Close</button>
+            </div>
         </div>
-        <div class="headerButton headerButtonClose">
-            <button id="closeIframeButton" data-testid="closeIframeButton">Close</button>
-        </div>
+        <iframe 
+            id="chatbotIframe"
+            src="https://copilotstudio.microsoft.com/environments/2a892934-221c-eaa4-9f1a-4790000854ca/bots/cr546_uqAssistGenAiChatBot/webchat?__version__=2"
+            frameborder="0" 
+        ></iframe>
+        <p class="refCheck">Please confirm any references provided.</p>
     </div>
-    <iframe 
-        id="chatbotIframe"
-        src="https://copilotstudio.microsoft.com/environments/2a892934-221c-eaa4-9f1a-4790000854ca/bots/cr546_uqAssistGenAiChatBot/webchat?__version__=2"
-        frameborder="0" 
-        style="width: 100%; height: calc(100% - 70px)"
-    ></iframe>
-    <p class="refCheck">Please confirm any references provided.</p>
 </div>`;
 
 const PROACTIVE_CHAT_HIDDEN_COOKIE_NAME = 'UQ_PROACTIVE_CHAT';

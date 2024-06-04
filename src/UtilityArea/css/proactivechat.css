@@ -211,22 +211,38 @@ button.proactive-chat-button:focus {
     bottom: 0;
     border: 1px solid grey;
     position: fixed;
-    height: 500px;
+    height: 540px;
     width: 350px;
-    overflow: hidden;
     max-width: 100%;
     max-height: 100%;
     transition: opacity 1s ease-in-out;
     opacity: 1;
+    resize: both;
+    overflow: hidden;
+    min-width: 330px;
+    min-height: 500px;
+    // fake the handle to the top left for usability
+    transform: rotateZ(180deg);
+}
+.resizeHandleRepositionWrapper {
+    // undo the transform in parent for childten
+    transform: rotateZ(180deg);
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
 
 .buttonHolder {
     display: flex;
     justify-content: space-between;
     background-color: #51247a;
-    padding-top: 6px;
+    padding-top: 20px;
     padding-right: 2px;
     height: 21px;
+}
+.chatbotWrapper iframe {
+    width: 100%;
+    height: calc(100% - 70px)
 }
 
 .refCheck {
@@ -235,4 +251,5 @@ button.proactive-chat-button:focus {
     padding-left: 6px;
     font-size: 14px;
     font-style: italic;
+    margin-top: 0;
 }
