@@ -53,7 +53,6 @@ chatbotIframeTemplate.innerHTML = `<div
     id="chatbot-wrapper"
     data-testid="chatbot-wrapper"
     class="chatbotWrapper"
-    style="display: none"
 >
     <div class="resizeHandleRepositionWrapper">
         <div class="buttonHolder">
@@ -93,8 +92,7 @@ class ProactiveChat extends HTMLElement {
         const secondsTilProactiveChatAppears = this.getAttribute('secondsTilProactiveChatAppears') || 60;
         const shadowDOM = this.attachShadow({ mode: 'open' });
 
-        // Render the templates
-        shadowDOM.appendChild(chatbotIframeTemplate.content.cloneNode(true));
+        // Render the userPromptTemplate
         shadowDOM.appendChild(userPromptTemplate.content.cloneNode(true));
         this.updateAskusDOM(shadowDOM, secondsTilProactiveChatAppears);
         this.addButtonListeners(shadowDOM);
@@ -256,6 +254,8 @@ class ProactiveChat extends HTMLElement {
             const chatbotIframe = shadowDOM.getElementById('chatbot-wrapper');
             if (!!chatbotIframe) {
                 chatbotIframe.style.display = 'block';
+            } else {
+                shadowDOM.appendChild(chatbotIframeTemplate.content.cloneNode(true));
             }
             const openCrmButton = shadowDOM.getElementById('openCrm');
             !!openCrmButton && openCrmButton.addEventListener('click', openCrm);
