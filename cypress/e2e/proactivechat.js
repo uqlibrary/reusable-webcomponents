@@ -158,7 +158,7 @@ describe('Proactive Chat', () => {
                 .should('be.visible');
 
             // can click "person" button
-            cy.get('proactive-chat').shadow().find('[data-testid="openCrm"]').should('exist').click();
+            cy.get('proactive-chat').shadow().find('[data-testid="speakToPerson"]').should('exist').click();
 
             // Assert that window.open was called
             cy.window().its('open').should('be.called');

@@ -57,7 +57,7 @@ chatbotIframeTemplate.innerHTML = `<div
     <div class="resizeHandleRepositionWrapper">
         <div class="buttonHolder">
             <div class="headerButton headerButtonCrm">
-                <button id="openCrm" data-testid="openCrm">Person</button>
+                <button id="speakToPerson" data-testid="speakToPerson">Person</button>
             </div>
             <div class="headerButton headerButtonClose">
                 <button id="closeIframeButton" data-testid="closeIframeButton">Close</button>
@@ -99,6 +99,7 @@ class ProactiveChat extends HTMLElement {
 
         this.chatbotHasAppeared = false;
         this.askUsStatus = null;
+        this._account = null;
     }
 
     attributeChangedCallback(fieldName, oldValue, newValue) {
@@ -220,26 +221,40 @@ class ProactiveChat extends HTMLElement {
             }
         }
 
-        function openCrm() {
+        function swapToCrm() {
             // minimise chatbot iframe
             closeChatBotIframe();
+
+            openCrmChat();
+        }
+
+        function openCrmChat() {
+            let accountDetails = null;
+            const currentUserDetails = new ApiAccess().getAccountFromStorage();
+
+            const accountIsSet =
+                currentUserDetails.hasOwnProperty('account') &&
+                !!currentUserDetails.account &&
+                currentUserDetails.account.hasOwnProperty('id') &&
+                !!currentUserDetails.account.id;
+            if (!!accountIsSet) {
+                accountDetails = currentUserDetails.account;
+            }
+
+            const params = [];
+            !!accountDetails?.mail && params.push(`email=${accountDetails?.mail}`);
+            !!accountDetails?.firstName && params.push(`name=${accountDetails?.firstName}`);
+            // &subject=users+question is also available, but we don't know their question :(
 
             const productionDomain = 'www.library.uq.edu.au';
             const crmDomain =
                 window.location.hostname === productionDomain ? 'support.my.uq.edu.au' : 'uqcurrent.crm.test.uq.edu.au';
-            window.open(
-                `https://${crmDomain}/app/chat/chat_launch_lib/p/45`,
-                'chat',
-                'toolbar=no, location=no, status=no, width=400, height=400',
-            );
-        }
+            let url = `https://${crmDomain}/app/chat/chat_launch_lib/p/45`;
+            if (params.length > 0) {
+                url = `${url}?${params.join('&')}`;
+            }
 
-        function openCrmChat() {
-            window.open(
-                'https://support.my.uq.edu.au/app/chat/chat_launch_lib/p/45',
-                'chat',
-                'toolbar=no, location=no, status=no, width=400, height=400',
-            );
+            window.open(url, 'chat', 'toolbar=no, location=no, status=no, width=400, height=400');
         }
 
         function openChatBotIframe() {
@@ -257,8 +272,8 @@ class ProactiveChat extends HTMLElement {
             } else {
                 shadowDOM.appendChild(chatbotIframeTemplate.content.cloneNode(true));
             }
-            const openCrmButton = shadowDOM.getElementById('openCrm');
-            !!openCrmButton && openCrmButton.addEventListener('click', openCrm);
+            const openCrmButton = shadowDOM.getElementById('speakToPerson');
+            !!openCrmButton && openCrmButton.addEventListener('click', swapToCrm);
             const chatbotCloseButton = shadowDOM.getElementById('closeIframeButton');
             !!chatbotCloseButton && chatbotCloseButton.addEventListener('click', closeChatBotIframe);
         }
