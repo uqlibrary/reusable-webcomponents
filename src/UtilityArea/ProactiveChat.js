@@ -282,7 +282,7 @@ class ProactiveChat extends HTMLElement {
         // Proactive chat
         function hideProactiveChatWrapper() {
             const pcWrapper = shadowDOM.getElementById('proactive-chat-wrapper');
-            !!pcWrapper && pcWrapper.remove();
+            !!pcWrapper && (pcWrapper.style.display = 'none');
         }
         function closeProactiveChat() {
             const proactiveChatElement = shadowDOM.getElementById('proactive-chat');
