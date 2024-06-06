@@ -283,11 +283,18 @@ class ProactiveChat extends HTMLElement {
 
                 // update the iframe url so it appends these parameters
                 const clonedTemplate = chatbotIframeTemplate.content.cloneNode(true);
-                if (!!clonedTemplate && params.length > 0) {
+                if (!!clonedTemplate && (!!accountDetails?.mail || !!accountDetails?.firstName)) {
                     const iframe = !!clonedTemplate && clonedTemplate.querySelector('iframe');
-                    let url = (!!iframe && iframe.src) || null;
-                    url = !!url && `${url}?${params.join('&')}`;
-                    iframe.src = url;
+                    let urlIframe = (!!iframe && iframe.src) || null;
+
+                    const urlAppended = !!urlIframe && new URL(urlIframe);
+                    !!accountDetails?.firstName &&
+                        !!urlAppended &&
+                        urlAppended.searchParams.append('FullName', accountDetails?.firstName);
+                    !!accountDetails?.mail &&
+                        !!urlAppended &&
+                        urlAppended.searchParams.append('Email', accountDetails?.mail);
+                    !!urlAppended && (iframe.src = urlAppended.toString());
                 }
 
                 !!shadowDOM && !!clonedTemplate && shadowDOM.appendChild(clonedTemplate);

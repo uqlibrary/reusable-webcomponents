@@ -164,7 +164,7 @@ describe('Proactive Chat', () => {
             cy.window().its('open').should('be.called');
         });
 
-        it('AI chatbot iframe opens from proactive dialog', () => {
+        it('AI chatbot iframe opens from proactive dialog when loggedin', () => {
             cy.visit('http://localhost:8080/index-chat-fast.html');
             cy.viewport(1280, 900);
 
@@ -179,7 +179,12 @@ describe('Proactive Chat', () => {
             // let the iframe finish drawing
             cy.wait(4000);
 
-            cy.get('proactive-chat').shadow().find('[data-testid="chatbot-wrapper"]').should('exist'); // well, at least we know the iframe reaches the page!
+            // well, at least we know the iframe reaches the page!
+            cy.get('proactive-chat')
+                .shadow()
+                .find('[data-testid="chatbot-wrapper"]')
+                .should('exist')
+                .should('have.css', 'height', '540px');
 
             // can close iframe
             cy.get('proactive-chat').shadow().find('[data-testid="closeIframeButton"]').should('exist').click();
@@ -198,6 +203,29 @@ describe('Proactive Chat', () => {
                 .find('[data-testid="chatbot-wrapper"]')
                 .should('exist')
                 .should('be.visible');
+        });
+
+        it('AI chatbot iframe opens from proactive dialog when logged out', () => {
+            cy.visit('http://localhost:8080/index-chat-fast.html?user=public');
+            cy.viewport(1280, 900);
+
+            cy.getCookie('UQ_PROACTIVE_CHAT').should('not.exist');
+
+            // manually wait
+            cy.wait(100);
+
+            assertPopupIsOpen();
+            cy.get('proactive-chat').shadow().find('button:contains("Ask Library Chatbot")').should('exist').click();
+
+            // let the iframe finish drawing
+            cy.wait(4000);
+
+            // well, at least we know the iframe reaches the page!
+            cy.get('proactive-chat')
+                .shadow()
+                .find('[data-testid="chatbot-wrapper"]')
+                .should('exist')
+                .should('have.css', 'height', '540px');
         });
 
         it('minimised button focus opens proactive dialog', () => {
