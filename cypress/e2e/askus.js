@@ -141,6 +141,23 @@ describe('AskUs menu', () => {
             cy.window().its('open').should('be.called');
         });
 
+        it('AI chatbot iframe opens from askus button click when not logged in', () => {
+            cy.visit('http://localhost:8080/?user=public');
+            cy.viewport(1280, 900);
+            openAskusPopup();
+
+            cy.get('askus-button').shadow().find('[data-testid="askus-aibot-button"]').should('exist').click();
+
+            // let the iframe finish drawing
+            cy.wait(4000);
+
+            cy.get('proactive-chat')
+                .shadow()
+                .find('[data-testid="chatbot-wrapper"]')
+                .should('exist')
+                .should('be.visible');
+            // well, at least we know the iframe appears on the page!
+        });
         it('AI chatbot iframe opens from askus button click', () => {
             cy.visit('http://localhost:8080/');
             cy.viewport(1280, 900);

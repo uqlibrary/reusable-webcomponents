@@ -282,15 +282,15 @@ class ProactiveChat extends HTMLElement {
                 // &subject=users+question is also available, but we don't know their question :(
 
                 // update the iframe url so it appends these parameters
-                if (params.length > 0) {
-                    const clonedTemplate = chatbotIframeTemplate.content.cloneNode(true);
-                    const iframe = clonedTemplate.querySelector('iframe');
+                const clonedTemplate = chatbotIframeTemplate.content.cloneNode(true);
+                if (!!clonedTemplate && params.length > 0) {
+                    const iframe = !!clonedTemplate && clonedTemplate.querySelector('iframe');
                     let url = (!!iframe && iframe.src) || null;
                     url = !!url && `${url}?${params.join('&')}`;
+                    iframe.src = url;
                 }
-                iframe.src = url;
 
-                shadowDOM.appendChild(clonedTemplate);
+                !!shadowDOM && !!clonedTemplate && shadowDOM.appendChild(clonedTemplate);
             }
             const openCrmButton = shadowDOM.getElementById('speakToPerson');
             !!openCrmButton && openCrmButton.addEventListener('click', swapToCrm);
