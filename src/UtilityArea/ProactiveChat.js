@@ -99,7 +99,6 @@ class ProactiveChat extends HTMLElement {
 
         this.chatbotHasAppeared = false;
         this.askUsStatus = null;
-        this._account = null;
     }
 
     attributeChangedCallback(fieldName, oldValue, newValue) {
@@ -228,7 +227,7 @@ class ProactiveChat extends HTMLElement {
             openCrmChat();
         }
 
-        function openCrmChat() {
+        function getUserAccount() {
             let accountDetails = null;
             const currentUserDetails = new ApiAccess().getAccountFromStorage();
 
@@ -240,6 +239,11 @@ class ProactiveChat extends HTMLElement {
             if (!!accountIsSet) {
                 accountDetails = currentUserDetails.account;
             }
+            return accountDetails;
+        }
+
+        function openCrmChat() {
+            const accountDetails = getUserAccount();
 
             const params = [];
             !!accountDetails?.mail && params.push(`email=${accountDetails?.mail}`);
@@ -270,7 +274,23 @@ class ProactiveChat extends HTMLElement {
             if (!!chatbotIframe) {
                 chatbotIframe.style.display = 'block';
             } else {
-                shadowDOM.appendChild(chatbotIframeTemplate.content.cloneNode(true));
+                const accountDetails = getUserAccount();
+
+                const params = [];
+                !!accountDetails?.mail && params.push(`Email=${accountDetails?.mail}`);
+                !!accountDetails?.firstName && params.push(`FullName=${accountDetails?.firstName}`);
+                // &subject=users+question is also available, but we don't know their question :(
+
+                // update the iframe url so it appends these parameters
+                if (params.length > 0) {
+                    const clonedTemplate = chatbotIframeTemplate.content.cloneNode(true);
+                    const iframe = clonedTemplate.querySelector('iframe');
+                    let url = (!!iframe && iframe.src) || null;
+                    url = !!url && `${url}?${params.join('&')}`;
+                }
+                iframe.src = url;
+
+                shadowDOM.appendChild(clonedTemplate);
             }
             const openCrmButton = shadowDOM.getElementById('speakToPerson');
             !!openCrmButton && openCrmButton.addEventListener('click', swapToCrm);
