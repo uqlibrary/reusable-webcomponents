@@ -199,7 +199,7 @@ class OpenAthens extends HTMLElement {
     }
 
     /**
-     * display the ezproxy link
+     * display the Open athens link
      */
     displayUrl() {
         var cleanedUrl = this.cleanupUrl(this.inputUrl);
@@ -212,7 +212,7 @@ class OpenAthens extends HTMLElement {
     }
 
     /**
-     * Open ezproxy link in a new window/tab
+     * Open Open athens link in a new window/tab
      */
     navigateToEzproxy() {
         if (this.redirectOnly) {
