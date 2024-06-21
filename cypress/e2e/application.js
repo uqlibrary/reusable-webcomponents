@@ -360,6 +360,11 @@ describe('Dummy Application', () => {
 
             // simple check that the components exist, now that we are splitting them out from the main reusable.min file
             cy.get('search-portal').shadow().find('h2').should('contain', 'Library Search');
+            cy.get('open-athens')
+                .shadow()
+                .find('fieldset input')
+                .should('have.attr', 'placeholder')
+                .and('include', 'DOI or URL');
             cy.get('library-training')
                 .shadow()
                 .find('training-filter')
