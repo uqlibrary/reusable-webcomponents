@@ -4,8 +4,8 @@ import isURL from 'validator/es/lib/isURL';
 
 /*
  * usage:
- *  <ez-proxy create-link="true"></ez-proxy>
- *  <ez-proxy></ez-proxy>
+ *  <open-athens create-link="true"></open-athens>
+ *  <open-athens></open-athens>
  *
  */
 
@@ -15,27 +15,27 @@ template.innerHTML = `
         ${mainStyles.toString()}
         ${customStyles.toString()}
     </style>
-    <div id="ez-proxy" data-testid="ez-proxy" class="uq-card">
+    <div id="open-athens" data-testid="open-athens" class="uq-card">
         <fieldset class="uq-card__content">
-            <input type="url" placeholder="DOI or URL" id="ez-proxy-input" data-testid="ez-proxy-input" />
-            <div id="ez-proxy-input-error" data-testid="ez-proxy-input-error" class="uq-error-message hidden"></div>
-            <button id="ez-proxy-create-link-button" data-testid="ez-proxy-create-link-button" class="uq-button hidden">Create Link</button>
-            <span id="ez-proxy-copy-options" data-testid="ez-proxy-copy-options" class="hidden">
-                <textarea readonly id="ez-proxy-url-display-area" data-testid="ez-proxy-url-display-area"></textarea>
-                <button id="ez-proxy-test-link-button" data-testid="ez-proxy-test-link-button" class="uq-button">Test Link</button>
-                <button id="ez-proxy-copy-link-button" data-testid="ez-proxy-copy-link-button" class="uq-button">Copy Link</button>
-                <button id="ez-proxy-create-new-link-button" data-testid="ez-proxy-create-new-link-button" class="uq-button uq-button--secondary">Create New Link</button>
-                <div id="ez-proxy-copy-status" data-testid="ez-proxy-copy-status"></div>
+            <input type="url" placeholder="DOI or URL" id="open-athens-input" data-testid="open-athens-input" />
+            <div id="open-athens-input-error" data-testid="open-athens-input-error" class="uq-error-message hidden"></div>
+            <button id="open-athens-create-link-button" data-testid="open-athens-create-link-button" class="uq-button hidden">Create Link</button>
+            <span id="open-athens-copy-options" data-testid="open-athens-copy-options" class="hidden">
+                <textarea readonly id="open-athens-url-display-area" data-testid="open-athens-url-display-area"></textarea>
+                <button id="open-athens-test-link-button" data-testid="open-athens-test-link-button" class="uq-button">Test Link</button>
+                <button id="open-athens-copy-link-button" data-testid="open-athens-copy-link-button" class="uq-button">Copy Link</button>
+                <button id="open-athens-create-new-link-button" data-testid="open-athens-create-new-link-button" class="uq-button uq-button--secondary">Create New Link</button>
+                <div id="open-athens-copy-status" data-testid="open-athens-copy-status"></div>
             </span>
-            <span id="ez-proxy-redirect-options" data-testid="ez-proxy-redirect-options" class="hidden">
-                <button id="ez-proxy-redirect-button" data-testid="ez-proxy-redirect-button" class="uq-button">Go</button>
-                <button id="ez-proxy-input-clear-button" data-testid="ez-proxy-input-clear-button" class="uq-button uq-button--secondary">Clear</button>
+            <span id="open-athens-redirect-options" data-testid="open-athens-redirect-options" class="hidden">
+                <button id="open-athens-redirect-button" data-testid="open-athens-redirect-button" class="uq-button">Go</button>
+                <button id="open-athens-input-clear-button" data-testid="open-athens-input-clear-button" class="uq-button uq-button--secondary">Clear</button>
             </span>
         </fieldset>
     </div>
 `;
 
-class EzProxy extends HTMLElement {
+class OpenAthens extends HTMLElement {
     constructor() {
         super();
     }
@@ -126,18 +126,18 @@ class EzProxy extends HTMLElement {
         const shadowDOM = this.attachShadow({ mode: 'open' });
         shadowDOM.appendChild(template.content.cloneNode(true));
 
-        this.copyLinkButton = shadowDOM.getElementById('ez-proxy-copy-link-button');
-        this.copyOptions = shadowDOM.getElementById('ez-proxy-copy-options');
-        this.createLinkButton = shadowDOM.getElementById('ez-proxy-create-link-button');
-        this.createNewLinkButton = shadowDOM.getElementById('ez-proxy-create-new-link-button');
-        this.inputClearButton = shadowDOM.getElementById('ez-proxy-input-clear-button');
-        this.inputErrorArea = shadowDOM.getElementById('ez-proxy-input-error');
-        this.inputField = shadowDOM.getElementById('ez-proxy-input');
-        this.redirectButton = shadowDOM.getElementById('ez-proxy-redirect-button');
-        this.redirectOptions = shadowDOM.getElementById('ez-proxy-redirect-options');
-        this.statusToast = shadowDOM.getElementById('ez-proxy-copy-status');
-        this.testLinkButton = shadowDOM.getElementById('ez-proxy-test-link-button');
-        this.urlDisplayArea = shadowDOM.getElementById('ez-proxy-url-display-area');
+        this.copyLinkButton = shadowDOM.getElementById('open-athens-copy-link-button');
+        this.copyOptions = shadowDOM.getElementById('open-athens-copy-options');
+        this.createLinkButton = shadowDOM.getElementById('open-athens-create-link-button');
+        this.createNewLinkButton = shadowDOM.getElementById('open-athens-create-new-link-button');
+        this.inputClearButton = shadowDOM.getElementById('open-athens-input-clear-button');
+        this.inputErrorArea = shadowDOM.getElementById('open-athens-input-error');
+        this.inputField = shadowDOM.getElementById('open-athens-input');
+        this.redirectButton = shadowDOM.getElementById('open-athens-redirect-button');
+        this.redirectOptions = shadowDOM.getElementById('open-athens-redirect-options');
+        this.statusToast = shadowDOM.getElementById('open-athens-copy-status');
+        this.testLinkButton = shadowDOM.getElementById('open-athens-test-link-button');
+        this.urlDisplayArea = shadowDOM.getElementById('open-athens-url-display-area');
 
         if (this.redirectOnly) {
             this.redirectOptions.classList.remove('hidden');
@@ -182,18 +182,18 @@ class EzProxy extends HTMLElement {
     cleanupUrl(dest) {
         dest = dest.trim();
 
-        // URLs like the one generated by this component
-        var ezpRegexp = /https?:\/\/(www.)?ezproxy.library.uq.edu.au\/login\?url\=/i;
-        dest = dest.replace(ezpRegexp, '');
-
-        // Example: http://www.sciencedirect.com.ezproxy.library.uq.edu.au/science/article/pii/S1744388116300159
-        var ezproxyUrlRegexp = /(([A-Za-z]*:(?:\/\/)?)(.)+(.ezproxy.library.uq.edu.au))(.*)?/;
-        if (ezproxyUrlRegexp.test(dest)) {
-            dest = dest.replace('.ezproxy.library.uq.edu.au', '');
-        }
-
-        var doiRegexp = /https?:\/\/dx.doi.org\//i;
-        dest = dest.replace(doiRegexp, '');
+        // // URLs like the one generated by this component
+        // var ezpRegexp = /https:\/\/go.openathens.net\/redirector\/uq.edu.au?url\=/i;
+        // dest = dest.replace(ezpRegexp, '');
+        //
+        // // // Example: http://www.sciencedirect.com.ezproxy.library.uq.edu.au/science/article/pii/S1744388116300159
+        // // var ezproxyUrlRegexp = /(([A-Za-z]*:(?:\/\/)?)(.)+(.ezproxy.library.uq.edu.au))(.*)?/;
+        // // if (ezproxyUrlRegexp.test(dest)) {
+        // //     dest = dest.replace('.ezproxy.library.uq.edu.au', '');
+        // // }
+        // //
+        // // var doiRegexp = /https?:\/\/dx.doi.org\//i;
+        // // dest = dest.replace(doiRegexp, '');
 
         return dest;
     }
@@ -238,7 +238,7 @@ class EzProxy extends HTMLElement {
 
         dest = '';
         if (this.inputValidator.valid) {
-            dest = 'https://ezproxy.library.uq.edu.au/login?url=';
+            dest = 'https://go.openathens.net/redirector/uq.edu.au?url=';
             if (this.doiRegexp.test(cleanedUrl)) {
                 dest += 'https://dx.doi.org/';
             }
@@ -261,7 +261,7 @@ class EzProxy extends HTMLElement {
 
         if (dest.length <= 0) {
             validation.message = 'Please enter a URL';
-            const inputField = this.shadowRoot.getElementById('ez-proxy-input');
+            const inputField = this.shadowRoot.getElementById('open-athens-input');
             inputField.focus();
         } else if (this.doiRegexp.test(dest)) {
             validation.valid = true;
@@ -329,4 +329,4 @@ class EzProxy extends HTMLElement {
     }
 }
 
-export default EzProxy;
+export default OpenAthens;

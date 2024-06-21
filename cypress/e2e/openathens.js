@@ -1,4 +1,4 @@
-describe('EzProxy', () => {
+describe('OpenAthens', () => {
     beforeEach(() => {
         cy.visit('http://localhost:8080');
         // hide CA Popup by default.
@@ -7,28 +7,28 @@ describe('EzProxy', () => {
 
     context('default mode', () => {
         it('shows expected elements on load', () => {
-            cy.get('ez-proxy[create-link]')
+            cy.get('open-athens[create-link]')
                 .should('exist')
                 .scrollIntoView()
                 .shadow()
-                .find('[data-testid="ez-proxy"]')
+                .find('[data-testid="open-athens"]')
                 .within(() => {
-                    cy.get('[data-testid="ez-proxy-input"]').should('exist').should('be.visible');
-                    cy.get('[data-testid="ez-proxy-create-link-button"]').should('exist').should('be.visible');
-                    cy.get('[data-testid="ez-proxy-copy-options"]').should('exist').should('not.be.visible');
-                    cy.get('[data-testid="ez-proxy-redirect-button"]').should('exist').should('not.be.visible');
+                    cy.get('[data-testid="open-athens-input"]').should('exist').should('be.visible');
+                    cy.get('[data-testid="open-athens-create-link-button"]').should('exist').should('be.visible');
+                    cy.get('[data-testid="open-athens-copy-options"]').should('exist').should('not.be.visible');
+                    cy.get('[data-testid="open-athens-redirect-button"]').should('exist').should('not.be.visible');
                 });
         });
 
         it('shows expected elements on creating a link', () => {
-            cy.get('ez-proxy[create-link]')
+            cy.get('open-athens[create-link]')
                 .should('exist')
                 .shadow()
-                .find('[data-testid="ez-proxy"]')
+                .find('[data-testid="open-athens"]')
                 .within(() => {
-                    cy.get('[data-testid="ez-proxy-input"]').type('https://www.google.com/{enter}');
-                    cy.get('[data-testid="ez-proxy-create-link-button"]').should('exist').should('not.be.visible');
-                    cy.get('[data-testid="ez-proxy-copy-options"]').should('exist').should('be.visible');
+                    cy.get('[data-testid="open-athens-input"]').type('https://www.google.com/{enter}');
+                    cy.get('[data-testid="open-athens-create-link-button"]').should('exist').should('not.be.visible');
+                    cy.get('[data-testid="open-athens-copy-options"]').should('exist').should('be.visible');
                 });
         });
 
@@ -36,35 +36,35 @@ describe('EzProxy', () => {
             cy.window().then((win) => {
                 cy.stub(win, 'open').callsFake(() => ({ focus: () => {} }));
             });
-            cy.get('ez-proxy[create-link]')
+            cy.get('open-athens[create-link]')
                 .should('exist')
                 .shadow()
-                .find('[data-testid="ez-proxy"]')
+                .find('[data-testid="open-athens"]')
                 .within(() => {
-                    cy.get('[data-testid="ez-proxy-input"]').type('https://www.google.com/');
-                    cy.get('[data-testid="ez-proxy-create-link-button"]').click();
-                    cy.get('[data-testid="ez-proxy-test-link-button"]').should('exist').should('be.visible').click();
+                    cy.get('[data-testid="open-athens-input"]').type('https://www.google.com/');
+                    cy.get('[data-testid="open-athens-create-link-button"]').click();
+                    cy.get('[data-testid="open-athens-test-link-button"]').should('exist').should('be.visible').click();
                 });
             cy.window()
                 .its('open')
-                .should('be.calledOnceWith', 'https://ezproxy.library.uq.edu.au/login?url=https://www.google.com/');
+                .should('be.calledOnceWith', 'https://go.openathens.net/redirector/uq.edu.au?url=https%3A%2F%2Fwww.google.com/');
         });
 
         const copyAndToast = (toastMessage) => {
-            cy.get('ez-proxy[create-link]')
+            cy.get('open-athens[create-link]')
                 .should('exist')
                 .shadow()
-                .find('[data-testid="ez-proxy"]')
+                .find('[data-testid="open-athens"]')
                 .within(() => {
-                    cy.get('[data-testid="ez-proxy-input"]').should('exist').type('https://www.google.com/');
-                    cy.get('[data-testid="ez-proxy-create-link-button"]').click();
-                    cy.get('[data-testid="ez-proxy-url-display-area"]').should(
+                    cy.get('[data-testid="open-athens-input"]').should('exist').type('https://www.google.com/');
+                    cy.get('[data-testid="open-athens-create-link-button"]').click();
+                    cy.get('[data-testid="open-athens-url-display-area"]').should(
                         'have.value',
-                        'https://ezproxy.library.uq.edu.au/login?url=https://www.google.com/',
+                        'https://go.openathens.net/redirector/uq.edu.au?url=https%3A%2F%2Fwww.google.com/',
                     );
-                    cy.get('[data-testid="ez-proxy-copy-options"]').should('not.have.class', 'hidden');
-                    cy.get('[data-testid="ez-proxy-copy-link-button"]').should('be.visible').click();
-                    cy.get('[data-testid="ez-proxy-copy-status"]')
+                    cy.get('[data-testid="open-athens-copy-options"]').should('not.have.class', 'hidden');
+                    cy.get('[data-testid="open-athens-copy-link-button"]').should('be.visible').click();
+                    cy.get('[data-testid="open-athens-copy-status"]')
                         .should('exist')
                         .as('toast')
                         .should('be.visible')
@@ -170,14 +170,14 @@ describe('EzProxy', () => {
         });
 
         it('shows expected error messages for ill-formed URLs', () => {
-            cy.get('ez-proxy[create-link]')
+            cy.get('open-athens[create-link]')
                 .should('exist')
                 .shadow()
-                .find('[data-testid="ez-proxy"]')
+                .find('[data-testid="open-athens"]')
                 .within(() => {
-                    cy.get('[data-testid="ez-proxy-input"]').should('exist').as('inputField').type('blah');
-                    cy.get('[data-testid="ez-proxy-create-link-button"]').as('createLinkButton').click();
-                    cy.get('[data-testid="ez-proxy-input-error"]')
+                    cy.get('[data-testid="open-athens-input"]').should('exist').as('inputField').type('blah');
+                    cy.get('[data-testid="open-athens-create-link-button"]').as('createLinkButton').click();
+                    cy.get('[data-testid="open-athens-input-error"]')
                         .should('exist')
                         .should('be.visible')
                         .as('inputError')
@@ -190,55 +190,55 @@ describe('EzProxy', () => {
         });
 
         it('resets view on clicking button to create new link', () => {
-            cy.get('ez-proxy[create-link]')
+            cy.get('open-athens[create-link]')
                 .should('exist')
                 .shadow()
-                .find('[data-testid="ez-proxy"]')
+                .find('[data-testid="open-athens"]')
                 .within(() => {
-                    cy.get('[data-testid="ez-proxy-input"]').should('exist').type('https://www.google.com/');
-                    cy.get('[data-testid="ez-proxy-create-link-button"]').click();
-                    cy.get('[data-testid="ez-proxy-url-display-area"]').should(
+                    cy.get('[data-testid="open-athens-input"]').should('exist').type('https://www.google.com/');
+                    cy.get('[data-testid="open-athens-create-link-button"]').click();
+                    cy.get('[data-testid="open-athens-url-display-area"]').should(
                         'have.value',
-                        'https://ezproxy.library.uq.edu.au/login?url=https://www.google.com/',
+                        'https://go.openathens.net/redirector/uq.edu.au?url=https%3A%2F%2Fwww.google.com/',
                     );
-                    cy.get('[data-testid="ez-proxy-create-new-link-button"]').should('exist').click();
-                    cy.get('[data-testid="ez-proxy-input"]').should('exist').should('be.visible');
-                    cy.get('[data-testid="ez-proxy-create-link-button"]').should('exist').should('be.visible');
-                    cy.get('[data-testid="ez-proxy-copy-options"]').should('exist').should('not.be.visible');
-                    cy.get('[data-testid="ez-proxy-redirect-button"]').should('exist').should('not.be.visible');
+                    cy.get('[data-testid="open-athens-create-new-link-button"]').should('exist').click();
+                    cy.get('[data-testid="open-athens-input"]').should('exist').should('be.visible');
+                    cy.get('[data-testid="open-athens-create-link-button"]').should('exist').should('be.visible');
+                    cy.get('[data-testid="open-athens-copy-options"]').should('exist').should('not.be.visible');
+                    cy.get('[data-testid="open-athens-redirect-button"]').should('exist').should('not.be.visible');
                 });
         });
 
         it('removes ezyproxy-fied parts from hostname', () => {
-            cy.get('ez-proxy[create-link]')
+            cy.get('open-athens[create-link]')
                 .should('exist')
                 .shadow()
-                .find('[data-testid="ez-proxy"]')
+                .find('[data-testid="open-athens"]')
                 .within(() => {
-                    cy.get('[data-testid="ez-proxy-input"]')
+                    cy.get('[data-testid="open-athens-input"]')
                         .should('exist')
                         .type(
                             'http://www.sciencedirect.com.ezproxy.library.uq.edu.au/science/article/pii/S1744388116300159',
                         );
-                    cy.get('[data-testid="ez-proxy-create-link-button"]').click();
-                    cy.get('[data-testid="ez-proxy-url-display-area"]').should(
+                    cy.get('[data-testid="open-athens-create-link-button"]').click();
+                    cy.get('[data-testid="open-athens-url-display-area"]').should(
                         'have.value',
-                        'https://ezproxy.library.uq.edu.au/login?url=http://www.sciencedirect.com/science/article/pii/S1744388116300159',
+                        'https://go.openathens.net/redirector/uq.edu.au?url=http://www.sciencedirect.com/science/article/pii/S1744388116300159',
                     );
                 });
         });
 
         it('creates doi.org URLs from DOIs as expected', () => {
-            cy.get('ez-proxy[create-link]')
+            cy.get('open-athens[create-link]')
                 .should('exist')
                 .shadow()
-                .find('[data-testid="ez-proxy"]')
+                .find('[data-testid="open-athens"]')
                 .within(() => {
-                    cy.get('[data-testid="ez-proxy-input"]').should('exist').type('10.1016/S2214-109X(21)00061-9');
-                    cy.get('[data-testid="ez-proxy-create-link-button"]').click();
-                    cy.get('[data-testid="ez-proxy-url-display-area"]').should(
+                    cy.get('[data-testid="open-athens-input"]').should('exist').type('10.1016/S2214-109X(21)00061-9');
+                    cy.get('[data-testid="open-athens-create-link-button"]').click();
+                    cy.get('[data-testid="open-athens-url-display-area"]').should(
                         'have.value',
-                        'https://ezproxy.library.uq.edu.au/login?url=https://dx.doi.org/10.1016/S2214-109X(21)00061-9',
+                        'https://go.openathens.net/redirector/uq.edu.au?url=https%3A%2F%2Fdx.doi.org/10.1016/S2214-109X(21)00061-9',
                     );
                 });
         });
@@ -247,8 +247,8 @@ describe('EzProxy', () => {
             cy.injectAxe();
             cy.viewport(1280, 900);
 
-            cy.checkA11y('ez-proxy:not([create-link])', {
-                reportName: 'EzProxy redirect-only',
+            cy.checkA11y('open-athens:not([create-link])', {
+                reportName: 'OpenAthens redirect-only',
                 scopeName: 'on load',
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
             });
@@ -257,15 +257,15 @@ describe('EzProxy', () => {
 
     context('redirect-only mode', () => {
         it('shows expected elements on load', () => {
-            cy.get('ez-proxy:not([create-link])')
+            cy.get('open-athens:not([create-link])')
                 .should('exist')
                 .shadow()
-                .find('[data-testid="ez-proxy"]')
+                .find('[data-testid="open-athens"]')
                 .within(() => {
-                    cy.get('[data-testid="ez-proxy-input"]').should('exist').should('be.visible');
-                    cy.get('[data-testid="ez-proxy-create-link-button"]').should('exist').should('not.be.visible');
-                    cy.get('[data-testid="ez-proxy-copy-options"]').should('exist').should('not.be.visible');
-                    cy.get('[data-testid="ez-proxy-redirect-button"]').should('exist').should('be.visible');
+                    cy.get('[data-testid="open-athens-input"]').should('exist').should('be.visible');
+                    cy.get('[data-testid="open-athens-create-link-button"]').should('exist').should('not.be.visible');
+                    cy.get('[data-testid="open-athens-copy-options"]').should('exist').should('not.be.visible');
+                    cy.get('[data-testid="open-athens-redirect-button"]').should('exist').should('be.visible');
                 });
         });
 
@@ -273,26 +273,26 @@ describe('EzProxy', () => {
             cy.window().then((win) => {
                 cy.stub(win, 'open').callsFake(() => ({ focus: () => {} }));
             });
-            cy.get('ez-proxy:not([create-link])')
+            cy.get('open-athens:not([create-link])')
                 .should('exist')
                 .shadow()
-                .find('[data-testid="ez-proxy"]')
+                .find('[data-testid="open-athens"]')
                 .within(() => {
-                    cy.get('[data-testid="ez-proxy-input"]').should('exist').type('https://www.uq.edu.au/{enter}');
+                    cy.get('[data-testid="open-athens-input"]').should('exist').type('https://www.uq.edu.au/{enter}');
                 });
             cy.window()
                 .its('open')
-                .should('be.calledOnceWith', 'https://ezproxy.library.uq.edu.au/login?url=https://www.uq.edu.au/');
+                .should('be.calledOnceWith', 'https://go.openathens.net/redirector/uq.edu.au?url=https%3A%2F%2Fwww.uq.edu.au/');
         });
 
         it('shows error if no input was provided', () => {
-            cy.get('ez-proxy:not([create-link])')
+            cy.get('open-athens:not([create-link])')
                 .should('exist')
                 .shadow()
-                .find('[data-testid="ez-proxy"]')
+                .find('[data-testid="open-athens"]')
                 .within(() => {
-                    cy.get('[data-testid="ez-proxy-redirect-button"]').should('exist').click();
-                    cy.get('[data-testid="ez-proxy-input-error"]')
+                    cy.get('[data-testid="open-athens-redirect-button"]').should('exist').click();
+                    cy.get('[data-testid="open-athens-input-error"]')
                         .should('exist')
                         .should('be.visible')
                         .should('have.text', 'Please enter a URL');
@@ -300,22 +300,22 @@ describe('EzProxy', () => {
         });
 
         it('clears the field on clicking the clear button', () => {
-            cy.get('ez-proxy:not([create-link])')
+            cy.get('open-athens:not([create-link])')
                 .should('exist')
                 .shadow()
-                .find('[data-testid="ez-proxy"]')
+                .find('[data-testid="open-athens"]')
                 .within(() => {
-                    cy.get('[data-testid="ez-proxy-input"]').should('exist').type('https://www.uq.edu.au/');
-                    cy.get('[data-testid="ez-proxy-input-clear-button"]').should('exist').click();
-                    cy.get('[data-testid="ez-proxy-input"]').should('be.empty');
+                    cy.get('[data-testid="open-athens-input"]').should('exist').type('https://www.uq.edu.au/');
+                    cy.get('[data-testid="open-athens-input-clear-button"]').should('exist').click();
+                    cy.get('[data-testid="open-athens-input"]').should('be.empty');
                 });
         });
 
         it('is accessible', () => {
             cy.injectAxe();
             cy.viewport(1280, 900);
-            cy.checkA11y('ez-proxy[create-link]', {
-                reportName: 'EzProxy copy',
+            cy.checkA11y('open-athens[create-link]', {
+                reportName: 'OpenAthens copy',
                 scopeName: 'on load',
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
             });

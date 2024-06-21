@@ -1,8 +1,8 @@
-#ez-proxy-copy-options > button {
+#open-athens-copy-options > button {
     margin-top: 0.5rem;
 }
 
-#ez-proxy-url-display-area {
+#open-athens-url-display-area {
     resize: none;
     height: auto;
     outline: none;
@@ -10,7 +10,7 @@
     transition: height 1s;
 }
 
-#ez-proxy-copy-status {
+#open-athens-copy-status {
     position: fixed;
     left: 1rem;
     bottom: 1rem;
@@ -20,7 +20,7 @@
     z-index: 1;
 }
 
-#ez-proxy-copy-status.open {
+#open-athens-copy-status.open {
     opacity: 1;
     transform: translateY(1rem);
 }
