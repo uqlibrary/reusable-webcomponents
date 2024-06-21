@@ -1,3 +1,4 @@
+import EzProxy from './EzProxy/EzProxy';
 import Training from './Training/Training';
 import TrainingDetail from './Training/TrainingDetail';
 import TrainingFilter from './Training/TrainingFilter';
