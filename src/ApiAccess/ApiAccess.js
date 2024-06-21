@@ -16,7 +16,8 @@ class ApiAccess {
         };
 
         this.isSessionStorageEnabled = this.sessionStorageCheck();
-        const storedUserDetailsRaw = this.isSessionStorageEnabled && sessionStorage.getItem(locale.STORAGE_ACCOUNT_KEYNAME) || null;
+        const storedUserDetailsRaw =
+            (this.isSessionStorageEnabled && sessionStorage.getItem(locale.STORAGE_ACCOUNT_KEYNAME)) || null;
         // never allow there to be no or invalid account storage (weird thing happening on Secure Collection)
         if (storedUserDetailsRaw === null) {
             this.setStorageLoggedOut();
@@ -37,7 +38,7 @@ class ApiAccess {
         } catch (e) {
             return false;
         }
-    };
+    }
 
     watchForSessionExpiry() {
         // let the calling page know account is available
@@ -232,6 +233,94 @@ class ApiAccess {
             });
     }
 
+    async postData(url = '', data = {}) {
+        // Default options are marked with *
+        const response = await fetch(url, {
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json',
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *client
+            body: JSON.stringify(data), // body data type must match "Content-Type" header
+        });
+        return response;
+    }
+
+    /**
+     * Loads the open athens link checker
+     * is the requested link one that open athens can link to?
+     * @returns {function(*)}
+     */
+    /*
+      Example responses:
+      {
+        "goLinkResponseList": [
+            {
+                "link": "https://www.youtube.com/watch?v=jwKH6X3cGMg",
+                "type": "UNAUTHORISED"
+            },
+        ]
+      }
+      --
+      {
+        "goLinkResponseList": [
+            {
+                "link": "https://aclandanatomy.com/",
+                "goLink": "https://go.openathens.net/redirector/uq.edu.au?url=https%3A%2F%2Faclandanatomy.com%2F",
+                "type": "RECOGNIZED_REDIRECT",
+                "resourceType": "federated",
+                "resourceTitle": "Acland’s Video Atlas Of Human Anatomy",
+                "resourceId": "ab594f60-d379-42ae-9aa1-4a296d58da9d"
+            }
+        ]
+      }
+    */
+    async loadOpenAthensCheck(urlPath) {
+        console.log('loadOpenAthensCheck start');
+        if (this.isMock()) {
+            console.log('loadOpenAthensCheck mock', urlPath);
+            try {
+                console.log('loadOpenAthensCheck about to call fetchMock');
+                return this.fetchMock(urlPath);
+            } catch (e) {
+                console.log('error=', e);
+                const msg = `mock api error: ${e.message}`;
+                console.log(msg);
+                throw new Error(msg);
+            }
+        } else {
+            // OA can take multiple urls to test, but we only send one here
+            const payload = { links: [urlPath] };
+            return await this.postData(new ApiRoutes().OPEN_ATHENS_LINK_CHECKER().apiUrl, payload)
+                .then((response) => {
+                    console.log('loadOpenAthensCheck response', response);
+                    return response.json();
+                })
+                .then((data) => {
+                    console.log('loadOpenAthensCheck data', data);
+                    return data?.goLinkResponseList || [];
+                })
+                .then((list) => {
+                    let item = {};
+                    if (list.length > 0) {
+                        item = list.pop();
+                        item.isValid = item?.type === 'RECOGNIZED_REDIRECT';
+                    }
+                    return item;
+                })
+                .catch((error) => {
+                    console.log('error loading Open Athens check ', error);
+                    const msg = `error loading Open Athens check: ${error.message}`;
+                    throw new Error(msg);
+                });
+        }
+    }
+
     async loadExamPaperSuggestions(keyword) {
         return await this.fetchAPI(new ApiRoutes().EXAMS_SUGGESTIONS_API(keyword).apiUrl)
             .then((data) => {
@@ -398,7 +487,8 @@ class ApiAccess {
     // It is called from other components (training, secure collection, etc.) in a loop, waiting on
     // the authbutton's call to loadAccountApi, above, to load the account into the sessionstorage
     getAccountFromStorage() {
-        const storedUserDetailsRaw = this.isSessionStorageEnabled && sessionStorage.getItem(locale.STORAGE_ACCOUNT_KEYNAME);
+        const storedUserDetailsRaw =
+            this.isSessionStorageEnabled && sessionStorage.getItem(locale.STORAGE_ACCOUNT_KEYNAME);
         const storedUserDetails = !!storedUserDetailsRaw && JSON.parse(storedUserDetailsRaw);
         if (this.isMock()) {
             const mockUserHasChanged =
