@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html style="padding: 0; margin: 0" lang="en">
+<head>
+    <title>UQ Library - Reusable Web Components</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v15/fonts/Roboto/roboto.css" />
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="https://static.uq.net.au/v15/fonts/Merriweather/merriweather.css"
+    />
+    <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css" />
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+        article {
+            min-height: 300px;
+            background-image: url(https://web.library.uq.edu.au/files/75078/background-blur-bright-684314.jpg);
+            background-size: cover;
+        }
+        article > div {
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 710px;
+            padding: 1rem;
+        }
+        article h1 {
+            padding: 1rem;
+            color: #f0f0f0;
+            font-weight: 400;
+            font-size: 2.438rem;
+            text-shadow: 0 0 4px black;
+        }
+
+        article h2,
+        article p {
+            padding: 0 1rem;
+            color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+<uq-header hidelibrarymenuitem skipnavid="skiptohere"></uq-header>
+
+<uq-site-header sitetitle="Library Test" siteurl="http://www.library.uq.edu.au">
+            <span slot="site-utilities">
+                <askus-button />
+            </span>
+    <span slot="site-utilities">
+                <auth-button />
+            </span>
+</uq-site-header>
+
+<div>
+    <h2>Demo Open athens</h2>
+    <open-athens create-link="true"></open-athens>
+    <open-athens></open-athens>
+</div>
+
+<connect-footer></connect-footer>
+
+<uq-footer></uq-footer>
+<script type="text/javascript" src="uq-lib-reusable.min.js"></script>
+<script type="text/javascript" src="drupal-lib-reusable.min.js"></script>
+</body>
+</html>

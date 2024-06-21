@@ -72,7 +72,7 @@ class MockApi {
         console.log('mockfetch url = ', url);
         this.url = url;
         const apiRoute = new ApiRoutes();
-        const urlWithoutQueryString = url.split('?')[0];
+        const urlWithoutQueryString = url?.split('?')[0];
         switch (urlWithoutQueryString) {
             case apiRoute.CURRENT_ACCOUNT_API().apiUrl:
                 // mock account response
@@ -146,6 +146,26 @@ class MockApi {
                 }
                 return this.response(200, trainingEvents, true);
 
+            case apiRoute.OPEN_ATHENS_LINK_CHECKER().apiUrl:
+                console.log('OpenAthens url=', url);
+                const queryString = new URLSearchParams(window.location.search);
+                const requestType = !!queryString ? queryString.get('requestType') : window.location.hash.substring(window.location.hash.indexOf('?')).requestType;
+                if (requestType === 'error') {
+                    // when openathens has an internal error
+                    return this.response(503, {error: 'true'});
+                    // return this.response(500, null, true);
+                } else if (requestType === 'failure') {
+                    // when openathens says "no"
+                    return this.response(200, [], true);
+                }
+                // otherwise, when openathens says "yes"
+                // default success
+                const openAthensSuuccessResponse = {
+                    available: true,
+                    useLink: "https://111go.openathens.net/redirector/uq.edu.au?url=https%3A%2F%2Fexample.com%2F"
+                }
+                return this.response(200, trainingEvents, true);
+
             default:
                 // splitting the '?' out of some apis doesnt work
                 switch (url) {
@@ -164,6 +184,12 @@ class MockApi {
                         if (this.user === 'errorUser') {
                             return this.response(403, {});
                             // return this.response(500, {}, true);
+                        }
+                        return this.response(200, examSuggestions, true);
+
+                    case apiRoute.OPEN_ATHENS_LINK_CHECKER('http://example.com').apiUrl:
+                        if (this.user === 'errorUser') {
+                            return this.response(500, {}, true);
                         }
                         return this.response(200, examSuggestions, true);
 
