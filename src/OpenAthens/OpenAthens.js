@@ -1,6 +1,8 @@
 import mainStyles from './css/main.css';
 import customStyles from './css/overrides.css';
 import isURL from 'validator/es/lib/isURL';
+import ApiAccess from '../ApiAccess/ApiAccess';
+import { throttle } from 'throttle-debounce';
 
 /*
  * usage:
@@ -38,6 +40,8 @@ template.innerHTML = `
 class OpenAthens extends HTMLElement {
     constructor() {
         super();
+
+        this.openAthensUrl = '';
     }
 
     get redirectOnly() {
@@ -154,8 +158,8 @@ class OpenAthens extends HTMLElement {
         this.createNewLinkButton.addEventListener('click', () => this.resetInput());
         this.inputClearButton.addEventListener('click', () => this.resetInput());
         this.inputField.addEventListener('keypress', (e) => this.inputUrlKeypress(e));
-        this.redirectButton.addEventListener('click', () => this.navigateToEzproxy());
-        this.testLinkButton.addEventListener('click', () => this.navigateToEzproxy());
+        this.redirectButton.addEventListener('click', () => this.navigateToLinkViaOpenAthens());
+        this.testLinkButton.addEventListener('click', () => this.navigateToLinkViaOpenAthens());
     }
 
     /**
@@ -167,7 +171,7 @@ class OpenAthens extends HTMLElement {
             return;
         }
         if (this.redirectOnly) {
-            this.navigateToEzproxy(e);
+            this.navigateToLinkViaOpenAthens(e);
         } else {
             this.displayUrl(e);
         }
@@ -214,7 +218,7 @@ class OpenAthens extends HTMLElement {
     /**
      * Open Open athens link in a new window/tab
      */
-    navigateToEzproxy() {
+    navigateToLinkViaOpenAthens() {
         if (this.redirectOnly) {
             var cleanedUrl = this.cleanupUrl(this.inputUrl);
             this.inputValidator = this.checkUrl(cleanedUrl);
@@ -276,6 +280,24 @@ class OpenAthens extends HTMLElement {
         }
 
         return validation;
+    }
+
+    getOpenAthens(url) {
+        const throttledOpenAthensCheck = throttle(3100, (newValue) => this.getOpenAthensAsync(newValue));
+        throttledOpenAthensCheck(url);
+    }
+
+    async getOpenAthensAsync(url) {
+        await new ApiAccess()
+            .loadOpenAthensCheck(url)
+            .then((suggestions) => {
+                /* istanbul ignore else */
+                this.loadSuggestionsIntoPage(suggestions);
+            })
+            /* istanbul ignore next */
+            .catch((e) => {
+                console.log('getPrimoSuggestions, error: ', e);
+            });
     }
 
     /**
