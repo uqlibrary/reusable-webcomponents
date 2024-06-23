@@ -90,6 +90,19 @@ function assertUserHasTestTagAdmin(expected) {
     }
 }
 
+function assertUserHasDlorAdmin(expected) {
+    if (!!expected) {
+        cy.get('li[data-testid="dlor-admin"]').should('exist').contains('Digital learning hub');
+        cy.get('[data-testid="mylibrary-menu-dlor-admin"]').should(
+            'have.attr',
+            'href',
+            'http://localhost:2020/admin/dlor?user=dloradmn',
+        );
+    } else {
+        cy.get('li[data-testid="dlor-admin"]').should('not.exist');
+    }
+}
+
 function assertUserHasPromoPanelAdmin(expected, userid = 'uqstaff') {
     if (!!expected) {
         cy.get('li[data-testid="promopanel-admin"]').should('exist').contains('Promo panels');
@@ -125,6 +138,7 @@ function assertUserSeesNOAdminOptions() {
     assertUserHasSpotlightAdmin(false);
     assertUserHasPromoPanelAdmin(false);
     assertUserHasTestTagAdmin(false);
+    assertUserHasDlorAdmin(false);
     // the admin block has been removed so we don't see the admin border
     cy.get('[data-testid="admin-options"]').should('not.exist');
 }
@@ -324,6 +338,7 @@ describe('Account menu button', () => {
                     assertUserHasSpotlightAdmin(true);
                     assertUserHasPromoPanelAdmin(true);
                     assertUserHasTestTagAdmin(false); // admins do not get T&T by default
+                    assertUserHasDlorAdmin(false);
                     assertUserHasEspaceMenuItem(true); // not an admin function, this user happens to have an author account
                 });
         });
@@ -338,6 +353,21 @@ describe('Account menu button', () => {
                 .within(() => {
                     assertUserHasStandardMyLibraryOptions('uqtesttag');
                     assertUserHasTestTagAdmin(true);
+                    assertUserHasDlorAdmin(false);
+                });
+        });
+
+        it('Dlor admin gets Dlor admin access entry', () => {
+            cy.visit('http://localhost:8080?user=dloradmn');
+            cy.viewport(1280, 900);
+            assertNameIsDisplayedOnAccountOptionsButtonCorrectly('dloradmn', 'Admin, Dlor');
+            openAccountDropdown();
+            cy.get('auth-button')
+                .shadow()
+                .within(() => {
+                    assertUserHasStandardMyLibraryOptions('dloradmn');
+                    assertUserHasTestTagAdmin(false);
+                    assertUserHasDlorAdmin(true);
                 });
         });
 
@@ -355,6 +385,7 @@ describe('Account menu button', () => {
                     assertUserHasSpotlightAdmin(false);
                     assertUserHasPromoPanelAdmin(false);
                     assertUserHasTestTagAdmin(false);
+                    assertUserHasDlorAdmin(false);
                     assertUserHasEspaceMenuItem(true);
                 });
         });
@@ -391,6 +422,7 @@ describe('Account menu button', () => {
                     assertUserHasSpotlightAdmin(false);
                     assertUserHasPromoPanelAdmin(false);
                     assertUserHasTestTagAdmin(false);
+                    assertUserHasDlorAdmin(false);
                 });
         });
 
@@ -422,6 +454,7 @@ describe('Account menu button', () => {
                     assertUserHasSpotlightAdmin(true, 'uqrdav10');
                     assertUserHasPromoPanelAdmin(true, 'uqrdav10');
                     assertUserHasTestTagAdmin(false);
+                    assertUserHasDlorAdmin(false);
                     assertUserHasEspaceMenuItem(false);
                 });
         });

@@ -335,6 +335,11 @@ describe('Dummy Application', () => {
 
             // simple check that the components exist, now that we are splitting them out from the main reusable.min file
             cy.get('search-portal').shadow().find('h2').should('contain', 'Library Search');
+            cy.get('open-athens')
+                .shadow()
+                .find('fieldset input')
+                .should('have.attr', 'placeholder')
+                .and('include', 'DOI or URL');
             cy.get('library-training')
                 .shadow()
                 .find('training-filter')
@@ -413,6 +418,49 @@ describe('Dummy Application', () => {
             assert_has_book_now_link();
 
             hasCulturalAdvicePopup();
+
+            // has cultural advice banner
+            cy.get('.culturalAdviceBanner')
+                .should('exist')
+                .contains('Aboriginal and Torres Strait Islander people are warned that');
+        });
+
+        it('Sample list page load works correctly', () => {
+            cy.visit('http://localhost:8080/src/applications/atom/demo-listpage.html');
+            cy.viewport(1280, 900);
+            assert_homepage_link_is_to_uq();
+            hasCulturalAdvicePopup();
+
+            // has cultural advice indicator, only on CA entries
+            cy.get('#content article')
+                .children()
+                .each((el, index) => {
+                    switch (index) {
+                        case 0:
+                            cy.wrap(el)
+                                .find('.title a')
+                                .contains(
+                                    'Submisions to the Queensland State Government for equality of wages and working conditions for Aborigines in the pastoral industry',
+                                );
+                            cy.wrap(el).find('.culturalAdviceMark').should('exist');
+                            break;
+                        case 1:
+                            cy.wrap(el)
+                                .find('.title a')
+                                .contains(
+                                    'Briefing material : Commonwealth Games Act, street march ban, award wages on reserves.',
+                                );
+                            cy.wrap(el).find('.culturalAdviceMark').should('not.exist');
+                            break;
+                        case 2:
+                            cy.wrap(el).find('.title a').contains('Terrible wages discrimination, [1967]');
+                            cy.wrap(el).find('.culturalAdviceMark').should('exist');
+                            break;
+                        case 3:
+                            cy.wrap(el).find('.title a').contains('Cherbourgh settlement, Thursday March 24, 1966');
+                            cy.wrap(el).find('.culturalAdviceMark').should('not.exist');
+                    }
+                });
         });
     });
 

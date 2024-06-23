@@ -200,33 +200,35 @@ var uq = (function (exports) {
                     value: function init() {
                         var _this7 = this;
 
-                        if (window.location.hash) {
-                            this.hash = window.location.hash;
-                        } // Scroll to hash (param string) selected accordion
-
-                        function isHashIgnored() {
-                            return this.hash === '#keyword=;campus=;weekstart=';
-                        }
-
+                        // Library doesn't have any selected accordions and this was causing massive problems
+                        // if (window.location.hash) {
+                        //     this.hash = window.location.hash;
+                        // } // Scroll to hash (param string) selected accordion
+                        //
+                        // function isHashIgnored() {
+                        //     console.log('reusable::this.hash', this.hash);
+                        //     return this.hash === '#keyword=;campus=;weekstart=';
+                        // }
+                        //
                         var h = document.querySelector('uq-header');
-                        if (this.hash && this.hash !== '' && !isHashIgnored.call(this)) {
-                            var hashSelectedContent =
-                                !!h &&
-                                h.shadowRoot.querySelector(
-                                    ''.concat(this.hash, '.').concat(this.className, '__content'),
-                                );
-
-                            if (hashSelectedContent) {
-                                // Only apply classes on load when linking directly to an accordion item.
-                                var hashSelected = accordion.getPrevSibling(
-                                    hashSelectedContent,
-                                    '.'.concat(this.className, '__toggle'),
-                                );
-                                this.slideContentDown(hashSelected); // Scroll to top of selected item.
-
-                                window.scrollTo(0, hashSelected.getBoundingClientRect().top);
-                            }
-                        }
+                        // if (this.hash && this.hash !== '' && !isHashIgnored.call(this)) {
+                        //     var hashSelectedContent =
+                        //         !!h &&
+                        //         h.shadowRoot.querySelector(
+                        //             ''.concat(this.hash, '.').concat(this.className, '__content'),
+                        //         );
+                        //
+                        //     if (hashSelectedContent) {
+                        //         // Only apply classes on load when linking directly to an accordion item.
+                        //         var hashSelected = accordion.getPrevSibling(
+                        //             hashSelectedContent,
+                        //             '.'.concat(this.className, '__toggle'),
+                        //         );
+                        //         this.slideContentDown(hashSelected); // Scroll to top of selected item.
+                        //
+                        //         window.scrollTo(0, hashSelected.getBoundingClientRect().top);
+                        //     }
+                        // }
 
                         var accordions = !!h && h.shadowRoot.querySelectorAll('.'.concat(this.className));
                         !!accordions &&
