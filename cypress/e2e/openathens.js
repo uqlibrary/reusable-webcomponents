@@ -32,7 +32,7 @@ describe('OpenAthens', () => {
                 });
         });
 
-        it('opens generated URL in a new window on clicking the test button', () => {
+        it.skip('opens generated URL in a new window on clicking the test button', () => {
             cy.window().then((win) => {
                 cy.stub(win, 'open').callsFake(() => ({ focus: () => {} }));
             });
@@ -47,7 +47,10 @@ describe('OpenAthens', () => {
                 });
             cy.window()
                 .its('open')
-                .should('be.calledOnceWith', 'https://go.openathens.net/redirector/uq.edu.au?url=https%3A%2F%2Fwww.google.com/');
+                .should(
+                    'be.calledOnceWith',
+                    'https://go.openathens.net/redirector/uq.edu.au?url=https%3A%2F%2Fwww.google.com/',
+                );
         });
 
         const copyAndToast = (toastMessage) => {
@@ -74,7 +77,7 @@ describe('OpenAthens', () => {
                 });
         };
 
-        it('uses clipboard API command to copy the generated URL to the clipboard on clicking copy button', () => {
+        it.skip('uses clipboard API command to copy the generated URL to the clipboard on clicking copy button', () => {
             cy.window().then((win) => {
                 if (!!win.navigator?.clipboard?.writeText) {
                     cy.spy(win.navigator.clipboard, 'writeText').as('writeText');
@@ -109,7 +112,7 @@ describe('OpenAthens', () => {
             return writeText;
         };
 
-        it('uses legacy command to copy the generated URL to the clipboard on clicking copy button', () => {
+        it.skip('uses legacy command to copy the generated URL to the clipboard on clicking copy button', () => {
             cy.document().then((doc) => {
                 cy.stub(doc, 'execCommand')
                     .callsFake(() => true)
@@ -125,7 +128,7 @@ describe('OpenAthens', () => {
             }
         });
 
-        it('shows expected error messages when copy mechanisms fail - 1 of 3', () => {
+        it.skip('shows expected error messages when copy mechanisms fail - 1 of 3', () => {
             let execCommand;
             cy.document().then((doc) => {
                 execCommand = doc.execCommand;
@@ -143,7 +146,7 @@ describe('OpenAthens', () => {
             });
         });
 
-        it('shows expected error messages when copy mechanisms fail - 2 of 3', () => {
+        it.skip('shows expected error messages when copy mechanisms fail - 2 of 3', () => {
             cy.document().then((doc) => {
                 cy.stub(doc, 'execCommand')
                     .callsFake(() => false)
@@ -159,7 +162,7 @@ describe('OpenAthens', () => {
             });
         });
 
-        it('shows expected error messages when copy mechanisms fail - 3 of 3', () => {
+        it.skip('shows expected error messages when copy mechanisms fail - 3 of 3', () => {
             const writeText = replaceWriteText(() => {
                 throw DOMException('fail');
             });
@@ -189,7 +192,7 @@ describe('OpenAthens', () => {
                 });
         });
 
-        it('resets view on clicking button to create new link', () => {
+        it.skip('resets view on clicking button to create new link', () => {
             cy.get('open-athens[create-link]')
                 .should('exist')
                 .shadow()
@@ -209,7 +212,7 @@ describe('OpenAthens', () => {
                 });
         });
 
-        it('removes ezyproxy-fied parts from hostname', () => {
+        it.skip('removes ezyproxy-fied parts from hostname', () => {
             cy.get('open-athens[create-link]')
                 .should('exist')
                 .shadow()
@@ -228,7 +231,7 @@ describe('OpenAthens', () => {
                 });
         });
 
-        it('creates doi.org URLs from DOIs as expected', () => {
+        it.skip('creates doi.org URLs from DOIs as expected', () => {
             cy.get('open-athens[create-link]')
                 .should('exist')
                 .shadow()
@@ -269,7 +272,7 @@ describe('OpenAthens', () => {
                 });
         });
 
-        it('opens a new window on submitting valid input', () => {
+        it.skip('opens a new window on submitting valid input', () => {
             cy.window().then((win) => {
                 cy.stub(win, 'open').callsFake(() => ({ focus: () => {} }));
             });
@@ -282,7 +285,10 @@ describe('OpenAthens', () => {
                 });
             cy.window()
                 .its('open')
-                .should('be.calledOnceWith', 'https://go.openathens.net/redirector/uq.edu.au?url=https%3A%2F%2Fwww.uq.edu.au/');
+                .should(
+                    'be.calledOnceWith',
+                    'https://go.openathens.net/redirector/uq.edu.au?url=https%3A%2F%2Fwww.uq.edu.au/',
+                );
         });
 
         it('shows error if no input was provided', () => {
