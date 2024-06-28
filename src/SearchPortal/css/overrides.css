@@ -360,7 +360,7 @@ h3 {
 }
 .MuiListItem-root.Mui-selected,
 .MuiListItem-root.Mui-selected:hover {
-    background-color: rgba(0, 0, 0, 0.08);
+   background-color: rgba(0, 0, 0, 0.08);
 }
 .MuiListItem-gutters {
     padding-left: 16px;
@@ -531,7 +531,7 @@ label + .MuiInput-formControl {
     pointer-events: none;
 }
 .MuiInput-underline:hover:not(.Mui-disabled):before {
-    border-bottom: 2px solid rgba(0, 0, 0, 0.87);
+   /* border-bottom: 2px solid rgba(0, 0, 0, 0.87); */
 }
 .MuiInput-underline.Mui-disabled:before {
     border-bottom-style: dotted;
@@ -567,7 +567,7 @@ label + .MuiInput-formControl {
     background-color: #fff;
 }
 .MuiSelect-select.MuiSelect-select {
-    padding-right: 24px;
+    
 }
 .MuiSelect-selectMenu {
     height: auto;
@@ -719,7 +719,7 @@ label + .MuiInput-formControl {
 }
 @media (min-width: 960px) {
     .searchPanel {
-        justify-content: flex-end;
+        justify-content: flex-start;
     }
 }
 .selectInput {
@@ -729,6 +729,9 @@ label + .MuiInput-formControl {
     font-weight: 300;
     white-space: nowrap !important;
     text-overflow: ellipsis !important;
+}
+#search-portal-autocomplete .selectInput {
+    font-size: 16px !important;
 }
 .selectInput::placeholder {
     overflow: hidden !important;
@@ -926,11 +929,16 @@ li.MuiAutocomplete-option:focus {
 .clear-search-term:focus {
     background-color: #d3d3d3;
 }
+.search-type-button {
+        font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
 
 .searchPortalLabel {
-    font-size: 20px;
-    color: black;
-    font-weight: 400;
+    font-size: 24px;
+    font-weight: 600;
+    
+    line-height: inherit;
+    margin-bottom: 0;
 }
 
 .cultural-advice {
@@ -950,4 +958,99 @@ li.MuiAutocomplete-option:focus {
 .cultural-advice a:visited,
 .cultural-advice a:active {
     text-decoration: underline;
+}
+#search-parent #search-portal-type-select, #search-parent #input-field-wrapper {
+    padding: 0px;
+    background-color: #fff;
+}
+
+#search-portal {
+    background-color: #51247a;
+    padding: 0px;
+    box-shadow: none;
+}
+
+.searchPanel {
+    padding: 0px !important;
+    margin: 0px !important;
+    color: #fff;
+}
+.searchPortalLabel {
+    color: #fff
+}
+#search-parent {
+    background-color: #fff;
+    width: 100%;
+    box-shadow: none !important;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
+#search-portal-submit {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none;
+    box-shadow: none;
+    background-color: #fff;
+    color: black;
+    width: auto;
+}
+#clear-search-term {
+    margin: 0;
+    padding: 0;
+}
+#clearButton {
+    padding: 0px;
+    margin: 0px;
+    width: auto;
+}
+.searchPortalLabel {
+    font-family: Montserrat, Helvetica, Arial, sans-serif;
+    font-size: 36px;
+}
+#search-portal-type-select-label-sub {
+    color: white;
+    font-size: 16px;
+    margin-top: 0px;
+    
+}
+#portaltype-dropdown::before, #portaltype-dropdown::after, #inputFieldParent::before, #inputFieldParent::after {
+    border: none !important;
+}
+#inputFieldParent {
+    border-left: 1px solid #aaa;
+}
+.search-type-button {
+    text-align: left;
+    min-width: 80px;
+    display: block;
+    margin-right: 10px;
+    width: 100%;
+}
+.search-type-button-label {
+    padding-left: 10px;
+    padding-right: 35px;
+}
+
+.search-dropdown-chevron {
+    width: 20px;
+    height: 20px;
+    padding-top: 1px;
+    padding-right: 3px;
+}
+#current-inputfield {
+    padding-left: 10px;
+}
+#portaltype-dropdown {
+    padding: 0;
+}
+
+.portalTypeSelector {
+    position: absolute;
+    top: 47px;
+    right: -8px; 
+}
+#footer-links a {
+    color: white !important;
+    text-decoration: underline;
+    font-size: 16px;
 }

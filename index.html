@@ -65,6 +65,13 @@
                     width: 100%;
                 }
             }
+            .full-width-purple {
+                background-color: #51247a;
+            }
+            .search-spacing {
+                padding-top: 40px;
+                padding-bottom: 40px;
+            }
         </style>
     </head>
     <body style="padding: 0; margin: 0; font-family: 'Roboto', sans-serif; background-color: #f7f7f7">
@@ -82,12 +89,16 @@
         </uq-site-header>
         <cultural-advice-popup secondsTilCulturalAdviceAppears="2"></cultural-advice-popup>
         <alert-list system="homepage"></alert-list>
-        <div class="layout-card" style="min-height: 300px">
+        <div class="layout-card">
             <h1 id="skiptohere" tabindex="-1">UQ Library - Reusable Web Components sampler</h1>
             <p data-testid="random-page-element">Lorem ipsum</p>
-
+        </div>
+        <div class="full-width-purple search-spacing">
+            <div class="layout-card" >
             <search-portal></search-portal>
-
+            </div>
+        </div>
+        <div class="layout-card" style="min-height: 300px">   
             <div class="trainingWrapper">
                 <div class="trainingLeft">
                     <h2>Demo Training</h2>
