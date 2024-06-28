@@ -19,10 +19,14 @@ userPromptTemplate.innerHTML = `
         <!-- Proactive Chat minimised -->
         <div class="pcminimised">
             <div role="button" id="proactive-chat-online" data-testid="proactive-chat-online" class="pconline" data-analyticsid="chat-status-icon-online" style="display: none;" title="Click to open online chat">
-                <svg class="pcOnlineIcon" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path></svg>
+                <svg class="pcOnlineIcon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2M6 9h12v2H6zm8 5H6v-2h8zm4-6H6V6h12z"></path>
+                </svg>
             </div>
            <div role="button" id="proactive-chat-offline" class="pcOffline" data-analyticsid="chat-status-icon-offline" style="display: none;" title="Chat currently closed" aria-label="Chat currently closed">
-                <svg class="pcOfflineIcon" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path></svg>
+                <svg class="pcOfflineIcon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2M6 9h12v2H6zm8 5H6v-2h8zm4-6H6V6h12z"></path>
+                </svg>
             </div>
         </div>
         <!-- Proactive Chat larger dialog -->
@@ -55,20 +59,26 @@ chatbotIframeTemplate.innerHTML = `<div
     class="chatbotWrapper"
 >
     <div class="resizeHandleRepositionWrapper">
-        <div class="buttonHolder">
-            <div class="headerButton headerButtonCrm">
-                <button id="speakToPerson" data-testid="speakToPerson">Person</button>
-            </div>
-            <div class="headerButton headerButtonClose">
-                <button id="closeIframeButton" data-testid="closeIframeButton">Close</button>
-            </div>
+        <div class="topBar">
+            <button id="closeIframeButton" data-testid="closeIframeButton">
+                <!-- close "x" -->
+                <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+                </svg>
+            </button>
         </div>
         <iframe 
             id="chatbotIframe"
             src="https://copilotstudio.microsoft.com/environments/2a892934-221c-eaa4-9f1a-4790000854ca/bots/cr546_uqAssistGenAiChatBot/webchat?__version__=2"
             frameborder="0" 
         ></iframe>
-        <p class="refCheck">Please confirm any references provided.</p>
+        <div class="bottomBar">
+            <p class="confirmAnswers">Please visit any links I provide to confirm my answers.</p>
+            <p class="crmChat">
+                Need more help?
+                <button id="speakToPerson" data-testid="speakToPerson">Chat with Library staff now</button>
+            </p>
+        </div>
     </div>
 </div>`;
 

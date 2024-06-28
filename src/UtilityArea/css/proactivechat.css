@@ -102,7 +102,7 @@ button.proactive-chat-button:focus {
     bottom: 16px;
 }
 .pcminimised .pconline {
-    background-color: #007200;
+    background-color: #51247a;
     width: 24px;
     height: 24px;
     border-radius: 50%;
@@ -110,13 +110,20 @@ button.proactive-chat-button:focus {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
     transition-duration: 0.2s;
     transition-property: background-color;
+    margin-bottom: 30px;
+}
+.pcminimised .pconline svg {
+    height: 120%;
+    width: 120%;
+    margin-left: -2px;
+    margin-top: -2px;
 }
 .pcminimised .pconline:hover {
     background-color: #005f00;
 }
 
 .pcOffline {
-    background-color: #c40000;
+    background-color: grey;
     width: 24px;
     height: 24px;
     border-radius: 50%;
@@ -221,35 +228,64 @@ button.proactive-chat-button:focus {
     overflow: hidden;
     min-width: 330px;
     min-height: 500px;
-    // fake the handle to the top left for usability
+    /* fake the resize handle to the top left for usability */
     transform: rotateZ(180deg);
 }
 .resizeHandleRepositionWrapper {
-    // undo the transform in parent for childten
+    /* undo the transform in parent for childten */
     transform: rotateZ(180deg);
     width: 100%;
     height: 100%;
     overflow: hidden;
 }
 
-.buttonHolder {
-    display: flex;
-    justify-content: space-between;
+.topBar {
     background-color: #51247a;
-    padding-top: 20px;
-    padding-right: 2px;
-    height: 21px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 6px 0;
+}
+.topBar button {
+    background-color: #51247a;
+    color: #fff;
+    border: none;
+}
+.topBar button svg {
+    fill: #ffffff;
+    width: 25px;
+    stroke: #fff;
+    stroke-width: 1.2;
 }
 .chatbotWrapper iframe {
     width: 100%;
-    height: calc(100% - 70px)
+    height: calc(100% - 115px)
 }
 
-.refCheck {
+.bottomBar {
     background-color: white;
     color: rgb(50, 49, 48);
     padding-left: 6px;
     font-size: 14px;
-    font-style: italic;
+
     margin-top: 0;
+}
+.bottomBar .confirmAnswers {
+    margin-bottom: 6px;
+}
+.bottomBar .crmChat {
+    border: 2px solid #a6a6a6;
+    margin-top: 0;
+    margin-left: -6px;
+    padding: 6px;
+    cursor: pointer;
+}
+.bottomBar button {
+    background-color: inherit;
+    border: none;
+    color: purple;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    padding-inline: 0;
+    font-style: initial;
 }
