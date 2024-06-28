@@ -105,7 +105,7 @@ describe('Proactive Chat', () => {
                 .should('exist')
                 .should('be.visible')
                 .should('not.have.css', 'display', 'none')
-                .should('have.css', 'background-color', 'rgb(0, 114, 0)')
+                .should('have.css', 'background-color', 'rgb(81, 36, 122)')
                 .parent()
                 .should('have.css', 'right', '16px');
             // "offline Minimised" button is hidden. Well duh, but just checking
@@ -253,7 +253,7 @@ describe('Proactive Chat', () => {
     });
 
     it('Displays as offline when chat status api is 403', () => {
-        cy.visit('http://localhost:8080/?user=errorUser');
+        cy.visit('http://localhost:8080/index-chat-slow.html?user=errorUser');
         cy.viewport(1280, 900);
 
         // "online Minimised" button is hidden
@@ -270,7 +270,7 @@ describe('Proactive Chat', () => {
             .should('exist')
             .should('be.visible')
             .should('not.have.css', 'display', 'none')
-            .should('have.css', 'background-color', 'rgb(196, 0, 0)')
+            .should('have.css', 'background-color', 'rgb(128, 128, 128)')
             .parent()
             .should('have.css', 'right', '16px');
     });
