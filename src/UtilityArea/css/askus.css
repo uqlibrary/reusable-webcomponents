@@ -116,24 +116,13 @@ button:focus {
     }
 }
 
-@media screen and (max-width: 420px) {
-    .askus-menu-list li {
-        /*display: inline-block;*/
-        /*width: calc(100% - 4px);*/
-        padding: 0 !important;
-        margin: 0 !important;
-        min-height: 35px !important;
-    }
+.askus-menu-list li {
+    padding: 0 !important;
+    margin: 0 !important;
+    min-height: 35px !important;
 }
-
-@media screen and (min-width: 420px) {
-    .askus-menu-list li {
-        /*display: inline-block;*/
-        /*width: calc(50% - 4px);*/
-        padding: 0 !important;
-        margin: 0 !important;
-        min-height: 35px !important;
-    }
+.askus-menu-list li.askus-chat.closed {
+    min-height: 60px !important;
 }
 
 .moreWays a,
@@ -143,12 +132,11 @@ button:focus {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    padding-top: 4px !important;
-    padding-bottom: 4px !important;
-    padding-left: 4px !important;
-    padding-right: 4px !important;
-    margin: 2px !important;
-    margin-bottom: 0 !important;
+    padding: 6px 6px 6px 4px !important;
+    margin: 0 !important;
+    /*padding: 4px !important;*/
+    /*margin: 2px 2px 2px 0 !important;*/
+    margin: 2px 0 !important;
     text-decoration: none;
     color: #595959;
 }
@@ -179,21 +167,42 @@ button:focus {
 }
 
 .askus-menu-list li svg {
-    width: 24px;
+    width: 35px;
     height: 24px;
-    fill: #595959;
     margin-bottom: -4px;
     margin-right: 4px;
     margin-left: 6px;
 }
-.askus-menu-list li.askus-aibot-li svg path {
-    stroke: #595959;
+.askus-menu-list li.general svg {
+    fill: #51247a; /* #595959; */
+}
+.askus-menu-list li.askus-aibot {
+    /*margin-top: -16px !important;*/
+    margin-bottom: 8px !important;
+    min-height: 50px !important;
+}
+.askus-menu-list li.askus-aibot a {
+    display: flex;
+    align-items: center;
+}
+.askus-menu-list li.askus-aibot span {
+    margin-top: 4px;
+    margin-left: 5px;
+}
+.askus-menu-list li.askus-aibot svg {
+    width: 40px;
+    height: 36px;
+    margin-left: 0;
+    margin-right: 4px;
+}
+.askus-menu-list li.askus-aibot svg path {
+    stroke: #fff;
 }
 
 .askus-menu-list li a .chatTimes {
     font-size: 12px;
     display: block;
-    margin-left: 40px;
+    margin-left: 50px;
 }
 
 #askus-chat-li .disabled {
@@ -209,5 +218,5 @@ button:focus {
     margin-bottom: -6px;
 }
 .closedLabel {
-    margin-left: 40px;
+    margin-left: 50px;
 }
