@@ -107,7 +107,7 @@ button.proactive-chat-button:focus {
     height: 24px;
     border-radius: 50%;
     padding: 12px;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 8px #fff;
     transition-duration: 0.2s;
     transition-property: background-color;
     margin-bottom: 30px;
@@ -259,7 +259,7 @@ button.proactive-chat-button:focus {
 }
 .chatbotWrapper iframe {
     width: 100%;
-    height: calc(100% - 115px)
+    height: calc(100% - 115px);
 }
 
 .bottomBar {
