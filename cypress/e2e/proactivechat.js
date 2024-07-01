@@ -43,7 +43,7 @@ describe('Proactive Chat', () => {
     });
 
     context('Proactive chat passes accessibility', () => {
-        it('green minimised', () => {
+        it('online minimised', () => {
             cy.visit('http://localhost:8080/index-chat-slow.html');
             cy.injectAxe();
             cy.viewport(1280, 900);
@@ -53,7 +53,7 @@ describe('Proactive Chat', () => {
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
             });
         });
-        it('red offline', () => {
+        it('offline minimised', () => {
             cy.visit('http://localhost:8080/index-chat-slow.html?chatstatusoffline=true');
             cy.injectAxe();
             cy.viewport(1280, 900);

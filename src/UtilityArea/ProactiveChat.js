@@ -202,13 +202,16 @@ class ProactiveChat extends HTMLElement {
                 }
             })
             .then(() => {
-                // set the timer delay for proactive chat if we're not in primo & they havent asked for it to be hidden
+                // set the timer delay for proactive chat if we're not in primo & they haven't asked for it to be hidden
                 if (
                     !isProactiveChatHidden &&
                     !isPrimoPage(window.location.hostname) &&
                     cookieNotFound(PROACTIVE_CHAT_HIDDEN_COOKIE_NAME, PROACTIVE_CHAT_HIDDEN_COOKIE_VALUE)
                 ) {
-                    setTimeout(showProactiveChatWrapper, (secondsTilProactiveChatAppears - 1) * 1000);
+                    setTimeout(
+                        showProactiveChatWrapper,
+                        (secondsTilProactiveChatAppears === 0 ? 0 : secondsTilProactiveChatAppears - 1) * 1000,
+                    );
                     setTimeout(showProactiveChat, secondsTilProactiveChatAppears * 1000);
                 }
             });
