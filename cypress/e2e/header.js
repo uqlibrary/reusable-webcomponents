@@ -84,6 +84,24 @@ describe('UQ Header', () => {
             });
         });
 
+        it('Site-header has expected items', () => {
+            cy.get('uq-site-header')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="root-link"]')
+                        .should('exist')
+                        .contains('UQ home')
+                        .should('have.attr', 'href')
+                        .and('include', 'https://uq.edu.au/');
+                    cy.get('[data-testid="site-title"]')
+                        .should('exist')
+                        .contains('Library')
+                        .should('have.attr', 'href')
+                        .and('include', 'https://www.library.uq.edu.au/');
+                    cy.get('[data-testid="subsite-title"]').should('exist').should('not.be.visible');
+                });
+        });
+
         it('Responsive Menu operates as expected', () => {
             function mobileMenuIsHidden() {
                 cy.get('uq-site-header')

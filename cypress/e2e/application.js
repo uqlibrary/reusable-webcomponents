@@ -268,11 +268,40 @@ describe('Dummy Application', () => {
             hasUqHeader();
 
             hasUqSiteHeader();
+            // the guides built in bookmark has been removed
+            cy.get('uq-site-header')
+                .shadow()
+                .within(() => {
+                    // the breadcrumbs has all the children from the guides demo page
+                    cy.get('div.uq-site-header nav ol').children().should('have.length', 6);
+                    cy.get('div.uq-site-header nav ol li:nth-child(3) a')
+                        .should('have.attr', 'href', `https://guides.library.uq.edu.au/`)
+                        .contains('Guides')
+                        .should('have.css', 'text-decoration-line', 'underline');
+                    cy.get('div.uq-site-header nav ol li:nth-child(4) a')
+                        .should('have.attr', 'href', `https://guides.library.uq.edu.au/how-to-find`)
+                        .contains('How to find')
+                        .should('have.css', 'text-decoration-line', 'underline');
+                    cy.get('div.uq-site-header nav ol li:nth-child(5) a')
+                        .should(
+                            'have.attr',
+                            'href',
+                            `https://guides.library.uq.edu.au/how-to-find/evidence-based-practice`,
+                        )
+                        .contains('Evidence-based practice in health sciences')
+                        .should('have.css', 'text-decoration-line', 'underline');
+                    // that last not-a-link does not have an underline
+                    cy.get('div.uq-site-header nav ol li:nth-child(6) span')
+                        .contains('Introduction')
+                        .should('not.have.css', 'text-decoration-line', 'underline');
+                    // guides built in breadcrumb has been removed
+                    cy.get('#s-lib-bc').should('not.exist');
+                });
 
             hasNoMegaMenu();
 
-            hasNoAskusButton();
-            hasNoAuthButton();
+            hasAskusButton();
+            hasAuthButton();
 
             hasAnAlert();
 
