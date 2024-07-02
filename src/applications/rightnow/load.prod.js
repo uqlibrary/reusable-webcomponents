@@ -54,7 +54,6 @@ function loadReusableComponentsRightnow() {
 
     if (!document.querySelector('uq-site-header')) {
         const siteHeader = document.createElement('uq-site-header');
-        !!siteHeader && siteHeader.setAttribute('showmenu', '');
 
         const askusButton = createAskusButton();
         !!askusButton && !!siteHeader && siteHeader.appendChild(askusButton);
@@ -102,7 +101,8 @@ function addSkipNavLandingPoint(siteNameId) {
  * @returns {boolean}
  */
 function isHomePage() {
-    const regexp = /https?:\/\/((www\.)?(careerhub|studenthub)\.uq\.edu\.au)\/workgroups\/library-staff-development\/?$/;
+    const regexp =
+        /https?:\/\/((www\.)?(careerhub|studenthub)\.uq\.edu\.au)\/workgroups\/library-staff-development\/?$/;
     return regexp.test(window.location.href);
 }
 

@@ -15,15 +15,15 @@ describe('Dummy Application', () => {
                 .should('be.visible');
             // has an auth button
             cy.get('auth-button').shadow().find('button:contains("Log out")').should('exist');
-            // has a mega menu
-            // the menu appears on click
-            cy.get('uq-site-header').shadow().find('nav[aria-label="Site navigation"]').should('be.visible');
-            // and has the correct children
-            cy.get('uq-site-header')
-                .shadow()
-                .find('nav[aria-label="Site navigation"]')
-                .find('ul')
-                .should('have.length', 7); // length of the megamenu .json
+            // // has a mega menu
+            // // the menu appears on click
+            // cy.get('uq-site-header').shadow().find('nav[aria-label="Site navigation"]').should('be.visible');
+            // // and has the correct children
+            // cy.get('uq-site-header')
+            //     .shadow()
+            //     .find('nav[aria-label="Site navigation"]')
+            //     .find('ul')
+            //     .should('have.length', 7); // length of the megamenu .json
         });
     });
 
@@ -46,18 +46,6 @@ describe('Dummy Application', () => {
 
     function hasNoUqSiteHeader() {
         cy.get('uq-site-header').should('not.exist');
-    }
-
-    function hasMegaMenu() {
-        cy.get('uq-site-header')
-            .shadow()
-            .find('li[data-testid="menu-group-item-0"]')
-            .should('exist')
-            .contains('Library services');
-    }
-
-    function hasNoMegaMenu() {
-        cy.get('uq-site-header').shadow().find('li[data-testid="menu-group-item-0"]').should('not.exist');
     }
 
     function hasAskusButton() {
@@ -176,8 +164,6 @@ describe('Dummy Application', () => {
 
             hasUqSiteHeader();
 
-            hasNoMegaMenu();
-
             hasAskusButton();
             hasProactiveChat();
             hasAuthButton();
@@ -198,8 +184,6 @@ describe('Dummy Application', () => {
 
             hasUqSiteHeader();
 
-            hasNoMegaMenu();
-
             hasNoAskusButton();
             hasNoAuthButton();
 
@@ -219,8 +203,6 @@ describe('Dummy Application', () => {
             hasUqHeader();
 
             hasUqSiteHeader();
-
-            hasMegaMenu();
 
             hasAskusButton();
             //hasProactiveChat();
@@ -245,8 +227,6 @@ describe('Dummy Application', () => {
             hasUqHeader();
 
             hasUqSiteHeader();
-
-            hasNoMegaMenu();
 
             hasAskusButton();
             hasNoAuthButton();
@@ -298,8 +278,6 @@ describe('Dummy Application', () => {
                     cy.get('#s-lib-bc').should('not.exist');
                 });
 
-            hasNoMegaMenu();
-
             hasAskusButton();
             hasAuthButton();
 
@@ -320,8 +298,6 @@ describe('Dummy Application', () => {
 
             hasUqSiteHeader();
 
-            hasNoMegaMenu();
-
             hasNoAskusButton();
             hasNoAuthButton();
 
@@ -341,8 +317,6 @@ describe('Dummy Application', () => {
             hasUqHeader();
 
             hasUqSiteHeader();
-
-            hasMegaMenu();
 
             hasAskusButton();
             hasProactiveChat();
@@ -395,8 +369,6 @@ describe('Dummy Application', () => {
             hasUqHeader();
 
             hasUqSiteHeader();
-
-            hasNoMegaMenu();
 
             hasAskusButton();
             //hasProactiveChat();
@@ -496,8 +468,6 @@ describe('Dummy Application', () => {
             // hasUqHeader();
             //
             // hasUqSiteHeader('https://espace.library.uq.edu.au/');
-            //
-            // hasNoMegaMenu();
             //
             // hasNoAskusButton();
             // hasAuthButton();

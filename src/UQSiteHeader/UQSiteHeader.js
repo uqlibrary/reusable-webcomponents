@@ -11,7 +11,6 @@ import { default as menuLocale } from '../locale/menu';
  *       secondleveltitle="Guides"                 // should be displayed on 2nd level sites - the text of the homepage link. Optional. Default null (not present)
  *       secondlevelurl="http://guides.library.uq.edu.au"    // should be displayed on all sites - the link of the homepage link. Optional. Default null (not present)
  *       (both second level required if either)
- *       showmenu                                  // should the megamenu be displayed? (just include, don't put ="true" on the end)
  *   >
  *       <span slot="site-utilities">
  *           <askus-button />
@@ -93,7 +92,7 @@ let initCalled;
 
 class UQSiteHeader extends HTMLElement {
     static get observedAttributes() {
-        return ['sitetitle', 'siteurl', 'showmenu', 'secondleveltitle', 'secondlevelurl'];
+        return ['sitetitle', 'siteurl', 'secondleveltitle', 'secondlevelurl'];
     }
 
     constructor() {
@@ -157,10 +156,6 @@ class UQSiteHeader extends HTMLElement {
                     break;
                 case 'siteurl':
                     this.setSiteUrl(newValue);
-
-                    break;
-                case 'showmenu':
-                    this.showMenu();
 
                     break;
                 case 'secondleveltitle':
@@ -427,9 +422,6 @@ class UQSiteHeader extends HTMLElement {
         /* istanbul ignore else */
         if (!scriptFound) {
             const that = this;
-
-            // const showMenu = this.getAttribute('showmenu');
-            // const isMegaMenuDisplayed = !!showMenu || showMenu === '';
 
             //Dynamically import the JS file and append it to the document header
             const script = document.createElement('script');

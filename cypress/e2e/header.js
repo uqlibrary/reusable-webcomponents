@@ -102,7 +102,7 @@ describe('UQ Header', () => {
                 });
         });
 
-        it('Responsive Menu operates as expected', () => {
+        it.skip('Responsive Menu operates as expected', () => {
             function mobileMenuIsHidden() {
                 cy.get('uq-site-header')
                     .shadow()
@@ -172,7 +172,7 @@ describe('UQ Header', () => {
             mobileMenuIsHidden();
         });
 
-        it('Desktop menu can open', () => {
+        it.skip('Desktop menu can open', () => {
             cy.viewport(1280, 900);
 
             // mobile button is hidden
