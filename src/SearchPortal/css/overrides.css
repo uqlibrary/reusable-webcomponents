@@ -857,19 +857,20 @@ input[type='search'] {
 
 .suggestionList {
     position: absolute;
-    width: 767px;
+    /* width: 767px;*/
+    width: calc(100% - 173px) !important;
     will-change: transform;
     transform: translate3d(203px, 325px, 0px);
     z-index: 1300;
-    top: -240px;
-    left: -70px;
+    top: -204px;
+    left: -30px !important;
 }
 
 @media (max-width: 959.95px) {
     .suggestionList {
         top: -200px;
         left: -160px;
-        width: calc(100% - 95px);
+        width: calc(100% - 895px);
         margin-left: auto;
         margin-right: auto;
     }
@@ -1053,4 +1054,8 @@ li.MuiAutocomplete-option:focus {
     color: white !important;
     text-decoration: underline;
     font-size: 16px;
+}
+.search-portal-container {
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
