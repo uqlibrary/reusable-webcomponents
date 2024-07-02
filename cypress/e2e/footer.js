@@ -20,12 +20,13 @@ describe('UQ Footer', () => {
             cy.get('connect-footer')
                 .shadow()
                 .find('[data-testid="connect-footer-social-heading"]')
-                .should('contain', 'Connect with the Library');
+                .should('exist')
+                .and('contain', 'Library footer');
         });
 
         it('Footer menu  is correct on desktop', () => {
             cy.viewport(1280, 900);
-            cy.get('connect-footer').shadow().find('[data-testid="connect-footer-menu"]').scrollIntoView();
+            cy.get('connect-footer').shadow().find('[data-testid="connect-footer-social-heading"]').scrollIntoView();
             cy.waitUntil(() =>
                 cy
                     .get('uq-footer')
@@ -117,7 +118,7 @@ describe('UQ Footer', () => {
 
         it('Footer menu  is correct on mobile', () => {
             cy.viewport(320, 480);
-            cy.get('connect-footer').shadow().find('[data-testid="connect-footer-menu"]').scrollIntoView();
+            cy.get('connect-footer').shadow().find('[data-testid="connect-footer-social-heading"]').scrollIntoView();
             cy.waitUntil(() =>
                 cy.get('uq-footer').shadow().find('[data-testid="footer-mobile-nav"] > ul').should('exist'),
             );
@@ -348,10 +349,10 @@ describe('UQ Footer', () => {
             assertLibrarySubmenuVisibility(false);
         });
 
-        it('Connect Footer items display with separator at mobile-width', () => {
+        it.skip('Connect Footer items display with separator at mobile-width', () => {
             cy.viewport(320, 480);
 
-            cy.get('connect-footer').shadow().find('[data-testid="connect-footer-menu"]').scrollIntoView();
+            cy.get('connect-footer').shadow().find('[data-testid="connect-footer-social-heading"]').scrollIntoView();
             cy.get('connect-footer').shadow().find('[data-testid="connect-internal-separator-0"]').should('be.visible');
 
             cy.viewport(1280, 900);

@@ -8,7 +8,7 @@ template.innerHTML = `
         <div class="uq-footer__container connectfooter-wrapper2 griditem griditem12">
             <div class="connectfooter-wrapper3">
                 <div class="layout-card">
-                <p>Library footer with social / giving options - details to be determined.</p>
+                <p data-testid="connect-footer-social-heading">Library footer with social / giving options - details to be determined.</p>
                 </div>
             </div>
         </div>

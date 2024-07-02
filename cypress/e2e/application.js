@@ -125,7 +125,7 @@ describe('Dummy Application', () => {
             .shadow()
             .find('[data-testid="connect-footer-social-heading"]')
             .should('exist')
-            .and('contain', 'Connect with the Library');
+            .and('contain', 'Library footer');
     }
 
     function hasNoConnectFooter() {
