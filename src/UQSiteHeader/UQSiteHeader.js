@@ -1,13 +1,17 @@
 import styles from './css/main.css';
+import breadcrumbs from './css/breadcrumbs.css';
 import overrides from './css/overrides.css';
 import { default as menuLocale } from '../locale/menu';
 
 /**
  * API:
  *   <uq-site-header
- *       sitetitle="Library"                     // should be displayed on all sites - the text of the homepage link. Optional. Default "Library"
- *       siteurl="http://www.library.uq.edu.au"  // should be displayed on all sites - the link of the homepage link. Optional. Default "http://www.library.uq.edu.au"
- *       showmenu                                // should the megamenu be displayed? (just include, don't put ="true" on the end)
+ *       sitetitle="Library"                       // should be displayed on all sites - the text of the homepage link. Optional. Default "Library"
+ *       siteurl="https://www.library.uq.edu.au"  // should be displayed on 2nd level sites - the link to the homepage. Optional. Default "https://www.library.uq.edu.au/"
+ *       secondleveltitle="Guides"                 // should be displayed on 2nd level sites - the text of the homepage link. Optional. Default null (not present)
+ *       secondlevelurl="http://guides.library.uq.edu.au"    // should be displayed on all sites - the link of the homepage link. Optional. Default null (not present)
+ *       (both second level required if either)
+ *       showmenu                                  // should the megamenu be displayed? (just include, don't put ="true" on the end)
  *   >
  *       <span slot="site-utilities">
  *           <askus-button />
@@ -23,13 +27,24 @@ import { default as menuLocale } from '../locale/menu';
 const template = document.createElement('template');
 template.innerHTML = `
     <style>${styles.toString()}</style>
+    <style>${breadcrumbs.toString()}</style>
     <style>${overrides.toString()}</style>
   <div class="uq-site-header" part="root">
       <!-- Site title and utility area with mobile nav toggler (JS) -->
       <div class="uq-site-header__title-container" part="title">
-        <div class="uq-site-header__title-container__left">
-          <a id="site-title" data-testid="site-title" href="https://www.library.uq.edu.au/" class="uq-site-header__title">Library</a>
-        </div>
+        <nav class="uq-breadcrumb" aria-label="Breadcrumb">
+            <ol class="uq-breadcrumb__list" id="breadcrumb_nav">
+                <li class="uq-breadcrumb__item">
+                    <a class="uq-breadcrumb__link" data-testid="root-link" title="UQ home" href="https://uq.edu.au/">UQ home</a>
+                </li>
+                <li class="uq-breadcrumb__item">
+                    <a id="site-title" data-testid="site-title" class="uq-breadcrumb__link" title="Library" href="https://www.library.uq.edu.au/">Library</a>
+                </li>
+                <li id="subsite" data-testid="subsite-title" class="uq-breadcrumb__item" style="display: none">
+                    <a class="uq-breadcrumb__link" id="secondlevel-site-title" data-testid="secondlevel-site-title" href=""></a>
+                </li>
+            </ol>
+        </nav>
         <div class="uq-site-header__title-container__right">
           <slot name="site-utilities"></slot>
           <button style="display: none" id="uq-site-header__navigation-toggle" class="uq-site-header__navigation-toggle jsNavToggle">Menu</button>
@@ -78,14 +93,14 @@ let initCalled;
 
 class UQSiteHeader extends HTMLElement {
     static get observedAttributes() {
-        return ['sitetitle', 'siteurl', 'showmenu'];
+        return ['sitetitle', 'siteurl', 'showmenu', 'secondleveltitle', 'secondlevelurl'];
     }
 
     constructor() {
         super();
 
-        // when the ITS script loads, we store a the object it supplies so we can use it
-        // when the menu has finished loading to supply the menu mouseover
+        // when the ITS script loads, we store the object it supplies,
+        // so we can use it when the menu has finished loading to supply the menu mouseover
         this.uqReference = null;
 
         // Bindings
@@ -105,6 +120,15 @@ class UQSiteHeader extends HTMLElement {
         shadowDOM.appendChild(template.content.cloneNode(true));
     }
 
+    isValidUrl(urlString) {
+        try {
+            new URL(urlString);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
     attributeChangedCallback(fieldName, oldValue, newValue) {
         const that = this;
 
@@ -117,6 +141,15 @@ class UQSiteHeader extends HTMLElement {
 
             clearInterval(awaitShadowDom);
 
+            const title = this.getAttribute('secondleveltitle');
+            const url = this.getAttribute('secondlevelurl');
+            const subSiteElement = !!this.shadowRoot && this.shadowRoot.getElementById('subsite');
+            if (!!title && !!url && title.trim() !== '' && this.isValidUrl(url)) {
+                !!subSiteElement && (subSiteElement.style.display = 'block');
+            } else {
+                !!subSiteElement && (subSiteElement.style.display = 'none');
+            }
+
             switch (fieldName) {
                 case 'sitetitle':
                     this.setTitle(newValue);
@@ -128,6 +161,14 @@ class UQSiteHeader extends HTMLElement {
                     break;
                 case 'showmenu':
                     this.showMenu();
+
+                    break;
+                case 'secondleveltitle':
+                    this.setSecondLevelTitle(newValue);
+
+                    break;
+                case 'secondlevelurl':
+                    this.setSecondLevelUrl(newValue);
 
                     break;
                 /* istanbul ignore next  */
@@ -145,6 +186,16 @@ class UQSiteHeader extends HTMLElement {
     setTitle(newSiteTitle) {
         let siteTitleElement = !!this.shadowRoot && this.shadowRoot.getElementById('site-title');
         !!siteTitleElement && !!newSiteTitle && (siteTitleElement.innerHTML = newSiteTitle);
+    }
+
+    setSecondLevelUrl(newSecondLevelURL) {
+        const siteTitleElement = !!this.shadowRoot && this.shadowRoot.getElementById('secondlevel-site-title');
+        !!siteTitleElement && !!newSecondLevelURL && (siteTitleElement.href = newSecondLevelURL);
+    }
+
+    setSecondLevelTitle(newSecondLevelTitle) {
+        let siteTitleElement = !!this.shadowRoot && this.shadowRoot.getElementById('secondlevel-site-title');
+        !!siteTitleElement && !!newSecondLevelTitle && (siteTitleElement.innerHTML = newSecondLevelTitle);
     }
 
     showMenu() {

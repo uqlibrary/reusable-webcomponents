@@ -235,5 +235,33 @@ li.uq-site-header__navigation__list-item:-moz-focusring,
 li.uq-site-header__navigation__list-item a:-moz-focusring,
 button.uq-site-header__navigation__sub-toggle:-moz-focusring,
 a.uq-site-header__navigation-link.slide-menu__control:-moz-focusring {
-    outline: Highlight auto 1px;
+    outline: highlight auto 1px;
 }
+
+/* bradcrumb entries that dont have a href dont get an underline */
+a.uq-breadcrumb__link[href]:not([href=""]) {
+    text-decoration: underline;
+}
+a.uq-breadcrumb__link[href=""] {
+    text-decoration: none;
+}
+
+/* allow lots of room for lots of links in the breadcrumbs */
+.uq-site-header__title-container {
+    justify-content: space-between;
+}
+.uq-site-header__title-container nav {
+    flex: 3 1 75%; /* flex-grow: 3, flex-shrink: 1, flex-basis: 75% */
+}
+
+.uq-site-header__title-container__right {
+    flex: 1 1 25%; /* flex-grow: 1, flex-shrink: 1, flex-basis: 25% */
+    justify-content: flex-end;
+}
+
+@media(max-width: 37.5rem) {
+    .uq-breadcrumb {
+        margin-bottom: 10px;
+    }
+}
+
