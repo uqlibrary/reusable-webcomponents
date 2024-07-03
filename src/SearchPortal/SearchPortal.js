@@ -96,7 +96,7 @@ template.innerHTML = `
                     <div id="search-portal-type-select" class="MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-auto">
                         <div class="MuiFormControl-root portaltype-dropdown-container">
                             <div id="portaltype-dropdown" data-testid="search-portal-type-select-wrapper" class="search-type-button MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl">
-                                <button type="button" class="search-type-button MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input" tabindex="0" aria-labelledby="search-portal-type-select-label" data-testid="primo-search-select" data-analyticsid="primo-search-select">
+                                <button id="search-portal-search-type-selector" type="button" class="search-type-button MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input" tabindex="0" aria-labelledby="search-portal-type-select-label" data-testid="primo-search-select" data-analyticsid="primo-search-select">
                                     <span id="portaltype-current-label" class="search-type-button-label" data-testid="portaltype-current-label">Library</span>
                                     <input data-testid="primo-search-select-input" data-analyticsid="primo-search-select-input" id="search-type-current-value" type="hidden" name="portaltype">
                                 </button>
@@ -476,11 +476,11 @@ class SearchPortal extends HTMLElement {
                 }
             });
 
-        // function clearSearchTerm() {
-        //     const inputField = that.shadowRoot.getElementById('current-inputfield');
-        //     !!inputField && (inputField.value = '');
-        //     !!inputField && inputField.focus();
-        // }
+        function clearSearchTerm() {
+            const inputField = that.shadowRoot.getElementById('current-inputfield');
+            !!inputField && (inputField.value = '');
+            !!inputField && inputField.focus();
+        }
         // const clearButton = that.shadowRoot.getElementById('clear-search-term');
         // !!clearButton &&
         //     clearButton.addEventListener('click', function (e) {
