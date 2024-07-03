@@ -56,9 +56,11 @@ authorisedtemplate.innerHTML = `
     <div id="auth" class="auth loggedin">
         <button id="account-option-button" data-testid="account-option-button" data-analyticsid="account-option-button">
             <div id="username-area" data-testid="username-area-label" data-analyticsid="username-area-label" class="username-area">
-                <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4m0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4"></path></svg>
+                <svg class="auth-icon auth-icon-loggedin" focusable="false" viewBox="0 0 24 24" aria-hidden="true" id="logged-in-icon">
+                    <path d="M12 5.9c1.16 0 2.1.94 2.1 2.1s-.94 2.1-2.1 2.1S9.9 9.16 9.9 8s.94-2.1 2.1-2.1m0 9c2.97 0 6.1 1.46 6.1 2.1v1.1H5.9V17c0-.64 3.13-2.1 6.1-2.1M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 9c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z"></path>
+                </svg>
                 <span id="username-area-label" class="username-area-label"></span>
-                <svg id="options-dropdown-arrow" class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium  css-w2bhrx" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ArrowDropDownIcon" data-analyticsid="ArrowDropDownIcon" aria-label="Open account panel">
+                <svg id="options-dropdown-arrow" class="options-dropdown-arrow" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ArrowDropDownIcon" data-analyticsid="ArrowDropDownIcon" aria-label="Open account panel">
                     <path d="m7 10 5 5 5-5z"></path>
                 </svg>
             </div>
@@ -162,10 +164,10 @@ unauthorisedtemplate.innerHTML = `
     <style>${styles.toString()}</style>
     <div class="auth loggedout">
         <button id="auth-button-login" class="login-button" data-testid="auth-button-login" data-analyticsid="auth-button-login">
-            <svg class="auth-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true" id="logged-out-icon">
+            <svg class="auth-icon auth-icon-loginprompt" focusable="false" viewBox="0 0 24 24" aria-hidden="true" id="logged-out-icon">
                 <path d="M12 5.9c1.16 0 2.1.94 2.1 2.1s-.94 2.1-2.1 2.1S9.9 9.16 9.9 8s.94-2.1 2.1-2.1m0 9c2.97 0 6.1 1.46 6.1 2.1v1.1H5.9V17c0-.64 3.13-2.1 6.1-2.1M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 9c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z"></path>
             </svg>
-            <div class="auth-log-in-label" data-testid="auth-button-login-label">Log in</div>
+            <span class="auth-log-in-label" data-testid="auth-button-login-label">Sign in</span>
         </button>
     </div>
 `;

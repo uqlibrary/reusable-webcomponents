@@ -2,19 +2,26 @@
     position: relative;
 }
 .auth .auth-icon {
-    width: 50px;
-    height: 24px;
-    fill: #51247a;
-    margin-bottom: -5px;
+    fill: #745095; /* purple-200 */
+    /*margin-bottom: -5px;*/
+}
+.auth .auth-icon-loggedin {
+    margin-right: 2px;
+}
+.auth .auth-icon-loginprompt {
+    width: 24px;
+    /*height: 24px;*/
 }
 
 .auth .auth-log-in-label {
     font-size: 12px !important;
     white-space: nowrap;
-    color: #51247a;
+    /*color: #51247a;*/
 }
 
 .auth button {
+    display: flex;
+    align-items: center;
     line-height: 20px !important;
     background: rgba(0, 0, 0, 0);
     border: none;
@@ -28,33 +35,38 @@
 }
 .auth button:hover {
     background: rgba(0, 0, 0, 0.04);
+    border-radius: 5px;
     transition-delay: 0s;
     transition-duration: 0.15s;
     transition-property: background-color;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
-.auth.loggedout button:hover {
-    border-radius: 50%;
-}
-.auth.loggedin button:hover {
-    border-radius: 20px;
-}
 .account-options-menu-list button.logout,
 .username-area {
     display: flex;
-    align-items: center;
+    /*align-items: center;*/
     font-weight: 500;
     font-family: Roboto, Helvetica, sans-serif;
 }
 .username-area svg {
     width: 22px;
     min-width: 22px;
-    float: right;
+    /*float: right;*/
 }
-.username-area svg path {
-    fill: none;
-    stroke: #51247a;
-    stroke-width: 1.5;
+.username-area svg.auth-icon-loggedin {
+    margin-top: -4px;
+}
+.username-area svg.options-dropdown-arrow {
+    margin-top: -1px;
+}
+/*.username-area svg path {*/
+/*    fill: none;*/
+/*    stroke: #51247a;*/
+/*    stroke-width: 1.5;*/
+/*}*/
+
+button {
+    cursor: pointer;
 }
 
 button.login-button:hover,
@@ -65,12 +77,6 @@ button.login-button:focus {
     transition-duration: 0.15s;
     transition-property: background-color;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-button:hover,
-button:active,
-button:focus {
-    cursor: pointer;
 }
 
 button.login-button:active {
@@ -309,6 +315,7 @@ button.login-button:active {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    height: 22px;
 }
 
 .subtext {
