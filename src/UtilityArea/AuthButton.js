@@ -53,7 +53,7 @@ const ICON_MUI_LOCALLIBRARY =
 const authorisedtemplate = document.createElement('template');
 authorisedtemplate.innerHTML = `
     <style>${styles.toString()}</style>
-    <div id="auth" class="auth loggedin">
+    <div id="auth" class="auth loggedin" style="height: 36px; margin-top: 2px">
         <button id="account-option-button" data-testid="account-option-button" data-analyticsid="account-option-button">
             <div id="username-area" data-testid="username-area-label" data-analyticsid="username-area-label" class="username-area">
                 <svg class="auth-icon auth-icon-loggedin" focusable="false" viewBox="0 0 24 24" aria-hidden="true" id="logged-in-icon">

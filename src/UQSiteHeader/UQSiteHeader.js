@@ -45,7 +45,7 @@ template.innerHTML = `
             </ol>
         </nav>
         <div class="uq-site-header__title-container__right">
-          <slot name="site-utilities"></slot>
+          <slot name="site-utilities" style="display: flex"></slot>
           <button style="display: none" id="uq-site-header__navigation-toggle" class="uq-site-header__navigation-toggle jsNavToggle">Menu</button>
         </div>
       </div>

@@ -15,13 +15,16 @@ import { isBackTabKeyPressed, isEscapeKeyPressed, isTabKeyPressed } from '../hel
 const template = document.createElement('template');
 template.innerHTML = `
     <style>${askus.toString()}</style>
-    <div id="askus">
+    <div id="askus" style="height: 36px">
         <!-- Button -->
         <button id="askus-button" data-analyticsid="askus-button" aria-label="AskUs contact options" part="button" title="AskUs contact options">
             <svg id="askus-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"/>
             </svg>
-            <span id="askus-label" part="label">AskUs</span>
+            <span id="askus-label" class="askus-label" part="label">AskUs</span>
+            <svg id="options-dropdown-arrow" class="options-dropdown-arrow" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ArrowDropDownIcon" data-analyticsid="ArrowDropDownIcon" aria-label="Open account panel">
+                <path d="m7 10 5 5 5-5z"></path>
+            </svg>
         </button>
         <!-- Menu -->
         <div id="askus-menu" data-testid="askus-menu" data-analyticsid="askus-menu" class="closed-menu" style="display: none">

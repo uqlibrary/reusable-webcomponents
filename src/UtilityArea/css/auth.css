@@ -16,13 +16,12 @@
 .auth .auth-log-in-label {
     font-size: 12px !important;
     white-space: nowrap;
-    /*color: #51247a;*/
+    font-weight: 500;
 }
 
 .auth button {
     display: flex;
     align-items: center;
-    line-height: 20px !important;
     background: rgba(0, 0, 0, 0);
     border: none;
     margin: -12px 0;
@@ -44,26 +43,21 @@
 .account-options-menu-list button.logout,
 .username-area {
     display: flex;
-    /*align-items: center;*/
+    align-items: center;
     font-weight: 500;
     font-family: Roboto, Helvetica, sans-serif;
+    margin-top: 4px;
 }
 .username-area svg {
     width: 22px;
-    min-width: 22px;
-    /*float: right;*/
 }
 .username-area svg.auth-icon-loggedin {
-    margin-top: -4px;
+    margin-top: -6px;
 }
 .username-area svg.options-dropdown-arrow {
-    margin-top: -1px;
+    margin-top: -6px;
+    font-weight: 400;
 }
-/*.username-area svg path {*/
-/*    fill: none;*/
-/*    stroke: #51247a;*/
-/*    stroke-width: 1.5;*/
-/*}*/
 
 button {
     cursor: pointer;
