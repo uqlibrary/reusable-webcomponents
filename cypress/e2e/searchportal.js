@@ -4,7 +4,7 @@ const RETURN_KEYCODE = 13;
 const TAB_KEYCODE = 9;
 const UP_ARROW_KEYCODE = 38;
 
-describe.skip('Search Portal', () => {
+describe('Search Portal', () => {
     /**
      * different search types have a different number of links in the footer area
      * @param numLinks
