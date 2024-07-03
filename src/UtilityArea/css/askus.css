@@ -4,18 +4,16 @@
 #askus #askus-icon {
     width: 24px;
     height: 24px;
-    fill: #51247a;
+    fill: #745095; /* purple-200 */
     margin-bottom: -5px;
 }
 
 #askus #askus-label {
     font-size: 12px !important;
     white-space: nowrap;
-    color: #51247a;
 }
 
 #askus button {
-    line-height: 20px !important;
     background: rgba(0, 0, 0, 0);
     border: none;
     margin: -12px 0;
@@ -131,9 +129,6 @@ button:focus {
     text-overflow: ellipsis;
     overflow: hidden;
     padding: 6px 6px 6px 4px !important;
-    margin: 0 !important;
-    /*padding: 4px !important;*/
-    /*margin: 2px 2px 2px 0 !important;*/
     margin: 2px 0 !important;
     text-decoration: none;
     color: #595959;
