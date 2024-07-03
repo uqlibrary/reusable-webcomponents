@@ -259,9 +259,6 @@ a.uq-breadcrumb__link[href=""] {
     }
 }
 
-.uq-breadcrumb {
-    padding-top: 5px;
-}
 @media(max-width: 37.5rem) {
     .uq-breadcrumb {
         margin-bottom: 10px;
@@ -269,5 +266,5 @@ a.uq-breadcrumb__link[href=""] {
 }
 
 .uq-site-header .uq-site-header__title-container {
-    padding-block: 3px 10px;
+    padding-block: 10px 10px;
 }
