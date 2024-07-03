@@ -19,16 +19,18 @@
 .proactive-chat button {
     line-height: 20px !important;
     background: rgba(0, 0, 0, 0);
-    border-radius: 50%;
     border: none;
     margin: -12px 0;
     padding: 6px;
-    width: 60px;
     height: 60px;
     transition-delay: 0s;
     transition-duration: 0.15s;
     transition-property: background-color;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.proactive-chat button {
+    width: 60px;
+    border-radius: 50%;
 }
 
 #askus button:hover,
