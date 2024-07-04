@@ -14,9 +14,10 @@
 }
 
 .auth .auth-log-in-label {
-    font-size: 12px !important;
+    font-size: 13.3px !important;
     white-space: nowrap;
     font-weight: 500;
+    font-family: Roboto, Helvetica, sans-serif;
 }
 
 .auth button {

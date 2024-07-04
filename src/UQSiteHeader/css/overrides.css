@@ -259,12 +259,6 @@ a.uq-breadcrumb__link[href=""] {
     }
 }
 
-@media(max-width: 37.5rem) {
-    .uq-breadcrumb {
-        margin-bottom: 10px;
-    }
-}
-
 .uq-site-header .uq-site-header__title-container {
     padding-block: 10px 10px;
 }
