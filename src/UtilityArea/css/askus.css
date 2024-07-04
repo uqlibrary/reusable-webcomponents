@@ -114,6 +114,9 @@ button:focus {
         column-count: 2;
         column-gap: 20px;
     }
+    .askus-menu-list li.askus-phone a {
+        margin-top: -10px !important
+    }
 }
 
 .askus-menu-list li {
@@ -150,6 +153,9 @@ button:focus {
     #askus-menu-item-moreways a {
         text-align: center;
     }
+    .askus-menu-list li.askus-email a {
+        margin-top: 10px !important
+    }
 }
 
 .askus-menu-list li a:hover {
@@ -184,6 +190,7 @@ button:focus {
 .askus-menu-list li.askus-aibot a {
     display: flex;
     align-items: center;
+    margin-block: -10px !important
 }
 .askus-menu-list li.askus-aibot span {
     margin-top: 4px;
