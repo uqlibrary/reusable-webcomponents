@@ -283,9 +283,10 @@ button.proactive-chat-button:focus {
 .bottomBar button {
     background-color: inherit;
     border: none;
-    color: purple;
+    color: #51247a;
     text-decoration: underline;
     text-underline-offset: 2px;
     padding-inline: 0;
     font-style: initial;
+    cursor: pointer;
 }
