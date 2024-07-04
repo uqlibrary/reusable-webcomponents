@@ -804,11 +804,11 @@ input[type='search'] {
     font-family: Roboto, Helvetica, Arial, sans-serif;
 }
 
-@media (max-width: 959.95px) {
+/* @media (max-width: 959.95px) {
     .portaltype-dropdown-container {
         width: 100%;
     }
-}
+} */
 
 .portalTypeSelectorDisplayed {
     opacity: 1;
@@ -863,11 +863,11 @@ input[type='search'] {
     transform: translate3d(203px, 325px, 0px);
     z-index: 1300;
     top: -204px;
-    left: -30px !important;
+    left: -40px !important;
 }
 
 @media (max-width: 959.95px) {
-    .suggestionList {
+    /* .suggestionList {
         top: -200px;
         left: -160px;
         width: calc(100% - 895px);
@@ -877,7 +877,7 @@ input[type='search'] {
 
     .search-type-button {
         text-align: left;
-    }
+    } */
 }
 
 li.MuiAutocomplete-option {
@@ -993,7 +993,8 @@ li.MuiAutocomplete-option:focus {
     box-shadow: none;
     background-color: #fff;
     color: black;
-    width: auto;
+    width: 50px;
+    height: 35px;
 }
 #clear-search-term {
     margin: 0;
@@ -1034,7 +1035,6 @@ li.MuiAutocomplete-option:focus {
 
 .search-dropdown-chevron {
     width: 20px;
-    height: 20px;
     padding-top: 1px;
     padding-right: 3px;
 }
@@ -1058,4 +1058,28 @@ li.MuiAutocomplete-option:focus {
 .search-portal-container {
     padding-top: 20px;
     padding-bottom: 20px;
+}
+
+@media (max-width: 768px) { /* Adjust breakpoint as needed */
+    #search-portal-submit {
+        height: 30px;
+    }
+    .suggestionList {
+        position: absolute;
+        /* width: 767px;*/
+        width: 100% !important;
+        will-change: transform;
+        transform: translate3d(203px, 325px, 0px);
+        z-index: 1300;
+        top: -204px;
+        left: -203px !important;
+    }
+    #inputFieldParent {
+        border-left: none;
+    }
+    .search-dropdown-chevron {
+        width: 20px;
+        padding-top: 1px;
+        padding-right: 11px;
+    }
 }
