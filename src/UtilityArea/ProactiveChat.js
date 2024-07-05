@@ -7,6 +7,7 @@ import { cookieNotFound, setCookie } from '../helpers/cookie';
  *  <proactive-chat
  *      hideProactiveChat                   -- libwizard: dont show proactive chat at all
  *      secondsTilProactiveChatAppears=3    -- default 60
+ *      display                             -- 'inline', for in body of page in drupal, or not present
  *  />
  * </proactive-chat>
  *
@@ -19,10 +20,14 @@ userPromptTemplate.innerHTML = `
         <!-- Proactive Chat minimised -->
         <div class="pcminimised">
             <div role="button" id="proactive-chat-online" data-testid="proactive-chat-online" class="pconline" data-analyticsid="chat-status-icon-online" style="display: none;" title="Click to open online chat">
-                <svg class="pcOnlineIcon" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path></svg>
+                <svg class="pcOnlineIcon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2M6 9h12v2H6zm8 5H6v-2h8zm4-6H6V6h12z"></path>
+                </svg>
             </div>
            <div role="button" id="proactive-chat-offline" class="pcOffline" data-analyticsid="chat-status-icon-offline" style="display: none;" title="Chat currently closed" aria-label="Chat currently closed">
-                <svg class="pcOfflineIcon" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path></svg>
+                <svg class="pcOfflineIcon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2M6 9h12v2H6zm8 5H6v-2h8zm4-6H6V6h12z"></path>
+                </svg>
             </div>
         </div>
         <!-- Proactive Chat larger dialog -->
@@ -55,20 +60,26 @@ chatbotIframeTemplate.innerHTML = `<div
     class="chatbotWrapper"
 >
     <div class="resizeHandleRepositionWrapper">
-        <div class="buttonHolder">
-            <div class="headerButton headerButtonCrm">
-                <button id="speakToPerson" data-testid="speakToPerson">Person</button>
-            </div>
-            <div class="headerButton headerButtonClose">
-                <button id="closeIframeButton" data-testid="closeIframeButton">Close</button>
-            </div>
+        <div class="topBar">
+            <button id="closeIframeButton" data-testid="closeIframeButton">
+                <!-- close "x" -->
+                <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+                </svg>
+            </button>
         </div>
         <iframe 
             id="chatbotIframe"
             src="https://copilotstudio.microsoft.com/environments/2a892934-221c-eaa4-9f1a-4790000854ca/bots/cr546_uqAssistGenAiChatBot/webchat?__version__=2"
             frameborder="0" 
         ></iframe>
-        <p class="refCheck">Please confirm any references provided.</p>
+        <div class="bottomBar">
+            <p class="confirmAnswers">Please visit any links I provide to confirm my answers.</p>
+            <p class="crmChat">
+                Need more help?
+                <button id="speakToPerson" data-testid="speakToPerson">Chat with Library staff now</button>
+            </p>
+        </div>
     </div>
 </div>`;
 
@@ -90,15 +101,28 @@ class ProactiveChat extends HTMLElement {
         super();
         // Add a shadow DOM
         const secondsTilProactiveChatAppears = this.getAttribute('secondsTilProactiveChatAppears') || 60;
+        this.displayType = this.getAttribute('display') || null;
         const shadowDOM = this.attachShadow({ mode: 'open' });
 
         // Render the userPromptTemplate
         shadowDOM.appendChild(userPromptTemplate.content.cloneNode(true));
-        this.updateAskusDOM(shadowDOM, secondsTilProactiveChatAppears);
+        if (this.displayType === 'inline') {
+            const proactiveChatElement = shadowDOM.getElementById('proactive-chat');
+            !!proactiveChatElement && proactiveChatElement.classList.remove('ca-force-hide-mobile');
+            !!proactiveChatElement && proactiveChatElement.classList.add('show');
+            !!proactiveChatElement && proactiveChatElement.classList.add('displayinline');
+            const wrapper = shadowDOM.getElementById('proactive-chat-wrapper');
+            !!wrapper && wrapper.removeAttribute('style');
+            const onlineSecondaryOption = shadowDOM.getElementById('crmChatPrompt');
+            !!onlineSecondaryOption && onlineSecondaryOption.removeAttribute('style');
+        } else {
+            this.updateAskusDOM(shadowDOM, secondsTilProactiveChatAppears);
+        }
         this.addButtonListeners(shadowDOM);
 
         this.chatbotHasAppeared = false;
         this.askUsStatus = null;
+        this._account = null;
     }
 
     attributeChangedCallback(fieldName, oldValue, newValue) {
@@ -191,13 +215,16 @@ class ProactiveChat extends HTMLElement {
                 }
             })
             .then(() => {
-                // set the timer delay for proactive chat if we're not in primo & they havent asked for it to be hidden
+                // set the timer delay for proactive chat if we're not in primo & they haven't asked for it to be hidden
                 if (
                     !isProactiveChatHidden &&
                     !isPrimoPage(window.location.hostname) &&
                     cookieNotFound(PROACTIVE_CHAT_HIDDEN_COOKIE_NAME, PROACTIVE_CHAT_HIDDEN_COOKIE_VALUE)
                 ) {
-                    setTimeout(showProactiveChatWrapper, (secondsTilProactiveChatAppears - 1) * 1000);
+                    setTimeout(
+                        showProactiveChatWrapper,
+                        (secondsTilProactiveChatAppears === 0 ? 0 : secondsTilProactiveChatAppears - 1) * 1000,
+                    );
                     setTimeout(showProactiveChat, secondsTilProactiveChatAppears * 1000);
                 }
             });
@@ -227,7 +254,7 @@ class ProactiveChat extends HTMLElement {
             openCrmChat();
         }
 
-        function getUserAccount() {
+        function openCrmChat() {
             let accountDetails = null;
             const currentUserDetails = new ApiAccess().getAccountFromStorage();
 
@@ -239,11 +266,6 @@ class ProactiveChat extends HTMLElement {
             if (!!accountIsSet) {
                 accountDetails = currentUserDetails.account;
             }
-            return accountDetails;
-        }
-
-        function openCrmChat() {
-            const accountDetails = getUserAccount();
 
             const params = [];
             !!accountDetails?.mail && params.push(`email=${accountDetails?.mail}`);
@@ -264,45 +286,29 @@ class ProactiveChat extends HTMLElement {
         function openChatBotIframe() {
             that.chatbotHasAppeared = true;
 
-            const proactivechatArea = shadowDOM.getElementById('proactivechat');
-            !!proactivechatArea && (proactivechatArea.style.display = 'none');
-
-            const minimisedOnlineButton = shadowDOM.getElementById('proactive-chat-online');
-            !!minimisedOnlineButton && (minimisedOnlineButton.style.display = 'none');
-
-            const chatbotIframe = shadowDOM.getElementById('chatbot-wrapper');
-            if (!!chatbotIframe) {
-                chatbotIframe.style.display = 'block';
+            if (that.displayType === 'inline') {
+                const proactiveChatElement = document.querySelectorAll('proactive-chat:not([display="inline"])');
+                !!proactiveChatElement &&
+                    proactiveChatElement.length > 0 &&
+                    proactiveChatElement[0].setAttribute('showchatbot', 'true');
             } else {
-                const accountDetails = getUserAccount();
+                const proactivechatArea = shadowDOM.getElementById('proactivechat');
+                !!proactivechatArea && (proactivechatArea.style.display = 'none');
 
-                const params = [];
-                !!accountDetails?.mail && params.push(`Email=${accountDetails?.mail}`);
-                !!accountDetails?.firstName && params.push(`FullName=${accountDetails?.firstName}`);
-                // &subject=users+question is also available, but we don't know their question :(
+                const minimisedOnlineButton = shadowDOM.getElementById('proactive-chat-online');
+                !!minimisedOnlineButton && (minimisedOnlineButton.style.display = 'none');
 
-                // update the iframe url so it appends these parameters
-                const clonedTemplate = chatbotIframeTemplate.content.cloneNode(true);
-                if (!!clonedTemplate && (!!accountDetails?.mail || !!accountDetails?.firstName)) {
-                    const iframe = !!clonedTemplate && clonedTemplate.querySelector('iframe');
-                    let urlIframe = (!!iframe && iframe.src) || null;
-
-                    const urlAppended = !!urlIframe && new URL(urlIframe);
-                    !!accountDetails?.firstName &&
-                        !!urlAppended &&
-                        urlAppended.searchParams.append('FullName', accountDetails?.firstName);
-                    !!accountDetails?.mail &&
-                        !!urlAppended &&
-                        urlAppended.searchParams.append('Email', accountDetails?.mail);
-                    !!urlAppended && (iframe.src = urlAppended.toString());
+                const chatbotIframe = shadowDOM.getElementById('chatbot-wrapper');
+                if (!!chatbotIframe) {
+                    chatbotIframe.style.display = 'block';
+                } else {
+                    shadowDOM.appendChild(chatbotIframeTemplate.content.cloneNode(true));
                 }
-
-                !!shadowDOM && !!clonedTemplate && shadowDOM.appendChild(clonedTemplate);
+                const openCrmButton = shadowDOM.getElementById('speakToPerson');
+                !!openCrmButton && openCrmButton.addEventListener('click', swapToCrm);
+                const chatbotCloseButton = shadowDOM.getElementById('closeIframeButton');
+                !!chatbotCloseButton && chatbotCloseButton.addEventListener('click', closeChatBotIframe);
             }
-            const openCrmButton = shadowDOM.getElementById('speakToPerson');
-            !!openCrmButton && openCrmButton.addEventListener('click', swapToCrm);
-            const chatbotCloseButton = shadowDOM.getElementById('closeIframeButton');
-            !!chatbotCloseButton && chatbotCloseButton.addEventListener('click', closeChatBotIframe);
         }
 
         function navigateToContactUs() {
