@@ -39,7 +39,7 @@ template.innerHTML = `
                 <li class="uq-breadcrumb__item">
                     <a id="site-title" data-testid="site-title" class="uq-breadcrumb__link" title="Library" href="https://www.library.uq.edu.au/">Library</a>
                 </li>
-                <li id="subsite" data-testid="subsite-title" class="uq-breadcrumb__item" style="display: none">
+                <li id="subsite" data-testid="subsite-title" class="uq-breadcrumb__item">
                     <a class="uq-breadcrumb__link" id="secondlevel-site-title" data-testid="secondlevel-site-title" href=""></a>
                 </li>
             </ol>
@@ -98,6 +98,8 @@ class UQSiteHeader extends HTMLElement {
     constructor() {
         super();
 
+        this.SecondLevelBreadcrumbPropertyCount = 0;
+
         // when the ITS script loads, we store the object it supplies,
         // so we can use it when the menu has finished loading to supply the menu mouseover
         this.uqReference = null;
@@ -140,15 +142,6 @@ class UQSiteHeader extends HTMLElement {
 
             clearInterval(awaitShadowDom);
 
-            const title = this.getAttribute('secondleveltitle');
-            const url = this.getAttribute('secondlevelurl');
-            const subSiteElement = !!this.shadowRoot && this.shadowRoot.getElementById('subsite');
-            if (!!title && !!url && title.trim() !== '' && this.isValidUrl(url)) {
-                !!subSiteElement && (subSiteElement.style.display = 'block');
-            } else {
-                !!subSiteElement && (subSiteElement.style.display = 'none');
-            }
-
             switch (fieldName) {
                 case 'sitetitle':
                     this.setTitle(newValue);
@@ -160,16 +153,22 @@ class UQSiteHeader extends HTMLElement {
                     break;
                 case 'secondleveltitle':
                     this.setSecondLevelTitle(newValue);
+                    this.SecondLevelBreadcrumbPropertyCount++;
 
                     break;
                 case 'secondlevelurl':
                     this.setSecondLevelUrl(newValue);
+                    this.SecondLevelBreadcrumbPropertyCount++;
 
                     break;
                 /* istanbul ignore next  */
                 default:
                     console.log(`unhandled attribute ${fieldName} received for UQSiteHeader`);
             }
+
+            const subSiteElement = !!this.shadowRoot && this.shadowRoot.getElementById('subsite');
+            const newDisplayProperty = this.SecondLevelBreadcrumbPropertyCount >= 2 ? 'list-item' : 'none';
+            !!subSiteElement && (subSiteElement.style.display = newDisplayProperty);
         }, 50);
     }
 
@@ -189,7 +188,7 @@ class UQSiteHeader extends HTMLElement {
     }
 
     setSecondLevelTitle(newSecondLevelTitle) {
-        let siteTitleElement = !!this.shadowRoot && this.shadowRoot.getElementById('secondlevel-site-title');
+        const siteTitleElement = !!this.shadowRoot && this.shadowRoot.getElementById('secondlevel-site-title');
         !!siteTitleElement && !!newSecondLevelTitle && (siteTitleElement.innerHTML = newSecondLevelTitle);
     }
 
