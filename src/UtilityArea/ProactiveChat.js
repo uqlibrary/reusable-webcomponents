@@ -7,6 +7,7 @@ import { cookieNotFound, setCookie } from '../helpers/cookie';
  *  <proactive-chat
  *      hideProactiveChat                   -- libwizard: dont show proactive chat at all
  *      secondsTilProactiveChatAppears=3    -- default 60
+ *      display                             -- 'inline', for in body of page in drupal, or not present
  *  />
  * </proactive-chat>
  *
@@ -100,11 +101,23 @@ class ProactiveChat extends HTMLElement {
         super();
         // Add a shadow DOM
         const secondsTilProactiveChatAppears = this.getAttribute('secondsTilProactiveChatAppears') || 60;
+        this.displayType = this.getAttribute('display') || null;
         const shadowDOM = this.attachShadow({ mode: 'open' });
 
         // Render the userPromptTemplate
         shadowDOM.appendChild(userPromptTemplate.content.cloneNode(true));
-        this.updateAskusDOM(shadowDOM, secondsTilProactiveChatAppears);
+        if (this.displayType === 'inline') {
+            const proactiveChatElement = shadowDOM.getElementById('proactive-chat');
+            !!proactiveChatElement && proactiveChatElement.classList.remove('ca-force-hide-mobile');
+            !!proactiveChatElement && proactiveChatElement.classList.add('show');
+            !!proactiveChatElement && proactiveChatElement.classList.add('displayinline');
+            const wrapper = shadowDOM.getElementById('proactive-chat-wrapper');
+            !!wrapper && wrapper.removeAttribute('style');
+            const onlineSecondaryOption = shadowDOM.getElementById('crmChatPrompt');
+            !!onlineSecondaryOption && onlineSecondaryOption.removeAttribute('style');
+        } else {
+            this.updateAskusDOM(shadowDOM, secondsTilProactiveChatAppears);
+        }
         this.addButtonListeners(shadowDOM);
 
         this.chatbotHasAppeared = false;
@@ -273,22 +286,29 @@ class ProactiveChat extends HTMLElement {
         function openChatBotIframe() {
             that.chatbotHasAppeared = true;
 
-            const proactivechatArea = shadowDOM.getElementById('proactivechat');
-            !!proactivechatArea && (proactivechatArea.style.display = 'none');
-
-            const minimisedOnlineButton = shadowDOM.getElementById('proactive-chat-online');
-            !!minimisedOnlineButton && (minimisedOnlineButton.style.display = 'none');
-
-            const chatbotIframe = shadowDOM.getElementById('chatbot-wrapper');
-            if (!!chatbotIframe) {
-                chatbotIframe.style.display = 'block';
+            if (that.displayType === 'inline') {
+                const proactiveChatElement = document.querySelectorAll('proactive-chat:not([display="inline"])');
+                !!proactiveChatElement &&
+                    proactiveChatElement.length > 0 &&
+                    proactiveChatElement[0].setAttribute('showchatbot', 'true');
             } else {
-                shadowDOM.appendChild(chatbotIframeTemplate.content.cloneNode(true));
+                const proactivechatArea = shadowDOM.getElementById('proactivechat');
+                !!proactivechatArea && (proactivechatArea.style.display = 'none');
+
+                const minimisedOnlineButton = shadowDOM.getElementById('proactive-chat-online');
+                !!minimisedOnlineButton && (minimisedOnlineButton.style.display = 'none');
+
+                const chatbotIframe = shadowDOM.getElementById('chatbot-wrapper');
+                if (!!chatbotIframe) {
+                    chatbotIframe.style.display = 'block';
+                } else {
+                    shadowDOM.appendChild(chatbotIframeTemplate.content.cloneNode(true));
+                }
+                const openCrmButton = shadowDOM.getElementById('speakToPerson');
+                !!openCrmButton && openCrmButton.addEventListener('click', swapToCrm);
+                const chatbotCloseButton = shadowDOM.getElementById('closeIframeButton');
+                !!chatbotCloseButton && chatbotCloseButton.addEventListener('click', closeChatBotIframe);
             }
-            const openCrmButton = shadowDOM.getElementById('speakToPerson');
-            !!openCrmButton && openCrmButton.addEventListener('click', swapToCrm);
-            const chatbotCloseButton = shadowDOM.getElementById('closeIframeButton');
-            !!chatbotCloseButton && chatbotCloseButton.addEventListener('click', closeChatBotIframe);
         }
 
         function navigateToContactUs() {

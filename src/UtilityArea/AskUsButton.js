@@ -260,8 +260,7 @@ class AskUsButton extends HTMLElement {
         !!askusButton && askusButton.addEventListener('click', handleAskUsButton);
 
         function openProactiveChatBotIframe() {
-            const proactiveChatElement = document.getElementsByTagName('proactive-chat');
-            console.log('proactiveChatElement =', proactiveChatElement);
+            const proactiveChatElement = document.querySelectorAll('proactive-chat:not([display="inline"])');
             !!proactiveChatElement &&
                 proactiveChatElement.length > 0 &&
                 proactiveChatElement[0].setAttribute('showchatbot', 'true');

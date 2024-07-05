@@ -130,7 +130,7 @@ describe('Proactive Chat', () => {
             cy.window().its('open').should('be.called');
         });
 
-        it('Navigates to CRM from iframe "Person" button', () => {
+        it('Navigates to CRM from iframe footer "Chat with Library Staff now" button', () => {
             // Stub the window.open method
             cy.visit('http://localhost:8080/index-chat-slow.html', {
                 onBeforeLoad(win) {
@@ -273,5 +273,61 @@ describe('Proactive Chat', () => {
             .should('have.css', 'background-color', 'rgb(128, 128, 128)')
             .parent()
             .should('have.css', 'right', '16px');
+    });
+
+    context('when in a drupal contact page', () => {
+        it('should load crm correctly', () => {
+            cy.visit('http://localhost:8080/index-drupalcontactus.html', {
+                onBeforeLoad(win) {
+                    cy.stub(win, 'open');
+                },
+            });
+
+            cy.get('proactive-chat[display="inline"]')
+                .shadow()
+                .find('button:contains("Chat with Library staff")')
+                .click();
+
+            // Assert that window.open was called
+            cy.window().its('open').should('be.called');
+        });
+        it('should load chatbot correctly', () => {
+            cy.visit('http://localhost:8080/index-drupalcontactus.html');
+
+            cy.viewport(1280, 900);
+
+            cy.getCookie('UQ_PROACTIVE_CHAT').should('not.exist');
+
+            // manually wait
+            cy.wait(100);
+
+            assertPopupIsOpen();
+            cy.get('proactive-chat[display="inline"]')
+                .shadow()
+                .find('button:contains("Ask Library Chatbot")')
+                .should('exist')
+                .click();
+
+            // let the iframe finish drawing
+            cy.wait(4000);
+
+            cy.get('proactive-chat:not([display="inline"])')
+                .shadow()
+                .find('[data-testid="chatbot-wrapper"]')
+                .should('exist'); // well, at least we know the iframe reaches the page!
+
+            // can close iframe
+            cy.get('proactive-chat:not([display="inline"])')
+                .shadow()
+                .find('[data-testid="closeIframeButton"]')
+                .should('exist')
+                .click();
+            // once the chatbot is closed, the minimised icon appears
+            cy.get('proactive-chat:not([display="inline"])')
+                .shadow()
+                .find('[data-testid="proactive-chat-online"]')
+                .should('exist')
+                .should('be.visible');
+        });
     });
 });
