@@ -34,7 +34,7 @@ userPromptTemplate.innerHTML = `
         <div id="proactive-chat-wrapper"  class="pcwrapper" style="display: none">
             <div id="proactive-chat" data-testid="popupIsOpen" class="openSubWrapper">
                 <div class="pcText">
-                    <div class="pcMessage">Need help?</div>
+                    <div class="pcMessage" data-testid="proactive-header">Need help?</div>
                 </div>
                 <button id="proactive-chat-button-close" data-analyticsid="askus-proactive-chat-button-close" data-testid="close-button" class="close-button" title="Minimise this popup">
                     <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
@@ -45,8 +45,8 @@ userPromptTemplate.innerHTML = `
                     <button id="proactive-chat-button-open" data-analyticsid="askus-proactive-chatbot-button-open" data-testid="popopen-button" class="proactive-chat-button">Ask Library Chatbot</button>
                 </div>
                 <div class="crmChatPrompt">
-                    <button id="crmChatPrompt" data-analyticsid="askus-proactive-chat-button-open" class="crmchat-button" style="display: none">Chat with Library staff</button>
-                    <button id="leaveAQuestionPrompt" data-analyticsid="askus-proactive-offline-leave-question" class="crmchat-button" style="display: none">Leave a question</button>
+                    <button id="crmChatPrompt" data-testid="crm-chat-button" data-analyticsid="crm-chat-button" class="crmchat-button" style="display: none">Chat with Library staff</button>
+                    <button id="leaveAQuestionPrompt" data-testid="crm-afterhours-button" data-analyticsid="askus-proactive-offline-leave-question" class="crmchat-button" style="display: none">Leave a question</button>
                 </div>
             </div>
         </div>
@@ -107,14 +107,7 @@ class ProactiveChat extends HTMLElement {
         // Render the userPromptTemplate
         shadowDOM.appendChild(userPromptTemplate.content.cloneNode(true));
         if (this.displayType === 'inline') {
-            const proactiveChatElement = shadowDOM.getElementById('proactive-chat');
-            !!proactiveChatElement && proactiveChatElement.classList.remove('ca-force-hide-mobile');
-            !!proactiveChatElement && proactiveChatElement.classList.add('show');
-            !!proactiveChatElement && proactiveChatElement.classList.add('displayinline');
-            const wrapper = shadowDOM.getElementById('proactive-chat-wrapper');
-            !!wrapper && wrapper.removeAttribute('style');
-            const onlineSecondaryOption = shadowDOM.getElementById('crmChatPrompt');
-            !!onlineSecondaryOption && onlineSecondaryOption.removeAttribute('style');
+            this.showChatOptionsInline(shadowDOM);
         } else {
             this.updateAskusDOM(shadowDOM, secondsTilProactiveChatAppears);
         }
@@ -123,6 +116,30 @@ class ProactiveChat extends HTMLElement {
         this.chatbotHasAppeared = false;
         this.askUsStatus = null;
         this._account = null;
+    }
+
+    async showChatOptionsInline(shadowDOM) {
+        const proactiveChatElement = shadowDOM.getElementById('proactive-chat');
+        !!proactiveChatElement && proactiveChatElement.classList.remove('ca-force-hide-mobile');
+        !!proactiveChatElement && proactiveChatElement.classList.add('show');
+        !!proactiveChatElement && proactiveChatElement.classList.add('displayinline');
+        const wrapper = shadowDOM.getElementById('proactive-chat-wrapper');
+        !!wrapper && wrapper.removeAttribute('style');
+        const onlineSecondaryOption = shadowDOM.getElementById('crmChatPrompt');
+        !!onlineSecondaryOption && onlineSecondaryOption.removeAttribute('style');
+
+        const api = new ApiAccess();
+        await api.loadChatStatus().then((isOnline) => {
+            if (!!isOnline) {
+                const onlineSecondaryOption = shadowDOM.getElementById('crmChatPrompt');
+                !!onlineSecondaryOption && onlineSecondaryOption.removeAttribute('style');
+            } else {
+                const offlineSecondaryOption = shadowDOM.getElementById('leaveAQuestionPrompt');
+                !!offlineSecondaryOption && offlineSecondaryOption.removeAttribute('style');
+                const onlineSecondaryOption = shadowDOM.getElementById('crmChatPrompt');
+                !!onlineSecondaryOption && (onlineSecondaryOption.style.display = 'none');
+            }
+        });
     }
 
     attributeChangedCallback(fieldName, oldValue, newValue) {

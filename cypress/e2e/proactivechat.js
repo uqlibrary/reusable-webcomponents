@@ -304,6 +304,31 @@ describe('Proactive Chat', () => {
     });
 
     context('when in a drupal contact page', () => {
+        it('appears correctly during staffed hours', () => {
+            cy.visit('http://localhost:8080/index-drupalcontactus.html');
+            cy.get('proactive-chat[display="inline"]')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="close-button"]').should('exist').should('not.be.visible');
+                    cy.get('[data-testid="proactive-header"]').should('exist').should('not.be.visible');
+                    cy.get('[data-testid="popopen-button"]').should('exist').should('be.visible');
+                    cy.get('[data-testid="crm-chat-button"]').should('exist').should('be.visible');
+                    cy.get('[data-testid="crm-afterhours-button"]').should('exist').should('not.be.visible');
+                });
+        });
+        it('appears correctly outside staffed hours', () => {
+            cy.visit('http://localhost:8080/index-drupalcontactus.html?chatstatusoffline=true');
+            cy.get('proactive-chat[display="inline"]')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="close-button"]').should('exist').should('not.be.visible');
+                    cy.get('[data-testid="proactive-header"]').should('exist').should('not.be.visible');
+                    cy.get('[data-testid="popopen-button"]').should('exist').should('be.visible');
+                    cy.get('[data-testid="crm-afterhours-button"]').should('exist').should('be.visible');
+                    cy.get('[data-testid="crm-chat-button"]').should('exist').should('not.be.visible');
+                });
+        });
+
         it('should load crm correctly', () => {
             cy.visit('http://localhost:8080/index-drupalcontactus.html', {
                 onBeforeLoad(win) {
