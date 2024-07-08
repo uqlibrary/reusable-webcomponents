@@ -18,12 +18,12 @@ userPromptTemplate.innerHTML = `
     <div id="proactivechat" data-testid="proactivechat" class="proactive-chat">
         <!-- Proactive Chat minimised -->
         <div class="pcminimised">
-            <button id="proactive-chat-online" data-testid="proactive-chat-online" class="pconline" data-analyticsid="chat-status-icon-online" style="display: none;" title="Chat with us - see options" title="Chat with us - see options">
+            <button id="proactive-chat-online" data-testid="proactive-chat-online" class="pconline" data-analyticsid="chat-status-icon-online-button" style="display: none;" title="Chat with us - see options" title="Chat with us - see options">
                 <svg class="pcOnlineIcon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2M6 9h12v2H6zm8 5H6v-2h8zm4-6H6V6h12z"></path>
                 </svg>
             </button>
-           <button id="proactive-chat-offline" data-testid="proactive-chat-offline" class="pcOffline" data-analyticsid="chat-status-icon-offline" style="display: none;" title="Chat with us - see options" aria-label="Chat with us - see options">
+           <button id="proactive-chat-offline" data-testid="proactive-chat-offline" class="pcOffline" data-analyticsid="chat-status-icon-offline-button" style="display: none;" title="Chat with us - see options" aria-label="Chat with us - see options">
                 <svg class="pcOfflineIcon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2M6 9h12v2H6zm8 5H6v-2h8zm4-6H6V6h12z"></path>
                 </svg>
@@ -45,7 +45,7 @@ userPromptTemplate.innerHTML = `
                 </div>
                 <div class="crmChatPrompt">
                     <button id="crmChatPrompt" data-analyticsid="askus-proactive-chat-button-open" class="crmchat-button" style="display: none">Chat with Library staff</button>
-                    <button id="leaveAQuestionPrompt" data-analyticsid="askus-proactive-offline-leave-question" class="crmchat-button" style="display: none" aria-label="No staff available to chat - Leave a question">Leave a question</button>
+                    <button id="leaveAQuestionPrompt" data-analyticsid="chat-status-icon-offline" class="crmchat-button" style="display: none" aria-label="No staff available to chat - Leave a question">Leave a question</button>
                 </div>
             </div>
         </div>
@@ -60,7 +60,7 @@ chatbotIframeTemplate.innerHTML = `<div
 >
     <div class="resizeHandleRepositionWrapper">
         <div class="topBar">
-            <button id="closeIframeButton" data-testid="closeIframeButton">
+            <button id="closeIframeButton" data-testid="closeIframeButton" data-analyticsid="chatbot-iframe-close">
                 <!-- close "x" -->
                 <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
@@ -76,7 +76,7 @@ chatbotIframeTemplate.innerHTML = `<div
             <p class="confirmAnswers">Please visit any links I provide to confirm my answers.</p>
             <p class="crmChat">
                 Need more help?
-                <button id="speakToPerson" data-testid="speakToPerson">Chat with Library staff now</button>
+                <button id="speakToPerson" data-analyticsid="chatbot-iframe-crm" data-testid="speakToPerson">Chat with Library staff now</button>
             </p>
         </div>
     </div>
