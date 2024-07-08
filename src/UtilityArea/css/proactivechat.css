@@ -44,6 +44,8 @@ button:focus {
     height: 60px;
     color: #ffffff !important;
     background-color: #2377cb;
+    text-transform: lowercase;
+    text-transform: capitalize;
 }
 
 .proactive-chat button.proactive-chat-button:hover,
@@ -101,20 +103,22 @@ button.proactive-chat-button:focus {
     right: 16px;
     bottom: 16px;
 }
+.pcminimised > button {
+    margin-bottom: 30px;
+}
 .pcminimised .pconline {
     background-color: #51247a;
-    width: 24px;
-    height: 24px;
+    width: 52px;
+    height: 52px;
     border-radius: 50%;
     padding: 12px;
     box-shadow: 0 0 8px #fff;
     transition-duration: 0.2s;
     transition-property: background-color;
-    margin-bottom: 30px;
 }
 .pcminimised .pconline svg {
-    height: 120%;
-    width: 120%;
+    /*height: 120%;*/
+    /*width: 120%;*/
     margin-left: -2px;
     margin-top: -2px;
 }
@@ -124,8 +128,8 @@ button.proactive-chat-button:focus {
 
 .pcOffline {
     background-color: grey;
-    width: 24px;
-    height: 24px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     padding: 12px;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
@@ -289,13 +293,4 @@ button.proactive-chat-button:focus {
     padding-inline: 0;
     font-style: initial;
     cursor: pointer;
-}
-.visuallyHide:not(:focus):not(:active) {
-    position: absolute;
-    top: auto;
-    overflow: hidden;
-    clip: rect(1px, 1px, 1px, 1px);
-    width: 1px;
-    height: 1px;
-    white-space: nowrap;
 }
