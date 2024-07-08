@@ -58,7 +58,11 @@ describe('Proactive Chat', () => {
             cy.injectAxe();
             cy.viewport(1280, 900);
             cy.waitUntil(() =>
-                cy.get('proactive-chat').shadow().find('[title="Chat currently closed"]').should('exist'),
+                cy
+                    .get('proactive-chat')
+                    .shadow()
+                    .find('[title="Chatbot is available - Ask a question"]')
+                    .should('exist'),
             );
             cy.checkA11y('proactive-chat', {
                 reportName: 'Proactive chat red icon',
@@ -101,7 +105,7 @@ describe('Proactive Chat', () => {
             // "online Minimised" button is visible
             cy.get('proactive-chat')
                 .shadow()
-                .find('[title="Click to open online chat"]')
+                .find('[title="Staff are available - Ask us a question"]')
                 .should('exist')
                 .should('be.visible')
                 .should('not.have.css', 'display', 'none')
@@ -111,7 +115,7 @@ describe('Proactive Chat', () => {
             // "offline Minimised" button is hidden. Well duh, but just checking
             cy.get('proactive-chat')
                 .shadow()
-                .find('[title="Chat currently closed"]')
+                .find('[title="Chatbot is available - Ask a question"]')
                 .should('exist')
                 .should('not.be.visible')
                 .should('have.css', 'display', 'none');
@@ -226,7 +230,7 @@ describe('Proactive Chat', () => {
             cy.viewport(1280, 900);
 
             // click minimised icon
-            cy.get('proactive-chat').shadow().find('[title="Chat currently closed"]').click();
+            cy.get('proactive-chat').shadow().find('[title="Chatbot is available - Ask a question"]').click();
             // click "ask library chatbot" button
             cy.get('proactive-chat').shadow().contains('button', 'Ask Library Chatbot').should('exist').click();
 
@@ -259,14 +263,14 @@ describe('Proactive Chat', () => {
         // "online Minimised" button is hidden
         cy.get('proactive-chat')
             .shadow()
-            .find('[title="Click to open online chat"]')
+            .find('[title="Staff are available - Ask us a question"]')
             .should('exist')
             .should('not.be.visible')
             .should('have.css', 'display', 'none');
         // "offline Minimised" button shows
         cy.get('proactive-chat')
             .shadow()
-            .find('[title="Chat currently closed"]')
+            .find('[title="Chatbot is available - Ask a question"]')
             .should('exist')
             .should('be.visible')
             .should('not.have.css', 'display', 'none')

@@ -18,12 +18,12 @@ userPromptTemplate.innerHTML = `
     <div id="proactivechat" data-testid="proactivechat" class="proactive-chat">
         <!-- Proactive Chat minimised -->
         <div class="pcminimised">
-            <div role="button" id="proactive-chat-online" data-testid="proactive-chat-online" class="pconline" data-analyticsid="chat-status-icon-online" style="display: none;" title="Click to open online chat">
+            <div role="button" id="proactive-chat-online" data-testid="proactive-chat-online" class="pconline" data-analyticsid="chat-status-icon-online" style="display: none;" title="Staff are available - Ask us a question" title="Staff are available - Ask us a question">
                 <svg class="pcOnlineIcon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2M6 9h12v2H6zm8 5H6v-2h8zm4-6H6V6h12z"></path>
                 </svg>
             </div>
-           <div role="button" id="proactive-chat-offline" class="pcOffline" data-analyticsid="chat-status-icon-offline" style="display: none;" title="Chat currently closed" aria-label="Chat currently closed">
+           <div role="button" id="proactive-chat-offline" class="pcOffline" data-analyticsid="chat-status-icon-offline" style="display: none;" title="Chatbot is available - Ask a question" aria-label="Chatbot is available - Ask a question">
                 <svg class="pcOfflineIcon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2M6 9h12v2H6zm8 5H6v-2h8zm4-6H6V6h12z"></path>
                 </svg>
@@ -41,11 +41,11 @@ userPromptTemplate.innerHTML = `
                     </svg>
                 </button>
                 <div class="pcOpenChat">
-                    <button id="proactive-chat-button-open" data-analyticsid="askus-proactive-chatbot-button-open" data-testid="popopen-button" class="proactive-chat-button">Ask Library Chatbot</button>
+                    <button id="proactive-chat-button-open" data-analyticsid="askus-proactive-chatbot-button-open" data-testid="popopen-button" class="proactive-chat-button">Ask Library Chatbot <span class="visuallyHide">a question</span></button>
                 </div>
                 <div class="crmChatPrompt">
                     <button id="crmChatPrompt" data-analyticsid="askus-proactive-chat-button-open" class="crmchat-button" style="display: none">Chat with Library staff</button>
-                    <button id="leaveAQuestionPrompt" data-analyticsid="askus-proactive-offline-leave-question" class="crmchat-button" style="display: none">Leave a question</button>
+                    <button id="leaveAQuestionPrompt" data-analyticsid="askus-proactive-offline-leave-question" class="crmchat-button" style="display: none"><span class="visuallyHide">No staff available to chat - </span>Leave a question</button>
                 </div>
             </div>
         </div>
