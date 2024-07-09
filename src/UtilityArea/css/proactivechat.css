@@ -210,11 +210,6 @@ button.proactive-chat-button:focus {
 .openSubWrapper .pcMinimisePopup button:hover {
     background-color: #a8a8a8;
 }
-@media screen and (max-width: 650px) {
-    .ca-force-hide-mobile {
-        right: -300px !important;
-    }
-}
 
 .chatbotWrapper {
     background-color: #fff;
@@ -242,6 +237,14 @@ button.proactive-chat-button:focus {
     width: 100%;
     height: 100%;
     overflow: hidden;
+}
+@media screen and (max-width: 650px) {
+    .ca-force-hide-mobile {
+        right: -300px !important;
+    }
+    .chatbotWrapper {
+        max-width: calc(100% - 190px);
+    }
 }
 
 .topBar {
