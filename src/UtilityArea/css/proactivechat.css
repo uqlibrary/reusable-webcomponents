@@ -44,8 +44,6 @@ button:focus {
     height: 60px;
     color: #ffffff !important;
     background-color: #2377cb;
-    text-transform: lowercase;
-    text-transform: capitalize;
 }
 
 .proactive-chat button.proactive-chat-button:hover,
@@ -146,10 +144,13 @@ button.proactive-chat-button:focus {
 }
 
 .proactive-chat .pcwrapper .openSubWrapper {
-    position: fixed;
-    bottom: 12px;
     background-color: white;
     width: 250px;
+}
+
+.proactive-chat .pcwrapper .openSubWrapper:not(.displayinline) {
+    position: fixed;
+    bottom: 12px;
     padding: 12px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     right: -300px;
@@ -158,15 +159,24 @@ button.proactive-chat-button:focus {
     transition-timing-function: ease-in-out;
 }
 .pcwrapper {
+    overflow: hidden !important;
+}
+.pcwrapper:has(> div:not(.displayinline)) {
     z-index: 9999;
     position: fixed;
     bottom: 0;
     right: 0;
     width: 300px;
     height: 220px;
-    overflow: hidden !important;
 }
-.proactive-chat .pcwrapper .openSubWrapper.show {
+.pcwrapper .openSubWrapper.displayinline {
+    width: 220px;
+}
+.displayinline .close-button,
+.displayinline .pcMessage {
+    display: none;
+}
+.proactive-chat .pcwrapper .openSubWrapper.show:not(.displayinline) {
     right: 12px;
     transition: right 0.3s;
     transition-delay: 0.3s;
