@@ -116,12 +116,6 @@ button.proactive-chat-button:focus {
     transition-duration: 0.2s;
     transition-property: background-color;
 }
-.pcminimised .pconline svg {
-    /*height: 120%;*/
-    /*width: 120%;*/
-    margin-left: -2px;
-    margin-top: -2px;
-}
 .pcminimised .pconline:hover {
     background-color: #005f00;
 }
