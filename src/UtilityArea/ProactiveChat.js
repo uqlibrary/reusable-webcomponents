@@ -76,7 +76,8 @@ chatbotIframeTemplate.innerHTML = `<div
             <p class="confirmAnswers">Please visit any links I provide to confirm my answers.</p>
             <p class="crmChat">
                 Need more help?
-                <button id="speakToPerson" data-analyticsid="chatbot-iframe-crm" data-testid="speakToPerson">Chat with Library staff now</button>
+                <button id="speakToPerson" data-analyticsid="chatbot-iframe-crm" data-testid="speakToPerson" style="display: none">Chat with Library staff now</button>
+                <button id="leaveQuestion" data-analyticsid="chatbot-iframe-contact" data-testid="leaveQuestion" style="display: none">Staff unavailable - leave a question</button>
             </p>
         </div>
     </div>
@@ -293,6 +294,13 @@ class ProactiveChat extends HTMLElement {
             !!openCrmButton && openCrmButton.addEventListener('click', swapToCrm);
             const chatbotCloseButton = shadowDOM.getElementById('closeIframeButton');
             !!chatbotCloseButton && chatbotCloseButton.addEventListener('click', closeChatBotIframe);
+
+            const proactiveleaveQuestion = shadowDOM.getElementById('leaveQuestion');
+            !!proactiveleaveQuestion && proactiveleaveQuestion.addEventListener('click', navigateToContactUs);
+
+            const elementId = that.askUsStatus === 'online' ? 'speakToPerson' : 'leaveQuestion';
+            const minimisedButton = shadowDOM.getElementById(elementId);
+            !!minimisedButton && (minimisedButton.style.display = 'inline');
         }
 
         function navigateToContactUs() {
