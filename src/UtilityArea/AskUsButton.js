@@ -149,16 +149,13 @@ class AskUsButton extends HTMLElement {
 
         const api = new ApiAccess();
         await api.loadChatStatus().then((isOnline) => {
-            console.log('AAA loadChatStatus', isOnline);
             if (!!isOnline) {
-                console.log('AAA online');
                 // hide .chatClosedTimes
                 const chatClosedTimes = shadowRoot.querySelectorAll('.chatClosedTimes');
                 !!chatClosedTimes &&
                     chatClosedTimes.forEach((c) => {
                         c.style.display = 'none';
                         const wrappingListItemParent = !!c && c.parentElement;
-                        console.log('AAA online wrappingListItemParent=', wrappingListItemParent);
                         !!wrappingListItemParent &&
                             !!wrappingListItemParent.classList.contains('closed') &&
                             wrappingListItemParent.classList.remove('closed');
@@ -170,12 +167,10 @@ class AskUsButton extends HTMLElement {
 
                 // adding times to .chatOpenTimes is done from loadOpeningHours
             } else {
-                console.log('AAA offline');
                 // Chat is closed for the day
 
                 // remove display none from 'closed' div
                 const closedLabels = shadowRoot.querySelectorAll('.closedLabel');
-                console.log('AAA closedLabels=', closedLabels);
                 !!closedLabels &&
                     closedLabels.forEach((s) => {
                         s.style.display = '';
@@ -184,7 +179,6 @@ class AskUsButton extends HTMLElement {
                             !wrappingListItemParent.classList.contains('closed') &&
                             wrappingListItemParent.classList.add('closed');
                     });
-                console.log('AAA 1');
 
                 // make icons red
                 const icons = shadowRoot.querySelectorAll('svg.serviceWithHoursClosed');
@@ -261,7 +255,6 @@ class AskUsButton extends HTMLElement {
 
         function openProactiveChatBotIframe() {
             const proactiveChatElement = document.getElementsByTagName('proactive-chat');
-            console.log('proactiveChatElement =', proactiveChatElement);
             !!proactiveChatElement &&
                 proactiveChatElement.length > 0 &&
                 proactiveChatElement[0].setAttribute('showchatbot', 'true');
