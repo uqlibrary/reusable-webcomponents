@@ -292,7 +292,6 @@ class ProactiveChat extends HTMLElement {
         function openChatBotIframe() {
             that.chatbotHasAppeared = true;
 
-            console.log('DDD openChatBotIframe', that.displayType);
             if (that.displayType === 'inline') {
                 const proactiveChatElement = document.querySelectorAll('proactive-chat:not([display="inline"])');
                 !!proactiveChatElement &&
