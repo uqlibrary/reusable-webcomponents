@@ -67,17 +67,22 @@ describe('Dummy Application', () => {
     function hasProactiveChat() {
         cy.get('proactive-chat')
             .shadow()
-            .find('[title="Click to open online chat"]')
+            .find('[data-testid="proactive-chat-online"]')
             .should('exist')
             .should('be.visible');
         cy.get('proactive-chat')
             .shadow()
-            .find('[title="Chat currently closed"]')
+            .find('[data-testid="proactive-chat-offline"]')
             .should('exist')
             .should('not.be.visible');
         cy.get('proactive-chat')
             .shadow()
-            .find('button:contains("Chat with Library staff")')
+            .find('button:contains("Ask Library Chatbot")')
+            .should('exist')
+            .should('not.be.visible');
+        cy.get('proactive-chat')
+            .shadow()
+            .find('button:contains("Leave a question")')
             .should('exist')
             .should('not.be.visible');
         cy.get('proactive-chat').shadow().find('[data-testid="close-button"]').should('exist').should('not.be.visible');
