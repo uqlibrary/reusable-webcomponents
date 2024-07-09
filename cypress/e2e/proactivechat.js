@@ -238,7 +238,7 @@ describe('Proactive Chat', () => {
                 .should('be.visible');
         });
 
-        it('Navigates to CRM from "Leave a question" button when offline', () => {
+        it('Navigates to contact us from proactive "Leave a question" button when offline', () => {
             cy.visit('http://localhost:8080/index-chat-fast.html?chatstatusoffline=true', {
                 onBeforeLoad(win) {
                     cy.stub(win, 'open');
@@ -246,6 +246,30 @@ describe('Proactive Chat', () => {
             });
 
             cy.get('proactive-chat').shadow().find('button:contains("Leave a question")').click();
+
+            // Assert that window.open was called
+            cy.window().its('open').should('be.called');
+        });
+
+        it('Navigates to contact us from iframe "Leave a question" button when offline', () => {
+            cy.visit('http://localhost:8080/index-chat-fast.html?chatstatusoffline=true', {
+                onBeforeLoad(win) {
+                    cy.stub(win, 'open');
+                },
+            });
+
+            cy.getCookie('UQ_PROACTIVE_CHAT').should('not.exist');
+
+            // manually wait
+            cy.wait(100);
+
+            assertPopupIsOpen();
+            cy.get('proactive-chat').shadow().find('button:contains("Ask Library Chatbot")').should('exist').click();
+
+            // let the iframe finish drawing
+            cy.wait(4000);
+
+            cy.get('proactive-chat').shadow().find('button:contains("Staff unavailable - leave a question")').click();
 
             // Assert that window.open was called
             cy.window().its('open').should('be.called');
