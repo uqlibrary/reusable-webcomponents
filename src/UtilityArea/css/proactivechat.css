@@ -232,6 +232,7 @@ button.proactive-chat-button:focus {
     overflow: hidden;
     min-width: 330px;
     min-height: 500px;
+    z-index: 999; /* required for 2023 homepage as spotlights & personalised button showed through! */
     /* fake the resize handle to the top left for usability */
     transform: rotateZ(180deg);
 }
