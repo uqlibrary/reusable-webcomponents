@@ -76,6 +76,74 @@ describe('Proactive Chat', () => {
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
             });
         });
+        it('proactive chat open after hours', () => {
+            cy.visit('http://localhost:8080/index-chat-fast.html?chatstatusoffline=true');
+            cy.injectAxe();
+            cy.viewport(1280, 900);
+            cy.checkA11y('proactive-chat', {
+                reportName: 'Proactive chat proactive chat open',
+                scopeName: 'Accessibility',
+                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+            });
+        });
+        it('iframe open', () => {
+            cy.visit('http://localhost:8080/index-chat-fast.html');
+            cy.injectAxe();
+            cy.viewport(1280, 900);
+
+            // cy.get('proactive-chat').shadow().find('[data-testid="proactive-chat-online"]').should('exist').click();
+            cy.waitUntil(() =>
+                cy
+                    .get('proactive-chat')
+                    .shadow()
+                    .find('[data-testid="popopen-button"]')
+                    .should('exist')
+                    .should('be.visible'),
+            );
+            cy.get('proactive-chat').shadow().find('[data-testid="popopen-button"]').click();
+
+            // can see iframe
+            cy.get('proactive-chat')
+                .shadow()
+                .find('[data-testid="chatbot-wrapper"]')
+                .should('exist')
+                .should('be.visible');
+
+            cy.checkA11y('proactive-chat', {
+                reportName: 'Proactive chat proactive chat open',
+                scopeName: 'Accessibility',
+                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+            });
+        });
+        it('iframe open after hours', () => {
+            cy.visit('http://localhost:8080/index-chat-fast.html?chatstatusoffline=true');
+            cy.injectAxe();
+            cy.viewport(1280, 900);
+
+            // cy.get('proactive-chat').shadow().find('[data-testid="proactive-chat-online"]').should('exist').click();
+            cy.waitUntil(() =>
+                cy
+                    .get('proactive-chat')
+                    .shadow()
+                    .find('[data-testid="popopen-button"]')
+                    .should('exist')
+                    .should('be.visible'),
+            );
+            cy.get('proactive-chat').shadow().find('[data-testid="popopen-button"]').click();
+
+            // can see iframe
+            cy.get('proactive-chat')
+                .shadow()
+                .find('[data-testid="chatbot-wrapper"]')
+                .should('exist')
+                .should('be.visible');
+
+            cy.checkA11y('proactive-chat', {
+                reportName: 'Proactive chat proactive chat open',
+                scopeName: 'Accessibility',
+                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+            });
+        });
     });
 
     context('when online', () => {

@@ -60,7 +60,7 @@ chatbotIframeTemplate.innerHTML = `<div
 >
     <div class="resizeHandleRepositionWrapper">
         <div class="topBar">
-            <button id="closeIframeButton" data-testid="closeIframeButton" data-analyticsid="chatbot-iframe-close">
+            <button id="closeIframeButton" data-testid="closeIframeButton" data-analyticsid="chatbot-iframe-close" aria-label="Close Chatbot">
                 <!-- close "x" -->
                 <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
@@ -71,6 +71,7 @@ chatbotIframeTemplate.innerHTML = `<div
             id="chatbotIframe"
             src="https://copilotstudio.microsoft.com/environments/2a892934-221c-eaa4-9f1a-4790000854ca/bots/cr546_uqAssistGenAiChatBot/webchat?__version__=2"
             frameborder="0" 
+            title="Ask Library Chatbot a question"
         ></iframe>
         <div class="bottomBar">
             <p class="confirmAnswers">Please visit any links I provide to confirm my answers.</p>
