@@ -39,7 +39,7 @@ template.innerHTML = `
                     <a tabindex="0" id="askus-chat-link" data-testid="askus-chat-link" data-analyticsid="askus-menu-chat" onclick="javascript: window.open('https://support.my.uq.edu.au/app/chat/chat_launch_lib/p/45', 'chat', 'toolbar=no, location=no, status=no, width=400, height=400');">
                         <svg class="interactiveContact MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"></path></svg>
                         <span class="interactiveContact">Chat</span>
-                        <span class="chatTimes"><span id="askus-chat-time"></span></span>
+                        <span class="chatTimes"><span id="askus-chat-time" data-testid="askus-chat-time"></span></span>
                     </a>
                 </li>
                 
@@ -67,16 +67,6 @@ template.innerHTML = `
                         <span>Contact form</span>
                     </a>
                 </li>
-                
-                <!-- Video -->
-                <li id="askus-video-li" role="menuitem" aria-disabled="false">
-                    <a tabindex="0" id="askus-video-link" href="https://video-chat.service-centre.uq.edu.au/" data-analyticsid="askus-menu-video" target="_blank">
-                        <svg class="interactiveContact MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"></path></svg>
-                        <span class="interactiveContact">Video call</span>
-                        <span class="chatTimes"><span id="askus-video-time"></span></span>
-                    </a>
-                </li>
-
                 <!-- More ways -->
                 <li id="askus-menu-item-moreways" role="menuitem" aria-disabled="false" style="width: 99%">
                     <a tabindex="0" href="https://web.library.uq.edu.au/contact-us" rel="noreferrer" data-analyticsid="askus-menu-moreways" target="_blank">
@@ -119,9 +109,10 @@ class AskUsButton extends HTMLElement {
         await api.loadChatStatus().then((isOnline) => {
             if (!isOnline) {
                 // Chat disabled
-                shadowRoot.getElementById('askus-chat-link').removeAttribute('onclick');
-                shadowRoot.getElementById('askus-phone-link').removeAttribute('href');
-                shadowRoot.getElementById('askus-video-link').removeAttribute('href');
+                const chatLink = shadowRoot.getElementById('askus-chat-link');
+                !!chatLink && chatLink.removeAttribute('onclick');
+                const phoneLink = shadowRoot.getElementById('askus-phone-link');
+                !!phoneLink && phoneLink.removeAttribute('href');
 
                 const labels = shadowRoot.querySelectorAll('span.interactiveContact');
                 !!labels && labels.forEach((l) => (l.textContent += ' - Closed'));
@@ -141,9 +132,6 @@ class AskUsButton extends HTMLElement {
 
             const phoneitem = shadowRoot.getElementById('askus-phone-time');
             !!hours && !!hours.phone && !!phoneitem && (phoneitem.innerText = hours.phone);
-
-            const videoitem = shadowRoot.getElementById('askus-video-time');
-            !!hours && !!hours.phone && !!videoitem && (videoitem.innerText = hours.phone);
         });
     }
 

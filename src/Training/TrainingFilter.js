@@ -512,11 +512,13 @@ class TrainingFilter extends HTMLElement {
         addCampusSelectorButton('All locations', 'all', 0);
 
         let index = 1; // 'all' button is '0'
-        campusList.forEach((campusCode) => {
-            const campusName = decodeURIComponent(campusCode);
-            addCampusSelectorButton(campusName, campusCode, index);
-            index++;
-        });
+        !!campusList &&
+            campusList.length > 0 &&
+            campusList.forEach((campusCode) => {
+                const campusName = decodeURIComponent(campusCode);
+                addCampusSelectorButton(campusName, campusCode, index);
+                index++;
+            });
     }
 
     /**

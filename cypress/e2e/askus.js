@@ -13,7 +13,7 @@ describe('AskUs menu', () => {
             cy.get('uq-site-header').find('askus-button').should('exist');
             openAskusPopup();
             cy.wait(500);
-            cy.get('askus-button').shadow().find('ul.askus-menu-list').find('li').should('have.length', 7);
+            cy.get('askus-button').shadow().find('ul.askus-menu-list').find('li').should('have.length', 6);
         });
 
         it('AskUs passes accessibility', () => {
@@ -71,6 +71,22 @@ describe('AskUs menu', () => {
         });
         it('Displays as offline when chat status api is 403', () => {
             cy.visit('http://localhost:8080/?user=errorUser');
+            cy.injectAxe();
+            cy.viewport(1280, 900);
+            openAskusPopup();
+            cy.get('askus-button')
+                .shadow()
+                .find('[data-testid="askus-chat-link"]')
+                .should('exist')
+                .should('have.value', '');
+            cy.get('askus-button')
+                .shadow()
+                .find('[data-testid="askus-chat-time"]')
+                .should('exist')
+                .should('have.value', '');
+        });
+        it('Displays as offline after hours', () => {
+            cy.visit('http://localhost:8080/?user=s1111111&chatstatusoffline=true');
             cy.injectAxe();
             cy.viewport(1280, 900);
             openAskusPopup();

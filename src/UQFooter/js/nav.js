@@ -99,8 +99,8 @@ export default [
                 href: 'https://contacts.uq.edu.au/contacts',
             },
             {
-                label: 'Find a researcher',
-                href: 'https://researchers.uq.edu.au',
+                label: 'Make a complaint',
+                href: 'https://www.uq.edu.au/complaints-appeals/',
             },
             {
                 label: 'Faculties, schools, institutes and centres',
