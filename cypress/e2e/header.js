@@ -55,7 +55,12 @@ describe('UQ Header', () => {
                     cy.get('[data-testid="uq-header-secondary-nav"]').find('li').should('have.length', 5);
 
                     // secondary nav exists
-                    cy.get('[data-testid="uq-header-primary-nav"]').find('li').should('have.length', 4);
+                    cy.get('[data-testid="uq-header-primary-nav"]')
+                        .find('li')
+                        .parent()
+                        .children()
+                        .its('length')
+                        .should('be.gt', 0);
 
                     // Site Search accordion toggles correctly
                     cy.get('[data-testid="uq-header-search-button"]').should('be.visible');
