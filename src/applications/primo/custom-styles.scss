@@ -1833,10 +1833,12 @@ prm-citation-trails-expand-button .switch-results md-switch.tiny-switch {
 }
 
 // highlight "Your search results were expanded to include results regardless of availability" message  [PT #186320477]
-prm-search-result-list .list-items-list .message-margin md-card, // remove this line after feb 2024
-prm-search-result-list .list-items-list div.margin-bottom-medium:first-of-type:not(#errorCodeMsg) md-card {
+// (but not the large "0 results for your search" message box [PT 187850525]
+prm-search-result-list .list-items-list div.margin-bottom-medium:first-of-type:not(#errorCodeMsg):not(:has(prm-no-search-result)) md-card {
     background-color: $uqInformationLight;
     text-align: center;
+}
+prm-search-result-list .list-items-list div.margin-bottom-medium:first-of-type:not(#errorCodeMsg) md-card {
     span  {
         font-style: normal
     }
