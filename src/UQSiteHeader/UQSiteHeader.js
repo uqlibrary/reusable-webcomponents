@@ -23,6 +23,11 @@ import { default as menuLocale } from '../locale/menu';
  * ie uqsiteheader does not add the utility area buttons itself - add them externally by either html or javascriot
  */
 
+const subsiteTemplate = document.createElement('template');
+subsiteTemplate.innerHTML = `<li id="subsite" data-testid="subsite-title" class="uq-breadcrumb__item" style="display: list-item">
+                    <a class="uq-breadcrumb__link" id="secondlevel-site-title" data-testid="secondlevel-site-title" href=""></a>
+                </li>`;
+
 const template = document.createElement('template');
 template.innerHTML = `
     <style>${styles.toString()}</style>
@@ -38,9 +43,6 @@ template.innerHTML = `
                 </li>
                 <li class="uq-breadcrumb__item">
                     <a id="site-title" data-testid="site-title" class="uq-breadcrumb__link" title="Library" href="https://www.library.uq.edu.au/">Library</a>
-                </li>
-                <li id="subsite" data-testid="subsite-title" class="uq-breadcrumb__item">
-                    <a class="uq-breadcrumb__link" id="secondlevel-site-title" data-testid="secondlevel-site-title" href=""></a>
                 </li>
             </ol>
         </nav>
@@ -165,10 +167,6 @@ class UQSiteHeader extends HTMLElement {
                 default:
                     console.log(`unhandled attribute ${fieldName} received for UQSiteHeader`);
             }
-
-            const subSiteElement = !!this.shadowRoot && this.shadowRoot.getElementById('subsite');
-            const newDisplayProperty = this.SecondLevelBreadcrumbPropertyCount >= 2 ? 'list-item' : 'none';
-            !!subSiteElement && (subSiteElement.style.display = newDisplayProperty);
         }, 50);
     }
 
@@ -188,8 +186,21 @@ class UQSiteHeader extends HTMLElement {
     }
 
     setSecondLevelTitle(newSecondLevelTitle) {
-        const siteTitleElement = !!this.shadowRoot && this.shadowRoot.getElementById('secondlevel-site-title');
-        !!siteTitleElement && !!newSecondLevelTitle && (siteTitleElement.innerHTML = newSecondLevelTitle);
+        const breadcrumbNav = this.shadowRoot.getElementById('breadcrumb_nav');
+        const subsiteAlreadyInserted = breadcrumbNav.querySelector('li#subsite');
+        if (!subsiteAlreadyInserted) {
+            const subsiteClone = subsiteTemplate.content.firstElementChild.cloneNode(true);
+
+            const thirdListItem = breadcrumbNav.children[2];
+            if (thirdListItem) {
+                breadcrumbNav.insertBefore(subsiteClone, thirdListItem);
+            } else {
+                breadcrumbNav.appendChild(subsiteTemplate.content.cloneNode(true));
+            }
+
+            const siteTitleElement = !!this.shadowRoot && this.shadowRoot.getElementById('secondlevel-site-title');
+            !!siteTitleElement && !!newSecondLevelTitle && (siteTitleElement.innerHTML = newSecondLevelTitle);
+        }
     }
 
     showMenu() {

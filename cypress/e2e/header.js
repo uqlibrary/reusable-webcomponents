@@ -103,7 +103,7 @@ describe('UQ Header', () => {
                         .contains('Library')
                         .should('have.attr', 'href')
                         .and('include', 'https://www.library.uq.edu.au/');
-                    cy.get('[data-testid="subsite-title"]').should('exist').should('not.be.visible');
+                    cy.get('[data-testid="subsite-title"]').should('not.exist');
                 });
         });
 
