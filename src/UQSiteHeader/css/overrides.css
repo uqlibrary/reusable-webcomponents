@@ -238,13 +238,14 @@ a.uq-site-header__navigation-link.slide-menu__control:-moz-focusring {
     outline: highlight auto 1px;
 }
 
-/* bradcrumb entries that dont have a href dont get an underline */
-a.uq-breadcrumb__link[href]:not([href=""]) {
-    text-decoration: underline;
-}
-a.uq-breadcrumb__link[href=""] {
-    text-decoration: none;
-}
+/* jake wants this removed for the moment to align with drupal poor implementation more */
+/* breadcrumb entries that dont have a href dont get an underline */
+/*a.uq-breadcrumb__link[href]:not([href=""]) {*/
+/*    text-decoration: underline;*/
+/*}*/
+/*a.uq-breadcrumb__link[href=""] {*/
+/*    text-decoration: none;*/
+/*}*/
 
 /* allow lots of room for lots of links in the breadcrumbs */
 .uq-site-header__title-container {
