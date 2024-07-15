@@ -260,3 +260,14 @@ a.uq-site-header__navigation-link.slide-menu__control:-moz-focusring {
 .uq-site-header .uq-site-header__title-container {
     padding-block: 10px 10px;
 }
+
+@media(max-width: 37.5rem) {
+    .uq-breadcrumb__item:nth-last-child(2) {
+        display: none
+    }
+}
+.uq-breadcrumb__item:nth-last-child(1) {
+    display: flex
+}
+
+
