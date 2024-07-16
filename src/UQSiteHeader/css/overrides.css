@@ -251,7 +251,7 @@ a.uq-site-header__navigation-link.slide-menu__control:-moz-focusring {
 .uq-site-header__title-container {
     justify-content: space-between;
 }
-@media(min-width: 37.5rem) {
+@media (min-width: 37.5rem) {
     .uq-site-header__title-container {
         justify-content: space-between;
     }
@@ -261,16 +261,5 @@ a.uq-site-header__navigation-link.slide-menu__control:-moz-focusring {
 }
 
 .uq-site-header .uq-site-header__title-container {
-    padding-block: 5px 5px;
+    padding-block: 5px;
 }
-
-@media(max-width: 37.5rem) {
-    .uq-breadcrumb__item:nth-last-child(2) {
-        display: none
-    }
-}
-.uq-breadcrumb__item:nth-last-child(1) {
-    display: flex
-}
-
-

@@ -24,7 +24,7 @@ import { default as menuLocale } from '../locale/menu';
  */
 
 const subsiteTemplate = document.createElement('template');
-subsiteTemplate.innerHTML = `<li id="subsite" data-testid="subsite-title" class="uq-breadcrumb__item" style="display: list-item">
+subsiteTemplate.innerHTML = `<li id="subsite" data-testid="subsite-title" class="uq-breadcrumb__item">
                     <a class="uq-breadcrumb__link" id="secondlevel-site-title" data-testid="secondlevel-site-title" href=""></a>
                 </li>`;
 
@@ -121,6 +121,17 @@ class UQSiteHeader extends HTMLElement {
         // Render the template
         const shadowDOM = this.attachShadow({ mode: 'open' });
         shadowDOM.appendChild(template.content.cloneNode(true));
+        this.addClickListeners(shadowDOM);
+    }
+
+    addClickListeners(shadowDOM) {
+        function resetBreadcrumbs() {
+            const subsiteTitle = shadowDOM.getElementById('subsite');
+            !!subsiteTitle && subsiteTitle.remove();
+        }
+        // when we go back to the library homepage from a sub page, clear out any lower breadcrumbs
+        const libraryTitleElement = shadowDOM.getElementById('site-title');
+        !!libraryTitleElement && libraryTitleElement.addEventListener('click', resetBreadcrumbs);
     }
 
     isValidUrl(urlString) {
@@ -192,6 +203,7 @@ class UQSiteHeader extends HTMLElement {
             const subsiteClone = subsiteTemplate.content.firstElementChild.cloneNode(true);
 
             const thirdListItem = breadcrumbNav.children[2];
+            // pages like guides with multiple levels needs different handling
             if (thirdListItem) {
                 breadcrumbNav.insertBefore(subsiteClone, thirdListItem);
             } else {

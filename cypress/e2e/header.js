@@ -107,6 +107,25 @@ describe('UQ Header', () => {
                 });
         });
 
+        it('Breadcrumbs in Responsive show the correct item', () => {
+            cy.viewport(650, 1024);
+            // both items show
+            cy.get('uq-site-header')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="root-link"]').should('exist').should('be.visible').contains('UQ home');
+                    cy.get('[data-testid="site-title"]').should('exist').should('be.visible').contains('Library Test');
+                });
+            cy.viewport(590, 1024);
+            // both items show
+            cy.get('uq-site-header')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="root-link"]').should('exist').should('be.visible').contains('UQ home');
+                    cy.get('[data-testid="site-title"]').should('exist').should('not.be.visible');
+                });
+        });
+
         it.skip('Responsive Menu operates as expected', () => {
             function mobileMenuIsHidden() {
                 cy.get('uq-site-header')
