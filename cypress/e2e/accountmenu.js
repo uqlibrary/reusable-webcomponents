@@ -149,7 +149,7 @@ function assertUserisLoggedOut() {
         .shadow()
         .find('[data-testid="auth-button-login-label"]')
         .should('be.visible')
-        .should('contain', 'Log in');
+        .should('contain', 'Sign in');
 }
 
 describe('Account menu button', () => {

@@ -51,3 +51,7 @@ header {
         padding-left: 2em;
     }
 }
+
+.uq-header__megamenu {
+    margin-top: -2px;
+}

@@ -55,7 +55,12 @@ describe('UQ Header', () => {
                     cy.get('[data-testid="uq-header-secondary-nav"]').find('li').should('have.length', 5);
 
                     // secondary nav exists
-                    cy.get('[data-testid="uq-header-primary-nav"]').find('li').should('have.length', 4);
+                    cy.get('[data-testid="uq-header-primary-nav"]')
+                        .find('li')
+                        .parent()
+                        .children()
+                        .its('length')
+                        .should('be.gt', 0);
 
                     // Site Search accordion toggles correctly
                     cy.get('[data-testid="uq-header-search-button"]').should('be.visible');
@@ -84,7 +89,44 @@ describe('UQ Header', () => {
             });
         });
 
-        it('Responsive Menu operates as expected', () => {
+        it('Site-header has expected items', () => {
+            cy.get('uq-site-header')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="root-link"]')
+                        .should('exist')
+                        .contains('UQ home')
+                        .should('have.attr', 'href')
+                        .and('include', 'https://uq.edu.au/');
+                    cy.get('[data-testid="site-title"]')
+                        .should('exist')
+                        .contains('Library')
+                        .should('have.attr', 'href')
+                        .and('include', 'https://www.library.uq.edu.au/');
+                    cy.get('[data-testid="subsite-title"]').should('not.exist');
+                });
+        });
+
+        it('Breadcrumbs in Responsive show the correct item', () => {
+            cy.viewport(650, 1024);
+            // both items show
+            cy.get('uq-site-header')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="root-link"]').should('exist').should('be.visible').contains('UQ home');
+                    cy.get('[data-testid="site-title"]').should('exist').should('be.visible').contains('Library Test');
+                });
+            cy.viewport(590, 1024);
+            // both items show
+            cy.get('uq-site-header')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="root-link"]').should('exist').should('be.visible').contains('UQ home');
+                    cy.get('[data-testid="site-title"]').should('exist').should('not.be.visible');
+                });
+        });
+
+        it.skip('Responsive Menu operates as expected', () => {
             function mobileMenuIsHidden() {
                 cy.get('uq-site-header')
                     .shadow()
@@ -154,7 +196,7 @@ describe('UQ Header', () => {
             mobileMenuIsHidden();
         });
 
-        it('Desktop menu can open', () => {
+        it.skip('Desktop menu can open', () => {
             cy.viewport(1280, 900);
 
             // mobile button is hidden

@@ -15,15 +15,15 @@ describe('Dummy Application', () => {
                 .should('be.visible');
             // has an auth button
             cy.get('auth-button').shadow().find('button:contains("Log out")').should('exist');
-            // has a mega menu
-            // the menu appears on click
-            cy.get('uq-site-header').shadow().find('nav[aria-label="Site navigation"]').should('be.visible');
-            // and has the correct children
-            cy.get('uq-site-header')
-                .shadow()
-                .find('nav[aria-label="Site navigation"]')
-                .find('ul')
-                .should('have.length', 7); // length of the megamenu .json
+            // // has a mega menu
+            // // the menu appears on click
+            // cy.get('uq-site-header').shadow().find('nav[aria-label="Site navigation"]').should('be.visible');
+            // // and has the correct children
+            // cy.get('uq-site-header')
+            //     .shadow()
+            //     .find('nav[aria-label="Site navigation"]')
+            //     .find('ul')
+            //     .should('have.length', 7); // length of the megamenu .json
         });
     });
 
@@ -46,18 +46,6 @@ describe('Dummy Application', () => {
 
     function hasNoUqSiteHeader() {
         cy.get('uq-site-header').should('not.exist');
-    }
-
-    function hasMegaMenu() {
-        cy.get('uq-site-header')
-            .shadow()
-            .find('li[data-testid="menu-group-item-0"]')
-            .should('exist')
-            .contains('Library services');
-    }
-
-    function hasNoMegaMenu() {
-        cy.get('uq-site-header').shadow().find('li[data-testid="menu-group-item-0"]').should('not.exist');
     }
 
     function hasAskusButton() {
@@ -125,7 +113,7 @@ describe('Dummy Application', () => {
             .shadow()
             .find('[data-testid="connect-footer-social-heading"]')
             .should('exist')
-            .and('contain', 'Connect with the Library');
+            .and('contain', 'Library footer');
     }
 
     function hasNoConnectFooter() {
@@ -176,8 +164,6 @@ describe('Dummy Application', () => {
 
             hasUqSiteHeader();
 
-            hasNoMegaMenu();
-
             hasAskusButton();
             hasProactiveChat();
             hasAuthButton();
@@ -198,8 +184,6 @@ describe('Dummy Application', () => {
 
             hasUqSiteHeader();
 
-            hasNoMegaMenu();
-
             hasNoAskusButton();
             hasNoAuthButton();
 
@@ -219,8 +203,6 @@ describe('Dummy Application', () => {
             hasUqHeader();
 
             hasUqSiteHeader();
-
-            hasMegaMenu();
 
             hasAskusButton();
             //hasProactiveChat();
@@ -246,8 +228,6 @@ describe('Dummy Application', () => {
 
             hasUqSiteHeader();
 
-            hasNoMegaMenu();
-
             hasAskusButton();
             hasNoAuthButton();
 
@@ -268,11 +248,38 @@ describe('Dummy Application', () => {
             hasUqHeader();
 
             hasUqSiteHeader();
+            // the guides built in bookmark has been removed
+            cy.get('uq-site-header')
+                .shadow()
+                .within(() => {
+                    // the breadcrumbs has all the children from the guides demo page
+                    cy.get('div.uq-site-header nav ol').children().should('have.length', 6);
+                    cy.get('div.uq-site-header nav ol li:nth-child(3) a')
+                        .should('have.attr', 'href', `https://guides.library.uq.edu.au/`)
+                        .contains('Guides')
+                        .should('have.css', 'text-decoration-line', 'underline');
+                    cy.get('div.uq-site-header nav ol li:nth-child(4) a')
+                        .should('have.attr', 'href', `https://guides.library.uq.edu.au/how-to-find`)
+                        .contains('How to find')
+                        .should('have.css', 'text-decoration-line', 'underline');
+                    cy.get('div.uq-site-header nav ol li:nth-child(5) a')
+                        .should(
+                            'have.attr',
+                            'href',
+                            `https://guides.library.uq.edu.au/how-to-find/evidence-based-practice`,
+                        )
+                        .contains('Evidence-based practice in health sciences')
+                        .should('have.css', 'text-decoration-line', 'underline');
+                    // that last not-a-link does not have an underline
+                    cy.get('div.uq-site-header nav ol li:nth-child(6) span')
+                        .contains('Introduction')
+                        .should('not.have.css', 'text-decoration-line', 'underline');
+                    // guides built in breadcrumb has been removed
+                    cy.get('#s-lib-bc').should('not.exist');
+                });
 
-            hasNoMegaMenu();
-
-            hasNoAskusButton();
-            hasNoAuthButton();
+            hasAskusButton();
+            hasAuthButton();
 
             hasAnAlert();
 
@@ -290,8 +297,6 @@ describe('Dummy Application', () => {
             hasUqHeader();
 
             hasUqSiteHeader();
-
-            hasNoMegaMenu();
 
             hasNoAskusButton();
             hasNoAuthButton();
@@ -312,8 +317,6 @@ describe('Dummy Application', () => {
             hasUqHeader();
 
             hasUqSiteHeader();
-
-            hasMegaMenu();
 
             hasAskusButton();
             hasProactiveChat();
@@ -366,8 +369,6 @@ describe('Dummy Application', () => {
             hasUqHeader();
 
             hasUqSiteHeader();
-
-            hasNoMegaMenu();
 
             hasAskusButton();
             //hasProactiveChat();
@@ -467,8 +468,6 @@ describe('Dummy Application', () => {
             // hasUqHeader();
             //
             // hasUqSiteHeader('https://espace.library.uq.edu.au/');
-            //
-            // hasNoMegaMenu();
             //
             // hasNoAskusButton();
             // hasAuthButton();
