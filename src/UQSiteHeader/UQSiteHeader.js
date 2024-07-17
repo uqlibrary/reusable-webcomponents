@@ -213,7 +213,6 @@ class UQSiteHeader extends HTMLElement {
         }
 
         const breadcrumbNav = this.shadowRoot.getElementById('breadcrumb_nav');
-        console.log('breadcrumbNav 1=', breadcrumbNav);
         const subsiteAlreadyInserted = !!breadcrumbNav && breadcrumbNav.querySelector('li#subsite');
         if (!subsiteAlreadyInserted) {
             const subsiteClone = subsiteTemplate.content.firstElementChild.cloneNode(true);
@@ -225,14 +224,11 @@ class UQSiteHeader extends HTMLElement {
             } else {
                 !!breadcrumbNav && breadcrumbNav.appendChild(subsiteTemplate.content.cloneNode(true));
             }
-            if (isSitePrimoNonProd()) {
-                console.log('breadcrumbNav 2=', breadcrumbNav);
-                const secondLevelLink = !!breadcrumbNav && breadcrumbNav.getElementById('secondlevel-site-title');
-                !!secondLevelLink && secondLevelLink.classList.add('primoNonProdMarker');
-            }
-
             const siteTitleElement = !!this.shadowRoot && this.shadowRoot.getElementById('secondlevel-site-title');
             !!siteTitleElement && !!newSecondLevelTitle && (siteTitleElement.innerHTML = newSecondLevelTitle);
+            if (isSitePrimoNonProd()) {
+                !!siteTitleElement && siteTitleElement.classList.add('primoNonProdMarker');
+            }
         } else if (newSecondLevelTitle === null) {
             // the li exists, but we are back on the homepage - delete it
             subsiteAlreadyInserted.remove();
