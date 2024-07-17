@@ -212,6 +212,9 @@ class UQSiteHeader extends HTMLElement {
 
             const siteTitleElement = !!this.shadowRoot && this.shadowRoot.getElementById('secondlevel-site-title');
             !!siteTitleElement && !!newSecondLevelTitle && (siteTitleElement.innerHTML = newSecondLevelTitle);
+        } else if (newSecondLevelTitle === null) {
+            // the li exists, but we are back on the homepage - delete it
+            subsiteAlreadyInserted.remove();
         }
     }
 
