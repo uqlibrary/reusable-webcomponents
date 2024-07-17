@@ -207,25 +207,27 @@ class UQSiteHeader extends HTMLElement {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(name);
         }
-        function isPrimoNonProd() {
+        function isSitePrimoNonProd() {
             const vidParam = getSearchParam('vid');
             return (isDomainPrimoProd() && vidParam !== '61UQ') || isDomainPrimoSandbox();
         }
 
         const breadcrumbNav = this.shadowRoot.getElementById('breadcrumb_nav');
-        const subsiteAlreadyInserted = breadcrumbNav.querySelector('li#subsite');
+        console.log('breadcrumbNav 1=', breadcrumbNav);
+        const subsiteAlreadyInserted = !!breadcrumbNav && breadcrumbNav.querySelector('li#subsite');
         if (!subsiteAlreadyInserted) {
             const subsiteClone = subsiteTemplate.content.firstElementChild.cloneNode(true);
 
-            const thirdListItem = breadcrumbNav.children[2];
+            const thirdListItem = !!breadcrumbNav && breadcrumbNav.children[2];
             // pages like guides with multiple levels needs different handling
             if (thirdListItem) {
-                breadcrumbNav.insertBefore(subsiteClone, thirdListItem);
+                !!breadcrumbNav && breadcrumbNav.insertBefore(subsiteClone, thirdListItem);
             } else {
-                breadcrumbNav.appendChild(subsiteTemplate.content.cloneNode(true));
+                !!breadcrumbNav && breadcrumbNav.appendChild(subsiteTemplate.content.cloneNode(true));
             }
-            if (isPrimoNonProd()) {
-                const secondLevelLink = breadcrumbNav.getElementById('secondlevel-site-title');
+            if (isSitePrimoNonProd()) {
+                console.log('breadcrumbNav 2=', breadcrumbNav);
+                const secondLevelLink = !!breadcrumbNav && breadcrumbNav.getElementById('secondlevel-site-title');
                 !!secondLevelLink && secondLevelLink.classList.add('primoNonProdMarker');
             }
 
