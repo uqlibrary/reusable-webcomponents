@@ -197,6 +197,21 @@ class UQSiteHeader extends HTMLElement {
     }
 
     setSecondLevelTitle(newSecondLevelTitle) {
+        function isDomainPrimoProd() {
+            return window.location.hostname === 'search.library.uq.edu.au';
+        }
+        function isDomainPrimoSandbox() {
+            return window.location.hostname === 'uq-edu-primo-sb.hosted.exlibrisgroup.com';
+        }
+        function getSearchParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+        function isPrimoNonProd() {
+            const vidParam = getSearchParam('vid');
+            return (isDomainPrimoProd() && vidParam !== '61UQ') || isDomainPrimoSandbox();
+        }
+
         const breadcrumbNav = this.shadowRoot.getElementById('breadcrumb_nav');
         const subsiteAlreadyInserted = breadcrumbNav.querySelector('li#subsite');
         if (!subsiteAlreadyInserted) {
@@ -208,6 +223,10 @@ class UQSiteHeader extends HTMLElement {
                 breadcrumbNav.insertBefore(subsiteClone, thirdListItem);
             } else {
                 breadcrumbNav.appendChild(subsiteTemplate.content.cloneNode(true));
+            }
+            if (isPrimoNonProd()) {
+                const secondLevelLink = breadcrumbNav.getElementById('secondlevel-site-title');
+                !!secondLevelLink && secondLevelLink.classList.add('primoNonProdMarker');
             }
 
             const siteTitleElement = !!this.shadowRoot && this.shadowRoot.getElementById('secondlevel-site-title');
