@@ -815,22 +815,20 @@ uq-site-header {
     }
 }
 
-askus-button,
-new-askus-button {
+askus-button {
     &::part(button) {
         height: 42px;
-        width: 42px;
-        background-color: rgba(51, 51, 51, 0.12);
         margin-left: 4px;
-        &:hover,
-        &:active &:focus {
-            background-color: $white;
-            opacity: initial;
-        }
+        margin-top: -6px;
     }
-    // make the askus button look more like the native primo buttons
-    &::part(label) {
-        display: none;
+}
+
+askus-button:hover,
+askus-button:active,
+askus-button:focus {
+    &::part(button) {
+        background-color: $white;
+        opacity: initial;
     }
 }
 
@@ -1842,4 +1840,29 @@ prm-search-result-list .list-items-list div.margin-bottom-medium:first-of-type:n
     span  {
         font-style: normal
     }
+}
+
+// show the label we have added beside the primo icons
+#fixed-buttons-holder a,
+prm-search-bookmark-filter button.md-button.md-icon-button {
+    border-radius: 0;
+    display: flex;
+    justify-content: space-between;
+    text-transform: none;
+    background-color: transparent;
+}
+#fixed-buttons-holder a {
+    width: 110px;
+    &:hover {
+        background-color: white;
+        box-shadow: none;
+    }
+}
+prm-search-bookmark-filter button.md-button.md-icon-button {
+    width: 70px;
+    padding-inline: 4px;
+    margin-inline: 0;
+}
+prm-topbar .mergeup {
+    margin-top: -61px;
 }

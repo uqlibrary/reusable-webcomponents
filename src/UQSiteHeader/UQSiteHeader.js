@@ -9,6 +9,7 @@ import { default as menuLocale } from '../locale/menu';
  *       sitetitle="Library"                       // should be displayed on all sites - the text of the homepage link. Optional. Default "Library"
  *       siteurl="https://www.library.uq.edu.au"  // should be displayed on 2nd level sites - the link to the homepage. Optional. Default "https://www.library.uq.edu.au/"
  *       secondleveltitle="Guides"                 // should be displayed on 2nd level sites - the text of the homepage link. Optional. Default null (not present)
+ *                                                 // it is probably necessery to always have the secondleveltitle go first (before secondlevelurl)
  *       secondlevelurl="http://guides.library.uq.edu.au"    // should be displayed on all sites - the link of the homepage link. Optional. Default null (not present)
  *       (both second level required if either)
  *   >
@@ -25,7 +26,7 @@ import { default as menuLocale } from '../locale/menu';
 
 const subsiteTemplate = document.createElement('template');
 subsiteTemplate.innerHTML = `<li id="subsite" data-testid="subsite-title" class="uq-breadcrumb__item">
-                    <a class="uq-breadcrumb__link" id="secondlevel-site-title" data-testid="secondlevel-site-title" href=""></a>
+                    <a class="uq-breadcrumb__link" id="secondlevel-site-breadcrumb-link" data-testid="secondlevel-site-title" href=""></a>
                 </li>`;
 
 const template = document.createElement('template');
@@ -100,7 +101,7 @@ class UQSiteHeader extends HTMLElement {
     constructor() {
         super();
 
-        this.SecondLevelBreadcrumbPropertyCount = 0;
+        // this.SecondLevelBreadcrumbPropertyCount = 0;
 
         // when the ITS script loads, we store the object it supplies,
         // so we can use it when the menu has finished loading to supply the menu mouseover
@@ -166,12 +167,12 @@ class UQSiteHeader extends HTMLElement {
                     break;
                 case 'secondleveltitle':
                     this.setSecondLevelTitle(newValue);
-                    this.SecondLevelBreadcrumbPropertyCount++;
+                    // this.SecondLevelBreadcrumbPropertyCount++;
 
                     break;
                 case 'secondlevelurl':
                     this.setSecondLevelUrl(newValue);
-                    this.SecondLevelBreadcrumbPropertyCount++;
+                    // this.SecondLevelBreadcrumbPropertyCount++;
 
                     break;
                 /* istanbul ignore next  */
@@ -192,8 +193,9 @@ class UQSiteHeader extends HTMLElement {
     }
 
     setSecondLevelUrl(newSecondLevelURL) {
-        const siteTitleElement = !!this.shadowRoot && this.shadowRoot.getElementById('secondlevel-site-title');
-        !!siteTitleElement && !!newSecondLevelURL && (siteTitleElement.href = newSecondLevelURL);
+        const subsiteBreadcrumb =
+            !!this.shadowRoot && this.shadowRoot.getElementById('secondlevel-site-breadcrumb-link');
+        !!subsiteBreadcrumb && !!newSecondLevelURL && (subsiteBreadcrumb.href = newSecondLevelURL);
     }
 
     setSecondLevelTitle(newSecondLevelTitle) {
@@ -224,14 +226,23 @@ class UQSiteHeader extends HTMLElement {
             } else {
                 !!breadcrumbNav && breadcrumbNav.appendChild(subsiteTemplate.content.cloneNode(true));
             }
-            const siteTitleElement = !!this.shadowRoot && this.shadowRoot.getElementById('secondlevel-site-title');
-            !!siteTitleElement && !!newSecondLevelTitle && (siteTitleElement.innerHTML = newSecondLevelTitle);
+            const subsiteBreadcrumb =
+                !!this.shadowRoot && this.shadowRoot.getElementById('secondlevel-site-breadcrumb-link');
+            !!subsiteBreadcrumb && !!newSecondLevelTitle && (subsiteBreadcrumb.innerHTML = newSecondLevelTitle);
             if (isSitePrimoNonProd()) {
-                !!siteTitleElement && siteTitleElement.classList.add('primoNonProdMarker');
+                !!subsiteBreadcrumb && subsiteBreadcrumb.classList.add('primoNonProdMarker');
             }
         } else if (newSecondLevelTitle === null) {
             // the li exists, but we are back on the homepage - delete it
             subsiteAlreadyInserted.remove();
+        } else {
+            // it exists, update it
+            const subsiteBreadcrumb =
+                !!this.shadowRoot && this.shadowRoot.getElementById('secondlevel-site-breadcrumb-link');
+            !!subsiteBreadcrumb && !!newSecondLevelTitle && (subsiteBreadcrumb.innerHTML = newSecondLevelTitle);
+            if (isSitePrimoNonProd()) {
+                !!subsiteBreadcrumb && subsiteBreadcrumb.classList.add('primoNonProdMarker');
+            }
         }
     }
 
