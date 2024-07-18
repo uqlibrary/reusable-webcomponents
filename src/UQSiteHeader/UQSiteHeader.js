@@ -217,28 +217,32 @@ class UQSiteHeader extends HTMLElement {
         }
 
         const breadcrumbNav = this.shadowRoot.getElementById('breadcrumb_nav');
-        const subsiteAlreadyInserted = !!breadcrumbNav && breadcrumbNav.querySelector('li#subsite');
-        if (!subsiteAlreadyInserted) {
+        const subsiteListItem = !!breadcrumbNav && breadcrumbNav.querySelector('li#subsite');
+        if (!subsiteListItem) {
             console.log('BREADCRUMBS subsite not found, add newSecondLevelTitle', newSecondLevelTitle);
-            const subsiteClone = subsiteTemplate.content.firstElementChild.cloneNode(true);
+            if (!!newSecondLevelTitle) {
+                const subsiteClone = subsiteTemplate.content.firstElementChild.cloneNode(true);
 
-            const thirdListItem = !!breadcrumbNav && breadcrumbNav.children[2];
-            // pages like guides with multiple levels needs different handling
-            if (thirdListItem) {
-                !!breadcrumbNav && breadcrumbNav.insertBefore(subsiteClone, thirdListItem);
-            } else {
-                !!breadcrumbNav && breadcrumbNav.appendChild(subsiteTemplate.content.cloneNode(true));
-            }
-            const subsiteBreadcrumb =
-                !!this.shadowRoot && this.shadowRoot.getElementById('secondlevel-site-breadcrumb-link');
-            !!subsiteBreadcrumb && !!newSecondLevelTitle && (subsiteBreadcrumb.innerHTML = newSecondLevelTitle);
-            if (isSitePrimoNonProd()) {
-                !!subsiteBreadcrumb && subsiteBreadcrumb.classList.add('primoNonProdMarker');
+                const thirdListItem = !!breadcrumbNav && breadcrumbNav.children[2];
+                // pages like guides with multiple levels needs different handling
+                if (thirdListItem) {
+                    !!breadcrumbNav && breadcrumbNav.insertBefore(subsiteClone, thirdListItem);
+                } else {
+                    !!breadcrumbNav && breadcrumbNav.appendChild(subsiteTemplate.content.cloneNode(true));
+                }
+                const subsiteBreadcrumb =
+                    !!this.shadowRoot && this.shadowRoot.getElementById('secondlevel-site-breadcrumb-link');
+                !!subsiteBreadcrumb && !!newSecondLevelTitle && (subsiteBreadcrumb.innerHTML = newSecondLevelTitle);
+                if (isSitePrimoNonProd()) {
+                    !!subsiteBreadcrumb && subsiteBreadcrumb.classList.add('primoNonProdMarker');
+                }
             }
         } else if (newSecondLevelTitle === null) {
-            console.log('BREADCRUMBS newSecondLevelTitle === null');
-            // the li exists, but we are back on the homepage - delete it
-            subsiteAlreadyInserted.remove();
+            console.log('BREADCRUMBS newSecondLevelTitle === null subsiteListItem=', subsiteListItem);
+            if (!!subsiteListItem) {
+                // the li exists, but we are back on the homepage - delete it
+                subsiteListItem.remove();
+            }
         } else {
             console.log('BREADCRUMBS it exists, update it', newSecondLevelTitle);
             // it exists, update it
