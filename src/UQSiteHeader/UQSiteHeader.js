@@ -219,6 +219,7 @@ class UQSiteHeader extends HTMLElement {
         const breadcrumbNav = this.shadowRoot.getElementById('breadcrumb_nav');
         const subsiteAlreadyInserted = !!breadcrumbNav && breadcrumbNav.querySelector('li#subsite');
         if (!subsiteAlreadyInserted) {
+            console.log('BREADCRUMBS subsite not found, add newSecondLevelTitle', newSecondLevelTitle);
             const subsiteClone = subsiteTemplate.content.firstElementChild.cloneNode(true);
 
             const thirdListItem = !!breadcrumbNav && breadcrumbNav.children[2];
@@ -235,9 +236,11 @@ class UQSiteHeader extends HTMLElement {
                 !!subsiteBreadcrumb && subsiteBreadcrumb.classList.add('primoNonProdMarker');
             }
         } else if (newSecondLevelTitle === null) {
+            console.log('BREADCRUMBS newSecondLevelTitle === null');
             // the li exists, but we are back on the homepage - delete it
             subsiteAlreadyInserted.remove();
         } else {
+            console.log('BREADCRUMBS it exists, update it', newSecondLevelTitle);
             // it exists, update it
             const subsiteBreadcrumb =
                 !!this.shadowRoot && this.shadowRoot.getElementById('secondlevel-site-breadcrumb-link');
