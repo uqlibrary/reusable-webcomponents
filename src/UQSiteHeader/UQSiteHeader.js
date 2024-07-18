@@ -128,10 +128,12 @@ class UQSiteHeader extends HTMLElement {
     addClickListeners(shadowDOM) {
         function resetBreadcrumbs() {
             const subsiteTitle = shadowDOM.getElementById('subsite');
+            console.log('BREADCRUMBS homepage clicked - remove subsite');
             !!subsiteTitle && subsiteTitle.remove();
         }
         // when we go back to the library homepage from a sub page, clear out any lower breadcrumbs
         const libraryTitleElement = shadowDOM.getElementById('site-title');
+        console.log('BREADCRUMBS add clickhandler to libraryTitleElement:', libraryTitleElement);
         !!libraryTitleElement && libraryTitleElement.addEventListener('click', resetBreadcrumbs);
     }
 
