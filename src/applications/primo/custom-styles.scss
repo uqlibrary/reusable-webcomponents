@@ -1868,8 +1868,35 @@ prm-search-bookmark-filter button.md-button.md-icon-button {
         margin-top: -61px;
     }
 }
-@media (max-width: 780px) {
+@media (max-width: 780px)  {
+    prm-topbar .mergeup {
+        margin-top: -61px;
+    }
+}
+@media (max-width: 780px) and (min-width: 600px) {
     prm-topbar .mergeup {
         margin-top: -25px;
+        &.layout-row > div[flex="50"],
+        prm-main-menu.flex-50 {
+            flex: none;
+        }
+        prm-search-bookmark-filter {
+            margin-left: 20px;
+            justify-content: flex-start;
+        }
+    }
+}
+@media (max-width: 470px) {
+    // same as 780-600
+    prm-topbar .mergeup {
+        margin-top: -25px;
+        &.layout-row > div[flex="50"],
+        prm-main-menu.flex-50 {
+            flex: none;
+        }
+        prm-search-bookmark-filter {
+            margin-left: 20px;
+            justify-content: flex-start;
+        }
     }
 }
