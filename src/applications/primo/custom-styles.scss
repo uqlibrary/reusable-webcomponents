@@ -1861,6 +1861,13 @@ prm-search-bookmark-filter button.md-button.md-icon-button {
     padding-inline: 4px;
     margin-inline: 0;
 }
-prm-topbar .mergeup {
-    margin-top: -61px;
+@media (min-width: 780px) {
+    prm-topbar .mergeup {
+        margin-top: -61px;
+    }
+}
+@media (max-width: 780px) {
+    prm-topbar .mergeup {
+        margin-top: -25px;
+    }
 }
