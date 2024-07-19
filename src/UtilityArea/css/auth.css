@@ -3,14 +3,12 @@
 }
 .auth .auth-icon {
     fill: #745095; /* purple-200 */
-    /*margin-bottom: -5px;*/
 }
 .auth .auth-icon-loggedin {
     margin-right: 2px;
 }
 .auth .auth-icon-loginprompt {
     width: 24px;
-    /*height: 24px;*/
 }
 
 .auth .auth-log-in-label {
@@ -21,7 +19,6 @@
 }
 
 .auth button {
-    display: flex;
     align-items: center;
     background: rgba(0, 0, 0, 0);
     border: none;
@@ -33,7 +30,9 @@
     transition-property: background-color;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
-.auth button:hover {
+.auth button:hover,
+.auth button:focus,
+.auth button:active {
     background: rgba(0, 0, 0, 0.04);
     border-radius: 5px;
     transition-delay: 0s;
@@ -41,12 +40,20 @@
     transition-property: background-color;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
+.account-options-menu-list button.logout {
+    background-color: #2377cb;
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
 .account-options-menu-list button.logout,
 .username-area {
-    display: flex;
     align-items: center;
     font-weight: 500;
     font-family: Roboto, Helvetica, sans-serif;
+}
+.username-area {
+    display: flex;
     margin-top: 4px;
 }
 .username-area svg {
@@ -64,15 +71,15 @@ button {
     cursor: pointer;
 }
 
-button.login-button:hover,
-button.login-button:active,
-button.login-button:focus {
-    background: rgba(0, 0, 0, 0.04);
-    transition-delay: 0s;
-    transition-duration: 0.15s;
-    transition-property: background-color;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
+/*button.login-button:hover,*/
+/*button.login-button:focus,*/
+/*button.login-button:active {*/
+/*    background: rgba(0, 0, 0, 0.04);*/
+/*    transition-delay: 0s;*/
+/*    transition-duration: 0.15s;*/
+/*    transition-property: background-color;*/
+/*    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);*/
+/*}*/
 
 button.login-button:active {
     outline: none;
@@ -159,46 +166,21 @@ button.login-button:active {
     flex: 1;
 }
 .auth button.logout.md-button {
-    display: inline-block;
-    position: relative;
+    height: 36px;
+    width: 80px;
     cursor: pointer;
-    line-height: 36px;
-    vertical-align: middle;
-    align-items: center;
     text-align: center;
     border-radius: 2px;
-    box-sizing: border-box;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    outline: none;
-    border: 0;
-    white-space: nowrap;
     text-transform: uppercase;
-    font-weight: 500;
-    font-size: 14px;
-    font-style: inherit;
-    font-variant: inherit;
-    font-family: inherit;
-    text-decoration: none;
-    overflow: hidden;
-    transition: box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-    max-width: 88px;
-    max-height: 36px;
-
-    flex: 1;
 }
 .md-button.md-primary span {
-    min-height: 36px;
-    min-width: 88px;
-    padding: 12px;
-    background-color: #2377cb;
     color: #fff;
+    margin-left: auto;
+    margin-right: auto;
 }
-.md-button.md-primary:hover span,
-.md-button.md-primary:focus span,
-.md-button.md-primary.hovered span {
+.md-button.md-primary:hover,
+.md-button.md-primary:focus,
+.md-button.md-primary.hovered {
     background-color: #195794;
 }
 .md-menu-item {
