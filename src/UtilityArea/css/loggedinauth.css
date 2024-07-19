@@ -84,7 +84,7 @@ button {
         border-radius: 4px;
         box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
         left: auto;
-        right: 0;
+        right: 20px;
         position: absolute;
         min-width: 320px;
         transition: transform 0.2s ease-out, opacity 0.2s ease-out;
