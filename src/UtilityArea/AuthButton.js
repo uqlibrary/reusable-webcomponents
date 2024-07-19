@@ -1,4 +1,5 @@
-import styles from './css/auth.css';
+import loggedinstyles from './css/loggedinauth.css';
+import loggedoutstyles from './css/loggedoutauth.css';
 import ApiAccess from '../ApiAccess/ApiAccess';
 import { authLocale } from './auth.locale';
 import { isBackTabKeyPressed, isEscapeKeyPressed, isTabKeyPressed } from '../helpers/keyDetection';
@@ -52,7 +53,7 @@ const ICON_MUI_LOCALLIBRARY =
 // (NOTE: due to complexity of an account check in primo, we are not showing the espace dashboard link or admin items there)
 const authorisedtemplate = document.createElement('template');
 authorisedtemplate.innerHTML = `
-    <style>${styles.toString()}</style>
+    <style>${loggedinstyles.toString()}</style>
     <div id="auth" class="auth loggedin">
         <button id="account-option-button" data-testid="account-option-button" data-analyticsid="account-option-button">
             <div id="username-area" data-testid="username-area-label" data-analyticsid="username-area-label" class="username-area">
@@ -66,13 +67,13 @@ authorisedtemplate.innerHTML = `
             </div>
         </button>
         <!-- Menu -->
-        <div id="account-options-menu" class="auth-menu" data-testid="account-options-menu" class="account-options-menu-closed" style="display: none;">
+        <div id="account-options-menu" class="auth-menu" data-testid="account-options-menu" class="account-options-menu account-options-menu-closed" style="display: none;">
             <div class="account-options-menu-list">
                 <h2 class="accessible-only">Menu</h2>
                 <div width="5" class="md-menu-content prm-user-menu-content md-primoExplore-theme" role="menu">
                     <div class="md-menu-item"  >
                         <div class="user-menu-header">
-                            <div layout="column" flex="" class="layout-column flex">
+                            <div layout="column" class="layout-column flex">
                                 <span class="tiny-text">Logged in as:</span>
                                 <span id="user-display-name" data-testid="user-display-name" class="user-display-name bold-text" style="padding-right:1rem"></span>
                             </div>
@@ -161,7 +162,7 @@ authorisedtemplate.innerHTML = `
 `;
 const unauthorisedtemplate = document.createElement('template');
 unauthorisedtemplate.innerHTML = `
-    <style>${styles.toString()}</style>
+    <style>${loggedoutstyles.toString()}</style>
     <div class="auth loggedout">
         <button id="auth-button-login" class="login-button" data-testid="auth-button-login" data-analyticsid="auth-button-login">
             <svg class="auth-icon auth-icon-loginprompt" focusable="false" viewBox="0 0 24 24" aria-hidden="true" id="logged-out-icon">
