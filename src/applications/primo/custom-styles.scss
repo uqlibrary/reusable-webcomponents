@@ -164,6 +164,9 @@ prm-search-bookmark-filter {
     .md-icon-button.button-over-dark {
         color: $textColor !important;
     }
+    .md-ripple-container {
+        display: none; // the ripple looks really strange now we have gone to square buttons
+    }
 }
 
 // Arrows shown next to headings in favourites
@@ -1846,18 +1849,17 @@ prm-search-bookmark-filter button.md-button.md-icon-button {
     border-radius: 0;
     display: flex;
     justify-content: space-between;
-    text-transform: none;
     background-color: transparent;
 }
 #fixed-buttons-holder a {
-    width: 110px;
+    width: 115px;
     &:hover {
         background-color: white;
         box-shadow: none;
     }
 }
 prm-search-bookmark-filter button.md-button.md-icon-button {
-    width: 70px;
+    width: 55px;
     padding-inline: 4px;
     margin-inline: 0;
 }
@@ -1872,6 +1874,7 @@ prm-search-bookmark-filter button.md-button.md-icon-button {
     }
 }
 @media (max-width: 780px) and (min-width: 600px) {
+    // when the breadcrumb count drops to one, we have room to go back on one bar
     prm-topbar .mergeup {
         margin-top: -25px;
         &.layout-row > div[flex="50"],
@@ -1885,7 +1888,7 @@ prm-search-bookmark-filter button.md-button.md-icon-button {
     }
 }
 @media (max-width: 470px) {
-    // same as 780-600
+    // drop below, same as 780-600
     prm-topbar .mergeup {
         margin-top: -25px;
         &.layout-row > div[flex="50"],
