@@ -306,4 +306,5 @@ button.proactive-chat-button:focus {
     padding-inline: 0;
     font-style: initial;
     cursor: pointer;
+    font-family: 'Roboto', sans-serif;
 }
