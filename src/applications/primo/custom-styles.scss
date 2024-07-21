@@ -1854,7 +1854,10 @@ prm-search-bookmark-filter button.md-button.md-icon-button {
     background-color: transparent;
 }
 #fixed-buttons-holder a {
-    width: 115px;
+    width: 120px;
+    &[aria-label="Go to Search"] {
+        width: 90px; // when the label swaps we need it a little narrower
+    }
     &:hover {
         background-color: white;
         box-shadow: none;
