@@ -273,6 +273,11 @@ button.proactive-chat-button:focus {
     width: 100%;
     height: calc(100% - 115px);
 }
+@media screen and (max-width: 530px) {
+    .chatbotWrapper iframe {
+        height: calc(100% - 125px);
+    }
+}
 
 .bottomBar {
     background-color: white;
