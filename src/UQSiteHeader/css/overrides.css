@@ -271,3 +271,9 @@ a.uq-site-header__navigation-link.slide-menu__control:-moz-focusring {
     font-weight: bold;
     font-size: 12px;
 }
+/* move the mobile menu up a bit to cover the utility area */
+@media (max-width: 64em) {
+    ul.uq-site-header__navigation__list.uq-site-header__navigation__list--level-1[aria-expanded="true"] {
+        margin-top: -50px;
+    }
+}
