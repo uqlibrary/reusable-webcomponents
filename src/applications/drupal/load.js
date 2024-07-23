@@ -80,14 +80,23 @@ function insertScript(url, defer = false) {
     }
 }
 
-const stagingHosts = [libraryStagingDomain, 'dev-library-uq.pantheonsite.io'];
+function isITSExternalHosting() {
+    return window.location.hostname.endsWith('-library-uq.pantheonsite.io');
+}
+
 function isStagingSite() {
-    return stagingHosts.includes(window.location.hostname);
+    if (window.location.hostname === libraryStagingDomain) {
+        return true;
+    }
+    if (isITSExternalHosting()) {
+        return true;
+    }
+    return false;
 }
 
 function isValidDrupalHost() {
-    const validHosts = [libraryProductionDomain, ...stagingHosts, 'localhost:8080'];
-    return validHosts.includes(window.location.host);
+    const validHosts = [libraryProductionDomain, libraryStagingDomain, 'localhost:8080'];
+    return validHosts.includes(window.location.host) || isITSExternalHosting();
 }
 
 function localScriptName(jsFilename) {
