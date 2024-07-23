@@ -57,3 +57,21 @@ Cypress.Commands.add('isInViewport', (element) => {
         expect(rect.bottom).not.to.be.greaterThan(bottom);
     });
 });
+
+Cypress.Commands.add('getIframeBodyInShadow', (iframeSelector, webComponentName = 'proactive-chat') => {
+    // Get the iframe > document > body
+    // and retry until the body element is not empty
+    return (
+        cy
+            .get(webComponentName)
+            .shadow()
+            .find(iframeSelector)
+            .should('exist')
+            .its('0.contentDocument.body')
+            .should('exist')
+            .should('not.be.empty')
+            // wraps "body" DOM element to allow
+            // chaining more Cypress commands, like ".find(...)"
+            .then(cy.wrap)
+    );
+});

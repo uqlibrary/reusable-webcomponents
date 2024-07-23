@@ -5,19 +5,32 @@ function openAskusPopup() {
 }
 
 describe('AskUs menu', () => {
-    context('AskUs Menu', () => {
-        it('Appears as expected', () => {
+    context('is accessible', () => {
+        it('before opening', () => {
             cy.visit('http://localhost:8080');
+            cy.injectAxe();
             cy.viewport(1280, 900);
-            cy.wait(100);
-            cy.get('uq-site-header').find('askus-button').should('exist');
+            cy.wait(500);
+            cy.checkA11y('askus-button', {
+                reportName: 'AskUs initial',
+                scopeName: 'Accessibility',
+                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+            });
+        });
+        it('when open', () => {
+            cy.visit('http://localhost:8080');
+            cy.injectAxe();
+            cy.viewport(1280, 900);
             openAskusPopup();
             cy.wait(500);
-            cy.get('askus-button').shadow().find('ul.askus-menu-list').find('li').should('have.length', 7);
+            cy.checkA11y('askus-button', {
+                reportName: 'AskUs open',
+                scopeName: 'Accessibility',
+                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+            });
         });
-
-        it('AskUs passes accessibility', () => {
-            cy.visit('http://localhost:8080');
+        it('when offline', () => {
+            cy.visit('http://localhost:8080/?user=s1111111&chatstatusoffline=true');
             cy.injectAxe();
             cy.viewport(1280, 900);
             openAskusPopup();
@@ -27,6 +40,18 @@ describe('AskUs menu', () => {
                 scopeName: 'Accessibility',
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
             });
+        });
+    });
+
+    context('functionality', () => {
+        it('Appears as expected', () => {
+            cy.visit('http://localhost:8080');
+            cy.viewport(1280, 900);
+            cy.wait(100);
+            cy.get('uq-site-header').find('askus-button').should('exist');
+            openAskusPopup();
+            cy.wait(500);
+            cy.get('askus-button').shadow().find('ul.askus-menu-list').find('li').should('have.length', 6);
         });
 
         it('Askus Pane Opacity can be removed, as needed for Primo', () => {
@@ -71,6 +96,22 @@ describe('AskUs menu', () => {
         });
         it('Displays as offline when chat status api is 403', () => {
             cy.visit('http://localhost:8080/?user=errorUser');
+            cy.injectAxe();
+            cy.viewport(1280, 900);
+            openAskusPopup();
+            cy.get('askus-button')
+                .shadow()
+                .find('[data-testid="askus-chat-link"]')
+                .should('exist')
+                .should('have.value', '');
+            cy.get('askus-button')
+                .shadow()
+                .find('[data-testid="askus-chat-time"]')
+                .should('exist')
+                .should('have.value', '');
+        });
+        it('Displays as offline after hours', () => {
+            cy.visit('http://localhost:8080/?user=s1111111&chatstatusoffline=true');
             cy.viewport(1280, 900);
             openAskusPopup();
             cy.get('askus-button')
@@ -83,6 +124,39 @@ describe('AskUs menu', () => {
                 .find('[data-testid="askus-phone-time"]')
                 .should('exist')
                 .should('have.value', '');
+        });
+
+        it('Navigates to CRM from "Chat with staff" button', () => {
+            cy.visit('http://localhost:8080/', {
+                onBeforeLoad(win) {
+                    cy.stub(win, 'open');
+                },
+            });
+
+            openAskusPopup();
+
+            cy.get('askus-button').shadow().find('a:contains("Chat with staff")').click();
+
+            // Assert that window.open was called
+            cy.window().its('open').should('be.called');
+        });
+
+        it('AI chatbot iframe opens from askus button click', () => {
+            cy.visit('http://localhost:8080/');
+            cy.viewport(1280, 900);
+            openAskusPopup();
+
+            cy.get('askus-button').shadow().find('[data-testid="askus-aibot-button"]').should('exist').click();
+
+            // let the iframe finish drawing
+            cy.wait(4000);
+
+            cy.get('proactive-chat')
+                .shadow()
+                .find('[data-testid="chatbot-wrapper"]')
+                .should('exist')
+                .should('be.visible');
+            // well, at least we know the iframe appears on the page!
         });
     });
 });
