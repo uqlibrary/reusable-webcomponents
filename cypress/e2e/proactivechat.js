@@ -1,3 +1,5 @@
+const COLOUR_UQ_PURPLE = 'rgb(81, 36, 122)';
+
 function assertPopupIsHidden() {
     cy.get('proactive-chat')
         .shadow()
@@ -19,7 +21,7 @@ function assertPopupIsOpen() {
     cy.get('proactive-chat')
         .shadow()
         .find('button:contains("Ask Library Chatbot")')
-        .should('have.css', 'background-color', 'rgb(35, 119, 203)');
+        .should('have.css', 'background-color', COLOUR_UQ_PURPLE);
 }
 
 function minimiseChatPopup() {
@@ -31,7 +33,7 @@ function assertHideChatCookieisSet() {
 }
 
 describe('Proactive Chat', () => {
-    it('will load popped open on user first visit', () => {
+    it('will proactively open on user first visit (when "hide" cookie is not set)', () => {
         cy.visit('http://localhost:8080/index-chat-fast.html');
         cy.viewport(1280, 900);
 
@@ -173,7 +175,7 @@ describe('Proactive Chat', () => {
                 .should('exist')
                 .should('be.visible')
                 .should('not.have.css', 'display', 'none')
-                .should('have.css', 'background-color', 'rgb(81, 36, 122)')
+                .should('have.css', 'background-color', COLOUR_UQ_PURPLE)
                 .parent()
                 .should('have.css', 'right', '16px');
             // "offline Minimised" button is hidden. Well duh, but just checking
