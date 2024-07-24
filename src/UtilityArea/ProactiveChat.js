@@ -368,15 +368,9 @@ class ProactiveChat extends HTMLElement {
 
         const proactiveChatElementOnline = shadowDOM.getElementById('proactive-chat-online');
         !!proactiveChatElementOnline && proactiveChatElementOnline.addEventListener('click', showProactiveChatDialog);
-        !!proactiveChatElementOnline &&
-            proactiveChatElementOnline.addEventListener('mouseover', showProactiveChatDialog);
-        !!proactiveChatElementOnline && proactiveChatElementOnline.addEventListener('focus', showProactiveChatDialog);
 
         const proactiveChatElementOFFline = shadowDOM.getElementById('proactive-chat-offline');
         !!proactiveChatElementOFFline && proactiveChatElementOFFline.addEventListener('click', showProactiveChatDialog);
-        !!proactiveChatElementOFFline &&
-            proactiveChatElementOFFline.addEventListener('mouseover', showProactiveChatDialog);
-        !!proactiveChatElementOFFline && proactiveChatElementOFFline.addEventListener('focus', showProactiveChatDialog);
 
         const proactiveChatElementClose = shadowDOM.getElementById('proactive-chat-button-close');
         !!proactiveChatElementClose && proactiveChatElementClose.addEventListener('click', closeProactiveChat);
