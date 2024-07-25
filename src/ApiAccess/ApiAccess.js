@@ -138,6 +138,7 @@ class ApiAccess {
     }
 
     async loadOpeningHours() {
+        console.log('loadOpeningHours');
         let result;
         const hoursApi = new ApiRoutes().LIB_HOURS_API();
         const urlPath = hoursApi.apiUrl;
@@ -148,6 +149,7 @@ class ApiAccess {
                 if (!!hoursResponse && !!hoursResponse.locations && hoursResponse.locations.length > 1) {
                     askusHours = hoursResponse.locations.map((item) => {
                         if (item.abbr === 'AskUs') {
+                            console.log('item?.departments[0]=', item?.departments[0]);
                             return {
                                 chat: `${item?.departments[0].times?.hours[0].from} \u2013 ${item?.departments[0].times?.hours[0]?.to}`,
                                 phone: `${item?.departments[1].times?.hours[0].from} \u2013 ${item?.departments[1].times?.hours[0]?.to}`,
