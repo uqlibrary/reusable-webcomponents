@@ -243,6 +243,9 @@ class ProactiveChat extends HTMLElement {
             !!chatbotIframe && (chatbotIframe.style.display = 'none');
             const proactivechatArea = shadowDOM.getElementById('proactivechat');
             !!proactivechatArea && (proactivechatArea.style.display = 'block');
+
+            const minimisedButtonsElement = that.shadowRoot.getElementById('minimised-buttons');
+            !!minimisedButtonsElement && (minimisedButtonsElement.style.display = 'inline');
             if (that.askUsStatus === 'online') {
                 // show the minimised button
                 const onlineMinimisedButton = shadowDOM.getElementById('proactive-chat-online');
@@ -279,8 +282,11 @@ class ProactiveChat extends HTMLElement {
             // &subject=users+question is also available, but we don't know their question :(
 
             const productionDomain = 'www.library.uq.edu.au';
-            const crmDomain =
-                window.location.hostname === productionDomain ? 'support.my.uq.edu.au' : 'uqcurrent.crm.test.uq.edu.au';
+            const isTestEnvironment =
+                window.location.hostname.startsWith('homepage-') || // LTS feature branches
+                window.location.hostname === 'localhost' ||
+                window.location.hostname.endsWith('.pantheonsite.io'); // drupal10 test sites
+            const crmDomain = isTestEnvironment ? 'uqcurrent.crm.test.uq.edu.au' : 'support.my.uq.edu.au';
             let url = `https://${crmDomain}/app/chat/chat_launch_lib/p/45`;
             if (params.length > 0) {
                 url = `${url}?${params.join('&')}`;
@@ -297,6 +303,9 @@ class ProactiveChat extends HTMLElement {
                 !!proactiveChatElement &&
                     proactiveChatElement.length > 0 &&
                     proactiveChatElement[0].setAttribute('showchatbot', 'true');
+
+                const minimisedButtonsElement = that.shadowRoot.getElementById('minimised-buttons');
+                !!minimisedButtonsElement && (minimisedButtonsElement.style.display = 'none');
             } else {
                 const proactivechatArea = shadowDOM.getElementById('proactivechat');
                 !!proactivechatArea && (proactivechatArea.style.display = 'none');

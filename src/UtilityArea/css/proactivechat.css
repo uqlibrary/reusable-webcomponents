@@ -119,7 +119,7 @@ button.proactive-chat-button:focus {
 }
 
 .pcOffline {
-    background-color: grey;
+    background-color: #757377; /* grey-700 */
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -129,7 +129,10 @@ button.proactive-chat-button:focus {
     transition-property: background-color;
 }
 .pcOffline:hover {
-    background-color: #ac0000;
+    background-color: #d1d0d2; /* grey-300 */
+}
+.pcOffline:hover svg {
+    fill: #333;
 }
 
 .pcminimised:hover {
