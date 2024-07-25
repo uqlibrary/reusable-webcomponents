@@ -78,7 +78,7 @@ template.innerHTML = `
                 </p>
                 <p class="restrictions-use">
                     <span>
-                        <a id="restrictions-on-use-link" href="https://web.library.uq.edu.au/about-us/policies-guidelines ">Restrictions on Use</a> - 
+                        <a id="restrictions-on-use-link" href="https://web.library.uq.edu.au/about-us/policies-guidelines#collection-notice">Restrictions on Use</a> - 
                     </span>
                     Your use of Library resources must comply with UQ policies, copyright law, and all resource specific licence terms. The use of AI tools with Library resources is prohibited unless expressly permitted.
                 </p>
