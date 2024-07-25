@@ -6,7 +6,8 @@ import { isBackTabKeyPressed, isEscapeKeyPressed, isTabKeyPressed } from '../hel
  * API
  * <span slot="site-utilities">             -- tells uqsiteheader where to insert it in the dom
  *  <askus-button
- *      nopaneopacity                       -- primo: dont put a background on it
+ *      nopaneopacity                       -- primo: don't put a background on it
+ *      hideProactiveChat                   -- libwizard, double ensure proactive chat doesnt appear!
  *  />
  * </span>
  *
@@ -312,8 +313,6 @@ class AskUsButton extends HTMLElement {
 
     isProactiveChatElementHidden() {
         const hideProactiveChat = this.getAttribute('hideproactivechat');
-        !!hideProactiveChat && console.log('AAA hideProactiveChat=false');
-        hideProactiveChat === '' && console.log('hideProactiveChat=blank');
         return !!hideProactiveChat || hideProactiveChat === '';
     }
 }
