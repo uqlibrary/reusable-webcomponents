@@ -33,10 +33,6 @@ export function canSeeAlertsAdmin(account) {
     return hasWebContentAdminAccess(account);
 }
 
-export function canSeeSpotlightsAdmin(account) {
-    return hasWebContentAdminAccess(account);
-}
-
 export function canSeePromopanelAdmin(account) {
     return hasWebContentAdminAccess(account);
 }

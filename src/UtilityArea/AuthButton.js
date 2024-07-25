@@ -9,7 +9,6 @@ import {
     canSeeDlorAdmin,
     canSeeEspace,
     canSeePromopanelAdmin,
-    canSeeSpotlightsAdmin,
     canSeeTestTag,
 } from '../helpers/access';
 import { getAccountMenuRoot } from './helpers';
@@ -292,15 +291,6 @@ class AuthButton extends HTMLElement {
                 'Website alerts',
             );
 
-        !!canSeeSpotlightsAdmin(account) &&
-            addAdminMenuOption(
-                'spotlights-admin',
-                'mylibrary-menu-spotlights-admin',
-                `${linkRoot}admin/spotlights${linkAppend}`,
-                ICON_MUI_IMAGE_FILLED,
-                'Website spotlights',
-            );
-
         !!canSeeTestTag(account) &&
             addAdminMenuOption(
                 'testTag-admin',
@@ -473,14 +463,6 @@ class AuthButton extends HTMLElement {
                             closeAccountOptionsMenu();
                         }
                     });
-            } else if (canSeeSpotlightsAdmin(account)) {
-                const spotlightsOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-spotlights-admin');
-                !!spotlightsOption &&
-                    spotlightsOption.addEventListener('keydown', function (e) {
-                        if (isTabKeyPressed(e)) {
-                            closeAccountOptionsMenu();
-                        }
-                    });
             } else if (canSeeAlertsAdmin(account)) {
                 const alertsOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-alerts-admin');
                 !!alertsOption &&
@@ -526,7 +508,6 @@ class AuthButton extends HTMLElement {
 
         closeAccountMenuOnLinkClick('mylibrary-menu-masquerade');
         closeAccountMenuOnLinkClick('mylibrary-menu-alerts-admin');
-        closeAccountMenuOnLinkClick('mylibrary-menu-spotlights-admin');
         closeAccountMenuOnLinkClick('mylibrary-menu-testTag-admin');
         closeAccountMenuOnLinkClick('mylibrary-menu-promopanel-admin');
         closeAccountMenuOnLinkClick('mylibrary-menu-course-resources');
