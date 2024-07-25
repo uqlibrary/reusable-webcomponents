@@ -76,6 +76,12 @@ template.innerHTML = `
                     <span><a id="cultural-advice-statement-link" href="https://web.library.uq.edu.au/collections/culturally-sensitive-collections">Culturally sensitive collections</a> - </span>
                     Aboriginal and Torres Strait Islander peoples are advised that our collections and sites may contain images, voices or names of persons now deceased. Information may be culturally sensitive for some individuals and communities.
                 </p>
+                <p class="restrictions-use">
+                    <span>
+                        <a id="restrictions-on-use-link" href="https://web.library.uq.edu.au/about-us/policies-guidelines ">Restrictions on Use</a> - 
+                    </span>
+                    Your use of Library resources must comply with UQ policies, copyright law, and all resource specific licence terms. The use of AI tools with Library resources is prohibited unless expressly permitted.
+                </p>
                 <div id="footer-links" class="searchPanel MuiGrid-container MuiFormControlMuiGrid-spacing-xs-2" data-testid="primo-search-links" data-analyticsid="primo-search-links">
                 </div>
             </form>
