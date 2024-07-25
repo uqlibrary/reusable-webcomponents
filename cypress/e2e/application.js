@@ -268,7 +268,7 @@ describe('Dummy Application', () => {
 
             hasNoMegaMenu();
 
-            // hasAskusButton(false); // temp
+            hasAskusButton(false);
             hasNoAuthButton();
             hasNoProactiveChat();
 
