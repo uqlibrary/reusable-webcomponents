@@ -1,4 +1,5 @@
 const COLOUR_UQ_PURPLE = 'rgb(81, 36, 122)';
+const COLOUR_UQ_GREY300 = 'rgb(117, 115, 119)';
 
 function assertPopupIsHidden() {
     cy.get('proactive-chat')
@@ -364,7 +365,7 @@ describe('Proactive Chat', () => {
             .should('exist')
             .should('be.visible')
             .should('not.have.css', 'display', 'none')
-            .should('have.css', 'background-color', 'rgb(128, 128, 128)')
+            .should('have.css', 'background-color', COLOUR_UQ_GREY300)
             .parent()
             .should('have.css', 'right', '16px');
     });
