@@ -60,8 +60,22 @@ describe('Dummy Application', () => {
         cy.get('uq-site-header').shadow().find('li[data-testid="menu-group-item-0"]').should('not.exist');
     }
 
-    function hasAskusButton() {
-        cy.get('askus-button').shadow().find('button[title="AskUs contact options"]').should('exist');
+    function hasAskusButton(isChatBotAvailable = true) {
+        cy.get('askus-button')
+            .shadow()
+            .within(() => {
+                cy.waitUntil(() => cy.get('button[title="AskUs contact options"]').should('exist'));
+                cy.get('[aria-label="AskUs contact options"]').should('contain', 'AskUs').click();
+                if (isChatBotAvailable) {
+                    cy.get('[data-testid="askus-aibot-li"]').should('exist').should('be.visible').contains('Chatbot');
+                } else {
+                    cy.get('[data-testid="askus-aibot-li"]').should('not.be.visible');
+                }
+            });
+    }
+
+    function hasNoProactiveChat() {
+        cy.get('proactive-chat').should('not.exist');
     }
 
     function hasProactiveChat() {
@@ -207,6 +221,7 @@ describe('Dummy Application', () => {
 
             hasNoAskusButton();
             hasNoAuthButton();
+            hasNoProactiveChat();
 
             hasAnAlert();
 
@@ -228,7 +243,7 @@ describe('Dummy Application', () => {
             hasMegaMenu();
 
             hasAskusButton();
-            //hasProactiveChat();
+            hasProactiveChat();
             hasNoAuthButton();
 
             hasAnAlert();
@@ -253,11 +268,11 @@ describe('Dummy Application', () => {
 
             hasNoMegaMenu();
 
-            hasAskusButton();
+            hasAskusButton(false);
             hasNoAuthButton();
+            hasNoProactiveChat();
 
             hasNoAlerts();
-            //hasProactiveChat();
 
             hasNoConnectFooter();
 
@@ -276,8 +291,9 @@ describe('Dummy Application', () => {
 
             hasNoMegaMenu();
 
-            hasNoAskusButton();
-            hasNoAuthButton();
+            hasAskusButton();
+            hasAuthButton();
+            hasProactiveChat();
 
             hasAnAlert();
 
@@ -300,6 +316,7 @@ describe('Dummy Application', () => {
 
             hasNoAskusButton();
             hasNoAuthButton();
+            hasProactiveChat();
 
             hasAnAlert();
 
@@ -375,7 +392,7 @@ describe('Dummy Application', () => {
             hasNoMegaMenu();
 
             hasAskusButton();
-            //hasProactiveChat();
+            hasProactiveChat();
             hasNoAuthButton();
 
             hasAnAlert();

@@ -67,7 +67,7 @@ template.innerHTML = `
                 
                 <!-- AIBot Chat -->
                 <!-- IF PAGE HAS A PROACTIVE CHAT!!!!!! -->
-                <li id="askus-aibot-li" class="askus-aibot" role="menuitem" aria-disabled="false">
+                <li id="askus-aibot-li" data-testid="askus-aibot-li" class="askus-aibot" role="menuitem" style="display: none" aria-disabled="false">
                     <a tabindex="0" id="askus-aibot-button" data-testid="askus-aibot-button" data-analyticsid="askus-menu-aibot">
                         <svg viewBox="0 0 194 194" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_389_61)">
@@ -137,15 +137,31 @@ class AskUsButton extends HTMLElement {
         this.updateAskusDOM = this.updateAskusDOM.bind(this);
         this.addButtonListeners = this.addButtonListeners.bind(this);
         this.isPaneButtonOpacityDropRequested = this.isPaneButtonOpacityDropRequested.bind(this);
+        this.isProactiveChatElementHidden = this.isProactiveChatElementHidden.bind(this);
     }
 
     async updateAskusDOM(shadowRoot) {
         // if proactive chat doesnt exist on the current page, dont provide a chatbot link
-        const proactiveChatElement = document.getElementsByTagName('proactive-chat');
-        const aibotLink = shadowRoot.getElementById('askus-aibot-li');
-        if (!proactiveChatElement || proactiveChatElement.length === 0) {
-            !!aibotLink && aibotLink.remove();
-        }
+        const stopCheckingAfter = 20;
+        let loopNumber = 0;
+        const watchForProactiveChat = setInterval(() => {
+            if (this.isProactiveChatElementHidden()) {
+                clearInterval(watchForProactiveChat);
+            } else {
+                const proactiveChatElement = document.getElementsByTagName('proactive-chat');
+                if (!!proactiveChatElement) {
+                    const aibotLink = shadowRoot.getElementById('askus-aibot-li');
+                    !!aibotLink && (aibotLink.style.display = 'list-item');
+
+                    clearInterval(watchForProactiveChat);
+                }
+                if (loopNumber > stopCheckingAfter) {
+                    // give up after a while
+                    clearInterval(watchForProactiveChat);
+                }
+            }
+            loopNumber++;
+        }, 100);
 
         const api = new ApiAccess();
         await api.loadChatStatus().then((isOnline) => {
@@ -292,6 +308,13 @@ class AskUsButton extends HTMLElement {
         // primo only provides the attributes in lower case :(
         const noPaneOpacity = this.getAttribute('nopaneopacity');
         return !!noPaneOpacity || noPaneOpacity === '';
+    }
+
+    isProactiveChatElementHidden() {
+        const hideProactiveChat = this.getAttribute('hideproactivechat');
+        !!hideProactiveChat && console.log('AAA hideProactiveChat=false');
+        hideProactiveChat === '' && console.log('hideProactiveChat=blank');
+        return !!hideProactiveChat || hideProactiveChat === '';
     }
 }
 
