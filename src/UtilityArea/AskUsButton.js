@@ -35,14 +35,6 @@ template.innerHTML = `
                         <span>FAQ</span>
                     </a>
                 </li>
-                <!-- Chat -->
-                <li id="askus-chat-li" role="menuitem" aria-disabled="false">
-                    <a tabindex="0" id="askus-chat-link" data-testid="askus-chat-link" data-analyticsid="askus-menu-chat" onclick="javascript: window.open('https://support.my.uq.edu.au/app/chat/chat_launch_lib/p/45', 'chat', 'toolbar=no, location=no, status=no, width=400, height=400');">
-                        <svg class="interactiveContact MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; margin-bottom: -6px;"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"></path></svg>
-                        <span class="interactiveContact">Chat</span>
-                        <span class="chatTimes" data-testid="askus-chat-time"><span id="askus-chat-time"></span></span>
-                    </a>
-                </li>
                 
                 <!-- Email -->
                 <li role="menuitem" class="general askus-email" aria-disabled="false">
