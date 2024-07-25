@@ -121,7 +121,6 @@ class ProactiveChat extends HTMLElement {
 
         this.chatbotHasAppeared = false;
         this.askUsStatus = null;
-        this._account = null;
     }
 
     attributeChangedCallback(fieldName, oldValue, newValue) {
