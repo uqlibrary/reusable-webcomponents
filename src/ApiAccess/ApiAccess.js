@@ -235,24 +235,6 @@ class ApiAccess {
             });
     }
 
-    async postData(url = '', data = {}) {
-        // Default options are marked with *
-        const response = await fetch(url, {
-            method: 'POST', // *GET, POST, PUT, DELETE, etc.
-            mode: 'cors', // no-cors, *cors, same-origin
-            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: 'same-origin', // include, *same-origin, omit
-            headers: {
-                'Content-Type': 'application/json',
-                // 'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            redirect: 'follow', // manual, *follow, error
-            referrerPolicy: 'no-referrer', // no-referrer, *client
-            body: JSON.stringify(data), // body data type must match "Content-Type" header
-        });
-        return response;
-    }
-
     /**
      * Loads the open athens link checker
      * is the requested link one that open athens can link to?
@@ -283,44 +265,44 @@ class ApiAccess {
       }
     */
     async loadOpenAthensCheck(urlPath) {
-        console.log('loadOpenAthensCheck start');
-        if (this.isMock()) {
-            console.log('loadOpenAthensCheck mock', urlPath);
-            try {
-                console.log('loadOpenAthensCheck about to call fetchMock');
-                return this.fetchMock(urlPath);
-            } catch (e) {
-                console.log('error=', e);
-                const msg = `mock api error: ${e.message}`;
-                console.log(msg);
-                throw new Error(msg);
-            }
-        } else {
-            // OA can take multiple urls to test, but we only send one here
-            const payload = { links: [urlPath] };
-            return await this.postData(new ApiRoutes().OPEN_ATHENS_LINK_CHECKER().apiUrl, payload)
-                .then((response) => {
-                    console.log('loadOpenAthensCheck response', response);
-                    return response.json();
-                })
-                .then((data) => {
-                    console.log('loadOpenAthensCheck data', data);
-                    return data?.goLinkResponseList || [];
-                })
-                .then((list) => {
-                    let item = {};
-                    if (list.length > 0) {
-                        item = list.pop();
-                        item.isValid = item?.type === 'RECOGNIZED_REDIRECT';
-                    }
-                    return item;
-                })
-                .catch((error) => {
-                    console.log('error loading Open Athens check ', error);
-                    const msg = `error loading Open Athens check: ${error.message}`;
-                    throw new Error(msg);
-                });
-        }
+        console.log('loadOpenAthensCheck start', urlPath);
+        const openAthensApi = new ApiRoutes().OPEN_ATHENS_LINK_CHECKER(urlPath);
+        return await this.fetchAPI(openAthensApi.apiUrl)
+            .then((response) => {
+                return response;
+            })
+            .catch((error) => {
+                console.log('error loading openathens ', error);
+                // set the error message here, to some generic "problem with OA, please try again later"
+                return null;
+            });
+        //
+        //
+        //     // OA can take multiple urls to test, but we only send one here
+        //     const payload = { links: [urlPath] };
+        //     return await this.postData(new ApiRoutes().OPEN_ATHENS_LINK_CHECKER().apiUrl, payload)
+        //         .then((response) => {
+        //             console.log('loadOpenAthensCheck response', response);
+        //             return response.json();
+        //         })
+        //         .then((data) => {
+        //             console.log('loadOpenAthensCheck data', data);
+        //             return data?.goLinkResponseList || [];
+        //         })
+        //         .then((list) => {
+        //             let item = {};
+        //             if (list.length > 0) {
+        //                 item = list.pop();
+        //                 item.isValid = item?.type === 'RECOGNIZED_REDIRECT';
+        //             }
+        //             return item;
+        //         })
+        //         .catch((error) => {
+        //             console.log('error loading Open Athens check ', error);
+        //             const msg = `error loading Open Athens check: ${error.message}`;
+        //             throw new Error(msg);
+        //         });
+        // // }
     }
 
     async loadExamPaperSuggestions(keyword) {
@@ -392,6 +374,7 @@ class ApiAccess {
     }
 
     async fetchAPI(urlPath, headers = {}, tokenRequired = false, timestampRequired = true) {
+        console.log('### ApiAccess::fetchAPI urlPath=', urlPath);
         /* istanbul ignore next */
         if (!!tokenRequired && (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)) {
             // no cookie so we won't bother asking for the account api that cant be returned
@@ -426,7 +409,7 @@ class ApiAccess {
             });
 
             if (!response.ok) {
-                console.log(`ApiAccess console [A3]: An error has occured: ${response.status} ${response.statusText}`);
+                console.log(`ApiAccess console [A3]: An error has occurred: ${response.status} ${response.statusText}`);
                 const message = `ApiAccess [A1]: An error has occured: ${response.status} ${response.statusText}`;
                 throw new Error(message);
             }
