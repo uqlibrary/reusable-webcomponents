@@ -20,12 +20,12 @@ function assertProactiveChatVisibility(isVisible) {
     if (!!isVisible) {
         cy.get('proactive-chat')
             .shadow()
-            .find('button:contains("Chat now")')
+            .find('button:contains("Chat with Library staff")')
             .parent()
             .parent()
             .should('have.class', 'show');
     } else {
-        cy.get('proactive-chat').shadow().find('button:contains("Chat now")').should('not.be.visible');
+        cy.get('proactive-chat').shadow().find('button:contains("Chat with Library staff")').should('not.be.visible');
     }
 }
 

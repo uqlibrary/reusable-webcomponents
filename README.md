@@ -138,7 +138,7 @@ In addition to the usual branches, the following are in use and should not be de
   - Undocumented caveat: You can only style the item with the "part attribute" you can't style its descendants like:
 
     ```css
-    askus-button::part(askus) div#askus-label {
+    askus-button::part(askus) div#askus-label { /* doesnt work!! */
       font-weight: bold;
     }
     ```
