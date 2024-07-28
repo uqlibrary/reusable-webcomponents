@@ -50,7 +50,8 @@ class ApiRoutes {
     // Open Athens Check API
     OPEN_ATHENS_LINK_CHECKER = (url) => {
         return {
-            apiUrl: 'openathens/check/' + encodeURIComponent(encodeURIComponent(url)),
+            // apiUrl: 'openathens/check/' + encodeURIComponent(encodeURIComponent(url)),
+            apiUrl: 'openathens/check/' + encodeURIComponent(url),
         };
     };
 
