@@ -326,6 +326,7 @@ class ProactiveChat extends HTMLElement {
                     window.location.hostname === 'homepage-development.library.uq.edu.au' ||
                     window.location.hostname === 'web-staging.library.uq.edu.au' ||
                     window.location.hostname === 'sandbox-fryer.library.uq.edu.au' ||
+                    window.location.hostname === 'app-testing.library.uq.edu.au' ||
                     window.location.hostname === 'localhost'
                 ) {
                     const chatBotIframe = !!chatbotWrapper && chatbotWrapper.getElementsByTagName('iframe');
