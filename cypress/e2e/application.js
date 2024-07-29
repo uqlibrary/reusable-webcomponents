@@ -60,27 +60,46 @@ describe('Dummy Application', () => {
         cy.get('uq-site-header').shadow().find('li[data-testid="menu-group-item-0"]').should('not.exist');
     }
 
-    function hasAskusButton() {
-        cy.get('askus-button').shadow().find('button[title="AskUs contact options"]').should('exist');
+    function hasAskusButton(isChatBotAvailable = true) {
+        cy.get('askus-button')
+            .shadow()
+            .within(() => {
+                cy.waitUntil(() => cy.get('button[title="AskUs contact options"]').should('exist'));
+                cy.get('[aria-label="AskUs contact options"]').should('contain', 'AskUs').click();
+                if (isChatBotAvailable) {
+                    cy.get('[data-testid="askus-aibot-li"]').should('exist').should('be.visible').contains('Chatbot');
+                } else {
+                    cy.get('[data-testid="askus-aibot-li"]').should('not.be.visible');
+                }
+            });
+    }
+
+    function hasNoProactiveChat() {
+        cy.get('proactive-chat').should('not.exist');
     }
 
     function hasProactiveChat() {
         cy.get('proactive-chat')
             .shadow()
-            .find('[title="Click to open online chat"]')
+            .find('[data-testid="proactive-chat-online"]')
             .should('exist')
             .should('be.visible');
         cy.get('proactive-chat')
             .shadow()
-            .find('[title="Chat currently closed"]')
+            .find('[data-testid="proactive-chat-offline"]')
             .should('exist')
             .should('not.be.visible');
-        cy.get('proactive-chat').shadow().find('button:contains("Chat now")').should('exist').should('not.be.visible');
         cy.get('proactive-chat')
             .shadow()
-            .find('button:contains("Maybe later")')
+            .find('button:contains("Ask Library Chatbot")')
             .should('exist')
             .should('not.be.visible');
+        cy.get('proactive-chat')
+            .shadow()
+            .find('button:contains("Leave a question")')
+            .should('exist')
+            .should('not.be.visible');
+        cy.get('proactive-chat').shadow().find('[data-testid="close-button"]').should('exist').should('not.be.visible');
     }
 
     function hasNoAskusButton() {
@@ -202,6 +221,7 @@ describe('Dummy Application', () => {
 
             hasNoAskusButton();
             hasNoAuthButton();
+            hasNoProactiveChat();
 
             hasAnAlert();
 
@@ -223,7 +243,7 @@ describe('Dummy Application', () => {
             hasMegaMenu();
 
             hasAskusButton();
-            //hasProactiveChat();
+            hasProactiveChat();
             hasNoAuthButton();
 
             hasAnAlert();
@@ -248,11 +268,11 @@ describe('Dummy Application', () => {
 
             hasNoMegaMenu();
 
-            hasAskusButton();
+            // hasAskusButton(false); // temp
             hasNoAuthButton();
+            hasNoProactiveChat();
 
             hasNoAlerts();
-            //hasProactiveChat();
 
             hasNoConnectFooter();
 
@@ -271,8 +291,9 @@ describe('Dummy Application', () => {
 
             hasNoMegaMenu();
 
-            hasNoAskusButton();
-            hasNoAuthButton();
+            hasAskusButton();
+            hasAuthButton();
+            hasProactiveChat();
 
             hasAnAlert();
 
@@ -295,6 +316,7 @@ describe('Dummy Application', () => {
 
             hasNoAskusButton();
             hasNoAuthButton();
+            hasProactiveChat();
 
             hasAnAlert();
 
@@ -370,7 +392,7 @@ describe('Dummy Application', () => {
             hasNoMegaMenu();
 
             hasAskusButton();
-            //hasProactiveChat();
+            hasProactiveChat();
             hasNoAuthButton();
 
             hasAnAlert();
