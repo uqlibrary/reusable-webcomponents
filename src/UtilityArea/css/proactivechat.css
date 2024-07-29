@@ -289,6 +289,9 @@ button.proactive-chat-button:focus {
     font-size: 14px;
 
     margin-top: 0;
+
+    /* fix sites that are using ITS styles */
+    line-height: normal;
 }
 .bottomBar .confirmAnswers {
     margin-bottom: 6px;
