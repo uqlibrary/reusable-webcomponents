@@ -111,7 +111,7 @@ class ProactiveChat extends HTMLElement {
 
         // copilot just shows a nasty error on app.library
         // only show the crm button
-        if (this.isAppLibrary()) {
+        if (this.isChatBotHiddenHere()) {
             const chatbotiframe = shadowDOM.querySelector('#proactivechat iframe');
             !!chatbotiframe && chatbotiframe.remove();
 
@@ -423,9 +423,9 @@ class ProactiveChat extends HTMLElement {
         !!proactiveleaveQuestion && proactiveleaveQuestion.addEventListener('click', navigateToContactUs);
     }
 
-    isAppLibrary() {
+    isChatBotHiddenHere() {
         return (
-            ['app.library.uq.edu.au', 'app-testing.library.uq.edu.au'].includes(window.location.hostname) ||
+            // other condition here (none currently) - match in askus
             window.location.pathname === '/index-app-nochatbot.html' // test only
         );
     }
