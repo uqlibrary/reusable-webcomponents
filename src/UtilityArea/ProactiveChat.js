@@ -324,8 +324,8 @@ class ProactiveChat extends HTMLElement {
                 // (may make it prod only, but I wanted to check it before going to prod)
                 if (
                     window.location.hostname === 'www.library.uq.edu.au' ||
-                    (window.location.hostname === 'homepage-development.library.uq.edu.au' &&
-                        window.location.pathname === '/master/')
+                    (window.location.hostname === 'assets.library.uq.edu.au' &&
+                        window.location.pathname === '/reusable-webcomponents-development/master/')
                 ) {
                     // use prod copilot, as supplied in template
                 } else {
