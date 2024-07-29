@@ -78,6 +78,24 @@ describe('Proactive Chat', () => {
                 scopeName: 'Accessibility',
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
             });
+
+            cy.get('proactive-chat')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="popopen-button"]').focus();
+                    cy.wait(100);
+                    // hover color is actually available to be checked
+                    cy.get('[data-testid="popopen-button"]').should(
+                        'have.css',
+                        'background-color',
+                        'rgb(116, 80, 149)',
+                    );
+                });
+            cy.checkA11y('proactive-chat', {
+                reportName: 'Proactive chat proactive chat hover',
+                scopeName: 'Accessibility',
+                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+            });
         });
         it('proactive chat open after hours', () => {
             cy.visit('http://localhost:8080/index-chat-fast.html?chatstatusoffline=true');
@@ -435,6 +453,48 @@ describe('Proactive Chat', () => {
 
             // Assert that window.open was called
             cy.window().its('open').should('be.called');
+        });
+    });
+    context('when chatbot is known to be broken', () => {
+        it('gives a link to CRM chat when askus is online', () => {
+            cy.visit('http://localhost:8080/index-app-nochatbot.html');
+            cy.viewport(1280, 900);
+            // manually wait
+            cy.wait(100);
+
+            cy.get('proactive-chat')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="proactive-chat-online"]').should('exist').click();
+                    cy.waitUntil(() => cy.get('button:contains("Chat with Library staff")').should('exist'));
+                    cy.get('button:contains("Chat with Library staff")').should(
+                        'have.css',
+                        'background-color',
+                        COLOUR_UQ_PURPLE,
+                    );
+
+                    cy.get('button:contains("Ask Library Chatbot")').should('not.exist');
+                });
+        });
+        it('gives a link to CRM contact form when askus is offline', () => {
+            cy.visit('http://localhost:8080/index-app-nochatbot.html?chatstatusoffline=true');
+            cy.viewport(1280, 900);
+            // manually wait
+            cy.wait(100);
+
+            cy.get('proactive-chat')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="proactive-chat-offline"]').should('exist').click();
+                    cy.waitUntil(() => cy.get('button:contains("Leave a question")').should('exist'));
+                    cy.get('button:contains("Leave a question")').should(
+                        'have.css',
+                        'background-color',
+                        COLOUR_UQ_PURPLE,
+                    );
+
+                    cy.get('button:contains("Ask Library Chatbot")').should('not.exist');
+                });
         });
     });
 });

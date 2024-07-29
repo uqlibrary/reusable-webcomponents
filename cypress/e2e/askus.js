@@ -158,5 +158,17 @@ describe('AskUs menu', () => {
                 .should('be.visible');
             // well, at least we know the iframe appears on the page!
         });
+
+        it('when chatbot is known to be broken, the patron only gets a link to CRM chat', () => {
+            cy.visit('http://localhost:8080/index-app-nochatbot.html');
+            cy.viewport(1280, 900);
+            openAskusPopup();
+
+            cy.get('askus-button')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="askus-aibot-button"]').should('exist').should('not.be.visible');
+                });
+        });
     });
 });
