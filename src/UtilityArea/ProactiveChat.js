@@ -425,8 +425,10 @@ class ProactiveChat extends HTMLElement {
 
     isAppLibrary() {
         return (
-            ['app.library.uq.edu.au', 'app-testing.library.uq.edu.au'].includes(window.location.hostname) ||
-            window.location.pathname === '/index-app-nochatbot.html' // test only
+            [
+                'app.library.uq.edu.au',
+                // 'app-testing.library.uq.edu.au' // remove for debug on original issue
+            ].includes(window.location.hostname) || window.location.pathname === '/index-app-nochatbot.html' // localhost test only
         );
     }
 }
