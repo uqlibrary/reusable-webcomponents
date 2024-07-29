@@ -18,18 +18,19 @@ git clone git@github.com:uqlibrary/reusable-webcomponents.git
 nvm use 18.19.0 && npm i -g npm@10 webpack-dev-server
 ```
 
-3. Create git hooks to manage branches to project standard. 
+3. Create git hooks to manage branches to project standard.
 
-  3.1. Prevent direct commits to the staging branch. and run `prettier-eslint` automatically before every local commit:
+   3.1. Prevent direct commits to the staging branch. and run `prettier-eslint` automatically before every local commit:
 
-  ```sh
-  ln -sf "../../scripts/pre-commit" ".git/hooks/pre-commit"
-  ```
-  3.2. Run the following in the project root directory to prevent accidental merges from the staging branch:
+```sh
+ln -sf "../../scripts/pre-commit" ".git/hooks/pre-commit"
+```
 
-  ```sh
-    ln -sf "../../scripts/prepare-commit-msg" ".git/hooks/prepare-commit-msg"
-  ```
+3.2. Run the following in the project root directory to prevent accidental merges from the staging branch:
+
+```sh
+  ln -sf "../../scripts/prepare-commit-msg" ".git/hooks/prepare-commit-msg"
+```
 
 4. In the root folder of fez-frontend install the required npm modules:
 
@@ -39,11 +40,11 @@ npm install
 
 ## Environments
 
-| env     | view at                                                                                                                                                                                                               | bucket |
-|---------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
-| prod    | <https://www.library.uq.edu.au/> <br/>or <https://assets.library.uq.edu.au/reusable-webcomponents/>                                                                                                                   | s3://uql-reusable-webcomponents-production/ |
-| staging | <https://assets.library.uq.edu.au/reusable-webcomponents-staging/> <br/>or <https://homepage-staging.library.uq.edu.au/> - it is the only branch that will call reusable staging | s3://uql-reusable-webcomponents-staging/ |
-| dev     | master branch viewable at https://assets.library.uq.edu.au/reusable-webcomponents-development/master/ <br/>or swap "master" for the name of your branch which has had a pipeline created on AWS                       | s3://uql-reusable-webcomponents-development/ + subfolder |
+| env     | view at                                                                                                                                                                                         | bucket                                                   |
+| ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
+| prod    | <https://www.library.uq.edu.au/> <br/>or <https://assets.library.uq.edu.au/reusable-webcomponents/>                                                                                             | s3://uql-reusable-webcomponents-production/              |
+| staging | <https://assets.library.uq.edu.au/reusable-webcomponents-staging/> <br/>or <https://homepage-staging.library.uq.edu.au/> - it is the only branch that will call reusable staging                | s3://uql-reusable-webcomponents-staging/                 |
+| dev     | master branch viewable at https://assets.library.uq.edu.au/reusable-webcomponents-development/master/ <br/>or swap "master" for the name of your branch which has had a pipeline created on AWS | s3://uql-reusable-webcomponents-development/ + subfolder |
 
 ## Development
 
@@ -139,6 +140,7 @@ In addition to the usual branches, the following are in use and should not be de
 
     ```css
     askus-button::part(askus) div#askus-label {
+      /* doesnt work!! */
       font-weight: bold;
     }
     ```

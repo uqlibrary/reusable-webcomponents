@@ -6,13 +6,17 @@ function ready(fn) {
     }
 }
 
-let isOutsideUQ = true;
-
-if (window.location.href.indexOf('uq.edu.au') > -1 || window.location.hostname === 'localhost') {
-    isOutsideUQ = false;
-}
-
-console.log('Is libguides in edit mode?: ', isOutsideUQ);
+const isInEditMode = () => {
+    if (window.location.hostname === 'localhost') {
+        return false;
+    }
+    // guides is edited on springshare domain, with our looknfeel.
+    // Don't include some elements - they are distracting to the admin
+    if (window.location.href.includes('uq.edu.au')) {
+        return false;
+    }
+    return true;
+};
 
 function createSlotForButtonInUtilityArea(button, id = null) {
     const slot = document.createElement('span');
@@ -74,7 +78,7 @@ function loadReusableComponentsLibGuides() {
     !!siteHeader && siteHeader.setAttribute('secondleveltitle', 'Guides');
     !!siteHeader && siteHeader.setAttribute('secondlevelurl', 'https://guides.library.uq.edu.au/');
 
-    if (!isOutsideUQ) {
+    if (!isInEditMode()) {
         const askusButton = createAskusButton();
         !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
 
@@ -138,7 +142,7 @@ function loadReusableComponentsLibGuides() {
     document.body.appendChild(subFooter);
 
     // Proactive Chat button
-    if (!isOutsideUQ) {
+    if (!isInEditMode()) {
         if (!document.querySelector('proactive-chat')) {
             const proactiveChat = document.createElement('proactive-chat');
             !!proactiveChat && document.body.appendChild(proactiveChat);

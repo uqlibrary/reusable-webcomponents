@@ -4,29 +4,24 @@
 #askus #askus-icon {
     width: 24px;
     height: 24px;
-    fill: #745095; /* purple-200 */
-    margin-right: 3px;
+    fill: #51247a;
+    margin-bottom: -5px;
 }
 
-#askus .askus-label {
+#askus #askus-label {
+    font-size: 12px !important;
     white-space: nowrap;
-    height: 14px;
-    font-weight: 500;
-    font-family: Roboto, Helvetica, sans-serif;
-}
-
-#askus button div {
-    display: flex;
-    align-items: center;
+    color: #51247a;
 }
 
 #askus button {
-    display: flex;
-    align-items: center;
+    line-height: 20px !important;
     background: rgba(0, 0, 0, 0);
+    border-radius: 50%;
     border: none;
     margin: -12px 0;
     padding: 6px;
+    width: 60px;
     height: 60px;
     transition-delay: 0s;
     transition-duration: 0.15s;
@@ -52,10 +47,6 @@ button:focus {
     transition-duration: 0.15s;
     transition-property: background-color;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-#askus button svg {
-    width: 22px;
 }
 
 #askus-menu {
@@ -123,6 +114,9 @@ button:focus {
         column-count: 2;
         column-gap: 20px;
     }
+    .askus-menu-list li.askus-phone a {
+        margin-top: -10px !important;
+    }
 }
 
 .askus-menu-list li {
@@ -142,6 +136,9 @@ button:focus {
     text-overflow: ellipsis;
     overflow: hidden;
     padding: 6px 6px 6px 4px !important;
+    margin: 0 !important;
+    /*padding: 4px !important;*/
+    /*margin: 2px 2px 2px 0 !important;*/
     margin: 2px 0 !important;
     text-decoration: none;
     color: #595959;
@@ -155,6 +152,9 @@ button:focus {
 @media screen and (min-width: 420px) {
     #askus-menu-item-moreways a {
         text-align: center;
+    }
+    .askus-menu-list li.askus-email a {
+        margin-top: 10px !important;
     }
 }
 
@@ -190,6 +190,7 @@ button:focus {
 .askus-menu-list li.askus-aibot a {
     display: flex;
     align-items: center;
+    margin-block: -10px !important;
 }
 .askus-menu-list li.askus-aibot span {
     margin-top: 4px;
