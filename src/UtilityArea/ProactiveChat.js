@@ -320,15 +320,14 @@ class ProactiveChat extends HTMLElement {
                     chatbotWrapper = shadowDOM.getElementById('chatbot-wrapper');
                 }
 
-                // only prod and master take the prod copilot url
-                // (may make it prod only, but I wanted to check it before going to prod)
+                // show copilot test url on staging domains
                 if (
-                    window.location.hostname === 'www.library.uq.edu.au' ||
-                    (window.location.hostname === 'homepage-development.library.uq.edu.au' &&
-                        window.location.pathname === '/master/')
+                    window.location.hostname === 'homepage-staging.library.uq.edu.au' ||
+                    window.location.hostname === 'homepage-development.library.uq.edu.au' ||
+                    window.location.hostname === 'web-staging.library.uq.edu.au' ||
+                    window.location.hostname === 'sandbox-fryer.library.uq.edu.au' ||
+                    window.location.hostname === 'localhost'
                 ) {
-                    // use prod copilot, as supplied in template
-                } else {
                     const chatBotIframe = !!chatbotWrapper && chatbotWrapper.getElementsByTagName('iframe');
                     !!chatBotIframe &&
                         chatBotIframe.length > 0 &&
