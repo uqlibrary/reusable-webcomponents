@@ -322,19 +322,20 @@ class ProactiveChat extends HTMLElement {
 
                 // only prod and master take the prod copilot url
                 // (may make it prod only, but I wanted to check it before going to prod)
-                if (
-                    window.location.hostname === 'www.library.uq.edu.au' ||
-                    (window.location.hostname === 'assets.library.uq.edu.au' &&
-                        window.location.pathname === '/reusable-webcomponents-development/master/')
-                ) {
-                    // use prod copilot, as supplied in template
-                } else {
-                    const chatBotIframe = !!chatbotWrapper && chatbotWrapper.getElementsByTagName('iframe');
-                    !!chatBotIframe &&
-                        chatBotIframe.length > 0 &&
-                        (chatBotIframe[0].src =
-                            'https://copilotstudio.microsoft.com/environments/2a892934-221c-eaa4-9f1a-4790000854ca/bots/cr546_uqAssistGenAiChatBot/webchat?__version__=2');
-                }
+                // if (
+                //     window.location.hostname === 'www.library.uq.edu.au' ||
+                //     window.location.hostname === 'web.library.uq.edu.au' ||
+                //     (window.location.hostname === 'assets.library.uq.edu.au' &&
+                //         window.location.pathname === '/reusable-webcomponents-development/master/')
+                // ) {
+                //     // use prod copilot, as supplied in template
+                // } else {
+                //     const chatBotIframe = !!chatbotWrapper && chatbotWrapper.getElementsByTagName('iframe');
+                //     !!chatBotIframe &&
+                //         chatBotIframe.length > 0 &&
+                //         (chatBotIframe[0].src =
+                //             'https://copilotstudio.microsoft.com/environments/2a892934-221c-eaa4-9f1a-4790000854ca/bots/cr546_uqAssistGenAiChatBot/webchat?__version__=2');
+                // }
 
                 const openCrmButton = shadowDOM.getElementById('speakToPerson');
                 !!openCrmButton && openCrmButton.addEventListener('click', swapToCrm);
