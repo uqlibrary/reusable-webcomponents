@@ -320,22 +320,21 @@ class ProactiveChat extends HTMLElement {
                     chatbotWrapper = shadowDOM.getElementById('chatbot-wrapper');
                 }
 
-                // only prod and master take the prod copilot url
-                // (may make it prod only, but I wanted to check it before going to prod)
-                // if (
-                //     window.location.hostname === 'www.library.uq.edu.au' ||
-                //     window.location.hostname === 'web.library.uq.edu.au' ||
-                //     (window.location.hostname === 'assets.library.uq.edu.au' &&
-                //         window.location.pathname === '/reusable-webcomponents-development/master/')
-                // ) {
-                //     // use prod copilot, as supplied in template
-                // } else {
-                //     const chatBotIframe = !!chatbotWrapper && chatbotWrapper.getElementsByTagName('iframe');
-                //     !!chatBotIframe &&
-                //         chatBotIframe.length > 0 &&
-                //         (chatBotIframe[0].src =
-                //             'https://copilotstudio.microsoft.com/environments/2a892934-221c-eaa4-9f1a-4790000854ca/bots/cr546_uqAssistGenAiChatBot/webchat?__version__=2');
-                // }
+                // show copilot test url on staging domains
+                if (
+                    window.location.hostname === 'homepage-staging.library.uq.edu.au' ||
+                    window.location.hostname === 'homepage-development.library.uq.edu.au' ||
+                    window.location.hostname === 'web-staging.library.uq.edu.au' ||
+                    window.location.hostname === 'sandbox-fryer.library.uq.edu.au' ||
+                    window.location.hostname === 'app-testing.library.uq.edu.au' ||
+                    window.location.hostname === 'localhost'
+                ) {
+                    const chatBotIframe = !!chatbotWrapper && chatbotWrapper.getElementsByTagName('iframe');
+                    !!chatBotIframe &&
+                        chatBotIframe.length > 0 &&
+                        (chatBotIframe[0].src =
+                            'https://copilotstudio.microsoft.com/environments/2a892934-221c-eaa4-9f1a-4790000854ca/bots/cr546_uqAssistGenAiChatBot/webchat?__version__=2');
+                }
 
                 const openCrmButton = shadowDOM.getElementById('speakToPerson');
                 !!openCrmButton && openCrmButton.addEventListener('click', swapToCrm);
