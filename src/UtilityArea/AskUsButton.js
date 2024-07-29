@@ -314,7 +314,7 @@ class AskUsButton extends HTMLElement {
     isProactiveChatElementHidden() {
         // copilot just shows a nasty error on app.library
         if (
-            ['app.library.uq.edu.au', 'app-testing.library.uq.edu.au'].includes(window.location.hostname) ||
+            // other condition here (none currently) - match in proactivechat
             window.location.pathname === '/index-app-nochatbot.html' // test only
         ) {
             return true;
