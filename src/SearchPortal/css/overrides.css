@@ -942,22 +942,31 @@ li.MuiAutocomplete-option:focus {
     margin-bottom: 0;
 }
 
-.cultural-advice {
+.cultural-advice, .restrictions-use {
     margin-block-end: 0;
     margin-block-start: 0;
-    padding: 1em 38px 4px 2em;
+    padding: 1em 0px 4px 0px;
+    color: #fff !important;
 }
-.cultural-advice p {
+.cultural-advice p, .restrictions-use p {
     margin-block-end: 0.5em;
+    color: #fff !important;
 }
-.cultural-advice a {
+.cultural-advice a, .restrictions-use a {
     text-decoration: none;
-    background-color: #fff;
     color: #2377cb;
+}
+.restrictions-use a {
+    text-decoration: underline;
+    color: #fff;
 }
 .cultural-advice a:hover,
 .cultural-advice a:visited,
-.cultural-advice a:active {
+.cultural-advice a:active,
+.restrictions-use a:hover,
+.restrictions-use a:visited,
+.restrictions-use a:active
+{
     text-decoration: underline;
 }
 #search-parent #search-portal-type-select, #search-parent #input-field-wrapper {
