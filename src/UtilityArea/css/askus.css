@@ -4,24 +4,29 @@
 #askus #askus-icon {
     width: 24px;
     height: 24px;
-    fill: #51247a;
-    margin-bottom: -5px;
+    fill: #745095; /* purple-200 */
+    margin-right: 3px;
 }
 
-#askus #askus-label {
-    font-size: 12px !important;
+#askus .askus-label {
     white-space: nowrap;
-    color: #51247a;
+    height: 14px;
+    font-weight: 500;
+    font-family: Roboto, Helvetica, sans-serif;
+}
+
+#askus button div {
+    display: flex;
+    align-items: center;
 }
 
 #askus button {
-    line-height: 20px !important;
+    display: flex;
+    align-items: center;
     background: rgba(0, 0, 0, 0);
-    border-radius: 50%;
     border: none;
     margin: -12px 0;
     padding: 6px;
-    width: 60px;
     height: 60px;
     transition-delay: 0s;
     transition-duration: 0.15s;
@@ -47,6 +52,10 @@ button:focus {
     transition-duration: 0.15s;
     transition-property: background-color;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#askus button svg {
+    width: 22px;
 }
 
 #askus-menu {
