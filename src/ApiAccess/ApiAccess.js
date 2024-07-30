@@ -16,7 +16,8 @@ class ApiAccess {
         };
 
         this.isSessionStorageEnabled = this.sessionStorageCheck();
-        const storedUserDetailsRaw = this.isSessionStorageEnabled && sessionStorage.getItem(locale.STORAGE_ACCOUNT_KEYNAME) || null;
+        const storedUserDetailsRaw =
+            (this.isSessionStorageEnabled && sessionStorage.getItem(locale.STORAGE_ACCOUNT_KEYNAME)) || null;
         // never allow there to be no or invalid account storage (weird thing happening on Secure Collection)
         if (storedUserDetailsRaw === null) {
             this.setStorageLoggedOut();
@@ -37,7 +38,7 @@ class ApiAccess {
         } catch (e) {
             return false;
         }
-    };
+    }
 
     watchForSessionExpiry() {
         // let the calling page know account is available
@@ -400,7 +401,8 @@ class ApiAccess {
     // It is called from other components (training, secure collection, etc.) in a loop, waiting on
     // the authbutton's call to loadAccountApi, above, to load the account into the sessionstorage
     getAccountFromStorage() {
-        const storedUserDetailsRaw = this.isSessionStorageEnabled && sessionStorage.getItem(locale.STORAGE_ACCOUNT_KEYNAME);
+        const storedUserDetailsRaw =
+            this.isSessionStorageEnabled && sessionStorage.getItem(locale.STORAGE_ACCOUNT_KEYNAME);
         const storedUserDetails = !!storedUserDetailsRaw && JSON.parse(storedUserDetailsRaw);
         if (this.isMock()) {
             const mockUserHasChanged =

@@ -41,10 +41,10 @@ userPromptTemplate.innerHTML = `
                         <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
                     </svg>
                 </button>
-                <div class="pcOpenChat">
+                <div id="button-open-chatbot-iframe" class="pcOpenChat">
                     <button id="proactive-chat-button-open" data-analyticsid="askus-proactive-chatbot-button-open" data-testid="popopen-button" class="proactive-chat-button" aria-label="Ask Library Chat Bot a question">Ask Library Chatbot</button>
                 </div>
-                <div class="crmChatPrompt">
+                <div id="button-open-crm" class="crmChatPrompt">
                     <button id="crmChatPrompt" data-analyticsid="askus-proactive-chat-button-open" class="crmchat-button" style="display: none">Chat with Library staff</button>
                     <button id="leaveAQuestionPrompt" data-analyticsid="chat-status-icon-offline" class="crmchat-button" style="display: none" aria-label="No staff available to chat - Leave a question">Leave a question</button>
                 </div>
@@ -70,7 +70,7 @@ chatbotIframeTemplate.innerHTML = `<div
         </div>
         <iframe 
             id="chatbotIframe"
-            src="https://copilotstudio.microsoft.com/environments/2a892934-221c-eaa4-9f1a-4790000854ca/bots/cr546_uqAssistGenAiChatBot/webchat?__version__=2"
+            src="https://copilotstudio.microsoft.com/environments/7dd3d6ed-ec25-eff0-8ff2-b38b699e89c0/bots/cr546_uqAssistGenAiChatBot/webchat?__version__=2"
             frameborder="0" 
             title="Ask Library Chatbot a question"
         ></iframe>
@@ -108,6 +108,23 @@ class ProactiveChat extends HTMLElement {
 
         // Render the userPromptTemplate
         shadowDOM.appendChild(userPromptTemplate.content.cloneNode(true));
+
+        // copilot just shows a nasty error on app.library
+        // only show the crm button
+        if (this.isChatBotHiddenHere()) {
+            const chatbotiframe = shadowDOM.querySelector('#proactivechat iframe');
+            !!chatbotiframe && chatbotiframe.remove();
+
+            const chatbotButton = shadowDOM.querySelector('#button-open-chatbot-iframe');
+            !!chatbotButton && chatbotButton.remove();
+
+            const crmButtonListWrapper = shadowDOM.querySelector('#button-open-crm');
+            !!crmButtonListWrapper && (crmButtonListWrapper.style.marginBottom = '25px');
+
+            const crmButtonList = shadowDOM.querySelectorAll('#button-open-crm button');
+            !!crmButtonList && crmButtonList.forEach((b) => !!b && b.classList.add('proactive-chat-button'));
+        }
+
         if (this.displayType === 'inline') {
             const proactiveChatElement = shadowDOM.getElementById('proactive-chat');
             !!proactiveChatElement && proactiveChatElement.classList.remove('ca-force-hide-mobile');
@@ -312,12 +329,30 @@ class ProactiveChat extends HTMLElement {
                 const minimisedOnlineButton = shadowDOM.getElementById('proactive-chat-online');
                 !!minimisedOnlineButton && (minimisedOnlineButton.style.display = 'none');
 
-                const chatbotIframe = shadowDOM.getElementById('chatbot-wrapper');
-                if (!!chatbotIframe) {
-                    chatbotIframe.style.display = 'block';
+                let chatbotWrapper = shadowDOM.getElementById('chatbot-wrapper');
+                if (!!chatbotWrapper) {
+                    chatbotWrapper.style.display = 'block';
                 } else {
                     shadowDOM.appendChild(chatbotIframeTemplate.content.cloneNode(true));
+                    chatbotWrapper = shadowDOM.getElementById('chatbot-wrapper');
                 }
+
+                // show copilot test url on staging domains
+                if (
+                    window.location.hostname === 'homepage-staging.library.uq.edu.au' ||
+                    window.location.hostname === 'homepage-development.library.uq.edu.au' ||
+                    window.location.hostname === 'web-staging.library.uq.edu.au' ||
+                    window.location.hostname === 'sandbox-fryer.library.uq.edu.au' ||
+                    window.location.hostname === 'app-testing.library.uq.edu.au' ||
+                    window.location.hostname === 'localhost'
+                ) {
+                    const chatBotIframe = !!chatbotWrapper && chatbotWrapper.getElementsByTagName('iframe');
+                    !!chatBotIframe &&
+                        chatBotIframe.length > 0 &&
+                        (chatBotIframe[0].src =
+                            'https://copilotstudio.microsoft.com/environments/2a892934-221c-eaa4-9f1a-4790000854ca/bots/cr546_uqAssistGenAiChatBot/webchat?__version__=2');
+                }
+
                 const openCrmButton = shadowDOM.getElementById('speakToPerson');
                 !!openCrmButton && openCrmButton.addEventListener('click', swapToCrm);
                 const chatbotCloseButton = shadowDOM.getElementById('closeIframeButton');
@@ -386,6 +421,13 @@ class ProactiveChat extends HTMLElement {
         !!proactiveChatWithBot && proactiveChatWithBot.addEventListener('click', openChatBotIframe);
         const proactiveleaveQuestion = shadowDOM.getElementById('leaveAQuestionPrompt');
         !!proactiveleaveQuestion && proactiveleaveQuestion.addEventListener('click', navigateToContactUs);
+    }
+
+    isChatBotHiddenHere() {
+        return (
+            // other condition here (none currently) - match in askus
+            window.location.pathname === '/index-app-nochatbot.html' // test only
+        );
     }
 }
 

@@ -312,6 +312,14 @@ class AskUsButton extends HTMLElement {
     }
 
     isProactiveChatElementHidden() {
+        // copilot just shows a nasty error on app.library
+        if (
+            // other condition here (none currently) - match in proactivechat
+            window.location.pathname === '/index-app-nochatbot.html' // test only
+        ) {
+            return true;
+        }
+
         const hideProactiveChat = this.getAttribute('hideproactivechat');
         return !!hideProactiveChat || hideProactiveChat === '';
     }
