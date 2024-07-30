@@ -276,33 +276,6 @@ class ApiAccess {
                 // set the error message here, to some generic "problem with OA, please try again later"
                 return null;
             });
-        //
-        //
-        //     // OA can take multiple urls to test, but we only send one here
-        //     const payload = { links: [urlPath] };
-        //     return await this.postData(new ApiRoutes().OPEN_ATHENS_LINK_CHECKER().apiUrl, payload)
-        //         .then((response) => {
-        //             console.log('loadOpenAthensCheck response', response);
-        //             return response.json();
-        //         })
-        //         .then((data) => {
-        //             console.log('loadOpenAthensCheck data', data);
-        //             return data?.goLinkResponseList || [];
-        //         })
-        //         .then((list) => {
-        //             let item = {};
-        //             if (list.length > 0) {
-        //                 item = list.pop();
-        //                 item.isValid = item?.type === 'RECOGNIZED_REDIRECT';
-        //             }
-        //             return item;
-        //         })
-        //         .catch((error) => {
-        //             console.log('error loading Open Athens check ', error);
-        //             const msg = `error loading Open Athens check: ${error.message}`;
-        //             throw new Error(msg);
-        //         });
-        // // }
     }
 
     async loadExamPaperSuggestions(keyword) {
@@ -374,7 +347,6 @@ class ApiAccess {
     }
 
     async fetchAPI(urlPath, headers = {}, tokenRequired = false, timestampRequired = true) {
-        console.log('### ApiAccess::fetchAPI urlPath=', urlPath);
         /* istanbul ignore next */
         if (!!tokenRequired && (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)) {
             // no cookie so we won't bother asking for the account api that cant be returned

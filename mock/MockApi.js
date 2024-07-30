@@ -73,13 +73,11 @@ class MockApi {
         this.url = url;
         const apiRoute = new ApiRoutes();
 
+        const queryString = new URLSearchParams(window.location.search);
+        const requestType = !!queryString ? queryString.get('requestType') : window.location.hash.substring(window.location.hash.indexOf('?')).requestType;
+
         const urlWithoutQueryString = !!url && url.length > 0 ? url.split('?')[0] : '';
-        console.log('urlWithoutQueryString=', urlWithoutQueryString);
         if (url.startsWith('openathens/check/')) {
-            console.log('MockApi::OpenAthens url=', url);
-            const queryString = new URLSearchParams(window.location.search);
-            const requestType = !!queryString ? queryString.get('requestType') : window.location.hash.substring(window.location.hash.indexOf('?')).requestType;
-            console.log('requestType=', requestType);
             if (requestType === 'error') {
                 // when openathens has an internal error
                 return this.response(503, {error: 'some message'});
@@ -89,12 +87,13 @@ class MockApi {
                 const openAthensSuccessResponse = {
                     available: false,
                 }
-                return this.response(200, [], true);
+                return this.response(200, openAthensSuccessResponse, true);
             }
             // otherwise, when openathens says "yes"
             // default success
-            const useLink = `https://go.openathens.net/redirector/uq.edu.au?url=${url.replace('openathens/check/', '')}`;
-            console.log('useLink=', useLink);
+            const rawUrl = url.replace('openathens/check/', '');
+            const returnableUrl = decodeURI(rawUrl)
+            const useLink = `https://go.openathens.net/redirector/uq.edu.au?url=${returnableUrl}`;
 
             const openAthensSuccessResponse = {
                 available: true,
@@ -178,7 +177,6 @@ class MockApi {
 
             default:
                 // splitting the '?' out of some apis doesn't work
-                console.log('MockApi - mock url: ', url);
                 switch (url) {
                     case apiRoute.PRIMO_SUGGESTIONS_API_GENERIC('DDDDD').apiUrl: // to test the repeating key works and doesnt pass just because the mock data doesnt exist
                     case apiRoute.PRIMO_SUGGESTIONS_API_GENERIC('bear').apiUrl:
