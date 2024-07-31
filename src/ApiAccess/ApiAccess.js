@@ -138,7 +138,6 @@ class ApiAccess {
     }
 
     async loadOpeningHours() {
-        console.log('loadOpeningHours');
         let result;
         const hoursApi = new ApiRoutes().LIB_HOURS_API();
         const urlPath = hoursApi.apiUrl;
@@ -149,10 +148,9 @@ class ApiAccess {
                 if (!!hoursResponse && !!hoursResponse.locations && hoursResponse.locations.length > 1) {
                     askusHours = hoursResponse.locations.map((item) => {
                         if (item.abbr === 'AskUs') {
-                            console.log('item?.departments[0]=', item?.departments[0]);
                             return {
-                                chat: `${item?.departments[0].times?.hours[0].from} \u2013 ${item?.departments[0].times?.hours[0]?.to}`,
-                                phone: `${item?.departments[1].times?.hours[0].from} \u2013 ${item?.departments[1].times?.hours[0]?.to}`,
+                                chat: item.departments[0].rendered,
+                                phone: item.departments[1].rendered,
                             };
                         }
                         return null;
@@ -235,24 +233,6 @@ class ApiAccess {
             });
     }
 
-    async postData(url = '', data = {}) {
-        // Default options are marked with *
-        const response = await fetch(url, {
-            method: 'POST', // *GET, POST, PUT, DELETE, etc.
-            mode: 'cors', // no-cors, *cors, same-origin
-            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: 'same-origin', // include, *same-origin, omit
-            headers: {
-                'Content-Type': 'application/json',
-                // 'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            redirect: 'follow', // manual, *follow, error
-            referrerPolicy: 'no-referrer', // no-referrer, *client
-            body: JSON.stringify(data), // body data type must match "Content-Type" header
-        });
-        return response;
-    }
-
     /**
      * Loads the open athens link checker
      * is the requested link one that open athens can link to?
@@ -282,30 +262,17 @@ class ApiAccess {
         ]
       }
     */
-    async loadOpenAthensCheck(testurl) {
-        // OA can take multiple urls to test, but we only send one here
-        const payload = { links: [testurl] };
-        return await this.postData(new ApiRoutes().OPEN_ATHENS_LINK_CHECKER().apiUrl, payload)
+    async loadOpenAthensCheck(urlPath) {
+        console.log('loadOpenAthensCheck start', urlPath);
+        const openAthensApi = new ApiRoutes().OPEN_ATHENS_LINK_CHECKER(urlPath);
+        return await this.fetchAPI(openAthensApi.apiUrl)
             .then((response) => {
-                console.log('loadOpenAthensCheck response', response);
-                return response.json();
-            })
-            .then((data) => {
-                console.log('loadOpenAthensCheck data', data);
-                return data?.goLinkResponseList || [];
-            })
-            .then((list) => {
-                let item = {};
-                if (list.length > 0) {
-                    item = list.pop();
-                    item.isValid = item?.type === 'RECOGNIZED_REDIRECT';
-                }
-                return item;
+                return response;
             })
             .catch((error) => {
-                console.log('error loading Open Athens check ', error);
-                const msg = `error loading Open Athens check: ${error.message}`;
-                throw new Error(msg);
+                console.log('error loading openathens ', error);
+                // set the error message here, to some generic "problem with OA, please try again later"
+                return null;
             });
     }
 
@@ -412,7 +379,7 @@ class ApiAccess {
             });
 
             if (!response.ok) {
-                console.log(`ApiAccess console [A3]: An error has occured: ${response.status} ${response.statusText}`);
+                console.log(`ApiAccess console [A3]: An error has occurred: ${response.status} ${response.statusText}`);
                 const message = `ApiAccess [A1]: An error has occured: ${response.status} ${response.statusText}`;
                 throw new Error(message);
             }

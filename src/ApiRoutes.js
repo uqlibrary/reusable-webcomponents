@@ -48,10 +48,9 @@ class ApiRoutes {
     };
 
     // Open Athens Check API
-    // https://go.openathens.net/generate/uq.edu.au/80528068
-    OPEN_ATHENS_LINK_CHECKER = () => {
+    OPEN_ATHENS_LINK_CHECKER = (url) => {
         return {
-            apiUrl: 'https://go.openathens.net/generate-links/uq.edu.au/80528068',
+            apiUrl: 'openathens/check/' + encodeURIComponent(encodeURIComponent(url)),
         };
     };
 
