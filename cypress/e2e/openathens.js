@@ -52,342 +52,390 @@ describe('OpenAthens', () => {
     beforeEach(() => {
         cy.setCookie('UQ_CULTURAL_ADVICE', 'hidden'); // hide CA Popup by default.
     });
-    context('default mode, success', () => {
-        beforeEach(() => {
-            cy.visit('http://localhost:8080');
-        });
-
-        it('shows expected elements on load', () => {
-            cy.get('open-athens[create-link]')
-                .should('exist')
-                .scrollIntoView()
-                .shadow()
-                .find('[data-testid="open-athens"]')
-                .within(() => {
-                    cy.get('[data-testid="open-athens-input"]').should('exist').should('be.visible');
-                    cy.get('[data-testid="open-athens-create-link-button"]').should('exist').should('be.visible');
-                    cy.get('[data-testid="open-athens-copy-options"]').should('exist').should('not.be.visible');
-
-                    cy.get('[data-testid="open-athens-redirect-button"]').should('exist').should('not.be.visible');
-                });
-        });
-
-        it('shows expected elements on creating a link', () => {
-            cy.get('open-athens[create-link]')
-                .should('exist')
-                .shadow()
-                .find('[data-testid="open-athens"]')
-                .within(() => {
-                    cy.get('[data-testid="open-athens-input"]').type('https://www.google.com/{enter}');
-                    cy.get('[data-testid="open-athens-create-link-button"]').should('exist').should('not.be.visible');
-                    cy.get('[data-testid="open-athens-copy-options"]').should('exist').should('be.visible');
-                });
-        });
-
-        it('opens generated URL in a new window on clicking the test button', () => {
-            cy.window().then((win) => {
-                cy.stub(win, 'open').as('windowOpen');
+    context('default mode', () => {
+        context('success', () => {
+            beforeEach(() => {
+                cy.visit('http://localhost:8080');
             });
-            cy.get('open-athens[create-link]')
-                .should('exist')
-                .shadow()
-                .find('[data-testid="open-athens"]')
-                .within(() => {
-                    cy.get('[data-testid="open-athens-input"]').type('https://www.google.com/');
-                    cy.get('[data-testid="open-athens-create-link-button"]').click();
-                    cy.get('[data-testid="open-athens-visit-link-button"]')
-                        .should('exist')
-                        .should('be.visible')
-                        .click();
+
+            it('shows expected elements on load', () => {
+                cy.get('open-athens[create-link]')
+                    .should('exist')
+                    .scrollIntoView()
+                    .shadow()
+                    .find('[data-testid="open-athens"]')
+                    .within(() => {
+                        cy.get('[data-testid="open-athens-input"]').should('exist').should('be.visible');
+                        cy.get('[data-testid="open-athens-create-link-button"]').should('exist').should('be.visible');
+                        cy.get('[data-testid="open-athens-copy-options"]').should('exist').should('not.be.visible');
+
+                        cy.get('[data-testid="open-athens-redirect-button"]').should('exist').should('not.be.visible');
+                    });
+            });
+
+            it('shows expected elements on creating a link', () => {
+                cy.get('open-athens[create-link]')
+                    .should('exist')
+                    .shadow()
+                    .find('[data-testid="open-athens"]')
+                    .within(() => {
+                        cy.get('[data-testid="open-athens-input"]').type('https://www.google.com/{enter}');
+                        cy.get('[data-testid="open-athens-create-link-button"]')
+                            .should('exist')
+                            .should('not.be.visible');
+                        cy.get('[data-testid="open-athens-copy-options"]').should('exist').should('be.visible');
+                    });
+            });
+
+            it('opens generated URL in a new window on clicking the test button', () => {
+                cy.window().then((win) => {
+                    cy.stub(win, 'open').as('windowOpen');
                 });
-            cy.window().its('open').should('be.called');
+                cy.get('open-athens[create-link]')
+                    .should('exist')
+                    .shadow()
+                    .find('[data-testid="open-athens"]')
+                    .within(() => {
+                        cy.get('[data-testid="open-athens-input"]').type('https://www.google.com/');
+                        cy.get('[data-testid="open-athens-create-link-button"]').click();
+                        cy.get('[data-testid="open-athens-visit-link-button"]')
+                            .should('exist')
+                            .should('be.visible')
+                            .click();
+                    });
+                cy.window().its('open').should('be.called');
 
-            cy.get('@windowOpen').should('be.called');
+                cy.get('@windowOpen').should('be.called');
 
-            // Get the URL that was passed to window.open
-            cy.get('@windowOpen').then((stub) => {
-                const newWindowUrl = stub.args[0][0];
-                expect(newWindowUrl).to.equal(
-                    'https://go.openathens.net/redirector/uq.edu.au?url=https%3A%2F%2Fwww.google.com%2F',
-                );
+                // Get the URL that was passed to window.open
+                cy.get('@windowOpen').then((stub) => {
+                    const newWindowUrl = stub.args[0][0];
+                    expect(newWindowUrl).to.equal(
+                        'https://go.openathens.net/redirector/uq.edu.au?url=https%3A%2F%2Fwww.google.com%2F',
+                    );
+                });
             });
-        });
 
-        it('uses clipboard API command (1/2) to copy the generated URL to the clipboard on clicking copy button', () => {
-            // note fails if run locally in `npx cypress open` *without you putting focus on the Cypress application*!!!!
-            cy.viewport(900, 1200);
+            it('uses clipboard API command (1/2) to copy the generated URL to the clipboard on clicking copy button', () => {
+                // WARNING!!!!!!: fails if run locally in `npx cypress open` *without you putting focus on the Cypress application*!!!!
+                cy.viewport(900, 1200);
 
-            cy.get('[data-testid="random-page-element"]').scrollIntoView();
-            cy.window().then((win) => {
-                if (!!win.navigator?.clipboard?.writeText) {
-                    cy.spy(win.navigator.clipboard, 'writeText').as('writeText');
-                    copyAndToast('URL copied successfully');
-                }
-            });
-        });
-
-        it('uses clipboard API command (2/2) to copy the generated URL to the clipboard on clicking copy button', () => {
-            cy.window().then((win) => {
-                if (!!win.navigator?.clipboard?.writeText) {
-                } else {
-                    cy.log('This browser does not support clipboard API command.');
-                    cy.document().then((doc) => {
-                        cy.stub(doc, 'execCommand')
-                            .callsFake(() => true)
-                            .as('execCommand');
+                cy.get('[data-testid="random-page-element"]').scrollIntoView();
+                cy.window().then((win) => {
+                    if (!!win.navigator?.clipboard?.writeText) {
+                        cy.spy(win.navigator.clipboard, 'writeText').as('writeText');
                         copyAndToast('URL copied successfully');
-                        cy.get('@execCommand').should('be.calledOnce');
+                    }
+                });
+            });
+
+            it('uses clipboard API command (2/2) to copy the generated URL to the clipboard on clicking copy button', () => {
+                cy.window().then((win) => {
+                    if (!!win.navigator?.clipboard?.writeText) {
+                    } else {
+                        cy.log('This browser does not support clipboard API command.');
+                        cy.document().then((doc) => {
+                            cy.stub(doc, 'execCommand')
+                                .callsFake(() => true)
+                                .as('execCommand');
+                            copyAndToast('URL copied successfully');
+                            cy.get('@execCommand').should('be.calledOnce');
+                        });
+                    }
+                });
+            });
+
+            it('uses legacy command to copy the generated URL to the clipboard on clicking copy button', () => {
+                cy.document().then((doc) => {
+                    cy.stub(doc, 'execCommand')
+                        .callsFake(() => true)
+                        .as('execCommand');
+                });
+                const writeText = replaceWriteText();
+                copyAndToast('URL copied successfully');
+                cy.get('@execCommand').should('be.calledOnceWith', 'copy');
+                if (writeText) {
+                    cy.window().then((win) => {
+                        win.navigator.clipboard.writeText = writeText;
                     });
                 }
             });
+
+            it('resets view on clicking button to create new link', () => {
+                cy.get('open-athens[create-link]')
+                    .should('exist')
+                    .shadow()
+                    .find('[data-testid="open-athens"]')
+                    .within(() => {
+                        cy.get('[data-testid="open-athens-input"]').should('exist').type('https://www.google.com/');
+                        cy.get('[data-testid="open-athens-create-link-button"]').click();
+                        cy.get('[data-testid="open-athens-url-display-area"]').should(
+                            'have.value',
+                            'https://go.openathens.net/redirector/uq.edu.au?url=https%3A%2F%2Fwww.google.com%2F',
+                        );
+                        cy.get('[data-testid="open-athens-create-new-link-button"]').should('exist').click();
+                        cy.get('[data-testid="open-athens-input"]').should('exist').should('be.visible');
+                        cy.get('[data-testid="open-athens-create-link-button"]').should('exist').should('be.visible');
+                        cy.get('[data-testid="open-athens-copy-options"]').should('exist').should('not.be.visible');
+                        cy.get('[data-testid="open-athens-redirect-button"]').should('exist').should('not.be.visible');
+                    });
+            });
+
+            it('creates doi.org URLs from DOIs as expected', () => {
+                cy.get('open-athens[create-link]')
+                    .should('exist')
+                    .shadow()
+                    .find('[data-testid="open-athens"]')
+                    .within(() => {
+                        cy.get('[data-testid="open-athens-input"]')
+                            .should('exist')
+                            .type('10.1016/S2214-109X(21)00061-9');
+                        cy.get('[data-testid="open-athens-create-link-button"]').click();
+                        cy.get('[data-testid="open-athens-url-display-area"]').should(
+                            'have.value',
+                            'https://go.openathens.net/redirector/uq.edu.au?url=https%3A%2F%2Fdx.doi.org%2F10.1016%2FS2214-109X(21)00061-9',
+                        );
+                    });
+            });
+
+            it('is accessible', () => {
+                cy.injectAxe();
+                cy.viewport(1280, 900);
+
+                cy.checkA11y('open-athens:not([create-link])', {
+                    reportName: 'OpenAthens redirect-only',
+                    scopeName: 'on load',
+                    includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+                });
+            });
         });
 
-        it('uses legacy command to copy the generated URL to the clipboard on clicking copy button', () => {
-            cy.document().then((doc) => {
-                cy.stub(doc, 'execCommand')
-                    .callsFake(() => true)
-                    .as('execCommand');
+        context('failure', () => {
+            it('shows expected error messages for non OA url', () => {
+                cy.visit('http://localhost:8080/?requestType=failure');
+
+                cy.get('open-athens[create-link]')
+                    .should('exist')
+                    .shadow()
+                    .find('[data-testid="open-athens"]')
+                    .within(() => {
+                        cy.get('[data-testid="open-athens-input"]')
+                            .should('exist')
+                            .type('{selectall}http://www.example.com{enter}');
+                        cy.get('[data-testid="open-athens-input-error"]').should(
+                            'have.text',
+                            'This resource/link does not require UQ access. Try accessing it directly.',
+                        );
+                    });
             });
-            const writeText = replaceWriteText();
-            copyAndToast('URL copied successfully');
-            cy.get('@execCommand').should('be.calledOnceWith', 'copy');
-            if (writeText) {
+
+            it('shows expected error messages for ill-formed URLs', () => {
+                cy.visit('http://localhost:8080');
+
+                cy.get('open-athens[create-link]')
+                    .should('exist')
+                    .shadow()
+                    .find('[data-testid="open-athens"]')
+                    .within(() => {
+                        cy.get('[data-testid="open-athens-input"]').should('exist').as('inputField').type('blah');
+                        cy.get('[data-testid="open-athens-create-link-button"]').as('createLinkButton').click();
+                        cy.get('[data-testid="open-athens-input-error"]')
+                            .should('exist')
+                            .should('be.visible')
+                            .as('inputError')
+                            .should('have.text', 'Invalid URL. Please add the protocol eg: http://, https://');
+
+                        cy.get('@inputField').type('{selectall}http:/www.example.com');
+                        cy.get('@createLinkButton').click();
+                        cy.get('@inputError').should('have.text', 'Invalid URL');
+                    });
+            });
+
+            it('shows expected error messages when copy mechanisms fail - 1 of 3', () => {
+                cy.visit('http://localhost:8080');
+
+                let execCommand;
+                cy.document().then((doc) => {
+                    execCommand = doc.execCommand;
+                    doc.execCommand = false;
+                });
+                const writeText = replaceWriteText();
+                copyAndToast('Copy function not available in this web browser');
+                cy.document().then((doc) => {
+                    doc.execCommand = execCommand;
+                });
+                cy.window().then((win) => {
+                    if (writeText) {
+                        win.navigator.clipboard.writeText = writeText;
+                    }
+                });
+            });
+
+            it('shows expected error messages when copy mechanisms fail - 2 of 3', () => {
+                cy.visit('http://localhost:8080');
+
+                cy.document().then((doc) => {
+                    cy.stub(doc, 'execCommand')
+                        .callsFake(() => false)
+                        .as('execCommand');
+                });
+                const writeText = replaceWriteText();
+                copyAndToast('Unable to copy URL');
+                cy.get('@execCommand').should('be.calledOnceWith', 'copy');
+                cy.window().then((win) => {
+                    if (writeText) {
+                        win.navigator.clipboard.writeText = writeText;
+                    }
+                });
+            });
+
+            it.skip('shows expected error messages when copy mechanisms fail - 3 of 3', () => {
+                cy.visit('http://localhost:8080');
+
+                const writeText = replaceWriteText(() => {
+                    throw DOMException('fail');
+                });
+                copyAndToast('An error occurred while copying the URL');
                 cy.window().then((win) => {
                     win.navigator.clipboard.writeText = writeText;
                 });
-            }
-        });
-
-        it('resets view on clicking button to create new link', () => {
-            cy.get('open-athens[create-link]')
-                .should('exist')
-                .shadow()
-                .find('[data-testid="open-athens"]')
-                .within(() => {
-                    cy.get('[data-testid="open-athens-input"]').should('exist').type('https://www.google.com/');
-                    cy.get('[data-testid="open-athens-create-link-button"]').click();
-                    cy.get('[data-testid="open-athens-url-display-area"]').should(
-                        'have.value',
-                        'https://go.openathens.net/redirector/uq.edu.au?url=https%3A%2F%2Fwww.google.com%2F',
-                    );
-                    cy.get('[data-testid="open-athens-create-new-link-button"]').should('exist').click();
-                    cy.get('[data-testid="open-athens-input"]').should('exist').should('be.visible');
-                    cy.get('[data-testid="open-athens-create-link-button"]').should('exist').should('be.visible');
-                    cy.get('[data-testid="open-athens-copy-options"]').should('exist').should('not.be.visible');
-                    cy.get('[data-testid="open-athens-redirect-button"]').should('exist').should('not.be.visible');
-                });
-        });
-
-        it.skip('removes ezyproxy-fied parts from hostname', () => {
-            cy.get('open-athens[create-link]')
-                .should('exist')
-                .shadow()
-                .find('[data-testid="open-athens"]')
-                .within(() => {
-                    cy.get('[data-testid="open-athens-input"]')
-                        .should('exist')
-                        .type(
-                            'http://www.sciencedirect.com.ezproxy.library.uq.edu.au/science/article/pii/S1744388116300159',
-                        );
-                    cy.get('[data-testid="open-athens-create-link-button"]').click();
-                    cy.get('[data-testid="open-athens-url-display-area"]').should(
-                        'have.value',
-                        'https://go.openathens.net/redirector/uq.edu.au?url=http://www.sciencedirect.com/science/article/pii/S1744388116300159',
-                    );
-                });
-        });
-
-        it('creates doi.org URLs from DOIs as expected', () => {
-            cy.get('open-athens[create-link]')
-                .should('exist')
-                .shadow()
-                .find('[data-testid="open-athens"]')
-                .within(() => {
-                    cy.get('[data-testid="open-athens-input"]').should('exist').type('10.1016/S2214-109X(21)00061-9');
-                    cy.get('[data-testid="open-athens-create-link-button"]').click();
-                    cy.get('[data-testid="open-athens-url-display-area"]').should(
-                        'have.value',
-                        'https://go.openathens.net/redirector/uq.edu.au?url=https%3A%2F%2Fdx.doi.org%2F10.1016%2FS2214-109X(21)00061-9',
-                    );
-                });
-        });
-
-        it('is accessible', () => {
-            cy.injectAxe();
-            cy.viewport(1280, 900);
-
-            cy.checkA11y('open-athens:not([create-link])', {
-                reportName: 'OpenAthens redirect-only',
-                scopeName: 'on load',
-                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
-            });
-        });
-    });
-
-    context('default mode, failure', () => {
-        it('shows expected error messages for non OA url', () => {
-            cy.visit('http://localhost:8080/?requestType=failure');
-
-            cy.get('open-athens[create-link]')
-                .should('exist')
-                .shadow()
-                .find('[data-testid="open-athens"]')
-                .within(() => {
-                    cy.get('[data-testid="open-athens-input"]')
-                        .should('exist')
-                        .type('{selectall}http://www.example.com');
-                    cy.get('[data-testid="open-athens-create-link-button"]').should('exist').click();
-                    cy.get('[data-testid="open-athens-input-error"]').should(
-                        'have.text',
-                        'This resource/link does not require UQ access. Try accessing it directly.',
-                    );
-                });
-        });
-
-        it('shows expected error messages for ill-formed URLs', () => {
-            cy.visit('http://localhost:8080');
-
-            cy.get('open-athens[create-link]')
-                .should('exist')
-                .shadow()
-                .find('[data-testid="open-athens"]')
-                .within(() => {
-                    cy.get('[data-testid="open-athens-input"]').should('exist').as('inputField').type('blah');
-                    cy.get('[data-testid="open-athens-create-link-button"]').as('createLinkButton').click();
-                    cy.get('[data-testid="open-athens-input-error"]')
-                        .should('exist')
-                        .should('be.visible')
-                        .as('inputError')
-                        .should('have.text', 'Invalid URL. Please add the protocol eg: http://, https://');
-
-                    cy.get('@inputField').type('{selectall}http:/www.example.com');
-                    cy.get('@createLinkButton').click();
-                    cy.get('@inputError').should('have.text', 'Invalid URL');
-                });
-        });
-
-        it('shows expected error messages when copy mechanisms fail - 1 of 3', () => {
-            cy.visit('http://localhost:8080');
-
-            let execCommand;
-            cy.document().then((doc) => {
-                execCommand = doc.execCommand;
-                doc.execCommand = false;
-            });
-            const writeText = replaceWriteText();
-            copyAndToast('Copy function not available in this web browser');
-            cy.document().then((doc) => {
-                doc.execCommand = execCommand;
-            });
-            cy.window().then((win) => {
-                if (writeText) {
-                    win.navigator.clipboard.writeText = writeText;
-                }
-            });
-        });
-
-        it('shows expected error messages when copy mechanisms fail - 2 of 3', () => {
-            cy.visit('http://localhost:8080');
-
-            cy.document().then((doc) => {
-                cy.stub(doc, 'execCommand')
-                    .callsFake(() => false)
-                    .as('execCommand');
-            });
-            const writeText = replaceWriteText();
-            copyAndToast('Unable to copy URL');
-            cy.get('@execCommand').should('be.calledOnceWith', 'copy');
-            cy.window().then((win) => {
-                if (writeText) {
-                    win.navigator.clipboard.writeText = writeText;
-                }
-            });
-        });
-
-        it.skip('shows expected error messages when copy mechanisms fail - 3 of 3', () => {
-            cy.visit('http://localhost:8080');
-
-            const writeText = replaceWriteText(() => {
-                throw DOMException('fail');
-            });
-            copyAndToast('An error occurred while copying the URL');
-            cy.window().then((win) => {
-                win.navigator.clipboard.writeText = writeText;
             });
         });
     });
 
     context('redirect-only mode', () => {
-        beforeEach(() => {
-            cy.visit('http://localhost:8080');
-        });
-
-        it('shows expected elements on load', () => {
-            cy.get('open-athens:not([create-link])')
-                .should('exist')
-                .shadow()
-                .find('[data-testid="open-athens"]')
-                .within(() => {
-                    cy.get('[data-testid="open-athens-input"]').should('exist').should('be.visible');
-
-                    cy.get('[data-testid="open-athens-create-link-button"]').should('exist').should('not.be.visible');
-                    cy.get('[data-testid="open-athens-copy-options"]').should('exist').should('not.be.visible');
-                    cy.get('[data-testid="open-athens-redirect-button"]').should('exist').should('be.visible');
-                });
-        });
-
-        it.skip('opens a new window on submitting valid input', () => {
-            cy.window().then((win) => {
-                cy.stub(win, 'open').as('windowOpen');
+        context('success', () => {
+            beforeEach(() => {
+                cy.visit('http://localhost:8080');
             });
-            cy.get('open-athens:not([create-link])')
-                .should('exist')
-                .shadow()
-                .find('[data-testid="open-athens"]')
-                .within(() => {
-                    cy.get('[data-testid="open-athens-input"]').should('exist').type('https://www.uq.edu.au/{enter}');
+
+            it('shows expected elements on load', () => {
+                cy.get('open-athens:not([create-link])')
+                    .should('exist')
+                    .shadow()
+                    .find('[data-testid="open-athens"]')
+                    .within(() => {
+                        cy.get('[data-testid="open-athens-input"]').should('exist').should('be.visible');
+
+                        cy.get('[data-testid="open-athens-create-link-button"]')
+                            .should('exist')
+                            .should('not.be.visible');
+                        cy.get('[data-testid="open-athens-copy-options"]').should('exist').should('not.be.visible');
+                        cy.get('[data-testid="open-athens-redirect-button"]').should('exist').should('be.visible');
+                    });
+            });
+
+            it('opens a new window on submitting valid input', () => {
+                cy.window().then((win) => {
+                    cy.stub(win, 'open').as('windowOpen');
                 });
-            cy.window()
-                .its('open')
-                .should(
-                    'be.calledOnceWith',
-                    'https://go.openathens.net/redirector/uq.edu.au?url=https%3A%2F%2Fwww.uq.edu.au/',
-                );
+                cy.get('open-athens:not([create-link])')
+                    .should('exist')
+                    .shadow()
+                    .find('[data-testid="open-athens"]')
+                    .within(() => {
+                        cy.get('[data-testid="open-athens-input"]').type('https://www.google.com/');
+                        cy.get('[data-testid="open-athens-redirect-button"]')
+                            .should('exist')
+                            .should('be.visible')
+                            .click();
+                    });
+                cy.window().its('open').should('be.called');
+
+                cy.get('@windowOpen').should('be.called');
+
+                // Get the URL that was passed to window.open
+                cy.get('@windowOpen').then((stub) => {
+                    const newWindowUrl = stub.args[0][0];
+                    expect(newWindowUrl).to.equal(
+                        'https://go.openathens.net/redirector/uq.edu.au?url=https%3A%2F%2Fwww.google.com%2F',
+                    );
+                });
+            });
+
+            it('clears the field on clicking the clear button', () => {
+                cy.get('open-athens:not([create-link])')
+                    .should('exist')
+                    .shadow()
+                    .find('[data-testid="open-athens"]')
+                    .within(() => {
+                        cy.get('[data-testid="open-athens-input"]').should('exist').type('https://www.uq.edu.au/');
+                        cy.get('[data-testid="open-athens-input-clear-button"]').should('exist').click();
+                        cy.get('[data-testid="open-athens-input"]').should('be.empty');
+                    });
+            });
+
+            it('is accessible', () => {
+                cy.injectAxe();
+                cy.viewport(1280, 900);
+                cy.checkA11y('open-athens[create-link]', {
+                    reportName: 'OpenAthens copy',
+                    scopeName: 'on load',
+                    includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+                });
+            });
         });
 
-        it('shows error if no input was provided', () => {
-            cy.get('open-athens:not([create-link])')
-                .should('exist')
-                .shadow()
-                .find('[data-testid="open-athens"]')
-                .within(() => {
-                    cy.get('[data-testid="open-athens-redirect-button"]').should('exist').click();
-                    cy.get('[data-testid="open-athens-input-error"]')
-                        .should('exist')
-                        .should('be.visible')
-                        .should('have.text', 'Please enter a URL');
-                });
-        });
+        context('failure', () => {
+            it('shows error if no input was provided', () => {
+                cy.visit('http://localhost:8080');
+                cy.get('open-athens:not([create-link])')
+                    .should('exist')
+                    .shadow()
+                    .find('[data-testid="open-athens"]')
+                    .within(() => {
+                        cy.get('[data-testid="open-athens-input"]').scrollIntoView();
+                        cy.get('[data-testid="open-athens-input"]').should('be.empty');
+                        cy.get('[data-testid="open-athens-redirect-button"]').should('exist').click();
+                        cy.get('[data-testid="open-athens-input-error"]')
+                            .should('exist')
+                            .should('be.visible')
+                            .should('have.text', 'Please enter a URL');
+                    });
+            });
 
-        it('clears the field on clicking the clear button', () => {
-            cy.get('open-athens:not([create-link])')
-                .should('exist')
-                .shadow()
-                .find('[data-testid="open-athens"]')
-                .within(() => {
-                    cy.get('[data-testid="open-athens-input"]').should('exist').type('https://www.uq.edu.au/');
-                    cy.get('[data-testid="open-athens-input-clear-button"]').should('exist').click();
-                    cy.get('[data-testid="open-athens-input"]').should('be.empty');
-                });
-        });
+            it('shows expected error messages for non OA url', () => {
+                cy.visit('http://localhost:8080/?requestType=failure');
 
-        it('is accessible', () => {
-            cy.injectAxe();
-            cy.viewport(1280, 900);
-            cy.checkA11y('open-athens[create-link]', {
-                reportName: 'OpenAthens copy',
-                scopeName: 'on load',
-                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+                cy.get('open-athens:not([create-link])')
+                    .should('exist')
+                    .shadow()
+                    .find('[data-testid="open-athens"]')
+                    .within(() => {
+                        cy.get('[data-testid="open-athens-input"]')
+                            .should('exist')
+                            .type('{selectall}http://www.example.com{enter}');
+                        cy.get('[data-testid="open-athens-input"]').scrollIntoView();
+                        cy.get('[data-testid="open-athens-input-error"]').should(
+                            'have.text',
+                            'This resource/link does not require UQ access. Try accessing it directly.',
+                        );
+                    });
+            });
+
+            it('shows expected error messages for ill-formed URLs', () => {
+                cy.visit('http://localhost:8080');
+
+                cy.get('open-athens:not([create-link])')
+                    .should('exist')
+                    .shadow()
+                    .find('[data-testid="open-athens"]')
+                    .within(() => {
+                        cy.get('[data-testid="open-athens-input"]').should('exist').as('inputField').type('blah');
+                        cy.get('[data-testid="open-athens-redirect-button"]')
+                            .as('createLinkButton')
+                            .should('exist')
+                            .click();
+                        cy.get('[data-testid="open-athens-input-error"]')
+                            .should('exist')
+                            .should('be.visible')
+                            .as('inputError')
+                            .should('have.text', 'Invalid URL. Please add the protocol eg: http://, https://');
+
+                        cy.get('@inputField').type('{selectall}http:/www.example.com');
+                        cy.get('@createLinkButton').click();
+                        cy.get('@inputError').should('have.text', 'Invalid URL');
+                    });
             });
         });
     });
