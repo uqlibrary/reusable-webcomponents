@@ -298,10 +298,16 @@ class OpenAthens extends HTMLElement {
     }
 
     async getOpenAthensAsync(url) {
-        const result = await new ApiAccess()
+        return await new ApiAccess()
             .loadOpenAthensCheck(url)
             .then((response) => {
-                if (response?.available === true) {
+                if (!response.hasOwnProperty('available')) {
+                    this.inputValidator = {
+                        valid: false,
+                        message: 'An unexpected problem occurred - please try again later.',
+                    };
+                    return null;
+                } else if (response?.available === true) {
                     this.displayUrl(response.useLink);
                     return response.useLink;
                 } else {
@@ -318,11 +324,10 @@ class OpenAthens extends HTMLElement {
                 console.log('getOpenAthensAsync, error: ', e);
                 this.inputValidator = {
                     valid: false,
-                    message: 'An unexpected problem occurred',
+                    message: 'An unexpected problem occurred - please try again later.',
                 };
                 return null;
             });
-        return result;
     }
 
     /**

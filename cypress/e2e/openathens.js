@@ -18,12 +18,6 @@ describe('OpenAthens', () => {
                     cy.get('[data-testid="open-athens-copy-link-button"]').should('exist').should('be.visible'),
                 );
                 cy.get('[data-testid="open-athens-copy-link-button"]').click();
-                // note if you let this auto run in cypress "open" (interactive) mode _and cypress doesnt have focus_
-                // for example.if cypress tests start running again because you made a test change to the file, and you didn't swap windows
-                // THIS MAY FAIL - it cant click the copy button - console will report "Document is not focused."
-                // but let it run in the background and all is fine
-                // so manually testing may be dicey, but AWS and `npx cypress run` testing should be fine
-                // Ugh!
                 cy.waitUntil(() =>
                     cy.get('[data-testid="open-athens-copy-status"]').should('exist').should('be.visible'),
                 );
@@ -52,7 +46,7 @@ describe('OpenAthens', () => {
     beforeEach(() => {
         cy.setCookie('UQ_CULTURAL_ADVICE', 'hidden'); // hide CA Popup by default.
     });
-    context('default mode', () => {
+    context('copy url mode', () => {
         context('success', () => {
             beforeEach(() => {
                 cy.visit('http://localhost:8080');
@@ -117,7 +111,12 @@ describe('OpenAthens', () => {
             });
 
             it('uses clipboard API command (1/2) to copy the generated URL to the clipboard on clicking copy button', () => {
-                // WARNING!!!!!!: fails if run locally in `npx cypress open` *without you putting focus on the Cypress application*!!!!
+                // WARNING!!! if you let this auto run in cypress "open" (interactive) mode _and cypress doesnt have focus_
+                // for example.if cypress tests start running again because you made a test change to the file, and you didn't swap windows
+                // THIS MAY FAIL - it cant click the copy button - console will report "Document is not focused."
+                // but let it run in the background and all is fine
+                // so manually testing may be dicey, but AWS and `npx cypress run` testing should be fine
+                // Ugh!
                 cy.viewport(900, 1200);
 
                 cy.get('[data-testid="random-page-element"]').scrollIntoView();
@@ -211,6 +210,24 @@ describe('OpenAthens', () => {
         });
 
         context('failure', () => {
+            it('shows expected error messages when Open Athens is not working', () => {
+                cy.visit('http://localhost:8080/?requestType=error');
+
+                cy.get('open-athens[create-link]')
+                    .should('exist')
+                    .shadow()
+                    .find('[data-testid="open-athens"]')
+                    .within(() => {
+                        cy.get('[data-testid="open-athens-input"]')
+                            .should('exist')
+                            .type('{selectall}http://www.example.com{enter}');
+                        cy.get('[data-testid="open-athens-input-error"]').should(
+                            'have.text',
+                            'An unexpected problem occurred - please try again later.',
+                        );
+                    });
+            });
+
             it('shows expected error messages for non OA url', () => {
                 cy.visit('http://localhost:8080/?requestType=failure');
 
@@ -303,7 +320,7 @@ describe('OpenAthens', () => {
         });
     });
 
-    context('redirect-only mode', () => {
+    context('visit url mode', () => {
         context('success', () => {
             beforeEach(() => {
                 cy.visit('http://localhost:8080');
@@ -391,6 +408,24 @@ describe('OpenAthens', () => {
                             .should('exist')
                             .should('be.visible')
                             .should('have.text', 'Please enter a URL');
+                    });
+            });
+
+            it('shows expected error messages when Open Athens is not working', () => {
+                cy.visit('http://localhost:8080/?requestType=error');
+
+                cy.get('open-athens:not([create-link])')
+                    .should('exist')
+                    .shadow()
+                    .find('[data-testid="open-athens"]')
+                    .within(() => {
+                        cy.get('[data-testid="open-athens-input"]')
+                            .should('exist')
+                            .type('{selectall}http://www.example.com{enter}');
+                        cy.get('[data-testid="open-athens-input-error"]').should(
+                            'have.text',
+                            'An unexpected problem occurred - please try again later.',
+                        );
                     });
             });
 
