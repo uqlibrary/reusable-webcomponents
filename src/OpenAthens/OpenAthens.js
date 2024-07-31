@@ -158,7 +158,7 @@ class OpenAthens extends HTMLElement {
         this.createNewLinkButton.addEventListener('click', () => this.clearInput());
         this.inputClearButton.addEventListener('click', () => this.clearInput());
         this.inputField.addEventListener('keypress', (e) => this.inputUrlKeypress(e));
-        this.redirectButton.addEventListener('click', () => this.navigateToLinkViaOpenAthens());
+        this.redirectButton.addEventListener('click', () => this.redirectToLinkViaOpenAthens());
         this.visitLinkButton.addEventListener('click', () => this.navigateToLinkViaOpenAthens());
     }
 
@@ -171,7 +171,7 @@ class OpenAthens extends HTMLElement {
             return;
         }
         if (this.redirectOnly) {
-            this.navigateToLinkViaOpenAthens(e);
+            this.redirectToLinkViaOpenAthens(e);
         } else {
             this.createLink(e);
         }
@@ -216,7 +216,7 @@ class OpenAthens extends HTMLElement {
     }
 
     /**
-     * Open Open athens link in a new window/tab
+     * Open the Open athens link in a new window/tab
      */
     navigateToLinkViaOpenAthens() {
         if (this.redirectOnly) {
@@ -282,19 +282,35 @@ class OpenAthens extends HTMLElement {
         throttledOpenAthensCheck(url);
     }
 
+    /**
+     * Open the Open athens link in a new window/tab
+     */
+    redirectToLinkViaOpenAthens() {
+        if (this.redirectOnly) {
+            var cleanedUrl = this.cleanupUrl(this.inputUrl);
+            this.inputValidator = this.validateRequestedUrl(cleanedUrl);
+            console.log('cleanedUrl=', cleanedUrl);
+            !!this.inputValidator.valid &&
+                this.getOpenAthensAsync(cleanedUrl).then((url) => {
+                    !!url && window.open(url);
+                });
+        }
+    }
+
     async getOpenAthensAsync(url) {
-        await new ApiAccess()
+        const result = await new ApiAccess()
             .loadOpenAthensCheck(url)
             .then((response) => {
                 if (response?.available === true) {
                     this.displayUrl(response.useLink);
+                    return response.useLink;
                 } else {
                     // OA said thats not an OA url
-                    var cleanedUrl = this.cleanupUrl(url);
                     this.inputValidator = {
                         valid: false,
                         message: 'This resource/link does not require UQ access. Try accessing it directly.',
                     };
+                    return null;
                 }
             })
             /* istanbul ignore next */
@@ -304,7 +320,9 @@ class OpenAthens extends HTMLElement {
                     valid: false,
                     message: 'An unexpected problem occurred',
                 };
+                return null;
             });
+        return result;
     }
 
     /**
