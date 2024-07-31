@@ -84,12 +84,10 @@ class MockApi {
                 // return this.response(500, null, true);
             } else if (requestType === 'failure') {
                 // when openathens says "no"
-                const openAthensSuccessResponse = {
-                    available: false,
-                }
+                const openAthensSuccessResponse = { available: false };
                 return this.response(200, openAthensSuccessResponse, true);
             }
-            // otherwise, when openathens says "yes"
+            // otherwise, openathens says "yes"
             // default success
             const rawUrl = url.replace('openathens/check/', '');
             const returnableUrl = decodeURI(rawUrl)
