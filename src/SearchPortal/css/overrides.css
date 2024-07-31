@@ -933,21 +933,25 @@ li.MuiAutocomplete-option:focus {
     font-weight: 400;
 }
 
-.cultural-advice {
+.cultural-advice, .restrictions-use {
     margin-block-end: 0;
     margin-block-start: 0;
     padding: 1em 38px 4px 2em;
 }
-.cultural-advice p {
+.cultural-advice p, .restrictions-use p {
     margin-block-end: 0.5em;
 }
-.cultural-advice a {
+.cultural-advice a, .restrictions-use a {
     text-decoration: none;
     background-color: #fff;
     color: #2377cb;
 }
 .cultural-advice a:hover,
 .cultural-advice a:visited,
-.cultural-advice a:active {
+.cultural-advice a:active,
+.restrictions-use a:hover,
+.restrictions-use a:visited,
+.restrictions-use a:active
+{
     text-decoration: underline;
 }

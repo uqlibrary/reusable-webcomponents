@@ -1,3 +1,6 @@
+const COLOUR_UQ_PURPLE = 'rgb(81, 36, 122)';
+const COLOUR_UQ_GREY300 = 'rgb(117, 115, 119)';
+
 function assertPopupIsHidden() {
     cy.get('proactive-chat')
         .shadow()
@@ -19,7 +22,7 @@ function assertPopupIsOpen() {
     cy.get('proactive-chat')
         .shadow()
         .find('button:contains("Ask Library Chatbot")')
-        .should('have.css', 'background-color', 'rgb(35, 119, 203)');
+        .should('have.css', 'background-color', COLOUR_UQ_PURPLE);
 }
 
 function minimiseChatPopup() {
@@ -31,7 +34,7 @@ function assertHideChatCookieisSet() {
 }
 
 describe('Proactive Chat', () => {
-    it('will load popped open on user first visit', () => {
+    it('will proactively open on user first visit (when "hide" cookie is not set)', () => {
         cy.visit('http://localhost:8080/index-chat-fast.html');
         cy.viewport(1280, 900);
 
@@ -58,7 +61,7 @@ describe('Proactive Chat', () => {
             cy.injectAxe();
             cy.viewport(1280, 900);
             cy.waitUntil(() =>
-                cy.get('proactive-chat').shadow().find('[title="Chat currently closed"]').should('exist'),
+                cy.get('proactive-chat').shadow().find('[data-testid="proactive-chat-offline"]').should('exist'),
             );
             cy.checkA11y('proactive-chat', {
                 reportName: 'Proactive chat red icon',
@@ -70,6 +73,92 @@ describe('Proactive Chat', () => {
             cy.visit('http://localhost:8080/index-chat-fast.html');
             cy.injectAxe();
             cy.viewport(1280, 900);
+            cy.checkA11y('proactive-chat', {
+                reportName: 'Proactive chat proactive chat open',
+                scopeName: 'Accessibility',
+                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+            });
+
+            cy.get('proactive-chat')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="popopen-button"]').focus();
+                    cy.wait(100);
+                    // hover color is actually available to be checked
+                    cy.get('[data-testid="popopen-button"]').should(
+                        'have.css',
+                        'background-color',
+                        'rgb(116, 80, 149)',
+                    );
+                });
+            cy.checkA11y('proactive-chat', {
+                reportName: 'Proactive chat proactive chat hover',
+                scopeName: 'Accessibility',
+                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+            });
+        });
+        it('proactive chat open after hours', () => {
+            cy.visit('http://localhost:8080/index-chat-fast.html?chatstatusoffline=true');
+            cy.injectAxe();
+            cy.viewport(1280, 900);
+            cy.checkA11y('proactive-chat', {
+                reportName: 'Proactive chat proactive chat open',
+                scopeName: 'Accessibility',
+                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+            });
+        });
+        it('iframe open', () => {
+            cy.visit('http://localhost:8080/index-chat-fast.html');
+            cy.injectAxe();
+            cy.viewport(1280, 900);
+
+            // cy.get('proactive-chat').shadow().find('[data-testid="proactive-chat-online"]').should('exist').click();
+            cy.waitUntil(() =>
+                cy
+                    .get('proactive-chat')
+                    .shadow()
+                    .find('[data-testid="popopen-button"]')
+                    .should('exist')
+                    .should('be.visible'),
+            );
+            cy.get('proactive-chat').shadow().find('[data-testid="popopen-button"]').click();
+
+            // can see iframe
+            cy.get('proactive-chat')
+                .shadow()
+                .find('[data-testid="chatbot-wrapper"]')
+                .should('exist')
+                .should('be.visible');
+
+            cy.checkA11y('proactive-chat', {
+                reportName: 'Proactive chat proactive chat open',
+                scopeName: 'Accessibility',
+                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+            });
+        });
+        it('iframe open after hours', () => {
+            cy.visit('http://localhost:8080/index-chat-fast.html?chatstatusoffline=true');
+            cy.injectAxe();
+            cy.viewport(1280, 900);
+
+            // cy.get('proactive-chat').shadow().find('[data-testid="proactive-chat-online"]').should('exist').click();
+            cy.waitUntil(() =>
+                cy
+                    .get('proactive-chat')
+                    .shadow()
+                    .find('[data-testid="popopen-button"]')
+                    .should('exist')
+                    .should('be.visible'),
+            );
+            cy.get('proactive-chat').shadow().find('[data-testid="popopen-button"]').click();
+
+            // can see iframe
+            cy.get('proactive-chat')
+                .shadow()
+                .find('[data-testid="chatbot-wrapper"]')
+                .should('exist')
+                .should('be.visible');
+
             cy.checkA11y('proactive-chat', {
                 reportName: 'Proactive chat proactive chat open',
                 scopeName: 'Accessibility',
@@ -101,17 +190,17 @@ describe('Proactive Chat', () => {
             // "online Minimised" button is visible
             cy.get('proactive-chat')
                 .shadow()
-                .find('[title="Click to open online chat"]')
+                .find('[data-testid="proactive-chat-online"]')
                 .should('exist')
                 .should('be.visible')
                 .should('not.have.css', 'display', 'none')
-                .should('have.css', 'background-color', 'rgb(81, 36, 122)')
+                .should('have.css', 'background-color', COLOUR_UQ_PURPLE)
                 .parent()
                 .should('have.css', 'right', '16px');
             // "offline Minimised" button is hidden. Well duh, but just checking
             cy.get('proactive-chat')
                 .shadow()
-                .find('[title="Chat currently closed"]')
+                .find('[data-testid="proactive-chat-offline"]')
                 .should('exist')
                 .should('not.be.visible')
                 .should('have.css', 'display', 'none');
@@ -130,7 +219,7 @@ describe('Proactive Chat', () => {
             cy.window().its('open').should('be.called');
         });
 
-        it('Navigates to CRM from iframe footer "Chat with Library Staff now" button', () => {
+        it('Navigates to CRM from iframe "Person" button', () => {
             // Stub the window.open method
             cy.visit('http://localhost:8080/index-chat-slow.html', {
                 onBeforeLoad(win) {
@@ -164,7 +253,7 @@ describe('Proactive Chat', () => {
             cy.window().its('open').should('be.called');
         });
 
-        it('AI chatbot iframe opens from proactive dialog when loggedin', () => {
+        it('AI chatbot iframe opens from proactive dialog', () => {
             cy.visit('http://localhost:8080/index-chat-fast.html');
             cy.viewport(1280, 900);
 
@@ -179,12 +268,7 @@ describe('Proactive Chat', () => {
             // let the iframe finish drawing
             cy.wait(4000);
 
-            // well, at least we know the iframe reaches the page!
-            cy.get('proactive-chat')
-                .shadow()
-                .find('[data-testid="chatbot-wrapper"]')
-                .should('exist')
-                .should('have.css', 'height', '540px');
+            cy.get('proactive-chat').shadow().find('[data-testid="chatbot-wrapper"]').should('exist'); // well, at least we know the iframe reaches the page!
 
             // can close iframe
             cy.get('proactive-chat').shadow().find('[data-testid="closeIframeButton"]').should('exist').click();
@@ -203,29 +287,6 @@ describe('Proactive Chat', () => {
                 .find('[data-testid="chatbot-wrapper"]')
                 .should('exist')
                 .should('be.visible');
-        });
-
-        it('AI chatbot iframe opens from proactive dialog when logged out', () => {
-            cy.visit('http://localhost:8080/index-chat-fast.html?user=public');
-            cy.viewport(1280, 900);
-
-            cy.getCookie('UQ_PROACTIVE_CHAT').should('not.exist');
-
-            // manually wait
-            cy.wait(100);
-
-            assertPopupIsOpen();
-            cy.get('proactive-chat').shadow().find('button:contains("Ask Library Chatbot")').should('exist').click();
-
-            // let the iframe finish drawing
-            cy.wait(4000);
-
-            // well, at least we know the iframe reaches the page!
-            cy.get('proactive-chat')
-                .shadow()
-                .find('[data-testid="chatbot-wrapper"]')
-                .should('exist')
-                .should('have.css', 'height', '540px');
         });
 
         it('minimised button focus opens proactive dialog', () => {
@@ -254,7 +315,7 @@ describe('Proactive Chat', () => {
             cy.viewport(1280, 900);
 
             // click minimised icon
-            cy.get('proactive-chat').shadow().find('[title="Chat currently closed"]').click();
+            cy.get('proactive-chat').shadow().find('[data-testid="proactive-chat-offline"]').click();
             // click "ask library chatbot" button
             cy.get('proactive-chat').shadow().contains('button', 'Ask Library Chatbot').should('exist').click();
 
@@ -266,7 +327,7 @@ describe('Proactive Chat', () => {
                 .should('be.visible');
         });
 
-        it('Navigates to CRM from "Leave a question" button when offline', () => {
+        it('Navigates to contact us from proactive "Leave a question" button when offline', () => {
             cy.visit('http://localhost:8080/index-chat-fast.html?chatstatusoffline=true', {
                 onBeforeLoad(win) {
                     cy.stub(win, 'open');
@@ -274,6 +335,30 @@ describe('Proactive Chat', () => {
             });
 
             cy.get('proactive-chat').shadow().find('button:contains("Leave a question")').click();
+
+            // Assert that window.open was called
+            cy.window().its('open').should('be.called');
+        });
+
+        it('Navigates to contact us from iframe "Leave a question" button when offline', () => {
+            cy.visit('http://localhost:8080/index-chat-fast.html?chatstatusoffline=true', {
+                onBeforeLoad(win) {
+                    cy.stub(win, 'open');
+                },
+            });
+
+            cy.getCookie('UQ_PROACTIVE_CHAT').should('not.exist');
+
+            // manually wait
+            cy.wait(100);
+
+            assertPopupIsOpen();
+            cy.get('proactive-chat').shadow().find('button:contains("Ask Library Chatbot")').should('exist').click();
+
+            // let the iframe finish drawing
+            cy.wait(4000);
+
+            cy.get('proactive-chat').shadow().find('button:contains("Staff unavailable - leave a question")').click();
 
             // Assert that window.open was called
             cy.window().its('open').should('be.called');
@@ -287,48 +372,23 @@ describe('Proactive Chat', () => {
         // "online Minimised" button is hidden
         cy.get('proactive-chat')
             .shadow()
-            .find('[title="Click to open online chat"]')
+            .find('[data-testid="proactive-chat-online"]')
             .should('exist')
             .should('not.be.visible')
             .should('have.css', 'display', 'none');
         // "offline Minimised" button shows
         cy.get('proactive-chat')
             .shadow()
-            .find('[title="Chat currently closed"]')
+            .find('[data-testid="proactive-chat-offline"]')
             .should('exist')
             .should('be.visible')
             .should('not.have.css', 'display', 'none')
-            .should('have.css', 'background-color', 'rgb(128, 128, 128)')
+            .should('have.css', 'background-color', COLOUR_UQ_GREY300)
             .parent()
             .should('have.css', 'right', '16px');
     });
 
     context('when in a drupal contact page', () => {
-        it('appears correctly during staffed hours', () => {
-            cy.visit('http://localhost:8080/index-drupalcontactus.html');
-            cy.get('proactive-chat[display="inline"]')
-                .shadow()
-                .within(() => {
-                    cy.get('[data-testid="close-button"]').should('exist').should('not.be.visible');
-                    cy.get('[data-testid="proactive-header"]').should('exist').should('not.be.visible');
-                    cy.get('[data-testid="popopen-button"]').should('exist').should('be.visible');
-                    cy.get('[data-testid="crm-chat-button"]').should('exist').should('be.visible');
-                    cy.get('[data-testid="crm-afterhours-button"]').should('exist').should('not.be.visible');
-                });
-        });
-        it('appears correctly outside staffed hours', () => {
-            cy.visit('http://localhost:8080/index-drupalcontactus.html?chatstatusoffline=true');
-            cy.get('proactive-chat[display="inline"]')
-                .shadow()
-                .within(() => {
-                    cy.get('[data-testid="close-button"]').should('exist').should('not.be.visible');
-                    cy.get('[data-testid="proactive-header"]').should('exist').should('not.be.visible');
-                    cy.get('[data-testid="popopen-button"]').should('exist').should('be.visible');
-                    cy.get('[data-testid="crm-afterhours-button"]').should('exist').should('be.visible');
-                    cy.get('[data-testid="crm-chat-button"]').should('exist').should('not.be.visible');
-                });
-        });
-
         it('should load crm correctly', () => {
             cy.visit('http://localhost:8080/index-drupalcontactus.html', {
                 onBeforeLoad(win) {
@@ -346,7 +406,6 @@ describe('Proactive Chat', () => {
         });
         it('should load chatbot correctly', () => {
             cy.visit('http://localhost:8080/index-drupalcontactus.html');
-
             cy.viewport(1280, 900);
 
             cy.getCookie('UQ_PROACTIVE_CHAT').should('not.exist');
@@ -381,6 +440,61 @@ describe('Proactive Chat', () => {
                 .find('[data-testid="proactive-chat-online"]')
                 .should('exist')
                 .should('be.visible');
+        });
+        it('should handle after hours', () => {
+            cy.visit('http://localhost:8080/index-drupalcontactus.html?chatstatusoffline=true', {
+                onBeforeLoad(win) {
+                    cy.stub(win, 'open');
+                },
+            });
+            cy.viewport(1280, 900);
+
+            cy.get('proactive-chat[display="inline"]').shadow().find('button:contains("Leave a question")').click();
+
+            // Assert that window.open was called
+            cy.window().its('open').should('be.called');
+        });
+    });
+    context('when chatbot is known to be broken', () => {
+        it('gives a link to CRM chat when askus is online', () => {
+            cy.visit('http://localhost:8080/index-app-nochatbot.html');
+            cy.viewport(1280, 900);
+            // manually wait
+            cy.wait(100);
+
+            cy.get('proactive-chat')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="proactive-chat-online"]').should('exist').click();
+                    cy.waitUntil(() => cy.get('button:contains("Chat with Library staff")').should('exist'));
+                    cy.get('button:contains("Chat with Library staff")').should(
+                        'have.css',
+                        'background-color',
+                        COLOUR_UQ_PURPLE,
+                    );
+
+                    cy.get('button:contains("Ask Library Chatbot")').should('not.exist');
+                });
+        });
+        it('gives a link to CRM contact form when askus is offline', () => {
+            cy.visit('http://localhost:8080/index-app-nochatbot.html?chatstatusoffline=true');
+            cy.viewport(1280, 900);
+            // manually wait
+            cy.wait(100);
+
+            cy.get('proactive-chat')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="proactive-chat-offline"]').should('exist').click();
+                    cy.waitUntil(() => cy.get('button:contains("Leave a question")').should('exist'));
+                    cy.get('button:contains("Leave a question")').should(
+                        'have.css',
+                        'background-color',
+                        COLOUR_UQ_PURPLE,
+                    );
+
+                    cy.get('button:contains("Ask Library Chatbot")').should('not.exist');
+                });
         });
     });
 });

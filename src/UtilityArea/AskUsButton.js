@@ -6,7 +6,8 @@ import { isBackTabKeyPressed, isEscapeKeyPressed, isTabKeyPressed } from '../hel
  * API
  * <span slot="site-utilities">             -- tells uqsiteheader where to insert it in the dom
  *  <askus-button
- *      nopaneopacity                       -- primo: dont put a background on it
+ *      nopaneopacity                       -- primo: don't put a background on it
+ *      hideProactiveChat                   -- libwizard, double ensure proactive chat doesnt appear!
  *  />
  * </span>
  *
@@ -67,7 +68,7 @@ template.innerHTML = `
                 
                 <!-- AIBot Chat -->
                 <!-- IF PAGE HAS A PROACTIVE CHAT!!!!!! -->
-                <li id="askus-aibot-li" class="askus-aibot" role="menuitem" aria-disabled="false">
+                <li id="askus-aibot-li" data-testid="askus-aibot-li" class="askus-aibot" role="menuitem" style="display: none" aria-disabled="false">
                     <a tabindex="0" id="askus-aibot-button" data-testid="askus-aibot-button" data-analyticsid="askus-menu-aibot">
                         <svg viewBox="0 0 194 194" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_389_61)">
@@ -137,28 +138,41 @@ class AskUsButton extends HTMLElement {
         this.updateAskusDOM = this.updateAskusDOM.bind(this);
         this.addButtonListeners = this.addButtonListeners.bind(this);
         this.isPaneButtonOpacityDropRequested = this.isPaneButtonOpacityDropRequested.bind(this);
+        this.isProactiveChatElementHidden = this.isProactiveChatElementHidden.bind(this);
     }
 
     async updateAskusDOM(shadowRoot) {
         // if proactive chat doesnt exist on the current page, dont provide a chatbot link
-        const proactiveChatElement = document.getElementsByTagName('proactive-chat');
-        const aibotLink = shadowRoot.getElementById('askus-aibot-li');
-        if (!proactiveChatElement || proactiveChatElement.length === 0) {
-            !!aibotLink && aibotLink.remove();
-        }
+        const stopCheckingAfter = 20;
+        let loopNumber = 0;
+        const watchForProactiveChat = setInterval(() => {
+            if (this.isProactiveChatElementHidden()) {
+                clearInterval(watchForProactiveChat);
+            } else {
+                const proactiveChatElement = document.getElementsByTagName('proactive-chat');
+                if (!!proactiveChatElement) {
+                    const aibotLink = shadowRoot.getElementById('askus-aibot-li');
+                    !!aibotLink && (aibotLink.style.display = 'list-item');
+
+                    clearInterval(watchForProactiveChat);
+                }
+                if (loopNumber > stopCheckingAfter) {
+                    // give up after a while
+                    clearInterval(watchForProactiveChat);
+                }
+            }
+            loopNumber++;
+        }, 100);
 
         const api = new ApiAccess();
         await api.loadChatStatus().then((isOnline) => {
-            console.log('AAA loadChatStatus', isOnline);
             if (!!isOnline) {
-                console.log('AAA online');
                 // hide .chatClosedTimes
                 const chatClosedTimes = shadowRoot.querySelectorAll('.chatClosedTimes');
                 !!chatClosedTimes &&
                     chatClosedTimes.forEach((c) => {
                         c.style.display = 'none';
                         const wrappingListItemParent = !!c && c.parentElement;
-                        console.log('AAA online wrappingListItemParent=', wrappingListItemParent);
                         !!wrappingListItemParent &&
                             !!wrappingListItemParent.classList.contains('closed') &&
                             wrappingListItemParent.classList.remove('closed');
@@ -170,12 +184,10 @@ class AskUsButton extends HTMLElement {
 
                 // adding times to .chatOpenTimes is done from loadOpeningHours
             } else {
-                console.log('AAA offline');
                 // Chat is closed for the day
 
                 // remove display none from 'closed' div
                 const closedLabels = shadowRoot.querySelectorAll('.closedLabel');
-                console.log('AAA closedLabels=', closedLabels);
                 !!closedLabels &&
                     closedLabels.forEach((s) => {
                         s.style.display = '';
@@ -184,7 +196,6 @@ class AskUsButton extends HTMLElement {
                             !wrappingListItemParent.classList.contains('closed') &&
                             wrappingListItemParent.classList.add('closed');
                     });
-                console.log('AAA 1');
 
                 // make icons red
                 const icons = shadowRoot.querySelectorAll('svg.serviceWithHoursClosed');
@@ -260,7 +271,7 @@ class AskUsButton extends HTMLElement {
         !!askusButton && askusButton.addEventListener('click', handleAskUsButton);
 
         function openProactiveChatBotIframe() {
-            const proactiveChatElement = document.querySelectorAll('proactive-chat:not([display="inline"])');
+            const proactiveChatElement = document.getElementsByTagName('proactive-chat');
             !!proactiveChatElement &&
                 proactiveChatElement.length > 0 &&
                 proactiveChatElement[0].setAttribute('showchatbot', 'true');
@@ -298,6 +309,19 @@ class AskUsButton extends HTMLElement {
         // primo only provides the attributes in lower case :(
         const noPaneOpacity = this.getAttribute('nopaneopacity');
         return !!noPaneOpacity || noPaneOpacity === '';
+    }
+
+    isProactiveChatElementHidden() {
+        // copilot just shows a nasty error on app.library
+        if (
+            // other condition here (none currently) - match in proactivechat
+            window.location.pathname === '/index-app-nochatbot.html' // test only
+        ) {
+            return true;
+        }
+
+        const hideProactiveChat = this.getAttribute('hideproactivechat');
+        return !!hideProactiveChat || hideProactiveChat === '';
     }
 }
 
