@@ -49,7 +49,7 @@ describe('OpenAthens', () => {
     context('copy url mode', () => {
         context('success', () => {
             beforeEach(() => {
-                cy.visit('http://localhost:8080');
+                cy.visit('http://localhost:8080/index-openathens.html');
             });
 
             it('shows expected elements on load', () => {
@@ -113,14 +113,13 @@ describe('OpenAthens', () => {
 
             it('uses clipboard API command (1/2) to copy the generated URL to the clipboard on clicking copy button', () => {
                 // WARNING!!! if you let this auto run in cypress "open" (interactive) mode _and cypress doesnt have focus_
-                // for example.if cypress tests start running again because you made a test change to the file, and you didn't swap windows
+                // for example, if cypress tests start running again because you made a test change to the file, and you didn't swap windows
                 // THIS MAY FAIL - it cant click the copy button - console will report "Document is not focused."
                 // but let it run in the background and all is fine
                 // so manually testing may be dicey, but AWS and `npx cypress run` testing should be fine
                 // Ugh!
                 cy.viewport(900, 1200);
 
-                cy.get('[data-testid="random-page-element"]').scrollIntoView();
                 cy.window().then((win) => {
                     if (!!win.navigator?.clipboard?.writeText) {
                         cy.spy(win.navigator.clipboard, 'writeText').as('writeText');
@@ -212,7 +211,7 @@ describe('OpenAthens', () => {
 
         context('failure', () => {
             it('shows expected error messages when Open Athens is not working', () => {
-                cy.visit('http://localhost:8080/?requestType=error');
+                cy.visit('http://localhost:8080/index-openathens.html?requestType=error');
 
                 cy.get('open-athens[create-link]')
                     .should('exist')
@@ -230,7 +229,7 @@ describe('OpenAthens', () => {
             });
 
             it('shows expected error messages for non OA url', () => {
-                cy.visit('http://localhost:8080/?requestType=failure');
+                cy.visit('http://localhost:8080/index-openathens.html?requestType=failure');
 
                 cy.get('open-athens[create-link]')
                     .should('exist')
@@ -252,7 +251,7 @@ describe('OpenAthens', () => {
             });
 
             it('shows expected error messages for ill-formed URLs', () => {
-                cy.visit('http://localhost:8080');
+                cy.visit('http://localhost:8080/index-openathens.html');
 
                 cy.get('open-athens[create-link]')
                     .should('exist')
@@ -274,7 +273,7 @@ describe('OpenAthens', () => {
             });
 
             it('shows expected error messages when copy mechanisms fail - 1 of 3', () => {
-                cy.visit('http://localhost:8080');
+                cy.visit('http://localhost:8080/index-openathens.html');
 
                 let execCommand;
                 cy.document().then((doc) => {
@@ -294,7 +293,7 @@ describe('OpenAthens', () => {
             });
 
             it('shows expected error messages when copy mechanisms fail - 2 of 3', () => {
-                cy.visit('http://localhost:8080');
+                cy.visit('http://localhost:8080/index-openathens.html');
 
                 cy.document().then((doc) => {
                     cy.stub(doc, 'execCommand')
@@ -312,7 +311,7 @@ describe('OpenAthens', () => {
             });
 
             it.skip('shows expected error messages when copy mechanisms fail - 3 of 3', () => {
-                cy.visit('http://localhost:8080');
+                cy.visit('http://localhost:8080/index-openathens.html');
 
                 const writeText = replaceWriteText(() => {
                     throw DOMException('fail');
@@ -328,7 +327,7 @@ describe('OpenAthens', () => {
     context('visit url mode', () => {
         context('success', () => {
             beforeEach(() => {
-                cy.visit('http://localhost:8080');
+                cy.visit('http://localhost:8080/index-openathens.html');
             });
 
             it('shows expected elements on load', () => {
@@ -400,7 +399,7 @@ describe('OpenAthens', () => {
 
         context('failure', () => {
             it('shows error if no input was provided', () => {
-                cy.visit('http://localhost:8080');
+                cy.visit('http://localhost:8080/index-openathens.html');
                 cy.get('open-athens:not([create-link])')
                     .should('exist')
                     .shadow()
@@ -417,7 +416,7 @@ describe('OpenAthens', () => {
             });
 
             it('shows expected error messages when Open Athens is not working', () => {
-                cy.visit('http://localhost:8080/?requestType=error');
+                cy.visit('http://localhost:8080/index-openathens.html?requestType=error');
 
                 cy.get('open-athens:not([create-link])')
                     .should('exist')
@@ -435,7 +434,7 @@ describe('OpenAthens', () => {
             });
 
             it('shows expected error messages for non OA url', () => {
-                cy.visit('http://localhost:8080/?requestType=failure');
+                cy.visit('http://localhost:8080/index-openathens.html?requestType=failure');
 
                 cy.get('open-athens:not([create-link])')
                     .should('exist')
@@ -454,7 +453,7 @@ describe('OpenAthens', () => {
             });
 
             it('shows expected error messages for ill-formed URLs', () => {
-                cy.visit('http://localhost:8080');
+                cy.visit('http://localhost:8080/index-openathens.html');
 
                 cy.get('open-athens:not([create-link])')
                     .should('exist')
