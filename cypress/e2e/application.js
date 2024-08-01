@@ -62,6 +62,10 @@ describe('Dummy Application', () => {
             });
     }
 
+    function hasNoProactiveChat() {
+        cy.get('proactive-chat').should('not.exist');
+    }
+
     function hasProactiveChat() {
         cy.get('proactive-chat')
             .shadow()
