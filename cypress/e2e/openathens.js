@@ -61,8 +61,9 @@ describe('OpenAthens', () => {
                     .within(() => {
                         cy.get('[data-testid="open-athens-input"]').should('exist').should('be.visible');
                         cy.get('[data-testid="open-athens-create-link-button"]').should('exist').should('be.visible');
-                        cy.get('[data-testid="open-athens-copy-options"]').should('exist').should('not.be.visible');
+                        cy.get('[data-testid="open-athens-url-clear-button"]').should('exist').should('be.visible');
 
+                        cy.get('[data-testid="open-athens-copy-options"]').should('exist').should('not.be.visible');
                         cy.get('[data-testid="open-athens-redirect-button"]').should('exist').should('not.be.visible');
                     });
             });
@@ -81,7 +82,7 @@ describe('OpenAthens', () => {
                     });
             });
 
-            it('opens generated URL in a new window on clicking the test button', () => {
+            it('opens generated URL in a new window on clicking the visit button', () => {
                 cy.window().then((win) => {
                     cy.stub(win, 'open').as('windowOpen');
                 });
@@ -243,6 +244,10 @@ describe('OpenAthens', () => {
                             'have.text',
                             'This resource/link does not require UQ access. Try accessing it directly.',
                         );
+                        // and can clear the field
+                        cy.get('[data-testid="open-athens-input"]').should('have.value', 'http://www.example.com');
+                        cy.get('[data-testid="open-athens-url-clear-button"]').should('be.visible').click();
+                        cy.get('[data-testid="open-athens-input"]').should('have.value', '');
                     });
             });
 

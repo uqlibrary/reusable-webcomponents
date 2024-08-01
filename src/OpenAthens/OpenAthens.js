@@ -6,8 +6,8 @@ import { throttle } from 'throttle-debounce';
 
 /*
  * usage:
- *  <open-athens create-link="true"></open-athens>
- *  <open-athens></open-athens>
+ *  <open-athens create-link="true"></open-athens>         -- copy a link
+ *  <open-athens></open-athens>                            -- visit a link
  *
  */
 
@@ -22,6 +22,7 @@ template.innerHTML = `
             <input type="url" placeholder="DOI or URL" id="open-athens-input" data-testid="open-athens-input" />
             <div id="open-athens-input-error" data-testid="open-athens-input-error" class="uq-error-message hidden"></div>
             <button id="open-athens-create-link-button" data-testid="open-athens-create-link-button" class="uq-button hidden">Create Link</button>
+            <button id="open-athens-url-clear-button" data-testid="open-athens-url-clear-button" class="uq-button uq-button--secondary hidden">Clear</button>
             <span id="open-athens-copy-options" data-testid="open-athens-copy-options" class="hidden">
                 <textarea readonly id="open-athens-url-display-area" data-testid="open-athens-url-display-area"></textarea>
                 <button id="open-athens-visit-link-button" data-testid="open-athens-visit-link-button" class="uq-button">Visit Link</button>
@@ -58,6 +59,7 @@ class OpenAthens extends HTMLElement {
     set inputUrl(value) {
         if (!this.redirectOnly) {
             this.createLinkButton.classList.remove('hidden');
+            this.createLinkClearButton.classList.remove('hidden');
         }
         this.inputField.value = value;
         this.inputField.classList.remove('hidden');
@@ -97,6 +99,7 @@ class OpenAthens extends HTMLElement {
         if (!!value) {
             this.inputField.classList.add('hidden');
             this.createLinkButton.classList.add('hidden');
+            this.createLinkClearButton.classList.add('hidden');
             setTimeout(() => {
                 this.urlDisplayArea.style.height = 'calc(' + this.urlDisplayArea.scrollHeight + 'px' + ' + 0.1rem)';
             }, 100);
@@ -133,6 +136,7 @@ class OpenAthens extends HTMLElement {
         this.copyLinkButton = shadowDOM.getElementById('open-athens-copy-link-button');
         this.copyOptions = shadowDOM.getElementById('open-athens-copy-options');
         this.createLinkButton = shadowDOM.getElementById('open-athens-create-link-button');
+        this.createLinkClearButton = shadowDOM.getElementById('open-athens-url-clear-button');
         this.createNewLinkButton = shadowDOM.getElementById('open-athens-create-new-link-button');
         this.inputClearButton = shadowDOM.getElementById('open-athens-input-clear-button');
         this.inputErrorArea = shadowDOM.getElementById('open-athens-input-error');
@@ -147,6 +151,7 @@ class OpenAthens extends HTMLElement {
             this.redirectOptions.classList.remove('hidden');
         } else {
             this.createLinkButton.classList.remove('hidden');
+            this.createLinkClearButton.classList.remove('hidden');
         }
 
         this.addEventListeners();
@@ -155,6 +160,7 @@ class OpenAthens extends HTMLElement {
     addEventListeners() {
         this.copyLinkButton.addEventListener('click', () => this.copyUrl());
         this.createLinkButton.addEventListener('click', () => this.createLink());
+        this.createLinkClearButton.addEventListener('click', () => this.clearInput());
         this.createNewLinkButton.addEventListener('click', () => this.clearInput());
         this.inputClearButton.addEventListener('click', () => this.clearInput());
         this.inputField.addEventListener('keypress', (e) => this.inputUrlKeypress(e));
@@ -321,7 +327,6 @@ class OpenAthens extends HTMLElement {
             })
             /* istanbul ignore next */
             .catch((e) => {
-                console.log('getOpenAthensAsync, error: ', e);
                 this.inputValidator = {
                     valid: false,
                     message: 'An unexpected problem occurred - please try again later.',
