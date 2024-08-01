@@ -207,7 +207,7 @@ template.innerHTML = `
             </form>
         </div>
     </div>
-`
+`;
 
 const PRIMO_LIBRARY_SEARCH = '0';
 const PRIMO_BOOKS_SEARCH = '1';
@@ -235,7 +235,7 @@ class SearchPortal extends HTMLElement {
 
         const useSearchType = this.getOpeningSearchType();
         this.setSearchTypeButton(useSearchType);
-        console.log("Firing createPortalTypeSelector")
+        console.log('Firing createPortalTypeSelector');
         this.createPortalTypeSelector();
 
         this.addListeners = this.addListeners.bind(this);
@@ -258,11 +258,11 @@ class SearchPortal extends HTMLElement {
     }
 
     async getPrimoSuggestions(keyword) {
-        console.log("test get");
+        console.log('test get');
         await new ApiAccess()
             .loadPrimoSuggestions(keyword)
             .then((suggestions) => {
-                console.log("suggestions", suggestions)
+                console.log('suggestions', suggestions);
                 /* istanbul ignore else */
                 this.loadSuggestionsIntoPage(suggestions);
             })
@@ -443,7 +443,7 @@ class SearchPortal extends HTMLElement {
             }
             !!listContainer && !!ul && listContainer.appendChild(ul);
 
-            console.log("listContainer", listContainer)
+            console.log('listContainer', listContainer);
 
             // unclear why the else isnt covered - it is called by test 'the mobile view moves over the results list'
             /* istanbul ignore else */
@@ -538,10 +538,10 @@ class SearchPortal extends HTMLElement {
 
         // open and close the dropdown when the search-type button is clicked
         const searchPortalSelector = that.shadowRoot.getElementById('search-portal-type-select');
-        console.log("searchPortalSelector is ", searchPortalSelector);
+        console.log('searchPortalSelector is ', searchPortalSelector);
         !!searchPortalSelector &&
             searchPortalSelector.addEventListener('click', function (e) {
-                console.log("Click Triggered")
+                console.log('Click Triggered');
                 that.showHidePortalTypeDropdown();
                 /* istanbul ignore else */
                 if (!!that.isPortalTypeDropDownOpen()) {
@@ -683,7 +683,7 @@ class SearchPortal extends HTMLElement {
     listenForMouseClicks(e) {
         const that = this;
         const portalTypeDropdown = that.shadowRoot.getElementById('portal-type-selector');
-        console.log("PortalTypeDropdown is now ", portalTypeDropdown)
+        console.log('PortalTypeDropdown is now ', portalTypeDropdown);
         const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
         const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
 
@@ -752,7 +752,7 @@ class SearchPortal extends HTMLElement {
 
     showHidePortalTypeDropdown() {
         const portalTypeDropdown = this.shadowRoot.getElementById('portal-type-selector');
-        console.log("PortalTypeDropdown", portalTypeDropdown)
+        console.log('PortalTypeDropdown', portalTypeDropdown);
         // then display the dropdown
         !!portalTypeDropdown && this.toggleVisibility(portalTypeDropdown, 'portalTypeSelectorDisplayed');
 
@@ -799,13 +799,13 @@ class SearchPortal extends HTMLElement {
 
         //console.log("sbcn", showByClassname, "hbcn", hideByClassname);
         if (!!selector && selector.classList.contains('hidden')) {
-            console.log("SHOWING")
-            console.log("selector", selector, showByClassname)
-            !!showByClassname && (selector.className = showByClassname)//showByClassname);
-            console.log("selector after change", selector)
+            console.log('SHOWING');
+            console.log('selector', selector, showByClassname);
+            !!showByClassname && (selector.className = showByClassname); //showByClassname);
+            console.log('selector after change', selector);
             !!showByClassname && selector.setAttribute('tabindex', '0');
         } else {
-            console.log("HIDING")
+            console.log('HIDING');
             !!hideByClassname && (selector.className = hideByClassname);
             !!showByClassname && selector.setAttribute('tabindex', '-1');
         }
@@ -915,7 +915,7 @@ class SearchPortal extends HTMLElement {
 
     setSearchTypeButton(searchType) {
         const portalTypeContainer = this.shadowRoot.getElementById('portaltype-dropdown');
-        console.log("PortalTypeContainer", portalTypeContainer)
+        console.log('PortalTypeContainer', portalTypeContainer);
         const useSearchType = parseInt(searchType, 10);
 
         // put the icon on the display
@@ -943,13 +943,13 @@ class SearchPortal extends HTMLElement {
 
         // supply the placeholder text (UPDATE: Change the subtext in the title.)
         const inputField = this.shadowRoot.getElementById('current-inputfield');
-        const subTitleField = this.shadowRoot.getElementById('search-portal-type-select-label-sub')
+        const subTitleField = this.shadowRoot.getElementById('search-portal-type-select-label-sub');
         !!inputField &&
             !!searchPortalLocale.typeSelect &&
             !!searchPortalLocale.typeSelect.items[useSearchType] &&
             !!searchPortalLocale.typeSelect.items[useSearchType].placeholder &&
             ///(inputField.placeholder = searchPortalLocale.typeSelect.items[useSearchType].placeholder);
-            (subTitleField.innerHTML = searchPortalLocale.typeSelect.items[useSearchType].placeholder)
+            (subTitleField.innerHTML = searchPortalLocale.typeSelect.items[useSearchType].placeholder);
         // add an extra class to the button to say which label it is currently showing
         // this is used by the css to make the dropdown highlight the matching label
         // remove any previous label - looks like we cant regexp to match a classname, we'll have to loop over the label.items length
@@ -971,13 +971,11 @@ class SearchPortal extends HTMLElement {
     }
 
     createPortalTypeSelector(searchType = 0) {
-        console.log("portal type selector creation")
+        console.log('portal type selector creation');
         const useSearchType = parseInt(searchType, 10);
 
         const portalTypeDropdown = document.createElement('div');
-        !!portalTypeDropdown &&
-            (portalTypeDropdown.className =
-                'portalTypeSelector');
+        !!portalTypeDropdown && (portalTypeDropdown.className = 'portalTypeSelector');
         !!portalTypeDropdown && portalTypeDropdown.setAttribute('role', 'listbox');
         !!portalTypeDropdown && portalTypeDropdown.setAttribute('aria-labelledby', 'search-portal-type-select-label');
         !!portalTypeDropdown && portalTypeDropdown.setAttribute('data-testid', 'search-type-selector');
@@ -990,7 +988,7 @@ class SearchPortal extends HTMLElement {
             });
 
         const portalTypeSelectorContainer = document.createElement('div');
-        console.log("creating portal type selector")
+        console.log('creating portal type selector');
         !!portalTypeSelectorContainer && (portalTypeSelectorContainer.id = 'portal-type-selector');
         !!portalTypeSelectorContainer &&
             (portalTypeSelectorContainer.className = `MuiPaper-root MuiMenu-paper MuiPaper-elevation8 MuiPaper-rounded hidden`);
@@ -1004,7 +1002,7 @@ class SearchPortal extends HTMLElement {
             !!portalTypeSelectorContainer &&
             portalTypeContainer.appendChild(portalTypeSelectorContainer);
 
-        console.log("Portal Type Container",  portalTypeContainer);
+        console.log('Portal Type Container', portalTypeContainer);
     }
 
     createFooterLink(link, index) {

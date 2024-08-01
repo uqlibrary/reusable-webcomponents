@@ -1466,8 +1466,7 @@ md-menu-item.uql-account-menu-option button {
         background-color: inherit;
 
         .primaryText,
-        .subtext,
-        {
+        .subtext {
             background-color: inherit;
             color: #fff;
         }
@@ -1482,7 +1481,7 @@ md-menu-item.mobile-loggedout-feedback-item {
         background-color: transparent;
 
         .textwrapper span {
-            color: #fff
+            color: #fff;
         }
     }
 
@@ -1699,7 +1698,7 @@ prm-brief-result-container .result-item-actions {
             &:hover,
             &:focus {
                 &:not([disabled]) {
-                    background-color: $accent-color !important;;
+                    background-color: $accent-color !important;
                 }
             }
         }
@@ -1766,7 +1765,7 @@ prm-favorites div.search-within {
 
 // make inputs of type number standard out from background a little
 // (specifically aimed at the publication date in the filters in this instance)
-input[type="number"] {
+input[type='number'] {
     background-color: #eee;
     border-bottom: 1px solid #a9a9a9;
 }
@@ -1803,11 +1802,14 @@ prm-resource-type-filter-bar {
 }
 // popup menu at right end of "resource type" bar
 md-select-menu.md-primoExplore-theme md-content md-option:not([disabled]):hover {
-    background: rgba(35,119,203,0.1);;
+    background: rgba(35, 119, 203, 0.1);
 }
 
 // user name in account button should be black on hover, not exlibris-aqua
-prm-explore-main prm-user-area-expandable md-menu button.user-button.user-menu-button.button-with-menu-arrow.md-button.md-primoExplore-theme.md-ink-ripple:hover {
+prm-explore-main
+    prm-user-area-expandable
+    md-menu
+    button.user-button.user-menu-button.button-with-menu-arrow.md-button.md-primoExplore-theme.md-ink-ripple:hover {
     color: #000;
 }
 
@@ -1834,12 +1836,17 @@ prm-citation-trails-expand-button .switch-results md-switch.tiny-switch {
 }
 
 // highlight "Your search results were expanded to include results regardless of availability" message  [PT #186320477]
-prm-search-result-list .list-items-list .message-margin md-card, // remove this line after feb 2024
-prm-search-result-list .list-items-list div.margin-bottom-medium:first-of-type:not(#errorCodeMsg) md-card {
+// (but not the large "0 results for your search" message box [PT 187850525]
+prm-search-result-list
+    .list-items-list
+    div.margin-bottom-medium:first-of-type:not(#errorCodeMsg):not(:has(prm-no-search-result))
+    md-card {
     background-color: $uqInformationLight;
     text-align: center;
-    span  {
-        font-style: normal
+}
+prm-search-result-list .list-items-list div.margin-bottom-medium:first-of-type:not(#errorCodeMsg) md-card {
+    span {
+        font-style: normal;
     }
 }
 
@@ -1868,7 +1875,7 @@ prm-search-bookmark-filter button.md-button.md-icon-button {
         margin-top: -61px;
     }
 }
-@media (max-width: 780px)  {
+@media (max-width: 780px) {
     prm-topbar .mergeup {
         margin-top: -61px;
     }
@@ -1877,7 +1884,7 @@ prm-search-bookmark-filter button.md-button.md-icon-button {
     // when the breadcrumb count drops to one, we have room to go back on one bar
     prm-topbar .mergeup {
         margin-top: -25px;
-        &.layout-row > div[flex="50"],
+        &.layout-row > div[flex='50'],
         prm-main-menu.flex-50 {
             flex: none;
         }
@@ -1891,7 +1898,7 @@ prm-search-bookmark-filter button.md-button.md-icon-button {
     // drop below, same as 780-600
     prm-topbar .mergeup {
         margin-top: -25px;
-        &.layout-row > div[flex="50"],
+        &.layout-row > div[flex='50'],
         prm-main-menu.flex-50 {
             flex: none;
         }

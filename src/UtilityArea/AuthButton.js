@@ -4,13 +4,7 @@ import ApiAccess from '../ApiAccess/ApiAccess';
 import { authLocale } from './auth.locale';
 import { isBackTabKeyPressed, isEscapeKeyPressed, isTabKeyPressed } from '../helpers/keyDetection';
 import { apiLocale } from '../ApiAccess/ApiAccess.locale';
-import {
-    canSeeAlertsAdmin,
-    canSeeDlorAdmin,
-    canSeeEspace,
-    canSeePromopanelAdmin,
-    canSeeTestTag,
-} from '../helpers/access';
+import { canSeeAlertsAdmin, canSeeDlorAdmin, canSeeEspace, canSeeTestTag } from '../helpers/access';
 import { getAccountMenuRoot } from './helpers';
 
 /*
@@ -300,15 +294,6 @@ class AuthButton extends HTMLElement {
                 'Test and Tag',
             );
 
-        !!canSeePromopanelAdmin(account) &&
-            addAdminMenuOption(
-                'promopanel-admin',
-                'mylibrary-menu-promopanel-admin',
-                `${linkRoot}admin/promopanel${linkAppend}`,
-                ICON_MUI_CAMPAIGN_FILLED,
-                'Promo panels',
-            );
-
         !!canSeeDlorAdmin(account) &&
             addAdminMenuOption(
                 'dlor-admin',
@@ -447,15 +432,7 @@ class AuthButton extends HTMLElement {
         // on whatever is the bottom-most link in the account menu for this user, tabbing out closes the popup account menu
         function closeMenuWhenBottomMostLinkClicked() {
             // the order of these ifs must match the reverse order they are displayed in
-            if (canSeePromopanelAdmin(account)) {
-                const promopanelOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-promopanel-admin');
-                !!promopanelOption &&
-                    promopanelOption.addEventListener('keydown', function (e) {
-                        if (isTabKeyPressed(e)) {
-                            closeAccountOptionsMenu();
-                        }
-                    });
-            } else if (canSeeTestTag(account)) {
+            if (canSeeTestTag(account)) {
                 const testntagOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-testTag-admin');
                 !!testntagOption &&
                     testntagOption.addEventListener('keydown', function (e) {
@@ -509,7 +486,6 @@ class AuthButton extends HTMLElement {
         closeAccountMenuOnLinkClick('mylibrary-menu-masquerade');
         closeAccountMenuOnLinkClick('mylibrary-menu-alerts-admin');
         closeAccountMenuOnLinkClick('mylibrary-menu-testTag-admin');
-        closeAccountMenuOnLinkClick('mylibrary-menu-promopanel-admin');
         closeAccountMenuOnLinkClick('mylibrary-menu-course-resources');
     }
 

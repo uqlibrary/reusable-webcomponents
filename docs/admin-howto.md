@@ -33,7 +33,3 @@ Visit [the homepage test file](https://github.com/uqlibrary/homepage-react/blob/
 ## Viewing what each external application should have
 
 Visit [the application test file](https://github.com/uqlibrary/reusable-webcomponents/blob/user-admin-manage/cypress/e2e/application.js#L123)
-
-## To edit the Promo Panel on the homepage
-
-See [the homepage repo](https://github.com/uqlibrary/homepage-react/blob/user-admin-manage/docs/admin-howto.md)

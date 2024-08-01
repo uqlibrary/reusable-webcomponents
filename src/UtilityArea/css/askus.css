@@ -123,6 +123,9 @@ button:focus {
         column-count: 2;
         column-gap: 20px;
     }
+    .askus-menu-list li.askus-phone a {
+        margin-top: -10px !important;
+    }
 }
 
 .askus-menu-list li {
@@ -142,6 +145,9 @@ button:focus {
     text-overflow: ellipsis;
     overflow: hidden;
     padding: 6px 6px 6px 4px !important;
+    margin: 0 !important;
+    /*padding: 4px !important;*/
+    /*margin: 2px 2px 2px 0 !important;*/
     margin: 2px 0 !important;
     text-decoration: none;
     color: #595959;
@@ -155,6 +161,9 @@ button:focus {
 @media screen and (min-width: 420px) {
     #askus-menu-item-moreways a {
         text-align: center;
+    }
+    .askus-menu-list li.askus-email a {
+        margin-top: 10px !important;
     }
 }
 
@@ -190,6 +199,7 @@ button:focus {
 .askus-menu-list li.askus-aibot a {
     display: flex;
     align-items: center;
+    margin-block: -10px !important;
 }
 .askus-menu-list li.askus-aibot span {
     margin-top: 4px;

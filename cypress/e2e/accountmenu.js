@@ -90,19 +90,6 @@ function assertUserHasDlorAdmin(expected) {
     }
 }
 
-function assertUserHasPromoPanelAdmin(expected, userid = 'uqstaff') {
-    if (!!expected) {
-        cy.get('li[data-testid="promopanel-admin"]').should('exist').contains('Promo panels');
-        cy.get('[data-testid="mylibrary-menu-promopanel-admin"]').should(
-            'have.attr',
-            'href',
-            `http://localhost:2020/admin/promopanel?user=${userid}`,
-        );
-    } else {
-        cy.get('li[data-testid="promopanel-admin"]').should('not.exist');
-    }
-}
-
 function assertUserHasEspaceMenuItem(expected) {
     if (!!expected) {
         cy.get('li[data-testid="mylibrary-espace"]').should('exist').contains('UQ eSpace dashboard');
@@ -122,7 +109,6 @@ function assertNameIsDisplayedOnAccountOptionsButtonCorrectly(userName, displayN
 function assertUserSeesNOAdminOptions() {
     assertUserHasMasquerade(false);
     assertUserHasAlertsAdmin(false);
-    assertUserHasPromoPanelAdmin(false);
     assertUserHasTestTagAdmin(false);
     assertUserHasDlorAdmin(false);
     // the admin block has been removed so we don't see the admin border
@@ -321,7 +307,6 @@ describe('Account menu button', () => {
                     assertUserHasStandardMyLibraryOptions();
                     assertUserHasMasquerade(true);
                     assertUserHasAlertsAdmin(true);
-                    assertUserHasPromoPanelAdmin(true);
                     assertUserHasTestTagAdmin(false); // admins do not get T&T by default
                     assertUserHasDlorAdmin(false);
                     assertUserHasEspaceMenuItem(true); // not an admin function, this user happens to have an author account
@@ -367,7 +352,6 @@ describe('Account menu button', () => {
                     assertUserHasStandardMyLibraryOptions('uqmasquerade');
                     assertUserHasMasquerade(true, 'uqmasquerade');
                     assertUserHasAlertsAdmin(false);
-                    assertUserHasPromoPanelAdmin(false);
                     assertUserHasTestTagAdmin(false);
                     assertUserHasDlorAdmin(false);
                     assertUserHasEspaceMenuItem(true);
@@ -403,7 +387,6 @@ describe('Account menu button', () => {
                     assertUserHasEspaceMenuItem(true);
                     assertUserHasMasquerade(true, 'digiteamMember');
                     assertUserHasAlertsAdmin(false);
-                    assertUserHasPromoPanelAdmin(false);
                     assertUserHasTestTagAdmin(false);
                     assertUserHasDlorAdmin(false);
                 });
@@ -434,7 +417,6 @@ describe('Account menu button', () => {
                 .within(() => {
                     assertUserHasStandardMyLibraryOptions('uqrdav10');
                     assertUserHasAlertsAdmin(true, 'uqrdav10');
-                    assertUserHasPromoPanelAdmin(true, 'uqrdav10');
                     assertUserHasTestTagAdmin(false);
                     assertUserHasDlorAdmin(false);
                     assertUserHasEspaceMenuItem(false);
