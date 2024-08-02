@@ -922,7 +922,7 @@ li.MuiAutocomplete-option:focus {
     border-color: #195794;
 }
 .searchButton:focus {
-    border: thick solid #d3d3d3;
+    border: thick solid #d3d3d3 !important;
 }
 
 /* make the clear button focus visible when tabbing */
