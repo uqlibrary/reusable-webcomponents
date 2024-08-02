@@ -153,34 +153,11 @@ function loadReusableComponentsDrupal() {
         const authButton = createAuthButton();
         !!uqheaderRight && !!authButton && uqheaderRight.appendChild(authButton);
     }
-
-    // while we need the mega menu in the drupal header, use the above
-    // if (!document.querySelector('uq-site-header')) {
-    //     const drupalSiteHeader = document.querySelector('.uq-site-header');
-    // // const megamMenu = document.getElementById('block-mainnavigation');
-    //
-    //     const librarySiteHeader = document.createElement('uq-site-header');
-    //
-    //     const askusButton = createAskusButton();
-    //     !!librarySiteHeader && !!askusButton && librarySiteHeader.appendChild(askusButton);
-    //
-    //     const authButton = createAuthButton();
-    //     !!librarySiteHeader && !!authButton && librarySiteHeader.appendChild(authButton);
-    //
-    // // !!librarySiteHeader && !!megamMenu && librarySiteHeader.insertBefore(megamMenu, null);
-    //
-    //     const uqHeader = document.querySelector('header.uq-header');
-    //     if (!!uqHeader) {
-    //         !!librarySiteHeader && uqHeader.parentNode.insertBefore(librarySiteHeader, uqHeader.nextSibling);
-    //     } else {
-    //         // if drupal have changed the markup insert the element _somewhere_ anyway
-    //         !!librarySiteHeader && document.body.insertBefore(librarySiteHeader, firstElement);
-    //     }
-    //
-    //     if (!!drupalSiteHeader) {
-    //         !!drupalSiteHeader && drupalSiteHeader.remove();
-    //     }
-    // }
+    // Proactive Chat button
+    if (!document.querySelector('proactive-chat')) {
+        const proactiveChat = document.createElement('proactive-chat');
+        !!proactiveChat && document.body.insertBefore(proactiveChat, firstElement);
+    }
 
     if (!document.querySelector('alert-list')) {
         const alerts = document.createElement('alert-list');
@@ -221,12 +198,6 @@ function loadReusableComponentsDrupal() {
     }
 
     // uq-footer is done manually by drupal
-
-    // Proactive Chat button
-    if (!document.querySelector('proactive-chat')) {
-        const proactiveChat = document.createElement('proactive-chat');
-        !!proactiveChat && document.body.appendChild(proactiveChat);
-    }
 }
 
 ready(loadReusableComponentsDrupal);

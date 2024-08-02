@@ -43,13 +43,13 @@ button:focus {
     padding: 6px;
     height: 60px;
     color: #ffffff !important;
-    background-color: #2377cb;
+    background-color: #51247a;
 }
 
 .proactive-chat button.proactive-chat-button:hover,
 button.proactive-chat-button:active,
 button.proactive-chat-button:focus {
-    background-color: #195794;
+    background-color: #745095; /* purple-400 */
 }
 
 .proactive-chat button.proactive-chat-button:active {
@@ -115,11 +115,11 @@ button.proactive-chat-button:focus {
     transition-property: background-color;
 }
 .pcminimised .pconline:hover {
-    background-color: #005f00;
+    background-color: #745095; /* purple-400 */
 }
 
 .pcOffline {
-    background-color: grey;
+    background-color: #757377; /* grey-700 */
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -129,7 +129,10 @@ button.proactive-chat-button:focus {
     transition-property: background-color;
 }
 .pcOffline:hover {
-    background-color: #ac0000;
+    background-color: #d1d0d2; /* grey-300 */
+}
+.pcOffline:hover svg {
+    fill: #333;
 }
 
 .pcminimised:hover {
@@ -286,6 +289,9 @@ button.proactive-chat-button:focus {
     font-size: 14px;
 
     margin-top: 0;
+
+    /* fix sites that are using ITS styles */
+    line-height: normal;
 }
 .bottomBar .confirmAnswers {
     margin-bottom: 6px;

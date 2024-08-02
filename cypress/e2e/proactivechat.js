@@ -1,3 +1,6 @@
+const COLOUR_UQ_PURPLE = 'rgb(81, 36, 122)';
+const COLOUR_UQ_GREY300 = 'rgb(117, 115, 119)';
+
 function assertPopupIsHidden() {
     cy.get('proactive-chat')
         .shadow()
@@ -19,7 +22,7 @@ function assertPopupIsOpen() {
     cy.get('proactive-chat')
         .shadow()
         .find('button:contains("Ask Library Chatbot")')
-        .should('have.css', 'background-color', 'rgb(35, 119, 203)');
+        .should('have.css', 'background-color', COLOUR_UQ_PURPLE);
 }
 
 function minimiseChatPopup() {
@@ -31,7 +34,7 @@ function assertHideChatCookieisSet() {
 }
 
 describe('Proactive Chat', () => {
-    it('will load popped open on user first visit', () => {
+    it('will proactively open on user first visit (when "hide" cookie is not set)', () => {
         cy.visit('http://localhost:8080/index-chat-fast.html');
         cy.viewport(1280, 900);
 
@@ -72,6 +75,24 @@ describe('Proactive Chat', () => {
             cy.viewport(1280, 900);
             cy.checkA11y('proactive-chat', {
                 reportName: 'Proactive chat proactive chat open',
+                scopeName: 'Accessibility',
+                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+            });
+
+            cy.get('proactive-chat')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="popopen-button"]').focus();
+                    cy.wait(100);
+                    // hover color is actually available to be checked
+                    cy.get('[data-testid="popopen-button"]').should(
+                        'have.css',
+                        'background-color',
+                        'rgb(116, 80, 149)',
+                    );
+                });
+            cy.checkA11y('proactive-chat', {
+                reportName: 'Proactive chat proactive chat hover',
                 scopeName: 'Accessibility',
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
             });
@@ -173,7 +194,7 @@ describe('Proactive Chat', () => {
                 .should('exist')
                 .should('be.visible')
                 .should('not.have.css', 'display', 'none')
-                .should('have.css', 'background-color', 'rgb(81, 36, 122)')
+                .should('have.css', 'background-color', COLOUR_UQ_PURPLE)
                 .parent()
                 .should('have.css', 'right', '16px');
             // "offline Minimised" button is hidden. Well duh, but just checking
@@ -362,7 +383,7 @@ describe('Proactive Chat', () => {
             .should('exist')
             .should('be.visible')
             .should('not.have.css', 'display', 'none')
-            .should('have.css', 'background-color', 'rgb(128, 128, 128)')
+            .should('have.css', 'background-color', COLOUR_UQ_GREY300)
             .parent()
             .should('have.css', 'right', '16px');
     });
@@ -432,6 +453,48 @@ describe('Proactive Chat', () => {
 
             // Assert that window.open was called
             cy.window().its('open').should('be.called');
+        });
+    });
+    context('when chatbot is known to be broken', () => {
+        it('gives a link to CRM chat when askus is online', () => {
+            cy.visit('http://localhost:8080/index-app-nochatbot.html');
+            cy.viewport(1280, 900);
+            // manually wait
+            cy.wait(100);
+
+            cy.get('proactive-chat')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="proactive-chat-online"]').should('exist').click();
+                    cy.waitUntil(() => cy.get('button:contains("Chat with Library staff")').should('exist'));
+                    cy.get('button:contains("Chat with Library staff")').should(
+                        'have.css',
+                        'background-color',
+                        COLOUR_UQ_PURPLE,
+                    );
+
+                    cy.get('button:contains("Ask Library Chatbot")').should('not.exist');
+                });
+        });
+        it('gives a link to CRM contact form when askus is offline', () => {
+            cy.visit('http://localhost:8080/index-app-nochatbot.html?chatstatusoffline=true');
+            cy.viewport(1280, 900);
+            // manually wait
+            cy.wait(100);
+
+            cy.get('proactive-chat')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="proactive-chat-offline"]').should('exist').click();
+                    cy.waitUntil(() => cy.get('button:contains("Leave a question")').should('exist'));
+                    cy.get('button:contains("Leave a question")').should(
+                        'have.css',
+                        'background-color',
+                        COLOUR_UQ_PURPLE,
+                    );
+
+                    cy.get('button:contains("Ask Library Chatbot")').should('not.exist');
+                });
         });
     });
 });
