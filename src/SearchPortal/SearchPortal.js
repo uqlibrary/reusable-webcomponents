@@ -235,7 +235,6 @@ class SearchPortal extends HTMLElement {
 
         const useSearchType = this.getOpeningSearchType();
         this.setSearchTypeButton(useSearchType);
-        console.log('Firing createPortalTypeSelector');
         this.createPortalTypeSelector();
 
         this.addListeners = this.addListeners.bind(this);
@@ -258,11 +257,9 @@ class SearchPortal extends HTMLElement {
     }
 
     async getPrimoSuggestions(keyword) {
-        console.log('test get');
         await new ApiAccess()
             .loadPrimoSuggestions(keyword)
             .then((suggestions) => {
-                console.log('suggestions', suggestions);
                 /* istanbul ignore else */
                 this.loadSuggestionsIntoPage(suggestions);
             })
@@ -432,7 +429,6 @@ class SearchPortal extends HTMLElement {
 
             let listContainer = that.shadowRoot.getElementById('suggestion-parent');
 
-            //console.log("listContainer", listContainer);
             if (!listContainer) {
                 listContainer = document.createElement('div');
                 !!listContainer && listContainer.setAttribute('id', 'suggestion-parent');
@@ -442,8 +438,6 @@ class SearchPortal extends HTMLElement {
                         'MuiPaper-root MuiAutocomplete-paper MuiPaper-elevation1 MuiPaper-rounded suggestionList');
             }
             !!listContainer && !!ul && listContainer.appendChild(ul);
-
-            console.log('listContainer', listContainer);
 
             // unclear why the else isnt covered - it is called by test 'the mobile view moves over the results list'
             /* istanbul ignore else */
@@ -462,7 +456,7 @@ class SearchPortal extends HTMLElement {
             // add the suggestion list in between the input field and the clear button, so we can tab to it
             const searchContainer = that.shadowRoot.getElementById('search-parent');
             const searchButton = that.shadowRoot.getElementById('searchButton');
-            //console.log("searchContainer", searchContainer, "searchButton", searchButton)
+            
             !!searchContainer && searchContainer.insertBefore(listContainer, searchButton);
         }
     }
@@ -538,10 +532,8 @@ class SearchPortal extends HTMLElement {
 
         // open and close the dropdown when the search-type button is clicked
         const searchPortalSelector = that.shadowRoot.getElementById('search-portal-type-select');
-        console.log('searchPortalSelector is ', searchPortalSelector);
         !!searchPortalSelector &&
             searchPortalSelector.addEventListener('click', function (e) {
-                console.log('Click Triggered');
                 that.showHidePortalTypeDropdown();
                 /* istanbul ignore else */
                 if (!!that.isPortalTypeDropDownOpen()) {
@@ -683,11 +675,11 @@ class SearchPortal extends HTMLElement {
     listenForMouseClicks(e) {
         const that = this;
         const portalTypeDropdown = that.shadowRoot.getElementById('portal-type-selector');
-        console.log('PortalTypeDropdown is now ', portalTypeDropdown);
+        
         const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
         const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
-
-        if (!!eventTarget && eventTarget.classList.contains('search-type-button')) {
+        
+        if (!!eventTarget && (eventTarget.classList.contains('search-type-button') || eventTarget.classList.contains('search-type-button-label'))) {
             // user has clicked on the closed Search Type selector
             // put focus on the currently selected search type
             const portalTypeContainer = that.shadowRoot.getElementById('portaltype-dropdown');
@@ -752,7 +744,6 @@ class SearchPortal extends HTMLElement {
 
     showHidePortalTypeDropdown() {
         const portalTypeDropdown = this.shadowRoot.getElementById('portal-type-selector');
-        console.log('PortalTypeDropdown', portalTypeDropdown);
         // then display the dropdown
         !!portalTypeDropdown && this.toggleVisibility(portalTypeDropdown, 'portalTypeSelectorDisplayed');
 
@@ -793,19 +784,13 @@ class SearchPortal extends HTMLElement {
      * if it has `hidden' class, replace it with the supplied class name
      */
     toggleVisibility(selector, displayStyle) {
-        //console.log("TOGGLE VISIBILITY Selector", selector, "Style", displayStyle)
         const showByClassname = !!selector && selector.className.replace(' hidden', ` ${displayStyle}`);
         const hideByClassname = !!selector && selector.className.replace(` ${displayStyle}`, ' hidden');
 
-        //console.log("sbcn", showByClassname, "hbcn", hideByClassname);
         if (!!selector && selector.classList.contains('hidden')) {
-            console.log('SHOWING');
-            console.log('selector', selector, showByClassname);
-            !!showByClassname && (selector.className = showByClassname); //showByClassname);
-            console.log('selector after change', selector);
+            !!showByClassname && (selector.className = showByClassname)//showByClassname);
             !!showByClassname && selector.setAttribute('tabindex', '0');
         } else {
-            console.log('HIDING');
             !!hideByClassname && (selector.className = hideByClassname);
             !!showByClassname && selector.setAttribute('tabindex', '-1');
         }
@@ -915,7 +900,6 @@ class SearchPortal extends HTMLElement {
 
     setSearchTypeButton(searchType) {
         const portalTypeContainer = this.shadowRoot.getElementById('portaltype-dropdown');
-        console.log('PortalTypeContainer', portalTypeContainer);
         const useSearchType = parseInt(searchType, 10);
 
         // put the icon on the display
@@ -971,7 +955,6 @@ class SearchPortal extends HTMLElement {
     }
 
     createPortalTypeSelector(searchType = 0) {
-        console.log('portal type selector creation');
         const useSearchType = parseInt(searchType, 10);
 
         const portalTypeDropdown = document.createElement('div');
@@ -988,7 +971,6 @@ class SearchPortal extends HTMLElement {
             });
 
         const portalTypeSelectorContainer = document.createElement('div');
-        console.log('creating portal type selector');
         !!portalTypeSelectorContainer && (portalTypeSelectorContainer.id = 'portal-type-selector');
         !!portalTypeSelectorContainer &&
             (portalTypeSelectorContainer.className = `MuiPaper-root MuiMenu-paper MuiPaper-elevation8 MuiPaper-rounded hidden`);
@@ -1001,8 +983,6 @@ class SearchPortal extends HTMLElement {
         !!portalTypeContainer &&
             !!portalTypeSelectorContainer &&
             portalTypeContainer.appendChild(portalTypeSelectorContainer);
-
-        console.log('Portal Type Container', portalTypeContainer);
     }
 
     createFooterLink(link, index) {
