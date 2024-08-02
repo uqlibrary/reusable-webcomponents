@@ -13,27 +13,68 @@
         <script type="text/javascript" src="/applications/drupal/load.js"></script>
         <script type="text/javascript" src="/uq-lib-reusable.min.js"></script>
     </head>
-    <body style="padding: 0; margin: 0; font-family: 'Roboto', sans-serif">
-        <div id="container" style="max-width: 800px; margin-left: auto; margin-right: auto">
-            <div>
-                <h2>Demo Search portal</h2>
-                <search-portal></search-portal>
-            </div>
 
-            <br />
-            <hr />
+    <body>
+        <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+            <div class="page">
+                <header class="uq-header" data-gtm-category="Header">
+                    <p>uq-header</p>
+                </header>
 
-            <div>
-                <h2>Demo Open athens</h2>
-                <open-athens create-link="true"></open-athens>
-            </div>
+                <div class="uq-alerts-global-container" data-uri="https://www.uq.edu.au/api/v1/alerts.json"></div>
+                <div class="uq-site-header">
+                    <div class="uq-site-header__title-container">
+                        <div class="uq-site-header__title-container__left">
+                            <a href="/" class="uq-site-header__title">Library</a>
+                        </div>
+                        <div class="uq-site-header__title-container__right">
+                            <button class="uq-site-header__navigation-toggle jsNavToggle">Menu</button>
+                        </div>
+                    </div>
 
-            <br />
-            <hr />
+                    <div id="block-mainnavigation" class="block block-system block-system-menu-blockmain">
+                        <div class="uq-site-header__navigation-container">
+                            <nav class="uq-site-header__navigation" aria-label="Site navigation" id="jsNav">
+                                <ul class="uq-site-header__navigation__list uq-site-header__navigation__list--level-1">
+                                    <li class="uq-site-header__navigation__list-item">
+                                        <a
+                                            href="http://www.google.com"
+                                            aria-haspopup="true"
+                                            aria-expanded="false"
+                                            class="uq-site-header__navigation__list-link"
+                                            data-gtm-label="SL Test Link"
+                                            >SL Test Link</a
+                                        >
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <main>
+                    <div id="container" style="max-width: 800px; margin-left: auto; margin-right: auto">
+                        <div>
+                            <h2>Demo Search portal</h2>
+                            <search-portal></search-portal>
+                        </div>
 
-            <div>
-                <h2>Demo Training</h2>
-                <library-training></library-training>
+                        <br />
+                        <hr />
+
+                        <div>
+                            <h2>Demo Open athens</h2>
+                            <open-athens create-link="true"></open-athens>
+                        </div>
+
+                        <br />
+                        <hr />
+
+                        <div>
+                            <h2>Demo Training</h2>
+                            <library-training></library-training>
+                        </div>
+                    </div>
+                </main>
             </div>
         </div>
     </body>
