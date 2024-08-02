@@ -1,112 +1,110 @@
 <!DOCTYPE html>
 <html style="padding: 0; margin: 0" lang="en">
-<head>
-    <title>UQ Library - Reusable Web Components</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v15/fonts/Roboto/roboto.css" />
-    <link
-        rel="stylesheet"
-        type="text/css"
-        href="https://static.uq.net.au/v15/fonts/Merriweather/merriweather.css"
-    />
-    <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css" />
-    <style>
-        .layout-card {
-            margin-left: 1rem;
-            margin-right: 1rem;
-            padding-left: 0.5rem;
-            padding-right: 0.5rem;
-        }
-
-        @media (min-width: 37.5rem) {
+    <head>
+        <title>UQ Library - Reusable Web Components</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+        <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v15/fonts/Roboto/roboto.css" />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://static.uq.net.au/v15/fonts/Merriweather/merriweather.css"
+        />
+        <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css" />
+        <style>
             .layout-card {
-                padding-left: 0.75rem;
-                padding-right: 0.75rem;
-                margin-left: 3.25rem;
-                margin-right: 3.25rem;
-                max-width: none;
+                margin-left: 1rem;
+                margin-right: 1rem;
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
             }
-        }
 
-        @media (min-width: 69.25rem) {
-            .layout-card {
-                margin-left: auto;
-                margin-right: auto;
-                max-width: 61.5rem;
+            @media (min-width: 37.5rem) {
+                .layout-card {
+                    padding-left: 0.75rem;
+                    padding-right: 0.75rem;
+                    margin-left: 3.25rem;
+                    margin-right: 3.25rem;
+                    max-width: none;
+                }
             }
-        }
 
-        @media (min-width: 80rem) {
-            .layout-card {
-                margin-left: 8.375rem;
-                margin-right: 8.375rem;
-                max-width: none;
-                padding-left: 1rem;
-                padding-right: 1rem;
+            @media (min-width: 69.25rem) {
+                .layout-card {
+                    margin-left: auto;
+                    margin-right: auto;
+                    max-width: 61.5rem;
+                }
             }
-        }
 
-        @media (min-width: 90rem) {
-            .layout-card {
-                margin-left: auto;
-                margin-right: auto;
-                max-width: 71rem;
-                padding-left: 1rem;
-                padding-right: 1rem;
+            @media (min-width: 80rem) {
+                .layout-card {
+                    margin-left: 8.375rem;
+                    margin-right: 8.375rem;
+                    max-width: none;
+                    padding-left: 1rem;
+                    padding-right: 1rem;
+                }
             }
-        }
-        .trainingWrapper {
-            display: flex;
-            padding-right: 30px;
-            padding-left: 30px;
-        }
-        .trainingLeft {
-            flex-grow: 1;
-        }
-        .trainingRight {
-            width: 380px;
-            margin-left: 5%;
-        }
-        @media only screen and (max-width: 1096px) {
+
+            @media (min-width: 90rem) {
+                .layout-card {
+                    margin-left: auto;
+                    margin-right: auto;
+                    max-width: 71rem;
+                    padding-left: 1rem;
+                    padding-right: 1rem;
+                }
+            }
             .trainingWrapper {
-                display: block;
+                display: flex;
+                padding-right: 30px;
+                padding-left: 30px;
             }
-            .trainingLeft,
+            .trainingLeft {
+                flex-grow: 1;
+            }
             .trainingRight {
-                width: 100%;
+                width: 380px;
+                margin-left: 5%;
             }
-        }
-    </style>
-</head>
-<body style="padding: 0; margin: 0; font-family: 'Roboto', sans-serif; background-color: #f7f7f7">
-<!-- This is a test GTM code - insert your site's GTM with attribute name `gtm` -->
-<uq-gtm></uq-gtm>
+            @media only screen and (max-width: 1096px) {
+                .trainingWrapper {
+                    display: block;
+                }
+                .trainingLeft,
+                .trainingRight {
+                    width: 100%;
+                }
+            }
+        </style>
+    </head>
+    <body style="padding: 0; margin: 0; font-family: 'Roboto', sans-serif; background-color: #f7f7f7">
+        <!-- This is a test GTM code - insert your site's GTM with attribute name `gtm` -->
+        <uq-gtm></uq-gtm>
 
-<uq-header hidelibrarymenuitem skipnavid="skiptohere"></uq-header>
-<uq-site-header sitetitle="Library Test" showmenu>
+        <uq-header hidelibrarymenuitem skipnavid="skiptohere"></uq-header>
+        <uq-site-header sitetitle="Library Test" showmenu>
             <span slot="site-utilities">
                 <askus-button />
             </span>
-    <span slot="site-utilities">
+            <span slot="site-utilities">
                 <auth-button />
             </span>
-</uq-site-header>
-<proactive-chat secondsTilProactiveChatAppears="3"></proactive-chat>
-<cultural-advice-popup secondsTilCulturalAdviceAppears="2"></cultural-advice-popup>
-<alert-list system="homepage"></alert-list>
-<div class="layout-card" style="min-height: 300px">
-    <h1 id="skiptohere" tabindex="-1">UQ Library - Open athens</h1>
+        </uq-site-header>
+        <proactive-chat secondsTilProactiveChatAppears="60"></proactive-chat>
+        <cultural-advice-popup secondsTilCulturalAdviceAppears="2"></cultural-advice-popup>
+        <alert-list system="homepage"></alert-list>
+        <div class="layout-card" style="min-height: 300px">
+            <h1 id="skiptohere" tabindex="-1">UQ Library - Open athens</h1>
 
-    <h2>Copy a link</h2>
-    <open-athens create-link="true"></open-athens>
-    <br />
-    <h2>Visit a link</h2>
-    <p>(not currently in use)</p>
-    <open-athens></open-athens>
-</div>
-<connect-footer></connect-footer>
-<uq-footer loginurl="http://library.uq.edu.au"></uq-footer>
-<script type="text/javascript" src="uq-lib-reusable.min.js"></script>
-<script type="text/javascript" src="drupal-lib-reusable.min.js"></script>
-</body>
+            <h2>Copy a link</h2>
+            <open-athens create-link="true"></open-athens>
+            <br />
+            <h2>Visit a link</h2>
+            <p>(not currently in use)</p>
+            <open-athens></open-athens>
+        </div>
+        <script type="text/javascript" src="uq-lib-reusable.min.js"></script>
+        <script type="text/javascript" src="drupal-lib-reusable.min.js"></script>
+    </body>
 </html>
