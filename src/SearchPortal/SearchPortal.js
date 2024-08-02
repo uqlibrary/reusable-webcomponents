@@ -185,6 +185,20 @@ template.innerHTML = `
                             </div>
                         
                         </div>
+                         <div id="clearButton" class="MuiGrid-item MuiGrid-grid-xs-auto utilityarea">
+                        
+                            
+                                <button type="button" id="clear-search-term" class="hidden clear-search-term MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall" tabindex="0" type="button" title="Clear your search term" data-testid="primo-search-autocomplete-voice-clear" data-analyticsid="primo-search-autocomplete-voice-clear">
+                                    <span class="MuiIconButton-label">
+                                        <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+                                        </svg>
+                                    </span>
+                                    <span class="MuiTouchRipple-root"></span>
+                                </button>
+                            
+                        
+                        </div>
                         <div class="searchPortal-searchButton" >
                             <button id="search-portal-submit" class="MuiButtonBase-root MuiButton-contained searchButton MuiButton-containedPrimary MuiButton-containedSizeLarge MuiButton-sizeLarge MuiButton-fullWidth" tabindex="0" type="submit" data-testid="primo-search-submit" data-analyticsid="primo-search-submit" value="Submit" title="Perform your search">
                                 <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
@@ -545,13 +559,15 @@ class SearchPortal extends HTMLElement {
             const inputField = that.shadowRoot.getElementById('current-inputfield');
             !!inputField && (inputField.value = '');
             !!inputField && inputField.focus();
+            
         }
-        // const clearButton = that.shadowRoot.getElementById('clear-search-term');
-        // !!clearButton &&
-        //     clearButton.addEventListener('click', function (e) {
-        //         clearSearchTerm();
-        //         that.clearSearchResults();
-        //     });
+        const clearButton = that.shadowRoot.getElementById('clear-search-term');
+         !!clearButton &&
+             clearButton.addEventListener('click', function (e) {
+                 clearSearchTerm();
+                 that.clearSearchResults();
+                 that.shadowRoot.getElementById('clear-search-term').classList.add('hidden');
+             });
 
         // add click handler to cultural advice link for gtm tracking
         // const CaAnchor = this.shadowRoot.getElementById('cultural-advice-statement-link');
@@ -645,6 +661,14 @@ class SearchPortal extends HTMLElement {
         const searchType = that.shadowRoot.getElementById('search-type-current-value');
 
         const inputField = that.shadowRoot.getElementById('current-inputfield');
+
+        // update the clear search field visibility here
+        console.log("INPUT VALUE", inputField.value)
+        if (!!inputField.value) {
+            that.shadowRoot.getElementById('clear-search-term').classList.remove('hidden');
+        } else {
+            that.shadowRoot.getElementById('clear-search-term').classList.add('hidden');
+        }
 
         if (!!inputField.value && inputField.value.length > 3 && !isRepeatingString(inputField.value)) {
             const PRIMO_SEARCH_TYPES = [

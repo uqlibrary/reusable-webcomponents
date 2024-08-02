@@ -1011,6 +1011,7 @@ li.MuiAutocomplete-option:focus {
 #clearButton {
     padding: 0px;
     margin: 0px;
+    margin-top: 2px;
     width: auto;
 }
 .searchPortalLabel {
