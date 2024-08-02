@@ -1,10 +1,10 @@
 /* eslint-disable */
 import Cookies from 'js-cookie';
 import * as mockData from './data/account';
-import ApiRoutes from "../src/ApiRoutes";
-import {apiLocale as apilocale} from '../src/ApiAccess/ApiAccess.locale';
+import ApiRoutes from '../src/ApiRoutes';
+import { apiLocale as apilocale } from '../src/ApiAccess/ApiAccess.locale';
 
-import {alerts, examSuggestions, learningResourceSuggestions, libHours, primoSuggestions} from './data/misc';
+import { alerts, examSuggestions, learningResourceSuggestions, libHours, primoSuggestions } from './data/misc';
 
 import trainingEvents from './data/trainingobject';
 
@@ -81,7 +81,6 @@ class MockApi {
             if (requestType === 'error') {
                 // when openathens has an internal error
                 return this.response(503, {error: 'some message'});
-                // return this.response(500, null, true);
             } else if (requestType === 'failure') {
                 // when openathens says "no"
                 const openAthensSuccessResponse = { available: false };
@@ -89,15 +88,7 @@ class MockApi {
             }
             // otherwise, openathens says "yes"
             // default success
-            const rawUrl = url.replace('openathens/check/', '');
-            const returnableUrl = decodeURI(rawUrl)
-            const useLink = `https://go.openathens.net/redirector/uq.edu.au?url=${returnableUrl}`;
-
-            const openAthensSuccessResponse = {
-                available: true,
-                useLink: useLink,
-            }
-            return this.response(200, openAthensSuccessResponse, true);
+            return this.response(200, { available: true }, true);
         }
 
         switch (urlWithoutQueryString) {

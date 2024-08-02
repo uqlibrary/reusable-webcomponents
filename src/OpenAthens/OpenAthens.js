@@ -314,8 +314,9 @@ class OpenAthens extends HTMLElement {
                     };
                     return null;
                 } else if (response?.available === true) {
-                    this.displayUrl(response.useLink);
-                    return response.useLink;
+                    const newUrl = `https://resolver.library.uq.edu.au/openathens/redir?url=${url}`;
+                    this.displayUrl(newUrl);
+                    return newUrl;
                 } else {
                     // OA said thats not an OA url
                     this.inputValidator = {
