@@ -8,26 +8,34 @@ The 'applications/' folder allows us to version control changes to the scripts w
 
 1. Clone from github
 
-2. install npm: `nvm use 18.19.0 && npm i -g npm@10 webpack-dev-server`
-
-3. Create these git hooks to manage branches to project standard:
-
 ```sh
-ln -sf "../../scripts/pre-commit" ".git/hooks/pre-commit"
+git clone git@github.com:uqlibrary/reusable-webcomponents.git
 ```
 
-It does two things:
+2. install npm (but first confirm in package.json that this is the latest installed version - doco gets out of date):
 
-- Prevent direct commits to the staging branch.
-- Run `prettier-eslint` automatically before every local commit
+```sh
+nvm use 18.19.0 && npm i -g npm@10 webpack-dev-server
+```
 
-- Run the following in the project root directory to prevent accidental merges from the staging branch:
+3. Create git hooks to manage branches to project standard. 
+
+  3.1. Prevent direct commits to the staging branch. and run `prettier-eslint` automatically before every local commit:
+
+  ```sh
+  ln -sf "../../scripts/pre-commit" ".git/hooks/pre-commit"
+  ```
+  3.2. Run the following in the project root directory to prevent accidental merges from the staging branch:
 
   ```sh
     ln -sf "../../scripts/prepare-commit-msg" ".git/hooks/prepare-commit-msg"
   ```
 
-  When you commit your changes, the above script will require you to have correctly formatted code.
+4. In the root folder of fez-frontend install the required npm modules:
+
+```sh
+npm install
+```
 
 ## Environments
 
@@ -130,7 +138,7 @@ In addition to the usual branches, the following are in use and should not be de
   - Undocumented caveat: You can only style the item with the "part attribute" you can't style its descendants like:
 
     ```css
-    askus-button::part(askus) div#askus-label {
+    askus-button::part(askus) div#askus-label { /* doesnt work!! */
       font-weight: bold;
     }
     ```

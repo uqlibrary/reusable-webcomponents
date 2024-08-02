@@ -91,6 +91,11 @@ function loadReusableComponents() {
 
         !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
     }
+    // Proactive Chat button
+    if (!document.querySelector('proactive-chat')) {
+        const proactiveChat = document.createElement('proactive-chat');
+        !!proactiveChat && document.body.insertBefore(proactiveChat, firstElement);
+    }
 
     if (!document.querySelector('alert-list')) {
         const alerts = document.createElement('alert-list');
@@ -105,11 +110,6 @@ function loadReusableComponents() {
     if (!document.querySelector('uq-footer')) {
         const subFooter = document.createElement('uq-footer');
         !!subFooter && document.body.appendChild(subFooter);
-    }
-    // Proactive Chat button
-    if (!document.querySelector('proactive-chat')) {
-        const proactiveChat = document.createElement('proactive-chat');
-        !!proactiveChat && document.body.appendChild(proactiveChat);
     }
 }
 function insertScript(url) {

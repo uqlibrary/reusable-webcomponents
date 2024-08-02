@@ -6,13 +6,17 @@ function ready(fn) {
     }
 }
 
-let isOutsideUQ = true;
-
-if (window.location.href.indexOf('uq.edu.au') > -1) {
-    isOutsideUQ = false;
-}
-
-console.log('Is libguides in edit mode?: ', isOutsideUQ);
+const isInEditMode = () => {
+    if (window.location.hostname === 'localhost') {
+        return false;
+    }
+    // guides is edited on springshare domain, with our looknfeel.
+    // Don't include some elements - they are distracting to the admin
+    if (window.location.href.includes('uq.edu.au')) {
+        return false;
+    }
+    return true;
+};
 
 function createSlotForButtonInUtilityArea(button, id = null) {
     const slot = document.createElement('span');
@@ -63,7 +67,7 @@ function loadReusableComponentsLibGuides() {
     const firstElement = document.body.children[0];
 
     const gtm = document.createElement('uq-gtm');
-    !!gtm && gtm.setAttribute('gtm', 'GTM-PX9H7R');
+    !!gtm && gtm.setAttribute('gtm', 'GTM-NC7M38Q');
     document.body.insertBefore(gtm, firstElement);
 
     const header = document.createElement('uq-header');
@@ -72,7 +76,7 @@ function loadReusableComponentsLibGuides() {
 
     const siteHeader = document.createElement('uq-site-header');
 
-    if (!isOutsideUQ) {
+    if (!isInEditMode()) {
         const askusButton = createAskusButton();
         !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
 
@@ -85,7 +89,15 @@ function loadReusableComponentsLibGuides() {
         !!culturalAdvice && document.body.appendChild(culturalAdvice);
     }
 
-    document.body.insertBefore(siteHeader, firstElement);
+    !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
+
+    // Proactive Chat button
+    if (!isInEditMode()) {
+        if (!document.querySelector('proactive-chat')) {
+            const proactiveChat = document.createElement('proactive-chat');
+            !!proactiveChat && document.body.insertBefore(proactiveChat, firstElement);
+        }
+    }
 
     if (!document.querySelector('alert-list')) {
         const alerts = document.createElement('alert-list');
@@ -97,14 +109,6 @@ function loadReusableComponentsLibGuides() {
 
     const subFooter = document.createElement('uq-footer');
     document.body.appendChild(subFooter);
-
-    // Proactive Chat button
-    if (!isOutsideUQ) {
-        if (!document.querySelector('proactive-chat')) {
-            const proactiveChat = document.createElement('proactive-chat');
-            !!proactiveChat && document.body.appendChild(proactiveChat);
-        }
-    }
 }
 
 ready(loadReusableComponentsLibGuides);

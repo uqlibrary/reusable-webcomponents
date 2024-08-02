@@ -88,27 +88,6 @@ function fontLoader(font) {
     link.href = font;
 }
 
-function addVideoCallLinkToSidebar() {
-    const newHtml = `<li class="hasIcon">
-        <span>
-            <a href="https://video-chat.service-centre.uq.edu.au/" aria-hidden="true" style="text-decoration: none;">
-                <svg style="width: 30px; margin-left: -1px;" focusable="false" aria-hidden="true"
-                     viewBox="0 0 24 24" data-testid="VideoCallIcon" aria-label="fontSize large"><path
-                    d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"></path></svg>
-            </a>
-        </span>
-        <span id="uql-videocall" class="rn_NavigationTab" style="margin-left: -3px;">
-            <a href="https://video-chat.service-centre.uq.edu.au/" target="_self">
-                <span>Video call</span>
-            </a>
-        </span>
-    </li>`;
-
-    const phoneLink = document.querySelector('#uq_AskQuestionContent .menu a[href="tel:61733464312"]');
-    const phoneListItem = !!phoneLink && phoneLink.parentNode.parentNode;
-    !!phoneListItem && phoneListItem.insertAdjacentHTML('afterend', newHtml);
-}
-
 function loadReusableComponents() {
     // because it is a major headache for ITS to deploy changes, we've just added this font here.
     // if we are asking for changes at some point, it would be good to move it into the template so all the font calls are in one place
@@ -126,7 +105,7 @@ function loadReusableComponents() {
 
     if (!document.querySelector('uq-gtm')) {
         const gtm = document.createElement('uq-gtm');
-        !!gtm && gtm.setAttribute('gtm', 'GTM-PX9H7R');
+        !!gtm && gtm.setAttribute('gtm', 'GTM-NC7M38Q');
         !!gtm && document.body.insertBefore(gtm, firstElement);
     }
 
@@ -146,6 +125,11 @@ function loadReusableComponents() {
 
         !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
     }
+    // Proactive Chat button
+    if (!document.querySelector('proactive-chat')) {
+        const proactiveChat = document.createElement('proactive-chat');
+        !!proactiveChat && document.body.insertBefore(proactiveChat, firstElement);
+    }
 
     if (!document.querySelector('alert-list')) {
         const alerts = document.createElement('alert-list');
@@ -161,13 +145,6 @@ function loadReusableComponents() {
         const subFooter = document.createElement('uq-footer');
         !!subFooter && document.body.appendChild(subFooter);
     }
-    // Proactive Chat button
-    if (!document.querySelector('proactive-chat')) {
-        const proactiveChat = document.createElement('proactive-chat');
-        !!proactiveChat && document.body.appendChild(proactiveChat);
-    }
-
-    addVideoCallLinkToSidebar();
 }
 
 function addSkipNavLandingPoint() {

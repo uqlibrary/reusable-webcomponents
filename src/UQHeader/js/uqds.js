@@ -200,52 +200,62 @@ var uq = (function (exports) {
                     value: function init() {
                         var _this7 = this;
 
-                        if (window.location.hash) {
-                            this.hash = window.location.hash;
-                        } // Scroll to hash (param string) selected accordion
-
-                        function isHashIgnored() {
-                            return this.hash === '#keyword=;campus=;weekstart=';
-                        }
-
+                        // Library doesn't have any selected accordions and this was causing massive problems
+                        // if (window.location.hash) {
+                        //     this.hash = window.location.hash;
+                        // } // Scroll to hash (param string) selected accordion
+                        //
+                        // function isHashIgnored() {
+                        //     console.log('reusable::this.hash', this.hash);
+                        //     return this.hash === '#keyword=;campus=;weekstart=';
+                        // }
+                        //
                         var h = document.querySelector('uq-header');
-                        if (this.hash && this.hash !== '' && !isHashIgnored.call(this)) {
-                            var hashSelectedContent =
-                                !!h &&
-                                h.shadowRoot.querySelector(
-                                    ''.concat(this.hash, '.').concat(this.className, '__content'),
-                                );
-
-                            if (hashSelectedContent) {
-                                // Only apply classes on load when linking directly to an accordion item.
-                                var hashSelected = accordion.getPrevSibling(
-                                    hashSelectedContent,
-                                    '.'.concat(this.className, '__toggle'),
-                                );
-                                this.slideContentDown(hashSelected); // Scroll to top of selected item.
-
-                                window.scrollTo(0, hashSelected.getBoundingClientRect().top);
-                            }
-                        }
+                        // if (this.hash && this.hash !== '' && !isHashIgnored.call(this)) {
+                        //     var hashSelectedContent =
+                        //         !!h &&
+                        //         h.shadowRoot.querySelector(
+                        //             ''.concat(this.hash, '.').concat(this.className, '__content'),
+                        //         );
+                        //
+                        //     if (hashSelectedContent) {
+                        //         // Only apply classes on load when linking directly to an accordion item.
+                        //         var hashSelected = accordion.getPrevSibling(
+                        //             hashSelectedContent,
+                        //             '.'.concat(this.className, '__toggle'),
+                        //         );
+                        //         this.slideContentDown(hashSelected); // Scroll to top of selected item.
+                        //
+                        //         window.scrollTo(0, hashSelected.getBoundingClientRect().top);
+                        //     }
+                        // }
 
                         var accordions = !!h && h.shadowRoot.querySelectorAll('.'.concat(this.className));
-                        accordions.forEach(function (el) {
-                            var togglers = el.querySelectorAll('.'.concat(_this7.className, '__toggle'));
-                            togglers.forEach(function (el) {
-                                el.addEventListener('click', _this7.handleToggle(togglers));
-                            });
-                        }); // wrap contents of uq-accordion__content in a wrapper to apply padding and prevent animation jump
+                        !!accordions &&
+                            accordions.length > 0 &&
+                            accordions.forEach(function (el) {
+                                var togglers = el.querySelectorAll('.'.concat(_this7.className, '__toggle'));
+                                !!togglers &&
+                                    togglers.length > 0 &&
+                                    togglers.forEach(function (el) {
+                                        el.addEventListener('click', _this7.handleToggle(togglers));
+                                    });
+                            }); // wrap contents of uq-accordion__content in a wrapper to apply padding and prevent animation jump
 
                         var accordionContents =
                             !!h && h.shadowRoot.querySelectorAll('.'.concat(this.className, '__content'));
                         var accordionName = this.className;
-                        accordionContents.forEach(function (accordionContent) {
-                            var innerContent = accordionContent.innerHTML;
-                            accordionContent.innerHTML = '';
-                            var contentWrapper =
-                                '<div class ="' + accordionName + '__content-wrapper">'.concat(innerContent, '</div>');
-                            accordionContent.innerHTML = contentWrapper;
-                        });
+                        !!accordionContents &&
+                            accordionContents.length > 0 &&
+                            accordionContents.forEach(function (accordionContent) {
+                                var innerContent = accordionContent.innerHTML;
+                                accordionContent.innerHTML = '';
+                                var contentWrapper =
+                                    '<div class ="' +
+                                    accordionName +
+                                    '__content-wrapper">'.concat(innerContent, '</div>');
+                                accordionContent.innerHTML = contentWrapper;
+                            });
                     },
                 },
             ],

@@ -6,6 +6,14 @@ function ready(fn) {
     }
 }
 
+function hasDebugParam(testHost) {
+    if (window.location.host !== testHost) {
+        return false;
+    }
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.has('debug') && urlParams.get('debug') === 'true';
+}
+
 function centerheaderBlock() {
     // insert a wrapping element as the first child of the header, so we can center the block
     const wrapper = document.createElement('div');
@@ -132,6 +140,127 @@ function relabelMenuDropdown() {
     !!hamburgerMenuHeading && (hamburgerMenuHeading.textContent = 'Menu');
 }
 
+function addCulturalAdviceBanner(displayText) {
+    // eg "Aboriginal and Torres Strait Islander people are warned that this resource may contain images transcripts or names of Aboriginal and Torres Strait Islander people now deceased.  It may also contain historically and culturally sensitive words, terms, and descriptions."
+    const displayBlockClassName = 'culturalAdviceBanner';
+    const displayBlock = document.querySelector(`.${displayBlockClassName}`);
+    if (!!displayBlock) {
+        // block already exists - don't duplicate
+        return;
+    }
+
+    const para = document.createElement('p');
+    !!para && (para.innerHTML = displayText);
+
+    const block = document.createElement('div');
+    !!block && (block.className = displayBlockClassName);
+    !!para && !!para && block.appendChild(para);
+
+    const waitforWrapperToExist = setInterval(() => {
+        const parent = document.querySelector('#main-column h1');
+        if (!!parent) {
+            clearInterval(waitforWrapperToExist);
+            parent.appendChild(block);
+        }
+    }, 100);
+}
+
+function highlightCulturallySignificantEntriesOnDetailPage() {
+    const contentAndStructureAreaElement = document.querySelectorAll('#contentAndStructureArea p');
+    const contentAdvisoryParagraph =
+        !!contentAndStructureAreaElement &&
+        Array.from(contentAndStructureAreaElement).filter((paragraph) =>
+            paragraph.textContent.startsWith('Content advice:'),
+        );
+
+    let bannerText = null;
+    !!contentAdvisoryParagraph &&
+        contentAdvisoryParagraph.forEach((paragraph) => {
+            const contentAdvice = paragraph.textContent;
+            if (!!contentAdvice.startsWith('Content advice: Aboriginal and Torres Strait Islander')) {
+                bannerText = contentAdvice.replace('Content advice: ', '');
+            } else if (!!contentAdvice.startsWith('Content advice: Aboriginal, Torres Strait Islander')) {
+                bannerText = contentAdvice.replace('Content advice: ', '');
+            }
+            !!bannerText && addCulturalAdviceBanner(bannerText);
+        });
+}
+
+function createCustomIconIndicator(svgPathValue, iconWrapperClassName, labelText) {
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    !!path && path.setAttribute('d', svgPathValue);
+    !!path && path.setAttribute('d', svgPathValue);
+
+    const svgCR = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    !!svgCR && svgCR.setAttribute('width', '16px'); // hard code here so we don't get a FOUC
+    !!svgCR && svgCR.setAttribute('height', '16px');
+    !!svgCR && svgCR.setAttribute('viewBox', '0 0 24 24');
+    !!svgCR && svgCR.setAttribute('focusable', 'false');
+    !!svgCR && svgCR.setAttribute('class', 'icon-after-icon');
+    !!svgCR && !!path && svgCR.appendChild(path);
+
+    const indicatorLabel = document.createElement('span');
+    !!indicatorLabel && (indicatorLabel.className = 'customIndicatorLabel');
+    !!indicatorLabel && (indicatorLabel.innerHTML = labelText);
+
+    const indicatorWrapper = document.createElement('span');
+    // iconWrapperClassName is used to hide any duplicate icons, which shouldnt happen, but rarely there is a race condition
+    !!indicatorWrapper && (indicatorWrapper.className = `customIndicator ${iconWrapperClassName}`);
+    !!indicatorWrapper && !!svgCR && indicatorWrapper.appendChild(svgCR);
+    !!indicatorWrapper && !!indicatorLabel && indicatorWrapper.appendChild(indicatorLabel);
+
+    return indicatorWrapper;
+}
+
+function highlightCulturallySignificantEntriesOnListPage() {
+    if (hasDebugParam('sandbox-fryer.library.uq.edu.au')) {
+        return;
+    }
+
+    // get text blocks which may have content advice
+    const contentlist = document.querySelectorAll('article.search-result .scope-and-content em');
+    !!contentlist &&
+        contentlist.forEach(function (contentAdvice) {
+            let hasContentAdvice = false;
+            const contentAdviceText = contentAdvice.textContent;
+            if (!!contentAdviceText.startsWith('Content advice: Aboriginal and Torres Strait Islander')) {
+                hasContentAdvice = true;
+            } else if (!!contentAdviceText.startsWith('Content advice: Aboriginal, Torres Strait Islander')) {
+                hasContentAdvice = true;
+            }
+            if (!hasContentAdvice) {
+                return;
+            }
+
+            // svg for "Info" icon from MUI icon set
+            const muiIconInfoSvgPath =
+                'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z';
+            let culturalAdviceMarkClassName = 'culturalAdviceMark';
+            const createdCAIndicator = createCustomIconIndicator(
+                muiIconInfoSvgPath,
+                culturalAdviceMarkClassName,
+                'CULTURAL ADVICE',
+            );
+            if (!createdCAIndicator) {
+                return;
+            }
+
+            const indicatorList = document.createElement('div');
+            !!indicatorList && indicatorList.setAttribute('class', 'customIndicatorList');
+            !!indicatorList && indicatorList.appendChild(createdCAIndicator);
+
+            const targetParent = contentAdvice.parentNode.parentNode;
+            const checkExists = targetParent.querySelectorAll(`.${culturalAdviceMarkClassName}`);
+            if (
+                checkExists.length === 0 && // dont insert it twice
+                !!targetParent &&
+                !!indicatorList
+            ) {
+                targetParent.insertBefore(indicatorList, targetParent.firstChild);
+            }
+        });
+}
+
 function loadReusableComponentsAtom() {
     const cssFile = getIncludeFileLocation('applications/atom/custom-styles.css');
     // note: we cannot reach css in the localhost dist folder for test
@@ -142,6 +271,12 @@ function loadReusableComponentsAtom() {
         scriptLink = getIncludeFileLocation('uq-lib-reusable.min.js');
     }
     insertScript(scriptLink, true);
+
+    const firstElement = document.body.children[0];
+
+    const gtm = document.createElement('uq-gtm');
+    !!gtm && gtm.setAttribute('gtm', 'GTM-NC7M38Q');
+    document.body.insertBefore(gtm, firstElement);
 
     centerheaderBlock();
 
@@ -154,6 +289,9 @@ function loadReusableComponentsAtom() {
     addCulturalAdvicePopup();
 
     relabelMenuDropdown();
+
+    highlightCulturallySignificantEntriesOnDetailPage();
+    highlightCulturallySignificantEntriesOnListPage();
 }
 
 ready(loadReusableComponentsAtom);

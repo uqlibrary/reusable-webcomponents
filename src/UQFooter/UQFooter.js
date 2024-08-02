@@ -20,8 +20,8 @@ template.innerHTML = `
         </div>
       </div>
       <div class="uq-footer__container">
-        <nav id="footer-desktop-nav" class="uq-footer__navigation uq-footer--desktop" aria-label="footer navigation"></nav>
-        <nav id="footer-mobile-nav" class="uq-footer__navigation uq-footer--mobile" aria-label="footer navigation mobile">
+        <nav id="footer-desktop-nav" data-testid="footer-desktop-nav" class="uq-footer__navigation uq-footer--desktop" aria-label="footer navigation"></nav>
+        <nav id="footer-mobile-nav" data-testid="footer-mobile-nav" class="uq-footer__navigation uq-footer--mobile" aria-label="footer navigation mobile">
         </nav>
         <!-- Footer contact details -->
         <div class="uq-footer__contact">   
@@ -40,28 +40,28 @@ template.innerHTML = `
           <ul class="uq-footer__footer-list">
             <li class="uq-footer__footer-item">&copy; The University of Queensland</li>
             <li class="uq-footer__footer-item"><abbr title="Australian Business Number">ABN</abbr>: 63 942 912 684 </li>
-            <li class="uq-footer__footer-item"><a class="uq-footer__link" href="https://www.uq.edu.au/about/cricos-link" rel="external" data-gtm-label="CRICOS 00025B"><abbr title="Commonwealth Register of Institutions and Courses for Overseas Students">CRICOS</abbr>: 00025B</a></li>
+            <li class="uq-footer__footer-item"><abbr title="Commonwealth Register of Institutions and Courses for Overseas Students">CRICOS</abbr>: <a class="uq-footer__link" href="https://www.uq.edu.au/about/cricos-link" rel="external">00025B</a></li>
             <li class="uq-footer__footer-item"><abbr title="Tertiary Education Quality and Standards Agency">TEQSA</abbr>: <a class="uq-footer__link" href="https://www.teqsa.gov.au/national-register/provider/university-queensland" rel="external" data-gtm-label="TEQSA PRV12080">PRV12080</a></li>
           </ul>
         </nav>
         <nav class="uq-footer__footer" aria-label="Terms and conditions">
           <ul class="uq-footer__footer-list">
               <li class="uq-footer__footer-item">
-                  <a href="https://www.uq.edu.au/legal/terms-of-use" class="uq-footer__link">Privacy and terms of use</a>
+                  <a href="https://www.uq.edu.au/legal/website-terms-of-use/" class="uq-footer__link">Privacy and terms of use</a>
               </li>
               <li class="uq-footer__footer-item">
-                <a href="https://uq.edu.au/accessibility" class="uq-footer__link">Accessibility</a>
+                <a href="https://uq.edu.au/accessibility/" class="uq-footer__link">Accessibility</a>
               </li>
               <li class="uq-footer__footer-item">
-                  <a href="https://www.uq.edu.au/rti" class="uq-footer__link">Right to information</a>
+                  <a href="https://governance-risk.uq.edu.au/rtip" class="uq-footer__link">Right to information</a>
               </li>
-              <li class="uq-footer__footer-item">
+              <li class="uq-footer__footer-menu__item">
                 <a href="https://my.uq.edu.au/feedback?r=${encodeURIComponent(
                     window.location.href,
                 )}" class="uq-footer__link">Feedback</a>
               </li>
           </ul>
-           </nav>
+        </nav>
       </div>
     </footer>
 `;
@@ -167,6 +167,7 @@ class UQFooter extends HTMLElement {
                 !!li1 && li1.setAttribute('class', li1Class);
                 const toggleId = `menu-toggle-${index}`;
                 !!li1 && li1.setAttribute('id', toggleId);
+                !!li1 && li1.setAttribute('data-testid', toggleId);
                 !!li1 && !!ul1 && ul1.appendChild(li1);
 
                 const h2Text = document.createTextNode(list.label);
@@ -185,20 +186,22 @@ class UQFooter extends HTMLElement {
                 const ul2 = document.createElement('ul');
                 const ul2Class = 'uq-accordion__content uq-footer__navigation-list uq-footer__navigation-level-2';
                 !!ul2 && ul2.setAttribute('class', ul2Class);
+                !!ul2 && ul2.setAttribute('data-testid', `mobile-child-list-${index}`);
                 !!ul2 && !!li1 && li1.appendChild(ul2);
 
                 const invalidDiv = document.createElement('div');
                 !!invalidDiv && !!ul2 && ul2.appendChild(invalidDiv);
 
-                list.list.forEach((entry1) => {
-                    const datatestid = !!entry1.dataTestid ? `${entry1.dataTestid}-mobile` : null;
-                    const link = this.createNavLink(entry1.href, entry1.label, datatestid);
+                list?.list?.length > 0 &&
+                    list.list.forEach((entry1) => {
+                        const datatestid = !!entry1.dataTestid ? `${entry1.dataTestid}-mobile` : null;
+                        const link = this.createNavLink(entry1.href, entry1.label, datatestid);
 
-                    const li2 = document.createElement('li');
-                    li2.setAttribute('class', 'uq-footer__navigation-item');
-                    !!link && !!li2 && li2.appendChild(link);
-                    !!li2 && !!invalidDiv && invalidDiv.appendChild(li2);
-                });
+                        const li2 = document.createElement('li');
+                        li2.setAttribute('class', 'uq-footer__navigation-item');
+                        !!link && !!li2 && li2.appendChild(link);
+                        !!li2 && !!invalidDiv && invalidDiv.appendChild(li2);
+                    });
             });
     }
 
@@ -213,7 +216,8 @@ class UQFooter extends HTMLElement {
         !!ul1 && !!footerMenu && footerMenu.appendChild(ul1);
 
         !!footerMenu &&
-            navLocale.forEach((list, index) => {
+            navLocale?.length > 0 &&
+            navLocale?.forEach((list, index) => {
                 const li1 = document.createElement('li');
                 !!li1 && li1.setAttribute('class', 'uq-footer__navigation-item uq-footer__navigation--is-open');
                 !!li1 && !!ul1 && ul1.appendChild(li1);
@@ -229,15 +233,16 @@ class UQFooter extends HTMLElement {
                 !!ul2 && ul2.setAttribute('class', 'uq-footer__navigation-list uq-footer__navigation-level-2');
                 !!ul2 && !!li1 && li1.appendChild(ul2);
 
-                list.list.forEach((entry1) => {
-                    const datatestid = !!entry1.dataTestid ? `${entry1.dataTestid}-desktop` : null;
-                    const link = this.createNavLink(entry1.href, entry1.label, datatestid);
+                list?.list?.length > 0 &&
+                    list.list.forEach((entry1) => {
+                        const datatestid = !!entry1.dataTestid ? `${entry1.dataTestid}-desktop` : null;
+                        const link = this.createNavLink(entry1.href, entry1.label, datatestid);
 
-                    const li2 = document.createElement('li');
-                    li2.setAttribute('class', 'uq-footer__navigation-item');
-                    !!link && !!li2 && li2.appendChild(link);
-                    !!li2 && !!ul2 && ul2.appendChild(li2);
-                });
+                        const li2 = document.createElement('li');
+                        li2.setAttribute('class', 'uq-footer__navigation-item');
+                        !!link && !!li2 && li2.appendChild(link);
+                        !!li2 && !!ul2 && ul2.appendChild(li2);
+                    });
             });
     }
 }
