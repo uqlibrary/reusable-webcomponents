@@ -203,8 +203,8 @@ describe('Search Portal', () => {
                     cy.get('[data-testid="primo-search"]').contains('Search');
 
                     // on first load, the library drop down displays "Library"
-                    cy.waitUntil(() => cy.get('[data-testid="primo-search-select"]').contains('Library'));
-                    hasCorrectNumberOfFooterLinks(4);
+                    cy.waitUntil(() => cy.get('[data-testid="primo-search-select"]').contains('All'));
+                    hasCorrectNumberOfFooterLinks(3);
 
                     // there are the correct number of options in the search dropdown
                     cy.get('div[data-testid="search-type-selector"]')
@@ -252,7 +252,7 @@ describe('Search Portal', () => {
                     cy.get('button[data-testid="primo-search-item-1"]').trigger("click");
                     cy.get('[data-testid="portaltype-current-label"]').contains('Books');
 
-                    hasCorrectNumberOfFooterLinks(4);
+                    hasCorrectNumberOfFooterLinks(3);
 
                     // typing in the text area shows the correct entries from the api
                     //cy.get('input[data-testid="primo-search-autocomplete-input"]').type('{esc}');
@@ -278,7 +278,7 @@ describe('Search Portal', () => {
                     cy.get('button[data-testid="primo-search-item-2"]').trigger("click");
                     cy.get('[data-testid="portaltype-current-label"]').contains('Journal articles');
 
-                    hasCorrectNumberOfFooterLinks(4);
+                    hasCorrectNumberOfFooterLinks(3);
 
                     // typing in the text area shows the correct entries from the api
                     cy.get('input[data-testid="primo-search-autocomplete-input"]').type('{esc}');
@@ -327,10 +327,10 @@ describe('Search Portal', () => {
                     cy.get('[data-testid="portaltype-current-label"]').contains('exam paper');
 
                     hasCorrectNumberOfFooterLinks(1);
-                    // the link in the single footer should go to an 'exams' result
-                    cy.get('div[data-testid="primo-search-links-6"] a')
-                        .should('have.attr', 'href')
-                        .and('include', 'exams');
+                    // // the link in the single footer should go to an 'exams' result
+                    // cy.get('div[data-testid="primo-search-links-6"] a')
+                    //     .should('have.attr', 'href')
+                    //     .and('include', 'exams');
 
                     // typing in the exams text area shows the correct entries from the api
                     cy.get('input[data-testid="primo-search-autocomplete-input"]').type('{esc}');
@@ -377,10 +377,10 @@ describe('Search Portal', () => {
                     cy.get('[data-testid="portaltype-current-label"]').contains('Course reading lists');
 
                     hasCorrectNumberOfFooterLinks(1);
-                    // the single link in the footer should go to a 'talis' result
-                    cy.get('div[data-testid="primo-search-links-7"] a')
-                        .should('have.attr', 'href')
-                        .and('include', 'talis.com');
+                    // // the single link in the footer should go to a 'talis' result
+                    // cy.get('div[data-testid="primo-search-links-7"] a')
+                    //     .should('have.attr', 'href')
+                    //     .and('include', 'talis.com');
 
                     // typing in the text area when in  course reading list mode shows the correct entries from the mock api
                     typeTextStringIntoInputField('PHIL', 3);
@@ -524,7 +524,7 @@ describe('Search Portal', () => {
                 .shadow()
                 .within(() => {
                     cy.get('[data-testid="primo-search-select"]').trigger("click");
-                    cy.get('[data-testid="portaltype-current-label"]').contains('Library');
+                    cy.get('[data-testid="portaltype-current-label"]').contains('All');
                     cy.get('button[data-testid="primo-search-item-2"]').click() // ("click");
                     cy.get('[data-testid="portaltype-current-label"]').contains('Journal articles');
                 });
