@@ -21,6 +21,13 @@ template.innerHTML = `
         <fieldset class="uq-card__content">
             <input type="url" placeholder="DOI or URL" id="open-athens-input" data-testid="open-athens-input" />
             <div id="open-athens-input-error" data-testid="open-athens-input-error" class="uq-error-message hidden"></div>
+            <div class="spinnerWrapper" id="spinnerWrapper">
+                <span id="spinner" class="spinner MuiCircularProgress-root MuiCircularProgress-indeterminate MuiCircularProgress-colorPrimary css-1u7zxmb-MuiCircularProgress-root" role="progressbar" aria-labelledby="loading-icon">
+                    <svg class="MuiCircularProgress-svg css-1idz92c-MuiCircularProgress-svg" viewBox="22 22 44 44">
+                        <circle class="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate css-176wh8e-MuiCircularProgress-circle" cx="44" cy="44" r="21" fill="none" stroke-width="2"></circle>
+                    </svg>
+                </span>
+            </div>
             <button id="open-athens-create-link-button" data-testid="open-athens-create-link-button" class="uq-button hidden">Create Link</button>
             <button id="open-athens-url-clear-button" data-testid="open-athens-url-clear-button" class="uq-button uq-button--secondary hidden">Clear</button>
             <span id="open-athens-copy-options" data-testid="open-athens-copy-options" class="hidden">
@@ -293,21 +300,49 @@ class OpenAthens extends HTMLElement {
      */
     redirectToLinkViaOpenAthens() {
         if (this.redirectOnly) {
-            var cleanedUrl = this.cleanupUrl(this.inputUrl);
-            this.inputValidator = this.validateRequestedUrl(cleanedUrl);
+            const cleanedUrl = this.cleanupUrl(this.inputUrl);
             console.log('cleanedUrl=', cleanedUrl);
-            !!this.inputValidator.valid &&
-                this.getOpenAthensAsync(cleanedUrl).then((url) => {
+            this.inputValidator = this.validateRequestedUrl(cleanedUrl);
+            console.log('this.inputValidator=', this.inputValidator);
+            if (!this.inputValidator.valid) {
+                return false;
+            }
+            // this.getOpenAthensAsync(cleanedUrl).then(url => {
+            //     console.log('got url', url);
+            //     !!url && window.open(url);
+            // });
+            const throttledOpenAthensCheck = throttle(3100, (newValue) => {
+                this.getOpenAthensAsync(newValue).then((url) => {
+                    console.log('123456788', url);
                     !!url && window.open(url);
                 });
+            });
+            throttledOpenAthensCheck(cleanedUrl);
         }
     }
 
     async getOpenAthensAsync(url) {
+        const spinner = this.shadowRoot.getElementById('spinnerWrapper');
+        const inputArea = this.shadowRoot.getElementById('open-athens-input');
+        spinner.style.display = 'block';
+        // spinner.style.height = '60px';
+        spinner.style.visibility = 'visible';
+        inputArea.classList.add('hideInput');
         return await new ApiAccess()
             .loadOpenAthensCheck(url)
             .then((response) => {
-                if (!response.hasOwnProperty('available')) {
+                // uncomment the setInterval to see the spinner in dev (otherwise it is too fast)
+                // but it stops "visit a link" from working
+                // const delay = setInterval(
+                //     () => {
+                //         clearInterval(delay);
+
+                spinner.style.display = 'none';
+                // spinner.style.height = 0;
+                spinner.style.visibility = 'hidden';
+                inputArea.classList.remove('hideInput');
+
+                if (!response || !response.hasOwnProperty('available')) {
                     this.inputValidator = {
                         valid: false,
                         message: 'An unexpected problem occurred - please try again later.',
@@ -325,9 +360,16 @@ class OpenAthens extends HTMLElement {
                     };
                     return null;
                 }
+                //     },
+                //     // delay the mock response; let prod straight through
+                //     window.location.hostname === 'localhost' ? 500 : 0,
+                // );
             })
-            /* istanbul ignore next */
             .catch((e) => {
+                spinner.style.display = 'none';
+                // spinner.style.height = 0;
+                spinner.style.visibility = 'hidden';
+                inputArea.classList.remove('hideInput');
                 this.inputValidator = {
                     valid: false,
                     message: 'An unexpected problem occurred - please try again later.',
