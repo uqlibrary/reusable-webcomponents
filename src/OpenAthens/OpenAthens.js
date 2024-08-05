@@ -212,7 +212,8 @@ class OpenAthens extends HTMLElement {
         if (!this.inputValidator.valid) {
             return;
         }
-        this.getOpenAthens(this.determineUrl(cleanedUrl));
+        const throttledOpenAthensCheck = throttle(3100, (passedUrl) => this.getOpenAthens(passedUrl));
+        throttledOpenAthensCheck(this.determineUrl(cleanedUrl));
     }
 
     /**
@@ -290,43 +291,29 @@ class OpenAthens extends HTMLElement {
         return validation;
     }
 
-    getOpenAthens(url) {
-        const throttledOpenAthensCheck = throttle(3100, (newValue) => this.getOpenAthensAsync(newValue));
-        throttledOpenAthensCheck(url);
-    }
-
     /**
      * Open the Open athens link in a new window/tab
      */
     redirectToLinkViaOpenAthens() {
         if (this.redirectOnly) {
             const cleanedUrl = this.cleanupUrl(this.inputUrl);
-            console.log('cleanedUrl=', cleanedUrl);
             this.inputValidator = this.validateRequestedUrl(cleanedUrl);
-            console.log('this.inputValidator=', this.inputValidator);
             if (!this.inputValidator.valid) {
                 return false;
             }
-            // this.getOpenAthensAsync(cleanedUrl).then(url => {
-            //     console.log('got url', url);
-            //     !!url && window.open(url);
-            // });
-            const throttledOpenAthensCheck = throttle(3100, (newValue) => {
-                this.getOpenAthensAsync(newValue).then((url) => {
-                    console.log('123456788', url);
+            const throttledOpenAthensCheckThenNewWindow = throttle(3100, (passedUrl) => {
+                this.getOpenAthens(passedUrl).then((url) => {
                     !!url && window.open(url);
                 });
             });
-            throttledOpenAthensCheck(cleanedUrl);
+            throttledOpenAthensCheckThenNewWindow(cleanedUrl);
         }
     }
 
-    async getOpenAthensAsync(url) {
+    async getOpenAthens(url) {
         const spinner = this.shadowRoot.getElementById('spinnerWrapper');
         const inputArea = this.shadowRoot.getElementById('open-athens-input');
         spinner.style.display = 'block';
-        // spinner.style.height = '60px';
-        spinner.style.visibility = 'visible';
         inputArea.classList.add('hideInput');
         return await new ApiAccess()
             .loadOpenAthensCheck(url)
@@ -338,8 +325,6 @@ class OpenAthens extends HTMLElement {
                 //         clearInterval(delay);
 
                 spinner.style.display = 'none';
-                // spinner.style.height = 0;
-                spinner.style.visibility = 'hidden';
                 inputArea.classList.remove('hideInput');
 
                 if (!response || !response.hasOwnProperty('available')) {
@@ -367,8 +352,6 @@ class OpenAthens extends HTMLElement {
             })
             .catch((e) => {
                 spinner.style.display = 'none';
-                // spinner.style.height = 0;
-                spinner.style.visibility = 'hidden';
                 inputArea.classList.remove('hideInput');
                 this.inputValidator = {
                     valid: false,
