@@ -12,6 +12,8 @@ import {
 } from '../helpers/keyDetection';
 
 const template = document.createElement('template');
+
+/*
 template.innerHTML = `
     <style>${overrides.toString()}</style>
     <div id="search-portal" class="MuiPaper-root MuiCard-root libraryCard StandardCard MuiPaper-elevation1 MuiPaper-rounded" data-testid="primo-search" data-analyticsid="primo-search" data-analyticsid="primo-search" role="region" aria-live="polite">
@@ -88,15 +90,15 @@ template.innerHTML = `
         </div>
     </div>
 `;
-
+*/
 template.innerHTML = `
     <style>${overrides.toString()}</style>
     <div id="search-portal" class="MuiPaper-root MuiCard-root libraryCard StandardCard MuiPaper-elevation1 MuiPaper-rounded" data-testid="primo-search" data-analyticsid="primo-search" data-analyticsid="primo-search" role="region" aria-live="polite">
         <div class="MuiCardContent-root libraryContent" data-testid="primo-search-content" data-analyticsid="primo-search-content">
             <form id="primo-search-form" class="searchForm" role="search">
                 <div class="MuiFormControl-root searchPanel" style="margin-bottom: -0.75rem; padding-top: 1rem;">
-                    <h2 id="search-portal-type-select-label" class="searchPortalLabel MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled" data-shrink="true" aria-label="Search UQ Library">Library Search</h2>
-                    <p id="search-portal-type-select-label-sub">Find books, articles, databases, Library guides and more</p>
+                    <h2 id="search-portal-type-select-label" class="searchPortalLabel MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled" data-shrink="true" aria-label="Search UQ Library">Library</h2>
+                    <br /><p id="search-portal-type-select-label-sub"><strong>Library Search - </strong><span id="search-portal-type-select-dynamic-label"> Find books, articles, databases, Library guides and more</span></p>
                 </div>
 
                 <style>
@@ -209,6 +211,7 @@ template.innerHTML = `
                         </div>
                     </div>
                 </div>
+                 <div id="footer-links" class="searchPanel MuiGrid-container MuiFormControlMuiGrid-spacing-xs-2" data-testid="primo-search-links" data-analyticsid="primo-search-links"></div>
 
                   <p class="restrictions-use">
                     <span>
@@ -217,7 +220,7 @@ template.innerHTML = `
                     Your use of Library resources must comply with UQ policies, copyright law, and all resource specific licence terms. The use of AI tools with Library resources is prohibited unless expressly permitted.
                 </p>
                 
-                <div id="footer-links" class="searchPanel MuiGrid-container MuiFormControlMuiGrid-spacing-xs-2" data-testid="primo-search-links" data-analyticsid="primo-search-links"></div>
+               
             </form>
         </div>
     </div>
@@ -663,7 +666,6 @@ class SearchPortal extends HTMLElement {
         const inputField = that.shadowRoot.getElementById('current-inputfield');
 
         // update the clear search field visibility here
-        console.log("INPUT VALUE", inputField.value)
         if (!!inputField.value) {
             that.shadowRoot.getElementById('clear-search-term').classList.remove('hidden');
         } else {
@@ -951,7 +953,7 @@ class SearchPortal extends HTMLElement {
 
         // supply the placeholder text (UPDATE: Change the subtext in the title.)
         const inputField = this.shadowRoot.getElementById('current-inputfield');
-        const subTitleField = this.shadowRoot.getElementById('search-portal-type-select-label-sub')
+        const subTitleField = this.shadowRoot.getElementById('search-portal-type-select-dynamic-label')
         !!inputField &&
             !!searchPortalLocale.typeSelect &&
             !!searchPortalLocale.typeSelect.items[useSearchType] &&

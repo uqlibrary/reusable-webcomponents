@@ -334,7 +334,7 @@ describe('Dummy Application', () => {
             hasUqFooter();
 
             // simple check that the components exist, now that we are splitting them out from the main reusable.min file
-            cy.get('search-portal').shadow().find('h2').should('contain', 'Library Search');
+            cy.get('search-portal').shadow().find('h2').should('contain', 'Library');
             cy.get('library-training')
                 .shadow()
                 .find('training-filter')
