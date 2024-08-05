@@ -11,35 +11,30 @@ function ready(fn) {
     }
 }
 
-function createSlotForButtonInUtilityArea(button, id = null) {
-    const slot = document.createElement('span');
-    !!slot && slot.setAttribute('slot', 'site-utilities');
-    !!slot && !!id && slot.setAttribute('id', id);
-    !!button && !!slot && slot.appendChild(button);
+function addUtilityButtonsToSiteHeader() {
+    // find the existing breadcrumbs holder and setup so the breadcrumb sit left and our buttons will sit right
+    const breadcrumbWrapper = document.querySelector('.section__content.breadcrumbs');
+    !!breadcrumbWrapper && (breadcrumbWrapper.style.display = 'flex');
+    !!breadcrumbWrapper && (breadcrumbWrapper.style.justifyContent = 'space-between');
 
-    return slot;
-}
+    // create a wrapper to sit at the right
+    const uqSiteHeaderRight = document.createElement('div');
+    !!uqSiteHeaderRight && uqSiteHeaderRight.classList.add('uq-site-header__title-container__right');
+    !!breadcrumbWrapper && !!uqSiteHeaderRight && breadcrumbWrapper.appendChild(uqSiteHeaderRight);
 
-function createAuthButton() {
-    if (!!document.querySelector('auth-button')) {
-        return false;
+    if (!document.querySelector('askus-button')) {
+        const askusButton = document.createElement('askus-button');
+        !!uqSiteHeaderRight && !!askusButton && uqSiteHeaderRight.appendChild(askusButton);
     }
 
-    const authButton = document.createElement('auth-button');
-    return !!authButton && createSlotForButtonInUtilityArea(authButton, 'auth');
-}
-
-function createAskusButton() {
-    if (!!document.querySelector('askus-button')) {
-        return false;
+    if (!document.querySelector('auth-button')) {
+        const authButton = document.createElement('auth-button');
+        !!uqSiteHeaderRight && !!authButton && uqSiteHeaderRight.appendChild(authButton);
     }
-
-    const askusButton = document.createElement('askus-button');
-    return !!askusButton && createSlotForButtonInUtilityArea(askusButton, 'askus');
 }
 
-// example usage: fontLoader('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
-function fontLoader(fontFileFullLink) {
+// example usage: loadFontFile('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
+function loadFontFile(fontFileFullLink) {
     const headID = document.getElementsByTagName('head')[0];
     const link = document.createElement('link');
     link.type = 'text/css';
@@ -73,6 +68,7 @@ function insertScript(url, defer = false) {
         if (head) {
             const script = document.createElement('script');
             script.setAttribute('type', 'text/javascript');
+            console.log('script url =', url);
             script.setAttribute('src', url);
             !!defer && script.setAttribute('defer', '');
             head.appendChild(script);
@@ -99,9 +95,9 @@ function isValidDrupalHost() {
     return validHosts.includes(window.location.host) || isITSExternalHosting();
 }
 
-function localScriptName(jsFilename) {
+function getScriptPath(jsFilename) {
     if (window.location.host === 'localhost:8080') {
-        return '/' + jsFilename;
+        return 'http://localhost:8080/' + jsFilename;
     }
     let folder = '/'; // default. Use for prod.
     if (isStagingSite()) {
@@ -119,13 +115,13 @@ function localScriptName(jsFilename) {
 }
 
 function loadReusableComponentsDrupal() {
-    insertScript(localScriptName('drupal-lib-reusable.min.js'), true);
-    insertScript(localScriptName('uq-lib-reusable.min.js'), true);
+    insertScript(getScriptPath('drupal-lib-reusable.min.js'), true);
+    insertScript(getScriptPath('uq-lib-reusable.min.js'), true);
 
-    fontLoader('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
-    fontLoader('https://static.uq.net.au/v15/fonts/Merriweather/merriweather.css');
-    fontLoader('https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css');
-    fontLoader('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
+    loadFontFile('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
+    loadFontFile('https://static.uq.net.au/v15/fonts/Merriweather/merriweather.css');
+    loadFontFile('https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css');
+    loadFontFile('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
 
     if (isValidDrupalHost() && libraryPagesWithoutComponents.includes(window.location.pathname)) {
         return;
@@ -145,42 +141,20 @@ function loadReusableComponentsDrupal() {
 
     // uq-header is done manually by drupal
 
-    if (!document.querySelector('askus-button')) {
-        const uqheaderRight = document.querySelector('.uq-site-header__title-container__right');
-        const askusButton = createAskusButton();
-        !!uqheaderRight && !!askusButton && uqheaderRight.appendChild(askusButton);
+    // remove the "Library" block
+    let existingUqSiteHeader = document.querySelector('.uq-site-header__title-container');
+    !!existingUqSiteHeader && existingUqSiteHeader.remove();
+    // I don't understand why this needs to be written twice!
+    existingUqSiteHeader = document.querySelector('.uq-site-header__title-container');
+    !!existingUqSiteHeader && existingUqSiteHeader.remove();
 
-        const authButton = createAuthButton();
-        !!uqheaderRight && !!authButton && uqheaderRight.appendChild(authButton);
+    addUtilityButtonsToSiteHeader();
+
+    // Proactive Chat button
+    if (!document.querySelector('proactive-chat')) {
+        const proactiveChat = document.createElement('proactive-chat');
+        !!proactiveChat && document.body.insertBefore(proactiveChat, firstElement);
     }
-
-    // while we need the mega menu in the drupal header, use the above
-    // if (!document.querySelector('uq-site-header')) {
-    //     const drupalSiteHeader = document.querySelector('.uq-site-header');
-    // // const megamMenu = document.getElementById('block-mainnavigation');
-    //
-    //     const librarySiteHeader = document.createElement('uq-site-header');
-    //
-    //     const askusButton = createAskusButton();
-    //     !!librarySiteHeader && !!askusButton && librarySiteHeader.appendChild(askusButton);
-    //
-    //     const authButton = createAuthButton();
-    //     !!librarySiteHeader && !!authButton && librarySiteHeader.appendChild(authButton);
-    //
-    // // !!librarySiteHeader && !!megamMenu && librarySiteHeader.insertBefore(megamMenu, null);
-    //
-    //     const uqHeader = document.querySelector('header.uq-header');
-    //     if (!!uqHeader) {
-    //         !!librarySiteHeader && uqHeader.parentNode.insertBefore(librarySiteHeader, uqHeader.nextSibling);
-    //     } else {
-    //         // if drupal have changed the markup insert the element _somewhere_ anyway
-    //         !!librarySiteHeader && document.body.insertBefore(librarySiteHeader, firstElement);
-    //     }
-    //
-    //     if (!!drupalSiteHeader) {
-    //         !!drupalSiteHeader && drupalSiteHeader.remove();
-    //     }
-    // }
 
     if (!document.querySelector('alert-list')) {
         const alerts = document.createElement('alert-list');
@@ -221,12 +195,6 @@ function loadReusableComponentsDrupal() {
     }
 
     // uq-footer is done manually by drupal
-
-    // Proactive Chat button
-    if (!document.querySelector('proactive-chat')) {
-        const proactiveChat = document.createElement('proactive-chat');
-        !!proactiveChat && document.body.appendChild(proactiveChat);
-    }
 }
 
 ready(loadReusableComponentsDrupal);
