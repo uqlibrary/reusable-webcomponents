@@ -12,7 +12,7 @@ export const searchPortalLocale = {
         items: [
             {
                 selectId: '0',
-                name: 'Library',
+                name: 'All',
                 // PublicIcon
                 iconPath:
                     'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z',
@@ -47,7 +47,7 @@ export const searchPortalLocale = {
             },
             {
                 selectId: '3',
-                name: 'Video & audio',
+                name: 'Video and audio',
                 // MovieIcon
                 iconPath:
                     'M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z',
@@ -87,8 +87,7 @@ export const searchPortalLocale = {
                 // StorageIcon
                 iconPath: 'M2 20h20v-4H2v4zm2-3h2v2H4v-2zM2 4v4h20V4H2zm4 3H4V5h2v2zm-4 7h20v-4H2v4zm2-3h2v2H4v-2z',
                 placeholder: 'Enter a keyword or title',
-                link:
-                    'https://search.library.uq.edu.au/primo-explore/dbsearch?query=any,contains,[keyword]&tab=jsearch_slot&vid=61UQ&offset=0&databases=any,[keyword]',
+                link: 'https://search.library.uq.edu.au/primo-explore/dbsearch?query=any,contains,[keyword]&tab=jsearch_slot&vid=61UQ&offset=0&databases=any,[keyword]',
             },
             {
                 selectId: '7',
@@ -112,11 +111,6 @@ export const searchPortalLocale = {
     },
     footerLinks: [
         {
-            label: 'Search help',
-            linkto: 'https://web.library.uq.edu.au/research-tools-techniques/library-search',
-            display: [...PRIMO_ELEMENTS],
-        },
-        {
             label: 'Advanced search',
             linkto: 'https://search.library.uq.edu.au/primo-explore/search?vid=61UQ&mode=advanced',
             display: [...PRIMO_ELEMENTS],
@@ -128,19 +122,13 @@ export const searchPortalLocale = {
         },
         {
             label: 'Database help',
-            linkto:
-                'https://web.library.uq.edu.au/research-tools-techniques/search-techniques/where-and-how-search/searching-databases',
+            linkto: 'https://web.library.uq.edu.au/research-tools-techniques/search-techniques/where-and-how-search/searching-databases',
             display: [DATABASES],
         },
         {
             label: 'Browse databases',
             linkto: 'https://search.library.uq.edu.au/primo-explore/dbsearch?vid=61UQ',
             display: [DATABASES],
-        },
-        {
-            label: 'Browse search',
-            linkto: 'https://search.library.uq.edu.au/primo-explore/browse?vid=61UQ',
-            display: [...PRIMO_ELEMENTS],
         },
         {
             label: 'Browse courses (UQ login required) ',
@@ -151,6 +139,11 @@ export const searchPortalLocale = {
             label: 'Browse courses',
             linkto: 'https://uq.rl.talis.com/index.html',
             display: [READING_LISTS],
+        },
+        {
+            label: 'Curated collections',
+            linkto: 'https://search.library.uq.edu.au/primo-explore/collectionDiscovery?vid=61UQ',
+            display: [...PRIMO_ELEMENTS],
         },
     ],
 };
