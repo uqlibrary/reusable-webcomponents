@@ -22,9 +22,9 @@ template.innerHTML = `
             <input type="url" placeholder="DOI or URL" id="open-athens-input" data-testid="open-athens-input" />
             <div id="open-athens-input-error" data-testid="open-athens-input-error" class="uq-error-message hidden"></div>
             <div class="spinnerWrapper" id="spinnerWrapper">
-                <span id="spinner" class="spinner MuiCircularProgress-root MuiCircularProgress-indeterminate MuiCircularProgress-colorPrimary css-1u7zxmb-MuiCircularProgress-root" role="progressbar" aria-labelledby="loading-icon">
-                    <svg class="MuiCircularProgress-svg css-1idz92c-MuiCircularProgress-svg" viewBox="22 22 44 44">
-                        <circle class="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate css-176wh8e-MuiCircularProgress-circle" cx="44" cy="44" r="21" fill="none" stroke-width="2"></circle>
+                <span id="spinner" class="spinner" role="progressbar">
+                    <svg viewBox="22 22 44 44">
+                        <circle cx="44" cy="44" r="21" fill="none" stroke-width="2"></circle>
                     </svg>
                 </span>
             </div>
@@ -318,8 +318,8 @@ class OpenAthens extends HTMLElement {
         return await new ApiAccess()
             .loadOpenAthensCheck(url)
             .then((response) => {
-                // uncomment the setInterval to see the spinner in dev (otherwise it is too fast)
-                // but it stops "visit a link" from working
+                // // uncomment the setInterval to see the spinner in dev (otherwise it is too fast)
+                // // but it stops "visit a link" from working
                 // const delay = setInterval(
                 //     () => {
                 //         clearInterval(delay);
