@@ -212,7 +212,8 @@ class OpenAthens extends HTMLElement {
         if (!this.inputValidator.valid) {
             return;
         }
-        this.getOpenAthens(this.determineUrl(cleanedUrl));
+        const throttledOpenAthensCheck = throttle(3100, (passedUrl) => this.getOpenAthens(passedUrl));
+        throttledOpenAthensCheck(this.determineUrl(cleanedUrl));
     }
 
     /**
@@ -290,11 +291,6 @@ class OpenAthens extends HTMLElement {
         return validation;
     }
 
-    getOpenAthens(url) {
-        const throttledOpenAthensCheck = throttle(3100, (passedUrl) => this.getOpenAthensAsync(passedUrl));
-        throttledOpenAthensCheck(url);
-    }
-
     /**
      * Open the Open athens link in a new window/tab
      */
@@ -305,16 +301,16 @@ class OpenAthens extends HTMLElement {
             if (!this.inputValidator.valid) {
                 return false;
             }
-            const throttledOpenAthensCheck = throttle(3100, (passedUrl) => {
-                this.getOpenAthensAsync(passedUrl).then((url) => {
+            const throttledOpenAthensCheckThenNewWindow = throttle(3100, (passedUrl) => {
+                this.getOpenAthens(passedUrl).then((url) => {
                     !!url && window.open(url);
                 });
             });
-            throttledOpenAthensCheck(cleanedUrl);
+            throttledOpenAthensCheckThenNewWindow(cleanedUrl);
         }
     }
 
-    async getOpenAthensAsync(url) {
+    async getOpenAthens(url) {
         const spinner = this.shadowRoot.getElementById('spinnerWrapper');
         const inputArea = this.shadowRoot.getElementById('open-athens-input');
         spinner.style.display = 'block';
