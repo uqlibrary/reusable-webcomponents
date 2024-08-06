@@ -861,8 +861,8 @@ input[type='search'] {
     will-change: transform;
     transform: translate3d(203px, 325px, 0px);
     z-index: 1300;
-    top: -204px;
-    left: -40px !important;
+    top: -184px;
+    left: -50px !important;
 }
 
 @media (max-width: 959.95px) {
@@ -1084,7 +1084,7 @@ li.MuiAutocomplete-option:focus {
         will-change: transform;
         transform: translate3d(203px, 325px, 0px);
         z-index: 1300;
-        top: -204px;
+        top: -184px;
         left: -203px !important;
     }
     #inputFieldParent {
