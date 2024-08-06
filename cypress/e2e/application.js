@@ -336,11 +336,9 @@ describe('Dummy Application', () => {
             cy.visit('http://localhost:8080/src/applications/drupal/demo.html');
             cy.viewport(1280, 900);
 
-            // hasUqHeader();
-            hasNoUqHeader();
+            hasNoUqHeader(); // drupal supplies that
 
             // hasUqSiteHeader();
-
             hasAskusButton();
             hasProactiveChat();
             hasAuthButton();
@@ -357,11 +355,13 @@ describe('Dummy Application', () => {
 
             hasConnectFooter();
 
-            // hasUqFooter();
-            hasNoUqFooter();
+            hasNoUqFooter(); // drupal supplies that
 
             // simple check that the components exist, now that we are splitting them out from the main reusable.min file
-            cy.get('search-portal').shadow().find('h2').should('contain', 'Library Search');
+            cy.get('search-portal')
+                .shadow()
+                .find('#search-portal-type-select-label-sub')
+                .should('contain', 'Library Search');
             cy.get('open-athens')
                 .shadow()
                 .find('fieldset input')
