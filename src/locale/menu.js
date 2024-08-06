@@ -132,7 +132,7 @@ export default {
             columnCount: 2,
             submenuItems: [
                 {
-                    primaryText: 'Library Search',
+                    primaryText: 'All',
                     secondaryText: 'What it is & how to use it',
                     linkTo: 'https://web.library.uq.edu.au/research-tools-techniques/library-search',
                 },

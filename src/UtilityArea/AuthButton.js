@@ -1,16 +1,10 @@
-import styles from './css/auth.css';
+import loggedinstyles from './css/loggedinauth.css';
+import loggedoutstyles from './css/loggedoutauth.css';
 import ApiAccess from '../ApiAccess/ApiAccess';
 import { authLocale } from './auth.locale';
 import { isBackTabKeyPressed, isEscapeKeyPressed, isTabKeyPressed } from '../helpers/keyDetection';
 import { apiLocale } from '../ApiAccess/ApiAccess.locale';
-import {
-    canSeeAlertsAdmin,
-    canSeeDlorAdmin,
-    canSeeEspace,
-    canSeePromopanelAdmin,
-    canSeeSpotlightsAdmin,
-    canSeeTestTag,
-} from '../helpers/access';
+import { canSeeAlertsAdmin, canSeeDlorAdmin, canSeeEspace, canSeeTestTag } from '../helpers/access';
 import { getAccountMenuRoot } from './helpers';
 
 /*
@@ -52,24 +46,27 @@ const ICON_MUI_LOCALLIBRARY =
 // (NOTE: due to complexity of an account check in primo, we are not showing the espace dashboard link or admin items there)
 const authorisedtemplate = document.createElement('template');
 authorisedtemplate.innerHTML = `
-    <style>${styles.toString()}</style>
+    <style>${loggedinstyles.toString()}</style>
     <div id="auth" class="auth loggedin">
         <button id="account-option-button" data-testid="account-option-button" data-analyticsid="account-option-button">
             <div id="username-area" data-testid="username-area-label" data-analyticsid="username-area-label" class="username-area">
+                <svg class="auth-icon auth-icon-loggedin" focusable="false" viewBox="0 0 24 24" aria-hidden="true" id="logged-in-icon">
+                    <path d="M12 5.9c1.16 0 2.1.94 2.1 2.1s-.94 2.1-2.1 2.1S9.9 9.16 9.9 8s.94-2.1 2.1-2.1m0 9c2.97 0 6.1 1.46 6.1 2.1v1.1H5.9V17c0-.64 3.13-2.1 6.1-2.1M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 9c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z"></path>
+                </svg>
                 <span id="username-area-label" class="username-area-label"></span>
-                <svg id="options-dropdown-arrow" class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium  css-w2bhrx" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ArrowDropDownIcon" data-analyticsid="ArrowDropDownIcon" aria-label="Open account panel">
+                <svg id="options-dropdown-arrow" class="options-dropdown-arrow" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ArrowDropDownIcon" data-analyticsid="ArrowDropDownIcon" aria-label="Open account panel">
                     <path d="m7 10 5 5 5-5z"></path>
                 </svg>
             </div>
         </button>
         <!-- Menu -->
-        <div id="account-options-menu" class="auth-menu" data-testid="account-options-menu" class="account-options-menu-closed" style="display: none;">
+        <div id="account-options-menu" class="auth-menu" data-testid="account-options-menu" class="account-options-menu account-options-menu-closed" style="display: none;">
             <div class="account-options-menu-list">
                 <h2 class="accessible-only">Menu</h2>
                 <div width="5" class="md-menu-content prm-user-menu-content md-primoExplore-theme" role="menu">
                     <div class="md-menu-item"  >
                         <div class="user-menu-header">
-                            <div layout="column" flex="" class="layout-column flex">
+                            <div layout="column" class="layout-column flex">
                                 <span class="tiny-text">Logged in as:</span>
                                 <span id="user-display-name" data-testid="user-display-name" class="user-display-name bold-text" style="padding-right:1rem"></span>
                             </div>
@@ -158,13 +155,13 @@ authorisedtemplate.innerHTML = `
 `;
 const unauthorisedtemplate = document.createElement('template');
 unauthorisedtemplate.innerHTML = `
-    <style>${styles.toString()}</style>
+    <style>${loggedoutstyles.toString()}</style>
     <div class="auth loggedout">
         <button id="auth-button-login" class="login-button" data-testid="auth-button-login" data-analyticsid="auth-button-login">
-            <svg class="auth-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true" id="logged-out-icon">
+            <svg class="auth-icon auth-icon-loginprompt" focusable="false" viewBox="0 0 24 24" aria-hidden="true" id="logged-out-icon">
                 <path d="M12 5.9c1.16 0 2.1.94 2.1 2.1s-.94 2.1-2.1 2.1S9.9 9.16 9.9 8s.94-2.1 2.1-2.1m0 9c2.97 0 6.1 1.46 6.1 2.1v1.1H5.9V17c0-.64 3.13-2.1 6.1-2.1M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 9c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z"></path>
             </svg>
-            <div class="auth-log-in-label" data-testid="auth-button-login-label">Log in</div>
+            <span class="auth-log-in-label" data-testid="auth-button-login-label">Sign in</span>
         </button>
     </div>
 `;
@@ -288,15 +285,6 @@ class AuthButton extends HTMLElement {
                 'Website alerts',
             );
 
-        !!canSeeSpotlightsAdmin(account) &&
-            addAdminMenuOption(
-                'spotlights-admin',
-                'mylibrary-menu-spotlights-admin',
-                `${linkRoot}admin/spotlights${linkAppend}`,
-                ICON_MUI_IMAGE_FILLED,
-                'Website spotlights',
-            );
-
         !!canSeeTestTag(account) &&
             addAdminMenuOption(
                 'testTag-admin',
@@ -304,15 +292,6 @@ class AuthButton extends HTMLElement {
                 `${linkRoot}admin/testntag${linkAppend}`,
                 ICON_MUI_BEENHERE_FILLED,
                 'Test and Tag',
-            );
-
-        !!canSeePromopanelAdmin(account) &&
-            addAdminMenuOption(
-                'promopanel-admin',
-                'mylibrary-menu-promopanel-admin',
-                `${linkRoot}admin/promopanel${linkAppend}`,
-                ICON_MUI_CAMPAIGN_FILLED,
-                'Promo panels',
             );
 
         !!canSeeDlorAdmin(account) &&
@@ -453,26 +432,10 @@ class AuthButton extends HTMLElement {
         // on whatever is the bottom-most link in the account menu for this user, tabbing out closes the popup account menu
         function closeMenuWhenBottomMostLinkClicked() {
             // the order of these ifs must match the reverse order they are displayed in
-            if (canSeePromopanelAdmin(account)) {
-                const promopanelOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-promopanel-admin');
-                !!promopanelOption &&
-                    promopanelOption.addEventListener('keydown', function (e) {
-                        if (isTabKeyPressed(e)) {
-                            closeAccountOptionsMenu();
-                        }
-                    });
-            } else if (canSeeTestTag(account)) {
+            if (canSeeTestTag(account)) {
                 const testntagOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-testTag-admin');
                 !!testntagOption &&
                     testntagOption.addEventListener('keydown', function (e) {
-                        if (isTabKeyPressed(e)) {
-                            closeAccountOptionsMenu();
-                        }
-                    });
-            } else if (canSeeSpotlightsAdmin(account)) {
-                const spotlightsOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-spotlights-admin');
-                !!spotlightsOption &&
-                    spotlightsOption.addEventListener('keydown', function (e) {
                         if (isTabKeyPressed(e)) {
                             closeAccountOptionsMenu();
                         }
@@ -522,9 +485,7 @@ class AuthButton extends HTMLElement {
 
         closeAccountMenuOnLinkClick('mylibrary-menu-masquerade');
         closeAccountMenuOnLinkClick('mylibrary-menu-alerts-admin');
-        closeAccountMenuOnLinkClick('mylibrary-menu-spotlights-admin');
         closeAccountMenuOnLinkClick('mylibrary-menu-testTag-admin');
-        closeAccountMenuOnLinkClick('mylibrary-menu-promopanel-admin');
         closeAccountMenuOnLinkClick('mylibrary-menu-course-resources');
     }
 

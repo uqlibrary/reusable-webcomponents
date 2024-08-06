@@ -33,14 +33,6 @@ export function canSeeAlertsAdmin(account) {
     return hasWebContentAdminAccess(account);
 }
 
-export function canSeeSpotlightsAdmin(account) {
-    return hasWebContentAdminAccess(account);
-}
-
-export function canSeePromopanelAdmin(account) {
-    return hasWebContentAdminAccess(account);
-}
-
 // digital learning hub admin access
 export function canSeeDlorAdmin(account) {
     return hasAdGroup(account, 'lib_dlor_admins');
