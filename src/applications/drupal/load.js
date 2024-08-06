@@ -177,15 +177,6 @@ function loadReusableComponentsDrupal() {
             !!connectFooter && document.body.appendChild(connectFooter);
         }
     }
-    if (!document.querySelector('cultural-advice-popup')) {
-        const culturalAdvice = document.createElement('cultural-advice-popup');
-        if (!!uqFooter) {
-            !!culturalAdvice && uqFooter.parentNode.insertBefore(culturalAdvice, uqFooter);
-        } else {
-            // if drupal have changed the markup insert the element _somewhere_ anyway
-            !!culturalAdvice && document.body.appendChild(culturalAdvice);
-        }
-    }
 
     // uq-footer is done manually by drupal
 }
