@@ -75,6 +75,8 @@ function loadReusableComponentsLibGuides() {
     document.body.insertBefore(header, firstElement);
 
     const siteHeader = document.createElement('uq-site-header');
+    !!siteHeader && siteHeader.setAttribute('secondleveltitle', 'Guides');
+    !!siteHeader && siteHeader.setAttribute('secondlevelurl', 'https://guides.library.uq.edu.au/');
 
     if (!isInEditMode()) {
         const askusButton = createAskusButton();
@@ -82,7 +84,46 @@ function loadReusableComponentsLibGuides() {
 
         const authButton = createAuthButton();
         !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
+
+        // get list of breadcrumbs from guides nav
+        const breadcrumbNav = document.getElementById('s-lib-bc');
+        const listItems = !!breadcrumbNav && breadcrumbNav.querySelectorAll('ol li');
+        const breadcrumbData = [];
+        !!listItems &&
+            listItems.forEach((item) => {
+                const anchor = item.querySelector('a');
+                const title = anchor ? anchor.textContent : item.textContent;
+                const href = anchor ? anchor.href : null;
+                if (
+                    href !== 'https://www.library.uq.edu.au/' &&
+                    href !== 'https://www.library.uq.edu.au' &&
+                    href !== 'http://www.library.uq.edu.au/' &&
+                    href !== 'http://www.library.uq.edu.au' &&
+                    href !== 'https://guides.library.uq.edu.au/' &&
+                    href !== 'https://guides.library.uq.edu.au'
+                ) {
+                    breadcrumbData.push({ title, href });
+                }
+            });
+
+        const breadcrumbParent = siteHeader.shadowRoot.getElementById('breadcrumb_nav');
+        !!breadcrumbParent &&
+            breadcrumbData.length > 0 &&
+            breadcrumbData.forEach((gb) => {
+                console.log('gb=', gb);
+                const listItemEntry = !!gb.href
+                    ? `<li class="uq-breadcrumb__item">
+                <a class="uq-breadcrumb__link" href="${gb.href}">${gb.title}</a>
+                </li>`
+                    : `<li class="uq-breadcrumb__item">
+                <span class="uq-breadcrumb__link">${gb.title}</span>
+                </li>`;
+                breadcrumbParent.insertAdjacentHTML('beforeend', listItemEntry);
+            });
+        !!breadcrumbNav && breadcrumbNav.remove();
     }
+
+    document.body.insertBefore(siteHeader, firstElement);
 
     if (!document.querySelector('cultural-advice-popup')) {
         const culturalAdvice = document.createElement('cultural-advice-popup');

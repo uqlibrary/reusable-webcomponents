@@ -6,6 +6,9 @@ header {
     background: #fff;
     margin: 0;
     padding: 0;
+    letter-spacing: 0.16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /* for primo */
@@ -42,7 +45,7 @@ header {
 
 @media (min-width: 64em) {
     .uq-header__search.uq-header__search--is-open {
-        margin-top: -15px;
+        /* margin change not required */
     }
 }
 
@@ -50,4 +53,8 @@ header {
     input[type='radio'] + label {
         padding-left: 2em;
     }
+}
+
+.uq-header__megamenu {
+    margin-top: -2px;
 }
