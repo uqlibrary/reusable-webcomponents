@@ -141,13 +141,6 @@ function loadReusableComponentsDrupal() {
 
     // uq-header is done manually by drupal
 
-    // remove the "Library" block
-    let existingUqSiteHeader = document.querySelector('.uq-site-header__title-container');
-    !!existingUqSiteHeader && existingUqSiteHeader.remove();
-    // I don't understand why this needs to be written twice!
-    existingUqSiteHeader = document.querySelector('.uq-site-header__title-container');
-    !!existingUqSiteHeader && existingUqSiteHeader.remove();
-
     addUtilityButtonsToSiteHeader();
 
     // Proactive Chat button
