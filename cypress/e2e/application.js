@@ -367,6 +367,7 @@ describe('Dummy Application', () => {
                 .find('fieldset input')
                 .should('have.attr', 'placeholder')
                 .and('include', 'DOI or URL');
+            cy.get('search-portal').shadow().find('span').should('contain', 'Find books, articles, past exams, and more');
             cy.get('library-training')
                 .shadow()
                 .find('training-filter')
