@@ -19,6 +19,9 @@ header {
 * {
     font-size: 16px;
 }
+.uq-header__menu-toggle {
+    max-height: 71px;
+}
 
 .menu-global a {
     -webkit-font-smoothing: initial;
