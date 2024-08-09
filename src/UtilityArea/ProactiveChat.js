@@ -345,7 +345,7 @@ class ProactiveChat extends HTMLElement {
                     window.location.pathname.startsWith('/feature-leadegroot')
                 ) {
                     // dev
-                    chatbotSrc = `${window.location.protocol}//${window.location.hostname}/feature-leadegroot-1/chatbot.html`;
+                    chatbotSrc = `${window.location.protocol}//${window.location.hostname}/feature-leadegroot-1`;
                 } else if (
                     window.location.hostname === 'homepage-staging.library.uq.edu.au' ||
                     window.location.hostname === 'app-testing.library.uq.edu.au' ||
