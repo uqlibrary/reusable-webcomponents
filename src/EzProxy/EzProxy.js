@@ -6,8 +6,8 @@ import { throttle } from 'throttle-debounce';
 
 /*
  * usage:
- *  <open-athens create-link="true"></open-athens>         -- copy a link
- *  <open-athens></open-athens>                            -- visit a link
+ *  <ez-proxy create-link="true"></ez-proxy>         -- copy a link
+ *  <ez-proxy></ez-proxy>                            -- visit a link
  *
  */
 
@@ -45,7 +45,7 @@ template.innerHTML = `
     </div>
 `;
 
-class OpenAthens extends HTMLElement {
+class EzProxy extends HTMLElement {
     constructor() {
         super();
 
@@ -433,4 +433,4 @@ class OpenAthens extends HTMLElement {
     }
 }
 
-export default OpenAthens;
+export default EzProxy;
