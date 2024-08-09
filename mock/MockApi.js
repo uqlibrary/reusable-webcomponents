@@ -1,10 +1,10 @@
 /* eslint-disable */
 import Cookies from 'js-cookie';
 import * as mockData from './data/account';
-import ApiRoutes from "../src/ApiRoutes";
-import {apiLocale as apilocale} from '../src/ApiAccess/ApiAccess.locale';
+import ApiRoutes from '../src/ApiRoutes';
+import { apiLocale as apilocale } from '../src/ApiAccess/ApiAccess.locale';
 
-import {alerts, examSuggestions, learningResourceSuggestions, libHours, primoSuggestions} from './data/misc';
+import { alerts, examSuggestions, learningResourceSuggestions, libHours, primoSuggestions } from './data/misc';
 
 import trainingEvents from './data/trainingobject';
 
@@ -72,7 +72,25 @@ class MockApi {
         console.log('mockfetch url = ', url);
         this.url = url;
         const apiRoute = new ApiRoutes();
-        const urlWithoutQueryString = url.split('?')[0];
+
+        const queryString = new URLSearchParams(window.location.search);
+        const requestType = !!queryString ? queryString.get('requestType') : window.location.hash.substring(window.location.hash.indexOf('?')).requestType;
+
+        const urlWithoutQueryString = !!url && url.length > 0 ? url.split('?')[0] : '';
+        if (url.startsWith('openathens/check/')) {
+            if (requestType === 'error') {
+                // when openathens has an internal error
+                return this.response(503, {error: 'some message'});
+            } else if (requestType === 'failure') {
+                // when openathens says "no"
+                const openAthensSuccessResponse = { available: false };
+                return this.response(200, openAthensSuccessResponse, true);
+            }
+            // otherwise, openathens says "yes"
+            // default success
+            return this.response(200, { available: true }, true);
+        }
+
         switch (urlWithoutQueryString) {
             case apiRoute.CURRENT_ACCOUNT_API().apiUrl:
                 // mock account response
@@ -147,7 +165,7 @@ class MockApi {
                 return this.response(200, trainingEvents, true);
 
             default:
-                // splitting the '?' out of some apis doesnt work
+                // splitting the '?' out of some apis doesn't work
                 switch (url) {
                     case apiRoute.PRIMO_SUGGESTIONS_API_GENERIC('DDDDD').apiUrl: // to test the repeating key works and doesnt pass just because the mock data doesnt exist
                     case apiRoute.PRIMO_SUGGESTIONS_API_GENERIC('bear').apiUrl:
