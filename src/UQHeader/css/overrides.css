@@ -59,5 +59,15 @@ header {
 }
 
 .uq-header__megamenu {
-    margin-top: -2px;
+    margin-top: 2px;
 }
+@media(min-width: 75em) {
+    .uq-header__megamenu-container {
+        margin-top: -2px;
+    }
+}
+.uq-header__search-query-input,
+.search-toggle__label {
+    letter-spacing: 0.16px;
+}
+
