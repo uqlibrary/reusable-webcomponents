@@ -70,7 +70,6 @@ chatbotIframeTemplate.innerHTML = `<div
         </div>
         <iframe 
             id="chatbotIframe"
-            src="https://copilotstudio.microsoft.com/environments/7dd3d6ed-ec25-eff0-8ff2-b38b699e89c0/bots/cr546_uqAssistGenAiChatBot/webchat?__version__=2"
             frameborder="0" 
             title="Ask Library Chatbot a question"
         ></iframe>
@@ -337,21 +336,29 @@ class ProactiveChat extends HTMLElement {
                     chatbotWrapper = shadowDOM.getElementById('chatbot-wrapper');
                 }
 
-                // show copilot test url on staging domains
-                if (
+                // show chatbot source
+                let chatbotSrc = 'https://www.library.uq.edu.au/chatbot.html';
+                if (window.location.hostname === 'localhost') {
+                    chatbotSrc = 'http://localhost:2020'; // bring mock up to use locally
+                } else if (window.location.hostname === 'homepage-development.library.uq.edu.au') {
+                    chatbotSrc =
+                        window.location.protocol +
+                        '//' +
+                        window.location.hostname +
+                        '/' +
+                        window.location.pathname.replace('/chatbot.html', '');
+                } else if (
                     window.location.hostname === 'homepage-staging.library.uq.edu.au' ||
-                    window.location.hostname === 'homepage-development.library.uq.edu.au' ||
-                    window.location.hostname === 'web-staging.library.uq.edu.au' ||
-                    window.location.hostname === 'sandbox-fryer.library.uq.edu.au' ||
                     window.location.hostname === 'app-testing.library.uq.edu.au' ||
-                    window.location.hostname === 'localhost'
+                    window.location.hostname === 'web-staging.library.uq.edu.au' || // maybe iframe cross domain issue
+                    window.location.hostname === 'sandbox-fryer.library.uq.edu.au' // ditto
                 ) {
-                    const chatBotIframe = !!chatbotWrapper && chatbotWrapper.getElementsByTagName('iframe');
-                    !!chatBotIframe &&
-                        chatBotIframe.length > 0 &&
-                        (chatBotIframe[0].src =
-                            'https://copilotstudio.microsoft.com/environments/2a892934-221c-eaa4-9f1a-4790000854ca/bots/cr546_uqAssistGenAiChatBot/webchat?__version__=2');
+                    chatbotSrc = window.location.protocol + '//' + window.location.hostname;
                 }
+                const chatbotUrl = `${chatbotSrc}/chatbot.html`;
+                console.log('use ', chatbotUrl);
+                const chatBotIframe = !!chatbotWrapper && chatbotWrapper.getElementsByTagName('iframe');
+                !!chatBotIframe && chatBotIframe.length > 0 && (chatBotIframe[0].src = chatbotUrl);
 
                 const openCrmButton = shadowDOM.getElementById('speakToPerson');
                 !!openCrmButton && openCrmButton.addEventListener('click', swapToCrm);
