@@ -337,16 +337,15 @@ class ProactiveChat extends HTMLElement {
                 }
 
                 // show chatbot source
-                let chatbotSrc = 'https://www.library.uq.edu.au/chatbot.html';
+                let chatbotSrc = 'https://www.library.uq.edu.au';
                 if (window.location.hostname === 'localhost') {
                     chatbotSrc = 'http://localhost:2020'; // bring mock up to use locally
-                } else if (window.location.hostname === 'homepage-development.library.uq.edu.au') {
-                    chatbotSrc =
-                        window.location.protocol +
-                        '//' +
-                        window.location.hostname +
-                        '/' +
-                        window.location.pathname.replace('/chatbot.html', '');
+                } else if (
+                    window.location.hostname === 'homepage-development.library.uq.edu.au' &&
+                    window.location.pathname.startsWith('/feature-leadegroot')
+                ) {
+                    // dev
+                    chatbotSrc = `${window.location.protocol}//${window.location.hostname}/feature-leadegroot-1`;
                 } else if (
                     window.location.hostname === 'homepage-staging.library.uq.edu.au' ||
                     window.location.hostname === 'app-testing.library.uq.edu.au' ||
