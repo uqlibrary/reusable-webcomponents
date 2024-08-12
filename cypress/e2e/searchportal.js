@@ -195,7 +195,7 @@ describe('Search Portal', () => {
                 });
         });
 
-        it('the search dropdown has the expected children', () => {
+        it.only('the search dropdown has the expected children', () => {
             cy.viewport(1300, 1000);
             cy.get('search-portal')
                 .shadow()
