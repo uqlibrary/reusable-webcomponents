@@ -61,6 +61,7 @@ chatbotIframeTemplate.innerHTML = `<div
 >
     <div class="resizeHandleRepositionWrapper">
         <div class="topBar">
+            <h1>Library Chatbot</h1>
             <button id="closeIframeButton" data-testid="closeIframeButton" data-analyticsid="chatbot-iframe-close" aria-label="Close Chatbot">
                 <!-- close "x" -->
                 <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
