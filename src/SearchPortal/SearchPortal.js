@@ -818,6 +818,174 @@ class SearchPortal extends HTMLElement {
                 }
             });
     }
+
+    updateTemplate(theme) {
+        console.log("UPDATING,", theme)
+        template.innerHTML = `
+            <style>${overrides.toString()}</style>
+            <style>
+
+                .searchPortalResponsive {
+                    display: flex;
+                    margin-bottom: 10px;
+                }
+                
+                .searchPortal-searchType {
+                    min-width: 150px; /* Set dropdown width */
+                    background-color: white;
+                }
+                
+                .searchPortal-searchInput {
+                    display: flex;
+                    flex-grow: 1; 
+                    background-color: white;
+                }
+                
+                .searchPortal-searchText {
+                    flex-grow: 1;
+                }
+                
+                .searchPortal-searchButton {
+                    width: 50px;
+                    height: 30px;
+                    text-align: center;
+
+                    
+                }
+                            
+                /* Media query for smaller screens */
+                @media (max-width: 768px) { /* Adjust breakpoint as needed */
+                    .searchPortalResponsive {
+                        flex-direction: column-reverse; /* Stack elements vertically */
+                    }
+                    .searchPortal-searchInput {
+                        width: 100%;
+                        flex-grow: 1;
+                        border-bottom: 2px solid #51247a;
+                    }
+                    .searchPortal-searchType {
+                        width: 100%; /* Take full width on smaller screens */
+                        flex-grow: 1;
+                        
+                    }
+                    .searchPortal-searchButton {
+                        width: 50px;
+                        height: 25px;
+                        text-align: center;
+
+                        
+                    }
+                }
+
+            </style>
+            <div id="search-portal" class="MuiPaper-root MuiCard-root libraryCard StandardCard MuiPaper-elevation1 MuiPaper-rounded theme-${theme || 'light'}" data-testid="primo-search" data-analyticsid="primo-search" data-analyticsid="primo-search" role="region" aria-live="polite">
+                <div class="MuiCardContent-root libraryContent" data-testid="primo-search-content" data-analyticsid="primo-search-content">
+                    <form id="primo-search-form" class="searchForm" role="search">
+                        <div class="MuiFormControl-root searchPanel" style="margin-bottom: -0.75rem; padding-top: 1rem;">
+                            <!-- <h2 id="search-portal-type-select-label" class="searchPortalLabel MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled" data-shrink="true" aria-label="Search UQ Library">Library</h2> -->
+                            <p id="search-portal-type-select-label-sub" class="theme-${theme || 'light'}"><strong>Library Search - </strong><span id="search-portal-type-select-dynamic-label"> Find books, articles, past exams, and more</span></p>
+                        </div>
+
+                        
+
+                        
+
+                        <div class="searchPortalResponsive" id="search-parent">
+                            <div class="searchPortal-searchType portaltype-dropdown-container" id="search-portal-type-select">
+                            <!-- SEARCH TYPE (DROPDOWN) START -->
+                                <div id="portaltype-dropdown" data-testid="search-portal-type-select-wrapper" class="search-type-button MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl">
+                                    <button id="search-portal-search-type-selector" type="button" class="search-type-button MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input" tabindex="0" aria-labelledby="search-portal-type-select-label" data-testid="primo-search-select" data-analyticsid="primo-search-select">
+                                        <span id="portaltype-current-label" class="search-type-button-label" data-testid="portaltype-current-label">Library</span>
+                                        <input data-testid="primo-search-select-input" data-analyticsid="primo-search-select-input" id="search-type-current-value" type="hidden" name="portaltype">
+                                    </button>
+                                    <svg class="MuiSvgIcon-root MuiSelect-icon search-dropdown-chevron" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path fill="currentColor" d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"/>
+                                    </svg>
+                                </div>
+                            <!-- SEARCH TYPE (DROPDOWN) END -->
+                            </div>
+                            <div class="searchPortal-searchInput" id="searchButton">
+                                <div class="searchPortal-searchText" id="input-field-wrapper">
+                                
+                                    <div id="search-portal-autocomplete" class="MuiAutocomplete-root" data-testid="primo-search-autocomplete" data-analyticsid="primo-search-autocomplete">
+                                        <div class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth">
+                                            <div id="inputFieldParent" role="combobox" aria-expanded="false" aria-controls="search-portal-autocomplete-listbox" class="MuiInputBase-root MuiInput-root MuiInput-underline MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd">
+                                                <!--  aria-controls="search-portal-autocomplete-listbox" invalid per AXE --> 
+                                                <input type="text" id="current-inputfield" name="currentInputfield" aria-invalid="false" autocomplete="off" type="search" class="MuiInputBase-input MuiInput-input selectInput MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch" aria-autocomplete="list" autocapitalize="none" spellcheck="false" aria-label="Enter your search terms" data-testid="primo-search-autocomplete-input" data-analyticsid="primo-search-autocomplete-input" value="">
+                                                <div class="MuiAutocomplete-endAdornment"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+                                </div>
+                                <div id="clearButton" class="MuiGrid-item MuiGrid-grid-xs-auto utilityarea">
+                                
+                                    
+                                        <button type="button" id="clear-search-term" class="hidden clear-search-term MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall" tabindex="0" type="button" title="Clear your search term" data-testid="primo-search-autocomplete-voice-clear" data-analyticsid="primo-search-autocomplete-voice-clear">
+                                            <span class="MuiIconButton-label">
+                                                <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                                                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+                                                </svg>
+                                            </span>
+                                            <span class="MuiTouchRipple-root"></span>
+                                        </button>
+                                    
+                                
+                                </div>
+                                <div class="searchPortal-searchButton" >
+                                    <button id="search-portal-submit" class="MuiButtonBase-root MuiButton-contained searchButton MuiButton-containedPrimary MuiButton-containedSizeLarge MuiButton-sizeLarge MuiButton-fullWidth" tabindex="0" type="submit" data-testid="primo-search-submit" data-analyticsid="primo-search-submit" value="Submit" title="Perform your search">
+                                        <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+                                        </svg>
+                                        <span class="MuiTouchRipple-root"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="footer-links" class="searchPanel MuiGrid-container MuiFormControlMuiGrid-spacing-xs-2 theme-${theme || 'light'}" data-testid="primo-search-links" data-analyticsid="primo-search-links"></div>
+
+                        <p class="restrictions-use theme-${theme || 'light'}">
+                            <span>
+                                <a id="restrictions-on-use-link" href="https://web.library.uq.edu.au/about-us/policies-guidelines#collection-notice">Restrictions on Use</a> - 
+                            </span>
+                            Your use of Library resources must comply with UQ policies, copyright law, and all resource specific licence terms. The use of AI tools with Library resources is prohibited unless expressly permitted.
+                        </p>
+                        
+                    
+                    </form>
+                </div>
+            </div>
+        `;
+        // Add a shadow DOM
+        const shadowDOM = this.attachShadow({ mode: 'open' });
+
+        // Render the template
+        shadowDOM.appendChild(template.content.cloneNode(true));
+
+        this.addListeners();
+
+        const useSearchType = this.getOpeningSearchType();
+        this.setSearchTypeButton(useSearchType);
+        this.createPortalTypeSelector();
+
+        this.addListeners = this.addListeners.bind(this);
+        this.appendFooterLinks = this.appendFooterLinks.bind(this);
+        this.createFooterLink = this.createFooterLink.bind(this);
+        this.createPortalTypeSelectionEntry = this.createPortalTypeSelectionEntry.bind(this);
+        this.createPortalTypeSelector = this.createPortalTypeSelector.bind(this);
+        this.getExamPaperSuggestions = this.getExamPaperSuggestions.bind(this);
+        this.getLearningResourceSuggestions = this.getLearningResourceSuggestions.bind(this);
+        this.getOpeningSearchType = this.getOpeningSearchType.bind(this);
+        this.getPrimoSuggestions = this.getPrimoSuggestions.bind(this);
+        this.getSuggestions = this.getSuggestions.bind(this);
+        this.loadSuggestionsIntoPage = this.loadSuggestionsIntoPage.bind(this);
+        this.isPortalTypeDropDownOpen = this.isPortalTypeDropDownOpen.bind(this);
+        this.listenForMouseClicks = this.listenForMouseClicks.bind(this);
+        this.sendSubmitToGTM = this.sendSubmitToGTM.bind(this);
+        this.setSearchTypeButton = this.setSearchTypeButton.bind(this);
+        this.showHidePortalTypeDropdown = this.showHidePortalTypeDropdown.bind(this);
+        this.toggleVisibility = this.toggleVisibility.bind(this);
+    }
 }
 
 export default SearchPortal;
