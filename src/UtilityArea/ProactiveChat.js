@@ -345,8 +345,14 @@ class ProactiveChat extends HTMLElement {
                     window.location.hostname === 'homepage-development.library.uq.edu.au' &&
                     window.location.pathname.startsWith('/feature-leadegroot')
                 ) {
-                    // dev
+                    // dev - ITS dev env
                     chatbotSrc = `${window.location.protocol}//${window.location.hostname}/feature-leadegroot-1`;
+                } else if (
+                    window.location.hostname === 'homepage-development.library.uq.edu.au' &&
+                    window.location.pathname.startsWith('/chatbot-testenv')
+                ) {
+                    // dev - ITS test env
+                    chatbotSrc = `${window.location.protocol}//${window.location.hostname}/chatbot-testenv`;
                 } else if (
                     window.location.hostname === 'homepage-staging.library.uq.edu.au' ||
                     window.location.hostname === 'app-testing.library.uq.edu.au' ||
