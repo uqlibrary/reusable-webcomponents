@@ -239,10 +239,16 @@ const COURSE_RESOURCE_SEARCH_TYPE = '8';
 const REMEMBER_COOKIE_ID = 'rememberSearchType';
 
 class SearchPortal extends HTMLElement {
+    
+    connectedCallback() {
+        console.log("callback");
+        this.theme = this.getAttribute('theme') || '';
+    
+    }
     constructor() {
         super();
-        const theme = this.getAttribute("theme") || "";
-        console.log("Theme", theme)
+        this.theme = this.getAttribute("theme") || "";
+        console.log("Theme", this.theme)
         template.innerHTML = `
     <style>${overrides.toString()}</style>
     <style>
@@ -300,12 +306,12 @@ class SearchPortal extends HTMLElement {
         }
 
     </style>
-    <div id="search-portal" class="MuiPaper-root MuiCard-root libraryCard StandardCard MuiPaper-elevation1 MuiPaper-rounded theme-${theme || 'light'}" data-testid="primo-search" data-analyticsid="primo-search" data-analyticsid="primo-search" role="region" aria-live="polite">
+    <div id="search-portal" class="MuiPaper-root MuiCard-root libraryCard StandardCard MuiPaper-elevation1 MuiPaper-rounded theme-${this.theme || 'light'}" data-testid="primo-search" data-analyticsid="primo-search" data-analyticsid="primo-search" role="region" aria-live="polite">
         <div class="MuiCardContent-root libraryContent" data-testid="primo-search-content" data-analyticsid="primo-search-content">
             <form id="primo-search-form" class="searchForm" role="search">
                 <div class="MuiFormControl-root searchPanel" style="margin-bottom: -0.75rem; padding-top: 1rem;">
                     <!-- <h2 id="search-portal-type-select-label" class="searchPortalLabel MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled" data-shrink="true" aria-label="Search UQ Library">Library</h2> -->
-                    <p id="search-portal-type-select-label-sub" class="theme-${theme || 'light'}"><strong>Library Search - </strong><span id="search-portal-type-select-dynamic-label"> Find books, articles, past exams, and more</span></p>
+                    <p id="search-portal-type-select-label-sub" class="theme-${this.theme || 'light'}"><strong>Library Search - </strong><span id="search-portal-type-select-dynamic-label"> Find books, articles, past exams, and more</span></p>
                 </div>
 
                 
@@ -364,9 +370,9 @@ class SearchPortal extends HTMLElement {
                         </div>
                     </div>
                 </div>
-                 <div id="footer-links" class="searchPanel MuiGrid-container MuiFormControlMuiGrid-spacing-xs-2 theme-${theme || 'light'}" data-testid="primo-search-links" data-analyticsid="primo-search-links"></div>
+                 <div id="footer-links" class="searchPanel MuiGrid-container MuiFormControlMuiGrid-spacing-xs-2 theme-${this.theme || 'light'}" data-testid="primo-search-links" data-analyticsid="primo-search-links"></div>
 
-                  <p class="restrictions-use theme-${theme || 'light'}">
+                  <p class="restrictions-use theme-${this.theme || 'light'}">
                     <span>
                         <a id="restrictions-on-use-link" href="https://web.library.uq.edu.au/about-us/policies-guidelines#collection-notice">Restrictions on Use</a> - 
                     </span>
