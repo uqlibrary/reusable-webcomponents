@@ -241,8 +241,8 @@ const REMEMBER_COOKIE_ID = 'rememberSearchType';
 class SearchPortal extends HTMLElement {
     
     connectedCallback() {
-        console.log("callback");
         this.theme = this.getAttribute('theme') || '';
+        console.log("callback", this.theme);
     
     }
     constructor() {
