@@ -70,7 +70,7 @@ chatbotIframeTemplate.innerHTML = `<div
         </div>
         <iframe 
             id="chatbotIframe"
-            src="https://copilotstudio.microsoft.com/environments/7dd3d6ed-ec25-eff0-8ff2-b38b699e89c0/bots/cr546_uqAssistGenAiChatBot/webchat?__version__=2"
+            src="https://copilotstudio.microsoft.com/environments/30f73f16-da89-ee8a-aa1e-a25e77cb45c0/bots/cr546_uqAssistGenAiChatBot/webchat?__version__=2"
             frameborder="0" 
             title="Ask Library Chatbot a question"
         ></iframe>
