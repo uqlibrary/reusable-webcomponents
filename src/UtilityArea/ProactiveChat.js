@@ -350,7 +350,7 @@ class ProactiveChat extends HTMLElement {
                     !!chatBotIframe &&
                         chatBotIframe.length > 0 &&
                         (chatBotIframe[0].src =
-                            'https://copilotstudio.microsoft.com/environments/2a892934-221c-eaa4-9f1a-4790000854ca/bots/cr546_uqAssistGenAiChatBot/webchat?__version__=2');
+                            'https://copilotstudio.microsoft.com/environments/30f73f16-da89-ee8a-aa1e-a25e77cb45c0/bots/cr546_uqAssistGenAiChatBot/webchat?__version__=2');
                 }
 
                 const openCrmButton = shadowDOM.getElementById('speakToPerson');
