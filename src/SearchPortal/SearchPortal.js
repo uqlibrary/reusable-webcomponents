@@ -819,7 +819,7 @@ class SearchPortal extends HTMLElement {
     }
 
     updateTemplate(theme) {
-        console.log("UPDATING,", theme)
+        console.log("UPDATING ,", theme)
         template.innerHTML = `
             <style>${overrides.toString()}</style>
             <style>
