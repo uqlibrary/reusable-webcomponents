@@ -1,6 +1,7 @@
 import proactivecss from './css/proactivechat.css';
 import ApiAccess from '../ApiAccess/ApiAccess';
 import { cookieNotFound, setCookie } from '../helpers/cookie';
+import { apiLocale } from '../ApiAccess/ApiAccess.locale';
 
 /**
  * API
@@ -71,6 +72,7 @@ chatbotIframeTemplate.innerHTML = `<div
         </div>
         <iframe 
             id="chatbotIframe"
+            data-testid="chatbot-iframe"
             frameborder="0" 
             title="Ask Library Chatbot a question"
         ></iframe>
@@ -256,7 +258,7 @@ class ProactiveChat extends HTMLElement {
         const that = this;
         function closeChatBotIframe() {
             const chatbotIframe = shadowDOM.getElementById('chatbot-wrapper');
-            !!chatbotIframe && (chatbotIframe.style.display = 'none');
+            !!chatbotIframe && chatbotIframe.remove(); // deleting it rather than hiding it will force it to check for logout
             const proactivechatArea = shadowDOM.getElementById('proactivechat');
             !!proactivechatArea && (proactivechatArea.style.display = 'block');
 
@@ -361,10 +363,34 @@ class ProactiveChat extends HTMLElement {
                 ) {
                     chatbotSrc = window.location.protocol + '//' + window.location.hostname;
                 }
-                const chatbotUrl = `${chatbotSrc}/chatbot.html`;
-                console.log('use ', chatbotUrl);
+                let chatbotUrl = `${chatbotSrc}/chatbot.html`;
                 const chatBotIframe = !!chatbotWrapper && chatbotWrapper.getElementsByTagName('iframe');
-                !!chatBotIframe && chatBotIframe.length > 0 && (chatBotIframe[0].src = chatbotUrl);
+                const api = new ApiAccess();
+                const waitOnStorage = setInterval(() => {
+                    // sometimes it takes a moment before it is readable
+                    const currentUserDetails = api.getAccountFromStorage();
+
+                    const accountAvailable =
+                        currentUserDetails.hasOwnProperty('account') &&
+                        !!currentUserDetails.account &&
+                        currentUserDetails.account.hasOwnProperty('id') &&
+                        !!currentUserDetails.account.id;
+                    if (!!accountAvailable) {
+                        clearInterval(waitOnStorage);
+
+                        chatbotUrl +=
+                            '?' +
+                            `name=${currentUserDetails.account.firstName}&email=${currentUserDetails.account.mail}`;
+                        !!chatBotIframe && chatBotIframe.length > 0 && (chatBotIframe[0].src = chatbotUrl);
+                    } else if (
+                        !!currentUserDetails &&
+                        currentUserDetails.hasOwnProperty('status') &&
+                        currentUserDetails.status === apiLocale.USER_LOGGED_OUT
+                    ) {
+                        clearInterval(waitOnStorage);
+                        !!chatBotIframe && chatBotIframe.length > 0 && (chatBotIframe[0].src = chatbotUrl);
+                    }
+                }, 200);
 
                 const openCrmButton = shadowDOM.getElementById('speakToPerson');
                 !!openCrmButton && openCrmButton.addEventListener('click', swapToCrm);
