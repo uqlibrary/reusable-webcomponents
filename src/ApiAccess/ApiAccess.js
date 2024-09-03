@@ -273,8 +273,8 @@ class ApiAccess {
             })
             .catch((error) => {
                 console.log('error loading openathens ', error);
-                // set the error message here, to some generic "problem with OA, please try again later"
-                return null;
+                const msg = 'There was a problem loading Open Athens - please try again later.';
+                throw new Error(msg);
             });
     }
 
