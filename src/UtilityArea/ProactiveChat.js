@@ -16,7 +16,7 @@ import { cookieNotFound, setCookie } from '../helpers/cookie';
 const userPromptTemplate = document.createElement('template');
 userPromptTemplate.innerHTML = `
     <style>${proactivecss.toString()}</style>
-    <div id="proactivechat" data-testid="proactivechat" class="proactive-chat">
+    <div id="proactivechat" data-testid="proactivechat" class="proactive-chat" style="z-index: 1">
         <!-- Proactive Chat minimised -->
         <div id="minimised-buttons" class="pcminimised">
             <button id="proactive-chat-online" data-testid="proactive-chat-online" class="pconline" data-analyticsid="chat-status-icon-online-button" style="display: none;" title="Chat with us - see options" aria-label="Chat with us - see options">
