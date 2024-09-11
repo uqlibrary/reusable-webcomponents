@@ -718,13 +718,14 @@ class SearchPortal extends HTMLElement {
 
         // supply the placeholder text (UPDATE: Change the subtext in the title.)
         const inputField = this.shadowRoot.getElementById('current-inputfield');
-        const subTitleField = this.shadowRoot.getElementById('search-portal-type-select-dynamic-label')
+        const subTitleField = this.shadowRoot.getElementById('search-field-label')
         !!inputField &&
             !!searchPortalLocale.typeSelect &&
             !!searchPortalLocale.typeSelect.items[useSearchType] &&
             !!searchPortalLocale.typeSelect.items[useSearchType].placeholder &&
-            ///(inputField.placeholder = searchPortalLocale.typeSelect.items[useSearchType].placeholder);
-            (subTitleField.innerHTML = searchPortalLocale.typeSelect.items[useSearchType].placeholder)
+            (subTitleField.innerHTML = searchPortalLocale.typeSelect.items[useSearchType].placeholder) &&
+            (inputField.placeholder = searchPortalLocale.typeSelect.items[useSearchType].placeholder);
+            
         // add an extra class to the button to say which label it is currently showing
         // this is used by the css to make the dropdown highlight the matching label
         // remove any previous label - looks like we cant regexp to match a classname, we'll have to loop over the label.items length
@@ -852,6 +853,59 @@ class SearchPortal extends HTMLElement {
 
                     
                 }
+                #restrictions-on-use-link {
+                    color: black !important;
+                    text-decoration: underline;
+                }
+                .theme-dark #restrictions-on-use-link {
+                    color: white !important;
+                    text-align: right;
+                }
+                .linksContainer {
+                    flex: 9
+                }
+                
+                .restrictionsContainer {
+                    flex: 3; 
+                    text-align: right; 
+                    padding-right: 0
+                }
+
+                /* testing */
+                #inputFieldParent {
+                    position: relative;
+                }
+
+                #current-inputfield {
+                    &::placeholder {
+                        color: transparent;
+                    }
+                    &::-webkit-contacts-auto-fill-button {
+                        visibility: hidden;
+                        pointer-events: none;
+                        position: absolute;
+                    }
+                }
+
+                .searchLabel {
+                    position: absolute;
+                    display: block;
+                    left: 10px;
+                    color: #43454e;
+                    pointer-events: none;
+                    transform-origin: left center;
+                    transition: all 200ms;
+                    
+                }
+
+                #current-inputfield:not(:placeholder-shown) + .searchLabel {
+                    transform: translateY(-180%) scale(0.75);
+                    color: white;
+                }
+                #current-inputfield:placeholder-shown + .searchLabel + .clear {
+                    display: none;
+                }
+                
                             
                 /* Media query for smaller screens */
                 @media (max-width: 768px) { /* Adjust breakpoint as needed */
@@ -875,6 +929,25 @@ class SearchPortal extends HTMLElement {
 
                         
                     }
+                    .linksContainer {
+                        flex: 1
+                    }
+                    
+                    .restrictionsContainer {
+                        flex: 1; 
+                        text-align: right; 
+                        padding-right: 0
+                    }
+                    .searchUnderlinks {
+                        padding-left: 0
+                    }
+                    #current-inputfield:not(:placeholder-shown) + .searchLabel {
+                        transform: translateY(-222%) scale(0.75);
+                        color: white;
+                        left: 80px;
+                        
+                        
+                    }
                 }
 
             </style>
@@ -883,7 +956,7 @@ class SearchPortal extends HTMLElement {
                     <form id="primo-search-form" class="searchForm" role="search">
                         <div class="MuiFormControl-root searchPanel" style="margin-bottom: -0.75rem; padding-top: 1rem;">
                             <!-- <h2 id="search-portal-type-select-label" class="searchPortalLabel MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled" data-shrink="true" aria-label="Search UQ Library">Library</h2> -->
-                            <p id="search-portal-type-select-label-sub" class="theme-${theme || 'light'}"><strong>Library Search - </strong><span id="search-portal-type-select-dynamic-label"> Find books, articles, past exams, and more</span></p>
+                            <h2 id="search-portal-type-select-label-sub" class="theme-${theme || 'light'}">Search</h2>
                         </div>
 
                         
@@ -912,6 +985,7 @@ class SearchPortal extends HTMLElement {
                                             <div id="inputFieldParent" role="combobox" aria-expanded="false" aria-controls="search-portal-autocomplete-listbox" class="MuiInputBase-root MuiInput-root MuiInput-underline MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd">
                                                 <!--  aria-controls="search-portal-autocomplete-listbox" invalid per AXE --> 
                                                 <input type="text" id="current-inputfield" name="currentInputfield" aria-invalid="false" autocomplete="off" type="search" class="MuiInputBase-input MuiInput-input selectInput MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch" aria-autocomplete="list" autocapitalize="none" spellcheck="false" aria-label="Enter your search terms" data-testid="primo-search-autocomplete-input" data-analyticsid="primo-search-autocomplete-input" value="">
+                                                <label id="search-field-label" class="searchLabel" for="current-inputfield">Find books, articles, past exams, and more</label>
                                                 <div class="MuiAutocomplete-endAdornment"></div>
                                             </div>
                                         </div>
@@ -941,16 +1015,16 @@ class SearchPortal extends HTMLElement {
                                     </button>
                                 </div>
                             </div>
+                            
                         </div>
-                        <div id="footer-links" class="searchPanel MuiGrid-container MuiFormControlMuiGrid-spacing-xs-2 theme-${theme || 'light'}" data-testid="primo-search-links" data-analyticsid="primo-search-links"></div>
-
-                        <p class="restrictions-use theme-${theme || 'light'}">
-                            <span>
-                                <a id="restrictions-on-use-link" href="https://web.library.uq.edu.au/about-us/policies-guidelines#collection-notice">Restrictions on Use</a> - 
-                            </span>
-                            Your use of Library resources must comply with UQ policies, copyright law, and all resource specific licence terms. The use of AI tools with Library resources is prohibited unless expressly permitted.
-                        </p>
-                        
+                        <div style="display: flex">
+                            <div class="linksContainer" >
+                                <div id="footer-links" class="searchPanel MuiGrid-container MuiFormControlMuiGrid-spacing-xs-2 theme-${theme || 'light'}" data-testid="primo-search-links" data-analyticsid="primo-search-links"></div>
+                            </div>
+                            <div class="restrictionsContainer searchUnderlinks theme-${theme || 'light'}">
+                               <a id="restrictions-on-use-link" href="https://web.library.uq.edu.au/about-us/policies-guidelines#collection-notice">Restrictions on Use</a> 
+                            </div>
+                        </div>
                     
                     </form>
                 </div>

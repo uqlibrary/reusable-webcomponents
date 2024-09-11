@@ -1048,8 +1048,8 @@ li.MuiAutocomplete-option:focus {
 }
 #search-portal-type-select-label-sub {
     color: black;
-    font-size: 16px;
     margin-top: 0px;
+    font-weight: 500;
     
 }
 #portaltype-dropdown::before, #portaltype-dropdown::after, #inputFieldParent::before, #inputFieldParent::after {
