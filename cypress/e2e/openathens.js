@@ -123,7 +123,7 @@ describe('OpenAthens', () => {
                 cy.window().then((win) => {
                     if (!!win.navigator?.clipboard?.writeText) {
                         cy.spy(win.navigator.clipboard, 'writeText').as('writeText');
-                        copyAndToast('URL copied successfully');
+                        copyAndToast('URL copied successfully.');
                     }
                 });
             });
@@ -137,7 +137,7 @@ describe('OpenAthens', () => {
                             cy.stub(doc, 'execCommand')
                                 .callsFake(() => true)
                                 .as('execCommand');
-                            copyAndToast('URL copied successfully');
+                            copyAndToast('URL copied successfully.');
                             cy.get('@execCommand').should('be.calledOnce');
                         });
                     }
@@ -151,7 +151,7 @@ describe('OpenAthens', () => {
                         .as('execCommand');
                 });
                 const writeText = replaceWriteText();
-                copyAndToast('URL copied successfully');
+                copyAndToast('URL copied successfully.');
                 cy.get('@execCommand').should('be.calledOnceWith', 'copy');
                 if (writeText) {
                     cy.window().then((win) => {
@@ -223,7 +223,7 @@ describe('OpenAthens', () => {
                             .type('{selectall}http://www.example.com{enter}');
                         cy.get('[data-testid="open-athens-input-error"]').should(
                             'have.text',
-                            'An unexpected problem occurred - please try again later.',
+                            'The link generator is temporarily unavailable. Please try again later.',
                         );
                     });
             });
@@ -241,7 +241,7 @@ describe('OpenAthens', () => {
                             .type('{selectall}http://www.example.com{enter}');
                         cy.get('[data-testid="open-athens-input-error"]').should(
                             'have.text',
-                            'This resource/link does not require UQ access. Try accessing it directly.',
+                            'This link does not require UQ access. Try accessing it directly.',
                         );
                         // and can clear the field
                         cy.get('[data-testid="open-athens-input"]').should('have.value', 'http://www.example.com');
@@ -264,11 +264,11 @@ describe('OpenAthens', () => {
                             .should('exist')
                             .should('be.visible')
                             .as('inputError')
-                            .should('have.text', 'Invalid URL. Please add the protocol eg: http://, https://');
+                            .should('have.text', 'Invalid URL. Please add the protocol e.g. http://, https://');
 
                         cy.get('@inputField').type('{selectall}http:/www.example.com');
                         cy.get('@createLinkButton').click();
-                        cy.get('@inputError').should('have.text', 'Invalid URL');
+                        cy.get('@inputError').should('have.text', 'Please enter a valid URL.');
                     });
             });
 
@@ -281,7 +281,7 @@ describe('OpenAthens', () => {
                     doc.execCommand = false;
                 });
                 const writeText = replaceWriteText();
-                copyAndToast('Copy function not available in this web browser');
+                copyAndToast('The Copy function is not available in this web browser.');
                 cy.document().then((doc) => {
                     doc.execCommand = execCommand;
                 });
@@ -301,7 +301,7 @@ describe('OpenAthens', () => {
                         .as('execCommand');
                 });
                 const writeText = replaceWriteText();
-                copyAndToast('Unable to copy URL');
+                copyAndToast('Unable to copy the URL.');
                 cy.get('@execCommand').should('be.calledOnceWith', 'copy');
                 cy.window().then((win) => {
                     if (writeText) {
@@ -411,7 +411,7 @@ describe('OpenAthens', () => {
                         cy.get('[data-testid="open-athens-input-error"]')
                             .should('exist')
                             .should('be.visible')
-                            .should('have.text', 'Please enter a URL');
+                            .should('have.text', 'Please enter a URL.');
                     });
             });
 
@@ -428,7 +428,7 @@ describe('OpenAthens', () => {
                             .type('{selectall}http://www.example.com{enter}');
                         cy.get('[data-testid="open-athens-input-error"]').should(
                             'have.text',
-                            'An unexpected problem occurred - please try again later.',
+                            'The link generator is temporarily unavailable. Please try again later.',
                         );
                     });
             });
@@ -447,7 +447,7 @@ describe('OpenAthens', () => {
                         cy.get('[data-testid="open-athens-input"]').scrollIntoView();
                         cy.get('[data-testid="open-athens-input-error"]').should(
                             'have.text',
-                            'This resource/link does not require UQ access. Try accessing it directly.',
+                            'This link does not require UQ access. Try accessing it directly.',
                         );
                     });
             });
@@ -469,11 +469,11 @@ describe('OpenAthens', () => {
                             .should('exist')
                             .should('be.visible')
                             .as('inputError')
-                            .should('have.text', 'Invalid URL. Please add the protocol eg: http://, https://');
+                            .should('have.text', 'Invalid URL. Please add the protocol e.g. http://, https://');
 
                         cy.get('@inputField').type('{selectall}http:/www.example.com');
                         cy.get('@createLinkButton').click();
-                        cy.get('@inputError').should('have.text', 'Invalid URL');
+                        cy.get('@inputError').should('have.text', 'Please enter a valid URL.');
                     });
             });
         });
