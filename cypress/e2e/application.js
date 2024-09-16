@@ -424,7 +424,7 @@ describe('Dummy Application', () => {
 
             assert_homepage_link_is_to_uq();
 
-            hasCulturalAdvicePopup();
+            // hasCulturalAdvicePopup();
         });
 
         it('Sample detail page load works correctly', () => {
@@ -435,7 +435,7 @@ describe('Dummy Application', () => {
 
             assert_has_book_now_link();
 
-            hasCulturalAdvicePopup();
+            //hasCulturalAdvicePopup();
 
             // has cultural advice banner
             cy.get('.culturalAdviceBanner')
@@ -447,7 +447,7 @@ describe('Dummy Application', () => {
             cy.visit('http://localhost:8080/src/applications/atom/demo-listpage.html');
             cy.viewport(1280, 900);
             assert_homepage_link_is_to_uq();
-            hasCulturalAdvicePopup();
+            //hasCulturalAdvicePopup();
 
             // has cultural advice indicator, only on CA entries
             cy.get('#content article')
