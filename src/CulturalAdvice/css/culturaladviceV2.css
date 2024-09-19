@@ -1,0 +1,27 @@
+.culturaladvicev2 {
+    background-color: #231430;
+    padding-top: 20px;
+    background-image: linear-gradient(90deg, #48206c 28.12%, #48206ca6 70.31%), url(https://static.uq.net.au/v15/images/rap/brisbane-river-artwork.png);
+}
+
+.culturaladvicev2 p {
+    padding-bottom: 20px;
+    letter-spacing: '.01rem';
+    font-weight: '400';
+    font-family: Roboto, Helvetica, Arial, sans-serif; 
+    color: white; 
+    margin: 0;
+    border: 0
+}
+
+.culturaladvicev2 a {
+    color: white;
+    text-decoration: underline;
+}
+.layout-card {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 71rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
