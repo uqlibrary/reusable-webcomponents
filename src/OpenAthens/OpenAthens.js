@@ -197,7 +197,20 @@ class OpenAthens extends HTMLElement {
      * @returns {String}
      */
     cleanupUrl(dest) {
-        const _dest = !!dest ? dest.trim() : '';
+        let _dest = !!dest ? dest.trim() : '';
+
+        // EzProxy is the system that was replaced by Open Athens.
+        // and there was a problem back then that people would paste in exproxy links to be ezproxied :facepalm:
+        // Convert any old ezproxy links that might get pasted in
+        // Link type 1, example https://ezproxy.library.uq.edu.au/login?url=http://www.sciencedirect.com/science/article/pii/S1744388116300159
+        var ezpRegexp = /https?:\/\/(www.)?ezproxy.library.uq.edu.au\/login\?url\=/i;
+        _dest = _dest.replace(ezpRegexp, '');
+
+        // Link type 2, example: http://www.sciencedirect.com.ezproxy.library.uq.edu.au/science/article/pii/S1744388116300159
+        var ezproxyUrlRegexp = /(([A-Za-z]*:(?:\/\/)?)(.)+(.ezproxy.library.uq.edu.au))(.*)?/;
+        if (ezproxyUrlRegexp.test(_dest)) {
+            _dest = _dest.replace('.ezproxy.library.uq.edu.au', '');
+        }
 
         return _dest;
     }
@@ -274,15 +287,15 @@ class OpenAthens extends HTMLElement {
         };
 
         if (dest.length <= 0) {
-            validation.message = 'Please enter a URL';
+            validation.message = 'Please enter a URL.';
             const inputField = this.shadowRoot.getElementById('open-athens-input');
             inputField.focus();
         } else if (this.doiRegexp.test(dest)) {
             validation.valid = true;
         } else if (!isURL(dest, { require_protocol: true })) {
-            validation.message = 'Invalid URL';
+            validation.message = 'Please enter a valid URL.';
             if (dest.substring(0, 4).toLowerCase() !== 'http') {
-                validation.message = 'Invalid URL. Please add the protocol eg: http://, https://';
+                validation.message = 'Invalid URL. Please add the protocol e.g. http://, https://';
             }
         } else {
             validation.valid = true;
@@ -330,7 +343,7 @@ class OpenAthens extends HTMLElement {
                 if (!response || !response.hasOwnProperty('available')) {
                     this.inputValidator = {
                         valid: false,
-                        message: 'An unexpected problem occurred - please try again later.',
+                        message: 'The link generator is temporarily unavailable. Please try again later.',
                     };
                     return null;
                 } else if (response?.available === true) {
@@ -341,7 +354,7 @@ class OpenAthens extends HTMLElement {
                     // OA said thats not an OA url
                     this.inputValidator = {
                         valid: false,
-                        message: 'This resource/link does not require UQ access. Try accessing it directly.',
+                        message: 'This link does not require UQ access. Try accessing it directly.',
                     };
                     return null;
                 }
@@ -355,7 +368,7 @@ class OpenAthens extends HTMLElement {
                 inputArea.classList.remove('hideInput');
                 this.inputValidator = {
                     valid: false,
-                    message: 'An unexpected problem occurred - please try again later.',
+                    message: 'The link generator is temporarily unavailable. Please try again later.',
                 };
                 return null;
             });
@@ -380,7 +393,7 @@ class OpenAthens extends HTMLElement {
         if ((!window.navigator.clipboard || !window.navigator.clipboard.writeText) && !document.execCommand) {
             this.copyStatus = {
                 success: false,
-                message: 'Copy function not available in this web browser',
+                message: 'The Copy function is not available in this web browser.',
             };
             return;
         }
@@ -400,20 +413,20 @@ class OpenAthens extends HTMLElement {
                             .then((text) => {
                                 that.copyStatus = {
                                     success: true,
-                                    message: 'URL copied successfully',
+                                    message: 'URL copied successfully.',
                                 };
                             })
                             .catch((err) => {
                                 console.error('Failed to read clipboard contents: ', err);
                                 that.copyStatus = {
                                     success: false,
-                                    message: 'URL copy failed',
+                                    message: 'Unable to copy the URL.',
                                 };
                             });
                     } else {
                         that.copyStatus = {
                             success: false,
-                            message: 'Copy function not available in this web browser',
+                            message: 'The Copy function is not available in this web browser.',
                         };
                     }
                 });
@@ -421,13 +434,13 @@ class OpenAthens extends HTMLElement {
                 const copyStatus = document.execCommand('copy');
                 this.copyStatus = {
                     success: !!copyStatus,
-                    message: copyStatus ? 'URL copied successfully' : 'Unable to copy URL',
+                    message: copyStatus ? 'URL copied successfully.' : 'Unable to copy the URL.',
                 };
             }
         } catch (err) {
             this.copyStatus = {
                 success: false,
-                message: 'An error occurred while copying the URL',
+                message: 'An error occurred while copying the URL.',
             };
         }
     }
