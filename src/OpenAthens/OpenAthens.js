@@ -197,7 +197,20 @@ class OpenAthens extends HTMLElement {
      * @returns {String}
      */
     cleanupUrl(dest) {
-        const _dest = !!dest ? dest.trim() : '';
+        let _dest = !!dest ? dest.trim() : '';
+
+        // EzProxy is the system that was replaced by Open Athens.
+        // and there was a problem back then that people would paste in exproxy links to be ezproxied :facepalm:
+        // Convert any old ezproxy links that might get pasted in
+        // Link type 1, example https://ezproxy.library.uq.edu.au/login?url=http://www.sciencedirect.com/science/article/pii/S1744388116300159
+        var ezpRegexp = /https?:\/\/(www.)?ezproxy.library.uq.edu.au\/login\?url\=/i;
+        _dest = _dest.replace(ezpRegexp, '');
+
+        // Link type 2, example: http://www.sciencedirect.com.ezproxy.library.uq.edu.au/science/article/pii/S1744388116300159
+        var ezproxyUrlRegexp = /(([A-Za-z]*:(?:\/\/)?)(.)+(.ezproxy.library.uq.edu.au))(.*)?/;
+        if (ezproxyUrlRegexp.test(_dest)) {
+            _dest = _dest.replace('.ezproxy.library.uq.edu.au', '');
+        }
 
         return _dest;
     }
