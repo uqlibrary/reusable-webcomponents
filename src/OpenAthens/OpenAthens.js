@@ -197,20 +197,7 @@ class OpenAthens extends HTMLElement {
      * @returns {String}
      */
     cleanupUrl(dest) {
-        let _dest = !!dest ? dest.trim() : '';
-
-        // EzProxy is the system that was replaced by Open Athens.
-        // and there was a problem back then that people would paste in exproxy links to be ezproxied :facepalm:
-        // Convert any old ezproxy links that might get pasted in
-        // Link type 1, example https://ezproxy.library.uq.edu.au/login?url=http://www.sciencedirect.com/science/article/pii/S1744388116300159
-        var ezpRegexp = /https?:\/\/(www.)?ezproxy.library.uq.edu.au\/login\?url\=/i;
-        _dest = _dest.replace(ezpRegexp, '');
-
-        // Link type 2, example: http://www.sciencedirect.com.ezproxy.library.uq.edu.au/science/article/pii/S1744388116300159
-        var ezproxyUrlRegexp = /(([A-Za-z]*:(?:\/\/)?)(.)+(.ezproxy.library.uq.edu.au))(.*)?/;
-        if (ezproxyUrlRegexp.test(_dest)) {
-            _dest = _dest.replace('.ezproxy.library.uq.edu.au', '');
-        }
+        const _dest = !!dest ? dest.trim() : '';
 
         return _dest;
     }
@@ -297,11 +284,19 @@ class OpenAthens extends HTMLElement {
             if (dest.substring(0, 4).toLowerCase() !== 'http') {
                 validation.message = 'Invalid URL. Please add the protocol e.g. http://, https://';
             }
+        } else if (!!this.isEzproxyUrl(dest)) {
+            validation.message = 'EZproxy links are no longer supported. Please enter a valid URL.';
         } else {
             validation.valid = true;
         }
 
         return validation;
+    }
+
+    isEzproxyUrl(url) {
+        const setupUrl = new URL(url);
+        const hostname = !!setupUrl ? setupUrl.hostname : '';
+        return hostname.endsWith('ezproxy.library.uq.edu.au');
     }
 
     /**
