@@ -284,11 +284,19 @@ class OpenAthens extends HTMLElement {
             if (dest.substring(0, 4).toLowerCase() !== 'http') {
                 validation.message = 'Invalid URL. Please add the protocol e.g. http://, https://';
             }
+        } else if (!!this.isEzproxyUrl(dest)) {
+            validation.message = 'EZproxy links are no longer supported. Please enter a valid URL.';
         } else {
             validation.valid = true;
         }
 
         return validation;
+    }
+
+    isEzproxyUrl(url) {
+        const setupUrl = new URL(url);
+        const hostname = !!setupUrl ? setupUrl.hostname : '';
+        return hostname.endsWith('ezproxy.library.uq.edu.au');
     }
 
     /**

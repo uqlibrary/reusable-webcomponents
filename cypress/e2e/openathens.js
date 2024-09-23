@@ -272,6 +272,73 @@ describe('OpenAthens', () => {
                     });
             });
 
+            it('shows expected error messages for old ezproxy domains, type 1', () => {
+                cy.visit('http://localhost:8080/index-openathens.html');
+
+                cy.get('open-athens[create-link]')
+                    .should('exist')
+                    .shadow()
+                    .find('[data-testid="open-athens"]')
+                    .within(() => {
+                        cy.get('[data-testid="open-athens-input"]')
+                            .should('exist')
+                            .as('inputField')
+                            .type(
+                                'http://www.sciencedirect.com.ezproxy.library.uq.edu.au/science/article/pii/S1744388116300159',
+                            );
+                        cy.get('[data-testid="open-athens-create-link-button"]').as('createLinkButton').click();
+                        cy.get('[data-testid="open-athens-input-error"]')
+                            .should('exist')
+                            .should('be.visible')
+                            .as('inputError')
+                            .should('have.text', 'EZproxy links are no longer supported. Please enter a valid URL.');
+                    });
+            });
+
+            it('shows expected error messages for old ezproxy domains, type 2', () => {
+                cy.visit('http://localhost:8080/index-openathens.html');
+
+                cy.get('open-athens[create-link]')
+                    .should('exist')
+                    .shadow()
+                    .find('[data-testid="open-athens"]')
+                    .within(() => {
+                        cy.get('[data-testid="open-athens-input"]')
+                            .should('exist')
+                            .as('inputField')
+                            .type(
+                                'https://ezproxy.library.uq.edu.au/login?url=http://www.sciencedirect.com/science/article/pii/S1744388116300159',
+                            );
+                        cy.get('[data-testid="open-athens-create-link-button"]').as('createLinkButton').click();
+                        cy.get('[data-testid="open-athens-input-error"]')
+                            .should('exist')
+                            .should('be.visible')
+                            .as('inputError')
+                            .should('have.text', 'EZproxy links are no longer supported. Please enter a valid URL.');
+                    });
+            });
+
+            it('shows expected error messages for old ezproxy domains, type 3', () => {
+                cy.visit('http://localhost:8080/index-openathens.html');
+
+                cy.get('open-athens[create-link]')
+                    .should('exist')
+                    .shadow()
+                    .find('[data-testid="open-athens"]')
+                    .within(() => {
+                        cy.get('[data-testid="open-athens-input"]')
+                            .should('exist')
+                            .as('inputField')
+                            .type('https://www-mimsonline-com-au.ezproxy.library.uq.edu.au/Search/Search.aspx');
+                        cy.get('[data-testid="open-athens-create-link-button"]').as('createLinkButton').click();
+                        cy.get('[data-testid="open-athens-input-error"]')
+                            .should('exist')
+                            .should('be.visible')
+                            .as('inputError')
+                            .should('have.text', 'EZproxy links are no longer supported. Please enter a valid URL.');
+                    });
+            });
+
             it('shows expected error messages when copy mechanisms fail - 1 of 3', () => {
                 cy.visit('http://localhost:8080/index-openathens.html');
 
