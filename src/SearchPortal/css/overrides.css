@@ -793,11 +793,13 @@ input[type='search'] {
 
 .portalTypeSelector {
     position: absolute;
+    top: 0;
     right: 0;
     z-index: 10;
     overflow: auto;
-    min-width: 13rem;
+    width: 207px;
     padding-left: 0;
+    outline: 1px solid #DCDCDD;
 }
 
 .search-type-button {
@@ -823,11 +825,18 @@ input[type='search'] {
     background-color: #fff !important;
     display: block;
     font-size: 16px;
+    padding-top: 16px;
+    padding-bottom: 16px;
     font-family: Roboto, Helvetica, Arial, sans-serif;
+}
+.portalTypeSelectionEntry:hover {
+    background-color: #E8E8E8 !important;
 }
 
 .portalTypeSelectionEntry span {
-    padding-left: 0.5rem;
+    /* padding-left: 0.5rem; */
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 
 .label-0-button .portalTypeSelectionEntry-0,
@@ -922,7 +931,9 @@ li.MuiAutocomplete-option:focus {
     border-color: #195794;
 }
 .searchButton:focus {
-    border: thick solid #d3d3d3 !important;
+    /* outline: thick solid #d3d3d3 !important; */
+    background-color: #dcdcdd !important;
+    border-radius: 5px;
 }
 
 /* make the clear button focus visible when tabbing */
@@ -982,17 +993,24 @@ li.MuiAutocomplete-option:focus {
     padding: 0px;
     background-color: #fff;
 }
-.searchPortalResponsive {
-    outline: 1px solid #ddd;
+#search-parent .searchPortalResponsive {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+
 }
 .searchPortalResponsive.theme-dark {
     outline: none;
+    background-color: #51247a !important;
+}
+.searchPortalResponsive.theme-light {
+    outline: 1px solid #dcdcdd;
+    background-color: #dcdcdd !important;
 }
 #search-portal {
     /*background-color: #51247a; */
     padding: 10px;
     box-shadow: none;
-    outline: 1px solid #ddd;
+    outline: 1px solid #dcdcdd;
 }
 #search-portal.theme-dark {
     /*background-color: #51247a; */
@@ -1019,22 +1037,21 @@ li.MuiAutocomplete-option:focus {
     background-color: #fff;
     width: 100%;
     box-shadow: none !important;
-    padding-top: 5px !important;
-    padding-bottom: 5px !important;
 }
 #search-portal-submit {
     margin: 0 !important;
-    padding: 0 !important;
     border: none;
     box-shadow: none;
-    background-color: #fff;
+    background-color: transparent;
     color: black;
     width: 50px;
-    height: 35px;
+    height: 50px;
 }
 #clear-search-term {
     margin: 0;
     padding: 0;
+    margin-top: 12px;
+    
 }
 #clearButton {
     padding: 0px;
@@ -1050,24 +1067,31 @@ li.MuiAutocomplete-option:focus {
     color: black;
     margin-top: 0px;
     font-weight: 500;
+    font-size: 18px;
+    letter-spacing: 0.01em
     
 }
 #portaltype-dropdown::before, #portaltype-dropdown::after, #inputFieldParent::before, #inputFieldParent::after {
     border: none !important;
 }
 #inputFieldParent {
-    border-left: 1px solid #aaa;
+    border-left: 1px solid #dcdcdd;
+    padding-bottom: 0;
 }
 .search-type-button {
     text-align: left;
     min-width: 80px;
     display: block;
+    margin-top: 9px;
     margin-right: 10px;
     width: 100%;
 }
 .search-type-button-label {
-    padding-left: 10px;
+    padding-left: 16px;
     padding-right: 35px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #19151C;
 }
 
 .search-dropdown-chevron {
@@ -1076,7 +1100,10 @@ li.MuiAutocomplete-option:focus {
     padding-right: 3px;
 }
 #current-inputfield {
-    padding-left: 10px;
+    height: 37px;
+    padding-left: 16px;
+    color: #3B383E;
+
 }
 #portaltype-dropdown {
     padding: 0;
@@ -1084,25 +1111,44 @@ li.MuiAutocomplete-option:focus {
 
 .portalTypeSelector {
     position: absolute;
-    top: 47px;
+    top: 56px;
     right: -8px; 
 }
-#footer-links a {
+#footer-links a, #restrictions-on-use-link {
     color: black !important;
     text-decoration: underline;
+    font-weight: 500;
     font-size: 16px;
 }
 #footer-links.theme-dark a {
     color: white !important;
 }
+
+#footer-links.theme-light a, #restrictions-on-use-link.theme-light {
+    transition: color 200ms ease-out, text-decoration 200ms ease-out, background-color 200ms ease-out;
+    color: rgb(81, 36, 122) !important;
+}
+#footer-links.theme-light a:hover, #restrictions-on-use-link.theme-light:hover {
+    color: rgb(255, 255, 255) !important;
+    background-color: rgb(81, 36, 122);
+}
 .search-portal-container {
     padding-top: 20px;
     padding-bottom: 20px;
 }
+.searchLabel {
+    color: #757377
+}
+
+.searchPortalResponsive {
+    border-radius: 2px;
+    border: 1px solid #fff;
+}
+
 
 @media (max-width: 768px) { /* Adjust breakpoint as needed */
     #search-portal-submit {
-        height: 30px;
+        height: 50px;
     }
     .suggestionList {
         position: absolute;
@@ -1121,5 +1167,48 @@ li.MuiAutocomplete-option:focus {
         width: 20px;
         padding-top: 1px;
         padding-right: 11px;
+    }
+    .search-type-button {
+       margin: 0
+    }
+    .search-type-button {
+        height: 50px;
+        padding: 0;
+    }
+    .search-dropdown-chevron-new::before {
+        margin-top: 8px;
+        margin-right: 12px !important;
+    }
+    .portalTypeSelector {
+        width: 100%;
+        left: 0px;
+        top: 9px;
+    }
+    .portalTypeSelectorDisplayed {
+       width: 100%;
+       left: 0;
+    }
+    .searchPortal-searchInput, .searchPortal-searchType {
+        border-radius: 2px;
+        border: 1px solid white;
+    }
+    .searchPortalResponsive {
+        border: none;
+    }
+    .portalTypeSelector {
+        position: absolute;
+        top: 67px;
+        right: 0;
+        z-index: 10;
+        overflow: auto;
+        width: 100%;
+        padding-left: 0;
+        outline: 1px solid #DCDCDD;
+    }
+    #search-field-label {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: calc(100% - 30px);
     }
 }
