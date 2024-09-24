@@ -901,13 +901,13 @@ class SearchPortal extends HTMLElement {
                 }
 
                 #current-inputfield:not(:placeholder-shown) + .searchLabel.theme-dark {
-                    font-size: 12px;
+                    font-size: 11px;
                     transform: translateY(-51px) translateX(-12px);
                     color: white;
                 }
 
                 #current-inputfield:not(:placeholder-shown) + .searchLabel.theme-light {
-                    font-size: 12px;
+                    font-size: 11px;
                     transform: translateY(-51px) translateX(-12px);
                     color: #43454e;
                 }
@@ -979,7 +979,7 @@ class SearchPortal extends HTMLElement {
                         padding-left: 0
                     }
                     #current-inputfield:not(:placeholder-shown) + .searchLabel.theme-dark {
-                         font-size: 12px;
+                        font-size: 11px;
                         text-align: right;
                         right: 0px;
                         transform: translateY(-51px);
@@ -988,7 +988,7 @@ class SearchPortal extends HTMLElement {
                     }
 
                     #current-inputfield:not(:placeholder-shown) + .searchLabel.theme-light {
-                        font-size: 12px;
+                        font-size: 11px;
                         text-align: right;
                         right: 0px;
                         transform: translateY(-51px);
