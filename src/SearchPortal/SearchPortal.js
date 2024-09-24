@@ -25,8 +25,11 @@ const COURSE_RESOURCE_SEARCH_TYPE = '8';
 
 const REMEMBER_COOKIE_ID = 'rememberSearchType';
 
+const template_chevron = 'url("data:image/svg+xml,%3csvg viewBox=%270 0 24 24%27 fill=%27none%27 xmlns=%27http://www.w3.org/2000/svg%27%3e%3cpath d=%27m7 10 5 5 5-5%27 stroke=%27%23000%27 stroke-width=%271.5%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3c/path%3e%3c/svg%3e")';
+const template_searchIcon = 'url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%23000%27%3e%3cpath d=%27M12.7 11.3c.9-1.2 1.4-2.6 1.4-4.2 0-3.9-3.1-7.1-7-7.1S0 3.2 0 7.1c0 3.9 3.2 7.1 7.1 7.1 1.6 0 3.1-.5 4.2-1.4l3 3c.2.2.5.3.7.3s.5-.1.7-.3c.4-.4.4-1 0-1.4l-3-3.1zm-5.6.8c-2.8 0-5.1-2.2-5.1-5S4.3 2 7.1 2s5.1 2.3 5.1 5.1-2.3 5-5.1 5z%27%3e%3c/path%3e%3c/svg%3e")';
+
 class SearchPortal extends HTMLElement {
-    
+
     connectedCallback() {
         console.log("callback");
         this.theme = this.getAttribute('theme') || '';
@@ -558,8 +561,8 @@ class SearchPortal extends HTMLElement {
 
             const offsetPx = 15;
             const negativeHeightOfRowPx = -40;
-            const newTopValue = matchingID * negativeHeightOfRowPx - offsetPx;
-            !!matchingID && !!portalTypeDropdown && (portalTypeDropdown.style.top = `${newTopValue}px`);
+            const newTopValue = 0 //matchingID * negativeHeightOfRowPx - offsetPx;
+            //!!matchingID && !!portalTypeDropdown && (portalTypeDropdown.style.top = `${newTopValue}px`);
 
             document.addEventListener('click', this.listenForMouseClicks);
         }
@@ -822,7 +825,6 @@ class SearchPortal extends HTMLElement {
     }
 
     updateTemplate(theme) {
-        console.log("UPDATING ,", theme)
         template.innerHTML = `
             <style>${overrides.toString()}</style>
             <style>
@@ -833,7 +835,7 @@ class SearchPortal extends HTMLElement {
                 }
                 
                 .searchPortal-searchType {
-                    min-width: 150px; /* Set dropdown width */
+                    min-width: 13rem; /* Set dropdown width */
                     background-color: white;
                 }
                 
@@ -891,20 +893,55 @@ class SearchPortal extends HTMLElement {
                 .searchLabel {
                     position: absolute;
                     display: block;
-                    left: 10px;
-                    color: #43454e;
+                    left: 16px;
+                    color: #757377;
                     pointer-events: none;
                     transform-origin: left center;
                     transition: all 200ms;
                     
                 }
 
-                #current-inputfield:not(:placeholder-shown) + .searchLabel {
-                    transform: translateY(-180%) scale(0.75);
+                #current-inputfield:not(:placeholder-shown) + .searchLabel.theme-dark {
+                    font-size: 11px;
+                    transform: translateY(-51px) translateX(-12px);
                     color: white;
+                }
+
+                #current-inputfield:not(:placeholder-shown) + .searchLabel.theme-light {
+                    font-size: 11px;
+                    transform: translateY(-51px) translateX(-12px);
+                    color: #43454e;
                 }
                 #current-inputfield:placeholder-shown + .searchLabel + .clear {
                     display: none;
+                }
+                
+                .search-icons::before {
+                    content: "";
+                    width: 24px;
+                    height: 24px;
+                    background-repeat: no-repeat;
+                    background-size: 100%;
+                    background-position: center;
+                    vertical-align: text-bottom;
+                    display: inline-block;
+                    position: absolute;
+                    right: 0;
+                    top: 4px;
+                    margin-right: 16px;
+                    filter: invert(20%) sepia(34%) saturate(1979%) hue-rotate(239deg) brightness(97%) contrast(107%);
+                    pointer-events: none;
+                }
+                .search-dropdown-chevron-new::before {
+                   
+                    background-image: ${template_chevron};
+                   
+                }
+                .search-search-icon-new::before {
+                   background-image: ${template_searchIcon};
+                   width: 16px;
+                   height: 16px;
+                   top: 18px
                 }
                 
                             
@@ -916,7 +953,7 @@ class SearchPortal extends HTMLElement {
                     .searchPortal-searchInput {
                         width: 100%;
                         flex-grow: 1;
-                        border-bottom: 2px solid #51247a;
+                        margin-bottom: 4px;
                     }
                     .searchPortal-searchType {
                         width: 100%; /* Take full width on smaller screens */
@@ -942,13 +979,32 @@ class SearchPortal extends HTMLElement {
                     .searchUnderlinks {
                         padding-left: 0
                     }
-                    #current-inputfield:not(:placeholder-shown) + .searchLabel {
-                        transform: translateY(-222%) scale(0.75);
-                        color: white;
-                        left: 80px;
-                        
-                        
+                    #current-inputfield:not(:placeholder-shown) + .searchLabel.theme-dark {
+                        font-size: 11px;
+                        text-align: right;
+                        right: 0px;
+                        transform: translateY(-51px);
+                        width: calc( 100% + 60px );
+                        color: white; 
                     }
+
+                    #current-inputfield:not(:placeholder-shown) + .searchLabel.theme-light {
+                        font-size: 11px;
+                        text-align: right;
+                        right: 0px;
+                        transform: translateY(-51px);
+                        width: calc( 100% + 60px );
+                        color: black;
+                    }
+
+                    .searchLabel {
+                    transform-origin: left center;
+                    }
+
+                   
+
+                   
+                        
                 }
 
             </style>
@@ -964,7 +1020,7 @@ class SearchPortal extends HTMLElement {
 
                         
 
-                        <div class="searchPortalResponsive" id="search-parent">
+                        <div class="searchPortalResponsive theme-${theme || 'light'}" id="search-parent">
                             <div class="searchPortal-searchType portaltype-dropdown-container" id="search-portal-type-select">
                             <!-- SEARCH TYPE (DROPDOWN) START -->
                                 <div id="portaltype-dropdown" data-testid="search-portal-type-select-wrapper" class="search-type-button MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl">
@@ -972,9 +1028,13 @@ class SearchPortal extends HTMLElement {
                                         <span id="portaltype-current-label" class="search-type-button-label" data-testid="portaltype-current-label">Library</span>
                                         <input data-testid="primo-search-select-input" data-analyticsid="primo-search-select-input" id="search-type-current-value" type="hidden" name="portaltype">
                                     </button>
+                                    <span class="search-icons search-dropdown-chevron-new">
+                                    </span>
+                                    <!-- 
                                     <svg class="MuiSvgIcon-root MuiSelect-icon search-dropdown-chevron" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                                        <path fill="currentColor" d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"/>
+                                         <path fill="currentColor" d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"/>
                                     </svg>
+                                    -->
                                 </div>
                             <!-- SEARCH TYPE (DROPDOWN) END -->
                             </div>
@@ -986,7 +1046,7 @@ class SearchPortal extends HTMLElement {
                                             <div id="inputFieldParent" role="combobox" aria-expanded="false" aria-controls="search-portal-autocomplete-listbox" class="MuiInputBase-root MuiInput-root MuiInput-underline MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd">
                                                 <!--  aria-controls="search-portal-autocomplete-listbox" invalid per AXE --> 
                                                 <input type="text" id="current-inputfield" name="currentInputfield" aria-invalid="false" autocomplete="off" type="search" class="MuiInputBase-input MuiInput-input selectInput MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch" aria-autocomplete="list" autocapitalize="none" spellcheck="false" aria-label="Enter your search terms" data-testid="primo-search-autocomplete-input" data-analyticsid="primo-search-autocomplete-input" value="">
-                                                <label id="search-field-label" class="searchLabel" for="current-inputfield">Find books, articles, past exams, and more</label>
+                                                <label id="search-field-label" class="searchLabel theme-${theme || 'light'}" for="current-inputfield">Find books, articles, past exams, and more</label>
                                                 <div class="MuiAutocomplete-endAdornment"></div>
                                             </div>
                                         </div>
@@ -1009,9 +1069,13 @@ class SearchPortal extends HTMLElement {
                                 </div>
                                 <div class="searchPortal-searchButton" >
                                     <button id="search-portal-submit" class="MuiButtonBase-root MuiButton-contained searchButton MuiButton-containedPrimary MuiButton-containedSizeLarge MuiButton-sizeLarge MuiButton-fullWidth" tabindex="0" type="submit" data-testid="primo-search-submit" data-analyticsid="primo-search-submit" value="Submit" title="Perform your search">
+                                        <!-- 
                                         <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                                             <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
                                         </svg>
+                                        -->
+                                        <span class="search-icons search-search-icon-new">
+                                        </span>
                                         <span class="MuiTouchRipple-root"></span>
                                     </button>
                                 </div>
@@ -1023,7 +1087,7 @@ class SearchPortal extends HTMLElement {
                                 <div id="footer-links" class="searchPanel MuiGrid-container MuiFormControlMuiGrid-spacing-xs-2 theme-${theme || 'light'}" data-testid="primo-search-links" data-analyticsid="primo-search-links"></div>
                             </div>
                             <div class="restrictionsContainer searchUnderlinks theme-${theme || 'light'}">
-                               <a id="restrictions-on-use-link" href="https://web.library.uq.edu.au/about-us/policies-guidelines#collection-notice">Restrictions on Use</a> 
+                               <a id="restrictions-on-use-link" class="theme-${theme || 'light'}" href="https://web.library.uq.edu.au/about-us/policies-guidelines#collection-notice">Restrictions on Use</a> 
                             </div>
                         </div>
                     
