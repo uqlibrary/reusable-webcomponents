@@ -866,23 +866,20 @@ input[type='search'] {
 .suggestionList {
     position: absolute;
     /* width: 767px;*/
-    width: calc(100% - 173px) !important;
+    width: calc(100% - 208px) !important;
     will-change: transform;
     transform: translate3d(203px, 325px, 0px);
     z-index: 1300;
-    top: -184px;
-    left: -50px !important;
+    top: -238px;
+    left: 7px !important;
 }
 
 @media (max-width: 959.95px) {
-    /* .suggestionList {
-        top: -200px;
-        left: -160px;
-        width: calc(100% - 895px);
-        margin-left: auto;
-        margin-right: auto;
-    }
-
+     /* .suggestionList {
+       
+       
+    } */
+    /*
     .search-type-button {
         text-align: left;
     } */
@@ -1162,7 +1159,7 @@ li.MuiAutocomplete-option:focus {
         will-change: transform;
         transform: translate3d(203px, 325px, 0px);
         z-index: 1300;
-        top: -184px;
+        top: -238px;
         left: -203px !important;
     }
     #inputFieldParent {
