@@ -22,12 +22,16 @@ userPromptTemplate.innerHTML = `
         <div id="minimised-buttons" class="pcminimised">
             <button id="proactive-chat-online" data-testid="proactive-chat-online" class="pconline" data-analyticsid="chat-status-icon-online-button" style="display: none;" title="Chat with us - see options" aria-label="Chat with us - see options">
                 <svg class="pcOnlineIcon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2M6 9h12v2H6zm8 5H6v-2h8zm4-6H6V6h12z"></path>
+                    <path d="M19.7999 17.3998H11.4L6.60007 20.9998V17.3998H4.20011C3.88185 17.3998 3.57663 17.2734 3.35159 17.0483C3.12655 16.8233 3.00012 16.5181 3.00012 16.1998V4.19998C3.00012 3.88173 3.12655 3.57651 3.35159 3.35147C3.57663 3.12643 3.88185 3 4.20011 3H19.7999C20.1182 3 20.4234 3.12643 20.6484 3.35147C20.8735 3.57651 20.9999 3.88173 20.9999 4.19998V16.1998C20.9999 16.5181 20.8735 16.8233 20.6484 17.0483C20.4234 17.2734 20.1182 17.3998 19.7999 17.3998Z" stroke="#19151C" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M6.59998 8.39989H17.3998" stroke="#19151C" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M6.59998 12H14.9999" stroke="#19151C" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </button>
            <button id="proactive-chat-offline" data-testid="proactive-chat-offline" class="pcOffline" data-analyticsid="chat-status-icon-offline-button" style="display: none;" title="Chat with us - see options" aria-label="Chat with us - see options">
                 <svg class="pcOfflineIcon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2M6 9h12v2H6zm8 5H6v-2h8zm4-6H6V6h12z"></path>
+                    <path d="M19.7999 17.3998H11.4L6.60007 20.9998V17.3998H4.20011C3.88185 17.3998 3.57663 17.2734 3.35159 17.0483C3.12655 16.8233 3.00012 16.5181 3.00012 16.1998V4.19998C3.00012 3.88173 3.12655 3.57651 3.35159 3.35147C3.57663 3.12643 3.88185 3 4.20011 3H19.7999C20.1182 3 20.4234 3.12643 20.6484 3.35147C20.8735 3.57651 20.9999 3.88173 20.9999 4.19998V16.1998C20.9999 16.5181 20.8735 16.8233 20.6484 17.0483C20.4234 17.2734 20.1182 17.3998 19.7999 17.3998Z" stroke="#19151C" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M6.59998 8.39989H17.3998" stroke="#19151C" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M6.59998 12H14.9999" stroke="#19151C" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </button>
         </div>
