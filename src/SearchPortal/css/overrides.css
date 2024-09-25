@@ -738,7 +738,6 @@ label + .MuiInput-formControl {
     text-overflow: ellipsis !important;
 }
 .searchUnderlinks {
-    margin-bottom: 4px;
     padding: 8px;
 }
 .searchUnderlinks:first-child {
