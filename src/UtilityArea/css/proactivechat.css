@@ -257,9 +257,17 @@ button.proactive-chat-button:focus {
 .topBar {
     background-color: #51247a;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: flex-start;
     padding: 6px 0;
+}
+.topBar h1 {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 20px;
+    margin: 4px 0 0 0;
+    padding: 0 20px;
 }
 .topBar button {
     background-color: #51247a;

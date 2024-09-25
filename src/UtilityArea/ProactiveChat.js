@@ -1,6 +1,7 @@
 import proactivecss from './css/proactivechat.css';
 import ApiAccess from '../ApiAccess/ApiAccess';
 import { cookieNotFound, setCookie } from '../helpers/cookie';
+import { apiLocale } from '../ApiAccess/ApiAccess.locale';
 
 /**
  * API
@@ -21,12 +22,16 @@ userPromptTemplate.innerHTML = `
         <div id="minimised-buttons" class="pcminimised">
             <button id="proactive-chat-online" data-testid="proactive-chat-online" class="pconline" data-analyticsid="chat-status-icon-online-button" style="display: none;" title="Chat with us - see options" aria-label="Chat with us - see options">
                 <svg class="pcOnlineIcon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2M6 9h12v2H6zm8 5H6v-2h8zm4-6H6V6h12z"></path>
+                    <path d="M19.7999 17.3998H11.4L6.60007 20.9998V17.3998H4.20011C3.88185 17.3998 3.57663 17.2734 3.35159 17.0483C3.12655 16.8233 3.00012 16.5181 3.00012 16.1998V4.19998C3.00012 3.88173 3.12655 3.57651 3.35159 3.35147C3.57663 3.12643 3.88185 3 4.20011 3H19.7999C20.1182 3 20.4234 3.12643 20.6484 3.35147C20.8735 3.57651 20.9999 3.88173 20.9999 4.19998V16.1998C20.9999 16.5181 20.8735 16.8233 20.6484 17.0483C20.4234 17.2734 20.1182 17.3998 19.7999 17.3998Z" stroke="#19151C" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M6.59998 8.39989H17.3998" stroke="#19151C" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M6.59998 12H14.9999" stroke="#19151C" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </button>
            <button id="proactive-chat-offline" data-testid="proactive-chat-offline" class="pcOffline" data-analyticsid="chat-status-icon-offline-button" style="display: none;" title="Chat with us - see options" aria-label="Chat with us - see options">
                 <svg class="pcOfflineIcon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2M6 9h12v2H6zm8 5H6v-2h8zm4-6H6V6h12z"></path>
+                    <path d="M19.7999 17.3998H11.4L6.60007 20.9998V17.3998H4.20011C3.88185 17.3998 3.57663 17.2734 3.35159 17.0483C3.12655 16.8233 3.00012 16.5181 3.00012 16.1998V4.19998C3.00012 3.88173 3.12655 3.57651 3.35159 3.35147C3.57663 3.12643 3.88185 3 4.20011 3H19.7999C20.1182 3 20.4234 3.12643 20.6484 3.35147C20.8735 3.57651 20.9999 3.88173 20.9999 4.19998V16.1998C20.9999 16.5181 20.8735 16.8233 20.6484 17.0483C20.4234 17.2734 20.1182 17.3998 19.7999 17.3998Z" stroke="#19151C" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M6.59998 8.39989H17.3998" stroke="#19151C" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M6.59998 12H14.9999" stroke="#19151C" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </button>
         </div>
@@ -61,6 +66,7 @@ chatbotIframeTemplate.innerHTML = `<div
 >
     <div class="resizeHandleRepositionWrapper">
         <div class="topBar">
+            <h1>Library Chatbot</h1>
             <button id="closeIframeButton" data-testid="closeIframeButton" data-analyticsid="chatbot-iframe-close" aria-label="Close Chatbot">
                 <!-- close "x" -->
                 <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
@@ -70,7 +76,7 @@ chatbotIframeTemplate.innerHTML = `<div
         </div>
         <iframe 
             id="chatbotIframe"
-            src="https://copilotstudio.microsoft.com/environments/7dd3d6ed-ec25-eff0-8ff2-b38b699e89c0/bots/cr546_uqAssistGenAiChatBot/webchat?__version__=2"
+            data-testid="chatbot-iframe"
             frameborder="0" 
             title="Ask Library Chatbot a question"
         ></iframe>
@@ -256,7 +262,7 @@ class ProactiveChat extends HTMLElement {
         const that = this;
         function closeChatBotIframe() {
             const chatbotIframe = shadowDOM.getElementById('chatbot-wrapper');
-            !!chatbotIframe && (chatbotIframe.style.display = 'none');
+            !!chatbotIframe && chatbotIframe.remove(); // deleting it rather than hiding it will force it to check for logout
             const proactivechatArea = shadowDOM.getElementById('proactivechat');
             !!proactivechatArea && (proactivechatArea.style.display = 'block');
 
@@ -337,21 +343,58 @@ class ProactiveChat extends HTMLElement {
                     chatbotWrapper = shadowDOM.getElementById('chatbot-wrapper');
                 }
 
-                // show copilot test url on staging domains
-                if (
-                    window.location.hostname === 'homepage-staging.library.uq.edu.au' ||
-                    window.location.hostname === 'homepage-development.library.uq.edu.au' ||
-                    window.location.hostname === 'web-staging.library.uq.edu.au' ||
-                    window.location.hostname === 'sandbox-fryer.library.uq.edu.au' ||
-                    window.location.hostname === 'app-testing.library.uq.edu.au' ||
-                    window.location.hostname === 'localhost'
+                // show chatbot source
+                let chatbotSrc = 'https://www.library.uq.edu.au';
+                if (window.location.hostname === 'localhost') {
+                    chatbotSrc = 'http://localhost:2020'; // bring mock up to use locally
+                } else if (
+                    window.location.hostname === 'homepage-development.library.uq.edu.au' &&
+                    window.location.pathname.startsWith('/feature-leadegroot')
                 ) {
-                    const chatBotIframe = !!chatbotWrapper && chatbotWrapper.getElementsByTagName('iframe');
-                    !!chatBotIframe &&
-                        chatBotIframe.length > 0 &&
-                        (chatBotIframe[0].src =
-                            'https://copilotstudio.microsoft.com/environments/2a892934-221c-eaa4-9f1a-4790000854ca/bots/cr546_uqAssistGenAiChatBot/webchat?__version__=2');
+                    // dev - ITS dev env
+                    chatbotSrc = `${window.location.protocol}//${window.location.hostname}/feature-leadegroot-1`;
+                } else if (
+                    window.location.hostname === 'homepage-development.library.uq.edu.au' &&
+                    window.location.pathname.startsWith('/chatbot-testenv')
+                ) {
+                    // dev - ITS test env
+                    chatbotSrc = `${window.location.protocol}//${window.location.hostname}/chatbot-testenv`;
+                } else if (
+                    window.location.hostname === 'homepage-staging.library.uq.edu.au' ||
+                    window.location.hostname === 'app-testing.library.uq.edu.au' ||
+                    window.location.hostname === 'web-staging.library.uq.edu.au' || // maybe iframe cross domain issue
+                    window.location.hostname === 'sandbox-fryer.library.uq.edu.au' // ditto
+                ) {
+                    chatbotSrc = window.location.protocol + '//' + window.location.hostname;
                 }
+                let chatbotUrl = `${chatbotSrc}/chatbot.html`;
+                const chatBotIframe = !!chatbotWrapper && chatbotWrapper.getElementsByTagName('iframe');
+                const api = new ApiAccess();
+                const waitOnStorage = setInterval(() => {
+                    // sometimes it takes a moment before it is readable
+                    const currentUserDetails = api.getAccountFromStorage();
+
+                    const accountAvailable =
+                        currentUserDetails.hasOwnProperty('account') &&
+                        !!currentUserDetails.account &&
+                        currentUserDetails.account.hasOwnProperty('id') &&
+                        !!currentUserDetails.account.id;
+                    if (!!accountAvailable) {
+                        clearInterval(waitOnStorage);
+
+                        chatbotUrl +=
+                            '?' +
+                            `name=${currentUserDetails.account.firstName}&email=${currentUserDetails.account.mail}`;
+                        !!chatBotIframe && chatBotIframe.length > 0 && (chatBotIframe[0].src = chatbotUrl);
+                    } else if (
+                        !!currentUserDetails &&
+                        currentUserDetails.hasOwnProperty('status') &&
+                        currentUserDetails.status === apiLocale.USER_LOGGED_OUT
+                    ) {
+                        clearInterval(waitOnStorage);
+                        !!chatBotIframe && chatBotIframe.length > 0 && (chatBotIframe[0].src = chatbotUrl);
+                    }
+                }, 200);
 
                 const openCrmButton = shadowDOM.getElementById('speakToPerson');
                 !!openCrmButton && openCrmButton.addEventListener('click', swapToCrm);
