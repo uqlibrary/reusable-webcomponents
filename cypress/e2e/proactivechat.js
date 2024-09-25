@@ -83,8 +83,7 @@ describe('Proactive Chat', () => {
                 .shadow()
                 .within(() => {
                     cy.get('[data-testid="popopen-button"]').focus();
-                    cy.wait(100);
-                    // hover color is actually available to be checked
+                    cy.wait(100); // hover color is actually available to be checked
                     cy.get('[data-testid="popopen-button"]').should(
                         'have.css',
                         'background-color',
@@ -253,7 +252,7 @@ describe('Proactive Chat', () => {
             cy.window().its('open').should('be.called');
         });
 
-        it('AI chatbot iframe opens from proactive dialog', () => {
+        it('AI chatbot iframe opens from proactive dialog for logged in user', () => {
             cy.visit('http://localhost:8080/index-chat-fast.html');
             cy.viewport(1280, 900);
 
@@ -268,25 +267,57 @@ describe('Proactive Chat', () => {
             // let the iframe finish drawing
             cy.wait(4000);
 
-            cy.get('proactive-chat').shadow().find('[data-testid="chatbot-wrapper"]').should('exist'); // well, at least we know the iframe reaches the page!
-
-            // can close iframe
-            cy.get('proactive-chat').shadow().find('[data-testid="closeIframeButton"]').should('exist').click();
-            // once the chatbot is closed, the minimised icon appears
             cy.get('proactive-chat')
                 .shadow()
-                .find('[data-testid="proactive-chat-online"]')
-                .should('exist')
-                .should('be.visible');
+                .within(() => {
+                    cy.get('[data-testid="chatbot-wrapper"]').should('exist'); // well, at least we know the iframe reaches the page!
 
-            // can reopen iframe
-            cy.get('proactive-chat').shadow().find('[data-testid="proactive-chat-online"]').should('exist').click();
-            cy.get('proactive-chat').shadow().find('[data-testid="popopen-button"]').should('exist').click();
+                    // logged in user is correctly attached to the page
+                    cy.get('[data-testid="chatbot-iframe"]')
+                        .should('exist')
+                        .should(
+                            'have.attr',
+                            'src',
+                            'http://localhost:2020/chatbot.html?name=Vanilla&email=vanilla@example.uq.edu.au',
+                        );
+
+                    // can close iframe
+                    cy.get('[data-testid="closeIframeButton"]').should('exist').click();
+                    // once the chatbot is closed, the minimised icon appears
+                    cy.get('[data-testid="proactive-chat-online"]').should('exist').should('be.visible');
+
+                    // can reopen iframe
+                    cy.get('[data-testid="proactive-chat-online"]').should('exist').click();
+                    cy.get('[data-testid="popopen-button"]').should('exist').click();
+                    cy.get('[data-testid="chatbot-wrapper"]').should('exist').should('be.visible');
+                });
+        });
+
+        it('AI chatbot iframe opens from proactive dialog for logged out user', () => {
+            cy.visit('http://localhost:8080/index-chat-fast.html?user=public');
+            cy.viewport(1280, 900);
+
+            cy.getCookie('UQ_PROACTIVE_CHAT').should('not.exist');
+
+            // manually wait
+            cy.wait(100);
+
+            assertPopupIsOpen();
             cy.get('proactive-chat')
                 .shadow()
-                .find('[data-testid="chatbot-wrapper"]')
-                .should('exist')
-                .should('be.visible');
+                .within(() => {
+                    cy.get('button:contains("Ask Library Chatbot")').should('exist').click();
+
+                    // let the iframe finish drawing
+                    cy.wait(4000);
+
+                    cy.get('[data-testid="chatbot-wrapper"]').should('exist'); // well, at least we know the iframe reaches the page!
+
+                    // logged in user is correctly attached to the page
+                    cy.get('[data-testid="chatbot-iframe"]')
+                        .should('exist')
+                        .should('have.attr', 'src', 'http://localhost:2020/chatbot.html'); // logged out so no user params
+                });
         });
 
         it('minimised button focus opens proactive dialog', () => {
@@ -455,7 +486,7 @@ describe('Proactive Chat', () => {
             cy.window().its('open').should('be.called');
         });
     });
-    context('when chatbot is known to be broken', () => {
+    context('when chatbot is known to be unavailable', () => {
         it('gives a link to CRM chat when askus is online', () => {
             cy.visit('http://localhost:8080/index-app-nochatbot.html');
             cy.viewport(1280, 900);
