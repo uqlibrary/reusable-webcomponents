@@ -721,12 +721,12 @@ class SearchPortal extends HTMLElement {
 
         // supply the placeholder text (UPDATE: Change the subtext in the title.)
         const inputField = this.shadowRoot.getElementById('current-inputfield');
-        const subTitleField = this.shadowRoot.getElementById('search-field-label')
+        // const subTitleField = this.shadowRoot.getElementById('search-field-label')
         !!inputField &&
             !!searchPortalLocale.typeSelect &&
             !!searchPortalLocale.typeSelect.items[useSearchType] &&
             !!searchPortalLocale.typeSelect.items[useSearchType].placeholder &&
-            (subTitleField.innerHTML = searchPortalLocale.typeSelect.items[useSearchType].placeholder) &&
+            // (subTitleField.innerHTML = searchPortalLocale.typeSelect.items[useSearchType].placeholder) &&
             (inputField.placeholder = searchPortalLocale.typeSelect.items[useSearchType].placeholder);
             
         // add an extra class to the button to say which label it is currently showing
@@ -879,9 +879,6 @@ class SearchPortal extends HTMLElement {
                 }
 
                 #current-inputfield {
-                    &::placeholder {
-                        color: transparent;
-                    }
                     &::-webkit-contacts-auto-fill-button {
                         visibility: hidden;
                         pointer-events: none;
@@ -900,7 +897,7 @@ class SearchPortal extends HTMLElement {
                     
                 }
 
-                #current-inputfield:not(:placeholder-shown) + .searchLabel.theme-dark {
+                /* #current-inputfield:not(:placeholder-shown) + .searchLabel.theme-dark {
                     font-size: 11px;
                     transform: translateY(-51px) translateX(-12px);
                     color: white;
@@ -914,6 +911,7 @@ class SearchPortal extends HTMLElement {
                 #current-inputfield:placeholder-shown + .searchLabel + .clear {
                     display: none;
                 }
+                */
                 
                 .search-icons::before {
                     content: "";
@@ -1044,8 +1042,7 @@ class SearchPortal extends HTMLElement {
                                         <div class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth">
                                             <div id="inputFieldParent" role="combobox" aria-expanded="false" aria-controls="search-portal-autocomplete-listbox" class="MuiInputBase-root MuiInput-root MuiInput-underline MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd">
                                                 <!--  aria-controls="search-portal-autocomplete-listbox" invalid per AXE --> 
-                                                <input type="text" id="current-inputfield" name="currentInputfield" aria-invalid="false" autocomplete="off" type="search" class="MuiInputBase-input MuiInput-input selectInput MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch" aria-autocomplete="list" autocapitalize="none" spellcheck="false" aria-label="Enter your search terms" data-testid="primo-search-autocomplete-input" data-analyticsid="primo-search-autocomplete-input" value="">
-                                                <label id="search-field-label" class="searchLabel theme-${theme || 'light'}" for="current-inputfield">Find books, articles, past exams, and more</label>
+                                                <input enterkeyhint="search" type="text" id="current-inputfield" name="currentInputfield" aria-invalid="false" autocomplete="off" type="search" class="MuiInputBase-input MuiInput-input selectInput MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch" aria-autocomplete="list" autocapitalize="none" spellcheck="false" aria-label="Enter your search terms" data-testid="primo-search-autocomplete-input" data-analyticsid="primo-search-autocomplete-input" value="">
                                                 <div class="MuiAutocomplete-endAdornment"></div>
                                             </div>
                                         </div>
@@ -1067,7 +1064,7 @@ class SearchPortal extends HTMLElement {
                                 
                                 </div>
                                 <div class="searchPortal-searchButton" >
-                                    <button id="search-portal-submit" class="MuiButtonBase-root MuiButton-contained searchButton MuiButton-containedPrimary MuiButton-containedSizeLarge MuiButton-sizeLarge MuiButton-fullWidth" tabindex="0" type="submit" data-testid="primo-search-submit" data-analyticsid="primo-search-submit" value="Submit" title="Perform your search">
+                                    <button id="search-portal-submit" class="MuiButtonBase-root MuiButton-contained searchButton MuiButton-containedPrimary MuiButton-containedSizeLarge MuiButton-sizeLarge MuiButton-fullWidth" tabindex="0" type="search" data-testid="primo-search-submit" data-analyticsid="primo-search-submit" value="Submit" title="Perform your search" name="Search">
                                         <!-- 
                                         <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                                             <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
