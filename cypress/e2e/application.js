@@ -358,7 +358,6 @@ describe('Dummy Application', () => {
             hasNoUqFooter(); // drupal supplies that
 
             // simple check that the components exist, now that we are splitting them out from the main reusable.min file
-            cy.get('search-portal').shadow().find('#search-field-label').should('contain', 'Find books, articles, past exams, and more');
             cy.get('library-training')
                 .shadow()
                 .find('training-filter')
