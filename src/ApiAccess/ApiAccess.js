@@ -467,9 +467,18 @@ class ApiAccess {
     }
 
     setStorageLoggedOut() {
-        this.isSessionStorageEnabled && sessionStorage.removeItem(locale.STORAGE_ACCOUNT_KEYNAME);
+        if (!this.isSessionStorageEnabled) {
+            return;
+        }
+        sessionStorage.removeItem(locale.STORAGE_ACCOUNT_KEYNAME);
         const emptyAccount = JSON.stringify(this.LOGGED_OUT_ACCOUNT);
-        this.isSessionStorageEnabled && sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, emptyAccount);
+        sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, emptyAccount);
+
+        // also remove the chatbot session ids, killing the chatbot session
+        sessionStorage.removeItem('directLineToken');
+        sessionStorage.removeItem('directLineURL');
+        sessionStorage.removeItem('directLineConversationId');
+        // see homepage/chatbot.html
     }
 
     logUserOut() {
