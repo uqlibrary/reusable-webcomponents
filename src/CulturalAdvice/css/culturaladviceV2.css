@@ -23,4 +23,14 @@
     max-width: 71rem;
     padding-left: 1rem;
     padding-right: 1rem;
+   
+}
+
+@media (max-width: 640px) {
+    .layout-card {
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 24px;
+        padding-right: 24px;
+    }
 }
