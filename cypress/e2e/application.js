@@ -78,28 +78,24 @@ describe('Dummy Application', () => {
         cy.get('proactive-chat').should('not.exist');
     }
 
-    function hasProactiveChat() {
+    function proactiveChatLoadsAsIcon() {
         cy.get('proactive-chat')
             .shadow()
-            .find('[data-testid="proactive-chat-online"]')
-            .should('exist')
-            .should('be.visible');
-        cy.get('proactive-chat')
-            .shadow()
-            .find('[data-testid="proactive-chat-offline"]')
-            .should('exist')
-            .should('not.be.visible');
-        cy.get('proactive-chat')
-            .shadow()
-            .find('button:contains("Ask Library Chatbot")')
-            .should('exist')
-            .should('not.be.visible');
-        cy.get('proactive-chat')
-            .shadow()
-            .find('button:contains("Leave a question")')
-            .should('exist')
-            .should('not.be.visible');
-        cy.get('proactive-chat').shadow().find('[data-testid="close-button"]').should('exist').should('not.be.visible');
+            .within(() => {
+                cy.get('[data-testid="proactive-chat-online"]').should('exist').should('be.visible');
+                cy.get('[data-testid="proactive-chat-offline"]').should('exist').should('not.be.visible');
+                cy.get('button:contains("Ask Library Chatbot")').should('exist').should('not.be.visible');
+                cy.get('button:contains("Leave a question")').should('exist').should('not.be.visible');
+                cy.get('[data-testid="close-button"]').should('exist').should('not.be.visible');
+
+                // proactive chat opens on click
+                cy.get('[data-testid="proactive-chat-online"]').click();
+                cy.get('button:contains("Ask Library Chatbot")').should('be.visible');
+                // and closes
+                cy.get('[data-testid="close-button"]').should('be.visible').click();
+                cy.get('button:contains("Ask Library Chatbot")').should('not.be.visible');
+                cy.get('[data-testid="close-button"]').should('not.be.visible');
+            });
     }
 
     function hasNoAskusButton() {
@@ -197,9 +193,9 @@ describe('Dummy Application', () => {
 
             hasNoMegaMenu();
 
-            hasAskusButton();
-            hasProactiveChat();
+            proactiveChatLoadsAsIcon();
             hasAuthButton();
+            hasAskusButton();
 
             hasAnAlert();
 
@@ -242,8 +238,8 @@ describe('Dummy Application', () => {
 
             hasMegaMenu();
 
+            proactiveChatLoadsAsIcon();
             hasAskusButton();
-            hasProactiveChat();
             hasNoAuthButton();
 
             hasAnAlert();
@@ -291,9 +287,9 @@ describe('Dummy Application', () => {
 
             hasNoMegaMenu();
 
+            proactiveChatLoadsAsIcon();
             hasAskusButton();
             hasAuthButton();
-            hasProactiveChat();
 
             hasAnAlert();
 
@@ -314,9 +310,9 @@ describe('Dummy Application', () => {
 
             hasNoMegaMenu();
 
+            proactiveChatLoadsAsIcon();
             hasNoAskusButton();
             hasNoAuthButton();
-            hasProactiveChat();
 
             hasAnAlert();
 
@@ -337,8 +333,8 @@ describe('Dummy Application', () => {
 
             hasMegaMenu();
 
+            proactiveChatLoadsAsIcon();
             hasAskusButton();
-            hasProactiveChat();
             hasAuthButton();
 
             hasAnAlert();
@@ -396,8 +392,8 @@ describe('Dummy Application', () => {
 
             hasNoMegaMenu();
 
+            proactiveChatLoadsAsIcon();
             hasAskusButton();
-            hasProactiveChat();
             hasNoAuthButton();
 
             hasAnAlert();
