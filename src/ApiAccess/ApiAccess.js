@@ -374,7 +374,7 @@ class ApiAccess {
             // reference: https://dmitripavlutin.com/javascript-fetch-async-await/
             const API_URL = process.env.API_URL || 'https://api.library.uq.edu.au/staging/';
             const connector = urlPath.indexOf('?') > -1 ? '&' : '?';
-            const addTimestamp = !!timestampRequired ? `${connector}${new Date().getTime()}` : '';
+            const addTimestamp = !!timestampRequired ? `${connector}ts=${new Date().getTime()}` : '';
 
             const response = await fetch(`${API_URL}${urlPath}${addTimestamp}`, {
                 headers: options,
