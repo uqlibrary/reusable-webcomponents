@@ -25,6 +25,7 @@ A link that requires a Statutory Copyright statement does so
 - LOGIN: should be logged in
 - load: https://assets.library.uq.edu.au/reusable-webcomponents-development/master/index-secure-collection.html?collection=coursebank&file=111111111111111.pdf
 - see: This material has been reproduced and communicated to you by or on behalf
+- eg https://files.library.uq.edu.au/collection/?collection=documents&file=Tincture_Journal_Issue_Thirteen_(Autumn_2016).pdf
 
 A link that requires a Commercial Copyright statement does so
 
