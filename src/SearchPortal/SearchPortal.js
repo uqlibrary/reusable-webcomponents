@@ -1083,7 +1083,7 @@ class SearchPortal extends HTMLElement {
                                 <div id="footer-links" class="searchPanel MuiGrid-container MuiFormControlMuiGrid-spacing-xs-2 theme-${theme || 'light'}" data-testid="primo-search-links" data-analyticsid="primo-search-links"></div>
                             </div>
                             <div class="restrictionsContainer searchUnderlinks theme-${theme || 'light'}">
-                               <a id="restrictions-on-use-link" class="theme-${theme || 'light'}" href="https://web.library.uq.edu.au/about-us/policies-guidelines#collection-notice">Restrictions on Use</a> 
+                               <a id="restrictions-on-use-link" class="theme-${theme || 'light'}" href="https://web.library.uq.edu.au/about-us/policies-guidelines#collection-notice">Restrictions on use</a> 
                             </div>
                         </div>
                     
