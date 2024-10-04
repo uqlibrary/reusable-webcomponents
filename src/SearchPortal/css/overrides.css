@@ -731,6 +731,9 @@ label + .MuiInput-formControl {
 }
 #search-portal-autocomplete .selectInput {
     font-size: 16px !important;
+    font-weight: 400;
+    letter-spacing: 0.16px;
+
 }
 .selectInput::placeholder {
     overflow: hidden !important;
@@ -835,6 +838,9 @@ input[type='search'] {
     /* padding-left: 0.5rem; */
     padding-top: 0px;
     padding-bottom: 0px;
+    color: #19151C !important;
+    font-weight: 400;
+    letter-spacing: 0.16px;
 }
 
 .label-0-button .portalTypeSelectionEntry-0,
@@ -846,7 +852,7 @@ input[type='search'] {
 .label-6-button .portalTypeSelectionEntry-6,
 .label-7-button .portalTypeSelectionEntry-7,
 .label-8-button .portalTypeSelectionEntry-8 {
-    color: #000;
+    color: #19151C !important;
     background-color: #d3d3d3 !important;
 }
 .portalTypeSelectionEntry-0:focus,
@@ -858,8 +864,8 @@ input[type='search'] {
 .portalTypeSelectionEntry-6:focus,
 .portalTypeSelectionEntry-7:focus,
 .portalTypeSelectionEntry-8:focus {
-    color: #fff;
-    background-color: #4085c6 !important; /* uqblue */
+    color: #19151C;
+    background-color: #E7F0FA !important; 
 }
 
 .suggestionList {
