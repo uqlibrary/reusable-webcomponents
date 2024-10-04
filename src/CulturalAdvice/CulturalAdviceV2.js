@@ -17,7 +17,7 @@ template.innerHTML = `
     <div class="culturaladvicev2">
             <div class="layout-card">
                 <p>
-                    The Library is custodian of <a href="https://web.library.uq.edu.au/collections/culturally-sensitive-collections">culturally sensitive Indigenous material.</a>
+                    The Library is custodian of <a href="https://web.library.uq.edu.au/collections/culturally-sensitive-collections">culturally sensitive Aboriginal and Torres Strait Islander materials</a>.
                 </p>
             </div>
     </div>
