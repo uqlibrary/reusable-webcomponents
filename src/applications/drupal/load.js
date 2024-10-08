@@ -3,6 +3,14 @@ const libraryStagingDomain = 'web-staging.library.uq.edu.au';
 const libraryFeatureBranchName = 'drupal-staging';
 const libraryAssetsRootLocation = 'https://assets.library.uq.edu.au/reusable-webcomponents';
 
+// certain admin pages in drupal don't take the webcomponents because they interact badly
+const libraryPagesWithoutComponents = [
+    '/src/applications/drupal/pageWithoutComponents.html', // localhost test this concept
+    '/ckfinder/browse',
+    '/ckfinder/browse/images',
+    '/ckfinder/browse/files',
+];
+
 function ready(fn) {
     if (scriptSkipped()) {
         return;
@@ -23,7 +31,7 @@ function scriptSkipped() {
 
 function addUtilityButtonsToSiteHeader() {
     // find the existing breadcrumbs holder and setup so the breadcrumb sit left and our buttons will sit right
-    const breadcrumbWrapper = document.querySelector('.section__content.breadcrumbs');
+    const breadcrumbWrapper = document.querySelector('.uq-breadcrumb');
     !!breadcrumbWrapper && (breadcrumbWrapper.style.display = 'flex');
     !!breadcrumbWrapper && (breadcrumbWrapper.style.justifyContent = 'space-between');
 
@@ -32,15 +40,20 @@ function addUtilityButtonsToSiteHeader() {
     !!uqSiteHeaderRight && uqSiteHeaderRight.classList.add('uq-site-header__title-container__right');
     !!breadcrumbWrapper && !!uqSiteHeaderRight && breadcrumbWrapper.appendChild(uqSiteHeaderRight);
 
-    if (!document.querySelector('askus-button')) {
-        const askusButton = document.createElement('askus-button');
-        !!uqSiteHeaderRight && !!askusButton && uqSiteHeaderRight.appendChild(askusButton);
-    }
-
-    if (!document.querySelector('auth-button')) {
-        const authButton = document.createElement('auth-button');
+    let authButton = document.querySelector('auth-button');
+    if (!authButton) {
+        authButton = document.createElement('auth-button');
         !!uqSiteHeaderRight && !!authButton && uqSiteHeaderRight.appendChild(authButton);
     }
+
+    // resize the area to look right and match other sites
+    const breadcrumbList = document.querySelector('.uq-breadcrumb__list');
+    !!breadcrumbList && (breadcrumbList.style.height = '22px');
+
+    const breadcrumbHolder = document.getElementById('block-uq-standard-theme-breadcrumbs');
+    !!breadcrumbHolder && (breadcrumbHolder.style.height = '46px');
+
+    !!authButton && (authButton.style.marginTop = '-6px');
 }
 
 // example usage: loadFontFile('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
@@ -62,14 +75,6 @@ function addCss(fileName) {
 
     head.appendChild(link);
 }
-
-// certain admin pages in drupal don't take the webcomponents because they interact badly
-const libraryPagesWithoutComponents = [
-    '/src/applications/drupal/pageWithoutComponents.html', // localhost test this concept
-    '/ckfinder/browse',
-    '/ckfinder/browse/images',
-    '/ckfinder/browse/files',
-];
 
 function insertScript(url, defer = false) {
     const scriptfound = document.querySelector("script[src*='" + url + "']");
