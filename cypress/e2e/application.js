@@ -31,6 +31,10 @@ describe('Dummy Application', () => {
         cy.get('uq-header').shadow().find('[data-testid="uq-header-logo-large-link"]').should('exist');
     }
 
+    function hasCulturalAdvice() {
+        cy.get('cultural-advice-v2').shadow().find('[data-testid="cultural-advice-statement"]').should('exist');
+    }
+
     function hasNoUqHeader() {
         cy.get('uq-header').should('not.exist');
     }
@@ -202,7 +206,7 @@ describe('Dummy Application', () => {
             hasUqHeader();
 
             hasUqSiteHeader();
-
+            
             hasNoAskusButton();
             hasNoAuthButton();
             hasNoProactiveChat();
@@ -338,6 +342,8 @@ describe('Dummy Application', () => {
 
             hasUqHeader();
 
+            hasCulturalAdvice();
+
             hasUqSiteHeader();
 
             hasAskusButton();
@@ -354,7 +360,7 @@ describe('Dummy Application', () => {
                 .should('exist')
                 .should('contain', 'This is the message');
 
-            hasConnectFooter();
+            hasNoConnectFooter();
 
             hasUqFooter();
 

@@ -16,7 +16,7 @@ template.innerHTML = `
     <style>${culturalcss}</style>
     <div class="culturaladvicev2">
             <div class="layout-card">
-                <p>
+                <p data-testid="cultural-advice-statement">
                     The Library is custodian of <a href="https://web.library.uq.edu.au/collections/culturally-sensitive-collections">culturally sensitive Aboriginal and Torres Strait Islander materials</a>.
                 </p>
             </div>
