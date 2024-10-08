@@ -4,11 +4,21 @@ const libraryFeatureBranchName = 'drupal-staging';
 const libraryAssetsRootLocation = 'https://assets.library.uq.edu.au/reusable-webcomponents';
 
 function ready(fn) {
+    if (scriptSkipped()) {
+        return;
+    }
     if (document.readyState !== 'loading') {
         fn();
     } else {
         document.addEventListener('DOMContentLoaded', fn);
     }
+}
+
+function scriptSkipped() {
+    const url = window.location.href;
+    const urlObj = new URL(url);
+    const params = new URLSearchParams(urlObj.search);
+    return params.get('skipScript') === 'yes';
 }
 
 function addUtilityButtonsToSiteHeader() {
