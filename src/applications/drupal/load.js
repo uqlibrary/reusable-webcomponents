@@ -142,6 +142,14 @@ function loadReusableComponentsDrupal() {
 
         !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
     }
+
+    // Cultural Advise Version 2
+    if (!document.querySelector('cultural-advice-v2')) {
+        const culturalAdvice = document.createElement('cultural-advice-v2');
+        !!culturalAdvice && document.body.insertBefore(culturalAdvice, firstElement);
+    }
+
+
     // Proactive Chat button
     if (!document.querySelector('proactive-chat')) {
         const proactiveChat = document.createElement('proactive-chat');
@@ -154,10 +162,12 @@ function loadReusableComponentsDrupal() {
         !!alerts && document.body.insertBefore(alerts, firstElement);
     }
 
-    if (!document.querySelector('connect-footer')) {
-        const connectFooter = document.createElement('connect-footer');
-        !!connectFooter && document.body.appendChild(connectFooter);
-    }
+    // Disabling connect footer for the mean time. New Design.
+
+    // if (!document.querySelector('connect-footer')) {
+    //     const connectFooter = document.createElement('connect-footer');
+    //     !!connectFooter && document.body.appendChild(connectFooter);
+    // }
     // cultural advice popup
     if (!document.querySelector('cultural-advice-popup')) {
         const culturalAdvice = document.createElement('cultural-advice-popup');
