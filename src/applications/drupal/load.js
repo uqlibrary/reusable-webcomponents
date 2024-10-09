@@ -129,6 +129,18 @@ function getScriptPath(jsFilename) {
     return libraryAssetsRootLocation + folder + jsFilename;
 }
 
+function addCulturalAdviceToSite() {
+    const targetElement = document.getElementById('block-uq-standard-theme-breadcrumbs');
+    console.log("TARGET ELEMENT", targetElement);
+    if (!targetElement) return;
+
+    if (!document.querySelector('cultural-advice-v2')) {
+        console.log("Creating element")
+        const culturalAdvice = document.createElement('cultural-advice-v2');
+        !!culturalAdvice && targetElement.parentNode.insertBefore(culturalAdvice, targetElement.nextSibling);
+    }
+}
+
 function loadReusableComponentsDrupal() {
     insertScript(getScriptPath('drupal-lib-reusable.min.js'), true);
     insertScript(getScriptPath('uq-lib-reusable.min.js'), true);
@@ -155,6 +167,9 @@ function loadReusableComponentsDrupal() {
     // gtm is inserted by drupal
 
     // uq-header is done manually by drupal
+
+    addCulturalAdviceToSite();
+
 
     addUtilityButtonsToSiteHeader();
 

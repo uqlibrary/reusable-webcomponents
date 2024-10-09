@@ -39,6 +39,7 @@ import SecureCollection from './SecureCollection/SecureCollection.js';
 import UQFooter from './UQFooter/UQFooter';
 import UQHeader from './UQHeader/UQHeader';
 import UQSiteHeader from './UQSiteHeader/UQSiteHeader';
+import CulturalAdviceV2 from './CulturalAdvice/CulturalAdviceV2.js';
 
 /* istanbul ignore else  */
 if (process.env.USE_MOCK) {
@@ -61,3 +62,4 @@ customElements.define('uq-gtm', gtm);
 customElements.define('uq-header', UQHeader);
 customElements.define('uq-site-header', UQSiteHeader);
 customElements.define('cultural-advice-popup', CulturalAdvice);
+customElements.define('cultural-advice-v2', CulturalAdviceV2);

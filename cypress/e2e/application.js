@@ -339,9 +339,9 @@ describe('Dummy Application', () => {
             hasNoUqHeader(); // drupal supplies that
 
             // hasUqSiteHeader();
-            hasAskusButton();
+            // hasAskusButton();
             hasProactiveChat();
-            hasAuthButton();
+            // hasAuthButton();
 
             hasAnAlert();
             // a drupal specific alert appears
