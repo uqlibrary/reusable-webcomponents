@@ -131,11 +131,9 @@ function getScriptPath(jsFilename) {
 
 function addCulturalAdviceToSite() {
     const targetElement = document.getElementById('block-uq-standard-theme-breadcrumbs');
-    console.log("TARGET ELEMENT", targetElement);
     if (!targetElement) return;
 
     if (!document.querySelector('cultural-advice-v2')) {
-        console.log("Creating element")
         const culturalAdvice = document.createElement('cultural-advice-v2');
         !!culturalAdvice && targetElement.parentNode.insertBefore(culturalAdvice, targetElement.nextSibling);
     }
@@ -197,16 +195,16 @@ function loadReusableComponentsDrupal() {
         }
     }
 
-    const uqFooter = document.querySelector('footer.uq-footer');
-    if (!document.querySelector('connect-footer')) {
-        const connectFooter = document.createElement('connect-footer');
-        if (!!uqFooter) {
-            !!connectFooter && uqFooter.parentNode.insertBefore(connectFooter, uqFooter);
-        } else {
-            // if drupal have changed the markup insert the element _somewhere_ anyway
-            !!connectFooter && document.body.appendChild(connectFooter);
-        }
-    }
+    // const uqFooter = document.querySelector('footer.uq-footer');
+    // if (!document.querySelector('connect-footer')) {
+    //     const connectFooter = document.createElement('connect-footer');
+    //     if (!!uqFooter) {
+    //         !!connectFooter && uqFooter.parentNode.insertBefore(connectFooter, uqFooter);
+    //     } else {
+    //         // if drupal have changed the markup insert the element _somewhere_ anyway
+    //         !!connectFooter && document.body.appendChild(connectFooter);
+    //     }
+    // }
 
     // uq-footer is done manually by drupal
 }

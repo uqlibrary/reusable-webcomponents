@@ -353,7 +353,7 @@ describe('Dummy Application', () => {
                 .should('exist')
                 .should('contain', 'This is the message');
 
-            hasConnectFooter();
+            // hasConnectFooter();
 
             hasNoUqFooter(); // drupal supplies that
 
