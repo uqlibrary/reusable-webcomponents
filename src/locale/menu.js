@@ -31,7 +31,7 @@ export default {
                 {
                     primaryText: 'for HDR students',
                     secondaryText: 'Research support, training, tools',
-                    linkTo: 'https://web.library.uq.edu.au/library-services/services-higher-degree-by-research',
+                    linkTo: 'https://guides.library.uq.edu.au/for-researchers/support-higher-degree-research-students',
                 },
                 {
                     primaryText: 'for Teaching staff',
