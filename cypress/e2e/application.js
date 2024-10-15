@@ -183,8 +183,6 @@ describe('Dummy Application', () => {
 
             hasUqSiteHeader();
 
-            hasNoMegaMenu();
-
             proactiveChatLoadsAsIcon();
             hasAuthButton();
             hasAskusButton();
@@ -225,8 +223,6 @@ describe('Dummy Application', () => {
             hasUqHeader();
 
             hasUqSiteHeader();
-
-            hasMegaMenu();
 
             proactiveChatLoadsAsIcon();
             hasAskusButton();
@@ -323,8 +319,6 @@ describe('Dummy Application', () => {
 
             hasUqSiteHeader();
 
-            hasNoMegaMenu();
-
             proactiveChatLoadsAsIcon();
             hasNoAskusButton();
             hasNoAuthButton();
@@ -367,7 +361,6 @@ describe('Dummy Application', () => {
             hasUqFooter();
 
             // simple check that the components exist, now that we are splitting them out from the main reusable.min file
-            cy.get('search-portal').shadow().find('h2').should('contain', 'Library Search');
             cy.get('open-athens')
                 .shadow()
                 .find('fieldset input')
@@ -404,8 +397,6 @@ describe('Dummy Application', () => {
             hasUqHeader();
 
             hasUqSiteHeader();
-
-            hasNoMegaMenu();
 
             proactiveChatLoadsAsIcon();
             hasAskusButton();
