@@ -70,28 +70,24 @@ describe('Dummy Application', () => {
         cy.get('proactive-chat').should('not.exist');
     }
 
-    function hasProactiveChat() {
+    function proactiveChatLoadsAsIcon() {
         cy.get('proactive-chat')
             .shadow()
-            .find('[data-testid="proactive-chat-online"]')
-            .should('exist')
-            .should('be.visible');
-        cy.get('proactive-chat')
-            .shadow()
-            .find('[data-testid="proactive-chat-offline"]')
-            .should('exist')
-            .should('not.be.visible');
-        cy.get('proactive-chat')
-            .shadow()
-            .find('button:contains("Ask Library Chatbot")')
-            .should('exist')
-            .should('not.be.visible');
-        cy.get('proactive-chat')
-            .shadow()
-            .find('button:contains("Leave a question")')
-            .should('exist')
-            .should('not.be.visible');
-        cy.get('proactive-chat').shadow().find('[data-testid="close-button"]').should('exist').should('not.be.visible');
+            .within(() => {
+                cy.get('[data-testid="proactive-chat-online"]').should('exist').should('be.visible');
+                cy.get('[data-testid="proactive-chat-offline"]').should('exist').should('not.be.visible');
+                cy.get('button:contains("Ask Library Chatbot")').should('exist').should('not.be.visible');
+                cy.get('button:contains("Leave a question")').should('exist').should('not.be.visible');
+                cy.get('[data-testid="close-button"]').should('exist').should('not.be.visible');
+
+                // proactive chat opens on click
+                cy.get('[data-testid="proactive-chat-online"]').click();
+                cy.get('button:contains("Ask Library Chatbot")').should('be.visible');
+                // and closes
+                cy.get('[data-testid="close-button"]').should('be.visible').click();
+                cy.get('button:contains("Ask Library Chatbot")').should('not.be.visible');
+                cy.get('[data-testid="close-button"]').should('not.be.visible');
+            });
     }
 
     function hasNoAskusButton() {
@@ -187,9 +183,11 @@ describe('Dummy Application', () => {
 
             hasUqSiteHeader();
 
-            hasAskusButton();
-            hasProactiveChat();
+            hasNoMegaMenu();
+
+            proactiveChatLoadsAsIcon();
             hasAuthButton();
+            hasAskusButton();
 
             hasAnAlert();
 
@@ -228,8 +226,10 @@ describe('Dummy Application', () => {
 
             hasUqSiteHeader();
 
+            hasMegaMenu();
+
+            proactiveChatLoadsAsIcon();
             hasAskusButton();
-            hasProactiveChat();
             hasNoAuthButton();
 
             hasAnAlert();
@@ -302,9 +302,9 @@ describe('Dummy Application', () => {
                     cy.get('#s-lib-bc').should('not.exist');
                 });
 
+            proactiveChatLoadsAsIcon();
             hasAskusButton();
             hasAuthButton();
-            hasProactiveChat();
 
             hasAnAlert();
 
@@ -323,9 +323,11 @@ describe('Dummy Application', () => {
 
             hasUqSiteHeader();
 
+            hasNoMegaMenu();
+
+            proactiveChatLoadsAsIcon();
             hasNoAskusButton();
             hasNoAuthButton();
-            hasProactiveChat();
 
             hasAnAlert();
 
@@ -346,8 +348,8 @@ describe('Dummy Application', () => {
 
             hasUqSiteHeader();
 
+            proactiveChatLoadsAsIcon();
             hasAskusButton();
-            hasProactiveChat();
             hasAuthButton();
 
             hasAnAlert();
@@ -365,6 +367,12 @@ describe('Dummy Application', () => {
             hasUqFooter();
 
             // simple check that the components exist, now that we are splitting them out from the main reusable.min file
+            cy.get('search-portal').shadow().find('h2').should('contain', 'Library Search');
+            cy.get('open-athens')
+                .shadow()
+                .find('fieldset input')
+                .should('have.attr', 'placeholder')
+                .and('include', 'DOI or URL');
             cy.get('library-training')
                 .shadow()
                 .find('training-filter')
@@ -397,8 +405,10 @@ describe('Dummy Application', () => {
 
             hasUqSiteHeader();
 
+            hasNoMegaMenu();
+
+            proactiveChatLoadsAsIcon();
             hasAskusButton();
-            hasProactiveChat();
             hasNoAuthButton();
 
             hasAnAlert();
