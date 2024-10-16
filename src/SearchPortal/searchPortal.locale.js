@@ -121,22 +121,17 @@ export const searchPortalLocale = {
             display: [...PRIMO_ELEMENTS],
         },
         {
-            label: 'Database help',
-            linkto: 'https://web.library.uq.edu.au/research-tools-techniques/search-techniques/where-and-how-search/searching-databases',
-            display: [DATABASES],
-        },
-        {
             label: 'Browse databases',
             linkto: 'https://search.library.uq.edu.au/primo-explore/dbsearch?vid=61UQ',
             display: [DATABASES],
         },
         {
-            label: 'Browse courses (UQ login required) ',
+            label: 'Browse courses (UQ login required)',
             linkto: 'https://www.library.uq.edu.au/exams/',
             display: [EXAMS],
         },
         {
-            label: 'Browse courses',
+            label: 'Browse courses (UQ login required)',
             linkto: 'https://uq.rl.talis.com/index.html',
             display: [READING_LISTS],
         },
