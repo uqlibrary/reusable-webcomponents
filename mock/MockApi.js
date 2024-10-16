@@ -78,6 +78,7 @@ class MockApi {
 
         const urlWithoutQueryString = !!url && url.length > 0 ? url.split('?')[0] : '';
         if (url.startsWith('openathens/check/')) {
+            const resolverRoot = 'https://resolver.library.uq.edu.au/openathens/redir?qurl=';
             if (requestType === 'error') {
                 // when openathens has an internal error
                 return this.response(503, {error: 'some message'});
@@ -87,8 +88,8 @@ class MockApi {
                 return this.response(200, openAthensSuccessResponse, true);
             }
             // otherwise, openathens says "yes"
-            // default success
-            return this.response(200, { available: true }, true);
+            const returnUrl = decodeURI(url).replace('openathens/check/', '');
+            return this.response(200, { available: true, useUrl: `${resolverRoot}${returnUrl}` }, true);
         }
 
         switch (urlWithoutQueryString) {
