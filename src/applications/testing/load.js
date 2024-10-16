@@ -81,7 +81,6 @@ function loadReusableComponents() {
 
     if (!document.querySelector('uq-site-header')) {
         const siteHeader = document.createElement('uq-site-header');
-        !!siteHeader && siteHeader.setAttribute('showmenu', '');
 
         const askusButton = createAskusButton();
         !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
@@ -90,6 +89,11 @@ function loadReusableComponents() {
         !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
 
         !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
+    }
+    // Proactive Chat button
+    if (!document.querySelector('proactive-chat')) {
+        const proactiveChat = document.createElement('proactive-chat');
+        !!proactiveChat && document.body.insertBefore(proactiveChat, firstElement);
     }
 
     if (!document.querySelector('alert-list')) {
@@ -105,11 +109,6 @@ function loadReusableComponents() {
     if (!document.querySelector('uq-footer')) {
         const subFooter = document.createElement('uq-footer');
         !!subFooter && document.body.appendChild(subFooter);
-    }
-    // Proactive Chat button
-    if (!document.querySelector('proactive-chat')) {
-        const proactiveChat = document.createElement('proactive-chat');
-        !!proactiveChat && document.body.appendChild(proactiveChat);
     }
 }
 function insertScript(url) {

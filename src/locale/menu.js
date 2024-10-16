@@ -31,7 +31,7 @@ export default {
                 {
                     primaryText: 'for HDR students',
                     secondaryText: 'Research support, training, tools',
-                    linkTo: 'https://web.library.uq.edu.au/library-services/services-higher-degree-by-research',
+                    linkTo: 'https://guides.library.uq.edu.au/for-researchers/support-higher-degree-research-students',
                 },
                 {
                     primaryText: 'for Teaching staff',
@@ -93,6 +93,11 @@ export default {
                     linkTo: 'https://web.library.uq.edu.au/library-services/it',
                 },
                 {
+                    primaryText: 'Create & use open textbooks',
+                    secondaryText: 'Find, author and adapt open textbooks',
+                    linkTo: 'https://web.library.uq.edu.au/library-services/teaching-staff/open-textbooks',
+                },
+                {
                     primaryText: 'Indigenising Curriculum',
                     secondaryText: 'Resources for teachers',
                     linkTo: 'https://web.library.uq.edu.au/library-services/teaching-staff/indigenising-curriculum-resources',
@@ -113,7 +118,6 @@ export default {
                     linkTo: 'https://web.library.uq.edu.au/library-services/special-collections',
                 },
                 // extra fields force the menu to break where we want it to
-                {},
                 {},
                 {},
                 {},
@@ -387,10 +391,6 @@ export default {
                 {
                     primaryText: 'Membership',
                     linkTo: 'https://web.library.uq.edu.au/about-us/membership',
-                },
-                {
-                    primaryText: 'Projects',
-                    linkTo: 'https://web.library.uq.edu.au/about-us/projects',
                 },
                 {
                     primaryText: 'History of the Library',

@@ -133,7 +133,6 @@ function loadReusableComponentsDrupal() {
 
     if (!document.querySelector('uq-site-header')) {
         const siteHeader = document.createElement('uq-site-header');
-        !!siteHeader && siteHeader.setAttribute('showmenu', '');
 
         const askusButton = createAskusButton();
         !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
@@ -144,16 +143,31 @@ function loadReusableComponentsDrupal() {
         !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
     }
 
+    // Cultural Advise Version 2
+    if (!document.querySelector('cultural-advice-v2')) {
+        const culturalAdvice = document.createElement('cultural-advice-v2');
+        !!culturalAdvice && document.body.insertBefore(culturalAdvice, firstElement);
+    }
+
+
+    // Proactive Chat button
+    if (!document.querySelector('proactive-chat')) {
+        const proactiveChat = document.createElement('proactive-chat');
+        !!proactiveChat && document.body.insertBefore(proactiveChat, firstElement);
+    }
+
     if (!document.querySelector('alert-list')) {
         const alerts = document.createElement('alert-list');
         !!alerts && alerts.setAttribute('system', 'drupal');
         !!alerts && document.body.insertBefore(alerts, firstElement);
     }
 
-    if (!document.querySelector('connect-footer')) {
-        const connectFooter = document.createElement('connect-footer');
-        !!connectFooter && document.body.appendChild(connectFooter);
-    }
+    // Disabling connect footer for the mean time. New Design.
+
+    // if (!document.querySelector('connect-footer')) {
+    //     const connectFooter = document.createElement('connect-footer');
+    //     !!connectFooter && document.body.appendChild(connectFooter);
+    // }
     // cultural advice popup
     if (!document.querySelector('cultural-advice-popup')) {
         const culturalAdvice = document.createElement('cultural-advice-popup');
@@ -163,11 +177,6 @@ function loadReusableComponentsDrupal() {
     if (!document.querySelector('uq-footer')) {
         const subFooter = document.createElement('uq-footer');
         !!subFooter && document.body.appendChild(subFooter);
-    }
-    // Proactive Chat button
-    if (!document.querySelector('proactive-chat')) {
-        const proactiveChat = document.createElement('proactive-chat');
-        !!proactiveChat && document.body.appendChild(proactiveChat);
     }
 }
 

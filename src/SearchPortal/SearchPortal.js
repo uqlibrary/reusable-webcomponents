@@ -31,7 +31,6 @@ const template_searchIcon = 'url("data:image/svg+xml,%3csvg xmlns=%27http://www.
 class SearchPortal extends HTMLElement {
 
     connectedCallback() {
-        console.log("callback");
         this.theme = this.getAttribute('theme') || '';
         this.updateTemplate(this.theme);
     
@@ -753,9 +752,7 @@ class SearchPortal extends HTMLElement {
         const useSearchType = parseInt(searchType, 10);
 
         const portalTypeDropdown = document.createElement('div');
-        !!portalTypeDropdown &&
-            (portalTypeDropdown.className =
-                'portalTypeSelector');
+        !!portalTypeDropdown && (portalTypeDropdown.className = 'portalTypeSelector');
         !!portalTypeDropdown && portalTypeDropdown.setAttribute('role', 'listbox');
         !!portalTypeDropdown && portalTypeDropdown.setAttribute('aria-labelledby', 'search-portal-type-select-label');
         !!portalTypeDropdown && portalTypeDropdown.setAttribute('data-testid', 'search-type-selector');

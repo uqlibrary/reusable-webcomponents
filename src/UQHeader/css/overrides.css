@@ -6,6 +6,9 @@ header {
     background: #fff;
     margin: 0;
     padding: 0;
+    letter-spacing: 0.16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /* for primo */
@@ -15,6 +18,9 @@ header {
 }
 * {
     font-size: 16px;
+}
+.uq-header__menu-toggle {
+    max-height: 71px;
 }
 
 .menu-global a {
@@ -42,7 +48,7 @@ header {
 
 @media (min-width: 64em) {
     .uq-header__search.uq-header__search--is-open {
-        margin-top: -15px;
+        /* margin change not required */
     }
 }
 
@@ -51,3 +57,17 @@ header {
         padding-left: 2em;
     }
 }
+
+.uq-header__megamenu {
+    margin-top: 2px;
+}
+@media(min-width: 75em) {
+    .uq-header__megamenu-container {
+        margin-top: -2px;
+    }
+}
+.uq-header__search-query-input,
+.search-toggle__label {
+    letter-spacing: 0.16px;
+}
+

@@ -360,7 +360,7 @@ h3 {
 }
 .MuiListItem-root.Mui-selected,
 .MuiListItem-root.Mui-selected:hover {
-   background-color: rgba(0, 0, 0, 0.08);
+    background-color: rgba(0, 0, 0, 0.08);
 }
 .MuiListItem-gutters {
     padding-left: 16px;
@@ -531,7 +531,7 @@ label + .MuiInput-formControl {
     pointer-events: none;
 }
 .MuiInput-underline:hover:not(.Mui-disabled):before {
-   /* border-bottom: 2px solid rgba(0, 0, 0, 0.87); */
+    /* border-bottom: 2px solid rgba(0, 0, 0, 0.87); */
 }
 .MuiInput-underline.Mui-disabled:before {
     border-bottom-style: dotted;
@@ -567,7 +567,6 @@ label + .MuiInput-formControl {
     background-color: #fff;
 }
 .MuiSelect-select.MuiSelect-select {
-    
 }
 .MuiSelect-selectMenu {
     height: auto;
@@ -944,13 +943,13 @@ li.MuiAutocomplete-option:focus {
     background-color: #d3d3d3;
 }
 .search-type-button {
-        font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .searchPortalLabel {
     font-size: 24px;
     font-weight: 600;
-    
+
     line-height: inherit;
     margin-bottom: 0;
 }
@@ -992,7 +991,8 @@ li.MuiAutocomplete-option:focus {
 {
     text-decoration: underline;
 }
-#search-parent #search-portal-type-select, #search-parent #input-field-wrapper {
+#search-parent #search-portal-type-select,
+#search-parent #input-field-wrapper {
     padding: 0px;
     background-color: #fff;
 }
@@ -1034,7 +1034,7 @@ li.MuiAutocomplete-option:focus {
     color: #fff;
 }
 .searchPortalLabel {
-    color: #fff
+    color: #fff;
 }
 #search-parent {
     background-color: #fff;
@@ -1074,7 +1074,10 @@ li.MuiAutocomplete-option:focus {
     letter-spacing: 0.01em
     
 }
-#portaltype-dropdown::before, #portaltype-dropdown::after, #inputFieldParent::before, #inputFieldParent::after {
+#portaltype-dropdown::before,
+#portaltype-dropdown::after,
+#inputFieldParent::before,
+#inputFieldParent::after {
     border: none !important;
 }
 #inputFieldParent {
@@ -1149,7 +1152,8 @@ li.MuiAutocomplete-option:focus {
 }
 
 
-@media (max-width: 768px) { /* Adjust breakpoint as needed */
+@media (max-width: 768px) {
+    /* Adjust breakpoint as needed */
     #search-portal-submit {
         height: 50px;
     }
