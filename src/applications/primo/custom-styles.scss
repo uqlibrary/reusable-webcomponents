@@ -1906,3 +1906,10 @@ prm-search-bookmark-filter button.md-button.md-icon-button {
         }
     }
 }
+
+.prm-user-menu-content svg {
+    display: none
+}
+.prm-user-menu-content md-menu-item button {
+    margin-left: -10px;
+}
