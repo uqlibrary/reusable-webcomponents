@@ -66,7 +66,7 @@ const chatbotIframeTemplate = document.createElement('template');
 chatbotIframeTemplate.innerHTML = `<div
     id="chatbot-wrapper"
     data-testid="chatbot-wrapper"
-    class="chatbotWrapper"
+    class="chatIframeWrapper"
 >
     <div class="resizeHandleRepositionWrapper">
         <div class="topBar">
@@ -243,8 +243,8 @@ class ProactiveChat extends HTMLElement {
 
     addButtonListeners(shadowDOM, isOnline) {
         const that = this;
-        function closeChatBotIframe() {
-            const chatbotIframe = shadowDOM.getElementById('chatbot-wrapper');
+        function closeChatBotIframe(e, elementId = 'chatbot-wrapper') {
+            const chatbotIframe = shadowDOM.getElementById(elementId);
             !!chatbotIframe && chatbotIframe.remove(); // deleting it rather than hiding it will force it to check for logout
             const proactivechatArea = shadowDOM.getElementById('proactivechat');
             !!proactivechatArea && (proactivechatArea.style.display = 'block');
@@ -266,6 +266,33 @@ class ProactiveChat extends HTMLElement {
             closeChatBotIframe();
 
             openCrmChat();
+        }
+
+        function getIframeSrc() {
+            let iframeSrc = 'https://www.library.uq.edu.au';
+            if (window.location.hostname === 'localhost') {
+                iframeSrc = 'http://localhost:2020'; // bring mock up to use locally
+            } else if (
+                window.location.hostname === 'homepage-development.library.uq.edu.au' &&
+                window.location.pathname.startsWith('/feature-leadegroot')
+            ) {
+                // dev - ITS dev env
+                iframeSrc = `${window.location.protocol}//${window.location.hostname}/feature-leadegroot-1`;
+            } else if (
+                window.location.hostname === 'homepage-development.library.uq.edu.au' &&
+                window.location.pathname.startsWith('/chatbot-testenv')
+            ) {
+                // dev - ITS test env
+                iframeSrc = `${window.location.protocol}//${window.location.hostname}/chatbot-testenv`;
+            } else if (
+                window.location.hostname === 'homepage-staging.library.uq.edu.au' ||
+                window.location.hostname === 'app-testing.library.uq.edu.au' ||
+                window.location.hostname === 'web-staging.library.uq.edu.au' || // maybe iframe cross domain issue
+                window.location.hostname === 'sandbox-fryer.library.uq.edu.au' // ditto
+            ) {
+                iframeSrc = window.location.protocol + '//' + window.location.hostname;
+            }
+            return iframeSrc;
         }
 
         function openCrmChat() {
@@ -319,40 +346,18 @@ class ProactiveChat extends HTMLElement {
                 const minimisedOnlineButton = shadowDOM.getElementById('proactive-chat-online');
                 !!minimisedOnlineButton && (minimisedOnlineButton.style.display = 'none');
 
-                let chatbotWrapper = shadowDOM.getElementById('chatbot-wrapper');
-                if (!!chatbotWrapper) {
-                    chatbotWrapper.style.display = 'block';
+                let chatbotWrapper1 = shadowDOM.getElementById('chatbot-wrapper');
+                if (!!chatbotWrapper1) {
+                    chatbotWrapper1.style.display = 'block';
                 } else {
                     shadowDOM.appendChild(chatbotIframeTemplate.content.cloneNode(true));
-                    chatbotWrapper = shadowDOM.getElementById('chatbot-wrapper');
+                    chatbotWrapper1 = shadowDOM.getElementById('chatbot-wrapper');
                 }
 
                 // show chatbot source
-                let chatbotSrc = 'https://www.library.uq.edu.au';
-                if (window.location.hostname === 'localhost') {
-                    chatbotSrc = 'http://localhost:2020'; // bring mock up to use locally
-                } else if (
-                    window.location.hostname === 'homepage-development.library.uq.edu.au' &&
-                    window.location.pathname.startsWith('/feature-leadegroot')
-                ) {
-                    // dev - ITS dev env
-                    chatbotSrc = `${window.location.protocol}//${window.location.hostname}/feature-leadegroot-1`;
-                } else if (
-                    window.location.hostname === 'homepage-development.library.uq.edu.au' &&
-                    window.location.pathname.startsWith('/chatbot-testenv')
-                ) {
-                    // dev - ITS test env
-                    chatbotSrc = `${window.location.protocol}//${window.location.hostname}/chatbot-testenv`;
-                } else if (
-                    window.location.hostname === 'homepage-staging.library.uq.edu.au' ||
-                    window.location.hostname === 'app-testing.library.uq.edu.au' ||
-                    window.location.hostname === 'web-staging.library.uq.edu.au' || // maybe iframe cross domain issue
-                    window.location.hostname === 'sandbox-fryer.library.uq.edu.au' // ditto
-                ) {
-                    chatbotSrc = window.location.protocol + '//' + window.location.hostname;
-                }
-                let chatbotUrl = `${chatbotSrc}/chatbot.html`;
-                const chatBotIframe = !!chatbotWrapper && chatbotWrapper.getElementsByTagName('iframe');
+                let iframeSrc = getIframeSrc();
+                let chatbotUrl = `${iframeSrc}/chatbot.html`;
+                const chatBotIframe = !!chatbotWrapper1 && chatbotWrapper1.getElementsByTagName('iframe');
                 const api = new ApiAccess();
                 const waitOnStorage = setInterval(() => {
                     // sometimes it takes a moment before it is readable
