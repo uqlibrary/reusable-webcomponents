@@ -17,7 +17,7 @@
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
-    line-height: 199%; /* 31.84px */
+    line-height: 160%; /* 31.84px */
     letter-spacing: 0.16px;
     margin-top: 0px;
     margin-bottom: 0px;
@@ -32,7 +32,7 @@
     font-size: 16px;
     font-style: normal;
     font-weight: 500;
-    line-height: 199%;
+    line-height: 160%;
     letter-spacing: 0.16px;
     text-decoration-line: underline;
 }
