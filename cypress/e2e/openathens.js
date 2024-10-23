@@ -10,7 +10,7 @@ describe('OpenAthens', () => {
                 cy.get('[data-testid="open-athens-create-link-button"]').click();
                 cy.get('[data-testid="open-athens-url-display-area"]').should(
                     'have.value',
-                    'https://resolver.library.uq.edu.au/openathens/redir?url=https://www.google.com/',
+                    'https://resolver.library.uq.edu.au/openathens/redir?qurl=https%3A%2F%2Fwww.google.com%2F',
                 );
                 cy.get('[data-testid="open-athens-copy-options"]').should('not.have.class', 'hidden');
                 cy.get('[data-testid="open-athens-input"]').scrollIntoView();
@@ -91,7 +91,7 @@ describe('OpenAthens', () => {
                     .shadow()
                     .find('[data-testid="open-athens"]')
                     .within(() => {
-                        cy.get('[data-testid="open-athens-input"]').type('https://www.google.com/');
+                        cy.get('[data-testid="open-athens-input"]').type('https://www.example.com/');
                         cy.get('[data-testid="open-athens-create-link-button"]').click();
                         cy.get('[data-testid="open-athens-visit-link-button"]')
                             .should('exist')
@@ -106,7 +106,7 @@ describe('OpenAthens', () => {
                 cy.get('@windowOpen').then((stub) => {
                     const newWindowUrl = stub.args[0][0];
                     expect(newWindowUrl).to.equal(
-                        'https://resolver.library.uq.edu.au/openathens/redir?url=https://www.google.com/',
+                        'https://resolver.library.uq.edu.au/openathens/redir?qurl=https%3A%2F%2Fwww.example.com%2F',
                     );
                 });
             });
@@ -170,7 +170,7 @@ describe('OpenAthens', () => {
                         cy.get('[data-testid="open-athens-create-link-button"]').click();
                         cy.get('[data-testid="open-athens-url-display-area"]').should(
                             'have.value',
-                            'https://resolver.library.uq.edu.au/openathens/redir?url=https://www.google.com/',
+                            'https://resolver.library.uq.edu.au/openathens/redir?qurl=https%3A%2F%2Fwww.google.com%2F',
                         );
                         cy.get('[data-testid="open-athens-create-new-link-button"]').should('exist').click();
                         cy.get('[data-testid="open-athens-input"]').should('exist').should('be.visible');
@@ -192,7 +192,7 @@ describe('OpenAthens', () => {
                         cy.get('[data-testid="open-athens-create-link-button"]').click();
                         cy.get('[data-testid="open-athens-url-display-area"]').should(
                             'have.value',
-                            'https://resolver.library.uq.edu.au/openathens/redir?url=https://dx.doi.org/10.1016/S2214-109X(21)00061-9',
+                            'https://resolver.library.uq.edu.au/openathens/redir?qurl=https%3A%2F%2Fdx.doi.org%2F10.1016%2FS2214-109X(21)00061-9',
                         );
                     });
             });
@@ -436,7 +436,7 @@ describe('OpenAthens', () => {
                 cy.get('@windowOpen').then((stub) => {
                     const newWindowUrl = stub.args[0][0];
                     expect(newWindowUrl).to.equal(
-                        'https://resolver.library.uq.edu.au/openathens/redir?url=https://www.google.com/',
+                        'https://resolver.library.uq.edu.au/openathens/redir?qurl=https%3A%2F%2Fwww.google.com%2F',
                     );
                 });
             });
