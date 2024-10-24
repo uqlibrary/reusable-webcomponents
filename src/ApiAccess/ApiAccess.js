@@ -268,7 +268,7 @@ class ApiAccess {
     async loadOpenAthensCheck(urlPath) {
         console.log('loadOpenAthensCheck start', urlPath);
         const openAthensApi = new ApiRoutes().OPEN_ATHENS_LINK_CHECKER(urlPath);
-        return await this.fetchAPI(openAthensApi.apiUrl)
+        return await this.fetchAPI(openAthensApi.apiUrl, {}, false, false)
             .then((response) => {
                 return response;
             })

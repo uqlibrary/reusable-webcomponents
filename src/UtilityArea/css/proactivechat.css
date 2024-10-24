@@ -1,6 +1,6 @@
 .proactive-chat {
     position: relative;
-    z-index: 1;
+    z-index: 99999;
 }
 
 .openSubWrapper button {
