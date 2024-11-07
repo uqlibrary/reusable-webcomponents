@@ -1174,6 +1174,7 @@ li.MuiAutocomplete-option:focus {
    color: #fff;
    font-size: 14px;
    font-weight: 400;
+   line-height: 21px;
 }
 
 #restrictions-accordian.theme-light  p {
