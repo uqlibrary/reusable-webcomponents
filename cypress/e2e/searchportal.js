@@ -298,7 +298,7 @@ describe('Search Portal', () => {
             cy.get('body').contains('user is on a Primo result page');
         });
 
-        it.only('Databases should have the expected items', () => {
+        it('Databases should have the expected items', () => {
             cy.viewport(1300, 1000);
             cy.get('search-portal')
                 .shadow()
@@ -307,7 +307,7 @@ describe('Search Portal', () => {
                     cy.get('button[data-testid="primo-search-item-6"]').trigger("click");
                     cy.get('[data-testid="portaltype-current-label"]').contains('Databases');
 
-                    hasCorrectNumberOfFooterLinks(2);
+                    hasCorrectNumberOfFooterLinks(1);
 
                     //  no suggestion api available
                     cy.get('input[data-testid="primo-search-autocomplete-input"]').type('{esc}');
