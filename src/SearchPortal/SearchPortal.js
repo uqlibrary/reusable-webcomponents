@@ -348,6 +348,24 @@ class SearchPortal extends HTMLElement {
         //         that.sendSubmitToGTM(e); // submit the GTM info
         //     },
         // );
+        const accordian = that.shadowRoot.getElementById('restrictions-accordian-container');
+        !!accordian && accordian.addEventListener('click', function(e) {
+            console.log("Testing things", accordian)
+            const accordianContainer = that.shadowRoot.getElementById('restrictions-accordian');
+            const paragraph = accordianContainer.getElementsByTagName('p');
+            const icon = accordian.getElementsByTagName('svg');
+            console.log("svg", icon[0])
+            //paragraph[0].style.height = (paragraph[0].scrollHeight + 'px')
+            if (!accordianContainer.classList.contains('container-opened')) {
+                accordianContainer.style.height = 32 + paragraph[0].scrollHeight + 'px'
+                accordianContainer.classList.add("container-opened")
+                icon[0].classList.add('accordian-icon-open')
+            } else {
+                accordianContainer.style.height = 0;
+                accordianContainer.classList.remove("container-opened")
+                icon[0].classList.remove('accordian-icon-open')
+            }
+        })
     }
 
     /**
@@ -819,6 +837,13 @@ class SearchPortal extends HTMLElement {
                 }
             });
     }
+    linkToDrupal(pathname, requestedDomainName = null) {
+        const domainName = requestedDomainName ?? document.location.hostname;
+        const origin = ['localhost', 'homepage-development.library.uq.edu.au'].includes(domainName)
+            ? 'https://live-library-uq.pantheonsite.io'
+            : 'https://web.library.uq.edu.au';
+        return `${origin}${pathname}`;
+    };
 
     updateTemplate(theme) {
         template.innerHTML = `
@@ -1079,11 +1104,21 @@ class SearchPortal extends HTMLElement {
                             <div class="linksContainer" >
                                 <div id="footer-links" class="searchPanel MuiGrid-container MuiFormControlMuiGrid-spacing-xs-2 theme-${theme || 'light'}" data-testid="primo-search-links" data-analyticsid="primo-search-links"></div>
                             </div>
-                            <div class="restrictionsContainer searchUnderlinks theme-${theme || 'light'}">
+                            <!-- <div class="restrictionsContainer searchUnderlinks theme-${theme || 'light'}">
                                <a id="restrictions-on-use-link" class="theme-${theme || 'light'}" href="https://web.library.uq.edu.au/about-us/policies-guidelines#collection-notice">Restrictions on use</a> 
+                            </div> -->
+                        </div> 
+                        <div>
+                            <span id="restrictions-accordian-container">
+                                Restrictions on use
+                                <svg class="restriction-accordian-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                                         <path fill="currentColor" d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"/>
+                                    </svg>
+                            </span>
+                            <div id="restrictions-accordian">
+                                <p>Your use of <a href="${this.linkToDrupal('/about/policies-and-guidelines#collection-notice')}">Library resources</a> must comply with UQ policies, copyright law, and all resource specific licence terms. The use of AI tools with Library resources is prohibited unless expressly permitted.</p>
                             </div>
                         </div>
-                    
                     </form>
                 </div>
             </div>

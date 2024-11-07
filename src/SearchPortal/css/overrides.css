@@ -1150,6 +1150,52 @@ li.MuiAutocomplete-option:focus {
     border-radius: 2px;
     border: 1px solid #fff;
 }
+#restrictions-accordian-container {
+    margin-top: 32px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: underline;
+    cursor: pointer;
+}
+#restrictions-accordian {
+   
+    overflow: hidden;
+    height: 0;
+    max-width: 800px;
+    transition: height 0.2s ease-in-out;
+    overflow: hidden;
+}
+
+#restrictions-accordian  p{
+   /* height: 0; */
+   /* padding: 0; */
+   /* margin: 0; */
+   color: #fff;
+   font-size: 14px;
+   font-weight: 400;
+}
+
+#restrictions-accordian-container {
+    display: block;
+}
+.restriction-opened {
+    height: auto;
+}
+.restriction-accordian-icon {
+    width: 16px;
+    height: 16px;
+    margin-left: 8px;
+    transition: transform 0.1s linear;
+    transform-origin: center;
+    vertical-align: middle;
+}
+.accordian-icon-open {
+    transform: rotate(180deg);
+}
+#restrictions-accordian a {
+    color: white;
+}
 
 
 @media (max-width: 768px) {
