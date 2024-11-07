@@ -1109,13 +1109,13 @@ class SearchPortal extends HTMLElement {
                             </div> -->
                         </div> 
                         <div>
-                            <span id="restrictions-accordian-container">
+                            <span id="restrictions-accordian-container" class="theme-${theme || 'light'}">
                                 Restrictions on use
                                 <svg class="restriction-accordian-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                                          <path fill="currentColor" d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"/>
                                     </svg>
                             </span>
-                            <div id="restrictions-accordian">
+                            <div id="restrictions-accordian" class="theme-${theme || 'light'}">
                                 <p>Your use of <a href="${this.linkToDrupal('/about/policies-and-guidelines#collection-notice')}">Library resources</a> must comply with UQ policies, copyright law, and all resource specific licence terms. The use of AI tools with Library resources is prohibited unless expressly permitted.</p>
                             </div>
                         </div>
