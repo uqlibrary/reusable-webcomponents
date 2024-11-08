@@ -10,7 +10,7 @@ describe('OpenAthens', () => {
                 cy.get('[data-testid="open-athens-create-link-button"]').click();
                 cy.get('[data-testid="open-athens-url-display-area"]').should(
                     'have.value',
-                    'https://resolver.library.uq.edu.au/openathens/redir?qurl=https%3A%2F%2Fwww.google.com%2F',
+                    'https://resolver.library.uq.edu.au/openathens/redir?qurl=https%3A%2F%2Fwww.google.com',
                 );
                 cy.get('[data-testid="open-athens-copy-options"]').should('not.have.class', 'hidden');
                 cy.get('[data-testid="open-athens-input"]').scrollIntoView();
@@ -91,7 +91,7 @@ describe('OpenAthens', () => {
                     .shadow()
                     .find('[data-testid="open-athens"]')
                     .within(() => {
-                        cy.get('[data-testid="open-athens-input"]').type('https://www.example.com/');
+                        cy.get('[data-testid="open-athens-input"]').type('https://www.example.com/something');
                         cy.get('[data-testid="open-athens-create-link-button"]').click();
                         cy.get('[data-testid="open-athens-visit-link-button"]')
                             .should('exist')
@@ -106,7 +106,7 @@ describe('OpenAthens', () => {
                 cy.get('@windowOpen').then((stub) => {
                     const newWindowUrl = stub.args[0][0];
                     expect(newWindowUrl).to.equal(
-                        'https://resolver.library.uq.edu.au/openathens/redir?qurl=https%3A%2F%2Fwww.example.com%2F',
+                        'https://resolver.library.uq.edu.au/openathens/redir?qurl=https%3A%2F%2Fwww.example.com%2Fsomething',
                     );
                 });
             });
@@ -170,7 +170,7 @@ describe('OpenAthens', () => {
                         cy.get('[data-testid="open-athens-create-link-button"]').click();
                         cy.get('[data-testid="open-athens-url-display-area"]').should(
                             'have.value',
-                            'https://resolver.library.uq.edu.au/openathens/redir?qurl=https%3A%2F%2Fwww.google.com%2F',
+                            'https://resolver.library.uq.edu.au/openathens/redir?qurl=https%3A%2F%2Fwww.google.com',
                         );
                         cy.get('[data-testid="open-athens-create-new-link-button"]').should('exist').click();
                         cy.get('[data-testid="open-athens-input"]').should('exist').should('be.visible');

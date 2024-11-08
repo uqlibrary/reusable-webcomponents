@@ -1150,6 +1150,69 @@ li.MuiAutocomplete-option:focus {
     border-radius: 2px;
     border: 1px solid #fff;
 }
+#restrictions-accordian-container {
+    margin-top: 32px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: underline;
+    cursor: pointer;
+}
+#restrictions-accordian {
+   
+    overflow: hidden;
+    height: 0;
+    max-width: 800px;
+    transition: height 0.2s ease-in-out;
+    overflow: hidden;
+}
+
+#restrictions-accordian  p{
+   /* height: 0; */
+   /* padding: 0; */
+   /* margin: 0; */
+   color: #fff;
+   font-size: 14px;
+   font-weight: 400;
+   line-height: 21px;
+}
+
+#restrictions-accordian.theme-light  p {
+    color: #3B383E !important;
+}
+
+#restrictions-accordian-container {
+    display: block;
+}
+.restriction-opened {
+    height: auto;
+}
+.restriction-accordian-icon {
+    width: 16px;
+    height: 16px;
+    margin-left: 8px;
+    transition: transform 0.1s linear;
+    transform-origin: center;
+    vertical-align: middle;
+}
+.accordian-icon-open {
+    transform: rotate(180deg);
+}
+#restrictions-accordian a {
+    color: white;
+}
+#restrictions-accordian.theme-light a {
+    transition: color 200ms ease-out, text-decoration 200ms ease-out, background-color 200ms ease-out;
+    color: rgb(81, 36, 122) !important;
+}
+#restrictions-accordian.theme-light a:hover {
+    color: white !important;
+    background-color: rgb(81, 36, 122) !important;
+}
+#restrictions-accordian-container.theme-light {
+    color: rgb(81, 36, 122) !important;
+}
+
 
 
 @media (max-width: 768px) {

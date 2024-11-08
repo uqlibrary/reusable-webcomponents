@@ -258,6 +258,11 @@ class OpenAthens extends HTMLElement {
             dest += 'https://dx.doi.org/';
         }
         dest += cleanedUrl;
+
+        const urlObj = new URL(dest);
+        if (urlObj.pathname === '/') {
+            dest = urlObj.origin; // Remove the trailing slash from a homepage as api copes better with standardised url
+        }
         return dest;
     }
 
