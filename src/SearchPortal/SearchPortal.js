@@ -772,7 +772,7 @@ class SearchPortal extends HTMLElement {
         const portalTypeDropdown = document.createElement('div');
         !!portalTypeDropdown && (portalTypeDropdown.className = 'portalTypeSelector');
         !!portalTypeDropdown && portalTypeDropdown.setAttribute('role', 'listbox');
-        !!portalTypeDropdown && portalTypeDropdown.setAttribute('aria-labelledby', 'search-portal-type-select-label');
+        !!portalTypeDropdown && portalTypeDropdown.setAttribute('aria-labelledby', 'search-portal-type-select-label-sub');
         !!portalTypeDropdown && portalTypeDropdown.setAttribute('data-testid', 'search-type-selector');
 
         !!portalTypeDropdown &&
@@ -1062,7 +1062,7 @@ class SearchPortal extends HTMLElement {
                                 
                                     <div id="search-portal-autocomplete" class="MuiAutocomplete-root" data-testid="primo-search-autocomplete" data-analyticsid="primo-search-autocomplete">
                                         <div class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth">
-                                            <div id="inputFieldParent" role="combobox" aria-expanded="false" aria-controls="search-portal-autocomplete-listbox" class="MuiInputBase-root MuiInput-root MuiInput-underline MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd">
+                                            <div id="inputFieldParent" aria-label="Enter your search terms" role="combobox" aria-expanded="false" aria-controls="search-portal-autocomplete-listbox" class="MuiInputBase-root MuiInput-root MuiInput-underline MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd">
                                                 <!--  aria-controls="search-portal-autocomplete-listbox" invalid per AXE --> 
                                                 <input enterkeyhint="search" type="text" id="current-inputfield" name="currentInputfield" aria-invalid="false" autocomplete="off" type="search" class="MuiInputBase-input MuiInput-input selectInput MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch" aria-autocomplete="list" autocapitalize="none" spellcheck="false" aria-label="Enter your search terms" data-testid="primo-search-autocomplete-input" data-analyticsid="primo-search-autocomplete-input" value="">
                                                 <div class="MuiAutocomplete-endAdornment"></div>
