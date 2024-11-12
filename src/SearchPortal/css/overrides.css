@@ -1126,22 +1126,24 @@ li.MuiAutocomplete-option:focus {
     font-weight: 500;
     font-size: 16px;
 }
-#footer-links.theme-dark a {
+#footer-links.theme-dark a, #restrictions-accordian-container span {
     color: white !important;
     transition: color 200ms ease-out, text-decoration 200ms ease-out, background-color 200ms ease-out;
 }
 
-#footer-links.theme-light a, #restrictions-on-use-link.theme-light {
+#footer-links.theme-light a, #restrictions-on-use-link.theme-light, #restrictions-accordian-container.theme-light span {
     transition: color 200ms ease-out, text-decoration 200ms ease-out, background-color 200ms ease-out;
     color: rgb(81, 36, 122) !important;
 }
-#footer-links a:hover, #restrictions-on-use-link:hover {
+#footer-links a:hover, #restrictions-on-use-link:hover, #restrictions-accordian-container span:hover {
     color: rgb(81, 36, 122) !important;
     background-color: #fff;
+    text-decoration: underline;
 }
-#footer-links.theme-light a:hover, #restrictions-on-use-link.theme-light:hover {
+#footer-links.theme-light a:hover, #restrictions-on-use-link.theme-light:hover, #restrictions-accordian-container.theme-light span:hover  {
     color: rgb(255, 255, 255) !important;
     background-color: rgb(81, 36, 122);
+    text-decoration: underline;
 }
 .search-portal-container {
     padding-top: 20px;
