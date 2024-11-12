@@ -1128,11 +1128,16 @@ li.MuiAutocomplete-option:focus {
 }
 #footer-links.theme-dark a {
     color: white !important;
+    transition: color 200ms ease-out, text-decoration 200ms ease-out, background-color 200ms ease-out;
 }
 
 #footer-links.theme-light a, #restrictions-on-use-link.theme-light {
     transition: color 200ms ease-out, text-decoration 200ms ease-out, background-color 200ms ease-out;
     color: rgb(81, 36, 122) !important;
+}
+#footer-links a:hover, #restrictions-on-use-link:hover {
+    color: rgb(81, 36, 122) !important;
+    background-color: #fff;
 }
 #footer-links.theme-light a:hover, #restrictions-on-use-link.theme-light:hover {
     color: rgb(255, 255, 255) !important;
@@ -1200,10 +1205,15 @@ li.MuiAutocomplete-option:focus {
 }
 #restrictions-accordian a {
     color: white;
+    transition: color 200ms ease-out, text-decoration 200ms ease-out, background-color 200ms ease-out;
 }
 #restrictions-accordian.theme-light a {
     transition: color 200ms ease-out, text-decoration 200ms ease-out, background-color 200ms ease-out;
     color: rgb(81, 36, 122) !important;
+}
+#restrictions-accordian a:hover {
+    color: rgb(81, 36, 122) !important;
+    background-color: #fff !important;
 }
 #restrictions-accordian.theme-light a:hover {
     color: white !important;
