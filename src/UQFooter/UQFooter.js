@@ -1,10 +1,12 @@
-import styles from './css/main.css';
+import mainStyles from './css/main.css';
+import globalStyles from './css/global-oneuq.css';
 import overrides from './css/overrides.css';
 import { default as navLocale } from './js/nav';
 
 const template = document.createElement('template');
 template.innerHTML = `
-  <style>${styles.toString()}</style>
+  <style>${mainStyles.toString()}</style>
+  <style>${globalStyles.toString()}</style>
   <style>${overrides.toString()}</style>
   <footer id="footer" class="uq-footer" data-gtm-category="Footer">
       <div class="uq-footer__reconciliation">
