@@ -1123,6 +1123,7 @@ class SearchPortal extends HTMLElement {
                 </div>
             </div>
         `;
+        
         // Add a shadow DOM
         const shadowDOM = this.attachShadow({ mode: 'open' });
 
