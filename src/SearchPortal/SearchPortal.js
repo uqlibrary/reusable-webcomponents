@@ -1116,7 +1116,7 @@ class SearchPortal extends HTMLElement {
                                     </svg>
                             </span>
                             <div id="restrictions-accordian" class="theme-${theme || 'light'}" data-testid="restrictions-accordian-content">
-                                <p>Your use of <a href="${this.linkToDrupal('/about/policies-and-guidelines#collection-notice')}">Library resources</a> must comply with UQ policies, copyright law, and all resource specific licence terms. The use of AI tools with Library resources is prohibited unless expressly permitted.</p>
+                                <p>Your <a href="${this.linkToDrupal('/about/policies-and-guidelines#collection-notice')}">use of Library resources</a> must comply with UQ policies, copyright law, and all resource specific licence terms. The use of AI tools with Library resources is prohibited unless expressly permitted.</p>
                             </div>
                         </div>
                     </form>
