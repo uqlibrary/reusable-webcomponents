@@ -348,13 +348,11 @@ class SearchPortal extends HTMLElement {
         //         that.sendSubmitToGTM(e); // submit the GTM info
         //     },
         // );
-        const accordian = that.shadowRoot.getElementById('restrictions-accordian-container');
-        !!accordian && accordian.addEventListener('click', function(e) {
-            console.log("Testing things", accordian)
+
+        function handleAccordianBinding() {
             const accordianContainer = that.shadowRoot.getElementById('restrictions-accordian');
             const paragraph = accordianContainer.getElementsByTagName('p');
             const icon = accordian.getElementsByTagName('svg');
-            console.log("svg", icon[0])
             //paragraph[0].style.height = (paragraph[0].scrollHeight + 'px')
             if (!accordianContainer.classList.contains('container-opened')) {
                 accordianContainer.style.height = 32 + paragraph[0].scrollHeight + 'px'
@@ -365,7 +363,19 @@ class SearchPortal extends HTMLElement {
                 accordianContainer.classList.remove("container-opened")
                 icon[0].classList.remove('accordian-icon-open')
             }
+        }
+
+        const accordian = that.shadowRoot.getElementById('restrictions-accordian-container');
+        !!accordian && accordian.addEventListener('click', function(e) {
+            handleAccordianBinding();
         })
+
+        !!accordian && accordian.addEventListener('keydown', (event) => {
+            console.log("EVENT CODE:", event.code)
+            if (event.code === 'Space' || event.code === 'Enter') {
+                handleAccordianBinding();
+            }
+        });
     }
 
     /**
@@ -1109,7 +1119,7 @@ class SearchPortal extends HTMLElement {
                             </div> -->
                         </div> 
                         <div>
-                            <span id="restrictions-accordian-container" class="theme-${theme || 'light'}" data-testid="restrictions-accordian-container">
+                            <span id="restrictions-accordian-container" class="theme-${theme || 'light'}" data-testid="restrictions-accordian-container" role="button" tabindex="0">
                                 <span>Restrictions on use </span>
                                 <svg class="restriction-accordian-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                                          <path fill="currentColor" d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"/>
