@@ -35,6 +35,11 @@
     line-height: 160%;
     letter-spacing: 0.16px;
     text-decoration-line: underline;
+    transition: color 200ms ease-out, text-decoration 200ms ease-out, background-color 200ms ease-out;
+}
+.culturaladvicev2 a:hover {
+    background-color: white;
+    color: #41215E;
 }
 .layout-card {
     margin-left: auto;
