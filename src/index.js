@@ -28,7 +28,6 @@ if (!supportsCustomElements) {
 import Alert from './Alert/Alert';
 import Alerts from './Alerts/Alerts';
 import ApiAccess from './ApiAccess/ApiAccess';
-import AskUsButton from './UtilityArea/AskUsButton';
 import CulturalAdvice from './CulturalAdvice/CulturalAdvice';
 import CulturalAdviceV2 from './CulturalAdvice/CulturalAdviceV2';
 import OpenAthens from './OpenAthens/OpenAthens';
@@ -51,7 +50,6 @@ if (process.env.USE_MOCK) {
 
 customElements.define('alert-list', Alerts);
 customElements.define('api-access', ApiAccess);
-customElements.define('askus-button', AskUsButton);
 customElements.define('proactive-chat', ProactiveChat);
 customElements.define('auth-button', AuthButton);
 customElements.define('connect-footer', ConnectFooter);

@@ -24,15 +24,6 @@ function createAuthButton() {
     return !!authButton && createSlotForButtonInUtilityArea(authButton, 'auth');
 }
 
-function createAskusButton() {
-    if (!!document.querySelector('askus-button')) {
-        return false;
-    }
-
-    const askusButton = document.createElement('askus-button');
-    return !!askusButton && createSlotForButtonInUtilityArea(askusButton, 'askus');
-}
-
 function fontLoader(font) {
     var headID = document.getElementsByTagName('head')[0];
     var link = document.createElement('link');
@@ -134,9 +125,6 @@ function loadReusableComponentsDrupal() {
     if (!document.querySelector('uq-site-header')) {
         const siteHeader = document.createElement('uq-site-header');
 
-        const askusButton = createAskusButton();
-        !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
-
         const authButton = createAuthButton();
         !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
 
@@ -148,7 +136,6 @@ function loadReusableComponentsDrupal() {
         const culturalAdvice = document.createElement('cultural-advice-v2');
         !!culturalAdvice && document.body.insertBefore(culturalAdvice, firstElement);
     }
-
 
     // Proactive Chat button
     if (!document.querySelector('proactive-chat')) {

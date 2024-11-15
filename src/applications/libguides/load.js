@@ -38,17 +38,6 @@ function createAuthButton() {
     return slot;
 }
 
-function createAskusButton() {
-    if (!!document.querySelector('askus-button')) {
-        return false;
-    }
-
-    const askusButton = document.createElement('askus-button');
-    const slot = !!askusButton && createSlotForButtonInUtilityArea(askusButton, 'askus');
-
-    return slot;
-}
-
 function fontLoader(font) {
     var headID = document.getElementsByTagName('head')[0];
     var link = document.createElement('link');
@@ -79,9 +68,6 @@ function loadReusableComponentsLibGuides() {
     !!siteHeader && siteHeader.setAttribute('secondlevelurl', 'https://guides.library.uq.edu.au/');
 
     if (!isInEditMode()) {
-        const askusButton = createAskusButton();
-        !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
-
         const authButton = createAuthButton();
         !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
 
