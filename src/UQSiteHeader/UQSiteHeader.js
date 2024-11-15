@@ -14,9 +14,6 @@ import { default as menuLocale } from '../locale/menu';
  *       (both second level required if either)
  *   >
  *       <span slot="site-utilities">
- *           <askus-button />
- *       </span>
- *       <span slot="site-utilities">
  *           <auth-button />
  *       </span>
  *   </uq-site-header>

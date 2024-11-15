@@ -7,12 +7,6 @@ describe('Dummy Application', () => {
             cy.viewport(1280, 900);
             // applications/testing has a skip nav button
             cy.get('uq-header').shadow().find('button[data-testid="skip-nav"]').should('exist');
-            // has an askus button
-            cy.get('askus-button')
-                .shadow()
-                .find('button[title="AskUs contact options"]')
-                .should('exist')
-                .should('be.visible');
             // has an auth button
             cy.get('auth-button').shadow().find('button:contains("Log out")').should('exist');
             // // has a mega menu
@@ -52,20 +46,6 @@ describe('Dummy Application', () => {
         cy.get('uq-site-header').should('not.exist');
     }
 
-    function hasAskusButton(isChatBotAvailable = true) {
-        cy.get('askus-button')
-            .shadow()
-            .within(() => {
-                cy.waitUntil(() => cy.get('button[title="AskUs contact options"]').should('exist'));
-                cy.get('[aria-label="AskUs contact options"]').should('contain', 'AskUs').click();
-                if (isChatBotAvailable) {
-                    cy.get('[data-testid="askus-aibot-li"]').should('exist').should('be.visible').contains('Chatbot');
-                } else {
-                    cy.get('[data-testid="askus-aibot-li"]').should('not.be.visible');
-                }
-            });
-    }
-
     function hasNoProactiveChat() {
         cy.get('proactive-chat').should('not.exist');
     }
@@ -88,10 +68,6 @@ describe('Dummy Application', () => {
                 cy.get('button:contains("Ask Library Chatbot")').should('not.be.visible');
                 cy.get('[data-testid="close-button"]').should('not.be.visible');
             });
-    }
-
-    function hasNoAskusButton() {
-        cy.get('askus-button').should('not.exist');
     }
 
     function hasNoAuthButton() {
@@ -185,7 +161,6 @@ describe('Dummy Application', () => {
 
             proactiveChatLoadsAsIcon();
             hasAuthButton();
-            hasAskusButton();
 
             hasAnAlert();
 
@@ -202,8 +177,7 @@ describe('Dummy Application', () => {
             hasUqHeader();
 
             hasUqSiteHeader();
-            
-            hasNoAskusButton();
+
             hasNoAuthButton();
             hasNoProactiveChat();
 
@@ -225,7 +199,6 @@ describe('Dummy Application', () => {
             hasUqSiteHeader();
 
             proactiveChatLoadsAsIcon();
-            hasAskusButton();
             hasNoAuthButton();
 
             hasAnAlert();
@@ -248,7 +221,6 @@ describe('Dummy Application', () => {
 
             hasUqSiteHeader();
 
-            hasAskusButton(false);
             hasNoAuthButton();
             hasNoProactiveChat();
 
@@ -299,7 +271,6 @@ describe('Dummy Application', () => {
                 });
 
             proactiveChatLoadsAsIcon();
-            hasAskusButton();
             hasAuthButton();
 
             hasAnAlert();
@@ -320,7 +291,6 @@ describe('Dummy Application', () => {
             hasUqSiteHeader();
 
             proactiveChatLoadsAsIcon();
-            hasNoAskusButton();
             hasNoAuthButton();
 
             hasAnAlert();
@@ -343,7 +313,6 @@ describe('Dummy Application', () => {
             hasUqSiteHeader();
 
             proactiveChatLoadsAsIcon();
-            hasAskusButton();
             hasAuthButton();
 
             hasAnAlert();
@@ -399,7 +368,6 @@ describe('Dummy Application', () => {
             hasUqSiteHeader();
 
             proactiveChatLoadsAsIcon();
-            hasAskusButton();
             hasNoAuthButton();
 
             hasAnAlert();
@@ -497,7 +465,6 @@ describe('Dummy Application', () => {
             //
             // hasUqSiteHeader('https://espace.library.uq.edu.au/');
             //
-            // hasNoAskusButton();
             // hasAuthButton();
 
             hasAnAlert();
