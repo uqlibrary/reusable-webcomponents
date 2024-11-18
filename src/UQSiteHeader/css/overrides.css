@@ -249,8 +249,8 @@ a.uq-site-header__navigation-link.slide-menu__control:-moz-focusring {
 @media (min-width: 37.5rem) {
     .uq-site-header__title-container {
         justify-content: space-between;
-        padding-bottom: 10px;
-        padding-top: 5px;
+        padding-bottom: 7px;
+        padding-top: 3px;
     }
     .uq-site-header__title-container__right {
         justify-content: flex-end;

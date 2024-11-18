@@ -50,12 +50,18 @@ authorisedtemplate.innerHTML = `
     <div id="auth" class="auth loggedin">
         <button id="account-option-button" data-testid="account-option-button" data-analyticsid="account-option-button">
             <div id="username-area" data-testid="username-area-label" data-analyticsid="username-area-label" class="username-area">
-                <svg class="auth-icon auth-icon-loggedin" focusable="false" viewBox="0 0 24 24" aria-hidden="true" id="logged-in-icon">
-                    <path d="M12 5.9c1.16 0 2.1.94 2.1 2.1s-.94 2.1-2.1 2.1S9.9 9.16 9.9 8s.94-2.1 2.1-2.1m0 9c2.97 0 6.1 1.46 6.1 2.1v1.1H5.9V17c0-.64 3.13-2.1 6.1-2.1M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 9c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z"></path>
+<!--                <span class="spacer">&nbsp;</span>-->
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="24" height="24" fill="white"/>
+                    <path d="M12 3C14.2222 3 16 4.77778 16 7C16 9.22222 14.2222 11 12 11C9.77778 11 8 9.22222 8 7C8 4.77778 9.77778 3 12 3Z" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M4.59961 20.5716C4.59961 16.4685 7.91578 13.1523 12.0188 13.1523C16.1219 13.1523 19.438 16.4685 19.438 20.5716" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
+
                 <span id="username-area-label" class="username-area-label"></span>
-                <svg id="options-dropdown-arrow" class="options-dropdown-arrow" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ArrowDropDownIcon" data-analyticsid="ArrowDropDownIcon" aria-label="Open account panel">
-                    <path d="m7 10 5 5 5-5z"></path>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <g id="icon/standard/chevron-down-sml">
+                        <path id="Chevron-down" d="M7 10L12 15L17 10" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </g>
                 </svg>
             </div>
         </button>
@@ -68,7 +74,7 @@ authorisedtemplate.innerHTML = `
                         <div class="user-menu-header">
                             <div layout="column" class="layout-column flex">
                                 <span class="tiny-text">Logged in as:</span>
-                                <span id="user-display-name" data-testid="user-display-name" class="user-display-name bold-text" style="padding-right:1rem"></span>
+                                <span id="user-display-name" data-testid="user-display-name" class="user-display-name bold-text"></span>
                             </div>
                             <button class="logout md-primary md-button md-primoExplore-theme md-ink-ripple" type="button" data-analyticsid="auth-button-logout" id="signOutButton" aria-label="Log out" role="menuitem">
                                 <span class="bold-text">Log out</span>
@@ -158,8 +164,9 @@ unauthorisedtemplate.innerHTML = `
     <style>${loggedoutstyles.toString()}</style>
     <div class="auth loggedout">
         <button id="auth-button-login" class="login-button" data-testid="auth-button-login" data-analyticsid="auth-button-login">
-            <svg class="auth-icon auth-icon-loginprompt" focusable="false" viewBox="0 0 24 24" aria-hidden="true" id="logged-out-icon">
-                <path d="M12 5.9c1.16 0 2.1.94 2.1 2.1s-.94 2.1-2.1 2.1S9.9 9.16 9.9 8s.94-2.1 2.1-2.1m0 9c2.97 0 6.1 1.46 6.1 2.1v1.1H5.9V17c0-.64 3.13-2.1 6.1-2.1M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 9c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z"></path>
+            <svg class="auth-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="20" viewBox="0 0 18 20" fill="none">
+              <path d="M9 1C11.2222 1 13 2.77778 13 5C13 7.22222 11.2222 9 9 9C6.77778 9 5 7.22222 5 5C5 2.77778 6.77778 1 9 1Z" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M1.59961 18.5716C1.59961 14.4685 4.91578 11.1523 9.01883 11.1523C13.1219 11.1523 16.438 14.4685 16.438 18.5716" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
             <span class="auth-log-in-label" data-testid="auth-button-login-label">Log in</span>
         </button>
