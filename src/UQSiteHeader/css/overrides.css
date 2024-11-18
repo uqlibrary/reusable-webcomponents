@@ -20,6 +20,15 @@ a.uq-site-header__title h1 {
     margin: 0;
     padding: 0;
     font-size: 16px;
+/*    height: 50.5px;*/
+/*    display: flex; !* Use Flexbox for the parent container *!*/
+/*    align-items: center; !* Vertically center items within the parent *!*/
+}
+.uq-site-header__title-container {
+/*    display: flex; !* Use Flexbox for the parent container *!*/
+/*    !*align-items: center; !* Vertically center items within the parent *!*!*/
+/*    justify-content: flex-end;*/
+/*    width: 100%;*/
 }
 
 @media (min-width: 64em) {
@@ -254,6 +263,8 @@ a.uq-site-header__navigation-link.slide-menu__control:-moz-focusring {
 @media (min-width: 37.5rem) {
     .uq-site-header__title-container {
         justify-content: space-between;
+        padding-bottom: 10px;
+        padding-top: 5px;
     }
     .uq-site-header__title-container__right {
         justify-content: flex-end;
@@ -261,8 +272,17 @@ a.uq-site-header__navigation-link.slide-menu__control:-moz-focusring {
 }
 
 .uq-site-header .uq-site-header__title-container {
-    padding-block: 5px;
+    /*padding-block: 5px;*/
 }
+
+@media(min-width: 64rem) {
+    .uq-site-header__title-container {
+        padding-left: 1rem !important;
+        /*padding-bottom: 10px;*/
+        /*padding-top: 5px;*/
+    }
+}
+
 
 .primoNonProdMarker {
     color: white;
