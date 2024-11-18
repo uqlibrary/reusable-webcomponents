@@ -20,22 +20,9 @@ a.uq-site-header__title h1 {
     margin: 0;
     padding: 0;
     font-size: 16px;
-/*    height: 50.5px;*/
-/*    display: flex; !* Use Flexbox for the parent container *!*/
-/*    align-items: center; !* Vertically center items within the parent *!*/
-}
-.uq-site-header__title-container {
-/*    display: flex; !* Use Flexbox for the parent container *!*/
-/*    !*align-items: center; !* Vertically center items within the parent *!*!*/
-/*    justify-content: flex-end;*/
-/*    width: 100%;*/
 }
 
 @media (min-width: 64em) {
-    .uq-site-header__title-container {
-        padding-top: 1em;
-        padding-bottom: 1em;
-    }
     .uq-site-header__navigation__sub-toggle {
         width: 2rem;
         padding: 0.5rem 1.5rem 1.75rem 0.5rem;
@@ -97,13 +84,6 @@ span.displayText {
         top: 3.5em;
     }
 }
-/*@media (max-width: 80em) {*/
-/*    !* when the menu drops to a single lne, we dont need the spacing under the menu item any more *!*/
-/*    li.uq-site-header__navigation__list-item--has-subnav a {*/
-/*        min-height: 4em;*/
-/*    }*/
-/*}*/
-
 /* make the megamenu appear as one line where possible */
 @media (min-width: 64em) {
     .uq-site-header__navigation__list--level-1 > li:not(:first-child) > a {
@@ -257,6 +237,12 @@ a.uq-site-header__navigation-link.slide-menu__control:-moz-focusring {
 /*}*/
 
 /* allow lots of room for lots of links in the breadcrumbs */
+@media (min-width: 64em) {
+    .uq-site-header__title-container {
+        padding-top: 1em;
+        padding-bottom: 1em;
+    }
+}
 .uq-site-header__title-container {
     justify-content: space-between;
 }
@@ -271,18 +257,18 @@ a.uq-site-header__navigation-link.slide-menu__control:-moz-focusring {
     }
 }
 
-.uq-site-header .uq-site-header__title-container {
-    /*padding-block: 5px;*/
-}
-
 @media(min-width: 64rem) {
     .uq-site-header__title-container {
         padding-left: 1rem !important;
-        /*padding-bottom: 10px;*/
-        /*padding-top: 5px;*/
     }
 }
-
+@media (max-width: 37.5rem) {
+    .uq-site-header__title-container {
+        flex-direction: column;
+        width: 10em;
+        margin-left: -15px;
+    }
+}
 
 .primoNonProdMarker {
     color: white;
