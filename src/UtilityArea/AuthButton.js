@@ -266,14 +266,6 @@ class AuthButton extends HTMLElement {
     }
 
     addAdminMenuOptions(shadowDOM, account) {
-        // function getSecondLastListItem(ulElement) {
-        //     let secondLastLi = null;
-        //     const liElements = !!ulElement && ulElement.getElementsByTagName('li');
-        //     if (liElements.length >= 2) {
-        //         secondLastLi = liElements[liElements.length - 2];
-        //     }
-        //     return secondLastLi;
-        // }
         function addAdminMenuOption(elementId, linkId, link, iconPath, linkText, firstEntry) {
             const ulElement = shadowDOM.getElementById('account-menu-list');
             const liElements = ulElement.getElementsByTagName('li');
