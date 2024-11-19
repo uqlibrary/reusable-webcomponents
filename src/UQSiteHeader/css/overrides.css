@@ -236,37 +236,24 @@ a.uq-site-header__navigation-link.slide-menu__control:-moz-focusring {
 /*    text-decoration: none;*/
 /*}*/
 
-/* allow lots of room for lots of links in the breadcrumbs */
+.uq-site-header__title-container {
+    justify-content: space-between;
+    padding-bottom: 7px;
+    padding-top: 3px;
+}
 @media (min-width: 64em) {
     .uq-site-header__title-container {
         padding-top: 1em;
         padding-bottom: 1em;
     }
 }
-.uq-site-header__title-container {
-    justify-content: space-between;
-}
-@media (min-width: 37.5rem) {
-    .uq-site-header__title-container {
-        justify-content: space-between;
-        padding-bottom: 7px;
-        padding-top: 3px;
-    }
-    .uq-site-header__title-container__right {
-        justify-content: flex-end;
-    }
+.uq-site-header__title-container__right {
+    justify-content: flex-end;
 }
 
 @media(min-width: 64rem) {
     .uq-site-header__title-container {
         padding-left: 1rem !important;
-    }
-}
-@media (max-width: 37.5rem) {
-    .uq-site-header__title-container {
-        flex-direction: column;
-        width: 10em;
-        margin-left: -15px;
     }
 }
 
