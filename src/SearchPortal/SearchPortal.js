@@ -1037,7 +1037,7 @@ class SearchPortal extends HTMLElement {
                 }
 
             </style>
-            <div id="search-portal" class="MuiPaper-root MuiCard-root libraryCard StandardCard MuiPaper-elevation1 MuiPaper-rounded theme-${theme || 'light'}" data-testid="primo-search" data-analyticsid="primo-search" data-analyticsid="primo-search" role="region" aria-live="polite">
+            <div id="search-portal" class="MuiPaper-root MuiCard-root libraryCard StandardCard MuiPaper-elevation1 MuiPaper-rounded theme-${theme || 'light'}" data-testid="primo-search" data-analyticsid="primo-search" data-analyticsid="primo-search" role="region" aria-live="polite" aria-label="Search Portal">
                 <div class="MuiCardContent-root libraryContent" data-testid="primo-search-content" data-analyticsid="primo-search-content">
                     <form id="primo-search-form" class="searchForm" role="search">
                         <div class="MuiFormControl-root searchPanel" style="margin-bottom: -0.75rem; padding-top: 1rem;">
