@@ -155,7 +155,7 @@ authorisedtemplate.innerHTML = `
                         </li>
                         <!-- Logout -->
                         <li role="menuitem" aria-disabled="false" class="borderTop" >
-                            <button class="logout" type="button" data-analyticsid="auth-button-logout" id="signOutButton" aria-label="Log out" role="menuitem">
+                            <button class="logout" type="button" data-analyticsid="auth-button-logout" id="signOutButton">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
                                     <g id="Login-1--Streamline-Ultimate 1" clip-path="url(#clip0_1654_3032)">
                                         <path id="Vector" d="M17.0859 9.00293H5.76562" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>

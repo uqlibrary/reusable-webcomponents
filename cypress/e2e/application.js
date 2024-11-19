@@ -130,7 +130,7 @@ describe('Dummy Application', () => {
     function hasAuthButton(username = 'User, Vanilla') {
         cy.get('auth-button')
             .shadow()
-            .find('button[data-testid="account-option-button')
+            .find('[data-testid="username-area-label"]')
             .should('exist')
             .and('contain', username);
     }
