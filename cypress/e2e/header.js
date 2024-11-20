@@ -126,14 +126,17 @@ describe('UQ Header', () => {
                 });
         });
 
-        it.skip('Responsive Menu operates as expected', () => {
+        it('Responsive Menu operates as expected', () => {
             function mobileMenuIsHidden() {
                 cy.get('uq-site-header')
                     .shadow()
                     .find('nav[aria-label="Site navigation"] > ul:first-child')
                     .should('exist')
                     .should('not.be.visible');
-                cy.get('uq-site-header').shadow().find('li[data-testid="menu-group-item-0"]').should('not.be.visible');
+                cy.get('uq-site-header')
+                    .shadow()
+                    .find('[data-testid="uq-header-study-link-mobile"]')
+                    .should('not.be.visible');
             }
             function toggleTheMobileMenuButton() {
                 cy.get('uq-header').shadow().find('button[data-testid="mobile-menu-toggle-button"]').trigger('click');
@@ -155,7 +158,7 @@ describe('UQ Header', () => {
                 .within(() => {
                     function otherItemsAreVisible(isVisible = true) {
                         const visibility = isVisible ? 'be.visible' : 'not.be.visible';
-                        cy.get('[data-testid="menu-group-item-6"]').should(visibility);
+                        cy.get('[data-testid="uq-header-study-link-mobile"]').should(visibility);
                         cy.get('.uq-site-header__navigation__list__first-permanent-child').should(visibility);
                     }
 
@@ -165,25 +168,7 @@ describe('UQ Header', () => {
                     cy.get('.uq-site-header__navigation__list__first-permanent-child').should('be.visible');
 
                     // and has the correct children
-                    cy.get('[aria-label="Site navigation"]').find('ul').should('have.length', 7);
-                    // a child shows in the menu
-                    cy.get('li[data-testid="menu-group-item-0"]').should('be.visible');
-                    // but its first child is hidden
-                    cy.get('li[data-testid="menu-group-services-link-0"]').should('not.be.visible');
-
-                    otherItemsAreVisible();
-
-                    // click open its down arrow button
-                    cy.get('button[data-testid="menu-group-item-0-open"]').click();
-                    // now the first child is visible
-                    cy.get('li[data-testid="menu-group-services-link-0"]').should('be.visible');
-
-                    otherItemsAreVisible(false);
-
-                    // click the close button
-                    cy.get('[data-testid="uq-site-header__navigation__list--close-0"]').should('be.visible').click();
-                    // children are hidden again
-                    cy.get('li[data-testid="menu-group-services-link-0"]').should('not.be.visible');
+                    cy.get('[aria-label="Site navigation"]').find('ul').children().should('have.length', 9);
 
                     otherItemsAreVisible();
 

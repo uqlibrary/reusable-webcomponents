@@ -1,55 +1,32 @@
-button {
-    cursor: pointer;
+/* logged in button */
+
+.auth > button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    border: none; /* Remove default button border */
+    background-color: transparent;
+    padding-block: 0;
+    padding-inline: 0;
+    margin-top: 7px;
+    margin-bottom: 6px;
 }
 
-.auth .auth-icon {
-    fill: #745095; /* purple-200, deliberately softer */
-}
-.auth .auth-icon-loggedin {
-    margin-right: 2px;
-}
-
-.auth button {
-    background: rgba(0, 0, 0, 0);
-    border: none;
-    margin: -12px 0;
-    padding: 6px;
-    height: 60px;
-    transition-delay: 0s;
-    transition-duration: 0.15s;
-    transition-property: background-color;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-.auth button:hover,
-.auth button:focus,
-.auth button:active {
-    background: rgba(0, 0, 0, 0.04);
-    border-radius: 5px;
-    transition-delay: 0s;
-    transition-duration: 0.15s;
-    transition-property: background-color;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-.account-options-menu-list button.logout {
-    background-color: #2377cb;
-    padding: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-}
+/* username display */
 .username-area {
     display: flex;
     margin-top: 4px;
 }
-.account-options-menu-list button.logout,
 .username-area {
     align-items: center;
     font-weight: 500;
     font-family: Roboto, Helvetica, sans-serif;
 }
 .username-area svg {
-    width: 22px;
+    margin-left: 3px;
 }
-.username-area svg.auth-icon-loggedin {
+.username-area svg.auth-icon {
     margin-top: -6px;
 }
 .username-area svg.options-dropdown-arrow {
@@ -57,41 +34,41 @@ button {
     font-weight: 400;
 }
 
-@media screen and (max-width: 600px) {
-    .auth-menu {
-        z-index: 999;
-        background-color: rgba(255, 255, 255, 0.98);
-        border-radius: 4px;
-        box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
-        top: 50px;
-        left: calc(50% - (90% / 2));
-        position: fixed;
-        width: 90%;
-        transition: transform 0.2s ease-out, opacity 0.2s ease-out;
-        transform: scale(1);
-        transform-origin: 50% 50%;
-        opacity: 1;
-    }
-    .account-options-menu {
-        overflow-y: auto;
-        height: calc(100vh - 70px);
-    }
+.username-area-label {
+    font-size: 16px;
+    font-family: Roboto, Helvetica, sans-serif;
+    margin: 0 0 0 8px;
+    transition: background-color 0.3s ease;
+
+    /* name goes ellipsis when long, eg user 'digiteamMember' */
+    max-width: 150px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
-@media screen and (min-width: 600px) {
-    .auth-menu {
-        z-index: 999;
-        background-color: rgba(255, 255, 255, 0.98);
-        border-radius: 4px;
-        box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
-        left: auto;
-        right: 0;
-        position: absolute;
-        min-width: 320px;
-        transition: transform 0.2s ease-out, opacity 0.2s ease-out;
-        transform: scale(1);
-        transform-origin: 50% 50%;
-        opacity: 1;
-    }
+
+.auth > button:hover .username-area-label {
+    background-color: #51247a;
+    color: white;
+}
+.auth > button:hover,
+.auth > button:focus,
+.auth > button:active {
+    cursor: pointer;
+}
+
+.auth-menu {
+    z-index: 999;
+    background-color: rgba(255, 255, 255, 0.98);
+    border-radius: 4px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+    left: auto;
+    right: 20px;
+    position: absolute;
+    transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+    transform: scale(1);
+    transform-origin: 50% 50%;
+    opacity: 1;
 }
 .mylibrary-menu-list li,
 .mylibrary-menu-list {
@@ -99,23 +76,6 @@ button {
 }
 .mylibrary-menu-list {
     padding-left: 0;
-}
-.mylibrary-menu-list li svg {
-    width: 24px;
-    height: 24px;
-    fill: #595959;
-    margin-bottom: -4px;
-    margin-right: 4px;
-    margin-left: 6px;
-}
-.tiny-text {
-    letter-spacing: 0.07em;
-    font-weight: 600;
-    font-size: 0.75em;
-    display: block;
-}
-.bold-text {
-    font-weight: 600 !important;
 }
 .user-menu-header {
     display: flex;
@@ -129,24 +89,31 @@ button {
     flex-direction: column;
     flex: 1;
 }
-.auth button.logout.md-button {
-    height: 36px;
-    width: 80px;
+.logout {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-weight: 500;
+    font-family: Roboto, Helvetica, sans-serif;
+    border: none; /* Remove default button border */
     cursor: pointer;
-    text-align: center;
-    border-radius: 2px;
-    text-transform: uppercase;
+    background-color: white;
+    padding-inline: 0;
 }
-.auth button.logout.md-button span {
-    color: #fff;
-    margin-left: auto;
-    margin-right: auto;
+.logout svg {
+    padding-right: 18px;
 }
-.md-button.md-primary:hover,
-.md-button.md-primary:active,
-.md-button.md-primary:focus,
-.md-button.md-primary.hovered {
-    background-color: #195794;
+.logout span {
+    color: #19151c;
+    font-family: Roboto, Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 160%; /* 25.6px */
+    letter-spacing: 0.16px;
+}
+.logout:hover,
+.logout:active,
+.logout:focus {
 }
 .md-menu-item {
     border-bottom: thin solid lightgrey;
@@ -154,9 +121,6 @@ button {
 .admin-options {
     border-top: thin solid lightgrey;
     margin-top: 10px;
-}
-.prm-user-menu-content {
-    padding-bottom: 10px;
 }
 .account-options-menu-closed {
     opacity: 0 !important;
@@ -191,50 +155,41 @@ button {
 }
 
 .mylibrary-menu-list {
-    width: calc(100% - 20px);
-    padding: 6px !important;
-    padding-bottom: 0 !important;
-    margin: 0;
+    padding: 0;
+    margin: 24px 0;
     list-style-type: none;
 }
 
-@media screen and (max-width: 430px) {
-    .mylibrary-menu-list li {
-        display: inline-block;
-        width: calc(100% - 4px);
-        padding: 0 !important;
-        margin: 0 !important;
-        height: 35px !important;
-    }
-}
-
-@media screen and (min-width: 430px) {
-    .mylibrary-menu-list li {
-        padding: 10px 0;
-        margin: 0 !important;
-        height: 35px !important;
-    }
-    .admin-options .mylibrary-menu-list li {
-        padding: 5px 0;
-    }
+.mylibrary-menu-list li {
+    padding: 0 24px;
+    margin: 16px 0;
 }
 
 .mylibrary-menu-list li a {
-    display: inline-block;
-    width: 100% !important;
+    display: flex;
+    align-items: center;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    padding-top: 4px !important;
-    padding-bottom: 4px !important;
-    padding-left: 4px !important;
-    padding-right: 4px !important;
-    margin: 2px !important;
     margin-bottom: 0 !important;
     text-decoration: none;
     color: #595959;
     text-align: left;
     font-size: 16px;
+}
+
+.mylibrary-menu-list li a span {
+    text-rendering: auto;
+    color: #19151c;
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: 160%; /* 25.6px */
+    text-transform: none;
+    text-indent: 0;
+    text-shadow: none;
+    text-align: center;
+    cursor: default;
+    font-style: normal;
 }
 
 .mylibrary-menu-list li a:hover {
@@ -243,28 +198,13 @@ button {
     cursor: pointer;
 }
 
-.mylibrary-menu-list li svg {
+.mylibrary-menu-list li a svg {
     width: 24px;
     height: 24px;
-    fill: #595959;
-    margin-bottom: -4px;
-    margin-right: 4px;
-    margin-left: 6px;
+    padding-right: 12px;
 }
 
-.username-area-label {
-    max-width: 150px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    height: 22px;
-}
-
-.subtext {
-    font-size: 0.75em;
-    min-height: 1em;
-    font-weight: 300;
-    margin-bottom: 2px;
-    margin-left: 40px;
-    margin-top: -4px;
+.mylibrary-menu-list li.borderTop {
+    border-top: thin solid #d3d3d3;
+    padding-top: 12px;
 }

@@ -32,17 +32,6 @@ function createAuthButton() {
     return slot;
 }
 
-function createAskusButton() {
-    if (!!document.querySelector('askus-button')) {
-        return false;
-    }
-
-    const askusButton = document.createElement('askus-button');
-    const slot = !!askusButton && createSlotForButtonInUtilityArea(askusButton, 'askus');
-
-    return slot;
-}
-
 function createElement(type, props) {
     var $e = document.createElement(type);
     for (var prop in props) {
@@ -80,9 +69,6 @@ function loadReusableComponentsLibGuides() {
     siteHeader.setAttribute('skipnavid', 's-lc-public-main');
 
     if (!isOutsideUQ) {
-        const askusButton = createAskusButton();
-        !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
-
         const authButton = createAuthButton();
         !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
     }
@@ -94,6 +80,12 @@ function loadReusableComponentsLibGuides() {
 
     document.body.insertBefore(siteHeader, firstElement);
 
+    // Proactive Chat button
+    if (!document.querySelector('proactive-chat')) {
+        const proactiveChat = document.createElement('proactive-chat');
+        !!proactiveChat && document.body.insertBefore(proactiveChat, firstElement);
+    }
+
     if (!document.querySelector('alert-list')) {
         const alerts = document.createElement('alert-list');
         !!alerts && document.body.insertBefore(alerts, firstElement);
@@ -104,11 +96,6 @@ function loadReusableComponentsLibGuides() {
 
     const subFooter = document.createElement('uq-footer');
     document.body.appendChild(subFooter);
-    // Proactive Chat button
-    if (!document.querySelector('proactive-chat')) {
-        const proactiveChat = document.createElement('proactive-chat');
-        !!proactiveChat && document.body.appendChild(proactiveChat);
-    }
 }
 
 ready(loadReusableComponentsLibGuides);

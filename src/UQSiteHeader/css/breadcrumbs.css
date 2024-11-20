@@ -2,7 +2,7 @@
 
 .uq-breadcrumbs {
     border-bottom: 1px solid #e2e2e2;
-    padding: .75rem 0
+    padding: 0.75rem 0;
 }
 
 .uq-breadcrumb__list {
@@ -11,51 +11,52 @@
     list-style: none;
     display: flex;
     flex-wrap: wrap;
-    grid-gap: 2px 0
+    grid-gap: 2px 0;
 }
 
 .uq-breadcrumb__item {
     background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m14 7-5 5 5 5' stroke='%23757377' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e");
-    background-position: left .2rem center;
+    background-position: left 0.2rem center;
     padding: 0 0 0 1.5rem;
     margin: 0;
-    font-size: .875rem;
-    color: #757377;
+    font-size: 0.875rem;
+    font-style: normal;
+    color: #8c8a8d; /* grey-600 ;*/
     background-repeat: no-repeat;
     background-size: 1rem;
     display: none;
-    min-width: 0
+    min-width: 0;
 }
 
 .uq-breadcrumb__item:nth-last-child(2) {
-    display: flex
+    display: flex;
 }
 
-@media(min-width: 37.5rem) {
+@media (min-width: 37.5rem) {
     .uq-breadcrumb__item {
-        display:flex;
+        display: flex;
         min-width: auto;
-        background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m10 17 5-5-5-5' stroke='%23757377' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e")
+        background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m10 17 5-5-5-5' stroke='%23757377' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e");
     }
 
     .uq-breadcrumb__item:first-of-type {
         background: none;
-        padding-left: 0
+        padding-left: 0;
     }
 
     .uq-breadcrumb__item:last-of-type .uq-breadcrumb__link {
         max-width: 650px;
         -webkit-text-decoration: none;
-        text-decoration: none
+        text-decoration: none;
     }
 }
 
 .uq-breadcrumb__item--hidden {
-    display: none
+    display: none;
 }
 
 .uq-breadcrumb__expand {
-    cursor: pointer
+    cursor: pointer;
 }
 
 .uq-breadcrumb__link {
@@ -66,16 +67,16 @@
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: none;
-    font-weight: 400
+    font-weight: 400;
 }
 
-@media(min-width: 37.5rem) {
+@media (min-width: 37.5rem) {
     .uq-breadcrumb__link {
-        max-width:9rem
+        max-width: 9rem;
     }
 }
 
 .uq-breadcrumb__link:hover {
-    background-color: rgba(0,0,0,0);
-    color: #757377
+    background-color: rgba(0, 0, 0, 0);
+    color: #757377;
 }

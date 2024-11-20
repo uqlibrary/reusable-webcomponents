@@ -14,9 +14,6 @@ import { default as menuLocale } from '../locale/menu';
  *       (both second level required if either)
  *   >
  *       <span slot="site-utilities">
- *           <askus-button />
- *       </span>
- *       <span slot="site-utilities">
  *           <auth-button />
  *       </span>
  *   </uq-site-header>
@@ -128,13 +125,18 @@ class UQSiteHeader extends HTMLElement {
     addClickListeners(shadowDOM) {
         function resetBreadcrumbs() {
             const subsiteTitle = shadowDOM.getElementById('subsite');
-            console.log('BREADCRUMBS homepage clicked - remove subsite');
             !!subsiteTitle && subsiteTitle.remove();
         }
         // when we go back to the library homepage from a sub page, clear out any lower breadcrumbs
         const libraryTitleElement = shadowDOM.getElementById('site-title');
-        console.log('BREADCRUMBS add clickhandler to libraryTitleElement:', libraryTitleElement);
         !!libraryTitleElement && libraryTitleElement.addEventListener('click', resetBreadcrumbs);
+
+        function checkIfHomepage() {
+            if (window.location.pathname === '/') {
+                resetBreadcrumbs();
+            }
+        }
+        window.addEventListener('popstate', checkIfHomepage);
     }
 
     isValidUrl(urlString) {

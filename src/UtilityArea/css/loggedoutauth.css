@@ -6,11 +6,9 @@ button {
     width: 24px;
 }
 
-.auth .auth-log-in-label {
-    font-size: 13.3px !important;
-    white-space: nowrap;
-    font-weight: 500;
-    font-family: Roboto, Helvetica, sans-serif;
+svg.auth-icon {
+    width: 24px;
+    height: 24px;
 }
 
 .auth button {
@@ -19,16 +17,24 @@ button {
     background: rgba(0, 0, 0, 0);
     border: none;
     padding: 6px;
+    margin-top: 4px;
 }
+.auth .auth-log-in-label {
+    font-size: 16px;
+    white-space: nowrap;
+    font-weight: 500;
+    font-family: Roboto, Helvetica, sans-serif;
+    margin-left: 8px;
+}
+.auth > button:hover .auth-log-in-label {
+    background-color: #51247a;
+    color: white;
+}
+
 .auth button:hover,
 .auth button:focus,
 .auth button:active {
-    background: rgba(0, 0, 0, 0.04);
-    border-radius: 5px;
-    transition-delay: 0s;
-    transition-duration: 0.15s;
-    transition-property: background-color;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
 }
 
 button.login-button:active {
