@@ -193,13 +193,17 @@ unauthorisedtemplate.innerHTML = `
     </div>
 `;
 
-let initCalled;
-
 class AuthButton extends HTMLElement {
     constructor() {
         super();
         // Add a shadow DOM
         const shadowDOM = this.attachShadow({ mode: 'open' });
+
+        // if account is the first call then it wipes the session storage and says "Im logged out"
+        // we need to call the opening hours api to make authbutton work on first load?!?!?
+        // (the askus button used to go first to call hours api before account api,but its been removed)
+        // slack fix for mocking: dummy a call to hours
+        !!process.env.USE_MOCK && new ApiAccess().loadOpeningHours();
 
         if (this.isOverwriteAsLoggedOutRequested()) {
             // Render the template
