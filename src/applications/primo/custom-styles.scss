@@ -7,7 +7,7 @@ $background-grey: #5f5f5f;
     font-style: normal;
     font-weight: 400;
     src: local('Roboto'), local('Roboto-Regular'),
-        url(https://fonts.gstatic.com/s/roboto/v15/sTdaA6j0Psb920Vjv-mrzH-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+    url(https://fonts.gstatic.com/s/roboto/v15/sTdaA6j0Psb920Vjv-mrzH-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
     unicode-range: U+0460-052F, U+20B4, U+2DE0-2DFF, U+A640-A69F;
 }
 
@@ -17,7 +17,7 @@ $background-grey: #5f5f5f;
     font-style: normal;
     font-weight: 400;
     src: local('Roboto'), local('Roboto-Regular'),
-        url(https://fonts.gstatic.com/s/roboto/v15/uYECMKoHcO9x1wdmbyHIm3-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+    url(https://fonts.gstatic.com/s/roboto/v15/uYECMKoHcO9x1wdmbyHIm3-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
     unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
 }
 
@@ -27,7 +27,7 @@ $background-grey: #5f5f5f;
     font-style: normal;
     font-weight: 400;
     src: local('Roboto'), local('Roboto-Regular'),
-        url(https://fonts.gstatic.com/s/roboto/v15/tnj4SB6DNbdaQnsM8CFqBX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+    url(https://fonts.gstatic.com/s/roboto/v15/tnj4SB6DNbdaQnsM8CFqBX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
     unicode-range: U+1F00-1FFF;
 }
 
@@ -37,7 +37,7 @@ $background-grey: #5f5f5f;
     font-style: normal;
     font-weight: 400;
     src: local('Roboto'), local('Roboto-Regular'),
-        url(https://fonts.gstatic.com/s/roboto/v15/_VYFx-s824kXq_Ul2BHqYH-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+    url(https://fonts.gstatic.com/s/roboto/v15/_VYFx-s824kXq_Ul2BHqYH-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
     unicode-range: U+0370-03FF;
 }
 
@@ -47,7 +47,7 @@ $background-grey: #5f5f5f;
     font-style: normal;
     font-weight: 400;
     src: local('Roboto'), local('Roboto-Regular'),
-        url(https://fonts.gstatic.com/s/roboto/v15/NJ4vxlgWwWbEsv18dAhqnn-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+    url(https://fonts.gstatic.com/s/roboto/v15/NJ4vxlgWwWbEsv18dAhqnn-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
     unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB;
 }
 
@@ -57,7 +57,7 @@ $background-grey: #5f5f5f;
     font-style: normal;
     font-weight: 400;
     src: local('Roboto'), local('Roboto-Regular'),
-        url(https://fonts.gstatic.com/s/roboto/v15/Ks_cVxiCiwUWVsFWFA3Bjn-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+    url(https://fonts.gstatic.com/s/roboto/v15/Ks_cVxiCiwUWVsFWFA3Bjn-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
     unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
 }
 
@@ -67,7 +67,7 @@ $background-grey: #5f5f5f;
     font-style: normal;
     font-weight: 400;
     src: local('Roboto'), local('Roboto-Regular'),
-        url(https://fonts.gstatic.com/s/roboto/v15/oMMgfZMQthOryQo9n22dcuvvDin1pK8aKteLpeZ5c0A.woff2) format('woff2');
+    url(https://fonts.gstatic.com/s/roboto/v15/oMMgfZMQthOryQo9n22dcuvvDin1pK8aKteLpeZ5c0A.woff2) format('woff2');
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
 }
 
@@ -265,7 +265,7 @@ div.top-nav-bar-links.buttons-group.layout-align-center-center.layout-row.flex-1
 }
 // also hide the browse button in the mobile view
 div.md-dialog-container
-    .custom-links-container.layout-wrap.layout-align-sm-start-start.layout-align-center-start.layout-row {
+.custom-links-container.layout-wrap.layout-align-sm-start-start.layout-align-center-start.layout-row {
     display: none;
 }
 
@@ -446,11 +446,11 @@ prm-atoz-search-bar {
     background-color: transparent;
 }
 md-content
-    prm-search-result-list
-    .pages-separated-with-gaps
-    .list-item-wrapper.first-in-page:first-of-type
-    .md-subheader
-    ._md-subheader-inner {
+prm-search-result-list
+.pages-separated-with-gaps
+.list-item-wrapper.first-in-page:first-of-type
+.md-subheader
+._md-subheader-inner {
     top: -43px;
 }
 
@@ -517,12 +517,12 @@ div > getit-link-service {
 @media (max-width: 599px) {
     // page count for very small page width is mis aligned
     .__xs
-        prm-search-result-list
-        .pages-separated-with-gaps
-        .list-item-wrapper.first-in-page:first-of-type
-        .md-subheader
-        ._md-subheader-inner
-        ._md-subheader-content {
+    prm-search-result-list
+    .pages-separated-with-gaps
+    .list-item-wrapper.first-in-page:first-of-type
+    .md-subheader
+    ._md-subheader-inner
+    ._md-subheader-content {
         margin-top: -9px;
     }
 }
@@ -815,23 +815,6 @@ uq-site-header {
         // shift the uq site title in the web component up a little
         padding-top: 1rem;
         padding-bottom: 1rem;
-    }
-}
-
-askus-button {
-    &::part(button) {
-        height: 42px;
-        margin-left: 4px;
-        margin-top: -6px;
-    }
-}
-
-askus-button:hover,
-askus-button:active,
-askus-button:focus {
-    &::part(button) {
-        background-color: $white;
-        opacity: initial;
     }
 }
 
@@ -1536,8 +1519,8 @@ prm-user-area-expandable .mylibrary-list {
 .mobile-main-menu-bg {
     button.button-with-icon.md-button.md-primoExplore-theme.md-ink-ripple,
     not(prm-authentication) button.button-with-icon.zero-margin.md-button.md-primoExplore-theme.md-ink-ripple {
-        color: #0d1a26;
-    }
+    color: #0d1a26;
+}
 }
 // bottom bar is scrolling
 prm-main-menu md-content {
@@ -1674,8 +1657,8 @@ prm-explore-main div.header {
 
 // the Favourite pin popup close button turns white on hover. Fix.
 prm-search-bookmark-filter
-    div.favorites-guest-warning
-    .md-button:not(.disable-hover):hover:not([disabled]):hover:not([disabled]) {
+div.favorites-guest-warning
+.md-button:not(.disable-hover):hover:not([disabled]):hover:not([disabled]) {
     color: #fff !important;
     border-radius: 50%;
     background-color: grey;
@@ -1844,19 +1827,6 @@ prm-search-result-list .list-items-list div.margin-bottom-medium:first-of-type:n
         font-style: normal
     }
 }
-
-// show the label we have added beside the primo icons
-prm-search-bookmark-filter button.md-button.md-icon-button {
-    border-radius: 0;
-    display: flex;
-    justify-content: space-between;
-    background-color: transparent;
-}
-prm-search-bookmark-filter button.md-button.md-icon-button {
-    width: 55px;
-    padding-inline: 4px;
-    margin-inline: 0;
-}
 @media (min-width: 780px) {
     prm-topbar .mergeup {
         margin-top: -61px;
@@ -1866,43 +1836,4 @@ prm-search-bookmark-filter button.md-button.md-icon-button {
     prm-topbar .mergeup {
         margin-top: -61px;
     }
-}
-@media (max-width: 780px) and (min-width: 600px) {
-    // when the breadcrumb count drops to one, we have room to go back on one bar
-    prm-topbar .mergeup {
-        margin-top: -25px;
-        &.layout-row > div[flex="50"],
-        prm-main-menu.flex-50 {
-            flex: none;
-        }
-        prm-search-bookmark-filter {
-            margin-left: 20px;
-            justify-content: flex-start;
-        }
-    }
-}
-@media (max-width: 470px) {
-    // drop below, same as 780-600
-    prm-topbar .mergeup {
-        margin-top: -25px;
-        &.layout-row > div[flex="50"],
-        prm-main-menu.flex-50 {
-            flex: none;
-        }
-        prm-search-bookmark-filter {
-            margin-left: 20px;
-            justify-content: flex-start;
-        }
-    }
-}
-
-.prm-user-menu-content svg {
-    display: none
-}
-.prm-user-menu-content md-menu-item button {
-    margin-left: -10px;
-}
-
-md-menu-content.prm-user-menu-content  md-menu-item:first-of-type {
-    display: none;
 }
