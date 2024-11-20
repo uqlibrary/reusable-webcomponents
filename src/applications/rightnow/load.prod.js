@@ -14,17 +14,6 @@ function createSlotForButtonInUtilityArea(button, id = null) {
     return slot;
 }
 
-function createAskusButton() {
-    if (!!document.querySelector('askus-button')) {
-        return false;
-    }
-
-    const askusButton = document.createElement('askus-button');
-    const slot = !!askusButton && createSlotForButtonInUtilityArea(askusButton, 'askus');
-
-    return slot;
-}
-
 function loadReusableComponentsRightnow() {
     // loadUQFavicon();
     // addAppleTouchIcon();
@@ -54,9 +43,6 @@ function loadReusableComponentsRightnow() {
 
     if (!document.querySelector('uq-site-header')) {
         const siteHeader = document.createElement('uq-site-header');
-
-        const askusButton = createAskusButton();
-        !!askusButton && !!siteHeader && siteHeader.appendChild(askusButton);
 
         !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
     }

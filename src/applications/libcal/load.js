@@ -32,17 +32,6 @@ function createAuthButton() {
     return slot;
 }
 
-function createAskusButton() {
-    if (!!document.querySelector('askus-button')) {
-        return false;
-    }
-
-    const askusButton = document.createElement('askus-button');
-    const slot = !!askusButton && createSlotForButtonInUtilityArea(askusButton, 'askus');
-
-    return slot;
-}
-
 function createElement(type, props) {
     var $e = document.createElement(type);
     for (var prop in props) {
@@ -80,9 +69,6 @@ function loadReusableComponentsLibGuides() {
     siteHeader.setAttribute('skipnavid', 's-lc-public-main');
 
     if (!isOutsideUQ) {
-        const askusButton = createAskusButton();
-        !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
-
         const authButton = createAuthButton();
         !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
     }

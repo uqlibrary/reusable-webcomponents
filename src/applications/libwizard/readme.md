@@ -11,12 +11,7 @@ Note that we arent running GTM on this page.
 Select 'display this html' and insert the following html:
 
 ```html
-<uq-header hidelibrarymenuitem skipnavid="skiptohere"></uq-header>
-<uq-site-header>
-  <span slot="site-utilities">
-    <askus-button hideProactiveChat />
-  </span>
-</uq-site-header>
+<uq-header hidelibrarymenuitem skipnavid="skiptohere"></uq-header> <uq-site-header> </uq-site-header>
 ```
 
 ## Custom CSS/JS Tab
