@@ -165,7 +165,11 @@ prm-search-bookmark-filter {
         color: $textColor !important;
     }
     .md-ripple-container {
-        display: none; // the ripple looks really strange now we have gone to square buttons
+        display: none; // the ripple is counterindicated by the purpleon span, and freezes on favourites when mousing down! :(
+        width: 0;
+        height: 0;
+        left: -9999px;
+        top: -9999px;
     }
 }
 
@@ -317,8 +321,11 @@ prm-user-area-expandable .md-button.user-button .menu-arrow {
     &.md-focused,
     &:focus,
     &:hover {
-        color: #000;
-        background-color: rgba(51, 51, 51, 0.1);
+        background-color: transparent;
+        span.primaryText {
+            background-color: $theme-color;
+            color: #fff;
+        }
     }
 }
 
@@ -1234,10 +1241,9 @@ prm-personal-info prm-change-lang {
 .my-library-card-ctm .primaryText,
 .my-favorties-ctm .primaryText,
 .my-search-history-ctm .primaryText {
-    padding-left: 10px;
+    margin-left: 10px;
     font-weight: 400;
-    color: #595959;
-    margin-top: 10px;
+    font-size: 16px;
 }
 
 .my-library-card-ctm svg,
@@ -1254,7 +1260,7 @@ prm-personal-info prm-change-lang {
 
 .mobile-main-menu-bg {
     .my-search-history-ctm .primaryText,
-    .my-search-history-ctm .subtext,
+    //.my-search-history-ctm .subtext,
     .my-search-history-ctm button {
         background-color: inherit;
         color: #fff;
@@ -1300,81 +1306,81 @@ prm-personal-info prm-change-lang {
 }
 
 // can be removed when old custom.js is presumed stale, presumably after sept 2023
-ul.mylibrary-list {
-    &,
-    li {
-        list-style: none;
-        padding-left: 0;
-        margin-left: 0;
-        margin-top: 0;
-    }
-
-    svg {
-        width: 24px;
-        fill: #595959;
-        margin-left: 30px;
-    }
-
-    button {
-        display: flex;
-        margin-left: -20px;
-        margin-top: 0;
-        margin-bottom: -10px;
-        align-items: flex-start;
-        min-height: 4em;
-        background-color: #fff;
-        border-width: 0;
-        padding-top: 10px;
-        width: 100%;
-
-        &:active,
-        &:hover {
-            background-color: rgba(210, 210, 210, 0.5);
-        }
-    }
-
-    .textwrapper {
-        text-transform: initial;
-        display: flex;
-        flex-direction: column;
-        font-size: 16px;
-
-        span {
-            text-align: left;
-            color: #595959;
-        }
-    }
-
-    .primaryText {
-        padding-left: 10px;
-        font-weight: 400;
-    }
-}
+//ul.mylibrary-list {
+//    &,
+//    li {
+//        list-style: none;
+//        padding-left: 0;
+//        margin-left: 0;
+//        margin-top: 0;
+//    }
+//
+//    svg {
+//        width: 24px;
+//        fill: #595959;
+//        margin-left: 30px;
+//    }
+//
+//    button {
+//        display: flex;
+//        margin-left: -20px;
+//        margin-top: 0;
+//        margin-bottom: -10px;
+//        align-items: flex-start;
+//        min-height: 4em;
+//        background-color: #fff;
+//        border-width: 0;
+//        padding-top: 10px;
+//        width: 100%;
+//
+//        &:active,
+//        &:hover {
+//            background-color: rgba(210, 210, 210, 0.5);
+//        }
+//    }
+//
+//    .textwrapper {
+//        text-transform: initial;
+//        display: flex;
+//        flex-direction: column;
+//        font-size: 16px;
+//
+//        span {
+//            text-align: left;
+//            color: #595959;
+//        }
+//    }
+//
+//    .primaryText {
+//        padding-left: 10px;
+//        font-weight: 400;
+//    }
+//}
 
 // can be removed when old custom.js is presumed stale, presumably after sept 2023
 // style the mobile account menu
-.mobile-main-menu-bg ul.mylibrary-list {
-    margin-bottom: 0;
-    margin-left: -5px;
-    width: 100%;
-    margin-top: 0;
-
-    .primaryText,
-    .subtext,
-    button,
-    li {
-        background-color: inherit;
-        color: #fff;
-    }
-
-    svg {
-        fill: #fff;
-    }
-}
-
-.prm-user-menu-content {
-    overflow-y: hidden;
-}
+//.mobile-main-menu-bg ul.mylibrary-list {
+//    margin-bottom: 0;
+//    margin-left: -5px;
+//    width: 100%;
+//    margin-top: 0;
+//
+//    .primaryText,
+//    //.subtext,
+//    button,
+//    li {
+//        background-color: inherit;
+//        color: #fff;
+//    }
+//
+//    svg {
+//        fill: #fff;
+//    }
+//}
+//
+//.prm-user-menu-content {
+//    overflow-y: hidden;
+//}
 
 md-menu-item.uql-account-menu-option button {
     display: flex;
@@ -1385,38 +1391,42 @@ md-menu-item.uql-account-menu-option button {
     min-height: 4em;
     background-color: #fff;
     border-width: 0;
-
-    &:active,
-    &:hover {
-        background-color: rgba(210, 210, 210, 0.5);
+    transition: color 200ms ease-out, text-decoration 200ms ease-out, background-color 200ms ease-out;
+    color: #19151c;
+    &:active span.primaryText,
+    &:hover span.primaryText {
+        background-color: $theme-color;
+        color: #fff;
     }
 
     svg {
-        margin-left: 20px;
+        margin-left: 5px;
         width: 24px;
         margin-top: 0; // maybe not needed when old styling removed, when old custom.js is presumed stale (below here)
     }
     .textwrapper {
+        color: #19151c;
         display: flex;
         flex-direction: column;
         font-size: 16px;
         text-transform: initial;
+        margin-top: 3px;
 
         span {
-            color: #595959;
+            //color: #595959;
             text-align: left;
         }
     }
 
     .primaryText {
         font-weight: 400;
-        padding-left: 10px;
-    }
-    .subtext {
-        font-size: 12px;
-        font-weight: 300;
         margin-left: 10px;
     }
+    //.subtext {
+    //    font-size: 12px;
+    //    font-weight: 300;
+    //    margin-left: 10px;
+    //}
 }
 
 // style the mobile account menu
@@ -1427,8 +1437,8 @@ md-menu-item.uql-account-menu-option button {
         margin-left: -30px;
         background-color: inherit;
 
-        .primaryText,
-        .subtext {
+        //.subtext,
+        .primaryText {
             background-color: inherit;
             color: #fff;
         }
@@ -1451,6 +1461,10 @@ md-menu-item.mobile-loggedout-feedback-item {
         width: 45px;
         fill: #fff;
     }
+}
+// hide the ripple on the account menu
+md-menu-item .md-ripple-container {
+    display: none;
 }
 
 // make the builtinAccountButton have similar spacing under it to the other items
@@ -1477,7 +1491,10 @@ prm-library-card-menu {
 // make the account dropdown logout button blue properly
 md-menu-content {
     min-height: 180px;
+    padding-top: 24px;
+    padding-bottom: 24px;
     .user-menu-header button.md-button {
+        color: #19151c;
         &.md-primary {
             background-color: $accent-color;
             color: #fff;
@@ -1486,6 +1503,12 @@ md-menu-content {
         &.md-primary:hover:not([disabled]) {
             background-color: #195794;
         }
+    }
+    button[aria-label="Sign out"],
+    &>md-menu-item,
+    &>button {
+        padding-left: 24px;
+        padding-right: 24px;
     }
 }
 
@@ -1848,4 +1871,51 @@ prm-search-result-list .list-items-list div.margin-bottom-medium:first-of-type:n
             justify-content: flex-start;
         }
     }
+}
+
+// restyle log out button
+button.md-button.md-primary[aria-label="Sign out"] {
+    color: #19151c;
+    text-align: left;
+    text-transform: unset;
+    //font-weight: 400 !important;
+    letter-spacing: .16px;
+    line-height: 160%;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background-image: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2218%22%20height%3D%2218%22%20viewBox%3D%220%200%2018%2018%22%20fill%3D%22none%22%3E%3Cg%20clip-path%3D%22url(%23clip0_1654_3032)%22%3E%3Cpath%20d%3D%22M17.0859%209.00293H5.76562%22%20stroke%3D%22%2351247A%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3Cpath%20d%3D%22M8.46094%2011.6982L5.76562%209.00293L8.46094%206.30762%22%20stroke%3D%22%2351247A%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3Cpath%20d%3D%22M11.6954%2012.2344V15.4688C11.7077%2015.7416%2011.6115%2016.0081%2011.4278%2016.2102C11.2441%2016.4122%2010.9878%2016.5333%2010.715%2016.5469H1.89383C1.62121%2016.5331%201.36513%2016.412%201.18156%2016.2099C0.997988%2016.0079%200.901855%2015.7414%200.91417%2015.4688V2.53125C0.901664%202.25851%200.997731%201.99193%201.18134%201.78987C1.36495%201.5878%201.62114%201.46672%201.89383%201.45312H10.715C10.9878%201.46672%2011.2441%201.58778%2011.4278%201.78982C11.6115%201.99186%2011.7077%202.25844%2011.6954%202.53125V5.76562%22%20stroke%3D%22%2351247A%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/g%3E%3Cdefs%3E%3CclipPath%20id%3D%22clip0_1654_3032%22%3E%3Crect%20width%3D%2218%22%20height%3D%2218%22/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-position: left 24px top 12px;
+    -webkit-background-size: 24px 24px;
+    -moz-background-size: 24px 24px;
+    -o-background-size: 24px 24px;
+    background-size: 24px 24px;
+    padding-top: 12px;
+    padding-left: 59px;
+    padding-right: 0;
+    margin-left: 2px;
+    margin-right: 0;
+    margin-bottom: 0;
+    border-top: thin solid #d3d3d3;
+    .bold-text {
+        font-weight: 400 !important;
+        font-size: 16px;
+    }
+}
+button.md-button.md-primary[aria-label="Sign out"]:hover:not([disabled]) {
+    color: inherit;
+    background-color: inherit;
+    span {
+        background-color: $theme-color; /* #51247a */
+        color: #fff;
+    }
+}
+
+.my-library-card-ctm button,
+.my-favorties-ctm button {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.prm-user-menu-content {
+    padding-top: 24px;
 }
