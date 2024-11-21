@@ -1224,25 +1224,6 @@ prm-personal-info prm-change-lang {
 }
 
 // restyle the account area to allow for inclusion of standard Library Account items PT #182204834
-prm-library-card-menu .subtext,
-.my-library-card-ctm .subtext,
-.my-search-history-ctm .subtext,
-.my-favorties-ctm .subtext,
-.mylibrary-list .subtext {
-    font-size: 12px;
-    min-height: 1em;
-    font-weight: 300;
-    margin-bottom: 2px;
-    margin-left: 10px;
-}
-prm-library-card-menu .subtext,
-.my-library-card-ctm .subtext,
-.my-favorties-ctm .subtext,
-.my-search-history-ctm .subtext {
-    color: #595959;
-    margin-top: -20px;
-}
-
 .my-library-card-ctm .textwrapper,
 .my-favorties-ctm .textwrapper,
 .my-search-history-ctm .textwrapper {
@@ -1269,7 +1250,6 @@ prm-library-card-menu .subtext,
 .my-favorties-ctm svg,
 .my-search-history-ctm svg {
     width: 24px;
-    fill: #595959;
 }
 
 .mobile-main-menu-bg {
