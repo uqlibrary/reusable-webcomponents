@@ -193,9 +193,15 @@
 }
 
 .mylibrary-menu-list li a:hover {
-    background-color: rgba(0, 0, 0, 0.05);
     text-decoration: none;
     cursor: pointer;
+}
+
+.mylibrary-menu-list li button:hover span span,
+.mylibrary-menu-list li a:hover span span {
+    background-color: #51247a;
+    color: white;
+    text-decoration: underline;
 }
 
 .mylibrary-menu-list li a svg {
