@@ -316,16 +316,32 @@ prm-user-area-expandable .md-button.user-button .menu-arrow {
 
 // Button hover styling
 .md-button:not([disabled]) {
-    &._md-focused,
-    &.hovered,
-    &.md-focused,
-    &:focus,
     &:hover {
         background-color: transparent;
         span.primaryText {
             background-color: $theme-color;
             color: #fff;
         }
+    }
+}
+.my-favorties-ctm button:not(:hover) {
+    background-color: white;
+    span.primaryText {
+        background-color: white;
+    }
+}
+.my-library-card-ctm .md-button.md-focused:not([disabled]),
+.my-favorties-ctm .md-button.md-focused:not([disabled]) {
+    background-color: white;
+    span.primaryText {
+        color: #19151c;
+    }
+}
+.my-library-card-ctm .md-button:hover:not([disabled]),
+.my-favorties-ctm .md-button:hover:not([disabled]) {
+    background-color: white;
+    span.primaryText {
+        color: white;
     }
 }
 
@@ -1465,6 +1481,13 @@ md-menu-item.mobile-loggedout-feedback-item {
 // hide the ripple on the account menu
 md-menu-item .md-ripple-container {
     display: none;
+    pointer-events: none;
+    position: absolute;
+    overflow: hidden;
+    left: -9999px !important;
+    top: -9999px !important;
+    width: 0 !important;
+    height: 0 !important;
 }
 
 // make the builtinAccountButton have similar spacing under it to the other items
