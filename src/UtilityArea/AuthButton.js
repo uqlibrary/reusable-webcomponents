@@ -62,7 +62,7 @@ authorisedtemplate.innerHTML = `
                                     <path d="M12 4C14.2222 4 16 5.77778 16 8C16 10.2222 14.2222 12 12 12C9.77778 12 8 10.2222 8 8C8 5.77778 9.77778 4 12 4Z" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round" />
                                     <path d="M4.59961 21.5716C4.59961 17.4685 7.91578 14.1523 12.0188 14.1523C16.1219 14.1523 19.438 17.4685 19.438 21.5716" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
-                                <span>Library account</span>
+                                <span><span>Library account</span></span>
                             </a>
                         </li>
                                 
@@ -73,7 +73,7 @@ authorisedtemplate.innerHTML = `
                                     <rect width="24" height="24" />
                                     <path d="M12.6988 3.43449L14.9056 7.8896C14.9557 8.00269 15.0347 8.10063 15.1345 8.17369C15.2344 8.24675 15.3516 8.29235 15.4746 8.30597L20.3461 9.02767C20.4871 9.04581 20.6201 9.1037 20.7294 9.19458C20.8388 9.28545 20.9201 9.40559 20.9639 9.54094C21.0074 9.67627 21.0117 9.82125 20.9761 9.95891C20.9404 10.0966 20.8663 10.2213 20.7625 10.3184L17.2511 13.802C17.1615 13.8857 17.0942 13.9905 17.0554 14.1069C17.0167 14.2232 17.0075 14.3474 17.0291 14.4682L17.8757 19.3674C17.9001 19.5081 17.8847 19.653 17.831 19.7854C17.7771 19.9178 17.6873 20.0325 17.5717 20.1163C17.456 20.2003 17.3191 20.25 17.1765 20.2598C17.0339 20.2698 16.8915 20.2394 16.7654 20.1724L12.3796 17.8546C12.2673 17.7995 12.1439 17.7708 12.0188 17.7708C11.8936 17.7708 11.7702 17.7995 11.6579 17.8546L7.27219 20.1724C7.14601 20.2394 7.00355 20.2698 6.861 20.2598C6.71845 20.25 6.58153 20.2003 6.46585 20.1163C6.35016 20.0325 6.26034 19.9178 6.2066 19.7854C6.15286 19.653 6.13737 19.5081 6.16188 19.3674L7.00849 14.4127C7.02995 14.2919 7.02087 14.1677 6.98209 14.0514C6.9433 13.935 6.87604 13.8302 6.78643 13.7465L3.23344 10.3184C3.12833 10.2186 3.05441 10.0905 3.02063 9.94953C2.98686 9.80858 2.99468 9.66085 3.04315 9.52425C3.09162 9.38766 3.17866 9.26805 3.29372 9.17991C3.40879 9.09178 3.54694 9.0389 3.69145 9.02767L8.56292 8.30597C8.68589 8.29235 8.80314 8.24675 8.90298 8.17369C9.00281 8.10063 9.08177 8.00269 9.13195 7.8896L11.3387 3.43449C11.3988 3.30474 11.4947 3.19489 11.6153 3.1179C11.7358 3.04091 11.8758 3 12.0188 3C12.1617 3 12.3018 3.04091 12.4223 3.1179C12.5428 3.19489 12.6387 3.30474 12.6988 3.43449Z" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
-                                <span>Favourites</span>
+                                <span><span>Favourites</span></span>
                             </a>
                         </li>
 
@@ -88,7 +88,7 @@ authorisedtemplate.innerHTML = `
                                     <path d="M14.5293 15.7428C15.9436 15.2713 17.4436 14.9713 18.9436 14.8428" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
                                     <path d="M12.001 21.4003V6.78587C12.001 6.78587 14.0581 4.51443 21.001 4.42871C21.1296 4.42871 21.2153 4.47157 21.3011 4.55728C21.3868 4.643 21.4296 4.72871 21.4296 4.85729V18.5717C21.4296 18.786 21.2582 19.0003 21.001 19.0003C14.0581 19.1288 12.001 21.4003 12.001 21.4003Z" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
-                                <span>Learning resources</span>
+                                <span><span>Learning resources</span></span>
                             </a>
                         </li>
 
@@ -110,7 +110,7 @@ authorisedtemplate.innerHTML = `
                                         </clipPath>
                                     </defs>
                                 </svg>
-                                <span>Print balance</span>
+                                <span><span>Print balance</span></span>
                             </a>
                         </li>
 
@@ -123,7 +123,7 @@ authorisedtemplate.innerHTML = `
                                     <path d="M5.79688 5.21364V1" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
                                     <path d="M14.2441 5.21364V1" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
-                                <span>Book a room or desk</span>
+                                <span><span>Book a room or desk</span></span>
                             </a>
                         </li>
                         
@@ -137,7 +137,7 @@ authorisedtemplate.innerHTML = `
                                     <path d="M12 17.9717V20.5016" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
                                     <path d="M9.42773 22.4286L11.9992 20.5L14.5706 22.4286" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
-                                <span>UQ eSpace dashboard</span>
+                                <span><span>UQ eSpace dashboard</span></span>
                             </a>
                         </li>
 
@@ -150,7 +150,7 @@ authorisedtemplate.innerHTML = `
                                         <path d="M6.59961 8.39941H17.3995" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
                                         <path d="M6.59961 12H14.9995" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
-                                <span>Feedback</span>
+                                <span><span>Feedback</span></span>
                             </a>
                         </li>
                         <!-- Logout -->
@@ -168,7 +168,7 @@ authorisedtemplate.innerHTML = `
                                         </clipPath>
                                     </defs>
                                 </svg>
-                                <span>Log out</span>
+                                <span><span>Log out</span></span>
                             </button>
                         </li>
                     </ul>
@@ -282,7 +282,7 @@ class AuthButton extends HTMLElement {
                         <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                             ${iconPath}
                         </svg>
-                        <span>${linkText}</span>
+                        <span><span>${linkText}</span></span>
                     </a>
                 </li>`;
             const newLi = template.content.cloneNode(true);
