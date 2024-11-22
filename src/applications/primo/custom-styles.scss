@@ -307,6 +307,7 @@ prm-breadcrumbs {
     }
 }
 
+// Account menu
 // make the username and menu buttons (top right) black text
 button.button-with-menu-arrow.md-button.md-primoExplore-theme.md-ink-ripple,
 button.user-button.md-button.md-primoExplore-theme.md-ink-ripple,
@@ -324,23 +325,63 @@ prm-user-area-expandable .md-button.user-button .menu-arrow {
         }
     }
 }
-.my-favorties-ctm button:not(:hover) {
+.my-library-card-ctm:not(:hover), // logged out
+.my-favorties-ctm:not(:hover), // logged out
+.my-search-history-ctm:not(:hover),
+.my-favorties-ctm button:not(:hover) { // logged in
     background-color: white;
     span.primaryText {
         background-color: white;
     }
 }
-.my-library-card-ctm .md-button.md-focused:not([disabled]),
-.my-favorties-ctm .md-button.md-focused:not([disabled]) {
+.my-library-card-ctm .md-button.md-focused:not([disabled]), // logged in
+.my-favorties-ctm .md-button.md-focused:not([disabled]) { // logged in
     background-color: white;
     span.primaryText {
         color: #19151c;
     }
 }
-.my-library-card-ctm .md-button:hover:not([disabled]),
-.my-favorties-ctm .md-button:hover:not([disabled]) {
+.my-library-card-ctm .md-button:hover:not([disabled]), // logged in
+.my-favorties-ctm .md-button:hover:not([disabled]) { // logged in
     background-color: white;
     span.primaryText {
+        color: white;
+    }
+}
+
+// logged out account menu icons
+.my-library-card-ctm button.md-focused:not([disabled]), // logged out
+.my-favorties-ctm button.md-focused:not([disabled]), // logged out
+.my-search-history-ctm button.md-focused:not([disabled]) { // logged in
+    background-color: white;
+    span[translate="eshelf.menu.savedItems"],
+    span[translate="eshelf.menu.searchHistory"] {
+        color: #19151c;
+    }
+}
+.my-search-history-ctm {
+    padding-left: 10px;
+}
+.my-library-card-ctm,
+.my-favorties-ctm,
+.my-search-history-ctm {
+    prm-icon {
+        color: $theme-color;
+        fill: $theme-color;
+        stroke: $theme-color;
+    }
+}
+md-menu-item.my-favorties-ctm prm-icon svg path {
+    fill: $theme-color;
+}
+
+.my-favorties-ctm .md-button:hover:not([disabled]),
+.my-search-history-ctm .md-button:hover:not([disabled]) {
+    background-color: white;
+    color: #19151c;
+    span[translate="eshelf.menu.savedItems"],
+    span[translate="eshelf.menu.searchHistory"] {
+        background-color: $theme-color;
         color: white;
     }
 }
@@ -1558,20 +1599,6 @@ prm-main-menu md-content {
     }
     .account-link-title {
         margin-left: 10px;
-    }
-}
-
-// check if can be removed when old custom.js is presumed stale, presumably after sept 2023 ???
-// desktop logged out menu feedback item styling
-md-menu-content .my-feedback-ctm {
-    svg {
-        margin-top: 13px;
-    }
-    path {
-        fill: rgba(51, 51, 51, 0.5);
-    }
-    button:hover path {
-        fill: #000;
     }
 }
 
