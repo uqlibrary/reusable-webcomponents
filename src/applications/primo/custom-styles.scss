@@ -322,6 +322,7 @@ prm-user-area-expandable .md-button.user-button .menu-arrow {
         span.primaryText {
             background-color: $theme-color;
             color: #fff;
+            text-decoration: underline;
         }
     }
 }
@@ -389,6 +390,7 @@ md-menu-item.my-favorties-ctm {
     span[translate="eshelf.menu.searchHistory"] {
         background-color: $theme-color;
         color: white;
+        text-decoration: underline;
     }
 }
 .textwrapper span.primaryText,
@@ -1472,6 +1474,7 @@ md-menu-item.uql-account-menu-option button {
     &:hover span.primaryText {
         background-color: $theme-color;
         color: #fff;
+        text-decoration: underline;
     }
 
     svg {
@@ -1975,6 +1978,7 @@ button.md-button.md-primary[aria-label="Sign out"]:hover:not([disabled]) {
     span {
         background-color: $theme-color; /* #51247a */
         color: #fff;
+        text-decoration: underline;
     }
 }
 
