@@ -385,7 +385,13 @@ md-menu-item.my-favorties-ctm prm-icon svg path {
         color: white;
     }
 }
-
+.textwrapper span.primaryText,
+span[translate="eshelf.menu.savedItems"],
+span[translate="eshelf.menu.searchHistory"],
+span[translate="eshelf.menu.savedItems"],
+span[translate="eshelf.menu.searchHistory"] {
+    line-height: normal; //reduce background color to same height as UQ DS
+}
 // make the dropdowns under the search bar readable
 ._md-select-value ._md-select-icon {
     color: $dark;
