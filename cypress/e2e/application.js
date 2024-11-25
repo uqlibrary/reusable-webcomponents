@@ -103,17 +103,17 @@ describe('Dummy Application', () => {
         cy.get('alert-list').should('not.exist');
     }
 
-    function hasConnectFooter() {
-        cy.get('connect-footer')
-            .shadow()
-            .find('[data-testid="connect-footer-social-heading"]')
-            .should('exist')
-            .and('contain', 'Library footer');
-    }
-
-    function hasNoConnectFooter() {
-        cy.get('connect-footer').should('not.exist');
-    }
+    // function hasConnectFooter() {
+    //     cy.get('connect-footer')
+    //         .shadow()
+    //         .find('[data-testid="connect-footer-social-heading"]')
+    //         .should('exist')
+    //         .and('contain', 'Library footer');
+    // }
+    //
+    // function hasNoConnectFooter() {
+    //     cy.get('connect-footer').should('not.exist');
+    // }
 
     function hasUqFooter() {
         cy.get('uq-footer')
@@ -164,7 +164,7 @@ describe('Dummy Application', () => {
 
             hasAnAlert();
 
-            hasConnectFooter();
+            // hasConnectFooter();
             hasUqFooter();
         });
     });
@@ -183,7 +183,7 @@ describe('Dummy Application', () => {
 
             hasAnAlert();
 
-            hasNoConnectFooter();
+            // hasNoConnectFooter();
 
             hasUqFooter();
         });
@@ -203,7 +203,7 @@ describe('Dummy Application', () => {
 
             hasAnAlert();
 
-            hasConnectFooter();
+            // hasConnectFooter();
 
             hasUqFooter();
         });
@@ -226,7 +226,7 @@ describe('Dummy Application', () => {
 
             hasNoAlerts();
 
-            hasNoConnectFooter();
+            // hasNoConnectFooter();
 
             hasNoUqFooter();
         });
@@ -275,7 +275,7 @@ describe('Dummy Application', () => {
 
             hasAnAlert();
 
-            hasConnectFooter();
+            // hasConnectFooter();
 
             hasUqFooter();
         });
@@ -295,7 +295,7 @@ describe('Dummy Application', () => {
 
             hasAnAlert();
 
-            hasConnectFooter();
+            // hasConnectFooter();
 
             hasUqFooter();
         });
@@ -325,7 +325,7 @@ describe('Dummy Application', () => {
                 .should('exist')
                 .should('contain', 'This is the message');
 
-            hasNoConnectFooter();
+            // hasNoConnectFooter();
 
             hasUqFooter();
 
@@ -352,7 +352,7 @@ describe('Dummy Application', () => {
 
             hasNoAlerts();
 
-            hasNoConnectFooter();
+            // hasNoConnectFooter();
 
             hasNoUqFooter();
         });

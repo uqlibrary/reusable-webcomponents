@@ -131,8 +131,8 @@ function loadReusableComponentsLibGuides() {
         !!alerts && document.body.insertBefore(alerts, firstElement);
     }
 
-    const connectFooter = document.createElement('connect-footer');
-    document.body.appendChild(connectFooter);
+    // const connectFooter = document.createElement('connect-footer');
+    // document.body.appendChild(connectFooter);
 
     const subFooter = document.createElement('uq-footer');
     document.body.appendChild(subFooter);

@@ -2,6 +2,7 @@ import ApiAccess from '../ApiAccess/ApiAccess';
 import overrides from './css/overrides.css';
 import { authLocale } from '../UtilityArea/auth.locale';
 import { apiLocale as apilocale, apiLocale as locale } from '../ApiAccess/ApiAccess.locale';
+import { linkToDrupal } from '../helpers/access';
 
 const fileExtensionElement = document.createElement('template');
 fileExtensionElement.innerHTML = `
@@ -341,7 +342,7 @@ class SecureCollection extends HTMLElement {
         If you have another UQ account, <a id="logoutandreturnhere" href="">logout and switch accounts</a> to proceed.
     </li>
     <li>
-        <a href="https://web.library.uq.edu.au/contact-us">Contact us</a> if you should have file collection access
+        <a href="${linkToDrupal('/contact-us')}">Contact us</a> if you should have file collection access
         with this account.
     </li>
 </ul>
