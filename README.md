@@ -130,11 +130,12 @@ NOTE: CI testing uses environment variables stored on AWS to run cypress success
 
 In addition to the usual branches, the following are in use and should not be deleted from github or AWS Pipelines:
 
-- `feature-drupal` (drupal sandbox calls .js files from this folder cf [drupal readme](src/applications/drupal/readme.md))
+- `drupal-staging` (drupal sandbox calls .js files from this folder cf [drupal readme](src/applications/drupal/readme.md))
 - `primo-prod-dev` (maps to primo env prod-dev. Needed to support uqsvangr cf [primo readme](src/applications/primo/readme.md]))
 - `primo-sandbox` (maps to primo env sandbox-dev. Needed to support uqsvangr)
 - `primo-sandbox-dev` (maps to primo env sandbox-dev. Needed to support uqsvangr)
 - `user-admin-manage` (used by eg uqjtilse to make changes to the megamenu ready for us to merge to master cf [admin user doc](docs/admin-howto.md))
+- `atom-staging` (used by fryer at manuscriptas.library.uq.edu, see  cf [atom readme](src/applications/atom/readme.md))
 
 ## Reference Material
 
@@ -155,6 +156,8 @@ In addition to the usual branches, the following are in use and should not be de
 - [Lifecycle hooks in web components](https://ultimatecourses.com/blog/lifecycle-hooks-in-web-components)
 
 ## Setting up from the ITS Design System private packages
+
+NB: THIS IS NOT RECOMENDED TO DO AGAIN AS WE HAVE MADE MANY CHANGES WHICH WOULD BE OVERRIDDEN!!! Kept for historic reasons
 
 ### Current contents
 
