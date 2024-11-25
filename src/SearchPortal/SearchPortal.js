@@ -3,6 +3,7 @@ import { searchPortalLocale } from './searchPortal.locale';
 import { throttle } from 'throttle-debounce';
 import ApiAccess from '../ApiAccess/ApiAccess';
 import { cookieNotFound, getCookieValue, setCookie } from '../helpers/cookie';
+import { linkToDrupal } from '../helpers/access';
 import {
     isArrowDownKeyPressed,
     isArrowUpKeyPressed,
@@ -853,18 +854,6 @@ class SearchPortal extends HTMLElement {
                 }
             });
     }
-    linkToDrupal(pathname, requestedDomainName = null) {
-        const domainName = requestedDomainName ?? document.location.hostname;
-        // after jan 2025 golive, should be web.library only
-        const origin = [
-            'localhost',
-            'homepage-development.library.uq.edu.au',
-            'homepage-staging.library.uq.edu.au',
-        ].includes(domainName)
-            ? 'https://web-live.library.uq.edu.au'
-            : 'https://web.library.uq.edu.au';
-        return `${origin}${pathname}`;
-    }
 
     updateTemplate(theme) {
         template.innerHTML = `
@@ -1147,7 +1136,7 @@ class SearchPortal extends HTMLElement {
                             <div id="restrictions-accordian" class="theme-${
                                 theme || 'light'
                             }" data-testid="restrictions-accordian-content">
-                                <p>Your <a href="${this.linkToDrupal(
+                                <p>Your <a href="${linkToDrupal(
                                     '/about/policies-and-guidelines#collection-notice',
                                 )}">use of Library resources</a> must comply with UQ policies, copyright law, and all resource specific licence terms. The use of AI tools with Library resources is prohibited unless expressly permitted.</p>
                             </div>

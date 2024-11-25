@@ -1,6 +1,5 @@
 import culturalcss from './css/culturaladviceV2.css';
-import { cookieNotFound, setCookie } from '../helpers/cookie';
-import { addClassToElement, removeClassFromElement } from '../helpers/classManager';
+import { linkToDrupal } from '../helpers/access';
 
 /**
  * API
@@ -17,7 +16,9 @@ template.innerHTML = `
     <div class="culturaladvicev2">
             <div class="layout-card">
                 <p data-testid="cultural-advice-statement">
-                    The Library is custodian of <a href="https://web.library.uq.edu.au/collections/culturally-sensitive-collections">culturally sensitive Aboriginal and Torres Strait Islander materials</a>.
+                    The Library is custodian of <a href="${linkToDrupal(
+                        '/collections/culturally-sensitive-collections',
+                    )}">culturally sensitive Aboriginal and Torres Strait Islander materials</a>.
                 </p>
             </div>
     </div>

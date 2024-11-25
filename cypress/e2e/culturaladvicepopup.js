@@ -62,20 +62,5 @@ describe('Cultural Advice', () => {
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
             });
         });
-
-        // it('Can hide and show cultural advice', () => {
-        //     cy.viewport(1280, 900);
-        //     assertCulturalAdvicePopupOpen();
-        //     cy.getCookie('UQ_CULTURAL_ADVICE').should('not.exist');
-
-        //     cy.wait(1500);
-        //     closeCulturalAdvicePopup();
-        //     cy.getCookie('UQ_CULTURAL_ADVICE').should('have.property', 'value', 'hidden');
-        //     assertCulturalAdvicePopupClosed();
-
-        //     openCulturalAdvicePopup();
-        //     cy.wait(1000);
-        //     assertCulturalAdvicePopupOpen();
-        // });
     });
 });

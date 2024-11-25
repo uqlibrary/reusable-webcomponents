@@ -1,7 +1,6 @@
 import styles from './css/main.css';
 import breadcrumbs from './css/breadcrumbs.css';
 import overrides from './css/overrides.css';
-import { default as menuLocale } from '../locale/menu';
 
 /**
  * API:
@@ -107,13 +106,11 @@ class UQSiteHeader extends HTMLElement {
         // Bindings
         this.getLink = this.getLink.bind(this);
         this.loadScript = this.loadScript.bind(this);
-        this.updateMegaMenu = this.updateMegaMenu.bind(this);
         this.rewriteMegaMenuFromJson = this.rewriteMegaMenuFromJson.bind(this);
         this.createDesktopHeaderItem = this.createDesktopHeaderItem.bind(this);
         this.createMobileHeaderItem = this.createMobileHeaderItem.bind(this);
         this.setTitle = this.setTitle.bind(this);
         this.setSiteUrl = this.setSiteUrl.bind(this);
-        this.showMenu = this.showMenu.bind(this);
         this.unhideMobileMenuButton = this.unhideMobileMenuButton.bind(this);
 
         // Render the template
@@ -257,12 +254,6 @@ class UQSiteHeader extends HTMLElement {
         }
     }
 
-    showMenu() {
-        this.updateMegaMenu();
-
-        this.unhideMobileMenuButton();
-    }
-
     waitOnUqScript() {
         const that = this;
         // we must wait for the script to finish loading before we can use it
@@ -280,12 +271,6 @@ class UQSiteHeader extends HTMLElement {
             50,
             that,
         );
-    }
-
-    updateMegaMenu() {
-        const megaMenu = !!this.shadowRoot && this.shadowRoot.getElementById('jsNav');
-        const listWrapper = this.rewriteMegaMenuFromJson(menuLocale);
-        megaMenu.appendChild(listWrapper);
     }
 
     createSubmenuCloseControl(linkPrimaryText, index) {

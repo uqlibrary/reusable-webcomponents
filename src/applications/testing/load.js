@@ -89,10 +89,10 @@ function loadReusableComponents() {
         !!alerts && document.body.insertBefore(alerts, firstElement);
     }
 
-    if (!document.querySelector('connect-footer')) {
-        const connectFooter = document.createElement('connect-footer');
-        !!connectFooter && document.body.appendChild(connectFooter);
-    }
+    // if (!document.querySelector('connect-footer')) {
+    //     const connectFooter = document.createElement('connect-footer');
+    //     !!connectFooter && document.body.appendChild(connectFooter);
+    // }
 
     if (!document.querySelector('uq-footer')) {
         const subFooter = document.createElement('uq-footer');

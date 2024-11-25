@@ -4,7 +4,7 @@ import ApiAccess from '../ApiAccess/ApiAccess';
 import { authLocale } from './auth.locale';
 import { isBackTabKeyPressed, isEscapeKeyPressed, isTabKeyPressed } from '../helpers/keyDetection';
 import { apiLocale } from '../ApiAccess/ApiAccess.locale';
-import { canSeeAlertsAdmin, canSeeDlorAdmin, canSeeEspace, canSeeTestTag } from '../helpers/access';
+import { canSeeAlertsAdmin, canSeeDlorAdmin, canSeeEspace, canSeeTestTag, linkToDrupal } from '../helpers/access';
 import { getAccountMenuRoot } from './helpers';
 
 /*
@@ -95,7 +95,9 @@ authorisedtemplate.innerHTML = `
                         <!-- Printing balance -->
                         <li role="menuitem" aria-disabled="false">
                             <a tabindex="0" data-testid="mylibrary-menu-print-balance" data-analyticsid="mylibrary-menu-print-balance"
-                                href="https://web.library.uq.edu.au/library-services/it/print-scan-copy/your-printing-account" rel="noreferrer">
+                                href="${linkToDrupal(
+                                    'library-services/it/print-scan-copy/your-printing-account',
+                                )}" rel="noreferrer">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
                                     <rect width="24" height="24"/>
                                     <g clip-path="url(#clip0_1654_1998)">
