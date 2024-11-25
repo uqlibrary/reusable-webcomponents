@@ -241,12 +241,6 @@ a.uq-site-header__navigation-link.slide-menu__control:-moz-focusring {
     padding-bottom: 7px;
     padding-top: 3px;
 }
-@media (min-width: 64em) {
-    .uq-site-header__title-container {
-        padding-top: 1em;
-        padding-bottom: 1em;
-    }
-}
 .uq-site-header__title-container__right {
     justify-content: flex-end;
 }
