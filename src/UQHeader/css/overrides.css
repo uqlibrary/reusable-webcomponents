@@ -61,7 +61,7 @@ header {
 .uq-header__megamenu {
     margin-top: 2px;
 }
-@media(min-width: 75em) {
+@media (min-width: 75em) {
     .uq-header__megamenu-container {
         margin-top: -2px;
     }
@@ -70,4 +70,3 @@ header {
 .search-toggle__label {
     letter-spacing: 0.16px;
 }
-

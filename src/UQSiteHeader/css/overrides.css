@@ -245,7 +245,7 @@ a.uq-site-header__navigation-link.slide-menu__control:-moz-focusring {
     justify-content: flex-end;
 }
 
-@media(min-width: 64rem) {
+@media (min-width: 64rem) {
     .uq-site-header__title-container {
         padding-left: 1rem !important;
     }
@@ -260,7 +260,7 @@ a.uq-site-header__navigation-link.slide-menu__control:-moz-focusring {
 }
 /* move the mobile menu up a bit to cover the utility area */
 @media (max-width: 64em) {
-    ul.uq-site-header__navigation__list.uq-site-header__navigation__list--level-1[aria-expanded="true"] {
+    ul.uq-site-header__navigation__list.uq-site-header__navigation__list--level-1[aria-expanded='true'] {
         margin-top: -50px;
     }
 }

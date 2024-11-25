@@ -25,19 +25,19 @@ const COURSE_RESOURCE_SEARCH_TYPE = '8';
 
 const REMEMBER_COOKIE_ID = 'rememberSearchType';
 
-const template_chevron = 'url("data:image/svg+xml,%3csvg viewBox=%270 0 24 24%27 fill=%27none%27 xmlns=%27http://www.w3.org/2000/svg%27%3e%3cpath d=%27m7 10 5 5 5-5%27 stroke=%27%23000%27 stroke-width=%271.5%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3c/path%3e%3c/svg%3e")';
-const template_searchIcon = 'url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%23000%27%3e%3cpath d=%27M12.7 11.3c.9-1.2 1.4-2.6 1.4-4.2 0-3.9-3.1-7.1-7-7.1S0 3.2 0 7.1c0 3.9 3.2 7.1 7.1 7.1 1.6 0 3.1-.5 4.2-1.4l3 3c.2.2.5.3.7.3s.5-.1.7-.3c.4-.4.4-1 0-1.4l-3-3.1zm-5.6.8c-2.8 0-5.1-2.2-5.1-5S4.3 2 7.1 2s5.1 2.3 5.1 5.1-2.3 5-5.1 5z%27%3e%3c/path%3e%3c/svg%3e")';
+const template_chevron =
+    'url("data:image/svg+xml,%3csvg viewBox=%270 0 24 24%27 fill=%27none%27 xmlns=%27http://www.w3.org/2000/svg%27%3e%3cpath d=%27m7 10 5 5 5-5%27 stroke=%27%23000%27 stroke-width=%271.5%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3c/path%3e%3c/svg%3e")';
+const template_searchIcon =
+    'url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%23000%27%3e%3cpath d=%27M12.7 11.3c.9-1.2 1.4-2.6 1.4-4.2 0-3.9-3.1-7.1-7-7.1S0 3.2 0 7.1c0 3.9 3.2 7.1 7.1 7.1 1.6 0 3.1-.5 4.2-1.4l3 3c.2.2.5.3.7.3s.5-.1.7-.3c.4-.4.4-1 0-1.4l-3-3.1zm-5.6.8c-2.8 0-5.1-2.2-5.1-5S4.3 2 7.1 2s5.1 2.3 5.1 5.1-2.3 5-5.1 5z%27%3e%3c/path%3e%3c/svg%3e")';
 
 class SearchPortal extends HTMLElement {
-
     connectedCallback() {
         this.theme = this.getAttribute('theme') || '';
         this.updateTemplate(this.theme);
-    
     }
     constructor() {
         super();
-        this.theme = this.getAttribute("theme") || "";
+        this.theme = this.getAttribute('theme') || '';
     }
 
     async getPrimoSuggestions(keyword) {
@@ -240,7 +240,7 @@ class SearchPortal extends HTMLElement {
             // add the suggestion list in between the input field and the clear button, so we can tab to it
             const searchContainer = that.shadowRoot.getElementById('search-parent');
             const searchButton = that.shadowRoot.getElementById('searchButton');
-            
+
             !!searchContainer && searchContainer.insertBefore(listContainer, searchButton);
         }
     }
@@ -329,15 +329,14 @@ class SearchPortal extends HTMLElement {
             const inputField = that.shadowRoot.getElementById('current-inputfield');
             !!inputField && (inputField.value = '');
             !!inputField && inputField.focus();
-            
         }
         const clearButton = that.shadowRoot.getElementById('clear-search-term');
-         !!clearButton &&
-             clearButton.addEventListener('click', function (e) {
-                 clearSearchTerm();
-                 that.clearSearchResults();
-                 that.shadowRoot.getElementById('clear-search-term').classList.add('hidden');
-             });
+        !!clearButton &&
+            clearButton.addEventListener('click', function (e) {
+                clearSearchTerm();
+                that.clearSearchResults();
+                that.shadowRoot.getElementById('clear-search-term').classList.add('hidden');
+            });
 
         // add click handler to cultural advice link for gtm tracking
         // const CaAnchor = this.shadowRoot.getElementById('cultural-advice-statement-link');
@@ -355,27 +354,29 @@ class SearchPortal extends HTMLElement {
             const icon = accordian.getElementsByTagName('svg');
             //paragraph[0].style.height = (paragraph[0].scrollHeight + 'px')
             if (!accordianContainer.classList.contains('container-opened')) {
-                accordianContainer.style.height = 32 + paragraph[0].scrollHeight + 'px'
-                accordianContainer.classList.add("container-opened")
-                icon[0].classList.add('accordian-icon-open')
+                accordianContainer.style.height = 32 + paragraph[0].scrollHeight + 'px';
+                accordianContainer.classList.add('container-opened');
+                icon[0].classList.add('accordian-icon-open');
             } else {
                 accordianContainer.style.height = 0;
-                accordianContainer.classList.remove("container-opened")
-                icon[0].classList.remove('accordian-icon-open')
+                accordianContainer.classList.remove('container-opened');
+                icon[0].classList.remove('accordian-icon-open');
             }
         }
 
         const accordian = that.shadowRoot.getElementById('restrictions-accordian-container');
-        !!accordian && accordian.addEventListener('click', function(e) {
-            handleAccordianBinding();
-        })
-
-        !!accordian && accordian.addEventListener('keydown', (event) => {
-            console.log("EVENT CODE:", event.code)
-            if (event.code === 'Space' || event.code === 'Enter') {
+        !!accordian &&
+            accordian.addEventListener('click', function (e) {
                 handleAccordianBinding();
-            }
-        });
+            });
+
+        !!accordian &&
+            accordian.addEventListener('keydown', (event) => {
+                console.log('EVENT CODE:', event.code);
+                if (event.code === 'Space' || event.code === 'Enter') {
+                    handleAccordianBinding();
+                }
+            });
     }
 
     /**
@@ -496,11 +497,15 @@ class SearchPortal extends HTMLElement {
     listenForMouseClicks(e) {
         const that = this;
         const portalTypeDropdown = that.shadowRoot.getElementById('portal-type-selector');
-        
+
         const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
         const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
-        
-        if (!!eventTarget && (eventTarget.classList.contains('search-type-button') || eventTarget.classList.contains('search-type-button-label'))) {
+
+        if (
+            !!eventTarget &&
+            (eventTarget.classList.contains('search-type-button') ||
+                eventTarget.classList.contains('search-type-button-label'))
+        ) {
             // user has clicked on the closed Search Type selector
             // put focus on the currently selected search type
             const portalTypeContainer = that.shadowRoot.getElementById('portaltype-dropdown');
@@ -585,7 +590,7 @@ class SearchPortal extends HTMLElement {
 
             const offsetPx = 15;
             const negativeHeightOfRowPx = -40;
-            const newTopValue = 0 //matchingID * negativeHeightOfRowPx - offsetPx;
+            const newTopValue = 0; //matchingID * negativeHeightOfRowPx - offsetPx;
             //!!matchingID && !!portalTypeDropdown && (portalTypeDropdown.style.top = `${newTopValue}px`);
 
             document.addEventListener('click', this.listenForMouseClicks);
@@ -609,7 +614,7 @@ class SearchPortal extends HTMLElement {
         const hideByClassname = !!selector && selector.className.replace(` ${displayStyle}`, ' hidden');
 
         if (!!selector && selector.classList.contains('hidden')) {
-            !!showByClassname && (selector.className = showByClassname)//showByClassname);
+            !!showByClassname && (selector.className = showByClassname); //showByClassname);
             !!showByClassname && selector.setAttribute('tabindex', '0');
         } else {
             !!hideByClassname && (selector.className = hideByClassname);
@@ -755,7 +760,7 @@ class SearchPortal extends HTMLElement {
             !!searchPortalLocale.typeSelect.items[useSearchType].placeholder &&
             // (subTitleField.innerHTML = searchPortalLocale.typeSelect.items[useSearchType].placeholder) &&
             (inputField.placeholder = searchPortalLocale.typeSelect.items[useSearchType].placeholder);
-            
+
         // add an extra class to the button to say which label it is currently showing
         // this is used by the css to make the dropdown highlight the matching label
         // remove any previous label - looks like we cant regexp to match a classname, we'll have to loop over the label.items length
@@ -782,7 +787,8 @@ class SearchPortal extends HTMLElement {
         const portalTypeDropdown = document.createElement('div');
         !!portalTypeDropdown && (portalTypeDropdown.className = 'portalTypeSelector');
         !!portalTypeDropdown && portalTypeDropdown.setAttribute('role', 'listbox');
-        !!portalTypeDropdown && portalTypeDropdown.setAttribute('aria-labelledby', 'search-portal-type-select-label-sub');
+        !!portalTypeDropdown &&
+            portalTypeDropdown.setAttribute('aria-labelledby', 'search-portal-type-select-label-sub');
         !!portalTypeDropdown && portalTypeDropdown.setAttribute('data-testid', 'search-type-selector');
 
         !!portalTypeDropdown &&
@@ -853,7 +859,7 @@ class SearchPortal extends HTMLElement {
             ? 'https://live-library-uq.pantheonsite.io'
             : 'https://web.library.uq.edu.au';
         return `${origin}${pathname}`;
-    };
+    }
 
     updateTemplate(theme) {
         template.innerHTML = `
@@ -1037,7 +1043,9 @@ class SearchPortal extends HTMLElement {
                 }
 
             </style>
-            <div id="search-portal" class="MuiPaper-root MuiCard-root libraryCard StandardCard MuiPaper-elevation1 MuiPaper-rounded theme-${theme || 'light'}" data-testid="primo-search" data-analyticsid="primo-search" data-analyticsid="primo-search" role="region" aria-live="polite" aria-label="Search Portal">
+            <div id="search-portal" class="MuiPaper-root MuiCard-root libraryCard StandardCard MuiPaper-elevation1 MuiPaper-rounded theme-${
+                theme || 'light'
+            }" data-testid="primo-search" data-analyticsid="primo-search" data-analyticsid="primo-search" role="region" aria-live="polite" aria-label="Search Portal">
                 <div class="MuiCardContent-root libraryContent" data-testid="primo-search-content" data-analyticsid="primo-search-content">
                     <form id="primo-search-form" class="searchForm" role="search">
                         <div class="MuiFormControl-root searchPanel" style="margin-bottom: -0.75rem; padding-top: 1rem;">
@@ -1112,21 +1120,31 @@ class SearchPortal extends HTMLElement {
                         </div>
                         <div style="display: flex">
                             <div class="linksContainer" >
-                                <div id="footer-links" class="searchPanel MuiGrid-container MuiFormControlMuiGrid-spacing-xs-2 theme-${theme || 'light'}" data-testid="primo-search-links" data-analyticsid="primo-search-links"></div>
+                                <div id="footer-links" class="searchPanel MuiGrid-container MuiFormControlMuiGrid-spacing-xs-2 theme-${
+                                    theme || 'light'
+                                }" data-testid="primo-search-links" data-analyticsid="primo-search-links"></div>
                             </div>
                             <!-- <div class="restrictionsContainer searchUnderlinks theme-${theme || 'light'}">
-                               <a id="restrictions-on-use-link" class="theme-${theme || 'light'}" href="https://web.library.uq.edu.au/about-us/policies-guidelines#collection-notice">Restrictions on use</a> 
+                               <a id="restrictions-on-use-link" class="theme-${
+                                   theme || 'light'
+                               }" href="https://web.library.uq.edu.au/about-us/policies-guidelines#collection-notice">Restrictions on use</a> 
                             </div> -->
                         </div> 
                         <div>
-                            <span id="restrictions-accordian-container" class="theme-${theme || 'light'}" data-testid="restrictions-accordian-container" role="button" tabindex="0">
+                            <span id="restrictions-accordian-container" class="theme-${
+                                theme || 'light'
+                            }" data-testid="restrictions-accordian-container" role="button" tabindex="0">
                                 <span>Restrictions on use </span>
                                 <svg class="restriction-accordian-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                                          <path fill="currentColor" d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"/>
                                     </svg>
                             </span>
-                            <div id="restrictions-accordian" class="theme-${theme || 'light'}" data-testid="restrictions-accordian-content">
-                                <p>Your <a href="${this.linkToDrupal('/about/policies-and-guidelines#collection-notice')}">use of Library resources</a> must comply with UQ policies, copyright law, and all resource specific licence terms. The use of AI tools with Library resources is prohibited unless expressly permitted.</p>
+                            <div id="restrictions-accordian" class="theme-${
+                                theme || 'light'
+                            }" data-testid="restrictions-accordian-content">
+                                <p>Your <a href="${this.linkToDrupal(
+                                    '/about/policies-and-guidelines#collection-notice',
+                                )}">use of Library resources</a> must comply with UQ policies, copyright law, and all resource specific licence terms. The use of AI tools with Library resources is prohibited unless expressly permitted.</p>
                             </div>
                         </div>
                     </form>
