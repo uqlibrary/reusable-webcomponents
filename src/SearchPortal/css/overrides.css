@@ -733,7 +733,6 @@ label + .MuiInput-formControl {
     font-size: 16px !important;
     font-weight: 400;
     letter-spacing: 0.16px;
-
 }
 .selectInput::placeholder {
     overflow: hidden !important;
@@ -800,7 +799,7 @@ input[type='search'] {
     overflow: auto;
     width: 207px;
     padding-left: 0;
-    outline: 1px solid #DCDCDD;
+    outline: 1px solid #dcdcdd;
 }
 
 .search-type-button {
@@ -831,14 +830,14 @@ input[type='search'] {
     font-family: Roboto, Helvetica, Arial, sans-serif;
 }
 .portalTypeSelectionEntry:hover {
-    background-color: #E8E8E8 !important;
+    background-color: #e8e8e8 !important;
 }
 
 .portalTypeSelectionEntry span {
     /* padding-left: 0.5rem; */
     padding-top: 0px;
     padding-bottom: 0px;
-    color: #19151C !important;
+    color: #19151c !important;
     font-weight: 400;
     letter-spacing: 0.16px;
 }
@@ -852,7 +851,7 @@ input[type='search'] {
 .label-6-button .portalTypeSelectionEntry-6,
 .label-7-button .portalTypeSelectionEntry-7,
 .label-8-button .portalTypeSelectionEntry-8 {
-    color: #19151C !important;
+    color: #19151c !important;
     background-color: #d3d3d3 !important;
 }
 .portalTypeSelectionEntry-0:focus,
@@ -864,8 +863,8 @@ input[type='search'] {
 .portalTypeSelectionEntry-6:focus,
 .portalTypeSelectionEntry-7:focus,
 .portalTypeSelectionEntry-8:focus {
-    color: #19151C;
-    background-color: #E7F0FA !important; 
+    color: #19151c;
+    background-color: #e7f0fa !important;
 }
 
 .suggestionList {
@@ -880,7 +879,7 @@ input[type='search'] {
 }
 
 @media (max-width: 959.95px) {
-     /* .suggestionList {
+    /* .suggestionList {
        
        
     } */
@@ -969,7 +968,7 @@ li.MuiAutocomplete-option:focus {
     margin-block-end: 0.5em;
     color: black !important;
 }
-.restrictions-use.theme-dark p{
+.restrictions-use.theme-dark p {
     color: white !important;
 }
 .cultural-advice a,
@@ -1001,7 +1000,6 @@ li.MuiAutocomplete-option:focus {
 #search-parent .searchPortalResponsive {
     padding-top: 0 !important;
     padding-bottom: 0 !important;
-
 }
 .searchPortalResponsive.theme-dark {
     outline: none;
@@ -1056,7 +1054,6 @@ li.MuiAutocomplete-option:focus {
     margin: 0;
     padding: 0;
     margin-top: 12px;
-    
 }
 #clearButton {
     padding: 0px;
@@ -1073,8 +1070,7 @@ li.MuiAutocomplete-option:focus {
     margin-top: 0px;
     font-weight: 500;
     font-size: 18px;
-    letter-spacing: 0.01em
-    
+    letter-spacing: 0.01em;
 }
 #portaltype-dropdown::before,
 #portaltype-dropdown::after,
@@ -1099,7 +1095,7 @@ li.MuiAutocomplete-option:focus {
     padding-right: 35px;
     font-size: 16px;
     font-weight: 400;
-    color: #19151C;
+    color: #19151c;
 }
 
 .search-dropdown-chevron {
@@ -1110,8 +1106,7 @@ li.MuiAutocomplete-option:focus {
 #current-inputfield {
     height: 37px;
     padding-left: 16px;
-    color: #3B383E;
-
+    color: #3b383e;
 }
 #portaltype-dropdown {
     padding: 0;
@@ -1120,39 +1115,120 @@ li.MuiAutocomplete-option:focus {
 .portalTypeSelector {
     position: absolute;
     top: 56px;
-    right: -8px; 
+    right: -8px;
 }
-#footer-links a, #restrictions-on-use-link {
+#footer-links a,
+#restrictions-on-use-link {
     color: black !important;
     text-decoration: underline;
     font-weight: 500;
     font-size: 16px;
 }
-#footer-links.theme-dark a {
+#footer-links.theme-dark a,
+#restrictions-accordian-container span {
     color: white !important;
+    transition: color 200ms ease-out, text-decoration 200ms ease-out, background-color 200ms ease-out;
 }
 
-#footer-links.theme-light a, #restrictions-on-use-link.theme-light {
+#footer-links.theme-light a,
+#restrictions-on-use-link.theme-light,
+#restrictions-accordian-container.theme-light span {
     transition: color 200ms ease-out, text-decoration 200ms ease-out, background-color 200ms ease-out;
     color: rgb(81, 36, 122) !important;
 }
-#footer-links.theme-light a:hover, #restrictions-on-use-link.theme-light:hover {
+#footer-links a:hover,
+#restrictions-on-use-link:hover,
+#restrictions-accordian-container span:hover {
+    color: rgb(81, 36, 122) !important;
+    background-color: #fff;
+    text-decoration: underline;
+}
+#footer-links.theme-light a:hover,
+#restrictions-on-use-link.theme-light:hover,
+#restrictions-accordian-container.theme-light span:hover {
     color: rgb(255, 255, 255) !important;
     background-color: rgb(81, 36, 122);
+    text-decoration: underline;
 }
 .search-portal-container {
     padding-top: 20px;
     padding-bottom: 20px;
 }
 .searchLabel {
-    color: #757377
+    color: #757377;
 }
 
 .searchPortalResponsive {
     border-radius: 2px;
     border: 1px solid #fff;
 }
+#restrictions-accordian-container {
+    margin-top: 32px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: underline;
+    cursor: pointer;
+}
+#restrictions-accordian {
+    overflow: hidden;
+    height: 0;
+    max-width: 800px;
+    transition: height 0.2s ease-in-out;
+    overflow: hidden;
+}
 
+#restrictions-accordian p {
+    /* height: 0; */
+    /* padding: 0; */
+    /* margin: 0; */
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+#restrictions-accordian.theme-light p {
+    color: #3b383e !important;
+}
+
+#restrictions-accordian-container {
+    display: block;
+}
+.restriction-opened {
+    height: auto;
+}
+.restriction-accordian-icon {
+    width: 16px;
+    height: 16px;
+    margin-left: 8px;
+    transition: transform 0.1s linear;
+    transform-origin: center;
+    vertical-align: middle;
+}
+.accordian-icon-open {
+    transform: rotate(180deg);
+}
+#restrictions-accordian a {
+    color: white;
+    font-weight: 500;
+    transition: color 200ms ease-out, text-decoration 200ms ease-out, background-color 200ms ease-out;
+}
+#restrictions-accordian.theme-light a {
+    transition: color 200ms ease-out, text-decoration 200ms ease-out, background-color 200ms ease-out;
+    color: rgb(81, 36, 122) !important;
+}
+#restrictions-accordian a:hover {
+    color: rgb(81, 36, 122) !important;
+    background-color: #fff !important;
+}
+#restrictions-accordian.theme-light a:hover {
+    color: white !important;
+    background-color: rgb(81, 36, 122) !important;
+}
+#restrictions-accordian-container.theme-light {
+    color: rgb(81, 36, 122) !important;
+}
 
 @media (max-width: 768px) {
     /* Adjust breakpoint as needed */
@@ -1178,7 +1254,7 @@ li.MuiAutocomplete-option:focus {
         padding-right: 11px;
     }
     .search-type-button {
-       margin: 0
+        margin: 0;
     }
     .search-type-button {
         height: 50px;
@@ -1194,10 +1270,11 @@ li.MuiAutocomplete-option:focus {
         top: 9px;
     }
     .portalTypeSelectorDisplayed {
-       width: 100%;
-       left: 0;
+        width: 100%;
+        left: 0;
     }
-    .searchPortal-searchInput, .searchPortal-searchType {
+    .searchPortal-searchInput,
+    .searchPortal-searchType {
         border-radius: 2px;
         border: 1px solid white;
     }
@@ -1212,7 +1289,7 @@ li.MuiAutocomplete-option:focus {
         overflow: auto;
         width: 100%;
         padding-left: 0;
-        outline: 1px solid #DCDCDD;
+        outline: 1px solid #dcdcdd;
     }
     #search-field-label {
         overflow: hidden;

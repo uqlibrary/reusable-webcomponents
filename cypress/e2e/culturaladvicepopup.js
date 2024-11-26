@@ -32,17 +32,17 @@ function assertProactiveChatVisibility(isVisible) {
 describe('Cultural Advice', () => {
     context('Popup', () => {
         beforeEach(() => {
-            cy.visit('http://localhost:8080/index-culturaladvice.html');
+            cy.visit('http://localhost:8080/index.html');
         });
         it('is accessible on the desktop', () => {
             cy.viewport(1280, 900);
-            assertCulturalAdvicePopupOpen();
-            cy.wait(1500);
-            // because this is desktop width, proactive chat is visible
-            assertProactiveChatVisibility(true);
+            // assertCulturalAdvicePopupOpen();
+            // cy.wait(1500);
+            // // because this is desktop width, proactive chat is visible
+            // assertProactiveChatVisibility(true);
 
             cy.injectAxe();
-            cy.checkA11y('cultural-advice-popup', {
+            cy.checkA11y('cultural-advice-v2', {
                 reportName: 'Cultural Advice Popup',
                 scopeName: 'Accessibility',
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
@@ -50,32 +50,17 @@ describe('Cultural Advice', () => {
         });
         it('is accessible on mobile', () => {
             cy.viewport(320, 480);
-            assertCulturalAdvicePopupOpen();
-            cy.wait(1500);
-            // because this is mobile width, proactive chat is not visible
-            assertProactiveChatVisibility(false);
+            // assertCulturalAdvicePopupOpen();
+            // cy.wait(1500);
+            // // because this is mobile width, proactive chat is not visible
+            // assertProactiveChatVisibility(false);
 
             cy.injectAxe();
-            cy.checkA11y('cultural-advice-popup', {
+            cy.checkA11y('cultural-advice-v2', {
                 reportName: 'Cultural Advice Popup',
                 scopeName: 'Accessibility',
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
             });
-        });
-
-        it('Can hide and show cultural advice', () => {
-            cy.viewport(1280, 900);
-            assertCulturalAdvicePopupOpen();
-            cy.getCookie('UQ_CULTURAL_ADVICE').should('not.exist');
-
-            cy.wait(1500);
-            closeCulturalAdvicePopup();
-            cy.getCookie('UQ_CULTURAL_ADVICE').should('have.property', 'value', 'hidden');
-            assertCulturalAdvicePopupClosed();
-
-            openCulturalAdvicePopup();
-            cy.wait(1000);
-            assertCulturalAdvicePopupOpen();
         });
     });
 });

@@ -1,5 +1,6 @@
 .culturaladvicev2 {
-    background: linear-gradient(90deg, #41215E 35.5%, rgba(65, 33, 94, 0.00) 100%), url(https://static.uq.net.au/v15/images/rap/brisbane-river-artwork.png) lightgray 50% / cover no-repeat;
+    background: linear-gradient(90deg, #41215e 35.5%, rgba(65, 33, 94, 0) 100%),
+        url(https://static.uq.net.au/v15/images/rap/brisbane-river-artwork.png) lightgray 50% / cover no-repeat;
     /* background-image: linear-gradient(90deg, #49206cd5 48.12%, #48206c00 70.31%), url(https://static.uq.net.au/v15/images/rap/brisbane-river-artwork.png); */
 }
 
@@ -12,18 +13,17 @@
     color: white; 
     margin: 0;
     border: 0 */
-    color: var(--Brand-white, #FFF);
+    color: var(--Brand-white, #fff);
     font-family: Roboto;
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
-    line-height: 199%; /* 31.84px */
+    line-height: 160%; /* 31.84px */
     letter-spacing: 0.16px;
     margin-top: 0px;
     margin-bottom: 0px;
     padding-top: 12px;
     padding-bottom: 12px;
-
 }
 
 .culturaladvicev2 a {
@@ -32,9 +32,14 @@
     font-size: 16px;
     font-style: normal;
     font-weight: 500;
-    line-height: 199%;
+    line-height: 160%;
     letter-spacing: 0.16px;
     text-decoration-line: underline;
+    transition: color 200ms ease-out, text-decoration 200ms ease-out, background-color 200ms ease-out;
+}
+.culturaladvicev2 a:hover {
+    background-color: white;
+    color: #41215e;
 }
 .layout-card {
     margin-left: auto;
@@ -42,4 +47,13 @@
     max-width: 71rem;
     padding-left: 1rem;
     padding-right: 1rem;
+}
+
+@media (max-width: 640px) {
+    .layout-card {
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 24px;
+        padding-right: 24px;
+    }
 }

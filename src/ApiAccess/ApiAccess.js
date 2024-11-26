@@ -267,14 +267,14 @@ class ApiAccess {
     async loadOpenAthensCheck(urlPath) {
         console.log('loadOpenAthensCheck start', urlPath);
         const openAthensApi = new ApiRoutes().OPEN_ATHENS_LINK_CHECKER(urlPath);
-        return await this.fetchAPI(openAthensApi.apiUrl)
+        return await this.fetchAPI(openAthensApi.apiUrl, {}, false, false)
             .then((response) => {
                 return response;
             })
             .catch((error) => {
                 console.log('error loading openathens ', error);
-                // set the error message here, to some generic "problem with OA, please try again later"
-                return null;
+                const msg = 'There was a problem loading Open Athens - please try again later.';
+                throw new Error(msg);
             });
     }
 
@@ -374,7 +374,7 @@ class ApiAccess {
             // reference: https://dmitripavlutin.com/javascript-fetch-async-await/
             const API_URL = process.env.API_URL || 'https://api.library.uq.edu.au/staging/';
             const connector = urlPath.indexOf('?') > -1 ? '&' : '?';
-            const addTimestamp = !!timestampRequired ? `${connector}${new Date().getTime()}` : '';
+            const addTimestamp = !!timestampRequired ? `${connector}ts=${new Date().getTime()}` : '';
 
             const response = await fetch(`${API_URL}${urlPath}${addTimestamp}`, {
                 headers: options,

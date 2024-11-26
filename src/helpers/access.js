@@ -37,3 +37,16 @@ export function canSeeAlertsAdmin(account) {
 export function canSeeDlorAdmin(account) {
     return hasAdGroup(account, 'lib_dlor_admins');
 }
+
+export function linkToDrupal(pathname, requestedDomainName = null) {
+    const domainName = requestedDomainName ?? document.location.hostname;
+    // after jan 2025 golive, should be web.library only
+    const origin = [
+        'localhost',
+        'homepage-development.library.uq.edu.au',
+        'homepage-staging.library.uq.edu.au',
+    ].includes(domainName)
+        ? 'https://web-live.library.uq.edu.au'
+        : /* istanbul ignore next */ 'https://web.library.uq.edu.au';
+    return `${origin}${pathname}`;
+}

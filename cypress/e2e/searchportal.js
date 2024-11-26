@@ -192,7 +192,7 @@ describe('Search Portal', () => {
                 });
         });
 
-        it.only('the search dropdown has the expected children', () => {
+        it('the search dropdown has the expected children', () => {
             cy.viewport(1300, 1000);
             cy.get('search-portal')
                 .shadow()
@@ -304,7 +304,7 @@ describe('Search Portal', () => {
                     cy.get('button[data-testid="primo-search-item-6"]').trigger('click');
                     cy.get('[data-testid="portaltype-current-label"]').contains('Databases');
 
-                    hasCorrectNumberOfFooterLinks(2);
+                    hasCorrectNumberOfFooterLinks(1);
 
                     //  no suggestion api available
                     cy.get('input[data-testid="primo-search-autocomplete-input"]').type('{esc}');
@@ -546,6 +546,24 @@ describe('Search Portal', () => {
                     // enter a repeating string
                     typeTextStringIntoInputField('DDDDD');
                     cy.get('ul[data-testid="primo-search-autocomplete-listbox"]').should('not.exist');
+                });
+        });
+
+        it('contains the correct mechanism for showing restrictions on use', () => {
+            cy.viewport(1300, 1000);
+            cy.get('search-portal')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="restrictions-accordian-container"]').contains('Restrictions on use');
+
+                    cy.get('[data-testid="restrictions-accordian-content"]').should('not.be.visible');
+                    cy.get('[data-testid="restrictions-accordian-container"]').click();
+                    cy.get('[data-testid="restrictions-accordian-content"]')
+                        .should('be.visible')
+                        .should(
+                            'contain',
+                            'The use of AI tools with Library resources is prohibited unless expressly permitted.',
+                        );
                 });
         });
 
