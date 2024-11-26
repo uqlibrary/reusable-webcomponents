@@ -24,6 +24,15 @@ function createAuthButton() {
     return !!authButton && createSlotForButtonInUtilityArea(authButton, 'auth');
 }
 
+function createAskusButton() {
+    if (!!document.querySelector('askus-button')) {
+        return false;
+    }
+
+    const askusButton = document.createElement('askus-button');
+    return !!askusButton && createSlotForButtonInUtilityArea(askusButton, 'askus');
+}
+
 function fontLoader(font) {
     var headID = document.getElementsByTagName('head')[0];
     var link = document.createElement('link');
@@ -124,19 +133,16 @@ function loadReusableComponentsDrupal() {
 
     if (!document.querySelector('uq-site-header')) {
         const siteHeader = document.createElement('uq-site-header');
+        !!siteHeader && siteHeader.setAttribute('showmenu', '');
+
+        const askusButton = createAskusButton();
+        !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
 
         const authButton = createAuthButton();
         !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
 
         !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
     }
-
-    // Cultural Advise Version 2
-    if (!document.querySelector('cultural-advice-v2')) {
-        const culturalAdvice = document.createElement('cultural-advice-v2');
-        !!culturalAdvice && document.body.insertBefore(culturalAdvice, firstElement);
-    }
-
     // Proactive Chat button
     if (!document.querySelector('proactive-chat')) {
         const proactiveChat = document.createElement('proactive-chat');
@@ -149,8 +155,6 @@ function loadReusableComponentsDrupal() {
         !!alerts && document.body.insertBefore(alerts, firstElement);
     }
 
-    // Disabling connect footer for the mean time. New Design.
-
     // if (!document.querySelector('connect-footer')) {
     //     const connectFooter = document.createElement('connect-footer');
     //     !!connectFooter && document.body.appendChild(connectFooter);
@@ -161,10 +165,10 @@ function loadReusableComponentsDrupal() {
         !!culturalAdvice && document.body.appendChild(culturalAdvice);
     }
 
-    if (!document.querySelector('uq-footer')) {
-        const subFooter = document.createElement('uq-footer');
-        !!subFooter && document.body.appendChild(subFooter);
-    }
+    // if (!document.querySelector('uq-footer')) {
+    //     const subFooter = document.createElement('uq-footer');
+    //     !!subFooter && document.body.appendChild(subFooter);
+    // }
 }
 
 ready(loadReusableComponentsDrupal);

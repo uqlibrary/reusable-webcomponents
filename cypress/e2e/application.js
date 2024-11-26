@@ -302,7 +302,7 @@ describe('Dummy Application', () => {
     });
 
     context('Drupal works as expected', () => {
-        it.only('Sample page load works correctly', () => {
+        it('Sample page load works correctly', () => {
             cy.visit('http://localhost:8080/src/applications/drupal/demo.html');
             cy.viewport(1280, 900);
 
