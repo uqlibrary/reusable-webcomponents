@@ -166,7 +166,7 @@
 }
 
 .mylibrary-menu-list li a {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     white-space: nowrap;
     text-overflow: ellipsis;
