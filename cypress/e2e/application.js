@@ -232,7 +232,7 @@ describe('Dummy Application', () => {
         });
     });
 
-    context('Lib Guides works as expected', () => {
+    context('Springshare Guides works as expected', () => {
         it('Javascript load works correctly', () => {
             cy.visit('http://localhost:8080/src/applications/libguides/demo.html');
             cy.viewport(1280, 900);
@@ -281,7 +281,7 @@ describe('Dummy Application', () => {
         });
     });
 
-    context('Lib Cal works as expected', () => {
+    context('Springshare Cal works as expected', () => {
         it('Javascript load works correctly', () => {
             cy.visit('http://localhost:8080/src/applications/libcal/demo.html');
             cy.viewport(1280, 900);
@@ -310,9 +310,7 @@ describe('Dummy Application', () => {
 
             hasCulturalAdvice();
 
-            hasUqSiteHeader();
-
-            proactiveChatLoadsAsIcon();
+            // we use the drupal utility bar instead of our uq-site-header and inject our auth button into it
             hasAuthButton();
 
             hasAnAlert();
@@ -326,6 +324,8 @@ describe('Dummy Application', () => {
                 .should('contain', 'This is the message');
 
             // hasNoConnectFooter();
+
+            proactiveChatLoadsAsIcon();
 
             hasNoUqFooter(); // drupal supplies that
 
