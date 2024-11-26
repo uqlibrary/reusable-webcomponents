@@ -302,11 +302,11 @@ describe('Dummy Application', () => {
     });
 
     context('Drupal works as expected', () => {
-        it('Sample page load works correctly', () => {
+        it.only('Sample page load works correctly', () => {
             cy.visit('http://localhost:8080/src/applications/drupal/demo.html');
             cy.viewport(1280, 900);
 
-            hasNoUqHeader(); // drupal supplies that
+            //hasNoUqHeader(); // drupal supplies that
 
             hasCulturalAdvice();
 

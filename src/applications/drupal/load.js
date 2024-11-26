@@ -156,8 +156,8 @@ function loadReusableComponentsDrupal() {
     //     !!connectFooter && document.body.appendChild(connectFooter);
     // }
     // cultural advice popup
-    if (!document.querySelector('cultural-advice-popup')) {
-        const culturalAdvice = document.createElement('cultural-advice-popup');
+    if (!document.querySelector('cultural-advice-v2')) {
+        const culturalAdvice = document.createElement('cultural-advice-v2');
         !!culturalAdvice && document.body.appendChild(culturalAdvice);
     }
 

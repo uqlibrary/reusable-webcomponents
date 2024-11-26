@@ -28,7 +28,6 @@ if (!supportsCustomElements) {
 import Alert from './Alert/Alert';
 import Alerts from './Alerts/Alerts';
 import ApiAccess from './ApiAccess/ApiAccess';
-import CulturalAdviceV2 from './CulturalAdvice/CulturalAdviceV2';
 import OpenAthens from './OpenAthens/OpenAthens';
 import ProactiveChat from './UtilityArea/ProactiveChat';
 import AuthButton from './UtilityArea/AuthButton';
