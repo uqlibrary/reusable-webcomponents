@@ -97,19 +97,8 @@ function isITSExternalHosting() {
 }
 
 function isStagingSite() {
-    if (window.location.hostname === libraryStagingDomain) {
-        return true;
-    }
-    if (window.location.hostname === libraryLiveDomain) {
-        return true;
-    }
-    if (isITSExternalHosting()) {
-        return true;
-    }
-    if (isITSExternalHosting()) {
-        return true;
-    }
-    return false;
+    const validHosts = [libraryProductionDomain, libraryStagingDomain];
+    return validHosts.includes(window.location.host) || isITSExternalHosting();
 }
 
 function isValidDrupalHost() {
