@@ -14,17 +14,6 @@ function createSlotForButtonInUtilityArea(button, id = null) {
     return slot;
 }
 
-function createAskusButton() {
-    if (!!document.querySelector('askus-button')) {
-        return false;
-    }
-
-    const askusButton = document.createElement('askus-button');
-    const slot = !!askusButton && createSlotForButtonInUtilityArea(askusButton, 'askus');
-
-    return slot;
-}
-
 const createIcon = (svgPath, size) => {
     const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     !!path && path.setAttribute('d', svgPath);
@@ -118,10 +107,6 @@ function loadReusableComponents() {
 
     if (!document.querySelector('uq-site-header')) {
         const siteHeader = document.createElement('uq-site-header');
-        !!siteHeader && siteHeader.setAttribute('showmenu', '');
-
-        const askusButton = createAskusButton();
-        !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
 
         !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
     }

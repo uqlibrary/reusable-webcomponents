@@ -36,15 +36,6 @@ function createAuthButton() {
     return !!authButton && createSlotForButtonInUtilityArea(authButton, 'auth');
 }
 
-function createAskusButton() {
-    if (!!document.querySelector('askus-button')) {
-        return false;
-    }
-
-    const askusButton = document.createElement('askus-button');
-    return !!askusButton && createSlotForButtonInUtilityArea(askusButton, 'askus');
-}
-
 function fontLoader(font) {
     var headID = document.getElementsByTagName('head')[0];
     var link = document.createElement('link');
@@ -81,10 +72,6 @@ function loadReusableComponents() {
 
     if (!document.querySelector('uq-site-header')) {
         const siteHeader = document.createElement('uq-site-header');
-        !!siteHeader && siteHeader.setAttribute('showmenu', '');
-
-        const askusButton = createAskusButton();
-        !!siteHeader && !!askusButton && siteHeader.appendChild(askusButton);
 
         const authButton = createAuthButton();
         !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
@@ -102,10 +89,10 @@ function loadReusableComponents() {
         !!alerts && document.body.insertBefore(alerts, firstElement);
     }
 
-    if (!document.querySelector('connect-footer')) {
-        const connectFooter = document.createElement('connect-footer');
-        !!connectFooter && document.body.appendChild(connectFooter);
-    }
+    // if (!document.querySelector('connect-footer')) {
+    //     const connectFooter = document.createElement('connect-footer');
+    //     !!connectFooter && document.body.appendChild(connectFooter);
+    // }
 
     if (!document.querySelector('uq-footer')) {
         const subFooter = document.createElement('uq-footer');

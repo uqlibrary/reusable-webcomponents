@@ -76,6 +76,13 @@
                     width: 100%;
                 }
             }
+            .full-width-purple {
+                background-color: #51247a;
+            }
+            .search-spacing {
+                padding-top: 40px;
+                padding-bottom: 40px;
+            }
         </style>
     </head>
     <body style="padding: 0; margin: 0; font-family: 'Roboto', sans-serif; background-color: #f7f7f7">
@@ -91,17 +98,26 @@
                 <auth-button />
             </span>
         </uq-site-header>
-        <cultural-advice-popup secondsTilCulturalAdviceAppears="2"></cultural-advice-popup>
+        <cultural-advice-v2 secondsTilCulturalAdviceAppears="2"></cultural-advice-v2>
+
         <alert-list system="homepage"></alert-list>
-        <div class="layout-card" style="min-height: 300px">
+        <div class="layout-card">
             <h1 id="skiptohere" tabindex="-1">UQ Library - Reusable Web Components sampler</h1>
             <p data-testid="random-page-element">Lorem ipsum</p>
-
-            <search-portal></search-portal>
-
+        </div>
+        <div class="layout-card" >
+            <h2>Search portal, Dark theme (homepage)</h2>
+        </div>
+        <div class="full-width-purple">
+            <div class="layout-card">
+                <search-portal theme="dark"></search-portal>
+            </div>
+        </div>
+        <div class="layout-card" style="min-height: 200px">
             <h2>OpenAthens - Copy a link</h2>
             <open-athens create-link="true"></open-athens>
-
+        </div>
+        <div class="layout-card" style="min-height: 300px">
             <div class="trainingWrapper">
                 <div class="trainingLeft">
                     <h2>Demo Training</h2>

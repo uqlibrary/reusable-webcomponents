@@ -1,6 +1,9 @@
+* {
+    letter-spacing: 0.16px;
+}
 a.uq-site-header__title h1 {
-    font-family: Roboto, Helvetica Neue, Helvetica, Arial, sans-serif !important;
-    color: #51247a !important;
+    font-family: Roboto, Helvetica, Arial, sans-serif !important;
+    color: #19151c !important;
     font-size: 1em !important;
     font-weight: 500 !important;
     margin: 0 !important;
@@ -10,7 +13,7 @@ a.uq-site-header__title h1 {
 
 .uq-site-header {
     color: #2b2a29;
-    font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
     font-weight: 400;
     line-height: 1.5;
     background-color: #ffffff;
@@ -18,15 +21,8 @@ a.uq-site-header__title h1 {
     padding: 0;
     font-size: 16px;
 }
-* {
-    font-size: 16px;
-}
 
 @media (min-width: 64em) {
-    .uq-site-header__title-container {
-        padding-top: 1em;
-        padding-bottom: 1em;
-    }
     .uq-site-header__navigation__sub-toggle {
         width: 2rem;
         padding: 0.5rem 1.5rem 1.75rem 0.5rem;
@@ -88,13 +84,6 @@ span.displayText {
         top: 3.5em;
     }
 }
-/*@media (max-width: 80em) {*/
-/*    !* when the menu drops to a single lne, we dont need the spacing under the menu item any more *!*/
-/*    li.uq-site-header__navigation__list-item--has-subnav a {*/
-/*        min-height: 4em;*/
-/*    }*/
-/*}*/
-
 /* make the megamenu appear as one line where possible */
 @media (min-width: 64em) {
     .uq-site-header__navigation__list--level-1 > li:not(:first-child) > a {
@@ -235,5 +224,43 @@ li.uq-site-header__navigation__list-item:-moz-focusring,
 li.uq-site-header__navigation__list-item a:-moz-focusring,
 button.uq-site-header__navigation__sub-toggle:-moz-focusring,
 a.uq-site-header__navigation-link.slide-menu__control:-moz-focusring {
-    outline: Highlight auto 1px;
+    outline: highlight auto 1px;
+}
+
+/* jake wants this removed for the moment to align with drupal poor implementation more */
+/* breadcrumb entries that dont have a href dont get an underline */
+/*a.uq-breadcrumb__link[href]:not([href=""]) {*/
+/*    text-decoration: underline;*/
+/*}*/
+/*a.uq-breadcrumb__link[href=""] {*/
+/*    text-decoration: none;*/
+/*}*/
+
+.uq-site-header__title-container {
+    justify-content: space-between;
+    padding-bottom: 7px;
+    padding-top: 3px;
+}
+.uq-site-header__title-container__right {
+    justify-content: flex-end;
+}
+
+@media (min-width: 64rem) {
+    .uq-site-header__title-container {
+        padding-left: 1rem !important;
+    }
+}
+
+.primoNonProdMarker {
+    color: white;
+    background-color: rgb(51, 51, 51);
+    padding: 2px 8px;
+    font-weight: bold;
+    font-size: 12px;
+}
+/* move the mobile menu up a bit to cover the utility area */
+@media (max-width: 64em) {
+    ul.uq-site-header__navigation__list.uq-site-header__navigation__list--level-1[aria-expanded='true'] {
+        margin-top: -50px;
+    }
 }
