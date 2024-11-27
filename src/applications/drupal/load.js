@@ -97,12 +97,12 @@ function isITSExternalHosting() {
 }
 
 function isStagingSite() {
-    const validHosts = [libraryProductionDomain, libraryStagingDomain];
+    const validHosts = [libraryProductionDomain, libraryStagingDomain, libraryLiveDomain];
     return validHosts.includes(window.location.host) || isITSExternalHosting();
 }
 
 function isValidDrupalHost() {
-    const validHosts = [libraryProductionDomain, libraryStagingDomain, 'localhost:8080'];
+    const validHosts = [libraryProductionDomain, libraryStagingDomain, libraryLiveDomain, 'localhost:8080'];
     return validHosts.includes(window.location.host) || isITSExternalHosting();
 }
 
