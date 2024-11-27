@@ -1,5 +1,6 @@
 const libraryProductionDomain = 'web.library.uq.edu.au';
 const libraryStagingDomain = 'web-staging.library.uq.edu.au';
+const libraryLiveDomain = 'web-live.library.uq.edu.au';
 const libraryFeatureBranchName = 'drupal-staging';
 const libraryAssetsRootLocation = 'https://assets.library.uq.edu.au/reusable-webcomponents';
 
@@ -97,6 +98,12 @@ function isITSExternalHosting() {
 
 function isStagingSite() {
     if (window.location.hostname === libraryStagingDomain) {
+        return true;
+    }
+    if (window.location.hostname === libraryLiveDomain) {
+        return true;
+    }
+    if (isITSExternalHosting()) {
         return true;
     }
     if (isITSExternalHosting()) {
