@@ -33,9 +33,6 @@ function scriptSkipped() {
 function addUtilityButtonsToSiteHeader() {
     // find the existing breadcrumbs holder and setup so the breadcrumb sit left and our buttons will sit right
     const breadcrumbWrapper = document.querySelector('.uq-breadcrumb');
-    !!breadcrumbWrapper && (breadcrumbWrapper.style.display = 'flex');
-    !!breadcrumbWrapper && (breadcrumbWrapper.style.justifyContent = 'space-between');
-
     // create a wrapper to sit at the right
     const uqSiteHeaderRight = document.createElement('div');
     !!uqSiteHeaderRight && uqSiteHeaderRight.classList.add('uq-site-header__title-container__right');
@@ -46,15 +43,6 @@ function addUtilityButtonsToSiteHeader() {
         authButton = document.createElement('auth-button');
         !!uqSiteHeaderRight && !!authButton && uqSiteHeaderRight.appendChild(authButton);
     }
-
-    // resize the area to look right and match other sites
-    const breadcrumbList = document.querySelector('.uq-breadcrumb__list');
-    !!breadcrumbList && (breadcrumbList.style.height = '22px');
-
-    const breadcrumbHolder = document.getElementById('block-uq-standard-theme-breadcrumbs');
-    !!breadcrumbHolder && (breadcrumbHolder.style.height = '46px');
-
-    !!authButton && (authButton.style.marginTop = '-6px');
 }
 
 // example usage: loadFontFile('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');

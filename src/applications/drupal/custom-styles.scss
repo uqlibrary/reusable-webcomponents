@@ -2,6 +2,18 @@
 
 @import 'styles-imports/libcal';
 
-askus-button {
-    margin-top: -15px;
+auth-button {
+    margin-top: -10px;
+    margin-bottom: unset;
+}
+
+.uq-breadcrumb__list {
+    height: 22px;
+}
+.block-system-breadcrumb-block {
+    height: 50px;
+}
+.uq-breadcrumb {
+    display: flex;
+    justify-content: space-between;
 }
