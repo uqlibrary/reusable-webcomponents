@@ -137,7 +137,6 @@
     height: 100%;
     top: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.2);
     transition: opacity 0.2s ease-out;
     z-index: 998;
     opacity: 1;
