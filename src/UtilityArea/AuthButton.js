@@ -40,7 +40,7 @@ authorisedtemplate.innerHTML = `
                     <path d="M4.59961 20.5716C4.59961 16.4685 7.91578 13.1523 12.0188 13.1523C16.1219 13.1523 19.438 16.4685 19.438 20.5716" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
 
-                <span id="username-area-label" class="username-area-label"></span>
+                <span id="username-area-label" data-testid="username-area-label" class="username-area-label"></span>
                 <svg id="down-arrow" data-testid="down-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <g id="icon/standard/chevron-down-sml">
                         <path id="Chevron-down" d="M7 10L12 15L17 10" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -469,6 +469,9 @@ class AuthButton extends HTMLElement {
             !!backgroundPane && (backgroundPane.style.display = 'block');
             hideElement('down-arrow');
             showElement('up-arrow');
+            // apply hover style to username
+            const username = shadowDOM.getElementById('username-area-label');
+            !!username && username.classList.add('menu-open');
 
             function showDisplay() {
                 !!accountMenu && accountMenu.classList.remove('account-options-menu-closed');
@@ -492,6 +495,8 @@ class AuthButton extends HTMLElement {
             !!backgroundPane && backgroundPane.classList.add('account-options-pane-closed');
             showElement('down-arrow');
             hideElement('up-arrow');
+            const username = shadowDOM.getElementById('username-area-label');
+            !!username && username.classList.remove('menu-open');
 
             function hideAccountOptionsDisplay() {
                 !!accountMenu && (accountMenu.style.display = 'none');

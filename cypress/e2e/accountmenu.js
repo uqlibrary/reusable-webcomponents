@@ -3,7 +3,7 @@ import uqrdav10, { accounts } from '../../mock/data/account';
 import ApiAccess from '../../src/ApiAccess/ApiAccess';
 import { apiLocale } from '../../src/ApiAccess/ApiAccess.locale';
 import { authLocale } from '../../src/UtilityArea/auth.locale';
-import { getAccountMenuRoot } from '../../src/UtilityArea/helpers';
+import { getAccountMenuRoot, COLOUR_UQ_PURPLE } from '../../src/UtilityArea/helpers';
 
 function assertLogoutButtonVisible(expected = true) {
     if (expected) {
@@ -147,6 +147,16 @@ describe('Account menu button', () => {
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
             });
             openAccountDropdown();
+            // let the colours settle
+            cy.waitUntil(() =>
+                cy
+                    .get('auth-button')
+                    .shadow()
+                    .find('[data-testid="username-area-label"]')
+                    .should('exist')
+                    .contains('User, Vanilla')
+                    .should('have.css', 'background-color', COLOUR_UQ_PURPLE),
+            );
             cy.checkA11y('auth-button', {
                 reportName: 'Account Loggedin Dialog Open',
                 scopeName: 'Accessibility',
@@ -270,17 +280,36 @@ describe('Account menu button', () => {
             cy.get('auth-button').shadow().find('[data-testid="down-arrow"]').should('exist').should('be.visible');
             // up arrow hidden
             cy.get('auth-button').shadow().find('[data-testid="up-arrow"]').should('exist').should('not.be.visible');
+            // username is not purple
+            cy.get('auth-button')
+                .shadow()
+                .find('[data-testid="username-area-label"]')
+                .should('exist')
+                .should('not.have.css', 'background-color', COLOUR_UQ_PURPLE);
             openAccountDropdown();
             // down arrow hidden
             cy.get('auth-button').shadow().find('[data-testid="down-arrow"]').should('exist').should('not.be.visible');
             // can see up arrow
             cy.get('auth-button').shadow().find('[data-testid="up-arrow"]').should('exist').should('be.visible');
+            // username is purple
+            cy.get('auth-button')
+                .shadow()
+                .find('[data-testid="username-area-label"]')
+                .should('exist')
+                .contains('Staff, UQ')
+                .should('have.css', 'background-color', COLOUR_UQ_PURPLE);
             // close menu
             cy.get('body').type('{esc}', { force: true }); // close account menu
             // can see down arrow again
             cy.get('auth-button').shadow().find('[data-testid="down-arrow"]').should('exist').should('be.visible');
             // up arrow hidden again
             cy.get('auth-button').shadow().find('[data-testid="up-arrow"]').should('exist').should('not.be.visible');
+            // username is not purple
+            cy.get('auth-button')
+                .shadow()
+                .find('[data-testid="username-area-label"]')
+                .should('exist')
+                .should('not.have.css', 'background-color', COLOUR_UQ_PURPLE);
         });
 
         it('Clicking the pane closes the account menu', () => {

@@ -1,4 +1,4 @@
-const COLOUR_UQ_PURPLE = 'rgb(81, 36, 122)';
+import { COLOUR_UQ_PURPLE } from '../../src/UtilityArea/helpers';
 const COLOUR_UQ_GREY300 = 'rgb(117, 115, 119)';
 
 function assertPopupIsHidden() {
