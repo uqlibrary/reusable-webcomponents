@@ -264,6 +264,37 @@ describe('Account menu button', () => {
             assertLogoutButtonVisible(false);
         });
 
+        it('arrows change when the account menu is open-closed', () => {
+            visitPageForUser('uqstaff');
+            // can see down arrow
+            cy.get('auth-button').shadow().find('[data-testid="open-chevron"]').should('exist').should('be.visible');
+            // up arrow hidden
+            cy.get('auth-button')
+                .shadow()
+                .find('[data-testid="closed-chevron"]')
+                .should('exist')
+                .should('not.be.visible');
+            openAccountDropdown();
+            // down arrow hidden
+            cy.get('auth-button')
+                .shadow()
+                .find('[data-testid="open-chevron"]')
+                .should('exist')
+                .should('not.be.visible');
+            // can see up arrow
+            cy.get('auth-button').shadow().find('[data-testid="closed-chevron"]').should('exist').should('be.visible');
+            // close menu
+            cy.get('body').type('{esc}', { force: true }); // close account menu
+            // can see down arrow again
+            cy.get('auth-button').shadow().find('[data-testid="open-chevron"]').should('exist').should('be.visible');
+            // up arrow hidden again
+            cy.get('auth-button')
+                .shadow()
+                .find('[data-testid="closed-chevron"]')
+                .should('exist')
+                .should('not.be.visible');
+        });
+
         it('Clicking the pane closes the account menu', () => {
             cy.visit('http://localhost:8080?user=s1111111');
             cy.viewport(1280, 900);

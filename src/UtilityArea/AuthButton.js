@@ -41,10 +41,13 @@ authorisedtemplate.innerHTML = `
                 </svg>
 
                 <span id="username-area-label" class="username-area-label"></span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <svg id="open-chevron" data-testid="open-chevron" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <g id="icon/standard/chevron-down-sml">
                         <path id="Chevron-down" d="M7 10L12 15L17 10" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </g>
+                </svg>
+                <svg id="closed-chevron" data-testid="closed-chevron" style="display: none" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17 14L12 9L7 14" stroke="#19151C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </div>
         </button>
@@ -453,6 +456,10 @@ class AuthButton extends HTMLElement {
             !!shadowMenu && (shadowMenu.style.display = 'block');
             const shadowPane = shadowDOM.getElementById('account-options-pane');
             !!shadowPane && (shadowPane.style.display = 'block');
+            const downArrowIcon = shadowDOM.getElementById('open-chevron');
+            !!downArrowIcon && (downArrowIcon.style.display = 'none');
+            const upArrowIcon = shadowDOM.getElementById('closed-chevron');
+            !!upArrowIcon && (upArrowIcon.style.display = 'block');
 
             function showDisplay() {
                 !!shadowMenu && shadowMenu.classList.remove('account-options-menu-closed');
@@ -474,6 +481,10 @@ class AuthButton extends HTMLElement {
             !!shadowMenu && shadowMenu.classList.add('account-options-menu-closed');
             const shadowPane = shadowDOM.getElementById('account-options-pane');
             !!shadowPane && shadowPane.classList.add('account-options-pane-closed');
+            const downArrowIcon = shadowDOM.getElementById('open-chevron');
+            !!downArrowIcon && (downArrowIcon.style.display = 'block');
+            const upArrowIcon = shadowDOM.getElementById('closed-chevron');
+            !!upArrowIcon && (upArrowIcon.style.display = 'none');
 
             function hideAccountOptionsDisplay() {
                 !!shadowMenu && (shadowMenu.style.display = 'none');
