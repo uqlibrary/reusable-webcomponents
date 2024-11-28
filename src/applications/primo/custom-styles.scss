@@ -401,7 +401,6 @@ md-menu-item.my-favorties-ctm {
         text-decoration: underline;
     }
 }
-.textwrapper span.primaryText,
 span[translate="eshelf.menu.savedItems"],
 span[translate="eshelf.menu.searchHistory"],
 span[translate="eshelf.menu.savedItems"],
@@ -1344,6 +1343,9 @@ prm-personal-info prm-change-lang {
 }
 
 .mobile-main-menu-bg {
+    md-menu-item.uql-account-menu-option.favourites {
+        margin-left: 10px;
+    }
     .my-search-history-ctm .primaryText,
     //.my-search-history-ctm .subtext,
     .my-search-history-ctm button {
@@ -1378,6 +1380,7 @@ prm-personal-info prm-change-lang {
         }
         .primaryText {
             margin-top: 15px;
+            color: white;
         }
         button {
             display: flex;
@@ -1522,11 +1525,11 @@ md-menu-item.uql-account-menu-option button {
 .mobile-main-menu-bg md-menu-item.uql-account-menu-option {
     width: 100%;
     margin-top: 2px;
+    margin-left: -25px;
     button {
-        margin-left: -30px;
+        margin-left: 10px;
         background-color: inherit;
 
-        //.subtext,
         .primaryText {
             background-color: inherit;
             color: #fff;
