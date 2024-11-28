@@ -41,12 +41,12 @@ authorisedtemplate.innerHTML = `
                 </svg>
 
                 <span id="username-area-label" class="username-area-label"></span>
-                <svg id="open-chevron" data-testid="open-chevron" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <svg id="down-arrow" data-testid="down-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <g id="icon/standard/chevron-down-sml">
                         <path id="Chevron-down" d="M7 10L12 15L17 10" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </g>
                 </svg>
-                <svg id="closed-chevron" data-testid="closed-chevron" style="display: none" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg id="up-arrow" data-testid="up-arrow" style="display: none" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M17 14L12 9L7 14" stroke="#19151C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </div>
@@ -450,20 +450,29 @@ class AuthButton extends HTMLElement {
             apiAccess.logUserOut();
         }
 
+        function hideElement(elementId) {
+            const element = shadowDOM.getElementById(elementId);
+            !!element && (element.style.display = 'none');
+        }
+
+        function showElement(elementId) {
+            const element = shadowDOM.getElementById(elementId);
+            !!element && (element.style.display = 'block');
+        }
+
         function openAccountOptionsMenu() {
             accountOptionsClosed = false;
-            const shadowMenu = shadowDOM.getElementById('account-options-menu');
-            !!shadowMenu && (shadowMenu.style.display = 'block');
-            const shadowPane = shadowDOM.getElementById('account-options-pane');
-            !!shadowPane && (shadowPane.style.display = 'block');
-            const downArrowIcon = shadowDOM.getElementById('open-chevron');
-            !!downArrowIcon && (downArrowIcon.style.display = 'none');
-            const upArrowIcon = shadowDOM.getElementById('closed-chevron');
-            !!upArrowIcon && (upArrowIcon.style.display = 'block');
+            const accountMenu = shadowDOM.getElementById('account-options-menu');
+            const backgroundPane = shadowDOM.getElementById('account-options-pane');
+
+            !!accountMenu && (accountMenu.style.display = 'block');
+            !!backgroundPane && (backgroundPane.style.display = 'block');
+            hideElement('down-arrow');
+            showElement('up-arrow');
 
             function showDisplay() {
-                !!shadowMenu && shadowMenu.classList.remove('account-options-menu-closed');
-                !!shadowPane && shadowPane.classList.remove('account-options-pane-closed');
+                !!accountMenu && accountMenu.classList.remove('account-options-menu-closed');
+                !!backgroundPane && backgroundPane.classList.remove('account-options-pane-closed');
             }
 
             setTimeout(showDisplay, 100);
@@ -477,28 +486,26 @@ class AuthButton extends HTMLElement {
 
         function closeAccountOptionsMenu() {
             accountOptionsClosed = true;
-            const shadowMenu = shadowDOM.getElementById('account-options-menu');
-            !!shadowMenu && shadowMenu.classList.add('account-options-menu-closed');
-            const shadowPane = shadowDOM.getElementById('account-options-pane');
-            !!shadowPane && shadowPane.classList.add('account-options-pane-closed');
-            const downArrowIcon = shadowDOM.getElementById('open-chevron');
-            !!downArrowIcon && (downArrowIcon.style.display = 'block');
-            const upArrowIcon = shadowDOM.getElementById('closed-chevron');
-            !!upArrowIcon && (upArrowIcon.style.display = 'none');
+            const accountMenu = shadowDOM.getElementById('account-options-menu');
+            !!accountMenu && accountMenu.classList.add('account-options-menu-closed');
+            const backgroundPane = shadowDOM.getElementById('account-options-pane');
+            !!backgroundPane && backgroundPane.classList.add('account-options-pane-closed');
+            showElement('down-arrow');
+            hideElement('up-arrow');
 
             function hideAccountOptionsDisplay() {
-                !!shadowMenu && (shadowMenu.style.display = 'none');
-                !!shadowPane && (shadowPane.style.display = 'none');
+                !!accountMenu && (accountMenu.style.display = 'none');
+                !!backgroundPane && (backgroundPane.style.display = 'none');
             }
 
             setTimeout(hideAccountOptionsDisplay, 500);
         }
 
         function handleAccountOptionsButton() {
-            const shadowButton = shadowDOM.getElementById('account-options-button');
+            const openButton = shadowDOM.getElementById('account-options-button');
             accountOptionsClosed
-                ? !!shadowButton && shadowButton.blur()
-                : /* istanbul ignore next */ !!shadowButton && shadowButton.focus();
+                ? !!openButton && openButton.blur()
+                : /* istanbul ignore next */ !!openButton && openButton.focus();
             const shadowPane = shadowDOM.getElementById('account-options-pane');
             !!shadowPane && shadowPane.addEventListener('click', handleAccountOptionsMouseOut);
             openAccountOptionsMenu();
@@ -562,10 +569,10 @@ class AuthButton extends HTMLElement {
         const accountOptionsButton = !!shadowDOM && shadowDOM.getElementById('account-option-button');
         !!accountOptionsButton && accountOptionsButton.addEventListener('click', handleAccountOptionsButton);
 
-        const loggedoutButton = !!shadowDOM && shadowDOM.getElementById('signOutButton');
-        if (!!loggedoutButton) {
-            loggedoutButton.addEventListener('click', visitLogOutPage);
-            loggedoutButton.addEventListener('keydown', function (e) {
+        const logoutButton = !!shadowDOM && shadowDOM.getElementById('signOutButton');
+        if (!!logoutButton) {
+            logoutButton.addEventListener('click', visitLogOutPage);
+            logoutButton.addEventListener('keydown', function (e) {
                 if (isBackTabKeyPressed(e)) {
                     closeAccountOptionsMenu();
                 }
