@@ -349,7 +349,7 @@ class SearchPortal extends HTMLElement {
         //     },
         // );
 
-        function handleAccordianBinding() {
+        function bindRestrictionsAccordian() {
             const accordianContainer = that.shadowRoot.getElementById('restrictions-accordian');
             const paragraph = accordianContainer.getElementsByTagName('p');
             const icon = accordian.getElementsByTagName('svg');
@@ -368,14 +368,14 @@ class SearchPortal extends HTMLElement {
         const accordian = that.shadowRoot.getElementById('restrictions-accordian-container');
         !!accordian &&
             accordian.addEventListener('click', function (e) {
-                handleAccordianBinding();
+                bindRestrictionsAccordian();
             });
 
         !!accordian &&
             accordian.addEventListener('keydown', (event) => {
                 console.log('EVENT CODE:', event.code);
                 if (event.code === 'Space' || event.code === 'Enter') {
-                    handleAccordianBinding();
+                    bindRestrictionsAccordian();
                 }
             });
     }
@@ -1120,7 +1120,7 @@ class SearchPortal extends HTMLElement {
                             <!-- <div class="restrictionsContainer searchUnderlinks theme-${theme || 'light'}">
                                <a id="restrictions-on-use-link" class="theme-${
                                    theme || 'light'
-                               }" href="https://web.library.uq.edu.au/about-us/policies-guidelines#collection-notice">Restrictions on use</a> 
+                               }" href="https://web.library.uq.edu.au/about/policies-and-guidelines">Restrictions on use</a> 
                             </div> -->
                         </div> 
                         <div>

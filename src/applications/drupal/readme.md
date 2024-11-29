@@ -39,16 +39,3 @@ Drupal staging has the following code
   src="https://assets.library.uq.edu.au/drupal-staging/reusable-components/drupal/load.js"
 ></script>
 ```
-
-2021: while some of the polymer tags are being redeveloped, these pages have both the old polymer headers and the new reusable headers.
-
-- uqlibrary-training on <https://web.library.uq.edu.au/library-services/training>
-- uqlibrary-search on <https://web.library.uq.edu.au/research-tools-techniques/library-search>
-
-This is so the old polymer tags will work.
-ITS are detecting that the tag is on the page, so as we migrate away from the polymer and replace the tag, the old headers will automatically stop being included.
-When this is complete, it would make sense to let ITS know so they can cleanup their code.
-
-(Note that ITS blew the implementation, so if you try to view the above pages on staging, the menu will point to live)
-
-When the above migration is complete our drupal/load.js can also be cleanedup, to delete the 'remove' functions at the top of the file
