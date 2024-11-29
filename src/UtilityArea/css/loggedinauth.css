@@ -47,6 +47,7 @@
     overflow: hidden;
 }
 
+.username-area-label.menu-open,
 .auth > button:hover .username-area-label {
     background-color: #51247a;
     color: white;
@@ -111,10 +112,6 @@
     line-height: 160%; /* 25.6px */
     letter-spacing: 0.16px;
 }
-.logout:hover,
-.logout:active,
-.logout:focus {
-}
 .md-menu-item {
     border-bottom: thin solid lightgrey;
 }
@@ -140,7 +137,6 @@
     height: 100%;
     top: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.2);
     transition: opacity 0.2s ease-out;
     z-index: 998;
     opacity: 1;

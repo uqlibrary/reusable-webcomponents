@@ -349,7 +349,7 @@ class SearchPortal extends HTMLElement {
         //     },
         // );
 
-        function handleAccordianBinding() {
+        function bindRestrictionsAccordian() {
             const accordianContainer = that.shadowRoot.getElementById('restrictions-accordian');
             const paragraph = accordianContainer.getElementsByTagName('p');
             const icon = accordian.getElementsByTagName('svg');
@@ -368,14 +368,14 @@ class SearchPortal extends HTMLElement {
         const accordian = that.shadowRoot.getElementById('restrictions-accordian-container');
         !!accordian &&
             accordian.addEventListener('click', function (e) {
-                handleAccordianBinding();
+                bindRestrictionsAccordian();
             });
 
         !!accordian &&
             accordian.addEventListener('keydown', (event) => {
                 console.log('EVENT CODE:', event.code);
                 if (event.code === 'Space' || event.code === 'Enter') {
-                    handleAccordianBinding();
+                    bindRestrictionsAccordian();
                 }
             });
     }
@@ -761,7 +761,6 @@ class SearchPortal extends HTMLElement {
             !!searchPortalLocale.typeSelect.items[useSearchType].placeholder &&
             // (subTitleField.innerHTML = searchPortalLocale.typeSelect.items[useSearchType].placeholder) &&
             (inputField.placeholder = searchPortalLocale.typeSelect.items[useSearchType].placeholder);
-
         // add an extra class to the button to say which label it is currently showing
         // this is used by the css to make the dropdown highlight the matching label
         // remove any previous label - looks like we cant regexp to match a classname, we'll have to loop over the label.items length
@@ -1121,7 +1120,7 @@ class SearchPortal extends HTMLElement {
                             <!-- <div class="restrictionsContainer searchUnderlinks theme-${theme || 'light'}">
                                <a id="restrictions-on-use-link" class="theme-${
                                    theme || 'light'
-                               }" href="https://web.library.uq.edu.au/about-us/policies-guidelines#collection-notice">Restrictions on use</a> 
+                               }" href="https://web.library.uq.edu.au/about/policies-and-guidelines">Restrictions on use</a> 
                             </div> -->
                         </div> 
                         <div>
