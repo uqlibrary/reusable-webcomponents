@@ -349,33 +349,33 @@ class SearchPortal extends HTMLElement {
         //     },
         // );
 
-        function bindRestrictionsAccordian() {
-            const accordianContainer = that.shadowRoot.getElementById('restrictions-accordian');
-            const paragraph = accordianContainer.getElementsByTagName('p');
+        function bindRestrictionsAccordion() {
+            const accordionContainer = that.shadowRoot.getElementById('restrictions-accordian');
+            const paragraphs = accordionContainer.getElementsByTagName('p');
             const icon = accordian.getElementsByTagName('svg');
-            //paragraph[0].style.height = (paragraph[0].scrollHeight + 'px')
-            if (!accordianContainer.classList.contains('container-opened')) {
-                accordianContainer.style.height = 32 + paragraph[0].scrollHeight + 'px';
-                accordianContainer.classList.add('container-opened');
-                icon[0].classList.add('accordian-icon-open');
+            const firstIcon = !!icon && icon.length > 0 && icon[0];
+            if (!!accordionContainer.classList.contains('container-opened')) {
+                accordionContainer.style.height = 0;
+                accordionContainer.classList.remove('container-opened');
+                !!firstIcon && firstIcon.classList.remove('accordian-icon-open');
             } else {
-                accordianContainer.style.height = 0;
-                accordianContainer.classList.remove('container-opened');
-                icon[0].classList.remove('accordian-icon-open');
+                const firstParagraph = !!paragraphs && paragraphs.length > 0 && paragraphs[0];
+                accordionContainer.style.height = 32 + firstParagraph?.scrollHeight + 'px';
+                accordionContainer.classList.add('container-opened');
+                !!firstIcon && firstIcon.classList.add('accordian-icon-open');
             }
         }
 
         const accordian = that.shadowRoot.getElementById('restrictions-accordian-container');
         !!accordian &&
             accordian.addEventListener('click', function (e) {
-                bindRestrictionsAccordian();
+                bindRestrictionsAccordion();
             });
 
         !!accordian &&
             accordian.addEventListener('keydown', (event) => {
-                console.log('EVENT CODE:', event.code);
                 if (event.code === 'Space' || event.code === 'Enter') {
-                    bindRestrictionsAccordian();
+                    bindRestrictionsAccordion();
                 }
             });
     }
