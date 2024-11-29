@@ -352,13 +352,18 @@ class SearchPortal extends HTMLElement {
         function bindRestrictionsAccordion() {
             const accordionContainer = that.shadowRoot.getElementById('restrictions-accordian');
             const paragraphs = accordionContainer.getElementsByTagName('p');
-            const icon = accordian.getElementsByTagName('svg');
-            const firstIcon = !!icon && icon.length > 0 && icon[0];
+            const icons = accordian.getElementsByTagName('svg');
+            const firstIcon = !!icons && icons.length > 0 && icons[0];
+            const showHideBlock = that.shadowRoot.getElementById('restrictions-accordian');
             if (!!accordionContainer.classList.contains('container-opened')) {
+                !!showHideBlock && showHideBlock.setAttribute('hidden', '');
+
                 accordionContainer.style.height = 0;
                 accordionContainer.classList.remove('container-opened');
                 !!firstIcon && firstIcon.classList.remove('accordian-icon-open');
             } else {
+                !!showHideBlock && showHideBlock.removeAttribute('hidden');
+
                 const firstParagraph = !!paragraphs && paragraphs.length > 0 && paragraphs[0];
                 accordionContainer.style.height = 32 + firstParagraph?.scrollHeight + 'px';
                 accordionContainer.classList.add('container-opened');
@@ -1132,7 +1137,7 @@ class SearchPortal extends HTMLElement {
                                          <path fill="currentColor" d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"/>
                                     </svg>
                             </span>
-                            <div id="restrictions-accordian" class="theme-${
+                            <div id="restrictions-accordian" hidden class="theme-${
                                 theme || 'light'
                             }" data-testid="restrictions-accordian-content">
                                 <p>Your <a href="${linkToDrupal(
