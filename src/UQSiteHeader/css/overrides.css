@@ -264,3 +264,9 @@ a.uq-site-header__navigation-link.slide-menu__control:-moz-focusring {
         margin-top: -50px;
     }
 }
+
+/* force remove breadcrumbs underline - drupal modification */
+
+.uq-breadcrumbs {
+    border-bottom: none !important;
+}

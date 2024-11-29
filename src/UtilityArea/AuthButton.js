@@ -40,11 +40,14 @@ authorisedtemplate.innerHTML = `
                     <path d="M4.59961 20.5716C4.59961 16.4685 7.91578 13.1523 12.0188 13.1523C16.1219 13.1523 19.438 16.4685 19.438 20.5716" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
 
-                <span id="username-area-label" class="username-area-label"></span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <span id="username-area-label" data-testid="username-area-label" class="username-area-label"></span>
+                <svg id="down-arrow" data-testid="down-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <g id="icon/standard/chevron-down-sml">
                         <path id="Chevron-down" d="M7 10L12 15L17 10" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </g>
+                </svg>
+                <svg id="up-arrow" data-testid="up-arrow" style="display: none" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17 14L12 9L7 14" stroke="#19151C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </div>
         </button>
@@ -99,16 +102,15 @@ authorisedtemplate.innerHTML = `
                                     'library-services/it/print-scan-copy/your-printing-account',
                                 )}" rel="noreferrer">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-                                    <rect width="24" height="24"/>
-                                    <g clip-path="url(#clip0_1654_1998)">
+                                    <g clip-path="url(#clip0_1723_14098)">
                                         <path d="M3.01562 12C3.01563 14.3828 3.96219 16.668 5.64709 18.3529C7.33198 20.0378 9.6172 20.9844 12 20.9844C14.3828 20.9844 16.668 20.0378 18.3529 18.3529C20.0378 16.668 20.9844 14.3828 20.9844 12C20.9844 9.6172 20.0378 7.33198 18.3529 5.64709C16.668 3.96219 14.3828 3.01563 12 3.01562C9.6172 3.01563 7.33198 3.96219 5.64709 5.64709C3.96219 7.33198 3.01563 9.6172 3.01562 12Z" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
                                         <path d="M10.2031 13.7969C10.2031 14.1523 10.3085 14.4997 10.506 14.7952C10.7034 15.0907 10.984 15.321 11.3124 15.457C11.6407 15.593 12.002 15.6286 12.3506 15.5592C12.6991 15.4899 13.0193 15.3188 13.2706 15.0675C13.5219 14.8162 13.693 14.496 13.7623 14.1474C13.8317 13.7989 13.7961 13.4376 13.6601 13.1092C13.5241 12.7809 13.2938 12.5003 12.9983 12.3028C12.7028 12.1054 12.3554 12 12 12C11.6446 12 11.2972 11.8946 11.0017 11.6972C10.7062 11.4997 10.4759 11.2191 10.3399 10.8908C10.2039 10.5624 10.1683 10.2011 10.2377 9.85257C10.307 9.50401 10.4781 9.18384 10.7294 8.93254C10.9807 8.68125 11.3009 8.51011 11.6494 8.44078C11.998 8.37144 12.3593 8.40703 12.6876 8.54303C13.016 8.67903 13.2966 8.90934 13.494 9.20484C13.6915 9.50033 13.7969 9.84774 13.7969 10.2031" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
                                         <path d="M12 7.20801V8.40592" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
                                         <path d="M12 15.5938V16.7917" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
                                     </g>
                                     <defs>
-                                        <clipPath id="clip0_1654_1998">
-                                            <rect width="20" height="20" transform="translate(2 2)"/>
+                                        <clipPath id="clip0_1723_14098">
+                                            <rect width="20" height="20" fill="white" transform="translate(2 2)"/>
                                         </clipPath>
                                     </defs>
                                 </svg>
@@ -119,11 +121,11 @@ authorisedtemplate.innerHTML = `
                         <!-- Room bookings -->
                         <li role="menuitem" aria-disabled="false">
                             <a tabindex="0" data-testid="mylibrary-menu-room-bookings" data-analyticsid="mylibrary-menu-room-bookings" href="https://uqbookit.uq.edu.au/#/app/booking-types/77b52dde-d704-4b6d-917e-e820f7df07cb" rel="noreferrer">
-                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-                                    <path d="M2.18907 3.41406H17.8109C18.467 3.41406 19 3.94588 19 4.60043V17.8141C19 18.4686 18.467 19.0004 17.8109 19.0004H2.18907C1.53303 19.0004 1 18.4686 1 17.8141V4.60043C1 3.94588 1.53303 3.41406 2.18907 3.41406Z" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M1 8.2002H18.5399" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M5.79688 5.21364V1" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M14.2441 5.21364V1" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                                    <path d="M4.18907 5.41406H19.8109C20.467 5.41406 21 5.94588 21 6.60043V19.8141C21 20.4686 20.467 21.0004 19.8109 21.0004H4.18907C3.53303 21.0004 3 20.4686 3 19.8141V6.60043C3 5.94588 3.53303 5.41406 4.18907 5.41406Z" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M3 10.2002H20.5399" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M7.79688 7.21364V3" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M16.2441 7.21364V3" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                                 <span><span>Book a room or desk</span></span>
                             </a>
@@ -448,16 +450,32 @@ class AuthButton extends HTMLElement {
             apiAccess.logUserOut();
         }
 
+        function hideElement(elementId) {
+            const element = shadowDOM.getElementById(elementId);
+            !!element && (element.style.display = 'none');
+        }
+
+        function showElement(elementId) {
+            const element = shadowDOM.getElementById(elementId);
+            !!element && (element.style.display = 'block');
+        }
+
         function openAccountOptionsMenu() {
             accountOptionsClosed = false;
-            const shadowMenu = shadowDOM.getElementById('account-options-menu');
-            !!shadowMenu && (shadowMenu.style.display = 'block');
-            const shadowPane = shadowDOM.getElementById('account-options-pane');
-            !!shadowPane && (shadowPane.style.display = 'block');
+            const accountMenu = shadowDOM.getElementById('account-options-menu');
+            const backgroundPane = shadowDOM.getElementById('account-options-pane');
+
+            !!accountMenu && (accountMenu.style.display = 'block');
+            !!backgroundPane && (backgroundPane.style.display = 'block');
+            hideElement('down-arrow');
+            showElement('up-arrow');
+            // apply hover style to username
+            const username = shadowDOM.getElementById('username-area-label');
+            !!username && username.classList.add('menu-open');
 
             function showDisplay() {
-                !!shadowMenu && shadowMenu.classList.remove('account-options-menu-closed');
-                !!shadowPane && shadowPane.classList.remove('account-options-pane-closed');
+                !!accountMenu && accountMenu.classList.remove('account-options-menu-closed');
+                !!backgroundPane && backgroundPane.classList.remove('account-options-pane-closed');
             }
 
             setTimeout(showDisplay, 100);
@@ -471,24 +489,28 @@ class AuthButton extends HTMLElement {
 
         function closeAccountOptionsMenu() {
             accountOptionsClosed = true;
-            const shadowMenu = shadowDOM.getElementById('account-options-menu');
-            !!shadowMenu && shadowMenu.classList.add('account-options-menu-closed');
-            const shadowPane = shadowDOM.getElementById('account-options-pane');
-            !!shadowPane && shadowPane.classList.add('account-options-pane-closed');
+            const accountMenu = shadowDOM.getElementById('account-options-menu');
+            !!accountMenu && accountMenu.classList.add('account-options-menu-closed');
+            const backgroundPane = shadowDOM.getElementById('account-options-pane');
+            !!backgroundPane && backgroundPane.classList.add('account-options-pane-closed');
+            showElement('down-arrow');
+            hideElement('up-arrow');
+            const username = shadowDOM.getElementById('username-area-label');
+            !!username && username.classList.remove('menu-open');
 
             function hideAccountOptionsDisplay() {
-                !!shadowMenu && (shadowMenu.style.display = 'none');
-                !!shadowPane && (shadowPane.style.display = 'none');
+                !!accountMenu && (accountMenu.style.display = 'none');
+                !!backgroundPane && (backgroundPane.style.display = 'none');
             }
 
             setTimeout(hideAccountOptionsDisplay, 500);
         }
 
         function handleAccountOptionsButton() {
-            const shadowButton = shadowDOM.getElementById('account-options-button');
+            const openButton = shadowDOM.getElementById('account-options-button');
             accountOptionsClosed
-                ? !!shadowButton && shadowButton.blur()
-                : /* istanbul ignore next */ !!shadowButton && shadowButton.focus();
+                ? !!openButton && openButton.blur()
+                : /* istanbul ignore next */ !!openButton && openButton.focus();
             const shadowPane = shadowDOM.getElementById('account-options-pane');
             !!shadowPane && shadowPane.addEventListener('click', handleAccountOptionsMouseOut);
             openAccountOptionsMenu();
@@ -552,10 +574,10 @@ class AuthButton extends HTMLElement {
         const accountOptionsButton = !!shadowDOM && shadowDOM.getElementById('account-option-button');
         !!accountOptionsButton && accountOptionsButton.addEventListener('click', handleAccountOptionsButton);
 
-        const loggedoutButton = !!shadowDOM && shadowDOM.getElementById('signOutButton');
-        if (!!loggedoutButton) {
-            loggedoutButton.addEventListener('click', visitLogOutPage);
-            loggedoutButton.addEventListener('keydown', function (e) {
+        const logoutButton = !!shadowDOM && shadowDOM.getElementById('signOutButton');
+        if (!!logoutButton) {
+            logoutButton.addEventListener('click', visitLogOutPage);
+            logoutButton.addEventListener('keydown', function (e) {
                 if (isBackTabKeyPressed(e)) {
                     closeAccountOptionsMenu();
                 }

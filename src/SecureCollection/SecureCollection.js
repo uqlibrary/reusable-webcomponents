@@ -342,7 +342,7 @@ class SecureCollection extends HTMLElement {
         If you have another UQ account, <a id="logoutandreturnhere" href="">logout and switch accounts</a> to proceed.
     </li>
     <li>
-        <a href="${linkToDrupal('/contact-us')}">Contact us</a> if you should have file collection access
+        <a href="${linkToDrupal('/about/contact-us')}">Contact us</a> if you should have file collection access
         with this account.
     </li>
 </ul>

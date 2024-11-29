@@ -78,7 +78,7 @@ export default [
             },
             {
                 label: 'Locations and hours',
-                href: `${linkToDrupal('/locations-hours')}`,
+                href: `${linkToDrupal('/visit')}`,
                 dataTestid: 'uqfooter-nav-library-locations',
             },
             {
@@ -88,7 +88,7 @@ export default [
             },
             {
                 label: 'Research tools',
-                href: `${linkToDrupal('/research-tools-techniques')}`,
+                href: `${linkToDrupal('/research-and-publish')}`,
                 dataTestid: 'uqfooter-nav-library-research',
             },
         ],

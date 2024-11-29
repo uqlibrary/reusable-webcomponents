@@ -21,11 +21,12 @@ We add the header-footer to many third party systems, usually by creating a load
   - load.js at /src/applications/auth and called from src/resources/views/layout/default.blade.php in repo [auth](https://github.com/uqlibrary/auth)
   - live at <https://auth.library.uq.edu.au>
   - staging at <https://auth-staging.library.uq.edu.au/>
-- Drupal
+- Drupal 
   - the Library public CMS
   - load.js at /src/applications/drupal
-  - live at eg <https://web.library.uq.edu.au/contact-us>
-  - drupal staging at eg <https://library.stage.drupal.uq.edu.au/library-services/services-students> is tied to the `feature-drupal` branch in this repo
+  - live at eg <https://web.library.uq.edu.au/about/contact-us>
+  - -- this staging detail needs update to new drupal10 location!
+  - drupal staging at eg <https://library.stage.drupal.uq.edu.au/library-services/services-students> is tied to the `drupal-staging` branch in this repo
 - Libcal
   - used for various booking pages
   - load.js at /src/applications/libcal

@@ -1464,7 +1464,7 @@ prm-personal-info prm-change-lang {
 //}
 
 md-menu-item.uql-account-menu-option button {
-    display: flex;
+    display: inline-flex;
     margin-left: -20px;
     margin-top: 10px;
     margin-bottom: -10px;
@@ -1485,6 +1485,9 @@ md-menu-item.uql-account-menu-option button {
         margin-left: 5px;
         width: 24px;
         margin-top: 0; // maybe not needed when old styling removed, when old custom.js is presumed stale (below here)
+    }
+    svg:not(:first-child) {
+        display: none; // sometimes it inserts a second svg. Strange.
     }
     .textwrapper {
         color: #19151c;
