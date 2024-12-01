@@ -210,3 +210,7 @@
     border-top: thin solid #d3d3d3;
     padding-top: 12px;
 }
+
+.auth.loggedin {
+   position: relative;
+}

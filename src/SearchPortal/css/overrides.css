@@ -1169,6 +1169,7 @@ li.MuiAutocomplete-option:focus {
     font-weight: 500;
     text-decoration: underline;
     cursor: pointer;
+    display: inline-block;
 }
 #restrictions-accordian {
     overflow: hidden;
@@ -1192,9 +1193,6 @@ li.MuiAutocomplete-option:focus {
     color: #3b383e !important;
 }
 
-#restrictions-accordian-container {
-    display: block;
-}
 .restriction-opened {
     height: auto;
 }
