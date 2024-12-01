@@ -44,7 +44,7 @@ h5,
 h6 {
     font-weight: 500;
     line-height: 1.4;
-    color: #51247a
+    color: #19151c
 }
 
 h1 {
@@ -1183,7 +1183,7 @@ input[type=radio].uq-input--error:checked::after {
 
 @media(min-width: 64rem) {
     .uq-site-header__title-container {
-        padding: 1rem 1rem 0 1rem
+        padding: 1rem 1rem 0 2rem
     }
 }
 

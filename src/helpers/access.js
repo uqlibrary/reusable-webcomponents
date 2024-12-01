@@ -19,29 +19,34 @@ export function canSeeEspace(account) {
     return !!account && account.hasOwnProperty('currentAuthor') && !!account.currentAuthor.hasOwnProperty('aut_id');
 }
 
-// access controlled via Active Directory (AD)
-export function canSeeTestTagAdmin(account) {
-    const hasTestTagAdminAccess = (account) =>
-        !!account && !!account.groups && account.groups.find((group) => group.includes('lib_libapi_TestTagUsers'));
+const hasAdGroup = (account, adGroup) => account?.groups?.find((group) => group.includes(adGroup));
 
-    return !!account && !!hasTestTagAdminAccess(account);
+export function canSeeTestTag(account) {
+    return hasAdGroup(account, 'lib_libapi_TestTagUsers');
 }
 
-// access controlled via Active Directory (AD)
 function hasWebContentAdminAccess(account) {
-    return (
-        !!account && !!account.groups && account.groups.find((group) => group.includes('lib_libapi_SpotlightAdmins'))
-    );
+    return hasAdGroup(account, 'lib_libapi_SpotlightAdmins');
 }
 
 export function canSeeAlertsAdmin(account) {
-    return !!account && !!hasWebContentAdminAccess(account);
+    return hasWebContentAdminAccess(account);
 }
 
-export function canSeeSpotlightsAdmin(account) {
-    return !!account && !!hasWebContentAdminAccess(account);
+// digital learning hub admin access
+export function canSeeDlorAdmin(account) {
+    return hasAdGroup(account, 'lib_dlor_admins');
 }
 
-export function canSeePromopanelAdmin(account) {
-    return !!account && !!hasWebContentAdminAccess(account);
+export function linkToDrupal(pathname, requestedDomainName = null) {
+    const domainName = requestedDomainName ?? document.location.hostname;
+    // after jan 2025 golive, should be web.library only
+    const origin = [
+        'localhost',
+        'homepage-development.library.uq.edu.au',
+        'homepage-staging.library.uq.edu.au',
+    ].includes(domainName)
+        ? 'https://web-live.library.uq.edu.au'
+        : /* istanbul ignore next */ 'https://web.library.uq.edu.au';
+    return `${origin}${pathname}`;
 }
