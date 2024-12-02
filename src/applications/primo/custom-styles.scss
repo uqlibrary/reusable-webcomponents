@@ -329,13 +329,16 @@ prm-user-area-expandable .md-button.user-button .menu-arrow {
 md-menu-item button.md-button svg:nth-of-type(n+2) {
     display: none;
 }
-.my-library-card-ctm:not(:hover), // logged out
-.my-favorties-ctm:not(:hover), // logged out
-.my-search-history-ctm:not(:hover),
-.my-favorties-ctm button:not(:hover) { // logged in
-    background-color: white;
-    span.primaryText {
+.md-open-menu-container { // desktop
+    .my-library-card-ctm:not(:hover), // logged out
+    .my-favorties-ctm:not(:hover), // logged out
+    .my-search-history-ctm:not(:hover), // logged in
+    .my-favorties-ctm button:not(:hover) { // logged in
         background-color: white;
+
+        span.primaryText {
+            background-color: white;
+        }
     }
 }
 .logout-option .md-button.md-focused:not([disabled]), // logged in
@@ -354,65 +357,76 @@ md-menu-item button.md-button svg:nth-of-type(n+2) {
     }
 }
 
-// logged out account menu icons
-.logout-option button.md-focused:not([disabled]), // logged out
-.my-library-card-ctm button.md-focused:not([disabled]), // logged out
-.my-favorties-ctm button.md-focused:not([disabled]), // logged out
-.my-search-history-ctm button.md-focused:not([disabled]) { // logged in
-    background-color: white;
-    span[translate="eshelf.menu.signOut"],
+.md-open-menu-container { // desktop
+    // logged out account menu icons
+    .logout-option button.md-focused:not([disabled]), // logged out
+    .my-library-card-ctm button.md-focused:not([disabled]), // logged out
+    .my-favorties-ctm button.md-focused:not([disabled]), // logged out
+    .my-search-history-ctm button.md-focused:not([disabled]) { // logged in
+        background-color: white;
+
+        span[translate="eshelf.menu.signOut"],
+        span[translate="eshelf.menu.savedItems"],
+        span[translate="eshelf.menu.searchHistory"] {
+            color: #19151c;
+        }
+    }
+
+    .my-search-history-ctm {
+        padding-left: 10px;
+    }
+    .my-library-card-ctm,
+    .my-favorties-ctm,
+    .my-search-history-ctm {
+        prm-icon {
+            color: $theme-color;
+            fill: $theme-color;
+            stroke: $theme-color;
+        }
+    }
+    md-menu-item.my-favorties-ctm {
+        margin-left: 1px;
+        prm-icon svg path {
+            fill: $theme-color;
+        }
+    }
+    .md-button.button-with-icon>prm-icon+span {
+        margin-left: 5px;
+    }
+
+    .logout-option .md-button:hover:not([disabled]),
+    .my-favorties-ctm .md-button:hover:not([disabled]),
+    .my-search-history-ctm .md-button:hover:not([disabled]) {
+        background-color: white;
+        color: #19151c;
+        span[translate="eshelf.menu.signOut"],
+        span[translate="eshelf.menu.savedItems"],
+        span[translate="eshelf.menu.searchHistory"] {
+            background-color: $theme-color;
+            color: white;
+            text-decoration: underline;
+        }
+    }
+
+    span[translate="eshelf.menu.savedItems"],
     span[translate="eshelf.menu.savedItems"],
     span[translate="eshelf.menu.searchHistory"] {
+        line-height: normal; //reduce background color to same height as UQ DS
         color: #19151c;
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+        font-size: 16px;
+        letter-spacing: normal;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
 }
-.my-search-history-ctm {
-    padding-left: 10px;
-}
-.my-library-card-ctm,
-.my-favorties-ctm,
-.my-search-history-ctm {
-    prm-icon {
-        color: $theme-color;
-        fill: $theme-color;
-        stroke: $theme-color;
+// logged out menu doesnt need a divider
+.prm-user-menu-content {
+    md-menu-divider {
+        display: none;
     }
-}
-md-menu-item.my-favorties-ctm {
-    margin-left: 1px;
-    prm-icon svg path {
-        fill: $theme-color;
-    }
-}
-.md-button.button-with-icon>prm-icon+span {
-    margin-left: 5px;
 }
 
-.logout-option .md-button:hover:not([disabled]),
-.my-favorties-ctm .md-button:hover:not([disabled]),
-.my-search-history-ctm .md-button:hover:not([disabled]) {
-    background-color: white;
-    color: #19151c;
-    span[translate="eshelf.menu.signOut"],
-    span[translate="eshelf.menu.savedItems"],
-    span[translate="eshelf.menu.searchHistory"] {
-        background-color: $theme-color;
-        color: white;
-        text-decoration: underline;
-    }
-}
-span[translate="eshelf.menu.savedItems"],
-span[translate="eshelf.menu.searchHistory"],
-span[translate="eshelf.menu.savedItems"],
-span[translate="eshelf.menu.searchHistory"] {
-    line-height: normal; //reduce background color to same height as UQ DS
-    color: #19151c;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-    font-size: 16px;
-    letter-spacing: normal;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
 // make the dropdowns under the search bar readable
 ._md-select-value ._md-select-icon {
     color: $dark;
@@ -1543,6 +1557,9 @@ md-menu-item.uql-account-menu-option button {
 md-menu-item.mobile-loggedout-feedback-item {
     button {
         background-color: transparent;
+        display: flex;
+        align-items: center;
+        margin-top: 0;
 
         .textwrapper span {
             color: #fff;
@@ -1552,6 +1569,7 @@ md-menu-item.mobile-loggedout-feedback-item {
     svg.mobile-loggedout-feedback-item {
         width: 45px;
         fill: #fff;
+        margin-left: 20px;
     }
 }
 // hide the ripple on the account menu
