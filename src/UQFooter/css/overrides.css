@@ -2,12 +2,12 @@
     font-size: 100%;
     font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-weight: 400;
-    line-height: 1.5;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-@media(max-width: 37.5rem) {
+@media (max-width: 37.5rem) {
     .uq-footer__footer-list abbr[title] {
         text-underline-offset: 2px;
     }
