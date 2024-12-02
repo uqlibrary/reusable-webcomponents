@@ -1379,7 +1379,6 @@ prm-personal-info prm-change-lang {
             text-align: left;
         }
         .primaryText {
-            margin-top: 15px;
             color: white;
         }
         button {
@@ -1388,7 +1387,7 @@ prm-personal-info prm-change-lang {
     }
 
     prm-authentication {
-        margin-top: -20px;
+        margin-top: -15px;
         margin-bottom: -10px;
     }
 }
@@ -1475,6 +1474,7 @@ md-menu-item.uql-account-menu-option button {
     margin-left: -20px;
     margin-top: 10px;
     margin-bottom: -10px;
+    padding-right: 0;
     align-items: flex-start;
     min-height: 4em;
     background-color: #fff;
@@ -2026,5 +2026,6 @@ button.md-button.md-primary[aria-label="Sign out"]:hover:not([disabled]) {
 }
 
 .prm-user-menu-content {
-    padding-top: 24px;
+    padding-top: 20px;
+    min-width: 250px !important;
 }
