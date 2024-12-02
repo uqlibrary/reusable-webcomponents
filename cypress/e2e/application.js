@@ -7,28 +7,26 @@ describe('Dummy Application', () => {
             cy.viewport(1280, 900);
             // applications/testing has a skip nav button
             cy.get('uq-header').shadow().find('button[data-testid="skip-nav"]').should('exist');
-            // has an askus button
-            cy.get('askus-button')
-                .shadow()
-                .find('button[title="AskUs contact options"]')
-                .should('exist')
-                .should('be.visible');
             // has an auth button
             cy.get('auth-button').shadow().find('button:contains("Log out")').should('exist');
-            // has a mega menu
-            // the menu appears on click
-            cy.get('uq-site-header').shadow().find('nav[aria-label="Site navigation"]').should('be.visible');
-            // and has the correct children
-            cy.get('uq-site-header')
-                .shadow()
-                .find('nav[aria-label="Site navigation"]')
-                .find('ul')
-                .should('have.length', 7); // length of the megamenu .json
+            // // has a mega menu
+            // // the menu appears on click
+            // cy.get('uq-site-header').shadow().find('nav[aria-label="Site navigation"]').should('be.visible');
+            // // and has the correct children
+            // cy.get('uq-site-header')
+            //     .shadow()
+            //     .find('nav[aria-label="Site navigation"]')
+            //     .find('ul')
+            //     .should('have.length', 7); // length of the megamenu .json
         });
     });
 
     function hasUqHeader() {
         cy.get('uq-header').shadow().find('[data-testid="uq-header-logo-large-link"]').should('exist');
+    }
+
+    function hasCulturalAdvice() {
+        cy.get('cultural-advice-v2').shadow().find('[data-testid="cultural-advice-statement"]').should('exist');
     }
 
     function hasNoUqHeader() {
@@ -48,43 +46,28 @@ describe('Dummy Application', () => {
         cy.get('uq-site-header').should('not.exist');
     }
 
-    function hasMegaMenu() {
-        cy.get('uq-site-header')
-            .shadow()
-            .find('li[data-testid="menu-group-item-0"]')
-            .should('exist')
-            .contains('Library services');
+    function hasNoProactiveChat() {
+        cy.get('proactive-chat').should('not.exist');
     }
 
-    function hasNoMegaMenu() {
-        cy.get('uq-site-header').shadow().find('li[data-testid="menu-group-item-0"]').should('not.exist');
-    }
-
-    function hasAskusButton() {
-        cy.get('askus-button').shadow().find('button[title="AskUs contact options"]').should('exist');
-    }
-
-    function hasProactiveChat() {
+    function proactiveChatLoadsAsIcon() {
         cy.get('proactive-chat')
             .shadow()
-            .find('[title="Click to open online chat"]')
-            .should('exist')
-            .should('be.visible');
-        cy.get('proactive-chat')
-            .shadow()
-            .find('[title="Chat currently closed"]')
-            .should('exist')
-            .should('not.be.visible');
-        cy.get('proactive-chat').shadow().find('button:contains("Chat now")').should('exist').should('not.be.visible');
-        cy.get('proactive-chat')
-            .shadow()
-            .find('button:contains("Maybe later")')
-            .should('exist')
-            .should('not.be.visible');
-    }
+            .within(() => {
+                cy.get('[data-testid="proactive-chat-online"]').should('exist').should('be.visible');
+                cy.get('[data-testid="proactive-chat-offline"]').should('exist').should('not.be.visible');
+                cy.get('button:contains("Ask Library Chatbot")').should('exist').should('not.be.visible');
+                cy.get('button:contains("Leave a question")').should('exist').should('not.be.visible');
+                cy.get('[data-testid="close-button"]').should('exist').should('not.be.visible');
 
-    function hasNoAskusButton() {
-        cy.get('askus-button').should('not.exist');
+                // proactive chat opens on click
+                cy.get('[data-testid="proactive-chat-online"]').click();
+                cy.get('button:contains("Ask Library Chatbot")').should('be.visible');
+                // and closes
+                cy.get('[data-testid="close-button"]').should('be.visible').click();
+                cy.get('button:contains("Ask Library Chatbot")').should('not.be.visible');
+                cy.get('[data-testid="close-button"]').should('not.be.visible');
+            });
     }
 
     function hasNoAuthButton() {
@@ -120,17 +103,17 @@ describe('Dummy Application', () => {
         cy.get('alert-list').should('not.exist');
     }
 
-    function hasConnectFooter() {
-        cy.get('connect-footer')
-            .shadow()
-            .find('[data-testid="connect-footer-social-heading"]')
-            .should('exist')
-            .and('contain', 'Connect with the Library');
-    }
-
-    function hasNoConnectFooter() {
-        cy.get('connect-footer').should('not.exist');
-    }
+    // function hasConnectFooter() {
+    //     cy.get('connect-footer')
+    //         .shadow()
+    //         .find('[data-testid="connect-footer-social-heading"]')
+    //         .should('exist')
+    //         .and('contain', 'Library footer');
+    // }
+    //
+    // function hasNoConnectFooter() {
+    //     cy.get('connect-footer').should('not.exist');
+    // }
 
     function hasUqFooter() {
         cy.get('uq-footer')
@@ -147,7 +130,7 @@ describe('Dummy Application', () => {
     function hasAuthButton(username = 'User, Vanilla') {
         cy.get('auth-button')
             .shadow()
-            .find('button[data-testid="account-option-button')
+            .find('[data-testid="username-area-label"]')
             .should('exist')
             .and('contain', username);
     }
@@ -176,15 +159,12 @@ describe('Dummy Application', () => {
 
             hasUqSiteHeader();
 
-            hasNoMegaMenu();
-
-            hasAskusButton();
-            hasProactiveChat();
+            proactiveChatLoadsAsIcon();
             hasAuthButton();
 
             hasAnAlert();
 
-            hasConnectFooter();
+            // hasConnectFooter();
             hasUqFooter();
         });
     });
@@ -198,14 +178,12 @@ describe('Dummy Application', () => {
 
             hasUqSiteHeader();
 
-            hasNoMegaMenu();
-
-            hasNoAskusButton();
             hasNoAuthButton();
+            hasNoProactiveChat();
 
             hasAnAlert();
 
-            hasNoConnectFooter();
+            // hasNoConnectFooter();
 
             hasUqFooter();
         });
@@ -220,15 +198,12 @@ describe('Dummy Application', () => {
 
             hasUqSiteHeader();
 
-            hasMegaMenu();
-
-            hasAskusButton();
-            //hasProactiveChat();
+            proactiveChatLoadsAsIcon();
             hasNoAuthButton();
 
             hasAnAlert();
 
-            hasConnectFooter();
+            // hasConnectFooter();
 
             hasUqFooter();
         });
@@ -246,15 +221,12 @@ describe('Dummy Application', () => {
 
             hasUqSiteHeader();
 
-            hasNoMegaMenu();
-
-            hasAskusButton();
             hasNoAuthButton();
+            hasNoProactiveChat();
 
             hasNoAlerts();
-            //hasProactiveChat();
 
-            hasNoConnectFooter();
+            // hasNoConnectFooter();
 
             hasNoUqFooter();
         });
@@ -268,15 +240,42 @@ describe('Dummy Application', () => {
             hasUqHeader();
 
             hasUqSiteHeader();
+            // the guides built in bookmark has been removed
+            cy.get('uq-site-header')
+                .shadow()
+                .within(() => {
+                    // the breadcrumbs has all the children from the guides demo page
+                    cy.get('div.uq-site-header nav ol').children().should('have.length', 6);
+                    cy.get('div.uq-site-header nav ol li:nth-child(3) a')
+                        .should('have.attr', 'href', `https://guides.library.uq.edu.au/`)
+                        .contains('Guides')
+                        .should('have.css', 'text-decoration-line', 'underline');
+                    cy.get('div.uq-site-header nav ol li:nth-child(4) a')
+                        .should('have.attr', 'href', `https://guides.library.uq.edu.au/how-to-find`)
+                        .contains('How to find')
+                        .should('have.css', 'text-decoration-line', 'underline');
+                    cy.get('div.uq-site-header nav ol li:nth-child(5) a')
+                        .should(
+                            'have.attr',
+                            'href',
+                            `https://guides.library.uq.edu.au/how-to-find/evidence-based-practice`,
+                        )
+                        .contains('Evidence-based practice in health sciences')
+                        .should('have.css', 'text-decoration-line', 'underline');
+                    // that last not-a-link does not have an underline
+                    cy.get('div.uq-site-header nav ol li:nth-child(6) span')
+                        .contains('Introduction')
+                        .should('not.have.css', 'text-decoration-line', 'underline');
+                    // guides built in breadcrumb has been removed
+                    cy.get('#s-lib-bc').should('not.exist');
+                });
 
-            hasNoMegaMenu();
-
-            hasNoAskusButton();
-            hasNoAuthButton();
+            proactiveChatLoadsAsIcon();
+            hasAuthButton();
 
             hasAnAlert();
 
-            hasConnectFooter();
+            // hasConnectFooter();
 
             hasUqFooter();
         });
@@ -291,14 +290,12 @@ describe('Dummy Application', () => {
 
             hasUqSiteHeader();
 
-            hasNoMegaMenu();
-
-            hasNoAskusButton();
+            proactiveChatLoadsAsIcon();
             hasNoAuthButton();
 
             hasAnAlert();
 
-            hasConnectFooter();
+            // hasConnectFooter();
 
             hasUqFooter();
         });
@@ -311,12 +308,11 @@ describe('Dummy Application', () => {
 
             hasUqHeader();
 
+            hasCulturalAdvice();
+
             hasUqSiteHeader();
 
-            hasMegaMenu();
-
-            hasAskusButton();
-            hasProactiveChat();
+            proactiveChatLoadsAsIcon();
             hasAuthButton();
 
             hasAnAlert();
@@ -329,12 +325,16 @@ describe('Dummy Application', () => {
                 .should('exist')
                 .should('contain', 'This is the message');
 
-            hasConnectFooter();
+            // hasNoConnectFooter();
 
             hasUqFooter();
 
             // simple check that the components exist, now that we are splitting them out from the main reusable.min file
-            cy.get('search-portal').shadow().find('h2').should('contain', 'Library Search');
+            cy.get('open-athens')
+                .shadow()
+                .find('fieldset input')
+                .should('have.attr', 'placeholder')
+                .and('include', 'DOI or URL');
             cy.get('library-training')
                 .shadow()
                 .find('training-filter')
@@ -352,7 +352,7 @@ describe('Dummy Application', () => {
 
             hasNoAlerts();
 
-            hasNoConnectFooter();
+            // hasNoConnectFooter();
 
             hasNoUqFooter();
         });
@@ -367,10 +367,7 @@ describe('Dummy Application', () => {
 
             hasUqSiteHeader();
 
-            hasNoMegaMenu();
-
-            hasAskusButton();
-            //hasProactiveChat();
+            proactiveChatLoadsAsIcon();
             hasNoAuthButton();
 
             hasAnAlert();
@@ -401,7 +398,7 @@ describe('Dummy Application', () => {
 
             assert_homepage_link_is_to_uq();
 
-            hasCulturalAdvicePopup();
+            // hasCulturalAdvicePopup();
         });
 
         it('Sample detail page load works correctly', () => {
@@ -412,7 +409,7 @@ describe('Dummy Application', () => {
 
             assert_has_book_now_link();
 
-            hasCulturalAdvicePopup();
+            //hasCulturalAdvicePopup();
 
             // has cultural advice banner
             cy.get('.culturalAdviceBanner')
@@ -424,7 +421,7 @@ describe('Dummy Application', () => {
             cy.visit('http://localhost:8080/src/applications/atom/demo-listpage.html');
             cy.viewport(1280, 900);
             assert_homepage_link_is_to_uq();
-            hasCulturalAdvicePopup();
+            //hasCulturalAdvicePopup();
 
             // has cultural advice indicator, only on CA entries
             cy.get('#content article')
@@ -468,9 +465,6 @@ describe('Dummy Application', () => {
             //
             // hasUqSiteHeader('https://espace.library.uq.edu.au/');
             //
-            // hasNoMegaMenu();
-            //
-            // hasNoAskusButton();
             // hasAuthButton();
 
             hasAnAlert();

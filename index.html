@@ -55,15 +55,33 @@
                     padding-right: 1rem;
                 }
             }
-            .trainingWrapper {display: flex; padding-right: 30px; padding-left: 30px;}
-            .trainingLeft {flex-grow: 1}
-            .trainingRight {width: 380px; margin-left: 5%;}
+            .trainingWrapper {
+                display: flex;
+                padding-right: 30px;
+                padding-left: 30px;
+            }
+            .trainingLeft {
+                flex-grow: 1;
+            }
+            .trainingRight {
+                width: 380px;
+                margin-left: 5%;
+            }
             @media only screen and (max-width: 1096px) {
-                .trainingWrapper { display: block;}
+                .trainingWrapper {
+                    display: block;
+                }
                 .trainingLeft,
                 .trainingRight {
                     width: 100%;
                 }
+            }
+            .full-width-purple {
+                background-color: #51247a;
+            }
+            .search-spacing {
+                padding-top: 40px;
+                padding-bottom: 40px;
             }
         </style>
     </head>
@@ -80,28 +98,135 @@
                 <auth-button />
             </span>
         </uq-site-header>
-        <cultural-advice-popup secondsTilCulturalAdviceAppears="2"></cultural-advice-popup>
+        <cultural-advice-v2 secondsTilCulturalAdviceAppears="2"></cultural-advice-v2>
+
         <alert-list system="homepage"></alert-list>
-        <div class="layout-card" style="min-height: 300px">
+        <div class="layout-card">
             <h1 id="skiptohere" tabindex="-1">UQ Library - Reusable Web Components sampler</h1>
             <p data-testid="random-page-element">Lorem ipsum</p>
-
-            <search-portal></search-portal>
-
+        </div>
+        <div class="layout-card" >
+            <h2>Search portal, Dark theme (homepage)</h2>
+        </div>
+        <div class="full-width-purple">
+            <div class="layout-card">
+                <search-portal theme="dark"></search-portal>
+            </div>
+        </div>
+        <div class="layout-card" style="min-height: 200px">
+            <h2>OpenAthens - Copy a link</h2>
+            <open-athens create-link="true"></open-athens>
+        </div>
+        <div class="layout-card" style="min-height: 300px">
             <div class="trainingWrapper">
                 <div class="trainingLeft">
                     <h2>Demo Training</h2>
                     <library-training></library-training>
                 </div>
                 <div class="trainingRight">
-                    <div class="panel-pane pane-fieldable-panels-pane pane-uuid-a74e39c3-5e14-41fb-b99e-07b7ff42f08b pane-bundle-rich-text">
+                    <div
+                        class="panel-pane pane-fieldable-panels-pane pane-uuid-a74e39c3-5e14-41fb-b99e-07b7ff42f08b pane-bundle-rich-text"
+                    >
                         <div class="panel-pane__content">
                             <div class="fieldable-panels-pane">
                                 <div class="field field-name-field-pane-body field-type-text-long field-label-hidden">
                                     <div class="field-items">
                                         <div class="field-item even">
                                             <h2>Example Drupal Sidebar for spacing</h2>
-                                            <div class="pane pane--outline"><h3 class="pane__title">Long set of content to be realistic</h3><p>Note that its responsive - this sidebar collapses to below training block at tablet width and less.</p></div><div><h2>IT Training Resources</h2><p class="pane pane--outline"><a href="/library-services/training/training-resources">Exercises and manuals</a> to use during and after&nbsp;I.T. training.</p></div><h2>Support for teaching</h2><div class="pane pane--outline"><p><a href="/library-services/liaison-librarians">Liaison librarians</a> can work with <a href="/library-services/services-teaching-staff">teaching staff</a> to design and deliver tailored resources and sessions for students.</p></div><h2>Online training</h2><div class="pane pane--outline"><h3 class="pane__title">Library 101 tutorial</h3><p><a href="/library-services/training/library-101-online-tutorial">A short Learn.UQ course</a> with all the things you should know about locating and using your library.</p><h3 class="pane__title">Library Basics videos</h3><p><a href="https://www.youtube.com/playlist?list=PLmDEaZ20fWqD1nygQS4rI7P9cfooN3Bdl">Playlist on YouTube</a> to get you started.</p><h3 class="pane__title">Law online tutorial</h3><p><a href="/library-services/training/law-online-tutorial">The basics of legal research</a> including secondary sources, case law, legislation, referencing, and avoiding plagiarism.</p><h3 class="pane__title">Lynda.com courses</h3><p><a href="/library-services/training/lyndacom-online-courses">Software and skills training</a> for UQ students and staff.</p><h3 class="pane__title">Learn.UQ online tutorial</h3><p><a href="https://learn.uq.edu.au/webapps/login/?new_loc=/bbcswebdav/pid-2637796-dt-content-rid-12500144_1/xid-12500144_1">An interactive tutorial</a> providing an overview of the University's Learning Management System, Blackboard.</p><h3 class="pane__title">EndNote</h3><p><a href="https://youtu.be/C_1K_7JDSiI">Quick introduction to EndNote (YouTube, 9m)</a>.</p><p><a href="/research-tools-techniques/referencing/referencing-software/endnote/using-endnote">Using EndNote</a> referencing software.</p></div><h2>Student Services</h2><div class="pane pane--outline"><p><a href="https://www.uq.edu.au/student-services/learning">Student Services Learning</a> provide workshops and online learning guides.</p></div>
+                                            <div class="pane pane--outline">
+                                                <h3 class="pane__title">Long set of content to be realistic</h3>
+                                                <p>
+                                                    Note that its responsive - this sidebar collapses to below training
+                                                    block at tablet width and less.
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <h2>IT Training Resources</h2>
+                                                <p class="pane pane--outline">
+                                                    <a href="/library-services/training/training-resources"
+                                                        >Exercises and manuals</a
+                                                    >
+                                                    to use during and after&nbsp;I.T. training.
+                                                </p>
+                                            </div>
+                                            <h2>Support for teaching</h2>
+                                            <div class="pane pane--outline">
+                                                <p>
+                                                    <a href="/library-services/liaison-librarians"
+                                                        >Liaison librarians</a
+                                                    >
+                                                    can work with
+                                                    <a href="/library-services/services-teaching-staff"
+                                                        >teaching staff</a
+                                                    >
+                                                    to design and deliver tailored resources and sessions for students.
+                                                </p>
+                                            </div>
+                                            <h2>Online training</h2>
+                                            <div class="pane pane--outline">
+                                                <h3 class="pane__title">Library 101 tutorial</h3>
+                                                <p>
+                                                    <a href="/library-services/training/library-101-online-tutorial"
+                                                        >A short Learn.UQ course</a
+                                                    >
+                                                    with all the things you should know about locating and using your
+                                                    library.
+                                                </p>
+                                                <h3 class="pane__title">Library Basics videos</h3>
+                                                <p>
+                                                    <a
+                                                        href="https://www.youtube.com/playlist?list=PLmDEaZ20fWqD1nygQS4rI7P9cfooN3Bdl"
+                                                        >Playlist on YouTube</a
+                                                    >
+                                                    to get you started.
+                                                </p>
+                                                <h3 class="pane__title">Law online tutorial</h3>
+                                                <p>
+                                                    <a href="/library-services/training/law-online-tutorial"
+                                                        >The basics of legal research</a
+                                                    >
+                                                    including secondary sources, case law, legislation, referencing, and
+                                                    avoiding plagiarism.
+                                                </p>
+                                                <h3 class="pane__title">Lynda.com courses</h3>
+                                                <p>
+                                                    <a href="/library-services/training/lyndacom-online-courses"
+                                                        >Software and skills training</a
+                                                    >
+                                                    for UQ students and staff.
+                                                </p>
+                                                <h3 class="pane__title">Learn.UQ online tutorial</h3>
+                                                <p>
+                                                    <a
+                                                        href="https://learn.uq.edu.au/webapps/login/?new_loc=/bbcswebdav/pid-2637796-dt-content-rid-12500144_1/xid-12500144_1"
+                                                        >An interactive tutorial</a
+                                                    >
+                                                    providing an overview of the University's Learning Management
+                                                    System, Blackboard.
+                                                </p>
+                                                <h3 class="pane__title">EndNote</h3>
+                                                <p>
+                                                    <a href="https://youtu.be/C_1K_7JDSiI"
+                                                        >Quick introduction to EndNote (YouTube, 9m)</a
+                                                    >.
+                                                </p>
+                                                <p>
+                                                    <a
+                                                        href="/research-tools-techniques/referencing/referencing-software/endnote/using-endnote"
+                                                        >Using EndNote</a
+                                                    >
+                                                    referencing software.
+                                                </p>
+                                            </div>
+                                            <h2>Student Services</h2>
+                                            <div class="pane pane--outline">
+                                                <p>
+                                                    <a href="https://www.uq.edu.au/student-services/learning"
+                                                        >Student Services Learning</a
+                                                    >
+                                                    provide workshops and online learning guides.
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

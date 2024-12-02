@@ -16,7 +16,8 @@ class ApiAccess {
         };
 
         this.isSessionStorageEnabled = this.sessionStorageCheck();
-        const storedUserDetailsRaw = this.isSessionStorageEnabled && sessionStorage.getItem(locale.STORAGE_ACCOUNT_KEYNAME) || null;
+        const storedUserDetailsRaw =
+            (this.isSessionStorageEnabled && sessionStorage.getItem(locale.STORAGE_ACCOUNT_KEYNAME)) || null;
         // never allow there to be no or invalid account storage (weird thing happening on Secure Collection)
         if (storedUserDetailsRaw === null) {
             this.setStorageLoggedOut();
@@ -37,7 +38,7 @@ class ApiAccess {
         } catch (e) {
             return false;
         }
-    };
+    }
 
     watchForSessionExpiry() {
         // let the calling page know account is available
@@ -137,6 +138,7 @@ class ApiAccess {
     }
 
     async loadOpeningHours() {
+        console.log('loadOpeningHours');
         let result;
         const hoursApi = new ApiRoutes().LIB_HOURS_API();
         const urlPath = hoursApi.apiUrl;
@@ -147,9 +149,10 @@ class ApiAccess {
                 if (!!hoursResponse && !!hoursResponse.locations && hoursResponse.locations.length > 1) {
                     askusHours = hoursResponse.locations.map((item) => {
                         if (item.abbr === 'AskUs') {
+                            console.log('item?.departments[0]=', item?.departments[0]);
                             return {
-                                chat: item.departments[0].rendered,
-                                phone: item.departments[1].rendered,
+                                chat: `${item?.departments[0].times?.hours[0].from} \u2013 ${item?.departments[0].times?.hours[0]?.to}`,
+                                phone: `${item?.departments[1].times?.hours[0].from} \u2013 ${item?.departments[1].times?.hours[0]?.to}`,
                             };
                         }
                         return null;
@@ -228,6 +231,49 @@ class ApiAccess {
             .catch((error) => {
                 console.log('error loading Primo suggestions ', error);
                 const msg = `error loading Primo suggestions: ${error.message}`;
+                throw new Error(msg);
+            });
+    }
+
+    /**
+     * Loads the open athens link checker
+     * is the requested link one that open athens can link to?
+     * @returns {function(*)}
+     */
+    /*
+      Example responses:
+      {
+        "goLinkResponseList": [
+            {
+                "link": "https://www.youtube.com/watch?v=jwKH6X3cGMg",
+                "type": "UNAUTHORISED"
+            },
+        ]
+      }
+      --
+      {
+        "goLinkResponseList": [
+            {
+                "link": "https://aclandanatomy.com/",
+                "goLink": "https://go.openathens.net/redirector/uq.edu.au?url=https%3A%2F%2Faclandanatomy.com%2F",
+                "type": "RECOGNIZED_REDIRECT",
+                "resourceType": "federated",
+                "resourceTitle": "Acland’s Video Atlas Of Human Anatomy",
+                "resourceId": "ab594f60-d379-42ae-9aa1-4a296d58da9d"
+            }
+        ]
+      }
+    */
+    async loadOpenAthensCheck(urlPath) {
+        console.log('loadOpenAthensCheck start', urlPath);
+        const openAthensApi = new ApiRoutes().OPEN_ATHENS_LINK_CHECKER(urlPath);
+        return await this.fetchAPI(openAthensApi.apiUrl, {}, false, false)
+            .then((response) => {
+                return response;
+            })
+            .catch((error) => {
+                console.log('error loading openathens ', error);
+                const msg = 'There was a problem loading Open Athens - please try again later.';
                 throw new Error(msg);
             });
     }
@@ -328,14 +374,14 @@ class ApiAccess {
             // reference: https://dmitripavlutin.com/javascript-fetch-async-await/
             const API_URL = process.env.API_URL || 'https://api.library.uq.edu.au/staging/';
             const connector = urlPath.indexOf('?') > -1 ? '&' : '?';
-            const addTimestamp = !!timestampRequired ? `${connector}${new Date().getTime()}` : '';
+            const addTimestamp = !!timestampRequired ? `${connector}ts=${new Date().getTime()}` : '';
 
             const response = await fetch(`${API_URL}${urlPath}${addTimestamp}`, {
                 headers: options,
             });
 
             if (!response.ok) {
-                console.log(`ApiAccess console [A3]: An error has occured: ${response.status} ${response.statusText}`);
+                console.log(`ApiAccess console [A3]: An error has occurred: ${response.status} ${response.statusText}`);
                 const message = `ApiAccess [A1]: An error has occured: ${response.status} ${response.statusText}`;
                 throw new Error(message);
             }
@@ -398,7 +444,8 @@ class ApiAccess {
     // It is called from other components (training, secure collection, etc.) in a loop, waiting on
     // the authbutton's call to loadAccountApi, above, to load the account into the sessionstorage
     getAccountFromStorage() {
-        const storedUserDetailsRaw = this.isSessionStorageEnabled && sessionStorage.getItem(locale.STORAGE_ACCOUNT_KEYNAME);
+        const storedUserDetailsRaw =
+            this.isSessionStorageEnabled && sessionStorage.getItem(locale.STORAGE_ACCOUNT_KEYNAME);
         const storedUserDetails = !!storedUserDetailsRaw && JSON.parse(storedUserDetailsRaw);
         if (this.isMock()) {
             const mockUserHasChanged =
@@ -463,9 +510,18 @@ class ApiAccess {
     }
 
     setStorageLoggedOut() {
-        this.isSessionStorageEnabled && sessionStorage.removeItem(locale.STORAGE_ACCOUNT_KEYNAME);
+        if (!this.isSessionStorageEnabled) {
+            return;
+        }
+        sessionStorage.removeItem(locale.STORAGE_ACCOUNT_KEYNAME);
         const emptyAccount = JSON.stringify(this.LOGGED_OUT_ACCOUNT);
-        this.isSessionStorageEnabled && sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, emptyAccount);
+        sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, emptyAccount);
+
+        // also remove the chatbot session ids, killing the chatbot session
+        sessionStorage.removeItem('directLineToken');
+        sessionStorage.removeItem('directLineURL');
+        sessionStorage.removeItem('directLineConversationId');
+        // see homepage/chatbot.html
     }
 
     logUserOut() {
