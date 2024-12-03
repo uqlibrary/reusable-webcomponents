@@ -98,9 +98,8 @@ authorisedtemplate.innerHTML = `
                         <!-- Printing balance -->
                         <li role="menuitem" aria-disabled="false">
                             <a tabindex="0" data-testid="mylibrary-menu-print-balance" data-analyticsid="mylibrary-menu-print-balance"
-                                href="${linkToDrupal(
-                                    'library-services/it/print-scan-copy/your-printing-account',
-                                )}" rel="noreferrer">
+                                href="${linkToDrupal('/library-services/it/print-scan-copy/your-printing-account')}"
+                                rel="noreferrer">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
                                     <g clip-path="url(#clip0_1723_14098)">
                                         <path d="M3.01562 12C3.01563 14.3828 3.96219 16.668 5.64709 18.3529C7.33198 20.0378 9.6172 20.9844 12 20.9844C14.3828 20.9844 16.668 20.0378 18.3529 18.3529C20.0378 16.668 20.9844 14.3828 20.9844 12C20.9844 9.6172 20.0378 7.33198 18.3529 5.64709C16.668 3.96219 14.3828 3.01563 12 3.01562C9.6172 3.01563 7.33198 3.96219 5.64709 5.64709C3.96219 7.33198 3.01563 9.6172 3.01562 12Z" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
