@@ -323,12 +323,12 @@ describe('Account menu button', () => {
         });
     });
     context('Display names', () => {
-        it('user with a short name will show their complete name on the Log Out button', () => {
+        it('user with a short name will show their complete name', () => {
             sessionStorage.removeItem('userAccount');
             visitPageForUser('emfryer');
             assertLogoutButtonVisible;
         });
-        it('user with a long length name will show their last name with initial on the Log Out button', () => {
+        it('user with a long length name will show their last name with initial', () => {
             sessionStorage.removeItem('userAccount');
             visitPageForUser('digiteamMember');
         });

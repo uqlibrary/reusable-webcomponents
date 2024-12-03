@@ -486,7 +486,10 @@ class AuthButton extends HTMLElement {
             };
         }
 
-        function closeAccountOptionsMenu() {
+        function closeAccountOptionsMenu(e) {
+            if (e?.ctrlKey || e?.metaKey) {
+                return; // ctrl-click on windows, cmd-click on mac
+            }
             accountOptionsClosed = true;
             const accountMenu = shadowDOM.getElementById('account-options-menu');
             !!accountMenu && accountMenu.classList.add('account-options-menu-closed');
@@ -526,47 +529,9 @@ class AuthButton extends HTMLElement {
         function closeAccountMenuOnLinkClick(elementId) {
             const link = !!shadowDOM && shadowDOM.getElementById(elementId);
             !!link &&
-                link.addEventListener('click', function () {
-                    closeAccountOptionsMenu();
+                link.addEventListener('click', function (e) {
+                    closeAccountOptionsMenu(e);
                 });
-        }
-
-        // on whatever is the bottom-most link in the account menu for this user, tabbing out closes the popup account menu
-        function closeMenuWhenBottomMostLinkClicked() {
-            // the order of these ifs must match the reverse order they are displayed in
-            if (canSeeTestTag(account)) {
-                const testntagOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-testTag-admin');
-                !!testntagOption &&
-                    testntagOption.addEventListener('keydown', function (e) {
-                        if (isTabKeyPressed(e)) {
-                            closeAccountOptionsMenu();
-                        }
-                    });
-            } else if (canSeeAlertsAdmin(account)) {
-                const alertsOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-alerts-admin');
-                !!alertsOption &&
-                    alertsOption.addEventListener('keydown', function (e) {
-                        if (isTabKeyPressed(e)) {
-                            closeAccountOptionsMenu();
-                        }
-                    });
-            } else if (!!account && !!account.canMasquerade) {
-                const masquradeOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-masquerade');
-                !!masquradeOption &&
-                    masquradeOption.addEventListener('keydown', function (e) {
-                        if (isTabKeyPressed(e)) {
-                            closeAccountOptionsMenu();
-                        }
-                    });
-            } else {
-                const feedbackButton = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-feedback');
-                !!feedbackButton &&
-                    feedbackButton.addEventListener('keydown', function (e) {
-                        if (isTabKeyPressed(e)) {
-                            closeAccountOptionsMenu();
-                        }
-                    });
-            }
         }
 
         // Attach a listener to the options button
@@ -577,18 +542,17 @@ class AuthButton extends HTMLElement {
         if (!!logoutButton) {
             logoutButton.addEventListener('click', visitLogOutPage);
             logoutButton.addEventListener('keydown', function (e) {
-                if (isBackTabKeyPressed(e)) {
+                if (isTabKeyPressed(e)) {
                     closeAccountOptionsMenu();
                 }
             });
         }
 
-        closeMenuWhenBottomMostLinkClicked();
-
+        closeAccountMenuOnLinkClick('mylibrary-menu-course-resources');
         closeAccountMenuOnLinkClick('mylibrary-menu-masquerade');
         closeAccountMenuOnLinkClick('mylibrary-menu-alerts-admin');
         closeAccountMenuOnLinkClick('mylibrary-menu-testTag-admin');
-        closeAccountMenuOnLinkClick('mylibrary-menu-course-resources');
+        closeAccountMenuOnLinkClick('mylibrary-menu-dlor-admin');
     }
 
     // we have an option to add the attribute `overwriteasloggedout` to the authbutton
