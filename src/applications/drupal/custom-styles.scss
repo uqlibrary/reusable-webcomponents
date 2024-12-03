@@ -1,3 +1,18 @@
 @import '../styles-imports/skeleton.scss';
 
 @import 'styles-imports/libcal';
+
+auth-button {
+    margin-top: -10px;
+    margin-bottom: unset;
+}
+.uq-breadcrumb__list {
+    height: 22px;
+}
+.block-system-breadcrumb-block {
+    height: 50px;
+}
+.uq-breadcrumb {
+    display: flex;
+    justify-content: space-between;
+}

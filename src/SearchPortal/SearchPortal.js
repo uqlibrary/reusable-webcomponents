@@ -349,33 +349,38 @@ class SearchPortal extends HTMLElement {
         //     },
         // );
 
-        function handleAccordianBinding() {
-            const accordianContainer = that.shadowRoot.getElementById('restrictions-accordian');
-            const paragraph = accordianContainer.getElementsByTagName('p');
-            const icon = accordian.getElementsByTagName('svg');
-            //paragraph[0].style.height = (paragraph[0].scrollHeight + 'px')
-            if (!accordianContainer.classList.contains('container-opened')) {
-                accordianContainer.style.height = 32 + paragraph[0].scrollHeight + 'px';
-                accordianContainer.classList.add('container-opened');
-                icon[0].classList.add('accordian-icon-open');
+        function bindRestrictionsAccordion() {
+            const accordionContainer = that.shadowRoot.getElementById('restrictions-accordian');
+            const paragraphs = accordionContainer.getElementsByTagName('p');
+            const icons = accordian.getElementsByTagName('svg');
+            const firstIcon = !!icons && icons.length > 0 && icons[0];
+            const showHideBlock = that.shadowRoot.getElementById('restrictions-accordian');
+            if (!!accordionContainer.classList.contains('container-opened')) {
+                !!showHideBlock && showHideBlock.setAttribute('hidden', '');
+
+                accordionContainer.style.height = 0;
+                accordionContainer.classList.remove('container-opened');
+                !!firstIcon && firstIcon.classList.remove('accordian-icon-open');
             } else {
-                accordianContainer.style.height = 0;
-                accordianContainer.classList.remove('container-opened');
-                icon[0].classList.remove('accordian-icon-open');
+                !!showHideBlock && showHideBlock.removeAttribute('hidden');
+
+                const firstParagraph = !!paragraphs && paragraphs.length > 0 && paragraphs[0];
+                accordionContainer.style.height = 32 + firstParagraph?.scrollHeight + 'px';
+                accordionContainer.classList.add('container-opened');
+                !!firstIcon && firstIcon.classList.add('accordian-icon-open');
             }
         }
 
         const accordian = that.shadowRoot.getElementById('restrictions-accordian-container');
         !!accordian &&
             accordian.addEventListener('click', function (e) {
-                handleAccordianBinding();
+                bindRestrictionsAccordion();
             });
 
         !!accordian &&
             accordian.addEventListener('keydown', (event) => {
-                console.log('EVENT CODE:', event.code);
                 if (event.code === 'Space' || event.code === 'Enter') {
-                    handleAccordianBinding();
+                    bindRestrictionsAccordion();
                 }
             });
     }
@@ -761,7 +766,6 @@ class SearchPortal extends HTMLElement {
             !!searchPortalLocale.typeSelect.items[useSearchType].placeholder &&
             // (subTitleField.innerHTML = searchPortalLocale.typeSelect.items[useSearchType].placeholder) &&
             (inputField.placeholder = searchPortalLocale.typeSelect.items[useSearchType].placeholder);
-
         // add an extra class to the button to say which label it is currently showing
         // this is used by the css to make the dropdown highlight the matching label
         // remove any previous label - looks like we cant regexp to match a classname, we'll have to loop over the label.items length
@@ -1121,7 +1125,7 @@ class SearchPortal extends HTMLElement {
                             <!-- <div class="restrictionsContainer searchUnderlinks theme-${theme || 'light'}">
                                <a id="restrictions-on-use-link" class="theme-${
                                    theme || 'light'
-                               }" href="https://web.library.uq.edu.au/about-us/policies-guidelines#collection-notice">Restrictions on use</a> 
+                               }" href="https://web.library.uq.edu.au/about/policies-and-guidelines">Restrictions on use</a> 
                             </div> -->
                         </div> 
                         <div>
@@ -1133,7 +1137,7 @@ class SearchPortal extends HTMLElement {
                                          <path fill="currentColor" d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"/>
                                     </svg>
                             </span>
-                            <div id="restrictions-accordian" class="theme-${
+                            <div id="restrictions-accordian" hidden class="theme-${
                                 theme || 'light'
                             }" data-testid="restrictions-accordian-content">
                                 <p>Your <a href="${linkToDrupal(
