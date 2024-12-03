@@ -332,17 +332,14 @@ md-menu-item button.md-button svg:nth-of-type(n+2) {
 .md-open-menu-container { // desktop
     .my-library-card-ctm:not(:hover), // logged out
     .my-favorties-ctm:not(:hover), // logged out
-    .my-search-history-ctm:not(:hover), // logged in
+    .my-search-history-ctm:not(:hover), // logged out
     .my-favorties-ctm button:not(:hover) { // logged in
         background-color: white;
-
-        span.primaryText {
-            background-color: white;
-        }
     }
 }
 .logout-option .md-button.md-focused:not([disabled]), // logged in
 .my-library-card-ctm .md-button.md-focused:not([disabled]), // logged in
+.my-search-history-ctm .md-button.md-focused:not([disabled]), // logged in
 .my-favorties-ctm .md-button.md-focused:not([disabled]) { // logged in
     background-color: white;
     span.primaryText {
@@ -350,6 +347,7 @@ md-menu-item button.md-button svg:nth-of-type(n+2) {
     }
 }
 .my-library-card-ctm .md-button:hover:not([disabled]), // logged in
+.my-search-history-ctm .md-button:hover:not([disabled]), // logged in
 .my-favorties-ctm .md-button:hover:not([disabled]) { // logged in
     background-color: white;
     span.primaryText {
@@ -358,11 +356,10 @@ md-menu-item button.md-button svg:nth-of-type(n+2) {
 }
 
 .md-open-menu-container { // desktop
-    // logged out account menu icons
     .logout-option button.md-focused:not([disabled]), // logged out
     .my-library-card-ctm button.md-focused:not([disabled]), // logged out
     .my-favorties-ctm button.md-focused:not([disabled]), // logged out
-    .my-search-history-ctm button.md-focused:not([disabled]) { // logged in
+    .my-search-history-ctm button.md-focused:not([disabled]) { // logged out
         background-color: white;
 
         span[translate="eshelf.menu.signOut"],
@@ -376,6 +373,7 @@ md-menu-item button.md-button svg:nth-of-type(n+2) {
         padding-left: 10px;
     }
     .my-library-card-ctm,
+    .my-search-history-ctm,
     .my-favorties-ctm,
     .my-search-history-ctm {
         prm-icon {
