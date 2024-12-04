@@ -42,7 +42,7 @@ describe('Cultural Advice', () => {
             // assertProactiveChatVisibility(true);
 
             cy.injectAxe();
-            cy.checkA11y('cultural-advice-v2', {
+            cy.checkA11y('cultural-advice', {
                 reportName: 'Cultural Advice Popup',
                 scopeName: 'Accessibility',
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
@@ -56,7 +56,7 @@ describe('Cultural Advice', () => {
             // assertProactiveChatVisibility(false);
 
             cy.injectAxe();
-            cy.checkA11y('cultural-advice-v2', {
+            cy.checkA11y('cultural-advice', {
                 reportName: 'Cultural Advice Popup',
                 scopeName: 'Accessibility',
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],

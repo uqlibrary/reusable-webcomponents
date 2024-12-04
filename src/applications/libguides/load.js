@@ -125,8 +125,8 @@ function loadReusableComponentsLibGuides() {
         !!alerts && document.body.insertBefore(alerts, firstElement);
     }
 
-    if (!document.querySelector('cultural-advice-v2')) {
-        const culturalAdvice = document.createElement('cultural-advice-v2');
+    if (!document.querySelector('cultural-advice')) {
+        const culturalAdvice = document.createElement('cultural-advice');
         const alerts = document.getElementsByTagName('alert-list');
         const alert = alerts[0];
         !!culturalAdvice && !!alert && alert.parentNode.insertBefore(culturalAdvice, alert.nextSibling);

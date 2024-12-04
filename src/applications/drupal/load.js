@@ -117,8 +117,8 @@ function addCulturalAdviceToSite() {
     const targetElement = document.getElementById('block-uq-standard-theme-breadcrumbs');
     if (!targetElement) return;
 
-    if (!document.querySelector('cultural-advice-v2')) {
-        const culturalAdvice = document.createElement('cultural-advice-v2');
+    if (!document.querySelector('cultural-advice')) {
+        const culturalAdvice = document.createElement('cultural-advice');
         !!culturalAdvice && targetElement.parentNode.insertBefore(culturalAdvice, targetElement.nextSibling);
     }
 }
