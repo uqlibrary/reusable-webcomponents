@@ -363,7 +363,7 @@ class AuthButton extends HTMLElement {
 <path d="M13.8857 8.87109H17.6582" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
 <path d="M12.0002 13.2432L8.22879 18.2575L5.7002 15.7289" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
 <path d="M13.8857 16.4141H17.6582" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round" fill="none"/>`,
-                'Test and Tag',
+                'Test and tag',
                 firstEntry,
             );
             firstEntry = false;
