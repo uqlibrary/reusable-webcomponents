@@ -232,7 +232,7 @@ describe('Dummy Application', () => {
         });
     });
 
-    context('Lib Guides works as expected', () => {
+    context('Springshare Guides works as expected', () => {
         it('Javascript load works correctly', () => {
             cy.visit('http://localhost:8080/src/applications/libguides/demo.html');
             cy.viewport(1280, 900);
@@ -281,7 +281,7 @@ describe('Dummy Application', () => {
         });
     });
 
-    context('Lib Cal works as expected', () => {
+    context('Springshare Cal works as expected', () => {
         it('Javascript load works correctly', () => {
             cy.visit('http://localhost:8080/src/applications/libcal/demo.html');
             cy.viewport(1280, 900);
@@ -306,13 +306,11 @@ describe('Dummy Application', () => {
             cy.visit('http://localhost:8080/src/applications/drupal/demo.html');
             cy.viewport(1280, 900);
 
-            hasUqHeader();
+            //hasNoUqHeader(); // drupal supplies that
 
             hasCulturalAdvice();
 
-            hasUqSiteHeader();
-
-            proactiveChatLoadsAsIcon();
+            // we use the drupal utility bar instead of our uq-site-header and inject our auth button into it
             hasAuthButton();
 
             hasAnAlert();
@@ -327,7 +325,9 @@ describe('Dummy Application', () => {
 
             // hasNoConnectFooter();
 
-            hasUqFooter();
+            proactiveChatLoadsAsIcon();
+
+            hasNoUqFooter(); // drupal supplies that
 
             // simple check that the components exist, now that we are splitting them out from the main reusable.min file
             cy.get('open-athens')
