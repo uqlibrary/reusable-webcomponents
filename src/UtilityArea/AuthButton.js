@@ -98,9 +98,8 @@ authorisedtemplate.innerHTML = `
                         <!-- Printing balance -->
                         <li role="menuitem" aria-disabled="false">
                             <a tabindex="0" data-testid="mylibrary-menu-print-balance" data-analyticsid="mylibrary-menu-print-balance"
-                                href="${linkToDrupal(
-                                    'library-services/it/print-scan-copy/your-printing-account',
-                                )}" rel="noreferrer">
+                                href="${linkToDrupal('/library-services/it/print-scan-copy/your-printing-account')}"
+                                rel="noreferrer">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
                                     <g clip-path="url(#clip0_1723_14098)">
                                         <path d="M3.01562 12C3.01563 14.3828 3.96219 16.668 5.64709 18.3529C7.33198 20.0378 9.6172 20.9844 12 20.9844C14.3828 20.9844 16.668 20.0378 18.3529 18.3529C20.0378 16.668 20.9844 14.3828 20.9844 12C20.9844 9.6172 20.0378 7.33198 18.3529 5.64709C16.668 3.96219 14.3828 3.01563 12 3.01562C9.6172 3.01563 7.33198 3.96219 5.64709 5.64709C3.96219 7.33198 3.01563 9.6172 3.01562 12Z" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
@@ -364,7 +363,7 @@ class AuthButton extends HTMLElement {
 <path d="M13.8857 8.87109H17.6582" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
 <path d="M12.0002 13.2432L8.22879 18.2575L5.7002 15.7289" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
 <path d="M13.8857 16.4141H17.6582" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round" fill="none"/>`,
-                'Test and Tag',
+                'Test and tag',
                 firstEntry,
             );
             firstEntry = false;
@@ -487,7 +486,10 @@ class AuthButton extends HTMLElement {
             };
         }
 
-        function closeAccountOptionsMenu() {
+        function closeAccountOptionsMenu(e) {
+            if (e?.ctrlKey || e?.metaKey) {
+                return; // ctrl-click on windows, cmd-click on mac
+            }
             accountOptionsClosed = true;
             const accountMenu = shadowDOM.getElementById('account-options-menu');
             !!accountMenu && accountMenu.classList.add('account-options-menu-closed');
@@ -527,47 +529,9 @@ class AuthButton extends HTMLElement {
         function closeAccountMenuOnLinkClick(elementId) {
             const link = !!shadowDOM && shadowDOM.getElementById(elementId);
             !!link &&
-                link.addEventListener('click', function () {
-                    closeAccountOptionsMenu();
+                link.addEventListener('click', function (e) {
+                    closeAccountOptionsMenu(e);
                 });
-        }
-
-        // on whatever is the bottom-most link in the account menu for this user, tabbing out closes the popup account menu
-        function closeMenuWhenBottomMostLinkClicked() {
-            // the order of these ifs must match the reverse order they are displayed in
-            if (canSeeTestTag(account)) {
-                const testntagOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-testTag-admin');
-                !!testntagOption &&
-                    testntagOption.addEventListener('keydown', function (e) {
-                        if (isTabKeyPressed(e)) {
-                            closeAccountOptionsMenu();
-                        }
-                    });
-            } else if (canSeeAlertsAdmin(account)) {
-                const alertsOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-alerts-admin');
-                !!alertsOption &&
-                    alertsOption.addEventListener('keydown', function (e) {
-                        if (isTabKeyPressed(e)) {
-                            closeAccountOptionsMenu();
-                        }
-                    });
-            } else if (!!account && !!account.canMasquerade) {
-                const masquradeOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-masquerade');
-                !!masquradeOption &&
-                    masquradeOption.addEventListener('keydown', function (e) {
-                        if (isTabKeyPressed(e)) {
-                            closeAccountOptionsMenu();
-                        }
-                    });
-            } else {
-                const feedbackButton = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-feedback');
-                !!feedbackButton &&
-                    feedbackButton.addEventListener('keydown', function (e) {
-                        if (isTabKeyPressed(e)) {
-                            closeAccountOptionsMenu();
-                        }
-                    });
-            }
         }
 
         // Attach a listener to the options button
@@ -578,18 +542,17 @@ class AuthButton extends HTMLElement {
         if (!!logoutButton) {
             logoutButton.addEventListener('click', visitLogOutPage);
             logoutButton.addEventListener('keydown', function (e) {
-                if (isBackTabKeyPressed(e)) {
+                if (isTabKeyPressed(e)) {
                     closeAccountOptionsMenu();
                 }
             });
         }
 
-        closeMenuWhenBottomMostLinkClicked();
-
+        closeAccountMenuOnLinkClick('mylibrary-menu-course-resources');
         closeAccountMenuOnLinkClick('mylibrary-menu-masquerade');
         closeAccountMenuOnLinkClick('mylibrary-menu-alerts-admin');
         closeAccountMenuOnLinkClick('mylibrary-menu-testTag-admin');
-        closeAccountMenuOnLinkClick('mylibrary-menu-course-resources');
+        closeAccountMenuOnLinkClick('mylibrary-menu-dlor-admin');
     }
 
     // we have an option to add the attribute `overwriteasloggedout` to the authbutton
