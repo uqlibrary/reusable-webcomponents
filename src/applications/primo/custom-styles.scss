@@ -326,16 +326,20 @@ prm-user-area-expandable .md-button.user-button .menu-arrow {
         }
     }
 }
-.my-library-card-ctm:not(:hover), // logged out
-.my-favorties-ctm:not(:hover), // logged out
-.my-search-history-ctm:not(:hover),
-.my-favorties-ctm button:not(:hover) { // logged in
-    background-color: white;
-    span.primaryText {
+md-menu-item button.md-button svg:nth-of-type(n+2) {
+    display: none;
+}
+.md-open-menu-container { // desktop
+    .my-library-card-ctm:not(:hover), // logged out
+    .my-favorties-ctm:not(:hover), // logged out
+    .my-search-history-ctm:not(:hover), // logged out
+    .my-favorties-ctm button:not(:hover) { // logged in
         background-color: white;
     }
 }
+.logout-option .md-button.md-focused:not([disabled]), // logged in
 .my-library-card-ctm .md-button.md-focused:not([disabled]), // logged in
+.my-search-history-ctm .md-button.md-focused:not([disabled]), // logged in
 .my-favorties-ctm .md-button.md-focused:not([disabled]) { // logged in
     background-color: white;
     span.primaryText {
@@ -343,69 +347,85 @@ prm-user-area-expandable .md-button.user-button .menu-arrow {
     }
 }
 .my-library-card-ctm .md-button:hover:not([disabled]), // logged in
+.my-search-history-ctm .md-button:hover:not([disabled]), // logged in
 .my-favorties-ctm .md-button:hover:not([disabled]) { // logged in
     background-color: white;
     span.primaryText {
         color: white;
+        line-height: normal;
     }
 }
 
-// logged out account menu icons
-.my-library-card-ctm button.md-focused:not([disabled]), // logged out
-.my-favorties-ctm button.md-focused:not([disabled]), // logged out
-.my-search-history-ctm button.md-focused:not([disabled]) { // logged in
-    background-color: white;
-    span[translate="eshelf.menu.savedItems"],
-    span[translate="eshelf.menu.searchHistory"] {
+.md-open-menu-container { // desktop
+    .logout-option button.md-focused:not([disabled]), // logged out
+    .my-library-card-ctm button.md-focused:not([disabled]), // logged out
+    .my-favorties-ctm button.md-focused:not([disabled]), // logged out
+    .my-search-history-ctm button.md-focused:not([disabled]) { // logged out
+        background-color: white;
+
+        span[translate="eshelf.menu.signOut"],
+        span[translate="eshelf.menu.savedItems"],
+        span[translate="eshelf.menu.searchHistory"] {
+            color: #19151c;
+        }
+    }
+
+    .my-search-history-ctm {
+        padding-left: 10px;
+    }
+    .my-library-card-ctm,
+    .my-search-history-ctm,
+    .my-favorties-ctm,
+    .my-search-history-ctm {
+        prm-icon {
+            color: $theme-color;
+            fill: $theme-color;
+            stroke: $theme-color;
+        }
+    }
+    md-menu-item.my-favorties-ctm {
+        margin-left: 1px;
+        prm-icon svg path {
+            fill: $theme-color;
+        }
+    }
+    .md-button.button-with-icon>prm-icon+span {
+        margin-left: 5px;
+    }
+
+    .logout-option .md-button:hover:not([disabled]),
+    .my-favorties-ctm .md-button:hover:not([disabled]),
+    .my-search-history-ctm .md-button:hover:not([disabled]) {
+        background-color: white;
         color: #19151c;
+        span[translate="eshelf.menu.signOut"],
+        span[translate="eshelf.menu.savedItems"],
+        span[translate="eshelf.menu.searchHistory"] {
+            background-color: $theme-color;
+            color: white;
+            text-decoration: underline;
+        }
     }
-}
-.my-search-history-ctm {
-    padding-left: 10px;
-}
-.my-library-card-ctm,
-.my-favorties-ctm,
-.my-search-history-ctm {
-    prm-icon {
-        color: $theme-color;
-        fill: $theme-color;
-        stroke: $theme-color;
-    }
-}
-md-menu-item.my-favorties-ctm {
-    margin-left: 1px;
-    prm-icon svg path {
-        fill: $theme-color;
-    }
-}
-.md-button.button-with-icon>prm-icon+span {
-    margin-left: 5px;
-}
 
-.my-favorties-ctm .md-button:hover:not([disabled]),
-.my-search-history-ctm .md-button:hover:not([disabled]) {
-    background-color: white;
-    color: #19151c;
+    span[translate="eshelf.menu.savedItems"],
     span[translate="eshelf.menu.savedItems"],
     span[translate="eshelf.menu.searchHistory"] {
-        background-color: $theme-color;
-        color: white;
-        text-decoration: underline;
+        line-height: normal; //reduce background color to same height as UQ DS
+        color: #19151c;
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+        font-size: 16px;
+        letter-spacing: normal;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
 }
-.textwrapper span.primaryText,
-span[translate="eshelf.menu.savedItems"],
-span[translate="eshelf.menu.searchHistory"],
-span[translate="eshelf.menu.savedItems"],
-span[translate="eshelf.menu.searchHistory"] {
-    line-height: normal; //reduce background color to same height as UQ DS
-    color: #19151c;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-    font-size: 16px;
-    letter-spacing: normal;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+// logged out menu doesnt need a divider
+.prm-user-menu-content {
+    md-menu-divider {
+        display: none;
+    }
 }
+
 // make the dropdowns under the search bar readable
 ._md-select-value ._md-select-icon {
     color: $dark;
@@ -1336,6 +1356,9 @@ prm-personal-info prm-change-lang {
 }
 
 .mobile-main-menu-bg {
+    md-menu-item.uql-account-menu-option.favourites {
+        margin-left: 10px;
+    }
     .my-search-history-ctm .primaryText,
     //.my-search-history-ctm .subtext,
     .my-search-history-ctm button {
@@ -1369,7 +1392,7 @@ prm-personal-info prm-change-lang {
             text-align: left;
         }
         .primaryText {
-            margin-top: 15px;
+            color: white;
         }
         button {
             display: flex;
@@ -1377,7 +1400,7 @@ prm-personal-info prm-change-lang {
     }
 
     prm-authentication {
-        margin-top: -20px;
+        margin-top: -15px;
         margin-bottom: -10px;
     }
 }
@@ -1464,6 +1487,7 @@ md-menu-item.uql-account-menu-option button {
     margin-left: -20px;
     margin-top: 10px;
     margin-bottom: -10px;
+    padding-right: 0;
     align-items: flex-start;
     min-height: 4em;
     background-color: #fff;
@@ -1514,11 +1538,11 @@ md-menu-item.uql-account-menu-option button {
 .mobile-main-menu-bg md-menu-item.uql-account-menu-option {
     width: 100%;
     margin-top: 2px;
+    margin-left: -25px;
     button {
-        margin-left: -30px;
+        margin-left: 10px;
         background-color: inherit;
 
-        //.subtext,
         .primaryText {
             background-color: inherit;
             color: #fff;
@@ -1532,6 +1556,9 @@ md-menu-item.uql-account-menu-option button {
 md-menu-item.mobile-loggedout-feedback-item {
     button {
         background-color: transparent;
+        display: flex;
+        align-items: center;
+        margin-top: 0;
 
         .textwrapper span {
             color: #fff;
@@ -1541,6 +1568,7 @@ md-menu-item.mobile-loggedout-feedback-item {
     svg.mobile-loggedout-feedback-item {
         width: 45px;
         fill: #fff;
+        margin-left: 20px;
     }
 }
 // hide the ripple on the account menu
@@ -1947,32 +1975,61 @@ prm-search-result-list .list-items-list div.margin-bottom-medium:first-of-type:n
     }
 }
 
+// for some reason inline-flex WILL NOT apply to these buttons. So put a max-width tailored to the button on each one
+md-menu-item.my-library-card-ctm button {
+    max-width: 9.25rem;
+}
+md-menu-item.my-favorties-ctm button {
+    max-width: 7rem;
+}
+md-menu-item.my-search-history-ctm button {
+    max-width: 10.5rem;
+}
+md-menu-item button.desktop-feedback {
+    max-width: 8.75rem;
+}
+md-menu-item button.favourites {
+    max-width: 6.75rem;
+}
+md-menu-item button.learning-resources {
+    max-width: 13rem;
+}
+md-menu-item button.print-balance {
+    max-width: 10.5rem;
+}
+md-menu-item button.room-booking {
+    max-width: 13.75rem;
+}
+
 // restyle log out button
+md-menu-item.logout-option {
+    display: block;
+    border-top: thin solid #d3d3d3;
+    padding-inline: 0;
+    margin-inline: 24px;
+    margin-top: 10px;
+}
 button.md-button.md-primary[aria-label="Sign out"] {
     color: #19151c;
     text-align: left;
     text-transform: unset;
-    //font-weight: 400 !important;
     letter-spacing: .16px;
     line-height: 160%;
     font-family: Roboto, "Helvetica Neue", sans-serif;
     background-image: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2218%22%20height%3D%2218%22%20viewBox%3D%220%200%2018%2018%22%20fill%3D%22none%22%3E%3Cg%20clip-path%3D%22url(%23clip0_1654_3032)%22%3E%3Cpath%20d%3D%22M17.0859%209.00293H5.76562%22%20stroke%3D%22%2351247A%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3Cpath%20d%3D%22M8.46094%2011.6982L5.76562%209.00293L8.46094%206.30762%22%20stroke%3D%22%2351247A%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3Cpath%20d%3D%22M11.6954%2012.2344V15.4688C11.7077%2015.7416%2011.6115%2016.0081%2011.4278%2016.2102C11.2441%2016.4122%2010.9878%2016.5333%2010.715%2016.5469H1.89383C1.62121%2016.5331%201.36513%2016.412%201.18156%2016.2099C0.997988%2016.0079%200.901855%2015.7414%200.91417%2015.4688V2.53125C0.901664%202.25851%200.997731%201.99193%201.18134%201.78987C1.36495%201.5878%201.62114%201.46672%201.89383%201.45312H10.715C10.9878%201.46672%2011.2441%201.58778%2011.4278%201.78982C11.6115%201.99186%2011.7077%202.25844%2011.6954%202.53125V5.76562%22%20stroke%3D%22%2351247A%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/g%3E%3Cdefs%3E%3CclipPath%20id%3D%22clip0_1654_3032%22%3E%3Crect%20width%3D%2218%22%20height%3D%2218%22/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E');
     background-repeat: no-repeat;
-    background-position: left 24px top 12px;
-    -webkit-background-size: 24px 24px;
-    -moz-background-size: 24px 24px;
-    -o-background-size: 24px 24px;
-    background-size: 24px 24px;
-    padding-top: 12px;
-    padding-left: 59px;
+    background-position: left 16px;
+    padding-left: 35px;
     padding-right: 0;
     margin-left: 2px;
     margin-right: 0;
     margin-bottom: 0;
-    border-top: thin solid #d3d3d3;
+    max-width: 6.5em; //stop hover on entire block
     .bold-text {
         font-weight: 400 !important;
         font-size: 16px;
+        margin-top: 14px;
+        margin-bottom: unset;
     }
 }
 button.md-button.md-primary[aria-label="Sign out"]:hover:not([disabled]) {
@@ -1992,5 +2049,6 @@ button.md-button.md-primary[aria-label="Sign out"]:hover:not([disabled]) {
 }
 
 .prm-user-menu-content {
-    padding-top: 24px;
+    padding-top: 20px;
+    min-width: 250px !important;
 }
