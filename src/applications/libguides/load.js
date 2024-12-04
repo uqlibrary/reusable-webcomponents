@@ -96,7 +96,6 @@ function loadReusableComponentsLibGuides() {
         !!breadcrumbParent &&
             breadcrumbData.length > 0 &&
             breadcrumbData.forEach((gb) => {
-                console.log('gb=', gb);
                 const listItemEntry = !!gb.href
                     ? `<li class="uq-breadcrumb__item">
                 <a class="uq-breadcrumb__link" href="${gb.href}">${gb.title}</a>
@@ -111,11 +110,6 @@ function loadReusableComponentsLibGuides() {
 
     document.body.insertBefore(siteHeader, firstElement);
 
-    if (!document.querySelector('cultural-advice-popup')) {
-        const culturalAdvice = document.createElement('cultural-advice-popup');
-        !!culturalAdvice && document.body.appendChild(culturalAdvice);
-    }
-
     !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
 
     // Proactive Chat button
@@ -129,6 +123,13 @@ function loadReusableComponentsLibGuides() {
     if (!document.querySelector('alert-list')) {
         const alerts = document.createElement('alert-list');
         !!alerts && document.body.insertBefore(alerts, firstElement);
+    }
+
+    if (!document.querySelector('cultural-advice-v2')) {
+        const culturalAdvice = document.createElement('cultural-advice-v2');
+        const alerts = document.getElementsByTagName('alert-list');
+        const alert = alerts[0];
+        !!culturalAdvice && !!alert && alert.parentNode.insertBefore(culturalAdvice, alert.nextSibling);
     }
 
     // const connectFooter = document.createElement('connect-footer');

@@ -255,6 +255,8 @@ describe('Dummy Application', () => {
                     cy.get('#s-lib-bc').should('not.exist');
                 });
 
+            hasCulturalAdviceBanner();
+
             proactiveChatLoadsAsIcon();
             hasAuthButton();
 
