@@ -95,9 +95,12 @@ function swapQuickMenuIcon() {
 }
 
 function addCulturalAdvicePopup() {
-    if (!document.querySelector('cultural-advice-popup')) {
-        const culturalAdvice = document.createElement('cultural-advice-popup');
-        !!culturalAdvice && document.body.appendChild(culturalAdvice);
+    const targetElement = document.getElementById('top-bar');
+    if (!targetElement) return;
+
+    if (!document.querySelector('cultural-advice-v2')) {
+        const culturalAdvice = document.createElement('cultural-advice-v2');
+        !!culturalAdvice && targetElement.parentNode.insertBefore(culturalAdvice, targetElement.nextSibling);
     }
 }
 

@@ -135,19 +135,16 @@ describe('Dummy Application', () => {
             .and('contain', username);
     }
 
-    function hasCulturalAdvicePopup() {
+    function hasCulturalAdviceBanner() {
         cy.waitUntil(() =>
             cy
-                .get('cultural-advice-popup')
+                .get('cultural-advice-v2')
                 .shadow()
-                .find('#cultural-advice-content')
+                .find('.culturaladvicev2')
                 .should('exist')
-                .should('be.visible'),
+                .should('be.visible')
+                .contains('The Library is custodian of'),
         );
-        cy.get('cultural-advice-popup')
-            .shadow()
-            .find('#cultural-advice-content')
-            .should('contain', 'Aboriginal and Torres Strait Islander peoples are advised');
     }
 
     context('app.library.uq.edu.au works as expected', () => {
@@ -398,7 +395,7 @@ describe('Dummy Application', () => {
 
             assert_homepage_link_is_to_uq();
 
-            // hasCulturalAdvicePopup();
+            hasCulturalAdviceBanner();
         });
 
         it('Sample detail page load works correctly', () => {
@@ -409,7 +406,7 @@ describe('Dummy Application', () => {
 
             assert_has_book_now_link();
 
-            //hasCulturalAdvicePopup();
+            hasCulturalAdviceBanner();
 
             // has cultural advice banner
             cy.get('.culturalAdviceBanner')
@@ -421,7 +418,7 @@ describe('Dummy Application', () => {
             cy.visit('http://localhost:8080/src/applications/atom/demo-listpage.html');
             cy.viewport(1280, 900);
             assert_homepage_link_is_to_uq();
-            //hasCulturalAdvicePopup();
+            hasCulturalAdviceBanner();
 
             // has cultural advice indicator, only on CA entries
             cy.get('#content article')
