@@ -2005,6 +2005,9 @@ md-menu-item button.room-booking {
 md-menu-item.logout-option {
     display: block;
     border-top: thin solid #d3d3d3;
+    padding-inline: 0;
+    margin-inline: 24px;
+    margin-top: 10px;
 }
 button.md-button.md-primary[aria-label="Sign out"] {
     color: #19151c;
