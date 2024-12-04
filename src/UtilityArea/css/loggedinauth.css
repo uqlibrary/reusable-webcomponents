@@ -209,6 +209,8 @@
 .mylibrary-menu-list li.borderTop {
     border-top: thin solid #d3d3d3;
     padding-top: 12px;
+    padding-inline: 0;
+    margin-inline: 24px;
 }
 
 .auth.loggedin {

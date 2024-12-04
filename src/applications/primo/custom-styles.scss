@@ -352,6 +352,7 @@ md-menu-item button.md-button svg:nth-of-type(n+2) {
     background-color: white;
     span.primaryText {
         color: white;
+        line-height: normal;
     }
 }
 
@@ -1981,6 +1982,9 @@ md-menu-item.my-library-card-ctm button {
 md-menu-item.my-favorties-ctm button {
     max-width: 7rem;
 }
+md-menu-item.my-search-history-ctm button {
+    max-width: 10.5rem;
+}
 md-menu-item button.desktop-feedback {
     max-width: 8.75rem;
 }
@@ -2001,6 +2005,9 @@ md-menu-item button.room-booking {
 md-menu-item.logout-option {
     display: block;
     border-top: thin solid #d3d3d3;
+    padding-inline: 0;
+    margin-inline: 24px;
+    margin-top: 10px;
 }
 button.md-button.md-primary[aria-label="Sign out"] {
     color: #19151c;
