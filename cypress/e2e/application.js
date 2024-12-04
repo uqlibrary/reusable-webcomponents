@@ -9,24 +9,12 @@ describe('Dummy Application', () => {
             cy.get('uq-header').shadow().find('button[data-testid="skip-nav"]').should('exist');
             // has an auth button
             cy.get('auth-button').shadow().find('button:contains("Log out")').should('exist');
-            // // has a mega menu
-            // // the menu appears on click
-            // cy.get('uq-site-header').shadow().find('nav[aria-label="Site navigation"]').should('be.visible');
-            // // and has the correct children
-            // cy.get('uq-site-header')
-            //     .shadow()
-            //     .find('nav[aria-label="Site navigation"]')
-            //     .find('ul')
-            //     .should('have.length', 7); // length of the megamenu .json
+            hasCulturalAdviceBanner();
         });
     });
 
     function hasUqHeader() {
         cy.get('uq-header').shadow().find('[data-testid="uq-header-logo-large-link"]').should('exist');
-    }
-
-    function hasCulturalAdvice() {
-        cy.get('cultural-advice-v2').shadow().find('[data-testid="cultural-advice-statement"]').should('exist');
     }
 
     function hasNoUqHeader() {
@@ -305,7 +293,7 @@ describe('Dummy Application', () => {
 
             //hasNoUqHeader(); // drupal supplies that
 
-            hasCulturalAdvice();
+            hasCulturalAdviceBanner();
 
             // we use the drupal utility bar instead of our uq-site-header and inject our auth button into it
             hasAuthButton();
