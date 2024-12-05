@@ -6,18 +6,17 @@ function getValueLocal(param) {
         libraryProductionDomain: 'web.library.uq.edu.au',
         libraryStagingDomain: 'web-staging.library.uq.edu.au',
         library2024DevDomain: 'web-live.library.uq.edu.au',
+        // certain admin pages in drupal don't take the webcomponents because they interact badly
+        libraryPagesWithoutComponents: [
+            '/src/applications/drupal/pageWithoutComponents.html', // localhost test this concept
+            '/ckfinder/browse',
+            '/ckfinder/browse/images',
+            '/ckfinder/browse/files',
+        ],
     };
 
     return lookup[param] || '';
 }
-
-// certain admin pages in drupal don't take the webcomponents because they interact badly
-const libraryPagesWithoutComponents = [
-    '/src/applications/drupal/pageWithoutComponents.html', // localhost test this concept
-    '/ckfinder/browse',
-    '/ckfinder/browse/images',
-    '/ckfinder/browse/files',
-];
 
 function ready(fn) {
     if (document.readyState !== 'loading') {
@@ -42,8 +41,8 @@ function addUtilityButtonsToSiteHeader() {
     }
 }
 
-// example usage: loadFontFile('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
-function loadFontFile(fontFileFullLink) {
+// example usage: insertFontFile('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
+function insertFontFile(fontFileFullLink) {
     const headID = document.getElementsByTagName('head')[0];
     const link = document.createElement('link');
     link.type = 'text/css';
@@ -52,7 +51,7 @@ function loadFontFile(fontFileFullLink) {
     link.href = fontFileFullLink;
 }
 
-function addCss(fileName) {
+function insertCssFile(fileName) {
     const head = document.head;
     const link = document.createElement('link');
     link.type = 'text/css';
@@ -60,58 +59,6 @@ function addCss(fileName) {
     link.href = fileName;
 
     head.appendChild(link);
-}
-
-function insertScript(url, defer = false) {
-    const scriptfound = document.querySelector("script[src*='" + url + "']");
-    if (!scriptfound) {
-        const head = document.querySelector('head');
-        if (head) {
-            const script = document.createElement('script');
-            script.setAttribute('type', 'text/javascript');
-            script.setAttribute('src', url);
-            !!defer && script.setAttribute('defer', '');
-            head.appendChild(script);
-        }
-    }
-}
-
-function isITSExternalHosting() {
-    return window.location.hostname.endsWith('-library-uq.pantheonsite.io');
-}
-
-function isStagingSite() {
-    const validHosts = [getValueLocal('libraryStagingDomain'), getValueLocal('library2024DevDomain')];
-    return validHosts.includes(window.location.host) || isITSExternalHosting();
-}
-
-function isValidDrupalHost() {
-    const validHosts = [
-        getValueLocal('libraryProductionDomain'),
-        getValueLocal('libraryStagingDomain'),
-        getValueLocal('library2024DevDomain'),
-        'localhost:8080',
-    ];
-    return validHosts.includes(window.location.host) || isITSExternalHosting();
-}
-
-function getScriptUrl(jsFilename) {
-    if (window.location.host === 'localhost:8080') {
-        return 'http://localhost:8080/' + jsFilename;
-    }
-    let folder = '/'; // default. Use for prod.
-    if (isStagingSite()) {
-        folder = `-development/${getValueLocal('libraryFeatureBranchName')}/`;
-    } else if (window.location.hostname === 'assets.library.uq.edu.au') {
-        if (/reusable-webcomponents-staging/.test(window.location.href)) {
-            folder = '-staging/';
-        } else if (/reusable-webcomponents-development\/master/.test(window.location.href)) {
-            folder = '-development/master/';
-        } else {
-            folder = `-development/${getValueLocal('libraryFeatureBranchName')}/`;
-        }
-    }
-    return getValueLocal('libraryAssetsRootLocation') + folder + jsFilename;
 }
 
 function addCulturalAdviceToSite() {
@@ -128,12 +75,12 @@ function loadReusableComponentsDrupal() {
     insertScript(getScriptUrl('drupal-lib-reusable.min.js'), true);
     insertScript(getScriptUrl('uq-lib-reusable.min.js'), true);
 
-    loadFontFile('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
-    loadFontFile('https://static.uq.net.au/v15/fonts/Merriweather/merriweather.css');
-    loadFontFile('https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css');
-    loadFontFile('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
+    insertFontFile('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
+    insertFontFile('https://static.uq.net.au/v15/fonts/Merriweather/merriweather.css');
+    insertFontFile('https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css');
+    insertFontFile('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
 
-    if (isValidDrupalHost() && libraryPagesWithoutComponents.includes(window.location.pathname)) {
+    if (isValidDrupalHost() && getValueLocal('libraryPagesWithoutComponents').includes(window.location.pathname)) {
         return;
     }
 
@@ -142,7 +89,7 @@ function loadReusableComponentsDrupal() {
         getValueLocal('libraryAssetsRootLocation') +
         (isStagingSite() ? stagingLocation : '') +
         '/applications/drupal/custom-styles.css';
-    addCss(cssFile);
+    insertCssFile(cssFile);
 
     const firstElement = document.body.children[0];
     if (!firstElement) {
