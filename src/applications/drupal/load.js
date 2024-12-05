@@ -7,7 +7,8 @@ function getValue(param) {
         libraryProductionDomain: 'web.library.uq.edu.au',
         libraryStagingDomain: 'web-staging.library.uq.edu.au',
         library2024DevDomain: 'web-live.library.uq.edu.au',
-        libraryFeatureBranchName: 'drupal-staging',
+        // libraryFeatureBranchName: 'drupal-staging',
+        libraryFeatureBranchName: 'webpresence-working', // debug only!!!!
         libraryAssetsRootLocation: 'https://assets.library.uq.edu.au/reusable-webcomponents',
         // certain admin pages in drupal don't take the webcomponents because they interact badly
         libraryPagesWithoutComponents: [
@@ -82,8 +83,10 @@ function getScriptUrl(jsFilename) {
     let folder = '/'; // default. Use for prod.
 
     if (isStagingSite()) {
+        console.log('drupal sdtaging');
         folder = `-development/${getValue('libraryFeatureBranchName')}/`;
     } else if (window.location.hostname === 'assets.library.uq.edu.au') {
+        console.log('dev');
         if (/reusable-webcomponents-staging/.test(window.location.href)) {
             folder = '-staging/';
         } else if (/reusable-webcomponents-development\/master/.test(window.location.href)) {
@@ -92,7 +95,9 @@ function getScriptUrl(jsFilename) {
             folder = `-development/${getValue('libraryFeatureBranchName')}/`;
         }
     }
-    return getValue('libraryAssetsRootLocation') + folder + jsFilename;
+    const s = getValue('libraryAssetsRootLocation') + folder + jsFilename;
+    console.log('getScriptUrl=', s);
+    return s;
 }
 
 function loadDrupalScripts() {
