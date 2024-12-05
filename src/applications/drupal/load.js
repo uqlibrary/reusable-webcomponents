@@ -85,7 +85,7 @@ function isITSExternalHosting() {
 }
 
 function isStagingSite() {
-    const validHosts = [libraryProductionDomain, libraryStagingDomain, libraryLiveDomain];
+    const validHosts = [libraryStagingDomain, libraryLiveDomain];
     return validHosts.includes(window.location.host) || isITSExternalHosting();
 }
 
