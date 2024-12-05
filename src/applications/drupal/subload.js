@@ -1,11 +1,12 @@
+/*
+ * this file is included by load.js and can be pulled from different branches
+ * some functions are defined in that file
+ */
 function getValueLocal(param) {
     // don't set global constants, it makes it hard to run the script manually
     const lookup = {
         libraryFeatureBranchName: 'drupal-staging',
         libraryAssetsRootLocation: 'https://assets.library.uq.edu.au/reusable-webcomponents',
-        libraryProductionDomain: 'web.library.uq.edu.au',
-        libraryStagingDomain: 'web-staging.library.uq.edu.au',
-        library2024DevDomain: 'web-live.library.uq.edu.au',
         // certain admin pages in drupal don't take the webcomponents because they interact badly
         libraryPagesWithoutComponents: [
             '/src/applications/drupal/pageWithoutComponents.html', // localhost test this concept

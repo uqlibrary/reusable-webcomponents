@@ -1,6 +1,12 @@
+/*
+ * this determines what environment to load from
+ */
 function getValue(param) {
-    // don't set global constants, it makes it hard to run the script manually
+    // to avoid setting global constants, as it makes it hard to run the script manually
     const lookup = {
+        libraryProductionDomain: 'web.library.uq.edu.au',
+        libraryStagingDomain: 'web-staging.library.uq.edu.au',
+        library2024DevDomain: 'web-live.library.uq.edu.au',
         libraryFeatureBranchName: 'drupal-staging',
     };
 
@@ -16,7 +22,7 @@ function getSearchParam(name, value) {
 
 function readyDrupal(fn) {
     if (getSearchParam('override') === 'yes' && getSearchParam('skipScript') === 'yes') {
-        // to stop reusable being loaded, call it like this:
+        // to stop reusable being loaded, load Drupal like this:
         // https://web.library.uq.edu.au/?override=yes&skipScript=yes
         // You can then manually load things in the console
         return;
@@ -39,6 +45,25 @@ function insertScript(url, defer = false) {
     script.setAttribute('src', url);
     !!defer && script.setAttribute('defer', '');
     !!head && head.appendChild(script);
+}
+
+function isITSExternalHosting() {
+    return window.location.hostname.endsWith('-library-uq.pantheonsite.io');
+}
+
+function isStagingSite() {
+    const validHosts = [getValue('libraryStagingDomain'), getValue('library2024DevDomain')];
+    return validHosts.includes(window.location.host) || isITSExternalHosting();
+}
+
+function isValidDrupalHost() {
+    const validHosts = [
+        getValueLocal('libraryProductionDomain'),
+        getValueLocal('libraryStagingDomain'),
+        getValueLocal('library2024DevDomain'),
+        'localhost:8080',
+    ];
+    return validHosts.includes(window.location.host) || isITSExternalHosting();
 }
 
 function getScriptUrl(jsFilename) {
