@@ -8,6 +8,14 @@ function getValue(param) {
         libraryStagingDomain: 'web-staging.library.uq.edu.au',
         library2024DevDomain: 'web-live.library.uq.edu.au',
         libraryFeatureBranchName: 'drupal-staging',
+        libraryAssetsRootLocation: 'https://assets.library.uq.edu.au/reusable-webcomponents',
+        // certain admin pages in drupal don't take the webcomponents because they interact badly
+        libraryPagesWithoutComponents: [
+            '/src/applications/drupal/pageWithoutComponents.html', // localhost test this concept
+            '/ckfinder/browse',
+            '/ckfinder/browse/images',
+            '/ckfinder/browse/files',
+        ],
     };
 
     return lookup[param] || '';
@@ -58,9 +66,9 @@ function isStagingSite() {
 
 function isValidDrupalHost() {
     const validHosts = [
-        getValueLocal('libraryProductionDomain'),
-        getValueLocal('libraryStagingDomain'),
-        getValueLocal('library2024DevDomain'),
+        getValue('libraryProductionDomain'),
+        getValue('libraryStagingDomain'),
+        getValue('library2024DevDomain'),
         'localhost:8080',
     ];
     return validHosts.includes(window.location.host) || isITSExternalHosting();
@@ -73,7 +81,6 @@ function getScriptUrl(jsFilename) {
 
     let folder = '/'; // default. Use for prod.
 
-    const libraryAssetsRootLocation = 'https://assets.library.uq.edu.au/reusable-webcomponents';
     if (isStagingSite()) {
         folder = `-development/${getValue('libraryFeatureBranchName')}/`;
     } else if (window.location.hostname === 'assets.library.uq.edu.au') {
@@ -82,10 +89,10 @@ function getScriptUrl(jsFilename) {
         } else if (/reusable-webcomponents-development\/master/.test(window.location.href)) {
             folder = '-development/master/';
         } else {
-            folder = `-development/${libraryFeatureBranchName}/`;
+            folder = `-development/${getValue('libraryFeatureBranchName')}/`;
         }
     }
-    return libraryAssetsRootLocation + folder + jsFilename;
+    return getValue('libraryAssetsRootLocation') + folder + jsFilename;
 }
 
 function loadDrupalScripts() {

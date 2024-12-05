@@ -2,23 +2,6 @@
  * this file is included by load.js and can be pulled from different branches
  * some functions are defined in that file
  */
-function getValueLocal(param) {
-    // don't set global constants, it makes it hard to run the script manually
-    const lookup = {
-        libraryFeatureBranchName: 'drupal-staging',
-        libraryAssetsRootLocation: 'https://assets.library.uq.edu.au/reusable-webcomponents',
-        // certain admin pages in drupal don't take the webcomponents because they interact badly
-        libraryPagesWithoutComponents: [
-            '/src/applications/drupal/pageWithoutComponents.html', // localhost test this concept
-            '/ckfinder/browse',
-            '/ckfinder/browse/images',
-            '/ckfinder/browse/files',
-        ],
-    };
-
-    return lookup[param] || '';
-}
-
 function ready(fn) {
     if (document.readyState !== 'loading') {
         fn();
@@ -81,13 +64,13 @@ function loadReusableComponentsDrupal() {
     insertFontFile('https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css');
     insertFontFile('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
 
-    if (isValidDrupalHost() && getValueLocal('libraryPagesWithoutComponents').includes(window.location.pathname)) {
+    if (isValidDrupalHost() && getValue('libraryPagesWithoutComponents').includes(window.location.pathname)) {
         return;
     }
 
-    const stagingLocation = `-development/${getValueLocal('libraryFeatureBranchName')}`;
+    const stagingLocation = `-development/${getValue('libraryFeatureBranchName')}`;
     const cssFile =
-        getValueLocal('libraryAssetsRootLocation') +
+        getValue('libraryAssetsRootLocation') +
         (isStagingSite() ? stagingLocation : '') +
         '/applications/drupal/custom-styles.css';
     insertCssFile(cssFile);
