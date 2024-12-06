@@ -94,16 +94,11 @@ chatbotIframeTemplate.innerHTML = `<div
 const PROACTIVE_CHAT_HIDDEN_COOKIE_NAME = 'UQ_PROACTIVE_CHAT';
 const PROACTIVE_CHAT_HIDDEN_COOKIE_VALUE = 'hidden';
 
-// CAForceHideMobile forces the proactive chat to not show if the Cultural Advice statement is showing.
-// (Stops both windows overlapping)
-// Handled by attribute "CAforceHideMobile" applied to component
-// if attribute exists when time to show, also apply .forceHideMobile class to component.
-let CAforceHideMobile = false;
 let ShowChatBot = false;
 
 class ProactiveChat extends HTMLElement {
     static get observedAttributes() {
-        return ['caforcehidemobile', 'showchatbot'];
+        return ['showchatbot'];
     }
     constructor() {
         super();
@@ -133,7 +128,6 @@ class ProactiveChat extends HTMLElement {
 
         if (this.displayType === 'inline') {
             const proactiveChatElement = shadowDOM.getElementById('proactive-chat');
-            !!proactiveChatElement && proactiveChatElement.classList.remove('ca-force-hide-mobile');
             !!proactiveChatElement && proactiveChatElement.classList.add('show');
             !!proactiveChatElement && proactiveChatElement.classList.add('displayinline');
             const wrapper = shadowDOM.getElementById('proactive-chat-wrapper');
@@ -159,9 +153,6 @@ class ProactiveChat extends HTMLElement {
                 case 'showchatbot':
                     ShowChatBot = newValue === 'true' ? true : false;
                     break;
-                case 'caforcehidemobile':
-                    CAforceHideMobile = newValue === 'true' ? true : false;
-                    break;
                 /* istanbul ignore next  */
                 default:
                     console.log(`unhandled attribute ${fieldName} received for ProactiveChat`);
@@ -169,13 +160,6 @@ class ProactiveChat extends HTMLElement {
             // Change the attribs here?
             const proactiveChatElement = that.shadowRoot.getElementById('proactive-chat');
             const minimisedButtonsElement = that.shadowRoot.getElementById('minimised-buttons');
-            if (CAforceHideMobile) {
-                !!proactiveChatElement && proactiveChatElement.classList.add('ca-force-hide-mobile');
-                !!minimisedButtonsElement && minimisedButtonsElement.classList.add('ca-force-hide-mobile');
-            } else {
-                !!proactiveChatElement && proactiveChatElement.classList.remove('ca-force-hide-mobile');
-                !!minimisedButtonsElement && minimisedButtonsElement.classList.remove('ca-force-hide-mobile');
-            }
 
             if (ShowChatBot) {
                 const button = that.shadowRoot.getElementById('proactive-chat-button-open');
@@ -201,11 +185,6 @@ class ProactiveChat extends HTMLElement {
                 return;
             }
             const proactiveChatElement = shadowRoot.getElementById('proactive-chat');
-            if (CAforceHideMobile) {
-                !!proactiveChatElement && proactiveChatElement.classList.add('ca-force-hide-mobile');
-            } else {
-                !!proactiveChatElement && proactiveChatElement.classList.remove('ca-force-hide-mobile');
-            }
             !!proactiveChatElement && proactiveChatElement.classList.add('show');
         };
         const showProactiveChatWrapper = () => {
@@ -321,6 +300,7 @@ class ProactiveChat extends HTMLElement {
             that.chatbotHasAppeared = true;
 
             if (that.displayType === 'inline') {
+                // find the corner chat instance on the page
                 const proactiveChatElement = document.querySelectorAll('proactive-chat:not([display="inline"])');
                 !!proactiveChatElement &&
                     proactiveChatElement.length > 0 &&
@@ -422,11 +402,6 @@ class ProactiveChat extends HTMLElement {
             !!offlineMinimisedButton && (offlineMinimisedButton.style.display = 'none');
 
             const proactiveChatElement = shadowDOM.getElementById('proactive-chat');
-            if (CAforceHideMobile) {
-                !!proactiveChatElement && proactiveChatElement.classList.add('ca-force-hide-mobile');
-            } else {
-                !!proactiveChatElement && proactiveChatElement.classList.remove('ca-force-hide-mobile');
-            }
             !!proactiveChatElement && proactiveChatElement.classList.add('show');
         };
 
