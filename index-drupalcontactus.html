@@ -75,6 +75,7 @@
         <script type="text/javascript" src="applications/drupal/load.js"></script>
         <script>
             console.log('============================');
+            console.log('CHECK BRANCH-SPECIFIC LOADER WORKS');
             const prodUrl = getScriptUrl('applications/drupal/subload.js', 'web.library.uq.edu.au');
             if ('https://assets.library.uq.edu.au/reusable-webcomponents/applications/drupal/subload.js' === prodUrl) {
                 console.log('prod good', prodUrl)

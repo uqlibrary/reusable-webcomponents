@@ -5,7 +5,7 @@ function getSearchParam(name, value) {
     return params.get(name);
 }
 
-function readyGuidesLoad(fn) {
+function ready(fn) {
     if (getSearchParam('override') === 'on' && getSearchParam('skipScript') === 'yes') {
         // to stop reusable being loaded, call it like this.
         // https://guides.library.uq.edu.au/?override=on&skipScript=yes
@@ -19,23 +19,45 @@ function readyGuidesLoad(fn) {
     }
 }
 
-function insertScript(url, defer = false) {
-    const scriptfound = document.querySelector("script[src*='" + url + "']");
-    if (!!scriptfound) {
-        return;
+const isInEditMode = () => {
+    if (window.location.hostname === 'localhost') {
+        return false;
     }
-    const head = document.querySelector('head');
-    const script = document.createElement('script');
-    script.setAttribute('type', 'text/javascript');
-    script.setAttribute('src', url);
-    !!defer && script.setAttribute('defer', '');
-    !!head && head.appendChild(script);
+    // guides is edited on springshare domain, with our looknfeel.
+    // Don't include some elements - they are distracting to the admin
+    if (window.location.href.includes('uq.edu.au')) {
+        return false;
+    }
+    return true;
+};
+
+function createSlotForButtonInUtilityArea(button, id = null) {
+    const slot = document.createElement('span');
+    !!slot && slot.setAttribute('slot', 'site-utilities');
+    !!slot && !!id && slot.setAttribute('id', id);
+    !!button && !!slot && slot.appendChild(button);
+
+    return slot;
 }
 
-function isStaging() {
-    // guides does not have a staging environment, but we can force a load from assets staging by calling it like this:
-    // https://guides.library.uq.edu.au/?override=on&useStaging=yes
-    return getSearchParam('override') === 'on' && getSearchParam('useStaging') === 'yes';
+function createAuthButton() {
+    if (!!document.querySelector('auth-button')) {
+        return false;
+    }
+
+    const authButton = document.createElement('auth-button');
+    const slot = !!authButton && createSlotForButtonInUtilityArea(authButton, 'auth');
+
+    return slot;
+}
+
+function fontLoader(font) {
+    var headID = document.getElementsByTagName('head')[0];
+    var link = document.createElement('link');
+    link.type = 'text/css';
+    link.rel = 'stylesheet';
+    headID.appendChild(link);
+    link.href = font;
 }
 
 function getScriptUrl(jsFilename, _overrideHost = null, _overridePathname = null, _overrideHref = null) {
@@ -79,8 +101,29 @@ function getPathnameRoot(pathname) {
     const firstTwoLevels = parts.slice(1, 3);
     return '/' + firstTwoLevels.join('/') + '/';
 }
-function loadGuidesScript() {
+function insertScript(url, defer = false, onloadCallback = null) {
+    const scriptfound = document.querySelector("script[src*='" + url + "']");
+    if (!!scriptfound) {
+        return;
+    }
+    const head = document.querySelector('head');
+    const script = document.createElement('script');
+    script.setAttribute('type', 'text/javascript');
+    script.setAttribute('src', url);
+
+    !!defer && script.setAttribute('defer', '');
+
+    !!head && head.appendChild(script);
+}
+
+function isStaging() {
+    // guides does not have a staging environment, but we can force a load from assets staging by calling it like this:
+    // https://guides.library.uq.edu.au/?override=on&useStaging=yes
+    return getSearchParam('override') === 'on' && getSearchParam('useStaging') === 'yes';
+}
+
+function loadReusableComponentsLibGuides() {
     insertScript(getScriptUrl('applications/libguides/subload.js'), true);
 }
 
-readyGuidesLoad(loadGuidesScript);
+ready(loadReusableComponentsLibGuides);
