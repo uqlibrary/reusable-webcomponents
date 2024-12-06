@@ -7,8 +7,6 @@ function getValue(param) {
         libraryProductionDomain: 'web.library.uq.edu.au',
         libraryStagingDomain: 'web-staging.library.uq.edu.au',
         library2024DevDomain: 'web-live.library.uq.edu.au',
-        // libraryFeatureBranchName: 'drupal-staging',
-        libraryFeatureBranchName: 'webpresence-working', // debug only!!!!
         libraryAssetsRootLocation: 'https://assets.library.uq.edu.au/reusable-webcomponents',
         // certain admin pages in drupal don't take the webcomponents because they interact badly
         libraryPagesWithoutComponents: [
@@ -30,9 +28,9 @@ function getSearchParam(name, value) {
 }
 
 function readyDrupal(fn) {
-    if (getSearchParam('override') === 'yes' && getSearchParam('skipScript') === 'yes') {
+    if (getSearchParam('override') === 'on' && getSearchParam('skipScript') === 'yes') {
         // to stop reusable being loaded, load Drupal like this:
-        // https://web.library.uq.edu.au/?override=yes&skipScript=yes
+        // https://web.library.uq.edu.au/find-and-borrow?override=on&skipScript=yes
         // You can then manually load things in the console
         return;
     }
@@ -75,29 +73,39 @@ function isValidDrupalHost() {
     return validHosts.includes(window.location.host) || isITSExternalHosting();
 }
 
-function getScriptUrl(jsFilename) {
-    if (window.location.host === 'localhost:8080') {
+function getScriptUrl(jsFilename, _overrideHost = null, _overrideHref = null) {
+    const overrideHost = _overrideHost === null ? window.location.host : _overrideHost;
+    const overrideHref = _overrideHref === null ? window.location.href : _overrideHref;
+
+    // const libraryFeatureBranchName = 'drupal-staging';
+    const libraryFeatureBranchName = 'webpresence-working'; // debug only!!!!
+
+    // we determine the location to draw the file from according to the current location
+    if (overrideHost === 'localhost:8080') {
         return 'http://localhost:8080/' + jsFilename;
     }
 
-    let folder = '/'; // default. Use for prod.
-
+    const assetsHostname = 'assets.library.uq.edu.au';
+    const assetsRoot = 'https://' + assetsHostname;
     if (isStagingSite()) {
-        console.log('drupal sdtaging');
-        folder = `-development/${getValue('libraryFeatureBranchName')}/`;
-    } else if (window.location.hostname === 'assets.library.uq.edu.au') {
-        console.log('dev');
-        if (/reusable-webcomponents-staging/.test(window.location.href)) {
-            folder = '-staging/';
-        } else if (/reusable-webcomponents-development\/master/.test(window.location.href)) {
-            folder = '-development/master/';
-        } else {
-            folder = `-development/${getValue('libraryFeatureBranchName')}/`;
-        }
+        // drupal staging sites pull from the test feature branch
+        return assetsRoot + '/reusable-webcomponents-development/' + `${libraryFeatureBranchName}/` + jsFilename;
     }
-    const s = getValue('libraryAssetsRootLocation') + folder + jsFilename;
-    console.log('getScriptUrl=', s);
-    return s;
+    if (overrideHost === assetsHostname && /reusable-webcomponents-staging/.test(overrideHref)) {
+        // a test on staging branch gets staging version
+        return assetsRoot + '/reusable-webcomponents-staging/' + jsFilename;
+    }
+    if (overrideHost === assetsHostname && /reusable-webcomponents-development\/master/.test(overrideHref)) {
+        // a test on master branch gets master version
+        return assetsRoot + '/reusable-webcomponents-development/master/' + jsFilename;
+    }
+    if (overrideHost === assetsHostname) {
+        // a test on any feature branch get all other branches get the feature branch
+        // eg https://assets.library.uq.edu.au/reusable-webcomponents-development/webpresence-working/index-drupalcontactus.html
+        return assetsRoot + '/reusable-webcomponents-development/' + `${libraryFeatureBranchName}` + '/' + jsFilename;
+    }
+    // drupal production
+    return assetsRoot + '/reusable-webcomponents/' + jsFilename;
 }
 
 function loadDrupalScripts() {

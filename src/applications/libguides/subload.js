@@ -1,3 +1,7 @@
+/*
+ * this file is included by load.js and can be pulled from different branches
+ * some functions are defined in that file
+ */
 function ready(fn) {
     if (document.readyState !== 'loading') {
         fn();
@@ -47,7 +51,37 @@ function fontLoader(font) {
     link.href = font;
 }
 
+function insertFontFile(fontFileFullLink) {
+    const headID = document.getElementsByTagName('head')[0];
+    const link = document.createElement('link');
+    link.type = 'text/css';
+    link.rel = 'stylesheet';
+    !!headID && headID.appendChild(link);
+    link.href = fontFileFullLink;
+}
+
+function insertCssFile(fileName) {
+    const head = document.head;
+    const link = document.createElement('link');
+    link.type = 'text/css';
+    link.rel = 'stylesheet';
+    link.href = fileName;
+
+    head.appendChild(link);
+}
+
 function loadGuidesComponents() {
+    insertScript(getScriptUrl('uq-lib-reusable.min.js'), true);
+
+    insertFontFile('https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700');
+
+    const assetsRoot = 'https://assets.library.uq.edu.au';
+    const cssLocation = '/applications/libguides/custom-styles.css';
+    const cssFile = isStaging()
+        ? assetsRoot + '/reusable-webcomponents-staging' + cssLocation
+        : assetsRoot + '/reusable-webcomponents' + cssLocation;
+    insertCssFile(cssFile);
+
     fontLoader('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
     fontLoader('https://static.uq.net.au/v15/fonts/Merriweather/merriweather.css');
     fontLoader('https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css');
@@ -73,6 +107,7 @@ function loadGuidesComponents() {
 
         // get list of breadcrumbs from guides nav
         const breadcrumbNav = document.getElementById('s-lib-bc');
+        console.log('breadcrumbNav=', breadcrumbNav);
         const listItems = !!breadcrumbNav && breadcrumbNav.querySelectorAll('ol li');
         const breadcrumbData = [];
         !!listItems &&
@@ -92,7 +127,8 @@ function loadGuidesComponents() {
                 }
             });
 
-        const breadcrumbParent = siteHeader.shadowRoot.getElementById('breadcrumb_nav');
+        const shadowRoot = siteHeader.shadowRoot;
+        const breadcrumbParent = !!shadowRoot && shadowRoot.getElementById('breadcrumb_nav');
         !!breadcrumbParent &&
             breadcrumbData.length > 0 &&
             breadcrumbData.forEach((gb) => {
