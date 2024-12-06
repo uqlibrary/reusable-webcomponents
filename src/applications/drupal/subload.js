@@ -89,7 +89,7 @@ function loadReusableComponentsDrupal() {
     addUtilityButtonsToSiteHeader();
 
     // Proactive Chat button
-    if (!document.querySelector('proactive-chat')) {
+    if (!document.querySelector('proactive-chat:not([display="inline"])')) {
         const proactiveChat = document.createElement('proactive-chat');
         !!proactiveChat && document.body.insertBefore(proactiveChat, firstElement);
     }
