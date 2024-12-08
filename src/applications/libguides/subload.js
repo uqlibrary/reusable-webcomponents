@@ -3,6 +3,8 @@ fontLoader('https://static.uq.net.au/v15/fonts/Merriweather/merriweather.css');
 fontLoader('https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css');
 fontLoader('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
 
+insertScript(getScriptUrl('uq-lib-reusable.min.js'), true);
+
 const firstElement = document.body.children[0];
 
 const gtm = document.createElement('uq-gtm');
