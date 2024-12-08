@@ -115,8 +115,16 @@ button.proactive-chat-button:focus {
     transition-duration: 0.2s;
     transition-property: background-color;
 }
+.pcminimised .pconline svg {
+    stroke: white;
+    margin-left: -2px; /* why is this off center?!?! */
+}
 .pcminimised .pconline:hover {
-    background-color: #745095; /* purple-400 */
+    background-color: white;
+    border: 1px solid #51247a;
+}
+.pcminimised .pconline:hover svg {
+    stroke: #51247a;
 }
 
 .pcOffline {
