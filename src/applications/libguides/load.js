@@ -1,4 +1,17 @@
+function getSearchParam(name, value) {
+    const url = window.location.href;
+    const urlObj = new URL(url);
+    const params = new URLSearchParams(urlObj.search);
+    return params.get(name);
+}
+
 function ready(fn) {
+    if (getSearchParam('override') === 'on' && getSearchParam('skipScript') === 'yes') {
+        // to stop reusable being loaded, call it like this.
+        // https://guides.library.uq.edu.au/?override=on&skipScript=yes
+        // You can then manually load things in the console
+        return;
+    }
     if (document.readyState !== 'loading') {
         fn();
     } else {
@@ -58,11 +71,52 @@ function fontLoader(font) {
     link.href = font;
 }
 
+function insertScript(url, defer = false) {
+    const scriptfound = document.querySelector("script[src*='" + url + "']");
+    if (!!scriptfound) {
+        console.log('script FOUND: ', url);
+        return;
+    }
+    const script = document.createElement('script');
+    script.setAttribute('type', 'text/javascript');
+    script.setAttribute('src', url);
+    !!defer && script.setAttribute('defer', '');
+
+    const head = document.head;
+    console.log('insert script: ', url);
+    !!head && head.appendChild(script);
+}
+
+function addCss(fileName) {
+    const scriptfound = document.querySelector("link[href*='" + fileName + "']");
+    if (!!scriptfound) {
+        console.log('css FOUND: ', link);
+        return;
+    }
+
+    const link = document.createElement('link');
+    link.type = 'text/css';
+    link.rel = 'stylesheet';
+    link.href = fileName;
+
+    console.log('insert css: ', link);
+    const head = document.head;
+    !!head && head.appendChild(link);
+}
+
 function loadReusableComponentsLibGuides() {
+    fontLoader('https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700');
     fontLoader('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
     fontLoader('https://static.uq.net.au/v15/fonts/Merriweather/merriweather.css');
     fontLoader('https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css');
     fontLoader('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
+
+    const script =
+        window.location.hostname === 'localhost'
+            ? '/uq-lib-reusable.min.js'
+            : 'https://assets.library.uq.edu.au/reusable-webcomponents/uq-lib-reusable.min.js';
+    insertScript(script, true);
+    addCss('https://assets.library.uq.edu.au/reusable-webcomponents/applications/libguides/custom-styles.css');
 
     const firstElement = document.body.children[0];
 
