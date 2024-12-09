@@ -74,6 +74,7 @@ function fontLoader(font) {
 function insertScript(url, defer = false) {
     const scriptfound = document.querySelector("script[src*='" + url + "']");
     if (!!scriptfound) {
+        console.log('script FOUND: ', url);
         return;
     }
     const script = document.createElement('script');
@@ -89,6 +90,7 @@ function insertScript(url, defer = false) {
 function addCss(fileName) {
     const scriptfound = document.querySelector("link[href*='" + fileName + "']");
     if (!!scriptfound) {
+        console.log('css FOUND: ', link);
         return;
     }
 
