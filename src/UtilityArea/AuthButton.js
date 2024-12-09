@@ -472,6 +472,16 @@ class AuthButton extends HTMLElement {
             const username = shadowDOM.getElementById('username-area-label');
             !!username && username.classList.add('menu-open');
 
+            let bottomPosition = 41;
+            if (window.innerWidth <= 390) {
+                const utilityBar = document.querySelector('uq-site-header');
+
+                // Get the bottom position of the utilityBar element
+                const childRect = utilityBar.getBoundingClientRect();
+                bottomPosition = childRect?.bottom;
+            }
+            !!bottomPosition && !!accountMenu && (accountMenu.style.top = `${bottomPosition}px`);
+
             function showDisplay() {
                 !!accountMenu && accountMenu.classList.remove('account-options-menu-closed');
                 !!backgroundPane && backgroundPane.classList.remove('account-options-pane-closed');
