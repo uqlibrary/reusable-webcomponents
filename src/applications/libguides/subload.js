@@ -97,12 +97,12 @@ function moveSpringshareBreadcrumbsToSiteHeader() {
 
         function breadcrumblink(b) {
             return `<li class="uq-breadcrumb__item">
-                <a class="uq-breadcrumb__link" href="${b.href}">${b.title}</a>
+                <a class="uq-breadcrumb__link" title="${b.title}" href="${b.href}">${b.title}</a>
                 </li>`;
         }
         function breadcrumbSpan(title) {
             return `<li class="uq-breadcrumb__item">
-                <span class="uq-breadcrumb__link">${title}</span>
+                <span class="uq-breadcrumb__link" title="${title}">${title}</span>
                 </li>`;
         }
         function isNotHomepage(href) {
