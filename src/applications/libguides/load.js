@@ -105,8 +105,8 @@ if (typeof window.getIncludeFullPath !== 'function') {
         // temp code for 2024 dev
         if (getSearchParam('override') === 'on' && getSearchParam('useAlternate') === 'working') {
             const s1 = assetsRoot + '/reusable-webcomponents-development/webpresence-working/' + includeFilename;
-            console.log('working', s);
-            return s;
+            console.log('working', s1);
+            return s1;
         }
 
         if (overrideHost === assetsHostname && /reusable-webcomponents-staging/.test(overrideHref)) {
