@@ -98,8 +98,15 @@ if (typeof window.getIncludeFullPath !== 'function') {
             return '/' + includeFilename;
         }
         if (useStaging()) {
-            // no actual staging on guides, override must be on
+            // we don't have a staging environemnt on guides, so we use this override to test things
             return assetsRoot + '/reusable-webcomponents-staging/' + includeFilename;
+        }
+
+        // temp code for 2024 dev
+        if (getSearchParam('override') === 'on' && getSearchParam('useAlternate') === 'working') {
+            const s1 = assetsRoot + '/reusable-webcomponents-development/webpresence-working/' + includeFilename;
+            console.log('working', s);
+            return s;
         }
 
         if (overrideHost === assetsHostname && /reusable-webcomponents-staging/.test(overrideHref)) {
