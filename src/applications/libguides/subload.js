@@ -4,9 +4,9 @@ fontLoader('https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css');
 fontLoader('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
 
 let scriptUrl = getIncludeFullPath('uq-lib-reusable.min.js');
-console.log('scriptUrl=', scriptUrl);
+console.log('real (unused) scriptUrl=', scriptUrl);
 // 2024 test on feature, use staging longer term
-if (getSearchParam('override') === 'on' && getSearchParam('useAlternate') === 'working') {
+if (getSearchParam2('override') === 'on' && getSearchParam2('useAlternate') === 'working') {
     // eg https://guides.library.uq.edu.au/how-to-find/news-and-newspapers?override=on&useAlternate=working
     scriptUrl = getIncludeFullPath(
         'uq-lib-reusable.min.js',
@@ -14,14 +14,13 @@ if (getSearchParam('override') === 'on' && getSearchParam('useAlternate') === 'w
         '/reusable-webcomponents-development/webpresence-working/index-guides.html',
         'https://assets.library.uq.edu.au/reusable-webcomponents-development/webpresence-working/index-guides.html',
     );
-    console.log('scriptUrl=', scriptUrl);
+    console.log('working scriptUrl=', scriptUrl);
     // 'https://assets.library.uq.edu.au/reusable-webcomponents-development/webpresence-working/uq-lib-reusable.min.js';
 }
-insertScript(scriptUrl, true);
+insertScript2(scriptUrl, true);
 
-// css
 let cssFile = getIncludeFullPath('applications/libguides/custom-styles.css');
-if (getSearchParam('override') === 'on' && getSearchParam('useAlternate') === 'working') {
+if (getSearchParam2('override') === 'on' && getSearchParam2('useAlternate') === 'working') {
     // 2024 test
     cssFile = scriptUrl = getIncludeFullPath(
         'applications/libguides/custom-styles.css',
@@ -47,7 +46,7 @@ const siteHeader = document.createElement('uq-site-header');
 !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
 
 if (!isInEditMode2()) {
-    const authButton = createAuthButton();
+    const authButton = createAuthButton2();
     !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
 
     moveSpringshareBreadcrumbsToSiteHeader();
