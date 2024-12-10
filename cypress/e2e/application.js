@@ -9,24 +9,12 @@ describe('Dummy Application', () => {
             cy.get('uq-header').shadow().find('button[data-testid="skip-nav"]').should('exist');
             // has an auth button
             cy.get('auth-button').shadow().find('button:contains("Log out")').should('exist');
-            // // has a mega menu
-            // // the menu appears on click
-            // cy.get('uq-site-header').shadow().find('nav[aria-label="Site navigation"]').should('be.visible');
-            // // and has the correct children
-            // cy.get('uq-site-header')
-            //     .shadow()
-            //     .find('nav[aria-label="Site navigation"]')
-            //     .find('ul')
-            //     .should('have.length', 7); // length of the megamenu .json
+            hasCulturalAdviceBanner();
         });
     });
 
     function hasUqHeader() {
         cy.get('uq-header').shadow().find('[data-testid="uq-header-logo-large-link"]').should('exist');
-    }
-
-    function hasCulturalAdvice() {
-        cy.get('cultural-advice-v2').shadow().find('[data-testid="cultural-advice-statement"]').should('exist');
     }
 
     function hasNoUqHeader() {
@@ -135,19 +123,16 @@ describe('Dummy Application', () => {
             .and('contain', username);
     }
 
-    function hasCulturalAdvicePopup() {
+    function hasCulturalAdviceBanner() {
         cy.waitUntil(() =>
             cy
-                .get('cultural-advice-popup')
+                .get('cultural-advice')
                 .shadow()
-                .find('#cultural-advice-content')
+                .find('.culturaladvice')
                 .should('exist')
-                .should('be.visible'),
+                .should('be.visible')
+                .contains('The Library is custodian of'),
         );
-        cy.get('cultural-advice-popup')
-            .shadow()
-            .find('#cultural-advice-content')
-            .should('contain', 'Aboriginal and Torres Strait Islander peoples are advised');
     }
 
     context('app.library.uq.edu.au works as expected', () => {
@@ -270,6 +255,8 @@ describe('Dummy Application', () => {
                     cy.get('#s-lib-bc').should('not.exist');
                 });
 
+            hasCulturalAdviceBanner();
+
             proactiveChatLoadsAsIcon();
             hasAuthButton();
 
@@ -308,7 +295,7 @@ describe('Dummy Application', () => {
 
             //hasNoUqHeader(); // drupal supplies that
 
-            hasCulturalAdvice();
+            hasCulturalAdviceBanner();
 
             // we use the drupal utility bar instead of our uq-site-header and inject our auth button into it
             hasAuthButton();
@@ -398,7 +385,7 @@ describe('Dummy Application', () => {
 
             assert_homepage_link_is_to_uq();
 
-            // hasCulturalAdvicePopup();
+            hasCulturalAdviceBanner();
         });
 
         it('Sample detail page load works correctly', () => {
@@ -409,7 +396,7 @@ describe('Dummy Application', () => {
 
             assert_has_book_now_link();
 
-            //hasCulturalAdvicePopup();
+            hasCulturalAdviceBanner();
 
             // has cultural advice banner
             cy.get('.culturalAdviceBanner')
@@ -421,7 +408,7 @@ describe('Dummy Application', () => {
             cy.visit('http://localhost:8080/src/applications/atom/demo-listpage.html');
             cy.viewport(1280, 900);
             assert_homepage_link_is_to_uq();
-            //hasCulturalAdvicePopup();
+            hasCulturalAdviceBanner();
 
             // has cultural advice indicator, only on CA entries
             cy.get('#content article')

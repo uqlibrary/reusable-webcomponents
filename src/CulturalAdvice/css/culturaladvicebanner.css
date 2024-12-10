@@ -1,10 +1,10 @@
-.culturaladvicev2 {
+.culturaladvice {
     background: linear-gradient(90deg, #41215e 35.5%, rgba(65, 33, 94, 0) 100%),
         url(https://static.uq.net.au/v15/images/rap/brisbane-river-artwork.png) lightgray 50% / cover no-repeat;
     /* background-image: linear-gradient(90deg, #49206cd5 48.12%, #48206c00 70.31%), url(https://static.uq.net.au/v15/images/rap/brisbane-river-artwork.png); */
 }
 
-.culturaladvicev2 p {
+.culturaladvice p {
     /* padding-bottom: 12px;
     padding-top: 12px;
     letter-spacing: 0.16px;
@@ -26,7 +26,7 @@
     padding-bottom: 12px;
 }
 
-.culturaladvicev2 a {
+.culturaladvice a {
     color: white;
     font-family: Roboto;
     font-size: 16px;
@@ -37,7 +37,7 @@
     text-decoration-line: underline;
     transition: color 200ms ease-out, text-decoration 200ms ease-out, background-color 200ms ease-out;
 }
-.culturaladvicev2 a:hover {
+.culturaladvice a:hover {
     background-color: white;
     color: #41215e;
 }

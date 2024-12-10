@@ -116,5 +116,83 @@
                 </div>
             </div>
         </div>
+        <script>
+            console.log('============================');
+            console.log('##### WHEN _NOT_ OVERRIDING (use http://localhost:8080/index-guides.html)');
+            const prodUrl = getIncludeFullPath(
+                'applications/libguides/subload.js',
+                'guides.library.uq.edu.au',
+                null,
+                null,
+            );
+            if (
+                'https://assets.library.uq.edu.au/reusable-webcomponents/applications/libguides/subload.js' === prodUrl
+            ) {
+                console.log('prod good', prodUrl);
+            } else {
+                console.log('PROD BAD', prodUrl);
+            }
+            const stagingUrl = getIncludeFullPath(
+                'applications/libguides/subload.js',
+                'assets.library.uq.edu.au',
+                null,
+                'reusable-webcomponents-staging',
+            );
+            if (
+                'https://assets.library.uq.edu.au/reusable-webcomponents-staging/applications/libguides/subload.js' ===
+                stagingUrl
+            ) {
+                console.log('staging good', stagingUrl);
+            } else {
+                console.log('STAGING BAD', stagingUrl);
+            }
+            const masterUrl = getIncludeFullPath(
+                'applications/libguides/subload.js',
+                'assets.library.uq.edu.au',
+                null,
+                'reusable-webcomponents-development/master',
+            );
+            if (
+                'https://assets.library.uq.edu.au/reusable-webcomponents-development/master/applications/libguides/subload.js' ===
+                masterUrl
+            ) {
+                console.log('master good', masterUrl);
+            } else {
+                console.log('MASTER BAD', masterUrl);
+            }
+            const featureUrl = getIncludeFullPath(
+                'applications/libguides/subload.js',
+                'assets.library.uq.edu.au',
+                '/reusable-webcomponents-development/webpresence-working/index-guides.html',
+                'https://assets.library.uq.edu.au/reusable-webcomponents-development/webpresence-working/index-guides.html',
+            );
+            if (
+                'https://assets.library.uq.edu.au/reusable-webcomponents-development/webpresence-working/applications/libguides/subload.js' ===
+                featureUrl
+            ) {
+                console.log('feature good', featureUrl);
+            } else {
+                console.log('FEATURE BAD', featureUrl);
+            }
+            console.log('============================');
+            console.log(
+                '##### WHEN OVERRIDING (http://localhost:8080/index-guides.html?override=on&useAlternate=staging)',
+            );
+            const overrideUrl = getIncludeFullPath(
+                'applications/libguides/subload.js',
+                'assets.library.uq.edu.au',
+                null,
+                'reusable-webcomponents-staging',
+            );
+            if (
+                'https://assets.library.uq.edu.au/reusable-webcomponents-staging/applications/libguides/subload.js' ===
+                overrideUrl
+            ) {
+                console.log('faux staging good', overrideUrl);
+            } else {
+                console.log('FAUX STAGING BAD', overrideUrl);
+            }
+            console.log('============================');
+        </script>
     </body>
 </html>
