@@ -73,25 +73,25 @@
         <script>
             console.log('============================');
             console.log('CHECK BRANCH-SPECIFIC LOADER WORKS');
-            const prodUrl = getScriptUrl('applications/drupal/subload.js', 'web.library.uq.edu.au');
+            const prodUrl = getScriptPath('applications/drupal/subload.js', 'web.library.uq.edu.au');
             if ('https://assets.library.uq.edu.au/reusable-webcomponents/applications/drupal/subload.js' === prodUrl) {
                 console.log('prod good', prodUrl)
             } else {
                 console.log('PROD BAD', prodUrl)
             }
-            const stagingUrl = getScriptUrl('applications/drupal/subload.js', 'assets.library.uq.edu.au', 'reusable-webcomponents-staging');
+            const stagingUrl = getScriptPath('applications/drupal/subload.js', 'assets.library.uq.edu.au', 'reusable-webcomponents-staging');
             if ('https://assets.library.uq.edu.au/reusable-webcomponents-staging/applications/drupal/subload.js' === stagingUrl) {
                 console.log('staging good', stagingUrl)
             } else {
                 console.log('STAGING BAD', stagingUrl)
             }
-            const masterUrl = getScriptUrl('applications/drupal/subload.js', 'assets.library.uq.edu.au', 'reusable-webcomponents-development/master');
+            const masterUrl = getScriptPath('applications/drupal/subload.js', 'assets.library.uq.edu.au', 'reusable-webcomponents-development/master');
             if ('https://assets.library.uq.edu.au/reusable-webcomponents-development/master/applications/drupal/subload.js' === masterUrl) {
                 console.log('master good', masterUrl)
             } else {
                 console.log('MASTER BAD', masterUrl)
             }
-            const featureUrl = getScriptUrl('applications/drupal/subload.js', 'assets.library.uq.edu.au', 'https://assets.library.uq.edu.au/reusable-webcomponents-development/webpresence-working/index-drupalcontactus.html');
+            const featureUrl = getScriptPath('applications/drupal/subload.js', 'assets.library.uq.edu.au', 'https://assets.library.uq.edu.au/reusable-webcomponents-development/webpresence-working/index-drupalcontactus.html');
             if ('https://assets.library.uq.edu.au/reusable-webcomponents-development/webpresence-working/applications/drupal/subload.js' === featureUrl) {
                 console.log('feature good', featureUrl)
             } else {

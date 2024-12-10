@@ -56,8 +56,8 @@ function addCulturalAdviceToSite() {
 }
 
 function loadReusableComponentsDrupal() {
-    insertScript(getScriptUrl('drupal-lib-reusable.min.js'), true);
-    insertScript(getScriptUrl('uq-lib-reusable.min.js'), true);
+    insertScript(getScriptPath('drupal-lib-reusable.min.js'), true);
+    insertScript(getScriptPath('uq-lib-reusable.min.js'), true);
 
     insertFontFile('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
     insertFontFile('https://static.uq.net.au/v15/fonts/Merriweather/merriweather.css');
