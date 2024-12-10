@@ -1,157 +1,198 @@
 <!DOCTYPE html>
 <html style="padding: 0; margin: 0" lang="en">
-<head>
-    <title>Libguides</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v15/fonts/Roboto/roboto.css" />
-    <link
-        rel="stylesheet"
-        type="text/css"
-        href="https://static.uq.net.au/v15/fonts/Merriweather/merriweather.css"
-    />
-    <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css" />
-    <style>
-        .layout-card {
-            margin-left: 1rem;
-            margin-right: 1rem;
-            padding-left: 0.5rem;
-            padding-right: 0.5rem;
-        }
-
-        @media (min-width: 37.5rem) {
+    <head>
+        <title>Libguides</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+        <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v15/fonts/Roboto/roboto.css" />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://static.uq.net.au/v15/fonts/Merriweather/merriweather.css"
+        />
+        <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css" />
+        <style>
             .layout-card {
-                padding-left: 0.75rem;
-                padding-right: 0.75rem;
-                margin-left: 3.25rem;
-                margin-right: 3.25rem;
-                max-width: none;
+                margin-left: 1rem;
+                margin-right: 1rem;
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
             }
-        }
 
-        @media (min-width: 69.25rem) {
-            .layout-card {
-                margin-left: auto;
-                margin-right: auto;
-                max-width: 61.5rem;
+            @media (min-width: 37.5rem) {
+                .layout-card {
+                    padding-left: 0.75rem;
+                    padding-right: 0.75rem;
+                    margin-left: 3.25rem;
+                    margin-right: 3.25rem;
+                    max-width: none;
+                }
             }
-        }
 
-        @media (min-width: 80rem) {
-            .layout-card {
-                margin-left: 8.375rem;
-                margin-right: 8.375rem;
-                max-width: none;
-                padding-left: 1rem;
-                padding-right: 1rem;
+            @media (min-width: 69.25rem) {
+                .layout-card {
+                    margin-left: auto;
+                    margin-right: auto;
+                    max-width: 61.5rem;
+                }
             }
-        }
 
-        @media (min-width: 90rem) {
-            .layout-card {
-                margin-left: auto;
-                margin-right: auto;
-                max-width: 71rem;
-                padding-left: 1rem;
-                padding-right: 1rem;
+            @media (min-width: 80rem) {
+                .layout-card {
+                    margin-left: 8.375rem;
+                    margin-right: 8.375rem;
+                    max-width: none;
+                    padding-left: 1rem;
+                    padding-right: 1rem;
+                }
             }
-        }
-    </style>
-    <script type="text/javascript" src="/applications/libguides/load.js"></script>
-    <script type="text/javascript" src="/uq-lib-reusable.min.js"></script>
-</head>
-<body class="s-lg-guide-body" style="padding: 0; margin: 0; font-family: 'Roboto', sans-serif">
-<div id="container" class="layout-card">
-    <div id="s-lg-guide-header" class="container s-lib-header s-lib-side-borders">
-        <nav id="s-lib-bc" aria-label="breadcrumb">
-            <ol id="s-lib-bc-list" class="breadcrumb">
-                <li id="s-lib-bc-customer" class="breadcrumb-item">
-                    <a href="http://www.library.uq.edu.au/">Library Home</a>
-                </li>
-                <li id="s-lib-bc-site" class="breadcrumb-item">
-                    <a href="https://guides.library.uq.edu.au/">Library Guides</a>
-                </li>
-                <li id="s-lib-bc-group" class="breadcrumb-item">
-                    <a href="https://guides.library.uq.edu.au/how-to-find">How to find</a>
-                </li>
-                <li id="s-lib-bc-guide" class="breadcrumb-item">
-                    <a href="https://guides.library.uq.edu.au/how-to-find/evidence-based-practice"
-                    >Evidence-based practice in health sciences</a
-                    >
-                </li>
-                <li id="s-lib-bc-page" class="active breadcrumb-item">Introduction</li>
-            </ol>
-        </nav>
-        <div class="pull-right">
-            <div id="s-lg-guide-header-search">
-                <div id="s-lg-guide-search-box">
-                    <form
-                        role="search"
-                        id="s-lg-guide-search-form"
-                        action="https://guides.library.uq.edu.au/srch.php"
-                        method="GET"
-                    >
-                        <div class="input-group input-group-sm">
-                            <input
-                                type="text"
-                                id="s-lg-guide-search-terms"
-                                name="q"
-                                class="form-control"
-                                maxlength="260"
-                                placeholder="Search this Guide"
-                            />
-                            <label class="sr-only" for="s-lg-guide-search-terms">Search this Guide</label
-                            ><input type="hidden" name="guide_id" value="305351" /><span class="input-group-btn"
-                        ><button class="btn btn-default" type="submit">Go!</button></span
-                        >
+
+            @media (min-width: 90rem) {
+                .layout-card {
+                    margin-left: auto;
+                    margin-right: auto;
+                    max-width: 71rem;
+                    padding-left: 1rem;
+                    padding-right: 1rem;
+                }
+            }
+        </style>
+        <script type="text/javascript" src="/applications/libguides/load.js"></script>
+        <script type="text/javascript" src="/uq-lib-reusable.min.js"></script>
+    </head>
+    <body class="s-lg-guide-body" style="padding: 0; margin: 0; font-family: 'Roboto', sans-serif">
+        <div id="container" class="layout-card">
+            <div id="s-lg-guide-header" class="container s-lib-header s-lib-side-borders">
+                <nav id="s-lib-bc" aria-label="breadcrumb">
+                    <ol id="s-lib-bc-list" class="breadcrumb">
+                        <li id="s-lib-bc-customer" class="breadcrumb-item">
+                            <a href="http://www.library.uq.edu.au/">Library Home</a>
+                        </li>
+                        <li id="s-lib-bc-site" class="breadcrumb-item">
+                            <a href="https://guides.library.uq.edu.au/">Library Guides</a>
+                        </li>
+                        <li id="s-lib-bc-group" class="breadcrumb-item">
+                            <a href="https://guides.library.uq.edu.au/how-to-find">How to find</a>
+                        </li>
+                        <li id="s-lib-bc-guide" class="breadcrumb-item">
+                            <a href="https://guides.library.uq.edu.au/how-to-find/evidence-based-practice"
+                                >Evidence-based practice in health sciences</a
+                            >
+                        </li>
+                        <li id="s-lib-bc-page" class="active breadcrumb-item">Introduction</li>
+                    </ol>
+                </nav>
+                <div class="pull-right">
+                    <div id="s-lg-guide-header-search">
+                        <div id="s-lg-guide-search-box">
+                            <form
+                                role="search"
+                                id="s-lg-guide-search-form"
+                                action="https://guides.library.uq.edu.au/srch.php"
+                                method="GET"
+                            >
+                                <div class="input-group input-group-sm">
+                                    <input
+                                        type="text"
+                                        id="s-lg-guide-search-terms"
+                                        name="q"
+                                        class="form-control"
+                                        maxlength="260"
+                                        placeholder="Search this Guide"
+                                    />
+                                    <label class="sr-only" for="s-lg-guide-search-terms">Search this Guide</label
+                                    ><input type="hidden" name="guide_id" value="305351" /><span class="input-group-btn"
+                                        ><button class="btn btn-default" type="submit">Go!</button></span
+                                    >
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
+                </div>
+                <div id="s-lg-guide-header-info">
+                    <h1 id="s-lg-guide-name">Evidence-based practice in health sciences</h1>
+                    <div id="s-lg-guide-desc-container">
+                        <span id="s-lg-guide-description">Locating best evidence: a step by step approach</span>
+                    </div>
                 </div>
             </div>
         </div>
-        <div id="s-lg-guide-header-info">
-            <h1 id="s-lg-guide-name">Evidence-based practice in health sciences</h1>
-            <div id="s-lg-guide-desc-container">
-                <span id="s-lg-guide-description">Locating best evidence: a step by step approach</span>
-            </div>
-        </div>
-    </div>
-</div>
-<script>
-    console.log('============================');
-    console.log('##### WHEN _NOT_ OVERRIDING (use http://localhost:8080/index-guides.html)');
-    const prodUrl = getScriptUrl('applications/libguides/subload.js', 'guides.library.uq.edu.au', null, null);
-    if ('https://assets.library.uq.edu.au/reusable-webcomponents/applications/libguides/subload.js' === prodUrl) {
-        console.log('prod good', prodUrl)
-    } else {
-        console.log('PROD BAD', prodUrl)
-    }
-    const stagingUrl = getScriptUrl('applications/libguides/subload.js', 'assets.library.uq.edu.au', null, 'reusable-webcomponents-staging');
-    if ('https://assets.library.uq.edu.au/reusable-webcomponents-staging/applications/libguides/subload.js' === stagingUrl) {
-        console.log('staging good', stagingUrl)
-    } else {
-        console.log('STAGING BAD', stagingUrl)
-    }
-    const masterUrl = getScriptUrl('applications/libguides/subload.js', 'assets.library.uq.edu.au', null, 'reusable-webcomponents-development/master');
-    if ('https://assets.library.uq.edu.au/reusable-webcomponents-development/master/applications/libguides/subload.js' === masterUrl) {
-        console.log('master good', masterUrl);
-    } else {
-        console.log('MASTER BAD', masterUrl);
-    }
-    const featureUrl = getScriptUrl('applications/libguides/subload.js', 'assets.library.uq.edu.au', '/reusable-webcomponents-development/webpresence-working/index-guides.html', 'https://assets.library.uq.edu.au/reusable-webcomponents-development/webpresence-working/index-guides.html');
-    if ('https://assets.library.uq.edu.au/reusable-webcomponents-development/webpresence-working/applications/libguides/subload.js' === featureUrl) {
-        console.log('feature good', featureUrl)
-    } else {
-        console.log('FEATURE BAD', featureUrl)
-    }
-    console.log('============================');
-    console.log('##### WHEN OVERRIDING (http://localhost:8080/index-guides.html?override=on&useStaging=yes)');
-    const overrideUrl = getScriptUrl('applications/libguides/subload.js', 'assets.library.uq.edu.au', null, 'reusable-webcomponents-staging');
-    if ('https://assets.library.uq.edu.au/reusable-webcomponents-staging/applications/libguides/subload.js' === overrideUrl) {
-        console.log('faux staging good', overrideUrl)
-    } else {
-        console.log('FAUX STAGING BAD', overrideUrl)
-    }
-    console.log('============================');
-</script>
-</body>
+        <script>
+            console.log('============================');
+            console.log('##### WHEN _NOT_ OVERRIDING (use http://localhost:8080/index-guides.html)');
+            const prodUrl = getIncludeFullPath(
+                'applications/libguides/subload.js',
+                'guides.library.uq.edu.au',
+                null,
+                null,
+            );
+            if (
+                'https://assets.library.uq.edu.au/reusable-webcomponents/applications/libguides/subload.js' === prodUrl
+            ) {
+                console.log('prod good', prodUrl);
+            } else {
+                console.log('PROD BAD', prodUrl);
+            }
+            const stagingUrl = getIncludeFullPath(
+                'applications/libguides/subload.js',
+                'assets.library.uq.edu.au',
+                null,
+                'reusable-webcomponents-staging',
+            );
+            if (
+                'https://assets.library.uq.edu.au/reusable-webcomponents-staging/applications/libguides/subload.js' ===
+                stagingUrl
+            ) {
+                console.log('staging good', stagingUrl);
+            } else {
+                console.log('STAGING BAD', stagingUrl);
+            }
+            const masterUrl = getIncludeFullPath(
+                'applications/libguides/subload.js',
+                'assets.library.uq.edu.au',
+                null,
+                'reusable-webcomponents-development/master',
+            );
+            if (
+                'https://assets.library.uq.edu.au/reusable-webcomponents-development/master/applications/libguides/subload.js' ===
+                masterUrl
+            ) {
+                console.log('master good', masterUrl);
+            } else {
+                console.log('MASTER BAD', masterUrl);
+            }
+            const featureUrl = getIncludeFullPath(
+                'applications/libguides/subload.js',
+                'assets.library.uq.edu.au',
+                '/reusable-webcomponents-development/webpresence-working/index-guides.html',
+                'https://assets.library.uq.edu.au/reusable-webcomponents-development/webpresence-working/index-guides.html',
+            );
+            if (
+                'https://assets.library.uq.edu.au/reusable-webcomponents-development/webpresence-working/applications/libguides/subload.js' ===
+                featureUrl
+            ) {
+                console.log('feature good', featureUrl);
+            } else {
+                console.log('FEATURE BAD', featureUrl);
+            }
+            console.log('============================');
+            console.log(
+                '##### WHEN OVERRIDING (http://localhost:8080/index-guides.html?override=on&useAlternate=staging)',
+            );
+            const overrideUrl = getIncludeFullPath(
+                'applications/libguides/subload.js',
+                'assets.library.uq.edu.au',
+                null,
+                'reusable-webcomponents-staging',
+            );
+            if (
+                'https://assets.library.uq.edu.au/reusable-webcomponents-staging/applications/libguides/subload.js' ===
+                overrideUrl
+            ) {
+                console.log('faux staging good', overrideUrl);
+            } else {
+                console.log('FAUX STAGING BAD', overrideUrl);
+            }
+            console.log('============================');
+        </script>
+    </body>
 </html>

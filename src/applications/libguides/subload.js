@@ -3,7 +3,33 @@ fontLoader('https://static.uq.net.au/v15/fonts/Merriweather/merriweather.css');
 fontLoader('https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css');
 fontLoader('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
 
-insertScript(getScriptUrl('uq-lib-reusable.min.js'), true);
+let scriptUrl = getIncludeFullPath('uq-lib-reusable.min.js');
+console.log('scriptUrl=', scriptUrl);
+// 2024 test on feature, use staging longer term
+if (getSearchParam('override') === 'on' && getSearchParam('useAlternate') === 'working') {
+    // eg https://guides.library.uq.edu.au/how-to-find/news-and-newspapers?override=on&useAlternate=working
+    scriptUrl = getIncludeFullPath(
+        'uq-lib-reusable.min.js',
+        'assets.library.uq.edu.au',
+        '/reusable-webcomponents-development/webpresence-working/index-guides.html',
+        'https://assets.library.uq.edu.au/reusable-webcomponents-development/webpresence-working/index-guides.html',
+    );
+    console.log('scriptUrl=', scriptUrl);
+    // 'https://assets.library.uq.edu.au/reusable-webcomponents-development/webpresence-working/uq-lib-reusable.min.js';
+}
+insertScript(scriptUrl, true);
+
+// css
+let cssFile = getIncludeFullPath('applications/libguides/custom-styles.css');
+if (getSearchParam('override') === 'on' && getSearchParam('useAlternate') === 'working') {
+    // 2024 test
+    cssFile = scriptUrl = getIncludeFullPath(
+        'applications/libguides/custom-styles.css',
+        'assets.library.uq.edu.au',
+        '/reusable-webcomponents-development/webpresence-working/index-guides.html',
+    );
+}
+insertCssFile(cssFile);
 
 const firstElement = document.body.children[0];
 
@@ -18,60 +44,16 @@ document.body.insertBefore(header, firstElement);
 const siteHeader = document.createElement('uq-site-header');
 !!siteHeader && siteHeader.setAttribute('secondleveltitle', 'Guides');
 !!siteHeader && siteHeader.setAttribute('secondlevelurl', 'https://guides.library.uq.edu.au/');
+!!siteHeader && document.body.insertBefore(siteHeader, firstElement);
 
-if (!isInEditMode()) {
+if (!isInEditMode2()) {
     const authButton = createAuthButton();
     !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
 
-    // get list of breadcrumbs from guides nav
-    const breadcrumbNav = document.getElementById('s-lib-bc');
-    const listItems = !!breadcrumbNav && breadcrumbNav.querySelectorAll('ol li');
-    const breadcrumbData = [];
-    !!listItems &&
-        listItems.forEach((item) => {
-            const anchor = item.querySelector('a');
-            const title = anchor ? anchor.textContent : item.textContent;
-            const href = anchor ? anchor.href : null;
-            if (
-                href !== 'https://www.library.uq.edu.au/' &&
-                href !== 'https://www.library.uq.edu.au' &&
-                href !== 'http://www.library.uq.edu.au/' &&
-                href !== 'http://www.library.uq.edu.au' &&
-                href !== 'https://guides.library.uq.edu.au/' &&
-                href !== 'https://guides.library.uq.edu.au'
-            ) {
-                breadcrumbData.push({ title, href });
-            }
-        });
-
-    const breadcrumbParent = siteHeader.shadowRoot.getElementById('breadcrumb_nav');
-    !!breadcrumbParent &&
-        breadcrumbData.length > 0 &&
-        breadcrumbData.forEach((gb) => {
-            console.log('gb=', gb);
-            const listItemEntry = !!gb.href
-                ? `<li class="uq-breadcrumb__item">
-                <a class="uq-breadcrumb__link" href="${gb.href}">${gb.title}</a>
-                </li>`
-                : `<li class="uq-breadcrumb__item">
-                <span class="uq-breadcrumb__link">${gb.title}</span>
-                </li>`;
-            breadcrumbParent.insertAdjacentHTML('beforeend', listItemEntry);
-        });
-    !!breadcrumbNav && breadcrumbNav.remove();
+    moveSpringshareBreadcrumbsToSiteHeader();
 }
 
-document.body.insertBefore(siteHeader, firstElement);
-
-if (!document.querySelector('cultural-advice-popup')) {
-    const culturalAdvice = document.createElement('cultural-advice-popup');
-    !!culturalAdvice && document.body.appendChild(culturalAdvice);
-}
-
-!!siteHeader && document.body.insertBefore(siteHeader, firstElement);
-
-// Proactive Chat button
-if (!isInEditMode()) {
+if (!isInEditMode2()) {
     if (!document.querySelector('proactive-chat')) {
         const proactiveChat = document.createElement('proactive-chat');
         !!proactiveChat && document.body.insertBefore(proactiveChat, firstElement);
@@ -85,13 +67,54 @@ if (!document.querySelector('alert-list')) {
 
 if (!document.querySelector('cultural-advice')) {
     const culturalAdvice = document.createElement('cultural-advice');
-    const alerts = document.getElementsByTagName('alert-list');
-    const alert = alerts[0];
-    !!culturalAdvice && !!alert && alert.parentNode.insertBefore(culturalAdvice, alert.nextSibling);
+    !!culturalAdvice && document.body.insertBefore(culturalAdvice, firstElement);
 }
-
-// const connectFooter = document.createElement('connect-footer');
-// document.body.appendChild(connectFooter);
 
 const subFooter = document.createElement('uq-footer');
 document.body.appendChild(subFooter);
+
+function moveSpringshareBreadcrumbsToSiteHeader() {
+    const awaitSiteHeader = setInterval(() => {
+        const siteHeaderShadowRoot = siteHeader.shadowRoot;
+
+        if (!!siteHeaderShadowRoot) {
+            clearInterval(awaitSiteHeader);
+
+            const breadcrumbNav = document.getElementById('s-lib-bc');
+            const listItems = !!breadcrumbNav && breadcrumbNav.querySelectorAll('ol li');
+            const breadcrumbParent = siteHeaderShadowRoot.getElementById('breadcrumb_nav');
+            !!listItems &&
+                listItems.forEach((item) => {
+                    const anchor = item.querySelector('a');
+                    const title = anchor ? anchor.textContent : item.textContent;
+                    const href = anchor ? anchor.href : null;
+                    if (isNotHomepage(href) && document.location.pathname !== '/') {
+                        const listItemEntry = !!href ? breadcrumblink({ title, href }) : breadcrumbSpan(title);
+                        breadcrumbParent.insertAdjacentHTML('beforeend', listItemEntry);
+                    }
+                });
+            !!breadcrumbNav && breadcrumbNav.remove();
+        }
+
+        function breadcrumblink(b) {
+            return `<li class="uq-breadcrumb__item">
+                <a class="uq-breadcrumb__link" href="${b.href}">${b.title}</a>
+                </li>`;
+        }
+        function breadcrumbSpan(title) {
+            return `<li class="uq-breadcrumb__item">
+                <span class="uq-breadcrumb__link">${title}</span>
+                </li>`;
+        }
+        function isNotHomepage(href) {
+            return (
+                href !== 'https://www.library.uq.edu.au/' &&
+                href !== 'https://www.library.uq.edu.au' &&
+                href !== 'http://www.library.uq.edu.au/' &&
+                href !== 'http://www.library.uq.edu.au' &&
+                href !== 'https://guides.library.uq.edu.au/' &&
+                href !== 'https://guides.library.uq.edu.au'
+            );
+        }
+    }, 100);
+}
