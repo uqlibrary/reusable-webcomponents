@@ -143,8 +143,8 @@ function useStaging() {
     return getSearchParam2('override') === 'on' && getSearchParam2('useAlternate') === 'staging';
 }
 
-function loadReusableComponentsLibGuides() {
+function loadReusableComponentsLibGuides2() {
     insertScript2(getIncludeFullPath('applications/libguides/subload.js'), true);
 }
 
-ready2(loadReusableComponentsLibGuides);
+ready2(loadReusableComponentsLibGuides2);
