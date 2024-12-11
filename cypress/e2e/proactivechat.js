@@ -83,11 +83,10 @@ describe('Proactive Chat', () => {
                 .shadow()
                 .within(() => {
                     cy.get('[data-testid="popopen-button"]').focus();
-                    cy.wait(100); // hover color is actually available to be checked
-                    cy.get('[data-testid="popopen-button"]').should(
-                        'have.css',
-                        'background-color',
-                        'rgb(116, 80, 149)',
+                    cy.waitUntil(() =>
+                        cy
+                            .get('[data-testid="popopen-button"]')
+                            .should('have.css', 'background-color', 'rgb(81, 36, 122)'),
                     );
                 });
             cy.checkA11y('proactive-chat', {
