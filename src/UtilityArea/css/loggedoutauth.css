@@ -18,6 +18,7 @@ svg.auth-icon {
     border: none;
     padding: 6px;
     margin-top: 4px;
+    color: #19151c;
 }
 .auth .auth-log-in-label {
     font-size: 16px;
