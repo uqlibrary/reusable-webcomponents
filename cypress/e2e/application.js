@@ -126,9 +126,9 @@ describe('Dummy Application', () => {
     function hasCulturalAdviceBanner() {
         cy.waitUntil(() =>
             cy
-                .get('cultural-advice-v2')
+                .get('cultural-advice')
                 .shadow()
-                .find('.culturaladvicev2')
+                .find('.culturaladvice')
                 .should('exist')
                 .should('be.visible')
                 .contains('The Library is custodian of'),

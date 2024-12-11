@@ -163,6 +163,47 @@ describe('Account menu button', () => {
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
             });
         });
+
+        it('logged OUT user is accessible on mobile', () => {
+            cy.visit('http://localhost:8080/?user=public');
+            cy.viewport(320, 480);
+            cy.injectAxe();
+            assertUserisLoggedOut();
+            cy.checkA11y('auth-button', {
+                reportName: 'Auth Loggedout mobile',
+                scopeName: 'Accessibility',
+                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+            });
+        });
+
+        it('logged IN user is accessibl on mobilee', () => {
+            cy.visit('http://localhost:8080');
+            cy.viewport(320, 480);
+            cy.waitUntil(() => cy.get('uq-site-header').find('auth-button').should('exist'));
+            visitPageForUser('vanilla');
+            cy.injectAxe();
+            cy.checkA11y('auth-button', {
+                reportName: 'Account Loggedin mobile',
+                scopeName: 'Accessibility',
+                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+            });
+            openAccountDropdown();
+            // let the colours settle
+            cy.waitUntil(() =>
+                cy
+                    .get('auth-button')
+                    .shadow()
+                    .find('[data-testid="username-area-label"]')
+                    .should('exist')
+                    .contains('User, Vanilla')
+                    .should('have.css', 'background-color', COLOUR_UQ_PURPLE),
+            );
+            cy.checkA11y('auth-button', {
+                reportName: 'Account Loggedin Dialog Open mobile',
+                scopeName: 'Accessibility',
+                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+            });
+        });
     });
     context('Account menu button', () => {
         it('`overwriteasloggedout` attribute always show them as logged out', () => {
