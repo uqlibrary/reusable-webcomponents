@@ -87,18 +87,18 @@ template.innerHTML = `
                         </li>
                         <li class="uq-footer__navigation-item">
                             <a href="${linkToDrupal(
-                                '/visit',
-                            )}" class="uq-footer__navigation-link" data-analyticsid="uqfooter-nav-library-locations-desktop">Locations and hours</a>
-                        </li>
-                        <li class="uq-footer__navigation-item">
-                            <a href="${linkToDrupal(
-                                '/library-services',
-                            )}" class="uq-footer__navigation-link" data-analyticsid="uqfooter-nav-library-services-desktop">Library services</a>
+                                '/study-and-learning-support',
+                            )}" class="uq-footer__navigation-link" data-analyticsid="uqfooter-nav-library-locations-desktop">Study and learning support</a>
                         </li>
                         <li class="uq-footer__navigation-item">
                             <a href="${linkToDrupal(
                                 '/research-and-publish',
-                            )}" class="uq-footer__navigation-link" data-analyticsid="uqfooter-nav-library-research-desktop">Research tools</a>
+                            )}" class="uq-footer__navigation-link" data-analyticsid="uqfooter-nav-library-services-desktop">Research and publish</a>
+                        </li>
+                        <li class="uq-footer__navigation-item">
+                            <a href="${linkToDrupal(
+                                '/visit',
+                            )}" class="uq-footer__navigation-link" data-analyticsid="uqfooter-nav-library-research-desktop">Visit</a>
                         </li>
                     </ul>
                 </li>
