@@ -59,7 +59,7 @@ authorisedtemplate.innerHTML = `
                     <ul id="account-menu-list" data-analyticsid="mylibrary-menu-list-public" class="mylibrary-menu-list" role="menu">
                         <!-- Primo account -->
                         <li role="menuitem" aria-disabled="false">
-                            <a tabindex="0" data-testid="mylibrary-menu-borrowing" data-analyticsid="mylibrary-menu-borrowing" href="https://search.library.uq.edu.au/primo-explore/login?vid=61UQ&targetURL=https%3A%2F%2Fsearch.library.uq.edu.au%2Fprimo-explore%2Faccount%3Fvid%3D61UQ%26section%3Doverview%26lang%3Den_US" rel="noreferrer">
+                            <a tabindex="0" data-testid="mylibrary-menu-borrowing" data-analyticsid="mylibrary-menu-borrowing" href="https://search.library.uq.edu.au/primo-explore/login?vid=61UQ&targetURL=https%3A%2F%2Fsearch.library.uq.edu.au%2Fprimo-explore%2Faccount%3Fvid%3D61UQ%26section%3Doverview%26lang%3Den_US" rel="noreferrer" style="padding-top: 0">
                                 <svg viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
                                     <rect width="24" height="24" transform="translate(0 1)" />
                                     <path d="M12 4C14.2222 4 16 5.77778 16 8C16 10.2222 14.2222 12 12 12C9.77778 12 8 10.2222 8 8C8 5.77778 9.77778 4 12 4Z" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round" />
@@ -145,7 +145,7 @@ authorisedtemplate.innerHTML = `
                         </li>
 
                         <!-- Feedback -->
-                        <li role="menuitem" aria-disabled="false">
+                        <li role="menuitem" aria-disabled="false" style="margin-bottom: 8px;">
                             <a tabindex="0" id="mylibrary-menu-feedback" data-testid="mylibrary-menu-feedback" data-analyticsid="mylibrary-menu-feedback" href="https://support.my.uq.edu.au/app/library/feedback" rel="noreferrer">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect width="24" height="24"/>

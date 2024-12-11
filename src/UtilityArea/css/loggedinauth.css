@@ -107,6 +107,7 @@
     cursor: pointer;
     background-color: white;
     padding-inline: 0;
+    padding-top: 4px;
 }
 .logout svg {
     padding-right: 18px;
