@@ -228,6 +228,10 @@
     margin-inline: 24px;
 }
 
+.mylibrary-menu-list li.borderTop a {
+    margin-left: -24px;
+}
+
 .auth.loggedin {
    position: relative;
 }
