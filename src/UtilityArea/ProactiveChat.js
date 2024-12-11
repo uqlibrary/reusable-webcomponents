@@ -74,8 +74,8 @@ userPromptTemplate.innerHTML = `
                     <button id="proactive-chat-button-open" data-analyticsid="askus-proactive-chatbot-button-open" data-testid="popopen-button" class="proactive-chat-button" aria-label="Ask Library Chat Bot a question">Ask Library Chatbot</button>
                 </div>
                 <div id="button-open-crm" class="crmChatPrompt">
-                    <button id="crmChatPrompt" data-analyticsid="askus-proactive-chat-button-open" class="crmchat-button" style="display: none">Chat with Library staff</button>
-                    <button id="leaveAQuestionPrompt" data-analyticsid="chat-status-icon-offline" class="crmchat-button" style="display: none" aria-label="No staff available to chat - Leave a question">Leave a question</button>
+                    <button id="crmChatPrompt" data-analyticsid="askus-proactive-chat-button-open" class="crmchat-button" style="display: none"><span>Chat with Library staff</span></button>
+                    <button id="leaveAQuestionPrompt" data-analyticsid="chat-status-icon-offline" class="crmchat-button" style="display: none" aria-label="No staff available to chat - Leave a question"><span>Leave a question</span></button>
                 </div>
             </div>
         </div>

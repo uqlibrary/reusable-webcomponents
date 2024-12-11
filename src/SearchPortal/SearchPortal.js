@@ -339,16 +339,6 @@ class SearchPortal extends HTMLElement {
                 that.shadowRoot.getElementById('clear-search-term').classList.add('hidden');
             });
 
-        // add click handler to cultural advice link for gtm tracking
-        // const CaAnchor = this.shadowRoot.getElementById('cultural-advice-statement-link');
-        // CaAnchor.addEventListener(
-        //     'click',
-        //     /* istanbul ignore next */ function (e) {
-        //         /* istanbul ignore next */
-        //         that.sendSubmitToGTM(e); // submit the GTM info
-        //     },
-        // );
-
         function bindRestrictionsAccordion() {
             const accordionContainer = that.shadowRoot.getElementById('restrictions-accordian');
             const paragraphs = accordionContainer.getElementsByTagName('p');
@@ -734,14 +724,6 @@ class SearchPortal extends HTMLElement {
         const portalTypeContainer = this.shadowRoot.getElementById('portaltype-dropdown');
         const useSearchType = parseInt(searchType, 10);
 
-        // put the icon on the display
-        // const portalTypeCurrentIcon = this.shadowRoot.getElementById('portaltype-current-icon');
-        // !!portalTypeCurrentIcon &&
-        //     !!searchPortalLocale.typeSelect &&
-        //     !!searchPortalLocale.typeSelect.items[useSearchType] &&
-        //     !!searchPortalLocale.typeSelect.items[useSearchType].iconPath &&
-        //     portalTypeCurrentIcon.setAttribute('d', searchPortalLocale.typeSelect.items[useSearchType].iconPath);
-
         // put the text label on the display
         const portalTypeCurrentLabel = this.shadowRoot.getElementById('portaltype-current-label');
         !!portalTypeCurrentLabel &&
@@ -764,7 +746,6 @@ class SearchPortal extends HTMLElement {
             !!searchPortalLocale.typeSelect &&
             !!searchPortalLocale.typeSelect.items[useSearchType] &&
             !!searchPortalLocale.typeSelect.items[useSearchType].placeholder &&
-            // (subTitleField.innerHTML = searchPortalLocale.typeSelect.items[useSearchType].placeholder) &&
             (inputField.placeholder = searchPortalLocale.typeSelect.items[useSearchType].placeholder);
         // add an extra class to the button to say which label it is currently showing
         // this is used by the css to make the dropdown highlight the matching label
@@ -1047,7 +1028,6 @@ class SearchPortal extends HTMLElement {
                 <div class="MuiCardContent-root libraryContent" data-testid="primo-search-content" data-analyticsid="primo-search-content">
                     <form id="primo-search-form" class="searchForm" role="search">
                         <div class="MuiFormControl-root searchPanel" style="margin-bottom: -0.75rem; padding-top: 1rem;">
-                            <!-- <h2 id="search-portal-type-select-label" class="searchPortalLabel MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled" data-shrink="true" aria-label="Search UQ Library">Library</h2> -->
                             <h2 id="search-portal-type-select-label-sub" class="theme-${theme || 'light'}">Search</h2>
                         </div>
 
@@ -1065,11 +1045,6 @@ class SearchPortal extends HTMLElement {
                                     </button>
                                     <span class="search-icons search-dropdown-chevron-new">
                                     </span>
-                                    <!-- 
-                                    <svg class="MuiSvgIcon-root MuiSelect-icon search-dropdown-chevron" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                                         <path fill="currentColor" d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"/>
-                                    </svg>
-                                    -->
                                 </div>
                             <!-- SEARCH TYPE (DROPDOWN) END -->
                             </div>
@@ -1103,11 +1078,6 @@ class SearchPortal extends HTMLElement {
                                 </div>
                                 <div class="searchPortal-searchButton" >
                                     <button id="search-portal-submit" class="MuiButtonBase-root MuiButton-contained searchButton MuiButton-containedPrimary MuiButton-containedSizeLarge MuiButton-sizeLarge MuiButton-fullWidth" tabindex="0" type="search" data-testid="primo-search-submit" data-analyticsid="primo-search-submit" value="Submit" title="Perform your search" name="Search">
-                                        <!-- 
-                                        <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                                            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
-                                        </svg>
-                                        -->
                                         <span class="search-icons search-search-icon-new">
                                         </span>
                                         <span class="MuiTouchRipple-root"></span>
@@ -1122,11 +1092,6 @@ class SearchPortal extends HTMLElement {
                                     theme || 'light'
                                 }" data-testid="primo-search-links" data-analyticsid="primo-search-links"></div>
                             </div>
-                            <!-- <div class="restrictionsContainer searchUnderlinks theme-${theme || 'light'}">
-                               <a id="restrictions-on-use-link" class="theme-${
-                                   theme || 'light'
-                               }" href="https://web.library.uq.edu.au/about/policies-and-guidelines">Restrictions on use</a> 
-                            </div> -->
                         </div> 
                         <div>
                             <span id="restrictions-accordian-container" class="theme-${

@@ -39,6 +39,7 @@ button:focus {
 .proactive-chat button.proactive-chat-button {
     line-height: 20px !important;
     background: rgba(0, 0, 0, 0);
+    border: 1px solid #51247a;
     border-radius: 50%;
     margin: 5px 0 -12px 0;
     padding: 6px;
@@ -50,11 +51,8 @@ button:focus {
 .proactive-chat button.proactive-chat-button:hover,
 button.proactive-chat-button:active,
 button.proactive-chat-button:focus {
-    background-color: #745095; /* purple-400 */
-}
-
-.proactive-chat button.proactive-chat-button:active {
-    background: rgba(81, 36, 122, 0.3) !important;
+    background-color: #ffffff;
+    color: #51247a !important;
 }
 
 .crmchat-button,
@@ -67,6 +65,12 @@ button.proactive-chat-button:focus {
     margin-top: 20px;
     padding-top: 5px;
     text-decoration: underline;
+}
+.crmChatPrompt button:active span,
+.crmChatPrompt button:focus span,
+.crmChatPrompt button:hover span {
+    background-color: #51247a;
+    color: #fff;
 }
 
 .proactive-chat button.close-button {
