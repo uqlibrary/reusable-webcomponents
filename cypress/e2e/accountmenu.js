@@ -66,7 +66,7 @@ function assertUserHasAlertsAdmin(expected, userid = 'uqstaff') {
 function assertUserHasTestTagAdmin(expected) {
     // only staff who are Licensed Electrical Testers (or are on dev team) should have this
     if (!!expected) {
-        cy.get('li[data-testid="testTag-admin"]').should('exist').contains('Test and Tag');
+        cy.get('li[data-testid="testTag-admin"]').should('exist').contains('Test and tag');
         cy.get('[data-testid="mylibrary-menu-testTag-admin"]').should(
             'have.attr',
             'href',
@@ -159,6 +159,47 @@ describe('Account menu button', () => {
             );
             cy.checkA11y('auth-button', {
                 reportName: 'Account Loggedin Dialog Open',
+                scopeName: 'Accessibility',
+                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+            });
+        });
+
+        it('logged OUT user is accessible on mobile', () => {
+            cy.visit('http://localhost:8080/?user=public');
+            cy.viewport(320, 480);
+            cy.injectAxe();
+            assertUserisLoggedOut();
+            cy.checkA11y('auth-button', {
+                reportName: 'Auth Loggedout mobile',
+                scopeName: 'Accessibility',
+                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+            });
+        });
+
+        it('logged IN user is accessibl on mobilee', () => {
+            cy.visit('http://localhost:8080');
+            cy.viewport(320, 480);
+            cy.waitUntil(() => cy.get('uq-site-header').find('auth-button').should('exist'));
+            visitPageForUser('vanilla');
+            cy.injectAxe();
+            cy.checkA11y('auth-button', {
+                reportName: 'Account Loggedin mobile',
+                scopeName: 'Accessibility',
+                includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
+            });
+            openAccountDropdown();
+            // let the colours settle
+            cy.waitUntil(() =>
+                cy
+                    .get('auth-button')
+                    .shadow()
+                    .find('[data-testid="username-area-label"]')
+                    .should('exist')
+                    .contains('User, Vanilla')
+                    .should('have.css', 'background-color', COLOUR_UQ_PURPLE),
+            );
+            cy.checkA11y('auth-button', {
+                reportName: 'Account Loggedin Dialog Open mobile',
                 scopeName: 'Accessibility',
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
             });
@@ -323,12 +364,12 @@ describe('Account menu button', () => {
         });
     });
     context('Display names', () => {
-        it('user with a short name will show their complete name on the Log Out button', () => {
+        it('user with a short name will show their complete name', () => {
             sessionStorage.removeItem('userAccount');
             visitPageForUser('emfryer');
             assertLogoutButtonVisible;
         });
-        it('user with a long length name will show their last name with initial on the Log Out button', () => {
+        it('user with a long length name will show their last name with initial', () => {
             sessionStorage.removeItem('userAccount');
             visitPageForUser('digiteamMember');
         });
@@ -355,7 +396,7 @@ describe('Account menu button', () => {
                 });
         });
 
-        it('Test Tag user gets Test and Tag entry', () => {
+        it('Test Tag user gets "Test and tag" entry', () => {
             cy.visit('http://localhost:8080?user=uqtesttag');
             cy.viewport(1280, 900);
             visitPageForUser('uqtesttag');

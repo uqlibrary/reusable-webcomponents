@@ -1,4 +1,4 @@
-import culturalcss from './css/culturaladviceV2.css';
+import culturalcss from './css/culturaladvicebanner.css';
 import { linkToDrupal } from '../helpers/access';
 
 /**
@@ -13,7 +13,7 @@ import { linkToDrupal } from '../helpers/access';
 const template = document.createElement('template');
 template.innerHTML = `
     <style>${culturalcss}</style>
-    <div class="culturaladvicev2">
+    <div class="culturaladvice">
             <div class="layout-card">
                 <p data-testid="cultural-advice-statement">
                     The Library is custodian of <a href="${linkToDrupal(
@@ -24,7 +24,7 @@ template.innerHTML = `
     </div>
 `;
 
-class CulturalAdviceV2 extends HTMLElement {
+class CulturalAdvice extends HTMLElement {
     constructor() {
         super();
         // Add a shadow DOM
@@ -36,4 +36,4 @@ class CulturalAdviceV2 extends HTMLElement {
     }
 }
 
-export default CulturalAdviceV2;
+export default CulturalAdvice;
