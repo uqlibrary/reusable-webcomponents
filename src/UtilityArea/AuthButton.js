@@ -292,7 +292,6 @@ class AuthButton extends HTMLElement {
             ulElement.insertBefore(newLi, lastLi); //log out is the final item - insert before it
             if (firstEntry) {
                 const li = ulElement.querySelector('#' + elementId);
-                console.log('li=', li);
                 !!li && li.classList.add('borderTop');
             }
         }
