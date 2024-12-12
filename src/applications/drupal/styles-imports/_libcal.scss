@@ -43,10 +43,10 @@
 
     // match date area (header row and 'today' column)
     thead tr th,
-  td.s-lc-whw-today,
-  th.s-lc-whw-today-h ,
-  tbody tr.s-lc-whw-loc th , // becomes active when springshare makes the table accessibile
-  tr.s-lc-whw-loc {
+    td.s-lc-whw-today,
+    th.s-lc-whw-today-h ,
+    tbody tr.s-lc-whw-loc th , // becomes active when springshare makes the table accessibile
+    tr.s-lc-whw-loc {
         background-color: #f5f5f5;
         border-color: $footer-background-color;
     }
@@ -93,14 +93,7 @@
             font-weight: 300;
         }
 
-        thead tr {
-            padding-left: calc(12vw - 2em);
-            background-color: #f5f5f5;
-        }
         thead th.s-lc-whw-bh {
-            display: flex;
-            justify-content: flex-start;
-            gap: 15px;
             & button {
                 background-color: #51247a;
                 border: 2px solid #51247a;
@@ -109,19 +102,19 @@
                 color: #fff;
                 cursor: pointer;
                 display: inline-block;
-                font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
-                font-size: 1rem;
+                font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
                 font-weight: 500;
                 line-height: 1;
-                padding: 1rem 1.5rem;
                 position: relative;
                 text-align: center;
                 text-decoration: none;
                 transition: background-color 200ms ease-out, color 200ms ease-out, border 200ms ease-out;
-                min-width: 8em;
+
+                font-size: .75rem;
+                padding: .25rem .5rem;
+                margin: 2px;
                 &:hover {
                     background-color: #fff;
-                    border-color: #51247a;
                     color: #51247a;
                     text-decoration: underline;
                 }
