@@ -26,9 +26,6 @@
 .username-area svg {
     margin-left: 3px;
 }
-.username-area svg.auth-icon {
-    margin-top: -6px;
-}
 .username-area svg.options-dropdown-arrow {
     margin-top: -6px;
     font-weight: 400;
