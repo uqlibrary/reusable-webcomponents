@@ -93,9 +93,39 @@
             font-weight: 300;
         }
 
-        // but the top-left cell doesnt want underline as it creates a little line
+        thead tr {
+            padding-left: calc(12vw - 2em);
+            background-color: #f5f5f5;
+        }
         thead th.s-lc-whw-bh {
-            text-decoration: none;
+            display: flex;
+            justify-content: flex-start;
+            gap: 15px;
+            & button {
+                background-color: #51247a;
+                border: 2px solid #51247a;
+                border-radius: .25rem;
+                box-sizing: border-box;
+                color: #fff;
+                cursor: pointer;
+                display: inline-block;
+                font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+                font-size: 1rem;
+                font-weight: 500;
+                line-height: 1;
+                padding: 1rem 1.5rem;
+                position: relative;
+                text-align: center;
+                text-decoration: none;
+                transition: background-color 200ms ease-out, color 200ms ease-out, border 200ms ease-out;
+                min-width: 8em;
+                &:hover {
+                    background-color: #fff;
+                    border-color: #51247a;
+                    color: #51247a;
+                    text-decoration: underline;
+                }
+            }
         }
         th,
         td {
