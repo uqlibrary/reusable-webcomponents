@@ -1,15 +1,6 @@
 button {
     cursor: pointer;
 }
-.auth .auth-icon-loginprompt {
-    fill: #745095; /* purple-200, deliberately softer */
-    width: 24px;
-}
-
-svg.auth-icon {
-    width: 24px;
-    height: 24px;
-}
 
 .auth button {
     display: flex;
@@ -17,8 +8,9 @@ svg.auth-icon {
     background: rgba(0, 0, 0, 0);
     border: none;
     padding: 6px;
-    margin-top: 4px;
     color: #19151c;
+    margin-top: 6.6px;
+    margin-bottom: 2.4px; /* make the utility bar the same height on the logged in and logged out view */
 }
 .auth .auth-log-in-label {
     font-size: 16px;
