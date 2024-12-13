@@ -1,8 +1,10 @@
 .proactive-chat {
     position: relative;
-    z-index: 99999;
 }
 
+.proactive-chat:has(.openSubWrapper:not(.displayinline)) {
+    z-index: 99999;
+}
 .openSubWrapper button {
     color: #51247a;
     font-size: 1em;
@@ -39,16 +41,21 @@ button:focus {
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.proactive-chat button.proactive-chat-button {
+.proactive-chat button.open {
+    font-family: Roboto, Helvetica, Arial, sans-serif;
     line-height: 20px !important;
-    background: rgba(0, 0, 0, 0);
-    border: 1px solid #51247a;
+    border-width: 1px;
+    border-style: solid;
     border-radius: 50%;
+}
+
+.proactive-chat button.proactive-chat-button {
     margin: 5px 0 -12px 0;
-    padding: 6px;
-    height: 60px;
+    padding: 2px 4px;
+    height: 52px;
     color: #ffffff !important;
     background-color: #51247a;
+    border-color: #51247a;
 }
 
 .proactive-chat button.proactive-chat-button:hover,
@@ -63,11 +70,13 @@ button.proactive-chat-button:focus {
     text-align: center;
 }
 
-.crmChatPrompt button {
+.crmChatPrompt .open {
     background-color: transparent;
     margin-top: 20px;
     padding-top: 5px;
     text-decoration: underline;
+    border-color: transparent;
+    font-weight: 500;
 }
 .crmChatPrompt button:active span,
 .crmChatPrompt button:focus span,
