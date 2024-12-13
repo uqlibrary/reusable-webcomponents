@@ -157,7 +157,7 @@ authorisedtemplate.innerHTML = `
                             </a>
                         </li>
                         <!-- Logout -->
-                        <li role="menuitem" aria-disabled="false" class="borderTop" >
+                        <li role="menuitem" aria-disabled="false" class="logout borderTop" >
                             <button class="logout" type="button" data-analyticsid="auth-button-logout" id="signOutButton">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
                                     <g id="Login-1--Streamline-Ultimate 1" clip-path="url(#clip0_1654_3032)">
@@ -510,13 +510,8 @@ class AuthButton extends HTMLElement {
             hideElement('up-arrow');
             const username = shadowDOM.getElementById('username-area-label');
             !!username && username.classList.remove('menu-open');
-
-            function hideAccountOptionsDisplay() {
-                !!accountMenu && (accountMenu.style.display = 'none');
-                !!backgroundPane && (backgroundPane.style.display = 'none');
-            }
-
-            setTimeout(hideAccountOptionsDisplay, 500);
+            !!accountMenu && (accountMenu.style.display = 'none');
+            !!backgroundPane && (backgroundPane.style.display = 'none');
         }
 
         function handleAccountOptionsButton() {

@@ -76,23 +76,8 @@
 }
 
 @media only screen and (min-width: 750px) {
+    .libcal-hours-block,
     #libcal-hours-block-0 {
-        // make the all-hours display scroll under a fixed header
-        // per https://codepen.io/tjvantoll/pen/JEKIu
-        table-layout: fixed;
-        border-collapse: collapse;
-
-        thead th {
-            border-width: 0;
-        }
-
-        tbody th.s-lc-whw-locname {
-            font-weight: 500;
-        }
-        tbody th.s-lc-whw-sublocname {
-            font-weight: 300;
-        }
-
         thead th.s-lc-whw-bh {
             & button {
                 background-color: #51247a;
@@ -120,6 +105,25 @@
                 }
             }
         }
+    }
+    #libcal-hours-block-0 {
+        // make the all-hours display scroll under a fixed header
+        // per https://codepen.io/tjvantoll/pen/JEKIu
+        table-layout: fixed;
+        border-collapse: collapse;
+
+        thead th {
+            border-width: 0;
+        }
+
+        tbody th.s-lc-whw-locname {
+            font-weight: 500;
+        }
+        tbody th.s-lc-whw-sublocname {
+            font-weight: 300;
+        }
+
+
         th,
         td {
             padding: 5px;
