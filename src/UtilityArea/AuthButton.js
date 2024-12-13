@@ -510,13 +510,8 @@ class AuthButton extends HTMLElement {
             hideElement('up-arrow');
             const username = shadowDOM.getElementById('username-area-label');
             !!username && username.classList.remove('menu-open');
-
-            function hideAccountOptionsDisplay() {
-                !!accountMenu && (accountMenu.style.display = 'none');
-                !!backgroundPane && (backgroundPane.style.display = 'none');
-            }
-
-            setTimeout(hideAccountOptionsDisplay, 500);
+            !!accountMenu && (accountMenu.style.display = 'none');
+            !!backgroundPane && (backgroundPane.style.display = 'none');
         }
 
         function handleAccountOptionsButton() {
