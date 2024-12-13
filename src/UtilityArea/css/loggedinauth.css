@@ -220,6 +220,10 @@
     padding-right: 12px;
 }
 
+.mylibrary-menu-list li.logout {
+    margin-top: 8px;
+}
+
 .mylibrary-menu-list li.borderTop {
     border-top: thin solid #d3d3d3;
     padding-top: 12px;
