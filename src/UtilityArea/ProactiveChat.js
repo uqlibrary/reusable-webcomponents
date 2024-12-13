@@ -20,26 +20,6 @@ userPromptTemplate.innerHTML = `
     <div id="proactivechat" data-testid="proactivechat" class="proactive-chat">
         <!-- Proactive Chat minimised -->
         <div id="minimised-buttons" class="pcminimised">
-        <style>
-/*        .svg-container {*/
-/*  position: relative;*/
-/*  width: 32px;*/
-/*  height: 32px;*/
-/*}*/
-
-/*.svg-container::before {*/
-/*  content: '';*/
-/*  position: absolute;*/
-/*  top: 0;*/
-/*  left: 0;*/
-/*  width: 32px;*/
-/*  height: 32px;*/
-/*  background-color: red;*/
-/*  border-radius: 50%;*/
-/*  z-index: -1;*/
-/*}*/
-
-</style>
             <button id="proactive-chat-online" data-testid="proactive-chat-online" class="pconline svg-container" data-analyticsid="chat-status-icon-online-button" style="display: none;" title="Chat with us - see options" aria-label="Chat with us - see options">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
                     <g id="icon/marketing/chat">

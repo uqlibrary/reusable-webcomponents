@@ -1,8 +1,10 @@
 .proactive-chat {
     position: relative;
-    z-index: 99999;
 }
 
+.proactive-chat:has(.openSubWrapper:not(.displayinline)) {
+    z-index: 99999;
+}
 .openSubWrapper button {
     color: #51247a;
     font-size: 1em;
