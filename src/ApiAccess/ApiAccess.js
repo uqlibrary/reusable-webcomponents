@@ -138,7 +138,6 @@ class ApiAccess {
     }
 
     async loadOpeningHours() {
-        console.log('loadOpeningHours');
         let result;
         const hoursApi = new ApiRoutes().LIB_HOURS_API();
         const urlPath = hoursApi.apiUrl;
@@ -264,7 +263,6 @@ class ApiAccess {
       }
     */
     async loadOpenAthensCheck(urlPath) {
-        console.log('loadOpenAthensCheck start', urlPath);
         const openAthensApi = new ApiRoutes().OPEN_ATHENS_LINK_CHECKER(urlPath);
         return await this.fetchAPI(openAthensApi.apiUrl, {}, false, false)
             .then((response) => {
