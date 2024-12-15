@@ -218,7 +218,6 @@ class UQSiteHeader extends HTMLElement {
         const breadcrumbNav = this.shadowRoot.getElementById('breadcrumb_nav');
         const subsiteListItem = !!breadcrumbNav && breadcrumbNav.querySelector('li#subsite');
         if (!subsiteListItem) {
-            console.log('BREADCRUMBS subsite not found, add newSecondLevelTitle', newSecondLevelTitle);
             if (!!newSecondLevelTitle) {
                 const subsiteClone = subsiteTemplate.content.firstElementChild.cloneNode(true);
 
@@ -237,13 +236,11 @@ class UQSiteHeader extends HTMLElement {
                 }
             }
         } else if (newSecondLevelTitle === null) {
-            console.log('BREADCRUMBS newSecondLevelTitle === null subsiteListItem=', subsiteListItem);
             if (!!subsiteListItem) {
                 // the li exists, but we are back on the homepage - delete it
                 subsiteListItem.remove();
             }
         } else {
-            console.log('BREADCRUMBS it exists, update it', newSecondLevelTitle);
             // it exists, update it
             const subsiteBreadcrumb =
                 !!this.shadowRoot && this.shadowRoot.getElementById('secondlevel-site-breadcrumb-link');

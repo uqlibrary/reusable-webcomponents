@@ -72,7 +72,6 @@ function insertScript(url, defer = false) {
         if (head) {
             const script = document.createElement('script');
             script.setAttribute('type', 'text/javascript');
-            console.log('script url =', url);
             script.setAttribute('src', url);
             !!defer && script.setAttribute('defer', '');
             head.appendChild(script);

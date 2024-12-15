@@ -201,6 +201,7 @@ button.proactive-chat-button:focus {
 }
 .pcwrapper .openSubWrapper.displayinline {
     width: 220px;
+    background-color: transparent;
 }
 .displayinline .close-button,
 .displayinline .pcMessage {
