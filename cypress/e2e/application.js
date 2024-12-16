@@ -217,7 +217,7 @@ describe('Dummy Application', () => {
         });
     });
 
-    context('Springshare Guides works as expected', () => {
+    context('Guides (from Springshare) works as expected', () => {
         it('Javascript load works correctly', () => {
             cy.visit('http://localhost:8080/src/applications/libguides/demo.html');
             cy.viewport(1280, 900);
@@ -268,7 +268,7 @@ describe('Dummy Application', () => {
         });
     });
 
-    context('Springshare Cal works as expected', () => {
+    context('LibCal (Calendar from Springshare) works as expected', () => {
         it('Javascript load works correctly', () => {
             cy.visit('http://localhost:8080/src/applications/libcal/demo.html');
             cy.viewport(1280, 900);
