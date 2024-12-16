@@ -72,15 +72,11 @@ function insertCssFile(fileName) {
     !!head && !!link && head.appendChild(link);
 }
 
-function getIncludeFullPath(includeFilename, _overrideHost = null, _overridePathname = null, _overrideHref = null) {
-    const overrideHost = _overrideHost === null ? window.location.host : _overrideHost;
-    const overridePathname = _overridePathname === null ? window.location.pathname : _overridePathname;
-    const overrideHref = _overrideHref === null ? window.location.href : _overrideHref;
-
+export function getIncludeFullPathGuides(includeFilename) {
     const assetsHostname = 'assets.library.uq.edu.au';
     const assetsRoot = 'https://' + assetsHostname;
 
-    if (overrideHost === 'localhost:8080') {
+    if (window.location.host === 'localhost:8080') {
         return '/' + includeFilename;
     }
     if (useStaging()) {
@@ -95,17 +91,20 @@ function getIncludeFullPath(includeFilename, _overrideHost = null, _overridePath
         return s1;
     }
 
-    if (overrideHost === assetsHostname && /reusable-webcomponents-staging/.test(overrideHref)) {
+    if (window.location.host === assetsHostname && /reusable-webcomponents-staging/.test(window.location.href)) {
         // a test on staging branch gets staging version
         return assetsRoot + '/reusable-webcomponents-staging/' + includeFilename;
     }
-    if (overrideHost === assetsHostname && /reusable-webcomponents-development\/master/.test(overrideHref)) {
+    if (
+        window.location.host === assetsHostname &&
+        /reusable-webcomponents-development\/master/.test(window.location.href)
+    ) {
         // a test on master branch gets master version
         return assetsRoot + '/reusable-webcomponents-development/master/' + includeFilename;
     }
-    if (overrideHost === assetsHostname) {
+    if (window.location.host === assetsHostname) {
         // a test on any feature branch gets the feature branch
-        return assetsRoot + getPathnameRoot(overridePathname) + includeFilename;
+        return assetsRoot + getPathnameRoot(window.location.pathname) + includeFilename;
     }
 
     // otherwise prod
@@ -144,7 +143,7 @@ function useStaging() {
 }
 
 function loadReusableComponentsLibGuides2() {
-    insertScript2(getIncludeFullPath('applications/libguides/subload.js'), true);
+    insertScript2(getIncludeFullPathGuides('applications/libguides/subload.js'), true);
 }
 
 ready2(loadReusableComponentsLibGuides2);

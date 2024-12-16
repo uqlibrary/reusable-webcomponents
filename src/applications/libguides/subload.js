@@ -3,12 +3,12 @@ fontLoader('https://static.uq.net.au/v15/fonts/Merriweather/merriweather.css');
 fontLoader('https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css');
 fontLoader('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
 
-let scriptUrl = getIncludeFullPath('uq-lib-reusable.min.js');
+let scriptUrl = getIncludeFullPathGuides('uq-lib-reusable.min.js');
 console.log('real (unused) scriptUrl=', scriptUrl);
 // 2024 test on feature, use staging longer term
 if (getSearchParam2('override') === 'on' && getSearchParam2('useAlternate') === 'working') {
     // eg https://guides.library.uq.edu.au/how-to-find/news-and-newspapers?override=on&useAlternate=working
-    scriptUrl = getIncludeFullPath(
+    scriptUrl = getIncludeFullPathGuides(
         'uq-lib-reusable.min.js',
         'assets.library.uq.edu.au',
         '/reusable-webcomponents-development/webpresence-working/index-guides.html',
@@ -19,10 +19,10 @@ if (getSearchParam2('override') === 'on' && getSearchParam2('useAlternate') === 
 }
 insertScript2(scriptUrl, true);
 
-let cssFile = getIncludeFullPath('applications/libguides/custom-styles.css');
+let cssFile = getIncludeFullPathGuides('applications/libguides/custom-styles.css');
 if (getSearchParam2('override') === 'on' && getSearchParam2('useAlternate') === 'working') {
     // 2024 test
-    cssFile = scriptUrl = getIncludeFullPath(
+    cssFile = scriptUrl = getIncludeFullPathGuides(
         'applications/libguides/custom-styles.css',
         'assets.library.uq.edu.au',
         '/reusable-webcomponents-development/webpresence-working/index-guides.html',
