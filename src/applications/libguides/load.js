@@ -72,7 +72,7 @@ function insertCssFile(fileName) {
     !!head && !!link && head.appendChild(link);
 }
 
-export function getIncludeFullPathGuides(includeFilename) {
+function getIncludeFullPathGuides(includeFilename) {
     const assetsHostname = 'assets.library.uq.edu.au';
     const assetsRoot = 'https://' + assetsHostname;
 
@@ -109,6 +109,9 @@ export function getIncludeFullPathGuides(includeFilename) {
 
     // otherwise prod
     return assetsRoot + '/reusable-webcomponents/' + includeFilename;
+}
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+    module.exports = getIncludeFullPathGuides;
 }
 
 function getPathnameRoot(pathname) {

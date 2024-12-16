@@ -1,4 +1,4 @@
-import { getIncludeFullPathGuides } from './load';
+const getIncludeFullPathGuides = require('./load');
 
 describe('Guides load file', () => {
     beforeEach(() => {
