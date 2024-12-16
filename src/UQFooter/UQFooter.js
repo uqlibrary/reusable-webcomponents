@@ -2,6 +2,7 @@ import mainStyles from './css/main.css';
 import globalStyles from './css/global-oneuq.css';
 import overrides from './css/overrides.css';
 import { default as navLocale } from './js/nav';
+import { linkToDrupal } from '../helpers/access';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -85,13 +86,19 @@ template.innerHTML = `
                             <a href="https://www.library.uq.edu.au" class="uq-footer__navigation-link" data-analyticsid="uqfooter-nav-library-homepage-desktop">Library</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://web.library.uq.edu.au/locations-hours" class="uq-footer__navigation-link" data-analyticsid="uqfooter-nav-library-locations-desktop">Locations and hours</a>
+                            <a href="${linkToDrupal(
+                                '/study-and-learning-support',
+                            )}" class="uq-footer__navigation-link" data-analyticsid="uqfooter-nav-library-locations-desktop">Study and learning support</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://web.library.uq.edu.au/library-services" class="uq-footer__navigation-link" data-analyticsid="uqfooter-nav-library-services-desktop">Library services</a>
+                            <a href="${linkToDrupal(
+                                '/research-and-publish',
+                            )}" class="uq-footer__navigation-link" data-analyticsid="uqfooter-nav-library-services-desktop">Research and publish</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://web.library.uq.edu.au/research-tools-techniques" class="uq-footer__navigation-link" data-analyticsid="uqfooter-nav-library-research-desktop">Research tools</a>
+                            <a href="${linkToDrupal(
+                                '/visit',
+                            )}" class="uq-footer__navigation-link" data-analyticsid="uqfooter-nav-library-research-desktop">Visit</a>
                         </li>
                     </ul>
                 </li>
@@ -181,13 +188,19 @@ template.innerHTML = `
                             <a href="https://www.library.uq.edu.au" class="uq-footer__navigation-link" data-analyticsid="uqfooter-nav-library-homepage-mobile">Library</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://web.library.uq.edu.au/locations-hours" class="uq-footer__navigation-link" data-analyticsid="uqfooter-nav-library-locations-mobile">Locations and hours</a>
+                            <a href="${linkToDrupal(
+                                '/visit',
+                            )}" class="uq-footer__navigation-link" data-analyticsid="uqfooter-nav-library-locations-mobile">Locations and hours</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://web.library.uq.edu.au/library-services" class="uq-footer__navigation-link" data-analyticsid="uqfooter-nav-library-services-mobile">Library services</a>
+                            <a href="${linkToDrupal(
+                                '/library-services',
+                            )}" class="uq-footer__navigation-link" data-analyticsid="uqfooter-nav-library-services-mobile">Library services</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://web.library.uq.edu.au/research-tools-techniques" class="uq-footer__navigation-link" data-analyticsid="uqfooter-nav-library-research-mobile">Research tools</a>
+                            <a href="${linkToDrupal(
+                                '/research-and-publish',
+                            )}" class="uq-footer__navigation-link" data-analyticsid="uqfooter-nav-library-research-mobile">Research tools</a>
                         </li>
                     </ul>
                 </li>

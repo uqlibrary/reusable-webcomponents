@@ -28,6 +28,9 @@ if [[ -z $CI_BRANCH ]]; then
   CI_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 fi
 
+printf "\n--- \e[1mRUNNING UNIT TESTS\e[0m ---\n"
+npm run test:jest
+
 export TZ='Australia/Brisbane'
 printf "\n--- \e[1mRUNNING E2E TESTS\e[0m ---\n"
 npm run test:e2e:dashboard

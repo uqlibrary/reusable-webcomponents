@@ -42,7 +42,7 @@ describe('Cultural Advice', () => {
             // assertProactiveChatVisibility(true);
 
             cy.injectAxe();
-            cy.checkA11y('cultural-advice-v2', {
+            cy.checkA11y('cultural-advice', {
                 reportName: 'Cultural Advice Popup',
                 scopeName: 'Accessibility',
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
@@ -56,26 +56,11 @@ describe('Cultural Advice', () => {
             // assertProactiveChatVisibility(false);
 
             cy.injectAxe();
-            cy.checkA11y('cultural-advice-v2', {
+            cy.checkA11y('cultural-advice', {
                 reportName: 'Cultural Advice Popup',
                 scopeName: 'Accessibility',
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
             });
         });
-
-        // it('Can hide and show cultural advice', () => {
-        //     cy.viewport(1280, 900);
-        //     assertCulturalAdvicePopupOpen();
-        //     cy.getCookie('UQ_CULTURAL_ADVICE').should('not.exist');
-
-        //     cy.wait(1500);
-        //     closeCulturalAdvicePopup();
-        //     cy.getCookie('UQ_CULTURAL_ADVICE').should('have.property', 'value', 'hidden');
-        //     assertCulturalAdvicePopupClosed();
-
-        //     openCulturalAdvicePopup();
-        //     cy.wait(1000);
-        //     assertCulturalAdvicePopupOpen();
-        // });
     });
 });

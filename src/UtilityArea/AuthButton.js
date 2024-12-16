@@ -4,7 +4,7 @@ import ApiAccess from '../ApiAccess/ApiAccess';
 import { authLocale } from './auth.locale';
 import { isBackTabKeyPressed, isEscapeKeyPressed, isTabKeyPressed } from '../helpers/keyDetection';
 import { apiLocale } from '../ApiAccess/ApiAccess.locale';
-import { canSeeAlertsAdmin, canSeeDlorAdmin, canSeeEspace, canSeeTestTag } from '../helpers/access';
+import { canSeeAlertsAdmin, canSeeDlorAdmin, canSeeEspace, canSeeTestTag, linkToDrupal } from '../helpers/access';
 import { getAccountMenuRoot } from './helpers';
 
 /*
@@ -34,17 +34,20 @@ authorisedtemplate.innerHTML = `
     <div id="auth" class="auth loggedin">
         <button id="account-option-button" data-testid="account-option-button" data-analyticsid="account-option-button">
             <div id="username-area" data-testid="username-area-label" data-analyticsid="username-area-label" class="username-area">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="24" height="24" fill="white"/>
-                    <path d="M12 3C14.2222 3 16 4.77778 16 7C16 9.22222 14.2222 11 12 11C9.77778 11 8 9.22222 8 7C8 4.77778 9.77778 3 12 3Z" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M4.59961 20.5716C4.59961 16.4685 7.91578 13.1523 12.0188 13.1523C16.1219 13.1523 19.438 16.4685 19.438 20.5716" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                    <g>
+                        <path d="M9 1C11.2222 1 13 2.77778 13 5C13 7.22222 11.2222 9 9 9C6.77778 9 5 7.22222 5 5C5 2.77778 6.77778 1 9 1Z" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M1.6001 18.5716C1.6001 14.4685 4.91626 11.1523 9.01932 11.1523C13.1224 11.1523 16.4385 14.4685 16.4385 18.5716" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </g>
                 </svg>
-
-                <span id="username-area-label" class="username-area-label"></span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <span id="username-area-label" data-testid="username-area-label" class="username-area-label"></span>
+                <svg id="down-arrow" data-testid="down-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
                     <g id="icon/standard/chevron-down-sml">
                         <path id="Chevron-down" d="M7 10L12 15L17 10" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </g>
+                </svg>
+                <svg id="up-arrow" data-testid="up-arrow" style="display: none" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                    <path d="M17 14L12 9L7 14" stroke="#19151C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </div>
         </button>
@@ -56,13 +59,13 @@ authorisedtemplate.innerHTML = `
                     <ul id="account-menu-list" data-analyticsid="mylibrary-menu-list-public" class="mylibrary-menu-list" role="menu">
                         <!-- Primo account -->
                         <li role="menuitem" aria-disabled="false">
-                            <a tabindex="0" data-testid="mylibrary-menu-borrowing" data-analyticsid="mylibrary-menu-borrowing" href="https://search.library.uq.edu.au/primo-explore/login?vid=61UQ&targetURL=https%3A%2F%2Fsearch.library.uq.edu.au%2Fprimo-explore%2Faccount%3Fvid%3D61UQ%26section%3Doverview%26lang%3Den_US" rel="noreferrer">
+                            <a tabindex="0" data-testid="mylibrary-menu-borrowing" data-analyticsid="mylibrary-menu-borrowing" href="https://search.library.uq.edu.au/primo-explore/login?vid=61UQ&targetURL=https%3A%2F%2Fsearch.library.uq.edu.au%2Fprimo-explore%2Faccount%3Fvid%3D61UQ%26section%3Doverview%26lang%3Den_US" rel="noreferrer" style="padding-top: 0">
                                 <svg viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
                                     <rect width="24" height="24" transform="translate(0 1)" />
                                     <path d="M12 4C14.2222 4 16 5.77778 16 8C16 10.2222 14.2222 12 12 12C9.77778 12 8 10.2222 8 8C8 5.77778 9.77778 4 12 4Z" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round" />
                                     <path d="M4.59961 21.5716C4.59961 17.4685 7.91578 14.1523 12.0188 14.1523C16.1219 14.1523 19.438 17.4685 19.438 21.5716" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
-                                <span>Library account</span>
+                                <span><span>Library account</span></span>
                             </a>
                         </li>
                                 
@@ -73,7 +76,7 @@ authorisedtemplate.innerHTML = `
                                     <rect width="24" height="24" />
                                     <path d="M12.6988 3.43449L14.9056 7.8896C14.9557 8.00269 15.0347 8.10063 15.1345 8.17369C15.2344 8.24675 15.3516 8.29235 15.4746 8.30597L20.3461 9.02767C20.4871 9.04581 20.6201 9.1037 20.7294 9.19458C20.8388 9.28545 20.9201 9.40559 20.9639 9.54094C21.0074 9.67627 21.0117 9.82125 20.9761 9.95891C20.9404 10.0966 20.8663 10.2213 20.7625 10.3184L17.2511 13.802C17.1615 13.8857 17.0942 13.9905 17.0554 14.1069C17.0167 14.2232 17.0075 14.3474 17.0291 14.4682L17.8757 19.3674C17.9001 19.5081 17.8847 19.653 17.831 19.7854C17.7771 19.9178 17.6873 20.0325 17.5717 20.1163C17.456 20.2003 17.3191 20.25 17.1765 20.2598C17.0339 20.2698 16.8915 20.2394 16.7654 20.1724L12.3796 17.8546C12.2673 17.7995 12.1439 17.7708 12.0188 17.7708C11.8936 17.7708 11.7702 17.7995 11.6579 17.8546L7.27219 20.1724C7.14601 20.2394 7.00355 20.2698 6.861 20.2598C6.71845 20.25 6.58153 20.2003 6.46585 20.1163C6.35016 20.0325 6.26034 19.9178 6.2066 19.7854C6.15286 19.653 6.13737 19.5081 6.16188 19.3674L7.00849 14.4127C7.02995 14.2919 7.02087 14.1677 6.98209 14.0514C6.9433 13.935 6.87604 13.8302 6.78643 13.7465L3.23344 10.3184C3.12833 10.2186 3.05441 10.0905 3.02063 9.94953C2.98686 9.80858 2.99468 9.66085 3.04315 9.52425C3.09162 9.38766 3.17866 9.26805 3.29372 9.17991C3.40879 9.09178 3.54694 9.0389 3.69145 9.02767L8.56292 8.30597C8.68589 8.29235 8.80314 8.24675 8.90298 8.17369C9.00281 8.10063 9.08177 8.00269 9.13195 7.8896L11.3387 3.43449C11.3988 3.30474 11.4947 3.19489 11.6153 3.1179C11.7358 3.04091 11.8758 3 12.0188 3C12.1617 3 12.3018 3.04091 12.4223 3.1179C12.5428 3.19489 12.6387 3.30474 12.6988 3.43449Z" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
-                                <span>Favourites</span>
+                                <span><span>Favourites</span></span>
                             </a>
                         </li>
 
@@ -88,42 +91,42 @@ authorisedtemplate.innerHTML = `
                                     <path d="M14.5293 15.7428C15.9436 15.2713 17.4436 14.9713 18.9436 14.8428" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
                                     <path d="M12.001 21.4003V6.78587C12.001 6.78587 14.0581 4.51443 21.001 4.42871C21.1296 4.42871 21.2153 4.47157 21.3011 4.55728C21.3868 4.643 21.4296 4.72871 21.4296 4.85729V18.5717C21.4296 18.786 21.2582 19.0003 21.001 19.0003C14.0581 19.1288 12.001 21.4003 12.001 21.4003Z" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
-                                <span>Learning resources</span>
+                                <span><span>Learning resources</span></span>
                             </a>
                         </li>
 
                         <!-- Printing balance -->
                         <li role="menuitem" aria-disabled="false">
                             <a tabindex="0" data-testid="mylibrary-menu-print-balance" data-analyticsid="mylibrary-menu-print-balance"
-                                href="https://web.library.uq.edu.au/library-services/it/print-scan-copy/your-printing-account" rel="noreferrer">
+                                href="${linkToDrupal('/library-services/it/print-scan-copy/your-printing-account')}"
+                                rel="noreferrer">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-                                    <rect width="24" height="24"/>
-                                    <g clip-path="url(#clip0_1654_1998)">
+                                    <g clip-path="url(#clip0_1723_14098)">
                                         <path d="M3.01562 12C3.01563 14.3828 3.96219 16.668 5.64709 18.3529C7.33198 20.0378 9.6172 20.9844 12 20.9844C14.3828 20.9844 16.668 20.0378 18.3529 18.3529C20.0378 16.668 20.9844 14.3828 20.9844 12C20.9844 9.6172 20.0378 7.33198 18.3529 5.64709C16.668 3.96219 14.3828 3.01563 12 3.01562C9.6172 3.01563 7.33198 3.96219 5.64709 5.64709C3.96219 7.33198 3.01563 9.6172 3.01562 12Z" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
                                         <path d="M10.2031 13.7969C10.2031 14.1523 10.3085 14.4997 10.506 14.7952C10.7034 15.0907 10.984 15.321 11.3124 15.457C11.6407 15.593 12.002 15.6286 12.3506 15.5592C12.6991 15.4899 13.0193 15.3188 13.2706 15.0675C13.5219 14.8162 13.693 14.496 13.7623 14.1474C13.8317 13.7989 13.7961 13.4376 13.6601 13.1092C13.5241 12.7809 13.2938 12.5003 12.9983 12.3028C12.7028 12.1054 12.3554 12 12 12C11.6446 12 11.2972 11.8946 11.0017 11.6972C10.7062 11.4997 10.4759 11.2191 10.3399 10.8908C10.2039 10.5624 10.1683 10.2011 10.2377 9.85257C10.307 9.50401 10.4781 9.18384 10.7294 8.93254C10.9807 8.68125 11.3009 8.51011 11.6494 8.44078C11.998 8.37144 12.3593 8.40703 12.6876 8.54303C13.016 8.67903 13.2966 8.90934 13.494 9.20484C13.6915 9.50033 13.7969 9.84774 13.7969 10.2031" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
                                         <path d="M12 7.20801V8.40592" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
                                         <path d="M12 15.5938V16.7917" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
                                     </g>
                                     <defs>
-                                        <clipPath id="clip0_1654_1998">
-                                            <rect width="20" height="20" transform="translate(2 2)"/>
+                                        <clipPath id="clip0_1723_14098">
+                                            <rect width="20" height="20" fill="white" transform="translate(2 2)"/>
                                         </clipPath>
                                     </defs>
                                 </svg>
-                                <span>Print balance</span>
+                                <span><span>Print balance</span></span>
                             </a>
                         </li>
 
                         <!-- Room bookings -->
                         <li role="menuitem" aria-disabled="false">
                             <a tabindex="0" data-testid="mylibrary-menu-room-bookings" data-analyticsid="mylibrary-menu-room-bookings" href="https://uqbookit.uq.edu.au/#/app/booking-types/77b52dde-d704-4b6d-917e-e820f7df07cb" rel="noreferrer">
-                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-                                    <path d="M2.18907 3.41406H17.8109C18.467 3.41406 19 3.94588 19 4.60043V17.8141C19 18.4686 18.467 19.0004 17.8109 19.0004H2.18907C1.53303 19.0004 1 18.4686 1 17.8141V4.60043C1 3.94588 1.53303 3.41406 2.18907 3.41406Z" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M1 8.2002H18.5399" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M5.79688 5.21364V1" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M14.2441 5.21364V1" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                                    <path d="M4.18907 5.41406H19.8109C20.467 5.41406 21 5.94588 21 6.60043V19.8141C21 20.4686 20.467 21.0004 19.8109 21.0004H4.18907C3.53303 21.0004 3 20.4686 3 19.8141V6.60043C3 5.94588 3.53303 5.41406 4.18907 5.41406Z" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M3 10.2002H20.5399" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M7.79688 7.21364V3" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M16.2441 7.21364V3" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
-                                <span>Book a room or desk</span>
+                                <span><span>Book a room or desk</span></span>
                             </a>
                         </li>
                         
@@ -137,12 +140,12 @@ authorisedtemplate.innerHTML = `
                                     <path d="M12 17.9717V20.5016" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
                                     <path d="M9.42773 22.4286L11.9992 20.5L14.5706 22.4286" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
-                                <span>UQ eSpace dashboard</span>
+                                <span><span>UQ eSpace dashboard</span></span>
                             </a>
                         </li>
 
                         <!-- Feedback -->
-                        <li role="menuitem" aria-disabled="false">
+                        <li role="menuitem" aria-disabled="false" style="margin-bottom: 8px;">
                             <a tabindex="0" id="mylibrary-menu-feedback" data-testid="mylibrary-menu-feedback" data-analyticsid="mylibrary-menu-feedback" href="https://support.my.uq.edu.au/app/library/feedback" rel="noreferrer">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect width="24" height="24"/>
@@ -150,11 +153,11 @@ authorisedtemplate.innerHTML = `
                                         <path d="M6.59961 8.39941H17.3995" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
                                         <path d="M6.59961 12H14.9995" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
-                                <span>Feedback</span>
+                                <span><span>Feedback</span></span>
                             </a>
                         </li>
                         <!-- Logout -->
-                        <li role="menuitem" aria-disabled="false" class="borderTop" >
+                        <li role="menuitem" aria-disabled="false" class="logout borderTop" >
                             <button class="logout" type="button" data-analyticsid="auth-button-logout" id="signOutButton">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
                                     <g id="Login-1--Streamline-Ultimate 1" clip-path="url(#clip0_1654_3032)">
@@ -168,7 +171,7 @@ authorisedtemplate.innerHTML = `
                                         </clipPath>
                                     </defs>
                                 </svg>
-                                <span>Log out</span>
+                                <span><span>Log out</span></span>
                             </button>
                         </li>
                     </ul>
@@ -184,9 +187,11 @@ unauthorisedtemplate.innerHTML = `
     <style>${loggedoutstyles.toString()}</style>
     <div class="auth loggedout">
         <button id="auth-button-login" class="login-button" data-testid="auth-button-login" data-analyticsid="auth-button-login">
-            <svg class="auth-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="20" viewBox="0 0 18 20" fill="none">
-              <path d="M9 1C11.2222 1 13 2.77778 13 5C13 7.22222 11.2222 9 9 9C6.77778 9 5 7.22222 5 5C5 2.77778 6.77778 1 9 1Z" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M1.59961 18.5716C1.59961 14.4685 4.91578 11.1523 9.01883 11.1523C13.1219 11.1523 16.438 14.4685 16.438 18.5716" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                <g>
+                    <path d="M9 1C11.2222 1 13 2.77778 13 5C13 7.22222 11.2222 9 9 9C6.77778 9 5 7.22222 5 5C5 2.77778 6.77778 1 9 1Z" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M1.59998 18.5714C1.59998 14.4684 4.91614 11.1522 9.01919 11.1522C13.1222 11.1522 16.4384 14.4684 16.4384 18.5714" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
             </svg>
             <span class="auth-log-in-label" data-testid="auth-button-login-label">Log in</span>
         </button>
@@ -282,14 +287,13 @@ class AuthButton extends HTMLElement {
                         <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                             ${iconPath}
                         </svg>
-                        <span>${linkText}</span>
+                        <span><span>${linkText}</span></span>
                     </a>
                 </li>`;
             const newLi = template.content.cloneNode(true);
             ulElement.insertBefore(newLi, lastLi); //log out is the final item - insert before it
             if (firstEntry) {
                 const li = ulElement.querySelector('#' + elementId);
-                console.log('li=', li);
                 !!li && li.classList.add('borderTop');
             }
         }
@@ -360,7 +364,7 @@ class AuthButton extends HTMLElement {
 <path d="M13.8857 8.87109H17.6582" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
 <path d="M12.0002 13.2432L8.22879 18.2575L5.7002 15.7289" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
 <path d="M13.8857 16.4141H17.6582" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round" fill="none"/>`,
-                'Test and Tag',
+                'Test and tag',
                 firstEntry,
             );
             firstEntry = false;
@@ -446,16 +450,42 @@ class AuthButton extends HTMLElement {
             apiAccess.logUserOut();
         }
 
+        function hideElement(elementId) {
+            const element = shadowDOM.getElementById(elementId);
+            !!element && (element.style.display = 'none');
+        }
+
+        function showElement(elementId) {
+            const element = shadowDOM.getElementById(elementId);
+            !!element && (element.style.display = 'block');
+        }
+
         function openAccountOptionsMenu() {
             accountOptionsClosed = false;
-            const shadowMenu = shadowDOM.getElementById('account-options-menu');
-            !!shadowMenu && (shadowMenu.style.display = 'block');
-            const shadowPane = shadowDOM.getElementById('account-options-pane');
-            !!shadowPane && (shadowPane.style.display = 'block');
+            const accountMenu = shadowDOM.getElementById('account-options-menu');
+            const backgroundPane = shadowDOM.getElementById('account-options-pane');
+
+            !!accountMenu && (accountMenu.style.display = 'block');
+            !!backgroundPane && (backgroundPane.style.display = 'block');
+            hideElement('down-arrow');
+            showElement('up-arrow');
+            // apply hover style to username
+            const username = shadowDOM.getElementById('username-area-label');
+            !!username && username.classList.add('menu-open');
+
+            let bottomPosition = 41;
+            if (window.innerWidth <= 390) {
+                const utilityBar = document.querySelector('uq-site-header');
+
+                // Get the bottom position of the utilityBar element
+                const childRect = utilityBar.getBoundingClientRect();
+                bottomPosition = childRect?.bottom;
+            }
+            !!bottomPosition && !!accountMenu && (accountMenu.style.top = `${bottomPosition}px`);
 
             function showDisplay() {
-                !!shadowMenu && shadowMenu.classList.remove('account-options-menu-closed');
-                !!shadowPane && shadowPane.classList.remove('account-options-pane-closed');
+                !!accountMenu && accountMenu.classList.remove('account-options-menu-closed');
+                !!backgroundPane && backgroundPane.classList.remove('account-options-pane-closed');
             }
 
             setTimeout(showDisplay, 100);
@@ -467,26 +497,28 @@ class AuthButton extends HTMLElement {
             };
         }
 
-        function closeAccountOptionsMenu() {
-            accountOptionsClosed = true;
-            const shadowMenu = shadowDOM.getElementById('account-options-menu');
-            !!shadowMenu && shadowMenu.classList.add('account-options-menu-closed');
-            const shadowPane = shadowDOM.getElementById('account-options-pane');
-            !!shadowPane && shadowPane.classList.add('account-options-pane-closed');
-
-            function hideAccountOptionsDisplay() {
-                !!shadowMenu && (shadowMenu.style.display = 'none');
-                !!shadowPane && (shadowPane.style.display = 'none');
+        function closeAccountOptionsMenu(e) {
+            if (e?.ctrlKey || e?.metaKey) {
+                return; // ctrl-click on windows, cmd-click on mac
             }
-
-            setTimeout(hideAccountOptionsDisplay, 500);
+            accountOptionsClosed = true;
+            const accountMenu = shadowDOM.getElementById('account-options-menu');
+            !!accountMenu && accountMenu.classList.add('account-options-menu-closed');
+            const backgroundPane = shadowDOM.getElementById('account-options-pane');
+            !!backgroundPane && backgroundPane.classList.add('account-options-pane-closed');
+            showElement('down-arrow');
+            hideElement('up-arrow');
+            const username = shadowDOM.getElementById('username-area-label');
+            !!username && username.classList.remove('menu-open');
+            !!accountMenu && (accountMenu.style.display = 'none');
+            !!backgroundPane && (backgroundPane.style.display = 'none');
         }
 
         function handleAccountOptionsButton() {
-            const shadowButton = shadowDOM.getElementById('account-options-button');
+            const openButton = shadowDOM.getElementById('account-options-button');
             accountOptionsClosed
-                ? !!shadowButton && shadowButton.blur()
-                : /* istanbul ignore next */ !!shadowButton && shadowButton.focus();
+                ? !!openButton && openButton.blur()
+                : /* istanbul ignore next */ !!openButton && openButton.focus();
             const shadowPane = shadowDOM.getElementById('account-options-pane');
             !!shadowPane && shadowPane.addEventListener('click', handleAccountOptionsMouseOut);
             openAccountOptionsMenu();
@@ -503,69 +535,30 @@ class AuthButton extends HTMLElement {
         function closeAccountMenuOnLinkClick(elementId) {
             const link = !!shadowDOM && shadowDOM.getElementById(elementId);
             !!link &&
-                link.addEventListener('click', function () {
-                    closeAccountOptionsMenu();
+                link.addEventListener('click', function (e) {
+                    closeAccountOptionsMenu(e);
                 });
-        }
-
-        // on whatever is the bottom-most link in the account menu for this user, tabbing out closes the popup account menu
-        function closeMenuWhenBottomMostLinkClicked() {
-            // the order of these ifs must match the reverse order they are displayed in
-            if (canSeeTestTag(account)) {
-                const testntagOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-testTag-admin');
-                !!testntagOption &&
-                    testntagOption.addEventListener('keydown', function (e) {
-                        if (isTabKeyPressed(e)) {
-                            closeAccountOptionsMenu();
-                        }
-                    });
-            } else if (canSeeAlertsAdmin(account)) {
-                const alertsOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-alerts-admin');
-                !!alertsOption &&
-                    alertsOption.addEventListener('keydown', function (e) {
-                        if (isTabKeyPressed(e)) {
-                            closeAccountOptionsMenu();
-                        }
-                    });
-            } else if (!!account && !!account.canMasquerade) {
-                const masquradeOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-masquerade');
-                !!masquradeOption &&
-                    masquradeOption.addEventListener('keydown', function (e) {
-                        if (isTabKeyPressed(e)) {
-                            closeAccountOptionsMenu();
-                        }
-                    });
-            } else {
-                const feedbackButton = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-feedback');
-                !!feedbackButton &&
-                    feedbackButton.addEventListener('keydown', function (e) {
-                        if (isTabKeyPressed(e)) {
-                            closeAccountOptionsMenu();
-                        }
-                    });
-            }
         }
 
         // Attach a listener to the options button
         const accountOptionsButton = !!shadowDOM && shadowDOM.getElementById('account-option-button');
         !!accountOptionsButton && accountOptionsButton.addEventListener('click', handleAccountOptionsButton);
 
-        const loggedoutButton = !!shadowDOM && shadowDOM.getElementById('signOutButton');
-        if (!!loggedoutButton) {
-            loggedoutButton.addEventListener('click', visitLogOutPage);
-            loggedoutButton.addEventListener('keydown', function (e) {
-                if (isBackTabKeyPressed(e)) {
+        const logoutButton = !!shadowDOM && shadowDOM.getElementById('signOutButton');
+        if (!!logoutButton) {
+            logoutButton.addEventListener('click', visitLogOutPage);
+            logoutButton.addEventListener('keydown', function (e) {
+                if (isTabKeyPressed(e)) {
                     closeAccountOptionsMenu();
                 }
             });
         }
 
-        closeMenuWhenBottomMostLinkClicked();
-
+        closeAccountMenuOnLinkClick('mylibrary-menu-course-resources');
         closeAccountMenuOnLinkClick('mylibrary-menu-masquerade');
         closeAccountMenuOnLinkClick('mylibrary-menu-alerts-admin');
         closeAccountMenuOnLinkClick('mylibrary-menu-testTag-admin');
-        closeAccountMenuOnLinkClick('mylibrary-menu-course-resources');
+        closeAccountMenuOnLinkClick('mylibrary-menu-dlor-admin');
     }
 
     // we have an option to add the attribute `overwriteasloggedout` to the authbutton

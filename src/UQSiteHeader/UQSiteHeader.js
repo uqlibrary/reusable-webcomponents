@@ -1,7 +1,6 @@
 import styles from './css/main.css';
 import breadcrumbs from './css/breadcrumbs.css';
 import overrides from './css/overrides.css';
-import { default as menuLocale } from '../locale/menu';
 
 /**
  * API:
@@ -107,13 +106,11 @@ class UQSiteHeader extends HTMLElement {
         // Bindings
         this.getLink = this.getLink.bind(this);
         this.loadScript = this.loadScript.bind(this);
-        this.updateMegaMenu = this.updateMegaMenu.bind(this);
         this.rewriteMegaMenuFromJson = this.rewriteMegaMenuFromJson.bind(this);
         this.createDesktopHeaderItem = this.createDesktopHeaderItem.bind(this);
         this.createMobileHeaderItem = this.createMobileHeaderItem.bind(this);
         this.setTitle = this.setTitle.bind(this);
         this.setSiteUrl = this.setSiteUrl.bind(this);
-        this.showMenu = this.showMenu.bind(this);
         this.unhideMobileMenuButton = this.unhideMobileMenuButton.bind(this);
 
         // Render the template
@@ -221,7 +218,6 @@ class UQSiteHeader extends HTMLElement {
         const breadcrumbNav = this.shadowRoot.getElementById('breadcrumb_nav');
         const subsiteListItem = !!breadcrumbNav && breadcrumbNav.querySelector('li#subsite');
         if (!subsiteListItem) {
-            console.log('BREADCRUMBS subsite not found, add newSecondLevelTitle', newSecondLevelTitle);
             if (!!newSecondLevelTitle) {
                 const subsiteClone = subsiteTemplate.content.firstElementChild.cloneNode(true);
 
@@ -240,13 +236,11 @@ class UQSiteHeader extends HTMLElement {
                 }
             }
         } else if (newSecondLevelTitle === null) {
-            console.log('BREADCRUMBS newSecondLevelTitle === null subsiteListItem=', subsiteListItem);
             if (!!subsiteListItem) {
                 // the li exists, but we are back on the homepage - delete it
                 subsiteListItem.remove();
             }
         } else {
-            console.log('BREADCRUMBS it exists, update it', newSecondLevelTitle);
             // it exists, update it
             const subsiteBreadcrumb =
                 !!this.shadowRoot && this.shadowRoot.getElementById('secondlevel-site-breadcrumb-link');
@@ -255,12 +249,6 @@ class UQSiteHeader extends HTMLElement {
                 !!subsiteBreadcrumb && subsiteBreadcrumb.classList.add('primoNonProdMarker');
             }
         }
-    }
-
-    showMenu() {
-        this.updateMegaMenu();
-
-        this.unhideMobileMenuButton();
     }
 
     waitOnUqScript() {
@@ -280,12 +268,6 @@ class UQSiteHeader extends HTMLElement {
             50,
             that,
         );
-    }
-
-    updateMegaMenu() {
-        const megaMenu = !!this.shadowRoot && this.shadowRoot.getElementById('jsNav');
-        const listWrapper = this.rewriteMegaMenuFromJson(menuLocale);
-        megaMenu.appendChild(listWrapper);
     }
 
     createSubmenuCloseControl(linkPrimaryText, index) {

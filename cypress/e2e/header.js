@@ -205,5 +205,25 @@ describe('UQ Header', () => {
                     cy.get('[data-testid="uq-header-home-link-mobile"]').should('not.be.visible');
                 });
         });
+        it('can send a search on the library site', () => {
+            cy.intercept(/search.uq.edu.au/, 'user visits search page');
+
+            cy.viewport(1280, 900);
+            cy.get('uq-header')
+                .shadow()
+                .within(() => {
+                    // open search accordion
+                    cy.get('[data-testid="uq-header-search-button"]').click();
+                    cy.wait(1200);
+                    // enter a query term and click return to submit
+                    cy.get('[data-testid="uq-header-search-input"]').type('frogs{enter}');
+
+                    // we are on the search page and "library" is set as part of the url
+                    cy.url().should(
+                        'eq',
+                        'https://search.uq.edu.au/?q=frogs&op=Search&as_sitesearch=library.uq.edu.au',
+                    );
+                });
+        });
     });
 });
