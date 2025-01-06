@@ -34,19 +34,19 @@ authorisedtemplate.innerHTML = `
     <div id="auth" class="auth loggedin">
         <button id="account-option-button" data-testid="account-option-button" data-analyticsid="account-option-button">
             <div id="username-area" data-testid="username-area-label" data-analyticsid="username-area-label" class="username-area">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="24" height="24" fill="white"/>
-                    <path d="M12 3C14.2222 3 16 4.77778 16 7C16 9.22222 14.2222 11 12 11C9.77778 11 8 9.22222 8 7C8 4.77778 9.77778 3 12 3Z" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M4.59961 20.5716C4.59961 16.4685 7.91578 13.1523 12.0188 13.1523C16.1219 13.1523 19.438 16.4685 19.438 20.5716" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                    <g>
+                        <path d="M9 1C11.2222 1 13 2.77778 13 5C13 7.22222 11.2222 9 9 9C6.77778 9 5 7.22222 5 5C5 2.77778 6.77778 1 9 1Z" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M1.6001 18.5716C1.6001 14.4685 4.91626 11.1523 9.01932 11.1523C13.1224 11.1523 16.4385 14.4685 16.4385 18.5716" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </g>
                 </svg>
-
                 <span id="username-area-label" data-testid="username-area-label" class="username-area-label"></span>
-                <svg id="down-arrow" data-testid="down-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <svg id="down-arrow" data-testid="down-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
                     <g id="icon/standard/chevron-down-sml">
                         <path id="Chevron-down" d="M7 10L12 15L17 10" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </g>
                 </svg>
-                <svg id="up-arrow" data-testid="up-arrow" style="display: none" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg id="up-arrow" data-testid="up-arrow" style="display: none" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
                     <path d="M17 14L12 9L7 14" stroke="#19151C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </div>
@@ -59,7 +59,7 @@ authorisedtemplate.innerHTML = `
                     <ul id="account-menu-list" data-analyticsid="mylibrary-menu-list-public" class="mylibrary-menu-list" role="menu">
                         <!-- Primo account -->
                         <li role="menuitem" aria-disabled="false">
-                            <a tabindex="0" data-testid="mylibrary-menu-borrowing" data-analyticsid="mylibrary-menu-borrowing" href="https://search.library.uq.edu.au/primo-explore/login?vid=61UQ&targetURL=https%3A%2F%2Fsearch.library.uq.edu.au%2Fprimo-explore%2Faccount%3Fvid%3D61UQ%26section%3Doverview%26lang%3Den_US" rel="noreferrer">
+                            <a tabindex="0" data-testid="mylibrary-menu-borrowing" data-analyticsid="mylibrary-menu-borrowing" href="https://search.library.uq.edu.au/primo-explore/login?vid=61UQ&targetURL=https%3A%2F%2Fsearch.library.uq.edu.au%2Fprimo-explore%2Faccount%3Fvid%3D61UQ%26section%3Doverview%26lang%3Den_US" rel="noreferrer" style="padding-top: 0">
                                 <svg viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
                                     <rect width="24" height="24" transform="translate(0 1)" />
                                     <path d="M12 4C14.2222 4 16 5.77778 16 8C16 10.2222 14.2222 12 12 12C9.77778 12 8 10.2222 8 8C8 5.77778 9.77778 4 12 4Z" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round" />
@@ -98,9 +98,8 @@ authorisedtemplate.innerHTML = `
                         <!-- Printing balance -->
                         <li role="menuitem" aria-disabled="false">
                             <a tabindex="0" data-testid="mylibrary-menu-print-balance" data-analyticsid="mylibrary-menu-print-balance"
-                                href="${linkToDrupal(
-                                    'library-services/it/print-scan-copy/your-printing-account',
-                                )}" rel="noreferrer">
+                                href="${linkToDrupal('/library-services/it/print-scan-copy/your-printing-account')}"
+                                rel="noreferrer">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
                                     <g clip-path="url(#clip0_1723_14098)">
                                         <path d="M3.01562 12C3.01563 14.3828 3.96219 16.668 5.64709 18.3529C7.33198 20.0378 9.6172 20.9844 12 20.9844C14.3828 20.9844 16.668 20.0378 18.3529 18.3529C20.0378 16.668 20.9844 14.3828 20.9844 12C20.9844 9.6172 20.0378 7.33198 18.3529 5.64709C16.668 3.96219 14.3828 3.01563 12 3.01562C9.6172 3.01563 7.33198 3.96219 5.64709 5.64709C3.96219 7.33198 3.01563 9.6172 3.01562 12Z" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
@@ -146,7 +145,7 @@ authorisedtemplate.innerHTML = `
                         </li>
 
                         <!-- Feedback -->
-                        <li role="menuitem" aria-disabled="false">
+                        <li role="menuitem" aria-disabled="false" style="margin-bottom: 8px;">
                             <a tabindex="0" id="mylibrary-menu-feedback" data-testid="mylibrary-menu-feedback" data-analyticsid="mylibrary-menu-feedback" href="https://support.my.uq.edu.au/app/library/feedback" rel="noreferrer">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect width="24" height="24"/>
@@ -158,7 +157,7 @@ authorisedtemplate.innerHTML = `
                             </a>
                         </li>
                         <!-- Logout -->
-                        <li role="menuitem" aria-disabled="false" class="borderTop" >
+                        <li role="menuitem" aria-disabled="false" class="logout borderTop" >
                             <button class="logout" type="button" data-analyticsid="auth-button-logout" id="signOutButton">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
                                     <g id="Login-1--Streamline-Ultimate 1" clip-path="url(#clip0_1654_3032)">
@@ -188,9 +187,11 @@ unauthorisedtemplate.innerHTML = `
     <style>${loggedoutstyles.toString()}</style>
     <div class="auth loggedout">
         <button id="auth-button-login" class="login-button" data-testid="auth-button-login" data-analyticsid="auth-button-login">
-            <svg class="auth-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="20" viewBox="0 0 18 20" fill="none">
-              <path d="M9 1C11.2222 1 13 2.77778 13 5C13 7.22222 11.2222 9 9 9C6.77778 9 5 7.22222 5 5C5 2.77778 6.77778 1 9 1Z" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M1.59961 18.5716C1.59961 14.4685 4.91578 11.1523 9.01883 11.1523C13.1219 11.1523 16.438 14.4685 16.438 18.5716" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                <g>
+                    <path d="M9 1C11.2222 1 13 2.77778 13 5C13 7.22222 11.2222 9 9 9C6.77778 9 5 7.22222 5 5C5 2.77778 6.77778 1 9 1Z" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M1.59998 18.5714C1.59998 14.4684 4.91614 11.1522 9.01919 11.1522C13.1222 11.1522 16.4384 14.4684 16.4384 18.5714" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
             </svg>
             <span class="auth-log-in-label" data-testid="auth-button-login-label">Log in</span>
         </button>
@@ -293,7 +294,6 @@ class AuthButton extends HTMLElement {
             ulElement.insertBefore(newLi, lastLi); //log out is the final item - insert before it
             if (firstEntry) {
                 const li = ulElement.querySelector('#' + elementId);
-                console.log('li=', li);
                 !!li && li.classList.add('borderTop');
             }
         }
@@ -364,7 +364,7 @@ class AuthButton extends HTMLElement {
 <path d="M13.8857 8.87109H17.6582" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
 <path d="M12.0002 13.2432L8.22879 18.2575L5.7002 15.7289" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
 <path d="M13.8857 16.4141H17.6582" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round" fill="none"/>`,
-                'Test and Tag',
+                'Test and tag',
                 firstEntry,
             );
             firstEntry = false;
@@ -473,6 +473,16 @@ class AuthButton extends HTMLElement {
             const username = shadowDOM.getElementById('username-area-label');
             !!username && username.classList.add('menu-open');
 
+            let bottomPosition = 41;
+            if (window.innerWidth <= 390) {
+                const utilityBar = document.querySelector('uq-site-header');
+
+                // Get the bottom position of the utilityBar element
+                const childRect = utilityBar.getBoundingClientRect();
+                bottomPosition = childRect?.bottom;
+            }
+            !!bottomPosition && !!accountMenu && (accountMenu.style.top = `${bottomPosition}px`);
+
             function showDisplay() {
                 !!accountMenu && accountMenu.classList.remove('account-options-menu-closed');
                 !!backgroundPane && backgroundPane.classList.remove('account-options-pane-closed');
@@ -487,7 +497,10 @@ class AuthButton extends HTMLElement {
             };
         }
 
-        function closeAccountOptionsMenu() {
+        function closeAccountOptionsMenu(e) {
+            if (e?.ctrlKey || e?.metaKey) {
+                return; // ctrl-click on windows, cmd-click on mac
+            }
             accountOptionsClosed = true;
             const accountMenu = shadowDOM.getElementById('account-options-menu');
             !!accountMenu && accountMenu.classList.add('account-options-menu-closed');
@@ -497,13 +510,8 @@ class AuthButton extends HTMLElement {
             hideElement('up-arrow');
             const username = shadowDOM.getElementById('username-area-label');
             !!username && username.classList.remove('menu-open');
-
-            function hideAccountOptionsDisplay() {
-                !!accountMenu && (accountMenu.style.display = 'none');
-                !!backgroundPane && (backgroundPane.style.display = 'none');
-            }
-
-            setTimeout(hideAccountOptionsDisplay, 500);
+            !!accountMenu && (accountMenu.style.display = 'none');
+            !!backgroundPane && (backgroundPane.style.display = 'none');
         }
 
         function handleAccountOptionsButton() {
@@ -527,47 +535,9 @@ class AuthButton extends HTMLElement {
         function closeAccountMenuOnLinkClick(elementId) {
             const link = !!shadowDOM && shadowDOM.getElementById(elementId);
             !!link &&
-                link.addEventListener('click', function () {
-                    closeAccountOptionsMenu();
+                link.addEventListener('click', function (e) {
+                    closeAccountOptionsMenu(e);
                 });
-        }
-
-        // on whatever is the bottom-most link in the account menu for this user, tabbing out closes the popup account menu
-        function closeMenuWhenBottomMostLinkClicked() {
-            // the order of these ifs must match the reverse order they are displayed in
-            if (canSeeTestTag(account)) {
-                const testntagOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-testTag-admin');
-                !!testntagOption &&
-                    testntagOption.addEventListener('keydown', function (e) {
-                        if (isTabKeyPressed(e)) {
-                            closeAccountOptionsMenu();
-                        }
-                    });
-            } else if (canSeeAlertsAdmin(account)) {
-                const alertsOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-alerts-admin');
-                !!alertsOption &&
-                    alertsOption.addEventListener('keydown', function (e) {
-                        if (isTabKeyPressed(e)) {
-                            closeAccountOptionsMenu();
-                        }
-                    });
-            } else if (!!account && !!account.canMasquerade) {
-                const masquradeOption = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-masquerade');
-                !!masquradeOption &&
-                    masquradeOption.addEventListener('keydown', function (e) {
-                        if (isTabKeyPressed(e)) {
-                            closeAccountOptionsMenu();
-                        }
-                    });
-            } else {
-                const feedbackButton = !!shadowDOM && shadowDOM.getElementById('mylibrary-menu-feedback');
-                !!feedbackButton &&
-                    feedbackButton.addEventListener('keydown', function (e) {
-                        if (isTabKeyPressed(e)) {
-                            closeAccountOptionsMenu();
-                        }
-                    });
-            }
         }
 
         // Attach a listener to the options button
@@ -578,18 +548,17 @@ class AuthButton extends HTMLElement {
         if (!!logoutButton) {
             logoutButton.addEventListener('click', visitLogOutPage);
             logoutButton.addEventListener('keydown', function (e) {
-                if (isBackTabKeyPressed(e)) {
+                if (isTabKeyPressed(e)) {
                     closeAccountOptionsMenu();
                 }
             });
         }
 
-        closeMenuWhenBottomMostLinkClicked();
-
+        closeAccountMenuOnLinkClick('mylibrary-menu-course-resources');
         closeAccountMenuOnLinkClick('mylibrary-menu-masquerade');
         closeAccountMenuOnLinkClick('mylibrary-menu-alerts-admin');
         closeAccountMenuOnLinkClick('mylibrary-menu-testTag-admin');
-        closeAccountMenuOnLinkClick('mylibrary-menu-course-resources');
+        closeAccountMenuOnLinkClick('mylibrary-menu-dlor-admin');
     }
 
     // we have an option to add the attribute `overwriteasloggedout` to the authbutton
