@@ -925,7 +925,7 @@ h5,
 h6 {
     font-weight: 500;
     line-height: 1.4;
-    color: #51247a
+    color: #19151c
 }
 
 h1 {
@@ -3015,7 +3015,7 @@ a:hover {
 @media(min-width: 64em) {
     .uq-header__nav-secondary-container {
         text-align: right;
-        max-width: 73.25em;
+        max-width: 73.25rem;
         margin-left: auto;
         margin-right: auto
     }
@@ -3046,18 +3046,24 @@ a:hover {
 .uq-header__nav-secondary-link {
     display: block;
     color: #fff;
-    padding: 1em 1.5em
+    padding: 1rem 1.5rem;
+    font-weight: 400;
+    -webkit-text-decoration: none;
+    text-decoration: none
 }
 
-@media(min-width: 64em) {
+@media(min-width: 64rem) {
     .uq-header__nav-secondary-link {
-        font-size: .875em;
-        padding: .625em 1em
+        font-size:.875rem;
+        padding: .625rem 1rem
     }
 }
 
 .uq-header__nav-secondary-link:hover {
-    color: #d4c8de
+    background-color: #0000;
+    color: #d4c8de;
+    -webkit-text-decoration: underline;
+    text-decoration: underline
 }
 
 .uq-header__search {
@@ -3203,10 +3209,9 @@ a:hover {
     }
 }
 
-@media(max-width: 63.9375em) {
-    .uq-header__nav-primary,
-    .uq-header__nav-secondary {
-        display: none
+@media(max-width: 63.9375rem) {
+    .uq-header__nav-primary,.uq-header__nav-secondary {
+        display:none
     }
 }
 
@@ -3438,11 +3443,7 @@ body.no-scroll {
     margin-right: .5em
 }
 
-.slide-menu .uq-header__nav-secondary-item {
-    background-color: #48206c
-}
-
-.slide-menu .uq-header__nav-secondary-item:hover {
+.slide-menu .uq-header__nav-secondary-item,.slide-menu .uq-header__nav-secondary-item:hover {
     background-color: #48206c
 }
 
@@ -3451,8 +3452,8 @@ body.no-scroll {
 }
 
 .slide-menu .uq-header__nav-secondary-link:hover {
-    color: #fff;
-    background-color: #48206c
+    background-color: #48206c;
+    color: #fff
 }
 
 .slide-menu .uq-header__newglobal-nav-parent {

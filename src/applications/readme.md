@@ -21,11 +21,14 @@ We add the header-footer to many third party systems, usually by creating a load
   - load.js at /src/applications/auth and called from src/resources/views/layout/default.blade.php in repo [auth](https://github.com/uqlibrary/auth)
   - live at <https://auth.library.uq.edu.au>
   - staging at <https://auth-staging.library.uq.edu.au/>
-- Drupal
+- Drupal 
   - the Library public CMS
   - load.js at /src/applications/drupal
-  - live at eg <https://web.library.uq.edu.au/contact-us>
-  - drupal staging at eg <https://library.stage.drupal.uq.edu.au/library-services/services-students> is tied to the `feature-drupal` branch in this repo
+  - live at eg <https://web.library.uq.edu.au/about/contact-us>
+  - -- this staging detail needs update to new drupal10 location!
+  - drupal staging at eg new branch TBA, possibly <https://web-staging.library.uq.edu.au/find-and-borrow>
+  - note drupal has to call same script from all branches, so load script determines which reusable file to use  
+  - staging tied to the `drupal-staging` branch in this repo
 - Libcal
   - used for various booking pages
   - load.js at /src/applications/libcal
@@ -55,15 +58,11 @@ We add the header-footer to many third party systems, usually by creating a load
   - a bunch of scripts running on the enki servers
   - managed by Dan
   - load.js at /src/applications/shared
-- Studenthub
-  - a small group of pages that displays staff-training to logged in staff
-  - load.js at /src/applications/studenthub
-  - live at <https://www.studenthub.uq.edu.au/workgroups/library-staff-development>
 - UQLAPP
   - legacy system in Angular V1 offering a number of subsites. Only membership is current for development
   - load.js at /src/applications/uqlapp
   - live at <https://app.library.uq.edu.au/>
-  - staging at <https://app-testing.library.uq.edu.au/> is tied to the staging branch of this repo - vpn required
+  - staging at <https://app-testing.library.uq.edu.au/> is tied to the `staging` branch of this repo - vpn required
   - (repo is [uqlapp-frontend](https://github.com/uqlibrary/uqlapp-frontend))
 - Secure Collection
   - Secure collections are files that appear at eg <https://files.library.uq.edu.au/collection/?collection=documents&file=Tincture_Journal_Issue_Thirteen_(Autumn_2016).pdf> 
@@ -71,4 +70,5 @@ We add the header-footer to many third party systems, usually by creating a load
   - system used for Fryer library
   - load.js at /src/applications/atom
   - live at <https://manuscripts.library.uq.edu.au/>
+  - test at <https://sandbox-fryer.library.uq.edu.au/> (needs vpn), tied to the `atom-staging` branch in this repo, except Rohan often overwrites it, so if you need to check it, ask him to put it back
   - see readme for access details

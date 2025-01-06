@@ -38,9 +38,6 @@
 
         <uq-site-header sitetitle="Library Test" siteurl="http://www.library.uq.edu.au">
             <span slot="site-utilities">
-                <askus-button />
-            </span>
-            <span slot="site-utilities">
                 <auth-button />
             </span>
         </uq-site-header>
@@ -71,11 +68,36 @@
             </div>
         </article>
 
-        <connect-footer></connect-footer>
-
         <uq-footer loginurl="http://library.uq.edu.au"></uq-footer>
-        <proactive-chat secondsTilProactiveChatAppears="0"></proactive-chat>
-        <script type="text/javascript" src="uq-lib-reusable.min.js"></script>
-        <script type="text/javascript" src="drupal-lib-reusable.min.js"></script>
+        <script type="text/javascript" src="applications/drupal/load.js"></script>
+        <script>
+            console.log('============================');
+            console.log('CHECK BRANCH-SPECIFIC LOADER WORKS');
+            const prodUrl = getScriptPath('applications/drupal/subload.js', 'web.library.uq.edu.au');
+            if ('https://assets.library.uq.edu.au/reusable-webcomponents/applications/drupal/subload.js' === prodUrl) {
+                console.log('prod good', prodUrl)
+            } else {
+                console.log('PROD BAD', prodUrl)
+            }
+            const stagingUrl = getScriptPath('applications/drupal/subload.js', 'assets.library.uq.edu.au', 'reusable-webcomponents-staging');
+            if ('https://assets.library.uq.edu.au/reusable-webcomponents-staging/applications/drupal/subload.js' === stagingUrl) {
+                console.log('staging good', stagingUrl)
+            } else {
+                console.log('STAGING BAD', stagingUrl)
+            }
+            const masterUrl = getScriptPath('applications/drupal/subload.js', 'assets.library.uq.edu.au', 'reusable-webcomponents-development/master');
+            if ('https://assets.library.uq.edu.au/reusable-webcomponents-development/master/applications/drupal/subload.js' === masterUrl) {
+                console.log('master good', masterUrl)
+            } else {
+                console.log('MASTER BAD', masterUrl)
+            }
+            const featureUrl = getScriptPath('applications/drupal/subload.js', 'assets.library.uq.edu.au', 'https://assets.library.uq.edu.au/reusable-webcomponents-development/webpresence-working/index-drupalcontactus.html');
+            if ('https://assets.library.uq.edu.au/reusable-webcomponents-development/webpresence-working/applications/drupal/subload.js' === featureUrl) {
+                console.log('feature good', featureUrl)
+            } else {
+                console.log('FEATURE BAD', featureUrl)
+            }
+            console.log('============================');
+        </script>
     </body>
 </html>

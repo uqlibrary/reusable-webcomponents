@@ -20,18 +20,22 @@ userPromptTemplate.innerHTML = `
     <div id="proactivechat" data-testid="proactivechat" class="proactive-chat">
         <!-- Proactive Chat minimised -->
         <div id="minimised-buttons" class="pcminimised">
-            <button id="proactive-chat-online" data-testid="proactive-chat-online" class="pconline" data-analyticsid="chat-status-icon-online-button" style="display: none;" title="Chat with us - see options" aria-label="Chat with us - see options">
-                <svg class="pcOnlineIcon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M19.7999 17.3998H11.4L6.60007 20.9998V17.3998H4.20011C3.88185 17.3998 3.57663 17.2734 3.35159 17.0483C3.12655 16.8233 3.00012 16.5181 3.00012 16.1998V4.19998C3.00012 3.88173 3.12655 3.57651 3.35159 3.35147C3.57663 3.12643 3.88185 3 4.20011 3H19.7999C20.1182 3 20.4234 3.12643 20.6484 3.35147C20.8735 3.57651 20.9999 3.88173 20.9999 4.19998V16.1998C20.9999 16.5181 20.8735 16.8233 20.6484 17.0483C20.4234 17.2734 20.1182 17.3998 19.7999 17.3998Z" stroke="#19151C" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M6.59998 8.39989H17.3998" stroke="#19151C" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M6.59998 12H14.9999" stroke="#19151C" stroke-linecap="round" stroke-linejoin="round"/>
+            <button id="proactive-chat-online" data-testid="proactive-chat-online" class="pconline svg-container" data-analyticsid="chat-status-icon-online-button" style="display: none;" title="Chat with us - see options" aria-label="Chat with us - see options">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <g id="icon/marketing/chat">
+                        <path id="Vector" d="M26.3999 23.1997H15.2L8.80012 27.9997V23.1997H5.60016C5.17582 23.1997 4.76886 23.0312 4.46881 22.7311C4.16875 22.4311 4.00018 22.0241 4.00018 21.5998V5.59998C4.00018 5.17564 4.16875 4.76868 4.46881 4.46862C4.76886 4.16857 5.17582 4 5.60016 4H26.3999C26.8242 4 27.2312 4.16857 27.5312 4.46862C27.8313 4.76868 27.9999 5.17564 27.9999 5.59998V21.5998C27.9999 22.0241 27.8313 22.4311 27.5312 22.7311C27.2312 23.0312 26.8242 23.1997 26.3999 23.1997Z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path id="Vector_2" d="M8.79999 11.1999H23.1998" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path id="Vector_3" d="M8.79999 16H19.9998" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </g>
                 </svg>
             </button>
            <button id="proactive-chat-offline" data-testid="proactive-chat-offline" class="pcOffline" data-analyticsid="chat-status-icon-offline-button" style="display: none;" title="Chat with us - see options" aria-label="Chat with us - see options">
-                <svg class="pcOfflineIcon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M19.7999 17.3998H11.4L6.60007 20.9998V17.3998H4.20011C3.88185 17.3998 3.57663 17.2734 3.35159 17.0483C3.12655 16.8233 3.00012 16.5181 3.00012 16.1998V4.19998C3.00012 3.88173 3.12655 3.57651 3.35159 3.35147C3.57663 3.12643 3.88185 3 4.20011 3H19.7999C20.1182 3 20.4234 3.12643 20.6484 3.35147C20.8735 3.57651 20.9999 3.88173 20.9999 4.19998V16.1998C20.9999 16.5181 20.8735 16.8233 20.6484 17.0483C20.4234 17.2734 20.1182 17.3998 19.7999 17.3998Z" stroke="#19151C" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M6.59998 8.39989H17.3998" stroke="#19151C" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M6.59998 12H14.9999" stroke="#19151C" stroke-linecap="round" stroke-linejoin="round"/>
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <g id="icon/marketing/chat">
+                        <path id="Vector" d="M26.3999 23.1997H15.2L8.80012 27.9997V23.1997H5.60016C5.17582 23.1997 4.76886 23.0312 4.46881 22.7311C4.16875 22.4311 4.00018 22.0241 4.00018 21.5998V5.59998C4.00018 5.17564 4.16875 4.76868 4.46881 4.46862C4.76886 4.16857 5.17582 4 5.60016 4H26.3999C26.8242 4 27.2312 4.16857 27.5312 4.46862C27.8313 4.76868 27.9999 5.17564 27.9999 5.59998V21.5998C27.9999 22.0241 27.8313 22.4311 27.5312 22.7311C27.2312 23.0312 26.8242 23.1997 26.3999 23.1997Z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path id="Vector_2" d="M8.79999 11.1999H23.1998" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path id="Vector_3" d="M8.79999 16H19.9998" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </g>
                 </svg>
             </button>
         </div>
@@ -47,11 +51,11 @@ userPromptTemplate.innerHTML = `
                     </svg>
                 </button>
                 <div id="button-open-chatbot-iframe" class="pcOpenChat">
-                    <button id="proactive-chat-button-open" data-analyticsid="askus-proactive-chatbot-button-open" data-testid="popopen-button" class="proactive-chat-button" aria-label="Ask Library Chat Bot a question">Ask Library Chatbot</button>
+                    <button id="proactive-chat-button-open" data-analyticsid="askus-proactive-chatbot-button-open" data-testid="popopen-button" class="open proactive-chat-button" aria-label="Ask Library Chat Bot a question">Ask Library Chatbot</button>
                 </div>
                 <div id="button-open-crm" class="crmChatPrompt">
-                    <button id="crmChatPrompt" data-analyticsid="askus-proactive-chat-button-open" class="crmchat-button" style="display: none">Chat with Library staff</button>
-                    <button id="leaveAQuestionPrompt" data-analyticsid="chat-status-icon-offline" class="crmchat-button" style="display: none" aria-label="No staff available to chat - Leave a question">Leave a question</button>
+                    <button id="crmChatPrompt" data-analyticsid="askus-proactive-chat-button-open" class="open crmchat-button" style="display: none"><span>Chat with Library staff</span></button>
+                    <button id="leaveAQuestionPrompt" data-analyticsid="chat-status-icon-offline" class="open crmchat-button" style="display: none" aria-label="No staff available to chat - Leave a question"><span>Leave a question</span></button>
                 </div>
             </div>
         </div>
@@ -94,16 +98,11 @@ chatbotIframeTemplate.innerHTML = `<div
 const PROACTIVE_CHAT_HIDDEN_COOKIE_NAME = 'UQ_PROACTIVE_CHAT';
 const PROACTIVE_CHAT_HIDDEN_COOKIE_VALUE = 'hidden';
 
-// CAForceHideMobile forces the proactive chat to not show if the Cultural Advice statement is showing.
-// (Stops both windows overlapping)
-// Handled by attribute "CAforceHideMobile" applied to component
-// if attribute exists when time to show, also apply .forceHideMobile class to component.
-let CAforceHideMobile = false;
 let ShowChatBot = false;
 
 class ProactiveChat extends HTMLElement {
     static get observedAttributes() {
-        return ['caforcehidemobile', 'showchatbot'];
+        return ['showchatbot'];
     }
     constructor() {
         super();
@@ -133,7 +132,6 @@ class ProactiveChat extends HTMLElement {
 
         if (this.displayType === 'inline') {
             const proactiveChatElement = shadowDOM.getElementById('proactive-chat');
-            !!proactiveChatElement && proactiveChatElement.classList.remove('ca-force-hide-mobile');
             !!proactiveChatElement && proactiveChatElement.classList.add('show');
             !!proactiveChatElement && proactiveChatElement.classList.add('displayinline');
             const wrapper = shadowDOM.getElementById('proactive-chat-wrapper');
@@ -159,9 +157,6 @@ class ProactiveChat extends HTMLElement {
                 case 'showchatbot':
                     ShowChatBot = newValue === 'true' ? true : false;
                     break;
-                case 'caforcehidemobile':
-                    CAforceHideMobile = newValue === 'true' ? true : false;
-                    break;
                 /* istanbul ignore next  */
                 default:
                     console.log(`unhandled attribute ${fieldName} received for ProactiveChat`);
@@ -169,13 +164,6 @@ class ProactiveChat extends HTMLElement {
             // Change the attribs here?
             const proactiveChatElement = that.shadowRoot.getElementById('proactive-chat');
             const minimisedButtonsElement = that.shadowRoot.getElementById('minimised-buttons');
-            if (CAforceHideMobile) {
-                !!proactiveChatElement && proactiveChatElement.classList.add('ca-force-hide-mobile');
-                !!minimisedButtonsElement && minimisedButtonsElement.classList.add('ca-force-hide-mobile');
-            } else {
-                !!proactiveChatElement && proactiveChatElement.classList.remove('ca-force-hide-mobile');
-                !!minimisedButtonsElement && minimisedButtonsElement.classList.remove('ca-force-hide-mobile');
-            }
 
             if (ShowChatBot) {
                 const button = that.shadowRoot.getElementById('proactive-chat-button-open');
@@ -201,11 +189,6 @@ class ProactiveChat extends HTMLElement {
                 return;
             }
             const proactiveChatElement = shadowRoot.getElementById('proactive-chat');
-            if (CAforceHideMobile) {
-                !!proactiveChatElement && proactiveChatElement.classList.add('ca-force-hide-mobile');
-            } else {
-                !!proactiveChatElement && proactiveChatElement.classList.remove('ca-force-hide-mobile');
-            }
             !!proactiveChatElement && proactiveChatElement.classList.add('show');
         };
         const showProactiveChatWrapper = () => {
@@ -321,6 +304,7 @@ class ProactiveChat extends HTMLElement {
             that.chatbotHasAppeared = true;
 
             if (that.displayType === 'inline') {
+                // find the corner chat instance on the page
                 const proactiveChatElement = document.querySelectorAll('proactive-chat:not([display="inline"])');
                 !!proactiveChatElement &&
                     proactiveChatElement.length > 0 &&
@@ -422,11 +406,6 @@ class ProactiveChat extends HTMLElement {
             !!offlineMinimisedButton && (offlineMinimisedButton.style.display = 'none');
 
             const proactiveChatElement = shadowDOM.getElementById('proactive-chat');
-            if (CAforceHideMobile) {
-                !!proactiveChatElement && proactiveChatElement.classList.add('ca-force-hide-mobile');
-            } else {
-                !!proactiveChatElement && proactiveChatElement.classList.remove('ca-force-hide-mobile');
-            }
             !!proactiveChatElement && proactiveChatElement.classList.add('show');
         };
 

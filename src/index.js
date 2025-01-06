@@ -28,18 +28,16 @@ if (!supportsCustomElements) {
 import Alert from './Alert/Alert';
 import Alerts from './Alerts/Alerts';
 import ApiAccess from './ApiAccess/ApiAccess';
-import AskUsButton from './UtilityArea/AskUsButton';
-import CulturalAdvice from './CulturalAdvice/CulturalAdvice';
 import OpenAthens from './OpenAthens/OpenAthens';
 import ProactiveChat from './UtilityArea/ProactiveChat';
 import AuthButton from './UtilityArea/AuthButton';
-import ConnectFooter from './ConnectFooter/ConnectFooter';
 import gtm from './GTM/gtm';
 import SearchPortal from './SearchPortal/SearchPortal.js';
 import SecureCollection from './SecureCollection/SecureCollection.js';
 import UQFooter from './UQFooter/UQFooter';
 import UQHeader from './UQHeader/UQHeader';
 import UQSiteHeader from './UQSiteHeader/UQSiteHeader';
+import CulturalAdvice from './CulturalAdvice/CulturalAdvice.js';
 
 /* istanbul ignore else  */
 if (process.env.USE_MOCK) {
@@ -50,10 +48,8 @@ if (process.env.USE_MOCK) {
 
 customElements.define('alert-list', Alerts);
 customElements.define('api-access', ApiAccess);
-customElements.define('askus-button', AskUsButton);
 customElements.define('proactive-chat', ProactiveChat);
 customElements.define('auth-button', AuthButton);
-customElements.define('connect-footer', ConnectFooter);
 customElements.define('open-athens', OpenAthens);
 customElements.define('search-portal', SearchPortal);
 customElements.define('secure-collection', SecureCollection);
@@ -62,4 +58,4 @@ customElements.define('uq-footer', UQFooter);
 customElements.define('uq-gtm', gtm);
 customElements.define('uq-header', UQHeader);
 customElements.define('uq-site-header', UQSiteHeader);
-customElements.define('cultural-advice-popup', CulturalAdvice);
+customElements.define('cultural-advice', CulturalAdvice);

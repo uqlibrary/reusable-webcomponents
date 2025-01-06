@@ -14,17 +14,6 @@ function createSlotForButtonInUtilityArea(button, id = null) {
     return slot;
 }
 
-function createAskusButton() {
-    if (!!document.querySelector('askus-button')) {
-        return false;
-    }
-
-    const askusButton = document.createElement('askus-button');
-    const slot = !!askusButton && createSlotForButtonInUtilityArea(askusButton, 'askus');
-
-    return slot;
-}
-
 function loadReusableComponentsRightnow() {
     // loadUQFavicon();
     // addAppleTouchIcon();
@@ -54,10 +43,6 @@ function loadReusableComponentsRightnow() {
 
     if (!document.querySelector('uq-site-header')) {
         const siteHeader = document.createElement('uq-site-header');
-        !!siteHeader && siteHeader.setAttribute('showmenu', '');
-
-        const askusButton = createAskusButton();
-        !!askusButton && !!siteHeader && siteHeader.appendChild(askusButton);
 
         !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
     }
@@ -102,7 +87,8 @@ function addSkipNavLandingPoint(siteNameId) {
  * @returns {boolean}
  */
 function isHomePage() {
-    const regexp = /https?:\/\/((www\.)?(careerhub|studenthub)\.uq\.edu\.au)\/workgroups\/library-staff-development\/?$/;
+    const regexp =
+        /https?:\/\/((www\.)?(careerhub|studenthub)\.uq\.edu\.au)\/workgroups\/library-staff-development\/?$/;
     return regexp.test(window.location.href);
 }
 

@@ -1,0 +1,40 @@
+button {
+    cursor: pointer;
+}
+
+.auth button {
+    display: flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0);
+    border: none;
+    padding: 6px;
+    color: #19151c;
+    margin-top: 6.6px;
+    margin-bottom: 2.4px; /* make the utility bar the same height on the logged in and logged out view */
+}
+.auth .auth-log-in-label {
+    font-size: 16px;
+    white-space: nowrap;
+    font-weight: 500;
+    font-family: Roboto, Helvetica, sans-serif;
+    margin-left: 8px;
+}
+.auth > button:hover .auth-log-in-label {
+    background-color: #51247a;
+    color: white;
+}
+
+.auth button:hover,
+.auth button:focus,
+.auth button:active {
+    cursor: pointer;
+}
+
+button.login-button:active {
+    outline: none;
+    background: rgba(81, 36, 122, 0.3) !important;
+    transition-delay: 0s;
+    transition-duration: 0.15s;
+    transition-property: background-color;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}

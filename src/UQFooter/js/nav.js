@@ -1,3 +1,5 @@
+import { linkToDrupal } from '../../helpers/access';
+
 export default [
     {
         label: 'Media',
@@ -76,17 +78,17 @@ export default [
             },
             {
                 label: 'Locations and hours',
-                href: 'https://web.library.uq.edu.au/locations-hours',
+                href: `${linkToDrupal('/visit')}`,
                 dataTestid: 'uqfooter-nav-library-locations',
             },
             {
                 label: 'Library services',
-                href: 'https://web.library.uq.edu.au/library-services',
+                href: `${linkToDrupal('/library-services')}`,
                 dataTestid: 'uqfooter-nav-library-services',
             },
             {
                 label: 'Research tools',
-                href: 'https://web.library.uq.edu.au/research-tools-techniques',
+                href: `${linkToDrupal('/research-and-publish')}`,
                 dataTestid: 'uqfooter-nav-library-research',
             },
         ],

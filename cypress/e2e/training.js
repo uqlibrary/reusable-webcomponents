@@ -602,7 +602,6 @@ describe('Training', () => {
                     cy.get('[data-testid="training-details-registrationBlockForNonUQ"] a')
                         .should('have.attr', 'href')
                         .then((href) => {
-                            console.log('href = ', href);
                             expect(href).to.have.string('Expression of interest for event');
                             expect(href).to.have.string('like to participate in the following training event');
                             expect(href).to.have.string('Event Id: 2824657');

@@ -76,6 +76,13 @@
                     width: 100%;
                 }
             }
+            .full-width-purple {
+                background-color: #51247a;
+            }
+            .search-spacing {
+                padding-top: 40px;
+                padding-bottom: 40px;
+            }
         </style>
     </head>
     <body style="padding: 0; margin: 0; font-family: 'Roboto', sans-serif; background-color: #f7f7f7">
@@ -85,23 +92,29 @@
         <uq-header hidelibrarymenuitem skipnavid="skiptohere"></uq-header>
         <uq-site-header sitetitle="Library Test" showmenu>
             <span slot="site-utilities">
-                <askus-button />
-            </span>
-            <span slot="site-utilities">
                 <auth-button />
             </span>
         </uq-site-header>
-        <cultural-advice-popup secondsTilCulturalAdviceAppears="2"></cultural-advice-popup>
+        <cultural-advice secondsTilCulturalAdviceAppears="2"></cultural-advice>
+
         <alert-list system="homepage"></alert-list>
-        <div class="layout-card" style="min-height: 300px">
+        <div class="layout-card">
             <h1 id="skiptohere" tabindex="-1">UQ Library - Reusable Web Components sampler</h1>
             <p data-testid="random-page-element">Lorem ipsum</p>
-
-            <search-portal></search-portal>
-
+        </div>
+        <div class="layout-card" >
+            <h2>Search portal, Dark theme (homepage)</h2>
+        </div>
+        <div class="full-width-purple">
+            <div class="layout-card">
+                <search-portal theme="dark"></search-portal>
+            </div>
+        </div>
+        <div class="layout-card" style="min-height: 200px">
             <h2>OpenAthens - Copy a link</h2>
             <open-athens create-link="true"></open-athens>
-
+        </div>
+        <div class="layout-card" style="min-height: 300px">
             <div class="trainingWrapper">
                 <div class="trainingLeft">
                     <h2>Demo Training</h2>
@@ -113,15 +126,17 @@
                     >
                         <div class="panel-pane__content">
                             <div class="fieldable-panels-pane">
-                                <div class="field field-name-field-pane-body field-type-text-long field-label-hidden">
+                                <div
+                                    class="field field-name-field-pane-body field-type-text-long field-label-hidden"
+                                >
                                     <div class="field-items">
                                         <div class="field-item even">
                                             <h2>Example Drupal Sidebar for spacing</h2>
                                             <div class="pane pane--outline">
                                                 <h3 class="pane__title">Long set of content to be realistic</h3>
                                                 <p>
-                                                    Note that its responsive - this sidebar collapses to below training
-                                                    block at tablet width and less.
+                                                    Note that its responsive - this sidebar collapses to below
+                                                    training block at tablet width and less.
                                                 </p>
                                             </div>
                                             <div>
@@ -143,18 +158,20 @@
                                                     <a href="/library-services/services-teaching-staff"
                                                         >teaching staff</a
                                                     >
-                                                    to design and deliver tailored resources and sessions for students.
+                                                    to design and deliver tailored resources and sessions for
+                                                    students.
                                                 </p>
                                             </div>
                                             <h2>Online training</h2>
                                             <div class="pane pane--outline">
                                                 <h3 class="pane__title">Library 101 tutorial</h3>
                                                 <p>
-                                                    <a href="/library-services/training/library-101-online-tutorial"
+                                                    <a
+                                                        href="/library-services/training/library-101-online-tutorial"
                                                         >A short Learn.UQ course</a
                                                     >
-                                                    with all the things you should know about locating and using your
-                                                    library.
+                                                    with all the things you should know about locating and using
+                                                    your library.
                                                 </p>
                                                 <h3 class="pane__title">Library Basics videos</h3>
                                                 <p>
@@ -169,8 +186,8 @@
                                                     <a href="/library-services/training/law-online-tutorial"
                                                         >The basics of legal research</a
                                                     >
-                                                    including secondary sources, case law, legislation, referencing, and
-                                                    avoiding plagiarism.
+                                                    including secondary sources, case law, legislation,
+                                                    referencing, and avoiding plagiarism.
                                                 </p>
                                                 <h3 class="pane__title">Lynda.com courses</h3>
                                                 <p>
@@ -185,8 +202,8 @@
                                                         href="https://learn.uq.edu.au/webapps/login/?new_loc=/bbcswebdav/pid-2637796-dt-content-rid-12500144_1/xid-12500144_1"
                                                         >An interactive tutorial</a
                                                     >
-                                                    providing an overview of the University's Learning Management
-                                                    System, Blackboard.
+                                                    providing an overview of the University's Learning
+                                                    Management System, Blackboard.
                                                 </p>
                                                 <h3 class="pane__title">EndNote</h3>
                                                 <p>
@@ -220,6 +237,8 @@
                 </div>
             </div>
         </div>
+
+
         <connect-footer></connect-footer>
         <uq-footer loginurl="http://library.uq.edu.au"></uq-footer>
         <proactive-chat secondsTilProactiveChatAppears="3"></proactive-chat>

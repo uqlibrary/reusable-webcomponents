@@ -1,17 +1,17 @@
 import styles from './css/main.css';
+import breadcrumbs from './css/breadcrumbs.css';
 import overrides from './css/overrides.css';
-import { default as menuLocale } from '../locale/menu';
 
 /**
  * API:
  *   <uq-site-header
- *       sitetitle="Library"                     // should be displayed on all sites - the text of the homepage link. Optional. Default "Library"
- *       siteurl="http://www.library.uq.edu.au"  // should be displayed on all sites - the link of the homepage link. Optional. Default "http://www.library.uq.edu.au"
- *       showmenu                                // should the megamenu be displayed? (just include, don't put ="true" on the end)
+ *       sitetitle="Library"                       // should be displayed on all sites - the text of the homepage link. Optional. Default "Library"
+ *       siteurl="https://www.library.uq.edu.au"  // should be displayed on 2nd level sites - the link to the homepage. Optional. Default "https://www.library.uq.edu.au/"
+ *       secondleveltitle="Guides"                 // should be displayed on 2nd level sites - the text of the homepage link. Optional. Default null (not present)
+ *                                                 // it is probably necessery to always have the secondleveltitle go first (before secondlevelurl)
+ *       secondlevelurl="http://guides.library.uq.edu.au"    // should be displayed on all sites - the link of the homepage link. Optional. Default null (not present)
+ *       (both second level required if either)
  *   >
- *       <span slot="site-utilities">
- *           <askus-button />
- *       </span>
  *       <span slot="site-utilities">
  *           <auth-button />
  *       </span>
@@ -20,18 +20,31 @@ import { default as menuLocale } from '../locale/menu';
  * ie uqsiteheader does not add the utility area buttons itself - add them externally by either html or javascriot
  */
 
+const subsiteTemplate = document.createElement('template');
+subsiteTemplate.innerHTML = `<li id="subsite" data-testid="subsite-title" class="uq-breadcrumb__item">
+                    <a class="uq-breadcrumb__link" id="secondlevel-site-breadcrumb-link" data-testid="secondlevel-site-title" href=""></a>
+                </li>`;
+
 const template = document.createElement('template');
 template.innerHTML = `
     <style>${styles.toString()}</style>
+    <style>${breadcrumbs.toString()}</style>
     <style>${overrides.toString()}</style>
   <div class="uq-site-header" part="root">
       <!-- Site title and utility area with mobile nav toggler (JS) -->
       <div class="uq-site-header__title-container" part="title">
-        <div class="uq-site-header__title-container__left">
-          <a id="site-title" data-testid="site-title" href="https://www.library.uq.edu.au/" class="uq-site-header__title">Library</a>
-        </div>
+        <nav class="uq-breadcrumb" aria-label="Breadcrumb">
+            <ol class="uq-breadcrumb__list" id="breadcrumb_nav">
+                <li class="uq-breadcrumb__item">
+                    <a class="uq-breadcrumb__link" data-testid="root-link" title="UQ home" href="https://uq.edu.au/">UQ home</a>
+                </li>
+                <li class="uq-breadcrumb__item">
+                    <a id="site-title" data-testid="site-title" class="uq-breadcrumb__link" title="Library" href="https://www.library.uq.edu.au/">Library</a>
+                </li>
+            </ol>
+        </nav>
         <div class="uq-site-header__title-container__right">
-          <slot name="site-utilities"></slot>
+          <slot name="site-utilities" style="display: flex"></slot>
           <button style="display: none" id="uq-site-header__navigation-toggle" class="uq-site-header__navigation-toggle jsNavToggle">Menu</button>
         </div>
       </div>
@@ -78,31 +91,58 @@ let initCalled;
 
 class UQSiteHeader extends HTMLElement {
     static get observedAttributes() {
-        return ['sitetitle', 'siteurl', 'showmenu'];
+        return ['sitetitle', 'siteurl', 'secondleveltitle', 'secondlevelurl'];
     }
 
     constructor() {
         super();
 
-        // when the ITS script loads, we store a the object it supplies so we can use it
-        // when the menu has finished loading to supply the menu mouseover
+        // this.SecondLevelBreadcrumbPropertyCount = 0;
+
+        // when the ITS script loads, we store the object it supplies,
+        // so we can use it when the menu has finished loading to supply the menu mouseover
         this.uqReference = null;
 
         // Bindings
         this.getLink = this.getLink.bind(this);
         this.loadScript = this.loadScript.bind(this);
-        this.updateMegaMenu = this.updateMegaMenu.bind(this);
         this.rewriteMegaMenuFromJson = this.rewriteMegaMenuFromJson.bind(this);
         this.createDesktopHeaderItem = this.createDesktopHeaderItem.bind(this);
         this.createMobileHeaderItem = this.createMobileHeaderItem.bind(this);
         this.setTitle = this.setTitle.bind(this);
         this.setSiteUrl = this.setSiteUrl.bind(this);
-        this.showMenu = this.showMenu.bind(this);
         this.unhideMobileMenuButton = this.unhideMobileMenuButton.bind(this);
 
         // Render the template
         const shadowDOM = this.attachShadow({ mode: 'open' });
         shadowDOM.appendChild(template.content.cloneNode(true));
+        this.addClickListeners(shadowDOM);
+    }
+
+    addClickListeners(shadowDOM) {
+        function resetBreadcrumbs() {
+            const subsiteTitle = shadowDOM.getElementById('subsite');
+            !!subsiteTitle && subsiteTitle.remove();
+        }
+        // when we go back to the library homepage from a sub page, clear out any lower breadcrumbs
+        const libraryTitleElement = shadowDOM.getElementById('site-title');
+        !!libraryTitleElement && libraryTitleElement.addEventListener('click', resetBreadcrumbs);
+
+        function checkIfHomepage() {
+            if (window.location.pathname === '/') {
+                resetBreadcrumbs();
+            }
+        }
+        window.addEventListener('popstate', checkIfHomepage);
+    }
+
+    isValidUrl(urlString) {
+        try {
+            new URL(urlString);
+            return true;
+        } catch (e) {
+            return false;
+        }
     }
 
     attributeChangedCallback(fieldName, oldValue, newValue) {
@@ -126,8 +166,14 @@ class UQSiteHeader extends HTMLElement {
                     this.setSiteUrl(newValue);
 
                     break;
-                case 'showmenu':
-                    this.showMenu();
+                case 'secondleveltitle':
+                    this.setSecondLevelTitle(newValue);
+                    // this.SecondLevelBreadcrumbPropertyCount++;
+
+                    break;
+                case 'secondlevelurl':
+                    this.setSecondLevelUrl(newValue);
+                    // this.SecondLevelBreadcrumbPropertyCount++;
 
                     break;
                 /* istanbul ignore next  */
@@ -147,10 +193,62 @@ class UQSiteHeader extends HTMLElement {
         !!siteTitleElement && !!newSiteTitle && (siteTitleElement.innerHTML = newSiteTitle);
     }
 
-    showMenu() {
-        this.updateMegaMenu();
+    setSecondLevelUrl(newSecondLevelURL) {
+        const subsiteBreadcrumb =
+            !!this.shadowRoot && this.shadowRoot.getElementById('secondlevel-site-breadcrumb-link');
+        !!subsiteBreadcrumb && !!newSecondLevelURL && (subsiteBreadcrumb.href = newSecondLevelURL);
+    }
 
-        this.unhideMobileMenuButton();
+    setSecondLevelTitle(newSecondLevelTitle) {
+        function isDomainPrimoProd() {
+            return window.location.hostname === 'search.library.uq.edu.au';
+        }
+        function isDomainPrimoSandbox() {
+            return window.location.hostname === 'uq-edu-primo-sb.hosted.exlibrisgroup.com';
+        }
+        function getSearchParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+        function isSitePrimoNonProd() {
+            const vidParam = getSearchParam('vid');
+            return (isDomainPrimoProd() && vidParam !== '61UQ') || isDomainPrimoSandbox();
+        }
+
+        const breadcrumbNav = this.shadowRoot.getElementById('breadcrumb_nav');
+        const subsiteListItem = !!breadcrumbNav && breadcrumbNav.querySelector('li#subsite');
+        if (!subsiteListItem) {
+            if (!!newSecondLevelTitle) {
+                const subsiteClone = subsiteTemplate.content.firstElementChild.cloneNode(true);
+
+                const thirdListItem = !!breadcrumbNav && breadcrumbNav.children[2];
+                // pages like guides with multiple levels needs different handling
+                if (thirdListItem) {
+                    !!breadcrumbNav && breadcrumbNav.insertBefore(subsiteClone, thirdListItem);
+                } else {
+                    !!breadcrumbNav && breadcrumbNav.appendChild(subsiteTemplate.content.cloneNode(true));
+                }
+                const subsiteBreadcrumb =
+                    !!this.shadowRoot && this.shadowRoot.getElementById('secondlevel-site-breadcrumb-link');
+                !!subsiteBreadcrumb && !!newSecondLevelTitle && (subsiteBreadcrumb.innerHTML = newSecondLevelTitle);
+                if (isSitePrimoNonProd()) {
+                    !!subsiteBreadcrumb && subsiteBreadcrumb.classList.add('primoNonProdMarker');
+                }
+            }
+        } else if (newSecondLevelTitle === null) {
+            if (!!subsiteListItem) {
+                // the li exists, but we are back on the homepage - delete it
+                subsiteListItem.remove();
+            }
+        } else {
+            // it exists, update it
+            const subsiteBreadcrumb =
+                !!this.shadowRoot && this.shadowRoot.getElementById('secondlevel-site-breadcrumb-link');
+            !!subsiteBreadcrumb && !!newSecondLevelTitle && (subsiteBreadcrumb.innerHTML = newSecondLevelTitle);
+            if (isSitePrimoNonProd()) {
+                !!subsiteBreadcrumb && subsiteBreadcrumb.classList.add('primoNonProdMarker');
+            }
+        }
     }
 
     waitOnUqScript() {
@@ -170,12 +268,6 @@ class UQSiteHeader extends HTMLElement {
             50,
             that,
         );
-    }
-
-    updateMegaMenu() {
-        const megaMenu = !!this.shadowRoot && this.shadowRoot.getElementById('jsNav');
-        const listWrapper = this.rewriteMegaMenuFromJson(menuLocale);
-        megaMenu.appendChild(listWrapper);
     }
 
     createSubmenuCloseControl(linkPrimaryText, index) {
@@ -376,9 +468,6 @@ class UQSiteHeader extends HTMLElement {
         /* istanbul ignore else */
         if (!scriptFound) {
             const that = this;
-
-            // const showMenu = this.getAttribute('showmenu');
-            // const isMegaMenuDisplayed = !!showMenu || showMenu === '';
 
             //Dynamically import the JS file and append it to the document header
             const script = document.createElement('script');

@@ -14,3 +14,5 @@ export function getAccountMenuRoot(hostname = null, protocol = null, pathname = 
     }
     return linkRoot;
 }
+
+export const COLOUR_UQ_PURPLE = 'rgb(81, 36, 122)';

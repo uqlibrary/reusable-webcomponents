@@ -1,0 +1,236 @@
+/* logged in button */
+
+.auth > button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    border: none; /* Remove default button border */
+    background-color: transparent;
+    padding-block: 0;
+    padding-inline: 0;
+    margin-top: 7px;
+    margin-bottom: 6px;
+}
+
+/* username display */
+.username-area {
+    display: flex;
+    margin-top: 4px;
+}
+.username-area {
+    align-items: center;
+    font-weight: 500;
+    font-family: Roboto, Helvetica, sans-serif;
+}
+.username-area svg {
+    margin-left: 3px;
+}
+.username-area svg.options-dropdown-arrow {
+    margin-top: -6px;
+    font-weight: 400;
+}
+
+.username-area-label {
+    color: #19151c;
+    font-size: 16px;
+    font-family: Roboto, Helvetica, sans-serif;
+    margin: 0 0 0 8px;
+    transition: background-color 0.3s ease;
+
+    /* name goes ellipsis when long, eg user 'digiteamMember' */
+    max-width: 150px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.username-area-label.menu-open,
+.auth > button:hover .username-area-label {
+    background-color: #51247a;
+    color: white;
+}
+.auth > button:hover,
+.auth > button:focus,
+.auth > button:active {
+    cursor: pointer;
+}
+
+.auth-menu {
+    z-index: 999;
+    background-color: #fff;
+    border: 1px solid #DCDCDD; /* Brand-grey-grey-200 */
+    left: auto;
+    right: -9px;
+    /* top set with javascript */
+    position: absolute;
+    transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+    opacity: 1;
+}
+@media screen and (max-width: 390px) { /* mobile only */
+    .auth-menu {
+        position: fixed;
+        right: 0;
+        border-right-width: 0;
+    }
+}
+.mylibrary-menu-list li,
+.mylibrary-menu-list {
+    list-style: none;
+}
+.mylibrary-menu-list {
+    padding-left: 0;
+}
+.user-menu-header {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px 8px 16px;
+}
+.layout-column {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    flex: 1;
+}
+.logout {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-weight: 500;
+    font-family: Roboto, Helvetica, sans-serif;
+    border: none; /* Remove default button border */
+    cursor: pointer;
+    background-color: white;
+    padding-inline: 0;
+    padding-top: 4px;
+}
+.logout svg {
+    padding-right: 18px;
+}
+.logout span {
+    color: #19151c;
+    font-family: Roboto, Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 160%; /* 25.6px */
+    letter-spacing: 0.16px;
+}
+.md-menu-item {
+    border-bottom: thin solid lightgrey;
+}
+.admin-options {
+    border-top: thin solid lightgrey;
+    margin-top: 10px;
+}
+.account-options-menu-closed {
+    opacity: 0 !important;
+    transition: transform 0.2s ease-in, opacity 0.2s ease-in;
+}
+.account-options-pane-closed {
+    opacity: 0 !important;
+    transition: opacity 0.2s ease-in;
+    transition-delay: 0s;
+}
+
+.account-options-pane {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transition: opacity 0.2s ease-out;
+    z-index: 998;
+    opacity: 1;
+}
+
+.accessible-only {
+    width: 1px;
+    height: 1px;
+    left: -1000em;
+    overflow: hidden;
+    position: absolute;
+}
+
+.mylibrary-menu-list {
+    padding: 0;
+    margin: 24px 0;
+    list-style-type: none;
+}
+
+.mylibrary-menu-list li {
+    padding: 0;
+    margin: 0;
+}
+
+.mylibrary-menu-list li a {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-bottom: 0 !important;
+    text-decoration: none;
+    color: #595959;
+    text-align: left;
+    font-size: 16px;
+
+    padding: 8px 24px;
+    margin: 0;
+}
+@media screen and (max-width: 390px) { /* mobile only */
+    .mylibrary-menu-list li a {
+        display: flex;
+    }
+}
+
+.mylibrary-menu-list li a span {
+    text-rendering: auto;
+    color: #19151c;
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: 160%; /* 25.6px */
+    text-transform: none;
+    text-indent: 0;
+    text-shadow: none;
+    text-align: center;
+    cursor: default;
+    font-style: normal;
+}
+
+.mylibrary-menu-list li a:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.mylibrary-menu-list li button:hover span span,
+.mylibrary-menu-list li a:hover span span {
+    background-color: #51247a;
+    color: white;
+    text-decoration: underline;
+}
+
+.mylibrary-menu-list li a svg {
+    width: 24px;
+    height: 24px;
+    padding-right: 12px;
+}
+
+.mylibrary-menu-list li.logout {
+    margin-top: 8px;
+}
+
+.mylibrary-menu-list li.borderTop {
+    border-top: thin solid #d3d3d3;
+    padding-top: 12px;
+    padding-inline: 0;
+    margin-inline: 24px;
+}
+
+.mylibrary-menu-list li.borderTop a {
+    margin-left: -24px;
+}
+
+.auth.loggedin {
+   position: relative;
+}
