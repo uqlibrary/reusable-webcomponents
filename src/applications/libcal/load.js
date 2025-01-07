@@ -1,4 +1,17 @@
+function getSearchParam(name) {
+    const url = window.location.href;
+    const urlObj = new URL(url);
+    const params = new URLSearchParams(urlObj.search);
+    return params.get(name);
+}
+
 function ready(fn) {
+    if (getSearchParam('override') === 'on' && getSearchParam('skipScript') === 'yes') {
+        // to stop reusable being loaded, call it like this.
+        // https://calendar.library.uq.edu.au/?override=on&skipScript=yes
+        // You can then manually load things in the console
+        return;
+    }
     if (document.readyState !== 'loading') {
         fn();
     } else {
@@ -49,6 +62,65 @@ function fontLoader(font) {
     link.href = font;
 }
 
+function moveSpringshareBreadcrumbsToSiteHeader(siteHeader) {
+    // dev, dont run this until we are happy with it
+    if (getSearchParam('override') === 'on' && getSearchParam('test') === 'yes') {
+        // run the code
+    } else {
+        return;
+    }
+    function breadcrumblink(b) {
+        // truncate the breadcrumb title manually because updating the springshare setting has Consequences
+        const title = isCalendarHomepage(b.href) ? 'Calendar' : b.title;
+        return `<li class="uq-breadcrumb__item">
+                <a class="uq-breadcrumb__link" title="${b.title}" href="${b.href}">${title}</a>
+                </li>`;
+    }
+    function breadcrumbSpan(title) {
+        return `<li class="uq-breadcrumb__item">
+                <span class="uq-breadcrumb__link" title="${title}">${title}</span>
+                </li>`;
+    }
+    function isLibraryHomepage(href) {
+        return (
+            href === 'https://www.library.uq.edu.au/' ||
+            href === 'https://www.library.uq.edu.au' ||
+            href === 'http://www.library.uq.edu.au/' ||
+            href === 'http://www.library.uq.edu.au'
+        );
+    }
+    function isCalendarHomepage(href) {
+        return (
+            href !== 'https://calendar.library.uq.edu.au/' &&
+            href !== 'https://calendar.library.uq.edu.au' &&
+            href !== 'http://calendar.library.uq.edu.au/' &&
+            href !== 'http://calendar.library.uq.edu.au'
+        );
+    }
+    const awaitSiteHeader = setInterval(() => {
+        const siteHeaderShadowRoot = siteHeader.shadowRoot;
+        if (!!siteHeaderShadowRoot) {
+            clearInterval(awaitSiteHeader);
+
+            const breadcrumbNav = document.querySelector('#s-lc-public-bc nav');
+            const listItems = !!breadcrumbNav && breadcrumbNav.querySelectorAll('ol li');
+
+            const breadcrumbParent = !!siteHeaderShadowRoot && siteHeaderShadowRoot.getElementById('breadcrumb_nav');
+            !!listItems &&
+                listItems.forEach((item) => {
+                    const anchor = item.querySelector('a');
+                    const title = anchor ? anchor.textContent : item.textContent;
+                    const href = anchor ? anchor.href : null;
+                    if (!isLibraryHomepage(href) && document.location.pathname !== '/') {
+                        const listItemEntry = !!href ? breadcrumblink({ title, href }) : breadcrumbSpan(title);
+                        breadcrumbParent.insertAdjacentHTML('beforeend', listItemEntry);
+                    }
+                });
+            !!breadcrumbNav && breadcrumbNav.remove();
+        }
+    }, 100);
+}
+
 function loadReusableComponentsLibGuides() {
     fontLoader('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
     fontLoader('https://static.uq.net.au/v15/fonts/Merriweather/merriweather.css');
@@ -72,6 +144,8 @@ function loadReusableComponentsLibGuides() {
         const authButton = createAuthButton();
         !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
     }
+
+    !!siteHeader && moveSpringshareBreadcrumbsToSiteHeader(siteHeader);
 
     if (!document.querySelector('cultural-advice-popup')) {
         const culturalAdvice = document.createElement('cultural-advice-popup');
