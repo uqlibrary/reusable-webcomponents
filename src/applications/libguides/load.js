@@ -84,14 +84,7 @@ function getIncludeFullPathGuides(includeFilename) {
         return assetsRoot + '/reusable-webcomponents-staging/' + includeFilename;
     }
 
-    // temp code for 2024 dev
-    if (getSearchParam2('override') === 'on' && getSearchParam2('useAlternate') === 'working') {
-        const s1 = assetsRoot + '/reusable-webcomponents-development/webpresence-working/' + includeFilename;
-        console.log('working', s1);
-        return s1;
-    }
-
-    if (window.location.host === assetsHostname && /reusable-webcomponents-staging/.test(window.location.href)) {
+    if (overrideHost === assetsHostname && /reusable-webcomponents-staging/.test(overrideHref)) {
         // a test on staging branch gets staging version
         return assetsRoot + '/reusable-webcomponents-staging/' + includeFilename;
     }
