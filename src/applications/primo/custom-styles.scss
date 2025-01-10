@@ -316,7 +316,7 @@ prm-user-area-expandable .md-button.user-button .menu-arrow {
 }
 
 // Button hover styling
-.md-button:not([disabled]):not(:has(span.primaryText)) {
+.md-button:not([disabled]):not(:has(span.primaryText):not([aria-label="Choose top 50 results"])) {
     &._md-focused,
     &.hovered,
     &.md-focused,
@@ -335,6 +335,14 @@ prm-user-area-expandable .md-button.user-button .menu-arrow {
             text-decoration: underline;
         }
     }
+}
+button.md-button.dismiss-link:hover {
+    background-color: #3a3a3a;
+}
+button.md-button.dismiss-link:hover,
+button.md-button.dismiss-link:hover prm-icon,
+button.md-button.dismiss-link:hover span {
+    color: #fff;
 }
 md-menu-item button.md-button svg:nth-of-type(n+2) {
     display: none;
