@@ -316,7 +316,17 @@ prm-user-area-expandable .md-button.user-button .menu-arrow {
 }
 
 // Button hover styling
-.md-button:not([disabled]) {
+.md-button:not([disabled]):not(:has(span.primaryText)) {
+    &._md-focused,
+    &.hovered,
+    &.md-focused,
+    &:focus,
+    &:hover {
+        color: #000;
+        background-color: rgba(51, 51, 51, 0.1);
+    }
+}
+.md-button:not([disabled]):has(span.primaryText) {
     &:hover {
         background-color: transparent;
         span.primaryText {
