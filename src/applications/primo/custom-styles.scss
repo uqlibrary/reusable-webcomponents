@@ -336,6 +336,19 @@ prm-user-area-expandable .md-button.user-button .menu-arrow {
         }
     }
 }
+// "Send To" list hover
+._md-nav-bar-list button:hover,
+._md-nav-bar-list button:hover span:hover,
+._md-nav-bar-list button:hover span:hover div:hover,
+._md-nav-bar-list button:hover span:hover div:hover prm-icon,
+._md-nav-bar-list button:hover span:hover div:hover prm-icon span:hover {
+    background-color: #333;
+    color: #fff;
+}
+// checked search results banner header tool bar
+.services-index-under button:hover span:hover {
+    color: #fff;
+}
 button.md-button.dismiss-link:hover {
     background-color: #3a3a3a;
 }
@@ -344,6 +357,8 @@ button.md-button.dismiss-link:hover prm-icon,
 button.md-button.dismiss-link:hover span {
     color: #fff;
 }
+
+// account menu controls
 md-menu-item button.md-button svg:nth-of-type(n+2) {
     display: none;
 }
