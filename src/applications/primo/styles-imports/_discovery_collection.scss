@@ -110,6 +110,10 @@ prm-collection-gallery prm-gallery-item .collection-element .item-title {
 prm-gallery-items-list .result-item-actions .pin-button:hover md-icon {
     color: $white !important;
 }
+prm-gallery-items-list button.pin-button:hover prm-icon {
+    background-color: #2377cb;
+    padding: 10px;
+}
 
 // Avoid stretching of custom thumbnails
 prm-gallery-item .collection-element img {
