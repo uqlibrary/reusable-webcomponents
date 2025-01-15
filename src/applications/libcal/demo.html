@@ -12,8 +12,60 @@
         <link rel="stylesheet" type="text/css" href="https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css" />
         <script type="text/javascript" src="/applications/libcal/load.js"></script>
         <script type="text/javascript" src="/uq-lib-reusable.min.js"></script>
+        <style>
+            .breadcrumb > li {
+                display: inline-block;
+            }
+            .breadcrumb > li + li:before {
+                padding: 0 5px;
+                color: #ccc;
+                content: '/\00a0';
+            }
+        </style>
     </head>
     <body style="padding: 0; margin: 0; font-family: 'Roboto', sans-serif">
-        <div id="container"></div>
+        <div id="s-lc-public-bc" class="row">
+            <div class="col-md-12">
+                <nav aria-label="Breadcrumb">
+                    <ol class="breadcrumb">
+                        <li><a href="https://www.library.uq.edu.au/">Library Home</a></li>
+                        <li class="s-lc-desktop-only">
+                            <a href="https://calendar.library.uq.edu.au">Library Calendar</a>
+                        </li>
+                        <li><a href="/spaces?lid=6704&amp;gid=11885">FW Robinson Reading Room</a></li>
+                        <li class="active s-lc-desktop-only">Space Availability - Microform scanner</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <main>
+            <div id="s-lc-public-main" class="s-lc-public-main">
+                <div id="s-lc-public-page-content" class="row">
+                    <div id="s-lc-eq-title-div" class="col-md-12 center s-lc-spaces-setup-info">
+                        <div id="s-lc-group-description">
+                            <h1 id="s-lc-public-header-title">
+                                Microform scanner
+                                <small> (FW Robinson Reading Room: Technology) </small>
+                                <small> Capacity: 1 </small>
+                            </h1>
+
+                            <div id="s-lc-item-title-area">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="s-lc-section-description" role="region" aria-label="description">
+                                            <h2 class="sr-only">Description</h2>
+                                            <p>
+                                                The Microform Scanner is a digital microfilm/microfiche reader that
+                                                allows you to view fiche and film&nbsp;and save images to a&nbsp;USB.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
     </body>
 </html>
