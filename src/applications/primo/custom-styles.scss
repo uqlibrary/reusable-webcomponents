@@ -2063,3 +2063,9 @@ button.md-button.md-primary[aria-label="Sign out"]:hover:not([disabled]) {
     padding-top: 20px;
     min-width: 250px !important;
 }
+
+// the hover on the logged in button extends just a little bit
+prm-topbar prm-user-area-expandable md-menu {
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+}
