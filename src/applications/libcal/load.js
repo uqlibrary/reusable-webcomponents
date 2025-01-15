@@ -111,7 +111,7 @@ function moveSpringshareBreadcrumbsToSiteHeader(siteHeader) {
                     const anchor = item.querySelector('a');
                     const title = anchor ? anchor.textContent : item.textContent;
                     const href = anchor ? anchor.href : null;
-                    if (!isLibraryHomepage(href) && document.location.pathname !== '/') {
+                    if (!isLibraryHomepage(href)) {
                         const listItemEntry = !!href ? breadcrumblink({ title, href }) : breadcrumbSpan(title);
                         breadcrumbParent.insertAdjacentHTML('beforeend', listItemEntry);
                     }
