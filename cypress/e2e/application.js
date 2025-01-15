@@ -270,12 +270,22 @@ describe('Dummy Application', () => {
 
     context('Springshare Cal works as expected', () => {
         it('Javascript load works correctly', () => {
-            cy.visit('http://localhost:8080/src/applications/libcal/demo.html');
+            // temp param during dev
+            cy.visit('http://localhost:8080/src/applications/libcal/demo.html?override=on&test=yes');
             cy.viewport(1280, 900);
 
             hasUqHeader();
 
             hasUqSiteHeader();
+
+            // the breadcrumbs are moved from the springshare location into our uq-site-header
+            const nav = cy
+                .get('uq-site-header')
+                .shadow()
+                .find('[data-testid="breadcrumb_nav"]')
+                .should('exist')
+                .children()
+                .should('have.length', 5);
 
             proactiveChatLoadsAsIcon();
             hasNoAuthButton();
