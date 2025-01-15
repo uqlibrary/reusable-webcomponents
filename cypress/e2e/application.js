@@ -165,6 +165,7 @@ describe('Dummy Application', () => {
 
             hasNoAuthButton();
             hasNoProactiveChat();
+            hasCulturalAdviceBanner();
 
             hasAnAlert();
 
@@ -289,6 +290,7 @@ describe('Dummy Application', () => {
 
             proactiveChatLoadsAsIcon();
             hasNoAuthButton();
+            hasCulturalAdviceBanner();
 
             hasAnAlert();
 

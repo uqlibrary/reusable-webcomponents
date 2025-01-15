@@ -43,9 +43,9 @@ function loadReusableComponents() {
 
         !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
     }
-    if (!document.querySelector('cultural-advice-popup')) {
-        const culturalAdvice = document.createElement('cultural-advice-popup');
-        !!culturalAdvice && document.body.appendChild(culturalAdvice);
+    if (!document.querySelector('cultural-advice')) {
+        const culturalAdvice = document.createElement('cultural-advice');
+        !!culturalAdvice && document.body.insertBefore(culturalAdvice, firstElement);
     }
 
     if (!document.querySelector('alert-list')) {
