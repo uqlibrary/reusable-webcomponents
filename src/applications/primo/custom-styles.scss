@@ -2065,7 +2065,13 @@ button.md-button.md-primary[aria-label="Sign out"]:hover:not([disabled]) {
 }
 
 // the hover on the logged in button extends just a little bit
-prm-topbar prm-user-area-expandable md-menu {
-    margin-top: 10px !important;
-    margin-bottom: 10px !important;
+prm-topbar prm-user-area-expandable {
+    md-menu {
+        margin-top: 10px !important;
+        margin-bottom: 10px !important;
+    }
+    .button-with-menu-arrow:hover .menu-arrow:hover:not([disabled]) {
+        background-color: white;
+        color: black;
+    }
 }
