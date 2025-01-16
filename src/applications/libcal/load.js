@@ -79,13 +79,6 @@ function loadReusableComponentsLibGuides() {
         );
     }
     function moveSpringshareBreadcrumbsToSiteHeader(siteHeader) {
-        // dev, dont run this until we are happy with it
-        if (getSearchParam('override') === 'on' && getSearchParam('test') === 'yes') {
-            // run the code
-        } else {
-            return;
-        }
-
         const awaitSiteHeader = setInterval(() => {
             const siteHeaderShadowRoot = siteHeader.shadowRoot;
             if (!!siteHeaderShadowRoot) {
