@@ -130,11 +130,6 @@ function loadReusableComponentsLibGuides() {
 
     !!siteHeader && moveSpringshareBreadcrumbsToSiteHeader(siteHeader);
 
-    if (!document.querySelector('cultural-advice')) {
-        const culturalAdvice = document.createElement('cultural-advice');
-        !!culturalAdvice && document.body.insertBefore(culturalAdvice, firstElement);
-    }
-
     document.body.insertBefore(siteHeader, firstElement);
 
     // Proactive Chat button
@@ -146,6 +141,11 @@ function loadReusableComponentsLibGuides() {
     if (!document.querySelector('alert-list')) {
         const alerts = document.createElement('alert-list');
         !!alerts && document.body.insertBefore(alerts, firstElement);
+    }
+
+    if (!document.querySelector('cultural-advice')) {
+        const culturalAdvice = document.createElement('cultural-advice');
+        !!culturalAdvice && document.body.insertBefore(culturalAdvice, firstElement);
     }
 
     // const connectFooter = document.createElement('connect-footer');
