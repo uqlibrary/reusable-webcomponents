@@ -271,7 +271,6 @@ describe('Dummy Application', () => {
 
     context('Springshare Cal works as expected', () => {
         it('Javascript load works correctly', () => {
-            // temp param during dev
             cy.visit('http://localhost:8080/src/applications/libcal/demo.html');
             cy.viewport(1280, 900);
 
