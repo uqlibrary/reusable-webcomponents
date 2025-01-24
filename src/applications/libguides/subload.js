@@ -81,7 +81,7 @@ function moveSpringshareBreadcrumbsToSiteHeader() {
 
             const breadcrumbNav = document.getElementById('s-lib-bc');
             const listItems = !!breadcrumbNav && breadcrumbNav.querySelectorAll('ol li');
-            const breadcrumbParent = siteHeaderShadowRoot.getElementById('breadcrumb_nav');
+            const breadcrumbParent = !!siteHeaderShadowRoot && siteHeaderShadowRoot.getElementById('breadcrumb_nav');
             !!listItems &&
                 listItems.forEach((item) => {
                     const anchor = item.querySelector('a');
