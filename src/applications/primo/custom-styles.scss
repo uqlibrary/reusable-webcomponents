@@ -1631,6 +1631,7 @@ md-menu-content {
         }
     }
     button[aria-label="Sign out"],
+    button[aria-label="Log out"],
     &>md-menu-item,
     &>button {
         padding-left: 24px;
@@ -2028,7 +2029,8 @@ md-menu-item.logout-option {
     margin-inline: 24px;
     margin-top: 10px;
 }
-button.md-button.md-primary[aria-label="Sign out"] {
+button.md-button.md-primary[aria-label="Sign out"],
+button.md-button.md-primary[aria-label="Log out"] {
     color: #19151c;
     text-align: left;
     text-transform: unset;
@@ -2051,7 +2053,8 @@ button.md-button.md-primary[aria-label="Sign out"] {
         margin-bottom: unset;
     }
 }
-button.md-button.md-primary[aria-label="Sign out"]:hover:not([disabled]) {
+button.md-button.md-primary[aria-label="Sign out"]:hover:not([disabled]),
+button.md-button.md-primary[aria-label="Log out"]:hover:not([disabled]) {
     color: inherit;
     background-color: inherit;
     span {
