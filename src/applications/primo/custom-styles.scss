@@ -1715,6 +1715,7 @@ prm-main-menu .my-feedback-ctm {
         padding-left: 12px;
         font-weight: 600;
         font-size: 12px;
+        color: rgb(51, 51, 51);
     }
     a {
         background-position: center right;
@@ -1724,6 +1725,14 @@ prm-main-menu .my-feedback-ctm {
         background-repeat: no-repeat;
         background-size: 11px;
     }
+}
+.culturalAdviceBanner p {
+    padding: 1em;
+    border-color: #bbd8f5;
+    color: #000;
+    background-color: #bbd8f5;
+    border-radius: 3px;
+    margin-right: -2.50em;
 }
 // very rarely, angular misfires and places a duplicate custom indicator. Ensure it is invisible if it happens
 .culturalAdviceMark ~ .culturalAdviceMark,
