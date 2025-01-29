@@ -114,19 +114,6 @@ uqlibrary-alerts {
     width: 100% !important;
 }
 
-// Hide the article full view side menu item "Tags"
-// note: aria-label can be flakey as sometime the markup is eg aria-label="Tags" and sometimes it is aria-label="brief.results.tabs.tags"
-.services-index-under {
-    button[aria-label='brief.results.tabs.tags'],
-    button[aria-label='Tags'] {
-        display: none;
-    }
-}
-//Hide the "Tags" content area on the article full view
-div.full-view-section#tags {
-    display: none;
-}
-
 prm-search-bar {
     .advanced-search-tabs {
         background: $white;
