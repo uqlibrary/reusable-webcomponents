@@ -55,6 +55,25 @@ function addCulturalAdviceToSite() {
     }
 }
 
+function addProactiveChatToSite(firstElement) {
+    if (!document.querySelector('proactive-chat:not([display="inline"])')) {
+        const proactiveChat = document.createElement('proactive-chat');
+        !!proactiveChat && document.body.insertBefore(proactiveChat, firstElement);
+    }
+}
+
+function addAlertsToSite() {
+    const targetElement = document.getElementById('block-uq-standard-theme-breadcrumbs');
+    if (!targetElement) return;
+
+    if (!document.querySelector('alert-list')) {
+        const alerts = document.createElement('alert-list');
+        !!alerts && alerts.setAttribute('system', 'drupal');
+
+        !!alerts && targetElement.parentNode.insertBefore(alerts, targetElement.nextSibling);
+    }
+}
+
 function loadReusableComponentsDrupal() {
     insertScript(getScriptPath('drupal-lib-reusable.min.js'), true);
     insertScript(getScriptPath('uq-lib-reusable.min.js'), true);
@@ -88,29 +107,9 @@ function loadReusableComponentsDrupal() {
 
     addUtilityButtonsToSiteHeader();
 
-    // Proactive Chat button
-    if (!document.querySelector('proactive-chat:not([display="inline"])')) {
-        const proactiveChat = document.createElement('proactive-chat');
-        !!proactiveChat && document.body.insertBefore(proactiveChat, firstElement);
-    }
+    addProactiveChatToSite(firstElement);
 
-    if (!document.querySelector('alert-list')) {
-        const alerts = document.createElement('alert-list');
-        !!alerts && alerts.setAttribute('system', 'drupal');
-        const librarySiteHeader = document.querySelector('uq-site-header');
-        const globalAlerts = document.querySelector('.uq-alerts-global-container');
-        const pageHeader = document.querySelector('header');
-        if (!!librarySiteHeader) {
-            !!alerts && librarySiteHeader.parentNode.insertBefore(alerts, librarySiteHeader.nextSibling);
-            // if drupal have changed the markup insert the element _somewhere_ anyway
-        } else if (!!globalAlerts) {
-            globalAlerts.parentNode.insertBefore(alerts, globalAlerts.nextSibling);
-        } else if (!!pageHeader) {
-            !!alerts && pageHeader.insertBefore(alerts, pageHeader.firstChild);
-        } else {
-            !!alerts && document.body.insertBefore(alerts, firstElement);
-        }
-    }
+    addAlertsToSite();
 
     // uq-footer is done manually by drupal
 }
