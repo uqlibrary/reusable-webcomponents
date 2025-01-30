@@ -539,6 +539,7 @@ md-checkbox {
     background-color: $theme-color;
     color: $white;
     line-height: 1.3;
+    padding-left: 8px;
     padding-right: 0;
     text-transform: uppercase;
     font-size: 13px;
@@ -1618,7 +1619,6 @@ md-menu-content {
         }
     }
     button[aria-label="Sign out"],
-    button[aria-label="Log out"],
     &>md-menu-item,
     &>button {
         padding-left: 24px;
@@ -1702,7 +1702,6 @@ prm-main-menu .my-feedback-ctm {
         padding-left: 12px;
         font-weight: 600;
         font-size: 12px;
-        color: rgb(51, 51, 51);
     }
     a {
         background-position: center right;
@@ -1712,14 +1711,6 @@ prm-main-menu .my-feedback-ctm {
         background-repeat: no-repeat;
         background-size: 11px;
     }
-}
-.culturalAdviceBanner p {
-    padding: 1em;
-    border-color: #bbd8f5;
-    color: #000;
-    background-color: #bbd8f5;
-    border-radius: 3px;
-    margin-right: -2.50em;
 }
 // very rarely, angular misfires and places a duplicate custom indicator. Ensure it is invisible if it happens
 .culturalAdviceMark ~ .culturalAdviceMark,
@@ -2016,8 +2007,7 @@ md-menu-item.logout-option {
     margin-inline: 24px;
     margin-top: 10px;
 }
-button.md-button.md-primary[aria-label="Sign out"],
-button.md-button.md-primary[aria-label="Log out"] {
+button.md-button.md-primary[aria-label="Sign out"] {
     color: #19151c;
     text-align: left;
     text-transform: unset;
@@ -2040,8 +2030,7 @@ button.md-button.md-primary[aria-label="Log out"] {
         margin-bottom: unset;
     }
 }
-button.md-button.md-primary[aria-label="Sign out"]:hover:not([disabled]),
-button.md-button.md-primary[aria-label="Log out"]:hover:not([disabled]) {
+button.md-button.md-primary[aria-label="Sign out"]:hover:not([disabled]) {
     color: inherit;
     background-color: inherit;
     span {
@@ -2073,3 +2062,7 @@ prm-topbar prm-user-area-expandable {
         color: black;
     }
 }
+
+// disable carousel & associated sidebar item
+#virtualBrowse { display:none; }
+.services-index-under button[aria-label="Browse"] { display:none; }
