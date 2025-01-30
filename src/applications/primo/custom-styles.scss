@@ -2073,3 +2073,7 @@ prm-topbar prm-user-area-expandable {
         color: black;
     }
 }
+
+// disable carousel & associated sidebar item
+#virtualBrowse { display:none; }
+.services-index-under button[aria-label="Browse"] { display:none; }
