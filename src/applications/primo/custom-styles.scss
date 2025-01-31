@@ -2111,7 +2111,13 @@ prm-search-bookmark-filter > button.md-button:not(.disable-hover):not(.close-btn
 .services-index-under button[aria-label="Browse"] { display:none; }
 
 // remove "day" and "month" selectors from sidebar of advanced search
-// per https://ideas.exlibrisgroup.com/forums/308176-primo/suggestions/42028606-fix-defect-advanced-search-date-filter
+// based on https://ideas.exlibrisgroup.com/forums/308176-primo/suggestions/42028606-fix-defect-advanced-search-date-filter
+prm-search-bar .advanced-search-tabs .advanced-drop-downs.marginless-inputs md-input-container:has(md-select[ng-model*="startDay"]),
+prm-search-bar .advanced-search-tabs .advanced-drop-downs.marginless-inputs md-input-container:has(md-select[ng-model*="startMonth"]),
+prm-search-bar .advanced-search-tabs .advanced-drop-downs.marginless-inputs md-input-container:has(md-select[ng-model*="endDay"]),
+prm-search-bar .advanced-search-tabs .advanced-drop-downs.marginless-inputs md-input-container:has(md-select[ng-model*="endMonth"]) {
+    width: 0;
+}
 prm-search-bar .advanced-search-tabs .advanced-drop-downs.marginless-inputs md-select[ng-model*="startDay"],
 prm-search-bar .advanced-search-tabs .advanced-drop-downs.marginless-inputs md-select[ng-model*="startMonth"],
 prm-search-bar .advanced-search-tabs .advanced-drop-downs.marginless-inputs md-select[ng-model*="endDay"],
@@ -2120,5 +2126,5 @@ prm-search-bar .advanced-search-tabs .advanced-drop-downs.marginless-inputs md-s
 }
 prm-search-bar .advanced-search-wrapper .date-range-inputs md-input-container input[ng-model*="startYear"],
 prm-search-bar .advanced-search-wrapper .date-range-inputs md-input-container input[ng-model*="endYear"] {
-    margin-left:-154px;
+    width: 6em;
 }
