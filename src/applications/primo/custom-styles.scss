@@ -2051,16 +2051,48 @@ button.md-button.md-primary[aria-label="Sign out"]:hover:not([disabled]) {
     min-width: 250px !important;
 }
 
-// the hover on the logged in button extends just a little bit
+// restyle the breadcrumb bar
+prm-topbar div.top-nav-bar {
+    background-color: white;
+}
 prm-topbar prm-user-area-expandable {
+    margin-top: 10px !important;
+    // "Menu" button (Account button)
     md-menu {
-        margin-top: 10px !important;
-        margin-bottom: 10px !important;
+        button span {
+            line-height: normal
+        }
+        button:hover {
+            background-color: #fff !important;
+        }
+        button:hover span {
+            background-color: #51247a !important;
+            color: #fff;
+        }
+        button:hover .button-with-menu-arrow:hover .menu-arrow:hover:not([disabled]),
+        .button-with-menu-arrow:hover .menu-arrow {
+            background-color: #fff !important;
+            color: #333 !important;
+        }
+        button div.md-ripple-container {
+            display: none;
+        }
     }
-    .button-with-menu-arrow:hover .menu-arrow:hover:not([disabled]) {
-        background-color: white;
-        color: black;
+
+    // Log in button
+    .sign-in-btn-ctm:not(.disable-hover):hover:not([disabled]):hover:not([disabled]):not(.close-btn-favorits-warning-message) {
+        background-color: #fff !important;
+        color: #333;
+        span {
+            background-color: #51247a;
+            color: #fff;
+        }
     }
+}
+// two primo built in icons in utility area
+prm-search-bookmark-filter #fixed-buttons-holder,
+prm-search-bookmark-filter > button.md-button:not(.disable-hover):not(.close-btn-favorits-warning-message) {
+    margin-top: 10px
 }
 
 // disable carousel & associated sidebar item
