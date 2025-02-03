@@ -2106,9 +2106,13 @@ prm-search-bookmark-filter > button.md-button:not(.disable-hover):not(.close-btn
     margin-top: 10px
 }
 
-// disable carousel & associated sidebar item
+// disable carousel & associated sidebar item PT 188391470
 #virtualBrowse { display:none; }
 .services-index-under button[aria-label="Browse"] { display:none; }
+
+// remove "Search within journal" section and associated sidebar element PT 188391496
+#searchWithinJournal { display:none; }
+.services-index-under button[aria-label="Search"] { display:none; }
 
 // remove "day" and "month" selectors from sidebar of advanced search
 // based on https://ideas.exlibrisgroup.com/forums/308176-primo/suggestions/42028606-fix-defect-advanced-search-date-filter
