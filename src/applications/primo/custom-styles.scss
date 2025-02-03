@@ -640,6 +640,11 @@ div > getit-link-service {
     box-shadow: none; // removes underline on the link
     text-decoration: none;
 }
+prm-alma-viewit button.show-more-less-btn {
+    padding-inline: 1em;
+    margin-left: 4px;
+}
+
 // various tweaks for February 2020 Release of Primo
 @media (max-width: 599px) {
     // page count for very small page width is mis aligned
@@ -1024,7 +1029,7 @@ prm-search-result-availability-line button {
     // default to blue unless specified as grey, thus we never get orange!
     span.availability-status,
     span.availability-status span {
-        color: #51247a !important;
+        color: $accent-color !important;
     }
     // attempt to collate all possible "check availability" and "unavailable" codes
     span.availability-status.check_holding_in_institution,
@@ -2104,13 +2109,13 @@ prm-topbar prm-user-area-expandable {
             background-color: #fff !important;
         }
         button:hover span {
-            background-color: #51247a !important;
+            background-color:  $accent-color !important;
             color: #fff;
         }
         button:hover .button-with-menu-arrow:hover .menu-arrow:hover:not([disabled]),
         .button-with-menu-arrow:hover .menu-arrow {
             background-color: #fff !important;
-            color: #3b383e !important;
+            color: $dark !important;
         }
         button div.md-ripple-container {
             display: none;
@@ -2171,4 +2176,8 @@ mark {
 }
 body prm-full-view-service-container .show-more-less-btn prm-icon {
     color: $theme-color;
+}
+
+span.button-content:has(.prm-notice) span {
+    color: $red;
 }
