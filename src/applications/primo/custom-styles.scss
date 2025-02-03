@@ -2243,11 +2243,15 @@ prm-tags-list md-chips md-chip .md-chip-content:hover alma-howovp .neutralized-b
     width: 12em;
 }
 
-prm-fines .md-button.button-as-link:hover:not([disabled]) {
-    background-color: transparent;
-    box-shadow: none;
-    span {
-        background-color: $accent-color;
-        color: #fff;
+prm-requests,
+prm-fines {
+    .md-button.button-as-link:hover:not([disabled]) {
+        background-color: transparent;
+        box-shadow: none;
+
+        span {
+            background-color: $accent-color;
+            color: #fff;
+        }
     }
 }
