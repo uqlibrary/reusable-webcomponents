@@ -2191,3 +2191,54 @@ md-tabs.tabs-as-app .back-button:hover:not([disabled]) {
 .button-as-link.md-button.md-primoExplore-theme.md-ink-ripple.button-external-link:not([disabled]) svg {
         margin-left: 2px;
 }
+alma-howovp .md-button.neutralized-button  {
+    margin-top: 0.5em;
+}
+alma-howovp .neutralized-button:focus.md-button,
+alma-howovp .neutralized-button:hover.md-button {
+    box-shadow: 0 0 0 1px $accent-color-half-opacity;
+    background-color: $uqLightGrey;
+}
+alma-howovp .neutralized-button:focus .button-content:focus,
+.md-button.arrow-link-button alma-howovp .neutralized-button:focus .button-content:hover,
+.md-button.arrow-link-button alma-howovp .neutralized-button:hover .button-content:focus,
+.md-button.arrow-link-button alma-howovp .neutralized-button:hover .button-content:hover,
+alma-howovp .neutralized-button:focus .md-button.arrow-link-button .button-content:focus,
+alma-howovp .neutralized-button:focus .md-button.arrow-link-button .button-content:hover,
+alma-howovp .neutralized-button:focus .recommendations-title.hover>span>span,
+alma-howovp .neutralized-button:focus .recommendations-title:hover>span>span,
+alma-howovp .neutralized-button:focus a:focus,
+alma-howovp .neutralized-button:focus a:hover,
+alma-howovp .neutralized-button:focus prm-tags-list .md-chips .md-chip .md-chip-content:hover strong,
+alma-howovp .neutralized-button:focus prm-tags-list .md-chips md-chip .md-chip-content:hover strong,
+alma-howovp .neutralized-button:focus prm-tags-list md-chips .md-chip .md-chip-content:hover strong,
+alma-howovp .neutralized-button:focus prm-tags-list md-chips md-chip .md-chip-content:hover strong,
+alma-howovp .neutralized-button:hover .md-button.arrow-link-button .button-content:focus,
+alma-howovp .neutralized-button:hover .md-button.arrow-link-button .button-content:hover,
+alma-howovp .neutralized-button:hover .recommendations-title.hover>span>span,
+alma-howovp .neutralized-button:hover .recommendations-title:hover>span>span,
+alma-howovp .neutralized-button:hover a:focus,
+alma-howovp .neutralized-button:hover a:hover,
+alma-howovp .neutralized-button:hover prm-tags-list .md-chips .md-chip .md-chip-content:hover strong,
+alma-howovp .neutralized-button:hover prm-tags-list .md-chips md-chip .md-chip-content:hover strong,
+alma-howovp .neutralized-button:hover prm-tags-list md-chips .md-chip .md-chip-content:hover strong,
+alma-howovp .neutralized-button:hover prm-tags-list md-chips md-chip .md-chip-content:hover strong,
+prm-tags-list .md-chips .md-chip .md-chip-content:hover alma-howovp .neutralized-button:focus strong,
+prm-tags-list .md-chips .md-chip .md-chip-content:hover alma-howovp .neutralized-button:hover strong,
+prm-tags-list .md-chips md-chip .md-chip-content:hover alma-howovp .neutralized-button:focus strong,
+prm-tags-list .md-chips md-chip .md-chip-content:hover alma-howovp .neutralized-button:hover strong,
+prm-tags-list md-chips .md-chip .md-chip-content:hover alma-howovp .neutralized-button:focus strong,
+prm-tags-list md-chips .md-chip .md-chip-content:hover alma-howovp .neutralized-button:hover strong,
+prm-tags-list md-chips md-chip .md-chip-content:hover alma-howovp .neutralized-button:focus strong,
+prm-tags-list md-chips md-chip .md-chip-content:hover alma-howovp .neutralized-button:hover strong {
+    //box-shadow: inset 0 -2px 0 0 $accent-color;
+    box-shadow: none;
+}
+.neutralized-button.layout-full-width.layout-display-flex.md-button.md-ink-ripple.md-primoExplore-theme:not(:has(a)) span:first-of-type {
+    color: $theme-color;
+}
+.neutralized-button.layout-full-width.layout-display-flex.md-button.md-ink-ripple.md-primoExplore-theme:not(:has(a)):hover span:first-of-type:hover {
+    //box-shadow: inset 0 -2px 0 0 $accent-color;
+    box-shadow: none;
+    width: 12em;
+}
