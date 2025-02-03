@@ -25,7 +25,7 @@ $paddingSmall: 0.5em;
 $paddingTiny: 0.25em;
 
 // colors
-$accent-color: #2377cb; // uqblue; uq blue
+$accent-color: #51247a; // was uqblue #2377cb
 $muteOrange: red;
 
 $almostBlack: #777;
@@ -34,26 +34,27 @@ $titles: $accent-color;
 $frbr: #ed9100;
 $pink: rgb(255, 171, 200);
 
-$dark: #333;
+$dark: #3b383e;
 $dark-hue1: darken($dark, 30%);
 $darker: darken(saturate(adjust-hue($dark, 0), 0), 6.6667);
 
 // lighter background color
 
 $success: #3ea03e;
-$green: #2ea836;
+$green: #4aa74e;
 //$orange: #CE8015; //#E0962E;
-$muteOrange: #c59655;
-$uqInformationLight: #bbd8f5;
+$muteOrange: #f7ba1e;
+$uqInformationDark: #0d6dcd; // $utility-500
+$uqInformationLight: #e7f0fa; // $utility-50
 //$yellow: #f1c16f;
 //$yellow-hue1: lighten($yellow, 20%); // uq yellow
 $overlayDarkDG: rgba(68, 68, 68, 0.6);
 
 $highlightBlue: transparentize($accent-color, 0.9);
-$uqWarningDark: #fbb800;
+$uqWarningDark: #f7ba1e; // $warning-500
 $highlight: darken(desaturate(adjust-hue($uqWarningDark, -4.092), 16), 8.0392);
-$uqWarningLight: #fff0c8;
-$uqNeutral: #d7d1cc;
+$uqWarningLight: #fbeaea;
+$uqNeutral: #f3f3f4;
 
 $uqLightGrey: #f7f6f5;
 
@@ -101,6 +102,8 @@ $background-hue3: lighten(
     saturate(adjust-hue($backgroundColor, 0), 0),
     5.8824
 ); // lighter 2 (i.e: background for actions forms)
+
+$heading-color: #19151c; // UQ Design System 'Heading colour'
 
 $background-hue4: lighten($background, 3%);
 $background-hue5: transparentize($background, 0.5);
