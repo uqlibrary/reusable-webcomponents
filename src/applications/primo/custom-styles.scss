@@ -623,7 +623,7 @@ div > getit-link-service {
     display: inline-block;
     padding: 0.8em 1em;
     margin-left: 1em;
-    margin-top: 0.5em;
+    margin-top: 0.8em;
     text-transform: uppercase;
     font-size: 14px;
     border: 1px solid $accent-color;
@@ -2180,4 +2180,10 @@ body prm-full-view-service-container .show-more-less-btn prm-icon {
 
 span.button-content:has(.prm-notice) span {
     color: $red;
+}
+
+.md-button.button-link:hover:not([disabled]),
+md-tabs.tabs-as-app .back-button:hover:not([disabled]) {
+    color: #fff !important;
+    background-color: $theme-color;
 }
