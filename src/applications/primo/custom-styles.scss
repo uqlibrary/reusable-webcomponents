@@ -907,7 +907,7 @@ md-toast .md-button.settings-button:not([disabled]):not(.dismiss-alert-button) {
             &:focus,
             &:hover {
                 color: $white;
-                background-color: $accent-color;
+                background-color: $theme-color;
             }
         }
     }
@@ -1094,7 +1094,7 @@ prm-login-alma-mashup {
         &:active,
         &:focus,
         &:hover {
-            background-color: $uqInformationDark !important;
+            background-color: $theme-color !important;
             color: #fff;
         }
     }
@@ -1107,8 +1107,8 @@ prm-login-alma-mashup {
         &:active,
         &:focus,
         &:hover {
-            color: #000;
-            background-color: $uqInformationDark !important;
+            color: #fff;
+            background-color: $theme-color !important;
         }
     }
 }
@@ -2171,8 +2171,8 @@ mark {
 }
 
 .bar.alert-bar {
-    background-color: #e7f0fa;
-    border-color: #e7f0fa;
+    background-color: $uqInformationLight;
+    border-color: $uqInformationLight;
 }
 body prm-full-view-service-container .show-more-less-btn prm-icon {
     color: $theme-color;
@@ -2183,7 +2183,11 @@ span.button-content:has(.prm-notice) span {
 }
 
 .md-button.button-link:hover:not([disabled]),
+.button-as-link.md-button.md-primoExplore-theme.md-ink-ripple.button-external-link:hover:not([disabled]) svg,
 md-tabs.tabs-as-app .back-button:hover:not([disabled]) {
     color: #fff !important;
     background-color: $theme-color;
+}
+.button-as-link.md-button.md-primoExplore-theme.md-ink-ripple.button-external-link:not([disabled]) svg {
+        margin-left: 2px;
 }
