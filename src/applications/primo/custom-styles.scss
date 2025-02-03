@@ -582,11 +582,48 @@ div > getit-link-service {
 }
 
 // style the report a problem button
+
+// remove after VE go live
+.help-button:not([style-scope]) {
+    border: 1px solid $accent-color;
+}
+.help-button:not([style-scope]) {
+    background-color: $accent-color;
+    color: $white;
+    transition: none;
+}
+.help-button:not([style-scope]):hover,
+.help-button:not([style-scope]):hover a,
+.help-button:not([style-scope]):hover a:hover {
+    background-color: $white;
+    color: $accent-color !important;
+    font-weight: bold;
+    box-shadow: none; // removes underline on the link
+}
+.help-button:not([style-scope]):hover a,
+.help-button:not([style-scope]):hover a:hover {
+    text-decoration: none;
+    box-shadow: none;
+}
+.help-button:not([style-scope]) a {
+    background-color: inherit;
+    color: $white !important;
+    text-decoration: none;
+}
+.help-button:not([style-scope]) a:hover {
+    background-color: inherit;
+    color: inherit !important;
+    text-decoration: none;
+}
+// END remove after VE go live
+
 .report-a-problem:not([style-scope]) {
     background-color: $accent-color;
     color: white !important;
+    display: inline-block;
     padding: 0.8em 1em;
     margin-left: 1em;
+    margin-top: 0.5em;
     text-transform: uppercase;
     font-size: 14px;
     border: 1px solid $accent-color;
@@ -601,10 +638,6 @@ div > getit-link-service {
     color: $accent-color !important;
     font-weight: bold;
     box-shadow: none; // removes underline on the link
-}
-.report-a-problem:not([style-scope]) a:hover {
-    background-color: inherit;
-    color: inherit !important;
     text-decoration: none;
 }
 // various tweaks for February 2020 Release of Primo
@@ -665,7 +698,7 @@ prm-breadcrumbs .md-chip.persistent-facet {
 
 // dbsearch sidebar
 prm-tree-nav md-list md-list-item .md-button.branch-name {
-    color: #1e66ae;
+    color: $theme-color;
 }
 prm-tree-nav md-list md-list-item .md-button.branch-name.is-selected {
     color: #3b383e !important;
@@ -2136,6 +2169,6 @@ mark {
     background-color: #e7f0fa;
     border-color: #e7f0fa;
 }
-//ui-view button.button-with-icon.zero-margin.md-button.md-primoExplore-theme.md-ink-ripple:not(.dismiss-alert-button):hover {
-//    background-color: $uqInformationDark !important;
-//}
+body prm-full-view-service-container .show-more-less-btn prm-icon {
+    color: $theme-color;
+}
