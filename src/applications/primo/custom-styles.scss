@@ -582,38 +582,31 @@ div > getit-link-service {
 }
 
 // style the report a problem button
-.help-button:not([style-scope]) {
+.report-a-problem:not([style-scope]) {
+    background-color: $accent-color;
+    color: white !important;
+    padding: 0.8em 1em;
+    margin-left: 1em;
+    text-transform: uppercase;
+    font-size: 14px;
     border: 1px solid $accent-color;
 }
-.help-button:not([style-scope]) {
+.report-a-problem:not([style-scope]) {
     background-color: $accent-color;
     color: $white;
     transition: none;
 }
-.help-button:not([style-scope]):hover,
-.help-button:not([style-scope]):hover a,
-.help-button:not([style-scope]):hover a:hover {
+.report-a-problem:not([style-scope]):hover {
     background-color: $white;
     color: $accent-color !important;
     font-weight: bold;
     box-shadow: none; // removes underline on the link
 }
-.help-button:not([style-scope]):hover a,
-.help-button:not([style-scope]):hover a:hover {
-    text-decoration: none;
-    box-shadow: none;
-}
-.help-button:not([style-scope]) a {
-    background-color: inherit;
-    color: $white !important;
-    text-decoration: none;
-}
-.help-button:not([style-scope]) a:hover {
+.report-a-problem:not([style-scope]) a:hover {
     background-color: inherit;
     color: inherit !important;
     text-decoration: none;
 }
-
 // various tweaks for February 2020 Release of Primo
 @media (max-width: 599px) {
     // page count for very small page width is mis aligned
