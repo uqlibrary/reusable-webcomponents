@@ -1,4 +1,4 @@
-$accent-color-half-opacity: rgba(35, 119, 203, 0.1);
+$accent-color-half-opacity: rgba(81, 36, 122, 0.1);
 $background-grey: #5f5f5f;
 
 /* cyrillic-ext */
@@ -341,7 +341,7 @@ md-menu-item button.md-button svg:nth-of-type(n+2) {
 .my-favorties-ctm .md-button.md-focused:not([disabled]) { // logged in
     background-color: white;
     span.primaryText {
-        color: #19151c;
+        color: $heading-color;
     }
 }
 .my-library-card-ctm .md-button:hover:not([disabled]), // logged in
@@ -364,7 +364,7 @@ md-menu-item button.md-button svg:nth-of-type(n+2) {
         span[translate="eshelf.menu.signOut"],
         span[translate="eshelf.menu.savedItems"],
         span[translate="eshelf.menu.searchHistory"] {
-            color: #19151c;
+            color: $heading-color;
         }
     }
 
@@ -395,7 +395,7 @@ md-menu-item button.md-button svg:nth-of-type(n+2) {
     .my-favorties-ctm .md-button:hover:not([disabled]),
     .my-search-history-ctm .md-button:hover:not([disabled]) {
         background-color: white;
-        color: #19151c;
+        color: $heading-color;
         span[translate="eshelf.menu.signOut"],
         span[translate="eshelf.menu.savedItems"],
         span[translate="eshelf.menu.searchHistory"] {
@@ -409,7 +409,7 @@ md-menu-item button.md-button svg:nth-of-type(n+2) {
     span[translate="eshelf.menu.savedItems"],
     span[translate="eshelf.menu.searchHistory"] {
         line-height: normal; //reduce background color to same height as UQ DS
-        color: #19151c;
+        color: $heading-color;
         font-family: Roboto, "Helvetica Neue", sans-serif;
         font-size: 16px;
         letter-spacing: normal;
@@ -675,7 +675,7 @@ prm-tree-nav md-list md-list-item .md-button.branch-name {
     color: #1e66ae;
 }
 prm-tree-nav md-list md-list-item .md-button.branch-name.is-selected {
-    color: #333 !important;
+    color: #3b383e !important;
     &:hover {
         background-color: rgba(51, 51, 51, 0.1) !important;
     }
@@ -688,7 +688,7 @@ prm-tree-nav md-list md-list-item .md-button.branch-name.is-selected:hover {
 prm-facet-range prm-icon md-icon.md-primoExplore-theme,
 prm-facet-exact button:not(.button-exclude) prm-icon md-icon.md-primoExplore-theme {
     // little arrow in facet area but NOT the 'exclude filter' checked box (appears on mouseover)
-    color: #1e66ae !important;
+    color: $accent-color !important;
 }
 
 .multiselect-facet-group .md-chip .md-chip-content md-checkbox {
@@ -996,8 +996,9 @@ prm-explore-main {
 // availability statements should be either blue (for mostly available now), or grey (for mostly available by request).
 prm-search-result-availability-line button {
     // default to blue unless specified as grey, thus we never get orange!
-    span.availability-status {
-        color: $accent-color !important;
+    span.availability-status,
+    span.availability-status span {
+        color: #51247a !important;
     }
     // attempt to collate all possible "check availability" and "unavailable" codes
     span.availability-status.check_holding_in_institution,
@@ -1062,7 +1063,7 @@ prm-login-alma-mashup {
         &:active,
         &:focus,
         &:hover {
-            background-color: $accent-color !important;
+            background-color: $uqInformationDark !important;
             color: #fff;
         }
     }
@@ -1076,7 +1077,7 @@ prm-login-alma-mashup {
         &:focus,
         &:hover {
             color: #000;
-            background-color: rgba(51, 51, 51, 0.1) !important;
+            background-color: $uqInformationDark !important;
         }
     }
 }
@@ -1259,7 +1260,7 @@ prm-view-online {
     }
     .all-links-options a:hover span {
         box-shadow: none;
-        color: #333;
+        color: #3b383e;
     }
     button:first-child {
         padding-left: 10px;
@@ -1490,7 +1491,7 @@ md-menu-item.uql-account-menu-option button {
     background-color: #fff;
     border-width: 0;
     transition: color 200ms ease-out, text-decoration 200ms ease-out, background-color 200ms ease-out;
-    color: #19151c;
+    color: $heading-color;
     &:active span.primaryText,
     &:hover span.primaryText {
         background-color: $theme-color;
@@ -1507,7 +1508,7 @@ md-menu-item.uql-account-menu-option button {
         display: none; // sometimes it inserts a second svg. Strange.
     }
     .textwrapper {
-        color: #19151c;
+        color: $heading-color;
         display: flex;
         flex-direction: column;
         font-size: 16px;
@@ -1607,7 +1608,7 @@ md-menu-content {
     padding-top: 24px;
     padding-bottom: 24px;
     .user-menu-header button.md-button {
-        color: #19151c;
+        color: $heading-color;
         &.md-primary {
             background-color: $accent-color;
             color: #fff;
@@ -1675,7 +1676,7 @@ prm-main-menu .my-feedback-ctm {
         padding-bottom: 0.4rem;
     }
     h4 {
-        color: #333;
+        color: $heading-color;
         font-weight: 500;
         font-size: 18px;
         margin-top: 20px;
@@ -1730,7 +1731,7 @@ prm-main-menu .my-feedback-ctm {
     fill: $green;
 }
 .culturalAdviceMarkIcon path {
-    fill: $accent-color;
+    fill: #0d6dcd;
 }
 .indicatorWrapper {
     margin-left: -10px;
@@ -1852,7 +1853,7 @@ prm-favorites div.search-within {
     }
     button.search-button {
         border-bottom: 1px solid black;
-        color: #333 !important;
+        color: #3b383e !important;
         margin-bottom: 8px;
     }
 }
@@ -2018,7 +2019,7 @@ md-menu-item.logout-option {
 }
 button.md-button.md-primary[aria-label="Sign out"],
 button.md-button.md-primary[aria-label="Log out"] {
-    color: #19151c;
+    color: $heading-color;
     text-align: left;
     text-transform: unset;
     letter-spacing: .16px;
@@ -2083,7 +2084,7 @@ prm-topbar prm-user-area-expandable {
         button:hover .button-with-menu-arrow:hover .menu-arrow:hover:not([disabled]),
         .button-with-menu-arrow:hover .menu-arrow {
             background-color: #fff !important;
-            color: #333 !important;
+            color: #3b383e !important;
         }
         button div.md-ripple-container {
             display: none;
@@ -2093,7 +2094,7 @@ prm-topbar prm-user-area-expandable {
     // Log in button
     .sign-in-btn-ctm:not(.disable-hover):hover:not([disabled]):hover:not([disabled]):not(.close-btn-favorits-warning-message) {
         background-color: #fff !important;
-        color: #333;
+        color: #3b383e;
         span {
             background-color: #51247a;
             color: #fff;
@@ -2132,3 +2133,16 @@ prm-search-bar .advanced-search-wrapper .date-range-inputs md-input-container in
 prm-search-bar .advanced-search-wrapper .date-range-inputs md-input-container input[ng-model*="endYear"] {
     width: 6em;
 }
+
+prm-brief-result .item-title span,
+mark {
+    color: $dark;
+}
+
+.bar.alert-bar {
+    background-color: #e7f0fa;
+    border-color: #e7f0fa;
+}
+//ui-view button.button-with-icon.zero-margin.md-button.md-primoExplore-theme.md-ink-ripple:not(.dismiss-alert-button):hover {
+//    background-color: $uqInformationDark !important;
+//}
