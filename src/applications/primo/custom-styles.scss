@@ -2277,6 +2277,12 @@ md-tab-content .tab-content-header md-input-container md-select-value .prm-hue1.
 }
 
 // links added to Accounts area
+prm-personal-info .md-button.button-as-link.stackable-link-entry,
+prm-personal-info .md-button.button-as-link.stackable-link-entry:hover:not([disabled]),
+md-tab-content .layout-column .header-subtitle .stackable-links a.stackable-link-entry,
+md-tab-content .layout-column .header-subtitle .stackable-links a.stackable-link-entry:hover:not([disabled]) {
+    background-color: transparent !important;
+}
 @media (max-width: 600px) {
     md-tab-content .stackable-links a.md-button.inline-button {
         display: block;
