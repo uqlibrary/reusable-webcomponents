@@ -1056,7 +1056,8 @@ prm-search-result-availability-line button {
     span.availability-status.unavailable_in_maininstitution_more,
     span.availability-status.unavailable_in_maininstitution_nomore,
     span.availability-status.viewit_getit_NFT,
-    span.availability-status.viewit_NFT {
+    span.availability-status.viewit_NFT ,
+    span.availability-status.ext_restrictedWithLink {
         & > span {
             color: #555555 !important;
         }
