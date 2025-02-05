@@ -220,7 +220,7 @@ $defaultMdButtonHover: rgba(158, 158, 158, 0.2);
 //-----------------------
 
 $swift-ease-out-duration: 0.4s !default;
-$swift-ease-out-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
+$swift-ease-out-timing-function: ease-out;
 $swift-ease-out: all $swift-ease-out-duration $swift-ease-out-timing-function !default;
 
 $swift-ease-in-duration: 0.3s !default;

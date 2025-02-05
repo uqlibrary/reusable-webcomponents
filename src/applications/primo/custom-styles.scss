@@ -79,7 +79,7 @@ $background-grey: #5f5f5f;
 @import 'styles-imports/prm-user-area';
 @import 'styles-imports/full_view_status';
 
-a {
+button, a {
     transition: color 200ms ease-out, background-color 200ms ease-out;
 }
 
@@ -2367,5 +2367,17 @@ prm-personalize-results-button button.button-as-link.button-switch.md-button.md-
             background-color: $accent-color;
             opacity: 0.4;
         }
+    }
+}
+
+prm-location-items md-list-item button[aria-label="Expand location item"] {
+    padding-top: 0;
+    padding-bottom: 0;
+    min-height: 50px;
+    min-width: 10px !important;
+    line-height: normal;
+    height: auto !important;
+    &:hover:not([disabled]) {
+        background-color: $accent-color;
     }
 }
