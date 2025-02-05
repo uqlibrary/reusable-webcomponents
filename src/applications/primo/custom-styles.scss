@@ -2381,3 +2381,13 @@ prm-location-items md-list-item button[aria-label="Expand location item"] {
         background-color: $accent-color;
     }
 }
+
+prm-account-overview prm-fines-overview {
+    div:has(> a[aria-label="Pay fines button"]) {
+        display: block;
+    }
+    & a[aria-label="Pay fines button"] {
+        display: block;
+        margin-top: 10px !important;
+    }
+}
