@@ -2357,3 +2357,15 @@ prm-alma-viewit-items md-list-item {
         box-shadow: none;
     }
 }
+
+// stop the personalised button from having a horrible background after cancelling out of edit
+prm-personalize-results-button button.button-as-link.button-switch.md-button.md-primoExplore-theme.hide-xs.hide-sm.md-focused {
+    background-color: $backgroundActual;
+    & md-switch > div.md-container {
+        background-color: $backgroundActual;
+        & .md-bar {
+            background-color: $accent-color;
+            opacity: 0.4;
+        }
+    }
+}
