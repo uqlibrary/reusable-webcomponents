@@ -2189,6 +2189,9 @@ prm-search-bar .advanced-search-tabs .advanced-drop-downs.marginless-inputs md-s
 prm-search-bar .advanced-search-tabs .advanced-drop-downs.marginless-inputs md-select[ng-model*="endMonth"] {
     display:none;
 }
+prm-search-bar .advanced-search-wrapper .date-range-inputs {
+    margin-top: 15px;
+}
 prm-search-bar .advanced-search-wrapper .date-range-inputs md-input-container input[ng-model*="startYear"],
 prm-search-bar .advanced-search-wrapper .date-range-inputs md-input-container input[ng-model*="endYear"] {
     width: 6em;
