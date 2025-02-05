@@ -79,6 +79,10 @@ $background-grey: #5f5f5f;
 @import 'styles-imports/prm-user-area';
 @import 'styles-imports/full_view_status';
 
+a {
+    transition: color 200ms ease-out, background-color 200ms ease-out;
+}
+
 uqlibrary-alerts,
 uq-minimal-header {
     z-index: 79 !important;
