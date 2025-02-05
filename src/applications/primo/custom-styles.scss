@@ -2306,7 +2306,7 @@ md-tab-content .tab-content-header md-input-container md-select-value .prm-hue1.
 .stackable-links a.md-button.button-as-link,
 prm-personal-info .md-button.button-as-link.stackable-link-entry,
 md-tab-content .layout-column .header-subtitle .stackable-links a.stackable-link-entry {
-    background-color: transparent !important; // dont let have purple background whenb text is purple
+    background-color: transparent !important; // dont let have purple background when text is purple
     box-shadow: none; // remove underline
 
     &:hover:not([disabled]),
@@ -2324,5 +2324,27 @@ prm-fines [ng-href] {
     md-tab-content .stackable-links a.md-button.inline-button {
         display: block;
         text-align: left;
+    }
+}
+
+// style the hovers on the view it area, full record
+prm-alma-viewit-items md-list-item {
+    & div a.item-title {
+        line-height: 0;
+        padding-bottom: 0;
+    }
+    & div button {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+    &:hover > div {
+        background-color: $uqNeutral;
+        transition: color 200ms ease-out, background-color 200ms ease-out;
+    }
+    &:hover:not(:has(button:hover)) a {
+        background-color: $theme-color;
+        color: #fff !important;
+        transition: color 200ms ease-out, background-color 200ms ease-out;
+        box-shadow: none;
     }
 }
