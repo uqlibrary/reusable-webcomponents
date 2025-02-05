@@ -233,9 +233,11 @@ prm-citation-trails-item.active-item .item-title,
 prm-tags-results-list md-list.prm-list.prm-linkable-list-items md-list-item .item-title {
     color: $links !important;
 }
-// does prm-links even exist anymore? Override it in the account overview area
-prm-account-overview button.prm-links:hover {
-    color: #fff !important;
+prm-account-overview {
+    // does prm-links even exist anymore? Override it in the account overview area
+    button.prm-links:hover {
+        color: #fff !important;
+    }
 }
 
 .tiles-grid-tile {
@@ -1342,40 +1344,31 @@ prm-personal-settings .switch-options .switch-without-button md-switch {
     }
 }
 
-// My Account > Settings area Details section with large amount of white space in email box
+// My Account > Details and Settings tab
 prm-personal-info {
     md-card-header {
-        padding: 0;
-
-        .md-toolbar-tools {
-            height: 0;
-        }
+        display: none;
     }
-    md-card-content {
-        padding: 0;
-        md-divder {
-            margin-top: 0;
-            margin-bottom: 0.2em !important;
-        }
-        md-divder:nth-of-type(2) {
-            display: none;
-        }
+    [translate="nui.details.patronstatus.group"] {
+        display: none;
     }
-}
+    md-card-header {
+        display: none;
+    }
+    #personalDetails md-card-content > {
+        div:first-of-type {
+            display: none; /* first block, remove big set of address details */
+        }
 
-// My account - settings area - hide Account expiry date
-prm-personal-info .header-subtitle div:first-child {
-    padding-bottom: 0.5em;
-    margin-left: 0.3rem;
-}
-// and then fix the width of the email box
-prm-personal-info h2 {
-    min-width: 20em;
-}
-@media (max-width: 1280px) {
-    prm-personal-info h2 {
-        width: 90%;
-        min-width: 45em;
+        div div:not(:has([translate="mypref.label.my_email"])) {
+            display: none; /* second block, remove everything that isn't the email */
+        }
+
+        div div:has([translate="mypref.label.my_email"]) {
+            max-width: 100%; /* let email block utilise full width */
+            margin-bottom: 0;
+            margin-top: -15px;
+        }
     }
 }
 
