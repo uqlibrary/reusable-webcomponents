@@ -2208,10 +2208,13 @@ mark {
     color: $dark;
 }
 
+.bar.success-bar,
 .bar.alert-bar {
     background-color: $uqInformationLight;
     border-color: $uqInformationLight;
+    color: $dark;
 }
+
 body prm-full-view-service-container .show-more-less-btn prm-icon {
     color: $theme-color;
 }
