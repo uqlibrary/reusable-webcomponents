@@ -2438,7 +2438,7 @@ prm-request form {
         max-width: 100%;
     }
     & > div > div {
-        padding-left: 3em;
+        padding-inline: 3em;
     }
     background-color: #fff;
     border: 1px solid rgba(59, 56, 62, 0.3);
@@ -2453,6 +2453,44 @@ prm-request {
 prm-request > div.service-form {
     border: none;
     box-shadow: none;
+}
+// align the submit and reset buttons better
+prm-request form > div:last-child {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    & button {
+        padding: 6px 24px;
+        margin: 0;
+        text-transform: capitalize;
+        font-size: 16px;
+        border: 2px solid $accent-color;
+        border-radius: 4px;
+        transition: color 200ms ease-out, background-color 200ms ease-out;
+    }
+    &> button {
+        // reset button
+        display: initial;
+        text-align: left;
+        width: 8em;
+        &:hover:not([disabled]) {
+            background-color: $accent-color;
+            color: #fff;
+        }
+    }
+    &> div {
+        // submit button
+        display: block;
+        text-align: right;
+        margin-top: -50px;
+        & button.button-confirm:hover:not([disabled]) {
+            color: $accent-color !important;
+            background-color: #fff !important;
+            & svg {
+                color: $accent-color;
+            }
+        }
+    }
 }
 
 prm-blank-purchase-request md-content.md-primoExplore-theme {
