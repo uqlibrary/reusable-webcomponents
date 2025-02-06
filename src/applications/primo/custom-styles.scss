@@ -2275,6 +2275,15 @@ prm-tags-list md-chips md-chip .md-chip-content:hover alma-howovp .neutralized-b
     box-shadow: none;
     width: 12em;
 }
+alma-howovp .neutralized-button:focus,
+alma-howovp .neutralized-button:hover {
+    span {
+        background-color: #51247a;
+        color: #fff !important;
+        line-height: 20px;
+        padding-left: 2px;
+    }
+}
 
 prm-personal-info,
 prm-messages-and-blocks,
@@ -2431,13 +2440,38 @@ prm-request form {
     margin-right: 0;
     }
     md-input-container {
-    width: 100%;
+        width: 100%;
     }
-    prm-form-field {
-        // force the width of the column of text wider
-        md-input-container {
-            width: 600px; // seems a reasonable width
-            max-width: 100%;
-        }
+    prm-form-field md-input-container {
+        width: 600px;
+        max-width: 100%;
+    }
+    & > div > div {
+        padding-left: 3em;
+    }
+    border: 1px solid rgba(59, 56, 62, 0.3);
+    box-shadow: 0 2px 7px 0 rgba(59, 56, 62, 0.12);
+    margin-bottom: 2em;
+}
+prm-request form,
+prm-request form > div,
+prm-request form > div > div,
+prm-request {
+    min-width: 800px;
+}
+prm-request > div.service-form {
+    border: none;
+    box-shadow: none;
+}
+
+prm-blank-purchase-request md-content.md-primoExplore-theme {
+    background-color: #fff;
+}
+prm-blank-purchase-request md-content.md-primoExplore-theme {
+    background-color: #fff;
+    border: none;
+    box-shadow: none;
+    .form-focus form {
+        padding-inline: 1em;
     }
 }
