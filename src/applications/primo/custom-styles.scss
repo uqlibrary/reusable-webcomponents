@@ -79,7 +79,7 @@ $background-grey: #5f5f5f;
 @import 'styles-imports/prm-user-area';
 @import 'styles-imports/full_view_status';
 
-button, a {
+button, button.md-button, a, a.md-button {
     transition: color 200ms ease-out, background-color 200ms ease-out;
 }
 
@@ -2369,7 +2369,7 @@ prm-personalize-results-button button.button-as-link.button-switch.md-button.md-
     }
 }
 
-prm-location-items md-list-item button[aria-label="Expand location item"] {
+prm-location-items md-list-item button.item-expand-button {
     padding-top: 0;
     padding-bottom: 0;
     min-height: 50px;
