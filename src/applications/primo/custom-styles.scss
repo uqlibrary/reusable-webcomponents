@@ -2421,3 +2421,23 @@ prm-citation-linker {
         }
     }
 }
+
+prm-request form {
+    prm-form-field div:has([translate="almaPurchaseRequest.citationType"]) {
+        display: none;
+    }
+    prm-form-field.service-form-item {
+    margin-left: 0;
+    margin-right: 0;
+    }
+    md-input-container {
+    width: 100%;
+    }
+    prm-form-field {
+        // force the width of the column of text wider
+        md-input-container {
+            width: 600px; // seems a reasonable width
+            max-width: 100%;
+        }
+    }
+}
