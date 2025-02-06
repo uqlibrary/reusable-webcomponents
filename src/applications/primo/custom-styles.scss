@@ -2440,8 +2440,8 @@ prm-request form {
     & > div > div {
         padding-left: 3em;
     }
+    background-color: #fff;
     border: 1px solid rgba(59, 56, 62, 0.3);
-    box-shadow: 0 2px 7px 0 rgba(59, 56, 62, 0.12);
     margin-bottom: 2em;
 }
 prm-request form,
@@ -2456,13 +2456,13 @@ prm-request > div.service-form {
 }
 
 prm-blank-purchase-request md-content.md-primoExplore-theme {
-    background-color: #fff;
-}
-prm-blank-purchase-request md-content.md-primoExplore-theme {
-    background-color: #fff;
+    background-color: $backgroundActual;
     border: none;
     box-shadow: none;
     .form-focus form {
         padding-inline: 1em;
+    }
+    prm-request > div {
+        background-color: transparent;
     }
 }
