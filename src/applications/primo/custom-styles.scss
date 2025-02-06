@@ -2392,3 +2392,33 @@ prm-account-overview prm-fines-overview {
         margin-top: 10px !important;
     }
 }
+
+prm-citation-linker {
+    & form:has([value="article"].md-checked) {
+        prm-form-field:has(label[translate="citationLinker.aulast"]),
+        prm-form-field:has(label[translate="citationLinker.aufirst"]),
+        prm-form-field:has(label[translate="citationLinker.auinit"]),
+        prm-form-field:has(label[translate="citationLinker.publisher"]),
+        prm-form-field:has(label[translate="citationLinker.pubdate"]) {
+            display: none;
+        }
+    }
+    & form:has([value="book"].md-checked) {
+        prm-form-field:has(label[translate="search-advanced.DateRange.label.Year"]),
+        prm-form-field:has(label[translate="citationLinker.volume"]),
+        prm-form-field:has(label[translate="citationLinker.part"]),
+        prm-form-field:has(label[translate="citationLinker.aulast"]),
+        prm-form-field:has(label[translate="citationLinker.aufirst"]),
+        prm-form-field:has(label[translate="citationLinker.auinit"]) {
+            display: none;
+        }
+    }
+    & form:has([value="journal"].md-checked) {
+        prm-form-field:has(label[translate="citationLinker.volume"]),
+        prm-form-field:has(label[translate="citationLinker.issue"]),
+        prm-form-field:has(label[translate="citationLinker.doi"]),
+        prm-form-field:has(label[translate="search-advanced.DateRange.label.Year"]) {
+            display: none;
+        }
+    }
+}
