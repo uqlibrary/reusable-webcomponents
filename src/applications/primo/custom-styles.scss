@@ -928,6 +928,10 @@ prm-citation-linker {
         color: $accent-color;
     }
 
+    div:has(> form.request-form) {
+        margin-bottom: 100px;
+    }
+
     // fix submit button on purchase request form
     .md-button.button-large.button-with-icon {
         border: 1px solid $white;
