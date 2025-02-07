@@ -2421,7 +2421,9 @@ prm-citation-linker {
         }
     }
 }
-
+prm-request {
+    margin-bottom: 50px;
+}
 prm-request form {
     prm-form-field div:has([translate="almaPurchaseRequest.citationType"]) {
         display: none;
@@ -2453,6 +2455,7 @@ prm-request {
 prm-request > div.service-form {
     border: none;
     box-shadow: none;
+    margin-bottom: 50px;
 }
 // align the submit and reset buttons better
 prm-request form > div:last-child {
