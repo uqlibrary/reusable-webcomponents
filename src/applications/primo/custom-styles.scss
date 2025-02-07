@@ -2431,6 +2431,13 @@ prm-account-overview prm-fines-overview {
 
 prm-request {
     margin-bottom: 50px;
+    max-width: 800px !important; // override width-100 class
+    & .request-form-message {
+        width: 100%; // use the paragraph to force the width out
+        & span {
+            line-height: 1.5em;
+        }
+    }
 }
 prm-request form {
     prm-form-field div:has([translate="almaPurchaseRequest.citationType"]) {
@@ -2447,7 +2454,7 @@ prm-request form {
         width: 600px;
         max-width: 100%;
     }
-    & > div > div {
+    & > div > div:not(:last-child) {
         padding-inline: 3em;
     }
     background-color: #fff;
@@ -2457,19 +2464,16 @@ prm-request form {
 prm-request form,
 prm-request form > div,
 prm-request form > div > div,
-prm-request {
-    min-width: 800px;
-}
 prm-request > div.service-form {
     border: none;
     box-shadow: none;
-    margin-bottom: 50px;
 }
 // align the submit and reset buttons better
 prm-request form > div:last-child {
-    display: flex;
-    justify-content: space-between;
-    padding: 1rem;
+    @media (min-width: 520px) {
+        display: flex;
+    }
+    padding-block: 1rem;
     & button {
         padding: 6px 24px;
         margin: 0;
@@ -2479,21 +2483,24 @@ prm-request form > div:last-child {
         border-radius: 4px;
         transition: color 200ms ease-out, background-color 200ms ease-out;
     }
-    &> button {
+    & button:has([icon-definition="reload"]) {
         // reset button
         display: initial;
         text-align: left;
         width: 8em;
+        margin-bottom: 10px; // leave space for other button to slip beneath on mobile
         &:hover:not([disabled]) {
             background-color: $accent-color;
             color: #fff;
         }
     }
-    &> div {
-        // submit button
+    & div:has([icon-definition="send"]) {
+        // submit button block
         display: block;
         text-align: right;
-        margin-top: -50px;
+        @media (min-width: 520px) {
+            margin-top: -60px; // line up with reset button on desktop
+        }
         & button.button-confirm:hover:not([disabled]) {
             color: $accent-color !important;
             background-color: #fff !important;
