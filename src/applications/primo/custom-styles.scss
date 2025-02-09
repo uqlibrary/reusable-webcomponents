@@ -2204,9 +2204,9 @@ prm-search-bookmark-filter > button.md-button:not(.disable-hover):not(.close-btn
 #searchWithinJournal { display:none; }
 .services-index-under button[aria-label="Search"] { display:none; }
 
-// remove "day" and "month" selectors from sidebar of advanced search
-// based on https://ideas.exlibrisgroup.com/forums/308176-primo/suggestions/42028606-fix-defect-advanced-search-date-filter
 prm-search-bar {
+    // remove "day" and "month" selectors from sidebar of advanced search
+    // based on https://ideas.exlibrisgroup.com/forums/308176-primo/suggestions/42028606-fix-defect-advanced-search-date-filter
     .advanced-search-tabs .advanced-drop-downs.marginless-inputs {
         md-input-container:has(md-select[ng-model*="startDay"]),
         md-input-container:has(md-select[ng-model*="startMonth"]),
@@ -2229,6 +2229,11 @@ prm-search-bar {
         md-input-container input[ng-model*="endYear"] {
             width: 6em;
         }
+    }
+    // When hovering over the Voice Search icon in the search bar, the microphone image fades to white instead of changing the background colour
+    .simple-search-wrapper .search-actions .md-button.button-link:not([disabled]):hover {
+        color: #1d092f !important;
+        background-color: #dcd3e4;
     }
 }
 
@@ -2523,6 +2528,7 @@ prm-blank-purchase-request md-content.md-primoExplore-theme {
     }
 }
 
+// soften the overlay background colour when the qr dialog is present
 md-backdrop.md-dialog-backdrop {
     background-color: #a694b6;
 }
