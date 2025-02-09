@@ -62,6 +62,32 @@ userPromptTemplate.innerHTML = `
     </div>
 `;
 
+// from https://uqemployee.crm.test.uq.edu.au/s/oit/latest/ > inlays > embedded chat
+// https://community.oracle.com/customerconnect/discussion/552678/sample-file-for-chat-inlay-attribute-launch-form-fields
+const crmchatIncludeTemplate = document.createElement('template');
+crmchatIncludeTemplate.innerHTML = `<inlay-oracle-chat-embedded
+    id="chatInlay"
+    class="inlay"
+    site-url="uqcurrent--tst.widget.custhelp.com"
+    inlay-hidden="true"
+    launch-form-fields='[{
+        "hidden": false,
+        "name": "FIRST_NAME",
+        "required": true
+        }, {
+        "hidden": false,
+        "name": "EMAIL",
+        "required": true,
+        "value": "uqldegro@uq.edu.au"
+      }, {
+        "hidden": false,
+        "name": "SUBJECT",
+        "required": true
+        }]'
+>
+</inlay-oracle-chat-embedded>`;
+//</div>`;
+
 const chatbotIframeTemplate = document.createElement('template');
 chatbotIframeTemplate.innerHTML = `<div
     id="chatbot-wrapper"
@@ -455,6 +481,98 @@ class ProactiveChat extends HTMLElement {
             // other condition here (none currently) - match in askus
             window.location.pathname === '/index-app-nochatbot.html' // test only
         );
+    }
+
+    loadScript() {
+        const that = this;
+        console.log('loadScript 1');
+        // This loads the external JS file into the HTML head dynamically
+        // Only load js if it has not been loaded before
+        const scriptId = 'oit-loader';
+        const scriptFound = document.getElementById(scriptId);
+        /* istanbul ignore else */
+        if (!scriptFound) {
+            console.log('loadScript 2');
+            const that = this;
+
+            //Dynamically import the JS file and append it to the document header
+            const script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.defer = true;
+            // script.async = true;
+            script.id = scriptId;
+            console.log('loadScript 3');
+            script.onload = function () {
+                console.log('loadScript 4');
+                //Code to execute after the library has been downloaded parsed and processed by the browser starts here :)
+                console.log('inlay start');
+                function fireChatInlayShowEvent() {
+                    console.log('inlay fireChatInlayShowEvent');
+                    var showFn = function () {
+                        window.oit.fire(
+                            new window.oit.CustomEvent('inlay-oracle-chat-embedded-show', {
+                                detail: { id: 'chatInlay' },
+                            }),
+                        );
+                    };
+                    setTimeout(showFn, 0);
+                }
+                function waitForChatInlay() {
+                    console.log('inlay waitForChatInlay');
+                    if (window.oit.inlayIsLoaded('chatInlay')) {
+                        console.log('inlay set by loaded');
+                        fireChatInlayShowEvent();
+                    } else {
+                        console.log('inlay set by addEventListener', that);
+                        document.addEventListener('inlay-oracle-chat-embedded-loaded', fireChatInlayShowEvent);
+                    }
+                }
+                // const iotWaiter = setInterval(() => {
+                console.log('inlay window.oit', window.oit);
+                // if (!window.oit ) {
+                //     return;
+                // }
+                // clearInterval(iotWaiter);
+                window.oit && window.oit.inlayIsLoaded
+                    ? waitForChatInlay()
+                    : document.addEventListener('oit-loaded', waitForChatInlay);
+                console.log('loadScript 4a');
+                // }, 1000); // 10
+            };
+
+            /*
+
+            the external script cant look into the shadowdom to see its markup
+            look into opening up the shadow dom so parent code can call it?
+
+            or
+
+            try writing code here to addd the required html to the top level body?
+            can we then control it with css? hmm...
+
+             */
+
+            //Specify the location of the JS file
+            script.src = 'https://uqcurrent.crm.test.uq.edu.au/s/oit/latest/common/v0/libs/oit/loader.js';
+            console.log('loadScript 5');
+
+            //Append it to the document header
+            document.body.appendChild(script);
+            console.log('loadScript 6');
+        }
+    }
+
+    connectedCallback() {
+        console.log('connectedCallback');
+        // when this method has fired, the shadow dom is available
+        this.loadScript();
+
+        // attach crm inline chat to top level document root
+        const clone = crmchatIncludeTemplate.content.cloneNode(true);
+        console.log('clone = ', clone);
+        console.log('clone window.document.body= ', window.document.body);
+        window.document.body.appendChild(clone);
+        console.log('clone after');
     }
 }
 

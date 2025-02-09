@@ -350,3 +350,8 @@ button.proactive-chat-button:focus {
     cursor: pointer;
     font-family: 'Roboto', sans-serif;
 }
+
+/* crm chat */
+/*iframe[data-oit-mode] {*/
+/*    display: none;*/
+/*}*/
