@@ -51,9 +51,9 @@ $uqInformationLight: #cfe2f5; // $utility-100
 $overlayDarkDG: rgba(68, 68, 68, 0.6);
 
 $highlightBlue: transparentize($accent-color, 0.9);
-$uqWarningDark: #f7ba1e; // $warning-500
+$uqWarningDark: #d62929; // DS $warning-500
 $highlight: darken(desaturate(adjust-hue($uqWarningDark, -4.092), 16), 8.0392);
-$uqWarningLight: #fbeaea;
+$uqWarningLight: #dcd3e4;
 $uqNeutral: #f3f3f4;
 
 $uqLightGrey: #f7f6f5;
