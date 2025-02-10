@@ -19,7 +19,7 @@ userPromptTemplate.innerHTML = `
     <style>${proactivecss.toString()}</style>
     <div id="proactivechat" data-testid="proactivechat" class="proactive-chat">
         <!-- Proactive Chat minimised -->
-        <div id="minimised-buttons" class="pcminimised">
+        <div id="minimised-buttons" data-testid="minimised-buttons" class="pcminimised">
             <button id="proactive-chat-online" data-testid="proactive-chat-online" class="pconline svg-container" data-analyticsid="chat-status-icon-online-button" style="display: none;" title="Chat with us - see options" aria-label="Chat with us - see options">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
                     <g id="icon/marketing/chat">
@@ -125,10 +125,11 @@ const PROACTIVE_CHAT_HIDDEN_COOKIE_NAME = 'UQ_PROACTIVE_CHAT';
 const PROACTIVE_CHAT_HIDDEN_COOKIE_VALUE = 'hidden';
 
 let ShowChatBot = false;
+let ShowCrmChat = false;
 
 class ProactiveChat extends HTMLElement {
     static get observedAttributes() {
-        return ['showchatbot'];
+        return ['showchatbot', 'showcrmchat'];
     }
     constructor() {
         super();
@@ -198,16 +199,25 @@ class ProactiveChat extends HTMLElement {
                 case 'showchatbot':
                     ShowChatBot = newValue === 'true' ? true : false;
                     break;
+                case 'showcrmchat':
+                    ShowCrmChat = newValue === 'true' ? true : false;
+                    break;
                 /* istanbul ignore next  */
                 default:
                     console.log(`unhandled attribute ${fieldName} received for ProactiveChat`);
             }
             // Change the attribs here?
             const proactiveChatElement = that.shadowRoot.querySelector('#proactive-chat');
-            const minimisedButtonsElement = that.shadowRoot.querySelector('#minimised-buttons');
+            const minimisedButtonsElement = that.shadowRoot.querySelector('[data-testid="minimised-buttons"]');
 
             if (ShowChatBot) {
                 const button = that.shadowRoot.querySelector('#proactive-chat-button-open');
+                !!button && button.click();
+            }
+
+            if (ShowCrmChat) {
+                console.log('auto click open of crm chat iframe');
+                const button = that.shadowRoot.querySelector('#crmChatPrompt');
                 !!button && button.click();
             }
         }, 50);
@@ -224,6 +234,7 @@ class ProactiveChat extends HTMLElement {
     }
 
     showCrmChatIframe(crmIframe) {
+        console.log('showCrmChatIframe');
         !!crmIframe &&
             !!crmIframe.classList.contains('visually-hidden') &&
             crmIframe.classList.remove('visually-hidden');
@@ -328,7 +339,7 @@ class ProactiveChat extends HTMLElement {
             !!chatbotIframe && chatbotIframe.remove(); // deleting it rather than hiding it will force it to check for logout
             that.showProactiveChatPromptDialog();
 
-            const minimisedButtonsElement = that.shadowRoot.querySelector('#minimised-buttons');
+            const minimisedButtonsElement = that.shadowRoot.querySelector('[data-testid="minimised-buttons"]');
             !!minimisedButtonsElement && (minimisedButtonsElement.style.display = 'inline');
             if (that.askUsStatus === 'online') {
                 // show the minimised button
@@ -375,12 +386,23 @@ class ProactiveChat extends HTMLElement {
         }
 
         function openCrmChatIframe() {
+            // if (that.displayType === 'inline') {
+            //     console.log('inline detected');
+            //     const crmChatIframe = document.querySelectorAll('proactive-chat:not([display="inline"])');
+            //     !!crmChatIframe &&
+            //     crmChatIframe.length > 0 &&
+            //     crmChatIframe[0].setAttribute('showcrmchat', 'true');
+            // } else {
             console.log('openCrmChatIframe');
             that.hideProactiveChatPromptDialog();
             console.log('openCrmChatIframe prompt hidden');
             const crmIframe = document.getElementById('chatInlay');
             that.showCrmChatIframe(crmIframe);
             console.log('openCrmChatIframe crm shows');
+            // }
+
+            const minimisedButtonsElement = that.shadowRoot.querySelector('[data-testid="minimised-buttons"]');
+            !!minimisedButtonsElement && (minimisedButtonsElement.style.display = 'none');
         }
 
         function openChatBotIframe() {
@@ -393,7 +415,7 @@ class ProactiveChat extends HTMLElement {
                     proactiveChatElement.length > 0 &&
                     proactiveChatElement[0].setAttribute('showchatbot', 'true');
 
-                const minimisedButtonsElement = that.shadowRoot.querySelector('#minimised-buttons');
+                const minimisedButtonsElement = that.shadowRoot.querySelector('[data-testid="minimised-buttons"]');
                 !!minimisedButtonsElement && (minimisedButtonsElement.style.display = 'none');
             } else {
                 that.hideProactiveChatPromptDialog();
