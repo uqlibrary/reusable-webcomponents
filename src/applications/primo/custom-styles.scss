@@ -1986,7 +1986,7 @@ prm-resource-type-filter-bar {
 }
 // popup menu at right end of "resource type" bar
 md-select-menu.md-primoExplore-theme md-content md-option:not([disabled]):hover {
-    background: rgba(35, 119, 203, 0.1);
+    background: $uqInformationLight;
 }
 
 // user name in account button should be black on hover, not exlibris-aqua
