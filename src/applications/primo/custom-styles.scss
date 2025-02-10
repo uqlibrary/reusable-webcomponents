@@ -2383,15 +2383,31 @@ prm-alma-viewit-items md-list-item {
         line-height: 0;
         padding-bottom: 0;
     }
+
     & div button {
         padding-top: 0 !important;
         padding-bottom: 0 !important;
     }
+
     &:hover > div {
         background-color: $uqNeutral;
         transition: color 200ms ease-out, background-color 200ms ease-out;
     }
-    &:hover:not(:has(button:hover)) a {
+    & a.note-title:hover,
+    &:hover:not(:has(button:hover)) a.item-title {
+        background-color: $theme-color;
+        color: #fff !important;
+        transition: color 200ms ease-out, background-color 200ms ease-out;
+        box-shadow: none;
+        cursor: pointer; // just trying to force it out to its own entry in the created css
+    }
+    &:has(a:not(.item-title):hover) a.item-title {
+        // override hover when another link is hovered
+        // would be nice as extra not on hover above, but cant get it to work
+        background-color: $uqNeutral;
+        color: $theme-color !important;
+    }
+    a:not(.item-title):hover {
         background-color: $theme-color;
         color: #fff !important;
         transition: color 200ms ease-out, background-color 200ms ease-out;
