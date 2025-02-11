@@ -2259,29 +2259,48 @@ body prm-full-view-service-container {
             background-color: $uqNeutral;
         }
 
-        [layout="row"] > div:first-of-type > div:first-of-type {
+        & [layout="row"] > div:first-of-type > div:first-of-type {
             width: 200px;
         }
     }
     prm-stack-map {
-        span {
+        & span {
             text-transform: initial;
             padding-right: 0;
         }
-        a:hover.md-button.button-link:hover:not([disabled]) {
-            background-color: transparent;
-            color: $accent-color;
-
-            span {
-                background-color: $accent-color;
-                color: #fff;
+        & a.md-button.button-link:focus:not([disabled]),
+        & a.md-button.button-link:focus:hover:not([disabled]),
+        & a.md-button.button-link.md-focused:hover:not([disabled]),
+        & a.md-button.button-link:hover:not([disabled]) {
+            background-color: transparent !important;
+            color: transparent !important;
+            & span {
+                background-color: $accent-color !important;
+                color: #fff !important;
                 line-height: normal;
             }
 
-            prm-icon {
-                color: $accent-color;
+            & prm-icon {
+                background-color: transparent !important;
+                color: $accent-color !important;
             }
         }
+        // try to overcome their failure to remove the md-focused attribute
+        & a.md-button.button-link.md-focused:not(:hover):not([disabled]) {
+            background-color: transparent !important;
+            color: transparent !important;
+            & span {
+                background-color: transparent !important;
+                color: $accent-color !important;
+                line-height: normal;
+            }
+
+            & prm-icon {
+                background-color: transparent !important;
+                color: $accent-color !important;
+            }
+        }
+
     }
     prm-icon[svg-icon-set="hardware"]:hover md-icon {
         background-color: $accent-color;
