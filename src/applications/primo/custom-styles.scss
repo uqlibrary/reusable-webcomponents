@@ -2265,7 +2265,7 @@ body prm-full-view-service-container {
     }
     prm-stack-map {
         span {
-            text-transform: capitalize;
+            text-transform: initial;
             padding-right: 0;
         }
         a:hover.md-button.button-link:hover:not([disabled]) {
