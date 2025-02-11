@@ -2250,8 +2250,43 @@ mark {
     color: $dark;
 }
 
-body prm-full-view-service-container .show-more-less-btn prm-icon {
-    color: $theme-color;
+body prm-full-view-service-container {
+    & .show-more-less-btn prm-icon {
+        color: $theme-color;
+    }
+    prm-location-items md-list-item {
+        &:hover {
+            background-color: $uqNeutral;
+        }
+
+        [layout="row"] > div:first-of-type > div:first-of-type {
+            width: 200px;
+        }
+    }
+    prm-stack-map {
+        span {
+            text-transform: capitalize;
+            padding-right: 0;
+        }
+        a:hover.md-button.button-link:hover:not([disabled]) {
+            background-color: transparent;
+            color: $accent-color;
+
+            span {
+                background-color: $accent-color;
+                color: #fff;
+                line-height: normal;
+            }
+
+            prm-icon {
+                color: $accent-color;
+            }
+        }
+    }
+    prm-icon[svg-icon-set="hardware"]:hover md-icon {
+        background-color: $accent-color;
+        color: #fff !important;
+    }
 }
 
 span.button-content:has(.prm-notice) span {
