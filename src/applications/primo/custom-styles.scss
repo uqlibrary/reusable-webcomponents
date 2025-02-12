@@ -2260,7 +2260,7 @@ body prm-full-view-service-container {
             background-color: $uqNeutral;
         }
 
-        @media (min-width: 800px) {
+        @media (min-width: 900px) {
             & [layout="row"] > div:first-of-type > div:first-of-type  {
                 display: flex;
                 gap: 20px;
@@ -2269,13 +2269,7 @@ body prm-full-view-service-container {
             }
             & [layout="row"] > div:first-of-type > div:nth-of-type(2) > div:first-of-type {
                 //column 3
-                width: 200px;
-            }
-        }
-        @media (max-width: 1000px) {
-            & [layout="row"] > div:first-of-type > div:nth-of-type(2) > div:first-of-type {
-                // column 3
-                width: auto;
+                width: 100%;
             }
         }
         & [layout="row"] > div:first-of-type > div:first-of-type  > div:first-of-type {
