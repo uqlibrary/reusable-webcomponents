@@ -2250,16 +2250,36 @@ mark {
     color: $dark;
 }
 
+.prm-full-view-dialog,
 body prm-full-view-service-container {
     & .show-more-less-btn prm-icon {
         color: $theme-color;
     }
-    prm-location-items md-list-item {
-        &:hover {
+    prm-location-items md-list md-list-item {
+        &:hover:not([disabled]) {
             background-color: $uqNeutral;
         }
 
-        & [layout="row"] > div:first-of-type > div:first-of-type {
+        @media (min-width: 800px) {
+            & [layout="row"] > div:first-of-type > div:first-of-type  {
+                display: flex;
+                gap: 20px;
+                margin-left: -20px;
+                margin-right: 40px;
+            }
+            & [layout="row"] > div:first-of-type > div:nth-of-type(2) > div:first-of-type {
+                //column 3
+                width: 200px;
+            }
+        }
+        @media (max-width: 1000px) {
+            & [layout="row"] > div:first-of-type > div:nth-of-type(2) > div:first-of-type {
+                // column 3
+                width: auto;
+            }
+        }
+        & [layout="row"] > div:first-of-type > div:first-of-type  > div:first-of-type {
+            // column 1
             width: 200px;
         }
     }
@@ -2489,6 +2509,9 @@ prm-location-items md-list-item button.item-expand-button {
     min-width: 10px !important;
     line-height: normal;
     height: auto !important;
+    &.md-focused:focus:not([disabled]),
+    &:focus:not([disabled]),
+    &.md-focused:hover:not([disabled]),
     &:hover:not([disabled]) {
         background-color: $accent-color;
         color: #fff;
