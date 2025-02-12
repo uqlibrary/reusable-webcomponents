@@ -1,5 +1,5 @@
 //// VARIABLES
-// UQ colours 2021 from https://design-system.uq.edu.au/?path=/docs/core-colour-applying-colour--page
+// UQ colours 2025 from https://design-system.uq.edu.au/?path=/docs/core-colour--docs
 
 // Fonts family
 $serif: Roboto, Helvetica, Arial, sans-serif;
@@ -26,7 +26,6 @@ $paddingTiny: 0.25em;
 
 // colors
 $accent-color: #51247a; // was uqblue #2377cb
-$muteOrange: red;
 
 $almostBlack: #777;
 
@@ -51,9 +50,9 @@ $uqInformationLight: #cfe2f5; // $utility-100
 $overlayDarkDG: rgba(68, 68, 68, 0.6);
 
 $highlightBlue: transparentize($accent-color, 0.9);
-$uqWarningDark: #d62929; // DS $warning-500
+$uqWarningDark: #f9c84b; // DS $warning-400
 $highlight: darken(desaturate(adjust-hue($uqWarningDark, -4.092), 16), 8.0392);
-$uqWarningLight: #dcd3e4;
+$uqWarningLight: #fad678; // DS $warning-300
 $uqNeutral: #f3f3f4;
 
 $uqLightGrey: #f7f6f5;
