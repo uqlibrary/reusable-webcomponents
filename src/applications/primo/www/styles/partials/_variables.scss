@@ -40,9 +40,9 @@ $darker: darken(saturate(adjust-hue($dark, 0), 0), 6.6667);
 
 // lighter background color
 
-$uqWarningDark: #fff0c8; // UQ Light colours, Warning light
+$uqWarningDark: #f9c84b; // DS $warning-400
 $highlight: darken(desaturate(adjust-hue($uqWarningDark, -4.092), 16), 8.0392);
-$uqWarningLight: #dcd3e4; // UQ Light colours, Warning light
+$uqWarningLight: #fad678; // DS $warning-300
 $success: #4aa74e;
 $green: #4aa74e;
 //$orange: #CE8015; //#E0962E;
