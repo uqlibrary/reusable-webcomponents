@@ -1067,7 +1067,8 @@ prm-explore-main {
     }
 }
 
-// availability statements should be either blue (for mostly available now), or grey (for mostly available by request).
+// availability statements should be either accent-colour (for mostly available now), or grey (for mostly available by request).
+prm-location,
 prm-location-items,
 prm-search-result-availability-line button {
     // default to blue unless specified as grey, thus we never get orange!
@@ -1076,58 +1077,55 @@ prm-search-result-availability-line button {
         color: $accent-color !important;
     }
     // attempt to collate all possible "check availability" and "unavailable" codes
-    span:has(span.availability-status.check_holding_in_institution), // not in doc
-    span:has(span.availability-status.check_holding_in_library), // not in doc
-    span:has(span.availability-status.check_holdings),
-    span:has(span.availability-status.check_holdings_in_institution),
-    span:has(span.availability-status.check_holdings_in_library),
-    span:has(span.availability-status.check_holdings_in_maininstitution),
-    span:has(span.availability-status.does_not_exist_in_maininstitution),
-    span:has(span.availability-status.does_not_exist_in_my_institution_available),
-    span:has(span.availability-status.does_not_exist_in_my_institution_check_holdings),
-    span:has(span.availability-status.does_not_exist_in_my_institution_unavailable),
-    span:has(span.availability-status.fulltext_unknown),
-    span:has(span.availability-status.getit),
-    span:has(span.availability-status.may_be_restricted),
-    span:has(span.availability-status.no_fulltext_linktorsrc),
-    span:has(span.availability-status.no_fulltext_linktorsrc_newspaper), // not in doc
-    span:has(span.availability-status.no_fulltext_newspaper), // not in doc
-    span:has(span.availability-status.no_fulltext),
-    span:has(span.availability-status.restricted),
-    span:has(span.availability-status.unavailable_in_all_institutions),
-    span:has(span.availability-status.unavailable_in_institution),
-    span:has(span.availability-status.unavailable_in_library),
-    span:has(span.availability-status.unavailable_in_maininstitution_more),
-    span:has(span.availability-status.unavailable_in_maininstitution_nomore),
-    span:has(span.availability-status.viewit_getit_NFT),
-    span:has(span.availability-status.viewit_NFT),
+  span.availability-status.check_holding_in_institution, // not in doc
+  span.availability-status.check_holding_in_library, // not in doc
+  span.availability-status.check_holdings,
+  span.availability-status.check_holdings_in_institution,
+  span.availability-status.check_holdings_in_library,
+  span.availability-status.check_holdings_in_maininstitution,
+  span.availability-status.does_not_exist_in_maininstitution,
+  span.availability-status.does_not_exist_in_my_institution_available,
+  span.availability-status.does_not_exist_in_my_institution_check_holdings,
+  span.availability-status.does_not_exist_in_my_institution_unavailable,
+  span.availability-status.fulltext_unknown,
+  span.availability-status.getit,
+  span.availability-status.may_be_restricted,
+  span.availability-status.no_fulltext_linktorsrc,
+  span.availability-status.no_fulltext_linktorsrc_newspaper, // not in doc
+  span.availability-status.no_fulltext_newspaper, // not in doc
+  span.availability-status.no_fulltext,
+  span.availability-status.restricted,
+  span.availability-status.unavailable_in_all_institutions,
+  span.availability-status.unavailable_in_institution,
+  span.availability-status.unavailable_in_library,
+  span.availability-status.unavailable_in_maininstitution_more,
+  span.availability-status.unavailable_in_maininstitution_nomore,
+  span.availability-status.viewit_getit_NFT,
+  span.availability-status.viewit_NFT,
 
-    span:has(span.availability-status.ext_restrictedWithLink),
-    span:has(span.availability-status.ext_restrictedWithLink_and_physical),
-    span:has(span.availability-status.Acquisition),
-    span:has(span.availability-status.ClaimedReturned),
-    span:has(span.availability-status.HoldShelf),
-    span:has(span.availability-status.InProcess),
-    span:has(span.availability-status.Loan),
-    span:has(span.availability-status.Lost),
-    span:has(span.availability-status.Missing),
-    span:has(span.availability-status.no_fulltext),
-    span:has(span.availability-status.no_fulltext_linktorsrc),
-    span:has(span.availability-status.no_inventory),
-    span:has(span.availability-status.not_available),
-    span:has(span.availability-status.NotinProcess),
-    span:has(span.availability-status.Requested),
-    span:has(span.availability-status.ResourceSharingRequest),
-    span:has(span.availability-status.TechnicalMigration),
-    span:has(span.availability-status.Transit),
-    span:has(span.availability-status.unavailable),
-    span:has(span.availability-status.year_month_not_available),
-    span:has(span.availability-status.month_not_available),
-    span:has(span.availability-status.year_not_available),
-    span:has(span.availability-status.no_services) {
-        & span {
-            color: #555555 !important;
-        }
+  span.availability-status.ext_restrictedWithLink,
+  span.availability-status.ext_restrictedWithLink_and_physical,
+  span.availability-status.Acquisition,
+  span.availability-status.ClaimedReturned,
+  span.availability-status.HoldShelf,
+  span.availability-status.InProcess,
+  span.availability-status.Loan,
+  span.availability-status.Lost,
+  span.availability-status.Missing,
+  span.availability-status.no_fulltext,
+  span.availability-status.no_fulltext_linktorsrc,
+  span.availability-status.no_inventory,
+  span.availability-status.not_available,
+  span.availability-status.NotinProcess,
+  span.availability-status.Requested,
+  span.availability-status.ResourceSharingRequest,
+  span.availability-status.TechnicalMigration,
+  span.availability-status.Transit,
+  span.availability-status.unavailable,
+  span.availability-status.year_month_not_available,
+  span.availability-status.month_not_available,
+  span.availability-status.year_not_available,
+  span.availability-status.no_services {
         color: #555555 !important;
     }
 }
