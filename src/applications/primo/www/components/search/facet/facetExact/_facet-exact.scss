@@ -30,7 +30,7 @@ prm-facet-exact {
 
     .section-title {
         prm-icon {
-            color: $secondary-hue3;
+            color: $highlightPrimary;
         }
 
         &:hover,
@@ -38,7 +38,7 @@ prm-facet-exact {
             background-color: transparent !important;
 
             span {
-                color: $secondary-hue3;
+                color: $highlightPrimary;
             }
         }
     }

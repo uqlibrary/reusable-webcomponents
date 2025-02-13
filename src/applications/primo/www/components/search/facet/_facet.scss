@@ -195,7 +195,7 @@ prm-facet {
                 }
 
                 &.prm-warn {
-                    @include bgColor($red);
+                    @include bgColor($highlightPrimary);
                 }
             }
             .md-chip-remove-container {
@@ -258,7 +258,7 @@ prm-facet {
                     }
                 }
                 .button-exclude {
-                    @include bgColor($red);
+                    @include bgColor($highlightPrimary);
                 }
                 .button-include {
                     @include bgColor($secondary-hue1);
@@ -438,7 +438,7 @@ prm-facet {
                     }
                     .md-container,
                     ._md-container {
-                        @extend .prm-warn;
+                        @include bgColor($highlightPrimary);
                     }
                 }
             }
