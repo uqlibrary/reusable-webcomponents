@@ -566,14 +566,33 @@ prm-search-result-list
 }
 
 // restore original citation icon colors, overwritten in _icon.scss
-.citation-trails-brief,
 .citation-trails-fullview {
     .md-primoExplore-theme {
-        color: $red !important;
+        color: $highlightPrimary !important;
     }
     &:hover {
         .md-primoExplore-theme {
-            color: $uqWarningDark !important;
+            color: $highlightPrimary !important;
+        }
+    }
+}
+.citation-trails-brief {
+    border-radius: 50%;
+    padding: 8px;
+    .md-primoExplore-theme {
+        color: $highlightPrimary !important;
+    }
+    &:hover {
+        background-color: $highlightPrimary;
+        .md-primoExplore-theme {
+            background-color: $highlightPrimary;
+            color: #fff !important;
+            transition: all .4s ease-out;
+        }
+        prm-icon {
+            background-color: $highlightPrimary;
+            border-radius: 50%;
+            padding: 10px;
         }
     }
 }
@@ -686,7 +705,7 @@ button.md-button.link-alt-color {
 }
 
 prm-breadcrumbs .md-chip.persistent-facet {
-    background-color: $uqWarningLight;
+    background-color: $highlightMild;
     .md-chip-content {
         strong {
             padding-left: 12px; // reduce the padding on the locked facets
@@ -824,7 +843,7 @@ prm-citation-trails-indication {
         &.md-icon-button,
         &.button-with-icon {
             &:hover {
-                background-color: rgba(255, 99, 71, 0.1);
+                background-color: $highlightMild;
             }
         }
     }
@@ -1184,7 +1203,7 @@ prm-authentication button.button-with-icon prm-icon {
 
 // color the exclude facet
 .available-facets .section-content .md-chips .md-chip .button-exclude:hover:not([disabled]) {
-    color: $red;
+    color: $highlightPrimary;
 }
 
 // apply appropriate colours to filter bar in mobile view
@@ -2321,7 +2340,7 @@ body prm-full-view-service-container {
 }
 
 span.button-content:has(.prm-notice) span {
-    color: $red;
+    color: $uqWarningDark;
 }
 
 .md-button.button-link:hover:not([disabled]),
