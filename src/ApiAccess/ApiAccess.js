@@ -548,8 +548,7 @@ class ApiAccess {
 
     fetchMock(url, options = null) {
         const response = new MockApi().mockfetch(url, options);
-        console.log('mock url = ', url);
-        console.log('mock response = ', response);
+        console.log(`mock "${url}": response = `, response);
         if (!response.ok || !response.body) {
             const msg = `fetchMock: An error has occured in mock for ${url}: ${response.status}`;
             console.log(msg);
