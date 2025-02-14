@@ -69,7 +69,7 @@ class MockApi {
     }
 
     mockfetch(url, options) {
-        console.log('mockfetch url = ', url);
+        // console.log('mockfetch url = ', url);
         this.url = url;
         const apiRoute = new ApiRoutes();
 
