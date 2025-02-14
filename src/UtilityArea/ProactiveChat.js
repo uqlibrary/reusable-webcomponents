@@ -146,8 +146,7 @@ class ProactiveChat extends HTMLElement {
         // Render the userPromptTemplate
         this.shadowDOM.appendChild(userPromptTemplate.content.cloneNode(true));
 
-        // copilot just shows a nasty error on app.library
-        // only show the crm button
+        // only show the crm button?
         if (this.isChatBotHiddenHere()) {
             const chatbotiframe = this.shadowDOM.querySelector('#proactivechat iframe');
             !!chatbotiframe && chatbotiframe.remove();
@@ -588,9 +587,10 @@ class ProactiveChat extends HTMLElement {
         }, 50);
     }
 
+    // is this a page that doesnt want chatbot showing?
     isChatBotHiddenHere() {
         return (
-            // other condition here (none currently) - match in askus
+            // other condition here (none currently)
             window.location.pathname === '/index-app-nochatbot.html' // test only
         );
     }
