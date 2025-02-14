@@ -14,6 +14,9 @@ import { apiLocale } from '../ApiAccess/ApiAccess.locale';
  *
  */
 
+const crmLocationScript = 'uqcurrent.crm.test.uq.edu.au';
+const crmLocationEmbed = 'uqcurrent--tst.widget.custhelp.com';
+
 const userPromptTemplate = document.createElement('template');
 userPromptTemplate.innerHTML = `
     <style>${proactivecss.toString()}</style>
@@ -68,7 +71,7 @@ const crmchatIncludeTemplate = document.createElement('template');
 crmchatIncludeTemplate.innerHTML = `<inlay-oracle-chat-embedded
     id="chatInlay"
     class="inlay"
-    site-url="uqcurrent--tst.widget.custhelp.com"
+    site-url="${crmLocationEmbed}"
     inlay-hidden="true"
     launch-form-fields='[{
         "hidden": false,
@@ -623,7 +626,7 @@ class ProactiveChat extends HTMLElement {
                     : document.addEventListener('oit-loaded', waitForChatInlay);
             };
 
-            script.src = 'https://uqcurrent.crm.test.uq.edu.au/s/oit/latest/common/v0/libs/oit/loader.js';
+            script.src = `https://${crmLocationScript}/s/oit/latest/common/v0/libs/oit/loader.js`;
             document.body.appendChild(script);
         }
     }
