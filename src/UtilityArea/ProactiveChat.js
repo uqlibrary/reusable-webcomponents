@@ -232,15 +232,23 @@ class ProactiveChat extends HTMLElement {
     }
 
     hideCrmChatIframe(crmIframe) {
-        console.log('hideCrmChatIframe', crmIframe);
-        !!crmIframe && !crmIframe.classList.contains('visually-hidden') && crmIframe.classList.add('visually-hidden');
+        console.log('hideCrmChatIframe (before)', crmIframe);
+        if (!!crmIframe && !crmIframe.classList.contains('visually-hidden')) {
+            crmIframe.classList.add('visually-hidden');
+            console.log('hideCrmChatIframe crm iframe - visually-hidden class added');
+        } else {
+            console.log('hideCrmChatIframe crm iframe already had visually-hidden class');
+        }
     }
 
     showCrmChatIframe(crmIframe) {
         console.log('showCrmChatIframe');
-        !!crmIframe &&
-            !!crmIframe.classList.contains('visually-hidden') &&
+        if (!!crmIframe && !!crmIframe.classList.contains('visually-hidden')) {
             crmIframe.classList.remove('visually-hidden');
+            console.log('showCrmChatIframe crm iframe - visually-hidden class removed');
+        } else {
+            console.log('showCrmChatIframe crm iframe did not have visually-hidden class');
+        }
     }
 
     addHiderClassToDocument() {
