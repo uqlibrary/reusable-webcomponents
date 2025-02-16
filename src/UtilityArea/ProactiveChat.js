@@ -73,6 +73,10 @@ crmchatIncludeTemplate.innerHTML = `<inlay-oracle-chat-embedded
     class="inlay"
     site-url="${crmLocationEmbed}"
     inlay-hidden="true"
+    data-oit-config-url="/proactive/config.js"
+    style="
+        --oj-brand-color: #51247A;
+    "
     launch-form-fields='[{
         "hidden": false,
         "name": "FIRST_NAME",

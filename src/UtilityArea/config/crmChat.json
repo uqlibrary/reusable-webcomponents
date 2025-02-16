@@ -1,0 +1,72 @@
+{
+    "loader": {
+        "common": {
+            "attributes": {
+                "data-oit-theme-vars": {
+                    "brandColor": "#666666"
+                }
+            }
+        },
+        "pages": {
+            "page1": {
+                "attributes": {
+                    "data-oit-theme-vars": {
+                        "fontFamily": "Courier, monospace"
+                    }
+                }
+            }
+        }
+    },
+    "inlays": {
+        "common": {
+            "attributes": {
+                "flavor": "vanilla"
+            },
+            "strings": {
+                "title": "Common Title"
+            }
+        },
+        "types": {
+            "inlay-ice-cream": {
+                "attributes": {
+                    "cone": "sugar"
+                },
+                "strings": {
+                    "title": "Type Title"
+                }
+            }
+        },
+        "pages": {
+            "page1": {
+                "common": {
+                    "attributes": {
+                        "topping": "sprinkles"
+                    },
+                    "strings": {
+                        "title": "Page Title"
+                    }
+                },
+                "types": {
+                    "inlay-ice-cream": {
+                        "attributes": {
+                            "scoops": "1"
+                        },
+                        "strings": {
+                            "title": "Page/Type Title"
+                        }
+                    }
+                },
+                "inlays": {
+                    "inlay2": {
+                        "attributes": {
+                            "flavor": "chocolate"
+                        },
+                        "strings": {
+                            "title": "Page/Inlay Title"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
