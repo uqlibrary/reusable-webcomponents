@@ -170,6 +170,12 @@ prm-collection-search button.search-button.md-button.md-primoExplore-theme.md-in
 // Part of the text under the hyperlink is in Ex Libris teal - PT #180061880
 prm-collection-gallery {
     .collection-discovery-expand-search button.md-button {
+        &:focus,
+        &:hover {
+            color: $accent-color;
+            background-color: transparent;
+            box-shadow: inset 0 -2px 0 0 $accent-color;
+        }
         color: $accent-color;
     }
 }
