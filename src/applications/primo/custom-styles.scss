@@ -1095,58 +1095,9 @@ prm-search-result-availability-line button {
     span.availability-status span {
         color: $accent-color !important;
     }
-    // attempt to collate all possible "check availability" and "unavailable" codes
-    span:has(
-        span.availability-status.check_holding_in_institution, // still needed? not in list
-        span.availability-status.check_holding_in_library, // still needed? not in list
-        span.availability-status.check_holdings,
-        span.availability-status.check_holdings_in_institution,
-        span.availability-status.check_holdings_in_library,
-        span.availability-status.check_holdings_in_maininstitution,
-        span.availability-status.does_not_exist_in_maininstitution,
-        span.availability-status.does_not_exist_in_my_institution_available,
-        span.availability-status.does_not_exist_in_my_institution_check_holdings,
-        span.availability-status.does_not_exist_in_my_institution_unavailable,
-        span.availability-status.fulltext_unknown,
-        span.availability-status.getit,
-        span.availability-status.may_be_restricted,
-        span.availability-status.no_fulltext_linktorsrc,
-        span.availability-status.no_fulltext_linktorsrc_newspaper, // still needed? not in list
-        span.availability-status.no_fulltext_newspaper, // still needed? not in list
-        span.availability-status.no_fulltext,
-        span.availability-status.restricted,
-        span.availability-status.unavailable_in_all_institutions,
-        span.availability-status.unavailable_in_institution,
-        span.availability-status.unavailable_in_library,
-        span.availability-status.unavailable_in_maininstitution_more,
-        span.availability-status.unavailable_in_maininstitution_nomore,
-        span.availability-status.viewit_getit_NFT,
-        span.availability-status.viewit_NFT,
-
-        span.availability-status.ext_restrictedWithLink,
-        span.availability-status.ext_restrictedWithLink_and_physical,
-        span.availability-status.Acquisition,
-        span.availability-status.ClaimedReturned,
-        span.availability-status.HoldShelf,
-        span.availability-status.InProcess,
-        span.availability-status.Loan,
-        span.availability-status.Lost,
-        span.availability-status.Missing,
-        span.availability-status.no_fulltext,
-        span.availability-status.no_fulltext_linktorsrc,
-        span.availability-status.no_inventory,
-        span.availability-status.not_available,
-        span.availability-status.NotinProcess,
-        span.availability-status.Requested,
-        span.availability-status.ResourceSharingRequest,
-        span.availability-status.TechnicalMigration,
-        span.availability-status.Transit,
-        span.availability-status.unavailable,
-        span.availability-status.year_month_not_available,
-        span.availability-status.month_not_available,
-        span.availability-status.year_not_available,
-        span.availability-status.no_services
-    ) {
+    // uql-availability-status-unavailable added in exlibris-primo custom.js file (see prmSearchResultAvailabilityLineAfter)
+    // when .availability-status span contains certain strings
+    span:has(.uql-availability-status-unavailable) {
         & span {
             color: #555555 !important;
         }
