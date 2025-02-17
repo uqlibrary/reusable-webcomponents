@@ -102,7 +102,7 @@ prm-more-like-this {
     }
 
     .external-links {
-        max-height: 60px;
+        max-height: 7em; // show 3
 
         .__xs & {
             max-height: 100%;
