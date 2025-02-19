@@ -81,6 +81,7 @@ $background-grey: #5f5f5f;
 
 button, button.md-button, a, a.md-button {
     transition: color 200ms ease-out, background-color 200ms ease-out;
+    border-radius: 4px;
 }
 
 uqlibrary-alerts,
@@ -646,25 +647,23 @@ div > getit-link-service {
     background-color: $accent-color;
     color: white !important;
     display: inline-block;
-    padding: 0.8em 1em;
+    padding: 0.5em 1em;
     margin-left: 1em;
     margin-top: 0.8em;
     text-transform: uppercase;
     font-size: 14px;
     border: 1px solid $accent-color;
-}
-.report-a-problem:not([style-scope]) {
-    background-color: $accent-color;
-    color: $white;
-    transition: none;
-}
-.report-a-problem:not([style-scope]):hover {
-    background-color: $white;
-    color: $accent-color !important;
-    font-weight: bold;
+    transition: all 200ms ease-out;
     box-shadow: none; // removes underline on the link
-    text-decoration: none;
+    &:hover {
+        background-color: $white !important;
+        color: $accent-color !important;
+        span {
+            text-decoration: underline;
+        }
+    }
 }
+
 prm-alma-viewit button.show-more-less-btn {
     padding-inline: 1em;
     margin-left: 4px;
