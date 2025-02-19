@@ -25,21 +25,7 @@ prm-search-bar {
     }
 }
 
-.md-button[aria-label='Search'],
-.md-button.button-confirm {
-    background-color: $primary !important;
-    color: $white !important;
-}
-
-.md-button[aria-label='Search']:hover,
-.md-button.button-confirm:hover {
-    background-color: $primary-hue2 !important;
-    color: $white !important;
-}
-
-.md-button[aria-label='Search']:focus,
-.md-button.button-confirm:focus {
-    background-color: $primary-hue2 !important;
-    color: $white !important;
-    outline: $accent-color-light auto 5px !important;
+.md-button[aria-label='Search']:not([disabled]),
+.md-button.button-confirm:not([disabled]) {
+    @include uqPrimaryButton($accent-color, rgb(243, 243, 243));
 }

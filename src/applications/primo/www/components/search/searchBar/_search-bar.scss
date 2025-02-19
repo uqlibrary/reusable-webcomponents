@@ -917,6 +917,12 @@ prm-search-bar {
             }
         }
     }
+    button.md-button.md-primary:has(span[translate="nui.search-advanced.add"]):not([disabled]) {
+        @include uqPrimaryButton($accent-color, $white);
+    }
+    button.md-button.button-notice:has(span[translate="link.title.search.clear"]):not([disabled]) {
+        @include uqSecondaryButton($white, $accent-color);
+    }
 }
 
 prm-advanced-search {
