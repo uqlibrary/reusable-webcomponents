@@ -314,3 +314,18 @@ $__xs-portrait: 479px;
 //     @content;
 //   }
 // }
+
+@mixin uqPrimaryButton($baseColor, $reverseColor) {
+    background-color: $baseColor !important;
+    color: $reverseColor !important;
+    border: 2px solid $baseColor;
+    &:focus,
+    &:hover {
+        background-color: $reverseColor !important;
+        color: $baseColor !important;
+    }
+}
+@mixin uqSecondaryButton($baseColor, $reverseColor) {
+    @include uqPrimaryButton($baseColor, $reverseColor);
+    border-color: $reverseColor;
+}
