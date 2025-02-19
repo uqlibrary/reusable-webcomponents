@@ -1235,34 +1235,6 @@ prm-facet .switch-results {
     }
 }
 
-// Collapsed Advanced Search block at top of search results
-prm-advanced-search {
-    .collapsed-area {
-        .collapsed-button prm-icon {
-            color: $accent-color;
-        }
-
-        .collapsed-button.md-button:hover:not([disabled]),
-        .collapsed-button.md-button:focus:not([disabled]) {
-            color: $accent-color;
-        }
-    }
-
-    // put dropdown arrows on each select in the advanced search footer section
-    .advanced-search-output md-select:after {
-        content: '\25BC';
-        width: 10px;
-        font-size: 0.5rem;
-        margin-top: 6px;
-        margin-left: 5px;
-    }
-
-    // vertically centre the hover background colour
-    .advanced-search-output md-select md-select-value span {
-        padding-top: 2px;
-    }
-}
-
 // Multiple links for CDI records (View it section, Show More/Less, "View online" links)
 prm-view-online {
     a.arrow-link,
