@@ -938,69 +938,6 @@ md-toast .md-button.settings-button:not([disabled]):not(.dismiss-alert-button) {
     }
 }
 
-prm-citation-linker {
-    // Citation Search (Citation Linker) The field labels are quite a pale blue in contrast
-    .request-form md-input-container md-select .md-select-value.md-select-placeholder,
-    .request-form md-input-container md-select md-select-value span:first-child,
-    .request-form md-input-container label:not(.md-no-float):not(._md-container-ignore) {
-        opacity: 1;
-        color: $accent-color;
-    }
-
-    div:has(> form.request-form) {
-        margin-bottom: 100px;
-    }
-
-    // fix submit button on purchase request form
-    .md-button.button-large.button-with-icon {
-        border: 1px solid $white;
-
-        &:hover {
-            color: $accent-color !important;
-            background-color: $white !important;
-            border-color: $accent-color;
-        }
-    }
-
-    //.md-button.button-large.button-with-icon md-icon {
-    //    display: none;
-    //}
-
-    md-input-container:not([md-no-float]) .md-select-placeholder span:first-child {
-        margin-bottom: -3px;
-    }
-
-    & form.request-form:has([value="article"].md-checked) {
-        prm-form-field:has(label[translate="citationLinker.aulast"]),
-        prm-form-field:has(label[translate="citationLinker.aufirst"]),
-        prm-form-field:has(label[translate="citationLinker.auinit"]),
-        prm-form-field:has(label[translate="citationLinker.publisher"]),
-        prm-form-field:has(label[translate="citationLinker.pubdate"]) {
-            display: none;
-        }
-    }
-
-    & form.request-form:has([value="book"].md-checked) {
-        prm-form-field:has(label[translate="search-advanced.DateRange.label.Year"]),
-        prm-form-field:has(label[translate="citationLinker.volume"]),
-        prm-form-field:has(label[translate="citationLinker.part"]),
-        prm-form-field:has(label[translate="citationLinker.aulast"]),
-        prm-form-field:has(label[translate="citationLinker.aufirst"]),
-        prm-form-field:has(label[translate="citationLinker.auinit"]) {
-            display: none;
-        }
-    }
-
-    & form.request-form:has([value="journal"].md-checked) {
-        prm-form-field:has(label[translate="citationLinker.volume"]),
-        prm-form-field:has(label[translate="citationLinker.issue"]),
-        prm-form-field:has(label[translate="citationLinker.doi"]),
-        prm-form-field:has(label[translate="search-advanced.DateRange.label.Year"]) {
-            display: none;
-        }
-    }
-}
-
 uq-site-header {
     &::part(root) {
         background-color: $backgroundActual;
