@@ -11,6 +11,10 @@ prm-more-like-this {
         .__xs & {
             padding-right: 0;
         }
+
+        button {
+            display: none;
+        }
     }
 
     .hide-disabled-virtual-browse-items {
@@ -84,9 +88,7 @@ prm-more-like-this {
         top: -10px;
     }
 
-    /*.section-title:hover {
     background-color: transparent !important;
-  }*/
 
     .section-title {
         prm-icon {
@@ -102,7 +104,7 @@ prm-more-like-this {
     }
 
     .external-links {
-        max-height: 7em; // show 3
+        max-height: initial; // show all
 
         .__xs & {
             max-height: 100%;
