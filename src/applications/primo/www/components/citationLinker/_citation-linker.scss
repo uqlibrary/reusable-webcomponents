@@ -30,14 +30,23 @@ prm-citation-linker {
         margin-bottom: 100px;
     }
 
-    // fix submit button on purchase request form
-    .md-button.button-large.button-with-icon {
-        border: 1px solid $white;
-
-        &:hover {
+    // style submit & reset buttons
+    div:last-of-type .md-button.button-with-icon:not([disabled]) {
+        border: 2px solid $accent-color;
+        border-radius: 4px;
+        transition: background-color 200ms ease-out, color 200ms ease-out, border 200ms ease-out, text-decoration 200ms ease-out;
+        text-transform: capitalize;
+        font-size: 1rem;
+        &.button-confirm:hover {
             color: $accent-color !important;
             background-color: $white !important;
-            border-color: $accent-color;
+        }
+        &.button-secondary:hover {
+            color: $white !important;
+            background-color: $accent-color !important;
+            span {
+                text-decoration: underline;
+            }
         }
     }
 
