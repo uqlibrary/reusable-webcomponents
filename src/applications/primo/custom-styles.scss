@@ -2209,10 +2209,32 @@ body prm-full-view-service-container {
             text-transform: initial;
             padding-right: 0;
         }
-        & a.md-button.button-link:focus:not([disabled]),
-        & a.md-button.button-link:focus:hover:not([disabled]),
-        & a.md-button.button-link.md-focused:hover:not([disabled]),
-        & a.md-button.button-link:hover:not([disabled]) {
+        // put a right arrow on link
+        a span {
+            position: relative;
+            padding-right: 1.5em !important;
+            &::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 1.5em;
+                height: 1.5em;
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6z'/%3E%3C/svg%3E");
+            }
+        }
+        a.md_focused span::after,
+        a:focus span::after,
+        a:hover span::after {
+            filter: brightness(0) invert(1); // go white
+        }
+        // end put a right arrow on link
+        a.md-button.button-link:focus:not([disabled]),
+        a.md-button.button-link:focus:hover:not([disabled]),
+        a.md-button.button-link.md-focused:hover:not([disabled]),
+        a.md-button.button-link:hover:not([disabled]) {
             background-color: transparent !important;
             color: transparent !important;
             & span {
@@ -2227,7 +2249,7 @@ body prm-full-view-service-container {
             }
         }
         // try to overcome their failure to remove the md-focused attribute
-        & a.md-button.button-link.md-focused:not(:hover):not([disabled]) {
+        a.md-button.button-link.md-focused:not(:hover):not([disabled]) {
             background-color: transparent !important;
             color: transparent !important;
             & span {
@@ -2424,7 +2446,6 @@ prm-alma-viewit-items md-list-item {
             height: 1.5em;
             background-repeat: no-repeat;
             background-size: contain;
-            fill: #51247a;
         }
         &.md_focused::after,
         &:focus::after,
