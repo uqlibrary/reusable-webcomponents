@@ -33,7 +33,6 @@ prm-citation-linker {
     // style submit & reset buttons
     div:last-of-type .md-button.button-with-icon:not([disabled]) {
         border: 2px solid $accent-color;
-        border-radius: 4px;
         transition: background-color 200ms ease-out, color 200ms ease-out, border 200ms ease-out, text-decoration 200ms ease-out;
         text-transform: capitalize;
         font-size: 1rem;
