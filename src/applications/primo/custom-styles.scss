@@ -2437,6 +2437,7 @@ prm-alma-viewit-items md-list-item {
     button:has(span[translate="c.uresolver.viewit.license.show_license"]) {
         position: relative;
         padding-right: 1.5em;
+        border: 2px solid $accent-color;
         &::after {
             content: '';
             position: absolute;
