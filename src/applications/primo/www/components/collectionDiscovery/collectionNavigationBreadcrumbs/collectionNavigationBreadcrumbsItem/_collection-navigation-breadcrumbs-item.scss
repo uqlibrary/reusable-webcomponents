@@ -22,7 +22,15 @@ prm-collection-navigation-breadcrumbs-item {
 prm-service-details {
     prm-collection-navigation-breadcrumbs-item {
         .md-button.button-as-link.link-alt-color {
-            @include bgColor($links-hue-4);
+            &:focus,
+            &:hover {
+                box-shadow: none;
+                span {
+                    color: $accent-color !important;
+                    background-color: #fff !important;
+                    box-shadow: inset 0 -2px 0 0 $accent-color;
+                }
+            }
             &.button-with-icon {
                 margin-left: 0;
                 padding-left: 0;
