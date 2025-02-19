@@ -25,6 +25,7 @@ prm-service-details {
             &:focus,
             &:hover {
                 box-shadow: none;
+                md-icon,
                 span {
                     color: $accent-color !important;
                     background-color: #fff !important;
