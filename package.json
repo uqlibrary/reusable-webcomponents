@@ -55,6 +55,7 @@
     "axe-core": "^4.8.0",
     "babel-plugin-istanbul": "^6.1.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-remove-console": "^6.9.4",
     "clean-css-cli": "^5.6.2",
     "copy-webpack-plugin": "^11.0.0",
     "cypress": "^13.1.0",
@@ -100,7 +101,6 @@
     "regenerator-runtime": "^0.13.11",
     "replace-in-file-webpack-plugin": "^1.0.6",
     "style-loader": "^3.3.3",
-    "terser-webpack-plugin": "^5.3.9",
     "throttle-debounce": "^5.0.0",
     "validator": "^13.9.0"
   },
