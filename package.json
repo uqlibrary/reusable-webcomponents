@@ -88,7 +88,6 @@
     "@babel/preset-env": "^7.22.9",
     "autoprefixer": "^10.4.14",
     "babel-loader": "^8.3.0",
-    "babel-plugin-transform-remove-console": "^6.9.4",
     "content-replace-webpack-plugin": "^1.0.0",
     "core-js": "^3.31.1",
     "cross-env": "^7.0.3",
