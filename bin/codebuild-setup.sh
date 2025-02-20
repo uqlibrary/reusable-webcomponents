@@ -7,8 +7,8 @@ printf "Node "; node -v;
 printf "(Codeship default) npm v"; npm -v
 
 printf "\n\n--- SET VERSION OF NPM ---\n"
-echo "$ npm install -g npm@9.8.1"
-npm install -g npm@9.8.1
+echo "$ npm install -g npm@10.5.2"
+npm install -g npm@10.5.2
 
 printf "\nNow running npm v"; npm -v
 
