@@ -79,17 +79,6 @@ $background-grey: #5f5f5f;
 @import 'styles-imports/prm-user-area';
 @import 'styles-imports/full_view_status';
 
-.uq-button-styled-as-link {
-    md-icon,
-    span:not([disabled]) {
-        color: $accent-color !important;
-    }
-    &:hover md-icon,
-    &:hover span:not([disabled]) {
-        background-color: $accent-color !important;
-        color: $white !important;
-    }
-}
 button, button.md-button, a, a.md-button {
     transition: color 200ms ease-out, background-color 200ms ease-out;
     border-radius: 4px;
