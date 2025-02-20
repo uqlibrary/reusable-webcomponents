@@ -68,12 +68,13 @@ userPromptTemplate.innerHTML = `
 // from https://uqemployee.crm.test.uq.edu.au/s/oit/latest/ > inlays > embedded chat
 // https://community.oracle.com/customerconnect/discussion/552678/sample-file-for-chat-inlay-attribute-launch-form-fields
 const crmchatIncludeTemplate = document.createElement('template');
+// TODO dont forget to give a dynamic location!!
 crmchatIncludeTemplate.innerHTML = `<inlay-oracle-chat-embedded
     id="chatInlay"
     class="inlay"
     site-url="${crmLocationEmbed}"
     inlay-hidden="true"
-    data-oit-config-url="/proactive/config.js"
+    data-oit-config-url="https://assets.library.uq.edu.au/reusable-webcomponents-development/feature-leadegroot/applications/proactive/config.js"
     style="
         --oj-brand-color: #51247A;
     "
