@@ -21,6 +21,9 @@ prm-personalization-dialog {
             transform: scale3d(1, 1, 1);
             transition: $swift-ease-out;
         }
+        button.md-button.button-notice:has(span[translate="nui.pyr.popup.reset"]):not([disabled]) {
+            @include uqSecondaryButton($white, $accent-color);
+        }
     }
     .personalization-dialog-inner {
         max-height: 100%;
