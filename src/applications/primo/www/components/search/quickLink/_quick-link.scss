@@ -4,15 +4,22 @@ prm-quick-link {
     }
 
     a {
-        color: $dark;
-        //margin-top: 0.4em;
+        @extend .uq-button-styled-as-link;
+        &:hover {
+            box-shadow: none;
+        }
+        &:hover md-icon,
+        &:hover prm-icon {
+            background-color: transparent !important;
+            color: $accent-color !important;
+        }
+
         margin: 0.4em 3em 0 0;
         [dir='rtl'] & {
             margin: 0.4em 0 0 3em;
         }
         width: fit-content;
         span {
-            color: $accent-color;
             margin: 0 3px 0 3px;
         }
 
@@ -21,7 +28,6 @@ prm-quick-link {
         }
 
         .quick-link-type {
-            color: $accent-color;
             margin: 0 3px 0 0;
             [dir='rtl'] & {
                 margin: 0 0 0 3px;
