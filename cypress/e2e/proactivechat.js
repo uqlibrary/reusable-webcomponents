@@ -341,6 +341,41 @@ describe('Proactive Chat', () => {
             // now proactive dialog shows
             cy.get('proactive-chat').shadow().find('[data-testid="popupIsOpen"]').should('exist').should('be.visible');
         });
+
+        it('the minimise proactive chat dialog action shows the icons', () => {
+            cy.visit('http://localhost:8080/index-chat-fast.html?user=public');
+            cy.viewport(1280, 900);
+            // the dialog appears, maximised
+            cy.waitUntil(() =>
+                cy
+                    .get('proactive-chat')
+                    .shadow()
+                    .find('[data-testid="popopen-button"]')
+                    .should('exist')
+                    .should('be.visible'),
+            );
+
+            // close it
+            cy.get('proactive-chat').shadow().find('[data-testid="close-button"]').click();
+            // the dialog is hidden
+            cy.waitUntil(() =>
+                cy
+                    .get('proactive-chat')
+                    .shadow()
+                    .find('[data-testid="popopen-button"]')
+                    .should('exist')
+                    .should('not.be.visible'),
+            );
+            // the minimised button is visible
+            cy.waitUntil(() =>
+                cy
+                    .get('proactive-chat')
+                    .shadow()
+                    .find('[data-testid="proactive-chat-online"]')
+                    .should('exist')
+                    .should('be.visible'),
+            );
+        });
     });
 
     context('when offline', () => {
