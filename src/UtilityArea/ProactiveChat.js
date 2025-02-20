@@ -214,7 +214,7 @@ class ProactiveChat extends HTMLElement {
             }
             // Change the attribs here?
             const proactiveChatElement = that.shadowRoot.querySelector('#proactive-chat');
-            const minimisedButtonsElement = that.shadowRoot.querySelector('[data-testid="minimised-buttons"]');
+            const minimisedButtonsElement = that.shadowRoot.querySelector('#minimised-buttons');
 
             if (ShowChatBot) {
                 const button = that.shadowRoot.querySelector('#proactive-chat-button-open');
@@ -303,7 +303,6 @@ class ProactiveChat extends HTMLElement {
             .then((isOnline) => {
                 if (!!isOnline) {
                     that.askUsStatus = 'online';
-                    // Chat status
                     if (!isProactiveChatDialogDefinedAsHidden) {
                         const onlineMinimisedButton = that.shadowDOM.querySelector('#proactive-chat-online');
                         !!onlineMinimisedButton && onlineMinimisedButton.removeAttribute('style');
@@ -311,7 +310,6 @@ class ProactiveChat extends HTMLElement {
                     const onlineSecondaryOption = that.shadowDOM.querySelector('#crmChatPrompt');
                     !!onlineSecondaryOption && onlineSecondaryOption.removeAttribute('style');
                 } else {
-                    // Chat status
                     that.askUsStatus = 'offline';
                     const offlineIcon = that.shadowDOM.querySelector('#proactive-chat-offline');
                     !isProactiveChatDialogDefinedAsHidden && !!offlineIcon && offlineIcon.removeAttribute('style');
@@ -353,7 +351,7 @@ class ProactiveChat extends HTMLElement {
             !!chatbotIframe && chatbotIframe.remove(); // deleting it rather than hiding it will force it to check for logout
             that.showProactiveChatPromptDialog();
 
-            const minimisedButtonsElement = that.shadowRoot.querySelector('[data-testid="minimised-buttons"]');
+            const minimisedButtonsElement = that.shadowRoot.querySelector('#minimised-buttons');
             !!minimisedButtonsElement && (minimisedButtonsElement.style.display = 'inline');
             if (that.askUsStatus === 'online') {
                 // show the minimised button
@@ -415,7 +413,7 @@ class ProactiveChat extends HTMLElement {
             console.log('openCrmChatIframe crm shows');
             // }
 
-            const minimisedButtonsElement = that.shadowRoot.querySelector('[data-testid="minimised-buttons"]');
+            const minimisedButtonsElement = that.shadowRoot.querySelector('#minimised-buttons');
             !!minimisedButtonsElement && (minimisedButtonsElement.style.display = 'none');
         }
 
@@ -429,7 +427,7 @@ class ProactiveChat extends HTMLElement {
                     proactiveChatElement.length > 0 &&
                     proactiveChatElement[0].setAttribute('showchatbot', 'true');
 
-                const minimisedButtonsElement = that.shadowRoot.querySelector('[data-testid="minimised-buttons"]');
+                const minimisedButtonsElement = that.shadowRoot.querySelector('#minimised-buttons');
                 !!minimisedButtonsElement && (minimisedButtonsElement.style.display = 'none');
             } else {
                 that.hideProactiveChatPromptDialog();
