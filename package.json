@@ -86,6 +86,7 @@
     "@babel/preset-env": "^7.22.9",
     "autoprefixer": "^10.4.14",
     "babel-loader": "^8.3.0",
+    "babel-plugin-transform-remove-console": "^6.9.4",
     "content-replace-webpack-plugin": "^1.0.0",
     "core-js": "^3.31.1",
     "cross-env": "^7.0.3",
@@ -99,7 +100,6 @@
     "regenerator-runtime": "^0.13.11",
     "replace-in-file-webpack-plugin": "^1.0.6",
     "style-loader": "^3.3.3",
-    "terser-webpack-plugin": "^5.3.9",
     "throttle-debounce": "^5.0.0",
     "validator": "^13.9.0"
   },
