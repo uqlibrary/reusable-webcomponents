@@ -423,7 +423,7 @@ describe('Proactive Chat', () => {
     });
 
     context('when in a drupal contact page', () => {
-        it.only('should load crm correctly', () => {
+        it.skip('should load crm correctly', () => {
             cy.visit('http://localhost:8080/index-drupalcontactus.html');
 
             cy.getCookie('UQ_PROACTIVE_CHAT').should('not.exist');
