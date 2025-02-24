@@ -737,7 +737,7 @@ prm-tree-nav md-list md-list-item .md-button.branch-name {
     color: $theme-color;
 }
 prm-tree-nav md-list md-list-item .md-button.branch-name.is-selected {
-    color: #3b383e !important;
+    color: $uqGrey900 !important;
     &:hover {
         background-color: rgba(51, 51, 51, 0.1) !important;
     }
@@ -1247,7 +1247,7 @@ prm-view-online {
     }
     .all-links-options a:hover span {
         box-shadow: none;
-        color: #3b383e;
+        color: $uqGrey900;
     }
     button:first-child {
         padding-left: 10px;
@@ -1709,7 +1709,7 @@ prm-main-menu .my-feedback-ctm {
     fill: $green;
 }
 .culturalAdviceMarkIcon path {
-    fill: #0d6dcd;
+    fill: $uqUtility500;
 }
 .indicatorWrapper {
     margin-left: -10px;
@@ -1831,7 +1831,7 @@ prm-favorites div.search-within {
     }
     button.search-button {
         border-bottom: 1px solid black;
-        color: #3b383e !important;
+        color: $uqGrey900 !important;
         margin-bottom: 8px;
     }
 }
@@ -2072,7 +2072,7 @@ prm-topbar prm-user-area-expandable {
     // Log in button
     .sign-in-btn-ctm:not(.disable-hover):hover:not([disabled]):hover:not([disabled]):not(.close-btn-favorits-warning-message) {
         background-color: #fff !important;
-        color: #3b383e;
+        color: $uqGrey900;
         span {
             background-color: #51247a;
             color: #fff;
@@ -2122,7 +2122,7 @@ prm-search-bar {
     // When hovering over the Voice Search icon in the search bar, the microphone image fades to white instead of changing the background colour
     .simple-search-wrapper .search-actions .md-button.button-link:not([disabled]):hover {
         color: #1d092f !important;
-        background-color: #dcd3e4;
+        background-color: $uqPurple100;
     }
 }
 
@@ -2145,7 +2145,7 @@ body prm-full-view-service-container {
     }
     prm-location-items md-list md-list-item {
         &:hover:not([disabled]) {
-            background-color: $uqNeutral;
+            background-color: $uqGrey50;
         }
 
         @media (min-width: 900px) {
@@ -2369,7 +2369,7 @@ prm-alma-viewit-items md-list-item {
     }
 
     &:hover > div {
-        background-color: $uqNeutral;
+        background-color: $uqGrey50;
         transition: color 200ms ease-out, background-color 200ms ease-out;
     }
     & a.note-title:hover,
@@ -2383,7 +2383,7 @@ prm-alma-viewit-items md-list-item {
     &:has(a:not(.item-title):hover) a.item-title {
         // override hover when another link is hovered
         // would be nice as extra not on hover above, but cant get it to work
-        background-color: $uqNeutral;
+        background-color: $uqGrey50;
         color: $theme-color !important;
     }
     a:not(.item-title):hover {
