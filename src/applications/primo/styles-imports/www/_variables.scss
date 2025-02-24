@@ -1,13 +1,22 @@
 //// VARIABLES
-// UQ colours 2025 from https://design-system.uq.edu.au/?path=/docs/core-colour--docs
+// UQ colours 2025 from Design System https://design-system.uq.edu.au/?path=/docs/core-colour--docs
 // also note brand document: https://marketing-communication.uq.edu.au/files/7573/Brand_Guidelines.pdf
 
 // Fonts family
 $serif: Roboto, Helvetica, Arial, sans-serif;
 
 // from Design System
-$uqWarning600: #e1aa1d;
+$uqPurple500: #51247a;
+$uqPurple100: #dcd3e4;
+$uqGrey50: #f3f3f4; // Background colour to highlight sections, cards or panes
+$uqGrey900: #3b383e; // body copy
+$uqBlack: #19151c; // heading colour
+$uqUtility500: #0d6dcd;
+$uqError500: #d62929;
 $uqWarning50: #fef8e8;
+$uqWarning500: #f7ba1e;
+$uqWarning600: #e1aa1d;
+$uqSuccess500: #4aa74e;
 
 // colours for "highlighting", not defined by Design System
 $highlightPrimary: #c13e2a;
@@ -35,7 +44,7 @@ $paddingSmall: 0.5em;
 $paddingTiny: 0.25em;
 
 // colors
-$accent-color: #51247a; // was uqblue #2377cb
+$accent-color: $uqPurple500; // was uqblue #2377cb
 
 $almostBlack: #777;
 
@@ -43,17 +52,17 @@ $titles: $accent-color;
 $frbr: #ed9100;
 $pink: rgb(255, 171, 200);
 
-$dark: #3b383e;
+$dark: $uqGrey900;
 $dark-hue1: darken($dark, 30%);
 $darker: darken(saturate(adjust-hue($dark, 0), 0), 6.6667);
 
 // lighter background color
 
 $success: #3ea03e;
-$green: #4aa74e;
+$green: $uqSuccess500;
 //$orange: #CE8015; //#E0962E;
-$muteOrange: #f7ba1e;
-$uqInformationDark: #0d6dcd; // $utility-500
+$muteOrange: $uqWarning500;
+$uqInformationDark: $uqUtility500;
 $uqInformationLight: $uqWarning50;
 //$yellow: #f1c16f;
 //$yellow-hue1: lighten($yellow, 20%); // uq yellow
@@ -62,7 +71,6 @@ $overlayDarkDG: rgba(68, 68, 68, 0.6);
 $highlightBlue: transparentize($accent-color, 0.9);
 $uqWarningDark: $uqWarning600;
 $highlight: darken(desaturate(adjust-hue($uqWarningDark, -4.092), 16), 8.0392);
-$uqNeutral: #f3f3f4;
 
 $uqLightGrey: #f7f6f5;
 
@@ -111,7 +119,7 @@ $background-hue3: lighten(
     5.8824
 ); // lighter 2 (i.e: background for actions forms)
 
-$heading-color: #19151c; // UQ Design System 'Heading colour'
+$heading-color: $uqBlack;
 
 $background-hue4: lighten($background, 3%);
 $background-hue5: transparentize($background, 0.5);
@@ -153,7 +161,7 @@ $linkTitle: $links;
 
 $collectionDisLinks: #0075b0;
 
-$red: #d62929; // DS $warning-500
+$red: $uqError500;
 $red-hue1: darken($red, 20%);
 // warning
 $warning: $red;
