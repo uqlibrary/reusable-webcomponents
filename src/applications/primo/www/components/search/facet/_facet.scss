@@ -514,17 +514,19 @@ prm-facet {
         .md-button {
             min-width: 75px;
             margin: 6px 3px;
+            &:has([translate="nui.facets.clear"]) {
+                @include uqTertiaryButton($white, $accent-color);
+                background-color: transparent !important;
+            }
         }
         .md-button.md-primary {
-            @extend .prm-positive-bg;
-            color: white;
+            @include uqPrimaryButton($accent-color, $white);
+            &:focus,
+            &:hover {
+                background-color: transparent !important;
+            }
             padding-left: 0.75em;
             padding-right: 0.75em;
-            &:hover,
-            &:focus {
-                color: white;
-                background-color: lighten($positive, 5%);
-            }
         }
     }
     &.is-active {
