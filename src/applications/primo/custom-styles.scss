@@ -2433,7 +2433,7 @@ prm-personalize-results-button button.button-as-link.button-switch.md-button.md-
     }
 }
 
-prm-location-items md-list-item button.item-expand-button {
+md-list-item button.item-expand-button {
     padding-top: 0;
     padding-bottom: 0;
     min-height: 50px;
@@ -2441,7 +2441,12 @@ prm-location-items md-list-item button.item-expand-button {
     line-height: normal;
     height: auto !important;
     &.md-focused:focus:not([disabled]),
-    &:focus:not([disabled]),
+    &:focus:not([disabled]) {
+        background-color: transparent;
+        color: $accent-color;
+    }
+    &.md-focused:focus-visible:not([disabled]),
+    &:focus-visible:not([disabled]),
     &.md-focused:hover:not([disabled]),
     &:hover:not([disabled]) {
         background-color: $accent-color;
