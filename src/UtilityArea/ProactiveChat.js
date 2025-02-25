@@ -23,7 +23,7 @@ userPromptTemplate.innerHTML = `
     <div id="proactivechat" data-testid="proactivechat" class="proactive-chat">
         <!-- Proactive Chat minimised -->
         <div id="minimised-buttons" data-testid="minimised-buttons" class="pcminimised">
-            <button id="proactive-chat-online" data-testid="proactive-chat-online" class="pconline svg-container" data-analyticsid="chat-status-icon-online-button" style="display: none;" title="Chat with us - see options" aria-label="Chat with us - see options">
+            <button id="proactive-chat-online" data-testid="proactive-chat-online" class="pconline svg-container" data-analyticsid="chat-status-icon-online-button" style="display: none;" title="Chat with us" aria-label="Chat with us">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
                     <g id="icon/marketing/chat">
                         <path id="Vector" d="M26.3999 23.1997H15.2L8.80012 27.9997V23.1997H5.60016C5.17582 23.1997 4.76886 23.0312 4.46881 22.7311C4.16875 22.4311 4.00018 22.0241 4.00018 21.5998V5.59998C4.00018 5.17564 4.16875 4.76868 4.46881 4.46862C4.76886 4.16857 5.17582 4 5.60016 4H26.3999C26.8242 4 27.2312 4.16857 27.5312 4.46862C27.8313 4.76868 27.9999 5.17564 27.9999 5.59998V21.5998C27.9999 22.0241 27.8313 22.4311 27.5312 22.7311C27.2312 23.0312 26.8242 23.1997 26.3999 23.1997Z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -32,7 +32,7 @@ userPromptTemplate.innerHTML = `
                     </g>
                 </svg>
             </button>
-           <button id="proactive-chat-offline" data-testid="proactive-chat-offline" class="pcOffline" data-analyticsid="chat-status-icon-offline-button" style="display: none;" title="Chat with us - see options" aria-label="Chat with us - see options">
+           <button id="proactive-chat-offline" data-testid="proactive-chat-offline" class="pcOffline" data-analyticsid="chat-status-icon-offline-button" style="display: none;" title="Chat with us" aria-label="Chat with us">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
                     <g id="icon/marketing/chat">
                         <path id="Vector" d="M26.3999 23.1997H15.2L8.80012 27.9997V23.1997H5.60016C5.17582 23.1997 4.76886 23.0312 4.46881 22.7311C4.16875 22.4311 4.00018 22.0241 4.00018 21.5998V5.59998C4.00018 5.17564 4.16875 4.76868 4.46881 4.46862C4.76886 4.16857 5.17582 4 5.60016 4H26.3999C26.8242 4 27.2312 4.16857 27.5312 4.46862C27.8313 4.76868 27.9999 5.17564 27.9999 5.59998V21.5998C27.9999 22.0241 27.8313 22.4311 27.5312 22.7311C27.2312 23.0312 26.8242 23.1997 26.3999 23.1997Z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -197,7 +197,7 @@ class ProactiveChat extends HTMLElement {
         const that = this;
         const awaitShadowDom = setInterval(() => {
             /* istanbul ignore next */
-            if (!that.shadowRoot) {
+            if (!that.shadowDOM) {
                 return;
             }
 
@@ -214,17 +214,17 @@ class ProactiveChat extends HTMLElement {
                     console.log(`unhandled attribute ${fieldName} received for ProactiveChat`);
             }
             // Change the attribs here?
-            const proactiveChatElement = that.shadowRoot.querySelector('#proactive-chat');
-            const minimisedButtonsElement = that.shadowRoot.querySelector('#minimised-buttons');
+            const proactiveChatElement = that.shadowDOM.querySelector('#proactive-chat');
+            const minimisedButtonsElement = that.shadowDOM.querySelector('#minimised-buttons');
 
             if (ShowChatBot) {
-                const button = that.shadowRoot.querySelector('#proactive-chat-button-open');
+                const button = that.shadowDOM.querySelector('#proactive-chat-button-open');
                 !!button && button.click();
             }
 
             if (ShowCrmChat) {
                 console.log('auto click open of crm chat iframe');
-                const button = that.shadowRoot.querySelector('#crmChatPrompt');
+                const button = that.shadowDOM.querySelector('#crmChatPrompt');
                 !!button && button.click();
             }
         }, 50);
@@ -406,12 +406,12 @@ class ProactiveChat extends HTMLElement {
             //     crmChatIframe.length > 0 &&
             //     crmChatIframe[0].setAttribute('showcrmchat', 'true');
             // } else {
-            console.log('openCrmChatIframe');
-            that.hideProactiveChatPromptDialog();
-            console.log('openCrmChatIframe prompt hidden');
+
+            const dialogWrapper = that.shadowDOM.querySelector('#proactive-chat-wrapper');
+            !!dialogWrapper && (dialogWrapper.style.display = 'none');
+
             const crmIframe = document.getElementById('chatInlay');
             that.showCrmChatIframe(crmIframe);
-            console.log('openCrmChatIframe crm shows');
             // }
 
             const minimisedButtonsElement = that.shadowRoot.querySelector('#minimised-buttons');
@@ -517,9 +517,13 @@ class ProactiveChat extends HTMLElement {
             const date = new Date();
             date.setTime(date.getTime() + 24 * 60 * 60 * 1000);
             setCookie(PROACTIVE_CHAT_HIDDEN_COOKIE_NAME, PROACTIVE_CHAT_HIDDEN_COOKIE_VALUE, date, true);
+
+            const minimisedButtonWrapper = that.shadowDOM.querySelector('#minimised-buttons');
+            !!minimisedButtonWrapper && (minimisedButtonWrapper.style.display = 'block');
+
             const elementId = that.askUsStatus === 'online' ? 'proactive-chat-online' : 'proactive-chat-offline';
             const minimisedButton = that.shadowDOM.getElementById(elementId);
-            !!minimisedButton && (minimisedButton.style.display = 'block');
+            !!minimisedButton && (minimisedButton.style.display = 'inline');
         }
 
         // Chat status listeners
@@ -581,7 +585,19 @@ class ProactiveChat extends HTMLElement {
                 if (currentHeight < 50 && previousHeight !== currentHeight) {
                     console.log('Iframe height is now less than 50px:', currentHeight);
                     that.hideCrmChatIframe(crmIframe);
-                    that.showProactiveChatPromptDialog();
+                    // that.showProactiveChatPromptDialog();
+                    // show the minimised buttons
+
+                    const dialogWrapper = that.shadowDOM.querySelector('#proactivechat');
+                    !!dialogWrapper && (dialogWrapper.style.display = 'inline');
+
+                    const minimisedButtonsElement = that.shadowDOM.querySelector('#minimised-buttons');
+                    !!minimisedButtonsElement && (minimisedButtonsElement.style.display = 'inline');
+
+                    const elementId =
+                        that.askUsStatus === 'online' ? 'proactive-chat-online' : 'proactive-chat-offline';
+                    const minimisedButton = that.shadowDOM.getElementById(elementId);
+                    !!minimisedButton && (minimisedButton.style.display = 'block');
                 }
 
                 // Store current height for next comparison
