@@ -2227,6 +2227,7 @@ span.button-content:has(.prm-notice) span {
     color: $uqWarningDark;
 }
 
+.md-button.button-link:focus:not([disabled]),
 .md-button.button-link:hover:not([disabled]),
 .button-as-link.md-button.md-primoExplore-theme.md-ink-ripple.button-external-link:hover:not([disabled]) svg,
 md-tabs.tabs-as-app .back-button:hover:not([disabled]) {

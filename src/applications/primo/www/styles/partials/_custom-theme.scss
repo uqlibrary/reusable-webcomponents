@@ -424,7 +424,9 @@
         color: $accent-color !important;
     }
     &:hover md-icon,
-    &:hover span:not([disabled]) {
+    &:focus md-icon,
+    &:hover span:not([disabled]),
+    &:focus span:not([disabled]) {
         background-color: $accent-color !important;
         color: $white !important;
     }
