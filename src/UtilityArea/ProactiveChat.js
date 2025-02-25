@@ -292,10 +292,7 @@ class ProactiveChat extends HTMLElement {
             }
             const wrapper = this.shadowDOM.querySelector('#proactive-chat-wrapper');
             !!wrapper && wrapper.removeAttribute('style');
-            const onlineMinimisedButton = this.shadowDOM.querySelector('#proactive-chat-online');
-            !!onlineMinimisedButton && (onlineMinimisedButton.style.display = 'none');
-            const offlineMinimisedButton = this.shadowDOM.querySelector('#proactive-chat-offline');
-            !!offlineMinimisedButton && (offlineMinimisedButton.style.display = 'none');
+            this.showMinimisedButton();
         };
         const api = new ApiAccess();
         const that = this;
@@ -352,16 +349,11 @@ class ProactiveChat extends HTMLElement {
             !!chatbotIframe && chatbotIframe.remove(); // deleting it rather than hiding it will force it to check for logout
             that.showProactiveChatPromptDialog();
 
-            const minimisedButtonsElement = that.shadowRoot.querySelector('#minimised-buttons');
-            !!minimisedButtonsElement && (minimisedButtonsElement.style.display = 'inline');
-            if (that.askUsStatus === 'online') {
-                // show the minimised button
-                const onlineMinimisedButton = that.shadowDOM.querySelector('#proactive-chat-online');
-                !!onlineMinimisedButton && onlineMinimisedButton.removeAttribute('style');
-                // make sure the proactive dialog is hidden
-                const wrapper = that.shadowDOM.querySelector('#proactive-chat-wrapper');
-                !!wrapper && (wrapper.style.display = 'none');
-            }
+            that.showMinimisedButton();
+
+            // make sure the proactive dialog is hidden
+            const wrapper = that.shadowDOM.querySelector('#proactive-chat-wrapper');
+            !!wrapper && (wrapper.style.display = 'none');
         }
 
         function swapToCrm() {
@@ -413,9 +405,7 @@ class ProactiveChat extends HTMLElement {
             const crmIframe = document.getElementById('chatInlay');
             that.showCrmChatIframe(crmIframe);
             // }
-
-            const minimisedButtonsElement = that.shadowRoot.querySelector('#minimised-buttons');
-            !!minimisedButtonsElement && (minimisedButtonsElement.style.display = 'none');
+            that.hideMinimisedButtons();
         }
 
         function openChatBotIframe() {
@@ -428,13 +418,11 @@ class ProactiveChat extends HTMLElement {
                     proactiveChatElement.length > 0 &&
                     proactiveChatElement[0].setAttribute('showchatbot', 'true');
 
-                const minimisedButtonsElement = that.shadowRoot.querySelector('#minimised-buttons');
-                !!minimisedButtonsElement && (minimisedButtonsElement.style.display = 'none');
+                that.hideMinimisedButtons();
             } else {
                 that.hideProactiveChatPromptDialog();
 
-                const minimisedOnlineButton = that.shadowDOM.querySelector('#proactive-chat-online');
-                !!minimisedOnlineButton && (minimisedOnlineButton.style.display = 'none');
+                that.showMinimisedButton();
 
                 let chatbotWrapper1 = that.shadowDOM.querySelector('#chatbot-wrapper');
                 if (!!chatbotWrapper1) {
@@ -495,10 +483,7 @@ class ProactiveChat extends HTMLElement {
         const showProactiveChatDialog = () => {
             const wrapper = that.shadowDOM.querySelector('#proactive-chat-wrapper');
             !!wrapper && wrapper.removeAttribute('style');
-            const onlineMinimisedButton = that.shadowDOM.querySelector('#proactive-chat-online');
-            !!onlineMinimisedButton && (onlineMinimisedButton.style.display = 'none');
-            const offlineMinimisedButton = that.shadowDOM.querySelector('#proactive-chat-offline');
-            !!offlineMinimisedButton && (offlineMinimisedButton.style.display = 'none');
+            this.showMinimisedButton();
 
             const proactiveChatElement = that.shadowDOM.querySelector('#proactive-chat');
             !!proactiveChatElement && proactiveChatElement.classList.add('show');
@@ -518,12 +503,7 @@ class ProactiveChat extends HTMLElement {
             date.setTime(date.getTime() + 24 * 60 * 60 * 1000);
             setCookie(PROACTIVE_CHAT_HIDDEN_COOKIE_NAME, PROACTIVE_CHAT_HIDDEN_COOKIE_VALUE, date, true);
 
-            const minimisedButtonWrapper = that.shadowDOM.querySelector('#minimised-buttons');
-            !!minimisedButtonWrapper && (minimisedButtonWrapper.style.display = 'block');
-
-            const elementId = that.askUsStatus === 'online' ? 'proactive-chat-online' : 'proactive-chat-offline';
-            const minimisedButton = that.shadowDOM.getElementById(elementId);
-            !!minimisedButton && (minimisedButton.style.display = 'inline');
+            that.showMinimisedButton();
         }
 
         // Chat status listeners
@@ -591,13 +571,7 @@ class ProactiveChat extends HTMLElement {
                     const dialogWrapper = that.shadowDOM.querySelector('#proactivechat');
                     !!dialogWrapper && (dialogWrapper.style.display = 'inline');
 
-                    const minimisedButtonsElement = that.shadowDOM.querySelector('#minimised-buttons');
-                    !!minimisedButtonsElement && (minimisedButtonsElement.style.display = 'inline');
-
-                    const elementId =
-                        that.askUsStatus === 'online' ? 'proactive-chat-online' : 'proactive-chat-offline';
-                    const minimisedButton = that.shadowDOM.getElementById(elementId);
-                    !!minimisedButton && (minimisedButton.style.display = 'block');
+                    that.showMinimisedButton();
                 }
 
                 // Store current height for next comparison
@@ -606,7 +580,17 @@ class ProactiveChat extends HTMLElement {
         }, 50);
     }
 
-    // is this a page that doesnt want chatbot showing?
+    hideMinimisedButtons() {
+        const minimisedButtonsElement = this.shadowRoot.querySelector('#minimised-buttons');
+        !!minimisedButtonsElement && (minimisedButtonsElement.style.display = 'none');
+    }
+
+    showMinimisedButton() {
+        const minimisedButtonWrapper = this.shadowDOM.querySelector('#minimised-buttons');
+        !!minimisedButtonWrapper && minimisedButtonWrapper.removeAttribute('style');
+    }
+
+    // is this a page that doesn't want chatbot showing?
     isChatBotHiddenHere() {
         return (
             // other condition here (none currently)
