@@ -65,36 +65,6 @@ userPromptTemplate.innerHTML = `
     </div>
 `;
 
-// from https://uqemployee.crm.test.uq.edu.au/s/oit/latest/ > inlays > embedded chat
-// https://community.oracle.com/customerconnect/discussion/552678/sample-file-for-chat-inlay-attribute-launch-form-fields
-const crmchatIncludeTemplate = document.createElement('template');
-// TODO dont forget to give a dynamic location!!
-crmchatIncludeTemplate.innerHTML = `<inlay-oracle-chat-embedded
-    id="chatInlay"
-    class="inlay"
-    site-url="${crmLocationEmbed}"
-    inlay-hidden="true"
-    data-oit-config-url="https://assets.library.uq.edu.au/reusable-webcomponents-development/feature-leadegroot/applications/proactive/config.js"
-    style="
-        --oj-brand-color: #51247A;
-    "
-    launch-form-fields='[{
-        "hidden": false,
-        "name": "FIRST_NAME",
-        "required": true
-        }, {
-        "hidden": false,
-        "name": "EMAIL",
-        "required": true,
-        "value": "uqldegro@uq.edu.au"
-      }, {
-        "hidden": false,
-        "name": "SUBJECT",
-        "required": true
-        }]'
->
-</inlay-oracle-chat-embedded>`;
-
 const chatbotIframeTemplate = document.createElement('template');
 chatbotIframeTemplate.innerHTML = `<div
     id="chatbot-wrapper"
@@ -174,19 +144,20 @@ class ProactiveChat extends HTMLElement {
             !!wrapper && wrapper.removeAttribute('style');
         }
         this.updateAskusDOM(secondsTilProactiveChatAppears);
-        this.addButtonListeners(this.shadowDOM);
+        this.addButtonListeners();
+        this.watchHeightChangeInCrm();
 
         this.chatbotHasAppeared = false;
         this.askUsStatus = null;
 
-        const awaitIframe = setInterval(() => {
+        const awaitIframeConstructor = setInterval(() => {
             const crmIframe = document.querySelector('iframe#chatInlay');
-            console.log('crmIframe=', crmIframe);
+            console.log('awaitIframeConstructor=', awaitIframeConstructor);
             if (!crmIframe) {
                 return;
             }
 
-            clearInterval(awaitIframe);
+            clearInterval(awaitIframeConstructor);
 
             // !!crmIframe && (crmIframe.style.height = 'calc(100% - 115px)');
             this.hideCrmChatIframe(crmIframe);
@@ -292,10 +263,7 @@ class ProactiveChat extends HTMLElement {
             }
             const wrapper = this.shadowDOM.querySelector('#proactive-chat-wrapper');
             !!wrapper && wrapper.removeAttribute('style');
-            const onlineMinimisedButton = this.shadowDOM.querySelector('#proactive-chat-online');
-            !!onlineMinimisedButton && (onlineMinimisedButton.style.display = 'none');
-            const offlineMinimisedButton = this.shadowDOM.querySelector('#proactive-chat-offline');
-            !!offlineMinimisedButton && (offlineMinimisedButton.style.display = 'none');
+            this.showMinimisedButton();
         };
         const api = new ApiAccess();
         const that = this;
@@ -344,7 +312,7 @@ class ProactiveChat extends HTMLElement {
         !!proactivechatArea && (proactivechatArea.style.display = 'none');
     }
 
-    addButtonListeners(isOnline) {
+    addButtonListeners() {
         const that = this;
 
         function closeChatBotIframe(e, elementId = 'chatbot-wrapper') {
@@ -352,16 +320,11 @@ class ProactiveChat extends HTMLElement {
             !!chatbotIframe && chatbotIframe.remove(); // deleting it rather than hiding it will force it to check for logout
             that.showProactiveChatPromptDialog();
 
-            const minimisedButtonsElement = that.shadowRoot.querySelector('#minimised-buttons');
-            !!minimisedButtonsElement && (minimisedButtonsElement.style.display = 'inline');
-            if (that.askUsStatus === 'online') {
-                // show the minimised button
-                const onlineMinimisedButton = that.shadowDOM.querySelector('#proactive-chat-online');
-                !!onlineMinimisedButton && onlineMinimisedButton.removeAttribute('style');
-                // make sure the proactive dialog is hidden
-                const wrapper = that.shadowDOM.querySelector('#proactive-chat-wrapper');
-                !!wrapper && (wrapper.style.display = 'none');
-            }
+            that.showMinimisedButton();
+
+            // make sure the proactive dialog is hidden
+            const wrapper = that.shadowDOM.querySelector('#proactive-chat-wrapper');
+            !!wrapper && (wrapper.style.display = 'none');
         }
 
         function swapToCrm() {
@@ -371,7 +334,7 @@ class ProactiveChat extends HTMLElement {
             openCrmChatIframe();
         }
 
-        function getIframeSrc() {
+        function getChatbotIframeSrc() {
             let iframeSrc = 'https://www.library.uq.edu.au';
             if (window.location.hostname === 'localhost') {
                 iframeSrc = 'http://localhost:2020'; // bring mock up to use locally
@@ -413,9 +376,7 @@ class ProactiveChat extends HTMLElement {
             const crmIframe = document.getElementById('chatInlay');
             that.showCrmChatIframe(crmIframe);
             // }
-
-            const minimisedButtonsElement = that.shadowRoot.querySelector('#minimised-buttons');
-            !!minimisedButtonsElement && (minimisedButtonsElement.style.display = 'none');
+            that.hideMinimisedButtons();
         }
 
         function openChatBotIframe() {
@@ -428,13 +389,11 @@ class ProactiveChat extends HTMLElement {
                     proactiveChatElement.length > 0 &&
                     proactiveChatElement[0].setAttribute('showchatbot', 'true');
 
-                const minimisedButtonsElement = that.shadowRoot.querySelector('#minimised-buttons');
-                !!minimisedButtonsElement && (minimisedButtonsElement.style.display = 'none');
+                that.hideMinimisedButtons();
             } else {
                 that.hideProactiveChatPromptDialog();
 
-                const minimisedOnlineButton = that.shadowDOM.querySelector('#proactive-chat-online');
-                !!minimisedOnlineButton && (minimisedOnlineButton.style.display = 'none');
+                that.showMinimisedButton();
 
                 let chatbotWrapper1 = that.shadowDOM.querySelector('#chatbot-wrapper');
                 if (!!chatbotWrapper1) {
@@ -445,7 +404,7 @@ class ProactiveChat extends HTMLElement {
                 }
 
                 // show chatbot source
-                let iframeSrc = getIframeSrc();
+                let iframeSrc = getChatbotIframeSrc();
                 let chatbotUrl = `${iframeSrc}/chatbot.html`;
                 const chatBotIframe = !!chatbotWrapper1 && chatbotWrapper1.getElementsByTagName('iframe');
                 const api = new ApiAccess();
@@ -495,10 +454,8 @@ class ProactiveChat extends HTMLElement {
         const showProactiveChatDialog = () => {
             const wrapper = that.shadowDOM.querySelector('#proactive-chat-wrapper');
             !!wrapper && wrapper.removeAttribute('style');
-            const onlineMinimisedButton = that.shadowDOM.querySelector('#proactive-chat-online');
-            !!onlineMinimisedButton && (onlineMinimisedButton.style.display = 'none');
-            const offlineMinimisedButton = that.shadowDOM.querySelector('#proactive-chat-offline');
-            !!offlineMinimisedButton && (offlineMinimisedButton.style.display = 'none');
+
+            this.showMinimisedButton();
 
             const proactiveChatElement = that.shadowDOM.querySelector('#proactive-chat');
             !!proactiveChatElement && proactiveChatElement.classList.add('show');
@@ -518,12 +475,7 @@ class ProactiveChat extends HTMLElement {
             date.setTime(date.getTime() + 24 * 60 * 60 * 1000);
             setCookie(PROACTIVE_CHAT_HIDDEN_COOKIE_NAME, PROACTIVE_CHAT_HIDDEN_COOKIE_VALUE, date, true);
 
-            const minimisedButtonWrapper = that.shadowDOM.querySelector('#minimised-buttons');
-            !!minimisedButtonWrapper && (minimisedButtonWrapper.style.display = 'block');
-
-            const elementId = that.askUsStatus === 'online' ? 'proactive-chat-online' : 'proactive-chat-offline';
-            const minimisedButton = that.shadowDOM.getElementById(elementId);
-            !!minimisedButton && (minimisedButton.style.display = 'inline');
+            that.showMinimisedButton();
         }
 
         // Chat status listeners
@@ -542,7 +494,27 @@ class ProactiveChat extends HTMLElement {
         !!proactiveChatWithBot && proactiveChatWithBot.addEventListener('click', openChatBotIframe);
         const proactiveleaveQuestion = that.shadowDOM.querySelector('#leaveAQuestionPrompt');
         !!proactiveleaveQuestion && proactiveleaveQuestion.addEventListener('click', navigateToContactUs);
+    }
 
+    hideMinimisedButtons() {
+        const minimisedButtonsElement = this.shadowRoot.querySelector('#minimised-buttons');
+        !!minimisedButtonsElement && (minimisedButtonsElement.style.display = 'none');
+    }
+
+    showMinimisedButton() {
+        const minimisedButtonWrapper = this.shadowDOM.querySelector('#minimised-buttons');
+        !!minimisedButtonWrapper && minimisedButtonWrapper.removeAttribute('style');
+    }
+
+    // is this a page that doesn't want chatbot showing?
+    isChatBotHiddenHere() {
+        return (
+            // other condition here (none currently)
+            window.location.pathname === '/index-app-nochatbot.html' // test only
+        );
+    }
+
+    watchHeightChangeInCrm() {
         // // Function to handle height changes
         // function checkIframeHeight() {
         //         const crmIframe = document.querySelector('iframe#chatInlay');
@@ -563,13 +535,13 @@ class ProactiveChat extends HTMLElement {
         //
         // let previousHeight = null;
 
-        const awaitIframe = setInterval(() => {
+        const awaitCrmIframeBody = setInterval(() => {
             const crmIframe = document.querySelector('iframe#chatInlay');
-            console.log('awaitIframe crmIframe=', crmIframe);
+            console.log('awaitCrmIframeBody crmIframe=', crmIframe);
             if (!crmIframe) {
                 return;
             }
-            clearInterval(awaitIframe);
+            clearInterval(awaitCrmIframeBody);
 
             // Set up interval to monitor height changes
             let previousHeight = null;
@@ -584,20 +556,14 @@ class ProactiveChat extends HTMLElement {
                 // Check if height is less than 50px
                 if (currentHeight < 50 && previousHeight !== currentHeight) {
                     console.log('Iframe height is now less than 50px:', currentHeight);
-                    that.hideCrmChatIframe(crmIframe);
-                    // that.showProactiveChatPromptDialog();
+                    this.hideCrmChatIframe(crmIframe);
+                    // this.showProactiveChatPromptDialog();
                     // show the minimised buttons
 
-                    const dialogWrapper = that.shadowDOM.querySelector('#proactivechat');
+                    const dialogWrapper = this.shadowDOM.querySelector('#proactivechat');
                     !!dialogWrapper && (dialogWrapper.style.display = 'inline');
 
-                    const minimisedButtonsElement = that.shadowDOM.querySelector('#minimised-buttons');
-                    !!minimisedButtonsElement && (minimisedButtonsElement.style.display = 'inline');
-
-                    const elementId =
-                        that.askUsStatus === 'online' ? 'proactive-chat-online' : 'proactive-chat-offline';
-                    const minimisedButton = that.shadowDOM.getElementById(elementId);
-                    !!minimisedButton && (minimisedButton.style.display = 'block');
+                    this.showMinimisedButton();
                 }
 
                 // Store current height for next comparison
@@ -606,15 +572,7 @@ class ProactiveChat extends HTMLElement {
         }, 50);
     }
 
-    // is this a page that doesnt want chatbot showing?
-    isChatBotHiddenHere() {
-        return (
-            // other condition here (none currently)
-            window.location.pathname === '/index-app-nochatbot.html' // test only
-        );
-    }
-
-    loadScript() {
+    attachCRMScriptToPage() {
         const that = this;
         // This loads the external JS file into the HTML head dynamically
         // Only load js if it has not been loaded before
@@ -659,16 +617,88 @@ class ProactiveChat extends HTMLElement {
     }
 
     connectedCallback() {
-        console.log('connectedCallback');
         // when this method has fired, the shadow dom is available
-        this.loadScript();
+        console.log('connectedCallback');
 
-        // attach crm inline chat to top level document root
-        const clone = crmchatIncludeTemplate.content.cloneNode(true);
-        console.log('clone = ', clone);
-        console.log('clone window.document.body= ', window.document.body);
-        window.document.body.appendChild(clone);
-        console.log('clone after');
+        let crmChatParams = [
+            {
+                hidden: false,
+                name: 'FIRST_NAME',
+                required: true,
+            },
+            {
+                hidden: false,
+                name: 'EMAIL',
+                required: true,
+            },
+            {
+                hidden: false,
+                name: 'SUBJECT',
+                required: true,
+            },
+        ];
+
+        // wait on the account to come from storage (or empty) so we know if we can supply details
+        const api = new ApiAccess();
+        const waitOnStorage = setInterval(() => {
+            // sometimes it takes a moment before it is readable
+            const currentUserDetails = api.getAccountFromStorage();
+
+            const accountAvailable =
+                currentUserDetails.hasOwnProperty('account') &&
+                !!currentUserDetails.account &&
+                currentUserDetails.account.hasOwnProperty('id') &&
+                !!currentUserDetails.account.id;
+            if (!!accountAvailable) {
+                clearInterval(waitOnStorage);
+
+                // set account fields
+                const firstNameIndex = crmChatParams.findIndex((param) => param.name === 'FIRST_NAME');
+                crmChatParams[firstNameIndex].value = currentUserDetails.account.firstName.replace(/ /g, '&nbsp;');
+                // crmChatParams[firstNameIndex].hidden = true;
+                const emailIndex = crmChatParams.findIndex((param) => param.name === 'EMAIL');
+                crmChatParams[emailIndex].value = currentUserDetails.account.mail;
+                // crmChatParams[emailIndex].hidden = true;
+                console.log('waitOnStorage clone crmChatParams=', crmChatParams);
+            } else if (
+                !!currentUserDetails &&
+                currentUserDetails.hasOwnProperty('status') &&
+                currentUserDetails.status === apiLocale.USER_LOGGED_OUT
+            ) {
+                console.log('waitOnStorage clone not logged in');
+                clearInterval(waitOnStorage);
+                // use default "please fill in" settings
+            }
+
+            // from https://uqemployee.crm.test.uq.edu.au/s/oit/latest/ > inlays > embedded chat
+            // https://community.oracle.com/customerconnect/discussion/552678/sample-file-for-chat-inlay-attribute-launch-form-fields
+            const crmchatIncludeTemplate = document.createElement('template');
+
+            // TODO dont forget to give a dynamic location!!
+            const stringedParams = JSON.stringify(crmChatParams);
+            console.log('clone stringedParams=', stringedParams);
+            crmchatIncludeTemplate.innerHTML = `<inlay-oracle-chat-embedded
+                id="chatInlay"
+                class="inlay"
+                site-url="${crmLocationEmbed}"
+                inlay-hidden="true"
+                data-oit-config-url="https://assets.library.uq.edu.au/reusable-webcomponents-development/feature-leadegroot/applications/proactive/config.js"
+                style="
+                    --oj-brand-color: #51247A;
+                "
+                launch-form-fields=${stringedParams}
+            >
+            </inlay-oracle-chat-embedded>`;
+
+            this.attachCRMScriptToPage();
+
+            // attach crm inline chat to top level document root
+            const clone = crmchatIncludeTemplate.content.cloneNode(true);
+            console.log('clone = ', clone);
+            console.log('clone window.document.body= ', window.document.body);
+            window.document.body.appendChild(clone);
+            console.log('clone after');
+        }, 200);
     }
 }
 
