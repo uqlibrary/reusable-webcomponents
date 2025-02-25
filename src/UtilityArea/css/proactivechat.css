@@ -180,7 +180,7 @@ button.proactive-chat-button:focus {
 
 .proactive-chat .pcwrapper .openSubWrapper:not(.displayinline) {
     position: fixed;
-    bottom: 12px;
+    bottom: 8px;
     padding: 12px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     right: -300px;
@@ -208,7 +208,7 @@ button.proactive-chat-button:focus {
     display: none;
 }
 .proactive-chat .pcwrapper .openSubWrapper.show:not(.displayinline) {
-    right: 12px;
+    right: 8px;
     transition: right 0.3s;
     transition-delay: 0.3s;
     transition-timing-function: ease-in-out;
@@ -301,10 +301,12 @@ button.proactive-chat-button:focus {
     background-color: #51247a;
     color: #fff;
     border: none;
+    margin-top: 2px;
 }
 .topBar button svg {
     fill: #ffffff;
-    width: 25px;
+    width: 16px;
+    height: 16px;
     stroke: #fff;
     stroke-width: 1.2;
 }
