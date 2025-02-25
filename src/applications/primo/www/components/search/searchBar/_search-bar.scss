@@ -921,7 +921,7 @@ prm-search-bar {
         @include uqPrimaryButton($accent-color, $white);
     }
     button.md-button.button-notice:has(span[translate="link.title.search.clear"]):not([disabled]) {
-        @include uqSecondaryButton($white, $accent-color);
+        @include uqTertiaryButton($white, $accent-color);
     }
 }
 

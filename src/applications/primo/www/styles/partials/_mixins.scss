@@ -338,3 +338,14 @@ $__xs-portrait: 479px;
         text-decoration: none;
     }
 }
+@mixin uqTertiaryButton($baseColor, $reverseColor) {
+    background-color: $baseColor !important;
+    color: $reverseColor !important;
+    span {
+        text-decoration: underline;
+    }
+    &:hover {
+        background-color: $reverseColor !important;
+        color: $baseColor !important;
+    }
+}
