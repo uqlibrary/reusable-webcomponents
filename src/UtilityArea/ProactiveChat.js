@@ -640,6 +640,7 @@ class ProactiveChat extends HTMLElement {
 
         // wait on the account to come from storage (or empty) so we know if we can supply details
         const api = new ApiAccess();
+        let millisecondsWait = 800; // first time longer to give storage time to change from logged out to logged in
         const waitOnStorage = setInterval(() => {
             // sometimes it takes a moment before it is readable
             const currentUserDetails = api.getAccountFromStorage();
@@ -698,7 +699,8 @@ class ProactiveChat extends HTMLElement {
             console.log('clone window.document.body= ', window.document.body);
             window.document.body.appendChild(clone);
             console.log('clone after');
-        }, 200);
+            millisecondsWait = 200;
+        }, millisecondsWait);
     }
 }
 
