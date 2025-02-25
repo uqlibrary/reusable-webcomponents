@@ -227,7 +227,6 @@ md-grid-tile .tile-header .header-link:hover,
 md-grid-tile .tile-header .md-button,
 md-input-container.has-fixed-message [ng-message] a,
 md-list-item.list-item-as-link,
-md-tabs.tabs-as-app .back-button,
 md-tabs.tabs-as-links md-tab-item,
 md-tabs.tabs-as-links md-tab-item:not([disabled]),
 prm-tags-list .md-chips .md-chip .md-chip-content strong,
@@ -241,6 +240,10 @@ prm-citation-trails-item.active-item .item-title,
 prm-tags-results-list md-list.prm-list.prm-linkable-list-items md-list-item .item-title {
     color: $links !important;
 }
+md-tabs.tabs-as-app .back-button {
+    @include uqTertiaryButton($white, $accent-color);
+}
+
 prm-account-overview {
     // does prm-links even exist anymore? Override it in the account overview area
     button.prm-links:hover {
@@ -650,24 +653,12 @@ div > getit-link-service {
 }
 // END remove after VE go live
 
-.report-a-problem:not([style-scope]) {
-    background-color: $accent-color;
-    color: white !important;
-    display: inline-block;
-    padding: 0.2em 1em;
+.report-a-problem {
+    @include uqPrimaryButton($accent-color, $white);
     margin-left: 1em;
     margin-top: 0.8em;
-    text-transform: uppercase;
-    font-size: 14px;
-    border: 1px solid $accent-color;
-    transition: all 200ms ease-out;
-    box-shadow: none; // removes underline on the link
     &:hover {
-        background-color: $white !important;
-        color: $accent-color !important;
-        span {
-            text-decoration: underline;
-        }
+        box-shadow: none; // removes underline from very bottom of the link
     }
 }
 
