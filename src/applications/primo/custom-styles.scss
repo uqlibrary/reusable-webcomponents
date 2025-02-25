@@ -2390,6 +2390,8 @@ prm-alma-viewit-items md-list-item {
         position: relative;
         padding-right: 1.5em;
         border: 2px solid $accent-color;
+        font-size: 0.8em;
+        min-width: 10em !important;
         &::after {
             content: '';
             position: absolute;
