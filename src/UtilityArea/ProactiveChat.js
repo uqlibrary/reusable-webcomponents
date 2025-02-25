@@ -65,36 +65,6 @@ userPromptTemplate.innerHTML = `
     </div>
 `;
 
-// from https://uqemployee.crm.test.uq.edu.au/s/oit/latest/ > inlays > embedded chat
-// https://community.oracle.com/customerconnect/discussion/552678/sample-file-for-chat-inlay-attribute-launch-form-fields
-const crmchatIncludeTemplate = document.createElement('template');
-// TODO dont forget to give a dynamic location!!
-crmchatIncludeTemplate.innerHTML = `<inlay-oracle-chat-embedded
-    id="chatInlay"
-    class="inlay"
-    site-url="${crmLocationEmbed}"
-    inlay-hidden="true"
-    data-oit-config-url="https://assets.library.uq.edu.au/reusable-webcomponents-development/feature-leadegroot/applications/proactive/config.js"
-    style="
-        --oj-brand-color: #51247A;
-    "
-    launch-form-fields='[{
-        "hidden": false,
-        "name": "FIRST_NAME",
-        "required": true
-        }, {
-        "hidden": false,
-        "name": "EMAIL",
-        "required": true,
-        "value": "uqldegro@uq.edu.au"
-      }, {
-        "hidden": false,
-        "name": "SUBJECT",
-        "required": true
-        }]'
->
-</inlay-oracle-chat-embedded>`;
-
 const chatbotIframeTemplate = document.createElement('template');
 chatbotIframeTemplate.innerHTML = `<div
     id="chatbot-wrapper"
@@ -602,7 +572,7 @@ class ProactiveChat extends HTMLElement {
         }, 50);
     }
 
-    loadScript() {
+    attachCRMScriptToPage() {
         const that = this;
         // This loads the external JS file into the HTML head dynamically
         // Only load js if it has not been loaded before
@@ -647,16 +617,88 @@ class ProactiveChat extends HTMLElement {
     }
 
     connectedCallback() {
-        console.log('connectedCallback');
         // when this method has fired, the shadow dom is available
-        this.loadScript();
+        console.log('connectedCallback');
 
-        // attach crm inline chat to top level document root
-        const clone = crmchatIncludeTemplate.content.cloneNode(true);
-        console.log('clone = ', clone);
-        console.log('clone window.document.body= ', window.document.body);
-        window.document.body.appendChild(clone);
-        console.log('clone after');
+        let crmChatParams = [
+            {
+                hidden: false,
+                name: 'FIRST_NAME',
+                required: true,
+            },
+            {
+                hidden: false,
+                name: 'EMAIL',
+                required: true,
+            },
+            {
+                hidden: false,
+                name: 'SUBJECT',
+                required: true,
+            },
+        ];
+
+        // wait on the account to come from storage (or empty) so we know if we can supply details
+        const api = new ApiAccess();
+        const waitOnStorage = setInterval(() => {
+            // sometimes it takes a moment before it is readable
+            const currentUserDetails = api.getAccountFromStorage();
+
+            const accountAvailable =
+                currentUserDetails.hasOwnProperty('account') &&
+                !!currentUserDetails.account &&
+                currentUserDetails.account.hasOwnProperty('id') &&
+                !!currentUserDetails.account.id;
+            if (!!accountAvailable) {
+                clearInterval(waitOnStorage);
+
+                // set account fields
+                const firstNameIndex = crmChatParams.findIndex((param) => param.name === 'FIRST_NAME');
+                crmChatParams[firstNameIndex].value = currentUserDetails.account.firstName.replace(/ /g, '&nbsp;');
+                // crmChatParams[firstNameIndex].hidden = true;
+                const emailIndex = crmChatParams.findIndex((param) => param.name === 'EMAIL');
+                crmChatParams[emailIndex].value = currentUserDetails.account.mail;
+                // crmChatParams[emailIndex].hidden = true;
+                console.log('waitOnStorage clone crmChatParams=', crmChatParams);
+            } else if (
+                !!currentUserDetails &&
+                currentUserDetails.hasOwnProperty('status') &&
+                currentUserDetails.status === apiLocale.USER_LOGGED_OUT
+            ) {
+                console.log('waitOnStorage clone not logged in');
+                clearInterval(waitOnStorage);
+                // use default "please fill in" settings
+            }
+
+            // from https://uqemployee.crm.test.uq.edu.au/s/oit/latest/ > inlays > embedded chat
+            // https://community.oracle.com/customerconnect/discussion/552678/sample-file-for-chat-inlay-attribute-launch-form-fields
+            const crmchatIncludeTemplate = document.createElement('template');
+
+            // TODO dont forget to give a dynamic location!!
+            const stringedParams = JSON.stringify(crmChatParams);
+            console.log('clone stringedParams=', stringedParams);
+            crmchatIncludeTemplate.innerHTML = `<inlay-oracle-chat-embedded
+                id="chatInlay"
+                class="inlay"
+                site-url="${crmLocationEmbed}"
+                inlay-hidden="true"
+                data-oit-config-url="https://assets.library.uq.edu.au/reusable-webcomponents-development/feature-leadegroot/applications/proactive/config.js"
+                style="
+                    --oj-brand-color: #51247A;
+                "
+                launch-form-fields=${stringedParams}
+            >
+            </inlay-oracle-chat-embedded>`;
+
+            this.attachCRMScriptToPage();
+
+            // attach crm inline chat to top level document root
+            const clone = crmchatIncludeTemplate.content.cloneNode(true);
+            console.log('clone = ', clone);
+            console.log('clone window.document.body= ', window.document.body);
+            window.document.body.appendChild(clone);
+            console.log('clone after');
+        }, 200);
     }
 }
 
