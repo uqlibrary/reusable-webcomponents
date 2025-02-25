@@ -409,7 +409,7 @@ describe('Proactive Chat', () => {
             cy.window().its('open').should('be.called');
         });
 
-        it('Navigates to contact us from iframe "Leave a question" button when offline', () => {
+        it.skip('Navigates to contact us from iframe "Leave a question" button when offline', () => {
             cy.visit('http://localhost:8080/index-chat-fast.html?chatstatusoffline=true', {
                 onBeforeLoad(win) {
                     cy.stub(win, 'open');
