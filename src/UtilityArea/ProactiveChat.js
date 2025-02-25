@@ -174,19 +174,20 @@ class ProactiveChat extends HTMLElement {
             !!wrapper && wrapper.removeAttribute('style');
         }
         this.updateAskusDOM(secondsTilProactiveChatAppears);
-        this.addButtonListeners(this.shadowDOM);
+        this.addButtonListeners();
+        this.watchHeightChangeInCrm();
 
         this.chatbotHasAppeared = false;
         this.askUsStatus = null;
 
-        const awaitIframe = setInterval(() => {
+        const awaitIframeConstructor = setInterval(() => {
             const crmIframe = document.querySelector('iframe#chatInlay');
-            console.log('crmIframe=', crmIframe);
+            console.log('awaitIframeConstructor=', awaitIframeConstructor);
             if (!crmIframe) {
                 return;
             }
 
-            clearInterval(awaitIframe);
+            clearInterval(awaitIframeConstructor);
 
             // !!crmIframe && (crmIframe.style.height = 'calc(100% - 115px)');
             this.hideCrmChatIframe(crmIframe);
@@ -341,7 +342,7 @@ class ProactiveChat extends HTMLElement {
         !!proactivechatArea && (proactivechatArea.style.display = 'none');
     }
 
-    addButtonListeners(isOnline) {
+    addButtonListeners() {
         const that = this;
 
         function closeChatBotIframe(e, elementId = 'chatbot-wrapper') {
@@ -363,7 +364,7 @@ class ProactiveChat extends HTMLElement {
             openCrmChatIframe();
         }
 
-        function getIframeSrc() {
+        function getChatbotIframeSrc() {
             let iframeSrc = 'https://www.library.uq.edu.au';
             if (window.location.hostname === 'localhost') {
                 iframeSrc = 'http://localhost:2020'; // bring mock up to use locally
@@ -433,7 +434,7 @@ class ProactiveChat extends HTMLElement {
                 }
 
                 // show chatbot source
-                let iframeSrc = getIframeSrc();
+                let iframeSrc = getChatbotIframeSrc();
                 let chatbotUrl = `${iframeSrc}/chatbot.html`;
                 const chatBotIframe = !!chatbotWrapper1 && chatbotWrapper1.getElementsByTagName('iframe');
                 const api = new ApiAccess();
@@ -483,6 +484,7 @@ class ProactiveChat extends HTMLElement {
         const showProactiveChatDialog = () => {
             const wrapper = that.shadowDOM.querySelector('#proactive-chat-wrapper');
             !!wrapper && wrapper.removeAttribute('style');
+
             this.showMinimisedButton();
 
             const proactiveChatElement = that.shadowDOM.querySelector('#proactive-chat');
@@ -522,7 +524,27 @@ class ProactiveChat extends HTMLElement {
         !!proactiveChatWithBot && proactiveChatWithBot.addEventListener('click', openChatBotIframe);
         const proactiveleaveQuestion = that.shadowDOM.querySelector('#leaveAQuestionPrompt');
         !!proactiveleaveQuestion && proactiveleaveQuestion.addEventListener('click', navigateToContactUs);
+    }
 
+    hideMinimisedButtons() {
+        const minimisedButtonsElement = this.shadowRoot.querySelector('#minimised-buttons');
+        !!minimisedButtonsElement && (minimisedButtonsElement.style.display = 'none');
+    }
+
+    showMinimisedButton() {
+        const minimisedButtonWrapper = this.shadowDOM.querySelector('#minimised-buttons');
+        !!minimisedButtonWrapper && minimisedButtonWrapper.removeAttribute('style');
+    }
+
+    // is this a page that doesn't want chatbot showing?
+    isChatBotHiddenHere() {
+        return (
+            // other condition here (none currently)
+            window.location.pathname === '/index-app-nochatbot.html' // test only
+        );
+    }
+
+    watchHeightChangeInCrm() {
         // // Function to handle height changes
         // function checkIframeHeight() {
         //         const crmIframe = document.querySelector('iframe#chatInlay');
@@ -543,13 +565,13 @@ class ProactiveChat extends HTMLElement {
         //
         // let previousHeight = null;
 
-        const awaitIframe = setInterval(() => {
+        const awaitCrmIframeBody = setInterval(() => {
             const crmIframe = document.querySelector('iframe#chatInlay');
-            console.log('awaitIframe crmIframe=', crmIframe);
+            console.log('awaitCrmIframeBody crmIframe=', crmIframe);
             if (!crmIframe) {
                 return;
             }
-            clearInterval(awaitIframe);
+            clearInterval(awaitCrmIframeBody);
 
             // Set up interval to monitor height changes
             let previousHeight = null;
@@ -564,38 +586,20 @@ class ProactiveChat extends HTMLElement {
                 // Check if height is less than 50px
                 if (currentHeight < 50 && previousHeight !== currentHeight) {
                     console.log('Iframe height is now less than 50px:', currentHeight);
-                    that.hideCrmChatIframe(crmIframe);
-                    // that.showProactiveChatPromptDialog();
+                    this.hideCrmChatIframe(crmIframe);
+                    // this.showProactiveChatPromptDialog();
                     // show the minimised buttons
 
-                    const dialogWrapper = that.shadowDOM.querySelector('#proactivechat');
+                    const dialogWrapper = this.shadowDOM.querySelector('#proactivechat');
                     !!dialogWrapper && (dialogWrapper.style.display = 'inline');
 
-                    that.showMinimisedButton();
+                    this.showMinimisedButton();
                 }
 
                 // Store current height for next comparison
                 previousHeight = currentHeight;
             }, 100);
         }, 50);
-    }
-
-    hideMinimisedButtons() {
-        const minimisedButtonsElement = this.shadowRoot.querySelector('#minimised-buttons');
-        !!minimisedButtonsElement && (minimisedButtonsElement.style.display = 'none');
-    }
-
-    showMinimisedButton() {
-        const minimisedButtonWrapper = this.shadowDOM.querySelector('#minimised-buttons');
-        !!minimisedButtonWrapper && minimisedButtonWrapper.removeAttribute('style');
-    }
-
-    // is this a page that doesn't want chatbot showing?
-    isChatBotHiddenHere() {
-        return (
-            // other condition here (none currently)
-            window.location.pathname === '/index-app-nochatbot.html' // test only
-        );
     }
 
     loadScript() {
