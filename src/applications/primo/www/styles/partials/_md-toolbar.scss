@@ -27,6 +27,8 @@ md-toolbar:not(.md-menu-toolbar) {
             &:hover {
                 opacity: 1;
             }
+            @include uqTertiaryButton($white, $accent-color);
+            background-color: transparent !important;
         }
         &.is-stuck {
             @extend .toolbar-shadow;
