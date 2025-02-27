@@ -685,7 +685,7 @@ class ProactiveChat extends HTMLElement {
                 class="inlay"
                 site-url="${crmLocationEmbed}"
                 inlay-hidden="true"
-                data-oit-config-url="https://assets.library.uq.edu.au/reusable-webcomponents-development/feature-leadegroot/applications/proactive/config.js"
+                data-oit-config-url="https://${crmLocationScript}/euf/assets/themes/standard/library_config.js"
                 style="--oj-brand-color: #51247A;"
                 launch-form-fields=${stringedParams}
             >
