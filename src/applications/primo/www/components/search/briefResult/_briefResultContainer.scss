@@ -1,10 +1,18 @@
 $actionButtonSize: 38px;
 $actionButtonMargin: 4px;
 
+
 prm-brief-result-container {
     display: block;
     width: 100%;
     position: relative;
+
+    // when we have CA or CRL custom indicator on the first Brief result, it lacks space at the top
+    // (because we have to add a row to hold our indicators, and they have hardcoded the height of the block :(
+    // (if they add more built in indicators, we will have to add another Not here)
+    &:not(:first-child):not(:has([translate="nui.results.journalsearch.peer_reviewed"])):not(:has([translate="nui.results.journalsearch.open_access"])):has(.indicatorWrapper) {
+        margin-top: 10px;
+    }
 
     .md-button[disabled='disabled'] {
         z-index: -1;
