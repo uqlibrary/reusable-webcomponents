@@ -52,7 +52,7 @@ prm-more-like-this {
     }
 
     .container-nav-controls {
-        .nav-control {
+        button.nav-control {
             position: absolute;
             top: 0;
             margin: 0;
@@ -63,13 +63,24 @@ prm-more-like-this {
             display: flex;
             align-items: center;
             justify-content: center;
-
             &.nav-left {
                 left: 0;
             }
-
             &.nav-right {
                 right: 0;
+            }
+            &.md-button:not([disabled]) {
+                &:focus {
+                    background-color: transparent;
+                }
+                &:focus-visible,
+                &:hover {
+                    background-color: transparent;
+                    prm-icon {
+                        color: $white;
+                        background-color: $accent-color;
+                    }
+                }
             }
         }
     }
