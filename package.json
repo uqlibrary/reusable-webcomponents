@@ -33,6 +33,7 @@
     "start:mock": "cross-env NODE_ENV=local USE_MOCK=true FULL_PATH=http://localhost:8080 NODE_OPTIONS='--max-old-space-size=2048' webpack-dev-server --open",
     "start": "cross-env NODE_ENV=local webpack-dev-server --open",
     "test:e2e:dashboard": "start-server-and-test start:mock:no-open http-get://localhost:8080 cypress:dashboard",
+    "test:e2e:run": "start-server-and-test start:mock:no-open http-get://localhost:8080 cypress:run",
     "test:jest": "cross-env NODE_ENV=test FULL_PATH=http://localhost jest src/",
     "test:local": "start-server-and-test start-test-server http://localhost:8080 cypress:open",
     "test": "start-server-and-test start-test-server http://localhost:8080 cypress:run:record"
