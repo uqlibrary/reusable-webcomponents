@@ -686,11 +686,7 @@ button.md-button.link-alt-color {
         color: $accent-color;
     }
     &.button-as-link:not([disabled]) {
-        &:hover,
-        &:focus {
-            color: $links-hue-5;
-            background-color: $highlightBlue;
-        }
+        @include uqTertiaryButton($white, $accent-color);
     }
 }
 
