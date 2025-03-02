@@ -1,6 +1,10 @@
 $actionButtonSize: 38px;
 $actionButtonMargin: 4px;
 
+//div#searchResultsContainer prm-brief-result-container:not(:first-child) {
+//    margin-top: 10px;
+//    border-left: thick solid red;
+//}
 
 prm-brief-result-container {
     display: block;
