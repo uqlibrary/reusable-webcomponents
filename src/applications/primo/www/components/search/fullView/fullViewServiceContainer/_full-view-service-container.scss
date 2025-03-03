@@ -6,4 +6,18 @@ prm-full-view-service-container {
             opacity: 1;
         }
     }
+    ul.course-resource-list {
+        a.md-button.button-as-link.link-alt-color:not([disabled]) {
+            &:focus,
+            &:hover {
+                box-shadow: none;
+                background-color: transparent !important;
+                span {
+                    color: $accent-color !important;
+                    background-color: #fff !important;
+                    box-shadow: inset 0 -2px 0 0 $accent-color;
+                }
+            }
+        }
+    }
 }
