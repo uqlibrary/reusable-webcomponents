@@ -962,6 +962,7 @@ prm-full-view {
     }
 }
 
+// from https://design-system.uq.edu.au/?path=/docs/components-pagination--docs
 prm-page-nav-menu {
     // Stop new pagination from floating above content
     position: static;
@@ -971,28 +972,47 @@ prm-page-nav-menu {
             display: none;
         }
     }
-    .current-bulk,
-    .current-page {
-        // Show blue background for current page/page-size
-        // instead of rounded rectangle
+    // current page not-a-link
+    .results-per-page .current-bulk.md-button,
+    .counter-main .current-page.md-button {
         box-shadow: none;
-        background: $accent-color;
-        color: $white !important;
+        background: transparent;
+        color: $uqGrey900 !important;
+        font-weight: 500 !important;
+        &:not([disabled]):hover {
+            background: transparent;
+            color: $uqGrey900 !important;
+            border-bottom: unset !important;
+        }
     }
+    // other page links
     .counter-main,
     .counter-nav,
     .bulks-options {
         .md-button {
-            // Blue colour for all clickable items
-            color: $accent-color;
+            color: $uqUtility500 !important;
+            background-color: transparent;
+            text-decoration: none;
+            font-weight: 300 !important;
+            font-size: 1rem;
+            height: 30px;
+            min-width: 25px;
+            width: 25px;
+            &:not([disabled]):not(:has([icon-definition="chevron-left"])):not(:has([icon-definition="chevron-right"])) {
+                &.hovered,
+                &.md-focused,
+                &:hover,
+                &:focus {
+                    border-bottom: 1px solid $uqUtility500;
+                    border-radius: unset;
+                }
+            }
             &:not([disabled]) {
                 &.hovered,
                 &.md-focused,
                 &:hover,
                 &:focus {
-                    // Light blue background on hover for everything
-                    color: $links-hue-5 !important;
-                    background-color: $highlightBlue;
+                    background-color: transparent;
                 }
             }
         }
