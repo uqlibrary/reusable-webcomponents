@@ -830,6 +830,7 @@ prm-tags-list .md-chips md-chip .md-chip-content:hover strong,
 prm-tags-list md-chips .md-chip .md-chip-content:hover strong,
 prm-tags-list md-chips md-chip .md-chip-content:hover strong {
     background-color: transparent;
+    border-radius: unset;
 }
 
 prm-citation-trails-indication {
@@ -1665,12 +1666,6 @@ prm-main-menu .my-feedback-ctm {
         padding-bottom: 0.4rem;
         padding-left: 17px;
         list-style: none;
-    }
-    h4 {
-        color: $heading-color;
-        font-weight: 500;
-        font-size: 18px;
-        margin-top: 20px;
     }
 }
 .result-item-text > .readingListMark .readingListMarkIcon, // should be able to remove this line after CA golive
