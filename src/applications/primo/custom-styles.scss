@@ -1638,8 +1638,13 @@ prm-main-menu .my-feedback-ctm {
 
 // some primo items are on a reading list - style the display of these links (and indicator of same in header)
 .readingListCitations {
+    ul {
+        padding-left: 0;
+    }
     ul li {
         padding-bottom: 0.4rem;
+        padding-left: 17px;
+        list-style: none;
     }
     h4 {
         color: $heading-color;
