@@ -113,6 +113,14 @@ prm-breadcrumbs {
                 min-width: auto;
                 max-width: calc(100% - 42px);
             }
+            &[aria-label="Including  List of Versions"] {
+                &:hover strong {
+                    text-decoration: underline;
+                }
+                &:before {
+                    display: none;
+                }
+            }
 
             &:before {
                 content: '';
