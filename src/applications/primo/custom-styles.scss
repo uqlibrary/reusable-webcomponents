@@ -2610,4 +2610,10 @@ prm-linked-data {
         @include uqTertiaryButton($white, $accent-color);
         background-color: transparent !important;
     }
+    md-card-header:not(:has(img[ng-src="img/related_person_image.png"])) {
+        flex-direction: row;
+    }
+    md-card-avatar:has(img[ng-src="img/related_person_image.png"]) {
+        display: none;
+    }
 }
