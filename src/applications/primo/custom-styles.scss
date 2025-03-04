@@ -1817,12 +1817,6 @@ md-menu-content button prm-icon md-icon svg path,
     color: $accent-color;
 }
 
-// make the option to change the number of results per page at the top of the brief results more obvious
-prm-search-result-page-range md-select {
-    background-color: #eee; // just faintly visible
-    padding-left: 10px;
-}
-
 // search Saved items in Favourites should be more obvious
 // reverse the dark-placeholder and greyed submit button to a more conventional
 // grey placeholder and enabled-looking button
