@@ -2572,3 +2572,12 @@ prm-blank-purchase-request md-content.md-primoExplore-theme {
 md-backdrop.md-dialog-backdrop {
     background-color: #a694b6;
 }
+
+prm-person-entity-page {
+    .person-full-view-inner-container {
+        background-color: $white;
+    }
+    .person-full-view-cont .person-header h2 span {
+        color: $accent-color;
+    }
+}
