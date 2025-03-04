@@ -2597,3 +2597,17 @@ prm-person-entity-page {
         }
     }
 }
+
+prm-linked-data {
+    h2.section-title {
+        color: $uqBlack;
+        font-weight: 500;
+    }
+    md-card {
+        background-color: $white;
+    }
+    md-card-header-text button.person-name-btn {
+        @include uqTertiaryButton($white, $accent-color);
+        background-color: transparent !important;
+    }
+}
