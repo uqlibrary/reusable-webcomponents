@@ -339,3 +339,52 @@ md-tabs {
         }
     }
 }
+
+md-tabs.tabs-as-app .tab-header prm-opac-back-button .back-button  {
+    background-color: transparent !important;
+    color: $accent-color !important;
+    span {
+        text-decoration: underline;
+        padding-right: 0;
+    }
+    &:hover {
+        span {
+            background-color: $accent-color !important;
+            color: $white !important;
+            line-height: normal;
+        }
+        prm-icon {
+            background-color: transparent !important;
+            color: $accent-color;
+            &[svg-icon-set="hardware"]:hover md-icon {
+                background-color: transparent;
+                color: $accent-color !important;
+            }
+        }
+
+    }
+}
+
+md-tab-content.md-active alma-htgi-back-button .back-button.md-button {
+    span {
+        text-decoration: underline;
+        padding-right: 0;
+    }
+    &:hover {
+        background-color: transparent !important;
+        span {
+            background-color: $accent-color !important;
+            color: $white !important;
+            line-height: normal;
+        }
+        prm-icon {
+            background-color: transparent !important;
+            color: $accent-color;
+            &[svg-icon-set="hardware"]:hover md-icon {
+                background-color: transparent;
+                color: $accent-color !important;
+            }
+        }
+
+    }
+}
