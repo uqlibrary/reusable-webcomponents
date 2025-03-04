@@ -2580,4 +2580,20 @@ prm-person-entity-page {
     .person-full-view-cont .person-header h2 span {
         color: $accent-color;
     }
+    prm-featured-results {
+        button.horizontal-content-control.md-button:not([disabled]) {
+            background-color: $white;
+            prm-icon {
+                padding-bottom: 10px;
+                padding-top: 10px;
+            }
+            &:focus-visible,
+            &:hover {
+                prm-icon {
+                    color: $white;
+                    background-color: $accent-color;
+                }
+            }
+        }
+    }
 }
