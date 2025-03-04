@@ -230,3 +230,13 @@ prm-search-result-tool-bar {
         }
     }
 }
+
+// make the option to change the number of results per page at the top of the brief results more obvious
+prm-search-result-page-range md-select {
+    background-color: transparent;
+    padding-left: 10px;
+    md-select-value span {
+        color: $accent-color !important;
+        font-weight: 500;
+    }
+}
