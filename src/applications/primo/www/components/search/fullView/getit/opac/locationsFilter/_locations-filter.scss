@@ -1,6 +1,9 @@
 /* starting locationsFilter */
 
 prm-locations-filter {
+    div div.bar.filter-bar {
+        background-color: $uqGrey50;
+    }
     md-select {
         margin-top: -4px;
     }

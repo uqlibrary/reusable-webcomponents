@@ -1,7 +1,14 @@
 /* starting locations */
 prm-locations {
+    button.md-button {
+        color: $accent-color;
+        &:not([disabled]):focus,
+        &:not([disabled]):hover {
+            color: $accent-color;
+            background-color: $uqGrey50;
+        }
+    }
     .disable-prefilter-button {
-        color: $links;
         cursor: pointer;
         &:hover,
         &:focus {
