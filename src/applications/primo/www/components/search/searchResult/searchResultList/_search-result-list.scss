@@ -131,7 +131,10 @@ prm-search-result-list {
                 position: relative;
 
                 prm-brief-result-container {
-                    margin-top: 10px;
+                    &:not(:has(.indicatorWrapper)) .result-item-actions,
+                    &:has(.indicatorWrapper) {
+                        margin-top: 11px
+                    }
                 }
 
                 .md-subheader {
