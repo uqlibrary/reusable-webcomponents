@@ -78,18 +78,11 @@ prm-alma-viewit-items {
                 }
             }
         }
+        // hide and place background image icon on item-title
+        prm-icon:has(md-icon[md-svg-icon="primo-ui:open-in-new"]) {
+            display: none;
+        }
     }
-    // md-list-item.md-3-line {
-    //    min-height: 48px;
-    //    &:before {
-    //        min-height: 48px;
-    //    }
-    //    .md-list-item-text {
-    //        h3, h4 {
-    //            white-space: normal
-    //        }
-    //    }
-    // }
     .entity-type {
         @extend .tiny-uppercase-text;
         color: $lightenGrey;
