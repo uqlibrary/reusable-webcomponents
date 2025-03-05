@@ -973,6 +973,15 @@ prm-page-nav-menu {
             display: none;
         }
     }
+    // line up the results per page heading and number
+    .results-per-page {
+        display: flex;
+        align-items: flex-end;
+        span[translate="nui.results.resultsPerPage"] {
+            bottom: 13px;
+            position: relative;
+        }
+    }
     // current page not-a-link
     .results-per-page .current-bulk.md-button,
     .counter-main .current-page.md-button {
