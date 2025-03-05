@@ -71,6 +71,9 @@ prm-search-bar {
                 @include __xs {
                     display: none;
                 }
+                &.clear-with-voice-search:hover:not([disabled]) {
+                    background-color: $accent-color !important;
+                }
             }
         }
     }
