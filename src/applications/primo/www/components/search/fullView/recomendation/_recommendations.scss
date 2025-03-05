@@ -65,6 +65,19 @@ prm-recomendations {
     }
 }
 
+primo-explore {
+    prm-recomendation-item {
+        // on a grey background, make each item white to make them separate from their siblings
+        background-color: $white;
+    }
+    &:has(md-backdrop) {
+        prm-recomendation-item {
+            // on a white background, drop a hari linebox
+            border: 1px solid $uqGrey300;
+        }
+    }
+}
+
 prm-recomendation-item {
     padding: 0.5em 1em 0.5em 1em;
     transform-origin: 0 50%;
