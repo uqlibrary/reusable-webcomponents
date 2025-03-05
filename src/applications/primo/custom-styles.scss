@@ -2615,6 +2615,9 @@ prm-person-entity-page {
             }
         }
     }
+    .question-mark-popup-cont prm-icon {
+        color: $accent-color;
+    }
 }
 
 prm-linked-data {
@@ -2634,5 +2637,8 @@ prm-linked-data {
     }
     md-card-avatar:has(img[ng-src="img/related_person_image.png"]) {
         display: none;
+    }
+    .question-mark-popup-cont prm-icon {
+        color: $accent-color;
     }
 }
