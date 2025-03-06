@@ -237,6 +237,9 @@ prm-search-result-page-range md-select {
     font-style: normal;
     padding-left: 10px;
     transition: $swift-ease-in-out;
+    span:not(.md-select-icon) {
+        text-decoration: underline;
+    }
     &:hover {
         background-color: $accent-color;
         border-radius: 4px;
