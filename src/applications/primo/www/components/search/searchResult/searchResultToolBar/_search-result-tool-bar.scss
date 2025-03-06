@@ -179,7 +179,7 @@ prm-search-result-tool-bar {
 
     .md-toolbar-tools {
         padding: 0 5px !important;
-        background-color: #e9e9e9;
+        background-color: $background;
         @extend .prm-text;
         overflow: hidden;
 
