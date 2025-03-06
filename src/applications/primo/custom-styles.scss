@@ -2655,3 +2655,31 @@ prm-linked-data {
         color: $accent-color;
     }
 }
+
+alma-howovp {
+    md-list-item button.md-button.neutralized-button {
+        position: relative;
+        padding-right: 1.5em !important;
+        width: auto;
+        line-height: normal;
+        prm-icon {
+            margin-left: 6px;
+            color: $accent-color;
+            md-icon {
+                min-width: 20px;
+                min-height: 20px;
+                width: 20px;
+                height: 20px;
+            }
+        }
+        &:hover {
+            background-color: transparent;
+            box-shadow: none;
+            a,
+            span:first-child {
+                background-color: $accent-color;
+                color: $white !important;
+            }
+        }
+    }
+}
