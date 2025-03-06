@@ -2136,8 +2136,8 @@ prm-search-bar {
     }
 }
 
-prm-brief-result .item-title span,
-mark {
+prm-brief-result a .item-title span,
+a mark {
     color: $accent-color;
 }
 
