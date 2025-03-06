@@ -2683,3 +2683,12 @@ alma-howovp {
         }
     }
 }
+
+prm-databases {
+    prm-search-result-list .pages-separated-with-gaps {
+        .results-title:not(.results-title-favorites) {
+            font-style: normal;
+            top: -16px !important;
+        }
+    }
+}
