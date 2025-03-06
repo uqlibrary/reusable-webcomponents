@@ -2640,6 +2640,13 @@ prm-linked-data {
     }
     md-card-header-text button.person-name-btn {
         @include uqTertiaryButton($white, $accent-color);
+        &:hover {
+            background-color: transparent !important;
+            span {
+                background-color: $accent-color;
+                color: $white;
+            }
+        }
         background-color: transparent !important;
     }
     md-card-header:not(:has(img[ng-src="img/related_person_image.png"])) {
