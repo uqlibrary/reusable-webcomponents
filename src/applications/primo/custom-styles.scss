@@ -2158,7 +2158,7 @@ body prm-full-view-service-container {
             background-color: $uqGrey50;
         }
 
-        @media (min-width: 900px) {
+        @media (min-width: 1120px) {
             & [layout="row"] > div:first-of-type > div:first-of-type  {
                 display: flex;
                 gap: 20px;
@@ -2169,10 +2169,6 @@ body prm-full-view-service-container {
                 //column 3
                 width: 100%;
             }
-        }
-        & [layout="row"] > div:first-of-type > div:first-of-type  > div:first-of-type {
-            // column 1
-            width: 200px;
         }
     }
     prm-stack-map {
