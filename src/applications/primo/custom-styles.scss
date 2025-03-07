@@ -2538,48 +2538,6 @@ prm-request > div.service-form {
     border: none;
     box-shadow: none;
 }
-// align the submit and reset buttons better
-prm-request form > div:last-child {
-    @media (min-width: 520px) {
-        display: flex;
-    }
-    padding-block: 1rem;
-    & button {
-        padding: 6px 24px;
-        margin: 0;
-        text-transform: capitalize;
-        font-size: 16px;
-        border: 2px solid $accent-color;
-        border-radius: 4px;
-        transition: color 200ms ease-out, background-color 200ms ease-out;
-    }
-    & button:has([icon-definition="reload"]) {
-        // reset button
-        display: initial;
-        text-align: left;
-        width: 8em;
-        margin-bottom: 10px; // leave space for other button to slip beneath on mobile
-        &:hover:not([disabled]) {
-            background-color: $accent-color;
-            color: #fff;
-        }
-    }
-    & div:has([icon-definition="send"]) {
-        // submit button block
-        display: block;
-        text-align: right;
-        @media (min-width: 520px) {
-            margin-top: -60px; // line up with reset button on desktop
-        }
-        & button.button-confirm:hover:not([disabled]) {
-            color: $accent-color !important;
-            background-color: #fff !important;
-            & svg {
-                color: $accent-color;
-            }
-        }
-    }
-}
 
 // soften the overlay background colour when the qr dialog is present
 md-backdrop.md-dialog-backdrop {
