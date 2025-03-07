@@ -340,17 +340,13 @@ md-tabs {
     }
 }
 
-md-tabs.tabs-as-app .tab-header prm-opac-back-button .back-button  {
-    background-color: transparent !important;
-    color: $accent-color !important;
+md-tabs.tabs-as-app prm-opac-back-button .back-button {
+    @include uqSpannedTertiaryButton($white, $accent-color);
     span {
-        text-decoration: underline;
         padding-right: 0;
     }
     &:hover {
         span {
-            background-color: $accent-color !important;
-            color: $white !important;
             line-height: normal;
         }
         prm-icon {
