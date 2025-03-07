@@ -331,11 +331,8 @@ $__xs-portrait: 479px;
 @mixin uqSecondaryButton($baseColor, $reverseColor) {
     @include uqPrimaryButton($baseColor, $reverseColor);
     border-color: $reverseColor;
-    span {
-        text-decoration: underline;
-    }
     &:hover span {
-        text-decoration: none;
+        text-decoration: underline;
     }
 }
 @mixin uqTertiaryButton($baseColor, $reverseColor) {
