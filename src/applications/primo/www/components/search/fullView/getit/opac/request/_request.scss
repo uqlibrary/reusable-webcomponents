@@ -29,6 +29,7 @@ prm-request {
         padding-block: 1rem;
 
         & button {
+            // submit button
             padding: 6px 24px;
             margin: 0;
             text-transform: capitalize;
@@ -44,10 +45,7 @@ prm-request {
             text-align: left;
             width: 8em;
             margin-bottom: 10px; // leave space for other button to slip beneath on mobile
-            &:hover:not([disabled]) {
-                background-color: $accent-color;
-                color: #fff;
-            }
+            @include uqSecondaryButton($white, $accent-color);
         }
 
         & div:has([icon-definition="send"]) {

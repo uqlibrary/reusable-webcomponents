@@ -32,20 +32,14 @@ prm-citation-linker {
 
     // style submit & reset buttons
     div:last-of-type .md-button.button-with-icon:not([disabled]) {
-        border: 2px solid $accent-color;
         transition: background-color 200ms ease-out, color 200ms ease-out, border 200ms ease-out, text-decoration 200ms ease-out;
         text-transform: capitalize;
         font-size: 1rem;
-        &.button-confirm:hover {
-            color: $accent-color !important;
-            background-color: $white !important;
+        &.button-confirm {
+            @include uqPrimaryButton($accent-color, $white);
         }
-        &.button-secondary:hover {
-            color: $white !important;
-            background-color: $accent-color !important;
-            span {
-                text-decoration: underline;
-            }
+        &.button-secondary {
+            @include uqSecondaryButton($white, $accent-color);
         }
     }
 
