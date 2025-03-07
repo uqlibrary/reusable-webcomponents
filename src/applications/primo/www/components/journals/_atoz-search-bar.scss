@@ -32,4 +32,15 @@ prm-atoz-search-bar {
             }
         }
     }
+    .simple-search-wrapper {
+        button[aria-label="nui.aria.searchField.clear"],
+        button[aria-label="clear"] {
+            &:focus,
+            &:hover {
+                &:not([disabled]) {
+                    background-color: $accent-color;
+                }
+            }
+        }
+    }
 }
