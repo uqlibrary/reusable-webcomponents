@@ -54,6 +54,15 @@ prm-location-items {
                     }
                 }
             }
+
+            button.item-expand-button {
+                &:focus,
+                &:hover {
+                    &:not([disabled]) {
+                        background-color: $accent-color;
+                    }
+                }
+            }
         }
     }
 
