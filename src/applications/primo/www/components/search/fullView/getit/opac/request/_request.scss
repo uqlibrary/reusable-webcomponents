@@ -33,7 +33,7 @@ prm-request {
 }
 
 prm-request {
-    prm-icon {
+    .request-form-message prm-icon {
         color: $accent-color;
     }
     @include requestFormRadioButtons($accent-color);
@@ -54,7 +54,7 @@ prm-blank-purchase-request {
         }
     }
     form {
-        md-icon {
+        .request-form-message md-icon {
             color: $accent-color !important;
         }
         @include requestFormRadioButtons($accent-color);
