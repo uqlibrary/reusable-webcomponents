@@ -971,4 +971,15 @@ prm-advanced-search {
     .advanced-search-output md-select md-select-value span {
         padding-top: 2px;
     }
+
+    input[placeholder="Enter a search term"]::placeholder,
+    input[type="text"]::placeholder {
+        color: $uqGrey900;
+        font-weight: 400 !important;
+    }
+    input[type="text"]:-internal-autofill-selected {
+        font-weight: 600;
+        box-shadow: 0 0 0px 1000px white inset !important; // override the Chrome background-color. Tricky!!
+        -webkit-text-fill-color: inherit !important;
+    }
 }
