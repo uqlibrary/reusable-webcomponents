@@ -21,3 +21,42 @@ prm-request {
         }
     }
 }
+
+@mixin requestFormRadioButtons($baseColor) {
+    prm-form-field.service-form-item md-radio-button.md-checked {
+        .md-on {
+            background-color: $baseColor;
+            color: $baseColor;
+            border-color: $baseColor;
+        }
+    }
+}
+
+prm-request {
+    prm-icon {
+        color: $accent-color;
+    }
+    @include requestFormRadioButtons($accent-color);
+}
+
+prm-blank-purchase-request {
+    md-content.md-primoExplore-theme {
+        background-color: $backgroundActual;
+        border: none;
+        box-shadow: none;
+
+        .form-focus form {
+            padding-inline: 1em;
+        }
+
+        prm-request > div {
+            background-color: transparent;
+        }
+    }
+    form {
+        md-icon {
+            color: $accent-color !important;
+        }
+        @include requestFormRadioButtons($accent-color);
+    }
+}

@@ -2581,18 +2581,6 @@ prm-request form > div:last-child {
     }
 }
 
-prm-blank-purchase-request md-content.md-primoExplore-theme {
-    background-color: $backgroundActual;
-    border: none;
-    box-shadow: none;
-    .form-focus form {
-        padding-inline: 1em;
-    }
-    prm-request > div {
-        background-color: transparent;
-    }
-}
-
 // soften the overlay background colour when the qr dialog is present
 md-backdrop.md-dialog-backdrop {
     background-color: #a694b6;
