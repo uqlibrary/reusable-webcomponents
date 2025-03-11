@@ -659,6 +659,7 @@ div > getit-link-service {
     margin-top: 0.8em;
     &:hover {
         box-shadow: none; // removes underline from very bottom of the link
+        border-radius: 4px;
     }
 }
 
