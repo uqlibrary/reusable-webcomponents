@@ -167,7 +167,7 @@ $red-hue1: darken($red, 20%);
 // warning
 $warning: $red;
 $warn: $red;
-$warn-hue1: darken($warn, 22%);
+$warn-hue1: darken($warn, 22%); // #801919
 $warningBorder: inset 0 0 0 3px $warning;
 
 $text: $dark;

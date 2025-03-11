@@ -2615,3 +2615,10 @@ prm-databases {
         }
     }
 }
+
+
+button.button-with-icon.button-confirm {
+    &>prm-icon {
+        display: none !important;
+    }
+}

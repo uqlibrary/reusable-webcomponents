@@ -212,7 +212,7 @@ md-input-container {
 
     [ng-message] {
         span {
-            color: $red-hue1;
+            color: $uqError500;
         }
     }
     &.has-fixed-message {
