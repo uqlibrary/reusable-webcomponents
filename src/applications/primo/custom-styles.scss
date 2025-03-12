@@ -2650,3 +2650,11 @@ button.button-with-icon.button-confirm {
         display: none !important;
     }
 }
+
+// hide certain types from the facet sidebar
+[data-facet-value="rtype-preprint"],
+[data-facet-value="rtype-retracted_publication"],
+[data-facet-value="rtype-publication_corrigendum"],
+[data-facet-value="rtype-retraction_notice"] {
+    display: none !important;
+}
