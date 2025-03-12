@@ -2127,8 +2127,15 @@ a mark {
 
 .prm-full-view-dialog,
 body prm-full-view-service-container {
-    & .show-more-less-btn prm-icon {
-        color: $theme-color;
+    & .show-more-less-btn {
+        text-decoration: underline;
+        &:focus,
+        &:hover {
+            text-decoration: underline;
+        }
+        prm-icon {
+            color: $theme-color;
+        }
     }
     prm-location-items md-list md-list-item {
         &:hover:not([disabled]) {
