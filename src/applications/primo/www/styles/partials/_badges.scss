@@ -51,11 +51,11 @@
                 &.retracted {
                     fill: $uqError500;
                 }
-                &.corrigendum {
+                &.changed {
                     fill: $uqWarning500;
                 }
-                &.review {
-                    fill: $uqSuccess500;
+                &.regular {
+                    fill: $uqGrey700;
                 }
             }
         }
