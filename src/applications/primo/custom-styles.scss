@@ -2559,49 +2559,48 @@ prm-person-entity-page {
             background-color: $white;
         }
 
-        md-card-header-text {
-            button.person-name-btn {
-                @include uqTertiaryButton($white, $accent-color);
+        md-card-header-text button.person-name-btn {
+            @include uqTertiaryButton($white, $accent-color);
+            background-color: transparent !important;
+
+            &:hover:not([disabled]) {
                 background-color: transparent !important;
-                margin-left: -20px;
 
-                &:hover:not([disabled]) {
-                    background-color: transparent !important;
-
-                    span {
-                        background-color: $accent-color;
-                        color: $white;
-                    }
+                span {
+                    background-color: $accent-color;
+                    color: $white;
                 }
             }
-            &:not(:has(img[ng-src="img/related_person_image.png"])) {
-                flex-direction: row;
-            }
+        }
+
+        md-card-header:not(:has(img[ng-src="img/related_person_image.png"])) {
+            flex-direction: row;
         }
 
         md-card-avatar {
             display: block;
+            margin-right: 20px;
 
             &:has(img[ng-src="img/related_person_image.png"]) {
                 display: none;
             }
-        }
 
-        .question-mark-popup-cont {
-            margin-top: -28px;
-            margin-left: 5px;
+            .question-mark-popup-cont {
+                margin-top: -28px;
+                margin-left: 5px;
 
-            prm-icon {
-                color: $accent-color;
-                background-color: white;
-                border-radius: 20px;
-                width: 20px;
-                height: 20px;
-                display: inline-block;
-                padding: 2px 1px 1px 2px;
+                prm-icon {
+                    color: $accent-color;
+                    background-color: white;
+                    border-radius: 20px;
+                    width: 20px;
+                    height: 20px;
+                    display: inline-block;
+                    padding: 2px 1px 1px 2px;
 
-                md-icon {
-                    padding: 0;
+                    md-icon {
+                        padding: 0;
+                    }
                 }
             }
         }
