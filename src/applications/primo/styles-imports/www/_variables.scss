@@ -1,6 +1,6 @@
 //// VARIABLES
 // UQ colours 2025 from Design System https://design-system.uq.edu.au/?path=/docs/core-colour--docs
-// also note brand document: https://marketing-communication.uq.edu.au/files/7573/Brand_Guidelines.pdf
+// also note brand document: https://marketing-communication.uq.edu.au/files/7573/Brand_Guidelines.pdf (around page 42)
 
 // Fonts family
 $serif: Roboto, Helvetica, Arial, sans-serif;
@@ -18,6 +18,8 @@ $uqWarning50: #fef8e8;
 $uqWarning500: #f7ba1e;
 $uqWarning600: #e1aa1d;
 $uqSuccess500: #4aa74e;
+
+$uqOrange: #EB602B; // from brand document, secondary colours
 
 $uqBodyCopy: $uqGrey900;
 $uqHeading: $uqBlack;
@@ -224,7 +226,7 @@ $personalization: $accent-color;
 $peer-reviewed-color: #8359d4;
 
 // Open Access
-$open-access-color: $red;
+$open-access-color: $uqOrange;
 
 // Angular Material
 //-----------------
