@@ -974,7 +974,7 @@ prm-advanced-search {
 
     input[placeholder="Enter a search term"]::placeholder,
     input[type="text"]::placeholder {
-        color: $uqGrey900;
+        color: $uqBodyCopy;
         font-weight: 400 !important;
     }
     input[type="text"]:-internal-autofill-selected {

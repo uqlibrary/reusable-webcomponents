@@ -5,7 +5,7 @@ prm-locations {
         &:not([disabled]):focus,
         &:not([disabled]):hover {
             color: $accent-color;
-            background-color: $uqGrey50;
+            background-color: $uqPanelBackgroundColor;
         }
     }
     .disable-prefilter-button {

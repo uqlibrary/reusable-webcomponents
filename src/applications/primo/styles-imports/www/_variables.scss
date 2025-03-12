@@ -8,7 +8,7 @@ $serif: Roboto, Helvetica, Arial, sans-serif;
 // from Design System
 $uqPurple500: #51247a;
 $uqPurple100: #dcd3e4;
-$uqGrey300: #dcdcdd; // border colour
+$uqGrey200: #dcdcdd; // border colour
 $uqGrey50: #f3f3f4; // Background colour to highlight sections, cards or panes
 $uqGrey900: #3b383e; // body copy
 $uqBlack: #19151c; // heading colour
@@ -18,6 +18,11 @@ $uqWarning50: #fef8e8;
 $uqWarning500: #f7ba1e;
 $uqWarning600: #e1aa1d;
 $uqSuccess500: #4aa74e;
+
+$uqBodyCopy: $uqGrey900;
+$uqHeading: $uqBlack;
+$uqPanelBackgroundColor: $uqGrey50;
+$uqBorderColor: $uqGrey200;
 
 // colours for "highlighting", not defined by Design System
 $highlightPrimary: #c13e2a;
@@ -119,8 +124,6 @@ $background-hue3: lighten(
     saturate(adjust-hue($backgroundColor, 0), 0),
     5.8824
 ); // lighter 2 (i.e: background for actions forms)
-
-$heading-color: $uqBlack;
 
 $background-hue4: lighten($background, 3%);
 $background-hue5: transparentize($background, 0.5);

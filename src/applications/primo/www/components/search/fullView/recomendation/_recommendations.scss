@@ -76,8 +76,8 @@ primo-explore {
     }
     &:has(md-backdrop) {
         prm-recomendation-item {
-            // on a white background, drop a hari linebox
-            border: 1px solid $uqGrey300;
+            // on a white background, drop a hair-width line
+            border: 1px solid $uqBorderColor;
         }
     }
 }
