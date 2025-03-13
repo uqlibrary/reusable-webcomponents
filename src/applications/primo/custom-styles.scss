@@ -2668,7 +2668,9 @@ button.button-with-icon.button-confirm {
 }
 
 prm-search-result-journal-indication-line {
-    .layout-row-followup {
-        padding-top: 6px;
+    // if a layout row child has any content indicators in it and is followed by a followup row that has some contents,
+    // then put a gap between them
+    .layout-row:has(prm-icon):not(.layout-row-followup):has(~ .layout-row-followup svg) {
+        padding-bottom: 6px;
     }
 }
