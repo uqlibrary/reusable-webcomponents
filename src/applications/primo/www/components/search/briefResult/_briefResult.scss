@@ -6,7 +6,7 @@ prm-brief-result {
     .item-title {
         // font-size: 1.18em;
         // line-height: 1.2em;
-        color: $titles;
+        color: $uqBlack;
         max-width: 85%;
         margin: 7px 0 7px 0;
         margin: 0;
@@ -30,7 +30,7 @@ prm-brief-result {
         }
         span {
             //make sure spans gets the color from here and not from the wrapping link (specificity)
-            color: $titles;
+            color: $uqBlack;
         }
     }
 

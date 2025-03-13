@@ -57,7 +57,6 @@ $accent-color: $uqPurple500; // was uqblue #2377cb
 
 $almostBlack: #777;
 
-$titles: $accent-color;
 $frbr: #ed9100;
 $pink: rgb(255, 171, 200);
 
@@ -192,8 +191,7 @@ $moreLink: $links;
 
 $selectedItem: saturate(lighten($midGrey, 53%), 40%);
 
-$citationTitle: rgb(68, 112, 123);
-// $citationTitle: $titles;
+$citationTitle: $uqHeading;
 
 // chips
 $chipTouchHeight: 28px;
