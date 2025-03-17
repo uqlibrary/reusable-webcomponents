@@ -76,4 +76,7 @@ prm-search-result-availability-line {
             transform: rotate(90deg) scale(1) translateY(0);
         }
     }
+    button {
+        @include uqSpannedTertiaryButton($white, $accent-color);
+    }
 }
