@@ -3,18 +3,16 @@
 }
 prm-search-result-availability-line {
     line-height: 1.2em;
-    display: block;
+    display: flex;
+    text-align: center;
+    justify-content: flex-start;
     &:before {
-        content: '';
-        display: block;
-        height: 0.5em;
-        width: 100%;
+        content: none;
     }
 
     [availability-type] {
         color: transparentize($dark, 0.6);
         flex-shrink: 0;
-        // margin-right: .35em;
 
         @include rtl-prop(margin-right, margin-left, 0.35em, 0);
 
@@ -76,7 +74,8 @@ prm-search-result-availability-line {
             transform: rotate(90deg) scale(1) translateY(0);
         }
     }
-    button {
+    button span {
         @include uqSpannedTertiaryButton($white, $accent-color);
+        background-color: transparent !important;
     }
 }

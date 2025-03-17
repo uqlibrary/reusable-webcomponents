@@ -147,6 +147,28 @@ prm-brief-result-container {
             // border-color: $dark;
         }
     }
+    .availability-button {
+        display: inline-block;
+        cursor: pointer;
+        font-weight: 500;
+        & > span {
+            @include uqSpannedTertiaryButton($white, $accent-color);
+            text-decoration: underline;
+            &:hover:not([disabled]) {
+                background-color: #51247a !important;
+            }
+        }
+        prm-icon {
+            width: 15px;
+            height: 21px;
+            margin-right: .35em;
+            color: rgba(59,56,62,0.4);
+            line-height: 1.2em;
+            md-icon {
+                @include setSize(15px);
+            }
+        }
+    }
 }
 
 .list-item-wrapper {
