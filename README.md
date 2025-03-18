@@ -1,6 +1,6 @@
 # UQ Library Reusable Web Components
 
-These reusable webcomponents provides header and footer to multiple systems.
+These reusable webcomponents provides header, footer and other elements to multiple systems.
 
 The 'applications/' folder allows us to version control changes to the scripts we use to insert code into 3rd party systems - see [the applications readme](applications/readme.md) for a summary.
 
@@ -32,10 +32,10 @@ ln -sf "../../scripts/pre-commit" ".git/hooks/pre-commit"
   ln -sf "../../scripts/prepare-commit-msg" ".git/hooks/prepare-commit-msg"
 ```
 
-4. In the root folder of fez-frontend install the required npm modules:
+4. In the root folder this package install the required npm modules:
 
 ```sh
-npm install
+npm ci
 ```
 
 ## Branches / Environments

@@ -1,7 +1,6 @@
 const path = require('path');
 const fs = require('fs');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const ReplaceInFileWebpackPlugin = require('replace-in-file-webpack-plugin');
 const webpack = require('webpack');
@@ -103,18 +102,6 @@ module.exports = () => {
                         },
                     ],
                 },
-            ],
-        },
-        optimization: {
-            minimize: true,
-            minimizer: [
-                new TerserPlugin({
-                    terserOptions: {
-                        compress: {
-                            drop_console: process.env.NODE_ENV === 'production',
-                        },
-                    },
-                }),
             ],
         },
         plugins: [
