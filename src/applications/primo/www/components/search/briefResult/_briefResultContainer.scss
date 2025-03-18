@@ -151,6 +151,7 @@ prm-brief-result-container {
         display: inline-block;
         cursor: pointer;
         font-weight: 500;
+        padding-block: 9px;
         & > span {
             @include uqSpannedTertiaryButton($white, $accent-color);
             text-decoration: underline;
