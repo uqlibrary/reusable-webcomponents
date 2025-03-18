@@ -20,4 +20,7 @@ prm-full-view-service-container {
             }
         }
     }
+    button.without-direct-linking prm-icon {
+        display: none;
+    }
 }
