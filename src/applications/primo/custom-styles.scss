@@ -2547,8 +2547,28 @@ prm-person-entity-page {
             }
         }
     }
-    .question-mark-popup-cont prm-icon {
-        color: $accent-color;
+    .question-mark-popup-cont {
+        button.md-button.neutralized-button {
+            background-color: $white;
+            color: $accent-color;
+            border-radius: 20px;
+            padding: 2px;
+            width: 20px;
+            &:focus,
+            &:hover {
+                background-color: $white;
+                color:$accent-color;
+            }
+        }
+        prm-icon {
+            color: currentColor;
+        }
+    }
+    .person-avatar {
+        flex-direction: row-reverse;
+    }
+    .avatar-img {
+        margin-left: -35px;
     }
 }
 
