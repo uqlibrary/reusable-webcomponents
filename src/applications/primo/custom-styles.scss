@@ -2679,3 +2679,13 @@ prm-search-result-journal-indication-line {
         padding-bottom: 6px;
     }
 }
+
+// style the mouseover on the content indicators
+.md-panel-outer-wrapper .md-panel-inner-wrapper md-tooltip {
+    max-width: 500px;
+    height: auto !important;
+    text-wrap-mode: wrap;
+    line-height: 1.2rem;
+    padding: 0.5rem;
+    font-size: 1rem;
+}
