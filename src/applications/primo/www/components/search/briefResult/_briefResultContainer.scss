@@ -11,6 +11,11 @@ prm-brief-result-container {
     width: 100%;
     position: relative;
 
+    // if it has an action item area with a link or citation button, then we must be on a brief result page that links
+    &:has(.result-item-actions > button[data-custom-button="action"]):hover {
+        cursor: pointer;
+    }
+
     //// when we have CA or CRL custom indicator on the first Brief result, it lacks space at the top
     //// (because we have to add a row to hold our indicators, and they have hardcoded the height of the block :(
     //// (if they add more built in indicators, we will have to add another Not here)
@@ -229,9 +234,6 @@ prm-brief-result-container {
                     padding: 10px;
                 }
             }
-        }
-        &>.md-icon-button:focus:not([disabled]) {
-            border: 2px solid $uqUtility500;
         }
 
         .pin-button {
