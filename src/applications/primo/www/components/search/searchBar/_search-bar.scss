@@ -926,8 +926,10 @@ prm-search-bar {
     button.md-button.button-notice:has(span[translate="link.title.search.clear"]):not([disabled]) {
         @include uqTertiaryButton($white, $accent-color);
     }
+     form prm-autocomplete input:focus-visible {
+        border: 1px solid $accent-color; // override default focus state
+    }
 }
-
 prm-advanced-search {
     @extend .layout-full-width;
     fieldset {
