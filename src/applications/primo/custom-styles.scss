@@ -593,6 +593,7 @@ prm-search-result-list
     .md-primoExplore-theme {
         color: $highlightPrimary !important;
     }
+    &:focus,
     &:hover {
         background-color: $highlightPrimary;
         .md-primoExplore-theme {

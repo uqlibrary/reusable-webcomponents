@@ -340,14 +340,9 @@ prm-brief-result-container {
         md-icon {
             @include setSize(20px);
         }
-        &:hover,
-        &:focus {
-            &:not([disabled]) {
-                box-shadow: none;
-                background-color: transparent !important;
-                color: $dark !important;
-            }
-        }
+    }
+    &>.md-icon-button:focus:not([disabled]) {
+        border: 2px solid $uqUtility500;
     }
 
     .pin-button {
