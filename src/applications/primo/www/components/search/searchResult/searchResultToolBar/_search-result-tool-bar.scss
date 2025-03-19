@@ -229,6 +229,11 @@ prm-search-result-tool-bar {
             }
         }
     }
+    prm-action-list {
+        &> div button:has([translate="nui.aria.fulldisplay.closeButton.short"]) {
+            @include uqPrimaryButton($accent-color, $white);
+        }
+    }
 }
 
 // make the option to change the number of results per page at the top of the brief results more obvious
