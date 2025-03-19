@@ -587,27 +587,6 @@ prm-search-result-list
         }
     }
 }
-.citation-trails-brief {
-    border-radius: 50%;
-    padding: 8px;
-    .md-primoExplore-theme {
-        color: $highlightPrimary !important;
-    }
-    &:focus,
-    &:hover {
-        background-color: $highlightPrimary;
-        .md-primoExplore-theme {
-            background-color: $highlightPrimary;
-            color: #fff !important;
-            transition: all .4s ease-out;
-        }
-        prm-icon {
-            background-color: $highlightPrimary;
-            border-radius: 50%;
-            padding: 10px;
-        }
-    }
-}
 
 // only show the report a problem button once
 div > getit-link-service {
