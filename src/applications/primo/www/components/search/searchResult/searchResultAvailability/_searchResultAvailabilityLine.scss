@@ -3,9 +3,6 @@
 }
 prm-search-result-availability-line {
     line-height: 1.2em;
-    display: flex;
-    text-align: center;
-    justify-content: flex-start;
     &:before {
         content: none;
     }
