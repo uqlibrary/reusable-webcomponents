@@ -70,9 +70,9 @@ prm-brief-result-container {
             @include rtl-prop(padding-left, padding-right, 3em, auto);
         }
         md-checkbox {
-            position: absolute;
-            top: 0.95em;
-            @include rtl-prop(left, right, 0.8em, 0);
+            .md-container {
+                top: 35%;
+            }
         }
     }
 
