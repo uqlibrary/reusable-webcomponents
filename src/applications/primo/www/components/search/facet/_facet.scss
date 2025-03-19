@@ -69,6 +69,15 @@ prm-facet {
     .bottom-fixed-toolbar > * {
         transform: translateZ(0);
     }
+
+    // highlight the "Sort by" entry when not the default
+    div:has(> prm-search-result-sort-by):not(:has(md-select-value [translate="results.sortby.option.rank"])) {
+        div,
+        h3 {
+            color: #51247a !important;
+            font-weight: bold;
+        }
+    }
 }
 
 .sidebar {
