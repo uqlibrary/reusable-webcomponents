@@ -231,7 +231,7 @@ prm-search-result-tool-bar {
     }
     prm-export-all,
     prm-action-list {
-        &> div button:has([translate="nui.aria.fulldisplay.closeButton.short"]) {
+        &> div button.md-button:not([disabled]):has([translate="nui.aria.fulldisplay.closeButton.short"]) {
             @include uqPrimaryButton($accent-color, $white);
         }
     }
