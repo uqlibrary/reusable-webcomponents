@@ -2688,7 +2688,11 @@ prm-search-result-journal-indication-line {
     max-width: 500px;
     height: auto !important;
     text-wrap-mode: wrap;
-    line-height: 1.2rem;
+    line-height: 1.6;
     padding: 0.5rem;
-    font-size: 1rem;
+    font-size: 0.9rem;
+    font-weight: 400;
+    background-color: $uqWarning50;
+    color: $uqGrey900;
+    border: 1px solid $uqBorderColor;
 }
