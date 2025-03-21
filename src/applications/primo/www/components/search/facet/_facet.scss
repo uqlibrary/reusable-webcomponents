@@ -230,8 +230,18 @@ prm-facet {
                 line-height: 1.75em;
                 cursor: pointer;
                 padding: 0 0.25em;
-                border-radius: $radius;
-                @include bgColor($dark);
+                border-radius: unset;
+                color: $uqBodyCopy;
+                &:hover,
+                &:focus,
+                &.hovered,
+                &.md-focused,
+                &._md-focused {
+                    &:not([disabled]) {
+                        color: unset;
+                        background-color: unset;
+                    }
+                }
                 @include rtl-prop(margin-right, margin-left, 0.2em, 0);
 
                 .__xs & {

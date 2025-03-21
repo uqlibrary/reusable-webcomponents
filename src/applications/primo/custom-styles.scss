@@ -1,6 +1,3 @@
-$accent-color-half-opacity: rgba(81, 36, 122, 0.1);
-$background-grey: #5f5f5f;
-
 /* cyrillic-ext */
 @font-face {
     font-family: 'Roboto';
@@ -549,7 +546,19 @@ md-checkbox {
         &:focus,
         &:hover {
             &:not([disabled]) {
-                background-color: $background-grey;
+                span {
+                    background-color: $accent-color;
+                    color: $white;
+                    span.manual-count {
+                        background-color: $uqPanelBackgroundColor !important;
+                        color: $uqBodyCopy;
+                        display: inline-block;
+                    }
+                }
+                &> span:nth-child(2) { // Content Type facet group has a different structure!!!
+                    background-color: $uqPanelBackgroundColor;
+                    color: $uqBodyCopy;
+                }
             }
         }
     }
@@ -748,7 +757,7 @@ prm-add-alert-toast md-toast .md-toast-content .md-button {
     &:focus,
     &:hover {
         &:not([disabled]) {
-            background: $background-grey;
+            background: $uqPanelBackgroundColor;
         }
     }
 }
