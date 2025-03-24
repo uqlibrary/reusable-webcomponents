@@ -1668,10 +1668,15 @@ prm-main-menu .my-feedback-ctm {
 .readingListCitations {
     ul {
         padding-left: 0;
-    }
-    ul li {
-        padding-bottom: 0.4rem;
-        list-style: none;
+        li {
+            padding-bottom: 0.4rem;
+            list-style: none;
+            a {
+                prm-icon {
+                    margin-left: 3px;
+                }
+            }
+        }
     }
 }
 .result-item-text > .customIndicator .indicatorIcon {
