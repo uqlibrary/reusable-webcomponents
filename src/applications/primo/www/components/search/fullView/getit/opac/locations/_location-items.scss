@@ -59,6 +59,7 @@ prm-location-items {
                 &:focus,
                 &:hover {
                     &:not([disabled]) {
+                        color: $white;
                         background-color: $accent-color;
                     }
                 }
