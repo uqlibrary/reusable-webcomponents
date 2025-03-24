@@ -79,6 +79,9 @@
 *:focus-visible {
     border: 2px solid $uqUtility500;
 }
+prm-advanced-search *:focus-visible {
+    border: none;
+}
 
 button, button.md-button, a, a.md-button {
     transition: color 200ms ease-out, background-color 200ms ease-out;

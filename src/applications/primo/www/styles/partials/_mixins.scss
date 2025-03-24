@@ -341,9 +341,12 @@ $__xs-portrait: 479px;
     span {
         text-decoration: underline;
     }
-    &:hover:not([disabled]) {
-        background-color: $reverseColor !important;
-        color: $baseColor !important;
+    &:focus-visible,
+    &:hover {
+        &:not([disabled]) {
+            background-color: $reverseColor !important;
+            color: $baseColor !important;
+        }
     }
 }
 // a tertiary button that has a span within it
@@ -353,11 +356,17 @@ $__xs-portrait: 479px;
     span {
         text-decoration: underline;
     }
-    &:hover:not([disabled]) {
-        background-color: transparent !important;
+    &:focus,
+    &:hover {
+        &:not([disabled]) {
+            background-color: transparent !important;
+        }
     }
-    &:hover:not([disabled]) span {
-        background-color: $reverseColor !important;
-        color: $baseColor !important;
+    &:focus-visible,
+    &:hover {
+        &:not([disabled]) span {
+            background-color: $reverseColor !important;
+            color: $baseColor !important;
+        }
     }
 }
