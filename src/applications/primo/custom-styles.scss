@@ -2139,13 +2139,12 @@ body prm-full-view-service-container {
             & [layout="row"] > div:first-of-type > div:first-of-type  {
                 display: flex;
                 gap: 20px;
-                margin-left: -20px;
                 margin-right: 40px;
                 width: 400px;
             }
-            & [layout="row"] > div:first-of-type > div:nth-of-type(2) > div:first-of-type {
-                //column 3
-                width: 100%;
+            & [layout="row"] > div:first-of-type > div:nth-of-type(2) {
+                //column 2
+                min-width: 6em;
             }
         }
     }
