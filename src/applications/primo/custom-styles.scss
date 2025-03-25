@@ -545,6 +545,10 @@ md-checkbox {
         }
     }
     strong.facet-title.layout-align-end-stretch.layout-row {
+        display: inline;
+        span {
+            display: inline;
+        }
         &:active,
         &:focus,
         &:hover {
