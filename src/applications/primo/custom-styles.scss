@@ -79,6 +79,9 @@
 *:focus-visible {
     border: 2px solid $uqUtility500;
 }
+* {
+    font-style: normal;
+}
 prm-advanced-search *:focus-visible {
     border: none;
 }
