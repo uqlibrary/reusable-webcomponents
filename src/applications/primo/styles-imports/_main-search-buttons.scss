@@ -25,7 +25,9 @@ prm-search-bar {
     }
 }
 
-.md-button[aria-label='Search']:not([disabled]),
-.md-button.button-confirm:not([disabled]) {
-    @include uqPrimaryButton($accent-color, rgb(243, 243, 243));
+prm-advanced-search {
+    .md-button[aria-label='Search']:not([disabled]),
+    .md-button.button-confirm:not([disabled]) {
+        @include uqPrimaryButton($accent-color, rgb(243, 243, 243));
+    }
 }
