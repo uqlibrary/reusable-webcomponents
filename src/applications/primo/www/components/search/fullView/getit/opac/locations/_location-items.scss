@@ -67,7 +67,7 @@ prm-location-items {
         }
     }
 
-    .location-item {
-        //white-space: normal!important;
+    prm-location-holdings .summary-brief-header {
+        min-width: 0;
     }
 }
