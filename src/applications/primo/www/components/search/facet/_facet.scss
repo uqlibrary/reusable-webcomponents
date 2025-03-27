@@ -74,7 +74,7 @@ prm-facet {
     div:has(> prm-search-result-sort-by):not(:has(md-select-value [translate="results.sortby.option.rank"])) {
         div,
         h3 {
-            color: #51247a !important;
+            color: $accent-color !important;
             font-weight: bold;
         }
     }

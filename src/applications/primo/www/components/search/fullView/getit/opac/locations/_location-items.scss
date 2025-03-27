@@ -19,6 +19,11 @@ prm-location-items {
         @extend %text-trim-ellipsis;
         white-space: normal;
     }
+    button[aria-label="Expand items"] prm-icon md-icon,
+    button prm-icon[aria-label="Filtering options"] md-icon {
+        color: $accent-color !important;
+    }
+
 
     md-list {
         @extend .default-shadow;

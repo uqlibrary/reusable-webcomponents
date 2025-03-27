@@ -154,7 +154,7 @@ prm-brief-result-container {
             @include uqSpannedTertiaryButton($white, $accent-color);
             text-decoration: underline;
             &:hover:not([disabled]) {
-                background-color: #51247a !important;
+                background-color: $accent-color !important;
             }
         }
         prm-icon {
