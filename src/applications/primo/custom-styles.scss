@@ -533,28 +533,29 @@ md-checkbox {
             }
         }
     }
-    strong.facet-title.layout-align-end-stretch.layout-row {
-        display: inline;
-        span {
-            display: inline;
-        }
-        &:active,
-        &:focus,
-        &:hover {
-            &:not([disabled]) {
-                span {
-                    background-color: $accent-color;
-                    color: $white;
-                    span.manual-count {
-                        background-color: $uqPanelBackgroundColor !important;
+    div:has(> strong.facet-title.layout-align-end-stretch.layout-row) {
+        strong {
+            &:active,
+            &:focus,
+            &:hover {
+                &:not([disabled]) {
+                    span {
+                        background-color: $accent-color;
+                        color: $white;
+                    }
+                    &> span:nth-child(2) { // Content Type facet group has a different structure!!!
+                        background-color: $uqPanelBackgroundColor;
                         color: $uqBodyCopy;
-                        display: inline-block;
                     }
                 }
-                &> span:nth-child(2) { // Content Type facet group has a different structure!!!
-                    background-color: $uqPanelBackgroundColor;
-                    color: $uqBodyCopy;
-                }
+            }
+        }
+        span {
+            &.manual-count {
+                color: $uqBodyCopy;
+            }
+            &.manual-count-wrapper {
+                margin-left: -4px;
             }
         }
     }
