@@ -2518,8 +2518,13 @@ prm-person-entity-page {
     .person-full-view-inner-container {
         background-color: $white;
     }
-    .person-full-view-cont .person-header h2 span {
-        color: $accent-color;
+    .person-full-view-cont {
+        .person-header h2 span {
+            color: $accent-color;
+        }
+        .image-person-cont:has([src="img/related_person_image.png"]) {
+            display: none;
+        }
     }
     prm-featured-results {
         button.horizontal-content-control.md-button:not([disabled]) {
