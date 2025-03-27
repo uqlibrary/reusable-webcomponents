@@ -226,7 +226,7 @@ prm-search-bookmark-filter {
     }
 }
 prm-search-bookmark-filter {
-    button.md-button.md-icon-button {
+    button.md-button.md-icon-button[aria-label="Scan QR code or copy link"] {
         width: 72px;
         margin-right: 10px;
         &:hover {
@@ -252,6 +252,7 @@ prm-search-bookmark-filter {
             border-radius: 20px;
         }
         &:hover {
+            background-color: transparent !important;
             box-shadow: none;
             md-icon {
                 box-shadow: $accent-color 0px -2px 0px 0px inset;
