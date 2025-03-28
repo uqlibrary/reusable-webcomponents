@@ -2713,3 +2713,20 @@ prm-search-result-journal-indication-line {
     color: $uqGrey900;
     border: 1px solid $uqBorderColor;
 }
+
+md-dialog.light-on-dark-dialog {
+    background-color: $white;
+    color: $uqBodyCopy;
+
+    md-input-container label {
+        color: $uqBodyCopy !important;
+    }
+
+    button.button-confirm {
+        @include uqPrimaryButton($accent-color, $white);
+    }
+    button:not(.button-confirm)
+    {
+        @include uqTertiaryButton($white, $accent-color);
+    }
+}
