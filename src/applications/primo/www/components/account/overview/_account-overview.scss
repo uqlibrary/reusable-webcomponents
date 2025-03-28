@@ -5,6 +5,10 @@
 /* starting account */
 
 prm-account-overview {
+    .md-list-item-text.md-list-item-with-checkbox.layout-wrap.layout-row.flex>div:has(> div.title-row) {
+        padding-left: 2.5rem;
+    }
+
     .tiles-grid {
         .__xs & {
             padding: 0.5em;
