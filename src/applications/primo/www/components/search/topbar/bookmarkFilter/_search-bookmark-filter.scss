@@ -82,7 +82,7 @@ prm-search-bookmark-filter {
         color: #333;
     }
 
-    a.md-button.md-icon-button[aria-label="Go to Favourites"]#favorites-button {
+    a.md-button.md-icon-button#favorites-button {
         &:before {
             content: '';
             background-color: rgba(81, 36, 122, 0.4); // accent color with opacity to let the label show through
@@ -226,7 +226,7 @@ prm-search-bookmark-filter {
     }
 }
 prm-search-bookmark-filter {
-    button.md-button.md-icon-button[aria-label="Scan QR code or copy link"] {
+    button.md-button.md-icon-button#qrCodeScanner {
         width: 72px;
         margin-right: 10px;
         &:hover {
@@ -241,7 +241,7 @@ prm-search-bookmark-filter {
             padding: 8px;
         }
     }
-    a.md-button.md-icon-button[aria-label="Go to Favourites"] {
+    a.md-button.md-icon-button#favorites-button {
         width: 120px;
         margin-right: 10px;
         md-icon {
