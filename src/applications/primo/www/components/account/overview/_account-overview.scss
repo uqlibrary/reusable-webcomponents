@@ -9,6 +9,13 @@ prm-account-overview {
         padding-left: 2.5rem;
     }
 
+    prm-icon.prm-negative,
+    prm-icon.prm-notice,
+    prm-icon.prm-warn {
+        color: $highlightPrimary;
+        padding-left: 1px;
+    }
+
     .tiles-grid {
         .__xs & {
             padding: 0.5em;
