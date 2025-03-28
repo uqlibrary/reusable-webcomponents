@@ -24,6 +24,15 @@
     }
 }
 
+prm-action-list {
+    button.button-confirm.button-large.md-button,
+    button.button-confirm.button-with-icon.md-button {
+        @include uqPrimaryButton($accent-color, $white);
+        span {
+            font-size: 14px;
+        }
+    }
+}
 prm-action-list,
 .saved-query-list {
     > md-nav-bar {
