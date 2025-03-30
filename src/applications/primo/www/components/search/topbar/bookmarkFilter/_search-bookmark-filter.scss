@@ -226,7 +226,7 @@ prm-search-bookmark-filter {
     }
 }
 prm-search-bookmark-filter {
-    button.md-button.md-icon-button#qrCodeScanner {
+    button.md-button.md-icon-button { // QR Code button
         width: 72px;
         margin-right: 10px;
         &:hover {
@@ -240,8 +240,11 @@ prm-search-bookmark-filter {
             border-radius: 20px;
             padding: 8px;
         }
+        span + span {
+            display: none; // if we manage to add two, hide subsequent
+        }
     }
-    a.md-button.md-icon-button#favorites-button {
+    a.md-button.md-icon-button { // favorites button
         width: 120px;
         margin-right: 10px;
         md-icon {
@@ -262,6 +265,9 @@ prm-search-bookmark-filter {
         span {
             padding-left: 2px;
             text-transform: none;
+        }
+        span + span {
+            display: none; // if we manage to add two, hide subsequent
         }
     }
 }
