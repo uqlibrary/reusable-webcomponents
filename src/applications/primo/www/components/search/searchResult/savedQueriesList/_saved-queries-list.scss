@@ -126,6 +126,9 @@ prm-saved-queries-list {
             position: static;
         }
     }
+    .result-item-actions button.md-icon-button.md-button prm-icon {
+        color: $accent-color;
+    }
 }
 
 .saved-query-list-2-line {
