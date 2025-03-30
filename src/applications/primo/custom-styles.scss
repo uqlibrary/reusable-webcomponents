@@ -2025,7 +2025,7 @@ button.md-button.md-primary[aria-label="Log out"]:hover:not([disabled]) {
 }
 
 // restyle the breadcrumb bar
-prm-topbar div.top-nav-bar {
+prm-explore-main .header prm-topbar div.top-nav-bar.mergeup {
     background-color: white;
 }
 prm-topbar prm-user-area-expandable {
