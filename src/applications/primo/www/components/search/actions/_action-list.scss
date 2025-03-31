@@ -25,11 +25,16 @@
 }
 
 prm-action-list {
-    button.button-confirm.button-large.md-button,
-    button.button-confirm.button-with-icon.md-button {
-        @include uqPrimaryButton($accent-color, $white);
-        span {
-            font-size: 14px;
+    button.button-confirm.md-button {
+        &.button-large,
+        &.button-with-icon {
+            @include uqPrimaryButton($accent-color, $white);
+            padding-top: 0;
+            padding-bottom: 0;
+
+            span {
+                font-size: 14px;
+            }
         }
     }
 }
