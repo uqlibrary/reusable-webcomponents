@@ -87,11 +87,21 @@ prm-gallery-collection .collection-folder {
 // Collection display array for individual record
 // Issue: for both display View options of grid or gallery, the colour is Ex Libris OTB aqua colour for whichever one is selected - change to UQ colour
 prm-collection-discovery-view-switcher .md-button {
-    &.is-active:focus:not([disabled]),
-    &.is-active:hover:not([disabled]),
+    background-color: $uqPanelBackgroundColor !important;
+    color: $uqSecondaryNeutral !important;
+    &:focus,
+    &:hover {
+        background-color:  $white !important;
+        color: $accent-color !important;
+    }
     &.is-active-add,
     &.is-active {
-        color: $accent-color;
+        color: $accent-color !important;
+        &:focus,
+        &:hover {
+            background-color:  $accent-color !important;
+            color: $white !important;
+        }
     }
 }
 
