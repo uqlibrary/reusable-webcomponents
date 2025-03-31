@@ -56,13 +56,8 @@ prm-request {
                 margin-top: -60px; // line up with reset button on desktop
             }
 
-            & button.button-confirm:hover:not([disabled]) {
-                color: $accent-color !important;
-                background-color: #fff !important;
-
-                & svg {
-                    color: $accent-color;
-                }
+            & button.button-confirm {
+                @include uqPrimaryButton($accent-color, $white);
             }
         }
     }
