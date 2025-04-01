@@ -17,6 +17,8 @@ prm-atoz-search-bar {
         }
         .submit-button {
             padding: 0 1em;
+            color: $accent-color;
+            background-color: $white;
 
             md-icon {
                 @include setSize(34px);
