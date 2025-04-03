@@ -167,6 +167,9 @@ prm-brief-result-container {
                 @include setSize(15px);
             }
         }
+        prm-icon[icon-definition="open-in-new"] { // hide outlink icon
+            display: none
+        }
     }
 
     .result-item-actions {
