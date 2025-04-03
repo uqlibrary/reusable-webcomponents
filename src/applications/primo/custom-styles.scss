@@ -1345,21 +1345,12 @@ prm-personal-info prm-change-lang {
     md-menu-item.uql-account-menu-option.favourites {
         margin-left: 10px;
     }
-    .my-search-history-ctm .primaryText,
-    //.my-search-history-ctm .subtext,
-    .my-search-history-ctm button {
-        background-color: inherit;
-        color: #fff;
-    }
-
-    .my-search-history-ctm svg {
-        fill: #fff;
-    }
 
     prm-library-card-menu span,
     .my-search-history-ctm span {
         text-transform: initial;
-        color: #fff;
+        color: $uqHeading;
+        font-weight: 400;
     }
 
     prm-library-card-menu {
@@ -1377,9 +1368,6 @@ prm-personal-info prm-change-lang {
             margin-left: 10px;
             text-align: left;
         }
-        .primaryText {
-            color: white;
-        }
         button {
             display: flex;
         }
@@ -1388,6 +1376,14 @@ prm-personal-info prm-change-lang {
     prm-authentication {
         margin-top: -15px;
         margin-bottom: -10px;
+        button {
+            font-weight: 400;
+            & span[translate="eshelf.signout.title.link"] {
+                color: $uqHeading !important;
+                text-decoration: none !important;
+                text-transform: capitalize;
+            }
+        }
     }
 }
 
@@ -1528,15 +1524,6 @@ md-menu-item.uql-account-menu-option button {
     button {
         margin-left: 10px;
         background-color: inherit;
-
-        .primaryText {
-            background-color: inherit;
-            color: #fff;
-        }
-
-        svg {
-            fill: #fff;
-        }
     }
 }
 md-menu-item.mobile-loggedout-feedback-item {
@@ -1545,16 +1532,7 @@ md-menu-item.mobile-loggedout-feedback-item {
         display: flex;
         align-items: center;
         margin-top: 0;
-
-        .textwrapper span {
-            color: #fff;
-        }
-    }
-
-    svg.mobile-loggedout-feedback-item {
-        width: 45px;
-        fill: #fff;
-        margin-left: 20px;
+        margin-left: -4px;
     }
 }
 // hide the ripple on the account menu
@@ -2714,9 +2692,13 @@ prm-search-result-journal-indication-line {
     border: 1px solid $uqBorderColor;
 }
 
-md-dialog.light-on-dark-dialog {
+md-dialog.light-on-dark-dialog.tabbed-dialog {
     background-color: $white;
     color: $uqBodyCopy;
+
+    svg {
+        width: 24px;
+    }
 
     md-input-container label {
         color: $uqBodyCopy !important;
@@ -2728,5 +2710,7 @@ md-dialog.light-on-dark-dialog {
     button:not(.button-confirm)
     {
         @include uqTertiaryButton($white, $accent-color);
+        border-width: 0;
+        display: flex;
     }
 }
