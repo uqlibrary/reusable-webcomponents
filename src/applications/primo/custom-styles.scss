@@ -2714,3 +2714,8 @@ md-dialog.light-on-dark-dialog.tabbed-dialog {
         display: flex;
     }
 }
+
+// because we override the avaailability line, lets hide it so it doesnt flicker
+#searchResultsContainer prm-search-result-availability-line {
+    display: none;
+}
