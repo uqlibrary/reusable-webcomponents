@@ -85,6 +85,9 @@
 prm-advanced-search *:focus-visible {
     border: none;
 }
+a:has(prm-icon[external-link]) { // all links with an outlink icon should have an underline
+    text-decoration: underline;
+}
 
 button, button.md-button, a, a.md-button {
     transition: color 200ms ease-out, background-color 200ms ease-out;
