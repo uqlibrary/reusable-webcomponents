@@ -2714,3 +2714,15 @@ md-dialog.light-on-dark-dialog.tabbed-dialog {
         display: flex;
     }
 }
+
+// because we override the availability line, lets hide it so it doesnt flicker
+prm-brief-result-container:has(span[translate="mediatype.journal"]),
+prm-brief-result-container:has(span[translate="mediatype.journals"]),
+prm-brief-result-container:has(span[translate="mediatype.newspaper"]),
+prm-brief-result-container:has(span[translate="mediatype.newspapers"]),
+prm-brief-result-container:has(span[translate="mediatype.magazine"]),
+prm-brief-result-container:has(span[translate="mediatype.magazines"]) {
+    prm-search-result-availability-line {
+        display: none;
+    }
+}
