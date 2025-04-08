@@ -85,6 +85,9 @@
 prm-advanced-search *:focus-visible {
     border: none;
 }
+a:has(prm-icon[external-link]) { // all links with an outlink icon should have an underline
+    text-decoration: underline;
+}
 
 button, button.md-button, a, a.md-button {
     transition: color 200ms ease-out, background-color 200ms ease-out;
@@ -1056,9 +1059,6 @@ prm-search-result-availability-line button {
         }
         color: #555555 !important;
     }
-}
-prm-snippet.availability-button span span span {
-    text-decoration: underline;
 }
 
 prm-alphabet-toolbar {
@@ -2718,14 +2718,16 @@ md-dialog.light-on-dark-dialog.tabbed-dialog {
     }
 }
 
-// because we override the availability line, lets hide it so it doesnt flicker
-prm-brief-result-container:has(span[translate="mediatype.journal"]),
-prm-brief-result-container:has(span[translate="mediatype.journals"]),
-prm-brief-result-container:has(span[translate="mediatype.newspaper"]),
-prm-brief-result-container:has(span[translate="mediatype.newspapers"]),
-prm-brief-result-container:has(span[translate="mediatype.magazine"]),
-prm-brief-result-container:has(span[translate="mediatype.magazines"]) {
-    prm-search-result-availability-line {
-        display: none;
+// because we override the availability line in certain types on brief results, lets hide it there, so it doesnt flicker
+body:not(:has(.full-view-container)) {
+    prm-brief-result-container:has(span[translate="mediatype.journal"]),
+    prm-brief-result-container:has(span[translate="mediatype.journals"]),
+    prm-brief-result-container:has(span[translate="mediatype.newspaper"]),
+    prm-brief-result-container:has(span[translate="mediatype.newspapers"]),
+    prm-brief-result-container:has(span[translate="mediatype.magazine"]),
+    prm-brief-result-container:has(span[translate="mediatype.magazines"]) {
+        prm-search-result-availability-line {
+            display: none;
+        }
     }
 }
