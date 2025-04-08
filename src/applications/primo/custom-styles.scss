@@ -2731,3 +2731,8 @@ body:not(:has(.full-view-container)) {
         }
     }
 }
+
+// if we manage to write the feedback menu item into the menu, hide it
+.md-open-menu-container.md-active:has(#desktop-loggedin-feedback-item) #loggedout-desktop-feedback {
+    display: none;
+}
