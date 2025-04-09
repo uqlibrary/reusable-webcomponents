@@ -15,7 +15,7 @@ template.innerHTML = `
     <style>${culturalcss}</style>
     <div class="culturaladvice">
             <div class="layout-card">
-                <p data-testid="cultural-advice-statement">
+                <p data-analyticsid="cultural-advice-statement" data-testid="cultural-advice-statement">
                     The Library is custodian of <a href="${linkToDrupal(
                         '/find-and-borrow/collections-overview/using-culturally-sensitive-collections',
                     )}">culturally sensitive Aboriginal and Torres Strait Islander materials</a>.
@@ -32,7 +32,6 @@ class CulturalAdvice extends HTMLElement {
 
         // Render the template
         shadowDOM.appendChild(template.content.cloneNode(true));
-        //this.updateCADom(shadowDOM);
     }
 }
 
