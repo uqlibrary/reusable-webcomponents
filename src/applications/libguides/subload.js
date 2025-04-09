@@ -52,11 +52,9 @@ if (!isInEditMode2()) {
     moveSpringshareBreadcrumbsToSiteHeader();
 }
 
-if (!isInEditMode2()) {
-    if (!document.querySelector('proactive-chat')) {
-        const proactiveChat = document.createElement('proactive-chat');
-        !!proactiveChat && document.body.insertBefore(proactiveChat, firstElement);
-    }
+if (!document.querySelector('proactive-chat:not([display="inline"])')) {
+    const proactiveChat = document.createElement('proactive-chat');
+    !!proactiveChat && document.body.insertBefore(proactiveChat, firstElement);
 }
 
 if (!document.querySelector('alert-list')) {
@@ -81,7 +79,7 @@ function moveSpringshareBreadcrumbsToSiteHeader() {
 
             const breadcrumbNav = document.getElementById('s-lib-bc');
             const listItems = !!breadcrumbNav && breadcrumbNav.querySelectorAll('ol li');
-            const breadcrumbParent = siteHeaderShadowRoot.getElementById('breadcrumb_nav');
+            const breadcrumbParent = !!siteHeaderShadowRoot && siteHeaderShadowRoot.getElementById('breadcrumb_nav');
             !!listItems &&
                 listItems.forEach((item) => {
                     const anchor = item.querySelector('a');

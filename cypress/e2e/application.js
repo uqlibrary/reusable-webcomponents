@@ -165,6 +165,7 @@ describe('Dummy Application', () => {
 
             hasNoAuthButton();
             hasNoProactiveChat();
+            hasCulturalAdviceBanner();
 
             hasAnAlert();
 
@@ -277,8 +278,18 @@ describe('Dummy Application', () => {
 
             hasUqSiteHeader();
 
+            // the breadcrumbs are moved from the springshare location into our uq-site-header
+            const nav = cy
+                .get('uq-site-header')
+                .shadow()
+                .find('[data-testid="breadcrumb_nav"]')
+                .should('exist')
+                .children()
+                .should('have.length', 5);
+
             proactiveChatLoadsAsIcon();
             hasNoAuthButton();
+            hasCulturalAdviceBanner();
 
             hasAnAlert();
 

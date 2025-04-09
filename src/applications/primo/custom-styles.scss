@@ -316,7 +316,16 @@ prm-user-area-expandable .md-button.user-button .menu-arrow {
 }
 
 // Button hover styling
-.md-button:not([disabled]) {
+.md-button:not([disabled]):not(:has(span.primaryText):not([aria-label="Choose top 50 results"]))._md-focused,
+.md-button:not([disabled]):not(:has(span.primaryText):not([aria-label="Choose top 50 results"])).hovered,
+.md-button:not([disabled]):not(:has(span.primaryText):not([aria-label="Choose top 50 results"])).md-focused,
+.md-button:not([disabled]):not(:has(span.primaryText):not([aria-label="Choose top 50 results"])):focus,
+.md-button:not([disabled]):not(:has(span.primaryText):not([aria-label="Choose top 50 results"])):hover {
+        color: #000;
+        background-color: rgba(51, 51, 51, 0.1);
+
+}
+.md-button:not([disabled]):has(span.primaryText) {
     &:hover {
         background-color: transparent;
         span.primaryText {
@@ -326,6 +335,8 @@ prm-user-area-expandable .md-button.user-button .menu-arrow {
         }
     }
 }
+
+// account menu controls
 md-menu-item button.md-button svg:nth-of-type(n+2) {
     display: none;
 }
@@ -2051,4 +2062,16 @@ button.md-button.md-primary[aria-label="Sign out"]:hover:not([disabled]) {
 .prm-user-menu-content {
     padding-top: 20px;
     min-width: 250px !important;
+}
+
+// the hover on the logged in button extends just a little bit
+prm-topbar prm-user-area-expandable {
+    md-menu {
+        margin-top: 10px !important;
+        margin-bottom: 10px !important;
+    }
+    .button-with-menu-arrow:hover .menu-arrow:hover:not([disabled]) {
+        background-color: white;
+        color: black;
+    }
 }
