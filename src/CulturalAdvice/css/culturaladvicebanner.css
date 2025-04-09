@@ -5,7 +5,7 @@
 
 .culturaladvice p {
     color: #fff;
-    font-family: Roboto;
+    font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -19,7 +19,7 @@
 
 .culturaladvice a {
     color: white;
-    font-family: Roboto;
+    font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 16px;
     font-style: normal;
     font-weight: 500;
