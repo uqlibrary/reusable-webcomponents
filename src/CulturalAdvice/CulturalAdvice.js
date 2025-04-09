@@ -32,7 +32,49 @@ class CulturalAdvice extends HTMLElement {
 
         // Render the template
         shadowDOM.appendChild(template.content.cloneNode(true));
-        //this.updateCADom(shadowDOM);
+
+        this.addButtonListeners(shadowDOM);
+    }
+
+    addButtonListeners(shadowDOM) {
+        const that = this;
+
+        const CAlink = shadowDOM.querySelector('p#cultural-advice-statement a');
+        !!CAlink &&
+            CAlink.addEventListener('click', function (e) {
+                console.log('CulturalAdvice CA click');
+                that.sendSubmitToGTM(e); // submit the GTM info, then carry on to the normal href navigation
+            });
+    }
+
+    /**
+     * Events aren't sending properly to GTM, so we force them manually here
+     * @param e
+     */
+    sendSubmitToGTM(e) {
+        window.dataLayer = window.dataLayer || []; // for tests
+        console.log('CulturalAdvice sendSubmitToGTM: e');
+        console.log(e);
+        console.log('CulturalAdvice sendSubmitToGTM: window.dataLayer');
+        console.log(window);
+        console.log(window.dataLayer);
+
+        // the user has clicked a link that we have attached a click handler to
+        const gtmItems = {
+            event: 'gtm.linkClick',
+            custom_event: {
+                element: e?.target?.innerHTML,
+                elementId: e?.target?.id || '',
+                elementClasses: e?.className || '',
+                elementUrl: e?.href || e?.action || '',
+                elementTarget: e?.target || '',
+                originalEvent: e,
+                inShadowDom: true,
+            },
+        };
+        console.log('### shadowdom send');
+        console.log(gtmItems);
+        window.dataLayer.push(gtmItems);
     }
 }
 

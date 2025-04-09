@@ -389,11 +389,6 @@ class SearchPortal extends HTMLElement {
             !!formObject.target &&
             !!formObject.target.id &&
             formObject.target.id === 'primo-search-form';
-        const userHasClickedCulturalAdviceLink =
-            !!formObject &&
-            !!formObject.target &&
-            !!formObject.target.id &&
-            formObject.target.id === 'cultural-advice-statement-link';
         const userHasClickedFooterLink =
             !!formObject &&
             !!formObject.target &&
@@ -407,7 +402,7 @@ class SearchPortal extends HTMLElement {
                 'gtm.element.elements.primo-search-autocomplete.value': userSearchTerm,
                 'gtm.element.elements.primo-search-select-input.value': portaltype,
             };
-        } /* istanbul ignore next */ else if (userHasClickedFooterLink || userHasClickedCulturalAdviceLink) {
+        } /* istanbul ignore next */ else if (userHasClickedFooterLink) {
             // the user has clicked a link that we have attached a click handler to
             const linkLabel = !!formObject && !!formObject.target && formObject.target.innerHTML;
             gtmItems = {
