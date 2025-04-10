@@ -29,7 +29,7 @@ categoryTemplate.innerHTML = `
                 </div>
             </div>
             <div class="uq-card__actions">
-                <button class="uq-button uq-button--secondary is-more" data-testid="training-events-toggle-full-list">Show more</button>
+                <button class="uq-button uq-button--secondary is-more" data-testid="training-events-toggle-full-list" data-analyticsid="training-event-detail-showmore">Show more</button>
             </div>
         </div>
     </div>

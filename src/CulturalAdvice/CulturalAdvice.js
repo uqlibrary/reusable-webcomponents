@@ -33,69 +33,69 @@ class CulturalAdvice extends HTMLElement {
         // Render the template
         shadowDOM.appendChild(template.content.cloneNode(true));
 
-        this.addButtonListeners(shadowDOM);
+        // this.addButtonListeners(shadowDOM);
     }
 
-    addButtonListeners(shadowDOM) {
-        console.log('addButtonListeners');
-        const that = this;
+    // addButtonListeners(shadowDOM) {
+    //     console.log('addButtonListeners');
+    //     const that = this;
+    //
+    //     const CAlink = shadowDOM.querySelector('p a');
+    //
+    //     console.log('addButtonListeners', CAlink);
+    //     !!CAlink &&
+    //         CAlink.addEventListener('click', function (e) {
+    //             console.log('CulturalAdvice CA click');
+    //             that.sendSubmitToGTM(e); // submit the GTM info, then carry on to the normal href navigation
+    //         });
+    // }
 
-        const CAlink = shadowDOM.querySelector('p a');
-
-        console.log('addButtonListeners', CAlink);
-        !!CAlink &&
-            CAlink.addEventListener('click', function (e) {
-                console.log('CulturalAdvice CA click');
-                that.sendSubmitToGTM(e); // submit the GTM info, then carry on to the normal href navigation
-            });
-    }
-
-    /**
-     * Events aren't sending properly to GTM, so we force them manually here
-     * @param e
-     */
-    sendSubmitToGTM(e) {
-        window.dataLayer = window.dataLayer || []; // for tests
-        console.log('CulturalAdvice sendSubmitToGTM: e');
-        console.log(e);
-        console.log('CulturalAdvice sendSubmitToGTM: window.dataLayer');
-        console.log(window);
-        console.log(window.dataLayer);
-        console.log('e.target');
-        console.log(e.target);
-
-        const wrappingLink = e.target.closest('a');
-        console.log('wrappingLink');
-        console.log(wrappingLink);
-        console.log('wrappingLink id');
-        console.log(wrappingLink?.id);
-        console.log('wrappingLink DA');
-        console.log(wrappingLink?.getAttribute('data-analyticsid'));
-
-        const closestElementDA = e.target.closest('[data-analyticsid]');
-        console.log('closestElement DA');
-        console.log(closestElementDA?.getAttribute('data-analyticsid'));
-        console.log('wrappingLink closest id');
-        console.log(wrappingLink?.closest('[id]')?.id);
-
-        // const gtmItems = {
-        //     event: 'gtm.linkClick',
-        //     'gtm.elementId':
-        //         wrappingLink?.getAttribute('data-analyticsid') ||
-        //         wrappingLink?.id ||
-        //         closestElementDA?.getAttribute('data-analyticsid') ||
-        //         wrappingLink?.closest('[id]')?.id,
-        //     'gtm.id':
-        //         wrappingLink?.getAttribute('data-analyticsid') ||
-        //         wrappingLink?.id ||
-        //         closestElementDA?.getAttribute('data-analyticsid') ||
-        //         wrappingLink?.closest('[id]')?.id,
-        //     'gtm.element': !!e && !!e.target && e.target.innerHTML,
-        // };
-        // console.log(gtmItems);
-        // window.dataLayer.push(gtmItems);
-        // console.log('### shadowdom sent');
-    }
+    // /**
+    //  * Events aren't sending properly to GTM, so we force them manually here
+    //  * @param e
+    //  */
+    // sendSubmitToGTM(e) {
+    //     window.dataLayer = window.dataLayer || []; // for tests
+    //     console.log('CulturalAdvice sendSubmitToGTM: e');
+    //     console.log(e);
+    //     console.log('CulturalAdvice sendSubmitToGTM: window.dataLayer');
+    //     console.log(window);
+    //     console.log(window.dataLayer);
+    //     console.log('e.target');
+    //     console.log(e.target);
+    //
+    //     const wrappingLink = e.target.closest('a');
+    //     console.log('wrappingLink');
+    //     console.log(wrappingLink);
+    //     console.log('wrappingLink id');
+    //     console.log(wrappingLink?.id);
+    //     console.log('wrappingLink DA');
+    //     console.log(wrappingLink?.getAttribute('data-analyticsid'));
+    //
+    //     const closestElementDA = e.target.closest('[data-analyticsid]');
+    //     console.log('closestElement DA');
+    //     console.log(closestElementDA?.getAttribute('data-analyticsid'));
+    //     console.log('wrappingLink closest id');
+    //     console.log(wrappingLink?.closest('[id]')?.id);
+    //
+    //     // const gtmItems = {
+    //     //     event: 'gtm.linkClick',
+    //     //     'gtm.elementId':
+    //     //         wrappingLink?.getAttribute('data-analyticsid') ||
+    //     //         wrappingLink?.id ||
+    //     //         closestElementDA?.getAttribute('data-analyticsid') ||
+    //     //         wrappingLink?.closest('[id]')?.id,
+    //     //     'gtm.id':
+    //     //         wrappingLink?.getAttribute('data-analyticsid') ||
+    //     //         wrappingLink?.id ||
+    //     //         closestElementDA?.getAttribute('data-analyticsid') ||
+    //     //         wrappingLink?.closest('[id]')?.id,
+    //     //     'gtm.element': !!e && !!e.target && e.target.innerHTML,
+    //     // };
+    //     // console.log(gtmItems);
+    //     // window.dataLayer.push(gtmItems);
+    //     // console.log('### shadowdom sent');
+    // }
 }
 
 export default CulturalAdvice;
