@@ -62,7 +62,8 @@ class CulturalAdvice extends HTMLElement {
         // the user has clicked a link that we have attached a click handler to
         const gtmItems = {
             event: 'gtm.linkClick',
-            'gtm.elementId': e.target.id,
+            'gtm.elementId': e.target['data-analyticsid'] || e.target.id || e.target.closest('[id]').id,
+            'gtm.id': e.target['data-analyticsid'] || e.target.id || e.target.closest('[id]').id,
             'gtm.element': !!e && !!e.target && e.target.innerHTML,
         };
         console.log('### shadowdom send');
