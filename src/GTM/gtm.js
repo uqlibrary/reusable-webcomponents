@@ -16,17 +16,14 @@ template.innerHTML = `
 let hasInserted = false;
 class gtm extends HTMLElement {
     constructor() {
-        console.log('uq-gtm created');
         super();
         this.loadJS = this.loadJS.bind(this);
         const gtmId = this.getAttribute('gtm');
-        console.log('uq-gtm', gtmId);
         if (!!gtmId) {
             this.loadJS(gtmId);
         }
     }
     loadJS(gtmId) {
-        console.log('uq-gtm', gtmId);
         if (!!gtmId && !hasInserted) {
             hasInserted = true;
             const gtmElement = template.content.getElementById('gtm');
