@@ -78,6 +78,7 @@ function addSkipNavLandingPoint(siteNameId) {
         return;
     }
     sitenameAnchor.id = siteNameId;
+    !!sitenameAnchor && sitenameAnchor.setAttribute('data-analytics', siteNameId);
     sitenameAnchor.href = '#';
     pageHeading.parentElement.insertBefore(sitenameAnchor, pageHeading);
 }
