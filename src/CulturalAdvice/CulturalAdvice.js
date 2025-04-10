@@ -78,23 +78,23 @@ class CulturalAdvice extends HTMLElement {
         console.log('wrappingLink closest id');
         console.log(wrappingLink?.closest('[id]')?.id);
 
-        const gtmItems = {
-            event: 'gtm.linkClick',
-            'gtm.elementId':
-                wrappingLink?.getAttribute('data-analyticsid') ||
-                wrappingLink?.id ||
-                closestElementDA?.getAttribute('data-analyticsid') ||
-                wrappingLink?.closest('[id]')?.id,
-            'gtm.id':
-                wrappingLink?.getAttribute('data-analyticsid') ||
-                wrappingLink?.id ||
-                closestElementDA?.getAttribute('data-analyticsid') ||
-                wrappingLink?.closest('[id]')?.id,
-            'gtm.element': !!e && !!e.target && e.target.innerHTML,
-        };
-        console.log(gtmItems);
-        window.dataLayer.push(gtmItems);
-        console.log('### shadowdom sent');
+        // const gtmItems = {
+        //     event: 'gtm.linkClick',
+        //     'gtm.elementId':
+        //         wrappingLink?.getAttribute('data-analyticsid') ||
+        //         wrappingLink?.id ||
+        //         closestElementDA?.getAttribute('data-analyticsid') ||
+        //         wrappingLink?.closest('[id]')?.id,
+        //     'gtm.id':
+        //         wrappingLink?.getAttribute('data-analyticsid') ||
+        //         wrappingLink?.id ||
+        //         closestElementDA?.getAttribute('data-analyticsid') ||
+        //         wrappingLink?.closest('[id]')?.id,
+        //     'gtm.element': !!e && !!e.target && e.target.innerHTML,
+        // };
+        // console.log(gtmItems);
+        // window.dataLayer.push(gtmItems);
+        // console.log('### shadowdom sent');
     }
 }
 
