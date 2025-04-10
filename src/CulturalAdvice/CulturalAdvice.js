@@ -33,7 +33,7 @@ class CulturalAdvice extends HTMLElement {
         // Render the template
         shadowDOM.appendChild(template.content.cloneNode(true));
 
-        // this.addButtonListeners(shadowDOM);
+        this.addButtonListeners(shadowDOM);
     }
 
     addButtonListeners(shadowDOM) {
@@ -62,15 +62,8 @@ class CulturalAdvice extends HTMLElement {
         // the user has clicked a link that we have attached a click handler to
         const gtmItems = {
             event: 'gtm.linkClick',
-            custom_event: {
-                element: e?.target?.innerHTML,
-                elementId: e?.target?.id || '',
-                elementClasses: e?.className || '',
-                elementUrl: e?.href || e?.action || '',
-                elementTarget: e?.target || '',
-                originalEvent: e,
-                inShadowDom: true,
-            },
+            'gtm.elementId': e.target.id,
+            'gtm.element': !!e && !!e.target && e.target.innerHTML,
         };
         console.log('### shadowdom send');
         console.log(gtmItems);
