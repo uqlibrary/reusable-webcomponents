@@ -16,7 +16,7 @@ template.innerHTML = `
           <img class="uq-footer__acknowledgement-flag" alt="Torres Strait Islander Flag" src="https://static.uq.net.au/v15/images/rap/torres-strait-islanders.svg">
           <span class="uq-footer__acknowledgement-text">
             UQ acknowledges the Traditional Owners and their custodianship of the lands on which UQ is situated. &mdash;
-            <a href="https://about.uq.edu.au/reconciliation" class="uq-footer__link">
+            <a href="https://about.uq.edu.au/reconciliation" data-analyticsid="uqfooter-reconciliation" class="uq-footer__link">
                 Reconciliation at UQ
             </a>
           </span>
@@ -29,13 +29,13 @@ template.innerHTML = `
                     <h2 class="uq-footer__navigation-title">Media</h2>
                     <ul class="uq-footer__navigation-list uq-footer__navigation-level-2">
                         <li class="uq-footer__navigation-item">
-                            <a href="https://www.uq.edu.au/news/contacts" class="uq-footer__navigation-link">Media team contacts</a>
+                            <a href="https://www.uq.edu.au/news/contacts" class="uq-footer__navigation-link" data-analyticsid="uqfooter-media-team-desktop">Media team contacts</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://researchers.uq.edu.au/uqexperts" class="uq-footer__navigation-link">Find a subject matter expert</a>
+                            <a href="https://researchers.uq.edu.au/uqexperts" class="uq-footer__navigation-link" data-analyticsid="uqfooter-media-expert-desktop">Find a subject matter expert</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://www.uq.edu.au/news/" class="uq-footer__navigation-link">UQ news</a>
+                            <a href="https://www.uq.edu.au/news/" class="uq-footer__navigation-link" data-analyticsid="uqfooter-media-news-desktop">UQ news</a>
                         </li>
                     </ul>
                 </li>
@@ -43,19 +43,19 @@ template.innerHTML = `
                     <h2 class="uq-footer__navigation-title">Working at UQ</h2>
                     <ul class="uq-footer__navigation-list uq-footer__navigation-level-2">
                         <li class="uq-footer__navigation-item">
-                            <a href="https://staff.uq.edu.au" class="uq-footer__navigation-link">Current staff</a>
+                            <a href="https://staff.uq.edu.au" class="uq-footer__navigation-link" data-analyticsid="uqfooter-working-current-desktop">Current staff</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://careers.uq.edu.au" class="uq-footer__navigation-link">Careers at UQ</a>
+                            <a href="https://careers.uq.edu.au" class="uq-footer__navigation-link" data-analyticsid="uqfooter-working-careers-desktop">Careers at UQ</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://about.uq.edu.au/strategic-plan" class="uq-footer__navigation-link">Strategic plan</a>
+                            <a href="https://about.uq.edu.au/strategic-plan" class="uq-footer__navigation-link" data-analyticsid="uqfooter-working-strategic-desktop">Strategic plan</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://staff.uq.edu.au/information-and-services/health-safety-wellbeing" class="uq-footer__navigation-link">Staff support</a>
+                            <a href="https://staff.uq.edu.au/information-and-services/health-safety-wellbeing" class="uq-footer__navigation-link" data-analyticsid="uqfooter-working-support-desktop">Staff support</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://staff.uq.edu.au/information-and-services/information-technology/it-support" class="uq-footer__navigation-link">IT support for staff</a>
+                            <a href="https://staff.uq.edu.au/information-and-services/information-technology/it-support" class="uq-footer__navigation-link" data-analyticsid="uqfooter-working-it-desktop">IT support for staff</a>
                         </li>
                     </ul>
                 </li>
@@ -63,19 +63,19 @@ template.innerHTML = `
                     <h2 class="uq-footer__navigation-title">Current students</h2>
                     <ul class="uq-footer__navigation-list uq-footer__navigation-level-2">
                         <li class="uq-footer__navigation-item">
-                            <a href="https://my.uq.edu.au" class="uq-footer__navigation-link">my.UQ</a>
+                            <a href="https://my.uq.edu.au" class="uq-footer__navigation-link" data-analyticsid="uqfooter-students-my-desktop">my.UQ</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://my.uq.edu.au/programs-courses" class="uq-footer__navigation-link">Programs and courses</a>
+                            <a href="https://my.uq.edu.au/programs-courses" class="uq-footer__navigation-link" data-analyticsid="uqfooter-students-courses-desktop">Programs and courses</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://www.uq.edu.au/events/calendar_view.php?category_id=16" class="uq-footer__navigation-link">Key dates</a>
+                            <a href="https://www.uq.edu.au/events/calendar_view.php?category_id=16" class="uq-footer__navigation-link" data-analyticsid="uqfooter-students-dates-desktop">Key dates</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://my.uq.edu.au/student-support" class="uq-footer__navigation-link">Student support</a>
+                            <a href="https://my.uq.edu.au/student-support" class="uq-footer__navigation-link" data-analyticsid="uqfooter-students-support-desktop">Student support</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://my.uq.edu.au/information-and-services/information-technology/student-it-support" class="uq-footer__navigation-link">IT support for students</a>
+                            <a href="https://my.uq.edu.au/information-and-services/information-technology/student-it-support" class="uq-footer__navigation-link" data-analyticsid="uqfooter-students-it-desktop">IT support for students</a>
                         </li>
                     </ul>
                 </li>
@@ -106,19 +106,19 @@ template.innerHTML = `
                     <h2 class="uq-footer__navigation-title">Contact</h2>
                     <ul class="uq-footer__navigation-list uq-footer__navigation-level-2">
                         <li class="uq-footer__navigation-item">
-                            <a href="https://contacts.uq.edu.au/contacts" class="uq-footer__navigation-link">Contact UQ</a>
+                            <a href="https://contacts.uq.edu.au/contacts" class="uq-footer__navigation-link" data-analyticsid="uqfooter-contact-uq-desktop">Contact UQ</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://www.uq.edu.au/complaints-appeals/" class="uq-footer__navigation-link">Make a complaint</a>
+                            <a href="https://www.uq.edu.au/complaints-appeals/" class="uq-footer__navigation-link" data-analyticsid="uqfooter-contact-complaint-desktop">Make a complaint</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://about.uq.edu.au/faculties-schools-institutes-centres" class="uq-footer__navigation-link">Faculties, schools, institutes and centres</a>
+                            <a href="https://about.uq.edu.au/faculties-schools-institutes-centres" class="uq-footer__navigation-link" data-analyticsid="uqfooter-contact-schools-desktop">Faculties, schools, institutes and centres</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://www.uq.edu.au/departments/" class="uq-footer__navigation-link">Divisions and departments</a>
+                            <a href="https://www.uq.edu.au/departments/" class="uq-footer__navigation-link" data-analyticsid="uqfooter-contact-divisions-desktop">Divisions and departments</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://campuses.uq.edu.au" class="uq-footer__navigation-link">Campuses, maps and transport</a>
+                            <a href="https://campuses.uq.edu.au" class="uq-footer__navigation-link" data-analyticsid="uqfooter-contact-campuses-desktop">Campuses, maps and transport</a>
                         </li>
                     </ul>
                 </li>
@@ -131,13 +131,13 @@ template.innerHTML = `
                     <button class="uq-accordion__toggle uq-footer__navigation-toggle" data-testid="button-menu-toggle-0" data-analyticsid="button-menu-toggle-0" id="button-menu-toggle-0">Media</button>
                     <ul class="uq-accordion__content uq-footer__navigation-list uq-footer__navigation-level-2" data-testid="mobile-child-list-0">
                         <li class="uq-footer__navigation-item">
-                            <a href="https://www.uq.edu.au/news/contacts" class="uq-footer__navigation-link">Media team contacts</a>
+                            <a href="https://www.uq.edu.au/news/contacts" class="uq-footer__navigation-link" data-analyticsid="uqfooter-media-team-mobile">Media team contacts</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://researchers.uq.edu.au/uqexperts" class="uq-footer__navigation-link">Find a subject matter expert</a>
+                            <a href="https://researchers.uq.edu.au/uqexperts" class="uq-footer__navigation-link" data-analyticsid="uqfooter-media-expert-mobile">Find a subject matter expert</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://www.uq.edu.au/news/" class="uq-footer__navigation-link">UQ news</a>
+                            <a href="https://www.uq.edu.au/news/" class="uq-footer__navigation-link" data-analyticsid="uqfooter-media-news-mobile">UQ news</a>
                         </li>
                     </ul>
                 </li>
@@ -145,19 +145,19 @@ template.innerHTML = `
                     <button class="uq-accordion__toggle uq-footer__navigation-toggle" data-testid="button-menu-toggle-1" data-analyticsid="button-menu-toggle-1" id="button-menu-toggle-1">Working at UQ</button>
                     <ul class="uq-accordion__content uq-footer__navigation-list uq-footer__navigation-level-2" data-testid="mobile-child-list-1">
                         <li class="uq-footer__navigation-item">
-                            <a href="https://staff.uq.edu.au" class="uq-footer__navigation-link">Current staff</a>
+                            <a href="https://staff.uq.edu.au" class="uq-footer__navigation-link" data-analyticsid="uqfooter-working-current-mobile">Current staff</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://careers.uq.edu.au" class="uq-footer__navigation-link">Careers at UQ</a>
+                            <a href="https://careers.uq.edu.au" class="uq-footer__navigation-link" data-analyticsid="uqfooter-working-careers-mobile">Careers at UQ</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://about.uq.edu.au/strategic-plan" class="uq-footer__navigation-link">Strategic plan</a>
+                            <a href="https://about.uq.edu.au/strategic-plan" class="uq-footer__navigation-link" data-analyticsid="uqfooter-working-strategic-mobile">Strategic plan</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://staff.uq.edu.au/information-and-services/health-safety-wellbeing" class="uq-footer__navigation-link">Staff support</a>
+                            <a href="https://staff.uq.edu.au/information-and-services/health-safety-wellbeing" class="uq-footer__navigation-link" data-analyticsid="uqfooter-working-support-mobile">Staff support</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://staff.uq.edu.au/information-and-services/information-technology/it-support" class="uq-footer__navigation-link">IT support for staff</a>
+                            <a href="https://staff.uq.edu.au/information-and-services/information-technology/it-support" class="uq-footer__navigation-link" data-analyticsid="uqfooter-working-it-mobile">IT support for staff</a>
                         </li>
                     </ul>
                 </li>
@@ -165,19 +165,19 @@ template.innerHTML = `
                     <button class="uq-accordion__toggle uq-footer__navigation-toggle" data-testid="button-menu-toggle-2" data-analyticsid="button-menu-toggle-2" id="button-menu-toggle-2">Current students</button>
                     <ul class="uq-accordion__content uq-footer__navigation-list uq-footer__navigation-level-2" data-testid="mobile-child-list-2">
                         <li class="uq-footer__navigation-item">
-                            <a href="https://my.uq.edu.au/" class="uq-footer__navigation-link">my.UQ</a>
+                            <a href="https://my.uq.edu.au/" class="uq-footer__navigation-link" data-analyticsid="uqfooter-students-my-mobile">my.UQ</a>
                             </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://my.uq.edu.au/programs-courses/" class="uq-footer__navigation-link">Programs and courses</a>
+                            <a href="https://my.uq.edu.au/programs-courses/" class="uq-footer__navigation-link" data-analyticsid="uqfooter-students-courses-mobile">Programs and courses</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://www.uq.edu.au/events/calendar_view.php?category_id=16" class="uq-footer__navigation-link">Key dates</a>
+                            <a href="https://www.uq.edu.au/events/calendar_view.php?category_id=16" class="uq-footer__navigation-link" data-analyticsid="uqfooter-students-dates-mobile">Key dates</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://my.uq.edu.au/student-support" class="uq-footer__navigation-link">Student support</a>
+                            <a href="https://my.uq.edu.au/student-support" class="uq-footer__navigation-link" data-analyticsid="uqfooter-students-support-mobile">Student support</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://my.uq.edu.au/information-and-services/information-technology/student-it-support" class="uq-footer__navigation-link">IT support for students</a>
+                            <a href="https://my.uq.edu.au/information-and-services/information-technology/student-it-support" class="uq-footer__navigation-link" data-analyticsid="uqfooter-students-it-mobile">IT support for students</a>
                         </li>
                     </ul>
                 </li>
@@ -208,19 +208,19 @@ template.innerHTML = `
                     <button class="uq-accordion__toggle uq-footer__navigation-toggle" data-testid="button-menu-toggle-4" data-analyticsid="button-menu-toggle-4" id="button-menu-toggle-4">Contact</button>
                     <ul class="uq-accordion__content uq-footer__navigation-list uq-footer__navigation-level-2" data-testid="mobile-child-list-4">
                         <li class="uq-footer__navigation-item">
-                            <a href="https://contacts.uq.edu.au/contacts" class="uq-footer__navigation-link">Contact UQ</a>
+                            <a href="https://contacts.uq.edu.au/contacts" class="uq-footer__navigation-link" data-analyticsid="uqfooter-contact-uq-mobile">Contact UQ</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://www.uq.edu.au/complaints-appeals/" class="uq-footer__navigation-link">Make a complaint</a>
+                            <a href="https://www.uq.edu.au/complaints-appeals/" class="uq-footer__navigation-link" data-analyticsid="uqfooter-contact-complaint-mobile">Make a complaint</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://about.uq.edu.au/faculties-schools-institutes-centres" class="uq-footer__navigation-link">Faculties, schools, institutes and centres</a>
+                            <a href="https://about.uq.edu.au/faculties-schools-institutes-centres" class="uq-footer__navigation-link" data-analyticsid="uqfooter-contact-schools-mobile">Faculties, schools, institutes and centres</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://www.uq.edu.au/departments/" class="uq-footer__navigation-link">Divisions and departments</a>
+                            <a href="https://www.uq.edu.au/departments/" class="uq-footer__navigation-link" data-analyticsid="uqfooter-contact-divisions-mobile">Divisions and departments</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://campuses.uq.edu.au" class="uq-footer__navigation-link">Campuses, maps and transport</a>
+                            <a href="https://campuses.uq.edu.au" class="uq-footer__navigation-link" data-analyticsid="uqfooter-contact-campuses-mobile">Campuses, maps and transport</a>
                         </li>
                     </ul>
                 </li>
@@ -230,11 +230,11 @@ template.innerHTML = `
         <div class="uq-footer__contact">
           <nav class="uq-footer__contact-item" aria-label="Social Media" data-gtm-category="Social share link">
             <ul class="uq-footer__footer-list uq-footer__contact-social">
-              <li class="uq-footer__footer-item"><a href="https://www.facebook.com/uniofqld" class="uq-footer__meta-icons--facebook uq-footer__meta-icons" aria-label="Facebook" data-gtm-label="Facebook"></a></li>
-              <li class="uq-footer__footer-item"><a href="https://www.linkedin.com/school/university-of-queensland" class="uq-footer__meta-icons--linkedin uq-footer__meta-icons" data-gtm-label="Linkedin" aria-label="Linkedin"></a></li>
-              <li class="uq-footer__footer-item"><a href="https://twitter.com/uq_news" class="uq-footer__meta-icons--twitter uq-footer__meta-icons" data-gtm-label="X" aria-label="X"></a></li>
-              <li class="uq-footer__footer-item"><a href="https://www.youtube.com/user/universityqueensland" class="uq-footer__meta-icons--youtube uq-footer__meta-icons" data-gtm-label="Youtube" aria-label="Youtube"></a></li>
-              <li class="uq-footer__footer-item"><a href="https://instagram.com/uniofqld" class="uq-footer__meta-icons--instagram uq-footer__meta-icons" data-gtm-label="Instagram" aria-label="Instagram"></a></li>
+              <li class="uq-footer__footer-item"><a href="https://www.facebook.com/uniofqld" class="uq-footer__meta-icons--facebook uq-footer__meta-icons" aria-label="Facebook" data-gtm-label="Facebook" data-analyticsid="uqfooter-facebook"></a></li>
+              <li class="uq-footer__footer-item"><a href="https://www.linkedin.com/school/university-of-queensland" class="uq-footer__meta-icons--linkedin uq-footer__meta-icons" data-gtm-label="Linkedin" aria-label="Linkedin" data-analyticsid="uqfooter-linkedin"></a></li>
+              <li class="uq-footer__footer-item"><a href="https://twitter.com/uq_news" class="uq-footer__meta-icons--twitter uq-footer__meta-icons" data-gtm-label="X" aria-label="X" data-analyticsid="uqfooter-twitter"></a></li>
+              <li class="uq-footer__footer-item"><a href="https://www.youtube.com/user/universityqueensland" class="uq-footer__meta-icons--youtube uq-footer__meta-icons" data-gtm-label="Youtube" aria-label="Youtube" data-analyticsid="uqfooter-youtube"></a></li>
+              <li class="uq-footer__footer-item"><a href="https://instagram.com/uniofqld" class="uq-footer__meta-icons--instagram uq-footer__meta-icons" data-gtm-label="Instagram" aria-label="Instagram" data-analyticsid="uqfooter-insta"></a></li>
             </ul>
           </nav>
 
@@ -244,24 +244,24 @@ template.innerHTML = `
             <li class="uq-footer__footer-item">&copy; The University of Queensland</li>
             <li class="uq-footer__footer-item"><abbr title="Australian Business Number">ABN</abbr>: 63 942 912 684 </li>
             <li class="uq-footer__footer-item"><abbr title="Commonwealth Register of Institutions and Courses for Overseas Students">CRICOS</abbr>: <a class="uq-footer__link" href="https://www.uq.edu.au/about/cricos-link" rel="external">00025B</a></li>
-            <li class="uq-footer__footer-item"><abbr title="Tertiary Education Quality and Standards Agency">TEQSA</abbr>: <a class="uq-footer__link" href="https://www.teqsa.gov.au/national-register/provider/university-queensland" rel="external" data-gtm-label="TEQSA PRV12080">PRV12080</a></li>
+            <li class="uq-footer__footer-item"><abbr title="Tertiary Education Quality and Standards Agency">TEQSA</abbr>: <a data-analyticsid="uqfooter-teqsa" class="uq-footer__link" href="https://www.teqsa.gov.au/national-register/provider/university-queensland" rel="external" data-gtm-label="TEQSA PRV12080">PRV12080</a></li>
           </ul>
         </nav>
         <nav class="uq-footer__footer" aria-label="Terms and conditions">
           <ul class="uq-footer__footer-list">
               <li class="uq-footer__footer-item">
-                  <a href="https://www.uq.edu.au/legal/website-terms-of-use/" class="uq-footer__link">Privacy and terms of use</a>
+                  <a href="https://www.uq.edu.au/legal/website-terms-of-use/" class="uq-footer__link" data-analyticsid="uqfooter-privacy">Privacy and terms of use</a>
               </li>
               <li class="uq-footer__footer-item">
-                <a href="https://uq.edu.au/accessibility/" class="uq-footer__link">Accessibility</a>
+                <a href="https://uq.edu.au/accessibility/" class="uq-footer__link" data-analyticsid="uqfooter-accessibility">Accessibility</a>
               </li>
               <li class="uq-footer__footer-item">
-                  <a href="https://governance-risk.uq.edu.au/rtip" class="uq-footer__link">Right to information</a>
+                  <a href="https://governance-risk.uq.edu.au/rtip" class="uq-footer__link" data-analyticsid="uqfooter-RIO">Right to information</a>
               </li>
               <li class="uq-footer__footer-menu__item">
                 <a href="https://my.uq.edu.au/feedback?r=${encodeURIComponent(
                     window.location.href,
-                )}" class="uq-footer__link">Feedback</a>
+                )}" class="uq-footer__link" data-analyticsid="uqfooter-feedback">Feedback</a>
               </li>
           </ul>
         </nav>

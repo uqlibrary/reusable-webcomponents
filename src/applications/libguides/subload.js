@@ -83,6 +83,7 @@ function moveSpringshareBreadcrumbsToSiteHeader() {
             !!listItems &&
                 listItems.forEach((item) => {
                     const anchor = item.querySelector('a');
+                    !!anchor && anchor.setAttribute('data-analytics', 'guide-breadcrumb');
                     const title = anchor ? anchor.textContent : item.textContent;
                     const href = anchor ? anchor.href : null;
                     if (isNotHomepage(href) && document.location.pathname !== '/') {

@@ -92,6 +92,7 @@ function loadReusableComponentsLibGuides() {
                 !!listItems &&
                     listItems.forEach((item) => {
                         const anchor = item.querySelector('a');
+                        !!anchor && anchor.setAttribute('data-analytics', 'libcal-breadcrumb');
                         const title = anchor ? anchor.textContent : item.textContent;
                         const href = anchor ? anchor.href : null;
                         if (!isLibraryHomepage(href)) {
