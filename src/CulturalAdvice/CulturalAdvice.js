@@ -15,7 +15,7 @@ template.innerHTML = `
     <style>${culturalcss}</style>
     <div class="culturaladvice">
             <div class="layout-card">
-                <p data-testid="cultural-advice-statement">
+                <p data-analyticsid="cultural-advice-statement" data-testid="cultural-advice-statement">
                     The Library is custodian of <a href="${linkToDrupal(
                         '/find-and-borrow/collections-overview/using-culturally-sensitive-collections',
                     )}">culturally sensitive Aboriginal and Torres Strait Islander materials</a>.
@@ -37,9 +37,12 @@ class CulturalAdvice extends HTMLElement {
     }
 
     addButtonListeners(shadowDOM) {
+        console.log('addButtonListeners');
         const that = this;
 
-        const CAlink = shadowDOM.querySelector('p#cultural-advice-statement a');
+        const CAlink = shadowDOM.querySelector('p a');
+
+        console.log('addButtonListeners', CAlink);
         !!CAlink &&
             CAlink.addEventListener('click', function (e) {
                 console.log('CulturalAdvice CA click');
@@ -58,17 +61,40 @@ class CulturalAdvice extends HTMLElement {
         console.log('CulturalAdvice sendSubmitToGTM: window.dataLayer');
         console.log(window);
         console.log(window.dataLayer);
+        console.log('e.target');
+        console.log(e.target);
 
-        // the user has clicked a link that we have attached a click handler to
+        const wrappingLink = e.target.closest('a');
+        console.log('wrappingLink');
+        console.log(wrappingLink);
+        console.log('wrappingLink id');
+        console.log(wrappingLink?.id);
+        console.log('wrappingLink DA');
+        console.log(wrappingLink?.getAttribute('data-analyticsid'));
+
+        const closestElementDA = e.target.closest('[data-analyticsid]');
+        console.log('closestElement DA');
+        console.log(closestElementDA?.getAttribute('data-analyticsid'));
+        console.log('wrappingLink closest id');
+        console.log(wrappingLink?.closest('[id]')?.id);
+
         const gtmItems = {
             event: 'gtm.linkClick',
-            'gtm.elementId': e.target['data-analyticsid'] || e.target.id || e.target.closest('[id]').id,
-            'gtm.id': e.target['data-analyticsid'] || e.target.id || e.target.closest('[id]').id,
+            'gtm.elementId':
+                wrappingLink?.getAttribute('data-analyticsid') ||
+                wrappingLink?.id ||
+                closestElementDA?.getAttribute('data-analyticsid') ||
+                wrappingLink?.closest('[id]')?.id,
+            'gtm.id':
+                wrappingLink?.getAttribute('data-analyticsid') ||
+                wrappingLink?.id ||
+                closestElementDA?.getAttribute('data-analyticsid') ||
+                wrappingLink?.closest('[id]')?.id,
             'gtm.element': !!e && !!e.target && e.target.innerHTML,
         };
-        console.log('### shadowdom send');
         console.log(gtmItems);
         window.dataLayer.push(gtmItems);
+        console.log('### shadowdom sent');
     }
 }
 
