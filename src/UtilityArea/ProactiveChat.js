@@ -105,6 +105,18 @@ const PROACTIVE_CHAT_HIDDEN_COOKIE_VALUE = 'hidden';
 let ShowChatBot = false;
 let ShowCrmChat = false;
 
+function timeStamp() {
+    // temp, for debugging
+    const currentTime = new Date();
+    return (
+        currentTime.getHours() +
+        ':' +
+        String(currentTime.getMinutes()).padStart(2, '0') +
+        ':' +
+        String(currentTime.getSeconds()).padStart(2, '0')
+    );
+}
+
 class ProactiveChat extends HTMLElement {
     static get observedAttributes() {
         return ['showchatbot', 'showcrmchat'];
@@ -152,7 +164,7 @@ class ProactiveChat extends HTMLElement {
 
         const awaitIframeConstructor = setInterval(() => {
             const crmIframe = document.querySelector('iframe#chatInlay');
-            console.log('awaitIframeConstructor=', awaitIframeConstructor);
+            console.log(timeStamp(), 'awaitIframeConstructor=', awaitIframeConstructor);
             if (!crmIframe) {
                 return;
             }
@@ -182,7 +194,7 @@ class ProactiveChat extends HTMLElement {
                     break;
                 /* istanbul ignore next  */
                 default:
-                    console.log(`unhandled attribute ${fieldName} received for ProactiveChat`);
+                    console.log(timeStamp(), `unhandled attribute ${fieldName} received for ProactiveChat`);
             }
             // Change the attribs here?
             const proactiveChatElement = that.shadowDOM.querySelector('#proactive-chat');
@@ -194,7 +206,7 @@ class ProactiveChat extends HTMLElement {
             }
 
             if (ShowCrmChat) {
-                console.log('auto click open of crm chat iframe');
+                console.log(timeStamp(), 'auto click open of crm chat iframe');
                 const button = that.shadowDOM.querySelector('#crmChatPrompt');
                 !!button && button.click();
             }
@@ -207,22 +219,22 @@ class ProactiveChat extends HTMLElement {
     }
 
     hideCrmChatIframe(crmIframe) {
-        console.log('hideCrmChatIframe (before)', crmIframe);
+        console.log(timeStamp(), 'hideCrmChatIframe (before)', crmIframe);
         if (!!crmIframe && !crmIframe.classList.contains('visually-hidden')) {
             crmIframe.classList.add('visually-hidden');
-            console.log('hideCrmChatIframe crm iframe - visually-hidden class added');
+            console.log(timeStamp(), 'hideCrmChatIframe crm iframe - visually-hidden class added');
         } else {
-            console.log('hideCrmChatIframe crm iframe already had visually-hidden class');
+            console.log(timeStamp(), 'hideCrmChatIframe crm iframe already had visually-hidden class');
         }
     }
 
     showCrmChatIframe(crmIframe) {
-        console.log('showCrmChatIframe');
+        console.log(timeStamp(), 'showCrmChatIframe');
         if (!!crmIframe && !!crmIframe.classList.contains('visually-hidden')) {
             crmIframe.classList.remove('visually-hidden');
-            console.log('showCrmChatIframe crm iframe - visually-hidden class removed');
+            console.log(timeStamp(), 'showCrmChatIframe crm iframe - visually-hidden class removed');
         } else {
-            console.log('showCrmChatIframe crm iframe did not have visually-hidden class');
+            console.log(timeStamp(), 'showCrmChatIframe crm iframe did not have visually-hidden class');
         }
     }
 
@@ -293,6 +305,7 @@ class ProactiveChat extends HTMLElement {
                     !isPrimoPage(window.location.hostname) &&
                     cookieNotFound(PROACTIVE_CHAT_HIDDEN_COOKIE_NAME, PROACTIVE_CHAT_HIDDEN_COOKIE_VALUE)
                 ) {
+                    console.log(timeStamp(), 'will show proactive in a bit');
                     setTimeout(
                         showProactiveChatWrapper,
                         (secondsTilProactiveChatAppears === 0 ? 0 : secondsTilProactiveChatAppears - 1) * 1000,
@@ -363,7 +376,7 @@ class ProactiveChat extends HTMLElement {
 
         function openCrmChatIframe() {
             // if (that.displayType === 'inline') {
-            //     console.log('inline detected');
+            //     console.log(timeStamp(), 'inline detected');
             //     const crmChatIframe = document.querySelectorAll('proactive-chat:not([display="inline"])');
             //     !!crmChatIframe &&
             //     crmChatIframe.length > 0 &&
@@ -515,29 +528,9 @@ class ProactiveChat extends HTMLElement {
     }
 
     watchHeightChangeInCrm() {
-        // // Function to handle height changes
-        // function checkIframeHeight() {
-        //         const crmIframe = document.querySelector('iframe#chatInlay');
-        //         // Get current height
-        //         const currentHeight = crmIframe.contentWindow.document.documentElement.scrollHeight ||
-        //             crmIframe.contentWindow.document.body.scrollHeight;
-        //         console.log('currentHeight=', currentHeight);
-        //
-        //         // Check if height is less than 50px
-        //         if (currentHeight < 50 && previousHeight !== currentHeight) {
-        //             console.log('Iframe height is now less than 50px:', currentHeight);
-        //             that.hideCrmChatIframe()
-        //         }
-        //
-        //         // Store current height for next comparison
-        //         previousHeight = currentHeight;
-        // }
-        //
-        // let previousHeight = null;
-
         const awaitCrmIframeBody = setInterval(() => {
             const crmIframe = document.querySelector('iframe#chatInlay');
-            console.log('awaitCrmIframeBody crmIframe=', crmIframe);
+            console.log(timeStamp(), 'awaitCrmIframeBody crmIframe=', crmIframe);
             if (!crmIframe) {
                 return;
             }
@@ -551,11 +544,11 @@ class ProactiveChat extends HTMLElement {
                 const currentHeight =
                     crmIframe.contentWindow.document.documentElement.scrollHeight ||
                     crmIframe.contentWindow.document.body.scrollHeight;
-                // console.log('currentHeight=', currentHeight);
+                // console.log(timeStamp(), 'currentHeight=', currentHeight);
 
                 // Check if height is less than 50px
                 if (currentHeight < 50 && previousHeight !== currentHeight) {
-                    console.log('Iframe height is now less than 50px:', currentHeight);
+                    console.log(timeStamp(), 'Iframe height is now less than 50px:', currentHeight);
                     this.hideCrmChatIframe(crmIframe);
                     // this.showProactiveChatPromptDialog();
                     // show the minimised buttons
@@ -618,7 +611,7 @@ class ProactiveChat extends HTMLElement {
 
     connectedCallback() {
         // when this method has fired, the shadow dom is available
-        console.log('connectedCallback');
+        console.log(timeStamp(), 'connectedCallback');
 
         let crmChatParams = [
             {
@@ -641,9 +634,9 @@ class ProactiveChat extends HTMLElement {
         // wait on the account to come from storage (or empty) so we know if we can supply details
         const api = new ApiAccess();
         let millisecondsWait = 1000; // first time longer to give storage time to change from logged out to logged in
-        console.log('0 millisecondsWait=', millisecondsWait);
+        console.log(timeStamp(), '0 millisecondsWait=', millisecondsWait);
         const waitOnStorage = setInterval(() => {
-            console.log('millisecondsWait=', millisecondsWait);
+            console.log(timeStamp(), 'millisecondsWait=', millisecondsWait);
             // sometimes it takes a moment before it is readable
             const currentUserDetails = api.getAccountFromStorage();
 
@@ -662,13 +655,13 @@ class ProactiveChat extends HTMLElement {
                 const emailIndex = crmChatParams.findIndex((param) => param.name === 'EMAIL');
                 crmChatParams[emailIndex].value = currentUserDetails.account.mail;
                 // crmChatParams[emailIndex].hidden = true;
-                console.log('accountAvailable waitOnStorage clone crmChatParams=', crmChatParams);
+                console.log(timeStamp(), 'accountAvailable waitOnStorage clone crmChatParams=', crmChatParams);
             } else if (
                 !!currentUserDetails &&
                 currentUserDetails.hasOwnProperty('status') &&
                 currentUserDetails.status === apiLocale.USER_LOGGED_OUT
             ) {
-                console.log('NOT accountAvailable waitOnStorage clone not logged in');
+                console.log(timeStamp(), 'NOT accountAvailable waitOnStorage clone not logged in');
                 clearInterval(waitOnStorage);
                 // use default "please fill in" settings
             }
@@ -679,7 +672,7 @@ class ProactiveChat extends HTMLElement {
 
             // TODO dont forget to give a dynamic location!!
             const stringedParams = JSON.stringify(crmChatParams);
-            console.log('clone stringedParams=', stringedParams);
+            console.log(timeStamp(), 'clone stringedParams=', stringedParams);
             crmchatIncludeTemplate.innerHTML = `<inlay-oracle-chat-embedded
                 id="chatInlay"
                 class="inlay"
@@ -695,12 +688,12 @@ class ProactiveChat extends HTMLElement {
 
             // attach crm inline chat to top level document root
             const clone = crmchatIncludeTemplate.content.cloneNode(true);
-            console.log('clone = ', clone);
-            console.log('clone window.document.body= ', window.document.body);
+            console.log(timeStamp(), 'clone = ', clone);
+            console.log(timeStamp(), 'clone window.document.body= ', window.document.body);
             window.document.body.appendChild(clone);
-            console.log('clone after');
+            console.log(timeStamp(), 'clone after');
             millisecondsWait = 200;
-            console.log('! millisecondsWait=', millisecondsWait);
+            console.log(timeStamp(), '! millisecondsWait=', millisecondsWait);
         }, millisecondsWait);
     }
 }
