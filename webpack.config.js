@@ -140,6 +140,7 @@ module.exports = () => {
                     { from: 'src/applications/shared/load.js', to: 'applications/shared/load.js' },
                     { from: 'src/applications/uqlapp/load.js', to: 'applications/uqlapp/load.js' },
 
+                    // provide a permanent file for ITS to have a source of truth for file contents. Inline CRM Chat on Proactive Chat calls this from a CRM domain (see data-oit-config-url) not our S3 :(
                     { from: 'src/UtilityArea/config/crmChat.json', to: 'applications/proactive/config.js' },
                 ],
             }),
