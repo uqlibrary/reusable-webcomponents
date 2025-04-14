@@ -52,11 +52,9 @@ if (!isInEditMode2()) {
     moveSpringshareBreadcrumbsToSiteHeader();
 }
 
-if (!isInEditMode2()) {
-    if (!document.querySelector('proactive-chat:not([display="inline"])')) {
-        const proactiveChat = document.createElement('proactive-chat');
-        !!proactiveChat && document.body.insertBefore(proactiveChat, firstElement);
-    }
+if (!document.querySelector('proactive-chat:not([display="inline"])')) {
+    const proactiveChat = document.createElement('proactive-chat');
+    !!proactiveChat && document.body.insertBefore(proactiveChat, firstElement);
 }
 
 if (!document.querySelector('alert-list')) {
