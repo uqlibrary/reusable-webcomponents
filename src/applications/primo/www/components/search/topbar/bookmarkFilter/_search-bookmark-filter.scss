@@ -215,7 +215,7 @@ prm-search-bookmark-filter {
     button.md-button.md-icon-button {
         border-radius: 0;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
 
         padding-inline: 4px;
         margin-inline: 0;
@@ -240,6 +240,9 @@ prm-search-bookmark-filter {
             border-radius: 20px;
             padding: 8px;
         }
+        span {
+            padding-left: 6px;
+        }
         span + span {
             display: none; // if we manage to add two, hide subsequent
         }
@@ -263,7 +266,7 @@ prm-search-bookmark-filter {
             }
         }
         span {
-            padding-left: 2px;
+            padding-left: 6px;
             text-transform: none;
         }
         span + span {
