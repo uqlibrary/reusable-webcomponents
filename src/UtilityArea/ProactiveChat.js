@@ -160,6 +160,7 @@ class ProactiveChat extends HTMLElement {
         this.watchHeightChangeInCrm();
 
         this.chatbotHasAppeared = false;
+        this.crmInlineChatHasAppeared = false;
         this.askUsStatus = null;
 
         const awaitIframeConstructor = setInterval(() => {
@@ -263,14 +264,14 @@ class ProactiveChat extends HTMLElement {
             return 'search.library.uq.edu.au' === hostname || regExp.test(hostname);
         };
         const showProactiveChat = () => {
-            if (!!this.chatbotHasAppeared) {
+            if (!!this.chatbotHasAppeared || this.crmInlineChatHasAppeared) {
                 return;
             }
             const proactiveChatElement = this.shadowDOM.querySelector('#proactive-chat');
             !!proactiveChatElement && proactiveChatElement.classList.add('show');
         };
         const showProactiveChatWrapper = () => {
-            if (!!this.chatbotHasAppeared) {
+            if (!!this.chatbotHasAppeared || this.crmInlineChatHasAppeared) {
                 return;
             }
             const wrapper = this.shadowDOM.querySelector('#proactive-chat-wrapper');
@@ -318,6 +319,7 @@ class ProactiveChat extends HTMLElement {
     showProactiveChatPromptDialog() {
         const proactivechatArea = this.shadowDOM.querySelector('#proactivechat');
         !!proactivechatArea && (proactivechatArea.style.display = 'block');
+        console.log(timeStamp(), 'showProactiveChatPromptDialog');
     }
 
     hideProactiveChatPromptDialog() {
@@ -375,6 +377,8 @@ class ProactiveChat extends HTMLElement {
         }
 
         function openCrmChatIframe() {
+            that.crmInlineChatHasAppeared = true;
+
             // if (that.displayType === 'inline') {
             //     console.log(timeStamp(), 'inline detected');
             //     const crmChatIframe = document.querySelectorAll('proactive-chat:not([display="inline"])');
