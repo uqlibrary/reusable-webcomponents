@@ -353,7 +353,7 @@ button.proactive-chat-button:focus {
     font-family: 'Roboto', sans-serif;
 }
 
-/* crm chat */
-/*iframe[data-oit-mode] {*/
-/*    display: none;*/
-/*}*/
+/* CRM inline chat */
+iframe#chatInlay {
+    border-radius: 4px; // per DS standard for buttons (and affects iframe too)
+}
