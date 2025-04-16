@@ -681,13 +681,13 @@ class ProactiveChat extends HTMLElement {
             const stringedParams = JSON.stringify(crmChatParams);
             console.log(timeStamp(), 'clone stringedParams=', stringedParams);
             // data-oit-config-url="https://assets.library.uq.edu.au/reusable-webcomponents-development/feature-leadegroot/applications/proactive/config.js"
-            // data-oit-theme-vars='{"brandColor": "#51247A"}'
+            // data-oit-config-url="https://${crmLocationScript}/euf/assets/themes/standard/library_config.js"
             crmchatIncludeTemplate.innerHTML = `<inlay-oracle-chat-embedded
                 id="chatInlay"
                 class="inlay"
                 site-url="${crmLocationEmbed}"
                 inlay-hidden="true"
-                data-oit-config-url="https://${crmLocationScript}/euf/assets/themes/standard/library_config.js"
+                data-oit-theme-vars='{"brandColor": "#51247A"}'
                 launch-form-fields=${stringedParams}
             >
             </inlay-oracle-chat-embedded>`;
