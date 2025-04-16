@@ -240,8 +240,9 @@ class ProactiveChat extends HTMLElement {
     }
 
     addHiderClassToDocument() {
-        // used to hide crm chat on load
+        // add styling for iframe to main document, because thats where we add the iframe
         const styleSheet = document.createElement('style');
+        // hide crm chat on load
         styleSheet.textContent = `
           .visually-hidden {
               position: absolute;
@@ -253,6 +254,8 @@ class ProactiveChat extends HTMLElement {
               height: 1px;
               white-space: nowrap;
           }`;
+        // reduce rounded corners to meet UQ DS
+        styleSheet.textContent += 'iframe#chatInlay { border-radius: 4px }';
         document.head.appendChild(styleSheet);
     }
 
@@ -674,7 +677,7 @@ class ProactiveChat extends HTMLElement {
             // https://community.oracle.com/customerconnect/discussion/552678/sample-file-for-chat-inlay-attribute-launch-form-fields
             const crmchatIncludeTemplate = document.createElement('template');
 
-            // TODO dont forget to give a dynamic location!!
+            // TODO dont forget to update the dynamic location!!
             const stringedParams = JSON.stringify(crmChatParams);
             console.log(timeStamp(), 'clone stringedParams=', stringedParams);
             // data-oit-config-url="https://assets.library.uq.edu.au/reusable-webcomponents-development/feature-leadegroot/applications/proactive/config.js"
