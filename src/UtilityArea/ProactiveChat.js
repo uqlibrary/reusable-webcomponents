@@ -687,7 +687,7 @@ class ProactiveChat extends HTMLElement {
                 class="inlay"
                 site-url="${crmLocationEmbed}"
                 inlay-hidden="true"
-                data-oit-theme-vars='{"brandColor": "#51247A"}'
+                data-oit-theme-vars="{'brandColor': '#51247A'}"
                 launch-form-fields=${stringedParams}
             >
             </inlay-oracle-chat-embedded>`;
