@@ -352,8 +352,3 @@ button.proactive-chat-button:focus {
     cursor: pointer;
     font-family: 'Roboto', sans-serif;
 }
-
-/* CRM inline chat */
-iframe#chatInlay {
-    border-radius: 4px; // per DS standard for buttons (and affects iframe too)
-}
