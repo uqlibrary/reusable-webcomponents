@@ -189,6 +189,7 @@ body .s-lib-box-container > div.s-lib-box > h2 {
     color: $heading;
     font-weight: 500;
     line-height: 1.2;
+    padding-left: 0;
 }
 h3,
 body h3,
@@ -242,9 +243,13 @@ a {
     }
 }
 
-ul.s-lg-guide-list li {
-    padding-block: 5px;
-    border-bottom: none;
+ul.s-lg-guide-list {
+    padding-left: 24px;
+    li {
+        padding-block: 5px;
+        border-bottom: none;
+        list-style: disc;
+    }
 }
 
 .s-lib-box .row #accor {
@@ -268,6 +273,11 @@ ul.s-lg-guide-list li {
     //    padding-right: 20px;
     //}
 }
+.s-lib-box-content {
+    padding-left: 0;
+}
+
+
 //.s-lib-box .row:has(>div[mce_style="display:none"][style="display: block;"]) > #accor h4 a:after {
 //    border: thin solid blue;
 //    background-image: url($up-arrow)
