@@ -248,6 +248,63 @@
         return assetsRoot + '/reusable-webcomponents/' + includeFilename;
     }
 
+    function testIncludePathGeneration() {
+        // because we cant really test alternate environments, this will dump lines onto the console
+        console.log('============================');
+        console.log('##### CONFIRM INCLUDE PATH GENERATION (use http://localhost:8080/index-guides.html)');
+
+        const prodUrl = getIncludeFullPath('applications/libguides/load.js', 'guides.library.uq.edu.au'); // , null, null);
+        if ('https://assets.library.uq.edu.au/reusable-webcomponents/applications/libguides/load.js' === prodUrl) {
+            console.log('prod ok', prodUrl);
+        } else {
+            console.error('PROD PROBLEM', prodUrl);
+        }
+
+        searchParameters.clearAllOverrides();
+        searchParameters.setOverride('override', 'on');
+        searchParameters.setOverride('useAlternate', 'staging');
+        const stagingUrl = getIncludeFullPath('applications/libguides/load.js', 'assets.library.uq.edu.au');
+        if (
+            'https://assets.library.uq.edu.au/reusable-webcomponents-staging/applications/libguides/load.js' ===
+            stagingUrl
+        ) {
+            console.log('staging ok:', stagingUrl);
+        } else {
+            console.error('STAGING PROBLEM', stagingUrl);
+        }
+
+        searchParameters.clearAllOverrides();
+        searchParameters.setOverride('override', 'on');
+        searchParameters.setOverride('useAlternate', 'working');
+        searchParameters.setOverride('branchName', 'master');
+        const masterUrl = getIncludeFullPath('applications/libguides/load.js', 'assets.library.uq.edu.au');
+        if (
+            'https://assets.library.uq.edu.au/reusable-webcomponents-development/master/applications/libguides/load.js' ===
+            masterUrl
+        ) {
+            console.log('master ok:', masterUrl);
+        } else {
+            console.error('MASTER PROBLEM', masterUrl);
+        }
+
+        searchParameters.clearAllOverrides();
+        searchParameters.setOverride('override', 'on');
+        searchParameters.setOverride('useAlternate', 'working');
+        searchParameters.setOverride('branchName', 'some-branch');
+        const featureUrl = getIncludeFullPath('applications/libguides/load.js', 'assets.library.uq.edu.au');
+        if (
+            `https://assets.library.uq.edu.au/reusable-webcomponents-development/some-branch/applications/libguides/load.js` ===
+            featureUrl
+        ) {
+            console.log('feature branch ok:', featureUrl);
+        } else {
+            console.error('FEATURE BRANCH PROBLEM', featureUrl);
+        }
+
+        searchParameters.clearAllOverrides();
+        console.log('============================');
+    }
+
     function moveSpringshareBreadcrumbsToSiteHeader(siteHeader) {
         const awaitSiteHeader = setInterval(() => {
             const siteHeaderShadowRoot = siteHeader.shadowRoot;
@@ -306,61 +363,4 @@
     }
 
     ready(applyUQLItemsToGuides);
-
-    function testIncludePathGeneration() {
-        // because we cant really test alternate environments, this will dump lines onto the console
-        console.log('============================');
-        console.log('##### CONFIRM INCLUDE PATH GENERATION (use http://localhost:8080/index-guides.html)');
-
-        const prodUrl = getIncludeFullPath('applications/libguides/load.js', 'guides.library.uq.edu.au'); // , null, null);
-        if ('https://assets.library.uq.edu.au/reusable-webcomponents/applications/libguides/load.js' === prodUrl) {
-            console.log('prod ok', prodUrl);
-        } else {
-            console.error('PROD PROBLEM', prodUrl);
-        }
-
-        searchParameters.clearAllOverrides();
-        searchParameters.setOverride('override', 'on');
-        searchParameters.setOverride('useAlternate', 'staging');
-        const stagingUrl = getIncludeFullPath('applications/libguides/load.js', 'assets.library.uq.edu.au');
-        if (
-            'https://assets.library.uq.edu.au/reusable-webcomponents-staging/applications/libguides/load.js' ===
-            stagingUrl
-        ) {
-            console.log('staging ok:', stagingUrl);
-        } else {
-            console.error('STAGING PROBLEM', stagingUrl);
-        }
-
-        searchParameters.clearAllOverrides();
-        searchParameters.setOverride('override', 'on');
-        searchParameters.setOverride('useAlternate', 'working');
-        searchParameters.setOverride('branchName', 'master');
-        const masterUrl = getIncludeFullPath('applications/libguides/load.js', 'assets.library.uq.edu.au');
-        if (
-            'https://assets.library.uq.edu.au/reusable-webcomponents-development/master/applications/libguides/load.js' ===
-            masterUrl
-        ) {
-            console.log('master ok:', masterUrl);
-        } else {
-            console.error('MASTER PROBLEM', masterUrl);
-        }
-
-        searchParameters.clearAllOverrides();
-        searchParameters.setOverride('override', 'on');
-        searchParameters.setOverride('useAlternate', 'working');
-        searchParameters.setOverride('branchName', 'some-branch');
-        const featureUrl = getIncludeFullPath('applications/libguides/load.js', 'assets.library.uq.edu.au');
-        if (
-            `https://assets.library.uq.edu.au/reusable-webcomponents-development/some-branch/applications/libguides/load.js` ===
-            featureUrl
-        ) {
-            console.log('feature branch ok:', featureUrl);
-        } else {
-            console.error('FEATURE BRANCH PROBLEM', featureUrl);
-        }
-
-        searchParameters.clearAllOverrides();
-        console.log('============================');
-    }
 })();
