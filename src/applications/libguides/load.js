@@ -1,6 +1,55 @@
 (function loadGuides() {
+    class URLParameterHandler {
+        // this class lets us either use actual search parameters for overrides, or manually override these overrides in test
+        constructor() {
+            this.values = {};
+            this.overrides = {};
+        }
+
+        getValue(key) {
+            // Check for override first, then URL parameter, then default
+            if (!!this.overrides[key]) {
+                return this.overrides[key];
+            }
+            if (!!this.values[key]) {
+                return this.values[key];
+            }
+            const value = this.getSearchParameter(key);
+            if (!!value) {
+                this.values[key] = value;
+                return this.values[key];
+            }
+            return null;
+        }
+
+        getSearchParameter(key) {
+            const url = window.location.href;
+            const urlObj = new URL(url);
+            const params = new URLSearchParams(urlObj.search);
+            return params.get(key);
+        }
+
+        setOverride(key, value) {
+            // overrides only used to test our param usage
+            if (window.location.hostname !== 'localhost') {
+                return;
+            }
+            this.overrides[key] = value;
+        }
+
+        clearOverride(key) {
+            delete this.overrides[key];
+        }
+
+        clearAllOverrides() {
+            this.overrides = {};
+        }
+    }
+
+    const searchParameters = new URLParameterHandler();
+
     function ready(fn) {
-        if (getSearchParam('override') === 'on' && getSearchParam('skipScript') === 'yes') {
+        if (searchParameters.getValue('override') === 'on' && searchParameters.getValue('skipScript') === 'yes') {
             // to stop reusable being loaded, call it like this.
             // https://guides.library.uq.edu.au/?override=on&skipScript=yes
             // You can then manually load things in the console
@@ -14,8 +63,8 @@
     }
 
     function applyUQLItemsToGuides() {
-        if (window.location.host !== 'guides.library.uq.edu.au') {
-            testincludePathGeneration();
+        if (window.location.hostname === 'localhost') {
+            testIncludePathGeneration();
         }
 
         fontLoader('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
@@ -78,13 +127,6 @@
             const subFooter = document.createElement('uq-footer');
             document.body.appendChild(subFooter);
         }, 100);
-    }
-
-    function getSearchParam(name, value) {
-        const url = window.location.href;
-        const urlObj = new URL(url);
-        const params = new URLSearchParams(urlObj.search);
-        return params.get(name);
     }
 
     function isInEditMode() {
@@ -157,30 +199,26 @@
     function forceStaging() {
         // guides does not have a staging environment, but we can force a load from assets staging by calling it like this:
         // https://guides.library.uq.edu.au/?override=on&useAlternate=staging
-        return getSearchParam('override') === 'on' && getSearchParam('useAlternate') === 'staging';
+        return (
+            searchParameters.getValue('override') === 'on' && searchParameters.getValue('useAlternate') === 'staging'
+        );
     }
 
     function forceFeatureBranch() {
-        return getSearchParam('override') === 'on' && getSearchParam('useAlternate') === 'working';
+        return (
+            searchParameters.getValue('override') === 'on' && searchParameters.getValue('useAlternate') === 'working'
+        );
     }
 
     function getFeatureBranchName() {
-        return forceFeatureBranch() ? getSearchParam('branchName') : '';
+        return forceFeatureBranch() ? searchParameters.getValue('branchName') : '';
     }
 
     // we can use parameters to force our css and js to come from staging or feature branch locations
     // default is assets production
-    function getIncludeFullPath(
-        includeFilename,
-        _overrideHost = null,
-        _overridePathname = null,
-        _overrideHref = null,
-        _featureBranchName = null,
-    ) {
+    function getIncludeFullPath(includeFilename, _overrideHost = null, _featureBranchName = null) {
         // override values only used for testing this function
         const overrideHost = _overrideHost === null ? window.location.host : _overrideHost; // domain
-        const overridePathname = _overridePathname === null ? window.location.pathname : _overridePathname;
-        const overrideHref = _overrideHref === null ? window.location.href : _overrideHref;
         const featureBranchName = _featureBranchName === null ? getFeatureBranchName() : _featureBranchName;
 
         const assetsHostname = 'assets.library.uq.edu.au';
@@ -195,7 +233,7 @@
         }
 
         if (forceFeatureBranch()) {
-            // for development testing on feature branch - force Staging (useAlternate=staging) longer term
+            // for development testing on feature branch - force Staging (useAlternate=staging) longer term instead
             // eg https://guides.library.uq.edu.au/how-to-find/news-and-newspapers?override=on&useAlternate=working
             return `${assetsRoot}/reusable-webcomponents-development/${featureBranchName}/${includeFilename}`;
         }
@@ -204,19 +242,6 @@
             // we are on a groups page - 2025 dev
             // TEMPORARY CODE - REMOVE AFTER 2025 REDEV - TODO
             return `${assetsRoot}/reusable-webcomponents-development/${featureBranchName}/${includeFilename}`;
-        }
-
-        if (overrideHost === assetsHostname && /reusable-webcomponents-staging/.test(overrideHref)) {
-            // a test on staging branch gets staging version
-            return assetsRoot + '/reusable-webcomponents-staging/' + includeFilename;
-        }
-        if (overrideHost === assetsHostname && /reusable-webcomponents-development\/master/.test(overrideHref)) {
-            // a test on master branch gets master version
-            return assetsRoot + '/reusable-webcomponents-development/master/' + includeFilename;
-        }
-        if (overrideHost === assetsHostname) {
-            // a test on any feature branch gets the feature branch
-            return assetsRoot + getPathnameRoot(overridePathname) + includeFilename;
         }
 
         // otherwise prod
@@ -282,22 +307,22 @@
 
     ready(applyUQLItemsToGuides);
 
-    function testincludePathGeneration() {
+    function testIncludePathGeneration() {
         // because we cant really test alternate environments, this will dump lines onto the console
         console.log('============================');
-        console.log('##### WHEN _NOT_ OVERRIDING (use http://localhost:8080/index-guides.html)');
-        const prodUrl = getIncludeFullPath('applications/libguides/load.js', 'guides.library.uq.edu.au', null, null);
+        console.log('##### CONFIRM INCLUDE PATH GENERATION (use http://localhost:8080/index-guides.html)');
+
+        const prodUrl = getIncludeFullPath('applications/libguides/load.js', 'guides.library.uq.edu.au'); // , null, null);
         if ('https://assets.library.uq.edu.au/reusable-webcomponents/applications/libguides/load.js' === prodUrl) {
             console.log('prod ok', prodUrl);
         } else {
-            console.log('PROD PROBLEM', prodUrl);
+            console.error('PROD PROBLEM', prodUrl);
         }
-        const stagingUrl = getIncludeFullPath(
-            'applications/libguides/load.js',
-            'assets.library.uq.edu.au',
-            null,
-            'reusable-webcomponents-staging',
-        );
+
+        searchParameters.clearAllOverrides();
+        searchParameters.setOverride('override', 'on');
+        searchParameters.setOverride('useAlternate', 'staging');
+        const stagingUrl = getIncludeFullPath('applications/libguides/load.js', 'assets.library.uq.edu.au');
         if (
             'https://assets.library.uq.edu.au/reusable-webcomponents-staging/applications/libguides/load.js' ===
             stagingUrl
@@ -306,12 +331,12 @@
         } else {
             console.error('STAGING PROBLEM', stagingUrl);
         }
-        const masterUrl = getIncludeFullPath(
-            'applications/libguides/load.js',
-            'assets.library.uq.edu.au',
-            null,
-            'reusable-webcomponents-development/master',
-        );
+
+        searchParameters.clearAllOverrides();
+        searchParameters.setOverride('override', 'on');
+        searchParameters.setOverride('useAlternate', 'working');
+        searchParameters.setOverride('branchName', 'master');
+        const masterUrl = getIncludeFullPath('applications/libguides/load.js', 'assets.library.uq.edu.au');
         if (
             'https://assets.library.uq.edu.au/reusable-webcomponents-development/master/applications/libguides/load.js' ===
             masterUrl
@@ -321,36 +346,21 @@
             console.error('MASTER PROBLEM', masterUrl);
         }
 
-        const featureUrl = getIncludeFullPath(
-            'applications/libguides/load.js',
-            'assets.library.uq.edu.au',
-            `/reusable-webcomponents-development/feature-branch/index-guides.html`,
-            `https://assets.library.uq.edu.au/reusable-webcomponents-development/feature-branch/index-guides.html`,
-        );
+        searchParameters.clearAllOverrides();
+        searchParameters.setOverride('override', 'on');
+        searchParameters.setOverride('useAlternate', 'working');
+        searchParameters.setOverride('branchName', 'some-branch');
+        const featureUrl = getIncludeFullPath('applications/libguides/load.js', 'assets.library.uq.edu.au');
         if (
-            `https://assets.library.uq.edu.au/reusable-webcomponents-development/feature-branch/applications/libguides/load.js` ===
+            `https://assets.library.uq.edu.au/reusable-webcomponents-development/some-branch/applications/libguides/load.js` ===
             featureUrl
         ) {
-            console.log('feature ok:', featureUrl);
+            console.log('feature branch ok:', featureUrl);
         } else {
-            console.error('FEATURE PROBLEM', featureUrl);
+            console.error('FEATURE BRANCH PROBLEM', featureUrl);
         }
-        console.log('============================');
-        console.log('##### WHEN OVERRIDING (http://localhost:8080/index-guides.html?override=on&useAlternate=staging)');
-        const overrideUrl = getIncludeFullPath(
-            'applications/libguides/load.js',
-            'assets.library.uq.edu.au',
-            null,
-            'reusable-webcomponents-staging',
-        );
-        if (
-            'https://assets.library.uq.edu.au/reusable-webcomponents-staging/applications/libguides/load.js' ===
-            overrideUrl
-        ) {
-            console.log('faux staging ok:', overrideUrl);
-        } else {
-            console.error('FAUX STAGING PROBLEM', overrideUrl);
-        }
+
+        searchParameters.clearAllOverrides();
         console.log('============================');
     }
 })();
