@@ -241,7 +241,7 @@
         if (window.location.pathname === '/sandbox') {
             // we are on a groups page - 2025 dev
             // TEMPORARY CODE - REMOVE AFTER 2025 REDEV - TODO
-            return `${assetsRoot}/reusable-webcomponents-development/${featureBranchName}/${includeFilename}`;
+            return `${assetsRoot}/reusable-webcomponents-development/guides-AD-111/${includeFilename}`;
         }
 
         // otherwise prod
