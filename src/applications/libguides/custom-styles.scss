@@ -244,7 +244,7 @@ a {
 }
 
 ul.s-lg-guide-list {
-    padding-left: 24px;
+    padding-left: 16px;
     li {
         padding-block: 5px;
         border-bottom: none;
@@ -276,6 +276,81 @@ ul.s-lg-guide-list {
 .s-lib-box-content {
     padding-left: 0;
 }
+
+// page layout, right column
+#s-lg-index-cols {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    padding-left: .5rem;
+    padding-right: .5rem;
+    #col1, #col2 {
+        width: auto;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+@media (min-width: 37.5rem) {
+    .s-lib-main {
+        max-width: none;
+    }
+}
+@media (min-width: 64rem) {
+    #s-lg-index-cols {
+        //border: thin solid red;
+        display: grid;
+        column-gap: 32px;
+        grid-template-columns: 0 1fr 296px;
+        padding: 0;
+    }
+    .s-lib-main {
+        padding-left: .75rem;
+        padding-right: .75rem;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 71em;
+        width: auto;
+    }
+    #col1 {
+        margin-left: -30px;
+    }
+}
+@media (min-width: 75rem) {
+    #s-lg-index-cols {
+        //border: thin solid blue;
+        grid-template-columns: 0 1fr 308px;
+        margin-inline: -30px;
+    }
+    .s-lib-main {
+        padding-left: unset;
+        padding-right: unset;
+    }
+}
+@media (min-width: 768px) {
+    .container {
+        width: unset;
+    }
+}
+#col1, #col2 {
+    //border: 1px dashed black;
+}
+
+#col2 {
+    .s-lib-box-content {
+        padding: 0;
+    }
+    h2 {
+        margin-bottom: 16px;
+    }
+    .important-content p {
+        display: list-item;
+        list-style-position: outside;
+        margin-left: 20px;
+        margin-bottom: 16px;
+    }
+}
+
 
 
 //.s-lib-box .row:has(>div[mce_style="display:none"][style="display: block;"]) > #accor h4 a:after {

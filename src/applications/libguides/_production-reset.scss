@@ -2,3 +2,12 @@ body .s-lib-box-container > div.s-lib-box > h2 {
   font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
   color: #3b383e !important; // Body copy
 }
+.important-content {
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+#s-lg-index-cols {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
