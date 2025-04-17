@@ -23,7 +23,7 @@ $up-arrow: "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22%3E%
 
 .s-lib-box .s-lib-box-title {
     //margin-bottom: 0;
-    //padding: 12px 9px;
+    padding: 12px 9px;
     //font-weight: 400;
     background: #fff !important;
     border-bottom: 5px solid #fff;
@@ -225,6 +225,7 @@ h6, body h6 {
     line-height: 1.2;
 }
 
+#s-lib-footer-login-link a, #s-lib-footer-support-link a,
 a {
     color: $uqBrandColour;
     text-decoration: none;
@@ -516,12 +517,12 @@ ul.s-lg-guide-list {
 //    padding-bottom: 6px;
 //}
 //
-//.s-lib-footer {
-//    padding-top: 10px;
-//    padding-bottom: 10px;
-//    border-top: none;
-//    background-color: transparent;
-//}
+.s-lib-footer {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-top: none;
+    background-color: transparent;
+}
 //
 //#s-lg-tabs-container {
 //    padding-bottom: 1px;
@@ -703,9 +704,9 @@ ul.s-lg-guide-list {
 //    padding: 0;
 //}
 //
-//#s-lib-scroll-top {
-//    display: none !important;
-//}
+#s-lib-scroll-top {
+    display: none !important;
+}
 //
 //#s-lg-guide-tabs-title-bar {
 //    border: none !important;
