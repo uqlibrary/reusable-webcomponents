@@ -75,15 +75,15 @@
         let scriptUrl = getIncludeFullPath('uq-lib-reusable.min.js');
         insertScript(scriptUrl, true);
 
-        const cssFileName = getIncludeFullPath('applications/libguides/custom-styles.css');
-        insertCssFile(cssFileName);
-
         const waitForBody = setInterval(() => {
             const firstElement = document.body.children[0];
             if (!firstElement) {
                 return;
             }
             clearInterval(waitForBody);
+
+            const cssFileName = getIncludeFullPath('applications/libguides/custom-styles.css');
+            insertCssFile(cssFileName);
 
             const gtm = document.createElement('uq-gtm');
             !!gtm && gtm.setAttribute('gtm', 'GTM-NC7M38Q');
@@ -353,13 +353,15 @@
     }
 
     function insertCssFile(cssFileName) {
+        // insert the css late so it is more likely to override other styles,
+        // might be better to go back to attach-to-head after golive to avoid FOUC? but needed right now
         const link = document.createElement('link');
         !!link && (link.type = 'text/css');
         !!link && (link.rel = 'stylesheet');
         !!link && (link.href = cssFileName);
 
-        const head = document.head;
-        !!head && !!link && head.appendChild(link);
+        const body = document.body;
+        !!body && !!link && body.appendChild(link);
     }
 
     ready(applyUQLItemsToGuides);
