@@ -3,7 +3,6 @@
         "common": {
             "attributes": {
                 "data-oit-theme-vars": {
-                    "fontFamily":  "Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif",
                     "brandColor": "#51247a"
                 }
             }
