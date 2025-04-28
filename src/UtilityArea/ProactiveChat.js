@@ -642,9 +642,13 @@ class ProactiveChat extends HTMLElement {
 
             // console.log('path: ', this.getIncludeFullPath('applications/proactive/config.js'));
             script.src = `https://${crmLocationScript}/s/oit/latest/common/v0/libs/oit/loader.js`;
+            script.setAttribute(
+                'data-oit-config-url',
+                'https://assets.library.uq.edu.au/reusable-webcomponents-development/crmchat-inline-188433359/applications/proactive/config.js',
+            );
             // script.setAttribute('data-oit-config-url', this.getIncludeFullPath('applications/proactive/config.js'));
             // script.setAttribute('data-oit-theme-vars', "{'brandColor': '#51247A'}");
-            script.setAttribute('data-oit-theme-vars', '{brandColor:"#51247A"}');
+            // script.setAttribute('data-oit-theme-vars', '{brandColor:"#51247A"}');
             document.body.appendChild(script);
         }
     }
