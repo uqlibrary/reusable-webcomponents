@@ -583,10 +583,6 @@ class ProactiveChat extends HTMLElement {
         if (overrideHost === 'localhost:8080') {
             return '/' + includeFilename;
         }
-        if (useStaging()) {
-            // we don't have a staging environemnt on guides, so we use this override to test things
-            return assetsRoot + '/reusable-webcomponents-staging/' + includeFilename;
-        }
 
         if (overrideHost === assetsHostname && /reusable-webcomponents-staging/.test(overrideHref)) {
             // a test on staging branch gets staging version
