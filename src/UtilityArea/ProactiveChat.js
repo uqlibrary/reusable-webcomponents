@@ -613,7 +613,7 @@ class ProactiveChat extends HTMLElement {
 
             script.src = `https://${crmLocationScript}/s/oit/latest/common/v0/libs/oit/loader.js`;
             script.setAttribute(
-                'data-config-page-id',
+                'data-oit-config-url',
                 `https://${crmLocationScript}/euf/assets/themes/standard/library_config.js`,
             );
             document.body.appendChild(script);
