@@ -572,6 +572,39 @@ class ProactiveChat extends HTMLElement {
         }, 50);
     }
 
+    getIncludeFullPath(includeFilename, _overrideHost = null, _overridePathname = null, _overrideHref = null) {
+        const overrideHost = _overrideHost === null ? window.location.host : _overrideHost;
+        const overridePathname = _overridePathname === null ? window.location.pathname : _overridePathname;
+        const overrideHref = _overrideHref === null ? window.location.href : _overrideHref;
+
+        const assetsHostname = 'assets.library.uq.edu.au';
+        const assetsRoot = 'https://' + assetsHostname;
+
+        if (overrideHost === 'localhost:8080') {
+            return '/' + includeFilename;
+        }
+        if (useStaging()) {
+            // we don't have a staging environemnt on guides, so we use this override to test things
+            return assetsRoot + '/reusable-webcomponents-staging/' + includeFilename;
+        }
+
+        if (overrideHost === assetsHostname && /reusable-webcomponents-staging/.test(overrideHref)) {
+            // a test on staging branch gets staging version
+            return assetsRoot + '/reusable-webcomponents-staging/' + includeFilename;
+        }
+        if (overrideHost === assetsHostname && /reusable-webcomponents-development\/master/.test(overrideHref)) {
+            // a test on master branch gets master version
+            return assetsRoot + '/reusable-webcomponents-development/master/' + includeFilename;
+        }
+        if (overrideHost === assetsHostname) {
+            // a test on any feature branch gets the feature branch
+            return assetsRoot + getPathnameRoot(overridePathname) + includeFilename;
+        }
+
+        // otherwise prod
+        return assetsRoot + '/reusable-webcomponents/' + includeFilename;
+    }
+
     attachCRMScriptToPage() {
         const that = this;
         // This loads the external JS file into the HTML head dynamically
@@ -611,11 +644,9 @@ class ProactiveChat extends HTMLElement {
                     : document.addEventListener('oit-loaded', waitForChatInlay);
             };
 
+            console.log('path: ', this.getIncludeFullPath('applications/proactive/config.js'));
             script.src = `https://${crmLocationScript}/s/oit/latest/common/v0/libs/oit/loader.js`;
-            script.setAttribute(
-                'data-oit-config-url',
-                `https://${crmLocationScript}/euf/assets/themes/standard/library_config.js`,
-            );
+            script.setAttribute('data-oit-config-url', this.getIncludeFullPath('applications/proactive/config.js'));
             document.body.appendChild(script);
         }
     }
