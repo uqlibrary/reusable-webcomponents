@@ -5,8 +5,8 @@
                 "data-oit-theme-vars": {
                     "brandColor": "#51247a",
                     "fontFamily": "Roboto, sans-serif",
-                    "inlayWidth": "350px",
-                    "inlayHeight": "540px"
+                    "inlayHeight": "540px",
+                    "inlayWidth": "350px"
                 }
             }
         }
