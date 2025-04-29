@@ -3,7 +3,7 @@
 }
 
 .proactive-chat:has(.openSubWrapper:not(.displayinline)) {
-    z-index: 99999;
+    z-index: 998;
 }
 .openSubWrapper button {
     color: #51247a;

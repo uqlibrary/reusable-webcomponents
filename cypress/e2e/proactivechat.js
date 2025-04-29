@@ -109,7 +109,7 @@ describe('Proactive Chat', () => {
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
             });
         });
-        it('iframe open', () => {
+        it('chatbot iframe open', () => {
             cy.visit('http://localhost:8080/index-chat-fast.html');
             cy.injectAxe();
             cy.viewport(1280, 900);
@@ -138,7 +138,7 @@ describe('Proactive Chat', () => {
                 includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
             });
         });
-        it('iframe open after hours', () => {
+        it('chatbot iframe open after hours', () => {
             cy.visit('http://localhost:8080/index-chat-fast.html?chatstatusoffline=true');
             cy.injectAxe();
             cy.viewport(1280, 900);
@@ -170,7 +170,7 @@ describe('Proactive Chat', () => {
     });
 
     context('when online', () => {
-        it('Can hide proactive chat button', () => {
+        it('Can hide proactive chat prompt', () => {
             cy.visit('http://localhost:8080/index-chat-fast.html');
             cy.viewport(1280, 900);
 
@@ -209,7 +209,7 @@ describe('Proactive Chat', () => {
         });
 
         /*
-          NOTE: CYPRESS HATES CRM CHAT SO THE IFRAME DOESNT APPEAR DURING THE TEST
+          NOTE: CYPRESS HATES CRM CHAT SO THE IFRAME DOESN'T APPEAR ON SCREEN DURING THE TEST
           BUT THE TESTS THINK THEY CAN SEE IT
          */
         it('Navigates to CRM from "Chat with Library staff" button', () => {
@@ -261,7 +261,7 @@ describe('Proactive Chat', () => {
             cy.get('iframe#chatInlay').should('exist').should('be.visible').invoke('height').should('be.gt', 150);
         });
 
-        it('AI chatbot iframe opens from proactive dialog for logged in user', () => {
+        it('chatbot iframe opens from proactive dialog for logged in user', () => {
             cy.visit('http://localhost:8080/index-chat-fast.html');
             cy.viewport(1280, 900);
 
@@ -274,7 +274,16 @@ describe('Proactive Chat', () => {
             cy.get('proactive-chat').shadow().find('button:contains("Ask Library Chatbot")').should('exist').click();
 
             // let the iframe finish drawing
-            cy.wait(4000);
+            cy.waitUntil(() =>
+                cy
+                    .get('proactive-chat')
+                    .shadow()
+                    .within(() => {
+                        cy.get('[data-testid="chatbot-iframe"]')
+                            .should('exist')
+                            .should('not.have.css', 'height', '0px');
+                    }),
+            );
 
             cy.get('proactive-chat')
                 .shadow()
@@ -302,7 +311,7 @@ describe('Proactive Chat', () => {
                 });
         });
 
-        it('AI chatbot iframe opens from proactive dialog for logged out user', () => {
+        it('chatbot iframe opens from proactive dialog for logged out user', () => {
             cy.visit('http://localhost:8080/index-chat-fast.html?user=public');
             cy.viewport(1280, 900);
 
@@ -318,7 +327,12 @@ describe('Proactive Chat', () => {
                     cy.get('button:contains("Ask Library Chatbot")').should('exist').click();
 
                     // let the iframe finish drawing
-                    cy.wait(4000);
+                    cy.waitUntil(() =>
+                        cy
+                            .get('[data-testid="chatbot-iframe"]')
+                            .should('exist')
+                            .should('not.have.css', 'height', '0px'),
+                    );
 
                     cy.get('[data-testid="chatbot-wrapper"]').should('exist'); // well, at least we know the iframe reaches the page!
 
@@ -459,12 +473,15 @@ describe('Proactive Chat', () => {
     });
 
     context('when in a drupal contact page', () => {
-        it.skip('should load crm correctly', () => {
+        /*
+          NOTE: CYPRESS HATES CRM CHAT SO THE IFRAME DOESN'T APPEAR ON SCREEN DURING THE TEST
+          BUT THE TESTS THINK THEY CAN SEE IT
+         */
+        it('should load crm correctly', () => {
             cy.visit('http://localhost:8080/index-drupalcontactus.html');
 
             cy.getCookie('UQ_PROACTIVE_CHAT').should('not.exist');
 
-            // cy.get('iframe#chatInlay').should('exist').should('not.be.visible');
             cy.waitUntil(() => cy.get('iframe#chatInlay').should('exist'));
 
             cy.get('proactive-chat[display="inline"]')
@@ -472,14 +489,10 @@ describe('Proactive Chat', () => {
                 .find('button:contains("Chat with Library staff")')
                 .click();
 
-            // let the iframe finish drawing
-            cy.wait(4000);
-
-            cy.get('proactive-chat:not([display="inline"])')
-                .shadow()
-                .find('[data-testid="crm-chat-iframe"]')
-                .should('exist')
-                .should('be.visible'); // well, at least we know the iframe reaches the page!
+            // the iframe appears
+            cy.waitUntil(() =>
+                cy.get('iframe#chatInlay').should('exist').should('be.visible').invoke('height').should('be.gt', 150),
+            );
         });
         it('should load chatbot correctly', () => {
             cy.visit('http://localhost:8080/index-drupalcontactus.html');
