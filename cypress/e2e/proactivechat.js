@@ -208,20 +208,23 @@ describe('Proactive Chat', () => {
                 .should('have.css', 'display', 'none');
         });
 
-        it.skip('Navigates to CRM from "Chat with Library staff" button', () => {
-            cy.visit('http://localhost:8080/index-chat-fast.html', {
-                onBeforeLoad(win) {
-                    cy.stub(win, 'open');
-                },
-            });
+        it('Navigates to CRM from "Chat with Library staff" button', () => {
+            cy.visit('http://localhost:8080/index-chat-fast.html?user=public');
 
+            cy.waitUntil(() =>
+                cy
+                    .get('proactive-chat')
+                    .shadow()
+                    .find('button:contains("Chat with Library staff")')
+                    .should('exist')
+                    .should('be.visible'),
+            );
             cy.get('proactive-chat').shadow().find('button:contains("Chat with Library staff")').click();
 
-            // Assert that window.open was called
-            cy.window().its('open').should('be.called');
+            cy.get('iframe#chatInlay').should('exist').should('be.visible').invoke('height').should('be.gt', 150);
         });
 
-        it.skip('Navigates to CRM from iframe "Person" button', () => {
+        it('Navigates to CRM from chatbot frame "Chat with staff" button', () => {
             // Stub the window.open method
             cy.visit('http://localhost:8080/index-chat-slow.html', {
                 onBeforeLoad(win) {
@@ -248,11 +251,10 @@ describe('Proactive Chat', () => {
                 .should('exist')
                 .should('be.visible');
 
-            // can click "person" button
+            // can click "bottom of chatbot 'chat with person'" button
             cy.get('proactive-chat').shadow().find('[data-testid="speakToPerson"]').should('exist').click();
 
-            // Assert that window.open was called
-            cy.window().its('open').should('be.called');
+            cy.get('iframe#chatInlay').should('exist').should('be.visible').invoke('height').should('be.gt', 150);
         });
 
         it('AI chatbot iframe opens from proactive dialog for logged in user', () => {
