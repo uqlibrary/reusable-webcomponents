@@ -173,6 +173,8 @@ body .s-lib-header h1 {
 }
 #s-lib-public-header {
     margin-top: 0;
+    height: 0;
+    padding-bottom: 0;
 }
 
 body h2 {
@@ -292,6 +294,9 @@ ul.s-lg-guide-list {
         padding-left: 0;
         padding-right: 0;
     }
+}
+.s-lib-main {
+    padding-top: 0;
 }
 @media (min-width: 37.5rem) {
     .s-lib-main {
