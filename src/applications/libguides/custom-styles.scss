@@ -144,11 +144,14 @@ body {
 
 body {
     font-family: $font;
-    font-weight: 300;
+    font-weight: 400;
     background: $page-background-color;
     font-size: 16px;
     font-style: normal;
     line-height: 24px;
+    letter-spacing: 0.16px;
+    color: #3b383e;
+    -webkit-font-smoothing: antialiased;
 }
 //
 //.s-lg-admin-command-bar,
@@ -245,6 +248,12 @@ a {
         font-weight: 500;
         margin-left: 1em;
     }
+}
+p {
+    font-weight: 400;
+    margin-bottom: 24px;
+    padding-bottom: 0;
+    color: #3b383e;
 }
 
 ul.s-lg-guide-list {
@@ -347,11 +356,17 @@ ul.s-lg-guide-list {
     h2 {
         margin-bottom: 16px;
     }
-    .important-content p {
-        display: list-item;
-        list-style-position: outside;
-        margin-left: 20px;
-        margin-bottom: 16px;
+    .important-content {
+        p {
+            display: list-item;
+            list-style-position: outside;
+            margin-left: 20px;
+            margin-bottom: 16px;
+        }
+        li {
+            margin-left: 20px;
+            margin-bottom: 16px;
+        }
     }
 }
 
