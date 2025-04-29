@@ -231,6 +231,7 @@ a {
     text-decoration: none;
     overflow-wrap: break-word;
     word-wrap: break-word;
+    font-weight: 500;
 
     &:hover,
     &:focus {
@@ -332,9 +333,6 @@ ul.s-lg-guide-list {
     .container {
         width: unset;
     }
-}
-#col1, #col2 {
-    //border: 1px dashed black;
 }
 
 #col2 {
