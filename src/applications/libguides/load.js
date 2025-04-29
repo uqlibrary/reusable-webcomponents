@@ -234,13 +234,14 @@
 
         if (forceFeatureBranch()) {
             // for development testing on feature branch - force Staging (useAlternate=staging) longer term instead
-            // eg https://guides.library.uq.edu.au/how-to-find/news-and-newspapers?override=on&useAlternate=working
+            // eg https://guides.library.uq.edu.au/how-to-find/news-and-newspapers?override=on&useAlternate=featureBranchName
             return `${assetsRoot}/reusable-webcomponents-development/${featureBranchName}/${includeFilename}`;
         }
 
-        if (window.location.pathname === '/sandbox') {
+        // TEMPORARY CODE - REMOVE AFTER 2025 REDEV - TODO
+        const queryStrings = new URLSearchParams(window.location.search);
+        if (window.location.pathname === '/sandbox' || (!!queryStrings && queryStrings.has('group_id'))) {
             // we are on a groups page - 2025 dev
-            // TEMPORARY CODE - REMOVE AFTER 2025 REDEV - TODO
             return `${assetsRoot}/reusable-webcomponents-development/guides-AD-111/${includeFilename}`;
         }
 
