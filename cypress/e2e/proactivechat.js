@@ -208,6 +208,10 @@ describe('Proactive Chat', () => {
                 .should('have.css', 'display', 'none');
         });
 
+        /*
+          NOTE: CYPRESS HATES CRM CHAT SO THE IFRAME DOESNT APPEAR DURING THE TEST
+          BUT THE TESTS THINK THEY CAN SEE IT
+         */
         it('Navigates to CRM from "Chat with Library staff" button', () => {
             cy.visit('http://localhost:8080/index-chat-fast.html?user=public');
 
@@ -251,7 +255,7 @@ describe('Proactive Chat', () => {
                 .should('exist')
                 .should('be.visible');
 
-            // can click "bottom of chatbot 'chat with person'" button
+            // can click "bottom of chatbot 'chat with staff'" button
             cy.get('proactive-chat').shadow().find('[data-testid="speakToPerson"]').should('exist').click();
 
             cy.get('iframe#chatInlay').should('exist').should('be.visible').invoke('height').should('be.gt', 150);
@@ -411,7 +415,7 @@ describe('Proactive Chat', () => {
             cy.window().its('open').should('be.called');
         });
 
-        it.skip('Navigates to contact us from iframe "Leave a question" button when offline', () => {
+        it('Navigates to contact us from iframe "Leave a question" button when offline', () => {
             cy.visit('http://localhost:8080/index-chat-fast.html?chatstatusoffline=true', {
                 onBeforeLoad(win) {
                     cy.stub(win, 'open');
@@ -420,16 +424,11 @@ describe('Proactive Chat', () => {
 
             cy.getCookie('UQ_PROACTIVE_CHAT').should('not.exist');
 
-            // manually wait
-            cy.wait(500);
-
             assertPopupIsOpen();
+            cy.wait(2000); // something weird happening only in cypress - it loads the proactive prompt dialog over the chatbot iframe
             cy.get('proactive-chat').shadow().find('button:contains("Ask Library Chatbot")').should('exist').click();
 
-            // let the iframe finish drawing
-            cy.wait(4000);
-
-            cy.get('proactive-chat').shadow().find('button:contains("Staff unavailable - leave a question")').click();
+            cy.get('proactive-chat').shadow().find('button[data-testid="leaveQuestion"]').click();
 
             // Assert that window.open was called
             cy.window().its('open').should('be.called');
