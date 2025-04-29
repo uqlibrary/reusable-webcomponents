@@ -324,7 +324,11 @@
                         const anchor = item.querySelector('a');
                         const title = anchor ? anchor.textContent : item.textContent;
                         const href = anchor ? anchor.href : null;
-                        if (isNotHomepage(href) && document.location.pathname !== '/') {
+                        if (
+                            isNotHomepage(href) &&
+                            document.location.pathname !== '/' &&
+                            title !== 'Home' // the breadcrumbs that indicate "here" don't add any value
+                        ) {
                             const listItemEntry = !!href ? breadcrumblink({ title, href }) : breadcrumbSpan(title);
                             breadcrumbParent.insertAdjacentHTML('beforeend', listItemEntry);
                         }
