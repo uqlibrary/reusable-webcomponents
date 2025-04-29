@@ -10,5 +10,12 @@
                 }
             }
         }
+    },
+    "inlays": {
+        "common": {
+            "strings": {
+                "title": "Chat with Library Staff"
+            }
+        }
     }
 }
