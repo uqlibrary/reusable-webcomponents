@@ -368,6 +368,12 @@ ul.s-lg-guide-list {
             margin-bottom: 16px;
         }
     }
+    div.sidebar-headed-list p {
+        margin-left: 0;
+        &::marker {
+            content: ''
+        }
+    }
 }
 
 
@@ -747,12 +753,13 @@ ul.s-lg-guide-list {
 //    font-size: 32px;
 //}
 //
-//.s-lg-srch-listing-meta,
-//.s-lib-box-content {
-//    li {
-//        margin-left: 15px;
-//    }
-//}
+.s-lg-srch-listing-meta,
+.s-lib-box-content {
+    li {
+        margin-left: 15px;
+        margin-bottom: 8px;
+    }
+}
 //
 //.s-lib-box-content {
 //    padding: 20px;
