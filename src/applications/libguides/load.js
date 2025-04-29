@@ -124,8 +124,10 @@
                 !!culturalAdvice && document.body.insertBefore(culturalAdvice, firstElement);
             }
 
-            const subFooter = document.createElement('uq-footer');
-            document.body.appendChild(subFooter);
+            if (!document.querySelector('uq-footer')) {
+                const subFooter = document.createElement('uq-footer');
+                document.body.appendChild(subFooter);
+            }
         }, 100);
     }
 
