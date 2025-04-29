@@ -69,7 +69,7 @@ const chatbotIframeTemplate = document.createElement('template');
 chatbotIframeTemplate.innerHTML = `<div
     id="chatbot-wrapper"
     data-testid="chatbot-wrapper"
-    class="chatIframeWrapper"
+    class="chatbotIframeWrapper"
 >
     <div class="resizeHandleRepositionWrapper">
         <div class="topBar">
@@ -379,16 +379,9 @@ class ProactiveChat extends HTMLElement {
             return iframeSrc;
         }
 
+        // we dont handle the "close" - its done by CRM
         function openCrmChatIframe() {
             that.crmInlineChatHasAppeared = true;
-
-            // if (that.displayType === 'inline') {
-            //     console.log(timeStamp(), 'inline detected');
-            //     const crmChatIframe = document.querySelectorAll('proactive-chat:not([display="inline"])');
-            //     !!crmChatIframe &&
-            //     crmChatIframe.length > 0 &&
-            //     crmChatIframe[0].setAttribute('showcrmchat', 'true');
-            // } else {
 
             const dialogWrapper = that.shadowDOM.querySelector('#proactive-chat-wrapper');
             !!dialogWrapper && (dialogWrapper.style.display = 'none');
@@ -534,6 +527,7 @@ class ProactiveChat extends HTMLElement {
         );
     }
 
+    // we dont control the close of the CRM iframe, so watch for it to get small, and then show other buttons
     watchHeightChangeInCrm() {
         const awaitCrmIframeBody = setInterval(() => {
             const crmIframe = document.querySelector('iframe#chatInlay');
@@ -572,50 +566,60 @@ class ProactiveChat extends HTMLElement {
         }, 50);
     }
 
-    // getIncludeFullPath(includeFilename, _overrideHost = null, _overridePathname = null, _overrideHref = null) {
-    //     const overrideHost = _overrideHost === null ? window.location.host : _overrideHost;
-    //     const overridePathname = _overridePathname === null ? window.location.pathname : _overridePathname;
-    //     const overrideHref = _overrideHref === null ? window.location.href : _overrideHref;
-    //
-    //     const assetsHostname = 'assets.library.uq.edu.au';
-    //     const assetsRoot = 'https://' + assetsHostname;
-    //
-    //     if (overrideHost === 'localhost:8080') {
-    //         return '/' + includeFilename;
-    //     }
-    //
-    //     if (overrideHost === assetsHostname && /reusable-webcomponents-staging/.test(overrideHref)) {
-    //         // a test on staging branch gets staging version
-    //         return assetsRoot + '/reusable-webcomponents-staging/' + includeFilename;
-    //     }
-    //     if (overrideHost === assetsHostname && /reusable-webcomponents-development\/master/.test(overrideHref)) {
-    //         // a test on master branch gets master version
-    //         return assetsRoot + '/reusable-webcomponents-development/master/' + includeFilename;
-    //     }
-    //     if (overrideHost === assetsHostname) {
-    //         // a test on any feature branch gets the feature branch
-    //         return assetsRoot + getPathnameRoot(overridePathname) + includeFilename;
-    //     }
-    //
-    //     // otherwise prod
-    //     return assetsRoot + '/reusable-webcomponents/' + includeFilename;
-    // }
-
     attachCRMScriptToPage() {
-        const that = this;
+        function getPathnameRoot(pathname) {
+            const parts = pathname.split('/');
+            if (parts.length < 3) {
+                return '/';
+            }
+
+            const firstTwoLevels = parts.slice(1, 3);
+            return '/' + firstTwoLevels.join('/') + '/';
+        }
+        function configFileLocation() {
+            const assetsHostname = 'assets.library.uq.edu.au';
+            const includeFilename = 'applications/proactive/config.js';
+
+            if (window.location.host === 'localhost:8080') {
+                return '/' + includeFilename;
+            }
+
+            if (window.location.href.startsWith(`https://${assetsHostname}/reusable-webcomponents-staging/`)) {
+                // a test on staging branch gets staging version
+                return assetsRoot + '/reusable-webcomponents-staging/' + includeFilename;
+            }
+            if (
+                window.location.href.startsWith(`https://${assetsHostname}/reusable-webcomponents-development/master/`)
+            ) {
+                // a test on master branch gets master version
+                return assetsRoot + '/reusable-webcomponents-development/master/' + includeFilename;
+            }
+            if (window.location.host === assetsHostname) {
+                // a test on any other feature branch gets the feature branch
+                return assetsRoot + getPathnameRoot(window.location.pathname) + includeFilename;
+            }
+            if (
+                window.location.host === 'homepage-development.library.uq.edu.au' ||
+                window.location.host === 'homepage-staging.library.uq.edu.au'
+            ) {
+                // a test on homepage gets staging version
+                return assetsRoot + '/reusable-webcomponents-staging/' + includeFilename;
+            }
+
+            // production
+            return `https://assets.library.uq.edu.au/reusable-webcomponents/${includeFilename}`;
+        }
+
         // This loads the external JS file into the HTML head dynamically
         // Only load js if it has not been loaded before
         const scriptId = 'oit-loader';
         const scriptFound = document.getElementById(scriptId);
         /* istanbul ignore else */
         if (!scriptFound) {
-            const that = this;
-
             //Dynamically import the JS file and append it to the document header
             const script = document.createElement('script');
             script.type = 'text/javascript';
             script.defer = true;
-            // script.async = true;
             script.id = scriptId;
             script.onload = function () {
                 function fireChatInlayShowEvent() {
@@ -640,15 +644,10 @@ class ProactiveChat extends HTMLElement {
                     : document.addEventListener('oit-loaded', waitForChatInlay);
             };
 
-            // console.log('path: ', this.getIncludeFullPath('applications/proactive/config.js'));
             script.src = `https://${crmLocationScript}/s/oit/latest/common/v0/libs/oit/loader.js`;
-            script.setAttribute(
-                'data-oit-config-url',
-                'https://assets.library.uq.edu.au/reusable-webcomponents-development/crmchat-inline-188433359/applications/proactive/config.js',
-            );
-            // script.setAttribute('data-oit-config-url', this.getIncludeFullPath('applications/proactive/config.js'));
-            // script.setAttribute('data-oit-theme-vars', "{'brandColor': '#51247A'}");
-            // script.setAttribute('data-oit-theme-vars', '{brandColor:"#51247A"}');
+            console.log('use config file at: ', configFileLocation());
+            script.setAttribute('data-oit-config-url', configFileLocation());
+
             document.body.appendChild(script);
         }
     }
@@ -714,13 +713,8 @@ class ProactiveChat extends HTMLElement {
             // https://community.oracle.com/customerconnect/discussion/552678/sample-file-for-chat-inlay-attribute-launch-form-fields
             const crmchatIncludeTemplate = document.createElement('template');
 
-            // TODO dont forget to update the dynamic location!!
             const stringedParams = JSON.stringify(crmChatParams);
             console.log(timeStamp(), 'clone stringedParams=', stringedParams);
-            // data-oit-config-url="https://assets.library.uq.edu.au/reusable-webcomponents-development/feature-leadegroot/applications/proactive/config.js"
-            // data-oit-config-url="https://${crmLocationScript}/euf/assets/themes/standard/library_config.js"
-            // inlay-hidden="true"
-            // data-oit-theme-vars="{'brandColor': '#51247A'}"
             crmchatIncludeTemplate.innerHTML = `<inlay-oracle-chat-embedded
                 id="chatInlay"
                 class="inlay"

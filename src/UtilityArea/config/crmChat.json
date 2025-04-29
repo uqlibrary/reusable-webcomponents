@@ -3,9 +3,9 @@
         "common": {
             "attributes": {
                 "data-oit-theme-vars": {
+                    "inlayHeight": "540px",
                     "brandColor": "#51247a",
                     "fontFamily": "Roboto, sans-serif",
-                    "inlayHeight": "540px",
                     "inlayWidth": "350px"
                 }
             }
