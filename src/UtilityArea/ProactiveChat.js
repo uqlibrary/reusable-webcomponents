@@ -50,7 +50,7 @@ userPromptTemplate.innerHTML = `
                 </div>
                 <button id="proactive-chat-button-close" data-analyticsid="askus-proactive-chat-button-close" data-testid="close-button" class="close-button" title="Minimise this popup">
                     <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+                        <path d="M22 3.41 16.71 8.7 20 12h-8V4l3.29 3.29L20.59 2zM3.41 22l5.29-5.29L12 20v-8H4l3.29 3.29L2 20.59z"></path>
                     </svg>
                 </button>
                 <div id="button-open-chatbot-iframe" class="pcOpenChat">
@@ -154,12 +154,14 @@ class ProactiveChat extends HTMLElement {
             !!proactiveChatElement && proactiveChatElement.classList.add('displayinline');
             const wrapper = this.shadowDOM.querySelector('#proactive-chat-wrapper');
             !!wrapper && wrapper.removeAttribute('style');
+        } else {
+            this.watchHeightChangeInCrm();
         }
         this.updateAskusDOM(secondsTilProactiveChatAppears);
         this.addButtonListeners();
-        this.watchHeightChangeInCrm();
 
         this.chatbotHasAppeared = false;
+        console.log('1 chatbotHasAppeared =', this.chatbotHasAppeared);
         this.crmInlineChatHasAppeared = false;
         this.askUsStatus = null;
 
@@ -220,22 +222,22 @@ class ProactiveChat extends HTMLElement {
     }
 
     hideCrmChatIframe(crmIframe) {
-        console.log(timeStamp(), 'hideCrmChatIframe (before)', crmIframe);
+        // console.log(timeStamp(), 'hideCrmChatIframe (before)', crmIframe);
         if (!!crmIframe && !crmIframe.classList.contains('visually-hidden')) {
             crmIframe.classList.add('visually-hidden');
-            console.log(timeStamp(), 'hideCrmChatIframe crm iframe - visually-hidden class added');
+            // console.log(timeStamp(), 'hideCrmChatIframe crm iframe - visually-hidden class added');
         } else {
-            console.log(timeStamp(), 'hideCrmChatIframe crm iframe already had visually-hidden class');
+            // console.log(timeStamp(), 'hideCrmChatIframe crm iframe already had visually-hidden class');
         }
     }
 
     showCrmChatIframe(crmIframe) {
-        console.log(timeStamp(), 'showCrmChatIframe');
+        // console.log(timeStamp(), 'showCrmChatIframe');
         if (!!crmIframe && !!crmIframe.classList.contains('visually-hidden')) {
             crmIframe.classList.remove('visually-hidden');
-            console.log(timeStamp(), 'showCrmChatIframe crm iframe - visually-hidden class removed');
+            // console.log(timeStamp(), 'showCrmChatIframe crm iframe - visually-hidden class removed');
         } else {
-            console.log(timeStamp(), 'showCrmChatIframe crm iframe did not have visually-hidden class');
+            // console.log(timeStamp(), 'showCrmChatIframe crm iframe did not have visually-hidden class');
         }
     }
 
@@ -256,6 +258,8 @@ class ProactiveChat extends HTMLElement {
           }`;
         // reduce rounded corners to meet UQ DS
         styleSheet.textContent += 'iframe#chatInlay { border-radius: 4px }';
+        // add a white border so when the iframe minimised button is over the footer we can see it
+        styleSheet.textContent += 'iframe#chatInlay:not(.visually-hidden) { border: thin solid white; }';
         document.head.appendChild(styleSheet);
     }
 
@@ -310,16 +314,22 @@ class ProactiveChat extends HTMLElement {
                     cookieNotFound(PROACTIVE_CHAT_HIDDEN_COOKIE_NAME, PROACTIVE_CHAT_HIDDEN_COOKIE_VALUE)
                 ) {
                     console.log(timeStamp(), 'will show proactive in a bit');
-                    setTimeout(
-                        showProactiveChatWrapper,
-                        (secondsTilProactiveChatAppears === 0 ? 0 : secondsTilProactiveChatAppears - 1) * 1000,
-                    );
+                    setTimeout(() => {
+                        console.log('2 chatbotHasAppeared =', that.chatbotHasAppeared);
+                        if (!that.chatbotHasAppeared) {
+                            console.log('show now');
+                            showProactiveChatWrapper();
+                        } else {
+                            console.log('whould have show n but chatbot was visible');
+                        }
+                    }, (secondsTilProactiveChatAppears === 0 ? 0 : secondsTilProactiveChatAppears - 1) * 1000);
                     setTimeout(showProactiveChat, secondsTilProactiveChatAppears * 1000);
                 }
             });
     }
 
     showProactiveChatPromptDialog() {
+        console.log('showProactiveChatPromptDialog');
         const proactivechatArea = this.shadowDOM.querySelector('#proactivechat');
         !!proactivechatArea && (proactivechatArea.style.display = 'block');
         console.log(timeStamp(), 'showProactiveChatPromptDialog');
@@ -394,6 +404,7 @@ class ProactiveChat extends HTMLElement {
 
         function openChatBotIframe() {
             that.chatbotHasAppeared = true;
+            console.log('3 chatbotHasAppeared =', that.chatbotHasAppeared);
 
             if (that.displayType === 'inline') {
                 // find the corner chat instance on the page
@@ -720,6 +731,7 @@ class ProactiveChat extends HTMLElement {
                 class="inlay"
                 site-url="${crmLocationEmbed}"
                 launch-form-fields=${stringedParams}
+                inlay-hidden="true"
             >
             </inlay-oracle-chat-embedded>`;
 
