@@ -231,7 +231,7 @@ h6, body h6 {
 #s-lib-footer-login-link a, #s-lib-footer-support-link a,
 a {
     color: $uqBrandColour;
-    text-decoration: none;
+    text-decoration: underline;
     overflow-wrap: break-word;
     word-wrap: break-word;
     font-weight: 500;
