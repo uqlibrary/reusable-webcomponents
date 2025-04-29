@@ -22,11 +22,9 @@ $up-arrow: "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22%3E%
 }
 
 .s-lib-box .s-lib-box-title {
-    //margin-bottom: 0;
     padding: 12px 9px;
-    //font-weight: 400;
     background: #fff !important;
-    border-bottom: 5px solid #fff;
+    border-bottom: none;
 }
 
 //.important-content {
@@ -129,8 +127,8 @@ $up-arrow: "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22%3E%
 #s-lib-public-main,
 #s-lib-bc-list {
     @media screen and (max-width: 790px) {
-        padding-left: 16px !important;
-        padding-right: 16px !important;
+        padding-left: 16px;
+        padding-right: 16px;
     }
 }
 
@@ -297,10 +295,8 @@ ul.s-lg-guide-list {
 
 // page layout, right column
 #s-lg-index-cols {
-    display: flex;
-    flex-direction: column;
-    margin-left: 1rem;
-    margin-right: 1rem;
+    margin-left: 0;
+    margin-right: 0;
     padding-left: .5rem;
     padding-right: .5rem;
     #col1, #col2 {
@@ -351,6 +347,14 @@ ul.s-lg-guide-list {
 @media (min-width: 768px) {
     .container {
         width: unset;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}
+@media (min-width: 1165px) {
+    .container {
+        padding-left: 0;
+        padding-right: 0;
     }
 }
 
@@ -381,7 +385,7 @@ ul.s-lg-guide-list {
     }
 }
 
-.iconInsetList {
+.s-lib-box-content .iconInsetList {
     img {
         float: left;
         width: 30px;
@@ -397,6 +401,18 @@ ul.s-lg-guide-list {
 
     li {
         margin-bottom: 24px;
+    }
+}
+
+.inlineHeaderMoreLink {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    a {
+        display: inline-block;
+        margin-left: 1em;
+        margin-top: 12px;
+        line-height: normal;
     }
 }
 

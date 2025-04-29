@@ -15,3 +15,13 @@ body .s-lib-box-container > div.s-lib-box > h2 {
 body h2 {
   font-size: 2rem !important;
 }
+#s-lib-public-main,
+#s-lib-bc-list {
+  @media screen and (max-width: 790px) {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+}
+ul, ol {
+  margin: unset;
+}
