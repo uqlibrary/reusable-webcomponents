@@ -1,6 +1,7 @@
 // css to overwrite production where needed
 // uneeded on golive
 @import 'production-reset';
+@import 'uqaccordion';
 
 $purple500: #51247a;
 $grey900: #3b383e; // Body copy
@@ -367,8 +368,6 @@ ul.s-lg-guide-list {
     }
     .important-content {
         p {
-            display: list-item;
-            list-style-position: outside;
             margin-left: 20px;
             margin-bottom: 16px;
         }
@@ -379,9 +378,6 @@ ul.s-lg-guide-list {
     }
     div.sidebar-headed-list p {
         margin-left: 0;
-        &::marker {
-            content: ''
-        }
     }
 }
 

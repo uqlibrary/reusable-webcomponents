@@ -1,0 +1,189 @@
+.uq-accordion {
+  font-family: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  list-style: none;
+  margin-bottom: 1.5rem;
+  padding: 0
+}
+
+.uq-accordion__item {
+  background: #fff;
+  border: 1px solid #dcdcdd;
+  border-radius: 2px;
+  margin-bottom: .5rem
+}
+
+.uq-accordion__toggle {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background: #fff;
+  border-radius: 0;
+  border-style: solid;
+  border-width: 0;
+  color: #3b383e;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: .5rem 1rem;
+  font-family: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 0;
+  padding: 1rem 3.5rem 1rem 1rem;
+  position: relative;
+  text-align: left;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  transition: all ease .2s;
+  width: 100%
+}
+
+.uq-accordion__toggle>* {
+  margin: 0;
+  color: #3b383e;
+  font-size: 1.25rem;
+  font-weight: 500
+}
+
+@media(min-width: 37.5rem) {
+  .uq-accordion__toggle {
+    padding:1rem 4.5rem 1rem 1.5rem
+  }
+}
+
+.uq-accordion__toggle::before {
+  content: "";
+  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m5 9 7 7 7-7' stroke='%2319151c' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  width: 1.5rem;
+  height: 1.5rem;
+  position: absolute;
+  right: 1rem
+}
+
+@media(min-width: 37.5rem) {
+  .uq-accordion__toggle::before {
+    right:1.5rem
+  }
+}
+
+.uq-accordion__toggle:hover,.uq-accordion__toggle:focus {
+  color: #3b383e
+}
+
+.uq-accordion__toggle:focus {
+  outline: 0 none
+}
+
+.uq-accordion__toggle:has(.uq-accordion__subtitle) {
+  flex-wrap: wrap
+}
+
+.uq-accordion__toggle--active {
+  background: #fff
+}
+
+.uq-accordion__toggle--active::before {
+  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m19 15-7-7-7 7' stroke='%2319151c' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e")
+}
+
+.uq-accordion__toggle--active:hover,.uq-accordion__toggle--active:focus {
+  background-color: #fff
+}
+
+.uq-accordion__icon {
+  width: 24px;
+  height: 24px;
+  margin-block:-4px}
+
+.uq-accordion__icon img,.uq-accordion__icon svg,.uq-accordion__icon .uq-icon::before {
+  width: 24px;
+  height: 24px;
+  margin: 0
+}
+
+.uq-accordion__subtitle {
+  width: 100%;
+  font-size: .875rem;
+  font-weight: 400;
+  color: #6f6f6f;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden
+}
+
+.uq-accordion__content {
+  /*overflow: hidden;*/
+  word-wrap: break-word;
+  transition: height 200ms ease;
+}
+
+.uq-accordion__content:not(.uq-accordion__content--active) {
+  display: none
+}
+
+.uq-accordion__content p:first-of-type {
+  margin-top: 0
+}
+
+.uq-accordion__content :last-child {
+  margin-bottom: 0
+}
+
+.uq-accordion__content .uq-alert {
+  margin-block:1.5rem}
+
+.uq-accordion__content img {
+  margin-block:1rem;display: block
+}
+
+.uq-accordion__content-wrapper {
+  padding: 0 1rem 1rem
+}
+
+@media(min-width: 37.5rem) {
+  .uq-accordion__content-wrapper {
+    padding:0 1.5rem 1.5rem
+  }
+}
+
+.uq-accordion--no-bottom-spacing {
+  margin-bottom: 0
+}
+
+.contextual-links-wrapper {
+  top: 0 !important
+}
+
+.uq-accordion--compact .uq-accordion__toggle {
+  font-size: 1rem;
+  padding: .5rem 3.5rem .5rem 1rem
+}
+
+.uq-accordion--compact .uq-accordion__toggle::before {
+  width: 1rem;
+  height: 1rem;
+  right: 1rem
+}
+
+.uq-accordion--compact .uq-accordion__toggle--active::before {
+  width: 1rem;
+  height: 1rem;
+  right: 1rem
+}
+
+@media(min-width: 37.5rem) {
+  .uq-accordion--compact .uq-accordion__content-wrapper {
+    padding:0 1rem 1rem
+  }
+}
+
+.cke_editable .uq-accordion__content {
+  border: 1px dashed #0d6dcd;
+  display: block !important
+}
