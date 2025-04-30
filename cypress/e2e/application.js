@@ -267,6 +267,31 @@ describe('Dummy Application', () => {
 
             hasUqFooter();
         });
+        it('accordion handler works', () => {
+            cy.visit('http://localhost:8080/src/applications/libguides/demo.html');
+            cy.viewport(1280, 900);
+
+            // confirm the onload closes the accordions
+            cy.waitUntil(() => cy.get('button[data-testid="research-accordion-button"]').should('exist'));
+            cy.waitUntil(() =>
+                cy.get('button[data-testid="research-accordion-button"]').should('have.attr', 'aria-expanded', 'false'),
+            );
+            cy.get('[data-testid="research-accordion-panel"]').should('exist').should('not.be.visible');
+
+            // confirm we can click a button to open an accordion
+            cy.get('button[data-testid="research-accordion-button"]').click();
+            cy.waitUntil(() =>
+                cy.get('button[data-testid="research-accordion-button"]').should('have.attr', 'aria-expanded', 'true'),
+            );
+            cy.get('[data-testid="research-accordion-panel"]').should('exist').should('be.visible');
+
+            // confirm we can click a button to close an accordion
+            cy.get('button[data-testid="research-accordion-button"]').click();
+            cy.waitUntil(() =>
+                cy.get('button[data-testid="research-accordion-button"]').should('have.attr', 'aria-expanded', 'false'),
+            );
+            cy.get('[data-testid="research-accordion-panel"]').should('exist').should('not.be.visible');
+        });
     });
 
     context('Springshare Cal works as expected', () => {

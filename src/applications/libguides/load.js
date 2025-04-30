@@ -63,6 +63,8 @@
     }
 
     function applyUQLItemsToGuides() {
+        closeAllUqAccordions();
+
         if (window.location.hostname === 'localhost') {
             testIncludePathGeneration();
         }
@@ -371,5 +373,65 @@
         !!body && !!link && body.appendChild(link);
     }
 
+    function closeAllUqAccordions() {
+        // accordions are loaded open so the content is viewable without javascript, we then close them all here as part of the load
+        const accordionPanels = document.querySelectorAll('.uq-accordion__content--active');
+        !!accordionPanels &&
+            accordionPanels.forEach((panel) => {
+                panel.classList.remove('uq-accordion__content--active');
+                const button = document.querySelector(`[aria-controls="${panel.id}"]`);
+                if (button) {
+                    !!button.classList.contains('uq-accordion__toggle--active') &&
+                        button.classList.remove('uq-accordion__toggle--active');
+                    button.setAttribute('aria-expanded', 'false');
+
+                    const wrappingDiv = button.parentElement;
+                    !!wrappingDiv && wrappingDiv.classList.remove('uq-accordion__item--is-open');
+                }
+            });
+    }
+
     ready(applyUQLItemsToGuides);
 })();
+
+function toggleAccordionPanel(clickedButton) {
+    /*
+    used with markup like:
+    <div class="uq-accordion">
+        <div class="uq-accordion__item"> <!-- repeat this block for multiple accordions -->
+            <button aria-controls="MATCHING_ID" aria-expanded="true" aria-haspopup="true" onclick="toggleAccordionPanel(this)" class="uq-accordion__toggle uq-accordion__toggle--active">Research</button>
+            <div id="MATCHING_ID" class="uq-accordion__content uq-accordion__content--active">
+                <p>content</p>
+            </div>
+        </div>
+    </div>
+    note: loads open so content is available without js, function closeAllUqAccordions, above, closes them onload
+     */
+    const panelId = clickedButton.getAttribute('aria-controls');
+    const panel = !!panelId && document.getElementById(panelId);
+    if (!panel) {
+        return true;
+    }
+
+    const wrappingDiv = clickedButton.parentElement;
+    if (!panel.classList.contains('uq-accordion__content--active')) {
+        clickedButton.setAttribute('aria-expanded', 'true');
+        !clickedButton.classList.contains('uq-accordion__toggle--active') &&
+            clickedButton.classList.add('uq-accordion__toggle--active');
+        !panel.classList.contains('uq-accordion__content--active') &&
+            panel.classList.add('uq-accordion__content--active');
+        !!wrappingDiv &&
+            !wrappingDiv.classList.contains('uq-accordion__item--is-open') &&
+            wrappingDiv.classList.add('uq-accordion__item--is-open');
+    } else {
+        clickedButton.setAttribute('aria-expanded', 'false');
+        !!clickedButton.classList.contains('uq-accordion__toggle--active') &&
+            clickedButton.classList.remove('uq-accordion__toggle--active');
+        !!panel.classList.contains('uq-accordion__content--active') &&
+            panel.classList.remove('uq-accordion__content--active');
+        !!wrappingDiv &&
+            !!wrappingDiv.classList.contains('uq-accordion__item--is-open') &&
+            wrappingDiv.classList.remove('uq-accordion__item--is-open');
+    }
+    return false;
+}
