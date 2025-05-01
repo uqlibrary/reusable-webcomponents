@@ -63,6 +63,8 @@
     }
 
     function applyUQLItemsToGuides() {
+        prePurpleLinks();
+
         closeAllUqAccordions();
 
         if (window.location.hostname === 'localhost') {
@@ -373,6 +375,14 @@
         !!body && !!link && body.appendChild(link);
     }
 
+    function prePurpleLinks() {
+        // We get a flash of blue links, the built-in style
+        // Lets try to minimise that by doing a generic early application of style
+        const styleSheet = document.createElement('style');
+        styleSheet.textContent = 'a { color: #51247a; }';
+        document.head.appendChild(styleSheet);
+    }
+
     function closeAllUqAccordions() {
         // accordions are loaded open so the content is viewable without javascript, we then close them all here as part of the load
         const accordionPanels = document.querySelectorAll('.uq-accordion__content--active');
@@ -405,6 +415,10 @@ function toggleAccordionPanel(clickedButton) {
             </div>
         </div>
     </div>
+    usage:
+    - update the button label
+    - replace the 2 instances of MATCHING_ID with the same page-unique id on both
+    - replace `<p>content</p>` with the desired contents of the hideable panel
     note: loads open so content is available without js, function closeAllUqAccordions, above, closes them onload
      */
     const panelId = clickedButton.getAttribute('aria-controls');
