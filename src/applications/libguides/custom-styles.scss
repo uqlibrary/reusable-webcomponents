@@ -308,6 +308,9 @@ ul.s-lg-guide-list {
         width: auto;
         padding-left: 0;
         padding-right: 0;
+        ul, ol {
+            margin-bottom: 24px;
+        }
     }
 }
 .s-lib-main {
