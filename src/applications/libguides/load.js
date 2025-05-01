@@ -400,7 +400,7 @@ function toggleAccordionPanel(clickedButton) {
     <div class="uq-accordion">
         <div class="uq-accordion__item"> <!-- repeat this block for multiple accordions -->
             <button aria-controls="MATCHING_ID" aria-expanded="true" aria-haspopup="true" onclick="toggleAccordionPanel(this)" class="uq-accordion__toggle uq-accordion__toggle--active">Research</button>
-            <div id="MATCHING_ID" class="uq-accordion__content uq-accordion__content--active">
+            <div id="MATCHING_ID" class="uq-accordion__content uq-accordion__content--active uq-accordion__content-wrapper">
                 <p>content</p>
             </div>
         </div>
