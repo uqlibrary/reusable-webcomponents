@@ -1006,3 +1006,55 @@ ul.s-lg-guide-list {
 //        line-height: 2.5;
 //    }
 //}
+
+
+#s-lg-az-nav, #s-lg-er-nav, #s-lg-hp-nav, #s-lg-profile-nav, #s-lg-srch-nav {
+    background-color: transparent;
+}
+#s-lg-hp-nav button.btn:focus {
+    outline: none; /* get rid of weird dashed outline */
+}
+
+
+#s-lg-index-cols #s-lg-hp-nav ul.nav.nav-pills {
+    margin-bottom: 0;
+}
+#s-lg-hp-nav>ul>li:first-of-type ul {
+    /* tabs: bar of buttons */
+}
+#s-lg-hp-nav>ul>li:first-of-type {
+    padding: 0;
+}
+#s-lg-hp-nav>ul>li:first-of-type li {
+    border: 1px solid #dcdcdd;
+    padding: 24px 32px;
+}
+#s-lg-hp-nav>ul>li:first-of-type li.active {
+    border-bottom: none;
+}
+ul.nav.nav-pills >li>button {
+    background-color: white;
+    color: #3b383e;
+    font-size: 18px;
+    padding: 0;
+    margin: 0;
+}
+ul.nav.nav-pills >li.active {
+}
+ul.nav.nav-pills >li.active>button {
+    background-color: white;
+    color: #51247a;
+}
+
+#s-lg-hp-nav>ul>li:nth-of-type(2) {
+    /* tabs: displayed content panel */
+    border-width: 0 0 0 1px;
+    border-style: solid;
+    border-color: #dcdcdd;
+}
+
+.input-group button {
+    color: #fff;
+    background-color: #51247a;
+    border: 1px solid #51247a;
+}
