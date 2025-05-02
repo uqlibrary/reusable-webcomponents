@@ -17,9 +17,18 @@ The load.js has special code detecting whether the user is in the admin page bec
 ### Imports
 
 To install the reusable web components, enter the libguides "look and feel" page admin section (eg. <https://uq.libapps.com/libguides/lookfeel.php?action=1> ). Click on the "Custom JS/CSS" tab at the top, and paste the following code into the required pane:
+(we are also adding some early styles to minimise the flashing as there is a short delay while our js is applied)
 
 ```html
-<script type="text/javascript" src="//assets.library.uq.edu.au/reusable-webcomponents/applications/libguides/load.js"></script>
+<style>
+    html body#s-lib-admin-main .dataTables_paginate>ul.pagination>li.paginate_button:not(.disabled):not(.active)>a,
+    html body#s-lib-public-main .dataTables_paginate>ul.pagination>li.paginate_button:not(.disabled):not(.active)>a,
+    html body .s-lg-link-contrast,
+    html body .ui-widget-content a,
+    html body a { color: #51247a; } /* override base springshare link blue as early as posssible to try to stop the flash of blue default links */
+    #s-lib-bc { display: none; } /* hide the breadcrumbs early so they dont flash */
+</style>
+<script type="text/javascript" src="https://assets.library.uq.edu.au/reusable-webcomponents-development/guides-AD-111/applications/libguides/load.js"></script>
 ```
 
 When complete, click save.
