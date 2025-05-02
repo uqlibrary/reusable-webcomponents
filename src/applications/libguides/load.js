@@ -100,6 +100,12 @@
                 document.body.insertBefore(header, firstElement);
             }
 
+            // for 2025 dev - should not be needed for prod (the if block, above, is skipped because the production js has already written the header)
+            const uqheader = document.querySelector('uq-header');
+            if (!!uqheader && uqheader.getAttribute('searchurl') === null) {
+                uqheader.setAttribute('searchurl', 'guides.library.uq.edu.au');
+            }
+
             if (!document.querySelector('uq-site-header')) {
                 const siteHeader = document.createElement('uq-site-header');
                 !!siteHeader && siteHeader.setAttribute('secondleveltitle', 'Guides');
