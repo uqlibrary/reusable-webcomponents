@@ -187,3 +187,11 @@
   border: 1px dashed #0d6dcd;
   display: block !important
 }
+
+/*
+** UQ LIBRARY SPECIFIC STYLES
+ */
+
+.uq-accordion .uq-accordion__item.uq-accordion__item--is-open .uq-accordion__content a {
+  margin-left: 0;
+}
