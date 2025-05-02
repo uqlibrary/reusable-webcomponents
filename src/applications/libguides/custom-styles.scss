@@ -1,19 +1,24 @@
 // css to overwrite production where needed
 // uneeded on golive
 @import 'production-reset';
+
+// styles imported from uq css files
 @import 'uqaccordion';
 
 $purple500: #51247a;
+$grey200: #dcdcdd; // border colour
 $grey900: #3b383e; // Body copy
 $black: #19151c; // Heading colour
 
 $uqBrandColour: $purple500;
+$bodyCopy: $grey900;
 $heading: $grey900;
+$borders: $grey200;
 
 $font: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $nav-border: 4px solid $uqBrandColour;
 $page-background-color: #fff;
-$button-color: #0e62eb;
+$button-color: $uqBrandColour;
 
 $down-arrow: "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath d=%22M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z%22/%3E%3C/svg%3E";
 $up-arrow: "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath d=%22m12 8-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z%22/%3E%3C/svg%3E";
@@ -149,7 +154,7 @@ body {
     font-style: normal;
     line-height: 24px;
     letter-spacing: 0.16px;
-    color: #3b383e;
+    color: $bodyCopy;
     -webkit-font-smoothing: antialiased;
 }
 //
@@ -261,7 +266,7 @@ p:not(:has(> img)) {
 p {
     font-weight: 400;
     padding-bottom: 0;
-    color: #3b383e;
+    color: $bodyCopy;
 }
 
 ul.s-lg-guide-list {
@@ -323,7 +328,6 @@ ul.s-lg-guide-list {
 }
 @media (min-width: 64rem) {
     #s-lg-index-cols {
-        //border: thin solid red;
         display: grid;
         column-gap: 32px;
         grid-template-columns: 0 1fr 296px;
@@ -343,7 +347,6 @@ ul.s-lg-guide-list {
 }
 @media (min-width: 75rem) {
     #s-lg-index-cols {
-        //border: thin solid blue;
         grid-template-columns: 0 1fr 308px;
         margin-inline: -30px;
     }
@@ -901,11 +904,11 @@ ul.s-lg-guide-list {
 //                    width: 100%;
 //                }
 //
-//                .btn-default {
-//                    color: #fff;
-//                    background-color: $button-color;
-//                    border: 1px solid $button-color;
-//                }
+                .btn-default {
+                    color: #fff;
+                    background-color: $button-color;
+                    border: 1px solid $button-color;
+                }
             }
         }
     }
@@ -1012,49 +1015,54 @@ ul.s-lg-guide-list {
     background-color: transparent;
 }
 #s-lg-hp-nav button.btn:focus {
-    outline: none; /* get rid of weird dashed outline */
+    outline: none; // get rid of weird dashed outline
 }
 
 
-#s-lg-index-cols #s-lg-hp-nav ul.nav.nav-pills {
-    margin-bottom: 0;
-}
-#s-lg-hp-nav>ul>li:first-of-type ul {
-    /* tabs: bar of buttons */
-}
-#s-lg-hp-nav>ul>li:first-of-type {
-    padding: 0;
-}
-#s-lg-hp-nav>ul>li:first-of-type li {
-    border: 1px solid #dcdcdd;
-    padding: 24px 32px;
-}
-#s-lg-hp-nav>ul>li:first-of-type li.active {
-    border-bottom: none;
-}
-ul.nav.nav-pills >li>button {
-    background-color: white;
-    color: #3b383e;
-    font-size: 18px;
-    padding: 0;
-    margin: 0;
-}
-ul.nav.nav-pills >li.active {
-}
-ul.nav.nav-pills >li.active>button {
-    background-color: white;
-    color: #51247a;
-}
+#s-lg-index-cols #s-lg-hp-nav {
+    &>ul>li:first-of-type {
+        // tabs: bar of buttons
+        padding: 0;
+        ul {
+            margin-bottom: 0;
+            &>li>button {
+                background-color: white;
+                color: $bodyCopy;
+                font-size: 18px;
+                padding: 0;
+                margin: 0;
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+            &>li.active>button {
+                background-color: white;
+                color: $uqBrandColour;
+            }
+        }
+        li {
+            border: 1px solid $borders;
+            padding: 24px 32px;
+            &.active {
+                border-bottom: none;
+            }
+        }
+    }
 
-#s-lg-hp-nav>ul>li:nth-of-type(2) {
-    /* tabs: displayed content panel */
-    border-width: 0 0 0 1px;
-    border-style: solid;
-    border-color: #dcdcdd;
+    &>ul>li:nth-of-type(2) {
+        // tabs: displayed content panel
+        border-width: 0 0 0 1px;
+        border-style: solid;
+        border-color: $borders;
+    }
 }
-
-.input-group button {
-    color: #fff;
-    background-color: #51247a;
-    border: 1px solid #51247a;
+@media (max-width: 64rem) {
+    #s-lg-index-cols #s-lg-hp-nav {
+        &>ul>li:first-of-type {
+            // tabs: bar of buttons
+            li {
+                padding: 16px 24px;
+            }
+        }
+    }
 }
