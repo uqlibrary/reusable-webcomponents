@@ -371,8 +371,13 @@
     }
 
     function insertCssFile(cssFileName) {
+        const includeFound = document.querySelector("link[href*='" + cssFileName + "']");
+        if (!!includeFound) {
+            return;
+        }
+
         // insert the css late so it is more likely to override other styles,
-        // might be better to go back to attach-to-head after golive to avoid FOUC? but needed right now
+        // might be better to go back to attach-to-head at sandbox test point to avoid FOUC? but needed right now
         const link = document.createElement('link');
         !!link && (link.type = 'text/css');
         !!link && (link.rel = 'stylesheet');
