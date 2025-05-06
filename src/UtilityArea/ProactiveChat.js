@@ -602,6 +602,7 @@ class ProactiveChat extends HTMLElement {
         }
         function configFileLocation() {
             const assetsHostname = 'assets.library.uq.edu.au';
+            const assetsRoot = 'https://' + assetsHostname;
             const includeFilename = 'applications/proactive/config.js';
 
             if (window.location.host === 'localhost:8080') {
