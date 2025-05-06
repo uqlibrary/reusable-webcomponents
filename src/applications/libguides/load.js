@@ -253,7 +253,11 @@
 
         // TEMPORARY CODE - REMOVE AFTER 2025 REDEV - TODO
         const queryStrings = new URLSearchParams(window.location.search);
-        if (window.location.pathname === '/sandbox' || (!!queryStrings && queryStrings.has('group_id'))) {
+        if (
+            window.location.pathname === '/sandbox' ||
+            window.location.pathname.startsWith('/Sandbox') ||
+            (!!queryStrings && queryStrings.has('group_id'))
+        ) {
             // we are on a groups page - 2025 dev
             return `${assetsRoot}/reusable-webcomponents-development/guides-AD-111/${includeFilename}`;
         }
