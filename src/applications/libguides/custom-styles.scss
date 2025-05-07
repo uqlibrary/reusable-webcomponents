@@ -1094,6 +1094,7 @@ ul.s-lg-guide-list {
 }
 
 #col1 .homePagePanel a {
+    &:focus-within,
     &:hover {
         background-color:$paneBackground !important;
         h2 {
@@ -1128,17 +1129,27 @@ ul.s-lg-guide-list {
 }
 
 @media (min-width: 848px) {
-    #col1:has(.homePagePanel) a:hover h2 {
-        text-decoration: underline
+    #col1:has(.homePagePanel) a {
+        &:focus-within,
+        &:hover {
+            h2 {
+                text-decoration: underline
+            }
+        }
     }
     @media (prefers-reduced-motion: no-preference) {
         #col1:has(.homePagePanel) a svg.arrowForwardIcon {
-            transition:margin-left 200ms ease-in-out
+            transition: margin-left 200ms ease-in-out
         }
 
-        #col1:has(.homePagePanel) a:hover svg.arrowForwardIcon {
-            margin-left:10px;
-            transition: margin-left 200ms ease-in-out
+        #col1:has(.homePagePanel) {
+            a:focus-within,
+            a:hover {
+                svg.arrowForwardIcon {
+                    margin-left: 10px;
+                    transition: margin-left 200ms ease-in-out
+                }
+            }
         }
     }
 }
