@@ -6,6 +6,7 @@
 @import 'uqaccordion';
 
 $purple500: #51247a;
+$grey50: #f3f3f4; // Background colour to highlight sections, cards or panes
 $grey200: #dcdcdd; // border colour
 $grey900: #3b383e; // Body copy
 $black: #19151c; // Heading colour
@@ -14,6 +15,7 @@ $uqBrandColour: $purple500;
 $bodyCopy: $grey900;
 $heading: $grey900;
 $borders: $grey200;
+$paneBackground: $grey50;
 
 $font: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $nav-border: 4px solid $uqBrandColour;
@@ -299,7 +301,7 @@ ul.s-lg-guide-list {
     //    padding-right: 20px;
     //}
 }
-.s-lib-box-content {
+#s-lg-index-cols:not(:has(.homePagePanel)) .s-lib-box-content {
     padding-left: 0;
 }
 
@@ -346,7 +348,7 @@ ul.s-lg-guide-list {
     }
 }
 @media (min-width: 75rem) {
-    #s-lg-index-cols {
+    #s-lg-index-cols:not(:has(.homePagePanel)) {
         grid-template-columns: 0 1fr 308px;
         margin-inline: -30px;
     }
@@ -1065,4 +1067,152 @@ ul.s-lg-guide-list {
             }
         }
     }
+}
+
+#col1:has(.homePagePanel) .s-lib-box-std>h2 {
+    display: none
+}
+
+#col1:has( .homePagePanel) .s-lib-box {
+    border: 1px solid rgba(38,85,115,0.15) !important;
+    border-radius: 4px;
+    background-color: #fff;
+    .s-lib-box-content {
+      padding: 0;
+    }
+}
+
+#col1 .homePagePanel a {
+    padding: 24px;
+    display: block;
+    cursor: pointer;
+    color: $uqBrandColour;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    position: relative
+}
+
+#col1 .homePagePanel a {
+    &:hover {
+        background-color:$paneBackground !important;
+        h2 {
+            text-decoration: underline
+        }
+        .panelBodyWrapper {
+            background-color:$paneBackground !important
+        }
+        div.arrowSvgWrapper {
+            background-color:$paneBackground !important
+        }
+    }
+
+    h2.cardHeading {
+        color: $black;
+        font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 24px !important;
+        font-weight: 500;
+        letter-spacing: 0.16px;
+        line-height: 1.2;
+        margin-block: 8px;
+    }
+
+    p {
+        font-size: 16px;
+        margin-bottom: 0;
+    }
+
+    svg.arrowForwardIcon {
+        display: block
+    }
+}
+
+@media (min-width: 848px) {
+    #col1:has(.homePagePanel) a:hover h2 {
+        text-decoration: underline
+    }
+    @media (prefers-reduced-motion: no-preference) {
+        #col1:has(.homePagePanel) a svg.arrowForwardIcon {
+            transition:margin-left 200ms ease-in-out
+        }
+
+        #col1:has(.homePagePanel) a:hover svg.arrowForwardIcon {
+            margin-left:10px;
+            transition: margin-left 200ms ease-in-out
+        }
+    }
+}
+
+@media (max-width: 640px) {
+    #col1:has(.homePagePanel) a {
+        display: flex;
+        justify-content: space-between;
+        text-decoration: none !important;
+    }
+    #col1:has(.homePagePanel) p {
+        display: none;
+    }
+}
+@media (min-width: 640px) {
+    #col1:has(.homePagePanel) a {
+        text-decoration:none !important
+    }
+    #col1:has(.homePagePanel) .arrowSvgWrapper {
+        margin-top: 24px;
+    }
+}
+#s-lg-index-cols:has(.homePagePanel) {
+    display: block;
+}
+
+/* Default mobile view - 1 column */
+#s-lg-index-cols:has(.homePagePanel) .col-md-8 {
+    grid-template-columns: 1fr;
+    display: grid;
+    gap: 32px;
+}
+
+/* Tablet breakpoint - 2 columns */
+@media (min-width: 640px) {
+    #s-lg-index-cols:has(.homePagePanel) .col-md-8 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+    #s-lg-index-cols:has(.homePagePanel) a {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+}
+
+/* Desktop breakpoint - 3 columns */
+@media (min-width: 800px) {
+    #s-lg-index-cols:has(.homePagePanel) .col-md-8 {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 32px;
+    }
+    #s-lg-index-cols:has(.homePagePanel) {
+        .s-lib-box > div > div > div > div > div,
+        .s-lib-box > div > div > div > div,
+        .s-lib-box > div > div > div,
+        .s-lib-box > div > div,
+        .s-lib-box > div,
+        .s-lib-box a  {
+            height: 100%;
+        }
+    }
+}
+
+/* Make boxes consistent height */
+#s-lg-index-cols:has(.homePagePanel) {
+    .s-lib-box {
+        height: 100%;
+    }
+    .s-lib-box-content {
+        flex-grow: 1;
+    }
+}
+.arrowSvgWrapper {
+  margin-top: auto;
+  align-self: flex-start;
 }
