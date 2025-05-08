@@ -90,6 +90,19 @@ function assertUserHasDlorAdmin(expected) {
     }
 }
 
+function assertUserHasSpringshareAdmin(expected) {
+    if (!!expected) {
+        cy.get('li[data-testid="springshare-admin"]').should('exist').contains('Springshare admin');
+        cy.get('[data-testid="mylibrary-menu-springshare-admin"]').should(
+            'have.attr',
+            'href',
+            'https://uq.libapps.com/libapps/login.php?site_id=731',
+        );
+    } else {
+        cy.get('li[data-testid="springshare-admin"]').should('not.exist');
+    }
+}
+
 function assertUserHasEspaceMenuItem(expected) {
     if (!!expected) {
         cy.get('li[data-testid="mylibrary-espace"]').should('exist').contains('UQ eSpace dashboard');
@@ -108,6 +121,7 @@ function assertUserSeesNOAdminOptions() {
     assertUserHasAlertsAdmin(false);
     assertUserHasTestTagAdmin(false);
     assertUserHasDlorAdmin(false);
+    assertUserHasSpringshareAdmin(false);
     // the admin block has been removed so we don't see the admin border
     cy.get('[data-testid="admin-options"]').should('not.exist');
 }
@@ -392,6 +406,7 @@ describe('Account menu button', () => {
                     assertUserHasAlertsAdmin(true);
                     assertUserHasTestTagAdmin(false); // admins do not get T&T by default
                     assertUserHasDlorAdmin(false);
+                    assertUserHasSpringshareAdmin(true);
                     assertUserHasEspaceMenuItem(true); // not an admin function, this user happens to have an author account
                 });
         });
@@ -407,6 +422,7 @@ describe('Account menu button', () => {
                     assertUserHasStandardMyLibraryOptions('uqtesttag');
                     assertUserHasTestTagAdmin(true);
                     assertUserHasDlorAdmin(false);
+                    assertUserHasSpringshareAdmin(true);
                 });
         });
 
@@ -421,6 +437,7 @@ describe('Account menu button', () => {
                     assertUserHasStandardMyLibraryOptions('dloradmn');
                     assertUserHasTestTagAdmin(false);
                     assertUserHasDlorAdmin(true);
+                    assertUserHasSpringshareAdmin(true);
                 });
         });
 
@@ -437,6 +454,7 @@ describe('Account menu button', () => {
                     assertUserHasAlertsAdmin(false);
                     assertUserHasTestTagAdmin(false);
                     assertUserHasDlorAdmin(false);
+                    assertUserHasSpringshareAdmin(true); // is library staff
                     assertUserHasEspaceMenuItem(true);
                 });
         });
@@ -469,6 +487,7 @@ describe('Account menu button', () => {
                     assertUserHasAlertsAdmin(false);
                     assertUserHasTestTagAdmin(false);
                     assertUserHasDlorAdmin(false);
+                    assertUserHasSpringshareAdmin(true);
                 });
         });
 
@@ -496,9 +515,10 @@ describe('Account menu button', () => {
                 .shadow()
                 .within(() => {
                     assertUserHasStandardMyLibraryOptions('uqrdav10');
-                    assertUserHasAlertsAdmin(true, 'uqrdav10');
+                    assertUserHasAlertsAdmin(false);
                     assertUserHasTestTagAdmin(false);
                     assertUserHasDlorAdmin(false);
+                    assertUserHasSpringshareAdmin(false);
                     assertUserHasEspaceMenuItem(false);
                 });
         });
