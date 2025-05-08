@@ -38,6 +38,11 @@ export function canSeeDlorAdmin(account) {
     return hasAdGroup(account, 'lib_dlor_admins');
 }
 
+// all Library staff members get the menu option; clicking through will present them with the Springshare login option
+export function canSeeSpringshareAdmin(account) {
+    return account.user_group === 'LIBRARYSTAFFB';
+}
+
 export function linkToDrupal(pathname, requestedDomainName = null) {
     const domainName = requestedDomainName ?? document.location.hostname;
     // after jan 2025 golive, should be web.library only
