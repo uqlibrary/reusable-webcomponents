@@ -515,7 +515,7 @@ describe('Account menu button', () => {
                 .shadow()
                 .within(() => {
                     assertUserHasStandardMyLibraryOptions('uqrdav10');
-                    assertUserHasAlertsAdmin(true, 'uqrdav10');
+                    assertUserHasAlertsAdmin(false);
                     assertUserHasTestTagAdmin(false);
                     assertUserHasDlorAdmin(false);
                     assertUserHasSpringshareAdmin(false);
