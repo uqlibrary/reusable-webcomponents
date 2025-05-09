@@ -64,7 +64,7 @@ module.exports = () => {
             rules: [
                 {
                     test: /\.js$/,
-                    exclude: /node_modules/,
+                    exclude: process.env.NODE_ENV === 'local' ? /node_modules/ : /(node_modules|mock)/,
                     use: [
                         {
                             loader: 'babel-loader',
