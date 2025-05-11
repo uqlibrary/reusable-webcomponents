@@ -44,3 +44,5 @@ When complete, click save.
 Admin edit pages (ie. <https://uq.libapps.com/libguides/lookfeel.php?action=1>) are not on the \*.uq.edu.au domain as as such, will fail CORS checks for any calls to API. Because of that, we hide the utility buttons which require api data to display correctly (chat status/hours etc).
 
 Previous to this rollout - the libGuides had override CSS in multiple places. It is all now in this folder -> custom-styles.scss. Please dont go adding it into the libguides backend, as we cannot manage it from there.
+
+- the image in /images is used for the guides hero shot. It is sourced from L:\Governance\CorporateIdentity\Pictures\11-WEBSITE\Library-photoshoot-2024\Optimised-for-web\hero-biological-sciences-library-group-study-anatomical-models.jpg

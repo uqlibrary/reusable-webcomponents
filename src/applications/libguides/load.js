@@ -134,6 +134,7 @@
                 const culturalAdvice = document.createElement('cultural-advice');
                 !!culturalAdvice && document.body.insertBefore(culturalAdvice, firstElement);
             }
+            moveHeroShot();
 
             if (!document.querySelector('uq-footer')) {
                 const subFooter = document.createElement('uq-footer');
@@ -415,6 +416,15 @@
                     !!wrappingDiv && wrappingDiv.classList.remove('uq-accordion__item--is-open');
                 }
             });
+    }
+
+    function moveHeroShot() {
+        // move the hero image up higher so it can go full width
+        const culturalAdvice = document.querySelector('cultural-advice');
+        console.log('moveHeroShot culturalAdvice=', culturalAdvice);
+        const heroDiv = document.getElementById('guides-library-hero');
+        console.log('moveHeroShot heroDiv=', heroDiv);
+        !!culturalAdvice && !!heroDiv && culturalAdvice.after(heroDiv);
     }
 
     ready(applyUQLItemsToGuides);
