@@ -225,7 +225,7 @@
     }
 
     function getFeatureBranchName() {
-        return forceFeatureBranch() ? searchParameters.getValue('branchName') : '';
+        return forceFeatureBranch() ? searchParameters.getValue('branchName') : 'master';
     }
 
     // we can use parameters to force our css and js to come from staging or feature branch locations
@@ -243,12 +243,13 @@
         }
         if (forceStaging()) {
             // we don't have a staging environment on guides, but we can use this override to test things
+            // eg https://guides.library.uq.edu.au/how-to-find/news-and-newspapers?override=on&useAlternate=staging
             return assetsRoot + '/reusable-webcomponents-staging/' + includeFilename;
         }
 
         if (forceFeatureBranch()) {
             // for development testing on feature branch - force Staging (useAlternate=staging) longer term instead
-            // eg https://guides.library.uq.edu.au/how-to-find/news-and-newspapers?override=on&useAlternate=featureBranchName
+            // eg https://guides.library.uq.edu.au/how-to-find/news-and-newspapers?override=on&useAlternate=working&branchName=featureBranchName
             return `${assetsRoot}/reusable-webcomponents-development/${featureBranchName}/${includeFilename}`;
         }
 
