@@ -36,3 +36,8 @@ a {
 //.s-lib-box-content {
 //  padding: 0;
 //}
+
+/* Library fixes */
+.s-lib-box-content a:hover div .uq-card__icon {
+  background-color: transparent !important;
+}
