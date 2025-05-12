@@ -1070,7 +1070,7 @@ ul.s-lg-guide-list {
     }
 }
 
-#col1:has(.homePagePanel) .s-lib-box-std>h2 {
+body:has(.homePagePanel) .s-lib-box-std>h2 {
     display: none
 }
 
