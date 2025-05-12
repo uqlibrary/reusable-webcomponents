@@ -35,20 +35,21 @@ $up-arrow: "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22%3E%
     border-bottom: none;
 }
 
-//.important-content {
-//    border: 1px dashed #49075e;
-//    padding: 1rem 1rem 1rem 2.8rem;
-//    margin: 5px;
-//}
-//
-//.important-exclamation-content {
-//    border: 1px dashed #49075e;
-//    padding: 1rem 1rem 1rem 5rem;
-//    background-image: url(https://libapps-au.s3-ap-southeast-2.amazonaws.com/customers/720/images/alert-circle.png);
-//    background-position: left;
-//    background-repeat: no-repeat;
-//    margin: 5px;
-//}
+/* legacy, in case someone fogets they shouldn't use this */
+.important-content {
+    border: 1px solid $borders;
+    padding: 1rem 1rem 1rem 2.8rem;
+    margin: 0;
+}
+
+.important-exclamation-content {
+    border: 1px solid $borders;
+    padding: 1rem 1rem 1rem 5rem;
+    background-image: url(https://libapps-au.s3-ap-southeast-2.amazonaws.com/customers/720/images/alert-circle.png);
+    background-position: left;
+    background-repeat: no-repeat;
+    margin: 0;
+}
 //
 //.s-lib-featured-profile-container {
 //    width: 160px;
@@ -1230,7 +1231,8 @@ ul.s-lg-guide-list {
 
 /* hero shot, on Guides homepage */
 .hero-card-image {
-    background-position: top center;
+    background-position-y: top;
+    background-position-x: center;
     background-repeat: no-repeat;
     background-size: cover;
     overflow: hidden;
@@ -1238,6 +1240,11 @@ ul.s-lg-guide-list {
     height: 100%;
     /* hardcoded in Springshare box */
     /* background-image: url(https://assets.library.uq.edu.au/reusable-webcomponents-staging/applications/libguides/hero_2025.jpg);*/
+}
+@media (max-width: 899.95px) {
+    .hero-card-image {
+        min-height: 300px;
+    }
 }
 .hero-wrapper-1 {
     background-color: rgb(75, 34, 113);
@@ -1313,6 +1320,11 @@ ul.s-lg-guide-list {
     }
 }
 
+@media (min-width: 0px) {
+    .hero-wrapper-2 > .hero-wrapper-3 {
+        max-width: none;
+    }
+}
 @media (min-width: 848px) {
     .hero-wrapper-3 {
         flex-basis: 100%;
@@ -1321,8 +1333,14 @@ ul.s-lg-guide-list {
         max-width: 100%;
     }
 }
-
-
+@media (min-width: 900px) {
+    .hero-wrapper-3 {
+        flex-basis: 50%;
+        -webkit-box-flex: 0;
+        flex-grow: 0;
+        max-width: 50%;
+    }
+}
 @media (min-width: 1024px) {
     .hero-wrapper-3 {
         flex-basis: 50%;
@@ -1331,7 +1349,6 @@ ul.s-lg-guide-list {
         max-width: 50%;
     }
 }
-
 @media (min-width: 1280px) {
     .hero-wrapper-3 {
         flex-basis: 50%;
@@ -1340,8 +1357,6 @@ ul.s-lg-guide-list {
         max-width: 50%;
     }
 }
-
-
 @media (min-width: 1536px) {
     .hero-wrapper-3 {
         flex-basis: 50%;
@@ -1358,13 +1373,11 @@ ul.s-lg-guide-list {
     .hero-words-wrapper-1 {
         margin-right: -5em;
         position: relative;
-        display: flex
-    ;
+        display: flex;
         -webkit-box-pack: end;
         justify-content: flex-end;
     }
 }
-
 
 .hero-words-wrapper-2 {
     background-color: rgb(81, 36, 122);
