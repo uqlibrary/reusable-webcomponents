@@ -1070,6 +1070,7 @@ ul.s-lg-guide-list {
     }
 }
 
+body:has( .homePagePanel)  div h1:not(.hero-h1),
 body:has(.homePagePanel)>div.s-lib-box-container,
 body:has(.homePagePanel) .s-lib-box-std>h2 {
     display: none
