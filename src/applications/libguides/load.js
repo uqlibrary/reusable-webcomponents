@@ -421,11 +421,10 @@
 
     function moveHeroShot() {
         // move the hero image up higher so it can go full width
-        const culturalAdvice = document.querySelector('cultural-advice');
-        console.log('moveHeroShot culturalAdvice=', culturalAdvice);
+        // const wrappingBlock = document.querySelector('#s-lg-box-22990011-container>div');
+        const wrappingBlock = document.querySelector('[href="#s-lib-public-main"]');
         const heroDiv = document.getElementById('guides-library-hero');
-        console.log('moveHeroShot heroDiv=', heroDiv);
-        !!culturalAdvice && !!heroDiv && culturalAdvice.after(heroDiv);
+        !!wrappingBlock && !!heroDiv && wrappingBlock.after(heroDiv);
     }
 
     ready(applyUQLItemsToGuides);

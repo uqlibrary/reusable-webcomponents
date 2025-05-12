@@ -293,11 +293,11 @@ describe('Dummy Application', () => {
             cy.get('[data-testid="research-accordion-panel"]').should('exist').should('not.be.visible');
         });
         context('hero shot', () => {
-            it('has been moved to directly after cultural advice', () => {
+            it('has been moved to top of body', () => {
                 cy.visit('http://localhost:8080/src/applications/libguides/demo.html');
                 cy.viewport(1280, 900);
                 cy.get('[data-testid="hero-wrapper"]').should('exist');
-                cy.get('cultural-advice').next().should('have.attr', 'data-testid', 'hero-wrapper');
+                cy.get('#s-lg-public-skiplink').next().should('have.attr', 'data-testid', 'hero-wrapper');
             });
             it('is laid out correctly at mobile size', () => {
                 cy.visit('http://localhost:8080/src/applications/libguides/demo.html');

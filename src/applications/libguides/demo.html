@@ -55,6 +55,17 @@
                     padding-right: 1rem;
                 }
             }
+            #s-lg-public-skiplink {
+                padding: 10px;
+                position: absolute;
+                top: calc(-100%);
+                left: 0;
+                border-right: 1px solid #fff;
+                border-bottom: 1px solid #fff;
+                border-bottom-right-radius: 8px;
+                transition: top 1s ease-out, background 1s linear;
+                z-index: 100;
+            }
         </style>
         <script type="text/javascript" src="/applications/libguides/load.js"></script>
         <script type="text/javascript" src="/uq-lib-reusable.min.js"></script>
@@ -67,6 +78,7 @@
         />
     </head>
     <body class="s-lg-guide-body" style="padding: 0; margin: 0; font-family: 'Roboto', sans-serif">
+        <a id="s-lg-public-skiplink" class="alert-info" href="#s-lib-public-main">Skip to Main Content</a>
         <div id="container" class="layout-card">
             <div id="s-lg-guide-header" class="container s-lib-header s-lib-side-borders">
                 <nav id="s-lib-bc" aria-label="breadcrumb">
@@ -88,25 +100,27 @@
                         <li id="s-lib-bc-page" class="active breadcrumb-item">Introduction</li>
                     </ol>
                 </nav>
-                <style>
-                    .hero-card-image {
-                        /*background-image: url(https://assets.library.uq.edu.au/reusable-webcomponents-staging/applications/libguides/hero_2025.jpg);*/
-                        background-image: url(http://localhost:8080/applications/libguides/hero_2025.jpg);
-                    }
-                </style>
-                <div id="guides-library-hero" class="hero-wrapper-1" data-testid="hero-wrapper">
-                    <div class="hero-wrapper-2">
-                        <div class="hero-wrapper-3">
-                            <div class="hero-card-image" data-testid="hero-image"></div>
-                        </div>
-                        <div class="hero-wrapper-3">
-                            <div class="hero-words-wrapper-1" data-testid="hero-words-words-wrapper">
-                                <div class="hero-words-wrapper-2">
-                                    <h1 class="hero-h1">Welcome to Library guides</h1>
-                                    <p class="MuiTypography-root MuiTypography-body1 hero-body1">
-                                        The best resources, tools and techniques, recommended by our librarians, to help
-                                        you quickly and efficiently do your assignments and research.
-                                    </p>
+                <div class="s-lib-box-container">
+                    <style>
+                        .hero-card-image {
+                            /*background-image: url(https://assets.library.uq.edu.au/reusable-webcomponents-staging/applications/libguides/hero_2025.jpg);*/
+                            background-image: url(http://localhost:8080/applications/libguides/hero_2025.jpg);
+                        }
+                    </style>
+                    <div id="guides-library-hero" class="hero-wrapper-1" data-testid="hero-wrapper">
+                        <div class="hero-wrapper-2">
+                            <div class="hero-wrapper-3">
+                                <div class="hero-card-image" data-testid="hero-image"></div>
+                            </div>
+                            <div class="hero-wrapper-3">
+                                <div class="hero-words-wrapper-1" data-testid="hero-words-words-wrapper">
+                                    <div class="hero-words-wrapper-2">
+                                        <h1 class="hero-h1">Welcome to Library guides</h1>
+                                        <p class="MuiTypography-root MuiTypography-body1 hero-body1">
+                                            The best resources, tools and techniques, recommended by our librarians, to help
+                                            you quickly and efficiently do your assignments and research.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
