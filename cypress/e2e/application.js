@@ -292,6 +292,116 @@ describe('Dummy Application', () => {
             );
             cy.get('[data-testid="research-accordion-panel"]').should('exist').should('not.be.visible');
         });
+        context('hero shot', () => {
+            it('has been moved to directly after cultural advice', () => {
+                cy.visit('http://localhost:8080/src/applications/libguides/demo.html');
+                cy.viewport(1280, 900);
+                cy.get('[data-testid="hero-wrapper"]').should('exist');
+                cy.get('cultural-advice').next().should('have.attr', 'data-testid', 'hero-wrapper');
+            });
+            it('is laid out correctly at mobile size', () => {
+                cy.visit('http://localhost:8080/src/applications/libguides/demo.html');
+                cy.viewport(320, 480);
+                cy.get('cultural-advice').should('exist').scrollIntoView();
+                let firstItemTop;
+                let firstItemLeft;
+                cy.get('[data-testid="hero-image"]')
+                    .should('exist')
+                    .should('be.visible')
+                    .within(($el) => {
+                        firstItemTop = $el.position().top;
+                        firstItemLeft = $el.position().left;
+                    });
+                cy.get('[data-testid="hero-words-words-wrapper"]')
+                    .should('exist')
+                    .should('be.visible')
+                    .within(($el) => {
+                        const secondItemTop = $el.position().top;
+                        const secondItemLeft = $el.position().left;
+
+                        // at mobile size, the image (first) and words (second) are stacked vertically
+                        expect(secondItemTop).to.be.greaterThan(firstItemTop);
+                        expect(secondItemLeft).to.equal(firstItemLeft);
+                    });
+            });
+            it('is laid out correctly at tablet size', () => {
+                cy.visit('http://localhost:8080/src/applications/libguides/demo.html');
+                cy.viewport(840, 900);
+                cy.get('cultural-advice').should('exist').scrollIntoView();
+                let firstItemTop;
+                let firstItemLeft;
+                cy.get('[data-testid="hero-image"]')
+                    .should('exist')
+                    .should('be.visible')
+                    .within(($el) => {
+                        firstItemTop = $el.position().top;
+                        firstItemLeft = $el.position().left;
+                    });
+                cy.get('[data-testid="hero-words-words-wrapper"]')
+                    .should('exist')
+                    .should('be.visible')
+                    .within(($el) => {
+                        const secondItemTop = $el.position().top;
+                        const secondItemLeft = $el.position().left;
+
+                        // at tablet size, the image (first) and words (second) are stacked vertically
+                        expect(secondItemTop).to.be.greaterThan(firstItemTop);
+                        expect(secondItemLeft).to.equal(firstItemLeft);
+                    });
+            });
+            it('is laid out correctly at narrow desktop size', () => {
+                cy.visit('http://localhost:8080/src/applications/libguides/demo.html');
+                cy.viewport(905, 800);
+                cy.get('cultural-advice').should('exist').scrollIntoView();
+                let firstItemTop;
+                let firstItemLeft;
+                cy.get('[data-testid="hero-image"]')
+                    .should('exist')
+                    .should('be.visible')
+                    .within(($el) => {
+                        firstItemTop = $el.position().top;
+                        firstItemLeft = $el.position().left;
+                    });
+                cy.get('[data-testid="hero-words-words-wrapper"]')
+                    .should('exist')
+                    .should('be.visible')
+                    .within(($el) => {
+                        const secondItemTop = $el.position().top;
+                        const secondItemLeft = $el.position().left;
+
+                        // at narrow desktop, hero image (first) sits to the right of the words (second)
+                        expect(secondItemTop - firstItemTop).to.be.lessThan(1);
+                        expect(secondItemTop - firstItemTop).to.be.greaterThan(-1);
+                        expect(firstItemLeft).to.be.greaterThan(secondItemLeft);
+                    });
+            });
+            it('is laid out correctly at desktop size', () => {
+                cy.visit('http://localhost:8080/src/applications/libguides/demo.html');
+                cy.viewport(1280, 900);
+                cy.get('cultural-advice').should('exist').scrollIntoView();
+                let firstItemTop;
+                let firstItemLeft;
+                cy.get('[data-testid="hero-image"]')
+                    .should('exist')
+                    .should('be.visible')
+                    .within(($el) => {
+                        firstItemTop = $el.position().top;
+                        firstItemLeft = $el.position().left;
+                    });
+                cy.get('[data-testid="hero-words-words-wrapper"]')
+                    .should('exist')
+                    .should('be.visible')
+                    .within(($el) => {
+                        const secondItemTop = $el.position().top;
+                        const secondItemLeft = $el.position().left;
+
+                        // at desktop, hero image (first) sits to the right of the words (second)
+                        expect(secondItemTop - firstItemTop).to.be.lessThan(1);
+                        expect(secondItemTop - firstItemTop).to.be.greaterThan(-1);
+                        expect(secondItemLeft).to.be.lessThan(firstItemLeft);
+                    });
+            });
+        });
     });
 
     context('Springshare Cal works as expected', () => {
