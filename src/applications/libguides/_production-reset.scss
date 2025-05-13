@@ -38,6 +38,7 @@ a {
 //}
 
 /* Library fixes */
+.s-lib-box-content a:focus-within div .uq-card__icon,
 .s-lib-box-content a:hover div .uq-card__icon {
   background-color: transparent !important;
 }
