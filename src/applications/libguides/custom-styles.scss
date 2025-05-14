@@ -189,7 +189,8 @@ body .s-lib-header h1 {
     padding-bottom: 0;
 }
 
-body h2 {
+body h2,
+body h3 {
     font-size: 2rem;
     font-family: $font;
     color: $heading;
@@ -197,7 +198,8 @@ body h2 {
     line-height: 1.2;
 }
 
-body .s-lib-box-container > div.s-lib-box > h2 {
+body .s-lib-box-container > div.s-lib-box > h2,
+body .s-lib-box-container > div.s-lib-box > h3 {
     font-size: 2rem;
     font-family: $font;
     color: $heading;
@@ -816,6 +818,7 @@ ul.s-lg-guide-list {
 }
 //
 #s-lg-col-1 h2,
+.guides_homepage #s-lg-col-1 h3,
 .s-lib-box-content {
     padding: 20px;
 }
@@ -1079,8 +1082,33 @@ ul.s-lg-guide-list {
 
 body:has( .homePagePanel)  div h1:not(.hero-h1),
 body:has(.homePagePanel)>div.s-lib-box-container,
-body:has(.homePagePanel) .s-lib-box-std>h2 {
+body.guides_homepage .remove-h2 h2.s-lib-box-title {
     display: none
+}
+
+.footer-box {
+    margin-bottom: 3rem;
+    .s-lib-box-container {
+        margin-top: 1.5rem;
+        padding: 1.5rem;
+        border: 1px solid rgba(38, 85, 115, 0.15) !important;
+        border-radius: 4px;
+        background-color: #fff;
+        margin-left: -30px;
+    }
+    .s-lib-box-content {
+        padding-inline: 0;
+        padding-bottom: 0;
+        ul, ol {
+            margin-left: 8px;
+        }
+        li {
+            margin-block: 1rem;
+        }
+    }
+    & :last-child {
+        margin-bottom: 0;
+    }
 }
 
 #col1:has( .homePagePanel) .s-lib-box {
@@ -1107,7 +1135,7 @@ body:has(.homePagePanel) .s-lib-box-std>h2 {
     &:focus-within,
     &:hover {
         background-color:$paneBackground !important;
-        h2 {
+        h3 {
             text-decoration: underline
         }
         .panelBodyWrapper {
@@ -1118,7 +1146,7 @@ body:has(.homePagePanel) .s-lib-box-std>h2 {
         }
     }
 
-    h2.cardHeading {
+    h3.cardHeading {
         color: $black;
         font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
         font-size: 24px !important;
@@ -1142,7 +1170,7 @@ body:has(.homePagePanel) .s-lib-box-std>h2 {
     #col1:has(.homePagePanel) a {
         &:focus-within,
         &:hover {
-            h2 {
+            h3 {
                 text-decoration: underline
             }
         }
@@ -1184,7 +1212,6 @@ body:has(.homePagePanel) .s-lib-box-std>h2 {
 }
 #s-lg-index-cols:has(.homePagePanel) {
     display: block;
-    margin-bottom: 3rem;
 }
 
 /* Default mobile view - 1 column */
