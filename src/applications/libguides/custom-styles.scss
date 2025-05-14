@@ -189,8 +189,7 @@ body .s-lib-header h1 {
     padding-bottom: 0;
 }
 
-body h2,
-body h3 {
+body h2 {
     font-size: 2rem;
     font-family: $font;
     color: $heading;
@@ -198,8 +197,7 @@ body h3 {
     line-height: 1.2;
 }
 
-body .s-lib-box-container > div.s-lib-box > h2,
-body .s-lib-box-container > div.s-lib-box > h3 {
+body .s-lib-box-container > div.s-lib-box > h2 {
     font-size: 2rem;
     font-family: $font;
     color: $heading;
@@ -1147,7 +1145,6 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title {
     }
 
     h3.cardHeading {
-        color: $black;
         font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
         font-size: 24px !important;
         font-weight: 500;
