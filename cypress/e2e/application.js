@@ -267,9 +267,12 @@ describe('Dummy Application', () => {
 
             hasUqFooter();
         });
-        it('accordion handler works', () => {
-            cy.visit('http://localhost:8080/src/applications/libguides/demo.html');
+        it('detail page with hero and accordion handler works', () => {
+            cy.visit('http://localhost:8080/src/applications/libguides/demo-landing.html');
             cy.viewport(1280, 900);
+
+            // detail hero image loads
+            cy.waitUntil(() => cy.get('[data-testid="hero-text"]').should('exist').should('be.visible'));
 
             // confirm the onload closes the accordions
             cy.waitUntil(() => cy.get('button[data-testid="research-accordion-button"]').should('exist'));
@@ -292,7 +295,7 @@ describe('Dummy Application', () => {
             );
             cy.get('[data-testid="research-accordion-panel"]').should('exist').should('not.be.visible');
         });
-        context('hero shot', () => {
+        context('homepage hero shot', () => {
             it('has been moved to top of body', () => {
                 cy.visit('http://localhost:8080/src/applications/libguides/demo.html');
                 cy.viewport(1280, 900);

@@ -142,6 +142,8 @@
                 const subFooter = document.createElement('uq-footer');
                 document.body.appendChild(subFooter);
             }
+
+            addHeroHeader();
         }, 100);
     }
 
@@ -445,6 +447,44 @@
 
         const newNav = document.querySelector('#s-lg-guide-tabs[role="navigation"] nav');
         !!newNav && newNav.appendChild(menuList);
+    }
+
+    function addHeroHeader() {
+        const checkHero = document.querySelector('.hero-wrapper-1');
+        if (!!checkHero) {
+            // hero already provided
+            return;
+        }
+
+        let h1Element = document.querySelector('#s-lg-guide-header-info h1');
+        if (!h1Element) {
+            h1Element = document.querySelector('#s-lib-public-main h1');
+        }
+        const h1Text = !!h1Element && h1Element.textContent;
+
+        if (!h1Text) {
+            // no h1 found to move
+            return;
+        }
+        !!h1Element && h1Element.remove();
+
+        const heroHtml = `<div id="guides-library-hero" class="hero-wrapper-1 non-homepage-hero" data-testid="hero-wrapper">
+                <div class="hero-wrapper-2">
+                    <div class="hero-wrapper-3"></div>
+                    <div class="hero-wrapper-3">
+                        <div class="hero-words-wrapper-1" data-testid="hero-words-words-wrapper">
+                            <div class="hero-words-wrapper-2">
+                                <h1 class="hero-h1" data-testid="hero-text">${h1Text}</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+        const template = document.createElement('template');
+        template.innerHTML = heroHtml;
+
+        const sibling = document.querySelector('#s-lg-public-skiplink');
+        !!sibling && sibling.parentNode.insertBefore(template.content, sibling.nextSibling);
     }
 
     ready(applyUQLItemsToGuides);

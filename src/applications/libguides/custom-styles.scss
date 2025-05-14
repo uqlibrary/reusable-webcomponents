@@ -32,7 +32,7 @@ $up-arrow: "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22%3E%
 }
 
 .s-lib-box .s-lib-box-title {
-    padding: 12px 9px;
+    padding: 0 9px 12px 9px;
     background: #fff !important;
     border-bottom: none;
 }
@@ -1258,6 +1258,16 @@ body:has(.homePagePanel) .s-lib-box-std>h2 {
 .hero-wrapper-1 {
     background-color: rgb(75, 34, 113);
 }
+.hero-wrapper-1.non-homepage-hero {
+    margin-bottom: 64px;
+    margin-right: 0;
+}
+.non-homepage-hero .hero-words-wrapper-2 {
+    margin-top: 58px;
+}
+.non-homepage-hero .hero-h1 {
+    font-size: 3rem;
+}
 .hero-wrapper-2 {
     box-sizing: border-box;
     display: flex;
@@ -1620,4 +1630,12 @@ body:has(.homePagePanel) .s-lib-box-std>h2 {
 }
 #s-lg-tabs-container .nav-pills>li>ul>li:has(>a:hover) {
     background-color: $paneBackground !important;
+}
+
+// bring strapline to top of body
+#s-lg-guide-description {
+    margin-left: 315px;
+}
+#s-lg-tabs-container {
+    margin-top: -35px;
 }
