@@ -33,12 +33,35 @@ a {
   background-color: #51247a;
   border: 1px solid #51247a;
 }
-//.s-lib-box-content {
-//  padding: 0;
-//}
 
 /* Library fixes */
 .s-lib-box-content a:focus-within div .uq-card__icon,
 .s-lib-box-content a:hover div .uq-card__icon {
   background-color: transparent !important;
+}
+
+#s-lg-tabs-container .nav-pills>li>a:hover {
+  background: unset;
+}
+#s-lg-tabs-container .nav-tabs>li>a,
+#s-lg-tabs-container .nav-pills>li>a,
+#s-lg-guide-tabs .s-lg-tabs-side .nav .dropdown a {
+  border-radius: unset !important;
+  font-size: inherit;
+  color: unset;
+  border-bottom: unset;
+  margin: unset;
+  background: unset;
+  padding: 0unset;
+}
+#s-lg-tabs-container ul>.active>.active {
+  font-weight: 500 !important;
+}
+#s-lg-tabs-container .nav-pills>.active>a {
+  background: none;
+}
+#s-lg-tabs-container {
+  padding-bottom: unset;
+  margin-bottom: unset;
+  border-bottom: none;
 }

@@ -67,6 +67,8 @@
 
         closeAllUqAccordions();
 
+        makeSidebarMenuStandard();
+
         if (window.location.hostname === 'localhost') {
             testIncludePathGeneration();
         }
@@ -425,6 +427,24 @@
         const wrappingBlock = document.querySelector('[href="#s-lib-public-main"]');
         const heroDiv = document.getElementById('guides-library-hero');
         !!wrappingBlock && !!heroDiv && wrappingBlock.after(heroDiv);
+    }
+
+    function makeSidebarMenuStandard() {
+        const uqMenu = `<nav class="uq-local-nav" aria-label="Local navigation">
+            <div class="uq-local-nav__grandparent"><a href="https://uq.edu.au/" class="uq-local-nav__link">UQ home</a></div>
+            <div class="uq-local-nav__grandparent"><a href="/" class="uq-local-nav__link">Library</a></div>
+            <div class="uq-local-nav__parent"><a href="https://guides.library.uq.edu.au" class="uq-local-nav__link">Guides</a></div>
+        </nav>`;
+        const template = document.createElement('template');
+        template.innerHTML = uqMenu;
+
+        const sidebar = document.querySelector('#s-lg-guide-tabs[role="navigation"]');
+        const menuList = document.querySelector('#s-lg-guide-tabs[role="navigation"] ul');
+
+        !!sidebar && sidebar.insertBefore(template.content.cloneNode(true), sidebar.firstChild);
+
+        const newNav = document.querySelector('#s-lg-guide-tabs[role="navigation"] nav');
+        !!newNav && newNav.appendChild(menuList);
     }
 
     ready(applyUQLItemsToGuides);
