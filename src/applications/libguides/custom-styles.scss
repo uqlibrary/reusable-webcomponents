@@ -1667,3 +1667,14 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title {
 #s-lg-tabs-container {
     margin-top: -35px;
 }
+
+.accessibility-only {
+    height: 0;
+    color: #fff;
+    margin: 0;
+    &:focus {
+        height: auto;
+        color: $heading;
+        margin: 0 0 2rem -1.5rem;
+    }
+}
