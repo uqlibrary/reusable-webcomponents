@@ -92,7 +92,7 @@ function assertUserHasDlorAdmin(expected) {
 
 function assertUserHasSpringshareAdmin(expected) {
     if (!!expected) {
-        cy.get('li[data-testid="springshare-admin"]').should('exist').contains('Springshare admin');
+        cy.get('li[data-testid="springshare-admin"]').should('exist').contains('LibApps');
         cy.get('[data-testid="mylibrary-menu-springshare-admin"]').should(
             'have.attr',
             'href',
