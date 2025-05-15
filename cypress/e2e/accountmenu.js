@@ -92,7 +92,7 @@ function assertUserHasDlorAdmin(expected) {
 
 function assertUserHasSpringshareAdmin(expected) {
     if (!!expected) {
-        cy.get('li[data-testid="springshare-admin"]').should('exist').contains('Springshare admin');
+        cy.get('li[data-testid="springshare-admin"]').should('exist').contains('LibApps');
         cy.get('[data-testid="mylibrary-menu-springshare-admin"]').should(
             'have.attr',
             'href',
@@ -420,6 +420,8 @@ describe('Account menu button', () => {
                 .shadow()
                 .within(() => {
                     assertUserHasStandardMyLibraryOptions('uqtesttag');
+                    assertUserHasMasquerade(true, 'uqtesttag');
+                    assertUserHasAlertsAdmin(false);
                     assertUserHasTestTagAdmin(true);
                     assertUserHasDlorAdmin(false);
                     assertUserHasSpringshareAdmin(true);
@@ -435,6 +437,8 @@ describe('Account menu button', () => {
                 .shadow()
                 .within(() => {
                     assertUserHasStandardMyLibraryOptions('dloradmn');
+                    assertUserHasMasquerade(false);
+                    assertUserHasAlertsAdmin(false);
                     assertUserHasTestTagAdmin(false);
                     assertUserHasDlorAdmin(true);
                     assertUserHasSpringshareAdmin(true);
@@ -515,6 +519,7 @@ describe('Account menu button', () => {
                 .shadow()
                 .within(() => {
                     assertUserHasStandardMyLibraryOptions('uqrdav10');
+                    assertUserHasMasquerade(false);
                     assertUserHasAlertsAdmin(false);
                     assertUserHasTestTagAdmin(false);
                     assertUserHasDlorAdmin(false);
