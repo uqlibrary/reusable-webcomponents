@@ -38,6 +38,7 @@ document.body.insertBefore(gtm, firstElement);
 
 const header = document.createElement('uq-header');
 !!header && header.setAttribute('hideLibraryMenuItem', '');
+!!header && header.setAttribute('searchurl', 'guides.library.uq.edu.au');
 document.body.insertBefore(header, firstElement);
 
 const siteHeader = document.createElement('uq-site-header');
