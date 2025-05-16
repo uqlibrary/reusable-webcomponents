@@ -425,10 +425,9 @@
 
     function moveHeroShot() {
         // move the hero image up higher so it can go full width
-        // const wrappingBlock = document.querySelector('#s-lg-box-22990011-container>div');
-        const wrappingBlock = document.querySelector('[href="#s-lib-public-main"]');
+        const siblingBlock = document.querySelector('[href="#s-lib-public-main"]');
         const heroDiv = document.getElementById('guides-library-hero');
-        !!wrappingBlock && !!heroDiv && wrappingBlock.after(heroDiv);
+        !!siblingBlock && !!heroDiv && siblingBlock.after(heroDiv);
     }
 
     function makeSidebarMenuStandard() {
