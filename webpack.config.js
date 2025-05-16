@@ -133,7 +133,6 @@ module.exports = () => {
                     { from: 'src/applications/drupal/subload.js', to: 'applications/drupal/subload.js' },
                     { from: 'src/applications/libcal/load.js', to: 'applications/libcal/load.js' },
                     { from: 'src/applications/libguides/load.js', to: 'applications/libguides/load.js' },
-                    { from: 'src/applications/libguides/subload.js', to: 'applications/libguides/subload.js' },
                     { from: 'src/applications/libwizard/load.js', to: 'applications/libwizard/load.js' },
                     { from: 'src/applications/rightnow/load.js', to: 'applications/rightnow/load.js' },
                     { from: 'src/applications/rightnow/chatload.js', to: 'applications/rightnow/chatload.js' },
