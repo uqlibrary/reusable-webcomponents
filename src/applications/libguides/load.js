@@ -468,17 +468,17 @@
         }
         !!h1Element && h1Element.remove();
 
-        const heroHtml = `<div id="guides-library-hero" class="hero-wrapper-1 non-homepage-hero" data-testid="hero-wrapper">
-                <div class="hero-wrapper-2">
-                    <div class="hero-wrapper-3"></div>
-                    <div class="hero-wrapper-3">
-                        <div class="hero-words-wrapper-1" data-testid="hero-words-words-wrapper">
-                            <div class="hero-words-wrapper-2">
-                                <h1 class="hero-h1" data-testid="hero-text">${h1Text}</h1>
+        const heroHtml = `<div id="guides-library-hero" class="block block-system block-system-main-block" data-testid="hero-wrapper">
+                    <div>
+                        <div class="uq-hero" data-gtm-category="Hero banner">
+                            <div class="uq-container">
+                                <div class="uq-hero__content" data-testid="hero-words-words-wrapper">
+                                    <h1 class="uq-hero__title" data-testid="hero-text">${h1Text}</h1>
+                                    <div class="uq-hero__description"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
             </div>`;
         const template = document.createElement('template');
         template.innerHTML = heroHtml;
