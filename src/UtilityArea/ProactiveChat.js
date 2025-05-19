@@ -555,6 +555,7 @@ class ProactiveChat extends HTMLElement {
     watchHeightChangeInCrm() {
         const awaitCrmIframeBody = setInterval(() => {
             const crmIframe = document.querySelector('iframe#chatInlay');
+            console.log('if localhost is currently blocked in CORS then we get an error here: (see ITS if so)');
             console.log(timeStamp(), 'awaitCrmIframeBody crmIframe=', crmIframe);
             if (!crmIframe) {
                 return;
@@ -600,39 +601,23 @@ class ProactiveChat extends HTMLElement {
             const firstTwoLevels = parts.slice(1, 3);
             return '/' + firstTwoLevels.join('/') + '/';
         }
-        function configFileLocation() {
-            const assetsHostname = 'assets.library.uq.edu.au';
-            const assetsRoot = 'https://' + assetsHostname;
-            const includeFilename = 'applications/proactive/config.js';
-
+        function configFileLocation(includeFilename = 'applications/proactive/config.js') {
             if (window.location.host === 'localhost:8080') {
+                console.log('configFileLocation: local: ', '/' + includeFilename);
                 return '/' + includeFilename;
             }
 
-            if (window.location.href.startsWith(`https://${assetsHostname}/reusable-webcomponents-staging/`)) {
-                // a test on staging branch gets staging version
-                return assetsRoot + '/reusable-webcomponents-staging/' + includeFilename;
+            // get the location of reusable include file - the config file is a child of the same tree
+            const scripts = document.getElementsByTagName('script');
+            let result = '';
+            for (let i = 0; i < scripts.length; i++) {
+                const scriptSrc = scripts[i].src;
+                if (scriptSrc.endsWith('uq-lib-reusable.min.js')) {
+                    result = scriptSrc.substring(0, scriptSrc.lastIndexOf('/') + 1);
+                }
             }
-            if (
-                window.location.href.startsWith(`https://${assetsHostname}/reusable-webcomponents-development/master/`)
-            ) {
-                // a test on master branch gets master version
-                return assetsRoot + '/reusable-webcomponents-development/master/' + includeFilename;
-            }
-            if (window.location.host === assetsHostname) {
-                // a test on any other feature branch gets the feature branch
-                return assetsRoot + getPathnameRoot(window.location.pathname) + includeFilename;
-            }
-            if (
-                window.location.host === 'homepage-development.library.uq.edu.au' ||
-                window.location.host === 'homepage-staging.library.uq.edu.au'
-            ) {
-                // a test on homepage gets staging version
-                return assetsRoot + '/reusable-webcomponents-staging/' + includeFilename;
-            }
-
-            // production
-            return `https://assets.library.uq.edu.au/reusable-webcomponents/${includeFilename}`;
+            console.log('configFileLocation = ', result + includeFilename);
+            return !!result ? result + includeFilename : false;
         }
 
         // This loads the external JS file into the HTML head dynamically
@@ -670,8 +655,9 @@ class ProactiveChat extends HTMLElement {
             };
 
             script.src = `https://${crmLocationScript}/s/oit/latest/common/v0/libs/oit/loader.js`;
-            console.log('use config file at: ', configFileLocation());
-            script.setAttribute('data-oit-config-url', configFileLocation());
+            const fileLocation = configFileLocation();
+            console.log('use config file at: ', fileLocation);
+            !!fileLocation && script.setAttribute('data-oit-config-url', fileLocation);
 
             document.body.appendChild(script);
         }
