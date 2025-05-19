@@ -1,6 +1,3 @@
-$accent-color-half-opacity: rgba(35, 119, 203, 0.1);
-$background-grey: #5f5f5f;
-
 /* cyrillic-ext */
 @font-face {
     font-family: 'Roboto';
@@ -79,6 +76,31 @@ $background-grey: #5f5f5f;
 @import 'styles-imports/prm-user-area';
 @import 'styles-imports/full_view_status';
 
+*:focus-visible {
+    border: 2px solid $uqUtility500;
+}
+* {
+    font-style: normal;
+}
+prm-advanced-search *:focus-visible {
+    border: none;
+}
+a:has(prm-icon[external-link]) { // all links with an outlink icon should have an underline
+    text-decoration: underline;
+}
+
+button, button.md-button, a, a.md-button {
+    transition: color 200ms ease-out, background-color 200ms ease-out;
+    border-radius: 4px;
+    &.button-as-link:has(>span:not([disabled])):not(.disabledLockButton):not(.link-alt-color) {
+        @extend .uq-button-styled-as-link;
+    }
+}
+.services-index-under button:has(>span:not([disabled])) {
+    @extend .uq-button-styled-as-link;
+}
+
+
 uqlibrary-alerts,
 uq-minimal-header {
     z-index: 79 !important;
@@ -114,19 +136,6 @@ uqlibrary-alerts {
     width: 100% !important;
 }
 
-// Hide the article full view side menu item "Tags"
-// note: aria-label can be flakey as sometime the markup is eg aria-label="Tags" and sometimes it is aria-label="brief.results.tabs.tags"
-.services-index-under {
-    button[aria-label='brief.results.tabs.tags'],
-    button[aria-label='Tags'] {
-        display: none;
-    }
-}
-//Hide the "Tags" content area on the article full view
-div.full-view-section#tags {
-    display: none;
-}
-
 prm-search-bar {
     .advanced-search-tabs {
         background: $white;
@@ -156,20 +165,6 @@ prm-search-bar {
     prm-search-bar &,
     prm-tags-search-bar & {
         color: $accent-color;
-    }
-}
-
-prm-search-bookmark-filter {
-    // QR Code and Favourites button in top nav
-    .md-icon-button.button-over-dark {
-        color: $textColor !important;
-    }
-    .md-ripple-container {
-        display: none; // the ripple is counterindicated by the purpleon span, and freezes on favourites when mousing down! :(
-        width: 0;
-        height: 0;
-        left: -9999px;
-        top: -9999px;
     }
 }
 
@@ -228,7 +223,6 @@ md-grid-tile .tile-header .header-link:hover,
 md-grid-tile .tile-header .md-button,
 md-input-container.has-fixed-message [ng-message] a,
 md-list-item.list-item-as-link,
-md-tabs.tabs-as-app .back-button,
 md-tabs.tabs-as-links md-tab-item,
 md-tabs.tabs-as-links md-tab-item:not([disabled]),
 prm-tags-list .md-chips .md-chip .md-chip-content strong,
@@ -242,9 +236,15 @@ prm-citation-trails-item.active-item .item-title,
 prm-tags-results-list md-list.prm-list.prm-linkable-list-items md-list-item .item-title {
     color: $links !important;
 }
-// does prm-links even exist anymore? Override it in the account overview area
-prm-account-overview button.prm-links:hover {
-    color: #fff !important;
+md-tabs.tabs-as-app .back-button {
+    @include uqTertiaryButton($white, $accent-color);
+}
+
+prm-account-overview {
+    // does prm-links even exist anymore? Override it in the account overview area
+    button.prm-links:hover {
+        color: #fff !important;
+    }
 }
 
 .tiles-grid-tile {
@@ -354,7 +354,7 @@ md-menu-item button.md-button svg:nth-of-type(n+2) {
 .my-favorties-ctm .md-button.md-focused:not([disabled]) { // logged in
     background-color: white;
     span.primaryText {
-        color: #19151c;
+        color: $uqHeading;
     }
 }
 .my-library-card-ctm .md-button:hover:not([disabled]), // logged in
@@ -377,7 +377,7 @@ md-menu-item button.md-button svg:nth-of-type(n+2) {
         span[translate="eshelf.menu.signOut"],
         span[translate="eshelf.menu.savedItems"],
         span[translate="eshelf.menu.searchHistory"] {
-            color: #19151c;
+            color: $uqHeading;
         }
     }
 
@@ -408,7 +408,7 @@ md-menu-item button.md-button svg:nth-of-type(n+2) {
     .my-favorties-ctm .md-button:hover:not([disabled]),
     .my-search-history-ctm .md-button:hover:not([disabled]) {
         background-color: white;
-        color: #19151c;
+        color: $uqHeading;
         span[translate="eshelf.menu.signOut"],
         span[translate="eshelf.menu.savedItems"],
         span[translate="eshelf.menu.searchHistory"] {
@@ -422,7 +422,7 @@ md-menu-item button.md-button svg:nth-of-type(n+2) {
     span[translate="eshelf.menu.savedItems"],
     span[translate="eshelf.menu.searchHistory"] {
         line-height: normal; //reduce background color to same height as UQ DS
-        color: #19151c;
+        color: $uqHeading;
         font-family: Roboto, "Helvetica Neue", sans-serif;
         font-size: 16px;
         letter-spacing: normal;
@@ -536,12 +536,29 @@ md-checkbox {
             }
         }
     }
-    strong.facet-title.layout-align-end-stretch.layout-row {
-        &:active,
-        &:focus,
-        &:hover {
-            &:not([disabled]) {
-                background-color: $background-grey;
+    div:has(> strong.facet-title.layout-align-end-stretch.layout-row) {
+        strong {
+            &:active,
+            &:focus,
+            &:hover {
+                &:not([disabled]) {
+                    span {
+                        background-color: $accent-color;
+                        color: $white;
+                    }
+                    &> span:nth-child(2) { // Content Type facet group has a different structure!!!
+                        background-color: $uqPanelBackgroundColor;
+                        color: $uqBodyCopy;
+                    }
+                }
+            }
+        }
+        span {
+            &.manual-count {
+                color: $uqBodyCopy;
+            }
+            &.manual-count-wrapper {
+                margin-left: -7px;
             }
         }
     }
@@ -552,7 +569,6 @@ md-checkbox {
     background-color: $theme-color;
     color: $white;
     line-height: 1.3;
-    padding-left: 8px;
     padding-right: 0;
     text-transform: uppercase;
     font-size: 13px;
@@ -574,14 +590,13 @@ prm-search-result-list
 }
 
 // restore original citation icon colors, overwritten in _icon.scss
-.citation-trails-brief,
 .citation-trails-fullview {
     .md-primoExplore-theme {
-        color: $red !important;
+        color: $highlightPrimary !important;
     }
     &:hover {
         .md-primoExplore-theme {
-            color: #e02200 !important;
+            color: $highlightPrimary !important;
         }
     }
 }
@@ -596,6 +611,8 @@ div > getit-link-service {
 }
 
 // style the report a problem button
+
+// remove after VE go live
 .help-button:not([style-scope]) {
     border: 1px solid $accent-color;
 }
@@ -627,6 +644,22 @@ div > getit-link-service {
     color: inherit !important;
     text-decoration: none;
 }
+// END remove after VE go live
+
+.report-a-problem {
+    @include uqPrimaryButton($accent-color, $white);
+    margin-left: 1em;
+    margin-top: 0.8em;
+    &:hover {
+        box-shadow: none; // removes underline from very bottom of the link
+        border-radius: 4px;
+    }
+}
+
+prm-alma-viewit button.show-more-less-btn {
+    padding-inline: 1em;
+    margin-left: 4px;
+}
 
 // various tweaks for February 2020 Release of Primo
 @media (max-width: 599px) {
@@ -647,11 +680,8 @@ button.md-button.link-alt-color {
         color: $accent-color;
     }
     &.button-as-link:not([disabled]) {
-        &:hover,
-        &:focus {
-            color: $links-hue-5;
-            background-color: $highlightBlue;
-        }
+        @include uqTertiaryButton($white, $accent-color);
+        background-color: transparent !important;
     }
 }
 
@@ -663,7 +693,7 @@ button.md-button.link-alt-color {
 }
 
 prm-breadcrumbs .md-chip.persistent-facet {
-    background-color: $uqWarningLight;
+    background-color: $highlightMild;
     .md-chip-content {
         strong {
             padding-left: 12px; // reduce the padding on the locked facets
@@ -686,10 +716,10 @@ prm-breadcrumbs .md-chip.persistent-facet {
 
 // dbsearch sidebar
 prm-tree-nav md-list md-list-item .md-button.branch-name {
-    color: #1e66ae;
+    color: $theme-color;
 }
 prm-tree-nav md-list md-list-item .md-button.branch-name.is-selected {
-    color: #333 !important;
+    color: $uqBodyCopy !important;
     &:hover {
         background-color: rgba(51, 51, 51, 0.1) !important;
     }
@@ -702,7 +732,7 @@ prm-tree-nav md-list md-list-item .md-button.branch-name.is-selected:hover {
 prm-facet-range prm-icon md-icon.md-primoExplore-theme,
 prm-facet-exact button:not(.button-exclude) prm-icon md-icon.md-primoExplore-theme {
     // little arrow in facet area but NOT the 'exclude filter' checked box (appears on mouseover)
-    color: #1e66ae !important;
+    color: $accent-color !important;
 }
 
 .multiselect-facet-group .md-chip .md-chip-content md-checkbox {
@@ -727,7 +757,7 @@ prm-add-alert-toast md-toast .md-toast-content .md-button {
     &:focus,
     &:hover {
         &:not([disabled]) {
-            background: $background-grey;
+            background: $uqPanelBackgroundColor;
         }
     }
 }
@@ -794,6 +824,7 @@ prm-tags-list .md-chips md-chip .md-chip-content:hover strong,
 prm-tags-list md-chips .md-chip .md-chip-content:hover strong,
 prm-tags-list md-chips md-chip .md-chip-content:hover strong {
     background-color: transparent;
+    border-radius: unset;
 }
 
 prm-citation-trails-indication {
@@ -801,7 +832,7 @@ prm-citation-trails-indication {
         &.md-icon-button,
         &.button-with-icon {
             &:hover {
-                background-color: rgba(255, 99, 71, 0.1);
+                background-color: $highlightMild;
             }
         }
     }
@@ -890,36 +921,10 @@ md-toast .md-button.settings-button:not([disabled]):not(.dismiss-alert-button) {
             &:focus,
             &:hover {
                 color: $white;
-                background-color: $accent-color;
+                background-color: $theme-color;
             }
         }
     }
-}
-
-// Citation Search (Citation Linker) The field labels are quite a pale blue in contrast
-prm-citation-linker .request-form md-input-container md-select .md-select-value.md-select-placeholder,
-prm-citation-linker .request-form md-input-container md-select md-select-value span:first-child,
-prm-citation-linker .request-form md-input-container label:not(.md-no-float):not(._md-container-ignore) {
-    opacity: 1;
-    color: $accent-color;
-}
-
-// fix submit button on purchase request form
-prm-citation-linker .md-button.button-large.button-with-icon {
-    border: 1px solid $white;
-    &:hover {
-        color: $accent-color !important;
-        background-color: $white !important;
-        border-color: $accent-color;
-    }
-}
-
-prm-citation-linker .md-button.button-large.button-with-icon md-icon {
-    display: none;
-}
-
-prm-citation-linker md-input-container:not([md-no-float]) .md-select-placeholder span:first-child {
-    margin-bottom: -3px;
 }
 
 uq-site-header {
@@ -952,6 +957,7 @@ prm-full-view {
     }
 }
 
+// from https://design-system.uq.edu.au/?path=/docs/components-pagination--docs
 prm-page-nav-menu {
     // Stop new pagination from floating above content
     position: static;
@@ -961,28 +967,56 @@ prm-page-nav-menu {
             display: none;
         }
     }
-    .current-bulk,
-    .current-page {
-        // Show blue background for current page/page-size
-        // instead of rounded rectangle
-        box-shadow: none;
-        background: $accent-color;
-        color: $white !important;
+    // line up the results per page heading and number
+    .results-per-page {
+        display: flex;
+        align-items: flex-end;
+        span[translate="nui.results.resultsPerPage"] {
+            bottom: 13px;
+            position: relative;
+        }
     }
+    // current page not-a-link
+    .results-per-page .current-bulk.md-button,
+    .counter-main .current-page.md-button {
+        box-shadow: none;
+        background: transparent;
+        color: $uqBodyCopy !important;
+        font-weight: 500 !important;
+        &:not([disabled]):hover {
+            background: transparent;
+            color: $uqBodyCopy !important;
+            border-bottom: unset !important;
+        }
+    }
+    // other page links
     .counter-main,
     .counter-nav,
     .bulks-options {
         .md-button {
-            // Blue colour for all clickable items
-            color: $accent-color;
+            color: $uqUtility500 !important;
+            background-color: transparent;
+            text-decoration: none;
+            font-weight: 300 !important;
+            font-size: 1rem;
+            height: 30px;
+            min-width: 25px;
+            width: 25px;
+            &:not([disabled]):not(:has([icon-definition="chevron-left"])):not(:has([icon-definition="chevron-right"])) {
+                &.hovered,
+                &.md-focused,
+                &:hover,
+                &:focus {
+                    border-bottom: 1px solid $uqUtility500;
+                    border-radius: unset;
+                }
+            }
             &:not([disabled]) {
                 &.hovered,
                 &.md-focused,
                 &:hover,
                 &:focus {
-                    // Light blue background on hover for everything
-                    color: $links-hue-5 !important;
-                    background-color: $highlightBlue;
+                    background-color: transparent;
                 }
             }
         }
@@ -1007,42 +1041,16 @@ prm-explore-main {
     }
 }
 
-// availability statements should be either blue (for mostly available now), or grey (for mostly available by request).
-prm-search-result-availability-line button {
-    // default to blue unless specified as grey, thus we never get orange!
-    span.availability-status {
+// availability statements should be either accent-colour (for mostly available now), or grey (for mostly available by request).
+prm-location,
+prm-location-items,
+prm-snippet.availability-button
+//,prm-search-result-availability-line button
+{
+    // default to purple so we never get orange!
+    span.availability-status,
+    span.availability-status span {
         color: $accent-color !important;
-    }
-    // attempt to collate all possible "check availability" and "unavailable" codes
-    span.availability-status.check_holding_in_institution,
-    span.availability-status.check_holding_in_library,
-    span.availability-status.check_holdings,
-    span.availability-status.check_holdings_in_institution,
-    span.availability-status.check_holdings_in_library,
-    span.availability-status.check_holdings_in_maininstitution,
-    span.availability-status.does_not_exist_in_maininstitution,
-    span.availability-status.does_not_exist_in_my_institution_available,
-    span.availability-status.does_not_exist_in_my_institution_check_holdings,
-    span.availability-status.does_not_exist_in_my_institution_unavailable,
-    span.availability-status.fulltext_unknown,
-    span.availability-status.getit,
-    span.availability-status.may_be_restricted,
-    span.availability-status.no_fulltext_linktorsrc,
-    span.availability-status.no_fulltext_linktorsrc_newspaper,
-    span.availability-status.no_fulltext_newspaper,
-    span.availability-status.no_fulltext,
-    span.availability-status.restricted,
-    span.availability-status.unavailable_in_all_institutions,
-    span.availability-status.unavailable_in_institution,
-    span.availability-status.unavailable_in_library,
-    span.availability-status.unavailable_in_maininstitution_more,
-    span.availability-status.unavailable_in_maininstitution_nomore,
-    span.availability-status.viewit_getit_NFT,
-    span.availability-status.viewit_NFT {
-        & > span {
-            color: #555555 !important;
-        }
-        color: #555555 !important;
     }
 }
 
@@ -1076,7 +1084,7 @@ prm-login-alma-mashup {
         &:active,
         &:focus,
         &:hover {
-            background-color: $accent-color !important;
+            background-color: $theme-color !important;
             color: #fff;
         }
     }
@@ -1089,8 +1097,8 @@ prm-login-alma-mashup {
         &:active,
         &:focus,
         &:hover {
-            color: #000;
-            background-color: rgba(51, 51, 51, 0.1) !important;
+            color: #fff;
+            background-color: $theme-color !important;
         }
     }
 }
@@ -1100,7 +1108,7 @@ prm-authentication button.button-with-icon prm-icon {
 
 // color the exclude facet
 .available-facets .section-content .md-chips .md-chip .button-exclude:hover:not([disabled]) {
-    color: $red;
+    color: $highlightPrimary;
 }
 
 // apply appropriate colours to filter bar in mobile view
@@ -1222,34 +1230,6 @@ prm-facet .switch-results {
     }
 }
 
-// Collapsed Advanced Search block at top of search results
-prm-advanced-search {
-    .collapsed-area {
-        .collapsed-button prm-icon {
-            color: $accent-color;
-        }
-
-        .collapsed-button.md-button:hover:not([disabled]),
-        .collapsed-button.md-button:focus:not([disabled]) {
-            color: $accent-color;
-        }
-    }
-
-    // put dropdown arrows on each select in the advanced search footer section
-    .advanced-search-output md-select:after {
-        content: '\25BC';
-        width: 10px;
-        font-size: 0.5rem;
-        margin-top: 6px;
-        margin-left: 5px;
-    }
-
-    // vertically centre the hover background colour
-    .advanced-search-output md-select md-select-value span {
-        padding-top: 2px;
-    }
-}
-
 // Multiple links for CDI records (View it section, Show More/Less, "View online" links)
 prm-view-online {
     a.arrow-link,
@@ -1273,7 +1253,7 @@ prm-view-online {
     }
     .all-links-options a:hover span {
         box-shadow: none;
-        color: #333;
+        color: $uqBodyCopy;
     }
     button:first-child {
         padding-left: 10px;
@@ -1295,40 +1275,31 @@ prm-personal-settings .switch-options .switch-without-button md-switch {
     }
 }
 
-// My Account > Settings area Details section with large amount of white space in email box
+// My Account > Details and Settings tab
 prm-personal-info {
     md-card-header {
-        padding: 0;
-
-        .md-toolbar-tools {
-            height: 0;
-        }
+        display: none;
     }
-    md-card-content {
-        padding: 0;
-        md-divder {
-            margin-top: 0;
-            margin-bottom: 0.2em !important;
-        }
-        md-divder:nth-of-type(2) {
-            display: none;
-        }
+    [translate="nui.details.patronstatus.group"] {
+        display: none;
     }
-}
+    md-card-header {
+        display: none;
+    }
+    #personalDetails md-card-content > {
+        div:first-of-type {
+            display: none; /* first block, remove big set of address details */
+        }
 
-// My account - settings area - hide Account expiry date
-prm-personal-info .header-subtitle div:first-child {
-    padding-bottom: 0.5em;
-    margin-left: 0.3rem;
-}
-// and then fix the width of the email box
-prm-personal-info h2 {
-    min-width: 20em;
-}
-@media (max-width: 1280px) {
-    prm-personal-info h2 {
-        width: 90%;
-        min-width: 45em;
+        div div:not(:has([translate="mypref.label.my_email"])) {
+            display: none; /* second block, remove everything that isn't the email */
+        }
+
+        div div:has([translate="mypref.label.my_email"]) {
+            max-width: 100%; /* let email block utilise full width */
+            margin-bottom: 0;
+            margin-top: -15px;
+        }
     }
 }
 
@@ -1370,21 +1341,12 @@ prm-personal-info prm-change-lang {
     md-menu-item.uql-account-menu-option.favourites {
         margin-left: 10px;
     }
-    .my-search-history-ctm .primaryText,
-    //.my-search-history-ctm .subtext,
-    .my-search-history-ctm button {
-        background-color: inherit;
-        color: #fff;
-    }
-
-    .my-search-history-ctm svg {
-        fill: #fff;
-    }
 
     prm-library-card-menu span,
     .my-search-history-ctm span {
         text-transform: initial;
-        color: #fff;
+        color: $uqHeading;
+        font-weight: 400;
     }
 
     prm-library-card-menu {
@@ -1402,9 +1364,6 @@ prm-personal-info prm-change-lang {
             margin-left: 10px;
             text-align: left;
         }
-        .primaryText {
-            color: white;
-        }
         button {
             display: flex;
         }
@@ -1413,6 +1372,14 @@ prm-personal-info prm-change-lang {
     prm-authentication {
         margin-top: -15px;
         margin-bottom: -10px;
+        button {
+            font-weight: 400;
+            & span[translate="eshelf.signout.title.link"] {
+                color: $uqHeading !important;
+                text-decoration: none !important;
+                text-transform: capitalize;
+            }
+        }
     }
 }
 
@@ -1504,7 +1471,7 @@ md-menu-item.uql-account-menu-option button {
     background-color: #fff;
     border-width: 0;
     transition: color 200ms ease-out, text-decoration 200ms ease-out, background-color 200ms ease-out;
-    color: #19151c;
+    color: $uqHeading;
     &:active span.primaryText,
     &:hover span.primaryText {
         background-color: $theme-color;
@@ -1521,7 +1488,7 @@ md-menu-item.uql-account-menu-option button {
         display: none; // sometimes it inserts a second svg. Strange.
     }
     .textwrapper {
-        color: #19151c;
+        color: $uqHeading;
         display: flex;
         flex-direction: column;
         font-size: 16px;
@@ -1553,15 +1520,6 @@ md-menu-item.uql-account-menu-option button {
     button {
         margin-left: 10px;
         background-color: inherit;
-
-        .primaryText {
-            background-color: inherit;
-            color: #fff;
-        }
-
-        svg {
-            fill: #fff;
-        }
     }
 }
 md-menu-item.mobile-loggedout-feedback-item {
@@ -1570,16 +1528,7 @@ md-menu-item.mobile-loggedout-feedback-item {
         display: flex;
         align-items: center;
         margin-top: 0;
-
-        .textwrapper span {
-            color: #fff;
-        }
-    }
-
-    svg.mobile-loggedout-feedback-item {
-        width: 45px;
-        fill: #fff;
-        margin-left: 20px;
+        margin-left: -4px;
     }
 }
 // hide the ripple on the account menu
@@ -1621,7 +1570,7 @@ md-menu-content {
     padding-top: 24px;
     padding-bottom: 24px;
     .user-menu-header button.md-button {
-        color: #19151c;
+        color: $uqHeading;
         &.md-primary {
             background-color: $accent-color;
             color: #fff;
@@ -1632,6 +1581,7 @@ md-menu-content {
         }
     }
     button[aria-label="Sign out"],
+    button[aria-label="Log out"],
     &>md-menu-item,
     &>button {
         padding-left: 24px;
@@ -1684,21 +1634,22 @@ prm-main-menu .my-feedback-ctm {
 
 // some primo items are on a reading list - style the display of these links (and indicator of same in header)
 .readingListCitations {
-    ul li {
-        padding-bottom: 0.4rem;
-    }
-    h4 {
-        color: #333;
-        font-weight: 500;
-        font-size: 18px;
-        margin-top: 20px;
+    ul {
+        padding-left: 0;
+        li {
+            padding-bottom: 0.4rem;
+            list-style: none;
+            a {
+                prm-icon {
+                    margin-left: 3px;
+                }
+            }
+        }
     }
 }
-.result-item-text > .readingListMark .readingListMarkIcon, // should be able to remove this line after CA golive
 .result-item-text > .customIndicator .indicatorIcon {
     margin-left: -10px;
 }
-.readingListMark, // should be able to remove this line after CA golive
 .customIndicator {
     padding: 0.25em 0;
     position: relative;
@@ -1710,11 +1661,10 @@ prm-main-menu .my-feedback-ctm {
         min-width: 18px;
         min-height: 18px;
     }
-    .readingListMarkLabel, // should be able to remove this line after CA golive
     .customIndicatorLabel {
-        padding-left: 12px;
         font-weight: 600;
         font-size: 12px;
+        color: rgb(51, 51, 51);
     }
     a {
         background-position: center right;
@@ -1725,16 +1675,24 @@ prm-main-menu .my-feedback-ctm {
         background-size: 11px;
     }
 }
+.culturalAdviceBanner p {
+    padding: 1em;
+    border-color: #bbd8f5;
+    color: #000;
+    background-color: #bbd8f5;
+    border-radius: 3px;
+    margin-right: -2.50em;
+}
 // very rarely, angular misfires and places a duplicate custom indicator. Ensure it is invisible if it happens
 .culturalAdviceMark ~ .culturalAdviceMark,
 .readingListMark ~ .readingListMark {
     display: none;
 }
-.readingListMarkIcon path {
+prm-icon.readingListMarkIcon md-icon svg path {
     fill: $green;
 }
-.culturalAdviceMarkIcon path {
-    fill: $accent-color;
+prm-icon.culturalAdviceMarkIcon md-icon svg path {
+    fill: $uqUtility500;
 }
 .indicatorWrapper {
     margin-left: -10px;
@@ -1816,7 +1774,7 @@ prm-favorites-warning-message md-toast div {
 
 .favouritesDialogInitialPosition {
     margin-top: 130px;
-    margin-right: 60px;
+    margin-right: 160px;
 }
 
 // Move navigation components a 20px to the right to cater for cultural advice.
@@ -1833,32 +1791,6 @@ prm-favorites-warning-message md-toast div {
 md-menu-content button prm-icon md-icon svg path,
 .menu-footer prm-icon md-icon svg path {
     color: $accent-color;
-}
-
-// make the option to change the number of results per page at the top of the brief results more obvious
-prm-search-result-page-range md-select {
-    background-color: #eee; // just faintly visible
-    padding-left: 10px;
-}
-
-// search Saved items in Favourites should be more obvious
-// reverse the dark-placeholder and greyed submit button to a more conventional
-// grey placeholder and enabled-looking button
-prm-favorites div.search-within {
-    md-input-container.search-input {
-        margin-right: -2px;
-        input.search-within-input {
-            border-bottom: 1px solid black;
-            &::placeholder {
-                color: #aaa;
-            }
-        }
-    }
-    button.search-button {
-        border-bottom: 1px solid black;
-        color: #333 !important;
-        margin-bottom: 8px;
-    }
 }
 
 // make inputs of type number standard out from background a little
@@ -1900,7 +1832,7 @@ prm-resource-type-filter-bar {
 }
 // popup menu at right end of "resource type" bar
 md-select-menu.md-primoExplore-theme md-content md-option:not([disabled]):hover {
-    background: rgba(35, 119, 203, 0.1);
+    background: $uqInformationLight;
 }
 
 // user name in account button should be black on hover, not exlibris-aqua
@@ -2020,8 +1952,9 @@ md-menu-item.logout-option {
     margin-inline: 24px;
     margin-top: 10px;
 }
-button.md-button.md-primary[aria-label="Sign out"] {
-    color: #19151c;
+button.md-button.md-primary[aria-label="Sign out"],
+button.md-button.md-primary[aria-label="Log out"] {
+    color: $uqHeading;
     text-align: left;
     text-transform: unset;
     letter-spacing: .16px;
@@ -2043,7 +1976,8 @@ button.md-button.md-primary[aria-label="Sign out"] {
         margin-bottom: unset;
     }
 }
-button.md-button.md-primary[aria-label="Sign out"]:hover:not([disabled]) {
+button.md-button.md-primary[aria-label="Sign out"]:hover:not([disabled]),
+button.md-button.md-primary[aria-label="Log out"]:hover:not([disabled]) {
     color: inherit;
     background-color: inherit;
     span {
@@ -2064,14 +1998,734 @@ button.md-button.md-primary[aria-label="Sign out"]:hover:not([disabled]) {
     min-width: 250px !important;
 }
 
-// the hover on the logged in button extends just a little bit
+// restyle the breadcrumb bar
+prm-topbar .mergeup {
+    background-color: white;
+}
 prm-topbar prm-user-area-expandable {
+    margin-top: 10px !important;
+    // "Menu" button (Account button)
     md-menu {
+        button span {
+            line-height: normal
+        }
+        button:hover {
+            background-color: #fff !important;
+        }
+        button:hover span {
+            background-color:  $accent-color !important;
+            color: #fff;
+        }
+        button:hover .button-with-menu-arrow:hover .menu-arrow:hover:not([disabled]),
+        .button-with-menu-arrow:hover .menu-arrow {
+            background-color: #fff !important;
+            color: $dark !important;
+        }
+        button div.md-ripple-container {
+            display: none;
+        }
+    }
+
+    // Log in button
+    .sign-in-btn-ctm:not(.disable-hover):hover:not([disabled]):hover:not([disabled]):not(.close-btn-favorits-warning-message) {
+        background-color: #fff !important;
+        color: $uqBodyCopy;
+        span {
+            background-color: $accent-color;
+            color: #fff;
+        }
+    }
+}
+// two primo built in icons in utility area
+prm-search-bookmark-filter #fixed-buttons-holder,
+prm-search-bookmark-filter > button.md-button:not(.disable-hover):not(.close-btn-favorits-warning-message) {
+    margin-top: 10px
+}
+
+// disable carousel & associated sidebar item PT 188391470
+#virtualBrowse { display:none; }
+.services-index-under button[aria-label="Browse"] { display:none; }
+
+prm-search-bar {
+    // remove "day" and "month" selectors from sidebar of advanced search
+    // based on https://ideas.exlibrisgroup.com/forums/308176-primo/suggestions/42028606-fix-defect-advanced-search-date-filter
+    .advanced-search-tabs .advanced-drop-downs.marginless-inputs {
+        md-input-container:has(md-select[ng-model*="startDay"]),
+        md-input-container:has(md-select[ng-model*="startMonth"]),
+        md-input-container:has(md-select[ng-model*="endDay"]),
+        md-input-container:has(md-select[ng-model*="endMonth"]) {
+            width: 0;
+        }
+
+        md-select[ng-model*="startDay"],
+        md-select[ng-model*="startMonth"],
+        md-select[ng-model*="endDay"],
+        md-select[ng-model*="endMonth"] {
+            display: none;
+        }
+    }
+    .advanced-search-wrapper .date-range-inputs {
+        margin-top: 15px;
+
+        md-input-container input[ng-model*="startYear"],
+        md-input-container input[ng-model*="endYear"] {
+            width: 6em;
+        }
+    }
+    // When hovering over the Voice Search icon in the search bar, the microphone image fades to white instead of changing the background colour
+    .simple-search-wrapper .search-actions .md-button.button-link:not([disabled]):hover {
+        color: #1d092f !important;
+        background-color: $uqPurple100;
+    }
+}
+
+.bar.success-bar,
+.bar.alert-bar {
+    background-color: $uqInformationLight;
+    border-color: $uqInformationLight;
+    color: $dark;
+}
+
+.prm-full-view-dialog,
+body prm-full-view-service-container {
+    & .show-more-less-btn {
+        text-decoration: underline;
+        &:focus,
+        &:hover {
+            text-decoration: underline;
+        }
+        prm-icon {
+            color: $theme-color;
+        }
+    }
+    prm-location-items md-list md-list-item {
+        &:hover:not([disabled]) {
+            background-color: $uqPanelBackgroundColor;
+        }
+
+        @media (min-width: 1120px) {
+            & [layout="row"] > div:first-of-type > div:first-of-type  {
+                display: flex;
+                gap: 4px;
+                margin-right: 40px;
+                width: 400px;
+            }
+            & [layout="row"] > div:first-of-type > div:nth-of-type(2) {
+                //column 2
+                min-width: 6em;
+            }
+        }
+    }
+    prm-stack-map {
+        & span {
+            text-transform: initial;
+            padding-right: 0;
+        }
+        // put a outlink on link
+        a span {
+            position: relative;
+            padding-right: 1.5em !important;
+            &::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 1.2em;
+                height: 1.2em;
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z' fill='%2351247a'/%3E%3C/svg%3E");
+                right: 2px;
+            }
+        }
+        a.md_focused span::after,
+        a:focus span::after,
+        a:hover span::after {
+            filter: brightness(0) invert(1); // go white
+        }
+        // end put a right arrow on link
+        a.md-button.button-link:focus:not([disabled]),
+        a.md-button.button-link:focus:hover:not([disabled]),
+        a.md-button.button-link.md-focused:hover:not([disabled]),
+        a.md-button.button-link:hover:not([disabled]) {
+            background-color: transparent !important;
+            color: transparent !important;
+            & span {
+                background-color: $accent-color !important;
+                color: #fff !important;
+                line-height: normal;
+            }
+
+            & prm-icon {
+                background-color: transparent !important;
+                color: $accent-color !important;
+            }
+        }
+        // try to overcome their failure to remove the md-focused attribute
+        a.md-button.button-link.md-focused:not(:hover):not([disabled]) {
+            background-color: transparent !important;
+            color: transparent !important;
+            & span {
+                background-color: transparent !important;
+                color: $accent-color !important;
+                line-height: normal;
+            }
+
+            & prm-icon {
+                background-color: transparent !important;
+                color: $accent-color !important;
+            }
+        }
+
+    }
+    prm-icon[svg-icon-set="hardware"]:hover md-icon {
+        background-color: $accent-color;
+        color: #fff !important;
+    }
+}
+
+span.button-content:has(.prm-notice) span {
+    color: $uqWarningDark;
+}
+
+.md-button.button-link:focus:not([disabled]),
+.md-button.button-link:hover:not([disabled]),
+.button-as-link.md-button.md-primoExplore-theme.md-ink-ripple.button-external-link:hover:not([disabled]) svg,
+md-tabs.tabs-as-app .back-button:hover:not([disabled]) {
+    color: #fff !important;
+    background-color: $theme-color;
+}
+.button-as-link.md-button.md-primoExplore-theme.md-ink-ripple.button-external-link:not([disabled]) svg {
+        margin-left: 2px;
+}
+alma-howovp .md-button.neutralized-button  {
+    margin-top: 0.5em;
+}
+alma-howovp .neutralized-button:focus.md-button,
+alma-howovp .neutralized-button:hover.md-button {
+    box-shadow: 0 0 0 1px $accent-color-half-opacity;
+    background-color: $uqLightGrey;
+}
+alma-howovp .neutralized-button:focus .button-content:focus,
+.md-button.arrow-link-button alma-howovp .neutralized-button:focus .button-content:hover,
+.md-button.arrow-link-button alma-howovp .neutralized-button:hover .button-content:focus,
+.md-button.arrow-link-button alma-howovp .neutralized-button:hover .button-content:hover,
+alma-howovp .neutralized-button:focus .md-button.arrow-link-button .button-content:focus,
+alma-howovp .neutralized-button:focus .md-button.arrow-link-button .button-content:hover,
+alma-howovp .neutralized-button:focus .recommendations-title.hover>span>span,
+alma-howovp .neutralized-button:focus .recommendations-title:hover>span>span,
+alma-howovp .neutralized-button:focus a:focus,
+alma-howovp .neutralized-button:focus a:hover,
+alma-howovp .neutralized-button:focus prm-tags-list .md-chips .md-chip .md-chip-content:hover strong,
+alma-howovp .neutralized-button:focus prm-tags-list .md-chips md-chip .md-chip-content:hover strong,
+alma-howovp .neutralized-button:focus prm-tags-list md-chips .md-chip .md-chip-content:hover strong,
+alma-howovp .neutralized-button:focus prm-tags-list md-chips md-chip .md-chip-content:hover strong,
+alma-howovp .neutralized-button:hover .md-button.arrow-link-button .button-content:focus,
+alma-howovp .neutralized-button:hover .md-button.arrow-link-button .button-content:hover,
+alma-howovp .neutralized-button:hover .recommendations-title.hover>span>span,
+alma-howovp .neutralized-button:hover .recommendations-title:hover>span>span,
+alma-howovp .neutralized-button:hover a:focus,
+alma-howovp .neutralized-button:hover a:hover,
+alma-howovp .neutralized-button:hover prm-tags-list .md-chips .md-chip .md-chip-content:hover strong,
+alma-howovp .neutralized-button:hover prm-tags-list .md-chips md-chip .md-chip-content:hover strong,
+alma-howovp .neutralized-button:hover prm-tags-list md-chips .md-chip .md-chip-content:hover strong,
+alma-howovp .neutralized-button:hover prm-tags-list md-chips md-chip .md-chip-content:hover strong,
+prm-tags-list .md-chips .md-chip .md-chip-content:hover alma-howovp .neutralized-button:focus strong,
+prm-tags-list .md-chips .md-chip .md-chip-content:hover alma-howovp .neutralized-button:hover strong,
+prm-tags-list .md-chips md-chip .md-chip-content:hover alma-howovp .neutralized-button:focus strong,
+prm-tags-list .md-chips md-chip .md-chip-content:hover alma-howovp .neutralized-button:hover strong,
+prm-tags-list md-chips .md-chip .md-chip-content:hover alma-howovp .neutralized-button:focus strong,
+prm-tags-list md-chips .md-chip .md-chip-content:hover alma-howovp .neutralized-button:hover strong,
+prm-tags-list md-chips md-chip .md-chip-content:hover alma-howovp .neutralized-button:focus strong,
+prm-tags-list md-chips md-chip .md-chip-content:hover alma-howovp .neutralized-button:hover strong {
+    //box-shadow: inset 0 -2px 0 0 $accent-color;
+    box-shadow: none;
+}
+.neutralized-button.layout-full-width.layout-display-flex.md-button.md-ink-ripple.md-primoExplore-theme:not(:has(a)) span:first-of-type {
+    color: $theme-color;
+}
+.neutralized-button.layout-full-width.layout-display-flex.md-button.md-ink-ripple.md-primoExplore-theme:not(:has(a)):hover span:first-of-type:hover {
+    //box-shadow: inset 0 -2px 0 0 $accent-color;
+    box-shadow: none;
+    width: 12em;
+}
+
+prm-personal-info,
+prm-messages-and-blocks,
+prm-loans,
+prm-requests,
+prm-fines {
+    .md-button.button-as-link:hover:not([disabled]) {
+        background-color: transparent;
+        box-shadow: none;
+
+        span {
+            background-color: $accent-color;
+            color: #fff;
+        }
+    }
+}
+
+.prm-primary-color.prm-hue1,
+.request-form md-input-container label.prm-hue1,
+.request-form md-input-container label.prm-hue1:not(.md-no-float):not(._md-container-ignore),
+.request-form md-input-container md-select .prm-hue1.md-select-value.md-select-placeholder,
+.request-form md-input-container .md-input-container-dummy>.md-select-dummy .prm-hue1.md-select-value.md-select-placeholder,
+.request-form md-input-container md-select .prm-hue1._md-select-value._md-select-placeholder,
+.request-form md-input-container .md-input-container-dummy>.md-select-dummy .prm-hue1._md-select-value._md-select-placeholder,
+.result-item-actions .prm-hue1.more-options-button,
+prm-add-query-to-saved-searches .prm-hue1.custom-button,
+prm-pre-filters md-input-container.prm-hue1.is-active,
+.md-autocomplete-suggestions .prm-hue1.suggestion-scope,
+md-tabs md-tabs-wrapper md-tabs-canvas md-pagination-wrapper md-tab-item.md-active:not([disabled]),
+md-tabs md-tabs-wrapper md-tabs-canvas md-pagination-wrapper md-tab-item.md-focused:not([disabled]),
+md-tab-content .tab-content-header md-input-container md-select-value .prm-hue1.md-text {
+    color: $theme-color;
+}
+
+// links added to Accounts area
+.stackable-links a.md-button.button-as-link.md-focused,
+.stackable-links a.md-button.button-as-link,
+prm-personal-info .md-button.button-as-link.stackable-link-entry,
+md-tab-content .layout-column .header-subtitle .stackable-links a.stackable-link-entry {
+    background-color: transparent !important; // dont let have purple background when text is purple
+    box-shadow: none; // remove underline
+
+    &:hover:not([disabled]),
+    &:focus:not([disabled]) {
+        background-color: transparent !important;
+        box-shadow: none;
+    }
+}
+// fines is the only one with a built link. very hard to target
+prm-fines [ng-href] {
+    background-color: transparent !important;
+    box-shadow: none;
+}
+@media (max-width: 600px) {
+    md-tab-content .stackable-links a.md-button.inline-button {
+        display: block;
+        text-align: left;
+    }
+}
+
+prm-alma-viewit-items md-list-item {
+    // style the hovers on the view it area, full record
+    & div a.item-title {
+        line-height: 0;
+        padding-bottom: 0;
+    }
+
+    & div button {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    &:hover > div {
+        background-color: $uqPanelBackgroundColor;
+        transition: color 200ms ease-out, background-color 200ms ease-out;
+    }
+    & a.note-title:hover,
+    &:hover:not(:has(button:hover)) a.item-title {
+        background-color: $theme-color;
+        color: #fff !important;
+        transition: color 200ms ease-out, background-color 200ms ease-out;
+        box-shadow: none;
+        cursor: pointer; // just trying to force it out to its own entry in the created css
+    }
+    div:has(> a.item-title) {
+        position: relative;
+        padding-right: 1.5em !important;
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z' fill='%2351247a'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: contain;
+            width: 1.2em;
+            height: 1.2em;
+        }
+    }
+    &:hover:not(:has(button:hover)) a.item-title::after {
+        filter: brightness(0) invert(1); // go white
+    }
+    &:has(a:not(.item-title):hover) a.item-title {
+        // override hover when another link is hovered
+        // would be nice as extra not on hover above, but cant get it to work
+        background-color: $uqPanelBackgroundColor;
+        color: $theme-color !important;
+    }
+    a:not(.item-title):hover {
+        background-color: $theme-color;
+        color: #fff !important;
+        transition: color 200ms ease-out, background-color 200ms ease-out;
+        box-shadow: none;
+    }
+
+    // add open-close icons to show-hide licence buttons
+    button:has(span[translate="c.uresolver.viewit.license.hide_license"]),
+    button:has(span[translate="c.uresolver.viewit.license.show_license"]) {
+        position: relative;
+        padding-right: 1.5em;
+        border: 2px solid $accent-color;
+        font-size: 0.8em;
+        min-width: 10em !important;
+        &::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1.5em;
+            height: 1.5em;
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        &.md_focused::after,
+        &:focus::after,
+        &:hover::after {
+            filter: brightness(0) invert(1); // go white
+        }
+    }
+    button:has(span[translate="c.uresolver.viewit.license.show_license"]) {
+        &::after {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7.41 8.58L12 13.17L16.59 8.58L18 10L12 16L6 10L7.41 8.58Z'/%3E%3C/svg%3E");
+        }
+    }
+    button:has(span[translate="c.uresolver.viewit.license.hide_license"]) {
+        &::after {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7.41 15.41 12 10.83l4.59 4.58L18 14l-6-6-6 6z'/%3E%3C/svg%3E");
+        }
+    }
+}
+
+// stop the personalised button from having a horrible background after cancelling out of edit
+prm-personalize-results-button button.button-as-link.button-switch.md-button.md-primoExplore-theme.hide-xs.hide-sm.md-focused {
+    background-color: $backgroundActual;
+    & md-switch > div.md-container {
+        background-color: $backgroundActual;
+        & .md-bar {
+            background-color: $accent-color;
+            opacity: 0.4;
+        }
+    }
+}
+
+md-list-item button.item-expand-button {
+    padding-top: 0;
+    padding-bottom: 0;
+    min-height: 50px;
+    min-width: 10px !important;
+    line-height: normal;
+    height: auto !important;
+    &.md-focused:focus:not([disabled]),
+    &:focus:not([disabled]) {
+        background-color: transparent;
+        color: $accent-color;
+    }
+    &.md-focused:focus-visible:not([disabled]),
+    &:focus-visible:not([disabled]),
+    &.md-focused:hover:not([disabled]),
+    &:hover:not([disabled]) {
+        background-color: $accent-color;
+        color: #fff;
+    }
+}
+
+prm-account-overview prm-fines-overview {
+    div:has(> a[aria-label="Pay fines button"]) {
+        display: block;
+    }
+    & a[aria-label="Pay fines button"] {
+        display: block;
         margin-top: 10px !important;
-        margin-bottom: 10px !important;
     }
-    .button-with-menu-arrow:hover .menu-arrow:hover:not([disabled]) {
-        background-color: white;
-        color: black;
+}
+
+prm-request {
+    margin-bottom: 50px;
+    max-width: 800px !important; // override width-100 class
+    & .request-form-message {
+        width: 100%; // use the paragraph to force the width out
+        & span {
+            line-height: 1.5em;
+        }
     }
+}
+prm-request form {
+    prm-form-field div:has([translate="almaPurchaseRequest.citationType"]) {
+        display: none;
+    }
+    prm-form-field.service-form-item {
+    margin-left: 0;
+    margin-right: 0;
+    }
+    md-input-container {
+        width: 100%;
+    }
+    prm-form-field md-input-container {
+        width: 600px;
+        max-width: 100%;
+    }
+    & > div > div:not(:last-child) {
+        padding-inline: 3em;
+    }
+    background-color: #fff;
+    border: 1px solid rgba(59, 56, 62, 0.3);
+    margin-bottom: 2em;
+}
+prm-request form,
+prm-request form > div,
+prm-request form > div > div,
+prm-request > div.service-form {
+    border: none;
+    box-shadow: none;
+}
+
+// soften the overlay background colour when the qr dialog is present
+md-backdrop.md-dialog-backdrop {
+    background-color: #a694b6;
+}
+
+prm-person-entity-page {
+    .person-full-view-inner-container {
+        background-color: $white;
+    }
+    .person-full-view-cont {
+        .person-header h2 span {
+            color: $accent-color;
+        }
+        .image-person-cont:has([src="img/related_person_image.png"]) {
+            display: none;
+        }
+    }
+    prm-featured-results {
+        button.horizontal-content-control.md-button:not([disabled]) {
+            background-color: $white;
+            prm-icon {
+                padding-bottom: 10px;
+                padding-top: 10px;
+            }
+            &:focus-visible,
+            &:hover {
+                prm-icon {
+                    color: $white;
+                    background-color: $accent-color;
+                }
+            }
+        }
+    }
+    .question-mark-popup-cont {
+        button.md-button.neutralized-button {
+            background-color: $white;
+            color: $accent-color;
+            border-radius: 20px;
+            padding: 2px;
+            width: 20px;
+            &:focus,
+            &:hover {
+                background-color: $white;
+                color:$accent-color;
+            }
+        }
+        prm-icon {
+            color: currentColor;
+        }
+    }
+    .person-avatar {
+        flex-direction: row-reverse;
+    }
+    .avatar-img {
+        margin-left: -35px;
+    }
+}
+
+.full-view-aside,
+.full-view-additional-info-side-bar {
+    prm-linked-data {
+        h2.section-title {
+            color: $uqHeading;
+            font-weight: 500;
+        }
+        prm-linked-data-card {
+            md-card {
+                background-color: $white;
+            }
+
+            md-card-header-text button.person-name-btn {
+                @include uqTertiaryButton($white, $accent-color);
+                background-color: transparent !important;
+
+                &:hover:not([disabled]) {
+                    background-color: transparent !important;
+
+                    span {
+                        background-color: $accent-color;
+                        color: $white;
+                    }
+                }
+            }
+
+            md-card-avatar {
+                display: block;
+                margin-right: 4px;
+
+                &:has(img[ng-src="img/related_person_image.png"]) {
+                    display: none;
+                }
+
+                .question-mark-popup-cont {
+                    margin-top: -28px;
+                    margin-left: 5px;
+
+                    prm-icon {
+                        color: $accent-color;
+                        background-color: white;
+                        border-radius: 20px;
+                        width: 20px;
+                        height: 20px;
+                        display: inline-block;
+                        padding: 2px 1px 1px 2px;
+
+                        md-icon {
+                            padding: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+prm-linked-data{
+    container-type: inline-size;
+}
+@container (min-width: 300px) {
+    prm-linked-data {
+        md-card-header:not(:has(img[ng-src="img/related_person_image.png"])) {
+            flex-direction: row;
+        }
+    }
+}
+
+alma-howovp {
+    md-list-item button.md-button.neutralized-button {
+        position: relative;
+        padding-right: 1.5em !important;
+        width: auto;
+        line-height: normal;
+        prm-icon {
+            margin-left: 6px;
+            color: $accent-color;
+            md-icon {
+                min-width: 20px;
+                min-height: 20px;
+                width: 20px;
+                height: 20px;
+            }
+        }
+        &:hover {
+            background-color: transparent !important;
+            box-shadow: none;
+            a,
+            span:first-child {
+                background-color: $accent-color;
+                color: $white !important;
+            }
+        }
+    }
+}
+
+prm-databases {
+    prm-search-result-list .pages-separated-with-gaps {
+        .results-title:not(.results-title-favorites) {
+            font-style: normal;
+            top: -16px !important;
+        }
+    }
+}
+
+
+button.button-with-icon.button-confirm {
+    &>prm-icon {
+        display: none !important;
+    }
+}
+
+// hide certain types from the facet sidebar
+[data-facet-value="rtype-primary_source"],
+[data-facet-value="rtype-publication_addendum"],
+[data-facet-value="rtype-publication_exp_concern"],
+[data-facet-value="rtype-preprint"],
+[data-facet-value="rtype-publication_corrigendum"],
+[data-facet-value="rtype-retracted_publication"],
+[data-facet-value="rtype-retraction_notice"],
+[data-facet-value="rtype-review_article"],
+[data-facet-value="rtype-withdrawn_publication"],
+[data-facet-value="rtype-withdrawal_notice"] {
+    display: none !important;
+}
+
+prm-search-result-journal-indication-line {
+    // if a layout row child has any content indicators in it and is followed by a followup row that has some contents,
+    // then put a gap between them
+    .layout-row:has(prm-icon):not(.layout-row-followup):has(~ .layout-row-followup svg) {
+        padding-bottom: 6px;
+    }
+}
+
+// style the mouseover on the content indicators
+.md-panel-outer-wrapper .md-panel-inner-wrapper md-tooltip {
+    max-width: 500px;
+    height: auto !important;
+    text-wrap-mode: wrap;
+    line-height: 1.6;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 400;
+    background-color: $uqInformationLight;
+    color: $uqGrey900;
+    border: 1px solid $uqBorderColor;
+}
+
+md-dialog.light-on-dark-dialog.tabbed-dialog {
+    background-color: $white;
+    color: $uqBodyCopy;
+
+    svg {
+        width: 24px;
+    }
+
+    md-input-container label {
+        color: $uqBodyCopy !important;
+    }
+
+    button.button-confirm {
+        @include uqPrimaryButton($accent-color, $white);
+    }
+    button:not(.button-confirm)
+    {
+        @include uqTertiaryButton($white, $accent-color);
+        border-width: 0;
+        display: flex;
+    }
+}
+
+// because we override the availability line in certain types on brief results, lets hide it there, so it doesnt flicker
+body:not(:has(.full-view-container)) {
+    prm-brief-result-container:has(span[translate="mediatype.journal"]),
+    prm-brief-result-container:has(span[translate="mediatype.journals"]),
+    prm-brief-result-container:has(span[translate="mediatype.newspaper"]),
+    prm-brief-result-container:has(span[translate="mediatype.newspapers"]),
+    prm-brief-result-container:has(span[translate="mediatype.magazine"]),
+    prm-brief-result-container:has(span[translate="mediatype.magazines"]) {
+        prm-search-result-availability-line {
+            display: none;
+        }
+    }
+}
+
+// if we manage to write the feedback menu item into the menu, hide it
+.md-open-menu-container.md-active:has(#desktop-loggedin-feedback-item) #loggedout-desktop-feedback {
+    display: none;
 }

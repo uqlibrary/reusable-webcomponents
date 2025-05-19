@@ -34,7 +34,7 @@ template.innerHTML = `
       <!-- Site title and utility area with mobile nav toggler (JS) -->
       <div class="uq-site-header__title-container" part="title">
         <nav class="uq-breadcrumb" aria-label="Breadcrumb">
-            <ol class="uq-breadcrumb__list" id="breadcrumb_nav">
+            <ol class="uq-breadcrumb__list" id="breadcrumb_nav" data-testid="breadcrumb_nav">
                 <li class="uq-breadcrumb__item">
                     <a class="uq-breadcrumb__link" data-testid="root-link" title="UQ home" href="https://uq.edu.au/">UQ home</a>
                 </li>
@@ -204,7 +204,11 @@ class UQSiteHeader extends HTMLElement {
             return window.location.hostname === 'search.library.uq.edu.au';
         }
         function isDomainPrimoSandbox() {
-            return window.location.hostname === 'uq-edu-primo-sb.hosted.exlibrisgroup.com';
+            return [
+                'uq-edu-primo-sb.hosted.exlibrisgroup.com', // old primo
+                'uq.primo.exlibrisgroup.com', // primo ve     ] only one of these will last as sandbox after golive
+                'uq-psb.primo.exlibrisgroup.com', // primo ve ]
+            ].includes(window.location.hostname);
         }
         function getSearchParam(name) {
             const urlParams = new URLSearchParams(window.location.search);

@@ -40,6 +40,25 @@
             color: #333;
             letter-spacing: 0.03em;
         }
+        &.prm-cdi-attributes-warning,
+        &.prm-cdi-attributes-regular {
+            span.badge-label {
+                color: $uqBodyCopy;
+                border: none;
+            }
+            svg {
+                height: 20px;
+                &.retracted {
+                    fill: $uqError500;
+                }
+                &.changed {
+                    fill: $uqWarning500;
+                }
+                &.regular {
+                    fill: $uqGrey700;
+                }
+            }
+        }
 
         + .badge-item {
             margin-left: 0.75em;

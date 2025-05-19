@@ -37,7 +37,7 @@ a {
 }
 
 [external-link] {
-    color: transparentize($dark, 0.3);
+    color: $accent-color;
 
     md-icon {
         height: 15px;

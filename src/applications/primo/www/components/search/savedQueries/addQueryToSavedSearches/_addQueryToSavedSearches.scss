@@ -16,6 +16,13 @@ prm-add-query-to-saved-searches {
                 top: 0;
             }
             font-style: initial;
+            &.button-as-link.link-alt-color {
+                margin-top: -3px;
+
+                prm-icon {
+                    line-height: 28px;
+                }
+            }
         }
     }
 }

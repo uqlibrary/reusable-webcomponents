@@ -22,14 +22,27 @@ md-toolbar:not(.md-menu-toolbar) {
         @extend .prm-background.prm-hue1;
         @extend .prm-text;
 
-        .md-button {
+        .md-button:not(.back-button) {
             opacity: 0.8;
             &:hover {
                 opacity: 1;
             }
+            @include uqTertiaryButton($white, $accent-color);
+            background-color: transparent !important;
         }
         &.is-stuck {
             @extend .toolbar-shadow;
+        }
+        .back-button.md-button {
+            background-color: transparent !important;
+            color: $accent-color !important;
+            span {
+                text-decoration: underline;
+            }
+            &:hover span {
+                background-color: $accent-color !important;
+                color: $white !important;
+            }
         }
     }
 
@@ -51,16 +64,8 @@ md-toolbar:not(.md-menu-toolbar) {
         background-color: white !important;
     }
     .md-button {
-        // color: transparentize($dark, .3);
-        // color: inherit;
         md-icon {
-            // color: transparentize($dark, .3);
             color: inherit;
-        }
-        &:hover {
-            md-icon {
-                // color: transparentize($dark, 0);
-            }
         }
         &.has-bottom-arrow {
             overflow: visible;
@@ -231,7 +236,6 @@ md-toolbar:not(.md-menu-toolbar) {
             @include rtl(transform, none, scale(-1, 1));
         }
         + .toolbar-divider {
-            // margin-left: 0;
             @include rtl-prop(margin-left, margin-right, 0, initial);
         }
 
@@ -242,7 +246,6 @@ md-toolbar:not(.md-menu-toolbar) {
         &.offset-to-left {
             @include rtl-prop(margin-left, margin-right, -16px, 0);
             .__gt-sm & {
-                // margin-left: -70px;
                 @include rtl-prop(margin-left, margin-right, -70px, 0);
             }
         }

@@ -40,7 +40,7 @@ $darker: darken(saturate(adjust-hue($dark, 0), 0), 6.6667);
 
 // lighter background color
 
-$uqWarningDark: #fffcc4; //stronger
+$uqWarningDark: #f9c84b; // DS $warning-400
 $highlight: darken(desaturate(adjust-hue($uqWarningDark, -4.092), 16), 8.0392);
 $highlightText: #ffe564;
 $success: #3ea03e;

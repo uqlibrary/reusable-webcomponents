@@ -179,12 +179,13 @@ prm-search-result-tool-bar {
 
     .md-toolbar-tools {
         padding: 0 5px !important;
-        background-color: #e9e9e9;
+        background-color: $background;
         @extend .prm-text;
         overflow: hidden;
 
         .md-button {
             opacity: 0.8;
+            color: $accent-color;
 
             &:hover {
                 opacity: 1;
@@ -228,5 +229,33 @@ prm-search-result-tool-bar {
                 padding-top: 0 !important;
             }
         }
+    }
+    prm-export-all,
+    prm-action-list {
+        &> div button.md-button:not([disabled]):has([translate="nui.aria.fulldisplay.closeButton.short"]) {
+            @include uqPrimaryButton($accent-color, $white);
+        }
+    }
+}
+
+// make the option to change the number of results per page at the top of the brief results more obvious
+prm-search-result-page-range md-select {
+    background-color: transparent;
+    font-style: normal;
+    padding-left: 10px;
+    transition: $swift-ease-in-out;
+    span:not(.md-select-icon) {
+        text-decoration: underline;
+    }
+    &:hover {
+        background-color: $accent-color;
+        border-radius: 4px;
+        span {
+            color: $white !important;
+        }
+    }
+    md-select-value span {
+        color: $accent-color !important;
+        font-weight: 500;
     }
 }

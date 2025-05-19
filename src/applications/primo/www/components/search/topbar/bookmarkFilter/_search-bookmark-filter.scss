@@ -82,18 +82,14 @@ prm-search-bookmark-filter {
         color: #333;
     }
 
-    #favorites-button {
-        // background-color: darken($midGrey, 5%);
-        // background-color: transparentize($dark, .85);
-        z-index: auto !important;
-
+    a.md-button.md-icon-button#favorites-button {
         &:before {
             content: '';
-            background-color: $red;
+            background-color: rgba(81, 36, 122, 0.4); // accent color with opacity to let the label show through
             position: absolute;
             width: 100%;
             height: 100%;
-            border-radius: 50%;
+            border-radius: 5%;
             top: 0;
             left: 0;
             opacity: 0;
@@ -168,6 +164,140 @@ prm-search-bookmark-filter {
         100% {
             transform: scale(1);
             animation-timing-function: $easeOutQuint;
+        }
+    }
+}
+
+prm-search-bookmark-filter-after {
+    a {
+        margin-left: 5px;
+        svg {
+            width: 39px;
+            background-color: #e7e7e8;
+            border-radius: 50%;
+            margin-top: 12px;
+        }
+        &:hover {
+            box-shadow: none;
+            svg {
+                box-shadow: rgb(81, 36, 122) 0px -2px 0px 0px inset;
+                background-color: white;
+            }
+        }
+        &:focus {
+            box-shadow: none;
+        }
+        &:focus-visible {
+            box-shadow: none;
+        }
+    }
+}
+
+prm-search-bookmark-filter {
+    // QR Code and Favourites button in top nav
+    .md-icon-button.button-over-dark {
+        color: $textColor !important;
+        background-color: transparent;
+    }
+    .md-ripple-container {
+        display: none; // the ripple is counter-indicated by the purple on span, and freezes on favourites when mousing down! :(
+        width: 0;
+        height: 0;
+        left: -9999px;
+        top: -9999px;
+    }
+}
+
+// show the label we have added beside the primo icons
+prm-search-bookmark-filter-after,
+prm-search-bookmark-filter {
+    a.md-button.md-icon-button,
+    button.md-button.md-icon-button {
+        border-radius: 0;
+        display: flex;
+        justify-content: flex-start;
+
+        padding-inline: 4px;
+        margin-inline: 0;
+        span {
+            color: $uqBodyCopy;
+            font-weight: 500;
+        }
+    }
+}
+prm-search-bookmark-filter {
+    button.md-button.md-icon-button { // QR Code button
+        width: 72px;
+        margin-right: 10px;
+        &:hover {
+            prm-icon {
+                background-color: $white;
+                box-shadow: $accent-color 0px -2px 0px 0px inset;
+            }
+        }
+        prm-icon {
+            background-color: #e7e7e8;
+            border-radius: 20px;
+            padding: 8px;
+        }
+        span {
+            padding-left: 6px;
+        }
+        span + span {
+            display: none; // if we manage to add two, hide subsequent
+        }
+    }
+    a.md-button.md-icon-button { // favorites button
+        width: 120px;
+        margin-right: 10px;
+        md-icon {
+            width: 40px;
+            height: 40px;
+            padding: 6px;
+            background-color: #e7e7e8;
+            border-radius: 20px;
+        }
+        &:hover {
+            background-color: transparent !important;
+            box-shadow: none;
+            md-icon {
+                box-shadow: $accent-color 0px -2px 0px 0px inset;
+                background-color: $white;
+            }
+        }
+        span {
+            padding-left: 6px;
+            text-transform: none;
+        }
+        span + span {
+            display: none; // if we manage to add two, hide subsequent
+        }
+    }
+}
+
+prm-search-bookmark-filter-after {
+    a.utility-help-button {
+        display: flex;
+        align-items: center;
+        margin-right: 20px;
+        span {
+            color: $uqBodyCopy;
+            font-weight: 500;
+            margin-top: 12px;
+            margin-left: 6px;
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    prm-search-bookmark-filter-after,
+    prm-search-bookmark-filter {
+        .utility-button-labels {
+            display: none;
+            width: 0;
+        }
+        a, button {
+            width: auto !important;
         }
     }
 }
