@@ -3,7 +3,7 @@
 }
 
 .proactive-chat:has(.openSubWrapper:not(.displayinline)) {
-    z-index: 99999;
+    z-index: 998;
 }
 .openSubWrapper button {
     color: #51247a;
@@ -97,7 +97,7 @@ button.proactive-chat-button:focus {
 }
 
 .proactive-chat button.close-button svg {
-    width: 30px;
+    width: 20px;
 }
 
 /*.closed-menu {*/
@@ -246,7 +246,7 @@ button.proactive-chat-button:focus {
     background-color: #a8a8a8;
 }
 
-.chatIframeWrapper {
+.chatbotIframeWrapper {
     background-color: #fff;
     right: 10px;
     bottom: 0;
@@ -277,7 +277,7 @@ button.proactive-chat-button:focus {
     .ca-force-hide-mobile {
         right: -300px !important;
     }
-    .chatIframeWrapper {
+    .chatbotIframeWrapper {
         max-width: calc(100% - 190px);
     }
 }
@@ -310,12 +310,12 @@ button.proactive-chat-button:focus {
     stroke: #fff;
     stroke-width: 1.2;
 }
-.chatIframeWrapper iframe {
+.chatbotIframeWrapper iframe {
     width: 100%;
     height: calc(100% - 115px);
 }
 @media screen and (max-width: 530px) {
-    .chatIframeWrapper iframe {
+    .chatbotIframeWrapper iframe {
         height: calc(100% - 125px);
     }
 }

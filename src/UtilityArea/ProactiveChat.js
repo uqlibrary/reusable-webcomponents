@@ -50,7 +50,7 @@ userPromptTemplate.innerHTML = `
                 </div>
                 <button id="proactive-chat-button-close" data-analyticsid="askus-proactive-chat-button-close" data-testid="close-button" class="close-button" title="Minimise this popup">
                     <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+                        <path d="M22 3.41 16.71 8.7 20 12h-8V4l3.29 3.29L20.59 2zM3.41 22l5.29-5.29L12 20v-8H4l3.29 3.29L2 20.59z"></path>
                     </svg>
                 </button>
                 <div id="button-open-chatbot-iframe" class="pcOpenChat">
@@ -69,7 +69,7 @@ const chatbotIframeTemplate = document.createElement('template');
 chatbotIframeTemplate.innerHTML = `<div
     id="chatbot-wrapper"
     data-testid="chatbot-wrapper"
-    class="chatIframeWrapper"
+    class="chatbotIframeWrapper"
 >
     <div class="resizeHandleRepositionWrapper">
         <div class="topBar">
@@ -101,9 +101,6 @@ chatbotIframeTemplate.innerHTML = `<div
 
 const PROACTIVE_CHAT_HIDDEN_COOKIE_NAME = 'UQ_PROACTIVE_CHAT';
 const PROACTIVE_CHAT_HIDDEN_COOKIE_VALUE = 'hidden';
-
-let ShowChatBot = false;
-let ShowCrmChat = false;
 
 function timeStamp() {
     // temp, for debugging
@@ -149,17 +146,19 @@ class ProactiveChat extends HTMLElement {
         }
 
         if (this.displayType === 'inline') {
-            const proactiveChatElement = this.shadowDOM.querySelector('#proactive-chat');
-            !!proactiveChatElement && proactiveChatElement.classList.add('show');
-            !!proactiveChatElement && proactiveChatElement.classList.add('displayinline');
+            const proactiveChatWebComponent = this.shadowDOM.querySelector('#proactive-chat');
+            !!proactiveChatWebComponent && proactiveChatWebComponent.classList.add('show');
+            !!proactiveChatWebComponent && proactiveChatWebComponent.classList.add('displayinline');
             const wrapper = this.shadowDOM.querySelector('#proactive-chat-wrapper');
             !!wrapper && wrapper.removeAttribute('style');
+        } else {
+            this.watchHeightChangeInCrm();
         }
         this.updateAskusDOM(secondsTilProactiveChatAppears);
         this.addButtonListeners();
-        this.watchHeightChangeInCrm();
 
         this.chatbotHasAppeared = false;
+        console.log('1 chatbotHasAppeared =', this.chatbotHasAppeared);
         this.crmInlineChatHasAppeared = false;
         this.askUsStatus = null;
 
@@ -186,27 +185,16 @@ class ProactiveChat extends HTMLElement {
             }
 
             clearInterval(awaitShadowDom);
-            switch (fieldName) {
-                case 'showchatbot':
-                    ShowChatBot = newValue === 'true' ? true : false;
-                    break;
-                case 'showcrmchat':
-                    ShowCrmChat = newValue === 'true' ? true : false;
-                    break;
-                /* istanbul ignore next  */
-                default:
-                    console.log(timeStamp(), `unhandled attribute ${fieldName} received for ProactiveChat`);
-            }
-            // Change the attribs here?
-            const proactiveChatElement = that.shadowDOM.querySelector('#proactive-chat');
-            const minimisedButtonsElement = that.shadowDOM.querySelector('#minimised-buttons');
 
-            if (ShowChatBot) {
+            if (fieldName === 'showchatbot' && newValue === 'true') {
+                this.hideCrmChatIframe();
+
                 const button = that.shadowDOM.querySelector('#proactive-chat-button-open');
                 !!button && button.click();
-            }
+            } else if (fieldName === 'showcrmchat' && newValue === 'true') {
+                const chatbotCloseButton = that.shadowDOM.querySelector('#closeIframeButton');
+                !!chatbotCloseButton && chatbotCloseButton.click();
 
-            if (ShowCrmChat) {
                 console.log(timeStamp(), 'auto click open of crm chat iframe');
                 const button = that.shadowDOM.querySelector('#crmChatPrompt');
                 !!button && button.click();
@@ -219,18 +207,23 @@ class ProactiveChat extends HTMLElement {
         return hideProactiveChat === 'true' || hideProactiveChat === '';
     }
 
-    hideCrmChatIframe(crmIframe) {
-        console.log(timeStamp(), 'hideCrmChatIframe (before)', crmIframe);
-        if (!!crmIframe && !crmIframe.classList.contains('visually-hidden')) {
-            crmIframe.classList.add('visually-hidden');
-            console.log(timeStamp(), 'hideCrmChatIframe crm iframe - visually-hidden class added');
-        } else {
-            console.log(timeStamp(), 'hideCrmChatIframe crm iframe already had visually-hidden class');
+    hideCrmChatIframe() {
+        const crmIframe = document.querySelector('iframe#chatInlay');
+        // console.log(timeStamp(), 'hideCrmChatIframe (before)', crmIframe);
+        if (!!crmIframe) {
+            if (!crmIframe.classList.contains('visually-hidden')) {
+                crmIframe.classList.add('visually-hidden');
+                // console.log(timeStamp(), 'hideCrmChatIframe crm iframe - visually-hidden class added');
+            } else {
+                // console.log(timeStamp(), 'hideCrmChatIframe crm iframe already had visually-hidden class');
+            }
         }
     }
 
-    showCrmChatIframe(crmIframe) {
-        console.log(timeStamp(), 'showCrmChatIframe');
+    showCrmChatIframe() {
+        const crmIframe = document.querySelector('#chatInlay');
+
+        console.log(timeStamp(), 'showCrmChatIframe crmIframe=', crmIframe);
         if (!!crmIframe && !!crmIframe.classList.contains('visually-hidden')) {
             crmIframe.classList.remove('visually-hidden');
             console.log(timeStamp(), 'showCrmChatIframe crm iframe - visually-hidden class removed');
@@ -256,6 +249,8 @@ class ProactiveChat extends HTMLElement {
           }`;
         // reduce rounded corners to meet UQ DS
         styleSheet.textContent += 'iframe#chatInlay { border-radius: 4px }';
+        // add a white border so when the iframe minimised button is over the footer we can see it
+        styleSheet.textContent += 'iframe#chatInlay:not(.visually-hidden) { border: thin solid white; z-index: 999; }';
         document.head.appendChild(styleSheet);
     }
 
@@ -270,8 +265,8 @@ class ProactiveChat extends HTMLElement {
             if (!!this.chatbotHasAppeared || this.crmInlineChatHasAppeared) {
                 return;
             }
-            const proactiveChatElement = this.shadowDOM.querySelector('#proactive-chat');
-            !!proactiveChatElement && proactiveChatElement.classList.add('show');
+            const proactiveChatWebComponent = this.shadowDOM.querySelector('#proactive-chat');
+            !!proactiveChatWebComponent && proactiveChatWebComponent.classList.add('show');
         };
         const showProactiveChatWrapper = () => {
             if (!!this.chatbotHasAppeared || this.crmInlineChatHasAppeared) {
@@ -310,16 +305,22 @@ class ProactiveChat extends HTMLElement {
                     cookieNotFound(PROACTIVE_CHAT_HIDDEN_COOKIE_NAME, PROACTIVE_CHAT_HIDDEN_COOKIE_VALUE)
                 ) {
                     console.log(timeStamp(), 'will show proactive in a bit');
-                    setTimeout(
-                        showProactiveChatWrapper,
-                        (secondsTilProactiveChatAppears === 0 ? 0 : secondsTilProactiveChatAppears - 1) * 1000,
-                    );
+                    setTimeout(() => {
+                        console.log('2 chatbotHasAppeared =', that.chatbotHasAppeared);
+                        if (!that.chatbotHasAppeared) {
+                            console.log('show now');
+                            showProactiveChatWrapper();
+                        } else {
+                            console.log('whould have show n but chatbot was visible');
+                        }
+                    }, (secondsTilProactiveChatAppears === 0 ? 0 : secondsTilProactiveChatAppears - 1) * 1000);
                     setTimeout(showProactiveChat, secondsTilProactiveChatAppears * 1000);
                 }
             });
     }
 
     showProactiveChatPromptDialog() {
+        console.log('showProactiveChatPromptDialog');
         const proactivechatArea = this.shadowDOM.querySelector('#proactivechat');
         !!proactivechatArea && (proactivechatArea.style.display = 'block');
         console.log(timeStamp(), 'showProactiveChatPromptDialog');
@@ -347,12 +348,14 @@ class ProactiveChat extends HTMLElement {
 
         function swapToCrm() {
             // minimise chatbot iframe
-            closeChatBotIframe();
+            if (that.displayType !== 'inline') {
+                closeChatBotIframe();
+            }
 
             openCrmChatIframe();
         }
 
-        function getChatbotIframeSrc() {
+        function setChatbotIframeSrc() {
             let iframeSrc = 'https://www.library.uq.edu.au';
             if (window.location.hostname === 'localhost') {
                 iframeSrc = 'http://localhost:2020'; // bring mock up to use locally
@@ -379,39 +382,50 @@ class ProactiveChat extends HTMLElement {
             return iframeSrc;
         }
 
+        // we dont handle the "close" - its done by CRM
         function openCrmChatIframe() {
-            that.crmInlineChatHasAppeared = true;
+            console.log('openCrmChatIframe start');
+            if (that.displayType === 'inline') {
+                console.log('openCrmChatIframe inline');
+                // find the corner chat instance on the page, not the inline one
+                const proactiveChatWebComponent = document.querySelectorAll('proactive-chat:not([display="inline"])');
+                if (!!proactiveChatWebComponent && proactiveChatWebComponent.length > 0) {
+                    proactiveChatWebComponent[0].setAttribute('showcrmchat', 'true');
+                    proactiveChatWebComponent[0].hasAttribute('showchatbot') &&
+                        proactiveChatWebComponent[0].removeAttribute('showchatbot');
+                }
 
-            // if (that.displayType === 'inline') {
-            //     console.log(timeStamp(), 'inline detected');
-            //     const crmChatIframe = document.querySelectorAll('proactive-chat:not([display="inline"])');
-            //     !!crmChatIframe &&
-            //     crmChatIframe.length > 0 &&
-            //     crmChatIframe[0].setAttribute('showcrmchat', 'true');
-            // } else {
+                that.hideMinimisedButtons();
+            } else {
+                console.log('openCrmChatIframe corner');
+                that.crmInlineChatHasAppeared = true;
 
-            const dialogWrapper = that.shadowDOM.querySelector('#proactive-chat-wrapper');
-            !!dialogWrapper && (dialogWrapper.style.display = 'none');
+                const dialogWrapper = that.shadowDOM.querySelector('#proactive-chat-wrapper');
+                !!dialogWrapper && (dialogWrapper.style.display = 'none');
 
-            const crmIframe = document.getElementById('chatInlay');
-            that.showCrmChatIframe(crmIframe);
-            // }
-            that.hideMinimisedButtons();
+                that.showCrmChatIframe();
+                that.hideMinimisedButtons();
+            }
         }
 
         function openChatBotIframe() {
+            console.log('openChatBotIframe start');
             that.chatbotHasAppeared = true;
+            console.log('3 chatbotHasAppeared =', that.chatbotHasAppeared);
 
             if (that.displayType === 'inline') {
-                // find the corner chat instance on the page
-                const proactiveChatElement = document.querySelectorAll('proactive-chat:not([display="inline"])');
-                !!proactiveChatElement &&
-                    proactiveChatElement.length > 0 &&
-                    proactiveChatElement[0].setAttribute('showchatbot', 'true');
+                // find the corner chat instance on the page, not the inline one
+                const proactiveChatWebComponent = document.querySelectorAll('proactive-chat:not([display="inline"])');
+                if (!!proactiveChatWebComponent && proactiveChatWebComponent.length > 0) {
+                    proactiveChatWebComponent[0].setAttribute('showchatbot', 'true');
+                    proactiveChatWebComponent[0].hasAttribute('showcrmchat') &&
+                        proactiveChatWebComponent[0].removeAttribute('showcrmchat');
+                }
 
                 that.hideMinimisedButtons();
             } else {
                 that.hideProactiveChatPromptDialog();
+                that.hideCrmChatIframe();
 
                 that.showMinimisedButton();
 
@@ -424,7 +438,7 @@ class ProactiveChat extends HTMLElement {
                 }
 
                 // show chatbot source
-                let iframeSrc = getChatbotIframeSrc();
+                let iframeSrc = setChatbotIframeSrc();
                 let chatbotUrl = `${iframeSrc}/chatbot.html`;
                 const chatBotIframe = !!chatbotWrapper1 && chatbotWrapper1.getElementsByTagName('iframe');
                 const api = new ApiAccess();
@@ -477,8 +491,8 @@ class ProactiveChat extends HTMLElement {
 
             this.showMinimisedButton();
 
-            const proactiveChatElement = that.shadowDOM.querySelector('#proactive-chat');
-            !!proactiveChatElement && proactiveChatElement.classList.add('show');
+            const proactiveChatWebComponent = that.shadowDOM.querySelector('#proactive-chat');
+            !!proactiveChatWebComponent && proactiveChatWebComponent.classList.add('show');
         };
 
         // Proactive chat
@@ -487,8 +501,8 @@ class ProactiveChat extends HTMLElement {
             !!pcWrapper && (pcWrapper.style.display = 'none');
         }
         function closeProactiveChat() {
-            const proactiveChatElement = that.shadowDOM.querySelector('#proactive-chat');
-            !!proactiveChatElement && proactiveChatElement.classList.remove('show');
+            const proactiveChatWebComponent = that.shadowDOM.querySelector('#proactive-chat');
+            !!proactiveChatWebComponent && proactiveChatWebComponent.classList.remove('show');
             setTimeout(hideProactiveChatWrapper, 1000);
             //set cookie for 24 hours
             const date = new Date();
@@ -502,14 +516,17 @@ class ProactiveChat extends HTMLElement {
         const crmChatprompt = that.shadowDOM.querySelector('#crmChatPrompt');
         !!crmChatprompt && crmChatprompt.addEventListener('click', openCrmChatIframe);
 
-        const proactiveChatElementOnline = that.shadowDOM.querySelector('#proactive-chat-online');
-        !!proactiveChatElementOnline && proactiveChatElementOnline.addEventListener('click', showProactiveChatDialog);
+        const proactiveChatWebComponentOnline = that.shadowDOM.querySelector('#proactive-chat-online');
+        !!proactiveChatWebComponentOnline &&
+            proactiveChatWebComponentOnline.addEventListener('click', showProactiveChatDialog);
 
-        const proactiveChatElementOFFline = that.shadowDOM.querySelector('#proactive-chat-offline');
-        !!proactiveChatElementOFFline && proactiveChatElementOFFline.addEventListener('click', showProactiveChatDialog);
+        const proactiveChatWebComponentOFFline = that.shadowDOM.querySelector('#proactive-chat-offline');
+        !!proactiveChatWebComponentOFFline &&
+            proactiveChatWebComponentOFFline.addEventListener('click', showProactiveChatDialog);
 
-        const proactiveChatElementClose = that.shadowDOM.querySelector('#proactive-chat-button-close');
-        !!proactiveChatElementClose && proactiveChatElementClose.addEventListener('click', closeProactiveChat);
+        const proactiveChatWebComponentClose = that.shadowDOM.querySelector('#proactive-chat-button-close');
+        !!proactiveChatWebComponentClose &&
+            proactiveChatWebComponentClose.addEventListener('click', closeProactiveChat);
         const proactiveChatWithBot = that.shadowDOM.querySelector('#proactive-chat-button-open');
         !!proactiveChatWithBot && proactiveChatWithBot.addEventListener('click', openChatBotIframe);
         const proactiveleaveQuestion = that.shadowDOM.querySelector('#leaveAQuestionPrompt');
@@ -534,6 +551,7 @@ class ProactiveChat extends HTMLElement {
         );
     }
 
+    // we dont control the close of the CRM iframe, so watch for it to get small, and then show other buttons
     watchHeightChangeInCrm() {
         const awaitCrmIframeBody = setInterval(() => {
             const crmIframe = document.querySelector('iframe#chatInlay');
@@ -556,7 +574,7 @@ class ProactiveChat extends HTMLElement {
                 // Check if height is less than 50px
                 if (currentHeight < 50 && previousHeight !== currentHeight) {
                     console.log(timeStamp(), 'Iframe height is now less than 50px:', currentHeight);
-                    this.hideCrmChatIframe(crmIframe);
+                    this.hideCrmChatIframe();
                     // this.showProactiveChatPromptDialog();
                     // show the minimised buttons
 
@@ -573,20 +591,60 @@ class ProactiveChat extends HTMLElement {
     }
 
     attachCRMScriptToPage() {
-        const that = this;
+        function getPathnameRoot(pathname) {
+            const parts = pathname.split('/');
+            if (parts.length < 3) {
+                return '/';
+            }
+
+            const firstTwoLevels = parts.slice(1, 3);
+            return '/' + firstTwoLevels.join('/') + '/';
+        }
+        function configFileLocation() {
+            const assetsHostname = 'assets.library.uq.edu.au';
+            const assetsRoot = 'https://' + assetsHostname;
+            const includeFilename = 'applications/proactive/config.js';
+
+            if (window.location.host === 'localhost:8080') {
+                return '/' + includeFilename;
+            }
+
+            if (window.location.href.startsWith(`https://${assetsHostname}/reusable-webcomponents-staging/`)) {
+                // a test on staging branch gets staging version
+                return assetsRoot + '/reusable-webcomponents-staging/' + includeFilename;
+            }
+            if (
+                window.location.href.startsWith(`https://${assetsHostname}/reusable-webcomponents-development/master/`)
+            ) {
+                // a test on master branch gets master version
+                return assetsRoot + '/reusable-webcomponents-development/master/' + includeFilename;
+            }
+            if (window.location.host === assetsHostname) {
+                // a test on any other feature branch gets the feature branch
+                return assetsRoot + getPathnameRoot(window.location.pathname) + includeFilename;
+            }
+            if (
+                window.location.host === 'homepage-development.library.uq.edu.au' ||
+                window.location.host === 'homepage-staging.library.uq.edu.au'
+            ) {
+                // a test on homepage gets staging version
+                return assetsRoot + '/reusable-webcomponents-staging/' + includeFilename;
+            }
+
+            // production
+            return `https://assets.library.uq.edu.au/reusable-webcomponents/${includeFilename}`;
+        }
+
         // This loads the external JS file into the HTML head dynamically
         // Only load js if it has not been loaded before
         const scriptId = 'oit-loader';
         const scriptFound = document.getElementById(scriptId);
         /* istanbul ignore else */
         if (!scriptFound) {
-            const that = this;
-
             //Dynamically import the JS file and append it to the document header
             const script = document.createElement('script');
             script.type = 'text/javascript';
             script.defer = true;
-            // script.async = true;
             script.id = scriptId;
             script.onload = function () {
                 function fireChatInlayShowEvent() {
@@ -612,6 +670,9 @@ class ProactiveChat extends HTMLElement {
             };
 
             script.src = `https://${crmLocationScript}/s/oit/latest/common/v0/libs/oit/loader.js`;
+            console.log('use config file at: ', configFileLocation());
+            script.setAttribute('data-oit-config-url', configFileLocation());
+
             document.body.appendChild(script);
         }
     }
@@ -677,18 +738,14 @@ class ProactiveChat extends HTMLElement {
             // https://community.oracle.com/customerconnect/discussion/552678/sample-file-for-chat-inlay-attribute-launch-form-fields
             const crmchatIncludeTemplate = document.createElement('template');
 
-            // TODO dont forget to update the dynamic location!!
             const stringedParams = JSON.stringify(crmChatParams);
             console.log(timeStamp(), 'clone stringedParams=', stringedParams);
-            // data-oit-config-url="https://assets.library.uq.edu.au/reusable-webcomponents-development/feature-leadegroot/applications/proactive/config.js"
-            // data-oit-config-url="https://${crmLocationScript}/euf/assets/themes/standard/library_config.js"
             crmchatIncludeTemplate.innerHTML = `<inlay-oracle-chat-embedded
                 id="chatInlay"
                 class="inlay"
                 site-url="${crmLocationEmbed}"
-                inlay-hidden="true"
-                data-oit-theme-vars="{'brandColor': '#51247A'}"
                 launch-form-fields=${stringedParams}
+                inlay-hidden="true"
             >
             </inlay-oracle-chat-embedded>`;
 
