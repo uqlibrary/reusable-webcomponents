@@ -310,7 +310,7 @@ ul.s-lg-guide-list {
 }
 
 // page layout, right column
-#s-lg-index-cols {
+body #s-lg-index-cols {
     margin-left: 0;
     margin-right: 0;
     padding-left: .5rem;
@@ -1079,25 +1079,50 @@ ul.s-lg-guide-list {
     }
 }
 
-body:has( .homePagePanel)  div h1:not(.hero-h1),
+body:has(.homePagePanel)  div h1:not(.hero-h1),
 body:has(.homePagePanel)>div.s-lib-box-container,
 body.guides_homepage .remove-h2 h2.s-lib-box-title {
     display: none
 }
 
+// putt a gap below the footer box
 .footer-box {
     margin-bottom: 3rem;
+}
+.footer-box h2 {
+    margin-top: 96px;
+    margin-bottom: 24px;
+    @media (min-width: 75rem) {
+        margin-left: -14px;
+    }
+    padding-left: 1rem;
+}
+
+// style grid of uq boxes
+.grid-by-3 {
+    padding-right: 15px;
+    padding-left: 15px;
+    @media (min-width: 75rem) {
+        margin-left: -30px;
+    }
     .s-lib-box-container {
-        margin-top: 1.5rem;
-        padding: 1.5rem;
+        //margin-top: 1.5rem;
         border: 1px solid rgba(38, 85, 115, 0.15) !important;
         border-radius: 4px;
         background-color: #fff;
-        margin-left: -30px;
+        .s-lib-box-content h3 {
+            margin-top: 0;
+            //margin: 0 0 0 0;
+        }
+    }
+    p {
+        margin-top: 8px;
+    }
+    a {
+        padding: 1.5rem;
     }
     .s-lib-box-content {
-        padding-inline: 0;
-        padding-bottom: 0;
+        padding: 0;
         ul, ol {
             margin-left: 8px;
         }
@@ -1110,7 +1135,7 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title {
     }
 }
 
-#col1:has( .homePagePanel) .s-lib-box {
+#col1:has(.homePagePanel) .s-lib-box {
     border: 1px solid rgba(38,85,115,0.15) !important;
     border-radius: 4px;
     background-color: #fff;
@@ -1130,6 +1155,7 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title {
     position: relative
 }
 
+.grid-by-3 .homePagePanel a,
 #col1 .homePagePanel a {
     &:focus-within,
     &:hover {
@@ -1141,7 +1167,8 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title {
             background-color:$paneBackground !important
         }
         div.arrowSvgWrapper {
-            background-color:$paneBackground !important
+            background-color:$paneBackground !important;
+            color: $uqBrandColour;
         }
     }
 
@@ -1165,6 +1192,7 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title {
 }
 
 @media (min-width: 848px) {
+    .grid-by-3:has(.homePagePanel) a,
     #col1:has(.homePagePanel) a {
         &:focus-within,
         &:hover {
@@ -1174,10 +1202,12 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title {
         }
     }
     @media (prefers-reduced-motion: no-preference) {
+        .grid-by-3:has(.homePagePanel) a svg.arrowForwardIcon,
         #col1:has(.homePagePanel) a svg.arrowForwardIcon {
             transition: margin-left 200ms ease-in-out
         }
 
+        .grid-by-3:has(.homePagePanel),
         #col1:has(.homePagePanel) {
             a:focus-within,
             a:hover {
@@ -1191,19 +1221,67 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title {
 }
 
 @media (max-width: 640px) {
+    .grid-by-3:has(.homePagePanel) a,
     #col1:has(.homePagePanel) a {
         display: flex;
         justify-content: space-between;
         text-decoration: none !important;
     }
+    #col1:has(.homePagePanel) a .panelBodyWrapper {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .grid-by-3:has(.homePagePanel) p,
     #col1:has(.homePagePanel) p {
         display: none;
     }
+    .grid-by-3 .homePagePanel a,
+    #col1 .homePagePanel a {
+        h3.cardHeading {
+            margin-block: 0;
+        }
+    }
+    #col1 .homePagePanel a {
+        h3.cardHeading {
+            margin-left: 24px;
+        }
+        .arrowSvgWrapper {
+            align-self: center;
+        }
+    }
+    //
+    //#col1  .homePagePanel {
+    //    /* Create a flex container */
+    //    display: flex;
+    //    align-items: center;
+    //    gap: 1rem;
+    //}
+    //
+    //#col1  .panelBodyWrapper {
+    //    /* Make this flex container take up available space */
+    //    flex-grow: 1;
+    //    display: flex;
+    //    align-items: center;
+    //    gap: 1rem;
+    //}
+    //
+    //#col1  .cardHeading {
+    //    /* Allow heading to grow/shrink naturally */
+    //    flex-shrink: 1;
+    //}
+    //
+    //#col1  .arrowSvgWrapper {
+    //    /* Keep arrow small and aligned */
+    //    margin-left: auto;
+    //}
 }
 @media (min-width: 640px) {
+    .grid-by-3:has(.homePagePanel) a,
     #col1:has(.homePagePanel) a {
         text-decoration:none !important
     }
+    .grid-by-3:has(.homePagePanel) .arrowSvgWrapper,
     #col1:has(.homePagePanel) .arrowSvgWrapper {
         margin-top: 24px;
     }
@@ -1218,6 +1296,16 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title {
     display: grid;
     gap: 32px;
 }
+@media (max-width: 800px) {
+    .grid-by-3 {
+        .s-lib-box-container {
+            margin-bottom: 24px;
+        }
+        .arrowSvgWrapper {
+            margin-block: auto;
+        }
+    }
+}
 
 /* Tablet breakpoint - 2 columns */
 @media (min-width: 640px) {
@@ -1225,6 +1313,7 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title {
         grid-template-columns: repeat(2, 1fr);
         gap: 24px;
     }
+    .grid-by-3:has(.homePagePanel) a,
     #s-lg-index-cols:has(.homePagePanel) a {
         display: flex;
         flex-direction: column;
@@ -1234,17 +1323,21 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title {
 
 /* Desktop breakpoint - 3 columns */
 @media (min-width: 800px) {
+    .grid-by-3,
     #s-lg-index-cols:has(.homePagePanel) .col-md-8 {
+        display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 32px;
     }
-    #s-lg-index-cols:has(.homePagePanel) {
-        .s-lib-box > div > div > div > div > div,
-        .s-lib-box > div > div > div > div,
-        .s-lib-box > div > div > div,
-        .s-lib-box > div > div,
-        .s-lib-box > div,
-        .s-lib-box a  {
+    .grid-by-3,
+    #s-lg-index-cols:has(.homePagePanel) .s-lib-box {
+        & > div > div > div > div > div > div,
+        & > div > div > div > div > div,
+        & > div > div > div > div,
+        & > div > div > div,
+        & > div > div,
+        & > div,
+        a  {
             height: 100%;
         }
     }
@@ -1259,9 +1352,11 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title {
         flex-grow: 1;
     }
 }
-.arrowSvgWrapper {
-  margin-top: auto;
-  align-self: flex-start;
+@media (min-width: 640px) {
+    .arrowSvgWrapper {
+      margin-top: auto;
+      align-self: flex-start;
+    }
 }
 div:has(> h1#s-lib-public-header-title:empty) {
     display: none;

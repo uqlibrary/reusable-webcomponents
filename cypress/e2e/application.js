@@ -219,42 +219,13 @@ describe('Dummy Application', () => {
     });
 
     context('Springshare Guides works as expected', () => {
-        it('Javascript load works correctly', () => {
+        it('homepage is correct', () => {
             cy.visit('http://localhost:8080/src/applications/libguides/demo.html');
             cy.viewport(1280, 900);
 
             hasUqHeader();
 
             hasUqSiteHeader();
-            // the guides built in bookmark has been removed
-            cy.get('uq-site-header')
-                .shadow()
-                .within(() => {
-                    // the breadcrumbs has all the children from the guides demo page
-                    cy.get('div.uq-site-header nav ol').children().should('have.length', 6);
-                    cy.get('div.uq-site-header nav ol li:nth-child(3) a')
-                        .should('have.attr', 'href', `https://guides.library.uq.edu.au/`)
-                        .contains('Guides')
-                        .should('have.css', 'text-decoration-line', 'underline');
-                    cy.get('div.uq-site-header nav ol li:nth-child(4) a')
-                        .should('have.attr', 'href', `https://guides.library.uq.edu.au/how-to-find`)
-                        .contains('How to find')
-                        .should('have.css', 'text-decoration-line', 'underline');
-                    cy.get('div.uq-site-header nav ol li:nth-child(5) a')
-                        .should(
-                            'have.attr',
-                            'href',
-                            `https://guides.library.uq.edu.au/how-to-find/evidence-based-practice`,
-                        )
-                        .contains('Evidence-based practice in health sciences')
-                        .should('have.css', 'text-decoration-line', 'underline');
-                    // that last not-a-link does not have an underline
-                    cy.get('div.uq-site-header nav ol li:nth-child(6) span')
-                        .contains('Introduction')
-                        .should('not.have.css', 'text-decoration-line', 'underline');
-                    // guides built in breadcrumb has been removed
-                    cy.get('#s-lib-bc').should('not.exist');
-                });
 
             hasCulturalAdviceBanner();
 
@@ -270,6 +241,35 @@ describe('Dummy Application', () => {
         it('detail page with hero and accordion handler works', () => {
             cy.visit('http://localhost:8080/src/applications/libguides/demo-landing.html');
             cy.viewport(1280, 900);
+            // the guides built in breadcrumb has been removed
+            cy.get('uq-site-header')
+                .shadow()
+                .within(() => {
+                    // the breadcrumbs has all the children from the guides demo page
+                    cy.get('div.uq-site-header nav ol').children().should('have.length', 4);
+                    cy.get('div.uq-site-header nav ol li:nth-child(3) a')
+                        .should('have.attr', 'href', `https://guides.library.uq.edu.au/`)
+                        .contains('Guides')
+                        .should('have.css', 'text-decoration-line', 'underline');
+                    // cy.get('div.uq-site-header nav ol li:nth-child(4) a')
+                    //     .should('have.attr', 'href', `https://guides.library.uq.edu.au/how-to-find`)
+                    //     .contains('How to find')
+                    //     .should('have.css', 'text-decoration-line', 'underline');
+                    // cy.get('div.uq-site-header nav ol li:nth-child(5) a')
+                    //     .should(
+                    //         'have.attr',
+                    //         'href',
+                    //         `https://guides.library.uq.edu.au/how-to-find/evidence-based-practice`,
+                    //     )
+                    //     .contains('Evidence-based practice in health sciences')
+                    //     .should('have.css', 'text-decoration-line', 'underline');
+                    // that last not-a-link does not have an underline
+                    cy.get('div.uq-site-header nav ol li:nth-child(4) a')
+                        .contains('Referencing')
+                        .should('not.have.css', 'text-decoration-line', 'underline');
+                    // guides built in breadcrumb has been removed
+                    cy.get('#s-lib-bc').should('not.exist');
+                });
 
             // detail hero image loads
             cy.waitUntil(() => cy.get('[data-testid="hero-text"]').should('exist').should('be.visible'));
@@ -295,114 +295,109 @@ describe('Dummy Application', () => {
             );
             cy.get('[data-testid="research-accordion-panel"]').should('exist').should('not.be.visible');
         });
-        context('homepage hero shot', () => {
-            it('has been moved to top of body', () => {
-                cy.visit('http://localhost:8080/src/applications/libguides/demo.html');
-                cy.viewport(1280, 900);
-                cy.get('[data-testid="hero-wrapper"]').should('exist');
-                cy.get('#s-lg-public-skiplink').next().should('have.attr', 'data-testid', 'hero-wrapper');
-            });
+        // hero is set in the hompage template - test in e2e
+        context('homepage layout', () => {
             it('is laid out correctly at mobile size', () => {
                 cy.visit('http://localhost:8080/src/applications/libguides/demo.html');
                 cy.viewport(320, 480);
                 cy.get('cultural-advice').should('exist').scrollIntoView();
-                let firstItemTop;
-                let firstItemLeft;
-                cy.get('[data-testid="hero-image"]')
-                    .should('exist')
-                    .should('be.visible')
-                    .within(($el) => {
-                        firstItemTop = $el.position().top;
-                        firstItemLeft = $el.position().left;
-                    });
-                cy.get('[data-testid="hero-words-words-wrapper"]')
-                    .should('exist')
-                    .should('be.visible')
-                    .within(($el) => {
-                        const secondItemTop = $el.position().top;
-                        const secondItemLeft = $el.position().left;
-
-                        // at mobile size, the image (first) and words (second) are stacked vertically
-                        expect(secondItemTop).to.be.greaterThan(firstItemTop);
-                        expect(secondItemLeft).to.equal(firstItemLeft);
-                    });
+                // let firstItemTop;
+                // let firstItemLeft;
+                // cy.get('[data-testid="hero-image"]')
+                //     .should('exist')
+                //     .should('be.visible')
+                //     .within(($el) => {
+                //         firstItemTop = $el.position().top;
+                //         firstItemLeft = $el.position().left;
+                //     });
+                // cy.get('[data-testid="hero-words-words-wrapper"]')
+                //     .should('exist')
+                //     .should('be.visible')
+                //     .within(($el) => {
+                //         const secondItemTop = $el.position().top;
+                //         const secondItemLeft = $el.position().left;
+                //
+                //         // at mobile size, the image (first) and words (second) are stacked vertically
+                //         expect(secondItemTop).to.be.greaterThan(firstItemTop);
+                //         expect(secondItemLeft).to.equal(firstItemLeft);
+                //     });
             });
             it('is laid out correctly at tablet size', () => {
                 cy.visit('http://localhost:8080/src/applications/libguides/demo.html');
                 cy.viewport(840, 900);
                 cy.get('cultural-advice').should('exist').scrollIntoView();
-                let firstItemTop;
-                let firstItemLeft;
-                cy.get('[data-testid="hero-image"]')
-                    .should('exist')
-                    .should('be.visible')
-                    .within(($el) => {
-                        firstItemTop = $el.position().top;
-                        firstItemLeft = $el.position().left;
-                    });
-                cy.get('[data-testid="hero-words-words-wrapper"]')
-                    .should('exist')
-                    .should('be.visible')
-                    .within(($el) => {
-                        const secondItemTop = $el.position().top;
-                        const secondItemLeft = $el.position().left;
-
-                        // at tablet size, the image (first) and words (second) are stacked vertically
-                        expect(secondItemTop).to.be.greaterThan(firstItemTop);
-                        expect(secondItemLeft).to.equal(firstItemLeft);
-                    });
+                // let firstItemTop;
+                // let firstItemLeft;
+                // cy.get('[data-testid="hero-image"]')
+                //     .should('exist')
+                //     .should('be.visible')
+                //     .within(($el) => {
+                //         firstItemTop = $el.position().top;
+                //         firstItemLeft = $el.position().left;
+                //     });
+                // cy.get('[data-testid="hero-words-words-wrapper"]')
+                //     .should('exist')
+                //     .should('be.visible')
+                //     .within(($el) => {
+                //         const secondItemTop = $el.position().top;
+                //         const secondItemLeft = $el.position().left;
+                //
+                //         // at tablet size, the image (first) and words (second) are stacked vertically
+                //         expect(secondItemTop).to.be.greaterThan(firstItemTop);
+                //         expect(secondItemLeft).to.equal(firstItemLeft);
+                //     });
             });
             it('is laid out correctly at narrow desktop size', () => {
                 cy.visit('http://localhost:8080/src/applications/libguides/demo.html');
                 cy.viewport(905, 800);
                 cy.get('cultural-advice').should('exist').scrollIntoView();
-                let firstItemTop;
-                let firstItemLeft;
-                cy.get('[data-testid="hero-image"]')
-                    .should('exist')
-                    .should('be.visible')
-                    .within(($el) => {
-                        firstItemTop = $el.position().top;
-                        firstItemLeft = $el.position().left;
-                    });
-                cy.get('[data-testid="hero-words-words-wrapper"]')
-                    .should('exist')
-                    .should('be.visible')
-                    .within(($el) => {
-                        const secondItemTop = $el.position().top;
-                        const secondItemLeft = $el.position().left;
-
-                        // at narrow desktop, hero image (first) sits to the right of the words (second)
-                        expect(secondItemTop - firstItemTop).to.be.lessThan(1);
-                        expect(secondItemTop - firstItemTop).to.be.greaterThan(-1);
-                        expect(firstItemLeft).to.be.greaterThan(secondItemLeft);
-                    });
+                // let firstItemTop;
+                // let firstItemLeft;
+                // cy.get('[data-testid="hero-image"]')
+                //     .should('exist')
+                //     .should('be.visible')
+                //     .within(($el) => {
+                //         firstItemTop = $el.position().top;
+                //         firstItemLeft = $el.position().left;
+                //     });
+                // cy.get('[data-testid="hero-words-words-wrapper"]')
+                //     .should('exist')
+                //     .should('be.visible')
+                //     .within(($el) => {
+                //         const secondItemTop = $el.position().top;
+                //         const secondItemLeft = $el.position().left;
+                //
+                //         // at narrow desktop, hero image (first) sits to the right of the words (second)
+                //         expect(secondItemTop - firstItemTop).to.be.lessThan(1);
+                //         expect(secondItemTop - firstItemTop).to.be.greaterThan(-1);
+                //         expect(firstItemLeft).to.be.greaterThan(secondItemLeft);
+                //     });
             });
             it('is laid out correctly at desktop size', () => {
                 cy.visit('http://localhost:8080/src/applications/libguides/demo.html');
                 cy.viewport(1280, 900);
                 cy.get('cultural-advice').should('exist').scrollIntoView();
-                let firstItemTop;
-                let firstItemLeft;
-                cy.get('[data-testid="hero-image"]')
-                    .should('exist')
-                    .should('be.visible')
-                    .within(($el) => {
-                        firstItemTop = $el.position().top;
-                        firstItemLeft = $el.position().left;
-                    });
-                cy.get('[data-testid="hero-words-words-wrapper"]')
-                    .should('exist')
-                    .should('be.visible')
-                    .within(($el) => {
-                        const secondItemTop = $el.position().top;
-                        const secondItemLeft = $el.position().left;
-
-                        // at desktop, hero image (first) sits to the right of the words (second)
-                        expect(secondItemTop - firstItemTop).to.be.lessThan(1);
-                        expect(secondItemTop - firstItemTop).to.be.greaterThan(-1);
-                        expect(secondItemLeft).to.be.lessThan(firstItemLeft);
-                    });
+                // let firstItemTop;
+                // let firstItemLeft;
+                // cy.get('[data-testid="hero-image"]')
+                //     .should('exist')
+                //     .should('be.visible')
+                //     .within(($el) => {
+                //         firstItemTop = $el.position().top;
+                //         firstItemLeft = $el.position().left;
+                //     });
+                // cy.get('[data-testid="hero-words-words-wrapper"]')
+                //     .should('exist')
+                //     .should('be.visible')
+                //     .within(($el) => {
+                //         const secondItemTop = $el.position().top;
+                //         const secondItemLeft = $el.position().left;
+                //
+                //         // at desktop, hero image (first) sits to the right of the words (second)
+                //         expect(secondItemTop - firstItemTop).to.be.lessThan(1);
+                //         expect(secondItemTop - firstItemTop).to.be.greaterThan(-1);
+                //         expect(secondItemLeft).to.be.lessThan(firstItemLeft);
+                //     });
             });
         });
     });

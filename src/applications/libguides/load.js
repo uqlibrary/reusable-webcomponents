@@ -469,7 +469,7 @@
 
         const heroHtml = `<div id="guides-library-hero" class="block block-system block-system-main-block" data-testid="hero-wrapper">
                     <div>
-                        <div class="uq-hero" data-gtm-category="Hero banner">
+                        <div class="uq-hero">
                             <div class="uq-container">
                                 <div class="uq-hero__content" data-testid="hero-words-words-wrapper">
                                     <h1 class="uq-hero__title" data-testid="hero-text">${h1Text}</h1>
