@@ -7,7 +7,7 @@ body .s-lib-box-container > div.s-lib-box > h2 {
   padding: 0 !important;
   margin: 0 !important;
 }
-#s-lg-index-cols {
+body:not(.guides_homepage) #s-lg-index-cols {
   margin-left: 0 !important;
   margin-right: 0 !important;
 }

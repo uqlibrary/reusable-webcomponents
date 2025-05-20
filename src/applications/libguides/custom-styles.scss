@@ -37,6 +37,10 @@ $up-arrow: "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22%3E%
     background: #fff !important;
     border-bottom: none;
 }
+#col2 .s-lib-box .s-lib-box-title {
+    padding-left: 0;
+}
+
 
 /* legacy, in case someone fogets they shouldn't use this */
 .important-content {
@@ -204,7 +208,7 @@ body .s-lib-box-container > div.s-lib-box > h2 {
     color: $heading;
     font-weight: 500;
     line-height: 1.2;
-    padding-left: 0;
+    //padding-left: 0;
 }
 h3,
 body h3,
@@ -299,18 +303,13 @@ ul.s-lg-guide-list {
         color: $grey900;
         background-color: transparent;
     }
-    //h4 a:after {
-    //    content: '';
-    //    background-image: url($down-arrow);
-    //    padding-right: 20px;
-    //}
 }
-#s-lg-index-cols:not(:has(.homePagePanel)) .s-lib-box-content {
+.uql-grid-by-3 .s-lib-box-content {
     padding-left: 0;
 }
 
 // page layout, right column
-body #s-lg-index-cols {
+body:not(.guides_homepage) #s-lg-index-cols {
     margin-left: 0;
     margin-right: 0;
     padding-left: .5rem;
@@ -335,7 +334,7 @@ body #s-lg-index-cols {
     }
 }
 @media (min-width: 64rem) {
-    #s-lg-index-cols {
+    body:not(.guides_homepage) #s-lg-index-cols {
         display: grid;
         column-gap: 32px;
         grid-template-columns: 0 1fr 296px;
@@ -355,7 +354,7 @@ body #s-lg-index-cols {
     }
 }
 @media (min-width: 75rem) {
-    #s-lg-index-cols:not(:has(.homePagePanel)) {
+    body:not(.guides_homepage) #s-lg-index-cols {
         grid-template-columns: 0 1fr 308px;
         margin-inline: -30px;
     }
@@ -818,7 +817,7 @@ body #s-lg-index-cols {
 //
 #s-lg-col-1 h2,
 .guides_homepage #s-lg-col-1 h3,
-.s-lib-box-content {
+body.guides_homepage .s-lib-box-content {
     padding: 20px;
 }
 //
@@ -1081,7 +1080,8 @@ body #s-lg-index-cols {
 
 body:has(.homePagePanel)  div h1:not(.hero-h1),
 body:has(.homePagePanel)>div.s-lib-box-container,
-body.guides_homepage .remove-h2 h2.s-lib-box-title {
+body.guides_homepage .remove-h2 h2.s-lib-box-title // if the box has built in h2 tags which we want to replace with internal ones of our own, use .remove-h2
+{
     display: none
 }
 
@@ -1099,7 +1099,7 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title {
 }
 
 // style grid of uq boxes
-.grid-by-3 {
+.uql-grid-by-3 {
     padding-right: 15px;
     padding-left: 15px;
     @media (min-width: 75rem) {
@@ -1155,7 +1155,7 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title {
     position: relative
 }
 
-.grid-by-3 .homePagePanel a,
+.uql-grid-by-3 .homePagePanel a,
 #col1 .homePagePanel a {
     &:focus-within,
     &:hover {
@@ -1192,7 +1192,7 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title {
 }
 
 @media (min-width: 848px) {
-    .grid-by-3:has(.homePagePanel) a,
+    .uql-grid-by-3:has(.homePagePanel) a,
     #col1:has(.homePagePanel) a {
         &:focus-within,
         &:hover {
@@ -1202,12 +1202,12 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title {
         }
     }
     @media (prefers-reduced-motion: no-preference) {
-        .grid-by-3:has(.homePagePanel) a svg.arrowForwardIcon,
+        .uql-grid-by-3:has(.homePagePanel) a svg.arrowForwardIcon,
         #col1:has(.homePagePanel) a svg.arrowForwardIcon {
             transition: margin-left 200ms ease-in-out
         }
 
-        .grid-by-3:has(.homePagePanel),
+        .uql-grid-by-3:has(.homePagePanel),
         #col1:has(.homePagePanel) {
             a:focus-within,
             a:hover {
@@ -1221,7 +1221,7 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title {
 }
 
 @media (max-width: 640px) {
-    .grid-by-3:has(.homePagePanel) a,
+    .uql-grid-by-3:has(.homePagePanel) a,
     #col1:has(.homePagePanel) a {
         display: flex;
         justify-content: space-between;
@@ -1232,11 +1232,11 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title {
         justify-content: flex-start;
         align-items: center;
     }
-    .grid-by-3:has(.homePagePanel) p,
+    .uql-grid-by-3:has(.homePagePanel) p,
     #col1:has(.homePagePanel) p {
         display: none;
     }
-    .grid-by-3 .homePagePanel a,
+    .uql-grid-by-3 .homePagePanel a,
     #col1 .homePagePanel a {
         h3.cardHeading {
             margin-block: 0;
@@ -1277,27 +1277,26 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title {
     //}
 }
 @media (min-width: 640px) {
-    .grid-by-3:has(.homePagePanel) a,
+    .uql-grid-by-3:has(.homePagePanel) a,
     #col1:has(.homePagePanel) a {
         text-decoration:none !important
     }
-    .grid-by-3:has(.homePagePanel) .arrowSvgWrapper,
+    .uql-grid-by-3:has(.homePagePanel) .arrowSvgWrapper,
     #col1:has(.homePagePanel) .arrowSvgWrapper {
         margin-top: 24px;
     }
 }
-#s-lg-index-cols:has(.homePagePanel) {
-    display: block;
-}
 
-/* Default mobile view - 1 column */
-#s-lg-index-cols:has(.homePagePanel) .col-md-8 {
-    grid-template-columns: 1fr;
+.uql-grid {
     display: grid;
+}
+/* Default mobile view - 1 column */
+.uql-grid-by-3{
+    grid-template-columns: 1fr;
     gap: 32px;
 }
 @media (max-width: 800px) {
-    .grid-by-3 {
+    .uql-grid-by-3 {
         .s-lib-box-container {
             margin-bottom: 24px;
         }
@@ -1309,28 +1308,22 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title {
 
 /* Tablet breakpoint - 2 columns */
 @media (min-width: 640px) {
-    #s-lg-index-cols:has(.homePagePanel) .col-md-8 {
+    .uql-grid-by-3 {
         grid-template-columns: repeat(2, 1fr);
         gap: 24px;
-    }
-    .grid-by-3:has(.homePagePanel) a,
-    #s-lg-index-cols:has(.homePagePanel) a {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+        a {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
     }
 }
 
 /* Desktop breakpoint - 3 columns */
 @media (min-width: 800px) {
-    .grid-by-3,
-    #s-lg-index-cols:has(.homePagePanel) .col-md-8 {
-        display: grid;
+    .uql-grid-by-3 {
         grid-template-columns: repeat(3, 1fr);
         gap: 32px;
-    }
-    .grid-by-3,
-    #s-lg-index-cols:has(.homePagePanel) .s-lib-box {
         & > div > div > div > div > div > div,
         & > div > div > div > div > div,
         & > div > div > div > div,
@@ -1344,7 +1337,7 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title {
 }
 
 /* Make boxes consistent height */
-#s-lg-index-cols:has(.homePagePanel) {
+.uql-grid-by-3 {
     .s-lib-box {
         height: 100%;
     }
