@@ -79,9 +79,6 @@
 *:focus-visible {
     border: 2px solid $uqUtility500;
 }
-* {
-    font-style: normal;
-}
 prm-advanced-search *:focus-visible {
     border: none;
 }
@@ -1044,20 +1041,14 @@ prm-explore-main {
 // availability statements should be either accent-colour (for mostly available now), or grey (for mostly available by request).
 prm-location,
 prm-location-items,
-prm-snippet.availability-button,
-prm-search-result-availability-line button {
-    // default to blue unless specified as grey, thus we never get orange!
+prm-snippet.availability-button
+//,prm-search-result-availability-line button
+{
+    // default to purple so we never get orange!
     span.availability-status,
     span.availability-status span {
         color: $accent-color !important;
-    }
-    // uql-availability-status-unavailable added in exlibris-primo custom.js file (see prmSearchResultAvailabilityLineAfter)
-    // when .availability-status span contains certain strings
-    span:has(.uql-availability-status-unavailable) {
-        span {
-            color: #555555 !important;
-        }
-        color: #555555 !important;
+        text-decoration: underline;
     }
 }
 
