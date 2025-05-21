@@ -817,7 +817,7 @@ body:not(.guides_homepage) #s-lg-index-cols {
 //
 #s-lg-col-1 h2,
 .guides_homepage #s-lg-col-1 h3,
-body.guides_homepage .s-lib-box-content {
+body:not(.guides_homepage) .s-lib-box-content {
     padding: 20px;
 }
 //
@@ -1119,7 +1119,7 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title // if the box has built in h2
         margin-top: 8px;
     }
     a {
-        padding: 1.5rem;
+        padding-inline: 1.5rem;
     }
     .s-lib-box-content {
         padding: 0;
@@ -1129,9 +1129,6 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title // if the box has built in h2
         li {
             margin-block: 1rem;
         }
-    }
-    & :last-child {
-        margin-bottom: 0;
     }
 }
 
@@ -1145,8 +1142,6 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title // if the box has built in h2
 }
 
 #col1 .homePagePanel a {
-    padding: 24px;
-    display: block;
     cursor: pointer;
     color: $uqBrandColour;
     font-family: Roboto, Helvetica, Arial, sans-serif;
@@ -1221,11 +1216,19 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title // if the box has built in h2
 }
 
 @media (max-width: 640px) {
-    .uql-grid-by-3:has(.homePagePanel) a,
-    #col1:has(.homePagePanel) a {
+    .uql-grid-by-3 a,
+    #col1:has(.homePagePanel) a
+    {
         display: flex;
         justify-content: space-between;
         text-decoration: none !important;
+    }
+    .footer-box .uql-grid-by-3 a {
+        padding: 24px;
+    }
+    #col1:has(.homePagePanel) a {
+        padding-top: 16px;
+        padding-bottom: 8px;
     }
     #col1:has(.homePagePanel) a .panelBodyWrapper {
         display: flex;
@@ -1251,35 +1254,12 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title // if the box has built in h2
         }
     }
     //
-    //#col1  .homePagePanel {
-    //    /* Create a flex container */
-    //    display: flex;
-    //    align-items: center;
-    //    gap: 1rem;
-    //}
-    //
-    //#col1  .panelBodyWrapper {
-    //    /* Make this flex container take up available space */
-    //    flex-grow: 1;
-    //    display: flex;
-    //    align-items: center;
-    //    gap: 1rem;
-    //}
-    //
-    //#col1  .cardHeading {
-    //    /* Allow heading to grow/shrink naturally */
-    //    flex-shrink: 1;
-    //}
-    //
-    //#col1  .arrowSvgWrapper {
-    //    /* Keep arrow small and aligned */
-    //    margin-left: auto;
-    //}
 }
 @media (min-width: 640px) {
     .uql-grid-by-3:has(.homePagePanel) a,
     #col1:has(.homePagePanel) a {
-        text-decoration:none !important
+        text-decoration:none !important;
+        padding: 24px;
     }
     .uql-grid-by-3:has(.homePagePanel) .arrowSvgWrapper,
     #col1:has(.homePagePanel) .arrowSvgWrapper {
@@ -1293,37 +1273,20 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title // if the box has built in h2
 /* Default mobile view - 1 column */
 .uql-grid-by-3{
     grid-template-columns: 1fr;
-    gap: 32px;
-}
-@media (max-width: 800px) {
-    .uql-grid-by-3 {
-        .s-lib-box-container {
-            margin-bottom: 24px;
-        }
-        .arrowSvgWrapper {
-            margin-block: auto;
-        }
-    }
+    gap: 24px;
 }
 
 /* Tablet breakpoint - 2 columns */
 @media (min-width: 640px) {
     .uql-grid-by-3 {
         grid-template-columns: repeat(2, 1fr);
-        gap: 24px;
         a {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
     }
-}
-
-/* Desktop breakpoint - 3 columns */
-@media (min-width: 800px) {
     .uql-grid-by-3 {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 32px;
         & > div > div > div > div > div > div,
         & > div > div > div > div > div,
         & > div > div > div > div,
@@ -1333,6 +1296,14 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title // if the box has built in h2
         a  {
             height: 100%;
         }
+    }
+}
+
+/* Desktop breakpoint - 3 columns */
+@media (min-width: 800px) {
+    .uql-grid-by-3 {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 32px;
     }
 }
 
