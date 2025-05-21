@@ -224,6 +224,9 @@ prm-search-bookmark-filter {
             font-weight: 500;
         }
     }
+    button.md-button.close-btn.close-btn-favorits-warning-message {
+        width: 44px; // 24, but a bit extra so the button doesnt half hide
+    }
 }
 prm-search-bookmark-filter {
     button.md-button.md-icon-button { // QR Code button

@@ -1717,6 +1717,7 @@ prm-explore-main div.header {
         border-color: $theme-color;
         padding: 2px;
         background-color: #fff;
+        z-index: 99; // hiding behind reusable alerts
     }
 
     prm-favorites-warning-message .favorites-guest-warning-triangle {
