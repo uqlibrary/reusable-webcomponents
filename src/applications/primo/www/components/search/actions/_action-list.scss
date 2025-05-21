@@ -59,7 +59,7 @@ prm-action-list,
         }
 
         .md-nav-item {
-            width: 105px;
+            width: auto;
             opacity: 0;
             transform: translate3d(0, 20px, 0) scale3d(0.5, 0.5, 1);
 
@@ -68,14 +68,35 @@ prm-action-list,
             }
 
             .md-button {
-                color: transparentize($dark, 0.2);
-                border-radius: 0;
-                // padding: .5em 1em;
+                color: $accent-color;
+                border-radius: 4px;
                 padding-bottom: 0.75em;
                 padding-top: 0.75em;
                 margin: 0;
                 @extend .md-button.icon-button-with-text;
                 white-space: normal;
+                &:hover {
+                    background-color: $accent-color;
+                    color: #fff;
+                    span.button-text {
+                        color: #fff;
+                    }
+                }
+                div {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    text-transform: capitalize;
+                    font-size: 16px;
+                    gap: 10px;
+                    letter-spacing: 0.16px;
+                    line-height: 16px;
+                    font-weight: 500;
+                    span {
+                        text-wrap: nowrap;
+                        text-decoration: underline;
+                    }
+                }
             }
         }
 
