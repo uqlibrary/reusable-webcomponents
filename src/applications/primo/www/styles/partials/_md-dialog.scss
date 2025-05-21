@@ -420,7 +420,6 @@ body:not(:-moz-handler-blocked) .md-dialog-container {
 md-dialog-content:has(prm-main-menu) {
     background-color: white;
     span.primaryText {
-        color: $uqBodyCopy;
         font-weight: 400;
     }
     prm-library-card-menu {
