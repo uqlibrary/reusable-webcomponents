@@ -18,4 +18,20 @@ prm-service-details {
             text-align: right;
         }
     }
+    .spaced-rows {
+        > div,
+        > span,
+        > li,
+        > a {
+            margin-bottom: 0.5em;
+        }
+        prm-highlight span {
+            line-height: 1.4;
+            text-wrap: pretty;
+            letter-spacing: 0.02em;
+            word-spacing: 0.03em;
+            text-align: justify;
+            hyphens: auto;
+        }
+    }
 }
