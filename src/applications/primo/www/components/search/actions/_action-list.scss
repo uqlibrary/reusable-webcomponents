@@ -64,7 +64,7 @@ prm-action-list,
             transform: translate3d(0, 20px, 0) scale3d(0.5, 0.5, 1);
 
             &:last-of-type {
-                margin-right: 0px;
+                margin-right: 0;
             }
 
             .md-button {
@@ -75,6 +75,7 @@ prm-action-list,
                 margin: 0;
                 @extend .md-button.icon-button-with-text;
                 white-space: normal;
+                transition-timing-function: ease-out;
                 &:hover {
                     background-color: $accent-color;
                     color: #fff;
@@ -120,7 +121,7 @@ prm-action-list,
             @for $i from 1 through $max {
                 $value: $max - $i;
                 &:nth-child(#{abs($i)}) {
-                    transition-delay: ($value * 0.02) #{s};
+                    transition-delay: ($value * 0.02)#{s};
                 }
             }
         }
@@ -206,6 +207,7 @@ prm-action-list,
 
 .actions-layout {
     flex-flow: row wrap;
+    gap: 5px;
 }
 
 prm-account {
