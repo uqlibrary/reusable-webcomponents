@@ -1048,6 +1048,7 @@ prm-snippet.availability-button
     span.availability-status,
     span.availability-status span {
         color: $accent-color !important;
+        text-decoration: underline;
     }
 }
 
