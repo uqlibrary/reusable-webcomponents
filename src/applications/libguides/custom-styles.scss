@@ -307,7 +307,7 @@ ul.s-lg-guide-list {
     padding-left: 0;
 }
 
-// page layout, right column
+// landing page layout, (two column)
 body:not(.guides_homepage) #s-lg-index-cols {
     margin-left: 0;
     margin-right: 0;
@@ -348,7 +348,8 @@ body:not(.guides_homepage) #s-lg-index-cols {
         max-width: 71em;
         width: auto;
     }
-    #col1 {
+    #col1,
+    .uql-grid:has(.homePagePanelWithIcon) {
         margin-left: -30px;
     }
 }
@@ -1257,14 +1258,14 @@ body:not(.guides_homepage) .s-lib-box-content {
         justify-content: space-between;
         text-decoration: none !important;
     }
-    .footer-box .uql-grid a {
+    .homePagePanel:not(.homePagePanelWithIcon) a {
         padding: 24px;
     }
     a {
         padding-top: 16px;
         padding-bottom: 8px;
     }
-    a .panelBodyWrapper {
+    a div.panelBodyWrapper {
         display: flex;
         justify-content: flex-start;
         align-items: center;
@@ -1277,7 +1278,7 @@ body:not(.guides_homepage) .s-lib-box-content {
             margin-block: 0;
         }
     }
-    #col1 .homePagePanel a {
+    .homePagePanel.homePagePanelWithIcon a {
         h3.cardHeading {
             margin-left: 24px;
         }
@@ -1299,6 +1300,7 @@ body:not(.guides_homepage) .s-lib-box-content {
       align-self: flex-start;
     }
 }
+/// after we move the hero, we get left with this empty div that takes up a bit of vertical space
 div:has(> h1#s-lib-public-header-title:empty) {
     display: none;
     height: 0;
