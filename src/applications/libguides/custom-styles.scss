@@ -255,7 +255,6 @@ a {
     overflow-wrap: break-word;
     word-wrap: break-word;
     font-weight: 500;
-
     &:hover,
     &:focus {
         background-color: $uqBrandColour;
@@ -304,7 +303,7 @@ ul.s-lg-guide-list {
         background-color: transparent;
     }
 }
-.uql-grid-by-3 .s-lib-box-content {
+.uql-grid .s-lib-box-content {
     padding-left: 0;
 }
 
@@ -408,12 +407,10 @@ body:not(.guides_homepage) #s-lg-index-cols {
         margin-right: 15px;
         margin-top: 2px;
     }
-
     ul,
     li {
         list-style: none;
     }
-
     li {
         margin-bottom: 24px;
     }
@@ -816,9 +813,13 @@ body:not(.guides_homepage) #s-lg-index-cols {
 }
 //
 #s-lg-col-1 h2,
-.guides_homepage #s-lg-col-1 h3,
 body:not(.guides_homepage) .s-lib-box-content {
     padding: 20px;
+}
+.guides_homepage {
+    #s-lg-col-1 h3 {
+        padding: 20px;
+    }
 }
 //
 //.ui-widget-content {
@@ -1059,7 +1060,6 @@ body:not(.guides_homepage) .s-lib-box-content {
             }
         }
     }
-
     &>ul>li:nth-of-type(2) {
         // tabs: displayed content panel
         border-width: 0 0 0 1px;
@@ -1078,19 +1078,21 @@ body:not(.guides_homepage) .s-lib-box-content {
     }
 }
 
-body:has(.homePagePanel)  div h1:not(.hero-h1),
-body:has(.homePagePanel)>div.s-lib-box-container,
-body.guides_homepage .remove-h2 h2.s-lib-box-title // if the box has built in h2 tags which we want to replace with internal ones of our own, use .remove-h2
-{
-    display: none
+.guides_homepage {
+     div h1:not(.hero-h1),
+    &>div.s-lib-box-container,
+    .remove-h2 h2.s-lib-box-title // if the box has built in h2 tags which we want to replace with internal ones of our own, use .remove-h2
+    {
+        display: none
+    }
 }
 
-// putt a gap below the footer box
+// put a gap below the footer box
 .footer-box {
     margin-bottom: 3rem;
 }
 .footer-box h2 {
-    margin-top: 96px;
+    margin-top: 72px;
     margin-bottom: 24px;
     @media (min-width: 75rem) {
         margin-left: -30px;
@@ -1099,7 +1101,7 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title // if the box has built in h2
 }
 
 // style grid of uq boxes
-.uql-grid-by-3 {
+.uql-grid {
     padding-right: 15px;
     padding-left: 15px;
     @media (min-width: 75rem) {
@@ -1107,7 +1109,7 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title // if the box has built in h2
     }
     .s-lib-box-container {
         //margin-top: 1.5rem;
-        border: 1px solid rgba(38, 85, 115, 0.15) !important;
+        border: 1px solid $borders !important;
         border-radius: 4px;
         background-color: #fff;
         .s-lib-box-content h3 {
@@ -1132,153 +1134,61 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title // if the box has built in h2
     }
 }
 
-#col1:has(.homePagePanel) .s-lib-box {
-    border: 1px solid rgba(38,85,115,0.15) !important;
-    border-radius: 4px;
-    background-color: #fff;
-    .s-lib-box-content {
-      padding: 0;
-    }
-}
-
-#col1 .homePagePanel a {
-    cursor: pointer;
-    color: $uqBrandColour;
-    font-family: Roboto, Helvetica, Arial, sans-serif;
-    font-size: 20px;
-    font-weight: 500;
-    position: relative
-}
-
-.uql-grid-by-3 .homePagePanel a,
-#col1 .homePagePanel a {
-    &:focus-within,
-    &:hover {
-        background-color:$paneBackground !important;
-        h3 {
-            text-decoration: underline
-        }
-        .panelBodyWrapper {
-            background-color:$paneBackground !important
-        }
-        div.arrowSvgWrapper {
-            background-color:$paneBackground !important;
-            color: $uqBrandColour;
+.guides_homepage {
+    .s-lib-box {
+        .s-lib-box-content {
+            padding: 0;
         }
     }
-
-    h3.cardHeading {
-        font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
-        font-size: 24px !important;
+    .homePagePanel a {
+        cursor: pointer;
+        color: $uqBrandColour;
+        font-family: Roboto, Helvetica, Arial, sans-serif;
+        font-size: 20px;
         font-weight: 500;
-        letter-spacing: 0.16px;
-        line-height: 1.2;
-        margin-block: 8px;
-    }
-
-    p {
-        font-size: 16px;
-        margin-bottom: 0;
-    }
-
-    svg.arrowForwardIcon {
-        display: block
-    }
-}
-
-@media (min-width: 848px) {
-    .uql-grid-by-3:has(.homePagePanel) a,
-    #col1:has(.homePagePanel) a {
+        position: relative;
         &:focus-within,
         &:hover {
+            background-color: $paneBackground !important;
             h3 {
                 text-decoration: underline
             }
-        }
-    }
-    @media (prefers-reduced-motion: no-preference) {
-        .uql-grid-by-3:has(.homePagePanel) a svg.arrowForwardIcon,
-        #col1:has(.homePagePanel) a svg.arrowForwardIcon {
-            transition: margin-left 200ms ease-in-out
-        }
-
-        .uql-grid-by-3:has(.homePagePanel),
-        #col1:has(.homePagePanel) {
-            a:focus-within,
-            a:hover {
-                svg.arrowForwardIcon {
-                    margin-left: 10px;
-                    transition: margin-left 200ms ease-in-out
-                }
+            .panelBodyWrapper {
+                background-color: $paneBackground !important
+            }
+            div.arrowSvgWrapper {
+                background-color: $paneBackground !important;
+                color: $uqBrandColour;
             }
         }
+        h3.cardHeading {
+            font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 24px !important;
+            font-weight: 500;
+            letter-spacing: 0.16px;
+            line-height: 1.2;
+            margin-block: 8px;
+        }
+        p {
+            font-size: 16px;
+            margin-bottom: 0;
+        }
+        svg.arrowForwardIcon {
+            display: block
+        }
     }
 }
 
-@media (max-width: 640px) {
-    .uql-grid-by-3 a,
-    #col1:has(.homePagePanel) a
-    {
-        display: flex;
-        justify-content: space-between;
-        text-decoration: none !important;
-    }
-    .footer-box .uql-grid-by-3 a {
-        padding: 24px;
-    }
-    #col1:has(.homePagePanel) a {
-        padding-top: 16px;
-        padding-bottom: 8px;
-    }
-    #col1:has(.homePagePanel) a .panelBodyWrapper {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-    }
-    .uql-grid-by-3:has(.homePagePanel) p,
-    #col1:has(.homePagePanel) p {
-        display: none;
-    }
-    .uql-grid-by-3 .homePagePanel a,
-    #col1 .homePagePanel a {
-        h3.cardHeading {
-            margin-block: 0;
-        }
-    }
-    #col1 .homePagePanel a {
-        h3.cardHeading {
-            margin-left: 24px;
-        }
-        .arrowSvgWrapper {
-            align-self: center;
-        }
-    }
-    //
-}
-@media (min-width: 640px) {
-    .uql-grid-by-3:has(.homePagePanel) a,
-    #col1:has(.homePagePanel) a {
-        text-decoration:none !important;
-        padding: 24px;
-    }
-    .uql-grid-by-3:has(.homePagePanel) .arrowSvgWrapper,
-    #col1:has(.homePagePanel) .arrowSvgWrapper {
-        margin-top: 24px;
-    }
-}
-
+/* Default: mobile view, 1 column */
 .uql-grid {
     display: grid;
-}
-/* Default mobile view - 1 column */
-.uql-grid-by-3{
     grid-template-columns: 1fr;
     gap: 24px;
 }
 
 /* Tablet breakpoint - 2 columns */
 @media (min-width: 640px) {
-    .uql-grid-by-3 {
+    .uql-grid {
         grid-template-columns: repeat(2, 1fr);
         a {
             display: flex;
@@ -1286,7 +1196,8 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title // if the box has built in h2
             justify-content: space-between;
         }
     }
-    .uql-grid-by-3 {
+    .uql-grid {
+        // enable the arrow sitting at the bottom of every box
         & > div > div > div > div > div > div,
         & > div > div > div > div > div,
         & > div > div > div > div,
@@ -1301,14 +1212,14 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title // if the box has built in h2
 
 /* Desktop breakpoint - 3 columns */
 @media (min-width: 800px) {
-    .uql-grid-by-3 {
+    .uql-grid {
         grid-template-columns: repeat(3, 1fr);
         gap: 32px;
     }
 }
 
 /* Make boxes consistent height */
-.uql-grid-by-3 {
+.uql-grid {
     .s-lib-box {
         height: 100%;
     }
@@ -1316,7 +1227,73 @@ body.guides_homepage .remove-h2 h2.s-lib-box-title // if the box has built in h2
         flex-grow: 1;
     }
 }
+@media (min-width: 848px) {
+    .uql-grid a {
+        &:focus-within,
+        &:hover {
+            h3 {
+                text-decoration: underline
+            }
+        }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+        .uql-grid a svg.arrowForwardIcon {
+            transition: margin-left 200ms ease-in-out
+        }
+        .uql-grid {
+            a:focus-within,
+            a:hover {
+                svg.arrowForwardIcon {
+                    margin-left: 10px;
+                    transition: margin-left 200ms ease-in-out
+                }
+            }
+        }
+    }
+}
+@media (max-width: 640px) {
+    .uql-grid a {
+        display: flex;
+        justify-content: space-between;
+        text-decoration: none !important;
+    }
+    .footer-box .uql-grid a {
+        padding: 24px;
+    }
+    a {
+        padding-top: 16px;
+        padding-bottom: 8px;
+    }
+    a .panelBodyWrapper {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .uql-grid p {
+        display: none;
+    }
+    .uql-grid .homePagePanel a {
+        h3.cardHeading {
+            margin-block: 0;
+        }
+    }
+    #col1 .homePagePanel a {
+        h3.cardHeading {
+            margin-left: 24px;
+        }
+        .arrowSvgWrapper {
+            align-self: center;
+        }
+    }
+}
 @media (min-width: 640px) {
+    .uql-grid a {
+        text-decoration: none !important;
+        padding: 24px;
+    }
+    .uql-grid .arrowSvgWrapper {
+        margin-top: 24px;
+    }
     .arrowSvgWrapper {
       margin-top: auto;
       align-self: flex-start;
@@ -1328,21 +1305,93 @@ div:has(> h1#s-lib-public-header-title:empty) {
 }
 
 /* left navigation sidebar, on individual guide pages, styled to look like drupal sidebar */
-#s-lg-tabs-container .nav-pills>li {
-    display: block;
-    color: $black;
-    -webkit-text-decoration: none;
-    text-decoration: none;
-    font-weight: 400;
+#s-lg-tabs-container {
+    margin-top: -35px;
+    .nav-pills {
+
+        li:not(:has(li)) {
+            border-bottom: 1px solid rgb(220, 220, 221);
+        }
+        > li {
+            display: block;
+            color: $black;
+            -webkit-text-decoration: none;
+            text-decoration: none;
+            font-weight: 400;
+             &.uq-local-nav__grandparent {
+                border-bottom: 1px solid rgb(59, 56, 62);
+            }
+            > a:focus,
+            > a:hover {
+                background-color: $paneBackground;
+                font-weight: 500
+            }
+            &:not(.dropdown-menu) > a:hover {
+                padding: 16px 24px 16px 32px;
+                transition: color .2s ease-out, text-decoration .2s ease-out, background-color .2s ease-out;
+                font-weight: 400;
+            }
+            &:not(.active) a {
+                background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m7 10 5 5 5-5' stroke='%2319151c' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e");
+                background-repeat: no-repeat;
+                background-size: 24px;
+                background-position: right center;
+                padding-inline-end: 1.5rem
+            }
+            &.active {
+                border-left: 4px solid $uqBrandColour;
+                margin-left: 0;
+                > a {
+                    background-color: $paneBackground;
+                    font-weight: 500;
+                    padding-left: 32px;
+                }
+                a ul {
+                    padding-left: 24px;
+                }
+                > a,
+                > a:hover {
+                    padding: 16px 24px 16px 32px;
+                }
+                > a,
+                > a > span {
+                    cursor: default !important; // so the current link doesnt look clickable
+                }
+            }
+        }
+        > .active > a,
+        > .active > a:hover,
+        > .active > li > a,
+        > .active > li > a:hover,
+        > li.active > a,
+        > li:not(.dropdown-menu) > a:hover {
+            border-left: none;
+            border-top: none;
+            border-bottom: none;
+            background-color: $paneBackground;
+        }
+    }
+    .nav-tabs > li.active > a {
+        border-left: none;
+        border-top: none;
+        border-bottom: none;
+        background-color: $paneBackground;
+    }
+    .nav-tabs > li > a,
+    .nav-pills > li > a {
+        padding-block: 1rem;
+        padding-block-start: 1rem;
+        padding-block-end: 1rem;
+        padding-inline-start: 2rem;
+        border: none;
+        border-radius: 0;
+    }
+    .nav.nav-pills > li a {
+        -webkit-text-decoration: none !important;
+        text-decoration: none !important;
+        display: block;
+    }
 }
-#s-lg-tabs-container .nav-pills li:not(:has(li)) {
-    border-bottom: 1px solid rgb(220,220,221);
-}
-#s-lg-tabs-container .nav-pills>li.uq-local-nav__grandparent {
-    border-bottom: 1px solid rgb(59,56, 62);
-}
-#s-lg-tabs-container .nav-tabs>li>a,
-#s-lg-tabs-container .nav-pills>li>a,
 #s-lg-guide-tabs .s-lg-tabs-side .nav .dropdown a {
     padding-block: 1rem;
     padding-block-start: 1rem;
@@ -1350,10 +1399,6 @@ div:has(> h1#s-lib-public-header-title:empty) {
     padding-inline-start: 2rem;
     border: none;
     border-radius: 0;
-}
-#s-lg-tabs-container .nav-pills>li>a:focus-within,
-#s-lg-tabs-container .nav-pills>li>a:hover {
-
 }
 .uq-local-nav {
     max-width: var(--layout-sidebar-width);
@@ -1366,11 +1411,6 @@ div:has(> h1#s-lib-public-header-title:empty) {
     padding-block:1rem;
     padding-inline-start:2rem;
     border-bottom: 1px solid $borders;
-}
-#s-lg-tabs-container .nav.nav-pills>li a {
-    -webkit-text-decoration: none !important;
-    text-decoration: none !important;
-    display: block;
 }
 
 .uq-local-nav__link:hover {
@@ -1425,8 +1465,6 @@ div:has(> h1#s-lib-public-header-title:empty) {
     border-top: 1px solid $borders;
     padding-inline:calc(2rem - 4px) 0}
 
-#s-lg-tabs-container .nav-pills>li>a:focus,
-#s-lg-tabs-container .nav-pills>li>a:hover,
 .uq-local-nav--active-link {
     background-color: $paneBackground;
     font-weight: 500
@@ -1443,23 +1481,6 @@ div:has(> h1#s-lib-public-header-title:empty) {
     background-image: none
 }
 
-#s-lg-tabs-container .nav-pills>.active>a,
-#s-lg-tabs-container .nav-pills>.active>a:hover,
-#s-lg-tabs-container .nav-pills>.active>li>a,
-#s-lg-tabs-container .nav-pills>.active>li>a:hover,
-#s-lg-tabs-container .nav-pills>li.active>a,
-#s-lg-tabs-container .nav-pills>li:not(.dropdown-menu)>a:hover,
-#s-lg-tabs-container .nav-tabs>li.active>a {
-    border-left: none;
-    border-top: none;
-    border-bottom: none;
-    background-color: $paneBackground;
-}
-#s-lg-tabs-container .nav-pills>li:not(.dropdown-menu)>a:hover {
-    padding: 16px 24px 16px 32px;
-    transition: color .2s ease-out, text-decoration .2s ease-out, background-color .2s ease-out;
-    font-weight: 400;
-}
 .s-lg-tabs-side .s-lg-boxnav {
     margin-top: 0;
 }
@@ -1488,52 +1509,13 @@ div:has(> h1#s-lib-public-header-title:empty) {
     transition: color .2s ease-out, text-decoration .2s ease-out, background-color .2s ease-out;
 }
 
-#s-lg-tabs-container .nav-pills>li:not(.active) a {
-    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m7 10 5 5 5-5' stroke='%2319151c' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-size: 24px;
-    background-position: right center;
-    padding-inline-end:1.5rem
-}
-#s-lg-tabs-container .nav-pills>li.active {
-    border-left: 4px solid $uqBrandColour;
-    margin-left: 0;
-}
-#s-lg-tabs-container .nav-pills>li.active > a {
-    background-color: $paneBackground;
-    font-weight: 500;
-    padding-left: 32px;
-}
-#s-lg-tabs-container .nav-pills>li.active a ul {
-    padding-left: 24px;
-}
-#s-lg-tabs-container .nav-pills>li.active> a,
-#s-lg-tabs-container .nav-pills>li.active> a:hover {
-    padding: 16px 24px 16px 32px;
-}
-#s-lg-tabs-container .nav-pills>li.active> a,
-#s-lg-tabs-container .nav-pills>li.active> a> span {
-    cursor: default !important; // so the current link doesnt look clickable
-}
 .nav-stacked>li+li {
     margin-top: 0;
-}
-
-
-/* the following should be temporary: override built in css on guides individual page - update springshare html template for golive */
-#s-lg-tabs-container .nav-pills>li.active> a {
-    background-color: $paneBackground !important;
-}
-#s-lg-tabs-container .nav-pills>li>ul>li:has(>a:hover) {
-    background-color: $paneBackground !important;
 }
 
 // bring strapline to top of body
 #s-lg-guide-description {
     margin-left: 315px;
-}
-#s-lg-tabs-container {
-    margin-top: -35px;
 }
 
 .accessibility-only {
@@ -1545,4 +1527,13 @@ div:has(> h1#s-lib-public-header-title:empty) {
         color: $heading;
         margin: 0 0 2rem -1.5rem;
     }
+}
+
+
+/* the following should be temporary: override built in css on guides individual page - update springshare html template for golive */
+#s-lg-tabs-container .nav-pills>li.active> a {
+    background-color: $paneBackground !important;
+}
+#s-lg-tabs-container .nav-pills>li>ul>li:has(>a:hover) {
+    background-color: $paneBackground !important;
 }
