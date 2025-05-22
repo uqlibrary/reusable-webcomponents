@@ -76,6 +76,7 @@ prm-action-list,
                 @extend .md-button.icon-button-with-text;
                 white-space: normal;
                 transition-timing-function: ease-out;
+                &:focus,
                 &:hover {
                     background-color: $accent-color;
                     color: #fff;
@@ -208,8 +209,9 @@ prm-action-list,
 .actions-layout {
     flex-flow: row wrap;
     gap: 5px;
+    margin-bottom: 5px;
     justify-content: center;
-    max-width: 650px;
+    max-width: 700px;
     @media (max-width: 600px) {
         display: block;
     }
