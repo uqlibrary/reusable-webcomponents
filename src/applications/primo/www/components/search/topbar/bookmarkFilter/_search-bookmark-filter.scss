@@ -226,10 +226,15 @@ prm-search-bookmark-filter {
     }
     button.md-button.close-btn.close-btn-favorits-warning-message {
         width: 44px; // 24, but a bit extra so the button doesnt half hide
+        &:hover {
+            prm-icon {
+                color: $uqGrey700; // this is a problem, background colours look terrible and there is an issue with spacing. take an easy out
+            }
+        }
     }
 }
 prm-search-bookmark-filter {
-    button.md-button.md-icon-button { // QR Code button
+    button.md-button.md-icon-button:not(.close-btn-favorits-warning-message) { // QR Code button, exclude the close button on the logged out after-pinning favourites popup
         width: 72px;
         margin-right: 10px;
         &:hover {
