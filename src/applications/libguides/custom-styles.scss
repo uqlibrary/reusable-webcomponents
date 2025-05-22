@@ -1553,6 +1553,7 @@ div:has(> h1#s-lib-public-header-title:empty) {
         &:not([href]),
         &[href=""] {
             color: grey;
+            text-decoration: none;
         }
     }
 }
