@@ -208,6 +208,11 @@ prm-action-list,
 .actions-layout {
     flex-flow: row wrap;
     gap: 5px;
+    justify-content: center;
+    max-width: 650px;
+    @media (max-width: 600px) {
+        display: block;
+    }
 }
 
 prm-account {
