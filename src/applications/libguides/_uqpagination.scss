@@ -1,0 +1,38 @@
+.uq-pagination {
+  display: block;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+
+  &__item {
+    display: inline-block;
+    list-style: none;
+
+    .uq-pagination__link {
+      color: $utility500;
+      font-size: 1rem;
+      font-weight: 300;
+      padding: 0 .5rem;
+      text-decoration: none;
+
+      &:hover {
+        background-color: transparent;
+        color: $utility600;
+        text-decoration: underline;
+      }
+    }
+
+    &--current {
+      .uq-pagination__link {
+        color: $grey900;
+        font-weight: 500;
+
+        &:hover {
+          color: $grey900;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}

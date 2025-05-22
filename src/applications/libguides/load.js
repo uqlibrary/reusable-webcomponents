@@ -144,6 +144,8 @@
             }
 
             addHeroHeader();
+
+            addAZNavigationToSomePages();
         }, 100);
     }
 
@@ -484,6 +486,73 @@
 
         const sibling = document.querySelector('#s-lg-public-skiplink');
         !!sibling && sibling.parentNode.insertBefore(template.content, sibling.nextSibling);
+    }
+
+    function addAZNavigationToSomePages() {
+        function insertAZIntoDocument(indexElement) {
+            const wrappingElement = 'div'; // nav
+            const azList = `<${wrappingElement} class="uq-alpha-nav" aria-label="Navigate by alphabet">
+                <ul class="uq-pagination">
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="A">A</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="B">B</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="C">C</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="D">D</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="E">E</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="F">F</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="G">G</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="H">H</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="I">I</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="J">J</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="K">K</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="L">L</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="M">M</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="N">N</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="O">O</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="P">P</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="Q">Q</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="R">R</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="S">S</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="T">T</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="U">U</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="V">V</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="W">W</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="X">X</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="Y">Y</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="Z">Z</a></li>
+                </ul>
+            </${wrappingElement}>`;
+            const template = document.createElement('template');
+            template.innerHTML = azList;
+            !!indexElement && indexElement.appendChild(template.content);
+        }
+
+        // temporary code for subdomain
+        const springshareBanner = document.getElementById('s-lib-banner');
+        !!springshareBanner && springshareBanner.remove();
+
+        /*
+        html like the following is included on the page template
+        <div id="a-z-index" data-for="a-z-list"></div>
+        the data-for value matches the id of the element that parents the a-z block
+         */
+
+        const indexElement = document.getElementById('a-z-index');
+        const listIndex = !!indexElement && indexElement.dataset.for;
+        const alphaBlocks = !!listIndex && document.querySelectorAll(`#${listIndex} > div > div`);
+
+        // if (!alphaBlocks) {
+        //     return; // this page does not have an a-z index (or its wrongly built, see example html above)
+        // }
+
+        !!indexElement && indexElement.classList.add('uql-az-index');
+        !!indexElement && insertAZIntoDocument(indexElement);
+
+        !!alphaBlocks &&
+            alphaBlocks.forEach((l) => {
+                const h2Title = l.querySelector('h2');
+                const azLink = !!h2Title?.textContent && document.querySelector(`[data-label=${h2Title.textContent}]`);
+                !!l?.id && !!azLink && (azLink.href = `#${l.id}`);
+            });
     }
 
     ready(applyUQLItemsToGuides);

@@ -2,17 +2,13 @@
 // uneeded on golive
 //@import 'production-reset';
 
-// styles imported from uq css files
-@import 'uqaccordion';
-@import 'uqcard';
-@import 'uqhero';
-
 $purple500: #51247a;
 $grey50: #f3f3f4; // Background colour to highlight sections, cards or panes
 $grey200: #dcdcdd; // border colour
 $grey900: #3b383e; // Body copy
 $black: #19151c; // Heading colour
 $utility500: #0d6dcd; // focus state
+$utility600: #0e65bb;
 
 $uqBrandColour: $purple500;
 $bodyCopy: $grey900;
@@ -27,6 +23,12 @@ $button-color: $uqBrandColour;
 
 $down-arrow: "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath d=%22M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z%22/%3E%3C/svg%3E";
 $up-arrow: "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath d=%22m12 8-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z%22/%3E%3C/svg%3E";
+
+// styles imported from uq css files
+@import 'uqaccordion';
+@import 'uqcard';
+@import 'uqhero';
+@import 'uqpagination';
 
 * {
     box-shadow: none !important;
@@ -1538,4 +1540,19 @@ div:has(> h1#s-lib-public-header-title:empty) {
 }
 #s-lg-tabs-container .nav-pills>li>ul>li:has(>a:hover) {
     background-color: $paneBackground !important;
+}
+
+.uql-az-index {
+    display: flex;
+    justify-content: center;
+    margin-top: -20px;
+    margin-bottom: 24px;
+    .uq-pagination__item a.uq-pagination__link {
+        &:not([href]):empty,
+        &[href=""]:empty,
+        &:not([href]),
+        &[href=""] {
+            color: grey;
+        }
+    }
 }
