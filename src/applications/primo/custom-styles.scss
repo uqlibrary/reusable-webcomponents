@@ -1713,26 +1713,24 @@ prm-full-view div,
 prm-full-view-cont div,
 prm-explore-main div.header {
     // the default yellow border is ugly
-    prm-favorites-warning-message div.favorites-guest-warning {
-        border-color: $theme-color;
-        padding: 2px;
-        background-color: #fff;
-    }
+    prm-favorites-warning-message {
+        // also has fancy positioning js in exlibris-primo repo custom.js file to make it "stick" to the pin
+        div.favorites-guest-warning {
+            border-color: $theme-color;
+            padding: 2px;
+            background-color: #fff;
+            z-index: 99; // hiding behind reusable alerts
+        }
 
-    prm-favorites-warning-message .favorites-guest-warning-triangle {
-        border-bottom-color: $theme-color;
+        .favorites-guest-warning-triangle {
+            border-bottom-color: $theme-color;
+        }
+        .favorites-guest-warning-text {
+            padding: 0.5em 0 0.5em 0.5em;
+        }
     }
 }
-// also has fancy positioning js in exlibris-primo repo custom.js file to make it "stick" to the pin
 
-// the Favourite pin popup close button turns white on hover. Fix.
-prm-search-bookmark-filter
-div.favorites-guest-warning
-.md-button:not(.disable-hover):hover:not([disabled]):hover:not([disabled]) {
-    color: #fff !important;
-    border-radius: 50%;
-    background-color: grey;
-}
 prm-brief-result-container .result-item-actions {
     prm-save-to-favorites-button {
         .unpin-button,
