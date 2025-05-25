@@ -262,6 +262,7 @@
         // TEMPORARY CODE - REMOVE AFTER 2025 REDEV - TODO
         const queryStrings = new URLSearchParams(window.location.search);
         if (
+            window.location.host === 'springycommunity.libapps.com' ||
             window.location.pathname === '/sandbox' ||
             window.location.pathname.startsWith('/Sandbox') ||
             (!!queryStrings && queryStrings.has('group_id'))
