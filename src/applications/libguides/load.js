@@ -522,7 +522,8 @@
         // Build navigation HTML structure
         function buildNavigationHtml(currentUrl, links) {
             const urlHierarchy = parseUrlPath(currentUrl);
-            const currentPath = new URL(currentUrl).pathname;
+            const url = new URL(currentUrl);
+            const currentPath = `${url.pathname}${url.search}`;
 
             // Group links by their path depth relative to current URL
             const groupedLinks = {
@@ -533,13 +534,14 @@
             links.forEach((link) => {
                 try {
                     const linkUrl = new URL(link.href);
-                    const linkPath = linkUrl.pathname;
+                    const linkPath = `${linkUrl.pathname}${linkUrl.search}`;
                     const linkParts = linkPath.split('/').filter((part) => part !== '');
                     const currentParts = currentPath.split('/').filter((part) => part !== '');
 
                     // Determine relationship to current URL
                     if (linkParts.length === currentParts.length) {
                         // Same level (siblings)
+                        console.log('compare', linkPath, ' to ', currentPath);
                         groupedLinks.siblings.push({
                             ...link,
                             path: linkPath,
