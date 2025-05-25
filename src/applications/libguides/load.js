@@ -434,7 +434,7 @@
     }
 
     function replaceSpringShareSidebarMenu() {
-        const menuQuerySelector = '#s-lg-guide-tabs .uq-sidebar-layout__sidebar';
+        const menuQuerySelector = '#s-lg-guide-tabs .nav-pills';
         const currentUrl = `${document.location.origin}${document.location.pathname}`;
 
         function parseUrlPath(url) {
