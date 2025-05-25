@@ -67,7 +67,7 @@
 
         closeAllUqAccordions();
 
-        makeSidebarMenuStandard();
+        replaceSpringShareSidebarMenu();
 
         if (window.location.hostname === 'localhost') {
             testIncludePathGeneration();
@@ -432,22 +432,197 @@
         !!siblingBlock && !!heroDiv && siblingBlock.after(heroDiv);
     }
 
-    function makeSidebarMenuStandard() {
-        const uqMenu = `<nav class="uq-local-nav" aria-label="Local navigation">
+    function replaceSpringShareSidebarMenu() {
+        const menuQuerySelector = '#s-lg-guide-tabs .nav-pills';
+        const currentUrl = `${document.location.origin}${document.location.pathname}`;
+
+        function parseUrlPath(url) {
+            const urlObj = new URL(url);
+            const pathParts = urlObj.pathname.split('/').filter((part) => part !== '');
+
+            const hierarchy = [];
+            let currentPath = '';
+
+            // Add root
+            hierarchy.push({
+                level: 'root',
+                path: '/',
+                name: 'Home',
+            });
+
+            // Build hierarchy from path parts
+            pathParts.forEach((part, index) => {
+                currentPath += '/' + part;
+                let level;
+
+                if (index === 0) level = 'grandparent';
+                else if (index === 1) level = 'parent';
+                else level = 'current';
+
+                hierarchy.push({
+                    level: level,
+                    path: currentPath,
+                    name: part
+                        .split('-')
+                        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                        .join(' '),
+                });
+            });
+
+            return hierarchy;
+        }
+
+        function extractLinksFromDiv(divQuerySelector) {
+            // this ignores links with a hash fragment - springshare puts them in the sidebar, but UQ DS doesn't
+            const targetDiv = document.querySelector(divQuerySelector);
+            if (!targetDiv) {
+                console.error(`Div matching "${divQuerySelector}" not found`);
+                return [];
+            }
+
+            const links = targetDiv.querySelectorAll('a[href]');
+            const linkMap = new Map();
+
+            Array.from(links).forEach((link) => {
+                const href = link.href;
+                const text = link.textContent.trim();
+                const hasFragment = href.includes('#');
+
+                // Get base URL without fragment
+                const baseHref = hasFragment ? href.split('#')[0] : href;
+
+                if (!linkMap.has(baseHref)) {
+                    // First occurrence - add it
+                    linkMap.set(baseHref, {
+                        href: baseHref,
+                        text: text,
+                        title: link.title || text,
+                        hasFragment: hasFragment,
+                    });
+                } else {
+                    // Duplicate found - keep the one without fragment, or first one if both have fragments
+                    const existing = linkMap.get(baseHref);
+                    if (existing.hasFragment && !hasFragment) {
+                        // Replace with non-fragment version
+                        linkMap.set(baseHref, {
+                            href: baseHref,
+                            text: text,
+                            title: link.title || text,
+                            hasFragment: false,
+                        });
+                    }
+                    // If existing doesn't have fragment, keep it (ignore current)
+                }
+            });
+
+            return Array.from(linkMap.values());
+        }
+
+        // Build navigation HTML structure
+        function buildNavigationHtml(currentUrl, links) {
+            const urlHierarchy = parseUrlPath(currentUrl);
+            const currentPath = new URL(currentUrl).pathname;
+
+            // Group links by their path depth relative to current URL
+            const groupedLinks = {
+                siblings: [],
+                children: [],
+            };
+
+            links.forEach((link) => {
+                try {
+                    const linkUrl = new URL(link.href);
+                    const linkPath = linkUrl.pathname;
+                    const linkParts = linkPath.split('/').filter((part) => part !== '');
+                    const currentParts = currentPath.split('/').filter((part) => part !== '');
+
+                    // Determine relationship to current URL
+                    if (linkParts.length === currentParts.length) {
+                        // Same level (siblings)
+                        groupedLinks.siblings.push({
+                            ...link,
+                            path: linkPath,
+                            isActive: linkPath === currentPath,
+                        });
+                    } else if (linkParts.length === currentParts.length + 1 && linkPath.startsWith(currentPath)) {
+                        // One level deeper (children)
+                        groupedLinks.children.push({
+                            ...link,
+                            path: linkPath,
+                            isActive: false,
+                        });
+                    }
+                } catch (e) {
+                    // Handle relative URLs
+                    groupedLinks.siblings.push({
+                        ...link,
+                        path: link.href,
+                        isActive: false,
+                    });
+                }
+            });
+
+            // Build HTML structure
+            let html = `<div class="uq-sidebar-layout__sidebar">
+        <div id="local-nav-app" data-once="local-nav">
+        <nav class="uq-local-nav" aria-label="Local navigation">
             <div class="uq-local-nav__grandparent"><a href="https://uq.edu.au/" class="uq-local-nav__link">UQ home</a></div>
-            <div class="uq-local-nav__grandparent"><a href="/" class="uq-local-nav__link">Library</a></div>
-            <div class="uq-local-nav__parent"><a href="https://guides.library.uq.edu.au" class="uq-local-nav__link">Guides</a></div>
-        </nav>`;
-        const template = document.createElement('template');
-        template.innerHTML = uqMenu;
+            <div class="uq-local-nav__grandparent"><a href="https://www.library.uq.edu.au/" class="uq-local-nav__link">Library</a></div>
+            <div class="uq-local-nav__grandparent"><a href="https://guides.library.uq.edu.au/" class="uq-local-nav__link">Guides</a></div>`;
 
-        const sidebar = document.querySelector('#s-lg-guide-tabs[role="navigation"]');
-        const menuList = document.querySelector('#s-lg-guide-tabs[role="navigation"] ul');
+            // Add hierarchy breadcrumbs
+            urlHierarchy.forEach((item, index) => {
+                if (item.level === 'grandparent' && index > 0) {
+                    html += `<div class="uq-local-nav__grandparent"><a href="${item.path}" class="uq-local-nav__link">${item.name}</a></div>`;
+                } else if (item.level === 'parent') {
+                    html += `<div class="uq-local-nav__parent"><a href="${item.path}" class="uq-local-nav__link">${item.name}</a></div>`;
+                }
+            });
 
-        !!sidebar && sidebar.insertBefore(template.content.cloneNode(true), sidebar.firstChild);
+            // Add children list
+            if (groupedLinks.siblings.length > 0 || groupedLinks.children.length > 0) {
+                html += `
+            <ul class="uq-local-nav__children">`;
 
-        const newNav = document.querySelector('#s-lg-guide-tabs[role="navigation"] nav');
-        !!newNav && newNav.appendChild(menuList);
+                // Add sibling links
+                groupedLinks.siblings.forEach((link) => {
+                    const activeClass = link.isActive ? ' uq-local-nav--current-child' : '';
+                    const linkActiveClass = link.isActive ? ' uq-local-nav--active-link' : '';
+                    const hasChildren = groupedLinks.children.length > 0 && link.isActive;
+                    const hasChildrenClass = hasChildren ? ' uq-local-nav--has-children' : '';
+
+                    html += `<li class="uq-local-nav__child${activeClass}${hasChildrenClass}"><a href="${link.path}" class="uq-local-nav__link${linkActiveClass}">${link.text}</a>`;
+
+                    // Add grandchildren if this is the active item
+                    if (hasChildren) {
+                        html += `<ul class="uq-local-nav__grandchildren">`;
+
+                        groupedLinks.children.forEach((child) => {
+                            html += `
+                        <li class="uq-local-nav__grandchild"><a href="${child.path}" class="uq-local-nav__link">${child.text}</a></li>`;
+                        });
+
+                        html += `
+                    </ul>`;
+                    }
+
+                    html += `</li>`;
+                });
+
+                html += `</ul>`;
+            }
+
+            html += `</nav></div></div>`;
+
+            return html;
+        }
+
+        // Main execution
+        const links = extractLinksFromDiv(menuQuerySelector);
+        const navigationHtml = buildNavigationHtml(currentUrl, links);
+
+        const originalDiv = document.querySelector(menuQuerySelector);
+        !!originalDiv && (originalDiv.outerHTML = navigationHtml);
     }
 
     function addHeroHeader() {
