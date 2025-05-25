@@ -434,7 +434,7 @@
     }
 
     function replaceSpringShareSidebarMenu() {
-        const menuQuerySelector = '#s-lg-guide-tabs .nav-pills';
+        const menuQuerySelector = '#s-lg-guide-tabs .uq-sidebar-layout__sidebar';
         const currentUrl = `${document.location.origin}${document.location.pathname}`;
 
         function parseUrlPath(url) {
@@ -473,7 +473,7 @@
             return hierarchy;
         }
 
-        function extractLinksFromDiv(divQuerySelector) {
+        function extractLinksFromSidebar(divQuerySelector) {
             // this ignores links with a hash fragment - springshare puts them in the sidebar, but UQ DS doesn't
             const targetDiv = document.querySelector(divQuerySelector);
             if (!targetDiv) {
@@ -520,10 +520,9 @@
         }
 
         // Build navigation HTML structure
-        function buildNavigationHtml(currentUrl, links) {
-            const urlHierarchy = parseUrlPath(currentUrl);
-            const url = new URL(currentUrl);
-            const currentPath = `${url.pathname}${url.search}`;
+        function buildNavigationHtml(links) {
+            const urlHierarchy = parseUrlPath(document.location.href);
+            const currentPath = `${document.location.pathname}${document.location.search}`;
 
             // Group links by their path depth relative to current URL
             const groupedLinks = {
@@ -621,8 +620,8 @@
         }
 
         // Main execution
-        const links = extractLinksFromDiv(menuQuerySelector);
-        const navigationHtml = buildNavigationHtml(currentUrl, links);
+        const linksinCurrentSidebar = extractLinksFromSidebar(menuQuerySelector);
+        const navigationHtml = buildNavigationHtml(linksinCurrentSidebar);
 
         const originalDiv = document.querySelector(menuQuerySelector);
         !!originalDiv && (originalDiv.outerHTML = navigationHtml);
