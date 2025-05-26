@@ -574,6 +574,12 @@
 
             // Add hierarchy breadcrumbs
             urlHierarchy.forEach((item, index) => {
+                const siblingPaths = groupedLinks.siblings.map((item) => item.path);
+                // dont include ones that are in the child list
+                if (siblingPaths.includes(item.path)) {
+                    return;
+                }
+
                 if (item.level === 'grandparent' && index > 0) {
                     html += `<div class="uq-local-nav__grandparent"><a href="${item.path}" class="uq-local-nav__link">${item.name}</a></div>`;
                 } else if (item.level === 'parent') {
