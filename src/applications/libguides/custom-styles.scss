@@ -1517,9 +1517,12 @@ div:has(> h1#s-lib-public-header-title:empty) {
     margin-top: 0;
 }
 
-// bring strapline to top of body
+// bring strapline rightwards to top of body on desktop
 #s-lg-guide-description {
-    margin-left: 315px;
+    margin-left: 10px;
+    @media (min-width: 768px) {
+        margin-left: 335px;
+    }
 }
 
 .accessibility-only {
@@ -1557,3 +1560,28 @@ div:has(> h1#s-lib-public-header-title:empty) {
         }
     }
 }
+
+.container.s-lib-side-borders .row.s-lg-row { /* sidebar menu */
+    display: flex;
+    column-gap: 32px;
+    justify-content: space-between;
+    margin-left: -32px;
+    margin-right: -32px;
+    > div{
+        padding: 0;
+    }
+    @media (max-width: 768px) {
+        flex-direction: column-reverse;
+        > div:first-child { /* sidebar */
+            margin-inline: 16px;
+            margin-top: 32px;
+            .uq-local-nav {
+                max-width: 100%;
+            }
+        }
+        > div:last-child { /* body */
+            margin-inline: 16px;
+        }
+    }
+}
+
