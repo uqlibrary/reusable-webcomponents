@@ -262,6 +262,7 @@
         // TEMPORARY CODE - REMOVE AFTER 2025 REDEV - TODO
         const queryStrings = new URLSearchParams(window.location.search);
         if (
+            window.location.host === 'customertesting6.libguides.com' ||
             window.location.host === 'springycommunity.libapps.com' ||
             window.location.pathname === '/sandbox' ||
             window.location.pathname.startsWith('/Sandbox') ||
@@ -477,7 +478,7 @@
             // this ignores links with a hash fragment - springshare puts them in the sidebar, but UQ DS doesn't
             const targetDiv = document.querySelector(divQuerySelector);
             if (!targetDiv) {
-                console.error(`Div matching "${divQuerySelector}" not found`);
+                // console.log(`Div matching "${divQuerySelector}" not found`);
                 return [];
             }
 
