@@ -1585,3 +1585,73 @@ div:has(> h1#s-lib-public-header-title:empty) {
     }
 }
 
+// based on DS "Previous next" component, but had to make some adjustments
+.uq-previous-next,
+#s-lg-page-prevnext {
+    &__item, .previous, .next {
+        width: 100%;
+        float: left;
+
+        // override springshare styles
+        margin-inline: 0;
+
+        @media (min-width: 640px) {
+            width: 50%;
+        }
+
+        &--hidden {
+            visibility: hidden;
+        }
+    }
+
+    &::after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+
+    a {
+        color: $utility500;
+        font-size: 1.7rem;
+        font-weight: 400;
+        text-decoration: none;
+
+        // override springshare styles
+        border: none;
+        padding-inline: 0;
+        margin-inline: 0;
+        transition: color 200ms ease-out, text-decoration 200ms ease-out, background-color 200ms ease-out;
+        border-radius: 0;
+        line-height: normal;
+        padding-block: 0;
+
+        &:hover {
+            // because we cant do the move-arrow thing in the ds (there is a second hard coded >> - it looks stupid) we have styled it as a blue "tight link"
+            background-color: $utility600;
+            color: #fff;
+            text-decoration: underline;
+            transition: color 200ms ease-out, text-decoration 200ms ease-out, background-color 200ms ease-out;
+        }
+        .next {
+            text-align: right;
+        }
+        .previous {
+            text-align: left;
+        }
+    }
+
+    &__link-previous, .previous {
+        position: relative;
+        float: left;
+    }
+
+    &__link-next, .next {
+        position: relative;
+        text-align: right;
+        float: right;
+    }
+    &__description, strong {
+        font-style: italic;
+        font-weight: 300;
+    }
+}
