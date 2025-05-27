@@ -455,7 +455,11 @@
         // const currentUrl = `${document.location.origin}${document.location.pathname}`;
 
         function replaceWord(word) {
-            const correctionsList = [{ incorrect: 'Uqespace', correct: 'UQ eSpace' }];
+            const correctionsList = [
+                { incorrect: 'Uqespace', correct: 'UQ eSpace' },
+                { incorrect: 'Library Home', correct: 'Library' },
+                { incorrect: 'Library Guides', correct: 'Guides' },
+            ];
             let correctedText = word;
 
             for (const correction of correctionsList) {
@@ -479,13 +483,19 @@
             const links = targetDiv.querySelectorAll('a[href]');
             const linkMap = new Map();
 
-            Array.from(links).forEach((link) => {
+            Array.from(links).forEach((link, index) => {
                 const href = link.href;
                 const linkTextContent = link.textContent.trim();
                 const hasFragment = href.includes('#');
 
                 // Get base URL without fragment
                 const baseHref = hasFragment ? href.split('#')[0] : href;
+
+                let level;
+                if (index < Array.from(links).length - 1) level = 'grandparent';
+                else if (index === Array.from(links).length - 1) level = 'parent';
+                else level = 'current';
+                console.log('extractLinksFromDiv', index, Array.from(links).length, baseHref, level);
 
                 if (!linkMap.has(baseHref)) {
                     // First occurrence - add it
@@ -494,6 +504,7 @@
                         linkLabel: replaceWord(linkTextContent),
                         // title: link.title || linkTextContent,
                         hasFragment: hasFragment,
+                        level: level,
                     });
                 } else {
                     // Duplicate found - keep the one without fragment, or first one if both have fragments
@@ -505,6 +516,7 @@
                             linkLabel: replaceWord(linkTextContent),
                             // title: link.title || linkTextContent,
                             hasFragment: false,
+                            level: level,
                         });
                     }
                     // If existing doesn't have fragment, keep it (ignore current)
@@ -515,7 +527,8 @@
         }
 
         // Build navigation HTML structure
-        function buildNavigationHtml(links) {
+        function buildNavigationHtml(links, urlHierarchy) {
+            console.log('buildNavigationHtml links=', links);
             const currentPath = `${document.location.pathname}${document.location.search}`;
 
             // Group links by their path depth relative to current URL
@@ -537,14 +550,14 @@
                         console.log('compare', linkPath, ' to ', currentPath);
                         groupedLinks.siblings.push({
                             ...link,
-                            path: linkPath,
+                            href: linkPath,
                             isActive: linkPath === currentPath,
                         });
                     } else if (linkParts.length === currentParts.length + 1 && linkPath.startsWith(currentPath)) {
                         // One level deeper (children)
                         groupedLinks.children.push({
                             ...link,
-                            path: linkPath,
+                            href: linkPath,
                             isActive: false,
                         });
                     }
@@ -552,7 +565,7 @@
                     // Handle relative URLs
                     groupedLinks.siblings.push({
                         ...link,
-                        path: link.href,
+                        href: link.href,
                         isActive: false,
                     });
                 }
@@ -562,23 +575,31 @@
             let html = `<div class="uq-sidebar-layout__sidebar">
         <div id="local-nav-app" data-once="local-nav">
         <nav class="uq-local-nav" aria-label="Local navigation">
-            <div class="uq-local-nav__grandparent"><a href="https://uq.edu.au/" class="uq-local-nav__link">UQ home</a></div>
-            <div class="uq-local-nav__grandparent"><a href="https://www.library.uq.edu.au/" class="uq-local-nav__link">Library</a></div>
-            <div class="uq-local-nav__grandparent"><a href="https://guides.library.uq.edu.au/" class="uq-local-nav__link">Guides</a></div>`;
+            <div class="uq-local-nav__grandparent"><a href="https://uq.edu.au/" class="uq-local-nav__link">UQ home</a></div>`;
 
             // Add hierarchy breadcrumbs
+            console.log('urlHierarchy=', urlHierarchy);
+            console.log('groupedLinks=', groupedLinks);
             urlHierarchy.forEach((item, index) => {
-                const siblingPaths = groupedLinks.siblings.map((item) => item.path);
+                console.log('urlHierarchy foreach item', index, item);
+                const siblingPaths = groupedLinks.siblings.map((item) => item.href);
+                console.log('siblingPaths=', siblingPaths);
                 // dont include ones that are in the child list
-                if (siblingPaths.includes(item.path)) {
+                if (siblingPaths.includes(item.href)) {
+                    console.log('known, skip', item);
                     return;
                 }
 
-                if (item.level === 'grandparent' && index > 0) {
-                    html += `<div class="uq-local-nav__grandparent"><a href="${item.path}" class="uq-local-nav__link">${item.linkLabel}</a></div>`;
+                if (item.level === 'grandparent') {
+                    console.log('grandparent');
+                    html += `<div class="uq-local-nav__grandparent"><a href="${item.href}" class="uq-local-nav__link">${item.linkLabel}</a></div>`;
                 } else if (item.level === 'parent') {
-                    html += `<div class="uq-local-nav__parent"><a href="${item.path}" class="uq-local-nav__link">${item.linkLabel}</a></div>`;
+                    console.log('parent');
+                    html += `<div class="uq-local-nav__parent"><a href="${item.href}" class="uq-local-nav__link">${item.linkLabel}</a></div>`;
+                } else {
+                    console.log('child - skip html');
                 }
+                console.log('urlHierarchy foreach result', index, html);
             });
 
             // Add children list
@@ -593,7 +614,7 @@
                     const hasChildren = groupedLinks.children.length > 0 && link.isActive;
                     const hasChildrenClass = hasChildren ? ' uq-local-nav--has-children' : '';
 
-                    html += `<li class="uq-local-nav__child${activeClass}${hasChildrenClass}"><a href="${link.path}" class="uq-local-nav__link${linkActiveClass}">${link.linkLabel}</a>`;
+                    html += `<li class="uq-local-nav__child${activeClass}${hasChildrenClass}"><a href="${link.href}" class="uq-local-nav__link${linkActiveClass}">${link.linkLabel}</a>`;
 
                     // Add grandchildren if this is the active item
                     if (hasChildren) {
@@ -601,7 +622,7 @@
 
                         groupedLinks.children.forEach((child) => {
                             html += `
-                        <li class="uq-local-nav__grandchild"><a href="${child.path}" class="uq-local-nav__link">${child.linkLabel}</a></li>`;
+                        <li class="uq-local-nav__grandchild"><a href="${child.href}" class="uq-local-nav__link">${child.linkLabel}</a></li>`;
                         });
 
                         html += `
@@ -634,7 +655,6 @@
         // }
 
         const urlHierarchy = extractLinksFromDiv('nav[aria-label="breadcrumb"]');
-        console.log('urlHierarchy=', urlHierarchy);
 
         const navigationHtml = buildNavigationHtml(linksinCurrentSidebar, urlHierarchy);
 
