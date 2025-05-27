@@ -1659,103 +1659,61 @@ div:has(> h1#s-lib-public-header-title:empty) {
     }
 }
 
-// 3 styles of boxes, info, alert & grey
-.highlight {
+// 3 styles of boxes, info, alert & callout
+.highlight-info {
+    background-color: $utility50;
+}
+.highlight-alert {
+    background-color: $warning50;
+}
+.highlight-callout {
     background-color: $grey50;
+}
+.highlight-info,
+.highlight-alert,
+.highlight-callout {
     border-radius: 2px;
     margin-bottom: 1.5rem;
     overflow: hidden;
     padding: 1.5rem;
-    position: relative
-}
-
-.highlight>h2:first-child,.highlight>h3:first-child,.highlight>h4:first-child,.highlight>h5:first-child,.highlight>h6:first-child {
-    margin-top: 0
-}
-
-.highlight :last-child {
-    margin-bottom: 0
-}
-
-.highlight__heading {
-    background-color: $uqBrandColour;
-    margin-bottom: 1.5rem;
-    margin-left: -1.5rem;
-    margin-right: -1.5rem;
-    margin-top: -1.5rem;
-    padding: 1.5rem
-}
-
-.highlight__heading * {
-    color: #fff;
-    margin: 0
-}
-
-.highlight__text :last-child {
-    margin-bottom: 0
-}
-
-.highlight--horizontal {
-    align-items: center;
-    display: flex
-}
-
-.highlight--horizontal>* {
-    margin: 0 1.5rem 0 0
-}
-
-.highlight--horizontal>:last-child {
-    margin-right: 0
-}
-
-.highlight--alert,.highlight--info {
-    padding-left: 64px;
-}
-
-.highlight--alert:before,.highlight--info:before {
-    background-position: 50%;
-    background-repeat: no-repeat;
-    background-size: 100%;
-    content: "";
-    display: block;
-    height: 1.5rem;
-    left: 1.5rem;
-    position: absolute;
-    top: 1.5rem;
-    width: 1.5rem1.5rem
-}
-
-.highlight--alert h2,.highlight--alert h3,.highlight--alert h4,.highlight--alert h5,.highlight--info h2,.highlight--info h3,.highlight--info h4,.highlight--info h5 {
-    color: $black;
-    margin-bottom: 0.5rem;
-}
-
-.highlight--alert p,.highlight--info p {
-    margin-bottom: 0.5rem;
-}
-
-.highlight--info {
-    background-color: $utility50
-}
-
-.highlight--alert {
-    background-color: $warning50;
-}
-
-.highlight--bordered {
-    background: #0000;
-    border: 1px solid $grey100;
-    border-radius: .25rem;
-    padding: 2em;
-}
-
-@media (min-width: 641px) {
-    .highlight--bordered.spacing--xl {
-        padding: 2.5rem 3rem 3rem;
+    position: relative;
+    h2, h3, h4, h5, h6 {
+        color: $black;
+        margin-bottom: 0.5rem;
+    }
+    > h2:first-child,
+    > h3:first-child,
+    > h4:first-child,
+    > h5:first-child,
+    > h6:first-child, {
+        margin-top: 0
+    }
+    p {
+        margin-bottom: 0.5rem;
+    }
+    :last-child {
+        margin-bottom: 0
     }
 }
-
-.highlight--bordered .filters__groups {
-    max-width: 890px;
-    grid-gap: 2em;
+.highlight-info,
+.highlight-alert {
+    padding-left: 4rem;
+    &::before {
+        background-repeat: no-repeat;
+        background-position: 50%;
+        background-size: 100%;
+        content: "";
+        display: block;
+        height: 1.5rem;
+        left: 1.5rem;
+        position: absolute;
+        top: 1.5rem;
+        width: 1.5rem;
+    }
+}
+.highlight-info::before {
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns= 'http://www.w3.org/2000/svg' width= '24' height= '24' fill= 'none' %3E%3Ccircle cx= '12' cy= '12' r= '9.25' stroke= '%23000' stroke-width= '1.5' transform= 'rotate(-180 12 12)' /%3E%3Cpath stroke= '%23000' stroke-linecap= 'round' stroke-width= '1.5' d= 'M12 16.2v-4' /%3E%3Ccircle cx= '12' cy= '8.4' r= '1.1' fill= '%23000' transform= 'rotate(-180 12 8.4)' /%3E%3C/svg%3E");
+}
+.highlight-alert::before {
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none'%3E%3Cpath stroke='%23000' stroke-width='1.5' d='M20.127 18.545a1.18 1.18 0 0 1-1.055 1.706H4.929a1.18 1.18 0 0 1-1.055-1.706l7.072-14.143a1.179 1.179 0 0 1 2.109 0z'/%3E%3Cpath stroke='%23000' stroke-linecap='round' stroke-width='1.5' d='M12 9v4'/%3E%3Ccircle cx='11.9' cy='16.601' r='1.1' fill='%23000'/%3E%3C/svg%3E");
 }
