@@ -531,8 +531,8 @@
         }
 
         // Build navigation HTML structure
-        function buildNavigationHtml(links, urlHierarchy) {
-            console.log('buildNavigationHtml links=', links);
+        function buildNavigationHtml(linksFromExistingSidebar, parentLinksFromBreadcrumbs) {
+            console.log('buildNavigationHtml links=', linksFromExistingSidebar);
             const currentPath = `${document.location.pathname}${document.location.search}`;
 
             // Group links by their path depth relative to current URL
@@ -541,7 +541,7 @@
                 children: [],
             };
 
-            links.forEach((link) => {
+            linksFromExistingSidebar.forEach((link) => {
                 try {
                     const linkUrl = new URL(link.href);
                     const linkPath = `${linkUrl.pathname}${linkUrl.search}`;
@@ -582,10 +582,10 @@
             <div class="uq-local-nav__grandparent"><a href="https://uq.edu.au/" class="uq-local-nav__link">UQ home</a></div>`;
 
             // Add hierarchy breadcrumbs
-            console.log('urlHierarchy=', urlHierarchy);
+            console.log('parentLinksFromBreadcrumbs=', parentLinksFromBreadcrumbs);
             console.log('groupedLinks=', groupedLinks);
-            urlHierarchy.forEach((item, index) => {
-                console.log('urlHierarchy foreach item', index, item);
+            parentLinksFromBreadcrumbs.forEach((item, index) => {
+                console.log('parentLinksFromBreadcrumbs foreach item', index, item);
                 const siblingPaths = groupedLinks.siblings.map((item) => item.href);
                 console.log('siblingPaths=', siblingPaths);
                 // dont include ones that are in the child list
@@ -603,7 +603,7 @@
                 } else {
                     console.log('child - skip html');
                 }
-                console.log('urlHierarchy foreach result', index, html);
+                console.log('parentLinksFromBreadcrumbs foreach result', index, html);
             });
 
             // Add children list
