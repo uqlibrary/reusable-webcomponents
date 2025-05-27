@@ -84,12 +84,6 @@
     }
 
     function applyUQLItemsToGuides() {
-        prePurpleLinks();
-
-        closeAllUqAccordions();
-
-        replaceSpringShareSidebarMenu();
-
         if (window.location.hostname === 'localhost') {
             testIncludePathGeneration();
         }
@@ -103,6 +97,12 @@
         insertScript(scriptUrl, true);
 
         const waitForBody = setInterval(() => {
+            prePurpleLinks();
+
+            closeAllUqAccordions();
+
+            replaceSpringShareSidebarMenu();
+
             const firstElement = document.body.children[0];
             if (!firstElement) {
                 return;
@@ -157,7 +157,6 @@
                 const culturalAdvice = document.createElement('cultural-advice');
                 !!culturalAdvice && document.body.insertBefore(culturalAdvice, firstElement);
             }
-            moveHeroShot();
 
             if (!document.querySelector('uq-footer')) {
                 const subFooter = document.createElement('uq-footer');
@@ -448,13 +447,6 @@
             });
     }
 
-    function moveHeroShot() {
-        // move the hero image up higher so it can go full width
-        const siblingBlock = document.querySelector('[href="#s-lib-public-main"]');
-        const heroDiv = document.getElementById('guides-library-hero');
-        !!siblingBlock && !!heroDiv && siblingBlock.after(heroDiv);
-    }
-
     function replaceSpringShareSidebarMenu() {
         const menuQuerySelector = '#s-lg-guide-tabs .nav-pills';
         // const currentUrl = `${document.location.origin}${document.location.pathname}`;
@@ -673,6 +665,12 @@
     }
 
     function addHeroHeader() {
+        // move the hero image up higher so it can go full width on the homepage
+        const siblingBlock = document.querySelector('[href="#s-lib-public-main"]');
+        const heroDiv = document.getElementById('guides-library-hero');
+        !!siblingBlock && !!heroDiv && siblingBlock.after(heroDiv);
+
+        // (on non-homepage) move the existing h1 into a hero structure
         const checkHero = document.querySelector('.hero-wrapper-1');
         if (!!checkHero) {
             // hero already provided
