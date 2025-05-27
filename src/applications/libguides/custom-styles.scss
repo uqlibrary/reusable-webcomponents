@@ -1660,18 +1660,29 @@ div:has(> h1#s-lib-public-header-title:empty) {
 }
 
 // 3 styles of boxes, info, alert & callout
-.highlight-info {
+.s-lib-box:has(.highlight-info) {
     background-color: $utility50;
+    * {
+        background-color: $utility50 !important;
+    }
 }
-.highlight-alert {
+.s-lib-box:has(.highlight-alert) {
     background-color: $warning50;
+    * {
+        background-color: $warning50 !important;;
+    }
 }
-.highlight-callout {
+.s-lib-box:has(.highlight-callout) {
     background-color: $grey50;
+    padding: 0;
+    margin-left: 20px;
+    * {
+        background-color: $grey50 !important;;
+    }
 }
-.highlight-info,
-.highlight-alert,
-.highlight-callout {
+.s-lib-box:has(.highlight-info),
+.s-lib-box:has(.highlight-alert),
+.s-lib-box:has(.highlight-callout) {
     border-radius: 2px;
     margin-bottom: 1.5rem;
     overflow: hidden;
@@ -1695,9 +1706,10 @@ div:has(> h1#s-lib-public-header-title:empty) {
         margin-bottom: 0
     }
 }
-.highlight-info,
-.highlight-alert {
-    padding-left: 4rem;
+.s-lib-box:has(.highlight-info),
+.s-lib-box:has(.highlight-alert) {
+    padding: 0 0 0 4rem;
+    margin-left: 20px;
     &::before {
         background-repeat: no-repeat;
         background-position: 50%;
@@ -1711,9 +1723,9 @@ div:has(> h1#s-lib-public-header-title:empty) {
         width: 1.5rem;
     }
 }
-.highlight-info::before {
+.s-lib-box:has(.highlight-info)::before {
     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns= 'http://www.w3.org/2000/svg' width= '24' height= '24' fill= 'none' %3E%3Ccircle cx= '12' cy= '12' r= '9.25' stroke= '%23000' stroke-width= '1.5' transform= 'rotate(-180 12 12)' /%3E%3Cpath stroke= '%23000' stroke-linecap= 'round' stroke-width= '1.5' d= 'M12 16.2v-4' /%3E%3Ccircle cx= '12' cy= '8.4' r= '1.1' fill= '%23000' transform= 'rotate(-180 12 8.4)' /%3E%3C/svg%3E");
 }
-.highlight-alert::before {
+.s-lib-box:has(.highlight-alert)::before {
     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none'%3E%3Cpath stroke='%23000' stroke-width='1.5' d='M20.127 18.545a1.18 1.18 0 0 1-1.055 1.706H4.929a1.18 1.18 0 0 1-1.055-1.706l7.072-14.143a1.179 1.179 0 0 1 2.109 0z'/%3E%3Cpath stroke='%23000' stroke-linecap='round' stroke-width='1.5' d='M12 9v4'/%3E%3Ccircle cx='11.9' cy='16.601' r='1.1' fill='%23000'/%3E%3C/svg%3E");
 }
