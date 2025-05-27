@@ -21,21 +21,27 @@ To install the reusable web components, enter the libguides "look and feel" page
 
 ```html
 <style>
-    html body#s-lib-admin-main .dataTables_paginate>ul.pagination>li.paginate_button:not(.disabled):not(.active)>a,
-    html body#s-lib-public-main .dataTables_paginate>ul.pagination>li.paginate_button:not(.disabled):not(.active)>a,
-    html body .s-lg-link-contrast,
-    html body .ui-widget-content a,
-    html body a { color: #51247a; } /* override base springshare link blue as early as posssible to try to stop the flash of blue default links */
-    #s-lib-bc { display: none; } /* hide the breadcrumbs early so they dont flash */
+  html body#s-lib-admin-main .dataTables_paginate > ul.pagination > li.paginate_button:not(.disabled):not(.active) > a,
+  html body#s-lib-public-main .dataTables_paginate > ul.pagination > li.paginate_button:not(.disabled):not(.active) > a,
+  html body .s-lg-link-contrast,
+  html body .ui-widget-content a,
+  html body a {
+    color: #51247a;
+  } /* override base springshare link blue as early as posssible to try to stop the flash of blue default links */
+  #s-lib-bc {
+    display: none;
+  } /* hide the breadcrumbs early so they dont flash */
 </style>
-<script type="text/javascript" src="https://assets.library.uq.edu.au/reusable-webcomponents-development/guides-AD-111/applications/libguides/load.js"></script>
+<script
+  type="text/javascript"
+  src="https://assets.library.uq.edu.au/reusable-webcomponents/applications/libguides/load.js"
+></script>
 ```
 
 When complete, click save.
 
 - NOTE: The `load.js` will check if the current page is on the \*.uq.edu.au domain and hide the login/askus/account utility buttons if not due to API CORS not being allowed outside UQ.
 - NOTE: `custom-styles.css` has a bunch of css overrides for the default libguides skin to make it work.
-
 
 ### Things to note
 

@@ -49,26 +49,28 @@
     const searchParameters = new URLParameterHandler();
 
     function ready(fn) {
-        console.log('document.currentScript.src=', document.currentScript.src);
-        const assetsHostname = 'assets.library.uq.edu.au';
-        const assetsRoot = 'https://' + assetsHostname;
-        const includeFilename = 'applications/libguides/load.js';
+        if (!!document.currentScript?.src) {
+            console.log('document.currentScript.src=', document.currentScript.src);
+            const assetsHostname = 'assets.library.uq.edu.au';
+            const assetsRoot = 'https://' + assetsHostname;
+            const includeFilename = 'applications/libguides/load.js';
 
-        const scriptNameStaging = assetsRoot + '/reusable-webcomponents-staging/' + includeFilename;
-        if (forceStaging() && document.currentScript.src !== scriptNameStaging) {
-            // we don't have a staging environment on guides, but we can use this override to test things
-            // eg https://guides.library.uq.edu.au/how-to-find/news-and-newspapers?override=on&useAlternate=staging
-            insertScript(scriptNameStaging, true);
-            return;
-        }
+            const scriptNameStaging = assetsRoot + '/reusable-webcomponents-staging/' + includeFilename;
+            if (forceStaging() && document.currentScript.src !== scriptNameStaging) {
+                // we don't have a staging environment on guides, but we can use this override to test things
+                // eg https://guides.library.uq.edu.au/how-to-find/news-and-newspapers?override=on&useAlternate=staging
+                insertScript(scriptNameStaging, true);
+                return;
+            }
 
-        const featureBranchName = getFeatureBranchName();
-        const scriptNameFeature = `${assetsRoot}/reusable-webcomponents-development/${featureBranchName}/${includeFilename}`;
-        if (forceFeatureBranch() && document.currentScript.src !== scriptNameFeature) {
-            // for development testing on feature branch - force Staging (useAlternate=staging) longer term instead
-            // eg https://guides.library.uq.edu.au/how-to-find/news-and-newspapers?override=on&useAlternate=working&branchName=featureBranchName
-            insertScript(scriptNameFeature, true);
-            return;
+            const featureBranchName = getFeatureBranchName();
+            const scriptNameFeature = `${assetsRoot}/reusable-webcomponents-development/${featureBranchName}/${includeFilename}`;
+            if (forceFeatureBranch() && document.currentScript.src !== scriptNameFeature) {
+                // for development testing on feature branch - force Staging (useAlternate=staging) longer term instead
+                // eg https://guides.library.uq.edu.au/how-to-find/news-and-newspapers?override=on&useAlternate=working&branchName=featureBranchName
+                insertScript(scriptNameFeature, true);
+                return;
+            }
         }
         if (searchParameters.getValue('override') === 'on' && searchParameters.getValue('skipScript') === 'yes') {
             // to stop reusable being loaded, call it like this.
@@ -84,12 +86,6 @@
     }
 
     function applyUQLItemsToGuides() {
-        prePurpleLinks();
-
-        closeAllUqAccordions();
-
-        makeSidebarMenuStandard();
-
         if (window.location.hostname === 'localhost') {
             testIncludePathGeneration();
         }
@@ -103,6 +99,12 @@
         insertScript(scriptUrl, true);
 
         const waitForBody = setInterval(() => {
+            prePurpleLinks();
+
+            closeAllUqAccordions();
+
+            replaceSpringShareSidebarMenu();
+
             const firstElement = document.body.children[0];
             if (!firstElement) {
                 return;
@@ -157,7 +159,6 @@
                 const culturalAdvice = document.createElement('cultural-advice');
                 !!culturalAdvice && document.body.insertBefore(culturalAdvice, firstElement);
             }
-            moveHeroShot();
 
             if (!document.querySelector('uq-footer')) {
                 const subFooter = document.createElement('uq-footer');
@@ -165,11 +166,17 @@
             }
 
             addHeroHeader();
+
+            addAZNavigationToSomePages();
         }, 100);
     }
 
     function isInEditMode() {
-        if (window.location.hostname === 'localhost') {
+        if (
+            window.location.hostname === 'localhost' ||
+            window.location.host === 'customertesting6.libguides.com' || // dev 2025
+            window.location.host === 'springycommunity.libapps.com' // dev 2025
+        ) {
             return false;
         }
         // guides is edited on springshare domain, with our looknfeel.
@@ -281,12 +288,14 @@
         // TEMPORARY CODE - REMOVE AFTER 2025 REDEV - TODO
         const queryStrings = new URLSearchParams(window.location.search);
         if (
+            window.location.host === 'customertesting6.libguides.com' ||
+            window.location.host === 'springycommunity.libapps.com' ||
             window.location.pathname === '/sandbox' ||
             window.location.pathname.startsWith('/Sandbox') ||
             (!!queryStrings && queryStrings.has('group_id'))
         ) {
             // we are on a groups page - 2025 dev
-            return `${assetsRoot}/reusable-webcomponents-development/guides-AD-111/${includeFilename}`;
+            return `${assetsRoot}/reusable-webcomponents-development/guides-AD-111-subdomain/${includeFilename}`;
         }
 
         // otherwise prod
@@ -351,6 +360,7 @@
     }
 
     function moveSpringshareBreadcrumbsToSiteHeader(siteHeader) {
+        console.log('moveSpringshareBreadcrumbsToSiteHeader start', siteHeader);
         const awaitSiteHeader = setInterval(() => {
             const siteHeaderShadowRoot = siteHeader.shadowRoot;
 
@@ -399,6 +409,7 @@
                 );
             }
         }, 100);
+        console.log('moveSpringshareBreadcrumbsToSiteHeader end', siteHeader);
     }
 
     function insertCssFile(cssFileName) {
@@ -444,32 +455,224 @@
             });
     }
 
-    function moveHeroShot() {
-        // move the hero image up higher so it can go full width
-        const siblingBlock = document.querySelector('[href="#s-lib-public-main"]');
-        const heroDiv = document.getElementById('guides-library-hero');
-        !!siblingBlock && !!heroDiv && siblingBlock.after(heroDiv);
-    }
+    function replaceSpringShareSidebarMenu() {
+        // const currentUrl = `${document.location.origin}${document.location.pathname}`;
 
-    function makeSidebarMenuStandard() {
-        const uqMenu = `<nav class="uq-local-nav" aria-label="Local navigation">
-            <div class="uq-local-nav__grandparent"><a href="https://uq.edu.au/" class="uq-local-nav__link">UQ home</a></div>
-            <div class="uq-local-nav__grandparent"><a href="/" class="uq-local-nav__link">Library</a></div>
-            <div class="uq-local-nav__parent"><a href="https://guides.library.uq.edu.au" class="uq-local-nav__link">Guides</a></div>
-        </nav>`;
-        const template = document.createElement('template');
-        template.innerHTML = uqMenu;
+        function replaceWord(word) {
+            const correctionsList = [
+                { incorrect: 'Uqespace', correct: 'UQ eSpace' },
+                { incorrect: 'Library Home', correct: 'Library' },
+                { incorrect: 'Library Guides', correct: 'Guides' },
+            ];
+            let correctedText = word;
 
-        const sidebar = document.querySelector('#s-lg-guide-tabs[role="navigation"]');
-        const menuList = document.querySelector('#s-lg-guide-tabs[role="navigation"] ul');
+            for (const correction of correctionsList) {
+                if (correctedText.includes(correction.incorrect)) {
+                    const regex = new RegExp(correction.incorrect, 'g');
+                    correctedText = correctedText.replace(regex, correction.correct);
+                }
+            }
+            return correctedText;
+        }
 
-        !!sidebar && sidebar.insertBefore(template.content.cloneNode(true), sidebar.firstChild);
+        function extractLinksFromDiv(divQuerySelector) {
+            // this ignores links with a hash fragment - springshare puts them in the sidebar, but UQ DS doesn't
+            const targetDiv = document.querySelector(divQuerySelector);
+            console.log('extractLinksFromDiv', divQuerySelector, targetDiv);
+            if (!targetDiv) {
+                // console.log(`Div matching "${divQuerySelector}" not found`);
+                return [];
+            }
 
-        const newNav = document.querySelector('#s-lg-guide-tabs[role="navigation"] nav');
-        !!newNav && newNav.appendChild(menuList);
+            const links = targetDiv.querySelectorAll('a[href]');
+            const linkMap = new Map();
+
+            Array.from(links).forEach((link, index) => {
+                const href = link.href;
+                const linkTextContent = link.textContent.trim();
+                const hasFragment = href.includes('#');
+
+                // Get base URL without fragment
+                const baseHref = hasFragment ? href.split('#')[0] : href;
+
+                let level;
+                if (index < Array.from(links).length - 1) level = 'grandparent';
+                else if (index === Array.from(links).length - 1) level = 'parent';
+                else level = 'current';
+                console.log('extractLinksFromDiv', index, Array.from(links).length, baseHref, level);
+
+                if (!linkMap.has(baseHref)) {
+                    // First occurrence - add it
+                    linkMap.set(baseHref, {
+                        href: baseHref,
+                        linkLabel: replaceWord(linkTextContent),
+                        // title: link.title || linkTextContent,
+                        hasFragment: hasFragment,
+                        level: level,
+                    });
+                } else {
+                    // Duplicate found - keep the one without fragment, or first one if both have fragments
+                    const existing = linkMap.get(baseHref);
+                    if (existing.hasFragment && !hasFragment) {
+                        // Replace with non-fragment version
+                        linkMap.set(baseHref, {
+                            href: baseHref,
+                            linkLabel: replaceWord(linkTextContent),
+                            // title: link.title || linkTextContent,
+                            hasFragment: false,
+                            level: level,
+                        });
+                    }
+                    // If existing doesn't have fragment, keep it (ignore current)
+                }
+            });
+
+            return Array.from(linkMap.values());
+        }
+
+        // Build navigation HTML structure
+        function buildNavigationHtml(links, urlHierarchy) {
+            console.log('buildNavigationHtml links=', links);
+            const currentPath = `${document.location.pathname}${document.location.search}`;
+
+            // Group links by their path depth relative to current URL
+            const groupedLinks = {
+                siblings: [],
+                children: [],
+            };
+
+            links.forEach((link) => {
+                try {
+                    const linkUrl = new URL(link.href);
+                    const linkPath = `${linkUrl.pathname}${linkUrl.search}`;
+                    const linkParts = linkPath.split('/').filter((part) => part !== '');
+                    const currentParts = currentPath.split('/').filter((part) => part !== '');
+
+                    // Determine relationship to current URL
+                    if (linkParts.length === currentParts.length) {
+                        // Same level (siblings)
+                        console.log('compare', linkPath, ' to ', currentPath);
+                        groupedLinks.siblings.push({
+                            ...link,
+                            href: linkPath,
+                            isActive: linkPath === currentPath,
+                        });
+                    } else if (linkParts.length === currentParts.length + 1 && linkPath.startsWith(currentPath)) {
+                        // One level deeper (children)
+                        groupedLinks.children.push({
+                            ...link,
+                            href: linkPath,
+                            isActive: false,
+                        });
+                    }
+                } catch (e) {
+                    // Handle relative URLs
+                    groupedLinks.siblings.push({
+                        ...link,
+                        href: link.href,
+                        isActive: false,
+                    });
+                }
+            });
+
+            // Build HTML structure
+            let html = `<div class="uq-sidebar-layout__sidebar">
+        <div id="local-nav-app" data-once="local-nav">
+        <nav class="uq-local-nav" aria-label="Local navigation">
+            <div class="uq-local-nav__grandparent"><a href="https://uq.edu.au/" class="uq-local-nav__link">UQ home</a></div>`;
+
+            // Add hierarchy breadcrumbs
+            console.log('urlHierarchy=', urlHierarchy);
+            console.log('groupedLinks=', groupedLinks);
+            urlHierarchy.forEach((item, index) => {
+                console.log('urlHierarchy foreach item', index, item);
+                const siblingPaths = groupedLinks.siblings.map((item) => item.href);
+                console.log('siblingPaths=', siblingPaths);
+                // dont include ones that are in the child list
+                if (siblingPaths.includes(item.href)) {
+                    console.log('known, skip', item);
+                    return;
+                }
+
+                if (item.level === 'grandparent') {
+                    console.log('grandparent');
+                    html += `<div class="uq-local-nav__grandparent"><a href="${item.href}" class="uq-local-nav__link">${item.linkLabel}</a></div>`;
+                } else if (item.level === 'parent') {
+                    console.log('parent');
+                    html += `<div class="uq-local-nav__parent"><a href="${item.href}" class="uq-local-nav__link">${item.linkLabel}</a></div>`;
+                } else {
+                    console.log('child - skip html');
+                }
+                console.log('urlHierarchy foreach result', index, html);
+            });
+
+            // Add children list
+            if (groupedLinks.siblings.length > 0 || groupedLinks.children.length > 0) {
+                html += `
+            <ul class="uq-local-nav__children">`;
+
+                // Add sibling links
+                groupedLinks.siblings.forEach((link) => {
+                    const activeClass = link.isActive ? ' uq-local-nav--current-child' : '';
+                    const linkActiveClass = link.isActive ? ' uq-local-nav--active-link' : '';
+                    const hasChildren = groupedLinks.children.length > 0 && link.isActive;
+                    const hasChildrenClass = hasChildren ? ' uq-local-nav--has-children' : '';
+
+                    html += `<li class="uq-local-nav__child${activeClass}${hasChildrenClass}"><a href="${link.href}" class="uq-local-nav__link${linkActiveClass}">${link.linkLabel}</a>`;
+
+                    // Add grandchildren if this is the active item
+                    if (hasChildren) {
+                        html += `<ul class="uq-local-nav__grandchildren">`;
+
+                        groupedLinks.children.forEach((child) => {
+                            html += `
+                        <li class="uq-local-nav__grandchild"><a href="${child.href}" class="uq-local-nav__link">${child.linkLabel}</a></li>`;
+                        });
+
+                        html += `
+                    </ul>`;
+                    }
+
+                    html += `</li>`;
+                });
+
+                html += `</ul>`;
+            }
+
+            html += `</nav></div></div>`;
+
+            return html;
+        }
+
+        // Main execution
+        const menuQuerySelector = '#s-lg-guide-tabs .nav-pills';
+        const linksinCurrentSidebar = extractLinksFromDiv(menuQuerySelector);
+        console.log('linksinCurrentSidebar=', linksinCurrentSidebar);
+
+        // let test = 'nav[aria-label="breadcrumb"]';
+        // const targetDiv = document.querySelector(test);
+        // console.log('1', targetDiv);
+        // if (!targetDiv) {
+        //     let test = 'nav[aria-label="breadcrumb"]';
+        //     const targetDiv = document.querySelector(test);
+        //     console.log('2', targetDiv);
+        // }
+
+        const urlHierarchy = extractLinksFromDiv('nav[aria-label="breadcrumb"]');
+
+        const navigationHtml = buildNavigationHtml(linksinCurrentSidebar, urlHierarchy);
+
+        const originalDiv = document.querySelector(menuQuerySelector);
+        !!originalDiv && (originalDiv.outerHTML = navigationHtml);
     }
 
     function addHeroHeader() {
+        // move the hero image up higher so it can go full width on the homepage
+        const siblingBlock = document.querySelector('[href="#s-lib-public-main"]');
+        const heroDiv = document.getElementById('guides-library-hero');
+        !!siblingBlock && !!heroDiv && siblingBlock.after(heroDiv);
+
+        // (on non-homepage) move the existing h1 into a hero structure
         const checkHero = document.querySelector('.hero-wrapper-1');
         if (!!checkHero) {
             // hero already provided
@@ -505,6 +708,73 @@
 
         const sibling = document.querySelector('#s-lg-public-skiplink');
         !!sibling && sibling.parentNode.insertBefore(template.content, sibling.nextSibling);
+    }
+
+    function addAZNavigationToSomePages() {
+        function insertAZIntoDocument(indexElement) {
+            const wrappingElement = 'div'; // nav
+            const azList = `<${wrappingElement} class="uq-alpha-nav" aria-label="Navigate by alphabet">
+                <ul class="uq-pagination">
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="A">A</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="B">B</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="C">C</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="D">D</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="E">E</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="F">F</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="G">G</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="H">H</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="I">I</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="J">J</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="K">K</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="L">L</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="M">M</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="N">N</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="O">O</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="P">P</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="Q">Q</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="R">R</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="S">S</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="T">T</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="U">U</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="V">V</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="W">W</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="X">X</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="Y">Y</a></li>
+                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="Z">Z</a></li>
+                </ul>
+            </${wrappingElement}>`;
+            const template = document.createElement('template');
+            template.innerHTML = azList;
+            !!indexElement && indexElement.appendChild(template.content);
+        }
+
+        // temporary code for subdomain
+        const springshareBanner = document.getElementById('s-lib-banner');
+        !!springshareBanner && springshareBanner.remove();
+
+        /*
+        html like the following is included on the page template
+        <div id="a-z-index" data-for="a-z-list"></div>
+        the data-for value matches the id of the element that parents the a-z block
+         */
+
+        const indexElement = document.getElementById('a-z-index');
+        const listIndex = !!indexElement && indexElement.dataset.for;
+        const alphaBlocks = !!listIndex && document.querySelectorAll(`#${listIndex} > div > div`);
+
+        // if (!alphaBlocks) {
+        //     return; // this page does not have an a-z index (or its wrongly built, see example html above)
+        // }
+
+        !!indexElement && indexElement.classList.add('uql-az-index');
+        !!indexElement && insertAZIntoDocument(indexElement);
+
+        !!alphaBlocks &&
+            alphaBlocks.forEach((l) => {
+                const h2Title = l.querySelector('h2');
+                const azLink = !!h2Title?.textContent && document.querySelector(`[data-label=${h2Title.textContent}]`);
+                !!l?.id && !!azLink && (azLink.href = `#${l.id}`);
+            });
     }
 
     ready(applyUQLItemsToGuides);
