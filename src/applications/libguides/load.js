@@ -290,6 +290,7 @@
         if (
             window.location.host === 'customertesting6.libguides.com' ||
             window.location.host === 'springycommunity.libapps.com' ||
+            window.location.host === 'uq.libapps.com' ||
             window.location.pathname === '/sandbox' ||
             window.location.pathname.startsWith('/Sandbox') ||
             (!!queryStrings && queryStrings.has('group_id'))
@@ -576,7 +577,7 @@
             });
 
             // Build HTML structure
-            let html = `<div class="uq-sidebar-layout__sidebar">
+            let html = `<div id="uq-sidebar-layout__sidebar" class="uq-sidebar-layout__sidebar">
         <div id="local-nav-app" data-once="local-nav">
         <nav class="uq-local-nav" aria-label="Local navigation">
             <div class="uq-local-nav__grandparent"><a href="https://uq.edu.au/" class="uq-local-nav__link">UQ home</a></div>`;
@@ -644,7 +645,11 @@
             return html;
         }
 
-        // Main execution
+        const menuDone = document.getElementById('uq-sidebar-layout__sidebar');
+        if (!!menuDone) {
+            return;
+        }
+
         const menuQuerySelector = '#s-lg-guide-tabs .nav-pills';
         const linksinCurrentSidebar = extractLinksFromDiv(menuQuerySelector);
         console.log('linksinCurrentSidebar=', linksinCurrentSidebar);
