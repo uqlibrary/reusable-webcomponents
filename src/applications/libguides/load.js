@@ -172,7 +172,11 @@
     }
 
     function isInEditMode() {
-        if (window.location.hostname === 'localhost') {
+        if (
+            window.location.hostname === 'localhost' ||
+            window.location.host === 'customertesting6.libguides.com' || // dev 2025
+            window.location.host === 'springycommunity.libapps.com' // dev 2025
+        ) {
             return false;
         }
         // guides is edited on springshare domain, with our looknfeel.
