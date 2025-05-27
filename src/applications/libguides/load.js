@@ -49,6 +49,27 @@
     const searchParameters = new URLParameterHandler();
 
     function ready(fn) {
+        console.log('document.currentScript.src=', document.currentScript.src);
+        const assetsHostname = 'assets.library.uq.edu.au';
+        const assetsRoot = 'https://' + assetsHostname;
+        const includeFilename = 'applications/libguides/load.js';
+
+        const scriptNameStaging = assetsRoot + '/reusable-webcomponents-staging/' + includeFilename;
+        if (forceStaging() && document.currentScript.src !== scriptNameStaging) {
+            // we don't have a staging environment on guides, but we can use this override to test things
+            // eg https://guides.library.uq.edu.au/how-to-find/news-and-newspapers?override=on&useAlternate=staging
+            insertScript(scriptNameStaging, true);
+            return;
+        }
+
+        const featureBranchName = getFeatureBranchName();
+        const scriptNameFeature = `${assetsRoot}/reusable-webcomponents-development/${featureBranchName}/${includeFilename}`;
+        if (forceFeatureBranch() && document.currentScript.src !== scriptNameFeature) {
+            // for development testing on feature branch - force Staging (useAlternate=staging) longer term instead
+            // eg https://guides.library.uq.edu.au/how-to-find/news-and-newspapers?override=on&useAlternate=working&branchName=featureBranchName
+            insertScript(scriptNameFeature, true);
+            return;
+        }
         if (searchParameters.getValue('override') === 'on' && searchParameters.getValue('skipScript') === 'yes') {
             // to stop reusable being loaded, call it like this.
             // https://guides.library.uq.edu.au/?override=on&skipScript=yes
