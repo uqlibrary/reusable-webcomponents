@@ -436,7 +436,20 @@
 
     function replaceSpringShareSidebarMenu() {
         const menuQuerySelector = '#s-lg-guide-tabs .nav-pills';
-        const currentUrl = `${document.location.origin}${document.location.pathname}`;
+        // const currentUrl = `${document.location.origin}${document.location.pathname}`;
+
+        function replaceWord(word) {
+            const correctionsList = [{ incorrect: 'Uqespace', correct: 'UQ eSpace' }];
+            let correctedText = word;
+
+            for (const correction of correctionsList) {
+                if (correctedText.includes(correction.incorrect)) {
+                    const regex = new RegExp(correction.incorrect, 'g');
+                    correctedText = correctedText.replace(regex, correction.correct);
+                }
+            }
+            return correctedText;
+        }
 
         function parseUrlPath(url) {
             const urlObj = new URL(url);
@@ -461,13 +474,17 @@
                 else if (index === 1) level = 'parent';
                 else level = 'current';
 
+                let derivedName = part
+                    .split('-')
+                    // .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                    .join(' ');
+                derivedName = derivedName.charAt(0).toUpperCase() + derivedName.slice(1);
+                derivedName = replaceWord(derivedName);
+
                 hierarchy.push({
                     level: level,
                     path: currentPath,
-                    name: part
-                        .split('-')
-                        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-                        .join(' '),
+                    linkLabel: derivedName,
                 });
             });
 
@@ -487,7 +504,7 @@
 
             Array.from(links).forEach((link) => {
                 const href = link.href;
-                const text = link.textContent.trim();
+                const linkTextContent = link.textContent.trim();
                 const hasFragment = href.includes('#');
 
                 // Get base URL without fragment
@@ -497,8 +514,8 @@
                     // First occurrence - add it
                     linkMap.set(baseHref, {
                         href: baseHref,
-                        text: text,
-                        title: link.title || text,
+                        linkLabel: replaceWord(linkTextContent),
+                        // title: link.title || linkTextContent,
                         hasFragment: hasFragment,
                     });
                 } else {
@@ -508,8 +525,8 @@
                         // Replace with non-fragment version
                         linkMap.set(baseHref, {
                             href: baseHref,
-                            text: text,
-                            title: link.title || text,
+                            linkLabel: replaceWord(linkTextContent),
+                            // title: link.title || linkTextContent,
                             hasFragment: false,
                         });
                     }
@@ -582,9 +599,9 @@
                 }
 
                 if (item.level === 'grandparent' && index > 0) {
-                    html += `<div class="uq-local-nav__grandparent"><a href="${item.path}" class="uq-local-nav__link">${item.name}</a></div>`;
+                    html += `<div class="uq-local-nav__grandparent"><a href="${item.path}" class="uq-local-nav__link">${item.linkLabel}</a></div>`;
                 } else if (item.level === 'parent') {
-                    html += `<div class="uq-local-nav__parent"><a href="${item.path}" class="uq-local-nav__link">${item.name}</a></div>`;
+                    html += `<div class="uq-local-nav__parent"><a href="${item.path}" class="uq-local-nav__link">${item.linkLabel}</a></div>`;
                 }
             });
 
@@ -600,7 +617,7 @@
                     const hasChildren = groupedLinks.children.length > 0 && link.isActive;
                     const hasChildrenClass = hasChildren ? ' uq-local-nav--has-children' : '';
 
-                    html += `<li class="uq-local-nav__child${activeClass}${hasChildrenClass}"><a href="${link.path}" class="uq-local-nav__link${linkActiveClass}">${link.text}</a>`;
+                    html += `<li class="uq-local-nav__child${activeClass}${hasChildrenClass}"><a href="${link.path}" class="uq-local-nav__link${linkActiveClass}">${link.linkLabel}</a>`;
 
                     // Add grandchildren if this is the active item
                     if (hasChildren) {
@@ -608,7 +625,7 @@
 
                         groupedLinks.children.forEach((child) => {
                             html += `
-                        <li class="uq-local-nav__grandchild"><a href="${child.path}" class="uq-local-nav__link">${child.text}</a></li>`;
+                        <li class="uq-local-nav__grandchild"><a href="${child.path}" class="uq-local-nav__link">${child.linkLabel}</a></li>`;
                         });
 
                         html += `
