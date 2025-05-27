@@ -1688,6 +1688,10 @@ div:has(> h1#s-lib-public-header-title:empty) {
     overflow: hidden;
     padding: 1.5rem;
     position: relative;
+    .dropdown-menu { // info boxes obscures the admin edit dropdown
+        margin-left: -170px;
+        margin-top: -50px;
+    }
     h2, h3, h4, h5, h6 {
         color: $black;
         margin-bottom: 0.5rem;
