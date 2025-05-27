@@ -49,26 +49,28 @@
     const searchParameters = new URLParameterHandler();
 
     function ready(fn) {
-        console.log('document.currentScript.src=', document.currentScript.src);
-        const assetsHostname = 'assets.library.uq.edu.au';
-        const assetsRoot = 'https://' + assetsHostname;
-        const includeFilename = 'applications/libguides/load.js';
+        if (!!document.currentScript?.src) {
+            console.log('document.currentScript.src=', document.currentScript.src);
+            const assetsHostname = 'assets.library.uq.edu.au';
+            const assetsRoot = 'https://' + assetsHostname;
+            const includeFilename = 'applications/libguides/load.js';
 
-        const scriptNameStaging = assetsRoot + '/reusable-webcomponents-staging/' + includeFilename;
-        if (forceStaging() && document.currentScript.src !== scriptNameStaging) {
-            // we don't have a staging environment on guides, but we can use this override to test things
-            // eg https://guides.library.uq.edu.au/how-to-find/news-and-newspapers?override=on&useAlternate=staging
-            insertScript(scriptNameStaging, true);
-            return;
-        }
+            const scriptNameStaging = assetsRoot + '/reusable-webcomponents-staging/' + includeFilename;
+            if (forceStaging() && document.currentScript.src !== scriptNameStaging) {
+                // we don't have a staging environment on guides, but we can use this override to test things
+                // eg https://guides.library.uq.edu.au/how-to-find/news-and-newspapers?override=on&useAlternate=staging
+                insertScript(scriptNameStaging, true);
+                return;
+            }
 
-        const featureBranchName = getFeatureBranchName();
-        const scriptNameFeature = `${assetsRoot}/reusable-webcomponents-development/${featureBranchName}/${includeFilename}`;
-        if (forceFeatureBranch() && document.currentScript.src !== scriptNameFeature) {
-            // for development testing on feature branch - force Staging (useAlternate=staging) longer term instead
-            // eg https://guides.library.uq.edu.au/how-to-find/news-and-newspapers?override=on&useAlternate=working&branchName=featureBranchName
-            insertScript(scriptNameFeature, true);
-            return;
+            const featureBranchName = getFeatureBranchName();
+            const scriptNameFeature = `${assetsRoot}/reusable-webcomponents-development/${featureBranchName}/${includeFilename}`;
+            if (forceFeatureBranch() && document.currentScript.src !== scriptNameFeature) {
+                // for development testing on feature branch - force Staging (useAlternate=staging) longer term instead
+                // eg https://guides.library.uq.edu.au/how-to-find/news-and-newspapers?override=on&useAlternate=working&branchName=featureBranchName
+                insertScript(scriptNameFeature, true);
+                return;
+            }
         }
         if (searchParameters.getValue('override') === 'on' && searchParameters.getValue('skipScript') === 'yes') {
             // to stop reusable being loaded, call it like this.
@@ -354,6 +356,7 @@
     }
 
     function moveSpringshareBreadcrumbsToSiteHeader(siteHeader) {
+        console.log('moveSpringshareBreadcrumbsToSiteHeader start', siteHeader);
         const awaitSiteHeader = setInterval(() => {
             const siteHeaderShadowRoot = siteHeader.shadowRoot;
 
@@ -402,6 +405,7 @@
                 );
             }
         }, 100);
+        console.log('moveSpringshareBreadcrumbsToSiteHeader end', siteHeader);
     }
 
     function insertCssFile(cssFileName) {
@@ -448,7 +452,6 @@
     }
 
     function replaceSpringShareSidebarMenu() {
-        const menuQuerySelector = '#s-lg-guide-tabs .nav-pills';
         // const currentUrl = `${document.location.origin}${document.location.pathname}`;
 
         function replaceWord(word) {
@@ -464,49 +467,10 @@
             return correctedText;
         }
 
-        function parseUrlPath(url) {
-            const urlObj = new URL(url);
-            const pathParts = urlObj.pathname.split('/').filter((part) => part !== '');
-
-            const hierarchy = [];
-            let currentPath = '';
-
-            // Add root
-            hierarchy.push({
-                level: 'root',
-                path: '/',
-                name: 'Home',
-            });
-
-            // Build hierarchy from path parts
-            pathParts.forEach((part, index) => {
-                currentPath += '/' + part;
-                let level;
-
-                if (index === 0) level = 'grandparent';
-                else if (index === 1) level = 'parent';
-                else level = 'current';
-
-                let derivedName = part
-                    .split('-')
-                    // .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-                    .join(' ');
-                derivedName = derivedName.charAt(0).toUpperCase() + derivedName.slice(1);
-                derivedName = replaceWord(derivedName);
-
-                hierarchy.push({
-                    level: level,
-                    path: currentPath,
-                    linkLabel: derivedName,
-                });
-            });
-
-            return hierarchy;
-        }
-
-        function extractLinksFromSidebar(divQuerySelector) {
+        function extractLinksFromDiv(divQuerySelector) {
             // this ignores links with a hash fragment - springshare puts them in the sidebar, but UQ DS doesn't
             const targetDiv = document.querySelector(divQuerySelector);
+            console.log('extractLinksFromDiv', divQuerySelector, targetDiv);
             if (!targetDiv) {
                 // console.log(`Div matching "${divQuerySelector}" not found`);
                 return [];
@@ -552,7 +516,6 @@
 
         // Build navigation HTML structure
         function buildNavigationHtml(links) {
-            const urlHierarchy = parseUrlPath(document.location.href);
             const currentPath = `${document.location.pathname}${document.location.search}`;
 
             // Group links by their path depth relative to current URL
@@ -657,8 +620,23 @@
         }
 
         // Main execution
-        const linksinCurrentSidebar = extractLinksFromSidebar(menuQuerySelector);
-        const navigationHtml = buildNavigationHtml(linksinCurrentSidebar);
+        const menuQuerySelector = '#s-lg-guide-tabs .nav-pills';
+        const linksinCurrentSidebar = extractLinksFromDiv(menuQuerySelector);
+        console.log('linksinCurrentSidebar=', linksinCurrentSidebar);
+
+        // let test = 'nav[aria-label="breadcrumb"]';
+        // const targetDiv = document.querySelector(test);
+        // console.log('1', targetDiv);
+        // if (!targetDiv) {
+        //     let test = 'nav[aria-label="breadcrumb"]';
+        //     const targetDiv = document.querySelector(test);
+        //     console.log('2', targetDiv);
+        // }
+
+        const urlHierarchy = extractLinksFromDiv('nav[aria-label="breadcrumb"]');
+        console.log('urlHierarchy=', urlHierarchy);
+
+        const navigationHtml = buildNavigationHtml(linksinCurrentSidebar, urlHierarchy);
 
         const originalDiv = document.querySelector(menuQuerySelector);
         !!originalDiv && (originalDiv.outerHTML = navigationHtml);
