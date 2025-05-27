@@ -320,7 +320,7 @@
 }
 
 .uq-story-card--landscape .uq-story-card__image:not(:has(img)) {
-  background-color: #e8e8e8;
+  background-color: $grey100;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%238c8a8d'%3e%3cg fill='none' stroke='%238c8a8d' stroke-linecap='round' stroke-linejoin='round' stroke-width='.75'%3e%3cpath d='M8 13.6V3.86S6.63 2.34 2 2.29a.25.25 0 0 0-.2.08.25.25 0 0 0-.09.2v9.14c0 .15.12.29.29.29 4.63.09 6 1.6 6 1.6zM6.31 7.48a12.9 12.9 0 0 0-2.94-.6m2.94 2.95c-.94-.31-1.94-.52-2.94-.6m6.32-1.75a12.9 12.9 0 0 1 2.94-.6M9.69 9.83c.94-.31 1.94-.52 2.94-.6'%3e%3c/path%3e%3cpath d='M8 13.6V3.86s1.37-1.52 6-1.57c.09 0 .14.02.2.08s.09.11.09.2v9.14c0 .15-.12.29-.29.29-4.63.09-6 1.6-6 1.6zm0 0'%3e%3c/path%3e%3c/g%3e%3c/svg%3e");
   background-size: 88px;
   background-position: center;
