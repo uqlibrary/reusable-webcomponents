@@ -295,7 +295,7 @@
             (!!queryStrings && queryStrings.has('group_id'))
         ) {
             // we are on a groups page - 2025 dev
-            return `${assetsRoot}/reusable-webcomponents-development/guides-AD-111-subdomain/${includeFilename}`;
+            return `${assetsRoot}/reusable-webcomponents-development/guides-AD-111/${includeFilename}`;
         }
 
         // otherwise prod
