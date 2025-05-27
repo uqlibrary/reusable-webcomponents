@@ -140,9 +140,9 @@
                 if (!isInEditMode()) {
                     const authButton = createAuthButton();
                     !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
-
-                    moveSpringshareBreadcrumbsToSiteHeader(siteHeader);
                 }
+
+                moveSpringshareBreadcrumbsToSiteHeader(siteHeader);
             }
 
             if (!document.querySelector('proactive-chat:not([display="inline"])')) {
