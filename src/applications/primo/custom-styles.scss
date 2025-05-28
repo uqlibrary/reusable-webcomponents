@@ -705,12 +705,6 @@ prm-breadcrumbs .md-chip.persistent-facet {
     }
 }
 
-// uqblue (#2377CB) isn't accessible on the primo grey background, so slightly different colour is needed
-.language-characters a {
-    // dbsearch alpha-nav
-    color: #1e66ae !important;
-}
-
 // dbsearch sidebar
 prm-tree-nav md-list md-list-item .md-button.branch-name {
     color: $theme-color;
@@ -1049,29 +1043,6 @@ prm-snippet.availability-button
     span.availability-status span {
         color: $accent-color !important;
         text-decoration: underline;
-    }
-}
-
-prm-alphabet-toolbar {
-    .md-button {
-        &.active {
-            color: $accent-color !important;
-            background-color: $white;
-        }
-    }
-    .md-button {
-        &.active:hover,
-        &.active:focus,
-        &.active.md-focused {
-            background-color: $accent-color !important;
-            color: $white !important;
-        }
-    }
-    .bar {
-        button,
-        &.alert-bar {
-            color: #fff;
-        }
     }
 }
 
