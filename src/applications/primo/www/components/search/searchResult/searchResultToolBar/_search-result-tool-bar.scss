@@ -97,6 +97,21 @@ prm-search-result-tool-bar {
 
         .toolbar-actions {
             z-index: 1;
+
+            button.md-icon-button.md-button {
+                &.has-bottom-arrow,
+                &.pin-button {
+                    color: $accent-color;
+                    &._md-focused,
+                    &.hovered,
+                    &.md-focused,
+                    &:focus,
+                    &:hover {
+                        color: $accent-color;
+                        background-color: transparent;
+                    }
+                }
+            }
         }
     }
 
