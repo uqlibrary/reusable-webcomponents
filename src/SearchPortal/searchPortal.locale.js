@@ -1,4 +1,5 @@
 const primoPrefix = '&tab=61uq_all&search_scope=61UQ_All&sortby=rank&vid=61UQ_INST:61UQ&offset=0';
+const primoPrefixWithoutTab = '&search_scope=61UQ_All&sortby=rank&vid=61UQ_INST:61UQ&offset=0';
 
 // index of the drop down in the search selection box
 const PRIMO_ELEMENTS = [0, 1, 2, 3, 4, 5];
@@ -64,7 +65,7 @@ export const searchPortalLocale = {
                 link:
                     urlRoot +
                     'search?query=title,contains,[keyword],AND' +
-                    primoPrefix +
+                    primoPrefixWithoutTab +
                     '&mfacet=rtype,include,newspapers,1&mfacet=rtype,include,journals,1&mode=advanced',
             },
             {
@@ -75,10 +76,7 @@ export const searchPortalLocale = {
                     'M19 3H4.99c-1.11 0-1.98.89-1.98 2L3 19c0 1.1.88 2 1.99 2H19c1.1 0 2-.9 2-2V5c0-1.11-.9-2-2-2zm0 12h-4c0 1.66-1.35 3-3 3s-3-1.34-3-3H4.99V5H19v10z',
                 placeholder: 'Enter a keyword, title, author',
                 link:
-                    urlRoot +
-                    'search?query=any,contains,[keyword]' +
-                    primoPrefix +
-                    '&facet=tlevel,include,physical_items',
+                    urlRoot + 'search?query=any,contains,[keyword]' + primoPrefix + '&facet=tlevel,include,available_p',
             },
             {
                 selectId: '6',
