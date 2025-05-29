@@ -1,5 +1,5 @@
-const primoPrefix = '&tab=61uq_all&search_scope=61UQ_All&sortby=rank&vid=61UQ_INST:61UQ&offset=0';
-const primoPrefixWithoutTab = '&search_scope=61UQ_All&sortby=rank&vid=61UQ_INST:61UQ&offset=0';
+const urlRoot = 'https://search.library.uq.edu.au/discovery/';
+const primoPrefix = '&sortby=rank&vid=61UQ_INST:61UQ&offset=0';
 
 // index of the drop down in the search selection box
 const PRIMO_ELEMENTS = [0, 1, 2, 3, 4, 5];
@@ -7,7 +7,6 @@ const DATABASES = 6;
 const EXAMS = 7;
 const READING_LISTS = 8;
 
-const urlRoot = 'https://search.library.uq.edu.au/discovery/';
 export const searchPortalLocale = {
     typeSelect: {
         label: 'Search',
@@ -65,7 +64,7 @@ export const searchPortalLocale = {
                 link:
                     urlRoot +
                     'search?query=title,contains,[keyword],AND' +
-                    primoPrefixWithoutTab +
+                    primoPrefix +
                     '&mfacet=rtype,include,newspapers,1&mfacet=rtype,include,journals,1&mode=advanced',
             },
             {

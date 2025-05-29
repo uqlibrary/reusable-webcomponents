@@ -176,6 +176,7 @@ prm-search-bookmark-filter-after {
             background-color: #e7e7e8;
             border-radius: 50%;
             margin-top: 12px;
+            color: $accent-color;
         }
         &:hover {
             box-shadow: none;
@@ -196,7 +197,7 @@ prm-search-bookmark-filter-after {
 prm-search-bookmark-filter {
     // QR Code and Favourites button in top nav
     .md-icon-button.button-over-dark {
-        color: $textColor !important;
+        color: $accent-color !important;
         background-color: transparent;
     }
     .md-ripple-container {
@@ -247,6 +248,7 @@ prm-search-bookmark-filter {
             background-color: #e7e7e8;
             border-radius: 20px;
             padding: 8px;
+            color: $accent-color;
         }
         span {
             padding-left: 6px;
