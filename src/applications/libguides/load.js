@@ -23,10 +23,9 @@
         }
 
         getSearchParameter(key) {
-            const url = window.location.href;
-            const urlObj = new URL(url);
-            const params = new URLSearchParams(urlObj.search);
-            return params.get(key);
+            const params = new URLSearchParams(window.location.search);
+            const value = params.get(key);
+            return value;
         }
 
         setOverride(key, value) {
@@ -49,6 +48,12 @@
     const searchParameters = new URLParameterHandler();
 
     function ready(fn) {
+        if (searchParameters.getValue('override') === 'on' && searchParameters.getValue('skipScript') === 'on') {
+            // to stop reusable being loaded, call it like this.
+            // https://guides.library.uq.edu.au/?override=on&skipScript=on
+            // You can then manually load things in the console
+            return;
+        }
         if (!!document.currentScript?.src) {
             console.log('document.currentScript.src=', document.currentScript.src);
             const assetsHostname = 'assets.library.uq.edu.au';
@@ -71,12 +76,6 @@
                 insertScript(scriptNameFeature, true);
                 return;
             }
-        }
-        if (searchParameters.getValue('override') === 'on' && searchParameters.getValue('skipScript') === 'yes') {
-            // to stop reusable being loaded, call it like this.
-            // https://guides.library.uq.edu.au/?override=on&skipScript=yes
-            // You can then manually load things in the console
-            return;
         }
         if (document.readyState !== 'loading') {
             fn();
