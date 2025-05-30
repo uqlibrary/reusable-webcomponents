@@ -493,19 +493,28 @@
                 const hasFragment = href.includes('#');
 
                 // Get base URL without fragment
-                const baseHref = hasFragment ? href.split('#')[0] : href;
+                const url = new URL(href);
+                let urlPath = url.pathname;
+                if (url.search !== '') {
+                    // urlPath += url.search;
+                    // temp menu debug - uncomment above and delete after dev 2025
+                    const searchP = url.search.replace('&override=on&skipScript=on', '');
+                    urlPath += searchP;
+                }
+                const baseHref = url.origin + urlPath;
 
                 let level;
                 if (index < Array.from(links).length - 1) level = 'grandparent';
                 else if (index === Array.from(links).length - 1) level = 'parent';
                 else level = 'current';
-                console.log('extractLinksFromDiv', index, Array.from(links).length, baseHref, level);
+                console.log('extractLinksFromDiv', index, Array.from(links).length, baseHref, level, urlPath);
 
                 if (!linkMap.has(baseHref)) {
                     // First occurrence - add it
                     linkMap.set(baseHref, {
                         href: baseHref,
                         linkLabel: replaceWord(linkTextContent),
+                        urlPath: urlPath,
                         // title: link.title || linkTextContent,
                         hasFragment: hasFragment,
                         level: level,
@@ -518,6 +527,7 @@
                         linkMap.set(baseHref, {
                             href: baseHref,
                             linkLabel: replaceWord(linkTextContent),
+                            urlPath: urlPath,
                             // title: link.title || linkTextContent,
                             hasFragment: false,
                             level: level,
@@ -589,7 +599,7 @@
                 const siblingPaths = groupedLinks.siblings.map((item) => item.href);
                 console.log('siblingPaths=', siblingPaths);
                 // dont include ones that are in the child list
-                if (siblingPaths.includes(item.href)) {
+                if (siblingPaths.includes(item.urlPath)) {
                     console.log('known, skip', item);
                     return;
                 }
@@ -662,9 +672,9 @@
         //     console.log('2', targetDiv);
         // }
 
-        const urlHierarchy = extractLinksFromDiv('nav[aria-label="breadcrumb"]');
+        const parentLinksFromBreadcrumbs = extractLinksFromDiv('nav[aria-label="breadcrumb"]');
 
-        const navigationHtml = buildNavigationHtml(linksinCurrentSidebar, urlHierarchy);
+        const navigationHtml = buildNavigationHtml(linksinCurrentSidebar, parentLinksFromBreadcrumbs);
 
         const originalDiv = document.querySelector(menuQuerySelector);
         !!originalDiv && (originalDiv.outerHTML = navigationHtml);
