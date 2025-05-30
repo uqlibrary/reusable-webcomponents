@@ -89,6 +89,11 @@
             testIncludePathGeneration();
         }
 
+        if (!!isInEditMode()) {
+            // we dont need any UQ styling on the edit pages
+            return;
+        }
+
         fontLoader('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
         fontLoader('https://static.uq.net.au/v15/fonts/Merriweather/merriweather.css');
         fontLoader('https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css');
@@ -136,10 +141,8 @@
                 !!siteHeader && siteHeader.setAttribute('secondlevelurl', 'https://guides.library.uq.edu.au/');
                 !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
 
-                if (!isInEditMode()) {
-                    const authButton = createAuthButton();
-                    !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
-                }
+                const authButton = createAuthButton();
+                !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
 
                 moveSpringshareBreadcrumbsToSiteHeader(siteHeader);
             }
@@ -171,19 +174,14 @@
     }
 
     function isInEditMode() {
-        if (
-            window.location.hostname === 'localhost' ||
-            window.location.host === 'customertesting6.libguides.com' || // dev 2025
-            window.location.host === 'springycommunity.libapps.com' // dev 2025
-        ) {
-            return false;
+        // temp for 2025 dev
+        if (window.location.hostname === 'springycommunity.libapps.com') {
+            return true;
         }
-        // guides is edited on springshare domain, with our looknfeel.
-        // Don't include some elements - they are distracting to the admin
-        if (window.location.href.includes('uq.edu.au')) {
-            return false;
+        if (window.location.hostname === 'uq.libapps.com' && window.location.pathname.startsWith('/libguides/admin')) {
+            return true;
         }
-        return true;
+        return false;
     }
 
     function createSlotForButtonInUtilityArea(button, id = null) {

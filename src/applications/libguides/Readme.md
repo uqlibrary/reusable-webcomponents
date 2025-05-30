@@ -45,6 +45,14 @@ When complete, click save.
 
 ### Things to note
 
+While there are pretty urls (in most cases - sometimes they seem to forget to set them), there are direct paths to access them, eg:
+live page:
+https://guides.library.uq.edu.au/c.php?g=210305&p=2207786
+edit page for same content
+https://uq.libapps.com/libguides/admin_c.php?g=210305&p=2207786
+if you need to see the live page without UQ styling & code:
+https://guides.library.uq.edu.au/c.php?g=210305&p=2207786&override=on&skipScript=on
+
 #### Admin edit pages
 
 Admin edit pages (ie. <https://uq.libapps.com/libguides/lookfeel.php?action=1>) are not on the \*.uq.edu.au domain as as such, will fail CORS checks for any calls to API. Because of that, we hide the utility buttons which require api data to display correctly (chat status/hours etc).
