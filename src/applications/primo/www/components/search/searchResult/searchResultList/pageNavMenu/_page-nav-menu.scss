@@ -380,3 +380,7 @@ prm-page-nav-menu {
         border-bottom-left-radius: 28px;
     }
 }
+
+prm-databases prm-page-nav-menu div.counter-main {
+    margin-right: 15px; // dont let the right most page overlap the next page on dbsearch
+}
