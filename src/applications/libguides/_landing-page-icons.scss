@@ -1,0 +1,30 @@
+
+.first-h2-icon h2.s-lib-box-title:first-of-type {
+  display: flex;
+  align-items: center;
+}
+.first-h2-icon h2.s-lib-box-title:first-of-type::before {
+  content: '';
+  display: inline-block;
+  width: 38px;
+  height: 38px;
+  margin-right: 8px;
+}
+.first-h2-icon-referencing h2.s-lib-box-title:first-of-type::before { // UQ DS checklist icon
+  background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%23000%27%3e%3cg fill=%27none%27 stroke=%27%23000%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%27.75%27%3e%3cpath d=%27M2.54 1.71h10.89c.48 0 .86.38.86.83v10.89c0 .46-.38.83-.83.83H2.54a.79.79 0 0 1-.83-.8V2.54c0-.45.38-.83.83-.83zm0 0%27%3e%3c/path%3e%3cpath d=%27M8 3.8 5.48 7.14 3.8 5.46m5.46.45h2.51M8 8.83l-2.52 3.34-1.68-1.69m5.46.46h2.51%27%3e%3c/path%3e%3c/g%3e%3c/svg%3e");
+}
+.first-h2-icon-subjects h2.s-lib-box-title:first-of-type::before { // UQ DS study-book icon
+  background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%23000%27%3e%3cg fill=%27none%27 stroke=%27%23000%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%27.75%27%3e%3cpath d=%27M5.86 11.46a11.4 11.4 0 0 0-3.38-.6.84.84 0 0 1-.77-.83V2.54c0-.45.38-.83.83-.83h.06c3.54.2 5.4 1.46 5.4 2.4 0-.97 2.09-2.2 5.4-2.4.46-.02.86.32.89.77v7.09M8 4.11V6.3M6.52 4.91c-1-.37-2.06-.6-3.12-.71m8.74 2.23.6-.09m-6.22.72c-1-.37-2.06-.6-3.12-.72m3.12 2.97a13.2 13.2 0 0 0-3.15-.7m6.26-3.67c1.03-.37 2.08-.6 3.14-.71%27%3e%3c/path%3e%3cpath d=%27m14.23 14.26.06-.63a1.7 1.7 0 0 0-1.32-1.8l-2.03-.46v-3.2a1.06 1.06 0 1 0-2.11 0v5.14l-.83-.6a.86.86 0 0 0-1.2.18.85.85 0 0 0 0 1.02l.26.35%27%3e%3c/path%3e%3c/g%3e%3c/svg%3e");
+}
+.first-h2-icon-tools-and-techniques h2.s-lib-box-title:first-of-type::before { // UQ DS tool-box icon
+  background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%23000%27%3e%3cg fill=%27none%27 stroke=%27%23000%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-miterlimit=%278%27 stroke-width=%27.75%27%3e%3cpath d=%27M2.29 4.86h11.14c.46 0 .86.4.86.85v6.86c0 .46-.4.86-.86.86H2.29a.88.88 0 0 1-.86-.86V5.71c.05-.51.4-.85.86-.85zm8.17 0a2.56 2.56 0 0 0-2.57-2.57A2.56 2.56 0 0 0 5.3 4.86M1.43 8.29h5.28m2.15 0H14%27%3e%3c/path%3e%3cpath d=%27M7.89 9.54a.88.88 0 0 1-.86-.85v-.86c0-.46.4-.86.86-.86.45 0 .85.4.85.86v.86c0 .45-.4.85-.85.85zm0 0%27%3e%3c/path%3e%3c/g%3e%3c/svg%3e");
+}
+.first-h2-icon-research-and-teaching h2.s-lib-box-title:first-of-type::before { // UQ DS mortarboard icon
+  background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%23000%27%3e%3cg fill=%27none%27 stroke=%27%23000%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%27.75%27%3e%3cpath d=%27M11.14 7.23v4.11L8 12.3l-3.14-.95V7.23%27%3e%3c/path%3e%3cpath d=%27M14.29 6.06 8 3.7 1.71 6.06 8 8.4zm-12.58 0v3.11%27%3e%3c/path%3e%3c/g%3e%3c/svg%3e");
+}
+.first-h2-icon-all h2.s-lib-box-title:first-of-type::before { // https://www.streamlinehq.com/icons/ultimate-regular-free?search=search&icon=ico_bO2KGMpqgcEYmbjt (we have a licence for streamline)
+  background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%23000%27%3e%3cg fill=%27none%27 stroke=%27%23000%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%27.75%27%3e%3cpath d=%27M2.54 1.71h10.89c.48 0 .86.38.86.83v10.89c0 .46-.38.83-.83.83H2.54a.79.79 0 0 1-.83-.8V2.54c0-.45.38-.83.83-.83zm0 0%27%3e%3c/path%3e%3cpath d=%27M8 3.8 5.48 7.14 3.8 5.46m5.46.45h2.51M8 8.83l-2.52 3.34-1.68-1.69m5.46.46h2.51%27%3e%3c/path%3e%3c/g%3e%3c/svg%3e");
+}
+.first-h2-icon-courses h2.s-lib-box-title:first-of-type::before { // UQ DS content-notebook-pencil
+  background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%23000%27%3e%3cg fill=%27none%27 stroke=%27%23000%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%27.75%27%3e%3cpath d=%27M10.09 2.54a.83.83 0 0 0-.83-.83H2.54a.83.83 0 0 0-.83.83v10.89c0 .48.38.86.83.86h6.72c.45 0 .83-.38.83-.83m2.94.83c-.69 0-1.26-.58-1.26-1.26V4.66l1.26-2.95 1.26 2.95v8.37c0 .68-.58 1.26-1.26 1.26zm-1.26-2.52h2.52m-2.52-7.11h2.52M3.4 1.71V14.3%27%3e%3c/path%3e%3cpath d=%27M5.06 4.23H8.4v2.51H5.06zm0 0%27%3e%3c/path%3e%3c/g%3e%3c/svg%3e");
+}
