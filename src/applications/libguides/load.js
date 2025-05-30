@@ -48,13 +48,13 @@
     const searchParameters = new URLParameterHandler();
 
     function ready(fn) {
-        if (searchParameters.getValue('override') === 'on' && searchParameters.getValue('skipScript') === 'on') {
-            // to stop reusable being loaded, call it like this.
-            // https://guides.library.uq.edu.au/?override=on&skipScript=on
-            // You can then manually load things in the console
-            return;
-        }
         if (!!document.currentScript?.src) {
+            if (searchParameters.getValue('override') === 'on' && searchParameters.getValue('skipScript') === 'on') {
+                // to stop reusable being loaded, call it like this.
+                // https://guides.library.uq.edu.au/?override=on&skipScript=on
+                // You can then manually load things in the console
+                return;
+            }
             console.log('document.currentScript.src=', document.currentScript.src);
             const assetsHostname = 'assets.library.uq.edu.au';
             const assetsRoot = 'https://' + assetsHostname;
