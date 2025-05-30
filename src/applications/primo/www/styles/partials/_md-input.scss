@@ -21,13 +21,6 @@ prm-form-field md-input-container textarea {
 md-input-container {
     padding-bottom: 0;
 
-    &.md-required,
-    &.md-input-invalid {
-        &:before {
-            @extend %required-starlet;
-        }
-    }
-
     label,
     label:not(.md-no-float):not(._md-container-ignore, .md-container-ignore) {
         font-weight: inherit;
