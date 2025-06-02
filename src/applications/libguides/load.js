@@ -767,7 +767,8 @@
         /*
         html like the following is included on the page template
         <div id="a-z-index" data-for="a-z-list"></div>
-        the data-for value matches the id of the element that parents the a-z block
+        the data-for value matches the id of the element that parents the a-z block:
+        <div class="clearfix can-scroll-to-top" id="a-z-list">
          */
 
         const indexElement = document.getElementById('a-z-index');
@@ -787,6 +788,28 @@
                 const azLink = !!h2Title?.textContent && document.querySelector(`[data-label=${h2Title.textContent}]`);
                 !!l?.id && !!azLink && (azLink.href = `#${l.id}`);
             });
+
+        // add a "scroll to top" arrow to the left of each letter-box
+        const boxes = document.querySelectorAll('.can-scroll-to-top > div');
+        !!boxes &&
+            boxes.forEach((box, index) => {
+                const h2Element = box.querySelector('h2.s-lib-box-title');
+                let newHTML;
+                if (h2Element) {
+                    const h2Content = h2Element.innerHTML;
+                    newHTML = `<div class="h2-arrow-wrapper"><a title="Scroll to top" href="#" class="uparrow" onclick="scrollToTop()"></a><h2 class="s-lib-box-title">${h2Content}</h2></div>`;
+                    if (index === 0) {
+                        // no link on the first one, but occupy the space
+                        newHTML = `<div class="h2-arrow-wrapper"><span class="uparrow"></span><h2 class="s-lib-box-title">${h2Content}</h2></div>`;
+                    }
+                    h2Element.outerHTML = newHTML;
+                }
+            });
+        function scrollToTop() {
+            document.activeElement.blur();
+            const topOfPage = document.getElementById('a-z-index');
+            !!topOfPage && topOfPage.scrollIntoView();
+        }
     }
 
     ready(applyUQLItemsToGuides);

@@ -24,8 +24,8 @@ $nav-border: 4px solid $uqBrandColour;
 $page-background-color: #fff;
 $button-color: $uqBrandColour;
 
-$down-arrow: "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath d=%22M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z%22/%3E%3C/svg%3E";
-$up-arrow: "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath d=%22m12 8-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z%22/%3E%3C/svg%3E";
+$down-arrow: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath d=%22M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z%22/%3E%3C/svg%3E';
+$up-arrow: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath d=%22m12 8-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z%22/%3E%3C/svg%3E';
 
 // styles imported from uq css files
 @import 'uqaccordion';
@@ -46,7 +46,6 @@ $up-arrow: "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22%3E%
 #col2 .s-lib-box .s-lib-box-title {
     padding-left: 0;
 }
-
 
 /* legacy, in case someone fogets they shouldn't use this */
 .important-content {
@@ -237,7 +236,8 @@ body .s-lib-box-container .s-lib-box-content h4 {
     line-height: 1.2;
     margin-top: 24px;
 }
-h5, body h5 {
+h5,
+body h5 {
     font-size: 1.125rem;
     font-family: $font;
     color: $heading;
@@ -245,7 +245,8 @@ h5, body h5 {
     line-height: 1.2;
     margin-top: 24px;
 }
-h6, body h6 {
+h6,
+body h6 {
     font-size: 1rem;
     font-family: $font;
     color: $heading;
@@ -254,7 +255,8 @@ h6, body h6 {
     margin-top: 24px;
 }
 
-#s-lib-footer-login-link a, #s-lib-footer-support-link a,
+#s-lib-footer-login-link a,
+#s-lib-footer-support-link a,
 a {
     color: $uqBrandColour;
     text-decoration: underline;
@@ -317,13 +319,15 @@ ul.s-lg-guide-list {
 body:not(.guides_homepage) #s-lg-index-cols {
     margin-left: 0;
     margin-right: 0;
-    padding-left: .5rem;
-    padding-right: .5rem;
-    #col1, #col2 {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    #col1,
+    #col2 {
         width: auto;
         padding-left: 0;
         padding-right: 0;
-        ul, ol {
+        ul,
+        ol {
             margin-bottom: 24px;
         }
     }
@@ -347,8 +351,8 @@ body:not(.guides_homepage) #s-lg-index-cols {
     }
     .container,
     .s-lib-main {
-        padding-left: .75rem;
-        padding-right: .75rem;
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
         margin-left: auto;
         margin-right: auto;
         max-width: 71em;
@@ -434,7 +438,6 @@ body:not(.guides_homepage) #s-lg-index-cols {
         line-height: normal;
     }
 }
-
 
 //.s-lib-box .row:has(>div[mce_style="display:none"][style="display: block;"]) > #accor h4 a:after {
 //    border: thin solid blue;
@@ -895,42 +898,42 @@ body:not(.guides_homepage) .s-lib-box-content {
 //        }
 //    }
 
-    #s-lg-hp-nav-bottom {
-        form {
-            &[role='search'] {
-//                &.pull-right {
-//                    clear: both;
-//                    float: none !important;
-//                }
-//
-//                span {
-//                    padding-right: 10px;
-//                }
-//
-                .form-group {
-                    width: 70%;
-                    @media (max-width: 768px) {
-                        width: 100%;
-                    }
-//
-//                    .input-group {
-//                        width: 100%;
-//                    }
+#s-lg-hp-nav-bottom {
+    form {
+        &[role='search'] {
+            //                &.pull-right {
+            //                    clear: both;
+            //                    float: none !important;
+            //                }
+            //
+            //                span {
+            //                    padding-right: 10px;
+            //                }
+            //
+            .form-group {
+                width: 70%;
+                @media (max-width: 768px) {
+                    width: 100%;
                 }
-//
-//                .form-control,
-//                .s-lg-public-search-field {
-//                    width: 100%;
-//                }
-//
-                .btn-default {
-                    color: #fff;
-                    background-color: $button-color;
-                    border: 1px solid $button-color;
-                }
+                //
+                //                    .input-group {
+                //                        width: 100%;
+                //                    }
+            }
+            //
+            //                .form-control,
+            //                .s-lg-public-search-field {
+            //                    width: 100%;
+            //                }
+            //
+            .btn-default {
+                color: #fff;
+                background-color: $button-color;
+                border: 1px solid $button-color;
             }
         }
     }
+}
 //}
 //
 //.uq-minimal-header {
@@ -1029,22 +1032,24 @@ body:not(.guides_homepage) .s-lib-box-content {
 //    }
 //}
 
-
-#s-lg-az-nav, #s-lg-er-nav, #s-lg-hp-nav, #s-lg-profile-nav, #s-lg-srch-nav {
+#s-lg-az-nav,
+#s-lg-er-nav,
+#s-lg-hp-nav,
+#s-lg-profile-nav,
+#s-lg-srch-nav {
     background-color: transparent;
 }
 #s-lg-hp-nav button.btn:focus {
     outline: none; // get rid of weird dashed outline
 }
 
-
 #s-lg-index-cols #s-lg-hp-nav {
-    &>ul>li:first-of-type {
+    & > ul > li:first-of-type {
         // tabs: bar of buttons
         padding: 0;
         ul {
             margin-bottom: 0;
-            &>li>button {
+            & > li > button {
                 background-color: white;
                 color: $bodyCopy;
                 font-size: 18px;
@@ -1054,7 +1059,7 @@ body:not(.guides_homepage) .s-lib-box-content {
                     text-decoration: underline;
                 }
             }
-            &>li.active>button {
+            & > li.active > button {
                 background-color: white;
                 color: $uqBrandColour;
             }
@@ -1067,7 +1072,7 @@ body:not(.guides_homepage) .s-lib-box-content {
             }
         }
     }
-    &>ul>li:nth-of-type(2) {
+    & > ul > li:nth-of-type(2) {
         // tabs: displayed content panel
         border-width: 0 0 0 1px;
         border-style: solid;
@@ -1076,7 +1081,7 @@ body:not(.guides_homepage) .s-lib-box-content {
 }
 @media (max-width: 64rem) {
     #s-lg-index-cols #s-lg-hp-nav {
-        &>ul>li:first-of-type {
+        & > ul > li:first-of-type {
             // tabs: bar of buttons
             li {
                 padding: 16px 24px;
@@ -1086,11 +1091,11 @@ body:not(.guides_homepage) .s-lib-box-content {
 }
 
 .guides_homepage {
-     div h1:not(.hero-h1),
+    div h1:not(.hero-h1),
     &>div.s-lib-box-container,
     .remove-h2 h2.s-lib-box-title // if the box has built in h2 tags which we want to replace with internal ones of our own, use .remove-h2
     {
-        display: none
+        display: none;
     }
 }
 
@@ -1132,7 +1137,8 @@ body:not(.guides_homepage) .s-lib-box-content {
     }
     .s-lib-box-content {
         padding: 0;
-        ul, ol {
+        ul,
+        ol {
             margin-left: 8px;
         }
         li {
@@ -1158,10 +1164,10 @@ body:not(.guides_homepage) .s-lib-box-content {
         &:hover {
             background-color: $paneBackground !important;
             h3 {
-                text-decoration: underline
+                text-decoration: underline;
             }
             .panelBodyWrapper {
-                background-color: $paneBackground !important
+                background-color: $paneBackground !important;
             }
             div.arrowSvgWrapper {
                 background-color: $paneBackground !important;
@@ -1169,7 +1175,7 @@ body:not(.guides_homepage) .s-lib-box-content {
             }
         }
         h3.cardHeading {
-            font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
             font-size: 24px !important;
             font-weight: 500;
             letter-spacing: 0.16px;
@@ -1181,7 +1187,7 @@ body:not(.guides_homepage) .s-lib-box-content {
             margin-bottom: 0;
         }
         svg.arrowForwardIcon {
-            display: block
+            display: block;
         }
     }
 }
@@ -1211,7 +1217,7 @@ body:not(.guides_homepage) .s-lib-box-content {
         & > div > div > div,
         & > div > div,
         & > div,
-        a  {
+        a {
             height: 100%;
         }
     }
@@ -1239,20 +1245,20 @@ body:not(.guides_homepage) .s-lib-box-content {
         &:focus-within,
         &:hover {
             h3 {
-                text-decoration: underline
+                text-decoration: underline;
             }
         }
     }
     @media (prefers-reduced-motion: no-preference) {
         .uql-grid a svg.arrowForwardIcon {
-            transition: margin-left 200ms ease-in-out
+            transition: margin-left 200ms ease-in-out;
         }
         .uql-grid {
             a:focus-within,
             a:hover {
                 svg.arrowForwardIcon {
                     margin-left: 10px;
-                    transition: margin-left 200ms ease-in-out
+                    transition: margin-left 200ms ease-in-out;
                 }
             }
         }
@@ -1302,8 +1308,8 @@ body:not(.guides_homepage) .s-lib-box-content {
         margin-top: 24px;
     }
     .arrowSvgWrapper {
-      margin-top: auto;
-      align-self: flex-start;
+        margin-top: auto;
+        align-self: flex-start;
     }
 }
 /// after we move the hero, we get left with this empty div that takes up a bit of vertical space
@@ -1316,7 +1322,6 @@ div:has(> h1#s-lib-public-header-title:empty) {
 #s-lg-tabs-container {
     margin-top: -65px;
     .nav-pills {
-
         li:not(:has(li)) {
             border-bottom: 1px solid rgb(220, 220, 221);
         }
@@ -1326,17 +1331,17 @@ div:has(> h1#s-lib-public-header-title:empty) {
             -webkit-text-decoration: none;
             text-decoration: none;
             font-weight: 400;
-             &.uq-local-nav__grandparent {
+            &.uq-local-nav__grandparent {
                 border-bottom: 1px solid rgb(59, 56, 62);
             }
             > a:focus,
             > a:hover {
                 background-color: $paneBackground;
-                font-weight: 500
+                font-weight: 500;
             }
             &:not(.dropdown-menu) > a:hover {
                 padding: 16px 24px 16px 32px;
-                transition: color .2s ease-out, text-decoration .2s ease-out, background-color .2s ease-out;
+                transition: color 0.2s ease-out, text-decoration 0.2s ease-out, background-color 0.2s ease-out;
                 font-weight: 400;
             }
             &:not(.active) a {
@@ -1344,7 +1349,7 @@ div:has(> h1#s-lib-public-header-title:empty) {
                 background-repeat: no-repeat;
                 background-size: 24px;
                 background-position: right center;
-                padding-inline-end: 1.5rem
+                padding-inline-end: 1.5rem;
             }
             &.active {
                 border-left: 4px solid $uqBrandColour;
@@ -1410,26 +1415,26 @@ div:has(> h1#s-lib-public-header-title:empty) {
 }
 .uq-local-nav {
     max-width: 261px;
-    margin-bottom: 6rem
+    margin-bottom: 6rem;
 }
 
 .uq-local-nav__link {
     display: block;
     color: $black;
-    padding-block:1rem;
-    padding-inline-start:2rem;
+    padding-block: 1rem;
+    padding-inline-start: 2rem;
     border-bottom: 1px solid $borders;
 }
 
 .uq-local-nav__link:hover {
     color: $black;
     background-color: $paneBackground;
-    transition: color .2s ease-out, text-decoration .2s ease-out, background-color .2s ease-out;
+    transition: color 0.2s ease-out, text-decoration 0.2s ease-out, background-color 0.2s ease-out;
 }
 
 .uq-local-nav__link:focus-visible {
     outline: 4px solid $utility500;
-    outline-offset: -3px
+    outline-offset: -3px;
 }
 
 .uq-local-nav__grandparent a,
@@ -1438,7 +1443,7 @@ div:has(> h1#s-lib-public-header-title:empty) {
     background-repeat: no-repeat;
     background-size: 24px;
     background-position: left center;
-    font-weight: 500
+    font-weight: 500;
 }
 
 .uq-local-nav__grandparent .uq-local-nav__link {
@@ -1450,43 +1455,47 @@ div:has(> h1#s-lib-public-header-title:empty) {
     text-decoration: none !important;
 }
 
-.uq-local-nav__children,.uq-local-nav__grandchildren {
+.uq-local-nav__children,
+.uq-local-nav__grandchildren {
     list-style: none;
     margin: 0;
-    padding: 0
+    padding: 0;
 }
 
-.uq-local-nav__child,.uq-local-nav__grandchild {
-    margin-bottom: 0
+.uq-local-nav__child,
+.uq-local-nav__grandchild {
+    margin-bottom: 0;
 }
 
 .uq-local-nav__grandchild .uq-local-nav__link {
-    padding-inline:2.5rem
+    padding-inline: 2.5rem;
 }
 
 .uq-local-nav--current-child {
     border-left: 4px solid $uqBrandColour;
-    margin-top: -1px
+    margin-top: -1px;
 }
 
-.uq-local-nav--current-child>.uq-local-nav__link {
+.uq-local-nav--current-child > .uq-local-nav__link {
     border-top: 1px solid $borders;
-    padding-inline:calc(2rem - 4px) 0}
+    padding-inline: calc(2rem - 4px) 0;
+}
 
 .uq-local-nav--active-link {
     background-color: $paneBackground;
-    font-weight: 500
+    font-weight: 500;
 }
 
-.uq-local-nav--has-children>.uq-local-nav__link {
+.uq-local-nav--has-children > .uq-local-nav__link {
     background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m7 10 5 5 5-5' stroke='%2319151c' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-size: 24px;
     background-position: right center;
-    padding-inline-end:1.5rem}
+    padding-inline-end: 1.5rem;
+}
 
-.uq-local-nav--has-children>.uq-local-nav--active-link {
-    background-image: none
+.uq-local-nav--has-children > .uq-local-nav--active-link {
+    background-image: none;
 }
 
 .s-lg-tabs-side .s-lg-boxnav {
@@ -1506,7 +1515,7 @@ div:has(> h1#s-lib-public-header-title:empty) {
 }
 .list-group-item a:hover {
     background-color: $paneBackground;
-    transition: color .2s ease-out, text-decoration .2s ease-out, background-color .2s ease-out;
+    transition: color 0.2s ease-out, text-decoration 0.2s ease-out, background-color 0.2s ease-out;
 }
 .list-group.s-lg-boxnav {
     margin-left: 0;
@@ -1514,10 +1523,10 @@ div:has(> h1#s-lib-public-header-title:empty) {
 }
 .list-group.s-lg-boxnav a:hover {
     background-color: $paneBackground;
-    transition: color .2s ease-out, text-decoration .2s ease-out, background-color .2s ease-out;
+    transition: color 0.2s ease-out, text-decoration 0.2s ease-out, background-color 0.2s ease-out;
 }
 
-.nav-stacked>li+li {
+.nav-stacked > li + li {
     margin-top: 0;
 }
 
@@ -1540,12 +1549,11 @@ div:has(> h1#s-lib-public-header-title:empty) {
     }
 }
 
-
 /* the following should be temporary: override built in css on guides individual page - update springshare html template for golive */
-#s-lg-tabs-container .nav-pills>li.active> a {
+#s-lg-tabs-container .nav-pills > li.active > a {
     background-color: $paneBackground !important;
 }
-#s-lg-tabs-container .nav-pills>li>ul>li:has(>a:hover) {
+#s-lg-tabs-container .nav-pills > li > ul > li:has(> a:hover) {
     background-color: $paneBackground !important;
 }
 
@@ -1556,34 +1564,37 @@ div:has(> h1#s-lib-public-header-title:empty) {
     margin-bottom: 24px;
     .uq-pagination__item a.uq-pagination__link {
         &:not([href]):empty,
-        &[href=""]:empty,
+        &[href='']:empty,
         &:not([href]),
-        &[href=""] {
+        &[href=''] {
             color: grey;
             text-decoration: none !important;
         }
     }
 }
 
-.container.s-lib-side-borders .row.s-lg-row { /* sidebar menu */
+.container.s-lib-side-borders .row.s-lg-row {
+    /* sidebar menu */
     display: flex;
     column-gap: 32px;
     justify-content: space-between;
     margin-left: -32px;
     margin-right: -32px;
-    > div{
+    > div {
         padding: 0;
     }
     @media (max-width: 768px) {
         flex-direction: column-reverse;
-        > div:first-child { /* sidebar */
+        > div:first-child {
+            /* sidebar */
             margin-inline: 16px;
             margin-top: 32px;
             .uq-local-nav {
                 max-width: 100%;
             }
         }
-        > div:last-child { /* body */
+        > div:last-child {
+            /* body */
             margin-inline: 16px;
         }
     }
@@ -1592,7 +1603,9 @@ div:has(> h1#s-lib-public-header-title:empty) {
 // based on DS "Previous next" component, but had to make some adjustments
 .uq-previous-next,
 #s-lg-page-prevnext {
-    &__item, .previous, .next {
+    &__item,
+    .previous,
+    .next {
         width: 100%;
         float: left;
 
@@ -1609,7 +1622,7 @@ div:has(> h1#s-lib-public-header-title:empty) {
     }
 
     &::after {
-        content: "";
+        content: '';
         display: block;
         clear: both;
     }
@@ -1644,17 +1657,20 @@ div:has(> h1#s-lib-public-header-title:empty) {
         }
     }
 
-    &__link-previous, .previous {
+    &__link-previous,
+    .previous {
         position: relative;
         float: left;
     }
 
-    &__link-next, .next {
+    &__link-next,
+    .next {
         position: relative;
         text-align: right;
         float: right;
     }
-    &__description, strong {
+    &__description,
+    strong {
         font-style: italic;
         font-weight: 300;
     }
@@ -1670,7 +1686,7 @@ div:has(> h1#s-lib-public-header-title:empty) {
 .s-lib-box:has(.highlight-alert) {
     background-color: $warning50;
     * {
-        background-color: $warning50 !important;;
+        background-color: $warning50 !important;
     }
 }
 .s-lib-box:has(.highlight-callout) {
@@ -1678,7 +1694,7 @@ div:has(> h1#s-lib-public-header-title:empty) {
     padding: 0;
     margin-left: 20px;
     * {
-        background-color: $grey50 !important;;
+        background-color: $grey50 !important;
     }
 }
 .s-lib-box:has(.highlight-info),
@@ -1689,11 +1705,16 @@ div:has(> h1#s-lib-public-header-title:empty) {
     overflow: hidden;
     padding: 1.5rem;
     position: relative;
-    .dropdown-menu { // info boxes obscures the admin edit dropdown
+    .dropdown-menu {
+        // info boxes obscures the admin edit dropdown
         margin-left: -170px;
         margin-top: -50px;
     }
-    h2, h3, h4, h5, h6 {
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
         color: $black;
         margin-bottom: 0.5rem;
     }
@@ -1701,14 +1722,14 @@ div:has(> h1#s-lib-public-header-title:empty) {
     > h3:first-child,
     > h4:first-child,
     > h5:first-child,
-    > h6:first-child, {
-        margin-top: 0
+    > h6:first-child {
+        margin-top: 0;
     }
     p {
         margin-bottom: 0.5rem;
     }
     :last-child {
-        margin-bottom: 0
+        margin-bottom: 0;
     }
 }
 .s-lib-box:has(.highlight-info),
@@ -1719,7 +1740,7 @@ div:has(> h1#s-lib-public-header-title:empty) {
         background-repeat: no-repeat;
         background-position: 50%;
         background-size: 100%;
-        content: "";
+        content: '';
         display: block;
         height: 1.5rem;
         left: 1.5rem;
@@ -1733,4 +1754,43 @@ div:has(> h1#s-lib-public-header-title:empty) {
 }
 .s-lib-box:has(.highlight-alert)::before {
     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none'%3E%3Cpath stroke='%23000' stroke-width='1.5' d='M20.127 18.545a1.18 1.18 0 0 1-1.055 1.706H4.929a1.18 1.18 0 0 1-1.055-1.706l7.072-14.143a1.179 1.179 0 0 1 2.109 0z'/%3E%3Cpath stroke='%23000' stroke-linecap='round' stroke-width='1.5' d='M12 9v4'/%3E%3Ccircle cx='11.9' cy='16.601' r='1.1' fill='%23000'/%3E%3C/svg%3E");
+}
+html {
+    scroll-behavior: smooth;
+}
+.can-scroll-to-top .s-lib-box.s-lib-box-std {
+    position: relative;
+    padding-left: 80px;
+    display: flex;
+    justify-content: flex-start;
+    .h2-arrow-wrapper {
+        /* position: absolute; */
+        margin-top: 15px;
+        display: flex;
+        justify-content: flex-start;
+        .uparrow {
+            display: block;
+            width: 30px;
+            height: 30px;
+        }
+        a.uparrow {
+            background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%23000%27%3e%3cpath d=%27m1.715 10.855 6-6.168a.41.41 0 0 1 .597 0l5.973 6.168%27 fill=%27none%27 stroke=%27%23000%27 stroke-width=%27.75%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3c/path%3e%3c/svg%3e');
+            background-repeat: no-repeat;
+            /* TODO hover and focus */
+        }
+        a.uparrow:focus-within,
+        a.uparrow:hover {
+            background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%23fff%27%3e%3cpath d=%27m1.715 10.855 6-6.168a.41.41 0 0 1 .597 0l5.973 6.168%27 fill=%27none%27 stroke=%27%23fff%27 stroke-width=%27.75%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3c/path%3e%3c/svg%3e');
+        }
+        h2 {
+            color: $heading;
+            font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 2rem;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+    }
+    .s-lib-box-content {
+        padding: 10px 0;
+    }
 }
