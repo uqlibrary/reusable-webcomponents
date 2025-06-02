@@ -756,6 +756,12 @@ prm-add-alert-toast md-toast .md-toast-content .md-button {
 primo-explore .md-dialog-container.fixed-container {
     background-color: rgba(83, 115, 140, 0.5);
 }
+primo-explore prm-search-bookmark-filter,
+primo-explore prm-user-area-expandable,
+primo-explore button.sign-in-btn-ctm,
+primo-explore prm-authentication {
+    display: none !important; // old BO primo login prompt, recommended to be hidden after VE goes live, 2025. Can remove in 2026?
+}
 
 primo-explore prm-search-result-list {
     .pages-separated-with-gaps {
