@@ -92,6 +92,15 @@ prm-recomendation-item {
     margin-bottom: 0.75em;
     width: 100%;
 
+    a {
+        text-decoration: none !important;
+
+        h3 {
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+    }
+
     @include __xs {
         margin: 0;
         padding: 1em 1.5em;

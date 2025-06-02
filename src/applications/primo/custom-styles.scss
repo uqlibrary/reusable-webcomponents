@@ -79,9 +79,6 @@
 *:focus-visible {
     border: 2px solid $uqUtility500;
 }
-* {
-    font-style: normal;
-}
 prm-advanced-search *:focus-visible {
     border: none;
 }
@@ -708,12 +705,6 @@ prm-breadcrumbs .md-chip.persistent-facet {
     }
 }
 
-// uqblue (#2377CB) isn't accessible on the primo grey background, so slightly different colour is needed
-.language-characters a {
-    // dbsearch alpha-nav
-    color: #1e66ae !important;
-}
-
 // dbsearch sidebar
 prm-tree-nav md-list md-list-item .md-button.branch-name {
     color: $theme-color;
@@ -957,77 +948,6 @@ prm-full-view {
     }
 }
 
-// from https://design-system.uq.edu.au/?path=/docs/components-pagination--docs
-prm-page-nav-menu {
-    // Stop new pagination from floating above content
-    position: static;
-    .page-nav-inner {
-        &:after {
-            // Remove oval background on "previous" and "next" buttons
-            display: none;
-        }
-    }
-    // line up the results per page heading and number
-    .results-per-page {
-        display: flex;
-        align-items: flex-end;
-        span[translate="nui.results.resultsPerPage"] {
-            bottom: 13px;
-            position: relative;
-        }
-    }
-    // current page not-a-link
-    .results-per-page .current-bulk.md-button,
-    .counter-main .current-page.md-button {
-        box-shadow: none;
-        background: transparent;
-        color: $uqBodyCopy !important;
-        font-weight: 500 !important;
-        &:not([disabled]):hover {
-            background: transparent;
-            color: $uqBodyCopy !important;
-            border-bottom: unset !important;
-        }
-    }
-    // other page links
-    .counter-main,
-    .counter-nav,
-    .bulks-options {
-        .md-button {
-            color: $uqUtility500 !important;
-            background-color: transparent;
-            text-decoration: none;
-            font-weight: 300 !important;
-            font-size: 1rem;
-            height: 30px;
-            min-width: 25px;
-            width: 25px;
-            &:not([disabled]):not(:has([icon-definition="chevron-left"])):not(:has([icon-definition="chevron-right"])) {
-                &.hovered,
-                &.md-focused,
-                &:hover,
-                &:focus {
-                    border-bottom: 1px solid $uqUtility500;
-                    border-radius: unset;
-                }
-            }
-            &:not([disabled]) {
-                &.hovered,
-                &.md-focused,
-                &:hover,
-                &:focus {
-                    background-color: transparent;
-                }
-            }
-        }
-    }
-
-    // pagination widget has a contrast issue of a blue arrow and dark background, upon hovering
-    #speedDialWidget .md-button.md-fab:hover {
-        background-color: $highlightBlue;
-    }
-}
-
 .my-refworks-ctm {
     // Hide RefWorks in mobile menu
     display: none;
@@ -1051,29 +971,7 @@ prm-snippet.availability-button
     span.availability-status,
     span.availability-status span {
         color: $accent-color !important;
-    }
-}
-
-prm-alphabet-toolbar {
-    .md-button {
-        &.active {
-            color: $accent-color !important;
-            background-color: $white;
-        }
-    }
-    .md-button {
-        &.active:hover,
-        &.active:focus,
-        &.active.md-focused {
-            background-color: $accent-color !important;
-            color: $white !important;
-        }
-    }
-    .bar {
-        button,
-        &.alert-bar {
-            color: #fff;
-        }
+        text-decoration: underline;
     }
 }
 
@@ -1715,26 +1613,24 @@ prm-full-view div,
 prm-full-view-cont div,
 prm-explore-main div.header {
     // the default yellow border is ugly
-    prm-favorites-warning-message div.favorites-guest-warning {
-        border-color: $theme-color;
-        padding: 2px;
-        background-color: #fff;
-    }
+    prm-favorites-warning-message {
+        // also has fancy positioning js in exlibris-primo repo custom.js file to make it "stick" to the pin
+        div.favorites-guest-warning {
+            border-color: $theme-color;
+            padding: 2px;
+            background-color: #fff;
+            z-index: 99; // hiding behind reusable alerts
+        }
 
-    prm-favorites-warning-message .favorites-guest-warning-triangle {
-        border-bottom-color: $theme-color;
+        .favorites-guest-warning-triangle {
+            border-bottom-color: $theme-color;
+        }
+        .favorites-guest-warning-text {
+            padding: 0.5em 0 0.5em 0.5em;
+        }
     }
 }
-// also has fancy positioning js in exlibris-primo repo custom.js file to make it "stick" to the pin
 
-// the Favourite pin popup close button turns white on hover. Fix.
-prm-search-bookmark-filter
-div.favorites-guest-warning
-.md-button:not(.disable-hover):hover:not([disabled]):hover:not([disabled]) {
-    color: #fff !important;
-    border-radius: 50%;
-    background-color: grey;
-}
 prm-brief-result-container .result-item-actions {
     prm-save-to-favorites-button {
         .unpin-button,

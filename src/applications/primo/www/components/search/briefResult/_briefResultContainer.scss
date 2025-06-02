@@ -205,9 +205,19 @@ prm-brief-result-container {
             margin: 0;
             display: inline-flex;
             justify-content: center;
-            @extend .prm-primary-color.prm-hue2;
+            color: $accent-color;
             md-icon {
                 @include setSize(20px);
+            }
+            opacity: .8;
+            &:hover,
+            &:focus {
+                &:not([disabled]) {
+                    box-shadow: none;
+                    background-color: transparent !important;
+                    color: $accent-color !important;
+                    opacity: 1;
+                }
             }
         }
         .citation-trails-brief {
