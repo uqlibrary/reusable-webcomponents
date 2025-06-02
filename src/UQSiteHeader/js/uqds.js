@@ -133,7 +133,7 @@ var uq = (function (exports) {
                     !!subNavLinks &&
                         subNavLinks.length > 0 &&
                         subNavLinks.forEach(function (item) {
-                            if (window.matchMedia('(min-width: 1024px)').matches) {
+                            if (window.matchMedia('(min-width: 63.99em)').matches) {
                                 item.addEventListener('touchend', _this.handleToggle);
                             }
                         });
@@ -244,7 +244,7 @@ var uq = (function (exports) {
                     if (
                         !!event.type &&
                         (event.type === 'mouseenter' || event.type === 'mouseleave') &&
-                        window.matchMedia('(max-width: 1023px)').matches // 1024 - 1
+                        window.matchMedia('(max-width: 63.99em)').matches
                     ) {
                         return;
                     }
