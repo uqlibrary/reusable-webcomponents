@@ -244,7 +244,7 @@ var uq = (function (exports) {
                     if (
                         !!event.type &&
                         (event.type === 'mouseenter' || event.type === 'mouseleave') &&
-                        window.matchMedia('(max-width: 1024px)').matches
+                        window.matchMedia('(max-width: 1023px)').matches // 1024 - 1
                     ) {
                         return;
                     }
