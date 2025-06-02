@@ -77,7 +77,7 @@
     "prettier-eslint-cli": "^7.1.0",
     "rename-output-webpack-plugin": "^1.0.1",
     "sass-loader": "^13.3.2",
-    "start-server-and-test": "^2.0.3",
+    "start-server-and-test": "^2.0.11",
     "webpack": "^5.94.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"
