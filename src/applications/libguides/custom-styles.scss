@@ -1562,7 +1562,7 @@ div:has(> h1#s-lib-public-header-title:empty) {
     justify-content: center;
     margin-top: -20px;
     margin-bottom: 24px;
-    .uq-pagination__item a.uq-pagination__link {
+    .uq-pagination__list-item a.uq-pagination__item {
         &:not([href]):empty,
         &[href='']:empty,
         &:not([href]),

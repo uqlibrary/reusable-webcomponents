@@ -725,42 +725,42 @@
     function addAZNavigationToSomePages() {
         function insertAZIntoDocument(indexElement) {
             const wrappingElement = 'div'; // nav
-            const azList = `<${wrappingElement} class="uq-alpha-nav" aria-label="Navigate by alphabet">
-                <ul class="uq-pagination">
-                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="A">A</a></li>
-                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="B">B</a></li>
-                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="C">C</a></li>
-                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="D">D</a></li>
-                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="E">E</a></li>
-                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="F">F</a></li>
-                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="G">G</a></li>
-                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="H">H</a></li>
-                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="I">I</a></li>
-                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="J">J</a></li>
-                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="K">K</a></li>
-                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="L">L</a></li>
-                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="M">M</a></li>
-                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="N">N</a></li>
-                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="O">O</a></li>
-                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="P">P</a></li>
-                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="Q">Q</a></li>
-                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="R">R</a></li>
-                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="S">S</a></li>
-                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="T">T</a></li>
-                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="U">U</a></li>
-                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="V">V</a></li>
-                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="W">W</a></li>
-                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="X">X</a></li>
-                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="Y">Y</a></li>
-                    <li class="uq-pagination__item"><a class="uq-pagination__link" data-label="Z">Z</a></li>
-                </ul>
+            const azList = `<${wrappingElement} class="uq-alpha-nav uq-pagination" aria-label="Navigate by alphabet">
+                    <ul class="uq-pagination__list">
+                        <li class="uq-pagination__list-item"><a class="uq-pagination__item" data-label="A">A</a></li>
+                        <li class="uq-pagination__list-item"><a class="uq-pagination__item" data-label="B">B</a></li>
+                        <li class="uq-pagination__list-item"><a class="uq-pagination__item" data-label="C">C</a></li>
+                        <li class="uq-pagination__list-item"><a class="uq-pagination__item" data-label="D">D</a></li>
+                        <li class="uq-pagination__list-item"><a class="uq-pagination__item" data-label="E">E</a></li>
+                        <li class="uq-pagination__list-item"><a class="uq-pagination__item" data-label="F">F</a></li>
+                        <li class="uq-pagination__list-item"><a class="uq-pagination__item" data-label="G">G</a></li>
+                        <li class="uq-pagination__list-item"><a class="uq-pagination__item" data-label="H">H</a></li>
+                        <li class="uq-pagination__list-item"><a class="uq-pagination__item" data-label="I">I</a></li>
+                        <li class="uq-pagination__list-item"><a class="uq-pagination__item" data-label="J">J</a></li>
+                        <li class="uq-pagination__list-item"><a class="uq-pagination__item" data-label="K">K</a></li>
+                        <li class="uq-pagination__list-item"><a class="uq-pagination__item" data-label="L">L</a></li>
+                        <li class="uq-pagination__list-item"><a class="uq-pagination__item" data-label="M">M</a></li>
+                        <li class="uq-pagination__list-item"><a class="uq-pagination__item" data-label="N">N</a></li>
+                        <li class="uq-pagination__list-item"><a class="uq-pagination__item" data-label="O">O</a></li>
+                        <li class="uq-pagination__list-item"><a class="uq-pagination__item" data-label="P">P</a></li>
+                        <li class="uq-pagination__list-item"><a class="uq-pagination__item" data-label="Q">Q</a></li>
+                        <li class="uq-pagination__list-item"><a class="uq-pagination__item" data-label="R">R</a></li>
+                        <li class="uq-pagination__list-item"><a class="uq-pagination__item" data-label="S">S</a></li>
+                        <li class="uq-pagination__list-item"><a class="uq-pagination__item" data-label="T">T</a></li>
+                        <li class="uq-pagination__list-item"><a class="uq-pagination__item" data-label="U">U</a></li>
+                        <li class="uq-pagination__list-item"><a class="uq-pagination__item" data-label="V">V</a></li>
+                        <li class="uq-pagination__list-item"><a class="uq-pagination__item" data-label="W">W</a></li>
+                        <li class="uq-pagination__list-item"><a class="uq-pagination__item" data-label="X">X</a></li>
+                        <li class="uq-pagination__list-item"><a class="uq-pagination__item" data-label="Y">Y</a></li>
+                        <li class="uq-pagination__list-item"><a class="uq-pagination__item" data-label="Z">Z</a></li>
+                    </ul>
             </${wrappingElement}>`;
             const template = document.createElement('template');
             template.innerHTML = azList;
             !!indexElement && indexElement.appendChild(template.content);
         }
 
-        // temporary code for subdomain
+        // temporary code for subdomain - 2025 dev
         const springshareBanner = document.getElementById('s-lib-banner');
         !!springshareBanner && springshareBanner.remove();
 
