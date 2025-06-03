@@ -1691,39 +1691,58 @@ div:has(> h1#s-lib-public-header-title:empty) {
 }
 
 // 3 styles of boxes, info, alert & callout
-.s-lib-box:has(.highlight-info) {
+.s-lib-box.s-lib-box-std:has(h2.replace-springshare-h2) {
+    h2:not(.replace-springshare-h2) {
+        display: none;
+    }
+}
+.s-lib-box .highlight-info-wrapper {
     background-color: $utility50;
     * {
         background-color: $utility50 !important;
     }
 }
-.s-lib-box:has(.highlight-alert) {
+.s-lib-box .highlight-alert-wrapper {
     background-color: $warning50;
     * {
         background-color: $warning50 !important;
     }
 }
-.s-lib-box:has(.highlight-callout) {
+.s-lib-box .highlight-callout-wrapper {
     background-color: $grey50;
-    padding: 0;
-    margin-left: 20px;
+    //padding: 0;
+    //margin-left: 20px;
     * {
         background-color: $grey50 !important;
     }
+    h2 {
+        padding: 0 !important;
+        margin-bottom: 1rem !important;
+    }
+    p {
+        margin-bottom: 1rem !important;
+        &:last-child {
+            margin-bottom: 0 !important;
+        }
+    }
+    ul, ol {
+        padding: 0 0 0 1.5rem;
+        margin: 0 0 1.5rem 0;
+        li {
+            margin: 0 0 0.5rem 0;
+            padding: 0;
+
+        }
+    }
 }
-.s-lib-box:has(.highlight-info),
-.s-lib-box:has(.highlight-alert),
-.s-lib-box:has(.highlight-callout) {
+.s-lib-box .highlight-info-wrapper,
+.s-lib-box .highlight-alert-wrapper,
+.s-lib-box .highlight-callout-wrapper {
     border-radius: 2px;
     margin-bottom: 1.5rem;
     overflow: hidden;
     padding: 1.5rem;
     position: relative;
-    .dropdown-menu {
-        // info boxes obscures the admin edit dropdown
-        margin-left: -170px;
-        margin-top: -50px;
-    }
     h2,
     h3,
     h4,
@@ -1746,10 +1765,15 @@ div:has(> h1#s-lib-public-header-title:empty) {
         margin-bottom: 0;
     }
 }
-.s-lib-box:has(.highlight-info),
-.s-lib-box:has(.highlight-alert) {
-    padding: 0 0 0 4rem;
-    margin-left: 20px;
+.s-lib-box .highlight-info-wrapper,
+.s-lib-box .highlight-alert-wrapper {
+    padding: 1.5rem 4rem;
+    margin: 0;
+    h2 {
+        margin: 0;
+        padding: 0 !important;
+        line-height: 1;
+    }
     &::before {
         background-repeat: no-repeat;
         background-position: 50%;
@@ -1763,12 +1787,14 @@ div:has(> h1#s-lib-public-header-title:empty) {
         width: 1.5rem;
     }
 }
-.s-lib-box:has(.highlight-info)::before {
+.s-lib-box .highlight-info-wrapper::before {
     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns= 'http://www.w3.org/2000/svg' width= '24' height= '24' fill= 'none' %3E%3Ccircle cx= '12' cy= '12' r= '9.25' stroke= '%23000' stroke-width= '1.5' transform= 'rotate(-180 12 12)' /%3E%3Cpath stroke= '%23000' stroke-linecap= 'round' stroke-width= '1.5' d= 'M12 16.2v-4' /%3E%3Ccircle cx= '12' cy= '8.4' r= '1.1' fill= '%23000' transform= 'rotate(-180 12 8.4)' /%3E%3C/svg%3E");
 }
-.s-lib-box:has(.highlight-alert)::before {
+.s-lib-box .highlight-alert-wrapper::before {
     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none'%3E%3Cpath stroke='%23000' stroke-width='1.5' d='M20.127 18.545a1.18 1.18 0 0 1-1.055 1.706H4.929a1.18 1.18 0 0 1-1.055-1.706l7.072-14.143a1.179 1.179 0 0 1 2.109 0z'/%3E%3Cpath stroke='%23000' stroke-linecap='round' stroke-width='1.5' d='M12 9v4'/%3E%3Ccircle cx='11.9' cy='16.601' r='1.1' fill='%23000'/%3E%3C/svg%3E");
 }
+
+// a-z box
 html {
     scroll-behavior: smooth;
 }
