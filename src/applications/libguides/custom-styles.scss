@@ -1556,12 +1556,18 @@ div:has(> h1#s-lib-public-header-title:empty) {
 #s-lg-tabs-container .nav-pills > li > ul > li:has(> a:hover) {
     background-color: $paneBackground !important;
 }
-
 .uql-az-index {
+    :focus-visible {
+        outline: 4px solid #0d6dcd;
+        outline-offset: -1px;
+    }
     display: flex;
     justify-content: center;
     margin-top: -20px;
     margin-bottom: 24px;
+    .uq-pagination ul {
+        gap: 3.5px;
+    }
     .uq-pagination__list-item a.uq-pagination__item {
         &:not([href]):empty,
         &[href='']:empty,
@@ -1569,7 +1575,15 @@ div:has(> h1#s-lib-public-header-title:empty) {
         &[href=''] {
             color: grey;
             text-decoration: none !important;
+            &:hover {
+                background-color: transparent;
+            }
         }
+    }
+    .uq-pagination__list, .uq-pagination ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-inline: auto;
     }
 }
 
@@ -1758,39 +1772,50 @@ div:has(> h1#s-lib-public-header-title:empty) {
 html {
     scroll-behavior: smooth;
 }
-.can-scroll-to-top .s-lib-box.s-lib-box-std {
-    position: relative;
-    padding-left: 80px;
-    display: flex;
-    justify-content: flex-start;
-    .h2-arrow-wrapper {
-        /* position: absolute; */
-        margin-top: 15px;
+.can-scroll-to-top {
+    padding-bottom: 50px;
+    .s-lib-box.s-lib-box-std {
+        position: relative;
+        @media (min-width: 1200px) {
+            padding-left: 80px;
+        }
         display: flex;
         justify-content: flex-start;
-        .uparrow {
-            display: block;
-            width: 30px;
-            height: 30px;
+
+        .h2-arrow-wrapper {
+            /* position: absolute; */
+            margin-top: 15px;
+            display: flex;
+            justify-content: flex-start;
+
+            .uparrow {
+                display: block;
+                width: 30px;
+                height: 30px;
+            }
+
+            a.uparrow {
+                background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%23000%27%3e%3cpath d=%27m1.715 10.855 6-6.168a.41.41 0 0 1 .597 0l5.973 6.168%27 fill=%27none%27 stroke=%27%23000%27 stroke-width=%27.75%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3c/path%3e%3c/svg%3e');
+                background-repeat: no-repeat;
+                /* TODO hover and focus */
+            }
+
+            a.uparrow:focus-within,
+            a.uparrow:hover {
+                background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%23fff%27%3e%3cpath d=%27m1.715 10.855 6-6.168a.41.41 0 0 1 .597 0l5.973 6.168%27 fill=%27none%27 stroke=%27%23fff%27 stroke-width=%27.75%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3c/path%3e%3c/svg%3e');
+            }
+
+            h2 {
+                color: $heading;
+                font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                font-size: 2rem;
+                font-weight: 500;
+                line-height: 1.2;
+            }
         }
-        a.uparrow {
-            background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%23000%27%3e%3cpath d=%27m1.715 10.855 6-6.168a.41.41 0 0 1 .597 0l5.973 6.168%27 fill=%27none%27 stroke=%27%23000%27 stroke-width=%27.75%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3c/path%3e%3c/svg%3e');
-            background-repeat: no-repeat;
-            /* TODO hover and focus */
+
+        .s-lib-box-content {
+            padding: 10px 0;
         }
-        a.uparrow:focus-within,
-        a.uparrow:hover {
-            background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%23fff%27%3e%3cpath d=%27m1.715 10.855 6-6.168a.41.41 0 0 1 .597 0l5.973 6.168%27 fill=%27none%27 stroke=%27%23fff%27 stroke-width=%27.75%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3c/path%3e%3c/svg%3e');
-        }
-        h2 {
-            color: $heading;
-            font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            font-size: 2rem;
-            font-weight: 500;
-            line-height: 1.2;
-        }
-    }
-    .s-lib-box-content {
-        padding: 10px 0;
     }
 }
