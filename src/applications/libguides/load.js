@@ -170,7 +170,19 @@
             addHeroHeader();
 
             addAZNavigationToSomePages();
+
+            fixNextPrevButtons();
         }, 100);
+    }
+
+    function fixNextPrevButtons() {
+        const listLinks = document.querySelectorAll('#s-lg-page-prevnext a');
+        !!listLinks &&
+            listLinks.forEach((anchor) => {
+                const currentHTML = anchor.innerHTML;
+                const newHTML = currentHTML.replace(/<strong>(.*?)<\/strong>/g, '$1');
+                anchor.innerHTML = newHTML;
+            });
     }
 
     function isInEditMode() {
