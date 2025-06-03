@@ -1691,53 +1691,48 @@ div:has(> h1#s-lib-public-header-title:empty) {
 }
 
 // 3 styles of boxes, info, alert & callout
-.s-lib-box.s-lib-box-std:has(h2.replace-springshare-h2) {
+.s-lib-box-content {
+    &:has(.highlight-info),
+    &:has(.highlight-alert),
+    &:has(.highlight-callout) {
+        margin: 0 0 0 1.5rem !important;
+        padding: 0 !important;
+    }
+}
+.s-lib-box.s-lib-box-std {
+    &:has(.highlight-info),
+    &:has(.highlight-alert),
+    &:has(.highlight-callout) {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+}
+.s-lib-box.s-lib-box-std:has(.replace-springshare-h2) {
     h2:not(.replace-springshare-h2) {
         display: none;
     }
 }
-.s-lib-box .highlight-info-wrapper {
+.s-lib-box .highlight-info {
     background-color: $utility50;
     * {
         background-color: $utility50 !important;
     }
 }
-.s-lib-box .highlight-alert-wrapper {
+.s-lib-box .highlight-alert {
     background-color: $warning50;
     * {
         background-color: $warning50 !important;
     }
 }
-.s-lib-box .highlight-callout-wrapper {
+.s-lib-box .highlight-callout {
     background-color: $grey50;
-    //padding: 0;
-    //margin-left: 20px;
     * {
         background-color: $grey50 !important;
     }
-    h2 {
-        padding: 0 !important;
-        margin-bottom: 1rem !important;
-    }
-    p {
-        margin-bottom: 1rem !important;
-        &:last-child {
-            margin-bottom: 0 !important;
-        }
-    }
-    ul, ol {
-        padding: 0 0 0 1.5rem;
-        margin: 0 0 1.5rem 0;
-        li {
-            margin: 0 0 0.5rem 0;
-            padding: 0;
-
-        }
-    }
 }
-.s-lib-box .highlight-info-wrapper,
-.s-lib-box .highlight-alert-wrapper,
-.s-lib-box .highlight-callout-wrapper {
+.s-lib-box .highlight-info,
+.s-lib-box .highlight-alert,
+.s-lib-box .highlight-callout {
     border-radius: 2px;
     margin-bottom: 1.5rem;
     overflow: hidden;
@@ -1758,17 +1753,29 @@ div:has(> h1#s-lib-public-header-title:empty) {
     > h6:first-child {
         margin-top: 0;
     }
-    p {
-        margin-bottom: 0.5rem;
+    h2 {
+        padding: 0 !important;
+        margin-bottom: 1rem !important;
     }
-    :last-child {
-        margin-bottom: 0;
+    p {
+        margin-bottom: 1rem !important;
+        &:last-child {
+            margin-bottom: 0 !important;
+        }
+    }
+    ul, ol {
+        padding: 0 0 0 1.5rem;
+        margin: 0 0 1.5rem 0;
+        li {
+            margin: 0 0 0.5rem 0;
+            padding: 0;
+        }
     }
 }
-.s-lib-box .highlight-info-wrapper,
-.s-lib-box .highlight-alert-wrapper {
+.s-lib-box .highlight-info,
+.s-lib-box .highlight-alert {
     padding: 1.5rem 4rem;
-    margin: 0;
+    margin: 0 0 1.5rem 0;
     h2 {
         margin: 0;
         padding: 0 !important;
@@ -1787,10 +1794,10 @@ div:has(> h1#s-lib-public-header-title:empty) {
         width: 1.5rem;
     }
 }
-.s-lib-box .highlight-info-wrapper::before {
+.s-lib-box .highlight-info::before {
     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns= 'http://www.w3.org/2000/svg' width= '24' height= '24' fill= 'none' %3E%3Ccircle cx= '12' cy= '12' r= '9.25' stroke= '%23000' stroke-width= '1.5' transform= 'rotate(-180 12 12)' /%3E%3Cpath stroke= '%23000' stroke-linecap= 'round' stroke-width= '1.5' d= 'M12 16.2v-4' /%3E%3Ccircle cx= '12' cy= '8.4' r= '1.1' fill= '%23000' transform= 'rotate(-180 12 8.4)' /%3E%3C/svg%3E");
 }
-.s-lib-box .highlight-alert-wrapper::before {
+.s-lib-box .highlight-alert::before {
     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none'%3E%3Cpath stroke='%23000' stroke-width='1.5' d='M20.127 18.545a1.18 1.18 0 0 1-1.055 1.706H4.929a1.18 1.18 0 0 1-1.055-1.706l7.072-14.143a1.179 1.179 0 0 1 2.109 0z'/%3E%3Cpath stroke='%23000' stroke-linecap='round' stroke-width='1.5' d='M12 9v4'/%3E%3Ccircle cx='11.9' cy='16.601' r='1.1' fill='%23000'/%3E%3C/svg%3E");
 }
 
