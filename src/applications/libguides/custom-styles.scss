@@ -1787,10 +1787,18 @@ div:has(> h1#s-lib-public-header-title:empty) {
     }
 }
 
-// Previous-Next buttons at the bottom of guides with sibling articles
-.pager {
-    display: flex;
-    justify-content: space-between;
+// Previous-Next buttons at the bottom of guides that have sibling articles in the sidebar menu
+#s-lg-page-prevnext.pager {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 2.5rem -1.5rem 2.5rem 1.5rem;
+    @media (max-width: 1200px) {
+        margin-right: -1.2rem; // dont slam it hard again the edge
+    }
+
+    &::before {
+        content: none;
+    }
 
     li.previous > a,
     li.previous > span,
@@ -1808,7 +1816,7 @@ div:has(> h1#s-lib-public-header-title:empty) {
         }
     }
     li.next {
-        text-align: left;
+        text-align: right;
         & > a,
         & > span {
             text-align: right;
