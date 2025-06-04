@@ -993,10 +993,14 @@ body:not(.guides_homepage) #s-lg-index-cols {
         margin-bottom: 8px;
     }
 }
-//
+
 #s-lg-col-1 h2,
 body:not(.guides_homepage) .s-lib-box-content {
-    padding: 20px;
+    padding: 0;
+    margin: 1.5rem 0 1.5rem 0;
+    ol {
+        margin-left: 1.5rem;
+    }
 }
 .guides_homepage {
     #s-lg-col-1 h3 {
@@ -1021,9 +1025,9 @@ body:not(.guides_homepage) .s-lib-box-content {
 //    display: none;
 //}
 //
-//.s-lg-link-list {
-//    padding-left: 0;
-//}
+.s-lg-link-list {
+    padding-left: 0;
+}
 //
 //.s-lib-profile-email {
 //    .label.label-info {
@@ -1706,7 +1710,7 @@ div:has(> h1#s-lib-public-header-title:empty) {
 #s-lg-guide-desc-container {
     margin-left: 10px;
     @media (min-width: 768px) {
-        margin-left: 335px;
+        margin-left: 315px;
     }
 }
 
