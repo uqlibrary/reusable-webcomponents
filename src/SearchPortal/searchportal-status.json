@@ -1,0 +1,4 @@
+{
+  "status": "bo",
+  "info": "valid values: 'bo' means show old primo links', 've' means 'show new primo links'; default = 'bo'"
+}

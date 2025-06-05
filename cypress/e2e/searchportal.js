@@ -641,4 +641,52 @@ describe('Search Portal', () => {
             cy.get('[data-testid="search-portal-suggestion-parent"]').should('not.exist');
         });
     });
+    context('Primo VE upgrade test', () => {
+        // only testing one link, basically confirming we pick up the right locale
+        it('When json status is VE, user gets ve links', () => {
+            cy.visit('http://localhost:8080?requestType=ve');
+            cy.viewport(1280, 900);
+            cy.get('search-portal')
+                .shadow()
+                .within(() => {
+                    cy.get('a[data-testid="search-portal-footerlink-0"]')
+                        .should('exist')
+                        .should(
+                            'have.attr',
+                            'href',
+                            `https://search.library.uq.edu.au/discovery/search?vid=61UQ_INST:61UQ&mode=advanced`,
+                        );
+                });
+        });
+        it('When json status is BO, user gets BO links', () => {
+            cy.visit('http://localhost:8080?requestType=bo');
+            cy.viewport(1280, 900);
+            cy.get('search-portal')
+                .shadow()
+                .within(() => {
+                    cy.get('a[data-testid="search-portal-footerlink-0"]')
+                        .should('exist')
+                        .should(
+                            'have.attr',
+                            'href',
+                            `https://search.library.uq.edu.au/primo-explore/search?vid=61UQ&mode=advanced`,
+                        );
+                });
+        });
+        it('When there is a problem with the json, user gets BO links', () => {
+            cy.visit('http://localhost:8080?requestType=problem');
+            cy.viewport(1280, 900);
+            cy.get('search-portal')
+                .shadow()
+                .within(() => {
+                    cy.get('a[data-testid="search-portal-footerlink-0"]')
+                        .should('exist')
+                        .should(
+                            'have.attr',
+                            'href',
+                            `https://search.library.uq.edu.au/primo-explore/search?vid=61UQ&mode=advanced`,
+                        );
+                });
+        });
+    });
 });

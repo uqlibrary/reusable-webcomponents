@@ -343,6 +343,21 @@ class ApiAccess {
             );
     }
 
+    async fetchPrimoStatus() {
+        const PRIMO_STATUS_BACKOFFICE = 'bo';
+
+        const api = new ApiRoutes().PRIMO_STATUS_API();
+
+        return await this.fetchAPI(api.apiUrl)
+            .then((data) => {
+                return data?.status || PRIMO_STATUS_BACKOFFICE;
+            })
+            .catch((error) => {
+                // send the user to BO if we cant tell where they should go
+                return PRIMO_STATUS_BACKOFFICE;
+            });
+    }
+
     async fetchAPI(urlPath, headers = {}, tokenRequired = false, timestampRequired = true) {
         /* istanbul ignore next */
         if (!!tokenRequired && (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)) {
