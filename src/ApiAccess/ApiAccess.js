@@ -388,7 +388,12 @@ class ApiAccess {
             const connector = urlPath.indexOf('?') > -1 ? '&' : '?';
             const addTimestamp = !!timestampRequired ? `${connector}ts=${new Date().getTime()}` : '';
 
-            const response = await fetch(`${API_URL}${urlPath}${addTimestamp}`, {
+            // if we are calling a non-api url then we will have already set the domain name
+            const finalUrl = urlPath.startsWith('http')
+                ? `${urlPath}${addTimestamp}`
+                : `${API_URL}${urlPath}${addTimestamp}`;
+            console.log(urlPath, 'calls: ', finalUrl);
+            const response = await fetch(finalUrl, {
                 headers: options,
             });
 
