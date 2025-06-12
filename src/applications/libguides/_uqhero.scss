@@ -82,7 +82,6 @@
 }
 
 .uq-hero__image img,.uq-hero__image picture {
-  font-family: "object-fit:cover";
   object-fit: cover;
   aspect-ratio: var(--hero-aspect-ratio);
   width: 100%
@@ -202,7 +201,6 @@
 }
 
 .uq-hero-basic__image img,.uq-hero-basic__image picture {
-  font-family: "object-fit:cover";
   object-fit: cover;
   height: 100%;
   width: 100%;
