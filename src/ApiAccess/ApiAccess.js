@@ -343,6 +343,21 @@ class ApiAccess {
             );
     }
 
+    async fetchPrimoStatus() {
+        const PRIMO_STATUS_BACKOFFICE = 'bo';
+
+        const api = new ApiRoutes().PRIMO_STATUS_API();
+
+        return await this.fetchAPI(api.apiUrl)
+            .then((data) => {
+                return data?.homepageStatus || PRIMO_STATUS_BACKOFFICE;
+            })
+            .catch((error) => {
+                // send the user to BO if we cant tell where they should go
+                return PRIMO_STATUS_BACKOFFICE;
+            });
+    }
+
     async fetchAPI(urlPath, headers = {}, tokenRequired = false, timestampRequired = true) {
         /* istanbul ignore next */
         if (!!tokenRequired && (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)) {
@@ -373,7 +388,12 @@ class ApiAccess {
             const connector = urlPath.indexOf('?') > -1 ? '&' : '?';
             const addTimestamp = !!timestampRequired ? `${connector}ts=${new Date().getTime()}` : '';
 
-            const response = await fetch(`${API_URL}${urlPath}${addTimestamp}`, {
+            // if we are calling a non-api url then we will have already set the domain name
+            const finalUrl = urlPath.startsWith('http')
+                ? `${urlPath}${addTimestamp}`
+                : `${API_URL}${urlPath}${addTimestamp}`;
+            console.log(urlPath, 'calls: ', finalUrl);
+            const response = await fetch(finalUrl, {
                 headers: options,
             });
 
