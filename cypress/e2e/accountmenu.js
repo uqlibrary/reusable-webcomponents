@@ -554,4 +554,81 @@ describe('Account menu button', () => {
             expect(getAccountMenuRoot('localhost', 'http:', '/')).to.be.equal('http://localhost:2020/');
         });
     });
+    context('Primo VE upgrade test', () => {
+        it('When json status is VE, user gets ve links', () => {
+            cy.visit('http://localhost:8080?requestType=ve');
+            cy.viewport(1280, 900);
+            openAccountDropdown();
+            cy.get('auth-button')
+                .shadow()
+                .within(() => {
+                    cy.get('li a[data-testid="mylibrary-menu-borrowing"]')
+                        .should('exist')
+                        // .contains('Library account')
+                        .should(
+                            'have.attr',
+                            'href',
+                            `https://search.library.uq.edu.au/discovery/account?vid=61UQ_INST:61UQ&section=overview`,
+                        );
+                    cy.get('li a[data-testid="mylibrary-menu-saved-items"]')
+                        .should('exist')
+                        // .contains('Favourites')
+                        .should(
+                            'have.attr',
+                            'href',
+                            `https://search.library.uq.edu.au/discovery/favorites?vid=61UQ_INST:61UQ&section=items`,
+                        );
+                });
+        });
+        it('When json status is BO, user gets BO links', () => {
+            cy.visit('http://localhost:8080?requestType=bo');
+            cy.viewport(1280, 900);
+            openAccountDropdown();
+            cy.get('auth-button')
+                .shadow()
+                .within(() => {
+                    cy.get('li a[data-testid="mylibrary-menu-borrowing"]')
+                        .should('exist')
+                        .should(
+                            'have.attr',
+                            'href',
+                            `https://search.library.uq.edu.au/primo-explore/login?vid=61UQ&targetURL=https%3A%2F%2Fsearch.library.uq.edu.au%2Fprimo-explore%2Faccount%3Fvid%3D61UQ%26section%3Doverview%26lang%3Den_US`,
+                        );
+                    // .contains('Library account')
+                    cy.get('li a[data-testid="mylibrary-menu-saved-items"]')
+                        .should('exist')
+                        .should(
+                            'have.attr',
+                            'href',
+                            `https://search.library.uq.edu.au/primo-explore/login?vid=61UQ&targetURL=https%3A%2F%2Fsearch.library.uq.edu.au%2Fprimo-explore%2Ffavorites%3Fvid%3D61UQ%26lang%3Den_US%26section%3Ditems`,
+                        );
+                    // .contains('Favourites')
+                });
+        });
+        it('When there is a problem with the json, user gets BO links', () => {
+            cy.visit('http://localhost:8080?requestType=problem');
+            cy.viewport(1280, 900);
+            openAccountDropdown();
+            cy.get('auth-button')
+                .shadow()
+                .within(() => {
+                    cy.get('li a[data-testid="mylibrary-menu-borrowing"]')
+                        .should('exist')
+                        .should(
+                            'have.attr',
+                            'href',
+                            `https://search.library.uq.edu.au/primo-explore/login?vid=61UQ&targetURL=https%3A%2F%2Fsearch.library.uq.edu.au%2Fprimo-explore%2Faccount%3Fvid%3D61UQ%26section%3Doverview%26lang%3Den_US`,
+                        );
+                    // .contains('Library account')
+                    cy.get('li a[data-testid="mylibrary-menu-saved-items"]')
+                        .should('exist')
+                        .should(
+                            'have.attr',
+                            'href',
+                            `https://search.library.uq.edu.au/primo-explore/login?vid=61UQ&targetURL=https%3A%2F%2Fsearch.library.uq.edu.au%2Fprimo-explore%2Ffavorites%3Fvid%3D61UQ%26lang%3Den_US%26section%3Ditems`,
+                        );
+                    // .contains('Favourites')
+                });
+        });
+    });
 });
