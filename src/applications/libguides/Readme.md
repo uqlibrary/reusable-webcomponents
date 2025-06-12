@@ -60,3 +60,22 @@ Admin edit pages (ie. <https://uq.libapps.com/libguides/lookfeel.php?action=1>) 
 Previous to this rollout - the libGuides had override CSS in multiple places. It is all now in this folder -> custom-styles.scss. Please dont go adding it into the libguides backend, as we cannot manage it from there.
 
 - the image in /images is used for the guides hero shot. It is sourced from L:\Governance\CorporateIdentity\Pictures\11-WEBSITE\Library-photoshoot-2024\Optimised-for-web\hero-biological-sciences-library-group-study-anatomical-models.jpg
+
+The guides admin is really complicated!
+
+Firstly, guides consists of a homepage, 6(ish) landing pages and a lot of guide pages.
+
+There are two main areas to access the content:
+- menu: Content > Guides https://uq.libapps.com/libguides/guides.php
+- menu: Admin > Groups https://uq.libapps.com/libguides/groups.php
+
+The guides management method is to make a series of "boxes" of html that each get an id (like `22982530`) and then there are html templates that pull in the 'box' like `<div>{{content_box_22982530}}</div>`.
+
+##### Templates
+
+- On https://uq.libapps.com/libguides/guides.php use the drop down under "Group" and find the entry that relates to the page of interest
+- "home pages content" is a good one to choose, as we end up on a sort of general page, landing here https://uq.libapps.com/libguides/admin_c.php?g=920678
+- use the edit icon at the far right
+- if you chose "Home pages content" you have landed on a sort of instructional page
+- note the sidebar shows all the landing pages
+- the "Group landing pages" entry will walk the new editor through how to create a nnew group page, which is also a guide to how to reach the template 
