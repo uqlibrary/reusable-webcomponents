@@ -202,7 +202,7 @@ $up-arrow: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22%3E%
 // styles imported from uq css files
 @import 'uqaccordion';
 @import 'uqcard';
-@import 'uqhero';
+@import 'uqhero'; // note hero styles are duplicated at https://uq.libapps.com/libguides/admin_c.php?g=976668 to avoid really bad FOUC
 @import 'uqpagination';
 @import 'landing-page-icons';
 
@@ -1266,14 +1266,14 @@ body:not(.guides_homepage) .s-lib-box-content {
     }
 }
 
-.guides_homepage {
-    div h1:not(.hero-h1),
-    &>div.s-lib-box-container,
+
+.guides_homepage div h1:not(.hero-h1),
+.guides_homepage > div.s-lib-box-container,
     .remove-h2 h2.s-lib-box-title // if the box has built in h2 tags which we want to replace with internal ones of our own, use .remove-h2
     {
         display: none;
     }
-}
+
 
 // put a gap below the footer box
 .footer-box {
