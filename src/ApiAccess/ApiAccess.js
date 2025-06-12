@@ -350,7 +350,7 @@ class ApiAccess {
 
         return await this.fetchAPI(api.apiUrl)
             .then((data) => {
-                return data?.status || PRIMO_STATUS_BACKOFFICE;
+                return data?.homepageStatus || PRIMO_STATUS_BACKOFFICE;
             })
             .catch((error) => {
                 // send the user to BO if we cant tell where they should go

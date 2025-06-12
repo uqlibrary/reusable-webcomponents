@@ -168,11 +168,11 @@ class MockApi {
             case apiRoute.PRIMO_STATUS_API().apiUrl:
                 console.log('primoStatus mock requestType=', requestType)
                 if (requestType === 've') {
-                    return this.response(200, {"status": "ve"});
+                    return this.response(200, {"homepageStatus": "ve"});
                 } else if (requestType === 'problem') { // will come through the catch
                     return this.response(400, {});
                 }
-                return this.response(200, {"status": "bo"});
+                return this.response(200, {"homepageStatus": "bo"});
 
             default:
                 // splitting the '?' out of some apis doesn't work
