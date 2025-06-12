@@ -531,7 +531,8 @@ body:not(.guides_homepage) #s-lg-index-cols {
         width: auto;
     }
     #col1,
-    .uql-grid:has(.homePagePanelWithIcon) {
+    .uql-grid:has(.homePagePanelWithIcon),
+    .uql-grid:has(.arrowPanelWithIcon) {
         margin-left: -30px;
     }
 }
@@ -1329,7 +1330,8 @@ body:not(.guides_homepage) .s-lib-box-content {
             padding: 0;
         }
     }
-    .homePagePanel a {
+    .homePagePanel a,
+    .arrowPanel a {
         cursor: pointer;
         color: $uqBrandColour;
         font-family: Roboto, Helvetica, Arial, sans-serif;
@@ -1446,7 +1448,8 @@ body:not(.guides_homepage) .s-lib-box-content {
         justify-content: space-between;
         text-decoration: none !important;
     }
-    .homePagePanel:not(.homePagePanelWithIcon) a {
+    .homePagePanel:not(.homePagePanelWithIcon) a,
+    .arrowPanel:not(.arrowPanelWithIcon) a {
         padding: 24px;
     }
     a {
@@ -1461,12 +1464,14 @@ body:not(.guides_homepage) .s-lib-box-content {
     .uql-grid p {
         display: none;
     }
-    .uql-grid .homePagePanel a {
+    .uql-grid .homePagePanel a,
+    .uql-grid .arrowPanel a {
         h3.cardHeading {
             margin-block: 0;
         }
     }
-    .homePagePanel.homePagePanelWithIcon a {
+    .homePagePanel.homePagePanelWithIcon a,
+    .arrowPanel.arrowPanelWithIcon a {
         h3.cardHeading {
             margin-left: 24px;
         }
