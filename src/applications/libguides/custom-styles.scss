@@ -995,10 +995,15 @@ body:not(.guides_homepage) #s-lg-index-cols {
     }
 }
 
+#s-lg-col-1 h2 {
+    margin: 1.5rem 0 1.5rem 0;
+}
+body:not(:has(.arrowPanel)) .s-lib-box-content {
+    margin: 15px 0 1.5rem 0;
+}
 #s-lg-col-1 h2,
 body:not(:has(.arrowPanel)) .s-lib-box-content {
     padding: 0;
-    margin: 1.5rem 0 1.5rem 0;
     ol {
         margin-left: 1.5rem;
     }
@@ -1975,9 +1980,6 @@ html {
     padding-bottom: 50px;
     .s-lib-box.s-lib-box-std {
         position: relative;
-        @media (min-width: 1200px) {
-            padding-left: 80px;
-        }
         display: flex;
         justify-content: flex-start;
 
@@ -2014,7 +2016,7 @@ html {
         }
 
         .s-lib-box-content {
-            padding: 10px 0;
+            padding: 0;
         }
     }
 }
