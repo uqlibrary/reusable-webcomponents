@@ -720,7 +720,18 @@
         template.innerHTML = heroHtml;
 
         const sibling = document.querySelector('#s-lg-public-skiplink');
-        !!sibling && sibling.parentNode.insertBefore(template.content, sibling.nextSibling);
+        !!sibling && sibling.parentNode.insertBefore(template.content.cloneNode(true), sibling.nextSibling);
+
+        // make the guide description be the subtitle on the hero image
+        const strapline = document.getElementById('s-lg-guide-description');
+        const straplineContent = !!strapline && strapline.textContent;
+        const heroPlacement = document.querySelector('.uq-hero__description');
+        !!straplineContent && !!heroPlacement && (heroPlacement.textContent = straplineContent);
+        if (!isInEditMode() && !!straplineContent && !!heroPlacement) {
+            !!strapline && strapline.remove();
+            const straplineWrapper = document.getElementById('s-lg-guide-desc-container');
+            !!strapline && !!straplineWrapper && straplineWrapper.remove();
+        }
     }
 
     function addAZNavigationToSomePages() {
