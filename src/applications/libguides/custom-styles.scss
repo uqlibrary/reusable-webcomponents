@@ -2019,3 +2019,59 @@ html {
         }
     }
 }
+
+.btn {
+    &.btn-primary,
+    &.btn-secondary,
+    &.btn-success,
+    &.btn-danger,
+    &.btn-warning,
+    &.btn-info,
+    &.btn-light,
+    &.btn-dark,
+    &.btn-link {
+        background-color: $purple-500 !important;
+        border: 2px solid $purple-500;
+        border-radius: $space-xs;
+        box-sizing: border-box;
+        color: $white;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: $space-s;
+        font-family: $roboto;
+        font-size: $font-size-m;
+        font-weight: $font-weight-medium;
+        line-height: $line-height-ui;
+        padding: $space-m $space-l;
+        position: relative;
+        text-align: center;
+        text-decoration: none;
+        transition:
+                background-color 200ms ease-out,
+                color 200ms ease-out,
+                border 200ms ease-out;
+
+        background-image: none; // override bootstrap
+        &:hover {
+            background-color: #fff !important;
+            border-color: $uqBrandColour;
+            color: $uqBrandColour;
+            text-decoration: underline;
+        }
+        &:focus {
+            outline: 2px solid $utility-500;
+            outline-offset: 0;
+        }
+    }
+    &.btn-secondary {
+        background-color: rgba(0, 0, 0, 0) !important;
+        border-color: $uqBrandColour;
+        color: $uqBrandColour;
+        &:hover {
+            background-color: $uqBrandColour !important;
+            border-color: #51247a;
+            color: #fff;
+        }
+    }
+}
