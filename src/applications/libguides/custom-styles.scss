@@ -531,7 +531,6 @@ body:not(.guides_homepage) #s-lg-index-cols {
         width: auto;
     }
     #col1,
-    .uql-grid:has(.homePagePanelWithIcon),
     .uql-grid:has(.arrowPanelWithIcon) {
         margin-left: -30px;
     }
@@ -995,8 +994,13 @@ body:not(.guides_homepage) #s-lg-index-cols {
     }
 }
 
+#s-lg-col-1 h2:not(:first-of-type) {
+    margin-top: 1.5rem;
+}
 #s-lg-col-1 h2 {
-    margin: 1.5rem 0 1.5rem 0;
+    margin-right: 0;
+    margin-bottom:1.5rem;
+    margin-left: 0;
 }
 body:not(:has(.arrowPanel)) .s-lib-box-content {
     margin: 1rem 0 1.5rem 0;
@@ -1451,7 +1455,6 @@ body:not(:has(.arrowPanel)) .s-lib-box-content {
         justify-content: space-between;
         text-decoration: none !important;
     }
-    .homePagePanel:not(.homePagePanelWithIcon) a,
     .arrowPanel:not(.arrowPanelWithIcon) a {
         padding: 24px;
     }
@@ -1467,13 +1470,11 @@ body:not(:has(.arrowPanel)) .s-lib-box-content {
     .uql-grid p {
         display: none;
     }
-    .uql-grid .homePagePanel a,
     .uql-grid .arrowPanel a {
         h3.cardHeading {
             margin-block: 0;
         }
     }
-    .homePagePanel.homePagePanelWithIcon a,
     .arrowPanel.arrowPanelWithIcon a {
         h3.cardHeading {
             margin-left: 24px;
@@ -1504,7 +1505,6 @@ div:has(> h1#s-lib-public-header-title:empty) {
 
 /* left navigation sidebar, on individual guide pages, styled to look like drupal sidebar */
 #s-lg-tabs-container {
-    margin-top: -45px;
     .nav-pills {
         li:not(:has(li)) {
             border-bottom: 1px solid rgb(220, 220, 221);
@@ -1712,14 +1712,6 @@ div:has(> h1#s-lib-public-header-title:empty) {
 
 .nav-stacked > li + li {
     margin-top: 0;
-}
-
-// bring strapline rightwards to top of body on desktop
-#s-lg-guide-desc-container {
-    margin-left: 10px;
-    @media (min-width: 768px) {
-        margin-left: 340px;
-    }
 }
 
 .accessibility-only {
