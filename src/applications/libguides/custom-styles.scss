@@ -1368,43 +1368,6 @@ body:not(:has(.arrowPanel)) .s-lib-box-content {
             padding: 0;
         }
     }
-    .homePagePanel a { // temporary
-        cursor: pointer;
-        color: $uqBrandColour;
-        font-family: Roboto, Helvetica, Arial, sans-serif;
-        font-size: 20px;
-        font-weight: 500;
-        position: relative;
-        &:focus-within,
-        &:hover {
-            background-color: $paneBackground !important;
-            h3 {
-                text-decoration: underline;
-            }
-            .panelBodyWrapper {
-                background-color: $paneBackground !important;
-            }
-            div.arrowSvgWrapper {
-                background-color: $paneBackground !important;
-                color: $uqBrandColour;
-            }
-        }
-        h3.cardHeading {
-            font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            font-size: 24px !important;
-            font-weight: 500;
-            letter-spacing: 0.16px;
-            line-height: 1.2;
-            margin-block: 8px;
-        }
-        p {
-            font-size: 16px;
-            margin-bottom: 0;
-        }
-        svg.arrowForwardIcon {
-            display: block;
-        }
-    }
 }
 
 /* Default: mobile view, 1 column */
