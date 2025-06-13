@@ -1324,14 +1324,36 @@ body:not(.guides_homepage) .s-lib-box-content {
     }
 }
 
+.arrowPanel a {
+    cursor: pointer;
+    color: $uqBrandColour;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    position: relative;
+    &:focus-within,
+    &:hover {
+        background-color: $paneBackground !important;
+        h3 {
+            text-decoration: underline;
+        }
+        .panelBodyWrapper {
+            background-color: $paneBackground !important;
+        }
+        div.arrowSvgWrapper {
+            background-color: $paneBackground !important;
+            color: $uqBrandColour;
+        }
+    }
+}
+
 .guides_homepage {
     .s-lib-box {
         .s-lib-box-content {
             padding: 0;
         }
     }
-    .homePagePanel a,
-    .arrowPanel a {
+    .homePagePanel a { // temporary
         cursor: pointer;
         color: $uqBrandColour;
         font-family: Roboto, Helvetica, Arial, sans-serif;
