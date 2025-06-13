@@ -926,30 +926,30 @@ body:not(.guides_homepage) #s-lg-index-cols {
     &.container::before {
         content: none;
     }
-     > .row {
+    > .row {
         display: grid;
         gap: 0;
         grid-template-columns: var(--layout-sidebar-width) minmax(32px, 80px) minmax(667px, 1fr);
         margin-right: 0;
         margin-left: 0;
-         &::before {
-             content: none;
-         }
+        &::before {
+            content: none;
+        }
 
-         > div {
-             width: unset;
-             float: unset;
-             padding-right: 0;
-             padding-left: 0;
-         }
+        > div {
+            width: unset;
+            float: unset;
+            padding-right: 0;
+            padding-left: 0;
+        }
 
-         .s-lg-tabs-side {
-             grid-column: 1 / span 1;
-         }
+        .s-lg-tabs-side {
+            grid-column: 1 / span 1;
+        }
 
-         > div:last-child {
-             grid-column: 3 / span 1;
-         }
+        > div:last-child {
+            grid-column: 3 / span 1;
+        }
     }
 }
 .s-lib-box {
@@ -999,7 +999,7 @@ body:not(.guides_homepage) #s-lg-index-cols {
     margin: 1.5rem 0 1.5rem 0;
 }
 body:not(:has(.arrowPanel)) .s-lib-box-content {
-    margin: 15px 0 1.5rem 0;
+    margin: 1rem 0 1.5rem 0;
 }
 #s-lg-col-1 h2,
 body:not(:has(.arrowPanel)) .s-lib-box-content {
@@ -1272,14 +1272,12 @@ body:not(:has(.arrowPanel)) .s-lib-box-content {
     }
 }
 
-
 .guides_homepage div h1:not(.hero-h1),
 .guides_homepage > div.s-lib-box-container,
     .remove-h2 h2.s-lib-box-title // if the box has built in h2 tags which we want to replace with internal ones of our own, use .remove-h2
-    {
-        display: none;
-    }
-
+{
+    display: none;
+}
 
 // put a gap below the footer box
 .footer-box {
@@ -1985,7 +1983,8 @@ html {
 
         .h2-arrow-wrapper {
             /* position: absolute; */
-            margin-top: 15px;
+            margin-top: 1rem;
+            margin-right: 0.5rem;
             display: flex;
             justify-content: flex-start;
 

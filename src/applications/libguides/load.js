@@ -55,7 +55,6 @@
                 // You can then manually load things in the console
                 return;
             }
-            console.log('document.currentScript.src=', document.currentScript.src);
             const assetsHostname = 'assets.library.uq.edu.au';
             const assetsRoot = 'https://' + assetsHostname;
             const includeFilename = 'applications/libguides/load.js';
@@ -89,11 +88,6 @@
             testIncludePathGeneration();
         }
 
-        if (!!isInEditMode()) {
-            // we dont need any UQ styling on the edit pages
-            return;
-        }
-
         fontLoader('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
         fontLoader('https://static.uq.net.au/v15/fonts/Merriweather/merriweather.css');
         fontLoader('https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css');
@@ -103,68 +97,71 @@
         insertScript(scriptUrl, true);
 
         const waitForBody = setInterval(() => {
-            prePurpleLinks();
-
-            closeAllUqAccordions();
-
-            replaceSpringShareSidebarMenu();
-
             const firstElement = document.body.children[0];
             if (!firstElement) {
                 return;
             }
             clearInterval(waitForBody);
 
+            if (!isInEditMode()) {
+                prePurpleLinks();
+                closeAllUqAccordions();
+            }
+
+            replaceSpringShareSidebarMenu();
+
             const cssFileName = getIncludeFullPath('applications/libguides/custom-styles.css');
             insertCssFile(cssFileName);
 
-            const gtm = document.createElement('uq-gtm');
-            !!gtm && gtm.setAttribute('gtm', 'GTM-NC7M38Q');
-            document.body.insertBefore(gtm, firstElement);
+            if (!isInEditMode()) {
+                const gtm = document.createElement('uq-gtm');
+                !!gtm && gtm.setAttribute('gtm', 'GTM-NC7M38Q');
+                document.body.insertBefore(gtm, firstElement);
 
-            if (!document.querySelector('uq-header')) {
-                const header = document.createElement('uq-header');
-                !!header && header.setAttribute('hideLibraryMenuItem', '');
-                !!header && header.setAttribute('searchurl', 'guides.library.uq.edu.au');
-                document.body.insertBefore(header, firstElement);
-            }
+                if (!document.querySelector('uq-header')) {
+                    const header = document.createElement('uq-header');
+                    !!header && header.setAttribute('hideLibraryMenuItem', '');
+                    !!header && header.setAttribute('searchurl', 'guides.library.uq.edu.au');
+                    document.body.insertBefore(header, firstElement);
+                }
 
-            // for 2025 dev - should not be needed for prod (the if block, above, is skipped because the production js has already written the header)
-            const uqheader = document.querySelector('uq-header');
-            if (!!uqheader && uqheader.getAttribute('searchurl') === null) {
-                uqheader.setAttribute('searchurl', 'guides.library.uq.edu.au');
-            }
+                // for 2025 dev - should not be needed for prod (the if block, above, is skipped because the production js has already written the header)
+                const uqheader = document.querySelector('uq-header');
+                if (!!uqheader && uqheader.getAttribute('searchurl') === null) {
+                    uqheader.setAttribute('searchurl', 'guides.library.uq.edu.au');
+                }
 
-            if (!document.querySelector('uq-site-header')) {
-                const siteHeader = document.createElement('uq-site-header');
-                !!siteHeader && siteHeader.setAttribute('secondleveltitle', 'Guides');
-                !!siteHeader && siteHeader.setAttribute('secondlevelurl', 'https://guides.library.uq.edu.au/');
-                !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
+                if (!document.querySelector('uq-site-header')) {
+                    const siteHeader = document.createElement('uq-site-header');
+                    !!siteHeader && siteHeader.setAttribute('secondleveltitle', 'Guides');
+                    !!siteHeader && siteHeader.setAttribute('secondlevelurl', 'https://guides.library.uq.edu.au/');
+                    !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
 
-                const authButton = createAuthButton();
-                !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
+                    const authButton = createAuthButton();
+                    !!siteHeader && !!authButton && siteHeader.appendChild(authButton);
 
-                moveSpringshareBreadcrumbsToSiteHeader(siteHeader);
-            }
+                    moveSpringshareBreadcrumbsToSiteHeader(siteHeader);
+                }
 
-            if (!document.querySelector('proactive-chat:not([display="inline"])')) {
-                const proactiveChat = document.createElement('proactive-chat');
-                !!proactiveChat && document.body.insertBefore(proactiveChat, firstElement);
-            }
+                if (!document.querySelector('proactive-chat:not([display="inline"])')) {
+                    const proactiveChat = document.createElement('proactive-chat');
+                    !!proactiveChat && document.body.insertBefore(proactiveChat, firstElement);
+                }
 
-            if (!document.querySelector('alert-list')) {
-                const alerts = document.createElement('alert-list');
-                !!alerts && document.body.insertBefore(alerts, firstElement);
-            }
+                if (!document.querySelector('alert-list')) {
+                    const alerts = document.createElement('alert-list');
+                    !!alerts && document.body.insertBefore(alerts, firstElement);
+                }
 
-            if (!document.querySelector('cultural-advice')) {
-                const culturalAdvice = document.createElement('cultural-advice');
-                !!culturalAdvice && document.body.insertBefore(culturalAdvice, firstElement);
-            }
+                if (!document.querySelector('cultural-advice')) {
+                    const culturalAdvice = document.createElement('cultural-advice');
+                    !!culturalAdvice && document.body.insertBefore(culturalAdvice, firstElement);
+                }
 
-            if (!document.querySelector('uq-footer')) {
-                const subFooter = document.createElement('uq-footer');
-                document.body.appendChild(subFooter);
+                if (!document.querySelector('uq-footer')) {
+                    const subFooter = document.createElement('uq-footer');
+                    document.body.appendChild(subFooter);
+                }
             }
 
             addHeroHeader();
@@ -172,6 +169,30 @@
             addAZNavigationToSomePages();
 
             fixNextPrevButtons();
+
+            // they want to see our components on the edit page, but sometimes it needs a little space
+            if (!!isInEditMode()) {
+                const editModeStylesId = 'editModeStyles';
+                const editModeStylesElement = document.getElementById(editModeStylesId);
+                if (!!editModeStylesElement) {
+                    editModeStylesElement.remove();
+                }
+                const editModeStyles = document.createElement('template');
+                editModeStyles.innerHTML = `<style id="${editModeStylesId}">
+                        #s-lg-row-1 > div:first-child {
+                            margin-top: 50px;
+                        }
+                        header, header * {
+                            max-height: 42px !important;
+                        }
+                        #guides-library-hero {
+                            margin-top: 90px;
+                        } 
+                 </style>`;
+
+                const head = document.querySelector('head');
+                !!head && head.appendChild(editModeStyles.content.cloneNode(true));
+            }
         }, 100);
     }
 
@@ -186,10 +207,6 @@
     }
 
     function isInEditMode() {
-        // temp for 2025 dev
-        if (window.location.hostname === 'springycommunity.libapps.com') {
-            return true;
-        }
         if (window.location.hostname === 'uq.libapps.com' && window.location.pathname.startsWith('/libguides/admin')) {
             return true;
         }
@@ -370,7 +387,6 @@
     }
 
     function moveSpringshareBreadcrumbsToSiteHeader(siteHeader) {
-        console.log('moveSpringshareBreadcrumbsToSiteHeader start', siteHeader);
         const awaitSiteHeader = setInterval(() => {
             const siteHeaderShadowRoot = siteHeader.shadowRoot;
 
@@ -419,7 +435,6 @@
                 );
             }
         }, 100);
-        console.log('moveSpringshareBreadcrumbsToSiteHeader end', siteHeader);
     }
 
     function insertCssFile(cssFileName) {
@@ -488,9 +503,7 @@
         function extractLinksFromDiv(divQuerySelector) {
             // this ignores links with a hash fragment - springshare puts them in the sidebar, but UQ DS doesn't
             const targetDiv = document.querySelector(divQuerySelector);
-            console.log('extractLinksFromDiv', divQuerySelector, targetDiv);
             if (!targetDiv) {
-                // console.log(`Div matching "${divQuerySelector}" not found`);
                 return [];
             }
 
@@ -517,7 +530,6 @@
                 if (index < Array.from(links).length - 1) level = 'grandparent';
                 else if (index === Array.from(links).length - 1) level = 'parent';
                 else level = 'current';
-                console.log('extractLinksFromDiv', index, Array.from(links).length, baseHref, level, urlPath);
 
                 if (!linkMap.has(baseHref)) {
                     // First occurrence - add it
@@ -552,7 +564,6 @@
 
         // Build navigation HTML structure
         function buildNavigationHtml(linksFromExistingSidebar, parentLinksFromBreadcrumbs) {
-            console.log('buildNavigationHtml links=', linksFromExistingSidebar);
             const currentPath = `${document.location.pathname}${document.location.search}`;
 
             // Group links by their path depth relative to current URL
@@ -571,7 +582,6 @@
                     // Determine relationship to current URL
                     if (linkParts.length === currentParts.length) {
                         // Same level (siblings)
-                        console.log('compare', linkPath, ' to ', currentPath);
                         groupedLinks.siblings.push({
                             ...link,
                             href: linkPath,
@@ -602,28 +612,18 @@
             <div class="uq-local-nav__grandparent"><a href="https://uq.edu.au/" class="uq-local-nav__link">UQ home</a></div>`;
 
             // Add hierarchy breadcrumbs
-            console.log('parentLinksFromBreadcrumbs=', parentLinksFromBreadcrumbs);
-            console.log('groupedLinks=', groupedLinks);
             parentLinksFromBreadcrumbs.forEach((item, index) => {
-                console.log('parentLinksFromBreadcrumbs foreach item', index, item);
                 const siblingPaths = groupedLinks.siblings.map((item) => item.href);
-                console.log('siblingPaths=', siblingPaths);
                 // dont include ones that are in the child list
                 if (siblingPaths.includes(item.urlPath)) {
-                    console.log('known, skip', item);
                     return;
                 }
 
                 if (item.level === 'grandparent') {
-                    console.log('grandparent');
                     html += `<div class="uq-local-nav__grandparent"><a href="${item.href}" class="uq-local-nav__link">${item.linkLabel}</a></div>`;
                 } else if (item.level === 'parent') {
-                    console.log('parent');
                     html += `<div class="uq-local-nav__parent"><a href="${item.href}" class="uq-local-nav__link">${item.linkLabel}</a></div>`;
-                } else {
-                    console.log('child - skip html');
                 }
-                console.log('parentLinksFromBreadcrumbs foreach result', index, html);
             });
 
             // Add children list
@@ -652,13 +652,10 @@
                         html += `
                     </ul>`;
                     }
-
                     html += `</li>`;
                 });
-
                 html += `</ul>`;
             }
-
             html += `</nav></div></div>`;
 
             return html;
@@ -671,16 +668,6 @@
 
         const menuQuerySelector = '#s-lg-guide-tabs .nav-pills';
         const linksinCurrentSidebar = extractLinksFromDiv(menuQuerySelector);
-        console.log('linksinCurrentSidebar=', linksinCurrentSidebar);
-
-        // let test = 'nav[aria-label="breadcrumb"]';
-        // const targetDiv = document.querySelector(test);
-        // console.log('1', targetDiv);
-        // if (!targetDiv) {
-        //     let test = 'nav[aria-label="breadcrumb"]';
-        //     const targetDiv = document.querySelector(test);
-        //     console.log('2', targetDiv);
-        // }
 
         const parentLinksFromBreadcrumbs = extractLinksFromDiv('nav[aria-label="breadcrumb"]');
 
@@ -713,7 +700,9 @@
             // no h1 found to move
             return;
         }
-        !!h1Element && h1Element.remove();
+        if (!isInEditMode()) {
+            !!h1Element && h1Element.remove();
+        }
 
         const heroHtml = `<div id="guides-library-hero" class="block block-system block-system-main-block" data-testid="hero-wrapper">
                     <div>
