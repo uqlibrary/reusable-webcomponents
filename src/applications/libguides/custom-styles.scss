@@ -951,6 +951,16 @@ body:not(.guides_homepage) #s-lg-index-cols {
         }
     }
 }
+// ipad and lower, content above sidebar
+@media (max-width: 63.99em) {
+    #s-lg-side-nav-content {
+        >.row {
+            display: flex;
+            flex-direction: column-reverse;
+        }
+    }
+}
+
 .s-lib-box {
     border: none !important;
     box-shadow: none !important;
@@ -2070,7 +2080,7 @@ html {
 
 table.table.table-bordered {
     border-collapse: collapse;
-    margin-bottom: var(--spacing-m);
+    margin-bottom: 1.5rem;
     width: 100%;
     th {
         background-color: $grey-50;
@@ -2094,4 +2104,14 @@ table.table.table-bordered {
     thead th.ck_border {
         border: inherit !important;
     }
+}
+
+// youtube videos should be 100% width https://stackoverflow.com/a/78418428/1246313
+div:has(> iframe[title="YouTube video player"]) {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+}
+iframe[title="YouTube video player"] {
+    width: 100%;
+    height: 100%;
 }
