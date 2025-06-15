@@ -2067,3 +2067,31 @@ html {
         }
     }
 }
+
+table.table.table-bordered {
+    border-collapse: collapse;
+    margin-bottom: var(--spacing-m);
+    width: 100%;
+    th {
+        background-color: $grey-50;
+        color: $black;
+        font-weight: $font-weight-bold;
+        text-align: left
+    }
+    td,
+    th {
+        padding: .75rem 1rem;
+        vertical-align: top
+    }
+    tbody td,
+    tbody th {
+        border-bottom: 1px solid $grey-300;
+    }
+    td :last-child {
+        margin-bottom: 0
+    }
+    tbody tr:first-child th.ck_border,
+    thead th.ck_border {
+        border: inherit !important;
+    }
+}
