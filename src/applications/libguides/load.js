@@ -319,6 +319,7 @@
             window.location.host === 'uq.libapps.com' ||
             window.location.pathname === '/sandbox' ||
             window.location.pathname.startsWith('/Sandbox') ||
+            window.location.pathname.startsWith('/c.php') ||
             (!!queryStrings && queryStrings.has('group_id'))
         ) {
             // we are on a groups page - 2025 dev
