@@ -185,6 +185,8 @@ $space-stretched: 1.5rem; /* 24px (16px) */
 $space-stretched-s: 0.75rem; /* 12px (8px) */
 $space-stretched-xs: 0.375rem; /* 6px (4px) */
 
+$section-spacing: 6rem;
+
 $uqBrandColour: $purple-500;
 $bodyCopy: $grey-900;
 $heading: $grey-900;
@@ -922,6 +924,7 @@ body:not(.guides_homepage) #s-lg-index-cols {
 //
 /* styles for enclosing side nav */
 #s-lg-side-nav-content {
+    margin-bottom: $section-spacing;
     &.container::before {
         content: none;
     }
@@ -1317,15 +1320,15 @@ ul,
 
 // put a gap below the footer box
 .footer-box {
-    margin-bottom: 3rem;
-}
-.footer-box h2 {
-    margin-top: 72px;
-    margin-bottom: 24px;
-    @media (min-width: 75rem) {
-        margin-left: -30px;
+    margin-block: $section-spacing;
+    h2 {
+        margin-top: 0;
+        margin-bottom: 24px;
+        @media (min-width: 75rem) {
+            margin-left: -30px;
+        }
+        padding-left: 1rem;
     }
-    padding-left: 1rem;
 }
 
 // style grid of uq boxes
@@ -1631,7 +1634,6 @@ div:has(> h1#s-lib-public-header-title:empty) {
 }
 .uq-local-nav {
     max-width: 261px;
-    margin-bottom: 6rem;
 }
 
 .uq-local-nav__link {
@@ -2006,13 +2008,12 @@ html {
         justify-content: flex-start;
 
         .h2-arrow-wrapper {
-            /* position: absolute; */
-            margin-top: 1rem;
+            margin-top: 0.3rem;
             margin-right: 0.5rem;
             display: flex;
             justify-content: flex-start;
 
-            .uparrow {
+            .uparrow { // span or anchor
                 display: block;
                 width: 30px;
                 height: 30px;
@@ -2021,7 +2022,6 @@ html {
             a.uparrow {
                 background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%23000%27%3e%3cpath d=%27m1.715 10.855 6-6.168a.41.41 0 0 1 .597 0l5.973 6.168%27 fill=%27none%27 stroke=%27%23000%27 stroke-width=%27.75%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3c/path%3e%3c/svg%3e');
                 background-repeat: no-repeat;
-                /* TODO hover and focus */
             }
 
             a.uparrow:focus-within,
@@ -2141,4 +2141,8 @@ div:has(> iframe[title='YouTube video player']) {
 iframe[title='YouTube video player'] {
     width: 100%;
     height: 100%;
+}
+
+.pad-bottom-med {
+    padding-bottom: 0;
 }
