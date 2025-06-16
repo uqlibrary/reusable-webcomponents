@@ -170,6 +170,8 @@
 
             fixNextPrevButtons();
 
+            removeEmptyParagraphs();
+
             // they want to see our components on the edit page, but sometimes it needs a little space
             if (!!isInEditMode()) {
                 const editModeStylesId = 'editModeStyles';
@@ -825,6 +827,29 @@
             const topOfPage = document.getElementById('a-z-index');
             !!topOfPage && topOfPage.scrollIntoView();
         }
+    }
+
+    // unfortunately, the GUI editor sometimes leaves blank paragraphs (all they have to do is press return at the end of the gui and *boom* empty para!)
+    // clean them out as they ruin our layout!
+    function removeEmptyParagraphs() {
+        const elements = document.querySelectorAll('p');
+        !!elements &&
+            elements.length > 0 &&
+            elements.forEach((element) => {
+                // Get the text content with whitespace preserved
+                const text = element.innerHTML.trim();
+                if (
+                    text === '' ||
+                    text === '&nbsp;' ||
+                    text === ' ' ||
+                    text === '<br>' ||
+                    text === '<br/>' ||
+                    text === '<br />'
+                ) {
+                    console.log('remove empty paragraph');
+                    element.remove();
+                }
+            });
     }
 
     ready(applyUQLItemsToGuides);
