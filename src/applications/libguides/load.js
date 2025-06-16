@@ -725,7 +725,9 @@
 
         // make the guide description be the subtitle on the hero image
         const strapline = document.getElementById('s-lg-guide-description');
-        const straplineContent = !!strapline && strapline.textContent;
+        const editPageDescriptionPlaceholder = '[Click to enter a description]';
+        const straplineContent =
+            !!strapline && strapline.textContent !== editPageDescriptionPlaceholder && strapline.textContent;
         const heroPlacement = document.querySelector('.uq-hero__description');
         !!straplineContent && !!heroPlacement && (heroPlacement.textContent = straplineContent);
         if (!isInEditMode() && !!straplineContent && !!heroPlacement) {
