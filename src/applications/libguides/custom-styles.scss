@@ -1571,3 +1571,61 @@ section:has(#s-lg-srch-nav-col) {
         }
     }
 }
+
+@media print {
+    uq-header,
+    uq-site-header,
+    cultural-advice,
+    uq-footer,
+    .s-lg-tabs-side,
+    #s-lib-footer-public,
+    #s-lg-page-prevnext,
+    .uq-hero__content::after {
+        display: none !important;
+    }
+
+    #s-lg-side-nav-content>.row {
+        display: block;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100%;
+    }
+    #s-lg-side-nav-content {
+        margin: 0;
+    }
+    .uq-hero {
+        margin: 0 !important;
+        padding: 0 !important;
+        background: none !important;
+        height: auto;
+        min-height: unset;
+        * {
+            margin: 0 !important;
+            padding: 0 !important;
+            line-height: normal !important;
+        }
+        .uq-hero__title,
+        .uq-hero__description,
+        .uq-hero__content,
+        .uq-hero__content h1 {
+            background-color: #fff !important;
+            color: #19151c !important;
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            width: 100% !important;
+            box-shadow: none !important;
+        }
+    }
+    a.btn.btn-primary, button.btn.btn-primary {
+        background-color: #fff !important;
+        color: #19151c !important;
+        border: none !important;
+        text-decoration: none !important;
+    }
+    a:after {
+        content: " (" attr(href) ") " !important;
+        font-size: 90% !important;
+        text-decoration: underline !important;
+    }
+}
