@@ -1545,8 +1545,10 @@ iframe[title='YouTube video player'] {
 .s-srch-results-featured h3 {
     font-size: $font-size-m;
 }
+.s-srch-result > div > div,
 .s-srch-result > div {
     margin-block: 6px;
+    padding: 0 !important;
 }
 section:has(#s-lg-srch-nav-col) {
     margin-top: -2rem;
