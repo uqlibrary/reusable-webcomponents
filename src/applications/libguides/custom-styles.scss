@@ -540,7 +540,6 @@ body:not(.guides_homepage) #s-lg-index-cols {
 @media (min-width: 75rem) {
     body:not(.guides_homepage) #s-lg-index-cols {
         grid-template-columns: 0 1fr 308px;
-        margin-inline: -30px;
     }
     .container,
     .s-lib-main {
