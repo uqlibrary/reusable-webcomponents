@@ -697,6 +697,9 @@
         if (!h1Element) {
             h1Element = document.querySelector('#s-lib-public-main h1');
         }
+        if (!h1Element) {
+            h1Element = document.querySelector('#s-lib-public-header h1'); // 404 search page
+        }
         const h1Text = !!h1Element && h1Element.textContent;
 
         if (!h1Text) {
