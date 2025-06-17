@@ -1577,55 +1577,102 @@ section:has(#s-lg-srch-nav-col) {
     uq-site-header,
     cultural-advice,
     uq-footer,
+    proactive-chat,
+    .uq-pagination,
+    .uq-card__icon,
+    .uq-hero__content::after,
+    .arrowSvgWrapper,
     .s-lg-tabs-side,
     #s-lib-footer-public,
     #s-lg-page-prevnext,
-    .uq-hero__content::after {
+    .pull-right,
+    .col-md-3:has(fieldset) {
         display: none !important;
+    }
+    .accessibility-only {
+        margin-block: 24px;
+    }
+    .container.s-lib-side-borders .row.s-lg-row {
+        margin-left: 0;
+        margin-right: 16px;
     }
 
     #s-lg-side-nav-content>.row {
         display: block;
         margin: 0 !important;
         padding: 0 !important;
-        width: 100%;
+        width: 100% !important;
     }
+
     #s-lg-side-nav-content {
-        margin: 0;
+        margin: 0 !important;
     }
+
     .uq-hero {
         margin: 0 !important;
         padding: 0 !important;
         background: none !important;
-        height: auto;
-        min-height: unset;
-        * {
-            margin: 0 !important;
-            padding: 0 !important;
-            line-height: normal !important;
-        }
-        .uq-hero__title,
-        .uq-hero__description,
-        .uq-hero__content,
-        .uq-hero__content h1 {
-            background-color: #fff !important;
-            color: #19151c !important;
-            border: none !important;
-            padding: 0 !important;
-            margin: 0 !important;
-            width: 100% !important;
-            box-shadow: none !important;
-        }
+        height: auto !important;
+        min-height: unset !important;
     }
-    a.btn.btn-primary, button.btn.btn-primary {
+
+    .uq-hero * {
+        margin: 0 !important;
+        padding: 0 !important;
+        line-height: normal !important
+    }
+
+    .uq-hero .uq-hero__content::after,
+    .uq-hero .uq-hero__title,
+    .uq-hero .uq-hero__description,
+    .uq-hero .uq-hero__content,
+    .uq-hero .uq-hero__content h1 {
         background-color: #fff !important;
         color: #19151c !important;
         border: none !important;
-        text-decoration: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+        box-shadow: none !important
     }
+
+    a.btn.btn-primary,
+    button.btn.btn-primary {
+        background-color: #fff !important;
+        color: #19151c !important;
+        border: none !important;
+        text-decoration: none !important
+    }
+
     a:after {
-        content: " (" attr(href) ") " !important;
+        content: " ("attr(href) ") " !important;
         font-size: 90% !important;
-        text-decoration: underline !important;
+        text-decoration: underline !important
+    }
+
+    #s-lg-index-cols::after,
+    #s-lg-index-cols::before {
+        content: none !important;
+    }
+
+    .uql-grid {
+        display: block !important
+    }
+
+    .uql-grid .s-lib-box-container {
+        border: none !important
+    }
+
+    .uq-accordion__content:not(.uq-accordion__content--active) {
+        display: block !important;
+    }
+
+    div:has(> iframe[title='YouTube video player']) {
+        height: 0;
+    }
+    .s-lib-box .highlight-alert,
+    .s-lib-box .highlight-info,
+    .s-lib-box .highlight-callout {
+        border: 1px solid $borders;
     }
 }
