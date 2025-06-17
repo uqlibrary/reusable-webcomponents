@@ -2145,3 +2145,21 @@ iframe[title='YouTube video player'] {
 .pad-bottom-med {
     padding-bottom: 0;
 }
+
+// 404 page search box https://guides.library.uq.edu.au/srch.php
+.s-srch-resultlist {
+    .pagination>li>a,.pagination>li>span {
+        color: $uqBrandColour;
+    }
+
+    .pagination>li>a:hover,.pagination>li>span:hover,.pagination>li>a:focus,.pagination>li>span:focus {
+        color: $uqBrandColour;
+        background-color: #eee;
+    }
+
+    .pagination>.active>a,.pagination>.active>span,.pagination>.active>a:hover,.pagination>.active>span:hover,.pagination>.active>a:focus,.pagination>.active>span:focus {
+        color: #fff;
+        background-color: $uqBrandColour;
+        border-color: $uqBrandColour;
+    }
+}
