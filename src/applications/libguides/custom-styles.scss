@@ -173,7 +173,7 @@ $up-arrow: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22%3E%
 }
 
 .s-lib-box .s-lib-box-title {
-    padding: 0; // 9px 12px 9px;
+    padding: 0;
     background: #fff !important;
     border-bottom: none;
 }
@@ -323,13 +323,8 @@ a {
         margin-left: 1em;
     }
 }
-p:has(> img) {
-    margin-bottom: 0;
-}
-p:not(:has(> img)) {
-    margin-bottom: 24px;
-}
 p {
+    margin-bottom: 24px;
     font-weight: 400;
     padding-bottom: 0;
     color: $bodyCopy;
@@ -567,9 +562,6 @@ body:not(:has(.arrowPanel)) .s-lib-box-content {
 body:not(:has(.arrowPanel)) .s-lib-box-content {
     padding: 0;
     margin: 0;
-    ol {
-        margin-left: 1.5rem;
-    }
 }
 #s-lg-col-1 {
     h2.s-lib-box-title {
@@ -1443,13 +1435,23 @@ html {
         outline-offset: 0;
     }
 }
+@mixin uqSecondaryButton() {
+    @include uqPrimaryButton();
+    background-color: rgba(0, 0, 0, 0) !important;
+    border-color: $uqBrandColour;
+    color: $uqBrandColour;
+    &:hover {
+        background-color: $uqBrandColour !important;
+        border-color: #51247a;
+        color: #fff;
+    }
+}
 
 button.lwz-btn {
     @include uqPrimaryButton();
 }
 .btn {
     &.btn-primary,
-    &.btn-secondary,
     &.btn-success,
     &.btn-danger,
     &.btn-warning,
@@ -1460,14 +1462,7 @@ button.lwz-btn {
         @include uqPrimaryButton();
     }
     &.btn-secondary {
-        background-color: rgba(0, 0, 0, 0) !important;
-        border-color: $uqBrandColour;
-        color: $uqBrandColour;
-        &:hover {
-            background-color: $uqBrandColour !important;
-            border-color: #51247a;
-            color: #fff;
-        }
+        @include uqSecondaryButton();
     }
 }
 
