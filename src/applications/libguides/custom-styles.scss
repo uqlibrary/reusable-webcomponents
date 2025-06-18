@@ -490,7 +490,7 @@ body:not(.guides_homepage) #s-lg-index-cols {
 }
 
 /* styles for enclosing side nav */
-#s-lg-side-nav-content {
+body:not(.editmode) #s-lg-side-nav-content {
     margin-bottom: $section-spacing;
     &.container::before {
         content: none;

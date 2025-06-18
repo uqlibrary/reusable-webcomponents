@@ -106,6 +106,8 @@
             if (!isInEditMode()) {
                 prePurpleLinks();
                 closeAllUqAccordions();
+            } else {
+                !document.body.classList.contains('editmode') && document.body.classList.add('editmode');
             }
 
             replaceSpringShareSidebarMenu();
