@@ -576,6 +576,7 @@
             };
 
             linksFromExistingSidebar.forEach((link) => {
+                const fromParent = parentLinksFromBreadcrumbs.find((p) => p.href === link.href);
                 try {
                     const linkUrl = new URL(link.href);
                     const linkPath = `${linkUrl.pathname}${linkUrl.search}`;
@@ -589,6 +590,7 @@
                             ...link,
                             href: linkPath,
                             isActive: linkPath === currentPath,
+                            linkLabel: !!fromParent ? fromParent.linkLabel : link.linkLabel,
                         });
                     } else if (linkParts.length === currentParts.length + 1 && linkPath.startsWith(currentPath)) {
                         // One level deeper (children)
@@ -604,6 +606,7 @@
                         ...link,
                         href: link.href,
                         isActive: false,
+                        linkLabel: !!fromParent ? fromParent.linkLabel : link.linkLabel,
                     });
                 }
             });
