@@ -680,7 +680,25 @@
         const navigationHtml = buildNavigationHtml(linksinCurrentSidebar, parentLinksFromBreadcrumbs);
 
         const originalDiv = document.querySelector(menuQuerySelector);
-        !!originalDiv && (originalDiv.outerHTML = navigationHtml);
+        if (!!isInEditMode()) {
+            // save any admin elements
+            const adminElements = ['#s-lg-admin-tab-add'];
+            let savedElements = [];
+            adminElements.length > 0 &&
+                adminElements.forEach((a) => {
+                    const adminElementList = document.querySelectorAll(a);
+                    adminElementList.forEach((aa) => savedElements.push(aa));
+                });
+
+            const originalDivChildren = originalDiv.querySelectorAll('li:not(#s-lg-admin-tab-add)');
+            originalDivChildren.length > 0 && originalDivChildren.forEach((c) => c.remove());
+            const template = document.createElement('template');
+            template.innerHTML = navigationHtml;
+
+            originalDiv.insertBefore(template.content.cloneNode(true), originalDiv.firstChild);
+        } else {
+            !!originalDiv && (originalDiv.outerHTML = navigationHtml);
+        }
     }
 
     function addHeroHeader() {
