@@ -591,7 +591,8 @@ body:not(:has(.arrowPanel)) .s-lib-box-content {
 }
 ol,
 ul,
-.s-lg-link-list {
+.s-lg-link-list,
+iframe {
     margin-bottom: 24px;
     padding-left: 9px;
     padding-top: 0;
@@ -899,7 +900,6 @@ div:has(> h1#s-lib-public-header-title:empty) {
     display: none;
     height: 0;
 }
-
 
 #s-lg-guide-tabs .s-lg-tabs-side .nav .dropdown a {
     padding-block: 1rem;
@@ -1614,7 +1614,8 @@ a:hover i.fa {
     }
 }
 
-sub, sup {
+sub,
+sup {
     font-size: smaller;
 }
 
