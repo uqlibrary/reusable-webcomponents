@@ -184,11 +184,11 @@
                         #s-lg-row-1 > div:first-child {
                             margin-top: 50px;
                         }
-                        header, header * {
-                            max-height: 42px !important;
+                        #acctlinks {
+                            margin-top: -35px;
                         }
                         #guides-library-hero {
-                            margin-top: 90px;
+                            margin-top: 50px;
                         } 
                  </style>`;
 
