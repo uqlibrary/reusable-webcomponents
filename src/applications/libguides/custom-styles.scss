@@ -612,8 +612,9 @@ body:not(:has(.arrowPanel)) .s-lib-box-content {
         margin-top: 0;
     }
     h2.s-lib-box-title {
-        margin-top: 16px;
-        margin-bottom: 16px;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        padding-left: 0;
     }
     h3,
     h4 {

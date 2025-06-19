@@ -86,8 +86,11 @@
     function applyUQLItemsToGuides() {
         // trial to see what removing inbuilt css will do
         if (searchParameters.getValue('clearcss') === 'on') {
-            cssList = document.querySelectorAll('link[href][href$=".css"]');
+            const cssList = document.querySelectorAll('link[href][href$=".css"]');
             !!cssList && cssList.length > 0 && cssList.forEach((css) => css.remove());
+
+            const styles = document.querySelectorAll('style');
+            !!styles && styles.length > 0 && styles.forEach((css) => css.remove());
         }
 
         if (window.location.hostname === 'localhost') {
@@ -101,6 +104,9 @@
 
         let scriptUrl = getIncludeFullPath('uq-lib-reusable.min.js');
         insertScript(scriptUrl, true);
+
+        const cssFileName = getIncludeFullPath('applications/libguides/custom-styles.css');
+        insertCssFile(cssFileName);
 
         const waitForBody = setInterval(() => {
             const firstElement = document.body.children[0];
@@ -118,9 +124,6 @@
             closeAllUqAccordions();
 
             replaceSpringShareSidebarMenu();
-
-            const cssFileName = getIncludeFullPath('applications/libguides/custom-styles.css');
-            insertCssFile(cssFileName);
 
             if (!isInEditMode()) {
                 const gtm = document.createElement('uq-gtm');
@@ -462,8 +465,8 @@
         !!link && (link.rel = 'stylesheet');
         !!link && (link.href = cssFileName);
 
-        const body = document.body;
-        !!body && !!link && body.appendChild(link);
+        const head = document.head;
+        !!head && !!link && head.appendChild(link);
     }
 
     function prePurpleLinks() {
