@@ -121,6 +121,9 @@ $font-weight-bold: $font-weight-medium;
 $line-height: 1.6;
 $line-height-h: 1.2;
 $line-height-ui: 1;
+$line-height-single: 1;
+$line-height-short: 1.2;
+$line-height-long: 1.6;
 
 // 1% letter spacing
 $letter-spacing: 0.01rem;
@@ -373,6 +376,21 @@ body:not(.guides_homepage) #s-lg-index-cols {
         ul,
         ol {
             margin-bottom: 24px;
+        }
+        ol,ul {
+            margin-bottom: $space-m;
+            margin-top: 0;
+            padding-left: $space-m;
+        }
+        ol li,ul li {
+            margin-bottom: $space-xs;
+        }
+        ol li:last-child,ul li:last-child {
+            margin-bottom: 0
+        }
+        ol li>ol,ol li>ul,ul li>ol,ul li>ul {
+            margin-bottom: 0;
+            margin-top: $space-xs;
         }
     }
 }
@@ -1397,6 +1415,10 @@ button.lwz-btn {
     }
 }
 
+figcaption {
+    line-height: $line-height-long;
+}
+
 table.table.table-bordered {
     border-collapse: collapse;
     margin-bottom: 1.5rem;
@@ -1405,6 +1427,7 @@ table.table.table-bordered {
     caption {
         color: $bodyCopy;
         text-align: center;
+        line-height: $line-height-long;
     }
     thead tr th {
         border: none !important;
