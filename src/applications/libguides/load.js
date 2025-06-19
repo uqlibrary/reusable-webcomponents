@@ -879,11 +879,14 @@
             });
     }
 
-    const cssList = document.querySelectorAll('link[href][href$=".css"]');
-    !!cssList && cssList.length > 0 && cssList.forEach((css) => css.remove());
+    if (searchParameters.getValue('clearcss') === 'on') {
+        const cssList = document.querySelectorAll('link[href][href$=".css"]');
 
-    const styles = document.querySelectorAll('style');
-    !!styles && styles.length > 0 && styles.forEach((css) => css.remove());
+        !!cssList && cssList.length > 0 && cssList.forEach((css) => css.remove());
+
+        const styles = document.querySelectorAll('style');
+        !!styles && styles.length > 0 && styles.forEach((css) => css.remove());
+    }
 
     ready(applyUQLItemsToGuides);
 })();
