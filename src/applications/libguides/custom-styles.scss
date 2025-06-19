@@ -1,3 +1,5 @@
+@import 'springshareSupplied';
+
 :root {
     --pagination-size: 44px;
     --pagination-space: 12px;
@@ -147,6 +149,28 @@ $space-xs: 0.25rem; /* 4px */
 /* 1px (0.0625rem) */
 $space-none: 0; /* zero - no spacing */
 $space-auto: auto; /* auto */
+
+$spacing-xxs: 0.25rem;
+$spacing-xs: 0.5rem;
+$spacing-ss: 0.75rem;
+$spacing-s: 1rem;
+$spacing-m: 1.5rem;
+$spacing-l: 2rem;
+$spacing-xl: 2.5rem;
+$spacing-xxl: 3rem;
+$spacing-xxxl: 3.5rem;
+$spacing-xxxxl: 4rem;
+$spacing-ul: 4.5rem;
+$spacing-uul: 5rem;
+$spacing-uuul: 5.5rem;
+$spacing-ns-l: 2rem;
+$spacing-ns-xl: 2.5rem;
+$spacing-ns-xxl: 3rem;
+$spacing-ns-xxxl: 3.5rem;
+$spacing-ns-xxxxl: 4rem;
+$spacing-ns-ul: 4.5rem;
+$spacing-ns-uul: 5rem;
+$spacing-ns-uuul: 5.5rem;
 
 $section-spacing: 6rem;
 
@@ -375,24 +399,24 @@ body:not(.guides_homepage) #s-lg-index-cols {
         padding-right: 0;
         ul,
         ol {
-            margin-bottom: $space-m;
+            margin-bottom: $spacing-m;
             margin-top: 0;
         }
         ol li,ul li {
-            margin-bottom: $space-xs;
+            margin-bottom: $spacing-xs;
         }
         ol li:last-child,ul li:last-child {
             margin-bottom: 0
         }
         ol li>ol,ol li>ul,ul li>ol,ul li>ul {
             margin-bottom: 0;
-            margin-top: $space-xs;
+            margin-top: $spacing-xs;
         }
     }
     #col1 {
         ul,
         ol {
-            padding-left: $space-m;
+            padding-left: $spacing-m;
         }
     }
 }
@@ -563,7 +587,6 @@ body:not(.editmode) #s-lg-side-nav-content {
 .s-lg-srch-listing-meta,
 .s-lib-box-content {
     li {
-        margin-left: 15px;
         margin-bottom: 8px;
     }
 }
@@ -597,12 +620,31 @@ body:not(:has(.arrowPanel)) .s-lib-box-content {
         margin-top: 8px;
         margin-bottom: 16px;
     }
-
     h5,
     h6 {
         margin-top: 0;
         margin-bottom: 16px;
     }
+    ol,ul {
+        margin-bottom: $spacing-m;
+        margin-top: 0;
+        padding-left: $spacing-m;
+        li {
+            margin-bottom: $spacing-xs;
+        }
+
+        li:last-child {
+            margin-bottom: 0
+        }
+
+        li>ol,
+        li>ul {
+            margin-bottom: 0;
+            margin-top: $spacing-xs;
+        }
+    }
+
+
 }
 .guides_homepage {
     #s-lg-col-1 h3 {
@@ -1353,12 +1395,12 @@ html {
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    gap: $space-s;
+    gap: $spacing-s;
     font-family: $roboto;
     font-size: $font-size-m;
     font-weight: $font-weight-medium;
     line-height: $line-height-ui;
-    padding: $space-m $space-l;
+    padding: $spacing-m $spacing-l;
     position: relative;
     text-align: center;
     text-decoration: none;
@@ -1651,4 +1693,10 @@ figure {
     margin-inline-start: 40px;
     margin-inline-end: 40px;
     unicode-bidi: isolate;
+}
+
+// these tabs are expected to be removed eg MGTS1301 - Introduction to management
+#s-lg-tabs-container .nav-tabs > li > a,
+#s-lg-tabs-container .nav-tabs > .active > a {
+    background-color: $uqBrandColour;
 }
