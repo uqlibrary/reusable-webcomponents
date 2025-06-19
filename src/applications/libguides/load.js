@@ -84,6 +84,12 @@
     }
 
     function applyUQLItemsToGuides() {
+        // trial to see what removing inbuilt css will do
+        if (searchParameters.getValue('clearcss') === 'on') {
+            cssList = document.querySelectorAll('link[href][href$=".css"]');
+            !!cssList && cssList.length > 0 && cssList.forEach((css) => css.remove());
+        }
+
         if (window.location.hostname === 'localhost') {
             testIncludePathGeneration();
         }
