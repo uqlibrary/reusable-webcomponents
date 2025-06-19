@@ -91,7 +91,7 @@ and find the page you want either by filtering by Name or choosing the right Gro
   background: #fff
 }
 
-.uq-accordion__toggle--active::before {
+.uq-accordion__toggle.uq-accordion__toggle--active::before {
   background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m19 15-7-7-7 7' stroke='%2319151c' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e")
 }
 
