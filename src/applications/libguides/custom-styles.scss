@@ -375,12 +375,8 @@ body:not(.guides_homepage) #s-lg-index-cols {
         padding-right: 0;
         ul,
         ol {
-            margin-bottom: 24px;
-        }
-        ol,ul {
             margin-bottom: $space-m;
             margin-top: 0;
-            padding-left: $space-m;
         }
         ol li,ul li {
             margin-bottom: $space-xs;
@@ -391,6 +387,12 @@ body:not(.guides_homepage) #s-lg-index-cols {
         ol li>ol,ol li>ul,ul li>ol,ul li>ul {
             margin-bottom: 0;
             margin-top: $space-xs;
+        }
+    }
+    #col1 {
+        ul,
+        ol {
+            padding-left: $space-m;
         }
     }
 }
@@ -608,7 +610,7 @@ body:not(:has(.arrowPanel)) .s-lib-box-content {
     }
 }
 ol,
-ul,
+#col1 ul,
 .s-lg-link-list,
 iframe {
     margin-bottom: 24px;
