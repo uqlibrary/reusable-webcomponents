@@ -84,15 +84,6 @@
     }
 
     function applyUQLItemsToGuides() {
-        // trial to see what removing inbuilt css will do
-        if (searchParameters.getValue('clearcss') === 'on') {
-            const cssList = document.querySelectorAll('link[href][href$=".css"]');
-            !!cssList && cssList.length > 0 && cssList.forEach((css) => css.remove());
-
-            const styles = document.querySelectorAll('style');
-            !!styles && styles.length > 0 && styles.forEach((css) => css.remove());
-        }
-
         if (window.location.hostname === 'localhost') {
             testIncludePathGeneration();
         }
@@ -887,6 +878,12 @@
                 }
             });
     }
+
+    const cssList = document.querySelectorAll('link[href][href$=".css"]');
+    !!cssList && cssList.length > 0 && cssList.forEach((css) => css.remove());
+
+    const styles = document.querySelectorAll('style');
+    !!styles && styles.length > 0 && styles.forEach((css) => css.remove());
 
     ready(applyUQLItemsToGuides);
 })();
