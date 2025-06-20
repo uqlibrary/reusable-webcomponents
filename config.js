@@ -3,7 +3,9 @@ const deployment = {
     development: {
         url: (branch) => `https://assets.library.uq.edu.au/reusable-webcomponents-development/${branch}/`,
         fullPath: (branch) => `https://assets.library.uq.edu.au/reusable-webcomponents-development/${branch}/`,
-        api: 'https://api.library.uq.edu.au/staging/',
+        // api: 'https://api.library.uq.edu.au/staging/',
+        /* USING PRODUCTION ON A FEATURE BRANCH FOR OLD BO PRIMO */
+        api: 'https://api.library.uq.edu.au/v1/',
         // auth_login: 'https://auth.library.uq.edu.au/login',
         // auth_logout: 'https://auth.library.uq.edu.au/logout',
         environment: 'development',
