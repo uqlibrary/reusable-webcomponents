@@ -243,15 +243,14 @@ body {
     height: 100%;
     margin: 0;
     padding: 0 !important;
+    line-height: $line-height-long;
 }
 
 body {
     font-family: $font;
     font-weight: 400;
     background: $page-background-color;
-    font-size: $font-size-m;
     font-style: normal;
-    line-height: 24px;
     letter-spacing: 0.16px;
     color: $bodyCopy;
     -webkit-font-smoothing: antialiased;
