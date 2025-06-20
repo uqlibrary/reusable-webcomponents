@@ -331,8 +331,10 @@
         //     return `${assetsRoot}/reusable-webcomponents-development/guides-AD-111/${includeFilename}`;
         // }
 
-        // we are on a groups page - 2025 dev
-        return `${assetsRoot}/reusable-webcomponents-development/guides-AD-111/${includeFilename}`;
+        if (document.currentScript?.src?.includes('guides-AD-111')) {
+            // we are on a groups page - 2025 dev
+            return `${assetsRoot}/reusable-webcomponents-development/guides-AD-111/${includeFilename}`;
+        }
 
         // otherwise prod
         return assetsRoot + '/reusable-webcomponents/' + includeFilename;
