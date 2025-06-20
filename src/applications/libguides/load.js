@@ -47,6 +47,8 @@
 
     const searchParameters = new URLParameterHandler();
 
+    const currentScriptSrc = document.currentScript?.src; // for DEV 2025
+
     function ready(fn) {
         if (!!document.currentScript?.src) {
             if (searchParameters.getValue('override') === 'on' && searchParameters.getValue('skipScript') === 'on') {
@@ -331,7 +333,7 @@
         //     return `${assetsRoot}/reusable-webcomponents-development/guides-AD-111/${includeFilename}`;
         // }
 
-        if (document.currentScript?.src?.includes('guides-AD-111')) {
+        if (currentScriptSrc.includes('guides-AD-111')) {
             // we are on a groups page - 2025 dev
             return `${assetsRoot}/reusable-webcomponents-development/guides-AD-111/${includeFilename}`;
         }
