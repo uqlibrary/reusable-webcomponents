@@ -317,19 +317,22 @@
         }
 
         // TEMPORARY CODE - REMOVE AFTER 2025 REDEV - TODO
-        const queryStrings = new URLSearchParams(window.location.search);
-        if (
-            window.location.host === 'customertesting6.libguides.com' ||
-            window.location.host === 'springycommunity.libapps.com' ||
-            window.location.host === 'uq.libapps.com' ||
-            window.location.pathname === '/sandbox' ||
-            window.location.pathname.startsWith('/Sandbox') ||
-            window.location.pathname.startsWith('/c.php') ||
-            (!!queryStrings && queryStrings.has('group_id'))
-        ) {
-            // we are on a groups page - 2025 dev
-            return `${assetsRoot}/reusable-webcomponents-development/guides-AD-111/${includeFilename}`;
-        }
+        // const queryStrings = new URLSearchParams(window.location.search);
+        // if (
+        //     window.location.host === 'customertesting6.libguides.com' ||
+        //     window.location.host === 'springycommunity.libapps.com' ||
+        //     window.location.host === 'uq.libapps.com' ||
+        //     window.location.pathname === '/sandbox' ||
+        //     window.location.pathname.startsWith('/Sandbox') ||
+        //     window.location.pathname.startsWith('/c.php') ||
+        //     (!!queryStrings && queryStrings.has('group_id'))
+        // ) {
+        //     // we are on a groups page - 2025 dev
+        //     return `${assetsRoot}/reusable-webcomponents-development/guides-AD-111/${includeFilename}`;
+        // }
+
+        // we are on a groups page - 2025 dev
+        return `${assetsRoot}/reusable-webcomponents-development/guides-AD-111/${includeFilename}`;
 
         // otherwise prod
         return assetsRoot + '/reusable-webcomponents/' + includeFilename;
