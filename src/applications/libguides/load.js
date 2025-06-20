@@ -520,7 +520,7 @@
             return correctedText;
         }
 
-        function extractLinksFromDiv(divQuerySelector) {
+        function extractLinksFromDiv(divQuerySelector, skipFirst = false) {
             // this ignores links with a hash fragment - springshare puts them in the sidebar, but UQ DS doesn't
             const targetDiv = document.querySelector(divQuerySelector);
             if (!targetDiv) {
@@ -530,6 +530,7 @@
             const links = targetDiv.querySelectorAll('a[href]');
             const linkMap = new Map();
 
+            let skippableLink = null;
             Array.from(links).forEach((link, index) => {
                 const href = link.href;
                 const linkTextContent = link.textContent.trim();
@@ -551,31 +552,41 @@
                 else if (index === Array.from(links).length - 1) level = 'parent';
                 else level = 'current';
 
-                if (!linkMap.has(baseHref)) {
-                    // First occurrence - add it
-                    linkMap.set(baseHref, {
-                        href: baseHref,
-                        linkLabel: replaceWord(linkTextContent),
-                        urlPath: urlPath,
-                        // title: link.title || linkTextContent,
-                        hasFragment: hasFragment,
-                        level: level,
-                    });
-                } else {
-                    // Duplicate found - keep the one without fragment, or first one if both have fragments
-                    const existing = linkMap.get(baseHref);
-                    if (existing.hasFragment && !hasFragment) {
-                        // Replace with non-fragment version
+                if (!!skipFirst && index === 0) {
+                    // The first link is a duplicate of the parent in content, but not in url - usability & SEO issue.
+                    // We skip inserting this dupe link.
+                    // (Springshare should be supplying a canonical meta, but that won't affect this menu issue)
+                    // Note the link can occur multiple times, because Springshare OTB shows links to the h2s down the page! :(
+                    skippableLink = baseHref;
+                } else if (baseHref !== skippableLink) {
+                    if (!linkMap.has(baseHref)) {
+                        // First occurrence - add it
                         linkMap.set(baseHref, {
                             href: baseHref,
                             linkLabel: replaceWord(linkTextContent),
                             urlPath: urlPath,
                             // title: link.title || linkTextContent,
-                            hasFragment: false,
+                            hasFragment: hasFragment,
                             level: level,
                         });
+                    } else {
+                        // Duplicate found - keep the one without fragment, or first one if both have fragments
+                        const existing = linkMap.get(baseHref);
+                        if (existing.hasFragment && !hasFragment) {
+                            // Replace with non-fragment version
+                            linkMap.set(baseHref, {
+                                href: baseHref,
+                                linkLabel: replaceWord(linkTextContent),
+                                urlPath: urlPath,
+                                // title: link.title || linkTextContent,
+                                hasFragment: false,
+                                level: level,
+                            });
+                        }
+                        // If existing doesn't have a fragment, keep it (ignore current)
                     }
-                    // If existing doesn't have fragment, keep it (ignore current)
+                } else {
+                    console.log('duplicate content not placed in menu:', baseHref);
                 }
             });
 
@@ -690,7 +701,7 @@
         }
 
         const menuQuerySelector = '#s-lg-guide-tabs .nav-pills';
-        const linksinCurrentSidebar = extractLinksFromDiv(menuQuerySelector);
+        const linksinCurrentSidebar = extractLinksFromDiv(menuQuerySelector, true);
 
         const parentLinksFromBreadcrumbs = extractLinksFromDiv('nav[aria-label="breadcrumb"]');
 
