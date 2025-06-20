@@ -538,11 +538,13 @@
                 else if (index === Array.from(links).length - 1) level = 'parent';
                 else level = 'current';
 
-                if (!!skipFirst && index === 0) {
+                const isAdminPage = document.querySelector('header.navbar');
+                if (!isAdminPage && !!skipFirst && index === 0) {
                     // The first link is a duplicate of the parent in content, but not in url - usability & SEO issue.
                     // We skip inserting this dupe link.
                     // (Springshare should be supplying a canonical meta, but that won't affect this menu issue)
                     // Note the link can occur multiple times, because Springshare OTB shows links to the h2s down the page! :(
+                    // (but admins need to be able to get to it)
                     skippableLink = baseHref;
                 } else if (baseHref !== skippableLink) {
                     if (!linkMap.has(baseHref)) {
