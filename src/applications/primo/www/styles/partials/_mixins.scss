@@ -314,3 +314,59 @@ $__xs-portrait: 479px;
 //     @content;
 //   }
 // }
+
+@mixin uqPrimaryButton($baseColor, $reverseColor) {
+    background-color: $baseColor !important;
+    color: $reverseColor !important;
+    border: 2px solid $baseColor;
+    &:focus,
+    &:hover {
+        background-color: $reverseColor !important;
+        color: $baseColor !important;
+        span {
+            text-decoration: underline;
+        }
+    }
+}
+@mixin uqSecondaryButton($baseColor, $reverseColor) {
+    @include uqPrimaryButton($baseColor, $reverseColor);
+    border-color: $reverseColor;
+    &:hover span {
+        text-decoration: underline;
+    }
+}
+@mixin uqTertiaryButton($baseColor, $reverseColor) {
+    background-color: $baseColor !important;
+    color: $reverseColor !important;
+    span {
+        text-decoration: underline;
+    }
+    &:focus-visible,
+    &:hover {
+        &:not([disabled]) {
+            background-color: $reverseColor !important;
+            color: $baseColor !important;
+        }
+    }
+}
+// a tertiary button that has a span within it
+@mixin uqSpannedTertiaryButton($baseColor, $reverseColor) {
+    background-color: $baseColor !important;
+    color: $reverseColor !important;
+    span {
+        text-decoration: underline;
+    }
+    &:focus,
+    &:hover {
+        &:not([disabled]) {
+            background-color: transparent !important;
+        }
+    }
+    &:focus-visible,
+    &:hover {
+        &:not([disabled]) span {
+            background-color: $reverseColor !important;
+            color: $baseColor !important;
+        }
+    }
+}

@@ -3,7 +3,7 @@ import uqrdav10, { accounts } from '../../mock/data/account';
 import ApiAccess from '../../src/ApiAccess/ApiAccess';
 import { apiLocale } from '../../src/ApiAccess/ApiAccess.locale';
 import { authLocale } from '../../src/UtilityArea/auth.locale';
-import { getAccountMenuRoot, COLOUR_UQ_PURPLE } from '../../src/UtilityArea/helpers';
+import { COLOUR_UQ_PURPLE, getAccountMenuRoot } from '../../src/UtilityArea/helpers';
 
 function assertLogoutButtonVisible(expected = true) {
     if (expected) {
@@ -227,7 +227,7 @@ describe('Account menu button', () => {
         });
 
         it('Navigates to login page', () => {
-            cy.intercept(/loginuserpass/, 'user visits login page'); // from https://auth.uq.edu.au/idp/module.php/core/loginuserpass.php?&etc
+            cy.intercept(/auth.uq.edu.au/, 'user visits login page'); // from https://auth.uq.edu.au/idp/module.php/core/loginuserpass.php?&etc
             cy.intercept('GET', authLocale.AUTH_URL_LOGIN, {
                 statusCode: 200,
                 body: 'user visits login page',
@@ -378,18 +378,33 @@ describe('Account menu button', () => {
         });
     });
     context('Display names', () => {
+        function showsCorrectPatronName(displayName) {
+            cy.get('auth-button')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="username-area-label"]')
+                        .should('exist')
+                        .should('be.visible')
+                        .contains(displayName);
+                });
+        }
+
         it('user with a short name will show their complete name', () => {
             sessionStorage.removeItem('userAccount');
             visitPageForUser('emfryer');
-            assertLogoutButtonVisible;
+            showsCorrectPatronName('User, Fryer');
         });
         it('user with a long length name will show their last name with initial', () => {
             sessionStorage.removeItem('userAccount');
             visitPageForUser('digiteamMember');
+            // This shows that when the surname is long that the first name is reduced to an initial
+            // Unfortunately it doesn't test that the surname is truncated on display, because that's just css
+            showsCorrectPatronName('C STAFF MEMBER WITH MEGA REALLY TRULY STUPENDOUSLY LONG NAME');
         });
         it('user who uses a single name will not show the "." as a surname', () => {
             sessionStorage.removeItem('userAccount');
             visitPageForUser('emhonorary');
+            showsCorrectPatronName('Honorary');
         });
     });
     context('User-specific account links', () => {

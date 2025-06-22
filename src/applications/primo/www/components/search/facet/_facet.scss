@@ -69,6 +69,15 @@ prm-facet {
     .bottom-fixed-toolbar > * {
         transform: translateZ(0);
     }
+
+    // highlight the "Sort by" entry when not the default
+    div:has(> prm-search-result-sort-by):not(:has(md-select-value [translate="results.sortby.option.rank"])) {
+        div,
+        h3 {
+            color: $accent-color !important;
+            font-weight: bold;
+        }
+    }
 }
 
 .sidebar {
@@ -195,7 +204,7 @@ prm-facet {
                 }
 
                 &.prm-warn {
-                    @include bgColor($red);
+                    @include bgColor($highlightPrimary);
                 }
             }
             .md-chip-remove-container {
@@ -221,8 +230,18 @@ prm-facet {
                 line-height: 1.75em;
                 cursor: pointer;
                 padding: 0 0.25em;
-                border-radius: $radius;
-                @include bgColor($dark);
+                border-radius: unset;
+                color: $uqBodyCopy;
+                &:hover,
+                &:focus,
+                &.hovered,
+                &.md-focused,
+                &._md-focused {
+                    &:not([disabled]) {
+                        color: unset;
+                        background-color: unset;
+                    }
+                }
                 @include rtl-prop(margin-right, margin-left, 0.2em, 0);
 
                 .__xs & {
@@ -258,7 +277,7 @@ prm-facet {
                     }
                 }
                 .button-exclude {
-                    @include bgColor($red);
+                    @include bgColor($highlightPrimary);
                 }
                 .button-include {
                     @include bgColor($secondary-hue1);
@@ -438,7 +457,7 @@ prm-facet {
                     }
                     .md-container,
                     ._md-container {
-                        @extend .prm-warn;
+                        @include bgColor($highlightPrimary);
                     }
                 }
             }
@@ -514,17 +533,19 @@ prm-facet {
         .md-button {
             min-width: 75px;
             margin: 6px 3px;
+            &:has([translate="nui.facets.clear"]) {
+                @include uqTertiaryButton($white, $accent-color);
+                background-color: transparent !important;
+            }
         }
         .md-button.md-primary {
-            @extend .prm-positive-bg;
-            color: white;
+            @include uqPrimaryButton($accent-color, $white);
+            &:focus,
+            &:hover {
+                background-color: transparent !important;
+            }
             padding-left: 0.75em;
             padding-right: 0.75em;
-            &:hover,
-            &:focus {
-                color: white;
-                background-color: lighten($positive, 5%);
-            }
         }
     }
     &.is-active {

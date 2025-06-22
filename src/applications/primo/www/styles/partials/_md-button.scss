@@ -320,6 +320,25 @@
             position: static;
             @extend .prm-links;
         }
+        md-icon,
+        &>span:not([disabled]) {
+            color: $accent-color !important;
+            box-shadow: none !important;
+        }
+        &:hover:not([disabled]) {
+            box-shadow: none;
+            background-color: transparent;
+        }
+        &:hover md-icon,
+        &:hover span:not([disabled]) span {
+            background-color: $accent-color !important;
+            color: $white !important;
+        }
+        &:hover prm-icon md-icon,
+        &:hover [external-link] md-icon {
+            background-color: transparent !important;
+            color: $accent-color !important;
+        }
     }
 
     // patch to override material bug of adding 2 ripple container
@@ -327,6 +346,7 @@
         + .md-ripple-container {
             display: none;
         }
+        display: none; // and we dont want the ripple at all
     }
 
     &.button-with-menu-arrow {

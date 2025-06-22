@@ -40,14 +40,12 @@ $darker: darken(saturate(adjust-hue($dark, 0), 0), 6.6667);
 
 // lighter background color
 
-$uqWarningDark: #fff0c8; // UQ Light colours, Warning light
+$uqWarningDark: #f9c84b; // DS $warning-400
 $highlight: darken(desaturate(adjust-hue($uqWarningDark, -4.092), 16), 8.0392);
-$uqWarningLight: #fbb800; // UQ Light colours, Warning light
-$success: #2ea836;
-$green: #2ea836;
-//$orange: #CE8015; //#E0962E;
+$success: #4aa74e;
+$green: #4aa74e;
 $muteOrange: #c59655;
-$uqInformationLight: #bbd8f5;
+$uqInformationLight: #cfe2f5; // $utility-100
 $overlayDarkDG: rgba(68, 68, 68, 0.6);
 
 // $availabiltyDetails: desaturate(lighten($midGrey,5%), 5%);
@@ -137,7 +135,7 @@ $linkTitle: #33ffff;
 
 $collectionDisLinks: #0075b0;
 
-$red: #eb602e; // uq orange
+$red: #d62929; // DS $warning-500
 $red-hue1: darken($red, 20%);
 // warning
 $warning: $red;
@@ -212,7 +210,7 @@ $defaultMdButtonHover: rgba(158, 158, 158, 0.2);
 //-----------------------
 
 $swift-ease-out-duration: 0.4s !default;
-$swift-ease-out-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
+$swift-ease-out-timing-function: ease-out;
 $swift-ease-out: all $swift-ease-out-duration $swift-ease-out-timing-function !default;
 
 $swift-ease-in-duration: 0.3s !default;

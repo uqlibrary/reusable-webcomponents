@@ -11,6 +11,7 @@ prm-spinner {
         position: relative;
         width: 30px;
         .diamond {
+            background-color: $accent-color !important;
             position: absolute;
             left: 0;
             right: 0;
