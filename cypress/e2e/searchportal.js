@@ -290,6 +290,15 @@ describe('Search Portal', () => {
                             body: 'user is on a Primo result page',
                         },
                     );
+                    // the old page, temporary code while we are transitioning versions - not required after June 2025
+                    cy.intercept(
+                        'GET',
+                        'https://search.library.uq.edu.au/primo-explore/search?query=any,contains,beard&tab=61uq_all&search_scope=61UQ_All&sortby=rank&vid=61UQ&offset=0&facet=rtype,include,articles',
+                        {
+                            statusCode: 200,
+                            body: 'user is on a Primo result page',
+                        },
+                    );
                     cy.get('button#search-portal-submit').click(); //("click");
                 });
             cy.get('body').contains('user is on a Primo result page');
@@ -572,6 +581,15 @@ describe('Search Portal', () => {
             cy.intercept(
                 'GET',
                 'https://search.library.uq.edu.au/discovery/search?query=any,contains,beard&sortby=rank&vid=61UQ_INST:61UQ&offset=0&facet=rtype,exclude,newspaper_articles,lk&facet=rtype,exclude,reviews,lk',
+                {
+                    statusCode: 200,
+                    body: 'user is on a Primo result page',
+                },
+            );
+            // the old page, temporary code while we are transitioning versions - not required after June 2025
+            cy.intercept(
+                'GET',
+                'https://search.library.uq.edu.au/primo-explore/search?query=any,contains,beard&tab=61uq_all&search_scope=61UQ_All&sortby=rank&vid=61UQ&offset=0&facet=rtype,exclude,newspaper_articles,lk&facet=rtype,exclude,reviews,lk',
                 {
                     statusCode: 200,
                     body: 'user is on a Primo result page',
