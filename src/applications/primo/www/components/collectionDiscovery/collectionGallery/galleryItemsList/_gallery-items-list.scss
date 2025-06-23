@@ -5,4 +5,10 @@ prm-gallery-items-list {
         font-size: 15px;
         font-weight: 400;
     }
+    button {
+        @include uqPrimaryButton($accent-color, $white);
+        &:hover {
+            background-color: $uqPanelBackgroundColor !important;
+        }
+    }
 }

@@ -12,3 +12,18 @@ prm-authentication {
         }
     }
 }
+md-dialog prm-authentication {
+    ul.mylibrary-list {
+        padding-left: 0;
+        margin-bottom: 0;
+        .primaryText {
+            color: $uqBodyCopy;
+            margin-left: 10px;
+        }
+        button#mylibrary-menu-borrowing {
+            display: flex;
+            border-width: 0;
+            background-color: transparent;
+        }
+    }
+}

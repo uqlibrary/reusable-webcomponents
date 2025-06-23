@@ -82,7 +82,7 @@ describe('Search Portal', () => {
 
                     cy.log('focus on a suggestion and hit escape and suggestions are cleared');
                     // cy.get('input[data-testid="primo-search-autocomplete-input"]').type('{esc}');
-                    cy.get('[data-testid="primo-search-autocomplete-input"]').clear();
+                    cy.get('button[data-testid="primo-search-autocomplete-voice-clear"]').should('exist').click();
                     typeTextStringIntoInputField('beard');
                     cy.get('[data-testid="search-portal-autocomplete-option-0"] a')
                         .focus()
@@ -100,7 +100,7 @@ describe('Search Portal', () => {
         //     cy.viewport(1300, 1000);
         //     cy.intercept(
         //         'GET',
-        //         'https://search.library.uq.edu.au/primo-explore/search?query=any,contains,beards%20massage&tab=61uq_all&search_scope=61UQ_All&sortby=rank&vid=61UQ&offset=0&facet=rtype,exclude,newspaper_articles,lk&facet=rtype,exclude,reviews,lk',
+        //         'https://search.library.uq.edu.au/discovery/search?query=any,contains,beards%20massage&sortby=rank&vid=61UQ_INST:61UQ&offset=0&facet=rtype,exclude,newspaper_articles,lk&facet=rtype,exclude,reviews,lk',
         //         {
         //             statusCode: 200,
         //             body: 'user is on a Primo result page',
@@ -282,6 +282,15 @@ describe('Search Portal', () => {
                     typeTextStringIntoInputField('beard', 10);
 
                     // the user clicks the button to load the search
+                    cy.intercept(
+                        'GET',
+                        'https://search.library.uq.edu.au/discovery/search?query=any,contains,beard&sortby=rank&vid=61UQ_INST:61UQ&offset=0&facet=rtype,include,articles',
+                        {
+                            statusCode: 200,
+                            body: 'user is on a Primo result page',
+                        },
+                    );
+                    // the old page, temporary code while we are transitioning versions - not required after June 2025
                     cy.intercept(
                         'GET',
                         'https://search.library.uq.edu.au/primo-explore/search?query=any,contains,beard&tab=61uq_all&search_scope=61UQ_All&sortby=rank&vid=61UQ&offset=0&facet=rtype,include,articles',
@@ -569,6 +578,15 @@ describe('Search Portal', () => {
 
         it('clicking the submit button goes to the external site', () => {
             cy.viewport(1300, 1000);
+            cy.intercept(
+                'GET',
+                'https://search.library.uq.edu.au/discovery/search?query=any,contains,beard&sortby=rank&vid=61UQ_INST:61UQ&offset=0&facet=rtype,exclude,newspaper_articles,lk&facet=rtype,exclude,reviews,lk',
+                {
+                    statusCode: 200,
+                    body: 'user is on a Primo result page',
+                },
+            );
+            // the old page, temporary code while we are transitioning versions - not required after June 2025
             cy.intercept(
                 'GET',
                 'https://search.library.uq.edu.au/primo-explore/search?query=any,contains,beard&tab=61uq_all&search_scope=61UQ_All&sortby=rank&vid=61UQ&offset=0&facet=rtype,exclude,newspaper_articles,lk&facet=rtype,exclude,reviews,lk',
