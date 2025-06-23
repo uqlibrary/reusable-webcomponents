@@ -216,7 +216,7 @@ class UQSiteHeader extends HTMLElement {
         }
         function isSitePrimoNonProd() {
             const vidParam = getSearchParam('vid');
-            return (isDomainPrimoProd() && vidParam !== '61UQ') || isDomainPrimoSandbox();
+            return (isDomainPrimoProd() && vidParam !== '61UQ_INST:61UQ') || isDomainPrimoSandbox();
         }
 
         const breadcrumbNav = this.shadowRoot.getElementById('breadcrumb_nav');
