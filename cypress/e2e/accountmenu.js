@@ -138,8 +138,7 @@ function assertUserisLoggedOut() {
 describe('Account menu button', () => {
     context('Accessibility', () => {
         it('logged OUT user is accessible', () => {
-            cy.visit('http://localhost:8080/?user=public');
-            cy.viewport(1280, 900);
+            visitPageForUser('public');
             cy.injectAxe();
             assertUserisLoggedOut();
             cy.checkA11y('auth-button', {
@@ -150,9 +149,6 @@ describe('Account menu button', () => {
         });
 
         it('logged IN user is accessible', () => {
-            cy.visit('http://localhost:8080');
-            cy.viewport(1280, 900);
-            cy.waitUntil(() => cy.get('uq-site-header').find('auth-button').should('exist'));
             visitPageForUser('vanilla');
             cy.injectAxe();
             cy.checkA11y('auth-button', {
@@ -179,8 +175,8 @@ describe('Account menu button', () => {
         });
 
         it('logged OUT user is accessible on mobile', () => {
-            cy.visit('http://localhost:8080/?user=public');
             cy.viewport(320, 480);
+            visitPageForUser('public');
             cy.injectAxe();
             assertUserisLoggedOut();
             cy.checkA11y('auth-button', {
@@ -190,10 +186,8 @@ describe('Account menu button', () => {
             });
         });
 
-        it('logged IN user is accessibl on mobilee', () => {
-            cy.visit('http://localhost:8080');
+        it('logged IN user is accessible on mobile', () => {
             cy.viewport(320, 480);
-            cy.waitUntil(() => cy.get('uq-site-header').find('auth-button').should('exist'));
             visitPageForUser('vanilla');
             cy.injectAxe();
             cy.checkA11y('auth-button', {
@@ -228,6 +222,7 @@ describe('Account menu button', () => {
 
         it('Navigates to login page', () => {
             cy.intercept(/auth.uq.edu.au/, 'user visits login page'); // from https://auth.uq.edu.au/idp/module.php/core/loginuserpass.php?&etc
+            cy.intercept(/loginuserpass/, 'user visits login page');
             cy.intercept('GET', authLocale.AUTH_URL_LOGIN, {
                 statusCode: 200,
                 body: 'user visits login page',
@@ -320,8 +315,6 @@ describe('Account menu button', () => {
         });
 
         it('Pressing esc closes the account menu', () => {
-            cy.visit('http://localhost:8080?user=uqstaff');
-            cy.viewport(1280, 900);
             visitPageForUser('uqstaff');
             openAccountDropdown();
             assertLogoutButtonVisible();
@@ -368,8 +361,6 @@ describe('Account menu button', () => {
         });
 
         it('Clicking the pane closes the account menu', () => {
-            cy.visit('http://localhost:8080?user=s1111111');
-            cy.viewport(1280, 900);
             visitPageForUser('s1111111');
             openAccountDropdown();
             assertLogoutButtonVisible();
@@ -409,8 +400,6 @@ describe('Account menu button', () => {
     });
     context('User-specific account links', () => {
         it('Admin gets admin entries', () => {
-            cy.visit('http://localhost:8080?user=uqstaff');
-            cy.viewport(1280, 900);
             visitPageForUser('uqstaff');
             openAccountDropdown();
             cy.get('auth-button')
@@ -427,8 +416,6 @@ describe('Account menu button', () => {
         });
 
         it('Test Tag user gets "Test and tag" entry', () => {
-            cy.visit('http://localhost:8080?user=uqtesttag');
-            cy.viewport(1280, 900);
             visitPageForUser('uqtesttag');
             openAccountDropdown();
             cy.get('auth-button')
@@ -442,8 +429,6 @@ describe('Account menu button', () => {
         });
 
         it('Dlor admin gets Dlor admin access entry', () => {
-            cy.visit('http://localhost:8080?user=dloradmn');
-            cy.viewport(1280, 900);
             visitPageForUser('dloradmn');
             openAccountDropdown();
             cy.get('auth-button')
@@ -457,8 +442,6 @@ describe('Account menu button', () => {
         });
 
         it('An espace masquerader non-admin sees masquerade but not other admin functions', () => {
-            cy.visit('http://localhost:8080?user=uqmasquerade');
-            cy.viewport(1280, 900);
             visitPageForUser('uqmasquerade');
             openAccountDropdown();
             cy.get('auth-button')
@@ -475,8 +458,6 @@ describe('Account menu button', () => {
         });
 
         it('Researcher gets espace but not admin entries', () => {
-            cy.visit('http://localhost:8080?user=s1111111');
-            cy.viewport(1280, 900);
             visitPageForUser('s1111111');
             openAccountDropdown();
             cy.get('auth-button')
@@ -489,8 +470,6 @@ describe('Account menu button', () => {
         });
 
         it('A digiteam member gets espace & masquerade but not other admin entries', () => {
-            cy.visit('http://localhost:8080?user=digiteamMember');
-            cy.viewport(1280, 900);
             visitPageForUser('digiteamMember');
             openAccountDropdown();
             cy.get('auth-button')
@@ -507,8 +486,6 @@ describe('Account menu button', () => {
         });
 
         it('non-Researcher doesnt get espace (and not admin entries)', () => {
-            cy.visit('http://localhost:8080?user=s3333333');
-            cy.viewport(1280, 900);
             visitPageForUser('s3333333');
             openAccountDropdown();
             cy.get('auth-button')
@@ -522,8 +499,6 @@ describe('Account menu button', () => {
 
         // need to also test a user that gets a null from the author call; s3333333 has this odd incomplete record
         it('other non-Researcher does not get espace', () => {
-            cy.visit('http://localhost:8080?user=uqrdav10');
-            cy.viewport(1280, 900);
             visitPageForUser('uqrdav10');
             openAccountDropdown();
             cy.get('auth-button')
@@ -539,8 +514,6 @@ describe('Account menu button', () => {
         });
 
         it('can navigate to some page from account menu', () => {
-            cy.visit('http://localhost:8080?user=s1111111');
-            cy.viewport(1280, 900);
             cy.intercept('GET', 'https://support.my.uq.edu.au/app/library/feedback', {
                 statusCode: 200,
                 body: 'user is on library feedback page',

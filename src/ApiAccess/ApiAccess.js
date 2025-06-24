@@ -6,8 +6,6 @@ import { clearCookie, cookieFound, getCookieValue } from '../helpers/cookie';
 import { authLocale } from '../UtilityArea/auth.locale';
 import { getHomepageLink } from '../helpers/access';
 
-let initCalled;
-
 class ApiAccess {
     constructor() {
         this.LOGGED_OUT_ACCOUNT = {
