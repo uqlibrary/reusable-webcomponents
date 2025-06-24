@@ -82,7 +82,7 @@ describe('Search Portal', () => {
 
                     cy.log('focus on a suggestion and hit escape and suggestions are cleared');
                     // cy.get('input[data-testid="primo-search-autocomplete-input"]').type('{esc}');
-                    cy.get('[data-testid="primo-search-autocomplete-input"]').clear();
+                    cy.get('button[data-testid="primo-search-autocomplete-voice-clear"]').should('exist').click();
                     typeTextStringIntoInputField('beard');
                     cy.get('[data-testid="search-portal-autocomplete-option-0"] a')
                         .focus()
@@ -100,7 +100,7 @@ describe('Search Portal', () => {
         //     cy.viewport(1300, 1000);
         //     cy.intercept(
         //         'GET',
-        //         'https://search.library.uq.edu.au/primo-explore/search?query=any,contains,beards%20massage&tab=61uq_all&search_scope=61UQ_All&sortby=rank&vid=61UQ&offset=0&facet=rtype,exclude,newspaper_articles,lk&facet=rtype,exclude,reviews,lk',
+        //         'https://search.library.uq.edu.au/discovery/search?query=any,contains,beards%20massage&sortby=rank&vid=61UQ_INST:61UQ&offset=0&facet=rtype,exclude,newspaper_articles,lk&facet=rtype,exclude,reviews,lk',
         //         {
         //             statusCode: 200,
         //             body: 'user is on a Primo result page',
@@ -282,6 +282,15 @@ describe('Search Portal', () => {
                     typeTextStringIntoInputField('beard', 10);
 
                     // the user clicks the button to load the search
+                    cy.intercept(
+                        'GET',
+                        'https://search.library.uq.edu.au/discovery/search?query=any,contains,beard&sortby=rank&vid=61UQ_INST:61UQ&offset=0&facet=rtype,include,articles',
+                        {
+                            statusCode: 200,
+                            body: 'user is on a Primo result page',
+                        },
+                    );
+                    // the old page, temporary code while we are transitioning versions - not required after June 2025
                     cy.intercept(
                         'GET',
                         'https://search.library.uq.edu.au/primo-explore/search?query=any,contains,beard&tab=61uq_all&search_scope=61UQ_All&sortby=rank&vid=61UQ&offset=0&facet=rtype,include,articles',
@@ -571,6 +580,15 @@ describe('Search Portal', () => {
             cy.viewport(1300, 1000);
             cy.intercept(
                 'GET',
+                'https://search.library.uq.edu.au/discovery/search?query=any,contains,beard&sortby=rank&vid=61UQ_INST:61UQ&offset=0&facet=rtype,exclude,newspaper_articles,lk&facet=rtype,exclude,reviews,lk',
+                {
+                    statusCode: 200,
+                    body: 'user is on a Primo result page',
+                },
+            );
+            // the old page, temporary code while we are transitioning versions - not required after June 2025
+            cy.intercept(
+                'GET',
                 'https://search.library.uq.edu.au/primo-explore/search?query=any,contains,beard&tab=61uq_all&search_scope=61UQ_All&sortby=rank&vid=61UQ&offset=0&facet=rtype,exclude,newspaper_articles,lk&facet=rtype,exclude,reviews,lk',
                 {
                     statusCode: 200,
@@ -639,6 +657,54 @@ describe('Search Portal', () => {
                 });
             cy.wait(500);
             cy.get('[data-testid="search-portal-suggestion-parent"]').should('not.exist');
+        });
+    });
+    context('Primo VE upgrade test', () => {
+        // only testing one link, basically confirming we pick up the right locale
+        it('When json status is VE, user gets ve links', () => {
+            cy.visit('http://localhost:8080?requestType=ve');
+            cy.viewport(1280, 900);
+            cy.get('search-portal')
+                .shadow()
+                .within(() => {
+                    cy.get('a[data-testid="search-portal-footerlink-0"]')
+                        .should('exist')
+                        .should(
+                            'have.attr',
+                            'href',
+                            `https://search.library.uq.edu.au/discovery/search?vid=61UQ_INST:61UQ&mode=advanced`,
+                        );
+                });
+        });
+        it('When json status is BO, user gets BO links', () => {
+            cy.visit('http://localhost:8080?requestType=bo');
+            cy.viewport(1280, 900);
+            cy.get('search-portal')
+                .shadow()
+                .within(() => {
+                    cy.get('a[data-testid="search-portal-footerlink-0"]')
+                        .should('exist')
+                        .should(
+                            'have.attr',
+                            'href',
+                            `https://search.library.uq.edu.au/primo-explore/search?vid=61UQ&mode=advanced`,
+                        );
+                });
+        });
+        it('When there is a problem with the json, user gets BO links', () => {
+            cy.visit('http://localhost:8080?requestType=problem');
+            cy.viewport(1280, 900);
+            cy.get('search-portal')
+                .shadow()
+                .within(() => {
+                    cy.get('a[data-testid="search-portal-footerlink-0"]')
+                        .should('exist')
+                        .should(
+                            'have.attr',
+                            'href',
+                            `https://search.library.uq.edu.au/primo-explore/search?vid=61UQ&mode=advanced`,
+                        );
+                });
         });
     });
 });

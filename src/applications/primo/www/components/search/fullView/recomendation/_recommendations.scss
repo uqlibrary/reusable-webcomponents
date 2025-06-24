@@ -8,6 +8,10 @@ prm-recomendations {
         opacity: 0.5;
         border-bottom: 1px solid darken($bg, 15%);
     }
+
+    h2.section-title {
+        font-weight: 500;
+    }
 }
 
 .recommendations-list {
@@ -65,6 +69,19 @@ prm-recomendations {
     }
 }
 
+primo-explore {
+    prm-recomendation-item {
+        // on a grey background, make each item white to make them separate from their siblings
+        background-color: $white;
+    }
+    &:has(md-backdrop) {
+        prm-recomendation-item {
+            // on a white background, drop a hair-width line
+            border: 1px solid $uqBorderColor;
+        }
+    }
+}
+
 prm-recomendation-item {
     padding: 0.5em 1em 0.5em 1em;
     transform-origin: 0 50%;
@@ -74,6 +91,15 @@ prm-recomendation-item {
     margin-left: 1em;
     margin-bottom: 0.75em;
     width: 100%;
+
+    a {
+        text-decoration: none !important;
+
+        h3 {
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+    }
 
     @include __xs {
         margin: 0;

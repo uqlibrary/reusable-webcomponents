@@ -269,8 +269,6 @@ template.innerHTML = `
 </footer>
 `;
 
-let initCalled;
-
 class UQFooter extends HTMLElement {
     constructor() {
         super();

@@ -73,6 +73,12 @@ class ApiRoutes {
 
     // get file & folder details file/collection/{folder}/{filePath}
     SECURE_COLLECTION_FILE_API = ({ path }) => ({ apiUrl: `file/collection/${path}?acknowledged` });
+
+    PRIMO_STATUS_API() {
+        return {
+            apiUrl: 'https://assets.library.uq.edu.au/reusable-webcomponents/api/homepage/searchportal-status.json',
+        };
+    }
 }
 
 export default ApiRoutes;

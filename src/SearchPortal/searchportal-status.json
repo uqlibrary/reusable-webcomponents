@@ -1,0 +1,8 @@
+{
+  "homepageStatus": "ve",
+  "info": "valid values for homepageStatus: 'bo' means show old primo links on homepage & reusable', 've' means 'show new primo links' (if unavailable 'bo')",
+  "primoBoLoginlink": "hide",
+  "primoBoLoginlinkloginlink-info": "valid values for primoBoLoginlink: 'show' means display the login links (on primo-bo), 'hide' (if unavailable 'show')",
+  "primoBoRedirectBanner": "show",
+  "primoBoRedirectBanner-info": "valid values for primoBoRedirectBanner: 'show' means display the banner (on primo-bo), 'hide' means dont display it (if unavailable, 'hide')"
+}

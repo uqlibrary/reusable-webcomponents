@@ -126,6 +126,18 @@ prm-saved-queries-list {
             position: static;
         }
     }
+    button.md-button.button-confirm.button-large {
+        @include uqPrimaryButton($accent-color, $white);
+    }
+    .result-item-actions button.md-icon-button.md-button prm-icon {
+        color: $accent-color;
+        &:focus,
+        &:hover {
+            background-color: $accent-color;
+            color: white;
+            padding: 10px;
+        }
+    }
 }
 
 .saved-query-list-2-line {

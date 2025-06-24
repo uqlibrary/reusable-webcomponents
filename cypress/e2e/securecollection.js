@@ -168,19 +168,21 @@ describe('Secure Collection', () => {
                 });
         });
 
-        // code detects test mode (localhost and user=test) to not do the actual redirect.
+        // code detects test mode (localhost and mode=manualRedirect) to not do the actual redirect.
         // this lets us a) check the link works and
         // b) something weird is happening in coverage that if we redirect then no coverage is measured, so we get
         // around that
         it('a resource that requires login can have the login redirect link clicked', () => {
+            cy.intercept(/auth.library.uq.edu.au/, 'auth pages that forces the user to login');
             cy.intercept(/loginuserpass/, 'auth pages that forces the user to login');
             cy.intercept('GET', '/idp/module.php', {
                 // https://auth.uq.edu.au/idp/module.php/core/loginuserpass.php?AuthState=&etc
                 statusCode: 200,
                 body: 'auth pages that forces the user to login',
             });
+
             cy.visit(
-                'http://localhost:8080/src/applications/securecollection/demo.html?user=test&collection=exams&file=2018/Semester_Two_Final_Examinations__2018_PHIL2011_281.pdf',
+                'http://localhost:8080/src/applications/securecollection/demo.html?user=public&mode=manualRedirect&collection=exams&file=2018/Semester_Two_Final_Examinations__2018_PHIL2011_281.pdf',
             );
             cy.get('secure-collection')
                 .shadow()
@@ -192,6 +194,7 @@ describe('Secure Collection', () => {
         });
 
         it('a resource that requires login will redirect to auth for the public user', () => {
+            cy.intercept(/auth.library.uq.edu.au/, 'auth pages that forces the user to login');
             cy.intercept(/loginuserpass/, 'auth pages that forces the user to login');
             cy.intercept('GET', '/idp/module.php', {
                 // https://auth.uq.edu.au/idp/module.php/core/loginuserpass.php?AuthState=&etc
@@ -230,7 +233,7 @@ describe('Secure Collection', () => {
                 body: 'I am a file resource delivered to the user',
             });
             cy.visit(
-                'http://localhost:8080/src/applications/securecollection/demo.html?user=test&collection=coursebank&file=22222222222.pdf',
+                'http://localhost:8080/src/applications/securecollection/demo.html?user=public&mode=manualRedirect&collection=coursebank&file=22222222222.pdf',
             );
             cy.viewport(1300, 1000);
             cy.get('secure-collection')

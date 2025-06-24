@@ -1,4 +1,5 @@
 import ApiAccess from '../ApiAccess/ApiAccess';
+import UserAccount from '../ApiAccess/UserAccount';
 import overrides from './css/overrides.css';
 import { authLocale } from '../UtilityArea/auth.locale';
 import { apiLocale as apilocale, apiLocale as locale } from '../ApiAccess/ApiAccess.locale';
@@ -131,23 +132,18 @@ class SecureCollection extends HTMLElement {
             .loadSecureCollectionCheck(path)
             .then((data) => {
                 if (data.response === 'Login required') {
-                    const getStoredUserDetails = setInterval(() => {
-                        const accountData = new ApiAccess().getAccountFromStorage();
+                    return new UserAccount().get().then((accountData) => {
                         if (
                             !!accountData &&
                             accountData.hasOwnProperty('status') &&
-                            (accountData.status === apilocale.USER_LOGGED_IN ||
-                                accountData.status === apilocale.USER_LOGGED_OUT)
+                            accountData.status === apilocale.USER_LOGGED_IN
                         ) {
-                            clearInterval(getStoredUserDetails);
-                            if (accountData.status === apilocale.USER_LOGGED_IN) {
-                                // they are logged in! now we ask for the actual file they want
-                                that.getSecureCollectionFile(currentSearchParams);
-                            } else {
-                                this.displayLoginRequiredRedirectorPanel();
-                            }
+                            // they are logged in! now we ask for the actual file they want
+                            that.getSecureCollectionFile(currentSearchParams);
+                        } else {
+                            this.displayLoginRequiredRedirectorPanel();
                         }
-                    }, 100);
+                    });
                 } else {
                     that.evaluateApiResponse(data);
                 }
@@ -394,10 +390,10 @@ class SecureCollection extends HTMLElement {
             return false;
         }
         const queryString = new URLSearchParams(window.location.search);
-        const user = !!queryString
-            ? queryString.get('user')
-            : window.location.hash.substring(window.location.hash.indexOf('?')).user;
-        return user === 'test';
+        const mode = !!queryString
+            ? queryString.get('mode')
+            : window.location.hash.substring(window.location.hash.indexOf('?')).mode;
+        return mode === 'manualRedirect';
     }
 
     displayRedirectingPanel() {

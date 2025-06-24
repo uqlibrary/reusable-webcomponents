@@ -1,10 +1,20 @@
 $actionButtonSize: 38px;
 $actionButtonMargin: 4px;
 
+//div#searchResultsContainer prm-brief-result-container:not(:first-child) {
+//    margin-top: 10px;
+//    border-left: thick solid red;
+//}
+
 prm-brief-result-container {
     display: block;
     width: 100%;
     position: relative;
+
+    // if it has an action item area with a link or citation button, then we must be on a brief result page that links
+    &:has(.result-item-actions > button[data-custom-button="action"]):hover {
+        cursor: pointer;
+    }
 
     .md-button[disabled='disabled'] {
         z-index: -1;
@@ -53,9 +63,9 @@ prm-brief-result-container {
             @include rtl-prop(padding-left, padding-right, 3em, auto);
         }
         md-checkbox {
-            position: absolute;
-            top: 0.95em;
-            @include rtl-prop(left, right, 0.8em, 0);
+            .md-container {
+                top: 35%;
+            }
         }
     }
 
@@ -135,6 +145,182 @@ prm-brief-result-container {
             // border-color: $dark;
         }
     }
+    .availability-button {
+        display: inline-block;
+        cursor: pointer;
+        font-weight: 500;
+        padding-block: 9px;
+        & > span {
+            @include uqSpannedTertiaryButton($white, $accent-color);
+            text-decoration: underline;
+            &:hover:not([disabled]) {
+                background-color: $accent-color !important;
+            }
+        }
+        prm-icon {
+            width: 15px;
+            height: 21px;
+            margin-right: .35em;
+            color: rgba(59,56,62,0.4);
+            line-height: 1.2em;
+            md-icon {
+                @include setSize(15px);
+            }
+        }
+        prm-icon[icon-definition="open-in-new"] { // hide outlink icon
+            display: none
+        }
+    }
+
+    .result-item-actions {
+        min-width: 0px;
+        z-index: 10;
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin-right: $actionButtonMargin;
+        display: flex;
+        align-items: flex-start;
+        transition: transform 0.3s $easeOutQuint, opacity 0.2s;
+        transform: translate(-4px, 0);
+        @include rtl-prop(margin-right, margin-left, $actionButtonMargin, auto);
+
+        .item-expanded & {
+            @include rtl(transform, translate(14px, -18px), translate(-14px, -18px));
+        }
+        html[dir='rtl'] & {
+            right: auto;
+            left: 0;
+        }
+        > .md-button {
+            //opacity: .8;
+            &:hover,
+            &:focus {
+                opacity: 1;
+            }
+        }
+        // action buttons
+        .md-icon-button {
+            background-color: transparent;
+            margin: 0;
+            display: inline-flex;
+            justify-content: center;
+            color: $accent-color;
+            md-icon {
+                @include setSize(20px);
+            }
+            opacity: .8;
+            &:hover,
+            &:focus {
+                &:not([disabled]) {
+                    box-shadow: none;
+                    background-color: transparent !important;
+                    color: $accent-color !important;
+                    opacity: 1;
+                }
+            }
+        }
+        .citation-trails-brief {
+            border-radius: 50%;
+            padding: 8px;
+            .md-primoExplore-theme {
+                color: $highlightPrimary !important;
+            }
+            &:focus,
+            &:hover {
+                background-color: $highlightPrimary;
+                .md-primoExplore-theme {
+                    background-color: $highlightPrimary;
+                    color: #fff !important;
+                    transition: all .4s ease-out;
+                }
+                prm-icon {
+                    background-color: $highlightPrimary;
+                    border-radius: 50%;
+                    padding: 10px;
+                }
+            }
+        }
+
+        .pin-button {
+            md-icon {
+                transition: $swift-ease-out;
+                transform: rotate3d(0, 0, 1, -25deg);
+                opacity: 0;
+            }
+            @extend .prm-secondary-color.prm-hue3;
+            &.pinned {
+                &:hover,
+                &:focus {
+                    color: $dark;
+                }
+
+                md-icon {
+                    transform: rotate3d(0, 0, 1, 25deg);
+                    opacity: 1;
+                }
+            }
+        }
+        .unpin-button {
+            md-icon {
+                transition: $swift-ease-out;
+                transform: rotate3d(0, 0, 1, 25deg);
+                opacity: 0;
+            }
+            &.unpinned {
+                md-icon {
+                    transform: rotate3d(0, 0, 1, 0deg);
+                    opacity: 1;
+                }
+            }
+        }
+
+        // more options button
+        .more-options-button {
+            width: $briefButtonHeight;
+            position: relative;
+            @extend .prm-primary-color;
+            prm-icon {
+                md-icon {
+                    -webkit-transition: $swift-ease-out;
+                    -moz-transition: $swift-ease-out;
+                    -ms-transition: $swift-ease-out;
+                    -o-transition: $swift-ease-out;
+                    transition: $swift-ease-out;
+                    position: relative;
+                    // @include ie-exceptions
+                }
+                &.open-icon {
+                    md-icon {
+                        transform: rotate3d(0, 0, 1, 0deg);
+                        opacity: 1;
+                        top: -2px;
+                        .item-expanded & {
+                            transform: rotate3d(0, 0, 1, -135deg);
+                            opacity: 0;
+                        }
+                    }
+                }
+                &.close-icon {
+                    position: absolute;
+                    left: -($actionButtonMargin);
+                    top: 0;
+                    right: 0;
+                    md-icon {
+                        @include setSize(32px);
+                        transform: rotate3d(0, 0, 1, 45deg) scale3d(0.5, 0.5, 1) translate3d(4px, 0, 0);
+                        opacity: 0;
+                        transform-origin: 50% 45%;
+                        top: 5px;
+                        .item-expanded & {
+                            transform: rotate3d(0, 0, 1, -90deg) scale3d(1, 1, 1) translate3d(0, 0, 0);
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 .list-item-wrapper {
@@ -160,7 +346,7 @@ prm-brief-result-container {
         }
     }
     &.item-expanded {
-        z-index: 11 !important;
+        z-index: 12 !important;
 
         .list-item-primary-content {
             transform: translate3d(-8px, -16px, 0);
@@ -173,9 +359,6 @@ prm-brief-result-container {
         @extend .prm-highlight.prm-hue1;
     }
 }
-
-// a tweak to make "page #" headers appear above the result items, and the same time not occupy vertical space, because this space is being calculated when the item gets expanded. To remove the tweak, remove the class '.pages-separated-with-gaps' from '.list-items-list' element.
-///// this tweak is now in _search-result-list.scss
 
 .peer-reviewed-mark-icon,
 .course-info-mark-icon {
@@ -216,10 +399,6 @@ prm-brief-result-container {
         font-weight: 600;
         font-size: 12px;
     }
-}
-
-.icon-after-icon {
-    margin-left: 10px;
 }
 
 .list-item-count {
@@ -263,135 +442,6 @@ prm-brief-result-container {
         //     z-index: -1;
         //     @extend .prm-secondary-bg.prm-hue1;
         // }
-    }
-}
-
-//// End tweak
-
-.result-item-actions {
-    min-width: 0px;
-    z-index: 10;
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin-right: $actionButtonMargin;
-    display: flex;
-    align-items: flex-start;
-    transition: transform 0.3s $easeOutQuint, opacity 0.2s;
-    transform: translate(-4px, 0);
-    @include rtl-prop(margin-right, margin-left, $actionButtonMargin, auto);
-
-    .item-expanded & {
-        @include rtl(transform, translate(14px, -18px), translate(-14px, -18px));
-    }
-    html[dir='rtl'] & {
-        right: auto;
-        left: 0;
-    }
-    > .md-button {
-        //opacity: .8;
-        &:hover,
-        &:focus {
-            opacity: 1;
-        }
-    }
-    // action buttons
-    .md-icon-button {
-        background-color: transparent;
-        margin: 0;
-        display: inline-flex;
-        justify-content: center;
-        @extend .prm-primary-color.prm-hue2;
-        md-icon {
-            @include setSize(20px);
-        }
-        &:hover,
-        &:focus {
-            &:not([disabled]) {
-                box-shadow: none;
-                background-color: transparent !important;
-                color: $dark !important;
-            }
-        }
-    }
-
-    .pin-button {
-        md-icon {
-            transition: $swift-ease-out;
-            transform: rotate3d(0, 0, 1, -25deg);
-            opacity: 0;
-        }
-        @extend .prm-secondary-color.prm-hue3;
-        &.pinned {
-            &:hover,
-            &:focus {
-                color: $dark;
-            }
-
-            md-icon {
-                transform: rotate3d(0, 0, 1, 25deg);
-                opacity: 1;
-            }
-        }
-    }
-    .unpin-button {
-        md-icon {
-            transition: $swift-ease-out;
-            transform: rotate3d(0, 0, 1, 25deg);
-            opacity: 0;
-        }
-        &.unpinned {
-            md-icon {
-                transform: rotate3d(0, 0, 1, 0deg);
-                opacity: 1;
-            }
-        }
-    }
-
-    // more options button
-    .more-options-button {
-        width: $briefButtonHeight;
-        position: relative;
-        @extend .prm-primary-color;
-        prm-icon {
-            md-icon {
-                -webkit-transition: $swift-ease-out;
-                -moz-transition: $swift-ease-out;
-                -ms-transition: $swift-ease-out;
-                -o-transition: $swift-ease-out;
-                transition: $swift-ease-out;
-                position: relative;
-                // @include ie-exceptions
-            }
-            &.open-icon {
-                md-icon {
-                    transform: rotate3d(0, 0, 1, 0deg);
-                    opacity: 1;
-                    top: -2px;
-                    .item-expanded & {
-                        transform: rotate3d(0, 0, 1, -135deg);
-                        opacity: 0;
-                    }
-                }
-            }
-            &.close-icon {
-                position: absolute;
-                left: -($actionButtonMargin);
-                top: 0;
-                right: 0;
-                md-icon {
-                    @include setSize(32px);
-                    transform: rotate3d(0, 0, 1, 45deg) scale3d(0.5, 0.5, 1) translate3d(4px, 0, 0);
-                    opacity: 0;
-                    transform-origin: 50% 45%;
-                    top: 5px;
-                    .item-expanded & {
-                        transform: rotate3d(0, 0, 1, -90deg) scale3d(1, 1, 1) translate3d(0, 0, 0);
-                        opacity: 1;
-                    }
-                }
-            }
-        }
     }
 }
 
@@ -509,7 +559,7 @@ prm-brief-result-container {
 
     &:before {
         content: '';
-        background-color: $red;
+        background-color: $accent-color;
         position: absolute;
         width: 100%;
         height: 100%;

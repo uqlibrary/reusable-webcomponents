@@ -33,7 +33,7 @@ md-checkbox {
         .md-icon,
         ._md-icon {
             opacity: 1;
-            @extend .prm-secondary-bg.prm-hue3;
+            @include bgColor($highlightPrimary);
 
             &:after {
                 left: 6px;
