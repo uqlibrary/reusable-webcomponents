@@ -111,6 +111,7 @@ class UserAccount extends ApiAccess {
     }
 
     showLoggedOutButton() {
+        console.log('### UserAccount showLoggedOutButton');
         const authButton = document.querySelector('auth-button');
         if (!!authButton) {
             // create temporary reference element so we know where to paste the new logged out auth

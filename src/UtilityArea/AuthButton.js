@@ -52,6 +52,7 @@ unauthorisedtemplate.innerHTML = `
 
 class AuthButton extends HTMLElement {
     constructor() {
+        console.log('### AuthButton constructor');
         super();
         // Add a shadow DOM
         const shadowDOM = this.attachShadow({ mode: 'open' });
@@ -82,6 +83,7 @@ class AuthButton extends HTMLElement {
     }
 
     loadButton(shadowDOM) {
+        console.log('### AuthButton loadButton');
         new ApiAccess().fetchPrimoStatus().then((primoStatus) => {
             console.log('primoStatus=', primoStatus);
             this.primoStatus = primoStatus;
@@ -90,6 +92,7 @@ class AuthButton extends HTMLElement {
     }
 
     async showLoginFromAuthStatus(shadowDOM) {
+        console.log('### AuthButton showLoginFromAuthStatus');
         // THESE LINKS MUST BE DUPLICATED ON PRIMO! (see repo exlibris-primo)
         // (NOTE: due to complexity of an account check in primo, we are not showing the espace dashboard link or admin items there)
         const libraryAccountUrl =
