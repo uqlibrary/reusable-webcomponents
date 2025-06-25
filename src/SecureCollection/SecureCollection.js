@@ -12,16 +12,15 @@ fileExtensionElement.innerHTML = `
     it.
 </p>
 `;
-const circularProgressElement = document.createElement('template');
-circularProgressElement.innerHTML = `
-    <div class="MuiCircularProgress-root MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
-         aria-label="Page is loading" role="progressbar" data-testid="loading-secure-collection"
-         style="width: 20px; height: 20px;">
-        <svg class="MuiCircularProgress-svg" viewBox="22 22 44 44">
-            <circle class="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate" cx="44" cy="44" r="20.2"
-                    fill="none" stroke-width="3.6"></circle>
-        </svg>
-    </div>
+const spinnerElement = document.createElement('template');
+spinnerElement.innerHTML = `
+   <div class="spinnerWrapper" id="spinnerWrapper">
+       <span id="spinner" class="spinner" role="progressbar">
+          <svg viewBox="22 22 44 44">
+              <circle cx="44" cy="44" r="21" fill="none" stroke-width="2"></circle>
+          </svg>
+       </span>
+   </div>
 `;
 const template = document.createElement('template');
 template.innerHTML = `
@@ -212,7 +211,7 @@ class SecureCollection extends HTMLElement {
 
     displayLoadingPanel() {
         const block = document.createElement('div');
-        block.appendChild(circularProgressElement.content.cloneNode(true));
+        block.appendChild(spinnerElement.content.cloneNode(true));
         this.wrapFragmentInStandardPage(block);
     }
 
@@ -369,7 +368,7 @@ class SecureCollection extends HTMLElement {
         const loginRequiredRedirectorPanel = document.createElement('template');
         loginRequiredRedirectorPanel.innerHTML = `
 <p>Login is required for this file - please wait while you are redirected.</p>
-<div id="circularprogress"></div>
+<div id="spinner"></div>
 <p>You can <a data-testid="secure-collection-auth-redirector" id="redirector" href="">click here</a> if you aren't redirected.</p>
 `;
 
@@ -382,8 +381,8 @@ class SecureCollection extends HTMLElement {
         const anchor = loginRequiredRedirectorPanel.content.getElementById('redirector');
         anchor.href = redirectLink;
 
-        const circularprogress = loginRequiredRedirectorPanel.content.getElementById('circularprogress');
-        circularprogress.appendChild(circularProgressElement.content.cloneNode(true));
+        const spinner = loginRequiredRedirectorPanel.content.getElementById('spinner');
+        spinner.appendChild(spinnerElement.content.cloneNode(true));
 
         const block = document.createElement('div');
         block.appendChild(loginRequiredRedirectorPanel.content.cloneNode(true));
@@ -413,14 +412,14 @@ class SecureCollection extends HTMLElement {
         redirectorPanel.innerHTML = `
 <p>We are preparing the file, you should be redirected shortly.</p>
 <p>You can <a data-testid="secure-collection-resource-redirector" id="redirector" href="">download the file</a> if the page does not redirect.</p>
-<div id="circularprogress"></div>
+<div id="spinner"></div>
 `;
 
         const anchor = redirectorPanel.content.getElementById('redirector');
         anchor.href = this.redirectLink;
 
-        const circularprogress = redirectorPanel.content.getElementById('circularprogress');
-        circularprogress.appendChild(circularProgressElement.content.cloneNode(true));
+        const spinner = redirectorPanel.content.getElementById('spinner');
+        spinner.appendChild(spinnerElement.content.cloneNode(true));
 
         const block = document.createElement('div');
         block.appendChild(redirectorPanel.content.cloneNode(true));
