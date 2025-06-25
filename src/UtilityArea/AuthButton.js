@@ -254,7 +254,7 @@ class AuthButton extends HTMLElement {
         <div id="account-options-pane" data-testid="account-options-pane" aria-hidden="true" class="account-options-pane account-options-pane-closed" style="display: none" />
     </div>
 `;
-        new UserAccount().get().then((userDetails) => {
+        new UserAccount('authbuttonMain').get().then((userDetails) => {
             if (!userDetails) {
                 this.showLoggedOutButton(shadowDOM);
                 return;
@@ -468,7 +468,7 @@ class AuthButton extends HTMLElement {
         let accountOptionsClosed = true;
 
         function visitLogOutPage() {
-            const userController = new UserAccount();
+            const userController = new UserAccount('authbuttonLogout');
             userController.logUserOut();
         }
 
@@ -596,7 +596,7 @@ class AuthButton extends HTMLElement {
             return;
         }
 
-        return new UserAccount().get().then((userDetails) => {
+        return new UserAccount('authbuttonespace').get().then((userDetails) => {
             const isValidUser =
                 !!userDetails &&
                 userDetails.hasOwnProperty('status') &&

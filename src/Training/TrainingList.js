@@ -218,7 +218,7 @@ class TrainingList extends HTMLElement {
     async checkAuthorisedUser() {
         const that = this;
         that.account = {};
-        return new UserAccount().get().then((accountData) => {
+        return new UserAccount('training').get().then((accountData) => {
             if (!!accountData && accountData.hasOwnProperty('status')) {
                 if (accountData.status === apiLocale.USER_LOGGED_IN) {
                     that.account = accountData.account;
