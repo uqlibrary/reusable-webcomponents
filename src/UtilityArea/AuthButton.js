@@ -257,7 +257,10 @@ class AuthButton extends HTMLElement {
         <div id="account-options-pane" data-testid="account-options-pane" aria-hidden="true" class="account-options-pane account-options-pane-closed" style="display: none" />
     </div>
 `;
-        new UserAccount('authbuttonMain').get().then((userDetails) => {
+        const userAccount = new UserAccount('authbuttonMain');
+        console.log('### AuthButton showLoginFromAuthStatus userAccount=', userAccount);
+        !!userAccount && userAccount.get()
+            .then((userDetails) => {
             if (!userDetails) {
                 this.showLoggedOutButton(shadowDOM);
                 return;

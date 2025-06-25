@@ -24,6 +24,7 @@ class UserAccount extends ApiAccess {
     }
 
     async get() {
+        console.log('### UserAccount start of get, from', this.source);
         const that = this;
         const ACCOUNT_CALL_INCOMPLETE = 'incomplete';
         const ACCOUNT_CALL_DONE = 'done';
@@ -40,6 +41,7 @@ class UserAccount extends ApiAccess {
         const accountApi = new ApiRoutes().CURRENT_ACCOUNT_API();
         let accountCallStatus = ACCOUNT_CALL_INCOMPLETE;
         const url = accountApi?.apiUrl + '?source=' + this.source;
+        console.log('### UserAccount call fetchApi, from', this.source, 'with', url);
         await this.fetchAPI(url, {}, true)
             .then((account) => {
                 if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
