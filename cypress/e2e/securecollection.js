@@ -8,7 +8,7 @@ describe('Secure Collection', () => {
             );
             cy.injectAxe();
             cy.viewport(1280, 900);
-            cy.get('secure-collection').shadow().find('[data-testid="StandardPage-title"]');
+            cy.get('secure-collection').shadow().find('[data-testid="hero-text"]');
             cy.checkA11y('secure-collection', {
                 reportName: 'Secure Collection',
                 scopeName: 'Accessibility',
@@ -23,9 +23,13 @@ describe('Secure Collection', () => {
             cy.get('secure-collection')
                 .shadow()
                 .within(() => {
-                    cy.get('h2').contains('Secure Collection');
-                    cy.get('#block').contains('This file does not exist or is unavailable.');
-                    cy.get('#block').contains('Please check the link you have used.');
+                    cy.get('h1').contains('Secure collection');
+                    cy.get('[data-testid="standard-card-copyright-notice"]').contains(
+                        'This file does not exist or is unavailable.',
+                    );
+                    cy.get('[data-testid="standard-card-copyright-notice"]').contains(
+                        'Please check the link you have used.',
+                    );
                 });
         });
         it('when the html is called with no parameters it says so', () => {
@@ -34,9 +38,13 @@ describe('Secure Collection', () => {
             cy.get('secure-collection')
                 .shadow()
                 .within(() => {
-                    cy.get('h2').contains('Secure Collection');
-                    cy.get('#block').contains('This file does not exist or is unavailable.');
-                    cy.get('#block').contains('Please check the link you have used.');
+                    cy.get('h1').contains('Secure collection');
+                    cy.get('[data-testid="standard-card-copyright-notice"]').contains(
+                        'This file does not exist or is unavailable.',
+                    );
+                    cy.get('[data-testid="standard-card-copyright-notice"]').contains(
+                        'Please check the link you have used.',
+                    );
                 });
         });
 
@@ -48,10 +56,9 @@ describe('Secure Collection', () => {
             cy.get('secure-collection')
                 .shadow()
                 .within(() => {
-                    cy.get('h2').contains('Secure Collection');
-                    cy.get('[data-testid="secure-collection"]').contains('Secure Collection');
-                    cy.get('#block').contains('System temporarily unavailable');
-                    cy.get('#block').contains(
+                    cy.get('h1').contains('Secure collection');
+                    cy.get('[data-testid="standard-card-copyright-notice"]').contains('System temporarily unavailable');
+                    cy.get('[data-testid="standard-card-copyright-notice"]').contains(
                         "We're working on the issue and will have service restored as soon as possible. Please try again later.",
                     );
                 });
@@ -69,12 +76,12 @@ describe('Secure Collection', () => {
             cy.get('secure-collection')
                 .shadow()
                 .within(() => {
-                    cy.get('h2').contains('Secure Collection');
-                    cy.get('#block').contains('WARNING');
-                    cy.get('#block').contains(
+                    cy.get('h1').contains('Secure collection');
+                    cy.get('[data-testid="standard-card-copyright-notice"]').contains('Warning');
+                    cy.get('[data-testid="standard-card-copyright-notice"]').contains(
                         'This material has been reproduced and communicated to you by or on behalf of The',
                     );
-                    cy.get('#block')
+                    cy.get('[data-testid="standard-card-copyright-notice"]')
                         .find('[data-testid="fileExtension"]')
                         .contains('Save the file with a name ending in')
                         .find('b')
@@ -101,11 +108,13 @@ describe('Secure Collection', () => {
             cy.get('secure-collection')
                 .shadow()
                 .within(() => {
-                    cy.get('#block').contains('WARNING');
-                    cy.get('#block').contains(
+                    cy.get('[data-testid="standard-card-copyright-notice"]').contains('Warning');
+                    cy.get('[data-testid="standard-card-copyright-notice"]').contains(
                         'The material in this communication may be subject to copyright under the Act',
                     );
-                    cy.get('#block').find('[data-testid="fileExtension"]').should('not.exist');
+                    cy.get('[data-testid="standard-card-copyright-notice"]')
+                        .find('[data-testid="fileExtension"]')
+                        .should('not.exist');
                 });
         });
 
@@ -121,12 +130,12 @@ describe('Secure Collection', () => {
             cy.get('secure-collection')
                 .shadow()
                 .within(() => {
-                    cy.get('h2').contains('Secure Collection');
-                    cy.get('#block').contains('WARNING');
-                    cy.get('#block').contains(
+                    cy.get('h1').contains('Secure collection');
+                    cy.get('[data-testid="standard-card-copyright-notice"]').contains('WARNING');
+                    cy.get('[data-testid="standard-card-copyright-notice"]').contains(
                         'This file is provided to support teaching and learning for the staff and students of',
                     );
-                    cy.get('#block')
+                    cy.get('[data-testid="standard-card-copyright-notice"]')
                         .find('[data-testid="fileExtension"]')
                         .contains('Save the file with a name ending in')
                         .find('b')
@@ -149,7 +158,9 @@ describe('Secure Collection', () => {
             cy.get('secure-collection')
                 .shadow()
                 .within(() => {
-                    cy.get('#block').find('h3').contains('This file does not exist or is unavailable.');
+                    cy.get('[data-testid="standard-card-copyright-notice"]')
+                        .find('h2')
+                        .contains('This file does not exist or is unavailable.');
                     cy.get('[data-testid="secure-collection"] p').contains('Please check the link you have used.');
                 });
         });
@@ -162,9 +173,11 @@ describe('Secure Collection', () => {
             cy.get('secure-collection')
                 .shadow()
                 .within(() => {
-                    cy.get('h2').contains('Secure Collection');
-                    cy.get('#block').contains('Access to this file is only available to UQ staff and students');
-                    cy.get('#block').contains('If you have another UQ account');
+                    cy.get('h1').contains('Secure collection');
+                    cy.get('[data-testid="standard-card-copyright-notice"]').contains(
+                        'Access to this file is only available to UQ staff and students',
+                    );
+                    cy.get('[data-testid="standard-card-copyright-notice"]').contains('If you have another UQ account');
                 });
         });
 
