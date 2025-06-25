@@ -411,8 +411,8 @@ class SecureCollection extends HTMLElement {
         const redirectorPanel = document.createElement('template');
         redirectorPanel.innerHTML = `
 <p>We are preparing the file, you should be redirected shortly.</p>
-<p>You can <a data-testid="secure-collection-resource-redirector" id="redirector" href="">download the file</a> if the page does not redirect.</p>
 <div id="spinner"></div>
+<p style="margin-top: 1rem">You can <a data-testid="secure-collection-resource-redirector" id="redirector" href="">download the file</a> if the page does not redirect.</p>
 `;
 
         const anchor = redirectorPanel.content.getElementById('redirector');
