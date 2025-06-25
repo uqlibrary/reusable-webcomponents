@@ -138,7 +138,7 @@ class SecureCollection extends HTMLElement {
             .loadSecureCollectionCheck(path)
             .then((data) => {
                 if (data.response === 'Login required') {
-                    return new UserAccount().get().then((accountData) => {
+                    return new UserAccount('securecollection').get().then((accountData) => {
                         if (
                             !!accountData &&
                             accountData.hasOwnProperty('status') &&

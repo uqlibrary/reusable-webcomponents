@@ -271,7 +271,7 @@ class ProactiveChat extends HTMLElement {
 
         function openCrmChat() {
             let accountDetails = null;
-            new UserAccount().get().then((currentUserDetails) => {
+            new UserAccount('proactive1').get().then((currentUserDetails) => {
                 const accountIsSet =
                     currentUserDetails.hasOwnProperty('account') &&
                     !!currentUserDetails.account &&
@@ -355,7 +355,7 @@ class ProactiveChat extends HTMLElement {
                 let chatbotUrl = `${chatbotSrc}/chatbot.html`;
                 const chatBotIframe = !!chatbotWrapper && chatbotWrapper.getElementsByTagName('iframe');
 
-                new UserAccount().get().then((currentUserDetails) => {
+                new UserAccount('proactive2').get().then((currentUserDetails) => {
                     const accountAvailable =
                         currentUserDetails.hasOwnProperty('account') &&
                         !!currentUserDetails.account &&
