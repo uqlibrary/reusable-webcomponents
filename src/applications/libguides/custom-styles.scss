@@ -399,13 +399,18 @@ body:not(.guides_homepage) #s-lg-index-cols {
             margin-bottom: $spacing-m;
             margin-top: 0;
         }
-        ol li,ul li {
+        ol li,
+        ul li {
             margin-bottom: $spacing-xs;
         }
-        ol li:last-child,ul li:last-child {
-            margin-bottom: 0
+        ol li:last-child,
+        ul li:last-child {
+            margin-bottom: 0;
         }
-        ol li>ol,ol li>ul,ul li>ol,ul li>ul {
+        ol li > ol,
+        ol li > ul,
+        ul li > ol,
+        ul li > ul {
             margin-bottom: 0;
             margin-top: $spacing-xs;
         }
@@ -566,7 +571,7 @@ body:not(.editmode) #s-lg-side-nav-content {
 @media (max-width: 63.99em) {
     #s-lg-side-nav-content {
         > .row {
-            display: flex;
+            display: flex !important;
             flex-direction: column-reverse;
         }
     }
@@ -623,7 +628,8 @@ body:not(:has(.arrowPanel)) .s-lib-box-content {
         margin-top: 0;
         margin-bottom: 16px;
     }
-    ol,ul {
+    ol,
+    ul {
         margin-bottom: $spacing-m;
         margin-top: 0;
         padding-left: $spacing-m;
@@ -632,17 +638,15 @@ body:not(:has(.arrowPanel)) .s-lib-box-content {
         }
 
         li:last-child {
-            margin-bottom: 0
+            margin-bottom: 0;
         }
 
-        li>ol,
-        li>ul {
+        li > ol,
+        li > ul {
             margin-bottom: 0;
             margin-top: $spacing-xs;
         }
     }
-
-
 }
 .guides_homepage {
     #s-lg-col-1 h3 {
@@ -1599,7 +1603,7 @@ a:hover i.fa {
         margin-right: 16px;
     }
 
-    body:not(.editmode) #s-lg-side-nav-content>.row{
+    body:not(.editmode) #s-lg-side-nav-content > .row {
         display: block;
         margin: 0 !important;
         padding: 0 !important;
@@ -1652,7 +1656,7 @@ a:hover i.fa {
         text-decoration: underline !important;
     }
     abbr[title]:after {
-        content: " (" attr(title) ")"
+        content: ' (' attr(title) ')';
     }
 
     #s-lg-index-cols::after,
