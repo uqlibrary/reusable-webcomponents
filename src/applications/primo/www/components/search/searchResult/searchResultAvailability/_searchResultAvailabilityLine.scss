@@ -3,18 +3,14 @@
 }
 prm-search-result-availability-line {
     line-height: 1.2em;
-    display: block;
+    padding-block: 9px;
     &:before {
-        content: '';
-        display: block;
-        height: 0.5em;
-        width: 100%;
+        content: none;
     }
 
     [availability-type] {
         color: transparentize($dark, 0.6);
         flex-shrink: 0;
-        // margin-right: .35em;
 
         @include rtl-prop(margin-right, margin-left, 0.35em, 0);
 
@@ -75,5 +71,9 @@ prm-search-result-availability-line {
             height: 100%;
             transform: rotate(90deg) scale(1) translateY(0);
         }
+    }
+    button span {
+        @include uqSpannedTertiaryButton($white, $accent-color);
+        background-color: transparent !important;
     }
 }

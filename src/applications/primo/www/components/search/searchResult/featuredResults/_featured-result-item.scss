@@ -75,6 +75,7 @@ prm-featured-result-item {
             md-card-title-text {
                 &.has-ellipsis {
                     @include multiLineEllipsis($lineHeight: 1em, $lineCount: 4, $bgColor: $background-hue2);
+                    text-align: left;
                 }
             }
         }

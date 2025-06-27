@@ -8,19 +8,19 @@
 // .viewit_NFT,
 // .unavailable_in_maininstitution_more,
 // .check_holdings_in_maininstitution
-[class*='NFT'],
-[class*='check_'],
-[class*='_more'],
-[class*='_unknown'],
-[class*='may_'],
-[class*='does_not_exist'],
-.worldcat,
-.getit {
-    @extend .status-maybe !optional;
-    > span {
-        @extend .prm-links;
-    }
-}
+//[class*='NFT'],
+//[class*='check_'],
+//[class*='_more'],
+//[class*='_unknown'],
+//[class*='may_'],
+//[class*='does_not_exist'],
+//.worldcat,
+//.getit {
+//    @extend .status-maybe !optional;
+//    > span {
+//        @extend .prm-links;
+//    }
+//}
 
 // .available_in_institution,
 // .available_in_library,

@@ -204,7 +204,11 @@ class UQSiteHeader extends HTMLElement {
             return window.location.hostname === 'search.library.uq.edu.au';
         }
         function isDomainPrimoSandbox() {
-            return window.location.hostname === 'uq-edu-primo-sb.hosted.exlibrisgroup.com';
+            return [
+                'uq-edu-primo-sb.hosted.exlibrisgroup.com', // old primo
+                'uq.primo.exlibrisgroup.com', // primo ve     ] only one of these will last as sandbox after golive
+                'uq-psb.primo.exlibrisgroup.com', // primo ve ]
+            ].includes(window.location.hostname);
         }
         function getSearchParam(name) {
             const urlParams = new URLSearchParams(window.location.search);
@@ -212,7 +216,7 @@ class UQSiteHeader extends HTMLElement {
         }
         function isSitePrimoNonProd() {
             const vidParam = getSearchParam('vid');
-            return (isDomainPrimoProd() && vidParam !== '61UQ') || isDomainPrimoSandbox();
+            return (isDomainPrimoProd() && vidParam !== '61UQ_INST:61UQ') || isDomainPrimoSandbox();
         }
 
         const breadcrumbNav = this.shadowRoot.getElementById('breadcrumb_nav');

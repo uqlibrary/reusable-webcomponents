@@ -20,4 +20,86 @@ prm-request {
             }
         }
     }
+
+    // align the submit and reset buttons better
+    form > div:last-child {
+        @media (min-width: 520px) {
+            display: flex;
+        }
+        padding-block: 1rem;
+
+        & button {
+            // submit button
+            padding: 6px 24px;
+            margin: 0;
+            text-transform: capitalize;
+            font-size: 16px;
+            border: 2px solid $accent-color;
+            border-radius: 4px;
+            transition: color 200ms ease-out, background-color 200ms ease-out;
+        }
+
+        & button:has([icon-definition="reload"]) {
+            // reset button
+            display: initial;
+            text-align: left;
+            width: 8em;
+            margin-bottom: 10px; // leave space for other button to slip beneath on mobile
+            @include uqSecondaryButton($white, $accent-color);
+        }
+
+        & div:has([icon-definition="send"]) {
+            // submit button block
+            display: block;
+            text-align: right;
+            @media (min-width: 520px) {
+                margin-top: -60px; // line up with reset button on desktop
+            }
+
+            & button.button-confirm {
+                @include uqPrimaryButton($accent-color, $white);
+            }
+        }
+    }
+}
+
+
+
+@mixin requestFormRadioButtons($baseColor) {
+    prm-form-field.service-form-item md-radio-button.md-checked {
+        .md-on {
+            background-color: $baseColor;
+            color: $baseColor;
+            border-color: $baseColor;
+        }
+    }
+}
+
+prm-request {
+    .request-form-message prm-icon {
+        color: $accent-color;
+    }
+    @include requestFormRadioButtons($accent-color);
+}
+
+prm-blank-purchase-request {
+    md-content.md-primoExplore-theme {
+        background-color: $backgroundActual;
+        border: none;
+        box-shadow: none;
+
+        .form-focus form {
+            padding-inline: 1em;
+        }
+
+        prm-request > div {
+            background-color: transparent;
+        }
+    }
+    form {
+        .request-form-message md-icon {
+            color: $accent-color !important;
+        }
+        @include requestFormRadioButtons($accent-color);
+    }
 }

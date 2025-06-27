@@ -19,6 +19,13 @@ prm-location-items {
         @extend %text-trim-ellipsis;
         white-space: normal;
     }
+    button[aria-label="Collapse items"] prm-icon md-icon,
+    button[aria-label="Expand items"] prm-icon md-icon,
+    button prm-icon[aria-label="Remove filtering"],
+    button prm-icon[aria-label="Filtering options"] md-icon {
+        color: $accent-color !important;
+    }
+
 
     md-list {
         @extend .default-shadow;
@@ -54,10 +61,20 @@ prm-location-items {
                     }
                 }
             }
+
+            button.item-expand-button {
+                &:focus,
+                &:hover {
+                    &:not([disabled]) {
+                        color: $white;
+                        background-color: $accent-color;
+                    }
+                }
+            }
         }
     }
 
-    .location-item {
-        //white-space: normal!important;
+    prm-location-holdings .summary-brief-header {
+        min-width: 0;
     }
 }
