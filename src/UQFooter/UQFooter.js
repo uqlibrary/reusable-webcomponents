@@ -10,16 +10,11 @@ template.innerHTML = `
   <style>${globalStyles.toString()}</style>
   <style>${overrides.toString()}</style>
   <footer id="footer" class="uq-footer" data-gtm-category="Footer">
-      <div class="uq-footer__reconciliation">
-        <div class="uq-footer__acknowledgement">
-          <img class="uq-footer__acknowledgement-flag" alt="Australian Aboriginal Flag" src="https://static.uq.net.au/v15/images/rap/aboriginal.svg">
-          <img class="uq-footer__acknowledgement-flag" alt="Torres Strait Islander Flag" src="https://static.uq.net.au/v15/images/rap/torres-strait-islanders.svg">
-          <span class="uq-footer__acknowledgement-text">
-            UQ acknowledges the Traditional Owners and their custodianship of the lands on which UQ is situated. &mdash;
-            <a href="https://about.uq.edu.au/reconciliation" class="uq-footer__link">
-                Reconciliation at UQ
-            </a>
-          </span>
+    <div class="uq-acknowledgement uq-acknowledgement--large">
+        <div class="uq-acknowledgement__content">
+          <div class="uq-acknowledgement__text">
+              UQ acknowledges the Traditional Owners and their custodianship of the lands on which UQ is situated. &mdash; <a href="https://about.uq.edu.au/reconciliation" class="uq-acknowledgement__link" data-testid="footer-acknowledgement-link">Reconciliation at UQ</a>
+          </div>
         </div>
     </div>
     <div class="uq-footer__container">
@@ -46,7 +41,7 @@ template.innerHTML = `
                             <a href="https://staff.uq.edu.au" class="uq-footer__navigation-link">Current staff</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://careers.uq.edu.au" class="uq-footer__navigation-link">Careers at UQ</a>
+                            <a href="https://about.uq.edu.au/careers" class="uq-footer__navigation-link">Careers at UQ</a>
                         </li>
                         <li class="uq-footer__navigation-item">
                             <a href="https://about.uq.edu.au/strategic-plan" class="uq-footer__navigation-link">Strategic plan</a>
@@ -235,6 +230,7 @@ template.innerHTML = `
               <li class="uq-footer__footer-item"><a href="https://twitter.com/uq_news" class="uq-footer__meta-icons--twitter uq-footer__meta-icons" data-gtm-label="X" aria-label="X"></a></li>
               <li class="uq-footer__footer-item"><a href="https://www.youtube.com/user/universityqueensland" class="uq-footer__meta-icons--youtube uq-footer__meta-icons" data-gtm-label="Youtube" aria-label="Youtube"></a></li>
               <li class="uq-footer__footer-item"><a href="https://instagram.com/uniofqld" class="uq-footer__meta-icons--instagram uq-footer__meta-icons" data-gtm-label="Instagram" aria-label="Instagram"></a></li>
+              <li class="uq-footer__footer-item"><a href="https://www.tiktok.com/@uniofqld" class="uq-footer__meta-icons--tiktok uq-footer__meta-icons" data-gtm-label="TikTok" aria-label="TikTok"></a></li>          
             </ul>
           </nav>
 
@@ -250,7 +246,7 @@ template.innerHTML = `
         <nav class="uq-footer__footer" aria-label="Terms and conditions">
           <ul class="uq-footer__footer-list">
               <li class="uq-footer__footer-item">
-                  <a href="https://www.uq.edu.au/legal/website-terms-of-use/" class="uq-footer__link">Privacy and terms of use</a>
+                  <a href="https://www.uq.edu.au/legal/copyright-privacy-disclaimer/" class="uq-footer__link">Copyright, privacy and disclaimer</a>
               </li>
               <li class="uq-footer__footer-item">
                 <a href="https://uq.edu.au/accessibility/" class="uq-footer__link">Accessibility</a>
@@ -268,8 +264,6 @@ template.innerHTML = `
     </div>
 </footer>
 `;
-
-let initCalled;
 
 class UQFooter extends HTMLElement {
     constructor() {
