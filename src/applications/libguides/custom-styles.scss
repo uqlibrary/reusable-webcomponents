@@ -1250,21 +1250,12 @@ div:has(> h1#s-lib-public-header-title:empty) {
 }
 .s-lib-box .highlight-info {
     background-color: $utility-50;
-    * {
-        background-color: $utility-50 !important;
-    }
 }
 .s-lib-box .highlight-alert {
     background-color: $warning-50;
-    * {
-        background-color: $warning-50 !important;
-    }
 }
 .s-lib-box .highlight-callout {
     background-color: $grey-50;
-    * {
-        //background-color: $grey-50 !important;
-    }
 }
 .s-lib-box .highlight-info,
 .s-lib-box .highlight-alert,
