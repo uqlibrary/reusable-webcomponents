@@ -47,7 +47,7 @@
 
     const searchParameters = new URLParameterHandler();
 
-    const currentScriptSrc = document.currentScript?.src; // for DEV 2025
+    const currentScriptSrc = document.currentScript?.src || false; // for DEV 2025
 
     function ready(fn) {
         if (!!document.currentScript?.src) {
@@ -113,6 +113,8 @@
             } else {
                 !document.body.classList.contains('editmode') && document.body.classList.add('editmode');
             }
+
+            replaceTabsWithAccordion();
 
             closeAllUqAccordions();
 
@@ -333,7 +335,7 @@
         //     return `${assetsRoot}/reusable-webcomponents-development/guides-AD-111/${includeFilename}`;
         // }
 
-        if (currentScriptSrc.includes('guides-AD-111')) {
+        if (!!currentScriptSrc && currentScriptSrc.includes('guides-AD-111')) {
             // we are on a groups page - 2025 dev
             return `${assetsRoot}/reusable-webcomponents-development/guides-AD-111/${includeFilename}`;
         }
@@ -490,6 +492,59 @@
                     const wrappingDiv = button.parentElement;
                     !!wrappingDiv && wrappingDiv.classList.remove('uq-accordion__item--is-open');
                 }
+            });
+    }
+
+    // Guides are authored by many, many uq staff and Library staff found it hard to police how they use it.
+    // Some of them use the built-in Springshare tabs, which have truly horrible accesssability!
+    // but they have a very nice tie between heading and content, which is just what an accordion has
+    // so we can magically replace each tab with a uq-standard accordion
+    function replaceTabsWithAccordion() {
+        const hasTabs = document.querySelector('[role="tablist"]');
+        if (!hasTabs) {
+            return;
+        }
+
+        const isAdminPage = document.querySelector('header.navbar');
+        if (isAdminPage) {
+            return;
+        }
+
+        const htmlAccordionTemplate = `<div class="uq-accordion__item">  
+            <button aria-controls="MATCHING_ID" aria-expanded="true" aria-haspopup="true" onclick="toggleAccordionPanel(this)" class="uq-accordion__toggle uq-accordion__toggle--active">BUTTON_TITLE</button> 
+            <div id="MATCHING_ID" class="uq-accordion__content uq-accordion__content--active uq-accordion__content-wrapper"> 
+                CONTENT_HERE
+            </div> 
+        </div> `;
+
+        const listTabBlocks = document.querySelectorAll('[role="tablist"]');
+        !!listTabBlocks &&
+            listTabBlocks.forEach((t1, index1) => {
+                const listAriaControls = t1.querySelectorAll('[role="tablist"] [aria-controls]');
+
+                let contents = '';
+                listAriaControls.forEach((t, index) => {
+                    const buttonLabel = t.textContent;
+                    const linkedId = t.href;
+                    const newurl = new URL(linkedId);
+                    const linkedItem = document.querySelector(newurl.hash);
+
+                    const hash = newurl.hash.replace('#', '');
+                    let accordionBody = htmlAccordionTemplate.repeat(1);
+                    accordionBody = accordionBody.replace('MATCHING_ID', hash);
+                    accordionBody = accordionBody.replace('MATCHING_ID', hash);
+                    accordionBody = accordionBody.replace('CONTENT_HERE', linkedItem.innerHTML);
+                    accordionBody = accordionBody.replace('BUTTON_TITLE', buttonLabel);
+
+                    contents += accordionBody;
+                });
+                const newAccordion = document.createElement('template');
+                newAccordion.innerHTML = `<div class="uq-accordion">${contents}</div>`;
+
+                const parent = t1.parentElement.parentElement;
+                parent.appendChild(newAccordion.content.cloneNode(true));
+
+                t1.parentElement.remove();
             });
     }
 

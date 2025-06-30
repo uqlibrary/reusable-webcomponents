@@ -206,13 +206,12 @@ $up-arrow: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22%3E%
     padding-left: 0;
 }
 
-/* legacy, in case someone fogets they shouldn't use this */
+/* legacy, in case a Guides admin forgets they shouldn't use this */
 .important-content {
     border: 1px solid $borders;
     padding: 1rem 1rem 1rem 2.8rem;
     margin: 0 0 24px 0;
 }
-
 .important-exclamation-content {
     border: 1px solid $borders;
     padding: 1rem 1rem 1rem 5rem;
