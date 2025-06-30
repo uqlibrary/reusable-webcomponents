@@ -519,32 +519,33 @@
 
         const listTabBlocks = document.querySelectorAll('[role="tablist"]');
         !!listTabBlocks &&
-            listTabBlocks.forEach((t1, index1) => {
-                const listAriaControls = t1.querySelectorAll('[role="tablist"] [aria-controls]');
+            listTabBlocks.forEach((tabBlock, index1) => {
+                const listButtons = tabBlock.querySelectorAll('[role="tablist"] [aria-controls]');
 
                 let contents = '';
-                listAriaControls.forEach((t, index) => {
-                    const buttonLabel = t.textContent;
-                    const linkedId = t.href;
-                    const newurl = new URL(linkedId);
-                    const linkedItem = document.querySelector(newurl.hash);
+                !!listButtons &&
+                    listButtons.forEach((button, index) => {
+                        const buttonLabel = button.textContent;
+                        const linkedId = button.href;
+                        const newurl = new URL(linkedId);
+                        const linkedItem = document.querySelector(newurl.hash);
 
-                    const hash = newurl.hash.replace('#', '');
-                    let accordionBody = htmlAccordionTemplate.repeat(1);
-                    accordionBody = accordionBody.replace('MATCHING_ID', hash);
-                    accordionBody = accordionBody.replace('MATCHING_ID', hash);
-                    accordionBody = accordionBody.replace('CONTENT_HERE', linkedItem.innerHTML);
-                    accordionBody = accordionBody.replace('BUTTON_TITLE', buttonLabel);
+                        const hash = newurl.hash.replace('#', '');
+                        let accordionBody = htmlAccordionTemplate.repeat(1);
+                        accordionBody = accordionBody.replace('MATCHING_ID', hash);
+                        accordionBody = accordionBody.replace('MATCHING_ID', hash);
+                        accordionBody = accordionBody.replace('CONTENT_HERE', linkedItem.innerHTML);
+                        accordionBody = accordionBody.replace('BUTTON_TITLE', buttonLabel);
 
-                    contents += accordionBody;
-                });
+                        contents += accordionBody;
+                    });
                 const newAccordion = document.createElement('template');
                 newAccordion.innerHTML = `<div class="uq-accordion">${contents}</div>`;
 
-                const parent = t1.parentElement.parentElement;
+                const parent = tabBlock.parentElement.parentElement;
                 parent.appendChild(newAccordion.content.cloneNode(true));
 
-                t1.parentElement.remove();
+                tabBlock.parentElement.remove();
             });
     }
 
