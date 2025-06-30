@@ -1695,3 +1695,15 @@ figure {
 #s-lg-tabs-container .nav-tabs > .active > a {
     background-color: $uqBrandColour;
 }
+
+#s-lg-col-1 .uq-accordion__item {
+    button h2,
+    button h3,
+    button h4,
+    button h5 {
+        margin-bottom: 0;
+    }
+    &.uq-accordion__item--is-open ul {
+        margin-bottom: 0;
+    }
+}
