@@ -520,21 +520,42 @@
         const listTabBlocks = document.querySelectorAll('[role="tablist"]');
         !!listTabBlocks &&
             listTabBlocks.forEach((tabBlock, index1) => {
+                const box = tabBlock.closest('.s-lib-box.s-lib-box-std');
+                const contentBox = tabBlock.closest('.s-lib-box-content');
+
+                const hasExternalH2 = box.innerHTML.includes('<h2') && !contentBox.innerHTML.includes('<h2');
+
                 const listButtons = tabBlock.querySelectorAll('[role="tablist"] [aria-controls]');
 
                 let contents = '';
                 !!listButtons &&
                     listButtons.forEach((button, index) => {
-                        const buttonLabel = button.textContent;
+                        let buttonLabel = button.textContent;
                         const linkedId = button.href;
                         const newurl = new URL(linkedId);
                         const linkedItem = document.querySelector(newurl.hash);
+                        let linkedItemContent = linkedItem.innerHTML;
+
+                        // the auto-springshare tool doesn't put a heading in the button
+                        // so make the heading hierarchy correct!
+                        if (!!hasExternalH2) {
+                            linkedItemContent = linkedItemContent.replaceAll('h5', 'h6');
+                            linkedItemContent = linkedItemContent.replaceAll('h4', 'h5');
+                            linkedItemContent = linkedItemContent.replaceAll('h3', 'h4');
+                        } else {
+                            linkedItemContent = linkedItemContent.replaceAll('h5', 'h6');
+                            linkedItemContent = linkedItemContent.replaceAll('h4', 'h5');
+                            linkedItemContent = linkedItemContent.replaceAll('h3', 'h4');
+                            linkedItemContent = linkedItemContent.replaceAll('h2', 'h3');
+                        }
+
+                        buttonLabel = !!hasExternalH2 ? `<h3>${buttonLabel}</h3>` : `<h2>${buttonLabel}</h2>`;
 
                         const hash = newurl.hash.replace('#', '');
-                        let accordionBody = htmlAccordionTemplate.repeat(1);
+                        let accordionBody = htmlAccordionTemplate.repeat(1); // hack to use htmlAccordionTemplate for each box
                         accordionBody = accordionBody.replace('MATCHING_ID', hash);
                         accordionBody = accordionBody.replace('MATCHING_ID', hash);
-                        accordionBody = accordionBody.replace('CONTENT_HERE', linkedItem.innerHTML);
+                        accordionBody = accordionBody.replace('CONTENT_HERE', linkedItemContent);
                         accordionBody = accordionBody.replace('BUTTON_TITLE', buttonLabel);
 
                         contents += accordionBody;
