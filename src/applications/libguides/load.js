@@ -584,7 +584,7 @@
 
             const constructedTree = [];
 
-            // extract all the list items (and anchor child) from the sidebar menu, in a tree structure
+            // extract all the list items (and its anchor child) from the sidebar menu, in a tree structure
             const treeChildren = document.querySelectorAll('ul.split-button-nav > li');
             !!treeChildren &&
                 treeChildren.forEach((child, index) => {
@@ -599,10 +599,10 @@
             !!firstChild && (firstChild.hasChildren = true);
             let htmlTree = '';
             if (!!firstChild && firstChild.isCurrentPage) {
-                // the current page is the first page in the sidebar - make it a child of the list
+                // the current page is the first page in the sidebar - make the other items its child
                 firstChild.children = constructedTree;
                 htmlTree += '<ul class="uq-local-nav__children">';
-                htmlTree += addChildToHtmlTree(firstChild, true, 'firstpage');
+                htmlTree += addChildToHtmlTree(firstChild, true);
                 htmlTree += '</ul>';
             } else if (
                 constructedTree.some(
@@ -613,7 +613,7 @@
                 )
             ) {
                 // the current page is a grandchild element - put the higher level ones as backArrow divs at the top
-                // we dont include the siiblong elements
+                // we don't include the sibling elements
                 const theparent = constructedTree.find(
                     (item) =>
                         item.children &&
@@ -629,13 +629,13 @@
                 !!theparent &&
                     theparent.children.forEach((child) => {
                         const canHaveGrandchildren =
-                            child.isCurrentPage ||
+                            child?.isCurrentPage ||
                             (child?.hasChildren && child.children.some((child) => child.isCurrentPage));
-                        htmlTree += addChildToHtmlTree(child, canHaveGrandchildren, 'notfirstpage');
+                        htmlTree += addChildToHtmlTree(child, canHaveGrandchildren);
                     });
                 htmlTree += '</ul>';
             } else {
-                // just a regular child link - first link as backarrow div
+                // just a regular child link - first link as backArrow div
                 htmlTree +=
                     !!firstChild &&
                     `<div class="uq-local-nav__parent"><a href="${firstChild.href}" class="uq-local-nav__link">${firstChild.title}</a></div>`;
@@ -645,7 +645,7 @@
                         const canHaveGrandchildren =
                             child.isCurrentPage ||
                             (child?.hasChildren && child.children.some((child) => child.isCurrentPage));
-                        htmlTree += addChildToHtmlTree(child, canHaveGrandchildren, 'notfirstpage');
+                        htmlTree += addChildToHtmlTree(child, canHaveGrandchildren);
                     });
                 htmlTree += '</ul>';
             }
@@ -658,8 +658,8 @@
             const navElement = document.querySelector('.split-button-nav');
             !!navElement && navElement.replaceWith(...templateElement.content.childNodes);
 
-            // add each entry to the new html tree
-            function addChildToHtmlTree(child, canHaveGrandchildren = false, depth = '?') {
+            // add an entry to the new html tree
+            function addChildToHtmlTree(child, canHaveGrandchildren = false) {
                 let htmlTree = '';
                 let liClasses = child?.hasChildren
                     ? 'uq-local-nav__child uq-local-nav--has-children'
@@ -676,7 +676,7 @@
                     htmlTree += '<ul class="uq-local-nav__grandchildren">';
                     !!child.children &&
                         child.children.forEach((grandchild) => {
-                            htmlTree += addChildToHtmlTree(grandchild, grandchild.isCurrentPage, 'called');
+                            htmlTree += addChildToHtmlTree(grandchild, grandchild.isCurrentPage);
                         });
                     htmlTree += '</ul>';
                 }
@@ -684,7 +684,7 @@
                 return htmlTree;
             }
 
-            // extract the details of the current links
+            // extract the details of each link in the sidebar
             function getTreeChildDetails(child, isVeryFirstChild = false) {
                 const anchor = child.querySelector('a');
                 const record = {
@@ -702,7 +702,7 @@
                     const veryFirstAnchor = child.querySelector(':scope > ul > li:first-child > a:first-child');
                     if (!!veryFirstAnchor) {
                         const link = new URL(veryFirstAnchor.href);
-                        record.href = `${link.origin}${link.pathname}`;
+                        record.href = `${link.origin}${link.pathname}${link.search}`;
                     }
                 }
 
