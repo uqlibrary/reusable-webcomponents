@@ -320,23 +320,15 @@
             return `${assetsRoot}/reusable-webcomponents-development/${featureBranchName}/${includeFilename}`;
         }
 
-        // TEMPORARY CODE - REMOVE AFTER 2025 REDEV - TODO
-        // const queryStrings = new URLSearchParams(window.location.search);
-        // if (
-        //     window.location.host === 'customertesting6.libguides.com' ||
-        //     window.location.host === 'springycommunity.libapps.com' ||
-        //     window.location.host === 'uq.libapps.com' ||
-        //     window.location.pathname === '/sandbox' ||
-        //     window.location.pathname.startsWith('/Sandbox') ||
-        //     window.location.pathname.startsWith('/c.php') ||
-        //     (!!queryStrings && queryStrings.has('group_id'))
-        // ) {
-        //     // we are on a groups page - 2025 dev
-        //     return `${assetsRoot}/reusable-webcomponents-development/guides-AD-111/${includeFilename}`;
-        // }
-
         if (!!currentScriptSrc && currentScriptSrc.includes('guides-AD-111')) {
             // we are on a groups page - 2025 dev
+
+            // sometimes we fail to stop the production .js from running - make sure the css iasnt applied during dev
+            const cssFileName =
+                'https://assets.library.uq.edu.au/reusable-webcomponents/applications/libguides/custom-styles.css';
+            const prodCssFound = document.querySelector("link[href*='" + cssFileName + "']");
+            !!prodCssFound && prodCssFound.parentNode.removeChild(prodCssFound);
+
             return `${assetsRoot}/reusable-webcomponents-development/guides-AD-111/${includeFilename}`;
         }
 
