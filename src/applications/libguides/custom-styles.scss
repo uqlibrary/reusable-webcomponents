@@ -976,24 +976,30 @@ div:has(> h1#s-lib-public-header-title:empty) {
     max-width: 261px;
 }
 
-.uq-local-nav__link {
+.uq-local-nav__link,
+.nav > li > .uq-local-nav__link {
     display: block;
     color: $black;
     padding-block: 1rem;
     padding-inline-start: 2rem;
     border-bottom: 1px solid $borders;
-}
-
-.uq-local-nav__link:focus,
-.uq-local-nav__link:hover {
-    color: $black;
-    background-color: $paneBackground;
-    transition: color 0.2s ease-out, text-decoration 0.2s ease-out, background-color 0.2s ease-out;
-}
-
-.uq-local-nav__link:focus-visible {
-    outline: 4px solid $utility-500;
-    outline-offset: -3px;
+    -webkit-text-decoration: none;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 1rem;
+    &:hover {
+        text-decoration: none;
+    }
+    &:focus,
+    &:hover {
+        color: $black;
+        background-color: $paneBackground;
+        transition: color 0.2s ease-out, text-decoration 0.2s ease-out, background-color 0.2s ease-out;
+    }
+    &:focus-visible {
+        outline: 4px solid $utility-500;
+        outline-offset: -3px;
+    }
 }
 
 .uq-local-nav__grandparent a,
@@ -1103,9 +1109,11 @@ div:has(> h1#s-lib-public-header-title:empty) {
 /* the following should be temporary: override built in css on guides individual page - update springshare html template for golive */
 #s-lg-tabs-container .nav-pills > li.active > a {
     background-color: $paneBackground !important;
+    color: $bodyCopy;
 }
 #s-lg-tabs-container .nav-pills > li > ul > li:has(> a:hover) {
     background-color: $paneBackground !important;
+    color: $bodyCopy;
 }
 .uql-az-index {
     :focus-visible {

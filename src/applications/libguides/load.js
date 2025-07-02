@@ -571,234 +571,196 @@
     }
 
     function replaceSpringShareSidebarMenu() {
-        // const currentUrl = `${document.location.origin}${document.location.pathname}`;
-
-        function replaceWord(word) {
-            const correctionsList = [
-                { incorrect: 'Uqespace', correct: 'UQ eSpace' },
-                { incorrect: 'Library Home', correct: 'Library' },
-                { incorrect: 'Library Guides', correct: 'Guides' },
-            ];
-            let correctedText = word;
-
-            for (const correction of correctionsList) {
-                if (correctedText.includes(correction.incorrect)) {
-                    const regex = new RegExp(correction.incorrect, 'g');
-                    correctedText = correctedText.replace(regex, correction.correct);
-                }
-            }
-            return correctedText;
-        }
-
-        function extractLinksFromDiv(divQuerySelector, skipFirst = false) {
-            // this ignores links with a hash fragment - springshare puts them in the sidebar, but UQ DS doesn't
-            const targetDiv = document.querySelector(divQuerySelector);
-            if (!targetDiv) {
-                return [];
-            }
-
-            const links = targetDiv.querySelectorAll('a[href]');
-            const linkMap = new Map();
-
-            let skippableLink = null;
-            Array.from(links).forEach((link, index) => {
-                const href = link.href;
-                const linkTextContent = link.textContent.trim();
-                const hasFragment = href.includes('#');
-
-                // Get base URL without fragment
-                const url = new URL(href);
-                let urlPath = url.pathname;
-                if (url.search !== '') {
-                    // urlPath += url.search;
-                    // temp menu debug - uncomment above and delete after dev 2025
-                    const searchP = url.search.replace('&override=on&skipScript=on', '');
-                    urlPath += searchP;
-                }
-                const baseHref = url.origin + urlPath;
-
-                let level;
-                if (index < Array.from(links).length - 1) level = 'grandparent';
-                else if (index === Array.from(links).length - 1) level = 'parent';
-                else level = 'current';
-
-                const isAdminPage = document.querySelector('header.navbar');
-                if (!isAdminPage && !!skipFirst && index === 0) {
-                    // The first link is a duplicate of the parent in content, but not in url - usability & SEO issue.
-                    // We skip inserting this dupe link.
-                    // (Springshare should be supplying a canonical meta, but that won't affect this menu issue)
-                    // Note the link can occur multiple times, because Springshare OTB shows links to the h2s down the page! :(
-                    // (but admins need to be able to get to it)
-                    skippableLink = baseHref;
-                } else if (baseHref !== skippableLink) {
-                    if (!linkMap.has(baseHref)) {
-                        // First occurrence - add it
-                        linkMap.set(baseHref, {
-                            href: baseHref,
-                            linkLabel: replaceWord(linkTextContent),
-                            urlPath: urlPath,
-                            // title: link.title || linkTextContent,
-                            hasFragment: hasFragment,
-                            level: level,
-                        });
-                    } else {
-                        // Duplicate found - keep the one without fragment, or first one if both have fragments
-                        const existing = linkMap.get(baseHref);
-                        if (existing.hasFragment && !hasFragment) {
-                            // Replace with non-fragment version
-                            linkMap.set(baseHref, {
-                                href: baseHref,
-                                linkLabel: replaceWord(linkTextContent),
-                                urlPath: urlPath,
-                                // title: link.title || linkTextContent,
-                                hasFragment: false,
-                                level: level,
-                            });
-                        }
-                        // If existing doesn't have a fragment, keep it (ignore current)
-                    }
-                } else {
-                    console.log('duplicate content not placed in menu:', baseHref);
-                }
-            });
-
-            return Array.from(linkMap.values());
-        }
-
-        // Build navigation HTML structure
-        function buildNavigationHtml(linksFromExistingSidebar, parentLinksFromBreadcrumbs) {
-            const currentPath = `${document.location.pathname}${document.location.search}`;
-
-            // Group links by their path depth relative to current URL
-            const groupedLinks = {
-                siblings: [],
-                children: [],
-            };
-
-            linksFromExistingSidebar.forEach((link) => {
-                const fromParent = parentLinksFromBreadcrumbs.find((p) => p.href === link.href);
-                try {
-                    const linkUrl = new URL(link.href);
-                    const linkPath = `${linkUrl.pathname}${linkUrl.search}`;
-                    const linkParts = linkPath.split('/').filter((part) => part !== '');
-                    const currentParts = currentPath.split('/').filter((part) => part !== '');
-
-                    // Determine relationship to current URL
-                    if (linkParts.length === currentParts.length) {
-                        // Same level (siblings)
-                        groupedLinks.siblings.push({
-                            ...link,
-                            href: linkPath,
-                            isActive: linkPath === currentPath,
-                            linkLabel: !!fromParent ? fromParent.linkLabel : link.linkLabel,
-                        });
-                    } else if (linkParts.length === currentParts.length + 1 && linkPath.startsWith(currentPath)) {
-                        // One level deeper (children)
-                        groupedLinks.children.push({
-                            ...link,
-                            href: linkPath,
-                            isActive: false,
-                        });
-                    }
-                } catch (e) {
-                    // Handle relative URLs
-                    groupedLinks.siblings.push({
-                        ...link,
-                        href: link.href,
-                        isActive: false,
-                        linkLabel: !!fromParent ? fromParent.linkLabel : link.linkLabel,
-                    });
-                }
-            });
-
-            // Build HTML structure
-            let html = `<div id="uq-sidebar-layout__sidebar" class="uq-sidebar-layout__sidebar">
-        <div id="local-nav-app" data-once="local-nav">
-        <nav class="uq-local-nav" aria-label="Local navigation">
-            <div class="uq-local-nav__grandparent"><a href="https://uq.edu.au/" class="uq-local-nav__link">UQ home</a></div>`;
-
-            // Add hierarchy breadcrumbs
-            parentLinksFromBreadcrumbs.forEach((item, index) => {
-                const siblingPaths = groupedLinks.siblings.map((item) => item.href);
-                // dont include ones that are in the child list
-                if (siblingPaths.includes(item.urlPath)) {
-                    return;
-                }
-
-                if (item.level === 'grandparent') {
-                    html += `<div class="uq-local-nav__grandparent"><a href="${item.href}" class="uq-local-nav__link">${item.linkLabel}</a></div>`;
-                } else if (item.level === 'parent') {
-                    html += `<div class="uq-local-nav__parent"><a href="${item.href}" class="uq-local-nav__link">${item.linkLabel}</a></div>`;
-                }
-            });
-
-            // Add children list
-            if (groupedLinks.siblings.length > 0 || groupedLinks.children.length > 0) {
-                html += `
-            <ul class="uq-local-nav__children">`;
-
-                // Add sibling links
-                groupedLinks.siblings.forEach((link) => {
-                    const activeClass = link.isActive ? ' uq-local-nav--current-child' : '';
-                    const linkActiveClass = link.isActive ? ' uq-local-nav--active-link' : '';
-                    const hasChildren = groupedLinks.children.length > 0 && link.isActive;
-                    const hasChildrenClass = hasChildren ? ' uq-local-nav--has-children' : '';
-
-                    html += `<li class="uq-local-nav__child${activeClass}${hasChildrenClass}"><a href="${link.href}" class="uq-local-nav__link${linkActiveClass}">${link.linkLabel}</a>`;
-
-                    // Add grandchildren if this is the active item
-                    if (hasChildren) {
-                        html += `<ul class="uq-local-nav__grandchildren">`;
-
-                        groupedLinks.children.forEach((child) => {
-                            html += `
-                        <li class="uq-local-nav__grandchild"><a href="${child.href}" class="uq-local-nav__link">${child.linkLabel}</a></li>`;
-                        });
-
-                        html += `
-                    </ul>`;
-                    }
-                    html += `</li>`;
-                });
-                html += `</ul>`;
-            }
-            html += `</nav></div></div>`;
-
-            return html;
-        }
-
         const menuDone = document.getElementById('uq-sidebar-layout__sidebar');
         if (!!menuDone) {
             return;
         }
 
-        const menuQuerySelector = '#s-lg-guide-tabs .nav-pills';
-        const linksinCurrentSidebar = extractLinksFromDiv(menuQuerySelector, true);
+        function styleSidebarPerUQ() {
+            const isAdminPage = document.querySelector('header.navbar');
+            if (isAdminPage) {
+                return;
+            }
 
-        const parentLinksFromBreadcrumbs = extractLinksFromDiv('nav[aria-label="breadcrumb"]');
+            const constructedTree = [];
 
-        const navigationHtml = buildNavigationHtml(linksinCurrentSidebar, parentLinksFromBreadcrumbs);
-
-        const originalDiv = document.querySelector(menuQuerySelector);
-        if (!!isInEditMode()) {
-            // save any admin elements
-            const adminElements = ['#s-lg-admin-tab-add'];
-            let savedElements = [];
-            adminElements.length > 0 &&
-                adminElements.forEach((a) => {
-                    const adminElementList = document.querySelectorAll(a);
-                    adminElementList.forEach((aa) => savedElements.push(aa));
+            // extract all the list items (and anchor child) from the sidebar menu, in a tree structure
+            const treeChildren = document.querySelectorAll('ul.split-button-nav > li');
+            !!treeChildren &&
+                treeChildren.forEach((child, index) => {
+                    const details = getTreeChildDetails(child, index === 0);
+                    if (details) {
+                        constructedTree.push(details);
+                    }
                 });
 
-            const originalDivChildren = originalDiv.querySelectorAll('li:not(#s-lg-admin-tab-add)');
-            originalDivChildren.length > 0 && originalDivChildren.forEach((c) => c.remove());
-            const template = document.createElement('template');
-            template.innerHTML = navigationHtml;
+            // rebuild the UQ style html from the tree of listitems
+            const firstChild = constructedTree.shift();
+            !!firstChild && (firstChild.hasChildren = true);
+            let htmlTree = '';
+            if (!!firstChild && firstChild.isCurrentPage) {
+                // the current page is the first page in the sidebar - make it a child of the list
+                firstChild.children = constructedTree;
+                htmlTree += '<ul class="uq-local-nav__children">';
+                htmlTree += addChildToHtmlTree(firstChild, true, 'firstpage');
+                htmlTree += '</ul>';
+            } else if (
+                constructedTree.some(
+                    (item) =>
+                        item.children &&
+                        Array.isArray(item.children) &&
+                        item.children.some((child) => child.isCurrentPage),
+                )
+            ) {
+                // the current page is a grandchild element - put the higher level ones as backArrow divs at the top
+                // we dont include the siiblong elements
+                const theparent = constructedTree.find(
+                    (item) =>
+                        item.children &&
+                        Array.isArray(item.children) &&
+                        item.children.some((child) => child.isCurrentPage),
+                );
 
-            originalDiv.insertBefore(template.content.cloneNode(true), originalDiv.firstChild);
-        } else {
-            !!originalDiv && (originalDiv.outerHTML = navigationHtml);
+                htmlTree +=
+                    !!firstChild &&
+                    `<div class="uq-local-nav__grandparent"><a href="${firstChild.href}" class="uq-local-nav__link">${firstChild.title}</a></div>`;
+                htmlTree += `<div class="uq-local-nav__parent"><a href="${theparent.href}" class="uq-local-nav__link">${theparent.title}</a></div>`;
+                htmlTree += '<ul class="uq-local-nav__children">';
+                !!theparent &&
+                    theparent.children.forEach((child) => {
+                        const canHaveGrandchildren =
+                            child.isCurrentPage ||
+                            (child?.hasChildren && child.children.some((child) => child.isCurrentPage));
+                        htmlTree += addChildToHtmlTree(child, canHaveGrandchildren, 'notfirstpage');
+                    });
+                htmlTree += '</ul>';
+            } else {
+                // just a regular child link - first link as backarrow div
+                htmlTree +=
+                    !!firstChild &&
+                    `<div class="uq-local-nav__parent"><a href="${firstChild.href}" class="uq-local-nav__link">${firstChild.title}</a></div>`;
+                htmlTree += '<ul class="uq-local-nav__children">';
+                !!constructedTree &&
+                    constructedTree.forEach((child) => {
+                        const canHaveGrandchildren =
+                            child.isCurrentPage ||
+                            (child?.hasChildren && child.children.some((child) => child.isCurrentPage));
+                        htmlTree += addChildToHtmlTree(child, canHaveGrandchildren, 'notfirstpage');
+                    });
+                htmlTree += '</ul>';
+            }
+            htmlTree = getBreadcrumbsNeededInSidebar(!!firstChild && !!firstChild.isCurrentPage) + htmlTree;
+
+            const templateElement = document.createElement('template');
+            templateElement.innerHTML = htmlTree.trim();
+
+            // find the root of the existing sidebar menu and replace with our shiny new html
+            const navElement = document.querySelector('.split-button-nav');
+            !!navElement && navElement.replaceWith(...templateElement.content.childNodes);
+
+            // add each entry to the new html tree
+            function addChildToHtmlTree(child, canHaveGrandchildren = false, depth = '?') {
+                let htmlTree = '';
+                let liClasses = child?.hasChildren
+                    ? 'uq-local-nav__child uq-local-nav--has-children'
+                    : 'uq-local-nav__child';
+                if (child.isCurrentPage) {
+                    liClasses += ' uq-local-nav--current-child';
+                }
+                const hrefClasses = child.isCurrentPage
+                    ? 'uq-local-nav__link uq-local-nav--active-link'
+                    : 'uq-local-nav__link';
+                htmlTree += `<li class="${liClasses}">`;
+                htmlTree += `<a href="${child.href}" class="${hrefClasses}">${child.title}</a>`;
+                if (!!canHaveGrandchildren && child?.hasChildren) {
+                    htmlTree += '<ul class="uq-local-nav__grandchildren">';
+                    !!child.children &&
+                        child.children.forEach((grandchild) => {
+                            htmlTree += addChildToHtmlTree(grandchild, grandchild.isCurrentPage, 'called');
+                        });
+                    htmlTree += '</ul>';
+                }
+                htmlTree += `</li>`;
+                return htmlTree;
+            }
+
+            // extract the details of the current links
+            function getTreeChildDetails(child, isVeryFirstChild = false) {
+                const anchor = child.querySelector('a');
+                const record = {
+                    title: anchor.innerText,
+                    href: anchor.href,
+                    currentPage: window.location.href,
+                    children: [],
+                    hasChildren: false,
+                    isCurrentPage:
+                        anchor.href.trim() === window.location.href.trim() ||
+                        child.classList.contains('active') ||
+                        anchor.classList.contains('active'),
+                };
+                if (isVeryFirstChild) {
+                    const veryFirstAnchor = child.querySelector(':scope > ul > li:first-child > a:first-child');
+                    if (!!veryFirstAnchor) {
+                        const link = new URL(veryFirstAnchor.href);
+                        record.href = `${link.origin}${link.pathname}`;
+                    }
+                }
+
+                if (hasHashLink(anchor.href)) {
+                    return;
+                }
+
+                const grandchildren = child.querySelectorAll(':scope ul li');
+                !!grandchildren &&
+                    grandchildren.forEach((grandchild, index) => {
+                        const grandchildDetails = getTreeChildDetails(grandchild);
+                        if (grandchildDetails) {
+                            record.children.push(grandchildDetails);
+                            record.hasChildren = true;
+                        }
+                    });
+
+                return record;
+            }
+
+            function hasHashLink(href) {
+                const url = new URL(href);
+                return url.hash !== '';
+            }
+
+            function getBreadcrumbsNeededInSidebar(parentElementRequired) {
+                const rootLink = document.querySelector(
+                    'div.uq-local-nav__grandparent a[href="https://www.library.uq.edu.au/"]',
+                );
+                if (!!rootLink) {
+                    // breadcrumbs already exist
+                    return;
+                }
+
+                let parentLinksFromBreadcrumbs = document.querySelectorAll('nav[aria-label="breadcrumb"] a[href]');
+                if (!parentLinksFromBreadcrumbs) {
+                    parentLinksFromBreadcrumbs = document.querySelectorAll('nav[aria-label="Breadcrumb"] a[href]');
+                }
+
+                const parentTemplate = (classNameBreadcrumb, href, textContent) => {
+                    return `<div class="${classNameBreadcrumb}"><a href="${href}" class="uq-local-nav__link">${textContent}</a></div>`;
+                };
+
+                let classNameBreadcrumb = 'uq-local-nav__grandparent';
+                let htmlToInsert = parentTemplate(classNameBreadcrumb, 'https://uq.edu.au/', 'UQ home');
+
+                const breadcrumbLength = 3;
+                [...parentLinksFromBreadcrumbs].slice(0, breadcrumbLength).forEach((link, index) => {
+                    if (!!parentElementRequired && index === breadcrumbLength - 1) {
+                        classNameBreadcrumb = 'uq-local-nav__parent';
+                    }
+                    htmlToInsert += parentTemplate(classNameBreadcrumb, link.href, link.textContent);
+                });
+                return htmlToInsert;
+            }
         }
+
+        styleSidebarPerUQ();
     }
 
     function addHeroHeader() {
