@@ -646,6 +646,11 @@ body:not(:has(.arrowPanel)) .s-lib-box-content {
             margin-top: $spacing-xs;
         }
     }
+    button[aria-haspopup] {
+        h2, h3, h4 {
+            margin-top: 0;
+        }
+    }
 }
 .guides_homepage {
     #s-lg-col-1 h3 {
