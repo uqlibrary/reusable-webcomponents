@@ -1727,6 +1727,6 @@ figure {
 // our styling of springshare blocks puts a margin between them :facepalm:
 // and the margin doesnt collapse because there is a box between them
 // style for this: when a box ends with  list and the nezxt starts with one, pull up the gap
-.s-lib-box-content div:has(ul:last-child) + div:has(ul:first-child) {
+.s-lib-box-content div:not(.uq-accordion__item):has(ul:last-child) + div:has(ul:first-child) {
     margin-top: -1.5rem;
 }
