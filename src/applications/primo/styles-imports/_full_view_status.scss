@@ -6,10 +6,9 @@ prm-full-view {
             background-color: transparent;
             box-shadow: none;
             text-decoration: none;
-        }
-
-        span {
-            color: $dark !important;
+            span {
+                color: $uqHeading !important;
+            }
         }
     }
 }

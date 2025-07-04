@@ -1,9 +1,9 @@
 /// <reference types="cypress" />
 import uqrdav10, { accounts } from '../../mock/data/account';
-import ApiAccess from '../../src/ApiAccess/ApiAccess';
+import UserAccount from '../../src/ApiAccess/UserAccount';
 import { apiLocale } from '../../src/ApiAccess/ApiAccess.locale';
 import { authLocale } from '../../src/UtilityArea/auth.locale';
-import { getAccountMenuRoot, COLOUR_UQ_PURPLE } from '../../src/UtilityArea/helpers';
+import { COLOUR_UQ_PURPLE, getAccountMenuRoot } from '../../src/UtilityArea/helpers';
 
 function assertLogoutButtonVisible(expected = true) {
     if (expected) {
@@ -138,8 +138,7 @@ function assertUserisLoggedOut() {
 describe('Account menu button', () => {
     context('Accessibility', () => {
         it('logged OUT user is accessible', () => {
-            cy.visit('http://localhost:8080/?user=public');
-            cy.viewport(1280, 900);
+            visitPageForUser('public');
             cy.injectAxe();
             assertUserisLoggedOut();
             cy.checkA11y('auth-button', {
@@ -150,9 +149,6 @@ describe('Account menu button', () => {
         });
 
         it('logged IN user is accessible', () => {
-            cy.visit('http://localhost:8080');
-            cy.viewport(1280, 900);
-            cy.waitUntil(() => cy.get('uq-site-header').find('auth-button').should('exist'));
             visitPageForUser('vanilla');
             cy.injectAxe();
             cy.checkA11y('auth-button', {
@@ -179,8 +175,8 @@ describe('Account menu button', () => {
         });
 
         it('logged OUT user is accessible on mobile', () => {
-            cy.visit('http://localhost:8080/?user=public');
             cy.viewport(320, 480);
+            visitPageForUser('public');
             cy.injectAxe();
             assertUserisLoggedOut();
             cy.checkA11y('auth-button', {
@@ -190,10 +186,8 @@ describe('Account menu button', () => {
             });
         });
 
-        it('logged IN user is accessibl on mobilee', () => {
-            cy.visit('http://localhost:8080');
+        it('logged IN user is accessible on mobile', () => {
             cy.viewport(320, 480);
-            cy.waitUntil(() => cy.get('uq-site-header').find('auth-button').should('exist'));
             visitPageForUser('vanilla');
             cy.injectAxe();
             cy.checkA11y('auth-button', {
@@ -227,7 +221,8 @@ describe('Account menu button', () => {
         });
 
         it('Navigates to login page', () => {
-            cy.intercept(/loginuserpass/, 'user visits login page'); // from https://auth.uq.edu.au/idp/module.php/core/loginuserpass.php?&etc
+            cy.intercept(/auth.uq.edu.au/, 'user visits login page'); // from https://auth.uq.edu.au/idp/module.php/core/loginuserpass.php?&etc
+            cy.intercept(/loginuserpass/, 'user visits login page');
             cy.intercept('GET', authLocale.AUTH_URL_LOGIN, {
                 statusCode: 200,
                 body: 'user visits login page',
@@ -251,50 +246,17 @@ describe('Account menu button', () => {
             assertUserisLoggedOut();
         });
 
-        it('account with out of date session storage is not used', () => {
-            const store = new ApiAccess();
-            store.storeAccount(uqrdav10, -24);
-
-            async function checkStorage() {
-                let testValid = false;
-                await new ApiAccess().loadAccountApi().then((newAccount) => {
-                    expect(newAccount).to.be.equal(false);
-                    const s2 = JSON.parse(sessionStorage.userAccount);
-                    expect(s2.status).to.be.equal('loggedout');
-                    testValid = true;
-                });
-                return testValid;
-            }
-            checkStorage().then((testValid) => {
-                // just a paranoia check that the above test inside an await actually happened.
-                expect(testValid).to.be.equal(true);
-            });
-        });
-
-        it('user with expired stored session is not logged in', () => {
-            sessionStorage.removeItem('userAccount');
-            const store = new ApiAccess();
-            store.storeAccount(accounts.s1111111, -24); // put info in the session storage
-            console.log('session=', sessionStorage.getItem('userAccount'));
-
-            cy.visit('http://localhost:8080?user=s1111111');
-            cy.viewport(1280, 900);
-            assertUserisLoggedOut();
-        });
-
         it('does not call a tokenised api if the cookies arent available', () => {
             cy.clearCookie(apiLocale.SESSION_COOKIE_NAME);
             cy.clearCookie(apiLocale.SESSION_USER_GROUP_COOKIE_NAME);
 
-            const api = new ApiAccess();
+            const api = new UserAccount();
             api.announceUserLoggedOut();
 
             async function checkCookies() {
                 let testResult = false;
-                await new ApiAccess().loadAccountApi().then((result) => {
+                await new UserAccount().get().then((result) => {
                     expect(result).to.be.equal(false);
-                    const s2 = JSON.parse(sessionStorage.userAccount);
-                    expect(s2.status).to.be.equal('loggedout');
                     testResult = true;
                 });
                 return testResult;
@@ -306,11 +268,8 @@ describe('Account menu button', () => {
         });
 
         // this is failing on aws, and it's a bit of a hack to manually remove the cookie like that,
-        // so lets call it an invalid test for the momeent
-        it.skip('when session cookie auto expires the user logs out', () => {
-            sessionStorage.removeItem('userAccount');
-            cy.visit('http://localhost:8080?user=uqstaff');
-            cy.viewport(1280, 900);
+        // so lets call it an invalid test for the moment
+        it('when session cookie auto expires the user logs out', () => {
             visitPageForUser('uqstaff');
 
             cy.wait(1000);
@@ -320,15 +279,12 @@ describe('Account menu button', () => {
         });
 
         it('Pressing esc closes the account menu', () => {
-            cy.visit('http://localhost:8080?user=uqstaff');
-            cy.viewport(1280, 900);
             visitPageForUser('uqstaff');
             openAccountDropdown();
             assertLogoutButtonVisible();
             cy.get('body').type('{esc}', { force: true });
             assertLogoutButtonVisible(false);
         });
-
         it('arrows change when the account menu is open-closed', () => {
             visitPageForUser('uqstaff');
             // can see down arrow
@@ -368,8 +324,6 @@ describe('Account menu button', () => {
         });
 
         it('Clicking the pane closes the account menu', () => {
-            cy.visit('http://localhost:8080?user=s1111111');
-            cy.viewport(1280, 900);
             visitPageForUser('s1111111');
             openAccountDropdown();
             assertLogoutButtonVisible();
@@ -378,24 +332,34 @@ describe('Account menu button', () => {
         });
     });
     context('Display names', () => {
+        function showsCorrectPatronName(displayName) {
+            cy.get('auth-button')
+                .shadow()
+                .within(() => {
+                    cy.get('[data-testid="username-area-label"]')
+                        .should('exist')
+                        .should('be.visible')
+                        .contains(displayName);
+                });
+        }
+
         it('user with a short name will show their complete name', () => {
-            sessionStorage.removeItem('userAccount');
             visitPageForUser('emfryer');
-            assertLogoutButtonVisible;
+            showsCorrectPatronName('User, Fryer');
         });
         it('user with a long length name will show their last name with initial', () => {
-            sessionStorage.removeItem('userAccount');
             visitPageForUser('digiteamMember');
+            // This shows that when the surname is long that the first name is reduced to an initial
+            // Unfortunately it doesn't test that the surname is truncated on display, because that's just css
+            showsCorrectPatronName('C STAFF MEMBER WITH MEGA REALLY TRULY STUPENDOUSLY LONG NAME');
         });
         it('user who uses a single name will not show the "." as a surname', () => {
-            sessionStorage.removeItem('userAccount');
             visitPageForUser('emhonorary');
+            showsCorrectPatronName('Honorary');
         });
     });
     context('User-specific account links', () => {
         it('Admin gets admin entries', () => {
-            cy.visit('http://localhost:8080?user=uqstaff');
-            cy.viewport(1280, 900);
             visitPageForUser('uqstaff');
             openAccountDropdown();
             cy.get('auth-button')
@@ -412,8 +376,6 @@ describe('Account menu button', () => {
         });
 
         it('Test Tag user gets "Test and tag" entry', () => {
-            cy.visit('http://localhost:8080?user=uqtesttag');
-            cy.viewport(1280, 900);
             visitPageForUser('uqtesttag');
             openAccountDropdown();
             cy.get('auth-button')
@@ -429,8 +391,6 @@ describe('Account menu button', () => {
         });
 
         it('Dlor admin gets Dlor admin access entry', () => {
-            cy.visit('http://localhost:8080?user=dloradmn');
-            cy.viewport(1280, 900);
             visitPageForUser('dloradmn');
             openAccountDropdown();
             cy.get('auth-button')
@@ -446,8 +406,6 @@ describe('Account menu button', () => {
         });
 
         it('An espace masquerader non-admin sees masquerade but not other admin functions', () => {
-            cy.visit('http://localhost:8080?user=uqmasquerade');
-            cy.viewport(1280, 900);
             visitPageForUser('uqmasquerade');
             openAccountDropdown();
             cy.get('auth-button')
@@ -464,8 +422,6 @@ describe('Account menu button', () => {
         });
 
         it('Researcher gets espace but not admin entries', () => {
-            cy.visit('http://localhost:8080?user=s1111111');
-            cy.viewport(1280, 900);
             visitPageForUser('s1111111');
             openAccountDropdown();
             cy.get('auth-button')
@@ -478,8 +434,6 @@ describe('Account menu button', () => {
         });
 
         it('A digiteam member gets espace & masquerade but not other admin entries', () => {
-            cy.visit('http://localhost:8080?user=digiteamMember');
-            cy.viewport(1280, 900);
             visitPageForUser('digiteamMember');
             openAccountDropdown();
             cy.get('auth-button')
@@ -496,8 +450,6 @@ describe('Account menu button', () => {
         });
 
         it('non-Researcher doesnt get espace (and not admin entries)', () => {
-            cy.visit('http://localhost:8080?user=s3333333');
-            cy.viewport(1280, 900);
             visitPageForUser('s3333333');
             openAccountDropdown();
             cy.get('auth-button')
@@ -511,8 +463,6 @@ describe('Account menu button', () => {
 
         // need to also test a user that gets a null from the author call; s3333333 has this odd incomplete record
         it('other non-Researcher does not get espace', () => {
-            cy.visit('http://localhost:8080?user=uqrdav10');
-            cy.viewport(1280, 900);
             visitPageForUser('uqrdav10');
             openAccountDropdown();
             cy.get('auth-button')
@@ -529,8 +479,6 @@ describe('Account menu button', () => {
         });
 
         it('can navigate to some page from account menu', () => {
-            cy.visit('http://localhost:8080?user=s1111111');
-            cy.viewport(1280, 900);
             cy.intercept('GET', 'https://support.my.uq.edu.au/app/library/feedback', {
                 statusCode: 200,
                 body: 'user is on library feedback page',
@@ -557,6 +505,83 @@ describe('Account menu button', () => {
                 'https://homepage-staging.library.uq.edu.au/',
             );
             expect(getAccountMenuRoot('localhost', 'http:', '/')).to.be.equal('http://localhost:2020/');
+        });
+    });
+    context('Primo VE upgrade test', () => {
+        it('When json status is VE, user gets ve links', () => {
+            cy.visit('http://localhost:8080?requestType=ve');
+            cy.viewport(1280, 900);
+            openAccountDropdown();
+            cy.get('auth-button')
+                .shadow()
+                .within(() => {
+                    cy.get('li a[data-testid="mylibrary-menu-borrowing"]')
+                        .should('exist')
+                        // .contains('Library account')
+                        .should(
+                            'have.attr',
+                            'href',
+                            `https://search.library.uq.edu.au/discovery/account?vid=61UQ_INST:61UQ&section=overview`,
+                        );
+                    cy.get('li a[data-testid="mylibrary-menu-saved-items"]')
+                        .should('exist')
+                        // .contains('Favourites')
+                        .should(
+                            'have.attr',
+                            'href',
+                            `https://search.library.uq.edu.au/discovery/favorites?vid=61UQ_INST:61UQ&section=items`,
+                        );
+                });
+        });
+        it('When json status is BO, user gets BO links', () => {
+            cy.visit('http://localhost:8080?requestType=bo');
+            cy.viewport(1280, 900);
+            openAccountDropdown();
+            cy.get('auth-button')
+                .shadow()
+                .within(() => {
+                    cy.get('li a[data-testid="mylibrary-menu-borrowing"]')
+                        .should('exist')
+                        .should(
+                            'have.attr',
+                            'href',
+                            `https://search.library.uq.edu.au/primo-explore/login?vid=61UQ&targetURL=https%3A%2F%2Fsearch.library.uq.edu.au%2Fprimo-explore%2Faccount%3Fvid%3D61UQ%26section%3Doverview%26lang%3Den_US`,
+                        );
+                    // .contains('Library account')
+                    cy.get('li a[data-testid="mylibrary-menu-saved-items"]')
+                        .should('exist')
+                        .should(
+                            'have.attr',
+                            'href',
+                            `https://search.library.uq.edu.au/primo-explore/login?vid=61UQ&targetURL=https%3A%2F%2Fsearch.library.uq.edu.au%2Fprimo-explore%2Ffavorites%3Fvid%3D61UQ%26lang%3Den_US%26section%3Ditems`,
+                        );
+                    // .contains('Favourites')
+                });
+        });
+        it('When there is a problem with the json, user gets BO links', () => {
+            cy.visit('http://localhost:8080?requestType=problem');
+            cy.viewport(1280, 900);
+            openAccountDropdown();
+            cy.get('auth-button')
+                .shadow()
+                .within(() => {
+                    cy.get('li a[data-testid="mylibrary-menu-borrowing"]')
+                        .should('exist')
+                        .should(
+                            'have.attr',
+                            'href',
+                            `https://search.library.uq.edu.au/primo-explore/login?vid=61UQ&targetURL=https%3A%2F%2Fsearch.library.uq.edu.au%2Fprimo-explore%2Faccount%3Fvid%3D61UQ%26section%3Doverview%26lang%3Den_US`,
+                        );
+                    // .contains('Library account')
+                    cy.get('li a[data-testid="mylibrary-menu-saved-items"]')
+                        .should('exist')
+                        .should(
+                            'have.attr',
+                            'href',
+                            `https://search.library.uq.edu.au/primo-explore/login?vid=61UQ&targetURL=https%3A%2F%2Fsearch.library.uq.edu.au%2Fprimo-explore%2Ffavorites%3Fvid%3D61UQ%26lang%3Den_US%26section%3Ditems`,
+                        );
+                    // .contains('Favourites')
+                });
         });
     });
 });

@@ -418,7 +418,7 @@ describe('Proactive Chat', () => {
             .should('have.css', 'right', '16px');
     });
 
-    context('when in a drupal contact page', () => {
+    context('when inserting proactive chat within the body of the page', () => {
         it('should load crm correctly', () => {
             cy.visit('http://localhost:8080/index-drupalcontactus.html', {
                 onBeforeLoad(win) {

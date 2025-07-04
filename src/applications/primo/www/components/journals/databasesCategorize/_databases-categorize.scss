@@ -79,4 +79,35 @@ prm-databases-categorize {
             }
         }
     }
+
+    md-list md-list-item {
+        button.is-selected.branch-name.md-button:not([disabled]),
+        button.branch-name.md-button:not([disabled]) {
+            display: block;
+            line-height: normal;
+
+            &:focus-visible,
+            &:focus,
+            &:hover {
+                background-color: transparent !important;
+
+                p {
+                    display: inline;
+                    background-color: $accent-color;
+                    color: white;
+                }
+            }
+        }
+        button.branch-arrow {
+            color: $uqBodyCopy;
+            font-weight: 500;
+            &:focus,
+            &:hover {
+                &:not([disabled]) {
+                    color: $white;
+                    background-color: $accent-color;
+                }
+            }
+        }
+    }
 }

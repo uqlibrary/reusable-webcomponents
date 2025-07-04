@@ -71,6 +71,9 @@ prm-search-bar {
                 @include __xs {
                     display: none;
                 }
+                &.clear-with-voice-search:hover:not([disabled]) {
+                    background-color: $accent-color !important;
+                }
             }
         }
     }
@@ -391,9 +394,23 @@ prm-search-bar {
             padding: 0;
         }
 
-        .md-button {
+        .md-button.switch-to-simple:not([disabled]),
+        .md-button.switch-to-advanced:not([disabled]) {
             position: absolute;
             z-index: 11;
+            text-decoration: underline;
+            span span {
+                line-height: normal;
+                color: $accent-color !important;
+            }
+            &:focus-visible,
+            &:focus,
+            &:hover {
+                background-color: $accent-color !important;
+                span span {
+                    color: $white !important;
+                }
+            }
 
             .__sm & {
                 max-height: 100%;
@@ -917,8 +934,16 @@ prm-search-bar {
             }
         }
     }
+    button.md-button.md-primary:has(span[translate="nui.search-advanced.add"]):not([disabled]) {
+        @include uqPrimaryButton($accent-color, $white);
+    }
+    button.md-button.button-notice:has(span[translate="link.title.search.clear"]):not([disabled]) {
+        @include uqTertiaryButton($white, $accent-color);
+    }
+     form prm-autocomplete input:focus-visible {
+        border: 1px solid $accent-color; // override default focus state
+    }
 }
-
 prm-advanced-search {
     @extend .layout-full-width;
     fieldset {
@@ -936,5 +961,41 @@ prm-advanced-search {
 
     .warning-message {
         @extend .prm-warning-color.prm-hue1;
+    }
+
+    // Collapsable Advanced Search block at top of search results
+    .collapsed-button.md-button {
+        &:hover,
+        &:focus {
+            &:not([disabled]) {
+                background-color: $accent-color;
+                color: $white;
+            }
+        }
+    }
+
+    // put dropdown arrows on each select in the advanced search footer section
+    .advanced-search-output md-select:after {
+        content: '\25BC';
+        width: 10px;
+        font-size: 0.5rem;
+        margin-top: 6px;
+        margin-left: 5px;
+    }
+
+    // vertically centre the hover background colour
+    .advanced-search-output md-select md-select-value span {
+        padding-top: 2px;
+    }
+
+    input[placeholder="Enter a search term"]::placeholder,
+    input[type="text"]::placeholder {
+        color: $uqBodyCopy;
+        font-weight: 400 !important;
+    }
+    input[type="text"]:-internal-autofill-selected {
+        font-weight: 600;
+        box-shadow: 0 0 0px 1000px white inset !important; // override the Chrome background-color. Tricky!!
+        -webkit-text-fill-color: inherit !important;
     }
 }

@@ -117,18 +117,6 @@ md-dialog {
             color: $linkTitle;
         }
 
-        // button,
-        // .md-button {
-        // 	// color: $white;
-
-        // 	&.back-button {
-        // 		&:hover {
-        // 			// background-color: transparentize(white,.9);
-        // 			// background-color: transparentize(desaturate(darken($midGrey, 12%), 5%), .15);
-        // 		}
-        // 	}
-        // }
-
         .loader-wrapper {
             // background-color: transparentize(desaturate(darken($midGrey, 10%), 15%),.5);
             background-color: transparentize(desaturate(darken($midGrey, 12%), 5%), 0.5);
@@ -426,4 +414,41 @@ md-dialog-content {
 //  fixes a 15px gap in .md-dialog-container
 body:not(:-moz-handler-blocked) .md-dialog-container {
     margin-top: -15px;
+}
+
+// logged out mobile menu
+md-dialog-content:has(prm-main-menu) {
+    background-color: white;
+    span.primaryText {
+        font-weight: 400;
+    }
+    prm-library-card-menu {
+        button.md-button {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+
+            svg {
+                margin-right: 6px;
+            }
+        }
+        .primaryText {
+            text-transform: capitalize;
+        }
+    }
+    prm-main-menu button {
+        prm-icon {
+            color: $accent-color;
+            font-weight: 400;
+            margin-right: 6px;
+        }
+        span {
+            color: $uqBodyCopy;
+            text-transform: capitalize;
+            font-weight: 400;
+        }
+        svg {
+            width: 24px;
+        }
+    }
 }
