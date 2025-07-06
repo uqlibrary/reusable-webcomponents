@@ -674,10 +674,24 @@
                 };
                 if (isVeryFirstChild) {
                     const veryFirstAnchor = child.querySelector(':scope > ul > li:first-child > a:first-child');
-                    if (!!veryFirstAnchor) {
-                        const link = new URL(veryFirstAnchor.href);
+                    const parentLi = !!veryFirstAnchor && veryFirstAnchor.parentNode;
+                    const firstGrandchild = !!parentLi && parentLi.querySelector('ul li:first-child a');
+                    if (!!firstGrandchild) {
+                        // use the link from the first internal link in the local nav block
+                        // (Springshare are supplying 2 links to this page and we are trying to get around the SEO issues of that by never linking to the dupe)
+                        const link = new URL(firstGrandchild.href);
                         record.href = `${link.origin}${link.pathname}${link.search}`;
+                    } else {
+                        // otherwise, when we arent on that first page that has the grandchilden, truncate the current url
+                        // (author guideline: "our format is https://guides.library.uq.edu.au/group-name/guide-title/page-name")
+                        const url = window.location;
+                        const pathname = url.pathname.substring(0, url.pathname.lastIndexOf('/'));
+                        record.href = `${url.origin}${pathname}${url.search}`;
                     }
+
+                    // use the page title as the first link
+                    const h1 = document.querySelector('h1#s-lg-guide-name');
+                    !!h1 && (record.title = h1.textContent);
                 }
 
                 if (hasHashLink(anchor.href)) {
@@ -724,12 +738,16 @@
                 let htmlToInsert = parentTemplate(classNameBreadcrumb, 'https://uq.edu.au/', 'UQ home');
 
                 const breadcrumbLength = 3;
-                [...parentLinksFromBreadcrumbs].slice(0, breadcrumbLength).forEach((link, index) => {
-                    if (!!parentElementRequired && index === breadcrumbLength - 1) {
-                        classNameBreadcrumb = 'uq-local-nav__parent';
-                    }
-                    htmlToInsert += parentTemplate(classNameBreadcrumb, link.href, link.textContent);
-                });
+                const breadcrumbsToUse = [...parentLinksFromBreadcrumbs].slice(0, breadcrumbLength);
+                !breadcrumbsToUse && console.log('breadcrumbs: ', parentLinksFromBreadcrumbs);
+                !breadcrumbsToUse && console.log('breadcrumbs to use: ', breadcrumbsToUse);
+                !!breadcrumbsToUse &&
+                    breadcrumbsToUse.forEach((link, index) => {
+                        if (!!parentElementRequired && index === breadcrumbLength - 1) {
+                            classNameBreadcrumb = 'uq-local-nav__parent';
+                        }
+                        htmlToInsert += parentTemplate(classNameBreadcrumb, link.href, link.textContent);
+                    });
                 return htmlToInsert;
             }
         }
