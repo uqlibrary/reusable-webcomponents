@@ -506,9 +506,13 @@
                     listButtons.forEach((button, index) => {
                         let buttonLabel = button.textContent;
                         const linkedId = button.href;
-                        const newurl = new URL(linkedId);
-                        const linkedItem = document.querySelector(newurl.hash);
+                        const newUrl = new URL(linkedId);
+                        const linkedItem = document.querySelector(newUrl.hash);
                         let linkedItemContent = linkedItem.innerHTML;
+
+                        // sometimes the contents include an iframe. This wasn't copying properly. Pull them early and reinsert them later
+                        const extractedIframes = [];
+                        linkedItemContent = extractIframes(linkedItemContent, extractedIframes);
 
                         // the auto-springshare tool doesn't put a heading in the button
                         // so make the heading hierarchy correct!
@@ -525,11 +529,13 @@
 
                         buttonLabel = !!hasExternalH2 ? `<h3>${buttonLabel}</h3>` : `<h2>${buttonLabel}</h2>`;
 
-                        const hash = newurl.hash.replace('#', '');
+                        const hash = newUrl.hash.replace('#', '');
                         let accordionBody = htmlAccordionTemplate.repeat(1); // hack to use htmlAccordionTemplate for each box
                         accordionBody = accordionBody.replace('MATCHING_ID', hash);
                         accordionBody = accordionBody.replace('MATCHING_ID', hash);
                         accordionBody = accordionBody.replace('CONTENT_HERE', linkedItemContent);
+                        accordionBody = reinsertIframes(accordionBody, extractedIframes);
+
                         accordionBody = accordionBody.replace('BUTTON_TITLE', buttonLabel);
 
                         contents += accordionBody;
@@ -542,6 +548,58 @@
 
                 tabBlock.parentElement.remove();
             });
+
+        /**
+         * Extracts iframes from HTML content and replaces them with placeholders
+         * @param {string} htmlContent - The HTML content to process
+         * @param {Array} extractedIframes - Array to store the extracted iframes
+         * @returns {string} - The HTML content with iframes replaced by placeholders
+         */
+        function extractIframes(htmlContent, extractedIframes) {
+            // Create a temporary div to parse the HTML
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = htmlContent;
+
+            // Find all iframes in the content
+            const iframes = tempDiv.querySelectorAll('iframe');
+
+            // Process each iframe
+            iframes.forEach((iframe, index) => {
+                // Create a unique placeholder ID
+                const placeholderId = `iframe-placeholder-${Date.now()}-${index}`;
+
+                // Store the iframe HTML
+                extractedIframes.push({
+                    id: placeholderId,
+                    html: iframe.outerHTML,
+                });
+
+                // Replace the iframe with a placeholder
+                const placeholder = document.createElement('div');
+                placeholder.setAttribute('data-iframe-placeholder', placeholderId);
+                iframe.parentNode.replaceChild(placeholder, iframe);
+            });
+
+            return tempDiv.innerHTML;
+        }
+
+        /**
+         * Reinserts iframes back into the HTML content
+         * @param {string} htmlContent - The HTML content with placeholders
+         * @param {Array} extractedIframes - Array of extracted iframes
+         * @returns {string} - The HTML content with iframes reinserted
+         */
+        function reinsertIframes(htmlContent, extractedIframes) {
+            let processedContent = htmlContent;
+
+            // Replace each placeholder with its corresponding iframe
+            extractedIframes.forEach((iframe) => {
+                const placeholderRegex = new RegExp(`<div data-iframe-placeholder="${iframe.id}"></div>`, 'g');
+                processedContent = processedContent.replace(placeholderRegex, iframe.html);
+            });
+
+            return processedContent;
+        }
     }
 
     function replaceSpringShareSidebarMenu() {
