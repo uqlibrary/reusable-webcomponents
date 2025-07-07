@@ -583,10 +583,15 @@
 
             // Process each iframe
             iframes.forEach((iframe, index) => {
+                console.log('iframe=', iframe);
                 // Create a unique placeholder ID
                 const placeholderId = `iframe-placeholder-${Date.now()}-${index}`;
 
-                // Store the iframe HTML
+                // Remove width and height attributes - not sure what they are supposed to be for, but they land with big spacing
+                iframe.removeAttribute('width');
+                iframe.removeAttribute('height');
+
+                // Store the iframe HTML without width and height
                 extractedIframes.push({
                     id: placeholderId,
                     html: iframe.outerHTML,
