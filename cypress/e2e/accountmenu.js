@@ -382,6 +382,8 @@ describe('Account menu button', () => {
                 .shadow()
                 .within(() => {
                     assertUserHasStandardMyLibraryOptions('uqtesttag');
+                    assertUserHasMasquerade(true, 'uqtesttag');
+                    assertUserHasAlertsAdmin(false);
                     assertUserHasTestTagAdmin(true);
                     assertUserHasDlorAdmin(false);
                     assertUserHasSpringshareAdmin(true);
@@ -395,6 +397,8 @@ describe('Account menu button', () => {
                 .shadow()
                 .within(() => {
                     assertUserHasStandardMyLibraryOptions('dloradmn');
+                    assertUserHasMasquerade(false);
+                    assertUserHasAlertsAdmin(false);
                     assertUserHasTestTagAdmin(false);
                     assertUserHasDlorAdmin(true);
                     assertUserHasSpringshareAdmin(true);
@@ -465,6 +469,7 @@ describe('Account menu button', () => {
                 .shadow()
                 .within(() => {
                     assertUserHasStandardMyLibraryOptions('uqrdav10');
+                    assertUserHasMasquerade(false);
                     assertUserHasAlertsAdmin(false);
                     assertUserHasTestTagAdmin(false);
                     assertUserHasDlorAdmin(false);

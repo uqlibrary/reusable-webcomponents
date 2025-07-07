@@ -5,6 +5,11 @@ import { default as navLocale } from './js/nav';
 import { linkToDrupal } from '../helpers/access';
 
 const template = document.createElement('template');
+
+const footerLinkToGuidesAdmin = `<div class="uq-footer__contact-item uq-footer__contact-login"><a href="https://uq.libapps.com/libapps/login.php?site_id=731" class="uq-footer__link gtm-processed" rel="nofollow noopener">Guides login</a></div>`;
+const isGuidesProductionPage = document.location.hostname === 'guides.library.uq.edu.au';
+const guideLoginLink = isGuidesProductionPage ? footerLinkToGuidesAdmin : '';
+
 template.innerHTML = `
   <style>${mainStyles.toString()}</style>
   <style>${globalStyles.toString()}</style>
@@ -233,8 +238,9 @@ template.innerHTML = `
               <li class="uq-footer__footer-item"><a href="https://www.tiktok.com/@uniofqld" class="uq-footer__meta-icons--tiktok uq-footer__meta-icons" data-gtm-label="TikTok" aria-label="TikTok"></a></li>          
             </ul>
           </nav>
-
-        </div>
+          ${guideLoginLink}
+      
+    </div>
         <nav class="uq-footer__meta" aria-label="Business meta">
           <ul class="uq-footer__footer-list">
             <li class="uq-footer__footer-item">&copy; The University of Queensland</li>

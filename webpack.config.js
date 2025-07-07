@@ -125,6 +125,10 @@ module.exports = () => {
                         to: 'applications/libguides/arrow-right.png',
                     },
                     { from: 'src/applications/libguides/arrow-down.png', to: 'applications/libguides/arrow-down.png' },
+                    {
+                        from: 'src/applications/libguides/images/hero-BSL-group-study.jpg',
+                        to: 'applications/libguides/hero_2025.jpg',
+                    },
                     { from: 'src/favicon.ico', to: 'favicon.ico' },
                     // all load.js for applications should be included here
                     { from: 'src/applications/atom/load.js', to: 'applications/atom/load.js' },
