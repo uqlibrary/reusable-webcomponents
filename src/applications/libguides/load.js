@@ -527,7 +527,6 @@
                         const newUrl = new URL(linkedId);
                         const linkedItem = document.querySelector(newUrl.hash);
                         let linkedItemContent = linkedItem.innerHTML;
-                        console.log(buttonLabel, 'linkedItemContent=', linkedItemContent);
 
                         // sometimes the contents include an iframe. This wasn't copying properly. Pull them early and reinsert them later
                         const extractedIframes = [];
