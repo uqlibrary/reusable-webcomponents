@@ -47,7 +47,7 @@
 
     const searchParameters = new URLParameterHandler();
 
-    const currentScriptSrc = document.currentScript?.src || false; // for DEV 2025
+    const currentScriptSrc = document.currentScript?.src || false;
 
     function ready(fn) {
         if (!!document.currentScript?.src) {
@@ -130,12 +130,6 @@
                     !!header && header.setAttribute('hideLibraryMenuItem', '');
                     !!header && header.setAttribute('searchurl', 'guides.library.uq.edu.au');
                     document.body.insertBefore(header, firstElement);
-                }
-
-                // for 2025 dev - should not be needed for prod (the if block, above, is skipped because the production js has already written the header)
-                const uqheader = document.querySelector('uq-header');
-                if (!!uqheader && uqheader.getAttribute('searchurl') === null) {
-                    uqheader.setAttribute('searchurl', 'guides.library.uq.edu.au');
                 }
 
                 if (!document.querySelector('uq-site-header')) {
@@ -318,18 +312,6 @@
             // for development testing on feature branch - force Staging (useAlternate=staging) longer term instead
             // eg https://guides.library.uq.edu.au/how-to-find/news-and-newspapers?override=on&useAlternate=working&branchName=featureBranchName
             return `${assetsRoot}/reusable-webcomponents-development/${featureBranchName}/${includeFilename}`;
-        }
-
-        if (!!currentScriptSrc && currentScriptSrc.includes('guides-AD-111')) {
-            // we are on a groups page - 2025 dev
-
-            // sometimes we fail to stop the production .js from running - make sure the css iasnt applied during dev
-            const cssFileName =
-                'https://assets.library.uq.edu.au/reusable-webcomponents/applications/libguides/custom-styles.css';
-            const prodCssFound = document.querySelector("link[href*='" + cssFileName + "']");
-            !!prodCssFound && prodCssFound.parentNode.removeChild(prodCssFound);
-
-            return `${assetsRoot}/reusable-webcomponents-development/guides-AD-111/${includeFilename}`;
         }
 
         // otherwise prod
@@ -583,15 +565,10 @@
 
             // Process each iframe
             iframes.forEach((iframe, index) => {
-                console.log('iframe=', iframe);
                 // Create a unique placeholder ID
                 const placeholderId = `iframe-placeholder-${Date.now()}-${index}`;
 
-                // Remove width and height attributes - not sure what they are supposed to be for, but they land with big spacing
-                iframe.removeAttribute('width');
-                iframe.removeAttribute('height');
-
-                // Store the iframe HTML without width and height
+                // Store the iframe HTML
                 extractedIframes.push({
                     id: placeholderId,
                     html: iframe.outerHTML,
@@ -936,10 +913,6 @@
             !!indexElement && indexElement.appendChild(template.content);
         }
 
-        // temporary code for subdomain - 2025 dev
-        const springshareBanner = document.getElementById('s-lib-banner');
-        !!springshareBanner && springshareBanner.remove();
-
         /*
         html like the following is included on the page template
         <div id="a-z-index" data-for="a-z-list"></div>
@@ -950,10 +923,6 @@
         const indexElement = document.getElementById('a-z-index');
         const listIndex = !!indexElement && indexElement.dataset.for;
         const alphaBlocks = !!listIndex && document.querySelectorAll(`#${listIndex} > div > div`);
-
-        // if (!alphaBlocks) {
-        //     return; // this page does not have an a-z index (or its wrongly built, see example html above)
-        // }
 
         !!indexElement && indexElement.classList.add('uql-az-index');
         !!indexElement && insertAZIntoDocument(indexElement);
@@ -1014,8 +983,9 @@
     ready(applyUQLItemsToGuides);
 })();
 
-function toggleAccordionPanel(clickedButton) {
-    /*
+if (!toggleAccordionPanel || typeof toggleAccordionPanel === 'undefined') {
+    function toggleAccordionPanel(clickedButton) {
+        /*
     used with markup like:
     <div class="uq-accordion">
         <div class="uq-accordion__item"> <!-- repeat this block for multiple accordions -->
@@ -1031,31 +1001,32 @@ function toggleAccordionPanel(clickedButton) {
     - replace `<p>content</p>` with the desired contents of the hideable panel
     note: loads open so content is available without js, function closeAllUqAccordions, above, closes them onload
      */
-    const panelId = clickedButton.getAttribute('aria-controls');
-    const panel = !!panelId && document.getElementById(panelId);
-    if (!panel) {
-        return true;
-    }
+        const panelId = clickedButton.getAttribute('aria-controls');
+        const panel = !!panelId && document.getElementById(panelId);
+        if (!panel) {
+            return true;
+        }
 
-    const wrappingDiv = clickedButton.parentElement;
-    if (!panel.classList.contains('uq-accordion__content--active')) {
-        clickedButton.setAttribute('aria-expanded', 'true');
-        !clickedButton.classList.contains('uq-accordion__toggle--active') &&
-            clickedButton.classList.add('uq-accordion__toggle--active');
-        !panel.classList.contains('uq-accordion__content--active') &&
-            panel.classList.add('uq-accordion__content--active');
-        !!wrappingDiv &&
-            !wrappingDiv.classList.contains('uq-accordion__item--is-open') &&
-            wrappingDiv.classList.add('uq-accordion__item--is-open');
-    } else {
-        clickedButton.setAttribute('aria-expanded', 'false');
-        !!clickedButton.classList.contains('uq-accordion__toggle--active') &&
-            clickedButton.classList.remove('uq-accordion__toggle--active');
-        !!panel.classList.contains('uq-accordion__content--active') &&
-            panel.classList.remove('uq-accordion__content--active');
-        !!wrappingDiv &&
-            !!wrappingDiv.classList.contains('uq-accordion__item--is-open') &&
-            wrappingDiv.classList.remove('uq-accordion__item--is-open');
+        const wrappingDiv = clickedButton.parentElement;
+        if (!panel.classList.contains('uq-accordion__content--active')) {
+            clickedButton.setAttribute('aria-expanded', 'true');
+            !clickedButton.classList.contains('uq-accordion__toggle--active') &&
+                clickedButton.classList.add('uq-accordion__toggle--active');
+            !panel.classList.contains('uq-accordion__content--active') &&
+                panel.classList.add('uq-accordion__content--active');
+            !!wrappingDiv &&
+                !wrappingDiv.classList.contains('uq-accordion__item--is-open') &&
+                wrappingDiv.classList.add('uq-accordion__item--is-open');
+        } else {
+            clickedButton.setAttribute('aria-expanded', 'false');
+            !!clickedButton.classList.contains('uq-accordion__toggle--active') &&
+                clickedButton.classList.remove('uq-accordion__toggle--active');
+            !!panel.classList.contains('uq-accordion__content--active') &&
+                panel.classList.remove('uq-accordion__content--active');
+            !!wrappingDiv &&
+                !!wrappingDiv.classList.contains('uq-accordion__item--is-open') &&
+                wrappingDiv.classList.remove('uq-accordion__item--is-open');
+        }
+        return false;
     }
-    return false;
 }
