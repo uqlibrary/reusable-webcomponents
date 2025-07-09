@@ -1753,4 +1753,10 @@ body.editmode {
         background-color: #51247a;
         color: white;
     }
+    .s-lg-guide-admin-content,
+    .s-lib-box-content {
+        ul {
+            margin-left: 1rem
+        }
+    }
 }
