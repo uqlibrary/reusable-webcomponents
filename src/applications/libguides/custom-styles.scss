@@ -1732,7 +1732,7 @@ body:not(.editmode) {
         button h5 {
             margin-bottom: 0;
         }
-        &.uq-accordion__item--is-open ul {
+        &.uq-accordion__item--is-open div div > :last-child {
             margin-bottom: 0;
         }
     }
