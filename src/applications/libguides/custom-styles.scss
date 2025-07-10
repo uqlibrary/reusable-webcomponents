@@ -362,28 +362,32 @@ ul.s-lg-guide-list {
     }
 }
 
-.s-lib-box .row #accor {
-    border-radius: 0;
-    background-image: none;
-    h4 a {
-        color: $heading !important; // TODO: remove inline style 'color:#51247A;' from toggle opener pon subject guides landing page!!!
+body:not(.editmode) {
+    .s-lib-box .row #accor {
+        border-radius: 0;
+        background-image: none;
+        h4 a {
+            color: $heading !important; // TODO: remove inline style 'color:#51247A;' from toggle opener pon subject guides landing page!!!
+        }
+        h4 a:hover {
+            text-decoration: underline;
+            color: $heading;
+            background-color: transparent;
+        }
+
+        h4 a:focus {
+            color: $heading;
+            background-color: transparent;
+        }
     }
-    h4 a:hover {
-        text-decoration: underline;
-        color: $heading;
-        background-color: transparent;
+
+    .uql-grid .s-lib-box-content {
+        padding-left: 0;
     }
-    h4 a:focus {
-        color: $heading;
-        background-color: transparent;
-    }
-}
-.uql-grid .s-lib-box-content {
-    padding-left: 0;
 }
 
 // landing page layout, (two column)
-body:not(.guides_homepage) #s-lg-index-cols {
+body:not(.editmode):not(.guides_homepage) #s-lg-index-cols {
     margin-left: 0;
     margin-right: 0;
     padding-left: 0.5rem;
@@ -421,120 +425,129 @@ body:not(.guides_homepage) #s-lg-index-cols {
         }
     }
 }
-.container,
-.s-lib-main {
-    padding-top: 0;
-}
-@media (min-width: 37.5rem) {
+body:not(.editmode) {
     .container,
     .s-lib-main {
-        max-width: none;
+        padding-top: 0;
+    }
+    @media (min-width: 37.5rem) {
+        .container,
+        .s-lib-main {
+            max-width: none;
+        }
     }
 }
-@media (min-width: 64rem) {
-    body:not(.guides_homepage) #s-lg-index-cols {
-        display: grid;
-        column-gap: 32px;
-        grid-template-columns: 0 1fr 296px;
-        padding: 0;
+    @media (min-width: 64rem) {
+        body:not(.guides_homepage) #s-lg-index-cols {
+            display: grid;
+            column-gap: 32px;
+            grid-template-columns: 0 1fr 296px;
+            padding: 0;
+        }
     }
-    .container,
-    .s-lib-main {
-        padding-left: 0.75rem;
-        padding-right: 0.75rem;
-        margin-left: auto;
-        margin-right: auto;
-        max-width: 71em;
-        width: auto;
-    }
-    #col1,
-    .uql-grid:has(.arrowPanelWithIcon) {
-        margin-left: -30px;
+body:not(.editmode) {
+    @media (min-width: 64rem) {
+        .container,
+        .s-lib-main {
+            padding-left: 0.75rem;
+            padding-right: 0.75rem;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 71em;
+            width: auto;
+        }
+        #col1,
+        .uql-grid:has(.arrowPanelWithIcon) {
+            margin-left: -30px;
+        }
     }
 }
 @media (min-width: 75rem) {
-    body:not(.guides_homepage) #s-lg-index-cols {
+    body:not(.editmode):not(.guides_homepage) #s-lg-index-cols {
         grid-template-columns: 0 1fr 308px;
     }
-    .container,
-    .s-lib-main {
-        padding-left: unset;
-        padding-right: unset;
-    }
 }
-@media (min-width: 768px) {
-    .container {
-        width: unset;
-        padding-left: 16px;
-        padding-right: 16px;
+body:not(.editmode) {
+    @media (min-width: 75rem) {
+        .container,
+        .s-lib-main {
+            padding-left: unset;
+            padding-right: unset;
+        }
     }
-}
-@media (min-width: 1165px) {
-    .container {
-        padding-left: 0;
-        padding-right: 0;
+    @media (min-width: 768px) {
+        .container {
+            width: unset;
+            padding-left: 16px;
+            padding-right: 16px;
+        }
     }
-}
+    @media (min-width: 1165px) {
+        .container {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
 
-#col2 {
-    .s-lib-box-content {
-        padding: 0;
-    }
-    h2 {
-        margin-bottom: 16px;
-    }
-    .important-content {
-        p {
-            margin-left: 20px;
+    #col2 {
+        .s-lib-box-content {
+            padding: 0;
+        }
+        h2 {
             margin-bottom: 16px;
+        }
+        .important-content {
+            p {
+                margin-left: 20px;
+                margin-bottom: 16px;
+            }
+            li {
+                margin-left: 20px;
+                margin-bottom: 16px;
+            }
+        }
+        div.sidebar-headed-list p {
+            margin-left: 0;
+        }
+    }
+
+    .s-lib-box-content .iconInsetList {
+        img {
+            float: left;
+            width: 30px;
+            height: 30px;
+            margin-right: 15px;
+            margin-top: 2px;
+        }
+        ul,
+        li {
+            list-style: none;
         }
         li {
-            margin-left: 20px;
-            margin-bottom: 16px;
+            margin-bottom: 24px;
         }
     }
-    div.sidebar-headed-list p {
-        margin-left: 0;
+
+    .inlineHeaderMoreLink {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        a {
+            display: inline-block;
+            margin-left: 1em;
+            margin-top: 12px;
+            line-height: normal;
+        }
+    }
+
+    .s-lib-footer {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-top: none;
+        background-color: transparent;
     }
 }
-
-.s-lib-box-content .iconInsetList {
-    img {
-        float: left;
-        width: 30px;
-        height: 30px;
-        margin-right: 15px;
-        margin-top: 2px;
-    }
-    ul,
-    li {
-        list-style: none;
-    }
-    li {
-        margin-bottom: 24px;
-    }
-}
-
-.inlineHeaderMoreLink {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    a {
-        display: inline-block;
-        margin-left: 1em;
-        margin-top: 12px;
-        line-height: normal;
-    }
-}
-
-.s-lib-footer {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border-top: none;
-    background-color: transparent;
-}
-
-/* styles for enclosing side nav */
+    /* styles for enclosing side nav */
 body:not(.editmode) #s-lg-side-nav-content {
     margin-bottom: $section-spacing;
     &.container::before {
@@ -566,275 +579,278 @@ body:not(.editmode) #s-lg-side-nav-content {
         }
     }
 }
-// ipad and lower, content above sidebar
-@media (max-width: 63.99em) {
-    #s-lg-side-nav-content {
-        > .row {
-            display: flex !important;
-            flex-direction: column-reverse;
+body:not(.editmode) {
+    // ipad and lower, content above sidebar
+    @media (max-width: 63.99em) {
+        #s-lg-side-nav-content {
+            > .row {
+                display: flex !important;
+                flex-direction: column-reverse;
+            }
         }
     }
-}
 
-.s-lib-box {
-    border: none !important;
-    box-shadow: none !important;
-    margin-bottom: 0;
-    padding: 0;
-}
-#s-lib-scroll-top {
-    display: none !important;
-}
-.s-lg-srch-listing-meta,
-.s-lib-box-content {
-    li {
-        margin-bottom: 8px;
+    .s-lib-box {
+        border: none !important;
+        box-shadow: none !important;
+        margin-bottom: 0;
+        padding: 0;
+    }
+    #s-lib-scroll-top {
+        display: none !important;
+    }
+    .s-lg-srch-listing-meta,
+    .s-lib-box-content {
+        li {
+            margin-bottom: 8px;
+        }
+    }
+
+    #s-lg-col-1 h2:not(:first-of-type) {
+        margin-top: 1.5rem;
+    }
+    #s-lg-col-1 h2 {
+        margin-right: 0;
+        margin-bottom: 1.5rem;
+        margin-left: 0;
     }
 }
-
-#s-lg-col-1 h2:not(:first-of-type) {
-    margin-top: 1.5rem;
-}
-#s-lg-col-1 h2 {
-    margin-right: 0;
-    margin-bottom: 1.5rem;
-    margin-left: 0;
-}
-body:not(:has(.arrowPanel)) .s-lib-box-content {
+body:not(.editmode):not(:has(.arrowPanel)) .s-lib-box-content {
     margin: 1rem 0 1.5rem 0;
 }
-body:not(:has(.arrowPanel)) .s-lib-box-content {
+body:not(.editmode):not(:has(.arrowPanel)) .s-lib-box-content {
     padding: 0;
     margin: 0;
 }
-#s-lg-col-1 {
-    & > div:first-child > div:first-child > div:first-child > div:first-child > h2:first-child {
-        // a h2 at the top of the page doesnt get a gap above
-        margin-top: 0;
-    }
-    h2.s-lib-box-title {
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-        padding-left: 0;
-    }
-    h3,
-    h4 {
-        margin-top: 8px;
-        margin-bottom: 16px;
-    }
-    h5,
-    h6 {
-        margin-top: 0;
-        margin-bottom: 16px;
-    }
-    ol,
-    ul {
-        margin-bottom: $spacing-m;
-        margin-top: 0;
-        padding-left: $spacing-m;
-        li {
-            margin-bottom: $spacing-xs;
-        }
-
-        li:last-child {
-            margin-bottom: 0;
-        }
-
-        li > ol,
-        li > ul {
-            margin-bottom: 0;
-            margin-top: $spacing-xs;
-        }
-    }
-    button[aria-haspopup] {
-        h2, h3, h4 {
+body:not(.editmode) {
+    #s-lg-col-1 {
+        & > div:first-child > div:first-child > div:first-child > div:first-child > h2:first-child {
+            // a h2 at the top of the page doesnt get a gap above
             margin-top: 0;
         }
-    }
-}
-.guides_homepage {
-    #s-lg-col-1 h3 {
-        padding: 20px;
-    }
-}
-ol,
-#col1 ul,
-.s-lg-link-list,
-iframe {
-    margin-bottom: 24px;
-    padding-left: 9px;
-    padding-top: 0;
-}
-
-#s-lg-hp-nav-bottom {
-    form {
-        &[role='search'] {
-            .form-group {
-                width: 70%;
-                @media (max-width: 768px) {
-                    width: 100%;
-                }
-            }
-            .btn-default {
-                color: #fff;
-                background-color: $button-color;
-                border: 1px solid $button-color;
-            }
+        h2.s-lib-box-title {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            padding-left: 0;
         }
-    }
-}
-
-#s-lg-az-nav,
-#s-lg-er-nav,
-#s-lg-hp-nav,
-#s-lg-profile-nav,
-#s-lg-srch-nav {
-    background-color: transparent;
-}
-#s-lg-hp-nav button.btn:focus {
-    outline: none; // get rid of weird dashed outline
-}
-
-#s-lg-index-cols #s-lg-hp-nav {
-    & > ul > li:first-of-type {
-        // tabs: bar of buttons
-        padding: 0;
+        h3,
+        h4 {
+            margin-top: 8px;
+            margin-bottom: 16px;
+        }
+        h5,
+        h6 {
+            margin-top: 0;
+            margin-bottom: 16px;
+        }
+        ol,
         ul {
-            margin-bottom: 0;
-            & > li > button {
-                background-color: white;
-                color: $bodyCopy;
-                font-size: $font-size-l;
-                padding: 0;
-                margin: 0;
-                &:hover {
-                    text-decoration: underline;
+            margin-bottom: $spacing-m;
+            margin-top: 0;
+            padding-left: $spacing-m;
+            li {
+                margin-bottom: $spacing-xs;
+            }
+
+            li:last-child {
+                margin-bottom: 0;
+            }
+
+            li > ol,
+            li > ul {
+                margin-bottom: 0;
+                margin-top: $spacing-xs;
+            }
+        }
+        button[aria-haspopup] {
+            h2, h3, h4 {
+                margin-top: 0;
+            }
+        }
+    }
+    .guides_homepage {
+        #s-lg-col-1 h3 {
+            padding: 20px;
+        }
+    }
+    ol,
+    #col1 ul,
+    .s-lg-link-list,
+    iframe {
+        margin-bottom: 24px;
+        padding-left: 9px;
+        padding-top: 0;
+    }
+
+    #s-lg-hp-nav-bottom {
+        form {
+            &[role='search'] {
+                .form-group {
+                    width: 70%;
+                    @media (max-width: 768px) {
+                        width: 100%;
+                    }
+                }
+                .btn-default {
+                    color: #fff;
+                    background-color: $button-color;
+                    border: 1px solid $button-color;
                 }
             }
-            & > li.active > button {
-                background-color: white;
-                color: $uqBrandColour;
-            }
-        }
-        li {
-            border: 1px solid $borders;
-            padding: 24px 32px;
-            &.active {
-                border-bottom: none;
-            }
         }
     }
-    & > ul > li:nth-of-type(2) {
-        // tabs: displayed content panel
-        border-width: 0 0 0 1px;
-        border-style: solid;
-        border-color: $borders;
+
+    #s-lg-az-nav,
+    #s-lg-er-nav,
+    #s-lg-hp-nav,
+    #s-lg-profile-nav,
+    #s-lg-srch-nav {
+        background-color: transparent;
     }
-}
-@media (max-width: 64rem) {
+    #s-lg-hp-nav button.btn:focus {
+        outline: none; // get rid of weird dashed outline
+    }
+
     #s-lg-index-cols #s-lg-hp-nav {
         & > ul > li:first-of-type {
             // tabs: bar of buttons
+            padding: 0;
+            ul {
+                margin-bottom: 0;
+                & > li > button {
+                    background-color: white;
+                    color: $bodyCopy;
+                    font-size: $font-size-l;
+                    padding: 0;
+                    margin: 0;
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+                & > li.active > button {
+                    background-color: white;
+                    color: $uqBrandColour;
+                }
+            }
             li {
-                padding: 16px 24px;
+                border: 1px solid $borders;
+                padding: 24px 32px;
+                &.active {
+                    border-bottom: none;
+                }
+            }
+        }
+        & > ul > li:nth-of-type(2) {
+            // tabs: displayed content panel
+            border-width: 0 0 0 1px;
+            border-style: solid;
+            border-color: $borders;
+        }
+    }
+    @media (max-width: 64rem) {
+        #s-lg-index-cols #s-lg-hp-nav {
+            & > ul > li:first-of-type {
+                // tabs: bar of buttons
+                li {
+                    padding: 16px 24px;
+                }
             }
         }
     }
 }
-
 .guides_homepage div h1:not(.hero-h1),
 .guides_homepage > div.s-lib-box-container,
-    .remove-h2 h2.s-lib-box-title // if the box has built in h2 tags which we want to replace with internal ones of our own, use .remove-h2
+body:not(.editmode) .remove-h2 h2.s-lib-box-title // if the box has built in h2 tags which we want to replace with internal ones of our own, use .remove-h2
 {
     display: none;
 }
+:not(.editmode) {
+    // put a gap below the footer box
+    .footer-box {
+        margin-block: $section-spacing;
+        h2 {
+            margin-top: 0;
+            margin-bottom: 24px;
+            @media (min-width: 75rem) {
+                margin-left: -30px;
+            }
+            padding-left: 1rem;
+        }
+    }
 
-// put a gap below the footer box
-.footer-box {
-    margin-block: $section-spacing;
-    h2 {
-        margin-top: 0;
-        margin-bottom: 24px;
+    // style grid of uq boxes
+    .uql-grid {
+        padding-right: 15px;
+        padding-left: 15px;
         @media (min-width: 75rem) {
             margin-left: -30px;
         }
-        padding-left: 1rem;
+        .s-lib-box-container {
+            //margin-top: 1.5rem;
+            border: 1px solid $borders !important;
+            border-radius: 4px;
+            background-color: #fff;
+            .s-lib-box-content h3 {
+                margin-top: 0;
+                //margin: 0 0 0 0;
+            }
+        }
+        p {
+            margin-top: 8px;
+        }
+        a {
+            padding-inline: 1.5rem;
+        }
+        .s-lib-box-content {
+            padding: 0;
+            ul,
+            ol {
+                margin-left: 8px;
+            }
+            li {
+                margin-block: 1rem;
+            }
+        }
     }
-}
 
-// style grid of uq boxes
-.uql-grid {
-    padding-right: 15px;
-    padding-left: 15px;
-    @media (min-width: 75rem) {
-        margin-left: -30px;
-    }
-    .s-lib-box-container {
-        //margin-top: 1.5rem;
-        border: 1px solid $borders !important;
-        border-radius: 4px;
-        background-color: #fff;
-        .s-lib-box-content h3 {
-            margin-top: 0;
-            //margin: 0 0 0 0;
-        }
-    }
-    p {
-        margin-top: 8px;
-    }
-    a {
-        padding-inline: 1.5rem;
-    }
-    .s-lib-box-content {
-        padding: 0;
-        ul,
-        ol {
-            margin-left: 8px;
-        }
-        li {
-            margin-block: 1rem;
-        }
-    }
-}
-
-.arrowPanel a {
-    cursor: pointer;
-    color: $uqBrandColour;
-    font-family: Roboto, Helvetica, Arial, sans-serif;
-    font-size: $font-size-xl;
-    font-weight: 500;
-    position: relative;
-    &:focus-within,
-    &:hover {
-        background-color: $paneBackground !important;
-        h3 {
-            text-decoration: underline;
-        }
-        .panelBodyWrapper {
-            background-color: $paneBackground !important;
-        }
-        div.arrowSvgWrapper {
-            background-color: $paneBackground !important;
-            color: $uqBrandColour;
-        }
-    }
-    h3.cardHeading {
-        font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        font-size: 1.5rem !important;
+    .arrowPanel a {
+        cursor: pointer;
+        color: $uqBrandColour;
+        font-family: Roboto, Helvetica, Arial, sans-serif;
+        font-size: $font-size-xl;
         font-weight: 500;
-        letter-spacing: 0.16px;
-        line-height: 1.2;
-        margin-block: 8px;
-    }
-    p {
-        font-size: $font-size-m;
-        margin-bottom: 0;
-    }
-    svg.arrowForwardIcon {
-        display: block;
+        position: relative;
+        &:focus-within,
+        &:hover {
+            background-color: $paneBackground !important;
+            h3 {
+                text-decoration: underline;
+            }
+            .panelBodyWrapper {
+                background-color: $paneBackground !important;
+            }
+            div.arrowSvgWrapper {
+                background-color: $paneBackground !important;
+                color: $uqBrandColour;
+            }
+        }
+        h3.cardHeading {
+            font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 1.5rem !important;
+            font-weight: 500;
+            letter-spacing: 0.16px;
+            line-height: 1.2;
+            margin-block: 8px;
+        }
+        p {
+            font-size: $font-size-m;
+            margin-bottom: 0;
+        }
+        svg.arrowForwardIcon {
+            display: block;
+        }
     }
 }
-
 .guides_homepage {
     .s-lib-box {
         .s-lib-box-content {
@@ -842,745 +858,745 @@ iframe {
         }
     }
 }
-
-/* Default: mobile view, 1 column */
-.uql-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 24px;
-}
-
-/* Tablet breakpoint - 2 columns */
-@media (min-width: 640px) {
+body:not(.editmode) {
+    /* Default: mobile view, 1 column */
     .uql-grid {
-        grid-template-columns: repeat(2, 1fr);
-        a {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    /* Tablet breakpoint - 2 columns */
+    @media (min-width: 640px) {
+        .uql-grid {
+            grid-template-columns: repeat(2, 1fr);
+            a {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
         }
-    }
-    .uql-grid {
-        // enable the arrow sitting at the bottom of every box
-        & > div > div > div > div > div > div,
-        & > div > div > div > div > div,
-        & > div > div > div > div,
-        & > div > div > div,
-        & > div > div,
-        & > div,
-        a {
-            height: 100%;
-        }
-    }
-}
-
-/* Desktop breakpoint - 3 columns */
-@media (min-width: 800px) {
-    .uql-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 32px;
-    }
-}
-
-/* Make boxes consistent height */
-.uql-grid {
-    .s-lib-box {
-        height: 100%;
-    }
-    .s-lib-box-content {
-        flex-grow: 1;
-    }
-}
-@media (min-width: 848px) {
-    .uql-grid a {
-        &:focus-within,
-        &:hover {
-            h3 {
-                text-decoration: underline;
+        .uql-grid {
+            // enable the arrow sitting at the bottom of every box
+            & > div > div > div > div > div > div,
+            & > div > div > div > div > div,
+            & > div > div > div > div,
+            & > div > div > div,
+            & > div > div,
+            & > div,
+            a {
+                height: 100%;
             }
         }
     }
-    @media (prefers-reduced-motion: no-preference) {
-        .uql-grid a svg.arrowForwardIcon {
-            transition: margin-left 200ms ease-in-out;
-        }
+
+    /* Desktop breakpoint - 3 columns */
+    @media (min-width: 800px) {
         .uql-grid {
-            a:focus-within,
-            a:hover {
-                svg.arrowForwardIcon {
-                    margin-left: 10px;
-                    transition: margin-left 200ms ease-in-out;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+    }
+
+    /* Make boxes consistent height */
+    .uql-grid {
+        .s-lib-box {
+            height: 100%;
+        }
+        .s-lib-box-content {
+            flex-grow: 1;
+        }
+    }
+    @media (min-width: 848px) {
+        .uql-grid a {
+            &:focus-within,
+            &:hover {
+                h3 {
+                    text-decoration: underline;
+                }
+            }
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            .uql-grid a svg.arrowForwardIcon {
+                transition: margin-left 200ms ease-in-out;
+            }
+            .uql-grid {
+                a:focus-within,
+                a:hover {
+                    svg.arrowForwardIcon {
+                        margin-left: 10px;
+                        transition: margin-left 200ms ease-in-out;
+                    }
                 }
             }
         }
     }
-}
-@media (max-width: 640px) {
-    .uql-grid a {
-        display: flex;
-        justify-content: space-between;
-        text-decoration: none !important;
-    }
-    .arrowPanel:not(.arrowPanelWithIcon) a {
-        padding: 24px;
-    }
-    a {
-        padding-top: 16px;
-        padding-bottom: 8px;
-    }
-    a div.panelBodyWrapper {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-    }
-    .uql-grid p {
-        display: none;
-    }
-    .uql-grid .arrowPanel a {
-        h3.cardHeading {
-            margin-block: 0;
+    @media (max-width: 640px) {
+        .uql-grid a {
+            display: flex;
+            justify-content: space-between;
+            text-decoration: none !important;
+        }
+        .arrowPanel:not(.arrowPanelWithIcon) a {
+            padding: 24px;
+        }
+        a {
+            padding-top: 16px;
+            padding-bottom: 8px;
+        }
+        a div.panelBodyWrapper {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .uql-grid p {
+            display: none;
+        }
+        .uql-grid .arrowPanel a {
+            h3.cardHeading {
+                margin-block: 0;
+            }
+        }
+        .arrowPanel.arrowPanelWithIcon a {
+            h3.cardHeading {
+                margin-left: 24px;
+            }
+            .arrowSvgWrapper {
+                align-self: center;
+            }
         }
     }
-    .arrowPanel.arrowPanelWithIcon a {
-        h3.cardHeading {
-            margin-left: 24px;
+    @media (min-width: 640px) {
+        .uql-grid a {
+            text-decoration: none !important;
+            padding: 24px;
+        }
+        .uql-grid .arrowSvgWrapper {
+            margin-top: 24px;
         }
         .arrowSvgWrapper {
-            align-self: center;
+            margin-top: auto;
+            align-self: flex-start;
         }
     }
-}
-@media (min-width: 640px) {
-    .uql-grid a {
-        text-decoration: none !important;
-        padding: 24px;
+    /// after we move the hero, we get left with this empty div that takes up a bit of vertical space
+    div:has(> h1#s-lib-public-header-title:empty) {
+        display: none;
+        height: 0;
     }
-    .uql-grid .arrowSvgWrapper {
-        margin-top: 24px;
-    }
-    .arrowSvgWrapper {
-        margin-top: auto;
-        align-self: flex-start;
-    }
-}
-/// after we move the hero, we get left with this empty div that takes up a bit of vertical space
-div:has(> h1#s-lib-public-header-title:empty) {
-    display: none;
-    height: 0;
-}
 
-#s-lg-guide-tabs .s-lg-tabs-side .nav .dropdown a {
-    padding-block: 1rem;
-    padding-block-start: 1rem;
-    padding-block-end: 1rem;
-    padding-inline-start: 2rem;
-    border: none;
-    border-radius: 0;
-}
-.uq-local-nav {
-    max-width: 261px;
-}
-
-.uq-local-nav__link,
-.nav > li > .uq-local-nav__link {
-    display: block;
-    color: $black;
-    padding-block: 1rem;
-    padding-inline-start: 2rem;
-    border-bottom: 1px solid $borders;
-    -webkit-text-decoration: none;
-    text-decoration: none;
-    font-weight: 400;
-    font-size: 1rem;
-    &:hover {
-        text-decoration: none;
+    #s-lg-guide-tabs .s-lg-tabs-side .nav .dropdown a {
+        padding-block: 1rem;
+        padding-block-start: 1rem;
+        padding-block-end: 1rem;
+        padding-inline-start: 2rem;
+        border: none;
+        border-radius: 0;
     }
-    &:focus,
-    &:hover {
+    .uq-local-nav {
+        max-width: 261px;
+    }
+
+    .uq-local-nav__link,
+    .nav > li > .uq-local-nav__link {
+        display: block;
         color: $black;
+        padding-block: 1rem;
+        padding-inline-start: 2rem;
+        border-bottom: 1px solid $borders;
+        -webkit-text-decoration: none;
+        text-decoration: none;
+        font-weight: 400;
+        font-size: 1rem;
+        &:hover {
+            text-decoration: none;
+        }
+        &:focus,
+        &:hover {
+            color: $black;
+            background-color: $paneBackground;
+            transition: color 0.2s ease-out, text-decoration 0.2s ease-out, background-color 0.2s ease-out;
+        }
+        &:focus-visible {
+            outline: 4px solid $utility-500;
+            outline-offset: -3px;
+        }
+    }
+
+    .uq-local-nav__grandparent a,
+    .uq-local-nav__parent a {
+        background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m15 5-7 7 7 7' stroke='%2351247a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-size: 24px;
+        background-position: left center;
+        font-weight: 500;
+    }
+
+    .uq-local-nav__grandparent .uq-local-nav__link {
+        border-color: $grey-900;
+    }
+
+    .uq-local-nav__grandparent .uq-local-nav__link,
+    .uq-local-nav__parent .uq-local-nav__link {
+        text-decoration: none !important;
+    }
+
+    .uq-local-nav__children,
+    .uq-local-nav__grandchildren {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .uq-local-nav__child,
+    .uq-local-nav__grandchild {
+        margin-bottom: 0;
+    }
+
+    .uq-local-nav__grandchild .uq-local-nav__link {
+        padding-inline: 2.5rem;
+    }
+
+    .uq-local-nav--current-child {
+        border-left: 4px solid $uqBrandColour;
+        margin-top: -1px;
+    }
+
+    .uq-local-nav--current-child > .uq-local-nav__link {
+        border-top: 1px solid $borders;
+        padding-inline: calc(2rem - 4px) 0;
+    }
+
+    .uq-local-nav--active-link {
+        background-color: $paneBackground;
+        font-weight: 500;
+    }
+
+    .uq-local-nav--has-children > .uq-local-nav__link {
+        background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m7 10 5 5 5-5' stroke='%2319151c' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-size: 24px;
+        background-position: right center;
+        padding-inline-end: 1.5rem;
+    }
+
+    .uq-local-nav--has-children > .uq-local-nav--active-link {
+        background-image: none;
+    }
+
+    .s-lg-tabs-side .s-lg-boxnav {
+        margin-top: 0;
+    }
+
+    .s-lg-tabs-side .s-lg-boxnav .list-group-item {
+        background-color: #fff;
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
+    .s-lg-tabs-side .s-lg-boxnav .list-group-item a {
+        color: $black;
+        font-weight: 400;
+        padding: 1rem 0 1rem 2.5rem;
+    }
+    .list-group-item a:hover {
         background-color: $paneBackground;
         transition: color 0.2s ease-out, text-decoration 0.2s ease-out, background-color 0.2s ease-out;
     }
-    &:focus-visible {
-        outline: 4px solid $utility-500;
-        outline-offset: -3px;
+    .list-group.s-lg-boxnav {
+        margin-left: 0;
+        border-top: 1px solid rgb(220, 220, 221);
     }
-}
-
-.uq-local-nav__grandparent a,
-.uq-local-nav__parent a {
-    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m15 5-7 7 7 7' stroke='%2351247a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-size: 24px;
-    background-position: left center;
-    font-weight: 500;
-}
-
-.uq-local-nav__grandparent .uq-local-nav__link {
-    border-color: $grey-900;
-}
-
-.uq-local-nav__grandparent .uq-local-nav__link,
-.uq-local-nav__parent .uq-local-nav__link {
-    text-decoration: none !important;
-}
-
-.uq-local-nav__children,
-.uq-local-nav__grandchildren {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.uq-local-nav__child,
-.uq-local-nav__grandchild {
-    margin-bottom: 0;
-}
-
-.uq-local-nav__grandchild .uq-local-nav__link {
-    padding-inline: 2.5rem;
-}
-
-.uq-local-nav--current-child {
-    border-left: 4px solid $uqBrandColour;
-    margin-top: -1px;
-}
-
-.uq-local-nav--current-child > .uq-local-nav__link {
-    border-top: 1px solid $borders;
-    padding-inline: calc(2rem - 4px) 0;
-}
-
-.uq-local-nav--active-link {
-    background-color: $paneBackground;
-    font-weight: 500;
-}
-
-.uq-local-nav--has-children > .uq-local-nav__link {
-    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m7 10 5 5 5-5' stroke='%2319151c' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-size: 24px;
-    background-position: right center;
-    padding-inline-end: 1.5rem;
-}
-
-.uq-local-nav--has-children > .uq-local-nav--active-link {
-    background-image: none;
-}
-
-.s-lg-tabs-side .s-lg-boxnav {
-    margin-top: 0;
-}
-
-.s-lg-tabs-side .s-lg-boxnav .list-group-item {
-    background-color: #fff;
-    border: none;
-    padding: 0;
-    margin: 0;
-}
-.s-lg-tabs-side .s-lg-boxnav .list-group-item a {
-    color: $black;
-    font-weight: 400;
-    padding: 1rem 0 1rem 2.5rem;
-}
-.list-group-item a:hover {
-    background-color: $paneBackground;
-    transition: color 0.2s ease-out, text-decoration 0.2s ease-out, background-color 0.2s ease-out;
-}
-.list-group.s-lg-boxnav {
-    margin-left: 0;
-    border-top: 1px solid rgb(220, 220, 221);
-}
-.list-group.s-lg-boxnav a:hover {
-    background-color: $paneBackground;
-    transition: color 0.2s ease-out, text-decoration 0.2s ease-out, background-color 0.2s ease-out;
-}
-
-.nav-stacked > li + li {
-    margin-top: 0;
-}
-
-.accessibility-only {
-    height: 0;
-    color: #fff;
-    margin: 0;
-    &:focus {
-        height: auto;
-        color: $heading;
-        margin: 0 0 2rem -1.5rem;
-    }
-}
-
-/* the following should be temporary: override built in css on guides individual page - update springshare html template for golive */
-#s-lg-tabs-container .nav-pills > li.active > a {
-    background-color: $paneBackground !important;
-    color: $bodyCopy;
-}
-#s-lg-tabs-container .nav-pills > li > ul > li:has(> a:hover) {
-    background-color: $paneBackground !important;
-    color: $bodyCopy;
-}
-.uql-az-index {
-    :focus-visible {
-        outline: 4px solid #0d6dcd;
-        outline-offset: -1px;
-    }
-    display: flex;
-    justify-content: center;
-    margin-top: -20px;
-    margin-bottom: 24px;
-    .uq-pagination ul {
-        gap: 3.5px;
-    }
-    .uq-pagination__list-item a.uq-pagination__item {
-        &:not([href]):empty,
-        &[href='']:empty,
-        &:not([href]),
-        &[href=''] {
-            color: grey;
-            text-decoration: none !important;
-            &:hover {
-                background-color: transparent;
-            }
-        }
-    }
-    .uq-pagination__list,
-    .uq-pagination ul {
-        flex-wrap: wrap;
-        justify-content: center;
-        margin-inline: auto;
-    }
-}
-
-.container.s-lib-side-borders .row.s-lg-row {
-    /* sidebar menu */
-    display: flex;
-    column-gap: 32px;
-    justify-content: space-between;
-    margin-left: -32px;
-    margin-right: -32px;
-    > div {
-        padding: 0;
-    }
-    @media (max-width: 768px) {
-        flex-direction: column-reverse;
-        > div:first-child {
-            /* sidebar */
-            margin-inline: 16px;
-            margin-top: 32px;
-            .uq-local-nav {
-                max-width: 100%;
-            }
-        }
-        > div:last-child {
-            /* body */
-            margin-inline: 16px;
-        }
-    }
-}
-
-// Previous-Next buttons at the bottom of guides that have sibling articles in the sidebar menu
-#s-lg-page-prevnext.pager {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    margin: 2.5rem -1.5rem 2.5rem 1.5rem;
-    @media (max-width: 1200px) {
-        margin-right: -1.2rem; // dont slam it hard again the edge
+    .list-group.s-lg-boxnav a:hover {
+        background-color: $paneBackground;
+        transition: color 0.2s ease-out, text-decoration 0.2s ease-out, background-color 0.2s ease-out;
     }
 
-    &::before {
-        content: none;
-    }
-
-    li.previous > a,
-    li.previous > span,
-    li.next > a,
-    li.next > span {
-        float: none;
-    }
-    li.previous {
-        text-align: left;
-        margin-left: -24px;
-        & > a,
-        & > span {
-            margin-left: -1.5rem;
-            text-align: left;
-            margin-right: 0;
-        }
-    }
-    li.next {
-        text-align: right;
-        & > a,
-        & > span {
-            text-align: right;
-        }
-    }
-    li > a,
-    li > span {
-        color: $uqBrandColour;
-        background-color: rgba(0, 0, 0, 0);
-        border-color: rgba(0, 0, 0, 0);
-        border-radius: 0.25rem;
-        font-family: $font;
-        font-size: $font-size-m;
-        font-weight: 500;
-        line-height: 1;
-        padding: 1rem 1.5rem;
-        transition: background-color 200ms ease-out, color 200ms ease-out, border 200ms ease-out;
-        text-decoration: underline;
-    }
-    li > a:focus,
-    li > a:hover {
-        background-color: $uqBrandColour;
-        border-color: $uqBrandColour;
-        color: #fff;
-        text-decoration: underline;
-    }
-}
-
-// 3 styles of boxes, info, alert & callout
-.s-lib-box-content {
-    &:has(.highlight-info),
-    &:has(.highlight-alert),
-    &:has(.highlight-callout) {
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-}
-.s-lib-box.s-lib-box-std {
-    &:has(.highlight-info),
-    &:has(.highlight-alert),
-    &:has(.highlight-callout) {
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-}
-.s-lib-box.s-lib-box-std:has(.replace-springshare-h2) {
-    h2:not(.replace-springshare-h2) {
-        display: none;
-    }
-}
-.s-lib-box .highlight-info {
-    background-color: $utility-50;
-}
-.s-lib-box .highlight-alert {
-    background-color: $warning-50;
-}
-.s-lib-box .highlight-callout {
-    background-color: $grey-50;
-}
-.s-lib-box .highlight-info,
-.s-lib-box .highlight-alert,
-.s-lib-box .highlight-callout {
-    border-radius: 2px;
-    margin-bottom: 1.5rem;
-    overflow: hidden;
-    padding: 1.5rem;
-    position: relative;
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        color: $black;
-        margin-top: 0 !important;
-        margin-bottom: 0.5rem;
-    }
-    > h2:first-child,
-    > h3:first-child,
-    > h4:first-child,
-    > h5:first-child,
-    > h6:first-child {
+    .nav-stacked > li + li {
         margin-top: 0;
     }
-    h2 {
-        padding: 0 !important;
-        margin-bottom: 1rem !important;
-    }
-    p {
-        margin-bottom: 1rem !important;
-        &:last-child {
-            margin-bottom: 0 !important;
+
+    .accessibility-only {
+        height: 0;
+        color: #fff;
+        margin: 0;
+        &:focus {
+            height: auto;
+            color: $heading;
+            margin: 0 0 2rem -1.5rem;
         }
     }
-    ul,
-    ol {
-        padding: 0 0 0 1.5rem;
-        margin: 0 0 1.5rem 0;
-        li {
-            margin: 0 0 0.5rem 0;
+
+    /* the following should be temporary: override built in css on guides individual page - update springshare html template for golive */
+    #s-lg-tabs-container .nav-pills > li.active > a {
+        background-color: $paneBackground !important;
+        color: $bodyCopy;
+    }
+    #s-lg-tabs-container .nav-pills > li > ul > li:has(> a:hover) {
+        background-color: $paneBackground !important;
+        color: $bodyCopy;
+    }
+    .uql-az-index {
+        :focus-visible {
+            outline: 4px solid #0d6dcd;
+            outline-offset: -1px;
+        }
+        display: flex;
+        justify-content: center;
+        margin-top: -20px;
+        margin-bottom: 24px;
+        .uq-pagination ul {
+            gap: 3.5px;
+        }
+        .uq-pagination__list-item a.uq-pagination__item {
+            &:not([href]):empty,
+            &[href='']:empty,
+            &:not([href]),
+            &[href=''] {
+                color: grey;
+                text-decoration: none !important;
+                &:hover {
+                    background-color: transparent;
+                }
+            }
+        }
+        .uq-pagination__list,
+        .uq-pagination ul {
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-inline: auto;
+        }
+    }
+
+    .container.s-lib-side-borders .row.s-lg-row {
+        /* sidebar menu */
+        display: flex;
+        column-gap: 32px;
+        justify-content: space-between;
+        margin-left: -32px;
+        margin-right: -32px;
+        > div {
             padding: 0;
         }
+        @media (max-width: 768px) {
+            flex-direction: column-reverse;
+            > div:first-child {
+                /* sidebar */
+                margin-inline: 16px;
+                margin-top: 32px;
+                .uq-local-nav {
+                    max-width: 100%;
+                }
+            }
+            > div:last-child {
+                /* body */
+                margin-inline: 16px;
+            }
+        }
     }
-}
-.s-lib-box .highlight-info,
-.s-lib-box .highlight-alert {
-    padding: 1.5rem 4rem;
-    margin: 0 0 1.5rem 0;
-    h2 {
-        margin: 0;
-        padding: 0 !important;
-        line-height: 1;
-    }
-    &::before {
-        background-repeat: no-repeat;
-        background-position: 50%;
-        background-size: 100%;
-        content: '';
-        display: block;
-        height: 1.5rem;
-        left: 1.5rem;
-        position: absolute;
-        top: 1.5rem;
-        width: 1.5rem;
-    }
-}
-.s-lib-box .highlight-info::before {
-    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns= 'http://www.w3.org/2000/svg' width= '24' height= '24' fill= 'none' %3E%3Ccircle cx= '12' cy= '12' r= '9.25' stroke= '%23000' stroke-width= '1.5' transform= 'rotate(-180 12 12)' /%3E%3Cpath stroke= '%23000' stroke-linecap= 'round' stroke-width= '1.5' d= 'M12 16.2v-4' /%3E%3Ccircle cx= '12' cy= '8.4' r= '1.1' fill= '%23000' transform= 'rotate(-180 12 8.4)' /%3E%3C/svg%3E");
-}
-.s-lib-box .highlight-alert::before {
-    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none'%3E%3Cpath stroke='%23000' stroke-width='1.5' d='M20.127 18.545a1.18 1.18 0 0 1-1.055 1.706H4.929a1.18 1.18 0 0 1-1.055-1.706l7.072-14.143a1.179 1.179 0 0 1 2.109 0z'/%3E%3Cpath stroke='%23000' stroke-linecap='round' stroke-width='1.5' d='M12 9v4'/%3E%3Ccircle cx='11.9' cy='16.601' r='1.1' fill='%23000'/%3E%3C/svg%3E");
-}
 
-// a-z box
-html {
-    scroll-behavior: smooth;
-}
-.can-scroll-to-top {
-    padding-bottom: 50px;
+    // Previous-Next buttons at the bottom of guides that have sibling articles in the sidebar menu
+    #s-lg-page-prevnext.pager {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin: 2.5rem -1.5rem 2.5rem 1.5rem;
+        @media (max-width: 1200px) {
+            margin-right: -1.2rem; // dont slam it hard again the edge
+        }
+
+        &::before {
+            content: none;
+        }
+
+        li.previous > a,
+        li.previous > span,
+        li.next > a,
+        li.next > span {
+            float: none;
+        }
+        li.previous {
+            text-align: left;
+            margin-left: -24px;
+            & > a,
+            & > span {
+                margin-left: -1.5rem;
+                text-align: left;
+                margin-right: 0;
+            }
+        }
+        li.next {
+            text-align: right;
+            & > a,
+            & > span {
+                text-align: right;
+            }
+        }
+        li > a,
+        li > span {
+            color: $uqBrandColour;
+            background-color: rgba(0, 0, 0, 0);
+            border-color: rgba(0, 0, 0, 0);
+            border-radius: 0.25rem;
+            font-family: $font;
+            font-size: $font-size-m;
+            font-weight: 500;
+            line-height: 1;
+            padding: 1rem 1.5rem;
+            transition: background-color 200ms ease-out, color 200ms ease-out, border 200ms ease-out;
+            text-decoration: underline;
+        }
+        li > a:focus,
+        li > a:hover {
+            background-color: $uqBrandColour;
+            border-color: $uqBrandColour;
+            color: #fff;
+            text-decoration: underline;
+        }
+    }
+
+    // 3 styles of boxes, info, alert & callout
+    .s-lib-box-content {
+        &:has(.highlight-info),
+        &:has(.highlight-alert),
+        &:has(.highlight-callout) {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+    }
     .s-lib-box.s-lib-box-std {
+        &:has(.highlight-info),
+        &:has(.highlight-alert),
+        &:has(.highlight-callout) {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+    }
+    .s-lib-box.s-lib-box-std:has(.replace-springshare-h2) {
+        h2:not(.replace-springshare-h2) {
+            display: none;
+        }
+    }
+    .s-lib-box .highlight-info {
+        background-color: $utility-50;
+    }
+    .s-lib-box .highlight-alert {
+        background-color: $warning-50;
+    }
+    .s-lib-box .highlight-callout {
+        background-color: $grey-50;
+    }
+    .s-lib-box .highlight-info,
+    .s-lib-box .highlight-alert,
+    .s-lib-box .highlight-callout {
+        border-radius: 2px;
+        margin-bottom: 1.5rem;
+        overflow: hidden;
+        padding: 1.5rem;
         position: relative;
-        display: flex;
-        justify-content: flex-start;
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            color: $black;
+            margin-top: 0 !important;
+            margin-bottom: 0.5rem;
+        }
+        > h2:first-child,
+        > h3:first-child,
+        > h4:first-child,
+        > h5:first-child,
+        > h6:first-child {
+            margin-top: 0;
+        }
+        h2 {
+            padding: 0 !important;
+            margin-bottom: 1rem !important;
+        }
+        p {
+            margin-bottom: 1rem !important;
+            &:last-child {
+                margin-bottom: 0 !important;
+            }
+        }
+        ul,
+        ol {
+            padding: 0 0 0 1.5rem;
+            margin: 0 0 1.5rem 0;
+            li {
+                margin: 0 0 0.5rem 0;
+                padding: 0;
+            }
+        }
+    }
+    .s-lib-box .highlight-info,
+    .s-lib-box .highlight-alert {
+        padding: 1.5rem 4rem;
+        margin: 0 0 1.5rem 0;
+        h2 {
+            margin: 0;
+            padding: 0 !important;
+            line-height: 1;
+        }
+        &::before {
+            background-repeat: no-repeat;
+            background-position: 50%;
+            background-size: 100%;
+            content: '';
+            display: block;
+            height: 1.5rem;
+            left: 1.5rem;
+            position: absolute;
+            top: 1.5rem;
+            width: 1.5rem;
+        }
+    }
+    .s-lib-box .highlight-info::before {
+        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns= 'http://www.w3.org/2000/svg' width= '24' height= '24' fill= 'none' %3E%3Ccircle cx= '12' cy= '12' r= '9.25' stroke= '%23000' stroke-width= '1.5' transform= 'rotate(-180 12 12)' /%3E%3Cpath stroke= '%23000' stroke-linecap= 'round' stroke-width= '1.5' d= 'M12 16.2v-4' /%3E%3Ccircle cx= '12' cy= '8.4' r= '1.1' fill= '%23000' transform= 'rotate(-180 12 8.4)' /%3E%3C/svg%3E");
+    }
+    .s-lib-box .highlight-alert::before {
+        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none'%3E%3Cpath stroke='%23000' stroke-width='1.5' d='M20.127 18.545a1.18 1.18 0 0 1-1.055 1.706H4.929a1.18 1.18 0 0 1-1.055-1.706l7.072-14.143a1.179 1.179 0 0 1 2.109 0z'/%3E%3Cpath stroke='%23000' stroke-linecap='round' stroke-width='1.5' d='M12 9v4'/%3E%3Ccircle cx='11.9' cy='16.601' r='1.1' fill='%23000'/%3E%3C/svg%3E");
+    }
 
-        .h2-arrow-wrapper {
-            margin-top: 0.3rem;
-            margin-right: 0.5rem;
+    // a-z box
+    html {
+        scroll-behavior: smooth;
+    }
+    .can-scroll-to-top {
+        padding-bottom: 50px;
+        .s-lib-box.s-lib-box-std {
+            position: relative;
             display: flex;
             justify-content: flex-start;
 
-            .uparrow {
-                // span or anchor
-                display: block;
-                width: 30px;
-                height: 30px;
+            .h2-arrow-wrapper {
+                margin-top: 0.3rem;
+                margin-right: 0.5rem;
+                display: flex;
+                justify-content: flex-start;
+
+                .uparrow {
+                    // span or anchor
+                    display: block;
+                    width: 30px;
+                    height: 30px;
+                }
+
+                a.uparrow {
+                    background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%23000%27%3e%3cpath d=%27m1.715 10.855 6-6.168a.41.41 0 0 1 .597 0l5.973 6.168%27 fill=%27none%27 stroke=%27%23000%27 stroke-width=%27.75%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3c/path%3e%3c/svg%3e');
+                    background-repeat: no-repeat;
+                }
+
+                a.uparrow:focus-within,
+                a.uparrow:hover {
+                    background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%23fff%27%3e%3cpath d=%27m1.715 10.855 6-6.168a.41.41 0 0 1 .597 0l5.973 6.168%27 fill=%27none%27 stroke=%27%23fff%27 stroke-width=%27.75%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3c/path%3e%3c/svg%3e');
+                }
+
+                h2 {
+                    color: $heading;
+                    font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                    font-size: $font-size-xxxl;
+                    font-weight: 500;
+                    line-height: 1.2;
+                }
             }
 
-            a.uparrow {
-                background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%23000%27%3e%3cpath d=%27m1.715 10.855 6-6.168a.41.41 0 0 1 .597 0l5.973 6.168%27 fill=%27none%27 stroke=%27%23000%27 stroke-width=%27.75%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3c/path%3e%3c/svg%3e');
-                background-repeat: no-repeat;
+            .s-lib-box-content {
+                padding: 0;
             }
-
-            a.uparrow:focus-within,
-            a.uparrow:hover {
-                background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%23fff%27%3e%3cpath d=%27m1.715 10.855 6-6.168a.41.41 0 0 1 .597 0l5.973 6.168%27 fill=%27none%27 stroke=%27%23fff%27 stroke-width=%27.75%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3c/path%3e%3c/svg%3e');
-            }
-
-            h2 {
-                color: $heading;
-                font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-                font-size: $font-size-xxxl;
-                font-weight: 500;
-                line-height: 1.2;
-            }
-        }
-
-        .s-lib-box-content {
-            padding: 0;
         }
     }
-}
 
-@mixin uqPrimaryButton() {
-    background-color: $purple-500 !important;
-    border: 2px solid $purple-500;
-    border-radius: $space-xs;
-    box-sizing: border-box;
-    color: $white;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: $spacing-s;
-    font-family: $roboto;
-    font-size: $font-size-m;
-    font-weight: $font-weight-medium;
-    line-height: $line-height-ui;
-    padding: $spacing-m $spacing-l;
-    position: relative;
-    text-align: center;
-    text-decoration: none;
-    transition: background-color 200ms ease-out, color 200ms ease-out, border 200ms ease-out;
+    @mixin uqPrimaryButton() {
+        background-color: $purple-500 !important;
+        border: 2px solid $purple-500;
+        border-radius: $space-xs;
+        box-sizing: border-box;
+        color: $white;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: $spacing-s;
+        font-family: $roboto;
+        font-size: $font-size-m;
+        font-weight: $font-weight-medium;
+        line-height: $line-height-ui;
+        padding: $spacing-m $spacing-l;
+        position: relative;
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 200ms ease-out, color 200ms ease-out, border 200ms ease-out;
 
-    background-image: none; // override bootstrap
+        background-image: none; // override bootstrap
 
-    &:hover {
-        background-color: #fff !important;
+        &:hover {
+            background-color: #fff !important;
+            border-color: $uqBrandColour;
+            color: $uqBrandColour;
+            text-decoration: underline;
+        }
+        &:focus {
+            outline: 2px solid $utility-500;
+            outline-offset: 0;
+        }
+    }
+    @mixin uqSecondaryButton() {
+        @include uqPrimaryButton();
+        background-color: rgba(0, 0, 0, 0) !important;
         border-color: $uqBrandColour;
         color: $uqBrandColour;
-        text-decoration: underline;
+        &:hover {
+            background-color: $uqBrandColour !important;
+            border-color: #51247a;
+            color: #fff;
+        }
     }
-    &:focus {
-        outline: 2px solid $utility-500;
-        outline-offset: 0;
-    }
-}
-@mixin uqSecondaryButton() {
-    @include uqPrimaryButton();
-    background-color: rgba(0, 0, 0, 0) !important;
-    border-color: $uqBrandColour;
-    color: $uqBrandColour;
-    &:hover {
-        background-color: $uqBrandColour !important;
-        border-color: #51247a;
-        color: #fff;
-    }
-}
 
-button.lwz-btn {
-    // libwizard button, generated by inline script
-    @include uqPrimaryButton();
-    &:hover {
-        filter: none;
-    }
-}
-.btn {
-    &.btn-primary {
+    button.lwz-btn {
+        // libwizard button, generated by inline script
         @include uqPrimaryButton();
+        &:hover {
+            filter: none;
+        }
     }
-    &.btn-success, // I don't think any of these bootstrap class names are used on public pages.
-    &.btn-danger,  // Style them just in case, but override with :not
-    &.btn-warning, // for types we know appear on admin pages
-    &.btn-info,
-    &.btn-light,
-    &.btn-dark,
-    &.btn-link {
-        &:not(.dropdown-toggle) {
-            // found on admin page
+    .btn {
+        &.btn-primary {
             @include uqPrimaryButton();
         }
-    }
-    &.btn-secondary {
-        @include uqSecondaryButton();
-    }
-}
-
-figcaption {
-    line-height: $line-height-long;
-}
-
-table.table.table-bordered {
-    border-collapse: collapse;
-    margin-bottom: 1.5rem;
-    width: 100%;
-    border: none !important;
-    caption {
-        color: $bodyCopy;
-        text-align: center;
-        line-height: $line-height-long;
-    }
-    thead tr th {
-        border: none !important;
-    }
-    th {
-        background-color: $grey-50;
-        color: $black;
-        font-weight: $font-weight-bold;
-        text-align: left;
-    }
-    td,
-    th {
-        padding: 0.75rem 1rem;
-        vertical-align: top;
-    }
-    tbody td,
-    tbody th {
-        border: none !important;
-        border-bottom: 1px solid $grey-300 !important;
-    }
-    td :last-child {
-        margin-bottom: 0;
-    }
-}
-
-// youtube videos should be 100% width https://stackoverflow.com/a/78418428/1246313
-div:has(> iframe[title='YouTube video player']) {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-}
-iframe[title='YouTube video player'] {
-    width: 100%;
-    height: 100%;
-}
-
-.pad-bottom-med {
-    padding-bottom: 0;
-}
-
-// 404 page search box https://guides.library.uq.edu.au/srch.php
-.s-srch-resultlist {
-    .pagination > li > a,
-    .pagination > li > span {
-        color: $uqBrandColour;
-    }
-
-    .pagination > li > a:hover,
-    .pagination > li > span:hover,
-    .pagination > li > a:focus,
-    .pagination > li > span:focus {
-        color: $uqBrandColour;
-        background-color: #eee;
-    }
-
-    .pagination > .active > a,
-    .pagination > .active > span,
-    .pagination > .active > a:hover,
-    .pagination > .active > span:hover,
-    .pagination > .active > a:focus,
-    .pagination > .active > span:focus {
-        color: #fff;
-        background-color: $uqBrandColour;
-        border-color: $uqBrandColour;
-    }
-}
-.s-srch-result-title,
-.s-srch-result .label,
-.s-srch-result,
-.s-srch-results-featured h3 {
-    font-size: $font-size-m;
-}
-.s-srch-result > div > div,
-.s-srch-result > div {
-    margin-block: 6px;
-    padding: 0 !important;
-}
-section:has(#s-lg-srch-nav-col) {
-    margin-top: -2rem;
-    margin-bottom: 1rem;
-}
-.dropdown-menu {
-    padding: 10px 20px;
-    min-width: auto;
-    li + li {
-        margin-top: 20px;
-    }
-    & > li > a {
-        line-height: normal;
-        padding: 0;
-        margin-block: 10px;
-        font-size: 16px;
-        &:focus,
-        &:hover {
-            background-color: $uqBrandColour;
-            color: white;
+        &.btn-success, // I don't think any of these bootstrap class names are used on public pages.
+        &.btn-danger, // Style them just in case, but override with :not
+        &.btn-warning, // for types we know appear on admin pages
+        &.btn-info,
+        &.btn-light,
+        &.btn-dark,
+        &.btn-link {
+            &:not(.dropdown-toggle) {
+                // found on admin page
+                @include uqPrimaryButton();
+            }
+        }
+        &.btn-secondary {
+            @include uqSecondaryButton();
         }
     }
-}
 
-a:hover i.fa {
-    color: #fff;
-    padding-inline: 4px;
-}
+    figcaption {
+        line-height: $line-height-long;
+    }
 
+    table.table.table-bordered {
+        border-collapse: collapse;
+        margin-bottom: 1.5rem;
+        width: 100%;
+        border: none !important;
+        caption {
+            color: $bodyCopy;
+            text-align: center;
+            line-height: $line-height-long;
+        }
+        thead tr th {
+            border: none !important;
+        }
+        th {
+            background-color: $grey-50;
+            color: $black;
+            font-weight: $font-weight-bold;
+            text-align: left;
+        }
+        td,
+        th {
+            padding: 0.75rem 1rem;
+            vertical-align: top;
+        }
+        tbody td,
+        tbody th {
+            border: none !important;
+            border-bottom: 1px solid $grey-300 !important;
+        }
+        td :last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    // youtube videos should be 100% width https://stackoverflow.com/a/78418428/1246313
+    div:has(> iframe[title='YouTube video player']) {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+    }
+    iframe[title='YouTube video player'] {
+        width: 100%;
+        height: 100%;
+    }
+
+    .pad-bottom-med {
+        padding-bottom: 0;
+    }
+
+    // 404 page search box https://guides.library.uq.edu.au/srch.php
+    .s-srch-resultlist {
+        .pagination > li > a,
+        .pagination > li > span {
+            color: $uqBrandColour;
+        }
+
+        .pagination > li > a:hover,
+        .pagination > li > span:hover,
+        .pagination > li > a:focus,
+        .pagination > li > span:focus {
+            color: $uqBrandColour;
+            background-color: #eee;
+        }
+
+        .pagination > .active > a,
+        .pagination > .active > span,
+        .pagination > .active > a:hover,
+        .pagination > .active > span:hover,
+        .pagination > .active > a:focus,
+        .pagination > .active > span:focus {
+            color: #fff;
+            background-color: $uqBrandColour;
+            border-color: $uqBrandColour;
+        }
+    }
+    .s-srch-result-title,
+    .s-srch-result .label,
+    .s-srch-result,
+    .s-srch-results-featured h3 {
+        font-size: $font-size-m;
+    }
+    .s-srch-result > div > div,
+    .s-srch-result > div {
+        margin-block: 6px;
+        padding: 0 !important;
+    }
+    section:has(#s-lg-srch-nav-col) {
+        margin-top: -2rem;
+        margin-bottom: 1rem;
+    }
+    .dropdown-menu {
+        padding: 10px 20px;
+        min-width: auto;
+        li + li {
+            margin-top: 20px;
+        }
+        & > li > a {
+            line-height: normal;
+            padding: 0;
+            margin-block: 10px;
+            font-size: 16px;
+            &:focus,
+            &:hover {
+                background-color: $uqBrandColour;
+                color: white;
+            }
+        }
+    }
+
+    a:hover i.fa {
+        color: #fff;
+        padding-inline: 4px;
+    }
+}
 @media print {
     uq-header,
     uq-site-header,
@@ -1688,45 +1704,59 @@ a:hover i.fa {
         border: 1px solid $borders;
     }
 }
-
-sub,
-sup {
-    font-size: smaller;
-}
-
-figure {
-    display: block;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 40px;
-    margin-inline-end: 40px;
-    unicode-bidi: isolate;
-}
-
-// these tabs are expected to be removed eg MGTS1301 - Introduction to management
-#s-lg-tabs-container .nav-tabs > li > a,
-#s-lg-tabs-container .nav-tabs > .active > a {
-    background-color: $uqBrandColour;
-}
-
-#s-lg-col-1 .uq-accordion__item {
-    button h2,
-    button h3,
-    button h4,
-    button h5 {
-        margin-bottom: 0;
+body:not(.editmode) {
+    sub,
+    sup {
+        font-size: smaller;
     }
-    &.uq-accordion__item--is-open ul {
-        margin-bottom: 0;
+
+    figure {
+        display: block;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 40px;
+        margin-inline-end: 40px;
+        unicode-bidi: isolate;
+    }
+
+    // these tabs are expected to be removed eg MGTS1301 - Introduction to management
+    #s-lg-tabs-container .nav-tabs > li > a,
+    #s-lg-tabs-container .nav-tabs > .active > a {
+        background-color: $uqBrandColour;
+    }
+
+    #s-lg-col-1 .uq-accordion__item {
+        button h2,
+        button h3,
+        button h4,
+        button h5 {
+            margin-bottom: 0;
+        }
+        &.uq-accordion__item--is-open div div > :last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    // the springshare tools let them to create lists of the different types of resources,
+    // but not a single list of different types
+    // when they want one list with different types, they make a list in each type and put them next to each other
+    // our styling of springshare blocks puts a margin between them :facepalm:
+    // and the margin doesnt collapse because there is a box between them
+    // style for this: when a box ends with  list and the nezxt starts with one, pull up the gap
+    .s-lib-box-content div:not(.uq-accordion__item):has(ul:last-child) + div:has(ul:first-child) {
+        margin-top: -1.5rem;
     }
 }
 
-// the springshare tools let them to create lists of the different types of resources,
-// but not a single list of different types
-// when they want one list with different types, they make a list in each type and put them next to each other
-// our styling of springshare blocks puts a margin between them :facepalm:
-// and the margin doesnt collapse because there is a box between them
-// style for this: when a box ends with  list and the nezxt starts with one, pull up the gap
-.s-lib-box-content div:not(.uq-accordion__item):has(ul:last-child) + div:has(ul:first-child) {
-    margin-top: -1.5rem;
+body.editmode {
+    .nav-tabs > li > a[aria-selected="false"]:hover {
+        background-color: #51247a;
+        color: white;
+    }
+    .s-lg-guide-admin-content,
+    .s-lib-box-content {
+        ul {
+            margin-left: 1rem
+        }
+    }
 }
