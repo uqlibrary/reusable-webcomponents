@@ -2,6 +2,7 @@ import proactivecss from './css/proactivechat.css';
 import ApiAccess from '../ApiAccess/ApiAccess';
 import { cookieNotFound, setCookie } from '../helpers/cookie';
 import { apiLocale } from '../ApiAccess/ApiAccess.locale';
+import UserAccount from '../ApiAccess/UserAccount';
 
 /**
  * API
@@ -270,34 +271,34 @@ class ProactiveChat extends HTMLElement {
 
         function openCrmChat() {
             let accountDetails = null;
-            const currentUserDetails = new ApiAccess().getAccountFromStorage();
+            new UserAccount().get().then((currentUserDetails) => {
+                const accountIsSet =
+                    currentUserDetails.hasOwnProperty('account') &&
+                    !!currentUserDetails.account &&
+                    currentUserDetails.account.hasOwnProperty('id') &&
+                    !!currentUserDetails.account.id;
+                if (!!accountIsSet) {
+                    accountDetails = currentUserDetails.account;
+                }
 
-            const accountIsSet =
-                currentUserDetails.hasOwnProperty('account') &&
-                !!currentUserDetails.account &&
-                currentUserDetails.account.hasOwnProperty('id') &&
-                !!currentUserDetails.account.id;
-            if (!!accountIsSet) {
-                accountDetails = currentUserDetails.account;
-            }
+                const params = [];
+                !!accountDetails?.mail && params.push(`email=${accountDetails?.mail}`);
+                !!accountDetails?.firstName && params.push(`name=${accountDetails?.firstName}`);
+                // &subject=users+question is also available, but we don't know their question :(
 
-            const params = [];
-            !!accountDetails?.mail && params.push(`email=${accountDetails?.mail}`);
-            !!accountDetails?.firstName && params.push(`name=${accountDetails?.firstName}`);
-            // &subject=users+question is also available, but we don't know their question :(
+                const productionDomain = 'www.library.uq.edu.au';
+                const isTestEnvironment =
+                    window.location.hostname.startsWith('homepage-') || // LTS feature branches
+                    window.location.hostname === 'localhost' ||
+                    window.location.hostname.endsWith('.pantheonsite.io'); // drupal10 test sites
+                const crmDomain = isTestEnvironment ? 'uqcurrent.crm.test.uq.edu.au' : 'support.my.uq.edu.au';
+                let url = `https://${crmDomain}/app/chat/chat_launch_lib/p/45`;
+                if (params.length > 0) {
+                    url = `${url}?${params.join('&')}`;
+                }
 
-            const productionDomain = 'www.library.uq.edu.au';
-            const isTestEnvironment =
-                window.location.hostname.startsWith('homepage-') || // LTS feature branches
-                window.location.hostname === 'localhost' ||
-                window.location.hostname.endsWith('.pantheonsite.io'); // drupal10 test sites
-            const crmDomain = isTestEnvironment ? 'uqcurrent.crm.test.uq.edu.au' : 'support.my.uq.edu.au';
-            let url = `https://${crmDomain}/app/chat/chat_launch_lib/p/45`;
-            if (params.length > 0) {
-                url = `${url}?${params.join('&')}`;
-            }
-
-            window.open(url, 'chat', 'toolbar=no, location=no, status=no, width=400, height=400');
+                window.open(url, 'chat', 'toolbar=no, location=no, status=no, width=400, height=400');
+            });
         }
 
         function openChatBotIframe() {
@@ -353,32 +354,20 @@ class ProactiveChat extends HTMLElement {
                 }
                 let chatbotUrl = `${chatbotSrc}/chatbot.html`;
                 const chatBotIframe = !!chatbotWrapper && chatbotWrapper.getElementsByTagName('iframe');
-                const api = new ApiAccess();
-                const waitOnStorage = setInterval(() => {
-                    // sometimes it takes a moment before it is readable
-                    const currentUserDetails = api.getAccountFromStorage();
 
+                new UserAccount().get().then((currentUserDetails) => {
                     const accountAvailable =
                         currentUserDetails.hasOwnProperty('account') &&
                         !!currentUserDetails.account &&
                         currentUserDetails.account.hasOwnProperty('id') &&
                         !!currentUserDetails.account.id;
                     if (!!accountAvailable) {
-                        clearInterval(waitOnStorage);
-
                         chatbotUrl +=
                             '?' +
                             `name=${currentUserDetails.account.firstName}&email=${currentUserDetails.account.mail}`;
-                        !!chatBotIframe && chatBotIframe.length > 0 && (chatBotIframe[0].src = chatbotUrl);
-                    } else if (
-                        !!currentUserDetails &&
-                        currentUserDetails.hasOwnProperty('status') &&
-                        currentUserDetails.status === apiLocale.USER_LOGGED_OUT
-                    ) {
-                        clearInterval(waitOnStorage);
-                        !!chatBotIframe && chatBotIframe.length > 0 && (chatBotIframe[0].src = chatbotUrl);
                     }
-                }, 200);
+                    !!chatBotIframe && chatBotIframe.length > 0 && (chatBotIframe[0].src = chatbotUrl);
+                });
 
                 const openCrmButton = shadowDOM.getElementById('speakToPerson');
                 !!openCrmButton && openCrmButton.addEventListener('click', swapToCrm);

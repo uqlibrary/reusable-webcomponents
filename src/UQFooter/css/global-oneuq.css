@@ -1121,44 +1121,68 @@ input[type='radio'].uq-header__search-radio:checked:after {
     text-decoration: none;
 }
 
-.uq-footer__acknowledgement {
-    color: #d4c8de;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+.uq-acknowledgement {
+    background: #19151c;
+    background-image: linear-gradient(0deg,#40205d 45.31%,#40205d8c 85.94%,#40205d00),url(https://static.uq.net.au/v15/images/rap/brisbane-river-artwork.png)
+}
+
+@media(min-width: 40rem) {
+    .uq-acknowledgement {
+        background-image:linear-gradient(90deg,#40205d 60%,#40205da6 70%,#40205d00 80%),url(https://static.uq.net.au/v15/images/rap/brisbane-river-artwork.png)
+    }
+}
+
+.uq-acknowledgement__content {
+    color: #fff;
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
     margin: auto;
     max-width: 73.25rem;
-    padding: 2rem 1.5rem;
+    padding: .75rem 1.5rem
 }
 
-@media (min-width: 75rem) {
-    .uq-footer__acknowledgement {
-        padding: 2rem 1rem;
+@media(min-width: 75rem) {
+    .uq-acknowledgement__content {
+        padding:.75rem 1rem
     }
 }
 
-.uq-footer__acknowledgement-flag {
-    height: 1.5rem;
-    width: 2.25rem;
+@media(min-width: 40rem) {
+    .uq-acknowledgement__text {
+        max-width:47.313rem;
+        width: 74.1%
+    }
 }
 
-.uq-footer__acknowledgement-flag:first-child {
-    margin-right: 0.5rem;
+.uq-acknowledgement__link {
+    color: #fff;
+    font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
+    font-style: normal;
+    font-weight: 400
 }
 
-.uq-footer__acknowledgement-text {
-    flex-basis: 100%;
-    margin-top: 1rem;
+.uq-acknowledgement__link:hover {
+    background-color: #fff;
+    color: #51247a;
+    -webkit-text-decoration: underline;
+    text-decoration: underline
 }
 
-@media (min-width: 75rem) {
-    .uq-footer__acknowledgement-text {
-        flex-basis: auto;
-        margin-top: 0;
-        padding-left: 1.5rem;
+.uq-acknowledgement--large .uq-acknowledgement__content {
+    padding: 2.5rem 1.5rem 1.5rem
+}
+
+@media(min-width: 40rem) {
+    .uq-acknowledgement--large .uq-acknowledgement__content {
+        font-size:1.25rem;
+        padding: 2.5rem 1.5rem
+    }
+}
+
+@media(min-width: 75rem) {
+    .uq-acknowledgement--large .uq-acknowledgement__content {
+        padding:2.5rem 1rem
     }
 }
 
@@ -1313,12 +1337,6 @@ input[type='radio'].uq-header__search-radio:checked:after {
     grid-area: FooterTerms;
 }
 
-@media (min-width: 75rem) {
-    .uq-footer__footer :last-child {
-        justify-content: flex-end;
-    }
-}
-
 .uq-footer__footer-list {
     display: flex;
     flex-direction: column;
@@ -1444,6 +1462,14 @@ input[type='radio'].uq-header__search-radio:checked:after {
     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' xml:space='preserve' fill='%23d4c8de' viewBox='0 0 56 56'%3E%3Cpath fill-rule='evenodd' d='M28 56c15.5 0 28-12.5 28-28S43.5 0 28 0 0 12.5 0 28s12.5 28 28 28M10 20.4C10 14.7 14.7 10 20.4 10h15.2C41.3 10 46 14.7 46 20.4v15.2C46 41.3 41.3 46 35.6 46H20.4C14.7 46 10 41.3 10 35.6zm24.6 8.1c0 3.4-2.9 6.2-6.6 6.2s-6.6-2.8-6.6-6.2 2.9-6.2 6.6-6.2 6.6 2.8 6.6 6.2m2.7 0c0 4.8-4.2 8.7-9.3 8.7s-9.3-3.9-9.3-8.7 4.2-8.7 9.3-8.7 9.3 3.9 9.3 8.7m3.2-9.8c0 1.2-1 2.2-2.2 2.2s-2.2-1-2.2-2.2 1-2.2 2.2-2.2c1.3 0 2.2 1 2.2 2.2' clip-rule='evenodd'/%3E%3C/svg%3E");
 }
 
+.uq-footer__meta-icons--tiktok:before {
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'%3E%3Cg clip-path='url(%23a)'%3E%3Cpath fill='%23fff' d='M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24m7.06 10.35a6.4 6.4 0 0 1-4.71-2.11v7a4.71 4.71 0 1 1-4.7-4.7q.237.01.47.05V13A2.36 2.36 0 1 0 12 15.29V4h2.82l.15.57a4.21 4.21 0 0 0 4.09 3.19z'/%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='a'%3E%3Cpath fill='%23fff' d='M0 0h24v24H0z'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E")
+}
+
+.uq-footer__meta-icons--tiktok:hover:before {
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'%3E%3Cg clip-path='url(%23a)'%3E%3Cpath fill='%23d4c8de' d='M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24m7.06 10.35a6.4 6.4 0 0 1-4.71-2.11v7a4.71 4.71 0 1 1-4.7-4.7q.237.01.47.05V13A2.36 2.36 0 1 0 12 15.29V4h2.82l.15.57a4.21 4.21 0 0 0 4.09 3.19z'/%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='a'%3E%3Cpath fill='%23d4c8de' d='M0 0h24v24H0z'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E")
+}
+
 .uq-footer--desktop {
     display: none;
 }
@@ -1519,7 +1545,7 @@ input[type='radio'].uq-header__search-radio:checked:after {
 
 @media (min-width: 75rem) {
     .uq-footer__container {
-        grid-template-areas: 'FooterNavigation FooterNavigation FooterNavigation FooterNavigation FooterNavigation' 'FooterSocial FooterSocial FooterSocial FooterSocial FooterSocial' 'FooterOrg FooterOrg FooterOrg FooterTerms FooterTerms';
+        grid-template-areas:"FooterNavigation" "FooterSocial" "FooterOrg" "FooterTerms";
         padding: 2rem 1rem 2.5rem;
         row-gap: 2rem;
     }

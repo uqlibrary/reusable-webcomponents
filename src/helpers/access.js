@@ -19,7 +19,11 @@ export function canSeeEspace(account) {
     return !!account && account.hasOwnProperty('currentAuthor') && !!account.currentAuthor.hasOwnProperty('aut_id');
 }
 
-const hasAdGroup = (account, adGroup) => account?.groups?.find((group) => group.includes(adGroup));
+// NOTE! AD groups currently only used to access admin functions
+// if this is no longer true, checking masqueradingId may not be appropriate!
+const hasAdGroup = (account, adGroup) => {
+    return !account?.masqueradingId && account?.groups?.find((group) => group.includes(adGroup));
+};
 
 export function canSeeTestTag(account) {
     return hasAdGroup(account, 'lib_libapi_TestTagUsers');
@@ -36,6 +40,11 @@ export function canSeeAlertsAdmin(account) {
 // digital learning hub admin access
 export function canSeeDlorAdmin(account) {
     return hasAdGroup(account, 'lib_dlor_admins');
+}
+
+// all Library staff members get the menu option; clicking through will present them with the Springshare login option
+export function canSeeSpringshareAdmin(account) {
+    return account.user_group === 'LIBRARYSTAFFB';
 }
 
 export function linkToDrupal(pathname, requestedDomainName = null) {

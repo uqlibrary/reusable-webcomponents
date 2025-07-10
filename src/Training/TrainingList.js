@@ -1,7 +1,7 @@
 import styles from './css/main.css';
 import listStyles from './css/list.css';
 import uqds from './js/uqds';
-import ApiAccess from '../ApiAccess/ApiAccess';
+import UserAccount from '../ApiAccess/UserAccount';
 import { apiLocale } from '../ApiAccess/ApiAccess.locale';
 
 const template = document.createElement('template');
@@ -218,22 +218,15 @@ class TrainingList extends HTMLElement {
     async checkAuthorisedUser() {
         const that = this;
         that.account = {};
-        let accountData = {};
-        const getStoredUserDetails = setInterval(() => {
-            accountData = new ApiAccess().getAccountFromStorage();
-            if (
-                !!accountData &&
-                accountData.hasOwnProperty('status') &&
-                (accountData.status === apiLocale.USER_LOGGED_IN || accountData.status === apiLocale.USER_LOGGED_OUT)
-            ) {
-                clearInterval(getStoredUserDetails);
+        return new UserAccount().get().then((accountData) => {
+            if (!!accountData && accountData.hasOwnProperty('status')) {
                 if (accountData.status === apiLocale.USER_LOGGED_IN) {
                     that.account = accountData.account;
                     return true;
                 }
                 return false;
             }
-        }, 100);
+        });
     }
 }
 

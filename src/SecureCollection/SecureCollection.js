@@ -1,4 +1,5 @@
 import ApiAccess from '../ApiAccess/ApiAccess';
+import UserAccount from '../ApiAccess/UserAccount';
 import overrides from './css/overrides.css';
 import { authLocale } from '../UtilityArea/auth.locale';
 import { apiLocale as apilocale, apiLocale as locale } from '../ApiAccess/ApiAccess.locale';
@@ -11,34 +12,40 @@ fileExtensionElement.innerHTML = `
     it.
 </p>
 `;
-const circularProgressElement = document.createElement('template');
-circularProgressElement.innerHTML = `
-    <div class="MuiCircularProgress-root MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
-         aria-label="Page is loading" role="progressbar" data-testid="loading-secure-collection"
-         style="width: 20px; height: 20px;">
-        <svg class="MuiCircularProgress-svg" viewBox="22 22 44 44">
-            <circle class="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate" cx="44" cy="44" r="20.2"
-                    fill="none" stroke-width="3.6"></circle>
-        </svg>
-    </div>
+const spinnerElement = document.createElement('template');
+spinnerElement.innerHTML = `
+   <div class="spinnerWrapper" id="spinnerWrapper">
+       <span id="spinner" class="spinner" role="progressbar">
+          <svg viewBox="22 22 44 44">
+              <circle cx="44" cy="44" r="21" fill="none" stroke-width="2"></circle>
+          </svg>
+       </span>
+   </div>
 `;
 const template = document.createElement('template');
 template.innerHTML = `
     <style>${overrides.toString()}</style>
-    <div class="root MuiGrid-root MuiGrid-container" data-testid="secure-collection" id="StandardPage">
-        <div class="secure-collection-container">
-            <div class="MuiGrid-root jss163 MuiGrid-item MuiGrid-grid-xs-true">
-                <h2 class="MuiTypography-root MuiTypography-h4 MuiTypography-colorPrimary"
-                    data-testid="StandardPage-title"
-                >
-                    <span>Secure Collection</span>
-                </h2>
-            </div>
-            <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12">
-                <section aria-live="assertive">
-                    <div id="block" class="contentbox MuiPaper-root MuiCard-root jss196 StandardCard MuiPaper-elevation1 MuiPaper-rounded StandardCard" data-testid="standard-card-copyright-notice" id="standard-card-copyright-notice">
+    <div>
+        <div id="library-hero" class="block block-system block-system-main-block" data-testid="hero-wrapper">
+                <div>
+                    <div class="uq-hero">
+                        <div class="uq-container">
+                            <div class="uq-hero__content" data-testid="hero-words-words-wrapper">
+                                <h1 class="uq-hero__title" data-testid="hero-text">Secure collection</h1>
+                                <!-- <div class="uq-hero__description"></div> -->
+                            </div>
+                        </div>
                     </div>
-                </section>
+                </div>
+        </div>
+        <div class="root MuiGrid-root MuiGrid-container" data-testid="secure-collection" id="StandardPage">
+            <div class="secure-collection-container">
+                <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12">
+                    <section aria-live="assertive">
+                        <div id="block" class="contentbox MuiPaper-root MuiCard-root jss196 StandardCard MuiPaper-elevation1 MuiPaper-rounded StandardCard" data-testid="standard-card-copyright-notice" id="standard-card-copyright-notice">
+                        </div>
+                    </section>
+                </div>
             </div>
         </div>
     </div>
@@ -131,23 +138,18 @@ class SecureCollection extends HTMLElement {
             .loadSecureCollectionCheck(path)
             .then((data) => {
                 if (data.response === 'Login required') {
-                    const getStoredUserDetails = setInterval(() => {
-                        const accountData = new ApiAccess().getAccountFromStorage();
+                    return new UserAccount().get().then((accountData) => {
                         if (
                             !!accountData &&
                             accountData.hasOwnProperty('status') &&
-                            (accountData.status === apilocale.USER_LOGGED_IN ||
-                                accountData.status === apilocale.USER_LOGGED_OUT)
+                            accountData.status === apilocale.USER_LOGGED_IN
                         ) {
-                            clearInterval(getStoredUserDetails);
-                            if (accountData.status === apilocale.USER_LOGGED_IN) {
-                                // they are logged in! now we ask for the actual file they want
-                                that.getSecureCollectionFile(currentSearchParams);
-                            } else {
-                                this.displayLoginRequiredRedirectorPanel();
-                            }
+                            // they are logged in! now we ask for the actual file they want
+                            that.getSecureCollectionFile(currentSearchParams);
+                        } else {
+                            this.displayLoginRequiredRedirectorPanel();
                         }
-                    }, 100);
+                    });
                 } else {
                     that.evaluateApiResponse(data);
                 }
@@ -209,7 +211,7 @@ class SecureCollection extends HTMLElement {
 
     displayLoadingPanel() {
         const block = document.createElement('div');
-        block.appendChild(circularProgressElement.content.cloneNode(true));
+        block.appendChild(spinnerElement.content.cloneNode(true));
         this.wrapFragmentInStandardPage(block);
     }
 
@@ -217,9 +219,9 @@ class SecureCollection extends HTMLElement {
         const commercialCopyrightAcknowledgementPanel = document.createElement('template');
         commercialCopyrightAcknowledgementPanel.innerHTML = `
 <p>This file is provided to support teaching and learning for the staff and students of the University of Queensland</p>
-<h3>COMMONWEALTH OF AUSTRALIA</h3>
-<h4>Copyright Regulations 1969</h4>
-<h5>WARNING</h5>
+<h2>COMMONWEALTH OF AUSTRALIA</h2>
+<h3>Copyright Regulations 1969</h3>
+<h4>WARNING</h4>
 <p>
     This material has been reproduced and communicated to you by or on behalf of the University of Queensland pursuant
     to Part VB of the Copyright Act 1968 (the Act).
@@ -272,7 +274,7 @@ class SecureCollection extends HTMLElement {
         block.appendChild(statutoryCopyrightAcknowledgementPanel.content.cloneNode(true));
         this.appendExtensionsSavePrompt(block);
 
-        this.wrapFragmentInStandardPage(block, 'WARNING');
+        this.wrapFragmentInStandardPage(block, 'Warning');
     }
 
     /**
@@ -366,7 +368,7 @@ class SecureCollection extends HTMLElement {
         const loginRequiredRedirectorPanel = document.createElement('template');
         loginRequiredRedirectorPanel.innerHTML = `
 <p>Login is required for this file - please wait while you are redirected.</p>
-<div id="circularprogress"></div>
+<div id="spinner"></div>
 <p>You can <a data-testid="secure-collection-auth-redirector" id="redirector" href="">click here</a> if you aren't redirected.</p>
 `;
 
@@ -379,8 +381,8 @@ class SecureCollection extends HTMLElement {
         const anchor = loginRequiredRedirectorPanel.content.getElementById('redirector');
         anchor.href = redirectLink;
 
-        const circularprogress = loginRequiredRedirectorPanel.content.getElementById('circularprogress');
-        circularprogress.appendChild(circularProgressElement.content.cloneNode(true));
+        const spinner = loginRequiredRedirectorPanel.content.getElementById('spinner');
+        spinner.appendChild(spinnerElement.content.cloneNode(true));
 
         const block = document.createElement('div');
         block.appendChild(loginRequiredRedirectorPanel.content.cloneNode(true));
@@ -394,10 +396,10 @@ class SecureCollection extends HTMLElement {
             return false;
         }
         const queryString = new URLSearchParams(window.location.search);
-        const user = !!queryString
-            ? queryString.get('user')
-            : window.location.hash.substring(window.location.hash.indexOf('?')).user;
-        return user === 'test';
+        const mode = !!queryString
+            ? queryString.get('mode')
+            : window.location.hash.substring(window.location.hash.indexOf('?')).mode;
+        return mode === 'manualRedirect';
     }
 
     displayRedirectingPanel() {
@@ -409,15 +411,15 @@ class SecureCollection extends HTMLElement {
         const redirectorPanel = document.createElement('template');
         redirectorPanel.innerHTML = `
 <p>We are preparing the file, you should be redirected shortly.</p>
-<p>You can <a data-testid="secure-collection-resource-redirector" id="redirector" href="">download the file</a> if the page does not redirect.</p>
-<div id="circularprogress"></div>
+<div id="spinner"></div>
+<p style="margin-top: 1rem">You can <a data-testid="secure-collection-resource-redirector" id="redirector" href="">download the file</a> if the page does not redirect.</p>
 `;
 
         const anchor = redirectorPanel.content.getElementById('redirector');
         anchor.href = this.redirectLink;
 
-        const circularprogress = redirectorPanel.content.getElementById('circularprogress');
-        circularprogress.appendChild(circularProgressElement.content.cloneNode(true));
+        const spinner = redirectorPanel.content.getElementById('spinner');
+        spinner.appendChild(spinnerElement.content.cloneNode(true));
 
         const block = document.createElement('div');
         block.appendChild(redirectorPanel.content.cloneNode(true));
@@ -437,22 +439,18 @@ class SecureCollection extends HTMLElement {
 
         if (!!title) {
             const titleNode = document.createTextNode(title);
-            const h3 = document.createElement('h3');
-            h3.className =
-                'MuiTypography-root MuiCardHeader-title MuiTypography-h5 MuiTypography-colorInherit MuiTypography-displayBlock';
-            h3.appendChild(titleNode);
+            const h2Element = document.createElement('h2');
+            h2Element.className =
+                'uqds-typography-root MuiCardHeader-title uqds-h2 MuiTypography-colorInherit MuiTypography-displayBlock';
+            h2Element.appendChild(titleNode);
 
             const wrapper = document.createElement('div');
             wrapper.className = 'MuiCardHeader-root wrapper';
-            wrapper.appendChild(h3);
+            wrapper.appendChild(h2Element);
             block.appendChild(wrapper);
         }
 
         const blockwrapper = document.createElement('div');
-        blockwrapper.style.marginBottom = '24px';
-        blockwrapper.style.paddingLeft = '24px';
-        blockwrapper.style.paddingRight = '24px';
-        blockwrapper.style.paddingBottom = '24px';
         blockwrapper.appendChild(fragment);
         block.appendChild(blockwrapper);
     }

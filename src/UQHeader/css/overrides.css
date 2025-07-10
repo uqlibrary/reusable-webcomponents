@@ -46,13 +46,13 @@ header {
     transform: translateY(-5%);
 }
 
-@media (min-width: 64em) {
+@media (min-width: 1024px) {
     .uq-header__search.uq-header__search--is-open {
         /* margin change not required */
     }
 }
 
-@media (max-width: 64em) {
+@media (max-width: 1023px) { // 1024 -1
     input[type='radio'] + label {
         padding-left: 2em;
     }
