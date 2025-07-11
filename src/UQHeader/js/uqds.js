@@ -328,6 +328,7 @@ var uq = (function (exports) {
      */
     var NewHeader = /*#__PURE__*/ (function () {
         function NewHeader(el) {
+            console.log('AD294:: NewHeader constructor', this);
             _classCallCheck(this, NewHeader);
 
             this.init(el);
@@ -337,6 +338,9 @@ var uq = (function (exports) {
             {
                 key: 'init',
                 value: function init(el) {
+                    console.log('AD294:: NewHeader _createClass NewHeader=', NewHeader);
+                    console.log('AD294:: NewHeader _createClass this=', this);
+                    console.log('AD294:: NewHeader _createClass el=', el);
                     var _this = this;
 
                     this.menuToggle = !!el && el.querySelector('.nav-primary__menu-toggle');
@@ -344,6 +348,8 @@ var uq = (function (exports) {
                     this.searchLabel = !!el && el.querySelector('.search-toggle__label');
                     this.searchBlock = !!el && el.querySelector('.uq-header__search');
                     this.searchInput = !!el && el.querySelector('.uq-header__search-query-input'); // REFACTOR
+
+                    console.log('AD294:: this.searchToggle=', this.searchToggle);
 
                     // clicking the uq-header hamburger button clicks the hidden menu button on uq-site-header
                     function clickSiteHeaderMenuButton() {
@@ -355,6 +361,7 @@ var uq = (function (exports) {
 
                     !!this.menuToggle &&
                         this.menuToggle.addEventListener('click', function () {
+                            console.log('AD294:: menuToggle Listener this=', this);
                             // Disable no scroll toggle, which re-enables scrolling for
                             // library page when mobile menu open
                             // document.body.classList.toggle('no-scroll');
@@ -380,6 +387,7 @@ var uq = (function (exports) {
                         });
                     !!this.searchToggle &&
                         this.searchToggle.addEventListener('click', function (e) {
+                            console.log('AD294:: searchToggle Listener this=', this);
                             _removeClassFrom(document.body, 'no-scroll');
 
                             _this.searchToggle.classList.toggle('nav-primary__search-toggle--is-open');

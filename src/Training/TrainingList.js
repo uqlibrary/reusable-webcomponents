@@ -29,7 +29,7 @@ categoryTemplate.innerHTML = `
                 </div>
             </div>
             <div class="uq-card__actions">
-                <button class="uq-button uq-button--secondary is-more" data-testid="training-events-toggle-full-list">Show more</button>
+                <button class="uq-button is-more" data-testid="training-events-toggle-full-list">Show more</button>
             </div>
         </div>
     </div>
@@ -162,17 +162,35 @@ class TrainingList extends HTMLElement {
         toggleButton.setAttribute('data-analyticsid', toggleButtonId);
         toggleButton.setAttribute('aria-controls', detailContainerId);
 
-        const eventDate = new Date(event.start);
+        const eventStartDate = new Date(event.start);
+        const eventStartTimeDisplay = eventStartDate.toLocaleDateString('default', {
+            day: 'numeric',
+            month: 'short',
+            timeZone: 'Australia/Brisbane',
+        });
+        const eventEndDate = new Date(event.end);
+        const eventEndTimeDisplay = eventEndDate.toLocaleDateString('default', {
+            day: 'numeric',
+            month: 'short',
+            timeZone: 'Australia/Brisbane',
+        });
+
+        const dataAppend =
+            eventStartDate.getDate() !== eventEndDate.getDate()
+                ? `<span> - </span><time datetime="${eventEndDate.toISOString()}" id="event-date-${
+                      event.entityId
+                  }">${eventEndTimeDisplay}</time>`
+                : '';
+
         toggleButton.innerHTML = `
             <div class="group-first" tab-index="-1">
                 <h4 id="event-name-${event.entityId}">${event.name}</h4>
-                <time datetime="${eventDate.toISOString()}" id="event-date-${event.entityId}">
-                    ${eventDate.toLocaleDateString('default', {
-                        day: 'numeric',
-                        month: 'short',
-                        timeZone: 'Australia/Brisbane',
-                    })}
-                </date>
+                <span class="dateRange" data-testid="event-dateRange-${event.entityId}">
+                    <time datetime="${eventStartDate.toISOString()}" id="event-date-${event.entityId}">
+                        ${eventStartTimeDisplay}
+                    </time>
+                    ${dataAppend}
+                </span>
             </div>
             <div id="event-venue-${event.entityId}">${event.venue}</div>
         `;
