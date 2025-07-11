@@ -80,7 +80,7 @@
 
 .uq-accordion__toggle [id^='event-name'] {
     margin: 0;
-    color: #1e72c6; /* copied from .link in @usds */
+    color: #51247a; /* copied from .link in @usds */
 }
 
 .uq-accordion__toggle [id^='event-venue'] {
