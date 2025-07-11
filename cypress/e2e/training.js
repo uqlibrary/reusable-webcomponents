@@ -978,11 +978,65 @@ describe('Training', () => {
                                 'eq',
                                 'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=all',
                             );
+                        });
+                    cy.get('training-list')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            cy.get('[data-testid="training-event-detail-toggle-3428487"]')
+                                .should('exist')
+                                .should('be.visible')
+                                .contains('Python with Spyder: Introduction to Data Science');
+                            cy.get('[data-testid="training-event-detail-toggle-3437655"]')
+                                .should('exist')
+                                .should('be.visible')
+                                .contains('Premiere Pro: Video Editing Basics');
+                            cy.get('[data-testid="training-event-detail-toggle-3455330"]')
+                                .should('exist')
+                                .should('be.visible')
+                                .contains('UQ R User Group (UQRUG)');
+                            cy.get('[data-testid="training-event-detail-toggle-3437656"]')
+                                .should('exist')
+                                .should('be.visible')
+                                .contains('NVivo: Next Steps');
+                            cy.get('[data-testid="training-event-detail-toggle-3437658"]')
+                                .should('exist')
+                                .should('be.visible')
+                                .contains('Introduction to Adobe Illustrator');
 
+                            cy.get('[data-testid="training-event-detail-toggle-3462236"]')
+                                .should('exist')
+                                .should('be.visible')
+                                .contains('Preparing to use an online invigilated/supervised examination');
+
+                            cy.get('[data-testid="training-event-detail-toggle-3411674"]')
+                                .should('exist')
+                                .should('be.visible')
+                                .contains('Managing sensitive data');
+                            cy.get('[data-testid="training-event-detail-toggle-3450085"]')
+                                .should('exist')
+                                .should('be.visible')
+                                .contains('Publishing your datasets with UQRDM');
+                            cy.get('[data-testid="training-event-detail-toggle-2891495"]')
+                                .should('exist')
+                                .should('be.visible')
+                                .contains('Introduction to Digital Research Notebook (LabArchives)');
+                            cy.get('[data-testid="training-event-detail-toggle-2890738"]')
+                                .should('exist')
+                                .should('be.visible')
+                                .contains(
+                                    'UQRDM for research students - how to use it to help with managing research data',
+                                );
+                            cy.get('[data-testid="training-event-detail-toggle-3415855"]')
+                                .should('exist')
+                                .should('be.visible')
+                                .contains('UQRDM Q&A session');
+                        });
+                    cy.get('training-filter')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
                             cy.get('[data-testid="training-filter-week-label"]').click();
-
-                            // there seems to be an issue that my machine uses 4 char for June, but AWS (and maybe Ashley's?) uses 3 char
-                            // so avoid the issue and use August, which is 'aug'.
                             cy.get('[data-testid="training-filter-select-week-10"]').click();
                             cy.get('[data-testid="training-filter-week-container"]').should(
                                 'contain',
@@ -990,11 +1044,81 @@ describe('Training', () => {
                             );
                             // the placeholder has moved up, proxied by "color has changed"
                             cy.get('[data-testid="training-filter-week-label"]').should('have.css', 'color', uqpurple);
+                        });
+                    cy.get('training-list')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            // no events show for this date
+                            cy.get('[data-testid="training-list"]').should('exist').children().should('have.length', 0);
+                        });
 
+                    // test that chaging dates shows the right items
+                    cy.get('training-filter')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
                             cy.url().should(
                                 'eq',
                                 'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=2021-08-02',
                             );
+                        });
+
+                    cy.get('training-filter')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            cy.get('[data-testid="training-filter-week-label"]').click();
+                            cy.get('[data-testid="training-filter-select-week-4"]').click();
+                            cy.get('[data-testid="training-filter-week-container"]').should(
+                                'contain',
+                                '21 June - 27 June',
+                            );
+                        });
+                    cy.get('training-list')
+                        .should('exist')
+                        .shadow()
+                        .within(() => {
+                            // many hidden
+                            cy.get('[data-testid="training-event-detail-toggle-3428487"]').should('not.exist'); // Python with Spyder: Introduction to Data Science
+                            cy.get('[data-testid="training-event-detail-toggle-3437655"]').should('not.exist'); // 'Premiere Pro: Video Editing Basics');
+                            cy.get('[data-testid="training-event-detail-toggle-3455330"]').should('not.exist'); // 'UQ R User Group (UQRUG)');
+                            cy.get('[data-testid="training-event-detail-toggle-3437656"]').should('not.exist'); // 'NVivo: Next Steps');
+                            cy.get('[data-testid="training-event-detail-toggle-3437658"]').should('not.exist'); // 'Introduction to Adobe Illustrator');
+                            // others appear
+                            cy.get('[data-testid="training-event-detail-toggle-3450064"]')
+                                .should('exist')
+                                .should('be.visible')
+                                .contains('Kaltura Capture: Desktop Recording software');
+                            cy.get('[data-testid="training-event-detail-toggle-3450065"]')
+                                .should('exist')
+                                .should('be.visible')
+                                .contains('R data manipulation with RStudio and dplyr: introduction');
+                            cy.get('[data-testid="training-event-detail-toggle-3450066"]')
+                                .should('exist')
+                                .should('be.visible')
+                                .contains('Word: Creating a Structured Thesis (CaST)');
+                            cy.get('[data-testid="training-event-detail-toggle-3450067"]')
+                                .should('exist')
+                                .should('be.visible')
+                                .contains('Python with Spyder: Introduction to Data Science');
+                            cy.get('[data-testid="training-event-detail-toggle-3430859"]')
+                                .should('exist')
+                                .should('be.visible')
+                                .contains('EndNote 20: getting started');
+
+                            cy.get('[data-testid="training-event-detail-toggle-3462236"]').should('not.exist'); // 'Preparing to use an online invigilated/supervised examination');
+
+                            cy.get('[data-testid="training-event-detail-toggle-3411674"]').should('not.exist'); // 'Managing sensitive data');
+                            cy.get('[data-testid="training-event-detail-toggle-3450085"]').should('not.exist'); // 'Publishing your datasets with UQRDM');
+                            cy.get('[data-testid="training-event-detail-toggle-2891495"]').should('not.exist'); // 'Introduction to Digital Research Notebook (LabArchives)');
+                            cy.get('[data-testid="training-event-detail-toggle-2890738"]')
+                                .should('exist')
+                                .should('be.visible')
+                                .contains(
+                                    'UQRDM for research students - how to use it to help with managing research data',
+                                );
+                            cy.get('[data-testid="training-event-detail-toggle-3415855"]').should('not.exist'); // 'UQRDM Q&A session');
                         });
                 });
         });
