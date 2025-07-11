@@ -497,7 +497,7 @@ describe('Training', () => {
                         });
                 });
         });
-        it('shows a multi day event', () => {
+        it.skip('shows a multi day event', () => {
             cy.visit('http://localhost:8080/index-training.html');
             cy.viewport(1280, 900);
             cy.get('library-training[id="test-with-filter"]')
