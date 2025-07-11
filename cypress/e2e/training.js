@@ -497,6 +497,27 @@ describe('Training', () => {
                         });
                 });
         });
+        it('shows a multi day event', () => {
+            cy.visit('http://localhost:8080/index-training.html');
+            cy.viewport(1280, 900);
+            cy.get('library-training[id="test-with-filter"]')
+                .should('exist')
+                .shadow()
+                .within(() => {
+                    cy.get('training-list')
+                        .should('exist')
+                        .shadow()
+                        .as('trainingList')
+                        .within(() => {
+                            cy.get('[data-testid="event-dateRange-3462236"]')
+                                .should('exist')
+                                .should('be.visible')
+                                .scrollIntoView();
+                            cy.get('[data-testid="event-dateRange-3462236"] time:first-child').contains('1 Jun');
+                            cy.get('[data-testid="event-dateRange-3462236"] time:last-child').contains('3 Jun');
+                        });
+                });
+        });
     });
 
     context('Details component', () => {
@@ -665,6 +686,47 @@ describe('Training', () => {
                 'have.been.calledOnceWithExactly',
                 'https://studenthub.uq.edu.au/students/events/detail/3455331',
             );
+        });
+        it('shows a multi day event', () => {
+            cy.visit('http://localhost:8080/index-training.html');
+            cy.viewport(1280, 900);
+            cy.get('library-training[id="test-with-filter"]')
+                .should('exist')
+                .shadow()
+                .within(() => {
+                    cy.get('training-list')
+                        .should('exist')
+                        .shadow()
+                        .as('trainingList')
+                        .within(() => {
+                            cy.get('#training-list')
+                                .should('exist')
+                                .get('[data-testid="training-event-detail-toggle-3462236"]')
+                                .click();
+
+                            cy.get('training-detail[data-testid="training-event-detail-content-3462236"]')
+                                .should('exist')
+                                .scrollIntoView()
+                                .shadow()
+                                .within(() => {
+                                    cy.get('[data-testid="training-details-location-details"]').contains(
+                                        'Online, Zoom',
+                                    );
+                                    cy.get('[data-testid="training-details-full-date"]')
+                                        .should('exist')
+                                        .should('be.visible')
+                                        .contains('Tuesday 1 June 2021 - Thursday 3 June 2021');
+                                    cy.get('[data-testid="training-details-start-time"]')
+                                        .should('exist')
+                                        .should('be.visible')
+                                        .contains('10am');
+                                    cy.get('[data-testid="training-details-end-time"]')
+                                        .should('exist')
+                                        .should('be.visible')
+                                        .contains('4pm');
+                                });
+                        });
+                });
         });
 
         it('Correct error shows when an empty result is return by Training api', () => {
