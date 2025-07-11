@@ -497,10 +497,10 @@ describe('Training', () => {
                         });
                 });
         });
-        it.skip('shows a multi day event', () => {
-            cy.visit('http://localhost:8080/index-training.html');
+        it('shows a multi day event', () => {
+            cy.visit('http://localhost:8080/index.html');
             cy.viewport(1280, 900);
-            cy.get('library-training[id="test-with-filter"]')
+            cy.get('library-training')
                 .should('exist')
                 .shadow()
                 .within(() => {
@@ -509,12 +509,10 @@ describe('Training', () => {
                         .shadow()
                         .as('trainingList')
                         .within(() => {
-                            cy.get('[data-testid="event-dateRange-3462236"]')
-                                .should('exist')
-                                .should('be.visible')
-                                .scrollIntoView();
-                            cy.get('[data-testid="event-dateRange-3462236"] time:first-child').contains('1 Jun');
-                            cy.get('[data-testid="event-dateRange-3462236"] time:last-child').contains('3 Jun');
+                            cy.waitUntil(() => cy.get('[data-testid="event-dateRange-3462236"]').should('exist'));
+                            cy.get('[data-testid="event-dateRange-3462236"]').should('be.visible').scrollIntoView();
+                            cy.get('[data-testid="event-dateRange-3462236"]').contains('1 Jun');
+                            cy.get('[data-testid="event-dateRange-3462236"]').contains('3 Jun');
                         });
                 });
         });
