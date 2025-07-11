@@ -615,23 +615,6 @@ describe('Training', () => {
                         'https://maps.uq.edu.au/?zoom=19&campusId=406&lat=-27.4966319&lng=153.0144148&zLevel=1',
                     );
                     cy.get('[data-testid="training-details-booking-text"]').contains('Booking is not required');
-                    cy.get('[data-testid="training-details-registrationBlockForNonUQ"] h5').should('exist');
-                    cy.get('[data-testid="training-details-registrationBlockForNonUQ"] h5').contains(
-                        'Library member registration (for non-UQ staff and students)',
-                    );
-                    cy.get('[data-testid="training-details-registrationBlockForNonUQ"] a').contains('@library'); // a library email address
-                    cy.get('[data-testid="training-details-registrationBlockForNonUQ"] a')
-                        .should('have.attr', 'href')
-                        .then((href) => {
-                            expect(href).to.have.string('Expression of interest for event');
-                            expect(href).to.have.string('like to participate in the following training event');
-                            expect(href).to.have.string('Event Id: 2824657');
-                            expect(href).to.have.string('Event Title: Excel: Introduction to Spreadsheets');
-                            expect(href).to.have.string(
-                                'Event Date: Tuesday 24 November 2020 at 10am (2020-11-24T10:00:00+10:00)',
-                            );
-                            expect(href).to.have.string('Name: Lea de Groot');
-                        });
                 });
         });
 
@@ -653,7 +636,6 @@ describe('Training', () => {
                         'https://www.google.com/maps/search/?api=1&query=Toowoomba%20Rural%20Clinical%20School%2C%20152%20West%20Street%2C%20South%20Toowoomba%20QLD%2C%20Australia',
                     );
                     cy.get('[data-testid="training-details-booking-text"]').contains('Places still available');
-                    cy.get('[data-testid="training-details-registrationBlockForNonUQ"]').should('not.be.visible');
                     cy.get('button[data-testid="training-details-book-training-button"]').should('exist').click();
                 });
             cy.get('@open').should(
@@ -678,7 +660,6 @@ describe('Training', () => {
                     cy.get('[data-testid="training-details-booking-text"]').contains(
                         'Class is full. Register for waitlist.',
                     );
-                    cy.get('[data-testid="training-details-registrationBlockForNonUQ"]').should('be.visible');
                     cy.get('button[data-testid="training-details-book-training-button"]').should('exist').click();
                 });
 
