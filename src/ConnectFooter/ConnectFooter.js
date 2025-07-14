@@ -19,8 +19,6 @@ template.innerHTML = `
     </div>
 `;
 
-let initCalled;
-
 class ConnectFooter extends HTMLElement {
     constructor() {
         super();

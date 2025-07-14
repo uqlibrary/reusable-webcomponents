@@ -141,7 +141,12 @@ class TrainingDetail extends HTMLElement {
         const endTimeDom = this.shadowRoot.getElementById('endTime');
         !!endTimeDisplayValue && !!endTimeDom && (endTimeDom.innerText = endTimeDisplayValue);
 
-        const fullDateData = this.formatDate(this.data.start);
+        const eventStartDate = new Date(this.data.start);
+        const eventEndDate = new Date(this.data.end);
+        const fullDateData =
+            eventStartDate.getDate() === eventEndDate.getDate()
+                ? this.formatDate(this.data.start)
+                : `${this.formatDate(this.data.start)} - ${this.formatDate(this.data.end)}`;
         const fullDateDom = this.shadowRoot.getElementById('fullDate');
         !!fullDateData && !!fullDateDom && (fullDateDom.innerText = fullDateData);
     }

@@ -87,8 +87,6 @@ template.innerHTML = `
     <a name="after-header" />  
 `;
 
-let initCalled;
-
 class UQSiteHeader extends HTMLElement {
     static get observedAttributes() {
         return ['sitetitle', 'siteurl', 'secondleveltitle', 'secondlevelurl'];

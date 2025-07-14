@@ -1,6 +1,7 @@
 import loggedinstyles from './css/loggedinauth.css';
 import loggedoutstyles from './css/loggedoutauth.css';
 import ApiAccess from '../ApiAccess/ApiAccess';
+import UserAccount from '../ApiAccess/UserAccount';
 import { authLocale } from './auth.locale';
 import { isBackTabKeyPressed, isEscapeKeyPressed, isTabKeyPressed } from '../helpers/keyDetection';
 import { apiLocale } from '../ApiAccess/ApiAccess.locale';
@@ -27,8 +28,8 @@ import { getAccountMenuRoot } from './helpers';
 // IF YOU ARE MASQUERADING YOU MAY SEE ***YOUR*** ADMIN MENU OPTIONS, NOT THOSE OF ThE MASQUERADED USER
 // Refresh
 //
-// auth button is the place where the api function that writes account etc into session storage is called
 // any page that show-hides things based on the account MUST show the auth button web component
+// or the account won't be available
 //
 // ===============================
 // ===============================
@@ -55,11 +56,11 @@ class AuthButton extends HTMLElement {
         // Add a shadow DOM
         const shadowDOM = this.attachShadow({ mode: 'open' });
 
-        // if account is the first call then it wipes the session storage and says "Im logged out"
-        // we need to call the opening hours api to make authbutton work on first load?!?!?
-        // (the askus button used to go first to call hours api before account api,but its been removed)
-        // slack fix for mocking: dummy a call to hours
-        !!process.env.USE_MOCK && new ApiAccess().loadOpeningHours();
+        // // if account is the first call then it wipes the session storage and says "Im logged out"
+        // // we need to call the opening hours api to make authbutton work on first load?!?!?
+        // // (the askus button used to go first to call hours api before account api,but its been removed)
+        // // slack fix for mocking: dummy a call to hours
+        // !!process.env.USE_MOCK && new ApiAccess().loadOpeningHours();
 
         if (this.isOverwriteAsLoggedOutRequested()) {
             // Render the template
@@ -253,48 +254,34 @@ class AuthButton extends HTMLElement {
         <div id="account-options-pane" data-testid="account-options-pane" aria-hidden="true" class="account-options-pane account-options-pane-closed" style="display: none" />
     </div>
 `;
-        new ApiAccess().loadAccountApi().then((accountFound) => {
-            if (!accountFound) {
-                shadowDOM.appendChild(unauthorisedtemplate.content.cloneNode(true));
-                this.addLoginButtonListener(shadowDOM);
+        new UserAccount().get().then((userDetails) => {
+            if (!userDetails) {
+                this.showLoggedOutButton(shadowDOM);
                 return;
             }
 
-            const waitOnStorage = setInterval(() => {
-                // sometimes it takes a moment before it is readable
-                const currentUserDetails = new ApiAccess().getAccountFromStorage();
-
-                const accountIsSet =
-                    currentUserDetails.hasOwnProperty('account') &&
-                    !!currentUserDetails.account &&
-                    currentUserDetails.account.hasOwnProperty('id') &&
-                    !!currentUserDetails.account.id;
-                if (!!accountIsSet) {
-                    clearInterval(waitOnStorage);
-
-                    shadowDOM.appendChild(authorisedtemplate.content.cloneNode(true));
-                    const account = currentUserDetails.account;
-                    this.displayUserNameAsButtonLabel(shadowDOM, account);
-                    this.addAdminMenuOptions(shadowDOM, account);
-                    this.removeEspaceMenuOptionWhenNotAuthor(shadowDOM);
-                    this.addLogoutButtonListeners(shadowDOM, account);
-                } else if (
-                    !!currentUserDetails &&
-                    currentUserDetails.hasOwnProperty('status') &&
-                    currentUserDetails.status === apiLocale.USER_LOGGED_OUT
-                ) {
-                    // final check to add logged out button - should never happen
-                    clearInterval(waitOnStorage);
-                    const authButton = document.querySelector('auth-button');
-                    const authshadowdom = !!authButton && authButton.shadowRoot;
-                    const unauthbutton = !!authshadowdom && authshadowdom.getElementById('auth-button-login');
-                    if (!unauthbutton) {
-                        shadowDOM.appendChild(unauthorisedtemplate.content.cloneNode(true));
-                        this.addLoginButtonListener(shadowDOM);
-                    }
-                }
-            }, 200);
+            const isLoggedIN =
+                userDetails.hasOwnProperty('account') &&
+                !!userDetails.account &&
+                userDetails.account.hasOwnProperty('id') &&
+                !!userDetails.account.id;
+            if (!!isLoggedIN) {
+                shadowDOM.appendChild(authorisedtemplate.content.cloneNode(true));
+                const account = userDetails?.account;
+                this.displayUserNameAsButtonLabel(shadowDOM, account);
+                this.addAdminMenuOptions(shadowDOM, account);
+                this.removeEspaceMenuOptionWhenNotAuthor(shadowDOM);
+                this.addLogoutButtonListeners(shadowDOM, account);
+            } else {
+                // invalid userDetails received - should never happen
+                this.showLoggedOutButton(shadowDOM);
+            }
         });
+    }
+
+    showLoggedOutButton(shadowDOM) {
+        shadowDOM.appendChild(unauthorisedtemplate.content.cloneNode(true));
+        this.addLoginButtonListener(shadowDOM);
     }
 
     addAdminMenuOptions(shadowDOM, account) {
@@ -467,9 +454,6 @@ class AuthButton extends HTMLElement {
 
     addLoginButtonListener(shadowDOM) {
         function visitLoginPage() {
-            if (!new ApiAccess().isSessionStorageEnabled) {
-                alert('Please enable browser Session Storage to log into the Library');
-            }
             const returnUrl = window.location.href;
             window.location.assign(`${authLocale.AUTH_URL_LOGIN}${window.btoa(returnUrl)}`);
         }
@@ -484,9 +468,8 @@ class AuthButton extends HTMLElement {
         let accountOptionsClosed = true;
 
         function visitLogOutPage() {
-            const apiAccess = new ApiAccess();
-            apiAccess.markAccountStorageLoggedOut();
-            apiAccess.logUserOut();
+            const userController = new UserAccount();
+            userController.logUserOut();
         }
 
         function hideElement(elementId) {
@@ -613,21 +596,15 @@ class AuthButton extends HTMLElement {
             return;
         }
 
-        let storedUserDetails = {};
-
-        const getStoredUserDetails = setInterval(() => {
-            storedUserDetails = new ApiAccess().getAccountFromStorage();
-            let isLoggedIn =
-                !!storedUserDetails &&
-                storedUserDetails.hasOwnProperty('status') &&
-                (storedUserDetails.status === apiLocale.USER_LOGGED_IN ||
-                    storedUserDetails.status === apiLocale.USER_LOGGED_OUT);
-            if (isLoggedIn) {
-                clearInterval(getStoredUserDetails);
-
-                !canSeeEspace(storedUserDetails) && espaceitem.remove();
+        return new UserAccount().get().then((userDetails) => {
+            const isValidUser =
+                !!userDetails &&
+                userDetails.hasOwnProperty('status') &&
+                userDetails.status === apiLocale.USER_LOGGED_IN;
+            if (isValidUser) {
+                !canSeeEspace(userDetails) && espaceitem.remove();
             }
-        }, 100);
+        });
     }
 }
 

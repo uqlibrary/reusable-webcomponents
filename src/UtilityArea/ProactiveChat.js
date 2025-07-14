@@ -2,6 +2,7 @@ import proactivecss from './css/proactivechat.css';
 import ApiAccess from '../ApiAccess/ApiAccess';
 import { cookieNotFound, setCookie } from '../helpers/cookie';
 import { apiLocale } from '../ApiAccess/ApiAccess.locale';
+import UserAccount from '../ApiAccess/UserAccount';
 
 /**
  * API
@@ -446,27 +447,19 @@ class ProactiveChat extends HTMLElement {
                     // sometimes it takes a moment before it is readable
                     const currentUserDetails = api.getAccountFromStorage();
 
+                new UserAccount().get().then((currentUserDetails) => {
                     const accountAvailable =
                         currentUserDetails.hasOwnProperty('account') &&
                         !!currentUserDetails.account &&
                         currentUserDetails.account.hasOwnProperty('id') &&
                         !!currentUserDetails.account.id;
                     if (!!accountAvailable) {
-                        clearInterval(waitOnStorage);
-
                         chatbotUrl +=
                             '?' +
                             `name=${currentUserDetails.account.firstName}&email=${currentUserDetails.account.mail}`;
-                        !!chatBotIframe && chatBotIframe.length > 0 && (chatBotIframe[0].src = chatbotUrl);
-                    } else if (
-                        !!currentUserDetails &&
-                        currentUserDetails.hasOwnProperty('status') &&
-                        currentUserDetails.status === apiLocale.USER_LOGGED_OUT
-                    ) {
-                        clearInterval(waitOnStorage);
-                        !!chatBotIframe && chatBotIframe.length > 0 && (chatBotIframe[0].src = chatbotUrl);
                     }
-                }, 200);
+                    !!chatBotIframe && chatBotIframe.length > 0 && (chatBotIframe[0].src = chatbotUrl);
+                });
 
                 const openCrmButton = that.shadowDOM.querySelector('#speakToPerson');
                 !!openCrmButton && openCrmButton.addEventListener('click', swapToCrm);
