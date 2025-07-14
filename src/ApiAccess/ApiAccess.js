@@ -365,6 +365,13 @@ class ApiAccess {
                     bottom: 0.5rem;
                     left: 0.5rem;
                     transition: opacity 500ms ease-out;
+                    p {
+                        font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                        font-size: 1rem;
+                        font-weight: 400;
+                        letter-spacing: 0.16px;
+                        line-height: 25.6px;
+                    }
                 }
             </style>
             <div id="vpn-needed-toast" class="vpn-needed-toast" data-testid="vpn-needed-toast">
