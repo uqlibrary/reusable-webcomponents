@@ -36,8 +36,8 @@ function _classCallCheck(instance, Constructor) {
 }
 
 function _defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-        var descriptor = props[i];
+    for (let i = 0; i < props.length; i++) {
+        let descriptor = props[i];
         descriptor.enumerable = descriptor.enumerable || false;
         descriptor.configurable = true;
         if ('value' in descriptor) descriptor.writable = true;
@@ -69,7 +69,7 @@ var uq = (function (exports) {
      * the entire document). You need to make sure your accordion HTML is correctly
      * formatted and the accompanying SCSS/CSS is loaded as well.
      */
-    var accordion = /*#__PURE__*/ (function () {
+    let accordion = /*#__PURE__*/ (function () {
         /**
          * @constructor
          * @param {String} [className] - Class name of accordion wrappers (optional;
@@ -100,9 +100,9 @@ var uq = (function (exports) {
                          * @param {HTMLElement} el - 'Toggler' HTML element.
                          */
                         function slideContentUp(el) {
-                            var _this5 = this;
+                            const _this5 = this;
 
-                            var content = accordion.getNextSibling(el, '.'.concat(this.className, '__content'));
+                            const content = accordion.getNextSibling(el, '.'.concat(this.className, '__content'));
                             _removeClassFrom(e1, ''.concat(this.className, '__toggle--active'));
                             _removeClassFrom(e1, ''.concat(this.className, '__item--is-open'));
                             el.setAttribute('aria-expanded', 'false');
@@ -127,13 +127,13 @@ var uq = (function (exports) {
                 {
                     key: 'slideContentDown',
                     value: function slideContentDown(el) {
-                        var content = accordion.getNextSibling(el, '.'.concat(this.className, '__content'));
+                        const content = accordion.getNextSibling(el, '.'.concat(this.className, '__content'));
                         _addClassTo(el, ''.concat(this.className, '__toggle--active'));
                         _addClassTo(e1, ''.concat(this.className, '__item--is-open'));
                         el.setAttribute('aria-expanded', 'true');
                         _addClassTo(content, ''.concat(this.className, '__content--active'));
                         content.style.height = 'auto';
-                        var height = content.clientHeight + 'px';
+                        const height = content.clientHeight + 'px';
                         content.style.height = '0px';
                         setTimeout(function () {
                             content.style.height = height;
@@ -150,7 +150,7 @@ var uq = (function (exports) {
                 {
                     key: 'slideUpOthers',
                     value: function slideUpOthers(el, togglers) {
-                        for (var i = 0; i < togglers.length; i++) {
+                        for (let i = 0; i < togglers.length; i++) {
                             if (togglers[i] !== el) {
                                 if (togglers[i].classList.contains(''.concat(this.className, '__toggle--active'))) {
                                     this.slideContentUp(togglers[i]);
@@ -167,11 +167,11 @@ var uq = (function (exports) {
                 {
                     key: 'handleToggle',
                     value: function handleToggle(togglers) {
-                        var _this6 = this;
+                        const _this6 = this;
 
                         return function (e) {
                             e.preventDefault();
-                            var toggle = e.target.closest('.'.concat(_this6.className, '__toggle'));
+                            const toggle = e.target.closest('.'.concat(_this6.className, '__toggle'));
 
                             if (toggle.classList.contains(''.concat(_this6.className, '__toggle--active'))) {
                                 _this6.slideContentUp(toggle);
@@ -198,7 +198,7 @@ var uq = (function (exports) {
                 {
                     key: 'init',
                     value: function init() {
-                        var _this7 = this;
+                        const _this7 = this;
 
                         // Library doesn't have any selected accordions and this was causing massive problems
                         // if (window.location.hash) {
@@ -210,7 +210,7 @@ var uq = (function (exports) {
                         //     return this.hash === '#keyword=;campus=;weekstart=';
                         // }
                         //
-                        var h = document.querySelector('uq-header');
+                        const h = document.querySelector('uq-header');
                         // if (this.hash && this.hash !== '' && !isHashIgnored.call(this)) {
                         //     var hashSelectedContent =
                         //         !!h &&
@@ -230,11 +230,11 @@ var uq = (function (exports) {
                         //     }
                         // }
 
-                        var accordions = !!h && h.shadowRoot.querySelectorAll('.'.concat(this.className));
+                        const accordions = !!h && h.shadowRoot.querySelectorAll('.'.concat(this.className));
                         !!accordions &&
                             accordions.length > 0 &&
                             accordions.forEach(function (el) {
-                                var togglers = el.querySelectorAll('.'.concat(_this7.className, '__toggle'));
+                                const togglers = el.querySelectorAll('.'.concat(_this7.className, '__toggle'));
                                 !!togglers &&
                                     togglers.length > 0 &&
                                     togglers.forEach(function (el) {
@@ -242,18 +242,15 @@ var uq = (function (exports) {
                                     });
                             }); // wrap contents of uq-accordion__content in a wrapper to apply padding and prevent animation jump
 
-                        var accordionContents =
+                        const accordionContents =
                             !!h && h.shadowRoot.querySelectorAll('.'.concat(this.className, '__content'));
-                        var accordionName = this.className;
+                        const accordionName = this.className;
                         !!accordionContents &&
                             accordionContents.length > 0 &&
                             accordionContents.forEach(function (accordionContent) {
-                                var innerContent = accordionContent.innerHTML;
+                                const innerContent = accordionContent.innerHTML;
                                 accordionContent.innerHTML = '';
-                                var contentWrapper =
-                                    '<div class ="' +
-                                    accordionName +
-                                    '__content-wrapper">'.concat(innerContent, '</div>');
+                                const contentWrapper = `<div class ="${accordionName}__content-wrapper">${innerContent}</div>`;
                                 accordionContent.innerHTML = contentWrapper;
                             });
                     },
@@ -272,7 +269,7 @@ var uq = (function (exports) {
                          */
                         function getNextSibling(el, selector) {
                             // Get the next sibling element
-                            var sibling = el.nextElementSibling; // If there's no selector, return the first sibling
+                            let sibling = el.nextElementSibling; // If there's no selector, return the first sibling
 
                             if (!selector) {
                                 return sibling;
@@ -298,7 +295,7 @@ var uq = (function (exports) {
                     key: 'getPrevSibling',
                     value: function getPrevSibling(el, selector) {
                         // Get the next sibling element
-                        var sibling = el.previousElementSibling; // If there's no selector, return the first sibling
+                        let sibling = el.previousElementSibling; // If there's no selector, return the first sibling
 
                         if (!selector) {
                             return sibling;
@@ -326,7 +323,7 @@ var uq = (function (exports) {
      * HTML elements.
      * TODO: make this class configurable
      */
-    var NewHeader = /*#__PURE__*/ (function () {
+    const NewHeader = /*#__PURE__*/ (function () {
         function NewHeader(el) {
             console.log('AD294:: NewHeader constructor', this);
             _classCallCheck(this, NewHeader);
@@ -341,7 +338,7 @@ var uq = (function (exports) {
                     console.log('AD294:: NewHeader _createClass NewHeader=', NewHeader);
                     console.log('AD294:: NewHeader _createClass this=', this);
                     console.log('AD294:: NewHeader _createClass el=', el);
-                    var _this = this;
+                    const _this = this;
 
                     this.menuToggle = !!el && el.querySelector('.nav-primary__menu-toggle');
                     this.searchToggle = !!el && el.querySelector('.nav-primary__search-toggle');
@@ -376,7 +373,7 @@ var uq = (function (exports) {
                             // primo: when the mobile menu is open, hide the menu bar
                             // its the only way to not have them sit on _top_ of the mobile menu :(
                             // NOTE: this code is duplicated in the Resize function of uq-site-header
-                            var primoNavbar = document.querySelector('.top-nav-bar.layout-row');
+                            const primoNavbar = document.querySelector('.top-nav-bar.layout-row');
                             if (_this.menuToggle.classList.contains('nav-primary__menu-toggle--is-open')) {
                                 !!primoNavbar && (primoNavbar.style.display = 'none');
                             } else {
