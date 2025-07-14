@@ -443,31 +443,19 @@ class ProactiveChat extends HTMLElement {
                 let chatbotUrl = `${iframeSrc}/chatbot.html`;
                 const chatBotIframe = !!chatbotWrapper1 && chatbotWrapper1.getElementsByTagName('iframe');
                 const api = new ApiAccess();
-                const waitOnStorage = setInterval(() => {
-                    // sometimes it takes a moment before it is readable
-                    const currentUserDetails = api.getAccountFromStorage();
-
+                new UserAccount().get().then((currentUserDetails) => {
                     const accountAvailable =
                         currentUserDetails.hasOwnProperty('account') &&
                         !!currentUserDetails.account &&
                         currentUserDetails.account.hasOwnProperty('id') &&
                         !!currentUserDetails.account.id;
                     if (!!accountAvailable) {
-                        clearInterval(waitOnStorage);
-
                         chatbotUrl +=
                             '?' +
                             `name=${currentUserDetails.account.firstName}&email=${currentUserDetails.account.mail}`;
-                        !!chatBotIframe && chatBotIframe.length > 0 && (chatBotIframe[0].src = chatbotUrl);
-                    } else if (
-                        !!currentUserDetails &&
-                        currentUserDetails.hasOwnProperty('status') &&
-                        currentUserDetails.status === apiLocale.USER_LOGGED_OUT
-                    ) {
-                        clearInterval(waitOnStorage);
-                        !!chatBotIframe && chatBotIframe.length > 0 && (chatBotIframe[0].src = chatbotUrl);
                     }
-                }, 200);
+                    !!chatBotIframe && chatBotIframe.length > 0 && (chatBotIframe[0].src = chatbotUrl);
+                });
 
                 const openCrmButton = that.shadowDOM.querySelector('#speakToPerson');
                 !!openCrmButton && openCrmButton.addEventListener('click', swapToCrm);
@@ -686,23 +674,13 @@ class ProactiveChat extends HTMLElement {
             },
         ];
 
-        // wait on the account to come from storage (or empty) so we know if we can supply details
-        const api = new ApiAccess();
-        let millisecondsWait = 1000; // first time longer to give storage time to change from logged out to logged in
-        console.log(timeStamp(), '0 millisecondsWait=', millisecondsWait);
-        const waitOnStorage = setInterval(() => {
-            console.log(timeStamp(), 'millisecondsWait=', millisecondsWait);
-            // sometimes it takes a moment before it is readable
-            const currentUserDetails = api.getAccountFromStorage();
-
+        new UserAccount().get().then((currentUserDetails) => {
             const accountAvailable =
                 currentUserDetails.hasOwnProperty('account') &&
                 !!currentUserDetails.account &&
                 currentUserDetails.account.hasOwnProperty('id') &&
                 !!currentUserDetails.account.id;
             if (!!accountAvailable) {
-                clearInterval(waitOnStorage);
-
                 // set account fields
                 const firstNameIndex = crmChatParams.findIndex((param) => param.name === 'FIRST_NAME');
                 crmChatParams[firstNameIndex].value = currentUserDetails.account.firstName.replace(/ /g, '&nbsp;');
@@ -711,14 +689,6 @@ class ProactiveChat extends HTMLElement {
                 crmChatParams[emailIndex].value = currentUserDetails.account.mail;
                 // crmChatParams[emailIndex].hidden = true;
                 console.log(timeStamp(), 'accountAvailable waitOnStorage clone crmChatParams=', crmChatParams);
-            } else if (
-                !!currentUserDetails &&
-                currentUserDetails.hasOwnProperty('status') &&
-                currentUserDetails.status === apiLocale.USER_LOGGED_OUT
-            ) {
-                console.log(timeStamp(), 'NOT accountAvailable waitOnStorage clone not logged in');
-                clearInterval(waitOnStorage);
-                // use default "please fill in" settings
             }
 
             // from https://uqemployee.crm.test.uq.edu.au/s/oit/latest/ > inlays > embedded chat
@@ -744,9 +714,7 @@ class ProactiveChat extends HTMLElement {
             console.log(timeStamp(), 'clone window.document.body= ', window.document.body);
             window.document.body.appendChild(clone);
             console.log(timeStamp(), 'clone after');
-            millisecondsWait = 200;
-            console.log(timeStamp(), '! millisecondsWait=', millisecondsWait);
-        }, millisecondsWait);
+        });
     }
 }
 
