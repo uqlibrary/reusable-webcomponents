@@ -202,11 +202,7 @@ class UQSiteHeader extends HTMLElement {
             return window.location.hostname === 'search.library.uq.edu.au';
         }
         function isDomainPrimoSandbox() {
-            return [
-                'uq-edu-primo-sb.hosted.exlibrisgroup.com', // old primo
-                'uq.primo.exlibrisgroup.com', // primo ve     ] only one of these will last as sandbox after golive
-                'uq-psb.primo.exlibrisgroup.com', // primo ve ]
-            ].includes(window.location.hostname);
+            return window.location.hostname === 'uq-psb.primo.exlibrisgroup.com';
         }
         function getSearchParam(name) {
             const urlParams = new URLSearchParams(window.location.search);
