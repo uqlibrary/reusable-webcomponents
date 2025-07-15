@@ -35,8 +35,8 @@ template.innerHTML = `
             </nav>
         </div>
         <div class="uq-header__search-toggle">
-            <button class="nav-primary__toggle nav-primary__search-toggle" data-testid="uq-header-search-button" data-analyticsid="uq-header-search-button" data-gtm-action="Toggle">
-                <div class="search-toggle__label">Search</div>
+            <button class="nav-primary__toggle nav-primary__search-toggle" id="uq-header-search-button" data-testid="uq-header-search-button" data-analyticsid="uq-header-search-button" data-gtm-action="Toggle">
+                <div id="search-toggle__label" class="search-toggle__label">Search</div>
             </button>
         </div>
     </div>
@@ -218,7 +218,7 @@ template.innerHTML = `
             </li>
         </ul>
     </nav>
-    <div class="uq-header__search" data-gtm-category="Search">
+    <div id="uq-header_search_panel" class="uq-header__search" data-gtm-category="Search">
         <div class="uq-header__search-container">
             <form action="https://search.uq.edu.au/" method="get" data-gtm-action="Text search" data-gtm-form-action="">
                 <fieldset>
@@ -279,6 +279,8 @@ class UQHeader extends HTMLElement {
         this.changeSearchWidgetLabel = this.changeSearchWidgetLabel.bind(this);
         this.handleSkipNavInsertion = this.handleSkipNavInsertion.bind(this);
         this.loadScript = this.loadScript.bind(this);
+
+        this.addButtonListeners(shadowDOM);
     }
 
     attributeChangedCallback(fieldName, oldValue, newValue) {
@@ -361,6 +363,43 @@ class UQHeader extends HTMLElement {
         }
     }
 
+    addButtonListeners(shadowDOM) {
+        function toggleSearchInputField() {
+            function toggleButtonIcon() {
+                const buttonPanel = shadowDOM.getElementById('uq-header-search-button');
+                !!buttonPanel && buttonPanel.classList.toggle('nav-primary__search-toggle--is-open');
+            }
+
+            function toggleButtonLabel() {
+                const button = shadowDOM.getElementById('search-toggle__label');
+                button.innerHTML = button.innerHTML === 'Search' ? 'Close' : 'Search';
+            }
+
+            function placeFocus(inputFieldPanel) {
+                const inputField = shadowDOM.getElementById('edit-q');
+                if (inputFieldPanel.classList.contains('uq-header__search--is-open')) {
+                    inputField.focus();
+                } else {
+                    inputField.blur();
+                    inputFieldPanel.blur();
+                }
+            }
+
+            function showHideInputField() {
+                const inputFieldPanel = shadowDOM.getElementById('uq-header_search_panel');
+                !!inputFieldPanel && inputFieldPanel.classList.toggle('uq-header__search--is-open');
+                placeFocus(inputFieldPanel);
+            }
+
+            toggleButtonIcon();
+            toggleButtonLabel();
+            showHideInputField();
+        }
+
+        const searchButton = shadowDOM.getElementById('uq-header-search-button');
+        !!searchButton && searchButton.addEventListener('click', toggleSearchInputField);
+    }
+
     loadScript() {
         // This loads the external JS file into the HTML head dynamically
         // Only load js if it has not been loaded before (tracked by the initCalled flag)
@@ -377,8 +416,6 @@ class UQHeader extends HTMLElement {
                 const rootHeaderElement = document.querySelector('uq-header');
                 const headerElem = !!rootHeaderElement && rootHeaderElement.shadowRoot.querySelector('.uq-header');
                 !!headerElem && !!uq && !!uq.header && new uq.header(headerElem);
-
-                new uq.accordion(); // opens and closes the Site Search toggle
             };
             //Specify the location of the ITS DS JS file
             script.src = 'uq-header.js';
