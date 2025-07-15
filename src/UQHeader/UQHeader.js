@@ -11,7 +11,10 @@ template.innerHTML = `
     <header class="uq-header" data-gtm-category="Header">
     <div class="uq-header__container">
         <div class="uq-header__menu-toggle" data-target="global-mobile-nav" data-gtm-category="Primary header">
-            <button id="mobile-menu-toggle-button" data-testid="mobile-menu-toggle-button" data-analyticsid="uq-header-skip-click" type="button" class="nav-primary__toggle nav-primary__menu-toggle slide-menu__control" data-target="global-mobile-nav" data-action="toggle" data-gtm-action="Toggle">
+            <button id="mobile-menu-toggle-button" data-testid="mobile-menu-toggle-button" data-analyticsid="uq-header-skip-click" type="button" 
+            class="nav-primary__toggle nav-primary__menu-toggle slide-menu__control" 
+            data-target="global-mobile-nav" data-action="toggle" data-gtm-action="Toggle"
+            aria-haspopup="true" aria-expanded="false" aria-controls="uq-site-header__navigation-container">
               Menu
             </button>
         </div>
@@ -35,7 +38,9 @@ template.innerHTML = `
             </nav>
         </div>
         <div class="uq-header__search-toggle">
-            <button class="nav-primary__toggle nav-primary__search-toggle" id="uq-header-search-button" data-testid="uq-header-search-button" data-analyticsid="uq-header-search-button" data-gtm-action="Toggle">
+            <button class="nav-primary__toggle nav-primary__search-toggle" id="uq-header-search-button" 
+                data-testid="uq-header-search-button" data-analyticsid="uq-header-search-button" data-gtm-action="Toggle"
+                aria-haspopup="true" aria-expanded="false" aria-controls="uq-header_search_panel">
                 <div id="search-toggle__label" class="search-toggle__label">Search</div>
             </button>
         </div>
@@ -364,12 +369,14 @@ class UQHeader extends HTMLElement {
 
     addButtonListeners(shadowDOM) {
         function toggleSearchInputField() {
-            function toggleButtonIcon() {
+            function toggleButton() {
                 const buttonPanel = shadowDOM.getElementById('uq-header-search-button');
-                !!buttonPanel && buttonPanel.classList.toggle('nav-primary__search-toggle--is-open');
-            }
+                if (!!buttonPanel) {
+                    buttonPanel.classList.toggle('nav-primary__search-toggle--is-open');
+                    const currentExpanded = buttonPanel.getAttribute('aria-expanded');
+                    buttonPanel.setAttribute('aria-expanded', currentExpanded === 'false' ? 'true' : 'false');
+                }
 
-            function toggleButtonLabel() {
                 const button = shadowDOM.getElementById('search-toggle__label');
                 button.innerHTML = button.innerHTML === 'Search' ? 'Close' : 'Search';
             }
@@ -390,8 +397,7 @@ class UQHeader extends HTMLElement {
                 placeFocus(inputFieldPanel);
             }
 
-            toggleButtonIcon();
-            toggleButtonLabel();
+            toggleButton();
             showHideInputField();
         }
 
@@ -406,9 +412,15 @@ class UQHeader extends HTMLElement {
             }
 
             function toggleMobileMenuButton() {
-                const mobileMenuToggleButton = shadowDOM.querySelector('.nav-primary__menu-toggle');
-                !!mobileMenuToggleButton &&
+                const mobileMenuToggleButton = shadowDOM.getElementById('mobile-menu-toggle-button');
+                if (!!mobileMenuToggleButton) {
                     mobileMenuToggleButton.classList.toggle('nav-primary__menu-toggle--is-open');
+                    const currentExpanded = mobileMenuToggleButton.getAttribute('aria-expanded');
+                    mobileMenuToggleButton.setAttribute(
+                        'aria-expanded',
+                        currentExpanded === 'false' ? 'true' : 'false',
+                    );
+                }
             }
 
             function isSiteSearchOpen() {
