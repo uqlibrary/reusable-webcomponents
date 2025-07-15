@@ -117,7 +117,6 @@ module.exports = () => {
             new CopyPlugin({
                 patterns: [
                     // copy the external js from ITS DS into the dist and rename it
-                    { from: 'src/UQHeader/js/uqds.js', to: 'uq-header.js' },
                     { from: 'src/UQSiteHeader/js/uqds.js', to: 'uq-site-header.js' },
                     // move some needed files into the distro
                     {
@@ -154,10 +153,6 @@ module.exports = () => {
                         dir: buildPath(process.env.NODE_ENV, 'index'),
                         files: ['uq-lib-reusable.min.js'],
                         rules: [
-                            {
-                                search: /uq-header\.js/gm,
-                                replace: componentJsPath[process.env.NODE_ENV] + 'uq-header.js',
-                            },
                             {
                                 search: /uq-site-header\.js/gm,
                                 replace: componentJsPath[process.env.NODE_ENV] + 'uq-site-header.js',

@@ -278,7 +278,6 @@ class UQHeader extends HTMLElement {
         this.appendSearchWidgetUrl = this.appendSearchWidgetUrl.bind(this);
         this.changeSearchWidgetLabel = this.changeSearchWidgetLabel.bind(this);
         this.handleSkipNavInsertion = this.handleSkipNavInsertion.bind(this);
-        this.loadScript = this.loadScript.bind(this);
 
         this.addButtonListeners(shadowDOM);
     }
@@ -396,37 +395,76 @@ class UQHeader extends HTMLElement {
             showHideInputField();
         }
 
+        function openCloseMobileMenu() {
+            function clickSiteHeaderMenuButton() {
+                // clicking the uq-header hamburger button clicks the hidden menu button on uq-site-header
+                const siteHeader = document.querySelector('uq-site-header');
+                const siteHeaderShadowRoot = !!siteHeader && siteHeader.shadowRoot;
+                const siteHeaderHiddenMobileButton =
+                    !!siteHeaderShadowRoot && siteHeaderShadowRoot.getElementById('uq-site-header__navigation-toggle');
+                !!siteHeaderHiddenMobileButton && siteHeaderHiddenMobileButton.click();
+            }
+
+            function toggleMobileMenuButton() {
+                const mobileMenuToggleButton = shadowDOM.querySelector('.nav-primary__menu-toggle');
+                !!mobileMenuToggleButton &&
+                    mobileMenuToggleButton.classList.toggle('nav-primary__menu-toggle--is-open');
+            }
+
+            function isSiteSearchOpen() {
+                const siteSearchToggle = shadowDOM.querySelector('.nav-primary__search-toggle');
+                return (
+                    !!siteSearchToggle && !!siteSearchToggle.classList.contains('nav-primary__search-toggle--is-open')
+                );
+            }
+
+            function closeSiteSearch() {
+                const siteSearchToggle = shadowDOM.querySelector('.nav-primary__search-toggle');
+                siteSearchToggle.classList.remove('nav-primary__search-toggle--is-open');
+
+                const siteSearchLabel = shadowDOM.querySelector('.uq-header__search');
+                !!siteSearchLabel && (siteSearchLabel.innerHTML = 'Search');
+
+                const siteSearchPanel = shadowDOM.querySelector('.uq-header__search');
+                !!siteSearchPanel &&
+                    !!siteSearchPanel.classList.contains('uq-header__search') &&
+                    siteSearchPanel.classList.remove('uq-header__search');
+            }
+
+            function isPrimoPage() {
+                const primoNavbar = document.querySelector('.top-nav-bar.layout-row');
+                return !!primoNavbar;
+            }
+
+            function isMobileMenuOpen() {
+                const mobileMenuToggleButton = shadowDOM.querySelector('.nav-primary__menu-toggle');
+                return (
+                    !!mobileMenuToggleButton &&
+                    mobileMenuToggleButton.classList.contains('nav-primary__menu-toggle--is-open')
+                );
+            }
+
+            function showHidePrimoUtilityBar() {
+                const newClass = isMobileMenuOpen() ? 'none' : null;
+                const primoNavbar = document.querySelector('.top-nav-bar.layout-row');
+                !!primoNavbar && (primoNavbar.style.display = newClass);
+            }
+
+            toggleMobileMenuButton();
+            if (isSiteSearchOpen()) {
+                closeSiteSearch();
+            }
+            if (isPrimoPage()) {
+                showHidePrimoUtilityBar();
+            }
+            clickSiteHeaderMenuButton();
+        }
+
         const searchButton = shadowDOM.getElementById('uq-header-search-button');
         !!searchButton && searchButton.addEventListener('click', toggleSearchInputField);
-    }
 
-    loadScript() {
-        // This loads the external JS file into the HTML head dynamically
-        // Only load js if it has not been loaded before (tracked by the initCalled flag)
-        /* istanbul ignore else  */
-        if (!initCalled) {
-            //Dynamically import the JS file and append it to the document header
-            const script = document.createElement('script');
-            script.type = 'text/javascript';
-            script.defer = true;
-            script.onload = function () {
-                //Code to execute after the library has been downloaded parsed and processed by the browser starts here :)
-                initCalled = true;
-                // Initialise the header once this JS file is loaded
-                const rootHeaderElement = document.querySelector('uq-header');
-                const headerElem = !!rootHeaderElement && rootHeaderElement.shadowRoot.querySelector('.uq-header');
-                !!headerElem && !!uq && !!uq.header && new uq.header(headerElem);
-            };
-            //Specify the location of the ITS DS JS file
-            script.src = 'uq-header.js';
-
-            //Append it to the document header
-            document.head.appendChild(script);
-        }
-    }
-
-    connectedCallback() {
-        this.loadScript();
+        const mobileMenuToggleButton = shadowDOM.getElementById('mobile-menu-toggle-button');
+        !!mobileMenuToggleButton && mobileMenuToggleButton.addEventListener('click', openCloseMobileMenu);
     }
 }
 
