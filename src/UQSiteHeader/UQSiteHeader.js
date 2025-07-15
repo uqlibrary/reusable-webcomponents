@@ -9,7 +9,7 @@ import overrides from './css/overrides.css';
  *       siteurl="https://www.library.uq.edu.au"  // should be displayed on 2nd level sites - the link to the homepage. Optional. Default "https://www.library.uq.edu.au/"
  *       secondleveltitle="Guides"                 // should be displayed on 2nd level sites - the text of the homepage link. Optional. Default null (not present)
  *                                                 // it is probably necessery to always have the secondleveltitle go first (before secondlevelurl)
- *       secondlevelurl="http://guides.library.uq.edu.au"    // should be displayed on all sites - the link of the homepage link. Optional. Default null (not present)
+ *       secondlevelurl="https://guides.library.uq.edu.au"    // should be displayed on all sites (with appropriate local link) - the link of the homepage link. Optional. Default null (not present)
  *       (both second level required if either)
  *   >
  *       <span slot="site-utilities">
@@ -202,11 +202,7 @@ class UQSiteHeader extends HTMLElement {
             return window.location.hostname === 'search.library.uq.edu.au';
         }
         function isDomainPrimoSandbox() {
-            return [
-                'uq-edu-primo-sb.hosted.exlibrisgroup.com', // old primo
-                'uq.primo.exlibrisgroup.com', // primo ve     ] only one of these will last as sandbox after golive
-                'uq-psb.primo.exlibrisgroup.com', // primo ve ]
-            ].includes(window.location.hostname);
+            return window.location.hostname === 'uq-psb.primo.exlibrisgroup.com';
         }
         function getSearchParam(name) {
             const urlParams = new URLSearchParams(window.location.search);
