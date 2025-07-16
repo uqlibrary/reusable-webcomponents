@@ -787,18 +787,21 @@
                 if (!parentLinksFromBreadcrumbs) {
                     parentLinksFromBreadcrumbs = document.querySelectorAll('nav[aria-label="Breadcrumb"] a[href]');
                 }
+                parentLinksFromBreadcrumbs = Array.from(parentLinksFromBreadcrumbs);
 
                 const parentTemplate = (classNameBreadcrumb, href, textContent) => {
                     return `<div class="${classNameBreadcrumb}"><a href="${href}" class="uq-local-nav__link">${textContent}</a></div>`;
                 };
 
                 let classNameBreadcrumb = 'uq-local-nav__grandparent';
-                let htmlToInsert = parentTemplate(classNameBreadcrumb, 'https://uq.edu.au/', 'UQ home');
+                let htmlToInsert = '';
+                htmlToInsert += parentTemplate(classNameBreadcrumb, 'https://uq.edu.au/', 'UQ home');
+                htmlToInsert += parentTemplate(classNameBreadcrumb, 'https://www.library.uq.edu.au/', 'Library');
 
-                const breadcrumbLength = 3;
-                const breadcrumbsToUse = [...parentLinksFromBreadcrumbs].slice(0, breadcrumbLength);
-                !breadcrumbsToUse && console.log('breadcrumbs: ', parentLinksFromBreadcrumbs);
-                !breadcrumbsToUse && console.log('breadcrumbs to use: ', breadcrumbsToUse);
+                parentLinksFromBreadcrumbs.shift(); // remove that initial Library link that we have just hardcoded
+
+                const breadcrumbLength = 2;
+                const breadcrumbsToUse = parentLinksFromBreadcrumbs.slice(0, breadcrumbLength);
                 !!breadcrumbsToUse &&
                     breadcrumbsToUse.forEach((link, index) => {
                         if (!!parentElementRequired && index === breadcrumbLength - 1) {
