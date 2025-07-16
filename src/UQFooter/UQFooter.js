@@ -230,12 +230,12 @@ template.innerHTML = `
         <div class="uq-footer__contact">
           <nav class="uq-footer__contact-item" aria-label="Social Media" data-gtm-category="Social share link">
             <ul class="uq-footer__footer-list uq-footer__contact-social">
-              <li class="uq-footer__footer-item"><a href="https://www.facebook.com/uniofqld" class="uq-footer__meta-icons--facebook uq-footer__meta-icons" aria-label="Facebook" data-gtm-label="Facebook"></a></li>
-              <li class="uq-footer__footer-item"><a href="https://www.linkedin.com/school/university-of-queensland" class="uq-footer__meta-icons--linkedin uq-footer__meta-icons" data-gtm-label="Linkedin" aria-label="Linkedin"></a></li>
-              <li class="uq-footer__footer-item"><a href="https://twitter.com/uq_news" class="uq-footer__meta-icons--twitter uq-footer__meta-icons" data-gtm-label="X" aria-label="X"></a></li>
-              <li class="uq-footer__footer-item"><a href="https://www.youtube.com/user/universityqueensland" class="uq-footer__meta-icons--youtube uq-footer__meta-icons" data-gtm-label="Youtube" aria-label="Youtube"></a></li>
-              <li class="uq-footer__footer-item"><a href="https://instagram.com/uniofqld" class="uq-footer__meta-icons--instagram uq-footer__meta-icons" data-gtm-label="Instagram" aria-label="Instagram"></a></li>
-              <li class="uq-footer__footer-item"><a href="https://www.tiktok.com/@uniofqld" class="uq-footer__meta-icons--tiktok uq-footer__meta-icons" data-gtm-label="TikTok" aria-label="TikTok"></a></li>          
+              <li class="uq-footer__footer-item"><a href="https://www.facebook.com/uniofqld" class="uq-footer__meta-icons--facebook uq-footer__meta-icons" aria-label="Facebook" data-gtm-label="Facebook" data-analyticsid="uqfooter-facebook"></a></li>
+              <li class="uq-footer__footer-item"><a href="https://www.linkedin.com/school/university-of-queensland" class="uq-footer__meta-icons--linkedin uq-footer__meta-icons" data-gtm-label="Linkedin" aria-label="Linkedin"data-analyticsid="uqfooter-linkedin"></a></li>
+              <li class="uq-footer__footer-item"><a href="https://twitter.com/uq_news" class="uq-footer__meta-icons--twitter uq-footer__meta-icons" data-gtm-label="X" aria-label="X" data-analyticsid="uqfooter-twitter"></a></li>
+              <li class="uq-footer__footer-item"><a href="https://www.youtube.com/user/universityqueensland" class="uq-footer__meta-icons--youtube uq-footer__meta-icons" data-gtm-label="Youtube" aria-label="Youtube" data-analyticsid="uqfooter-youtube"></a></li>
+              <li class="uq-footer__footer-item"><a href="https://instagram.com/uniofqld" class="uq-footer__meta-icons--instagram uq-footer__meta-icons" data-gtm-label="Instagram" aria-label="Instagram" data-analyticsid="uqfooter-insta"></a></li>
+              <li class="uq-footer__footer-item"><a href="https://www.tiktok.com/@uniofqld" class="uq-footer__meta-icons--tiktok uq-footer__meta-icons" data-gtm-label="TikTok" aria-label="TikTok" data-analyticsid="uqfooter-tiktok"></a></li>        
             </ul>
           </nav>
           ${guideLoginLink}
@@ -252,7 +252,7 @@ template.innerHTML = `
         <nav class="uq-footer__footer" aria-label="Terms and conditions">
           <ul class="uq-footer__footer-list">
               <li class="uq-footer__footer-item">
-                  <a href="https://www.uq.edu.au/legal/copyright-privacy-disclaimer/" class="uq-footer__link">Copyright, privacy and disclaimer</a>
+                  <a href="https://www.uq.edu.au/legal/copyright-privacy-disclaimer/" class="uq-footer__link" data-analyticsid="uqfooter-privacy">Copyright, privacy and disclaimer</a>
               </li>
               <li class="uq-footer__footer-item">
                 <a href="https://uq.edu.au/accessibility/" class="uq-footer__link" data-analyticsid="uqfooter-accessibility">Accessibility</a>

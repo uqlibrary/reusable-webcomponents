@@ -371,7 +371,7 @@ class SecureCollection extends HTMLElement {
         loginRequiredRedirectorPanel.innerHTML = `
 <p>Login is required for this file - please wait while you are redirected.</p>
 <div id="spinner"></div>
-<p>You can <a data-testid="secure-collection-auth-redirector" id="redirector" href="">click here</a> if you aren't redirected.</p>
+<p>You can <a data-analytics="secure-collection-manuallogin" data-testid="secure-collection-auth-redirector" id="redirector" href="">click here</a> if you aren't redirected.</p>
 `;
 
         const redirectLink = `${authLocale.AUTH_URL_LOGIN}${window.btoa(window.location.href)}`;
@@ -414,7 +414,7 @@ class SecureCollection extends HTMLElement {
         redirectorPanel.innerHTML = `
 <p>We are preparing the file, you should be redirected shortly.</p>
 <div id="spinner"></div>
-<p style="margin-top: 1rem">You can <a data-testid="secure-collection-resource-redirector" id="redirector" href="">download the file</a> if the page does not redirect.</p>
+<p style="margin-top: 1rem">You can <a data-testid="secure-collection-resource-redirector" data-analytics="secure-collection-manualdownload" id="redirector" href="">download the file</a> if the page does not redirect.</p>
 `;
 
         const anchor = redirectorPanel.content.getElementById('redirector');

@@ -10,7 +10,7 @@ template.innerHTML = `
     </button>
     <header class="uq-header" data-gtm-category="Header">
     <div class="uq-header__container">
-        <div class="uq-header__menu-toggle" data-target="global-mobile-nav" data-gtm-category="Primary header">
+        <div class="uq-header__menu-toggle" data-target="global-mobile-nav"  data-gtm-category="Primary header">
             <button id="mobile-menu-toggle-button" data-testid="mobile-menu-toggle-button" data-analyticsid="uq-header-skip-click" type="button" 
             class="nav-primary__toggle nav-primary__menu-toggle slide-menu__control" 
             data-target="global-mobile-nav" data-action="toggle" data-gtm-action="Toggle"
@@ -30,7 +30,7 @@ template.innerHTML = `
                     </li>
                     <li class="uq-header__nav-primary-item"><a class="uq-header__nav-primary-link nav-primary-link" href="https://research.uq.edu.au/" data-gtm-label="Research" data-analyticsid="uq-header-primary-research">Research</a>
                     </li>
-                    <li class="uq-header__nav-primary-item"><a class="uq-header__nav-primary-link nav-primary-link" href="https://partners-community.uq.edu.au" data-gtm-label="Partners and community" data-analyticsid="uq-header-primary-partsners">Partners and community</a>
+                    <li class="uq-header__nav-primary-item"><a class="uq-header__nav-primary-link nav-primary-link" href="https://partners-community.uq.edu.au" data-gtm-label="Partners and community" data-analyticsid="uq-header-primary-partners">Partners and community</a>
                     </li>
                     <li class="uq-header__nav-primary-item"><a class="uq-header__nav-primary-link nav-primary-link" href="https://about.uq.edu.au/" data-gtm-label="About" data-analyticsid="uq-header-primary-about">About</a>
                     </li>
@@ -179,13 +179,13 @@ template.innerHTML = `
                     <li>
                         <a href="#" class="global-mobile-nav__audience-link slide-menu__control" data-analyticsid="uq-header-mobile-about-profile">Our profile</a>
                         <ul>
-                            <li><a href="https://about.uq.edu.au/university-profile" data-gtm-label="About > Introducing UQ">Introducing UQ</a></li>
-                            <li><a href="https://about.uq.edu.au/strategic-plan" data-gtm-label="About > Vision, values and strategy">Vision, values and strategy</a></li>
-                            <li><a href="https://about.uq.edu.au/learning-teaching-student-experience" data-gtm-label="About > Learning, teaching and student experience">Learning, teaching and student experience</a></li>
-                            <li><a href="https://about.uq.edu.au/initiatives" data-gtm-label="About > Strategic initiatives and projects">Strategic initiatives and projects</a></li>
-                            <li><a href="https://about.uq.edu.au/governance-and-organisational-structure" data-gtm-label="About > Governance and organisational structure">Governance and organisational structure</a></li>
-                            <li><a href="https://policies.uq.edu.au" data-gtm-label="About > Policies and procedures">Policies and procedures</a></li>
-                            <li><a href="https://about.uq.edu.au/faculties-schools-institutes-centres" data-gtm-label="About > Faculties, schools, institutes and centres">Faculties, schools, institutes and centres</a></li>
+                            <li><a href="https://about.uq.edu.au/university-profile" data-gtm-label="About > Introducing UQ" data-analyticsid="uq-header-mobile-about-intro">Introducing UQ</a></li>
+                            <li><a href="https://about.uq.edu.au/strategic-plan" data-gtm-label="About > Vision, values and strategy" data-analyticsid="uq-header-mobile-about-vision">Vision, values and strategy</a></li>
+                            <li><a href="https://about.uq.edu.au/learning-teaching-student-experience" data-gtm-label="About > Learning, teaching and student experience" data-analyticsid="uq-header-mobile-about-teaching">Learning, teaching and student experience</a></li>
+                            <li><a href="https://about.uq.edu.au/initiatives" data-gtm-label="About > Strategic initiatives and projects" data-analyticsid="uq-header-mobile-about-strategic">Strategic initiatives and projects</a></li>
+                            <li><a href="https://about.uq.edu.au/governance-and-organisational-structure" data-gtm-label="About > Governance and organisational structure" data-analyticsid="uq-header-mobile-about-governance">Governance and organisational structure</a></li>
+                            <li><a href="https://policies.uq.edu.au" data-gtm-label="About > Policies and procedures" data-analyticsid="uq-header-mobile-about-policies">Policies and procedures</a></li>
+                            <li><a href="https://about.uq.edu.au/faculties-schools-institutes-centres" data-gtm-label="About > Faculties, schools, institutes and centres" data-analyticsid="uq-header-mobile-about-faculties">Faculties, schools, institutes and centres</a></li>
                         </ul>
                     </li>
                     <li>
@@ -200,8 +200,8 @@ template.innerHTML = `
                     <li>
                         <a href="#" class="global-mobile-nav__audience-link slide-menu__control" data-analyticsid="uq-header-mobile-working">Working at UQ</a>
                         <ul>
-                            <li><a href="https://about.uq.edu.au/careers" data-gtm-label="About > Careers at UQ">Careers at UQ</a></li>
-                            <li><a href="https://about.uq.edu.au/careers" data-gtm-label="About > Jobs search">Jobs search</a></li>
+                            <li><a href="https://about.uq.edu.au/careers" data-gtm-label="About > Careers at UQ" data-analyticsid="uq-header-mobile-working-careers">Careers at UQ</a></li>
+                            <li><a href="https://about.uq.edu.au/careers" data-gtm-label="About > Jobs search" data-analyticsid="uq-header-mobile-working-search">Jobs search</a></li>
                         </ul>
                     </li>
                 </ul>

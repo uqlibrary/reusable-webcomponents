@@ -21,6 +21,8 @@ template.innerHTML = `
     </div>
 `;
 
+let initCalled;
+
 class Alert extends HTMLElement {
     constructor() {
         super();
