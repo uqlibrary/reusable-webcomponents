@@ -942,7 +942,9 @@
                 let newHTML;
                 if (h2Element) {
                     const h2Content = h2Element.innerHTML;
-                    newHTML = `<div class="h2-arrow-wrapper"><a title="Scroll to top" href="#" class="uparrow" onclick="scrollToTop()"></a><h2 class="s-lib-box-title">${h2Content}</h2></div>`;
+                    newHTML = `<div class="h2-arrow-wrapper"><a title="Scroll to top" href="#" class="uparrow" onclick="{
+        document.activeElement.blur(); const topOfPage = document.getElementById('a-z-index'); !!topOfPage && topOfPage.scrollIntoView();
+    }"></a><h2 class="s-lib-box-title">${h2Content}</h2></div>`;
                     if (index === 0) {
                         // no link on the first one, but occupy the space
                         newHTML = `<div class="h2-arrow-wrapper"><span class="uparrow"></span><h2 class="s-lib-box-title">${h2Content}</h2></div>`;
@@ -950,11 +952,6 @@
                     h2Element.outerHTML = newHTML;
                 }
             });
-        function scrollToTop() {
-            document.activeElement.blur();
-            const topOfPage = document.getElementById('a-z-index');
-            !!topOfPage && topOfPage.scrollIntoView();
-        }
     }
 
     // unfortunately, the GUI editor sometimes leaves blank paragraphs (all they have to do is press return at the end of the gui and *boom* empty para!)

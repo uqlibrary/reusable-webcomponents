@@ -50,7 +50,7 @@ template.innerHTML = `
       </div>
 
       <!-- Navigation Menu  -->
-      <div class="uq-site-header__navigation-container">
+      <div id="uq-site-header__navigation-container" class="uq-site-header__navigation-container">
         <nav class="uq-site-header__navigation slide-menu__slider" id="jsNav" aria-label="Site navigation">
             <ul class="uq-site-header__navigation__list uq-site-header__navigation__list--level-1" aria-expanded="true">
                 <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-header uq-site-header__navigation__list-item uq-site-header__navigation__list__first-permanent-child">
@@ -202,11 +202,7 @@ class UQSiteHeader extends HTMLElement {
             return window.location.hostname === 'search.library.uq.edu.au';
         }
         function isDomainPrimoSandbox() {
-            return [
-                'uq-edu-primo-sb.hosted.exlibrisgroup.com', // old primo
-                'uq.primo.exlibrisgroup.com', // primo ve     ] only one of these will last as sandbox after golive
-                'uq-psb.primo.exlibrisgroup.com', // primo ve ]
-            ].includes(window.location.hostname);
+            return window.location.hostname === 'uq-psb.primo.exlibrisgroup.com';
         }
         function getSearchParam(name) {
             const urlParams = new URLSearchParams(window.location.search);
