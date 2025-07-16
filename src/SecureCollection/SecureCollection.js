@@ -231,7 +231,7 @@ class SecureCollection extends HTMLElement {
     communication of this material by you may be the subject of copyright protection under the Act.
 </p>
 <div id="download">
-    <a data-testid="secure-collection-commercial-copyright-download-link" id="downloadLink" class="followLink" href="">
+    <a data-analytics="secure-collection-commercial-copyright-download-link" data-testid="secure-collection-commercial-copyright-download-link" id="downloadLink" class="followLink" href="">
         Acknowledge Copyright and Download
     </a>
 </div>
@@ -261,7 +261,7 @@ class SecureCollection extends HTMLElement {
     the Act.
 </p>
 <div id="download">
-    <a id="downloadLink" data-testid="secure-collection-statutory-copyright-download-link" class="followLink" href="">
+    <a id="downloadLink" data-analytics="secure-collection-statutory-copyright-download-link" data-testid="secure-collection-statutory-copyright-download-link" class="followLink" href="">
         Acknowledge Copyright and Download
     </a>
 </div>
@@ -341,15 +341,17 @@ class SecureCollection extends HTMLElement {
         noAccessPanel.innerHTML = `
  <ul>
     <li>
-        If you have another UQ account, <a id="logoutandreturnhere" href="">logout and switch accounts</a> to proceed.
+        If you have another UQ account, <a id="logoutandreturnhere" data-analytics="secure-collection-logoutandreturnhere" href="">logout and switch accounts</a> to proceed.
     </li>
     <li>
-        <a href="${linkToDrupal('/about/contact-us')}">Contact us</a> if you should have file collection access
+        <a data-analytics="secure-collection-contact" href="${linkToDrupal(
+            '/about/contact-us',
+        )}">Contact us</a> if you should have file collection access
         with this account.
     </li>
 </ul>
 <p>
-    Return to the <a href="https://www.library.uq.edu.au/">Library Home Page</a>.
+    Return to the <a data-analytics="secure-collection-return" href="https://www.library.uq.edu.au/">Library Home Page</a>.
 </p>
 `;
 
@@ -369,7 +371,7 @@ class SecureCollection extends HTMLElement {
         loginRequiredRedirectorPanel.innerHTML = `
 <p>Login is required for this file - please wait while you are redirected.</p>
 <div id="spinner"></div>
-<p>You can <a data-testid="secure-collection-auth-redirector" id="redirector" href="">click here</a> if you aren't redirected.</p>
+<p>You can <a data-analytics="secure-collection-manuallogin" data-testid="secure-collection-auth-redirector" id="redirector" href="">click here</a> if you aren't redirected.</p>
 `;
 
         const redirectLink = `${authLocale.AUTH_URL_LOGIN}${window.btoa(window.location.href)}`;
@@ -412,7 +414,7 @@ class SecureCollection extends HTMLElement {
         redirectorPanel.innerHTML = `
 <p>We are preparing the file, you should be redirected shortly.</p>
 <div id="spinner"></div>
-<p style="margin-top: 1rem">You can <a data-testid="secure-collection-resource-redirector" id="redirector" href="">download the file</a> if the page does not redirect.</p>
+<p style="margin-top: 1rem">You can <a data-testid="secure-collection-resource-redirector" data-analytics="secure-collection-manualdownload" id="redirector" href="">download the file</a> if the page does not redirect.</p>
 `;
 
         const anchor = redirectorPanel.content.getElementById('redirector');

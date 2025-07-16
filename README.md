@@ -158,6 +158,8 @@ In addition to the usual branches, the following are in use and should not be de
 
 NB: THIS IS NOT RECOMENDED TO DO AGAIN AS WE HAVE MADE MANY CHANGES WHICH WOULD BE OVERRIDDEN!!! Kept for historic reasons
 
+In fact, it no longer seems to exist at https://github.com/uq-its-ss/design-system/tree/master
+
 ### Current contents
 
 - UQ Header (Last update 28 Feb 2021) - [ITS DS](https://design-system.uq.edu.au/?path=/docs/components-header--header)
