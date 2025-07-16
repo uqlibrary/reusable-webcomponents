@@ -9,7 +9,7 @@ import overrides from './css/overrides.css';
  *       siteurl="https://www.library.uq.edu.au"  // should be displayed on 2nd level sites - the link to the homepage. Optional. Default "https://www.library.uq.edu.au/"
  *       secondleveltitle="Guides"                 // should be displayed on 2nd level sites - the text of the homepage link. Optional. Default null (not present)
  *                                                 // it is probably necessery to always have the secondleveltitle go first (before secondlevelurl)
- *       secondlevelurl="http://guides.library.uq.edu.au"    // should be displayed on all sites - the link of the homepage link. Optional. Default null (not present)
+ *       secondlevelurl="https://guides.library.uq.edu.au"    // should be displayed on all sites (with appropriate local link) - the link of the homepage link. Optional. Default null (not present)
  *       (both second level required if either)
  *   >
  *       <span slot="site-utilities">
@@ -36,10 +36,10 @@ template.innerHTML = `
         <nav class="uq-breadcrumb" aria-label="Breadcrumb">
             <ol class="uq-breadcrumb__list" id="breadcrumb_nav" data-testid="breadcrumb_nav">
                 <li class="uq-breadcrumb__item">
-                    <a class="uq-breadcrumb__link" data-testid="root-link" title="UQ home" href="https://uq.edu.au/">UQ home</a>
+                    <a class="uq-breadcrumb__link" data-testid="root-link" title="UQ home" href="https://uq.edu.au/" data-analytics="uq-siteheader-uq-home">UQ home</a>
                 </li>
                 <li class="uq-breadcrumb__item">
-                    <a id="site-title" data-testid="site-title" class="uq-breadcrumb__link" title="Library" href="https://www.library.uq.edu.au/">Library</a>
+                    <a id="site-title" data-testid="site-title" class="uq-breadcrumb__link" title="Library" href="https://www.library.uq.edu.au/" data-analytics="uq-siteheader-library-home">Library</a>
                 </li>
             </ol>
         </nav>
@@ -50,20 +50,20 @@ template.innerHTML = `
       </div>
 
       <!-- Navigation Menu  -->
-      <div class="uq-site-header__navigation-container">
+      <div id="uq-site-header__navigation-container" class="uq-site-header__navigation-container">
         <nav class="uq-site-header__navigation slide-menu__slider" id="jsNav" aria-label="Site navigation">
             <ul class="uq-site-header__navigation__list uq-site-header__navigation__list--level-1" aria-expanded="true">
                 <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-header uq-site-header__navigation__list-item uq-site-header__navigation__list__first-permanent-child">
                     <a href="https://study.uq.edu.au/" data-testid="uq-header-study-link-mobile" data-analyticsid="uq-header-study-link-mobile">Study</a>
                 </li>
                 <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-header uq-site-header__navigation__list-item">
-                    <a href="https://research.uq.edu.au/">Research</a>
+                    <a href="https://research.uq.edu.au/" data-analytics="uq-siteheader-research-link-mobile">Research</a>
                 </li>
                 <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-header uq-site-header__navigation__list-item">
-                    <a href="https://partners-community.uq.edu.au/">Partners and community</a>
+                    <a href="https://partners-community.uq.edu.au/" data-analytics="uq-siteheader-partners-link-mobile">Partners and community</a>
                 </li>
                 <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-header uq-site-header__navigation__list-item">
-                    <a href="https://about.uq.edu.au/">About</a>
+                    <a href="https://about.uq.edu.au/" data-analytics="uq-siteheader-about-link-mobile">About</a>
                 </li>
                 <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global uq-site-header__navigation__list-item">
                     <a href="https://www.uq.edu.au/" data-testid="uq-header-home-link-mobile" data-analyticsid="uq-header-home-link-mobile">UQ home</a>
@@ -86,8 +86,6 @@ template.innerHTML = `
     </div>
     <a name="after-header" />  
 `;
-
-let initCalled;
 
 class UQSiteHeader extends HTMLElement {
     static get observedAttributes() {
@@ -204,11 +202,7 @@ class UQSiteHeader extends HTMLElement {
             return window.location.hostname === 'search.library.uq.edu.au';
         }
         function isDomainPrimoSandbox() {
-            return [
-                'uq-edu-primo-sb.hosted.exlibrisgroup.com', // old primo
-                'uq.primo.exlibrisgroup.com', // primo ve     ] only one of these will last as sandbox after golive
-                'uq-psb.primo.exlibrisgroup.com', // primo ve ]
-            ].includes(window.location.hostname);
+            return window.location.hostname === 'uq-psb.primo.exlibrisgroup.com';
         }
         function getSearchParam(name) {
             const urlParams = new URLSearchParams(window.location.search);
@@ -216,7 +210,7 @@ class UQSiteHeader extends HTMLElement {
         }
         function isSitePrimoNonProd() {
             const vidParam = getSearchParam('vid');
-            return (isDomainPrimoProd() && vidParam !== '61UQ') || isDomainPrimoSandbox();
+            return (isDomainPrimoProd() && vidParam !== '61UQ_INST:61UQ') || isDomainPrimoSandbox();
         }
 
         const breadcrumbNav = this.shadowRoot.getElementById('breadcrumb_nav');

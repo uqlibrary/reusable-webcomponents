@@ -138,10 +138,6 @@ describe('UQ Header', () => {
                     .find('[data-testid="uq-header-study-link-mobile"]')
                     .should('not.be.visible');
             }
-            function toggleTheMobileMenuButton() {
-                cy.get('uq-header').shadow().find('button[data-testid="mobile-menu-toggle-button"]').trigger('click');
-            }
-
             cy.viewport(768, 1024);
 
             // allow time for menu and ITS script to load
@@ -151,7 +147,7 @@ describe('UQ Header', () => {
 
             // open the menu
             cy.get('uq-header').shadow().find('[data-testid="mobile-menu-toggle-button"]').should('be.visible');
-            toggleTheMobileMenuButton();
+            cy.get('uq-header').shadow().find('button[data-testid="mobile-menu-toggle-button"]').trigger('click');
 
             cy.get('uq-site-header')
                 .shadow()
@@ -176,35 +172,11 @@ describe('UQ Header', () => {
                     cy.get('[data-testid="uq-header-home-link-mobile"]').should('be.visible').and('contain', 'UQ home');
                 });
             // close the mobile menu
-            toggleTheMobileMenuButton();
+            cy.get('uq-header').shadow().find('button[data-testid="mobile-menu-toggle-button"]').trigger('click');
 
             mobileMenuIsHidden();
         });
 
-        it.skip('Desktop menu can open', () => {
-            cy.viewport(1280, 900);
-
-            // mobile button is hidden
-            cy.get('uq-header').shadow().find('[data-testid="mobile-menu-toggle-button"]').should('not.be.visible');
-
-            // allow time for menu and ITS script to load
-            cy.wait(200);
-            // first item in menu is found
-            cy.get('uq-site-header')
-                .shadow()
-                .within(() => {
-                    cy.get('[aria-label="Site navigation"]').should('be.visible');
-                    // but its first child is hidden
-                    cy.get('li[data-testid="menu-group-services-link-0"]').should('not.be.visible');
-                    // hover over the first item
-                    cy.get('a[data-testid="menu-group-item-0-link"]').trigger('mouseenter');
-                    // now the first child is visible
-                    cy.get('li[data-testid="menu-group-services-link-0"]').should('be.visible');
-
-                    cy.get('[data-testid="uq-header-study-link-mobile"]').should('not.be.visible');
-                    cy.get('[data-testid="uq-header-home-link-mobile"]').should('not.be.visible');
-                });
-        });
         it('can send a search on the library site', () => {
             cy.intercept(/search.uq.edu.au/, 'user visits search page');
 

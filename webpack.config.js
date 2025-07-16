@@ -117,7 +117,6 @@ module.exports = () => {
             new CopyPlugin({
                 patterns: [
                     // copy the external js from ITS DS into the dist and rename it
-                    { from: 'src/UQHeader/js/uqds.js', to: 'uq-header.js' },
                     { from: 'src/UQSiteHeader/js/uqds.js', to: 'uq-site-header.js' },
                     // move some needed files into the distro
                     {
@@ -125,6 +124,10 @@ module.exports = () => {
                         to: 'applications/libguides/arrow-right.png',
                     },
                     { from: 'src/applications/libguides/arrow-down.png', to: 'applications/libguides/arrow-down.png' },
+                    {
+                        from: 'src/applications/libguides/images/hero-BSL-group-study.jpg',
+                        to: 'applications/libguides/hero_2025.jpg',
+                    },
                     { from: 'src/favicon.ico', to: 'favicon.ico' },
                     // all load.js for applications should be included here
                     { from: 'src/applications/atom/load.js', to: 'applications/atom/load.js' },
@@ -147,10 +150,6 @@ module.exports = () => {
                         dir: buildPath(process.env.NODE_ENV, 'index'),
                         files: ['uq-lib-reusable.min.js'],
                         rules: [
-                            {
-                                search: /uq-header\.js/gm,
-                                replace: componentJsPath[process.env.NODE_ENV] + 'uq-header.js',
-                            },
                             {
                                 search: /uq-site-header\.js/gm,
                                 replace: componentJsPath[process.env.NODE_ENV] + 'uq-site-header.js',

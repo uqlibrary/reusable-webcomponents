@@ -41,14 +41,14 @@ npm ci
 ## Branches / Environments
 
 | env                  | view at                                                                                                                                                                                         | bucket                                                      |
-| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| -------------------- |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| ----------------------------------------------------------- |
 | prod                 | <https://www.library.uq.edu.au/> <br/>or <https://assets.library.uq.edu.au/reusable-webcomponents/>                                                                                             | s3://uql-reusable-webcomponents-production/                 |
 | staging              | <https://assets.library.uq.edu.au/reusable-webcomponents-staging/> <br/>or <https://homepage-staging.library.uq.edu.au/> - it is the only branch that will call reusable staging                | s3://uql-reusable-webcomponents-staging/                    |
 | general dev          | master branch viewable at https://assets.library.uq.edu.au/reusable-webcomponents-development/master/ <br/>or swap "master" for the name of your branch which has had a pipeline created on AWS | s3://uql-reusable-webcomponents-development/ + subfolder    |
-| Fryer                | staging uses branch `atom-staging` at <https://sandbox-fryer.library.uq.edu.au/><br/>production: <https://manuscripts.library.uq.edu.au/>                                                       | s3://uql-reusable-webcomponents-development/atom-staging/   |
-| Drupal V10           | staging uses branch `drupal-staging` at <https://live-library-uq.pantheonsite.io/> (login first)<br/>production: <https://web.library.uq.edu.au/>                                               | s3://uql-reusable-webcomponents-development/drupal-staging/ |
+| Fryer                | staging uses branch `atom-staging` at <https://sandbox-fryer.library.uq.edu.au/> (when its online - VPN required)<br/>production: <https://manuscripts.library.uq.edu.au/>                      | s3://uql-reusable-webcomponents-development/atom-staging/   |
+| Drupal V10           | staging uses branch `drupal-staging` at <https://web-staging.library.uq.edu.au/> (VPN required)<br/>production: <https://web.library.uq.edu.au/>                                                | s3://uql-reusable-webcomponents-development/drupal-staging/ |
 | Chatbot              | 3 envs: prod, staging & test. ITS chatbot people use Test env, with branch `chatbot-testenv` at <https://homepage-development.library.uq.edu.au/chatbot-testenv/> (matching homepage branch)    | s3://uql-reusable-webcomponents-development/chatbot-test/   |
-| Primo                | Many environments. See repo `exlibris-primo` for details                                                                                                                                        |                                                             |
+| Primo                | USes reusable for styling. Many environments. See repo `exlibris-primo` for details                                                                                                             |                                                             |
 
 ## Development
 
@@ -157,6 +157,8 @@ In addition to the usual branches, the following are in use and should not be de
 ## Setting up from the ITS Design System private packages
 
 NB: THIS IS NOT RECOMENDED TO DO AGAIN AS WE HAVE MADE MANY CHANGES WHICH WOULD BE OVERRIDDEN!!! Kept for historic reasons
+
+In fact, it no longer seems to exist at https://github.com/uq-its-ss/design-system/tree/master
 
 ### Current contents
 
