@@ -60,6 +60,7 @@ function loadReusableComponents() {
     // add a lander for our skiptonav
     const skiptohere = document.createElement('a');
     !!skiptohere && (skiptohere.id = 'skiptohere');
+    !!skiptohere && skiptohere.setAttribute('data-analytics', 'skiptohere');
     !!skiptohere && (skiptohere.href = '#');
 
     const maincontent = document.getElementById('main-content');
