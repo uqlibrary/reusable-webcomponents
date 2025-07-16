@@ -253,7 +253,7 @@ a.uq-site-header__navigation-link.slide-menu__control:-moz-focusring {
 
 .primoNonProdMarker {
     color: white;
-    background-color: #d62929;
+    background-color: rgb(51, 51, 51);
     padding: 2px 8px;
     font-weight: bold;
     font-size: 12px;

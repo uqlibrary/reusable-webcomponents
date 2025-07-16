@@ -961,17 +961,14 @@ prm-explore-main {
     }
 }
 
-// availability statements should be either accent-colour (for mostly available now), or grey (for mostly available by request).
 prm-location,
 prm-location-items,
 prm-snippet.availability-button
-//,prm-search-result-availability-line button
 {
     // default to purple so we never get orange!
     span.availability-status,
     span.availability-status span {
         color: $accent-color !important;
-        text-decoration: underline;
     }
 }
 

@@ -275,12 +275,12 @@ em {
     font-style: italic;
 }
 a {
-    color: #1e72c6;
+    color: #51247a;
     text-decoration: none;
     transition: 0.2s color;
 }
 a:hover {
-    color: #1e72c6;
+    color: #51247a;
     text-decoration: underline;
 }
 .hidden {
@@ -371,7 +371,7 @@ a:hover {
 }
 .uq-accordion__toggle:focus {
     outline: 0 none;
-    color: #1e72c6;
+    color: #51247a;
     text-decoration: underline;
 }
 .uq-accordion__toggle--active {
@@ -431,45 +431,60 @@ a:hover {
     top: 0 !important;
 }
 .uq-button {
-    background-color: #1e72c6;
-    border: 2px solid #1e72c6;
-    border-radius: 0.25rem;
-    box-sizing: border-box;
+    background-color: #51247a;
+    background-repeat: no-repeat;
+    border: 2px solid #51247a;
+    border-radius: 4px;
     color: #fff;
     cursor: pointer;
     display: inline-block;
-    font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 1rem;
-    font-weight: normal;
-    line-height: normal;
-    padding: 0.5rem 1.5rem;
-    position: relative;
-    text-align: center;
+    font-weight: 500;
+    line-height: 1rem;
+    margin-bottom: 0;
+    margin-right: 2rem;
+    padding: 1rem 1.5rem;
+    -webkit-text-decoration: none;
     text-decoration: none;
-    transition: all 300ms ease-out;
+    transition: color .2s,background-color .2s,border-color .2s
 }
 .uq-button *,
 .uq-button *::before,
 .uq-button *::after {
     box-sizing: border-box;
 }
-.uq-button:hover,
+.uq-button:hover {
+    background-color: #fff;
+    border-color: #51247a;
+    color: #51247a;
+    -webkit-text-decoration: underline;
+    text-decoration: underline
+}
 .uq-button:focus {
-    background-color: #005ea5;
-    border-color: #005ea5;
-    color: #fff;
-    text-decoration: underline;
+    outline: 2px solid #0d6dcd;
+    outline-offset: 0
 }
 .uq-button--secondary {
-    background-color: #d7d1cc;
-    border-color: #d7d1cc;
-    color: #2b2a29;
+    background-color: initial;
+    border-color: #51247a;
+    color: #51247a
 }
-.uq-button--secondary:hover,
-.uq-button--secondary:focus {
-    background-color: #aca7a3;
-    border-color: #aca7a3;
-    color: #000;
+
+.uq-button--secondary:hover {
+    background-color: #51247a;
+    border-color: #51247a;
+    color: #fff
+}
+
+.uq-button--secondary.button--reverse {
+    background-color: initial;
+    border-color: #fff;
+    color: #fff
+}
+
+.uq-button--secondary.button--reverse:hover {
+    background-color: #fff;
+    color: #51247a
 }
 .uq-card {
     position: relative;
@@ -479,7 +494,7 @@ a:hover {
     background-color: #fff;
     border: 1px solid #efedeb;
     border-radius: 0.25rem;
-    color: #565452;
+    color: #3b383e;
     line-height: 1.5rem;
     overflow-wrap: break-word;
     word-wrap: break-word;
@@ -758,8 +773,8 @@ input:not([type='checkbox']):not([type='radio']):not([type='submit']) {
     margin-bottom: 1.5rem;
 }
 input:not([type='checkbox']):not([type='radio']):not([type='submit']):focus {
-    border-color: #1e72c6;
-    box-shadow: 0 0 0 1px #1e72c6 inset;
+    border-color: #51247a;
+    box-shadow: 0 0 0 1px #51247a inset;
     outline: none;
 }
 input:not([type='checkbox']):not([type='radio']):not([type='submit'])[disabled] {
