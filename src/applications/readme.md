@@ -47,7 +47,7 @@ We add the header-footer to many third party systems, usually by creating a load
   - the Library catalogue (but note we NEVER use that 'c' word)
   - _styling_ at /src/applications/primo
   - no load.js file - code is in [separate repo](https://github.com/uqlibrary/exlibris-primo) as it is not deployed via AWS
-  - live at <https://search.library.uq.edu.au/primo-explore/search?vid=61UQ_INST:61UQ61UQ&sortby=rank>
+  - live at <https://search.library.uq.edu.au/discovery/search?vid=61UQ_INST:61UQ61UQ&sortby=rank>
   - see full description in readme
   - has multiple branches assigned to it
 - Rightnow
