@@ -95,8 +95,10 @@
         fontLoader('https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css');
         fontLoader('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
 
-        let scriptUrl = getIncludeFullPath('uq-lib-reusable.min.js');
-        insertScript(scriptUrl, true);
+        let mainScriptUrl = getIncludeFullPath('uq-lib-reusable.min.js');
+        insertScript(mainScriptUrl, true);
+        let drupalScriptUrl = getIncludeFullPath('drupal-lib-reusable.min.js');
+        insertScript(drupalScriptUrl, true);
 
         const cssFileName = getIncludeFullPath('applications/libguides/custom-styles.css');
         insertCssFile(cssFileName);
