@@ -17,10 +17,17 @@ noDataTemplate.innerHTML = `
     <p class="uq-card__content" data-testid="training-no-data-message">No classes scheduled; check back soon.</p>
 `;
 
-const apiErrorTemplate = document.createElement('template');
-apiErrorTemplate.innerHTML = `
-    <p class="uq-card__content" data-testid="training-api-error-message">Something went wrong. Please refresh the page to see upcoming courses.</p>
-`;
+// api calls give a CORS error when called from non-library domains such as drupal or guides admin sites
+const apiErrorTemplate = () => {
+    const isAcceptableDomain =
+        window.location.hostname.endsWith('library.uq.edu.au') || window.location.hostname === 'localhost';
+    const errorTemplate = document.createElement('template');
+    /* istanbul ignore else  */
+    errorTemplate.innerHTML = !!isAcceptableDomain
+        ? `<p class="uq-card__content" data-testid="training-api-error-message">Something went wrong. Please refresh the page to see upcoming courses.</p>`
+        : `<p class="uq-card__content">Training events only display on Library websites.</p>`;
+    return errorTemplate;
+};
 
 class Training extends HTMLElement {
     get eventFilterId() {
@@ -136,7 +143,8 @@ class Training extends HTMLElement {
             .catch(() => {
                 this.messageElement.innerHTML = '';
                 this.trainingEvents = [];
-                this.messageElement.appendChild(apiErrorTemplate.content.cloneNode(true));
+                const errorTemplate = apiErrorTemplate();
+                !!errorTemplate && this.messageElement.appendChild(errorTemplate.content.cloneNode(true));
             });
     }
 
