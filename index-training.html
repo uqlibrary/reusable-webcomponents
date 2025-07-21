@@ -21,26 +21,29 @@
                 background-image: url(https://web.library.uq.edu.au/files/75078/background-blur-bright-684314.jpg);
                 background-size: cover;
             }
-            article > details {
+            article > div {
                 margin: 1rem auto;
                 max-width: 710px;
                 padding: 1rem;
-                /*border: 1px solid black;*/
+            }
+            article > div:not(:has(h1)) {
+                border: 1px solid black;
             }
             article h1 {
                 padding: 1rem;
                 font-weight: 400;
                 font-size: 2.438rem;
             }
-            article summary {
-                font-size: 24px;
-                font-weight: 500;
-            }
 
             article h2,
             article p {
                 padding: 0 1rem;
                 color: black;
+            }
+            .pageheading {
+                background-color: #51247a;
+                color: white;
+                min-height: auto;
             }
         </style>
     </head>
@@ -53,19 +56,23 @@
             </span>
         </uq-site-header>
 
+        <article class="pageheading">
+            <div>
+                <h1 data-testid="random-page-element">Training widget demo <a href="#" id="skiptohere">#</a></h1>
+            </div>
+        </article>
         <article>
-            <h1 data-testid="random-page-element">Training widget demo <a href="#" id="skiptohere">#</a></h1>
-            <details open>
-                <summary>Default parameters</summary>
+            <div>
+                <h2>Default parameters</h2>
                 <library-training id="test-with-filter"></library-training>
-            </details>
+            </div>
 
-            <details>
-                <summary>With optional parameters</summary>
+            <div>
+                <h2>With optional parameters</h2>
                 <library-training hide-category-title hide-filter></library-training>
-            </details>
-            <details>
-                <summary>Detail test output</summary>
+            </div>
+            <div>
+                <h2>Detail test output</h2>
                 <!-- places-remaining="Booking is not required" bookingSettings = null -->
                 <p>Logged in EM user looking at a course that doesnt require booking, with St Lucia UQ Maps link</p>
                 <training-detail data-testid="training-event-detail-content-2824657"></training-detail>
@@ -145,7 +152,7 @@
                         };
                     });
                 </script>
-            </details>
+            </div>
         </article>
 
         <connect-footer></connect-footer>
