@@ -60,7 +60,7 @@ function addBookNowButton() {
             const bookingLinkContainer =
                 `<div id="${bookNowWrapperIdentifier}" data-testid="booknowLink" class="bookNowWrapper"">` +
                 '<p>Make an appointment to request access</p>' +
-                `<a class="booknow bookNowLink" target="_blank" href="${bookingLandingPage}">${buttonLabel}</a>` +
+                `<a class="booknow bookNowLink" data-analytics="fryer-booking" target="_blank" href="${bookingLandingPage}">${buttonLabel}</a>` +
                 '</div>';
 
             sidebarMenu.insertAdjacentHTML('beforebegin', bookingLinkContainer);

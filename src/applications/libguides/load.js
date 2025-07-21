@@ -787,18 +787,21 @@
                 if (!parentLinksFromBreadcrumbs) {
                     parentLinksFromBreadcrumbs = document.querySelectorAll('nav[aria-label="Breadcrumb"] a[href]');
                 }
+                parentLinksFromBreadcrumbs = Array.from(parentLinksFromBreadcrumbs);
 
                 const parentTemplate = (classNameBreadcrumb, href, textContent) => {
                     return `<div class="${classNameBreadcrumb}"><a href="${href}" class="uq-local-nav__link">${textContent}</a></div>`;
                 };
 
                 let classNameBreadcrumb = 'uq-local-nav__grandparent';
-                let htmlToInsert = parentTemplate(classNameBreadcrumb, 'https://uq.edu.au/', 'UQ home');
+                let htmlToInsert = '';
+                htmlToInsert += parentTemplate(classNameBreadcrumb, 'https://uq.edu.au/', 'UQ home');
+                htmlToInsert += parentTemplate(classNameBreadcrumb, 'https://www.library.uq.edu.au/', 'Library');
 
-                const breadcrumbLength = 3;
-                const breadcrumbsToUse = [...parentLinksFromBreadcrumbs].slice(0, breadcrumbLength);
-                !breadcrumbsToUse && console.log('breadcrumbs: ', parentLinksFromBreadcrumbs);
-                !breadcrumbsToUse && console.log('breadcrumbs to use: ', breadcrumbsToUse);
+                parentLinksFromBreadcrumbs.shift(); // remove that initial Library link that we have just hardcoded
+
+                const breadcrumbLength = 2;
+                const breadcrumbsToUse = parentLinksFromBreadcrumbs.slice(0, breadcrumbLength);
                 !!breadcrumbsToUse &&
                     breadcrumbsToUse.forEach((link, index) => {
                         if (!!parentElementRequired && index === breadcrumbLength - 1) {
@@ -942,7 +945,9 @@
                 let newHTML;
                 if (h2Element) {
                     const h2Content = h2Element.innerHTML;
-                    newHTML = `<div class="h2-arrow-wrapper"><a title="Scroll to top" href="#" class="uparrow" onclick="scrollToTop()"></a><h2 class="s-lib-box-title">${h2Content}</h2></div>`;
+                    newHTML = `<div class="h2-arrow-wrapper"><a title="Scroll to top" href="#" class="uparrow" onclick="{
+        document.activeElement.blur(); const topOfPage = document.getElementById('a-z-index'); !!topOfPage && topOfPage.scrollIntoView();
+    }"></a><h2 class="s-lib-box-title">${h2Content}</h2></div>`;
                     if (index === 0) {
                         // no link on the first one, but occupy the space
                         newHTML = `<div class="h2-arrow-wrapper"><span class="uparrow"></span><h2 class="s-lib-box-title">${h2Content}</h2></div>`;
@@ -950,11 +955,6 @@
                     h2Element.outerHTML = newHTML;
                 }
             });
-        function scrollToTop() {
-            document.activeElement.blur();
-            const topOfPage = document.getElementById('a-z-index');
-            !!topOfPage && topOfPage.scrollIntoView();
-        }
     }
 
     // unfortunately, the GUI editor sometimes leaves blank paragraphs (all they have to do is press return at the end of the gui and *boom* empty para!)
