@@ -1,6 +1,5 @@
 import overrides from './css/overrides.css';
-import { searchPortalLocale as searchPortalLocaleVe } from './searchPortal.locale';
-import { searchPortalBackOffice as searchPortalLocaleBackOffice } from './searchPortalBackOffice.locale';
+import { searchPortalLocale } from './searchPortal.locale';
 import { throttle } from 'throttle-debounce';
 import ApiAccess from '../ApiAccess/ApiAccess';
 import { cookieNotFound, getCookieValue, setCookie } from '../helpers/cookie';
@@ -35,17 +34,8 @@ const template_searchIcon =
 class SearchPortal extends HTMLElement {
     connectedCallback() {
         this.theme = this.getAttribute('theme') || '';
-        this.fetchData();
+        this.updateTemplate(this.theme);
     }
-
-    fetchData() {
-        new ApiAccess().fetchPrimoStatus().then((primoStatus) => {
-            console.log('primoStatus=', primoStatus);
-            this.primoStatus = primoStatus;
-            this.updateTemplate(this.theme);
-        });
-    }
-
     constructor() {
         super();
         this.theme = this.getAttribute('theme') || '';
@@ -125,7 +115,6 @@ class SearchPortal extends HTMLElement {
 
             const searchType = that.shadowRoot.getElementById('search-type-current-value');
             // searchType.value returns 0,1, ... 8; ie the current dropdown id
-            const searchPortalLocale = this.primoStatus === 'bo' ? searchPortalLocaleBackOffice : searchPortalLocaleVe;
             let type =
                 !!searchPortalLocale.typeSelect &&
                 !!searchPortalLocale.typeSelect.items &&
@@ -281,8 +270,6 @@ class SearchPortal extends HTMLElement {
                 if (!!formObject.currentInputfield) {
                     that.sendSubmitToGTM(e);
 
-                    const searchPortalLocale =
-                        that.primoStatus === 'bo' ? searchPortalLocaleBackOffice : searchPortalLocaleVe;
                     const matches = searchPortalLocale.typeSelect.items.filter((element) => {
                         return element.selectId === formObject.portaltype;
                     });
@@ -591,7 +578,6 @@ class SearchPortal extends HTMLElement {
             const portalTypeCurrentLabelText =
                 !!portalTypeCurrentLabel && portalTypeCurrentLabel.innerHTML.replace('&amp;', '_');
             let matchingID = 0;
-            const searchPortalLocale = this.primoStatus === 'bo' ? searchPortalLocaleBackOffice : searchPortalLocaleVe;
             !!searchPortalLocale.typeSelect &&
                 !!searchPortalLocale.typeSelect.items &&
                 searchPortalLocale.typeSelect.items.forEach((item, index) => {
@@ -720,8 +706,6 @@ class SearchPortal extends HTMLElement {
                 }
             } else if (isTabKeyPressed(e)) {
                 const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
-                const searchPortalLocale =
-                    this.primoStatus === 'bo' ? searchPortalLocaleBackOffice : searchPortalLocaleVe;
                 const lastId = searchPortalLocale.typeSelect.items.length - 1;
                 const finalEntry = `portalTypeSelectionEntry-${lastId}`;
                 if (!!eventTarget && eventTarget.classList.contains(finalEntry)) {
@@ -742,7 +726,6 @@ class SearchPortal extends HTMLElement {
 
         // put the text label on the display
         const portalTypeCurrentLabel = this.shadowRoot.getElementById('portaltype-current-label');
-        const searchPortalLocale = this.primoStatus === 'bo' ? searchPortalLocaleBackOffice : searchPortalLocaleVe;
         !!portalTypeCurrentLabel &&
             !!searchPortalLocale.typeSelect &&
             !!searchPortalLocale.typeSelect.items[useSearchType] &&
@@ -794,7 +777,6 @@ class SearchPortal extends HTMLElement {
             portalTypeDropdown.setAttribute('aria-labelledby', 'search-portal-type-select-label-sub');
         !!portalTypeDropdown && portalTypeDropdown.setAttribute('data-testid', 'search-type-selector');
 
-        const searchPortalLocale = this.primoStatus === 'bo' ? searchPortalLocaleBackOffice : searchPortalLocaleVe;
         !!portalTypeDropdown &&
             !!searchPortalLocale.typeSelect &&
             searchPortalLocale.typeSelect.items.forEach((entry, index) => {
@@ -850,7 +832,6 @@ class SearchPortal extends HTMLElement {
         // clear current footer links
         !!footerLinkContainer && (footerLinkContainer.innerHTML = '');
         // add the footer links for this searchtype
-        const searchPortalLocale = this.primoStatus === 'bo' ? searchPortalLocaleBackOffice : searchPortalLocaleVe;
         !!footerLinkContainer &&
             searchPortalLocale.footerLinks.forEach((link, index) => {
                 if (link.display.includes(searchType) && link.linkto !== window.location.href) {
