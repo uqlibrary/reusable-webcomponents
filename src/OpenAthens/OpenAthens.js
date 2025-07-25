@@ -28,13 +28,13 @@ template.innerHTML = `
                     </svg>
                 </span>
             </div>
-            <button id="open-athens-create-link-button" data-testid="create-link-button" class="uq-button hidden" data-analytics="openathens-createlink">Create Link</button>
-            <button id="open-athens-url-clear-button" data-testid="url-clear-button" class="uq-button uq-button--secondary hidden" data-analytics="openathens-clear-before">Clear</button>
+            <button id="open-athens-create-link-button" data-testid="create-link-button" class="uq-button hidden" data-analyticsid="openathens-createlink">Create Link</button>
+            <button id="open-athens-url-clear-button" data-testid="url-clear-button" class="uq-button uq-button--secondary hidden" data-analyticsid="openathens-clear-before">Clear</button>
             <span id="open-athens-copy-options" data-testid="copy-options" class="hidden">
                 <textarea readonly aria-label="Visitable link as requested" id="open-athens-url-display-area" data-testid="url-display-area"></textarea>
-                <button id="open-athens-visit-link-button" data-testid="visit-link-button" class="uq-button" data-analytics="openathens-visit">Visit Link</button>
-                <button id="open-athens-copy-link-button" data-testid="copy-link-button" class="uq-button" data-analytics="openathens-copy">Copy Link</button>
-                <button id="open-athens-create-new-link-button" data-testid="create-new-link-button" class="uq-button uq-button--secondary" data-analytics="openathens-clear-after">Clear</button>
+                <button id="open-athens-visit-link-button" data-testid="visit-link-button" class="uq-button" data-analyticsid="openathens-visit">Visit Link</button>
+                <button id="open-athens-copy-link-button" data-testid="copy-link-button" class="uq-button" data-analyticsid="openathens-copy">Copy Link</button>
+                <button id="open-athens-create-new-link-button" data-testid="create-new-link-button" class="uq-button uq-button--secondary" data-analyticsid="openathens-clear-after">Clear</button>
                 <div id="open-athens-copy-status" data-testid="copy-status"></div>
             </span>
             <span id="open-athens-redirect-options" data-testid="redirect-options" class="hidden">

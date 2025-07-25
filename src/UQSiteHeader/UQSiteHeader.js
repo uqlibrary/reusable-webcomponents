@@ -36,10 +36,10 @@ template.innerHTML = `
         <nav class="uq-breadcrumb" aria-label="Breadcrumb">
             <ol class="uq-breadcrumb__list" id="breadcrumb_nav" data-testid="breadcrumb_nav">
                 <li class="uq-breadcrumb__item">
-                    <a class="uq-breadcrumb__link" data-testid="root-link" title="UQ home" href="https://uq.edu.au/" data-analytics="uq-siteheader-uq-home">UQ home</a>
+                    <a class="uq-breadcrumb__link" data-testid="root-link" title="UQ home" href="https://uq.edu.au/" data-analyticsid="uq-siteheader-uq-home">UQ home</a>
                 </li>
                 <li class="uq-breadcrumb__item">
-                    <a id="site-title" data-testid="site-title" class="uq-breadcrumb__link" title="Library" href="https://www.library.uq.edu.au/" data-analytics="uq-siteheader-library-home">Library</a>
+                    <a id="site-title" data-testid="site-title" class="uq-breadcrumb__link" title="Library" href="https://www.library.uq.edu.au/" data-analyticsid="uq-siteheader-library-home">Library</a>
                 </li>
             </ol>
         </nav>
@@ -57,13 +57,13 @@ template.innerHTML = `
                     <a href="https://study.uq.edu.au/" data-testid="uq-header-study-link-mobile" data-analyticsid="uq-header-study-link-mobile">Study</a>
                 </li>
                 <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-header uq-site-header__navigation__list-item">
-                    <a href="https://research.uq.edu.au/" data-analytics="uq-siteheader-research-link-mobile">Research</a>
+                    <a href="https://research.uq.edu.au/" data-analyticsid="uq-siteheader-research-link-mobile">Research</a>
                 </li>
                 <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-header uq-site-header__navigation__list-item">
-                    <a href="https://partners-community.uq.edu.au/" data-analytics="uq-siteheader-partners-link-mobile">Partners and community</a>
+                    <a href="https://partners-community.uq.edu.au/" data-analyticsid="uq-siteheader-partners-link-mobile">Partners and community</a>
                 </li>
                 <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-header uq-site-header__navigation__list-item">
-                    <a href="https://about.uq.edu.au/" data-analytics="uq-siteheader-about-link-mobile">About</a>
+                    <a href="https://about.uq.edu.au/" data-analyticsid="uq-siteheader-about-link-mobile">About</a>
                 </li>
                 <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-global uq-site-header__navigation__list-item">
                     <a href="https://www.uq.edu.au/" data-testid="uq-header-home-link-mobile" data-analyticsid="uq-header-home-link-mobile">UQ home</a>
