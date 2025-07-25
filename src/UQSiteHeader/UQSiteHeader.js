@@ -1,7 +1,7 @@
 import styles from './css/main.css';
 import breadcrumbs from './css/breadcrumbs.css';
 import overrides from './css/overrides.css';
-import { sendLinkClickToGTM } from '../helpers/gtmHelpers';
+import { sendClickToGTM } from '../helpers/gtmHelpers';
 
 /**
  * API:
@@ -135,7 +135,7 @@ class UQSiteHeader extends HTMLElement {
         window.addEventListener('popstate', checkIfHomepage);
 
         const links = shadowDOM.querySelectorAll('a');
-        !!links && links.length > 0 && links.forEach((l) => l.addEventListener('click', (e) => sendLinkClickToGTM(e)));
+        !!links && links.length > 0 && links.forEach((l) => l.addEventListener('click', (e) => sendClickToGTM(e)));
     }
 
     isValidUrl(urlString) {

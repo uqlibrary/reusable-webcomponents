@@ -1,21 +1,24 @@
 /**
  * Events aren't sending properly to GTM, provide a generic way to force the Send
  */
-export function sendLinkClickToGTM(e) {
+export function sendClickToGTM(e) {
     window.dataLayer = window.dataLayer || []; // for tests
     if (!!e) {
         const elementId =
             e.target?.closest('[data-analyticsid]')?.getAttribute('data-analyticsid') ||
-            e.target?.id ||
-            e.target?.closest('[id]')?.id ||
+            e.target?.id?.trim() ||
+            e.target?.closest('[id]')?.id?.trim() ||
             'not found';
-        const linkLabel = e.target?.textContent?.trim() || e.target?.innerHTML?.trim();
+        const linkLabel =
+            e.target?.textContent?.trim() ||
+            e.target?.closest('[title]')?.getAttribute('title') ||
+            e.target?.innerHTML?.trim();
         const gtmItems = {
             event: 'gtm.linkClick', //shows as "Link Click" in the sidebar of Tag Assistant
             'gtm.elementId': elementId,
-            'gtm.element': linkLabel, // loads into Form Element
+            'gtm.element': linkLabel,
         };
-        console.log('sendLinkClickToGTM gtmItems=', gtmItems);
+        console.log('sendClickToGTM gtmItems=', gtmItems);
         window.dataLayer.push(gtmItems);
     }
 }

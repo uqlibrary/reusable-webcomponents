@@ -14,7 +14,7 @@ import {
     linkToDrupal,
 } from '../helpers/access';
 import { getAccountMenuRoot } from './helpers';
-import { sendLinkClickToGTM } from '../helpers/gtmHelpers';
+import { sendClickToGTM } from '../helpers/gtmHelpers';
 
 /*
  * usage:
@@ -451,7 +451,12 @@ class AuthButton extends HTMLElement {
 
     addGeneralButtonListeners(shadowDOM) {
         const links = shadowDOM.querySelectorAll('a');
-        !!links && links.length > 0 && links.forEach((l) => l.addEventListener('click', (e) => sendLinkClickToGTM(e)));
+        !!links && links.length > 0 && links.forEach((l) => l.addEventListener('click', (e) => sendClickToGTM(e)));
+
+        const buttons = shadowDOM.querySelectorAll('button');
+        !!buttons &&
+            buttons.length > 0 &&
+            buttons.forEach((b) => b.addEventListener('click', (e) => sendClickToGTM(e)));
     }
 
     addLogoutButtonListeners(shadowDOM, account = null) {

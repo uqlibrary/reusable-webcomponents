@@ -1,7 +1,7 @@
 import styles from './css/main.css';
 import overrides from './css/overrides.css';
 import { cookieNotFound, setCookie } from '../helpers/cookie';
-import { sendLinkClickToGTM } from '../helpers/gtmHelpers';
+import { sendClickToGTM } from '../helpers/gtmHelpers';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -150,7 +150,7 @@ class Alert extends HTMLElement {
     }
     addButtonListeners(shadowDOM) {
         const links = shadowDOM.querySelectorAll('a');
-        !!links && links.length > 0 && links.forEach((l) => l.addEventListener('click', (e) => sendLinkClickToGTM(e)));
+        !!links && links.length > 0 && links.forEach((l) => l.addEventListener('click', (e) => sendClickToGTM(e)));
     }
 }
 

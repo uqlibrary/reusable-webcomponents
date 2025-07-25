@@ -4,7 +4,7 @@ import overrides from './css/overrides.css';
 import { authLocale } from '../UtilityArea/auth.locale';
 import { apiLocale as apilocale, apiLocale as locale } from '../ApiAccess/ApiAccess.locale';
 import { linkToDrupal } from '../helpers/access';
-import { sendLinkClickToGTM } from '../helpers/gtmHelpers';
+import { sendClickToGTM } from '../helpers/gtmHelpers';
 
 const fileExtensionElement = document.createElement('template');
 fileExtensionElement.innerHTML = `
@@ -523,7 +523,7 @@ class SecureCollection extends HTMLElement {
 
     addButtonListeners(shadowDOM) {
         const links = shadowDOM.querySelectorAll('a');
-        !!links && links.length > 0 && links.forEach((l) => l.addEventListener('click', (e) => sendLinkClickToGTM(e)));
+        !!links && links.length > 0 && links.forEach((l) => l.addEventListener('click', (e) => sendClickToGTM(e)));
     }
 }
 
