@@ -1,5 +1,6 @@
 import culturalcss from './css/culturaladvicebanner.css';
 import { linkToDrupal } from '../helpers/access';
+import { sendLinkClickToGTM } from '../helpers/gtmHelpers';
 
 /**
  * API
@@ -32,6 +33,19 @@ class CulturalAdvice extends HTMLElement {
 
         // Render the template
         shadowDOM.appendChild(template.content.cloneNode(true));
+
+        this.addButtonListeners(shadowDOM);
+    }
+    addButtonListeners(shadowDOM, isOnline) {
+        const that = this;
+        const links = shadowDOM.querySelectorAll('a');
+        !!links &&
+            links.length > 0 &&
+            links.forEach((l) =>
+                l.addEventListener('click', (e) => {
+                    sendLinkClickToGTM(e, false, false);
+                }),
+            );
     }
 }
 

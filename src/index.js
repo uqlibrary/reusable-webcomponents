@@ -28,7 +28,6 @@ if (!supportsCustomElements) {
 import Alert from './Alert/Alert';
 import Alerts from './Alerts/Alerts';
 import ApiAccess from './ApiAccess/ApiAccess';
-import OpenAthens from './OpenAthens/OpenAthens';
 import ProactiveChat from './UtilityArea/ProactiveChat';
 import AuthButton from './UtilityArea/AuthButton';
 import gtm from './GTM/gtm';
@@ -50,7 +49,6 @@ customElements.define('alert-list', Alerts);
 customElements.define('api-access', ApiAccess);
 customElements.define('proactive-chat', ProactiveChat);
 customElements.define('auth-button', AuthButton);
-customElements.define('open-athens', OpenAthens);
 customElements.define('search-portal', SearchPortal);
 customElements.define('secure-collection', SecureCollection);
 customElements.define('uq-alert', Alert);
