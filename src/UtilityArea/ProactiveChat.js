@@ -522,7 +522,7 @@ class ProactiveChat extends HTMLElement {
         const proactiveleaveQuestion = that.shadowDOM.querySelector('#leaveAQuestionPrompt');
         !!proactiveleaveQuestion && proactiveleaveQuestion.addEventListener('click', navigateToContactUs);
 
-        const buttons = shadowDOM.querySelectorAll('button');
+        const buttons = that.shadowDOM.querySelectorAll('button');
         !!buttons &&
             buttons.length > 0 &&
             buttons.forEach((b) => b.addEventListener('click', (e) => sendClickToGTM(e)));
