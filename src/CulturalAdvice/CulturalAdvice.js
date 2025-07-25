@@ -43,7 +43,7 @@ class CulturalAdvice extends HTMLElement {
             links.length > 0 &&
             links.forEach((l) =>
                 l.addEventListener('click', (e) => {
-                    sendLinkClickToGTM(e, false, false);
+                    sendLinkClickToGTM(e);
                 }),
             );
     }
