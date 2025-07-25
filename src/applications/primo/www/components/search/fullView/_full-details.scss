@@ -48,6 +48,11 @@ prm-full-view {
             }
         }
     }
+
+    // if we manage to write a second CRL button in the sidebar, hide subsequent buttons
+    .sidebar-crl-label + .sidebar-crl-label {
+        display: none;
+    }
 }
 
 .full-view-container {

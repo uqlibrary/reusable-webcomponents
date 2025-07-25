@@ -1,7 +1,7 @@
 import styles from './css/main.css';
 import listStyles from './css/list.css';
 import uqds from './js/uqds';
-import ApiAccess from '../ApiAccess/ApiAccess';
+import UserAccount from '../ApiAccess/UserAccount';
 import { apiLocale } from '../ApiAccess/ApiAccess.locale';
 
 const template = document.createElement('template');
@@ -29,7 +29,7 @@ categoryTemplate.innerHTML = `
                 </div>
             </div>
             <div class="uq-card__actions">
-                <button class="uq-button uq-button--secondary is-more" data-testid="training-events-toggle-full-list" data-analyticsid="training-event-detail-showmore">Show more</button>
+                <button class="uq-button is-more" data-testid="training-events-toggle-full-list" data-analyticsid="training-event-detail-showmore">Show more</button>
             </div>
         </div>
     </div>
@@ -162,17 +162,35 @@ class TrainingList extends HTMLElement {
         toggleButton.setAttribute('data-analyticsid', toggleButtonId);
         toggleButton.setAttribute('aria-controls', detailContainerId);
 
-        const eventDate = new Date(event.start);
+        const eventStartDate = new Date(event.start);
+        const eventStartTimeDisplay = eventStartDate.toLocaleDateString('default', {
+            day: 'numeric',
+            month: 'short',
+            timeZone: 'Australia/Brisbane',
+        });
+        const eventEndDate = new Date(event.end);
+        const eventEndTimeDisplay = eventEndDate.toLocaleDateString('default', {
+            day: 'numeric',
+            month: 'short',
+            timeZone: 'Australia/Brisbane',
+        });
+
+        const dataAppend =
+            eventStartDate.getDate() !== eventEndDate.getDate()
+                ? `<span> - </span><time datetime="${eventEndDate.toISOString()}" id="event-date-${
+                      event.entityId
+                  }">${eventEndTimeDisplay}</time>`
+                : '';
+
         toggleButton.innerHTML = `
             <div class="group-first" tab-index="-1">
                 <h4 id="event-name-${event.entityId}">${event.name}</h4>
-                <time datetime="${eventDate.toISOString()}" id="event-date-${event.entityId}">
-                    ${eventDate.toLocaleDateString('default', {
-                        day: 'numeric',
-                        month: 'short',
-                        timeZone: 'Australia/Brisbane',
-                    })}
-                </date>
+                <span class="dateRange" data-testid="event-dateRange-${event.entityId}">
+                    <time datetime="${eventStartDate.toISOString()}" id="event-date-${event.entityId}">
+                        ${eventStartTimeDisplay}
+                    </time>
+                    ${dataAppend}
+                </span>
             </div>
             <div id="event-venue-${event.entityId}">${event.venue}</div>
         `;
@@ -218,22 +236,15 @@ class TrainingList extends HTMLElement {
     async checkAuthorisedUser() {
         const that = this;
         that.account = {};
-        let accountData = {};
-        const getStoredUserDetails = setInterval(() => {
-            accountData = new ApiAccess().getAccountFromStorage();
-            if (
-                !!accountData &&
-                accountData.hasOwnProperty('status') &&
-                (accountData.status === apiLocale.USER_LOGGED_IN || accountData.status === apiLocale.USER_LOGGED_OUT)
-            ) {
-                clearInterval(getStoredUserDetails);
+        return new UserAccount().get().then((accountData) => {
+            if (!!accountData && accountData.hasOwnProperty('status')) {
                 if (accountData.status === apiLocale.USER_LOGGED_IN) {
                     that.account = accountData.account;
                     return true;
                 }
                 return false;
             }
-        }, 100);
+        });
     }
 }
 

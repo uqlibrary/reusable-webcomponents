@@ -804,6 +804,7 @@ class SearchPortal extends HTMLElement {
         !!anchor && (anchor.rel = 'noreferrer');
         !!anchor && (anchor.ariaLabel = link.label);
         !!anchor && anchor.setAttribute('data-analyticsid', `search-portal-footerlink-${index}`);
+        !!anchor && anchor.setAttribute('data-testid', `search-portal-footerlink-${index}`);
         !!anchor &&
             anchor.addEventListener(
                 'click',
@@ -1009,11 +1010,6 @@ class SearchPortal extends HTMLElement {
                     .searchLabel {
                     transform-origin: left center;
                     }
-
-                   
-
-                   
-                        
                 }
 
             </style>

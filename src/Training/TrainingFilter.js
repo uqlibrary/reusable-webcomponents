@@ -313,6 +313,10 @@ class TrainingFilter extends HTMLElement {
         const that = this;
         const chips = [
             {
+                term: 'Artificial Intelligence',
+                label: 'AI',
+            },
+            {
                 term: 'Excel',
                 label: 'Excel',
             },

@@ -9,7 +9,7 @@ import overrides from './css/overrides.css';
  *       siteurl="https://www.library.uq.edu.au"  // should be displayed on 2nd level sites - the link to the homepage. Optional. Default "https://www.library.uq.edu.au/"
  *       secondleveltitle="Guides"                 // should be displayed on 2nd level sites - the text of the homepage link. Optional. Default null (not present)
  *                                                 // it is probably necessery to always have the secondleveltitle go first (before secondlevelurl)
- *       secondlevelurl="http://guides.library.uq.edu.au"    // should be displayed on all sites - the link of the homepage link. Optional. Default null (not present)
+ *       secondlevelurl="https://guides.library.uq.edu.au"    // should be displayed on all sites (with appropriate local link) - the link of the homepage link. Optional. Default null (not present)
  *       (both second level required if either)
  *   >
  *       <span slot="site-utilities">
@@ -50,7 +50,7 @@ template.innerHTML = `
       </div>
 
       <!-- Navigation Menu  -->
-      <div class="uq-site-header__navigation-container">
+      <div id="uq-site-header__navigation-container" class="uq-site-header__navigation-container">
         <nav class="uq-site-header__navigation slide-menu__slider" id="jsNav" aria-label="Site navigation">
             <ul class="uq-site-header__navigation__list uq-site-header__navigation__list--level-1" aria-expanded="true">
                 <li class="megamenu-global-nav--mobile megamenu-global-nav--mobile-header uq-site-header__navigation__list-item uq-site-header__navigation__list__first-permanent-child">
@@ -86,8 +86,6 @@ template.innerHTML = `
     </div>
     <a name="after-header" />  
 `;
-
-let initCalled;
 
 class UQSiteHeader extends HTMLElement {
     static get observedAttributes() {
@@ -204,7 +202,7 @@ class UQSiteHeader extends HTMLElement {
             return window.location.hostname === 'search.library.uq.edu.au';
         }
         function isDomainPrimoSandbox() {
-            return window.location.hostname === 'uq-edu-primo-sb.hosted.exlibrisgroup.com';
+            return window.location.hostname === 'uq-psb.primo.exlibrisgroup.com';
         }
         function getSearchParam(name) {
             const urlParams = new URLSearchParams(window.location.search);
@@ -212,7 +210,7 @@ class UQSiteHeader extends HTMLElement {
         }
         function isSitePrimoNonProd() {
             const vidParam = getSearchParam('vid');
-            return (isDomainPrimoProd() && vidParam !== '61UQ') || isDomainPrimoSandbox();
+            return (isDomainPrimoProd() && vidParam !== '61UQ_INST:61UQ') || isDomainPrimoSandbox();
         }
 
         const breadcrumbNav = this.shadowRoot.getElementById('breadcrumb_nav');

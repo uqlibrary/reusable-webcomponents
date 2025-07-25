@@ -2,127 +2,9 @@ import MockApi from '../../mock/MockApi';
 import ApiRoutes from '../ApiRoutes';
 import { apiLocale as locale } from './ApiAccess.locale';
 import fetchJsonp from 'fetch-jsonp';
-import { clearCookie, cookieFound, getCookieValue } from '../helpers/cookie';
-import { authLocale } from '../UtilityArea/auth.locale';
-import { getHomepageLink } from '../helpers/access';
-
-let initCalled;
+import { getCookieValue } from '../helpers/cookie';
 
 class ApiAccess {
-    constructor() {
-        this.LOGGED_OUT_ACCOUNT = {
-            status: locale.USER_LOGGED_OUT,
-            account: 'empty', // this is temporary code - account needs to exist for old homepage version to not trip some bad code. Remove after May 2023
-        };
-
-        this.isSessionStorageEnabled = this.sessionStorageCheck();
-        const storedUserDetailsRaw =
-            (this.isSessionStorageEnabled && sessionStorage.getItem(locale.STORAGE_ACCOUNT_KEYNAME)) || null;
-        // never allow there to be no or invalid account storage (weird thing happening on Secure Collection)
-        if (storedUserDetailsRaw === null) {
-            this.setStorageLoggedOut();
-        } else {
-            const storedUserDetails = !!storedUserDetailsRaw && JSON.parse(storedUserDetailsRaw);
-            if (!storedUserDetails.hasOwnProperty('status')) {
-                this.setStorageLoggedOut();
-            }
-        }
-    }
-
-    sessionStorageCheck() {
-        try {
-            const key = `__storage__test`;
-            sessionStorage.setItem(key, null);
-            sessionStorage.removeItem(key);
-            return true;
-        } catch (e) {
-            return false;
-        }
-    }
-
-    watchForSessionExpiry() {
-        // let the calling page know account is available
-        if ('BroadcastChannel' in window) {
-            const bc = new BroadcastChannel('account_availability');
-            bc.postMessage('account_updated');
-
-            bc.onmessage = (messageEvent) => {
-                if (messageEvent.data === 'account_removed') {
-                    this.markAccountStorageLoggedOut();
-                    this.logUserOut();
-                    this.recreateAuthButton();
-                }
-            };
-        }
-
-        // watch the session cookie for expiry when the user is logged in
-        if (this.getSessionCookie() !== undefined && this.getLibraryGroupCookie() !== undefined) {
-            const watchforAccountExpiry = setInterval(() => {
-                if (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined) {
-                    this.announceUserLoggedOut();
-                    clearInterval(watchforAccountExpiry);
-                }
-            }, 1000);
-        }
-    }
-
-    async loadAccountApi() {
-        const ACCOUNT_CALL_INCOMPLETE = 'incomplete';
-        const ACCOUNT_CALL_DONE = 'done';
-
-        if (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined) {
-            // no cookie, force them to log in again
-            this.markAccountStorageLoggedOut();
-            return false;
-        }
-
-        const userDetails = this.getAccountFromStorage();
-        if (
-            !!userDetails &&
-            userDetails.hasOwnProperty('status') &&
-            userDetails.status === locale.USER_LOGGED_IN &&
-            userDetails.hasOwnProperty('account') &&
-            userDetails.account.hasOwnProperty('id')
-        ) {
-            this.watchForSessionExpiry();
-            return true;
-        }
-
-        const accountApi = new ApiRoutes().CURRENT_ACCOUNT_API();
-        const urlPath = accountApi.apiUrl;
-        let accountCallStatus = ACCOUNT_CALL_INCOMPLETE;
-        return await this.fetchAPI(urlPath, {}, true)
-            .then((account) => {
-                if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
-                    this.storeAccount(account);
-                    accountCallStatus = ACCOUNT_CALL_DONE;
-
-                    this.watchForSessionExpiry();
-
-                    const authorApi = new ApiRoutes().CURRENT_AUTHOR_API();
-                    const urlPath = authorApi.apiUrl;
-                    return this.fetchAPI(urlPath, {}, true);
-                } else {
-                    this.announceUserLoggedOut();
-                    accountCallStatus = ACCOUNT_CALL_DONE;
-                    return false;
-                }
-            })
-            .then((author) => {
-                this.addCurrentAuthorToStoredAccount(author);
-                return true;
-            })
-            .catch((error) => {
-                if (accountCallStatus === ACCOUNT_CALL_INCOMPLETE) {
-                    // it was the account call that had an error; authors was never called
-                    this.announceUserLoggedOut();
-                    return false;
-                }
-                this.addCurrentAuthorToStoredAccount({ data: null });
-                return true;
-            });
-    }
-
     async loadChatStatus() {
         let isOnline = false;
         const chatstatusApi = new ApiRoutes().CHAT_API();
@@ -373,7 +255,12 @@ class ApiAccess {
             const connector = urlPath.indexOf('?') > -1 ? '&' : '?';
             const addTimestamp = !!timestampRequired ? `${connector}ts=${new Date().getTime()}` : '';
 
-            const response = await fetch(`${API_URL}${urlPath}${addTimestamp}`, {
+            // if we are calling a non-api url then we will have already set the domain name
+            const finalUrl = urlPath.startsWith('http')
+                ? `${urlPath}${addTimestamp}`
+                : `${API_URL}${urlPath}${addTimestamp}`;
+            console.log(urlPath, 'calls: ', finalUrl);
+            const response = await fetch(finalUrl, {
                 headers: options,
             });
 
@@ -410,131 +297,6 @@ class ApiAccess {
             }
             return await response.json();
         }
-    }
-
-    storeAccount(account, numberOfHoursUntilExpiry = 1) {
-        // for improved UX, expire the session storage when the token must surely be expired, for those rare long sessions
-        // session lasts 8 hours, per https://auth.uq.edu.au/about/
-        // (note: because we cant predict what other system the user first logged into we don't actually know
-        // how much more of their session is left)
-
-        const millisecondsUntilExpiry =
-            8 * numberOfHoursUntilExpiry * 60 /*min*/ * 60 /*sec*/ * 1000; /* milliseconds */
-        const storageExpiryDate = {
-            storageExpiryDate: new Date().setTime(new Date().getTime() + millisecondsUntilExpiry),
-        };
-        // structure must match that used in homepage as they both write to the same storage
-        // (has to, as reusable will remove storage to log homepage out!)
-        let storeableAccount = {
-            status: locale.USER_LOGGED_IN,
-            account: {
-                ...account,
-            },
-            ...storageExpiryDate,
-        };
-        storeableAccount = JSON.stringify(storeableAccount);
-        this.isSessionStorageEnabled && sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, storeableAccount);
-    }
-
-    // this is called from loadAccountApi, above, via authbutton once and if that fails,
-    // it will call the apis to get the account details and load them into sessionstorage.
-    // It is called from other components (training, secure collection, etc.) in a loop, waiting on
-    // the authbutton's call to loadAccountApi, above, to load the account into the sessionstorage
-    getAccountFromStorage() {
-        const storedUserDetailsRaw =
-            this.isSessionStorageEnabled && sessionStorage.getItem(locale.STORAGE_ACCOUNT_KEYNAME);
-        const storedUserDetails = !!storedUserDetailsRaw && JSON.parse(storedUserDetailsRaw);
-        if (this.isMock()) {
-            const mockUserHasChanged =
-                !!storedUserDetails &&
-                storedUserDetails.hasOwnProperty('account') &&
-                storedUserDetails.account.hasOwnProperty('id') &&
-                storedUserDetails.account.id !== new MockApi().user;
-            if (!!mockUserHasChanged) {
-                // allow developer to swap between users in the same tab
-                this.markAccountStorageLoggedOut();
-                return null;
-            }
-        }
-
-        const now = new Date().getTime();
-        if (!!storedUserDetails.hasOwnProperty('storageExpiryDate') && storedUserDetails.storageExpiryDate < now) {
-            this.announceUserLoggedOut();
-            this.markAccountStorageLoggedOut();
-            this.logUserOut();
-            return this.LOGGED_OUT_ACCOUNT;
-        }
-
-        return storedUserDetails;
-    }
-
-    addCurrentAuthorToStoredAccount(currentAuthor) {
-        const storedAccount = this.getAccountFromStorage();
-        /* istanbul ignore next */
-        if (!this.isSessionStorageEnabled || storedAccount === null) {
-            return;
-        }
-        let storeableAccount = {
-            ...storedAccount,
-            currentAuthor: {
-                ...currentAuthor.data,
-            },
-        };
-        storeableAccount = JSON.stringify(storeableAccount);
-        this.isSessionStorageEnabled && sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, storeableAccount);
-    }
-
-    recreateAuthButton() {
-        const authButton = document.querySelector('auth-button');
-        if (!!authButton) {
-            // create temporary reference element so we know where to paste the new logged out auth
-            const referenceElement = document.createElement('span');
-            !!referenceElement && authButton.parentNode.insertBefore(referenceElement, authButton.nextSibling);
-
-            authButton.parentNode.removeChild(authButton);
-            const recreatedAuthButton = document.createElement('auth-button');
-            !!referenceElement &&
-                !!recreatedAuthButton &&
-                referenceElement.parentNode.insertBefore(recreatedAuthButton, referenceElement);
-
-            !!referenceElement && referenceElement.parentNode.removeChild(referenceElement);
-        }
-    }
-
-    markAccountStorageLoggedOut() {
-        this.setStorageLoggedOut();
-        !!cookieFound(locale.SESSION_COOKIE_NAME) && clearCookie(locale.SESSION_COOKIE_NAME);
-    }
-
-    setStorageLoggedOut() {
-        if (!this.isSessionStorageEnabled) {
-            return;
-        }
-        sessionStorage.removeItem(locale.STORAGE_ACCOUNT_KEYNAME);
-        const emptyAccount = JSON.stringify(this.LOGGED_OUT_ACCOUNT);
-        sessionStorage.setItem(locale.STORAGE_ACCOUNT_KEYNAME, emptyAccount);
-
-        // also remove the chatbot session ids, killing the chatbot session
-        sessionStorage.removeItem('directLineToken');
-        sessionStorage.removeItem('directLineURL');
-        sessionStorage.removeItem('directLineConversationId');
-        // see homepage/chatbot.html
-    }
-
-    logUserOut() {
-        let homepagelink = getHomepageLink();
-        window.location.assign(`${authLocale.AUTH_URL_LOGOUT}${window.btoa(homepagelink)}`);
-    }
-
-    announceUserLoggedOut() {
-        setTimeout(() => {
-            // a short delay so the above removals have firmly happened before the notified apps can action it
-            if ('BroadcastChannel' in window) {
-                // let the calling page know account has been removed
-                const bc = new BroadcastChannel('account_availability');
-                bc.postMessage('account_removed');
-            }
-        }, 100);
     }
 
     getSessionCookie() {

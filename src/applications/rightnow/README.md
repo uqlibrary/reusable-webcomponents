@@ -8,7 +8,7 @@ These are the pages we currently have:
 - FAQ pages <https://support.my.uq.edu.au/app/library/faqs> and eg <https://support.my.uq.edu.au/app/library/faqs/st/3/kw/database/page/1>
 - FAQ answer pages eg <https://support.my.uq.edu.au/app/library/answers/detail/a_id/1091> (replacing the old answers.library.uq.edu.au tool.)
 - Contact form <https://support.my.uq.edu.au/app/library/contact>
-- Report a problem page (from Primo) eg <https://support.my.uq.edu.au/app/library/contact/report_problem/true/incidents.subject/Frogs%20%2F/incidents.c$summary/61UQ_ALMA21107302790003131> ([Primo page that has the button launching to this page](https://search.library.uq.edu.au/primo-explore/fulldisplay?docid=61UQ_ALMA21102980340003131&context=L&vid=61UQ&lang=en_US&search_scope=61UQ_All&adaptor=Local%20Search%20Engine&isFrbr=true&tab=61uq_all&query=any,contains,Frogs))
+- Report a problem page (from Primo) eg <https://support.my.uq.edu.au/app/library/contact/report_problem/true/incidents.subject/Frogs%20%2F/incidents.c$summary/61UQ_ALMA21107302790003131> ([Primo page that has the button launching to this page](https://search.library.uq.edu.au/discovery/fulldisplay?docid=61UQ_ALMA21102980340003131&context=L&vid=61UQ_INST:61UQ&lang=en_US&search_scope=61UQ_All&adaptor=Local%20Search%20Engine&isFrbr=true&tab=61uq_all&query=any,contains,Frogs))
 
 The RightNow pages features:
 

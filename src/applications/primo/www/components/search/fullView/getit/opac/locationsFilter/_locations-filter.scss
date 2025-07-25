@@ -1,6 +1,12 @@
 /* starting locationsFilter */
 
 prm-locations-filter {
+    div div.bar.filter-bar {
+        background-color: $uqPanelBackgroundColor;
+    }
+    span.margin-right-small.bold-text {
+        margin-top: -4px;
+    }
     md-select {
         margin-top: -4px;
     }

@@ -22,23 +22,28 @@
                 background-size: cover;
             }
             article > div {
-                margin-left: auto;
-                margin-right: auto;
+                margin: 1rem auto;
                 max-width: 710px;
                 padding: 1rem;
             }
+            article > div:not(:has(h1)) {
+                border: 1px solid black;
+            }
             article h1 {
                 padding: 1rem;
-                color: #f0f0f0;
                 font-weight: 400;
                 font-size: 2.438rem;
-                text-shadow: 0 0 4px black;
             }
 
             article h2,
             article p {
                 padding: 0 1rem;
-                color: #f0f0f0;
+                color: black;
+            }
+            .pageheading {
+                background-color: #51247a;
+                color: white;
+                min-height: auto;
             }
         </style>
     </head>
@@ -51,12 +56,14 @@
             </span>
         </uq-site-header>
 
-        <article>
+        <article class="pageheading">
             <div>
                 <h1 data-testid="random-page-element">Training widget demo <a href="#" id="skiptohere">#</a></h1>
-                <div>
-                    <h2>Default parameters</h2>
-                </div>
+            </div>
+        </article>
+        <article>
+            <div>
+                <h2>Default parameters</h2>
                 <library-training id="test-with-filter"></library-training>
             </div>
 

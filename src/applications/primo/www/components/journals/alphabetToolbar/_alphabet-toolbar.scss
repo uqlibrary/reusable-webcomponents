@@ -1,5 +1,9 @@
 /* starting alphabetToolbar */
 prm-alphabet-toolbar {
+    .language-characters {
+        display: flex;
+        column-gap: 1px;
+    }
     [dir='rtl'] & {
         direction: ltr;
     }
@@ -9,25 +13,23 @@ prm-alphabet-toolbar {
     }
     .md-button {
         margin: 0;
-        line-height: 30px;
-        @include setSize(30px);
+        line-height: 44px;
+        @include setSize(44px);
         width: auto;
-        @include bgColor(white);
         &.letter-button {
-            width: 30px;
+            width: 44px;
+            height: 44px;
+            border-radius: 22px;
+            box-shadow: none;
+            padding-left: 0;
+            padding-right: 0;
+            //padding-top: 5px;
         }
-        > span {
-            @extend .bold-text;
-        }
-        &.active,
-        &.active:hover,
-        &.active:focus,
-        &.active.md-focused {
-            // box-shadow: 0 0 0 1px transparentize(white, .5);
-            // box-shadow: 0 0 0 1px #ede49e;
-            @extend .default-shadow-on-dark;
-            color: black;
-            background: rgb(247, 237, 163);
+        &.current-letter,
+        &.current-letter:focus,
+        &.current-letter:hover {
+            background-color: $accent-color;
+            color: #fff !important;
         }
     }
 

@@ -5,21 +5,24 @@ import { default as navLocale } from './js/nav';
 import { linkToDrupal } from '../helpers/access';
 
 const template = document.createElement('template');
+
+const footerLinkToGuidesAdmin = `
+    <div class="uq-footer__contact-item uq-footer__contact-login">
+        <a href="https://uq.libapps.com/libapps/login.php?site_id=731" class="uq-footer__link gtm-processed" rel="nofollow noopener" data-testid="footer-guides-login">Guides login</a>
+    </div>`;
+const isGuidesProductionPage = document.location.hostname === 'guides.library.uq.edu.au';
+const guideLoginLink = isGuidesProductionPage ? footerLinkToGuidesAdmin : '';
+
 template.innerHTML = `
   <style>${mainStyles.toString()}</style>
   <style>${globalStyles.toString()}</style>
   <style>${overrides.toString()}</style>
   <footer id="footer" class="uq-footer" data-gtm-category="Footer">
-      <div class="uq-footer__reconciliation">
-        <div class="uq-footer__acknowledgement">
-          <img class="uq-footer__acknowledgement-flag" alt="Australian Aboriginal Flag" src="https://static.uq.net.au/v15/images/rap/aboriginal.svg">
-          <img class="uq-footer__acknowledgement-flag" alt="Torres Strait Islander Flag" src="https://static.uq.net.au/v15/images/rap/torres-strait-islanders.svg">
-          <span class="uq-footer__acknowledgement-text">
-            UQ acknowledges the Traditional Owners and their custodianship of the lands on which UQ is situated. &mdash;
-            <a href="https://about.uq.edu.au/reconciliation" data-analyticsid="uqfooter-reconciliation" class="uq-footer__link">
-                Reconciliation at UQ
-            </a>
-          </span>
+    <div class="uq-acknowledgement uq-acknowledgement--large">
+        <div class="uq-acknowledgement__content">
+          <div class="uq-acknowledgement__text">
+              UQ acknowledges the Traditional Owners and their custodianship of the lands on which UQ is situated. &mdash; <a href="https://about.uq.edu.au/reconciliation" class="uq-acknowledgement__link" data-testid="footer-acknowledgement-link">Reconciliation at UQ</a>
+          </div>
         </div>
     </div>
     <div class="uq-footer__container">
@@ -29,13 +32,13 @@ template.innerHTML = `
                     <h2 class="uq-footer__navigation-title">Media</h2>
                     <ul class="uq-footer__navigation-list uq-footer__navigation-level-2">
                         <li class="uq-footer__navigation-item">
-                            <a href="https://www.uq.edu.au/news/contacts" class="uq-footer__navigation-link" data-analyticsid="uqfooter-media-team-desktop">Media team contacts</a>
+                            <a href="https://www.uq.edu.au/news/contacts" class="uq-footer__navigation-link">Media team contacts</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://researchers.uq.edu.au/uqexperts" class="uq-footer__navigation-link" data-analyticsid="uqfooter-media-expert-desktop">Find a subject matter expert</a>
+                            <a href="https://researchers.uq.edu.au/uqexperts" class="uq-footer__navigation-link">Find a subject matter expert</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://www.uq.edu.au/news/" class="uq-footer__navigation-link" data-analyticsid="uqfooter-media-news-desktop">UQ news</a>
+                            <a href="https://www.uq.edu.au/news/" class="uq-footer__navigation-link">UQ news</a>
                         </li>
                     </ul>
                 </li>
@@ -43,19 +46,19 @@ template.innerHTML = `
                     <h2 class="uq-footer__navigation-title">Working at UQ</h2>
                     <ul class="uq-footer__navigation-list uq-footer__navigation-level-2">
                         <li class="uq-footer__navigation-item">
-                            <a href="https://staff.uq.edu.au" class="uq-footer__navigation-link" data-analyticsid="uqfooter-working-current-desktop">Current staff</a>
+                            <a href="https://staff.uq.edu.au" class="uq-footer__navigation-link">Current staff</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://careers.uq.edu.au" class="uq-footer__navigation-link" data-analyticsid="uqfooter-working-careers-desktop">Careers at UQ</a>
+                            <a href="https://about.uq.edu.au/careers" class="uq-footer__navigation-link">Careers at UQ</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://about.uq.edu.au/strategic-plan" class="uq-footer__navigation-link" data-analyticsid="uqfooter-working-strategic-desktop">Strategic plan</a>
+                            <a href="https://about.uq.edu.au/strategic-plan" class="uq-footer__navigation-link">Strategic plan</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://staff.uq.edu.au/information-and-services/health-safety-wellbeing" class="uq-footer__navigation-link" data-analyticsid="uqfooter-working-support-desktop">Staff support</a>
+                            <a href="https://staff.uq.edu.au/information-and-services/health-safety-wellbeing" class="uq-footer__navigation-link">Staff support</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://staff.uq.edu.au/information-and-services/information-technology/it-support" class="uq-footer__navigation-link" data-analyticsid="uqfooter-working-it-desktop">IT support for staff</a>
+                            <a href="https://staff.uq.edu.au/information-and-services/information-technology/it-support" class="uq-footer__navigation-link">IT support for staff</a>
                         </li>
                     </ul>
                 </li>
@@ -63,19 +66,19 @@ template.innerHTML = `
                     <h2 class="uq-footer__navigation-title">Current students</h2>
                     <ul class="uq-footer__navigation-list uq-footer__navigation-level-2">
                         <li class="uq-footer__navigation-item">
-                            <a href="https://my.uq.edu.au" class="uq-footer__navigation-link" data-analyticsid="uqfooter-students-my-desktop">my.UQ</a>
+                            <a href="https://my.uq.edu.au" class="uq-footer__navigation-link">my.UQ</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://my.uq.edu.au/programs-courses" class="uq-footer__navigation-link" data-analyticsid="uqfooter-students-courses-desktop">Programs and courses</a>
+                            <a href="https://my.uq.edu.au/programs-courses" class="uq-footer__navigation-link">Programs and courses</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://www.uq.edu.au/events/calendar_view.php?category_id=16" class="uq-footer__navigation-link" data-analyticsid="uqfooter-students-dates-desktop">Key dates</a>
+                            <a href="https://www.uq.edu.au/events/calendar_view.php?category_id=16" class="uq-footer__navigation-link">Key dates</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://my.uq.edu.au/student-support" class="uq-footer__navigation-link" data-analyticsid="uqfooter-students-support-desktop">Student support</a>
+                            <a href="https://my.uq.edu.au/student-support" class="uq-footer__navigation-link">Student support</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://my.uq.edu.au/information-and-services/information-technology/student-it-support" class="uq-footer__navigation-link" data-analyticsid="uqfooter-students-it-desktop">IT support for students</a>
+                            <a href="https://my.uq.edu.au/information-and-services/information-technology/student-it-support" class="uq-footer__navigation-link">IT support for students</a>
                         </li>
                     </ul>
                 </li>
@@ -231,14 +234,16 @@ template.innerHTML = `
           <nav class="uq-footer__contact-item" aria-label="Social Media" data-gtm-category="Social share link">
             <ul class="uq-footer__footer-list uq-footer__contact-social">
               <li class="uq-footer__footer-item"><a href="https://www.facebook.com/uniofqld" class="uq-footer__meta-icons--facebook uq-footer__meta-icons" aria-label="Facebook" data-gtm-label="Facebook" data-analyticsid="uqfooter-facebook"></a></li>
-              <li class="uq-footer__footer-item"><a href="https://www.linkedin.com/school/university-of-queensland" class="uq-footer__meta-icons--linkedin uq-footer__meta-icons" data-gtm-label="Linkedin" aria-label="Linkedin" data-analyticsid="uqfooter-linkedin"></a></li>
+              <li class="uq-footer__footer-item"><a href="https://www.linkedin.com/school/university-of-queensland" class="uq-footer__meta-icons--linkedin uq-footer__meta-icons" data-gtm-label="Linkedin" aria-label="Linkedin"data-analyticsid="uqfooter-linkedin"></a></li>
               <li class="uq-footer__footer-item"><a href="https://twitter.com/uq_news" class="uq-footer__meta-icons--twitter uq-footer__meta-icons" data-gtm-label="X" aria-label="X" data-analyticsid="uqfooter-twitter"></a></li>
               <li class="uq-footer__footer-item"><a href="https://www.youtube.com/user/universityqueensland" class="uq-footer__meta-icons--youtube uq-footer__meta-icons" data-gtm-label="Youtube" aria-label="Youtube" data-analyticsid="uqfooter-youtube"></a></li>
               <li class="uq-footer__footer-item"><a href="https://instagram.com/uniofqld" class="uq-footer__meta-icons--instagram uq-footer__meta-icons" data-gtm-label="Instagram" aria-label="Instagram" data-analyticsid="uqfooter-insta"></a></li>
+              <li class="uq-footer__footer-item"><a href="https://www.tiktok.com/@uniofqld" class="uq-footer__meta-icons--tiktok uq-footer__meta-icons" data-gtm-label="TikTok" aria-label="TikTok" data-analyticsid="uqfooter-tiktok"></a></li>        
             </ul>
           </nav>
-
-        </div>
+          ${guideLoginLink}
+      
+    </div>
         <nav class="uq-footer__meta" aria-label="Business meta">
           <ul class="uq-footer__footer-list">
             <li class="uq-footer__footer-item">&copy; The University of Queensland</li>
@@ -250,7 +255,7 @@ template.innerHTML = `
         <nav class="uq-footer__footer" aria-label="Terms and conditions">
           <ul class="uq-footer__footer-list">
               <li class="uq-footer__footer-item">
-                  <a href="https://www.uq.edu.au/legal/website-terms-of-use/" class="uq-footer__link" data-analyticsid="uqfooter-privacy">Privacy and terms of use</a>
+                  <a href="https://www.uq.edu.au/legal/copyright-privacy-disclaimer/" class="uq-footer__link" data-analyticsid="uqfooter-privacy">Copyright, privacy and disclaimer</a>
               </li>
               <li class="uq-footer__footer-item">
                 <a href="https://uq.edu.au/accessibility/" class="uq-footer__link" data-analyticsid="uqfooter-accessibility">Accessibility</a>
@@ -268,8 +273,6 @@ template.innerHTML = `
     </div>
 </footer>
 `;
-
-let initCalled;
 
 class UQFooter extends HTMLElement {
     constructor() {

@@ -10,8 +10,11 @@ template.innerHTML = `
     </button>
     <header class="uq-header" data-gtm-category="Header">
     <div class="uq-header__container">
-        <div class="uq-header__menu-toggle" data-target="global-mobile-nav" data-gtm-category="Primary header">
-            <button id="mobile-menu-toggle-button" data-testid="mobile-menu-toggle-button" data-analyticsid="uq-header-skip-click" type="button" class="nav-primary__toggle nav-primary__menu-toggle slide-menu__control" data-target="global-mobile-nav" data-action="toggle" data-gtm-action="Toggle">
+        <div class="uq-header__menu-toggle" data-target="global-mobile-nav"  data-gtm-category="Primary header">
+            <button id="mobile-menu-toggle-button" data-testid="mobile-menu-toggle-button" data-analyticsid="uq-header-skip-click" type="button" 
+            class="nav-primary__toggle nav-primary__menu-toggle slide-menu__control" 
+            data-target="global-mobile-nav" data-action="toggle" data-gtm-action="Toggle"
+            aria-haspopup="true" aria-expanded="false" aria-controls="uq-site-header__navigation-container">
               Menu
             </button>
         </div>
@@ -27,7 +30,7 @@ template.innerHTML = `
                     </li>
                     <li class="uq-header__nav-primary-item"><a class="uq-header__nav-primary-link nav-primary-link" href="https://research.uq.edu.au/" data-gtm-label="Research" data-analyticsid="uq-header-primary-research">Research</a>
                     </li>
-                    <li class="uq-header__nav-primary-item"><a class="uq-header__nav-primary-link nav-primary-link" href="https://partners-community.uq.edu.au" data-gtm-label="Partners and community" data-analyticsid="uq-header-primary-partsners">Partners and community</a>
+                    <li class="uq-header__nav-primary-item"><a class="uq-header__nav-primary-link nav-primary-link" href="https://partners-community.uq.edu.au" data-gtm-label="Partners and community" data-analyticsid="uq-header-primary-partners">Partners and community</a>
                     </li>
                     <li class="uq-header__nav-primary-item"><a class="uq-header__nav-primary-link nav-primary-link" href="https://about.uq.edu.au/" data-gtm-label="About" data-analyticsid="uq-header-primary-about">About</a>
                     </li>
@@ -35,8 +38,10 @@ template.innerHTML = `
             </nav>
         </div>
         <div class="uq-header__search-toggle">
-            <button class="nav-primary__toggle nav-primary__search-toggle" data-testid="uq-header-search-button" data-analyticsid="uq-header-search-button" data-gtm-action="Toggle">
-                <div class="search-toggle__label">Search</div>
+            <button class="nav-primary__toggle nav-primary__search-toggle" id="uq-header-search-button" 
+                data-testid="uq-header-search-button" data-analyticsid="uq-header-search-button" data-gtm-action="Toggle"
+                aria-haspopup="true" aria-expanded="false" aria-controls="uq-header_search_panel">
+                <div id="search-toggle__label" class="search-toggle__label">Search</div>
             </button>
         </div>
     </div>
@@ -176,7 +181,7 @@ template.innerHTML = `
                         <ul>
                             <li><a href="https://about.uq.edu.au/university-profile" data-gtm-label="About > Introducing UQ" data-analyticsid="uq-header-mobile-about-intro">Introducing UQ</a></li>
                             <li><a href="https://about.uq.edu.au/strategic-plan" data-gtm-label="About > Vision, values and strategy" data-analyticsid="uq-header-mobile-about-vision">Vision, values and strategy</a></li>
-                            <li><a href="https://teaching-learning.uq.edu.au/" data-gtm-label="About > Teaching and learning" data-analyticsid="uq-header-mobile-about-teaching">Teaching and learning</a></li>
+                            <li><a href="https://about.uq.edu.au/learning-teaching-student-experience" data-gtm-label="About > Learning, teaching and student experience" data-analyticsid="uq-header-mobile-about-teaching">Learning, teaching and student experience</a></li>
                             <li><a href="https://about.uq.edu.au/initiatives" data-gtm-label="About > Strategic initiatives and projects" data-analyticsid="uq-header-mobile-about-strategic">Strategic initiatives and projects</a></li>
                             <li><a href="https://about.uq.edu.au/governance-and-organisational-structure" data-gtm-label="About > Governance and organisational structure" data-analyticsid="uq-header-mobile-about-governance">Governance and organisational structure</a></li>
                             <li><a href="https://policies.uq.edu.au" data-gtm-label="About > Policies and procedures" data-analyticsid="uq-header-mobile-about-policies">Policies and procedures</a></li>
@@ -195,8 +200,8 @@ template.innerHTML = `
                     <li>
                         <a href="#" class="global-mobile-nav__audience-link slide-menu__control" data-analyticsid="uq-header-mobile-working">Working at UQ</a>
                         <ul>
-                            <li><a href="https://careers.uq.edu.au/" data-gtm-label="About > Careers at UQ" data-analyticsid="uq-header-mobile-working-careers">Careers at UQ</a></li>
-                            <li><a href="https://careers.uq.edu.au/search-jobs" data-gtm-label="About > Jobs search" data-analyticsid="uq-header-mobile-working-search">Jobs search</a></li>
+                            <li><a href="https://about.uq.edu.au/careers" data-gtm-label="About > Careers at UQ" data-analyticsid="uq-header-mobile-working-careers">Careers at UQ</a></li>
+                            <li><a href="https://about.uq.edu.au/careers" data-gtm-label="About > Jobs search" data-analyticsid="uq-header-mobile-working-search">Jobs search</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -218,7 +223,7 @@ template.innerHTML = `
             </li>
         </ul>
     </nav>
-    <div class="uq-header__search" data-gtm-category="Search">
+    <div id="uq-header_search_panel" class="uq-header__search" data-gtm-category="Search">
         <div class="uq-header__search-container">
             <form action="https://search.uq.edu.au/" method="get" data-gtm-action="Text search" data-gtm-form-action="">
                 <fieldset>
@@ -278,7 +283,8 @@ class UQHeader extends HTMLElement {
         this.appendSearchWidgetUrl = this.appendSearchWidgetUrl.bind(this);
         this.changeSearchWidgetLabel = this.changeSearchWidgetLabel.bind(this);
         this.handleSkipNavInsertion = this.handleSkipNavInsertion.bind(this);
-        this.loadScript = this.loadScript.bind(this);
+
+        this.addButtonListeners(shadowDOM);
     }
 
     attributeChangedCallback(fieldName, oldValue, newValue) {
@@ -361,35 +367,116 @@ class UQHeader extends HTMLElement {
         }
     }
 
-    loadScript() {
-        // This loads the external JS file into the HTML head dynamically
-        // Only load js if it has not been loaded before (tracked by the initCalled flag)
-        /* istanbul ignore else  */
-        if (!initCalled) {
-            //Dynamically import the JS file and append it to the document header
-            const script = document.createElement('script');
-            script.type = 'text/javascript';
-            script.defer = true;
-            script.onload = function () {
-                //Code to execute after the library has been downloaded parsed and processed by the browser starts here :)
-                initCalled = true;
-                // Initialise the header once this JS file is loaded
-                const rootHeaderElement = document.querySelector('uq-header');
-                const headerElem = !!rootHeaderElement && rootHeaderElement.shadowRoot.querySelector('.uq-header');
-                !!headerElem && !!uq && !!uq.header && new uq.header(headerElem);
+    addButtonListeners(shadowDOM) {
+        function toggleSearchInputField() {
+            function toggleButton() {
+                const buttonPanel = shadowDOM.getElementById('uq-header-search-button');
+                if (!!buttonPanel) {
+                    buttonPanel.classList.toggle('nav-primary__search-toggle--is-open');
+                    const currentExpanded = buttonPanel.getAttribute('aria-expanded');
+                    buttonPanel.setAttribute('aria-expanded', currentExpanded === 'false' ? 'true' : 'false');
+                }
 
-                new uq.accordion(); // opens and closes the Site Search toggle
-            };
-            //Specify the location of the ITS DS JS file
-            script.src = 'uq-header.js';
+                const button = shadowDOM.getElementById('search-toggle__label');
+                button.innerHTML = button.innerHTML === 'Search' ? 'Close' : 'Search';
+            }
 
-            //Append it to the document header
-            document.head.appendChild(script);
+            function placeFocus(inputFieldPanel) {
+                const inputField = shadowDOM.getElementById('edit-q');
+                if (inputFieldPanel.classList.contains('uq-header__search--is-open')) {
+                    inputField.focus();
+                } else {
+                    inputField.blur();
+                    inputFieldPanel.blur();
+                }
+            }
+
+            function showHideInputField() {
+                const inputFieldPanel = shadowDOM.getElementById('uq-header_search_panel');
+                !!inputFieldPanel && inputFieldPanel.classList.toggle('uq-header__search--is-open');
+                placeFocus(inputFieldPanel);
+            }
+
+            toggleButton();
+            showHideInputField();
         }
-    }
 
-    connectedCallback() {
-        this.loadScript();
+        function openCloseMobileMenu() {
+            function clickSiteHeaderMenuButton() {
+                // clicking the uq-header hamburger button clicks the hidden menu button on uq-site-header
+                const siteHeader = document.querySelector('uq-site-header');
+                const siteHeaderShadowRoot = !!siteHeader && siteHeader.shadowRoot;
+                const siteHeaderHiddenMobileButton =
+                    !!siteHeaderShadowRoot && siteHeaderShadowRoot.getElementById('uq-site-header__navigation-toggle');
+                !!siteHeaderHiddenMobileButton && siteHeaderHiddenMobileButton.click();
+            }
+
+            function toggleMobileMenuButton() {
+                const mobileMenuToggleButton = shadowDOM.getElementById('mobile-menu-toggle-button');
+                if (!!mobileMenuToggleButton) {
+                    mobileMenuToggleButton.classList.toggle('nav-primary__menu-toggle--is-open');
+                    const currentExpanded = mobileMenuToggleButton.getAttribute('aria-expanded');
+                    mobileMenuToggleButton.setAttribute(
+                        'aria-expanded',
+                        currentExpanded === 'false' ? 'true' : 'false',
+                    );
+                }
+            }
+
+            function isSiteSearchOpen() {
+                const siteSearchToggle = shadowDOM.querySelector('.nav-primary__search-toggle');
+                return (
+                    !!siteSearchToggle && !!siteSearchToggle.classList.contains('nav-primary__search-toggle--is-open')
+                );
+            }
+
+            function closeSiteSearch() {
+                const siteSearchToggle = shadowDOM.querySelector('.nav-primary__search-toggle');
+                siteSearchToggle.classList.remove('nav-primary__search-toggle--is-open');
+
+                const siteSearchLabel = shadowDOM.querySelector('.uq-header__search');
+                !!siteSearchLabel && (siteSearchLabel.innerHTML = 'Search');
+
+                const siteSearchPanel = shadowDOM.querySelector('.uq-header__search');
+                !!siteSearchPanel &&
+                    !!siteSearchPanel.classList.contains('uq-header__search') &&
+                    siteSearchPanel.classList.remove('uq-header__search');
+            }
+
+            function isPrimoPage() {
+                const primoNavbar = document.querySelector('.top-nav-bar.layout-row');
+                return !!primoNavbar;
+            }
+
+            function isMobileMenuOpen() {
+                const mobileMenuToggleButton = shadowDOM.querySelector('.nav-primary__menu-toggle');
+                return (
+                    !!mobileMenuToggleButton &&
+                    mobileMenuToggleButton.classList.contains('nav-primary__menu-toggle--is-open')
+                );
+            }
+
+            function showHidePrimoUtilityBar() {
+                const newClass = isMobileMenuOpen() ? 'none' : null;
+                const primoNavbar = document.querySelector('.top-nav-bar.layout-row');
+                !!primoNavbar && (primoNavbar.style.display = newClass);
+            }
+
+            toggleMobileMenuButton();
+            if (isSiteSearchOpen()) {
+                closeSiteSearch();
+            }
+            if (isPrimoPage()) {
+                showHidePrimoUtilityBar();
+            }
+            clickSiteHeaderMenuButton();
+        }
+
+        const searchButton = shadowDOM.getElementById('uq-header-search-button');
+        !!searchButton && searchButton.addEventListener('click', toggleSearchInputField);
+
+        const mobileMenuToggleButton = shadowDOM.getElementById('mobile-menu-toggle-button');
+        !!mobileMenuToggleButton && mobileMenuToggleButton.addEventListener('click', openCloseMobileMenu);
     }
 }
 
