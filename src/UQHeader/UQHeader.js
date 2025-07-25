@@ -480,13 +480,7 @@ class UQHeader extends HTMLElement {
         !!mobileMenuToggleButton && mobileMenuToggleButton.addEventListener('click', openCloseMobileMenu);
 
         const links = shadowDOM.querySelectorAll('a');
-        !!links &&
-            links.length > 0 &&
-            links.forEach((l) => {
-                l.addEventListener('click', (e) => {
-                    sendLinkClickToGTM(e);
-                });
-            });
+        !!links && links.length > 0 && links.forEach((l) => l.addEventListener('click', (e) => sendLinkClickToGTM(e)));
     }
 }
 

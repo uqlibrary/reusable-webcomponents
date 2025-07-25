@@ -149,18 +149,8 @@ class Alert extends HTMLElement {
         }, 300);
     }
     addButtonListeners(shadowDOM) {
-        console.log('### Alert: addButtonListeners');
         const links = shadowDOM.querySelectorAll('a');
-        console.log('### Alert: addButtonListeners links=', links);
-        !!links && links.forEach((ll, index) => console.log('### Alert: addButtonListeners link=', index, ll));
-        !!links &&
-            links.length > 0 &&
-            links.forEach((l) => {
-                console.log('### Alert: l=', l.innerHTML);
-                l.addEventListener('click', (e) => {
-                    sendLinkClickToGTM(e);
-                });
-            });
+        !!links && links.length > 0 && links.forEach((l) => l.addEventListener('click', (e) => sendLinkClickToGTM(e)));
     }
 }
 
