@@ -13,7 +13,7 @@ export function sendLinkClickToGTM(e) {
         const gtmItems = {
             event: 'gtm.linkClick', //shows as "Link Click" in the sidebar of Tag Assistant
             'gtm.elementId': elementId,
-            'gtm.elementLabel': linkLabel,
+            'gtm.element': linkLabel, // loads into Form Element
         };
         console.log('sendLinkClickToGTM gtmItems=', gtmItems);
         window.dataLayer.push(gtmItems);
