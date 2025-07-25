@@ -1,6 +1,7 @@
 import styles from './css/main.css';
 import overrides from './css/overrides.css';
 import { cookieNotFound, setCookie } from '../helpers/cookie';
+import { sendLinkClickToGTM } from '../helpers/gtmHelpers';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -32,6 +33,7 @@ class Alert extends HTMLElement {
 
         // Bindings
         this.loadAlert = this.loadAlert.bind(this);
+        this.addButtonListeners = this.addButtonListeners.bind(this);
     }
 
     loadAlert(shadowDOM) {
@@ -142,7 +144,23 @@ class Alert extends HTMLElement {
                 shadowDOM.getElementById('alert-action-desktop').remove();
                 shadowDOM.getElementById('alert-action-mobile').remove();
             }
+
+            this.addButtonListeners(shadowDOM);
         }, 300);
+    }
+    addButtonListeners(shadowDOM) {
+        console.log('### Alert: addButtonListeners');
+        const links = shadowDOM.querySelectorAll('a');
+        console.log('### Alert: addButtonListeners links=', links);
+        !!links && links.forEach((ll, index) => console.log('### Alert: addButtonListeners link=', index, ll));
+        !!links &&
+            links.length > 0 &&
+            links.forEach((l) => {
+                console.log('### Alert: l=', l.innerHTML);
+                l.addEventListener('click', (e) => {
+                    sendLinkClickToGTM(e);
+                });
+            });
     }
 }
 

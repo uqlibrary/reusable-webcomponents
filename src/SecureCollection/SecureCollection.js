@@ -4,6 +4,7 @@ import overrides from './css/overrides.css';
 import { authLocale } from '../UtilityArea/auth.locale';
 import { apiLocale as apilocale, apiLocale as locale } from '../ApiAccess/ApiAccess.locale';
 import { linkToDrupal } from '../helpers/access';
+import { sendLinkClickToGTM } from '../helpers/gtmHelpers';
 
 const fileExtensionElement = document.createElement('template');
 fileExtensionElement.innerHTML = `
@@ -130,6 +131,7 @@ class SecureCollection extends HTMLElement {
         this.getSecureCollectionCheck = this.getSecureCollectionCheck.bind(this);
         this.getSecureCollectionFile = this.getSecureCollectionFile.bind(this);
         this.wrapFragmentInStandardPage = this.wrapFragmentInStandardPage.bind(this);
+        this.addButtonListeners = this.addButtonListeners.bind(this);
     }
 
     async getSecureCollectionCheck(path) {
@@ -207,6 +209,7 @@ class SecureCollection extends HTMLElement {
                 // to satisfy switch syntax - shouldnt be possible
                 this.wrapFragmentInStandardPage('Something went wrong');
         }
+        this.addButtonListeners(shadowDOM);
     }
 
     displayLoadingPanel() {
@@ -231,9 +234,7 @@ class SecureCollection extends HTMLElement {
     communication of this material by you may be the subject of copyright protection under the Act.
 </p>
 <div id="download">
-    <a data-analytics="secure-collection-commercial-copyright-download-link" data-testid="secure-collection-commercial-copyright-download-link" id="downloadLink" class="followLink" href="">
-        Acknowledge Copyright and Download
-    </a>
+    <a data-analytics="secure-collection-commercial-copyright-download-link" data-testid="secure-collection-commercial-copyright-download-link" id="downloadLink" class="followLink" href="">Acknowledge Copyright and Download</a>
 </div>
 `;
         // update the download link
@@ -261,9 +262,7 @@ class SecureCollection extends HTMLElement {
     the Act.
 </p>
 <div id="download">
-    <a id="downloadLink" data-analytics="secure-collection-statutory-copyright-download-link" data-testid="secure-collection-statutory-copyright-download-link" class="followLink" href="">
-        Acknowledge Copyright and Download
-    </a>
+    <a id="downloadLink" data-analytics="secure-collection-statutory-copyright-download-link" data-testid="secure-collection-statutory-copyright-download-link" class="followLink" href="">Acknowledge Copyright and Download</a>
 </div>
 `;
         // update the download link
@@ -455,6 +454,8 @@ class SecureCollection extends HTMLElement {
         const blockwrapper = document.createElement('div');
         blockwrapper.appendChild(fragment);
         block.appendChild(blockwrapper);
+
+        this.addButtonListeners(this.shadowRoot);
     }
 
     evaluateApiResponse(apiResponse) {
@@ -518,6 +519,11 @@ class SecureCollection extends HTMLElement {
         paragraph.appendChild(textNode);
 
         return paragraph;
+    }
+
+    addButtonListeners(shadowDOM) {
+        const links = shadowDOM.querySelectorAll('a');
+        !!links && links.length > 0 && links.forEach((l) => l.addEventListener('click', (e) => sendLinkClickToGTM(e)));
     }
 }
 
