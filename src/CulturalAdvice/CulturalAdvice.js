@@ -35,6 +35,8 @@ class CulturalAdvice extends HTMLElement {
         shadowDOM.appendChild(template.content.cloneNode(true));
 
         this.addButtonListeners(shadowDOM);
+
+        this.addButtonListeners = this.addButtonListeners.bind(this);
     }
     addButtonListeners(shadowDOM, isOnline) {
         const that = this;
