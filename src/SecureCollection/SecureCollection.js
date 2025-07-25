@@ -4,6 +4,7 @@ import overrides from './css/overrides.css';
 import { authLocale } from '../UtilityArea/auth.locale';
 import { apiLocale as apilocale, apiLocale as locale } from '../ApiAccess/ApiAccess.locale';
 import { linkToDrupal } from '../helpers/access';
+import { sendLinkClickToGTM } from '../helpers/gtmHelpers';
 
 const fileExtensionElement = document.createElement('template');
 fileExtensionElement.innerHTML = `
@@ -130,6 +131,7 @@ class SecureCollection extends HTMLElement {
         this.getSecureCollectionCheck = this.getSecureCollectionCheck.bind(this);
         this.getSecureCollectionFile = this.getSecureCollectionFile.bind(this);
         this.wrapFragmentInStandardPage = this.wrapFragmentInStandardPage.bind(this);
+        this.addButtonListeners = this.addButtonListeners.bind(this);
     }
 
     async getSecureCollectionCheck(path) {
@@ -207,6 +209,7 @@ class SecureCollection extends HTMLElement {
                 // to satisfy switch syntax - shouldnt be possible
                 this.wrapFragmentInStandardPage('Something went wrong');
         }
+        this.addButtonListeners(shadowDOM);
     }
 
     displayLoadingPanel() {
@@ -231,9 +234,7 @@ class SecureCollection extends HTMLElement {
     communication of this material by you may be the subject of copyright protection under the Act.
 </p>
 <div id="download">
-    <a data-analytics="secure-collection-commercial-copyright-download-link" data-testid="secure-collection-commercial-copyright-download-link" id="downloadLink" class="followLink" href="">
-        Acknowledge Copyright and Download
-    </a>
+    <a data-analyticsid="secure-collection-commercial-copyright-download-link" data-testid="secure-collection-commercial-copyright-download-link" id="downloadLink" class="followLink" href="">Acknowledge Copyright and Download</a>
 </div>
 `;
         // update the download link
@@ -261,9 +262,7 @@ class SecureCollection extends HTMLElement {
     the Act.
 </p>
 <div id="download">
-    <a id="downloadLink" data-analytics="secure-collection-statutory-copyright-download-link" data-testid="secure-collection-statutory-copyright-download-link" class="followLink" href="">
-        Acknowledge Copyright and Download
-    </a>
+    <a id="downloadLink" data-analyticsid="secure-collection-statutory-copyright-download-link" data-testid="secure-collection-statutory-copyright-download-link" class="followLink" href="">Acknowledge Copyright and Download</a>
 </div>
 `;
         // update the download link
@@ -341,17 +340,17 @@ class SecureCollection extends HTMLElement {
         noAccessPanel.innerHTML = `
  <ul>
     <li>
-        If you have another UQ account, <a id="logoutandreturnhere" data-analytics="secure-collection-logoutandreturnhere" href="">logout and switch accounts</a> to proceed.
+        If you have another UQ account, <a id="logoutandreturnhere" data-analyticsid="secure-collection-logoutandreturnhere" href="">logout and switch accounts</a> to proceed.
     </li>
     <li>
-        <a data-analytics="secure-collection-contact" href="${linkToDrupal(
+        <a data-analyticsid="secure-collection-contact" href="${linkToDrupal(
             '/about/contact-us',
         )}">Contact us</a> if you should have file collection access
         with this account.
     </li>
 </ul>
 <p>
-    Return to the <a data-analytics="secure-collection-return" href="https://www.library.uq.edu.au/">Library Home Page</a>.
+    Return to the <a data-analyticsid="secure-collection-return" href="https://www.library.uq.edu.au/">Library Home Page</a>.
 </p>
 `;
 
@@ -371,7 +370,7 @@ class SecureCollection extends HTMLElement {
         loginRequiredRedirectorPanel.innerHTML = `
 <p>Login is required for this file - please wait while you are redirected.</p>
 <div id="spinner"></div>
-<p>You can <a data-analytics="secure-collection-manuallogin" data-testid="secure-collection-auth-redirector" id="redirector" href="">click here</a> if you aren't redirected.</p>
+<p>You can <a data-analyticsid="secure-collection-manuallogin" data-testid="secure-collection-auth-redirector" id="redirector" href="">click here</a> if you aren't redirected.</p>
 `;
 
         const redirectLink = `${authLocale.AUTH_URL_LOGIN}${window.btoa(window.location.href)}`;
@@ -414,7 +413,7 @@ class SecureCollection extends HTMLElement {
         redirectorPanel.innerHTML = `
 <p>We are preparing the file, you should be redirected shortly.</p>
 <div id="spinner"></div>
-<p style="margin-top: 1rem">You can <a data-testid="secure-collection-resource-redirector" data-analytics="secure-collection-manualdownload" id="redirector" href="">download the file</a> if the page does not redirect.</p>
+<p style="margin-top: 1rem">You can <a data-testid="secure-collection-resource-redirector" data-analyticsid="secure-collection-manualdownload" id="redirector" href="">download the file</a> if the page does not redirect.</p>
 `;
 
         const anchor = redirectorPanel.content.getElementById('redirector');
@@ -455,6 +454,8 @@ class SecureCollection extends HTMLElement {
         const blockwrapper = document.createElement('div');
         blockwrapper.appendChild(fragment);
         block.appendChild(blockwrapper);
+
+        this.addButtonListeners(this.shadowRoot);
     }
 
     evaluateApiResponse(apiResponse) {
@@ -518,6 +519,11 @@ class SecureCollection extends HTMLElement {
         paragraph.appendChild(textNode);
 
         return paragraph;
+    }
+
+    addButtonListeners(shadowDOM) {
+        const links = shadowDOM.querySelectorAll('a');
+        !!links && links.length > 0 && links.forEach((l) => l.addEventListener('click', (e) => sendLinkClickToGTM(e)));
     }
 }
 
