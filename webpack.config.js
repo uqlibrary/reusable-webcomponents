@@ -64,7 +64,7 @@ module.exports = () => {
             rules: [
                 {
                     test: /\.js$/,
-                    exclude: /node_modules/,
+                    exclude: process.env.NODE_ENV === 'local' ? /node_modules/ : /(node_modules|mock)/,
                     use: [
                         {
                             loader: 'babel-loader',
@@ -141,6 +141,9 @@ module.exports = () => {
                     { from: 'src/applications/rightnow/chatload.js', to: 'applications/rightnow/chatload.js' },
                     { from: 'src/applications/shared/load.js', to: 'applications/shared/load.js' },
                     { from: 'src/applications/uqlapp/load.js', to: 'applications/uqlapp/load.js' },
+
+                    // provide a permanent file for ITS to have a source of truth for file contents. Inline CRM Chat on Proactive Chat calls this from a CRM domain (see data-oit-config-url) not our S3 :(
+                    { from: 'src/UtilityArea/config/crmChat.json', to: 'applications/proactive/config.js' },
                 ],
             }),
             // Rename the external js imports to full paths when deployed & remove the drupal.js from homepage

@@ -3,7 +3,7 @@
 }
 
 .proactive-chat:has(.openSubWrapper:not(.displayinline)) {
-    z-index: 99999;
+    z-index: 998;
 }
 .openSubWrapper button {
     color: #51247a;
@@ -97,7 +97,7 @@ button.proactive-chat-button:focus {
 }
 
 .proactive-chat button.close-button svg {
-    width: 30px;
+    width: 20px;
 }
 
 /*.closed-menu {*/
@@ -180,7 +180,7 @@ button.proactive-chat-button:focus {
 
 .proactive-chat .pcwrapper .openSubWrapper:not(.displayinline) {
     position: fixed;
-    bottom: 12px;
+    bottom: 8px;
     padding: 12px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     right: -300px;
@@ -208,7 +208,7 @@ button.proactive-chat-button:focus {
     display: none;
 }
 .proactive-chat .pcwrapper .openSubWrapper.show:not(.displayinline) {
-    right: 12px;
+    right: 8px;
     transition: right 0.3s;
     transition-delay: 0.3s;
     transition-timing-function: ease-in-out;
@@ -246,7 +246,7 @@ button.proactive-chat-button:focus {
     background-color: #a8a8a8;
 }
 
-.chatbotWrapper {
+.chatbotIframeWrapper {
     background-color: #fff;
     right: 10px;
     bottom: 0;
@@ -277,7 +277,7 @@ button.proactive-chat-button:focus {
     .ca-force-hide-mobile {
         right: -300px !important;
     }
-    .chatbotWrapper {
+    .chatbotIframeWrapper {
         max-width: calc(100% - 190px);
     }
 }
@@ -301,19 +301,21 @@ button.proactive-chat-button:focus {
     background-color: #51247a;
     color: #fff;
     border: none;
+    margin-top: 2px;
 }
 .topBar button svg {
     fill: #ffffff;
-    width: 25px;
+    width: 16px;
+    height: 16px;
     stroke: #fff;
     stroke-width: 1.2;
 }
-.chatbotWrapper iframe {
+.chatbotIframeWrapper iframe {
     width: 100%;
     height: calc(100% - 115px);
 }
 @media screen and (max-width: 530px) {
-    .chatbotWrapper iframe {
+    .chatbotIframeWrapper iframe {
         height: calc(100% - 125px);
     }
 }

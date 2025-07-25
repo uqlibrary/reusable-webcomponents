@@ -1,0 +1,21 @@
+{
+    "loader": {
+        "common": {
+            "attributes": {
+                "data-oit-theme-vars": {
+                    "inlayHeight": "540px",
+                    "brandColor": "#51247a",
+                    "fontFamily": "Roboto, sans-serif",
+                    "inlayWidth": "350px"
+                }
+            }
+        }
+    },
+    "inlays": {
+        "common": {
+            "strings": {
+                "title": "Chat with Library Staff"
+            }
+        }
+    }
+}
