@@ -9,10 +9,15 @@ export function sendClickToGTM(e) {
             e.target?.id?.trim() ||
             e.target?.closest('[id]')?.id?.trim() ||
             'not found';
+        console.log('elementId=', elementId);
+        console.log('e.target=', e.target);
+        console.log('e.target?.closest([title])=', e.target?.closest('[title]'));
+        console.log('e.target?.innerHTML=', e.target?.innerHTML);
         const linkLabel =
             e.target?.textContent?.trim() ||
             e.target?.closest('[title]')?.getAttribute('title') ||
-            e.target?.innerHTML?.trim();
+            (e.target.hasAttribute('innerHTML') && e.target?.innerHTML?.trim()) ||
+            'no label';
         const gtmItems = {
             event: 'gtm.linkClick', //shows as "Link Click" in the sidebar of Tag Assistant
             'gtm.elementId': elementId,
