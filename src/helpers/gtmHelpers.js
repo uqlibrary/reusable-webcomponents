@@ -11,13 +11,20 @@ export function sendClickToGTM(e) {
             'not found';
         console.log('elementId=', elementId);
         console.log('e.target=', e.target);
-        console.log('e.target?.closest([title])=', e.target?.closest('[title]'));
-        console.log('e.target?.innerHTML=', e.target?.innerHTML);
-        const linkLabel =
-            e.target?.textContent?.trim() ||
-            e.target?.closest('[title]')?.getAttribute('title') ||
-            (e.target.hasAttribute('innerHTML') && e.target?.innerHTML?.trim()) ||
-            'no label';
+        let linkLabel = 'no label';
+        if (e.target?.hasAttribute('textContent')) {
+            console.log('linkLabel by textContent');
+            linkLabel = e.target?.textContent;
+        } else if (!!e.target?.closest('[title]')) {
+            console.log('linkLabel by title of closest');
+            const parent = e.target?.closest('[title]');
+            linkLabel = parent.getAttribute('title');
+        } else if (e.target.hasAttribute('innerHTML')) {
+            console.log('linkLabel by innerHtml');
+            const parent = e.target?.closest('[title]');
+            linkLabel = e.target?.innerHTML?.trim();
+        }
+        console.log('linkLabel=', linkLabel);
         const gtmItems = {
             event: 'gtm.linkClick', //shows as "Link Click" in the sidebar of Tag Assistant
             'gtm.elementId': elementId,
