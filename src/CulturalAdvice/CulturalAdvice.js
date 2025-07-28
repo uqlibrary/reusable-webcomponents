@@ -34,11 +34,12 @@ class CulturalAdvice extends HTMLElement {
         // Render the template
         shadowDOM.appendChild(template.content.cloneNode(true));
 
-        this.addButtonListeners(shadowDOM);
+        this.addListeners(shadowDOM);
 
-        this.addButtonListeners = this.addButtonListeners.bind(this);
+        this.addListeners = this.addListeners.bind(this);
     }
-    addButtonListeners(shadowDOM) {
+
+    addListeners(shadowDOM) {
         const links = shadowDOM.querySelectorAll('a');
         !!links && links.length > 0 && links.forEach((l) => l.addEventListener('click', (e) => sendClickToGTM(e)));
     }

@@ -75,7 +75,7 @@ class AuthButton extends HTMLElement {
         this.showLoginFromAuthStatus = this.showLoginFromAuthStatus.bind(this);
         this.addLoginButtonListener = this.addLoginButtonListener.bind(this);
         this.addLogoutButtonListeners = this.addLogoutButtonListeners.bind(this);
-        this.addGeneralButtonListeners = this.addGeneralButtonListeners.bind(this);
+        this.addGeneralListeners = this.addGeneralListeners.bind(this);
         this.addAdminMenuOptions = this.addAdminMenuOptions.bind(this);
         this.displayUserNameAsButtonLabel = this.displayUserNameAsButtonLabel.bind(this);
         this.isOverwriteAsLoggedOutRequested = this.isOverwriteAsLoggedOutRequested.bind(this);
@@ -257,7 +257,7 @@ class AuthButton extends HTMLElement {
                 this.addAdminMenuOptions(shadowDOM, account);
                 this.removeEspaceMenuOptionWhenNotAuthor(shadowDOM);
                 this.addLogoutButtonListeners(shadowDOM, account);
-                this.addGeneralButtonListeners(shadowDOM);
+                this.addGeneralListeners(shadowDOM);
             } else {
                 // invalid userDetails received - should never happen
                 this.showLoggedOutButton(shadowDOM);
@@ -449,7 +449,7 @@ class AuthButton extends HTMLElement {
         return loginButton;
     }
 
-    addGeneralButtonListeners(shadowDOM) {
+    addGeneralListeners(shadowDOM) {
         const links = shadowDOM.querySelectorAll('a');
         !!links && links.length > 0 && links.forEach((l) => l.addEventListener('click', (e) => sendClickToGTM(e)));
 

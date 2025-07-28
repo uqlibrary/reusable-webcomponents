@@ -33,7 +33,7 @@ class Alert extends HTMLElement {
 
         // Bindings
         this.loadAlert = this.loadAlert.bind(this);
-        this.addButtonListeners = this.addButtonListeners.bind(this);
+        this.addListeners = this.addListeners.bind(this);
     }
 
     loadAlert(shadowDOM) {
@@ -145,10 +145,10 @@ class Alert extends HTMLElement {
                 shadowDOM.getElementById('alert-action-mobile').remove();
             }
 
-            this.addButtonListeners(shadowDOM);
+            this.addListeners(shadowDOM);
         }, 300);
     }
-    addButtonListeners(shadowDOM) {
+    addListeners(shadowDOM) {
         const links = shadowDOM.querySelectorAll('a');
         !!links && links.length > 0 && links.forEach((l) => l.addEventListener('click', (e) => sendClickToGTM(e)));
     }

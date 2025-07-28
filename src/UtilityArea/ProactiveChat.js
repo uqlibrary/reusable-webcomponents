@@ -346,6 +346,8 @@ class ProactiveChat extends HTMLElement {
             // make sure the proactive dialog is hidden
             const wrapper = that.shadowDOM.querySelector('#proactive-chat-wrapper');
             !!wrapper && (wrapper.style.display = 'none');
+
+            !!e && sendClickToGTM(e);
         }
 
         function swapToCrm() {
@@ -460,6 +462,7 @@ class ProactiveChat extends HTMLElement {
 
                 const openCrmButton = that.shadowDOM.querySelector('#speakToPerson');
                 !!openCrmButton && openCrmButton.addEventListener('click', swapToCrm);
+                !!openCrmButton && openCrmButton.addEventListener('click', sendClickToGTM);
                 const chatbotCloseButton = that.shadowDOM.querySelector('#closeIframeButton');
                 !!chatbotCloseButton && chatbotCloseButton.addEventListener('click', closeChatBotIframe);
 
@@ -490,7 +493,7 @@ class ProactiveChat extends HTMLElement {
             const pcWrapper = that.shadowDOM.querySelector('#proactive-chat-wrapper');
             !!pcWrapper && (pcWrapper.style.display = 'none');
         }
-        function closeProactiveChat() {
+        function closeProactiveChat(e) {
             const proactiveChatWebComponent = that.shadowDOM.querySelector('#proactive-chat');
             !!proactiveChatWebComponent && proactiveChatWebComponent.classList.remove('show');
             setTimeout(hideProactiveChatWrapper, 1000);
@@ -500,6 +503,7 @@ class ProactiveChat extends HTMLElement {
             setCookie(PROACTIVE_CHAT_HIDDEN_COOKIE_NAME, PROACTIVE_CHAT_HIDDEN_COOKIE_VALUE, date, true);
 
             that.showMinimisedButton();
+            !!e && sendClickToGTM(e);
         }
 
         // Chat status listeners

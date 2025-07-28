@@ -131,7 +131,7 @@ class SecureCollection extends HTMLElement {
         this.getSecureCollectionCheck = this.getSecureCollectionCheck.bind(this);
         this.getSecureCollectionFile = this.getSecureCollectionFile.bind(this);
         this.wrapFragmentInStandardPage = this.wrapFragmentInStandardPage.bind(this);
-        this.addButtonListeners = this.addButtonListeners.bind(this);
+        this.addListeners = this.addListeners.bind(this);
     }
 
     async getSecureCollectionCheck(path) {
@@ -209,7 +209,7 @@ class SecureCollection extends HTMLElement {
                 // to satisfy switch syntax - shouldnt be possible
                 this.wrapFragmentInStandardPage('Something went wrong');
         }
-        this.addButtonListeners(shadowDOM);
+        this.addListeners(shadowDOM);
     }
 
     displayLoadingPanel() {
@@ -455,7 +455,7 @@ class SecureCollection extends HTMLElement {
         blockwrapper.appendChild(fragment);
         block.appendChild(blockwrapper);
 
-        this.addButtonListeners(this.shadowRoot);
+        this.addListeners(this.shadowRoot);
     }
 
     evaluateApiResponse(apiResponse) {
@@ -521,7 +521,7 @@ class SecureCollection extends HTMLElement {
         return paragraph;
     }
 
-    addButtonListeners(shadowDOM) {
+    addListeners(shadowDOM) {
         const links = shadowDOM.querySelectorAll('a');
         !!links && links.length > 0 && links.forEach((l) => l.addEventListener('click', (e) => sendClickToGTM(e)));
     }
