@@ -3,6 +3,7 @@ import ApiAccess from '../ApiAccess/ApiAccess';
 import { cookieNotFound, setCookie } from '../helpers/cookie';
 import { apiLocale } from '../ApiAccess/ApiAccess.locale';
 import UserAccount from '../ApiAccess/UserAccount';
+import { sendClickToGTM } from '../helpers/gtmHelpers';
 
 /**
  * API
@@ -432,6 +433,11 @@ class ProactiveChat extends HTMLElement {
         !!proactiveChatWithBot && proactiveChatWithBot.addEventListener('click', openChatBotIframe);
         const proactiveleaveQuestion = shadowDOM.getElementById('leaveAQuestionPrompt');
         !!proactiveleaveQuestion && proactiveleaveQuestion.addEventListener('click', navigateToContactUs);
+
+        const buttons = that.shadowDOM.querySelectorAll('button');
+        !!buttons &&
+            buttons.length > 0 &&
+            buttons.forEach((b) => b.addEventListener('click', (e) => sendClickToGTM(e)));
     }
 
     isChatBotHiddenHere() {
