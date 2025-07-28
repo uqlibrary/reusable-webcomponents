@@ -11,7 +11,7 @@ export function sendClickToGTM(e) {
         e.target?.id ||
         e.target?.closest('[id]')?.id ||
         'not found';
-    let linkLabel =
+    const linkLabel =
         (!!e.target?.hasAttribute('textContent') && e.target.textContent.trim()) ||
         (!!e.target?.closest('[title]') && e.target?.closest('[title]').getAttribute('title').trim()) ||
         (!!e.target.hasAttribute('innerHTML') && e.target?.innerHTML?.trim()) ||
