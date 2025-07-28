@@ -40,15 +40,16 @@ npm ci
 
 ## Branches / Environments
 
-| env                  | view at                                                                                                                                                                                         | bucket                                                      |
-| -------------------- |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| ----------------------------------------------------------- |
-| prod                 | <https://www.library.uq.edu.au/> <br/>or <https://assets.library.uq.edu.au/reusable-webcomponents/>                                                                                             | s3://uql-reusable-webcomponents-production/                 |
-| staging              | <https://assets.library.uq.edu.au/reusable-webcomponents-staging/> <br/>or <https://homepage-staging.library.uq.edu.au/> - it is the only branch that will call reusable staging                | s3://uql-reusable-webcomponents-staging/                    |
-| general dev          | master branch viewable at https://assets.library.uq.edu.au/reusable-webcomponents-development/master/ <br/>or swap "master" for the name of your branch which has had a pipeline created on AWS | s3://uql-reusable-webcomponents-development/ + subfolder    |
-| Fryer                | staging uses branch `atom-staging` at <https://sandbox-fryer.library.uq.edu.au/> (when its online - VPN required)<br/>production: <https://manuscripts.library.uq.edu.au/>                      | s3://uql-reusable-webcomponents-development/atom-staging/   |
-| Drupal V10           | staging uses branch `drupal-staging` at <https://web-staging.library.uq.edu.au/> (VPN required)<br/>production: <https://web.library.uq.edu.au/>                                                | s3://uql-reusable-webcomponents-development/drupal-staging/ |
-| Chatbot              | 3 envs: prod, staging & test. ITS chatbot people use Test env, with branch `chatbot-testenv` at <https://homepage-development.library.uq.edu.au/chatbot-testenv/> (matching homepage branch)    | s3://uql-reusable-webcomponents-development/chatbot-test/   |
-| Primo                | USes reusable for styling. Many environments. See repo `exlibris-primo` for details                                                                                                             |                                                             |
+| env                 | view at                                                                                                                                                                                         | bucket                                                      |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| prod                | <https://www.library.uq.edu.au/> <br/>or <https://assets.library.uq.edu.au/reusable-webcomponents/>                                                                                             | s3://uql-reusable-webcomponents-production/                 |
+| staging             | <https://assets.library.uq.edu.au/reusable-webcomponents-staging/> <br/>or <https://homepage-staging.library.uq.edu.au/> - it is the only branch that will call reusable staging                | s3://uql-reusable-webcomponents-staging/                    |
+| general dev         | master branch viewable at https://assets.library.uq.edu.au/reusable-webcomponents-development/master/ <br/>or swap "master" for the name of your branch which has had a pipeline created on AWS | s3://uql-reusable-webcomponents-development/ + subfolder    |
+| Fryer               | staging uses branch `atom-staging` at <https://sandbox-fryer.library.uq.edu.au/> (when its online - VPN required)<br/>production: <https://manuscripts.library.uq.edu.au/>                      | s3://uql-reusable-webcomponents-development/atom-staging/   |
+| Drupal V10          | staging uses branch `drupal-staging` at <https://web-staging.library.uq.edu.au/> <br/>production: <https://web.library.uq.edu.au/>                                                              | s3://uql-reusable-webcomponents-development/drupal-staging/ |
+| Membership + others | staging uses branch `staging` at <https://app-testing.library.uq.edu.au/> <br/>production: <https://app.library.uq.edu.au/>                                                                     | s3://uql-reusable-webcomponents-development/drupal-staging/ |
+| Chatbot             | 3 envs: prod, staging & test. ITS chatbot people use Test env, with branch `chatbot-testenv` at <https://homepage-development.library.uq.edu.au/chatbot-testenv/> (matching homepage branch)    | s3://uql-reusable-webcomponents-development/chatbot-test/   |
+| Primo               | USes reusable for styling. Many environments. See repo `exlibris-primo` for details                                                                                                             |                                                             |
 
 ## Development
 
@@ -134,7 +135,7 @@ In addition to the usual branches, the following are in use and should not be de
 - `primo-sandbox` (maps to primo env sandbox-dev. Needed to support uqsvangr)
 - `primo-sandbox-dev` (maps to primo env sandbox-dev. Needed to support uqsvangr)
 - `user-admin-manage` (used by eg uqjtilse to make changes to the megamenu ready for us to merge to master cf [admin user doc](docs/admin-howto.md))
-- `atom-staging` (used by fryer at manuscriptas.library.uq.edu, see  cf [atom readme](src/applications/atom/readme.md))
+- `atom-staging` (used by fryer at manuscriptas.library.uq.edu, see cf [atom readme](src/applications/atom/readme.md))
 
 ## Reference Material
 
