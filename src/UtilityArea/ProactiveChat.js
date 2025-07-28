@@ -300,7 +300,6 @@ class ProactiveChat extends HTMLElement {
                 }
 
                 window.open(url, 'chat', 'toolbar=no, location=no, status=no, width=400, height=400');
-                !!e && sendClickToGTM(e);
             });
         }
 
