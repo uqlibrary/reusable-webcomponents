@@ -508,8 +508,7 @@ class ProactiveChat extends HTMLElement {
             setCookie(PROACTIVE_CHAT_HIDDEN_COOKIE_NAME, PROACTIVE_CHAT_HIDDEN_COOKIE_VALUE, date, true);
 
             that.showMinimisedButton();
-            console.log('sendClickToGTM send 3');
-            !!e && sendClickToGTM(e);
+            console.log('sendClickToGTM send 3 would be a dupe');
         }
 
         // Chat status listeners
