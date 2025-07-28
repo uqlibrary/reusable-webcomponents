@@ -21,5 +21,6 @@ export function sendClickToGTM(e) {
         'gtm.elementId': elementId,
         'gtm.element': linkLabel,
     };
+    console.log('sendClickToGTM gtmItems=', gtmItems);
     window.dataLayer.push(gtmItems);
 }
