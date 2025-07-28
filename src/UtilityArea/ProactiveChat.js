@@ -347,6 +347,7 @@ class ProactiveChat extends HTMLElement {
             const wrapper = that.shadowDOM.querySelector('#proactive-chat-wrapper');
             !!wrapper && (wrapper.style.display = 'none');
 
+            console.log('sendClickToGTM send 1');
             !!e && sendClickToGTM(e);
         }
 
@@ -462,7 +463,11 @@ class ProactiveChat extends HTMLElement {
 
                 const openCrmButton = that.shadowDOM.querySelector('#speakToPerson');
                 !!openCrmButton && openCrmButton.addEventListener('click', swapToCrm);
-                !!openCrmButton && openCrmButton.addEventListener('click', sendClickToGTM);
+                !!openCrmButton &&
+                    openCrmButton.addEventListener('click', (e) => {
+                        console.log('sendClickToGTM send 2');
+                        sendClickToGTM(e);
+                    });
                 const chatbotCloseButton = that.shadowDOM.querySelector('#closeIframeButton');
                 !!chatbotCloseButton && chatbotCloseButton.addEventListener('click', closeChatBotIframe);
 
@@ -503,6 +508,7 @@ class ProactiveChat extends HTMLElement {
             setCookie(PROACTIVE_CHAT_HIDDEN_COOKIE_NAME, PROACTIVE_CHAT_HIDDEN_COOKIE_VALUE, date, true);
 
             that.showMinimisedButton();
+            console.log('sendClickToGTM send 3');
             !!e && sendClickToGTM(e);
         }
 
@@ -529,7 +535,12 @@ class ProactiveChat extends HTMLElement {
         const buttons = that.shadowDOM.querySelectorAll('button');
         !!buttons &&
             buttons.length > 0 &&
-            buttons.forEach((b) => b.addEventListener('click', (e) => sendClickToGTM(e)));
+            buttons.forEach((b) =>
+                b.addEventListener('click', (e) => {
+                    console.log('sendClickToGTM send 4');
+                    sendClickToGTM(e);
+                }),
+            );
     }
 
     hideMinimisedButtons() {
