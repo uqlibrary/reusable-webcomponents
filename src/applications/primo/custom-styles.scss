@@ -2573,7 +2573,7 @@ prm-search-result-journal-indication-line {
     height: auto !important;
     text-wrap-mode: wrap;
     line-height: 1.6;
-    padding: 0.5rem;
+    padding: 0.1rem 0.3rem;
     font-size: 0.9rem;
     font-weight: 400;
     background-color: $uqInformationLight;
@@ -2621,4 +2621,18 @@ body:not(:has(.full-view-container)) {
 // if we manage to write the feedback menu item into the menu, hide it
 .md-open-menu-container.md-active:has(#desktop-loggedin-feedback-item) #loggedout-desktop-feedback {
     display: none;
+}
+
+// lock all facets button should appear disabled when all selected facets are locked
+prm-facet button.button-as-link.link-alt-color.md-button.disabledLockButton:not([disabled]) {
+    color: #ccc !important;
+    cursor: not-allowed;
+    span {
+        text-decoration: none;
+    }
+    &:focus,
+    &:hover {
+        color: #ccc !important;
+        background-color: transparent !important;
+    }
 }
