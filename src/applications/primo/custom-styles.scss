@@ -2622,3 +2622,16 @@ body:not(:has(.full-view-container)) {
 .md-open-menu-container.md-active:has(#desktop-loggedin-feedback-item) #loggedout-desktop-feedback {
     display: none;
 }
+
+// lock all facets button should appear disabled when all selected facets are locked
+prm-facet button.button-as-link.link-alt-color.md-button.disabledLockButton:not([disabled]) {
+    color: #ccc !important;
+    cursor: not-allowed;
+    span {
+        text-decoration: none;
+    }
+    &:hover {
+        color: #ccc !important;
+        background-color: transparent !important;
+    }
+}
