@@ -69,7 +69,7 @@ describe('Dummy Application', () => {
             .shadow()
             .find('[data-testid="alert-alert-1"]')
             .should('exist')
-            .and('contain', 'This is the message');
+            .and('contain', 'This is the first message');
         // none of these test systems are primo, so this alert wont appear on any of them
         cy.get('alert-list')
             .shadow()
@@ -83,7 +83,7 @@ describe('Dummy Application', () => {
             .shadow()
             .find('[data-testid="alert-alert-1-action-button"]')
             .should('exist')
-            .should('contain', 'Action button label')
+            .should('contain', 'Alert 1 button label')
             .should('be.visible'); // not occluded by close button
     }
 
@@ -452,7 +452,7 @@ describe('Dummy Application', () => {
                 .shadow()
                 .find('[data-testid="alert-alert-3"]')
                 .should('exist')
-                .should('contain', 'This is the message');
+                .should('contain', 'This is another message');
 
             // hasNoConnectFooter();
 

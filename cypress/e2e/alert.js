@@ -16,7 +16,7 @@ describe('Alert', () => {
                 .find(`uq-alert[id="alert-${INFO}"]`)
                 .shadow()
                 .find('#alert-title')
-                .should('contain', 'This is an alert')
+                .should('contain', 'This is an info alert')
                 .should('not.contain', 'primo') // the system-specific alerts dont appear on this system-unspecified page
                 .should('not.contain', 'drupal');
 
@@ -25,7 +25,7 @@ describe('Alert', () => {
                 .find(`uq-alert[id="alert-${INFO}"]`)
                 .shadow()
                 .find('#alert-action-desktop')
-                .should('have.text', 'Action button label');
+                .should('have.text', 'Alert 1 button label');
 
             cy.get('alert-list').shadow().find(`uq-alert[id="alert-${INFO}"]`).shadow().find('#alert-close').click();
 
