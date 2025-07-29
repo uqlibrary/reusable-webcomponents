@@ -6,7 +6,10 @@ import { linkToDrupal } from '../helpers/access';
 
 const template = document.createElement('template');
 
-const footerLinkToGuidesAdmin = `<div class="uq-footer__contact-item uq-footer__contact-login"><a href="https://uq.libapps.com/libapps/login.php?site_id=731" class="uq-footer__link gtm-processed" rel="nofollow noopener">Guides login</a></div>`;
+const footerLinkToGuidesAdmin = `
+    <div class="uq-footer__contact-item uq-footer__contact-login">
+        <a href="https://uq.libapps.com/libapps/login.php?site_id=731" class="uq-footer__link gtm-processed" rel="nofollow noopener" data-testid="footer-guides-login">Guides login</a>
+    </div>`;
 const isGuidesProductionPage = document.location.hostname === 'guides.library.uq.edu.au';
 const guideLoginLink = isGuidesProductionPage ? footerLinkToGuidesAdmin : '';
 
