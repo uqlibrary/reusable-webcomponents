@@ -85,6 +85,18 @@
         }
     }
 
+    function fixEditControlPlacement() {
+        // Springshare are doing something funky on the admin pages, where when we add one of our reusable
+        // training widgets the little edit icon ends up inside the widget (but not inside the shadowdom).
+        // The admin then cant click it to use it.
+        // Odd! Move the edit button
+        const misplacedEditControl = document.querySelector('library-training > div');
+        const correctLocation = misplacedEditControl?.parentElement?.parentElement;
+        if (!!correctLocation) {
+            !!correctLocation && correctLocation.appendChild(misplacedEditControl);
+        }
+    }
+
     function applyUQLItemsToGuides() {
         if (window.location.hostname === 'localhost') {
             testIncludePathGeneration();
@@ -95,8 +107,10 @@
         fontLoader('https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css');
         fontLoader('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
 
-        let scriptUrl = getIncludeFullPath('uq-lib-reusable.min.js');
-        insertScript(scriptUrl, true);
+        let mainScriptUrl = getIncludeFullPath('uq-lib-reusable.min.js');
+        insertScript(mainScriptUrl, true);
+        let drupalScriptUrl = getIncludeFullPath('drupal-lib-reusable.min.js');
+        insertScript(drupalScriptUrl, true);
 
         const cssFileName = getIncludeFullPath('applications/libguides/custom-styles.css');
         insertCssFile(cssFileName);
@@ -120,7 +134,9 @@
 
             replaceSpringShareSidebarMenu();
 
-            if (!isInEditMode()) {
+            if (!!isInEditMode()) {
+                fixEditControlPlacement();
+            } else {
                 const gtm = document.createElement('uq-gtm');
                 !!gtm && gtm.setAttribute('gtm', 'GTM-NC7M38Q');
                 document.body.insertBefore(gtm, firstElement);
