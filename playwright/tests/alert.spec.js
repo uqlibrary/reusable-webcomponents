@@ -72,8 +72,8 @@ test.describe('Alert', () => {
     //     // the default mock page has 3 alerts (shows page has loaded)
     //     await expect(page.locator('alert-list').locator('uq-alert')).toHaveCount(3);
     //
-    //     await assertAccessibility(page, 'div.StandardPage', { disabledRules: ['color-contrast'] });
-    // ;
+    //     await assertAccessibility(page, 'alert-list uq-alert[id="alert-1"]');
+    //
     // //   page
     // //     .locator('alert-list')
     // //     .locator(`uq-alert[id="${FIRST_ALERT_ID}"]`)
