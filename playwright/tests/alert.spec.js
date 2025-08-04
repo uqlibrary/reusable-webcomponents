@@ -4,6 +4,9 @@ import { assertAccessibility } from '../lib/axe';
 const FIRST_ALERT_ID = 'alert-1';
 const SECOND_ALERT_ID = 'alert-4';
 const THIRD_ALERT_ID = 'alert-5';
+const COLOUR_UQ_INFO = 'rgb(30, 114, 198)';
+const COLOUR_UQ_WARN = 'rgb(251, 184, 0)';
+const COLOUR_UQ_ALERT = 'rgb(149, 17, 38)';
 
 test.describe('Alert', () => {
     test('Alert is visible without interaction at 1280', async ({ page }) => {
@@ -19,6 +22,7 @@ test.describe('Alert', () => {
         await expect(getAlert(FIRST_ALERT_ID).getByTestId('alert-title')).toHaveText(
             'This is an info alert that will show on all systems',
         );
+        await expect(page.getByTestId(`alert-${FIRST_ALERT_ID}`)).toHaveCSS('background-color', COLOUR_UQ_INFO);
         await expect(getAlert(FIRST_ALERT_ID).getByTestId('alert-message')).toHaveText('This is the first message');
         await expect(getAlert(FIRST_ALERT_ID).getByTestId('alert-action-desktop')).toHaveText('Alert 1 button label');
         await expect(getAlert(FIRST_ALERT_ID).getByTestId('alert-close')).toBeVisible();
@@ -28,6 +32,7 @@ test.describe('Alert', () => {
         await expect(getAlert(SECOND_ALERT_ID).getByTestId('alert-title')).toHaveText(
             'This is a permanent urgent alert that will show on all systems 2 of 2',
         );
+        await expect(page.getByTestId(`alert-${SECOND_ALERT_ID}`)).toHaveCSS('background-color', COLOUR_UQ_WARN);
         await expect(getAlert(SECOND_ALERT_ID).getByTestId('alert-message')).toHaveText('This is the second message');
         await expect(getAlert(SECOND_ALERT_ID).getByTestId('alert-title')).not.toHaveText(/primo/);
         await expect(getAlert(SECOND_ALERT_ID).getByTestId('alert-title')).not.toHaveText(/drupal/);
@@ -39,6 +44,7 @@ test.describe('Alert', () => {
         await expect(getAlert(THIRD_ALERT_ID).getByTestId('alert-title')).toHaveText(
             'This is a permanent extreme alert that will show on homepage only',
         );
+        await expect(page.getByTestId(`alert-${THIRD_ALERT_ID}`)).toHaveCSS('background-color', COLOUR_UQ_ALERT);
         await expect(getAlert(THIRD_ALERT_ID).getByTestId('alert-message')).toHaveText('This is the third message');
         await expect(getAlert(THIRD_ALERT_ID).getByTestId('alert-title')).not.toHaveText(/primo/);
         await expect(getAlert(THIRD_ALERT_ID).getByTestId('alert-title')).not.toHaveText(/drupal/);
@@ -67,6 +73,7 @@ test.describe('Alert', () => {
         await expect(getAlert(FIRST_ALERT_ID).getByTestId('alert-title')).toHaveText(
             'This is an info alert that will show on all systems',
         );
+        await expect(page.getByTestId(`alert-${FIRST_ALERT_ID}`)).toHaveCSS('background-color', COLOUR_UQ_INFO);
         await expect(getAlert(FIRST_ALERT_ID).getByTestId('alert-message')).toHaveText('This is the first message');
         await expect(getAlert(FIRST_ALERT_ID).getByTestId('alert-action-mobile')).toHaveText('Alert 1 button label');
         await expect(getAlert(FIRST_ALERT_ID).getByTestId('alert-close')).toBeVisible();
@@ -76,6 +83,7 @@ test.describe('Alert', () => {
         await expect(getAlert(SECOND_ALERT_ID).getByTestId('alert-title')).toHaveText(
             'This is a permanent urgent alert that will show on all systems 2 of 2',
         );
+        await expect(page.getByTestId(`alert-${SECOND_ALERT_ID}`)).toHaveCSS('background-color', COLOUR_UQ_WARN);
         await expect(getAlert(SECOND_ALERT_ID).getByTestId('alert-message')).toHaveText('This is the second message');
         await expect(getAlert(SECOND_ALERT_ID).getByTestId('alert-title')).not.toHaveText(/primo/);
         await expect(getAlert(SECOND_ALERT_ID).getByTestId('alert-title')).not.toHaveText(/drupal/);
@@ -87,6 +95,7 @@ test.describe('Alert', () => {
         await expect(getAlert(THIRD_ALERT_ID).getByTestId('alert-title')).toHaveText(
             'This is a permanent extreme alert that will show on homepage only',
         );
+        await expect(page.getByTestId(`alert-${THIRD_ALERT_ID}`)).toHaveCSS('background-color', COLOUR_UQ_ALERT);
         await expect(getAlert(THIRD_ALERT_ID).getByTestId('alert-message')).toHaveText('This is the third message');
         await expect(getAlert(THIRD_ALERT_ID).getByTestId('alert-title')).not.toHaveText(/primo/);
         await expect(getAlert(THIRD_ALERT_ID).getByTestId('alert-title')).not.toHaveText(/drupal/);
