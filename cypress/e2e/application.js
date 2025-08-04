@@ -81,7 +81,7 @@ describe('Dummy Application', () => {
             .shadow()
             .find('uq-alert')
             .shadow()
-            .find('[data-testid="alert-alert-1-action-button"]')
+            .find('[data-testid="alert-action-desktop"]')
             .should('exist')
             .should('contain', 'Alert 1 button label')
             .should('be.visible'); // not occluded by close button
