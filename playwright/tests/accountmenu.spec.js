@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { assertAccessibility } from '../lib/axe';
 
 const COLOUR_CONTENT_BLACK = 'rgb(25, 21, 28)';
 
@@ -155,107 +156,59 @@ async function assertUserisLoggedOut(page) {
 }
 
 test.describe('Account menu button', () => {
-    // test.describe('Accessibility', () => {
-    //     test('logged OUT user is accessible', async ({ page }) => {
-    //         await visitPageforUser('public', page);
-    //         page.FIXME_injectAxe();
-    //
-    //         assertUserisLoggedOut(page);
-    //         page.FIXME_checkA11y('auth-button', {
-    //             reportName: 'Auth Loggedout',
-    //             scopeName: 'Accessibility',
-    //             includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
-    //         });
-    //     });
-    //
-    //     test('logged IN user is accessible', async ({ page }) => {
-    //         await visitPageforUser('vanilla', page);
-    //         page.FIXME_injectAxe();
-    //         page.FIXME_checkA11y('auth-button', {
-    //             reportName: 'Account Loggedin',
-    //             scopeName: 'Accessibility',
-    //             includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
-    //         });
-    //         await openAccountDropdown(page);
-    //         // let the colours settle
-    //         page.FIXME_waitUntil(async () =>
-    //             (async () => {
-    //                 page.locator('auth-button').FIXME_shadow();
-    //                 await expect(
-    //                     page.locator('auth-button').locator('[data-testid="username-area-label"]'),
-    //                 ).toBeVisible();
-    //                 await expect(
-    //                     page
-    //                         .locator('auth-button')
-    //                         .locator('[data-testid="username-area-label"]')
-    //                         .getByText(/User, Vanilla/)
-    //                         .first(),
-    //                 ).toHaveCSS('background-color', _helpers.COLOUR_UQ_PURPLE);
-    //                 return page
-    //                     .locator('auth-button')
-    //                     .locator('[data-testid="username-area-label"]')
-    //                     .getByText(/User, Vanilla/)
-    //                     .first();
-    //             })(),
-    //         );
-    //         page.FIXME_checkA11y('auth-button', {
-    //             reportName: 'Account Loggedin Dialog Open',
-    //             scopeName: 'Accessibility',
-    //             includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
-    //         });
-    //     });
-    //
-    //     test('logged OUT user is accessible on mobile', async ({ page }) => {
-    //         await page.setViewportSize({ width: 320, height: 480 });
-    //         await visitPageforUser('public', page);
-    //         page.FIXME_injectAxe();
-    //
-    //         assertUserisLoggedOut(page);
-    //         page.FIXME_checkA11y('auth-button', {
-    //             reportName: 'Auth Loggedout mobile',
-    //             scopeName: 'Accessibility',
-    //             includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
-    //         });
-    //     });
-    //
-    //     test('logged IN user is accessible on mobile', async ({ page }) => {
-    //         await page.setViewportSize({ width: 320, height: 480 });
-    //         await visitPageforUser('vanilla', page);
-    //         page.FIXME_injectAxe();
-    //         page.FIXME_checkA11y('auth-button', {
-    //             reportName: 'Account Loggedin mobile',
-    //             scopeName: 'Accessibility',
-    //             includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
-    //         });
-    //         await openAccountDropdown(page);
-    //         // let the colours settle
-    //         page.FIXME_waitUntil(async () =>
-    //             (async () => {
-    //                 page.locator('auth-button').FIXME_shadow();
-    //                 await expect(
-    //                     page.locator('auth-button').locator('[data-testid="username-area-label"]'),
-    //                 ).toBeVisible();
-    //                 await expect(
-    //                     page
-    //                         .locator('auth-button')
-    //                         .locator('[data-testid="username-area-label"]')
-    //                         .getByText(/User, Vanilla/)
-    //                         .first(),
-    //                 ).toHaveCSS('background-color', _helpers.COLOUR_UQ_PURPLE);
-    //                 return page
-    //                     .locator('auth-button')
-    //                     .locator('[data-testid="username-area-label"]')
-    //                     .getByText(/User, Vanilla/)
-    //                     .first();
-    //             })(),
-    //         );
-    //         page.FIXME_checkA11y('auth-button', {
-    //             reportName: 'Account Loggedin Dialog Open mobile',
-    //             scopeName: 'Accessibility',
-    //             includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
-    //         });
-    //     });
-    // });
+    test.describe('Accessibility', () => {
+        test('logged OUT user is accessible', async ({ page }) => {
+            await visitPageforUser('public', page);
+
+            assertUserisLoggedOut(page);
+
+            await assertAccessibility(page, 'auth-button');
+        });
+
+        test('logged IN user is accessible', async ({ page }) => {
+            await visitPageforUser('vanilla', page);
+            await assertAccessibility(page, 'auth-button');
+
+            await openAccountDropdown(page);
+            // let the colours settle
+            const authButton = page.locator('uq-site-header').locator('auth-button');
+            await expect(authButton.getByTestId('username-area-label-field')).toBeVisible();
+            await expect(authButton.getByTestId('username-area-label-field')).toHaveText(/User, Vanilla/);
+            await expect(authButton.getByTestId('username-area-label-field')).toHaveCSS(
+                'background-color',
+                _helpers.COLOUR_UQ_PURPLE,
+            );
+
+            await assertAccessibility(page, 'auth-button');
+        });
+
+        test('logged OUT user is accessible on mobile', async ({ page }) => {
+            await page.setViewportSize({ width: 320, height: 480 });
+            await visitPageforUser('public', page);
+            assertUserisLoggedOut(page);
+
+            await assertAccessibility(page, 'auth-button');
+        });
+
+        test('logged IN user is accessible on mobile', async ({ page }) => {
+            await visitPageforUser('vanilla', page);
+            await page.setViewportSize({ width: 320, height: 480 });
+
+            await assertAccessibility(page, 'auth-button');
+
+            await openAccountDropdown(page);
+            // let the colours settle
+            const authButton = page.locator('uq-site-header').locator('auth-button');
+            await expect(authButton.getByTestId('username-area-label-field')).toBeVisible();
+            await expect(authButton.getByTestId('username-area-label-field')).toHaveText(/User, Vanilla/);
+            await expect(authButton.getByTestId('username-area-label-field')).toHaveCSS(
+                'background-color',
+                _helpers.COLOUR_UQ_PURPLE,
+            );
+
+            await assertAccessibility(page, 'auth-button');
+        });
+    });
     test.describe('Account menu button', () => {
         test('`overwriteasloggedout` attribute always show them as logged out', async ({ page }) => {
             await page.goto('http://localhost:8080/index-primo.html');

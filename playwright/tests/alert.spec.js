@@ -111,47 +111,29 @@ test.describe('Alert', () => {
         await expect(getAlert(THIRD_ALERT_ID).getByTestId('alert-title')).not.toHaveText(/drupal/);
     });
 
-    // test.only('Alert passes accessibility', async ({ page }) => {
-    //     const getAlert = alertIdentifierString => page
-    //         .locator('alert-list')
-    //         .locator(`uq-alert[id="${alertIdentifierString}"]`);
-    //
-    //
-    //     await page.goto('http://localhost:8080/#keyword=;campus=;weekstart=');
-    //     await page.setViewportSize({ width: 1280, height: 900 });
-    //
-    //     // the default mock page has 3 alerts (shows page has loaded)
-    //     await expect(page.locator('alert-list').locator('uq-alert')).toHaveCount(3);
-    //
-    //     await assertAccessibility(page, 'alert-list uq-alert[id="alert-1"]');
-    //
-    // //   page
-    // //     .locator('alert-list')
-    // //     .locator(`uq-alert[id="${FIRST_ALERT_ID}"]`)
-    // //     .locator('div#alert')
-    // //     .FIXME_checkA11y('alert-list', {
-    // //       reportName: 'Alert',
-    // //       scopeName: 'Accessibility',
-    // //       includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
-    // //     });
-    // //   await expect(
-    // //     page
-    // //       .locator('alert-list')
-    // //       .locator(`uq-alert[id="${FIRST_ALERT_ID}"]`)
-    // //       .locator('div#alert')
-    // //   ).toHaveAttribute('aria-label', 'Alert.');
-    // //   page
-    // //     .locator('alert-list')
-    // //     .locator(`uq-alert[id="${SECOND_ALERT_ID}"]`)
-    // //     .locator('div#alert')
-    // //     .FIXME_checkA11y('alert-list', {
-    // //       reportName: 'Alert',
-    // //       scopeName: 'Accessibility',
-    // //       includedImpacts: ['minor', 'moderate', 'serious', 'critical'],
-    // //     });
-    //   await expect(getAlert(SECOND_ALERT_ID).locator('div#alert')).toHaveAttribute('aria-label', 'Important alert.');
-    //   await expect(getAlert(THIRD_ALERT_ID).locator('div#alert')).toHaveAttribute('aria-label', 'Very important alert.');
-    // });
+    // we cant get "into" the alert within the alert-list to get an alert
+    // so make a page which has just the alerts themselves
+    test('Alert passes accessibility', async ({ page }) => {
+        const getAlert = (alertIdentifierString) => page.locator(`uq-alert[id="${alertIdentifierString}"]`);
+
+        await page.goto('http://localhost:8080/index-individual-alerts.html');
+        await page.setViewportSize({ width: 1280, height: 900 });
+
+        // the default mock page has 3 alerts (shows page has loaded)
+        await expect(page.locator('uq-alert')).toHaveCount(3);
+
+        await expect(getAlert(FIRST_ALERT_ID).locator('div#alert')).toHaveAttribute('aria-label', 'Alert.');
+        await assertAccessibility(page, `uq-alert[id="${FIRST_ALERT_ID}"]`);
+
+        await expect(getAlert(SECOND_ALERT_ID).locator('div#alert')).toHaveAttribute('aria-label', 'Important alert.');
+        await assertAccessibility(page, `uq-alert[id="${SECOND_ALERT_ID}"]`);
+
+        await expect(getAlert(THIRD_ALERT_ID).locator('div#alert')).toHaveAttribute(
+            'aria-label',
+            'Very important alert.',
+        );
+        await assertAccessibility(page, `uq-alert[id="${THIRD_ALERT_ID}"]`);
+    });
 
     test('Alert is hidden if clicked to dismiss', async ({ page }) => {
         const getAlert = (alertIdentifierString) =>
