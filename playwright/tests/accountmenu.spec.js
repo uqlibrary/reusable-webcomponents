@@ -1,10 +1,8 @@
 import { expect, test } from '@playwright/test';
 import { assertAccessibility } from '../lib/axe';
 
-const COLOUR_CONTENT_BLACK = 'rgb(25, 21, 28)';
-
-var _ApiAccess = require('../../src/ApiAccess/ApiAccess.locale');
-var _helpers = require('../../src/UtilityArea/helpers');
+const _ApiAccess = require('../../src/ApiAccess/ApiAccess.locale');
+const _helpers = require('../../src/UtilityArea/helpers');
 
 async function assertLogoutButtonVisible(page, expected = true) {
     const authButton = page.locator('uq-site-header').locator('auth-button');
@@ -160,7 +158,7 @@ test.describe('Account menu button', () => {
         test('logged OUT user is accessible', async ({ page }) => {
             await visitPageforUser('public', page);
 
-            assertUserisLoggedOut(page);
+            await assertUserisLoggedOut(page);
 
             await assertAccessibility(page, 'auth-button');
         });
@@ -185,7 +183,7 @@ test.describe('Account menu button', () => {
         test('logged OUT user is accessible on mobile', async ({ page }) => {
             await page.setViewportSize({ width: 320, height: 480 });
             await visitPageforUser('public', page);
-            assertUserisLoggedOut(page);
+            await assertUserisLoggedOut(page);
 
             await assertAccessibility(page, 'auth-button');
         });
@@ -311,7 +309,10 @@ test.describe('Account menu button', () => {
                 'background-color',
                 'rgba(0, 0, 0, 0)',
             );
-            await expect(authButton.getByTestId('username-area-label-field')).toHaveCSS('color', COLOUR_CONTENT_BLACK);
+            await expect(authButton.getByTestId('username-area-label-field')).toHaveCSS(
+                'color',
+                _helpers.COLOUR_CONTENT_BLACK,
+            );
 
             await openAccountDropdown(page);
 
@@ -341,7 +342,10 @@ test.describe('Account menu button', () => {
                 'background-color',
                 'rgba(0, 0, 0, 0)',
             );
-            await expect(authButton.getByTestId('username-area-label-field')).toHaveCSS('color', COLOUR_CONTENT_BLACK);
+            await expect(authButton.getByTestId('username-area-label-field')).toHaveCSS(
+                'color',
+                _helpers.COLOUR_CONTENT_BLACK,
+            );
         });
 
         test('Clicking the pane closes the account menu', async ({ page }) => {
