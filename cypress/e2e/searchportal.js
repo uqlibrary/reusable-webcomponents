@@ -15,8 +15,8 @@ describe('Search Portal', () => {
 
     function openSearchTypeDropdown() {
         cy.get('[data-testid="primo-search"]').contains('Search');
-        cy.waitUntil(() => cy.get('[data-testid="primo-search-select"]').should('exist'));
-        cy.get('[data-testid="primo-search-select"]').trigger('click');
+        cy.waitUntil(() => cy.get('[data-testid="search-type-selector"]').should('exist'));
+        cy.get('[data-testid="search-type-selector"]').trigger('click');
     }
 
     function typeTextStringIntoInputField(text, numberOfResults = null) {
@@ -78,11 +78,11 @@ describe('Search Portal', () => {
                     cy.get('[data-testid="search-portal-autocomplete-option-9"] a')
                         .focus()
                         .trigger('keydown', { keyCode: TAB_KEYCODE });
-                    // cy.get('[data-testid="primo-search-autocomplete-voice-clear"]').should('have.focus');
+                    // cy.get('[data-testid="input-field-clear"]').should('have.focus');
 
                     cy.log('focus on a suggestion and hit escape and suggestions are cleared');
                     // cy.get('input[data-testid="primo-search-autocomplete-input"]').type('{esc}');
-                    cy.get('button[data-testid="primo-search-autocomplete-voice-clear"]').should('exist').click();
+                    cy.get('button[data-testid="input-field-clear"]').should('exist').click();
                     typeTextStringIntoInputField('beard');
                     cy.get('[data-testid="search-portal-autocomplete-option-0"] a')
                         .focus()
@@ -200,7 +200,7 @@ describe('Search Portal', () => {
                     cy.get('[data-testid="primo-search"]').contains('Search');
 
                     // on first load, the library drop down displays "Library"
-                    cy.waitUntil(() => cy.get('[data-testid="primo-search-select"]').contains('All'));
+                    cy.waitUntil(() => cy.get('[data-testid="search-type-selector"]').contains('All'));
                     hasCorrectNumberOfFooterLinks(3);
 
                     // there are the correct number of options in the search dropdown
@@ -245,9 +245,9 @@ describe('Search Portal', () => {
                 .within(() => {
                     cy.get('[data-testid="primo-search"]').contains('Search');
                     // main library search (choose Books)
-                    cy.get('[data-testid="primo-search-select"]').trigger('click');
+                    cy.get('[data-testid="search-type-selector"]').trigger('click');
                     cy.get('button[data-testid="primo-search-item-1"]').trigger('click');
-                    cy.get('[data-testid="portaltype-current-label"]').contains('Books');
+                    cy.get('[data-testid="portal-type-current-label"]').contains('Books');
 
                     hasCorrectNumberOfFooterLinks(3);
 
@@ -258,7 +258,7 @@ describe('Search Portal', () => {
 
                     // clear 'X' button works
                     cy.get('input[data-testid="primo-search-autocomplete-input"]').should('have.value', 'beard');
-                    //cy.get('[data-testid="primo-search-autocomplete-voice-clear"]').trigger("click");
+                    //cy.get('[data-testid="input-field-clear"]').trigger("click");
                     cy.get('input[data-testid="primo-search-autocomplete-input"]').type('{esc}');
                     cy.get('input[data-testid="primo-search-autocomplete-input"]').should('have.value', '');
                     cy.get('ul[data-testid="primo-search-autocomplete-listbox"]').should('not.exist');
@@ -273,7 +273,7 @@ describe('Search Portal', () => {
                     openSearchTypeDropdown();
                     // choose Journal articles type
                     cy.get('button[data-testid="primo-search-item-2"]').trigger('click');
-                    cy.get('[data-testid="portaltype-current-label"]').contains('Journal articles');
+                    cy.get('[data-testid="portal-type-current-label"]').contains('Journal articles');
 
                     hasCorrectNumberOfFooterLinks(3);
 
@@ -302,7 +302,7 @@ describe('Search Portal', () => {
                 .within(() => {
                     openSearchTypeDropdown();
                     cy.get('button[data-testid="primo-search-item-6"]').trigger('click');
-                    cy.get('[data-testid="portaltype-current-label"]').contains('Databases');
+                    cy.get('[data-testid="portal-type-current-label"]').contains('Databases');
 
                     hasCorrectNumberOfFooterLinks(1);
 
@@ -321,7 +321,7 @@ describe('Search Portal', () => {
                     openSearchTypeDropdown();
                     // exams occurs in the dropdown
                     cy.get('button[data-testid="primo-search-item-7"]').trigger('click');
-                    cy.get('[data-testid="portaltype-current-label"]').contains('exam paper');
+                    cy.get('[data-testid="portal-type-current-label"]').contains('exam paper');
 
                     hasCorrectNumberOfFooterLinks(1);
                     // // the link in the single footer should go to an 'exams' result
@@ -371,7 +371,7 @@ describe('Search Portal', () => {
                     openSearchTypeDropdown();
                     // choose course reading list in the dropdown
                     cy.get('button[data-testid="primo-search-item-8"]').trigger('click');
-                    cy.get('[data-testid="portaltype-current-label"]').contains('Course reading lists');
+                    cy.get('[data-testid="portal-type-current-label"]').contains('Course reading lists');
 
                     hasCorrectNumberOfFooterLinks(1);
                     // // the single link in the footer should go to a 'talis' result
@@ -407,11 +407,11 @@ describe('Search Portal', () => {
                         .and('match', /rtype,exclude,reviews,lk/); // look for the part that is specific to the Library search
 
                     // change to a different search type
-                    cy.get('[data-testid="primo-search-select"]').trigger('click');
+                    cy.get('[data-testid="search-type-selector"]').trigger('click');
                     cy.get('button[data-testid="primo-search-item-1"]').click(); //trigger("click");
-                    cy.waitUntil(() => cy.get('[data-testid="portal-type-selector"]').should('exist'));
+                    cy.waitUntil(() => cy.get('[data-testid="portal-type-wrapper"]').should('exist'));
                     // the search type list will close
-                    cy.get('[data-testid="portal-type-selector"]').should('have.class', 'hidden');
+                    cy.get('[data-testid="portal-type-wrapper"]').should('have.class', 'hidden');
 
                     // // the search will reload automatically and have book-type links now
                     cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
@@ -433,14 +433,14 @@ describe('Search Portal', () => {
                 .shadow()
                 .within(() => {
                     openSearchTypeDropdown();
-                    cy.get('[data-testid="portal-type-selector"]').should('not.have.class', 'hidden');
+                    cy.get('[data-testid="portal-type-wrapper"]').should('not.have.class', 'hidden');
                 });
             // click somewhere on the page outside the Search type dropdown
             cy.get('[data-testid="random-page-element"]').trigger('click');
             cy.get('search-portal')
                 .shadow()
                 .within(() => {
-                    cy.get('[data-testid="portal-type-selector"]').should('have.class', 'hidden');
+                    cy.get('[data-testid="portal-type-wrapper"]').should('have.class', 'hidden');
                 });
         });
 
@@ -478,11 +478,11 @@ describe('Search Portal', () => {
                     // we cant test portaltype-current-icon because it is covered by its owning svg, but sometimes the user does click on that!
                     cy.get('#search-portal-search-type-selector').trigger('click');
                     // the dropdown is open
-                    cy.get('[data-testid="portal-type-selector"]').should('not.have.class', 'hidden');
+                    cy.get('[data-testid="portal-type-wrapper"]').should('not.have.class', 'hidden');
                     // select Books
                     cy.get('button[data-testid="primo-search-item-1"]').click(); //("click");
                     // the dropdown is closed
-                    cy.get('[data-testid="portal-type-selector"]').should('have.class', 'hidden');
+                    cy.get('[data-testid="portal-type-wrapper"]').should('have.class', 'hidden');
                     // the search results reload
                     cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
                         .find('li')
@@ -490,11 +490,11 @@ describe('Search Portal', () => {
                         .should('eq', 10);
 
                     // click on the button item of the search type display label
-                    cy.get('[data-testid="primo-search-select"]').trigger('click');
+                    cy.get('[data-testid="search-type-selector"]').trigger('click');
                     // the dropdown is open
-                    cy.get('[data-testid="portal-type-selector"]').should('not.have.class', 'hidden');
+                    cy.get('[data-testid="portal-type-wrapper"]').should('not.have.class', 'hidden');
                     cy.get('button[data-testid="primo-search-item-2"]').click(); //("click");
-                    cy.get('[data-testid="portal-type-selector"]').should('have.class', 'hidden');
+                    cy.get('[data-testid="portal-type-wrapper"]').should('have.class', 'hidden');
                     // the search results reload
                     cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
                         .find('li')
@@ -504,9 +504,9 @@ describe('Search Portal', () => {
                     // click on the wrapper item of the search type display label
                     cy.get('[data-testid="search-portal-type-select-wrapper"]').trigger('click');
                     // the dropdown is open
-                    cy.get('[data-testid="portal-type-selector"]').should('not.have.class', 'hidden');
+                    cy.get('[data-testid="portal-type-wrapper"]').should('not.have.class', 'hidden');
                     cy.get('button[data-testid="primo-search-item-3"]').click(); // ("click");
-                    cy.get('[data-testid="portal-type-selector"]').should('have.class', 'hidden');
+                    cy.get('[data-testid="portal-type-wrapper"]').should('have.class', 'hidden');
                     // the search results reload
                     cy.get('ul[data-testid="primo-search-autocomplete-listbox"]')
                         .find('li')
@@ -520,10 +520,10 @@ describe('Search Portal', () => {
             cy.get('search-portal')
                 .shadow()
                 .within(() => {
-                    cy.get('[data-testid="primo-search-select"]').trigger('click');
-                    cy.get('[data-testid="portaltype-current-label"]').contains('All');
+                    cy.get('[data-testid="search-type-selector"]').trigger('click');
+                    cy.get('[data-testid="portal-type-current-label"]').contains('All');
                     cy.get('button[data-testid="primo-search-item-2"]').click(); // ("click");
-                    cy.get('[data-testid="portaltype-current-label"]').contains('Journal articles');
+                    cy.get('[data-testid="portal-type-current-label"]').contains('Journal articles');
                 });
             // open a new window and the search type is saved
             cy.visit('/');
@@ -531,7 +531,7 @@ describe('Search Portal', () => {
             cy.get('search-portal')
                 .shadow()
                 .within(() => {
-                    cy.get('[data-testid="portaltype-current-label"]').contains('Journal articles');
+                    cy.get('[data-testid="portal-type-current-label"]').contains('Journal articles');
                 });
         });
 
@@ -554,10 +554,10 @@ describe('Search Portal', () => {
             cy.get('search-portal')
                 .shadow()
                 .within(() => {
-                    cy.get('[data-testid="restrictions-accordian-container"]').contains('Restrictions on use');
+                    cy.get('[data-testid="restrictions-accordian-controller"]').contains('Restrictions on use');
 
                     cy.get('[data-testid="restrictions-accordian-content"]').should('not.be.visible');
-                    cy.get('[data-testid="restrictions-accordian-container"]').click();
+                    cy.get('[data-testid="restrictions-accordian-controller"]').click();
                     cy.get('[data-testid="restrictions-accordian-content"]')
                         .should('be.visible')
                         .should(
@@ -582,7 +582,7 @@ describe('Search Portal', () => {
                 .within(() => {
                     typeTextStringIntoInputField('beard', 10);
 
-                    cy.get('button[data-testid="primo-search-submit"]').click();
+                    cy.get('button[data-testid="search-portal-submit"]').click();
                 });
             cy.get('body').contains('user is on a Primo result page');
         });
@@ -608,7 +608,7 @@ describe('Search Portal', () => {
             cy.get('search-portal')
                 .shadow()
                 .within(() => {
-                    cy.get('[data-testid="primo-search-select"]').trigger('click');
+                    cy.get('[data-testid="search-type-selector"]').trigger('click');
                     cy.get('button[data-testid="primo-search-item-1"]').trigger('click');
                     typeTextStringIntoInputField('PHIL');
                 });
@@ -621,7 +621,7 @@ describe('Search Portal', () => {
             cy.get('search-portal')
                 .shadow()
                 .within(() => {
-                    cy.get('[data-testid="primo-search-select"]').trigger('click');
+                    cy.get('[data-testid="search-type-selector"]').trigger('click');
                     cy.get('button[data-testid="primo-search-item-7"]').trigger('click');
                     typeTextStringIntoInputField('PHIL');
                 });
@@ -633,7 +633,7 @@ describe('Search Portal', () => {
             cy.get('search-portal')
                 .shadow()
                 .within(() => {
-                    cy.get('[data-testid="primo-search-select"]').trigger('click');
+                    cy.get('[data-testid="search-type-selector"]').trigger('click');
                     cy.get('button[data-testid="primo-search-item-8"]').trigger('click');
                     typeTextStringIntoInputField('PHIL');
                 });
