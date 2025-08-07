@@ -40,7 +40,7 @@ template.innerHTML = `
         <div class="uq-header__search-toggle">
             <button class="nav-primary__toggle nav-primary__search-toggle" id="uq-header-search-button" 
                 data-testid="uq-header-search-button" data-analyticsid="uq-header-search-button" data-gtm-action="Toggle"
-                aria-haspopup="true" aria-expanded="false" aria-controls="uq-header_search_panel">
+                aria-haspopup="true" aria-expanded="false" aria-controls="uq-header_search_panel" aria-labelledby="search-toggle__label">
                 <div id="search-toggle__label" class="search-toggle__label">Search</div>
             </button>
         </div>
