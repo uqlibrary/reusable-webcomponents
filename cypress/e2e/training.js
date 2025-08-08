@@ -1167,7 +1167,7 @@ describe('Training', () => {
                             cy.get('[data-testid="training-filter-campus-label"]').click();
                             cy.get('[data-testid="training-filter-campus-select-0"]').click();
 
-                            cy.get('[data-testid="training-filter-popular-events-Excel"]').click();
+                            cy.get('[data-testid="training-filter-popular-events-excel"]').click();
 
                             cy.url().should(
                                 'eq',
@@ -1187,7 +1187,7 @@ describe('Training', () => {
                         .should('exist')
                         .shadow()
                         .within(() => {
-                            cy.get('[data-testid="training-filter-popular-events-Excel"]').click();
+                            cy.get('[data-testid="training-filter-popular-events-excel"]').click();
                             cy.url().should(
                                 'eq',
                                 'http://localhost:8080/index-training.html#keyword=Excel;campus=;weekstart=',

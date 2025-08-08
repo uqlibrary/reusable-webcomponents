@@ -148,7 +148,7 @@ async function assertUserSeesNOAdminOptions(page) {
     await expect(page.locator('[data-testid="admin-options"]')).not.toBeVisible();
 }
 
-async function assertUserisLoggedOut(page) {
+async function assertUserIsLoggedOut(page) {
     await expect(page.locator('auth-button').getByTestId('auth-button-login-label')).toBeVisible();
     await expect(page.locator('auth-button').getByTestId('auth-button-login-label')).toHaveText(/Log in/);
 }
@@ -158,7 +158,7 @@ test.describe('Account menu button', () => {
         test('logged OUT user is accessible', async ({ page }) => {
             await visitPageforUser('public', page);
 
-            await assertUserisLoggedOut(page);
+            await assertUserIsLoggedOut(page);
 
             await assertAccessibility(page, 'auth-button');
         });
@@ -183,7 +183,7 @@ test.describe('Account menu button', () => {
         test('logged OUT user is accessible on mobile', async ({ page }) => {
             await page.setViewportSize({ width: 320, height: 480 });
             await visitPageforUser('public', page);
-            await assertUserisLoggedOut(page);
+            await assertUserIsLoggedOut(page);
 
             await assertAccessibility(page, 'auth-button');
         });
@@ -211,7 +211,7 @@ test.describe('Account menu button', () => {
         test('`overwriteasloggedout` attribute always show them as logged out', async ({ page }) => {
             await page.goto('http://localhost:8080/index-primo.html');
             await page.setViewportSize({ width: 1280, height: 900 });
-            await assertUserisLoggedOut(page);
+            await assertUserIsLoggedOut(page);
         });
 
         test('Navigates to login page', async ({ page }) => {
@@ -224,7 +224,7 @@ test.describe('Account menu button', () => {
 
             const authButton = page.locator('uq-site-header').locator('auth-button');
             await expect(authButton).toBeVisible();
-            await assertUserisLoggedOut(page);
+            await assertUserIsLoggedOut(page);
             await authButton.getByTestId('auth-button-login').click();
             await expect(page.getByText('user visits login page')).toBeVisible();
         });
@@ -239,7 +239,7 @@ test.describe('Account menu button', () => {
             // await expect(authButton.locator('button:contains("Log out")')).toBeVisible();
             // await expect(authButton.getByTestId('auth-button-logout')).toBeVisible();
             await authButton.getByTestId('auth-button-logout').click();
-            await assertUserisLoggedOut(page);
+            await assertUserIsLoggedOut(page);
         });
 
         // // what does this even test?!?!?
@@ -271,7 +271,7 @@ test.describe('Account menu button', () => {
             await page.waitForTimeout(1000);
             await context.clearCookies({ name: _ApiAccess.apiLocale.SESSION_COOKIE_NAME });
             await page.waitForTimeout(1000);
-            await assertUserisLoggedOut(page);
+            await assertUserIsLoggedOut(page);
         });
 
         test('Pressing esc closes the account menu', async ({ page }) => {

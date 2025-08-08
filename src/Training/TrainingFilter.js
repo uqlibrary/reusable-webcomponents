@@ -51,7 +51,7 @@ template.innerHTML = `
                 <div tabindex="-1" data-testid="training-filter-week-list" data-analyticsid="training-filter-week-list" id="weeklist" class="selectorlist weeklist hidden" aria-expanded="false"></div>
             </div>
         </div>
-        <div id="quicklinks" class="quicklinks">
+        <div id="quicklinks" class="quicklinks" data-testid="filter-quicklinks">
             <h4>Popular events:</h4>
         </div>
     </section>
@@ -346,7 +346,8 @@ class TrainingFilter extends HTMLElement {
             const chipButton = document.createElement('button');
             chipButton.className = 'chip uq-button';
             chipButton.innerHTML = chip.label;
-            chipButton.setAttribute('data-testid', `training-filter-popular-events-${chip.term}`);
+            const slug = chip.term.toLowerCase().replace(/ /g, '-');
+            chipButton.setAttribute('data-testid', `training-filter-popular-events-${slug}`);
             chipButton.setAttribute('aria-label', `Use ${chip.term} as keyword`);
             !!chipButton &&
                 chipButton.addEventListener('click', function () {

@@ -429,7 +429,7 @@ test.describe('Search Portal', () => {
 
             // the user can key from the search term to the first suggestions
             await typeTextStringIntoInputField(searchPortalElement, 'beard', 10);
-            page.keyboard.press('ArrowDown');
+            await page.keyboard.press('ArrowDown');
             await expect(searchPortalElement.getByTestId('suggestion-link-0')).toBeFocused();
 
             // focus on Nth suggestion then arrow down, and focus should be on #N+1
