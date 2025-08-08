@@ -9,22 +9,18 @@ import ApiAccess from './ApiAccess';
 // this manages services that need to check for a logged in account
 // actual login button click is handled within AuthButton
 class UserAccount extends ApiAccess {
-    constructor(source = 'unknown') {
+    constructor() {
         super();
-        this.source = source;
         if (!!UserAccount.instance) {
-            console.log(`### UserAccount created by ${source} - REUSE instance`);
             return UserAccount.instance;
         }
 
         UserAccount.instance = this;
 
-        console.log(`### UserAccount created by ${source} - NEW instance`);
         this.account = {};
     }
 
     async get() {
-        console.log('### UserAccount start of get, from', this.source);
         const that = this;
         const ACCOUNT_CALL_INCOMPLETE = 'incomplete';
         const ACCOUNT_CALL_DONE = 'done';
@@ -40,9 +36,7 @@ class UserAccount extends ApiAccess {
 
         const accountApi = new ApiRoutes().CURRENT_ACCOUNT_API();
         let accountCallStatus = ACCOUNT_CALL_INCOMPLETE;
-        const url = accountApi?.apiUrl + '?source=' + this.source;
-        console.log('### UserAccount call fetchApi, from', this.source, 'with', url);
-        await this.fetchAPI(url, {}, true)
+        await this.fetchAPI(accountApi?.apiUrl, {}, true)
             .then((account) => {
                 if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
                     accountCallStatus = ACCOUNT_CALL_DONE;
@@ -113,7 +107,6 @@ class UserAccount extends ApiAccess {
     }
 
     showLoggedOutButton() {
-        console.log('### UserAccount showLoggedOutButton');
         const authButton = document.querySelector('auth-button');
         if (!!authButton) {
             // create temporary reference element so we know where to paste the new logged out auth

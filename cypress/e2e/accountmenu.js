@@ -250,12 +250,12 @@ describe('Account menu button', () => {
             cy.clearCookie(apiLocale.SESSION_COOKIE_NAME);
             cy.clearCookie(apiLocale.SESSION_USER_GROUP_COOKIE_NAME);
 
-            const api = new UserAccount('test');
+            const api = new UserAccount();
             api.announceUserLoggedOut();
 
             async function checkCookies() {
                 let testResult = false;
-                await new UserAccount('testcookie').get().then((result) => {
+                await new UserAccount().get().then((result) => {
                     expect(result).to.be.equal(false);
                     testResult = true;
                 });
