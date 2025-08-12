@@ -1,7 +1,5 @@
 dist
 node_modules
-cypress/screenshots
-cypress/videos
 .idea
 coverage/
 .nyc_output

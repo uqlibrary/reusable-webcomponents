@@ -155,7 +155,6 @@ class TrainingFilter extends HTMLElement {
                 // nav to first campus entry
                 navigateToFirstCampusEntry();
             } /* istanbul ignore next */ else if (isBackTabKeyPressed(e)) {
-                // not tested - looks like cypress cant do the tab inside shadow dom
                 !campuslist.classList.contains('hidden') && that.closeDropdown(campuslist);
             }
         }
@@ -193,7 +192,6 @@ class TrainingFilter extends HTMLElement {
                     const prevElement = !!prevElementId && that.shadowRoot.getElementById(prevElementId);
                     !!prevElement && prevElement.focus();
                 } /* istanbul ignore next */ else if (isTabKeyPressed(e)) {
-                    // not tested - looks like cypress cant do the tab inside shadow dom
                     // close on tab off last element
                     if (eventTargetId.startsWith('campus-select-')) {
                         const currentId = eventTargetId.replace('campus-select-', '');
@@ -222,7 +220,6 @@ class TrainingFilter extends HTMLElement {
                 e.preventDefault();
                 navigateToFirstWeekEntry();
             } /* istanbul ignore next */ else if (isBackTabKeyPressed(e)) {
-                // not tested - looks like cypress cant do the tab inside shadow dom
                 !weeklist.classList.contains('hidden') && that.closeDropdown(weeklist);
             }
         }
@@ -261,7 +258,6 @@ class TrainingFilter extends HTMLElement {
                 }
                 !!prevElement && prevElement.focus();
             } /* istanbul ignore next */ else if (isTabKeyPressed(e)) {
-                // not tested - looks like cypress cant do the tab inside shadow dom
                 // close on last element
                 if (eventTargetId.startsWith('week-select-')) {
                     const currentId = eventTargetId.replace('week-select-', '');
