@@ -56,7 +56,11 @@ npm ci
 - run `npm ci` to install packages.
 - run `npm run start` to run the project locally while developing with a listener (calls api on staging for data)
 - run `npm run start:mock` to run the project locally with mock data
-  - While this is running, you can run `npm run test` to manually run playwright tests
+  - While this is running, you can run `npm run test:e2e` to manually run playwright tests, headless
+  - and `npm run test:e2e:show` in headed mode
+  - you can restrict to a single test by temporarily putting ".only" on the test
+  - you can run a single suite by appending all or part of the filename to the test, eg `npm run test:e2e openaccess`
+  - you can also simply run `npx playwright test`
 - run `npm run build` to run a `local` test build in the `dist` folder (this also replaces `gulp styles` in the old reusable for building css locally for pasting into live pages for test)
 - run `npm run build:staging` to run a `staging` test build in the `dist` folder
 - run `npm run build:production` to run a `production` test build in the `dist` folder

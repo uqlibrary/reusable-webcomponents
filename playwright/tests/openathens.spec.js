@@ -7,9 +7,9 @@ const BUTTON_CLEAR_CREATED_LINK = 'create-new-link-button';
 const BUTTON_CLEAR_ON_VISIT = 'input-clear-button';
 
 test.describe('OpenAthens', () => {
-    async function copyAndToast(toastMessage, page) {
+    async function copyAndToast(toastMessage, page, context, successExpected = true) {
         // only tested in copy-url mode
-        // await page.locator('open-athens[create-link]').getByTestId('open-athens').scrollIntoViewIfNeeded();
+        await expect(page.locator('open-athens[create-link]').getByTestId('open-athens')).toBeVisible();
         const openAthensElement = page.locator('open-athens[create-link]').getByTestId('open-athens');
 
         await expect(openAthensElement.getByTestId('input-field')).toBeVisible();
@@ -24,15 +24,20 @@ test.describe('OpenAthens', () => {
         // await openAthensElement.getByTestId('input-field').scrollIntoViewIfNeeded();
         await openAthensElement.getByRole('button', { name: 'Copy Link' }).click();
 
-        // // Verify the URL was actually "copied"
-        // const clipboardText1 = await page.evaluate("navigator.clipboard.readText()");
-        // expect(clipboardText1).toContain("https://resolver.library.uq.edu.au/openathens/redir?qurl=https%3A%2F%2Fwww.google.com");
-
         // Toast appears and disappears
         await expect(openAthensElement.getByTestId('copy-status')).toBeVisible();
         await expect(openAthensElement.getByTestId('copy-status')).toHaveText(toastMessage);
-        await page.waitForTimeout(4000); // give toast time to disappear
-        await expect(openAthensElement.getByTestId('copy-status')).not.toBeVisible();
+
+        if (!!successExpected) {
+            // Verify the URL was actually "copied", when it is a success message
+            // per https://stackoverflow.com/questions/72265518/how-to-access-the-clipboard-contents-using-playwright-in-typescript
+            await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+            const handle = await page.evaluateHandle(() => navigator.clipboard.readText());
+            const clipboardText = await handle.jsonValue();
+            expect(clipboardText).toContain(
+                'https://resolver.library.uq.edu.au/openathens/redir?qurl=https%3A%2F%2Fwww.google.com',
+            );
+        }
     }
     test.describe('copy url mode', () => {
         test.describe('success', () => {
@@ -82,11 +87,26 @@ test.describe('OpenAthens', () => {
                     'https://go.openathens.net/redirector/uq.edu.au?url=https%3A%2F%2Fwww.example.com%2Fsomething',
                 );
             });
+            test('the toast after clicking copy appears and disappears', async ({ page }) => {
+                const openAthensElement = page.locator('open-athens[create-link]').getByTestId('open-athens');
+
+                await expect(openAthensElement.getByTestId('input-field')).toBeVisible();
+                await openAthensElement.getByTestId('input-field').fill('https://www.google.com/');
+                await openAthensElement.getByRole('button', { name: 'Create Link' }).click();
+                await openAthensElement.getByRole('button', { name: 'Copy Link' }).click();
+
+                // Toast appears and disappears
+                await expect(openAthensElement.getByTestId('copy-status')).toBeVisible();
+                await page.waitForTimeout(4000); // give toast time to disappear
+                await expect(openAthensElement.getByTestId('copy-status')).not.toBeVisible();
+            });
             test('in built command to copy the generated URL to the clipboard on clicking copy button succeeds', async ({
                 page,
+                context,
             }) => {
                 await page.setViewportSize({ width: 900, height: 1200 });
-                await copyAndToast('URL copied successfully.', page);
+                await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+                await copyAndToast('URL copied successfully.', page, context, true);
             });
             test('can clear a created link', async ({ page }) => {
                 const openAthensElement = page.locator('open-athens[create-link]').getByTestId('open-athens');
@@ -256,7 +276,7 @@ test.describe('OpenAthens', () => {
                 // Remove clipboard API and execCommand before any copy operation
                 await page.addInitScript(() => {
                     // // Remove modern clipboard API
-                    // delete navigator.clipboard;
+                    delete navigator.clipboard;
 
                     // Disable execCommand for copy operations
                     const originalExecCommand = document.execCommand;
@@ -268,7 +288,7 @@ test.describe('OpenAthens', () => {
                     };
                 });
 
-                await copyAndToast('The Copy function is not available in this web browser.', page);
+                await copyAndToast('The Copy function is not available in this web browser.', page, context, false);
             });
         });
     });
