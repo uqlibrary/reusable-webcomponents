@@ -23,3 +23,9 @@ npm ci
 printf "\n\n--- INSTALL JEST ---\n"
 echo "$ npm install -g jest"
 npm install -g jest
+
+printf "\n\n--- PLAYWRIGHT SETUP ---\n"
+echo "$ npx playwright install chromium-headless-shell"
+npx playwright install chromium-headless-shell
+echo "$ npx playwright install-deps chromium-headless-shell"
+npx playwright install-deps chromium-headless-shell
