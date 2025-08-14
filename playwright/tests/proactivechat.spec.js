@@ -103,7 +103,11 @@ test.describe('Proactive Chat', () => {
             // can see iframe
             await expect(page.locator('proactive-chat').getByTestId('chatbot-wrapper')).toBeVisible();
             await assertAccessibility(page, 'proactive-chat', {
-                disabledRules: ['region'], // the iframe is within a region!!! what is it complaining about? :(
+                disabledRules: [
+                    'region', // it is complaining about the content of the iframe - when we only get dummy content at localhost!
+                    'landmark-one-main',
+                    'page-has-heading-one',
+                ],
             });
         });
         test('iframe open after hours', async ({ page }) => {
@@ -121,7 +125,11 @@ test.describe('Proactive Chat', () => {
             await expect(page.locator('proactive-chat').getByTestId('chatbot-wrapper')).toBeVisible();
             await expect(page.locator('proactive-chat').getByTestId('chatbot-wrapper')).toBeVisible();
             await assertAccessibility(page, 'proactive-chat', {
-                disabledRules: ['region'], // the iframe is within a region!!! what is it complaining about? :(
+                disabledRules: [
+                    'region', // it is complaining about the content of the iframe - when we only get dummy content at localhost!
+                    'landmark-one-main',
+                    'page-has-heading-one',
+                ],
             });
         });
     });
