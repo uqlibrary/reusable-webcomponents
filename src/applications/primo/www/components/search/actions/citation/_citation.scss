@@ -29,4 +29,15 @@ prm-citation {
             }
         }
     }
+
+    [translate="citation.labels.disclaimer"] a {
+        text-decoration: underline;
+        &:focus,
+        &:hover {
+            box-shadow: none;
+            background-color: $accent-color;
+            color: #fff !important;
+            line-height: normal;
+        }
+    }
 }
