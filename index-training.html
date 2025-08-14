@@ -67,11 +67,11 @@
                 <library-training id="test-with-filter"></library-training>
             </div>
 
-            <div>
+            <div data-testid="hide-filter-test">
                 <h2>With optional parameters</h2>
                 <library-training hide-category-title hide-filter></library-training>
             </div>
-            <div>
+            <div data-testid="detail-unit-test">
                 <h2>Detail test output</h2>
                 <!-- places-remaining="Booking is not required" bookingSettings = null -->
                 <p>Logged in EM user looking at a course that doesnt require booking, with St Lucia UQ Maps link</p>
@@ -152,6 +152,12 @@
                         };
                     });
                 </script>
+            </div>
+        </article>
+        <article>
+            <div>
+                <h2>just a filter</h2>
+                <training-filter id="unwrappedFilter"></training-filter>
             </div>
         </article>
 
