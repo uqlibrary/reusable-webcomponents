@@ -1,6 +1,9 @@
 import styles from './css/main.css';
 import overrides from './css/overrides.css';
+import Cookies from 'js-cookie';
 import { cookieNotFound, setCookie } from '../helpers/cookie';
+import { apiLocale } from '../ApiAccess/ApiAccess.locale';
+import { authLocale } from '../UtilityArea/auth.locale';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -14,6 +17,7 @@ template.innerHTML = `
                 <span id="alert-message" data-testid="alert-message"></span>
             </div>
             <a id="alert-action-desktop" data-testid="alert-action-desktop" tabindex="0" data-analytics="alert-visit-link-desktop">Button label</a>
+            <button style="display: none" id="alert-action-desktop-endmasquerade" data-testid="alert-action-desktop-endmasquerade" tabindex="0" data-analytics="alert-visit-link-desktop">End masquerade</button>
         </div>
         <div role="button" id="alert-action-mobile" data-testid="alert-action-mobile" title="button title" tabindex="0" data-analytics="alert-visit-link-mobile">Button label</div>
         <a id="alert-close" data-analytics="alert-close" data-testid="alert-close" role="button" aria-label="Dismiss this alert for 24 hours" href="javascript:void(0)" class="alert__close">
@@ -124,20 +128,59 @@ class Alert extends HTMLElement {
 
             // Show or hide the action button and attach the function to do so
             if (!!linkLabel && !!linkUrl) {
-                const navigateToUrl = () => {
-                    window.location.href = linkUrl;
-                };
-                shadowDOM.getElementById('alert-action-desktop').innerText = linkLabel;
-                shadowDOM.getElementById('alert-action-desktop').setAttribute('href', linkUrl);
-
-                shadowDOM.getElementById('alert-action-mobile').setAttribute('title', linkLabel);
-                shadowDOM.getElementById('alert-action-mobile').innerText = linkLabel;
-                shadowDOM.getElementById('alert-action-mobile').addEventListener('click', navigateToUrl);
+                const uqidCookie =
+                    !!apiLocale.PREMASQUERADE_SESSION_COOKIE_NAME &&
+                    Cookies.get(apiLocale.PREMASQUERADE_SESSION_COOKIE_NAME);
+                if (linkLabel === 'End masquerade' && !!uqidCookie) {
+                    this.createEndMasqueradeButton(shadowDOM, uqidCookie, linkLabel);
+                } else {
+                    this.createActionLink(shadowDOM, linkLabel, linkUrl);
+                }
             } else {
                 shadowDOM.getElementById('alert-action-desktop').remove();
                 shadowDOM.getElementById('alert-action-mobile').remove();
             }
         }, 300);
+    }
+
+    endMasqueradeClickHandler(e, uqidCookie) {
+        Cookies.set(apiLocale.SESSION_COOKIE_NAME, uqidCookie, {
+            domain: window.location.host,
+            path: '.library.uq.edu.au',
+        });
+        Cookies.remove(apiLocale.PREMASQUERADE_SESSION_COOKIE_NAME, { path: '' });
+        window.location.href = `${authLocale.AUTH_URL_LOGIN}${window.btoa(window.location.href)}`;
+        return false;
+    }
+
+    createActionLink(shadowDOM, linkLabel, linkUrl) {
+        shadowDOM.getElementById('alert-action-desktop-endmasquerade').remove();
+
+        shadowDOM.getElementById('alert-action-desktop').innerText = linkLabel;
+        shadowDOM.getElementById('alert-action-desktop').setAttribute('href', linkUrl);
+
+        shadowDOM.getElementById('alert-action-mobile').setAttribute('title', linkLabel);
+        shadowDOM.getElementById('alert-action-mobile').innerText = linkLabel;
+        shadowDOM.getElementById('alert-action-mobile').addEventListener('click', function () {
+            window.location.href = linkUrl;
+        });
+    }
+
+    createEndMasqueradeButton(shadowDOM, uqidCookie, linkLabel) {
+        const that = this;
+        shadowDOM.getElementById('alert-action-desktop').remove();
+
+        const endMasqueradeButton = shadowDOM.getElementById('alert-action-desktop-endmasquerade');
+        !!endMasqueradeButton && (endMasqueradeButton.style.display = 'block');
+        !!endMasqueradeButton && (endMasqueradeButton.style.border = 'none');
+        !!endMasqueradeButton &&
+            endMasqueradeButton.addEventListener('click', (e) => that.endMasqueradeClickHandler(e, uqidCookie));
+
+        shadowDOM.getElementById('alert-action-mobile').setAttribute('title', linkLabel);
+        shadowDOM.getElementById('alert-action-mobile').innerText = linkLabel;
+        shadowDOM
+            .getElementById('alert-action-mobile')
+            .addEventListener('click', (e) => that.endMasqueradeClickHandler(e, uqidCookie));
     }
 }
 
