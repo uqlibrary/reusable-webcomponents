@@ -17,10 +17,10 @@ template.innerHTML = `
   <style>${mainStyles.toString()}</style>
   <style>${globalStyles.toString()}</style>
   <style>${overrides.toString()}</style>
-  <footer id="footer" class="uq-footer" data-gtm-category="Footer">
-    <div class="uq-acknowledgement uq-acknowledgement--large">
+  <footer id="footer" class="uq-footer" data-gtm-category="Footer" data-testid="uq-footer">
+    <div class="uq-acknowledgement uq-acknowledgement--large" data-testid="uq-footer-acknowledgement">
         <div class="uq-acknowledgement__content">
-          <div class="uq-acknowledgement__text">
+          <div class="uq-acknowledgement__text" data-testid="uq-acknowledgement__text">
               UQ acknowledges the Traditional Owners and their custodianship of the lands on which UQ is situated. &mdash; <a href="https://about.uq.edu.au/reconciliation" class="uq-acknowledgement__link" data-testid="footer-acknowledgement-link">Reconciliation at UQ</a>
           </div>
         </div>
@@ -28,8 +28,8 @@ template.innerHTML = `
     <div class="uq-footer__container">
         <nav id="footer-desktop-nav" data-testid="footer-desktop-nav" class="uq-footer__navigation uq-footer--desktop" aria-label="footer navigation">
             <ul class="uq-footer__navigation-list uq-footer__navigation-level-1">
-                <li class="uq-footer__navigation-item uq-footer__navigation--is-open">
-                    <h2 class="uq-footer__navigation-title">Media</h2>
+                <li class="uq-footer__navigation-item uq-footer__navigation--is-open" data-testid="footer-navigation-block-1">
+                    <h2 class="uq-footer__navigation-title" data-testid="uq-footer__navigation-title--media">Media</h2>
                     <ul class="uq-footer__navigation-list uq-footer__navigation-level-2">
                         <li class="uq-footer__navigation-item">
                             <a href="https://www.uq.edu.au/news/contacts" class="uq-footer__navigation-link">Media team contacts</a>
@@ -42,7 +42,7 @@ template.innerHTML = `
                         </li>
                     </ul>
                 </li>
-                <li class="uq-footer__navigation-item uq-footer__navigation--is-open">
+                <li class="uq-footer__navigation-item uq-footer__navigation--is-open" data-testid="footer-navigation-block-2">
                     <h2 class="uq-footer__navigation-title">Working at UQ</h2>
                     <ul class="uq-footer__navigation-list uq-footer__navigation-level-2">
                         <li class="uq-footer__navigation-item">
@@ -62,7 +62,7 @@ template.innerHTML = `
                         </li>
                     </ul>
                 </li>
-                <li class="uq-footer__navigation-item uq-footer__navigation--is-open">
+                <li class="uq-footer__navigation-item uq-footer__navigation--is-open" data-testid="footer-navigation-block-3">
                     <h2 class="uq-footer__navigation-title">Current students</h2>
                     <ul class="uq-footer__navigation-list uq-footer__navigation-level-2">
                         <li class="uq-footer__navigation-item">
@@ -82,11 +82,11 @@ template.innerHTML = `
                         </li>
                     </ul>
                 </li>
-                <li class="uq-footer__navigation-item uq-footer__navigation--is-open">
+                <li class="uq-footer__navigation-item uq-footer__navigation--is-open" data-testid="footer-navigation-block-4">
                     <h2 class="uq-footer__navigation-title">Library</h2>
                     <ul class="uq-footer__navigation-list uq-footer__navigation-level-2">
                         <li class="uq-footer__navigation-item">
-                            <a href="https://www.library.uq.edu.au" class="uq-footer__navigation-link" data-analyticsid="uqfooter-nav-library-homepage-desktop">Library</a>
+                            <a href="https://www.library.uq.edu.au" class="uq-footer__navigation-link" data-analyticsid="uqfooter-nav-library-homepage-desktop" data-testid="uqfooter-nav-library-homepage-desktop">Library</a>
                         </li>
                         <li class="uq-footer__navigation-item">
                             <a href="${linkToDrupal(
@@ -105,7 +105,7 @@ template.innerHTML = `
                         </li>
                     </ul>
                 </li>
-                <li class="uq-footer__navigation-item uq-footer__navigation--is-open">
+                <li class="uq-footer__navigation-item uq-footer__navigation--is-open" data-testid="footer-navigation-block-5">
                     <h2 class="uq-footer__navigation-title">Contact</h2>
                     <ul class="uq-footer__navigation-list uq-footer__navigation-level-2">
                         <li class="uq-footer__navigation-item">
@@ -233,7 +233,7 @@ template.innerHTML = `
         <div class="uq-footer__contact">
           <nav class="uq-footer__contact-item" aria-label="Social Media" data-gtm-category="Social share link">
             <ul class="uq-footer__footer-list uq-footer__contact-social">
-              <li class="uq-footer__footer-item"><a href="https://www.facebook.com/uniofqld" class="uq-footer__meta-icons--facebook uq-footer__meta-icons" aria-label="Facebook" data-gtm-label="Facebook" data-analyticsid="uqfooter-facebook"></a></li>
+              <li class="uq-footer__footer-item"><a href="https://www.facebook.com/uniofqld" class="uq-footer__meta-icons--facebook uq-footer__meta-icons" aria-label="Facebook" data-gtm-label="Facebook" data-analyticsid="uqfooter-facebook" data-testid="uqfooter-facebook"></a></li>
               <li class="uq-footer__footer-item"><a href="https://www.linkedin.com/school/university-of-queensland" class="uq-footer__meta-icons--linkedin uq-footer__meta-icons" data-gtm-label="Linkedin" aria-label="Linkedin"data-analyticsid="uqfooter-linkedin"></a></li>
               <li class="uq-footer__footer-item"><a href="https://twitter.com/uq_news" class="uq-footer__meta-icons--twitter uq-footer__meta-icons" data-gtm-label="X" aria-label="X" data-analyticsid="uqfooter-twitter"></a></li>
               <li class="uq-footer__footer-item"><a href="https://www.youtube.com/user/universityqueensland" class="uq-footer__meta-icons--youtube uq-footer__meta-icons" data-gtm-label="Youtube" aria-label="Youtube" data-analyticsid="uqfooter-youtube"></a></li>
