@@ -56,14 +56,16 @@ npm ci
 - run `npm ci` to install packages.
 - run `npm run start` to run the project locally while developing with a listener (calls api on staging for data)
 - run `npm run start:mock` to run the project locally with mock data
-  - While this is running, you can run `npm run cypress:open` to manually run cypress tests
+  - While this is running, you can run `npm run test:e2e` to manually run playwright tests, headless
+  - and `npm run test:e2e:show` in headed mode
+  - you can restrict to a single test by temporarily putting ".only" on the test
+  - you can run a single suite by appending all or part of the filename to the test, eg `npm run test:e2e openaccess`
+  - you can also simply run `npx playwright test`
 - run `npm run build` to run a `local` test build in the `dist` folder (this also replaces `gulp styles` in the old reusable for building css locally for pasting into live pages for test)
 - run `npm run build:staging` to run a `staging` test build in the `dist` folder
 - run `npm run build:production` to run a `production` test build in the `dist` folder
-- run `npm run test:local` to run a test build in the `dist` folder and run all cypress tests
 - run `npm run prettier:test` to check all files for codestyles, and
 - run `npm run prettier:fix` to fix all codestyle issues
-- run `npm run cypress:run:record` to run all cypress tests at the command line
 
 localhost will run on port 8080: `http://localhost:8080/`
 
@@ -117,14 +119,14 @@ This must be an ANCHOR, not any other html element.
 
 ## Testing
 
-This repo uses [Cypress.io](https://cypress.io/) tests. To run tests:
+This repo uses [playwright.dev](https://playwright.dev/) tests. To run tests:
 
-- locally: `npm run test:local` - select the preferred browser from the dropdown in the top right of the cypress interface, then click on the 'run integration tests'
+- locally: `npm run test`
 
-NOTE: CI testing uses environment variables stored on AWS to run cypress successfully and reporting to the cypress dashboard.
+NOTE: CI testing uses environment variables stored on AWS to run playwright successfully.
 
 - data-testid attributes are used to identify elements for tests
-- data-analyticsid attributes are used for GTM/GA tagging and are supplied by the customer (although we often advise).
+- data-analyticsid attributes are used for GTM/GA tagging and are supplied by the customer (although we often advise) - DO NOT CHANGE EXISTING DATA_ANALYTICS ENTRIES without direct consult with our GA staff (Nick).
 
 ## Branches
 

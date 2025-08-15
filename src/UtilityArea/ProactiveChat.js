@@ -55,7 +55,7 @@ userPromptTemplate.innerHTML = `
                     <button id="proactive-chat-button-open" data-analyticsid="askus-proactive-chatbot-button-open" data-testid="popopen-button" class="open proactive-chat-button" aria-label="Ask Library Chat Bot a question">Ask Library Chatbot</button>
                 </div>
                 <div id="button-open-crm" class="crmChatPrompt">
-                    <button id="crmChatPrompt" data-analyticsid="askus-proactive-chat-button-open" class="open crmchat-button" style="display: none"><span>Chat with Library staff</span></button>
+                    <button id="crmChatPrompt" data-testid="crm-chat-button" data-analyticsid="askus-proactive-chat-button-open" class="open crmchat-button" style="display: none"><span>Chat with Library staff</span></button>
                     <button id="leaveAQuestionPrompt" data-analyticsid="chat-status-icon-offline" class="open crmchat-button" style="display: none" aria-label="No staff available to chat - Leave a question"><span>Leave a question</span></button>
                 </div>
             </div>
@@ -68,10 +68,12 @@ chatbotIframeTemplate.innerHTML = `<div
     id="chatbot-wrapper"
     data-testid="chatbot-wrapper"
     class="chatbotWrapper"
+    role="dialog"
+    aria-labelledby="librarychatbot"
 >
     <div class="resizeHandleRepositionWrapper">
         <div class="topBar">
-            <h1>Library Chatbot</h1>
+            <h1 id="librarychatbot">Library Chatbot</h1>
             <button id="closeIframeButton" data-testid="closeIframeButton" data-analyticsid="chatbot-iframe-close" aria-label="Close Chatbot">
                 <!-- close "x" -->
                 <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
