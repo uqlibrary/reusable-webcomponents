@@ -370,6 +370,7 @@ class ApiAccess {
             'homepage-development.library.uq.edu.au', // here it is very needed, no other clue that apis blocked without vpn
             'sandbox-fryer.library.uq.edu.au', // probably doesnt work - completely 403 on page
             'app-testing.library.uq.edu.au', // probably doesnt work - completely 403 on page
+            'assets.library.uq.edu.au', // useful here
         ];
         if (vpnDomains.includes(window.location.hostname) && !toastAlreadyExists) {
             const template = document.createElement('template');
@@ -382,6 +383,7 @@ class ApiAccess {
                 !!toast && (toast.style.opacity = 0);
             }, hideDelay);
             setTimeout(() => {
+                // because we cant fade this, fade the opacity first
                 const toast = document.getElementById('vpn-needed-toast');
                 !!toast && toast.remove();
             }, hideDelay + 1000);
