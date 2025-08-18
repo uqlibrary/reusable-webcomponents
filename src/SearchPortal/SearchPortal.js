@@ -1,6 +1,5 @@
 import overrides from './css/overrides.css';
-import { searchPortalLocale as searchPortalLocaleVe } from './searchPortal.locale';
-import { searchPortalBackOffice as searchPortalLocaleBackOffice } from './searchPortalBackOffice.locale';
+import { searchPortalLocale } from './searchPortal.locale';
 import { throttle } from 'throttle-debounce';
 import ApiAccess from '../ApiAccess/ApiAccess';
 import { cookieNotFound, getCookieValue, setCookie } from '../helpers/cookie';
@@ -35,17 +34,8 @@ const template_searchIcon =
 class SearchPortal extends HTMLElement {
     connectedCallback() {
         this.theme = this.getAttribute('theme') || '';
-        this.fetchData();
+        this.updateTemplate(this.theme);
     }
-
-    fetchData() {
-        new ApiAccess().fetchPrimoStatus().then((primoStatus) => {
-            console.log('primoStatus=', primoStatus);
-            this.primoStatus = primoStatus;
-            this.updateTemplate(this.theme);
-        });
-    }
-
     constructor() {
         super();
         this.theme = this.getAttribute('theme') || '';
@@ -114,7 +104,7 @@ class SearchPortal extends HTMLElement {
                 ul = document.createElement('ul');
                 !!ul && (ul.className = 'MuiAutocomplete-listbox');
                 !!ul && ul.setAttribute('id', 'search-portal-autocomplete-listbox');
-                !!ul && ul.setAttribute('data-testid', 'primo-search-autocomplete-listbox');
+                !!ul && ul.setAttribute('data-testid', 'autocomplete-listbox');
                 !!ul && ul.setAttribute('data-analyticsid', 'primo-search-autocomplete-listbox');
                 !!ul && ul.setAttribute('role', 'listbox');
                 !!ul && ul.setAttribute('aria-label', 'Suggestions');
@@ -125,7 +115,6 @@ class SearchPortal extends HTMLElement {
 
             const searchType = that.shadowRoot.getElementById('search-type-current-value');
             // searchType.value returns 0,1, ... 8; ie the current dropdown id
-            const searchPortalLocale = this.primoStatus === 'bo' ? searchPortalLocaleBackOffice : searchPortalLocaleVe;
             let type =
                 !!searchPortalLocale.typeSelect &&
                 !!searchPortalLocale.typeSelect.items &&
@@ -151,7 +140,7 @@ class SearchPortal extends HTMLElement {
                     !!anchor && !!link && !!text && anchor.appendChild(text);
                     !!anchor && (anchor.className = 'MuiPaper-root suggestion-link');
                     !!anchor && anchor.setAttribute('id', `suggestion-link-${index}`);
-                    !!anchor && anchor.setAttribute('data-testid', 'primo-search-submit');
+                    !!anchor && anchor.setAttribute('data-testid', `suggestion-link-${index}`);
                     !!anchor && anchor.setAttribute('data-analyticsid', 'primo-search-submit');
                     !!anchor && anchor.setAttribute('tabindex', '0');
                     !!anchor && anchor.setAttribute('role', 'option');
@@ -201,8 +190,7 @@ class SearchPortal extends HTMLElement {
 
                     !!suggestion && suggestiondisplay.setAttribute('role', 'presentation');
                     !!suggestion && suggestiondisplay.setAttribute('id', `search-portal-autocomplete-option-${index}`);
-                    !!suggestion &&
-                        suggestiondisplay.setAttribute('data-testid', `search-portal-autocomplete-option-${index}`);
+                    !!suggestion && suggestiondisplay.setAttribute('data-testid', `autocomplete-option-${index}`);
                     !!suggestion && suggestiondisplay.setAttribute('data-option-index', index);
                     !!suggestion && (suggestiondisplay.className = 'MuiAutocomplete-option');
                     suggestiondisplay.addEventListener('keydown', function (e) {
@@ -281,8 +269,6 @@ class SearchPortal extends HTMLElement {
                 if (!!formObject.currentInputfield) {
                     that.sendSubmitToGTM(e);
 
-                    const searchPortalLocale =
-                        that.primoStatus === 'bo' ? searchPortalLocaleBackOffice : searchPortalLocaleVe;
                     const matches = searchPortalLocale.typeSelect.items.filter((element) => {
                         return element.selectId === formObject.portaltype;
                     });
@@ -505,7 +491,7 @@ class SearchPortal extends HTMLElement {
      */
     listenForMouseClicks(e) {
         const that = this;
-        const portalTypeDropdown = that.shadowRoot.getElementById('portal-type-selector');
+        const portalTypeDropdown = that.shadowRoot.getElementById('portal-type-wrapper');
 
         const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
         const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
@@ -573,12 +559,12 @@ class SearchPortal extends HTMLElement {
     }
 
     isPortalTypeDropDownOpen() {
-        const portalTypeDropdown = this.shadowRoot.getElementById('portal-type-selector');
+        const portalTypeDropdown = this.shadowRoot.getElementById('portal-type-wrapper');
         return !!portalTypeDropdown && !portalTypeDropdown.classList.contains('hidden');
     }
 
     showHidePortalTypeDropdown() {
-        const portalTypeDropdown = this.shadowRoot.getElementById('portal-type-selector');
+        const portalTypeDropdown = this.shadowRoot.getElementById('portal-type-wrapper');
         // then display the dropdown
         !!portalTypeDropdown && this.toggleVisibility(portalTypeDropdown, 'portalTypeSelectorDisplayed');
 
@@ -586,12 +572,11 @@ class SearchPortal extends HTMLElement {
         // set the top of the dropdown so the current element matches up with the underlying button
         if (this.isPortalTypeDropDownOpen()) {
             // get the currrently displayed label
-            const portalTypeCurrentLabel = this.shadowRoot.getElementById('portaltype-current-label');
+            const portalTypeCurrentLabel = this.shadowRoot.getElementById('portal-type-current-label');
             // problem matching the '&amp;" in the video label
             const portalTypeCurrentLabelText =
                 !!portalTypeCurrentLabel && portalTypeCurrentLabel.innerHTML.replace('&amp;', '_');
             let matchingID = 0;
-            const searchPortalLocale = this.primoStatus === 'bo' ? searchPortalLocaleBackOffice : searchPortalLocaleVe;
             !!searchPortalLocale.typeSelect &&
                 !!searchPortalLocale.typeSelect.items &&
                 searchPortalLocale.typeSelect.items.forEach((item, index) => {
@@ -657,7 +642,7 @@ class SearchPortal extends HTMLElement {
 
         const label = document.createElement('span');
         !!label && (label.id = `portalTypeSelectionEntry-${index}`);
-        !!label && label.setAttribute('data-testid', `search-type-selection-${index}`);
+        // !!label && label.setAttribute('data-testid', `search-type-selection-${index}`);
         label.innerHTML = entry.name;
 
         const button = document.createElement('button');
@@ -668,7 +653,8 @@ class SearchPortal extends HTMLElement {
         !!button && button.setAttribute('role', 'option');
         !!button && button.setAttribute('aria-label', `Search in ${entry.name}`);
         !!button && button.setAttribute('id', `search-portal-type-select-item-${index}`);
-        !!button && button.setAttribute('data-testid', `primo-search-item-${index}`);
+        const slug = entry.name.toLowerCase().replace(/ /g, '-');
+        !!button && button.setAttribute('data-testid', `portal-search-type-${slug}`);
         !!button && button.setAttribute('data-analyticsid', `primo-search-item-${index}`);
         !!button && button.setAttribute('data-primo-search-form', `primo-search-item-${index}`);
         //!!button && !!svg && button.appendChild(svg);
@@ -720,13 +706,11 @@ class SearchPortal extends HTMLElement {
                 }
             } else if (isTabKeyPressed(e)) {
                 const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
-                const searchPortalLocale =
-                    this.primoStatus === 'bo' ? searchPortalLocaleBackOffice : searchPortalLocaleVe;
                 const lastId = searchPortalLocale.typeSelect.items.length - 1;
                 const finalEntry = `portalTypeSelectionEntry-${lastId}`;
                 if (!!eventTarget && eventTarget.classList.contains(finalEntry)) {
                     // user has tabbed off end of list - close search type dropdown list
-                    const portalTypeDropdown = that.shadowRoot.getElementById('portal-type-selector');
+                    const portalTypeDropdown = that.shadowRoot.getElementById('portal-type-wrapper');
                     !!portalTypeDropdown &&
                         that.closeSearchTypeSelector(portalTypeDropdown, 'portalTypeSelectorDisplayed');
                 }
@@ -741,8 +725,7 @@ class SearchPortal extends HTMLElement {
         const useSearchType = parseInt(searchType, 10);
 
         // put the text label on the display
-        const portalTypeCurrentLabel = this.shadowRoot.getElementById('portaltype-current-label');
-        const searchPortalLocale = this.primoStatus === 'bo' ? searchPortalLocaleBackOffice : searchPortalLocaleVe;
+        const portalTypeCurrentLabel = this.shadowRoot.getElementById('portal-type-current-label');
         !!portalTypeCurrentLabel &&
             !!searchPortalLocale.typeSelect &&
             !!searchPortalLocale.typeSelect.items[useSearchType] &&
@@ -792,9 +775,8 @@ class SearchPortal extends HTMLElement {
         !!portalTypeDropdown && portalTypeDropdown.setAttribute('role', 'listbox');
         !!portalTypeDropdown &&
             portalTypeDropdown.setAttribute('aria-labelledby', 'search-portal-type-select-label-sub');
-        !!portalTypeDropdown && portalTypeDropdown.setAttribute('data-testid', 'search-type-selector');
+        !!portalTypeDropdown && portalTypeDropdown.setAttribute('data-testid', 'portal-type-wrapper-child');
 
-        const searchPortalLocale = this.primoStatus === 'bo' ? searchPortalLocaleBackOffice : searchPortalLocaleVe;
         !!portalTypeDropdown &&
             !!searchPortalLocale.typeSelect &&
             searchPortalLocale.typeSelect.items.forEach((entry, index) => {
@@ -803,11 +785,10 @@ class SearchPortal extends HTMLElement {
             });
 
         const portalTypeSelectorContainer = document.createElement('div');
-        !!portalTypeSelectorContainer && (portalTypeSelectorContainer.id = 'portal-type-selector');
+        !!portalTypeSelectorContainer && (portalTypeSelectorContainer.id = 'portal-type-wrapper');
         !!portalTypeSelectorContainer &&
             (portalTypeSelectorContainer.className = `MuiPaper-root MuiMenu-paper MuiPaper-elevation8 MuiPaper-rounded hidden`);
-        !!portalTypeSelectorContainer &&
-            portalTypeSelectorContainer.setAttribute('data-testid', 'portal-type-selector');
+        !!portalTypeSelectorContainer && portalTypeSelectorContainer.setAttribute('data-testid', 'portal-type-wrapper');
         !!portalTypeSelectorContainer &&
             !!portalTypeDropdown &&
             portalTypeSelectorContainer.appendChild(portalTypeDropdown);
@@ -840,7 +821,7 @@ class SearchPortal extends HTMLElement {
 
         const container = document.createElement('div');
         !!container && (container.className = 'searchUnderlinks MuiGrid-item MuiGrid-grid-xs-auto');
-        !!container && container.setAttribute('data-testid', `primo-search-links-${index}`);
+        !!container && container.setAttribute('data-testid', `footer-link-${index}`);
         !!container && !!anchor && container.appendChild(anchor);
         return container;
     }
@@ -850,7 +831,6 @@ class SearchPortal extends HTMLElement {
         // clear current footer links
         !!footerLinkContainer && (footerLinkContainer.innerHTML = '');
         // add the footer links for this searchtype
-        const searchPortalLocale = this.primoStatus === 'bo' ? searchPortalLocaleBackOffice : searchPortalLocaleVe;
         !!footerLinkContainer &&
             searchPortalLocale.footerLinks.forEach((link, index) => {
                 if (link.display.includes(searchType) && link.linkto !== window.location.href) {
@@ -904,7 +884,7 @@ class SearchPortal extends HTMLElement {
                     flex: 9
                 }
                 
-                .restrictionsContainer {
+                .restrictionsContoller {
                     flex: 3; 
                     text-align: right; 
                     padding-right: 0
@@ -1005,7 +985,7 @@ class SearchPortal extends HTMLElement {
                         flex: 1
                     }
                     
-                    .restrictionsContainer {
+                    .restrictionsContoller {
                         flex: 1; 
                         text-align: right; 
                         padding-right: 0
@@ -1043,7 +1023,9 @@ class SearchPortal extends HTMLElement {
                 <div class="MuiCardContent-root libraryContent" data-testid="primo-search-content" data-analyticsid="primo-search-content">
                     <form id="primo-search-form" class="searchForm" role="search">
                         <div class="MuiFormControl-root searchPanel" style="margin-bottom: -0.75rem; padding-top: 1rem;">
-                            <h2 id="search-portal-type-select-label-sub" class="theme-${theme || 'light'}">Search</h2>
+                            <h2 id="search-portal-type-select-label-sub" data-testid="component-title" class="theme-${
+                                theme || 'light'
+                            }">Search</h2>
                         </div>
 
                         
@@ -1054,9 +1036,9 @@ class SearchPortal extends HTMLElement {
                             <div class="searchPortal-searchType portaltype-dropdown-container" id="search-portal-type-select">
                             <!-- SEARCH TYPE (DROPDOWN) START -->
                                 <div id="portaltype-dropdown" data-testid="search-portal-type-select-wrapper" class="search-type-button MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl">
-                                    <button id="search-portal-search-type-selector" type="button" class="search-type-button MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input" tabindex="0" aria-labelledby="search-portal-type-select-label" data-testid="primo-search-select" data-analyticsid="primo-search-select">
-                                        <span id="portaltype-current-label" class="search-type-button-label" data-testid="portaltype-current-label">Library</span>
-                                        <input data-testid="primo-search-select-input" data-analyticsid="primo-search-select-input" id="search-type-current-value" type="hidden" name="portaltype">
+                                    <button id="search-portal-search-type-selector" type="button" class="search-type-button MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input" tabindex="0" aria-labelledby="search-portal-type-select-label" data-testid="search-type-selector" data-analyticsid="primo-search-select">
+                                        <span id="portal-type-current-label" class="search-type-button-label" data-testid="portal-type-current-label">Library</span>
+                                        <input data-testid="selected-search-type" data-analyticsid="primo-search-select-input" id="search-type-current-value" type="hidden" name="portaltype">
                                     </button>
                                     <span class="search-icons search-dropdown-chevron-new">
                                     </span>
@@ -1070,7 +1052,7 @@ class SearchPortal extends HTMLElement {
                                         <div class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth">
                                             <div id="inputFieldParent" aria-label="Enter your search terms" role="combobox" aria-expanded="false" aria-controls="search-portal-autocomplete-listbox" class="MuiInputBase-root MuiInput-root MuiInput-underline MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd">
                                                 <!--  aria-controls="search-portal-autocomplete-listbox" invalid per AXE --> 
-                                                <input enterkeyhint="search" type="text" id="current-inputfield" name="currentInputfield" aria-invalid="false" autocomplete="off" type="search" class="MuiInputBase-input MuiInput-input selectInput MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch" aria-autocomplete="list" autocapitalize="none" spellcheck="false" aria-label="Enter your search terms" data-testid="primo-search-autocomplete-input" data-analyticsid="primo-search-autocomplete-input" value="">
+                                                <input enterkeyhint="search" type="text" id="current-inputfield" name="currentInputfield" aria-invalid="false" autocomplete="off" type="search" class="MuiInputBase-input MuiInput-input selectInput MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch" aria-autocomplete="list" autocapitalize="none" spellcheck="false" aria-label="Enter your search terms" data-testid="input-field" data-analyticsid="primo-search-autocomplete-input" value="">
                                                 <div class="MuiAutocomplete-endAdornment"></div>
                                             </div>
                                         </div>
@@ -1080,7 +1062,7 @@ class SearchPortal extends HTMLElement {
                                 <div id="clearButton" class="MuiGrid-item MuiGrid-grid-xs-auto utilityarea">
                                 
                                     
-                                        <button type="button" id="clear-search-term" class="hidden clear-search-term MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall" tabindex="0" type="button" title="Clear your search term" data-testid="primo-search-autocomplete-voice-clear" data-analyticsid="primo-search-autocomplete-voice-clear">
+                                        <button type="button" id="clear-search-term" class="hidden clear-search-term MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall" tabindex="0" type="button" title="Clear your search term" data-testid="input-field-clear" data-analyticsid="primo-search-autocomplete-voice-clear">
                                             <span class="MuiIconButton-label">
                                                 <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                                                     <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
@@ -1092,7 +1074,7 @@ class SearchPortal extends HTMLElement {
                                 
                                 </div>
                                 <div class="searchPortal-searchButton" >
-                                    <button id="search-portal-submit" class="MuiButtonBase-root MuiButton-contained searchButton MuiButton-containedPrimary MuiButton-containedSizeLarge MuiButton-sizeLarge MuiButton-fullWidth" tabindex="0" type="search" data-testid="primo-search-submit" data-analyticsid="primo-search-submit" value="Submit" title="Perform your search" name="Search">
+                                    <button id="search-portal-submit" class="MuiButtonBase-root MuiButton-contained searchButton MuiButton-containedPrimary MuiButton-containedSizeLarge MuiButton-sizeLarge MuiButton-fullWidth" tabindex="0" type="search" data-testid="search-portal-submit" data-analyticsid="primo-search-submit" value="Submit" title="Perform your search" name="Search">
                                         <span class="search-icons search-search-icon-new">
                                         </span>
                                         <span class="MuiTouchRipple-root"></span>
@@ -1105,14 +1087,14 @@ class SearchPortal extends HTMLElement {
                             <div class="linksContainer" >
                                 <div id="footer-links" class="searchPanel MuiGrid-container MuiFormControlMuiGrid-spacing-xs-2 theme-${
                                     theme || 'light'
-                                }" data-testid="primo-search-links" data-analyticsid="primo-search-links"></div>
+                                }" data-testid="footer-links" data-analyticsid="primo-search-links"></div>
                             </div>
                         </div> 
                         <div>
                             <span id="restrictions-accordian-container" class="theme-${
                                 theme || 'light'
-                            }" data-testid="restrictions-accordian-container" role="button" tabindex="0">
-                                <span>Restrictions on use </span>
+                            }" data-testid="restrictions-accordian-controller" role="button" tabindex="0">
+                                <span>Restrictions on use</span>
                                 <svg class="restriction-accordian-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                                          <path fill="currentColor" d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"/>
                                     </svg>

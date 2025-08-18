@@ -3,7 +3,7 @@ import loggedoutstyles from './css/loggedoutauth.css';
 import ApiAccess from '../ApiAccess/ApiAccess';
 import UserAccount from '../ApiAccess/UserAccount';
 import { authLocale } from './auth.locale';
-import { isBackTabKeyPressed, isEscapeKeyPressed, isTabKeyPressed } from '../helpers/keyDetection';
+import { isEscapeKeyPressed, isTabKeyPressed } from '../helpers/keyDetection';
 import { apiLocale } from '../ApiAccess/ApiAccess.locale';
 import {
     canSeeAlertsAdmin,
@@ -26,7 +26,7 @@ import { getAccountMenuRoot } from './helpers';
 // ===============================
 //
 // IF YOU ARE MASQUERADING YOU MAY SEE ***YOUR*** ADMIN MENU OPTIONS, NOT THOSE OF ThE MASQUERADED USER
-// Refresh
+// IF SO, TRY REFRESHING
 //
 // any page that show-hides things based on the account MUST show the auth button web component
 // or the account won't be available
@@ -49,18 +49,17 @@ unauthorisedtemplate.innerHTML = `
         </button>
     </div>
 `;
-
 class AuthButton extends HTMLElement {
     constructor() {
         super();
         // Add a shadow DOM
         const shadowDOM = this.attachShadow({ mode: 'open' });
 
-        // // if account is the first call then it wipes the session storage and says "Im logged out"
-        // // we need to call the opening hours api to make authbutton work on first load?!?!?
-        // // (the askus button used to go first to call hours api before account api,but its been removed)
-        // // slack fix for mocking: dummy a call to hours
-        // !!process.env.USE_MOCK && new ApiAccess().loadOpeningHours();
+        // if account is the first call then it says "Im logged out"
+        // we need to call some other api to make authbutton work on first load?!?!?
+        // (the askus button used to go first to call hours api before account api,but its been removed)
+        // slack fix for mocking: dummy a call to hours
+        !!process.env.USE_MOCK && new ApiAccess().loadOpeningHours();
 
         if (this.isOverwriteAsLoggedOutRequested()) {
             // Render the template
@@ -68,7 +67,7 @@ class AuthButton extends HTMLElement {
             this.addLoginButtonListener(shadowDOM);
             this.addLogoutButtonListeners(shadowDOM);
         } else {
-            this.loadButton(shadowDOM);
+            this.showLoginFromAuthStatus(shadowDOM);
         }
 
         // Bindings
@@ -81,25 +80,9 @@ class AuthButton extends HTMLElement {
         this.removeEspaceMenuOptionWhenNotAuthor = this.removeEspaceMenuOptionWhenNotAuthor.bind(this);
     }
 
-    loadButton(shadowDOM) {
-        new ApiAccess().fetchPrimoStatus().then((primoStatus) => {
-            console.log('primoStatus=', primoStatus);
-            this.primoStatus = primoStatus;
-            this.showLoginFromAuthStatus(shadowDOM);
-        });
-    }
-
     async showLoginFromAuthStatus(shadowDOM) {
         // THESE LINKS MUST BE DUPLICATED ON PRIMO! (see repo exlibris-primo)
         // (NOTE: due to complexity of an account check in primo, we are not showing the espace dashboard link or admin items there)
-        const libraryAccountUrl =
-            this.primoStatus === 'bo'
-                ? 'https://search.library.uq.edu.au/primo-explore/login?vid=61UQ&targetURL=https%3A%2F%2Fsearch.library.uq.edu.au%2Fprimo-explore%2Faccount%3Fvid%3D61UQ%26section%3Doverview%26lang%3Den_US'
-                : 'https://search.library.uq.edu.au/discovery/account?vid=61UQ_INST:61UQ&section=overview';
-        const favouritesUrl =
-            this.primoStatus === 'bo'
-                ? 'https://search.library.uq.edu.au/primo-explore/login?vid=61UQ&targetURL=https%3A%2F%2Fsearch.library.uq.edu.au%2Fprimo-explore%2Ffavorites%3Fvid%3D61UQ%26lang%3Den_US%26section%3Ditems'
-                : 'https://search.library.uq.edu.au/discovery/favorites?vid=61UQ_INST:61UQ&section=items';
         const authorisedtemplate = document.createElement('template');
         authorisedtemplate.innerHTML = `
     <style>${loggedinstyles.toString()}</style>
@@ -112,7 +95,7 @@ class AuthButton extends HTMLElement {
                         <path d="M1.6001 18.5716C1.6001 14.4685 4.91626 11.1523 9.01932 11.1523C13.1224 11.1523 16.4385 14.4685 16.4385 18.5716" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </g>
                 </svg>
-                <span id="username-area-label" data-testid="username-area-label" class="username-area-label"></span>
+                <span id="username-area-label" data-testid="username-area-label-field" class="username-area-label"></span>
                 <svg id="down-arrow" data-testid="down-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
                     <g id="icon/standard/chevron-down-sml">
                         <path id="Chevron-down" d="M7 10L12 15L17 10" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -131,7 +114,7 @@ class AuthButton extends HTMLElement {
                     <ul id="account-menu-list" data-analyticsid="mylibrary-menu-list-public" class="mylibrary-menu-list" role="menu">
                         <!-- Primo account -->
                         <li role="menuitem" aria-disabled="false">
-                            <a tabindex="0" data-testid="mylibrary-menu-borrowing" data-analyticsid="mylibrary-menu-borrowing" href="${libraryAccountUrl}" rel="noreferrer" style="padding-top: 0">
+                            <a tabindex="0" data-testid="mylibrary-menu-borrowing" data-analyticsid="mylibrary-menu-borrowing" href="https://search.library.uq.edu.au/discovery/account?vid=61UQ_INST:61UQ&section=overview" rel="noreferrer" style="padding-top: 0">
                                 <svg viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
                                     <rect width="24" height="24" transform="translate(0 1)" />
                                     <path d="M12 4C14.2222 4 16 5.77778 16 8C16 10.2222 14.2222 12 12 12C9.77778 12 8 10.2222 8 8C8 5.77778 9.77778 4 12 4Z" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round" />
@@ -143,7 +126,7 @@ class AuthButton extends HTMLElement {
                                 
                         <!-- Primo Favourites -->
                         <li role="menuitem" aria-disabled="false">
-                            <a tabindex="0" data-testid="mylibrary-menu-saved-items" data-analyticsid="mylibrary-menu-saved-items" href="${favouritesUrl}" rel="noreferrer">
+                            <a tabindex="0" data-testid="mylibrary-menu-saved-items" data-analyticsid="mylibrary-menu-saved-items" href="https://search.library.uq.edu.au/discovery/favorites?vid=61UQ_INST:61UQ&section=items" rel="noreferrer">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
                                     <rect width="24" height="24" />
                                     <path d="M12.6988 3.43449L14.9056 7.8896C14.9557 8.00269 15.0347 8.10063 15.1345 8.17369C15.2344 8.24675 15.3516 8.29235 15.4746 8.30597L20.3461 9.02767C20.4871 9.04581 20.6201 9.1037 20.7294 9.19458C20.8388 9.28545 20.9201 9.40559 20.9639 9.54094C21.0074 9.67627 21.0117 9.82125 20.9761 9.95891C20.9404 10.0966 20.8663 10.2213 20.7625 10.3184L17.2511 13.802C17.1615 13.8857 17.0942 13.9905 17.0554 14.1069C17.0167 14.2232 17.0075 14.3474 17.0291 14.4682L17.8757 19.3674C17.9001 19.5081 17.8847 19.653 17.831 19.7854C17.7771 19.9178 17.6873 20.0325 17.5717 20.1163C17.456 20.2003 17.3191 20.25 17.1765 20.2598C17.0339 20.2698 16.8915 20.2394 16.7654 20.1724L12.3796 17.8546C12.2673 17.7995 12.1439 17.7708 12.0188 17.7708C11.8936 17.7708 11.7702 17.7995 11.6579 17.8546L7.27219 20.1724C7.14601 20.2394 7.00355 20.2698 6.861 20.2598C6.71845 20.25 6.58153 20.2003 6.46585 20.1163C6.35016 20.0325 6.26034 19.9178 6.2066 19.7854C6.15286 19.653 6.13737 19.5081 6.16188 19.3674L7.00849 14.4127C7.02995 14.2919 7.02087 14.1677 6.98209 14.0514C6.9433 13.935 6.87604 13.8302 6.78643 13.7465L3.23344 10.3184C3.12833 10.2186 3.05441 10.0905 3.02063 9.94953C2.98686 9.80858 2.99468 9.66085 3.04315 9.52425C3.09162 9.38766 3.17866 9.26805 3.29372 9.17991C3.40879 9.09178 3.54694 9.0389 3.69145 9.02767L8.56292 8.30597C8.68589 8.29235 8.80314 8.24675 8.90298 8.17369C9.00281 8.10063 9.08177 8.00269 9.13195 7.8896L11.3387 3.43449C11.3988 3.30474 11.4947 3.19489 11.6153 3.1179C11.7358 3.04091 11.8758 3 12.0188 3C12.1617 3 12.3018 3.04091 12.4223 3.1179C12.5428 3.19489 12.6387 3.30474 12.6988 3.43449Z" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round" />
@@ -230,7 +213,7 @@ class AuthButton extends HTMLElement {
                         </li>
                         <!-- Logout -->
                         <li role="menuitem" aria-disabled="false" class="logout borderTop" >
-                            <button class="logout" type="button" data-analyticsid="auth-button-logout" id="signOutButton">
+                            <button class="logout" type="button" data-testid="auth-button-logout" data-analyticsid="auth-button-logout" id="signOutButton">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
                                     <g id="Login-1--Streamline-Ultimate 1" clip-path="url(#clip0_1654_3032)">
                                         <path id="Vector" d="M17.0859 9.00293H5.76562" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>

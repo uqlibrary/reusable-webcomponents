@@ -225,21 +225,6 @@ class ApiAccess {
             );
     }
 
-    async fetchPrimoStatus() {
-        const PRIMO_STATUS_BACKOFFICE = 'bo';
-
-        const api = new ApiRoutes().PRIMO_STATUS_API();
-
-        return await this.fetchAPI(api.apiUrl)
-            .then((data) => {
-                return data?.homepageStatus || PRIMO_STATUS_BACKOFFICE;
-            })
-            .catch((error) => {
-                // send the user to BO if we cant tell where they should go
-                return PRIMO_STATUS_BACKOFFICE;
-            });
-    }
-
     async fetchAPI(urlPath, headers = {}, tokenRequired = false, timestampRequired = true) {
         /* istanbul ignore next */
         if (!!tokenRequired && (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)) {
@@ -260,6 +245,8 @@ class ApiAccess {
             try {
                 return this.fetchMock(urlPath);
             } catch (e) {
+                urlPath === 'chat_status' && this.showVPNNeededToast(); // dev
+
                 const msg = `mock api error: ${e.message}`;
                 console.log(msg);
                 throw new Error(msg);
@@ -275,11 +262,16 @@ class ApiAccess {
                 ? `${urlPath}${addTimestamp}`
                 : `${API_URL}${urlPath}${addTimestamp}`;
             console.log(urlPath, 'calls: ', finalUrl);
-            const response = await fetch(finalUrl, {
-                headers: options,
-            });
+            let response;
+            try {
+                response = await fetch(finalUrl, {
+                    headers: options,
+                });
+            } catch (e) {
+                urlPath === 'chat_status' && this.showVPNNeededToast();
+            }
 
-            if (!response.ok) {
+            if (!response?.ok) {
                 console.log(`ApiAccess console [A3]: An error has occurred: ${response.status} ${response.statusText}`);
                 const message = `ApiAccess [A1]: An error has occured: ${response.status} ${response.statusText}`;
                 throw new Error(message);
@@ -337,6 +329,65 @@ class ApiAccess {
 
     isMock() {
         return process.env.USE_MOCK;
+    }
+
+    // across dev, apis silently fail when they are blocked by CORS - point out that VPN is needed because its very confusing!!
+    showVPNNeededToast() {
+        const toast = `
+            <style>
+                body {
+                    position: relative;
+                }
+                .vpn-needed-toast {
+                    background-color: #D62929;
+                    color: #fff;
+                    padding: .5rem 1.5rem .5rem 2.5rem;
+                    background-image: url("data:image/svg+xml,%3csvg viewBox=%270 0 24 24%27 fill=%27none%27 xmlns=%27http://www.w3.org/2000/svg%27%3e%3cpath d=%27M20.127 18.545a1.18 1.18 0 0 1-1.055 1.706H4.929a1.18 1.18 0 0 1-1.055-1.706l7.072-14.143a1.179 1.179 0 0 1 2.109 0l7.072 14.143Z%27 stroke=%27%23fff%27 stroke-width=%271.5%27%3e%3c/path%3e%3cpath d=%27M12 9v4%27 stroke=%27%23fff%27 stroke-width=%271.5%27 stroke-linecap=%27round%27%3e%3c/path%3e%3ccircle cx=%2711.9%27 cy=%2716.601%27 r=%271.1%27 fill=%27%23fff%27%3e%3c/circle%3e%3c/svg%3e");
+                    background-repeat: no-repeat;
+                    background-size: 1.5rem;
+                    background-position: 0.75rem center;
+                    position: fixed;
+                    bottom: 0.5rem;
+                    left: 0.5rem;
+                    transition: opacity 500ms ease-out;
+                    p {
+                        font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                        font-size: 1rem;
+                        font-weight: 400;
+                        letter-spacing: 0.16px;
+                        line-height: 25.6px;
+                    }
+                }
+            </style>
+            <div id="vpn-needed-toast" class="vpn-needed-toast" data-testid="vpn-needed-toast">
+                <p>You may need VPN to see some elements of this page.</p>
+            </div>
+        `;
+        const toastAlreadyExists = document.getElementById('vpn-needed-toast');
+        const vpnDomains = [
+            'localhost', // superfluous, but allows test
+            'homepage-staging.library.uq.edu.au', // probably doesnt work - completely 403 on page
+            'homepage-development.library.uq.edu.au', // here it is very needed, no other clue that apis blocked without vpn
+            'sandbox-fryer.library.uq.edu.au', // probably doesnt work - completely 403 on page
+            'app-testing.library.uq.edu.au', // probably doesnt work - completely 403 on page
+            'assets.library.uq.edu.au', // useful here
+        ];
+        if (vpnDomains.includes(window.location.hostname) && !toastAlreadyExists) {
+            const template = document.createElement('template');
+            !!toast && !!template && (template.innerHTML = toast);
+            const body = document.querySelector('body');
+            !!body && !!template && body.appendChild(template.content.cloneNode(true));
+            const hideDelay = 3000;
+            setTimeout(() => {
+                const toast = document.getElementById('vpn-needed-toast');
+                !!toast && (toast.style.opacity = 0);
+            }, hideDelay);
+            setTimeout(() => {
+                // because we cant fade this, fade the opacity first
+                const toast = document.getElementById('vpn-needed-toast');
+                !!toast && toast.remove();
+            }, hideDelay + 1000);
+        }
     }
 }
 

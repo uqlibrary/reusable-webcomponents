@@ -40,29 +40,32 @@ npm ci
 
 ## Branches / Environments
 
-| env                  | view at                                                                                                                                                                                         | bucket                                                      |
-| -------------------- |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| ----------------------------------------------------------- |
-| prod                 | <https://www.library.uq.edu.au/> <br/>or <https://assets.library.uq.edu.au/reusable-webcomponents/>                                                                                             | s3://uql-reusable-webcomponents-production/                 |
-| staging              | <https://assets.library.uq.edu.au/reusable-webcomponents-staging/> <br/>or <https://homepage-staging.library.uq.edu.au/> - it is the only branch that will call reusable staging                | s3://uql-reusable-webcomponents-staging/                    |
-| general dev          | master branch viewable at https://assets.library.uq.edu.au/reusable-webcomponents-development/master/ <br/>or swap "master" for the name of your branch which has had a pipeline created on AWS | s3://uql-reusable-webcomponents-development/ + subfolder    |
-| Fryer                | staging uses branch `atom-staging` at <https://sandbox-fryer.library.uq.edu.au/> (when its online - VPN required)<br/>production: <https://manuscripts.library.uq.edu.au/>                      | s3://uql-reusable-webcomponents-development/atom-staging/   |
-| Drupal V10           | staging uses branch `drupal-staging` at <https://web-staging.library.uq.edu.au/> (VPN required)<br/>production: <https://web.library.uq.edu.au/>                                                | s3://uql-reusable-webcomponents-development/drupal-staging/ |
-| Chatbot              | 3 envs: prod, staging & test. ITS chatbot people use Test env, with branch `chatbot-testenv` at <https://homepage-development.library.uq.edu.au/chatbot-testenv/> (matching homepage branch)    | s3://uql-reusable-webcomponents-development/chatbot-test/   |
-| Primo                | USes reusable for styling. Many environments. See repo `exlibris-primo` for details                                                                                                             |                                                             |
+| env                 | view at                                                                                                                                                                                         | bucket                                                      |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| prod                | <https://www.library.uq.edu.au/> <br/>or <https://assets.library.uq.edu.au/reusable-webcomponents/>                                                                                             | s3://uql-reusable-webcomponents-production/                 |
+| staging             | <https://assets.library.uq.edu.au/reusable-webcomponents-staging/> <br/>or <https://homepage-staging.library.uq.edu.au/> - it is the only branch that will call reusable staging                | s3://uql-reusable-webcomponents-staging/                    |
+| general dev         | master branch viewable at https://assets.library.uq.edu.au/reusable-webcomponents-development/master/ <br/>or swap "master" for the name of your branch which has had a pipeline created on AWS | s3://uql-reusable-webcomponents-development/ + subfolder    |
+| Fryer               | staging uses branch `atom-staging` at <https://sandbox-fryer.library.uq.edu.au/> (when its online - VPN required)<br/>production: <https://manuscripts.library.uq.edu.au/>                      | s3://uql-reusable-webcomponents-development/atom-staging/   |
+| Drupal V10          | staging uses branch `drupal-staging` at <https://web-staging.library.uq.edu.au/> <br/>production: <https://web.library.uq.edu.au/>                                                              | s3://uql-reusable-webcomponents-development/drupal-staging/ |
+| Membership + others | staging uses branch `staging` at <https://app-testing.library.uq.edu.au/> <br/>production: <https://app.library.uq.edu.au/>                                                                     | s3://uql-reusable-webcomponents-development/drupal-staging/ |
+| Chatbot             | 3 envs: prod, staging & test. ITS chatbot people use Test env, with branch `chatbot-testenv` at <https://homepage-development.library.uq.edu.au/chatbot-testenv/> (matching homepage branch)    | s3://uql-reusable-webcomponents-development/chatbot-test/   |
+| Primo               | USes reusable for styling. Many environments. See repo `exlibris-primo` for details                                                                                                             |                                                             |
 
 ## Development
 
 - run `npm ci` to install packages.
 - run `npm run start` to run the project locally while developing with a listener (calls api on staging for data)
 - run `npm run start:mock` to run the project locally with mock data
-  - While this is running, you can run `npm run cypress:open` to manually run cypress tests
+  - While this is running, you can run `npm run test:e2e` to manually run playwright tests, headless
+  - and `npm run test:e2e:show` in headed mode
+  - you can restrict to a single test by temporarily putting ".only" on the test
+  - you can run a single suite by appending all or part of the filename to the test, eg `npm run test:e2e openaccess`
+  - you can also simply run `npx playwright test`
 - run `npm run build` to run a `local` test build in the `dist` folder (this also replaces `gulp styles` in the old reusable for building css locally for pasting into live pages for test)
 - run `npm run build:staging` to run a `staging` test build in the `dist` folder
 - run `npm run build:production` to run a `production` test build in the `dist` folder
-- run `npm run test:local` to run a test build in the `dist` folder and run all cypress tests
 - run `npm run prettier:test` to check all files for codestyles, and
 - run `npm run prettier:fix` to fix all codestyle issues
-- run `npm run cypress:run:record` to run all cypress tests at the command line
 
 localhost will run on port 8080: `http://localhost:8080/`
 
@@ -116,14 +119,14 @@ This must be an ANCHOR, not any other html element.
 
 ## Testing
 
-This repo uses [Cypress.io](https://cypress.io/) tests. To run tests:
+This repo uses [playwright.dev](https://playwright.dev/) tests. To run tests:
 
-- locally: `npm run test:local` - select the preferred browser from the dropdown in the top right of the cypress interface, then click on the 'run integration tests'
+- locally: `npm run test`
 
-NOTE: CI testing uses environment variables stored on AWS to run cypress successfully and reporting to the cypress dashboard.
+NOTE: CI testing uses environment variables stored on AWS to run playwright successfully.
 
 - data-testid attributes are used to identify elements for tests
-- data-analyticsid attributes are used for GTM/GA tagging and are supplied by the customer (although we often advise).
+- data-analyticsid attributes are used for GTM/GA tagging and are supplied by the customer (although we often advise) - DO NOT CHANGE EXISTING DATA_ANALYTICS ENTRIES without direct consult with our GA staff (Nick).
 
 ## Branches
 
@@ -134,7 +137,7 @@ In addition to the usual branches, the following are in use and should not be de
 - `primo-sandbox` (maps to primo env sandbox-dev. Needed to support uqsvangr)
 - `primo-sandbox-dev` (maps to primo env sandbox-dev. Needed to support uqsvangr)
 - `user-admin-manage` (used by eg uqjtilse to make changes to the megamenu ready for us to merge to master cf [admin user doc](docs/admin-howto.md))
-- `atom-staging` (used by fryer at manuscriptas.library.uq.edu, see  cf [atom readme](src/applications/atom/readme.md))
+- `atom-staging` (used by fryer at manuscriptas.library.uq.edu, see cf [atom readme](src/applications/atom/readme.md))
 
 ## Reference Material
 
@@ -211,4 +214,4 @@ if you are developing and you suddenly start getting
 
 `Error: ENOENT: no such file or directory, scandir '/Users/uqldegro/github/reusable-webcomponents/node_modules/node-sass/vendor'`
 
-issuing the command `npm rebuild node-sass` will usually fix it. 
+issuing the command `npm rebuild node-sass` will usually fix it.
