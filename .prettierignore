@@ -1,7 +1,5 @@
 node_modules
 dist
-cypress/examples
-cypress/screenshots/
 *.json
 mock
 main.css
