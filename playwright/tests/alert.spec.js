@@ -4,9 +4,9 @@ import { assertAccessibility } from '../lib/axe';
 const FIRST_ALERT_ID = 'alert-1';
 const SECOND_ALERT_ID = 'alert-4';
 const THIRD_ALERT_ID = 'alert-5';
-const COLOUR_UQ_INFO = 'rgb(30, 114, 198)';
-const COLOUR_UQ_WARN = 'rgb(251, 184, 0)';
-const COLOUR_UQ_ALERT = 'rgb(149, 17, 38)';
+const COLOUR_UQ_INFO = 'rgb(13, 109, 205)';
+const COLOUR_UQ_WARN = 'rgb(247, 186, 30)';
+const COLOUR_UQ_ALERT = 'rgb(214, 41, 41)';
 
 test.describe('Alert', () => {
     test('Alert is visible without interaction at 1280', async ({ page }) => {
@@ -237,8 +237,6 @@ test.describe('Alert', () => {
     test('the masquerading user sees an alert that announces they are masquerading with logout button', async ({
         page,
     }) => {
-        const COLOUR_UQ_WARN = 'rgb(251, 184, 0)';
-
         await page.route('https://auth.library.uq.edu.au/**', async (route) => {
             await route.fulfill({ body: 'user visits logout page' });
         });
