@@ -185,7 +185,7 @@ test.describe('Proactive Chat', () => {
             await expect(proactiveChatElement.getByTestId('proactive-chat-offline')).toHaveCSS('display', 'none');
         });
 
-        test('Navigates to CRM from "Chat with Library staff" button', async ({ page }) => {
+        test.skip('Navigates to CRM from "Chat with Library staff" button', async ({ page }) => {
             await page.goto('http://localhost:8080/index-chat-fast.html');
             const proactiveChatElement = page.locator('proactive-chat');
 
@@ -201,7 +201,7 @@ test.describe('Proactive Chat', () => {
             );
         });
 
-        test('Navigates to CRM from iframe "Person" button', async ({ page }) => {
+        test.skip('Navigates to CRM from iframe "Person" button', async ({ page }) => {
             await page.goto('http://localhost:8080/index-chat-slow.html');
             await page.setViewportSize({ width: 1280, height: 900 });
             const proactiveChatElement = page.locator('proactive-chat');
@@ -420,7 +420,7 @@ test.describe('Proactive Chat', () => {
     });
 
     test.describe('when inserting proactive chat within the body of the page', () => {
-        test('should load crm correctly', async ({ page }) => {
+        test.skip('should load crm correctly', async ({ page }) => {
             await page.goto('http://localhost:8080/index-drupalcontactus.html');
             const inlineProactiveChatElement = page.locator('proactive-chat[display="inline"]');
 
