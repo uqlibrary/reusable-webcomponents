@@ -20,8 +20,8 @@ template.innerHTML = `
     </style>
     <div id="open-athens" data-testid="open-athens" class="uq-card">
         <fieldset class="uq-card__content">
-            <input type="url" placeholder="DOI or URL" id="open-athens-input" data-testid="open-athens-input" />
-            <div id="open-athens-input-error" data-testid="open-athens-input-error" class="uq-error-message hidden"></div>
+            <input type="url" placeholder="DOI or URL" id="open-athens-input" data-testid="input-field" />
+            <div id="open-athens-input-error" data-testid="input-error" class="uq-error-message hidden"></div>
             <div class="spinnerWrapper" id="spinnerWrapper">
                 <span id="spinner" class="spinner" role="progressbar">
                     <svg viewBox="22 22 44 44">
@@ -29,18 +29,18 @@ template.innerHTML = `
                     </svg>
                 </span>
             </div>
-            <button id="open-athens-create-link-button" data-testid="open-athens-create-link-button" class="uq-button hidden" data-analyticsid="openathens-createlink">Create Link</button>
-            <button id="open-athens-url-clear-button" data-testid="open-athens-url-clear-button" class="uq-button uq-button--secondary hidden" data-analyticsid="openathens-clear-before">Clear</button>
-            <span id="open-athens-copy-options" data-testid="open-athens-copy-options" class="hidden">
-                <textarea readonly id="open-athens-url-display-area" data-testid="open-athens-url-display-area"></textarea>
-                <button id="open-athens-visit-link-button" data-testid="open-athens-visit-link-button" class="uq-button" data-analyticsid="openathens-visit">Visit Link</button>
-                <button id="open-athens-copy-link-button" data-testid="open-athens-copy-link-button" class="uq-button" data-analyticsid="openathens-copy">Copy Link</button>
-                <button id="open-athens-create-new-link-button" data-testid="open-athens-create-new-link-button" class="uq-button uq-button--secondary" data-analyticsid="openathens-clear-after">Clear</button>
-                <div id="open-athens-copy-status" data-testid="open-athens-copy-status"></div>
+            <button id="open-athens-create-link-button" data-testid="create-link-button" class="uq-button hidden" data-analyticsid="openathens-createlink">Create Link</button>
+            <button id="open-athens-url-clear-button" data-testid="url-clear-button" class="uq-button uq-button--secondary hidden" data-analyticsid="openathens-clear-before">Clear</button>
+            <span id="open-athens-copy-options" data-testid="copy-options" class="hidden">
+                <textarea readonly aria-label="Visitable link as requested" id="open-athens-url-display-area" data-testid="url-display-area"></textarea>
+                <button id="open-athens-visit-link-button" data-testid="visit-link-button" class="uq-button" data-analyticsid="openathens-visit">Visit Link</button>
+                <button id="open-athens-copy-link-button" data-testid="copy-link-button" class="uq-button" data-analyticsid="openathens-copy">Copy Link</button>
+                <button id="open-athens-create-new-link-button" data-testid="create-new-link-button" class="uq-button uq-button--secondary" data-analyticsid="openathens-clear-after">Clear</button>
+                <div id="open-athens-copy-status" data-testid="copy-status"></div>
             </span>
-            <span id="open-athens-redirect-options" data-testid="open-athens-redirect-options" class="hidden">
-                <button id="open-athens-redirect-button" data-testid="open-athens-redirect-button" class="uq-button">Go</button>
-                <button id="open-athens-input-clear-button" data-testid="open-athens-input-clear-button" class="uq-button uq-button--secondary">Clear</button>
+            <span id="open-athens-redirect-options" data-testid="redirect-options" class="hidden">
+                <button id="open-athens-redirect-button" data-testid="redirect-button" class="uq-button">Go</button>
+                <button id="open-athens-input-clear-button" data-testid="input-clear-button" class="uq-button uq-button--secondary">Clear</button>
             </span>
         </fieldset>
     </div>
@@ -162,10 +162,10 @@ class OpenAthens extends HTMLElement {
             this.createLinkClearButton.classList.remove('hidden');
         }
 
-        this.addEventListeners(shadowDOM);
+        this.addEventListeners();
     }
 
-    addEventListeners(shadowDOM) {
+    addEventListeners() {
         this.copyLinkButton.addEventListener('click', () => this.copyUrl());
         this.createLinkButton.addEventListener('click', () => this.createLink());
         this.createLinkClearButton.addEventListener('click', () => this.clearInput());
@@ -174,9 +174,6 @@ class OpenAthens extends HTMLElement {
         this.inputField.addEventListener('keypress', (e) => this.inputUrlKeypress(e));
         this.redirectButton.addEventListener('click', () => this.redirectToLinkViaOpenAthens());
         this.visitLinkButton.addEventListener('click', () => this.navigateToLinkViaOpenAthens());
-
-        const links = shadowDOM.querySelectorAll('button');
-        !!links && links.length > 0 && links.forEach((l) => l.addEventListener('click', (e) => sendClickToGTM(e)));
     }
 
     /**
@@ -396,7 +393,7 @@ class OpenAthens extends HTMLElement {
         if ((!window.navigator.clipboard || !window.navigator.clipboard.writeText) && !document.execCommand) {
             this.copyStatus = {
                 success: false,
-                message: 'The Copy function is not available in this web browser.',
+                message: 'The Copy function is not provided in this web browser.',
             };
             return;
         }
@@ -437,7 +434,7 @@ class OpenAthens extends HTMLElement {
                 const copyStatus = document.execCommand('copy');
                 this.copyStatus = {
                     success: !!copyStatus,
-                    message: copyStatus ? 'URL copied successfully.' : 'Unable to copy the URL.',
+                    message: copyStatus ? 'URL copied successfully!' : 'Unable to copy the URL.',
                 };
             }
         } catch (err) {
