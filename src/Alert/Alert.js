@@ -181,13 +181,30 @@ class Alert extends HTMLElement {
             );
             Cookies.remove(apiLocale.SESSION_COOKIE_NAME);
         }
+        console.log(
+            'masq:: check cookie gone after removal?',
+            apiLocale.SESSION_COOKIE_NAME,
+            '=',
+            Cookies.get(apiLocale.SESSION_COOKIE_NAME),
+        );
 
         // set that old value into the current token
         console.log('masq:: reset token with old value');
-        Cookies.set(apiLocale.SESSION_COOKIE_NAME, oldTokenValue, {
-            domain: window.location.host,
-            path: '.library.uq.edu.au',
-        });
+        let params = {
+            domain: 'localhost',
+            path: '/',
+            SameSite: 'None',
+        };
+        /* istanbul ignore next */
+        if (window.location.hostname.endsWith('.library.uq.edu.au')) {
+            params = {
+                domain: '.library.uq.edu.au',
+                path: '/',
+                secure: true,
+                SameSite: 'None',
+            };
+        }
+        Cookies.set(apiLocale.SESSION_COOKIE_NAME, oldTokenValue, params);
 
         // cleanup
         Cookies.remove(apiLocale.PREMASQUERADE_SESSION_COOKIE_NAME, { path: '' });

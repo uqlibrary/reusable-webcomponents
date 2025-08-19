@@ -1,7 +1,9 @@
+import Cookies from 'js-cookie';
+
 import styles from './css/overrides.css';
 import ApiAccess from '../ApiAccess/ApiAccess';
 import UserAccount from '../ApiAccess/UserAccount';
-import { apiLocale as apilocale } from '../ApiAccess/ApiAccess.locale';
+import { apiLocale } from '../ApiAccess/ApiAccess.locale';
 import { authLocale } from '../UtilityArea/auth.locale';
 
 const template = document.createElement('template');
@@ -83,8 +85,9 @@ class Alerts extends HTMLElement {
                     if (
                         !!accountData &&
                         accountData?.hasOwnProperty('status') &&
-                        accountData?.status === apilocale.USER_LOGGED_IN &&
-                        accountData?.account?.hasOwnProperty('masqueradingId')
+                        accountData?.status === apiLocale.USER_LOGGED_IN &&
+                        accountData?.account?.hasOwnProperty('masqueradingId') &&
+                        accountData?.account?.masqueradingId !== accountData?.account?.id
                     ) {
                         const currentPageLink = window.location.href;
                         const endMasqueradeLink = `${authLocale.AUTH_URL_LOGOUT}${window.btoa(currentPageLink)}`;
@@ -103,6 +106,9 @@ class Alerts extends HTMLElement {
                         alert.setAttribute('alertmessage', displayMessage + endMasqueradeControl + undismissable);
 
                         alertWrapper.prepend(alert);
+                    }
+                    if (accountData?.account?.masqueradingId === accountData?.account?.id) {
+                        Cookies.remove(apiLocale.PREMASQUERADE_SESSION_COOKIE_NAME, { path: '' });
                     }
                 });
             });
