@@ -1,7 +1,7 @@
 import styles from './css/main.css';
 import overrides from './css/overrides.css';
 import Cookies from 'js-cookie';
-import { cookieNotFound, setCookie } from '../helpers/cookie';
+import { cookieNotFound, getCookieValue, setCookie } from '../helpers/cookie';
 import { apiLocale } from '../ApiAccess/ApiAccess.locale';
 import { authLocale } from '../UtilityArea/auth.locale';
 
@@ -128,11 +128,14 @@ class Alert extends HTMLElement {
 
             // Show or hide the action button and attach the function to do so
             if (!!linkLabel && !!linkUrl) {
-                const uqidCookie =
+                console.log('masq:: has label and url');
+                const uqlIdCookie =
                     !!apiLocale.PREMASQUERADE_SESSION_COOKIE_NAME &&
                     Cookies.get(apiLocale.PREMASQUERADE_SESSION_COOKIE_NAME);
-                if (linkLabel === 'End masquerade' && !!uqidCookie) {
-                    this.createEndMasqueradeButton(shadowDOM, uqidCookie, linkLabel);
+                console.log('masq:: uqlIdCookie=', uqlIdCookie);
+                if (linkLabel === 'End masquerade' && !!uqlIdCookie) {
+                    console.log('masq:: end masq button will relogin with token', uqlIdCookie); // debug
+                    this.createEndMasqueradeButton(shadowDOM, linkLabel);
                 } else {
                     this.createActionLink(shadowDOM, linkLabel, linkUrl);
                 }
@@ -143,16 +146,40 @@ class Alert extends HTMLElement {
         }, 300);
     }
 
-    endMasqueradeClickHandler(e, uqidCookie) {
-        Cookies.set(apiLocale.SESSION_COOKIE_NAME, uqidCookie, {
+    endMasqueradeClickHandler(e) {
+        console.log('endMasqueradeClickHandler');
+
+        // get the token we stored of the pre-masquerade session
+        const oldTokenValue =
+            (!!apiLocale.PREMASQUERADE_SESSION_COOKIE_NAME &&
+                Cookies.get(apiLocale.PREMASQUERADE_SESSION_COOKIE_NAME)) ||
+            null;
+        if (!oldTokenValue) {
+            console.log('no PREMASQUERADE cookie available'); // debug
+            return;
+        }
+        console.log(
+            'cookie before ',
+            apiLocale.PREMASQUERADE_SESSION_COOKIE_NAME,
+            '=',
+            getCookieValue(apiLocale.PREMASQUERADE_SESSION_COOKIE_NAME),
+        );
+        // set that old value into the current token
+        console.log('reset token with old value'); // debug
+        Cookies.set(apiLocale.SESSION_COOKIE_NAME, oldTokenValue, {
             domain: window.location.host,
             path: '.library.uq.edu.au',
         });
+
+        // cleanup
         Cookies.remove(apiLocale.PREMASQUERADE_SESSION_COOKIE_NAME, { path: '' });
+        console.log('cookie after ', apiLocale.SESSION_COOKIE_NAME, '=', getCookieValue(apiLocale.SESSION_COOKIE_NAME));
+
+        // log the user in with the old token
         window.location.href = `${authLocale.AUTH_URL_LOGIN}${window.btoa(window.location.href)}`;
+
         return false;
     }
-
     createActionLink(shadowDOM, linkLabel, linkUrl) {
         shadowDOM.getElementById('alert-action-desktop-endmasquerade').remove();
 
@@ -166,21 +193,18 @@ class Alert extends HTMLElement {
         });
     }
 
-    createEndMasqueradeButton(shadowDOM, uqidCookie, linkLabel) {
+    createEndMasqueradeButton(shadowDOM, linkLabel) {
         const that = this;
         shadowDOM.getElementById('alert-action-desktop').remove();
 
         const endMasqueradeButton = shadowDOM.getElementById('alert-action-desktop-endmasquerade');
         !!endMasqueradeButton && (endMasqueradeButton.style.display = 'block');
         !!endMasqueradeButton && (endMasqueradeButton.style.border = 'none');
-        !!endMasqueradeButton &&
-            endMasqueradeButton.addEventListener('click', (e) => that.endMasqueradeClickHandler(e, uqidCookie));
+        !!endMasqueradeButton && endMasqueradeButton.addEventListener('click', that.endMasqueradeClickHandler);
 
         shadowDOM.getElementById('alert-action-mobile').setAttribute('title', linkLabel);
         shadowDOM.getElementById('alert-action-mobile').innerText = linkLabel;
-        shadowDOM
-            .getElementById('alert-action-mobile')
-            .addEventListener('click', (e) => that.endMasqueradeClickHandler(e, uqidCookie));
+        shadowDOM.getElementById('alert-action-mobile').addEventListener('click', that.endMasqueradeClickHandler);
     }
 }
 

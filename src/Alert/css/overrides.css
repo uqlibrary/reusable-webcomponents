@@ -48,7 +48,7 @@
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     padding: 18px 24px 18px 12px !important;
 }
 
@@ -98,7 +98,7 @@
 
 /*ERROR*/
 .info {
-    background-color: #1e72c6;
+    background-color: #0d6dcd;
     color: #fff;
 }
 
@@ -134,8 +134,8 @@
 }
 
 .urgent {
-    background-color: #fbb800;
-    color: #000;
+    background-color: #f7ba1e;
+    color: #3b383e;
     /* used when checking accessibility tests are valid */
     /*background-color: #fff;*/
     /*color: #fff;*/
@@ -173,7 +173,7 @@
 
 /*EXTREME*/
 .extreme {
-    background-color: #951126;
+    background-color: #d62929;
     color: #fff;
 }
 .extreme #alert-close svg {
