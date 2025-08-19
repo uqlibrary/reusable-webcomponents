@@ -147,7 +147,7 @@ class Alert extends HTMLElement {
     }
 
     endMasqueradeClickHandler(e) {
-        console.log('endMasqueradeClickHandler');
+        console.log('masq:: endMasqueradeClickHandler');
 
         // get the token we stored of the pre-masquerade session
         const oldTokenValue =
@@ -155,7 +155,7 @@ class Alert extends HTMLElement {
                 Cookies.get(apiLocale.PREMASQUERADE_SESSION_COOKIE_NAME)) ||
             null;
         if (!oldTokenValue) {
-            console.log('no PREMASQUERADE cookie available'); // debug
+            console.log('masq:: no PREMASQUERADE cookie available');
             return;
         }
         console.log(
@@ -164,8 +164,26 @@ class Alert extends HTMLElement {
             '=',
             getCookieValue(apiLocale.PREMASQUERADE_SESSION_COOKIE_NAME),
         );
+
+        console.log(
+            'masq:: check cookie',
+            apiLocale.SESSION_COOKIE_NAME,
+            '=',
+            Cookies.get(apiLocale.SESSION_COOKIE_NAME),
+        );
+        if (!!Cookies.get(apiLocale.SESSION_COOKIE_NAME)) {
+            // we don't want a duplicate cookie, we want the old value used
+            console.log(
+                'masq:: clear existing',
+                apiLocale.SESSION_COOKIE_NAME,
+                '=',
+                Cookies.get(apiLocale.SESSION_COOKIE_NAME),
+            );
+            Cookies.remove(apiLocale.SESSION_COOKIE_NAME);
+        }
+
         // set that old value into the current token
-        console.log('reset token with old value'); // debug
+        console.log('masq:: reset token with old value');
         Cookies.set(apiLocale.SESSION_COOKIE_NAME, oldTokenValue, {
             domain: window.location.host,
             path: '.library.uq.edu.au',
@@ -173,10 +191,17 @@ class Alert extends HTMLElement {
 
         // cleanup
         Cookies.remove(apiLocale.PREMASQUERADE_SESSION_COOKIE_NAME, { path: '' });
-        console.log('cookie after ', apiLocale.SESSION_COOKIE_NAME, '=', getCookieValue(apiLocale.SESSION_COOKIE_NAME));
+        console.log(
+            'masq:: cookie after ',
+            apiLocale.SESSION_COOKIE_NAME,
+            '=',
+            getCookieValue(apiLocale.SESSION_COOKIE_NAME),
+        );
 
         // log the user in with the old token
-        window.location.href = `${authLocale.AUTH_URL_LOGIN}${window.btoa(window.location.href)}`;
+        const href = `${authLocale.AUTH_URL_LOGIN}${window.btoa(window.location.href)}`;
+        console.log('masq:: end - visit', href);
+        window.location.href = href;
 
         return false;
     }
