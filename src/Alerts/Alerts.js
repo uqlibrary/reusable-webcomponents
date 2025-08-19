@@ -1,5 +1,3 @@
-import Cookies from 'js-cookie';
-
 import styles from './css/overrides.css';
 import ApiAccess from '../ApiAccess/ApiAccess';
 import UserAccount from '../ApiAccess/UserAccount';
@@ -106,9 +104,6 @@ class Alerts extends HTMLElement {
                         alert.setAttribute('alertmessage', displayMessage + endMasqueradeControl + undismissable);
 
                         alertWrapper.prepend(alert);
-                    }
-                    if (accountData?.account?.masqueradingId === accountData?.account?.id) {
-                        Cookies.remove(apiLocale.PREMASQUERADE_SESSION_COOKIE_NAME, { path: '' });
                     }
                 });
             });
