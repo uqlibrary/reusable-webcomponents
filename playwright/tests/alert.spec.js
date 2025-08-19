@@ -257,8 +257,6 @@ test.describe('Alert', () => {
         await expect(getAlert().getByTestId('alert-action-desktop')).toHaveText('End masquerade');
     });
     test('the masquerading user can end an old session and log out', async ({ page }) => {
-        // PREMASQUERADE_SESSION_COOKIE_NAME is NOT set, (happens on homepage/fez-frontend, not here)
-        // so it must have expired - the masquerading user is just logged out
         await page.route('https://auth.library.uq.edu.au/**', async (route) => {
             await route.fulfill({ body: 'user visits logout page' });
         });
@@ -273,42 +271,5 @@ test.describe('Alert', () => {
         await getAlert().getByTestId('alert-action-desktop').click();
 
         await expect(page.getByText('user visits logout page')).toBeVisible();
-    });
-    test('the masquerading user with valid cookie will log themself back in when they end the masquerade', async ({
-        page,
-        context,
-    }) => {
-        // a PREMASQUERADE_SESSION_COOKIE_NAME is set - the user will be logged back into their own session
-        // (because the cookie is set and valid, the login page would redirect to the request url)
-        await context.addCookies([
-            { name: 'UQLID_PREMASQUERADE', value: 'xyz123', path: '/', domain: 'localhost:8080' },
-        ]);
-
-        await page.route('https://auth.library.uq.edu.au/login**', async (route) => {
-            await route.fulfill({ body: 'user visits login page' });
-        });
-        await page.route('https://auth.uq.edu.au/**', async (route) => {
-            await route.fulfill({ body: 'user visits login page' });
-        });
-
-        await page.goto('http://localhost:8080/?user=uqrdav10'); // the uqrdav10 mock user has the masquerading id set
-        await expect(page.locator('uq-site-header').locator('auth-button')).toBeVisible();
-
-        const getAlert = () => page.locator('alert-list').locator('uq-alert[id="masquerade-notice"]');
-
-        const cookies = await context.cookies();
-        const sessionCookie = cookies.find((c) => c.name === 'UQLID');
-        await expect(sessionCookie.value).toEqual('abc123');
-
-        await expect(getAlert().getByTestId('alert-action-desktop-endmasquerade')).toBeVisible();
-        await expect(getAlert().getByTestId('alert-action-desktop-endmasquerade')).toHaveText('End masquerade');
-        await getAlert().getByTestId('alert-action-desktop-endmasquerade').click();
-
-        // // cant test - localhost overrides the cookie
-        // const cookies1 = await context.cookies();
-        // const sessionCookie1 = cookies1.find((c) => c.name === 'UQLID');
-        // await expect(sessionCookie1.value).toEqual('xyz123');
-
-        await expect(page.getByText('user visits login page')).toBeVisible();
     });
 });
