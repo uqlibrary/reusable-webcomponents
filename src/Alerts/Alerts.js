@@ -79,33 +79,36 @@ class Alerts extends HTMLElement {
                 }
             })
             .then(() => {
-                new UserAccount().get().then((accountData) => {
-                    if (
-                        !!accountData &&
-                        accountData?.hasOwnProperty('status') &&
-                        accountData?.status === apiLocale.USER_LOGGED_IN &&
-                        accountData?.account?.hasOwnProperty('masqueradingId') &&
-                        accountData?.account?.masqueradingId !== accountData?.account?.id
-                    ) {
-                        const currentPageLink = window.location.href;
-                        const endMasqueradeLink = `${authLocale.AUTH_URL_LOGOUT}${window.btoa(currentPageLink)}`;
+                setTimeout(() => {
+                    // let main account go first, minimise multiple calls to account api
+                    new UserAccount().get().then((accountData) => {
+                        if (
+                            !!accountData &&
+                            accountData?.hasOwnProperty('status') &&
+                            accountData?.status === apiLocale.USER_LOGGED_IN &&
+                            accountData?.account?.hasOwnProperty('masqueradingId') &&
+                            accountData?.account?.masqueradingId !== accountData?.account?.id
+                        ) {
+                            const currentPageLink = window.location.href;
+                            const endMasqueradeLink = `${authLocale.AUTH_URL_LOGOUT}${window.btoa(currentPageLink)}`;
 
-                        // they are masquerading
-                        const alert = document.createElement('uq-alert');
-                        alert.setAttribute('id', `masquerade-notice`);
-                        alert.setAttribute('alerttitle', 'Masquerade in place:');
-                        alert.setAttribute('prioritytype', 'urgent');
+                            // they are masquerading
+                            const alert = document.createElement('uq-alert');
+                            alert.setAttribute('id', `masquerade-notice`);
+                            alert.setAttribute('alerttitle', 'Masquerade in place:');
+                            alert.setAttribute('prioritytype', 'urgent');
 
-                        const displayMessage = `${accountData.account.masqueradingId} masquerading as ${accountData.account.name} (${accountData.account.id})`;
-                        const undismissable = ` [permanent]`;
-                        const endMasqueradeButtonLabel = 'End masquerade';
-                        const endMasqueradeControl =
-                            ' [' + endMasqueradeButtonLabel + ']' + '(' + endMasqueradeLink + ')';
-                        alert.setAttribute('alertmessage', displayMessage + endMasqueradeControl + undismissable);
+                            const displayMessage = `${accountData.account.masqueradingId} masquerading as ${accountData.account.name} (${accountData.account.id})`;
+                            const undismissable = ` [permanent]`;
+                            const endMasqueradeButtonLabel = 'End masquerade';
+                            const endMasqueradeControl =
+                                ' [' + endMasqueradeButtonLabel + ']' + '(' + endMasqueradeLink + ')';
+                            alert.setAttribute('alertmessage', displayMessage + endMasqueradeControl + undismissable);
 
-                        alertWrapper.prepend(alert);
-                    }
-                });
+                            alertWrapper.prepend(alert);
+                        }
+                    });
+                }, 10);
             });
     }
 }
