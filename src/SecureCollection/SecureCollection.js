@@ -218,10 +218,10 @@ class SecureCollection extends HTMLElement {
     displayCommercialCopyrightAcknowledgementPanel() {
         const commercialCopyrightAcknowledgementPanel = document.createElement('template');
         commercialCopyrightAcknowledgementPanel.innerHTML = `
-<p>This file is provided to support teaching and learning for the staff and students of the University of Queensland</p>
+<p data-testid="commerical-copyright-subtitle">This file is provided to support teaching and learning for the staff and students of the University of Queensland</p>
 <h2>COMMONWEALTH OF AUSTRALIA</h2>
 <h3>Copyright Regulations 1969</h3>
-<h4>WARNING</h4>
+<h4 data-testid="commerical-copyright-h4">WARNING</h4>
 <p>
     This material has been reproduced and communicated to you by or on behalf of the University of Queensland pursuant
     to Part VB of the Copyright Act 1968 (the Act).
@@ -251,7 +251,7 @@ class SecureCollection extends HTMLElement {
     displayStatutoryCopyrightAcknowledgementPanel() {
         const statutoryCopyrightAcknowledgementPanel = document.createElement('template');
         statutoryCopyrightAcknowledgementPanel.innerHTML = `
-<p>
+<p data-testid="statutory-copyright-warning">
     This material has been reproduced and communicated to you by or on behalf of The University of Queensland in
     accordance with section 113P of the Copyright Act 1968 (the Act). The material in this communication may be subject
     to copyright under the Act.
@@ -339,7 +339,7 @@ class SecureCollection extends HTMLElement {
     displayNoAccessPanel() {
         const noAccessPanel = document.createElement('template');
         noAccessPanel.innerHTML = `
- <ul>
+ <ul data-testid="api-error-options">
     <li>
         If you have another UQ account, <a id="logoutandreturnhere" data-analytics="secure-collection-logoutandreturnhere" href="">logout and switch accounts</a> to proceed.
     </li>

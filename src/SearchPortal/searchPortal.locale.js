@@ -1,5 +1,5 @@
 const urlRoot = 'https://search.library.uq.edu.au/discovery/';
-const primoPrefix = '&sortby=rank&vid=61UQ_INST:61UQ&offset=0';
+const primoPrefix = '&tab=61UQ_All&search_scope=61UQ_All&sortby=rank&vid=61UQ_INST:61UQ&offset=0';
 
 // index of the drop down in the search selection box
 const PRIMO_ELEMENTS = [0, 1, 2, 3, 4, 5];

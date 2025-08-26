@@ -13,7 +13,7 @@ import { linkToDrupal } from '../helpers/access';
 const template = document.createElement('template');
 template.innerHTML = `
     <style>${culturalcss}</style>
-    <div class="culturaladvice">
+    <div class="culturaladvice" data-testid="culturaladvice-wrapper">
             <div class="layout-card">
                 <p data-analyticsid="cultural-advice-statement" data-testid="cultural-advice-statement">
                     The Library is custodian of <a href="${linkToDrupal(
