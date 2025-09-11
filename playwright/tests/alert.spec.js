@@ -4,9 +4,9 @@ import { assertAccessibility } from '../lib/axe';
 const FIRST_ALERT_ID = 'alert-1';
 const SECOND_ALERT_ID = 'alert-4';
 const THIRD_ALERT_ID = 'alert-5';
-const COLOUR_UQ_INFO = 'rgb(30, 114, 198)';
-const COLOUR_UQ_WARN = 'rgb(251, 184, 0)';
-const COLOUR_UQ_ALERT = 'rgb(149, 17, 38)';
+const COLOUR_UQ_INFO = 'rgb(13, 109, 205)';
+const COLOUR_UQ_WARN = 'rgb(247, 186, 30)';
+const COLOUR_UQ_ALERT = 'rgb(214, 41, 41)';
 
 test.describe('Alert', () => {
     test('Alert is visible without interaction at 1280', async ({ page }) => {
@@ -233,5 +233,43 @@ test.describe('Alert', () => {
                 .getByText(/Library Test/)
                 .first(),
         ).toBeVisible();
+    });
+    test('the masquerading user sees an alert that announces they are masquerading with logout button', async ({
+        page,
+    }) => {
+        await page.route('https://auth.library.uq.edu.au/**', async (route) => {
+            await route.fulfill({ body: 'user visits logout page' });
+        });
+
+        await page.goto('http://localhost:8080/?user=uqrdav10'); // the uqrdav10 mock user has the masquerading id set
+        await expect(page.locator('uq-site-header').locator('auth-button')).toBeVisible();
+
+        const getAlert = () => page.locator('alert-list').locator('uq-alert[id="masquerade-notice"]');
+
+        await expect(getAlert().getByTestId('alert-icon')).toBeVisible();
+        await expect(getAlert().getByTestId('alert-title')).toHaveText('Masquerade in place:');
+        await expect(getAlert().getByTestId('alert-message')).toHaveText(
+            'uqvasai masquerading as Robert DAVIDSON (uqrdav10)',
+        );
+        await expect(page.getByTestId(`alert-masquerade-notice`)).toHaveCSS('background-color', COLOUR_UQ_WARN);
+        await expect(getAlert().getByTestId('alert-close')).not.toBeVisible(); // no close button
+        await expect(getAlert().getByTestId('alert-action-desktop')).toBeVisible();
+        await expect(getAlert().getByTestId('alert-action-desktop')).toHaveText('End masquerade');
+    });
+    test('the masquerading user can end an old session and log out', async ({ page }) => {
+        await page.route('https://auth.library.uq.edu.au/**', async (route) => {
+            await route.fulfill({ body: 'user visits logout page' });
+        });
+
+        await page.goto('http://localhost:8080/?user=uqrdav10'); // the uqrdav10 mock user has the masquerading id set
+        await expect(page.locator('uq-site-header').locator('auth-button')).toBeVisible();
+
+        const getAlert = () => page.locator('alert-list').locator('uq-alert[id="masquerade-notice"]');
+
+        await expect(getAlert().getByTestId('alert-action-desktop')).toBeVisible();
+        await expect(getAlert().getByTestId('alert-action-desktop')).toHaveText('End masquerade');
+        await getAlert().getByTestId('alert-action-desktop').click();
+
+        await expect(page.getByText('user visits logout page')).toBeVisible();
     });
 });

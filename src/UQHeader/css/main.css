@@ -1632,8 +1632,8 @@ a:hover {
 }
 
 .uq-alert--dark.uq-alert--warning {
-    background-color: #fbb800;
-    color: #181818
+    background-color: #f7ba1e;
+    color: #3b383e
 }
 
 .uq-alert--dark.uq-alert--warning .uq-alert__title {
