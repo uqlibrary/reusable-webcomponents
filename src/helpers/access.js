@@ -37,6 +37,8 @@ export function canSeeAlertsAdmin(account) {
     return hasWebContentAdminAccess(account);
 }
 
+export const canSeeSpacesAdmin = (account) => hasAdGroup(account, 'lib_libapi_SpacesAdmin');
+
 // digital learning hub admin access
 export function canSeeDlorAdmin(account) {
     return hasAdGroup(account, 'lib_dlor_admins');
