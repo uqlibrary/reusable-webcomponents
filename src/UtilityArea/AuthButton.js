@@ -10,6 +10,7 @@ import {
     canSeeDlorAdmin,
     canSeeEspace,
     canSeeSpringshareAdmin,
+    canSeeSpacesAdmin,
     canSeeTestTag,
     linkToDrupal,
 } from '../helpers/access';
@@ -268,7 +269,15 @@ class AuthButton extends HTMLElement {
     }
 
     addAdminMenuOptions(shadowDOM, account) {
-        function addAdminMenuOption(elementId, linkId, link, iconPath, linkText, firstEntry) {
+        function addAdminMenuOption(
+            elementId,
+            linkId,
+            link,
+            iconPath,
+            linkText,
+            firstEntry,
+            svgOverrideParams = ['viewBox="0 0 24 24"'],
+        ) {
             const ulElement = shadowDOM.getElementById('account-menu-list');
             const liElements = ulElement.getElementsByTagName('li');
             const lastLi = liElements[liElements.length - 1];
@@ -277,7 +286,9 @@ class AuthButton extends HTMLElement {
                 <li data-testid="${elementId}" data-analyticsid="${elementId}" id="${elementId}" role="menuitem" aria-disabled="false">
                     <a tabIndex="0" id="${linkId}" data-testid="${linkId}" data-analyticsid="${linkId}"
                        href="${link}" rel="noreferrer">
-                        <svg class="MuiSvgIcon-root MuiSvgIcon-colorSecondary" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                        <svg focusable="false" aria-hidden="true" ${
+                            !!svgOverrideParams ? svgOverrideParams.map((e) => e).join('') : ''
+                        }>
                             ${iconPath}
                         </svg>
                         <span><span>${linkText}</span></span>
@@ -359,6 +370,27 @@ class AuthButton extends HTMLElement {
 <path d="M13.8857 16.4141H17.6582" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round" fill="none"/>`,
                 'Test and tag',
                 firstEntry,
+            );
+            firstEntry = false;
+        }
+
+        if (!!canSeeSpacesAdmin(account)) {
+            // icon is `Network Pin` from `Streamline Ultimate Regular - Free` collection, 19/9/2025
+            addAdminMenuOption(
+                'spaces-admin',
+                'mylibrary-menu-spaces-admin',
+                `${linkRoot}admin/spaces${linkAppend}`,
+                `<path stroke="#51247A" d="M11.71875 10.124312499999998c-0.1294375 0 -0.234375 -0.10493749999999999 -0.234375 -0.234375 0 -0.1295 0.10493749999999999 -0.234375 0.234375 -0.234375" stroke-width="0.7"></path>
+                        <path stroke="#51247A" stroke-linecap="round" stroke-linejoin="round" d="M11.71875 7.0774375c0.7459375 0 1.4613125 0.29631250000000003 1.98875 0.82375 0.5274375 0.5274375 0.82375 1.2428124999999999 0.82375 1.98875 0 1.200625 -1.6800000000000002 3.4856249999999998 -2.4431249999999998 4.46125 -0.0438125 0.0560625 -0.09987499999999999 0.10149999999999999 -0.163875 0.13268749999999999 -0.064 0.0311875 -0.1343125 0.047437499999999994 -0.2055 0.047437499999999994 -0.0711875 0 -0.1415 -0.01625 -0.2055 -0.047437499999999994 -0.064 -0.0311875 -0.12006249999999999 -0.076625 -0.163875 -0.13268749999999999 -0.763125 -0.9762500000000001 -2.4431249999999998 -3.2606249999999997 -2.4431249999999998 -4.46125 0 -0.7459375 0.29631250000000003 -1.4613125 0.82375 -1.98875 0.5274375 -0.5274375 1.2428124999999999 -0.82375 1.98875 -0.82375Z" stroke-width="0.7" fill="none"></path>
+                        <path stroke="#51247A" stroke-linecap="round" stroke-linejoin="round" d="M8.9056875 14.389312499999999c-1.3614375 0.27775 -2.7746874999999998 0.1459375 -4.06128125 -0.3788125 -1.28659375 -0.5248125 -2.38884375 -1.4190625000000001 -3.1675999999999997 -2.5698125 -0.77875 -1.1508125 -1.199076875 -2.5065 -1.2079137500000001 -3.8959375 -0.0088375 -1.38950625 0.39421375000000003 -2.75045625 1.15826375 -3.9110375C2.39120625 2.47313125 3.482 1.56495 4.7618125 1.02383125 6.04161875 0.48271437500000003 7.4530625 0.332925625 8.817937500000001 0.5933775c1.364875 0.26045375 2.622 0.91946625 3.612625 1.8938350000000002s1.6703124999999999 2.22040625 1.9533125 3.5807875" stroke-width="0.7" fill="none"></path>
+                        <path stroke="#51247A" stroke-linecap="round" stroke-linejoin="round" d="M5.80768125 14.319875c-0.950825 -1.3943125 -1.5861625 -3.92825 -1.5861625 -6.8225625 0 -2.8943125 0.6353375 -5.4275625000000005 1.5861625 -6.82256875" stroke-width="0.7" fill="none"></path>
+                        <path stroke="#51247A" stroke-linecap="round" stroke-linejoin="round" d="M0.48879625000000004 7.0288125H7.969875" stroke-width="0.7" fill="none"></path>
+                        <path stroke="#51247A" stroke-linecap="round" stroke-linejoin="round" d="M1.8781875000000001 3.2804875h11.245624999999999" stroke-width="0.7" fill="none"></path>
+                        <path stroke="#51247A" stroke-linecap="round" stroke-linejoin="round" d="M1.28408125 10.7771875h5.74866875" stroke-width="0.7" fill="none"></path>
+                        <path stroke="#51247A" stroke-linecap="round" stroke-linejoin="round" d="M9.1949375 0.67474375c0.8094374999999999 1.3677125 1.3023125 2.89930625 1.4425 4.4823812499999995" stroke-width="0.7" fill="none"></path>`,
+                'Spaces',
+                firstEntry,
+                ['fill="none"', 'viewBox="-0.5 -0.5 16 16"'],
             );
             firstEntry = false;
         }
