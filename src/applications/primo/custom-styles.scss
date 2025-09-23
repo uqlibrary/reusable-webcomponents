@@ -556,6 +556,7 @@ md-checkbox {
         span {
             &.manual-count {
                 color: $uqBodyCopy;
+                font-style: italic;
             }
             &.manual-count-wrapper {
                 margin-left: -10px;
