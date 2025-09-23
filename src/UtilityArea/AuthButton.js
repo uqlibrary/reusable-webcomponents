@@ -95,7 +95,7 @@ class AuthButton extends HTMLElement {
                         <path d="M1.6001 18.5716C1.6001 14.4685 4.91626 11.1523 9.01932 11.1523C13.1224 11.1523 16.4385 14.4685 16.4385 18.5716" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </g>
                 </svg>
-                <span id="username-area-label" data-testid="username-area-label" class="username-area-label"></span>
+                <span id="username-area-label" data-testid="username-area-label-field" class="username-area-label"></span>
                 <svg id="down-arrow" data-testid="down-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
                     <g id="icon/standard/chevron-down-sml">
                         <path id="Chevron-down" d="M7 10L12 15L17 10" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -213,7 +213,7 @@ class AuthButton extends HTMLElement {
                         </li>
                         <!-- Logout -->
                         <li role="menuitem" aria-disabled="false" class="logout borderTop" >
-                            <button class="logout" type="button" data-analyticsid="auth-button-logout" id="signOutButton">
+                            <button class="logout" type="button" data-testid="auth-button-logout" data-analyticsid="auth-button-logout" id="signOutButton">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
                                     <g id="Login-1--Streamline-Ultimate 1" clip-path="url(#clip0_1654_3032)">
                                         <path id="Vector" d="M17.0859 9.00293H5.76562" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
