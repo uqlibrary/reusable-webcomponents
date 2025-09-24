@@ -132,7 +132,10 @@ class TrainingList extends HTMLElement {
         // Save element refs
         this.rootElement = this.shadowRoot.getElementById('training-list');
 
-        this.checkAuthorisedUser();
+        setTimeout(() => {
+            // let main account go first, minimise multiple calls to account api
+            this.checkAuthorisedUser();
+        }, 100);
     }
 
     addEventListeners() {

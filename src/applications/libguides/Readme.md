@@ -53,6 +53,10 @@ https://uq.libapps.com/libguides/admin_c.php?g=210305&p=2207786
 if you need to see the live page without UQ styling & code:
 https://guides.library.uq.edu.au/c.php?g=210305&p=2207786&override=on&skipScript=on
 
+The branch `guides-staging` exists and builds on AWS. We can push changes to it and confirm work by visiting a page like `https://guides.library.uq.edu.au/testing-marianne/home?override=on&useAlternate=staging` (in contrast to the production page of https://guides.library.uq.edu.au/testing-marianne/home).
+
+Note that there are often hashes in the url - placement of the query parameter matters, just remove the hashes
+
 #### Admin edit pages
 
 Admin edit pages (ie. <https://uq.libapps.com/libguides/lookfeel.php?action=1>) are not on the \*.uq.edu.au domain as as such, will fail CORS checks for any calls to API. Because of that, we hide the utility buttons which require api data to display correctly (chat status/hours etc).
@@ -78,4 +82,4 @@ The guides management method is to make a series of "boxes" of html that each ge
 - use the edit icon at the far right
 - if you chose "Home pages content" you have landed on a sort of instructional page
 - note the sidebar shows all the landing pages
-- the "Group landing pages" entry will walk the new editor through how to create a nnew group page, which is also a guide to how to reach the template 
+- the "Group landing pages" entry will walk the new editor through how to create a new group page, which is also a guide to how to reach the template 
