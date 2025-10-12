@@ -130,6 +130,18 @@ test.describe('Training', () => {
             await expect(trainingToggle.getByTestId('event-dateRange-3462236')).toContainText('Jun 1');
             await expect(trainingToggle.getByTestId('event-dateRange-3462236')).toContainText('Jun 3');
         });
+
+        test("online events don't reveal the url", async ({ page }) => {
+            await page.goto('http://localhost:8080/index.html');
+
+            await expect(page.locator('library-training')).toBeVisible();
+            const trainingElement = page.locator('library-training');
+            await expect(trainingElement.locator('training-list')).toBeVisible();
+
+            const trainingList = trainingElement.locator('training-list');
+            await expect(trainingList.getByTestId('event-venue-3455330')).toBeVisible();
+            await expect(trainingList.getByTestId('event-venue-3455330')).toContainText('Online, Zoom');
+        });
     });
 
     test.describe('Details component', () => {
@@ -295,6 +307,57 @@ test.describe('Training', () => {
             await expect(trainingDetail.getByTestId('training-details-end-time')).toBeVisible();
             await expect(trainingDetail.getByTestId('training-details-end-time')).toBeVisible();
             await expect(trainingDetail.getByText(/4pm/).first()).toBeVisible();
+        });
+
+        test("online events don't reveal the url", async ({ page }) => {
+            await expect(page.locator('library-training[id="test-with-filter"]')).toBeVisible();
+            const trainingElement = page.locator('library-training[id="test-with-filter"]');
+            await expect(trainingElement.locator('training-list')).toBeVisible();
+
+            const trainingList = trainingElement.locator('training-list');
+            await trainingList.getByTestId('training-event-detail-toggle-3455330').click(); // open detail item
+            await expect(trainingList.getByTestId('training-event-detail-3455330')).toBeVisible();
+
+            await trainingList
+                .getByTestId('training-event-detail-3455330')
+                .getByTestId('training-details-location-details')
+                .scrollIntoViewIfNeeded();
+            await expect(
+                trainingList
+                    .getByTestId('training-event-detail-3455330')
+                    .getByTestId('training-details-location-details'),
+            ).toBeVisible();
+            await expect(
+                trainingList
+                    .getByTestId('training-event-detail-3455330')
+                    .getByTestId('training-details-location-details'),
+            ).toContainText('Online, Zoom');
+        });
+
+        test('offline events show a map link', async ({ page }) => {
+            await expect(page.locator('library-training[id="test-with-filter"]')).toBeVisible();
+            const trainingElement = page.locator('library-training[id="test-with-filter"]');
+            await expect(trainingElement.locator('training-list')).toBeVisible();
+
+            const trainingList = trainingElement.locator('training-list');
+            await trainingList.getByTestId('training-event-detail-toggle-3437655').click(); // open detail item
+            await expect(trainingList.getByTestId('training-event-detail-3437655')).toBeVisible();
+
+            await trainingList
+                .getByTestId('training-event-detail-3437655')
+                .getByTestId('training-details-location-details')
+                .scrollIntoViewIfNeeded();
+            await expect(
+                trainingList
+                    .getByTestId('training-event-detail-3437655')
+                    .getByTestId('training-details-location-details'),
+            ).toBeVisible();
+            await expect(
+                trainingList
+                    .getByTestId('training-event-detail-3437655')
+                    .getByTestId('training-details-location-details')
+                    .locator('a'),
+            ).toContainText('St Lucia, Duhig Tower (2), 02-D501');
         });
 
         test('Correct error shows when an empty result is return by Training api', async ({ page }) => {
