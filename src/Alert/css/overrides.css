@@ -48,10 +48,11 @@
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     padding: 18px 24px 18px 12px !important;
 }
 
+#alert #alert-action-desktop-endmasquerade,
 #alert #alert-action-desktop {
     display: inline-block;
     padding: 6px 8px;
@@ -84,18 +85,20 @@
 }
 
 @media (max-width: 600px) {
+    #alert #alert-action-desktop-endmasquerade,
     #alert #alert-action-desktop {
         display: none;
     }
 }
 
+#alert #alert-action-desktop-endmasquerade:hover,
 #alert #alert-action-desktop:hover {
     cursor: pointer;
 }
 
 /*ERROR*/
 .info {
-    background-color: #1e72c6;
+    background-color: #0d6dcd;
     color: #fff;
 }
 
@@ -113,12 +116,15 @@
     color: rgba(255, 255, 255, 1);
     cursor: pointer;
 }
+.info #alert-action-mobile-endmasquerade,
+.info #alert-action-desktop-endmasquerade,
 .info #alert-action-mobile,
 .info #alert-action-desktop {
     background-color: rgba(0, 0, 0, 0.3);
     color: #fff;
 }
 
+.info #alert-action-desktop-endmasquerade:hover,
 .info #alert-action-desktop:hover {
     background-color: rgba(0, 0, 0, 0.5);
 }
@@ -128,8 +134,8 @@
 }
 
 .urgent {
-    background-color: #fbb800;
-    color: #000;
+    background-color: #f7ba1e;
+    color: #3b383e;
     /* used when checking accessibility tests are valid */
     /*background-color: #fff;*/
     /*color: #fff;*/
@@ -149,12 +155,15 @@
     cursor: pointer;
 }
 
+.urgent #alert-action-mobile-endmasquerade,
+.urgent #alert-action-desktop-endmasquerade,
 .urgent #alert-action-mobile,
 .urgent #alert-action-desktop {
     background-color: rgba(0, 0, 0, 0.5);
     color: #fff;
 }
 
+.urgent #alert-action-desktop-endmasquerade:hover,
 .urgent #alert-action-desktop:hover {
     background-color: rgba(0, 0, 0, 0.6);
 }
@@ -164,7 +173,7 @@
 
 /*EXTREME*/
 .extreme {
-    background-color: #951126;
+    background-color: #d62929;
     color: #fff;
 }
 .extreme #alert-close svg {
@@ -182,12 +191,15 @@
     cursor: pointer;
 }
 
+.extreme #alert-action-mobile-endmasquerade,
+.extreme #alert-action-desktop-endmasquerade,
 .extreme #alert-action-mobile,
 .extreme #alert-action-desktop {
     background-color: rgba(0, 0, 0, 0.5);
     color: #fff;
 }
 
+.extreme #alert-action-desktop-endmasquerade:hover,
 .extreme #alert-action-desktop:hover {
     background-color: rgba(0, 0, 0, 0.6);
 }

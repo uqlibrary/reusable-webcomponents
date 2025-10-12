@@ -1,6 +1,9 @@
 import styles from './css/main.css';
 import overrides from './css/overrides.css';
-import { cookieNotFound, setCookie } from '../helpers/cookie';
+import Cookies from 'js-cookie';
+import { cookieNotFound, getCookieValue, setCookie } from '../helpers/cookie';
+import { apiLocale } from '../ApiAccess/ApiAccess.locale';
+import { authLocale } from '../UtilityArea/auth.locale';
 
 const template = document.createElement('template');
 template.innerHTML = `

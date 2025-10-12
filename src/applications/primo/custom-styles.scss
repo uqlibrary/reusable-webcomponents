@@ -539,11 +539,14 @@ md-checkbox {
             &:focus,
             &:hover {
                 &:not([disabled]) {
-                    span {
+                    div.facet-content {
+                      background-color: unset;
+                    }
+                    span:first-child {
                         background-color: $accent-color;
                         color: $white;
                     }
-                    &> span:nth-child(2) { // Content Type facet group has a different structure!!!
+                    & span:nth-child(2) { // Content Type facet group has a different structure!!!
                         background-color: $uqPanelBackgroundColor;
                         color: $uqBodyCopy;
                     }
@@ -553,9 +556,11 @@ md-checkbox {
         span {
             &.manual-count {
                 color: $uqBodyCopy;
+                font-style: italic;
             }
             &.manual-count-wrapper {
-                margin-left: -7px;
+                margin-left: -10px;
+                margin-top: 3px;
             }
         }
     }

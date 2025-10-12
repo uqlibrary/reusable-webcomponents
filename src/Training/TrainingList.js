@@ -3,6 +3,7 @@ import listStyles from './css/list.css';
 import uqds from './js/uqds';
 import UserAccount from '../ApiAccess/UserAccount';
 import { apiLocale } from '../ApiAccess/ApiAccess.locale';
+import { getLocationLabel } from './trainingHelpers';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -132,7 +133,10 @@ class TrainingList extends HTMLElement {
         // Save element refs
         this.rootElement = this.shadowRoot.getElementById('training-list');
 
-        this.checkAuthorisedUser();
+        setTimeout(() => {
+            // let main account go first, minimise multiple calls to account api
+            this.checkAuthorisedUser();
+        }, 100);
     }
 
     addEventListeners() {
@@ -192,7 +196,9 @@ class TrainingList extends HTMLElement {
                     ${dataAppend}
                 </span>
             </div>
-            <div id="event-venue-${event.entityId}">${event.venue}</div>
+            <div id="event-venue-${event.entityId}" data-testid="event-venue-${event.entityId}">${getLocationLabel(
+            event.venue,
+        )}</div>
         `;
 
         const detailContainer = eventElement.getElementsByClassName('uq-accordion__content').item(0);
