@@ -3,7 +3,7 @@ import listStyles from './css/list.css';
 import uqds from './js/uqds';
 import UserAccount from '../ApiAccess/UserAccount';
 import { apiLocale } from '../ApiAccess/ApiAccess.locale';
-import { getLocationLabel } from './trainingHelpers';
+import { getVenueLabel } from './trainingHelpers';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -196,8 +196,8 @@ class TrainingList extends HTMLElement {
                     ${dataAppend}
                 </span>
             </div>
-            <div id="event-venue-${event.entityId}" data-testid="event-venue-${event.entityId}">${getLocationLabel(
-            event.venue,
+            <div id="event-venue-${event.entityId}" data-testid="event-venue-${event.entityId}">${getVenueLabel(
+            event,
         )}</div>
         `;
 
