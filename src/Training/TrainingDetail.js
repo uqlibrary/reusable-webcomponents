@@ -1,6 +1,6 @@
 import styles from './css/main.css';
 import overrides from './css/detail.css';
-import { getLocationLabel } from './trainingHelpers';
+import { getVenueLabel } from './trainingHelpers';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -242,7 +242,7 @@ class TrainingDetail extends HTMLElement {
             return;
         }
 
-        const locationLabel = getLocationLabel(venue);
+        const locationLabel = getVenueLabel(this.data);
 
         const locationdetails = this.shadowRoot.getElementById('locationdetails');
         /* istanbul ignore next */

@@ -1,5 +1,6 @@
 import ApiAccess from '../ApiAccess/ApiAccess';
 import styles from './css/main.css';
+import { isOnlineEvent } from './trainingHelpers';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -121,7 +122,9 @@ class Training extends HTMLElement {
                 const standardisedEvents =
                     !!fetchedEvents && typeof fetchedEvents === 'object'
                         ? Object.keys(fetchedEvents).map((key) => {
-                              return fetchedEvents[key];
+                              const fetchedEvent = fetchedEvents[key];
+                              !!isOnlineEvent(fetchedEvent) && (fetchedEvent.campus = 'Online');
+                              return fetchedEvent;
                           })
                         : /* istanbul ignore next */ fetchedEvents;
                 if (!!standardisedEvents && standardisedEvents.length > 0) {
