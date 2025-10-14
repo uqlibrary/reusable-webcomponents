@@ -511,6 +511,18 @@ test.describe('Training', () => {
                 'http://localhost:8080/index-training.html#keyword=;campus=all;weekstart=',
             );
         });
+        test('Online events show when Online campus filter is selected', async ({ page }) => {
+            await page.goto('http://localhost:8080/index-training.html#keyword=;campus=;weekstart=');
+
+            const trainingElement = page.locator('library-training[id="test-with-filter"]');
+            await expect(trainingElement.getByTestId('event-venue-3455330').getByText(/Online, Zoom/)).toBeVisible();
+
+            await page.locator('#test-with-filter').getByTestId('training-filter-campus-label').click();
+            await page.getByTestId('training-filter-campus-select-1').click();
+
+            // this element shows after filter selector because we changed its campus to "Online":
+            await expect(trainingElement.getByTestId('event-venue-3455330').getByText(/Online, Zoom/)).toBeVisible();
+        });
         test('user can clear campus selector field', async ({ page }) => {
             const trainingElement = page.locator('library-training[id="test-with-filter"]');
             await expect(trainingElement.locator('training-filter')).toBeVisible();
