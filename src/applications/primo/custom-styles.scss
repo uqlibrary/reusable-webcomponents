@@ -970,7 +970,7 @@ prm-location,
 prm-location-items,
 prm-snippet.availability-button
 {
-    // default to purple so we never get orange!
+    // provide a default colour so we never get orange!
     span.availability-status,
     span.availability-status span {
         color: $uqBlack !important;
