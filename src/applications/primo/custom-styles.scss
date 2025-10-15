@@ -973,7 +973,7 @@ prm-snippet.availability-button
     // default to purple so we never get orange!
     span.availability-status,
     span.availability-status span {
-        color: $accent-color !important;
+        color: $uqBlack !important;
     }
 }
 
@@ -1999,6 +1999,7 @@ body prm-full-view-service-container {
     prm-location-items md-list md-list-item {
         &:hover:not([disabled]) {
             background-color: $uqPanelBackgroundColor;
+            cursor: pointer;
         }
 
         @media (min-width: 1120px) {
