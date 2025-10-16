@@ -1,5 +1,6 @@
 import styles from './css/main.css';
 import overrides from './css/detail.css';
+import { getVenueLabel } from './trainingHelpers';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -240,7 +241,8 @@ class TrainingDetail extends HTMLElement {
         if (!venue) {
             return;
         }
-        const venueNameElement = document.createTextNode(venue);
+
+        const locationLabel = getVenueLabel(this.data);
 
         const locationdetails = this.shadowRoot.getElementById('locationdetails');
         /* istanbul ignore next */
@@ -251,6 +253,7 @@ class TrainingDetail extends HTMLElement {
         const mapUrl = this.findKnownLocationinVenue(venue);
         const _showMapLink = mapUrl !== false;
         if (_showMapLink) {
+            const venueNameElement = document.createTextNode(venue);
             const itemLink = document.createElement('a');
             itemLink.setAttribute('href', mapUrl);
             const venueEncoded = encodeURIComponent(venue);
@@ -260,6 +263,7 @@ class TrainingDetail extends HTMLElement {
 
             locationdetails.appendChild(itemLink);
         } else {
+            const venueNameElement = document.createTextNode(locationLabel);
             locationdetails.appendChild(venueNameElement);
         }
     }

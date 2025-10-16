@@ -149,7 +149,6 @@ class TrainingFilter extends HTMLElement {
         }
 
         function handleCampusKeyDown(e) {
-            const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
             if (isArrowDownKeyPressed(e)) {
                 e.preventDefault();
                 // nav to first campus entry

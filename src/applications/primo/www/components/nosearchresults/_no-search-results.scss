@@ -1,0 +1,11 @@
+prm-no-search-result {
+  a {
+    text-decoration: underline;
+
+    &:hover {
+      background-color: $uqPurple500;
+      color: #fff !important;
+      box-shadow: none;
+    }
+  }
+}
