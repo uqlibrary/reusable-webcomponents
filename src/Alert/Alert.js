@@ -1,9 +1,7 @@
 import styles from './css/main.css';
 import overrides from './css/overrides.css';
-import Cookies from 'js-cookie';
 import { cookieNotFound, getCookieValue, setCookie } from '../helpers/cookie';
-import { apiLocale } from '../ApiAccess/ApiAccess.locale';
-import { authLocale } from '../UtilityArea/auth.locale';
+import { sendClickToGTM } from '../helpers/gtmHelpers';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -36,6 +34,7 @@ class Alert extends HTMLElement {
 
         // Bindings
         this.loadAlert = this.loadAlert.bind(this);
+        this.addListeners = this.addListeners.bind(this);
     }
 
     loadAlert(shadowDOM) {
@@ -140,7 +139,13 @@ class Alert extends HTMLElement {
                 shadowDOM.getElementById('alert-action-desktop').remove();
                 shadowDOM.getElementById('alert-action-mobile').remove();
             }
+
+            this.addListeners(shadowDOM);
         }, 300);
+    }
+    addListeners(shadowDOM) {
+        const links = shadowDOM.querySelectorAll('a');
+        !!links && links.length > 0 && links.forEach((l) => l.addEventListener('click', (e) => sendClickToGTM(e)));
     }
 }
 
