@@ -967,14 +967,20 @@ prm-explore-main {
 }
 
 prm-location,
-prm-location-items,
-prm-snippet.availability-button
+prm-location-items
 {
-    // provide a default colour so we never get orange!
     span.availability-status,
     span.availability-status span {
         color: $uqBlack !important;
     }
+}
+prm-snippet.availability-button
+{
+  span.availability-status,
+  span.availability-status span {
+    color: $accent-color !important;
+    text-decoration: underline;
+  }
 }
 
 // make the login button in the toast look clickable
