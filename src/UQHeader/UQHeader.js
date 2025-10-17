@@ -1,6 +1,5 @@
 import styles from './css/main.css';
 import overrides from './css/overrides.css';
-import { sendClickToGTM } from '../helpers/gtmHelpers';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -478,14 +477,6 @@ class UQHeader extends HTMLElement {
 
         const mobileMenuToggleButton = shadowDOM.getElementById('mobile-menu-toggle-button');
         !!mobileMenuToggleButton && mobileMenuToggleButton.addEventListener('click', openCloseMobileMenu);
-
-        const links = shadowDOM.querySelectorAll('a');
-        !!links && links.length > 0 && links.forEach((l) => l.addEventListener('click', (e) => sendClickToGTM(e)));
-
-        const buttons = shadowDOM.querySelectorAll('button');
-        !!buttons &&
-            buttons.length > 0 &&
-            buttons.forEach((b) => b.addEventListener('click', (e) => sendClickToGTM(e)));
     }
 }
 

@@ -4,7 +4,6 @@ import overrides from './css/overrides.css';
 import { authLocale } from '../UtilityArea/auth.locale';
 import { apiLocale as apilocale, apiLocale as locale } from '../ApiAccess/ApiAccess.locale';
 import { linkToDrupal } from '../helpers/access';
-import { sendClickToGTM } from '../helpers/gtmHelpers';
 
 const fileExtensionElement = document.createElement('template');
 fileExtensionElement.innerHTML = `
@@ -131,7 +130,6 @@ class SecureCollection extends HTMLElement {
         this.getSecureCollectionCheck = this.getSecureCollectionCheck.bind(this);
         this.getSecureCollectionFile = this.getSecureCollectionFile.bind(this);
         this.wrapFragmentInStandardPage = this.wrapFragmentInStandardPage.bind(this);
-        this.addListeners = this.addListeners.bind(this);
     }
 
     async getSecureCollectionCheck(path) {
@@ -209,7 +207,6 @@ class SecureCollection extends HTMLElement {
                 // to satisfy switch syntax - shouldnt be possible
                 this.wrapFragmentInStandardPage('Something went wrong');
         }
-        this.addListeners(shadowDOM);
     }
 
     displayLoadingPanel() {
@@ -454,8 +451,6 @@ class SecureCollection extends HTMLElement {
         const blockwrapper = document.createElement('div');
         blockwrapper.appendChild(fragment);
         block.appendChild(blockwrapper);
-
-        this.addListeners(this.shadowRoot);
     }
 
     evaluateApiResponse(apiResponse) {
@@ -519,11 +514,6 @@ class SecureCollection extends HTMLElement {
         paragraph.appendChild(textNode);
 
         return paragraph;
-    }
-
-    addListeners(shadowDOM) {
-        const links = shadowDOM.querySelectorAll('a');
-        !!links && links.length > 0 && links.forEach((l) => l.addEventListener('click', (e) => sendClickToGTM(e)));
     }
 }
 

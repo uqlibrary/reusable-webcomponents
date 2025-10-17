@@ -3,7 +3,6 @@ import globalStyles from './css/global-oneuq.css';
 import overrides from './css/overrides.css';
 import { default as navLocale } from './js/nav';
 import { linkToDrupal } from '../helpers/access';
-import { sendClickToGTM } from '../helpers/gtmHelpers';
 
 const template = document.createElement('template');
 
@@ -340,14 +339,6 @@ class UQFooter extends HTMLElement {
                     toggleMenuItem(index);
                 });
         });
-
-        const links = shadowDOM.querySelectorAll('a');
-        !!links && links.length > 0 && links.forEach((l) => l.addEventListener('click', (e) => sendClickToGTM(e)));
-
-        const buttons = shadowDOM.querySelectorAll('button');
-        !!buttons &&
-            buttons.length > 0 &&
-            buttons.forEach((b) => b.addEventListener('click', (e) => sendClickToGTM(e)));
     }
 }
 

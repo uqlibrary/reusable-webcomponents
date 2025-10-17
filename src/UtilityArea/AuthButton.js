@@ -15,7 +15,6 @@ import {
     linkToDrupal,
 } from '../helpers/access';
 import { getAccountMenuRoot } from './helpers';
-import { sendClickToGTM } from '../helpers/gtmHelpers';
 
 /*
  * usage:
@@ -76,7 +75,6 @@ class AuthButton extends HTMLElement {
         this.showLoginFromAuthStatus = this.showLoginFromAuthStatus.bind(this);
         this.addLoginButtonListener = this.addLoginButtonListener.bind(this);
         this.addLogoutButtonListeners = this.addLogoutButtonListeners.bind(this);
-        this.addGeneralListeners = this.addGeneralListeners.bind(this);
         this.addAdminMenuOptions = this.addAdminMenuOptions.bind(this);
         this.displayUserNameAsButtonLabel = this.displayUserNameAsButtonLabel.bind(this);
         this.isOverwriteAsLoggedOutRequested = this.isOverwriteAsLoggedOutRequested.bind(this);
@@ -262,7 +260,6 @@ class AuthButton extends HTMLElement {
                 // invalid userDetails received - should never happen
                 this.showLoggedOutButton(shadowDOM);
             }
-            this.addGeneralListeners(shadowDOM);
         });
     }
 
@@ -479,16 +476,6 @@ class AuthButton extends HTMLElement {
         const loginButton = !!shadowDOM && shadowDOM.getElementById('auth-button-login');
         !!loginButton && loginButton.addEventListener('click', visitLoginPage);
         return loginButton;
-    }
-
-    addGeneralListeners(shadowDOM) {
-        const links = shadowDOM.querySelectorAll('a');
-        !!links && links.length > 0 && links.forEach((l) => l.addEventListener('click', (e) => sendClickToGTM(e)));
-
-        const buttons = shadowDOM.querySelectorAll('button');
-        !!buttons &&
-            buttons.length > 0 &&
-            buttons.forEach((b) => b.addEventListener('click', (e) => sendClickToGTM(e)));
     }
 
     addLogoutButtonListeners(shadowDOM, account = null) {
