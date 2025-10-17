@@ -210,7 +210,7 @@ process.env.NODE_ENV !== 'local' &&
 
 ## Known issues
 
-if you are developing and you suddenly start getting
+if you are developing and you suddenly start getting:
 
 `Error: ENOENT: no such file or directory, scandir '/Users/uqldegro/github/reusable-webcomponents/node_modules/node-sass/vendor'`
 
