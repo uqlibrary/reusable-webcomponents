@@ -139,8 +139,6 @@ class Alert extends HTMLElement {
                 shadowDOM.getElementById('alert-action-desktop').remove();
                 shadowDOM.getElementById('alert-action-mobile').remove();
             }
-
-            this.addListeners(shadowDOM);
         }, 300);
     }
     addListeners(shadowDOM) {
