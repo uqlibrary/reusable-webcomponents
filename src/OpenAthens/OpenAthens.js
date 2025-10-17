@@ -3,6 +3,7 @@ import customStyles from './css/overrides.css';
 import isURL from 'validator/es/lib/isURL';
 import ApiAccess from '../ApiAccess/ApiAccess';
 import { throttle } from 'throttle-debounce';
+import { sendClickToGTM } from '../helpers/gtmHelpers';
 
 /*
  * usage:
@@ -173,6 +174,9 @@ class OpenAthens extends HTMLElement {
         this.inputField.addEventListener('keypress', (e) => this.inputUrlKeypress(e));
         this.redirectButton.addEventListener('click', () => this.redirectToLinkViaOpenAthens());
         this.visitLinkButton.addEventListener('click', () => this.navigateToLinkViaOpenAthens());
+
+        const links = shadowDOM.querySelectorAll('button');
+        !!links && links.length > 0 && links.forEach((l) => l.addEventListener('click', (e) => sendClickToGTM(e)));
     }
 
     /**
