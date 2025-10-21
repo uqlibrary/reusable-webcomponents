@@ -137,7 +137,7 @@ function addSkipNavLandingPoint() {
 
     const skiptohere = document.createElement('a');
     !!skiptohere && (skiptohere.id = 'skiptohere');
-    !!skiptohere && skiptohere.setAttribute('data-analytics', 'skiptohere');
+    !!skiptohere && skiptohere.setAttribute('data-analyticsid', 'skiptohere');
     !!skiptohere && (skiptohere.href = '#');
 
     !!firstContentElement &&
