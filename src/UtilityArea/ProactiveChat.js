@@ -3,6 +3,7 @@ import ApiAccess from '../ApiAccess/ApiAccess';
 import { cookieNotFound, setCookie } from '../helpers/cookie';
 import { apiLocale } from '../ApiAccess/ApiAccess.locale';
 import UserAccount from '../ApiAccess/UserAccount';
+import { sendClickToGTM } from '../helpers/gtmHelpers';
 
 /**
  * API
@@ -246,7 +247,7 @@ class ProactiveChat extends HTMLElement {
 
     addButtonListeners(shadowDOM, isOnline) {
         const that = this;
-        function closeChatBotIframe() {
+        function closeChatBotIframe(e) {
             const chatbotIframe = shadowDOM.getElementById('chatbot-wrapper');
             !!chatbotIframe && chatbotIframe.remove(); // deleting it rather than hiding it will force it to check for logout
             const proactivechatArea = shadowDOM.getElementById('proactivechat');
@@ -262,6 +263,7 @@ class ProactiveChat extends HTMLElement {
                 const wrapper = shadowDOM.getElementById('proactive-chat-wrapper');
                 !!wrapper && (wrapper.style.display = 'none');
             }
+            !!e && sendClickToGTM(e);
         }
 
         function swapToCrm() {
@@ -271,7 +273,7 @@ class ProactiveChat extends HTMLElement {
             openCrmChat();
         }
 
-        function openCrmChat() {
+        function openCrmChat(e) {
             let accountDetails = null;
             new UserAccount().get().then((currentUserDetails) => {
                 const accountIsSet =
@@ -373,6 +375,7 @@ class ProactiveChat extends HTMLElement {
 
                 const openCrmButton = shadowDOM.getElementById('speakToPerson');
                 !!openCrmButton && openCrmButton.addEventListener('click', swapToCrm);
+                !!openCrmButton && openCrmButton.addEventListener('click', sendClickToGTM);
                 const chatbotCloseButton = shadowDOM.getElementById('closeIframeButton');
                 !!chatbotCloseButton && chatbotCloseButton.addEventListener('click', closeChatBotIframe);
 
@@ -434,6 +437,11 @@ class ProactiveChat extends HTMLElement {
         !!proactiveChatWithBot && proactiveChatWithBot.addEventListener('click', openChatBotIframe);
         const proactiveleaveQuestion = shadowDOM.getElementById('leaveAQuestionPrompt');
         !!proactiveleaveQuestion && proactiveleaveQuestion.addEventListener('click', navigateToContactUs);
+
+        const buttons = shadowDOM.querySelectorAll('button');
+        !!buttons &&
+            buttons.length > 0 &&
+            buttons.forEach((b) => b.addEventListener('click', (e) => sendClickToGTM(e)));
     }
 
     isChatBotHiddenHere() {
