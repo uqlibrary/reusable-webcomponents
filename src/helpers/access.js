@@ -26,7 +26,7 @@ const hasAdGroup = (account, adGroup) => {
 };
 
 export function canSeeTestTag(account) {
-    return !!account && account.hasOwnProperty('tnt') && Array.isArray(account.tnt);
+    return !!account && account.hasOwnProperty('tnt') && Object.keys(account.tnt ?? []).length > 0;
 }
 
 function hasWebContentAdminAccess(account) {

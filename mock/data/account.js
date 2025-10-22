@@ -39,6 +39,7 @@ export const accounts = {
         'canMasqueradeType': 'full',
         "blocked": false,
         "user_group": "LIBRARYSTAFFB",
+        "tnt": null,
     },
     uqtesttag: {
         "id": "uqtesttag",
@@ -58,7 +59,7 @@ export const accounts = {
         'canMasqueradeType': 'full',
         "blocked": false,
         "user_group": "LIBRARYSTAFFB",
-        "tnt": ['test'],
+        "tnt": {'test': 'tag' },
     },
     dloradmn: {
         "id": "dloradmn",
