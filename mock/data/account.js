@@ -50,7 +50,6 @@ export const accounts = {
         "name": "UQ TEST TAG",
         "mail": "uq.staff@example.uq.edu.au",
         "barcode": "111111111111111",
-        "groups": ["DC=uq","DC=edu","DC=au","CN=lib_libapi_TestTagUsers,OU=lib-libapi-groups,OU=LIB-groups,OU=University of Queensland Library,OU=Deputy Vice-Chancellor (Academic),OU=Vice-Chancellor,DC=uq,DC=edu,DC=au"],
         "classes": [],
         "expiryDate": "31-12-19",
         "hasSession": true,
@@ -59,6 +58,7 @@ export const accounts = {
         'canMasqueradeType': 'full',
         "blocked": false,
         "user_group": "LIBRARYSTAFFB",
+        "tnt": ['test'],
     },
     dloradmn: {
         "id": "dloradmn",
