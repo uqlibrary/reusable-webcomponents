@@ -388,16 +388,6 @@ class SearchPortal extends HTMLElement {
             !!formObject.target &&
             !!formObject.target.id &&
             formObject.target.id === 'primo-search-form';
-        const userHasClickedCulturalAdviceLink =
-            !!formObject &&
-            !!formObject.target &&
-            !!formObject.target.id &&
-            formObject.target.id === 'cultural-advice-statement-link';
-        const userHasClickedFooterLink =
-            !!formObject &&
-            !!formObject.target &&
-            !!formObject.target.id &&
-            formObject.target.id.startsWith('search-portal-footerlink-');
         if (userHasSubmittedForm) {
             const userSearchTerm = this.shadowRoot.getElementById('current-inputfield').value;
             gtmItems = {
@@ -405,14 +395,6 @@ class SearchPortal extends HTMLElement {
                 'gtm.elementId': 'primo-search-form',
                 'gtm.element.elements.primo-search-autocomplete.value': userSearchTerm,
                 'gtm.element.elements.primo-search-select-input.value': portaltype,
-            };
-        } /* istanbul ignore next */ else if (userHasClickedFooterLink || userHasClickedCulturalAdviceLink) {
-            // the user has clicked a link that we have attached a click handler to
-            const linkLabel = !!formObject && !!formObject.target && formObject.target.innerHTML;
-            gtmItems = {
-                event: 'gtm.linkClick',
-                'gtm.elementId': formObject.target.id,
-                'gtm.element': linkLabel,
             };
         } else {
             // the user has clicked on a link in the suggestion dropdown
