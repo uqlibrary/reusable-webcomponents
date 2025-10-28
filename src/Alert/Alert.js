@@ -1,9 +1,7 @@
 import styles from './css/main.css';
 import overrides from './css/overrides.css';
-import Cookies from 'js-cookie';
 import { cookieNotFound, getCookieValue, setCookie } from '../helpers/cookie';
-import { apiLocale } from '../ApiAccess/ApiAccess.locale';
-import { authLocale } from '../UtilityArea/auth.locale';
+import { sendClickToGTM } from '../helpers/gtmHelpers';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -16,10 +14,10 @@ template.innerHTML = `
                 <b id="alert-title" data-testid="alert-title" class="alert-title"></b>
                 <span id="alert-message" data-testid="alert-message"></span>
             </div>
-            <a id="alert-action-desktop" data-testid="alert-action-desktop" tabindex="0" data-analytics="alert-visit-link-desktop">Button label</a>
+            <a id="alert-action-desktop" data-testid="alert-action-desktop" tabindex="0" data-analyticsid="alert-visit-link-desktop">Button label</a>
         </div>
-        <div role="button" id="alert-action-mobile" data-testid="alert-action-mobile" title="button title" tabindex="0" data-analytics="alert-visit-link-mobile">Button label</div>
-        <a id="alert-close" data-analytics="alert-close" data-testid="alert-close" role="button" aria-label="Dismiss this alert for 24 hours" href="javascript:void(0)" class="alert__close">
+        <div role="button" id="alert-action-mobile" data-testid="alert-action-mobile" title="button title" tabindex="0" data-analyticsid="alert-visit-link-mobile">Button label</div>
+        <a id="alert-close" data-analyticsid="alert-close" data-testid="alert-close" role="button" aria-label="Dismiss this alert for 24 hours" href="javascript:void(0)" class="alert__close">
             <svg focusable="false" viewBox="0 0 24 24" aria-label="Dismiss this alert for 24 hours" ><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
         </a>
     </div>
@@ -36,6 +34,7 @@ class Alert extends HTMLElement {
 
         // Bindings
         this.loadAlert = this.loadAlert.bind(this);
+        this.addListeners = this.addListeners.bind(this);
     }
 
     loadAlert(shadowDOM) {
@@ -140,7 +139,13 @@ class Alert extends HTMLElement {
                 shadowDOM.getElementById('alert-action-desktop').remove();
                 shadowDOM.getElementById('alert-action-mobile').remove();
             }
+
+            this.addListeners(shadowDOM);
         }, 300);
+    }
+    addListeners(shadowDOM) {
+        const links = shadowDOM.querySelectorAll('a');
+        !!links && links.length > 0 && links.forEach((l) => l.addEventListener('click', (e) => sendClickToGTM(e)));
     }
 }
 
