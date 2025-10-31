@@ -58,8 +58,7 @@ prm-alert-bar {
         border-color: transparentize($dark, 0.8);
     }
     &.filter-bar {
-        @extend .prm-background.prm-hue6;
-        @extend .prm-background-border.prm-hue3;
+        background-color: $background-hue6;
     }
 
     &.alert-bar {

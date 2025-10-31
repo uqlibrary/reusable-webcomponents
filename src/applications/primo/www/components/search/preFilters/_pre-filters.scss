@@ -45,7 +45,7 @@ prm-pre-filters {
 
         &:after {
             .dark-toolbar & {
-                @extend .prm-secondary-bg.prm-hue2;
+                background-color: unset;
             }
         }
         + md-input-container {
@@ -64,7 +64,7 @@ prm-pre-filters {
             @extend .prm-primary-color;
 
             :focus {
-                @extend .prm-secondary-color.prm-hue1;
+                color: $secondary-hue1;
             }
 
             &:after {
