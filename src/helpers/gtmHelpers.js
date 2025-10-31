@@ -15,7 +15,7 @@ export function sendClickToGTM(e) {
         e.target?.textContent?.trim() ||
         (!!e.target?.closest('[aria-label]') && e.target?.closest('[aria-label]').getAttribute('aria-label')) ||
         (!!e.target?.closest('[title]') && e.target?.closest('[title]').getAttribute('title')) ||
-        (e.target.hasAttribute('innerHTML') && e.target?.innerHTML?.trim()) ||
+        (e.target?.hasAttribute('innerHTML') && e.target?.innerHTML?.trim()) ||
         'no label';
     const gtmItems = {
         event: 'gtm.linkClick', //shows as "Link Click" in the sidebar of Tag Assistant

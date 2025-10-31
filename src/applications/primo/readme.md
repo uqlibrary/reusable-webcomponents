@@ -4,24 +4,7 @@ UQ Library is a Hosted Multi-Tenant Customer of Ex Libris (the alternative is to
 
 Primo is managed by the Library's "Discovery and Access Coordinator", referred to below as DAC. This is currently Stacey van Groll.
 
-There are 6 basic environments:
-
-(vids are currently in transition from old primo to primo ve!!)
-
-| Primo Environment Name | Primo Url                                                                                                                                                                                    | Git&nbsp;Branch&nbsp;Name | Notes                                                                                                       |
-| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| prod                   | [search.library.uq.edu.au](https://search.library.uq.edu.au/discovery/search?vid=61UQ_INST:61UQ&sortby=rank) (ie vid=61UQ_INST:61UQ)                                                     | `production`              | live, public primo                                                                                          |
-| prod-dev               | [search.library.uq.edu.au](https://search.library.uq.edu.au/discovery/search?sortby=rank&vid=61UQ_INST:61UQ_APPDEV) (ie vid=61UQ_INST:61UQ_APPDEV)                                       | `primo-prod-dev`          | development on the live server                                                                              |
-| prod-dac               | [search.library.uq.edu.au](https://search.library.uq.edu.au/discovery/search?sortby=rank&vid=61UQ_INST:61UQ_DALTS) (ie vid=61UQ_INST:61UQ_DALTS)                                             | (uses prod)               | DAC's personal area. Keep it up to date with the others - deploy prod-dev changes here                      |
-| prod-otb               | [search.library.uq.edu.au](https://search.library.uq.edu.au/discovery/search?sortby=rank&vid=61UQ_INST:61UQ_DEV_LOGIN) (ie vid=61UQ_INST:61UQ_DEV_LOGIN)                                 | -                         | Blue out of the box primo in the prod environment - it would be very unusual for us to make changes to this |
-| sandbox                | [uq-edu-primo-sb.hosted.exlibrisgroup.com](https://uq-edu-primo-sb.hosted.exlibrisgroup.com/discovery/search?vid=61UQ_INST:61UQ&sortby=rank) (ie vid=61UQ_INST:61UQ)                     | `primo-sand-box`          | sandbox area                                                                                                |
-| sandbox-dev            | [uq-edu-primo-sb.hosted.exlibrisgroup.com](https://uq-edu-primo-sb.hosted.exlibrisgroup.com/discovery/search?vid=61UQ_INST:61UQ_APPDEV&sortby=rank) (ie vid=61UQ_INST:61UQ_APPDEV)       | `primo-sandbox-dev`       | sandbox dev area                                                                                            |
-| sandbox-dac            | [uq-edu-primo-sb.hosted.exlibrisgroup.com](https://uq-edu-primo-sb.hosted.exlibrisgroup.com/discovery/search?vid=61UQ_DALTS&sortby=rank) (ie vid=61UQ_INST:61UQ_DALTS)                       | (uses primo-sand-box)     | DAC's personal area. Keep it up to date with the others - deploy sandbox-dev changes here                   |
-| sandbox-otb            | [uq-edu-primo-sb.hosted.exlibrisgroup.com](https://uq-edu-primo-sb.hosted.exlibrisgroup.com/discovery/search?vid=61UQ_INST:61UQ_DEV_LOGIN&sortby=rank) (ie vid=61UQ_INST:61UQ_DEV_LOGIN) | -                         | sandbox out of the box - it would be very unusual for us to make changes to this                            |
-
-(and of course there is the `master` branch, but this does not map to any of the live environments)
-
-The branch is set in the view package - see [github repo exlibris-primo](https://github.com/uqlibrary/exlibris-primo)
+For security reasons, a description of our environments has been moved [here](https://uq.sharepoint.com/:w:/r/teams/lbf4g4a1/LTSDevelopers%20Documents/Applications/Ex%20Libris%20-%20Primo%20-%20Alma/Environments.docx?d=w9ada68747c4d4752963bdff4b5b8236a&csf=1&web=1&e=BJX8hs)
 
 Primo UI is in active development. All releases are scheduled by ExLibris and are available in Primo Sand Box a couple of weeks before going to production.
 
