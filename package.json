@@ -73,7 +73,7 @@
     "@babel/eslint-parser": "^7.22.9",
     "@babel/preset-env": "^7.22.9",
     "@playwright/test": "^1.56.1",
-    "autoprefixer": "^10.4.14",
+    "autoprefixer": "^10.4.21",
     "babel-loader": "^8.3.0",
     "content-replace-webpack-plugin": "^1.0.0",
     "core-js": "^3.31.1",
