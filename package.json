@@ -56,7 +56,6 @@
     "istanbul-lib-coverage": "^3.2.0",
     "mini-css-extract-plugin": "^1.6.2",
     "mocha": "^10.8.2",
-    "node-sass": "^9.0.0",
     "nyc": "^15.1.0",
     "prettier": "^2.8.8",
     "prettier-eslint-cli": "^7.1.0",
