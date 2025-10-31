@@ -9,7 +9,7 @@ prm-user-area-expandable {
     .md-button {
         text-transform: none;
         &.user-button {
-            @extend .prm-secondary-color.prm-hue4;
+            color: $secondary-hue4;
             .menu-arrow {
                 color: $white;
             }

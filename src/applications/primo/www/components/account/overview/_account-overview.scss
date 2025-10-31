@@ -37,7 +37,7 @@ prm-account-overview {
             width: 1px;
             right: 0;
             top: 0;
-            @extend .prm-background.prm-hue7;
+            background-color: $background-hue7;
         }
 
         & prm-icon {
@@ -56,18 +56,18 @@ prm-account-overview {
                 .institution-name,
                 prm-icon {
                     font-weight: 600;
-                    @extend .prm-secondary-color.prm-hue3;
+                  color: $secondary-hue3;
                 }
 
                 .md-button:hover h3,
                 .md-button:hover prm-icon {
-                    @extend .prm-secondary-color.prm-hue6;
+                  color: $secondary-hue6;
                 }
 
                 h3:focus,
                 h3:hover {
                     &.institution-name {
-                        @extend .prm-secondary-color.prm-hue6;
+                      color: $secondary-hue6;
                         //color: red!important;
                     }
                 }
@@ -134,13 +134,13 @@ prm-account-overview {
         }
 
         .md-button {
-            + &:hover,
+            &:hover,
             &:focus {
                 ._md-list-item-inner,
                 .md-list-item-inner {
                     &.is-selected {
                         .institution-name {
-                            @extend .prm-secondary-color.prm-hue4;
+                          color: $secondary-hue4;
                         }
                     }
                 }

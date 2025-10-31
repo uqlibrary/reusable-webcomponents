@@ -13,7 +13,7 @@ prm-user-area {
         .user-name {
             text-transform: none;
             font-weight: $bold;
-            @extend .prm-links.prm-hue-2;
+            color: $linkTitle;
             text-align: left;
             @extend %text-trim-ellipsis;
 
@@ -75,13 +75,6 @@ prm-user-area {
         @extend .zero-radius;
         > .md-button {
             padding: 0 1em;
-            // .md-fab-toolbar-background,
-            // ._md-fab-toolbar-background {
-            //     &:before {
-            //         @extend %pseudo-full-cover;
-            //         @extend .prm-primary-bg.prm-hue2;
-            //     }
-            // }
         }
 
         &.show-user-info {
@@ -199,8 +192,6 @@ prm-user-area {
             md-fab-trigger {
                 .md-fab-toolbar-background,
                 ._md-fab-toolbar-background {
-                    @extend .prm-primary-bg.prm-hue3-important;
-                    // @extend .prm-primary-bg.prm-hue2;
                     transition-duration: 0.2s;
                 }
             }

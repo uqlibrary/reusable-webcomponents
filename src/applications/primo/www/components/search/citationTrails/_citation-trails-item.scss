@@ -79,7 +79,8 @@ prm-citation-trails-item {
                 &:focus {
                     .item-title {
                         span {
-                            @extend a.hover;
+                          background-color: transparent;
+                          border-radius: unset;
                         }
                     }
                 }

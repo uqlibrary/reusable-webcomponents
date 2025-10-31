@@ -7,7 +7,7 @@ prm-tags-list {
         left: 50%;
         -webkit-transform: translate3d(-50%, -50%, 0);
         transform: translate3d(-50%, -50%, 0);
-        @extend .prm-warning-color.prm-hue2;
+        color: $warning-hue2;
         min-height: 18px;
         min-width: 18px;
     }
@@ -53,7 +53,8 @@ prm-tags-list {
                         box-shadow: none;
                     }
                     strong {
-                        @extend a:hover;
+                        background-color: transparent;
+                        border-radius: unset;
                     }
                 }
             }

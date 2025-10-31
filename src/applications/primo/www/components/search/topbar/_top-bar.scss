@@ -9,7 +9,6 @@ prm-topbar {
     height: $defaultBarHeight;
     position: relative;
     .top-nav-bar {
-        @extend .prm-primary-bg.prm-hue3;
         @extend .prm-secondary-color;
         @extend .layout-full-height;
     }

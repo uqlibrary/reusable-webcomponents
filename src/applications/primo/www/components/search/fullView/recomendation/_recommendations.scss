@@ -61,7 +61,7 @@ prm-recomendations {
         .__xs &,
         .__sm & {
             padding-top: 2.5em;
-            @extend .prm-background.prm-hue2;
+           background-color: lighten($background, 4%);
         }
         .__sm & {
             padding-left: 8.5em;
@@ -161,13 +161,13 @@ prm-recomendation-item {
         .pin-button {
             position: relative;
             top: -8px;
-            @extend .prm-secondary-color.prm-hue1;
-            @extend .prm-background.prm-hue2;
+            color: $secondary-hue1;
+           background-color: lighten($background, 4%);
             @extend .default-shadow;
 
             &:hover {
                 opacity: 1;
-                @extend .prm-background.prm-hue2;
+               background-color: lighten($background, 4%);
             }
 
             prm-full-view-cont & {
@@ -198,19 +198,20 @@ prm-recomendation-item {
     @include rtl-prop(padding-right, padding-left, 16px, 0);
 
     &:after {
-        @extend .prm-background.prm-hue2;
+       background-color: lighten($background, 4%);
         prm-full-view-cont & {
             @extend .prm-background;
             .__xs &,
             .__sm & {
-                @extend .prm-background.prm-hue2;
+               background-color: lighten($background, 4%);
             }
         }
     }
     &:hover,
     &.hover {
         > span > span {
-            @extend a:hover;
+            background-color: transparent;
+            border-radius: unset;
         }
     }
     prm-icon {
@@ -218,13 +219,13 @@ prm-recomendation-item {
         position: absolute;
         bottom: 0;
         @include rtl-prop(right, left, 1em, auto);
-        @extend .prm-background.prm-hue2;
+       background-color: lighten($background, 4%);
 
         prm-full-view-cont & {
             @extend .prm-background;
             .__xs &,
             .__sm & {
-                @extend .prm-background.prm-hue2;
+               background-color: lighten($background, 4%);
             }
         }
 

@@ -21,7 +21,7 @@ prm-gallery-collection {
         display: flex;
         width: 100%;
         height: 100%;
-        @extend .prm-background.prm-hue2;
+       background-color: lighten($background, 4%);
         .collection-overlay {
             position: absolute;
             top: 0;
@@ -80,7 +80,7 @@ prm-gallery-collection {
             color: initial;
             display: inline-flex;
             padding: 0.1em 0.4em 0.1em 0.4em;
-            @extend .prm-background.prm-hue2;
+           background-color: lighten($background, 4%);
             md-divider {
                 height: 13px;
                 margin: 0 0.5em;
@@ -118,7 +118,7 @@ prm-gallery-collection {
                 box-shadow: 0.4em 0 0 0 $background-hue2, -0.4em 0 0 0 $background-hue2;
                 left: 0.3em;
                 position: relative;
-                @extend .prm-background.prm-hue2;
+               background-color: lighten($background, 4%);
                 line-height: 1.4;
             }
         }
@@ -171,7 +171,7 @@ prm-gallery-collection {
                 transition-duration: 0.25s;
                 opacity: 0;
                 transform-origin: 100% 0;
-                @extend .md-button.button-as-link.link-alt-color;
+                @include bgColor($secondary-hue3);
             }
         }
         &:hover,

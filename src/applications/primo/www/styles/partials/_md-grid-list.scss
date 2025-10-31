@@ -1,6 +1,6 @@
 md-grid-tile,
 .tiles-grid-tile {
-    @extend .prm-background.prm-hue2;
+   background-color: lighten($background, 4%);
     @extend %default-shadow;
 
     md-list,
@@ -115,7 +115,7 @@ md-grid-tile,
         prm-spinner {
             &.overlay-cover {
                 &:after {
-                    @extend .prm-background.prm-hue2;
+                   background-color: lighten($background, 4%);
                 }
             }
         }
@@ -173,7 +173,7 @@ md-grid-tile,
 
             &:hover,
             &:focus {
-                @extend .prm-links.prm-hue1;
+                color: $links-hue-1;
                 .arrow-icon {
                     opacity: 1;
                     transform: translate3d(10px, 0, 0);

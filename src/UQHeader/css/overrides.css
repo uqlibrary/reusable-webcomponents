@@ -52,7 +52,7 @@ header {
     }
 }
 
-@media (max-width: 1023px) { // 1024 -1
+@media (max-width: 1023px) { /* 1024 -1 */
     input[type='radio'] + label {
         padding-left: 2em;
     }

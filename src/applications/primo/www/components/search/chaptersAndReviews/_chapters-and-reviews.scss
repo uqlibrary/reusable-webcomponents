@@ -18,7 +18,8 @@ prm-chapters-and-reviews {
             &:focus {
                 .item-title {
                     span {
-                        @extend a.hover;
+                      background-color: transparent;
+                      border-radius: unset;
                     }
                 }
             }

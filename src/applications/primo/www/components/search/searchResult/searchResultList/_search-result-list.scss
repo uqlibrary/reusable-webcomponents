@@ -8,7 +8,7 @@ prm-search-result-list {
     .results-header,
     .results-footer {
         @extend .light-text;
-        @extend .prm-background.prm-hue2;
+       background-color: lighten($background, 4%);
     }
 
     // results list header (results count)

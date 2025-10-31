@@ -270,7 +270,7 @@ prm-main-menu[menu-type='full'] {
         }
 
         .md-headline {
-            @extend .prm-links.prm-alt-link.prm-hue1;
+            color: $linkTitle;
             @extend .spaced-text;
             @extend .bold-text;
             text-transform: uppercase;

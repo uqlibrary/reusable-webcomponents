@@ -112,7 +112,7 @@ prm-add-query-to-saved-searches {
                 opacity: 0;
                 @include ie-exceptions;
             }
-            @extend .prm-secondary-color.prm-hue1;
+            color: $secondary-hue1;
             &.pinned {
                 &:hover,
                 &:focus {

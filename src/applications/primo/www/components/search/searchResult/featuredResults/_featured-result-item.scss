@@ -46,7 +46,7 @@ prm-featured-result-item {
     &.dummy-item {
         md-card {
             box-shadow: none;
-            @extend .prm-background.prm-hue4;
+            background-color: $background-hue4;
             prm-spinner {
                 height: 100%;
                 display: flex;
@@ -63,7 +63,25 @@ prm-featured-result-item {
         }
     }
     md-card {
-        @extend md-card.default-card;
+      &.default-card {
+        font-size: 1.1em;
+        line-height: 1.5rem;
+        font-weight: 500;
+
+        @extend %default-shadow;
+        background-color: $background-hue2;
+
+        md-card-title:not(#featuredResultTitle) {
+          padding: 24px 16px 16px 16px;
+          + md-card-content {
+            padding-top: 0;
+          }
+        }
+
+        md-card-content {
+          padding: 16px;
+        }
+      }
 
         &.is-book {
             width: $featured-book-width;
@@ -132,7 +150,7 @@ prm-featured-result-item {
             }
         }
         md-card-title {
-            @extend .prm-background.prm-hue2;
+           background-color: lighten($background, 4%);
             position: relative;
             z-index: 1;
             padding: 0.5em;

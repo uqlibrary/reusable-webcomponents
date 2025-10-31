@@ -40,7 +40,29 @@ md-tooltip {
 
     &.content-tooltip {
         overflow: visible;
-        @extend md-tooltip.multi-row-tooltip;
+        max-width: 20em;
+        font-size: 1em;
+        letter-spacing: 0;
+        white-space: normal;
+        padding: 0.5em 1em;
+        height: auto !important;
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+          margin: 0;
+        }
+
+        p {
+          margin: 0;
+        }
+
+        .tooltip-content {
+          font-size: 0.8em;
+          line-height: 0.8em;
+        }
 
         margin: 0;
         opacity: 1;

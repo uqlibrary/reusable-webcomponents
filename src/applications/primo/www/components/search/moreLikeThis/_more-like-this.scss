@@ -103,13 +103,12 @@ prm-more-like-this {
 
     .section-title {
         prm-icon {
-            @extend .prm-secondary-color.prm-hue3;
+          color: $secondary-hue3;
         }
         &:hover,
         &:focus {
             prm-icon {
-                //color: red;
-                @extend .prm-secondary-color.prm-hue6;
+                color: $secondary-hue6;
             }
         }
     }
