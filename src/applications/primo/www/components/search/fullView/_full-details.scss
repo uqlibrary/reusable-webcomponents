@@ -94,7 +94,7 @@ prm-full-view-cont {
     @include rtl-prop(right, left, 0, auto);
 
     // padding-top: 48px;
-    @extend .prm-background.prm-hue2;
+   background-color: lighten($background, 4%);
 
     // @include ie-exceptions;
 
@@ -120,7 +120,10 @@ prm-full-view-cont {
     }
 
     ~ .close-button {
-        @extend .fixed-position.fixed-center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin: auto;
         right: auto;
         bottom: auto;
         opacity: 0;
@@ -345,7 +348,7 @@ prm-full-view-cont {
 
     padding: 1em;
     z-index: 0;
-    @extend .prm-background.prm-hue2;
+   background-color: lighten($background, 4%);
 
     .__xs & {
         padding: 1em 1.5em;
@@ -365,7 +368,8 @@ prm-full-view-cont {
             height: 100%;
             top: 0;
             width: 1px;
-            @extend .prm-background.prm-hue1;
+            border-color: darken($background, 8%);
+            background-color: transparent;
             @include rtl-prop(left, right, 0, auto);
         }
     }

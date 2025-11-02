@@ -170,7 +170,7 @@ prm-saved-queries-list {
         display: inline-block;
         a {
             max-width: 100%;
-            @extend .prm-links.prm-hue1;
+            color: $links-hue-1;
         }
         h3 {
             white-space: inherit !important;

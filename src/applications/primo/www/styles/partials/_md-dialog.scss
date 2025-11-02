@@ -365,14 +365,7 @@ md-dialog-content {
     md-input-container {
         // underline animated highlight for darker dialog
         &:after {
-            @extend .prm-secondary-bg.prm-hue4;
-        }
-
-        // underline animated highlight for lighter dialog
-        &.dark-on-light {
-            &:after {
-                @extend .prm-primary-bg.prm-hue1;
-            }
+            background-color: unset;
         }
     }
 }

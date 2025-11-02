@@ -25,7 +25,7 @@
     // confirm (positive / green)
     &.button-confirm {
         @include bgColor($positive);
-        @extend .prm-positive.prm-hue1;
+        @extend .prm-positive;
 
         .light-on-dark-dialog & {
             @include bgColor($linkTitle);
@@ -313,7 +313,8 @@
         &:focus {
             background: transparent;
             .button-content {
-                @extend a.hover;
+              background-color: transparent;
+              border-radius: unset;
             }
         }
         [link-arrow] {

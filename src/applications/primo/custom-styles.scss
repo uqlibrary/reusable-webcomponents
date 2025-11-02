@@ -386,15 +386,15 @@ md-menu-item button.md-button svg:nth-of-type(n+2) {
     .my-favorties-ctm,
     .my-search-history-ctm {
         prm-icon {
-            color: $theme-color;
-            fill: $theme-color;
+            color: $uqPurple500;
+            fill: $uqPurple500;
             stroke: $theme-color;
         }
     }
     md-menu-item.my-favorties-ctm {
         margin-left: 1px;
         prm-icon svg path {
-            fill: $theme-color;
+            fill: $uqPurple500;
         }
     }
     .md-button.button-with-icon>prm-icon+span {
@@ -712,7 +712,7 @@ prm-breadcrumbs .md-chip.persistent-facet {
 
 // dbsearch sidebar
 prm-tree-nav md-list md-list-item .md-button.branch-name {
-    color: $theme-color;
+    color: $uqPurple500
 }
 prm-tree-nav md-list md-list-item .md-button.branch-name.is-selected {
     color: $uqBodyCopy !important;
@@ -1502,7 +1502,7 @@ prm-user-area-expandable .mylibrary-list {
 // make the mobile items to be deleted color on color so there is no flash
 .mobile-main-menu-bg {
     button.button-with-icon.md-button.md-primoExplore-theme.md-ink-ripple,
-    not(prm-authentication) button.button-with-icon.zero-margin.md-button.md-primoExplore-theme.md-ink-ripple {
+    :not(prm-authentication) button.button-with-icon.zero-margin.md-button.md-primoExplore-theme.md-ink-ripple {
     color: #0d1a26;
 }
 }
@@ -1999,7 +1999,7 @@ body prm-full-view-service-container {
             text-decoration: underline;
         }
         prm-icon {
-            color: $theme-color;
+            color: $uqPurple500
         }
     }
     prm-location-items md-list md-list-item {
@@ -2147,7 +2147,7 @@ prm-tags-list md-chips md-chip .md-chip-content:hover alma-howovp .neutralized-b
     box-shadow: none;
 }
 .neutralized-button.layout-full-width.layout-display-flex.md-button.md-ink-ripple.md-primoExplore-theme:not(:has(a)) span:first-of-type {
-    color: $theme-color;
+    color: $uqPurple500
 }
 .neutralized-button.layout-full-width.layout-display-flex.md-button.md-ink-ripple.md-primoExplore-theme:not(:has(a)):hover span:first-of-type:hover {
     //box-shadow: inset 0 -2px 0 0 $accent-color;
@@ -2185,7 +2185,7 @@ prm-pre-filters md-input-container.prm-hue1.is-active,
 md-tabs md-tabs-wrapper md-tabs-canvas md-pagination-wrapper md-tab-item.md-active:not([disabled]),
 md-tabs md-tabs-wrapper md-tabs-canvas md-pagination-wrapper md-tab-item.md-focused:not([disabled]),
 md-tab-content .tab-content-header md-input-container md-select-value .prm-hue1.md-text {
-    color: $theme-color;
+    color: $uqPurple500
 }
 
 // links added to Accounts area

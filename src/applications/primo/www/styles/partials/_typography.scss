@@ -74,10 +74,10 @@ strong {
     font-style: italic;
 }
 .weak-text {
-    @extend .prm-text.prm-hue4;
+    color: $text-hue4;
 }
 .darker-text {
-    @extend .prm-text.prm-hue3;
+    color: $text-hue3;
 }
 .tiny-uppercase-text {
     letter-spacing: 0.07em;

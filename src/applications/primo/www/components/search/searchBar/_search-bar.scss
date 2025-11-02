@@ -766,7 +766,7 @@ prm-search-bar {
         // box-shadow: inset 0 -1px 0 0 #f1f1f1;
         border-bottom-style: solid;
         border-bottom-width: 1px;
-        @extend .prm-background.prm-hue2;
+       background-color: lighten($background, 4%);
         @extend .prm-background-border;
 
         .input-cell {
@@ -840,7 +840,7 @@ prm-search-bar {
             margin: 0;
             border-top-style: solid;
             border-top-width: 1px;
-            @extend .prm-background.prm-hue2;
+           background-color: lighten($background, 4%);
             @extend .prm-background-border;
 
             .__gt-xs & {
@@ -960,7 +960,7 @@ prm-advanced-search {
     }
 
     .warning-message {
-        @extend .prm-warning-color.prm-hue1;
+        color: $warning-hue1;
     }
 
     // Collapsable Advanced Search block at top of search results

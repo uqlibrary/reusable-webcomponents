@@ -19,7 +19,8 @@ md-toolbar:not(.md-menu-toolbar) {
     }
 
     &.default-toolbar {
-        @extend .prm-background.prm-hue1;
+        border-color: darken($background, 8%);
+        background-color: transparent;
         @extend .prm-text;
 
         .md-button:not(.back-button) {
@@ -48,7 +49,11 @@ md-toolbar:not(.md-menu-toolbar) {
 
     &.bottom-fixed-toolbar {
         z-index: 13;
-        @extend .fixed-position.fixed-bottom;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
         @extend %toolbar-shadow-top;
     }
     &.white-toolbar {
@@ -99,7 +104,7 @@ md-toolbar:not(.md-menu-toolbar) {
     .toolbar-divider {
         width: 1px;
         height: 100%;
-        @extend .prm-background.prm-hue10;
+        background-color: $background-hue10;
         margin-left: 0.5em;
         margin-right: 0.5em;
         border: none;
@@ -166,9 +171,8 @@ md-toolbar:not(.md-menu-toolbar) {
         padding-bottom: 0.7em;
         background-color: transparent;
         .toolbar-section {
-            @extend .prm-background.prm-hue11;
+            background-color: $background-hue11;
             border: 1px solid;
-            @extend .prm-background-border.prm-hue4;
             border-radius: $radius;
             &:not(:last-child) {
                 margin-right: 0.5em;
@@ -222,7 +226,7 @@ md-toolbar:not(.md-menu-toolbar) {
         &:hover {
             opacity: 1;
             color: $white;
-            @extend .prm-background.prm-hue15;
+            background-color: $background-hue15;
         }
 
         .__xs & {
