@@ -3,7 +3,7 @@ $max-image-height: 140px;
 prm-gallery-item {
     .collection-element {
         cursor: pointer;
-        @extend .prm-background.prm-hue2;
+       background-color: lighten($background, 4%);
         @extend .default-shadow;
         .item-title {
             font-size: 0.9em;
@@ -12,7 +12,7 @@ prm-gallery-item {
         }
         .resource-type,
         .item-title {
-            @extend .prm-background.prm-hue2;
+           background-color: lighten($background, 4%);
         }
         .image-holder {
             position: relative;
@@ -94,7 +94,7 @@ prm-gallery-item {
                     transition-duration: 0.25s;
                     opacity: 0;
                     transform-origin: 100% 0;
-                    @extend .md-button.button-as-link.link-alt-color;
+                    @include bgColor($secondary-hue3);
                 }
             }
             // &:focus {
@@ -153,7 +153,7 @@ prm-gallery-item {
                     transition-duration: 0.25s;
                     opacity: 0.75;
                     transform-origin: 170% 0;
-                    @extend .md-button.button-as-link.link-alt-color;
+                    @include bgColor($secondary-hue3);
                 }
             }
             &.is-active {
