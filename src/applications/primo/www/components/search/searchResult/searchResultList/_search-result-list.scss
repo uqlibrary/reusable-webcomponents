@@ -106,6 +106,17 @@ prm-search-result-list {
                 padding-left: 10px !important;
             }
         }
+
+        .search-within button {
+          &._md-focused,
+          &.hovered,
+          &.md-focused,
+          &:focus,
+          &:hover {
+            color: #000;
+            background-color: rgba(51, 51, 51, 0.1) !important;
+          }
+        }
     }
 
     // this is to complement the tweak above, to make the first "page #" appear in the same line as the results count
