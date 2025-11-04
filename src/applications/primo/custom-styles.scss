@@ -345,6 +345,11 @@ md-menu-item button.md-button svg:nth-of-type(n+2) {
         color: $uqHeading;
     }
 }
+.uql-account-menu-option.logout-option button.md-button:not([disabled]) span.bold-text { // logged in
+  font-weight: 400 !important;
+  margin-top: 14px;
+  font-size: 1rem;
+}
 .my-library-card-ctm .md-button:hover:not([disabled]), // logged in
 .my-search-history-ctm .md-button:hover:not([disabled]), // logged in
 .my-favorties-ctm .md-button:hover:not([disabled]) { // logged in
