@@ -8,18 +8,6 @@ md-radio-button {
     ._md-on {
     }
 
-    &.md-checked {
-        .md-off,
-        ._md-off {
-            @extend .prm-secondary-border.prm-hue5;
-        }
-
-        .md-on,
-        ._md-on {
-            @extend .prm-secondary-bg.prm-hue5;
-        }
-    }
-
     .md-label {
         height: 20px;
     }
@@ -61,7 +49,6 @@ md-radio-group {
             md-radio-button {
                 &.md-checked {
                     & :before {
-                        //@extend .prm-secondary-bg.prm-hue2;
                         opacity: 1;
                     }
                 }

@@ -73,7 +73,10 @@ prm-action-list,
                 padding-bottom: 0.75em;
                 padding-top: 0.75em;
                 margin: 0;
-                @extend .md-button.icon-button-with-text;
+                font-size: 10px;
+                line-height: 14px;
+                font-weight: 600;
+                letter-spacing: 0.03em;
                 white-space: normal;
                 transition-timing-function: ease-out;
                 &:focus,
@@ -221,7 +224,7 @@ prm-account {
     .action-list-content {
         z-index: 1;
         background: white;
-        @extend .focused-item-shadow.without-halo;
+      box-shadow: 0 0 0 0.55em #fff, 0 0 0 0.6em #acbecc, 0 2px 15px 5px rgba(0, 0, 0, 0.2);
 
         md-nav-bar {
             .md-nav-item {

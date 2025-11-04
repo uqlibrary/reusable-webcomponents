@@ -52,7 +52,7 @@ prm-page-nav-menu {
     }
 
     div.counter-nav {
-        @include rtl-prop(left, right, $pagingButton / $numberOfButtons, auto);
+        @include rtl-prop(left, right, calc($pagingButton / $numberOfButtons), auto);
         .__xs & {
             @include rtl-prop(left, right, 0, auto);
         }
@@ -297,10 +297,10 @@ prm-page-nav-menu {
                 height: 100%;
                 width: 100%;
                 @extend .default-shadow;
-                border-radius: $pagingButton / 2;
+                border-radius: calc($pagingButton / 2);
                 transform: scale(0, 1);
                 transition: 0.2s $easeInCubic;
-                transform-origin: $pagingButton/2 50%;
+                transform-origin: calc($pagingButton/2) 50%;
                 @include rtl-prop(left, right, 0, auto);
                 [dir='rtl'] &,
                 .facet-to-left & {
@@ -319,8 +319,8 @@ prm-page-nav-menu {
                 [dir='ltr'] & {
                     &:last-child {
                         .md-fab {
-                            border-top-right-radius: $pagingButton / 2;
-                            border-bottom-right-radius: $pagingButton / 2;
+                            border-top-right-radius: calc($pagingButton / 2);
+                            border-bottom-right-radius: calc($pagingButton / 2);
                         }
                     }
                 }
@@ -328,8 +328,8 @@ prm-page-nav-menu {
                 .facet-to-left & {
                     &:last-child {
                         .md-fab {
-                            border-top-left-radius: $pagingButton / 2;
-                            border-bottom-left-radius: $pagingButton / 2;
+                            border-top-left-radius: calc($pagingButton / 2);
+                            border-bottom-left-radius: calc($pagingButton / 2);
                         }
                     }
                 }

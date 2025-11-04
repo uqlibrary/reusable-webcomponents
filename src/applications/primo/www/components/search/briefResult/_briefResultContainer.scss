@@ -248,7 +248,7 @@ prm-brief-result-container {
                 transform: rotate3d(0, 0, 1, -25deg);
                 opacity: 0;
             }
-            @extend .prm-secondary-color.prm-hue3;
+          color: $secondary-hue3;
             &.pinned {
                 &:hover,
                 &:focus {
@@ -329,7 +329,7 @@ prm-brief-result-container {
 
     @extend .zero-padding;
     @extend .prm-background-border;
-    @extend .prm-background.prm-hue2;
+   background-color: lighten($background, 4%);
 
     &:last-of-type {
         border-bottom-width: 0;
@@ -356,7 +356,7 @@ prm-brief-result-container {
 
     & .item-bookmarked,
     & .item-bookmarked:hover {
-        @extend .prm-highlight.prm-hue1;
+        background-color: $highlight-hue1;
     }
 }
 
@@ -428,20 +428,8 @@ prm-brief-result-container {
         display: flex;
         align-items: center;
         justify-content: center;
-        @extend .prm-secondary-bg.prm-hue1;
+        background-color: unset;
         @include rtl-prop(left, right, 0.25em, auto);
-
-        // &:after {
-        //     content: "";
-        //     width: 20px;
-        //     height: 20px;
-        //     position: absolute;
-        //     border-radius: 50%;
-        //     top: -2px;
-        //     left: -7px;
-        //     z-index: -1;
-        //     @extend .prm-secondary-bg.prm-hue1;
-        // }
     }
 }
 

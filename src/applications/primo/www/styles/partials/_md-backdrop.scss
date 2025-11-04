@@ -1,7 +1,5 @@
 md-backdrop {
     &.md-opaque {
-        @extend .prm-primary-bg.prm-hue2;
-
         .backdrop-dark &,
         .background-dark & {
             opacity: 0.85;

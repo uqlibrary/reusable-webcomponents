@@ -83,7 +83,7 @@ prm-tags-results-list {
                     ._md-list-item-inner,
                     .md-list-item-inner {
                         padding: 0.75em 1em;
-                        @extend .prm-background.prm-hue2;
+                       background-color: lighten($background, 4%);
                     }
                     .item-title {
                         // @extend .bold-text;
