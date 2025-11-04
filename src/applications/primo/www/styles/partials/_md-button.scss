@@ -2,14 +2,14 @@
 
 .md-button {
     // default
-   @include bgColor($white);
+   @include bgColor($text);
 
     .light-on-dark-dialog & {
-      @include bgColor($text);
+      @include bgColor($white);
     }
 
     .light-on-dark-dialog .hoverable-over-dark:not(.disable-hover) & {
-      @include bgColor($text);
+      @include bgColor($white);
     }
 
     // primary (override Angular material)
