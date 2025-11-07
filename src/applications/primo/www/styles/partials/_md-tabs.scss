@@ -138,9 +138,12 @@ md-tabs {
 }
 
 md-ink-bar {
-    .has-dummy-tab & {
-        left: -20px;
-    }
+  .has-dummy-tab & {
+    left: -20px;
+  }
+}
+md-tabs-canvas md-ink-bar {
+    background-color: $accent-color;
 }
 
 .tab-description {
