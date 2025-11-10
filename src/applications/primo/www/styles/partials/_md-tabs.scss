@@ -45,9 +45,9 @@ md-tabs {
         }
     }
 
-    md-ink-bar {
-      background-color: $links-hue-3;
-    }
+}
+md-tabs md-ink-bar {
+  background-color: $links-hue-3;
 }
 > md-tabs-wrapper {
     .hidden-tabs & {
