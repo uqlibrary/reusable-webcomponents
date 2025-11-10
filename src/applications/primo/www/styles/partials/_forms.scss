@@ -46,9 +46,8 @@
 }
 
 .service-form-static-panel {
-    @extend .prm-background.prm-hue8;
+    background-color: $background-hue8;
     box-shadow: inset -1px 0 0 0;
-    @extend .prm-background-color.prm-hue4; //splitted the color to support from box-shadow to allow color customization
     flex-grow: 1;
     * {
         //splitted the color to support from box-shadow to allow color customization
@@ -61,7 +60,12 @@
     button.button-confirm prm-icon {
         + span,
         & svg path {
-            @extend .md-button.button-confirm;
+          @include bgColor($positive);
+          @extend .prm-positive;
+
+          .light-on-dark-dialog & {
+            @include bgColor($linkTitle);
+          }
         }
     }
 }
