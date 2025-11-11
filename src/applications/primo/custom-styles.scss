@@ -1736,12 +1736,30 @@ md-select-menu.md-primoExplore-theme md-content md-option:not([disabled]):hover 
     background: $uqInformationLight;
 }
 
-md-select-menu.md-primoExplore-theme {
-    background-color: '#FF0000' !important;
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: auto !important;
-    md-content {
-        -webkit-overflow-scrolling: auto !important;
+// expand Angular Material UI Select options list's height as much as possible to avoid scrolling
+.md-select-menu-container.md-primoExplore-theme {
+    md-select-menu,
+    md-content[role="listbox"] {
+        /* limit height to 85% of the viewport */
+        max-height: 85vh;
+    }
+    /* modern browsers */
+    @supports (height: 1svh) {
+        md-select-menu,
+        md-content[role="listbox"] {
+            /* use the smallest visible, dynamic, or classic viewport heights */
+            max-height: min(85svh, 85dvh, 85vh);
+        }
+    }
+    /* IOS tweaks */
+    @supports (padding: max(0px)) {
+        md-select-menu,
+        md-content[role="listbox"] {
+            /* same as above, but subtract top/bottom safe areas (avoids iPhone notch & home bar overlap) */
+            max-height: calc(min(85svh, 85dvh, 85vh)
+            - env(safe-area-inset-top)
+            - env(safe-area-inset-bottom));
+        }
     }
 }
 
