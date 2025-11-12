@@ -52,6 +52,13 @@ module.exports = () => {
     console.log('BUILD PATH       : ', buildPath(process.env.NODE_ENV, 'index'));
     console.log('------------------------------------------------------------');
     return {
+        devServer: {
+            hot: true,
+            liveReload: true,
+            watchFiles: {
+                paths: ['src/**/*', 'index.html', 'src/**/*.html'],
+            },
+        },
         entry: {
             'uq-lib-reusable': './src/index.js',
             'drupal-lib-reusable': './src/drupal.js',
@@ -166,6 +173,6 @@ module.exports = () => {
                 'process.env.API_URL': JSON.stringify(config.api),
             }),
         ].filter(Boolean),
-        mode: 'none',
+        mode: process.env.NODE_ENV === 'local' ? 'development' : 'none',
     };
 };
