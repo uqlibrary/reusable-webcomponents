@@ -76,4 +76,15 @@ prm-citation-linker {
             display: none;
         }
     }
+
+    a {
+        padding-bottom: 0;
+        margin-bottom: 1.5px;
+        text-decoration: underline;
+        &:hover,
+        &:focus {
+            background-color: $uqPurple500;
+            color: #fff !important;
+        }
+    }
 }

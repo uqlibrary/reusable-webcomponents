@@ -2390,59 +2390,6 @@ md-backdrop.md-dialog-backdrop {
     background-color: #a694b6;
 }
 
-prm-person-entity-page {
-    .person-full-view-inner-container {
-        background-color: $white;
-    }
-    .person-full-view-cont {
-        .person-header h2 span {
-            color: $accent-color;
-        }
-        .image-person-cont:has([src="img/related_person_image.png"]) {
-            display: none;
-        }
-    }
-    prm-featured-results {
-        button.horizontal-content-control.md-button:not([disabled]) {
-            background-color: $white;
-            prm-icon {
-                padding-bottom: 10px;
-                padding-top: 10px;
-            }
-            &:focus-visible,
-            &:hover {
-                prm-icon {
-                    color: $white;
-                    background-color: $accent-color;
-                }
-            }
-        }
-    }
-    .question-mark-popup-cont {
-        button.md-button.neutralized-button {
-            background-color: $white;
-            color: $accent-color;
-            border-radius: 20px;
-            padding: 2px;
-            width: 20px;
-            &:focus,
-            &:hover {
-                background-color: $white;
-                color:$accent-color;
-            }
-        }
-        prm-icon {
-            color: currentColor;
-        }
-    }
-    .person-avatar {
-        flex-direction: row-reverse;
-    }
-    .avatar-img {
-        margin-left: -35px;
-    }
-}
-
 .full-view-aside,
 .full-view-additional-info-side-bar {
     prm-linked-data {
