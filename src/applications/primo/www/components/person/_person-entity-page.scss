@@ -1,6 +1,16 @@
 prm-person-entity-page {
   .person-full-view-inner-container {
     background-color: $white;
+    a.arrow-link {
+      padding-bottom: 0;
+      margin-bottom: 1.5px;
+      text-decoration: underline;
+      &:hover,
+      &:focus {
+        background-color: $uqPurple500;
+        color: #fff !important;
+      }
+    }
   }
   .person-full-view-cont {
     .person-header h2 span {
@@ -48,15 +58,5 @@ prm-person-entity-page {
   }
   .avatar-img {
     margin-left: -35px;
-  }
-  a {
-    padding-bottom: 0;
-    margin-bottom: 1.5px;
-    text-decoration: underline;
-    &:hover,
-    &:focus {
-      background-color: $uqPurple500;
-      color: #fff !important;
-    }
   }
 }
