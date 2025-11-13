@@ -58,7 +58,8 @@ prm-action-list,
                 margin-right: 0;
             }
 
-            .md-button {
+            .md-button.md-unselected,
+            .md-button.md-primary {
                 color: $accent-color;
                 border-radius: 4px;
                 padding-bottom: 0.75em;
@@ -96,7 +97,11 @@ prm-action-list,
                     }
                 }
             }
-        }
+            .md-button.md-primary:focus:not([disabled]) {
+              background-color: #fff;
+              color: $accent-color;
+            }
+          }
 
         &.wrapped-items {
             .__sm &,
