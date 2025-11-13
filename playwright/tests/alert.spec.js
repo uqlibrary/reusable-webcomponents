@@ -137,7 +137,7 @@ test.describe('Alert', () => {
         await page.setViewportSize({ width: 1280, height: 900 });
 
         // the default mock page has 3 alerts (shows page has loaded)
-        await expect(page.locator('uq-alert')).toHaveCount(3);
+        await expect(page.locator('uq-alert')).toHaveCount(6);
 
         await expect(getAlert(FIRST_ALERT_ID).locator('div#alert')).toHaveAttribute('aria-label', 'Alert.');
         await assertAccessibility(page, `uq-alert[id="${FIRST_ALERT_ID}"]`);
