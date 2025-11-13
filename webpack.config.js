@@ -56,7 +56,7 @@ module.exports = () => {
             hot: true,
             liveReload: true,
             watchFiles: {
-                paths: ['src/**/*', 'index.html', 'src/**/*.html'],
+                paths: ['src/**/*', 'index*.html', 'src/**/*.html'],
             },
         },
         entry: {
