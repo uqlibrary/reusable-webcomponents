@@ -249,6 +249,7 @@ prm-action-list {
         button.button-confirm {
             @include uqPrimaryButton($accent-color, $white);
             border: 2px solid $accent-color !important;
+          font-size: 16px !important;
         }
     }
 }
