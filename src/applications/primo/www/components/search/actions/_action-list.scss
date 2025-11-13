@@ -222,7 +222,7 @@ prm-account {
     .action-list-content {
         z-index: 1;
         background: white;
-      box-shadow: 0 0 0 0.55em #fff, 0 0 0 0.6em #acbecc, 0 2px 15px 5px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 0 0.55em #fff, 0 0 0 0.6em #acbecc, 0 2px 15px 5px rgba(0, 0, 0, 0.2);
 
         md-nav-bar {
             .md-nav-item {
@@ -235,5 +235,20 @@ prm-account {
     ._md-nav-bar-list,
     .md-nav-bar-list {
         justify-content: center;
+    }
+}
+
+prm-action-list {
+    prm-export-bibtex,
+    prm-copy-clipboard-btn,
+    prm-export-excel,
+    prm-export-ris,
+    prm-qr-code,
+    prm-send-email .send-actions-content-item.layout-row,
+    prm-share {
+        button.button-confirm {
+            @include uqPrimaryButton($accent-color, $white);
+            border: 2px solid $accent-color !important;
+        }
     }
 }
