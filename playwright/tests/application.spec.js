@@ -200,11 +200,11 @@ test.describe('Dummy Application', () => {
             await assertHasNoAuthButton(page);
             await assertHasNoProactiveChat(page);
 
-            assertHasNoAlerts(page);
+            await assertHasNoAlerts(page);
 
             // assertHasNoConnectFooter(page);
 
-            assertHasNoUqFooter(page);
+            await assertHasNoUqFooter(page);
         });
     });
 
