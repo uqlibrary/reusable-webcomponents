@@ -2592,3 +2592,16 @@ prm-facet button.button-as-link.link-alt-color.md-button.disabledLockButton:not(
         background-color: transparent !important;
     }
 }
+
+// hover on record nav when full record open inline
+body > primo-explore > .md-dialog-container > div > button.full-view-navigation {
+  &:hover,
+  &:focus,
+  &.hovered,
+  &.md-focused,
+  &._md-focused {
+    &:not([disabled]) {
+      background-color: rgba(51, 51, 51, 0.1);
+    }
+  }
+}
