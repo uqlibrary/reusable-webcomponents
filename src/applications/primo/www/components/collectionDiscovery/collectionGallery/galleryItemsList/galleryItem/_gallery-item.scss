@@ -198,4 +198,17 @@ prm-gallery-item {
             max-width: calc(20% - 1rem);
         }
     }
+
+    button.unpin-button {
+        background-color: transparent !important;
+        color: white;
+        &._md-focused,
+        &.hovered,
+        &.md-focused,
+        &:focus,
+        &:hover {
+            background-color: transparent !important;
+            color: white;
+        }
+    }
 }

@@ -117,7 +117,7 @@ prm-gallery-items-list .result-item-actions .pin-button md-icon,
 prm-collection-gallery prm-gallery-item .collection-element .item-title {
     color: $accent-color !important;
 }
-prm-gallery-items-list .result-item-actions .pin-button:hover md-icon {
+prm-gallery-items-list .result-item-actions .pin-button.pinned:hover md-icon {
     color: $white !important;
 }
 prm-gallery-items-list button.pin-button:hover prm-icon {
@@ -182,10 +182,11 @@ prm-collection-gallery {
     .collection-discovery-expand-search button.md-button {
         &:focus,
         &:hover {
-            color: $accent-color;
-            background-color: transparent;
-            box-shadow: inset 0 -2px 0 0 $accent-color;
+            color: #fff;
+            background-color: $accent-color;
+            box-shadow: none;
         }
         color: $accent-color;
+        text-decoration: underline;
     }
 }
