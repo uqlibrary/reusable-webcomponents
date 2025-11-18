@@ -251,12 +251,17 @@ a.uq-site-header__navigation-link.slide-menu__control:-moz-focusring {
     }
 }
 
-.primoNonProdMarker {
+.primoNonProdEnvMarker {
     color: white;
-    background-color: rgb(51, 51, 51);
     padding: 2px 8px;
     font-weight: bold;
     font-size: 12px;
+}
+.primoNonProdEnvMarkerSandbox {
+    background-color: #2a77ce;
+}
+.primoNonProdEnvMarkerAppdev {
+    background-color: rgb(51, 51, 51);
 }
 /* move the mobile menu up a bit to cover the utility area */
 @media (max-width: 63.99em) {

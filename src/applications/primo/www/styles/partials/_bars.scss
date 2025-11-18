@@ -30,6 +30,16 @@ prm-alert-bar {
             min-width: 40px;
         }
     }
+    .md-button:not([disabled]) {
+        ._md-focused,
+        .hovered,
+        .md-focused,
+        &:focus,
+        &:hover {
+          color: #000;
+          background-color: rgba(51, 51, 51, 0.1);
+        }
+    }
 }
 
 .bar {

@@ -8,6 +8,18 @@ md-radio-button {
     ._md-on {
     }
 
+    &.md-checked {
+        .md-off,
+        ._md-off {
+            border-color: $secondary-hue5;
+        }
+
+        .md-on,
+        ._md-on {
+            background-color: $secondary-hue5;
+        }
+    }
+
     .md-label {
         height: 20px;
     }
