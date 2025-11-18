@@ -23,10 +23,7 @@ prm-alphabet-toolbar {
             box-shadow: none;
             padding-left: 0;
             padding-right: 0;
-            &:focus,
-            &:hover {
-                text-decoration: underline;
-            }
+            text-decoration: underline;
         }
         &.current-letter,
         &.current-letter:focus,
