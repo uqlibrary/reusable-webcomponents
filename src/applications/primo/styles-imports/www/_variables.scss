@@ -123,7 +123,6 @@ $negative-hue1: darken(saturate($negative, 5%), 10%);
 $background: $uqGrey50;
 
 $background-hue1: darken($backgroundColor, 3%); // darker 1 (i.e: background for locations filter bar)
-// $background-hue2: lighten(saturate(adjust-hue($backgroundColor, 0.0000), 0.0000), 3.9216); // lighter 1 (i.e: background for full view dialog)
 $background-hue2: lighten($background, 4%);
 $background-hue3: lighten(
     saturate(adjust-hue($backgroundColor, 0), 0),

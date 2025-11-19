@@ -5,7 +5,7 @@
 md-checkbox {
     &.md-checked {
         &.md-focused ._md-container:before {
-            @extend .prm-secondary-bg.prm-hue3;
+            background-color: unset;
             opacity: 0.3;
         }
     }
