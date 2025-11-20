@@ -2616,3 +2616,16 @@ body > primo-explore > .md-dialog-container > div > button.full-view-navigation 
     }
   }
 }
+
+prm-sign-in-to-view {
+  button.md-button.button-confirm {
+    @include uqPrimaryButton($accent-color, $white);
+    padding: 8px 24px;
+    text-transform: capitalize;
+    span {
+      margin: 0;
+      padding: 0;
+      font-size: 16px;
+    }
+  }
+}
