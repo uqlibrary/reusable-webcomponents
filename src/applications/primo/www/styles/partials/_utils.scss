@@ -66,9 +66,6 @@
 // text
 %text-trim-ellipsis,
 .text-trim-ellipsis {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     span {
         max-width: 100%;
         @extend %text-trim-ellipsis;
