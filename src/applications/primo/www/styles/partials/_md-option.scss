@@ -29,7 +29,6 @@ md-option.prm-select-checkbox {
         .md-icon,
         ._md-icon {
             opacity: 1;
-            @extend .prm-secondary-bg.prm-hue2;
             &:after {
                 left: 6px;
                 top: 1px;

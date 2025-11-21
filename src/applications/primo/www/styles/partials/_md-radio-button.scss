@@ -11,12 +11,12 @@ md-radio-button {
     &.md-checked {
         .md-off,
         ._md-off {
-            @extend .prm-secondary-border.prm-hue5;
+            border-color: $secondary-hue5;
         }
 
         .md-on,
         ._md-on {
-            @extend .prm-secondary-bg.prm-hue5;
+            background-color: $secondary-hue5;
         }
     }
 
@@ -61,7 +61,6 @@ md-radio-group {
             md-radio-button {
                 &.md-checked {
                     & :before {
-                        //@extend .prm-secondary-bg.prm-hue2;
                         opacity: 1;
                     }
                 }

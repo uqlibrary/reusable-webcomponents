@@ -2431,59 +2431,6 @@ md-backdrop.md-dialog-backdrop {
     background-color: #a694b6;
 }
 
-prm-person-entity-page {
-    .person-full-view-inner-container {
-        background-color: $white;
-    }
-    .person-full-view-cont {
-        .person-header h2 span {
-            color: $accent-color;
-        }
-        .image-person-cont:has([src="img/related_person_image.png"]) {
-            display: none;
-        }
-    }
-    prm-featured-results {
-        button.horizontal-content-control.md-button:not([disabled]) {
-            background-color: $white;
-            prm-icon {
-                padding-bottom: 10px;
-                padding-top: 10px;
-            }
-            &:focus-visible,
-            &:hover {
-                prm-icon {
-                    color: $white;
-                    background-color: $accent-color;
-                }
-            }
-        }
-    }
-    .question-mark-popup-cont {
-        button.md-button.neutralized-button {
-            background-color: $white;
-            color: $accent-color;
-            border-radius: 20px;
-            padding: 2px;
-            width: 20px;
-            &:focus,
-            &:hover {
-                background-color: $white;
-                color:$accent-color;
-            }
-        }
-        prm-icon {
-            color: currentColor;
-        }
-    }
-    .person-avatar {
-        flex-direction: row-reverse;
-    }
-    .avatar-img {
-        margin-left: -35px;
-    }
-}
-
 .full-view-aside,
 .full-view-additional-info-side-bar {
     prm-linked-data {
@@ -2586,8 +2533,19 @@ prm-databases {
             top: -16px !important;
         }
     }
+    prm-search {
+        md-card-content {
+            a {
+                text-decoration: underline;
+                &:focus,
+                &:hover {
+                    background-color: $uqPurple500;
+                    color: #fff !important;
+                }
+            }
+        }
+    }
 }
-
 
 button.button-with-icon.button-confirm {
     &>prm-icon {
@@ -2685,4 +2643,30 @@ prm-facet button.button-as-link.link-alt-color.md-button.disabledLockButton:not(
         color: #ccc !important;
         background-color: transparent !important;
     }
+}
+
+// hover on record nav when full record open inline
+body > primo-explore > .md-dialog-container > div > button.full-view-navigation {
+  &:hover,
+  &:focus,
+  &.hovered,
+  &.md-focused,
+  &._md-focused {
+    &:not([disabled]) {
+      background-color: rgba(51, 51, 51, 0.1);
+    }
+  }
+}
+
+prm-sign-in-to-view {
+  button.md-button.button-confirm {
+    @include uqPrimaryButton($accent-color, $white);
+    padding: 8px 24px;
+    text-transform: capitalize;
+    span {
+      margin: 0;
+      padding: 0;
+      font-size: 16px;
+    }
+  }
 }

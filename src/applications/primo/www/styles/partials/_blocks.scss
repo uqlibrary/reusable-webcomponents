@@ -11,7 +11,7 @@
             height: 1em;
             width: 1px;
             // right: -.15em;
-            @extend .prm-background.prm-hue7;
+            background-color: $background-hue7;
             transform: rotate(15deg);
             // position: relative;
             // right: .2em;

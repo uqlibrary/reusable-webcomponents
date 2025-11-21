@@ -103,6 +103,17 @@ prm-voice-search-toast {
         }
     }
 
+    .md-button:not([disabled]) {
+      ._md-focused,
+      .hovered,
+      .md-focused,
+      &:focus,
+      &:hover {
+        color: #000;
+        background-color: rgba(51, 51, 51, 0.1);
+      }
+    }
+
     md-input-container {
         padding: 0 0 0 5px;
         md-select {
