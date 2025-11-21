@@ -7,8 +7,21 @@ const THIRD_ALERT_ID = 'alert-5';
 const COLOUR_UQ_INFO = 'rgb(13, 109, 205)';
 const COLOUR_UQ_WARN = 'rgb(247, 186, 30)';
 const COLOUR_UQ_ALERT = 'rgb(214, 41, 41)';
+const ICON_INFO =
+    'url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 fill=%27none%27 viewBox=%270 0 24 24%27%3E%3Ccircle cx=%2712%27 cy=%2712%27 r=%279.25%27 stroke=%27%23fff%27 stroke-width=%271.5%27 transform=%27rotate%28-180 12 12%29%27/%3E%3Cpath stroke=%27%23fff%27 stroke-linecap=%27round%27 stroke-width=%271.5%27 d=%27M12 16.2v-4%27/%3E%3Ccircle cx=%2712%27 cy=%278.4%27 r=%271.1%27 fill=%27%23fff%27 transform=%27rotate%28-180 12 8.4%29%27/%3E%3C/svg%3E")';
+const ICON_WARN =
+    'url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 fill=%27none%27 viewBox=%270 0 24 24%27%3E%3Ccircle cx=%2712%27 cy=%2712%27 r=%279.25%27 stroke=%27%233b383e%27 stroke-width=%271.5%27/%3E%3Cpath stroke=%27%233b383e%27 stroke-linecap=%27round%27 stroke-width=%271.5%27 d=%27M12 7.8v4%27/%3E%3Ccircle cx=%2711.9%27 cy=%2715.6%27 r=%27.6%27 fill=%27%233b383e%27 stroke=%27%233b383e%27/%3E%3C/svg%3E")';
+const ICON_ERROR =
+    'url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 fill=%27none%27 viewBox=%270 0 24 24%27%3E%3Cpath stroke=%27%23fff%27 stroke-width=%271.5%27 d=%27M20.127 18.545a1.18 1.18 0 0 1-1.055 1.706H4.929a1.18 1.18 0 0 1-1.055-1.706l7.072-14.143a1.179 1.179 0 0 1 2.109 0l7.072 14.143Z%27/%3E%3Cpath stroke=%27%23fff%27 stroke-linecap=%27round%27 stroke-width=%271.5%27 d=%27M12 9v4%27/%3E%3Ccircle cx=%2711.9%27 cy=%2716.601%27 r=%271.1%27 fill=%27%23fff%27/%3E%3C/svg%3E")';
 
 test.describe('Alert', () => {
+    const getBeforeElBackgroundImage = async (el) =>
+        el.evaluate(async (el) => (await window.getComputedStyle(el, '::before')).backgroundImage);
+
+    const assertIconIsVisible = async (el, expected) => {
+        expect(await getBeforeElBackgroundImage(el.locator('.alert__message'))).toBe(expected);
+    };
+
     test('Alert is visible without interaction at 1280', async ({ page }) => {
         const getAlert = (alertIdentifierString) =>
             page.locator('alert-list').locator(`uq-alert[id="${alertIdentifierString}"]`);
@@ -18,17 +31,19 @@ test.describe('Alert', () => {
         await expect(page.locator('alert-list').locator('uq-alert')).toHaveCount(3);
 
         // first alert as expected
-        await expect(getAlert(FIRST_ALERT_ID).getByTestId('alert-icon')).toBeVisible();
+        await assertIconIsVisible(getAlert(FIRST_ALERT_ID), ICON_INFO);
         await expect(getAlert(FIRST_ALERT_ID).getByTestId('alert-title')).toHaveText(
             'This is an info alert that will show on all systems',
         );
         await expect(page.getByTestId(`alert-${FIRST_ALERT_ID}`)).toHaveCSS('background-color', COLOUR_UQ_INFO);
-        await expect(getAlert(FIRST_ALERT_ID).getByTestId('alert-message')).toHaveText('This is the first message');
-        await expect(getAlert(FIRST_ALERT_ID).getByTestId('alert-action-desktop')).toHaveText('Alert 1 button label');
+        await expect(getAlert(FIRST_ALERT_ID).getByTestId('alert-message')).toHaveText(
+            'This is the first message Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        );
+        await expect(getAlert(FIRST_ALERT_ID).getByTestId('alert-link')).toHaveText('Alert 1 button label');
         await expect(getAlert(FIRST_ALERT_ID).getByTestId('alert-close')).toBeVisible();
 
         // second alert as expected
-        await expect(getAlert(SECOND_ALERT_ID).getByTestId('alert-icon')).toBeVisible();
+        await assertIconIsVisible(getAlert(SECOND_ALERT_ID), ICON_WARN);
         await expect(getAlert(SECOND_ALERT_ID).getByTestId('alert-title')).toHaveText(
             'This is a permanent urgent alert that will show on all systems 2 of 2',
         );
@@ -36,11 +51,11 @@ test.describe('Alert', () => {
         await expect(getAlert(SECOND_ALERT_ID).getByTestId('alert-message')).toHaveText('This is the second message');
         await expect(getAlert(SECOND_ALERT_ID).getByTestId('alert-title')).not.toHaveText(/primo/);
         await expect(getAlert(SECOND_ALERT_ID).getByTestId('alert-title')).not.toHaveText(/drupal/);
-        await expect(getAlert(SECOND_ALERT_ID).getByTestId('alert-action-desktop')).toHaveCount(0); // no link out for this alert
+        await expect(getAlert(SECOND_ALERT_ID).getByTestId('alert-link')).not.toBeVisible();
         await expect(getAlert(SECOND_ALERT_ID).getByTestId('alert-close')).toBeVisible();
 
         // third alert as expected
-        await expect(getAlert(THIRD_ALERT_ID).getByTestId('alert-icon')).toBeVisible();
+        await assertIconIsVisible(getAlert(THIRD_ALERT_ID), ICON_ERROR);
         await expect(getAlert(THIRD_ALERT_ID).getByTestId('alert-title')).toHaveText(
             'This is a permanent extreme alert that will show on homepage only',
         );
@@ -48,7 +63,7 @@ test.describe('Alert', () => {
         await expect(getAlert(THIRD_ALERT_ID).getByTestId('alert-message')).toHaveText('This is the third message');
         await expect(getAlert(THIRD_ALERT_ID).getByTestId('alert-title')).not.toHaveText(/primo/);
         await expect(getAlert(THIRD_ALERT_ID).getByTestId('alert-title')).not.toHaveText(/drupal/);
-        await expect(getAlert(THIRD_ALERT_ID).getByTestId('alert-action-desktop')).toHaveCount(0); // no link out for this alert
+        await expect(getAlert(THIRD_ALERT_ID).getByTestId('alert-link')).not.toBeVisible();
         await expect(getAlert(THIRD_ALERT_ID).getByTestId('alert-close')).not.toBeVisible(); // permanent alert, has no hide button
 
         // alerts for other systems don't appear
@@ -69,17 +84,19 @@ test.describe('Alert', () => {
         await expect(page.locator('alert-list').locator('uq-alert')).toHaveCount(3);
 
         // first alert as expected
-        await expect(getAlert(FIRST_ALERT_ID).getByTestId('alert-icon')).toBeVisible();
+        await assertIconIsVisible(getAlert(FIRST_ALERT_ID), ICON_INFO);
         await expect(getAlert(FIRST_ALERT_ID).getByTestId('alert-title')).toHaveText(
             'This is an info alert that will show on all systems',
         );
         await expect(page.getByTestId(`alert-${FIRST_ALERT_ID}`)).toHaveCSS('background-color', COLOUR_UQ_INFO);
-        await expect(getAlert(FIRST_ALERT_ID).getByTestId('alert-message')).toHaveText('This is the first message');
-        await expect(getAlert(FIRST_ALERT_ID).getByTestId('alert-action-mobile')).toHaveText('Alert 1 button label');
+        await expect(getAlert(FIRST_ALERT_ID).getByTestId('alert-message')).toHaveText(
+            'This is the first message Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        );
+        await expect(getAlert(FIRST_ALERT_ID).getByTestId('alert-link')).toHaveText('Alert 1 button label');
         await expect(getAlert(FIRST_ALERT_ID).getByTestId('alert-close')).toBeVisible();
 
         // second alert as expected
-        await expect(getAlert(SECOND_ALERT_ID).getByTestId('alert-icon')).toBeVisible();
+        await assertIconIsVisible(getAlert(SECOND_ALERT_ID), ICON_WARN);
         await expect(getAlert(SECOND_ALERT_ID).getByTestId('alert-title')).toHaveText(
             'This is a permanent urgent alert that will show on all systems 2 of 2',
         );
@@ -87,11 +104,11 @@ test.describe('Alert', () => {
         await expect(getAlert(SECOND_ALERT_ID).getByTestId('alert-message')).toHaveText('This is the second message');
         await expect(getAlert(SECOND_ALERT_ID).getByTestId('alert-title')).not.toHaveText(/primo/);
         await expect(getAlert(SECOND_ALERT_ID).getByTestId('alert-title')).not.toHaveText(/drupal/);
-        await expect(getAlert(SECOND_ALERT_ID).getByTestId('alert-action-mobile')).toHaveCount(0); // no link out for this alert
+        await expect(getAlert(SECOND_ALERT_ID).getByTestId('alert-link')).not.toBeVisible();
         await expect(getAlert(SECOND_ALERT_ID).getByTestId('alert-close')).toBeVisible();
 
         // third alert as expected
-        await expect(getAlert(THIRD_ALERT_ID).getByTestId('alert-icon')).toBeVisible();
+        await assertIconIsVisible(getAlert(THIRD_ALERT_ID), ICON_ERROR);
         await expect(getAlert(THIRD_ALERT_ID).getByTestId('alert-title')).toHaveText(
             'This is a permanent extreme alert that will show on homepage only',
         );
@@ -99,7 +116,7 @@ test.describe('Alert', () => {
         await expect(getAlert(THIRD_ALERT_ID).getByTestId('alert-message')).toHaveText('This is the third message');
         await expect(getAlert(THIRD_ALERT_ID).getByTestId('alert-title')).not.toHaveText(/primo/);
         await expect(getAlert(THIRD_ALERT_ID).getByTestId('alert-title')).not.toHaveText(/drupal/);
-        await expect(getAlert(THIRD_ALERT_ID).getByTestId('alert-action-mobile')).toHaveCount(0); // no link out for this alert
+        await expect(getAlert(THIRD_ALERT_ID).getByTestId('alert-link')).not.toBeVisible();
         await expect(getAlert(THIRD_ALERT_ID).getByTestId('alert-close')).not.toBeVisible(); // permanent alert, has no hide button
 
         // alerts for other systems don't appear
@@ -120,7 +137,7 @@ test.describe('Alert', () => {
         await page.setViewportSize({ width: 1280, height: 900 });
 
         // the default mock page has 3 alerts (shows page has loaded)
-        await expect(page.locator('uq-alert')).toHaveCount(3);
+        await expect(page.locator('uq-alert')).toHaveCount(6);
 
         await expect(getAlert(FIRST_ALERT_ID).locator('div#alert')).toHaveAttribute('aria-label', 'Alert.');
         await assertAccessibility(page, `uq-alert[id="${FIRST_ALERT_ID}"]`);
@@ -169,10 +186,10 @@ test.describe('Alert', () => {
         await page.goto('http://localhost:8080/src/Alert/test-empty-alert.html');
         await page.setViewportSize({ width: 1280, height: 900 });
 
-        await expect(getAlert().getByTestId('alert-icon')).toBeVisible();
+        await assertIconIsVisible(getAlert(), ICON_INFO);
         await expect(getAlert().getByTestId('alert-title')).toHaveText('No title supplied');
         await expect(getAlert().getByTestId('alert-message')).toHaveText('No message supplied');
-        await expect(getAlert().getByTestId('alert-action-desktop')).toHaveCount(0); // no button for this alert
+        await expect(getAlert().getByTestId('alert-link')).not.toBeVisible();
         await expect(getAlert().getByTestId('alert-close')).toBeVisible();
     });
 
@@ -188,12 +205,12 @@ test.describe('Alert', () => {
         await expect(page.locator('.multipleAlerts alert-list')).toHaveCount(2);
 
         // first one has the alerts
-        await expect(getAlert(SECOND_ALERT_ID).getByTestId('alert-icon')).toBeVisible();
+        await assertIconIsVisible(getAlert(SECOND_ALERT_ID), ICON_WARN);
         await expect(getAlert(SECOND_ALERT_ID).getByTestId('alert-title')).toHaveText(
             'This is a permanent urgent alert that will show on all systems 2 of 2',
         );
         await expect(getAlert(SECOND_ALERT_ID).getByTestId('alert-message')).toHaveText('This is the second message');
-        await expect(getAlert(SECOND_ALERT_ID).getByTestId('alert-action-desktop')).toHaveCount(0); // no button for this alert
+        await expect(getAlert(SECOND_ALERT_ID).getByTestId('alert-link')).not.toBeVisible();
         await expect(getAlert(SECOND_ALERT_ID).getByTestId('alert-close')).toBeVisible();
 
         // second does not have any alerts
@@ -213,7 +230,7 @@ test.describe('Alert', () => {
 
         await page.goto('http://localhost:8080');
         await page.setViewportSize({ width: 1280, height: 900 });
-        await getAlert(FIRST_ALERT_ID).getByTestId('alert-action-desktop').click();
+        await getAlert(FIRST_ALERT_ID).getByTestId('alert-link').click();
 
         await expect(page.getByText('it worked!')).toBeVisible();
     });
@@ -246,15 +263,15 @@ test.describe('Alert', () => {
 
         const getAlert = () => page.locator('alert-list').locator('uq-alert[id="masquerade-notice"]');
 
-        await expect(getAlert().getByTestId('alert-icon')).toBeVisible();
+        await assertIconIsVisible(getAlert(), ICON_WARN);
         await expect(getAlert().getByTestId('alert-title')).toHaveText('Masquerade in place:');
         await expect(getAlert().getByTestId('alert-message')).toHaveText(
             'uqvasai masquerading as Robert DAVIDSON (uqrdav10)',
         );
         await expect(page.getByTestId(`alert-masquerade-notice`)).toHaveCSS('background-color', COLOUR_UQ_WARN);
         await expect(getAlert().getByTestId('alert-close')).not.toBeVisible(); // no close button
-        await expect(getAlert().getByTestId('alert-action-desktop')).toBeVisible();
-        await expect(getAlert().getByTestId('alert-action-desktop')).toHaveText('End masquerade');
+        await expect(getAlert().getByTestId('alert-link')).toBeVisible();
+        await expect(getAlert().getByTestId('alert-link')).toHaveText('End masquerade');
     });
     test('the masquerading user can end an old session and log out', async ({ page }) => {
         await page.route('https://auth.library.uq.edu.au/**', async (route) => {
@@ -266,9 +283,9 @@ test.describe('Alert', () => {
 
         const getAlert = () => page.locator('alert-list').locator('uq-alert[id="masquerade-notice"]');
 
-        await expect(getAlert().getByTestId('alert-action-desktop')).toBeVisible();
-        await expect(getAlert().getByTestId('alert-action-desktop')).toHaveText('End masquerade');
-        await getAlert().getByTestId('alert-action-desktop').click();
+        await expect(getAlert().getByTestId('alert-link')).toBeVisible();
+        await expect(getAlert().getByTestId('alert-link')).toHaveText('End masquerade');
+        await getAlert().getByTestId('alert-link').click();
 
         await expect(page.getByText('user visits logout page')).toBeVisible();
     });
