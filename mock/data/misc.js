@@ -49,7 +49,7 @@ export const alerts = [{
     "start": "2021-01-01 00:00:12",
     "end": "2025-12-31 23:59:12",
     "title": "This is an info alert that will show on all systems",
-    "body": "This is the first message [Alert 1 button label](http://www.example.com)",
+    "body": "This is the first message Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. [Alert 1 button label](http://www.example.com)",
     "priority_type": "info",
     "systems": [],
 }, {
