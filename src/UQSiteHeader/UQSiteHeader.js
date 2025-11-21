@@ -212,11 +212,11 @@ class UQSiteHeader extends HTMLElement {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(name);
         }
-        function isSitePrimoNonProd() {
+        function isSitePrimoProdAppdev() {
             const vidParam = getSearchParam('vid');
-            return (isDomainPrimoProd() && vidParam !== '61UQ_INST:61UQ') || isDomainPrimoSandbox();
+            // this will also catch eg prod-DAC
+            return isDomainPrimoProd() && vidParam !== '61UQ_INST:61UQ';
         }
-
         const breadcrumbNav = this.shadowRoot.getElementById('breadcrumb_nav');
         const subsiteListItem = !!breadcrumbNav && breadcrumbNav.querySelector('li#subsite');
         if (!subsiteListItem) {
@@ -233,8 +233,12 @@ class UQSiteHeader extends HTMLElement {
                 const subsiteBreadcrumb =
                     !!this.shadowRoot && this.shadowRoot.getElementById('secondlevel-site-breadcrumb-link');
                 !!subsiteBreadcrumb && !!newSecondLevelTitle && (subsiteBreadcrumb.innerHTML = newSecondLevelTitle);
-                if (isSitePrimoNonProd()) {
-                    !!subsiteBreadcrumb && subsiteBreadcrumb.classList.add('primoNonProdMarker');
+                if (isSitePrimoProdAppdev()) {
+                    !!subsiteBreadcrumb && subsiteBreadcrumb.classList.add('primoNonProdEnvMarker');
+                    !!subsiteBreadcrumb && subsiteBreadcrumb.classList.add('primoNonProdEnvMarkerAppdev');
+                } else if (isDomainPrimoSandbox()) {
+                    !!subsiteBreadcrumb && subsiteBreadcrumb.classList.add('primoNonProdEnvMarker');
+                    !!subsiteBreadcrumb && subsiteBreadcrumb.classList.add('primoNonProdEnvMarkerSandbox');
                 }
             }
         } else if (newSecondLevelTitle === null) {
@@ -247,8 +251,12 @@ class UQSiteHeader extends HTMLElement {
             const subsiteBreadcrumb =
                 !!this.shadowRoot && this.shadowRoot.getElementById('secondlevel-site-breadcrumb-link');
             !!subsiteBreadcrumb && !!newSecondLevelTitle && (subsiteBreadcrumb.innerHTML = newSecondLevelTitle);
-            if (isSitePrimoNonProd()) {
-                !!subsiteBreadcrumb && subsiteBreadcrumb.classList.add('primoNonProdMarker');
+            if (isSitePrimoProdAppdev()) {
+                !!subsiteBreadcrumb && subsiteBreadcrumb.classList.add('primoNonProdEnvMarker');
+                !!subsiteBreadcrumb && subsiteBreadcrumb.classList.add('primoNonProdEnvMarkerAppdev');
+            } else if (isDomainPrimoSandbox()) {
+                !!subsiteBreadcrumb && subsiteBreadcrumb.classList.add('primoNonProdEnvMarker');
+                !!subsiteBreadcrumb && subsiteBreadcrumb.classList.add('primoNonProdEnvMarkerSandbox');
             }
         }
     }

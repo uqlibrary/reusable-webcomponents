@@ -25,8 +25,7 @@ md-input-container {
     label:not(.md-no-float):not(._md-container-ignore, .md-container-ignore) {
         font-weight: inherit;
         white-space: nowrap;
-        @extend .prm-text.prm-hue2;
-        // overflow: visible;
+        color: $text-hue2;
         &.md-required {
             &:after {
                 display: none;
@@ -50,9 +49,6 @@ md-input-container {
         left: 25%;
         width: 0;
         opacity: 1;
-        // transition: all .4s $swift-ease-out-timing-function, opacity .2s .3s $swift-ease-out-timing-function;
-        //@extend	.prm-secondary-bg.prm-hue3;
-        @extend .prm-primary-bg.prm-hue1;
     }
 
     &.md-input-focused {
@@ -61,9 +57,6 @@ md-input-container {
             transition: $swift-ease-out;
             transition-duration: 0.3s;
             transform: translateX(-25%);
-        }
-        input {
-            // @extend	.prm-secondary-border.prm-hue1;
         }
     }
 
@@ -80,7 +73,6 @@ md-input-container {
         @extend .prm-warn;
         &:after {
             opacity: 0;
-            @extend .prm-warn-bg.prm-hue1;
         }
     }
 
@@ -256,7 +248,10 @@ md-input-container {
             &:focus {
                 md-select-value {
                     &:after {
-                        @extend .md-input-color-underline.focused;
+                      width: 100%;
+                      transition: $swift-ease-out;
+                      transition-duration: 0.3s;
+                      transform: translateX(-25%);
                     }
                 }
             }
@@ -354,19 +349,11 @@ md-input-container {
     left: 25%;
     width: 0;
     opacity: 1;
-    @extend .prm-secondary-bg.prm-hue1;
 
     &.focused {
         width: 100%;
         transition: $swift-ease-out;
         transition-duration: 0.3s;
         transform: translateX(-25%);
-    }
-}
-
-// underline for darker backgrounds
-.underline-light-on-dark {
-    &:after {
-        @extend .prm-secondary-bg.prm-hue4;
     }
 }
