@@ -26,3 +26,7 @@
     text-decoration: underline;
     font-weight: 500;
 }
+
+.uq-footer ul.uq-footer__navigation-list a:hover {
+    background-color: #51247a;
+}
