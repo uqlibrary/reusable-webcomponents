@@ -24,4 +24,5 @@
 
 .uq-footer  a.uq-acknowledgement__link {
     text-decoration: underline;
+    font-weight: 500;
 }
