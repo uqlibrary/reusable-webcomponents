@@ -2933,12 +2933,14 @@ a:hover {
 }
 
 .uq-header__nav-primary-list li:hover .uq-header__nav-primary-link {
-    border-bottom: 4px solid #fff
+    background-color: #fff;
+    color: #51247a;
+    text-decoration: underline;
 }
 
-.uq-header__nav-primary-list li .uq-header__nav-primary-link--active {
-    border-bottom: 4px solid #fff
-}
+/*.uq-header__nav-primary-list li .uq-header__nav-primary-link--active {*/
+/*    border-bottom: 4px solid #fff*/
+/*}*/
 
 .uq-header__nav-primary-link {
     display: block;
@@ -6721,9 +6723,9 @@ input[type=radio].uq-input--error:checked::after {
     }
 }
 
-.uq-site-header__navigation__list-item:hover .uq-site-header__navigation__list-link {
-    border-bottom: 4px solid #51247a
-}
+/*.uq-site-header__navigation__list-item:hover .uq-site-header__navigation__list-link {*/
+/*    border-bottom: 4px solid #51247a*/
+/*}*/
 
 .uq-site-header__navigation__sub-toggle {
     position: absolute;

@@ -26,6 +26,18 @@ prm-location-items {
         color: $accent-color !important;
     }
 
+  button.md-mini,
+  button.expand-collapse-button {
+    &._md-focused,
+    &.hovered,
+    &.md-focused,
+    &:focus,
+    &:hover {
+      color: #000;
+      background-color: rgba(51, 51, 51, 0.1) !important;
+    }
+  }
+
 
     md-list {
         @extend .default-shadow;

@@ -30,6 +30,13 @@ md-menu-item {
         md-icon {
             margin-right: 4px;
         }
+        &:not([disabled]) {
+            &:focus,
+            &:hover {
+              color: #000;
+              background-color: rgba(51, 51, 51, 0.1);
+            }
+        }
     }
 
     &.menu-item-indented {

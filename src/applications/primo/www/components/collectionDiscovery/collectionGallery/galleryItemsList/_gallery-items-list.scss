@@ -9,6 +9,7 @@ prm-gallery-items-list {
         @include uqPrimaryButton($accent-color, $white);
         &:hover {
             background-color: $uqPanelBackgroundColor !important;
+            border: 2px solid $accent-color;
         }
     }
 }

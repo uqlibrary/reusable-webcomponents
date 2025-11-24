@@ -140,6 +140,17 @@ prm-facet {
     display: block;
 }
 
+.sidebar-list button:first-of-type.md-button:not([disabled]) {
+  ._md-focused,
+  .hovered,
+  .md-focused,
+  &:focus,
+  &:hover {
+    color: #000;
+    background-color: rgba(51, 51, 51, 0.1);
+  }
+}
+
 .filtered-facets-section {
     padding-left: 0.4em;
     z-index: 1;

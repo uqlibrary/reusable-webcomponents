@@ -998,4 +998,19 @@ prm-advanced-search {
         box-shadow: 0 0 0px 1000px white inset !important; // override the Chrome background-color. Tricky!!
         -webkit-text-fill-color: inherit !important;
     }
+
+    prm-barcode-search {
+        button.clear-button {
+            &:hover,
+            &:focus,
+            &.hovered,
+            &.md-focused,
+            &._md-focused {
+                &:not([disabled]) {
+                    background-color: rgba(51, 51, 51, 0.1);
+                    color: $uqBlack;
+                }
+            }
+        }
+    }
 }
