@@ -12,7 +12,7 @@ const ICON_INFO =
 const ICON_WARN =
     'url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 fill=%27none%27 viewBox=%270 0 24 24%27%3E%3Ccircle cx=%2712%27 cy=%2712%27 r=%279.25%27 stroke=%27%233b383e%27 stroke-width=%271.5%27/%3E%3Cpath stroke=%27%233b383e%27 stroke-linecap=%27round%27 stroke-width=%271.5%27 d=%27M12 7.8v4%27/%3E%3Ccircle cx=%2711.9%27 cy=%2715.6%27 r=%27.6%27 fill=%27%233b383e%27 stroke=%27%233b383e%27/%3E%3C/svg%3E")';
 const ICON_ERROR =
-    'url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 fill=%27none%27 viewBox=%270 0 24 24%27%3E%3Cpath stroke=%27%23fff%27 stroke-width=%271.5%27 d=%27M20.127 18.545a1.18 1.18 0 0 1-1.055 1.706H4.929a1.18 1.18 0 0 1-1.055-1.706l7.072-14.143a1.179 1.179 0 0 1 2.109 0l7.072 14.143Z%27/%3E%3Cpath stroke=%27%23fff%27 stroke-linecap=%27round%27 stroke-width=%271.5%27 d=%27M12 9v4%27/%3E%3Ccircle cx=%2711.9%27 cy=%2716.601%27 r=%271.1%27 fill=%27%23fff%27/%3E%3C/svg%3E")';
+    'url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 fill=%27none%27 viewBox=%270 0 24 24%27%3E%3Cpath stroke=%27%23fff%27 stroke-width=%271.5%27 d=%27M20.127 18.545a1.18 1.18 0 0 1-1.055 1.706H4.929a1.18 1.18 0 0 1-1.055-1.706l7.072-14.143a1.179 1.179 0 0 1 2.109 0z%27/%3E%3Cpath stroke=%27%23fff%27 stroke-linecap=%27round%27 stroke-width=%271.5%27 d=%27M12 9v4%27/%3E%3Ccircle cx=%2711.9%27 cy=%2716.601%27 r=%271.1%27 fill=%27%23fff%27/%3E%3C/svg%3E")';
 
 test.describe('Alert', () => {
     const getBeforeElBackgroundImage = async (el) =>
