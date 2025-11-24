@@ -8,7 +8,7 @@ const webpack = require('webpack');
 // get branch name for current build (if running build locally, CI_BRANCH is not set - it's set in AWS)
 const branch = process && process.env && process.env.CI_BRANCH ? process.env.CI_BRANCH : 'development';
 const environment = branch === 'production' || branch === 'staging' ? branch : 'development';
-const isLocalDev = process.env.NODE_ENV === 'local';
+const isLocalDev = environment === 'development';
 
 // get configuration for the branch
 const config = require('./config').default[environment] || require('./config').default.development;
