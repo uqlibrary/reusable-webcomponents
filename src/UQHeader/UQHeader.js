@@ -55,7 +55,7 @@ template.innerHTML = `
                 <li><a href="https://study.uq.edu.au" data-gtm-label="Study > Study overview" class="gtm-processed" data-analyticsid="uq-header-mobile-study-overview">Study overview</a></li>
                 <li><a href="#" class="global-mobile-nav__audience-link slide-menu__control gtm-processed">Study with us<span class="slide-menu__decorator"> </span></a>
                   <ul>
-                    <li><a class="slide-menu__backlink slide-menu__control" data-action="back"> Study with us</a></li>
+                    <li><a class="slide-menu__backlink slide-menu__control" data-action="back" data-analyticsid="uq-header-mobile-study-with-us"> Study with us</a></li>
                     <li><a href="https://study.uq.edu.au/study-options/programs" data-gtm-label="Study > Find a course or program" class="gtm-processed" data-analyticsid="uq-header-mobile-find-course">Find a course or program</a></li>
                     <li><a href="https://study.uq.edu.au/study-options/browse-study-areas" data-gtm-label="Study > Browse study areas" class="gtm-processed" data-analyticsid="uq-header-mobile-browser-areas">Browse study areas</a></li>
                     <li><a href="https://study.uq.edu.au/study-options" data-gtm-label="Study > Study options" class="gtm-processed" data-analyticsid="uq-header-mobile-study-options">Study options</a></li>
@@ -67,7 +67,7 @@ template.innerHTML = `
                   </ul>
                 </li>
                 <li>
-                  <a href="#" class="global-mobile-nav__audience-link slide-menu__control gtm-processed">Discover UQ<span class="slide-menu__decorator"> </span></a>
+                  <a href="#" class="global-mobile-nav__audience-link slide-menu__control gtm-processed" data-analyticsid="uq-header-mobile-discover">Discover UQ<span class="slide-menu__decorator"> </span></a>
                   <ul>
                     <li><a class="slide-menu__backlink slide-menu__control" data-action="back" data-analyticsid="uq-header-mobile-discover"> Discover UQ</a></li>
                     <li><a href="https://study.uq.edu.au/why-choose-uq" data-gtm-label="Study > Why choose UQ" class="gtm-processed" data-analyticsid="uq-header-mobile-discover-why">Why choose UQ</a></li>
@@ -89,7 +89,7 @@ template.innerHTML = `
                       <li><a href="https://study.uq.edu.au/study-options/study-abroad" data-gtm-label="Study > Study abroad and exchange students" class="gtm-processed" data-analyticsid="uq-header-mobile-information-abroad">Study abroad and exchange students</a></li>
                       <li><a href="https://study.uq.edu.au/information-resources/teachers-guidance-counsellors" data-gtm-label="Study > Teachers and guidance counsellors" class="gtm-processed" data-analyticsid="uq-header-mobile-information-teachers">Teachers and guidance counsellors</a></li>
                       <li><a href="https://study.uq.edu.au/information-resources/parents-guardians" data-gtm-label="Study > Parents and guardians" class="gtm-processed" data-analyticsid="uq-header-mobile-information-parents">Parents and guardians</a></li>
-                      <li><a href="https://my.uq.edu.au" data-gtm-label="Study > Current students" class="gtm-processed">Current students</a></li>
+                      <li><a href="https://my.uq.edu.au" data-gtm-label="Study > Current students" class="gtm-processed" data-analyticsid="uq-header-mobile-information-current">Current students</a></li>
                   </ul>
                 </li>
             </ul>

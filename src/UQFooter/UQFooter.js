@@ -21,8 +21,8 @@ template.innerHTML = `
   <footer id="footer" class="uq-footer" data-gtm-category="Footer" data-testid="uq-footer">
     <div class="uq-acknowledgement uq-acknowledgement--large" data-testid="uq-footer-acknowledgement">
         <div class="uq-acknowledgement__content">
-          <div class="uq-acknowledgement__text">
-            UQ acknowledges the Traditional Owners and their custodianship of the lands on which UQ is situated. <a href="https://about.uq.edu.au/strategy-values/reconciliation" class="uq-acknowledgement__link gtm-processed">Reconciliation at UQ</a>
+          <div class="uq-acknowledgement__text" data-testid="uq-acknowledgement__text">
+            UQ acknowledges the Traditional Owners and their custodianship of the lands on which UQ is situated. <a href="https://about.uq.edu.au/strategy-values/reconciliation" class="uq-acknowledgement__link gtm-processed" data-testid="footer-acknowledgement-link">Reconciliation at UQ</a>
           </div>
         </div>
     </div>
@@ -33,13 +33,13 @@ template.innerHTML = `
                     <h2 class="uq-footer__navigation-title" data-testid="uq-footer__navigation-title--media">Media</h2>
                     <ul class="uq-footer__navigation-list uq-footer__navigation-level-2">
                         <li class="uq-footer__navigation-item">
-                            <a href="https://news.uq.edu.au/contact" class="uq-footer__navigation-link">Media team contacts</a>
+                            <a href="https://news.uq.edu.au/contact" class="uq-footer__navigation-link" data-analyticsid="uqfooter-media-team-desktop">Media team contacts</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://about.uq.edu.au/experts" class="uq-footer__navigation-link">Find a subject matter expert</a>
+                            <a href="https://about.uq.edu.au/experts" class="uq-footer__navigation-link" data-analyticsid="uqfooter-media-expert-desktop">Find a subject matter expert</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://news.uq.edu.au" class="uq-footer__navigation-link">UQ news</a>
+                            <a href="https://news.uq.edu.au" class="uq-footer__navigation-link" data-analyticsid="uqfooter-media-news-desktop">UQ news</a>
                         </li>
                     </ul>
                 </li>

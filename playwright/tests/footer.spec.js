@@ -90,7 +90,7 @@ test.describe('UQ Footer', () => {
                 footerElement
                     .getByTestId('footer-desktop-nav')
                     .locator(`.uq-footer__navigation--is-open:nth-child(${listIndex}) h2`),
-            ).toHaveText(/Working at UQ/);
+            ).toHaveText(/Working with us/);
             await expect
                 .poll(async () =>
                     footerElement
@@ -143,7 +143,7 @@ test.describe('UQ Footer', () => {
             await expect(footerElement.getByTestId(`button-menu-toggle-1`)).toBeVisible();
             await footerElement
                 .getByTestId(`button-menu-toggle-1`)
-                .getByText(/Working at UQ/)
+                .getByText(/Working with us/)
                 .first()
                 .click();
 
