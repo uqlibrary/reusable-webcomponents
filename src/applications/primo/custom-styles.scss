@@ -1736,15 +1736,6 @@ md-select-menu.md-primoExplore-theme md-content md-option:not([disabled]):hover 
     background: $uqInformationLight;
 }
 
-md-select-menu.md-primoExplore-theme {
-    background-color: '#FF0000' !important;
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: auto !important;
-    md-content {
-        -webkit-overflow-scrolling: auto !important;
-    }
-}
-
 // user name in account button should be black on hover, not exlibris-aqua
 prm-explore-main
     prm-user-area-expandable
