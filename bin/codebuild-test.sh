@@ -30,5 +30,5 @@ fi
 
 export TZ='Australia/Brisbane'
 printf "\n--- \e[1mRUNNING E2E TESTS\e[0m ---\n"
-npm run test:e2e
+npm run test:e2e || exit 1
 printf "\n--- \e[1mENDED RUNNING E2E TESTS\e[0m ---\n"
