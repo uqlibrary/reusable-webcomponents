@@ -8,6 +8,7 @@ const webpack = require('webpack');
 // get branch name for current build (if running build locally, CI_BRANCH is not set - it's set in AWS)
 const branch = process && process.env && process.env.CI_BRANCH ? process.env.CI_BRANCH : 'development';
 const environment = branch === 'production' || branch === 'staging' ? branch : 'development';
+const isLocalDev = environment === 'development';
 
 // get configuration for the branch
 const config = require('./config').default[environment] || require('./config').default.development;
@@ -52,6 +53,16 @@ module.exports = () => {
     console.log('BUILD PATH       : ', buildPath(process.env.NODE_ENV, 'index'));
     console.log('------------------------------------------------------------');
     return {
+        ...((isLocalDev && {
+            devServer: {
+                hot: true,
+                liveReload: true,
+                watchFiles: {
+                    paths: ['src/**/*', 'index*.html', 'src/**/*.html'],
+                },
+            },
+        }) ||
+            {}),
         entry: {
             'uq-lib-reusable': './src/index.js',
             'drupal-lib-reusable': './src/drupal.js',
@@ -166,6 +177,6 @@ module.exports = () => {
                 'process.env.API_URL': JSON.stringify(config.api),
             }),
         ].filter(Boolean),
-        mode: 'none',
+        mode: isLocalDev ? 'development' : 'none',
     };
 };

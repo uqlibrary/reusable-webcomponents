@@ -41,7 +41,8 @@ class Alerts extends HTMLElement {
         if (fieldName === 'system') {
             this.system = newValue;
         } else {
-            console.log(`unhandled attribute ${fieldName} received for Alerts`);
+            window.location.hostname === 'localhost' &&
+                console.log(`unhandled attribute ${fieldName} received for Alerts`);
         }
     }
 

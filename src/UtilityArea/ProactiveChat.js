@@ -163,7 +163,8 @@ class ProactiveChat extends HTMLElement {
                     break;
                 /* istanbul ignore next  */
                 default:
-                    console.log(`unhandled attribute ${fieldName} received for ProactiveChat`);
+                    window.location.hostname === 'localhost' &&
+                        console.log(`unhandled attribute ${fieldName} received for ProactiveChat`);
             }
             // Change the attribs here?
             const proactiveChatElement = that.shadowRoot.getElementById('proactive-chat');

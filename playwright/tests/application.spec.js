@@ -71,13 +71,13 @@ test.describe('Dummy Application', () => {
             page.locator('alert-list').locator('uq-alert').locator('[data-testid="alert-alert-2"]'),
         ).not.toBeVisible();
         await expect(
-            page.locator('alert-list').locator('uq-alert').locator('[data-testid="alert-action-desktop"]'),
+            page.locator('alert-list').locator('uq-alert').locator('[data-testid="alert-link"]'),
         ).toBeVisible();
+        await expect(page.locator('alert-list').locator('uq-alert').locator('[data-testid="alert-link"]')).toHaveText(
+            /Alert 1 button label/,
+        );
         await expect(
-            page.locator('alert-list').locator('uq-alert').locator('[data-testid="alert-action-desktop"]'),
-        ).toHaveText(/Alert 1 button label/);
-        await expect(
-            page.locator('alert-list').locator('uq-alert').locator('[data-testid="alert-action-desktop"]'),
+            page.locator('alert-list').locator('uq-alert').locator('[data-testid="alert-link"]'),
         ).toBeVisible();
 
         // not occluded by close button
