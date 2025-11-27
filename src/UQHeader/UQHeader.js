@@ -318,7 +318,8 @@ class UQHeader extends HTMLElement {
                     break;
                 /* istanbul ignore next  */
                 default:
-                    console.log(`unhandled attribute ${fieldName} received for UQHeader`);
+                    window.location.hostname === 'localhost' &&
+                        console.log(`unhandled attribute ${fieldName} received for UQHeader`);
             }
         }, 50);
     }

@@ -150,14 +150,14 @@ class UserAccount extends ApiAccess {
 
     fetchMock(url, options = null) {
         const response = new MockApi().mockfetch(url, options);
-        console.log('mock url = ', url);
-        console.log('mock response = ', response);
-        if (!response.ok || !response.body) {
-            const msg = `fetchMock: An error has occured in mock for ${url}: ${response.status}`;
-            console.log(msg);
+        window.location.hostname === 'localhost' && console.log('mock url = ', url);
+        window.location.hostname === 'localhost' && console.log('mock response = ', response);
+        if (!response?.ok || !response?.body) {
+            const msg = `fetchMock: An error has occured in mock for ${url}: ${response?.status}`;
+            window.location.hostname === 'localhost' && console.log(msg);
             throw new Error(msg);
         }
-        return response.body || /* istanbul ignore next */ {};
+        return response?.body || /* istanbul ignore next */ {};
     }
 
     isMock() {
