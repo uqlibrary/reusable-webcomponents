@@ -180,7 +180,8 @@ class UQSiteHeader extends HTMLElement {
                     break;
                 /* istanbul ignore next  */
                 default:
-                    console.log(`unhandled attribute ${fieldName} received for UQSiteHeader`);
+                    window.location.hostname === 'localhost' &&
+                        console.log(`unhandled attribute ${fieldName} received for UQSiteHeader`);
             }
         }, 50);
     }
