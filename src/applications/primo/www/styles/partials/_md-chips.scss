@@ -17,13 +17,6 @@
         .md-chip-content {
             display: flex;
             max-width: 100%;
-
-            strong {
-                @extend %text-trim-ellipsis;
-                // &:after {
-                //     content:"\a0\a0"
-                // }
-            }
         }
 
         &.rounded-chip {

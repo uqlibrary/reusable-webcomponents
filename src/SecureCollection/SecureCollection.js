@@ -463,28 +463,28 @@ class SecureCollection extends HTMLElement {
 
         // unexpectedly, the api responses have attributes all in lower case,
         // ie apiResponse.displaypanel NOT apiResponse.displayPanel
-        if (apiResponse.response === 'Invalid User') {
+        if (apiResponse?.response === 'Invalid User') {
             that.displayPanel = 'invalidUser';
-        } else if (apiResponse.displaypanel === 'redirect') {
+        } else if (apiResponse?.displaypanel === 'redirect') {
             /* istanbul ignore else */
-            if (!!apiResponse.url) {
+            if (!!apiResponse?.url) {
                 that.displayPanel = 'redirect';
-                that.redirectLink = apiResponse.url;
+                that.redirectLink = apiResponse?.url;
             } else {
                 that.displayPanel = 'error';
             }
-        } else if (apiResponse.displaypanel === 'commercialCopyright') {
+        } else if (apiResponse?.displaypanel === 'commercialCopyright') {
             /* istanbul ignore else */
-            if (!!apiResponse.url) {
-                that.clickLink = apiResponse.url;
+            if (!!apiResponse?.url) {
+                that.clickLink = apiResponse?.url;
                 that.displayPanel = 'commercialCopyright';
             } else {
                 that.displayPanel = 'error';
             }
-        } else if (apiResponse.displaypanel === 'statutoryCopyright') {
+        } else if (apiResponse?.displaypanel === 'statutoryCopyright') {
             /* istanbul ignore else */
-            if (!!apiResponse.url) {
-                that.clickLink = apiResponse.url;
+            if (!!apiResponse?.url) {
+                that.clickLink = apiResponse?.url;
                 that.displayPanel = 'statutoryCopyright';
             } else {
                 that.displayPanel = 'error';

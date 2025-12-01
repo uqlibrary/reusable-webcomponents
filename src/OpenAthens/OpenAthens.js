@@ -351,8 +351,8 @@ class OpenAthens extends HTMLElement {
                     };
                     return null;
                 } else if (response?.available === true) {
-                    this.displayUrl(response.useUrl);
-                    return response.useUrl;
+                    this.displayUrl(response?.useUrl);
+                    return response?.useUrl;
                 } else {
                     // OA said thats not an OA url
                     this.inputValidator = {
