@@ -50,7 +50,7 @@ class SearchPortal extends HTMLElement {
             })
             /* istanbul ignore next */
             .catch((e) => {
-                console.log('getPrimoSuggestions, error: ', e);
+                window.location.hostname === 'localhost' && console.log('getPrimoSuggestions, error: ', e);
             });
     }
 
@@ -64,7 +64,7 @@ class SearchPortal extends HTMLElement {
             /* istanbul ignore next */
             .catch(
                 /* istanbul ignore next */ (e) => {
-                    console.log('getExamPaperSuggestions, error: ', e);
+                    window.location.hostname === 'localhost' && console.log('getExamPaperSuggestions, error: ', e);
                 },
             );
     }
@@ -78,7 +78,7 @@ class SearchPortal extends HTMLElement {
             })
             /* istanbul ignore next */
             .catch((e) => {
-                console.log('getLearningResourceSuggestions, error: ', e);
+                window.location.hostname === 'localhost' && console.log('getLearningResourceSuggestions, error: ', e);
             });
     }
 
