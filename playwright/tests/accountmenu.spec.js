@@ -101,6 +101,20 @@ async function assertUserHasDlorAdmin(expected, page) {
     }
 }
 
+async function assertUserHasSpacesAdmin(expected, page) {
+    const authButton = page.locator('uq-site-header').locator('auth-button');
+    if (!!expected) {
+        await expect(authButton.locator('li[data-testid="spaces-admin"]')).toBeVisible();
+        await expect(authButton.locator('li[data-testid="spaces-admin"]')).toHaveText('Spaces');
+        await expect(authButton.locator('li a[data-testid="mylibrary-menu-spaces-admin"]')).toHaveAttribute(
+            'href',
+            `http://localhost:2020/admin/spaces?user=libSpaces`,
+        );
+    } else {
+        await expect(authButton.locator('li[data-testid="spaces-admin"]')).not.toBeVisible();
+    }
+}
+
 async function assertUserHasSpringshareAdmin(expected, page) {
     if (!!expected) {
         await expect(page.locator('li[data-testid="springshare-admin"]')).toBeVisible();
@@ -392,6 +406,7 @@ test.describe('Account menu button', () => {
             await assertUserHasAlertsAdmin(true, page);
             await assertUserHasTestTagAdmin(false, page); // admins do not get T&T by default
             await assertUserHasDlorAdmin(false, page);
+            await assertUserHasSpacesAdmin(false, page);
             await assertUserHasSpringshareAdmin(true, page);
             await assertUserHasEspaceMenuItem(true, page); // not an admin function, this user happens to have an author account
         });
@@ -405,6 +420,7 @@ test.describe('Account menu button', () => {
             await assertUserHasAlertsAdmin(false, page);
             await assertUserHasTestTagAdmin(true, page);
             await assertUserHasDlorAdmin(false, page);
+            await assertUserHasSpacesAdmin(false, page);
             await assertUserHasSpringshareAdmin(true, page);
         });
 
@@ -420,6 +436,19 @@ test.describe('Account menu button', () => {
             await assertUserHasSpringshareAdmin(true, page);
         });
 
+        test('Spaces admin gets Spaces admin access entry', async ({ page }) => {
+            await visitPageforUser('libSpaces', page);
+            await openAccountDropdown(page);
+
+            await assertUserHasStandardMyLibraryOptions('libSpaces', page);
+            await assertUserHasMasquerade(false, page, 'libSpaces');
+            await assertUserHasAlertsAdmin(false, page);
+            await assertUserHasTestTagAdmin(false, page);
+            await assertUserHasDlorAdmin(false, page);
+            await assertUserHasSpacesAdmin(true, page);
+            await assertUserHasSpringshareAdmin(true, page);
+        });
+
         test('An espace masquerader non-admin sees masquerade but not other admin functions', async ({ page }) => {
             await visitPageforUser('uqmasquerade', page);
             await openAccountDropdown(page);
@@ -429,6 +458,7 @@ test.describe('Account menu button', () => {
             await assertUserHasAlertsAdmin(false, page);
             await assertUserHasTestTagAdmin(false, page);
             await assertUserHasDlorAdmin(false, page);
+            await assertUserHasSpacesAdmin(false, page);
             await assertUserHasSpringshareAdmin(true, page); // is library staff
             await assertUserHasEspaceMenuItem(true, page);
         });
@@ -451,6 +481,7 @@ test.describe('Account menu button', () => {
             await assertUserHasAlertsAdmin(false, page);
             await assertUserHasTestTagAdmin(false, page);
             await assertUserHasDlorAdmin(false, page);
+            await assertUserHasSpacesAdmin(false, page);
             await assertUserHasSpringshareAdmin(true, page);
         });
 
@@ -473,6 +504,7 @@ test.describe('Account menu button', () => {
             await assertUserHasAlertsAdmin(false, page);
             await assertUserHasTestTagAdmin(false, page);
             await assertUserHasDlorAdmin(false, page);
+            await assertUserHasSpacesAdmin(false, page);
             await assertUserHasSpringshareAdmin(false, page);
             await assertUserHasEspaceMenuItem(false, page);
         });
