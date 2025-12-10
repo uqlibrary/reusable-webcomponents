@@ -116,7 +116,7 @@ class ProactiveChat extends HTMLElement {
         const shadowDOM = this.attachShadow({ mode: 'open' });
 
         // Render the userPromptTemplate
-        shadowDOM.appendChild(userPromptTemplate.content.cloneNode(true));
+        !!userPromptTemplate && !!shadowDOM && shadowDOM.appendChild(userPromptTemplate.content.cloneNode(true));
 
         // copilot just shows a nasty error on app.library
         // only show the crm button
@@ -329,8 +329,10 @@ class ProactiveChat extends HTMLElement {
                 if (!!chatbotWrapper) {
                     chatbotWrapper.style.display = 'block';
                 } else {
-                    shadowDOM.appendChild(chatbotIframeTemplate.content.cloneNode(true));
-                    chatbotWrapper = shadowDOM.getElementById('chatbot-wrapper');
+                    !!chatbotIframeTemplate &&
+                        !!shadowDOM &&
+                        shadowDOM.appendChild(chatbotIframeTemplate.content.cloneNode(true));
+                    chatbotWrapper = !!shadowDOM && shadowDOM.getElementById('chatbot-wrapper');
                 }
 
                 // show chatbot source

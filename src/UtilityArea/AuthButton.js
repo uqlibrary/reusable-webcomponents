@@ -65,7 +65,9 @@ class AuthButton extends HTMLElement {
 
         if (this.isOverwriteAsLoggedOutRequested()) {
             // Render the template
-            shadowDOM.appendChild(unauthorisedtemplate.content.cloneNode(true));
+            !!unauthorisedtemplate &&
+                !!shadowDOM &&
+                shadowDOM.appendChild(unauthorisedtemplate.content.cloneNode(true));
             this.addLoginButtonListener(shadowDOM);
             this.addLogoutButtonListeners(shadowDOM);
         } else {
@@ -252,7 +254,9 @@ class AuthButton extends HTMLElement {
                 userDetails.account.hasOwnProperty('id') &&
                 !!userDetails.account.id;
             if (!!isLoggedIN) {
-                shadowDOM.appendChild(authorisedtemplate.content.cloneNode(true));
+                !!authorisedtemplate &&
+                    !!shadowDOM &&
+                    shadowDOM.appendChild(authorisedtemplate.content.cloneNode(true));
                 const account = userDetails?.account;
                 this.displayUserNameAsButtonLabel(shadowDOM, account);
                 this.addAdminMenuOptions(shadowDOM, account);
@@ -267,7 +271,7 @@ class AuthButton extends HTMLElement {
     }
 
     showLoggedOutButton(shadowDOM) {
-        shadowDOM.appendChild(unauthorisedtemplate.content.cloneNode(true));
+        !!unauthorisedtemplate && !!shadowDOM && shadowDOM.appendChild(unauthorisedtemplate.content.cloneNode(true));
         this.addLoginButtonListener(shadowDOM);
     }
 
@@ -531,7 +535,8 @@ class AuthButton extends HTMLElement {
                 const childRect = utilityBar.getBoundingClientRect();
                 bottomPosition = childRect?.bottom;
             }
-            !!bottomPosition && !!accountMenu && (accountMenu.style.top = `${bottomPosition}px`);
+            bottomPosition = `${bottomPosition}px`;
+            !!bottomPosition && !!accountMenu && (accountMenu.style.top = bottomPosition);
 
             function showDisplay() {
                 !!accountMenu && accountMenu.classList.remove('account-options-menu-closed');

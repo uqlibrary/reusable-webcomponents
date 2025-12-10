@@ -106,7 +106,7 @@ class SecureCollection extends HTMLElement {
         const shadowDOM = this.attachShadow({ mode: 'open' });
 
         // Render the template
-        shadowDOM.appendChild(template.content.cloneNode(true));
+        !!template && !!shadowDOM && shadowDOM.appendChild(template.content.cloneNode(true));
 
         this.displayPanel = 'loading'; // which display panel should the page display?
         this.redirectLink = null; // the link the user will presently be auto directed to, as there is no copyright to acknowledge

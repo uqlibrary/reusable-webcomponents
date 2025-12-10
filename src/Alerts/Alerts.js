@@ -32,7 +32,7 @@ class Alerts extends HTMLElement {
 
             const shadowDOM = this.attachShadow({ mode: 'open' });
 
-            shadowDOM.appendChild(template.content.cloneNode(true));
+            !!template && !!shadowDOM && shadowDOM.appendChild(template.content.cloneNode(true));
             this.updateAlertListDom(shadowDOM, this.system);
         }, 50);
     }
