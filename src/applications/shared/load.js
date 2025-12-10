@@ -6,17 +6,19 @@ function ready(fn) {
     }
 }
 
-function fontLoader(font) {
-    var headID = document.getElementsByTagName('head')[0];
-    var link = document.createElement('link');
-    link.type = 'text/css';
-    link.rel = 'stylesheet';
-    headID.appendChild(link);
-    link.href = font;
+// example usage: insertFontFile('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
+function insertFontFile(fontUrl) {
+    const link = document.createElement('link');
+    !!link && (link.type = 'text/css');
+    !!link && (link.rel = 'stylesheet');
+    !!link && (link.href = fontUrl);
+
+    const headElement = document.querySelector('head');
+    !!headElement && !!link && headElement.appendChild(link);
 }
 
 function loadReusableComponents() {
-    fontLoader('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
+    insertFontFile('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
 
     const firstElement = document.body.children[0];
     if (!firstElement) {

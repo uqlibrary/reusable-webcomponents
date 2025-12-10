@@ -26,23 +26,29 @@ function addUtilityButtonsToSiteHeader() {
 }
 
 // example usage: insertFontFile('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
-function insertFontFile(fontFileFullLink) {
-    const headID = document.getElementsByTagName('head')[0];
+function insertFontFile(fontUrl) {
     const link = document.createElement('link');
-    link.type = 'text/css';
-    link.rel = 'stylesheet';
-    !!headID && headID.appendChild(link);
-    link.href = fontFileFullLink;
+    !!link && (link.type = 'text/css');
+    !!link && (link.rel = 'stylesheet');
+    !!link && (link.href = fontUrl);
+
+    const headElement = document.querySelector('head');
+    !!headElement && !!link && headElement.appendChild(link);
 }
 
-function insertCssFile(fileName) {
-    const head = document.head;
-    const link = document.createElement('link');
-    link.type = 'text/css';
-    link.rel = 'stylesheet';
-    link.href = fileName;
+function insertCssFile(cssFileName) {
+    const includeFound = document.querySelector("link[href*='" + cssFileName + "']");
+    if (!!includeFound) {
+        return;
+    }
 
-    head.appendChild(link);
+    const link = document.createElement('link');
+    !!link && (link.type = 'text/css');
+    !!link && (link.rel = 'stylesheet');
+    !!link && (link.href = cssFileName);
+
+    const headElement = document.head;
+    !!headElement && !!link && headElement.appendChild(link);
 }
 
 function addCulturalAdviceToSite() {
