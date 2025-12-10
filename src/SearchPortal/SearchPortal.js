@@ -205,9 +205,9 @@ class SearchPortal extends HTMLElement {
                         }
                     });
 
-                    !!anchor && suggestiondisplay.appendChild(anchor);
+                    !!anchor && !!suggestiondisplay && suggestiondisplay.appendChild(anchor);
 
-                    ul.appendChild(suggestiondisplay);
+                    !!ul && !!suggestiondisplay && ul.appendChild(suggestiondisplay);
                 }
             });
 
@@ -636,11 +636,11 @@ class SearchPortal extends HTMLElement {
         !!button && button.setAttribute('aria-label', `Search in ${entry.name}`);
         !!button && button.setAttribute('id', `search-portal-type-select-item-${index}`);
         const slug = entry.name.toLowerCase().replace(/ /g, '-');
-        !!button && button.setAttribute('data-testid', `portal-search-type-${slug}`);
+        !!slug && !!button && button.setAttribute('data-testid', `portal-search-type-${slug}`);
         !!button && button.setAttribute('data-analyticsid', `primo-search-item-${index}`);
         !!button && button.setAttribute('data-primo-search-form', `primo-search-item-${index}`);
         //!!button && !!svg && button.appendChild(svg);
-        !!button && button.appendChild(label);
+        !!label && !!button && button.appendChild(label);
 
         function handleSearchTypeSelection() {
             that.setSearchTypeButton(index);
@@ -763,7 +763,7 @@ class SearchPortal extends HTMLElement {
             !!searchPortalLocale.typeSelect &&
             searchPortalLocale.typeSelect.items.forEach((entry, index) => {
                 const container = this.createPortalTypeSelectionEntry(entry, index);
-                !!container && portalTypeDropdown.appendChild(container);
+                !!portalTypeDropdown && !!container && portalTypeDropdown.appendChild(container);
             });
 
         const portalTypeSelectorContainer = document.createElement('div');
@@ -773,6 +773,7 @@ class SearchPortal extends HTMLElement {
         !!portalTypeSelectorContainer && portalTypeSelectorContainer.setAttribute('data-testid', 'portal-type-wrapper');
         !!portalTypeSelectorContainer &&
             !!portalTypeDropdown &&
+            !!portalTypeSelectorContainer &&
             portalTypeSelectorContainer.appendChild(portalTypeDropdown);
         const portalTypeContainer = this.shadowRoot.getElementById('portaltype-dropdown');
         !!portalTypeContainer &&
@@ -799,7 +800,7 @@ class SearchPortal extends HTMLElement {
                     that.sendSubmitToGTM(e); // submit the GTM info, then carry on to the normal href navigation
                 },
             );
-        anchor.appendChild(displayLabel);
+        !!anchor && !!displayLabel && anchor.appendChild(displayLabel);
 
         const container = document.createElement('div');
         !!container && (container.className = 'searchUnderlinks MuiGrid-item MuiGrid-grid-xs-auto');
@@ -817,7 +818,7 @@ class SearchPortal extends HTMLElement {
             searchPortalLocale.footerLinks.forEach((link, index) => {
                 if (link.display.includes(searchType) && link.linkto !== window.location.href) {
                     const container = this.createFooterLink(link, index);
-                    !!container && footerLinkContainer.appendChild(container);
+                    !!footerLinkContainer && !!container && footerLinkContainer.appendChild(container);
                 }
             });
     }
@@ -1097,7 +1098,7 @@ class SearchPortal extends HTMLElement {
         const shadowDOM = this.attachShadow({ mode: 'open' });
 
         // Render the template
-        shadowDOM.appendChild(template.content.cloneNode(true));
+        !!template && !!shadowDOM && shadowDOM.appendChild(template.content.cloneNode(true));
 
         this.addListeners();
 

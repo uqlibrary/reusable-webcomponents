@@ -274,7 +274,7 @@ class UQHeader extends HTMLElement {
         const shadowDOM = this.attachShadow({ mode: 'open' });
 
         // Render the template
-        shadowDOM.appendChild(template.content.cloneNode(true));
+        !!template && !!shadowDOM && shadowDOM.appendChild(template.content.cloneNode(true));
 
         // Bindings
         this.hideLibraryGlobalMenuItem = this.hideLibraryGlobalMenuItem.bind(this);

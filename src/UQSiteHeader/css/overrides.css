@@ -251,16 +251,16 @@ a.uq-site-header__navigation-link.slide-menu__control:-moz-focusring {
     }
 }
 
-.primoNonProdEnvMarker {
+li.uq-breadcrumb__item a.uq-breadcrumb__link.primoNonProdEnvMarker {
     color: white;
     padding: 2px 8px;
     font-weight: bold;
     font-size: 12px;
 }
-.primoNonProdEnvMarkerSandbox {
+li.uq-breadcrumb__item a.uq-breadcrumb__link.primoNonProdEnvMarkerSandbox {
     background-color: #2a77ce;
 }
-.primoNonProdEnvMarkerAppdev {
+li.uq-breadcrumb__item a.uq-breadcrumb__link.primoNonProdEnvMarkerAppdev {
     background-color: rgb(51, 51, 51);
 }
 /* move the mobile menu up a bit to cover the utility area */

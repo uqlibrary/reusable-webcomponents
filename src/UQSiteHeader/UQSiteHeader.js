@@ -114,7 +114,7 @@ class UQSiteHeader extends HTMLElement {
 
         // Render the template
         const shadowDOM = this.attachShadow({ mode: 'open' });
-        shadowDOM.appendChild(template.content.cloneNode(true));
+        !!template && !!shadowDOM && shadowDOM.appendChild(template.content.cloneNode(true));
         this.addClickListeners(shadowDOM);
     }
 

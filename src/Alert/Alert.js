@@ -84,7 +84,7 @@ class Alert extends HTMLElement {
             cleanMessage = !!cleanMessage && cleanMessage.length > 0 ? cleanMessage.trim() : cleanMessage;
 
             // Render the template
-            shadowDOM.appendChild(template.content.cloneNode(true));
+            !!template && !!shadowDOM && shadowDOM.appendChild(template.content.cloneNode(true));
 
             // Assign the values
             shadowDOM.getElementById('alert-title').innerText =
