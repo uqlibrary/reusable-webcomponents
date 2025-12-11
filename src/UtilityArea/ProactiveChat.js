@@ -3,6 +3,7 @@ import ApiAccess from '../ApiAccess/ApiAccess';
 import { cookieNotFound, setCookie } from '../helpers/cookie';
 import { apiLocale } from '../ApiAccess/ApiAccess.locale';
 import UserAccount from '../ApiAccess/UserAccount';
+import { sendClickToGTM } from '../helpers/gtmHelpers';
 
 /**
  * API
@@ -115,7 +116,7 @@ class ProactiveChat extends HTMLElement {
         const shadowDOM = this.attachShadow({ mode: 'open' });
 
         // Render the userPromptTemplate
-        shadowDOM.appendChild(userPromptTemplate.content.cloneNode(true));
+        !!userPromptTemplate && !!shadowDOM && shadowDOM.appendChild(userPromptTemplate.content.cloneNode(true));
 
         // copilot just shows a nasty error on app.library
         // only show the crm button
@@ -162,7 +163,8 @@ class ProactiveChat extends HTMLElement {
                     break;
                 /* istanbul ignore next  */
                 default:
-                    console.log(`unhandled attribute ${fieldName} received for ProactiveChat`);
+                    window.location.hostname === 'localhost' &&
+                        console.log(`unhandled attribute ${fieldName} received for ProactiveChat`);
             }
             // Change the attribs here?
             const proactiveChatElement = that.shadowRoot.getElementById('proactive-chat');
@@ -246,7 +248,7 @@ class ProactiveChat extends HTMLElement {
 
     addButtonListeners(shadowDOM, isOnline) {
         const that = this;
-        function closeChatBotIframe() {
+        function closeChatBotIframe(e) {
             const chatbotIframe = shadowDOM.getElementById('chatbot-wrapper');
             !!chatbotIframe && chatbotIframe.remove(); // deleting it rather than hiding it will force it to check for logout
             const proactivechatArea = shadowDOM.getElementById('proactivechat');
@@ -262,6 +264,7 @@ class ProactiveChat extends HTMLElement {
                 const wrapper = shadowDOM.getElementById('proactive-chat-wrapper');
                 !!wrapper && (wrapper.style.display = 'none');
             }
+            !!e && sendClickToGTM(e);
         }
 
         function swapToCrm() {
@@ -271,7 +274,7 @@ class ProactiveChat extends HTMLElement {
             openCrmChat();
         }
 
-        function openCrmChat() {
+        function openCrmChat(e) {
             let accountDetails = null;
             new UserAccount().get().then((currentUserDetails) => {
                 const accountIsSet =
@@ -326,8 +329,10 @@ class ProactiveChat extends HTMLElement {
                 if (!!chatbotWrapper) {
                     chatbotWrapper.style.display = 'block';
                 } else {
-                    shadowDOM.appendChild(chatbotIframeTemplate.content.cloneNode(true));
-                    chatbotWrapper = shadowDOM.getElementById('chatbot-wrapper');
+                    !!chatbotIframeTemplate &&
+                        !!shadowDOM &&
+                        shadowDOM.appendChild(chatbotIframeTemplate.content.cloneNode(true));
+                    chatbotWrapper = !!shadowDOM && shadowDOM.getElementById('chatbot-wrapper');
                 }
 
                 // show chatbot source
@@ -373,6 +378,7 @@ class ProactiveChat extends HTMLElement {
 
                 const openCrmButton = shadowDOM.getElementById('speakToPerson');
                 !!openCrmButton && openCrmButton.addEventListener('click', swapToCrm);
+                !!openCrmButton && openCrmButton.addEventListener('click', sendClickToGTM);
                 const chatbotCloseButton = shadowDOM.getElementById('closeIframeButton');
                 !!chatbotCloseButton && chatbotCloseButton.addEventListener('click', closeChatBotIframe);
 
@@ -434,6 +440,11 @@ class ProactiveChat extends HTMLElement {
         !!proactiveChatWithBot && proactiveChatWithBot.addEventListener('click', openChatBotIframe);
         const proactiveleaveQuestion = shadowDOM.getElementById('leaveAQuestionPrompt');
         !!proactiveleaveQuestion && proactiveleaveQuestion.addEventListener('click', navigateToContactUs);
+
+        const buttons = shadowDOM.querySelectorAll('button');
+        !!buttons &&
+            buttons.length > 0 &&
+            buttons.forEach((b) => b.addEventListener('click', (e) => sendClickToGTM(e)));
     }
 
     isChatBotHiddenHere() {

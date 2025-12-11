@@ -1,11 +1,5 @@
 md-select,
 md-select:not([disabled]) {
-    &:focus,
-    .md-input-focused & {
-        .md-select-value {
-            @extend .prm-secondary-border.prm-hue1;
-        }
-    }
     &[required] {
         // @extend %required-starlet;
         input {

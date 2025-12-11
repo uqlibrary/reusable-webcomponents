@@ -8,7 +8,7 @@ prm-search-result-list {
     .results-header,
     .results-footer {
         @extend .light-text;
-        @extend .prm-background.prm-hue2;
+       background-color: lighten($background, 4%);
     }
 
     // results list header (results count)
@@ -105,6 +105,17 @@ prm-search-result-list {
             [dir='rtl'] & {
                 padding-left: 10px !important;
             }
+        }
+
+        .search-within button {
+          &._md-focused,
+          &.hovered,
+          &.md-focused,
+          &:focus,
+          &:hover {
+            color: #000;
+            background-color: rgba(51, 51, 51, 0.1) !important;
+          }
         }
     }
 

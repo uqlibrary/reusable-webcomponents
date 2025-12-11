@@ -1,31 +1,25 @@
 import styles from './css/main.css';
 import overrides from './css/overrides.css';
-import Cookies from 'js-cookie';
-import { cookieNotFound, getCookieValue, setCookie } from '../helpers/cookie';
-import { apiLocale } from '../ApiAccess/ApiAccess.locale';
-import { authLocale } from '../UtilityArea/auth.locale';
+import { cookieNotFound, setCookie } from '../helpers/cookie';
+import { sendClickToGTM } from '../helpers/gtmHelpers';
 
 const template = document.createElement('template');
 template.innerHTML = `
-  <style>${styles.toString()}</style>
-  <style>${overrides.toString()}</style>
-  <div id="alert" class="alert alert--default" role="alert" data-id="">
+    <style>${styles.toString()}</style>
+    <style>${overrides.toString()}</style>
+    <div id="alert" class="alert alert--default" role="alert" data-id="">
         <div id="alert-container" class="alert__container">
-            <div id="alert-icon" data-testid="alert-icon" class="alert-icon"></div>
             <div class="alert__message">
-                <b id="alert-title" data-testid="alert-title" class="alert-title"></b>
-                <span id="alert-message" data-testid="alert-message"></span>
+                <h3 id="alert-title" data-testid="alert-title" class="alert-title">Title goes here</h3>
+                <p id="alert-message" data-testid="alert-message"></p>
+                <a id="alert-link" data-testid="alert-link" tabindex="0" data-analyticsid="alert-visit-link-desktop">Link</a>
             </div>
-            <a id="alert-action-desktop" data-testid="alert-action-desktop" tabindex="0" data-analytics="alert-visit-link-desktop">Button label</a>
+            <a id="alert-close" data-analyticsid="alert-close" data-testid="alert-close" role="button" aria-label="Dismiss this alert for 24 hours" href="javascript:void(0)" class="alert__close">
+                <svg focusable="false" viewBox="0 0 24 24" aria-label="Dismiss this alert for 24 hours" ><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+            </a>
         </div>
-        <div role="button" id="alert-action-mobile" data-testid="alert-action-mobile" title="button title" tabindex="0" data-analytics="alert-visit-link-mobile">Button label</div>
-        <a id="alert-close" data-analytics="alert-close" data-testid="alert-close" role="button" aria-label="Dismiss this alert for 24 hours" href="javascript:void(0)" class="alert__close">
-            <svg focusable="false" viewBox="0 0 24 24" aria-label="Dismiss this alert for 24 hours" ><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
-        </a>
     </div>
 `;
-
-let initCalled;
 
 class Alert extends HTMLElement {
     constructor() {
@@ -36,6 +30,7 @@ class Alert extends HTMLElement {
 
         // Bindings
         this.loadAlert = this.loadAlert.bind(this);
+        this.addListeners = this.addListeners.bind(this);
     }
 
     loadAlert(shadowDOM) {
@@ -89,7 +84,7 @@ class Alert extends HTMLElement {
             cleanMessage = !!cleanMessage && cleanMessage.length > 0 ? cleanMessage.trim() : cleanMessage;
 
             // Render the template
-            shadowDOM.appendChild(template.content.cloneNode(true));
+            !!template && !!shadowDOM && shadowDOM.appendChild(template.content.cloneNode(true));
 
             // Assign the values
             shadowDOM.getElementById('alert-title').innerText =
@@ -127,20 +122,18 @@ class Alert extends HTMLElement {
 
             // Show or hide the action button and attach the function to do so
             if (!!linkLabel && !!linkUrl) {
-                const navigateToUrl = () => {
-                    window.location.href = linkUrl;
-                };
-                shadowDOM.getElementById('alert-action-desktop').innerText = linkLabel;
-                shadowDOM.getElementById('alert-action-desktop').setAttribute('href', linkUrl);
-
-                shadowDOM.getElementById('alert-action-mobile').setAttribute('title', linkLabel);
-                shadowDOM.getElementById('alert-action-mobile').innerText = linkLabel;
-                shadowDOM.getElementById('alert-action-mobile').addEventListener('click', navigateToUrl);
+                shadowDOM.getElementById('alert-link').innerText = linkLabel;
+                shadowDOM.getElementById('alert-link').setAttribute('href', linkUrl);
             } else {
-                shadowDOM.getElementById('alert-action-desktop').remove();
-                shadowDOM.getElementById('alert-action-mobile').remove();
+                shadowDOM.getElementById('alert-link').remove();
             }
+
+            this.addListeners(shadowDOM);
         }, 300);
+    }
+    addListeners(shadowDOM) {
+        const links = shadowDOM.querySelectorAll('a');
+        !!links && links.length > 0 && links.forEach((l) => l.addEventListener('click', (e) => sendClickToGTM(e)));
     }
 }
 

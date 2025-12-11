@@ -17,10 +17,9 @@ md-tabs {
                     min-width: 4em;
                     &.md-active,
                     &.md-focused {
-                        @extend .prm-primary-color.prm-hue1;
+                        color: $uqPurple500
                     }
                     &.md-focused {
-                        //@extend .prm-background.prm-hue9;
                         border: 2px solid $links-hue-3;
                     }
                     prm-icon {
@@ -46,9 +45,9 @@ md-tabs {
         }
     }
 
-    md-ink-bar {
-        @extend .prm-links-background.prm-hue-3;
-    }
+}
+md-tabs md-ink-bar {
+  background-color: $links-hue-3;
 }
 > md-tabs-wrapper {
     .hidden-tabs & {
@@ -58,7 +57,7 @@ md-tabs {
         background-color: transparent;
     }
     .default-tabs[md-border-bottom] & {
-        @extend .prm-background.prm-hue1;
+        border-color: darken($background, 8%);
         background-color: transparent !important;
     }
 }

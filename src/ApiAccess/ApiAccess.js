@@ -11,10 +11,10 @@ class ApiAccess {
         const urlPath = chatstatusApi.apiUrl;
         await this.fetchAPI(urlPath)
             .then((chatResponse) => {
-                isOnline = !!chatResponse.online;
+                isOnline = !!chatResponse?.online;
             })
             .catch((error) => {
-                console.log('error loading chat status ', error);
+                window.location.hostname === 'localhost' && console.log('error loading chat status ', error);
             });
         return isOnline;
     }
@@ -41,7 +41,7 @@ class ApiAccess {
                 result = askusHours ? askusHours.filter((item) => item !== null)[0] : /* istanbul ignore next */ null;
             })
             .catch((error) => {
-                console.log('error loading hours ', error);
+                window.location.hostname === 'localhost' && console.log('error loading hours ', error);
                 return null;
             });
         return result;
@@ -55,7 +55,7 @@ class ApiAccess {
                 return alerts;
             })
             .catch((error) => {
-                console.log('error loading alerts ', error);
+                window.location.hostname === 'localhost' && console.log('error loading alerts ', error);
                 return null;
             });
     }
@@ -109,7 +109,7 @@ class ApiAccess {
                 );
             })
             .catch((error) => {
-                console.log('error loading Primo suggestions ', error);
+                window.location.hostname === 'localhost' && console.log('error loading Primo suggestions ', error);
                 const msg = `error loading Primo suggestions: ${error.message}`;
                 throw new Error(msg);
             });
@@ -151,7 +151,7 @@ class ApiAccess {
                 return response;
             })
             .catch((error) => {
-                console.log('error loading openathens ', error);
+                window.location.hostname === 'localhost' && console.log('error loading openathens ', error);
                 const msg = 'There was a problem loading Open Athens - please try again later.';
                 throw new Error(msg);
             });
@@ -170,7 +170,7 @@ class ApiAccess {
                 });
             })
             .catch((error) => {
-                console.log('error loading Exam suggestions ', error);
+                window.location.hostname === 'localhost' && console.log('error loading Exam suggestions ', error);
                 const msg = `error loading Exam suggestions: ${error.message}`;
                 throw new Error(msg);
             });
@@ -193,7 +193,8 @@ class ApiAccess {
                 });
             })
             .catch((error) => {
-                console.log('error loading Learning Resource suggestions ', error);
+                window.location.hostname === 'localhost' &&
+                    console.log('error loading Learning Resource suggestions ', error);
                 const msg = `error loading Learning Resource suggestions: ${error.message}`;
                 throw new Error(msg);
             });
@@ -205,7 +206,8 @@ class ApiAccess {
                 return data;
             })
             .catch((error) => {
-                console.log('error loading Secure Collection Check ', error);
+                window.location.hostname === 'localhost' &&
+                    console.log('error loading Secure Collection Check ', error);
                 const msg = `error loading Secure Collection Check: ${error.message}`;
                 throw new Error(msg);
             });
@@ -218,7 +220,8 @@ class ApiAccess {
             })
             .catch(
                 /* istanbul ignore next */ (error) => {
-                    console.log('error loading Secure Collection File ', error);
+                    window.location.hostname === 'localhost' &&
+                        console.log('error loading Secure Collection File ', error);
                     const msg = `error loading Secure Collection File: ${error.message}`;
                     throw new Error(msg);
                 },
@@ -248,7 +251,7 @@ class ApiAccess {
                 urlPath === 'chat_status' && this.showVPNNeededToast(); // dev
 
                 const msg = `mock api error: ${e.message}`;
-                console.log(msg);
+                window.location.hostname === 'localhost' && console.log(msg);
                 throw new Error(msg);
             }
         } else {
@@ -261,7 +264,7 @@ class ApiAccess {
             const finalUrl = urlPath.startsWith('http')
                 ? `${urlPath}${addTimestamp}`
                 : `${API_URL}${urlPath}${addTimestamp}`;
-            console.log(urlPath, 'calls: ', finalUrl);
+            window.location.hostname === 'localhost' && console.log(urlPath, 'calls: ', finalUrl);
             let response;
             try {
                 response = await fetch(finalUrl, {
@@ -272,11 +275,14 @@ class ApiAccess {
             }
 
             if (!response?.ok) {
-                console.log(`ApiAccess console [A3]: An error has occurred: ${response.status} ${response.statusText}`);
-                const message = `ApiAccess [A1]: An error has occured: ${response.status} ${response.statusText}`;
+                window.location.hostname === 'localhost' &&
+                    console.log(
+                        `ApiAccess console [A3]: An error has occurred: ${response?.status} ${response?.statusText}`,
+                    );
+                const message = `ApiAccess [A1]: An error has occured: ${response?.status} ${response?.statusText}`;
                 throw new Error(message);
             }
-            return await response.json();
+            return await response?.json();
         }
     }
 
@@ -291,18 +297,21 @@ class ApiAccess {
                 return this.fetchMock(url);
             } catch (e) {
                 const msg = `mock api error: ${e.message}`;
-                console.log(msg);
+                window.location.hostname === 'localhost' && console.log(msg);
                 throw new Error(msg);
             }
         } else {
             // this assumes non api.library urls
             const response = await fetchJsonp(url, options);
-            if (!response.ok) {
-                console.log(`ApiAccess console [A4]: An error has occured: ${response.status} ${response.statusText}`);
-                const message = `ApiAccess [A2]: An error has occured: ${response.status} ${response.statusText}`;
+            if (!response?.ok) {
+                window.location.hostname === 'localhost' &&
+                    console.log(
+                        `ApiAccess console [A4]: An error has occured: ${response?.status} ${response?.statusText}`,
+                    );
+                const message = `ApiAccess [A2]: An error has occured: ${response?.status} ${response?.statusText}`;
                 throw new Error(message);
             }
-            return await response.json();
+            return (await !!response) ? response.json() : null;
         }
     }
 
@@ -317,14 +326,13 @@ class ApiAccess {
 
     fetchMock(url, options = null) {
         const response = new MockApi().mockfetch(url, options);
-        console.log('mock url = ', url);
-        console.log('mock response = ', response);
-        if (!response.ok || !response.body) {
-            const msg = `fetchMock: An error has occured in mock for ${url}: ${response.status}`;
-            console.log(msg);
+        window.location.hostname === 'localhost' && console.log(`mock "${url}": response = `, response);
+        if (!response?.ok || !response?.body) {
+            const msg = `fetchMock: An error has occured in mock for ${url}: ${response?.status}`;
+            window.location.hostname === 'localhost' && console.log(msg);
             throw new Error(msg);
         }
-        return response.body || /* istanbul ignore next */ {};
+        return response?.body || /* istanbul ignore next */ {};
     }
 
     isMock() {

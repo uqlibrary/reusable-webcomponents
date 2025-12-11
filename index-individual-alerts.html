@@ -87,27 +87,44 @@
     </head>
     <body style="padding: 0; margin: 0; font-family: 'Roboto', sans-serif; background-color: #f7f7f7">
         <!-- This is a test GTM code - insert your site's GTM with attribute name `gtm` -->
-
         <uq-header hidelibrarymenuitem skipnavid="skiptohere"></uq-header>
         <div role="region" aria-label="UQ Library Alerts">
             <div style="width: 100%" data-testid="alerts-wrapper" id="alerts-wrapper">
                 <uq-alert
-                    id="alert-1"
-                    alertmessage="This is the first message [Alert 1 button label](http://www.example.com)"
-                    alerttitle="This is an info alert that will show on all systems"
-                    prioritytype="info"
+                        id="alert-1"
+                        alertmessage="This is the first message Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. [link](http://www.example.com)"
+                        alerttitle="This is an info alert that will show on all systems"
+                        prioritytype="info"
                 ></uq-alert>
                 <uq-alert
-                    id="alert-4"
-                    alertmessage="This is the second message"
-                    alerttitle="This is a permanent urgent alert that will show on all systems 2 of 2"
-                    prioritytype="urgent"
+                        id="alert-2"
+                        alertmessage="This is the first message"
+                        alerttitle="This is an info alert that will show on all systems"
+                        prioritytype="info"
                 ></uq-alert>
                 <uq-alert
-                    id="alert-5"
-                    alertmessage="This is the third message [permanent]"
-                    alerttitle="This is a permanent extreme alert that will show on homepage only"
-                    prioritytype="extreme"
+                        id="alert-3"
+                        alertmessage="This is the second message"
+                        alerttitle="This is a permanent urgent that will show on all systems"
+                        prioritytype="urgent"
+                ></uq-alert>
+                <uq-alert
+                        id="alert-4"
+                        alertmessage="This is the second message [another link](http://www.example.com)"
+                        alerttitle="This is a permanent urgent that will show on all systems"
+                        prioritytype="urgent"
+                ></uq-alert>
+                <uq-alert
+                        id="alert-5"
+                        alertmessage="This is the third message"
+                        alerttitle="This is a extreme alert that will show on homepage only"
+                        prioritytype="extreme"
+                ></uq-alert>
+                <uq-alert
+                        id="alert-6"
+                        alertmessage="This is the third message [permanent] [yet another link](http://www.example.com)"
+                        alerttitle="This is a permanent extreme alert that will show on homepage only"
+                        prioritytype="extreme"
                 ></uq-alert>
             </div>
         </div>

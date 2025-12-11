@@ -42,14 +42,17 @@ function loadReusableComponentsLibGuides() {
         return !!authButton && createSlotForButtonInUtilityArea(authButton, 'auth');
     }
 
-    function fontLoader(font) {
-        var headID = document.getElementsByTagName('head')[0];
-        var link = document.createElement('link');
-        link.type = 'text/css';
-        link.rel = 'stylesheet';
-        headID.appendChild(link);
-        link.href = font;
+    // example usage: insertFontFile('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
+    function insertFontFile(fontUrl) {
+        const link = document.createElement('link');
+        !!link && (link.type = 'text/css');
+        !!link && (link.rel = 'stylesheet');
+        !!link && (link.href = fontUrl);
+
+        const headElement = document.querySelector('head');
+        !!headElement && !!link && headElement.appendChild(link);
     }
+
     function breadcrumblink(b) {
         // truncate the breadcrumb title manually because updating the springshare setting has Consequences
         const title = isCalendarHomepage(b.href) ? 'Calendar' : b.title;
@@ -92,7 +95,7 @@ function loadReusableComponentsLibGuides() {
                 !!listItems &&
                     listItems.forEach((item) => {
                         const anchor = item.querySelector('a');
-                        !!anchor && anchor.setAttribute('data-analytics', 'libcal-breadcrumb');
+                        !!anchor && anchor.setAttribute('data-analyticsid', 'libcal-breadcrumb');
                         const title = anchor ? anchor.textContent : item.textContent;
                         const href = anchor ? anchor.href : null;
                         if (!isLibraryHomepage(href)) {
@@ -106,10 +109,10 @@ function loadReusableComponentsLibGuides() {
     }
 
     // start of page update
-    fontLoader('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
-    fontLoader('https://static.uq.net.au/v15/fonts/Merriweather/merriweather.css');
-    fontLoader('https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css');
-    fontLoader('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
+    insertFontFile('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
+    insertFontFile('https://static.uq.net.au/v15/fonts/Merriweather/merriweather.css');
+    insertFontFile('https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css');
+    insertFontFile('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
 
     const firstElement = document.body.children[0];
 

@@ -45,38 +45,44 @@ function addUtilityButtonsToSiteHeader() {
     }
 }
 
-// example usage: loadFontFile('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
-function loadFontFile(fontFileFullLink) {
-    const headID = document.getElementsByTagName('head')[0];
+// example usage: insertFontFile('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
+function insertFontFile(fontUrl) {
     const link = document.createElement('link');
-    link.type = 'text/css';
-    link.rel = 'stylesheet';
-    !!headID && headID.appendChild(link);
-    link.href = fontFileFullLink;
+    !!link && (link.type = 'text/css');
+    !!link && (link.rel = 'stylesheet');
+    !!link && (link.href = fontUrl);
+
+    const headElement = document.querySelector('head');
+    !!headElement && !!link && headElement.appendChild(link);
 }
 
-function addCss(fileName) {
-    const head = document.head;
-    const link = document.createElement('link');
-    link.type = 'text/css';
-    link.rel = 'stylesheet';
-    link.href = fileName;
+function insertCssFile(cssFileName) {
+    const includeFound = document.querySelector("link[href*='" + cssFileName + "']");
+    if (!!includeFound) {
+        return;
+    }
 
-    head.appendChild(link);
+    const link = document.createElement('link');
+    !!link && (link.type = 'text/css');
+    !!link && (link.rel = 'stylesheet');
+    !!link && (link.href = cssFileName);
+
+    const headElement = document.head;
+    !!headElement && !!link && headElement.appendChild(link);
 }
 
 function insertScript(url, defer = false) {
     const scriptfound = document.querySelector("script[src*='" + url + "']");
-    if (!scriptfound) {
-        const head = document.querySelector('head');
-        if (head) {
-            const script = document.createElement('script');
-            script.setAttribute('type', 'text/javascript');
-            script.setAttribute('src', url);
-            !!defer && script.setAttribute('defer', '');
-            head.appendChild(script);
-        }
+    if (!!scriptfound) {
+        return;
     }
+    const script = document.createElement('script');
+    !!script && script.setAttribute('type', 'text/javascript');
+    !!script && script.setAttribute('src', url);
+    !!script && !!defer && script.setAttribute('defer', '');
+
+    const headElement = document.querySelector('head');
+    !!headElement && !!script && headElement.appendChild(script);
 }
 
 function isITSExternalHosting() {
@@ -145,10 +151,10 @@ function loadReusableComponentsDrupal() {
     insertScript(getScriptPath('drupal-lib-reusable.min.js'), true);
     insertScript(getScriptPath('uq-lib-reusable.min.js'), true);
 
-    loadFontFile('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
-    loadFontFile('https://static.uq.net.au/v15/fonts/Merriweather/merriweather.css');
-    loadFontFile('https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css');
-    loadFontFile('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
+    insertFontFile('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
+    insertFontFile('https://static.uq.net.au/v15/fonts/Merriweather/merriweather.css');
+    insertFontFile('https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css');
+    insertFontFile('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
 
     if (isValidDrupalHost() && libraryPagesWithoutComponents.includes(window.location.pathname)) {
         return;
@@ -157,7 +163,7 @@ function loadReusableComponentsDrupal() {
     const stagingLocation = `-development/${libraryFeatureBranchName}`;
     const cssFile =
         libraryAssetsRootLocation + (isStagingSite() ? stagingLocation : '') + '/applications/drupal/custom-styles.css';
-    addCss(cssFile);
+    insertCssFile(cssFile);
 
     const firstElement = document.body.children[0];
     if (!firstElement) {

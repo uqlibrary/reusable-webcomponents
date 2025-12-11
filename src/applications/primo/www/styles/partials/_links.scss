@@ -11,13 +11,8 @@ a {
     &:hover,
     &:focus,
     &.hover {
-        //@extend .prm-links-background.prm-hue-1;
-        //@extend .prm-links-hover.prm-hue-1;
         @include box-shadow(inset, 0, -2px, 0, 0, ($primary));
-
         .light-on-dark-dialog & {
-            //background-color: transparentize($linkTitle, .9);
-            //color: lighten($linkTitle, 10%);
             box-shadow: inset 0 -2px 0 0 transparentize($linkTitle, 0.3);
         }
     }
@@ -86,5 +81,5 @@ a {
 }
 
 .link-alt-color {
-    @extend .prm-secondary-color.prm-hue1;
+  color: $secondary-hue1;
 }

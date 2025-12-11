@@ -52,7 +52,7 @@ header {
     }
 }
 
-@media (max-width: 1023px) { // 1024 -1
+@media (max-width: 1023px) { /* 1024 -1 */
     input[type='radio'] + label {
         padding-left: 2em;
     }
@@ -69,4 +69,30 @@ header {
 .uq-header__search-query-input,
 .search-toggle__label {
     letter-spacing: 0.16px;
+}
+
+@media (min-width: 64em) {
+    .uq-header__logo img {
+        margin-top: -5px;
+    }
+}
+.uq-header__container {
+    margin-top: -2px;
+    padding-top: 2px;
+    height: 90px;
+}
+@media (max-width: 63.99em) {
+    .uq-header__container {
+        height: 71px;
+    }
+}
+.uq-header__nav-primary-container {
+    margin-top: -4px;
+}
+.uq-header__nav-primary {
+    margin-top: 4px;
+}
+.uq-header__nav-primary-link {
+    border-bottom-width: 0;
+    margin-bottom: 4px;
 }

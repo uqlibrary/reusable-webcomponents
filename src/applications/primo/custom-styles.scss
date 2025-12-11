@@ -313,15 +313,6 @@ prm-user-area-expandable .md-button.user-button .menu-arrow {
 }
 
 // Button hover styling
-.md-button:not([disabled]):not(:has(span.primaryText):not([aria-label="Choose top 50 results"]))._md-focused,
-.md-button:not([disabled]):not(:has(span.primaryText):not([aria-label="Choose top 50 results"])).hovered,
-.md-button:not([disabled]):not(:has(span.primaryText):not([aria-label="Choose top 50 results"])).md-focused,
-.md-button:not([disabled]):not(:has(span.primaryText):not([aria-label="Choose top 50 results"])):focus,
-.md-button:not([disabled]):not(:has(span.primaryText):not([aria-label="Choose top 50 results"])):hover {
-        color: #000;
-        background-color: rgba(51, 51, 51, 0.1);
-
-}
 .md-button:not([disabled]):has(span.primaryText) {
     &:hover {
         background-color: transparent;
@@ -353,6 +344,11 @@ md-menu-item button.md-button svg:nth-of-type(n+2) {
     span.primaryText {
         color: $uqHeading;
     }
+}
+.uql-account-menu-option.logout-option button.md-button:not([disabled]) span.bold-text { // logged in
+  font-weight: 400 !important;
+  margin-top: 14px;
+  font-size: 1rem;
 }
 .my-library-card-ctm .md-button:hover:not([disabled]), // logged in
 .my-search-history-ctm .md-button:hover:not([disabled]), // logged in
@@ -967,14 +963,20 @@ prm-explore-main {
 }
 
 prm-location,
-prm-location-items,
-prm-snippet.availability-button
+prm-location-items
 {
-    // default to purple so we never get orange!
     span.availability-status,
     span.availability-status span {
-        color: $accent-color !important;
+        color: $uqBlack !important;
     }
+}
+prm-snippet.availability-button
+{
+  span.availability-status,
+  span.availability-status span {
+    color: $accent-color !important;
+    text-decoration: underline;
+  }
 }
 
 // make the login button in the toast look clickable
@@ -1496,7 +1498,8 @@ prm-user-area-expandable .mylibrary-list {
 // make the mobile items to be deleted color on color so there is no flash
 .mobile-main-menu-bg {
     button.button-with-icon.md-button.md-primoExplore-theme.md-ink-ripple,
-    not(prm-authentication) button.button-with-icon.zero-margin.md-button.md-primoExplore-theme.md-ink-ripple {
+    // :not(prm-authentication) button.button-with-icon.zero-margin.md-button.md-primoExplore-theme.md-ink-ripple
+    {
     color: #0d1a26;
 }
 }
@@ -1999,6 +2002,7 @@ body prm-full-view-service-container {
     prm-location-items md-list md-list-item {
         &:hover:not([disabled]) {
             background-color: $uqPanelBackgroundColor;
+            cursor: pointer;
         }
 
         @media (min-width: 1120px) {
@@ -2386,59 +2390,6 @@ md-backdrop.md-dialog-backdrop {
     background-color: #a694b6;
 }
 
-prm-person-entity-page {
-    .person-full-view-inner-container {
-        background-color: $white;
-    }
-    .person-full-view-cont {
-        .person-header h2 span {
-            color: $accent-color;
-        }
-        .image-person-cont:has([src="img/related_person_image.png"]) {
-            display: none;
-        }
-    }
-    prm-featured-results {
-        button.horizontal-content-control.md-button:not([disabled]) {
-            background-color: $white;
-            prm-icon {
-                padding-bottom: 10px;
-                padding-top: 10px;
-            }
-            &:focus-visible,
-            &:hover {
-                prm-icon {
-                    color: $white;
-                    background-color: $accent-color;
-                }
-            }
-        }
-    }
-    .question-mark-popup-cont {
-        button.md-button.neutralized-button {
-            background-color: $white;
-            color: $accent-color;
-            border-radius: 20px;
-            padding: 2px;
-            width: 20px;
-            &:focus,
-            &:hover {
-                background-color: $white;
-                color:$accent-color;
-            }
-        }
-        prm-icon {
-            color: currentColor;
-        }
-    }
-    .person-avatar {
-        flex-direction: row-reverse;
-    }
-    .avatar-img {
-        margin-left: -35px;
-    }
-}
-
 .full-view-aside,
 .full-view-additional-info-side-bar {
     prm-linked-data {
@@ -2541,8 +2492,19 @@ prm-databases {
             top: -16px !important;
         }
     }
+    prm-search {
+        md-card-content {
+            a {
+                text-decoration: underline;
+                &:focus,
+                &:hover {
+                    background-color: $uqPurple500;
+                    color: #fff !important;
+                }
+            }
+        }
+    }
 }
-
 
 button.button-with-icon.button-confirm {
     &>prm-icon {
@@ -2640,4 +2602,30 @@ prm-facet button.button-as-link.link-alt-color.md-button.disabledLockButton:not(
         color: #ccc !important;
         background-color: transparent !important;
     }
+}
+
+// hover on record nav when full record open inline
+body > primo-explore > .md-dialog-container > div > button.full-view-navigation {
+  &:hover,
+  &:focus,
+  &.hovered,
+  &.md-focused,
+  &._md-focused {
+    &:not([disabled]) {
+      background-color: rgba(51, 51, 51, 0.1);
+    }
+  }
+}
+
+prm-sign-in-to-view {
+  button.md-button.button-confirm {
+    @include uqPrimaryButton($accent-color, $white);
+    padding: 8px 24px;
+    text-transform: capitalize;
+    span {
+      margin: 0;
+      padding: 0;
+      font-size: 16px;
+    }
+  }
 }

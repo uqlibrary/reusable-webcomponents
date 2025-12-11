@@ -57,7 +57,7 @@ prm-personalize-results-button {
                 height: 23px;
                 .md-bar,
                 ._md-bar {
-                    @extend .prm-background.prm-hue7;
+                    background-color: $background-hue7;
                 }
                 .md-thumb,
                 ._md-thumb {

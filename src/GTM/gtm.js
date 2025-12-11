@@ -18,16 +18,16 @@ class gtm extends HTMLElement {
     constructor() {
         super();
         this.loadJS = this.loadJS.bind(this);
-        const gtm = this.getAttribute('gtm');
-        if (!!gtm) {
-            this.loadJS(gtm);
+        const gtmId = this.getAttribute('gtm');
+        if (!!gtmId) {
+            this.loadJS(gtmId);
         }
     }
-    loadJS(gtm) {
-        if (!!gtm && !hasInserted) {
+    loadJS(gtmId) {
+        if (!!gtmId && !hasInserted) {
             hasInserted = true;
             const gtmElement = template.content.getElementById('gtm');
-            !!gtmElement && (gtmElement.src = 'https://www.googletagmanager.com/ns.html?id=' + gtm);
+            !!gtmElement && (gtmElement.src = 'https://www.googletagmanager.com/ns.html?id=' + gtmId);
 
             // <!-- Google Tag Manager -->
             (function (w, d, s, l, i) {
@@ -36,14 +36,17 @@ class gtm extends HTMLElement {
                     'gtm.start': new Date().getTime(),
                     event: 'gtm.js',
                 });
-                var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s),
-                    /* istanbul ignore next */
-                    dl = l != 'dataLayer' ? '&l=' + l : '';
+                const fTags = !!s && !!d && d.getElementsByTagName(s);
+                const f = !!fTags && fTags.length > 0 && fTags[0];
+                const dl = !!l && l !== 'dataLayer' ? '&l=' + l : '';
+                const j = !!s && d.createElement(s);
+                if (!j) {
+                    return;
+                }
                 j.async = true;
                 j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-                f.parentNode.insertBefore(j, f);
-            })(window, document, 'script', 'dataLayer', gtm);
+                !!f && f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', gtmId);
             // <!-- End Google Tag Manager -->
 
             // Render the template into the body
