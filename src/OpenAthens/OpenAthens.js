@@ -139,7 +139,7 @@ class OpenAthens extends HTMLElement {
 
     connectedCallback() {
         const shadowDOM = this.attachShadow({ mode: 'open' });
-        shadowDOM.appendChild(template.content.cloneNode(true));
+        !!shadowDOM && !!template && shadowDOM.appendChild(template.content.cloneNode(true));
 
         this.copyLinkButton = shadowDOM.getElementById('open-athens-copy-link-button');
         this.copyOptions = shadowDOM.getElementById('open-athens-copy-options');
