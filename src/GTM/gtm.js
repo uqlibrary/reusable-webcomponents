@@ -45,6 +45,7 @@ class gtm extends HTMLElement {
                 }
                 j.async = true;
                 j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                console.log('gtm:: j.src=', j.src);
                 !!f && f.parentNode.insertBefore(j, f);
             })(window, document, 'script', 'dataLayer', gtmId);
             // <!-- End Google Tag Manager -->
