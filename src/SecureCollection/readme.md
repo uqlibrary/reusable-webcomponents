@@ -32,6 +32,7 @@ A link that requires a Commercial Copyright statement does so
 - LOGIN: should be logged in
 - load: https://assets.library.uq.edu.au/reusable-webcomponents-development/master/index-secure-collection.html?collection=bomdata&file=ev_2012.zip
 - see: This file is provided to support teaching and learning for the staff and students
+- eg https://files.library.uq.edu.au/collection/?collection=bomdata&file=ev_2012.zip
 
 A link that is missing the appropriate parameters displays a "missing" page
 

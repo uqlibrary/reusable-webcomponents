@@ -68,19 +68,21 @@ function dePolymerIcons() {
     !!emailIcon && !!newemailIcon && emailIcon.parentNode.replaceChild(newemailIcon, emailIcon);
 }
 
-function fontLoader(font) {
-    var headID = document.getElementsByTagName('head')[0];
-    var link = document.createElement('link');
-    link.type = 'text/css';
-    link.rel = 'stylesheet';
-    headID.appendChild(link);
-    link.href = font;
+// example usage: insertFontFile('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
+function insertFontFile(fontUrl) {
+    const link = document.createElement('link');
+    !!link && (link.type = 'text/css');
+    !!link && (link.rel = 'stylesheet');
+    !!link && (link.href = fontUrl);
+
+    const headElement = document.querySelector('head');
+    !!headElement && !!link && headElement.appendChild(link);
 }
 
 function loadReusableComponents() {
     // because it is a major headache for ITS to deploy changes, we've just added this font here.
     // if we are asking for changes at some point, it would be good to move it into the template so all the font calls are in one place
-    fontLoader('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
+    insertFontFile('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
 
     addSkipNavLandingPoint();
 

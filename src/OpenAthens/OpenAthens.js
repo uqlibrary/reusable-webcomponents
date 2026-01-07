@@ -139,7 +139,7 @@ class OpenAthens extends HTMLElement {
 
     connectedCallback() {
         const shadowDOM = this.attachShadow({ mode: 'open' });
-        shadowDOM.appendChild(template.content.cloneNode(true));
+        !!shadowDOM && !!template && shadowDOM.appendChild(template.content.cloneNode(true));
 
         this.copyLinkButton = shadowDOM.getElementById('open-athens-copy-link-button');
         this.copyOptions = shadowDOM.getElementById('open-athens-copy-options');
@@ -351,8 +351,8 @@ class OpenAthens extends HTMLElement {
                     };
                     return null;
                 } else if (response?.available === true) {
-                    this.displayUrl(response.useUrl);
-                    return response.useUrl;
+                    this.displayUrl(response?.useUrl);
+                    return response?.useUrl;
                 } else {
                     // OA said thats not an OA url
                     this.inputValidator = {

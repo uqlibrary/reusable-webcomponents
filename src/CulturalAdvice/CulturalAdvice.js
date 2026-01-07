@@ -32,7 +32,7 @@ class CulturalAdvice extends HTMLElement {
         const shadowDOM = this.attachShadow({ mode: 'open' });
 
         // Render the template
-        shadowDOM.appendChild(template.content.cloneNode(true));
+        !!shadowDOM && !!template && shadowDOM.appendChild(template.content.cloneNode(true));
 
         this.addListeners(shadowDOM);
 

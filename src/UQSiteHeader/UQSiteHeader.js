@@ -114,7 +114,7 @@ class UQSiteHeader extends HTMLElement {
 
         // Render the template
         const shadowDOM = this.attachShadow({ mode: 'open' });
-        shadowDOM.appendChild(template.content.cloneNode(true));
+        !!template && !!shadowDOM && shadowDOM.appendChild(template.content.cloneNode(true));
         this.addClickListeners(shadowDOM);
     }
 
@@ -180,7 +180,8 @@ class UQSiteHeader extends HTMLElement {
                     break;
                 /* istanbul ignore next  */
                 default:
-                    console.log(`unhandled attribute ${fieldName} received for UQSiteHeader`);
+                    window.location.hostname === 'localhost' &&
+                        console.log(`unhandled attribute ${fieldName} received for UQSiteHeader`);
             }
         }, 50);
     }
@@ -202,21 +203,6 @@ class UQSiteHeader extends HTMLElement {
     }
 
     setSecondLevelTitle(newSecondLevelTitle) {
-        function isDomainPrimoProd() {
-            return window.location.hostname === 'search.library.uq.edu.au';
-        }
-        function isDomainPrimoSandbox() {
-            return window.location.hostname === 'uq-psb.primo.exlibrisgroup.com';
-        }
-        function getSearchParam(name) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(name);
-        }
-        function isSitePrimoProdAppdev() {
-            const vidParam = getSearchParam('vid');
-            // this will also catch eg prod-DAC
-            return isDomainPrimoProd() && vidParam !== '61UQ_INST:61UQ';
-        }
         const breadcrumbNav = this.shadowRoot.getElementById('breadcrumb_nav');
         const subsiteListItem = !!breadcrumbNav && breadcrumbNav.querySelector('li#subsite');
         if (!subsiteListItem) {
@@ -230,16 +216,7 @@ class UQSiteHeader extends HTMLElement {
                 } else {
                     !!breadcrumbNav && breadcrumbNav.appendChild(subsiteTemplate.content.cloneNode(true));
                 }
-                const subsiteBreadcrumb =
-                    !!this.shadowRoot && this.shadowRoot.getElementById('secondlevel-site-breadcrumb-link');
-                !!subsiteBreadcrumb && !!newSecondLevelTitle && (subsiteBreadcrumb.innerHTML = newSecondLevelTitle);
-                if (isSitePrimoProdAppdev()) {
-                    !!subsiteBreadcrumb && subsiteBreadcrumb.classList.add('primoNonProdEnvMarker');
-                    !!subsiteBreadcrumb && subsiteBreadcrumb.classList.add('primoNonProdEnvMarkerAppdev');
-                } else if (isDomainPrimoSandbox()) {
-                    !!subsiteBreadcrumb && subsiteBreadcrumb.classList.add('primoNonProdEnvMarker');
-                    !!subsiteBreadcrumb && subsiteBreadcrumb.classList.add('primoNonProdEnvMarkerSandbox');
-                }
+                this.markPrimoBreadcrumb(newSecondLevelTitle);
             }
         } else if (newSecondLevelTitle === null) {
             if (!!subsiteListItem) {
@@ -247,17 +224,43 @@ class UQSiteHeader extends HTMLElement {
                 subsiteListItem.remove();
             }
         } else {
-            // it exists, update it
-            const subsiteBreadcrumb =
-                !!this.shadowRoot && this.shadowRoot.getElementById('secondlevel-site-breadcrumb-link');
-            !!subsiteBreadcrumb && !!newSecondLevelTitle && (subsiteBreadcrumb.innerHTML = newSecondLevelTitle);
-            if (isSitePrimoProdAppdev()) {
-                !!subsiteBreadcrumb && subsiteBreadcrumb.classList.add('primoNonProdEnvMarker');
-                !!subsiteBreadcrumb && subsiteBreadcrumb.classList.add('primoNonProdEnvMarkerAppdev');
-            } else if (isDomainPrimoSandbox()) {
-                !!subsiteBreadcrumb && subsiteBreadcrumb.classList.add('primoNonProdEnvMarker');
-                !!subsiteBreadcrumb && subsiteBreadcrumb.classList.add('primoNonProdEnvMarkerSandbox');
+            this.markPrimoBreadcrumb(newSecondLevelTitle);
+        }
+    }
+
+    markPrimoBreadcrumb(newSecondLevelTitle) {
+        function currentPrimoEnvironmentId() {
+            // matches function in exlibris-primo custom.js
+            const paramName = 'vid';
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has(paramName)) {
+                return urlParams.get(paramName);
             }
+
+            const pathSegments = window.location.pathname.split('/');
+            const institutionSegment = pathSegments.find((segment) => segment.includes('61UQ_INST:'));
+            return institutionSegment || null;
+        }
+        function isDomainPrimoProd() {
+            return window.location.hostname === 'search.library.uq.edu.au';
+        }
+        function isDomainPrimoProd_VidNonProd() {
+            // this will catch prod-appdev, prod-DAC, etc but not prod-prod(public)
+            return isDomainPrimoProd() && currentPrimoEnvironmentId() !== '61UQ_INST:61UQ';
+        }
+        function isDomainPrimoSandbox() {
+            return window.location.hostname === 'uq-psb.primo.exlibrisgroup.com';
+        }
+        const subsiteBreadcrumb =
+            !!this.shadowRoot && this.shadowRoot.getElementById('secondlevel-site-breadcrumb-link');
+        !!subsiteBreadcrumb && !!newSecondLevelTitle && (subsiteBreadcrumb.innerHTML = newSecondLevelTitle);
+        if (isDomainPrimoProd_VidNonProd()) {
+            !!subsiteBreadcrumb && subsiteBreadcrumb.classList.add('primoNonProdEnvMarker');
+            !!subsiteBreadcrumb && subsiteBreadcrumb.classList.add('primoNonProdEnvMarkerAppdev');
+        }
+        if (isDomainPrimoSandbox()) {
+            !!subsiteBreadcrumb && subsiteBreadcrumb.classList.add('primoNonProdEnvMarker');
+            !!subsiteBreadcrumb && subsiteBreadcrumb.classList.add('primoNonProdEnvMarkerSandbox');
         }
     }
 
