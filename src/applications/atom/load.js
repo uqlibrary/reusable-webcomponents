@@ -34,22 +34,29 @@ function updateLogoLink() {
     !!logoElement && logoElement.setAttribute('href', 'https://www.uq.edu.au/');
 }
 
+function contentExists(searchText = 'Reference code') {
+    const headings = document.evaluate(
+        `//h3[contains(., '${searchText}')]`,
+        document,
+        null,
+        XPathResult.ANY_TYPE,
+        null,
+    );
+    const thisHeading = headings.iterateNext();
+    return !!thisHeading;
+}
 function addBookNowButton() {
     const buttonLabel = 'Book now';
     const bookingLandingPage = 'https://calendar.library.uq.edu.au/reserve/spaces/reading-room';
 
     // Only pages with a Reference code are for an item that the patron can make a booking to view
-    const hasReferenceCode = document.querySelector('.referenceCode');
-    if (!hasReferenceCode) {
+    if (!contentExists('Reference code')) {
         return;
     }
     // the tree in the area at the top of the detail page reloads the page. Re-add the button each time.
     // note, the button sits in the top padding of the sidebar so the sidebar doesn't flicker as this redraws.
     setInterval(() => {
-        const buttonLabel = 'Book now';
-        const bookingLandingPage = 'https://calendar.library.uq.edu.au/reserve/spaces/reading-room';
-
-        const sidebarMenu = document.getElementById('context-menu');
+        const sidebarMenu = document.getElementById('action-icons'); //
         const bookNowWrapperIdentifier = 'booknowLink';
         const buttonWrapper = document.getElementById(bookNowWrapperIdentifier);
         if (!!sidebarMenu && !buttonWrapper) {
@@ -57,11 +64,22 @@ function addBookNowButton() {
             !!sidebarParent &&
                 !sidebarParent.classList.contains('sidebarParent') &&
                 sidebarParent.classList.add('sidebarParent');
-            const bookingLinkContainer =
-                `<div id="${bookNowWrapperIdentifier}" data-testid="booknowLink" class="bookNowWrapper"">` +
-                '<p>Make an appointment to request access</p>' +
-                `<a class="booknow bookNowLink" data-analyticsid="fryer-booking" target="_blank" href="${bookingLandingPage}">${buttonLabel}</a>` +
-                '</div>';
+            // icon: https://www.streamlinehq.com/icons/ultimate-regular-free?search=calendar&icon=ico_cyjrCEgOghvvMPl4
+            const bookingLinkContainer = `<div id="${bookNowWrapperIdentifier}" data-testid="booknowLink" class="bookNowWrapper box">
+                    <p>Make an appointment to request access</p>
+                    <div class="bookNowLinkWrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" id="Time-Daily-1--Streamline-Ultimate" height="24" width="24" aria-hidden="true">
+                          <path stroke="#51247a" stroke-linecap="round" stroke-linejoin="round" d="M10.5 13h0.75c0.1989 0 0.3897 0.079 0.5303 0.2197 0.1407 0.1406 0.2197 0.3314 0.2197 0.5303V19" stroke-width="1.5"></path>
+                          <path stroke="#51247a" stroke-linecap="round" stroke-linejoin="round" d="M10.5 19h3" stroke-width="1.5"></path>
+                          <path stroke="#51247a" stroke-linecap="round" stroke-linejoin="round" d="M2.25 3.75h19.5s1.5 0 1.5 1.5v16.5s0 1.5 -1.5 1.5H2.25s-1.5 0 -1.5 -1.5V5.25s0 -1.5 1.5 -1.5Z" stroke-width="1.5"></path>
+                          <path stroke="#51247a" stroke-linecap="round" stroke-linejoin="round" d="M0.75 9.75h22.5" stroke-width="1.5"></path>
+                          <path stroke="#51247a" stroke-linecap="round" stroke-linejoin="round" d="M6.75 6V0.75" stroke-width="1.5"></path>
+                          <path stroke="#51247a" stroke-linecap="round" stroke-linejoin="round" d="M17.25 6V0.75" stroke-width="1.5"></path>
+                        </svg>
+    
+                        <a class="booknow bookNowLink" data-analyticsid="fryer-booking" target="_blank" href="${bookingLandingPage}">${buttonLabel}</a>
+                    </div>
+                </div>`;
 
             sidebarMenu.insertAdjacentHTML('beforebegin', bookingLinkContainer);
         }
@@ -84,17 +102,16 @@ const createIcon = (svgPath, size) => {
     return svg;
 };
 
-// they supply an 'i' as a font on the button - we want a better icon
-// css in custom-styles to override built in entry
+// replace 'i' icon with a hamburger icon
 function swapQuickMenuIcon() {
-    // https://mui.com/material-ui/material-icons/?query=hamburger&selected=Menu
-    const hamburgerIconSvg = 'M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z';
-    const hamburgerIcon = createIcon(hamburgerIconSvg, 28);
-    const quickMenuButton = document.querySelector('#quick-links-menu button');
-    !!quickMenuButton && !!hamburgerIcon && quickMenuButton.appendChild(hamburgerIcon);
+    const existingIcon = document.querySelector('#quick-links-menu i');
+    !!existingIcon &&
+        existingIcon.classList.contains('fa-info-circle') &&
+        existingIcon.classList.remove('fa-info-circle');
+    !!existingIcon && !existingIcon.classList.contains('fa-bars') && existingIcon.classList.add('fa-bars');
 }
 
-function addCulturalAdvicePopup() {
+function addCulturalAdviceBanner() {
     const targetElement = document.getElementById('top-bar');
     if (!targetElement) return;
 
@@ -145,8 +162,31 @@ function getIncludeFileLocation(filename) {
 }
 
 function relabelMenuDropdown() {
-    const hamburgerMenuHeading = document.querySelector('#quick-links-menu .top-dropdown-header h2');
+    const hamburgerMenuHeading = document.querySelector('[aria-labelledby="quick-links-menu"] h6.dropdown-header');
     !!hamburgerMenuHeading && (hamburgerMenuHeading.textContent = 'Menu');
+}
+
+function setupLinksForStyling(menuIdentifier) {
+    const menus = document.querySelectorAll(menuIdentifier);
+    if (!menus) {
+        return;
+    }
+
+    menus.forEach((menu) => {
+        console.log('menu=', menu);
+        const anchors = menu.querySelectorAll('a');
+
+        anchors.forEach((anchor) => {
+            anchor.childNodes.forEach((node) => {
+                if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+                    console.log('node=', node);
+                    const span = document.createElement('span');
+                    span.textContent = node.textContent;
+                    anchor.replaceChild(span, node);
+                }
+            });
+        });
+    });
 }
 
 function addCulturalAdviceBanner(displayText) {
@@ -219,6 +259,45 @@ function createCustomIconIndicator(svgPathValue, iconWrapperClassName, labelText
     !!indicatorWrapper && !!indicatorLabel && indicatorWrapper.appendChild(indicatorLabel);
 
     return indicatorWrapper;
+}
+
+function splitSidebarIntoBoxes() {
+    const actionIcons = document.querySelector('#context-menu #action-icons');
+
+    if (!actionIcons) {
+        return;
+    }
+
+    const children = Array.from(actionIcons.children);
+
+    const groups = [];
+    let currentGroup = null;
+
+    children.forEach((child) => {
+        if (child.tagName === 'H4') {
+            if (currentGroup) {
+                groups.push(currentGroup); // Start a new group
+            }
+            currentGroup = [child];
+        } else {
+            // if (child.tagName === 'UL' && currentGroup) {
+            // Add other children to the current group
+            currentGroup.push(child);
+            groups.push(currentGroup);
+            currentGroup = null;
+        }
+    });
+
+    actionIcons.innerHTML = ''; // Clear the action-icons section
+
+    groups.forEach((group) => {
+        const wrapper = document.createElement('div');
+        !!wrapper && !wrapper.classList.contains('box') && wrapper.classList.add('box');
+        group.forEach((element) => {
+            wrapper.appendChild(element);
+        });
+        actionIcons.appendChild(wrapper);
+    });
 }
 
 function highlightCulturallySignificantEntriesOnListPage() {
@@ -295,12 +374,19 @@ function loadReusableComponentsAtom() {
 
     swapQuickMenuIcon();
 
-    addCulturalAdvicePopup();
+    addCulturalAdviceBanner();
 
     relabelMenuDropdown();
 
+    setupLinksForStyling('ul[aria-labelledby="clipboard-menu"]'); // header paperclip menu
+    setupLinksForStyling('ul[aria-labelledby="quick-links-menu"]'); // header hamburger menu
+    setupLinksForStyling('nav ul.list-unstyled'); // sidebar items
+    setupLinksForStyling('ul[aria-labelledby="browse-menu"]'); // header browse menu
+
     highlightCulturallySignificantEntriesOnDetailPage();
     highlightCulturallySignificantEntriesOnListPage();
+
+    splitSidebarIntoBoxes();
 }
 
 ready(loadReusableComponentsAtom);
