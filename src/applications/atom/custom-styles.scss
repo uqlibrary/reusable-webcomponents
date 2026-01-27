@@ -1,15 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
+// colours: https://design-system.ads-staging.aws.uq.edu.au/?path=/docs/core-colour--docs
 $grey-900: #3b383e;
 $purple-500: #51247a;
 $purple-500-rgb: 81, 36, 122;
-$utiiity-50: #e7f0fa;
-$utility-50: #0d6dcd;
+$utility-50: #e7f0fa;
+$utility-500: #0d6dcd;
 
 $accent-color: $purple-500;
 $accent-color-rgb: $purple-500-rgb;
 $body-copy: $grey-900;
-$info-banner-background: $utiiity-50;
+$info-banner-background: $utility-50;
 
 $fontFamily: Roboto, Helvetica Neue, Helvetica, Arial, sans-serif;
 
@@ -91,9 +92,6 @@ a.atom-icon-link,
 a {
     &:hover,
     &:focus {
-        //&:has(span) i {
-        //    color: $accent-color;
-        //}
         span {
             // span inserted into all relevant anchors by load.js, see function setupLinksForStyling
             background-color: $accent-color;
@@ -411,56 +409,53 @@ header {
 }
 .culturalAdviceMark {
     svg {
-        color: $utility-50;
+        color: $utility-500;
         width: 24px;
         height: 24px;
         path {
-            fill: $utility-50;
+            fill: $utility-500;
         }
     }
 }
-//// colours: https://design-system.ads-staging.aws.uq.edu.au/?path=/docs/core-colour--docs
-//$color-success-50: #edf6ed;
-//$color-success-100: #dbeddc;
-//
-//// override tree colours in https://sandbox-fryer.library.uq.edu.au/vendor/jstree/themes/default/style.min.css
-//.jstree-default .jstree-hovered {
-//    background: $color-success-50;
-//}
-//
-//.jstree-default .jstree-context {
-//    background: $color-success-50;
-//}
-//
-//.jstree-default .jstree-clicked {
-//    color: #000 !important;
-//    background: $color-success-100;
-//}
-//.jstree-default.jstree-checkbox-no-clicked .jstree-clicked.jstree-hovered {
-//    background: $color-success-50;
-//}
-//
-//.jstree-default.jstree-checkbox-no-clicked>.jstree-wholerow-ul .jstree-wholerow-clicked.jstree-wholerow-hovered {
-//    background: $color-success-50;
-//}
-//.jstree-default .jstree-wholerow-hovered {
-//    background: $color-success-50;
-//}
-//
-//.jstree-default .jstree-wholerow-clicked {
-//    background: $color-success-100;
-//    background: linear-gradient(to bottom,$color-success-100 0,$color-success-50 100%)
-//}
-//.jstree-default-responsive .jstree-wholerow-hovered {
-//    background: $color-success-50;
-//}
-//
-//.jstree-default-responsive .jstree-wholerow-clicked {
-//    background: $color-success-100;
-//}
-//.jstree-anchor,
-//.jstree-default {
-//    &:hover {
-//        background: $color-success-50;
-//    }
-//}
+
+// override tree colours in https://sandbox-fryer.library.uq.edu.au/vendor/jstree/themes/default/style.min.css
+.jstree-default .jstree-hovered {
+    background: $utility-50;
+}
+
+.jstree-default .jstree-context {
+    background: $utility-50;
+}
+
+.jstree-default .jstree-clicked {
+    color: #fff !important;
+    background: $accent-color !important;
+}
+.jstree-default.jstree-checkbox-no-clicked .jstree-clicked.jstree-hovered {
+    background: $utility-50;
+}
+
+.jstree-default.jstree-checkbox-no-clicked>.jstree-wholerow-ul .jstree-wholerow-clicked.jstree-wholerow-hovered {
+    background: $utility-50;
+}
+.jstree-default .jstree-wholerow-hovered {
+    background: $utility-50;
+}
+
+.jstree-default .jstree-wholerow-clicked {
+    background: $accent-color;
+    background: linear-gradient(to bottom,$accent-color 0,$utility-50 100%)
+}
+.jstree-default-responsive .jstree-wholerow-hovered {
+    background: $utility-50;
+}
+
+.jstree-default-responsive .jstree-wholerow-clicked {
+    background: $accent-color;
+}
+.jstree-anchor,
+.jstree-default {
+    &:hover {
+        background: $utility-50;
+    }
+}
