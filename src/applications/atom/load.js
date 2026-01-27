@@ -215,13 +215,11 @@ function setupLinksForStyling(menuIdentifier) {
     }
 
     menus.forEach((menu) => {
-        console.log('menu=', menu);
         const anchors = menu.querySelectorAll('a');
 
         anchors.forEach((anchor) => {
             anchor.childNodes.forEach((node) => {
                 if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
-                    console.log('node=', node);
                     const span = document.createElement('span');
                     span.textContent = node.textContent;
                     anchor.replaceChild(span, node);
@@ -335,13 +333,13 @@ function createCustomIconIndicator(svgPathValue, iconWrapperClassName, labelText
 }
 
 function splitSidebarIntoBoxes() {
-    const actionIcons = document.querySelector('#context-menu #action-icons');
-
-    if (!actionIcons) {
-        return;
-    }
-
     setInterval(() => {
+        const actionIcons = document.querySelector('#context-menu #action-icons');
+
+        if (!actionIcons) {
+            return;
+        }
+
         const actionIconsBox = document.querySelector('#context-menu #action-icons .box');
 
         if (!actionIconsBox) {
@@ -357,7 +355,7 @@ function splitSidebarIntoBoxes() {
                         groups.push(currentGroup); // Start a new group
                     }
                     currentGroup = [child];
-                } else {
+                } else if (!!currentGroup) {
                     // if (child.tagName === 'UL' && currentGroup) {
                     // Add other children to the current group
                     currentGroup.push(child);
@@ -387,13 +385,10 @@ function highlightCulturallySignificantEntriesOnListPage() {
 
     // get text blocks which may have content advice
     const contentlist = document.querySelectorAll('article.search-result .summary em');
-    console.log('CA:: contentlist=', contentlist);
     !!contentlist &&
         contentlist.forEach(function (contentAdvice) {
-            console.log('CA:: contentAdvice=', contentAdvice);
             let hasContentAdvice = false;
             const contentAdviceText = contentAdvice.textContent;
-            console.log('CA:: contentAdviceText=', contentAdviceText);
             if (!!contentAdviceText.startsWith('Content advice: Aboriginal and Torres Strait Islander')) {
                 hasContentAdvice = true;
             } else if (!!contentAdviceText.startsWith('Content advice: Aboriginal, Torres Strait Islander')) {
@@ -425,7 +420,6 @@ function highlightCulturallySignificantEntriesOnListPage() {
             !!indicatorList && indicatorList.appendChild(createdCAIndicator);
 
             const targetParent = contentAdvice.parentNode.parentNode;
-            console.log('CA:: targetParent=', targetParent);
 
             const checkExists = targetParent.querySelectorAll(`.${culturalAdviceMarkClassName}`);
             if (
