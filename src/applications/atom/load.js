@@ -335,46 +335,47 @@ function createCustomIconIndicator(svgPathValue, iconWrapperClassName, labelText
 function splitSidebarIntoBoxes() {
     setInterval(() => {
         const actionIcons = document.querySelector('#context-menu #action-icons');
-
         if (!actionIcons) {
+            // no sidebar items to box-ify
             return;
         }
 
         const actionIconsBox = document.querySelector('#context-menu #action-icons .box');
-
-        if (!actionIconsBox) {
-            // if there are no boxes add them - they go away if they click on a new page in the heirarchy
-            const children = Array.from(actionIcons.children);
-
-            const groups = [];
-            let currentGroup = null;
-
-            children.forEach((child) => {
-                if (child.tagName === 'H4') {
-                    if (currentGroup) {
-                        groups.push(currentGroup); // Start a new group
-                    }
-                    currentGroup = [child];
-                } else if (!!currentGroup) {
-                    // if (child.tagName === 'UL' && currentGroup) {
-                    // Add other children to the current group
-                    currentGroup.push(child);
-                    groups.push(currentGroup);
-                    currentGroup = null;
-                }
-            });
-
-            actionIcons.innerHTML = ''; // Clear the action-icons section
-
-            groups.forEach((group) => {
-                const wrapper = document.createElement('div');
-                !!wrapper && !wrapper.classList.contains('box') && wrapper.classList.add('box');
-                group.forEach((element) => {
-                    wrapper.appendChild(element);
-                });
-                actionIcons.appendChild(wrapper);
-            });
+        if (!!actionIconsBox) {
+            // boxes currently exist
+            return;
         }
+
+        // the page redraws when a heirarchy link is clicked, and boxes go away - this re-adds them
+        const children = Array.from(actionIcons.children);
+
+        const groups = [];
+        let currentGroup = null;
+
+        children.forEach((child) => {
+            if (child.tagName === 'H4') {
+                if (currentGroup) {
+                    groups.push(currentGroup); // Start a new group
+                }
+                currentGroup = [child];
+            } else if (!!currentGroup) {
+                // Add other children to the current group
+                currentGroup.push(child);
+                groups.push(currentGroup);
+                currentGroup = null;
+            }
+        });
+
+        actionIcons.innerHTML = ''; // Clear the action-icons section
+
+        groups.forEach((group) => {
+            const wrapper = document.createElement('div');
+            !!wrapper && !wrapper.classList.contains('box') && wrapper.classList.add('box');
+            group.forEach((element) => {
+                wrapper.appendChild(element);
+            });
+            actionIcons.appendChild(wrapper);
+        });
     }, 100);
 }
 

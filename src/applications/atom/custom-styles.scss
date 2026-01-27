@@ -50,6 +50,7 @@ body {
     }
     .field {
         h3,
+        h4,
         div {
             color: $body-copy;
             font-family: $fontFamily;
@@ -108,6 +109,7 @@ nav a.nav-link.dropdown-toggle {
     }
 }
 nav.sidebarParent {
+    #physical-objects,
     div.field,
     div.box {
         background-color: rgb(255, 255, 255);
@@ -120,7 +122,7 @@ nav.sidebarParent {
         border-color: rgba(38, 85, 115, 0.15);
         border-image: initial;
         border-radius: 4px;
-        padding: 1.5rem 1rem 0 1rem;
+        padding: 1.5rem 1.5rem 0 1.5rem;
         margin-bottom: 32px;
         h4 {
             margin: 0px;
@@ -143,6 +145,18 @@ nav.sidebarParent {
                     background-color: $accent-color;
                     color: #fff;
                 }
+            }
+        }
+    }
+    span.read-more {
+        margin-top: 1rem;
+        display: block;
+        a {
+            text-decoration: underline;
+            &:hover,
+            &:focus {
+                background-color: $accent-color;
+                color: #fff;
             }
         }
     }
@@ -259,6 +273,13 @@ header {
             }
         }
 
+        a:not(:has(i)) {
+            background-color: $accent-color;
+            color: #fff;
+        }
+
+        a:hover,
+        a:focus,
         button:hover,
         button:focus {
             background-color: #fff;
@@ -275,6 +296,18 @@ header {
 
         li {
             padding-bottom: 1rem;
+            &:last-of-type {
+                padding-bottom: 0;
+            }
+        }
+    }
+    #physical-objects,
+    .field {
+        li {
+            padding-bottom: 1rem;
+            &:last-of-type {
+                padding-bottom: 0;
+            }
         }
     }
 }
@@ -444,7 +477,7 @@ header {
 
 .jstree-default .jstree-wholerow-clicked {
     background: $accent-color;
-    background: linear-gradient(to bottom,$accent-color 0,$utility-50 100%)
+    background: linear-gradient(to bottom, $accent-color 0, $utility-50 100%);
 }
 //.jstree-default-responsive .jstree-wholerow-hovered {
 //    background: $utility-50;
@@ -460,11 +493,10 @@ header {
 //    }
 //}
 
-
 .list-group {
     --bs-list-group-border-width: 0;
 }
-.card>.list-group {
+.card > .list-group {
     border-top-width: 0;
     border-bottom-width: 0;
 }
@@ -477,7 +509,7 @@ header {
         color: #19151c !important;
         font-size: 1.5rem;
         font-weight: 500;
-        letter-spacing: .16px;
+        letter-spacing: 0.16px;
         line-height: 1.2;
     }
 
