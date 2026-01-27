@@ -125,7 +125,7 @@ This repo uses [playwright.dev](https://playwright.dev/) tests. To run tests:
 
 NOTE: CI testing uses environment variables stored on AWS to run playwright successfully.
 
-- data-testid attributes are used to identify elements for tests
+- data-testid attributes are used to identify elements for tests.
 - data-analyticsid attributes are used for GTM/GA tagging and are supplied by the customer (although we often advise) - DO NOT CHANGE EXISTING DATA_ANALYTICS ENTRIES without direct consult with our GA staff (Nick).
 
 ## Branches
