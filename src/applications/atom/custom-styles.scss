@@ -4,6 +4,7 @@ $grey-900: #3b383e;
 $purple-500: #51247a;
 $purple-500-rgb: 81, 36, 122;
 $utiiity-50: #e7f0fa;
+$utility-50: #0d6dcd;
 
 $accent-color: $purple-500;
 $accent-color-rgb: $purple-500-rgb;
@@ -405,12 +406,17 @@ header {
     }
 }
 .customIndicatorLabel {
-    font-size: 11px;
+    font-size: 16px;
     margin-top: -1px;
 }
 .culturalAdviceMark {
-    path {
-        fill: $accent-color;
+    svg {
+        color: $utility-50;
+        width: 24px;
+        height: 24px;
+        path {
+            fill: $utility-50;
+        }
     }
 }
 //// colours: https://design-system.ads-staging.aws.uq.edu.au/?path=/docs/core-colour--docs

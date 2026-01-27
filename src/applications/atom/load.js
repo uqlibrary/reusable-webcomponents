@@ -295,7 +295,11 @@ function highlightCulturallySignificantEntriesOnDetailPage() {
     !!contentAdvisoryParagraph &&
         contentAdvisoryParagraph.forEach((paragraph) => {
             const contentAdvice = paragraph.textContent;
-            if (!!contentAdvice.startsWith('Cultural advice: Aboriginal and Torres Strait Islander')) {
+            if (!!contentAdvice.startsWith('Content advice: Aboriginal and Torres Strait Islander')) {
+                bannerText = contentAdvice.replace('Content advice: ', '');
+            } else if (!!contentAdvice.startsWith('Content advice: Aboriginal, Torres Strait Islander')) {
+                bannerText = contentAdvice.replace('Content advice: ', '');
+            } else if (!!contentAdvice.startsWith('Cultural advice: Aboriginal and Torres Strait Islander')) {
                 bannerText = contentAdvice.replace('Cultural advice: ', '');
             } else if (!!contentAdvice.startsWith('Cultural advice: Aboriginal, Torres Strait Islander')) {
                 bannerText = contentAdvice.replace('Cultural advice: ', '');
@@ -375,14 +379,21 @@ function highlightCulturallySignificantEntriesOnListPage() {
     }
 
     // get text blocks which may have content advice
-    const contentlist = document.querySelectorAll('article.search-result .scope-and-content em');
+    const contentlist = document.querySelectorAll('article.search-result .summary em');
+    console.log('CA:: contentlist=', contentlist);
     !!contentlist &&
         contentlist.forEach(function (contentAdvice) {
+            console.log('CA:: contentAdvice=', contentAdvice);
             let hasContentAdvice = false;
             const contentAdviceText = contentAdvice.textContent;
+            console.log('CA:: contentAdviceText=', contentAdviceText);
             if (!!contentAdviceText.startsWith('Content advice: Aboriginal and Torres Strait Islander')) {
                 hasContentAdvice = true;
             } else if (!!contentAdviceText.startsWith('Content advice: Aboriginal, Torres Strait Islander')) {
+                hasContentAdvice = true;
+            } else if (!!contentAdviceText.startsWith('Cultural advice: Aboriginal and Torres Strait Islander')) {
+                hasContentAdvice = true;
+            } else if (!!contentAdviceText.startsWith('Cultural advice: Aboriginal, Torres Strait Islander')) {
                 hasContentAdvice = true;
             }
             if (!hasContentAdvice) {
@@ -407,6 +418,8 @@ function highlightCulturallySignificantEntriesOnListPage() {
             !!indicatorList && indicatorList.appendChild(createdCAIndicator);
 
             const targetParent = contentAdvice.parentNode.parentNode;
+            console.log('CA:: targetParent=', targetParent);
+
             const checkExists = targetParent.querySelectorAll(`.${culturalAdviceMarkClassName}`);
             if (
                 checkExists.length === 0 && // dont insert it twice
