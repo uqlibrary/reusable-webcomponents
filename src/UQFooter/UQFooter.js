@@ -135,7 +135,7 @@ template.innerHTML = `
                     <button class="uq-accordion__toggle uq-footer__navigation-toggle" data-testid="button-menu-toggle-0" data-analyticsid="button-menu-toggle-0" id="button-menu-toggle-0">Media</button>
                     <ul class="uq-accordion__content uq-footer__navigation-list uq-footer__navigation-level-2" data-testid="mobile-child-list-0">
                         <li class="uq-footer__navigation-item">
-                            <a href="https://uq.edu.au/contact" class="uq-footer__navigation-link" data-analyticsid="uqfooter-media-team-mobile">Media team contacts</a>
+                            <a href="https://news.uq.edu.au/contact" class="uq-footer__navigation-link" data-analyticsid="uqfooter-media-team-mobile">Media team contacts</a>
                         </li>
                         <li class="uq-footer__navigation-item">
                             <a href="https://about.uq.edu.au/experts" class="uq-footer__navigation-link" data-analyticsid="uqfooter-media-expert-mobile">Find a subject matter expert</a>
