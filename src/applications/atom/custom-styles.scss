@@ -201,33 +201,43 @@ header {
     }
 }
 
-#action-icons {
-    button {
-        border-width: 0;
+#context-menu {
+    i {
         color: $accent-color;
-        text-decoration: underline;
-        padding-left: 0;
-        &:focus {
-            box-shadow: none;
-        }
-        // get rid of weird underline on icon
-        i { width: 8px; }
-        span { padding-left: 4px;}
-
     }
-    button:hover,
-    button:focus {
-        background-color: #fff;
-        span {
-            background-color: $accent-color;
-            color: #fff;
-        }
-        i {
+    #action-icons {
+        button {
+            border-width: 0;
             color: $accent-color;
+            text-decoration: underline;
+            padding-left: 0;
+
+            &:focus {
+                box-shadow: none;
+            }
+
+            // get rid of weird underline on icon
+            i { width: 8px; }
+            span { padding-left: 4px; }
         }
-    }
-    li {
-        padding-bottom: 1rem;
+
+        button:hover,
+        button:focus {
+            background-color: #fff;
+
+            span {
+                background-color: $accent-color;
+                color: #fff;
+            }
+
+            i {
+                color: $accent-color;
+            }
+        }
+
+        li {
+            padding-bottom: 1rem;
+        }
     }
 }
 #main-column .sidebarParent {
