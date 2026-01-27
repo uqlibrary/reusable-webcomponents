@@ -431,34 +431,34 @@ header {
     color: #fff !important;
     background: $accent-color !important;
 }
-.jstree-default.jstree-checkbox-no-clicked .jstree-clicked.jstree-hovered {
-    background: $utility-50;
-}
-
-.jstree-default.jstree-checkbox-no-clicked>.jstree-wholerow-ul .jstree-wholerow-clicked.jstree-wholerow-hovered {
-    background: $utility-50;
-}
-.jstree-default .jstree-wholerow-hovered {
-    background: $utility-50;
-}
+//.jstree-default.jstree-checkbox-no-clicked .jstree-clicked.jstree-hovered {
+//    background: $utility-50;
+//}
+//
+//.jstree-default.jstree-checkbox-no-clicked>.jstree-wholerow-ul .jstree-wholerow-clicked.jstree-wholerow-hovered {
+//    background: $utility-50;
+//}
+//.jstree-default .jstree-wholerow-hovered {
+//    background: $utility-50;
+//}
 
 .jstree-default .jstree-wholerow-clicked {
     background: $accent-color;
     background: linear-gradient(to bottom,$accent-color 0,$utility-50 100%)
 }
-.jstree-default-responsive .jstree-wholerow-hovered {
-    background: $utility-50;
-}
+//.jstree-default-responsive .jstree-wholerow-hovered {
+//    background: $utility-50;
+//}
 
 .jstree-default-responsive .jstree-wholerow-clicked {
     background: $accent-color;
 }
-.jstree-anchor,
-.jstree-default {
-    &:hover {
-        background: $utility-50;
-    }
-}
+//.jstree-anchor,
+//.jstree-default {
+//    &:hover {
+//        background: $utility-50;
+//    }
+//}
 
 
 .list-group {
