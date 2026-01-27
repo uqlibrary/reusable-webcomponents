@@ -391,6 +391,31 @@ function highlightCulturallySignificantEntriesOnListPage() {
         });
 }
 
+function fixSidebarSearchBox() {
+    const sidebarElement = document.getElementById('sidebar');
+    if (!sidebarElement) return;
+
+    const firstChild = document.querySelector('#sidebar div:first-of-type');
+    const newWrapper = document.createElement('div');
+    newWrapper.classList.add('sidebarSearchWrapper');
+    if (firstChild.nextSibling) {
+        firstChild.parentNode.insertBefore(newWrapper, firstChild.nextSibling);
+    } else {
+        firstChild.parentNode.appendChild(newWrapper);
+    }
+
+    const listChildElement = sidebarElement.querySelector('#sidebar > ul');
+    !!listChildElement && newWrapper.appendChild(listChildElement);
+
+    const listDivElement = sidebarElement.querySelector('#sidebar > #treeview-content');
+    !!listDivElement && newWrapper.appendChild(listDivElement);
+
+    const sideBarImage = document.querySelector('.repository-logo');
+    const sideBarImageWidth = sideBarImage.clientWidth;
+
+    newWrapper.style.width = sideBarImageWidth + 'px';
+}
+
 function loadReusableComponentsAtom() {
     const cssFile = getIncludeFileLocation('applications/atom/custom-styles.css');
     // note: we cannot reach css in the localhost dist folder for test
@@ -429,6 +454,8 @@ function loadReusableComponentsAtom() {
     highlightCulturallySignificantEntriesOnListPage();
 
     splitSidebarIntoBoxes();
+
+    fixSidebarSearchBox();
 }
 
 ready(loadReusableComponentsAtom);

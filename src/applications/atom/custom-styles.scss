@@ -29,11 +29,11 @@ body {
 #content {
     border-width: 1px;
     border-style: solid;
-    border-color: rgba(38, 85, 115, .15);
+    border-color: rgba(38, 85, 115, 0.15);
     border-image: initial;
     border-radius: 4px;
     .text-primary {
-        margin: 0px;
+        margin: 0;
         font-family: Roboto, Helvetica, Arial, sans-serif;
         display: block;
         color: rgb(25, 21, 28) !important;
@@ -43,7 +43,8 @@ body {
         line-height: 1.2;
     }
     .field {
-        h3, div {
+        h3,
+        div {
             color: $body-copy;
             font-family: Roboto, Helvetica Neue, Helvetica, Arial, sans-serif;
             font-size: 1rem;
@@ -68,7 +69,7 @@ ul.navbar-nav li a {
     &:focus,
     &:hover {
         background-color: #fff;
-        color: $accent-color
+        color: $accent-color;
     }
 }
 a.dropdown-item {
@@ -201,6 +202,36 @@ header {
     }
 }
 
+.sidebarSearchWrapper {
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(38, 85, 115, 0.15);
+    border-image: initial;
+    border-radius: 4px;
+    padding: 1.5rem 1rem 0 1rem;
+    background-color: #fff;
+    margin-inline: auto;
+
+    ul button {
+        border-width: 0 !important;
+        margin: 0;
+        font-family: Roboto, Helvetica, Arial, sans-serif;
+        display: block;
+        color: #19151c !important;
+        font-size: 1.5rem;
+        font-weight: 500;
+        letter-spacing: 0.16px;
+        line-height: 1.2;
+        text-align: left;
+        padding: 0;
+
+        --bs-nav-tabs-border-width: -0.7rem;
+    }
+    form {
+        padding: 0 !important;
+    }
+}
+
 #context-menu {
     i {
         color: $accent-color;
@@ -217,8 +248,12 @@ header {
             }
 
             // get rid of weird underline on icon
-            i { width: 8px; }
-            span { padding-left: 4px; }
+            i {
+                width: 8px;
+            }
+            span {
+                padding-left: 4px;
+            }
         }
 
         button:hover,
@@ -262,7 +297,7 @@ header {
         font-size: 1rem;
         font-weight: 400;
         line-height: 1.6;
-        letter-spacing: .16px;
+        letter-spacing: 0.16px;
         margin-bottom: 0.5rem;
     }
 }
