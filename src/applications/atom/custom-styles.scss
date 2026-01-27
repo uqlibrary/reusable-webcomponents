@@ -114,6 +114,7 @@ nav.sidebarParent {
 header {
     .container-fluid {
         display: flex;
+        align-items: center;
     }
     a.navbar-brand {
         &:hover,
@@ -121,6 +122,16 @@ header {
             span {
                 text-decoration: underline;
             }
+        }
+    }
+    .textHomeLink {
+        color: #fff;
+        font-weight: 500;
+        font-size: 22px;
+        margin-right: 4px;
+        &:hover,
+        &:focus {
+            text-decoration: underline;
         }
     }
     button.btn {

@@ -29,9 +29,49 @@ function centerheaderBlock() {
     }
 }
 
-function updateLogoLink() {
-    const logoElement = document.getElementById('logo');
-    !!logoElement && logoElement.setAttribute('href', 'https://www.uq.edu.au/');
+function updateHomeLink() {
+    // They supply one link to fryer home with 2 elements, an image and a span
+    // We want the image to go to uq home and the span to go to fryer home
+
+    const oldHomeLink = document.querySelector('.header-outer a:first-of-type');
+    if (!oldHomeLink) {
+        return;
+    }
+    // Get the current href
+    const currentHref = oldHomeLink.getAttribute('href');
+    const rel = oldHomeLink.getAttribute('rel');
+
+    // Get the img and span elements
+    const img = oldHomeLink.querySelector('img');
+    const span = oldHomeLink.querySelector('span');
+
+    // Create first link (for logo) - pointing to UQ website
+    const logoLink = document.createElement('a');
+    logoLink.className = 'navbar-brand d-flex flex-wrap flex-lg-nowrap align-items-center py-0 me-0';
+    logoLink.setAttribute('data-testid', 'uqHomeLink');
+    logoLink.href = 'https://www.uq.edu.au/';
+    logoLink.title = 'UQ home page';
+    logoLink.rel = rel;
+    logoLink.appendChild(img.cloneNode(true));
+
+    // Create second link (for text) - keeping original href
+    const textContent = span.textContent;
+    const textLabel = document.createTextNode(textContent);
+    const textLink = document.createElement('a');
+    // no rel home
+    textLink.title = 'Manuscripts home page';
+    textLink.setAttribute('data-testid', 'fryerHomeLink');
+    textLink.href = currentHref;
+    textLink.classList.add('textHomeLink');
+    textLink.appendChild(textLabel.cloneNode(true));
+
+    // Replace the original element with both new links
+    oldHomeLink.parentNode.insertBefore(logoLink, oldHomeLink);
+    oldHomeLink.parentNode.insertBefore(document.createTextNode(' '), oldHomeLink);
+    oldHomeLink.parentNode.insertBefore(textLink, oldHomeLink);
+
+    // Remove the original element
+    oldHomeLink.remove();
 }
 
 function contentExists(searchText = 'Reference code') {
@@ -111,8 +151,8 @@ function swapQuickMenuIcon() {
     !!existingIcon && !existingIcon.classList.contains('fa-bars') && existingIcon.classList.add('fa-bars');
 }
 
-function addCulturalAdviceBanner() {
-    const targetElement = document.getElementById('top-bar');
+function addCulturalAdviceBannerOnHeader() {
+    const targetElement = document.querySelector('header .header-outer');
     if (!targetElement) return;
 
     if (!document.querySelector('cultural-advice')) {
@@ -189,7 +229,7 @@ function setupLinksForStyling(menuIdentifier) {
     });
 }
 
-function addCulturalAdviceBanner(displayText) {
+function addCulturalAdviceBannerOnDetail(displayText) {
     // eg "Aboriginal and Torres Strait Islander people are warned that this resource may contain images transcripts or names of Aboriginal and Torres Strait Islander people now deceased.  It may also contain historically and culturally sensitive words, terms, and descriptions."
     const displayBlockClassName = 'culturalAdviceBanner';
     const displayBlock = document.querySelector(`.${displayBlockClassName}`);
@@ -231,7 +271,7 @@ function highlightCulturallySignificantEntriesOnDetailPage() {
             } else if (!!contentAdvice.startsWith('Content advice: Aboriginal, Torres Strait Islander')) {
                 bannerText = contentAdvice.replace('Content advice: ', '');
             }
-            !!bannerText && addCulturalAdviceBanner(bannerText);
+            !!bannerText && addCulturalAdviceBannerOnDetail(bannerText);
         });
 }
 
@@ -368,13 +408,13 @@ function loadReusableComponentsAtom() {
 
     centerheaderBlock();
 
-    updateLogoLink();
+    updateHomeLink();
 
     addBookNowButton();
 
     swapQuickMenuIcon();
 
-    addCulturalAdviceBanner();
+    addCulturalAdviceBannerOnHeader();
 
     relabelMenuDropdown();
 
