@@ -44,7 +44,7 @@ body {
     }
     .field {
         h3, div {
-            color: #3b383e;
+            color: $body-copy;
             font-family: Roboto, Helvetica Neue, Helvetica, Arial, sans-serif;
             font-size: 1rem;
             font-weight: 400;
@@ -222,14 +222,12 @@ header {
         padding-bottom: 1rem;
     }
 }
-// provide a space at the top of the sidebar for the new button-block to sit in
-// (this makes the page flicker less when they load new content with the weird tree structure at the top of the page)
 #main-column .sidebarParent {
     padding-top: 155px;
     position: relative;
 
     &:has(.bookNowWrapper) section:first-of-type {
-        margin-top: 1rem;
+        margin-top: 4rem;
     }
 }
 
@@ -241,8 +239,13 @@ header {
     position: absolute;
     top: 0;
     p {
+        color: $body-copy;
+        font-family: Roboto, Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.6;
+        letter-spacing: .16px;
         margin-bottom: 0.5rem;
-        text-align: center;
     }
 }
 

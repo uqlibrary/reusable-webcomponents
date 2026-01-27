@@ -106,7 +106,8 @@ function addBookNowButton() {
                 sidebarParent.classList.add('sidebarParent');
             // icon: https://www.streamlinehq.com/icons/ultimate-regular-free?search=calendar&icon=ico_cyjrCEgOghvvMPl4
             const bookingLinkContainer = `<div id="${bookNowWrapperIdentifier}" data-testid="booknowLink" class="bookNowWrapper box">
-                    <p>Make an appointment to request access</p>
+                    <h4>Request access</h4>
+                    <p>Appointments are required to request access.</p>
                     <div class="bookNowLinkWrapper">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" id="Time-Daily-1--Streamline-Ultimate" height="24" width="24" aria-hidden="true">
                           <path stroke="#51247a" stroke-linecap="round" stroke-linejoin="round" d="M10.5 13h0.75c0.1989 0 0.3897 0.079 0.5303 0.2197 0.1407 0.1406 0.2197 0.3314 0.2197 0.5303V19" stroke-width="1.5"></path>
