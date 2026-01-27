@@ -988,7 +988,6 @@
                     text === '<br/>' ||
                     text === '<br />'
                 ) {
-                    console.log('remove empty paragraph');
                     element.remove();
                 }
             });
