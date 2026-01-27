@@ -134,6 +134,8 @@ header {
         &:hover,
         &:focus {
             text-decoration: underline;
+            background-color: #fff;
+            color: $accent-color;
         }
     }
     button.btn {
