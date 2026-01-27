@@ -525,4 +525,18 @@ header {
             }
         }
     }
+    input {
+        font-size: 14px;
+    }
+    .list-group a:last-of-type {
+        font-size: 13px;
+    }
+    a {
+        &:hover,
+        &:focus {
+            i {
+                color: #fff;
+            }
+        }
+    }
 }
