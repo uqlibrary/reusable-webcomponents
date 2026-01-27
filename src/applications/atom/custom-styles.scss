@@ -206,6 +206,14 @@ header {
         border-width: 0;
         color: $accent-color;
         text-decoration: underline;
+        padding-left: 0;
+        &:focus {
+            box-shadow: none;
+        }
+        // get rid of weird underline on icon
+        i { width: 8px; }
+        span { padding-left: 4px;}
+
     }
     button:hover,
     button:focus {
