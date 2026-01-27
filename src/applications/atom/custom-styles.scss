@@ -14,6 +14,9 @@ $info-banner-background: $utility-50;
 
 $fontFamily: Roboto, Helvetica Neue, Helvetica, Arial, sans-serif;
 
+$minDesktopSize: 768px; // has multiple columns
+$maxResponsiveSize: 767px; // columns stack
+
 :root {
     // override bootstrap colours!!
     --bs-body-color: #{$body-copy};
@@ -24,6 +27,10 @@ $fontFamily: Roboto, Helvetica Neue, Helvetica, Arial, sans-serif;
     --bs-primary-rgb: #{$accent-color-rgb};
     --bs-dropdown-link-hover-color: #fff;
     --bs-dropdown-link-hover-bg: #{$accent-color-rgb};
+    --bs-secondary-color: #{$accent-color-rgb};
+}
+.breadcrumb {
+    --bs-breadcrumb-divider-color: $accent-color;
 }
 
 html,
@@ -315,8 +322,10 @@ header {
     padding-top: 155px;
     position: relative;
 
-    &:has(.bookNowWrapper) section:first-of-type {
-        margin-top: 4rem;
+    @media (min-width: $minDesktopSize) {
+        &:has(.bookNowWrapper) section:first-of-type {
+            margin-top: 4rem;
+        }
     }
 }
 
@@ -392,7 +401,7 @@ header {
     }
 }
 
-@media (max-width: 767px) {
+@media (max-width: $maxResponsiveSize) {
     #site-name {
         float: left;
         margin-top: 6px;
@@ -538,5 +547,11 @@ header {
                 color: #fff;
             }
         }
+    }
+}
+
+@media (max-width: 767px) {
+    .repository-logo {
+        display: none;
     }
 }
