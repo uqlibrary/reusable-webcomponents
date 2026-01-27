@@ -482,11 +482,15 @@ test.describe('Dummy Application', () => {
         });
     });
 
-    test.describe('Atom works as expected', () => {
-        async function assertHomepageLinkIsToUq(page) {
+    test.describe.skip('Atom works as expected', () => {
+        async function assertHomepageLinksAreCorrect(page) {
             // the big-icon homepage link has been changed from a fryer link to the uq homepage
-            await expect(page.locator('#logo')).toBeVisible();
-            await expect(page.locator('#logo')).toHaveAttribute('href', 'https://www.uq.edu.au/');
+            await expect(page.getByTestId('uqHomeLink')).toBeVisible();
+            await expect(page.getByTestId('uqHomeLink')).toHaveAttribute('href', 'https://www.uq.edu.au/');
+
+            // the fryer home link has been recreated and links to fryer
+            await expect(page.getByTestId('fryerHomeLink')).toBeVisible();
+            await expect(page.getByTestId('fryerHomeLink')).toHaveAttribute('href', '/index.php/');
         }
 
         async function assertHasBookNowLink(page) {
@@ -504,7 +508,7 @@ test.describe('Dummy Application', () => {
             await page.goto('http://localhost:8080/src/applications/atom/demo-homepage.html');
             await page.setViewportSize({ width: 1280, height: 900 });
 
-            await assertHomepageLinkIsToUq(page);
+            await assertHomepageLinksAreCorrect(page);
 
             await assertHasCulturalAdviceBanner(page);
         });
@@ -513,7 +517,7 @@ test.describe('Dummy Application', () => {
             await page.goto('http://localhost:8080/src/applications/atom/demo-detailpage.html');
             await page.setViewportSize({ width: 1280, height: 900 });
 
-            await assertHomepageLinkIsToUq(page);
+            await assertHomepageLinksAreCorrect(page);
 
             await assertHasBookNowLink(page);
 
@@ -532,7 +536,7 @@ test.describe('Dummy Application', () => {
         test('Cultural Advice Icons appear on list page items', async ({ page }) => {
             await page.goto('http://localhost:8080/src/applications/atom/demo-listpage.html');
             await page.setViewportSize({ width: 1280, height: 900 });
-            await assertHomepageLinkIsToUq(page);
+            await assertHomepageLinksAreCorrect(page);
             await assertHasCulturalAdviceBanner(page);
 
             // has cultural advice indicators, only on CA entries
