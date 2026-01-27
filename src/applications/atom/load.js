@@ -341,36 +341,43 @@ function splitSidebarIntoBoxes() {
         return;
     }
 
-    const children = Array.from(actionIcons.children);
+    setInterval(() => {
+        const actionIconsBox = document.querySelector('#context-menu #action-icons .box');
 
-    const groups = [];
-    let currentGroup = null;
+        if (!actionIconsBox) {
+            // if there are no boxes add them - they go away if they click on a new page in the heirarchy
+            const children = Array.from(actionIcons.children);
 
-    children.forEach((child) => {
-        if (child.tagName === 'H4') {
-            if (currentGroup) {
-                groups.push(currentGroup); // Start a new group
-            }
-            currentGroup = [child];
-        } else {
-            // if (child.tagName === 'UL' && currentGroup) {
-            // Add other children to the current group
-            currentGroup.push(child);
-            groups.push(currentGroup);
-            currentGroup = null;
+            const groups = [];
+            let currentGroup = null;
+
+            children.forEach((child) => {
+                if (child.tagName === 'H4') {
+                    if (currentGroup) {
+                        groups.push(currentGroup); // Start a new group
+                    }
+                    currentGroup = [child];
+                } else {
+                    // if (child.tagName === 'UL' && currentGroup) {
+                    // Add other children to the current group
+                    currentGroup.push(child);
+                    groups.push(currentGroup);
+                    currentGroup = null;
+                }
+            });
+
+            actionIcons.innerHTML = ''; // Clear the action-icons section
+
+            groups.forEach((group) => {
+                const wrapper = document.createElement('div');
+                !!wrapper && !wrapper.classList.contains('box') && wrapper.classList.add('box');
+                group.forEach((element) => {
+                    wrapper.appendChild(element);
+                });
+                actionIcons.appendChild(wrapper);
+            });
         }
-    });
-
-    actionIcons.innerHTML = ''; // Clear the action-icons section
-
-    groups.forEach((group) => {
-        const wrapper = document.createElement('div');
-        !!wrapper && !wrapper.classList.contains('box') && wrapper.classList.add('box');
-        group.forEach((element) => {
-            wrapper.appendChild(element);
-        });
-        actionIcons.appendChild(wrapper);
-    });
+    }, 100);
 }
 
 function highlightCulturallySignificantEntriesOnListPage() {
