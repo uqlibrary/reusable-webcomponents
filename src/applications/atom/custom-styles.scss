@@ -112,6 +112,8 @@ nav.sidebarParent {
 }
 
 header {
+    display: block !important;
+
     .container-fluid {
         display: flex;
         align-items: center;
