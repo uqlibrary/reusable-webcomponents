@@ -425,22 +425,23 @@ function fixSidebarSearchBox() {
     const firstChild = document.querySelector('#sidebar div:first-of-type');
     const newWrapper = document.createElement('div');
     newWrapper.classList.add('sidebarSearchWrapper');
-    if (firstChild.nextSibling) {
+    if (!newWrapper) {
+    } else if (firstChild.nextSibling) {
         firstChild.parentNode.insertBefore(newWrapper, firstChild.nextSibling);
     } else {
         firstChild.parentNode.appendChild(newWrapper);
     }
 
     const listChildElement = sidebarElement.querySelector('#sidebar > ul');
-    !!listChildElement && newWrapper.appendChild(listChildElement);
+    !!listChildElement && !!newWrapper && newWrapper.appendChild(listChildElement);
 
     const listDivElement = sidebarElement.querySelector('#sidebar > #treeview-content');
-    !!listDivElement && newWrapper.appendChild(listDivElement);
+    !!listDivElement && !!newWrapper && newWrapper.appendChild(listDivElement);
 
     const sideBarImage = document.querySelector('.repository-logo');
-    const sideBarImageWidth = sideBarImage.clientWidth;
+    const sideBarImageWidth = !!sideBarImage && sideBarImage.clientWidth;
 
-    newWrapper.style.width = sideBarImageWidth + 'px';
+    !!sideBarImage && !!newWrapper && (newWrapper.style.width = sideBarImageWidth + 'px');
 }
 
 function loadReusableComponentsAtom() {
