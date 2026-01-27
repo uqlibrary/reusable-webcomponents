@@ -236,42 +236,69 @@ function addCulturalAdviceBannerOnDetail(displayText) {
     const displayBlockClassName = 'culturalAdviceBanner';
     const displayBlock = document.querySelector(`.${displayBlockClassName}`);
     if (!!displayBlock) {
-        // block already exists - don't duplicate
-        return;
+        return; // block already exists - don't duplicate
     }
+
+    // const bannerContents = `<div>
+    //   <div class="${displayBlockClassName}" role="alert">
+    //     <div class="uq-alert__message">
+    //       <p>${displayText}</p>
+    //     </div>
+    //   </div>
+    // </div>`;
+    //
+    // const waitforWrapperToExist = setInterval(() => {
+    //     const parentElement = document.querySelector('#main-column h1');
+    //     if (!!parentElement) {
+    //         clearInterval(waitforWrapperToExist);
+    //         if (parentElement.nextSibling) {
+    //             // parentElement.parentNode.insertBefore(bannerContents.cloneNode(true), parentElement.nextSibling);
+    //             parentElement.parentNode.insertBefore(bannerContents, parentElement.nextSibling);
+    //         }
+    //         else {
+    //             parentElement.parentNode.appendChild(bannerContents);
+    //         }
+    //     }
+    // }, 100);
 
     const para = document.createElement('p');
     !!para && (para.innerHTML = displayText);
 
     const block = document.createElement('div');
     !!block && (block.className = displayBlockClassName);
-    !!para && !!para && block.appendChild(para);
+    const innerblock = document.createElement('div');
+    !!para && !!innerblock && innerblock.appendChild(para);
+    !!innerblock && !!block && block.appendChild(innerblock);
 
     const waitforWrapperToExist = setInterval(() => {
-        const parent = document.querySelector('#main-column h1');
-        if (!!parent) {
+        const parentElement = document.querySelector('#main-column h1');
+        if (!!parentElement) {
             clearInterval(waitforWrapperToExist);
-            parent.appendChild(block);
+            if (parentElement.nextSibling) {
+                parentElement.parentNode.insertBefore(block, parentElement.nextSibling);
+            } else {
+                parentElement.parentNode.appendChild(block);
+            }
         }
     }, 100);
 }
 
 function highlightCulturallySignificantEntriesOnDetailPage() {
-    const contentAndStructureAreaElement = document.querySelectorAll('#contentAndStructureArea p');
+    const contentAndStructureAreaElement = document.querySelectorAll('#contentAndStructureArea .details p');
     const contentAdvisoryParagraph =
         !!contentAndStructureAreaElement &&
         Array.from(contentAndStructureAreaElement).filter((paragraph) =>
-            paragraph.textContent.startsWith('Content advice:'),
+            paragraph.textContent.startsWith('Cultural advice:'),
         );
 
     let bannerText = null;
     !!contentAdvisoryParagraph &&
         contentAdvisoryParagraph.forEach((paragraph) => {
             const contentAdvice = paragraph.textContent;
-            if (!!contentAdvice.startsWith('Content advice: Aboriginal and Torres Strait Islander')) {
-                bannerText = contentAdvice.replace('Content advice: ', '');
-            } else if (!!contentAdvice.startsWith('Content advice: Aboriginal, Torres Strait Islander')) {
-                bannerText = contentAdvice.replace('Content advice: ', '');
+            if (!!contentAdvice.startsWith('Cultural advice: Aboriginal and Torres Strait Islander')) {
+                bannerText = contentAdvice.replace('Cultural advice: ', '');
+            } else if (!!contentAdvice.startsWith('Cultural advice: Aboriginal, Torres Strait Islander')) {
+                bannerText = contentAdvice.replace('Cultural advice: ', '');
             }
             !!bannerText && addCulturalAdviceBannerOnDetail(bannerText);
         });

@@ -3,10 +3,14 @@
 $grey-900: #3b383e;
 $purple-500: #51247a;
 $purple-500-rgb: 81, 36, 122;
+$utiiity-50: #e7f0fa;
 
 $accent-color: $purple-500;
 $accent-color-rgb: $purple-500-rgb;
 $body-copy: $grey-900;
+$info-banner-background: $utiiity-50;
+
+$fontFamily: Roboto, Helvetica Neue, Helvetica, Arial, sans-serif;
 
 :root {
     // override bootstrap colours!!
@@ -34,7 +38,7 @@ body {
     border-radius: 4px;
     .text-primary {
         margin: 0;
-        font-family: Roboto, Helvetica, Arial, sans-serif;
+        font-family: $fontFamily;
         display: block;
         color: rgb(25, 21, 28) !important;
         font-size: 1.5rem;
@@ -46,7 +50,7 @@ body {
         h3,
         div {
             color: $body-copy;
-            font-family: Roboto, Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-family: $fontFamily;
             font-size: 1rem;
             font-weight: 400;
             line-height: 1.6;
@@ -121,7 +125,7 @@ nav.sidebarParent {
         margin-bottom: 32px;
         h4 {
             margin: 0px;
-            font-family: Roboto, Helvetica, Arial, sans-serif;
+            font-family: $fontFamily;
             display: block;
             color: rgb(25, 21, 28);
             font-size: 1.5rem;
@@ -215,7 +219,7 @@ header {
     ul button {
         border-width: 0 !important;
         margin: 0;
-        font-family: Roboto, Helvetica, Arial, sans-serif;
+        font-family: $fontFamily;
         display: block;
         color: #19151c !important;
         font-size: 1.5rem;
@@ -293,7 +297,7 @@ header {
     top: 0;
     p {
         color: $body-copy;
-        font-family: Roboto, Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-family: $fontFamily;
         font-size: 1rem;
         font-weight: 400;
         line-height: 1.6;
@@ -368,23 +372,47 @@ header {
     display: none !important;
 }
 
-//
-//.customIndicator {
-//    display: flex;
-//    svg {
-//        padding-right: 2px;
-//    }
-//}
-//.customIndicatorLabel {
-//    font-size: 11px;
-//    margin-top: -1px;
-//}
-//.culturalAdviceMark {
-//    path {
-//        fill: $accent-color;
-//    }
-//}
-//
+.culturalAdviceBanner {
+    padding: 1em 1em 1em 4em;
+    background-color: $info-banner-background;
+    color: #3b383e;
+    font-family: $fontFamily;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
+    position: relative;
+    margin-bottom: 1rem;
+    & div:before {
+        content: '';
+        background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='12' cy='12' r='9.25' transform='rotate(-180 12 12)' stroke='%233b383e' stroke-width='1.5'%3e%3c/circle%3e%3cpath d='M12 16.2v-4' stroke='%233b383e' stroke-width='1.5' stroke-linecap='round'%3e%3c/path%3e%3ccircle cx='12' cy='8.4' r='1.1' transform='rotate(-180 12 8.4)' fill='%233b383e'%3e%3c/circle%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-size: 1.5rem;
+        width: 1.5rem;
+        height: 1.5rem;
+        position: absolute;
+        top: 1rem;
+        left: 1.5rem;
+    }
+    & p {
+        margin-bottom: 0;
+    }
+}
+
+.customIndicator {
+    display: flex;
+    svg {
+        padding-right: 2px;
+    }
+}
+.customIndicatorLabel {
+    font-size: 11px;
+    margin-top: -1px;
+}
+.culturalAdviceMark {
+    path {
+        fill: $accent-color;
+    }
+}
 //// colours: https://design-system.ads-staging.aws.uq.edu.au/?path=/docs/core-colour--docs
 //$color-success-50: #edf6ed;
 //$color-success-100: #dbeddc;
