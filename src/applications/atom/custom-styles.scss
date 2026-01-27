@@ -11,6 +11,7 @@ $accent-color: $purple-500;
 $accent-color-rgb: $purple-500-rgb;
 $body-copy: $grey-900;
 $info-banner-background: $utility-50;
+$border-color: rgba(38, 85, 115, 0.15);
 
 $fontFamily: Roboto, Helvetica Neue, Helvetica, Arial, sans-serif;
 
@@ -42,7 +43,7 @@ body {
 #content {
     border-width: 1px;
     border-style: solid;
-    border-color: rgba(38, 85, 115, 0.15);
+    border-color: $border-color;
     border-image: initial;
     border-radius: 4px;
     h2 .text-primary {
@@ -126,7 +127,7 @@ nav.sidebarParent {
         overflow: hidden;
         border-width: 1px;
         border-style: solid;
-        border-color: rgba(38, 85, 115, 0.15);
+        border-color: $border-color;
         border-image: initial;
         border-radius: 4px;
         padding: 1.5rem 1.5rem 0 1.5rem;
@@ -229,7 +230,7 @@ header {
 .sidebarSearchWrapper {
     border-width: 1px;
     border-style: solid;
-    border-color: rgba(38, 85, 115, 0.15);
+    border-color: $border-color;
     border-image: initial;
     border-radius: 4px;
     padding: 1.5rem 1rem 0 1rem;
@@ -253,6 +254,10 @@ header {
     }
     form {
         padding: 0 !important;
+    }
+    .no-results {
+        border-color: $border-color !important;
+        background-color: #e7f0fa;
     }
 }
 
@@ -537,7 +542,7 @@ header {
     input {
         font-size: 14px;
     }
-    .list-group a:last-of-type {
+    .list-group > a:last-of-type:has(i) {
         font-size: 13px;
     }
     a {
@@ -548,10 +553,22 @@ header {
             }
         }
     }
+    .repository-logo {
+        @media (max-width: 767px) {
+            display: none;
+        }
+        img {
+            border-width: 1px !important;
+            border-style: solid;
+            border-color: $border-color;
+            border-image: initial;
+            border-radius: 4px;
+        }
+    }
 }
 
-@media (max-width: 767px) {
-    .repository-logo {
-        display: none;
-    }
+// buttons at top of some list pages
+.atom-btn-white.active-primary.active {
+    background-color: $accent-color;
+    border-color: $accent-color;
 }
