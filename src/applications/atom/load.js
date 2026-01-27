@@ -433,8 +433,10 @@ function highlightCulturallySignificantEntriesOnListPage() {
 }
 
 function fixSidebarSearchBox() {
-    const sidebarElement = document.getElementById('sidebar');
+    let sidebarElement = document.getElementById('treeview-menu');
     if (!sidebarElement) return;
+
+    sidebarElement = document.getElementById('sidebar');
 
     const firstChild = document.querySelector('#sidebar div:first-of-type');
     const newWrapper = document.createElement('div');

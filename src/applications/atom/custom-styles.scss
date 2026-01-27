@@ -459,3 +459,38 @@ header {
         background: $utility-50;
     }
 }
+
+
+.list-group {
+    --bs-list-group-border-width: 0;
+}
+.card>.list-group {
+    border-top-width: 0;
+    border-bottom-width: 0;
+}
+
+#sidebar {
+    h2 {
+        margin: 0;
+        font-family: Roboto, Helvetica Neue, Helvetica, Arial, sans-serif;
+        display: block;
+        color: #19151c !important;
+        font-size: 1.5rem;
+        font-weight: 500;
+        letter-spacing: .16px;
+        line-height: 1.2;
+    }
+
+    .list-group {
+        a {
+            display: inline;
+            color: $accent-color;
+            text-decoration: underline;
+            &:hover,
+            &:focus {
+                color: #fff;
+                background-color: $accent-color;
+            }
+        }
+    }
+}
