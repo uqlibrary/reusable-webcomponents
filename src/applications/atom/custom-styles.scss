@@ -591,7 +591,8 @@ header {
     border-color: $accent-color;
 }
 
-// hide the clipboard function, header & search results - not required by Fryer
+// hide the clipboard function, header & search results - not required by Fryer\
+.box:has(i.fa-paperclip) ,
 button,
 a {
     &:has(i.fa-paperclip) {
