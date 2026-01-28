@@ -153,7 +153,7 @@ function swapQuickMenuIcon() {
 }
 
 function addCulturalAdviceBannerOnHeader() {
-    const targetElement = document.querySelector('header');
+    const targetElement = document.querySelector('uq-site-header');
     if (!targetElement) return;
 
     if (!document.querySelector('cultural-advice')) {

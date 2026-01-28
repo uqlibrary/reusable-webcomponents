@@ -377,13 +377,10 @@ header {
     fill: #fff;
 }
 
-//.header-outer a:first-of-type {
-.header-outer .navbar-brand {
-    display: none !important;
-}
-
-// copy container widths of body
 .header-outer {
+    .navbar-brand {
+        display: none !important; // hide the logo - we are adding uq headers
+    }
     --bs-gutter-x: 1.5rem;
     --bs-gutter-y: 0;
     width: 100%;
@@ -396,14 +393,49 @@ header {
     }
     .navbar-collapse {
         position: relative;
+        margin-top: 3rem;
+        margin-bottom: 3rem;
     }
-    .navbar-collapse .dropdown button:first-of-type {
+    .navbar-collapse .dropdown button:first-of-type { // browse button
         position: absolute;
         left: 0;
+        margin-top: 10px;
     }
     form {
         margin-left: auto;
         margin-right: auto;
+        max-width: 80% !important;
+        button {
+            background-color: #fff;
+            border-color: #fff;
+            color: $accent-color;
+            i {
+                color: $accent-color;
+            }
+        }
+        button,
+        input {
+            height: 51px; // match homepage search input height
+            color: $body-copy;
+            &:focus {
+                border-color: #fff;
+            }
+        }
+        input {
+            border: 1px solid #fff;
+            border-radius: 0;
+        }
+        button:first-of-type {
+            border-radius: 2px 0 0 2px;
+            padding-left: 1rem;
+            i {
+                color: $accent-color;
+            }
+        }
+        button:last-of-type {
+            border-radius: 0 2px 2px 0;
+            padding-right: 1rem;
+        }
     }
     @media (min-width: 64em) {
             margin-left: auto;
@@ -604,3 +636,4 @@ uq-site-header {
     height: 41px;
     margin-top: 10px;
 }
+
