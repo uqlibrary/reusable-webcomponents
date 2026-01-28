@@ -29,50 +29,50 @@ function centerheaderBlock() {
     }
 }
 
-function updateHomeLink() {
-    // They supply one link to fryer home with 2 elements, an image and a span
-    // We want the image to go to uq home and the span to go to fryer home
-
-    const oldHomeLink = document.querySelector('.header-outer a:first-of-type');
-    if (!oldHomeLink) {
-        return;
-    }
-    // Get the current href
-    const currentHref = oldHomeLink.getAttribute('href');
-    const rel = oldHomeLink.getAttribute('rel');
-
-    // Get the img and span elements
-    const img = oldHomeLink.querySelector('img');
-    const span = oldHomeLink.querySelector('span');
-
-    // Create first link (for logo) - pointing to UQ website
-    const logoLink = document.createElement('a');
-    logoLink.className = 'navbar-brand d-flex flex-wrap flex-lg-nowrap align-items-center py-0 me-0';
-    logoLink.setAttribute('data-testid', 'uqHomeLink');
-    logoLink.href = 'https://www.uq.edu.au/';
-    logoLink.title = 'UQ home page';
-    logoLink.rel = rel;
-    logoLink.appendChild(img.cloneNode(true));
-
-    // Create second link (for text) - keeping original href
-    const textContent = span.textContent;
-    const textLabel = document.createTextNode(textContent);
-    const textLink = document.createElement('a');
-    // no rel home
-    textLink.title = 'Manuscripts home page';
-    textLink.setAttribute('data-testid', 'fryerHomeLink');
-    textLink.href = currentHref;
-    textLink.classList.add('textHomeLink');
-    textLink.appendChild(textLabel.cloneNode(true));
-
-    // Replace the original element with both new links
-    oldHomeLink.parentNode.insertBefore(logoLink, oldHomeLink);
-    oldHomeLink.parentNode.insertBefore(document.createTextNode(' '), oldHomeLink);
-    oldHomeLink.parentNode.insertBefore(textLink, oldHomeLink);
-
-    // Remove the original element
-    oldHomeLink.remove();
-}
+// function updateHomeLink() {
+//     // They supply one link to fryer home with 2 elements, an image and a span
+//     // We want the image to go to uq home and the span to go to fryer home
+//
+//     const oldHomeLink = document.querySelector('.header-outer a:first-of-type');
+//     if (!oldHomeLink) {
+//         return;
+//     }
+//     // Get the current href
+//     const currentHref = oldHomeLink.getAttribute('href');
+//     const rel = oldHomeLink.getAttribute('rel');
+//
+//     // Get the img and span elements
+//     const img = oldHomeLink.querySelector('img');
+//     const span = oldHomeLink.querySelector('span');
+//
+//     // Create first link (for logo) - pointing to UQ website
+//     const logoLink = document.createElement('a');
+//     logoLink.className = 'navbar-brand d-flex flex-wrap flex-lg-nowrap align-items-center py-0 me-0';
+//     logoLink.setAttribute('data-testid', 'uqHomeLink');
+//     logoLink.href = 'https://www.uq.edu.au/';
+//     logoLink.title = 'UQ home page';
+//     logoLink.rel = rel;
+//     logoLink.appendChild(img.cloneNode(true));
+//
+//     // Create second link (for text) - keeping original href
+//     const textContent = span.textContent;
+//     const textLabel = document.createTextNode(textContent);
+//     const textLink = document.createElement('a');
+//     // no rel home
+//     textLink.title = 'Manuscripts home page';
+//     textLink.setAttribute('data-testid', 'fryerHomeLink');
+//     textLink.href = currentHref;
+//     textLink.classList.add('textHomeLink');
+//     textLink.appendChild(textLabel.cloneNode(true));
+//
+//     // Replace the original element with both new links
+//     oldHomeLink.parentNode.insertBefore(logoLink, oldHomeLink);
+//     oldHomeLink.parentNode.insertBefore(document.createTextNode(' '), oldHomeLink);
+//     oldHomeLink.parentNode.insertBefore(textLink, oldHomeLink);
+//
+//     // Remove the original element
+//     oldHomeLink.remove();
+// }
 
 function contentExists(searchText = 'Reference code') {
     const headings = document.evaluate(
@@ -153,7 +153,7 @@ function swapQuickMenuIcon() {
 }
 
 function addCulturalAdviceBannerOnHeader() {
-    const targetElement = document.querySelector('header .header-outer');
+    const targetElement = document.querySelector('header');
     if (!targetElement) return;
 
     if (!document.querySelector('cultural-advice')) {
@@ -481,6 +481,29 @@ function fixSidebarSearchBox() {
     !!sideBarImage && !!newWrapper && (newWrapper.style.width = sideBarImageWidth + 'px');
 }
 
+function addHeaders() {
+    const firstElement = document.body.children[0];
+    if (!firstElement) {
+        return;
+    }
+    if (!document.querySelector('uq-header')) {
+        const header = document.createElement('uq-header');
+        !!header && header.setAttribute('hideLibraryMenuItem', '');
+        !!header && header.setAttribute('searchurl', 'guides.library.uq.edu.au');
+        document.body.insertBefore(header, firstElement);
+    }
+
+    if (!document.querySelector('uq-site-header')) {
+        const siteHeader = document.createElement('uq-site-header');
+        !!siteHeader && siteHeader.setAttribute('secondleveltitle', 'Fryer Library Manuscripts');
+        !!siteHeader && siteHeader.setAttribute('secondlevelurl', '/index.php/');
+        !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
+    }
+
+    const atomHomelink = document.querySelector('.header-outer a:first-of-type');
+    !!atomHomelink && atomHomelink.remove();
+}
+
 function loadReusableComponentsAtom() {
     const cssFile = getIncludeFileLocation('applications/atom/custom-styles.css');
     // note: we cannot reach css in the localhost dist folder for test
@@ -498,9 +521,11 @@ function loadReusableComponentsAtom() {
     !!gtm && gtm.setAttribute('gtm', 'GTM-NC7M38Q');
     document.body.insertBefore(gtm, firstElement);
 
+    addHeaders();
+
     centerheaderBlock();
 
-    updateHomeLink();
+    // updateHomeLink();
 
     addBookNowButton();
 

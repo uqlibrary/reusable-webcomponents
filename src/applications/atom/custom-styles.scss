@@ -79,14 +79,6 @@ body {
         }
     }
 }
-// links to DS link standard
-ul.navbar-nav li a {
-    &:focus,
-    &:hover {
-        background-color: #fff;
-        color: $accent-color !important;
-    }
-}
 a.dropdown-item {
     background-color: #fff;
     color: $accent-color;
@@ -96,6 +88,9 @@ a.dropdown-item {
         background-color: $accent-color;
         color: #fff;
     }
+}
+[aria-labelledby="quick-links-menu"] {
+    min-width: 21rem;
 }
 a.atom-icon-link,
 a {
@@ -382,22 +377,49 @@ header {
     fill: #fff;
 }
 
+//.header-outer a:first-of-type {
+.header-outer .navbar-brand {
+    display: none !important;
+}
+
 // copy container widths of body
 .header-outer {
     --bs-gutter-x: 1.5rem;
     --bs-gutter-y: 0;
     width: 100%;
-    padding-right: calc(var(--bs-gutter-x) * .5);
-    padding-left: calc(var(--bs-gutter-x) * .5);
+    padding-right: calc(var(--bs-gutter-x) * 0.5);
+    padding-left: calc(var(--bs-gutter-x) * 0.5);
     margin-right: auto;
     margin-left: auto;
     #navbar-content .navbar-nav {
         margin-right: 0 !important;
     }
-}
-@media (min-width: 1400px) {
-    .header-outer {
-        max-width: 1320px;
+    .navbar-collapse {
+        position: relative;
+    }
+    .navbar-collapse .dropdown button:first-of-type {
+        position: absolute;
+        left: 0;
+    }
+    form {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    @media (min-width: 64em) {
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 73.25rem;
+            text-align: right;
+    }
+    .navbar-nav {
+        a {
+            background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M4 18h16M4 12h16M4 6h16' stroke='%23fff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e");
+            width: 32px;
+            height: 32px;
+            i {
+                visibility: hidden;
+            }
+        }
     }
 }
 
