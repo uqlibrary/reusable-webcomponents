@@ -56,6 +56,10 @@ h3 {
     font-family: $headerFontFamily;
 }
 
+#wrapper {
+    max-width: 73.25rem;
+}
+
 // main body of detail page
 #content {
     border-width: 1px;
@@ -574,6 +578,11 @@ header {
         font-weight: 500;
         letter-spacing: 0.16px;
         line-height: 1.2;
+    }
+
+    .sidebarSearchWrapper,
+    img {
+        width: 100%;
     }
 
     .list-group {

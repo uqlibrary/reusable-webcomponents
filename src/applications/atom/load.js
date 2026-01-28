@@ -425,14 +425,15 @@ function highlightCulturallySignificantEntriesOnListPage() {
 }
 
 function fixSidebarSearchBox() {
-    let sidebarElement = document.getElementById('treeview-menu');
-    if (!sidebarElement) return;
+    const treeviewElement = document.getElementById('treeview-menu');
+    if (!treeviewElement) {
+        return;
+    }
 
-    sidebarElement = document.getElementById('sidebar');
-
+    // wrap the sidebar search element so we can restyle it as a sidebar box
     const firstChild = document.querySelector('#sidebar div:first-of-type');
     const newWrapper = document.createElement('div');
-    newWrapper.classList.add('sidebarSearchWrapper');
+    !!newWrapper && newWrapper.classList.add('sidebarSearchWrapper');
     if (!newWrapper) {
     } else if (firstChild.nextSibling) {
         firstChild.parentNode.insertBefore(newWrapper, firstChild.nextSibling);
@@ -440,16 +441,12 @@ function fixSidebarSearchBox() {
         firstChild.parentNode.appendChild(newWrapper);
     }
 
+    const sidebarElement = document.getElementById('sidebar');
     const listChildElement = sidebarElement.querySelector('#sidebar > ul');
     !!listChildElement && !!newWrapper && newWrapper.appendChild(listChildElement);
 
     const listDivElement = sidebarElement.querySelector('#sidebar > #treeview-content');
     !!listDivElement && !!newWrapper && newWrapper.appendChild(listDivElement);
-
-    const sideBarImage = document.querySelector('.repository-logo');
-    const sideBarImageWidth = !!sideBarImage && sideBarImage.clientWidth;
-
-    !!sideBarImage && !!newWrapper && (newWrapper.style.width = sideBarImageWidth + 'px');
 }
 
 function addHeaders() {
