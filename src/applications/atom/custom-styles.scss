@@ -391,6 +391,9 @@ header {
     padding-left: calc(var(--bs-gutter-x) * .5);
     margin-right: auto;
     margin-left: auto;
+    #navbar-content .navbar-nav {
+        margin-right: 0 !important;
+    }
 }
 @media (min-width: 1400px) {
     .header-outer {
