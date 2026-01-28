@@ -384,53 +384,60 @@ function highlightCulturallySignificantEntriesOnListPage() {
         return;
     }
 
-    // get text blocks which may have content advice
-    const contentlist = document.querySelectorAll('article.search-result .summary em');
-    !!contentlist &&
-        contentlist.forEach(function (contentAdvice) {
-            let hasContentAdvice = false;
-            const contentAdviceText = contentAdvice.textContent;
-            if (!!contentAdviceText.startsWith('Content advice: Aboriginal and Torres Strait Islander')) {
-                hasContentAdvice = true;
-            } else if (!!contentAdviceText.startsWith('Content advice: Aboriginal, Torres Strait Islander')) {
-                hasContentAdvice = true;
-            } else if (!!contentAdviceText.startsWith('Cultural advice: Aboriginal and Torres Strait Islander')) {
-                hasContentAdvice = true;
-            } else if (!!contentAdviceText.startsWith('Cultural advice: Aboriginal, Torres Strait Islander')) {
-                hasContentAdvice = true;
-            }
-            if (!hasContentAdvice) {
-                return;
-            }
+    const waitForBody = setInterval(() => {
+        const contentBody = document.querySelectorAll('#content article p');
+        if (!contentBody) {
+            return; // the paragraphs have not yet been displayed, so we can't tell if they need CA or not
+        }
 
-            // svg for "Info" icon from MUI icon set
-            const muiIconInfoSvgPath =
-                'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z';
-            let culturalAdviceMarkClassName = 'culturalAdviceMark';
-            const createdCAIndicator = createCustomIconIndicator(
-                muiIconInfoSvgPath,
-                culturalAdviceMarkClassName,
-                'CULTURAL ADVICE',
-            );
-            if (!createdCAIndicator) {
-                return;
-            }
+        clearInterval(waitForBody);
 
-            const indicatorList = document.createElement('div');
-            !!indicatorList && indicatorList.setAttribute('class', 'customIndicatorList');
-            !!indicatorList && indicatorList.appendChild(createdCAIndicator);
+        !!contentBody &&
+            contentBody.forEach(function (contentAdvice) {
+                const contentAdviceText = contentAdvice?.textContent;
 
-            const targetParent = contentAdvice.parentNode.parentNode;
+                let hasContentAdvice = false;
+                if (
+                    !!contentAdviceText.startsWith('Content advice: Aboriginal and Torres Strait Islander') ||
+                    !!contentAdviceText.startsWith('Cultural advice: Aboriginal and Torres Strait Islander') ||
+                    !!contentAdviceText.startsWith('Content advice: Aboriginal, Torres Strait Islander') ||
+                    !!contentAdviceText.startsWith('Cultural advice: Aboriginal, Torres Strait Islander')
+                ) {
+                    hasContentAdvice = true;
+                }
+                if (!hasContentAdvice) {
+                    return;
+                }
 
-            const checkExists = targetParent.querySelectorAll(`.${culturalAdviceMarkClassName}`);
-            if (
-                checkExists.length === 0 && // dont insert it twice
-                !!targetParent &&
-                !!indicatorList
-            ) {
-                targetParent.insertBefore(indicatorList, targetParent.firstChild);
-            }
-        });
+                // svg for "Info" icon from MUI icon set, match search.library
+                const muiIconInfoSvgPath =
+                    'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z';
+                let culturalAdviceMarkClassName = 'culturalAdviceMark';
+                const createdCAIndicator = createCustomIconIndicator(
+                    muiIconInfoSvgPath,
+                    culturalAdviceMarkClassName,
+                    'CULTURAL ADVICE',
+                );
+                if (!createdCAIndicator) {
+                    return;
+                }
+
+                const indicatorList = document.createElement('div');
+                !!indicatorList && indicatorList.setAttribute('class', 'customIndicatorList');
+                !!indicatorList && indicatorList.appendChild(createdCAIndicator);
+
+                const targetParent = contentAdvice.parentNode.parentNode;
+
+                const checkExists = targetParent.querySelectorAll(`.${culturalAdviceMarkClassName}`);
+                if (
+                    checkExists.length === 0 && // dont insert it twice
+                    !!targetParent &&
+                    !!indicatorList
+                ) {
+                    targetParent.insertBefore(indicatorList, targetParent.firstChild);
+                }
+            });
+    }, 100);
 }
 
 function fixSidebarSearchBox() {
