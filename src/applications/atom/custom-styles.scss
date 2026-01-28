@@ -198,14 +198,14 @@ header {
     }
     button.btn {
         // btn-sm atom-btn-secondary dropdown-toggle
-        background-color: #51247a;
-        border-color: #512471;
+        background-color: $accent-color;
+        border-color: $accent-color;
         color: #fff;
         &:hover,
         &:focus {
             background-color: #fff;
             border-color: #fff;
-            color: #51247a;
+            color: $accent-color;
         }
     }
     // hide the login button
@@ -252,7 +252,7 @@ header {
     }
     .no-results {
         border-color: $border-color !important;
-        background-color: #e7f0fa;
+        background-color: $utility-50;
     }
 }
 
@@ -438,7 +438,7 @@ header {
 .culturalAdviceBanner {
     padding: 1em 1em 1em 4em;
     background-color: $info-banner-background;
-    color: #3b383e;
+    color: $body-copy;
     font-family: $fontFamily;
     font-size: 1rem;
     font-weight: 400;
