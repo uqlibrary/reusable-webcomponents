@@ -84,7 +84,7 @@ ul.navbar-nav li a {
     &:focus,
     &:hover {
         background-color: #fff;
-        color: $accent-color;
+        color: $accent-color !important;
     }
 }
 a.dropdown-item {
