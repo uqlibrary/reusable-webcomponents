@@ -466,10 +466,52 @@ function addHeaders() {
         !!siteHeader && siteHeader.setAttribute('secondleveltitle', 'Fryer Library Manuscripts');
         !!siteHeader && siteHeader.setAttribute('secondlevelurl', '/index.php/');
         !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
+
+        moveBreadcrumbsToSiteHeader(siteHeader);
     }
 
     const atomHomelink = document.querySelector('.header-outer a:first-of-type');
     !!atomHomelink && atomHomelink.remove();
+}
+
+function moveBreadcrumbsToSiteHeader(siteHeader) {
+    const awaitSiteHeader = setInterval(() => {
+        const siteHeaderShadowRoot = siteHeader.shadowRoot;
+
+        if (!!siteHeaderShadowRoot) {
+            clearInterval(awaitSiteHeader);
+
+            console.log('moveBreadcrumbsToSiteHeader siteHeaderShadowRoot=', siteHeaderShadowRoot);
+            const breadcrumbParent = !!siteHeaderShadowRoot && siteHeaderShadowRoot.getElementById('breadcrumb_nav');
+            console.log('moveBreadcrumbsToSiteHeader breadcrumbParent=', breadcrumbParent);
+
+            const breadcrumbNav = document.querySelector('nav:has(ol.breadcrumb)');
+            const listItems = !!breadcrumbNav && breadcrumbNav.querySelectorAll('ol li');
+            console.log('moveBreadcrumbsToSiteHeader listItems=', listItems);
+
+            !!listItems &&
+                listItems.forEach((item) => {
+                    console.log('moveBreadcrumbsToSiteHeader item=', item);
+                    const anchor = item.querySelector('a');
+                    const title = anchor ? anchor.textContent : item.textContent;
+                    const href = anchor ? anchor.href : null;
+                    const listItemEntry = !!href ? breadcrumblink({ title, href }) : breadcrumbSpan(title);
+                    breadcrumbParent.insertAdjacentHTML('beforeend', listItemEntry);
+                });
+            !!breadcrumbNav && breadcrumbNav.remove();
+        }
+
+        function breadcrumblink(b) {
+            return `<li class="uq-breadcrumb__item">
+                <a class="uq-breadcrumb__link" title="${b.title}" href="${b.href}">${b.title}</a>
+                </li>`;
+        }
+        function breadcrumbSpan(title) {
+            return `<li class="uq-breadcrumb__item">
+                <span class="uq-breadcrumb__link" title="${title}">${title}</span>
+                </li>`;
+        }
+    }, 100);
 }
 
 function loadReusableComponentsAtom() {
