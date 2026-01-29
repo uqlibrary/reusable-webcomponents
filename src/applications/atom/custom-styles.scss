@@ -38,7 +38,40 @@ $maxResponsiveSize: 767px; // columns stack
     letter-spacing: 0.16px;
     line-height: 1.2;
 }
-
+@mixin uqPrimaryButton($baseColor:$accent-color, $reverseColor:#fff) {
+    background-color: $baseColor !important;
+    color: $reverseColor !important;
+    border: 2px solid $baseColor;
+    &:focus,
+    &:hover {
+        background-color: $reverseColor !important;
+        color: $baseColor !important;
+        span {
+            text-decoration: underline;
+        }
+    }
+}
+@mixin uqSecondaryButton($baseColor:#fff, $reverseColor:$accent-color) {
+    @include uqPrimaryButton($baseColor, $reverseColor);
+    border-color: $reverseColor;
+    &:hover span {
+        text-decoration: underline;
+    }
+}
+@mixin uqTertiaryButton($baseColor:#fff, $reverseColor:$accent-color) {
+    background-color: $baseColor !important;
+    color: $reverseColor !important;
+    span {
+        text-decoration: underline;
+    }
+    &:focus-visible,
+    &:hover {
+        &:not([disabled]) {
+            background-color: $reverseColor !important;
+            color: $baseColor !important;
+        }
+    }
+}
 :root {
     // override bootstrap colours!!
     --bs-body-color: #{$body-copy};
@@ -681,5 +714,18 @@ input[aria-label="Search"]::placeholder {
     }
     &:focus {
         border-color: $purple-50;
+    }
+}
+
+.accordion-body {
+    .actions {
+        background-color: transparent;
+        justify-content: space-between !important;
+        input[value="Reset"] {
+            @include uqSecondaryButton();
+        }
+        input[value="Search"] {
+            @include uqPrimaryButton();
+        }
     }
 }
