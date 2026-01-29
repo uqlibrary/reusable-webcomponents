@@ -534,10 +534,29 @@ function moveHamburgerToSiteHeader(siteHeader) {
     !!newWrapper && newWrapper.appendChild(menuButton);
     !!newWrapper && newWrapper.appendChild(menuDropdown);
 
-    const slot = !!menuButton && createSlotForButtonInUtilityArea(newWrapper, 'menu');
-    console.log('moveHamburgerToSiteHeader slot=', slot);
+    const slot = !!menuButton && createSlotForButtonInUtilityArea(newWrapper, 'atomMenu');
 
     !!siteHeader && !!menuButton && siteHeader.appendChild(slot);
+}
+function moveAtomMenuPopup() {
+    setInterval(() => {
+        const siteHeader = document.querySelector('uq-site-header');
+        const menu = !!siteHeader && siteHeader.querySelector('#atomMenu');
+        const atomMenu = !!siteHeader && siteHeader.querySelector('#atomMenu [aria-labelledby="quick-links-menu"]');
+
+        // atomMenu is default styled to 'display: none'
+        // this is to prevent it visually moving across the screen
+        // display: block is set when it has a bottom style
+        if (!!atomMenu) {
+            if (!!atomMenu.style.bottom) {
+                // if has bottom property, then it must be open - reset inline transform style
+                atomMenu.style.transform = 'translate(0, 40px)';
+                atomMenu.style.display = 'block';
+            } else {
+                atomMenu.style.display = 'none';
+            }
+        }
+    }, 100);
 }
 
 function relabelMainSearch() {
@@ -590,6 +609,8 @@ function loadReusableComponentsAtom() {
     fixSidebarSearchBox();
 
     relabelMainSearch();
+
+    moveAtomMenuPopup();
 }
 
 ready(loadReusableComponentsAtom);

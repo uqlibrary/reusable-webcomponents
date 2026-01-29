@@ -124,7 +124,10 @@ a.dropdown-item {
     }
 }
 [aria-labelledby='quick-links-menu'] {
-    min-width: 21rem;
+    transition: transform 5ms ease-out;
+    h6 {
+        @include heading();
+    }
 }
 a.atom-icon-link,
 a {
