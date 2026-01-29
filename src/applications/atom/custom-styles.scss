@@ -206,6 +206,12 @@ nav.sidebarParent {
 header {
     display: block !important;
 
+    @media (max-width: 991px) {
+        &#top-bar {
+            display: none !important;
+        }
+    }
+
     .container-fluid {
         display: flex;
         align-items: center;
