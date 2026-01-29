@@ -606,6 +606,7 @@ function loadReusableComponentsAtom() {
     setupLinksForStyling('ul[aria-labelledby="quick-links-menu"]'); // header menu
     setupLinksForStyling('nav ul.list-unstyled'); // sidebar items
     setupLinksForStyling('ul[aria-labelledby="browse-menu"]'); // search Browse menu
+    setupLinksForStyling('#collapse-aggregations'); // search Browse menu
 
     highlightCulturallySignificantEntriesOnDetailPage();
     highlightCulturallySignificantEntriesOnListPage();

@@ -3,6 +3,7 @@
 
 // colours: https://design-system.ads-staging.aws.uq.edu.au/?path=/docs/core-colour--docs
 $grey-900: #3b383e;
+$purple-50: #eee9f2;
 $purple-500: #51247a;
 $purple-500-rgb: 81, 36, 122;
 $utility-50: #e7f0fa;
@@ -583,6 +584,9 @@ header .header-outer {
     border-bottom-width: 0;
 }
 
+.list-group {
+    --bs-list-group-action-hover-bg: transparent;
+}
 #sidebar {
     h2 {
         margin: 0;
@@ -599,17 +603,26 @@ header .header-outer {
         width: 100%;
     }
 
-    .list-group {
-        a {
-            display: inline;
-            color: $accent-color;
-            text-decoration: underline;
-            &:hover,
-            &:focus {
+    a.list-group-item {
+        text-decoration: none !important;
+        color: $accent-color;
+        span:first-of-type {
+            text-decoration: underline !important;
+        }
+        &:hover,
+        &:focus {
+            span:first-of-type {
                 color: #fff;
                 background-color: $accent-color;
+                text-decoration: underline !important;
+            }
+            span:not(:first-of-type) {
+                color: inherit;
+                background-color: inherit;
+                text-decoration: none;
             }
         }
+
     }
     input {
         font-size: 14px;
@@ -630,10 +643,16 @@ header .header-outer {
     }
 }
 
-// buttons at top of some list pages
-.atom-btn-white.active-primary.active {
-    background-color: $accent-color;
-    border-color: $accent-color;
+// small buttons
+.atom-btn-white {
+    &:hover i,
+    &.atom-btn-white:focus i {
+        color: $accent-color;
+    }
+    &.active-primary.active {
+        background-color: $accent-color;
+        border-color: $accent-color;
+    }
 }
 
 // hide the clipboard function, header & search results - not required by Fryer\
@@ -653,4 +672,14 @@ uq-site-header {
 input[aria-label="Search"]::placeholder {
     color: $body-copy;
     opacity: 0.42;
+}
+
+.form-check-input {
+    &:checked {
+        background-color: $accent-color;
+        border-color: $accent-color;
+    }
+    &:focus {
+        border-color: $purple-50;
+    }
 }
