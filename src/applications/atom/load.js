@@ -144,15 +144,6 @@ const createIcon = (svgPath, size) => {
     return svg;
 };
 
-// replace 'i' icon with a hamburger icon
-function swapQuickMenuIcon() {
-    const existingIcon = document.querySelector('#quick-links-menu i');
-    !!existingIcon &&
-        existingIcon.classList.contains('fa-info-circle') &&
-        existingIcon.classList.remove('fa-info-circle');
-    !!existingIcon && !existingIcon.classList.contains('fa-bars') && existingIcon.classList.add('fa-bars');
-}
-
 function addCulturalAdviceBannerOnHeader() {
     const targetElement = document.querySelector('uq-site-header');
     if (!targetElement) return;
@@ -210,6 +201,7 @@ function relabelMenuDropdown() {
 }
 
 function setupLinksForStyling(menuIdentifier) {
+    // embed the content of each link in a span, for styling
     const menus = document.querySelectorAll(menuIdentifier);
     if (!menus) {
         return;
@@ -468,6 +460,9 @@ function addHeaders() {
         !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
 
         moveBreadcrumbsToSiteHeader(siteHeader);
+
+        renameInfoMenu();
+        moveHamburgerToSiteHeader(siteHeader);
     }
 
     const atomHomelink = document.querySelector('.header-outer a:first-of-type');
@@ -514,6 +509,36 @@ function moveBreadcrumbsToSiteHeader(siteHeader) {
     }, 100);
 }
 
+function renameInfoMenu() {
+    const quickLinksAnchor = document.querySelector('#quick-links-menu');
+    !!quickLinksAnchor && (quickLinksAnchor.innerHTML = ''); // remove currrent contents, icon and accesible name
+    quickLinksAnchor.textContent = 'Menu';
+}
+
+function createSlotForButtonInUtilityArea(button, id = null) {
+    const slot = document.createElement('span');
+    !!slot && slot.setAttribute('slot', 'site-utilities');
+    !!slot && !!id && slot.setAttribute('id', id);
+    !!button && !!slot && slot.appendChild(button);
+
+    return slot;
+}
+
+function moveHamburgerToSiteHeader(siteHeader) {
+    const menuButton = document.querySelector('#quick-links-menu');
+    console.log('moveHamburgerToSiteHeader menuButton=', menuButton);
+    const menuDropdown = menuButton.nextElementSibling;
+    console.log('moveHamburgerToSiteHeader menuDropdown=', menuDropdown);
+
+    const newWrapper = document.createElement('div');
+    !!newWrapper && newWrapper.appendChild(menuButton);
+    !!newWrapper && newWrapper.appendChild(menuDropdown);
+
+    const slot = !!menuButton && createSlotForButtonInUtilityArea(newWrapper, 'menu');
+    console.log('moveHamburgerToSiteHeader slot=', slot);
+
+    !!siteHeader && !!menuButton && siteHeader.appendChild(slot);
+}
 function loadReusableComponentsAtom() {
     const cssFile = getIncludeFileLocation('applications/atom/custom-styles.css');
     // note: we cannot reach css in the localhost dist folder for test
@@ -534,10 +559,6 @@ function loadReusableComponentsAtom() {
     addHeaders();
 
     centerheaderBlock();
-
-    // updateHomeLink();
-
-    swapQuickMenuIcon();
 
     addCulturalAdviceBannerOnHeader();
 
