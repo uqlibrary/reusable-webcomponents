@@ -17,10 +17,26 @@ $border-color: rgba(38, 85, 115, 0.15);
 $heading-colour: $black;
 
 $bodyFontFamily: Roboto, Helvetica Neue, Helvetica, Arial, sans-serif;
-$headerFontFamily: 'Montserrat', Helvetica, Arial, sans-serif;
+$H1FontFamily: 'Montserrat', Helvetica, Arial, sans-serif;
 
 $minDesktopSize: 768px; // has multiple columns
 $maxResponsiveSize: 767px; // columns stack
+
+@mixin bodyCopy() {
+    font-family: $bodyFontFamily;
+    font-size: 1rem;
+    font-weight: 400;
+    color: $body-copy;
+    letter-spacing: 0.16px;
+    line-height: 1.5;
+}
+@mixin heading() {
+    font-family: $bodyFontFamily;
+    font-weight: 500;
+    color: $heading-colour;
+    letter-spacing: 0.16px;
+    line-height: 1.2;
+}
 
 :root {
     // override bootstrap colours!!
@@ -44,16 +60,17 @@ body {
 }
 
 h1 {
+    @include heading();
     font-size: 2.5em;
-    font-family: $headerFontFamily;
+    font-family: $H1FontFamily;
 }
 h2 {
+    @include heading();
     font-size: 2em;
-    font-family: $headerFontFamily;
 }
 h3 {
+    @include heading();
     font-size: 1.5em;
-    font-family: $headerFontFamily;
 }
 
 #wrapper {
@@ -68,28 +85,20 @@ h3 {
     border-image: initial;
     border-radius: 4px;
     h2 .text-primary {
+        @include heading();
         margin: 0;
-        font-family: $bodyFontFamily;
         display: block;
-        color: rgb(25, 21, 28) !important;
+        color: $heading-colour !important;
         font-size: 1.5rem;
-        font-weight: 500;
-        letter-spacing: 0.16px;
-        line-height: 1.2;
     }
     .field {
         h3,
-        h4,
-        div {
-            color: $body-copy;
-            font-family: $bodyFontFamily;
+        h4 {
+            @include heading();
             font-size: 1rem;
-            font-weight: 400;
-            line-height: 1.6;
-            letter-spacing: 0.16px;
         }
-        h3 {
-            font-weight: 600;
+        div {
+            @include bodyCopy();
         }
     }
     a {
@@ -99,6 +108,10 @@ h3 {
             color: #fff;
         }
     }
+    .border-top { border-color: $border-color; }
+    .border-right { border-color: $border-color; }
+    .border-bottom { border-color: $border-color; }
+    .border-left { border-color: $border-color; }
 }
 a.dropdown-item {
     background-color: #fff;
@@ -150,14 +163,10 @@ nav.sidebarParent {
         padding: 1.5rem 1.5rem 0 1.5rem;
         margin-bottom: 32px;
         h4 {
-            margin-bottom: 1rem;
-            font-family: $bodyFontFamily;
+            @include heading();
+            margin-bottom: 1rem !important;
             display: block;
-            color: rgb(25, 21, 28);
             font-size: 1.5rem;
-            font-weight: 500;
-            letter-spacing: 0.16px;
-            line-height: 1.2;
         }
         a {
             text-decoration: underline;
@@ -255,15 +264,13 @@ header {
     margin-inline: auto;
 
     ul button {
+        @include bodyCopy();
         border-width: 0 !important;
         margin: 0;
-        font-family: $bodyFontFamily;
         display: block;
         color: $heading-colour !important;
         font-size: 1.5rem;
         font-weight: 500;
-        letter-spacing: 0.16px;
-        line-height: 1.2;
         text-align: left;
         padding: 0;
 
@@ -448,14 +455,11 @@ header {
         }
     }
     .dropdown-menu h6 {
+        @include heading();
         margin: 0;
-        font-family: $bodyFontFamily;
         display: block;
         color: $heading-colour !important;
         font-size: 1.3rem;
-        font-weight: 500;
-        letter-spacing: 0.16px;
-        line-height: 1.2;
     }
 }
 
@@ -576,8 +580,7 @@ header {
         color: $heading-colour !important;
         font-size: 1.5rem;
         font-weight: 500;
-        letter-spacing: 0.16px;
-        line-height: 1.2;
+        @include heading();
     }
 
     .sidebarSearchWrapper,
