@@ -643,3 +643,8 @@ uq-site-header {
     height: 41px;
     margin-top: 10px;
 }
+
+input[aria-label="Search"]::placeholder {
+    color: $body-copy;
+    opacity: 0.42;
+}

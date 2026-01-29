@@ -571,6 +571,13 @@ function relabelMainSearch() {
     !!h3 && !!searchHeading && searchHeading.after(h3);
 }
 
+function resetSearchPlaceholder() {
+    const newPlaceholderText = 'Find manuscripts,  architectural drawings, photographs, and more';
+
+    const inputField = document.getElementById('search-box-input');
+    !!inputField && (inputField.placeholder = newPlaceholderText);
+}
+
 function loadReusableComponentsAtom() {
     const cssFile = getIncludeFileLocation('applications/atom/custom-styles.css');
     // note: we cannot reach css in the localhost dist folder for test
@@ -596,10 +603,9 @@ function loadReusableComponentsAtom() {
 
     relabelMenuDropdown();
 
-    setupLinksForStyling('ul[aria-labelledby="clipboard-menu"]'); // header paperclip menu
-    setupLinksForStyling('ul[aria-labelledby="quick-links-menu"]'); // header hamburger menu
+    setupLinksForStyling('ul[aria-labelledby="quick-links-menu"]'); // header menu
     setupLinksForStyling('nav ul.list-unstyled'); // sidebar items
-    setupLinksForStyling('ul[aria-labelledby="browse-menu"]'); // header browse menu
+    setupLinksForStyling('ul[aria-labelledby="browse-menu"]'); // search Browse menu
 
     highlightCulturallySignificantEntriesOnDetailPage();
     highlightCulturallySignificantEntriesOnListPage();
@@ -611,6 +617,8 @@ function loadReusableComponentsAtom() {
     relabelMainSearch();
 
     moveAtomMenuPopup();
+
+    resetSearchPlaceholder();
 }
 
 ready(loadReusableComponentsAtom);
