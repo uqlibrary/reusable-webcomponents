@@ -539,6 +539,19 @@ function moveHamburgerToSiteHeader(siteHeader) {
 
     !!siteHeader && !!menuButton && siteHeader.appendChild(slot);
 }
+
+function relabelMainSearch() {
+    const searchHeading = document.querySelector('#search-box h2');
+    !!searchHeading &&
+        searchHeading.classList.contains('visually-hidden') &&
+        searchHeading.classList.remove('visually-hidden');
+    !!searchHeading && (searchHeading.textContent = 'Fryer Library Manuscripts');
+
+    const h3 = document.createElement('h3');
+    !!h3 && (h3.textContent = 'Search');
+    !!h3 && !!searchHeading && searchHeading.after(h3);
+}
+
 function loadReusableComponentsAtom() {
     const cssFile = getIncludeFileLocation('applications/atom/custom-styles.css');
     // note: we cannot reach css in the localhost dist folder for test
@@ -575,6 +588,8 @@ function loadReusableComponentsAtom() {
     splitSidebarIntoBoxes();
 
     fixSidebarSearchBox();
+
+    relabelMainSearch();
 }
 
 ready(loadReusableComponentsAtom);
