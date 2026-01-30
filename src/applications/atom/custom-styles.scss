@@ -162,11 +162,19 @@ h3 {
 a.dropdown-item {
     background-color: #fff;
     color: $accent-color;
-
-    :hover,
-    :focus {
+}
+.yui-ac-content ul li,
+ul#search-box-results a {
+    background-color: #fff;
+    color: $accent-color;
+    &:hover,
+    &:focus {
         background-color: $accent-color;
-        color: #fff;
+        color: #fff !important;
+        span.text-muted {
+            background-color: $accent-color;
+            color: #fff !important;
+        }
     }
 }
 [slot="site-utilities"] { // the action menu is moved into the site header
@@ -207,7 +215,10 @@ a.dropdown-item {
     }
 }
 a.atom-icon-link,
-a {
+ul[aria-labelledby="quick-links-menu"] a,
+nav ul.list-unstyled a,
+ul[aria-labelledby="browse-menu"] a,
+#collapse-aggregations a {
     text-decoration: underline;
     &:hover,
     &:focus {
