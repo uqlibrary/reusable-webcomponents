@@ -195,11 +195,6 @@ function getIncludeFileLocation(filename) {
     return `https://assets.library.uq.edu.au/reusable-webcomponents${fileLocationFragment}/${filename}`;
 }
 
-function relabelMenuDropdown() {
-    const hamburgerMenuHeading = document.querySelector('[aria-labelledby="quick-links-menu"] h6.dropdown-header');
-    !!hamburgerMenuHeading && (hamburgerMenuHeading.textContent = 'Menu');
-}
-
 function setupLinksForStyling(menuIdentifier) {
     // embed the content of each link in a span, for styling
     const menus = document.querySelectorAll(menuIdentifier);
@@ -519,16 +514,47 @@ function moveActionMenuToSiteHeader(siteHeader) {
     !!quickLinksAnchor && (quickLinksAnchor.innerHTML = ''); // remove currrent contents, icon and accesible name
     quickLinksAnchor.textContent = 'Menu';
 
+    // remove superfluous heading from menu body
+    const actionMenuHeading = document.querySelector('[aria-labelledby="quick-links-menu"] li:has(h6.dropdown-header)');
+    !!actionMenuHeading && actionMenuHeading.remove();
+
+    // now move the Action menu
+
+    // get the action button and popup area out of the existing html
     const menuButton = document.querySelector('#quick-links-menu');
     const menuDropdown = menuButton.nextElementSibling;
 
-    const newWrapper = document.createElement('div');
-    !!newWrapper && newWrapper.appendChild(menuButton);
-    !!newWrapper && newWrapper.appendChild(menuDropdown);
+    // the existing ::after arrow doesn't act properly with our required "tight-link" hover. Create icons to replace it
+    const arrowDownIconTemplate = document.createElement('template');
+    arrowDownIconTemplate.innerHTML = `<svg class="downArrow" id="down-arrow" data-testid="down-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+        <g id="icon/standard/chevron-down-sml">
+            <path id="Chevron-down" d="M7 10L12 15L17 10" stroke="#51247A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        </g>
+    </svg>`;
+    const arrowUpIconTemplate = document.createElement('template');
+    arrowUpIconTemplate.innerHTML = `<svg class="upArrow" id="up-arrow" data-testid="up-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                    <path d="M17 14L12 9L7 14" stroke="#19151C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>`;
 
-    const slot = !!menuButton && createSlotForButtonInUtilityArea(newWrapper, 'atomMenu');
+    // wrap the existing anchor text in a span and put the svgs inside the anchor
+    // (the anchor itself must sit right beside the popup in the html for the Bootstrap open-on-click to work)
+    menuButton.childNodes.forEach((node) => {
+        if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+            const span = document.createElement('span');
+            span.textContent = node.textContent;
+            menuButton.replaceChild(span, node);
+            !!menuButton && menuButton.appendChild(arrowDownIconTemplate.content.cloneNode(true));
+            !!menuButton && menuButton.appendChild(arrowUpIconTemplate.content.cloneNode(true));
+        }
+    });
 
-    !!siteHeader && !!menuButton && siteHeader.appendChild(slot);
+    const allWrapper = document.createElement('div');
+    !!allWrapper && allWrapper.appendChild(menuButton);
+    !!allWrapper && allWrapper.appendChild(menuDropdown);
+
+    const slot = !!allWrapper && createSlotForButtonInUtilityArea(allWrapper, 'atomMenu');
+
+    !!siteHeader && !!slot && siteHeader.appendChild(slot);
 }
 function moveAtomMenuPopup() {
     setInterval(() => {
@@ -593,7 +619,7 @@ function loadReusableComponentsAtom() {
 
     addCulturalAdviceBannerOnHeader();
 
-    relabelMenuDropdown();
+    // relabelMenuDropdown();
 
     setupLinksForStyling('ul[aria-labelledby="quick-links-menu"]'); // header menu
     setupLinksForStyling('nav ul.list-unstyled'); // sidebar items

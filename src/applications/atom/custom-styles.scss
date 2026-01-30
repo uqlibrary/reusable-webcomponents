@@ -13,11 +13,12 @@ $black: #19151c;
 $accent-color: $purple-500;
 $accent-color-rgb: $purple-500-rgb;
 $body-copy: $grey-900;
+$body-copy-rgb: 59, 56, 62;
 $info-banner-background: $utility-50;
 $border-color: rgba(38, 85, 115, 0.15);
 $heading-colour: $black;
 
-$bodyFontFamily: Roboto, Helvetica Neue, Helvetica, Arial, sans-serif;
+$bodyFontFamily: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
 $H1FontFamily: 'Montserrat', Helvetica, Arial, sans-serif;
 
 $minDesktopSize: 768px; // has multiple columns
@@ -75,6 +76,7 @@ $maxResponsiveSize: 767px; // columns stack
 :root {
     // override bootstrap colours!!
     --bs-body-color: #{$body-copy};
+    --bs-body-color-rgb: #{$body-copy-rgb};
     --bs-link-color: #{$accent-color};
     --bs-link-color-rgb: #{$accent-color-rgb};
     --bs-link-hover-color-rgb: #fff;
@@ -82,7 +84,17 @@ $maxResponsiveSize: 767px; // columns stack
     --bs-primary-rgb: #{$accent-color-rgb};
     --bs-dropdown-link-hover-color: #fff;
     --bs-dropdown-link-hover-bg: #{$accent-color-rgb};
-    --bs-secondary-color: #{$accent-color-rgb};
+
+    --bs-body-bg:  #fff;
+    --bs-body-bg-rgb: 0, 0, 0;
+    --bs-secondary-color:#{$body-copy};
+    --bs-secondary-color-rgb: #{$body-copy-rgb};
+    --bs-secondary-bg: #{$accent-color};
+    --bs-secondary-bg-rgb: #{$accent-color-rgb};
+    --bs-tertiary-color: #{$accent-color};
+    --bs-tertiary-color-rgb: #{$accent-color-rgb};
+    --bs-tertiary-bg: #fff;
+    --bs-tertiary-bg-rgb: 0, 0, 0;
 }
 .breadcrumb {
     --bs-breadcrumb-divider-color: $accent-color;
@@ -157,10 +169,41 @@ a.dropdown-item {
         color: #fff;
     }
 }
-[aria-labelledby='quick-links-menu'] {
-    transition: transform 5ms ease-out;
-    h6 {
-        @include heading();
+[slot="site-utilities"] { // the action menu is moved into the site header
+    a {
+        text-decoration: none;
+        font-family: $bodyFontFamily;
+        color: $heading-colour;
+        &:hover,
+        &:focus {
+            span {
+                background-color: $accent-color;
+                color: #fff;
+            }
+        }
+        &:after {
+            content: none; // hide the supplied arrow so we can add an icon instead and then not mark it with hover
+        }
+
+        .upArrow {
+            display: none;
+        }
+        // Only show up arrow when the sibling dropdown menu is visible (show-hide is built-in Bootstrap function)
+        &:has(+ .dropdown-menu[style*="display: block"]),
+        &:has(+ .dropdown-menu[style*="display:block"]) {
+            .downArrow {
+                display: none;
+            }
+            .upArrow {
+                display: block;
+            }
+        }
+    }
+    li {
+        padding-block: 0.25rem; // make the vertical spacing of popup menu items match what we see in the account menu on homepage
+    }
+    [aria-labelledby='quick-links-menu'] { // try and improve the way the popup menu closes, given our changes to the transform value
+        transition: transform 5ms ease-out;
     }
 }
 a.atom-icon-link,
