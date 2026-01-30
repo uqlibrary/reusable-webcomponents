@@ -461,8 +461,7 @@ function addHeaders() {
 
         moveBreadcrumbsToSiteHeader(siteHeader);
 
-        renameInfoMenu();
-        moveHamburgerToSiteHeader(siteHeader);
+        moveActionMenuToSiteHeader(siteHeader);
     }
 
     const atomHomelink = document.querySelector('.header-outer a:first-of-type');
@@ -476,17 +475,13 @@ function moveBreadcrumbsToSiteHeader(siteHeader) {
         if (!!siteHeaderShadowRoot) {
             clearInterval(awaitSiteHeader);
 
-            console.log('moveBreadcrumbsToSiteHeader siteHeaderShadowRoot=', siteHeaderShadowRoot);
             const breadcrumbParent = !!siteHeaderShadowRoot && siteHeaderShadowRoot.getElementById('breadcrumb_nav');
-            console.log('moveBreadcrumbsToSiteHeader breadcrumbParent=', breadcrumbParent);
 
             const breadcrumbNav = document.querySelector('nav:has(ol.breadcrumb)');
             const listItems = !!breadcrumbNav && breadcrumbNav.querySelectorAll('ol li');
-            console.log('moveBreadcrumbsToSiteHeader listItems=', listItems);
 
             !!listItems &&
                 listItems.forEach((item) => {
-                    console.log('moveBreadcrumbsToSiteHeader item=', item);
                     const anchor = item.querySelector('a');
                     const title = anchor ? anchor.textContent : item.textContent;
                     const href = anchor ? anchor.href : null;
@@ -509,12 +504,6 @@ function moveBreadcrumbsToSiteHeader(siteHeader) {
     }, 100);
 }
 
-function renameInfoMenu() {
-    const quickLinksAnchor = document.querySelector('#quick-links-menu');
-    !!quickLinksAnchor && (quickLinksAnchor.innerHTML = ''); // remove currrent contents, icon and accesible name
-    quickLinksAnchor.textContent = 'Menu';
-}
-
 function createSlotForButtonInUtilityArea(button, id = null) {
     const slot = document.createElement('span');
     !!slot && slot.setAttribute('slot', 'site-utilities');
@@ -524,11 +513,14 @@ function createSlotForButtonInUtilityArea(button, id = null) {
     return slot;
 }
 
-function moveHamburgerToSiteHeader(siteHeader) {
+function moveActionMenuToSiteHeader(siteHeader) {
+    // retitle action menu from "Quick links" to "Menu"
+    const quickLinksAnchor = document.querySelector('#quick-links-menu');
+    !!quickLinksAnchor && (quickLinksAnchor.innerHTML = ''); // remove currrent contents, icon and accesible name
+    quickLinksAnchor.textContent = 'Menu';
+
     const menuButton = document.querySelector('#quick-links-menu');
-    console.log('moveHamburgerToSiteHeader menuButton=', menuButton);
     const menuDropdown = menuButton.nextElementSibling;
-    console.log('moveHamburgerToSiteHeader menuDropdown=', menuDropdown);
 
     const newWrapper = document.createElement('div');
     !!newWrapper && newWrapper.appendChild(menuButton);
