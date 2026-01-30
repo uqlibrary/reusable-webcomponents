@@ -371,6 +371,13 @@ header {
     }
 }
 
+.form-control {
+    &:focus {
+        box-shadow: none;
+        border-color: inherit;
+    }
+}
+
 #context-menu {
     i {
         color: $accent-color;
