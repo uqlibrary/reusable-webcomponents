@@ -479,8 +479,6 @@ header .header-outer {
     }
     .navbar-collapse {
         position: relative;
-        margin-top: 3rem;
-        margin-bottom: 3rem;
         & > div:first-of-type {
             // form immediate wrapper
             width: 100%;
@@ -488,6 +486,7 @@ header .header-outer {
         }
         .dropdown {
             display: flex;
+            margin-bottom: 0 !important;
         }
     }
     form {
@@ -496,6 +495,7 @@ header .header-outer {
         margin-right: 0;
         flex-direction: column;
         max-width: inherit !important;
+        margin-top: 1rem !important;
         h2,
         h3 {
             color: #fff;
