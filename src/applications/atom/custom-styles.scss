@@ -99,6 +99,9 @@ $maxResponsiveSize: 767px; // columns stack
 .breadcrumb {
     --bs-breadcrumb-divider-color: $accent-color;
 }
+.atom-btn-secondary {
+    --bs-btn-active-bg: #fff;
+}
 
 html,
 body {
@@ -162,6 +165,11 @@ h3 {
 a.dropdown-item {
     background-color: #fff;
     color: $accent-color;
+    &:hover,
+    &:focus {
+        background-color: $accent-color;
+        color: #fff !important;
+    }
 }
 .yui-ac-content ul li,
 ul#search-box-results a {
@@ -214,6 +222,7 @@ ul#search-box-results a {
         transition: transform 5ms ease-out;
     }
 }
+// the entries that are wrapped in a span by load.js setupLinksForStyling
 a.atom-icon-link,
 ul[aria-labelledby="quick-links-menu"] a,
 nav ul.list-unstyled a,
@@ -223,7 +232,6 @@ ul[aria-labelledby="browse-menu"] a,
     &:hover,
     &:focus {
         span {
-            // span inserted into all relevant anchors by load.js, see function setupLinksForStyling
             background-color: $accent-color;
             color: #fff;
         }
@@ -526,6 +534,9 @@ header .header-outer {
             background-color: #fff;
             border-color: #fff;
             color: $accent-color;
+            &:focus {
+                box-shadow: none;
+            }
             i {
                 color: $accent-color;
             }
