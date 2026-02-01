@@ -25,7 +25,9 @@ function loadReusableComponentsAtom() {
 
     addHeaders();
 
-    centerheaderBlock();
+    centerHeaderBlock();
+
+    resizeSiteHeader();
 
     addCulturalAdviceBannerOnHeader();
 
@@ -63,7 +65,7 @@ function hasDebugParam(testHost) {
     return urlParams.has('debug') && urlParams.get('debug') === 'true';
 }
 
-function centerheaderBlock() {
+function centerHeaderBlock() {
     // insert a wrapping element as the first child of the header, so we can center the block
     const wrapper = document.createElement('div');
     !!wrapper && wrapper.classList.add('header-outer');
@@ -76,6 +78,24 @@ function centerheaderBlock() {
         }
         header.appendChild(wrapper);
     }
+}
+
+function resizeSiteHeader() {
+    // unexpectedly the site header is very thin
+    // we need to fix it inside because fixing the wrappe in custom-styles.css gives grey strips the page grey background
+    const awaitSiteHeader = setInterval(() => {
+        const siteHeader = document.querySelector('uq-site-header');
+        const siteHeaderShadowRoot = !!siteHeader && siteHeader.shadowRoot;
+        if (!!siteHeaderShadowRoot) {
+            clearInterval(awaitSiteHeader);
+            const block = !!siteHeaderShadowRoot && siteHeaderShadowRoot.querySelector('.uq-site-header');
+            if (!block) {
+                return;
+            }
+            block.style.height = '51px';
+            block.style.paddingTop = '10px';
+        }
+    }, 100);
 }
 
 function contentExists(searchText = 'Reference code') {
