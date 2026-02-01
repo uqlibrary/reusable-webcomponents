@@ -442,7 +442,7 @@ function addHeaders() {
         !!siteHeader && siteHeader.setAttribute('secondlevelurl', '/index.php/');
         !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
 
-        moveBreadcrumbsToSiteHeader(siteHeader);
+        buildAtomBreadcrumbsinSiteHeader(siteHeader);
 
         moveActionMenuToSiteHeader(siteHeader);
     }
@@ -451,7 +451,7 @@ function addHeaders() {
     !!atomHomelink && atomHomelink.remove();
 }
 
-function moveBreadcrumbsToSiteHeader(siteHeader) {
+function buildAtomBreadcrumbsinSiteHeader(siteHeader) {
     const awaitSiteHeader = setInterval(() => {
         const siteHeaderShadowRoot = siteHeader.shadowRoot;
 
@@ -472,6 +472,11 @@ function moveBreadcrumbsToSiteHeader(siteHeader) {
                     breadcrumbParent.insertAdjacentHTML('beforeend', listItemEntry);
                 });
             !!breadcrumbNav && breadcrumbNav.remove();
+
+            // if a subheading appears, use it as a breadcrumb
+            const headingLabel = document.getElementById('heading-label');
+            const listItemEntry = !!headingLabel && breadcrumbSpan(headingLabel.innerText);
+            !!listItemEntry && breadcrumbParent.insertAdjacentHTML('beforeend', listItemEntry);
         }
 
         function breadcrumblink(b) {
