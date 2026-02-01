@@ -101,6 +101,7 @@ $maxResponsiveSize: 767px; // columns stack
 }
 .atom-btn-secondary {
     --bs-btn-active-bg: #fff;
+    --bs-btn-active-color: #{$accent-color-rgb};
 }
 
 html,

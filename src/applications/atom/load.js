@@ -6,6 +6,55 @@ function ready(fn) {
     }
 }
 
+function loadReusableComponentsAtom() {
+    const cssFile = getIncludeFileLocation('applications/atom/custom-styles.css');
+    // note: we cannot reach css in the localhost dist folder for test
+    insertCssFile(cssFile);
+
+    let scriptLink = '/uq-lib-reusable.min.js';
+    if (window.location.hostname !== 'localhost') {
+        scriptLink = getIncludeFileLocation('uq-lib-reusable.min.js');
+    }
+    insertScript(scriptLink, true);
+
+    const firstElement = document.body.children[0];
+
+    const gtm = document.createElement('uq-gtm');
+    !!gtm && gtm.setAttribute('gtm', 'GTM-NC7M38Q');
+    document.body.insertBefore(gtm, firstElement);
+
+    addHeaders();
+
+    centerheaderBlock();
+
+    addCulturalAdviceBannerOnHeader();
+
+    // relabelMenuDropdown();
+
+    // handle span styling in custom-styles.scss
+    setupLinksForStyling('ul[aria-labelledby="quick-links-menu"]'); // header menu
+    setupLinksForStyling('nav ul.list-unstyled'); // sidebar items
+    setupLinksForStyling('ul[aria-labelledby="browse-menu"]'); // search Browse menu
+    setupLinksForStyling('#collapse-aggregations'); // search Browse menu
+    setupLinksForStyling('#popular-this-week'); // homepage "Popular this week" section
+    window.location.pathname === '/index.php/' && setupLinksForStyling('#sidebar section:first-of-type'); // homepage "Browse by" section
+
+    highlightCulturallySignificantEntriesOnDetailPage();
+    highlightCulturallySignificantEntriesOnListPage();
+
+    splitSidebarIntoBoxes();
+
+    fixSidebarSearchBox();
+
+    relabelMainSearch();
+
+    moveAtomMenuPopup();
+
+    resetSearchPlaceholder();
+}
+
+ready(loadReusableComponentsAtom);
+
 function hasDebugParam(testHost) {
     if (window.location.host !== testHost) {
         return false;
@@ -29,51 +78,6 @@ function centerheaderBlock() {
     }
 }
 
-// function updateHomeLink() {
-//     // They supply one link to fryer home with 2 elements, an image and a span
-//     // We want the image to go to uq home and the span to go to fryer home
-//
-//     const oldHomeLink = document.querySelector('.header-outer a:first-of-type');
-//     if (!oldHomeLink) {
-//         return;
-//     }
-//     // Get the current href
-//     const currentHref = oldHomeLink.getAttribute('href');
-//     const rel = oldHomeLink.getAttribute('rel');
-//
-//     // Get the img and span elements
-//     const img = oldHomeLink.querySelector('img');
-//     const span = oldHomeLink.querySelector('span');
-//
-//     // Create first link (for logo) - pointing to UQ website
-//     const logoLink = document.createElement('a');
-//     logoLink.className = 'navbar-brand d-flex flex-wrap flex-lg-nowrap align-items-center py-0 me-0';
-//     logoLink.setAttribute('data-testid', 'uqHomeLink');
-//     logoLink.href = 'https://www.uq.edu.au/';
-//     logoLink.title = 'UQ home page';
-//     logoLink.rel = rel;
-//     logoLink.appendChild(img.cloneNode(true));
-//
-//     // Create second link (for text) - keeping original href
-//     const textContent = span.textContent;
-//     const textLabel = document.createTextNode(textContent);
-//     const textLink = document.createElement('a');
-//     // no rel home
-//     textLink.title = 'Manuscripts home page';
-//     textLink.setAttribute('data-testid', 'fryerHomeLink');
-//     textLink.href = currentHref;
-//     textLink.classList.add('textHomeLink');
-//     textLink.appendChild(textLabel.cloneNode(true));
-//
-//     // Replace the original element with both new links
-//     oldHomeLink.parentNode.insertBefore(logoLink, oldHomeLink);
-//     oldHomeLink.parentNode.insertBefore(document.createTextNode(' '), oldHomeLink);
-//     oldHomeLink.parentNode.insertBefore(textLink, oldHomeLink);
-//
-//     // Remove the original element
-//     oldHomeLink.remove();
-// }
-
 function contentExists(searchText = 'Reference code') {
     const headings = document.evaluate(
         `//h3[contains(., '${searchText}')]`,
@@ -85,6 +89,7 @@ function contentExists(searchText = 'Reference code') {
     const thisHeading = headings.iterateNext();
     return !!thisHeading;
 }
+
 function addBookNowButton() {
     const buttonLabel = 'Book now';
     const bookingLandingPage = 'https://calendar.library.uq.edu.au/reserve/spaces/reading-room';
@@ -94,7 +99,6 @@ function addBookNowButton() {
         return;
     }
     // the tree in the area at the top of the detail page reloads the page. Re-add the button each time.
-    // note, the button sits in the top padding of the sidebar so the sidebar doesn't flicker as this redraws.
     setInterval(() => {
         const sidebarMenu = document.getElementById('action-icons'); //
         const bookNowWrapperIdentifier = 'booknowLink';
@@ -127,22 +131,6 @@ function addBookNowButton() {
         }
     }, 100);
 }
-
-const createIcon = (svgPath, size) => {
-    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    !!path && path.setAttribute('d', svgPath);
-
-    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    !!svg && svg.setAttribute('class', 'svgIcon');
-    !!svg && svg.setAttribute('focusable', 'false');
-    !!svg && svg.setAttribute('viewBox', '0 0 24 24');
-    !!svg && svg.setAttribute('ariaHidden', 'true');
-    !!svg && svg.setAttribute('width', size);
-    !!svg && svg.setAttribute('height', size);
-    !!svg && !!path && svg.appendChild(path);
-
-    return svg;
-};
 
 function addCulturalAdviceBannerOnHeader() {
     const targetElement = document.querySelector('uq-site-header');
@@ -595,50 +583,3 @@ function resetSearchPlaceholder() {
     const inputField = document.getElementById('search-box-input');
     !!inputField && (inputField.placeholder = newPlaceholderText);
 }
-
-function loadReusableComponentsAtom() {
-    const cssFile = getIncludeFileLocation('applications/atom/custom-styles.css');
-    // note: we cannot reach css in the localhost dist folder for test
-    insertCssFile(cssFile);
-
-    let scriptLink = '/uq-lib-reusable.min.js';
-    if (window.location.hostname !== 'localhost') {
-        scriptLink = getIncludeFileLocation('uq-lib-reusable.min.js');
-    }
-    insertScript(scriptLink, true);
-
-    const firstElement = document.body.children[0];
-
-    const gtm = document.createElement('uq-gtm');
-    !!gtm && gtm.setAttribute('gtm', 'GTM-NC7M38Q');
-    document.body.insertBefore(gtm, firstElement);
-
-    addHeaders();
-
-    centerheaderBlock();
-
-    addCulturalAdviceBannerOnHeader();
-
-    // relabelMenuDropdown();
-
-    // handle span styling in custom-styles.scss
-    setupLinksForStyling('ul[aria-labelledby="quick-links-menu"]'); // header menu
-    setupLinksForStyling('nav ul.list-unstyled'); // sidebar items
-    setupLinksForStyling('ul[aria-labelledby="browse-menu"]'); // search Browse menu
-    setupLinksForStyling('#collapse-aggregations'); // search Browse menu
-
-    highlightCulturallySignificantEntriesOnDetailPage();
-    highlightCulturallySignificantEntriesOnListPage();
-
-    splitSidebarIntoBoxes();
-
-    fixSidebarSearchBox();
-
-    relabelMainSearch();
-
-    moveAtomMenuPopup();
-
-    resetSearchPlaceholder();
-}
-
-ready(loadReusableComponentsAtom);
