@@ -238,8 +238,10 @@ function highlightCulturallySignificantEntriesOnDetailPage() {
         const contentAndStructureAreaElement = document.querySelectorAll('#contentAndStructureArea .details p');
         const contentAdvisoryParagraph =
             !!contentAndStructureAreaElement &&
-            Array.from(contentAndStructureAreaElement).filter((paragraph) =>
-                paragraph.textContent.startsWith('Cultural advice:'),
+            Array.from(contentAndStructureAreaElement).filter(
+                (paragraph) =>
+                    paragraph.textContent.startsWith('Cultural advice:') ||
+                    paragraph.textContent.startsWith('Content advice:'),
             );
 
         let bannerText = null;
