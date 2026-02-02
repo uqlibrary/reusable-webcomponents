@@ -111,17 +111,32 @@ function contentExists(searchText = 'Reference code') {
 }
 
 function addBookNowButton() {
-    const buttonLabel = 'Book now';
-    const bookingLandingPage = 'https://calendar.library.uq.edu.au/reserve/spaces/reading-room';
-
     // Only pages with a Reference code are for an item that the patron can make a booking to view
     if (!contentExists('Reference code')) {
         return;
     }
+    const bookNowWrapperIdentifier = 'booknowLink';
+    const bookingBlockTemplate = `<div id="${bookNowWrapperIdentifier}" data-testid="booknowLink" class="box">
+        <h4>Access</h4>
+        <p>Make an appointment to request access.</p>
+        <div class="bookNowLinkWrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" id="Time-Daily-1--Streamline-Ultimate" height="24" width="24" aria-hidden="true">
+              <path stroke="#51247a" stroke-linecap="round" stroke-linejoin="round" d="M10.5 13h0.75c0.1989 0 0.3897 0.079 0.5303 0.2197 0.1407 0.1406 0.2197 0.3314 0.2197 0.5303V19" stroke-width="1.5"></path>
+              <path stroke="#51247a" stroke-linecap="round" stroke-linejoin="round" d="M10.5 19h3" stroke-width="1.5"></path>
+              <path stroke="#51247a" stroke-linecap="round" stroke-linejoin="round" d="M2.25 3.75h19.5s1.5 0 1.5 1.5v16.5s0 1.5 -1.5 1.5H2.25s-1.5 0 -1.5 -1.5V5.25s0 -1.5 1.5 -1.5Z" stroke-width="1.5"></path>
+              <path stroke="#51247a" stroke-linecap="round" stroke-linejoin="round" d="M0.75 9.75h22.5" stroke-width="1.5"></path>
+              <path stroke="#51247a" stroke-linecap="round" stroke-linejoin="round" d="M6.75 6V0.75" stroke-width="1.5"></path>
+              <path stroke="#51247a" stroke-linecap="round" stroke-linejoin="round" d="M17.25 6V0.75" stroke-width="1.5"></path>
+            </svg>
+            <a class="booknow bookNowLink" data-analyticsid="fryer-booking" target="_blank" href="https://calendar.library.uq.edu.au/reserve/spaces/reading-room">
+                <span>Book now</span>
+            </a>
+        </div>
+    </div>`;
+
     // the tree in the area at the top of the detail page reloads the page. Re-add the button each time.
     setInterval(() => {
         const sidebarMenu = document.getElementById('action-icons'); //
-        const bookNowWrapperIdentifier = 'booknowLink';
         const buttonWrapper = document.getElementById(bookNowWrapperIdentifier);
         if (!!sidebarMenu && !buttonWrapper) {
             const sidebarParent = sidebarMenu.parentNode;
@@ -130,23 +145,7 @@ function addBookNowButton() {
                 sidebarParent.classList.add('sidebarParent');
             // icon: https://www.streamlinehq.com/icons/ultimate-regular-free?search=calendar&icon=ico_cyjrCEgOghvvMPl4
             const bookingLinkContainer = document.createElement('template');
-            bookingLinkContainer.innerHTML = `<div id="${bookNowWrapperIdentifier}" data-testid="booknowLink" class="box">
-                    <h4>Access</h4>
-                    <p>Make an appointment to request access.</p>
-                    <div class="bookNowLinkWrapper">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" id="Time-Daily-1--Streamline-Ultimate" height="24" width="24" aria-hidden="true">
-                          <path stroke="#51247a" stroke-linecap="round" stroke-linejoin="round" d="M10.5 13h0.75c0.1989 0 0.3897 0.079 0.5303 0.2197 0.1407 0.1406 0.2197 0.3314 0.2197 0.5303V19" stroke-width="1.5"></path>
-                          <path stroke="#51247a" stroke-linecap="round" stroke-linejoin="round" d="M10.5 19h3" stroke-width="1.5"></path>
-                          <path stroke="#51247a" stroke-linecap="round" stroke-linejoin="round" d="M2.25 3.75h19.5s1.5 0 1.5 1.5v16.5s0 1.5 -1.5 1.5H2.25s-1.5 0 -1.5 -1.5V5.25s0 -1.5 1.5 -1.5Z" stroke-width="1.5"></path>
-                          <path stroke="#51247a" stroke-linecap="round" stroke-linejoin="round" d="M0.75 9.75h22.5" stroke-width="1.5"></path>
-                          <path stroke="#51247a" stroke-linecap="round" stroke-linejoin="round" d="M6.75 6V0.75" stroke-width="1.5"></path>
-                          <path stroke="#51247a" stroke-linecap="round" stroke-linejoin="round" d="M17.25 6V0.75" stroke-width="1.5"></path>
-                        </svg>
-    
-                        <a class="booknow bookNowLink" data-analyticsid="fryer-booking" target="_blank" href="${bookingLandingPage}">${buttonLabel}</a>
-                    </div>
-                </div>`;
-
+            bookingLinkContainer.innerHTML = bookingBlockTemplate;
             sidebarMenu.insertBefore(bookingLinkContainer.content.cloneNode(true), sidebarMenu.firstChild);
         }
     }, 100);

@@ -237,6 +237,8 @@ ul[aria-labelledby="quick-links-menu"] a,
 nav ul.list-unstyled a,
 ul[aria-labelledby="browse-menu"] a,
 #collapse-treeview a,
+#sidebar a,
+#context-menu a,
 #collapse-aggregations a {
     text-decoration: underline;
     &:hover,
@@ -246,6 +248,7 @@ ul[aria-labelledby="browse-menu"] a,
         span {
             background-color: $accent-color;
             color: #fff;
+            text-decoration: underline;
         }
     }
 }
