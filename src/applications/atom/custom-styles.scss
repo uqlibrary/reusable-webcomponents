@@ -279,6 +279,7 @@ nav.sidebarParent {
         }
         a {
             text-decoration: underline;
+            font-family: $bodyFontFamily;
             &:hover,
             &:focus {
                 i {
