@@ -101,6 +101,8 @@ $maxResponsiveSize: 767px; // columns stack
     --bs-border-radius-lg: 4px;
     --bs-border-radius-xl: 4px;
     --bs-border-radius-xxl: 4px;
+
+    --bs-body-font-family: #{$bodyFontFamily};
 }
 .breadcrumb {
     --bs-breadcrumb-divider-color: $accent-color;
