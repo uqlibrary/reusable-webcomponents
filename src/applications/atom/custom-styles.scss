@@ -95,6 +95,12 @@ $maxResponsiveSize: 767px; // columns stack
     --bs-tertiary-color-rgb: #{$accent-color-rgb};
     --bs-tertiary-bg: #fff;
     --bs-tertiary-bg-rgb: 0, 0, 0;
+
+    --bs-border-radius: 4px;
+    --bs-border-radius-sm: 4px;
+    --bs-border-radius-lg: 4px;
+    --bs-border-radius-xl: 4px;
+    --bs-border-radius-xxl: 4px;
 }
 .breadcrumb {
     --bs-breadcrumb-divider-color: $accent-color;
@@ -334,7 +340,6 @@ header {
         }
     }
     button.btn {
-        // btn-sm atom-btn-secondary dropdown-toggle
         background-color: $accent-color;
         border-color: $accent-color;
         color: #fff;
