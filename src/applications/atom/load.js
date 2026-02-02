@@ -608,6 +608,7 @@ function relabelMainSearch() {
     !!searchHeading && (searchHeading.textContent = 'Fryer Library Manuscripts');
 
     const h3 = document.createElement('h3');
+    !!h3 && h3.setAttribute('data-testid', 'Search');
     !!h3 && (h3.textContent = 'Search');
     !!h3 && !!searchHeading && searchHeading.after(h3);
 }
