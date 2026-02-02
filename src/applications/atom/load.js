@@ -37,7 +37,8 @@ function loadReusableComponentsAtom() {
     setupLinksForStyling('ul[aria-labelledby="quick-links-menu"]'); // header menu
     setupLinksForStyling('ul[aria-labelledby="browse-menu"]'); // search Browse menu
     setupLinksForStyling('#collapse-aggregations');
-    setupLinksForStyling('#sidebar'); // all sidebar links
+    setupLinksForStyling('#sidebar'); // all left sidebar links
+    setupLinksForStyling('#context-menu'); // all right sidebar links
     window.location.pathname === '/index.php/' && setupLinksForStyling('#sidebar section:first-of-type'); // homepage "Browse by" section
 
     highlightCulturallySignificantEntriesOnDetailPage();
