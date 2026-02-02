@@ -239,6 +239,8 @@ ul[aria-labelledby="browse-menu"] a,
     text-decoration: underline;
     &:hover,
     &:focus {
+        background-color: unset !important;
+        color: unset !important;
         span {
             background-color: $accent-color;
             color: #fff;
