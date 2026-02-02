@@ -35,11 +35,9 @@ function loadReusableComponentsAtom() {
 
     // handle span styling in custom-styles.scss
     setupLinksForStyling('ul[aria-labelledby="quick-links-menu"]'); // header menu
-    setupLinksForStyling('nav ul.list-unstyled'); // sidebar items
     setupLinksForStyling('ul[aria-labelledby="browse-menu"]'); // search Browse menu
-    setupLinksForStyling('#collapse-aggregations'); // search Browse menu
-    setupLinksForStyling('#popular-this-week'); // homepage "Popular this week" section
-    setupLinksForStyling('#collapse-treeview'); // sear "Browse subjects" sidebar
+    setupLinksForStyling('#collapse-aggregations');
+    setupLinksForStyling('#sidebar'); // all sidebar links
     window.location.pathname === '/index.php/' && setupLinksForStyling('#sidebar section:first-of-type'); // homepage "Browse by" section
 
     highlightCulturallySignificantEntriesOnDetailPage();
@@ -351,6 +349,9 @@ function splitSidebarIntoBoxes() {
         groups.forEach((group) => {
             const wrapper = document.createElement('div');
             !!wrapper && !wrapper.classList.contains('box') && wrapper.classList.add('box');
+            const boxHeading = group.find((el) => el.tagName === 'H4');
+            const id = !!boxHeading && boxHeading.textContent.toLowerCase().replace(' ', '-');
+            !!wrapper && !!id && wrapper.setAttribute('data-testid', id);
             group.forEach((element) => {
                 wrapper.appendChild(element);
             });
