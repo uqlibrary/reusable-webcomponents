@@ -497,8 +497,15 @@ function buildAtomBreadcrumbsinSiteHeader(siteHeader) {
 
             // if a subheading appears, use it as a breadcrumb
             const headingLabel = document.getElementById('heading-label');
-            const listItemEntry = !!headingLabel && breadcrumbSpan(headingLabel.innerText);
-            !!listItemEntry && breadcrumbParent.insertAdjacentHTML('beforeend', listItemEntry);
+            if (!!headingLabel) {
+                const listItemEntry = breadcrumbSpan(headingLabel.innerText);
+                !!listItemEntry && breadcrumbParent.insertAdjacentHTML('beforeend', listItemEntry);
+            } else {
+                // if not, then try for the active browse subject in sidebar
+                const activeSidebarTreeview = document.querySelector('#treeview-content li.active');
+                const listItemEntry = !!activeSidebarTreeview && breadcrumbSpan(activeSidebarTreeview.innerText);
+                !!listItemEntry && breadcrumbParent.insertAdjacentHTML('beforeend', listItemEntry);
+            }
         }
 
         function breadcrumblink(b) {
