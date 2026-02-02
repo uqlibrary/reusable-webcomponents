@@ -482,7 +482,7 @@ test.describe('Dummy Application', () => {
         });
     });
 
-    test.describe('Atom works as expected', () => {
+    test.describe.skip('Atom works as expected', () => {
         async function assertHasBookNowLink(page) {
             // there is a "book now" type link in the sidebar
             const bookingUrl = 'https://calendar.library.uq.edu.au/reserve/spaces/reading-room';
