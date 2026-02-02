@@ -482,17 +482,7 @@ test.describe('Dummy Application', () => {
         });
     });
 
-    test.describe.skip('Atom works as expected', () => {
-        async function assertHomepageLinksAreCorrect(page) {
-            // the big-icon homepage link has been changed from a fryer link to the uq homepage
-            await expect(page.getByTestId('uqHomeLink')).toBeVisible();
-            await expect(page.getByTestId('uqHomeLink')).toHaveAttribute('href', 'https://www.uq.edu.au/');
-
-            // the fryer home link has been recreated and links to fryer
-            await expect(page.getByTestId('fryerHomeLink')).toBeVisible();
-            await expect(page.getByTestId('fryerHomeLink')).toHaveAttribute('href', '/index.php/');
-        }
-
+    test.describe('Atom works as expected', () => {
         async function assertHasBookNowLink(page) {
             // there is a "book now" type link in the sidebar
             const bookingUrl = 'https://calendar.library.uq.edu.au/reserve/spaces/reading-room';
@@ -508,16 +498,12 @@ test.describe('Dummy Application', () => {
             await page.goto('http://localhost:8080/src/applications/atom/demo-homepage.html');
             await page.setViewportSize({ width: 1280, height: 900 });
 
-            await assertHomepageLinksAreCorrect(page);
-
             await assertHasCulturalAdviceBanner(page);
         });
 
         test('Sample detail page load works correctly', async ({ page }) => {
             await page.goto('http://localhost:8080/src/applications/atom/demo-detailpage.html');
             await page.setViewportSize({ width: 1280, height: 900 });
-
-            await assertHomepageLinksAreCorrect(page);
 
             await assertHasBookNowLink(page);
 
@@ -528,7 +514,7 @@ test.describe('Dummy Application', () => {
             await expect(
                 page
                     .locator('.culturalAdviceBanner')
-                    .getByText(/Aboriginal and Torres Strait Islander people are warned/)
+                    .getByText(/Aboriginal and Torres Strait Islander peoples are warned/)
                     .first(),
             ).toBeVisible();
         });
@@ -536,33 +522,18 @@ test.describe('Dummy Application', () => {
         test('Cultural Advice Icons appear on list page items', async ({ page }) => {
             await page.goto('http://localhost:8080/src/applications/atom/demo-listpage.html');
             await page.setViewportSize({ width: 1280, height: 900 });
-            await assertHomepageLinksAreCorrect(page);
             await assertHasCulturalAdviceBanner(page);
 
             // has cultural advice indicators, only on CA entries
-            await expect(page.getByTestId('article-0').locator('.title a')).toBeVisible();
-            await expect(page.getByTestId('article-0').locator('.title  a')).toContainText(
-                'Submisions to the Queensland State Government for equality of wages and working conditions for Aborigines in the pastoral industry',
-            );
-            await expect(page.getByTestId('article-0').locator('.culturalAdviceMark')).toBeVisible();
+            await expect(page.locator('#content article:first-of-type a')).toBeVisible();
+            await expect(page.locator('#content article:first-of-type a')).toContainText('Fair Play Committee Records');
+            await expect(page.locator('#content article:first-of-type .customIndicatorList')).not.toBeVisible();
 
-            await expect(page.getByTestId('article-1').locator('.title  a')).toBeVisible();
-            await expect(page.getByTestId('article-1').locator('.title  a')).toContainText(
-                'Briefing material : Commonwealth Games Act, street march ban, award wages on reserves',
+            await expect(page.locator('#content article:nth-of-type(2) a')).toBeVisible();
+            await expect(page.locator('#content article:nth-of-type(2) a')).toContainText(
+                'Federal Council for the Advancement of Aborigines and Torres Strait Islanders Ephemera',
             );
-            await expect(page.getByTestId('article-1').locator('.culturalAdviceMark')).not.toBeVisible();
-
-            await expect(page.getByTestId('article-2').locator('.title  a')).toBeVisible();
-            await expect(page.getByTestId('article-2').locator('.title  a')).toContainText(
-                'Terrible wages discrimination',
-            );
-            await expect(page.getByTestId('article-2').locator('.culturalAdviceMark')).toBeVisible();
-
-            await expect(page.getByTestId('article-3').locator('.title  a')).toBeVisible();
-            await expect(page.getByTestId('article-3').locator('.title  a')).toContainText(
-                'Cherbourgh settlement, Thursday March 24, 1966',
-            );
-            await expect(page.getByTestId('article-3').locator('.culturalAdviceMark')).not.toBeVisible();
+            await expect(page.locator('#content article:nth-of-type(2) .culturalAdviceMark')).toBeVisible();
         });
     });
 

@@ -235,7 +235,7 @@ function highlightCulturallySignificantEntriesOnDetailPage() {
             // (maybe we should delete it here and not return, if its appear on pages it shuldnt?
         }
 
-        const contentAndStructureAreaElement = document.querySelectorAll('#contentAndStructureArea .details p');
+        const contentAndStructureAreaElement = document.querySelectorAll('#contentAndStructureArea p');
         const contentAdvisoryParagraph =
             !!contentAndStructureAreaElement &&
             Array.from(contentAndStructureAreaElement).filter(
