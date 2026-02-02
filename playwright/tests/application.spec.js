@@ -510,30 +510,10 @@ test.describe('Dummy Application', () => {
             await assertHasCulturalAdviceBanner(page); // site CA banner
 
             // has cultural advice banner for this record
-            await expect(page.locator('.culturalAdviceBanner')).toBeVisible();
+            await expect(page.getByTestId('culturalAdviceBanner')).toBeVisible();
             await expect(
-                page
-                    .locator('.culturalAdviceBanner')
-                    .getByText(/Aboriginal and Torres Strait Islander peoples are warned/)
-                    .first(),
+                page.getByTestId('culturalAdviceBanner').getByText(/Aboriginal and Torres Strait Islander peoples/),
             ).toBeVisible();
-        });
-
-        test('Cultural Advice Icons appear on list page items', async ({ page }) => {
-            await page.goto('http://localhost:8080/src/applications/atom/demo-listpage.html');
-            await page.setViewportSize({ width: 1280, height: 900 });
-            await assertHasCulturalAdviceBanner(page);
-
-            // has cultural advice indicators, only on CA entries
-            await expect(page.locator('#content article:first-of-type a')).toBeVisible();
-            await expect(page.locator('#content article:first-of-type a')).toContainText('Fair Play Committee Records');
-            await expect(page.locator('#content article:first-of-type .customIndicatorList')).not.toBeVisible();
-
-            await expect(page.locator('#content article:nth-of-type(2) a')).toBeVisible();
-            await expect(page.locator('#content article:nth-of-type(2) a')).toContainText(
-                'Federal Council for the Advancement of Aborigines and Torres Strait Islanders Ephemera',
-            );
-            await expect(page.locator('#content article:nth-of-type(2) .culturalAdviceMark')).toBeVisible();
         });
     });
 

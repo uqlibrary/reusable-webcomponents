@@ -240,14 +240,13 @@ function highlightCulturallySignificantEntriesOnDetailPage() {
             !!contentAndStructureAreaElement &&
             Array.from(contentAndStructureAreaElement).filter(
                 (paragraph) =>
-                    paragraph.textContent.startsWith('Cultural advice:') ||
-                    paragraph.textContent.startsWith('Content advice:'),
+                    paragraph.textContent.trim().startsWith('Cultural advice:') ||
+                    paragraph.textContent.trim().startsWith('Content advice:'),
             );
-
         let bannerText = null;
         !!contentAdvisoryParagraph &&
             contentAdvisoryParagraph.forEach((paragraph) => {
-                const contentAdvice = paragraph.textContent;
+                const contentAdvice = paragraph.textContent.trim();
                 if (
                     !!contentAdvice.startsWith('Content advice: Aboriginal and Torres Strait Islander') ||
                     !!contentAdvice.startsWith('Content advice: Aboriginal, Torres Strait Islander')
@@ -270,6 +269,7 @@ function highlightCulturallySignificantEntriesOnDetailPage() {
         const block = document.createElement('div');
         !!block && (block.id = displayBlockIdentifier);
         !!block && block.classList.add(displayBlockIdentifier);
+        !!block && block.setAttribute('data-testid', displayBlockIdentifier);
         const innerblock = document.createElement('div');
         !!para && !!innerblock && innerblock.appendChild(para);
         !!innerblock && !!block && block.appendChild(innerblock);
