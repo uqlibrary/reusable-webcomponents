@@ -853,6 +853,9 @@ nav[aria-label="Page navigation"] {
                 background-color: transparent;
                 text-decoration: none;
             }
+            &.disabled:not(:first-of-type):not(:last-of-type) span {
+                background-color: transparent;
+            }
         }
     }
 }
