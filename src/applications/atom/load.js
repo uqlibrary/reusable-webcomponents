@@ -46,7 +46,7 @@ function loadReusableComponentsAtom() {
 
     addCulturalAdviceBannerOnHeader();
 
-    // relabelMenuDropdown();
+    makeH1Unique();
 
     // handle span styling in custom-styles.scss
     setupLinksForStyling('ul[aria-labelledby="quick-links-menu"]'); // header menu
@@ -634,4 +634,34 @@ function resetSearchPlaceholder() {
 
     const inputField = document.getElementById('search-box-input');
     !!inputField && (inputField.placeholder = newPlaceholderText);
+}
+
+function makeH1Unique() {
+    const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+    let h1Count = 0;
+    headings.forEach((heading) => {
+        console.log(heading.tagName, heading.textContent);
+        if (heading.tagName === 'H1') {
+            h1Count++;
+        }
+        if (h1Count > 1) {
+            lowerHeadingLevel(heading);
+        }
+    });
+
+    function lowerHeadingLevel(element) {
+        // Function to lower heading level by 1
+        const currentLevel = parseInt(element.tagName.substring(1));
+        if (currentLevel < 6) {
+            const newLevel = currentLevel + 1;
+            const newElement = document.createElement('h' + newLevel);
+            Array.from(element.attributes).forEach((attr) => {
+                newElement.setAttribute(attr.name, attr.value);
+            });
+            while (element.firstChild) {
+                newElement.appendChild(element.firstChild);
+            }
+            element.parentNode.replaceChild(newElement, element);
+        }
+    }
 }
