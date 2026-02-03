@@ -54,7 +54,7 @@ function loadReusableComponentsAtom() {
     setupLinksForStyling('#collapse-aggregations');
     setupLinksForStyling('#sidebar'); // all left sidebar links
     setupLinksForStyling('#context-menu'); // all right sidebar links
-    window.location.pathname === '/index.php/' && setupLinksForStyling('#sidebar section:first-of-type'); // homepage "Browse by" section
+    isFryerHomepage() && setupLinksForStyling('#sidebar section:first-of-type'); // homepage "Browse by" section
 
     highlightCulturallySignificantEntriesOnDetailPage();
     highlightCulturallySignificantEntriesOnListPage();
@@ -79,6 +79,10 @@ function hasDebugParam(testHost) {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.has('debug') && urlParams.get('debug') === 'true';
 }
+
+const isFryerHomepage = () => {
+    return window.location.pathname === '/index.php/' || window.location.pathname === '/';
+};
 
 function centerHeaderBlock() {
     // insert a wrapping element as the first child of the header, so we can center the block
@@ -478,7 +482,7 @@ function addHeaders() {
     if (!document.querySelector('uq-site-header')) {
         const siteHeader = document.createElement('uq-site-header');
         !!siteHeader && siteHeader.setAttribute('secondleveltitle', 'Fryer Library Manuscripts');
-        !!siteHeader && siteHeader.setAttribute('secondlevelurl', '/index.php/');
+        !!siteHeader && siteHeader.setAttribute('secondlevelurl', '/');
         !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
 
         buildAtomBreadcrumbsinSiteHeader(siteHeader);
@@ -537,7 +541,7 @@ function buildAtomBreadcrumbsinSiteHeader(siteHeader) {
 
                 breadcrumbParent.insertAdjacentHTML('beforeend', sidebarListItemEntry);
             }
-        } else if (window.location.pathname !== '/index.php/') {
+        } else if (!isFryerHomepage()) {
             // if not homepage, use H1
             const mainColumnH1 = document.querySelector('#main-column h1:first-of-type');
             const mainH1ItemEntry = !!mainColumnH1 && breadcrumbSpan(mainColumnH1.innerText);
