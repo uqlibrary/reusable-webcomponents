@@ -491,41 +491,60 @@ function addHeaders() {
 }
 
 function buildAtomBreadcrumbsinSiteHeader(siteHeader) {
+    // pick out the content on certain pages to use as breadcrumbs
     const awaitSiteHeader = setInterval(() => {
         const siteHeaderShadowRoot = siteHeader.shadowRoot;
-
-        if (!!siteHeaderShadowRoot) {
-            clearInterval(awaitSiteHeader);
-
-            const breadcrumbParent = !!siteHeaderShadowRoot && siteHeaderShadowRoot.getElementById('breadcrumb_nav');
-
-            const breadcrumbNav = document.querySelector('nav:has(ol.breadcrumb)');
-            const listItems = !!breadcrumbNav && breadcrumbNav.querySelectorAll('ol li');
-
-            !!listItems &&
-                listItems.forEach((item) => {
-                    const anchor = item.querySelector('a');
-                    const title = anchor ? anchor.textContent : item.textContent;
-                    const href = anchor ? anchor.href : null;
-                    const listItemEntry = !!href ? breadcrumblink({ title, href }) : breadcrumbSpan(title);
-                    breadcrumbParent.insertAdjacentHTML('beforeend', listItemEntry);
-                });
-            !!breadcrumbNav && breadcrumbNav.remove();
-
-            // if a subheading appears, use it as a breadcrumb
-            const headingLabel = document.getElementById('heading-label');
-            if (!!headingLabel) {
-                const listItemEntry = breadcrumbSpan(headingLabel.innerText);
-                !!listItemEntry && breadcrumbParent.insertAdjacentHTML('beforeend', listItemEntry);
-            } else {
-                // if not, then try for the active browse subject in sidebar
-                const activeSidebarTreeview = document.querySelector('#treeview-content li.active');
-                const listItemEntry = !!activeSidebarTreeview && breadcrumbSpan(activeSidebarTreeview.innerText);
-                !!listItemEntry && breadcrumbParent.insertAdjacentHTML('beforeend', listItemEntry);
-            }
+        if (!siteHeaderShadowRoot) {
+            return;
         }
 
-        function breadcrumblink(b) {
+        clearInterval(awaitSiteHeader);
+
+        const breadcrumbParent = !!siteHeaderShadowRoot && siteHeaderShadowRoot.getElementById('breadcrumb_nav');
+        if (!breadcrumbParent) {
+            return;
+        }
+
+        const breadcrumbNav = document.querySelector('nav:has(ol.breadcrumb)');
+        const breadcrumbListItems = !!breadcrumbNav && breadcrumbNav.querySelectorAll('ol li');
+        const headingLabel = document.getElementById('heading-label');
+        const activeSidebarTreeview = document.querySelector('#treeview-content li.active');
+
+        if (!!breadcrumbListItems) {
+            // transfer the in-page breadcrumbs to the site-header breadcrumb area
+            breadcrumbListItems.forEach((item) => {
+                const anchor = item.querySelector('a');
+                const title = anchor ? anchor.textContent : item.textContent;
+                const href = anchor ? anchor.href : null;
+                const listItemEntry = !!href ? breadcrumbLink({ title, href }) : breadcrumbSpan(title);
+                breadcrumbParent.insertAdjacentHTML('beforeend', listItemEntry);
+            });
+            !!breadcrumbNav && breadcrumbNav.remove();
+        } else if (!!headingLabel) {
+            // if a subheading appears just below the H1, use it as a breadcrumb
+            const subheadListItemEntry = breadcrumbSpan(headingLabel.innerText);
+            !!subheadListItemEntry && breadcrumbParent.insertAdjacentHTML('beforeend', subheadListItemEntry);
+        } else if (!!activeSidebarTreeview) {
+            // if not, then try for the active browse subject in sidebar
+            const sidebarListItemEntry = !!activeSidebarTreeview && breadcrumbSpan(activeSidebarTreeview.innerText);
+            if (!!sidebarListItemEntry) {
+                const subjectBreadcrumb = {
+                    title: 'Subject',
+                    href: '/index.php/taxonomy/index/id/35',
+                };
+                const subjectBreadcrumbHtml = breadcrumbLink(subjectBreadcrumb);
+                breadcrumbParent.insertAdjacentHTML('beforeend', subjectBreadcrumbHtml);
+
+                breadcrumbParent.insertAdjacentHTML('beforeend', sidebarListItemEntry);
+            }
+        } else {
+            // if not homepage, use H1
+            const mainColumnH1 = document.querySelector('#main-column h1:first-of-type');
+            const mainH1ItemEntry = !!mainColumnH1 && breadcrumbSpan(mainColumnH1.innerText);
+            !!mainH1ItemEntry && breadcrumbParent.insertAdjacentHTML('beforeend', mainH1ItemEntry);
+        }
+
+        function breadcrumbLink(b) {
             return `<li class="uq-breadcrumb__item">
                 <a class="uq-breadcrumb__link" title="${b.title}" href="${b.href}">${b.title}</a>
                 </li>`;
@@ -640,7 +659,6 @@ function makeH1Unique() {
     const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
     let h1Count = 0;
     headings.forEach((heading) => {
-        console.log(heading.tagName, heading.textContent);
         if (heading.tagName === 'H1') {
             h1Count++;
         }
