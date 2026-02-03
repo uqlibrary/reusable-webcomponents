@@ -21,57 +21,6 @@ function ready(fn) {
     }
 }
 
-function loadReusableComponentsAtom() {
-    const cssFile = getIncludeFileLocation('applications/atom/custom-styles.css');
-    // note: we cannot reach css in the localhost dist folder for test
-    insertCssFile(cssFile);
-
-    let scriptLink = '/uq-lib-reusable.min.js';
-    if (window.location.hostname !== 'localhost') {
-        scriptLink = getIncludeFileLocation('uq-lib-reusable.min.js');
-    }
-    insertScript(scriptLink, true);
-
-    const firstElement = document.body.children[0];
-
-    const gtm = document.createElement('uq-gtm');
-    !!gtm && gtm.setAttribute('gtm', 'GTM-NC7M38Q');
-    document.body.insertBefore(gtm, firstElement);
-
-    addHeaders();
-
-    centerHeaderBlock();
-
-    resizeSiteHeader();
-
-    addCulturalAdviceBannerOnHeader();
-
-    makeH1Unique();
-
-    // handle span styling in custom-styles.scss
-    setupLinksForStyling('ul[aria-labelledby="quick-links-menu"]'); // header menu
-    setupLinksForStyling('ul[aria-labelledby="browse-menu"]'); // search Browse menu
-    setupLinksForStyling('#collapse-aggregations');
-    setupLinksForStyling('#sidebar'); // all left sidebar links
-    setupLinksForStyling('#context-menu'); // all right sidebar links
-    isFryerHomepage() && setupLinksForStyling('#sidebar section:first-of-type'); // homepage "Browse by" section
-
-    highlightCulturallySignificantEntriesOnDetailPage();
-    highlightCulturallySignificantEntriesOnListPage();
-
-    splitSidebarIntoBoxes();
-
-    fixSidebarSearchBox();
-
-    relabelMainSearch();
-
-    moveAtomMenuPopup();
-
-    resetSearchPlaceholder();
-}
-
-ready(loadReusableComponentsAtom);
-
 function hasDebugParam(testHost) {
     if (window.location.host !== testHost) {
         return false;
@@ -687,3 +636,54 @@ function makeH1Unique() {
         }
     }
 }
+
+function loadReusableComponentsAtom() {
+    const cssFile = getIncludeFileLocation('applications/atom/custom-styles.css');
+    // note: we cannot reach css in the localhost dist folder for test
+    insertCssFile(cssFile);
+
+    let scriptLink = '/uq-lib-reusable.min.js';
+    if (window.location.hostname !== 'localhost') {
+        scriptLink = getIncludeFileLocation('uq-lib-reusable.min.js');
+    }
+    insertScript(scriptLink, true);
+
+    const firstElement = document.body.children[0];
+
+    const gtm = document.createElement('uq-gtm');
+    !!gtm && gtm.setAttribute('gtm', 'GTM-NC7M38Q');
+    document.body.insertBefore(gtm, firstElement);
+
+    addHeaders();
+
+    centerHeaderBlock();
+
+    resizeSiteHeader();
+
+    addCulturalAdviceBannerOnHeader();
+
+    makeH1Unique();
+
+    // handle span styling in custom-styles.scss
+    setupLinksForStyling('ul[aria-labelledby="quick-links-menu"]'); // header menu
+    setupLinksForStyling('ul[aria-labelledby="browse-menu"]'); // search Browse menu
+    setupLinksForStyling('#collapse-aggregations');
+    setupLinksForStyling('#sidebar'); // all left sidebar links
+    setupLinksForStyling('#context-menu'); // all right sidebar links
+    isFryerHomepage() && setupLinksForStyling('#sidebar section:first-of-type'); // homepage "Browse by" section
+
+    highlightCulturallySignificantEntriesOnDetailPage();
+    highlightCulturallySignificantEntriesOnListPage();
+
+    splitSidebarIntoBoxes();
+
+    fixSidebarSearchBox();
+
+    relabelMainSearch();
+
+    moveAtomMenuPopup();
+
+    resetSearchPlaceholder();
+}
+
+ready(loadReusableComponentsAtom);
