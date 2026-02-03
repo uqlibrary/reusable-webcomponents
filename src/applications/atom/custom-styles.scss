@@ -884,3 +884,12 @@ nav[aria-label="Page navigation"] {
         }
     }
 }
+
+// the search sidebar truncates to become unreadable
+div#sidebar ul li span a span {
+    white-space: normal;
+}
+#treeview {
+    max-height: none;
+    overflow: auto;
+}
