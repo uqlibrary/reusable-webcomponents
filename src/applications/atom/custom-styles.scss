@@ -749,7 +749,7 @@ header .header-outer {
                 text-decoration: underline !important;
             }
             span:not(:first-of-type) {
-                color: inherit;
+                color: $accent-color;
                 background-color: inherit;
                 text-decoration: none;
             }
