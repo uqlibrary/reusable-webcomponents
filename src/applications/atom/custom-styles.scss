@@ -135,6 +135,11 @@ h3 {
     max-width: 73.25rem;
 }
 
+// hide the link to the institutional page - its weird in our use of the atom package
+a[href="/index.php/repository/browse"] {
+    display: none;
+}
+
 // main body of detail page
 #content {
     border-width: 1px;
