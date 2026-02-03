@@ -195,13 +195,16 @@ ul#search-box-results a {
     }
 }
 [slot="site-utilities"] { // the action menu is moved into the site header
-    a {
+    & > div > a { // menu button
+        font-weight: 500;
+        font-family: Roboto, Helvetica, sans-serif;
+    }
+    a { // links in drop down
         text-decoration: none;
         font-family: $bodyFontFamily;
         color: $heading-colour;
         line-height: 160%;
         -webkit-font-smoothing: antialiased;
-        padding-bottom: 6px;
         &:hover,
         &:focus {
             span {
@@ -229,6 +232,9 @@ ul#search-box-results a {
     }
     li {
         padding-block: 0.25rem; // make the vertical spacing of popup menu items match what we see in the account menu on homepage
+    }
+    li:first-of-type {
+        margin-top: 8px;
     }
     [aria-labelledby='quick-links-menu'] { // try and improve the way the popup menu closes, given our changes to the transform value
         transition: transform 5ms ease-out;
