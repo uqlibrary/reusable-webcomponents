@@ -537,7 +537,7 @@ function buildAtomBreadcrumbsinSiteHeader(siteHeader) {
 
                 breadcrumbParent.insertAdjacentHTML('beforeend', sidebarListItemEntry);
             }
-        } else {
+        } else if (window.location.pathname !== '/index.php/') {
             // if not homepage, use H1
             const mainColumnH1 = document.querySelector('#main-column h1:first-of-type');
             const mainH1ItemEntry = !!mainColumnH1 && breadcrumbSpan(mainColumnH1.innerText);
