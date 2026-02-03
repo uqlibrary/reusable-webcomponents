@@ -1,3 +1,18 @@
+/*
+   Atom is built on Bootstrap 5
+   Changes we have implemented on OTB include:
+   - Add UQ headers
+   - Move built in Quick links button ('i' icon) to uq-site-header. It is commonly referred to as the Action Menu. Restyle to match homepage Account Menu.
+   - Restyle the Atom search area
+   - Add a "Book now" prompt that appears on detail pages that have a Reference code
+   - Style all (99%) of links hover as "uq tight links"
+   - Style the left sidebar functions as boxes to match homepage look of boxes
+   - List pages that have "Cultural Advice" or "Content Advice" in the body have a blue "Cultural Advice" icon on them
+   - Detail page items with "Cultural Advice" or "Content Advice" in the body have a blue banner duplicating the message at the top
+   - Remove pinkish shadow box on input fields
+   - Style Advanced search Submit & Reset buttons to DS button primary & secondary style and push them left and right
+   - Add/ move certain on page elements to breadcrumbs
+*/
 function ready(fn) {
     if (document.readyState !== 'loading') {
         fn();
