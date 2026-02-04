@@ -12,6 +12,7 @@
    - Remove pinkish shadow box on input fields
    - Style Advanced search Submit & Reset buttons to DS button primary & secondary style and push them left and right
    - Add/ move certain on page elements to breadcrumbs
+   - Make the Subject sidebar readable (remove wrapping, some titles are looong and remove max-height)
 */
 function ready(fn) {
     if (document.readyState !== 'loading') {
