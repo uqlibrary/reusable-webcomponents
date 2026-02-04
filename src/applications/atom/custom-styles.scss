@@ -496,9 +496,6 @@ header {
     align-items: center;
     gap: 5px;
     margin-bottom: 1rem;
-    svg {
-        height: 20px;
-    }
 }
 
 .bookNowLink {
@@ -506,6 +503,17 @@ header {
     &:focus {
         color: #fff !important;
         background-color: $accent-color !important;
+    }
+}
+#booknowLink {
+    svg {
+        height: 40px;
+        width: 40px;
+        margin-bottom: 0.5rem;
+    }
+    h4 {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem !important;
     }
 }
 
