@@ -18,7 +18,7 @@ $info-banner-background: $utility-50;
 $border-color: rgba(38, 85, 115, 0.15);
 $heading-colour: $black;
 
-$bodyFontFamily: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+$bodyFontFamily: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $H1FontFamily: 'Montserrat', Helvetica, Arial, sans-serif;
 
 $minDesktopSize: 768px; // has multiple columns
@@ -39,7 +39,7 @@ $maxResponsiveSize: 767px; // columns stack
     letter-spacing: 0.16px;
     line-height: 1.2;
 }
-@mixin uqPrimaryButton($baseColor:$accent-color, $reverseColor:#fff) {
+@mixin uqPrimaryButton($baseColor: $accent-color, $reverseColor: #fff) {
     background-color: $baseColor !important;
     color: $reverseColor !important;
     border: 2px solid $baseColor;
@@ -52,14 +52,14 @@ $maxResponsiveSize: 767px; // columns stack
         }
     }
 }
-@mixin uqSecondaryButton($baseColor:#fff, $reverseColor:$accent-color) {
+@mixin uqSecondaryButton($baseColor: #fff, $reverseColor: $accent-color) {
     @include uqPrimaryButton($baseColor, $reverseColor);
     border-color: $reverseColor;
     &:hover span {
         text-decoration: underline;
     }
 }
-@mixin uqTertiaryButton($baseColor:#fff, $reverseColor:$accent-color) {
+@mixin uqTertiaryButton($baseColor: #fff, $reverseColor: $accent-color) {
     background-color: $baseColor !important;
     color: $reverseColor !important;
     span {
@@ -85,9 +85,9 @@ $maxResponsiveSize: 767px; // columns stack
     --bs-dropdown-link-hover-color: #fff;
     --bs-dropdown-link-hover-bg: #{$accent-color-rgb};
 
-    --bs-body-bg:  #fff;
+    --bs-body-bg: #fff;
     --bs-body-bg-rgb: 0, 0, 0;
-    --bs-secondary-color:#{$body-copy};
+    --bs-secondary-color: #{$body-copy};
     --bs-secondary-color-rgb: #{$body-copy-rgb};
     --bs-secondary-bg: #{$accent-color};
     --bs-secondary-bg-rgb: #{$accent-color-rgb};
@@ -136,7 +136,7 @@ h3 {
 }
 
 // hide the link to the institutional page - its weird in our use of the atom package
-a[href="/index.php/repository/browse"] {
+a[href='/index.php/repository/browse'] {
     display: none;
 }
 
@@ -171,10 +171,18 @@ a[href="/index.php/repository/browse"] {
             color: #fff;
         }
     }
-    .border-top { border-color: $border-color; }
-    .border-right { border-color: $border-color; }
-    .border-bottom { border-color: $border-color; }
-    .border-left { border-color: $border-color; }
+    .border-top {
+        border-color: $border-color;
+    }
+    .border-right {
+        border-color: $border-color;
+    }
+    .border-bottom {
+        border-color: $border-color;
+    }
+    .border-left {
+        border-color: $border-color;
+    }
 }
 a.dropdown-item {
     background-color: #fff;
@@ -199,12 +207,15 @@ ul#search-box-results a {
         }
     }
 }
-[slot="site-utilities"] { // the action menu is moved into the site header
-    & > div > a { // menu button
+[slot='site-utilities'] {
+    // the action menu is moved into the site header
+    & > div > a {
+        // menu button
         font-weight: 500;
         font-family: Roboto, Helvetica, sans-serif;
     }
-    a { // links in drop down
+    a {
+        // links in drop down
         text-decoration: none;
         font-family: $bodyFontFamily;
         color: $heading-colour;
@@ -225,8 +236,8 @@ ul#search-box-results a {
             display: none;
         }
         // Only show up arrow when the sibling dropdown menu is visible (show-hide is a built-in Bootstrap function)
-        &:has(+ .dropdown-menu[style*="display: block"]),
-        &:has(+ .dropdown-menu[style*="display:block"]) {
+        &:has(+ .dropdown-menu[style*='display: block']),
+        &:has(+ .dropdown-menu[style*='display:block']) {
             .downArrow {
                 display: none;
             }
@@ -241,15 +252,16 @@ ul#search-box-results a {
     li:first-of-type {
         margin-top: 8px;
     }
-    [aria-labelledby='quick-links-menu'] { // try and improve the way the popup menu closes, given our changes to the transform value
+    [aria-labelledby='quick-links-menu'] {
+        // try and improve the way the popup menu closes, given our changes to the transform value
         transition: transform 5ms ease-out;
     }
 }
 // the entries that are wrapped in a span by load.js setupLinksForStyling
 a.atom-icon-link,
-ul[aria-labelledby="quick-links-menu"] a,
+ul[aria-labelledby='quick-links-menu'] a,
 nav ul.list-unstyled a,
-ul[aria-labelledby="browse-menu"] a,
+ul[aria-labelledby='browse-menu'] a,
 #collapse-treeview a,
 #sidebar a,
 #context-menu a,
@@ -266,7 +278,7 @@ ul[aria-labelledby="browse-menu"] a,
         }
     }
 }
-ul[aria-labelledby=quick-links-menu] a {
+ul[aria-labelledby='quick-links-menu'] a {
     text-decoration: none;
 }
 nav a.nav-link.dropdown-toggle {
@@ -767,7 +779,6 @@ header .header-outer {
                 text-decoration: none;
             }
         }
-
     }
     input {
         font-size: 14px;
@@ -809,7 +820,7 @@ a {
     }
 }
 
-input[aria-label="Search"]::placeholder {
+input[aria-label='Search']::placeholder {
     color: $body-copy;
     opacity: 0.42;
 }
@@ -828,16 +839,16 @@ input[aria-label="Search"]::placeholder {
     .actions {
         background-color: transparent;
         justify-content: space-between !important;
-        input[value="Reset"] {
+        input[value='Reset'] {
             @include uqSecondaryButton();
         }
-        input[value="Search"] {
+        input[value='Search'] {
             @include uqPrimaryButton();
         }
     }
 }
 
-nav[aria-label="Page navigation"] {
+nav[aria-label='Page navigation'] {
     .pagination {
         align-items: center;
         li {
