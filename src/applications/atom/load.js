@@ -84,7 +84,7 @@ function addBookNowButton() {
         return;
     }
     const bookNowWrapperIdentifier = 'booknowLink';
-    const bookingBlockTemplate = `<div id="${bookNowWrapperIdentifier}" data-testid="booknowLink" class="box">
+    const bookingBlockTemplate = `<div id="${bookNowWrapperIdentifier}" data-testid="booknowLink" class="box bookNowBox">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" id="Time-Daily-1--Streamline-Ultimate" height="24" width="24" aria-hidden="true">
           <path stroke="#51247a" stroke-linecap="round" stroke-linejoin="round" d="M10.5 13h0.75c0.1989 0 0.3897 0.079 0.5303 0.2197 0.1407 0.1406 0.2197 0.3314 0.2197 0.5303V19" stroke-width="1.5"></path>
           <path stroke="#51247a" stroke-linecap="round" stroke-linejoin="round" d="M10.5 19h3" stroke-width="1.5"></path>
@@ -95,8 +95,8 @@ function addBookNowButton() {
         </svg>
         <h4>Access</h4>
         <p>Make an appointment to request access.</p>
-        <div class="bookNowLinkWrapper">
-            <a class="booknow bookNowLink" data-analyticsid="fryer-booking" target="_blank" href="https://calendar.library.uq.edu.au/reserve/spaces/reading-room">
+        <div class="bookNowLink">
+            <a data-analyticsid="fryer-booking" target="_blank" href="https://calendar.library.uq.edu.au/reserve/spaces/reading-room">
                 <span>Book now</span>
             </a>
         </div>

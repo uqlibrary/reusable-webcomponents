@@ -502,22 +502,7 @@ header {
     position: relative;
 }
 
-.bookNowLinkWrapper {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 5px;
-    margin-bottom: 1rem;
-}
-
-.bookNowLink {
-    &:hover,
-    &:focus {
-        color: #fff !important;
-        background-color: $accent-color !important;
-    }
-}
-#booknowLink {
+nav.sidebarParent div.box.bookNowBox {
     svg {
         height: 40px;
         width: 40px;
@@ -526,6 +511,23 @@ header {
     h4 {
         margin-top: 0.5rem;
         margin-bottom: 0.5rem !important;
+    }
+    p {
+        margin-bottom: 1.5rem;
+    }
+    .bookNowLink {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 5px;
+        margin-bottom: 1rem;
+        a {
+            &:hover,
+            &:focus {
+                color: #fff !important;
+                background-color: $accent-color !important;
+            }
+        }
     }
 }
 
