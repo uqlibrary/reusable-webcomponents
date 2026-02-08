@@ -1,7 +1,7 @@
 /*
    Atom is built on Bootstrap 5
    Changes we have implemented on OTB include:
-   - Add UQ headers
+   - Add UQ headers and footer
    - Move built in Quick links button ('i' icon) to uq-site-header. It is commonly referred to as the Action Menu. Restyle to match homepage Account Menu.
    - Restyle the Atom search area
    - Add a "Book now" prompt that appears on detail pages that have a Reference code
@@ -417,7 +417,7 @@ function fixSidebarSearchBox() {
     !!listDivElement && !!newWrapper && newWrapper.appendChild(listDivElement);
 }
 
-function addHeaders() {
+function addHeaderFooter() {
     const firstElement = document.body.children[0];
     if (!firstElement) {
         return;
@@ -442,6 +442,9 @@ function addHeaders() {
 
     const atomHomelink = document.querySelector('.header-outer a:first-of-type');
     !!atomHomelink && atomHomelink.remove();
+
+    const subFooter = document.createElement('uq-footer');
+    !!subFooter && document.body.appendChild(subFooter);
 }
 
 function buildAtomBreadcrumbsinSiteHeader(siteHeader) {
@@ -655,7 +658,7 @@ function loadReusableComponentsAtom() {
     !!gtm && gtm.setAttribute('gtm', 'GTM-NC7M38Q');
     document.body.insertBefore(gtm, firstElement);
 
-    addHeaders();
+    addHeaderFooter();
 
     centerHeaderBlock();
 
