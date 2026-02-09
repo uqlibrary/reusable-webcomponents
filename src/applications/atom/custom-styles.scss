@@ -917,7 +917,9 @@ div#sidebar ul li span a span {
     white-space: normal;
 }
 #treeview {
-    max-height: none;
+    @media (min-width: 991px) {
+        max-height: none; // on mobile, the box height can trap the user on this section of the page. Leave the height locked on mobile
+    }
     overflow: auto;
 }
 
@@ -925,7 +927,13 @@ uq-footer {
     margin-top: 50px;
 }
 
-// body links should have underline
-[role="main"] a {
-    text-decoration: underline
+[role="main"] {
+    @media (max-width: 991px) {
+        h2 {
+            margin-top: 0.5rem;
+        }
+    }
+    a {
+        text-decoration: underline; // body links should have underline
+    }
 }
