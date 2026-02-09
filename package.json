@@ -45,7 +45,7 @@
     "babel-plugin-istanbul": "^6.1.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-remove-console": "^6.9.4",
-    "baseline-browser-mapping": "^2.9.17",
+    "baseline-browser-mapping": "^2.9.19",
     "clean-css-cli": "^5.6.2",
     "copy-webpack-plugin": "^11.0.0",
     "eslint": "^7.32.0",
