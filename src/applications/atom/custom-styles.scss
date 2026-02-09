@@ -918,3 +918,8 @@ div#sidebar ul li span a span {
 uq-footer {
     margin-top: 50px;
 }
+
+// body links should have underline
+[role="main"] a {
+    text-decoration: underline
+}
