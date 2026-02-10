@@ -467,6 +467,8 @@ function buildAtomBreadcrumbsinSiteHeader(siteHeader) {
         const headingLabel = document.getElementById('heading-label');
         const activeSidebarTreeview = document.querySelector('#treeview-content li.active');
 
+        addListenerToHierarchyLinks();
+
         if (!!breadcrumbListItems) {
             // transfer the in-page breadcrumbs to the site-header breadcrumb area
             breadcrumbListItems.forEach((item) => {
@@ -496,9 +498,7 @@ function buildAtomBreadcrumbsinSiteHeader(siteHeader) {
             }
         } else if (!isFryerHomepage()) {
             // if not homepage, use H1
-            const mainColumnH1 = document.querySelector('#main-column h1:first-of-type');
-            const mainH1ItemEntry = !!mainColumnH1 && breadcrumbSpan(mainColumnH1.innerText);
-            !!mainH1ItemEntry && breadcrumbParent.insertAdjacentHTML('beforeend', mainH1ItemEntry);
+            addH1ToBreadcrumbs(breadcrumbParent);
         }
 
         function breadcrumbLink(b) {
@@ -510,6 +510,81 @@ function buildAtomBreadcrumbsinSiteHeader(siteHeader) {
             return `<li class="uq-breadcrumb__item">
                 <span class="uq-breadcrumb__link" title="${title}">${title}</span>
                 </li>`;
+        }
+        function addH1ToBreadcrumbs(breadcrumbParent) {
+            const mainColumnH1 = document.querySelector('#main-column h1:first-of-type');
+            const mainH1ItemEntry = !!mainColumnH1 && breadcrumbSpan(mainColumnH1.innerText);
+            !!mainH1ItemEntry && breadcrumbParent.insertAdjacentHTML('beforeend', mainH1ItemEntry);
+        }
+        function onHierarchyPageLoadMoveBreadcrumbs(e) {
+            // the "hierarchy box" on some pages gives links that do an in-page update - move the new breadcrumbs to the site header when this happens
+
+            // do we have a breadcrumb section in the site header to add to?
+            const siteHeader = document.querySelector('uq-site-header');
+            const siteHeaderShadowRoot = siteHeader.shadowRoot;
+            const breadcrumbParent = !!siteHeaderShadowRoot && siteHeaderShadowRoot.getElementById('breadcrumb_nav');
+            if (!breadcrumbParent) {
+                return;
+            }
+
+            const maxLoop = 10;
+            let loop = 0;
+            const waitForSiteBreadcrumbs = setInterval(() => {
+                const breadcrumbNav = document.querySelector('nav#breadcrumb');
+                const breadcrumbListItems = document.querySelectorAll('nav#breadcrumb ol li');
+
+                console.log('loop=', loop);
+
+                if ((!breadcrumbListItems || breadcrumbListItems.length === 0) && loop < maxLoop) {
+                    // wait longer, within reason
+                    loop++;
+                    return;
+                }
+
+                clearInterval(waitForSiteBreadcrumbs);
+
+                // remove the breadcrumbs previously transferred from the in-page
+                const siteheaderBreadcrumbList = siteHeaderShadowRoot.querySelectorAll('#breadcrumb_nav li');
+                !!siteheaderBreadcrumbList &&
+                    siteheaderBreadcrumbList.length > 0 &&
+                    siteheaderBreadcrumbList.forEach((b, index) => {
+                        if (index < 3) {
+                            // don't strip out the top level breadcrumbs (uq, library, fryer)
+                            return;
+                        }
+                        b.remove();
+                    });
+
+                if (loop === maxLoop) {
+                    // no breadcrumbs? use the h1
+                    addH1ToBreadcrumbs(breadcrumbParent);
+                    return;
+                }
+
+                // transfer the in-page breadcrumbs to the site-header breadcrumb area
+                breadcrumbListItems.forEach((item, index) => {
+                    const anchor = item.querySelector('a');
+                    const title = anchor ? anchor.textContent : item.textContent;
+                    const href = anchor ? anchor.href : null;
+                    const listItemEntry = !!href ? breadcrumbLink({ title, href }) : breadcrumbSpan(title);
+                    breadcrumbParent.insertAdjacentHTML('beforeend', listItemEntry);
+                });
+                !!breadcrumbNav && breadcrumbNav.remove();
+
+                // add the listener to any additional links that have been exposed by expansion of a hierarchy item
+                addListenerToHierarchyLinks();
+            }, 200);
+        }
+        function addListenerToHierarchyLinks() {
+            const listHeirarchyItems = document.querySelectorAll('#fullwidth-treeview a');
+            // if they click on a link in the heirarchy box, it reloads, including the in-page breadcrumbs
+            listHeirarchyItems.forEach((h) => {
+                // if we haven't added a listener to the anchor, add it
+                if (!h.hasAttribute('data-listener')) {
+                    h.addEventListener('click', onHierarchyPageLoadMoveBreadcrumbs);
+                    h.setAttribute('data-listener', `set`);
+                }
+            });
         }
     }, 100);
 }
