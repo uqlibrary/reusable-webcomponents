@@ -39,7 +39,7 @@ template.innerHTML = `
                             <a href="https://about.uq.edu.au/experts" class="uq-footer__navigation-link" data-analyticsid="uqfooter-media-expert-desktop">Find a subject matter expert</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://news.uq.edu.au" class="uq-footer__navigation-link" data-analyticsid="uqfooter-media-news-desktop">UQ news</a>
+                            <a href="https://news.uq.edu.au" class="uq-footer__navigation-link" data-analyticsid="uqfooter-media-news-desktop">UQ News</a>
                         </li>
                     </ul>
                 </li>
@@ -47,19 +47,16 @@ template.innerHTML = `
                     <h2 class="uq-footer__navigation-title">Working with us</h2>
                     <ul class="uq-footer__navigation-list uq-footer__navigation-level-2">
                         <li class="uq-footer__navigation-item">
-                            <a href="https://staff.uq.edu.au" class="uq-footer__navigation-link" data-analyticsid="uqfooter-working-current-desktop">Current staff</a>
+                            <a href="https://about.uq.edu.au/careers" class="uq-footer__navigation-link" data-analyticsid="uqfooter-working-careers-desktop">Careers and job search</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://about.uq.edu.au/careers" class="uq-footer__navigation-link">Careers and job search</a>
+                            <a href="https://about.uq.edu.au/strategy-values/strategic-plan" class="uq-footer__navigation-link" data-analyticsid="uqfooter-working-strategic-desktop">Strategic Plan</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://about.uq.edu.au/strategy-values/strategic-plan" class="uq-footer__navigation-link" data-analyticsid="uqfooter-working-strategic-desktop">Strategic plan</a>
+                            <a href="https://uq.sharepoint.com/sites/staff" class="uq-footer__navigation-link" data-analyticsid="uqfooter-working-intranet-desktop">Staff Intranet</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://staff.uq.edu.au/information-and-services/health-safety-wellbeing" class="uq-footer__navigation-link" data-analyticsid="uqfooter-working-support-desktop">Staff support</a>
-                        </li>
-                        <li class="uq-footer__navigation-item">
-                            <a href="https://staff.uq.edu.au/information-and-services/information-technology/it-support" class="uq-footer__navigation-link" data-analyticsid="uqfooter-working-it-desktop">IT support for staff</a>
+                            <a href="https://my.uq.edu.au/information-and-services/information-technology/student-staff-it-support" class="uq-footer__navigation-link" data-analyticsid="uqfooter-working-it-desktop">IT support</a>
                         </li>
                     </ul>
                 </li>
@@ -79,7 +76,7 @@ template.innerHTML = `
                             <a href="https://my.uq.edu.au/student-support" class="uq-footer__navigation-link" data-analyticsid="uqfooter-students-support-desktop">Student support</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://my.uq.edu.au/information-and-services/information-technology/student-it-support" class="uq-footer__navigation-link" data-analyticsid="uqfooter-students-it-desktop">IT support for students</a>
+                            <a href="https://my.uq.edu.au/information-and-services/information-technology/student-staff-it-support" class="uq-footer__navigation-link" data-analyticsid="uqfooter-students-it-desktop">IT support</a>
                         </li>
                     </ul>
                 </li>
@@ -141,7 +138,7 @@ template.innerHTML = `
                             <a href="https://about.uq.edu.au/experts" class="uq-footer__navigation-link" data-analyticsid="uqfooter-media-expert-mobile">Find a subject matter expert</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://news.uq.edu.au" class="uq-footer__navigation-link" data-analyticsid="uqfooter-media-news-mobile">UQ news</a>
+                            <a href="https://news.uq.edu.au" class="uq-footer__navigation-link" data-analyticsid="uqfooter-media-news-mobile">UQ News</a>
                         </li>
                     </ul>
                 </li>
@@ -149,19 +146,16 @@ template.innerHTML = `
                     <button class="uq-accordion__toggle uq-footer__navigation-toggle" data-testid="button-menu-toggle-1" data-analyticsid="button-menu-toggle-1" id="button-menu-toggle-1">Working with us</button>
                     <ul class="uq-accordion__content uq-footer__navigation-list uq-footer__navigation-level-2" data-testid="mobile-child-list-1">
                         <li class="uq-footer__navigation-item">
-                            <a href="https://staff.uq.edu.au" class="uq-footer__navigation-link" data-analyticsid="uqfooter-working-current-mobile">Current staff</a>
-                        </li>
-                        <li class="uq-footer__navigation-item">
                             <a href="https://about.uq.edu.au/careers" class="uq-footer__navigation-link" data-analyticsid="uqfooter-working-careers-mobile">Careers and job search</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://about.uq.edu.au/strategy-values/strategic-plan" class="uq-footer__navigation-link" data-analyticsid="uqfooter-working-strategic-mobile">Strategic plan</a>
+                            <a href="https://about.uq.edu.au/strategy-values/strategic-plan" class="uq-footer__navigation-link" data-analyticsid="uqfooter-working-strategic-mobile">Strategic Plan</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://staff.uq.edu.au/information-and-services/health-safety-wellbeing" class="uq-footer__navigation-link" data-analyticsid="uqfooter-working-support-mobile">Staff support</a>
+                            <a href="https://uq.sharepoint.com/sites/staff" class="uq-footer__navigation-link gtm-processed" data-analyticsid="uqfooter-working-intranet-mobile">Staff Intranet</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://staff.uq.edu.au/information-and-services/information-technology/it-support" class="uq-footer__navigation-link" data-analyticsid="uqfooter-working-it-mobile">IT support for staff</a>
+                            <a href="https://my.uq.edu.au/information-and-services/information-technology/student-staff-it-support" class="uq-footer__navigation-link" data-analyticsid="uqfooter-working-it-mobile">IT support</a>
                         </li>
                     </ul>
                 </li>
@@ -181,7 +175,7 @@ template.innerHTML = `
                             <a href="https://my.uq.edu.au/student-support" class="uq-footer__navigation-link" data-analyticsid="uqfooter-students-support-mobile">Student support</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://my.uq.edu.au/information-and-services/information-technology/student-it-support" class="uq-footer__navigation-link" data-analyticsid="uqfooter-students-it-mobile">IT support for students</a>
+                            <a href="https://my.uq.edu.au/information-and-services/information-technology/student-staff-it-support" class="uq-footer__navigation-link" data-analyticsid="uqfooter-students-it-mobile">IT support</a>
                         </li>
                     </ul>
                 </li>
