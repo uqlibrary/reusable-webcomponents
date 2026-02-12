@@ -191,7 +191,14 @@ class Training extends HTMLElement {
         }
 
         const filteredEvents = this.trainingEvents.filter((event) => {
-            if (!!filters.keyword && !(event.name.match(keywordRegExp) || event.details.match(keywordRegExp))) {
+            if (
+                !!filters.keyword &&
+                !(
+                    event.name.match(keywordRegExp) ||
+                    event.details.match(keywordRegExp) ||
+                    event.summary.match(keywordRegExp)
+                )
+            ) {
                 return false;
             }
 
