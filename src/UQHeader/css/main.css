@@ -3057,17 +3057,20 @@ a:hover {
 }
 
 @media(min-width: 64rem) {
+    .uq-header__nav-secondary-item {
+        padding: .625rem 1rem;
+    }
     .uq-header__nav-secondary-link {
         font-size:.875rem;
-        padding: .625rem 1rem
+        padding: 0;
     }
 }
 
 .uq-header__nav-secondary-link:hover {
-    background-color: #0000;
-    color: #d4c8de;
+    background-color: #fff;
+    color: #51247a;
     -webkit-text-decoration: underline;
-    text-decoration: underline
+    text-decoration: underline;
 }
 
 .uq-header__search {
