@@ -2857,9 +2857,11 @@ a:hover {
 }
 
 @media(min-width: 64em) {
-    .uq-header .nav-primary__search-toggle:hover {
-        color: #d4c8de;
-        text-decoration: underline
+    .uq-header .nav-primary__search-toggle:hover div {
+        color: #51247a;
+        background-color: #fff;
+        text-decoration: underline;
+        text-align: center;
     }
 }
 
