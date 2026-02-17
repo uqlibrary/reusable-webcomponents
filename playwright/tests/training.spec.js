@@ -487,6 +487,48 @@ test.describe('Training', () => {
             await expect(trainingElement.getByTestId('training-filter-keyword-entry')).toHaveValue('');
             await expect(page.url()).toEqual('http://localhost:8080/index-training.html#keyword=;campus=;weekstart=');
         });
+        test('user can search for a term that is only in the summary', async ({ page }) => {
+            await expect(page.locator('library-training[id="test-with-filter"]')).toBeVisible();
+            const trainingElement = page.locator('library-training[id="test-with-filter"]');
+            await expect(trainingElement.locator('training-filter')).toBeVisible();
+
+            const trainingFilter = trainingElement.locator('training-filter');
+            await trainingFilter.getByTestId('training-filter-keyword-entry').pressSequentially('introductory');
+            await expect(trainingFilter.getByTestId('training-filter-keyword-entry')).toHaveValue('introductory');
+            const trainingList = trainingElement.locator('training-list');
+            // this event would not be visible if it weren't checking the summary - the keyword is only in the summary
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3428487')).toBeVisible(); // Python with Spyder: Introduction to Data Science has 'introductory'
+            // sanity check:
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3437655')).not.toBeVisible(); // Premiere Pro: Video Editing Basics doesn't have 'introductory' anywhere
+        });
+        test('user can search for a term that is only in the details', async ({ page }) => {
+            await expect(page.locator('library-training[id="test-with-filter"]')).toBeVisible();
+            const trainingElement = page.locator('library-training[id="test-with-filter"]');
+            await expect(trainingElement.locator('training-filter')).toBeVisible();
+
+            const trainingFilter = trainingElement.locator('training-filter');
+            await trainingFilter.getByTestId('training-filter-keyword-entry').pressSequentially('workspace');
+            await expect(trainingFilter.getByTestId('training-filter-keyword-entry')).toHaveValue('workspace');
+            const trainingList = trainingElement.locator('training-list');
+            // this event would not be visible if it weren't checking the details - the keyword is only in the details
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3437655')).toBeVisible(); // Premiere Pro: Video Editing Basics has 'workspace'
+            // sanity check:
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3428487')).not.toBeVisible(); // Python with Spyder: Introduction to Data Science doesn't have 'workspace' anywhere
+        });
+        test('user can search for a term that is only in the name', async ({ page }) => {
+            await expect(page.locator('library-training[id="test-with-filter"]')).toBeVisible();
+            const trainingElement = page.locator('library-training[id="test-with-filter"]');
+            await expect(trainingElement.locator('training-filter')).toBeVisible();
+
+            const trainingFilter = trainingElement.locator('training-filter');
+            await trainingFilter.getByTestId('training-filter-keyword-entry').pressSequentially('extraword');
+            await expect(trainingFilter.getByTestId('training-filter-keyword-entry')).toHaveValue('extraword');
+            const trainingList = trainingElement.locator('training-list');
+            // this event would not be visible if it weren't checking the name - the keyword is only in the name
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3428493')).toBeVisible(); // Python data transformation and visualisation with pandas extraword has 'extraword'
+            // sanity check:
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3428487')).not.toBeVisible(); // Python with Spyder: Introduction to Data Science doesn't have 'extraword' anywhere
+        });
         test('user can select a campus', async ({ page }) => {
             const trainingElement = page.locator('library-training[id="test-with-filter"]');
 

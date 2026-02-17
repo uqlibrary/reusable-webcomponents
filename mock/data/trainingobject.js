@@ -715,7 +715,7 @@ const trainingEventsObject = {
         "entityId": 3428493,
         "created": "2021-03-26T10:53:39.69+10:00",
         "updated": "2021-04-21T10:15:25.513+10:00",
-        "name": "Python data transformation and visualisation with pandas",
+        "name": "Python data transformation and visualisation with pandas extraword",
         "eventType": "Software",
         "eventTypeId": 45,
         "start": "2021-06-07T09:30:00+10:00",
