@@ -430,8 +430,12 @@ function addHeaderFooter() {
     }
 
     if (!document.querySelector('uq-site-header')) {
+        let breadcrumbLabel = 'Fryer Library Manuscripts';
+        if (window.location.hostname !== 'manuscripts.library.uq.edu.au') {
+            breadcrumbLabel = window.location.hostname.substring(0, window.location.hostname.indexOf('.')) + ' Fryer';
+        }
         const siteHeader = document.createElement('uq-site-header');
-        !!siteHeader && siteHeader.setAttribute('secondleveltitle', 'Fryer Library Manuscripts');
+        !!siteHeader && siteHeader.setAttribute('secondleveltitle', breadcrumbLabel);
         !!siteHeader && siteHeader.setAttribute('secondlevelurl', '/');
         !!siteHeader && document.body.insertBefore(siteHeader, firstElement);
 
