@@ -20,18 +20,18 @@ test.describe('Training', () => {
             .toBe(15);
     }
 
-    async function openTheByCampusDropdownByKeyboard(trainingFilter, page) {
-        await expect(trainingFilter.getByTestId('training-filter-campus-list')).not.toBeVisible();
-        await expect(trainingFilter.getByTestId('training-filter-campus-list')).toHaveClass(/hidden/);
+    async function openTheByLocationDropdownByKeyboard(trainingFilter, page) {
+        await expect(trainingFilter.getByTestId('training-filter-location-list')).not.toBeVisible();
+        await expect(trainingFilter.getByTestId('training-filter-location-list')).toHaveClass(/hidden/);
 
-        await expect(trainingFilter.getByTestId('training-filter-campus-container')).toBeVisible();
+        await expect(trainingFilter.getByTestId('training-filter-location-container')).toBeVisible();
         // an enter-key click on the campus parent opens the dropdown
-        await trainingFilter.getByTestId('training-filter-campus-container').focus();
+        await trainingFilter.getByTestId('training-filter-location-container').focus();
         await page.keyboard.press('Enter');
 
-        await expect(trainingFilter.getByTestId('training-filter-campus-list')).not.toHaveClass(/hidden/);
+        await expect(trainingFilter.getByTestId('training-filter-location-list')).not.toHaveClass(/hidden/);
         await expect
-            .poll(async () => trainingFilter.getByTestId('training-filter-campus-list').locator('button').count())
+            .poll(async () => trainingFilter.getByTestId('training-filter-location-list').locator('button').count())
             .toBe(3);
     }
 
@@ -424,7 +424,7 @@ test.describe('Training', () => {
             const trainingFilterElement = page.locator('training-filter[id="unwrappedFilter"]');
             await expect(trainingFilterElement.filter({ hasText: 'Filter events' })).toBeVisible();
             await expect(trainingFilterElement.filter({ hasText: 'By keyword' })).toBeVisible();
-            await expect(trainingFilterElement.filter({ hasText: 'By campus' })).toBeVisible();
+            await expect(trainingFilterElement.filter({ hasText: 'By location' })).toBeVisible();
             await expect(trainingFilterElement.filter({ hasText: 'By week' })).toBeVisible();
 
             await page.waitForTimeout(1000);
@@ -479,13 +479,13 @@ test.describe('Training', () => {
             // the placeholder has moved up, proxied by "color has changed"
             await expect(trainingFilter.getByTestId('training-filter-keyword-label')).toHaveCSS('color', uqpurple);
             await expect(page.url()).toEqual(
-                'http://localhost:8080/index-training.html#keyword=excel;campus=;weekstart=',
+                'http://localhost:8080/index-training.html#keyword=excel;location=;weekstart=',
             );
 
             // the user can use the escape key to clear the input field
             await page.keyboard.press('Escape');
             await expect(trainingElement.getByTestId('training-filter-keyword-entry')).toHaveValue('');
-            await expect(page.url()).toEqual('http://localhost:8080/index-training.html#keyword=;campus=;weekstart=');
+            await expect(page.url()).toEqual('http://localhost:8080/index-training.html#keyword=;location=;weekstart=');
         });
         test('user can search for a term that is only in the summary', async ({ page }) => {
             await expect(page.locator('library-training[id="test-with-filter"]')).toBeVisible();
@@ -533,36 +533,42 @@ test.describe('Training', () => {
             const trainingElement = page.locator('library-training[id="test-with-filter"]');
 
             await expect(trainingElement.locator('training-filter')).toBeVisible();
-            await trainingElement.getByTestId('training-filter-campus-label').click();
-            await trainingElement.getByTestId('training-filter-campus-select-2').click();
+            await trainingElement.getByTestId('training-filter-location-label').click();
+            await trainingElement.getByTestId('training-filter-location-select-2').click();
             await expect(trainingElement.getByText(/St Lucia/).first()).toBeVisible();
 
             // the placeholder has moved up, proxied by "color has changed"
-            await expect(trainingElement.getByTestId('training-filter-campus-label')).toHaveCSS('color', uqpurple);
+            await expect(trainingElement.getByTestId('training-filter-location-label')).toHaveCSS('color', uqpurple);
             await expect(page.url()).toEqual(
-                'http://localhost:8080/index-training.html#keyword=;campus=St%2520Lucia;weekstart=',
+                'http://localhost:8080/index-training.html#keyword=;location=St%2520Lucia;weekstart=',
             );
 
-            await trainingElement.getByTestId('training-filter-campus-label').click();
-            await trainingElement.getByTestId('training-filter-campus-select-0').click();
+            await trainingElement.getByTestId('training-filter-location-label').click();
+            await trainingElement.getByTestId('training-filter-location-select-0').click();
             await expect(trainingElement.getByText(/All locations/).first()).toBeVisible();
 
             // the placeholder has moved up, proxied by "color has changed"
-            await expect(trainingElement.getByTestId('training-filter-campus-label')).toHaveCSS('color', uqpurple);
+            await expect(trainingElement.getByTestId('training-filter-location-label')).toHaveCSS('color', uqpurple);
             await expect(page.url()).toEqual(
-                'http://localhost:8080/index-training.html#keyword=;campus=all;weekstart=',
+                'http://localhost:8080/index-training.html#keyword=;location=all;weekstart=',
             );
         });
         test('Online events show when Online campus filter is selected', async ({ page }) => {
-            await page.goto('http://localhost:8080/index-training.html#keyword=;campus=;weekstart=');
+            await page.goto('http://localhost:8080/index-training.html#keyword=;location=;weekstart=');
 
             const trainingElement = page.locator('library-training[id="test-with-filter"]');
+
+            // event "UQ R User Group (UQRUG)" is an online event & is visible
             await expect(trainingElement.getByTestId('event-venue-3455330').getByText(/Online, Zoom/)).toBeVisible();
+            // event "UPremiere Pro: Video Editing Basics" is an on-campus event & is visible
+            await expect(trainingElement.getByTestId('event-venue-3437655').getByText(/St Lucia/)).toBeVisible();
 
-            await page.locator('#test-with-filter').getByTestId('training-filter-campus-label').click();
-            await page.getByTestId('training-filter-campus-select-1').click();
+            // select to show online only events
+            await page.locator('#test-with-filter').getByTestId('training-filter-location-label').click();
+            await page.getByTestId('training-filter-location-select-1').click();
 
-            // this element shows after filter selector because we changed its campus to "Online":
+            // events show and hide appropriately after filtering for online-only events
+            await expect(trainingElement.getByTestId('event-venue-3437655').getByText(/St Lucia/)).not.toBeVisible();
             await expect(trainingElement.getByTestId('event-venue-3455330').getByText(/Online, Zoom/)).toBeVisible();
         });
         test('user can clear campus selector field', async ({ page }) => {
@@ -571,15 +577,15 @@ test.describe('Training', () => {
 
             const trainingFilterElement = trainingElement.locator('training-filter');
 
-            await trainingFilterElement.getByTestId('training-filter-campus-label').click();
+            await trainingFilterElement.getByTestId('training-filter-location-label').click();
             await expect(
-                trainingFilterElement.getByTestId('training-filter-campus-list').locator('button'),
+                trainingFilterElement.getByTestId('training-filter-location-list').locator('button'),
             ).toHaveCount(3);
 
             // a click elsewhere closes the dropdown
             await page.getByTestId('random-page-element').click();
-            await expect(trainingFilterElement.getByTestId('training-filter-campus-list')).toHaveClass(/hidden/);
-            await expect(trainingFilterElement.getByTestId('training-filter-campus-list')).not.toBeVisible();
+            await expect(trainingFilterElement.getByTestId('training-filter-location-list')).toHaveClass(/hidden/);
+            await expect(trainingFilterElement.getByTestId('training-filter-location-list')).not.toBeVisible();
         });
 
         test('user can select a week', async ({ page }) => {
@@ -592,7 +598,7 @@ test.describe('Training', () => {
             // the placeholder has moved up, proxied by "color has changed"
             await expect(trainingFilter.getByTestId('training-filter-week-label')).toHaveCSS('color', uqpurple);
             await expect(page.url()).toEqual(
-                'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=all',
+                'http://localhost:8080/index-training.html#keyword=;location=;weekstart=all',
             );
 
             const trainingList = trainingElement.locator('training-list');
@@ -668,7 +674,7 @@ test.describe('Training', () => {
             await expect(trainingElement.locator('training-filter')).toBeVisible();
 
             await expect(page.url()).toEqual(
-                'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=2021-08-02',
+                'http://localhost:8080/index-training.html#keyword=;location=;weekstart=2021-08-02',
             );
 
             await expect(trainingElement.locator('training-filter')).toBeVisible();
@@ -753,20 +759,20 @@ test.describe('Training', () => {
             await expect(trainingFilterElement.getByTestId('training-filter-week-label')).toBeVisible();
             await trainingFilterElement.getByTestId('training-filter-week-label').click(); // open the week list
             await expect(trainingFilterElement.getByTestId('training-filter-select-week-0')).toBeVisible(); // week list shows
-            await expect(trainingFilterElement.getByTestId('training-filter-campus-select-0')).not.toBeVisible(); // campus list is closed
-            await trainingFilterElement.getByTestId('training-filter-campus-label').click(); // open the campus list
-            await expect(trainingFilterElement.getByTestId('training-filter-campus-select-0')).toBeVisible(); // campus list is open
+            await expect(trainingFilterElement.getByTestId('training-filter-location-select-0')).not.toBeVisible(); // campus list is closed
+            await trainingFilterElement.getByTestId('training-filter-location-label').click(); // open the campus list
+            await expect(trainingFilterElement.getByTestId('training-filter-location-select-0')).toBeVisible(); // campus list is open
             await expect(trainingFilterElement.getByTestId('training-filter-select-week-0')).not.toBeVisible(); // week list has closed
             await trainingFilterElement.getByTestId('training-filter-week-label').click(); // reopen the week list
             await expect(trainingFilterElement.getByTestId('training-filter-select-week-0')).toBeVisible(); // campus list has closed
-            await expect(trainingFilterElement.getByTestId('training-filter-campus-select-0')).not.toBeVisible(); // week list is open
+            await expect(trainingFilterElement.getByTestId('training-filter-location-select-0')).not.toBeVisible(); // week list is open
 
             await trainingFilterElement.getByTestId('training-filter-select-week-0').click(); // select a week for the next step of the test
-            await trainingFilterElement.getByTestId('training-filter-campus-label').click();
-            await trainingFilterElement.getByTestId('training-filter-campus-select-0').click();
+            await trainingFilterElement.getByTestId('training-filter-location-label').click();
+            await trainingFilterElement.getByTestId('training-filter-location-select-0').click();
             await trainingFilterElement.getByTestId('training-filter-popular-events-excel').click();
             await expect(page.url()).toEqual(
-                'http://localhost:8080/index-training.html#keyword=Excel;campus=all;weekstart=all',
+                'http://localhost:8080/index-training.html#keyword=Excel;location=all;weekstart=all',
             );
         });
         test('user can clear other fields', async ({ page }) => {
@@ -777,20 +783,20 @@ test.describe('Training', () => {
             const trainingFilter = trainingElement.locator('training-filter');
             await trainingFilter.getByTestId('training-filter-popular-events-excel').click();
             await expect(page.url()).toEqual(
-                'http://localhost:8080/index-training.html#keyword=Excel;campus=;weekstart=',
+                'http://localhost:8080/index-training.html#keyword=Excel;location=;weekstart=',
             );
             await trainingFilter.locator('[data-testid="training-filter-clear-keyword"]').click();
-            await expect(page.url()).toEqual('http://localhost:8080/index-training.html#keyword=;campus=;weekstart=');
+            await expect(page.url()).toEqual('http://localhost:8080/index-training.html#keyword=;location=;weekstart=');
         });
         test('uses url parameters', async ({ page }) => {
             // what we get with nothing in the url
-            await page.goto('http://localhost:8080/index-training.html#keyword=;campus=;weekstart=');
+            await page.goto('http://localhost:8080/index-training.html#keyword=;location=;weekstart=');
             const trainingList = page.locator('library-training[id="test-with-filter"]');
             await expect(trainingList.getByTestId('training-event-detail-toggle-3428487')).toBeVisible(); // Python with Spyder: Introduction to Data Science
 
             // what we get when the url restricts campus
 
-            await page.goto('http://localhost:8080/index-training.html#keyword=;campus=St%2520Lucia;weekstart=');
+            await page.goto('http://localhost:8080/index-training.html#keyword=;location=St%2520Lucia;weekstart=');
             const trainingList2 = page.locator('library-training[id="test-with-filter"]');
             await expect(trainingList2.getByTestId('training-event-detail-toggle-3428487')).not.toBeVisible(); // Python with Spyder: Introduction to Data Science}
         });
@@ -809,7 +815,7 @@ test.describe('Training', () => {
 
             await trainingFilter.getByTestId('training-filter-keyword-entry').pressSequentially('excel');
             await expect(page.url()).toEqual(
-                'http://localhost:8080/index-training.html#keyword=excel;campus=;weekstart=',
+                'http://localhost:8080/index-training.html#keyword=excel;location=;weekstart=',
             );
 
             // click away from the keyword input field, as that is when we send the keyword
@@ -839,12 +845,12 @@ test.describe('Training', () => {
                 let keyword = 'e';
                 await trainingFilter.getByTestId('training-filter-keyword-entry').pressSequentially(keyword);
                 await expect(page.url()).toEqual(
-                    `http://localhost:8080/index-training.html#keyword=${keyword};campus=;weekstart=`,
+                    `http://localhost:8080/index-training.html#keyword=${keyword};location=;weekstart=`,
                 );
 
                 await page.keyboard.press('Escape');
                 await expect(page.url()).toEqual(
-                    'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=',
+                    'http://localhost:8080/index-training.html#keyword=;location=;weekstart=',
                 );
             }
         });
@@ -868,15 +874,17 @@ test.describe('Training', () => {
             const trainingElement = page.locator('library-training[id="test-with-filter"]');
             await expect(trainingElement.locator('training-filter')).toBeVisible();
             const trainingFilter = trainingElement.locator('training-filter');
-            await expect(page.url()).toEqual('http://localhost:8080/index-training.html#keyword=;campus=;weekstart=');
+            await expect(page.url()).toEqual('http://localhost:8080/index-training.html#keyword=;location=;weekstart=');
 
             await trainingFilter.getByTestId('training-filter-keyword-entry').pressSequentially('e');
-            await expect(page.url()).toEqual('http://localhost:8080/index-training.html#keyword=e;campus=;weekstart=');
+            await expect(page.url()).toEqual(
+                'http://localhost:8080/index-training.html#keyword=e;location=;weekstart=',
+            );
 
             // can clear text with 'enter' click on the clear button
             await trainingFilter.getByTestId('training-filter-clear-keyword').focus();
             await page.keyboard.press('Enter');
-            await expect(page.url()).toEqual('http://localhost:8080/index-training.html#keyword=;campus=;weekstart=');
+            await expect(page.url()).toEqual('http://localhost:8080/index-training.html#keyword=;location=;weekstart=');
         });
         test('the user can tab from the keyword to the campus dropdown', async ({ page }) => {
             await expect(page.locator('library-training[id="test-with-filter"]')).toBeVisible();
@@ -887,7 +895,7 @@ test.describe('Training', () => {
 
             // tabs to next field
             await page.keyboard.press('Tab');
-            await expect(trainingFilter.getByTestId('training-filter-campus-container').first()).toBeFocused();
+            await expect(trainingFilter.getByTestId('training-filter-location-container').first()).toBeFocused();
         });
         test('the user can use the keyboard to open and close the campus dropdown ', async ({ page }) => {
             await expect(page.locator('library-training[id="test-with-filter"]')).toBeVisible();
@@ -896,12 +904,12 @@ test.describe('Training', () => {
 
             const trainingFilter = trainingElement.locator('training-filter');
 
-            await openTheByCampusDropdownByKeyboard(trainingFilter, page);
+            await openTheByLocationDropdownByKeyboard(trainingFilter, page);
 
             // close campus dropdown
-            await trainingFilter.getByTestId('training-filter-campus-container').focus();
+            await trainingFilter.getByTestId('training-filter-location-container').focus();
             await page.keyboard.press('Escape');
-            await expect(trainingFilter.getByTestId('training-filter-campus-list')).toHaveClass(/hidden/);
+            await expect(trainingFilter.getByTestId('training-filter-location-list')).toHaveClass(/hidden/);
         });
         test('user can use the arrow keys to navigate up and down the campus dropdown', async ({ page }) => {
             await page.goto('http://localhost:8080/index-training.html');
@@ -909,34 +917,34 @@ test.describe('Training', () => {
             await expect(trainingElement.locator('training-filter')).toBeVisible();
             const trainingFilterElement = trainingElement.locator('training-filter');
 
-            await openTheByCampusDropdownByKeyboard(trainingFilterElement, page);
+            await openTheByLocationDropdownByKeyboard(trainingFilterElement, page);
 
             // arrow up and down robustly working (its actually easy to muck this up, so maintain, despite it seeming overkill)
-            // await trainingFilterElement.getByTestId('training-filter-campus-label').focus();
+            // await trainingFilterElement.getByTestId('training-filter-location-label').focus();
             await page.keyboard.press('ArrowDown');
-            await expect(trainingFilterElement.getByTestId('training-filter-campus-select-0')).toBeFocused();
+            await expect(trainingFilterElement.getByTestId('training-filter-location-select-0')).toBeFocused();
 
             await page.keyboard.press('ArrowDown');
-            await expect(trainingFilterElement.getByTestId('training-filter-campus-select-1')).toBeFocused();
+            await expect(trainingFilterElement.getByTestId('training-filter-location-select-1')).toBeFocused();
 
             await page.keyboard.press('ArrowDown');
-            await expect(trainingFilterElement.getByTestId('training-filter-campus-select-2')).toBeFocused();
+            await expect(trainingFilterElement.getByTestId('training-filter-location-select-2')).toBeFocused();
 
             await page.keyboard.press('ArrowDown');
             // it is circular - we are back to 0
-            await expect(trainingFilterElement.getByTestId('training-filter-campus-select-0')).toBeFocused();
+            await expect(trainingFilterElement.getByTestId('training-filter-location-select-0')).toBeFocused();
 
-            await trainingFilterElement.getByTestId('training-filter-campus-select-2').focus();
-
-            await page.keyboard.press('ArrowUp');
-            await expect(trainingFilterElement.getByTestId('training-filter-campus-select-1')).toBeFocused();
+            await trainingFilterElement.getByTestId('training-filter-location-select-2').focus();
 
             await page.keyboard.press('ArrowUp');
-            await expect(trainingFilterElement.getByTestId('training-filter-campus-select-0')).toBeFocused();
+            await expect(trainingFilterElement.getByTestId('training-filter-location-select-1')).toBeFocused();
+
+            await page.keyboard.press('ArrowUp');
+            await expect(trainingFilterElement.getByTestId('training-filter-location-select-0')).toBeFocused();
 
             await page.keyboard.press('ArrowUp');
             // and we are back on the parent campus button
-            await expect(trainingFilterElement.getByTestId('training-filter-campus-container')).toBeFocused();
+            await expect(trainingFilterElement.getByTestId('training-filter-location-container')).toBeFocused();
         });
         test('user can tab from campus dropdown button to week dropdown button', async ({ page }) => {
             await expect(page.locator('library-training[id="test-with-filter"]')).toBeVisible();
@@ -944,9 +952,9 @@ test.describe('Training', () => {
             await expect(trainingElement.locator('training-filter')).toBeVisible();
 
             const trainingFilter = trainingElement.locator('training-filter');
-            await expect(trainingFilter.getByTestId('training-filter-campus-dropdown')).toBeVisible();
-            await trainingFilter.getByTestId('training-filter-campus-container').focus();
-            // await trainingFilter.getByTestId('training-filter-campus-dropdown').waitForTimeout(1500);
+            await expect(trainingFilter.getByTestId('training-filter-location-dropdown')).toBeVisible();
+            await trainingFilter.getByTestId('training-filter-location-container').focus();
+            // await trainingFilter.getByTestId('training-filter-location-dropdown').waitForTimeout(1500);
             await page.keyboard.press('Tab');
             await expect(trainingFilter.getByTestId('training-filter-week-container')).toBeFocused();
         });
@@ -1035,7 +1043,7 @@ test.describe('Training', () => {
             await trainingFilter.getByTestId('training-filter-week-container').focus();
             await page.keyboard.press('Shift+Tab');
 
-            await expect(trainingFilter.getByTestId('training-filter-campus-container')).toBeFocused();
+            await expect(trainingFilter.getByTestId('training-filter-location-container')).toBeFocused();
         });
     });
 });
