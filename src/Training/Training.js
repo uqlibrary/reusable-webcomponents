@@ -117,7 +117,7 @@ class Training extends HTMLElement {
                     !!fetchedEvents && typeof fetchedEvents === 'object'
                         ? Object.keys(fetchedEvents).map((key) => {
                               const fetchedEvent = fetchedEvents[key];
-                              !!isOnlineEvent(fetchedEvent) && (fetchedEvent.campus = 'Online');
+                              !!isOnlineEvent(fetchedEvent) && !fetchedEvent.campus && (fetchedEvent.campus = 'Online');
                               return fetchedEvent;
                           })
                         : /* istanbul ignore next */ fetchedEvents;
@@ -206,7 +206,11 @@ class Training extends HTMLElement {
             }
 
             console.log('event =', event.entityId, event.campus, event.name);
-            if (!!filters.location && !filters.location.includes(event.campus)) {
+            if (
+                !!filters.location &&
+                !filters.location.includes(event.campus) &&
+                !(event.isOnlineClass && filters.location.includes('Online'))
+            ) {
                 console.log('hide event 2 location =', event.entityId);
                 return false;
             }

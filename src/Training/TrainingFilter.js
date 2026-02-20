@@ -463,7 +463,6 @@ class TrainingFilter extends HTMLElement {
         }
 
         function selectLocation(locationName, locationCode) {
-            console.log('selectLocation', locationName, locationCode);
             const locationhover = that.shadowRoot.getElementById('locationhover');
             if (!!locationhover && !locationhover.classList.contains('above')) {
                 const moveLabel = `${locationhover.className} above`;
