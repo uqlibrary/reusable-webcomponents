@@ -71,7 +71,7 @@ h3.title-text {
 }
 
 button.week,
-button.campus {
+button.locationDropdownItem {
     display: block;
     width: 10rem;
 }

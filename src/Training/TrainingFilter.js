@@ -32,14 +32,14 @@ template.innerHTML = `
                     </button>
                 </div>
             </div>
-            <div aria-label="filter by campus" id="campusDropdown" data-testid="training-filter-campus-dropdown" data-analyticsid="training-filter-campus-dropdown" class="listHolder" aria-disabled="false">
-                <button data-testid="training-filter-campus-container" data-analyticsid="training-filter-campus-container" id="campusOpener" class="campus opener filterer" aria-haspopup="listbox" aria-labelledby="campushover">
-                    <span class="hidden">By campus</span>
+            <div aria-label="filter by location" id="locationDropdown" data-testid="training-filter-location-dropdown" data-analyticsid="training-filter-campus-dropdown" class="listHolder" aria-disabled="false">
+                <button data-testid="training-filter-location-container" data-analyticsid="training-filter-campus-container" id="locationOpener" class="locationDropdownItem opener filterer" aria-haspopup="listbox" aria-labelledby="locationhover">
+                    <span class="hidden">By location</span>
                 </button>
-                <div id="campushoverblock" class="hoverblock">
-                    <div data-testid="training-filter-campus-label" data-analyticsid="training-filter-campus-label" id="campushover" class="campushover hovertext filterFieldLabel">By campus</div>
+                <div id="locationhoverblock" class="hoverblock">
+                    <div data-testid="training-filter-location-label" data-analyticsid="training-filter-campus-label" id="locationhover" class="locationhover hovertext filterFieldLabel">By location</div>
                 </div>
-                <div tabindex="-1" data-testid="training-filter-campus-list" data-analyticsid="training-filter-campus-list" id="campuslist" class="selectorlist campuslist hidden" aria-expanded="false"></div>
+                <div tabindex="-1" data-testid="training-filter-location-list" data-analyticsid="training-filter-campus-list" id="locationlist" class="selectorlist locationlist hidden" aria-expanded="false"></div>
             </div>
             <div aria-label="filter by week" id="weekDropdown" data-testid="training-filter-week-dropdown" data-analyticsid="training-filter-week-dropdown" class="listHolder weekSelector" aria-disabled="false">
                 <button data-testid="training-filter-week-container" data-analyticsid="training-filter-week-container" id="weekOpener" class="week opener filterer" aria-labelledby="weekhover">
@@ -62,7 +62,7 @@ class TrainingFilter extends HTMLElement {
         super();
 
         // initialise properties
-        this._selectedCampus = '';
+        this._selectedLocation = '';
         this._selectedWeek = '';
         this._inputKeywordValue = '';
 
@@ -73,7 +73,7 @@ class TrainingFilter extends HTMLElement {
         !!template && !!shadowDOM && shadowDOM.appendChild(template.content.cloneNode(true));
 
         this.addListeners(shadowDOM);
-        this.loadCampuses(shadowDOM);
+        this.loadLocations(shadowDOM);
         this.loadWeeks(shadowDOM);
         this.loadPopularChips(shadowDOM);
 
@@ -83,15 +83,15 @@ class TrainingFilter extends HTMLElement {
         this.changeHashofUrl = this.changeHashofUrl.bind(this);
         this.listenForKeyClicks = this.listenForKeyClicks.bind(this);
         this.listenForMouseClicks = this.listenForMouseClicks.bind(this);
-        this.loadCampuses = this.loadCampuses.bind(this);
+        this.loadLocations = this.loadLocations.bind(this);
         this.loadPopularChips = this.loadPopularChips.bind(this);
         this.loadWeeks = this.loadWeeks.bind(this);
         this.shortenDate = this.shortenDate.bind(this);
         this.toggleDropdownVisibility = this.toggleDropdownVisibility.bind(this);
     }
 
-    set selectedCampus(selectedCampus) {
-        this._selectedCampus = selectedCampus;
+    set selectedLocation(selectedLocation) {
+        this._selectedLocation = selectedLocation;
         this.changeHashofUrl();
     }
 
@@ -106,13 +106,13 @@ class TrainingFilter extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['campus-list', 'week-start', 'week-end'];
+        return ['location-list', 'week-start', 'week-end'];
     }
 
     attributeChangedCallback(name) {
         switch (name) {
-            case 'campus-list':
-                this.loadCampuses();
+            case 'location-list':
+                this.loadLocations();
                 break;
             case 'week-start':
             case 'week-end':
@@ -130,73 +130,74 @@ class TrainingFilter extends HTMLElement {
     addListeners() {
         const that = this;
 
-        const campuslist = that.shadowRoot.getElementById('campuslist');
-        const campusDropdown = that.shadowRoot.getElementById('campusDropdown');
+        const locationListElement = that.shadowRoot.getElementById('locationlist');
+        const locationDropdown = that.shadowRoot.getElementById('locationDropdown');
         const weeklist = that.shadowRoot.getElementById('weeklist');
         const weekDropdown = that.shadowRoot.getElementById('weekDropdown');
 
-        function toggleCampusSelector(e) {
+        function toggleLocationSelector(e) {
             const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
             // if the other dropdown is still open, close it
-            !weeklist.classList.contains('hidden') && that.toggleDropdownVisibility('week');
+            !weeklist.classList.contains('hidden') && that.toggleDropdownVisibility('weeklist');
 
-            that.toggleDropdownVisibility('campus');
+            that.toggleDropdownVisibility('locationlist');
         }
 
-        function navigateToFirstCampusEntry() {
-            const nextElement = that.shadowRoot.getElementById(`campus-select-0`);
+        function navigateToFirstLocationEntry() {
+            const nextElement = that.shadowRoot.getElementById(`location-select-0`);
             !!nextElement && nextElement.focus();
         }
 
-        function handleCampusKeyDown(e) {
+        function handleLocationKeyDown(e) {
             if (isArrowDownKeyPressed(e)) {
                 e.preventDefault();
-                // nav to first campus entry
-                navigateToFirstCampusEntry();
+                // nav to first location entry
+                navigateToFirstLocationEntry();
             } /* istanbul ignore next */ else if (isBackTabKeyPressed(e)) {
-                !campuslist.classList.contains('hidden') && that.closeDropdown(campuslist);
+                !locationListElement.classList.contains('hidden') && that.closeDropdown(locationListElement);
             }
         }
 
-        const campushover = that.shadowRoot.getElementById('campushover'); // for Windows
-        !!campushover && campushover.addEventListener('click', toggleCampusSelector);
-        !!campushover && campushover.addEventListener('keydown', handleCampusKeyDown);
+        const locationhover = that.shadowRoot.getElementById('locationhover'); // for Windows
+        !!locationhover && locationhover.addEventListener('click', toggleLocationSelector);
+        !!locationhover && locationhover.addEventListener('keydown', handleLocationKeyDown);
 
-        !!campuslist && campuslist.addEventListener('keydown', handleCampusKeyDown); // for Windows
+        !!locationListElement && locationListElement.addEventListener('keydown', handleLocationKeyDown); // for Windows
 
-        const campusOpener = that.shadowRoot.getElementById('campusOpener'); // for OSX
-        !!campusOpener && campusOpener.addEventListener('click', toggleCampusSelector);
-        !!campusOpener && campusOpener.addEventListener('keydown', handleCampusKeyDown);
+        const locationOpener = that.shadowRoot.getElementById('locationOpener'); // for OSX
+        !!locationOpener && locationOpener.addEventListener('click', toggleLocationSelector);
+        !!locationOpener && locationOpener.addEventListener('keydown', handleLocationKeyDown);
 
-        // allow the user to navigate the campus list with the arrow keys - Nick says its expected
-        campusDropdown.addEventListener('keydown', campusDropdownKeyDownListener());
+        // allow the user to navigate the location list with the arrow keys - Nick says its expected
+        locationDropdown.addEventListener('keydown', locationDropdownKeyDownListener());
 
-        function campusDropdownKeyDownListener() {
+        function locationDropdownKeyDownListener() {
             return function (e) {
                 const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
                 const eventTargetId = !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
                 if (isArrowDownKeyPressed(e)) {
                     e.preventDefault();
-                    const currentId = eventTargetId.replace('campus-select-', '');
+                    const currentId = eventTargetId.replace('location-select-', '');
                     const nextId = parseInt(currentId, 10) + 1;
 
-                    const nextElement = that.shadowRoot.getElementById(`campus-select-${nextId}`);
+                    const nextElement = that.shadowRoot.getElementById(`location-select-${nextId}`);
                     !!nextElement && nextElement.focus();
                 } else if (isArrowUpKeyPressed(e)) {
                     e.preventDefault();
-                    const currentId = eventTargetId.replace('campus-select-', '');
+                    const currentId = eventTargetId.replace('location-select-', '');
                     const prevId = parseInt(currentId, 10) - 1;
                     const prevElementId =
-                        (!!prevId || prevId === 0) && (currentId === '0' ? 'campusOpener' : `campus-select-${prevId}`);
+                        (!!prevId || prevId === 0) &&
+                        (currentId === '0' ? 'locationOpener' : `location-select-${prevId}`);
                     const prevElement = !!prevElementId && that.shadowRoot.getElementById(prevElementId);
                     !!prevElement && prevElement.focus();
                 } /* istanbul ignore next */ else if (isTabKeyPressed(e)) {
                     // close on tab off last element
-                    if (eventTargetId.startsWith('campus-select-')) {
-                        const currentId = eventTargetId.replace('campus-select-', '');
+                    if (eventTargetId.startsWith('location-select-')) {
+                        const currentId = eventTargetId.replace('location-select-', '');
                         const nextId = parseInt(currentId, 10) + 1;
-                        const nextElement = that.shadowRoot.getElementById(`campus-select-${nextId}`);
-                        !nextElement && that.closeDropdown(campuslist);
+                        const nextElement = that.shadowRoot.getElementById(`location-select-${nextId}`);
+                        !nextElement && that.closeDropdown(locationListElement);
                     }
                 }
             };
@@ -204,9 +205,9 @@ class TrainingFilter extends HTMLElement {
 
         function toggleWeekSelector() {
             // if the other dropdown is still open, close it
-            !campuslist.classList.contains('hidden') && that.toggleDropdownVisibility('campus');
+            !locationListElement.classList.contains('hidden') && that.toggleDropdownVisibility('locationlist');
 
-            that.toggleDropdownVisibility('week');
+            that.toggleDropdownVisibility('weeklist');
         }
 
         function navigateToFirstWeekEntry() {
@@ -378,7 +379,7 @@ class TrainingFilter extends HTMLElement {
             const newClassname = !!weekDropdown && `${weekDropdown.className} selected`;
             !!weekDropdown && (weekDropdown.className = newClassname);
 
-            that.toggleDropdownVisibility('week');
+            that.toggleDropdownVisibility('weeklist');
             that.selectedWeek = that.shortenDate(weekStartDate);
 
             const weekOpenerButton = that.shadowRoot.getElementById('weekOpener');
@@ -451,43 +452,41 @@ class TrainingFilter extends HTMLElement {
     }
 
     /**
-     * load the list of campuses into the dropdown, add listeners, etc
+     * load the list of locations into the dropdown, add listeners, etc
      */
-    loadCampuses() {
+    loadLocations() {
         const that = this;
 
-        const campuses = this.getAttribute('campus-list');
-        if (!campuses) {
+        const locationsListElement = this.getAttribute('location-list');
+        if (!locationsListElement) {
             return;
         }
 
-        function selectCampus(campusName, campusCode) {
-            const campusHover = that.shadowRoot.getElementById('campushover');
-            if (!!campusHover && !campusHover.classList.contains('above')) {
-                const moveLabel = `${campusHover.className} above`;
-                !!moveLabel && (campusHover.className = moveLabel);
+        function selectLocation(locationName, locationCode) {
+            const locationhover = that.shadowRoot.getElementById('locationhover');
+            if (!!locationhover && !locationhover.classList.contains('above')) {
+                const moveLabel = `${locationhover.className} above`;
+                !!moveLabel && (locationhover.className = moveLabel);
             }
             // there is no requirement to clear the selector fields
 
-            that.toggleDropdownVisibility('campus');
+            that.toggleDropdownVisibility('locationlist');
 
-            that.selectedCampus = campusCode;
+            that.selectedLocation = locationCode;
 
-            const campusOpenerButton = that.shadowRoot.getElementById('campusOpener');
-            !!campusOpenerButton && (campusOpenerButton.innerHTML = campusName);
+            const locationOpenerButton = that.shadowRoot.getElementById('locationOpener');
+            !!locationOpenerButton && (locationOpenerButton.innerHTML = locationName);
         }
 
-        function addCampusSelectorButton(campusName, campusCode, index) {
-            // const campusNameLabel = document.createTextNode(campusName);
-
-            const campusSelectButton = document.createElement('button');
-            campusSelectButton.className = 'campus filterer';
-            campusSelectButton.innerHTML = campusName;
-            campusSelectButton.setAttribute('id', `campus-select-${index}`);
-            campusSelectButton.setAttribute('data-testid', `training-filter-campus-select-${index}`);
-            campusSelectButton.setAttribute('role', 'option');
+        function addLocationSelectorButton(locationName, locationCode, index) {
+            const locationSelectButton = document.createElement('button');
+            locationSelectButton.className = 'locationDropdownItem filterer';
+            locationSelectButton.innerHTML = locationName;
+            locationSelectButton.setAttribute('id', `location-select-${index}`);
+            locationSelectButton.setAttribute('data-testid', `training-filter-location-select-${index}`);
+            locationSelectButton.setAttribute('role', 'option');
             let label;
-            switch (campusCode) {
+            switch (locationCode) {
                 case 'all':
                     label = 'Display courses at all locations';
                     break;
@@ -495,28 +494,28 @@ class TrainingFilter extends HTMLElement {
                     label = 'Display only online courses';
                     break;
                 default:
-                    label = `Only display courses at ${campusName}`;
+                    label = `Only display courses at ${locationName}`;
             }
-            campusSelectButton.setAttribute('aria-label', label);
-            !!campusSelectButton &&
-                campusSelectButton.addEventListener('click', function () {
-                    selectCampus(campusName, campusCode);
+            locationSelectButton.setAttribute('aria-label', label);
+            !!locationSelectButton &&
+                locationSelectButton.addEventListener('click', function () {
+                    selectLocation(locationName, locationCode);
                 });
-            !!campuslistDom && campuslistDom.appendChild(campusSelectButton);
+            !!locationListElement && locationListElement.appendChild(locationSelectButton);
         }
 
-        const campusListProvided = this.getAttribute('campus-list') || /* istanbul ignore next */ '';
-        const campusList = campusListProvided.split('|');
+        const locationListProvided = this.getAttribute('location-list') || /* istanbul ignore next */ '';
+        const locationList = locationListProvided.split('|');
 
-        const campuslistDom = that.shadowRoot.getElementById('campuslist');
-        addCampusSelectorButton('All locations', 'all', 0);
+        const locationListElement = that.shadowRoot.getElementById('locationlist');
+        addLocationSelectorButton('All locations', 'all', 0);
 
         let index = 1; // 'all' button is '0'
-        !!campusList &&
-            campusList.length > 0 &&
-            campusList.forEach((campusCode) => {
-                const campusName = decodeURIComponent(campusCode);
-                addCampusSelectorButton(campusName, campusCode, index);
+        !!locationList &&
+            locationList.length > 0 &&
+            locationList.forEach((locationCode) => {
+                const locationName = decodeURIComponent(locationCode);
+                addLocationSelectorButton(locationName, locationCode, index);
                 index++;
             });
     }
@@ -530,9 +529,9 @@ class TrainingFilter extends HTMLElement {
 
         // break it up because prettier interacts badly with the longer string
         const keywordhash = `keyword=${this._inputKeywordValue}`;
-        const campushash = `campus=${encodeURIComponent(this._selectedCampus)}`;
+        const locationhash = `location=${encodeURIComponent(this._selectedLocation)}`;
         const dateHash = `weekstart=${encodeURIComponent(this._selectedWeek)}`;
-        currentUrl.hash = `${keywordhash};${campushash};${dateHash}`;
+        currentUrl.hash = `${keywordhash};${locationhash};${dateHash}`;
 
         document.location.href = currentUrl.href;
     }
@@ -552,7 +551,7 @@ class TrainingFilter extends HTMLElement {
      */
     toggleDropdownVisibility(dropdownType) {
         const that = this;
-        const dropDownList = that.shadowRoot.getElementById(`${dropdownType}list`);
+        const dropDownList = that.shadowRoot.getElementById(dropdownType);
 
         /* istanbul ignore next */
         if (!dropDownList) {
@@ -583,12 +582,12 @@ class TrainingFilter extends HTMLElement {
             document.querySelector('training-filter');
         /* istanbul ignore else */
         if (isEscapeKeyPressed(e)) {
-            const campuslist = that.shadowRoot.getElementById('campuslist');
-            !!campuslist &&
-                !campuslist.classList.contains('hidden') &&
-                trainingFilter.toggleDropdownVisibility('campus');
+            const locationListElement = that.shadowRoot.getElementById('locationlist');
+            !!locationListElement &&
+                !locationListElement.classList.contains('hidden') &&
+                trainingFilter.toggleDropdownVisibility('locationlist');
             const weeklist = that.shadowRoot.getElementById('weeklist');
-            !!weeklist && !weeklist.classList.contains('hidden') && trainingFilter.toggleDropdownVisibility('week');
+            !!weeklist && !weeklist.classList.contains('hidden') && trainingFilter.toggleDropdownVisibility('weeklist');
         }
     }
 
@@ -597,10 +596,12 @@ class TrainingFilter extends HTMLElement {
         const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
 
         if (!hasClickedOnDropdown(eventTarget)) {
-            const campuslist = that.shadowRoot.getElementById('campuslist');
-            !!campuslist && !campuslist.classList.contains('hidden') && that.toggleDropdownVisibility('campus');
+            const locationListElement = that.shadowRoot.getElementById('locationlist');
+            !!locationListElement &&
+                !locationListElement.classList.contains('hidden') &&
+                that.toggleDropdownVisibility('locationlist');
             const weeklist = that.shadowRoot.getElementById('weeklist');
-            !!weeklist && !weeklist.classList.contains('hidden') && that.toggleDropdownVisibility('week');
+            !!weeklist && !weeklist.classList.contains('hidden') && that.toggleDropdownVisibility('weeklist');
         }
 
         function hasClickedOnDropdown(eventTarget) {
@@ -608,7 +609,7 @@ class TrainingFilter extends HTMLElement {
                 !!eventTarget &&
                 (eventTarget.classList.contains('opener') ||
                     /* istanbul ignore else */ eventTarget.classList.contains('weekhover') ||
-                    /* istanbul ignore else */ eventTarget.classList.contains('campushover'))
+                    /* istanbul ignore else */ eventTarget.classList.contains('locationhover'))
             );
         }
     }

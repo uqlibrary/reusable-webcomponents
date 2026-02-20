@@ -180,6 +180,73 @@ const trainingEventsObject = {
         "isOnlineClass": true
     },
     "3": {
+        "entityId": 6190074,
+        "created": "2021-05-03T13:43:51.087+10:00",
+        "updated": "2021-05-04T13:12:41.133+10:00",
+        "name": "UQ R User Group (UQRUG) both online and in person",
+        "eventType": "Software",
+        "eventTypeId": 45,
+        "start": "2021-05-26T10:00:00+10:00",
+        "end": "2021-05-26T12:00:00+10:00",
+        "publish": "2021-05-04T13:00:00+10:00",
+        "expire": "2021-05-26T12:00:00+10:00",
+        "isActive": true,
+        "isCancelled": false,
+        "isPrivate": false,
+        "summary": "Skill-sharing and collaborative problem solving session for UQ's R user community",
+        "details": "<p>\n\t<strong><a href=\"https:\/\/cran.r-project.org\/\">R<\/a><\/strong> is a user-friendly programming language for statistical analysis, data visualisation and more.\n<\/p>\n<p>\n\t<strong>UQRUG<\/strong> is UQ's <strong>R U<\/strong>ser <strong>G<\/strong>roup: a monthly skill-sharing and collaborative problem-solving session for the  UQ R user community.&nbsp;\n<\/p><p>All skill levels welcome!<\/p>\n<p>\n\tOur main purpose is to serve as a&nbsp;<b style=\"background-color: initial\">drop-in help session&nbsp;<\/b>for help with R and RStudio, but to keep things interesting we will briefly highlight a useful method,&nbsp;tool,&nbsp;function or package each month. This month, Steph will run a quick <strong>introduction to the Positron IDE<\/strong>, as a recent additional alternative to RStudio and Spyder.<\/p><p><strong><\/strong><\/p>\n<p>This is a hybrid event: you can join in person or online. To get the Zoom link, please book the event or contact training@library.uq.edu.au<\/p>\n<p>\n\tMake sure to check out our<u>&nbsp;<\/u><a href=\"https:\/\/uqrug.netlify.app\/\">UQRUG website<\/a> (created with R and Quarto),&nbsp;and&nbsp;also <a href=\"https:\/\/forms.office.com\/r\/WXqYPhP8JZ\">join our UQRUG chatroom<\/a> so we can keep helping each other outside the meetups.<\/p>\n<p>\n\t<em>This initiative is supported by the <a href=\"https:\/\/github.com\/rladies\/meetup-presentations_brisbane\">R-Ladies Brisbane Chapter<\/a> and the&nbsp;<\/em><a href=\"https:\/\/web.library.uq.edu.au\/study-and-learning-support\/training-and-workshops\/online-and-person-workshops\">UQ Library<\/a><em>. <\/em>\n<\/p>\n<p><em>Please note we have a&nbsp;<\/em><a href=\"https:\/\/uqrug.netlify.app\/code_of_conduct\">Code of Conduct<\/a><em>.<\/em><\/p>\n<p>\n\t<a href=\"https:\/\/github.com\/rladies\/meetup-presentations_brisbane\"><\/a>\n<\/p>",
+        "offCampusLocation": null,
+        "campus": "St Lucia",
+        "building": "Duhig North Central Library (12)",
+        "location": "Training room 12-N109, and on Zoom",
+        "url": null,
+        "onlineInstructions": null,
+        "venue": "St Lucia, Duhig North Central Library (12), Training room 12-N109, and on Zoom",
+        "bookingType": 1,
+        "bookingSettings": {
+            "bookings": 4,
+            "bookingLimit": 40,
+            "placesRemaining": 36,
+            "bookingsOpen": "2021-05-04T13:00:00+10:00",
+            "bookingsClose": "2021-05-26T10:00:00+10:00"
+        },
+        "workGroupId": 117,
+        "attendance": {
+            "total": 4,
+            "unspecified": 4,
+            "absent": 0,
+            "attended": 0
+        },
+        "labels": {
+            "1": {
+                "id": 377,
+                "name": "LIB.client.ongoing.Software"
+            }
+        },
+        "categories": {
+            "eventType": "Software",
+            "campus": [
+                "St Lucia"
+            ]
+        },
+        "sessions": [
+            {
+                "id": 40753,
+                "start": "2021-05-26T10:00:00+10:00",
+                "end": "2021-05-26T12:00:00+10:00",
+                "isCancelled": false,
+                "bookings": 4,
+                "bookingLimit": 40,
+                "placesRemaining": 36,
+                "bookingClose": "2021-05-26T10:00:00+10:00"
+            }
+        ],
+        "experienceType": null,
+        "skills": [],
+        "endorsements": [],
+        "isOnlineClass": true
+    },
+    "4": {
         "entityId": 3455330,
         "created": "2021-05-16T18:10:10.883+10:00",
         "updated": "2021-05-16T19:47:02.037+10:00",
@@ -231,7 +298,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "4": {
+    "5": {
         "entityId": 3437656,
         "created": "2021-04-16T08:02:56.143+10:00",
         "updated": "2021-04-16T08:06:23.97+10:00",
@@ -291,7 +358,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "5": {
+    "6": {
         "entityId": 3437658,
         "created": "2021-04-16T08:03:21.15+10:00",
         "updated": "2021-04-16T11:24:01.87+10:00",
@@ -351,7 +418,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "6": {
+    "7": {
         "entityId": 3437657,
         "created": "2021-04-16T08:03:08.427+10:00",
         "updated": "2021-04-16T08:07:36.257+10:00",
@@ -411,7 +478,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "7": {
+    "8": {
         "entityId": 3437659,
         "created": "2021-04-16T08:03:30.073+10:00",
         "updated": "2021-04-16T08:09:42.73+10:00",
@@ -471,7 +538,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "8": {
+    "9": {
         "entityId": 3437660,
         "created": "2021-04-16T08:03:41.58+10:00",
         "updated": "2021-04-16T08:10:46.38+10:00",
@@ -531,7 +598,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "9": {
+    "10": {
         "entityId": 3437661,
         "created": "2021-04-16T08:03:56.057+10:00",
         "updated": "2021-04-16T08:12:16.313+10:00",
@@ -591,7 +658,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "10": {
+    "11": {
         "entityId": 3437662,
         "created": "2021-04-16T08:04:05.89+10:00",
         "updated": "2021-04-16T08:13:50.913+10:00",
@@ -651,7 +718,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "11": {
+    "12": {
         "entityId": 3437663,
         "created": "2021-04-16T08:04:15.58+10:00",
         "updated": "2021-04-16T08:15:45.377+10:00",
@@ -711,11 +778,11 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "12": {
+    "13": {
         "entityId": 3428493,
         "created": "2021-03-26T10:53:39.69+10:00",
         "updated": "2021-04-21T10:15:25.513+10:00",
-        "name": "Python data transformation and visualisation with pandas",
+        "name": "Python data transformation and visualisation with pandas extraword",
         "eventType": "Software",
         "eventTypeId": 45,
         "start": "2021-06-07T09:30:00+10:00",
@@ -771,7 +838,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "13": {
+    "14": {
         "entityId": 3411674,
         "created": "2021-03-04T10:52:31.947+10:00",
         "updated": "2021-03-09T08:48:30.717+10:00",
@@ -831,7 +898,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "14": {
+    "15": {
         "entityId": 3445002,
         "created": "2021-04-29T08:09:21.813+10:00",
         "updated": "2021-04-29T08:10:42.137+10:00",
@@ -891,7 +958,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "15": {
+    "16": {
         "entityId": 3445003,
         "created": "2021-04-29T08:11:49.307+10:00",
         "updated": "2021-04-29T08:13:03.557+10:00",
@@ -951,7 +1018,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "16": {
+    "17": {
         "entityId": 3445004,
         "created": "2021-04-29T08:13:57.56+10:00",
         "updated": "2021-04-29T08:14:40.447+10:00",
@@ -1011,7 +1078,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "17": {
+    "18": {
         "entityId": 3445005,
         "created": "2021-04-29T08:15:13.347+10:00",
         "updated": "2021-04-29T08:16:02.657+10:00",
@@ -1071,7 +1138,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "18": {
+    "19": {
         "entityId": 3445008,
         "created": "2021-04-29T08:18:41.27+10:00",
         "updated": "2021-04-29T08:19:33.173+10:00",
@@ -1131,7 +1198,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "19": {
+    "20": {
         "entityId": 3445007,
         "created": "2021-04-29T08:16:46.937+10:00",
         "updated": "2021-04-29T08:17:31.213+10:00",
@@ -1191,7 +1258,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "20": {
+    "21": {
         "entityId": 3449982,
         "created": "2021-05-07T06:47:33.483+10:00",
         "updated": "2021-05-07T09:11:18.563+10:00",
@@ -1251,7 +1318,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "21": {
+    "22": {
         "entityId": 3449986,
         "created": "2021-05-07T06:53:44.6+10:00",
         "updated": "2021-05-07T09:06:32.173+10:00",
@@ -1311,7 +1378,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "22": {
+    "23": {
         "entityId": 3450085,
         "created": "2021-05-07T11:00:11.457+10:00",
         "updated": "2021-05-07T11:14:49.83+10:00",
@@ -1371,7 +1438,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "23": {
+    "24": {
         "entityId": 3449987,
         "created": "2021-05-07T06:54:33.523+10:00",
         "updated": "2021-05-07T09:07:36.9+10:00",
@@ -1431,7 +1498,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "24": {
+    "25": {
         "entityId": 3449988,
         "created": "2021-05-07T06:55:08.317+10:00",
         "updated": "2021-05-07T09:08:19.563+10:00",
@@ -1491,7 +1558,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "25": {
+    "26": {
         "entityId": 3449984,
         "created": "2021-05-07T06:51:04.82+10:00",
         "updated": "2021-05-07T09:09:03.963+10:00",
@@ -1551,7 +1618,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "26": {
+    "27": {
         "entityId": 3449989,
         "created": "2021-05-07T06:55:35.817+10:00",
         "updated": "2021-05-07T09:11:20.36+10:00",
@@ -1611,7 +1678,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "27": {
+    "28": {
         "entityId": 2891495,
         "created": "2020-12-21T14:53:23.01+10:00",
         "updated": "2021-02-19T14:08:01.95+10:00",
@@ -1671,7 +1738,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "28": {
+    "29": {
         "entityId": 3449983,
         "created": "2021-05-07T06:49:04.12+10:00",
         "updated": "2021-05-07T09:11:13.703+10:00",
@@ -1731,7 +1798,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "29": {
+    "30": {
         "entityId": 3449990,
         "created": "2021-05-07T06:57:11.313+10:00",
         "updated": "2021-05-07T09:10:31.847+10:00",
@@ -1791,7 +1858,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "30": {
+    "31": {
         "entityId": 3450064,
         "created": "2021-05-07T09:46:20.013+10:00",
         "updated": "2021-05-07T09:49:06.553+10:00",
@@ -1851,7 +1918,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "31": {
+    "32": {
         "entityId": 3450065,
         "created": "2021-05-07T09:46:31.733+10:00",
         "updated": "2021-05-07T09:50:26.053+10:00",
@@ -1911,7 +1978,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "32": {
+    "33": {
         "entityId": 3450066,
         "created": "2021-05-07T09:46:43.923+10:00",
         "updated": "2021-05-07T09:51:22.267+10:00",
@@ -1971,7 +2038,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "33": {
+    "34": {
         "entityId": 3450067,
         "created": "2021-05-07T09:46:53.837+10:00",
         "updated": "2021-05-07T09:53:02.69+10:00",
@@ -2031,7 +2098,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "34": {
+    "35": {
         "entityId": 3430859,
         "created": "2021-04-01T10:25:12.967+10:00",
         "updated": "2021-04-01T10:27:16.82+10:00",
@@ -2089,7 +2156,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "35": {
+    "36": {
         "entityId": 3450068,
         "created": "2021-05-07T09:47:08.56+10:00",
         "updated": "2021-05-07T10:08:17.2+10:00",
@@ -2149,7 +2216,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "36": {
+    "37": {
         "entityId": 3450069,
         "created": "2021-05-07T09:47:19.373+10:00",
         "updated": "2021-05-07T09:56:48.657+10:00",
@@ -2209,7 +2276,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "37": {
+    "38": {
         "entityId": 3450070,
         "created": "2021-05-07T09:47:30.55+10:00",
         "updated": "2021-05-07T09:58:12.233+10:00",
@@ -2269,7 +2336,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "38": {
+    "39": {
         "entityId": 2890738,
         "created": "2020-12-21T11:10:27.71+10:00",
         "updated": "2020-12-21T11:16:40.3+10:00",
@@ -2329,7 +2396,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "39": {
+    "40": {
         "entityId": 3450071,
         "created": "2021-05-07T09:47:41.097+10:00",
         "updated": "2021-05-07T09:59:23.833+10:00",
@@ -2389,7 +2456,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "40": {
+    "41": {
         "entityId": 3450072,
         "created": "2021-05-07T09:47:49.82+10:00",
         "updated": "2021-05-07T10:01:27.33+10:00",
@@ -2449,7 +2516,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "41": {
+    "42": {
         "entityId": 3450078,
         "created": "2021-05-07T10:23:36.157+10:00",
         "updated": "2021-05-07T10:25:18.51+10:00",
@@ -2509,7 +2576,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "42": {
+    "43": {
         "entityId": 3450079,
         "created": "2021-05-07T10:23:47.86+10:00",
         "updated": "2021-05-07T10:26:15.263+10:00",
@@ -2569,7 +2636,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "43": {
+    "44": {
         "entityId": 3430354,
         "created": "2021-03-31T16:35:26.01+10:00",
         "updated": "2021-03-31T16:40:22.517+10:00",
@@ -2627,7 +2694,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "44": {
+    "45": {
         "entityId": 3450080,
         "created": "2021-05-07T10:24:01.05+10:00",
         "updated": "2021-05-07T10:27:36.18+10:00",
@@ -2687,7 +2754,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "45": {
+    "46": {
         "entityId": 3450081,
         "created": "2021-05-07T10:24:13.19+10:00",
         "updated": "2021-05-07T10:28:42.757+10:00",
@@ -2747,7 +2814,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "46": {
+    "47": {
         "entityId": 3415855,
         "created": "2021-03-09T13:47:33.237+10:00",
         "updated": "2021-03-09T13:52:12.413+10:00",
@@ -2807,7 +2874,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "47": {
+    "48": {
         "entityId": 3450082,
         "created": "2021-05-07T10:24:26.257+10:00",
         "updated": "2021-05-07T10:29:17.333+10:00",
@@ -2867,7 +2934,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "48": {
+    "49": {
         "entityId": 3453813,
         "created": "2021-05-13T10:15:35.12+10:00",
         "updated": "2021-05-13T10:16:20.423+10:00",
@@ -2927,7 +2994,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "49": {
+    "50": {
         "entityId": 3430860,
         "created": "2021-04-01T10:28:22.66+10:00",
         "updated": "2021-04-01T10:30:42.643+10:00",
@@ -2985,7 +3052,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "50": {
+    "51": {
         "entityId": 3450153,
         "created": "2021-05-07T12:05:48.48+10:00",
         "updated": "2021-05-07T12:08:58.363+10:00",
@@ -3045,7 +3112,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "51": {
+    "52": {
         "entityId": 3445159,
         "created": "2021-04-29T11:12:00.423+10:00",
         "updated": "2021-04-29T11:17:47.837+10:00",
@@ -3105,7 +3172,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "52": {
+    "53": {
         "entityId": 3445016,
         "created": "2021-04-29T08:37:04.607+10:00",
         "updated": "2021-04-29T11:02:24.08+10:00",
@@ -3165,7 +3232,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "53": {
+    "54": {
         "entityId": 3450084,
         "created": "2021-05-07T10:50:32.243+10:00",
         "updated": "2021-05-07T11:19:38.513+10:00",
@@ -3225,7 +3292,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "54": {
+    "55": {
         "entityId": 3454585,
         "created": "2021-05-14T11:28:14.303+10:00",
         "updated": "2021-05-17T08:37:14.733+10:00",
@@ -3285,7 +3352,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "55": {
+    "56": {
         "entityId": 3454587,
         "created": "2021-05-14T11:33:42.577+10:00",
         "updated": "2021-05-17T08:37:54.38+10:00",
@@ -3345,7 +3412,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "56": {
+    "57": {
         "entityId": 3461406,
         "created": "2021-05-24T13:44:44.82+10:00",
         "updated": "2021-05-24T13:49:54.893+10:00",
@@ -3405,7 +3472,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "57": {
+    "58": {
         "entityId": 3445161,
         "created": "2021-04-29T11:18:19.557+10:00",
         "updated": "2021-04-29T11:27:06.367+10:00",
@@ -3465,7 +3532,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "58": {
+    "59": {
         "entityId": 3445158,
         "created": "2021-04-29T11:02:57.52+10:00",
         "updated": "2021-04-29T11:08:23.353+10:00",
@@ -3525,7 +3592,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "59": {
+    "60": {
         "entityId": 3450156,
         "created": "2021-05-07T12:42:15.837+10:00",
         "updated": "2021-05-07T12:46:35.833+10:00",
@@ -3585,7 +3652,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "60": {
+    "61": {
         "entityId": 3461408,
         "created": "2021-05-24T13:51:20.723+10:00",
         "updated": "2021-05-24T13:54:14.35+10:00",
