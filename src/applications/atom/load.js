@@ -691,6 +691,11 @@ function resetSearchPlaceholder() {
     !!inputField && (inputField.placeholder = newPlaceholderText);
 }
 
+function removeAdvancedSearchButton() {
+    const thebutton = document.getElementById('search-box-options');
+    !!thebutton && thebutton.remove();
+}
+
 function makeH1Unique() {
     const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
     let h1Count = 0;
@@ -767,6 +772,8 @@ function loadReusableComponentsAtom() {
     moveAtomMenuPopup();
 
     resetSearchPlaceholder();
+
+    removeAdvancedSearchButton();
 }
 
 ready(loadReusableComponentsAtom);
