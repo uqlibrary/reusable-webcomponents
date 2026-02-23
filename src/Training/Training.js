@@ -91,10 +91,6 @@ class Training extends HTMLElement {
         return ret;
     }
 
-    constructor() {
-        super();
-    }
-
     connectedCallback() {
         this.attachShadow({ mode: 'open' });
 
