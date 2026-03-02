@@ -20,18 +20,18 @@ test.describe('Training', () => {
             .toBe(15);
     }
 
-    async function openTheByCampusDropdownByKeyboard(trainingFilter, page) {
-        await expect(trainingFilter.getByTestId('training-filter-campus-list')).not.toBeVisible();
-        await expect(trainingFilter.getByTestId('training-filter-campus-list')).toHaveClass(/hidden/);
+    async function openTheByLocationDropdownByKeyboard(trainingFilter, page) {
+        await expect(trainingFilter.getByTestId('training-filter-location-list')).not.toBeVisible();
+        await expect(trainingFilter.getByTestId('training-filter-location-list')).toHaveClass(/hidden/);
 
-        await expect(trainingFilter.getByTestId('training-filter-campus-container')).toBeVisible();
+        await expect(trainingFilter.getByTestId('training-filter-location-container')).toBeVisible();
         // an enter-key click on the campus parent opens the dropdown
-        await trainingFilter.getByTestId('training-filter-campus-container').focus();
+        await trainingFilter.getByTestId('training-filter-location-container').focus();
         await page.keyboard.press('Enter');
 
-        await expect(trainingFilter.getByTestId('training-filter-campus-list')).not.toHaveClass(/hidden/);
+        await expect(trainingFilter.getByTestId('training-filter-location-list')).not.toHaveClass(/hidden/);
         await expect
-            .poll(async () => trainingFilter.getByTestId('training-filter-campus-list').locator('button').count())
+            .poll(async () => trainingFilter.getByTestId('training-filter-location-list').locator('button').count())
             .toBe(3);
     }
 
@@ -83,9 +83,10 @@ test.describe('Training', () => {
             await expect(
                 trainingList.getByTestId(EVENT_UQ_R_USERGROUP_UQRUG('training-event-detail-toggle')),
             ).toBeVisible();
-            await expect(trainingList.getByTestId('training-event-detail-toggle-3437656')).toBeVisible(); // 'NVivo: Next Steps');
-            await expect(trainingList.getByTestId('training-event-detail-toggle-3437658')).toBeVisible(); // 'Introduction to Adobe Illustrator');
+            await expect(trainingList.getByTestId('training-event-detail-toggle-6190074')).toBeVisible(); // 'UQ R User Group (UQRUG) both online and in person
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3437656')).toBeVisible(); // 'NVivo: Next Steps
             // 6th onward hidden
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3437658')).not.toBeVisible(); // 'Introduction to Adobe Illustrator
             await expect(trainingList.getByTestId('training-event-detail-toggle-3437657')).not.toBeVisible(); // Introduction to the Unix Shell
             await expect(trainingList.getByTestId('training-event-detail-toggle-3437659')).not.toBeVisible(); // Excel: processing data
 
@@ -102,9 +103,10 @@ test.describe('Training', () => {
             await expect(
                 trainingList.getByTestId(EVENT_UQ_R_USERGROUP_UQRUG('training-event-detail-toggle')),
             ).toBeVisible();
-            await expect(trainingList.getByTestId('training-event-detail-toggle-3437656')).toBeVisible(); // 'NVivo: Next Steps');
-            await expect(trainingList.getByTestId('training-event-detail-toggle-3437658')).toBeVisible(); // 'Introduction to Adobe Illustrator');
+            await expect(trainingList.getByTestId('training-event-detail-toggle-6190074')).toBeVisible(); // 'UQ R User Group (UQRUG) both online and in person
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3437656')).toBeVisible(); // NVivo: Next Steps
             // 6th onward now visible
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3437658')).toBeVisible(); // 'Introduction to Adobe Illustrator');
             await expect(trainingList.getByTestId('training-event-detail-toggle-3437657')).toBeVisible(); // Introduction to the Unix Shell
             await expect(trainingList.getByTestId('training-event-detail-toggle-3437659')).toBeVisible(); // Excel: processing data
 
@@ -121,9 +123,10 @@ test.describe('Training', () => {
             await expect(
                 trainingList.getByTestId(EVENT_UQ_R_USERGROUP_UQRUG('training-event-detail-toggle')),
             ).toBeVisible();
+            await expect(trainingList.getByTestId('training-event-detail-toggle-6190074')).toBeVisible(); // 'UQ R User Group (UQRUG) both online and in person
             await expect(trainingList.getByTestId('training-event-detail-toggle-3437656')).toBeVisible(); // 'NVivo: Next Steps');
-            await expect(trainingList.getByTestId('training-event-detail-toggle-3437658')).toBeVisible(); // 'Introduction to Adobe Illustrator');
             // 6th onward now hidden
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3437658')).not.toBeVisible(); // 'Introduction to Adobe Illustrator');
             await expect(trainingList.getByTestId('training-event-detail-toggle-3437657')).not.toBeVisible(); // Introduction to the Unix Shell
             await expect(trainingList.getByTestId('training-event-detail-toggle-3437659')).not.toBeVisible(); // Excel: processing data
         });
@@ -424,7 +427,7 @@ test.describe('Training', () => {
             const trainingFilterElement = page.locator('training-filter[id="unwrappedFilter"]');
             await expect(trainingFilterElement.filter({ hasText: 'Filter events' })).toBeVisible();
             await expect(trainingFilterElement.filter({ hasText: 'By keyword' })).toBeVisible();
-            await expect(trainingFilterElement.filter({ hasText: 'By campus' })).toBeVisible();
+            await expect(trainingFilterElement.filter({ hasText: 'By location' })).toBeVisible();
             await expect(trainingFilterElement.filter({ hasText: 'By week' })).toBeVisible();
 
             await page.waitForTimeout(1000);
@@ -479,48 +482,121 @@ test.describe('Training', () => {
             // the placeholder has moved up, proxied by "color has changed"
             await expect(trainingFilter.getByTestId('training-filter-keyword-label')).toHaveCSS('color', uqpurple);
             await expect(page.url()).toEqual(
-                'http://localhost:8080/index-training.html#keyword=excel;campus=;weekstart=',
+                'http://localhost:8080/index-training.html#keyword=excel;location=;weekstart=',
             );
 
             // the user can use the escape key to clear the input field
             await page.keyboard.press('Escape');
             await expect(trainingElement.getByTestId('training-filter-keyword-entry')).toHaveValue('');
-            await expect(page.url()).toEqual('http://localhost:8080/index-training.html#keyword=;campus=;weekstart=');
+            await expect(page.url()).toEqual('http://localhost:8080/index-training.html#keyword=;location=;weekstart=');
+        });
+        test('user can search for a term that is only in the summary', async ({ page }) => {
+            await expect(page.locator('library-training[id="test-with-filter"]')).toBeVisible();
+            const trainingElement = page.locator('library-training[id="test-with-filter"]');
+            await expect(trainingElement.locator('training-filter')).toBeVisible();
+
+            const trainingFilter = trainingElement.locator('training-filter');
+            await trainingFilter.getByTestId('training-filter-keyword-entry').pressSequentially('introductory');
+            await expect(trainingFilter.getByTestId('training-filter-keyword-entry')).toHaveValue('introductory');
+            const trainingList = trainingElement.locator('training-list');
+            // this event would not be visible if it weren't checking the summary - the keyword is only in the summary
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3428487')).toBeVisible(); // Python with Spyder: Introduction to Data Science has 'introductory'
+            // sanity check:
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3437655')).not.toBeVisible(); // Premiere Pro: Video Editing Basics doesn't have 'introductory' anywhere
+        });
+        test('user can search for a term that is only in the details', async ({ page }) => {
+            await expect(page.locator('library-training[id="test-with-filter"]')).toBeVisible();
+            const trainingElement = page.locator('library-training[id="test-with-filter"]');
+            await expect(trainingElement.locator('training-filter')).toBeVisible();
+
+            const trainingFilter = trainingElement.locator('training-filter');
+            await trainingFilter.getByTestId('training-filter-keyword-entry').pressSequentially('workspace');
+            await expect(trainingFilter.getByTestId('training-filter-keyword-entry')).toHaveValue('workspace');
+            const trainingList = trainingElement.locator('training-list');
+            // this event would not be visible if it weren't checking the details - the keyword is only in the details
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3437655')).toBeVisible(); // Premiere Pro: Video Editing Basics has 'workspace'
+            // sanity check:
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3428487')).not.toBeVisible(); // Python with Spyder: Introduction to Data Science doesn't have 'workspace' anywhere
+        });
+        test('user can search for a term that is only in the name', async ({ page }) => {
+            await expect(page.locator('library-training[id="test-with-filter"]')).toBeVisible();
+            const trainingElement = page.locator('library-training[id="test-with-filter"]');
+            await expect(trainingElement.locator('training-filter')).toBeVisible();
+
+            const trainingFilter = trainingElement.locator('training-filter');
+            await trainingFilter.getByTestId('training-filter-keyword-entry').pressSequentially('extraword');
+            await expect(trainingFilter.getByTestId('training-filter-keyword-entry')).toHaveValue('extraword');
+            const trainingList = trainingElement.locator('training-list');
+            // this event would not be visible if it weren't checking the name - the keyword is only in the name
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3428493')).toBeVisible(); // Python data transformation and visualisation with pandas extraword has 'extraword'
+            // sanity check:
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3428487')).not.toBeVisible(); // Python with Spyder: Introduction to Data Science doesn't have 'extraword' anywhere
         });
         test('user can select a campus', async ({ page }) => {
             const trainingElement = page.locator('library-training[id="test-with-filter"]');
 
             await expect(trainingElement.locator('training-filter')).toBeVisible();
-            await trainingElement.getByTestId('training-filter-campus-label').click();
-            await trainingElement.getByTestId('training-filter-campus-select-2').click();
+            await trainingElement.getByTestId('training-filter-location-label').click();
+            await trainingElement.getByTestId('training-filter-location-select-2').click();
             await expect(trainingElement.getByText(/St Lucia/).first()).toBeVisible();
 
             // the placeholder has moved up, proxied by "color has changed"
-            await expect(trainingElement.getByTestId('training-filter-campus-label')).toHaveCSS('color', uqpurple);
+            await expect(trainingElement.getByTestId('training-filter-location-label')).toHaveCSS('color', uqpurple);
             await expect(page.url()).toEqual(
-                'http://localhost:8080/index-training.html#keyword=;campus=St%2520Lucia;weekstart=',
+                'http://localhost:8080/index-training.html#keyword=;location=St%2520Lucia;weekstart=',
             );
 
-            await trainingElement.getByTestId('training-filter-campus-label').click();
-            await trainingElement.getByTestId('training-filter-campus-select-0').click();
+            await trainingElement.getByTestId('training-filter-location-label').click();
+            await trainingElement.getByTestId('training-filter-location-select-0').click();
             await expect(trainingElement.getByText(/All locations/).first()).toBeVisible();
 
             // the placeholder has moved up, proxied by "color has changed"
-            await expect(trainingElement.getByTestId('training-filter-campus-label')).toHaveCSS('color', uqpurple);
+            await expect(trainingElement.getByTestId('training-filter-location-label')).toHaveCSS('color', uqpurple);
             await expect(page.url()).toEqual(
-                'http://localhost:8080/index-training.html#keyword=;campus=all;weekstart=',
+                'http://localhost:8080/index-training.html#keyword=;location=all;weekstart=',
             );
         });
+        test('an event that is run both online and in person appears for both online and specific campus filter selection', async ({
+            page,
+        }) => {
+            const trainingElement = page.locator('library-training[id="test-with-filter"]');
+            const trainingList = trainingElement.locator('training-list');
+
+            // initially
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3437655')).toBeVisible(); // Premiere Pro: Video Editing Basics
+            await expect(trainingList.getByTestId('training-event-detail-toggle-6190074')).toBeVisible(); // UQ R User Group (UQRUG) both online and in person
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3455330')).toBeVisible(); // UQ R User Group (UQRUG)
+
+            // filter by "online"
+            await trainingElement.getByTestId('training-filter-location-label').click();
+            await trainingElement.getByTestId('training-filter-location-select-1').click();
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3437655')).not.toBeVisible(); // Premiere Pro: Video Editing Basics
+            await expect(trainingList.getByTestId('training-event-detail-toggle-6190074')).toBeVisible(); // UQ R User Group (UQRUG) both online and in person
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3455330')).toBeVisible(); // UQ R User Group (UQRUG)
+
+            // filter by "st lucia"
+            await trainingElement.getByTestId('training-filter-location-label').click();
+            await trainingElement.getByTestId('training-filter-location-select-2').click();
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3437655')).toBeVisible(); // Premiere Pro: Video Editing Basics
+            await expect(trainingList.getByTestId('training-event-detail-toggle-6190074')).toBeVisible(); // UQ R User Group (UQRUG) both online and in person
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3455330')).not.toBeVisible(); // UQ R User Group (UQRUG)
+        });
         test('Online events show when Online campus filter is selected', async ({ page }) => {
-            await page.goto('http://localhost:8080/index-training.html#keyword=;campus=;weekstart=');
+            await page.goto('http://localhost:8080/index-training.html#keyword=;location=;weekstart=');
 
             const trainingElement = page.locator('library-training[id="test-with-filter"]');
+
+            // event "UQ R User Group (UQRUG)" is an online event & is visible
             await expect(trainingElement.getByTestId('event-venue-3455330').getByText(/Online, Zoom/)).toBeVisible();
+            // event "UPremiere Pro: Video Editing Basics" is an on-campus event & is visible
+            await expect(trainingElement.getByTestId('event-venue-3437655').getByText(/St Lucia/)).toBeVisible();
 
-            await page.locator('#test-with-filter').getByTestId('training-filter-campus-label').click();
-            await page.getByTestId('training-filter-campus-select-1').click();
+            // select to show online only events
+            await page.locator('#test-with-filter').getByTestId('training-filter-location-label').click();
+            await page.getByTestId('training-filter-location-select-1').click();
 
-            // this element shows after filter selector because we changed its campus to "Online":
+            // events show and hide appropriately after filtering for online-only events
+            await expect(trainingElement.getByTestId('event-venue-3437655').getByText(/St Lucia/)).not.toBeVisible();
             await expect(trainingElement.getByTestId('event-venue-3455330').getByText(/Online, Zoom/)).toBeVisible();
         });
         test('user can clear campus selector field', async ({ page }) => {
@@ -529,15 +605,15 @@ test.describe('Training', () => {
 
             const trainingFilterElement = trainingElement.locator('training-filter');
 
-            await trainingFilterElement.getByTestId('training-filter-campus-label').click();
+            await trainingFilterElement.getByTestId('training-filter-location-label').click();
             await expect(
-                trainingFilterElement.getByTestId('training-filter-campus-list').locator('button'),
+                trainingFilterElement.getByTestId('training-filter-location-list').locator('button'),
             ).toHaveCount(3);
 
             // a click elsewhere closes the dropdown
             await page.getByTestId('random-page-element').click();
-            await expect(trainingFilterElement.getByTestId('training-filter-campus-list')).toHaveClass(/hidden/);
-            await expect(trainingFilterElement.getByTestId('training-filter-campus-list')).not.toBeVisible();
+            await expect(trainingFilterElement.getByTestId('training-filter-location-list')).toHaveClass(/hidden/);
+            await expect(trainingFilterElement.getByTestId('training-filter-location-list')).not.toBeVisible();
         });
 
         test('user can select a week', async ({ page }) => {
@@ -550,18 +626,15 @@ test.describe('Training', () => {
             // the placeholder has moved up, proxied by "color has changed"
             await expect(trainingFilter.getByTestId('training-filter-week-label')).toHaveCSS('color', uqpurple);
             await expect(page.url()).toEqual(
-                'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=all',
+                'http://localhost:8080/index-training.html#keyword=;location=;weekstart=all',
             );
 
             const trainingList = trainingElement.locator('training-list');
             await expect(trainingList).toBeVisible();
-            await expect(trainingList.getByTestId('training-event-detail-toggle-3428487')).toBeVisible();
+            // Software
             await expect(trainingList.getByTestId('training-event-detail-toggle-3428487')).toBeVisible();
             await expect(
                 trainingList.getByText(/Python with Spyder: Introduction to Data Science/).first(),
-            ).toBeVisible();
-            await expect(
-                trainingList.getByTestId(EVENT_PREMIER_PRO_VIDEO_EDITING_BASICS('training-event-detail-toggle')),
             ).toBeVisible();
             await expect(
                 trainingList.getByTestId(EVENT_PREMIER_PRO_VIDEO_EDITING_BASICS('training-event-detail-toggle')),
@@ -570,33 +643,28 @@ test.describe('Training', () => {
             await expect(
                 trainingList.getByTestId(EVENT_UQ_R_USERGROUP_UQRUG('training-event-detail-toggle')),
             ).toBeVisible();
-            await expect(
-                trainingList.getByTestId(EVENT_UQ_R_USERGROUP_UQRUG('training-event-detail-toggle')),
-            ).toBeVisible();
-            await expect(trainingList.getByText(/UQ R User Group \(UQRUG\)/).first()).toBeVisible();
-            await expect(trainingList.getByTestId('training-event-detail-toggle-3437656')).toBeVisible();
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3455330')).toBeVisible();
+            await expect(trainingList.getByTestId('training-event-detail-toggle-6190074')).toBeVisible();
             await expect(trainingList.getByTestId('training-event-detail-toggle-3437656')).toBeVisible();
             await expect(trainingList.getByText(/NVivo: Next Steps/).first()).toBeVisible();
-            await expect(trainingList.getByTestId('training-event-detail-toggle-3437658')).toBeVisible();
-            await expect(trainingList.getByTestId('training-event-detail-toggle-3437658')).toBeVisible();
-            await expect(trainingList.getByText(/Introduction to Adobe Illustrator/).first()).toBeVisible();
+
+            // Practical Help
             await expect(trainingList.getByTestId('training-event-detail-toggle-3462236')).toBeVisible();
             await expect(trainingElement.getByTestId('training-event-detail-toggle-3462236')).toBeVisible();
             await expect(
                 trainingList.getByText(/Preparing to use an online invigilated\/supervised examination/).first(),
             ).toBeVisible();
+
+            // Publishing and Research Management
             await expect(trainingList.getByTestId('training-event-detail-toggle-3411674')).toBeVisible();
             await expect(trainingList.getByTestId('training-event-detail-toggle-3411674')).toBeVisible();
             await expect(trainingList.getByText(/Managing sensitive data/).first()).toBeVisible();
             await expect(trainingList.getByTestId('training-event-detail-toggle-3450085')).toBeVisible();
-            await expect(trainingList.getByTestId('training-event-detail-toggle-3450085')).toBeVisible();
             await expect(trainingList.getByText(/Publishing your datasets with UQRDM/).first()).toBeVisible();
-            await expect(trainingList.getByTestId('training-event-detail-toggle-2891495')).toBeVisible();
             await expect(trainingList.getByTestId('training-event-detail-toggle-2891495')).toBeVisible();
             await expect(
                 trainingList.getByText(/Introduction to Digital Research Notebook \(LabArchives\)/).first(),
             ).toBeVisible();
-            await expect(trainingList.getByTestId('training-event-detail-toggle-2890738')).toBeVisible();
             await expect(trainingList.getByTestId('training-event-detail-toggle-2890738')).toBeVisible();
             await expect(
                 trainingList
@@ -604,21 +672,20 @@ test.describe('Training', () => {
                     .first(),
             ).toBeVisible();
             await expect(trainingList.getByTestId('training-event-detail-toggle-3415855')).toBeVisible();
-            await expect(trainingList.getByTestId('training-event-detail-toggle-3415855')).toBeVisible();
             await expect(trainingList.getByText(/UQRDM Q&A session/).first()).toBeVisible();
 
             await expect(trainingElement.locator('training-filter')).toBeVisible();
 
             await trainingFilter.getByTestId('training-filter-week-label').click();
-            await trainingFilter.locator('[data-testid="training-filter-select-week-10"]').click();
-            await expect(trainingFilter.getByTestId('training-filter-week-container')).toHaveText(/2 Aug - 8 Aug /);
+            await trainingFilter.locator('[data-testid="training-filter-select-week-12"]').click();
+            await expect(trainingFilter.getByTestId('training-filter-week-container')).toHaveText(/11 Aug - 17 Aug /);
 
-            // the placeholder has moved up, proxied by "color has changed"
+            // the dropdown placeholder text has moved up, proxied by "color has changed"
             await expect(trainingFilter.getByTestId('training-filter-week-label')).toHaveCSS('color', uqpurple);
 
             await expect(trainingList).toBeVisible();
 
-            // no events show for this date
+            // no events show for this date range
             await expect(trainingElement.getByTestId('training-list')).toBeVisible();
             await expect(trainingElement.getByTestId('training-list')).toBeEmpty();
 
@@ -626,18 +693,33 @@ test.describe('Training', () => {
             await expect(trainingElement.locator('training-filter')).toBeVisible();
 
             await expect(page.url()).toEqual(
-                'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=2021-08-02',
+                'http://localhost:8080/index-training.html#keyword=;location=;weekstart=2021-08-11',
             );
 
             await expect(trainingElement.locator('training-filter')).toBeVisible();
 
             await trainingFilter.getByTestId('training-filter-week-label').click();
             await trainingFilter.getByTestId('training-filter-select-week-4').click();
-            await expect(trainingFilter.getByTestId('training-filter-week-container')).toHaveText(/21 June - 27 June/);
+            await expect(trainingFilter.getByTestId('training-filter-week-container')).toHaveText(/16 June - 22 June/);
 
             await expect(trainingList).toBeVisible();
 
+            // first 5 in Software appear
+            await expect(trainingElement.getByTestId('training-event-detail-toggle-3449988')).toBeVisible();
+            await expect(trainingElement.getByText(/Excel: Charting/).first()).toBeVisible();
+            await expect(trainingElement.getByTestId('training-event-detail-toggle-3449984')).toBeVisible();
+            await expect(trainingElement.getByText(/PowerPoint workshop/).first()).toBeVisible();
+            await expect(trainingElement.getByTestId('training-event-detail-toggle-3449989')).toBeVisible();
+            await expect(trainingElement.getByText(/Audacity: introduction to audio editing/).first()).toBeVisible();
+            await expect(trainingElement.getByTestId('training-event-detail-toggle-3449983')).toBeVisible();
+            await expect(
+                trainingElement.getByText(/R data visualisation with RStudio and ggplot2: intermediate/).first(),
+            ).toBeVisible();
+            await expect(trainingElement.getByTestId('training-event-detail-toggle-3449990')).toBeVisible();
+            await expect(trainingElement.getByText(/Excel: Introduction to Spreadsheets/).first()).toBeVisible();
             // many hidden
+            await expect(trainingElement.getByTestId('training-event-detail-toggle-3450064')).not.toBeVisible();
+            await expect(trainingElement.getByTestId('training-event-detail-toggle-3450066')).not.toBeVisible();
             await expect(trainingElement.getByTestId('training-event-detail-toggle-3428487')).not.toBeVisible(); // Python with Spyder: Introduction to Data Science
             await expect(
                 trainingElement.getByTestId(EVENT_PREMIER_PRO_VIDEO_EDITING_BASICS('training-event-detail-toggle')),
@@ -647,42 +729,13 @@ test.describe('Training', () => {
             ).not.toBeVisible(); // 'UQ R User Group (UQRUG)');
             await expect(trainingElement.getByTestId('training-event-detail-toggle-3437656')).not.toBeVisible(); // 'NVivo: Next Steps');
             await expect(trainingElement.getByTestId('training-event-detail-toggle-3437658')).not.toBeVisible(); // 'Introduction to Adobe Illustrator');
-            // others appear
-            await expect(trainingElement.getByTestId('training-event-detail-toggle-3450064')).toBeVisible();
-            await expect(trainingElement.getByTestId('training-event-detail-toggle-3450064')).toBeVisible();
-            await expect(
-                trainingElement.getByText(/Kaltura Capture: Desktop Recording software/).first(),
-            ).toBeVisible();
-            await expect(trainingElement.getByTestId('training-event-detail-toggle-3450065')).toBeVisible();
-            await expect(trainingElement.getByTestId('training-event-detail-toggle-3450065')).toBeVisible();
-            await expect(
-                trainingElement.getByText(/R data manipulation with RStudio and dplyr: introduction/).first(),
-            ).toBeVisible();
-            await expect(trainingElement.getByTestId('training-event-detail-toggle-3450066')).toBeVisible();
-            await expect(trainingElement.getByTestId('training-event-detail-toggle-3450066')).toBeVisible();
-            await expect(
-                trainingElement.getByText(/Word: Creating a Structured Thesis \(CaST\)/).first(),
-            ).toBeVisible();
-            await expect(trainingElement.getByTestId('training-event-detail-toggle-3450067')).toBeVisible();
-            await expect(trainingElement.getByTestId('training-event-detail-toggle-3450067')).toBeVisible();
-            await expect(
-                trainingElement.getByText(/Python with Spyder: Introduction to Data Science/).first(),
-            ).toBeVisible();
-            await expect(trainingElement.getByTestId('training-event-detail-toggle-3430859')).toBeVisible();
-            await expect(trainingElement.getByTestId('training-event-detail-toggle-3430859')).toBeVisible();
-            await expect(trainingElement.getByText(/EndNote 20: getting started/).first()).toBeVisible();
+
             await expect(trainingElement.getByTestId('training-event-detail-toggle-3462236')).not.toBeVisible(); // 'Preparing to use an online invigilated/supervised examination');
             await expect(trainingElement.getByTestId('training-event-detail-toggle-3411674')).not.toBeVisible(); // 'Managing sensitive data');
             await expect(trainingElement.getByTestId('training-event-detail-toggle-3450085')).not.toBeVisible(); // 'Publishing your datasets with UQRDM');
-            await expect(trainingElement.getByTestId('training-event-detail-toggle-2891495')).not.toBeVisible(); // 'Introduction to Digital Research Notebook (LabArchives)');
-            await expect(trainingElement.getByTestId('training-event-detail-toggle-2890738')).toBeVisible();
-            await expect(trainingElement.getByTestId('training-event-detail-toggle-2890738')).toBeVisible();
-            await expect(
-                trainingElement
-                    .getByText(/UQRDM for research students - how to use it to help with managing research data/)
-                    .first(),
-            ).toBeVisible();
-            await expect(trainingElement.getByTestId('training-event-detail-toggle-3415855')).not.toBeVisible(); // 'UQRDM Q&A session');
+
+            // 1 in Publishing and Research Management section visible
+            await expect(trainingElement.getByTestId('training-event-detail-toggle-2891495')).toBeVisible(); // 'Introduction to Digital Research Notebook (LabArchives)
         });
         test('user can clear week selector field', async ({ page }) => {
             await expect(page.locator('library-training[id="test-with-filter"]')).toBeVisible();
@@ -711,20 +764,20 @@ test.describe('Training', () => {
             await expect(trainingFilterElement.getByTestId('training-filter-week-label')).toBeVisible();
             await trainingFilterElement.getByTestId('training-filter-week-label').click(); // open the week list
             await expect(trainingFilterElement.getByTestId('training-filter-select-week-0')).toBeVisible(); // week list shows
-            await expect(trainingFilterElement.getByTestId('training-filter-campus-select-0')).not.toBeVisible(); // campus list is closed
-            await trainingFilterElement.getByTestId('training-filter-campus-label').click(); // open the campus list
-            await expect(trainingFilterElement.getByTestId('training-filter-campus-select-0')).toBeVisible(); // campus list is open
+            await expect(trainingFilterElement.getByTestId('training-filter-location-select-0')).not.toBeVisible(); // campus list is closed
+            await trainingFilterElement.getByTestId('training-filter-location-label').click(); // open the campus list
+            await expect(trainingFilterElement.getByTestId('training-filter-location-select-0')).toBeVisible(); // campus list is open
             await expect(trainingFilterElement.getByTestId('training-filter-select-week-0')).not.toBeVisible(); // week list has closed
             await trainingFilterElement.getByTestId('training-filter-week-label').click(); // reopen the week list
             await expect(trainingFilterElement.getByTestId('training-filter-select-week-0')).toBeVisible(); // campus list has closed
-            await expect(trainingFilterElement.getByTestId('training-filter-campus-select-0')).not.toBeVisible(); // week list is open
+            await expect(trainingFilterElement.getByTestId('training-filter-location-select-0')).not.toBeVisible(); // week list is open
 
             await trainingFilterElement.getByTestId('training-filter-select-week-0').click(); // select a week for the next step of the test
-            await trainingFilterElement.getByTestId('training-filter-campus-label').click();
-            await trainingFilterElement.getByTestId('training-filter-campus-select-0').click();
+            await trainingFilterElement.getByTestId('training-filter-location-label').click();
+            await trainingFilterElement.getByTestId('training-filter-location-select-0').click();
             await trainingFilterElement.getByTestId('training-filter-popular-events-excel').click();
             await expect(page.url()).toEqual(
-                'http://localhost:8080/index-training.html#keyword=Excel;campus=all;weekstart=all',
+                'http://localhost:8080/index-training.html#keyword=Excel;location=all;weekstart=all',
             );
         });
         test('user can clear other fields', async ({ page }) => {
@@ -735,20 +788,20 @@ test.describe('Training', () => {
             const trainingFilter = trainingElement.locator('training-filter');
             await trainingFilter.getByTestId('training-filter-popular-events-excel').click();
             await expect(page.url()).toEqual(
-                'http://localhost:8080/index-training.html#keyword=Excel;campus=;weekstart=',
+                'http://localhost:8080/index-training.html#keyword=Excel;location=;weekstart=',
             );
             await trainingFilter.locator('[data-testid="training-filter-clear-keyword"]').click();
-            await expect(page.url()).toEqual('http://localhost:8080/index-training.html#keyword=;campus=;weekstart=');
+            await expect(page.url()).toEqual('http://localhost:8080/index-training.html#keyword=;location=;weekstart=');
         });
         test('uses url parameters', async ({ page }) => {
             // what we get with nothing in the url
-            await page.goto('http://localhost:8080/index-training.html#keyword=;campus=;weekstart=');
+            await page.goto('http://localhost:8080/index-training.html#keyword=;location=;weekstart=');
             const trainingList = page.locator('library-training[id="test-with-filter"]');
             await expect(trainingList.getByTestId('training-event-detail-toggle-3428487')).toBeVisible(); // Python with Spyder: Introduction to Data Science
 
             // what we get when the url restricts campus
 
-            await page.goto('http://localhost:8080/index-training.html#keyword=;campus=St%2520Lucia;weekstart=');
+            await page.goto('http://localhost:8080/index-training.html#keyword=;location=St%2520Lucia;weekstart=');
             const trainingList2 = page.locator('library-training[id="test-with-filter"]');
             await expect(trainingList2.getByTestId('training-event-detail-toggle-3428487')).not.toBeVisible(); // Python with Spyder: Introduction to Data Science}
         });
@@ -767,7 +820,7 @@ test.describe('Training', () => {
 
             await trainingFilter.getByTestId('training-filter-keyword-entry').pressSequentially('excel');
             await expect(page.url()).toEqual(
-                'http://localhost:8080/index-training.html#keyword=excel;campus=;weekstart=',
+                'http://localhost:8080/index-training.html#keyword=excel;location=;weekstart=',
             );
 
             // click away from the keyword input field, as that is when we send the keyword
@@ -797,12 +850,12 @@ test.describe('Training', () => {
                 let keyword = 'e';
                 await trainingFilter.getByTestId('training-filter-keyword-entry').pressSequentially(keyword);
                 await expect(page.url()).toEqual(
-                    `http://localhost:8080/index-training.html#keyword=${keyword};campus=;weekstart=`,
+                    `http://localhost:8080/index-training.html#keyword=${keyword};location=;weekstart=`,
                 );
 
                 await page.keyboard.press('Escape');
                 await expect(page.url()).toEqual(
-                    'http://localhost:8080/index-training.html#keyword=;campus=;weekstart=',
+                    'http://localhost:8080/index-training.html#keyword=;location=;weekstart=',
                 );
             }
         });
@@ -826,15 +879,17 @@ test.describe('Training', () => {
             const trainingElement = page.locator('library-training[id="test-with-filter"]');
             await expect(trainingElement.locator('training-filter')).toBeVisible();
             const trainingFilter = trainingElement.locator('training-filter');
-            await expect(page.url()).toEqual('http://localhost:8080/index-training.html#keyword=;campus=;weekstart=');
+            await expect(page.url()).toEqual('http://localhost:8080/index-training.html#keyword=;location=;weekstart=');
 
             await trainingFilter.getByTestId('training-filter-keyword-entry').pressSequentially('e');
-            await expect(page.url()).toEqual('http://localhost:8080/index-training.html#keyword=e;campus=;weekstart=');
+            await expect(page.url()).toEqual(
+                'http://localhost:8080/index-training.html#keyword=e;location=;weekstart=',
+            );
 
             // can clear text with 'enter' click on the clear button
             await trainingFilter.getByTestId('training-filter-clear-keyword').focus();
             await page.keyboard.press('Enter');
-            await expect(page.url()).toEqual('http://localhost:8080/index-training.html#keyword=;campus=;weekstart=');
+            await expect(page.url()).toEqual('http://localhost:8080/index-training.html#keyword=;location=;weekstart=');
         });
         test('the user can tab from the keyword to the campus dropdown', async ({ page }) => {
             await expect(page.locator('library-training[id="test-with-filter"]')).toBeVisible();
@@ -845,7 +900,7 @@ test.describe('Training', () => {
 
             // tabs to next field
             await page.keyboard.press('Tab');
-            await expect(trainingFilter.getByTestId('training-filter-campus-container').first()).toBeFocused();
+            await expect(trainingFilter.getByTestId('training-filter-location-container').first()).toBeFocused();
         });
         test('the user can use the keyboard to open and close the campus dropdown ', async ({ page }) => {
             await expect(page.locator('library-training[id="test-with-filter"]')).toBeVisible();
@@ -854,12 +909,12 @@ test.describe('Training', () => {
 
             const trainingFilter = trainingElement.locator('training-filter');
 
-            await openTheByCampusDropdownByKeyboard(trainingFilter, page);
+            await openTheByLocationDropdownByKeyboard(trainingFilter, page);
 
             // close campus dropdown
-            await trainingFilter.getByTestId('training-filter-campus-container').focus();
+            await trainingFilter.getByTestId('training-filter-location-container').focus();
             await page.keyboard.press('Escape');
-            await expect(trainingFilter.getByTestId('training-filter-campus-list')).toHaveClass(/hidden/);
+            await expect(trainingFilter.getByTestId('training-filter-location-list')).toHaveClass(/hidden/);
         });
         test('user can use the arrow keys to navigate up and down the campus dropdown', async ({ page }) => {
             await page.goto('http://localhost:8080/index-training.html');
@@ -867,34 +922,34 @@ test.describe('Training', () => {
             await expect(trainingElement.locator('training-filter')).toBeVisible();
             const trainingFilterElement = trainingElement.locator('training-filter');
 
-            await openTheByCampusDropdownByKeyboard(trainingFilterElement, page);
+            await openTheByLocationDropdownByKeyboard(trainingFilterElement, page);
 
             // arrow up and down robustly working (its actually easy to muck this up, so maintain, despite it seeming overkill)
-            // await trainingFilterElement.getByTestId('training-filter-campus-label').focus();
+            // await trainingFilterElement.getByTestId('training-filter-location-label').focus();
             await page.keyboard.press('ArrowDown');
-            await expect(trainingFilterElement.getByTestId('training-filter-campus-select-0')).toBeFocused();
+            await expect(trainingFilterElement.getByTestId('training-filter-location-select-0')).toBeFocused();
 
             await page.keyboard.press('ArrowDown');
-            await expect(trainingFilterElement.getByTestId('training-filter-campus-select-1')).toBeFocused();
+            await expect(trainingFilterElement.getByTestId('training-filter-location-select-1')).toBeFocused();
 
             await page.keyboard.press('ArrowDown');
-            await expect(trainingFilterElement.getByTestId('training-filter-campus-select-2')).toBeFocused();
+            await expect(trainingFilterElement.getByTestId('training-filter-location-select-2')).toBeFocused();
 
             await page.keyboard.press('ArrowDown');
             // it is circular - we are back to 0
-            await expect(trainingFilterElement.getByTestId('training-filter-campus-select-0')).toBeFocused();
+            await expect(trainingFilterElement.getByTestId('training-filter-location-select-0')).toBeFocused();
 
-            await trainingFilterElement.getByTestId('training-filter-campus-select-2').focus();
-
-            await page.keyboard.press('ArrowUp');
-            await expect(trainingFilterElement.getByTestId('training-filter-campus-select-1')).toBeFocused();
+            await trainingFilterElement.getByTestId('training-filter-location-select-2').focus();
 
             await page.keyboard.press('ArrowUp');
-            await expect(trainingFilterElement.getByTestId('training-filter-campus-select-0')).toBeFocused();
+            await expect(trainingFilterElement.getByTestId('training-filter-location-select-1')).toBeFocused();
+
+            await page.keyboard.press('ArrowUp');
+            await expect(trainingFilterElement.getByTestId('training-filter-location-select-0')).toBeFocused();
 
             await page.keyboard.press('ArrowUp');
             // and we are back on the parent campus button
-            await expect(trainingFilterElement.getByTestId('training-filter-campus-container')).toBeFocused();
+            await expect(trainingFilterElement.getByTestId('training-filter-location-container')).toBeFocused();
         });
         test('user can tab from campus dropdown button to week dropdown button', async ({ page }) => {
             await expect(page.locator('library-training[id="test-with-filter"]')).toBeVisible();
@@ -902,9 +957,9 @@ test.describe('Training', () => {
             await expect(trainingElement.locator('training-filter')).toBeVisible();
 
             const trainingFilter = trainingElement.locator('training-filter');
-            await expect(trainingFilter.getByTestId('training-filter-campus-dropdown')).toBeVisible();
-            await trainingFilter.getByTestId('training-filter-campus-container').focus();
-            // await trainingFilter.getByTestId('training-filter-campus-dropdown').waitForTimeout(1500);
+            await expect(trainingFilter.getByTestId('training-filter-location-dropdown')).toBeVisible();
+            await trainingFilter.getByTestId('training-filter-location-container').focus();
+            // await trainingFilter.getByTestId('training-filter-location-dropdown').waitForTimeout(1500);
             await page.keyboard.press('Tab');
             await expect(trainingFilter.getByTestId('training-filter-week-container')).toBeFocused();
         });
@@ -966,7 +1021,7 @@ test.describe('Training', () => {
             await page.keyboard.press('ArrowDown');
             await expect(trainingFilter.getByTestId('training-filter-select-week-14')).toBeFocused();
         });
-        test('uthe user can tab from the week dropdown to the quick links', async ({ page }) => {
+        test('the user can tab from the week dropdown to the quick links', async ({ page }) => {
             await expect(page.locator('library-training[id="test-with-filter"]')).toBeVisible();
             const trainingElement = page.locator('library-training[id="test-with-filter"]');
             await expect(trainingElement.locator('training-filter')).toBeVisible();
@@ -993,7 +1048,7 @@ test.describe('Training', () => {
             await trainingFilter.getByTestId('training-filter-week-container').focus();
             await page.keyboard.press('Shift+Tab');
 
-            await expect(trainingFilter.getByTestId('training-filter-campus-container')).toBeFocused();
+            await expect(trainingFilter.getByTestId('training-filter-location-container')).toBeFocused();
         });
     });
 });
