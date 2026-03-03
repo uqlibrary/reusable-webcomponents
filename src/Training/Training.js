@@ -201,7 +201,6 @@ class Training extends HTMLElement {
                 return false;
             }
 
-            console.log('event =', event.entityId, event.campus, event.name);
             if (
                 !!filters.location &&
                 !filters.location.includes(event.campus) &&
