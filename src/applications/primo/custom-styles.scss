@@ -91,6 +91,7 @@ button.user-area-btn {
     }
 }
 
+/* style the brief result pagination per DS */
 nde-search-results-pagination {
     .pagination-container {
         border-width: 0 !important;
@@ -120,4 +121,9 @@ nde-search-results-pagination {
             margin-inline: 12px;
         }
     }
+}
+
+/* override fill=green hard coded on attribute */
+svg, rect {
+    fill: var(--uq-main-purple);
 }
