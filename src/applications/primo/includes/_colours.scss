@@ -1,5 +1,5 @@
 /* override exlibris colours & settings */
-:root, head, body {
+:root, html, head, body {
   --uq-colour-purple-50: #eee9f2;
   --uq-colour-purple-100: #dcd3e4;
   --uq-colour-purple-200: #b9a7ca;
@@ -21,13 +21,13 @@
   --uq-panel-background: var(--uq-colour-grey-50);
 
   --sys-background: var(--uq-colour-purple-50);
-  --sys-inverse-on-surface: var(--uq-colour-purple-50);
-  --sys-inverse-primary: var(--uq-colour-purple-100);
+  --sys-inverse-on-surface: var(--uq-panel-background);
+  --sys-inverse-primary: var(--uq-panel-background);
   --sys-primary: var(--uq-main-purple);
+  --sys-primary-container: var(--uq-colour-purple-50);
   --sys-outline: var(--uq-body-copy);
   --sys-outline-variant: var(--uq-colour-purple-100);
   --sys-surface-container: #fff;
-  //--sys-primary-container: var(--uq-main-purple);
   //--sys-primary-fixed: var(--uq-main-purple);
   //--sys-on-surface-variant: #fff;
   //--mdc-icon-button-icon-color: var(--uq-main-purple);

@@ -55,6 +55,13 @@ nde-search-results-pagination {
 }
 
 /* override fill=green hard coded on attribute */
-svg, rect {
+svg, rect, path, circle {
     fill: var(--uq-main-purple);
+}
+
+/* make each panel have a UQ DS border */
+mat-card {
+    border-color: #dcdcdd !important;
+    border-radius: 4px !important;
+    background-color: #fff !important;
 }
