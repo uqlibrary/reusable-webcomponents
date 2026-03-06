@@ -47,7 +47,7 @@ nde-search-results-pagination {
         }
         li:last-of-type,
         li:first-of-type {
-            border: 1px solid #51247a;
+            border: 1px solid var(--uq-main-purple);
             border-radius: 40px;
             margin-inline: 12px;
         }
@@ -121,5 +121,26 @@ nde-account.ng-star-inserted {
                 padding: 1.75rem 0 1.75rem 28px;
             }
         }
+    }
+}
+
+/* Note: nde-logo is hidden in exlibris-primo customisation, to give fastest removal */
+
+/* Report a Problem button, nde-full-display-service-container-custom.component */
+.report-a-problem-wwrapper {
+    min-height: 4.2rem;
+    margin-top: 1rem;
+}
+.report-a-problem {
+    background-color: var(--uq-main-purple);
+    color: #fff;
+    border: 2px solid var(--uq-main-purple);
+    padding: 16px 24px;
+    border-radius: 4px;
+    &:hover, &:focus {
+        background-color: #fff;
+        border-color: var(--uq-main-purple);
+        color: var(--uq-main-purple);
+        text-decoration: underline;
     }
 }
