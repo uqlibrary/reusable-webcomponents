@@ -77,3 +77,62 @@ svg, rect, path, circle {
     fill: var(--uq-main-purple);
 }
 /* END override fill=green hard coded on attribute */
+
+/* make the account page sidebar look like drupal sidebar navigation */
+nde-account.ng-star-inserted {
+    div.ng-star-inserted.account-menu-container ul {
+        gap: 0;
+        span {
+            font-size: var(--mdc-text-button-label-text-weight);
+        }
+        mat-divider {
+            display: none;
+            border-width: 0;
+            height: 0;
+        }
+        li.ng-star-inserted {
+            border-bottom: 1px solid var(--uq-colour-grey-200);
+
+            position: relative;
+            a::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                z-index: 1;
+            }
+
+            &:not(:has(a)) {
+                display: none;
+                border-width: 0;
+                height: 0;
+            }
+            &:not(:has(a.active-link)) {
+                &:has(a:hover) *,
+                &:has(a:focus) * {
+                    color: var(--uq-colour-black);
+                    background-color: #e8e8e8;
+                    border-radius: 0;
+                }
+            }
+            &:has(a.active-link) {
+                border-left: var(--uq-main-purple) solid 4px;
+                a.active-link {
+                    background-color: var(--uq-colour-grey-200);
+                    border-radius: 0;
+                    color: var(--uq-colour-black);
+                    span.menu-option-title:first-of-type {
+                        font-weight: 500;
+                        letter-spacing: 0.16px;
+                    }
+                }
+            }
+            a {
+                padding: 1.75rem 0 1.75rem 28px;
+            }
+        }
+    }
+}
+/* END make the account page sidebar look like drupal sidebar navigation */
