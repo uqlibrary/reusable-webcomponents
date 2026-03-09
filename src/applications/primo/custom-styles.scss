@@ -71,3 +71,9 @@ nde-search-results-pagination {
     }
 }
 /* END style the pagination on the brief results page */
+
+/* override fill=green hard coded on attribute */
+svg, rect, path, circle {
+    fill: var(--uq-main-purple);
+}
+/* END override fill=green hard coded on attribute */
