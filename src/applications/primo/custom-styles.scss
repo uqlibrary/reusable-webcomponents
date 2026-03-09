@@ -124,6 +124,6 @@ nde-search-results-pagination {
 }
 
 /* override fill=green hard coded on attribute */
-svg, rect {
+svg, rect, path, circle {
     fill: var(--uq-main-purple);
 }
