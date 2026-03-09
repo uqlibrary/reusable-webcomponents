@@ -45,3 +45,11 @@ button.user-area-btn {
     }
 }
 /* End Report a Problem button, exlibris-primo repo nde-report-a-problem-custom.component */
+/* locations panel to be DS styled */
+.getit-location-card.mat-elevation-z0.ng-star-inserted {
+    border-radius: 4px;
+    nde-location-items-container > div {
+        border-radius: 4px;
+    }
+}
+/* END locations panel to be DS styled */
