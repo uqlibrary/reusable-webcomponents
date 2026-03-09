@@ -27,4 +27,8 @@ button.user-area-btn {
     background-color: #fff !important;
     border-radius: 2px !important;
     border: 1px solid #dcdcdd !important;
+    padding-left: 0 !important;
+    input {
+        padding-left: 1.4rem;
+    }
 }
