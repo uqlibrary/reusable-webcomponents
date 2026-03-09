@@ -22,6 +22,8 @@ button.user-area-btn {
     }
 }
 
+/* Note: nde-logo is hidden in exlibris-primo repo custom.css file, to give fastest removal */
+
 /* style the main search bar to be like search portal on drupal */
 .top-bar-container nde-search-bar-presenter .search-bar-container .search-bar-wrapper {
     background-color: #fff !important;
@@ -174,3 +176,25 @@ nde-sort-by {
     }
 }
 /* END style the sort bar like the filters it is inline with (purpose: highlight it when choice change) */
+/* Report a Problem button, exlibris-primo repo nde-report-a-problem-custom.component */
+.report-a-problem-wrapper {
+    min-height: 4.2rem;
+    margin-top: 1rem;
+    margin-left: 1.5rem;
+}
+.report-a-problem {
+    background-color: var(--uq-main-purple);
+    color: #fff;
+    border: 2px solid var(--uq-main-purple);
+    padding: 12px 16px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    text-decoration: none;
+    &:hover, &:focus {
+        background-color: #fff;
+        border-color: var(--uq-main-purple);
+        color: var(--uq-main-purple);
+        text-decoration: underline;
+    }
+}
+/* End Report a Problem button, exlibris-primo repo nde-report-a-problem-custom.component */
