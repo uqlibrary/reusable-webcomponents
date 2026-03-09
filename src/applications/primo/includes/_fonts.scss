@@ -69,38 +69,8 @@
 }
 
 /* override exlibris colours & settings */
-:root, head, body {
-  --uq-colour-purple-50: #eee9f2;
-  --uq-colour-purple-100: #dcd3e4;
-  --uq-colour-purple-200: #b9a7ca;
-  --uq-colour-purple-300: #977caf;
-  --uq-colour-purple-400: #745095;
-  --uq-colour-purple-500: #51247a;
-  --uq-colour-purple-600: #4b2271;
-  --uq-colour-purple-650: #40205d;
-  --uq-colour-purple-700: #3a1f53;
-  --uq-colour-purple-800: #2f1d3f;
-  --uq-colour-purple-900: #231a2c;
-
-  --uq-colour-grey-50: #f3f3f4;
-  --uq-colour-grey-900: #3b383e;
-
-  --uq-main-purple: var(--uq-colour-purple-500);
-  --uq-body-copy: var(--uq-colour-grey-900);
+:root, html, head, body {
   --uq-body-font-family: Roboto, Helvetica, Arial, sans-serif;
-  --uq-panel-background: var(--uq-colour-grey-50);
-
-  --sys-background: var(--uq-colour-purple-50);
-  --sys-inverse-on-surface: var(--uq-colour-purple-50);
-  --sys-inverse-primary: var(--uq-colour-purple-100);
-  --sys-primary: var(--uq-main-purple);
-  --sys-outline: var(--uq-body-copy);
-  --sys-outline-variant: var(--uq-colour-purple-100);
-  --sys-surface-container: #fff;
-  //--sys-primary-container: var(--uq-main-purple);
-  //--sys-primary-fixed: var(--uq-main-purple);
-  //--sys-on-surface-variant: #fff;
-  //--mdc-icon-button-icon-color: var(--uq-main-purple);
 
   --sys-body-large: 400 1rem / 1.5rem var(--uq-body-font-family);
   --sys-body-large-font: var(--uq-body-font-family);
@@ -209,9 +179,6 @@
   //--sys-title-small-weight: 500;
 
   --mdc-text-button-label-text-weight: 1rem;
-
-  --valid: var(--uq-main-purple);
-  --validDark: var(--uq-main-purple);
 }
 
 body * {
