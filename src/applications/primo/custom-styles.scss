@@ -21,3 +21,10 @@ button.user-area-btn {
         margin-top: -215px;
     }
 }
+
+/* style the main search bar to be like search portal on drupal */
+.top-bar-container nde-search-bar-presenter .search-bar-container .search-bar-wrapper {
+    background-color: #fff !important;
+    border-radius: 2px !important;
+    border: 1px solid #dcdcdd !important;
+}
