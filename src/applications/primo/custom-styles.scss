@@ -28,3 +28,14 @@ button.user-area-btn {
     border-radius: 2px !important;
     border: 1px solid #dcdcdd !important;
 }
+
+/* panels should look like DS */
+mat-card-content {
+    background-color: #fff;
+    border: 1px solid #dcdcdd;
+    border-radius: 4px;
+    &:hover, &:focus {
+        background-color: var(--uq-panel-background);
+    }
+}
+/* END panels should look like DS */
