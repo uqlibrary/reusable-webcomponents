@@ -198,3 +198,10 @@ nde-sort-by {
     }
 }
 /* End Report a Problem button, exlibris-primo repo nde-report-a-problem-custom.component */
+/* make each panel have a UQ DS border */
+mat-card {
+    border-color: var(--uq-colour-grey-200) !important;
+    border-radius: 4px !important;
+    background-color: #fff !important;
+}
+/* END make each panel have a UQ DS border */
