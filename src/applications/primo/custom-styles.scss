@@ -21,35 +21,42 @@ button.user-area-btn {
         margin-top: -215px;
     }
 }
+
+/* highlight the searched term */
+.font-style-normal {
+    font-weight: 600;
+}
+/* END highlight the searched term */
+
 /* Note: nde-logo is hidden in exlibris-primo repo custom.css file, to give fastest removal */
 
 /* Report a Problem button, exlibris-primo repo nde-report-a-problem-custom.component */
 .report-a-problem-wrapper {
-    min-height: 4.2rem;
-    margin-top: 1rem;
-    margin-left: 1.5rem;
+  min-height: 4.2rem;
+  margin-top: 1rem;
+  margin-left: 1.5rem;
 }
 .report-a-problem {
-    background-color: var(--uq-main-purple);
-    color: #fff;
-    border: 2px solid var(--uq-main-purple);
-    padding: 12px 16px;
-    border-radius: 4px;
-    text-transform: uppercase;
-    text-decoration: none;
-    &:hover, &:focus {
-        background-color: #fff;
-        border-color: var(--uq-main-purple);
-        color: var(--uq-main-purple);
-        text-decoration: underline;
-    }
+  background-color: var(--uq-main-purple);
+  color: #fff;
+  border: 2px solid var(--uq-main-purple);
+  padding: 12px 16px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  text-decoration: none;
+  &:hover, &:focus {
+    background-color: #fff;
+    border-color: var(--uq-main-purple);
+    color: var(--uq-main-purple);
+    text-decoration: underline;
+  }
 }
 /* End Report a Problem button, exlibris-primo repo nde-report-a-problem-custom.component */
 /* locations panel to be DS styled */
 .getit-location-card.mat-elevation-z0.ng-star-inserted {
+  border-radius: 4px;
+  nde-location-items-container > div {
     border-radius: 4px;
-    nde-location-items-container > div {
-        border-radius: 4px;
-    }
+  }
 }
 /* END locations panel to be DS styled */
