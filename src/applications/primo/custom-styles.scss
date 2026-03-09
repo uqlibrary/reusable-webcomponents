@@ -27,8 +27,5 @@ mat-card-content {
     background-color: #fff;
     border: 1px solid #dcdcdd;
     border-radius: 4px;
-    &:hover, &:focus {
-        background-color: var(--uq-panel-background);
-    }
 }
 /* END panels should look like DS */
