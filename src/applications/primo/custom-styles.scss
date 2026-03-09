@@ -142,7 +142,10 @@ nde-account.ng-star-inserted {
 
 /* locations panel to be DS styled */
 .getit-location-card.mat-elevation-z0.ng-star-inserted {
-    border-radius: 4px
+    border-radius: 4px;
+    nde-location-items-container > div {
+        border-radius: 4px;
+    }
 }
 /* END locations panel to be DS styled */
 
