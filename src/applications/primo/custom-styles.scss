@@ -21,3 +21,36 @@ button.user-area-btn {
         margin-top: -215px;
     }
 }
+
+/* style the pagination on the brief results page */
+nde-search-results-pagination {
+    .pagination-container {
+        border-width: 0 !important;
+        font-size: 1rem;
+
+        button {
+            &:hover, &:focus {
+                text-decoration: underline;
+                cursor: pointer;
+            }
+        }
+        button.current-page {
+            --sys-primary-container: var(--uq-main-purple);
+            color: #fff;
+        }
+        button:not(.current-page) {
+            &:hover, &:focus {
+                background-color: var(--uq-panel-background);
+                border: 1px solid var(--uq-panel-background);
+                color: var(--uq-body-copy) !important;
+            }
+        }
+        li:last-of-type,
+        li:first-of-type {
+            border: 1px solid #51247a;
+            border-radius: 40px;
+            margin-inline: 12px;
+        }
+    }
+}
+/* END style the pagination on the brief results page */
