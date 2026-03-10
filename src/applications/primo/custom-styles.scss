@@ -27,3 +27,9 @@ button.user-area-btn {
     font-weight: 600;
 }
 /* END highlight the searched term */
+
+/* Disable Background-Image Overlay on primo homepage */
+.custom-search-bar-container .background-overlay {
+    display: none;
+}
+/* END Disable Background-Image Overlay on primo homepage */
