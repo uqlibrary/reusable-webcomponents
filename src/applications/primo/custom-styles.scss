@@ -24,6 +24,15 @@ button.user-area-btn {
 /* Note: nde-logo is hidden in exlibris-primo repo custom.css file, to give fastest removal */
 
 /* Report a Problem button, exlibris-primo repo nde-report-a-problem-custom.component */
+/* Hide all report-a-problem-wrapper elements by default */
+.report-a-problem-wrapper {
+    display: none;
+}
+/* Show only the first one */
+mat-accordion > div.ng-star-inserted:first-child .report-a-problem-wrapper {
+    display: block;
+}
+
 .report-a-problem-wrapper {
     min-height: 4.2rem;
     margin-top: 1rem;
