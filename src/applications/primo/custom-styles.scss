@@ -28,6 +28,12 @@ button.user-area-btn {
 }
 /* END highlight the searched term */
 
+/* Disable Background-Image Overlay on primo homepage */
+.custom-search-bar-container .background-overlay {
+    display: none;
+}
+/* END Disable Background-Image Overlay on primo homepage */
+
 /* Note: nde-logo is hidden in exlibris-primo repo custom.css file, to give fastest removal */
 
 /* Report a Problem button, exlibris-primo repo nde-report-a-problem-custom.component */
