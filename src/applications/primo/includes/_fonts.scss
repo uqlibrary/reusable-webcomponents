@@ -70,6 +70,8 @@
 
 /* override exlibris colours & settings */
 :root, html, head, body {
+  --uq-body-font-family: Roboto, Helvetica, Arial, sans-serif;
+
   --sys-body-large: 400 1rem / 1.5rem var(--uq-body-font-family);
   --sys-body-large-font: var(--uq-body-font-family);
   //--sys-body-large-line-height: 1.5rem;
@@ -177,4 +179,8 @@
   //--sys-title-small-weight: 500;
 
   --mdc-text-button-label-text-weight: 1rem;
+}
+
+body * {
+  font: var(--sys-body-large); /* force a default font family for where the css vars are not applied */
 }
