@@ -688,6 +688,7 @@ if (typeof readyFryer !== 'function') {
 
         const h3 = document.createElement('h3');
         !!h3 && h3.setAttribute('data-testid', 'Search');
+        !!h3 && !h3.classList.contains('searchheading') && !h3.classList.add('searchheading');
         !!h3 && (h3.textContent = 'Search');
         !!h3 && !!searchHeading && searchHeading.after(h3);
     }

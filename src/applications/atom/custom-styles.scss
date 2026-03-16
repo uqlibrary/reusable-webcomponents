@@ -927,7 +927,7 @@ uq-footer {
     margin-top: 50px;
 }
 
-[role="main"] {
+[role='main'] {
     @media (max-width: 991px) {
         h2 {
             margin-top: 0.5rem;
@@ -948,6 +948,7 @@ form #search-box-results header {
 }
 
 /* when the user searches on a page showing a "hierarchy box", the box duplicates. Hide subsequent instances */
+h3.searchheading ~ h3.searchheading,
 section.accordion.full-treeview-section ~ section.accordion.full-treeview-section {
     display: none;
 }
