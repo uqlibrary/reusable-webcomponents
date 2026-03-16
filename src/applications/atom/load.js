@@ -15,7 +15,10 @@
    - Make the Subject sidebar readable (remove wrapping, some titles are looong and remove max-height)
 */
 function readyFryer(fn) {
-    if (document.readyState !== 'loading') {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('noCustomization') && urlParams.get('noCustomization') === 'true') {
+        // noCustomization=true can be added to the end of the url to stop this customisation from running
+    } else if (document.readyState !== 'loading') {
         fn();
     } else {
         document.addEventListener('DOMContentLoaded', fn);
