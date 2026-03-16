@@ -127,49 +127,6 @@ Color brightness is determined by the following formula:
     background-color: set-button-bg-color($fontColor);
 }
 
-/*OLD VERSION - ASAF*/
-/* set color, and hover color by passing a color or variable
- usage: @include buttonBgColor($colorName);
-@mixin bgColor($baseColor) {
-
-  color: $baseColor;
-
-  &:hover,
-  &:focus,
-  &.hovered,
-  &.md-focused,
-  &._md-focused {
-    &:not([disabled]) {
-      @include text-contrast-bg($baseColor);
-
-      @if $baseColor == white or $baseColor == #fff or $baseColor == $white {
-        //color: $baseColor;
-        @include text-contrast-bg($baseColor);
-      }
-
-      //(for id 225141)
-      !*@if $baseColor == $links {
-        color: $white;
-        background-color: transparentize($baseColor, .2);
-      }*!
-        //If I adding this code, the links inside each results (actions links) also effected. (for id 225141)
-    !*  @if $baseColor == $baseColor {
-        color: $white;
-        background-color: transparentize($baseColor, .2);
-      }*!
-
-      @else {
-       !* &.button-over-light-contrast {
-          color: white;
-          background-color: red;
-        }*!
-        //color: darken(saturate($baseColor, 15%), 40%);
-        @include text-contrast-bg($baseColor);
-      }
-    }
-  }
-}*/
-
 /*------------------------
 mixin that calculates if text needs to be light or dark
 depending on the background color passed.
@@ -314,3 +271,59 @@ $__xs-portrait: 479px;
 //     @content;
 //   }
 // }
+
+@mixin uqPrimaryButton($baseColor, $reverseColor) {
+    background-color: $baseColor !important;
+    color: $reverseColor !important;
+    border: 2px solid $baseColor;
+    &:focus,
+    &:hover {
+        background-color: $reverseColor !important;
+        color: $baseColor !important;
+        span {
+            text-decoration: underline;
+        }
+    }
+}
+@mixin uqSecondaryButton($baseColor, $reverseColor) {
+    @include uqPrimaryButton($baseColor, $reverseColor);
+    border-color: $reverseColor;
+    &:hover span {
+        text-decoration: underline;
+    }
+}
+@mixin uqTertiaryButton($baseColor, $reverseColor) {
+    background-color: $baseColor !important;
+    color: $reverseColor !important;
+    span {
+        text-decoration: underline;
+    }
+    &:focus-visible,
+    &:hover {
+        &:not([disabled]) {
+            background-color: $reverseColor !important;
+            color: $baseColor !important;
+        }
+    }
+}
+// a tertiary button that has a span within it
+@mixin uqSpannedTertiaryButton($baseColor, $reverseColor) {
+    background-color: $baseColor !important;
+    color: $reverseColor !important;
+    span {
+        text-decoration: underline;
+    }
+    &:focus,
+    &:hover {
+        &:not([disabled]) {
+            background-color: transparent !important;
+        }
+    }
+    &:focus-visible,
+    &:hover {
+        &:not([disabled]) span {
+            background-color: $reverseColor !important;
+            color: $baseColor !important;
+        }
+    }
+}

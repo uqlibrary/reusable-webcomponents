@@ -51,7 +51,7 @@ template.innerHTML = `
                 <div tabindex="-1" data-testid="training-filter-week-list" data-analyticsid="training-filter-week-list" id="weeklist" class="selectorlist weeklist hidden" aria-expanded="false"></div>
             </div>
         </div>
-        <div id="quicklinks" class="quicklinks">
+        <div id="quicklinks" class="quicklinks" data-testid="filter-quicklinks">
             <h4>Popular events:</h4>
         </div>
     </section>
@@ -70,7 +70,7 @@ class TrainingFilter extends HTMLElement {
         const shadowDOM = this.attachShadow({ mode: 'open' });
 
         // Render the template
-        shadowDOM.appendChild(template.content.cloneNode(true));
+        !!template && !!shadowDOM && shadowDOM.appendChild(template.content.cloneNode(true));
 
         this.addListeners(shadowDOM);
         this.loadCampuses(shadowDOM);
@@ -149,13 +149,11 @@ class TrainingFilter extends HTMLElement {
         }
 
         function handleCampusKeyDown(e) {
-            const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
             if (isArrowDownKeyPressed(e)) {
                 e.preventDefault();
                 // nav to first campus entry
                 navigateToFirstCampusEntry();
             } /* istanbul ignore next */ else if (isBackTabKeyPressed(e)) {
-                // not tested - looks like cypress cant do the tab inside shadow dom
                 !campuslist.classList.contains('hidden') && that.closeDropdown(campuslist);
             }
         }
@@ -193,7 +191,6 @@ class TrainingFilter extends HTMLElement {
                     const prevElement = !!prevElementId && that.shadowRoot.getElementById(prevElementId);
                     !!prevElement && prevElement.focus();
                 } /* istanbul ignore next */ else if (isTabKeyPressed(e)) {
-                    // not tested - looks like cypress cant do the tab inside shadow dom
                     // close on tab off last element
                     if (eventTargetId.startsWith('campus-select-')) {
                         const currentId = eventTargetId.replace('campus-select-', '');
@@ -222,7 +219,6 @@ class TrainingFilter extends HTMLElement {
                 e.preventDefault();
                 navigateToFirstWeekEntry();
             } /* istanbul ignore next */ else if (isBackTabKeyPressed(e)) {
-                // not tested - looks like cypress cant do the tab inside shadow dom
                 !weeklist.classList.contains('hidden') && that.closeDropdown(weeklist);
             }
         }
@@ -261,7 +257,6 @@ class TrainingFilter extends HTMLElement {
                 }
                 !!prevElement && prevElement.focus();
             } /* istanbul ignore next */ else if (isTabKeyPressed(e)) {
-                // not tested - looks like cypress cant do the tab inside shadow dom
                 // close on last element
                 if (eventTargetId.startsWith('week-select-')) {
                     const currentId = eventTargetId.replace('week-select-', '');
@@ -313,6 +308,10 @@ class TrainingFilter extends HTMLElement {
         const that = this;
         const chips = [
             {
+                term: 'Artificial Intelligence',
+                label: 'AI',
+            },
+            {
                 term: 'Excel',
                 label: 'Excel',
             },
@@ -342,7 +341,8 @@ class TrainingFilter extends HTMLElement {
             const chipButton = document.createElement('button');
             chipButton.className = 'chip uq-button';
             chipButton.innerHTML = chip.label;
-            chipButton.setAttribute('data-testid', `training-filter-popular-events-${chip.term}`);
+            const slug = chip.term.toLowerCase().replace(/ /g, '-');
+            chipButton.setAttribute('data-testid', `training-filter-popular-events-${slug}`);
             chipButton.setAttribute('aria-label', `Use ${chip.term} as keyword`);
             !!chipButton &&
                 chipButton.addEventListener('click', function () {

@@ -6,6 +6,27 @@ prm-times-cited {
     .logo-item {
         display: flex;
         align-items: center;
-        padding: 0px 5px 0px 0px;
+        padding: 0 5px 0 0;
+    }
+    a {
+        strong {
+            margin-right: 5px;
+            margin-left: -4px; // avoid a gap in the underline
+        }
+        span {
+            padding-right: 3px; // avoid a gap in the underline
+        }
+        strong,
+        span {
+            text-decoration: underline;
+        }
+        &:hover {
+            box-shadow: none;
+            @include uqSpannedTertiaryButton($white, $accent-color);
+            &:hover:not([disabled]) strong {
+                background-color: $accent-color !important;
+                color: $white !important;
+            }
+        }
     }
 }

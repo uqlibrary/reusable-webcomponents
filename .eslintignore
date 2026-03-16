@@ -1,6 +1,5 @@
 mock
 .idea
 .vscode
-cypress/examples
 dist
 node_modules

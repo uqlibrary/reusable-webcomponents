@@ -108,4 +108,46 @@ prm-favorites {
               margin-left: 0;
           }
       }*/
+
+    // search Saved items in Favourites should be more obvious
+    // reverse the dark-placeholder and greyed submit button to a more conventional
+    // grey placeholder and enabled-looking button
+    div.search-within {
+        md-input-container.search-input {
+            margin-right: -2px;
+            input.search-within-input {
+                border-bottom: 1px solid black;
+                &::placeholder {
+                    color: #aaa;
+                }
+            }
+        }
+        button.search-button {
+            border-bottom: 1px solid black;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            margin-bottom: 8px;
+            @include uqSpannedTertiaryButton($white, $accent-color); // only hovers when there are words in the search field
+            background-color: transparent !important;
+            &[disabled="disabled"] span {
+                text-decoration: none;
+            }
+        }
+
+        button.clear-button {
+            top: -8px;
+            margin-right: 12px;
+            &:focus,
+            &:hover {
+                background-color: $accent-color;
+                color: $white;
+            }
+        }
+    }
+
+    prm-action-list {
+        &> div button:has([translate="nui.aria.fulldisplay.closeButton.short"]) {
+            @include uqPrimaryButton($accent-color, $white);
+        }
+    }
 }

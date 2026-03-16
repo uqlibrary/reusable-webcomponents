@@ -32,4 +32,4 @@ Visit [the homepage test file](https://github.com/uqlibrary/homepage-react/blob/
 
 ## Viewing what each external application should have
 
-Visit [the application test file](https://github.com/uqlibrary/reusable-webcomponents/blob/user-admin-manage/cypress/e2e/application.js#L123)
+Visit [the application test file](https://github.com/uqlibrary/reusable-webcomponents/blob/user-admin-manage/playwrite/yesys/application.spec.js)

@@ -1,6 +1,26 @@
 /* starting locations */
 prm-location {
-    /*.availability-status {
-    color: $positive-hue1;
-  }*/
+  container-type: inline-size;
+  &:has(prm-stack-map a span) {
+    div.flex-70 {
+      // column 1, location text
+      max-width: unset;
+    }
+    div.flex-30 {
+      // column 2, library info link
+      max-width: unset;
+    }
+  }
+}
+@container (min-width: 505px) {
+  prm-location {
+    &:has(prm-stack-map a span) {
+      div.flex-70 {
+        max-width: 60%;
+      }
+      div.flex-30 {
+        max-width: 40%;
+      }
+    }
+  }
 }

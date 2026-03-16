@@ -7,6 +7,23 @@ prm-opac {
                 @extend .default-shadow;
             }
         }
+        md-list-item.md-2-line {
+            div.md-list-item-text p,
+            div span {
+                font-size: 15px;
+                font-weight: 400;
+            }
+        }
+    }
+    prm-location-items {
+        p span,
+        div span {
+            font-size: 15px;
+            font-weight: 400;
+        }
+        div.tab-content-header > div {
+            gap: 2px;
+        }
     }
     .section-title,
     .subsection-title {

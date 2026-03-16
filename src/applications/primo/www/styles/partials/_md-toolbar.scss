@@ -19,23 +19,41 @@ md-toolbar:not(.md-menu-toolbar) {
     }
 
     &.default-toolbar {
-        @extend .prm-background.prm-hue1;
+        border-color: darken($background, 8%);
+        background-color: transparent;
         @extend .prm-text;
 
-        .md-button {
+        .md-button:not(.back-button) {
             opacity: 0.8;
             &:hover {
                 opacity: 1;
             }
+            @include uqTertiaryButton($white, $accent-color);
+            background-color: transparent !important;
         }
         &.is-stuck {
             @extend .toolbar-shadow;
+        }
+        .back-button.md-button {
+            background-color: transparent !important;
+            color: $accent-color !important;
+            span {
+                text-decoration: underline;
+            }
+            &:hover span {
+                background-color: $accent-color !important;
+                color: $white !important;
+            }
         }
     }
 
     &.bottom-fixed-toolbar {
         z-index: 13;
-        @extend .fixed-position.fixed-bottom;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
         @extend %toolbar-shadow-top;
     }
     &.white-toolbar {
@@ -51,16 +69,8 @@ md-toolbar:not(.md-menu-toolbar) {
         background-color: white !important;
     }
     .md-button {
-        // color: transparentize($dark, .3);
-        // color: inherit;
         md-icon {
-            // color: transparentize($dark, .3);
             color: inherit;
-        }
-        &:hover {
-            md-icon {
-                // color: transparentize($dark, 0);
-            }
         }
         &.has-bottom-arrow {
             overflow: visible;
@@ -94,7 +104,7 @@ md-toolbar:not(.md-menu-toolbar) {
     .toolbar-divider {
         width: 1px;
         height: 100%;
-        @extend .prm-background.prm-hue10;
+        background-color: $background-hue10;
         margin-left: 0.5em;
         margin-right: 0.5em;
         border: none;
@@ -161,9 +171,8 @@ md-toolbar:not(.md-menu-toolbar) {
         padding-bottom: 0.7em;
         background-color: transparent;
         .toolbar-section {
-            @extend .prm-background.prm-hue11;
+            background-color: $background-hue11;
             border: 1px solid;
-            @extend .prm-background-border.prm-hue4;
             border-radius: $radius;
             &:not(:last-child) {
                 margin-right: 0.5em;
@@ -217,7 +226,7 @@ md-toolbar:not(.md-menu-toolbar) {
         &:hover {
             opacity: 1;
             color: $white;
-            @extend .prm-background.prm-hue15;
+            background-color: $background-hue15;
         }
 
         .__xs & {
@@ -231,7 +240,6 @@ md-toolbar:not(.md-menu-toolbar) {
             @include rtl(transform, none, scale(-1, 1));
         }
         + .toolbar-divider {
-            // margin-left: 0;
             @include rtl-prop(margin-left, margin-right, 0, initial);
         }
 
@@ -242,7 +250,6 @@ md-toolbar:not(.md-menu-toolbar) {
         &.offset-to-left {
             @include rtl-prop(margin-left, margin-right, -16px, 0);
             .__gt-sm & {
-                // margin-left: -70px;
                 @include rtl-prop(margin-left, margin-right, -70px, 0);
             }
         }

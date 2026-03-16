@@ -73,7 +73,7 @@ prm-favorites-tool-bar {
         }
         prm-action-list {
             background: white;
-            @extend %focused-item-shadow.without-halo;
+          box-shadow: 0 0 0 0.55em #fff, 0 0 0 0.6em #acbecc, 0 2px 15px 5px rgba(0, 0, 0, 0.2);
 
             md-tabs {
                 margin: 0px;

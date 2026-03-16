@@ -16,3 +16,4 @@ export function getAccountMenuRoot(hostname = null, protocol = null, pathname = 
 }
 
 export const COLOUR_UQ_PURPLE = 'rgb(81, 36, 122)';
+export const COLOUR_CONTENT_BLACK = 'rgb(25, 21, 28)';

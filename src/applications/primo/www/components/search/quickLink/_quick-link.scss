@@ -4,15 +4,22 @@ prm-quick-link {
     }
 
     a {
-        color: $dark;
-        //margin-top: 0.4em;
+        @extend .uq-button-styled-as-link;
+        &:hover {
+            box-shadow: none;
+        }
+        &:hover md-icon,
+        &:hover prm-icon {
+            background-color: transparent !important;
+            color: $accent-color !important;
+        }
+
         margin: 0.4em 3em 0 0;
         [dir='rtl'] & {
             margin: 0.4em 0 0 3em;
         }
         width: fit-content;
         span {
-            color: $accent-color;
             margin: 0 3px 0 3px;
         }
 
@@ -21,12 +28,26 @@ prm-quick-link {
         }
 
         .quick-link-type {
-            color: $accent-color;
             margin: 0 3px 0 0;
             [dir='rtl'] & {
                 margin: 0 0 0 3px;
             }
         }
+    }
+
+    // sometimes they dupe the quick link. To do with when the server is slow?
+    // I don't think this is our customisation file, we dont touch this area
+    // fixes:
+    // if we get a fourth entry then we have PDF link HTML link PDF link HTML link so hide #4
+    // if we get a 3rd then we have PDF link HTML link PDF link (and probably also HTML at #4, but that's handled above) so hide #3
+    // if the first has pdf and there is a second that has pdf, then  we have PDF link PDF link, so hide #2
+    // if the first has html and there is a second that has html, then  we have Html link Html link, so hide #2 (this one not observed in the wild)
+    // (note, using the :has() operator seems to slow down it working, so we are just clearing #3 and #4 on principle, rather than checking they have one of the icons)
+    a:nth-child(4),
+    a:nth-child(3),
+    div:has(a:first-child prm-icon[icon-definition="pdf-link"]) a:nth-child(2):has(prm-icon[icon-definition="pdf-link"]),
+    div:has(a:first-child prm-icon[icon-definition="html-link"]) a:nth-child(2):has(prm-icon[icon-definition="html-link"]) {
+        display: none;
     }
 
     prm-icon {

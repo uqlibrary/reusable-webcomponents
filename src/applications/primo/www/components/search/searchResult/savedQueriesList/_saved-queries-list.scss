@@ -126,6 +126,18 @@ prm-saved-queries-list {
             position: static;
         }
     }
+    button.md-button.button-confirm.button-large {
+        @include uqPrimaryButton($accent-color, $white);
+    }
+    .result-item-actions button.md-icon-button.md-button prm-icon {
+        color: $accent-color;
+        &:focus,
+        &:hover {
+            background-color: $accent-color;
+            color: white;
+            padding: 10px;
+        }
+    }
 }
 
 .saved-query-list-2-line {
@@ -158,7 +170,7 @@ prm-saved-queries-list {
         display: inline-block;
         a {
             max-width: 100%;
-            @extend .prm-links.prm-hue1;
+            color: $links-hue-1;
         }
         h3 {
             white-space: inherit !important;

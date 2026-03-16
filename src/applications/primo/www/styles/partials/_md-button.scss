@@ -2,14 +2,14 @@
 
 .md-button {
     // default
-    @include bgColor($text);
+   @include bgColor($text);
 
     .light-on-dark-dialog & {
-        @include bgColor($white);
+      @include bgColor($white);
     }
 
     .light-on-dark-dialog .hoverable-over-dark:not(.disable-hover) & {
-        @include bgColor($white);
+      @include bgColor($white);
     }
 
     // primary (override Angular material)
@@ -25,7 +25,7 @@
     // confirm (positive / green)
     &.button-confirm {
         @include bgColor($positive);
-        @extend .prm-positive.prm-hue1;
+        @extend .prm-positive;
 
         .light-on-dark-dialog & {
             @include bgColor($linkTitle);
@@ -313,12 +313,32 @@
         &:focus {
             background: transparent;
             .button-content {
-                @extend a.hover;
+              background-color: transparent;
+              border-radius: unset;
             }
         }
         [link-arrow] {
             position: static;
             @extend .prm-links;
+        }
+        md-icon,
+        &>span:not([disabled]) {
+            color: $accent-color !important;
+            box-shadow: none !important;
+        }
+        &:hover:not([disabled]) {
+            box-shadow: none;
+            background-color: transparent;
+        }
+        &:hover md-icon,
+        &:hover span:not([disabled]) span {
+            background-color: $accent-color !important;
+            color: $white !important;
+        }
+        &:hover prm-icon md-icon,
+        &:hover [external-link] md-icon {
+            background-color: transparent !important;
+            color: $accent-color !important;
         }
     }
 
@@ -327,6 +347,7 @@
         + .md-ripple-container {
             display: none;
         }
+        display: none; // and we dont want the ripple at all
     }
 
     &.button-with-menu-arrow {

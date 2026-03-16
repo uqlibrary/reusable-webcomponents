@@ -21,7 +21,7 @@
         height: 100%;
         width: 100%;
         z-index: 1;
-        @extend .prm-background.prm-hue5;
+        background-color: $background-hue5;
 
         .loader {
             height: 10%;

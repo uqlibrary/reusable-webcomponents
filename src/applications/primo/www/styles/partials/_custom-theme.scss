@@ -113,7 +113,6 @@
         background-color: transparent;
     }
     &.prm-hue2 {
-        // background-color: lighten($background, 4%);
         background-color: $background-hue2;
     }
     &.prm-hue3 {
@@ -417,3 +416,17 @@
 }
 
 /* primary color hook end*/
+
+.uq-button-styled-as-link {
+    md-icon,
+    span:not([disabled]) {
+        color: $accent-color !important;
+    }
+    &:hover md-icon,
+    &:focus md-icon,
+    &:hover span:not([disabled]),
+    &:focus span:not([disabled]) {
+        background-color: $accent-color !important;
+        color: $white !important;
+    }
+}

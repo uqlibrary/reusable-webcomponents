@@ -1,9 +1,12 @@
 dist
 node_modules
-cypress/screenshots
-cypress/videos
 .idea
 coverage/
 .nyc_output
 /.vscode
 .DS_Store
+
+# Playwright
+/playwright/.results
+/playwright/.cache
+test-results

@@ -2,13 +2,16 @@ prm-search-result-frbr-line {
     a {
         > prm-icon:first-child {
             margin-right: 0.15em;
-            @extend .prm-notice !optional;
+            color: $highlightPrimary;
 
             md-icon {
                 @include setSize(15px);
                 position: relative;
                 top: -2px;
             }
+        }
+        span {
+            color: $highlightPrimary;
         }
     }
 

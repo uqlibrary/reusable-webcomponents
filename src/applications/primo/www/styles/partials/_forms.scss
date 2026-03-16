@@ -46,19 +46,26 @@
 }
 
 .service-form-static-panel {
-    @extend .prm-background.prm-hue8;
+    background-color: $background-hue8;
     box-shadow: inset -1px 0 0 0;
-    @extend .prm-background-color.prm-hue4; //splitted the color to support from box-shadow to allow color customization
     flex-grow: 1;
     * {
         //splitted the color to support from box-shadow to allow color customization
-        color: $dark;
+        color: $uqBodyCopy;
+    }
+    h3 {
+        color: $uqHeading
     }
 
     button.button-confirm prm-icon {
         + span,
         & svg path {
-            @extend .md-button.button-confirm;
+          @include bgColor($positive);
+          @extend .prm-positive;
+
+          .light-on-dark-dialog & {
+            @include bgColor($linkTitle);
+          }
         }
     }
 }
@@ -81,7 +88,7 @@
         position: relative;
         top: -2px;
         transform: translate3d(0, 28px, 0) scale(1);
-        color: transparentize(black, 0.45);
+        color: $uqBodyCopy;
         transform-origin: left top;
     }
 

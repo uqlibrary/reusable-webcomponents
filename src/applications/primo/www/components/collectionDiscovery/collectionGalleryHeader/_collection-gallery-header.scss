@@ -28,6 +28,18 @@ prm-collection-gallery-header {
                 z-index: 0;
             }
         }
+        button.md-icon-button.custom-button.md-button {
+            &.pin-button,
+            &.unpin-button {
+                color: $accent-color;
+                &:focus-visible,
+                &:focus,
+                &:hover {
+                    background-color: $white !important;
+                    color: $accent-color !important;
+                }
+            }
+        }
     }
     .collection-info {
         padding-left: 0.5em;

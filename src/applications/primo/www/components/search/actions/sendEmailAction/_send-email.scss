@@ -8,4 +8,7 @@ prm-send-email {
             }
         }
     }
+    button.button-confirm {
+        @include uqTertiaryButton($white, $accent-color);
+    }
 }

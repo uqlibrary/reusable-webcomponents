@@ -10,7 +10,7 @@ prm-citation-trails-indication {
             // @extend .prm-citation-color;
             @include bgColor($citation-hue3);
             &:hover {
-                @extend .prm-citation-color.citation-hover;
+              color: $citation-hue1;
             }
             text-transform: none;
         }

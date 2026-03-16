@@ -18,9 +18,6 @@ md-progress-linear {
             .md-container {
                 background-color: lighten($midGrey, 5%);
             }
-            .md-bar {
-                @extend .prm-secondary-bg;
-            }
         }
     }
 }

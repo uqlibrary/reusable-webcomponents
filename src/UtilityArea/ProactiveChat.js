@@ -2,6 +2,8 @@ import proactivecss from './css/proactivechat.css';
 import ApiAccess from '../ApiAccess/ApiAccess';
 import { cookieNotFound, setCookie } from '../helpers/cookie';
 import { apiLocale } from '../ApiAccess/ApiAccess.locale';
+import UserAccount from '../ApiAccess/UserAccount';
+import { sendClickToGTM } from '../helpers/gtmHelpers';
 
 /**
  * API
@@ -54,7 +56,7 @@ userPromptTemplate.innerHTML = `
                     <button id="proactive-chat-button-open" data-analyticsid="askus-proactive-chatbot-button-open" data-testid="popopen-button" class="open proactive-chat-button" aria-label="Ask Library Chat Bot a question">Ask Library Chatbot</button>
                 </div>
                 <div id="button-open-crm" class="crmChatPrompt">
-                    <button id="crmChatPrompt" data-analyticsid="askus-proactive-chat-button-open" class="open crmchat-button" style="display: none"><span>Chat with Library staff</span></button>
+                    <button id="crmChatPrompt" data-testid="crm-chat-button" data-analyticsid="askus-proactive-chat-button-open" class="open crmchat-button" style="display: none"><span>Chat with Library staff</span></button>
                     <button id="leaveAQuestionPrompt" data-analyticsid="chat-status-icon-offline" class="open crmchat-button" style="display: none" aria-label="No staff available to chat - Leave a question"><span>Leave a question</span></button>
                 </div>
             </div>
@@ -67,10 +69,12 @@ chatbotIframeTemplate.innerHTML = `<div
     id="chatbot-wrapper"
     data-testid="chatbot-wrapper"
     class="chatbotWrapper"
+    role="dialog"
+    aria-labelledby="librarychatbot"
 >
     <div class="resizeHandleRepositionWrapper">
         <div class="topBar">
-            <h1>Library Chatbot</h1>
+            <h1 id="librarychatbot">Library Chatbot</h1>
             <button id="closeIframeButton" data-testid="closeIframeButton" data-analyticsid="chatbot-iframe-close" aria-label="Close Chatbot">
                 <!-- close "x" -->
                 <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
@@ -112,7 +116,7 @@ class ProactiveChat extends HTMLElement {
         const shadowDOM = this.attachShadow({ mode: 'open' });
 
         // Render the userPromptTemplate
-        shadowDOM.appendChild(userPromptTemplate.content.cloneNode(true));
+        !!userPromptTemplate && !!shadowDOM && shadowDOM.appendChild(userPromptTemplate.content.cloneNode(true));
 
         // copilot just shows a nasty error on app.library
         // only show the crm button
@@ -159,7 +163,8 @@ class ProactiveChat extends HTMLElement {
                     break;
                 /* istanbul ignore next  */
                 default:
-                    console.log(`unhandled attribute ${fieldName} received for ProactiveChat`);
+                    window.location.hostname === 'localhost' &&
+                        console.log(`unhandled attribute ${fieldName} received for ProactiveChat`);
             }
             // Change the attribs here?
             const proactiveChatElement = that.shadowRoot.getElementById('proactive-chat');
@@ -243,7 +248,7 @@ class ProactiveChat extends HTMLElement {
 
     addButtonListeners(shadowDOM, isOnline) {
         const that = this;
-        function closeChatBotIframe() {
+        function closeChatBotIframe(e) {
             const chatbotIframe = shadowDOM.getElementById('chatbot-wrapper');
             !!chatbotIframe && chatbotIframe.remove(); // deleting it rather than hiding it will force it to check for logout
             const proactivechatArea = shadowDOM.getElementById('proactivechat');
@@ -259,6 +264,7 @@ class ProactiveChat extends HTMLElement {
                 const wrapper = shadowDOM.getElementById('proactive-chat-wrapper');
                 !!wrapper && (wrapper.style.display = 'none');
             }
+            !!e && sendClickToGTM(e);
         }
 
         function swapToCrm() {
@@ -268,36 +274,36 @@ class ProactiveChat extends HTMLElement {
             openCrmChat();
         }
 
-        function openCrmChat() {
+        function openCrmChat(e) {
             let accountDetails = null;
-            const currentUserDetails = new ApiAccess().getAccountFromStorage();
+            new UserAccount().get().then((currentUserDetails) => {
+                const accountIsSet =
+                    currentUserDetails.hasOwnProperty('account') &&
+                    !!currentUserDetails.account &&
+                    currentUserDetails.account.hasOwnProperty('id') &&
+                    !!currentUserDetails.account.id;
+                if (!!accountIsSet) {
+                    accountDetails = currentUserDetails.account;
+                }
 
-            const accountIsSet =
-                currentUserDetails.hasOwnProperty('account') &&
-                !!currentUserDetails.account &&
-                currentUserDetails.account.hasOwnProperty('id') &&
-                !!currentUserDetails.account.id;
-            if (!!accountIsSet) {
-                accountDetails = currentUserDetails.account;
-            }
+                const params = [];
+                !!accountDetails?.mail && params.push(`email=${accountDetails?.mail}`);
+                !!accountDetails?.firstName && params.push(`name=${accountDetails?.firstName}`);
+                // &subject=users+question is also available, but we don't know their question :(
 
-            const params = [];
-            !!accountDetails?.mail && params.push(`email=${accountDetails?.mail}`);
-            !!accountDetails?.firstName && params.push(`name=${accountDetails?.firstName}`);
-            // &subject=users+question is also available, but we don't know their question :(
+                const productionDomain = 'www.library.uq.edu.au';
+                const isTestEnvironment =
+                    window.location.hostname.startsWith('homepage-') || // LTS feature branches
+                    window.location.hostname === 'localhost' ||
+                    window.location.hostname.endsWith('.pantheonsite.io'); // drupal10 test sites
+                const crmDomain = isTestEnvironment ? 'uqcurrent.crm.test.uq.edu.au' : 'support.my.uq.edu.au';
+                let url = `https://${crmDomain}/app/chat/chat_launch_lib/p/45`;
+                if (params.length > 0) {
+                    url = `${url}?${params.join('&')}`;
+                }
 
-            const productionDomain = 'www.library.uq.edu.au';
-            const isTestEnvironment =
-                window.location.hostname.startsWith('homepage-') || // LTS feature branches
-                window.location.hostname === 'localhost' ||
-                window.location.hostname.endsWith('.pantheonsite.io'); // drupal10 test sites
-            const crmDomain = isTestEnvironment ? 'uqcurrent.crm.test.uq.edu.au' : 'support.my.uq.edu.au';
-            let url = `https://${crmDomain}/app/chat/chat_launch_lib/p/45`;
-            if (params.length > 0) {
-                url = `${url}?${params.join('&')}`;
-            }
-
-            window.open(url, 'chat', 'toolbar=no, location=no, status=no, width=400, height=400');
+                window.open(url, 'chat', 'toolbar=no, location=no, status=no, width=400, height=400');
+            });
         }
 
         function openChatBotIframe() {
@@ -323,8 +329,10 @@ class ProactiveChat extends HTMLElement {
                 if (!!chatbotWrapper) {
                     chatbotWrapper.style.display = 'block';
                 } else {
-                    shadowDOM.appendChild(chatbotIframeTemplate.content.cloneNode(true));
-                    chatbotWrapper = shadowDOM.getElementById('chatbot-wrapper');
+                    !!chatbotIframeTemplate &&
+                        !!shadowDOM &&
+                        shadowDOM.appendChild(chatbotIframeTemplate.content.cloneNode(true));
+                    chatbotWrapper = !!shadowDOM && shadowDOM.getElementById('chatbot-wrapper');
                 }
 
                 // show chatbot source
@@ -353,35 +361,24 @@ class ProactiveChat extends HTMLElement {
                 }
                 let chatbotUrl = `${chatbotSrc}/chatbot.html`;
                 const chatBotIframe = !!chatbotWrapper && chatbotWrapper.getElementsByTagName('iframe');
-                const api = new ApiAccess();
-                const waitOnStorage = setInterval(() => {
-                    // sometimes it takes a moment before it is readable
-                    const currentUserDetails = api.getAccountFromStorage();
 
+                new UserAccount().get().then((currentUserDetails) => {
                     const accountAvailable =
                         currentUserDetails.hasOwnProperty('account') &&
                         !!currentUserDetails.account &&
                         currentUserDetails.account.hasOwnProperty('id') &&
                         !!currentUserDetails.account.id;
                     if (!!accountAvailable) {
-                        clearInterval(waitOnStorage);
-
                         chatbotUrl +=
                             '?' +
                             `name=${currentUserDetails.account.firstName}&email=${currentUserDetails.account.mail}`;
-                        !!chatBotIframe && chatBotIframe.length > 0 && (chatBotIframe[0].src = chatbotUrl);
-                    } else if (
-                        !!currentUserDetails &&
-                        currentUserDetails.hasOwnProperty('status') &&
-                        currentUserDetails.status === apiLocale.USER_LOGGED_OUT
-                    ) {
-                        clearInterval(waitOnStorage);
-                        !!chatBotIframe && chatBotIframe.length > 0 && (chatBotIframe[0].src = chatbotUrl);
                     }
-                }, 200);
+                    !!chatBotIframe && chatBotIframe.length > 0 && (chatBotIframe[0].src = chatbotUrl);
+                });
 
                 const openCrmButton = shadowDOM.getElementById('speakToPerson');
                 !!openCrmButton && openCrmButton.addEventListener('click', swapToCrm);
+                !!openCrmButton && openCrmButton.addEventListener('click', sendClickToGTM);
                 const chatbotCloseButton = shadowDOM.getElementById('closeIframeButton');
                 !!chatbotCloseButton && chatbotCloseButton.addEventListener('click', closeChatBotIframe);
 
@@ -443,6 +440,11 @@ class ProactiveChat extends HTMLElement {
         !!proactiveChatWithBot && proactiveChatWithBot.addEventListener('click', openChatBotIframe);
         const proactiveleaveQuestion = shadowDOM.getElementById('leaveAQuestionPrompt');
         !!proactiveleaveQuestion && proactiveleaveQuestion.addEventListener('click', navigateToContactUs);
+
+        const buttons = shadowDOM.querySelectorAll('button');
+        !!buttons &&
+            buttons.length > 0 &&
+            buttons.forEach((b) => b.addEventListener('click', (e) => sendClickToGTM(e)));
     }
 
     isChatBotHiddenHere() {
