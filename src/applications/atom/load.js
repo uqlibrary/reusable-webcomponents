@@ -164,7 +164,10 @@ if (typeof readyFryer !== 'function') {
     }
 
     function isEnvironmentProduction() {
-        return window.location.host === 'manuscripts.library.uq.edu.au';
+        return (
+            window.location.host === 'manuscripts.library.uq.edu.au' ||
+            window.location.host === 'manuscripts-prod.library.uq.edu.au'
+        );
     }
 
     function getIncludeFileLocation(filename) {
@@ -435,7 +438,7 @@ if (typeof readyFryer !== 'function') {
 
         if (!document.querySelector('uq-site-header')) {
             let breadcrumbLabel = 'Fryer Library Manuscripts';
-            if (window.location.hostname !== 'manuscripts.library.uq.edu.au') {
+            if (!isEnvironmentProduction()) {
                 breadcrumbLabel =
                     window.location.hostname.substring(0, window.location.hostname.indexOf('.')) + ' Fryer';
             }
