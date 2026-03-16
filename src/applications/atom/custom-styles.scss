@@ -1,35 +1,540 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url(https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Roboto:wght@400;500&display=swap);
 
-$accent-color: #2377cb;
+// colours: https://design-system.ads-staging.aws.uq.edu.au/?path=/docs/core-colour--docs
+$grey-900: #3b383e;
+$purple-50: #eee9f2;
+$purple-500: #51247a;
+$purple-500-rgb: 81, 36, 122;
+$utility-50: #e7f0fa;
+$utility-500: #0d6dcd;
+$black: #19151c;
 
-// provide a space at the top of the sidebar for the new button-block to sit in
-// (this makes the page flicker less when they load new content with the weird tree structure at the top of the page)
-#main-column .sidebarParent {
-    padding-top: 155px;
-    position: relative;
+$accent-color: $purple-500;
+$accent-color-rgb: $purple-500-rgb;
+$body-copy: $grey-900;
+$body-copy-rgb: 59, 56, 62;
+$info-banner-background: $utility-50;
+$border-color: rgba(38, 85, 115, 0.15);
+$heading-colour: $black;
+
+$bodyFontFamily: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$H1FontFamily: 'Montserrat', Helvetica, Arial, sans-serif;
+
+$minDesktopSize: 768px; // has multiple columns
+$maxResponsiveSize: 767px; // columns stack
+
+@mixin bodyCopy() {
+    font-family: $bodyFontFamily;
+    font-size: 1rem;
+    font-weight: 400;
+    color: $body-copy;
+    letter-spacing: 0.16px;
+    line-height: 1.5;
+}
+@mixin heading() {
+    font-family: $bodyFontFamily;
+    font-weight: 500;
+    color: $heading-colour;
+    letter-spacing: 0.16px;
+    line-height: 1.2;
+}
+@mixin uqPrimaryButton($baseColor: $accent-color, $reverseColor: #fff) {
+    background-color: $baseColor !important;
+    color: $reverseColor !important;
+    border: 2px solid $baseColor;
+    &:focus,
+    &:hover {
+        background-color: $reverseColor !important;
+        color: $baseColor !important;
+        span {
+            text-decoration: underline;
+        }
+    }
+}
+@mixin uqSecondaryButton($baseColor: #fff, $reverseColor: $accent-color) {
+    @include uqPrimaryButton($baseColor, $reverseColor);
+    border-color: $reverseColor;
+    &:hover span {
+        text-decoration: underline;
+    }
+}
+@mixin uqTertiaryButton($baseColor: #fff, $reverseColor: $accent-color) {
+    background-color: $baseColor !important;
+    color: $reverseColor !important;
+    span {
+        text-decoration: underline;
+    }
+    &:focus-visible,
+    &:hover {
+        &:not([disabled]) {
+            background-color: $reverseColor !important;
+            color: $baseColor !important;
+        }
+    }
+}
+:root {
+    // override bootstrap colours!!
+    --bs-body-color: #{$body-copy};
+    --bs-body-color-rgb: #{$body-copy-rgb};
+    --bs-link-color: #{$accent-color};
+    --bs-link-color-rgb: #{$accent-color-rgb};
+    --bs-link-hover-color-rgb: #fff;
+    --bs-dropdown-link-color: #{$accent-color} !important;
+    --bs-primary-rgb: #{$accent-color-rgb};
+    --bs-dropdown-link-hover-color: #fff;
+    --bs-dropdown-link-hover-bg: #{$accent-color-rgb};
+
+    --bs-body-bg: #fff;
+    --bs-body-bg-rgb: 0, 0, 0;
+    --bs-secondary-color: #{$body-copy};
+    --bs-secondary-color-rgb: #{$body-copy-rgb};
+    --bs-secondary-bg: #{$accent-color};
+    --bs-secondary-bg-rgb: #{$accent-color-rgb};
+    --bs-tertiary-color: #{$accent-color};
+    --bs-tertiary-color-rgb: #{$accent-color-rgb};
+    --bs-tertiary-bg: #fff;
+    --bs-tertiary-bg-rgb: 0, 0, 0;
+
+    --bs-border-radius: 4px;
+    --bs-border-radius-sm: 4px;
+    --bs-border-radius-lg: 4px;
+    --bs-border-radius-xl: 4px;
+    --bs-border-radius-xxl: 4px;
+
+    --bs-body-font-family: #{$bodyFontFamily};
+}
+.breadcrumb {
+    --bs-breadcrumb-divider-color: $accent-color;
+}
+.atom-btn-secondary {
+    --bs-btn-active-bg: #fff;
+    --bs-btn-active-color: #{$accent-color-rgb};
 }
 
-.bookNowLink {
-    background-color: $accent-color;
-    color: #fff !important;
-    display: block;
-    margin-top: 1em;
-    padding: 1em;
-    text-align: center;
-    font-size: 14px;
+html,
+body {
+    background-color: rgb(243, 243, 244) !important;
+}
+
+h1 {
+    @include heading();
+    font-size: 2.5em;
+    font-family: $H1FontFamily;
+}
+h2 {
+    @include heading();
+    font-size: 2em;
+}
+h3 {
+    @include heading();
+    font-size: 1.5em;
+}
+
+#wrapper {
+    max-width: 73.25rem;
+}
+
+// hide the link to the institutional page - its weird in our use of the atom package
+a[href='/index.php/repository/browse'] {
+    display: none;
+}
+
+// main body of detail page
+#content {
+    border-width: 1px;
+    border-style: solid;
+    border-color: $border-color;
+    border-image: initial;
+    border-radius: 4px;
+    h2 .text-primary {
+        @include heading();
+        margin: 0;
+        display: block;
+        color: $heading-colour !important;
+        font-size: 1.5rem;
+    }
+    .field {
+        h3,
+        h4 {
+            @include heading();
+            font-size: 1rem;
+        }
+        div {
+            @include bodyCopy();
+        }
+    }
+    a {
+        &:hover,
+        &:focus {
+            background-color: $accent-color;
+            color: #fff;
+        }
+    }
+    .border-top {
+        border-color: $border-color;
+    }
+    .border-right {
+        border-color: $border-color;
+    }
+    .border-bottom {
+        border-color: $border-color;
+    }
+    .border-left {
+        border-color: $border-color;
+    }
+}
+a.dropdown-item {
+    background-color: #fff;
+    color: $accent-color;
     &:hover,
     &:focus {
-        color: $accent-color !important;
-        background-color: #fff;
+        background-color: $accent-color;
+        color: #fff !important;
+    }
+}
+.yui-ac-content ul li,
+ul#search-box-results a {
+    background-color: #fff;
+    color: $accent-color;
+    &:hover,
+    &:focus {
+        background-color: $accent-color;
+        color: #fff !important;
+        span.text-muted {
+            background-color: $accent-color;
+            color: #fff !important;
+        }
+    }
+}
+[slot='site-utilities'] {
+    // the action menu is moved into the site header
+    & > div > a {
+        // menu button
+        font-weight: 500;
+        font-family: Roboto, Helvetica, sans-serif;
+    }
+    a {
+        // links in drop down
+        text-decoration: none;
+        font-family: $bodyFontFamily;
+        color: $heading-colour;
+        line-height: 160%;
+        -webkit-font-smoothing: antialiased;
+        &:hover,
+        &:focus {
+            span {
+                background-color: $accent-color;
+                color: #fff;
+            }
+        }
+        &:after {
+            content: none; // hide the supplied arrow so we can add an icon instead and then not mark it with hover
+        }
+
+        .upArrow {
+            display: none;
+        }
+        // Only show up arrow when the sibling dropdown menu is visible (show-hide is a built-in Bootstrap function)
+        &:has(+ .dropdown-menu[style*='display: block']),
+        &:has(+ .dropdown-menu[style*='display:block']) {
+            .downArrow {
+                display: none;
+            }
+            .upArrow {
+                display: block;
+            }
+        }
+    }
+    li {
+        padding-block: 0.25rem; // make the vertical spacing of popup menu items match what we see in the account menu on homepage
+    }
+    li:first-of-type {
+        margin-top: 8px;
+    }
+    [aria-labelledby='quick-links-menu'] {
+        // try and improve the way the popup menu closes, given our changes to the transform value
+        transition: transform 5ms ease-out;
+    }
+}
+// the entries that are wrapped in a span by load.js setupLinksForStyling
+a.atom-icon-link,
+ul[aria-labelledby='quick-links-menu'] a,
+nav ul.list-unstyled a,
+ul[aria-labelledby='browse-menu'] a,
+#collapse-treeview a,
+#sidebar a,
+#context-menu a,
+#collapse-aggregations a {
+    text-decoration: underline;
+    &:hover,
+    &:focus {
+        background-color: unset !important;
+        color: unset !important;
+        span {
+            background-color: $accent-color;
+            color: #fff;
+            text-decoration: underline;
+        }
+    }
+}
+ul[aria-labelledby='quick-links-menu'] a {
+    text-decoration: none;
+}
+nav a.nav-link.dropdown-toggle {
+    &:hover,
+    &:focus {
+        i {
+            background-color: #fff !important;
+        }
+    }
+}
+nav.sidebarParent {
+    #physical-objects,
+    div.field,
+    div.box {
+        background-color: rgb(255, 255, 255);
+        color: rgba(0, 0, 0, 0.87);
+        box-shadow: none;
+        transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1);
+        overflow: hidden;
+        border-width: 1px;
+        border-style: solid;
+        border-color: $border-color;
+        border-image: initial;
+        border-radius: 4px;
+        padding: 1.5rem 1.5rem 0 1.5rem;
+        margin-bottom: 32px;
+        h4 {
+            @include heading();
+            margin-bottom: 1rem !important;
+            display: block;
+            font-size: 1.5rem;
+        }
+        a {
+            text-decoration: underline;
+            font-family: $bodyFontFamily;
+            &:hover,
+            &:focus {
+                i {
+                    color: $accent-color;
+                }
+                span {
+                    background-color: $accent-color;
+                    color: #fff;
+                }
+            }
+        }
+    }
+    span.read-more {
+        margin-top: 1rem;
+        display: block;
+        a {
+            text-decoration: underline;
+            &:hover,
+            &:focus {
+                background-color: $accent-color;
+                color: #fff;
+            }
+        }
     }
 }
 
-.bookNowWrapper {
-    background-color: rgba(0, 0, 0, 0.1);
-    padding: 1rem;
-    text-align: center;
-    position: absolute;
-    top: 0;
+.navbar-nav {
+    --bs-nav-link-hover-color: #fff;
+}
+
+header {
+    display: block !important;
+
+    .collapse:not(.show) {
+        display: block !important; // we show the search bar anyway
+    }
+    .navbar-toggler {
+        display: none; // dont show the toggle button, as nothing toggles
+    }
+    @media (max-width: 991px) {
+        h1 {
+            font-size: 1.6em; // make main heading go to one line
+        }
+    }
+
+    .container-fluid {
+        display: flex;
+        align-items: center;
+    }
+    a.navbar-brand {
+        &:hover,
+        &:focus {
+            span {
+                text-decoration: underline;
+            }
+        }
+    }
+    .textHomeLink {
+        color: #fff;
+        font-weight: 500;
+        font-size: 22px;
+        margin-right: 4px;
+        &:hover,
+        &:focus {
+            text-decoration: underline;
+            background-color: #fff;
+            color: $accent-color;
+        }
+    }
+    button.btn {
+        background-color: $accent-color;
+        border-color: $accent-color;
+        color: #fff;
+        &:hover,
+        &:focus {
+            background-color: #fff;
+            border-color: #fff;
+            color: $accent-color;
+        }
+    }
+    // hide the login button
+    button#user-menu {
+        display: none;
+    }
+
+    a#quick-links-menu {
+        margin-block: auto;
+        margin-left: 1rem;
+        svg {
+            fill: #fff;
+        }
+    }
+}
+
+.sidebarSearchWrapper {
+    border-width: 1px;
+    border-style: solid;
+    border-color: $border-color;
+    border-image: initial;
+    border-radius: 4px;
+    padding: 1.5rem 1rem 0 1rem;
+    background-color: #fff;
+    margin-inline: auto;
+
+    ul button {
+        @include bodyCopy();
+        border-width: 0 !important;
+        margin: 0;
+        display: block;
+        color: $heading-colour !important;
+        font-size: 1.5rem;
+        font-weight: 500;
+        text-align: left;
+        padding: 0;
+
+        --bs-nav-tabs-border-width: -0.7rem;
+    }
+    form {
+        padding: 0 !important;
+    }
+    .no-results {
+        border-color: $border-color !important;
+        background-color: $utility-50;
+    }
+}
+.form-select,
+.form-control {
+    &:focus {
+        box-shadow: none;
+        border-color: inherit;
+    }
+}
+
+#context-menu {
+    i {
+        color: $accent-color;
+    }
+    #action-icons {
+        button {
+            border-width: 0;
+            color: $accent-color;
+            text-decoration: underline;
+            padding-left: 0;
+
+            &:focus {
+                box-shadow: none;
+            }
+
+            // get rid of weird underline on icon
+            i {
+                width: 8px;
+            }
+            span {
+                padding-left: 4px;
+            }
+        }
+
+        a:hover,
+        a:focus,
+        button:hover,
+        button:focus {
+            background-color: #fff;
+
+            span {
+                background-color: $accent-color;
+                color: #fff;
+            }
+
+            i {
+                color: $accent-color;
+            }
+        }
+
+        li {
+            padding-bottom: 1rem;
+            &:last-of-type {
+                padding-bottom: 0;
+            }
+        }
+    }
+    #physical-objects,
+    .field {
+        li {
+            padding-bottom: 1rem;
+            &:last-of-type {
+                padding-bottom: 0;
+            }
+        }
+    }
+}
+#main-column .sidebarParent {
+    position: relative;
+}
+
+nav.sidebarParent div.box.bookNowBox {
+    svg {
+        height: 40px;
+        width: 40px;
+        margin-bottom: 0.5rem;
+    }
+    h4 {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem !important;
+    }
+    p {
+        margin-bottom: 1.5rem;
+    }
+    .bookNowLink {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 5px;
+        margin-bottom: 1rem;
+        a {
+            &:hover,
+            &:focus {
+                color: #fff !important;
+                background-color: $accent-color !important;
+            }
+        }
+    }
 }
 
 // hide the built in "i" font applied to the button
@@ -44,31 +549,98 @@ $accent-color: #2377cb;
     fill: #fff;
 }
 
-@media (min-width: 979px) {
-    .header-outer {
-        width: 940px;
-        margin-left: auto;
-        margin-right: auto;
+header .header-outer {
+    .navbar-brand {
+        display: none !important; // hide the logo - we are adding uq headers
     }
-}
-@media (min-width: 1200px) {
-    .header-outer {
-        width: 1170px;
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    width: 100%;
+    padding-right: calc(var(--bs-gutter-x) * 0.5);
+    padding-left: calc(var(--bs-gutter-x) * 0.5);
+    margin-right: auto;
+    margin-left: auto;
+    #navbar-content .navbar-nav {
+        margin-right: 0 !important;
     }
-}
-
-@media (max-width: 979px) {
-    .header-outer nav {
-        max-width: 99vw;
+    .navbar-collapse {
+        position: relative;
+        & > div:first-of-type {
+            // form immediate wrapper
+            width: 100%;
+            flex-direction: column-reverse;
+        }
+        .dropdown {
+            display: flex;
+            margin-bottom: 0 !important;
+        }
     }
-    .header-outer #search-bar {
-        max-width: 80vw;
+    form {
+        width: 100% !important;
         margin-left: 0;
         margin-right: 0;
+        flex-direction: column;
+        max-width: inherit !important;
+        margin-top: 1rem !important;
+        h2,
+        h3 {
+            color: #fff;
+            text-align: left;
+        }
+        h3 {
+            font-size: 18px;
+        }
+        button {
+            background-color: #fff;
+            border-color: #fff;
+            color: $accent-color;
+            &:focus {
+                box-shadow: none;
+            }
+            i {
+                color: $accent-color;
+            }
+        }
+        button,
+        input {
+            height: 51px; // match homepage search input height
+            color: $body-copy;
+            &:focus {
+                border-color: #fff;
+            }
+        }
+        input {
+            border: 1px solid #fff;
+            border-radius: 0;
+        }
+        button:first-of-type {
+            border-radius: 2px 0 0 2px;
+            padding-left: 1rem;
+            i {
+                color: $accent-color;
+            }
+        }
+        button:last-of-type {
+            border-radius: 0 2px 2px 0;
+            padding-right: 1rem;
+        }
+    }
+    @media (min-width: 64em) {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 73.25rem;
+        text-align: right;
+    }
+    .dropdown-menu h6 {
+        @include heading();
+        margin: 0;
+        display: block;
+        color: $heading-colour !important;
+        font-size: 1.3rem;
     }
 }
 
-@media (max-width: 767px) {
+@media (max-width: $maxResponsiveSize) {
     #site-name {
         float: left;
         margin-top: 6px;
@@ -76,21 +648,31 @@ $accent-color: #2377cb;
 }
 
 // hide the "Quick links" tool tip that appears when the user mouses over the hamburger button
-nav {
-    .tooltip-arrow,
-    .tooltip-inner {
-        display: none;
-    }
+.tooltip {
+    display: none !important;
 }
 
 .culturalAdviceBanner {
-    padding: 0.8em 1em;
-    border-color: #bbd8f5;
-    color: #000;
-    background-color: #bbd8f5;
-    border-radius: 3px;
-    font-size: 15px;
-    line-height: initial;
+    padding: 1em 1em 1em 4em;
+    background-color: $info-banner-background;
+    color: $body-copy;
+    font-family: $bodyFontFamily;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
+    position: relative;
+    margin-bottom: 1rem;
+    & div:before {
+        content: '';
+        background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='12' cy='12' r='9.25' transform='rotate(-180 12 12)' stroke='%233b383e' stroke-width='1.5'%3e%3c/circle%3e%3cpath d='M12 16.2v-4' stroke='%233b383e' stroke-width='1.5' stroke-linecap='round'%3e%3c/path%3e%3ccircle cx='12' cy='8.4' r='1.1' transform='rotate(-180 12 8.4)' fill='%233b383e'%3e%3c/circle%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-size: 1.5rem;
+        width: 1.5rem;
+        height: 1.5rem;
+        position: absolute;
+        top: 1rem;
+        left: 1.5rem;
+    }
     & p {
         margin-bottom: 0;
     }
@@ -103,57 +685,255 @@ nav {
     }
 }
 .customIndicatorLabel {
-    font-size: 11px;
+    font-size: 16px;
     margin-top: -1px;
 }
 .culturalAdviceMark {
-    path {
-        fill: $accent-color;
+    svg {
+        color: $utility-500;
+        width: 24px;
+        height: 24px;
+        path {
+            fill: $utility-500;
+        }
     }
 }
 
-// colours: https://design-system.ads-staging.aws.uq.edu.au/?path=/docs/core-colour--docs
-$color-success-50: #edf6ed;
-$color-success-100: #dbeddc;
-
 // override tree colours in https://sandbox-fryer.library.uq.edu.au/vendor/jstree/themes/default/style.min.css
 .jstree-default .jstree-hovered {
-    background: $color-success-50;
+    background: $utility-50;
 }
 
 .jstree-default .jstree-context {
-    background: $color-success-50;
+    background: $utility-50;
 }
 
 .jstree-default .jstree-clicked {
-    color: #000 !important;
-    background: $color-success-100;
+    color: #fff !important;
+    background: $accent-color !important;
 }
-.jstree-default.jstree-checkbox-no-clicked .jstree-clicked.jstree-hovered {
-    background: $color-success-50;
-}
-
-.jstree-default.jstree-checkbox-no-clicked>.jstree-wholerow-ul .jstree-wholerow-clicked.jstree-wholerow-hovered {
-    background: $color-success-50;
-}
-.jstree-default .jstree-wholerow-hovered {
-    background: $color-success-50;
-}
+//.jstree-default.jstree-checkbox-no-clicked .jstree-clicked.jstree-hovered {
+//    background: $utility-50;
+//}
+//
+//.jstree-default.jstree-checkbox-no-clicked>.jstree-wholerow-ul .jstree-wholerow-clicked.jstree-wholerow-hovered {
+//    background: $utility-50;
+//}
+//.jstree-default .jstree-wholerow-hovered {
+//    background: $utility-50;
+//}
 
 .jstree-default .jstree-wholerow-clicked {
-    background: $color-success-100;
-    background: linear-gradient(to bottom,$color-success-100 0,$color-success-50 100%)
+    background: $accent-color;
+    background: linear-gradient(to bottom, $accent-color 0, $utility-50 100%);
 }
-.jstree-default-responsive .jstree-wholerow-hovered {
-    background: $color-success-50;
-}
+//.jstree-default-responsive .jstree-wholerow-hovered {
+//    background: $utility-50;
+//}
 
 .jstree-default-responsive .jstree-wholerow-clicked {
-    background: $color-success-100;
+    background: $accent-color;
 }
-.jstree-anchor,
-.jstree-default {
-    &:hover {
-        background: $color-success-50;
+//.jstree-anchor,
+//.jstree-default {
+//    &:hover {
+//        background: $utility-50;
+//    }
+//}
+
+.list-group {
+    --bs-list-group-border-width: 0;
+}
+.card > .list-group {
+    border-top-width: 0;
+    border-bottom-width: 0;
+}
+
+.list-group {
+    --bs-list-group-action-hover-bg: transparent;
+}
+#sidebar {
+    h2 {
+        margin: 0;
+        font-family: $bodyFontFamily;
+        display: block;
+        color: $heading-colour !important;
+        font-size: 1.5rem;
+        font-weight: 500;
+        @include heading();
+    }
+
+    .sidebarSearchWrapper,
+    img {
+        width: 100%;
+    }
+
+    a.list-group-item {
+        text-decoration: none !important;
+        color: $accent-color;
+        span:first-of-type {
+            text-decoration: underline !important;
+        }
+        &:hover,
+        &:focus {
+            span:first-of-type {
+                color: #fff;
+                background-color: $accent-color;
+                text-decoration: underline !important;
+            }
+            span:not(:first-of-type) {
+                color: $accent-color;
+                background-color: inherit;
+                text-decoration: none;
+            }
+        }
+    }
+    input {
+        font-size: 14px;
+    }
+    .list-group > a:last-of-type:has(i) {
+        font-size: 13px;
+    }
+    a {
+        &:hover,
+        &:focus {
+            i {
+                color: #fff;
+            }
+        }
+    }
+    .repository-logo {
+        display: none;
+    }
+}
+
+// small buttons
+.atom-btn-white {
+    &:hover i,
+    &.atom-btn-white:focus i {
+        color: $accent-color;
+    }
+    &.active-primary.active {
+        background-color: $accent-color;
+        border-color: $accent-color;
+    }
+}
+
+// hide the clipboard function, header & search results - not required by Fryer\
+.box:has(i.fa-paperclip),
+button,
+a {
+    &:has(i.fa-paperclip) {
+        display: none !important;
+    }
+}
+
+input[aria-label='Search']::placeholder {
+    color: $body-copy;
+    opacity: 0.42;
+}
+
+.form-check-input {
+    &:checked {
+        background-color: $accent-color;
+        border-color: $accent-color;
+    }
+    &:focus {
+        border-color: $purple-50;
+    }
+}
+
+.accordion-body {
+    .actions {
+        background-color: transparent;
+        justify-content: space-between !important;
+        input[value='Reset'] {
+            @include uqSecondaryButton();
+        }
+        input[value='Search'] {
+            @include uqPrimaryButton();
+        }
+    }
+}
+
+nav[aria-label='Page navigation'] {
+    .pagination {
+        align-items: center;
+        li {
+            &:first-of-type,
+            &:last-of-type {
+                a {
+                    border-radius: 0;
+                    border-width: 0;
+                    padding: 0;
+                    margin: var(--bs-pagination-padding-y) var(--bs-pagination-padding-x);
+                    &:hover,
+                    &:focus {
+                        background-color: $accent-color;
+                        color: #fff;
+                    }
+                }
+            }
+            &:not(:first-of-type):not(:last-of-type) {
+                a,
+                span {
+                    border-width: 2px;
+                    border-color: transparent;
+                    border-radius: 50%;
+                    padding: 8px 10px 10px 14.5px;
+                    margin: 0 2px;
+                    width: 44px;
+                    height: 44px;
+
+                    &:hover,
+                    &:focus {
+                        color: $accent-color;
+                        border-color: $accent-color;
+                        text-decoration: underline;
+                        text-decoration-color: $accent-color;
+                    }
+                }
+            }
+            &.active span {
+                background-color: $accent-color !important;
+                border-color: $accent-color;
+                color: #fff !important;
+                margin-left: 0.25rem;
+                margin-right: 0.25rem;
+            }
+            &:not(.active) a {
+                background-color: transparent;
+                text-decoration: none;
+            }
+            &.disabled:not(:first-of-type):not(:last-of-type) span {
+                background-color: transparent;
+            }
+        }
+    }
+}
+
+// the search sidebar truncates to become unreadable
+div#sidebar ul li span a span {
+    white-space: normal;
+}
+#treeview {
+    @media (min-width: 991px) {
+        max-height: none; // on mobile, the box height can trap the user on this section of the page. Leave the height locked on mobile
+    }
+    overflow: auto;
+}
+
+uq-footer {
+    margin-top: 50px;
+}
+
+[role="main"] {
+    @media (max-width: 991px) {
+        h2 {
+            margin-top: 0.5rem;
+        }
+    }
+    a {
+        text-decoration: underline; // body links should have underline
     }
 }
