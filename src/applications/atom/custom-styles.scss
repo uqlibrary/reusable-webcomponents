@@ -104,851 +104,965 @@ $maxResponsiveSize: 767px; // columns stack
 
     --bs-body-font-family: #{$bodyFontFamily};
 }
-.breadcrumb {
-    --bs-breadcrumb-divider-color: $accent-color;
-}
-.atom-btn-secondary {
-    --bs-btn-active-bg: #fff;
-    --bs-btn-active-color: #{$accent-color-rgb};
-}
-
 html,
 body {
     background-color: rgb(243, 243, 244) !important;
 }
 
-h1 {
-    @include heading();
-    font-size: 2.5em;
-    font-family: $H1FontFamily;
-}
-h2 {
-    @include heading();
-    font-size: 2em;
-}
-h3 {
-    @include heading();
-    font-size: 1.5em;
-}
+body.d-flex {
+    .breadcrumb {
+        --bs-breadcrumb-divider-color: $accent-color;
+    }
 
-#wrapper {
-    max-width: 73.25rem;
-}
+    .atom-btn-secondary {
+        --bs-btn-active-bg: #fff;
+        --bs-btn-active-color: #{$accent-color-rgb};
+    }
 
-// hide the link to the institutional page - its weird in our use of the atom package
-a[href='/index.php/repository/browse'] {
-    display: none;
-}
-
-// main body of detail page
-#content {
-    border-width: 1px;
-    border-style: solid;
-    border-color: $border-color;
-    border-image: initial;
-    border-radius: 4px;
-    h2 .text-primary {
+    h1 {
         @include heading();
-        margin: 0;
-        display: block;
-        color: $heading-colour !important;
-        font-size: 1.5rem;
+        font-size: 2.5em;
+        font-family: $H1FontFamily;
     }
-    .field {
-        h3,
-        h4 {
-            @include heading();
-            font-size: 1rem;
-        }
-        div {
-            @include bodyCopy();
-        }
-    }
-    a {
-        &:hover,
-        &:focus {
-            background-color: $accent-color;
-            color: #fff;
-        }
-    }
-    .border-top {
-        border-color: $border-color;
-    }
-    .border-right {
-        border-color: $border-color;
-    }
-    .border-bottom {
-        border-color: $border-color;
-    }
-    .border-left {
-        border-color: $border-color;
-    }
-}
-a.dropdown-item {
-    background-color: #fff;
-    color: $accent-color;
-    &:hover,
-    &:focus {
-        background-color: $accent-color;
-        color: #fff !important;
-    }
-}
-.yui-ac-content ul li,
-ul#search-box-results a {
-    background-color: #fff;
-    color: $accent-color;
-    &:hover,
-    &:focus {
-        background-color: $accent-color;
-        color: #fff !important;
-        span.text-muted {
-            background-color: $accent-color;
-            color: #fff !important;
-        }
-    }
-}
-[slot='site-utilities'] {
-    // the action menu is moved into the site header
-    & > div > a {
-        // menu button
-        font-weight: 500;
-        font-family: Roboto, Helvetica, sans-serif;
-    }
-    a {
-        // links in drop down
-        text-decoration: none;
-        font-family: $bodyFontFamily;
-        color: $heading-colour;
-        line-height: 160%;
-        -webkit-font-smoothing: antialiased;
-        &:hover,
-        &:focus {
-            span {
-                background-color: $accent-color;
-                color: #fff;
-            }
-        }
-        &:after {
-            content: none; // hide the supplied arrow so we can add an icon instead and then not mark it with hover
-        }
 
-        .upArrow {
-            display: none;
-        }
-        // Only show up arrow when the sibling dropdown menu is visible (show-hide is a built-in Bootstrap function)
-        &:has(+ .dropdown-menu[style*='display: block']),
-        &:has(+ .dropdown-menu[style*='display:block']) {
-            .downArrow {
-                display: none;
-            }
-            .upArrow {
-                display: block;
-            }
-        }
+    h2 {
+        @include heading();
+        font-size: 2em;
     }
-    li {
-        padding-block: 0.25rem; // make the vertical spacing of popup menu items match what we see in the account menu on homepage
+
+    h3 {
+        @include heading();
+        font-size: 1.5em;
     }
-    li:first-of-type {
-        margin-top: 8px;
+
+    #wrapper {
+        max-width: 73.25rem;
     }
-    [aria-labelledby='quick-links-menu'] {
-        // try and improve the way the popup menu closes, given our changes to the transform value
-        transition: transform 5ms ease-out;
+
+    // hide the link to the institutional page - its weird in our use of the atom package
+    a[href='/index.php/repository/browse'] {
+        display: none;
     }
-}
-// the entries that are wrapped in a span by load.js setupLinksForStyling
-a.atom-icon-link,
-ul[aria-labelledby='quick-links-menu'] a,
-nav ul.list-unstyled a,
-ul[aria-labelledby='browse-menu'] a,
-#collapse-treeview a,
-#sidebar a,
-#context-menu a,
-#collapse-aggregations a {
-    text-decoration: underline;
-    &:hover,
-    &:focus {
-        background-color: unset !important;
-        color: unset !important;
-        span {
-            background-color: $accent-color;
-            color: #fff;
-            text-decoration: underline;
-        }
-    }
-}
-ul[aria-labelledby='quick-links-menu'] a {
-    text-decoration: none;
-}
-nav a.nav-link.dropdown-toggle {
-    &:hover,
-    &:focus {
-        i {
-            background-color: #fff !important;
-        }
-    }
-}
-nav.sidebarParent {
-    #physical-objects,
-    div.field,
-    div.box {
-        background-color: rgb(255, 255, 255);
-        color: rgba(0, 0, 0, 0.87);
-        box-shadow: none;
-        transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1);
-        overflow: hidden;
+
+    // main body of detail page
+    #content {
         border-width: 1px;
         border-style: solid;
         border-color: $border-color;
         border-image: initial;
         border-radius: 4px;
-        padding: 1.5rem 1.5rem 0 1.5rem;
-        margin-bottom: 32px;
-        h4 {
+
+        h2 .text-primary {
             @include heading();
-            margin-bottom: 1rem !important;
+            margin: 0;
             display: block;
+            color: $heading-colour !important;
             font-size: 1.5rem;
         }
+
+        .field {
+            h3,
+            h4 {
+                @include heading();
+                font-size: 1rem;
+            }
+
+            div {
+                @include bodyCopy();
+            }
+        }
+
         a {
-            text-decoration: underline;
-            font-family: $bodyFontFamily;
             &:hover,
             &:focus {
-                i {
-                    color: $accent-color;
-                }
+                background-color: $accent-color;
+                color: #fff;
+            }
+        }
+
+        .border-top {
+            border-color: $border-color;
+        }
+
+        .border-right {
+            border-color: $border-color;
+        }
+
+        .border-bottom {
+            border-color: $border-color;
+        }
+
+        .border-left {
+            border-color: $border-color;
+        }
+    }
+
+    a.dropdown-item {
+        background-color: #fff;
+        color: $accent-color;
+
+        &:hover,
+        &:focus {
+            background-color: $accent-color;
+            color: #fff !important;
+        }
+    }
+
+    .yui-ac-content ul li,
+    ul#search-box-results a {
+        background-color: #fff;
+        color: $accent-color;
+
+        &:hover,
+        &:focus {
+            background-color: $accent-color;
+            color: #fff !important;
+
+            span.text-muted {
+                background-color: $accent-color;
+                color: #fff !important;
+            }
+        }
+    }
+
+    [slot='site-utilities'] {
+        // the action menu is moved into the site header
+        & > div > a {
+            // menu button
+            font-weight: 500;
+            font-family: Roboto, Helvetica, sans-serif;
+        }
+
+        a {
+            // links in drop down
+            text-decoration: none;
+            font-family: $bodyFontFamily;
+            color: $heading-colour;
+            line-height: 160%;
+            -webkit-font-smoothing: antialiased;
+
+            &:hover,
+            &:focus {
                 span {
+                    background-color: $accent-color;
+                    color: #fff;
+                }
+            }
+
+            &:after {
+                content: none; // hide the supplied arrow so we can add an icon instead and then not mark it with hover
+            }
+
+            .upArrow {
+                display: none;
+            }
+
+            // Only show up arrow when the sibling dropdown menu is visible (show-hide is a built-in Bootstrap function)
+            &:has(+ .dropdown-menu[style*='display: block']),
+            &:has(+ .dropdown-menu[style*='display:block']) {
+                .downArrow {
+                    display: none;
+                }
+
+                .upArrow {
+                    display: block;
+                }
+            }
+        }
+
+        li {
+            padding-block: 0.25rem; // make the vertical spacing of popup menu items match what we see in the account menu on homepage
+        }
+
+        li:first-of-type {
+            margin-top: 8px;
+        }
+
+        [aria-labelledby='quick-links-menu'] {
+            // try and improve the way the popup menu closes, given our changes to the transform value
+            transition: transform 5ms ease-out;
+        }
+    }
+
+    // the entries that are wrapped in a span by load.js setupLinksForStyling
+    a.atom-icon-link,
+    ul[aria-labelledby='quick-links-menu'] a,
+    nav ul.list-unstyled a,
+    ul[aria-labelledby='browse-menu'] a,
+    #collapse-treeview a,
+    #sidebar a,
+    #context-menu a,
+    #collapse-aggregations a {
+        text-decoration: underline;
+
+        &:hover,
+        &:focus {
+            background-color: unset !important;
+            color: unset !important;
+
+            span {
+                background-color: $accent-color;
+                color: #fff;
+                text-decoration: underline;
+            }
+        }
+    }
+
+    ul[aria-labelledby='quick-links-menu'] a {
+        text-decoration: none;
+    }
+
+    nav a.nav-link.dropdown-toggle {
+        &:hover,
+        &:focus {
+            i {
+                background-color: #fff !important;
+            }
+        }
+    }
+
+    nav.sidebarParent {
+        #physical-objects,
+        div.field,
+        div.box {
+            background-color: rgb(255, 255, 255);
+            color: rgba(0, 0, 0, 0.87);
+            box-shadow: none;
+            transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            border-width: 1px;
+            border-style: solid;
+            border-color: $border-color;
+            border-image: initial;
+            border-radius: 4px;
+            padding: 1.5rem 1.5rem 0 1.5rem;
+            margin-bottom: 32px;
+
+            h4 {
+                @include heading();
+                margin-bottom: 1rem !important;
+                display: block;
+                font-size: 1.5rem;
+            }
+
+            a {
+                text-decoration: underline;
+                font-family: $bodyFontFamily;
+
+                &:hover,
+                &:focus {
+                    i {
+                        color: $accent-color;
+                    }
+
+                    span {
+                        background-color: $accent-color;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+
+        span.read-more {
+            margin-top: 1rem;
+            display: block;
+
+            a {
+                text-decoration: underline;
+
+                &:hover,
+                &:focus {
                     background-color: $accent-color;
                     color: #fff;
                 }
             }
         }
     }
-    span.read-more {
-        margin-top: 1rem;
-        display: block;
-        a {
-            text-decoration: underline;
-            &:hover,
-            &:focus {
-                background-color: $accent-color;
-                color: #fff;
-            }
+
+    .navbar-nav {
+        --bs-nav-link-hover-color: #fff;
+    }
+
+    header {
+        display: block !important;
+
+        .collapse:not(.show) {
+            display: block !important; // we show the search bar anyway
         }
-    }
-}
 
-.navbar-nav {
-    --bs-nav-link-hover-color: #fff;
-}
-
-header {
-    display: block !important;
-
-    .collapse:not(.show) {
-        display: block !important; // we show the search bar anyway
-    }
-    .navbar-toggler {
-        display: none; // dont show the toggle button, as nothing toggles
-    }
-    @media (max-width: 991px) {
-        h1 {
-            font-size: 1.6em; // make main heading go to one line
+        .navbar-toggler {
+            display: none; // dont show the toggle button, as nothing toggles
         }
-    }
 
-    .container-fluid {
-        display: flex;
-        align-items: center;
-    }
-    a.navbar-brand {
-        &:hover,
-        &:focus {
-            span {
-                text-decoration: underline;
-            }
-        }
-    }
-    .textHomeLink {
-        color: #fff;
-        font-weight: 500;
-        font-size: 22px;
-        margin-right: 4px;
-        &:hover,
-        &:focus {
-            text-decoration: underline;
-            background-color: #fff;
-            color: $accent-color;
-        }
-    }
-    button.btn {
-        background-color: $accent-color;
-        border-color: $accent-color;
-        color: #fff;
-        &:hover,
-        &:focus {
-            background-color: #fff;
-            border-color: #fff;
-            color: $accent-color;
-        }
-    }
-    // hide the login button
-    button#user-menu {
-        display: none;
-    }
-
-    a#quick-links-menu {
-        margin-block: auto;
-        margin-left: 1rem;
-        svg {
-            fill: #fff;
-        }
-    }
-}
-
-.sidebarSearchWrapper {
-    border-width: 1px;
-    border-style: solid;
-    border-color: $border-color;
-    border-image: initial;
-    border-radius: 4px;
-    padding: 1.5rem 1rem 0 1rem;
-    background-color: #fff;
-    margin-inline: auto;
-
-    ul button {
-        @include bodyCopy();
-        border-width: 0 !important;
-        margin: 0;
-        display: block;
-        color: $heading-colour !important;
-        font-size: 1.5rem;
-        font-weight: 500;
-        text-align: left;
-        padding: 0;
-
-        --bs-nav-tabs-border-width: -0.7rem;
-    }
-    form {
-        padding: 0 !important;
-    }
-    .no-results {
-        border-color: $border-color !important;
-        background-color: $utility-50;
-    }
-}
-.form-select,
-.form-control {
-    &:focus {
-        box-shadow: none;
-        border-color: inherit;
-    }
-}
-
-#context-menu {
-    i {
-        color: $accent-color;
-    }
-    #action-icons {
-        button {
-            border-width: 0;
-            color: $accent-color;
-            text-decoration: underline;
-            padding-left: 0;
-
-            &:focus {
-                box-shadow: none;
-            }
-
-            // get rid of weird underline on icon
-            i {
-                width: 8px;
-            }
-            span {
-                padding-left: 4px;
+        @media (max-width: 991px) {
+            h1 {
+                font-size: 1.6em; // make main heading go to one line
             }
         }
 
-        a:hover,
-        a:focus,
-        button:hover,
-        button:focus {
-            background-color: #fff;
-
-            span {
-                background-color: $accent-color;
-                color: #fff;
-            }
-
-            i {
-                color: $accent-color;
-            }
-        }
-
-        li {
-            padding-bottom: 1rem;
-            &:last-of-type {
-                padding-bottom: 0;
-            }
-        }
-    }
-    #physical-objects,
-    .field {
-        li {
-            padding-bottom: 1rem;
-            &:last-of-type {
-                padding-bottom: 0;
-            }
-        }
-    }
-}
-#main-column .sidebarParent {
-    position: relative;
-}
-
-nav.sidebarParent div.box.bookNowBox {
-    svg {
-        height: 40px;
-        width: 40px;
-        margin-bottom: 0.5rem;
-    }
-    h4 {
-        margin-top: 0.5rem;
-        margin-bottom: 0.5rem !important;
-    }
-    p {
-        margin-bottom: 1.5rem;
-    }
-    .bookNowLink {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 5px;
-        margin-bottom: 1rem;
-        a {
-            &:hover,
-            &:focus {
-                color: #fff !important;
-                background-color: $accent-color !important;
-            }
-        }
-    }
-}
-
-// hide the built in "i" font applied to the button
-#quick-links-menu button.top-item:before {
-    content: '';
-}
-// style the icon we add with js
-.top-item svg {
-    height: 35px;
-}
-.top-item svg path {
-    fill: #fff;
-}
-
-header .header-outer {
-    .navbar-brand {
-        display: none !important; // hide the logo - we are adding uq headers
-    }
-    --bs-gutter-x: 1.5rem;
-    --bs-gutter-y: 0;
-    width: 100%;
-    padding-right: calc(var(--bs-gutter-x) * 0.5);
-    padding-left: calc(var(--bs-gutter-x) * 0.5);
-    margin-right: auto;
-    margin-left: auto;
-    #navbar-content .navbar-nav {
-        margin-right: 0 !important;
-    }
-    .navbar-collapse {
-        position: relative;
-        & > div:first-of-type {
-            // form immediate wrapper
-            width: 100%;
-            flex-direction: column-reverse;
-        }
-        .dropdown {
+        .container-fluid {
             display: flex;
-            margin-bottom: 0 !important;
+            align-items: center;
         }
-    }
-    form {
-        width: 100% !important;
-        margin-left: 0;
-        margin-right: 0;
-        flex-direction: column;
-        max-width: inherit !important;
-        margin-top: 1rem !important;
-        h2,
-        h3 {
+
+        a.navbar-brand {
+            &:hover,
+            &:focus {
+                span {
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        .textHomeLink {
             color: #fff;
-            text-align: left;
-        }
-        h3 {
-            font-size: 18px;
-        }
-        button {
-            background-color: #fff;
-            border-color: #fff;
-            color: $accent-color;
+            font-weight: 500;
+            font-size: 22px;
+            margin-right: 4px;
+
+            &:hover,
             &:focus {
-                box-shadow: none;
-            }
-            i {
+                text-decoration: underline;
+                background-color: #fff;
                 color: $accent-color;
             }
         }
-        button,
-        input {
-            height: 51px; // match homepage search input height
-            color: $body-copy;
+
+        button.btn {
+            background-color: $accent-color;
+            border-color: $accent-color;
+            color: #fff;
+
+            &:hover,
             &:focus {
+                background-color: #fff;
                 border-color: #fff;
-            }
-        }
-        input {
-            border: 1px solid #fff;
-            border-radius: 0;
-        }
-        button:first-of-type {
-            border-radius: 2px 0 0 2px;
-            padding-left: 1rem;
-            i {
                 color: $accent-color;
             }
         }
-        button:last-of-type {
-            border-radius: 0 2px 2px 0;
-            padding-right: 1rem;
+
+        // hide the login button
+        button#user-menu {
+            display: none;
+        }
+
+        a#quick-links-menu {
+            margin-block: auto;
+            margin-left: 1rem;
+
+            svg {
+                fill: #fff;
+            }
         }
     }
-    @media (min-width: 64em) {
-        margin-left: auto;
-        margin-right: auto;
-        max-width: 73.25rem;
-        text-align: right;
-    }
-    .dropdown-menu h6 {
-        @include heading();
-        margin: 0;
-        display: block;
-        color: $heading-colour !important;
-        font-size: 1.3rem;
-    }
-}
 
-@media (max-width: $maxResponsiveSize) {
-    #site-name {
-        float: left;
-        margin-top: 6px;
+    .sidebarSearchWrapper {
+        border-width: 1px;
+        border-style: solid;
+        border-color: $border-color;
+        border-image: initial;
+        border-radius: 4px;
+        padding: 1.5rem 1rem 0 1rem;
+        background-color: #fff;
+        margin-inline: auto;
+
+        ul button {
+            @include bodyCopy();
+            border-width: 0 !important;
+            margin: 0;
+            display: block;
+            color: $heading-colour !important;
+            font-size: 1.5rem;
+            font-weight: 500;
+            text-align: left;
+            padding: 0;
+
+            --bs-nav-tabs-border-width: -0.7rem;
+        }
+
+        form {
+            padding: 0 !important;
+        }
+
+        .no-results {
+            border-color: $border-color !important;
+            background-color: $utility-50;
+        }
     }
-}
 
-// hide the "Quick links" tool tip that appears when the user mouses over the hamburger button
-.tooltip {
-    display: none !important;
-}
+    .form-select,
+    .form-control {
+        &:focus {
+            box-shadow: none;
+            border-color: inherit;
+        }
+    }
 
-.culturalAdviceBanner {
-    padding: 1em 1em 1em 4em;
-    background-color: $info-banner-background;
-    color: $body-copy;
-    font-family: $bodyFontFamily;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.6;
-    position: relative;
-    margin-bottom: 1rem;
-    & div:before {
+    #context-menu {
+        i {
+            color: $accent-color;
+        }
+
+        #action-icons {
+            button {
+                border-width: 0;
+                color: $accent-color;
+                text-decoration: underline;
+                padding-left: 0;
+
+                &:focus {
+                    box-shadow: none;
+                }
+
+                // get rid of weird underline on icon
+                i {
+                    width: 8px;
+                }
+
+                span {
+                    padding-left: 4px;
+                }
+            }
+
+            a:hover,
+            a:focus,
+            button:hover,
+            button:focus {
+                background-color: #fff;
+
+                span {
+                    background-color: $accent-color;
+                    color: #fff;
+                }
+
+                i {
+                    color: $accent-color;
+                }
+            }
+
+            li {
+                padding-bottom: 1rem;
+
+                &:last-of-type {
+                    padding-bottom: 0;
+                }
+            }
+        }
+
+        #physical-objects,
+        .field {
+            li {
+                padding-bottom: 1rem;
+
+                &:last-of-type {
+                    padding-bottom: 0;
+                }
+            }
+        }
+    }
+
+    #main-column .sidebarParent {
+        position: relative;
+    }
+
+    nav.sidebarParent div.box.bookNowBox {
+        svg {
+            height: 40px;
+            width: 40px;
+            margin-bottom: 0.5rem;
+        }
+
+        h4 {
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem !important;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+        }
+
+        .bookNowLink {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 1rem;
+
+            a {
+                &:hover,
+                &:focus {
+                    color: #fff !important;
+                    background-color: $accent-color !important;
+                }
+            }
+        }
+    }
+
+    // hide the built in "i" font applied to the button
+    #quick-links-menu button.top-item:before {
         content: '';
-        background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='12' cy='12' r='9.25' transform='rotate(-180 12 12)' stroke='%233b383e' stroke-width='1.5'%3e%3c/circle%3e%3cpath d='M12 16.2v-4' stroke='%233b383e' stroke-width='1.5' stroke-linecap='round'%3e%3c/path%3e%3ccircle cx='12' cy='8.4' r='1.1' transform='rotate(-180 12 8.4)' fill='%233b383e'%3e%3c/circle%3e%3c/svg%3e");
-        background-repeat: no-repeat;
-        background-size: 1.5rem;
-        width: 1.5rem;
-        height: 1.5rem;
-        position: absolute;
-        top: 1rem;
-        left: 1.5rem;
     }
-    & p {
-        margin-bottom: 0;
-    }
-}
 
-.customIndicator {
-    display: flex;
-    svg {
-        padding-right: 2px;
+    // style the icon we add with js
+    .top-item svg {
+        height: 35px;
     }
-}
-.customIndicatorLabel {
-    font-size: 16px;
-    margin-top: -1px;
-}
-.culturalAdviceMark {
-    svg {
-        color: $utility-500;
-        width: 24px;
-        height: 24px;
-        path {
-            fill: $utility-500;
+
+    .top-item svg path {
+        fill: #fff;
+    }
+
+    header .header-outer {
+        .navbar-brand {
+            display: none !important; // hide the logo - we are adding uq headers
         }
-    }
-}
 
-// override tree colours in https://sandbox-fryer.library.uq.edu.au/vendor/jstree/themes/default/style.min.css
-.jstree-default .jstree-hovered {
-    background: $utility-50;
-}
-
-.jstree-default .jstree-context {
-    background: $utility-50;
-}
-
-.jstree-default .jstree-clicked {
-    color: #fff !important;
-    background: $accent-color !important;
-}
-//.jstree-default.jstree-checkbox-no-clicked .jstree-clicked.jstree-hovered {
-//    background: $utility-50;
-//}
-//
-//.jstree-default.jstree-checkbox-no-clicked>.jstree-wholerow-ul .jstree-wholerow-clicked.jstree-wholerow-hovered {
-//    background: $utility-50;
-//}
-//.jstree-default .jstree-wholerow-hovered {
-//    background: $utility-50;
-//}
-
-.jstree-default .jstree-wholerow-clicked {
-    background: $accent-color;
-    background: linear-gradient(to bottom, $accent-color 0, $utility-50 100%);
-}
-//.jstree-default-responsive .jstree-wholerow-hovered {
-//    background: $utility-50;
-//}
-
-.jstree-default-responsive .jstree-wholerow-clicked {
-    background: $accent-color;
-}
-//.jstree-anchor,
-//.jstree-default {
-//    &:hover {
-//        background: $utility-50;
-//    }
-//}
-
-.list-group {
-    --bs-list-group-border-width: 0;
-}
-.card > .list-group {
-    border-top-width: 0;
-    border-bottom-width: 0;
-}
-
-.list-group {
-    --bs-list-group-action-hover-bg: transparent;
-}
-#sidebar {
-    h2 {
-        margin: 0;
-        font-family: $bodyFontFamily;
-        display: block;
-        color: $heading-colour !important;
-        font-size: 1.5rem;
-        font-weight: 500;
-        @include heading();
-    }
-
-    .sidebarSearchWrapper,
-    img {
+        --bs-gutter-x: 1.5rem;
+        --bs-gutter-y: 0;
         width: 100%;
-    }
+        padding-right: calc(var(--bs-gutter-x) * 0.5);
+        padding-left: calc(var(--bs-gutter-x) * 0.5);
+        margin-right: auto;
+        margin-left: auto;
 
-    a.list-group-item {
-        text-decoration: none !important;
-        color: $accent-color;
-        span:first-of-type {
-            text-decoration: underline !important;
+        #navbar-content .navbar-nav {
+            margin-right: 0 !important;
         }
-        &:hover,
-        &:focus {
-            span:first-of-type {
-                color: #fff;
-                background-color: $accent-color;
-                text-decoration: underline !important;
+
+        .navbar-collapse {
+            position: relative;
+
+            & > div:first-of-type {
+                // form immediate wrapper
+                width: 100%;
+                flex-direction: column-reverse;
             }
-            span:not(:first-of-type) {
+
+            .dropdown {
+                display: flex;
+                margin-bottom: 0 !important;
+            }
+        }
+
+        form {
+            width: 100% !important;
+            margin-left: 0;
+            margin-right: 0;
+            flex-direction: column;
+            max-width: inherit !important;
+            margin-top: 1rem !important;
+
+            h2,
+            h3 {
+                color: #fff;
+                text-align: left;
+            }
+
+            h3 {
+                font-size: 18px;
+            }
+
+            button {
+                background-color: #fff;
+                border-color: #fff;
                 color: $accent-color;
-                background-color: inherit;
-                text-decoration: none;
+
+                &:focus {
+                    box-shadow: none;
+                }
+
+                i {
+                    color: $accent-color;
+                }
+            }
+
+            button,
+            input {
+                height: 51px; // match homepage search input height
+                color: $body-copy;
+
+                &:focus {
+                    border-color: #fff;
+                }
+            }
+
+            input {
+                border: 1px solid #fff;
+                border-radius: 0;
+            }
+
+            button:first-of-type {
+                border-radius: 2px 0 0 2px;
+                padding-left: 1rem;
+
+                i {
+                    color: $accent-color;
+                }
+            }
+
+            button:last-of-type {
+                border-radius: 0 2px 2px 0;
+                padding-right: 1rem;
             }
         }
-    }
-    input {
-        font-size: 14px;
-    }
-    .list-group > a:last-of-type:has(i) {
-        font-size: 13px;
-    }
-    a {
-        &:hover,
-        &:focus {
-            i {
-                color: #fff;
-            }
+
+        @media (min-width: 64em) {
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 73.25rem;
+            text-align: right;
+        }
+
+        .dropdown-menu h6 {
+            @include heading();
+            margin: 0;
+            display: block;
+            color: $heading-colour !important;
+            font-size: 1.3rem;
         }
     }
-    .repository-logo {
-        display: none;
-    }
-}
 
-// small buttons
-.atom-btn-white {
-    &:hover i,
-    &.atom-btn-white:focus i {
-        color: $accent-color;
+    @media (max-width: $maxResponsiveSize) {
+        #site-name {
+            float: left;
+            margin-top: 6px;
+        }
     }
-    &.active-primary.active {
-        background-color: $accent-color;
-        border-color: $accent-color;
-    }
-}
 
-// hide the clipboard function, header & search results - not required by Fryer\
-.box:has(i.fa-paperclip),
-button,
-a {
-    &:has(i.fa-paperclip) {
+    // hide the "Quick links" tool tip that appears when the user mouses over the hamburger button
+    .tooltip {
         display: none !important;
     }
-}
 
-input[aria-label='Search']::placeholder {
-    color: $body-copy;
-    opacity: 0.42;
-}
+    .culturalAdviceBanner {
+        padding: 1em 1em 1em 4em;
+        background-color: $info-banner-background;
+        color: $body-copy;
+        font-family: $bodyFontFamily;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.6;
+        position: relative;
+        margin-bottom: 1rem;
 
-.form-check-input {
-    &:checked {
-        background-color: $accent-color;
-        border-color: $accent-color;
-    }
-    &:focus {
-        border-color: $purple-50;
-    }
-}
-
-.accordion-body {
-    .actions {
-        background-color: transparent;
-        justify-content: space-between !important;
-        input[value='Reset'] {
-            @include uqSecondaryButton();
+        & div:before {
+            content: '';
+            background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='12' cy='12' r='9.25' transform='rotate(-180 12 12)' stroke='%233b383e' stroke-width='1.5'%3e%3c/circle%3e%3cpath d='M12 16.2v-4' stroke='%233b383e' stroke-width='1.5' stroke-linecap='round'%3e%3c/path%3e%3ccircle cx='12' cy='8.4' r='1.1' transform='rotate(-180 12 8.4)' fill='%233b383e'%3e%3c/circle%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-size: 1.5rem;
+            width: 1.5rem;
+            height: 1.5rem;
+            position: absolute;
+            top: 1rem;
+            left: 1.5rem;
         }
-        input[value='Search'] {
-            @include uqPrimaryButton();
+
+        & p {
+            margin-bottom: 0;
         }
     }
-}
 
-nav[aria-label='Page navigation'] {
-    .pagination {
-        align-items: center;
-        li {
-            &:first-of-type,
-            &:last-of-type {
-                a {
-                    border-radius: 0;
-                    border-width: 0;
-                    padding: 0;
-                    margin: var(--bs-pagination-padding-y) var(--bs-pagination-padding-x);
-                    &:hover,
-                    &:focus {
-                        background-color: $accent-color;
-                        color: #fff;
-                    }
-                }
-            }
-            &:not(:first-of-type):not(:last-of-type) {
-                a,
-                span {
-                    border-width: 2px;
-                    border-color: transparent;
-                    border-radius: 50%;
-                    padding: 8px 10px 10px 14.5px;
-                    margin: 0 2px;
-                    width: 44px;
-                    height: 44px;
+    .customIndicator {
+        display: flex;
 
-                    &:hover,
-                    &:focus {
-                        color: $accent-color;
-                        border-color: $accent-color;
-                        text-decoration: underline;
-                        text-decoration-color: $accent-color;
-                    }
-                }
-            }
-            &.active span {
-                background-color: $accent-color !important;
-                border-color: $accent-color;
-                color: #fff !important;
-                margin-left: 0.25rem;
-                margin-right: 0.25rem;
-            }
-            &:not(.active) a {
-                background-color: transparent;
-                text-decoration: none;
-            }
-            &.disabled:not(:first-of-type):not(:last-of-type) span {
-                background-color: transparent;
+        svg {
+            padding-right: 2px;
+        }
+    }
+
+    .customIndicatorLabel {
+        font-size: 16px;
+        margin-top: -1px;
+    }
+
+    .culturalAdviceMark {
+        svg {
+            color: $utility-500;
+            width: 24px;
+            height: 24px;
+
+            path {
+                fill: $utility-500;
             }
         }
     }
-}
 
-// the search sidebar truncates to become unreadable
-div#sidebar ul li span a span {
-    white-space: normal;
-}
-#treeview {
-    @media (min-width: 991px) {
-        max-height: none; // on mobile, the box height can trap the user on this section of the page. Leave the height locked on mobile
+    // override tree colours in https://sandbox-fryer.library.uq.edu.au/vendor/jstree/themes/default/style.min.css
+    .jstree-default .jstree-hovered {
+        background: $utility-50;
     }
-    overflow: auto;
-}
 
-uq-footer {
-    margin-top: 50px;
-}
+    .jstree-default .jstree-context {
+        background: $utility-50;
+    }
 
-[role='main'] {
-    @media (max-width: 991px) {
+    .jstree-default .jstree-clicked {
+        color: #fff !important;
+        background: $accent-color !important;
+    }
+
+    //.jstree-default.jstree-checkbox-no-clicked .jstree-clicked.jstree-hovered {
+    //    background: $utility-50;
+    //}
+    //
+    //.jstree-default.jstree-checkbox-no-clicked>.jstree-wholerow-ul .jstree-wholerow-clicked.jstree-wholerow-hovered {
+    //    background: $utility-50;
+    //}
+    //.jstree-default .jstree-wholerow-hovered {
+    //    background: $utility-50;
+    //}
+
+    .jstree-default .jstree-wholerow-clicked {
+        background: $accent-color;
+        background: linear-gradient(to bottom, $accent-color 0, $utility-50 100%);
+    }
+
+    //.jstree-default-responsive .jstree-wholerow-hovered {
+    //    background: $utility-50;
+    //}
+
+    .jstree-default-responsive .jstree-wholerow-clicked {
+        background: $accent-color;
+    }
+
+    //.jstree-anchor,
+    //.jstree-default {
+    //    &:hover {
+    //        background: $utility-50;
+    //    }
+    //}
+
+    .list-group {
+        --bs-list-group-border-width: 0;
+    }
+
+    .card > .list-group {
+        border-top-width: 0;
+        border-bottom-width: 0;
+    }
+
+    .list-group {
+        --bs-list-group-action-hover-bg: transparent;
+    }
+
+    #sidebar {
         h2 {
-            margin-top: 0.5rem;
+            margin: 0;
+            font-family: $bodyFontFamily;
+            display: block;
+            color: $heading-colour !important;
+            font-size: 1.5rem;
+            font-weight: 500;
+            @include heading();
+        }
+
+        .sidebarSearchWrapper,
+        img {
+            width: 100%;
+        }
+
+        a.list-group-item {
+            text-decoration: none !important;
+            color: $accent-color;
+
+            span:first-of-type {
+                text-decoration: underline !important;
+            }
+
+            &:hover,
+            &:focus {
+                span:first-of-type {
+                    color: #fff;
+                    background-color: $accent-color;
+                    text-decoration: underline !important;
+                }
+
+                span:not(:first-of-type) {
+                    color: $accent-color;
+                    background-color: inherit;
+                    text-decoration: none;
+                }
+            }
+        }
+
+        input {
+            font-size: 14px;
+        }
+
+        .list-group > a:last-of-type:has(i) {
+            font-size: 13px;
+        }
+
+        a {
+            &:hover,
+            &:focus {
+                i {
+                    color: #fff;
+                }
+            }
+        }
+
+        .repository-logo {
+            display: none;
         }
     }
-    a {
-        text-decoration: underline; // body links should have underline
+
+    // small buttons
+    .atom-btn-white {
+        &:hover i,
+        &.atom-btn-white:focus i {
+            color: $accent-color;
+        }
+
+        &.active-primary.active {
+            background-color: $accent-color;
+            border-color: $accent-color;
+        }
     }
-}
 
-/* unexpectedly, AtoM is inserting a header block at the top of the search results. hide it. */
-form #search-box-results header {
-    display: none !important;
-}
-.bootstrap-autocomplete.dropdown-menu.show {
-    background-color: #512471;
-    border-color: #51247a;
-}
+    // hide the clipboard function, header & search results - not required by Fryer\
+    .box:has(i.fa-paperclip),
+    button,
+    a {
+        &:has(i.fa-paperclip) {
+            display: none !important;
+        }
+    }
 
-/* when the user searches on a page showing a "hierarchy box", the box duplicates. Hide subsequent instances */
-h3.searchheading ~ h3.searchheading,
-section.accordion.full-treeview-section ~ section.accordion.full-treeview-section {
-    display: none;
+    input[aria-label='Search']::placeholder {
+        color: $body-copy;
+        opacity: 0.42;
+    }
+
+    .form-check-input {
+        &:checked {
+            background-color: $accent-color;
+            border-color: $accent-color;
+        }
+
+        &:focus {
+            border-color: $purple-50;
+        }
+    }
+
+    .accordion-body {
+        .actions {
+            background-color: transparent;
+            justify-content: space-between !important;
+
+            input[value='Reset'] {
+                @include uqSecondaryButton();
+            }
+
+            input[value='Search'] {
+                @include uqPrimaryButton();
+            }
+        }
+    }
+
+    nav[aria-label='Page navigation'] {
+        .pagination {
+            align-items: center;
+
+            li {
+                &:first-of-type,
+                &:last-of-type {
+                    a {
+                        border-radius: 0;
+                        border-width: 0;
+                        padding: 0;
+                        margin: var(--bs-pagination-padding-y) var(--bs-pagination-padding-x);
+
+                        &:hover,
+                        &:focus {
+                            background-color: $accent-color;
+                            color: #fff;
+                        }
+                    }
+                }
+
+                &:not(:first-of-type):not(:last-of-type) {
+                    a,
+                    span {
+                        border-width: 2px;
+                        border-color: transparent;
+                        border-radius: 50%;
+                        padding: 8px 10px 10px 14.5px;
+                        margin: 0 2px;
+                        width: 44px;
+                        height: 44px;
+
+                        &:hover,
+                        &:focus {
+                            color: $accent-color;
+                            border-color: $accent-color;
+                            text-decoration: underline;
+                            text-decoration-color: $accent-color;
+                        }
+                    }
+                }
+
+                &.active span {
+                    background-color: $accent-color !important;
+                    border-color: $accent-color;
+                    color: #fff !important;
+                    margin-left: 0.25rem;
+                    margin-right: 0.25rem;
+                }
+
+                &:not(.active) a {
+                    background-color: transparent;
+                    text-decoration: none;
+                }
+
+                &.disabled:not(:first-of-type):not(:last-of-type) span {
+                    background-color: transparent;
+                }
+            }
+        }
+    }
+
+    // the search sidebar truncates to become unreadable
+    div#sidebar ul li span a span {
+        white-space: normal;
+    }
+
+    #treeview {
+        @media (min-width: 991px) {
+            max-height: none; // on mobile, the box height can trap the user on this section of the page. Leave the height locked on mobile
+        }
+        overflow: auto;
+    }
+
+    uq-footer {
+        margin-top: 50px;
+    }
+
+    [role='main'] {
+        @media (max-width: 991px) {
+            h2 {
+                margin-top: 0.5rem;
+            }
+        }
+
+        a {
+            text-decoration: underline; // body links should have underline
+        }
+    }
+
+    /* unexpectedly, AtoM is inserting a header block at the top of the search results. hide it. */
+    form #search-box-results header {
+        display: none !important;
+    }
+
+    .bootstrap-autocomplete.dropdown-menu.show {
+        background-color: #512471;
+        border-color: #51247a;
+    }
+
+    /* when the user searches on a page showing a "hierarchy box", the box duplicates. Hide subsequent instances */
+    h3.searchheading ~ h3.searchheading,
+    section.accordion.full-treeview-section ~ section.accordion.full-treeview-section {
+        display: none;
+    }
 }
