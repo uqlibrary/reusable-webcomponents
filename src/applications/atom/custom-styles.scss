@@ -938,6 +938,11 @@ uq-footer {
     }
 }
 
+/* unexpectedly, AtoM is inserting a header block at the top of the search results. hide it. */
 form #search-box-results header {
     display: none !important;
+}
+.bootstrap-autocomplete.dropdown-menu.show {
+    background-color: #512471;
+    border-color: #51247a;
 }

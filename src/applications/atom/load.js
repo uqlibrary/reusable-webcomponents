@@ -14,7 +14,7 @@
    - Add/ move certain on page elements to breadcrumbs
    - Make the Subject sidebar readable (remove wrapping, some titles are looong and remove max-height)
 */
-function ready(fn) {
+function readyFryer(fn) {
     if (document.readyState !== 'loading') {
         fn();
     } else {
@@ -776,4 +776,4 @@ function loadReusableComponentsAtom() {
     removeAdvancedSearchButton();
 }
 
-ready(loadReusableComponentsAtom);
+readyFryer(loadReusableComponentsAtom);
