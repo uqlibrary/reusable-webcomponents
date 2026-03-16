@@ -167,7 +167,7 @@ function getIncludeFileLocation(filename) {
     // const atomStagingBranch = 'atom-staging'; // this is the git branch that atom installed at sandbox-fryer.library.uq.edu.au knows about
     const atomStagingBranch = 'atom-bootstrap5-AD649'; // dev branch - return to above after dev
     const stagingFileLocationFragment = `-development/${atomStagingBranch}`;
-    const fileLocationFragment = isEnvironmentProduction() ? '' : stagingFileLocationFragment;
+    const fileLocationFragment = stagingFileLocationFragment; // isEnvironmentProduction() ? '' : stagingFileLocationFragment;
     return `https://assets.library.uq.edu.au/reusable-webcomponents${fileLocationFragment}/${filename}`;
 }
 
