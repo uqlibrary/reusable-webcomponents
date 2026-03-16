@@ -946,3 +946,8 @@ form #search-box-results header {
     background-color: #512471;
     border-color: #51247a;
 }
+
+/* when the user searches on a page showing a "hierarchy box", the box duplicates. Hide subsequent instances */
+section.accordion.full-treeview-section ~ section.accordion.full-treeview-section {
+    display: none;
+}
