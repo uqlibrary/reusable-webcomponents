@@ -937,3 +937,7 @@ uq-footer {
         text-decoration: underline; // body links should have underline
     }
 }
+
+form #search-box-results header {
+    display: none !important;
+}
