@@ -200,6 +200,10 @@ class Training extends HTMLElement {
                 // console.log('hide event 1 =', event.entityId, event.name);
                 return false;
             }
+            if (!!event.isPrivate) {
+                console.log('event is private', event);
+                return false;
+            }
 
             console.log('event =', event.entityId, event.campus, event.name);
             if (
