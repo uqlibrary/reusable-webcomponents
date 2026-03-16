@@ -167,7 +167,7 @@ function getIncludeFileLocation(filename) {
     // const atomStagingBranch = 'atom-staging'; // this is the git branch that atom installed at sandbox-fryer.library.uq.edu.au knows about
     const atomStagingBranch = 'atom-bootstrap5-AD649'; // dev branch - return to above after dev
     const stagingFileLocationFragment = `-development/${atomStagingBranch}`;
-    const fileLocationFragment = isEnvironmentProduction() ? '' : stagingFileLocationFragment;
+    const fileLocationFragment = stagingFileLocationFragment; // isEnvironmentProduction() ? '' : stagingFileLocationFragment;
     return `https://assets.library.uq.edu.au/reusable-webcomponents${fileLocationFragment}/${filename}`;
 }
 
@@ -431,9 +431,9 @@ function addHeaderFooter() {
 
     if (!document.querySelector('uq-site-header')) {
         let breadcrumbLabel = 'Fryer Library Manuscripts';
-        if (window.location.hostname !== 'manuscripts.library.uq.edu.au') {
-            breadcrumbLabel = window.location.hostname.substring(0, window.location.hostname.indexOf('.')) + ' Fryer';
-        }
+        // if (window.location.hostname !== 'manuscripts.library.uq.edu.au') {
+        breadcrumbLabel = window.location.hostname.substring(0, window.location.hostname.indexOf('.')) + ' Fryer';
+        // }
         const siteHeader = document.createElement('uq-site-header');
         !!siteHeader && siteHeader.setAttribute('secondleveltitle', breadcrumbLabel);
         !!siteHeader && siteHeader.setAttribute('secondlevelurl', '/');
