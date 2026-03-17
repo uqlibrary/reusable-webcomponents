@@ -281,6 +281,7 @@ body.d-flex {
         [aria-labelledby='quick-links-menu'] {
             // try and improve the way the popup menu closes, given our changes to the transform value
             transition: transform 5ms ease-out;
+            inset: 0 0 auto auto; // this makes it slide _up_ not off the screen to the right, because the value doesn't change
         }
     }
 
