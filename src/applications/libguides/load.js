@@ -102,10 +102,10 @@
             testIncludePathGeneration();
         }
 
-        fontLoader('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
-        fontLoader('https://static.uq.net.au/v15/fonts/Merriweather/merriweather.css');
-        fontLoader('https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css');
-        fontLoader('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
+        insertFontFile('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
+        insertFontFile('https://static.uq.net.au/v15/fonts/Merriweather/merriweather.css');
+        insertFontFile('https://static.uq.net.au/v15/fonts/Montserrat/montserrat.css');
+        insertFontFile('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
 
         let mainScriptUrl = getIncludeFullPath('uq-lib-reusable.min.js');
         insertScript(mainScriptUrl, true);
@@ -209,8 +209,8 @@
                         } 
                  </style>`;
 
-                const head = document.querySelector('head');
-                !!head && head.appendChild(editModeStyles.content.cloneNode(true));
+                const headElement = document.querySelector('head');
+                !!editModeStyles && !!headElement && headElement.appendChild(editModeStyles.content.cloneNode(true));
             }
         }, 100);
     }
@@ -252,14 +252,15 @@
         return slot;
     }
 
-    function fontLoader(font) {
+    // example usage: insertFontFile('https://static.uq.net.au/v15/fonts/Roboto/roboto.css');
+    function insertFontFile(fontUrl) {
         const link = document.createElement('link');
         !!link && (link.type = 'text/css');
         !!link && (link.rel = 'stylesheet');
-        !!link && (link.href = font);
+        !!link && (link.href = fontUrl);
 
-        const head = document.head;
-        !!head && !!link && head.appendChild(link);
+        const headElement = document.querySelector('head');
+        !!headElement && !!link && headElement.appendChild(link);
     }
 
     function getPathnameRoot(pathname) {
@@ -272,7 +273,7 @@
         return '/' + firstTwoLevels.join('/') + '/';
     }
 
-    function insertScript(url, defer = false, onloadCallback = null) {
+    function insertScript(url, defer = false) {
         const scriptfound = document.querySelector("script[src*='" + url + "']");
         if (!!scriptfound) {
             return;
@@ -280,11 +281,10 @@
         const script = document.createElement('script');
         !!script && script.setAttribute('type', 'text/javascript');
         !!script && script.setAttribute('src', url);
+        !!script && !!defer && script.setAttribute('defer', '');
 
-        !!defer && script.setAttribute('defer', '');
-
-        const head = document.querySelector('head');
-        !!head && !!script && head.appendChild(script);
+        const headElement = document.querySelector('head');
+        !!headElement && !!script && headElement.appendChild(script);
     }
 
     function forceStaging() {
@@ -448,15 +448,13 @@
             return;
         }
 
-        // insert the css late so it is more likely to override other styles,
-        // might be better to go back to attach-to-head at sandbox test point to avoid FOUC? but needed right now
         const link = document.createElement('link');
         !!link && (link.type = 'text/css');
         !!link && (link.rel = 'stylesheet');
         !!link && (link.href = cssFileName);
 
-        const head = document.head;
-        !!head && !!link && head.appendChild(link);
+        const headElement = document.head;
+        !!headElement && !!link && headElement.appendChild(link);
     }
 
     function prePurpleLinks() {
@@ -990,7 +988,6 @@
                     text === '<br/>' ||
                     text === '<br />'
                 ) {
-                    console.log('remove empty paragraph');
                     element.remove();
                 }
             });
