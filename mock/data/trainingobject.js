@@ -14,7 +14,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "Get started with Python and the Spyder IDE with this hands-on introductory session.",
         "details": "<p>Python is a programming language that is widely used for scientific  programming. The Library offers this session to get you started with  using Python for data science. </p><p> \tIn this hands-on session directed at beginners, you will learn how to:</p><ul><li>create a project</li><li>import useful modules</li><li>create variables</li><li>make use of functions</li><li>differentiate attributes and methods</li><li>import tabular data</li><li>visualise data</li><li>store code in a script</li></ul><p> \t<em>This session will use Spyder, an integrated development environment (IDE) for Python provided by the Anaconda distribution.</em> Please install the software <em>before</em> joining this session, refer to the <a href=\"https://www.anaconda.com/download/\">Anaconda download information</a>. (Python 3.x version)</p><p><img style=\"background-color:&#32;initial;&#32;width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png\"> Attend online: Zoom link to be sent before session</p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -74,7 +74,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "A guide to using digital editing software to import and edit media footage and create video content. Incorporates the use of video, audio and image files.",
         "details": "<p>At the end of this session you will be able to:</p><ul> \n<li>Understand the Premiere Pro workspace</li><li>Manage your project content</li><li>Apply editing techniques to raw footage</li><li>Add titles, graphics and effects</li><li>Work with audio</li><li>Export a completed project</li></ul><p><em><em>As part of <a href=\"https://ppl.app.uq.edu.au/content/10.10.01-sustainability-0\">UQ Sustainability</a> this class has no paper handouts. You may download manuals and exercises for this class on the </em><a href=\"https://web.library.uq.edu.au/library-services/training/training-resources\"><em>training resources</em></a><em> page.</em></em></p><p><em style=\"background-color:&#32;initial;\"><span style=\"font-size:&#32;10px;\"></span></em></p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "St Lucia",
         "building": "Duhig Tower (2)",
         "location": "02-D501",
@@ -134,7 +134,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "Workshop to learn how the online supervised examination will work and what you need to do to prepare for it.",
         "details": "<p>In this session we will be covering, what you need to know for your online invigilated exam such as:</p><ul><li>Steps to take before the exam  <ul><li>Signing up</li><li>Scheduling</li><li>Installing</li></ul></li><li>Testing your equipment</li><li>How the exam is run and what online invigilation means for you</li></ul><p><img style=\"background-color:&#32;initial;&#32;width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png\"> Attend online: Zoom link to be sent before session</p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -180,6 +180,73 @@ const trainingEventsObject = {
         "isOnlineClass": true
     },
     "3": {
+        "entityId": 6190074,
+        "created": "2021-05-03T13:43:51.087+10:00",
+        "updated": "2021-05-04T13:12:41.133+10:00",
+        "name": "UQ R User Group (UQRUG) both online and in person",
+        "eventType": "Software",
+        "eventTypeId": 45,
+        "start": "2021-05-26T10:00:00+10:00",
+        "end": "2021-05-26T12:00:00+10:00",
+        "publish": "2021-05-04T13:00:00+10:00",
+        "expire": "2021-05-26T12:00:00+10:00",
+        "isActive": true,
+        "isCancelled": false,
+        "isPrivate": false,
+        "summary": "Skill-sharing and collaborative problem solving session for UQ's R user community",
+        "details": "<p>\n\t<strong><a href=\"https:\/\/cran.r-project.org\/\">R<\/a><\/strong> is a user-friendly programming language for statistical analysis, data visualisation and more.\n<\/p>\n<p>\n\t<strong>UQRUG<\/strong> is UQ's <strong>R U<\/strong>ser <strong>G<\/strong>roup: a monthly skill-sharing and collaborative problem-solving session for the  UQ R user community.&nbsp;\n<\/p><p>All skill levels welcome!<\/p>\n<p>\n\tOur main purpose is to serve as a&nbsp;<b style=\"background-color: initial\">drop-in help session&nbsp;<\/b>for help with R and RStudio, but to keep things interesting we will briefly highlight a useful method,&nbsp;tool,&nbsp;function or package each month. This month, Steph will run a quick <strong>introduction to the Positron IDE<\/strong>, as a recent additional alternative to RStudio and Spyder.<\/p><p><strong><\/strong><\/p>\n<p>This is a hybrid event: you can join in person or online. To get the Zoom link, please book the event or contact training@library.uq.edu.au<\/p>\n<p>\n\tMake sure to check out our<u>&nbsp;<\/u><a href=\"https:\/\/uqrug.netlify.app\/\">UQRUG website<\/a> (created with R and Quarto),&nbsp;and&nbsp;also <a href=\"https:\/\/forms.office.com\/r\/WXqYPhP8JZ\">join our UQRUG chatroom<\/a> so we can keep helping each other outside the meetups.<\/p>\n<p>\n\t<em>This initiative is supported by the <a href=\"https:\/\/github.com\/rladies\/meetup-presentations_brisbane\">R-Ladies Brisbane Chapter<\/a> and the&nbsp;<\/em><a href=\"https:\/\/web.library.uq.edu.au\/study-and-learning-support\/training-and-workshops\/online-and-person-workshops\">UQ Library<\/a><em>. <\/em>\n<\/p>\n<p><em>Please note we have a&nbsp;<\/em><a href=\"https:\/\/uqrug.netlify.app\/code_of_conduct\">Code of Conduct<\/a><em>.<\/em><\/p>\n<p>\n\t<a href=\"https:\/\/github.com\/rladies\/meetup-presentations_brisbane\"><\/a>\n<\/p>",
+        "offCampusLocation": null,
+        "campus": "St Lucia",
+        "building": "Duhig North Central Library (12)",
+        "location": "Training room 12-N109, and on Zoom",
+        "url": null,
+        "onlineInstructions": null,
+        "venue": "St Lucia, Duhig North Central Library (12), Training room 12-N109, and on Zoom",
+        "bookingType": 1,
+        "bookingSettings": {
+            "bookings": 4,
+            "bookingLimit": 40,
+            "placesRemaining": 36,
+            "bookingsOpen": "2021-05-04T13:00:00+10:00",
+            "bookingsClose": "2021-05-26T10:00:00+10:00"
+        },
+        "workGroupId": 117,
+        "attendance": {
+            "total": 4,
+            "unspecified": 4,
+            "absent": 0,
+            "attended": 0
+        },
+        "labels": {
+            "1": {
+                "id": 377,
+                "name": "LIB.client.ongoing.Software"
+            }
+        },
+        "categories": {
+            "eventType": "Software",
+            "campus": [
+                "St Lucia"
+            ]
+        },
+        "sessions": [
+            {
+                "id": 40753,
+                "start": "2021-05-26T10:00:00+10:00",
+                "end": "2021-05-26T12:00:00+10:00",
+                "isCancelled": false,
+                "bookings": 4,
+                "bookingLimit": 40,
+                "placesRemaining": 36,
+                "bookingClose": "2021-05-26T10:00:00+10:00"
+            }
+        ],
+        "experienceType": null,
+        "skills": [],
+        "endorsements": [],
+        "isOnlineClass": true
+    },
+    "4": {
         "entityId": 3455330,
         "created": "2021-05-16T18:10:10.883+10:00",
         "updated": "2021-05-16T19:47:02.037+10:00",
@@ -194,7 +261,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "Skill-sharing and collaborative problem solving session for UQ's R user community",
         "details": "<p><strong><a href=\"https://cran.r-project.org/\">R</a></strong> is a user-friendly programming language for statistical analysis, data visualisation and more.</p><p><strong>UQRUG</strong> is UQ's <strong>R U</strong>ser <strong>G</strong>roup: a monthly skill-sharing and collaborative problem-solving session for the  UQ R user community. All skill levels welcome! It doesn't matter if you use RStudio, RKWard, Rcmdr, Jamovi or something else &#8211; we're here to help.</p><p>We offer support for your R questions in a friendly and informal environment. BYO laptop, data and challenges. Feel free  to attend, share resources and assist others if you don't have any R problems of your own!</p><p>We are currently holding this meetup online. Join the Zoom meeting at the above time:&nbsp;</p><p><a href=\"https://uqz.zoom.us/j/83066132733\">https://uqz.zoom.us/j/83066132733</a></p><p>Make sure you also join our UQRUG chatroom so we can keep helping each other outside the meetups: <a href=\"https://chat.uq.edu.au\">chat.uq.edu.au</a>.<br><a href=\"https://uqz.zoom.us/j/99337548607\"></a></p><p><em>This initiative is supported by the <a href=\"https://github.com/rladies/meetup-presentations_brisbane\">R-Ladies Brisbane Chapter</a> and the UQ Library. </em></p><p><em>Please note we have a Code of Conduct:&nbsp;</em></p><p><a href=\"https://gitlab.com/stragu/uqrug/blob/master/Code_of_Conduct.md\">https://gitlab.com/stragu/uqrug/blob/master/Code_o...</a></p><p><a href=\"https://github.com/rladies/meetup-presentations_brisbane\"></a></p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": null,
         "building": null,
         "location": null,
@@ -231,7 +298,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "4": {
+    "5": {
         "entityId": 3437656,
         "created": "2021-04-16T08:02:56.143+10:00",
         "updated": "2021-04-16T08:06:23.97+10:00",
@@ -246,7 +313,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "NVIVO  facilitates the analysis of qualitative data in a research project.  This session builds on the \"Essentials for Getting Started\" and enables users to expand the use of NVivo tools to help take their exploration further.\r\n**Pre-requisite: \"NVivo - Essentials for Getting Started\"",
         "details": "<p>\n\tAt the end of this session you will be able to:</p><ul>\n\t\n<li>Import media content</li>\t\n<li>Create and assign classifications</li>\t\n<li>Further exploration of data</li>\t\n<li>More use of visualisation tools</li>\t\n<li>Work with memos, annotations and links</li></ul><p>\n\t<em>This session will use <strong>NVivo 12 Plus</strong>. </em>Please install the software <em>before</em>\n\tjoining this session. If you do not have access to the software,  \n   please  feel free to join and watch as we demonstrate it's use and   \n  answer any  questions you may have</p><p><img style=\"background-color:&#32;initial;&#32;width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png\"> Attend online: Zoom link to be sent before session.</p><p>\n\t<em>As part of <a href=\"https://ppl.app.uq.edu.au/content/10.10.01-sustainability-0\">UQ Sustainability</a> this class has no paper handouts. You may download manuals and exercises for this class on the </em><a href=\"https://web.library.uq.edu.au/library-services/training/training-resources\"><em>training resources</em></a><em> page.</em></p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -291,7 +358,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "5": {
+    "6": {
         "entityId": 3437658,
         "created": "2021-04-16T08:03:21.15+10:00",
         "updated": "2021-04-16T11:24:01.87+10:00",
@@ -304,9 +371,10 @@ const trainingEventsObject = {
         "expire": "2021-06-02T11:30:00+10:00",
         "isActive": true,
         "isCancelled": false,
+        "isPrivate": true,
         "summary": "A short-introductory hands-on course to the basics of using Adobe Illustrator.",
         "details": "<p>A short-introductory hands-on course to the basics of using Adobe Illustrator. This session will introduce the software and its tool to participants and include short exercises to help develop understanding and skills. No prior experience with the software is required.</p><p><img style=\"background-color:&#32;initial;&#32;width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png\"> Attend online: Zoom link to be sent before session</p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -351,7 +419,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "6": {
+    "7": {
         "entityId": 3437657,
         "created": "2021-04-16T08:03:08.427+10:00",
         "updated": "2021-04-16T08:07:36.257+10:00",
@@ -366,7 +434,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "Learn how to use the Unix shell to automate repetitive tasks and write short scripts.",
         "details": "<p>Learning how to use a shell (specifically the most popular Unix shell: Bash) will allow you to automate repetitive tasks, write scripts to save and share a set of useful commands, and potentially control a remote server or super-computer.</p><p>The library offers this short and dense introduction, directed at beginners, in which you will learn how to:</p><ul>\n<li>navigate, create and modify files and directories through the shell;</li><li>use pipes and filters to achieve more complex operations;</li><li>use loops to automate repetitive tasks;</li><li>write scripts to store and share a set of useful commands.</li></ul><p>No prior experience with the Unix shell is expected.</p><p><em>This session will use Bash. </em>Please install the software <em>before </em>joining this session: <a href=\"https://gitlab.com/stragu/DSH/-/blob/master/Shell/shell_intro.md\">https://gitlab.com/stragu/DSH/-/blob/master/Shell/...</a></p><p><img style=\"background-color:&#32;initial;&#32;width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png\"> Attend online: Zoom link to be sent before session</p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -411,7 +479,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "7": {
+    "8": {
         "entityId": 3437659,
         "created": "2021-04-16T08:03:30.073+10:00",
         "updated": "2021-04-16T08:09:42.73+10:00",
@@ -426,7 +494,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "A guide to using Excel tools to analyse and consolidate data to present more meaningful information.  These features will assist with report and assignment preparation.",
         "details": "<p>At the end of this session you will be able to:</p><ul>\n<li>Distinguish between relative and absolute cell references</li><li>Use the Vlookup function</li><li>Use IF function</li><li>Sort and Filter to extract data</li><li>Use PivotTable for flexible data presentation</li></ul><p><em>This session will use Microsoft Excel. </em>Please install the software <em>before </em>joining this session: <a href=\"https://my.uq.edu.au/information-and-services/information-technology/software-and-web-apps/software-uq/microsoft-software/office-365-personal-use\">https://my.uq.edu.au/information-and-services/info...</a></p><p><img style=\"background-color:&#32;initial;&#32;width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png\"> Attend online: Zoom link to be sent before session</p><p><em style=\"background-color:&#32;initial;\"><span style=\"font-size:&#32;10px;\"></span></em><em style=\"background-color:&#32;initial;\"><span style=\"font-size:&#32;10px;\"></span></em></p><p><em style=\"background-color:&#32;initial;\"></em></p><p><em>As part of <a href=\"https://ppl.app.uq.edu.au/content/10.10.01-sustainability-0\">UQ Sustainability</a> this class has no paper handouts. You may download manuals and exercises for this class on the </em><a href=\"https://web.library.uq.edu.au/library-services/training/training-resources\"><em>training resources</em></a><em> page.</em></p><p><em style=\"background-color:&#32;initial;\"></em></p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -471,7 +539,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "8": {
+    "9": {
         "entityId": 3437660,
         "created": "2021-04-16T08:03:41.58+10:00",
         "updated": "2021-04-16T08:10:46.38+10:00",
@@ -486,7 +554,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "This session is designed for researchers at the University of Queensland who need to use the complex features of Word to structure complex documents.  It includes automation to limit repetitive tasks and meet the formatting requirements for a successful thesis submission.",
         "details": "<p>This session is very similar to the Word Advanced session.  It has  been customised to focus on UQ's thesis submission requirements using  formal documentation rather than generic skills based training.</p><p>Following this training participants will be able to:</p><p>1. Use styles with confidence</p><p>2. Apply automatic heading numbering</p><p>3. Generate automated tables of contents, figures etc.</p><p>4. Insert captions and cross-references</p><p>5. Combine documents and merge formatting</p><p><em>This session will use Microsoft Word. </em>Please install the software <em>before </em>joining this session: <a href=\"https://my.uq.edu.au/information-and-services/information-technology/software-and-web-apps/software-uq/microsoft-software/office-365-personal-use\">https://my.uq.edu.au/information-and-services/info...</a></p><p><img style=\"background-color:&#32;initial;&#32;width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png\"> Attend online: Zoom link to be sent before session</p><p><em>As part of <a href=\"https://ppl.app.uq.edu.au/content/10.10.01-sustainability-0\">UQ Sustainability</a> this class has no paper handouts. You may download manuals and exercises for this class on the </em><a href=\"https://web.library.uq.edu.au/library-services/training/training-resources\"><em>training resources</em></a><em> page.</em></p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -531,7 +599,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "9": {
+    "10": {
         "entityId": 3437661,
         "created": "2021-04-16T08:03:56.057+10:00",
         "updated": "2021-04-16T08:12:16.313+10:00",
@@ -546,7 +614,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "Create a custom map with a professional open source program",
         "details": "<p>\n\tQGIS is an open source Geographic Information System (GIS) that can be used to transform, visualise, analyse and publish spatial data.</p><p>\n\tThe library&nbsp; offers a short introduction directed at beginners.</p><p>\n\tIn this hands-on session, you will learn to:</p><ul>\n\t<li>import vector data</li>\t<li>access a few sources of spatial data</li>\t<li>join different data sets</li>\t<li>personalise the look of the map</li>\t<li>compose a print-out of your map</li></ul><p>\n\t<a href=\"https://uqz.zoom.us/j/956300325\"></a></p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "St Lucia",
         "building": "Duhig Tower (2)",
         "location": "02-D501",
@@ -591,7 +659,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "10": {
+    "11": {
         "entityId": 3437662,
         "created": "2021-04-16T08:04:05.89+10:00",
         "updated": "2021-04-16T08:13:50.913+10:00",
@@ -606,7 +674,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "Learn about extra Tidyverse packages, including tidyr and purr",
         "details": "<p>The Library is offering this free session on learning more about the R language and the Tidyverse <em>dialect</em>, using RStudio.</p><p>In this intermediate session, we will explore the <strong>purrr</strong> and <strong>tidyr</strong>\n packages to reorganise, manipulate and process data. We will also learn\n about how we can associate them with other Tidyverse functions from \ndplyr, ggplot2 and others.</p><p><em>This session will use RStudio. </em>Please install the software <em>before </em>joining this session: <a href=\"https://gitlab.com/stragu/DSH/blob/master/R/Installation.md\">https://gitlab.com/stragu/DSH/blob/master/R/Instal...</a></p><p>\n \tYou should be familiar with R and ggplot2 to attend this session. It \nis  recommended to attend the &quot;R data visualisation with RStudio and  \nggplot2: introduction&quot; session before attending this one.</p><p><img style=\"background-color:&#32;initial;&#32;width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png\"> Attend online: Zoom link to be sent before session</p><p><img style=\"width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/video-player-movie-1.png\">  Recording: Access our <a href=\"https://www.youtube.com/watch?v=2TZYeFcJQIk\">video recording</a> at any time</p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -651,7 +719,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "11": {
+    "12": {
         "entityId": 3437663,
         "created": "2021-04-16T08:04:15.58+10:00",
         "updated": "2021-04-16T08:15:45.377+10:00",
@@ -666,7 +734,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "Manipulate your data with RStudio and dplyr in this hands-on R session.",
         "details": "<p>In this hands-on session, you will use RStudio and the dplyr package to manipulate your tabular data.</p><p>Specifically, you will learn about six dplyr &quot;verbs&quot; that can be used to:</p><ul><li>filter data depending on conditions</li><li>sort data</li><li>remove variables</li><li>create new variables</li><li>collapse data to a summary</li><li>operate on separate groups</li></ul><p>You\n should be familiar with R. It is recommended to attend the &quot;R with \nRStudio: getting started&quot; session prior to this one, but not essential \nif you have used R before.</p><p><img style=\"width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/video-player-movie-1.png\">  Recording: Access our <a href=\"https://www.youtube.com/watch?v=vqvsyaaqJUk&amp;list=PLmDEaZ20fWqCypV7S-trCPtVefHk4e0bU&amp;index=2\">video recording</a> at any time</p><p><em>You can access manuals and exercises for this class on the </em><a href=\"https://web.library.uq.edu.au/library-services/training/training-resources\"><em>training resources</em></a><em> page.</em></p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "St Lucia",
         "building": "Duhig Tower (2)",
         "location": "02-D501",
@@ -711,11 +779,11 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "12": {
+    "13": {
         "entityId": 3428493,
         "created": "2021-03-26T10:53:39.69+10:00",
         "updated": "2021-04-21T10:15:25.513+10:00",
-        "name": "Python data transformation and visualisation with pandas",
+        "name": "Python data transformation and visualisation with pandas extraword",
         "eventType": "Software",
         "eventTypeId": 45,
         "start": "2021-06-07T09:30:00+10:00",
@@ -726,7 +794,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "pandas is a popular module that introduces data frames to Python, and provides many powerful tools to clean, explore, transform and even visualise your data",
         "details": "<p>In this session, you will learn how to:</p><ul><li>import tabular data from the web or a spreadsheet</li><li>explore and clean the dataset for common issues</li><li>subset the dataset to focus on the important part</li><li>expand the dataset by creating new columns and combining two datasets</li><li>transform the data to produce statistical summaries</li><li>use plotting functions to create publication-ready visualisations</li></ul><p>This session requires a basic understanding of the Python programming language. We recommend you complete our introductory Python session before booking this one. You can find the next introductory Python session via the <a href=\"https://web.library.uq.edu.au/library-services/training\">Library training website</a>.</p><p>Please make sure you have Python and Spyder installed before the session. The easiest way to do this in one go is to install the <a href=\"https://www.anaconda.com/products/individual\">Anaconda distribution</a>.</p><p><img style=\"background-color:&#32;initial;&#32;width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png\"> Attend online: Zoom link to be sent before session</p><p><br><a href=\"https://www.anaconda.com/products/individual\"></a></p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -771,7 +839,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "13": {
+    "14": {
         "entityId": 3411674,
         "created": "2021-03-04T10:52:31.947+10:00",
         "updated": "2021-03-09T08:48:30.717+10:00",
@@ -786,7 +854,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "How to manage and share sensitive research data in a safe and secured way",
         "details": "<p>This workshop will look at what sensitive data is, how to manage sensitive data through the entire research project and what are the techniques you can use to safely share and publish&nbsp;sensitive data.</p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -831,7 +899,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "14": {
+    "15": {
         "entityId": 3445002,
         "created": "2021-04-29T08:09:21.813+10:00",
         "updated": "2021-04-29T08:10:42.137+10:00",
@@ -846,7 +914,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "A short hands-on course that introduces some intermediate level tools and skills with Adobe Illustrator.",
         "details": "<p>A short hands-on course that introduces some intermediate level tools and skills with Adobe Illustrator. The session covers short exercises.&nbsp;</p><p>Prior knowledge of basic visual grammar and Adobe Illustrator are required for this course. </p><p>Please book into one of our <em>&quot;Introduction to Adobe Illustrator&quot;</em> sessions first if you have no prior experience.</p><p><em>This session will use <strong>Adobe Illustrator</strong>. </em>Please install the software <em>before</em>  joining this session, information on how can be found on the <a href=\"https://my.uq.edu.au/information-and-services/information-technology/software-and-web-apps/free-student-software-personal-use\">UQ ITS website</a>.   If you do not have access to the software, please  feel free to join   and watch as we demonstrate it's use and answer any  questions you may   have.</p><p><img style=\"background-color:&#32;initial;&#32;width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png\"> Attend online: Zoom link to be sent before session</p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -891,7 +959,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "15": {
+    "16": {
         "entityId": 3445003,
         "created": "2021-04-29T08:11:49.307+10:00",
         "updated": "2021-04-29T08:13:03.557+10:00",
@@ -906,7 +974,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "Learn how to use Git to keep a history of your work and collaborate with peers.",
         "details": "<p>Git is a version control system that allows researchers and \ndevelopers to work on a project in a distributed fashion, and that makes\n collaboration more traceable and robust. In this 2-h introductory \nsession you will:</p><ul>\n<li>learn how to use the command line to keep track of your project's history</li><li>create an account on GitLab</li><li>collaborate with others on a remote repository</li></ul><p>We recommend you attend &quot;Introduction to the Unix Shell&quot; to \nfamiliarise yourself with the command line beforehand. (Not essential. \nMaterial available online: <a href=\"https://gitlab.com/stragu/DSH/blob/master/Shell/shell_intro.md)\">https://gitlab.com/stragu/DSH/blob/master/Shell/sh...<br></a></p><p><img style=\"background-color:&#32;initial;&#32;width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png\"> Attend online: Zoom link to be sent before session</p><p><a href=\"https://gitlab.com/stragu/DSH/blob/master/Shell/shell_intro.md)\"></a></p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -951,7 +1019,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "16": {
+    "17": {
         "entityId": 3445004,
         "created": "2021-04-29T08:13:57.56+10:00",
         "updated": "2021-04-29T08:14:40.447+10:00",
@@ -966,7 +1034,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "A guide to using Excel tools to analyse and consolidate data to present more meaningful information. These features will assist with report and assignment preparation.",
         "details": "<p>At the end of this session you will be able to:</p><ul> <li>Work effectively with a variety of functions</li><li>Combine functions into powerful formulas</li></ul><p><em>This session will use Microsoft Excel. </em>Please install the software <em>before </em>joining this session: <a href=\"https://my.uq.edu.au/information-and-services/information-technology/software-and-web-apps/software-uq/microsoft-software/office-365-personal-use\">https://my.uq.edu.au/information-and-services/info...</a></p><p><img style=\"background-color:&#32;initial;&#32;width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png\"> Attend online: Zoom link to be sent before session</p><p><em><em>As part of <a href=\"https://ppl.app.uq.edu.au/content/10.10.01-sustainability-0\">UQ Sustainability</a> this class has no paper handouts. You may download manuals and exercises for this class on the </em><a href=\"https://web.library.uq.edu.au/library-services/training/training-resources\"><em>training resources</em></a><em> page.</em></em></p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -1011,7 +1079,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "17": {
+    "18": {
         "entityId": 3445005,
         "created": "2021-04-29T08:15:13.347+10:00",
         "updated": "2021-04-29T08:16:02.657+10:00",
@@ -1026,7 +1094,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "Intermediate session on processing and presenting raster data in QGIS",
         "details": "<p>\n\tIntermediate session on processing and presenting spatial data in QGIS. In this session, you will learn to:</p><ul>\n\t<li>Style and process raster data</li>\t<li>Troubleshoot common issues when importing spatial data</li>\t<li>Use a Digital Elevation Model</li>\t<li>Perform terrain analyses</li>\t<li>Create a 3D map</li></ul>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "St Lucia",
         "building": "Duhig Tower (2)",
         "location": "02-D501",
@@ -1071,7 +1139,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "18": {
+    "19": {
         "entityId": 3445008,
         "created": "2021-04-29T08:18:41.27+10:00",
         "updated": "2021-04-29T08:19:33.173+10:00",
@@ -1086,7 +1154,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "Create beautiful plots with RStudio and ggplot2's grammar of graphics",
         "details": "<p>\n\tThe Library is offering a free session designed for people who have used R and RStudio before but are new to plotting data with the \n\t<strong>ggplot2</strong> package.</p><p>\n\tDuring this hands-on session, you will:</p><ul>\n\t\n<li>Have a visualisation package installed (ggplot2)</li>\t\n<li>Learn about the basic ggplot2 components</li>\t\n<li>Use different kinds of visualisations</li>\t\n<li>Layer several visualisations</li>\t\n<li>Learn how to amend labels, themes and coordinates</li></ul><p>You should be familiar with R. It is  recommended to attend the &quot;R with RStudio: getting started&quot; session before attending this one.</p><p> \t<img style=\"width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/video-player-movie-1.png\">  Recording: Access our <a href=\"https://www.youtube.com/watch?v=LoeBgXSJWTw\">video recording</a> at any time</p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "St Lucia",
         "building": "Duhig Tower (2)",
         "location": "02-D501",
@@ -1131,7 +1199,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "19": {
+    "20": {
         "entityId": 3445007,
         "created": "2021-04-29T08:16:46.937+10:00",
         "updated": "2021-04-29T08:17:31.213+10:00",
@@ -1146,7 +1214,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "Create great-looking, reproducible documents with R and RStudio",
         "details": "<p>R is not limited to analysing data: you can use it in your project from importing to reporting.</p><p>Reproducible reports are integrated into RStudio, to make it easier to export a mix of code and prose to a variety of formats like PDF, HTML, docx and presentations.</p><p>In this session, you will learn about:</p><ul><li>Why reproducibility can help you</li><li>Mixing code and prose</li><li>Formatting with R Markdown</li><li>Exporting to different formats with knitr</li><li>Updating a report in seconds</li></ul><p><em>This session will use R and RStudio. </em>Please install the software <em>before </em>joining this session: <a href=\"https://gitlab.com/stragu/DSH/blob/master/R/Installation.md\">https://gitlab.com/stragu/DSH/blob/master/R/Instal...</a></p><p>You should be familiar with R. If you are interested in other R sessions, please search for &quot;RStudio&quot; on the <a href=\"https://web.library.uq.edu.au/library-services/training\">Library training</a> website.</p><p><img style=\"background-color:&#32;initial;&#32;width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png\"> Attend online: Zoom link to be sent before session</p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -1191,7 +1259,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "20": {
+    "21": {
         "entityId": 3449982,
         "created": "2021-05-07T06:47:33.483+10:00",
         "updated": "2021-05-07T09:11:18.563+10:00",
@@ -1206,7 +1274,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "A short introduction to R using RStudio. Hands on. No previous experience required.",
         "details": "<p>R is a popular programming language useful for statistics and data science.</p><p> \tThe UQ Library is offering a free RStudio introductory, hands-on session for R beginners.</p><p> \tWhat this session will cover:</p><ul><li>Create a project for data analysis</li><li>Introduce useful functions</li><li>Working with scripts</li><li>Where to find help</li><li>Import data</li><li>Use a few shortcuts</li><li>Install and load extra packages</li><li>An example of data visualisation</li></ul><p><img style=\"width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/video-player-movie-1.png\">  Recording: Access our <a href=\"https://www.youtube.com/watch?reload=9&amp;v=BoDTNbP7_OQ\">video recording</a> at any time</p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "St Lucia",
         "building": "Duhig Tower (2)",
         "location": "02-D501",
@@ -1251,7 +1319,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "21": {
+    "22": {
         "entityId": 3449986,
         "created": "2021-05-07T06:53:44.6+10:00",
         "updated": "2021-05-07T09:06:32.173+10:00",
@@ -1266,7 +1334,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "This session will introduce participants on how to sketch out concepts and diagrams on paper, and transfer them to digital formats and refine them. We use Adobe Photoshop and Illustrator from sketches and photographs. Basic level knowledge of the software suites would be beneficial.",
         "details": "<p>A short hands-on course that introduces some intermediate level tools\n  and skills with Adobe Photoshop. The session covers short exercises. </p><p>Prior knowledge of basic visual grammar and Adobe Photoshop are required for this course. </p><p></p><p><em>This session will use <strong>Adobe Photoshop</strong>. </em>Please install the software <em>before</em>  joining this session, information on how can be found on the <a href=\"https://my.uq.edu.au/information-and-services/information-technology/software-and-web-apps/free-student-software-personal-use\">UQ ITS website</a>.  Currently students are not able to install this software onto their own  device. It is available on all Library computers if needed.</p><p>If  you do not have access to the software, please  feel free to  join      and watch as we demonstrate it's use and answer any  questions  you  may     have.</p><p><img style=\"background-color:&#32;initial;&#32;width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png\"> Attend online: Zoom link to be sent before session</p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -1311,7 +1379,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "22": {
+    "23": {
         "entityId": 3450085,
         "created": "2021-05-07T11:00:11.457+10:00",
         "updated": "2021-05-07T11:14:49.83+10:00",
@@ -1326,7 +1394,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "Learn how to publish a dataset using UQRDM & UQ eSpace",
         "details": "<p>Journal editors frequently ask authors to publish datasets alongside their manuscripts. This session will:</p><ul><li>outline the requirements for publishing a dataset&nbsp;</li><li>demonstrate how to publish a dataset via UQRDM to comply with journal and funder requirements</li><li>how to cite your published data</li></ul>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -1371,7 +1439,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "23": {
+    "24": {
         "entityId": 3449987,
         "created": "2021-05-07T06:54:33.523+10:00",
         "updated": "2021-05-07T09:07:36.9+10:00",
@@ -1386,7 +1454,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "This course covers creating, editing and managing PDFs.",
         "details": "<p>At the end of this session, class participants will be able to:</p><ul><li>Create and modify PDFs</li><li>Extract and convert content</li><li>Protect and secure documents</li><li>Comment and annotate PDFs</li></ul><p><em>This session will use <strong>Adobe Acrobat</strong>. </em>Please install the software <em>before</em>  joining this session, information on how can be found on the <a href=\"https://my.uq.edu.au/information-and-services/information-technology/software-and-web-apps/free-student-software-personal-use\">UQ ITS website</a>.     If you do not have access to the software, please  feel free to join     and watch as we demonstrate it's use and answer any  questions you  may    have.</p><p><img style=\"background-color:&#32;initial;&#32;width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png\"> Attend online: Zoom link to be sent before session</p><p><strong>Note</strong>: UQ Students are not able to install Adobe Acrobat onto their own devices. The software is available on all Library computers if needed.<em><em><br></em></em></p><p><em><em>As part of <a href=\"https://ppl.app.uq.edu.au/content/10.10.01-sustainability-0\">UQ Sustainability</a> this class has no paper handouts. You may download manuals and exercises for this class on the </em><a href=\"https://web.library.uq.edu.au/library-services/training/training-resources\"><em>training resources</em></a><em> page.</em></em></p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -1431,7 +1499,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "24": {
+    "25": {
         "entityId": 3449988,
         "created": "2021-05-07T06:55:08.317+10:00",
         "updated": "2021-05-07T09:08:19.563+10:00",
@@ -1446,7 +1514,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "Using Excel chart tools to represent and visualise data.",
         "details": "<p>At the end of this session, class participants will be able to:</p><ul><li>Distinguish between Charts and Graphs</li><li>Create a basic chart and template</li><li>Format and configure chart output</li><li>Represent Time, Frequency and Proportions </li><li>Combine Chart types</li></ul><p><em>This session will use Microsoft Excel. </em>Please install the software <em>before </em>joining this session: <a href=\"https://my.uq.edu.au/information-and-services/information-technology/software-and-web-apps/software-uq/microsoft-software/office-365-personal-use\">https://my.uq.edu.au/information-and-services/info...</a></p><p><img style=\"background-color:&#32;initial;&#32;width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png\"> Attend online: Zoom link to be sent before session</p><p><em>As part of <a href=\"https://ppl.app.uq.edu.au/content/10.10.01-sustainability-0\">UQ Sustainability</a> this class has no paper handouts. You may download manuals and exercises for this class on the </em><a href=\"https://web.library.uq.edu.au/library-services/training/training-resources\"><em>training resources</em></a><em> page.</em></p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -1491,7 +1559,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "25": {
+    "26": {
         "entityId": 3449984,
         "created": "2021-05-07T06:51:04.82+10:00",
         "updated": "2021-05-07T09:09:03.963+10:00",
@@ -1506,7 +1574,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "A comprehensive course covering Microsoft PowerPoint use for the creation of interesting presentations.",
         "details": "<p>At the end of the course participants will be able to:</p><ul>\n<li>Create, edit, print, format and present PowerPoint shows</li><li>Modify slide layouts via the Slide Master</li><li>Insert and manage graphics and&nbsp;charts</li><li>Master Animations and Transitions</li></ul><p><em>This session will use Microsoft PowerPoint. </em>Please install the software <em>before </em>joining this session: <a href=\"https://my.uq.edu.au/information-and-services/information-technology/software-and-web-apps/software-uq/microsoft-software/office-365-personal-use\">https://my.uq.edu.au/information-and-services/info...</a></p><p><img style=\"background-color:&#32;initial;&#32;width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png\"> Attend online: Zoom link to be sent before session</p><p><em style=\"background-color:&#32;initial;\"></em></p><p><em>As part of <a href=\"https://ppl.app.uq.edu.au/content/10.10.01-sustainability-0\">UQ Sustainability</a> this class has no paper handouts. You may download manuals and exercises for this class on the </em><a href=\"https://web.library.uq.edu.au/library-services/training/training-resources\"><em>training resources</em></a><em> page.</em></p><p><em style=\"background-color:&#32;initial;\"></em></p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -1551,7 +1619,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "26": {
+    "27": {
         "entityId": 3449989,
         "created": "2021-05-07T06:55:35.817+10:00",
         "updated": "2021-05-07T09:11:20.36+10:00",
@@ -1566,7 +1634,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "Learn how to import, slice, clean and optimise audio recordings with professional-grade software.",
         "details": "<p>Audacity is an open source, cross-platform tool for editing audio files.</p><p>This training covers how to:</p><ul><li>import audio into Audacity</li><li>move and delete sections</li><li>clean up background noise</li><li>switch between sound visualisation tools</li><li>use a few essential effects</li><li>export to a variety of formats</li><li>publish audio online</li></ul>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "St Lucia",
         "building": "Duhig Tower (2)",
         "location": "02-D501",
@@ -1611,7 +1679,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "27": {
+    "28": {
         "entityId": 2891495,
         "created": "2020-12-21T14:53:23.01+10:00",
         "updated": "2021-02-19T14:08:01.95+10:00",
@@ -1626,7 +1694,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "This online training via zoom will cover how to set up a LabArchives account and request a notebook in UQRDM and demonstrate major features of the notebook.",
         "details": "<p>Digital Research Notebooks are a UQ wide digital solution that replaces paper based research notebooks and lab notebooks.&nbsp;&nbsp;This&nbsp;<strong>online training</strong>&nbsp;will cover:</p><ol>\n<li>Creating/accessing the notebook from within UQRDM and how to add collaborators</li><li>Adding data to the notebook - notebook navigator, entries, folder monitor, Office Online and the Office desktop plugin, widgets</li><li>Managing data in the notebook - revision history, searching, comments, tags, links, signing &amp; witnessing, offline export tools.</li><li>Access management - monitoring activities, managing collaborator permissions within LabArchives</li></ol><p><img style=\"background-color:&#32;initial;&#32;width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png\">  Attend online:&nbsp;<a href=\"https://uqz.zoom.us/j/81987924291\">Login here to Zoom event at the above times</a></p><p>Please book in to receive session reminders and updates.</p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -1671,7 +1739,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "28": {
+    "29": {
         "entityId": 3449983,
         "created": "2021-05-07T06:49:04.12+10:00",
         "updated": "2021-05-07T09:11:13.703+10:00",
@@ -1686,7 +1754,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "Create beautiful plots with RStudio and ggplot2's grammar of graphics",
         "details": "<p> \tThe Library is offering a free R intermediate session on graphics using the  \t<strong>ggplot2</strong> package.</p><p> \tDuring this hands-on session, you will:</p><ul><li>install extra tools for picking colours</li><li>create a custom colour palette</li><li>customise scales and ranges</li><li>divide a visualisation into facets</li><li>explore new geometries</li><li>adjust a geometry's position</li><li>further modify themes</li></ul><p>You  should be familiar with R. It is  recommended to attend the &quot;R with  RStudio: getting started&quot; session before attending this one.</p><p> \t<img style=\"width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/video-player-movie-1.png\">  Recording: Access our <a href=\"https://www.youtube.com/watch?v=LoeBgXSJWTw\">video recording</a> at any time</p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "St Lucia",
         "building": "Duhig Tower (2)",
         "location": "02-D501",
@@ -1731,7 +1799,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "29": {
+    "30": {
         "entityId": 3449990,
         "created": "2021-05-07T06:57:11.313+10:00",
         "updated": "2021-05-07T09:10:31.847+10:00",
@@ -1746,7 +1814,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "A beginner's guide to essential spreadsheet concepts and skills",
         "details": "<p>At the end of this session, class participants will be able to:</p><ul><li>Design and create a simple spreadsheet</li><li>Enter data, labels, formulas and simple functions</li><li>Format and sort data</li><li>Present data in charts</li></ul><p><em>This session will use Microsoft Excel. </em>Please install the software <em>before </em>joining this session: <a href=\"https://my.uq.edu.au/information-and-services/information-technology/software-and-web-apps/software-uq/microsoft-software/office-365-personal-use\">https://my.uq.edu.au/information-and-services/info...<br></a></p><p><img style=\"background-color:&#32;initial;&#32;width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png\"> Attend online: Zoom link to be sent before session</p><p><em><em>As part of <a href=\"https://ppl.app.uq.edu.au/content/10.10.01-sustainability-0\">UQ Sustainability</a> this class has no paper handouts. You may download manuals and exercises for this class on the </em><a href=\"https://web.library.uq.edu.au/library-services/training/training-resources\"><em>training resources</em></a><em> page.</em></em></p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -1791,7 +1859,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "30": {
+    "31": {
         "entityId": 3450064,
         "created": "2021-05-07T09:46:20.013+10:00",
         "updated": "2021-05-07T09:49:06.553+10:00",
@@ -1806,7 +1874,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "Use Kaltura to record and submit a video or audio assignment through Learn.UQ",
         "details": "<p>Use Kaltura to record and submit a video or audio assignment through Learn.UQ</p><p>This session will cover:</p><ul> <li>Downloading and accessing Kaltura</li><li>Recording your screen, presentation, webcam and/or voice-over</li><li>Managing your &quot;My Media&quot; section in Learn.UQ </li><li>Editing video or audio recorded using Kaltura</li><li>Submitting a video or audio assignment through Learn.UQ</li></ul>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "St Lucia",
         "building": "Duhig Tower (2)",
         "location": "02-D501",
@@ -1851,7 +1919,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "31": {
+    "32": {
         "entityId": 3450065,
         "created": "2021-05-07T09:46:31.733+10:00",
         "updated": "2021-05-07T09:50:26.053+10:00",
@@ -1866,7 +1934,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "Manipulate your data with RStudio and dplyr in this hands-on R session.",
         "details": "<p>In this hands-on session, you will use RStudio and the dplyr package to manipulate your tabular data.</p><p>Specifically, you will learn about six dplyr &quot;verbs&quot; that can be used to:</p><ul><li>filter data depending on conditions</li><li>sort data</li><li>remove variables</li><li>create new variables</li><li>collapse data to a summary</li><li>operate on separate groups</li></ul><p>You\n should be familiar with R. It is recommended to attend the &quot;R with \nRStudio: getting started&quot; session prior to this one, but not essential \nif you have used R before.</p><p><img style=\"width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/video-player-movie-1.png\">  Recording: Access our <a href=\"https://www.youtube.com/watch?v=vqvsyaaqJUk&amp;list=PLmDEaZ20fWqCypV7S-trCPtVefHk4e0bU&amp;index=2\">video recording</a> at any time</p><p><em>You may download manuals and exercises for this class on the </em><a href=\"https://web.library.uq.edu.au/library-services/training/training-resources\"><em>training resources</em></a><em> page.</em></p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "St Lucia",
         "building": "Duhig Tower (2)",
         "location": "02-D501",
@@ -1911,7 +1979,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "32": {
+    "33": {
         "entityId": 3450066,
         "created": "2021-05-07T09:46:43.923+10:00",
         "updated": "2021-05-07T09:51:22.267+10:00",
@@ -1926,7 +1994,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "This session is designed for researchers at the University of Queensland who need to use the complex features of Word to structure complex documents.  It includes automation to limit repetitive tasks and meet the formatting requirements for a successful thesis submission.",
         "details": "<p>This session is very similar to the Word Advanced session.  It has  been customised to focus on UQ's thesis submission requirements using  formal documentation rather than generic skills based training.</p><p>Following this training participants will be able to:</p><p>1. Use styles with confidence</p><p>2. Apply automatic heading numbering</p><p>3. Generate automated tables of contents, figures etc.</p><p>4. Insert captions and cross-references</p><p>5. Combine documents and merge formatting</p><p><em>This session will use Microsoft Word. </em>Please install the software <em>before </em>joining this session: <a href=\"https://my.uq.edu.au/information-and-services/information-technology/software-and-web-apps/software-uq/microsoft-software/office-365-personal-use\">https://my.uq.edu.au/information-and-services/info...</a></p><p><img style=\"background-color:&#32;initial;&#32;width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png\"> Attend online: Zoom link to be sent before session</p><p><em>As part of <a href=\"https://ppl.app.uq.edu.au/content/10.10.01-sustainability-0\">UQ Sustainability</a> this class has no paper handouts. You may download manuals and exercises for this class on the </em><a href=\"https://web.library.uq.edu.au/library-services/training/training-resources\"><em>training resources</em></a><em> page.</em></p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -1971,7 +2039,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "33": {
+    "34": {
         "entityId": 3450067,
         "created": "2021-05-07T09:46:53.837+10:00",
         "updated": "2021-05-07T09:53:02.69+10:00",
@@ -1986,7 +2054,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "Get started with Python and the Spyder IDE with this hands-on introductory session.",
         "details": "<p>Python is a programming language that is widely used for scientific  programming. The Library offers this session to get you started with  using Python for data science. </p><p> \tIn this hands-on session directed at beginners, you will learn how to:</p><ul><li>create a project</li><li>import useful modules</li><li>create variables</li><li>make use of functions</li><li>differentiate attributes and methods</li><li>import tabular data</li><li>visualise data</li><li>store code in a script</li></ul><p> \t<em>This session will use Spyder, an integrated development environment (IDE) for Python provided by the Anaconda distribution.</em> Please install the software <em>before</em> joining this session, refer to the <a href=\"https://www.anaconda.com/download/\">Anaconda download information</a>. (Python 3.x version)</p><p><img style=\"background-color:&#32;initial;&#32;width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png\"> Attend online: Zoom link to be sent before session</p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -2031,7 +2099,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "34": {
+    "35": {
         "entityId": 3430859,
         "created": "2021-04-01T10:25:12.967+10:00",
         "updated": "2021-04-01T10:27:16.82+10:00",
@@ -2046,7 +2114,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "Find out how to set up your own EndNote library. Use EndNote referencing software to collect citations and insert them into Microsoft Word to automatically produce the reference list in your assignments.",
         "details": "<p>This session will show you how to:</p><ul> <li>set up an EndNote library</li><li>add new references manually</li><li>download references from the Library catalogue or a database</li><li>attach PDF files of a journal article to an EndNote citation</li><li>search, sort and group within the library</li><li>choose an appropriate referencing style to use with EndNote</li><li>use EndNote with Word to insert citations and create a bibliography</li></ul><p>Also check out our&nbsp;<a href=\"https://youtu.be/QbVMe1vaoUE\">online class video</a> and handouts -&nbsp;<a href=\"https://web.library.uq.edu.au/files/132080/EndNote%2020%20Getting%20Started%20Windows.pdf\">Windows</a> or&nbsp;<a href=\"https://web.library.uq.edu.au/files/131995/EndNote%2020%20Getting%20Started%20Mac.pdf\">Mac</a>.</p>",
-        "offCampusVenue": "Online via Zoom",
+        "offCampusLocation": "Online via Zoom",
         "campus": null,
         "building": null,
         "location": null,
@@ -2089,7 +2157,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "35": {
+    "36": {
         "entityId": 3450068,
         "created": "2021-05-07T09:47:08.56+10:00",
         "updated": "2021-05-07T10:08:17.2+10:00",
@@ -2104,7 +2172,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "This class covers formatting basic documents using Styles and is suitable for users of any experience level.",
         "details": "<p>At the end of this session, class participants will be able to:</p><ul><li>Simplify document formatting using styles</li><li>Insert sections, page breaks and page numbers</li><li>Manage document structure</li></ul><p><em>This session will use Microsoft Word. </em>Please install the software <em>before </em>joining this session: <a href=\"https://my.uq.edu.au/information-and-services/information-technology/software-and-web-apps/software-uq/microsoft-software/office-365-personal-use\">https://my.uq.edu.au/information-and-services/info...</a></p><p><img style=\"background-color:&#32;initial;&#32;width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png\"> Attend online: Zoom link to be sent before session</p><p><em>As part of <a href=\"https://ppl.app.uq.edu.au/content/10.10.01-sustainability-0\">UQ Sustainability</a> this class has no paper handouts. You may download manuals and exercises for this class on the </em><a href=\"https://web.library.uq.edu.au/library-services/training/training-resources\"><em>training resources</em></a><em> page.</em></p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -2149,7 +2217,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "36": {
+    "37": {
         "entityId": 3450069,
         "created": "2021-05-07T09:47:19.373+10:00",
         "updated": "2021-05-07T09:56:48.657+10:00",
@@ -2164,7 +2232,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "A detailed look into the text analysis possibilities provided in VoyantTools. Introductory, no prior knowledge required.",
         "details": "<p>This session is for those with little or no knowledge of text analysis, this is not an advanced session. NVivo classes are available for more intensive text analysis.&nbsp;</p><p>This session will run through the basic&nbsp;function of Voyant Tools.&nbsp;This software is web based, so you can bring your own laptop or use a lab computer. This is an introductory session that will look at the tools in detail and in the context of text analysis. We will also cover the basics of text analysis in an academic setting. Students may bring their own corpus (collection of documents), or an example set is provided on the platform.&nbsp;</p><p><img style=\"background-color:&#32;initial;&#32;width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png\"> Attend online: Zoom link to be sent before session</p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -2209,7 +2277,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "37": {
+    "38": {
         "entityId": 3450070,
         "created": "2021-05-07T09:47:30.55+10:00",
         "updated": "2021-05-07T09:58:12.233+10:00",
@@ -2224,7 +2292,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "Learn about extra Tidyverse packages, including tidyr and purr",
         "details": "<p>The Library is offering this free session on learning more about the R language and the Tidyverse <em>dialect</em>, using RStudio.</p><p>In this intermediate session, we will explore the <strong>purrr</strong> and <strong>tidyr</strong>\n packages to reorganise, manipulate and process data. We will also learn\n about how we can associate them with other Tidyverse functions from \ndplyr, ggplot2 and others.</p><p>\n \tYou should be familiar with R and ggplot2 to attend this session. It \nis  recommended to attend the &quot;R data visualisation with RStudio and  \nggplot2: introduction&quot; session before attending this one.</p><p><img style=\"width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/video-player-movie-1.png\">  Recording: Access our <a href=\"https://www.youtube.com/watch?v=2TZYeFcJQIk\">video recording</a> at any time</p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "St Lucia",
         "building": "Duhig Tower (2)",
         "location": "02-D501",
@@ -2269,7 +2337,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "38": {
+    "39": {
         "entityId": 2890738,
         "created": "2020-12-21T11:10:27.71+10:00",
         "updated": "2020-12-21T11:16:40.3+10:00",
@@ -2284,7 +2352,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "The session will demonstrate how students doing research projects can set up a project record on UQRDM and use it to store, organise and share their research data and documents.",
         "details": "<p>The session will take research students step by step how to use UQRDM to store, organise and share their research data and documents.</p><p>Attend online:&nbsp;<a href=\"https://uqz.zoom.us/j/85284925507\">Login to Zoom event at above times</a>.</p><p>Please book in to receive session reminders and updates.</p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -2329,7 +2397,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "39": {
+    "40": {
         "entityId": 3450071,
         "created": "2021-05-07T09:47:41.097+10:00",
         "updated": "2021-05-07T09:59:23.833+10:00",
@@ -2344,7 +2412,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "A guide to using Excel tools to analyse and consolidate data to present more meaningful information.  These features will assist with report and assignment preparation.",
         "details": "<p>At the end of this session you will be able to:</p><ul>\n<li>Distinguish between relative and absolute cell references</li><li>Use the Vlookup function</li><li>Use IF function</li><li>Sort and Filter to extract data</li><li>Use PivotTable for flexible data presentation</li></ul><p><em>This session will use Microsoft Excel. </em>Please install the software <em>before </em>joining this session: <a href=\"https://my.uq.edu.au/information-and-services/information-technology/software-and-web-apps/software-uq/microsoft-software/office-365-personal-use\">https://my.uq.edu.au/information-and-services/info...</a></p><p><img style=\"background-color:&#32;initial;&#32;width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png\"> Attend online: Zoom link to be sent before session</p><p><em style=\"background-color:&#32;initial;\"><span style=\"font-size:&#32;10px;\"></span></em><em style=\"background-color:&#32;initial;\"><span style=\"font-size:&#32;10px;\"></span></em></p><p><em style=\"background-color:&#32;initial;\"></em></p><p><em>As part of <a href=\"https://ppl.app.uq.edu.au/content/10.10.01-sustainability-0\">UQ Sustainability</a> this class has no paper handouts. You may download manuals and exercises for this class on the </em><a href=\"https://web.library.uq.edu.au/library-services/training/training-resources\"><em>training resources</em></a><em> page.</em></p><p><em style=\"background-color:&#32;initial;\"></em></p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -2389,7 +2457,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "40": {
+    "41": {
         "entityId": 3450072,
         "created": "2021-05-07T09:47:49.82+10:00",
         "updated": "2021-05-07T10:01:27.33+10:00",
@@ -2404,7 +2472,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "Learn how to contribute geographical data to OpenStreetMap, and use the database in QGIS.",
         "details": "<p>OpenStreetMap (OSM) is an open-licence spatial database.</p><p>In this hands-on session, you will learn how to:</p><ul>\n<li>Digitise geographical data into the OSM database</li><li>Use an editor directly from the browser</li><li>Contribute local data as well as data useful to humanitarian action across the world</li><li>Make use of OSM data in QGIS to create a custom map</li></ul><p>You do not need any prior knowledge to attend this session.</p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "St Lucia",
         "building": "Duhig Tower (2)",
         "location": "02-D501",
@@ -2449,7 +2517,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "41": {
+    "42": {
         "entityId": 3450078,
         "created": "2021-05-07T10:23:36.157+10:00",
         "updated": "2021-05-07T10:25:18.51+10:00",
@@ -2464,7 +2532,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "NVIVO is designed to facilitate common qualitative techniques for organising, analysing and sharing data in a research project.  This session enables users to get started with NVivo tools to help you manage, explore and discover patterns in your data.",
         "details": "<p>At the end of this session you will be able to:</p><ul><li>Create a project for data analysis</li><li>Import documents and datasets</li><li>Understand coding nodes and cases</li><li>Explore and analyse data</li><li>Use Visualisation tools</li></ul><p> \t<img style=\"width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/video-player-movie-1.png\">  Recording: Access our <a href=\"https://www.youtube.com/watch?v=5MmiSqmKRQs&amp;feature=youtu.be\">video recording</a> at any time</p><p><em>As part of <a href=\"https://ppl.app.uq.edu.au/content/10.10.01-sustainability-0\">UQ Sustainability</a> this class has no paper handouts. You may download manuals and exercises for this class on the </em><a href=\"https://web.library.uq.edu.au/library-services/training/training-resources\"><em>training resources</em></a><em> page.</em></p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "St Lucia",
         "building": "Duhig Tower (2)",
         "location": "02-D501",
@@ -2509,7 +2577,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "42": {
+    "43": {
         "entityId": 3450079,
         "created": "2021-05-07T10:23:47.86+10:00",
         "updated": "2021-05-07T10:26:15.263+10:00",
@@ -2524,7 +2592,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "Create beautiful plots with RStudio and ggplot2's grammar of graphics",
         "details": "<p>\n\tThe Library is offering a free session designed for people who have used R and RStudio before but are new to plotting data with the \n\t<strong>ggplot2</strong> package.</p><p>\n\tDuring this hands-on session, you will:</p><ul>\n\t\n<li>Have a visualisation package installed (ggplot2)</li>\t\n<li>Learn about the basic ggplot2 components</li>\t\n<li>Use different kinds of visualisations</li>\t\n<li>Layer several visualisations</li>\t\n<li>Learn how to amend labels, themes and coordinates</li></ul><p>You should be familiar with R. It is  recommended to attend the &quot;R with RStudio: getting started&quot; session before attending this one.</p><p> \t<img style=\"width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/video-player-movie-1.png\">  Recording: Access our <a href=\"https://www.youtube.com/watch?v=LoeBgXSJWTw\">video recording</a> at any time</p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "St Lucia",
         "building": "Duhig Tower (2)",
         "location": "02-D501",
@@ -2569,7 +2637,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "43": {
+    "44": {
         "entityId": 3430354,
         "created": "2021-03-31T16:35:26.01+10:00",
         "updated": "2021-03-31T16:40:22.517+10:00",
@@ -2584,7 +2652,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "PRIOR KNOWLEDGE OF ENDNOTE IS ESSENTIAL. Tips and tricks for using EndNote when writing a thesis or a publication.",
         "details": "<p><u>Session description</u></p><p><strong>PRIOR KNOWLEDGE OF ENDNOTE IS ESSENTIAL.</strong> Tips and tricks for using EndNote when writing a thesis or a publication.&nbsp;&nbsp;This class uses pre-prepared materials which will be sent to you before the class.</p><p>This session will cover:</p><ul> \n<li>Backing Up</li><li>Cleaning up a library</li><li>Syncing basics</li><li>Basics of editing a style</li><li>Journal term lists</li><li>Combining libraries and merging chapters</li><li>EndNote library recovery</li></ul><p>Also check out our&nbsp;<a href=\"https://youtu.be/ORzxqhaKUAM\">online class video</a> and handouts - <a href=\"https://web.library.uq.edu.au/files/132010/EndNote%2020%20Thesis%20Writing%20handout%20Windows.pdf\">Windows</a> or <a href=\"https://web.library.uq.edu.au/files/132005/EndNote%2020%20Thesis%20Writing%20handout%20Mac.pdf\">Mac</a>.</p>",
-        "offCampusVenue": "Online via Zoom",
+        "offCampusLocation": "Online via Zoom",
         "campus": null,
         "building": null,
         "location": null,
@@ -2627,7 +2695,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "44": {
+    "45": {
         "entityId": 3450080,
         "created": "2021-05-07T10:24:01.05+10:00",
         "updated": "2021-05-07T10:27:36.18+10:00",
@@ -2642,7 +2710,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "An introductory course to develop basic understanding of the Adobe InDesign tool",
         "details": "<p>An introductory course to develop a basic understanding of the Adobe  InDesign tool, used generally for generating posters, flyers,  newsletters, presentations and reports. This course introduces  participants to the basics of using the Adobe InDesign tool, no prior experience is required.</p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "St Lucia",
         "building": "Duhig Tower (2)",
         "location": "02-D501",
@@ -2687,7 +2755,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "45": {
+    "46": {
         "entityId": 3450081,
         "created": "2021-05-07T10:24:13.19+10:00",
         "updated": "2021-05-07T10:28:42.757+10:00",
@@ -2702,7 +2770,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "pandas is a popular module that introduces data frames to Python, and provides many powerful tools to clean, explore, transform and even visualise your data",
         "details": "<p>In this session, you will learn how to:</p><ul><li>import tabular data from the web or a spreadsheet</li><li>explore and clean the dataset for common issues</li><li>subset the dataset to focus on the important part</li><li>expand the dataset by creating new columns and combining two datasets</li><li>transform the data to produce statistical summaries</li><li>use plotting functions to create publication-ready visualisations</li></ul><p>This session requires a basic understanding of the Python programming language. We recommend you complete our introductory Python session before booking this one. You can find the next introductory Python session via the <a href=\"https://web.library.uq.edu.au/library-services/training\">Library training website</a>.</p><p>Please make sure you have Python and Spyder installed before the session. The easiest way to do this in one go is to install the <a href=\"https://www.anaconda.com/products/individual\">Anaconda distribution</a>.</p><p><img style=\"background-color:&#32;initial;&#32;width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png\"> Attend online: Zoom link to be sent before session</p><p><br><a href=\"https://www.anaconda.com/products/individual\"></a></p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -2747,7 +2815,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "46": {
+    "47": {
         "entityId": 3415855,
         "created": "2021-03-09T13:47:33.237+10:00",
         "updated": "2021-03-09T13:52:12.413+10:00",
@@ -2762,7 +2830,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "Informal Q&A session for UQ researchers",
         "details": "<p>This session is for UQ researchers who have been using UQRDM and&nbsp;want to:</p><ul><li>resolve any issues using the system</li><li>know how to make the most of all the features</li><li>improve their research data management practices</li></ul><p>You don't need to attend the whole session, you can drop in at any time, ask questions&nbsp;and leave early if you wish.</p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -2807,7 +2875,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "47": {
+    "48": {
         "entityId": 3450082,
         "created": "2021-05-07T10:24:26.257+10:00",
         "updated": "2021-05-07T10:29:17.333+10:00",
@@ -2822,7 +2890,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "Create great-looking, reproducible documents with R and RStudio",
         "details": "<p>R is not limited to analysing data: you can use it in your project from importing to reporting.</p><p>Reproducible reports are integrated into RStudio, to make it easier to export a mix of code and prose to a variety of formats like PDF, HTML, docx and presentations.</p><p>In this session, you will learn about:</p><ul><li>Why reproducibility can help you</li><li>Mixing code and prose</li><li>Formatting with R Markdown</li><li>Exporting to different formats with knitr</li><li>Updating a report in seconds</li></ul><p>You should be familiar with R. If you are interested in other R sessions, please search for &quot;RStudio&quot; on the <a href=\"https://web.library.uq.edu.au/library-services/training\">Library training</a> website.</p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "St Lucia",
         "building": "Duhig Tower (2)",
         "location": "02-D501",
@@ -2867,7 +2935,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "48": {
+    "49": {
         "entityId": 3453813,
         "created": "2021-05-13T10:15:35.12+10:00",
         "updated": "2021-05-13T10:16:20.423+10:00",
@@ -2882,7 +2950,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "A guide to using Excel tools to analyse and consolidate data to present more meaningful information. These features will assist with report and assignment preparation.",
         "details": "<p>At the end of this session you will be able to:</p><ul> <li>Work effectively with a variety of functions</li><li>Combine functions into powerful formulas</li></ul><p><em>This session will use Microsoft Excel. </em>Please install the software <em>before </em>joining this session: <a href=\"https://my.uq.edu.au/information-and-services/information-technology/software-and-web-apps/software-uq/microsoft-software/office-365-personal-use\">https://my.uq.edu.au/information-and-services/info...</a></p><p><img style=\"background-color:&#32;initial;&#32;width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png\"> Attend online: Zoom link to be sent before session</p><p><em><em>As part of <a href=\"https://ppl.app.uq.edu.au/content/10.10.01-sustainability-0\">UQ Sustainability</a> this class has no paper handouts. You may download manuals and exercises for this class on the </em><a href=\"https://web.library.uq.edu.au/library-services/training/training-resources\"><em>training resources</em></a><em> page.</em></em></p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -2927,7 +2995,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "49": {
+    "50": {
         "entityId": 3430860,
         "created": "2021-04-01T10:28:22.66+10:00",
         "updated": "2021-04-01T10:30:42.643+10:00",
@@ -2942,7 +3010,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "Find out how to set up your own EndNote library. Use EndNote referencing software to collect citations and insert them into Microsoft Word to automatically produce the reference list in your assignments.",
         "details": "<p>This session will show you how to:</p><ul> <li>set up an EndNote library</li><li>add new references manually</li><li>download references from the Library catalogue or a database</li><li>attach PDF files of a journal article to an EndNote citation</li><li>search, sort and group within the library</li><li>choose an appropriate referencing style to use with EndNote</li><li>use EndNote with Word to insert citations and create a bibliography</li></ul><p>Also check out our&nbsp;<a href=\"https://youtu.be/QbVMe1vaoUE\">online class video</a> and handouts -&nbsp;<a href=\"https://web.library.uq.edu.au/files/132080/EndNote%2020%20Getting%20Started%20Windows.pdf\">Windows</a> or&nbsp;<a href=\"https://web.library.uq.edu.au/files/131995/EndNote%2020%20Getting%20Started%20Mac.pdf\">Mac</a>.</p>",
-        "offCampusVenue": "Online via Zoom",
+        "offCampusLocation": "Online via Zoom",
         "campus": null,
         "building": null,
         "location": null,
@@ -2985,7 +3053,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "50": {
+    "51": {
         "entityId": 3450153,
         "created": "2021-05-07T12:05:48.48+10:00",
         "updated": "2021-05-07T12:08:58.363+10:00",
@@ -3000,7 +3068,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "Learn how to publish a dataset using UQRDM & UQ eSpace",
         "details": "<p>Journal editors frequently ask authors to publish datasets alongside their manuscripts. This session will:</p><ul><li>outline the requirements for publishing a dataset&nbsp;</li><li>demonstrate how to publish a dataset via UQRDM to comply with journal and funder requirements</li><li>how to cite your published data</li></ul>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -3045,7 +3113,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "51": {
+    "52": {
         "entityId": 3445159,
         "created": "2021-04-29T11:12:00.423+10:00",
         "updated": "2021-04-29T11:17:47.837+10:00",
@@ -3060,7 +3128,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "This online training via zoom will cover how to set up a LabArchives account and request a notebook in UQRDM and demonstrate major features of the notebook.",
         "details": "<p>Digital Research Notebooks are a UQ wide digital solution that replaces paper based research notebooks and lab notebooks.&nbsp;&nbsp;This&nbsp;<strong>online training</strong>&nbsp;will cover:</p><ol>\n<li>Creating/accessing the notebook from within UQRDM and how to add collaborators</li><li>Adding data to the notebook - notebook navigator, entries, folder monitor, Office Online and the Office desktop plugin, widgets</li><li>Managing data in the notebook - revision history, searching, comments, tags, links, signing &amp; witnessing, offline export tools.</li><li>Access management - monitoring activities, managing collaborator permissions within LabArchives</li></ol><p><img style=\"background-color:&#32;initial;&#32;width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png\">  Attend online:&nbsp;<a href=\"https://uqz.zoom.us/j/87927465253\">Login here to Zoom event at the above times</a></p><p>Please book in to receive session reminders and updates.</p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -3105,7 +3173,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "52": {
+    "53": {
         "entityId": 3445016,
         "created": "2021-04-29T08:37:04.607+10:00",
         "updated": "2021-04-29T11:02:24.08+10:00",
@@ -3120,7 +3188,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "The session will demonstrate how students doing research projects can set up a project record on UQRDM and use it to store, organise and share their research data and documents.",
         "details": "<p>The session will take research students step by step how to use UQRDM to store, organise and share their research data and documents.</p><p>Attend online:&nbsp;<a href=\"https://uqz.zoom.us/j/85607166883\">Login to Zoom event at above times</a>.</p><p>Please book in to receive session reminders and updates.</p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -3165,7 +3233,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "53": {
+    "54": {
         "entityId": 3450084,
         "created": "2021-05-07T10:50:32.243+10:00",
         "updated": "2021-05-07T11:19:38.513+10:00",
@@ -3180,7 +3248,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "How to manage and share sensitive research data in a safe and secured way",
         "details": "<p>This workshop will look at what sensitive data is, how to manage sensitive data through the entire research project and what are the techniques you can use to safely share and publish&nbsp;sensitive data.</p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -3225,7 +3293,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "54": {
+    "55": {
         "entityId": 3454585,
         "created": "2021-05-14T11:28:14.303+10:00",
         "updated": "2021-05-17T08:37:14.733+10:00",
@@ -3240,7 +3308,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "Creating custom widgets and managing notebook users",
         "details": "<p>Michele Hosking from LabArchives will conduct this workshop to demonstrate how to create custom templates and&nbsp;widgets, and how to manage notebook users.</p><p>The attendees need to have an Administrator's right if they would like to follow and&nbsp;perform tasks such as building a widget.&nbsp;</p><p><strong><em>This is a face to face&nbsp;session and is held in Room 501 on Level 5, Duhig Tower.(building no.2)</em></strong></p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "St Lucia",
         "building": "Duhig Tower (2)",
         "location": "02-D501",
@@ -3285,7 +3353,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "55": {
+    "56": {
         "entityId": 3454587,
         "created": "2021-05-14T11:33:42.577+10:00",
         "updated": "2021-05-17T08:37:54.38+10:00",
@@ -3300,7 +3368,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "LabArchives integrations with third party tools as well as Folder Monitor to help streamlining your workflows followed by a Q&A session",
         "details": "<p>Michele Hosking from LabArchives will conduct this workshop to demonstrate how third party tools such as GraphPad Prism, SnapGene, Jupiter, PubMed Central, the Microsoft Office plugin,&nbsp;as well Folder Monitor can help with streamlining your workflows.&nbsp; This is followed by a Q&amp;A session for Michele to answer any questions.</p><p><strong><em>This is a face to face session and is held in Room 501, Level 5&nbsp;Duhig Tower (building no.2)</em></strong></p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "St Lucia",
         "building": "Duhig Tower (2)",
         "location": "02-D501",
@@ -3345,7 +3413,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": false
     },
-    "56": {
+    "57": {
         "entityId": 3461406,
         "created": "2021-05-24T13:44:44.82+10:00",
         "updated": "2021-05-24T13:49:54.893+10:00",
@@ -3360,7 +3428,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "Informal Q&A session for UQ researchers",
         "details": "<p>This session is for UQ researchers who have been using UQRDM and&nbsp;want to:</p><ul><li>resolve any issues using the system</li><li>know how to make the most of all the features</li><li>improve their research data management practices</li></ul><p><em><strong>You don't need to attend the whole session, you can drop in at any time, ask questions&nbsp;and leave early if you wish.</strong></em></p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -3405,7 +3473,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "57": {
+    "58": {
         "entityId": 3445161,
         "created": "2021-04-29T11:18:19.557+10:00",
         "updated": "2021-04-29T11:27:06.367+10:00",
@@ -3420,7 +3488,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "This online training via zoom will cover how to set up a LabArchives account and request a notebook in UQRDM and demonstrate major features of the notebook.",
         "details": "<p>Digital Research Notebooks are a UQ wide digital solution that replaces paper based research notebooks and lab notebooks.&nbsp;&nbsp;This&nbsp;<strong>online training</strong>&nbsp;will cover:</p><ol>\n<li>Creating/accessing the notebook from within UQRDM and how to add collaborators</li><li>Adding data to the notebook - notebook navigator, entries, folder monitor, Office Online and the Office desktop plugin, widgets</li><li>Managing data in the notebook - revision history, searching, comments, tags, links, signing &amp; witnessing, offline export tools.</li><li>Access management - monitoring activities, managing collaborator permissions within LabArchives</li></ol><p><img style=\"background-color:&#32;initial;&#32;width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png\">  Attend online:&nbsp;<a href=\"https://uqz.zoom.us/j/82055412592\">Login here to Zoom event at the above times</a></p><p>Please book in to receive session reminders and updates.</p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -3465,7 +3533,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "58": {
+    "59": {
         "entityId": 3445158,
         "created": "2021-04-29T11:02:57.52+10:00",
         "updated": "2021-04-29T11:08:23.353+10:00",
@@ -3480,7 +3548,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "The session will demonstrate how students doing research projects can set up a project record on UQRDM and use it to store, organise and share their research data and documents.",
         "details": "<p>The session will take research students step by step how to use UQRDM to store, organise and share their research data and documents.</p><p>Attend online:&nbsp;<a href=\"https://uqz.zoom.us/j/86928654106\">Login to Zoom event at above times</a>.</p><p>Please book in to receive session reminders and updates.</p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -3525,7 +3593,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "59": {
+    "60": {
         "entityId": 3450156,
         "created": "2021-05-07T12:42:15.837+10:00",
         "updated": "2021-05-07T12:46:35.833+10:00",
@@ -3540,7 +3608,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "How to manage and share sensitive research data in a safe and secured way",
         "details": "<p>This workshop will look at what sensitive data is, how to manage sensitive data through the entire research project and what are the techniques you can use to safely share and publish&nbsp;sensitive data.</p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
@@ -3585,7 +3653,7 @@ const trainingEventsObject = {
         ],
         "isOnlineClass": true
     },
-    "60": {
+    "61": {
         "entityId": 3461408,
         "created": "2021-05-24T13:51:20.723+10:00",
         "updated": "2021-05-24T13:54:14.35+10:00",
@@ -3600,7 +3668,7 @@ const trainingEventsObject = {
         "isCancelled": false,
         "summary": "Informal Q&A session for UQ researchers",
         "details": "<p>This session is for UQ researchers who have been using UQRDM and&nbsp;want to:</p><ul><li>resolve any issues using the system</li><li>know how to make the most of all the features</li><li>improve their research data management practices</li></ul><p><em><strong>You don't need to attend the whole session, you can drop in at any time, ask questions&nbsp;and leave early if you wish.</strong></em></p>",
-        "offCampusVenue": null,
+        "offCampusLocation": null,
         "campus": "Online",
         "building": null,
         "location": "Zoom",
