@@ -114,7 +114,7 @@ class UQSiteHeader extends HTMLElement {
 
         // Render the template
         const shadowDOM = this.attachShadow({ mode: 'open' });
-        shadowDOM.appendChild(template.content.cloneNode(true));
+        !!template && !!shadowDOM && shadowDOM.appendChild(template.content.cloneNode(true));
         this.addClickListeners(shadowDOM);
     }
 
@@ -180,7 +180,8 @@ class UQSiteHeader extends HTMLElement {
                     break;
                 /* istanbul ignore next  */
                 default:
-                    console.log(`unhandled attribute ${fieldName} received for UQSiteHeader`);
+                    window.location.hostname === 'localhost' &&
+                        console.log(`unhandled attribute ${fieldName} received for UQSiteHeader`);
             }
         }, 50);
     }

@@ -2,6 +2,14 @@ import { test, expect } from '@playwright/test';
 const _helpers = require('../../src/UtilityArea/helpers');
 import { assertAccessibility } from '../lib/axe';
 
+const footerLinksHaveAnalyticsId = async (page, screenSize) => {
+    const links = await page.getByTestId(`footer-${screenSize}-nav`).locator('a').all();
+    for (const link of links) {
+        await expect(link).toHaveAttribute('data-analyticsid');
+        expect(await link.getAttribute('data-analyticsid')).toMatch(new RegExp(`(.*)-${screenSize}`));
+    }
+};
+
 test.describe('UQ Footer', () => {
     test.beforeEach(async ({ page, context }) => {
         await context.clearCookies();
@@ -90,7 +98,7 @@ test.describe('UQ Footer', () => {
                 footerElement
                     .getByTestId('footer-desktop-nav')
                     .locator(`.uq-footer__navigation--is-open:nth-child(${listIndex}) h2`),
-            ).toHaveText(/Working at UQ/);
+            ).toHaveText(/Working with us/);
             await expect
                 .poll(async () =>
                     footerElement
@@ -100,6 +108,9 @@ test.describe('UQ Footer', () => {
                         .count(),
                 )
                 .toBeGreaterThan(2); // while the length varies, we're always going to have some!
+
+            // all the footer links have a data-analytics attribute
+            await footerLinksHaveAnalyticsId(page, 'desktop');
         });
 
         test('Footer menu  is correct on mobile', async ({ page }) => {
@@ -143,7 +154,7 @@ test.describe('UQ Footer', () => {
             await expect(footerElement.getByTestId(`button-menu-toggle-1`)).toBeVisible();
             await footerElement
                 .getByTestId(`button-menu-toggle-1`)
-                .getByText(/Working at UQ/)
+                .getByText(/Working with us/)
                 .first()
                 .click();
 
@@ -158,6 +169,9 @@ test.describe('UQ Footer', () => {
             // second menu is not open
             await expect(footerElement.getByTestId(`mobile-child-list-1`)).not.toBeVisible();
             await expect(footerElement.getByTestId(`mobile-child-list-1`)).toHaveCSS('height', '0px');
+
+            // all the footer links have a data-analytics attribute
+            await footerLinksHaveAnalyticsId(page, 'mobile');
         });
 
         test('Footer passes accessibility on desktop', async ({ page }) => {

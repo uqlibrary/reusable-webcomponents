@@ -32,7 +32,7 @@ class Alerts extends HTMLElement {
 
             const shadowDOM = this.attachShadow({ mode: 'open' });
 
-            shadowDOM.appendChild(template.content.cloneNode(true));
+            !!template && !!shadowDOM && shadowDOM.appendChild(template.content.cloneNode(true));
             this.updateAlertListDom(shadowDOM, this.system);
         }, 50);
     }
@@ -41,7 +41,8 @@ class Alerts extends HTMLElement {
         if (fieldName === 'system') {
             this.system = newValue;
         } else {
-            console.log(`unhandled attribute ${fieldName} received for Alerts`);
+            window.location.hostname === 'localhost' &&
+                console.log(`unhandled attribute ${fieldName} received for Alerts`);
         }
     }
 

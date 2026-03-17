@@ -106,25 +106,31 @@ function addCulturalAdvicePopup() {
 
 function insertScript(url, defer = false) {
     const scriptfound = document.querySelector("script[src*='" + url + "']");
-    if (!scriptfound) {
-        const script = document.createElement('script');
-        !!script && script.setAttribute('type', 'text/javascript');
-        !!script && script.setAttribute('src', url);
-        !!defer && !!script && script.setAttribute('defer', '');
-
-        const head = document.head;
-        head.appendChild(script);
+    if (!!scriptfound) {
+        return;
     }
+    const script = document.createElement('script');
+    !!script && script.setAttribute('type', 'text/javascript');
+    !!script && script.setAttribute('src', url);
+    !!script && !!defer && script.setAttribute('defer', '');
+
+    const headElement = document.querySelector('head');
+    !!headElement && !!script && headElement.appendChild(script);
 }
 
-function insertCss(fileName) {
+function insertCssFile(cssFileName) {
+    const includeFound = document.querySelector("link[href*='" + cssFileName + "']");
+    if (!!includeFound) {
+        return;
+    }
+
     const link = document.createElement('link');
     !!link && (link.type = 'text/css');
     !!link && (link.rel = 'stylesheet');
-    !!link && (link.href = fileName);
+    !!link && (link.href = cssFileName);
 
-    const head = document.head;
-    !!head && !!link && head.appendChild(link);
+    const headElement = document.head;
+    !!headElement && !!link && headElement.appendChild(link);
 }
 
 function isEnvironmentProduction() {
@@ -267,7 +273,7 @@ function highlightCulturallySignificantEntriesOnListPage() {
 function loadReusableComponentsAtom() {
     const cssFile = getIncludeFileLocation('applications/atom/custom-styles.css');
     // note: we cannot reach css in the localhost dist folder for test
-    insertCss(cssFile);
+    insertCssFile(cssFile);
 
     let scriptLink = '/uq-lib-reusable.min.js';
     if (window.location.hostname !== 'localhost') {
