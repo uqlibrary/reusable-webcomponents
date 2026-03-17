@@ -1066,3 +1066,14 @@ body.d-flex {
         display: none;
     }
 }
+
+uq-site-header {
+    &::part(breadcrumb_nav) {
+        padding-right: 4rem; /* leave gap for menu */
+    }
+    [slot] { /* menu goes to far right */
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+}

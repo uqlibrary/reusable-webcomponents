@@ -35,7 +35,7 @@ template.innerHTML = `
       <!-- Site title and utility area with mobile nav toggler (JS) -->
       <div class="uq-site-header__title-container" part="title">
         <nav class="uq-breadcrumb" aria-label="Breadcrumb">
-            <ol class="uq-breadcrumb__list" id="breadcrumb_nav" data-testid="breadcrumb_nav">
+            <ol class="uq-breadcrumb__list" id="breadcrumb_nav" data-testid="breadcrumb_nav" part="breadcrumb_nav">
                 <li class="uq-breadcrumb__item">
                     <a class="uq-breadcrumb__link" data-testid="root-link" title="UQ home" href="https://uq.edu.au/" data-analyticsid="uq-siteheader-uq-home">UQ home</a>
                 </li>

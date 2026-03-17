@@ -65,7 +65,7 @@ if (typeof readyFryer !== 'function') {
                 if (!block) {
                     return;
                 }
-                block.style.height = '51px';
+                block.style.minHeight = '51px';
                 block.style.paddingTop = '10px';
             }
         }, 100);
