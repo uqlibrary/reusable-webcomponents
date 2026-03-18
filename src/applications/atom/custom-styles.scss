@@ -914,9 +914,11 @@ body.d-flex { /* add an extra layer of specificity to all our css to over ride t
 
     // small buttons
     .atom-btn-white {
-        &:hover i,
-        &.atom-btn-white:focus i {
-            color: var(--accent-color);
+        &:hover,
+        &:focus {
+            i {
+                color: var(--accent-color);
+            }
         }
 
         &.active-primary.active {
@@ -924,8 +926,18 @@ body.d-flex { /* add an extra layer of specificity to all our css to over ride t
             border-color: var(--accent-color);
         }
     }
+    div[role="main"] {
+        .atom-btn-white {
+            &:hover,
+            &:focus {
+                i {
+                    color: currentColor;
+                }
+            }
+        }
+    }
 
-    // hide the clipboard function, header & search results - not required by Fryer\
+    // hide the clipboard function, header & search results - not required by Fryer
     .box:has(i.fa-paperclip),
     button,
     a {
