@@ -36,4 +36,15 @@ body.custom-nde-theme {
         display: none;
     }
     /* END Disable Background-Image Overlay on primo homepage */
+
+    /* boxes with border should be DS styled */
+    nde-linked-data-recommendations,
+    nde-collapsible-box {
+        mat-expansion-panel.mat-expansion-panel {
+            --border: hsla(203, 50%, 30%, 0.15);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+        }
+    }
+    /* END boxes with border should be DS styled */
 }
