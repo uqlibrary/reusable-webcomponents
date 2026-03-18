@@ -935,6 +935,9 @@ body.d-flex { /* add an extra layer of specificity to all our css to over ride t
                 }
             }
         }
+        *:not(a):not(button):not(input [type="button"]) span {
+            color: var(--body-copy) !important;
+        }
     }
 
     // hide the clipboard function, header & search results - not required by Fryer
