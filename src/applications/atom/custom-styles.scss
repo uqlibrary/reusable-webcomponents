@@ -137,6 +137,9 @@ body.d-flex { /* add an extra layer of specificity to all our css to over ride t
         @include heading();
         font-size: 1.5em;
     }
+    div.popover[data-popper-placement="right"] h3.popover-header {
+        color: #fff;
+    }
 
     #wrapper {
         max-width: 73.25rem;
