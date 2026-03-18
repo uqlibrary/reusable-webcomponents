@@ -112,7 +112,7 @@ body {
     background-color: rgb(243, 243, 244) !important;
 }
 
-body.d-flex {
+body.d-flex { /* add an extra layer of specificity to all our css to over ride the default more easily (grrr...) */
     .breadcrumb {
         --bs-breadcrumb-divider-color: var(--accent-color);
     }
@@ -1024,6 +1024,14 @@ body.d-flex {
                     background-color: transparent;
                 }
             }
+        }
+    }
+
+    #sidebar {
+        .page-link.disabled, .disabled > .page-link {
+            color: var(--body-copy);
+            background-color: #fff;
+            text-decoration: none;
         }
     }
 
