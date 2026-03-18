@@ -2,44 +2,47 @@
 @import url(https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Roboto:wght@400;500&display=swap);
 
 // colours: https://design-system.ads-staging.aws.uq.edu.au/?path=/docs/core-colour--docs
-$grey-900: #3b383e;
-$purple-50: #eee9f2;
-$purple-500: #51247a;
-$purple-500-rgb: 81, 36, 122;
-$utility-50: #e7f0fa;
-$utility-500: #0d6dcd;
-$black: #19151c;
+:root, html, head, body {
+    --grey-900: #3b383e;
+    --purple-50: #eee9f2;
+    --purple-500: #51247a;
+    --purple-500-rgb: 81, 36, 122;
+    --utility-50: #e7f0fa;
+    --utility-500: #0d6dcd;
+    --black: #19151c;
 
-$accent-color: $purple-500;
-$accent-color-rgb: $purple-500-rgb;
-$body-copy: $grey-900;
-$body-copy-rgb: 59, 56, 62;
-$info-banner-background: $utility-50;
-$border-color: rgba(38, 85, 115, 0.15);
-$heading-colour: $black;
+    --accent-color: var(--purple-500);
+    --accent-color-rgb: var(--purple-500-rgb);
 
-$bodyFontFamily: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-$H1FontFamily: 'Montserrat', Helvetica, Arial, sans-serif;
+    --body-copy: var(--grey-900);
+    --body-copy-rgb: 59, 56, 62;
+    --info-banner-background: var(--utility-50);
+    --border-color: rgba(38, 85, 115, 0.15);
+    --heading-colour: var(--black);
 
-$minDesktopSize: 768px; // has multiple columns
-$maxResponsiveSize: 767px; // columns stack
+    --body-font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --H1-font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+
+    --min-desktop-size: 768px; // has multiple columns
+    --max-responsive-size: 767px; // columns stack
+}
 
 @mixin bodyCopy() {
-    font-family: $bodyFontFamily;
+    font-family: var(--body-font-family);
     font-size: 1rem;
     font-weight: 400;
-    color: $body-copy;
+    color: var(--body-copy);
     letter-spacing: 0.16px;
     line-height: 1.5;
 }
 @mixin heading() {
-    font-family: $bodyFontFamily;
+    font-family: var(--body-font-family);
     font-weight: 500;
-    color: $heading-colour;
+    color: var(--heading-colour);
     letter-spacing: 0.16px;
     line-height: 1.2;
 }
-@mixin uqPrimaryButton($baseColor: $accent-color, $reverseColor: #fff) {
+@mixin uqPrimaryButton($baseColor: var(--accent-color), $reverseColor: #fff) {
     background-color: $baseColor !important;
     color: $reverseColor !important;
     border: 2px solid $baseColor;
@@ -52,14 +55,14 @@ $maxResponsiveSize: 767px; // columns stack
         }
     }
 }
-@mixin uqSecondaryButton($baseColor: #fff, $reverseColor: $accent-color) {
+@mixin uqSecondaryButton($baseColor: #fff, $reverseColor: var(--accent-color)) {
     @include uqPrimaryButton($baseColor, $reverseColor);
     border-color: $reverseColor;
     &:hover span {
         text-decoration: underline;
     }
 }
-@mixin uqTertiaryButton($baseColor: #fff, $reverseColor: $accent-color) {
+@mixin uqTertiaryButton($baseColor: #fff, $reverseColor: var(--accent-color)) {
     background-color: $baseColor !important;
     color: $reverseColor !important;
     span {
@@ -75,24 +78,24 @@ $maxResponsiveSize: 767px; // columns stack
 }
 :root {
     // override bootstrap colours!!
-    --bs-body-color: #{$body-copy};
-    --bs-body-color-rgb: #{$body-copy-rgb};
-    --bs-link-color: #{$accent-color};
-    --bs-link-color-rgb: #{$accent-color-rgb};
+    --bs-body-color: var(--body-copy);
+    --bs-body-color-rgb: var(--body-copy-rgb);
+    --bs-link-color: var(--accent-color);
+    --bs-link-color-rgb: var(--accent-color-rgb);
     --bs-link-hover-color-rgb: #fff;
-    --bs-dropdown-link-color: #{$accent-color} !important;
-    --bs-primary-rgb: #{$accent-color-rgb};
+    --bs-dropdown-link-color: var(--accent-color) !important;
+    --bs-primary-rgb: var(--accent-color-rgb);
     --bs-dropdown-link-hover-color: #fff;
-    --bs-dropdown-link-hover-bg: #{$accent-color-rgb};
+    --bs-dropdown-link-hover-bg: var(--accent-color-rgb);
 
     --bs-body-bg: #fff;
     --bs-body-bg-rgb: 0, 0, 0;
-    --bs-secondary-color: #{$body-copy};
-    --bs-secondary-color-rgb: #{$body-copy-rgb};
-    --bs-secondary-bg: #{$accent-color};
-    --bs-secondary-bg-rgb: #{$accent-color-rgb};
-    --bs-tertiary-color: #{$accent-color};
-    --bs-tertiary-color-rgb: #{$accent-color-rgb};
+    --bs-secondary-color: var(--body-copy);
+    --bs-secondary-color-rgb: var(--body-copy-rgb);
+    --bs-secondary-bg: var(--accent-color);
+    --bs-secondary-bg-rgb: var(--accent-color-rgb);
+    --bs-tertiary-color: var(--accent-color);
+    --bs-tertiary-color-rgb: var(--accent-color-rgb);
     --bs-tertiary-bg: #fff;
     --bs-tertiary-bg-rgb: 0, 0, 0;
 
@@ -102,7 +105,7 @@ $maxResponsiveSize: 767px; // columns stack
     --bs-border-radius-xl: 4px;
     --bs-border-radius-xxl: 4px;
 
-    --bs-body-font-family: #{$bodyFontFamily};
+    --bs-body-font-family: var(--body-font-family);
 }
 html,
 body {
@@ -111,18 +114,18 @@ body {
 
 body.d-flex {
     .breadcrumb {
-        --bs-breadcrumb-divider-color: $accent-color;
+        --bs-breadcrumb-divider-color: var(--accent-color);
     }
 
     .atom-btn-secondary {
         --bs-btn-active-bg: #fff;
-        --bs-btn-active-color: #{$accent-color-rgb};
+        --bs-btn-active-color: var(--accent-color-rgb);
     }
 
     h1 {
         @include heading();
         font-size: 2.5em;
-        font-family: $H1FontFamily;
+        font-family: var(--H1-font-family);
     }
 
     h2 {
@@ -148,7 +151,7 @@ body.d-flex {
     #content {
         border-width: 1px;
         border-style: solid;
-        border-color: $border-color;
+        border-color: var(--border-color);
         border-image: initial;
         border-radius: 4px;
 
@@ -156,7 +159,7 @@ body.d-flex {
             @include heading();
             margin: 0;
             display: block;
-            color: $heading-colour !important;
+            color: var(--heading-colour) !important;
             font-size: 1.5rem;
         }
 
@@ -175,35 +178,35 @@ body.d-flex {
         a {
             &:hover,
             &:focus {
-                background-color: $accent-color;
+                background-color: var(--accent-color);
                 color: #fff;
             }
         }
 
         .border-top {
-            border-color: $border-color;
+            border-color: var(--border-color);
         }
 
         .border-right {
-            border-color: $border-color;
+            border-color: var(--border-color);
         }
 
         .border-bottom {
-            border-color: $border-color;
+            border-color: var(--border-color);
         }
 
         .border-left {
-            border-color: $border-color;
+            border-color: var(--border-color);
         }
     }
 
     a.dropdown-item {
         background-color: #fff;
-        color: $accent-color;
+        color: var(--accent-color);
 
         &:hover,
         &:focus {
-            background-color: $accent-color;
+            background-color: var(--accent-color);
             color: #fff !important;
         }
     }
@@ -211,15 +214,15 @@ body.d-flex {
     .yui-ac-content ul li,
     ul#search-box-results a {
         background-color: #fff;
-        color: $accent-color;
+        color: var(--accent-color);
 
         &:hover,
         &:focus {
-            background-color: $accent-color;
+            background-color: var(--accent-color);
             color: #fff !important;
 
             span.text-muted {
-                background-color: $accent-color;
+                background-color: var(--accent-color);
                 color: #fff !important;
             }
         }
@@ -230,21 +233,21 @@ body.d-flex {
         & > div > a {
             // menu button
             font-weight: 500;
-            font-family: Roboto, Helvetica, sans-serif;
+            font-family: var(--body-font-family);
         }
 
         a {
             // links in drop down
             text-decoration: none;
-            font-family: $bodyFontFamily;
-            color: $heading-colour;
+            font-family: var(--body-font-family);
+            color: var(--heading-colour);
             line-height: 160%;
             -webkit-font-smoothing: antialiased;
 
             &:hover,
             &:focus {
                 span {
-                    background-color: $accent-color;
+                    background-color: var(--accent-color);
                     color: #fff;
                 }
             }
@@ -302,7 +305,7 @@ body.d-flex {
             color: unset !important;
 
             span {
-                background-color: $accent-color;
+                background-color: var(--accent-color);
                 color: #fff;
                 text-decoration: underline;
             }
@@ -333,7 +336,7 @@ body.d-flex {
             overflow: hidden;
             border-width: 1px;
             border-style: solid;
-            border-color: $border-color;
+            border-color: var(--border-color);
             border-image: initial;
             border-radius: 4px;
             padding: 1.5rem 1.5rem 0 1.5rem;
@@ -348,16 +351,16 @@ body.d-flex {
 
             a {
                 text-decoration: underline;
-                font-family: $bodyFontFamily;
+                font-family: var(--body-font-family);
 
                 &:hover,
                 &:focus {
                     i {
-                        color: $accent-color;
+                        color: var(--accent-color);
                     }
 
                     span {
-                        background-color: $accent-color;
+                        background-color: var(--accent-color);
                         color: #fff;
                     }
                 }
@@ -373,7 +376,7 @@ body.d-flex {
 
                 &:hover,
                 &:focus {
-                    background-color: $accent-color;
+                    background-color: var(--accent-color);
                     color: #fff;
                 }
             }
@@ -425,20 +428,20 @@ body.d-flex {
             &:focus {
                 text-decoration: underline;
                 background-color: #fff;
-                color: $accent-color;
+                color: var(--accent-color);
             }
         }
 
         button.btn {
-            background-color: $accent-color;
-            border-color: $accent-color;
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
             color: #fff;
 
             &:hover,
             &:focus {
                 background-color: #fff;
                 border-color: #fff;
-                color: $accent-color;
+                color: var(--accent-color);
             }
         }
 
@@ -460,7 +463,7 @@ body.d-flex {
     .sidebarSearchWrapper {
         border-width: 1px;
         border-style: solid;
-        border-color: $border-color;
+        border-color: var(--border-color);
         border-image: initial;
         border-radius: 4px;
         padding: 1.5rem 1rem 0 1rem;
@@ -472,7 +475,7 @@ body.d-flex {
             border-width: 0 !important;
             margin: 0;
             display: block;
-            color: $heading-colour !important;
+            color: var(--heading-colour) !important;
             font-size: 1.5rem;
             font-weight: 500;
             text-align: left;
@@ -486,8 +489,8 @@ body.d-flex {
         }
 
         .no-results {
-            border-color: $border-color !important;
-            background-color: $utility-50;
+            border-color: var(--border-color) !important;
+            background-color: var(--utility-50);
         }
     }
 
@@ -501,13 +504,13 @@ body.d-flex {
 
     #context-menu {
         i {
-            color: $accent-color;
+            color: var(--accent-color);
         }
 
         #action-icons {
             button {
                 border-width: 0;
-                color: $accent-color;
+                color: var(--accent-color);
                 text-decoration: underline;
                 padding-left: 0;
 
@@ -532,12 +535,12 @@ body.d-flex {
                 background-color: #fff;
 
                 span {
-                    background-color: $accent-color;
+                    background-color: var(--accent-color);
                     color: #fff;
                 }
 
                 i {
-                    color: $accent-color;
+                    color: var(--accent-color);
                 }
             }
 
@@ -593,7 +596,7 @@ body.d-flex {
                 &:hover,
                 &:focus {
                     color: #fff !important;
-                    background-color: $accent-color !important;
+                    background-color: var(--accent-color) !important;
                 }
             }
         }
@@ -666,21 +669,21 @@ body.d-flex {
             button {
                 background-color: #fff;
                 border-color: #fff;
-                color: $accent-color;
+                color: var(--accent-color);
 
                 &:focus {
                     box-shadow: none;
                 }
 
                 i {
-                    color: $accent-color;
+                    color: var(--accent-color);
                 }
             }
 
             button,
             input {
                 height: 51px; // match homepage search input height
-                color: $body-copy;
+                color: var(--body-copy);
 
                 &:focus {
                     border-color: #fff;
@@ -697,7 +700,7 @@ body.d-flex {
                 padding-left: 1rem;
 
                 i {
-                    color: $accent-color;
+                    color: var(--accent-color);
                 }
             }
 
@@ -718,12 +721,12 @@ body.d-flex {
             @include heading();
             margin: 0;
             display: block;
-            color: $heading-colour !important;
+            color: var(--heading-colour) !important;
             font-size: 1.3rem;
         }
     }
 
-    @media (max-width: $maxResponsiveSize) {
+    @media (max-width: var(--max-responsive-size)) {
         #site-name {
             float: left;
             margin-top: 6px;
@@ -737,9 +740,9 @@ body.d-flex {
 
     .culturalAdviceBanner {
         padding: 1em 1em 1em 4em;
-        background-color: $info-banner-background;
-        color: $body-copy;
-        font-family: $bodyFontFamily;
+        background-color: var(--info-banner-background);
+        color: var(--body-copy);
+        font-family: var(--body-font-family);
         font-size: 1rem;
         font-weight: 400;
         line-height: 1.6;
@@ -779,58 +782,58 @@ body.d-flex {
 
     .culturalAdviceMark {
         svg {
-            color: $utility-500;
+            color: var(--utility-500);
             width: 24px;
             height: 24px;
 
             path {
-                fill: $utility-500;
+                fill: var(--utility-500);
             }
         }
     }
 
     // override tree colours in https://sandbox-fryer.library.uq.edu.au/vendor/jstree/themes/default/style.min.css
     .jstree-default .jstree-hovered {
-        background: $utility-50;
+        background: var(--utility-50);
     }
 
     .jstree-default .jstree-context {
-        background: $utility-50;
+        background: var(--utility-50);
     }
 
     .jstree-default .jstree-clicked {
         color: #fff !important;
-        background: $accent-color !important;
+        background: var(--accent-color) !important;
     }
 
     //.jstree-default.jstree-checkbox-no-clicked .jstree-clicked.jstree-hovered {
-    //    background: $utility-50;
+    //    background: var(--utility-50);
     //}
     //
     //.jstree-default.jstree-checkbox-no-clicked>.jstree-wholerow-ul .jstree-wholerow-clicked.jstree-wholerow-hovered {
-    //    background: $utility-50;
+    //    background: var(--utility-50);
     //}
     //.jstree-default .jstree-wholerow-hovered {
-    //    background: $utility-50;
+    //    background: var(--utility-50);
     //}
 
     .jstree-default .jstree-wholerow-clicked {
-        background: $accent-color;
-        background: linear-gradient(to bottom, $accent-color 0, $utility-50 100%);
+        background: var(--accent-color);
+        background: linear-gradient(to bottom, var(--accent-color) 0, var(--utility-50) 100%);
     }
 
     //.jstree-default-responsive .jstree-wholerow-hovered {
-    //    background: $utility-50;
+    //    background: var(--utility-50);
     //}
 
     .jstree-default-responsive .jstree-wholerow-clicked {
-        background: $accent-color;
+        background: var(--accent-color);
     }
 
     //.jstree-anchor,
     //.jstree-default {
     //    &:hover {
-    //        background: $utility-50;
+    //        background: var(--utility-50);
     //    }
     //}
 
@@ -850,9 +853,9 @@ body.d-flex {
     #sidebar {
         h2 {
             margin: 0;
-            font-family: $bodyFontFamily;
+            font-family: var(--body-font-family);
             display: block;
-            color: $heading-colour !important;
+            color: var(--heading-colour) !important;
             font-size: 1.5rem;
             font-weight: 500;
             @include heading();
@@ -865,7 +868,7 @@ body.d-flex {
 
         a.list-group-item {
             text-decoration: none !important;
-            color: $accent-color;
+            color: var(--accent-color);
 
             span:first-of-type {
                 text-decoration: underline !important;
@@ -875,12 +878,12 @@ body.d-flex {
             &:focus {
                 span:first-of-type {
                     color: #fff;
-                    background-color: $accent-color;
+                    background-color: var(--accent-color);
                     text-decoration: underline !important;
                 }
 
                 span:not(:first-of-type) {
-                    color: $accent-color;
+                    color: var(--accent-color);
                     background-color: inherit;
                     text-decoration: none;
                 }
@@ -913,12 +916,12 @@ body.d-flex {
     .atom-btn-white {
         &:hover i,
         &.atom-btn-white:focus i {
-            color: $accent-color;
+            color: var(--accent-color);
         }
 
         &.active-primary.active {
-            background-color: $accent-color;
-            border-color: $accent-color;
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
         }
     }
 
@@ -932,18 +935,18 @@ body.d-flex {
     }
 
     input[aria-label='Search']::placeholder {
-        color: $body-copy;
+        color: var(--body-copy);
         opacity: 0.42;
     }
 
     .form-check-input {
         &:checked {
-            background-color: $accent-color;
-            border-color: $accent-color;
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
         }
 
         &:focus {
-            border-color: $purple-50;
+            border-color: var(--purple-50);
         }
     }
 
@@ -977,7 +980,7 @@ body.d-flex {
 
                         &:hover,
                         &:focus {
-                            background-color: $accent-color;
+                            background-color: var(--accent-color);
                             color: #fff;
                         }
                     }
@@ -996,17 +999,17 @@ body.d-flex {
 
                         &:hover,
                         &:focus {
-                            color: $accent-color;
-                            border-color: $accent-color;
+                            color: var(--accent-color);
+                            border-color: var(--accent-color);
                             text-decoration: underline;
-                            text-decoration-color: $accent-color;
+                            text-decoration-color: var(--accent-color);
                         }
                     }
                 }
 
                 &.active span {
-                    background-color: $accent-color !important;
-                    border-color: $accent-color;
+                    background-color: var(--accent-color) !important;
+                    border-color: var(--accent-color);
                     color: #fff !important;
                     margin-left: 0.25rem;
                     margin-right: 0.25rem;
@@ -1070,6 +1073,10 @@ body.d-flex {
 }
 
 uq-site-header {
+    &::part(root) {
+        min-height: 49px;
+        padding-top: 10px;
+    }
     &::part(breadcrumb_nav) {
         padding-right: 4rem; /* leave gap for menu */
     }
