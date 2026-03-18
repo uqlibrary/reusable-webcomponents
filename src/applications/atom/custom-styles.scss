@@ -902,7 +902,7 @@ body.d-flex { /* add an extra layer of specificity to all our css to over ride t
             &:hover,
             &:focus {
                 i {
-                    color: #fff;
+                    color: currentColor;
                 }
             }
         }
@@ -917,7 +917,7 @@ body.d-flex { /* add an extra layer of specificity to all our css to over ride t
         &:hover,
         &:focus {
             i {
-                color: var(--accent-color);
+                color: currentColor;
             }
         }
 
@@ -927,14 +927,6 @@ body.d-flex { /* add an extra layer of specificity to all our css to over ride t
         }
     }
     div[role="main"] {
-        .atom-btn-white {
-            &:hover,
-            &:focus {
-                i {
-                    color: currentColor;
-                }
-            }
-        }
         *:not(a):not(button):not(input [type="button"]) span {
             color: var(--body-copy) !important;
         }
