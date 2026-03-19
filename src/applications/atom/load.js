@@ -709,6 +709,20 @@ if (typeof readyFryer !== 'function') {
         !!thebutton && thebutton.remove();
     }
 
+    /*
+     * note, Rohan has added a div with class 'customIndicatorCulturalAdvice' at the right spot in the card layout
+     */
+    function addCulturalAdviceIndicatorToCards() {
+        const culturalAdviceMarkClassName = 'culturalAdviceMark';
+        const caCards = document.querySelectorAll('.customIndicatorCulturalAdvice');
+        !!caCards &&
+            caCards.length > 0 &&
+            caCards.forEach((card) => {
+                const createdCAIndicator = createCulturalAdviceCustomIndicator(culturalAdviceMarkClassName);
+                !!createdCAIndicator && !!card && card.appendChild(createdCAIndicator);
+            });
+    }
+
     function makeH1Unique() {
         const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
         let h1Count = 0;
@@ -787,6 +801,8 @@ if (typeof readyFryer !== 'function') {
         resetSearchPlaceholder();
 
         removeAdvancedSearchButton();
+
+        addCulturalAdviceIndicatorToCards();
     }
 }
 

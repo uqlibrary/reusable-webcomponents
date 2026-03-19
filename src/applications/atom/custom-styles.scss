@@ -1088,6 +1088,11 @@ body.d-flex { /* add an extra layer of specificity to all our css to over ride t
     section.accordion.full-treeview-section ~ section.accordion.full-treeview-section {
         display: none;
     }
+
+    .customIndicatorCulturalAdvice {
+        padding-inline: 1rem;
+        margin-top: -1rem;
+    }
 }
 
 uq-site-header {
