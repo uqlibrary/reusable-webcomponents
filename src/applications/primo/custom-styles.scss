@@ -3,245 +3,252 @@
 
 /* make the white bar in uq-site-header the right height */
 uq-site-header::part(root) {
-    height: 41px;
-    margin-top: 10px;
+  height: 41px;
+  margin-top: 10px;
 }
 
 body.custom-nde-theme {
-    /* put a gap at the bottom of the sidebar */
-    [role="navigation"].account-menu-container, /* on the Account pages */
-    .filters-side-bar-content /* on brief results pages  */
-    {
-        margin-bottom: 50px;
-    }
-    /* END put a gap at the bottom of the sidebar */
+  /* put a gap at the bottom of the sidebar */
+  [role="navigation"].account-menu-container, /* on the Account pages */
+  .filters-side-bar-content /* on brief results pages  */
+  {
+    margin-bottom: 50px;
+  }
+  /* END put a gap at the bottom of the sidebar */
 
-    /* move the account button into the site header */
-    button.user-area-btn {
-        margin-top: -165px;
-        @media (max-width: 707px) {
-            margin-top: -215px;
-        }
+  /* move the account button into the site header */
+  button.user-area-btn {
+    margin-top: -165px;
+    @media (max-width: 707px) {
+      margin-top: -215px;
     }
-    /* END move the account button into the site header */
+  }
+  /* END move the account button into the site header */
 
-    /* highlight the searched term */
-    .font-style-normal {
-        font-weight: 600;
+  /* highlight the searched term */
+  .font-style-normal {
+    font-weight: 600;
+  }
+  /* END highlight the searched term */
+
+  /* Disable Background-Image Overlay on primo homepage */
+  .custom-search-bar-container .background-overlay {
+    display: none;
+  }
+  /* END Disable Background-Image Overlay on primo homepage */
+
+
+  /* Note: nde-logo is hidden in exlibris-primo repo custom.css file, to give fastest removal */
+
+  /* style the main search bar to be like search portal on drupal */
+  .top-bar-container nde-search-bar-presenter .search-bar-container .search-bar-wrapper {
+    background-color: #fff !important;
+    border-radius: 2px !important;
+    border: 1px solid #dcdcdd !important;
+    padding-left: 0 !important;
+    input {
+      padding-left: 1.4rem;
     }
-    /* END highlight the searched term */
+  }
+  /* END style the main search bar to be like search portal on drupal */
 
-    /* Disable Background-Image Overlay on primo homepage */
-    .custom-search-bar-container .background-overlay {
-        display: none;
-    }
-    /* END Disable Background-Image Overlay on primo homepage */
+  /* panels should look like DS */
+  mat-card-content {
+    background-color: #fff;
+    border: 1px solid #dcdcdd;
+    border-radius: 4px;
+  }
+  /* END panels should look like DS */
 
+  /* style the pagination on the brief results page */
+  nde-search-results-pagination {
+    .pagination-container {
+      border-width: 0 !important;
+      font-size: 1rem;
 
-    /* Note: nde-logo is hidden in exlibris-primo repo custom.css file, to give fastest removal */
-
-    /* style the main search bar to be like search portal on drupal */
-    .top-bar-container nde-search-bar-presenter .search-bar-container .search-bar-wrapper {
-        background-color: #fff !important;
-        border-radius: 2px !important;
-        border: 1px solid #dcdcdd !important;
-        padding-left: 0 !important;
-        input {
-            padding-left: 1.4rem;
-        }
-    }
-    /* END style the main search bar to be like search portal on drupal */
-
-    /* panels should look like DS */
-    mat-card-content {
-        background-color: #fff;
-        border: 1px solid #dcdcdd;
-        border-radius: 4px;
-    }
-    /* END panels should look like DS */
-
-    /* style the pagination on the brief results page */
-    nde-search-results-pagination {
-        .pagination-container {
-            border-width: 0 !important;
-            font-size: 1rem;
-
-            button {
-                &:hover, &:focus {
-                    text-decoration: underline;
-                    cursor: pointer;
-                }
-            }
-            button.current-page {
-                --sys-primary-container: var(--uq-main-purple);
-                color: #fff;
-            }
-            button:not(.current-page) {
-                &:hover, &:focus {
-                    background-color: var(--uq-panel-background);
-                    border: 1px solid var(--uq-panel-background);
-                    color: var(--uq-body-copy) !important;
-                }
-            }
-            li:last-of-type,
-            li:first-of-type {
-                border: 1px solid var(--uq-main-purple);
-                border-radius: 40px;
-                margin-inline: 12px;
-            }
-        }
-    }
-    /* END style the pagination on the brief results page */
-
-    /* override fill=green hard coded on attribute */
-    svg, rect, path, circle {
-        fill: var(--uq-main-purple);
-    }
-    /* END override fill=green hard coded on attribute */
-
-    /* make the account page sidebar look like drupal sidebar navigation */
-    nde-account.ng-star-inserted {
-        div.ng-star-inserted.account-menu-container ul {
-            gap: 0;
-            span {
-                font-size: var(--mdc-text-button-label-text-weight);
-            }
-            mat-divider {
-                display: none;
-                border-width: 0;
-                height: 0;
-            }
-            li.ng-star-inserted {
-                border-bottom: 1px solid var(--uq-colour-grey-200);
-
-                position: relative;
-                a::after {
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    right: 0;
-                    bottom: 0;
-                    left: 0;
-                    z-index: 1;
-                }
-
-                &:not(:has(a)) {
-                    display: none;
-                    border-width: 0;
-                    height: 0;
-                }
-                &:not(:has(a.active-link)) {
-                    &:has(a:hover) *,
-                    &:has(a:focus) * {
-                        color: var(--uq-colour-black);
-                        background-color: #e8e8e8;
-                        border-radius: 0;
-                    }
-                }
-                &:has(a.active-link) {
-                    border-left: var(--uq-main-purple) solid 4px;
-                    a.active-link {
-                        background-color: var(--uq-colour-grey-200);
-                        border-radius: 0;
-                        color: var(--uq-colour-black);
-                        span.menu-option-title:first-of-type {
-                            font-weight: 500;
-                            letter-spacing: 0.16px;
-                        }
-                    }
-                }
-                a {
-                    padding: 1.75rem 0 1.75rem 28px;
-                }
-            }
-        }
-    }
-    /* END make the account page sidebar look like drupal sidebar navigation */
-
-    /* locations panel to be DS styled */
-    .getit-location-card.mat-elevation-z0.ng-star-inserted {
-        border-radius: 4px;
-        nde-location-items-container > div {
-            border-radius: 4px;
-        }
-    }
-    /* END locations panel to be DS styled */
-
-    /* style the sort bar like the filters it is inline with (purpose: highlight it when choice change) */
-    nde-sort-by {
-        &> div {
-            /* sort button looks like other filters inline with it */
-            border: 1px solid var(--sys-outline-variant);
-            color: var(--sys-on-background);
-            border-radius: 8px;
-            padding-inline: 1.5rem;
-            margin-block: .25rem;
-            .mat-mdc-button:has(mat-icon,[matButtonIcon]) {
-                margin-right: -0.5rem; /* account for gap around the arrow down icon */
-            }
-            .mat-mdc-button:has(mat-icon,[matButtonIcon]),
-            * {
-                padding: 0;
-            }
-            &:has(button:hover, button:focus) {
-                background-color: #e6e2ea;
-            }
-            /* when it is not the default sort order, make it look selected */
-            &:not(:has([aria-label="Sort by Relevance"])) {
-                border-color: var(--uq-main-purple);
-                background-color: var(--sys-inverse-on-surface);
-            }
-            /* don't allow a hover colour on just the buton */
-            .mat-mdc-button-persistent-ripple.mdc-button__ripple {
-                display: none;
-            }
-        }
-    }
-    /* END style the sort bar like the filters it is inline with (purpose: highlight it when choice change) */
-    /* Report a Problem button, exlibris-primo repo nde-report-a-problem-custom.component */
-    /* Hide all report-a-problem-wrapper elements by default */
-    .report-a-problem-wrapper {
-      display: none;
-    }
-    /* showRAP is applied in the typescript component (primo-exlibris repo) */
-    .showRAP {
-      display: block;
-    }
-    .report-a-problem-wrapper {
-      min-height: 4.2rem;
-      margin-top: 1rem;
-      margin-left: 1.5rem;
-
-      position: absolute;
-      top: 1rem;
-    }
-    div:has(> ng-component nde-full-display-service-container-after-from-remote-0 .showRAP) {
-      position: relative;
-    }
-    /* put a nice gap at the top for the button to sit in */
-    div:has(> ng-component nde-full-display-service-container-after-from-remote-0 .showRAP) > nde-full-display-service-container > div > mat-expansion-panel {
-      padding-top: 3.5rem;;
-    }
-    .report-a-problem {
-      background-color: var(--uq-main-purple);
-      color: #fff;
-      border: 2px solid var(--uq-main-purple);
-      padding: 12px 16px;
-      border-radius: 4px;
-        text-decoration: none;
+      button {
         &:hover, &:focus {
-            background-color: #fff;
-            border-color: var(--uq-main-purple);
-            color: var(--uq-main-purple);
-            text-decoration: underline;
+          text-decoration: underline;
+          cursor: pointer;
         }
+      }
+      button.current-page {
+        --sys-primary-container: var(--uq-main-purple);
+        color: #fff;
+      }
+      button:not(.current-page) {
+        &:hover, &:focus {
+          background-color: var(--uq-panel-background);
+          border: 1px solid var(--uq-panel-background);
+          color: var(--uq-body-copy) !important;
+        }
+      }
+      li:last-of-type,
+      li:first-of-type {
+        border: 1px solid var(--uq-main-purple);
+        border-radius: 40px;
+        margin-inline: 12px;
+      }
     }
-    /* End Report a Problem button, exlibris-primo repo nde-report-a-problem-custom.component */
-    /* make each panel have a UQ DS border */
-    mat-card {
-        border-color: var(--uq-colour-grey-200) !important;
-        border-radius: 4px !important;
-        background-color: #fff !important;
+  }
+  /* END style the pagination on the brief results page */
+
+  /* override fill=green hard coded on attribute */
+  svg, rect, path, circle {
+    fill: var(--uq-main-purple);
+  }
+  /* END override fill=green hard coded on attribute */
+
+  /* make the account page sidebar look like drupal sidebar navigation */
+  nde-account.ng-star-inserted {
+    div.ng-star-inserted.account-menu-container ul {
+      gap: 0;
+      span {
+        font-size: var(--mdc-text-button-label-text-weight);
+      }
+      mat-divider {
+        display: none;
+        border-width: 0;
+        height: 0;
+      }
+      li.ng-star-inserted {
+        border-bottom: 1px solid var(--uq-colour-grey-200);
+
+        position: relative;
+        a::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          z-index: 1;
+        }
+
+        &:not(:has(a)) {
+          display: none;
+          border-width: 0;
+          height: 0;
+        }
+        &:not(:has(a.active-link)) {
+          &:has(a:hover) *,
+          &:has(a:focus) * {
+            color: var(--uq-colour-black);
+            background-color: #e8e8e8;
+            border-radius: 0;
+          }
+        }
+        &:has(a.active-link) {
+          border-left: var(--uq-main-purple) solid 4px;
+          a.active-link {
+            background-color: var(--uq-colour-grey-200);
+            border-radius: 0;
+            color: var(--uq-colour-black);
+            span.menu-option-title:first-of-type {
+              font-weight: 500;
+              letter-spacing: 0.16px;
+            }
+          }
+        }
+        a {
+          padding: 1.75rem 0 1.75rem 28px;
+        }
+      }
     }
-    /* END make each panel have a UQ DS border */
+  }
+  /* END make the account page sidebar look like drupal sidebar navigation */
+
+  /* locations panel to be DS styled */
+  .getit-location-card.mat-elevation-z0.ng-star-inserted {
+    border-radius: 4px;
+    nde-location-items-container > div {
+      border-radius: 4px;
+    }
+  }
+  /* END locations panel to be DS styled */
+
+  /* style the sort bar like the filters it is inline with (purpose: highlight it when choice change) */
+  nde-sort-by {
+    &> div {
+      /* sort button looks like other filters inline with it */
+      border: 1px solid var(--sys-outline-variant);
+      color: var(--sys-on-background);
+      border-radius: 8px;
+      padding-inline: 1.5rem;
+      margin-block: .25rem;
+      .mat-mdc-button:has(mat-icon,[matButtonIcon]) {
+        margin-right: -0.5rem; /* account for gap around the arrow down icon */
+      }
+      .mat-mdc-button:has(mat-icon,[matButtonIcon]),
+      * {
+        padding: 0;
+      }
+      &:has(button:hover, button:focus) {
+        background-color: #e6e2ea;
+      }
+      /* when it is not the default sort order, make it look selected */
+      &:not(:has([aria-label="Sort by Relevance"])) {
+        border-color: var(--uq-main-purple);
+        background-color: var(--sys-inverse-on-surface);
+      }
+      /* don't allow a hover colour on just the buton */
+      .mat-mdc-button-persistent-ripple.mdc-button__ripple {
+        display: none;
+      }
+    }
+  }
+  /* END style the sort bar like the filters it is inline with (purpose: highlight it when choice change) */
+  /* Report a Problem button, exlibris-primo repo nde-report-a-problem-custom.component */
+  /* Hide all report-a-problem-wrapper elements by default */
+  .report-a-problem-wrapper {
+    display: none;
+  }
+  /* showRAP is applied in the typescript component (primo-exlibris repo) */
+  .showRAP {
+    display: block;
+  }
+  .report-a-problem-wrapper {
+    min-height: 4.2rem;
+    margin-top: 1rem;
+    margin-left: 1.5rem;
+
+    position: absolute;
+    top: 1rem;
+  }
+  div:has(> ng-component nde-full-display-service-container-after-from-remote-0 .showRAP) {
+    position: relative;
+  }
+  /* put a nice gap at the top for the button to sit in */
+  div:has(> ng-component nde-full-display-service-container-after-from-remote-0 .showRAP) > nde-full-display-service-container > div > mat-expansion-panel {
+    padding-top: 3.5rem;;
+  }
+  .report-a-problem {
+    background-color: var(--uq-main-purple);
+    color: #fff;
+    border: 2px solid var(--uq-main-purple);
+    padding: 12px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    &:hover, &:focus {
+      background-color: #fff;
+      border-color: var(--uq-main-purple);
+      color: var(--uq-main-purple);
+      text-decoration: underline;
+    }
+  }
+  /* End Report a Problem button, exlibris-primo repo nde-report-a-problem-custom.component */
+  /* make each panel have a UQ DS border */
+  mat-card {
+    border-color: var(--uq-colour-grey-200) !important;
+    border-radius: 4px !important;
+    background-color: #fff !important;
+  }
+  /* END make each panel have a UQ DS border */
+
+  /* fonts on librarian controlled text */
+  .restricted-public-note {
+    font-weight: 400;
+    font-size: 1rem;
+  }
+  /* END fonts on librarian controlled text */
 }

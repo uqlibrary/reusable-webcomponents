@@ -173,7 +173,11 @@
 
   --mdc-text-button-label-text-weight: 1rem;
 }
+body.custom-nde-theme {
+  font: 16px/1.5 var(--uq-body-font-family);
+}
 
-body * {
-  font: var(--sys-body-large); /* force a default font family for where the css vars are not applied */
+body.custom-nde-theme * {
+  font-size: 16px;
+  line-height: 1.5;
 }
