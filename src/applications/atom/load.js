@@ -260,7 +260,7 @@ if (typeof readyFryer !== 'function') {
         }, 100);
     }
 
-    function createCustomIconIndicator(svgPathValue, iconWrapperClassName, labelText) {
+    function createCustomIndicator(svgPathValue, iconWrapperClassName, labelText) {
         const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         !!path && path.setAttribute('d', svgPathValue);
         !!path && path.setAttribute('d', svgPathValue);
@@ -338,6 +338,13 @@ if (typeof readyFryer !== 'function') {
         addBookNowButton(); // now we have boxes, add the Request Access box as the top one
     }
 
+    const createCulturalAdviceCustomIndicator = (culturalAdviceMarkClassName) => {
+        const muiIconInfoSvgPath =
+            'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z';
+        const culturalAdviceLabel = 'CULTURAL ADVICE';
+        return createCustomIndicator(muiIconInfoSvgPath, culturalAdviceMarkClassName, culturalAdviceLabel);
+    };
+
     function highlightCulturallySignificantEntriesOnListPage() {
         if (hasDebugParam('sandbox-fryer.library.uq.edu.au')) {
             return;
@@ -369,14 +376,8 @@ if (typeof readyFryer !== 'function') {
                     }
 
                     // svg for "Info" icon from MUI icon set, match search.library
-                    const muiIconInfoSvgPath =
-                        'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z';
-                    let culturalAdviceMarkClassName = 'culturalAdviceMark';
-                    const createdCAIndicator = createCustomIconIndicator(
-                        muiIconInfoSvgPath,
-                        culturalAdviceMarkClassName,
-                        'CULTURAL ADVICE',
-                    );
+                    const culturalAdviceMarkClassName = 'culturalAdviceMark';
+                    let createdCAIndicator = createCulturalAdviceCustomIndicator(culturalAdviceMarkClassName);
                     if (!createdCAIndicator) {
                         return;
                     }
