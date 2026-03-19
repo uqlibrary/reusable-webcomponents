@@ -930,8 +930,8 @@ body.d-flex { /* add an extra layer of specificity to all our css to over ride t
         }
     }
     div[role="main"] {
-        *:not(a):not(button):not(input [type="button"]) span {
-            color: var(--body-copy) !important;
+        *:not(a):not(button):not(input [type="button"]) > span {
+            --bs-primary-rgb: var(--body-copy);
         }
     }
 
