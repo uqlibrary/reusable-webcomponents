@@ -99,7 +99,7 @@ if (typeof readyFryer !== 'function') {
               <path stroke="#51247a" stroke-linecap="round" stroke-linejoin="round" d="M17.25 6V0.75" stroke-width="1.5"></path>
             </svg>
             <h4>Access</h4>
-            <p>Make an appointment to request access.</p>
+            <p>Make an appointment to request access</p>
             <div class="bookNowLink">
                 <a data-analyticsid="fryer-booking" target="_blank" href="https://calendar.library.uq.edu.au/reserve/spaces/reading-room">
                     <span>Book now</span>
