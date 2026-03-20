@@ -38,3 +38,9 @@
   --valid: var(--uq-main-purple);
   --validDark: var(--uq-main-purple);
 }
+
+/* override fill=green hard coded on attribute */
+svg, rect, path, circle {
+  fill: var(--uq-main-purple);
+}
+/* END override fill=green hard coded on attribute */

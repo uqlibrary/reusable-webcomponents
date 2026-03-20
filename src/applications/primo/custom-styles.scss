@@ -21,9 +21,3 @@ button.user-area-btn {
         margin-top: -215px;
     }
 }
-
-/* override fill=green hard coded on attribute */
-svg, rect, path, circle {
-    fill: var(--uq-main-purple);
-}
-/* END override fill=green hard coded on attribute */
