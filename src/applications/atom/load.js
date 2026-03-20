@@ -171,10 +171,9 @@ if (typeof readyFryer !== 'function') {
     }
 
     function getIncludeFileLocation(filename) {
-        // const atomStagingBranch = 'atom-staging'; // this is the git branch that atom installed at sandbox-fryer.library.uq.edu.au knows about
-        const atomStagingBranch = 'atom-bootstrap5-AD649'; // dev branch - return to above after dev
+        const atomStagingBranch = 'atom-staging'; // this is the git branch that can be used to test small changes on a special AtoM env, eg sandbox-fryer.library.uq.edu.au
         const stagingFileLocationFragment = `-development/${atomStagingBranch}`;
-        const fileLocationFragment = stagingFileLocationFragment; // isEnvironmentProduction() ? '' : stagingFileLocationFragment;
+        const fileLocationFragment = isEnvironmentProduction() ? '' : stagingFileLocationFragment;
         return `https://assets.library.uq.edu.au/reusable-webcomponents${fileLocationFragment}/${filename}`;
     }
 
