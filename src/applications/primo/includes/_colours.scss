@@ -38,3 +38,10 @@
   --valid: var(--uq-main-purple);
   --validDark: var(--uq-main-purple);
 }
+
+
+
+body.custom-nde-theme nde-user-area .user-area .arrow path {
+  fill: none;
+}
+
