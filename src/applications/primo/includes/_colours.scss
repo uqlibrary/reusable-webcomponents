@@ -39,9 +39,15 @@
   --validDark: var(--uq-main-purple);
 }
 
+/* override fill=green hard coded on attribute */
+svg, rect, path, circle {
+  fill: var(--uq-main-purple);
+}
+/* END override fill=green hard coded on attribute */
 
 
+/* style the expand-collapse arrows on the loggedin user name */
 body.custom-nde-theme nde-user-area .user-area .arrow path {
   fill: none;
 }
-
+/* END style the expand-collapse arrows on the loggedin user name */
