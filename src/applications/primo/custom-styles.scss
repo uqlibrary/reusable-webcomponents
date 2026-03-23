@@ -247,68 +247,78 @@ body.custom-nde-theme {
 
 
 
-  /* style the loggedin/out user name */
+  /* style the loggedin user name */
   /* (after it has been change from initials to name, by an angular component, nde-replace-user-initials-custom.component) */
   nde-user-area .user-area button  {
     width: auto;
-    &.user-area-logged-in {
-      line-height: 3rem;
-      span:not(.styledUserName) {
-        /* remove all extra ripple effects */
-        display: none;
-      }
+  }
+  nde-user-area .user-area button.user-area-logged-in {
+    line-height: 3rem;
+    span:not(.styledUserName) {
+      /* remove all extra ripple effects */
+      display: none;
+    }
+    span.styledUserName {
+      --sys-primary: #fff;
+      color: #333 !important;
+      width: auto !important;
+
+      box-sizing: unset;
+      text-align: left;
+      border-radius: 0 !important;
+      display: block !important;
+
+      font-family: Roboto, Helvetica, Arial, sans-serif;
+      font-size: 16px !important;
+      font-weight: 500;
+      letter-spacing: 0.14px;
+      line-height: normal;
+      height: 1rem !important;
+
+      /* truncate name with ellipsis when long, eg homepage user 'digiteamMember' */
+      max-width: 150px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+    &:hover,
+    &:focus {
       span.styledUserName {
-        --sys-primary: #fff;
-        color: #333 !important;
-        width: auto !important;
-
-        box-sizing: unset;
-        text-align: left;
+        --sys-primary: #51247a;
+        color: #fff !important;
         border-radius: 0 !important;
-        display: block !important;
-
-        font-family: Roboto, Helvetica, Arial, sans-serif;
-        font-size: 16px !important;
+        letter-spacing: 0.16px;
         font-weight: 500;
-        letter-spacing: 0.14px;
-        line-height: normal;
+        font-size: 1rem;
+        display: inline;
+        max-height: 1rem;
         height: 1rem !important;
-
-        /* truncate name with ellipsis when long, eg homepage user 'digiteamMember' */
-        max-width: 150px;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-      }
-      &:hover,
-      &:focus {
-        span.styledUserName {
-          --sys-primary: #51247a;
-          color: #fff !important;
-          border-radius: 0 !important;
-          letter-spacing: 0.16px;
-          font-weight: 500;
-          font-size: 1rem;
-          display: inline;
-          max-height: 1rem;
-          height: 1rem !important;
-        }
       }
     }
   }
-  nde-user-area button[aria-label="Open actions menu"] {
-    display: flex;
-    column-gap: 0.5rem;
-    span:not(.styledUserName) {
-      font-family: Roboto,Helvetica,sans-serif;
-      font-weight: 500;
-    }
-    span.mat-ripple.mat-mdc-button-ripple {
+  nde-user-area button:not(.user-area-logged-in)[aria-label="Open actions menu"] {
+    .arrow {
       display: none;
     }
-    svg {
-      height: 20px;
-      width: 18px;
+    div,
+    span:not(.loggedout) {
+      /* remove all extra ripple effects */
+      display: none;
+      height: 0;
+    }
+    span.loggedout {
+      display: flex;
+      column-gap: 0.5rem;
+
+      span {
+        font-family: Roboto, Helvetica, sans-serif;
+        font-weight: 500;
+      }
+
+      svg {
+        height: 20px;
+        width: 18px;
+      }
     }
   }
   &:has(.cdk-overlay-container .cdk-overlay-pane [aria-label="Go to my library account"]) nde-user-area  .downArrow,
@@ -322,5 +332,6 @@ body.custom-nde-theme {
     /* hide tooltip of username over already displayed username - tooltip made sense when they were displayed initials */
     display: none;
   }
-  /* END style the loggedin/out user name (after it has been rewritten by an angular component, nde-replace-user-initials-custom.component) */
+
+  /* END style the loggedin user name (after it has been rewritten by an angular component, nde-replace-user-initials-custom.component) */
 }
