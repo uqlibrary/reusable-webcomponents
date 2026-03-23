@@ -39,15 +39,28 @@
   --validDark: var(--uq-main-purple);
 }
 
-/* override fill=green hard coded on attribute */
+/* override fill=green hard coded on attribute so everything-purple */
 svg, rect, path, circle {
   fill: var(--uq-main-purple);
 }
 /* END override fill=green hard coded on attribute */
 
 
-/* style the expand-collapse arrows on the loggedin user name */
-body.custom-nde-theme nde-user-area .user-area .arrow path {
-  fill: none;
+body.custom-nde-theme {
+
+  /* login-loggedout button */
+  nde-user-area {
+    /* UQ up-down arrow icons on logged in button override on everything-purple */
+    .user-area .arrow path {
+      fill: none;
+    }
+    /* UQ profile icon on logged out button override on everything-purple */
+    button[aria-label="Open actions menu"] {
+      svg, path {
+        fill: none;
+      }
+    }
+  }
+  /* END login-loggedout button */
+
 }
-/* END style the expand-collapse arrows on the loggedin user name */
