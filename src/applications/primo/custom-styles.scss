@@ -86,6 +86,21 @@ body.custom-nde-theme {
             }
         }
     }
+    nde-user-area button[aria-label="Open actions menu"] {
+        display: flex;
+        column-gap: 0.5rem;
+        span:not(.styledUserName) {
+            font-family: Roboto,Helvetica,sans-serif;
+            font-weight: 500;
+        }
+        span.mat-ripple.mat-mdc-button-ripple {
+          display: none;
+        }
+        svg {
+            height: 20px;
+            width: 18px;
+        }
+    }
     &:has(.cdk-overlay-container .cdk-overlay-pane [aria-label="Go to my library account"]) nde-user-area  .downArrow,
     &:not(:has(.cdk-overlay-container .cdk-overlay-pane [aria-label="Go to my library account"])) nde-user-area  .upArrow {
         /* only show one arrow - we need so many selectors because */
@@ -97,5 +112,6 @@ body.custom-nde-theme {
         /* hide tooltip of username over already displayed username - tooltip made sense when they were displayed initials */
         display: none;
     }
+
     /* END style the loggedin user name (after it has been rewritten by an angular component, nde-replace-user-initials-custom.component) */
 }
