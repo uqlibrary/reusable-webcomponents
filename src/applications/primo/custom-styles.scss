@@ -338,4 +338,15 @@ body.custom-nde-theme {
   }
 
   /* END style the loggedin user name (after it has been rewritten by an angular component, nde-replace-user-initials-custom.component) */
+
+  /* boxes with border should be DS styled */
+  nde-linked-data-recommendations,
+  nde-collapsible-box {
+    mat-expansion-panel.mat-expansion-panel {
+      --border: hsla(203, 50%, 30%, 0.15);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+  }
+  /* END boxes with border should be DS styled */
 }
