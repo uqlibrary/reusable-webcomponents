@@ -43,11 +43,11 @@ body.custom-nde-theme {
         width: auto;
         &.user-area-logged-in {
             line-height: 3rem;
-            span:not(.styleusername) {
+            span:not(.styledUserName) {
                 /* remove all extra ripple effects */
                 display: none;
             }
-            span.styleusername {
+            span.styledUserName {
                 --sys-primary: #fff;
                 color: #333 !important;
                 width: auto !important;
@@ -72,7 +72,7 @@ body.custom-nde-theme {
             }
             &:hover,
             &:focus {
-                span.styleusername {
+                span.styledUserName {
                     --sys-primary: #51247a;
                     color: #fff !important;
                     border-radius: 0 !important;
