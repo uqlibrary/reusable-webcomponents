@@ -1,6 +1,10 @@
 @import 'includes/fonts';
 @import 'includes/colours';
 
+:root, html, head, body {
+  --mat-expansion-container-shape: 4px;
+}
+
 /* make the white bar in uq-site-header the right height */
 uq-site-header::part(root) {
   height: 41px;
@@ -343,9 +347,7 @@ body.custom-nde-theme {
   nde-linked-data-recommendations,
   nde-collapsible-box {
     mat-expansion-panel.mat-expansion-panel {
-      --border: hsla(203, 50%, 30%, 0.15);
       border: 1px solid var(--border);
-      border-radius: 4px;
     }
   }
   /* END boxes with border should be DS styled */
