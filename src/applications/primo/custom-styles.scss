@@ -93,12 +93,6 @@ body.custom-nde-theme {
   }
   /* END style the pagination on the brief results page */
 
-  /* override fill=green hard coded on attribute */
-  svg, rect, path, circle {
-    fill: var(--uq-main-purple);
-  }
-  /* END override fill=green hard coded on attribute */
-
   /* make the account page sidebar look like drupal sidebar navigation */
   nde-account.ng-star-inserted {
     div.ng-star-inserted.account-menu-container ul {
