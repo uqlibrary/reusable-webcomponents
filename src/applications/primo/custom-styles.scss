@@ -254,6 +254,10 @@ body.custom-nde-theme {
   }
   nde-user-area .user-area button.user-area-logged-in {
     line-height: 3rem;
+
+    flex-direction: row-reverse;
+
+    svg.loggedout,
     span:not(.styledUserName) {
       /* remove all extra ripple effects */
       display: none;
@@ -297,6 +301,9 @@ body.custom-nde-theme {
     }
   }
   nde-user-area button:not(.user-area-logged-in)[aria-label="Open actions menu"] {
+    display: flex;
+    column-gap: 0.5rem;
+
     .arrow {
       display: none;
     }
@@ -306,19 +313,16 @@ body.custom-nde-theme {
       display: none;
       height: 0;
     }
-    span.loggedout {
-      display: flex;
-      column-gap: 0.5rem;
 
-      span {
-        font-family: Roboto, Helvetica, sans-serif;
-        font-weight: 500;
-      }
 
-      svg {
-        height: 20px;
-        width: 18px;
-      }
+    span {
+      font-family: Roboto, Helvetica, sans-serif;
+      font-weight: 500;
+    }
+
+    svg {
+      height: 20px;
+      width: 18px;
     }
   }
   &:has(.cdk-overlay-container .cdk-overlay-pane [aria-label="Go to my library account"]) nde-user-area  .downArrow,
