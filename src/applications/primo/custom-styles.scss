@@ -246,17 +246,18 @@ body.custom-nde-theme {
   /* END fonts on librarian controlled text */
 
 
+
   /* style the loggedin user name */
   /* (after it has been change from initials to name, by an angular component, nde-replace-user-initials-custom.component) */
   nde-user-area .user-area button  {
     width: auto;
     &.user-area-logged-in {
       line-height: 3rem;
-      span:not(.styleusername) {
+      span:not(.styledUserName) {
         /* remove all extra ripple effects */
         display: none;
       }
-      span.styleusername {
+      span.styledUserName {
         --sys-primary: #fff;
         color: #333 !important;
         width: auto !important;
@@ -281,7 +282,7 @@ body.custom-nde-theme {
       }
       &:hover,
       &:focus {
-        span.styleusername {
+        span.styledUserName {
           --sys-primary: #51247a;
           color: #fff !important;
           border-radius: 0 !important;
