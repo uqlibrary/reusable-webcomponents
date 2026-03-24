@@ -31,16 +31,33 @@ body.custom-nde-theme {
   }
   /* END highlight the searched term */
 
+  /* panels should look like DS */
+  &:not(:has(nde-account)) mat-card-content {
+    background-color: #fff;
+    border: 1px solid #dcdcdd;
+    border-radius: 4px;
+  }
+
+  /* END panels should look like DS */
+
   /* Disable Background-Image Overlay on primo homepage */
   .custom-search-bar-container .background-overlay {
     display: none;
   }
   /* END Disable Background-Image Overlay on primo homepage */
 
+  /* panels should look like DS */
+  &:not(:has(nde-account)) mat-card-content {
+    background-color: #fff;
+    border: 1px solid #dcdcdd;
+    border-radius: 4px;
+  }
+  /* END panels should look like DS */
+
   @import 'includes/components/nde-search-results-pagination.scss';
 
   @import 'includes/components/_nde-account.scss';
 
+  @import 'includes/components/nde-sort-by';
 }
 
-@import 'includes/components/nde-sort-by';
