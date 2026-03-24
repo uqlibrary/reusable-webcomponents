@@ -46,6 +46,18 @@ body.custom-nde-theme {
   }
   /* END Disable Background-Image Overlay on primo homepage */
 
+  /* style the main search bar to be like search portal on drupal */
+  .top-bar-container nde-search-bar-presenter .search-bar-container .search-bar-wrapper {
+    background-color: #fff !important;
+    border-radius: 2px !important;
+    border: 1px solid #dcdcdd !important;
+    padding-left: 0 !important;
+    input {
+      padding-left: 1.4rem;
+    }
+  }
+  /* END style the main search bar to be like search portal on drupal */
+
   /* panels should look like DS */
   &:not(:has(nde-account)) mat-card-content {
     background-color: #fff;
