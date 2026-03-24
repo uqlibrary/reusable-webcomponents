@@ -1,0 +1,39 @@
+/* Report a Problem button, exlibris-primo repo nde-report-a-problem-custom.component */
+/* Hide all report-a-problem-wrapper elements by default */
+.report-a-problem-wrapper {
+  display: none;
+}
+/* showRAP is applied in the typescript component (primo-exlibris repo) */
+.showRAP {
+  display: block;
+}
+.report-a-problem-wrapper {
+  min-height: 4.2rem;
+  margin-top: 1rem;
+  margin-left: 1.5rem;
+
+  position: absolute;
+  top: 1rem;
+}
+div:has(> ng-component nde-full-display-service-container-after-from-remote-0 .showRAP) {
+  position: relative;
+}
+/* put a nice gap at the top for the button to sit in */
+div:has(> ng-component nde-full-display-service-container-after-from-remote-0 .showRAP) > nde-full-display-service-container > div > mat-expansion-panel {
+  padding-top: 3.5rem;;
+}
+.report-a-problem {
+  background-color: var(--uq-main-purple);
+  color: #fff;
+  border: 2px solid var(--uq-main-purple);
+  padding: 12px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  &:hover, &:focus {
+    background-color: #fff;
+    border-color: var(--uq-main-purple);
+    color: var(--uq-main-purple);
+    text-decoration: underline;
+  }
+}
+/* End Report a Problem button, exlibris-primo repo nde-report-a-problem-custom.component */
