@@ -373,4 +373,10 @@ body.custom-nde-theme {
     }
   }
   /* END boxes with border should be DS styled */
+
+  /* Disable Browse Carousel on Full Record display */
+  nde-full-display-service-container:has([aria-labelledby="title-brief.results.tabs.browseshelf"]) {
+    display: none;
+  }
+  /* END Disable Browse Carousel */
 }
