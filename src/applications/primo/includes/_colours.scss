@@ -39,6 +39,12 @@
   --validDark: var(--uq-main-purple);
 }
 
+/* override fill=green hard coded on attribute so everything-purple */
+svg, rect, path, circle {
+  fill: var(--uq-main-purple);
+}
+/* END override fill=green hard coded on attribute */
+
 
 
 body.custom-nde-theme {
