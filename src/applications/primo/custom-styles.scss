@@ -3,39 +3,42 @@
 
 /* make the white bar in uq-site-header the right height */
 uq-site-header::part(root) {
-    height: 41px;
-    margin-top: 10px;
+  height: 41px;
+  margin-top: 10px;
 }
 
 body.custom-nde-theme {
-    /* put a gap at the bottom of the sidebar */
-    [role="navigation"].account-menu-container, /* on the Account pages */
-    .filters-side-bar-content /* on brief results pages  */
-    {
-        margin-bottom: 50px;
-    }
-    /* END put a gap at the bottom of the sidebar */
+  /* put a gap at the bottom of the sidebar */
+  [role="navigation"].account-menu-container, /* on the Account pages */
+  .filters-side-bar-content /* on brief results pages  */
+  {
+    margin-bottom: 50px;
+  }
+  /* END put a gap at the bottom of the sidebar */
 
-    /* move the account button into the site header */
-    button.user-area-btn {
-        margin-top: -165px;
-        @media (max-width: 707px) {
-            margin-top: -215px;
-        }
+  /* move the account button into the site header */
+  button.user-area-btn {
+    margin-top: -165px;
+    @media (max-width: 707px) {
+      margin-top: -215px;
     }
-    /* END move the account button into the site header */
+  }
+  /* END move the account button into the site header */
 
-    /* highlight the searched term */
-    .font-style-normal {
-        font-weight: 600;
-    }
-    /* END highlight the searched term */
+  /* highlight the searched term */
+  .font-style-normal {
+    font-weight: 600;
+  }
+  /* END highlight the searched term */
 
-    /* Disable Background-Image Overlay on primo homepage */
-    .custom-search-bar-container .background-overlay {
-        display: none;
-    }
-    /* END Disable Background-Image Overlay on primo homepage */
+  /* Disable Background-Image Overlay on primo homepage */
+  .custom-search-bar-container .background-overlay {
+    display: none;
+  }
+  /* END Disable Background-Image Overlay on primo homepage */
+
+  @import 'includes/components/nde-search-results-pagination.scss';
+
+  @import 'includes/components/_nde-account.scss';
+
 }
-
-@import 'includes/components/nde-search-results-pagination.scss';
