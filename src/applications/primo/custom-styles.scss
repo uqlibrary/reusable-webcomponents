@@ -60,38 +60,7 @@ body.custom-nde-theme {
   }
   /* END panels should look like DS */
 
-  /* style the pagination on the brief results page */
-  nde-search-results-pagination {
-    .pagination-container {
-      border-width: 0 !important;
-      font-size: 1rem;
-
-      button {
-        &:hover, &:focus {
-          text-decoration: underline;
-          cursor: pointer;
-        }
-      }
-      button.current-page {
-        --sys-primary-container: var(--uq-main-purple);
-        color: #fff;
-      }
-      button:not(.current-page) {
-        &:hover, &:focus {
-          background-color: var(--uq-panel-background);
-          border: 1px solid var(--uq-panel-background);
-          color: var(--uq-body-copy) !important;
-        }
-      }
-      li:last-of-type,
-      li:first-of-type {
-        border: 1px solid var(--uq-main-purple);
-        border-radius: 40px;
-        margin-inline: 12px;
-      }
-    }
-  }
-  /* END style the pagination on the brief results page */
+  @import 'includes/components/nde-search-results-pagination.scss';
 
   /* make the account page sidebar look like drupal sidebar navigation */
   nde-account.ng-star-inserted {
