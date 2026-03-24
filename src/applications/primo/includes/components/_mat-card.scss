@@ -1,0 +1,16 @@
+/* make each panel have a UQ DS border */
+mat-card {
+  border-color: var(--uq-colour-grey-200) !important;
+  border-radius: 4px !important;
+  background-color: #fff !important;
+}
+/* END make each panel have a UQ DS border */
+
+/* panels should look like DS */
+&:not(:has(nde-account)) mat-card-content {
+  background-color: #fff;
+  border: 1px solid #dcdcdd;
+  border-radius: 4px;
+}
+/* END panels should look like DS */
+
