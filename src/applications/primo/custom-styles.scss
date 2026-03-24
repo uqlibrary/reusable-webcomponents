@@ -22,10 +22,13 @@ button.user-area-btn {
     }
 }
 
-/* panels should look like DS */
-mat-card-content {
-    background-color: #fff;
-    border: 1px solid #dcdcdd;
-    border-radius: 4px;
+body.custom-nde-theme {
+    /* panels should look like DS */
+    &:not(:has(nde-account)) mat-card-content {
+        background-color: #fff;
+        border: 1px solid #dcdcdd;
+        border-radius: 4px;
+    }
+
+    /* END panels should look like DS */
 }
-/* END panels should look like DS */
