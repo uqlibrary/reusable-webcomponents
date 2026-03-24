@@ -65,7 +65,7 @@ body.custom-nde-theme {
 
   @import 'includes/components/nde-search-results-pagination.scss';
 
-  @import 'includes/components/_nde-account.scss';
+  @import 'includes/components/nde-account.scss';
 
   /* locations panel to be DS styled */
   .getit-location-card.mat-elevation-z0.ng-star-inserted {
@@ -76,37 +76,8 @@ body.custom-nde-theme {
   }
   /* END locations panel to be DS styled */
 
-  /* style the sort bar like the filters it is inline with (purpose: highlight it when choice change) */
-  nde-sort-by {
-    &> div {
-      /* sort button looks like other filters inline with it */
-      border: 1px solid var(--sys-outline-variant);
-      color: var(--sys-on-background);
-      border-radius: 8px;
-      padding-inline: 1.5rem;
-      margin-block: .25rem;
-      .mat-mdc-button:has(mat-icon,[matButtonIcon]) {
-        margin-right: -0.5rem; /* account for gap around the arrow down icon */
-      }
-      .mat-mdc-button:has(mat-icon,[matButtonIcon]),
-      * {
-        padding: 0;
-      }
-      &:has(button:hover, button:focus) {
-        background-color: #e6e2ea;
-      }
-      /* when it is not the default sort order, make it look selected */
-      &:not(:has([aria-label="Sort by Relevance"])) {
-        border-color: var(--uq-main-purple);
-        background-color: var(--sys-inverse-on-surface);
-      }
-      /* don't allow a hover colour on just the buton */
-      .mat-mdc-button-persistent-ripple.mdc-button__ripple {
-        display: none;
-      }
-    }
-  }
-  /* END style the sort bar like the filters it is inline with (purpose: highlight it when choice change) */
+  @import 'includes/components/nde-sort-by';
+
   /* Report a Problem button, exlibris-primo repo nde-report-a-problem-custom.component */
   /* Hide all report-a-problem-wrapper elements by default */
   .report-a-problem-wrapper {
