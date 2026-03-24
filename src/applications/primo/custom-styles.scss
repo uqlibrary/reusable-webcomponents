@@ -56,7 +56,7 @@ body.custom-nde-theme {
   }
 
   /* panels should look like DS */
-  mat-card-content {
+  &:not(:has(nde-account)) mat-card-content {
     background-color: #fff;
     border: 1px solid #dcdcdd;
     border-radius: 4px;
