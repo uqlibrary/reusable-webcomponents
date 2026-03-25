@@ -51,12 +51,9 @@ nde-user-area .user-area button.user-area-logged-in {
   }
 }
 nde-user-area button:not(.user-area-logged-in)[aria-label="Open actions menu"] {
+  /* logged out account menu */
   display: flex;
   column-gap: 0.5rem;
-
-  .arrow {
-    display: none;
-  }
   div,
   span:not(.loggedout) {
     /* remove all extra ripple effects */
@@ -70,7 +67,7 @@ nde-user-area button:not(.user-area-logged-in)[aria-label="Open actions menu"] {
     font-weight: 500;
   }
 
-  svg {
+  svg.loggedout { /* person icon on loggedout button */
     height: 20px;
     width: 18px;
   }
