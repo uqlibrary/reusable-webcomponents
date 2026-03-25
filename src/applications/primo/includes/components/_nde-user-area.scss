@@ -2,11 +2,10 @@
 /* (after it has been change from initials to name, by an angular component, nde-replace-user-initials-custom.component) */
 nde-user-area .user-area button  {
   width: auto;
+  flex-direction: row-reverse;
 }
 nde-user-area .user-area button.user-area-logged-in {
   line-height: 3rem;
-
-  flex-direction: row-reverse;
 
   svg.loggedout,
   span:not(.styledUserName) {

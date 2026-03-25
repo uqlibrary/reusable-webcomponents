@@ -1,0 +1,47 @@
+div.signed-in-user-details {
+  display: none;
+}
+.user-area-sub-menu  {
+  padding-top: 1rem;
+  padding-bottom: 0.6rem;
+  a, button {
+    color: #3b383e;
+    font-weight: 400;
+    span {
+      --mat-menu-item-label-text-weight: 400;
+    }
+    --mat-menu-item-with-icon-leading-spacing: 29px;
+    --mat-menu-item-with-icon-trailing-spacing: 29px;
+    height: 3rem;
+
+  }
+  svg {
+    --sys-outline: #51247a;
+  }
+  .mat-icon svg g path {
+      fill: #fff;
+    stroke: var(--uq-main-purple);
+    }
+
+  mat-divider {
+    display: none;
+  }
+
+  .menu-section-divider {
+    border-top: thin solid #d3d3d3;
+    display: block;
+    margin-left: 1.8rem;
+    margin-right: 1.5rem;
+    margin-top: 0.8rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .mat-mdc-menu-item:not([disabled]):hover {
+    background-color: transparent;
+    .primaryText,
+    span span {
+      background-color: #51247a;
+      color: #fff;
+    }
+  }
+}
