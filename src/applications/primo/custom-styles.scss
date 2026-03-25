@@ -8,6 +8,19 @@ uq-site-header::part(root) {
 }
 
 body.custom-nde-theme {
+
+  @import 'includes/components/nde-search-results-pagination.scss';
+
+  @import 'includes/components/nde-account.scss';
+
+  @import 'includes/components/nde-sort-by';
+
+  @import 'includes/components/nde-user-area';
+
+  @import 'includes/components/mat-card.scss';
+
+  @import 'includes/components/report_a_problem';
+
   /* put a gap at the bottom of the sidebar */
   [role="navigation"].account-menu-container, /* on the Account pages */
   .filters-side-bar-content /* on brief results pages  */
@@ -50,10 +63,6 @@ body.custom-nde-theme {
     }
   }
 
-  @import 'includes/components/nde-search-results-pagination.scss';
-
-  @import 'includes/components/nde-account.scss';
-
   /* locations panel to be DS styled */
   .getit-location-card.mat-elevation-z0.ng-star-inserted {
     border-radius: 4px;
@@ -62,16 +71,6 @@ body.custom-nde-theme {
     }
   }
   /* END locations panel to be DS styled */
-
-  @import 'includes/components/nde-sort-by';
-
-  @import 'includes/components/report_a_problem';
-
-  @import 'includes/components/account_menu';
-
-  @import 'includes/components/mat-card.scss';
-
-  @import 'includes/components/nde-account.scss';
 
   /* style the main search bar to be like search portal on drupal */
   .top-bar-container nde-search-bar-presenter .search-bar-container .search-bar-wrapper {
@@ -84,15 +83,6 @@ body.custom-nde-theme {
     }
   }
   /* END style the main search bar to be like search portal on drupal */
-
-  @import 'includes/components/nde-search-results-pagination.scss';
-
-  @import 'includes/components/nde-account.scss';
-
-  @import 'includes/components/nde-sort-by';
-
-  @import 'includes/components/nde-user-area';
-
 
   /* boxes with border should be DS styled */
   nde-linked-data-recommendations,
