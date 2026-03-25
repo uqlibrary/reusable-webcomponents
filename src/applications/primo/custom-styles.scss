@@ -12,6 +12,19 @@ uq-site-header::part(root) {
 }
 
 body.custom-nde-theme {
+
+  @import 'includes/components/nde-search-results-pagination.scss';
+
+  @import 'includes/components/nde-account.scss';
+
+  @import 'includes/components/nde-sort-by';
+
+  @import 'includes/components/nde-user-area';
+
+  @import 'includes/components/mat-card.scss';
+
+  @import 'includes/components/report_a_problem';
+
   /* put a gap at the bottom of the sidebar */
   [role="navigation"].account-menu-container, /* on the Account pages */
   .filters-side-bar-content /* on brief results pages  */
@@ -54,10 +67,7 @@ body.custom-nde-theme {
       padding-left: 1.4rem;
     }
   }
-
-  @import 'includes/components/nde-search-results-pagination.scss';
-
-  @import 'includes/components/nde-account.scss';
+  /* END style the main search bar to be like search portal on drupal */
 
   /* panels should look like DS */
   &:not(:has(nde-account)) mat-card-content {
@@ -76,20 +86,12 @@ body.custom-nde-theme {
   }
   /* END locations panel to be DS styled */
 
-  @import 'includes/components/nde-sort-by';
-
-  @import 'includes/components/report_a_problem';
-
-  @import 'includes/components/mat-card.scss';
-
   /* fonts on librarian controlled text */
   .restricted-public-note {
     font-weight: 400;
     font-size: 1rem;
   }
   /* END fonts on librarian controlled text */
-
-  @import 'includes/components/nde-user-area';
 
   /* boxes with border should be DS styled */
   nde-linked-data-recommendations,

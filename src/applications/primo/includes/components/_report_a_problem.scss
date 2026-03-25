@@ -9,8 +9,8 @@
 }
 .report-a-problem-wrapper {
   min-height: 4.2rem;
-  margin-top: 1rem;
-  margin-left: 1.5rem;
+  margin-top: 1.5rem;
+  margin-left: 1rem;
 
   position: absolute;
   top: 1rem;
@@ -20,7 +20,7 @@ div:has(> ng-component nde-full-display-service-container-after-from-remote-0 .s
 }
 /* put a nice gap at the top for the button to sit in */
 div:has(> ng-component nde-full-display-service-container-after-from-remote-0 .showRAP) > nde-full-display-service-container > div > mat-expansion-panel {
-  padding-top: 3.5rem;;
+  padding-top: 5rem;;
 }
 .report-a-problem {
   background-color: var(--uq-main-purple);
@@ -29,6 +29,7 @@ div:has(> ng-component nde-full-display-service-container-after-from-remote-0 .s
   padding: 12px 16px;
   border-radius: 4px;
   text-decoration: none;
+  text-transform: uppercase;
   &:hover, &:focus {
     background-color: #fff;
     border-color: var(--uq-main-purple);
