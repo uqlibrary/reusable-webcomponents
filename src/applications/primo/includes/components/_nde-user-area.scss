@@ -105,10 +105,10 @@ div.signed-in-user-details {
 
   }
   svg {
-    --sys-outline: #51247a;
+    --sys-outline: var(--uq-main-purple);
   }
   .mat-icon svg g path {
-    fill: #fff;
+    fill: transparent;
     stroke: var(--uq-main-purple);
   }
 
