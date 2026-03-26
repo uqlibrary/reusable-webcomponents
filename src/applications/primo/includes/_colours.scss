@@ -16,12 +16,16 @@
   --uq-colour-grey-200: #dcdcdd;
   --uq-colour-grey-900: #3b383e;
 
+  --uq-color-utility-50: #e7f0fa;
+  --uq-color-utility-200: #9ec5eb;
+
   --uq-colour-black: #19151c;
 
   --uq-main-purple: var(--uq-colour-purple-500);
   --uq-body-copy: var(--uq-colour-grey-900);
   --uq-body-color: var(--uq-colour-black);
   --uq-panel-background: var(--uq-colour-grey-50);
+  --uq-background-alert-non-critical: var(--uq-color-utility-50);
 
   --sys-background: var(--uq-colour-purple-50);
   --sys-inverse-on-surface: var(--uq-panel-background);
@@ -31,8 +35,8 @@
   --sys-outline: var(--uq-body-copy);
   --sys-outline-variant: var(--uq-colour-purple-100);
   --sys-surface-container: #fff;
-  --sys-primary-fixed: var(--uq-colour-purple-50);
-  --sys-primary-fixed-dim: var(--uq-colour-purple-200);
+  --sys-primary-fixed: var(--uq-background-alert-non-critical);
+  --sys-primary-fixed-dim: var(--uq-color-utility-200);
   //--sys-on-surface-variant: #fff;
   //--mdc-icon-button-icon-color: var(--uq-main-purple);
 
