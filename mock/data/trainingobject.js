@@ -371,6 +371,7 @@ const trainingEventsObject = {
         "expire": "2021-06-02T11:30:00+10:00",
         "isActive": true,
         "isCancelled": false,
+        "isPrivate": true,
         "summary": "A short-introductory hands-on course to the basics of using Adobe Illustrator.",
         "details": "<p>A short-introductory hands-on course to the basics of using Adobe Illustrator. This session will introduce the software and its tool to participants and include short exercises to help develop understanding and skills. No prior experience with the software is required.</p><p><img style=\"background-color:&#32;initial;&#32;width:&#32;25px;\" src=\"https://studenthub.uq.edu.au/Uploads/Images/Library/e-learning-laptop-1.png\"> Attend online: Zoom link to be sent before session</p>",
         "offCampusLocation": null,

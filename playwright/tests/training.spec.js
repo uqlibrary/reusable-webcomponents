@@ -106,7 +106,6 @@ test.describe('Training', () => {
             await expect(trainingList.getByTestId('training-event-detail-toggle-6190074')).toBeVisible(); // 'UQ R User Group (UQRUG) both online and in person
             await expect(trainingList.getByTestId('training-event-detail-toggle-3437656')).toBeVisible(); // NVivo: Next Steps
             // 6th onward now visible
-            await expect(trainingList.getByTestId('training-event-detail-toggle-3437658')).toBeVisible(); // 'Introduction to Adobe Illustrator');
             await expect(trainingList.getByTestId('training-event-detail-toggle-3437657')).toBeVisible(); // Introduction to the Unix Shell
             await expect(trainingList.getByTestId('training-event-detail-toggle-3437659')).toBeVisible(); // Excel: processing data
 
@@ -129,6 +128,31 @@ test.describe('Training', () => {
             await expect(trainingList.getByTestId('training-event-detail-toggle-3437658')).not.toBeVisible(); // 'Introduction to Adobe Illustrator');
             await expect(trainingList.getByTestId('training-event-detail-toggle-3437657')).not.toBeVisible(); // Introduction to the Unix Shell
             await expect(trainingList.getByTestId('training-event-detail-toggle-3437659')).not.toBeVisible(); // Excel: processing data
+        });
+
+        test('can hide private events', async ({ page }) => {
+            await page.goto('http://localhost:8080/index-training.html');
+            await page.setViewportSize({ width: 1280, height: 900 });
+            await expect(page.locator('library-training[id="test-with-filter"]')).toBeVisible();
+            const trainingElement = page.locator('library-training[id="test-with-filter"]');
+
+            await expect(trainingElement.locator('training-list')).toBeVisible();
+            const trainingList = trainingElement.locator('training-list');
+
+            // #5 visible, #6 and #7 hidden
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3437656')).toBeVisible(); // 'NVivo: Next Steps
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3437658')).not.toBeVisible(); // 'Introduction to Adobe Illustrator
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3437657')).not.toBeVisible(); // Introduction to the Unix Shell
+
+            // click the Show more to expand the displayed events
+            await expect(trainingList.getByTestId('training-events-toggle-full-list').first()).toBeVisible();
+            await expect(trainingList.getByTestId('training-events-toggle-full-list').first()).toHaveText('Show more');
+            await trainingList.getByTestId('training-events-toggle-full-list').first().click();
+
+            // #5 visible, #7 hidden, #6 still hidden because it is private
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3437656')).toBeVisible(); // 'NVivo: Next Steps
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3437658')).not.toBeVisible(); // 'Introduction to Adobe Illustrator
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3437657')).toBeVisible(); // Introduction to the Unix Shell
         });
 
         test('shows a multi day event', async ({ page }) => {
