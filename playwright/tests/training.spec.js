@@ -473,6 +473,47 @@ test.describe('Training', () => {
 
             await expect(trainingListElement.locator('h4').first()).toContainText('Excel: processing data');
         });
+        test('user can enter a type as a keyword and it will show all events in that type', async ({ page }) => {
+            await expect(page.locator('library-training[id="test-with-filter"]')).toBeVisible();
+
+            const NUMBER_ENTRIES_IN_PUBLISHING_RESEARCH = 16;
+
+            const trainingElement = page.locator('library-training[id="test-with-filter"]');
+            await expect(trainingElement.locator('training-filter')).toBeVisible();
+            const trainingFilter = trainingElement.locator('training-filter');
+            await expect(trainingElement.locator('training-list')).toBeVisible();
+            const trainingList = trainingElement.locator('training-list');
+
+            // click the Show more to expand the displayed events
+            await expect(trainingList.getByTestId('training-events-toggle-full-list').first()).toBeVisible();
+            await expect(trainingList.getByTestId('training-events-toggle-full-list').first()).toHaveText('Show more');
+            await trainingList.getByTestId('training-events-toggle-full-list').first().click();
+
+            // initially all entries show, with "Publishing and Research Management" being the #3 block (with ID "-2")
+            await expect
+                .poll(async () => trainingList.getByTestId('training-event-category-2').locator(':scope > div').count())
+                .toEqual(NUMBER_ENTRIES_IN_PUBLISHING_RESEARCH);
+
+            // enter "publishing and Research Management" as a keyword, intending to check the type is matched (this auto-collapses the show-more)
+            await trainingFilter
+                .getByTestId('training-filter-keyword-entry')
+                .pressSequentially('publishing and Research Management');
+            await expect(trainingFilter.getByTestId('training-filter-keyword-entry')).toHaveValue(
+                // the name of the section of interest
+                'publishing and Research Management',
+            );
+
+            // click the Show more to expand the displayed events
+            await expect(trainingList.getByTestId('training-events-toggle-full-list').first()).toBeVisible();
+            await expect(trainingList.getByTestId('training-events-toggle-full-list').first()).toHaveText('Show more');
+            await trainingList.getByTestId('training-events-toggle-full-list').first().click();
+
+            // we still have all the entries show, because the type is tested
+            // (it is the only one that shows, so its ID changes to '-0')
+            await expect
+                .poll(async () => trainingList.getByTestId('training-event-category-0').locator(':scope > div').count())
+                .toEqual(NUMBER_ENTRIES_IN_PUBLISHING_RESEARCH);
+        });
         test('user can select a chip and it will filter correctly, example with space to remove', async ({ page }) => {
             await expect(page.locator('library-training[id="test-with-filter"]')).toBeVisible();
             const trainingElement = page.locator('library-training[id="test-with-filter"]');
