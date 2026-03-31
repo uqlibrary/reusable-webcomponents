@@ -207,7 +207,8 @@ class Training extends HTMLElement {
                 !(
                     event.name.match(keywordRegExp) ||
                     event.details.match(keywordRegExp) ||
-                    event.summary.match(keywordRegExp)
+                    event.summary.match(keywordRegExp) ||
+                    event.eventType.match(keywordRegExp)
                 )
             ) {
                 return false;
