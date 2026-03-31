@@ -68,7 +68,6 @@ body.custom-nde-theme {
   }
   /* END style the main search bar to be like search portal on drupal */
 
-  /* locations panel to be DS styled */
   /* panels should look like DS */
   &:not(:has(nde-account)) mat-card-content {
     background-color: #fff;
@@ -76,6 +75,8 @@ body.custom-nde-theme {
     border-radius: 4px;
   }
   /* END panels should look like DS */
+
+  /* locations panel to be DS styled */
   .getit-location-card.mat-elevation-z0.ng-star-inserted {
     border-radius: 4px;
     nde-location-items-container > div {
@@ -90,19 +91,6 @@ body.custom-nde-theme {
     font-size: 1rem;
   }
   /* END fonts on librarian controlled text */
-
-  /* style the main search bar to be like search portal on drupal */
-  .top-bar-container nde-search-bar-presenter .search-bar-container .search-bar-wrapper {
-    background-color: #fff !important;
-    border-radius: 2px !important;
-    border: 1px solid #dcdcdd !important;
-    padding-left: 0 !important;
-    input {
-      padding-left: 1.4rem;
-    }
-  }
-  /* END style the main search bar to be like search portal on drupal */
-
 
   /* boxes with border should be DS styled */
   nde-linked-data-recommendations,
@@ -119,4 +107,3 @@ body.custom-nde-theme {
   }
   /* END Disable Browse Carousel */
 }
-

@@ -58,18 +58,6 @@ nde-request-card path {
 }
 /* END Full Record Request section, don't fill purple */
 
-/* override fill=green hard coded on attribute */
-svg, rect, path, circle {
-  fill: var(--uq-main-purple);
-}
-/* END override fill=green hard coded on attribute */
-
-/* Full Record Request section, don't fill purple */
-nde-request-card path {
-  fill: white;
-}
-/* END Full Record Request section, don't fill purple */
-
 body.custom-nde-theme {
 
   /* login-loggedout button */
