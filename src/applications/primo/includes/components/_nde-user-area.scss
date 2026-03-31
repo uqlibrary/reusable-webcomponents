@@ -1,27 +1,39 @@
-/* style the loggedin user name */
-/* (after it has been change from initials to name, by an angular component, nde-replace-user-initials-custom.component) */
-nde-user-area .user-area button  {
-  width: auto;
-}
-nde-user-area .user-area button.user-area-logged-in {
-  line-height: 3rem;
-
+/* logged in and logged out buttons */
+nde-user-area .user-area button {
+  display: flex;
   flex-direction: row-reverse;
 
-  svg.loggedout,
-  span:not(.styledUserName) {
-    /* remove all extra ripple effects */
+  /* remove all extra ripple effects */
+  span.mat-mdc-button-touch-target,
+  span.mat-focus-indicator,
+  span.mat-mdc-button-persistent-ripple,
+  span.mdc-icon-button__ripple {
     display: none;
   }
-  span.styledUserName {
+}
+
+/* logged in button */
+nde-user-area button.user-area-btn[aria-label="Open actions menu"] {
+  --mat-icon-button-touch-target-display: none;
+
+  span.mat-ripple.mat-mdc-button-ripple,
+  span.mat-mdc-button-persistent-ripple,
+  span.mat-focus-indicator,
+  span.mat-mdc-button-touch-target,
+  span.mat-ripple {
+    display: none;
+  }
+
+  box-sizing: unset;
+  text-align: left;
+  border-radius: 0 !important;
+
+  width: 170px;
+  max-width: 170px;
+
+  &:has(span.styledUserName) span.styledUserName {
     --sys-primary: #fff;
     color: #333 !important;
-    width: auto !important;
-
-    box-sizing: unset;
-    text-align: left;
-    border-radius: 0 !important;
-    display: block !important;
 
     font-family: Roboto, Helvetica, Arial, sans-serif;
     font-size: 16px !important;
@@ -29,63 +41,134 @@ nde-user-area .user-area button.user-area-logged-in {
     letter-spacing: 0.14px;
     line-height: normal;
     height: 1rem !important;
+    border-radius: 0;
 
     /* truncate name with ellipsis when long, eg homepage user 'digiteamMember' */
-    max-width: 150px;
+    max-width: 100%;
+    width: auto;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+
   }
-  &:hover,
-  &:focus {
-    span.styledUserName {
-      --sys-primary: #51247a;
-      color: #fff !important;
-      border-radius: 0 !important;
-      letter-spacing: 0.16px;
-      font-weight: 500;
-      font-size: 1rem;
-      display: inline;
-      max-height: 1rem;
-      height: 1rem !important;
+
+  &[aria-label="Open actions menu"]:has(span.styledUserName) {
+    &:hover,
+    &:focus {
+      span.styledUserName {
+        --sys-primary: var(--uq-main-purple);
+        background-color: var(--uq-main-purple) !important;; /* #51247a !important; */
+        color: #fff !important;
+        border-radius: 0 !important;
+        letter-spacing: 0.16px;
+        font-weight: 500;
+        font-size: 1rem;
+        display: inline;
+        max-height: 1.1rem;
+        height: 1.1rem !important;
+      }
     }
   }
+
+  mat-icon.mat-icon {
+    display: none;
+  }
 }
+
+/* logged out button */
 nde-user-area button:not(.user-area-logged-in)[aria-label="Open actions menu"] {
-  display: flex;
-  column-gap: 0.5rem;
+  width: auto;
+  box-sizing: border-box;
 
-  .arrow {
-    display: none;
-  }
-  div,
-  span:not(.loggedout) {
-    /* remove all extra ripple effects */
-    display: none;
-    height: 0;
+  svg.loggedout { /* head icon */
+    height: 20px;
+    width: 18px;
   }
 
+  .auth-log-in-label {
+    height: 1.4rem;
+    letter-spacing: .16px;
+  }
 
   span {
     font-family: Roboto, Helvetica, sans-serif;
     font-weight: 500;
   }
 
-  svg {
-    height: 20px;
-    width: 18px;
+  &:hover,
+  &:focus {
+    .auth-log-in-label {
+      background-color: var(--uq-main-purple) !important;
+      color: #fff !important;
+      border-radius: 0 !important;
+      font-weight: 500;
+      font-size: 1rem;
+      display: inline;
+    }
   }
 }
-&:has(.cdk-overlay-container .cdk-overlay-pane [aria-label="Go to my library account"]) nde-user-area  .downArrow,
-&:not(:has(.cdk-overlay-container .cdk-overlay-pane [aria-label="Go to my library account"])) nde-user-area  .upArrow {
-  /* only show one arrow - we need so many selectors because */
-  /* they write the basic structure of the popup block at hover, then fill it in on click */
+.auth-log-in-label {
+  margin-left: 0.5rem;
+}
+
+/* hide the log-in button when we are already logged in */
+nde-user-area button:has(.styledUserName) .loggedout {
   display: none;
 }
 
-&:has(button.user-area-logged-in:hover) mat-tooltip-component {
-  /* hide tooltip of username over already displayed username - tooltip made sense when they were displayed initials */
+/* arrows */
+&:has(.cdk-overlay-container .cdk-overlay-pane [aria-label="Go to my library account"]) nde-user-area .downArrow,
+&:not(:has(.cdk-overlay-container .cdk-overlay-pane [aria-label="Go to my library account"])) nde-user-area .upArrow {
   display: none;
 }
 
-/* END style the loggedin user name (after it has been rewritten by an angular component, nde-replace-user-initials-custom.component) */
+/* NOT in nde-user-area element!!! */
+/* style the account menu drop down  */
+div.signed-in-user-details {
+  display: none;
+}
+.user-area-sub-menu  {
+  --mat-menu-item-icon-color: #51247a;
+  padding-top: 1rem;
+  padding-bottom: 0.6rem;
+  a, button {
+    color: #3b383e;
+    font-weight: 400;
+    span {
+      --mat-menu-item-label-text-weight: 400;
+    }
+    --mat-menu-item-with-icon-leading-spacing: 29px;
+    --mat-menu-item-with-icon-trailing-spacing: 29px;
+    height: 3rem;
+
+  }
+  svg {
+    --sys-outline: var(--uq-main-purple);
+  }
+  .mat-icon svg g path {
+    fill: transparent;
+    stroke: var(--uq-main-purple);
+  }
+
+  mat-divider {
+    display: none;
+  }
+  .menu-section-divider {
+    border-top: thin solid #d3d3d3;
+    display: block;
+    margin-left: 1.8rem;
+    margin-right: 1.5rem;
+    margin-top: 0.8rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .mat-mdc-menu-item:not([disabled]):hover {
+    background-color: transparent;
+    .primaryText,
+    span span {
+      background-color: var(--uq-main-purple);
+      color: #fff;
+    }
+  }
+}
+/* END style the account menu drop down  */
