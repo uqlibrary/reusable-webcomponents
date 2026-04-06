@@ -57,7 +57,7 @@ nde-user-area button.user-area-btn[aria-label="Open actions menu"] {
     &:focus {
       span.styledUserName {
         --sys-primary: var(--uq-main-purple);
-        background-color: var(--uq-main-purple) !important;; /* #51247a !important; */
+        background-color: var(--uq-main-purple) !important;;
         color: #fff !important;
         border-radius: 0 !important;
         letter-spacing: 0.16px;
@@ -168,6 +168,15 @@ div.signed-in-user-details {
     span span {
       background-color: var(--uq-main-purple);
       color: #fff;
+    }
+  }
+
+  /* "favourites" icon is the Primo pin and needs tweaking */
+  .library-favourites-icon {
+    transform: rotateY(0deg) rotate(25deg);
+    padding-right: 3px;
+    path {
+      opacity: 70%;
     }
   }
 }
