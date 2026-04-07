@@ -33,6 +33,12 @@ body.custom-nde-theme {
   }
   /* END put a gap at the bottom of the sidebar */
 
+  /* move the "too many main menu items" overflow popup down, to match OTB position against the main menu */
+  .cdk-global-overlay-wrapper {
+    top: 230px;
+  }
+  /* END move the "to omany main menu items" overflow popup down, to match OTB position against the main menu */
+
   /* move the account button into the site header */
   button.user-area-btn {
     margin-top: -165px;
@@ -53,7 +59,6 @@ body.custom-nde-theme {
     display: none;
   }
   /* END Disable Background-Image Overlay on primo homepage */
-
 
   /* Note: nde-logo is hidden in exlibris-primo repo custom.css file, to give fastest removal */
 
