@@ -1,0 +1,42 @@
+.readingListCitations {
+  button.uql-mat-expansion-panel-header-button {
+    justify-content: space-between;
+    width: 100%;
+    border: none;
+    background-color: #fff;
+    padding-left: 1rem;
+    padding-right: 1.5rem;
+  }
+
+  button.uql-mat-expansion-panel-header-button:not(.mat-expanded) {
+    &:focus,
+    &:hover {
+      background-color: var(--mat-expansion-header-hover-state-layer-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-hover-state-layer-opacity) * 100%), transparent));
+    }
+  }
+
+  button.uql-mat-expansion-panel-header-button:not(.mat-expanded) {
+    padding-block: 2rem; /* 0.3rem; */
+  }
+
+  .course-resource-list {
+    list-style-type: none;
+  }
+
+  .uql-crl-list-item svg {
+    margin-left: 4px;
+    vertical-align: middle;
+  }
+
+  .mat-expansion-panel-animations-enabled .uql-accordion-child-crl {
+    transition: visibility 190ms linear;
+  }
+
+  a {
+    color: var(--uq-main-purple);
+    &:hover span {
+      color: #fff;
+      background-color: var(--uq-main-purple);
+    }
+  }
+}
