@@ -11,9 +11,4 @@ prm-full-view {
             }
         }
     }
-
-    /* when the page has a Services page warning banner, we don't show the report-a-problem button */
-    &:has(.standardWarningBanner-servicesPage) a.report-a-problem {
-        display: none;
-    }
 }
