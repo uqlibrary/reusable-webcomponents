@@ -1578,14 +1578,6 @@ prm-main-menu .my-feedback-ctm {
         background-size: 11px;
     }
 }
-.culturalAdviceBanner p {
-    padding: 1em;
-    border-color: #bbd8f5;
-    color: #000;
-    background-color: #bbd8f5;
-    border-radius: 3px;
-    margin-right: -2.50em;
-}
 // very rarely, angular misfires and places a duplicate custom indicator. Ensure it is invisible if it happens
 .culturalAdviceMark ~ .culturalAdviceMark,
 .readingListMark ~ .readingListMark {
@@ -1600,15 +1592,26 @@ prm-icon.culturalAdviceMarkIcon md-icon svg path {
 .indicatorWrapper {
     margin-left: -10px;
 }
-.culturalAdviceBanner p {
-    background-color: $uqInformationLight;
-    border-color: $uqInformationLight;
-    border-radius: 3px;
-    color: #000;
-    padding: 1em;
+.culturalAdviceBanner, /* remove after cache is cleared, May 2026 */
+.standardWarningBanner {
+    p {
+        background-color: $uqInformationLight;
+        border-color: $uqInformationLight;
+        border-radius: 3px;
+        color: #000;
+        padding: 1em;
+    }
+    a {
+        text-decoration: underline;
+        &:hover, &:focus {
+            background-color: $accent-color;
+            color: #fff !important;
+            box-shadow: none;
+        }
+    }
 }
 @media (min-width: 600px) {
-    .culturalAdviceBanner p {
+    .standardWarningBanner p {
         margin-right: -2.5em;
     }
 }
