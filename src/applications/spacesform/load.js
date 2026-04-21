@@ -16,8 +16,9 @@ function hasDebugParam(testHost) {
 
 function loadReusableComponentsAtom() {
     console.log('spaces load file ready!');
-    if (hasDebugParam('testform')) {
-        console.log('has testform param');
+    if (hasDebugParam('test.crm.uq.edu.au')) {
+        // host needs update
+        console.log('?debug=true found on test url');
     }
 }
 
