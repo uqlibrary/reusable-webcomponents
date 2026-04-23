@@ -3,7 +3,7 @@ import { assertAccessibility } from '../lib/axe';
 
 const uqpurple = 'rgb(81, 36, 122)'; // #51247a
 
-const EVENT_UQ_R_USERGROUP_UQRUG = (prefix) => `${prefix}-3455330`;
+const EVENT_ENDNOTE_DROPIN = (prefix) => `${prefix}-3455330`;
 const EVENT_PREMIER_PRO_VIDEO_EDITING_BASICS = (prefix) => `${prefix}-3437655`;
 
 test.describe('Training', () => {
@@ -80,9 +80,7 @@ test.describe('Training', () => {
             await expect(
                 trainingList.getByTestId(EVENT_PREMIER_PRO_VIDEO_EDITING_BASICS('training-event-detail-toggle')),
             ).toBeVisible();
-            await expect(
-                trainingList.getByTestId(EVENT_UQ_R_USERGROUP_UQRUG('training-event-detail-toggle')),
-            ).toBeVisible();
+            await expect(trainingList.getByTestId(EVENT_ENDNOTE_DROPIN('training-event-detail-toggle'))).toBeVisible();
             await expect(trainingList.getByTestId('training-event-detail-toggle-6190074')).toBeVisible(); // 'UQ R User Group (UQRUG) both online and in person
             await expect(trainingList.getByTestId('training-event-detail-toggle-3437656')).toBeVisible(); // 'NVivo: Next Steps
             // 6th onward hidden
@@ -100,9 +98,7 @@ test.describe('Training', () => {
             await expect(
                 trainingList.getByTestId(EVENT_PREMIER_PRO_VIDEO_EDITING_BASICS('training-event-detail-toggle')),
             ).toBeVisible();
-            await expect(
-                trainingList.getByTestId(EVENT_UQ_R_USERGROUP_UQRUG('training-event-detail-toggle')),
-            ).toBeVisible();
+            await expect(trainingList.getByTestId(EVENT_ENDNOTE_DROPIN('training-event-detail-toggle'))).toBeVisible();
             await expect(trainingList.getByTestId('training-event-detail-toggle-6190074')).toBeVisible(); // 'UQ R User Group (UQRUG) both online and in person
             await expect(trainingList.getByTestId('training-event-detail-toggle-3437656')).toBeVisible(); // NVivo: Next Steps
             // 6th onward now visible
@@ -119,9 +115,7 @@ test.describe('Training', () => {
             await expect(
                 trainingList.getByTestId(EVENT_PREMIER_PRO_VIDEO_EDITING_BASICS('training-event-detail-toggle')),
             ).toBeVisible();
-            await expect(
-                trainingList.getByTestId(EVENT_UQ_R_USERGROUP_UQRUG('training-event-detail-toggle')),
-            ).toBeVisible();
+            await expect(trainingList.getByTestId(EVENT_ENDNOTE_DROPIN('training-event-detail-toggle'))).toBeVisible();
             await expect(trainingList.getByTestId('training-event-detail-toggle-6190074')).toBeVisible(); // 'UQ R User Group (UQRUG) both online and in person
             await expect(trainingList.getByTestId('training-event-detail-toggle-3437656')).toBeVisible(); // 'NVivo: Next Steps');
             // 6th onward now hidden
@@ -138,6 +132,8 @@ test.describe('Training', () => {
 
             await expect(trainingElement.locator('training-list')).toBeVisible();
             const trainingList = trainingElement.locator('training-list');
+
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3455330')).toBeVisible(); // Endnote - Drop in - an event that is private, but is for the hospital, so it shows
 
             // #5 visible, #6 and #7 hidden
             await expect(trainingList.getByTestId('training-event-detail-toggle-3437656')).toBeVisible(); // 'NVivo: Next Steps
@@ -181,10 +177,8 @@ test.describe('Training', () => {
             await expect(trainingElement.locator('training-list')).toBeVisible();
 
             const trainingList = trainingElement.locator('training-list');
-            await expect(trainingList.getByTestId(EVENT_UQ_R_USERGROUP_UQRUG('event-venue'))).toBeVisible();
-            await expect(trainingList.getByTestId(EVENT_UQ_R_USERGROUP_UQRUG('event-venue'))).toContainText(
-                'Online, Zoom',
-            );
+            await expect(trainingList.getByTestId(EVENT_ENDNOTE_DROPIN('event-venue'))).toBeVisible();
+            await expect(trainingList.getByTestId(EVENT_ENDNOTE_DROPIN('event-venue'))).toContainText('Online, Zoom');
         });
     });
 
@@ -215,13 +209,13 @@ test.describe('Training', () => {
             await expect(trainingComponent.locator('training-list')).toBeVisible();
 
             const trainingList = trainingComponent.locator('training-list');
-            await trainingList.getByTestId(EVENT_UQ_R_USERGROUP_UQRUG('training-event-detail-toggle')).click(); // open detail item
-            await expect(trainingList.getByTestId(EVENT_UQ_R_USERGROUP_UQRUG('training-event-detail'))).toBeVisible();
+            await trainingList.getByTestId(EVENT_ENDNOTE_DROPIN('training-event-detail-toggle')).click(); // open detail item
+            await expect(trainingList.getByTestId(EVENT_ENDNOTE_DROPIN('training-event-detail'))).toBeVisible();
             const trainingDetailElement1 = trainingList.getByTestId(
-                EVENT_UQ_R_USERGROUP_UQRUG('training-event-detail-content'),
+                EVENT_ENDNOTE_DROPIN('training-event-detail-content'),
             );
             await expect(trainingDetailElement1.locator('#bookingText')).toHaveText('Booking is not required');
-            await trainingList.getByTestId(EVENT_UQ_R_USERGROUP_UQRUG('training-event-detail-toggle')).click(); // close detail item
+            await trainingList.getByTestId(EVENT_ENDNOTE_DROPIN('training-event-detail-toggle')).click(); // close detail item
 
             await trainingList
                 .getByTestId(EVENT_PREMIER_PRO_VIDEO_EDITING_BASICS('training-event-detail-toggle'))
@@ -369,21 +363,21 @@ test.describe('Training', () => {
             await expect(trainingElement.locator('training-list')).toBeVisible();
 
             const trainingList = trainingElement.locator('training-list');
-            await trainingList.getByTestId(EVENT_UQ_R_USERGROUP_UQRUG('training-event-detail-toggle')).click(); // open detail item
-            await expect(trainingList.getByTestId(EVENT_UQ_R_USERGROUP_UQRUG('training-event-detail'))).toBeVisible();
+            await trainingList.getByTestId(EVENT_ENDNOTE_DROPIN('training-event-detail-toggle')).click(); // open detail item
+            await expect(trainingList.getByTestId(EVENT_ENDNOTE_DROPIN('training-event-detail'))).toBeVisible();
 
             await trainingList
-                .getByTestId(EVENT_UQ_R_USERGROUP_UQRUG('training-event-detail'))
+                .getByTestId(EVENT_ENDNOTE_DROPIN('training-event-detail'))
                 .getByTestId('training-details-location-details')
                 .scrollIntoViewIfNeeded();
             await expect(
                 trainingList
-                    .getByTestId(EVENT_UQ_R_USERGROUP_UQRUG('training-event-detail'))
+                    .getByTestId(EVENT_ENDNOTE_DROPIN('training-event-detail'))
                     .getByTestId('training-details-location-details'),
             ).toBeVisible();
             await expect(
                 trainingList
-                    .getByTestId(EVENT_UQ_R_USERGROUP_UQRUG('training-event-detail'))
+                    .getByTestId(EVENT_ENDNOTE_DROPIN('training-event-detail'))
                     .getByTestId('training-details-location-details'),
             ).toContainText('Online, Zoom');
         });
@@ -664,9 +658,7 @@ test.describe('Training', () => {
                 trainingList.getByTestId(EVENT_PREMIER_PRO_VIDEO_EDITING_BASICS('training-event-detail-toggle')),
             ).toBeVisible();
             await expect(trainingList.getByText(/Premiere Pro: Video Editing Basics/).first()).toBeVisible();
-            await expect(
-                trainingList.getByTestId(EVENT_UQ_R_USERGROUP_UQRUG('training-event-detail-toggle')),
-            ).toBeVisible();
+            await expect(trainingList.getByTestId(EVENT_ENDNOTE_DROPIN('training-event-detail-toggle'))).toBeVisible();
             await expect(trainingList.getByTestId('training-event-detail-toggle-3455330')).toBeVisible();
             await expect(trainingList.getByTestId('training-event-detail-toggle-6190074')).toBeVisible();
             await expect(trainingList.getByTestId('training-event-detail-toggle-3437656')).toBeVisible();
@@ -749,7 +741,7 @@ test.describe('Training', () => {
                 trainingElement.getByTestId(EVENT_PREMIER_PRO_VIDEO_EDITING_BASICS('training-event-detail-toggle')),
             ).not.toBeVisible(); // 'Premiere Pro: Video Editing Basics');
             await expect(
-                trainingElement.getByTestId(EVENT_UQ_R_USERGROUP_UQRUG('training-event-detail-toggle')),
+                trainingElement.getByTestId(EVENT_ENDNOTE_DROPIN('training-event-detail-toggle')),
             ).not.toBeVisible(); // 'UQ R User Group (UQRUG)');
             await expect(trainingElement.getByTestId('training-event-detail-toggle-3437656')).not.toBeVisible(); // 'NVivo: Next Steps');
             await expect(trainingElement.getByTestId('training-event-detail-toggle-3437658')).not.toBeVisible(); // 'Introduction to Adobe Illustrator');

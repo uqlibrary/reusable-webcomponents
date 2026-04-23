@@ -166,6 +166,11 @@ class Training extends HTMLElement {
         this.filterComponent.setAttribute('week-end', weekEndAttr);
     }
 
+    isHospitalEvent(trainingEvent) {
+        const hospitalLabelId = 376; // studenthub sends through this id for hospital events
+        return trainingEvent.labels.find((label) => label.id === hospitalLabelId);
+    }
+
     getFilteredEvents() {
         // Convert array to object for easy reference
         const filters = {};
@@ -197,15 +202,18 @@ class Training extends HTMLElement {
                     event.summary.match(keywordRegExp)
                 )
             ) {
-                // console.log('hide event 1 =', event.entityId, event.name);
                 return false;
             }
-            if (!!event.isPrivate) {
-                console.log('event is private', event);
+            if (!!event.isPrivate && !this.isHospitalEvent(event)) {
+                /*
+                  hospital events are flagged as private, for complicated access reasons
+                  but they still want them to appear on the drupal hospital training page
+                  so we hide private events UNLESS it is a hospital event
+                  (hospital events only show up on the hospital page because they send the different id from that page)
+                 */
                 return false;
             }
 
-            console.log('event =', event.entityId, event.campus, event.name);
             if (
                 !!filters.location &&
                 !filters.location.includes(event.campus) &&

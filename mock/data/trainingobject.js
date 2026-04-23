@@ -250,7 +250,7 @@ const trainingEventsObject = {
         "entityId": 3455330,
         "created": "2021-05-16T18:10:10.883+10:00",
         "updated": "2021-05-16T19:47:02.037+10:00",
-        "name": "UQ R User Group (UQRUG)",
+        "name": "EndNote - Drop-in",
         "eventType": "Software",
         "eventTypeId": 45,
         "start": "2021-05-31T15:00:00+10:00",
@@ -259,44 +259,53 @@ const trainingEventsObject = {
         "expire": "2021-05-31T17:00:00+10:00",
         "isActive": true,
         "isCancelled": false,
-        "summary": "Skill-sharing and collaborative problem solving session for UQ's R user community",
-        "details": "<p><strong><a href=\"https://cran.r-project.org/\">R</a></strong> is a user-friendly programming language for statistical analysis, data visualisation and more.</p><p><strong>UQRUG</strong> is UQ's <strong>R U</strong>ser <strong>G</strong>roup: a monthly skill-sharing and collaborative problem-solving session for the  UQ R user community. All skill levels welcome! It doesn't matter if you use RStudio, RKWard, Rcmdr, Jamovi or something else &#8211; we're here to help.</p><p>We offer support for your R questions in a friendly and informal environment. BYO laptop, data and challenges. Feel free  to attend, share resources and assist others if you don't have any R problems of your own!</p><p>We are currently holding this meetup online. Join the Zoom meeting at the above time:&nbsp;</p><p><a href=\"https://uqz.zoom.us/j/83066132733\">https://uqz.zoom.us/j/83066132733</a></p><p>Make sure you also join our UQRUG chatroom so we can keep helping each other outside the meetups: <a href=\"https://chat.uq.edu.au\">chat.uq.edu.au</a>.<br><a href=\"https://uqz.zoom.us/j/99337548607\"></a></p><p><em>This initiative is supported by the <a href=\"https://github.com/rladies/meetup-presentations_brisbane\">R-Ladies Brisbane Chapter</a> and the UQ Library. </em></p><p><em>Please note we have a Code of Conduct:&nbsp;</em></p><p><a href=\"https://gitlab.com/stragu/uqrug/blob/master/Code_of_Conduct.md\">https://gitlab.com/stragu/uqrug/blob/master/Code_o...</a></p><p><a href=\"https://github.com/rladies/meetup-presentations_brisbane\"></a></p>",
+        "isPrivate": true,
+        "summary": "For hospital staff. Having trouble with EndNote? Come along to our drop-in session for help with getting references into EndNote, working with EndNote and Word, and advanced issues such as recovering a library or using term lists.",
+        "details": "<div>Register to join&nbsp;our drop-in session for support in using EndNote.<\/div><div><p>The Zoom link will be sent to you prior to the session.<\/p><\/div><p>This training session is for hospital staff.<\/p>",
         "offCampusLocation": null,
-        "campus": null,
+        "campus": "Online",
         "building": null,
-        "location": null,
-        "url": "https://uqz.zoom.us/j/83066132733",
+        "location": "Zoom ",
+        "url": null,
         "onlineInstructions": null,
-        "venue": "https://uqz.zoom.us/j/83066132733",
+        "venue": "Online, Zoom ",
         "bookingType": 1,
         "bookingSettings": null,
         "workGroupId": 117,
         "attendance": {
-            "total": 11,
-            "unspecified": 11,
+            "total": 0,
+            "unspecified": 0,
             "absent": 0,
             "attended": 0
         },
         "labels": [
             {
-                "id": 377,
-                "name": "LIB.client.ongoing.Software"
+                "id": 376,
+                "name": "LIB.client.ongoing.For Hospital Staff"
             }
         ],
         "categories": {
             "eventType": "Software",
-            "campus": null
+            "campus": [
+                "Online"
+            ]
         },
         "sessions": [
             {
-                "id": 23038,
-                "start": "2021-05-31T15:00:00+10:00",
-                "end": "2021-05-31T17:00:00+10:00",
+                "id": 41330,
+                "start": "2026-04-27T14:00:00+10:00",
+                "end": "2026-04-27T15:00:00+10:00",
                 "isCancelled": false,
-                "bookings": 11
+                "bookings": 0,
+                "bookingLimit": 60,
+                "placesRemaining": 60,
+                "bookingClose": "2026-04-27T14:00:00+10:00"
             }
         ],
-        "isOnlineClass": true
+        "experienceType": null,
+        "skills": [],
+        "endorsements": [],
+        "isOnlineClass": false
     },
     "5": {
         "entityId": 3437656,
