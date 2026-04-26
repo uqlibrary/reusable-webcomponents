@@ -1,24 +1,4 @@
 .readingListCitations {
-  button.uql-mat-expansion-panel-header-button {
-    justify-content: space-between;
-    width: 100%;
-    border: none;
-    background-color: #fff;
-    padding-left: 1rem;
-    padding-right: 1.5rem;
-  }
-
-  button.uql-mat-expansion-panel-header-button:not(.mat-expanded) {
-    &:focus,
-    &:hover {
-      background-color: var(--mat-expansion-header-hover-state-layer-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-hover-state-layer-opacity) * 100%), transparent));
-    }
-  }
-
-  button.uql-mat-expansion-panel-header-button:not(.mat-expanded) {
-    padding-block: 2rem; /* 0.3rem; */
-  }
-
   .course-resource-list {
     list-style-type: none;
   }
@@ -37,6 +17,14 @@
     &:hover span {
       color: #fff;
       background-color: var(--uq-main-purple);
+    }
+  }
+}
+mat-expansion-panel-header.mat-expansion-panel-header.crl-mat-expansion-panel-header {
+  &:not(.mat-expanded) {
+    &:focus,
+    &:hover {
+      background-color: #ededec;
     }
   }
 }
