@@ -19,12 +19,23 @@
       background-color: var(--uq-main-purple);
     }
   }
-}
-mat-expansion-panel-header.mat-expansion-panel-header.crl-mat-expansion-panel-header {
-  &:not(.mat-expanded) {
-    &:focus,
-    &:hover {
-      background-color: #ededec;
+  .course-resource-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .course-resource-list li {
+    margin: 0.5rem 0;
+  }
+
+  mat-expansion-panel-header.mat-expansion-panel-header.crl-mat-expansion-panel-header {
+    height: 64px;
+    &:not(.mat-expanded) {
+      &:focus,
+      &:hover {
+        background-color: #ededec;
+      }
     }
   }
 }
