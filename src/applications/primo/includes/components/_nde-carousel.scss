@@ -1,0 +1,7 @@
+nde-carousel {
+  button {
+    --mdc-icon-button-icon-size: 2rem;
+    line-height: normal;
+    font-size: var(--mdc-icon-button-icon-size, 24px);
+  }
+}
