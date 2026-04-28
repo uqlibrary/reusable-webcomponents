@@ -42,6 +42,12 @@ body.custom-nde-theme {
   }
   /* END move the account button into the site header */
 
+  /* Login button icon is a bit too bright, compared to other icons */
+  [aria-label=" Log In"] svg {
+    opacity: 60%;
+  }
+  /* END Login button icon is a bit too bright, compared to other icons */
+
   /* highlight the searched term */
   .font-style-normal {
     font-weight: 600;
