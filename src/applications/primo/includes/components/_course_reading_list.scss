@@ -14,9 +14,13 @@
 
   a {
     color: var(--uq-main-purple);
-    &:hover span {
+    text-decoration: underline;
+    &:focus,
+    &:hover {
       color: #fff;
-      background-color: var(--uq-main-purple);
+      span {
+        background-color: var(--uq-main-purple);
+      }
     }
   }
   .course-resource-list {
