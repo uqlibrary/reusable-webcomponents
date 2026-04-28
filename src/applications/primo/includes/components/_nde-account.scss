@@ -46,7 +46,7 @@ nde-account {
         &:has(a:hover) *,
         &:has(a:focus) * {
           color: var(--uq-colour-black);
-          background-color: #e8e8e8;
+          background-color: var(--uq-colour-grey-100);
           border-radius: 0;
         }
       }
@@ -58,6 +58,11 @@ nde-account {
           border-radius: 0;
           color: var(--uq-colour-black);
           padding-right: 0.5rem;
+
+          &:focus *,
+          &:hover * {
+            background-color: var(--uq-colour-grey-100);
+          }
 
           span.menu-option-title:first-of-type {
             font-weight: 500;
