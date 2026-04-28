@@ -123,4 +123,10 @@ body.custom-nde-theme {
     display: none;
   }
   /* END Disable Browse Carousel */
+
+  /* nde-search-results-top-bar contents must remain readable */
+  nde-results-range {
+    min-width: 70px;
+  }
+  /* END nde-search-results-top-bar contents must remain readable */
 }
