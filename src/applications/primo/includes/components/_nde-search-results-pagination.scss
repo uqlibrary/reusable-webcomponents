@@ -5,6 +5,9 @@ nde-search-results-pagination {
     font-size: 1rem;
 
     button {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
       &:hover, &:focus {
         text-decoration: underline;
         cursor: pointer;
