@@ -171,4 +171,12 @@ div.signed-in-user-details {
     }
   }
 }
+// inset the account menu subitems
+.user-area-sub-menu .primo-account-sub-menu li {
+  margin-left: 2rem;
+}
+// make the panel wide enough to fit the "Resource delivery request pane;
+.mat-mdc-menu-panel {
+  max-width: unset;
+}
 /* END style the account menu drop down  */
