@@ -27,6 +27,12 @@ body.custom-nde-theme {
 
   @import 'includes/components/report_a_problem';
 
+  /* buttons like DS buttons */
+  a, button {
+    --mdc-filled-button-container-shape: 4px;
+  }
+  /* END buttons like DS buttons */
+
   /* put a gap at the bottom of the sidebar */
   [role="navigation"].account-menu-container, /* on the Account pages */
   .filters-side-bar-content /* on brief results pages  */
