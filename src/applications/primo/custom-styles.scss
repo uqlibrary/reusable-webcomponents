@@ -19,6 +19,8 @@ body.custom-nde-theme {
 
   @import 'includes/components/nde-carousel.scss';
 
+  @import 'includes/components/nde-requests';
+
   @import 'includes/components/nde-sort-by';
 
   @import 'includes/components/nde-user-area';
@@ -31,6 +33,12 @@ body.custom-nde-theme {
 
   @import 'includes/components/course_reading_list';
   @import 'includes/components/course_reading_icon';
+
+  /* buttons like DS buttons */
+  a, button {
+    --mdc-filled-button-container-shape: 4px;
+  }
+  /* END buttons like DS buttons */
 
   /* put a gap at the bottom of the sidebar */
   [role="navigation"].account-menu-container, /* on the Account pages */
