@@ -1,0 +1,125 @@
+nde-requests {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  grid-template-columns: repeat(auto-fill, 30%);
+  gap: 2rem;
+  color: #333 !important;
+
+  nde-notification {
+    grid-column: 1 / -1;
+
+    .notification-container {
+      background-color: #e7f0fa;
+
+      .flex-row {
+        justify-content: space-between;
+        width: 100%;
+      }
+    }
+  }
+
+  nde-request-card:has(a) {
+    mat-card {
+      height: 100%;
+      min-height: 8rem;
+    }
+  }
+
+  nde-request-card {
+    --mdc-text-button-container-shape: 4px;
+    border-radius: 4px;
+    min-height: 6rem;
+
+    mat-card:has(button) {
+      border: 1px solid #dcdcdd;
+    }
+
+
+    mat-card.mat-mdc-card.request-card {
+      margin-block-start: 0;
+
+      & * {
+        display: inline;
+      }
+
+      mat-card-content {
+        min-height: 100px;
+        border-width: 0;
+
+        div.left-section * {
+          .request-card-title-subtitle {
+            z-index: 2 !important; /* else is hidden on hover */
+            position: relative;
+          }
+
+          .request-title {
+            text-align: left;
+            color: #19151c;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 0.16px;
+            line-height: 28.8px;
+          }
+
+          .request-description {
+            display: inline-block;
+            margin-block: 0.4rem;
+          }
+        }
+
+        .column-for-icon {
+          display: none !important;
+        }
+
+        mat-card-actions {
+          &:has(button) {
+            padding-left: 0;
+          }
+
+          a {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            right: 0;
+            display: inline-block;
+            padding-bottom: 2rem;
+            border: 1px solid #dcdcdd;
+
+            &:focus *,
+            &:hover * {
+              border-radius: 0;
+              background-color: var(--uq-colour-grey-50);
+              color: var(--uq-colour-grey-900);
+            }
+
+            .mat-ripple,
+            .mat-mdc-button-ripple,
+            .mat-mdc-button-touch-target,
+            .mat-focus-indicator {
+              border-radius: 0;
+            }
+
+            mat-icon {
+              display: block;
+              margin-top: 5rem;
+
+              svg {
+                height: 24px;
+                width: 24px;
+
+                path {
+                  fill: var(--uq-main-purple);
+                }
+              }
+            }
+
+            span.mdc-button__label {
+              display: none !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
