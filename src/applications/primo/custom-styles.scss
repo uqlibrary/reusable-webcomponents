@@ -153,30 +153,4 @@ body.custom-nde-theme {
   }
   /* END remove the built in "line between sections" and replace built in "line between sections" with "DS style box around panel" */
 
-  /* Report a Problem button, exlibris-primo repo nde-report-a-problem-custom.component */
-  mat-accordion>div:has(.report-a-problem-wrapper) {
-    margin-top: 7.5rem;
-    position: relative;
-  }
-  .report-a-problem {
-    position: absolute;
-    top: 0;
-    margin-top: -5.5rem;
-
-    background-color: var(--uq-main-purple);
-    color: #fff;
-    border: 2px solid var(--uq-main-purple);
-    padding: 12px 16px;
-    border-radius: 4px;
-    text-decoration: none;
-    text-transform: uppercase;
-    &:hover,
-    &:focus {
-      background-color: #fff;
-      border-color: var(--uq-main-purple);
-      color: var(--uq-main-purple);
-      text-decoration: underline
-    }
-  }
-  /* End Report a Problem button, exlibris-primo repo nde-report-a-problem-custom.component */
 }
