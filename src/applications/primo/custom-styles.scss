@@ -7,6 +7,8 @@ uq-site-header::part(root) {
     margin-top: 10px;
 }
 
+@import 'includes/components/report_a_problem';
+
 /* put a gap at the bottom of the sidebar */
 [role="navigation"].account-menu-container,  /* on the Account pages */
 .filters-side-bar-content /* on brief results pages  */
@@ -193,34 +195,6 @@ nde-sort-by {
 }
 /* END style the sort bar like the filters it is inline with (purpose: highlight it when choice change) */
 
-/* Report a Problem button, exlibris-primo repo nde-report-a-problem-custom.component */
-mat-accordion>div:has(.report-a-problem-wrapper) {
-    margin-top: 7.5rem;
-    position: relative;
-}
-.report-a-problem {
-    position: absolute;
-    top: 0;
-    margin-top: -5.5rem;
-
-    background-color: var(--uq-main-purple);
-    color: #fff;
-    border: 2px solid var(--uq-main-purple);
-    padding: 12px 16px;
-    border-radius: 4px;
-    text-decoration: none;
-    text-transform: uppercase;
-    &:hover,
-    &:focus {
-        background-color: #fff;
-        border-color: var(--uq-main-purple);
-        color: var(--uq-main-purple);
-        text-decoration: underline
-    }
-}
-
-
-/* End Report a Problem button, exlibris-primo repo nde-report-a-problem-custom.component */
 
 /* make each panel have a UQ DS border */
 mat-card {
