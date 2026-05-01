@@ -18,17 +18,15 @@ nde-requests {
     }
   }
 
-  nde-request-card:has(a) {
-    mat-card {
-      height: 100%;
-      min-height: 8rem;
-    }
-  }
-
   nde-request-card {
     --mdc-text-button-container-shape: 4px;
     border-radius: 4px;
     min-height: 6rem;
+
+    mat-card:has(a) {
+      height: 100%;
+      min-height: 8rem;
+    }
 
     mat-card:has(button) {
       border: 1px solid #dcdcdd;
@@ -121,5 +119,13 @@ nde-requests {
         }
       }
     }
+  }
+}
+
+/* the request section doesnt have the left-right padding, because it doesnt have a border */
+mat-expansion-panel:has(nde-requests) {
+  mat-expansion-panel-header.mat-expansion-panel-header,
+  div.mat-expansion-panel-body {
+    padding-inline: 0;
   }
 }
