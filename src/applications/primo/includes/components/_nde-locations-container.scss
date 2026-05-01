@@ -18,15 +18,3 @@ nde-locations-container {
     border-bottom-width: 0;
   }
 }
-
-/* more general to the whole page, how the sections are delineated : */
-/* remove the built in "line between sections" */
-mat-accordion mat-divider {
-  border-width: 0;
-}
-/* replace built in "line between sections" with "DS style box around panel" */
-mat-accordion > div {
-  border: 1px solid var(--border);
-  margin-bottom: 2rem;
-  border-radius: 4px
-}
