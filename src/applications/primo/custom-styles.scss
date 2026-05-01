@@ -139,4 +139,15 @@ body.custom-nde-theme {
     min-width: 70px;
   }
   /* END nde-search-results-top-bar contents must remain readable */
+
+  /* remove the built in "line between sections" and replace built in "line between sections" with "DS style box around panel" */
+  mat-accordion mat-divider {
+    border-width: 0;
+  }
+  mat-accordion > div {
+    border: 1px solid var(--border);
+    margin-bottom: 2rem;
+    border-radius: 4px
+  }
+  /* END remove the built in "line between sections" and replace built in "line between sections" with "DS style box around panel" */
 }
