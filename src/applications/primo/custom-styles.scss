@@ -113,10 +113,12 @@ body.custom-nde-theme {
   mat-accordion mat-divider {
     border-width: 0;
   }
-  mat-accordion > div {
+  mat-accordion > div:not(:has(nde-requests)) {
     border: 1px solid var(--border);
+    border-radius: 4px;
+  }
+  mat-accordion > div {
     margin-bottom: 2rem;
-    border-radius: 4px
   }
   /* END remove the built in "line between sections" and replace built in "line between sections" with "DS style box around panel" */
 }
