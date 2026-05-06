@@ -33,15 +33,13 @@ class ApiRoutes {
     }
 
     // Primo Suggestions API
-    // https://primo-instant-apac.hosted.exlibrisgroup.com/solr/ac?q=cats&facet=off&fq=scope%3A()%2BAND%2Bcontext%3A(B)&rows=10&wt=json&json.wrf=byutv_jsonp_callback_c631f96adec14320b23f1cac342d30f6&_=2ef82775b72140a6bde04ea6e20012e4
+    // https://search.library.uq.edu.au/primaws/rest/pub/suggest?lang=en&q=cows&scope=61UQ_All&vid=61UQ_INST:61UQ
     PRIMO_SUGGESTIONS_API_GENERIC = (keyword) => {
         return {
             apiUrl:
-                'https://primo-instant-apac.hosted.exlibrisgroup.com/solr/ac?q=' +
+                'https://search.library.uq.edu.au/primaws/rest/pub/suggest?lang=en&q=' +
                 keyword +
-                '&facet=off' +
-                '&fq=scope%3A()%2BAND%2Bcontext%3A(B)' +
-                '&rows=10' +
+                '&scope=61UQ_All&vid=61UQ_INST:61UQ' +
                 '&wt=json' +
                 '&json.wrf=byutv_jsonp_callback_c631f96adec14320b23f1cac342d30f6',
         };
