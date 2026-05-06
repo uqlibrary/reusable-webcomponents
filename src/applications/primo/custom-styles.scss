@@ -38,7 +38,7 @@ body.custom-nde-theme {
     /* END Disable Background-Image Overlay on primo homepage */
 
     /* Disable Browse Carousel on Full Record display */
-    nde-full-display-service-container:has([aria-labelledby="title-brief.results.tabs.browseshelf"]) {
+    nde-full-display-service-container:has([id="brief.results.tabs.browseshelf"]) {
         display: none;
     }
     /* END Disable Browse Carousel */
