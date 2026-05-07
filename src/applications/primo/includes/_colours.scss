@@ -53,6 +53,10 @@
 
   --mat-menu-container-color: #fff;
   --mat-option-selected-state-layer-color: var(--uq-colour-purple-50);
+
+  --mdc-plain-tooltip-container-color: var(--uq-color-utility-50);
+  --mdc-plain-tooltip-supporting-text-color: var(--uq-colour-black);
+  --mdc-plain-tooltip-supporting-text-weight: 500;
 }
 
 /* override fill=green hard coded on attribute so everything-purple */
