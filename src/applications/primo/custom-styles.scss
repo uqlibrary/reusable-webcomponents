@@ -53,7 +53,7 @@ body.custom-nde-theme {
   /* END put a gap at the bottom of the sidebar */
 
   /* move the "too many main menu items" overflow popup down, to match OTB position against the main menu */
-  .cdk-global-overlay-wrapper {
+  & > .cdk-overlay-container > .cdk-global-overlay-wrapper:has(.show-more-main-menu-out-inner-wrapper-ul) {
     top: 230px;
   }
   /* END move the "to omany main menu items" overflow popup down, to match OTB position against the main menu */
