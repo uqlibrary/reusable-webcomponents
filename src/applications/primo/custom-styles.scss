@@ -153,4 +153,13 @@ body.custom-nde-theme {
   }
   /* END remove the built in "line between sections" and replace built in "line between sections" with "DS style box around panel" */
 
+
+  /* page title colour */
+  nde-record-title a span,
+  nde-person-entity.ng-star-inserted nde-entity-layout.ng-star-inserted .entity-container .entity-details .entity-name // star classes to force the specificity
+  {
+    color: #333;
+    font-weight: 500;
+  }
+  /* END page title colour */
 }
