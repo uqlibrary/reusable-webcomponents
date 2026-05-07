@@ -1,7 +1,7 @@
 nde-requests {
   display: grid;
   grid-template-rows: 1fr auto;
-  grid-template-columns: repeat(auto-fill, 30%);
+  grid-template-columns: repeat(auto-fill, 29%);
   gap: 2rem;
   color: #333 !important;
 
@@ -12,16 +12,10 @@ nde-requests {
       background-color: #e7f0fa;
 
       .flex-row {
+        align-items: center;
         justify-content: space-between;
         width: 100%;
       }
-    }
-  }
-
-  nde-request-card:has(a) {
-    mat-card {
-      height: 100%;
-      min-height: 8rem;
     }
   }
 
@@ -30,6 +24,11 @@ nde-requests {
     border-radius: 4px;
     min-height: 6rem;
 
+    mat-card:has(a) {
+      height: 100%;
+      min-height: 8rem;
+    }
+
     mat-card:has(button) {
       border: 1px solid #dcdcdd;
     }
@@ -37,6 +36,9 @@ nde-requests {
 
     mat-card.mat-mdc-card.request-card {
       margin-block-start: 0;
+      button.request-button {
+        max-width: 100%;
+      }
 
       & * {
         display: inline;
@@ -121,5 +123,13 @@ nde-requests {
         }
       }
     }
+  }
+}
+
+/* the request section doesnt have the left-right padding, because it doesnt have a border */
+mat-expansion-panel:has(nde-requests) {
+  mat-expansion-panel-header.mat-expansion-panel-header,
+  div.mat-expansion-panel-body {
+    padding-inline: 0;
   }
 }
