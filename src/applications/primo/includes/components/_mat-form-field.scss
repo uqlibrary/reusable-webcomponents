@@ -1,0 +1,9 @@
+mat-form-field {
+  .mat-mdc-notch-piece.mdc-notched-outline__trailing,
+  .mat-mdc-notch-piece.mdc-notched-outline__notch,
+  .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading {
+    --mdc-outlined-text-field-outline-color: #8c8a8d;
+    --mdc-outlined-text-field-outline-width: 1px;
+    --mdc-outlined-text-field-container-shape: 2px;
+  }
+}

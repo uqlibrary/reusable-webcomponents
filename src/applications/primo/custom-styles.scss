@@ -13,6 +13,8 @@ uq-site-header::part(root) {
 
 body.custom-nde-theme {
 
+  @import 'includes/components/advanced-search-form.scss';
+
   @import 'includes/components/nde-search-results-pagination.scss';
 
   @import 'includes/components/nde-account.scss';
@@ -28,6 +30,8 @@ body.custom-nde-theme {
   @import 'includes/components/nde-locations-container';
 
   @import 'includes/components/mat-card.scss';
+
+  @import 'includes/components/mat-form-field.scss';
 
   @import 'includes/components/report_a_problem';
 
