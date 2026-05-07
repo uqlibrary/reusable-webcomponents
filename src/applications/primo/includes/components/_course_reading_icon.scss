@@ -1,0 +1,76 @@
+/* to update:
+- find a record with a different icon (peer-reviewed or open access)
+- find the style block attached tto it
+- copy and paste over this
+- update all _ngcontent-ng-some-id to _ngcontent-ng-crlindicator
+ */
+[_ngcontent-ng-crlindicator]:root {
+  --darkText: #2E2E27;
+  --lightText: #666666;
+  --whiteText: #FFF;
+  --valid: #1E8000;
+  --validDark: #225503;
+  --disableText: #A1A1A1;
+  --validBG: #D1F4DA;
+  --intermediate: #D6801D;
+  --whiteBG: #FFF;
+  --notice: #FFE7DA;
+  --dark: #2E2E27;
+  --darkBGWithOpacity: rgba(46, 46, 39, .8);
+  --blackBGWithOpacity: rgba(0, 0, 0, .85);
+  --divider: #B0B0B0;
+  --switchTrackColor: #C9C9C9;
+  --border: #C9C9C9;
+  --scrollBar: #c9c9c9;
+  --lightBG: #F3F3F3;
+  --darkBG: #DADADA;
+  --searchBarBG: #F3F3F3;
+  --checkboxBorder: #666666;
+  --neutralBG: #F7F7F7;
+  --secondaryActionIcon: #666666;
+  --lightShadow: rgba(0, 0, 0, .21);
+  --darkShadow: rgba(0, 0, 0, .15);
+  --skeleton: #F3F3F3;
+  --skeletonWave: #DADADA
+}
+
+.record-indication-wrapper .mat-divider.mat-divider-vertical {
+  display: inline
+}
+
+.record-indication-wrapper[_ngcontent-ng-crlindicator] {
+  vertical-align: middle
+}
+
+@media only screen and (max-width: 599.98px) {
+  .record-indication-wrapper[_ngcontent-ng-crlindicator] {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap
+  }
+}
+
+@media only screen and (max-width: 599.98px) {
+  .record-indication-wrapper[_ngcontent-ng-crlindicator] .record-indication-cont[_ngcontent-ng-crlindicator]:first-child .nde-divider[_ngcontent-ng-crlindicator] {
+    display: none
+  }
+}
+
+.record-indication-wrapper[_ngcontent-ng-crlindicator] .mat-icon {
+  vertical-align: middle
+}
+
+.record-indication-wrapper[_ngcontent-ng-crlindicator] .mat-icon svg g circle {
+  fill: var(--sys-primary)
+}
+
+.record-indication[_ngcontent-ng-crlindicator] {
+  color: var(--sys-outline);
+  font-size: .75rem;
+  font-weight: 500
+}
+
+.mat-divider.mat-divider-vertical[_ngcontent-ng-crlindicator] {
+  margin-inline-start: .5rem;
+  margin-inline-end: .5rem
+}
