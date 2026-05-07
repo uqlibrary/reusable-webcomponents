@@ -5,6 +5,57 @@
   --mat-expansion-container-shape: 4px;
 }
 
+$utility-500: var(--uq-color-utility-500);
+$uqBrandColour: var(--uq-colour-purple-500);
+$uq-body-font-family: Roboto, Helvetica, Arial, sans-serif;
+@mixin uqPrimaryButton() {
+  background-color: $uqBrandColour !important;
+  border: 2px solid $uqBrandColour;
+  border-radius: 0.25rem;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: $uq-body-font-family;
+  font-size: 1rem; /* 16px - Body, H6 */;
+  font-weight: 500;
+  line-height: 1;
+  padding: 1rem 1.5rem;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 200ms ease-out, color 200ms ease-out, border 200ms ease-out;
+
+  background-image: none;
+
+  &:hover {
+    background-color: #fff !important;
+    border-color: $uqBrandColour;
+    color: $uqBrandColour;
+    text-decoration: underline;
+  }
+  &:focus {
+    outline: 2px solid $utility-500;
+    outline-offset: 0;
+  }
+}
+@mixin uqSecondaryButton() {
+  @include uqPrimaryButton();
+  background-color: rgba(0, 0, 0, 0) !important;
+  border-color: $uqBrandColour;
+  color: $uqBrandColour;
+  &:hover {
+    background-color: $uqBrandColour !important;
+    border-color: $uqBrandColour;
+    color: #fff;
+    mat-icon path {
+      fill: #fff;
+    }
+  }
+}
+
 /* make the white bar in uq-site-header the right height */
 uq-site-header::part(root) {
   height: 41px;
