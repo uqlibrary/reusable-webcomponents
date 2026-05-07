@@ -1,4 +1,13 @@
 nde-fetch-item {
+  .buttons-container-wrapper {
+    justify-content: space-between;
+    button {
+      @include uqPrimaryButton();
+    }
+    button:first-child {
+      @include uqSecondaryButton();
+    }
+  }
   /* hide undesired fields from the citation linker form */
   &:has(input[type="radio"][value="article"]:checked) {
     formly-field[data-qa="citationLinker.aufirst"],
