@@ -109,4 +109,13 @@ body.custom-nde-theme {
     display: none;
   }
   /* END Disable Browse Carousel */
+
+  /* page title colour */
+  nde-record-title a span,
+  nde-person-entity.ng-star-inserted nde-entity-layout.ng-star-inserted .entity-container .entity-details .entity-name // star classes to force the specificity
+  {
+    color: #333;
+    font-weight: 500;
+  }
+  /* END page title colour */
 }
