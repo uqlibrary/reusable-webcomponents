@@ -1,0 +1,18 @@
+nde-collection-discovery-container {
+  --secondaryActionIcon: var(--uq-main-purple);
+
+  nde-collection-discovery-lobby-header {
+    .collection-discovery-header {
+      background-image: none;
+    }
+  }
+  .collection-discovery-gallery-container {
+    margin-top: 0;
+    nde-collection-discovery-search-bar {
+      .collection-discovery-search-bar {
+        border-radius: 4px;
+        background-color: #fff;
+      }
+    }
+  }
+}
