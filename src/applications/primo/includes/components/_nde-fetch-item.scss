@@ -1,0 +1,11 @@
+nde-fetch-item {
+  .buttons-container-wrapper {
+    justify-content: space-between;
+    button {
+      @include uqPrimaryButton();
+    }
+    button:first-child {
+      @include uqSecondaryButton();
+    }
+  }
+}
