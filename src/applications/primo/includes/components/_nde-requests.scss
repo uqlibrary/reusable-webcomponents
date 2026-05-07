@@ -1,7 +1,7 @@
 nde-requests {
   display: grid;
   grid-template-rows: 1fr auto;
-  grid-template-columns: repeat(auto-fill, 30%);
+  grid-template-columns: repeat(auto-fill, 29%);
   gap: 2rem;
   color: #333 !important;
 
@@ -12,6 +12,7 @@ nde-requests {
       background-color: #e7f0fa;
 
       .flex-row {
+        align-items: center;
         justify-content: space-between;
         width: 100%;
       }
@@ -35,6 +36,9 @@ nde-requests {
 
     mat-card.mat-mdc-card.request-card {
       margin-block-start: 0;
+      button.request-button {
+        max-width: 100%;
+      }
 
       & * {
         display: inline;
