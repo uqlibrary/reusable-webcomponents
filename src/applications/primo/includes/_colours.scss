@@ -58,6 +58,8 @@ svg, rect, path, circle {
 }
 /* END override fill=green hard coded on attribute */
 
+/* most of the following over-writes are needed because of the above generic reset :( */
+
 /* Full Record Request section, don't fill purple */
 nde-request-card path {
   fill: white;

@@ -1,0 +1,53 @@
+form.advanced-search-form {
+  button.mdc-button.mat-mdc-button-base {
+    background-color: var(--uq-main-purple) !important;
+    border: 2px solid var(--uq-main-purple);
+    border-radius: 0.25rem;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--uq-body-font-family);
+    font-size: 1rem; /* 16px - Body, H6 */;
+    font-weight: 500;
+    line-height: 1;
+    padding: 1rem 1.5rem;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 200ms ease-out, color 200ms ease-out, border 200ms ease-out;
+
+    background-image: none;
+
+    &:hover {
+      background-color: #fff !important;
+      border-color: var(--uq-main-purple);
+      color: var(--uq-main-purple);
+      text-decoration: underline;
+    }
+    &:focus {
+      outline: 2px solid var(--utility-500);
+      outline-offset: 0;
+    }
+    &[aria-label="Clear search filters"] {
+      /* clear button */
+      background-color: rgba(0, 0, 0, 0) !important;
+      border-color: var(--uq-main-purple);
+      color: var(--uq-main-purple);
+
+      &:hover {
+        background-color: var(--uq-main-purple) !important;
+        border-color: var(--uq-main-purple);
+        color: #fff;
+        mat-icon path {
+          fill: #fff;
+        }
+      }
+    }
+  }
+  mat-dialog-actions {
+    margin-right: 3rem; // move the buttons over to leave room for proactive-chat webcomponent
+  }
+}
