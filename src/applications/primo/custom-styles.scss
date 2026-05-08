@@ -111,7 +111,7 @@ body.custom-nde-theme {
   /* END Disable Browse Carousel */
 
   /* page title colour */
-  nde-record-title a span,
+  nde-record-title a.not-linkable span,
   nde-person-entity.ng-star-inserted nde-entity-layout.ng-star-inserted .entity-container .entity-details .entity-name // star classes to force the specificity
   {
     color: #333;
