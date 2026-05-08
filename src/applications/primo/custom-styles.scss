@@ -95,7 +95,8 @@ body.custom-nde-theme {
 
   /* buttons like DS buttons */
   a, button {
-    --mdc-filled-button-container-shape: 4px;
+    --mdc-filled-button-container-shape: 4px; /* 0.25rem */
+    border-radius: 0.25rem;
   }
   /* END buttons like DS buttons */
 

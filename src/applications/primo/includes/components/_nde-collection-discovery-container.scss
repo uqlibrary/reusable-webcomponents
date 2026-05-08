@@ -14,5 +14,11 @@ nde-collection-discovery-container {
         background-color: #fff;
       }
     }
+    nde-collection-discovery-gallery {
+      .item-grid-card {
+        border-radius: 4px;
+        border: 1px solid #dcdcdd;
+      }
+    }
   }
 }
