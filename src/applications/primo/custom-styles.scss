@@ -78,6 +78,8 @@ body.custom-nde-theme {
 
   @import 'includes/components/nde-requests';
 
+  @import 'includes/components/search-results-wrapper';
+
   @import 'includes/components/nde-sort-by';
 
   @import 'includes/components/nde-user-area';
@@ -193,12 +195,6 @@ body.custom-nde-theme {
     display: none;
   }
   /* END Disable Browse Carousel */
-
-  /* nde-search-results-top-bar contents must remain readable */
-  nde-results-range {
-    min-width: 70px;
-  }
-  /* END nde-search-results-top-bar contents must remain readable */
 
   /* remove the built in "line between sections" and replace built in "line between sections" with "DS style box around panel" */
   mat-accordion mat-divider {
