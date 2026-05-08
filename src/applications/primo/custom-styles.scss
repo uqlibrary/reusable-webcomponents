@@ -27,8 +27,11 @@ $uq-body-font-family: Roboto, Helvetica, Arial, sans-serif;
   text-align: center;
   text-decoration: none;
   transition: background-color 200ms ease-out, color 200ms ease-out, border 200ms ease-out;
-
   background-image: none;
+
+  &.mat-mdc-button-disabled {
+    opacity: 50%;
+  }
 
   &:hover {
     background-color: #fff !important;
