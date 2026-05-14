@@ -23,9 +23,10 @@ const trainingEventsObject = {
         "venue": "Online, Zoom",
         "bookingType": 1,
         "bookingSettings": {
-            "bookings": 41,
-            "bookingLimit": 42,
-            "placesRemaining": 1,
+            "bookings": 0,
+            "bookingLimit": null,
+            "placesRemaining": null,
+            "isBookingAvailable": true,
             "bookingsOpen": "2021-03-26T11:02:00+10:00",
             "bookingsClose": "2021-05-31T09:30:00+10:00"
         },
@@ -86,6 +87,7 @@ const trainingEventsObject = {
             "bookings": 5,
             "bookingLimit": 17,
             "placesRemaining": 0,
+            "isBookingAvailable": false,
             "bookingsOpen": "2021-04-16T08:05:00+10:00",
             "bookingsClose": "2021-05-31T09:30:00+10:00"
         },
