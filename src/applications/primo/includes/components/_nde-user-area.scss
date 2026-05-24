@@ -57,7 +57,7 @@ nde-user-area button.user-area-btn[aria-label="Open actions menu"] {
     &:focus {
       span.styledUserName {
         --sys-primary: var(--uq-main-purple);
-        background-color: var(--uq-main-purple) !important;; /* #51247a !important; */
+        background-color: var(--uq-main-purple) !important;
         color: #fff !important;
         border-radius: 0 !important;
         letter-spacing: 0.16px;
@@ -170,5 +170,13 @@ div.signed-in-user-details {
       color: #fff;
     }
   }
+}
+// inset the account menu subitems
+.user-area-sub-menu .primo-account-sub-menu li {
+  margin-left: 2rem;
+}
+// make the panel wide enough to fit the "Resource delivery request pane;
+.mat-mdc-menu-panel {
+  max-width: unset;
 }
 /* END style the account menu drop down  */
