@@ -332,17 +332,11 @@ const trainingEventsObject = {
         "onlineInstructions": null,
         "venue": "Online, Zoom",
         "bookingType": 1,
-        "bookingSettings": {
-            "bookings": 16,
-            "bookingLimit": 40,
-            "placesRemaining": 24,
-            "bookingsOpen": "2021-04-16T08:06:00+10:00",
-            "bookingsClose": "2021-06-01T09:30:00+10:00"
-        },
+        "bookingSettings": null,
         "workGroupId": 117,
         "attendance": {
-            "total": 16,
-            "unspecified": 16,
+            "total": 0,
+            "unspecified": 0,
             "absent": 0,
             "attended": 0
         },

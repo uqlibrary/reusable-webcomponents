@@ -168,7 +168,7 @@ class Training extends HTMLElement {
 
     isHospitalEvent(trainingEvent) {
         const hospitalLabelId = 376; // studenthub sends through this id for hospital events
-        return trainingEvent.labels.find((label) => label.id === hospitalLabelId);
+        return Array(trainingEvent.labels).find((label) => label.id === hospitalLabelId);
     }
 
     getFilteredEvents() {
