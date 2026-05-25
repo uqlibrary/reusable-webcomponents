@@ -223,4 +223,10 @@ body.custom-nde-theme {
     font-weight: 500;
   }
   /* END page title colour */
+
+  /* make popover infos less intrusive */
+  .cdk-overlay-container * {
+    font-size: 14px;
+  }
+  /* END make popover infos less intrusive */
 }
