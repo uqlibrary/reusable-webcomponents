@@ -110,4 +110,11 @@ body.custom-nde-theme {
       fill: var(--uq-main-purple);
   }
   /* END collection discovery detailed list icon per DS */
+
+
+  /* make icons purple  */
+  mat-icon svg path {
+    --sys-outline: var(--uq-main-purple);
+  }
+
 }
