@@ -7,6 +7,8 @@ form.advanced-search-form {
     }
   }
   mat-dialog-actions {
-    margin-right: 3rem; // move the buttons over to leave room for proactive-chat webcomponent
+    margin-right: 3rem; // move the buttons over to leave room for collapsed proactive-chat webcomponent
+    justify-content: space-between;
+    flex-direction: row-reverse;
   }
 }
