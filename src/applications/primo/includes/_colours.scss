@@ -109,7 +109,7 @@ body.custom-nde-theme {
 
   /* collection discovery detailed list icon per DS */
   .collection-discovery-gallery-container nde-collection-discovery-top-bar  mat-icon path {
-      fill: var(--uq-main-purple);
+    fill: var(--uq-main-purple);
   }
   /* END collection discovery detailed list icon per DS */
 
@@ -118,5 +118,5 @@ body.custom-nde-theme {
   mat-icon svg path {
     --sys-outline: var(--uq-main-purple);
   }
-
+  /* END make icons purple  */
 }

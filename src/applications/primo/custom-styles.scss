@@ -233,4 +233,14 @@ body.custom-nde-theme {
     font-size: 14px;
   }
   /* END make popover infos less intrusive */
+
+  /* style "did you mean" div as alert  */
+  [data-qa="did_you_mean"] {
+    background-color: var(--uq-color-utility-50);
+    padding: 1rem;
+    margin-block: 1rem;
+    text-align: center;
+    border-radius: 0.25rem;
+  }
+  /* END style "did you mean" div as alert  */
 }
