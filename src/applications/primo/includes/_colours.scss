@@ -97,4 +97,9 @@ body.custom-nde-theme {
     opacity: 50%;
   }
   /* END new items on account menu */
+
+  /* make icons purple  */
+  mat-icon svg path {
+    --sys-outline: var(--uq-main-purple);
+  }
 }
