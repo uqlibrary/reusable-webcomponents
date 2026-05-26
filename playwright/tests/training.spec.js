@@ -5,6 +5,7 @@ const uqpurple = 'rgb(81, 36, 122)'; // #51247a
 
 const NVIVO_NEXT_STEPS_DROPIN = (prefix) => `${prefix}-3437656`;
 const EVENT_PREMIER_PRO_VIDEO_EDITING_BASICS = (prefix) => `${prefix}-3437655`;
+const PRIVATE_ENDNOTE_DROPIN_EVENT = '3455330';
 
 test.describe('Training', () => {
     async function openTheByWeekDropdown(trainingFilter, page) {
@@ -139,14 +140,18 @@ test.describe('Training', () => {
             await expect(trainingElement.locator('training-list')).toBeVisible();
             const trainingList = trainingElement.locator('training-list');
 
-            await expect(trainingList.getByTestId('training-event-detail-toggle-3455330')).not.toBeVisible(); // Endnote - Drop in - an event that is private, but is for the hospital, so it is hidden
+            await expect(
+                trainingList.getByTestId(`training-event-detail-toggle-${PRIVATE_ENDNOTE_DROPIN_EVENT}`),
+            ).not.toBeVisible(); // Endnote - Drop in - an event that is private, but is for the hospital, so it is hidden
 
             // click the Show more to expand the displayed events
             await expect(trainingList.getByTestId('training-events-toggle-full-list').first()).toBeVisible();
             await expect(trainingList.getByTestId('training-events-toggle-full-list').first()).toHaveText('Show more');
             await trainingList.getByTestId('training-events-toggle-full-list').first().click();
 
-            await expect(trainingList.getByTestId('training-event-detail-toggle-3455330')).not.toBeVisible(); // Endnote - Drop in - still hidden as is for hospital
+            await expect(
+                trainingList.getByTestId(`training-event-detail-toggle-${PRIVATE_ENDNOTE_DROPIN_EVENT}`),
+            ).not.toBeVisible(); // Endnote - Drop in - still hidden as is for hospital
         });
 
         test('shows a multi day event', async ({ page }) => {
@@ -179,6 +184,35 @@ test.describe('Training', () => {
             await expect(trainingList.getByTestId(NVIVO_NEXT_STEPS_DROPIN('event-venue'))).toContainText(
                 'Online, Zoom',
             );
+        });
+        test('hospital page calls show private events', async ({ page }) => {
+            await page.goto('http://localhost:8080/index-training.html');
+
+            const hospitalTrainingElement = page.getByTestId('hospital-training');
+            await expect(hospitalTrainingElement).toBeVisible();
+
+            const trainingList = hospitalTrainingElement.locator('training-list');
+            await expect(trainingList).toBeVisible();
+
+            await expect(
+                trainingList.getByTestId(`training-event-detail-toggle-${PRIVATE_ENDNOTE_DROPIN_EVENT}`),
+            ).toBeVisible();
+            await expect(
+                trainingList.getByTestId(`training-event-detail-toggle-${PRIVATE_ENDNOTE_DROPIN_EVENT}`),
+            ).toContainText('EndNote - Drop-in');
+        });
+        test('non-hospital page calls DO NOT show private events', async ({ page }) => {
+            await page.goto('http://localhost:8080/index-training.html');
+
+            const trainingElement = page.getByTestId('test-with-filter');
+            await expect(trainingElement).toBeVisible();
+
+            const trainingList = trainingElement.locator('training-list');
+            await expect(trainingList).toBeVisible();
+
+            await expect(
+                trainingList.getByTestId(`training-event-detail-toggle-${PRIVATE_ENDNOTE_DROPIN_EVENT}`),
+            ).not.toBeVisible();
         });
     });
 
