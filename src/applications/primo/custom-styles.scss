@@ -181,4 +181,14 @@ body.custom-nde-theme {
     display: none;
   }
   /* END Disable Browse Carousel */
+
+  /* style "did you mean" div as alert  */
+  [data-qa="did_you_mean"] {
+    background-color: var(--uq-color-utility-50);
+    padding: 1rem;
+    margin-block: 1rem;
+    text-align: center;
+    border-radius: 0.25rem;
+  }
+  /* END style "did you mean" div as alert  */
 }
