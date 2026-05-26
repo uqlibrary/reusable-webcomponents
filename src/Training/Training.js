@@ -219,7 +219,6 @@ class Training extends HTMLElement {
                 !filters.location.includes(event.campus) &&
                 !(event.isOnlineClass && filters.location.includes('Online'))
             ) {
-                console.log('hide event 2 location =', event.entityId);
                 return false;
             }
 
@@ -230,12 +229,10 @@ class Training extends HTMLElement {
                 const eventEndsBeforeWeek = eventEndDate < weekStart;
                 /* istanbul ignore else */
                 if (eventStartsAfterWeek || eventEndsBeforeWeek) {
-                    // console.log('hide event 3 date =', event.entityId, event.name);
                     return false;
                 }
             }
 
-            // console.log('show event =', event.entityId, event.name);
             return true;
         });
 
