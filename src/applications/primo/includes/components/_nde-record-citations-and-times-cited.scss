@@ -1,0 +1,25 @@
+nde-record-citations-and-times-cited > div {
+  * {
+    display: inline;
+  }
+  /* scopus and web of science links - change colour block to inline */
+  button, a {
+    background-color: #fff !important;
+    mat-icon {
+      margin-right: 0.15rem;
+    }
+    span {
+      margin-left: 0.18rem;
+    }
+  }
+
+  nde-record-citations-indicators {
+    span {
+      --sys-body-medium: 16px;
+    }
+    a > div {
+      display: inline-flex;
+      align-items: center;
+    }
+  }
+}
