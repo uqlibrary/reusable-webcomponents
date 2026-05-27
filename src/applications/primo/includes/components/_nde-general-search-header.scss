@@ -1,4 +1,10 @@
 nde-general-search-header {
   background-image: none !important;
   background-color: var(--uq-colour-purple-600);
+
+  nde-search-box-presenter {
+    .search_box_container {
+      border-radius: 4px;
+    }
+  }
 }
