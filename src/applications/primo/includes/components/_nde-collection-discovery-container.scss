@@ -24,7 +24,7 @@ nde-collection-discovery-container {
         .collection-discovery-header-title {
           h1.collection-discovery-header-title {
             font-size: 40px !important;
-            font-family: var(--uq-h1-font-family);
+            font-family: var(--uq-h1-font-family), sans-serif;
           }
         }
 
@@ -51,6 +51,18 @@ nde-collection-discovery-container {
         border-radius: 4px;
         border: 1px solid #dcdcdd;
       }
+      .collection-grid-card {
+        --sys-background: #fff;
+        border-radius: 4px;
+        a, a div.collection-discovery-thumbnail-container img {
+          border-radius: 4px;
+        }
+        &:hover, &:focus {
+          background-color: rgb(243, 243, 244);
+          border: 1px solid rgba(38, 85, 115, 0.15);
+        }
+      }
+
     }
   }
 }
