@@ -8,4 +8,32 @@ nde-fetch-item {
       @include uqSecondaryButton();
     }
   }
+  /* hide undesired fields from the citation linker form */
+  &:has(input[type="radio"][value="article"]:checked) {
+    formly-field[data-qa="citationLinker.aufirst"],
+    formly-field[data-qa="citationLinker.aulast"],
+    formly-field[data-qa="citationLinker.auinit"],
+    formly-field[data-qa="citationLinker.publisher"],
+    formly-field[data-qa="citationLinker.pubdate"] {
+      display: none;
+    }
+  }
+  &:has(input[type="radio"][value="book"]:checked) {
+    formly-field[data-qa="citationLinker.volume"],
+    formly-field[data-qa="citationLinker.part"],
+    formly-field[data-qa="citationLinker.aufirst"],
+    formly-field[data-qa="citationLinker.aulast"],
+    formly-field[data-qa="citationLinker.auinit"],
+    formly-field[data-qa="citationLinker.date"] {
+      display: none;
+    }
+  }
+  &:has(input[type="radio"][value="journal"]:checked) {
+    formly-field[data-qa="citationLinker.date"],
+    formly-field[data-qa="citationLinker.volume"],
+    formly-field[data-qa="citationLinker.issue"],
+    formly-field[data-qa="citationLinker.doi"] {
+      display: none;
+    }
+  }
 }
