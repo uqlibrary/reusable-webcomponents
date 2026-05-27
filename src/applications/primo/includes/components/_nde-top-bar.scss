@@ -13,16 +13,8 @@ nde-top-bar {
           @include uqPrimaryButton();
         }
         button.simple-search-button.summary-search-button.basic-button {
-          text-decoration: underline;
           margin-left: 1rem;
           border-radius: 0;
-          &:hover, &:focus {
-            span.mdc-button__label {
-              background-color: #51247a;
-              color: #fff;
-              line-height: 1;
-            }
-          }
         }
       }
     }
