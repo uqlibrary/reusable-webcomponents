@@ -63,6 +63,7 @@
 
 /* override exlibris colours & settings */
 :root, html, head, body {
+  --uq-h1-font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
   --uq-body-font-family: Roboto, Helvetica, Arial, sans-serif;
 
   --sys-body-large: 400 1rem / 1.5rem var(--uq-body-font-family);
