@@ -4,12 +4,16 @@ nde-record-citations-and-times-cited > div {
   }
   /* scopus and web of science links - change colour block to inline */
   button, a {
-    background-color: #fff !important;
+    /* background-color: #fff !important; */
+    --sys-primary-container: #fff;
     mat-icon {
       margin-right: 0.15rem;
     }
     span {
       margin-left: 0.18rem;
+    }
+    &:hover {
+      text-decoration: underline;
     }
   }
 
@@ -17,9 +21,18 @@ nde-record-citations-and-times-cited > div {
     span {
       --sys-body-medium: 16px;
     }
-    a > div {
-      display: inline-flex;
-      align-items: center;
+    a {
+      &:hover {
+        span {
+        text-decoration: underline;
+      }
+      }
+
+      > div {
+        margin-top: 3px;
+        display: inline-flex;
+        align-items: center;
+      }
     }
   }
 }
