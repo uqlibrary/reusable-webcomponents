@@ -1,0 +1,30 @@
+nde-top-bar {
+  .top-bar-container {
+    nde-search-bar-container.grid-item {
+      nde-search-summary {
+        section.search-summary {
+          border: 1px solid #dcdcdd;
+          background-color: #fff;
+        }
+        div.searched-for-container {
+          margin-top: 8px;
+        }
+        button.edit-button.summary-search-button.basic-button {
+          @include uqPrimaryButton();
+        }
+        button.simple-search-button.summary-search-button.basic-button {
+          text-decoration: underline;
+          margin-left: 1rem;
+          border-radius: 0;
+          &:hover, &:focus {
+            span.mdc-button__label {
+              background-color: #51247a;
+              color: #fff;
+              line-height: 1;
+            }
+          }
+        }
+      }
+    }
+  }
+}
