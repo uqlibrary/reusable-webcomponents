@@ -110,12 +110,12 @@ body.custom-nde-theme {
   }
   @media only screen and (max-width: 1024px) {
     & > .cdk-overlay-container > .cdk-global-overlay-wrapper:has(.show-more-main-menu-out-inner-wrapper-ul) {
-      top: 196px;
+      top: 170px;
     }
   }
   @media only screen and (max-width: 708px) {
     & > .cdk-overlay-container > .cdk-global-overlay-wrapper:has(.show-more-main-menu-out-inner-wrapper-ul) {
-      top: 170px;
+      top: 196px;
     }
   }
   /* END move the "too many main menu items" overflow popup down, to match OTB position against the main menu */
