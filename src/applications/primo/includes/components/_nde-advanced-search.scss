@@ -5,6 +5,7 @@ nde-advanced-search {
       &[aria-label="Clear search filters"] {
         /* clear button as secondary button */
         @include uqSecondaryButton();
+        column-gap: 6px;
       }
     }
     mat-dialog-actions {
