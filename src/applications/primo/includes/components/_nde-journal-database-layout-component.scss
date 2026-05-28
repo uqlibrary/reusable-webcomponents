@@ -17,6 +17,10 @@ nde-journal-database-layout-component {
     --sys-title-small: 500 32px / 1.2 var(--uq-body-font-family); /* sidebar heading */
   }
 
+  aside.sidebar {
+    margin-right: 80px;
+  }
+
   h3 {
     --sys-title-small: 500 24px / 1.2 var(--uq-body-font-family);
   }
