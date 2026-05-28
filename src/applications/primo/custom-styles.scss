@@ -264,9 +264,10 @@ body.custom-nde-theme {
 
   /* page title colour */
   nde-record-title a.not-linkable span,
+  nde-record-title a.not-linkable nde-highlight,
   nde-person-entity.ng-star-inserted nde-entity-layout.ng-star-inserted .entity-container .entity-details .entity-name // star classes to force the specificity
   {
-    color: #333;
+    color: var(--uq-colour-black);
     font-weight: 500;
   }
   /* END page title colour */
