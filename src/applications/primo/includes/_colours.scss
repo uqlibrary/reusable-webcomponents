@@ -47,6 +47,7 @@
 
   --mdc-switch-unselected-track-color: var(--uq-colour-purple-100);
   --mdc-switch-unselected-hover-track-color: var(--uq-colour-purple-200);
+  --mdc-dialog-container-color: #fff; /* popup dialog for extra main menu items */
 
   --border: hsla(203, 50%, 30%, 0.15);
 
@@ -105,4 +106,11 @@ body.custom-nde-theme {
   mat-icon svg path {
     --sys-outline: var(--uq-main-purple);
   }
+  /* END make icons purple  */
+
+  /* collection discovery detailed list icon per DS */
+  .collection-discovery-gallery-container nde-collection-discovery-top-bar  mat-icon path {
+      fill: var(--uq-main-purple);
+  }
+  /* END collection discovery detailed list icon per DS */
 }

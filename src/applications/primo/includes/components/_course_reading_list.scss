@@ -42,4 +42,20 @@
       }
     }
   }
+
+  /* make the panel header look right */
+  .mat-expansion-panel:not([class*=mat-elevation-z]) {
+    background-color: #fff;
+    box-shadow: none;
+  }
+  mat-expansion-panel-header {
+    span {
+      justify-content: space-between;
+    }
+    mat-panel-description {
+      flex-direction: row-reverse
+    }
+    padding-left: 1rem;
+    padding-right: 0;
+  }
 }
