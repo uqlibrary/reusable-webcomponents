@@ -2,6 +2,18 @@ nde-general-search-header {
   background-image: none !important;
   background-color: var(--uq-colour-purple-600);
 
+  section.general-search-header {
+    padding-block: 10.7rem;
+  }
+
+  h1 {
+    text-transform: lowercase;
+    --sys-title-large: 500 40px / 48px var(--uq-h1-font-family);
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+
   nde-search-box-presenter {
     .search_box_container {
       border-radius: 4px;
