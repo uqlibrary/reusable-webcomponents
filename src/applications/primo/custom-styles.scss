@@ -105,10 +105,20 @@ body.custom-nde-theme {
   /* END put a gap at the bottom of the sidebar */
 
   /* move the "too many main menu items" overflow popup down, to match OTB position against the main menu */
-  .cdk-global-overlay-wrapper:has(.main-menu-dialog) {
+  & > .cdk-overlay-container > .cdk-global-overlay-wrapper:has(.show-more-main-menu-out-inner-wrapper-ul) {
     top: 230px;
   }
-  /* END move the "to omany main menu items" overflow popup down, to match OTB position against the main menu */
+  @media only screen and (max-width: 1024px) {
+    & > .cdk-overlay-container > .cdk-global-overlay-wrapper:has(.show-more-main-menu-out-inner-wrapper-ul) {
+      top: 196px;
+    }
+  }
+  @media only screen and (max-width: 708px) {
+    & > .cdk-overlay-container > .cdk-global-overlay-wrapper:has(.show-more-main-menu-out-inner-wrapper-ul) {
+      top: 170px;
+    }
+  }
+  /* END move the "too many main menu items" overflow popup down, to match OTB position against the main menu */
 
   /* move the account button into the site header */
   button.user-area-btn {
