@@ -1,3 +1,13 @@
+.search-container { /* add specificity :( */
+  nde-journal-database-layout-component {
+    div.layout-container {
+      div.quick-filters-container {
+        padding-block-start: 0;
+      }
+    }
+  }
+}
+
 nde-journal-database-layout-component {
   h2, h2 span {
     font-weight: 500;
