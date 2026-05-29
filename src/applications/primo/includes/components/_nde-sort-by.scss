@@ -1,9 +1,21 @@
+nde-search-results-container {
+  .filters-actions {
+    & > nde-sort-by, /* prevent fouc before we move it */
+      /* because we are doing our "move the sort by" we dont want these elements */
+    & > div mat-divider.mat-divider.nde-divider.mat-divider-vertical,
+    & > div button.expand-options-visible {
+      display: none;
+    }
+  }
+}
+
 nde-sort-by {
-  /* style the sort bar like the filters it is inline with (purpose: highlight it when choice change) */
+  span {
+    font-size: 16px;
+  }
+  padding-left: 0.5rem;
+
   &> div {
-    /* sort button looks like other filters inline with it */
-    border: 1px solid var(--sys-outline-variant);
-    color: var(--sys-on-background);
     border-radius: 0.25rem;
     padding-inline: 1.5rem;
     margin-block: .25rem;
@@ -14,19 +26,34 @@ nde-sort-by {
     * {
       padding: 0;
     }
-    &:has(button:hover, button:focus) {
-      background-color: #e6e2ea;
+    margin-top: -5px;
+    button {
+      --mdc-text-button-container-height: 30px;
     }
-    /* when it is not the default sort order, make it look selected */
+    &:has(button:hover, button:focus) .mdc-button__label {
+      text-decoration: underline;
+    }
+
+    /* when it is not the default sort order, highlight it */
+    /* this may not be needed long term, if we make the sort only persist for the page view */
     &:not(:has([aria-label="Sort by Relevance"])) {
-      border-color: var(--uq-main-purple);
-      background-color: var(--sys-inverse-on-surface);
+      button span.mdc-button__label {
+        background-color: #51247a;
+        color:#fff;
+      }
+      background-color: #51247a;
+      color:#fff;
+      button span.mdc-button__label {
+        background-color: #51247a;
+        color:#fff;
+      }
+      mat-icon path {
+        fill: #fff;
+      }
     }
     /* don't allow a hover colour on just the buton */
     .mat-mdc-button-persistent-ripple.mdc-button__ripple {
       display: none;
     }
   }
-  /* END style the sort bar like the filters it is inline with (purpose: highlight it when choice change) */
-
 }
