@@ -401,6 +401,7 @@ body:not(.editmode):not(.guides_homepage) #s-lg-index-cols {
         ol {
             margin-bottom: $spacing-m;
             margin-top: 0;
+            padding-left: unset;
         }
         ol li,
         ul li {
@@ -465,6 +466,16 @@ body:not(.editmode) {
 @media (min-width: 75rem) {
     body:not(.editmode):not(.guides_homepage) #s-lg-index-cols {
         grid-template-columns: 0 1fr 308px;
+
+        &.row, & .clearfix {
+            &:before {
+                display: table;
+                content: " ";
+            }
+            &::after {
+                clear: both;
+            }
+        }
     }
 }
 body:not(.editmode) {
@@ -545,6 +556,11 @@ body:not(.editmode) {
         padding-bottom: 10px;
         border-top: none;
         background-color: transparent;
+        text-align: unset;
+
+        #s-lg-guide-header-meta {
+            padding-bottom: 0;
+        }
     }
 }
     /* styles for enclosing side nav */
@@ -1196,14 +1212,14 @@ body:not(.editmode) {
     }
 
     // Previous-Next buttons at the bottom of guides that have sibling articles in the sidebar menu
-    #s-lg-page-prevnext.pager {
+    #s-lg-page-prevnext.pager, #s-lg-page-prevnext>ul.pagination {
         display: grid;
         grid-template-columns: 1fr 1fr;
         margin: 2.5rem -1.5rem 2.5rem 1.5rem;
         @media (max-width: 1200px) {
             margin-right: -1.2rem; // dont slam it hard again the edge
         }
-
+        
         &::before {
             content: none;
         }
@@ -1211,10 +1227,14 @@ body:not(.editmode) {
         li.previous > a,
         li.previous > span,
         li.next > a,
-        li.next > span {
+        li.next > span,
+        li:first-of-type > a,
+        li:first-of-type > span,
+        li:last-of-type > a,
+        li:last-of-type > span {
             float: none;
         }
-        li.previous {
+        li.previous, li:first-of-type {
             text-align: left;
             margin-left: -24px;
             & > a,
@@ -1224,7 +1244,7 @@ body:not(.editmode) {
                 margin-right: 0;
             }
         }
-        li.next {
+        li.next, li:last-of-type {
             text-align: right;
             & > a,
             & > span {
@@ -1251,6 +1271,9 @@ body:not(.editmode) {
             border-color: $uqBrandColour;
             color: #fff;
             text-decoration: underline;
+        }
+        .page-link {
+            display: unset;
         }
     }
 
