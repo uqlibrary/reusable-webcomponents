@@ -1,0 +1,11 @@
+nde-record-availability {
+  div.availability-status:has(button.available-at-button) {
+    border-radius: var(--uq-border-radius);
+    border: 1px solid var(--sys-primary);
+    margin-top: .25rem;
+    padding: 5px 1rem 4px 0.8rem;
+  }
+  .quicklink-button {
+    border-radius: var(--uq-border-radius);
+  }
+}
