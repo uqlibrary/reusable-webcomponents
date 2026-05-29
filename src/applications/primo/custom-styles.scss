@@ -271,4 +271,12 @@ body.custom-nde-theme {
     border-radius: 0.25rem;
   }
   /* END style "did you mean" div as alert  */
+
+  /* when the page is wide enough, give more space to the sidebar */
+  @media only screen and (min-width: 1400px) {
+    .page-desktop-width .full-view-content .full-view-right-content {
+      width: 30em;
+    }
+  }
+  /* END when the page is wide enough, give more space to the sidebar */
 }
