@@ -11,7 +11,6 @@ nde-advanced-search {
     mat-dialog-actions {
       margin-right: 3rem; // move the buttons over to leave room for collapsed proactive-chat webcomponent
       justify-content: space-between;
-      flex-direction: row-reverse;
 
       button[data-qa="clear-advanced-search-form"] {
         mat-icon {
