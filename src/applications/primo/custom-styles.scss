@@ -248,7 +248,7 @@ body.custom-nde-theme {
   mat-accordion mat-divider {
     border-width: 0;
   }
-  mat-accordion > div:not(:has(nde-requests)) {
+  mat-accordion > div {
     border: 1px solid var(--border);
     border-radius: 4px;
   }
