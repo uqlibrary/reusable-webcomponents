@@ -31,3 +31,14 @@ nde-app-root.Medium {
   }
 }
 /* END main menu: set margins and left align */
+
+/* Citation finder */
+  main.sub-container:has([data-qa="nde.citationLinker.citationType"]) {
+    margin-left: auto;
+    margin-right: auto;
+    .container {
+      margin-inline: 1rem;
+    }
+  }
+/* END Citation finder */
+
