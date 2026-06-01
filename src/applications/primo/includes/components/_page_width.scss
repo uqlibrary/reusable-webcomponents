@@ -1,0 +1,33 @@
+/* make the page widths match the DS widths */
+
+/* main menu: set margins and left align */
+nde-app-root section.container header.top-bar {
+  div.header-container,
+  div.header-container > div,
+  div.header-container > div > div {
+    margin-inline: 0 !important;
+    width: 100% !important;
+  }
+}
+div.header-container nde-main-menu {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 71rem;
+  padding-left: 0.5rem;
+}
+@media (min-width: 64.25em) {
+  nde-main-menu,
+  header.top-bar div.header-container nde-main-menu {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 66em;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+nde-app-root.Medium {
+  div.header-container nde-main-menu {
+    padding-left: 0.5rem;
+  }
+}
+/* END main menu: set margins and left align */
