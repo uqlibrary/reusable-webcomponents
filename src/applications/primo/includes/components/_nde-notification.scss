@@ -1,10 +1,10 @@
 nde-notification {
   .notification-container.success-alert-background {
-    background-color: var(--uq-background-alert-non-critical);
+    background-color: var(--uq-background-alert-success);
   }
 }
 
 /* Your session has timed out */
 .notification-alert.info {
-  --sys-surface-variant: var(--uq-background-alert-non-critical);
+  --sys-surface-variant: var(--uq-background-alert-info);
 }
