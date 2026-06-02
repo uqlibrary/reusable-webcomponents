@@ -163,3 +163,16 @@ main.sub-container:has(nde-full-display-container) {
   }
 }
 /* END Full results */
+
+/* account page */
+nde-account div.container {
+  width: 100% !important;
+  padding-inline: 1rem;
+}
+@media (min-width: 1180px) {
+  nde-account div.container {
+    width: 71rem !important;
+    padding-inline: 0;
+  }
+}
+/* END account page */
