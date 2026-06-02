@@ -54,10 +54,14 @@ main.sub-container:has(nde-search-bar-container) {
 
 /* Database search */
 main.sub-container:has(nde-general-search-header) {
-  nde-general-search-header section {
+  nde-general-search-header section,
+  nde-journal-database-layout-component .layout-container  > div {
     margin-left: auto;
     margin-right: auto;
     max-width: 71rem;
+    @media (max-width: 65em) {
+      max-width: 71rem;
+    }
   }
 }
 /* END Database search */
@@ -106,7 +110,6 @@ main.sub-container:has(nde-search-results-container)  {
   }
   nde-search-results-container {
     .search-area-wrapper .search-result-content .filters-container .filters-wrapper {
-      margin-left: 0;
       margin-inline: 0;
       width: clamp(71rem, 85%, 1368px);
     }
