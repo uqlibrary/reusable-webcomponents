@@ -1,0 +1,40 @@
+.search-container { /* add specificity :( */
+  nde-journal-database-layout-component {
+    div.layout-container {
+      div.quick-filters-container {
+        padding-block-start: 0;
+      }
+    }
+  }
+}
+
+nde-journal-database-layout-component {
+  h2, h2 span {
+    font-weight: 500;
+    font-size: 32px;
+    color: #333;
+    --sys-title-large: 500 32px / 1.2 var(--uq-body-font-family); /* body heading */
+    --sys-title-small: 500 32px / 1.2 var(--uq-body-font-family); /* sidebar heading */
+  }
+
+  aside.sidebar {
+    margin-right: 80px;
+  }
+
+  h3 {
+    --sys-title-small: 500 24px / 1.2 var(--uq-body-font-family);
+  }
+
+  nde-database-home-page {
+    .database-homepage-container.flex-layout-center-center {
+      margin-top: 0; /* remove silly big gap at top */
+      align-items: flex-start; /* left align heading */
+
+      .title-icon-container {
+        mat-icon {
+          display: none; /* hide the big useless icon */
+        }
+      }
+    }
+  }
+}
