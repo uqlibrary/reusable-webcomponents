@@ -67,11 +67,11 @@ uq-site-header::part(root) {
 
 body.custom-nde-theme {
 
-  @import 'includes/components/advanced-search-form.scss';
-
   @import 'includes/components/nde-search-results-pagination.scss';
 
   @import 'includes/components/nde-account.scss';
+
+  @import 'includes/components/nde-advanced-search.scss';
 
   @import 'includes/components/nde-back-to-top.scss';
 
@@ -82,6 +82,8 @@ body.custom-nde-theme {
   @import 'includes/components/nde-fetch-item';
 
   @import 'includes/components/nde-sort-by';
+
+  @import 'includes/components/nde-top-bar';
 
   @import 'includes/components/nde-user-area';
 

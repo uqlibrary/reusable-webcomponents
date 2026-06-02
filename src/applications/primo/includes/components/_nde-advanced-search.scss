@@ -1,0 +1,30 @@
+nde-advanced-search {
+  form.advanced-search-form {
+    button.mdc-button.mat-mdc-button-base {
+      @include uqPrimaryButton();
+      &[aria-label="Clear search filters"] {
+        /* clear button as secondary button */
+        @include uqSecondaryButton();
+        column-gap: 6px;
+      }
+    }
+    mat-dialog-actions {
+      margin-right: 3rem; // move the buttons over to leave room for collapsed proactive-chat webcomponent
+      justify-content: space-between;
+
+      button[data-qa="clear-advanced-search-form"] {
+        mat-icon {
+          margin-right: 0;
+        }
+      }
+
+      button[data-qa="submit-advanced-search-form"] {
+        margin-left: 0;
+        .mdc-button__label {
+          /* I don't know what this empty span is supposed to do, but it sticks extra space in the button :( */
+          display: none;
+        }
+      }
+    }
+  }
+}
