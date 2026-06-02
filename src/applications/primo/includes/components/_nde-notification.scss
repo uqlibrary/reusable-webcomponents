@@ -5,6 +5,11 @@ nde-notification {
   .notification-container.info-alert-background {
     background-color: var(--uq-background-alert-info);
   }
+  .notification-container {
+    mat-icon path {
+      --sys-primary: var(--uq-body-copy);
+    }
+  }
 }
 
 /* Your session has timed out */
