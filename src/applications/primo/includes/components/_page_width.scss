@@ -92,3 +92,38 @@ nde-app-root.Medium {
   }
 }
 /* END Collection discovery */
+
+/* Search results */
+main.sub-container:has(nde-search-results-container)  {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 71rem;
+  nde-top-bar {
+    padding-inline: 0;
+    & > div.top-bar-container {
+      margin-inline: 0;
+    }
+  }
+  nde-search-results-container {
+    .search-area-wrapper .search-result-content .filters-container .filters-wrapper {
+      margin-left: 0;
+      margin-inline: 0;
+      width: clamp(71rem, 85%, 1368px);
+    }
+  }
+}
+/* END Search results */
+
+/* make the "whats this" link sit below the main label - this is to make the entire block less wide so it doesn't stack */
+nde-search-results-container {
+  nde-expand-options mat-slide-toggle#expand-my-results-toggle label span.cutoff-text {
+    position: relative;
+    height: 2.6rem;
+    a {
+      position: absolute;
+      right: 0;
+      top: 1rem;
+    }
+  }
+}
+/* END make the "whats this" link sit below the main label - this is to make the entire block less wide so it doesn't stack */
