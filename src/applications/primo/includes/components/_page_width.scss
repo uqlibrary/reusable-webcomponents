@@ -33,13 +33,13 @@ nde-app-root.Medium {
 /* END main menu: set margins and left align */
 
 /* Citation finder */
-  main.sub-container:has([data-qa="nde.citationLinker.citationType"]) {
-    margin-left: auto;
-    margin-right: auto;
-    .container {
-      margin-inline: 1rem;
-    }
+main.sub-container:has([data-qa="nde.citationLinker.citationType"]) {
+  margin-left: auto;
+  margin-right: auto;
+  .container {
+    margin-inline: 1rem;
   }
+}
 /* END Citation finder */
 
 /* New search */
@@ -118,13 +118,18 @@ main.sub-container:has(nde-search-results-container)  {
 
 /* make the "whats this" link sit below the main label - this is to make the entire block less wide so it doesn't stack */
 nde-search-results-container {
-  nde-expand-options mat-slide-toggle#expand-my-results-toggle label span.cutoff-text {
-    position: relative;
-    height: 2.6rem;
-    a {
-      position: absolute;
-      right: 0;
-      top: 1rem;
+  nde-expand-options mat-slide-toggle#expand-my-results-toggle {
+    .mdc-form-field {
+      align-items: flex-start;
+    }
+    label span.cutoff-text {
+      position: relative;
+      height: 2.7rem;
+      a {
+        position: absolute;
+        right: 1rem;
+        top: 1.2rem;
+      }
     }
   }
 }
