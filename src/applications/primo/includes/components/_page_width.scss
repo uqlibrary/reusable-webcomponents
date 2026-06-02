@@ -61,3 +61,34 @@ main.sub-container:has(nde-general-search-header) {
   }
 }
 /* END Database search */
+
+/* Collection discovery */
+nde-app-root.XLarge {
+  nde-collection-discovery-lobby-header {
+    .collection-discovery-header {
+      .content {
+        margin-right: 48% !important;
+      }
+    }
+  }
+}
+nde-app-root.Large {
+  nde-collection-discovery-lobby-header {
+    .collection-discovery-header {
+      .content {
+        margin-right: 45% !important;
+      }
+    }
+  }
+}
+nde-app-root.Small,
+nde-app-root.Medium {
+  nde-collection-discovery-lobby-header {
+    .collection-discovery-header {
+      .content {
+        margin-left: 10% !important;
+      }
+    }
+  }
+}
+/* END Collection discovery */
