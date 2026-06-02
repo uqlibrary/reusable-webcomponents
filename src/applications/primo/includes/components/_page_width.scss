@@ -127,3 +127,20 @@ nde-search-results-container {
   }
 }
 /* END make the "whats this" link sit below the main label - this is to make the entire block less wide so it doesn't stack */
+
+/* brief results */
+@media (min-width: 1180px) {
+  .search-content nde-full-display-container
+  .full-display-wrapper .full-display-container .inner-content .page-desktop-width {
+    width: 71rem !important;
+  }
+}
+@media (min-width: 960px) and (max-width: 1179.98px) {
+  .search-content nde-full-display-container
+  .full-display-wrapper .full-display-container .inner-content
+  .page-desktop-width {
+    width: 100% !important;
+    padding-inline: 1rem;
+  }
+}
+/* END brief results */
