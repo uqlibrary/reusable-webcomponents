@@ -108,10 +108,16 @@ main.sub-container:has(nde-search-results-container)  {
       margin-inline: 0;
     }
   }
-  nde-search-results-container {
-    .search-area-wrapper .search-result-content .filters-container .filters-wrapper {
-      margin-inline: 0;
-      width: clamp(71rem, 85%, 1368px);
+  .results-container,
+  nde-search-results-container .search-area-wrapper .search-result-content .filters-container .filters-wrapper {
+    width: 100% !important;
+    padding-inline: 1rem;
+  }
+  @media (min-width: 1180px) {
+    .results-container,
+    nde-search-results-container .search-area-wrapper .search-result-content .filters-container .filters-wrapper {
+      width: 71rem !important;
+      padding-inline: 0;
     }
   }
 }
