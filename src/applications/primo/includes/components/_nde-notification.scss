@@ -2,4 +2,9 @@ nde-notification {
   .notification-container.info-alert-background {
     background-color: var(--uq-background-alert-non-critical);
   }
+  .notification-container {
+    mat-icon path {
+      --sys-primary: var(--uq-body-copy);
+    }
+  }
 }
