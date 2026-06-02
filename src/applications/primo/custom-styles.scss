@@ -210,4 +210,39 @@ body.custom-nde-theme {
     display: none;
   }
   /* END Disable Browse Carousel */
+
+  /* nde-search-results-top-bar contents must remain readable */
+  nde-results-range {
+    min-width: 70px;
+  }
+  /* END nde-search-results-top-bar contents must remain readable */
+
+  /* remove the built in "line between sections" and replace built in "line between sections" with "DS style box around panel" */
+  mat-accordion mat-divider {
+    border-width: 0;
+  }
+  mat-accordion > div:not(:has(nde-requests)) {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+  }
+  mat-accordion > div {
+    margin-bottom: 2rem;
+  }
+  /* END remove the built in "line between sections" and replace built in "line between sections" with "DS style box around panel" */
+
+
+  /* page title colour */
+  nde-record-title a span,
+  nde-person-entity.ng-star-inserted nde-entity-layout.ng-star-inserted .entity-container .entity-details .entity-name // star classes to force the specificity
+  {
+    color: #333;
+    font-weight: 500;
+  }
+  /* END page title colour */
+
+  /* make popover infos less intrusive */
+  .cdk-overlay-container * {
+    font-size: 14px;
+  }
+  /* END make popover infos less intrusive */
 }
