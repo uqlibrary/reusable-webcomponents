@@ -15,10 +15,20 @@ nde-sort-by {
   }
   padding-left: 0.5rem;
 
+  /* style the sort bar like the filters it is inline with (purpose: highlight it when choice change) */
   &> div {
+    /* sort button looks like other filters inline with it */
+    color: var(--sys-on-background);
     border-radius: 0.25rem;
-    padding-inline: 1.5rem;
-    margin-block: .25rem;
+    align-items: unset;
+
+    .sort-by-label {
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.256px;
+      -webkit-font-smoothing: antialiased;
+    }
+
     .mat-mdc-button:has(mat-icon,[matButtonIcon]) {
       margin-right: -0.5rem; /* account for gap around the arrow down icon */
     }
@@ -26,29 +36,20 @@ nde-sort-by {
     * {
       padding: 0;
     }
-    margin-top: -5px;
+    &:has(button:hover, button:focus) {
+      background-color: #e6e2ea;
+    }
+    /* when it is not the default sort order, make it look selected */
     button {
-      --mdc-text-button-container-height: 30px;
-    }
-    &:has(button:hover, button:focus) .mdc-button__label {
-      text-decoration: underline;
-    }
-
-    /* when it is not the default sort order, highlight it */
-    /* this may not be needed long term, if we make the sort only persist for the page view */
-    &:not(:has([aria-label="Sort by Relevance"])) {
-      button span.mdc-button__label {
-        background-color: #51247a;
-        color:#fff;
-      }
-      background-color: #51247a;
-      color:#fff;
-      button span.mdc-button__label {
-        background-color: #51247a;
-        color:#fff;
-      }
-      mat-icon path {
-        fill: #fff;
+      height: 1rem;
+      &:not([aria-label="Sort by Relevance"]) {
+        .mdc-button__label {
+          background-color: var(--uq-main-purple);
+          color: #fff;
+          path {
+            fill: #fff;
+          }
+        }
       }
     }
     /* don't allow a hover colour on just the buton */
@@ -56,4 +57,5 @@ nde-sort-by {
       display: none;
     }
   }
+  /* END style the sort bar like the filters it is inline with (purpose: highlight it when choice change) */
 }
