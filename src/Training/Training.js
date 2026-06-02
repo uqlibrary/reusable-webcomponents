@@ -166,6 +166,16 @@ class Training extends HTMLElement {
         this.filterComponent.setAttribute('week-end', weekEndAttr);
     }
 
+    // hospital events are flagged as private, for complicated access reasons
+    // but they still want them to appear on the drupal hospital training page
+    // so we hide private events UNLESS it is a hospital event
+    // (hospital events only show up on the hospital page because they send the different id from that page)
+    isPublishable(trainingEvent) {
+        const hospitalPageId = '360';
+        const isHospitalCall = this.eventFilterId === hospitalPageId;
+        return isHospitalCall || (!trainingEvent.isPrivate && !isHospitalCall);
+    }
+
     getFilteredEvents() {
         // Convert array to object for easy reference
         const filters = {};
@@ -189,6 +199,10 @@ class Training extends HTMLElement {
 
         console.log('filters.location=', filters.location);
         const filteredEvents = this.trainingEvents.filter((event) => {
+            if (!this.isPublishable(event)) {
+                return false;
+            }
+
             if (
                 !!filters.keyword &&
                 !(
@@ -197,21 +211,14 @@ class Training extends HTMLElement {
                     event.summary.match(keywordRegExp)
                 )
             ) {
-                // console.log('hide event 1 =', event.entityId, event.name);
-                return false;
-            }
-            if (!!event.isPrivate) {
-                console.log('event is private', event);
                 return false;
             }
 
-            console.log('event =', event.entityId, event.campus, event.name);
             if (
                 !!filters.location &&
                 !filters.location.includes(event.campus) &&
                 !(event.isOnlineClass && filters.location.includes('Online'))
             ) {
-                console.log('hide event 2 location =', event.entityId);
                 return false;
             }
 
@@ -222,12 +229,10 @@ class Training extends HTMLElement {
                 const eventEndsBeforeWeek = eventEndDate < weekStart;
                 /* istanbul ignore else */
                 if (eventStartsAfterWeek || eventEndsBeforeWeek) {
-                    // console.log('hide event 3 date =', event.entityId, event.name);
                     return false;
                 }
             }
 
-            // console.log('show event =', event.entityId, event.name);
             return true;
         });
 
