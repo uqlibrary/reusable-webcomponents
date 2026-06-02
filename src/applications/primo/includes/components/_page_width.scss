@@ -93,7 +93,7 @@ nde-app-root.Medium {
 }
 /* END Collection discovery */
 
-/* Search results */
+/* Brief Search results */
 main.sub-container:has(nde-search-results-container)  {
   margin-left: auto;
   margin-right: auto;
@@ -112,7 +112,6 @@ main.sub-container:has(nde-search-results-container)  {
     }
   }
 }
-/* END Search results */
 
 /* make the "whats this" link sit below the main label - this is to make the entire block less wide so it doesn't stack */
 nde-search-results-container {
@@ -128,7 +127,17 @@ nde-search-results-container {
 }
 /* END make the "whats this" link sit below the main label - this is to make the entire block less wide so it doesn't stack */
 
-/* brief results */
+/* END Brief Search results */
+
+/* Full results */
+main.sub-container:has(nde-full-display-container) {
+  nde-full-display-container nde-top-bar {
+    padding-inline: 0;
+    & > div.top-bar-container {
+      margin-inline: 0;
+    }
+  }
+}
 @media (min-width: 1180px) {
   .search-content nde-full-display-container
   .full-display-wrapper .full-display-container .inner-content .page-desktop-width {
@@ -143,4 +152,4 @@ nde-search-results-container {
     padding-inline: 1rem;
   }
 }
-/* END brief results */
+/* END Full results */
