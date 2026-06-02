@@ -2,6 +2,9 @@ nde-notification {
   .notification-container.success-alert-background {
     background-color: var(--uq-background-alert-success);
   }
+  .notification-container.info-alert-background {
+    background-color: var(--uq-background-alert-info);
+  }
 }
 
 /* Your session has timed out */
