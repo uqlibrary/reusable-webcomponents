@@ -80,11 +80,13 @@ nde-app-root.Medium {
   }
 }
 
+nde-collection-discovery-header .content,
 nde-collection-discovery-container  .collection-discovery-gallery-container {
   width: 100% !important;
   padding-inline: 1rem;
 }
 @media (min-width: 1180px) {
+  nde-collection-discovery-header .content,
   nde-collection-discovery-container  .collection-discovery-gallery-container {
     width: 71rem !important;
     padding-inline: 0;
