@@ -208,12 +208,4 @@ body.custom-nde-theme {
     display: none;
   }
   /* END Disable Browse Carousel */
-
-  /* when the page is wide enough, give more space to the sidebar */
-  @media only screen and (min-width: 1400px) {
-    .page-desktop-width .full-view-content .full-view-right-content {
-      width: 30em;
-    }
-  }
-  /* END when the page is wide enough, give more space to the sidebar */
 }
