@@ -17,6 +17,10 @@ nde-record-citations-and-times-cited > div {
     }
   }
 
+  &.border-for-citation-area nde-record-web-of-science a.webOfScience-badge div.flex-row .webOfScience-number {
+    font-weight: 400;
+  }
+
   nde-record-citations-indicators {
     margin-top: 1px;
     span {
