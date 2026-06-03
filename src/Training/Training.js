@@ -213,9 +213,6 @@ class Training extends HTMLElement {
             ) {
                 return false;
             }
-            if (!!event.isPrivate) {
-                return false;
-            }
 
             if (
                 !!filters.location &&
