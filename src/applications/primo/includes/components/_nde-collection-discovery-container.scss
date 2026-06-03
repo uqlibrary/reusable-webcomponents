@@ -41,20 +41,20 @@ nde-collection-discovery-container {
     margin-top: 0;
     nde-collection-discovery-search-bar {
       .collection-discovery-search-bar {
-        border-radius: 4px;
+        border-radius: var(--uq-border-radius);
         background-color: #fff;
       }
     }
     nde-collection-discovery-gallery {
       .item-grid-card {
-        border-radius: 4px;
+        border-radius: var(--uq-border-radius);
         border: 1px solid #dcdcdd;
       }
       .collection-grid-card {
         --sys-background: #fff;
-        border-radius: 4px;
+        border-radius: var(--uq-border-radius);
         a, a div.collection-discovery-thumbnail-container img {
-          border-radius: 4px;
+          border-radius: var(--uq-border-radius);
         }
         &:hover, &:focus {
           background-color: rgb(243, 243, 244);

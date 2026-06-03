@@ -17,7 +17,7 @@ nde-general-search-header {
 
   nde-search-box-presenter {
     .search_box_container {
-      border-radius: 4px;
+      border-radius: var(--uq-border-radius);
     }
   }
 }
