@@ -70,7 +70,9 @@ body.custom-nde-theme {
 
   @import 'includes/components/cdk-virtual-scroll-viewport.scss';
 
-  @import 'includes/components/nde-search-results-pagination.scss';
+  @import 'includes/components/mat-card.scss';
+
+  @import 'includes/components/mat-form-field.scss';
 
   @import 'includes/components/nde-account.scss';
 
@@ -84,13 +86,17 @@ body.custom-nde-theme {
 
   @import 'includes/components/nde-controlled-vocabulary.scss';
 
-  @import 'includes/components/nde-fetch-item';
+  @import 'includes/components/nde-fetch-item.scss';
 
   @import 'includes/components/nde-fines-overview';
 
   @import 'includes/components/nde-general-search-header.scss';
 
+  @import 'includes/components/nde-journal-database-layout-component';
+
   @import 'includes/components/nde-linked-data-recommendation';
+
+  @import 'includes/components/nde-locations-container';
 
   @import 'includes/components/nde-main-menu';
 
@@ -100,7 +106,13 @@ body.custom-nde-theme {
 
   @import 'includes/components/nde-record-citations-and-times-cited';
 
+  @import 'includes/components/nde-requests';
+
   @import 'includes/components/nde-search-filters-side-nav';
+
+  @import 'includes/components/nde-search-results-pagination.scss';
+
+  @import 'includes/components/search-results-wrapper';
 
   @import 'includes/components/nde-sort-by';
 
@@ -108,24 +120,13 @@ body.custom-nde-theme {
 
   @import 'includes/components/nde-user-area';
 
-  @import 'includes/components/nde-journal-database-layout-component';
-
-  @import 'includes/components/nde-locations-container';
-
-  @import 'includes/components/nde-notification.scss';
-
-  @import 'includes/components/mat-card.scss';
-
-  @import 'includes/components/mat-form-field.scss';
+  /* custom entries */
+  @import 'includes/components/course_reading_list';
+  @import 'includes/components/course_reading_icon';
 
   @import 'includes/components/page_width';
 
   @import 'includes/components/report_a_problem';
-
-  @import 'includes/components/search-results-wrapper';
-
-  @import 'includes/components/course_reading_list';
-  @import 'includes/components/course_reading_icon';
 
   /* buttons like DS buttons */
   a, button {
