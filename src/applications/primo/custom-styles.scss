@@ -3,6 +3,7 @@
 
 :root, html, head, body {
   --mat-expansion-container-shape: 4px;
+  --uq-border-radius: 0.25rem;
 }
 
 $utility-500: var(--uq-color-utility-500);
@@ -86,6 +87,8 @@ body.custom-nde-theme {
   @import 'includes/components/nde-fetch-item';
 
   @import 'includes/components/nde-general-search-header.scss';
+
+  @import 'includes/components/nde-record-availability';
 
   @import 'includes/components/nde-search-filters-side-nav';
 
