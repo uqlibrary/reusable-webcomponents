@@ -8,6 +8,7 @@ nde-notification {
   .notification-container {
     mat-icon path {
       --sys-primary: var(--uq-body-copy);
+      --valid: var(--uq-body-copy); // icon colour on "saved search' confirmation
     }
   }
 }

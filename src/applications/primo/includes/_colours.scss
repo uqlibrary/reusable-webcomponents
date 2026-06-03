@@ -88,6 +88,12 @@ nde-mobile-filters-toggle {
 }
 /* END mobile filter-sidebar open icon */
 
+/* brief results header banner should not have a purple icon */
+nde-related-entities-search-header path {
+  fill: var(--uq-body-copy);
+}
+/* END brief results header banner should not have a purple icon */
+
 body.custom-nde-theme {
 
   /* login-loggedout button */
