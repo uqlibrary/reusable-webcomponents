@@ -1,18 +1,12 @@
-body.custom-nde-theme nde-sort-by {
+nde-sort-by {
   /* style the sort bar like the filters it is inline with (purpose: highlight it when choice change) */
   &> div {
     /* sort button looks like other filters inline with it */
+    border: 1px solid var(--sys-outline-variant);
     color: var(--sys-on-background);
     border-radius: 0.25rem;
-    align-items: unset;
-
-    .sort-by-label {
-      font-size: 1rem;
-      font-weight: 400;
-      letter-spacing: 0.256px;
-      -webkit-font-smoothing: antialiased;
-    }
-
+    padding-inline: 1.5rem;
+    margin-block: .25rem;
     .mat-mdc-button:has(mat-icon,[matButtonIcon]) {
       margin-right: -0.5rem; /* account for gap around the arrow down icon */
     }
@@ -24,17 +18,9 @@ body.custom-nde-theme nde-sort-by {
       background-color: #e6e2ea;
     }
     /* when it is not the default sort order, make it look selected */
-    button {
-      height: 1rem;
-      &:not([aria-label="Sort by Relevance"]) {
-        .mdc-button__label {
-          background-color: var(--uq-main-purple);
-          color: #fff;
-          path {
-            fill: #fff;
-          }
-        }
-      }
+    &:not(:has([aria-label="Sort by Relevance"])) {
+      border-color: var(--uq-main-purple);
+      background-color: var(--sys-inverse-on-surface);
     }
     /* don't allow a hover colour on just the buton */
     .mat-mdc-button-persistent-ripple.mdc-button__ripple {
