@@ -3,6 +3,7 @@
 
 :root, html, head, body {
   --mat-expansion-container-shape: 4px;
+  --uq-border-radius: 0.25rem;
 }
 
 $utility-500: var(--uq-color-utility-500);
@@ -66,6 +67,8 @@ uq-site-header::part(root) {
 }
 
 body.custom-nde-theme {
+
+  @import 'includes/components/mat-dialog-container.scss';
 
   @import 'includes/components/nde-search-results-pagination.scss';
 
