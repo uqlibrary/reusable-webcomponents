@@ -1,6 +1,9 @@
 nde-notification {
-  .notification-container.info-alert-background {
+  .notification-container.success-alert-background {
     background-color: var(--uq-background-alert-success);
+  }
+  .notification-container.info-alert-background {
+    background-color: var(--uq-background-alert-info);
   }
   .notification-container {
     mat-icon path {
