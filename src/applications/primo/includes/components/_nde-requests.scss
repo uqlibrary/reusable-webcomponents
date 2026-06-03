@@ -21,7 +21,7 @@
 //
 //  nde-request-card {
 //    --mdc-text-button-container-shape: 4px;
-//    border-radius: 4px;
+//    border-radius: var(--uq-border-radius);
 //    min-height: 6rem;
 //
 //    mat-card:has(a) {

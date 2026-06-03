@@ -204,15 +204,15 @@ body.custom-nde-theme {
   &:not(:has(nde-account)) mat-card-content {
     background-color: #fff;
     border: 1px solid #dcdcdd;
-    border-radius: 4px;
+    border-radius: var(--uq-border-radius);
   }
   /* END panels should look like DS */
 
   /* locations panel to be DS styled */
   .getit-location-card.mat-elevation-z0.ng-star-inserted {
-    border-radius: 4px;
+    border-radius: var(--uq-border-radius);
     nde-location-items-container > div {
-      border-radius: 4px;
+      border-radius: var(--uq-border-radius);
     }
   }
   /* END locations panel to be DS styled */
@@ -251,7 +251,7 @@ body.custom-nde-theme {
   }
   mat-accordion > div {
     border: 1px solid var(--border);
-    border-radius: 4px;
+    border-radius: var(--uq-border-radius);
   }
   mat-accordion > div {
     margin-bottom: 2rem;

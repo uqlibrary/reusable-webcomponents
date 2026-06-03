@@ -10,7 +10,7 @@ mat-card {
 &:not(:has(nde-account)) mat-card-content {
   background-color: #fff;
   border: 1px solid #dcdcdd;
-  border-radius: 4px;
+  border-radius: var(--uq-border-radius);
 }
 /* END panels should look like DS */
 
