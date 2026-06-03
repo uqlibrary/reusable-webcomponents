@@ -16,165 +16,165 @@ nde-main-menu {
 }
 /* END main menu: set margins and left align */
 
-/* Citation finder */
-main.sub-container:has([data-qa="nde.citationLinker.citationType"]) {
-  margin-left: auto;
-  margin-right: auto;
-  .container {
-    margin-inline: 1rem;
-  }
-}
-/* END Citation finder */
-
-/* New search */
-main.sub-container:has(nde-search-bar-container) {
-  nde-search-bar-container {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 71rem;
-  }
-}
-/* END New search */
-
-/* Database search */
-main.sub-container:has(nde-general-search-header) {
-  nde-general-search-header section,
-  nde-journal-database-layout-component .layout-container  > div {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 71rem;
-    @media (max-width: 65em) {
-      max-width: 71rem;
-    }
-  }
-}
-/* END Database search */
-
-/* Collection discovery */
-nde-app-root.XLarge {
-  nde-collection-discovery-lobby-header {
-    .collection-discovery-header {
-      .content {
-        margin-right: 48% !important;
-      }
-    }
-  }
-}
-nde-app-root.Large {
-  nde-collection-discovery-lobby-header {
-    .collection-discovery-header {
-      .content {
-        margin-right: 45% !important;
-      }
-    }
-  }
-}
-nde-app-root.Small,
-nde-app-root.Medium {
-  nde-collection-discovery-lobby-header {
-    .collection-discovery-header {
-      .content {
-        margin-left: 10% !important;
-      }
-    }
-  }
-}
-
-nde-collection-discovery-header .content,
-nde-collection-discovery-container  .collection-discovery-gallery-container {
-  width: 100% !important;
-  padding-inline: 1rem;
-}
-@media (min-width: 1180px) {
-  nde-collection-discovery-header .content,
-  nde-collection-discovery-container  .collection-discovery-gallery-container {
-    width: 71rem !important;
-    padding-inline: 0;
-  }
-}
-
-/* END Collection discovery */
-
-/* Brief Search results */
-main.sub-container:has(nde-search-results-container)  {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 71rem;
-  nde-top-bar {
-    padding-inline: 0;
-    & > div.top-bar-container {
-      margin-inline: 0;
-    }
-  }
-  .results-container,
-  nde-search-results-container .search-area-wrapper .search-result-content .filters-container .filters-wrapper {
-    width: 100% !important;
-    padding-inline: 1rem;
-  }
-  @media (min-width: 1180px) {
-    .results-container,
-    nde-search-results-container .search-area-wrapper .search-result-content .filters-container .filters-wrapper {
-      width: 71rem !important;
-      padding-inline: 0;
-    }
-  }
-}
-
-/* make the "whats this" link sit below the main label - this is to make the entire block less wide so it doesn't stack */
-nde-search-results-container {
-  nde-expand-options mat-slide-toggle#expand-my-results-toggle {
-    .mdc-form-field {
-      align-items: flex-start;
-    }
-    label span.cutoff-text {
-      position: relative;
-      height: 2.7rem;
-      a {
-        position: absolute;
-        right: 1rem;
-        top: 1.2rem;
-      }
-    }
-  }
-}
-/* END make the "whats this" link sit below the main label - this is to make the entire block less wide so it doesn't stack */
-
-/* END Brief Search results */
-
-/* Full results */
-main.sub-container:has(nde-full-display-container) {
-  nde-full-display-container nde-top-bar {
-    padding-inline: 0;
-    & > div.top-bar-container {
-      margin-inline: 0;
-    }
-  }
-}
-@media (min-width: 1180px) {
-  .search-content nde-full-display-container
-  .full-display-wrapper .full-display-container .inner-content .page-desktop-width {
-    width: 71rem !important;
-  }
-}
-@media (min-width: 960px) and (max-width: 1179.98px) {
-  .search-content nde-full-display-container
-  .full-display-wrapper .full-display-container .inner-content
-  .page-desktop-width {
-    width: 100% !important;
-    padding-inline: 1rem;
-  }
-}
-/* END Full results */
-
-/* account page */
-nde-account div.container {
-  width: 100% !important;
-  padding-inline: 1rem;
-}
-@media (min-width: 1180px) {
-  nde-account div.container {
-    width: 71rem !important;
-    padding-inline: 0;
-  }
-}
-/* END account page */
+///* Citation finder */
+//main.sub-container:has([data-qa="nde.citationLinker.citationType"]) {
+//  margin-left: auto;
+//  margin-right: auto;
+//  .container {
+//    margin-inline: 1rem;
+//  }
+//}
+///* END Citation finder */
+//
+///* New search */
+//main.sub-container:has(nde-search-bar-container) {
+//  nde-search-bar-container {
+//    margin-left: auto;
+//    margin-right: auto;
+//    max-width: 71rem;
+//  }
+//}
+///* END New search */
+//
+///* Database search */
+//main.sub-container:has(nde-general-search-header) {
+//  nde-general-search-header section,
+//  nde-journal-database-layout-component .layout-container  > div {
+//    margin-left: auto;
+//    margin-right: auto;
+//    max-width: 71rem;
+//    @media (max-width: 65em) {
+//      max-width: 71rem;
+//    }
+//  }
+//}
+///* END Database search */
+//
+///* Collection discovery */
+//nde-app-root.XLarge {
+//  nde-collection-discovery-lobby-header {
+//    .collection-discovery-header {
+//      .content {
+//        margin-right: 48% !important;
+//      }
+//    }
+//  }
+//}
+//nde-app-root.Large {
+//  nde-collection-discovery-lobby-header {
+//    .collection-discovery-header {
+//      .content {
+//        margin-right: 45% !important;
+//      }
+//    }
+//  }
+//}
+//nde-app-root.Small,
+//nde-app-root.Medium {
+//  nde-collection-discovery-lobby-header {
+//    .collection-discovery-header {
+//      .content {
+//        margin-left: 10% !important;
+//      }
+//    }
+//  }
+//}
+//
+//nde-collection-discovery-header .content,
+//nde-collection-discovery-container  .collection-discovery-gallery-container {
+//  width: 100% !important;
+//  padding-inline: 1rem;
+//}
+//@media (min-width: 1180px) {
+//  nde-collection-discovery-header .content,
+//  nde-collection-discovery-container  .collection-discovery-gallery-container {
+//    width: 71rem !important;
+//    padding-inline: 0;
+//  }
+//}
+//
+///* END Collection discovery */
+//
+///* Brief Search results */
+//main.sub-container:has(nde-search-results-container)  {
+//  margin-left: auto;
+//  margin-right: auto;
+//  max-width: 71rem;
+//  nde-top-bar {
+//    padding-inline: 0;
+//    & > div.top-bar-container {
+//      margin-inline: 0;
+//    }
+//  }
+//  .results-container,
+//  nde-search-results-container .search-area-wrapper .search-result-content .filters-container .filters-wrapper {
+//    width: 100% !important;
+//    padding-inline: 1rem;
+//  }
+//  @media (min-width: 1180px) {
+//    .results-container,
+//    nde-search-results-container .search-area-wrapper .search-result-content .filters-container .filters-wrapper {
+//      width: 71rem !important;
+//      padding-inline: 0;
+//    }
+//  }
+//}
+//
+///* make the "whats this" link sit below the main label - this is to make the entire block less wide so it doesn't stack */
+//nde-search-results-container {
+//  nde-expand-options mat-slide-toggle#expand-my-results-toggle {
+//    .mdc-form-field {
+//      align-items: flex-start;
+//    }
+//    label span.cutoff-text {
+//      position: relative;
+//      height: 2.7rem;
+//      a {
+//        position: absolute;
+//        right: 1rem;
+//        top: 1.2rem;
+//      }
+//    }
+//  }
+//}
+///* END make the "whats this" link sit below the main label - this is to make the entire block less wide so it doesn't stack */
+//
+///* END Brief Search results */
+//
+///* Full results */
+//main.sub-container:has(nde-full-display-container) {
+//  nde-full-display-container nde-top-bar {
+//    padding-inline: 0;
+//    & > div.top-bar-container {
+//      margin-inline: 0;
+//    }
+//  }
+//}
+//@media (min-width: 1180px) {
+//  .search-content nde-full-display-container
+//  .full-display-wrapper .full-display-container .inner-content .page-desktop-width {
+//    width: 71rem !important;
+//  }
+//}
+//@media (min-width: 960px) and (max-width: 1179.98px) {
+//  .search-content nde-full-display-container
+//  .full-display-wrapper .full-display-container .inner-content
+//  .page-desktop-width {
+//    width: 100% !important;
+//    padding-inline: 1rem;
+//  }
+//}
+///* END Full results */
+//
+///* account page */
+//nde-account div.container {
+//  width: 100% !important;
+//  padding-inline: 1rem;
+//}
+//@media (min-width: 1180px) {
+//  nde-account div.container {
+//    width: 71rem !important;
+//    padding-inline: 0;
+//  }
+//}
+///* END account page */
