@@ -502,11 +502,10 @@ test.describe('Training', () => {
             await expect(trainingListElement.locator('h4').first()).toContainText('Excel: processing data');
         });
         test('user can enter a type as a keyword and it will show all events in that type', async ({ page }) => {
-            await expect(page.locator('library-training[id="test-with-filter"]')).toBeVisible();
-
             const NUMBER_ENTRIES_IN_PUBLISHING_RESEARCH = 16;
 
-            const trainingElement = page.locator('library-training[id="test-with-filter"]');
+            const trainingElement = page.getByTestId('test-with-filter');
+            await expect(trainingElement).toBeVisible();
             await expect(trainingElement.locator('training-filter')).toBeVisible();
             const trainingFilter = trainingElement.locator('training-filter');
             await expect(trainingElement.locator('training-list')).toBeVisible();
