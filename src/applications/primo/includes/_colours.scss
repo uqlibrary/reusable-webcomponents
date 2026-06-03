@@ -74,6 +74,12 @@ nde-request-card path {
 }
 /* END Full Record Request section, don't fill purple */
 
+/* brief results header banner should not have a purple icon */
+nde-related-entities-search-header path {
+  fill: var(--uq-body-copy);
+}
+/* END brief results header banner should not have a purple icon */
+
 body.custom-nde-theme {
 
   /* login-loggedout button */
