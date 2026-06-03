@@ -74,6 +74,14 @@ nde-request-card path {
 }
 /* END Full Record Request section, don't fill purple */
 
+/* mobile filter-sidebar open icon */
+nde-mobile-filters-toggle {
+  mat-icon path {
+    fill: #fff;
+  }
+}
+/* END mobile filter-sidebar open icon */
+
 body.custom-nde-theme {
 
   /* login-loggedout button */
