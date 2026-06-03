@@ -1,10 +1,15 @@
 nde-notification {
   .notification-container.info-alert-background {
-    background-color: var(--uq-background-alert-non-critical);
+    background-color: var(--uq-background-alert-success);
   }
   .notification-container {
     mat-icon path {
       --sys-primary: var(--uq-body-copy);
     }
   }
+}
+
+/* Your session has timed out */
+.notification-alert.info {
+  --sys-surface-variant: var(--uq-background-alert-info);
 }

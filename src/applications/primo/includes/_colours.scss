@@ -21,6 +21,7 @@
   --uq-color-utility-200: #9ec5eb;
   --uq-color-utility-500: #0d6dcd;
 
+  --uq-success-50: #edf6ed;
   --uq-warning-50:	#fef8e8;
   --uq-error-500: #d62929;
 
@@ -30,7 +31,8 @@
   --uq-body-copy: var(--uq-colour-grey-900);
   --uq-body-color: var(--uq-colour-black);
   --uq-panel-background: var(--uq-colour-grey-50);
-  --uq-background-alert-non-critical: var(--uq-color-utility-50);
+  --uq-background-alert-info: var(--uq-color-utility-50);
+  --uq-background-alert-success: var(--uq-success-50);
 
   --sys-background: var(--uq-colour-purple-50);
   --sys-inverse-on-surface: var(--uq-panel-background);
@@ -40,7 +42,7 @@
   --sys-outline: var(--uq-body-copy);
   --sys-outline-variant: var(--uq-colour-purple-100);
   --sys-surface-container: #fff;
-  --sys-primary-fixed: var(--uq-background-alert-non-critical);
+  --sys-primary-fixed: var(--uq-background-alert-info);
   --sys-primary-fixed-dim: var(--uq-color-utility-200);
   //--sys-on-surface-variant: #fff;
   //--mdc-icon-button-icon-color: var(--uq-main-purple);
