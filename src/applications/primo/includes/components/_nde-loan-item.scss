@@ -1,0 +1,22 @@
+nde-loan-item {
+  div:has(> .loan-due-indication) {
+    /* space above the pill */
+    margin-bottom: 0.5rem;
+  }
+  .loan-info .hover-container span.renew-error,
+  .loan-info span.renew-success {
+    /* like DS pill */
+    background-color: #fff !important;
+    color: var(--uq-main-purple);
+    border: 1px solid var(--uq-main-purple);
+    font-size: 1rem;
+    border-radius: 21px;
+    padding: 8px 14px !important;
+  }
+  .tooltip-content,
+  .tooltip-content span {
+    /* like other tooltips */
+    background-color: var(--uq-background-alert-info);
+    color: var(--uq-body-color);
+  }
+}
