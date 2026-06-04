@@ -223,7 +223,7 @@ body.custom-nde-theme {
   /* END page title colour */
 
   /* make popover infos less intrusive */
-  .cdk-overlay-container * {
+  .cdk-overlay-container:has(mat-tooltip-component) * {
     font-size: 14px;
   }
   /* END make popover infos less intrusive */
