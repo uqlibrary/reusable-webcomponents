@@ -5,3 +5,14 @@ mat-dialog-container {
     }
   }
 }
+
+/* saved records "add new label" popup */
+.cdk-overlay-container {
+  .cdk-overlay-connected-position-bounding-box {
+    .cdk-overlay-pane {
+      div {
+        border-radius: var(--uq-border-radius);
+      }
+    }
+  }
+}
