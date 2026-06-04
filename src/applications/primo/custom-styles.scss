@@ -298,7 +298,7 @@ body.custom-nde-theme {
 }
 
 @media (max-width: 1919.9px) {
-  body:has(nde-login) proactive-chat::part(minimised-buttons) {
+  body:has(nde-custom-snack-bar nde-login) proactive-chat::part(minimised-buttons) {
     bottom: 8rem;
   }
 }
