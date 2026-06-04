@@ -1,0 +1,18 @@
+mat-dialog-container {
+  .mdc-dialog__container {
+    .mat-mdc-dialog-surface.mdc-dialog__surface {
+      border-radius: var(--uq-border-radius);
+    }
+  }
+}
+
+/* saved records "add new label" popup */
+.cdk-overlay-container {
+  .cdk-overlay-connected-position-bounding-box {
+    .cdk-overlay-pane {
+      div {
+        border-radius: var(--uq-border-radius);
+      }
+    }
+  }
+}
