@@ -299,3 +299,9 @@ body.custom-nde-theme {
   /* END style "did you mean" div as alert  */
   /* END page title colour */
 }
+
+@media (max-width: 1919.9px) {
+  body:has(nde-custom-snack-bar nde-login) proactive-chat::part(minimised-buttons) {
+    bottom: 8rem;
+  }
+}
