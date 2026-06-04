@@ -1,8 +1,12 @@
-//nde-locations-container {
-//  .getit-location-card {
-//    background-color: #fff;
-//    border-width: 0;
-//  }
+nde-locations-container {
+  .getit-location-card {
+    background-color: #fff;
+    border-width: 0;
+  }
+  mat-expansion-panel-header,
+  .mat-expansion-panel-content-wrapper {
+    background-color: #fff;
+  }
 //  .even-location-item-card,
 //  .getit-location-items-filter-bar {
 //    background-color: #fff;
@@ -17,4 +21,4 @@
 //  .getit-location-items-filter-bar {
 //    border-bottom-width: 0;
 //  }
-//}
+}
