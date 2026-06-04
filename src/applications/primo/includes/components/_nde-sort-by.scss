@@ -4,7 +4,7 @@ nde-sort-by {
     /* sort button looks like other filters inline with it */
     border: 1px solid var(--sys-outline-variant);
     color: var(--sys-on-background);
-    border-radius: 0.25rem;
+    border-radius: var(--uq-border-radius);
     padding-inline: 1.5rem;
     margin-block: .25rem;
     .mat-mdc-button:has(mat-icon,[matButtonIcon]) {

@@ -89,7 +89,7 @@ nde-account {
   }
   a.mdc-button:hover .account-badge-warn {
     --uq-colour-grey-100: var(--uq-error-500);
-    border-radius: 0.25rem !important;
+    border-radius: var(--uq-border-radius) !important;
   }
   /* END the dot on the Loans item should not hover to blank */
 }
