@@ -94,7 +94,6 @@ class ApiAccess {
         return await this.fetchJsonpAPI(url, {
             jsonpCallbackFunction: 'byutv_jsonp_callback_c631f96adec14320b23f1cac342d30f6',
             timeout: 3000,
-            crossorigin: true,
         })
             .then((data) => {
                 return (
