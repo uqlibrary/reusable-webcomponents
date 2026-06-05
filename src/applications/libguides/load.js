@@ -113,7 +113,7 @@
         insertScript(drupalScriptUrl, true);
 
         const cssFileName = getIncludeFullPath('applications/libguides/custom-styles.css');
-        insertCssFile(cssFileName);
+        // insertCssFile(cssFileName); // TODO - restore when ready to go live
 
         const waitForBody = setInterval(() => {
             const firstElement = document.body.children[0];
