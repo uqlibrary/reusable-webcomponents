@@ -74,7 +74,7 @@ class ApiAccess {
         // Need to decode the url-encoded version of '[]' in filterIds.
         const url = urlPath.concat('?', decodeURIComponent(filterParams));
 
-        return await this.fetchAPI(url, null, false, false)
+        return await this.fetchAPI(url, false)
             .then((trainingData) => {
                 return trainingData;
             })
@@ -146,7 +146,7 @@ class ApiAccess {
     */
     async loadOpenAthensCheck(urlPath) {
         const openAthensApi = new ApiRoutes().OPEN_ATHENS_LINK_CHECKER(urlPath);
-        return await this.fetchAPI(openAthensApi.apiUrl, {}, false, false)
+        return await this.fetchAPI(openAthensApi.apiUrl, false)
             .then((response) => {
                 return response;
             })
@@ -201,7 +201,7 @@ class ApiAccess {
     }
 
     async loadSecureCollectionCheck(path) {
-        return await this.fetchAPI(new ApiRoutes().SECURE_COLLECTION_CHECK_API({ path }).apiUrl, {}, false, false)
+        return await this.fetchAPI(new ApiRoutes().SECURE_COLLECTION_CHECK_API({ path }).apiUrl, false)
             .then((data) => {
                 return data;
             })
@@ -214,7 +214,7 @@ class ApiAccess {
     }
 
     async loadSecureCollectionFile(path) {
-        return await this.fetchAPI(new ApiRoutes().SECURE_COLLECTION_FILE_API({ path }).apiUrl, {}, true, false)
+        return await this.fetchAPI(new ApiRoutes().SECURE_COLLECTION_FILE_API({ path }).apiUrl, false, true)
             .then((data) => {
                 return data;
             })
@@ -228,7 +228,7 @@ class ApiAccess {
             );
     }
 
-    async fetchAPI(urlPath, headers = {}, tokenRequired = false, timestampRequired = true) {
+    async fetchAPI(urlPath, timestampRequired = true, tokenRequired = false, headers = {}) {
         /* istanbul ignore next */
         if (!!tokenRequired && (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)) {
             // no cookie so we won't bother asking for the account api that cant be returned
