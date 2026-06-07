@@ -197,7 +197,6 @@ class Training extends HTMLElement {
             weekEnd.setDate(weekStart.getDate() + 7);
         }
 
-        console.log('filters.location=', filters.location);
         const filteredEvents = this.trainingEvents.filter((event) => {
             if (!this.isPublishable(event)) {
                 return false;
@@ -208,7 +207,8 @@ class Training extends HTMLElement {
                 !(
                     event.name.match(keywordRegExp) ||
                     event.details.match(keywordRegExp) ||
-                    event.summary.match(keywordRegExp)
+                    event.summary.match(keywordRegExp) ||
+                    event.eventType.match(keywordRegExp)
                 )
             ) {
                 return false;
