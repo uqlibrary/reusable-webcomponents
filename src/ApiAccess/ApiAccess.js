@@ -74,7 +74,7 @@ class ApiAccess {
         // Need to decode the url-encoded version of '[]' in filterIds.
         const url = urlPath.concat('?', decodeURIComponent(filterParams));
 
-        return await this.fetchAPI(url)
+        return await this.fetchAPI(url, null, false, false)
             .then((trainingData) => {
                 return trainingData;
             })
