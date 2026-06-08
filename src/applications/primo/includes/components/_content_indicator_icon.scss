@@ -38,32 +38,6 @@
   display: inline
 }
 
-.record-indication-wrapper[_ngcontent-ng-content-indicator] {
-  vertical-align: middle
-}
-
-@media only screen and (max-width: 599.98px) {
-  .record-indication-wrapper[_ngcontent-ng-content-indicator] {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap
-  }
-}
-
-@media only screen and (max-width: 599.98px) {
-  .record-indication-wrapper[_ngcontent-ng-content-indicator] .record-indication-cont[_ngcontent-ng-content-indicator]:first-child .nde-divider[_ngcontent-ng-content-indicator] {
-    display: none
-  }
-}
-
-.record-indication-wrapper[_ngcontent-ng-content-indicator] .mat-icon {
-  vertical-align: middle
-}
-
-.record-indication-wrapper[_ngcontent-ng-content-indicator] .mat-icon svg g circle {
-  fill: var(--sys-primary)
-}
-
 .record-indication[_ngcontent-ng-content-indicator] {
   color: var(--sys-outline);
   font-size: .75rem;
@@ -82,7 +56,7 @@
 }
 
 @media only screen and (max-width: 599.98px) {
-  .record-indication-wrapper .record-indication-cont[_ngcontent-ng-content-indicator]:first-child .nde-divider[_ngcontent-ng-content-indicator] {
+  .record-indication-cont[_ngcontent-ng-content-indicator]:first-child .nde-divider[_ngcontent-ng-content-indicator] {
     display: none;
   }
 }
