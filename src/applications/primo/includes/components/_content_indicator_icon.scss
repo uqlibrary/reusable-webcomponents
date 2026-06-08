@@ -2,9 +2,9 @@
 - find a record with a different icon (peer-reviewed or open access)
 - find the style block attached tto it
 - copy and paste over this
-- update all _ngcontent-ng-some-id to _ngcontent-ng-crlindicator
+- update all _ngcontent-ng-some-id to _ngcontent-ng-content-indicator
  */
-[_ngcontent-ng-crlindicator]:root {
+[_ngcontent-ng-content-indicator]:root {
   --darkText: #2E2E27;
   --lightText: #666666;
   --whiteText: #FFF;
@@ -38,12 +38,12 @@
   display: inline
 }
 
-.record-indication-wrapper[_ngcontent-ng-crlindicator] {
+.record-indication-wrapper[_ngcontent-ng-content-indicator] {
   vertical-align: middle
 }
 
 @media only screen and (max-width: 599.98px) {
-  .record-indication-wrapper[_ngcontent-ng-crlindicator] {
+  .record-indication-wrapper[_ngcontent-ng-content-indicator] {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap
@@ -51,26 +51,38 @@
 }
 
 @media only screen and (max-width: 599.98px) {
-  .record-indication-wrapper[_ngcontent-ng-crlindicator] .record-indication-cont[_ngcontent-ng-crlindicator]:first-child .nde-divider[_ngcontent-ng-crlindicator] {
+  .record-indication-wrapper[_ngcontent-ng-content-indicator] .record-indication-cont[_ngcontent-ng-content-indicator]:first-child .nde-divider[_ngcontent-ng-content-indicator] {
     display: none
   }
 }
 
-.record-indication-wrapper[_ngcontent-ng-crlindicator] .mat-icon {
+.record-indication-wrapper[_ngcontent-ng-content-indicator] .mat-icon {
   vertical-align: middle
 }
 
-.record-indication-wrapper[_ngcontent-ng-crlindicator] .mat-icon svg g circle {
+.record-indication-wrapper[_ngcontent-ng-content-indicator] .mat-icon svg g circle {
   fill: var(--sys-primary)
 }
 
-.record-indication[_ngcontent-ng-crlindicator] {
+.record-indication[_ngcontent-ng-content-indicator] {
   color: var(--sys-outline);
   font-size: .75rem;
   font-weight: 500
 }
 
-.mat-divider.mat-divider-vertical[_ngcontent-ng-crlindicator] {
+.mat-divider.mat-divider-vertical[_ngcontent-ng-content-indicator] {
   margin-inline-start: .5rem;
   margin-inline-end: .5rem
+}
+
+.mat-icon.nde-mat-icon-size-medium[_ngcontent-ng-content-indicator] {
+  width: 16px;
+  height: 16px;
+  margin-top: -3px;
+}
+
+@media only screen and (max-width: 599.98px) {
+  .record-indication-wrapper .record-indication-cont[_ngcontent-ng-content-indicator]:first-child .nde-divider[_ngcontent-ng-content-indicator] {
+    display: none;
+  }
 }
