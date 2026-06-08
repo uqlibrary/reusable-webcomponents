@@ -270,7 +270,7 @@ body.custom-nde-theme {
 
 
   /* page title colour */
-  nde-record-title a span,
+  &:not(:has(nde-search-results)) nde-record-title a span,
   nde-person-entity.ng-star-inserted nde-entity-layout.ng-star-inserted .entity-container .entity-details .entity-name // star classes to force the specificity
   {
     color: #333;
