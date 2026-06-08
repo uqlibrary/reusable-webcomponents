@@ -378,6 +378,12 @@ ul.s-lg-guide-list {
         list-style: disc;
     }
 }
+.s-lib-side-borders {
+    border-left: 0;
+    border-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
 
 body:not(.editmode) {
     .s-lib-box .row #accor {
@@ -497,6 +503,12 @@ body:not(.editmode) {
     }
 }
 body:not(.editmode) {
+    @media (max-width: 640px) {
+        a {
+            padding-top: unset;
+            padding-bottom: unset;
+        }
+    }
     @media (min-width: 75rem) {
         .container,
         .s-lib-main {
@@ -964,6 +976,18 @@ body:not(.editmode) {
             }
         }
     }
+
+    /* adjust bottom margin of consecutive div->ul elements */
+    #s-lg-col-1 {
+        .s-lib-box-content {
+            & div:not(:last-child) {
+                & ul.s-lg-link-list {
+                    margin-bottom: 0.5rem;
+                }
+            }
+        }
+    }
+    
     @media (max-width: 640px) {
         .uql-grid a {
             display: flex;
@@ -973,10 +997,14 @@ body:not(.editmode) {
         .arrowPanel:not(.arrowPanelWithIcon) a {
             padding: 24px;
         }
-        a {
-            padding-top: 16px;
-            padding-bottom: 8px;
+
+        ul:not(.s-lg-link-list) {
+            a {
+                padding-top: 16px;
+                padding-bottom: 8px;
+            }
         }
+            
         a div.panelBodyWrapper {
             display: flex;
             justify-content: flex-start;
@@ -1233,8 +1261,13 @@ body:not(.editmode) {
         display: grid;
         grid-template-columns: 1fr 1fr;
         margin: 2.5rem -1.5rem 2.5rem 1.5rem;
-        @media (max-width: 1200px) {
+        @media screen and (max-width: 1200px) {
             margin-right: -1.2rem; // dont slam it hard again the edge
+        }
+        @media (min-width: 37.5rem) {
+            .page-link {
+                display: unset;
+            }
         }
         
         &::before {
@@ -1261,11 +1294,15 @@ body:not(.editmode) {
                 margin-right: 0;
             }
         }
+        .page-item:not(:first-child) .page-link {
+            margin-left: unset;
+        }
         li.next, li:last-of-type {
             text-align: right;
             & > a,
             & > span {
                 text-align: right;
+                margin-right: 10px;
             }
         }
         li > a,
@@ -1288,9 +1325,6 @@ body:not(.editmode) {
             border-color: $uqBrandColour;
             color: #fff;
             text-decoration: underline;
-        }
-        .page-link {
-            display: unset;
         }
     }
 
