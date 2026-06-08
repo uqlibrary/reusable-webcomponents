@@ -12,7 +12,7 @@ $uq-body-font-family: Roboto, Helvetica, Arial, sans-serif;
 @mixin uqPrimaryButton() {
   background-color: $uqBrandColour !important;
   border: 2px solid $uqBrandColour;
-  border-radius: 0.25rem;
+  border-radius: var(--uq-border-radius);
   box-sizing: border-box;
   color: #fff;
   cursor: pointer;
@@ -141,7 +141,7 @@ body.custom-nde-theme {
   /* buttons like DS buttons */
   a, button {
     --mdc-filled-button-container-shape: 4px; /* 0.25rem */
-    border-radius: 0.25rem;
+    border-radius: var(--uq-border-radius);
   }
   /* END buttons like DS buttons */
 
@@ -201,7 +201,7 @@ body.custom-nde-theme {
   /* style the main search bar to be like search portal on drupal */
   .top-bar-container nde-search-bar-presenter .search-bar-container .search-bar-wrapper {
     background-color: #fff !important;
-    border-radius: 2px !important;
+    border-radius: var(--uq-border-radius) !important;
     border: 1px solid #dcdcdd !important;
     padding-left: 0 !important;
     input {
@@ -214,15 +214,15 @@ body.custom-nde-theme {
   &:not(:has(nde-account)) mat-card-content {
     background-color: #fff;
     border: 1px solid #dcdcdd;
-    border-radius: 4px;
+    border-radius: var(--uq-border-radius);
   }
   /* END panels should look like DS */
 
   /* locations panel to be DS styled */
   .getit-location-card.mat-elevation-z0.ng-star-inserted {
-    border-radius: 4px;
+    border-radius: var(--uq-border-radius);
     nde-location-items-container > div {
-      border-radius: 4px;
+      border-radius: var(--uq-border-radius);
     }
   }
   /* END locations panel to be DS styled */
@@ -255,7 +255,7 @@ body.custom-nde-theme {
   }
   mat-accordion > div {
     border: 1px solid var(--border);
-    border-radius: 4px;
+    border-radius: var(--uq-border-radius);
   }
   mat-accordion > div {
     margin-bottom: 2rem;
@@ -292,7 +292,7 @@ body.custom-nde-theme {
     padding: 1rem;
     margin-block: 1rem;
     text-align: center;
-    border-radius: 0.25rem;
+    border-radius: var(--uq-border-radius);
   }
   /* END style "did you mean" div as alert  */
 }
