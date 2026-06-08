@@ -1,10 +1,5 @@
-/* to update:
-- find a record with a different icon (peer-reviewed or open access)
-- find the style block attached tto it
-- copy and paste over this
-- update all _ngcontent-ng-some-id to _ngcontent-ng-content-indicator
- */
 [_ngcontent-ng-content-indicator]:root {
+  /* used by other indicators */
   --darkText: #2E2E27;
   --lightText: #666666;
   --whiteText: #FFF;
@@ -38,25 +33,27 @@
   display: inline
 }
 
-.record-indication[_ngcontent-ng-content-indicator] {
-  color: var(--sys-outline);
-  font-size: .75rem;
-  font-weight: 500
-}
+[_ngcontent-ng-content-indicator] {
+  &.record-indication {
+    color: var(--sys-outline);
+    font-size: .75rem;
+    font-weight: 500
+  }
 
-.mat-divider.mat-divider-vertical[_ngcontent-ng-content-indicator] {
-  margin-inline-start: .5rem;
-  margin-inline-end: .5rem
-}
+  &.mat-divider.mat-divider-vertical {
+    margin-inline-start: .5rem;
+    margin-inline-end: .5rem
+  }
 
-.mat-icon.nde-mat-icon-size-medium[_ngcontent-ng-content-indicator] {
-  width: 16px;
-  height: 16px;
-  margin-top: -3px;
-}
+  &.mat-icon.nde-mat-icon-size-medium {
+    width: 16px;
+    height: 16px;
+    margin-top: -3px;
+  }
 
-@media only screen and (max-width: 599.98px) {
-  .record-indication-cont[_ngcontent-ng-content-indicator]:first-child .nde-divider[_ngcontent-ng-content-indicator] {
-    display: none;
+  @media only screen and (max-width: 599.98px) {
+    &.record-indication-cont:first-child .nde-divider {
+      display: none;
+    }
   }
 }
