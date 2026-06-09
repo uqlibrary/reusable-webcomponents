@@ -357,9 +357,9 @@ a {
         margin-left: 1em;
     }
     &:visited {
-        // color: revert;
+        color: $uqBrandColour;
         &:hover {
-         //   color: initial;
+            color: #fff;
         }
     }
 }
