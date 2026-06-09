@@ -90,6 +90,16 @@ prm-request {
         color: $accent-color;
     }
     @include requestFormRadioButtons($accent-color);
+
+    prm-form-field {
+        button.auto-fill-rsh-form {
+            color: $accent-color;
+            &.md-button:hover:not([disabled]),
+            &.md-button:focus:not([disabled]) {
+                background-color: $accent-color;
+            }
+        }
+    }
 }
 
 prm-blank-purchase-request {
