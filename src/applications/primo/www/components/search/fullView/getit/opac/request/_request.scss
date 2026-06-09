@@ -142,6 +142,10 @@ prm-request {
             font-weight: 400;
         }
     }
+    prm-form-field.service-form-item md-input-container.md-primoExplore-theme {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
 }
 
 prm-blank-purchase-request {
