@@ -99,6 +99,17 @@ prm-request {
                 background-color: $accent-color;
             }
         }
+        div#form_field_copyrights {
+            md-checkbox {
+                &:focus {
+                    outline: none;
+
+                    .md-icon {
+                        outline: -webkit-focus-ring-color auto 0;
+                    }
+                }
+            }
+        }
     }
 
     .validationFeedback {
