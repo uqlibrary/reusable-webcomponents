@@ -341,7 +341,7 @@ body h6 {
 #s-lib-footer-login-link a,
 #s-lib-footer-support-link a,
 a {
-    color: $uqBrandColour !important;
+    color: $uqBrandColour;
     text-decoration: underline;
     overflow-wrap: break-word;
     word-wrap: break-word;
@@ -1837,5 +1837,8 @@ body.editmode {
         ol, ul {
             margin-left: 1rem
         }
+    }
+    .btn-close {
+        font-size: 14px;
     }
 }
