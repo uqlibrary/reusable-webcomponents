@@ -309,3 +309,52 @@ body.custom-nde-theme {
     bottom: 8rem;
   }
 }
+
+.standardWarningBanner {
+  margin-inline:.9375rem;
+  margin-bottom: 2rem;
+  display: flex;
+  background-color: var(--uq-warning-50);
+  border-color: var(--uq-warning-50);
+  border-radius: 3px;
+  color: #000;
+  padding: 2em 1em;
+
+  p {
+    color: var(--uq-colour-grey-900);
+  }
+  a {
+    text-decoration: underline;
+    &:hover,
+    &:focus {
+      background-color: var(--uq-main-purple);
+      color: #fff !important;
+      box-shadow: none
+    }
+  }
+  & > p {
+    margin-left: 1.5rem;
+    margin-bottom: 0;
+  }
+
+  & > div {
+    margin-left: 1rem;
+  }
+}
+
+.uq-icon:before {
+  content: "";
+  display: inline-block;
+  margin: 0 .3em 0 0;
+  height: 1.5em;
+  width: 1.5em;
+  filter: invert(20%) sepia(34%) saturate(1979%) hue-rotate(239deg) brightness(97%) contrast(107%);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  vertical-align: text-bottom
+}
+
+.uq-icon--standard--exclamation-triangle:before {
+  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M20.127 18.545a1.18 1.18 0 0 1-1.055 1.706H4.929a1.18 1.18 0 0 1-1.055-1.706l7.072-14.143a1.179 1.179 0 0 1 2.109 0l7.072 14.143Z' stroke='%23000' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M12 9v4' stroke='%23000' stroke-width='1.5' stroke-linecap='round'%3e%3c/path%3e%3ccircle cx='11.9' cy='16.601' r='1.1' fill='%23000'%3e%3c/circle%3e%3c/svg%3e")
+}
