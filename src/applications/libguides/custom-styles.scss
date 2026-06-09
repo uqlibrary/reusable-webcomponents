@@ -349,7 +349,7 @@ a {
     &:hover,
     &:focus {
         background-color: $uqBrandColour !important;
-        color: #fff !important;
+        color: #fff;
         text-decoration: underline;
     }
     &.bold {
