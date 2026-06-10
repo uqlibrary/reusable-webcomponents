@@ -9,7 +9,7 @@ class ApiAccess {
         let isOnline = false;
         const chatstatusApi = new ApiRoutes().CHAT_API();
         const urlPath = chatstatusApi.apiUrl;
-        await this.fetchAPI(urlPath)
+        await this.fetchAPI(urlPath, 'minute')
             .then((chatResponse) => {
                 isOnline = !!chatResponse?.online;
             })
@@ -23,7 +23,7 @@ class ApiAccess {
         let result;
         const hoursApi = new ApiRoutes().LIB_HOURS_API();
         const urlPath = hoursApi.apiUrl;
-        await this.fetchAPI(urlPath)
+        await this.fetchAPI(urlPath, 'minute')
             .then((hoursResponse) => {
                 let askusHours = null;
                 /* istanbul ignore else */
@@ -50,7 +50,7 @@ class ApiAccess {
     async loadAlerts(system) {
         const alertApi = new ApiRoutes().ALERT_API(system);
         const urlPath = alertApi.apiUrl;
-        return await this.fetchAPI(urlPath)
+        return await this.fetchAPI(urlPath, 'minute')
             .then((alerts) => {
                 return alerts;
             })
@@ -61,6 +61,7 @@ class ApiAccess {
     }
 
     async loadTrainingEvents(maxEventCount, filterId) {
+        // can be called from logged in homepage, drupal and guides
         const trainingApi = new ApiRoutes().TRAINING_API();
         const urlPath = trainingApi.apiUrl;
         const filter = {
@@ -74,7 +75,7 @@ class ApiAccess {
         // Need to decode the url-encoded version of '[]' in filterIds.
         const url = urlPath.concat('?', decodeURIComponent(filterParams));
 
-        return await this.fetchAPI(url)
+        return await this.fetchAPI(url, 'nocachebuster')
             .then((trainingData) => {
                 return trainingData;
             })
@@ -146,7 +147,7 @@ class ApiAccess {
     */
     async loadOpenAthensCheck(urlPath) {
         const openAthensApi = new ApiRoutes().OPEN_ATHENS_LINK_CHECKER(urlPath);
-        return await this.fetchAPI(openAthensApi.apiUrl, {}, false, false)
+        return await this.fetchAPI(openAthensApi.apiUrl, 'nocachebuster')
             .then((response) => {
                 return response;
             })
@@ -158,7 +159,7 @@ class ApiAccess {
     }
 
     async loadExamPaperSuggestions(keyword) {
-        return await this.fetchAPI(new ApiRoutes().EXAMS_SUGGESTIONS_API(keyword).apiUrl)
+        return await this.fetchAPI(new ApiRoutes().EXAMS_SUGGESTIONS_API(keyword).apiUrl, 'nocachebuster')
             .then((data) => {
                 return data.map((item, index) => {
                     const title = !!item.course_title ? ` (${item.course_title})` : /* istanbul ignore next */ '';
@@ -177,7 +178,7 @@ class ApiAccess {
     }
 
     async loadHomepageCourseReadingListsSuggestions(keyword) {
-        return await this.fetchAPI(new ApiRoutes().SUGGESTIONS_API_PAST_COURSE(keyword).apiUrl)
+        return await this.fetchAPI(new ApiRoutes().SUGGESTIONS_API_PAST_COURSE(keyword).apiUrl, 'nocachebuster')
             .then((data) => {
                 return data.map((item, index) => {
                     const specifier =
@@ -201,7 +202,7 @@ class ApiAccess {
     }
 
     async loadSecureCollectionCheck(path) {
-        return await this.fetchAPI(new ApiRoutes().SECURE_COLLECTION_CHECK_API({ path }).apiUrl, {}, false, false)
+        return await this.fetchAPI(new ApiRoutes().SECURE_COLLECTION_CHECK_API({ path }).apiUrl, 'nocachebuster')
             .then((data) => {
                 return data;
             })
@@ -214,7 +215,7 @@ class ApiAccess {
     }
 
     async loadSecureCollectionFile(path) {
-        return await this.fetchAPI(new ApiRoutes().SECURE_COLLECTION_FILE_API({ path }).apiUrl, {}, true, false)
+        return await this.fetchAPI(new ApiRoutes().SECURE_COLLECTION_FILE_API({ path }).apiUrl, 'nocachebuster', true)
             .then((data) => {
                 return data;
             })
@@ -228,14 +229,14 @@ class ApiAccess {
             );
     }
 
-    async fetchAPI(urlPath, headers = {}, tokenRequired = false, timestampRequired = true) {
+    async fetchAPI(urlPath, feCacheLength = 'millisecond', mustBeLoggedIn = false, headers = {}) {
         /* istanbul ignore next */
-        if (!!tokenRequired && (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)) {
+        if (!!mustBeLoggedIn && (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)) {
             // no cookie so we won't bother asking for the account api that cant be returned
             return false;
         }
 
-        const token = !!tokenRequired ? { 'x-uql-token': this.getSessionCookie() } : null;
+        const token = !!mustBeLoggedIn ? { 'x-uql-token': this.getSessionCookie() } : null;
 
         const options = {
             'Content-Type': 'application/json',
@@ -258,11 +259,15 @@ class ApiAccess {
             // reference: https://dmitripavlutin.com/javascript-fetch-async-await/
             const API_URL = process.env.API_URL || 'https://api.library.uq.edu.au/staging/';
             const connector = urlPath.indexOf('?') > -1 ? '&' : '?';
-            const addTimestamp = !!timestampRequired ? `${connector}ts=${new Date().getTime()}` : '';
+            let addTimestamp = ''; // default to no FE cache buster
+            if (feCacheLength === 'millisecond') {
+                addTimestamp = `${connector}ts=${new Date().getTime()}`;
+            } else if (feCacheLength === 'minute') {
+                addTimestamp = `${connector}ts=${Math.floor(Date.now() / 60000)}`;
+            }
 
-            // if we are calling a non-api url then we will have already set the domain name
             const finalUrl = urlPath.startsWith('http')
-                ? `${urlPath}${addTimestamp}`
+                ? `${urlPath}${addTimestamp}` // if we are calling a non-api url then we will have already set the domain name
                 : `${API_URL}${urlPath}${addTimestamp}`;
             window.location.hostname === 'localhost' && console.log(urlPath, 'calls: ', finalUrl);
             let response;
