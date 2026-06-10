@@ -502,13 +502,15 @@ body:not(.editmode) {
         }
     }
 }
-body:not(.editmode) {
+body:not(.editmode):not(.guides_homepage) {
     @media (max-width: 640px) {
         a {
             padding-top: unset;
             padding-bottom: unset;
         }
     }
+}
+body:not(.editmode) {
     @media (min-width: 75rem) {
         .container,
         .s-lib-main {
@@ -897,13 +899,27 @@ body:not(.editmode) .remove-h2 h2.s-lib-box-title // if the box has built in h2 
         }
     }
 }
-.guides_homepage {
+body.guides_homepage {
     .s-lib-box {
         .s-lib-box-content {
             padding: 0;
         }
     }
+    &:not(.editmode){ 
+        @media (max-width: 640px) {
+            .dynamic-row {
+                --bs-gutter-x: 1.5rem;
+                --bs-gutter-y: 0;
+                display: flex;
+                flex-wrap: wrap;
+                margin-top: calc(-1 * var(--bs-gutter-y));
+                margin-right: calc(-.5 * var(--bs-gutter-x));
+                margin-left: calc(-.5 * var(--bs-gutter-x));
+            }
+        }
+    }
 }
+
 body:not(.editmode) {
     /* Default: mobile view, 1 column */
     .uql-grid {
