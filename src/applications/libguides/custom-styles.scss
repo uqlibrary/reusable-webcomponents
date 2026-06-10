@@ -348,7 +348,7 @@ a {
     font-weight: 500;
     &:hover,
     &:focus {
-        background-color: $uqBrandColour !important;
+        background-color: $uqBrandColour;
         color: #fff;
         text-decoration: underline;
     }
