@@ -16,32 +16,34 @@ nde-notification {
   }
 
   /* login prompt */
-  &:has(nde-login) {
-    display: block;
-
-    div.notification-container {
+  &:not(:has(.notification-container > div > mat-icon)) { // we dont apply this to instances where the "i" icon is already in place
+    &:has(nde-login) { // this only applies to login banners, but could be expanded?
       display: block;
-      width: 100%;
-      padding: 0;
-      background-color: #e7f0fa;
-      position: relative;
 
-      & > div {
-        padding: 1rem;
-        padding-left: 3rem;
-      }
+      div.notification-container {
+        display: block;
+        width: 100%;
+        padding: 0;
+        background-color: #e7f0fa;
+        position: relative;
 
-      &:before {
-        content: "";
-        // DS info icon
-        background-image: var(--uq-icon--info);
-        background-repeat: no-repeat;
-        background-size: 1.5rem;
-        width: 1.5rem;
-        height: 1.5rem;
-        position: absolute;
-        top: 1.5rem;
-        left: 1rem;
+        & > div {
+          padding: 1rem;
+          padding-left: 3rem;
+        }
+
+        &:before {
+          content: "";
+          // DS info icon
+          background-image: var(--uq-icon--info);
+          background-repeat: no-repeat;
+          background-size: 1.5rem;
+          width: 1.5rem;
+          height: 1.5rem;
+          position: absolute;
+          top: 1.5rem;
+          left: 1rem;
+        }
       }
     }
   }
