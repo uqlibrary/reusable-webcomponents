@@ -112,5 +112,10 @@
       "**/mock/**",
       "**/codebuild/**"
     ]
+  },
+  "allowScripts": {
+    "fsevents@2.3.2": true,
+    "core-js@2.6.12": true,
+    "core-js@3.46.0": true
   }
 }

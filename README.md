@@ -15,7 +15,7 @@ git clone git@github.com:uqlibrary/reusable-webcomponents.git
 2. install npm (but first confirm in package.json that this is the latest installed version - doco gets out of date):
 
 ```sh
-nvm use 18.19.0 && npm i -g npm@10 webpack-dev-server
+nvm install 24.16.0 && nvm use 24.16.0 && npm i -g npm@11 webpack-dev-server
 ```
 
 3. Create git hooks to manage branches to project standard.
