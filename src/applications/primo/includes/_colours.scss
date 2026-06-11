@@ -137,4 +137,10 @@ body.custom-nde-theme {
     --sys-outline: var(--uq-main-purple);
   }
   /* END make icons purple  */
+
+  /* login dialog wrong-password message banner */
+  .login-dialog-notification {
+    --notice: var(--uq-background-alert-info);
+  }
+  /* END login dialog wrong-password message banner */
 }
