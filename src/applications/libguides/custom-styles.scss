@@ -480,11 +480,6 @@ body:not(.editmode) {
             max-width: 71em;
             width: auto;
         }
-        #col1,
-        .uql-grid:has(.arrowPanelWithIcon) {
-            width: fit-content;
-            margin-left: -30px;
-        }
     }
 }
 @media (min-width: 75rem) {
@@ -833,9 +828,7 @@ body:not(.editmode) .remove-h2 h2.s-lib-box-title // if the box has built in h2 
     .uql-grid {
         padding-right: 15px;
         padding-left: 15px;
-        @media (min-width: 75rem) {
-            margin-left: -30px;
-        }
+
         .s-lib-box-container {
             //margin-top: 1.5rem;
             border: 1px solid $borders !important;
@@ -933,6 +926,7 @@ body:not(.editmode) {
         display: grid;
         grid-template-columns: 1fr;
         gap: 24px;
+        width: 100%;
     }
 
     /* Tablet breakpoint - 2 columns */
