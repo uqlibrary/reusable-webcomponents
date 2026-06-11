@@ -815,6 +815,9 @@ body:not(.editmode) .remove-h2 h2.s-lib-box-title // if the box has built in h2 
 :not(.editmode) {
     // put a gap below the footer box
     .footer-box {
+        padding-left: 15px;
+        padding-right: 15px;
+
         margin-block: $section-spacing;
         h2 {
             margin-top: 0;
@@ -907,14 +910,18 @@ body.guides_homepage {
     }
     &:not(.editmode){ 
         @media (max-width: 640px) {
+            a {
+                padding-top: 16px;
+                padding-bottom: 8px;
+            }
+            
             .dynamic-row {
                 --bs-gutter-x: 1.5rem;
                 --bs-gutter-y: 0;
                 display: flex;
                 flex-wrap: wrap;
-                margin-top: calc(-1 * var(--bs-gutter-y));
-                margin-right: calc(-.5 * var(--bs-gutter-x));
-                margin-left: calc(-.5 * var(--bs-gutter-x));
+                margin: 0;
+                padding: 0;
             }
         }
     }
@@ -1844,6 +1851,9 @@ body:not(.editmode) {
 }
 
 body.editmode {
+    .nav > li {
+        width: 100%;
+    }
     .nav-tabs > li > a[aria-selected="false"]:hover {
         background-color: #51247a;
         color: white;
