@@ -138,6 +138,8 @@ body.custom-nde-theme {
 
   @import 'includes/components/report_a_problem';
 
+  @import 'includes/components/uql-tooltip';
+
   /* buttons like DS buttons */
   a, button {
     --mdc-filled-button-container-shape: 4px; /* 0.25rem */

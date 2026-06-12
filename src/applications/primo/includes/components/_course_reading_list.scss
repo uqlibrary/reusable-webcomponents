@@ -1,61 +1,47 @@
-.readingListCitations {
-  .course-resource-list {
-    list-style-type: none;
+nde-full-display-crl {
+  .mat-expansion-panel {
+    .mat-expansion-panel-header:not(.mat-expanded):not([aria-disabled=true]):hover {
+      background: var(--mat-expansion-header-hover-state-layer-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-hover-state-layer-opacity) * 100%), transparent));
+    }
   }
-
-  .uql-crl-list-item svg {
-    margin-left: 4px;
-    vertical-align: middle;
+  mat-expansion-panel.mat-expansion-panel {
+    background-color: var(--whiteBG);
+    margin-bottom: 1rem;
+    h2 {
+      color: var(--darkText);
+      font-weight: 600;
+      font-size: 1rem;
+      text-transform: uppercase;
+    }
   }
-
-  .mat-expansion-panel-animations-enabled .uql-accordion-child-crl {
-    transition: visibility 190ms linear;
-  }
-
-  a {
-    color: var(--uq-main-purple);
-    text-decoration: underline;
-    &:focus,
-    &:hover {
-      color: #fff;
+  .mat-expansion-panel-body {
+    padding: 0 24px 16px;
+    a.uql-crl-list-item {
+      /* display: flex;
+      align-items: center;
+      justify-content: flex-start; */
       span {
-        background-color: var(--uq-main-purple);
+        font-size: 15px;
+      }
+    }
+    .toggle-show-all-button {
+      display: flex;
+      justify-content: flex-end;
+      button {
+        background-color: #51247a;
+        color: #fff;
+        border-color: #51247a;
+        &:hover {
+          background-color: #fff;
+          color: #51247a;
+        }
       }
     }
   }
-  .course-resource-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .course-resource-list li {
-    margin: 0.5rem 0;
-  }
-
-  mat-expansion-panel-header.mat-expansion-panel-header.crl-mat-expansion-panel-header {
-    height: 64px;
-    &:not(.mat-expanded) {
-      &:focus,
-      &:hover {
-        background-color: #ededec;
-      }
+  ul.course-resource-list li {
+    margin-bottom: 0.25rem;
+    &.uql-crl-list.uql-crl-list-hidden {
+      display: none;
     }
-  }
-
-  /* make the panel header look right */
-  .mat-expansion-panel:not([class*=mat-elevation-z]) {
-    background-color: #fff;
-    box-shadow: none;
-  }
-  mat-expansion-panel-header {
-    span {
-      justify-content: space-between;
-    }
-    mat-panel-description {
-      flex-direction: row-reverse
-    }
-    padding-left: 1rem;
-    padding-right: 0;
   }
 }
