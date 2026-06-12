@@ -1897,12 +1897,12 @@ body.editmode {
     .btn-close {
         font-size: 14px;
     }
-    // .s-lg-guide-admin-content {
-    //     li {
-    //         .clearfix:before {
-    //             display: unset;
-    //             content: unset;
-    //         }
-    //     }
-    // }
+    .s-lg-guide-admin-content {
+        li {
+            .clearfix:before {
+                display: unset;
+                content: unset;
+            }
+        }
+    }
 }
