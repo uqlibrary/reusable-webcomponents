@@ -235,7 +235,7 @@ svg {
 
 #s-lib-public-main,
 #s-lib-bc-list {
-    @media screen and (max-width: 790px) {
+    @media screen and (max-width: 75rem) {
         padding-left: 16px;
         padding-right: 16px;
     }
@@ -415,9 +415,15 @@ body:not(.editmode):not(.guides_homepage) #s-lg-index-cols {
     margin-right: 0;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
+    
+    // .uq-accordion {
+    //     display: inline-block;
+    //     width: 100%;
+    // }
+
     #col1,
     #col2 {
-        width: auto;
+        width: 100%;
         padding-left: 0;
         padding-right: 0;
         ul,
@@ -425,6 +431,7 @@ body:not(.editmode):not(.guides_homepage) #s-lg-index-cols {
             margin-bottom: $spacing-m;
             margin-top: 0;
             padding-left: unset;
+            display: inline-block;
         }
         ol li,
         ul li {
@@ -446,6 +453,7 @@ body:not(.editmode):not(.guides_homepage) #s-lg-index-cols {
         ul,
         ol {
             padding-left: $spacing-m;
+            // display: inline-block;
         }
     }
 }
@@ -465,8 +473,20 @@ body:not(.editmode) {
         body:not(.guides_homepage) #s-lg-index-cols {
             display: grid;
             column-gap: 32px;
-            grid-template-columns: 0 1fr 296px;
+            grid-template-columns: 1fr 296px;
             padding: 0;
+
+            // &:not(.editmode){
+            //     &.row, & .clearfix {
+            //         &:before {
+            //             display: table;
+            //             content: " ";
+            //         }
+            //         &::after {
+            //             clear: both;
+            //         }
+            //     }
+            // }
         }
     }
 body:not(.editmode) {
@@ -480,26 +500,36 @@ body:not(.editmode) {
             max-width: 71em;
             width: auto;
         }
-        #col1,
-        .uql-grid:has(.arrowPanelWithIcon) {
-            width: fit-content;
-            margin-left: -30px;
-        }
     }
 }
 @media (min-width: 75rem) {
     body:not(.editmode):not(.guides_homepage) #s-lg-index-cols {
-        grid-template-columns: 0 1fr 308px;
+        grid-template-columns: 1fr 308px;
 
-        &.row, & .clearfix {
-            &:before {
-                display: table;
-                content: " ";
-            }
-            &::after {
-                clear: both;
-            }
-        }
+        // &.row, & .clearfix {
+        //     &:before {
+        //         display: table;
+        //         content: " ";
+        //     }
+        //     &::after {
+        //         clear: both;
+        //     }
+        // }
+    }
+}
+@media (min-width: 75rem) {
+    body:not(.editmode):not(.guides_homepage) #s-lg-index-cols {
+        grid-template-columns: 1fr 308px;
+
+        // &.row, & .clearfix {
+        //     &:before {
+        //         display: table;
+        //         content: " ";
+        //     }
+        //     &::after {
+        //         clear: both;
+        //     }
+        // }
     }
 }
 body:not(.editmode):not(.guides_homepage) {
@@ -598,18 +628,19 @@ body:not(.editmode) {
     /* styles for enclosing side nav */
 body:not(.editmode) #s-lg-side-nav-content {
     margin-bottom: $section-spacing;
-    &.container::before {
-        content: none;
-    }
+    // &.container::before {
+    //     content: none;
+    // }
     > .row {
         display: grid;
         gap: 0;
         grid-template-columns: var(--layout-sidebar-width) minmax(32px, 80px) minmax(667px, 1fr);
+        
         margin-right: 0;
         margin-left: 0;
-        &::before {
-            content: none;
-        }
+        // &::before {
+        //     content: none;
+        // }
 
         > div {
             width: unset;
@@ -822,10 +853,10 @@ body:not(.editmode) .remove-h2 h2.s-lib-box-title // if the box has built in h2 
         h2 {
             margin-top: 0;
             margin-bottom: 24px;
-            @media (min-width: 75rem) {
-                margin-left: -30px;
-            }
-            padding-left: 1rem;
+            // @media (min-width: 75rem) {
+            //     margin-left: -30px;
+            // }
+            padding-left: 0.5rem;
         }
     }
 
@@ -833,9 +864,7 @@ body:not(.editmode) .remove-h2 h2.s-lib-box-title // if the box has built in h2 
     .uql-grid {
         padding-right: 15px;
         padding-left: 15px;
-        @media (min-width: 75rem) {
-            margin-left: -30px;
-        }
+
         .s-lib-box-container {
             //margin-top: 1.5rem;
             border: 1px solid $borders !important;
@@ -933,6 +962,7 @@ body:not(.editmode) {
         display: grid;
         grid-template-columns: 1fr;
         gap: 24px;
+        width: 100%;
     }
 
     /* Tablet breakpoint - 2 columns */
@@ -1293,9 +1323,9 @@ body:not(.editmode) {
             }
         }
         
-        &::before {
-            content: none;
-        }
+        // &::before {
+        //     content: none;
+        // }
 
         li.previous > a,
         li.previous > span,
@@ -1775,10 +1805,10 @@ body:not(.editmode) {
         content: ' (' attr(title) ')';
     }
 
-    #s-lg-index-cols::after,
-    #s-lg-index-cols::before {
-        content: none !important;
-    }
+    // #s-lg-index-cols::after,
+    // #s-lg-index-cols::before {
+    //     content: none !important;
+    // }
 
     .uql-grid {
         display: block !important;
@@ -1867,12 +1897,12 @@ body.editmode {
     .btn-close {
         font-size: 14px;
     }
-    .s-lg-guide-admin-content {
-        li {
-            .clearfix:before {
-                display: unset;
-                content: unset;
-            }
-        }
-    }
+    // .s-lg-guide-admin-content {
+    //     li {
+    //         .clearfix:before {
+    //             display: unset;
+    //             content: unset;
+    //         }
+    //     }
+    // }
 }
