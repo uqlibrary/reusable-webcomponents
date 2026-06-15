@@ -8,4 +8,9 @@ nde-search-filters-side-nav {
       font-size: 14px;
     }
   }
+  .mat-mdc-checkbox .mat-internal-form-field {
+    label > div {
+      max-width: 185px;
+    }
+  }
 }
