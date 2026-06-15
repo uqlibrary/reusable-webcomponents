@@ -17,9 +17,10 @@ nde-full-display-crl {
   .mat-expansion-panel-body {
     padding: 0 24px 16px;
     a.uql-crl-list-item {
-      /* display: flex;
+      display: inline-flex;
       align-items: center;
-      justify-content: flex-start; */
+      gap: 0.25rem;
+      padding-bottom: 0.25rem;
       span {
         font-size: 15px;
       }
