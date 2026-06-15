@@ -26,16 +26,22 @@ nde-full-display-crl {
       }
     }
     .toggle-show-all-button {
-      display: flex;
-      justify-content: flex-end;
       button {
-        background-color: #51247a;
-        color: #fff;
-        border-color: #51247a;
+        background-color: #fff;
+        border-width: 0;
+        border-color: #fff;
+
         &:hover {
-          background-color: #fff;
-          color: #51247a;
+          span.mat-mdc-button-persistent-ripple::before {
+            opacity: var(--mat-text-button-hover-state-layer-opacity, var(--mat-sys-hover-state-layer-opacity));
+          }
+
+          mat-icon.toggle-long-crl-icon {
+            transform: rotate(180deg);
+          }
         }
+        display: inline-flex;
+        align-items: center;
       }
     }
   }
