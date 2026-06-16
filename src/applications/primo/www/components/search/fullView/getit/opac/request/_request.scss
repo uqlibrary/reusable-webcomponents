@@ -99,6 +99,9 @@ prm-request {
                 background-color: $accent-color;
             }
         }
+        div.relative-position {
+            display: flex;
+        }
         div#form_field_copyrights {
             md-checkbox {
                 &:focus {
