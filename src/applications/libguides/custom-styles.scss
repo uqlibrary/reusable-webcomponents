@@ -196,11 +196,7 @@ $up-arrow: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22%3E%
 * {
     box-shadow: none !important;
 }
-// .row {
-//     > * {
-//         max-width: unset;
-//     }
-// }
+
 svg {
     vertical-align: unset;
 }
@@ -416,11 +412,6 @@ body:not(.editmode):not(.guides_homepage) #s-lg-index-cols {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     
-    // .uq-accordion {
-    //     display: inline-block;
-    //     width: 100%;
-    // }
-
     #col1,
     #col2 {
         width: 100%;
@@ -475,18 +466,6 @@ body:not(.editmode) {
             column-gap: 32px;
             grid-template-columns: 1fr 296px;
             padding: 0;
-
-            // &:not(.editmode){
-            //     &.row, & .clearfix {
-            //         &:before {
-            //             display: table;
-            //             content: " ";
-            //         }
-            //         &::after {
-            //             clear: both;
-            //         }
-            //     }
-            // }
         }
     }
 body:not(.editmode) {
@@ -505,36 +484,12 @@ body:not(.editmode) {
 @media (min-width: 75rem) {
     body:not(.editmode):not(.guides_homepage) #s-lg-index-cols {
         grid-template-columns: 1fr 308px;
-
-        // &.row, & .clearfix {
-        //     &:before {
-        //         display: table;
-        //         content: " ";
-        //     }
-        //     &::after {
-        //         clear: both;
-        //     }
-        // }
     }
 }
-@media (min-width: 75rem) {
-    body:not(.editmode):not(.guides_homepage) #s-lg-index-cols {
-        grid-template-columns: 1fr 308px;
 
-        // &.row, & .clearfix {
-        //     &:before {
-        //         display: table;
-        //         content: " ";
-        //     }
-        //     &::after {
-        //         clear: both;
-        //     }
-        // }
-    }
-}
 body:not(.editmode):not(.guides_homepage) {
     @media (max-width: 640px) {
-        a {
+        a:not(#s-lg-guide-tabs a) {
             padding-top: unset;
             padding-bottom: unset;
         }
@@ -628,9 +583,7 @@ body:not(.editmode) {
     /* styles for enclosing side nav */
 body:not(.editmode) #s-lg-side-nav-content {
     margin-bottom: $section-spacing;
-    // &.container::before {
-    //     content: none;
-    // }
+
     > .row {
         display: grid;
         gap: 0;
@@ -638,9 +591,6 @@ body:not(.editmode) #s-lg-side-nav-content {
         
         margin-right: 0;
         margin-left: 0;
-        // &::before {
-        //     content: none;
-        // }
 
         > div {
             width: unset;
@@ -853,9 +803,6 @@ body:not(.editmode) .remove-h2 h2.s-lib-box-title // if the box has built in h2 
         h2 {
             margin-top: 0;
             margin-bottom: 24px;
-            // @media (min-width: 75rem) {
-            //     margin-left: -30px;
-            // }
             padding-left: 0.5rem;
         }
     }
@@ -866,13 +813,11 @@ body:not(.editmode) .remove-h2 h2.s-lib-box-title // if the box has built in h2 
         padding-left: 15px;
 
         .s-lib-box-container {
-            //margin-top: 1.5rem;
             border: 1px solid $borders !important;
             border-radius: 4px;
             background-color: #fff;
             .s-lib-box-content h3 {
                 margin-top: 0;
-                //margin: 0 0 0 0;
             }
         }
         p {
@@ -1322,10 +1267,6 @@ body:not(.editmode) {
                 display: unset;
             }
         }
-        
-        // &::before {
-        //     content: none;
-        // }
 
         li.previous > a,
         li.previous > span,
@@ -1805,11 +1746,6 @@ body:not(.editmode) {
         content: ' (' attr(title) ')';
     }
 
-    // #s-lg-index-cols::after,
-    // #s-lg-index-cols::before {
-    //     content: none !important;
-    // }
-
     .uql-grid {
         display: block !important;
     }
@@ -1881,9 +1817,6 @@ body:not(.editmode) {
 }
 
 body.editmode {
-    // .nav > li {
-    //     width: 100%;
-    // }
     .nav-tabs > li > a[aria-selected="false"]:hover {
         background-color: #51247a;
         color: white;
