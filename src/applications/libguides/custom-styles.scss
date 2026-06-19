@@ -1585,6 +1585,11 @@ body:not(.editmode) {
             margin-bottom: 0;
         }
     }
+    table.table-bordered {
+        & > :not(caption) > * {
+            border: none;
+        }
+    }
 
     // youtube videos should be 100% width https://stackoverflow.com/a/78418428/1246313
     div:has(> iframe[title='YouTube video player']) {
