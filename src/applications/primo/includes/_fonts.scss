@@ -176,6 +176,15 @@
 
   --mdc-plain-tooltip-supporting-text-weight: 400;
   --mdc-plain-tooltip-supporting-text-size: 14px;
+
+  --darkText: #3b383e;
+
+  --uq-heading-1: 500 40px / 1.2 var(--uq-h1-font-family); // only H1 takes Montserrat
+  --uq-heading-2: 500 32px / 1.2 var(--uq-body-font-family);
+  --uq-heading-3: 500 24px / 1.2 var(--uq-body-font-family);
+  --uq-heading-4: 500 20px / 1.2 var(--uq-body-font-family);
+  --uq-heading-5: 500 18px / 1.2 var(--uq-body-font-family);
+  --uq-heading-6: 500 16px / 1.2 var(--uq-body-font-family);
 }
 body.custom-nde-theme {
   font: 16px/1.5 var(--uq-body-font-family);
