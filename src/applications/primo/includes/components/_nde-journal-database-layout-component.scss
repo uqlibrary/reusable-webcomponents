@@ -12,9 +12,9 @@ nde-journal-database-layout-component {
   h2, h2 span {
     font-weight: 500;
     font-size: 32px;
-    color: #333;
-    --sys-title-large: 500 32px / 1.2 var(--uq-body-font-family); /* body heading */
-    --sys-title-small: 500 32px / 1.2 var(--uq-body-font-family); /* sidebar heading */
+    color: var(--uq-heading-color);
+    --sys-title-large: var(--uq-heading-2); /* body heading */
+    --sys-title-small: var(--uq-heading-2); /* sidebar heading */
   }
 
   aside.sidebar {
@@ -22,7 +22,7 @@ nde-journal-database-layout-component {
   }
 
   h3 {
-    --sys-title-small: 500 24px / 1.2 var(--uq-body-font-family);
+    --sys-title-small: var(--uq-heading-3);
   }
 
   nde-database-home-page {
@@ -35,6 +35,9 @@ nde-journal-database-layout-component {
           display: none; /* hide the big useless icon */
         }
       }
+    }
+    .description-container {
+      border-radius: var(--uq-border-radius);
     }
   }
 }
