@@ -45,6 +45,9 @@ nde-collection-discovery-container {
       .collection-discovery-search-bar {
         border-radius: var(--uq-border-radius);
         background-color: #fff;
+        input {
+          --darkText: var(--uq-body-copy);
+        }
       }
     }
     nde-collection-discovery-gallery {
