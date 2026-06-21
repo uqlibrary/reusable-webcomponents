@@ -12,6 +12,7 @@ nde-journal-database-layout-component {
   h2, h2 span {
     font-weight: 500;
     font-size: 32px;
+    --sys-on-background: var(--uq-heading-color);
     color: var(--uq-heading-color);
     --sys-title-large: var(--uq-heading-2); /* body heading */
     --sys-title-small: var(--uq-heading-2); /* sidebar heading */
@@ -22,6 +23,7 @@ nde-journal-database-layout-component {
   }
 
   h3 {
+    --sys-on-background: var(--uq-heading-color);
     --sys-title-small: var(--uq-heading-3);
   }
 
