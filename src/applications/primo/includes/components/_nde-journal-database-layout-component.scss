@@ -42,4 +42,16 @@ nde-journal-database-layout-component {
       border-radius: var(--uq-border-radius);
     }
   }
+  nde-search-result-item-container {
+    nde-record-type {
+      span {
+      --sys-outline: var(--uq-body-copy);
+      }
+    }
+    nde-record-summary {
+      p nde-highlight span {
+      --mat-app-text-color: var(--uq-body-copy);
+      }
+    }
+  }
 }
