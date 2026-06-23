@@ -297,6 +297,15 @@ body.custom-nde-theme {
     border-radius: var(--uq-border-radius);
   }
   /* END style "did you mean" div as alert  */
+
+  /* style error page login prompt */
+  nde-full-display-error-page .second-line:has(nde-login) {
+    background-color: var(--uq-background-alert-info);
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+    padding-inline: 1rem;
+  }
+  /* END style error page login prompt */
 }
 
 @media (max-width: 1919.9px) {
