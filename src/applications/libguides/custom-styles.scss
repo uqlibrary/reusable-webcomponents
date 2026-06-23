@@ -692,6 +692,11 @@ body:not(.editmode) {
             margin-top: 0;
             margin-bottom: 16px;
         }
+        div[id^="s-lg-content-"] {
+            h5,h6{
+                margin-top: 1.5rem;
+            }
+        }
         ol,
         ul {
             margin-bottom: $spacing-m;
@@ -995,13 +1000,29 @@ body:not(.editmode) {
         }
     }
 
-    /* adjust bottom margin of consecutive div->ul elements */
+    /* 
+    multiple adjacent ULs can be displayed in what
+    appears to be a single UL list, causing margin
+    issues e.g. https://guides.library.uq.edu.au/subject/medicine 
+    Adjust margins manually, whilst also accounting for
+    content divs that may appear in between UL parent divs
+    */
     #s-lg-col-1 {
         .s-lib-box-content {
             & div:not(:last-child) {
                 & ul.s-lg-link-list {
                     margin-bottom: 1.5rem;
                 }
+            }
+            > div:has(>ul.s-lg-link-list) {
+                 &:not(:last-child) {
+                    ul.s-lg-link-list {
+                        margin-bottom: 0.5rem;
+                    }
+                 }
+                 &+div[id^="s-lg-content-"]{
+                    margin-top: 1.5rem;
+                 }
             }
         }
     }
