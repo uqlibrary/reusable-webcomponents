@@ -394,6 +394,13 @@ blockquote {
     }
 }
 
+.clearfix {
+    &::before, &::after {
+        display: unset;
+        content: unset;
+    }
+}
+
 body:not(.editmode) {
     .s-lib-box .row #accor {
         border-radius: 0;
@@ -993,7 +1000,7 @@ body:not(.editmode) {
         .s-lib-box-content {
             & div:not(:last-child) {
                 & ul.s-lg-link-list {
-                    margin-bottom: 0.5rem;
+                    margin-bottom: 1.5rem;
                 }
             }
         }
@@ -1828,7 +1835,7 @@ body:not(.editmode) {
         button h5 {
             margin-bottom: 0;
         }
-        &.uq-accordion__item--is-open div div > :last-child {
+        &.uq-accordion__item--is-open div div > :last-child:not(:is(h1, h2, h3, h4, h5, h6)) {
             margin-bottom: 0;
         }
     }
@@ -1850,9 +1857,11 @@ body.editmode {
     }
     .s-lg-guide-admin-content {
         li {
-            .clearfix:before {
-                display: unset;
-                content: unset;
+            .clearfix {
+                &::before, &::after {
+                    display: unset;
+                    content: unset;
+                }
             }
         }
     }
