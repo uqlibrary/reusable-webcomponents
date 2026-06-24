@@ -306,17 +306,6 @@ body.custom-nde-theme {
     padding-inline: 1rem;
   }
   /* END style error page login prompt */
-
-  /* fix different alignment on settings page to other Account area tabs  */
-  nde-personal-info {
-    > div:first-child {
-      margin-bottom: 0;
-    }
-    .settings-cards {
-      margin-top: 20px
-    }
-  }
-  /* END fix different alignment on settings page to other Account area tabs  */
 }
 
 @media (max-width: 1919.9px) {
