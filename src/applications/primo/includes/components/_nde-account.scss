@@ -8,7 +8,7 @@ nde-account {
     width: var(--layout-sidebar-width-drupal-sidebar) !important;
     gap: 0;
 
-    span {
+    span:not(.mat-badge-content.mat-badge-active) {
       font-size: var(--mdc-text-button-label-text-weight);
     }
 
@@ -19,7 +19,6 @@ nde-account {
     }
 
     li {
-      //--sys-primary-container: var(--uq-colour-grey-200);
       border-bottom: 1px solid var(--border-colour-drupal-sidebar);
       position: relative;
       margin: 0;
@@ -59,8 +58,8 @@ nde-account {
           color: var(--uq-colour-black);
           padding-right: 0.5rem;
 
-          &:focus *,
-          &:hover * {
+          &:focus *:not(mat-icon),
+          &:hover *:not(mat-icon) {
             background-color: var(--uq-colour-grey-100);
           }
 
@@ -87,8 +86,8 @@ nde-account {
   a.mdc-button .account-badge-warn {
     --sys-error: var(--uq-error-500);
   }
-  a.mdc-button:hover .account-badge-warn {
-    --uq-colour-grey-100: var(--uq-error-500);
+  a.mdc-button:hover mat-icon.account-badge-warn span.mat-badge-content { // 'span' within this is the little red dot on the Loans tab
+    background-color: var(--uq-error-500);
     border-radius: var(--uq-border-radius) !important;
   }
   /* END the dot on the Loans item should not hover to blank */
