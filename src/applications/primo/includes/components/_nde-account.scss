@@ -92,4 +92,26 @@ nde-account {
     border-radius: var(--uq-border-radius) !important;
   }
   /* END the dot on the Loans item should not hover to blank */
+
+  /* fix different alignment on settings page to other Account area tabs  */
+  nde-personal-info {
+    > div:first-child {
+      margin-bottom: 0;
+    }
+    .settings-cards {
+      margin-top: 20px
+    }
+  }
+  /* END fix different alignment on settings page to other Account area tabs  */
+
+  /* layout the actual info links that we add in nde-account-info-links-custom cutomisation */
+  .stackable-links {
+    display: flex;
+    column-gap: 1rem;
+    a {
+      display: inline-flex;
+      margin-block: 0.5rem;
+    }
+  }
+  /* END layout the actual info links that we add in nde-account-info-links-custom cutomisation */
 }
