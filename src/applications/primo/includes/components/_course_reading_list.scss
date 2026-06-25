@@ -1,4 +1,5 @@
-nde-full-display-crl {
+nde-full-display-crl, // will be redundant when this the rename just below is everywhere
+uql-course-reading-list-sidebar-panel {
   .mat-expansion-panel {
     .mat-expansion-panel-header:not(.mat-expanded):not([aria-disabled=true]):hover {
       background: var(--mat-expansion-header-hover-state-layer-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-hover-state-layer-opacity) * 100%), transparent));
