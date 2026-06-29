@@ -61,6 +61,7 @@ class ApiAccess {
     }
 
     async loadTrainingEvents(maxEventCount, filterId) {
+        // can be called from logged in homepage, drupal and guides
         const trainingApi = new ApiRoutes().TRAINING_API();
         const urlPath = trainingApi.apiUrl;
         const filter = {

@@ -90,6 +90,64 @@ prm-request {
         color: $accent-color;
     }
     @include requestFormRadioButtons($accent-color);
+
+    prm-form-field {
+        button.auto-fill-rsh-form {
+            color: $accent-color;
+            &.md-button:hover:not([disabled]),
+            &.md-button:focus:not([disabled]) {
+                background-color: $accent-color;
+            }
+        }
+        div.relative-position {
+            display: flex;
+        }
+        div#form_field_copyrights {
+            md-checkbox {
+                &:focus {
+                    outline: none;
+
+                    .md-icon {
+                        outline: -webkit-focus-ring-color auto 0;
+                    }
+                }
+            }
+        }
+        .request-form-headline {
+            font-family: $serif;
+            color: $uqGrey900;
+        }
+    }
+
+    .validationFeedback {
+        background-color: $uqError50;
+        color: $uqBlack;
+        padding-left: 4rem;
+        padding-top: 2rem;
+        &:before {
+            content: "";
+            background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='12' cy='12' r='9.25' stroke='%233b383e' stroke-width='1.5'%3e%3c/circle%3e%3cpath d='m8.5 8.5 7 7M15.5 8.5l-7 7' stroke='%233b383e' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-size: 1.5rem;
+            width: 1.5rem;
+            height: 1.5rem;
+            position: absolute;
+            left: 2.5rem
+        }
+        > span {
+            font-weight: 500;
+            line-height: 1.2;
+            font-size: 1.375rem;
+        }
+        li button.neutralized-button {
+            color: $uqBlack;
+            font-weight: 400;
+        }
+    }
+    &[blank-service="AlmaResourceSharing"] prm-form-field.service-form-item md-input-container.md-primoExplore-theme {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
 }
 
 prm-blank-purchase-request {
