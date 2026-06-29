@@ -5,6 +5,7 @@ uql-course-reading-list-sidebar-panel {
       background: var(--mat-expansion-header-hover-state-layer-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-hover-state-layer-opacity) * 100%), transparent));
     }
   }
+  // note these styles are also set in repo exlibris-primo src/assets/css/custom.css to avoid a fouc
   mat-expansion-panel.mat-expansion-panel {
     background-color: var(--whiteBG);
     margin-bottom: 1rem;
