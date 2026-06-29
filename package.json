@@ -41,7 +41,7 @@
   "homepage": "https://library.uq.edu.au",
   "devDependencies": {
     "@axe-core/playwright": "^4.11.0",
-    "@babel/core": "^7.22.9",
+    "@babel/core": "^7.29.6",
     "@babel/eslint-parser": "^7.22.9",
     "@babel/preset-env": "^7.22.9",
     "@babel/preset-react": "^7.22.5",
