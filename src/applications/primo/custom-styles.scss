@@ -2152,14 +2152,12 @@ prm-tags-list md-chips .md-chip .md-chip-content:hover alma-howovp .neutralized-
 prm-tags-list md-chips .md-chip .md-chip-content:hover alma-howovp .neutralized-button:hover strong,
 prm-tags-list md-chips md-chip .md-chip-content:hover alma-howovp .neutralized-button:focus strong,
 prm-tags-list md-chips md-chip .md-chip-content:hover alma-howovp .neutralized-button:hover strong {
-    //box-shadow: inset 0 -2px 0 0 $accent-color;
     box-shadow: none;
 }
 .neutralized-button.layout-full-width.layout-display-flex.md-button.md-ink-ripple.md-primoExplore-theme:not(:has(a)) span:first-of-type {
     color: $theme-color;
 }
-.neutralized-button.layout-full-width.layout-display-flex.md-button.md-ink-ripple.md-primoExplore-theme:not(:has(a)):hover span:first-of-type:hover {
-    //box-shadow: inset 0 -2px 0 0 $accent-color;
+body:not(:has(alma-howovp)) .neutralized-button.layout-full-width.layout-display-flex.md-button.md-ink-ripple.md-primoExplore-theme:not(:has(a)):hover span:first-of-type:hover {
     box-shadow: none;
     width: 12em;
 }
