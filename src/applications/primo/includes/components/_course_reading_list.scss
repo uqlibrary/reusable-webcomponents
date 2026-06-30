@@ -37,7 +37,8 @@ uql-course-reading-list-sidebar-panel {
           span.mat-mdc-button-persistent-ripple::before {
             opacity: var(--mat-text-button-hover-state-layer-opacity, var(--mat-sys-hover-state-layer-opacity));
           }
-
+        }
+        &.noneHidden {
           mat-icon.toggle-long-crl-icon {
             transform: rotate(180deg);
           }
