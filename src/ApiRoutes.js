@@ -35,7 +35,7 @@ class ApiRoutes {
     // Primo Suggestions API
     PRIMO_SUGGESTIONS_API_GENERIC = (keyword) => {
         return {
-            apiUrl: 'alma/autocomplete?q=' + encodeURIComponent(keyword) + '&rows=10',
+            apiUrl: 'alma/autocomplete?query=' + encodeURIComponent(keyword) + '&rows=10',
         };
     };
 
