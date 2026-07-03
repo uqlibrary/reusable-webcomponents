@@ -33,15 +33,9 @@ class ApiRoutes {
     }
 
     // Primo Suggestions API
-    // https://search.library.uq.edu.au/primaws/rest/pub/suggest?lang=en&q=cows&scope=61UQ_All&vid=61UQ_INST:61UQ
     PRIMO_SUGGESTIONS_API_GENERIC = (keyword) => {
         return {
-            apiUrl:
-                'https://search.library.uq.edu.au/primaws/rest/pub/suggest?lang=en&q=' +
-                keyword +
-                '&scope=61UQ_All&vid=61UQ_INST:61UQ' +
-                '&wt=json' +
-                '&json.wrf=byutv_jsonp_callback_c631f96adec14320b23f1cac342d30f6',
+            apiUrl: 'alma/autocomplete?query=' + encodeURIComponent(keyword) + '&rows=10',
         };
     };
 
