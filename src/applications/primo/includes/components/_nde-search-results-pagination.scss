@@ -16,6 +16,8 @@ nde-search-results-pagination {
     button.current-page {
       --sys-primary-container: var(--uq-main-purple);
       color: #fff;
+      border: 1px solid var(--uq-main-purple);
+      border-radius: 40px;
     }
     button:not(.current-page) {
       &:hover, &:focus {
