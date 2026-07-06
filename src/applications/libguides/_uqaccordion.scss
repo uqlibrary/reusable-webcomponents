@@ -10,14 +10,21 @@ and find the page you want either by filtering by Name or choosing the right Gro
   line-height: 1.6;
   list-style: none;
   margin-bottom: 1.5rem;
-  padding: 0
+  padding: 0;
+  display: inline-block;
+  width: 100%;
 }
 
 .uq-accordion__item {
   background: #fff;
   border: 1px solid #dcdcdd;
   border-radius: 2px;
-  margin-bottom: .5rem
+  margin-bottom: 0.5rem;
+  
+  &:last-child{
+    margin-bottom: 0;
+  }
+
 }
 
 .uq-accordion__toggle {
