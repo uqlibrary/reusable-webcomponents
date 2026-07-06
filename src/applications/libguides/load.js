@@ -112,8 +112,10 @@
         let drupalScriptUrl = getIncludeFullPath('drupal-lib-reusable.min.js');
         insertScript(drupalScriptUrl, true);
 
-        const cssFileName = getIncludeFullPath('applications/libguides/custom-styles.css');
-        // insertCssFile(cssFileName); // TODO - restore when ready to go live
+        // No longer need the script to do this when the css file is already included in
+        // the look & feel settings.
+        // const cssFileName = getIncludeFullPath('applications/libguides/custom-styles.css');
+        // insertCssFile(cssFileName); 
 
         const waitForBody = setInterval(() => {
             const firstElement = document.body.children[0];
