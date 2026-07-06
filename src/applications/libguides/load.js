@@ -229,10 +229,8 @@
 
     function isInEditMode() {
         if (window.location.hostname === 'uq.libapps.com' && window.location.pathname.startsWith('/libguides/admin')) {
-            console.log('edit mode detected');
             return true;
         }
-        console.log('not in edit mode');
         return false;
     }
 
