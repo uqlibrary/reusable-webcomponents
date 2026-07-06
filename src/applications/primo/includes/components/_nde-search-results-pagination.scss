@@ -22,8 +22,9 @@ nde-search-results-pagination {
     button:not(.current-page) {
       &:hover, &:focus {
         background-color: var(--uq-panel-background);
-        border: 1px solid var(--uq-panel-background);
+        border: 2px solid var(--uq-panel-background);
         color: var(--uq-body-copy) !important;
+        border-radius: 40px;
       }
     }
     li:last-of-type,
