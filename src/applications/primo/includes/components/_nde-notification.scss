@@ -10,6 +10,42 @@ nde-notification {
       --sys-primary: var(--uq-body-copy);
       --valid: var(--uq-body-copy); // icon colour on "saved search' confirmation
     }
+    span.notification-text {
+      font-size: 1rem;
+    }
+  }
+
+  /* login prompt */
+  &:not(:has(.notification-container > div > mat-icon)) { // we dont apply this to instances where the "i" icon is already in place
+    &:has(nde-login) { // this only applies to login banners, but could be expanded?
+      display: block;
+
+      div.notification-container {
+        display: block;
+        width: 100%;
+        padding: 0;
+        background-color: #e7f0fa;
+        position: relative;
+
+        & > div {
+          padding: 1rem;
+          padding-left: 3rem;
+        }
+
+        &:before {
+          content: "";
+          // DS info icon
+          background-image: var(--uq-icon--info);
+          background-repeat: no-repeat;
+          background-size: 1.5rem;
+          width: 1.5rem;
+          height: 1.5rem;
+          position: absolute;
+          top: 1.5rem;
+          left: 1rem;
+        }
+      }
+    }
   }
 }
 
