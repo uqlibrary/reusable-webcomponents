@@ -41,7 +41,7 @@
   "homepage": "https://library.uq.edu.au",
   "devDependencies": {
     "@axe-core/playwright": "^4.11.0",
-    "@babel/core": "^7.22.9",
+    "@babel/core": "^7.29.6",
     "@babel/eslint-parser": "^7.22.9",
     "@babel/preset-env": "^7.22.9",
     "@babel/preset-react": "^7.22.5",
@@ -81,7 +81,7 @@
     "style-loader": "^3.3.4",
     "webpack": "^5.105.0",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^5.2.4"
+    "webpack-dev-server": "^5.2.5"
   },
   "dependencies": {
     "core-js": "^3.46.0",
