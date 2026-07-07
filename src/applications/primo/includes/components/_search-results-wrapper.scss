@@ -2,12 +2,20 @@
   nde-search-results-top-bar {
     nde-results-range {
       min-width: 70px;
+      .number-of-results {
+        color: var(--uq-main-purple);
+        font-size: 1rem;
+        &:after {
+          content: " | ";
+          padding-left: 0.3rem;
+        }
+      }
     }
     & > div {
       --lightBG: var(--uq-colour-purple-50);
     }
     .results-top-bar-container {
-      border-radius: .25rem .25rem 0 0;
+      border-radius: var(--uq-border-radius) var(--uq-border-radius) 0 0 !important;
     }
   }
 
@@ -23,6 +31,12 @@
     .search-results-container {
       --border: #dcdcdd;
       border-radius: 0 0 .25rem .25rem;
+    }
+
+    nde-record-summary {
+      p {
+        color: var(--uq-body-copy);
+      }
     }
   }
 }
