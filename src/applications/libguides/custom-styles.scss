@@ -395,9 +395,11 @@ blockquote {
 }
 
 .clearfix {
-    &::before, &::after {
-        display: unset;
-        content: unset;
+    &:not(.s-lg-book) {
+        &::before, &::after {
+            display: unset;
+            content: unset;
+        }
     }
 }
 
@@ -704,7 +706,6 @@ body:not(.editmode) {
             padding-left: $spacing-m;
             li {
                 margin-bottom: $spacing-xs;
-                overflow: hidden;
             }
 
             li:last-child {
