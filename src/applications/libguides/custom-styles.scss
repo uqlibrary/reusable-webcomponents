@@ -395,9 +395,11 @@ blockquote {
 }
 
 .clearfix {
-    &::before, &::after {
-        display: unset;
-        content: unset;
+    &:not(.s-lg-book) {
+        &::before, &::after {
+            display: unset;
+            content: unset;
+        }
     }
 }
 
