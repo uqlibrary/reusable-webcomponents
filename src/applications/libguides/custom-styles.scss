@@ -704,6 +704,7 @@ body:not(.editmode) {
             padding-left: $spacing-m;
             li {
                 margin-bottom: $spacing-xs;
+                overflow: hidden;
             }
 
             li:last-child {
