@@ -2582,8 +2582,16 @@ md-dialog.light-on-dark-dialog.tabbed-dialog {
             }
         }
     }
-    & .md-button:has(button[aria-label="Log in using your UQ credentials "]) {
-        &:hover {
+    & .md-button {
+        &:has(button[aria-label="Log in using your UQ credentials "]) {
+            &:hover {
+                div:has(> prm-login-item) {
+                    text-decoration: underline;
+                }
+            }
+        }
+        &:has(button[aria-label="Log in using your UQ credentials "].md-focused),
+        &:has(button[aria-label="Log in using your UQ credentials "]:focus) {
             div:has(> prm-login-item) {
                 text-decoration: underline;
             }
