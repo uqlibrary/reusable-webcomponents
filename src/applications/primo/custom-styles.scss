@@ -2573,11 +2573,38 @@ md-dialog.light-on-dark-dialog.tabbed-dialog {
     button.button-confirm {
         @include uqPrimaryButton($accent-color, $white);
     }
-    button:not(.button-confirm)
-    {
+    button[aria-label="Log in using your UQ credentials "] {
+        border: 2px solid $uqPurple500;
+        border-radius: 4px;
+    }
+    button:not(.button-confirm):not(button[aria-label="Log in using your UQ credentials "]) {
         @include uqTertiaryButton($white, $accent-color);
         border-width: 0;
         display: flex;
+    }
+    & .md-button:has(button[aria-label="Log in using your UQ credentials "]) {
+        div:has(> prm-login-item) {
+            color: $uqPurple500;
+            prm-icon {
+                opacity: 1;
+                fill: $uqPurple500;
+            }
+        }
+    }
+    & .md-button {
+        &:has(button[aria-label="Log in using your UQ credentials "]) {
+            &:hover {
+                div:has(> prm-login-item) {
+                    text-decoration: underline;
+                }
+            }
+        }
+        &:has(button[aria-label="Log in using your UQ credentials "].md-focused),
+        &:has(button[aria-label="Log in using your UQ credentials "]:focus) {
+            div:has(> prm-login-item) {
+                text-decoration: underline;
+            }
+        }
     }
 }
 
