@@ -1,9 +1,16 @@
 version: 0.2
 
+# Run this on the official Playwright image, set as the CodeBuild PROJECT's
+# environment image (Edit project -> Environment -> External registry URL):
+#   mcr.microsoft.com/playwright:v1.56.1-noble
+# The image ships Chromium + all its system libraries and Node preinstalled, so
+# CI does not download browsers, run playwright install-deps, or juggle Node
+# versions (n/nvm). Keep the tag in sync with @playwright/test in package.json.
+
 env:
-  #variables:
-     # key: "value"
-     # key: "value"
+  variables:
+    # allow global npm installs while running as root on the Playwright image
+    npm_config_unsafe_perm: "true"
   parameter-store:
     PT_PROJECT: "/CodeBuild/reusable-webcomponents/PT_PROJECT"
     PT_TOKEN: "/CodeBuild/reusable-webcomponents/PT_TOKEN"
@@ -25,20 +32,12 @@ env:
   #build-graph:
 phases:
   install:
-    runtime-versions:
-      java: corretto11
-      nodejs: 14
     commands:
-      - n 18
-      - set
-      - sysctl fs.inotify.max_user_watches
-      - sysctl fs.inotify.max_user_watches=524288
-      - sysctl fs.inotify.max_user_watches
+      - sysctl fs.inotify.max_user_watches=524288 || true
       - chmod a+x -R bin/*
       - bin/codebuild-setup.sh
   pre_build:
     commands:
-      - set
       - bin/codebuild-test.sh
   build:
     commands:
