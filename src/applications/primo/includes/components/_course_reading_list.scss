@@ -51,7 +51,7 @@ uql-course-reading-list-sidebar-panel {
   ul.course-resource-list li {
     margin-bottom: 0.25rem;
     &.uql-crl-list.uql-crl-list-hidden {
-      display: none;
+      display: none; // this line is duplicated into exlibris-primo/src/assets/css/custom.css to stop the hidden items from appearing on load
     }
   }
 }
