@@ -105,7 +105,7 @@ and find the page you want either by filtering by Name or choosing the right Gro
     flex-wrap: wrap
   }
 
-  &:not(.collapsed), &.uq-accordion__toggle--active {
+ &.uq-accordion__toggle--active {
     @include toggleActiveBefore();
     background: #fff;
 
