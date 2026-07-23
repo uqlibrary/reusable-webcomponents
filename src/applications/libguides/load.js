@@ -136,6 +136,8 @@
 
             replaceSpringShareSidebarMenu();
 
+            adjustAccordionHeaderLevels();
+
             if (!!isInEditMode()) {
                 fixEditControlPlacement();
             } else {
@@ -615,6 +617,26 @@
 
             return processedContent;
         }
+    }
+
+    /**
+     * Native BS5 accordions use a H2 for the header, however we require
+     * the use of H3 to maintain correct document hierarchy for screen readers.
+     * Rather than change the actual HTML, instead leverage the aria-level 
+     * attribute to indicate the correct heading level.
+     */
+    function adjustAccordionHeaderLevels() {
+        const accordions = document.querySelectorAll('div.accordion');
+            if (!accordions || accordions.length === 0) {
+            return;
+        }
+
+        accordions.forEach((accordion) => {
+            const headers = accordion.querySelectorAll('h2.accordion-header');
+            headers.forEach((header) => {
+                header.setAttribute('aria-level', '3');
+            });
+        });
     }
 
     function replaceSpringShareSidebarMenu() {

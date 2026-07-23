@@ -1870,6 +1870,9 @@ body:not(.editmode) {
             margin-bottom: 1.5rem;
 
             .s-lib-box-title {
+                &.s-lib-box-title-collapsible {
+                    margin-top: 0;
+                }
                 margin-bottom: 0;
                 padding: 1rem 1.5rem 1rem 1.5rem;
                 border: 0;
