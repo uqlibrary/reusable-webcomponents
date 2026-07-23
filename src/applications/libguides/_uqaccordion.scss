@@ -158,6 +158,8 @@ and find the page you want either by filtering by Name or choosing the right Gro
   font-size: 1.5rem;
   
   &:not(.collapsed) {
+    @include toggleActiveBefore();
+    
     color: #3b383e;
     background-color: #fff;
   }
