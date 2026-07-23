@@ -27,9 +27,9 @@ phases:
   install:
     runtime-versions:
       java: corretto11
-      nodejs: 24
+      nodejs: 14
     commands:
-      - n 24.15.0
+      - n 18
       - set
       - sysctl fs.inotify.max_user_watches
       - sysctl fs.inotify.max_user_watches=524288
