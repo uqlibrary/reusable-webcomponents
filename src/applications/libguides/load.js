@@ -97,6 +97,20 @@
         }
     }
 
+    function adjustScrollPositionForHashLinks() {
+        // AD-1111 check if there is a hashtag in the current URL
+        if (window.location.hash) {
+            const targetElement = document.querySelector(window.location.hash);
+            
+            if (targetElement) {
+                // wrap in a tiny timeout to ensure the DOM layout engine has settled
+                setTimeout(() => {
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            }
+        }
+    }
+
     function applyUQLItemsToGuides() {
         if (window.location.hostname === 'localhost') {
             testIncludePathGeneration();
@@ -215,6 +229,10 @@
 
                 const headElement = document.querySelector('head');
                 !!editModeStyles && !!headElement && headElement.appendChild(editModeStyles.content.cloneNode(true));
+            }
+
+            if(!!isInEditMode()) {
+                adjustScrollPositionForHashLinks();
             }
         }, 100);
     }
