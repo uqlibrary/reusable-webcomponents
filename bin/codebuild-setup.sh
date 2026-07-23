@@ -6,11 +6,11 @@ set -e
 printf "Node "; node -v;
 printf "(Codeship default) npm v"; npm -v
 
-printf "\n\n--- SET VERSION OF NPM ---\n"
-echo "$ nvm use 24.16.0 && nvm use 24.16.0 && npm i -g npm@11 webpack-dev-server"
-nvm use 24.16.0 && npm i -g npm@11 webpack-dev-server
-
-printf "\nNow running npm v"; npm -v
+#printf "\n\n--- SET VERSION OF NPM ---\n"
+#echo "$ nvm use 24.16.0 && nvm use 24.16.0 && npm i -g npm@11 webpack-dev-server"
+#nvm use 24.16.0 && npm i -g npm@11 webpack-dev-server
+#
+#printf "\nNow running npm v"; npm -v
 
 printf "\n$ npm cache clear\n"
 # npm cache verify
