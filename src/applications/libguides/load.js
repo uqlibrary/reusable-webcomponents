@@ -105,8 +105,9 @@
             if (targetElement) {
                 // wrap in a tiny timeout to ensure the DOM layout engine has settled
                 setTimeout(() => {
+                    console.log('SCROLL FIX');
                     targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 100);
+                }, 1000);
             }
         }
     }
@@ -231,7 +232,7 @@
                 !!editModeStyles && !!headElement && headElement.appendChild(editModeStyles.content.cloneNode(true));
             }
 
-            if(!!isInEditMode()) {
+            if(!isInEditMode()) {
                 adjustScrollPositionForHashLinks();
             }
         }, 100);
