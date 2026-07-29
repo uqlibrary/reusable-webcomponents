@@ -105,7 +105,6 @@
             if (targetElement) {
                 // wrap in a tiny timeout to ensure the DOM layout engine has settled
                 setTimeout(() => {
-                    console.log('SCROLL FIX');
                     targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }, 1000);
             }
