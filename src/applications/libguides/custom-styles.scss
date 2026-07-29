@@ -1366,7 +1366,7 @@ body:not(.editmode) {
     }
 
     // 3 styles of boxes, info, alert & callout
-    .s-lib-box-content {
+    .s-lib-box-content:not(.s-lib-box-collapsible) {
         &:has(.highlight-info),
         &:has(.highlight-alert),
         &:has(.highlight-callout) {
@@ -1374,7 +1374,7 @@ body:not(.editmode) {
             padding: 0 !important;
         }
     }
-    .s-lib-box.s-lib-box-std {
+    .s-lib-box.s-lib-box-std:not(.s-lib-box-collapsible) {
         &:has(.highlight-info),
         &:has(.highlight-alert),
         &:has(.highlight-callout) {
