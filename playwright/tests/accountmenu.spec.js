@@ -36,7 +36,7 @@ async function assertUserHasStandardMyLibraryOptions(userid, page) {
     await expect(authButton.locator('li a[data-testid="mylibrary-menu-print-balance"]')).toHaveText('Print balance');
     await expect(authButton.locator('li a[data-testid="mylibrary-menu-room-bookings"]')).toBeVisible();
     await expect(authButton.locator('li a[data-testid="mylibrary-menu-room-bookings"]')).toHaveText(
-        'Book a room or desk',
+        'Find library study spaces',
     );
     await expect(authButton.locator('li a[data-testid="mylibrary-menu-saved-items"]')).toBeVisible();
     await expect(authButton.locator('li a[data-testid="mylibrary-menu-saved-items"]')).toHaveText('Favourites');

@@ -186,7 +186,7 @@ class AuthButton extends HTMLElement {
                                     <path d="M7.79688 7.21364V3" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
                                     <path d="M16.2441 7.21364V3" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
-                                <span><span>Book a room or desk</span></span>
+                                <span><span>Find library study spaces</span></span>
                             </a>
                         </li>
                         
