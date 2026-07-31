@@ -199,6 +199,9 @@ class UQSiteHeader extends HTMLElement {
     setSecondLevelUrl(newSecondLevelURL) {
         const subsiteBreadcrumb =
             !!this.shadowRoot && this.shadowRoot.getElementById('secondlevel-site-breadcrumb-link');
+        if (window.location.host === 'homepage-development.library.uq.edu.au') {
+            newSecondLevelURL = 'https://homepage-development.library.uq.edu.au/spaces-latest/#' + newSecondLevelURL;
+        }
         !!subsiteBreadcrumb && !!newSecondLevelURL && (subsiteBreadcrumb.href = newSecondLevelURL);
     }
 
