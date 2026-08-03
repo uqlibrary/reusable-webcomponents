@@ -39,6 +39,9 @@
   "author": "UQ Library",
   "license": "MIT",
   "homepage": "https://library.uq.edu.au",
+  "overrides": {
+    "postcss": "^8.5.18"
+  },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.0",
     "@babel/core": "^7.29.6",
