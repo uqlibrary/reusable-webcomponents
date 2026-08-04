@@ -53,7 +53,6 @@
     "axe-core": "^4.8.0",
     "babel-loader": "^8.3.0",
     "babel-plugin-istanbul": "^6.1.1",
-    "babel-plugin-transform-class-properties": "^6.10.2",
     "babel-plugin-transform-remove-console": "^6.9.4",
     "clean-css-cli": "^5.6.2",
     "content-replace-webpack-plugin": "^1.0.0",
