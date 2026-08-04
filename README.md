@@ -121,7 +121,7 @@ This must be an ANCHOR, not any other html element.
 
 This repo uses [playwright.dev](https://playwright.dev/) tests. To run tests:
 
-- locally: `npm run test`
+- locally: `npm run test:e2e`
 
 NOTE: CI testing uses environment variables stored on AWS to run playwright successfully.
 
