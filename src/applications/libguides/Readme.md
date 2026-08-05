@@ -16,7 +16,7 @@ The load.js has special code detecting whether the user is in the admin page bec
 
 ### Imports
 
-To install the reusable web components, enter the libguides "look and feel" page admin section (eg. <https://uq.libapps.com/libguides/lookfeel.php?action=1> ). Click on the "Custom JS/CSS" tab at the top, and paste the following code into the required pane:
+To install the reusable web components, enter the libguides "look and feel" page admin section (eg. <https://uq.libapps.com/libguides/lookfeel.php?action=1>). Click on the "Custom JS/CSS" tab at the top, and paste the following code into the required pane:
 (we are also adding some early styles to minimise the flashing as there is a short delay while our js is applied)
 
 ```html
