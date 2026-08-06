@@ -197,6 +197,9 @@ $up-arrow: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22%3E%
     box-shadow: none !important;
 }
 
+svg {
+    vertical-align: unset;
+}
 .s-lib-box .s-lib-box-title {
     padding: 0;
     background: #fff !important;
@@ -228,7 +231,7 @@ $up-arrow: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22%3E%
 
 #s-lib-public-main,
 #s-lib-bc-list {
-    @media screen and (max-width: 790px) {
+    @media screen and (max-width: 75rem) {
         padding-left: 16px;
         padding-right: 16px;
     }
@@ -251,6 +254,10 @@ body {
     letter-spacing: 0.16px;
     color: $bodyCopy;
     -webkit-font-smoothing: antialiased;
+}
+
+h1, .h1, h2, .h2, h3, .h3 {
+    margin-bottom: 10px;
 }
 
 body h1,
@@ -345,6 +352,12 @@ a {
         font-weight: 500;
         margin-left: 1em;
     }
+    &:visited {
+        color: $uqBrandColour;
+        &:hover {
+            color: #fff;
+        }
+    }
 }
 p {
     margin-bottom: 24px;
@@ -359,6 +372,34 @@ ul.s-lg-guide-list {
         padding-block: 5px;
         border-bottom: none;
         list-style: disc;
+    }
+}
+.s-lib-side-borders {
+    border-left: 0;
+    border-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+blockquote {
+    padding: 10px 20px;
+    margin: 0 0 20px;
+    font-size: 17.5px;
+    border-left: 5px solid #eee;
+    
+    p:last-child, 
+    ul:last-child, 
+    ol:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.clearfix {
+    &:not(.s-lg-book) {
+        &::before, &::after {
+            display: unset;
+            content: unset;
+        }
     }
 }
 
@@ -392,15 +433,18 @@ body:not(.editmode):not(.guides_homepage) #s-lg-index-cols {
     margin-right: 0;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
+    
     #col1,
     #col2 {
-        width: auto;
+        width: 100%;
         padding-left: 0;
         padding-right: 0;
         ul,
         ol {
             margin-bottom: $spacing-m;
             margin-top: 0;
+            padding-left: unset;
+            display: inline-block;
         }
         ol li,
         ul li {
@@ -422,6 +466,7 @@ body:not(.editmode):not(.guides_homepage) #s-lg-index-cols {
         ul,
         ol {
             padding-left: $spacing-m;
+            // display: inline-block;
         }
     }
 }
@@ -441,7 +486,7 @@ body:not(.editmode) {
         body:not(.guides_homepage) #s-lg-index-cols {
             display: grid;
             column-gap: 32px;
-            grid-template-columns: 0 1fr 296px;
+            grid-template-columns: 1fr 296px;
             padding: 0;
         }
     }
@@ -456,15 +501,20 @@ body:not(.editmode) {
             max-width: 71em;
             width: auto;
         }
-        #col1,
-        .uql-grid:has(.arrowPanelWithIcon) {
-            margin-left: -30px;
-        }
     }
 }
 @media (min-width: 75rem) {
     body:not(.editmode):not(.guides_homepage) #s-lg-index-cols {
-        grid-template-columns: 0 1fr 308px;
+        grid-template-columns: 1fr 308px;
+    }
+}
+
+body:not(.editmode):not(.guides_homepage) {
+    @media (max-width: 640px) {
+        a:not(#s-lg-guide-tabs a) {
+            padding-top: unset;
+            padding-bottom: unset;
+        }
     }
 }
 body:not(.editmode) {
@@ -545,23 +595,24 @@ body:not(.editmode) {
         padding-bottom: 10px;
         border-top: none;
         background-color: transparent;
+        text-align: unset;
+
+        #s-lg-guide-header-meta {
+            padding-bottom: 0;
+        }
     }
 }
     /* styles for enclosing side nav */
 body:not(.editmode) #s-lg-side-nav-content {
     margin-bottom: $section-spacing;
-    &.container::before {
-        content: none;
-    }
+
     > .row {
         display: grid;
         gap: 0;
         grid-template-columns: var(--layout-sidebar-width) minmax(32px, 80px) minmax(667px, 1fr);
+        
         margin-right: 0;
         margin-left: 0;
-        &::before {
-            content: none;
-        }
 
         > div {
             width: unset;
@@ -642,6 +693,11 @@ body:not(.editmode) {
         h6 {
             margin-top: 0;
             margin-bottom: 16px;
+        }
+        div[id^="s-lg-content-"] {
+            h5,h6{
+                margin-top: 1.5rem;
+            }
         }
         ol,
         ul {
@@ -767,14 +823,14 @@ body:not(.editmode) .remove-h2 h2.s-lib-box-title // if the box has built in h2 
 :not(.editmode) {
     // put a gap below the footer box
     .footer-box {
+        padding-left: 15px;
+        padding-right: 15px;
+
         margin-block: $section-spacing;
         h2 {
             margin-top: 0;
             margin-bottom: 24px;
-            @media (min-width: 75rem) {
-                margin-left: -30px;
-            }
-            padding-left: 1rem;
+            padding-left: 0.5rem;
         }
     }
 
@@ -782,17 +838,13 @@ body:not(.editmode) .remove-h2 h2.s-lib-box-title // if the box has built in h2 
     .uql-grid {
         padding-right: 15px;
         padding-left: 15px;
-        @media (min-width: 75rem) {
-            margin-left: -30px;
-        }
+
         .s-lib-box-container {
-            //margin-top: 1.5rem;
             border: 1px solid $borders !important;
             border-radius: 4px;
             background-color: #fff;
             .s-lib-box-content h3 {
                 margin-top: 0;
-                //margin: 0 0 0 0;
             }
         }
         p {
@@ -851,19 +903,38 @@ body:not(.editmode) .remove-h2 h2.s-lib-box-title // if the box has built in h2 
         }
     }
 }
-.guides_homepage {
+body.guides_homepage {
     .s-lib-box {
         .s-lib-box-content {
             padding: 0;
         }
     }
+    &:not(.editmode){ 
+        @media (max-width: 640px) {
+            a {
+                padding-top: 16px;
+                padding-bottom: 8px;
+            }
+            
+            .dynamic-row {
+                --bs-gutter-x: 1.5rem;
+                --bs-gutter-y: 0;
+                display: flex;
+                flex-wrap: wrap;
+                margin: 0;
+                padding: 0;
+            }
+        }
+    }
 }
+
 body:not(.editmode) {
     /* Default: mobile view, 1 column */
     .uql-grid {
         display: grid;
         grid-template-columns: 1fr;
         gap: 24px;
+        width: 100%;
     }
 
     /* Tablet breakpoint - 2 columns */
@@ -924,13 +995,40 @@ body:not(.editmode) {
                 a:focus-within,
                 a:hover {
                     svg.arrowForwardIcon {
-                        margin-left: 10px;
                         transition: margin-left 200ms ease-in-out;
                     }
                 }
             }
         }
     }
+
+    /* 
+    multiple adjacent ULs can be displayed in what
+    appears to be a single UL list, causing margin
+    issues e.g. https://guides.library.uq.edu.au/subject/medicine 
+    Adjust margins manually, whilst also accounting for
+    content divs that may appear in between UL parent divs
+    */
+    #s-lg-col-1 {
+        .s-lib-box-content {
+            & div:not(:last-child) {
+                & ul.s-lg-link-list {
+                    margin-bottom: 1.5rem;
+                }
+            }
+            > div:has(>ul.s-lg-link-list) {
+                 &:not(:last-child) {
+                    ul.s-lg-link-list {
+                        margin-bottom: 0.5rem;
+                    }
+                 }
+                 &+div[id^="s-lg-content-"]{
+                    margin-top: 1.5rem;
+                 }
+            }
+        }
+    }
+    
     @media (max-width: 640px) {
         .uql-grid a {
             display: flex;
@@ -940,10 +1038,14 @@ body:not(.editmode) {
         .arrowPanel:not(.arrowPanelWithIcon) a {
             padding: 24px;
         }
-        a {
-            padding-top: 16px;
-            padding-bottom: 8px;
+
+        ul:not(.s-lg-link-list) {
+            a {
+                padding-top: 16px;
+                padding-bottom: 8px;
+            }
         }
+            
         a div.panelBodyWrapper {
             display: flex;
             justify-content: flex-start;
@@ -1196,25 +1298,30 @@ body:not(.editmode) {
     }
 
     // Previous-Next buttons at the bottom of guides that have sibling articles in the sidebar menu
-    #s-lg-page-prevnext.pager {
+    #s-lg-page-prevnext.pager, #s-lg-page-prevnext>ul.pagination {
         display: grid;
         grid-template-columns: 1fr 1fr;
         margin: 2.5rem -1.5rem 2.5rem 1.5rem;
-        @media (max-width: 1200px) {
+        @media screen and (max-width: 1200px) {
             margin-right: -1.2rem; // dont slam it hard again the edge
         }
-
-        &::before {
-            content: none;
+        @media (min-width: 37.5rem) {
+            .page-link {
+                display: unset;
+            }
         }
 
         li.previous > a,
         li.previous > span,
         li.next > a,
-        li.next > span {
+        li.next > span,
+        li:first-of-type > a,
+        li:first-of-type > span,
+        li:last-of-type > a,
+        li:last-of-type > span {
             float: none;
         }
-        li.previous {
+        li.previous, li:first-of-type {
             text-align: left;
             margin-left: -24px;
             & > a,
@@ -1224,11 +1331,15 @@ body:not(.editmode) {
                 margin-right: 0;
             }
         }
-        li.next {
+        .page-item:not(:first-child) .page-link {
+            margin-left: unset;
+        }
+        li.next, li:last-of-type {
             text-align: right;
             & > a,
             & > span {
                 text-align: right;
+                margin-right: 10px;
             }
         }
         li > a,
@@ -1517,6 +1628,11 @@ body:not(.editmode) {
             margin-bottom: 0;
         }
     }
+    table.table-bordered {
+        & > :not(caption) > * {
+            border: none;
+        }
+    }
 
     // youtube videos should be 100% width https://stackoverflow.com/a/78418428/1246313
     div:has(> iframe[title='YouTube video player']) {
@@ -1678,11 +1794,6 @@ body:not(.editmode) {
         content: ' (' attr(title) ')';
     }
 
-    #s-lg-index-cols::after,
-    #s-lg-index-cols::before {
-        content: none !important;
-    }
-
     .uql-grid {
         display: block !important;
     }
@@ -1734,7 +1845,7 @@ body:not(.editmode) {
         }
     }
 
-    // these tabs are expected to be removed eg MGTS1301 - Introduction to management
+    // these tabs are expected to be removed eg MGTS1301 - Introduction to management.
     #s-lg-tabs-container .nav-tabs > li > a,
     #s-lg-tabs-container .nav-tabs > .active > a {
         background-color: $uqBrandColour;
@@ -1747,7 +1858,7 @@ body:not(.editmode) {
         button h5 {
             margin-bottom: 0;
         }
-        &.uq-accordion__item--is-open div div > :last-child {
+        &.uq-accordion__item--is-open div div > :last-child:not(:is(h1, h2, h3, h4, h5, h6)) {
             margin-bottom: 0;
         }
     }
@@ -1762,6 +1873,21 @@ body.editmode {
     .s-lib-box-content {
         ol, ul {
             margin-left: 1rem
+        }
+    }
+    .btn-close {
+        font-size: 14px;
+    }
+    .s-lg-guide-admin-content {
+        li {
+            .clearfix {
+                &:not(.s-lg-book) {
+                    &::before, &::after {
+                        display: unset;
+                        content: unset;
+                    }
+                }
+            }
         }
     }
 }

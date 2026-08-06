@@ -213,10 +213,10 @@ class TrainingList extends HTMLElement {
 
         let placesRemainingText = 'Booking is not required';
         if (event.bookingSettings !== null) {
-            placesRemainingText = 'Class is full. Register for waitlist';
-
-            if (event.bookingSettings.placesRemaining > 0) {
+            if (event.bookingSettings.isBookingAvailable) {
                 placesRemainingText = 'Places still available';
+            } else {
+                placesRemainingText = 'Class is full. Register for waitlist';
             }
         }
 
