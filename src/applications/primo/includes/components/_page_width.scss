@@ -4,6 +4,28 @@
 div.header-container {
   width: 100% !important;
   padding-inline: 1rem;
+  margin-inline: auto;
+  nde-user-panel {
+    margin-right: 0;
+    button[aria-haspopup="menu"] {
+      margin-right: -24px
+    }
+    @media (max-width: 387px) {
+      button[aria-haspopup="menu"] {
+        margin-top: -270px;
+      }
+    }
+    @media (max-width: 294px) {
+      button[aria-haspopup="menu"] {
+        margin-top: -320px;
+      }
+    }
+    @media (max-width: 708px) and (min-width: 708px) { /* wow, because the CA is jumping in height, this needs tweaking!! */
+      button[aria-haspopup="menu"] {
+        margin-top: -215px;
+      }
+    }
+  }
 }
 @media (min-width: 1180px) {
   div.header-container {
