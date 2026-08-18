@@ -307,6 +307,14 @@ body.custom-nde-theme {
     padding-inline: 1rem;
   }
   /* END style error page login prompt */
+
+  /* hide big icon on "no results" page */
+  nde-search-no-results {
+    mat-icon.mat-icon.nde-mat-icon-size {
+      display: none;
+    }
+  }
+  /* END hide big icon on "no results" page */
 }
 
 @media (max-width: 1919.9px) {
