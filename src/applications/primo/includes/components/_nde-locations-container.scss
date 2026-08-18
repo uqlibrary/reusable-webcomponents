@@ -2,7 +2,35 @@ nde-locations-container {
   .getit-location-card {
     background-color: #fff;
     border-width: 0;
+    --sys-body-medium: 1rem;
+
+    .getit-location-maybe {
+      color: var(--uq-main-purple);
+    }
+
+    button:has(.getit-location-available) {
+      &:hover,&:focus {
+        .getit-location-available {
+          text-decoration: underline;
+        }
+      }
+    }
+
+
+    button[aria-label^="View location"] {
+      &:hover, &:focus {
+        .mat-body-medium {
+          text-decoration: underline;
+        }
+
+        .mat-mdc-button-persistent-ripple.mdc-button__ripple {
+          background-color: #fff;
+          opacity: 0;
+        }
+      }
+    }
   }
+
   mat-expansion-panel-header,
   .mat-expansion-panel-content-wrapper {
     background-color: #fff;
