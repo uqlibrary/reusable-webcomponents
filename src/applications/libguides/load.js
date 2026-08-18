@@ -97,6 +97,20 @@
         }
     }
 
+    function adjustScrollPositionForHashLinks() {
+        // AD-1111 check if there is a hashtag in the current URL
+        if (window.location.hash) {
+            const targetElement = document.querySelector(window.location.hash);
+            
+            if (targetElement) {
+                // wrap in a tiny timeout to ensure the DOM layout engine has settled
+                setTimeout(() => {
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 1000);
+            }
+        }
+    }
+
     function applyUQLItemsToGuides() {
         if (window.location.hostname === 'localhost') {
             testIncludePathGeneration();
@@ -135,6 +149,8 @@
             closeAllUqAccordions();
 
             replaceSpringShareSidebarMenu();
+
+            adjustAccordionHeaderLevels();
 
             if (!!isInEditMode()) {
                 fixEditControlPlacement();
@@ -213,6 +229,10 @@
 
                 const headElement = document.querySelector('head');
                 !!editModeStyles && !!headElement && headElement.appendChild(editModeStyles.content.cloneNode(true));
+            }
+
+            if(!isInEditMode()) {
+                adjustScrollPositionForHashLinks();
             }
         }, 100);
     }
@@ -615,6 +635,26 @@
 
             return processedContent;
         }
+    }
+
+    /**
+     * Native BS5 accordions use a H2 for the header, however we require
+     * the use of H3 to maintain correct document hierarchy for screen readers.
+     * Rather than change the actual HTML, instead leverage the aria-level 
+     * attribute to indicate the correct heading level.
+     */
+    function adjustAccordionHeaderLevels() {
+        const accordions = document.querySelectorAll('div.accordion');
+            if (!accordions || accordions.length === 0) {
+            return;
+        }
+
+        accordions.forEach((accordion) => {
+            const headers = accordion.querySelectorAll('h2.accordion-header');
+            headers.forEach((header) => {
+                header.setAttribute('aria-level', '3');
+            });
+        });
     }
 
     function replaceSpringShareSidebarMenu() {
