@@ -59,7 +59,7 @@
 .auth-menu {
     z-index: 999;
     background-color: #fff;
-    border: 1px solid #DCDCDD; /* Brand-grey-grey-200 */
+    border: 1px solid #dcdcdd; /* Brand-grey-grey-200 */
     left: auto;
     right: -9px;
     /* top set with javascript */
@@ -67,7 +67,8 @@
     transition: transform 0.2s ease-out, opacity 0.2s ease-out;
     opacity: 1;
 }
-@media screen and (max-width: 390px) { /* mobile only */
+@media screen and (max-width: 390px) {
+    /* mobile only */
     .auth-menu {
         position: fixed;
         right: 0;
@@ -178,7 +179,39 @@
     padding: 8px 24px;
     margin: 0;
 }
-@media screen and (max-width: 390px) { /* mobile only */
+.mylibrary-menu-list li a svg.account-menu-favourites-icon path {
+    opacity: 50%;
+    fill: #51247a;
+}
+.mylibrary-menu-list li.account-submenu-item {
+    /* make some menu items look like a sub menu */
+    padding-left: 40px;
+}
+.mylibrary-menu-list li a svg.account-menu-purchase-request-icon path {
+    fill: none;
+    stroke: #51247a;
+}
+.mylibrary-menu-list li a svg.account-menu-resource-delivery-icon {
+    opacity: 70%;
+}
+.mylibrary-menu-list li a svg.account-menu-resource-delivery-icon path {
+    stroke: #51247a;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.mylibrary-menu-list li a svg.account-menu-learning-resources-icon path,
+.mylibrary-menu-list li a svg.account-menu-print-balance-icon path,
+.mylibrary-menu-list li a svg.account-menu-room-bookings-icon path,
+.mylibrary-menu-list li a svg.account-menu-espace-icon path,
+.mylibrary-menu-list li a svg.account-menu-feedback-icon path,
+.mylibrary-menu-list li a svg.account-menu-logout-icon path {
+    stroke: #51247a;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+@media screen and (max-width: 390px) {
+    /* mobile only */
     .mylibrary-menu-list li a {
         display: flex;
     }
@@ -186,7 +219,6 @@
 
 .mylibrary-menu-list li a span {
     text-rendering: auto;
-    color: #19151c;
     letter-spacing: normal;
     word-spacing: normal;
     line-height: 160%; /* 25.6px */
@@ -232,5 +264,5 @@
 }
 
 .auth.loggedin {
-   position: relative;
+    position: relative;
 }
