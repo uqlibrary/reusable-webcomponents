@@ -143,4 +143,11 @@ body.custom-nde-theme {
     --notice: var(--uq-background-alert-info);
   }
   /* END login dialog wrong-password message banner */
+
+  /* style the purchase request acount menu icon */
+  svg.purchaseRequestIcon path {
+    fill: none;
+    stroke: var(--uq-main-purple);
+  }
+  /* END style the purchase request acount menu icon */
 }
