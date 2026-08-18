@@ -307,6 +307,20 @@ body.custom-nde-theme {
     padding-inline: 1rem;
   }
   /* END style error page login prompt */
+
+  /* style sidebar Search Inside box */
+  nde-search-within-journal .search-within-journal-search-bar:has(form) {
+    background-color: #fff;
+    border-radius: var(--uq-border-radius);
+    input {
+      font-weight: 400;
+    }
+    button mat-icon {
+      height: 24px;
+      width: 24px;
+    }
+  }
+  /* END style sidebar Search Inside box */
 }
 
 @media (max-width: 1919.9px) {
