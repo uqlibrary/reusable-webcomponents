@@ -67,6 +67,15 @@ nde-collection-discovery-container {
         }
       }
 
+      nde-collection-discovery-gallery-collection {
+        .collection-overlay {
+          mat-icon {
+            path {
+              fill: #fff;
+            }
+          }
+        }
+      }
     }
   }
 }
