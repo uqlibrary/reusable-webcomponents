@@ -4,6 +4,15 @@ mat-dialog-container {
       border-radius: var(--uq-border-radius);
     }
   }
+
+  /* intended for citation action popup on full record */
+  nde-citation-action {
+    p.citation-disclaimer {
+      background-color: var(--uq-warning-50);
+      color: var(--uq-body-copy);
+      padding: 1.5rem 1.5rem 1rem 1.5rem;
+    }
+  }
 }
 
 /* saved records "add new label" popup */
