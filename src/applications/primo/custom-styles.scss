@@ -333,11 +333,27 @@ body.custom-nde-theme {
 
 /* move proactive chat up above login prompt when placed bottom right on narrower screen */
 @media (max-width: 1919.9px) {
-  body:has(nde-custom-snack-bar nde-login) proactive-chat::part(minimised-buttons) {
-    bottom: 8rem;
+  body:has(nde-custom-snack-bar nde-login) {
+    proactive-chat::part(minimised-buttons) {
+      bottom: 8.1rem;
+    }
+    proactive-chat::part(open-popup) {
+      bottom: 10rem;
+    }
   }
 }
 /* END move proactive chat up above login prompt when placed bottom right on narrower screen */
+
+/* move proactive chat when ai dialog has search button in bottom right */
+body:has(nde-natural-language-search-dialog) {
+  proactive-chat::part(minimised-buttons) {
+    bottom: 4.1rem;
+  }
+  proactive-chat::part(open-popup) {
+    bottom: 6rem;
+  }
+}
+/* END move proactive chat when ai dialog has search button in bottom right */
 
 .standardWarningBanner {
   margin-inline:.9375rem;
