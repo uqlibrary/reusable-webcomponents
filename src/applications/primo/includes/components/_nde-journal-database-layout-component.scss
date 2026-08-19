@@ -6,10 +6,6 @@
       }
     }
   }
-  &:has(nde-full-display-error-page) {
-    // let the 404 page breathe ("50px" taken from spacing on homepage!)
-    padding-bottom: 50px;
-  }
 }
 
 nde-journal-database-layout-component {
