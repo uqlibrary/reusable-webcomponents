@@ -37,6 +37,12 @@
       p {
         color: var(--uq-body-copy);
       }
+      nde-paragraph-with-show-more-less-btn {
+        .read-more {
+          margin-left: auto;
+          padding-right: 1rem;
+        }
+      }
     }
   }
 }
