@@ -53,7 +53,7 @@ nde-collection-discovery-container {
     nde-collection-discovery-gallery {
       .item-grid-card {
         border-radius: var(--uq-border-radius);
-        border: 1px solid #dcdcdd;
+        border: var(--uq-border);
       }
       .collection-grid-card {
         --sys-background: #fff;

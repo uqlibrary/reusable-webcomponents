@@ -30,7 +30,7 @@
 //    }
 //
 //    mat-card:has(button) {
-//      border: 1px solid #dcdcdd;
+//      border: 1px solid var(--uq-border-color);
 //    }
 //
 //
@@ -86,7 +86,7 @@
 //            right: 0;
 //            display: inline-block;
 //            padding-bottom: 2rem;
-//            border: 1px solid #dcdcdd;
+//            border: 1px solid var(--uq-border-color);
 //
 //            &:focus *,
 //            &:hover * {

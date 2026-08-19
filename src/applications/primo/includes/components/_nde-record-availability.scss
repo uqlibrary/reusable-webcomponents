@@ -1,16 +1,3 @@
-nde-search-result-item-container {
-  &:not(:has(nde-paragraph-with-show-more-less-btn)) {
-    nde-record-availability {
-      margin-top: 0.3rem;
-    }
-  }
-  &:has(nde-record-frbr) {
-    nde-record-availability {
-      margin-bottom: 0.5rem;
-    }
-  }
-}
-
 nde-record-availability {
   div.availability-status:has(button.available-at-button) {
     border-radius: var(--uq-border-radius);
