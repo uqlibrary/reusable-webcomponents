@@ -6,6 +6,9 @@ nde-fetch-item {
     }
     button:first-child {
       @include uqSecondaryButton();
+      // but should be tertiary
+      border-width: 0;
+      text-decoration: underline;
     }
   }
   /* hide undesired fields from the citation linker form */
