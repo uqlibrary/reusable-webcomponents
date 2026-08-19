@@ -307,6 +307,14 @@ body.custom-nde-theme {
     padding-inline: 1rem;
   }
   /* END style error page login prompt */
+
+  /* let the 404 page breathe */
+  .search-container {
+    &:has(nde-full-display-error-page) {
+      padding-bottom: 50px; // "50px" taken from spacing on homepage
+    }
+  }
+  /* END let the 404 page breathe */
 }
 
 @media (max-width: 1919.9px) {
