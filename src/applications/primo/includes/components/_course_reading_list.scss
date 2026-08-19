@@ -26,6 +26,18 @@ uql-course-reading-list-sidebar-panel {
       span {
         font-size: 15px;
       }
+      mat-icon.linkOut {
+        height: 20px;
+        width: 18px;
+        svg {
+          padding-top: 6px;
+        }
+      }
+      svg.showMoreLessArrow {
+        mask {
+          mask-type: alpha;
+        }
+      }
     }
     .toggle-show-all-button {
       button {
