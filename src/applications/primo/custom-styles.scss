@@ -114,6 +114,8 @@ body.custom-nde-theme {
 
   @import 'includes/components/nde-notification.scss';
 
+  @import 'includes/components/nde-quick-filters';
+
   @import 'includes/components/nde-record-availability';
 
   @import 'includes/components/nde-record-citations-and-times-cited';
@@ -324,6 +326,17 @@ body.custom-nde-theme {
   }
   /* END style sidebar Search Inside box */
 
+  /* hide divider beside sort button */
+  nde-search-results-container {
+    div:has(> nde-sort-by)  {
+      > div {
+        > mat-divider {
+          --sys-outline: transparent;
+        }
+      }
+    }
+  }
+  /* END hide divider beside sort button */
   /* let the 404 page breathe */
   .search-container {
     &:has(nde-full-display-error-page) {
@@ -348,6 +361,7 @@ body.custom-nde-theme {
   }
   /* END hide big icon on "no results" page */
 }
+/* END body.custom-nde-theme */
 
 /* move proactive chat up above login prompt when placed bottom right on narrower screen */
 @media (max-width: 1919.9px) {
