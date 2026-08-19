@@ -4,6 +4,7 @@
 :root, html, head, body {
   --mat-expansion-container-shape: 4px;
   --uq-border-radius: 0.25rem;
+  --uq-border: 1px solid var(--uq-colour-grey-200);
 }
 
 $utility-500: var(--uq-color-utility-500);
@@ -206,7 +207,7 @@ body.custom-nde-theme {
   .top-bar-container nde-search-bar-presenter .search-bar-container .search-bar-wrapper {
     background-color: #fff !important;
     border-radius: var(--uq-border-radius) !important;
-    border: 1px solid #dcdcdd !important;
+    border: var(--uq-border) !important;
     padding-left: 0 !important;
     input {
       padding-left: 1.4rem;
@@ -217,7 +218,7 @@ body.custom-nde-theme {
   /* panels should look like DS */
   &:not(:has(nde-account)) mat-card-content {
     background-color: #fff;
-    border: 1px solid #dcdcdd;
+    border: var(--uq-border);
     border-radius: var(--uq-border-radius);
   }
   /* END panels should look like DS */

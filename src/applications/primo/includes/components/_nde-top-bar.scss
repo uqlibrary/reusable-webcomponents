@@ -3,7 +3,7 @@ nde-top-bar {
     nde-search-bar-container.grid-item {
       nde-search-summary {
         section.search-summary {
-          border: 1px solid #dcdcdd;
+          border: var(--uq-border);
           background-color: #fff;
         }
         div.searched-for-container {

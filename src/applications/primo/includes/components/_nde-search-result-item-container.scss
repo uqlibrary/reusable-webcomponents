@@ -1,6 +1,7 @@
 nde-search-result-item-container {
+  /* tweak colours */
   .search-results-container {
-    --border: #dcdcdd;
+    --border: var(--uq-border-color);
     border-radius: 0 0 .25rem .25rem;
   }
 
@@ -14,6 +15,7 @@ nde-search-result-item-container {
       --mat-app-text-color: var(--uq-body-copy);
     }
   }
+  /* END tweak colours */
 
   /* put more space on items in item heading */
   nde-record-summary {
@@ -37,4 +39,5 @@ nde-search-result-item-container {
       margin-bottom: 0.5rem;
     }
   }
+  /* END put more space on items in item heading */
 }
