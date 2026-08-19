@@ -193,10 +193,14 @@ body.custom-nde-theme {
   font: 16px/1.5 var(--uq-body-font-family);
 }
 
-body.custom-nde-theme * {
-  font-size: 16px;
-  line-height: 1.5;
-  button, mat-icon, svg, path { // don't de-centre the icons
-    line-height: normal !important;
+body.custom-nde-theme {
+  * {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  nde-action-container {
+    button, mat-icon, svg, path { // don't de-centre the icons
+      line-height: normal;
+    }
   }
 }

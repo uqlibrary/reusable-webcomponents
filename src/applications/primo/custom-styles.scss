@@ -331,11 +331,13 @@ body.custom-nde-theme {
   /* END hide big icon on "no results" page */
 }
 
+/* move proactive chat up above login prompt when placed bottom right on narrower screen */
 @media (max-width: 1919.9px) {
   body:has(nde-custom-snack-bar nde-login) proactive-chat::part(minimised-buttons) {
     bottom: 8rem;
   }
 }
+/* END move proactive chat up above login prompt when placed bottom right on narrower screen */
 
 .standardWarningBanner {
   margin-inline:.9375rem;
