@@ -1,0 +1,25 @@
+nde-record-availability {
+  div.availability-status:has(button.available-at-button) {
+    border-radius: var(--uq-border-radius);
+    border: 1px solid var(--sys-primary);
+    margin-top: .25rem;
+    padding: 5px 1rem 4px 0.8rem;
+    &:has(button.available-at-button:hover) {
+        background-color: #f1edf4;
+    }
+    button.available-at-button:hover .mdc-button__label {
+      text-decoration: none;
+    }
+  }
+  .quicklink-button {
+    border-radius: var(--uq-border-radius);
+  }
+  .quicklinks-expand-button.mat-mdc-icon-button {
+    border-top-right-radius: var(--uq-border-radius);
+    border-bottom-right-radius: var(--uq-border-radius);
+  }
+  .quicklinks-expand-button mat-icon {
+    /* move the icon down a titch */
+    margin-top: 2px;
+  }
+}

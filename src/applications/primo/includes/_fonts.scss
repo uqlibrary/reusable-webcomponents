@@ -1,0 +1,202 @@
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  src: local('Roboto'), local('Roboto-Regular'),
+  url(https://fonts.gstatic.com/s/roboto/v15/sTdaA6j0Psb920Vjv-mrzH-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+20B4, U+2DE0-2DFF, U+A640-A69F;
+}
+
+/* cyrillic */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  src: local('Roboto'), local('Roboto-Regular'),
+  url(https://fonts.gstatic.com/s/roboto/v15/uYECMKoHcO9x1wdmbyHIm3-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+/* greek-ext */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  src: local('Roboto'), local('Roboto-Regular'),
+  url(https://fonts.gstatic.com/s/roboto/v15/tnj4SB6DNbdaQnsM8CFqBX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+
+/* greek */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  src: local('Roboto'), local('Roboto-Regular'),
+  url(https://fonts.gstatic.com/s/roboto/v15/_VYFx-s824kXq_Ul2BHqYH-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+  unicode-range: U+0370-03FF;
+}
+
+/* vietnamese */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  src: local('Roboto'), local('Roboto-Regular'),
+  url(https://fonts.gstatic.com/s/roboto/v15/NJ4vxlgWwWbEsv18dAhqnn-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB;
+}
+
+/* latin-ext */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  src: local('Roboto'), local('Roboto-Regular'),
+  url(https://fonts.gstatic.com/s/roboto/v15/Ks_cVxiCiwUWVsFWFA3Bjn-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* latin */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  src: local('Roboto'), local('Roboto-Regular'),
+  url(https://fonts.gstatic.com/s/roboto/v15/oMMgfZMQthOryQo9n22dcuvvDin1pK8aKteLpeZ5c0A.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+
+/* override exlibris colours & settings */
+:root, html, head, body {
+  --uq-h1-font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --uq-body-font-family: Roboto, Helvetica, Arial, sans-serif;
+
+  --sys-body-large: 400 1rem / 1.5rem var(--uq-body-font-family);
+  --sys-body-large-font: var(--uq-body-font-family);
+  //--sys-body-large-line-height: 1.5rem;
+  //--sys-body-large-size: 1rem;
+  //--sys-body-large-tracking: .031rem;
+  //--sys-body-large-weight: 400;
+
+  --sys-body-medium: 400 .875rem / 1.25rem var(--uq-body-font-family);
+  --sys-body-medium-font: var(--uq-body-font-family);
+  //--sys-body-medium-line-height: 1.25rem;
+  //--sys-body-medium-size: .875rem;
+  //--sys-body-medium-tracking: .016rem;
+  //--sys-body-medium-weight: 400;
+
+  --sys-body-small: 400 .75rem / 1rem var(--uq-body-font-family);
+  --sys-body-small-font: var(--uq-body-font-family);
+  //--sys-body-small-line-height: 1rem;
+  //--sys-body-small-size: .75rem;
+  //--sys-body-small-tracking: .025rem;
+  //--sys-body-small-weight: 400;
+
+  --sys-display-large: 400 3.562rem / 4rem var(--uq-body-font-family);
+  --sys-display-large-font: var(--uq-body-font-family);
+  //--sys-display-large-line-height: 4rem;
+  //--sys-display-large-size: 3.562rem;
+  //--sys-display-large-tracking: -.016rem;
+  //--sys-display-large-weight: 400;
+
+  --sys-display-medium: 400 2.812rem / 3.25rem var(--uq-body-font-family);
+  --sys-display-medium-font: var(--uq-body-font-family);
+  //--sys-display-medium-line-height: 3.25rem;
+  //--sys-display-medium-size: 2.812rem;
+  //--sys-display-medium-tracking: 0;
+  //--sys-display-medium-weight: 400;
+
+  --sys-display-small: 400 2.25rem / 2.75rem var(--uq-body-font-family);
+  --sys-display-small-font: var(--uq-body-font-family);
+  //--sys-display-small-line-height: 2.75rem;
+  //--sys-display-small-size: 2.25rem;
+  //--sys-display-small-tracking: 0;
+  //--sys-display-small-weight: 400;
+
+  --sys-headline-large: 400 2rem / 2.5rem var(--uq-body-font-family);
+  --sys-headline-large-font: var(--uq-body-font-family);
+  //--sys-headline-large-line-height: 2.5rem;
+  //--sys-headline-large-size: 2rem;
+  //--sys-headline-large-tracking: 0;
+  //--sys-headline-large-weight: 400;
+
+  --sys-headline-medium: 400 1.75rem / 2.25rem var(--uq-body-font-family);
+  --sys-headline-medium-font: var(--uq-body-font-family);
+  //--sys-headline-medium-line-height: 2.25rem;
+  //--sys-headline-medium-size: 1.75rem;
+  //--sys-headline-medium-tracking: 0;
+  //--sys-headline-medium-weight: 400;
+  //--sys-headline-small: 400 1.5rem / 2rem var(--uq-body-font-family);
+  //--sys-headline-small-font: var(--uq-body-font-family);
+  //--sys-headline-small-line-height: 2rem;
+  //--sys-headline-small-size: 1.5rem;
+  //--sys-headline-small-tracking: 0;
+  //--sys-headline-small-weight: 400;
+
+  --sys-label-large: 500 .875rem / 1.25rem var(--uq-body-font-family);
+  --sys-label-large-font: var(--uq-body-font-family);
+  //--sys-label-large-line-height: 1.25rem;
+  //--sys-label-large-size: .875rem;
+  //--sys-label-large-tracking: .006rem;
+  //--sys-label-large-weight: 500;
+  //--sys-label-large-weight-prominent: 700;
+
+  --sys-label-medium: 500 .75rem / 1rem var(--uq-body-font-family);
+  --sys-label-medium-font: var(--uq-body-font-family);
+  //--sys-label-medium-line-height: 1rem;
+  //--sys-label-medium-size: .75rem;
+  //--sys-label-medium-tracking: .031rem;
+  //--sys-label-medium-weight: 500;
+  //--sys-label-medium-weight-prominent: 700;
+
+  --sys-label-small: 500 .688rem / 1rem var(--uq-body-font-family);
+  --sys-label-small-font: var(--uq-body-font-family);
+  //--sys-label-small-line-height: 1rem;
+  //--sys-label-small-size: .688rem;
+  //--sys-label-small-tracking: .031rem;
+  //--sys-label-small-weight: 500;
+
+  --sys-title-large: 400 1.375rem / 1.75rem var(--uq-body-font-family);
+  --sys-title-large-font: var(--uq-body-font-family);
+  //--sys-title-large-line-height: 1.75rem;
+  //--sys-title-large-size: 1.375rem;
+  //--sys-title-large-tracking: 0;
+  //--sys-title-large-weight: 400;
+
+  --sys-title-medium: 500 1rem / 1.5rem var(--uq-body-font-family);
+  --sys-title-medium-font: var(--uq-body-font-family);
+  //--sys-title-medium-line-height: 1.5rem;
+  //--sys-title-medium-size: 1rem;
+  //--sys-title-medium-tracking: .009rem;
+  //--sys-title-medium-weight: 500;
+
+  --sys-title-small: 500 .875rem / 1.25rem var(--uq-body-font-family);
+  --sys-title-small-font: var(--uq-body-font-family);
+  //--sys-title-small-line-height: 1.25rem;
+  //--sys-title-small-size: .875rem;
+  //--sys-title-small-tracking: .006rem;
+  //--sys-title-small-weight: 500;
+
+  --mdc-text-button-label-text-weight: 1rem;
+
+  --mdc-plain-tooltip-supporting-text-weight: 400;
+  --mdc-plain-tooltip-supporting-text-size: 14px;
+
+  --uq-icon--info: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='12' cy='12' r='9.25' transform='rotate(-180 12 12)' stroke='%233b383e' stroke-width='1.5'%3e%3c/circle%3e%3cpath d='M12 16.2v-4' stroke='%233b383e' stroke-width='1.5' stroke-linecap='round'%3e%3c/path%3e%3ccircle cx='12' cy='8.4' r='1.1' transform='rotate(-180 12 8.4)' fill='%233b383e'%3e%3c/circle%3e%3c/svg%3e");
+  --uq-icon--warning: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M20.127 18.545a1.18 1.18 0 0 1-1.055 1.706H4.929a1.18 1.18 0 0 1-1.055-1.706l7.072-14.143a1.179 1.179 0 0 1 2.109 0l7.072 14.143Z' stroke='%233b383e' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M12 9v4' stroke='%233b383e' stroke-width='1.5' stroke-linecap='round'%3e%3c/path%3e%3ccircle cx='11.9' cy='16.601' r='1.1' fill='%233b383e'%3e%3c/circle%3e%3c/svg%3e");
+
+  --darkText: #3b383e;
+
+  --uq-heading-1: 500 40px / 1.2 var(--uq-h1-font-family); // only H1 takes Montserrat
+  --uq-heading-2: 500 32px / 1.2 var(--uq-body-font-family);
+  --uq-heading-3: 500 24px / 1.2 var(--uq-body-font-family);
+  --uq-heading-4: 500 20px / 1.2 var(--uq-body-font-family);
+  --uq-heading-5: 500 18px / 1.2 var(--uq-body-font-family);
+  --uq-heading-6: 500 16px / 1.2 var(--uq-body-font-family);
+}
+body.custom-nde-theme {
+  font: 16px/1.5 var(--uq-body-font-family);
+}
+
+body.custom-nde-theme * {
+  font-size: 16px;
+  line-height: 1.5;
+  button, mat-icon, svg, path { // don't de-centre the icons
+    line-height: normal !important;
+  }
+}

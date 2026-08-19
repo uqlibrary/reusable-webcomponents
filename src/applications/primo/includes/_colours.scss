@@ -1,0 +1,153 @@
+/* override exlibris colours & settings */
+:root, html, head, body {
+  --uq-colour-purple-50: #eee9f2;
+  --uq-colour-purple-100: #dcd3e4;
+  --uq-colour-purple-200: #b9a7ca;
+  --uq-colour-purple-300: #977caf;
+  --uq-colour-purple-400: #745095;
+  --uq-colour-purple-500: #51247a;
+  --uq-colour-purple-600: #4b2271;
+  --uq-colour-purple-650: #40205d;
+  --uq-colour-purple-700: #3a1f53;
+  --uq-colour-purple-800: #2f1d3f;
+  --uq-colour-purple-900: #231a2c;
+
+  --uq-colour-grey-50: #f3f3f4;
+  --uq-colour-grey-100: #e8e8e8;
+  --uq-colour-grey-200: #dcdcdd;
+  --uq-colour-grey-900: #3b383e;
+
+  --uq-color-utility-50: #e7f0fa;
+  --uq-color-utility-200: #9ec5eb;
+  --uq-color-utility-500: #0d6dcd;
+
+  --uq-success-50: #edf6ed;
+  --uq-warning-50:	#fef8e8;
+  --uq-error-500: #d62929;
+
+  --uq-colour-black: #19151c;
+
+  --uq-main-purple: var(--uq-colour-purple-500);
+  --uq-body-copy: var(--uq-colour-grey-900);
+  --uq-heading-color: var(--uq-colour-black);
+  --uq-panel-background: var(--uq-colour-grey-50);
+  --uq-background-alert-info: var(--uq-color-utility-50);
+  --uq-background-alert-success: var(--uq-success-50);
+
+  --sys-background: var(--uq-colour-purple-50);
+  --sys-inverse-on-surface: var(--uq-panel-background);
+  --sys-inverse-primary: var(--uq-panel-background);
+  --sys-primary: var(--uq-main-purple);
+  --sys-primary-container: var(--uq-colour-purple-50);
+  --sys-outline: var(--uq-body-copy);
+  --sys-outline-variant: var(--uq-colour-purple-100);
+  --sys-surface-container: #fff;
+  --sys-primary-fixed: var(--uq-background-alert-info);
+  --sys-primary-fixed-dim: var(--uq-color-utility-200);
+  //--sys-on-surface-variant: #fff;
+  //--mdc-icon-button-icon-color: var(--uq-main-purple);
+
+  --valid: var(--uq-main-purple);
+  --validDark: var(--uq-main-purple);
+
+  --mdc-switch-unselected-track-color: var(--uq-colour-purple-100);
+  --mdc-switch-unselected-hover-track-color: var(--uq-colour-purple-200);
+  --mdc-dialog-container-color: #fff; /* popup dialog for extra main menu items */
+
+  --border: hsla(203, 50%, 30%, 0.15);
+
+  --mat-menu-container-color: #fff;
+  --mat-autocomplete-background-color: #fff;
+  --mat-option-selected-state-layer-color: var(--uq-colour-purple-50);
+
+  --mdc-plain-tooltip-container-color: var(--uq-color-utility-50);
+  --mdc-plain-tooltip-supporting-text-color: var(--uq-colour-black);
+
+  --mat-datepicker-calendar-container-background-color: var(--uq-colour-purple-50);
+}
+
+/* override fill=green hard coded on attribute so everything-purple */
+svg, rect, path, circle {
+  fill: var(--uq-main-purple);
+}
+/* END override fill=green hard coded on attribute */
+
+/* most of the following over-writes are needed because of the above generic reset :( */
+
+/* Full Record Request section, don't fill purple */
+nde-request-card path {
+  fill: white;
+}
+/* END Full Record Request section, don't fill purple */
+
+/* mobile filter-sidebar open icon */
+nde-mobile-filters-toggle {
+  mat-icon path {
+    fill: #fff;
+  }
+}
+/* END mobile filter-sidebar open icon */
+
+/* brief results header banner should not have a purple icon */
+nde-related-entities-search-header path {
+  fill: var(--uq-body-copy);
+}
+/* END brief results header banner should not have a purple icon */
+
+body.custom-nde-theme {
+
+  /* login-loggedout button */
+  nde-user-area {
+    /* UQ up-down arrow icons on logged in button override on everything-purple */
+    .user-area .arrow path {
+      fill: none;
+    }
+    /* UQ profile icon on logged out button override on everything-purple */
+    button[aria-label="Open actions menu"] {
+      svg, path {
+        fill: none;
+      }
+    }
+  }
+  /* END login-loggedout button */
+
+  /* added items on account menu */
+  .library-feedback-icon,
+  .library-learning-resources-icon,
+  .library-room-booking-icon,
+  .library-account-icon {
+    path {
+      fill: none !important;
+    }
+  }
+  .library-favourites-icon {
+    opacity: 50%;
+  }
+  /* END new items on account menu */
+
+  /* collection discovery detailed list icon per DS */
+  .collection-discovery-gallery-container nde-collection-discovery-top-bar  mat-icon path {
+    fill: var(--uq-main-purple);
+  }
+  /* END collection discovery detailed list icon per DS */
+
+
+  /* make icons purple  */
+  mat-icon svg path {
+    --sys-outline: var(--uq-main-purple);
+  }
+  /* END make icons purple  */
+
+  /* login dialog wrong-password message banner */
+  .login-dialog-notification {
+    --notice: var(--uq-background-alert-info);
+  }
+  /* END login dialog wrong-password message banner */
+
+  /* style the purchase request acount menu icon */
+  svg.purchaseRequestIcon path {
+    fill: none;
+    stroke: var(--uq-main-purple);
+  }
+  /* END style the purchase request acount menu icon */
+}

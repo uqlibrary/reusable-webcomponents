@@ -1,0 +1,20 @@
+nde-fines-overview {
+  .fines-balance {
+    background-color: var(--uq-warning-50);
+    padding: 1rem;
+    color: var(--uq-body-copy) !important;
+    padding-left: 2.5rem;
+
+    &:before {
+      content: "";
+      background-image: var(--uq-icon--warning);
+      background-repeat: no-repeat;
+      background-size: 1.5rem;
+      width: 1.8rem;
+      height: 1.5rem;
+      position: absolute;
+      top: 50px;
+      left: 30px;
+    }
+  }
+}

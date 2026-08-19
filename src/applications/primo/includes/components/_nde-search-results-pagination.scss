@@ -1,0 +1,38 @@
+nde-search-results-pagination {
+  /* style the pagination on the brief results page */
+  .pagination-container {
+    border-width: 0 !important;
+    font-size: 1rem;
+
+    button {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      &:hover, &:focus {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+    button.current-page {
+      --sys-primary-container: var(--uq-main-purple);
+      color: #fff;
+      border: 1px solid var(--uq-main-purple);
+      border-radius: 40px;
+    }
+    button:not(.current-page) {
+      &:hover, &:focus {
+        background-color: var(--uq-panel-background);
+        border: 2px solid var(--uq-panel-background);
+        color: var(--uq-body-copy) !important;
+        border-radius: 40px;
+      }
+    }
+    li:last-of-type,
+    li:first-of-type {
+      border: 1px solid var(--uq-main-purple);
+      border-radius: 40px;
+      margin-inline: 12px;
+    }
+  }
+  /* END style the pagination on the brief results page */
+}

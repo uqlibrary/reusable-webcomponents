@@ -1,0 +1,57 @@
+nde-full-display-crl, // will be redundant when this the rename just below is everywhere
+uql-course-reading-list-sidebar-panel {
+  .mat-expansion-panel {
+    .mat-expansion-panel-header:not(.mat-expanded):not([aria-disabled=true]):hover {
+      background: var(--mat-expansion-header-hover-state-layer-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-hover-state-layer-opacity) * 100%), transparent));
+    }
+  }
+  // note these styles are also set in repo exlibris-primo src/assets/css/custom.css to avoid a fouc
+  mat-expansion-panel.mat-expansion-panel {
+    background-color: var(--whiteBG);
+    margin-bottom: 1rem;
+    h2 {
+      color: var(--darkText);
+      font-weight: 600;
+      font-size: 1rem;
+      text-transform: uppercase;
+    }
+  }
+  .mat-expansion-panel-body {
+    padding: 0 24px 16px;
+    a.uql-crl-list-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding-bottom: 0.25rem;
+      span {
+        font-size: 15px;
+      }
+    }
+    .toggle-show-all-button {
+      button {
+        background-color: #fff;
+        border-width: 0;
+        border-color: #fff;
+
+        &:hover {
+          span.mat-mdc-button-persistent-ripple::before {
+            opacity: var(--mat-text-button-hover-state-layer-opacity, var(--mat-sys-hover-state-layer-opacity));
+          }
+        }
+        &.noneHidden {
+          mat-icon.toggle-long-crl-icon {
+            transform: rotate(180deg);
+          }
+        }
+        display: inline-flex;
+        align-items: center;
+      }
+    }
+  }
+  ul.course-resource-list li {
+    margin-bottom: 0.25rem;
+    &.uql-crl-list.uql-crl-list-hidden {
+      display: none; // this line is duplicated into exlibris-primo/src/assets/css/custom.css to stop the hidden items from appearing on load
+    }
+  }
+}

@@ -1,0 +1,59 @@
+[_ngcontent-ng-content-indicator]:root {
+  /* as used by exlibris indicators */
+  --darkText: #3b383e;
+  --lightText: #666666;
+  --whiteText: #FFF;
+  --valid: #1E8000;
+  --validDark: #225503;
+  --disableText: #A1A1A1;
+  --validBG: #D1F4DA;
+  --intermediate: #D6801D;
+  --whiteBG: #FFF;
+  --notice: #FFE7DA;
+  --dark: #2E2E27;
+  --darkBGWithOpacity: rgba(46, 46, 39, .8);
+  --blackBGWithOpacity: rgba(0, 0, 0, .85);
+  --divider: #B0B0B0;
+  --switchTrackColor: #C9C9C9;
+  --border: #C9C9C9;
+  --scrollBar: #c9c9c9;
+  --lightBG: #F3F3F3;
+  --darkBG: #DADADA;
+  --searchBarBG: #F3F3F3;
+  --checkboxBorder: #666666;
+  --neutralBG: #F7F7F7;
+  --secondaryActionIcon: #666666;
+  --lightShadow: rgba(0, 0, 0, .21);
+  --darkShadow: rgba(0, 0, 0, .15);
+  --skeleton: #F3F3F3;
+  --skeletonWave: #DADADA
+}
+
+.record-indication-wrapper .mat-divider.mat-divider-vertical {
+  display: inline
+}
+
+[_ngcontent-ng-content-indicator] {
+  &.record-indication {
+    color: var(--sys-outline);
+    font-size: .75rem;
+    font-weight: 500
+  }
+
+  &.mat-divider.mat-divider-vertical {
+    margin-inline-start: .5rem;
+    margin-inline-end: .5rem
+  }
+
+  &.mat-icon.nde-mat-icon-size-medium {
+    width: 16px;
+    height: 16px;
+    margin-top: -3px;
+  }
+
+  @media only screen and (max-width: 599.98px) {
+    &.record-indication-cont:first-child .nde-divider {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+nde-get-it {
+  button.getit-filter-button.filters-open {
+    path {
+      fill: #fff;
+    }
+    &:hover {
+      --sys-on-primary-fixed-variant: #51247a;
+      path {
+        fill: var(--uq-colour-purple-50);
+        color: var(--uq-colour-purple-50);
+      }
+    }
+  }
+}

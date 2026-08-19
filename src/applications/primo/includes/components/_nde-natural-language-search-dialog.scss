@@ -1,0 +1,9 @@
+nde-natural-language-search-dialog {
+  --mdc-dialog-subhead-color: var(--uq-colour-black);
+  --mdc-dialog-supporting-text-color: var(--uq-body-copy);
+  mat-dialog-content.natural-language-search-dialog.natural-language-search-content section.natural-language-search-content-form-container textarea.textarea#query {
+    --sys-background: #fff;
+    border-radius: var(--uq-border-radius);
+    border-color: var(--uq-colour-grey-200);
+  }
+}

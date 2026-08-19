@@ -1,0 +1,12 @@
+nde-main-menu {
+  button,
+  a {
+    &:not(.selected-page) {
+      text-decoration: underline;
+    }
+  }
+  .selected-page {
+    text-decoration: none;
+    color: var(--uq-colour-black);
+  }
+}
