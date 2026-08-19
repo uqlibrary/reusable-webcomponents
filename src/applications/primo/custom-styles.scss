@@ -329,16 +329,14 @@ body.custom-nde-theme {
     }
   }
   /* END let the 404 page breathe */
-}
 
-  /* hide big icon on "no results" & "record not found" pages */
+  /* hide big icon on "record not found" page */
   nde-full-display-error-page {
     mat-icon {
       display: none;
     }
   }
   /* END hide big icon on "no results" page */
-}
 
   /* hide big icon on "no results" page */
   nde-search-no-results {
