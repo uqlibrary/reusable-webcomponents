@@ -43,7 +43,7 @@ userPromptTemplate.innerHTML = `
         </div>
         <!-- Proactive Chat larger dialog -->
         <div id="proactive-chat-wrapper"  class="pcwrapper" style="display: none">
-            <div id="proactive-chat" data-testid="popupIsOpen" class="openSubWrapper">
+            <div id="proactive-chat" data-testid="popupIsOpen" class="openSubWrapper" part="open-popup">
                 <div class="pcText">
                     <div class="pcMessage">Need help?</div>
                 </div>
