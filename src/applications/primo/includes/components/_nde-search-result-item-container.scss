@@ -23,9 +23,12 @@ nde-search-result-item-container {
       color: var(--uq-body-copy);
     }
     nde-paragraph-with-show-more-less-btn {
-      .read-more.basic-button {
-        margin-left: auto;
-        padding-right: 1rem;
+      .read-less,
+      .read-more {
+        &.basic-button {
+          margin-left: auto;
+          padding-right: 1rem;
+        }
       }
     }
   }
