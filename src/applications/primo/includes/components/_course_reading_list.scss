@@ -19,10 +19,6 @@ uql-course-reading-list-sidebar-panel {
   .mat-expansion-panel-body {
     padding: 0 24px 16px;
     a.uql-crl-list-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-      padding-bottom: 0.25rem;
       span {
         font-size: 15px;
       }
@@ -30,7 +26,7 @@ uql-course-reading-list-sidebar-panel {
         height: 20px;
         width: 18px;
         svg {
-          padding-top: 6px;
+          margin-bottom: -3px;
         }
       }
       svg.showMoreLessArrow {
