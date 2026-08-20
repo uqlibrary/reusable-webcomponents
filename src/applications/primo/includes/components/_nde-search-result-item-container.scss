@@ -34,6 +34,7 @@ nde-search-result-item-container {
       margin-top: 0.3rem;
     }
   }
+  &:has(nde-record-book-chapters-or-reviews),
   &:has(nde-record-frbr) {
     nde-record-availability {
       margin-bottom: 0.5rem;
