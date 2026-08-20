@@ -62,4 +62,25 @@ uql-course-reading-list-sidebar-panel {
       display: none; // this line is duplicated into exlibris-primo/src/assets/css/custom.css to stop the hidden items from appearing on load
     }
   }
+
+  .crl-login-banner {
+    background-color: var(--uq-background-alert-info);
+    padding: 0.5rem 0.5rem 0.5rem 2.8rem;
+    color: var(--uq-body-copy) !important;
+    margin-top: 2px;
+    margin-bottom: 0.5rem;
+    font-size: 14px !important;
+
+    &:before {
+      content: "";
+      background-image: var(--uq-icon--info);
+      background-repeat: no-repeat;
+      background-size: 1.5rem;
+      width: 1.8rem;
+      height: 1.5rem;
+      position: absolute;
+      top: 72px;
+      left: 38px;
+    }
+  }
 }
