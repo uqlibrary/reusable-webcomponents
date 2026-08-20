@@ -24,7 +24,7 @@ nde-notification {
         display: block;
         width: 100%;
         padding: 0;
-        background-color: #e7f0fa;
+        background-color: var(--uq-background-alert-info);
         position: relative;
 
         & > div {
