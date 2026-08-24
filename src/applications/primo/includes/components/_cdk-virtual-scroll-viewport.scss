@@ -1,5 +1,18 @@
-cdk-virtual-scroll-viewport.cdk-virtual-scroll-viewport.scroll-viewport.cdk-virtual-scrollable {
+cdk-virtual-scroll-viewport2.cdk-virtual-scroll-viewport.scroll-viewport.cdk-virtual-scrollable {
   .carousel-card .mat-mdc-card-header img {
     width: auto;
+  }
+  a h3 {
+    line-height: normal;
+  }
+  a {
+    &:hover, &:focus {
+      h3 {
+        display: inline;
+        text-decoration: underline !important;
+        background-color: #51247a;
+        color: #fff !important;
+      }
+    }
   }
 }

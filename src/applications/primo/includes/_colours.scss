@@ -184,4 +184,485 @@ body.custom-nde-theme {
     }
   }
   /* END content indicator colours */
+
+  /* UQ DS style Tight links */
+
+  /* attempting to style by link/button html structure, rather than specific types */
+
+  /* eg full, Details section, body links; brief, result title  */
+  nde-full-display-details, nde-search-results {
+    a:has(nde-highlight span) {
+      uqlbuttonstyletype: one; /* used to determine which of these styles is applied to the element */
+      nde-highlight span {
+        text-decoration: underline;
+      }
+
+      &:hover, &:focus {
+        nde-highlight span {
+          text-decoration: underline;
+          background-color: var(--uq-main-purple);
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  /* eg full, Requests section, "go to link" */
+  /* button:has(> span:nth-child(5)), */
+  a:has(> span:nth-of-type(5)):has(> mat-icon):has(span.mdc-button__label) {
+    &:not(:has(span.mdc-button__label mat-icon)):not(:has(> span > div)) {
+      uqlbuttonstyletype: two;
+      text-decoration: underline;
+      &:hover, &:focus {
+        span.mdc-button__label:not(:has(mat-icon)) {
+          line-height: normal;
+          text-decoration: underline;
+          background-color: var(--uq-main-purple);
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  /* eg full, Locations section, view items button */
+  /* label is sitting naked against mat-icon */
+  button:has(> span:nth-of-type(5)):has(> span.mdc-button__label > span > mat-icon) {
+    &:not(:has(div)):not(:has(> span.mdc-button__label > span + span)):not(:has(> span.mdc-button__label > span > span)) {
+      uqlbuttonstyletype: three;
+      span.mdc-button__label {
+        text-decoration: underline;
+      }
+      &:hover, &:focus {
+        span.mat-mdc-button-persistent-ripple::before {
+          background-color: transparent;
+        }
+        span.mdc-button__label:has(> span > mat-icon) {
+          > span {
+            text-decoration: underline;
+            background-color: var( --uq-main-purple);
+            color: #fff;
+          }
+          mat-icon svg path {
+            fill: #fff;
+          }
+        }
+      }
+    }
+  }
+
+  /* eg full, Locations section, expand all button */
+  /* label is within own span, beside mat-icon */
+  button:has(> span:nth-of-type(5)):has(> span.mdc-button__label span span):has(> span.mdc-button__label > span mat-icon + span) {
+    &:not(:has(div)) {
+      uqlbuttonstyletype: four;
+      span.mdc-button__label span span {
+        line-height: normal;
+        text-decoration: underline;
+      }
+      &:hover { /* changes state, don't do focus */
+        span.mat-mdc-button-persistent-ripple::before {
+          background-color: transparent;
+        }
+        span.mdc-button__label:has(> span > mat-icon) {
+          span:not(:has(span)) {
+            text-decoration: underline;
+            background-color: var(--uq-main-purple);
+            color: #fff;
+          }
+          &:has(span:not(:has(span))) mat-icon svg path {
+            fill: #fff;
+          }
+        }
+      }
+    }
+  }
+
+  /* eg main menu, help icon (possibly "has icon") */
+  a:has(> span:nth-of-type(5)):has(> span.mdc-button__label > span) {
+    &:not(:has(> span > div)):not(:has(> div):not(:has(> mat-icon))) {
+      uqlbuttonstyletype: five;
+
+      &:hover, &:focus {
+        span.mdc-button__label > span {
+          text-decoration: underline;
+          background-color: var(--uq-main-purple);
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  /* eg main menu, help icon (possibly "has icon") */
+  a:has(> span > div):has(> span:nth-of-type(5)) {
+    uqlbuttonstyletype: six;
+    &:hover, &:focus {
+      span.mat-mdc-button-persistent-ripple::before {
+        background-color: transparent;
+      }
+      text-decoration: underline;
+      span.mdc-button__label {
+        line-height: normal;
+        div span {
+          text-decoration: underline;
+          background-color: var( --uq-main-purple);
+          color: #fff;
+        }
+      }
+    }
+  }
+
+
+  /* eg full, Locations section, "location" first link */
+  button:has(> span:nth-of-type(1)) {
+    &:not(:has(> span:nth-of-type(2))):not(:has(> mat-icon:nth-of-type(2))) {
+      uqlbuttonstyletype: seven;
+
+      span.mat-title-medium {
+        line-height: normal;
+        text-decoration: underline;
+        &:hover, &:focus {
+          text-decoration: underline;
+          background-color: var(--uq-main-purple);
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  /* eg full, list header, "results per page" */
+  mat-select:has(> div) {
+    &:not(:has(> div:nth-of-type(2))) {
+      uqlbuttonstyletype: eight;
+      span span {
+        text-decoration: underline;
+      }
+      &:hover, &:focus {
+        div:has(> div:nth-of-type(2)):not(:has(> div:nth-of-type(3))) {
+          div:has(> span):not(:has(> span:nth-of-type(2))) {
+            span:has(> span):not(:has(> span:nth-of-type(2))) {
+              span {
+                text-decoration: underline;
+                background-color: var(--uq-main-purple);
+                color: #fff;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /* egs: ai assisted search button, all filters */
+  button:has(> span:nth-of-type(5)):has(> mat-icon:nth-child(2)):has(> span.mdc-button__label > span) {
+    &:not(:has(> div)) {
+      uqlbuttonstyletype: nine;
+
+      span.mat-mdc-button-persistent-ripple::before {
+        background-color: transparent;
+      }
+
+      .mdc-button__label span {
+        line-height: normal;
+        text-decoration: underline;
+      }
+
+      &:hover, &:focus {
+        .mdc-button__label span {
+          text-decoration: underline;
+          background-color: var(--uq-main-purple);
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  /* eg advanced search */
+  button:has(> span:nth-of-type(5)):has(> span.mdc-button__label) {
+    &:not(:has(> span.mdc-button__label > span)):not(:has(mat-icon)):not(:has(div)) {
+      uqlbuttonstyletype: ten;
+      line-height: normal;
+
+      span.mat-mdc-button-persistent-ripple::before {
+        background-color: transparent;
+      }
+
+      span.mdc-button__label {
+        line-height: normal;
+        text-decoration: underline;
+        color: var(--uq-main-purple);
+      }
+
+      &:hover, &:focus {
+        span.mdc-button__label {
+          text-decoration: underline;
+          background-color: var(--uq-main-purple);
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  /* eg full, all filters button */
+  button:has(> span:nth-of-type(5)):has(> mat-icon:nth-child(2)):has(> span.mdc-button__label) {
+    &:not(:has(> span.mdc-button__label span)) {
+      uqlbuttonstyletype: eleven;
+
+      span.mdc-button__label, mat-icon {
+        line-height: normal;
+      }
+      span.mdc-button__label {
+        text-decoration: underline;
+      }
+
+      span.mat-mdc-button-persistent-ripple::before {
+        background-color: transparent;
+      }
+
+      &:hover, &:focus {
+        span.mdc-button__label {
+          text-decoration: underline;
+          background-color: var(--uq-main-purple);
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  /* eg full, result header, sort by */
+  button:has(> span:nth-of-type(5)):has(> span.mdc-button__label > span > mat-icon):has(> span.mdc-button__label > span + span) {
+    &:not(:has(div)) {
+      uqlbuttonstyletype: twelve;
+      --uql-local-sort-by-background-colour: #fff;
+
+      span.mdc-button__label span {
+        line-height: normal;
+        text-decoration: underline;
+      }
+
+      &:hover, &:focus {
+        span.mat-mdc-button-persistent-ripple::before {
+          background-color: transparent;
+        }
+
+        span.mdc-button__label:has(> span > mat-icon) {
+          > span {
+            text-decoration: underline;
+            background-color: var(--uq-main-purple);
+            color: #fff;
+          }
+
+          mat-icon {
+            background-color: var(--uql-local-sort-by-background-colour);
+          }
+        }
+      }
+    }
+  }
+
+  /* eg full, result header, options */
+  button:has(> span:nth-of-type(5)):has( > mat-icon:nth-child(3)):has(> span.mdc-button__label > span) {
+    &:not(:has(> span.mdc-button__label > span > span)) {
+      uqlbuttonstyletype: thirteen;
+      span.mdc-button__label span {
+        text-decoration: underline;
+      }
+      &:hover, &:focus {
+        span.mat-mdc-button-persistent-ripple::before {
+          background-color: transparent;
+        }
+
+        span.mdc-button__label span {
+          text-decoration: underline;
+          background-color: var(--uq-main-purple);
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  /* eg brief, search header save/export button */
+  button:has(> span:nth-of-type(5)):has(> span.mdc-button__label span span):has(> span.mdc-button__label > span span + mat-icon) {
+    &:not(:has(div)) {
+      uqlbuttonstyletype: fourteen;
+      span.mdc-button__label span span {
+        text-decoration: underline;
+      }
+      &:hover, &:focus {
+        span.mdc-button__label {
+          span span {
+            text-decoration: underline;
+            background-color: var(--uq-main-purple);
+            color: #fff;
+          }
+        }
+
+        mat-icon, mat-icon * {
+          /* this doesn't work :( */
+          text-decoration: none;
+          border-width: 0;
+        }
+      }
+    }
+  }
+
+  /* eg brief, readmore/less button */
+  button:has(> span:nth-of-type(4)) {
+    &:not(:has(> span:nth-of-type(5))) {
+      uqlbuttonstyletype: fifteen;
+      span.mdc-button__label span {
+        text-decoration: underline;
+      }
+      &:hover, &:focus {
+        span.mdc-button__label span {
+          text-decoration: underline;
+          background-color: var(--uq-main-purple);
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  /* eg full, view it, heading */
+  a:has(> span):has(> mat-icon) {
+    &:not(:has(> span:nth-of-type(2))):not(:has(> span > span)) {
+      uqlbuttonstyletype: sixteen;
+      line-height: normal;
+      span {
+        text-decoration: underline;
+      }
+      &:hover, &:focus {
+        span {
+          text-decoration: underline;
+          background-color: var(--uq-main-purple);
+          color: #fff;
+        }
+      }
+    }
+  }
+  /* eg full, view it, show licence button */
+  button:has(mat-icon + span + mat-icon) {
+    &:not(span:nth-of-type(2)):not(mat-icon:nth-of-type(3)) {
+      uqlbuttonstyletype: seventeen;
+      &:hover, &:focus {
+        span {
+          text-decoration: underline;
+          background-color: var(--uq-main-purple);
+          color: #fff;
+        }
+      }
+    }
+
+    /* eg full, other chapters in this book, link */
+    a:has(> span):has(> span > mat-icon) {
+      &:not(:has(span:nth-of-type(2))):not(:has(div)) {
+        uqlbuttonstyletype: eighteen;
+        line-height: normal;
+        span {
+          line-height: normal;
+        }
+        &:hover, &:focus {
+          text-decoration: underline;
+          background-color: #51247a;
+          color: #fff;
+          border-radius: 0;
+          mat-icon path {
+            text-decoration: none;
+            fill: #fff;
+          }
+        }
+      }
+    }
+
+    /* eg full, details, collection path */
+    a {
+      &:not(:has(span)):not(:has(mat-icon)):not(:has(div)) {
+        uqlbuttonstyletype: nineteen;
+        &:hover, &:focus {
+          text-decoration: underline !important;
+          background-color: #51247a;
+          color: #fff !important;
+        }
+      }
+    }
+
+    /* eg full record, Links section, access links */
+    a:has(> mat-icon) {
+      &:not(:has(span)) {
+        uqlbuttonstyletype: twenty;
+        line-height: normal;
+        &:hover, &:focus {
+          text-decoration: underline !important;
+          background-color: #51247a;
+          color: #fff !important;
+          border-radius: 0;
+          mat-icon path {
+            fill: #fff;
+
+          }
+        }
+      }
+    }
+
+    /* full, Citations section, cited links */
+    a:has(> div mat-icon + span) {
+      &:not(:has(> span)):not(:has(> mat-icon)) {
+        uqlbuttonstyletype: twentyone;
+        line-height: 0;
+        &:hover, &:focus {
+          span {
+            text-decoration: underline;
+            background-color: #51247a;
+            color: #fff;
+          }
+        }
+      }
+    }
+
+    /* eg full, sidebar, related reading */
+    a:has(> h5 > span) {
+      uqlbuttonstyletype: twentytwo;
+      h5 span {
+        line-height: normal;
+        text-decoration: underline;
+      }
+      &:hover, &:focus {
+        h5 span {
+          text-decoration: underline;
+          background-color: #51247a;
+          color: #fff;
+        }
+        mat-icon {
+          /* sometimes there is an icon */
+          background-color: #fff;
+        }
+      }
+    }
+
+
+    /* eg brief, not sure, maybe available online? */
+    button:has(> span:nth-of-type(5)):has(> span.mdc-button__label span) {
+      &:not(mat-icon):not(div):not(:has(span.mdc-button__label span span)) {
+        uqlbuttonstyletype: twentythree;
+        span.mdc-button__label span {
+          text-decoration: underline;
+        }
+        &:hover, &:focus {
+          span.mdc-button__label span {
+            text-decoration: underline;
+            background-color: var(--uq-main-purple);
+            color: #fff;
+          }
+        }
+      }
+    }
+
+  }
+
+  /* END UQ DS style Tight links */
+
+  /* Resource Sharing form message */
+  .description-container span {
+    font-size: 1rem;
+  }
+  /* END Resource Sharing form message */
 }

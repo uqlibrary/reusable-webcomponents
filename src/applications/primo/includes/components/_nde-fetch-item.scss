@@ -39,4 +39,11 @@ nde-fetch-item {
       display: none;
     }
   }
+  a {
+    &:hover, &:focus {
+      text-decoration: underline;
+      background-color: var(--uq-main-purple);
+      color: #fff;
+    }
+  }
 }
