@@ -174,7 +174,7 @@ class MockApi {
                     case apiRoute.PRIMO_SUGGESTIONS_API_GENERIC('').apiUrl:
                         if (this.user === 'errorUser') {
                             return this.response(403, {});
-                            // return this.response(500, {}, true);
+                            // return this.response(410, {error: '[ALSA01] this is not a valid request (query required)'});
                         }
                         return this.response(200, primoSuggestions, true);
 

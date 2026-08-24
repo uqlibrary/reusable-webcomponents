@@ -91,10 +91,7 @@ class ApiAccess {
     async loadPrimoSuggestions(keyword) {
         const route = new ApiRoutes().PRIMO_SUGGESTIONS_API_GENERIC(keyword);
         const url = route.apiUrl;
-        return await this.fetchJsonpAPI(url, {
-            jsonpCallbackFunction: 'byutv_jsonp_callback_c631f96adec14320b23f1cac342d30f6',
-            timeout: 3000,
-        })
+        return await this.fetchAPI(url, 'nocachebuster')
             .then((data) => {
                 return (
                     (data &&
@@ -251,7 +248,7 @@ class ApiAccess {
             } catch (e) {
                 urlPath === 'chat_status' && this.showVPNNeededToast(); // dev
 
-                const msg = `mock api error: ${e.message}`;
+                const msg = `mock api error [A]: ${e.message}`;
                 window.location.hostname === 'localhost' && console.log(msg);
                 throw new Error(msg);
             }
@@ -291,34 +288,34 @@ class ApiAccess {
         }
     }
 
-    async fetchJsonpAPI(url, headers) {
-        const options = {
-            ...headers,
-        };
-
-        /* istanbul ignore else  */
-        if (this.isMock()) {
-            try {
-                return this.fetchMock(url);
-            } catch (e) {
-                const msg = `mock api error: ${e.message}`;
-                window.location.hostname === 'localhost' && console.log(msg);
-                throw new Error(msg);
-            }
-        } else {
-            // this assumes non api.library urls
-            const response = await fetchJsonp(url, options);
-            if (!response?.ok) {
-                window.location.hostname === 'localhost' &&
-                    console.log(
-                        `ApiAccess console [A4]: An error has occured: ${response?.status} ${response?.statusText}`,
-                    );
-                const message = `ApiAccess [A2]: An error has occured: ${response?.status} ${response?.statusText}`;
-                throw new Error(message);
-            }
-            return (await !!response) ? response.json() : null;
-        }
-    }
+    // async fetchJsonpAPI(url, headers) {
+    //     const options = {
+    //         ...headers,
+    //     };
+    //
+    //     /* istanbul ignore else  */
+    //     if (this.isMock()) {
+    //         try {
+    //             return this.fetchMock(url);
+    //         } catch (e) {
+    //             const msg = `mock api error [B]: ${e.message}`;
+    //             window.location.hostname === 'localhost' && console.log(msg);
+    //             throw new Error(msg);
+    //         }
+    //     } else {
+    //         // this assumes non api.library urls
+    //         const response = await fetchJsonp(url, options);
+    //         if (!response?.ok) {
+    //             window.location.hostname === 'localhost' &&
+    //                 console.log(
+    //                     `ApiAccess console [A4]: An error has occured: ${response?.status} ${response?.statusText}`,
+    //                 );
+    //             const message = `ApiAccess [A2]: An error has occured: ${response?.status} ${response?.statusText}`;
+    //             throw new Error(message);
+    //         }
+    //         return (await !!response) ? response.json() : null;
+    //     }
+    // }
 
     getSessionCookie() {
         return getCookieValue(locale.SESSION_COOKIE_NAME);
