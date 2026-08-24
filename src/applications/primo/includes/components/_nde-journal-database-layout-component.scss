@@ -41,6 +41,14 @@ nde-journal-database-layout-component {
     .description-container {
       border-radius: var(--uq-border-radius);
     }
+    a {
+      text-decoration: underline;
+      &:hover, &:focus {
+        text-decoration: underline;
+        background-color: var(--uq-main-purple);
+        color: #fff;
+      }
+    }
   }
   nde-search-result-item-container {
     nde-record-type {
