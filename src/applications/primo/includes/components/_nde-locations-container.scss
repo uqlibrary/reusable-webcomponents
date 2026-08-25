@@ -5,10 +5,17 @@ nde-locations-container {
     --sys-body-medium: 1rem;
 
     .getit-location-maybe {
-      color: var(--uq-main-purple);
+      color: var(--uq-colour-black);
+    }
+    span.getit-location-available {
+      --valid: var(--uq-colour-black);
     }
 
+    /* unsure that this is ever a button */
     button:has(.getit-location-available) {
+      span.getit-location-available {
+        --valid: var(--uq-main-purple);
+      }
       &:hover,&:focus {
         .getit-location-available {
           text-decoration: underline;
