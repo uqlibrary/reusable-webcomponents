@@ -151,7 +151,7 @@ body.custom-nde-theme {
   /* eg full, Details section, body links; brief, result title  */
   nde-full-display-details, nde-search-results {
     a:has(nde-highlight span) {
-      uqlbuttonstyletype: one; /* used to determine which of these styles is applied to the element */
+      --uql-button-style-type: one; /* so the developer can easily determine which of these styles is applied to the element */
       nde-highlight span {
         text-decoration: underline;
       }
@@ -170,7 +170,7 @@ body.custom-nde-theme {
   /* button:has(> span:nth-child(5)), */
   a:has(> span:nth-of-type(5)):has(> mat-icon):has(span.mdc-button__label) {
     &:not(:has(span.mdc-button__label mat-icon)):not(:has(> span > div)) {
-      uqlbuttonstyletype: two;
+      --uql-button-style-type: two;
       text-decoration: underline;
       &:hover, &:focus {
         span.mdc-button__label:not(:has(mat-icon)) {
@@ -187,7 +187,7 @@ body.custom-nde-theme {
   /* label is sitting naked against mat-icon */
   button:has(> span:nth-of-type(5)):has(> span.mdc-button__label > span > mat-icon) {
     &:not(:has(div)):not(:has(> span.mdc-button__label > span + span)):not(:has(> span.mdc-button__label > span > span)) {
-      uqlbuttonstyletype: three;
+      --uql-button-style-type: three;
       span.mdc-button__label {
         text-decoration: underline;
       }
@@ -213,7 +213,7 @@ body.custom-nde-theme {
   /* label is within own span, beside mat-icon */
   button:has(> span:nth-of-type(5)):has(> span.mdc-button__label span span):has(> span.mdc-button__label > span mat-icon + span) {
     &:not(:has(div)) {
-      uqlbuttonstyletype: four;
+      --uql-button-style-type: four;
       span.mdc-button__label span span {
         line-height: normal;
         text-decoration: underline;
@@ -239,7 +239,7 @@ body.custom-nde-theme {
   /* eg main menu, help icon (possibly "has icon") */
   a:has(> span:nth-of-type(5)):has(> span.mdc-button__label > span) {
     &:not(:has(> span > div)):not(:has(> div):not(:has(> mat-icon))) {
-      uqlbuttonstyletype: five;
+      --uql-button-style-type: five;
 
       &:hover, &:focus {
         span.mdc-button__label > span {
@@ -253,7 +253,7 @@ body.custom-nde-theme {
 
   /* eg main menu, help icon (possibly "has icon") */
   a:has(> span > div):has(> span:nth-of-type(5)) {
-    uqlbuttonstyletype: six;
+    --uql-button-style-type: six;
     &:hover, &:focus {
       span.mat-mdc-button-persistent-ripple::before {
         background-color: transparent;
@@ -274,7 +274,7 @@ body.custom-nde-theme {
   /* eg full, Locations section, "location" first link */
   button:has(> span:nth-of-type(1)) {
     &:not(:has(> span:nth-of-type(2))):not(:has(> mat-icon:nth-of-type(2))) {
-      uqlbuttonstyletype: seven;
+      --uql-button-style-type: seven;
 
       span.mat-title-medium {
         line-height: normal;
@@ -291,7 +291,7 @@ body.custom-nde-theme {
   /* eg full, list header, "results per page" */
   mat-select:has(> div) {
     &:not(:has(> div:nth-of-type(2))) {
-      uqlbuttonstyletype: eight;
+      --uql-button-style-type: eight;
       span span {
         text-decoration: underline;
       }
@@ -314,7 +314,7 @@ body.custom-nde-theme {
   /* egs: ai assisted search button, all filters */
   button:has(> span:nth-of-type(5)):has(> mat-icon:nth-child(2)):has(> span.mdc-button__label > span) {
     &:not(:has(> div)) {
-      uqlbuttonstyletype: nine;
+      --uql-button-style-type: nine;
 
       span.mat-mdc-button-persistent-ripple::before {
         background-color: transparent;
@@ -338,7 +338,7 @@ body.custom-nde-theme {
   /* eg advanced search */
   button:has(> span:nth-of-type(5)):has(> span.mdc-button__label) {
     &:not(:has(> span.mdc-button__label > span)):not(:has(mat-icon)):not(:has(div)) {
-      uqlbuttonstyletype: ten;
+      --uql-button-style-type: ten;
       line-height: normal;
 
       span.mat-mdc-button-persistent-ripple::before {
@@ -364,7 +364,7 @@ body.custom-nde-theme {
   /* eg full, all filters button */
   button:has(> span:nth-of-type(5)):has(> mat-icon:nth-child(2)):has(> span.mdc-button__label) {
     &:not(:has(> span.mdc-button__label span)) {
-      uqlbuttonstyletype: eleven;
+      --uql-button-style-type: eleven;
 
       span.mdc-button__label, mat-icon {
         line-height: normal;
@@ -390,7 +390,7 @@ body.custom-nde-theme {
   /* eg full, result header, sort by */
   button:has(> span:nth-of-type(5)):has(> span.mdc-button__label > span > mat-icon):has(> span.mdc-button__label > span + span) {
     &:not(:has(div)) {
-      uqlbuttonstyletype: twelve;
+      --uql-button-style-type: twelve;
       --uql-local-sort-by-background-colour: #fff;
 
       span.mdc-button__label span {
@@ -421,7 +421,7 @@ body.custom-nde-theme {
   /* eg full, result header, options */
   button:has(> span:nth-of-type(5)):has( > mat-icon:nth-child(3)):has(> span.mdc-button__label > span) {
     &:not(:has(> span.mdc-button__label > span > span)) {
-      uqlbuttonstyletype: thirteen;
+      --uql-button-style-type: thirteen;
       span.mdc-button__label span {
         text-decoration: underline;
       }
@@ -442,7 +442,7 @@ body.custom-nde-theme {
   /* eg brief, search header save/export button */
   button:has(> span:nth-of-type(5)):has(> span.mdc-button__label span span):has(> span.mdc-button__label > span span + mat-icon) {
     &:not(:has(div)) {
-      uqlbuttonstyletype: fourteen;
+      --uql-button-style-type: fourteen;
       span.mdc-button__label span span {
         text-decoration: underline;
       }
@@ -467,7 +467,7 @@ body.custom-nde-theme {
   /* eg brief, readmore/less button */
   button:has(> span:nth-of-type(4)) {
     &:not(:has(> span:nth-of-type(5))) {
-      uqlbuttonstyletype: fifteen;
+      --uql-button-style-type: fifteen;
       span.mdc-button__label span {
         text-decoration: underline;
       }
@@ -484,7 +484,7 @@ body.custom-nde-theme {
   /* eg full, view it, heading */
   a:has(> span):has(> mat-icon) {
     &:not(:has(> span:nth-of-type(2))):not(:has(> span > span)) {
-      uqlbuttonstyletype: sixteen;
+      --uql-button-style-type: sixteen;
       line-height: normal;
       span {
         text-decoration: underline;
@@ -501,7 +501,7 @@ body.custom-nde-theme {
   /* eg full, view it, show licence button */
   button:has(mat-icon + span + mat-icon) {
     &:not(span:nth-of-type(2)):not(mat-icon:nth-of-type(3)) {
-      uqlbuttonstyletype: seventeen;
+      --uql-button-style-type: seventeen;
       &:hover, &:focus {
         span {
           text-decoration: underline;
@@ -510,11 +510,12 @@ body.custom-nde-theme {
         }
       }
     }
+  }
 
     /* eg full, other chapters in this book, link */
     a:has(> span):has(> span > mat-icon) {
       &:not(:has(span:nth-of-type(2))):not(:has(div)) {
-        uqlbuttonstyletype: eighteen;
+        --uql-button-style-type: eighteen;
         line-height: normal;
         span {
           line-height: normal;
@@ -535,7 +536,7 @@ body.custom-nde-theme {
     /* eg full, details, collection path */
     a {
       &:not(:has(span)):not(:has(mat-icon)):not(:has(div)) {
-        uqlbuttonstyletype: nineteen;
+        --uql-button-style-type: nineteen;
         &:hover, &:focus {
           text-decoration: underline !important;
           background-color: #51247a;
@@ -547,7 +548,7 @@ body.custom-nde-theme {
     /* eg full record, Links section, access links */
     a:has(> mat-icon) {
       &:not(:has(span)) {
-        uqlbuttonstyletype: twenty;
+        --uql-button-style-type: twenty;
         line-height: normal;
         &:hover, &:focus {
           text-decoration: underline !important;
@@ -565,7 +566,7 @@ body.custom-nde-theme {
     /* full, Citations section, cited links */
     a:has(> div mat-icon + span) {
       &:not(:has(> span)):not(:has(> mat-icon)) {
-        uqlbuttonstyletype: twentyone;
+        --uql-button-style-type: twentyone;
         line-height: 0;
         &:hover, &:focus {
           span {
@@ -579,7 +580,7 @@ body.custom-nde-theme {
 
     /* eg full, sidebar, related reading */
     a:has(> h5 > span) {
-      uqlbuttonstyletype: twentytwo;
+      --uql-button-style-type: twentytwo;
       h5 span {
         line-height: normal;
         text-decoration: underline;
@@ -601,7 +602,7 @@ body.custom-nde-theme {
     /* eg brief, not sure, maybe available online? */
     button:has(> span:nth-of-type(5)):has(> span.mdc-button__label span) {
       &:not(mat-icon):not(div):not(:has(span.mdc-button__label span span)) {
-        uqlbuttonstyletype: twentythree;
+        --uql-button-style-type: twentythree;
         span.mdc-button__label span {
           text-decoration: underline;
         }
@@ -615,8 +616,38 @@ body.custom-nde-theme {
       }
     }
 
+  /* eg full, top block, read more button */
+  button:has(> span:nth-of-type(5)):has(> span.mdc-button__label) {
+    &:not(:has(mat-icon)):not(:has(div)):not(:has(span span)) {
+      --uql-button-style-type: twentyfour;
+      line-height: normal;
+
+      span.mdc-button__label {
+        line-height: normal;
+        text-decoration: underline;
+      }
+
+      &:hover, &:focus {
+        span.mdc-button__label {
+          text-decoration: underline;
+          background-color: var(--uq-main-purple);
+          color: #fff;
+        }
+      }
+    }
   }
 
+  /* eg full, locations, expand "Show more" - note html is "broken", "Show more should be inside the provided mdc-button__label span */
+  button:has(> span:nth-of-type(5)):has(> span.mdc-button__label:empty) {
+    span.mat-mdc-button-persistent-ripple::before {
+      background-color: transparent;
+    }
+    text-decoration: underline;
+    &:hover, &:focus {
+        background-color: var(--uq-main-purple);
+        color: #fff;
+    }
+  }
   /* END UQ DS style Tight links */
 
   /* Resource Sharing form message */
