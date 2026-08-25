@@ -56,4 +56,22 @@ nde-locations-container {
 //  .getit-location-items-filter-bar {
 //    border-bottom-width: 0;
 //  }
+
+  /* drill right into the full record Locations section, opening View Items, and the Library identifier is revealed */
+  nde-location-items-container {
+    nde-location-item {
+      div.getit-items-full-properties-container {
+        nde-location-items-properties.getit-items-full-properties {
+          div.getit-item-full-properties-container {
+            span.getit-item-key {
+              white-space: nowrap;
+            }
+            span.getit-item-value {
+              font-weight: 400;
+            }
+          }
+        }
+      }
+    }
+  }
 }
