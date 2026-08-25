@@ -5,7 +5,19 @@ nde-record-availability {
     margin-top: .25rem;
     padding: 5px 1rem 4px 0.8rem;
     &:has(button.available-at-button:hover) {
-        background-color: #f1edf4;
+      background-color: #f1edf4;
+    }
+    button:has(> span:nth-child(5)) {
+      devtracking: two;
+      &:hover, &:focus {
+        text-decoration: underline;
+        span.mdc-button__label:not(:has(mat-icon)) {
+          line-height: normal;
+          text-decoration: underline;
+          background-color: #f1edf4;
+          color: var( --uq-main-purple);
+        }
+      }
     }
     button.available-at-button:hover .mdc-button__label {
       text-decoration: none;

@@ -58,14 +58,41 @@ nde-collection-discovery-container {
       .collection-grid-card {
         --sys-background: #fff;
         border-radius: var(--uq-border-radius);
-        a, a div.collection-discovery-thumbnail-container img {
-          border-radius: var(--uq-border-radius);
+        gap: 0;
+        a {
+          border-radius: 0;
+          div.collection-discovery-thumbnail-container img {
+            border-radius: var(--uq-border-radius);
+          }
         }
         &:hover, &:focus {
-          background-color: rgb(243, 243, 244);
-          border: 1px solid rgba(38, 85, 115, 0.15);
+            background-color: rgb(243, 243, 244);
+            border: 1px solid rgba(38, 85, 115, 0.15);
         }
       }
+    }
+    h3 a {
+      display: inline !important;
+    }
+  }
+  nde-collection-discovery-gallery-item div,
+  nde-collection-discovery-gallery-collection div {
+    a {
+      display: inline !important;
+    }
+    &:hover, &:focus {
+      cursor: pointer;
+      h3 a {
+        text-decoration: underline;
+        background-color: var(--uq-main-purple);
+        color: #fff;
+      }
+    }
+  }
+  nde-collection-path-breadcrumbs a {
+    &:hover, &:focus {
+      background-color: var(--uq-main-purple);
+      color: #fff;
 
       nde-collection-discovery-gallery-collection {
         .collection-overlay {
@@ -75,6 +102,15 @@ nde-collection-discovery-container {
             }
           }
         }
+      }
+    }
+  }
+
+  /* override common anchor hovers from colours.scss */
+  nde-collection-discovery-top-bar nde-sort-by button {
+    &:hover, &:focus {
+      mat-icon {
+        --uql-local-sort-by-background-colour: var(--sys-inverse-on-surface);
       }
     }
   }
