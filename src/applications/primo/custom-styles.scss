@@ -331,18 +331,6 @@ body.custom-nde-theme {
   }
   /* END style sidebar Search Inside box */
 
-  /* Adjust field label display in Full Record Display > Details section */
-  nde-full-display-details {
-    .details-label {
-      --sys-title-small: 1rem;
-      font-weight: 500;
-      @media (min-width: 601px) {
-        text-align: right;
-      }
-    }
-  }
-  /* END Adjust field label display in Full Record Display > Details section */
-
   /* hide divider beside sort button */
   nde-search-results-container {
     div:has(> nde-sort-by)  {
