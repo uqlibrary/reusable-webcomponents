@@ -309,19 +309,6 @@ body.custom-nde-theme {
     padding-inline: 1rem;
   }
   /* END style error page login prompt */
-
-  /* Adjust field label display in Full Record Display > Details section */
-  nde-full-display-details {
-    .details-label {
-      --sys-title-small: 1rem;
-      font-weight: 500;
-      @media (min-width: 601px) {
-        text-align: right;
-      }
-    }
-  }
-  /* END Adjust field label display in Full Record Display > Details section */
-
 }
 
 @media (max-width: 1919.9px) {
