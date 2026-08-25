@@ -1,3 +1,14 @@
 nde-full-display-details {
 
+  /* collection path to be normal text size */
+  nde-collection-path-detail {
+    div.full-display-detail {
+      div.collection-path-container {
+        a.collection-path {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+  /* END collection path to be normal text size */
 }
