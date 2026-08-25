@@ -25,6 +25,10 @@
   --uq-warning-50:	#fef8e8;
   --uq-error-500: #d62929;
 
+  --uql-brand-orange: #EB602B; // rbg(235, 96, 43)
+  --uql-brand-blue: #4085C6; // rgb(64, 133, 198)
+  --uql-brand-green: #2EA836; // rbg(46, 168, 54)
+
   --uq-colour-black: #19151c;
   --uq-border-color: var(--uq-colour-grey-200);
 
@@ -71,11 +75,18 @@
   --mat-tab-header-inactive-label-text-color: var(--uq-colour-black);
   --mat-tab-header-inactive-ripple-color: var(--uq-colour-purple-50);
   --mat-tab-header-divider-color: var(--uq-colour-purple-50);
+
+  --uql-content-indicator-open-access: var(--uql-brand-orange);
+  --uql-content-indicator-peer-review: var(--uql-brand-blue);
+  --uql-content-indicator-course-reading-list: var(--uql-brand-green);
+  --uql-content-indicator-cultural-advice: var(--uq-main-purple);
+
+  --uql-base-icon-colour: var(--uq-main-purple);
 }
 
 /* override fill=green hard coded on attribute so everything-purple */
 svg, path, circle {
-  fill: var(--uq-main-purple);
+  fill: var(--uql-base-icon-colour);
 }
 /* END override fill=green hard coded on attribute */
 
@@ -141,7 +152,7 @@ body.custom-nde-theme {
 
   /* make icons purple  */
   mat-icon svg path {
-    --sys-outline: var(--uq-main-purple);
+    --sys-outline: var(--uql-base-icon-colour);
   }
   /* END make icons purple  */
 
@@ -669,4 +680,21 @@ body.custom-nde-theme {
     font-size: 1rem;
   }
   /* END Resource Sharing form message */
+
+  /* content indicator colours */
+  .mat-icon.open-access-indicator-color svg path {
+    fill: var(--uql-content-indicator-open-access);
+  }
+  uql-cultural-advice-content-indicator mat-icon svg path {
+    --uql-base-icon-colour: var(--uql-content-indicator-cultural-advice);
+  }
+  uql-course-resource-content-indicator mat-icon svg path {
+    --uql-base-icon-colour: var(--uql-content-indicator-course-reading-list);
+  }
+  mat-icon[data-mat-icon-name="Peer-Reviewed-Indicator"] svg {
+    path, circle {
+      --sys-primary: var(--uql-content-indicator-peer-review);
+    }
+  }
+  /* END content indicator colours */
 }
