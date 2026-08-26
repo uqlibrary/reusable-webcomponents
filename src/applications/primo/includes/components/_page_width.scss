@@ -27,13 +27,17 @@ div.header-container {
   }
 }
 div.header-container {
-  width: clamp(1150px,85%,1348px) !important;
+  width: clamp(1150px, 85%, 1348px) !important;
   margin-inline:auto
+}
+@media (max-width: 1160px) {
+  div.header-container {
+    width: 100% !important;
+  }
 }
 
 @media(min-width: 1180px) {
   div.header-container {
-    margin-inline:auto;
     padding-inline:0
   }
 }
