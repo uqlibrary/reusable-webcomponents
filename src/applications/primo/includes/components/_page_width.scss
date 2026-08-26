@@ -2,7 +2,6 @@
 
 /* main menu: set margins and left align */
 div.header-container {
-  width: 100% !important;
   padding-inline: 1rem;
   margin-inline: auto;
   nde-user-panel {
@@ -27,14 +26,16 @@ div.header-container {
     }
   }
 }
-@media (min-width: 1180px) {
-  div.header-container {
-    width: 71rem !important;
-    padding-inline: 0;
-  }
+div.header-container {
+  width: clamp(1150px,85%,1348px) !important;
+  margin-inline:auto
 }
-nde-main-menu {
-  margin-left: -12px;
+
+@media(min-width: 1180px) {
+  div.header-container {
+    margin-inline:auto;
+    padding-inline:0
+  }
 }
 /* END main menu: set margins and left align */
 
