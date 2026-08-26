@@ -322,6 +322,16 @@ body.custom-nde-theme {
   }
   /* END style sidebar Search Inside box */
 
+  /* correct font size on options show-hide button */
+  nde-search-results-container {
+    button[aria-controls="expand-results-options-line"] {
+      span {
+        font-size: 1rem;
+      }
+    }
+  }
+  /* END correct font size on options show-hide button */
+
 }
 /* END body.custom-nde-theme */
 
