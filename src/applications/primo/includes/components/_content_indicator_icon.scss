@@ -1,6 +1,6 @@
 [_ngcontent-ng-content-indicator]:root {
   /* as used by exlibris indicators */
-  --darkText: #3b383e;
+  --darkText: var(--uq-colour-grey-900);
   --lightText: #666666;
   --whiteText: #FFF;
   --valid: #1E8000;
@@ -57,3 +57,10 @@
     }
   }
 }
+
+/* ensure there can't be two of our indicators */
+uql-cultural-advice-content-indicator + uql-cultural-advice-content-indicator,
+uql-course-resource-content-indicator + uql-course-resource-content-indicator {
+  display: none;
+}
+/* END ensure there can't be two of our indicators */
