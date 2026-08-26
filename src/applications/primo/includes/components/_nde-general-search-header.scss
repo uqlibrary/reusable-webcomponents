@@ -1,15 +1,57 @@
+nde-app-layout {
+  &:not(:has(nde-search-results-top-bar)):not(:has(nde-record-type)) {
+    /* the dbsearch homepage gets a DS hero-style header */
+    nde-general-search-header {
+      background-color: var(--uq-colour-purple-600);
+      margin-bottom: 64px;
+
+      section.general-search-header {
+        padding-block: 10.5rem;
+      }
+    }
+  }
+  &:has(nde-search-results-top-bar), &:has(nde-record-type) {
+    /* non homepage pages get a slimmed down header, like the main search one, with a chip for H1 to indicate what section they are in */
+    nde-general-search-header.general-search-header-background {
+      height: 4.6rem;
+      h1.title {
+        --pill-colour: var(--uq-main-purple);
+        --pill-padding: 12px 1rem;
+        --pill-height: 42px;
+        --pill-background: #fff;
+        --pill-font-size: 1rem;
+        font-family: var(--uq-body-font-family);
+        border: 1px solid var(--pill-colour);
+        color: var(--pill-colour);
+        padding: var(--pill-padding);
+        height: var(--pill-height);
+        border-radius: calc(var(--pill-height) / 2);
+        background-color: var(--pill-background);
+        font-size: var(--pill-font-size);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        align-items: center;
+        max-width: 100%;
+        font-weight: 400;
+        line-height: 1;
+        text-decoration: none;
+        display: inline-block;
+        overflow: hidden;
+      }
+      > section {
+        padding-block: 2rem;
+        height: auto;
+      }
+    }
+  }
+}
+
 nde-general-search-header {
   background-image: none !important;
-  background-color: var(--uq-colour-purple-600);
-  margin-bottom: 64px;
-
-  section.general-search-header {
-    padding-block: 10.5rem;
-  }
 
   h1 {
+    --sys-title-large: var(--uq-heading-1);
     text-transform: lowercase;
-    --sys-title-large: 500 40px / 48px var(--uq-h1-font-family);
     &::first-letter {
       text-transform: uppercase;
     }
@@ -18,6 +60,7 @@ nde-general-search-header {
   nde-search-box-presenter {
     .search_box_container {
       border-radius: var(--uq-border-radius);
+      background-color: #fff;
     }
   }
 }
