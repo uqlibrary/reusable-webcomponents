@@ -1,5 +1,5 @@
 nde-app-layout {
-  &:not(:has(nde-search-results-top-bar)):not(:has(nde-record-type)) {
+  &:has(nde-atoz):not(:has(nde-search-results-top-bar)):not(:has(nde-record-type)) {
     /* the dbsearch homepage gets a DS hero-style header */
     nde-general-search-header {
       background-color: var(--uq-colour-purple-600);
