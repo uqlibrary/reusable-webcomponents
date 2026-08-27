@@ -6,7 +6,7 @@ const template = document.createElement('template');
 template.innerHTML = `
     <style>${styles.toString()}</style>
     <style>${overrides.toString()}</style>
-    <button style="display: none" tabindex="0" class="skip-to-content-link" id="skip-nav" data-testid="skip-nav" aria-label="Click to skip to the sites main content" data-analyticsid="uq-header-skip-click">
+    <button tabindex="0" class="skip-to-content-link" id="skip-nav" data-testid="skip-nav" aria-label="Click to skip to the sites main content" data-analyticsid="uq-header-skip-click">
         Skip to site content
     </button>
     <header class="uq-header" data-gtm-category="Header">
@@ -332,8 +332,6 @@ class UQHeader extends HTMLElement {
             !!skipNavLander && skipNavLander.focus();
         };
         const skipNavButton = this.shadowRoot.getElementById('skip-nav');
-        // element is style="display: none" by default
-        !!skipNavButton && (skipNavButton.style.display = null);
         !!skipNavButton && skipNavButton.addEventListener('click', skipToElement);
     }
 
