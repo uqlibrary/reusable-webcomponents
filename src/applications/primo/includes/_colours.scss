@@ -102,6 +102,7 @@ body.custom-nde-theme {
     .user-area .arrow path {
       fill: none;
     }
+
     /* UQ profile icon on logged out button override on everything-purple */
     button[aria-label="Open actions menu"] {
       svg, path {
@@ -109,6 +110,7 @@ body.custom-nde-theme {
       }
     }
   }
+
   /* END login-loggedout button */
 
   /* added items on account menu */
@@ -120,15 +122,18 @@ body.custom-nde-theme {
       fill: none !important;
     }
   }
+
   .library-favourites-icon {
     opacity: 50%;
   }
+
   /* END new items on account menu */
 
   /* collection discovery detailed list icon per DS */
-  .collection-discovery-gallery-container nde-collection-discovery-top-bar  mat-icon path {
+  .collection-discovery-gallery-container nde-collection-discovery-top-bar mat-icon path {
     fill: var(--uq-main-purple);
   }
+
   /* END collection discovery detailed list icon per DS */
 
 
@@ -136,12 +141,14 @@ body.custom-nde-theme {
   mat-icon svg path {
     --sys-outline: var(--uq-main-purple);
   }
+
   /* END make icons purple  */
 
   /* login dialog wrong-password message banner */
   .login-dialog-notification {
     --notice: var(--uq-background-alert-info);
   }
+
   /* END login dialog wrong-password message banner */
 
   /* UQ DS style Tight links */
@@ -189,19 +196,23 @@ body.custom-nde-theme {
   button:has(> span:nth-of-type(5)):has(> span.mdc-button__label > span > mat-icon) {
     &:not(:has(div)):not(:has(> span.mdc-button__label > span + span)):not(:has(> span.mdc-button__label > span > span)) {
       --uql-button-style-type: three;
+
       span.mdc-button__label {
         text-decoration: underline;
       }
+
       &:hover, &:focus {
         span.mat-mdc-button-persistent-ripple::before {
           background-color: transparent;
         }
+
         span.mdc-button__label:has(> span > mat-icon) {
           > span {
             text-decoration: underline;
-            background-color: var( --uq-main-purple);
+            background-color: var(--uq-main-purple);
             color: #fff;
           }
+
           mat-icon svg path {
             fill: #fff;
           }
@@ -215,20 +226,24 @@ body.custom-nde-theme {
   button:has(> span:nth-of-type(5)):has(> span.mdc-button__label span span):has(> span.mdc-button__label > span mat-icon + span) {
     &:not(:has(div)) {
       --uql-button-style-type: four;
+
       span.mdc-button__label span span {
         line-height: normal;
         text-decoration: underline;
       }
+
       &:hover { /* changes state, don't do focus */
         span.mat-mdc-button-persistent-ripple::before {
           background-color: transparent;
         }
+
         span.mdc-button__label:has(> span > mat-icon) {
           span:not(:has(span)) {
             text-decoration: underline;
             background-color: var(--uq-main-purple);
             color: #fff;
           }
+
           &:has(span:not(:has(span))) mat-icon svg path {
             fill: #fff;
           }
@@ -255,16 +270,20 @@ body.custom-nde-theme {
   /* eg main menu, help icon (possibly "has icon") */
   a:has(> span > div):has(> span:nth-of-type(5)) {
     --uql-button-style-type: six;
+
     &:hover, &:focus {
       span.mat-mdc-button-persistent-ripple::before {
         background-color: transparent;
       }
+
       text-decoration: underline;
+
       span.mdc-button__label {
         line-height: normal;
+
         div span {
           text-decoration: underline;
-          background-color: var( --uq-main-purple);
+          background-color: var(--uq-main-purple);
           color: #fff;
         }
       }
@@ -280,6 +299,7 @@ body.custom-nde-theme {
       span.mat-title-medium {
         line-height: normal;
         text-decoration: underline;
+
         &:hover, &:focus {
           text-decoration: underline;
           background-color: var(--uq-main-purple);
@@ -293,9 +313,11 @@ body.custom-nde-theme {
   mat-select:has(> div) {
     &:not(:has(> div:nth-of-type(2))) {
       --uql-button-style-type: eight;
+
       span span {
         text-decoration: underline;
       }
+
       &:hover, &:focus {
         div:has(> div:nth-of-type(2)):not(:has(> div:nth-of-type(3))) {
           div:has(> span):not(:has(> span:nth-of-type(2))) {
@@ -344,6 +366,7 @@ body.custom-nde-theme {
       span.mdc-button__label, mat-icon {
         line-height: normal;
       }
+
       span.mdc-button__label {
         text-decoration: underline;
       }
@@ -397,9 +420,11 @@ body.custom-nde-theme {
   button:has(> span:nth-of-type(5)):has( > mat-icon:nth-child(3)):has(> span.mdc-button__label > span) {
     &:not(:has(> span.mdc-button__label > span > span)) {
       --uql-button-style-type: thirteen;
+
       span.mdc-button__label span {
         text-decoration: underline;
       }
+
       &:hover, &:focus {
         span.mat-mdc-button-persistent-ripple::before {
           background-color: transparent;
@@ -418,9 +443,11 @@ body.custom-nde-theme {
   button:has(> span:nth-of-type(5)):has(> span.mdc-button__label span span):has(> span.mdc-button__label > span span + mat-icon) {
     &:not(:has(div)) {
       --uql-button-style-type: fourteen;
+
       span.mdc-button__label span span {
         text-decoration: underline;
       }
+
       &:hover, &:focus {
         span.mdc-button__label {
           span span {
@@ -443,9 +470,11 @@ body.custom-nde-theme {
   button:has(> span:nth-of-type(4)) {
     &:not(:has(> span:nth-of-type(5))) {
       --uql-button-style-type: fifteen;
+
       span.mdc-button__label span {
         text-decoration: underline;
       }
+
       &:hover, &:focus {
         span.mdc-button__label span {
           text-decoration: underline;
@@ -461,9 +490,11 @@ body.custom-nde-theme {
     &:not(:has(> span:nth-of-type(2))):not(:has(> span > span)) {
       --uql-button-style-type: sixteen;
       line-height: normal;
+
       span {
         text-decoration: underline;
       }
+
       &:hover, &:focus {
         span {
           text-decoration: underline;
@@ -473,10 +504,12 @@ body.custom-nde-theme {
       }
     }
   }
+
   /* eg full, view it, show licence button */
   button:has(mat-icon + span + mat-icon) {
     &:not(span:nth-of-type(2)):not(mat-icon:nth-of-type(3)) {
       --uql-button-style-type: seventeen;
+
       &:hover, &:focus {
         span {
           text-decoration: underline;
@@ -487,109 +520,121 @@ body.custom-nde-theme {
     }
   }
 
-    /* eg full, other chapters in this book, link */
-    a:has(> span):has(> span > mat-icon) {
-      &:not(:has(span:nth-of-type(2))):not(:has(div)) {
-        --uql-button-style-type: eighteen;
+  /* eg full, other chapters in this book, link */
+  a:has(> span):has(> span > mat-icon) {
+    &:not(:has(span:nth-of-type(2))):not(:has(div)) {
+      --uql-button-style-type: eighteen;
+      line-height: normal;
+
+      span {
         line-height: normal;
-        span {
-          line-height: normal;
+      }
+
+      &:hover, &:focus {
+        text-decoration: underline;
+        background-color: #51247a;
+        color: #fff;
+        border-radius: 0;
+
+        mat-icon path {
+          text-decoration: none;
+          fill: #fff;
         }
-        &:hover, &:focus {
+      }
+    }
+  }
+
+  /* eg full, details, collection path */
+  a {
+    &:not(:has(span)):not(:has(mat-icon)):not(:has(div)) {
+      --uql-button-style-type: nineteen;
+
+      &:hover, &:focus {
+        text-decoration: underline !important;
+        background-color: #51247a;
+        color: #fff !important;
+      }
+    }
+  }
+
+  /* eg full record, Links section, access links */
+  a:has(> mat-icon) {
+    &:not(:has(span)) {
+      --uql-button-style-type: twenty;
+      line-height: normal;
+
+      &:hover, &:focus {
+        text-decoration: underline !important;
+        background-color: #51247a;
+        color: #fff !important;
+        border-radius: 0;
+
+        mat-icon path {
+          fill: #fff;
+
+        }
+      }
+    }
+  }
+
+  /* full, Citations section, cited links */
+  a:has(> div mat-icon + span) {
+    &:not(:has(> span)):not(:has(> mat-icon)) {
+      --uql-button-style-type: twentyone;
+      line-height: 0;
+
+      &:hover, &:focus {
+        span {
           text-decoration: underline;
           background-color: #51247a;
           color: #fff;
-          border-radius: 0;
-          mat-icon path {
-            text-decoration: none;
-            fill: #fff;
-          }
         }
       }
     }
+  }
 
-    /* eg full, details, collection path */
-    a {
-      &:not(:has(span)):not(:has(mat-icon)):not(:has(div)) {
-        --uql-button-style-type: nineteen;
-        &:hover, &:focus {
-          text-decoration: underline !important;
-          background-color: #51247a;
-          color: #fff !important;
-        }
-      }
+  /* eg full, sidebar, related reading */
+  a:has(> h5 > span) {
+    --uql-button-style-type: twentytwo;
+
+    h5 span {
+      line-height: normal;
+      text-decoration: underline;
     }
 
-    /* eg full record, Links section, access links */
-    a:has(> mat-icon) {
-      &:not(:has(span)) {
-        --uql-button-style-type: twenty;
-        line-height: normal;
-        &:hover, &:focus {
-          text-decoration: underline !important;
-          background-color: #51247a;
-          color: #fff !important;
-          border-radius: 0;
-          mat-icon path {
-            fill: #fff;
-
-          }
-        }
-      }
-    }
-
-    /* full, Citations section, cited links */
-    a:has(> div mat-icon + span) {
-      &:not(:has(> span)):not(:has(> mat-icon)) {
-        --uql-button-style-type: twentyone;
-        line-height: 0;
-        &:hover, &:focus {
-          span {
-            text-decoration: underline;
-            background-color: #51247a;
-            color: #fff;
-          }
-        }
-      }
-    }
-
-    /* eg full, sidebar, related reading */
-    a:has(> h5 > span) {
-      --uql-button-style-type: twentytwo;
+    &:hover, &:focus {
       h5 span {
-        line-height: normal;
+        text-decoration: underline;
+        background-color: #51247a;
+        color: #fff;
+      }
+
+      mat-icon {
+        /* sometimes there is an icon */
+        background-color: #fff;
+      }
+    }
+  }
+
+
+  /* eg brief, not sure, maybe available online? */
+  button:has(> span:nth-of-type(5)):has(> span.mdc-button__label span) {
+    &:not(mat-icon):not(div):not(:has(span.mdc-button__label span span)) {
+      --uql-button-style-type: twentythree;
+
+      span.mdc-button__label span {
         text-decoration: underline;
       }
+
       &:hover, &:focus {
-        h5 span {
-          text-decoration: underline;
-          background-color: #51247a;
-          color: #fff;
-        }
-        mat-icon {
-          /* sometimes there is an icon */
-          background-color: #fff;
-        }
-      }
-    }
-
-
-    /* eg brief, not sure, maybe available online? */
-    button:has(> span:nth-of-type(5)):has(> span.mdc-button__label span) {
-      &:not(mat-icon):not(div):not(:has(span.mdc-button__label span span)) {
-        --uql-button-style-type: twentythree;
         span.mdc-button__label span {
           text-decoration: underline;
-        }
-        &:hover, &:focus {
-          span.mdc-button__label span {
-            text-decoration: underline;
-            background-color: var(--uq-main-purple);
-            color: #fff;
-          }
+          background-color: var(--uq-main-purple);
+          color: #fff;
         }
       }
     }
+  }
 
   /* eg full, top block, read more button */
   button:has(> span:nth-of-type(5)):has(> span.mdc-button__label) {
