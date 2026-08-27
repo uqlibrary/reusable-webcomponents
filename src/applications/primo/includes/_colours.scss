@@ -213,6 +213,7 @@ body.custom-nde-theme {
     &:not(:has(span.mdc-button__label mat-icon)):not(:has(> span > div)) {
       --uql-button-style-type: two;
       text-decoration: underline;
+
       &:hover, &:focus {
         span.mdc-button__label:not(:has(mat-icon)) {
           line-height: normal;
@@ -368,32 +369,6 @@ body.custom-nde-theme {
 
       &:hover, &:focus {
         .mdc-button__label span {
-          text-decoration: underline;
-          background-color: var(--uq-main-purple);
-          color: #fff;
-        }
-      }
-    }
-  }
-
-  /* eg advanced search */
-  button:has(> span:nth-of-type(5)):has(> span.mdc-button__label) {
-    &:not(:has(> span.mdc-button__label > span)):not(:has(mat-icon)):not(:has(div)) {
-      --uql-button-style-type: ten;
-      line-height: normal;
-
-      span.mat-mdc-button-persistent-ripple::before {
-        background-color: transparent;
-      }
-
-      span.mdc-button__label {
-        line-height: normal;
-        text-decoration: underline;
-        color: var(--uq-main-purple);
-      }
-
-      &:hover, &:focus {
-        span.mdc-button__label {
           text-decoration: underline;
           background-color: var(--uq-main-purple);
           color: #fff;
@@ -660,19 +635,22 @@ body.custom-nde-theme {
   /* eg full, top block, read more button */
   button:has(> span:nth-of-type(5)):has(> span.mdc-button__label) {
     &:not(:has(mat-icon)):not(:has(div)):not(:has(span span)) {
-      --uql-button-style-type: twentyfour;
-      line-height: normal;
-
-      span.mdc-button__label {
+      &:not([data-qa="atoz-button"]) // database search alpha block doesnt need this styling
+      {
+        --uql-button-style-type: twentyfournotalpha;
         line-height: normal;
-        text-decoration: underline;
-      }
 
-      &:hover, &:focus {
         span.mdc-button__label {
+          line-height: normal;
           text-decoration: underline;
-          background-color: var(--uq-main-purple);
-          color: #fff;
+        }
+
+        &:hover, &:focus {
+          span.mdc-button__label {
+            text-decoration: underline;
+            background-color: var(--uq-main-purple);
+            color: #fff;
+          }
         }
       }
     }
