@@ -2617,7 +2617,12 @@ body:not(:has(.full-view-container)) {
     prm-brief-result-container:has(span[translate="mediatype.magazine"]),
     prm-brief-result-container:has(span[translate="mediatype.magazines"]) {
         prm-search-result-availability-line {
-            display: none;
+
+            // AD 1260
+            // current flakiness on overriding direct linking of availability records
+            // hopefully only temporary!!
+
+            // display: none;
         }
     }
 }
