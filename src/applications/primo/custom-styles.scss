@@ -324,6 +324,11 @@ body.custom-nde-theme {
   }
   /* END style sidebar Search Inside box */
 
+  mat-bottom-sheet-container {
+    border-top-left-radius: var(--uq-border-radius);
+    border-top-right-radius: var(--uq-border-radius);
+  }
+
 }
 /* END body.custom-nde-theme */
 
