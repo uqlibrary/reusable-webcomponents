@@ -1,4 +1,10 @@
 nde-advanced-search {
+  --mat-app-text-color: var(--uq-main-purple);
+  --mat-tab-header-active-label-text-color: var(--uq-colour-black);
+  --mat-tab-header-inactive-label-text-color: var(--uq-colour-black);
+  --mat-tab-header-inactive-ripple-color: var(--uq-colour-purple-50);
+  --mat-tab-header-divider-color: var(--uq-colour-purple-50);
+
   form.advanced-search-form {
     button.mdc-button.mat-mdc-button-base {
       @include uqPrimaryButton();
