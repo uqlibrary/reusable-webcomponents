@@ -66,6 +66,29 @@ uq-site-header::part(root) {
   height: 41px;
   margin-top: 10px;
 }
+:root {
+  --hero-font-size-ul: 3rem;
+  --hero-font-size-xxxxl: 2.5rem;
+  --hero-gap: 4rem;
+  --hero-spacing: 2.25rem;
+  --hero-basic-spacing: 5rem;
+  --hero-aspect-ratio: 2.35 / 1;
+  --hero-large-aspect-ratio: 3 / 2;
+  --hero-min-height: 280px;
+  --hero-large-min-height: 500px;
+  --hero-image-max-width: 764px;
+  --hero-title-max-line-length: 518px;
+  --hero-layout-gap: 2rem;
+  --hero-layout-container-max-width: 1204px;
+}
+
+@media(max-width: 63.9375rem) {
+  :root {
+    --hero-font-size-ul: 30px;
+    --hero-font-size-xxxxl: 30px;
+    --hero-basic-spacing: 2rem
+  }
+}
 
 body.custom-nde-theme {
 
@@ -146,6 +169,8 @@ body.custom-nde-theme {
   @import 'includes/components/page_width';
 
   @import 'includes/components/report_a_problem';
+
+  @import 'includes/components/uq-hero';
 
   @import 'includes/components/uql-tooltip';
 
