@@ -346,16 +346,22 @@ body.custom-nde-theme {
   &:not(:has(nde-search-results)) nde-record-title a span,
   nde-person-entity.ng-star-inserted nde-entity-layout.ng-star-inserted .entity-container .entity-details .entity-name // star classes to force the specificity
   {
+    font: var(--uq-heading-3);
     color: #333;
-    font-weight: 500;
   }
 
+  nde-record-title a span,
+  nde-record-title a span em,
+  nde-record-title a nde-highlight,
+  nde-person-entity.ng-star-inserted nde-entity-layout.ng-star-inserted .entity-container .entity-details .entity-name // star classes to force the specificity
+  {
+    font: var(--uq-heading-3);
+  }
   nde-record-title a.not-linkable span,
   nde-record-title a.not-linkable nde-highlight,
   nde-person-entity.ng-star-inserted nde-entity-layout.ng-star-inserted .entity-container .entity-details .entity-name // star classes to force the specificity
   {
     color: var(--uq-colour-black);
-    font-weight: 500;
   }
   /* END page title colour */
 
