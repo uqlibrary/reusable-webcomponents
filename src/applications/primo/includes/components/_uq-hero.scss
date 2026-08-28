@@ -16,7 +16,7 @@
 }
 
 @media(max-width: 63.9375rem) {
-  .uq-hero .uq-container {
+  .uq-hero .uq-hero-container {
     margin:0;
     padding: 0
   }
@@ -166,7 +166,6 @@
 }
 
 .uq-hero-basic__image img,.uq-hero-basic__image picture {
-  font-family: "object-fit:cover";
   object-fit: cover;
   height: 100%;
   width: 100%;
@@ -245,8 +244,8 @@
   overflow-x: clip;
 }
 
-/* exlibris overrides */
-.mat-typography .h1,h1.uq-hero__title  {
-  color: #fff;
-  font: var(--uq-heading-1);
+@media(max-width: 599.98px) {
+  .uq-hero {
+    margin-inline: -1rem;
+  }
 }
