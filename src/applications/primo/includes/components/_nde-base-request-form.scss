@@ -17,6 +17,16 @@ main.sub-container { // needed for specificity :(
             }
           }
         }
+        /* error banner */
+        .missing-fields-alert-content.missing-fields-alert-container {
+          background-color: var(--uq-background-alert-error);
+          gap: 1rem; // put more space between the icon and the words
+          path {
+            fill: none;
+            stroke: var(--uq-body-copy);
+          }
+        }
+        /* END error banner */
       }
     }
   }
