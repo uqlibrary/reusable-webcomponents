@@ -1,0 +1,23 @@
+main.sub-container { // needed for specificity :(
+  nde-base-request-form {
+    div.request-form-container {
+      form {
+        mat-dialog-actions.buttons-container {
+          justify-content: space-between;
+
+          > button.submit-btn {
+            @include uqPrimaryButton();
+          }
+
+          > div.blank-form-reset-button {
+            margin-left: 0;
+
+            > button.reset {
+              @include uqTertiaryButton();
+            }
+          }
+        }
+      }
+    }
+  }
+}
