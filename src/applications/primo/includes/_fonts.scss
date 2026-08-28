@@ -196,4 +196,11 @@ body.custom-nde-theme {
 body.custom-nde-theme * {
   font-size: 16px;
   line-height: 1.5;
+
+  /* the icon on the main search "save search | export results" button was getting a weird underline onhover. */
+  .general-search-actions-dropdown-button mat-icon {
+    font-size: 24px;
+    line-height: 1;
+  }
+  /* END the icon on the main search "save search | export results" button was getting a weird underline onhover. */
 }
