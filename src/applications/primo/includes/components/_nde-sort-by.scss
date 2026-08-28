@@ -12,11 +12,6 @@ nde-sort-by {
     * {
       padding: 0;
     }
-    /* when it is not the default sort order, make it look selected */
-    &:not(:has([aria-label="Sort by Relevance"])) {
-      border-color: var(--uq-main-purple);
-      background-color: var(--sys-inverse-on-surface);
-    }
     /* don't allow a hover colour on just the buton */
     .mat-mdc-button-persistent-ripple.mdc-button__ripple {
       display: none;
