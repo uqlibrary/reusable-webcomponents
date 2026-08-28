@@ -21,9 +21,12 @@
   --uq-color-utility-200: #9ec5eb;
   --uq-color-utility-500: #0d6dcd;
 
-  --uq-success-50: #edf6ed;
-  --uq-warning-50:	#fef8e8;
-  --uq-error-500: #d62929;
+  --uq-colour-success-50: #edf6ed;
+
+  --uq-colour-warning-50:	#fef8e8;
+
+  --uq-colour-error-50: #fbeaea;
+  --uq-colour-error-500: #d62929;
 
   --uql-brand-orange: #EB602B; // rbg(235, 96, 43)
   --uql-brand-blue: #4085C6; // rgb(64, 133, 198)
@@ -37,7 +40,8 @@
   --uq-heading-color: var(--uq-colour-black);
   --uq-panel-background: var(--uq-colour-grey-50);
   --uq-background-alert-info: var(--uq-color-utility-50);
-  --uq-background-alert-success: var(--uq-success-50);
+  --uq-background-alert-success: var(--uq-colour-success-50);
+  --uq-background-alert-error: var(--uq-colour-error-50);
 
   --sys-background: var(--uq-colour-purple-50);
   --sys-inverse-on-surface: var(--uq-panel-background);

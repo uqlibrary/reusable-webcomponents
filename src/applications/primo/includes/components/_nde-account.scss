@@ -83,10 +83,10 @@ nde-account {
 
   /* the dot on the Loans item should not hover to blank */
   a.mdc-button .account-badge-warn {
-    --sys-error: var(--uq-error-500);
+    --sys-error: var(--uq-colour-error-500);
   }
   a.mdc-button:hover mat-icon.account-badge-warn span.mat-badge-content { // 'span' within this is the little red dot on the Loans tab
-    background-color: var(--uq-error-500);
+    background-color: var(--uq-colour-error-500);
     border-radius: var(--uq-border-radius) !important;
   }
   /* END the dot on the Loans item should not hover to blank */
