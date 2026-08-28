@@ -4,6 +4,7 @@
 :root, html, head, body {
   --mat-expansion-container-shape: 4px;
   --uq-border-radius: 0.25rem;
+  --uq-border: 1px solid var(--uq-colour-grey-200);
 }
 
 $utility-500: var(--uq-color-utility-500);

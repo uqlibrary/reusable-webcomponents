@@ -45,15 +45,26 @@ nde-collection-discovery-container {
       .collection-discovery-search-bar {
         border-radius: var(--uq-border-radius);
         background-color: #fff;
+        border: var(--uq-border);
         input {
           --darkText: var(--uq-body-copy);
+          font-weight: 400;
+        }
+        .mat-divider.mat-divider-vertical.divider {
+          height: 1.25rem;
+        }
+        button.submit-search-btn mat-icon {
+          width: 24px;
+          height: 24px;
+          svg {
+            fill: var(--uql-base-icon-colour);
+          }
         }
       }
     }
     nde-collection-discovery-gallery {
       .item-grid-card {
         border-radius: var(--uq-border-radius);
-        border: 1px solid #dcdcdd;
       }
       .collection-grid-card {
         --sys-background: #fff;
