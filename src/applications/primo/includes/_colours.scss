@@ -657,7 +657,6 @@ body.custom-nde-theme {
     }
   }
 
-
   /* eg brief, not sure, maybe available online? */
   button:has(> span:nth-of-type(5)):has(> span.mdc-button__label span) {
     &:not(mat-icon):not(div):not(:has(span.mdc-button__label span span)) {
@@ -682,7 +681,7 @@ body.custom-nde-theme {
     &:not(:has(mat-icon)):not(:has(div)):not(:has(span span)) {
       &:not([data-qa="atoz-button"]) // database search alpha block doesnt need this styling
       {
-        --uql-button-style-type: twentyfournotalpha;
+        --uql-button-style-type: twentyfour;
         line-height: normal;
 
         span.mdc-button__label {
@@ -703,6 +702,7 @@ body.custom-nde-theme {
 
   /* eg full, locations, expand "Show more" - note html is "broken", "Show more should be inside the provided mdc-button__label span */
   button:has(> span:nth-of-type(5)):has(> span.mdc-button__label:empty) {
+    --uql-button-style-type: twentyfive;
     span.mat-mdc-button-persistent-ripple::before {
       background-color: transparent;
     }
@@ -710,6 +710,33 @@ body.custom-nde-theme {
     &:hover, &:focus {
         background-color: var(--uq-main-purple);
         color: #fff;
+    }
+  }
+
+  /* full record, available online - secondary button */
+  nde-quick-filters,
+  nde-online-availability {
+    button {
+      --uql-button-style-type: twentysix;
+      border-width: 2px;
+      padding-block: 1rem;
+      --sys-outline-variant: var(--uq-main-purple);
+
+      &:hover, &:focus {
+        span.mat-mdc-button-persistent-ripple::before {
+          background-color: var(--uq-main-purple);
+          color: #fff;
+          opacity: 1;
+          transition: background-color .2s ease-out, color .2s ease-out, border .2s ease-out;
+          border-radius: unset;
+        }
+
+        span.mdc-button__label span {
+          text-decoration: underline;
+          background-color: var(--uq-main-purple);
+          color: #fff;
+        }
+      }
     }
   }
   /* END UQ DS style Tight links */
