@@ -202,11 +202,12 @@ body.custom-nde-theme {
       --uql-button-style-type: one; /* so the developer can easily determine which of these styles is applied to the element */
       nde-highlight span {
         text-decoration: underline;
+        text-decoration-thickness: 1px;
       }
 
       &:hover, &:focus {
         nde-highlight span {
-          text-decoration: underline;
+          text-decoration: none;
           background-color: var(--uq-main-purple);
           color: #fff;
         }
