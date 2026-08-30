@@ -60,6 +60,10 @@ nde-collection-discovery-container {
             fill: var(--uql-base-icon-colour);
           }
         }
+        .item-grid-card .grid-item-properties .item-type.cutoff-text,
+        .grid-collection-properties .collection-header .item-type.cutoff-text {
+          --sys-on-surface-variant: var(--uq-body-copy);
+        }
       }
     }
     nde-collection-discovery-gallery {
