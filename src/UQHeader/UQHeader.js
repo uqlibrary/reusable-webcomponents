@@ -329,9 +329,16 @@ class UQHeader extends HTMLElement {
     handleSkipNavInsertion(newValue) {
         const skipToElement = () => {
             const skipNavLander = document.getElementById(newValue);
+            console.log('skip nav click fired', { newValue, skipNavLander: !!skipNavLander, targetId: newValue });
             !!skipNavLander && skipNavLander.focus();
         };
+
         const skipNavButton = this.shadowRoot.getElementById('skip-nav');
+        console.log('skip nav binding setup', {
+            newValue,
+            hasShadowRoot: !!this.shadowRoot,
+            hasSkipNavButton: !!skipNavButton,
+        });
         !!skipNavButton && skipNavButton.addEventListener('click', skipToElement);
     }
 
