@@ -284,7 +284,7 @@ body.custom-nde-theme {
   /* END page title colour */
 
   /* make popover infos less intrusive */
-  .cdk-overlay-container:has(mat-tooltip-component) * {
+  .cdk-overlay-container:has(mat-tooltip-component) mat-tooltip-component * {
     font-size: 14px;
   }
   /* END make popover infos less intrusive */
@@ -325,18 +325,20 @@ body.custom-nde-theme {
 }
 /* END body.custom-nde-theme */
 
+/* move proactive chat up above login prompt when placed bottom right on narrower screen */
 @media (max-width: 1919.9px) {
   body:has(nde-custom-snack-bar nde-login) proactive-chat::part(minimised-buttons) {
     bottom: 8rem;
   }
 }
+/* END move proactive chat up above login prompt when placed bottom right on narrower screen */
 
 .standardWarningBanner {
   margin-inline:.9375rem;
   margin-bottom: 2rem;
   display: flex;
-  background-color: var(--uq-warning-50);
-  border-color: var(--uq-warning-50);
+  background-color: var(--uq-colour-warning-50);
+  border-color: var(--uq-colour-warning-50);
   border-radius: 3px;
   color: var(--uq-body-copy);
   padding: 2em 1em;

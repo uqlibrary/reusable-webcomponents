@@ -4,6 +4,30 @@ mat-dialog-container {
       border-radius: var(--uq-border-radius);
     }
   }
+
+  /* intended for citation action popup on full record */
+  nde-citation-action {
+    p.citation-disclaimer {
+      background-color: var(--uq-colour-warning-50);
+      color: var(--uq-body-copy);
+      padding: 1.5rem 1.5rem 1rem 4.5rem;
+      position: relative;
+      &:before {
+        content: "";
+        background-image: var(--uq-icon--warning);
+        background-repeat: no-repeat;
+        background-size: 1.5rem;
+        width: 1.8rem;
+        height: 1.5rem;
+        position: absolute;
+        top: 27px;
+        left: 25px;
+      }
+      & > span:not(:has(div)) {
+        display: none;
+      }
+    }
+  }
 }
 
 /* saved records "add new label" popup */
