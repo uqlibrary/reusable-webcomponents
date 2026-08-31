@@ -24,6 +24,16 @@ async function assertUserHasStandardMyLibraryOptions(userid, page) {
     const authButton = page.locator('uq-site-header').locator('auth-button');
     await expect(authButton.locator('li a[data-testid="mylibrary-menu-borrowing"]')).toBeVisible();
     await expect(authButton.locator('li a[data-testid="mylibrary-menu-borrowing"]')).toHaveText('Library account');
+    await expect(authButton.locator('li a[data-testid="mylibrary-menu-saved-items"]')).toBeVisible();
+    await expect(authButton.locator('li a[data-testid="mylibrary-menu-saved-items"]')).toHaveText('Favourites');
+    await expect(authButton.locator('li a[data-testid="mylibrary-menu-purchase-request"]')).toBeVisible();
+    await expect(authButton.locator('li a[data-testid="mylibrary-menu-purchase-request"]')).toHaveText(
+        'Purchase request',
+    );
+    await expect(authButton.locator('li a[data-testid="mylibrary-menu-delivery"]')).toBeVisible();
+    await expect(authButton.locator('li a[data-testid="mylibrary-menu-delivery"]')).toHaveText(
+        'Resource delivery request',
+    );
     await expect(authButton.locator('li a[data-testid="mylibrary-menu-course-resources"]')).toBeVisible();
     await expect(authButton.locator('li a[data-testid="mylibrary-menu-course-resources"]')).toHaveText(
         'Learning resources',
@@ -38,8 +48,6 @@ async function assertUserHasStandardMyLibraryOptions(userid, page) {
     await expect(authButton.locator('li a[data-testid="mylibrary-menu-room-bookings"]')).toHaveText(
         'Book a room or desk',
     );
-    await expect(authButton.locator('li a[data-testid="mylibrary-menu-saved-items"]')).toBeVisible();
-    await expect(authButton.locator('li a[data-testid="mylibrary-menu-saved-items"]')).toHaveText('Favourites');
     await expect(authButton.locator('li a[data-testid="mylibrary-menu-feedback"]')).toBeVisible();
     await expect(authButton.locator('li a[data-testid="mylibrary-menu-feedback"]')).toHaveText('Feedback');
 }

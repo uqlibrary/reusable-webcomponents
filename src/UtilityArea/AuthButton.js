@@ -85,13 +85,18 @@ class AuthButton extends HTMLElement {
     }
 
     async showLoginFromAuthStatus(shadowDOM) {
+        const isDev =
+            window.location.hostname === 'assets.library.uq.edu.au' || window.location.hostname === 'localhost';
+        const primoVid = isDev ? `61UQ_INST:61UQ_NDEUI_DALTS` : `61UQ_INST:61UQ`;
+        const primoUrlDomain = isDev ? `https://uq-psb.primo.exlibrisgroup.com` : `https://search.library.uq.edu.au`;
+        const primoUrlPrefix = `${primoUrlDomain}/nde`;
+        const authorisedtemplate = document.createElement('template');
         // THESE LINKS MUST BE DUPLICATED ON PRIMO! (see repo exlibris-primo)
         // (NOTE: due to complexity of an account check in primo, we are not showing the espace dashboard link or admin items there)
-        const authorisedtemplate = document.createElement('template');
         authorisedtemplate.innerHTML = `
     <style>${loggedinstyles.toString()}</style>
     <div id="auth" class="auth loggedin">
-        <button id="account-option-button" data-testid="account-option-button" data-analyticsid="account-option-button">
+        <button id="account-option-button" data-testid="account-option-button" data-analyticsid="account-option-button" aria-description="Opens account menu, tab for internal navigation, escape to close">
             <div id="username-area" data-testid="username-area-label" data-analyticsid="username-area-label" class="username-area">
                 <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
                     <g>
@@ -114,11 +119,11 @@ class AuthButton extends HTMLElement {
         <div id="account-options-menu" class="auth-menu" data-testid="account-options-menu" class="account-options-menu account-options-menu-closed" style="display: none;">
             <div class="account-options-menu-list">
                 <h2 class="accessible-only">Menu</h2>
-                <div class="md-menu-content prm-user-menu-content" role="menu">
+                <div class="md-menu-content prm-user-menu-content">
                     <ul id="account-menu-list" data-analyticsid="mylibrary-menu-list-public" class="mylibrary-menu-list" role="menu">
                         <!-- Primo account -->
                         <li role="menuitem" aria-disabled="false">
-                            <a tabindex="0" data-testid="mylibrary-menu-borrowing" data-analyticsid="mylibrary-menu-borrowing" href="https://search.library.uq.edu.au/discovery/account?vid=61UQ_INST:61UQ&section=overview" rel="noreferrer" style="padding-top: 0">
+                            <a tabindex="0" data-testid="mylibrary-menu-borrowing" data-analyticsid="mylibrary-menu-borrowing" href="${primoUrlPrefix}/account/overview?vid=${primoVid}&lang=en" rel="noreferrer" style="padding-top: 0">
                                 <svg viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
                                     <rect width="24" height="24" transform="translate(0 1)" />
                                     <path d="M12 4C14.2222 4 16 5.77778 16 8C16 10.2222 14.2222 12 12 12C9.77778 12 8 10.2222 8 8C8 5.77778 9.77778 4 12 4Z" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round" />
@@ -127,28 +132,56 @@ class AuthButton extends HTMLElement {
                                 <span><span>Library account</span></span>
                             </a>
                         </li>
-                                
+                    
                         <!-- Primo Favourites -->
-                        <li role="menuitem" aria-disabled="false">
-                            <a tabindex="0" data-testid="mylibrary-menu-saved-items" data-analyticsid="mylibrary-menu-saved-items" href="https://search.library.uq.edu.au/discovery/favorites?vid=61UQ_INST:61UQ&section=items" rel="noreferrer">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-                                    <rect width="24" height="24" />
-                                    <path d="M12.6988 3.43449L14.9056 7.8896C14.9557 8.00269 15.0347 8.10063 15.1345 8.17369C15.2344 8.24675 15.3516 8.29235 15.4746 8.30597L20.3461 9.02767C20.4871 9.04581 20.6201 9.1037 20.7294 9.19458C20.8388 9.28545 20.9201 9.40559 20.9639 9.54094C21.0074 9.67627 21.0117 9.82125 20.9761 9.95891C20.9404 10.0966 20.8663 10.2213 20.7625 10.3184L17.2511 13.802C17.1615 13.8857 17.0942 13.9905 17.0554 14.1069C17.0167 14.2232 17.0075 14.3474 17.0291 14.4682L17.8757 19.3674C17.9001 19.5081 17.8847 19.653 17.831 19.7854C17.7771 19.9178 17.6873 20.0325 17.5717 20.1163C17.456 20.2003 17.3191 20.25 17.1765 20.2598C17.0339 20.2698 16.8915 20.2394 16.7654 20.1724L12.3796 17.8546C12.2673 17.7995 12.1439 17.7708 12.0188 17.7708C11.8936 17.7708 11.7702 17.7995 11.6579 17.8546L7.27219 20.1724C7.14601 20.2394 7.00355 20.2698 6.861 20.2598C6.71845 20.25 6.58153 20.2003 6.46585 20.1163C6.35016 20.0325 6.26034 19.9178 6.2066 19.7854C6.15286 19.653 6.13737 19.5081 6.16188 19.3674L7.00849 14.4127C7.02995 14.2919 7.02087 14.1677 6.98209 14.0514C6.9433 13.935 6.87604 13.8302 6.78643 13.7465L3.23344 10.3184C3.12833 10.2186 3.05441 10.0905 3.02063 9.94953C2.98686 9.80858 2.99468 9.66085 3.04315 9.52425C3.09162 9.38766 3.17866 9.26805 3.29372 9.17991C3.40879 9.09178 3.54694 9.0389 3.69145 9.02767L8.56292 8.30597C8.68589 8.29235 8.80314 8.24675 8.90298 8.17369C9.00281 8.10063 9.08177 8.00269 9.13195 7.8896L11.3387 3.43449C11.3988 3.30474 11.4947 3.19489 11.6153 3.1179C11.7358 3.04091 11.8758 3 12.0188 3C12.1617 3 12.3018 3.04091 12.4223 3.1179C12.5428 3.19489 12.6387 3.30474 12.6988 3.43449Z" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
+                        <li class="account-submenu-item" role="menuitem" aria-disabled="false">
+                            <a tabindex="0" data-testid="mylibrary-menu-saved-items" data-analyticsid="mylibrary-menu-saved-items" href="${primoUrlPrefix}/account/favorites?vid=${primoVid}&lang=en" rel="noreferrer">
+                                <svg data-testid="library-favourites-icon" id="library-favourites-icon" class="account-menu-icon account-menu-favourites-icon" height="100%" viewBox="0 -960 960 960" width="100%" fill="inherit" fit="" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+                                    <path d="m480-240-168 72q-40 17-76-6.5T200-241v-519q0-33 23.5-56.5T280-840h400q33 0 56.5 23.5T760-760v519q0 43-36 66.5t-76 6.5l-168-72Zm0-88 200 86v-518H280v518l200-86Zm0-432H280h400-200Z"></path>
+                                  </svg>
                                 <span><span>Favourites</span></span>
+                            </a>
+                        </li>
+
+                        <!-- Purchase requests -->
+                        <li class="account-submenu-item" role="menuitem" aria-disabled="false">
+                            <a tabindex="0" id="mylibrary-menu-purchase-request" data-analyticsid="mylibrary-menu-purchase-request" data-testid="mylibrary-menu-purchase-request" href="${primoUrlPrefix}/account/requests?vid=${primoVid}&lang=en" rel="noreferrer">
+                                <svg class="account-menu-icon account-menu-purchase-request-icon" width="100%" height="100%" viewBox="0 0 24 27" fill="none" xmlns="http://www.w3.org/2000/svg" fit="" preserveAspectRatio="xMidYMid meet" focusable="false">
+                                    <path d="M7 6C7 3.23858 9.01472 1 11.5 1C13.9853 1 16 3.23858 16 6"></path>
+                                    <path d="M2.86957 5.83334C2.95445 5.07413 3.59635 4.5 4.36029 4.5H19.6397C20.4036 4.5 21.0455 5.07413 21.1304 5.83334L23.2547 24.8333C23.354 25.7222 22.6584 26.5 21.7639 26.5H2.23606C1.34164 26.5 0.645972 25.7222 0.745351 24.8333L2.86957 5.83334Z"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M6 21.9946C6 21.7185 6.24421 21.4946 6.54545 21.4946H17.4545C17.7558 21.4946 18 21.7185 18 21.9946C18 22.2708 17.7558 22.4946 17.4545 22.4946H6.54545C6.24421 22.4946 6 22.2708 6 21.9946Z"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12.144 18.9974L12.1466 18.9992L12.144 18.9974ZM11.9992 18.9089C12.2604 18.755 12.8269 18.4548 13.574 18.2468C14.4698 17.9973 15.7119 17.8583 17 18.3597V11.383C15.1719 10.5691 13.3719 11.2391 12.5183 11.6788L12 11.9457L11.4817 11.6787C10.6282 11.2391 8.82815 10.569 7 11.383V18.3601C8.2808 17.8634 9.52287 18.0043 10.4165 18.251C11.1696 18.459 11.7413 18.759 11.9992 18.9089Z"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12.1407 18.0257L12.1433 18.0272L12.1407 18.0257ZM11.9992 17.9481C12.2544 17.8131 12.808 17.5498 13.5378 17.3673C14.4131 17.1485 15.6267 17.0266 16.8852 17.4664V11.3476C15.0991 10.6338 13.3404 11.2214 12.5064 11.607L12 11.8411L11.4936 11.607C10.6597 11.2214 8.90097 10.6337 7.11479 11.3476V17.4667C8.36619 17.0311 9.57974 17.1547 10.4529 17.3711C11.1887 17.5534 11.7472 17.8166 11.9992 17.9481ZM6 17.8353V11.1922C6 10.8983 6.18523 10.6302 6.47717 10.5015C8.79746 9.47837 11.0489 10.2666 12 10.7063C12.9513 10.2666 15.2026 9.47848 17.5228 10.5015C17.8148 10.6302 18 10.8983 18 11.1922V17.8353C18 18.4022 17.3425 18.7745 16.7791 18.526C14.6501 17.5873 12.4912 18.8586 12.4697 18.8717C12.2161 19.0234 11.8514 19.0594 11.5388 18.8763L11.5351 18.8743L11.5304 18.8717C11.5115 18.8605 9.32858 17.597 7.22097 18.526C6.65713 18.7747 6.00006 18.4016 6 17.8353Z"></path>
+                                    <path d="M11.441 11.353H12.5558V18.3033H11.441V11.353Z"></path>
+                                </svg>
+                                <span><span>Purchase request</span></span>
+                            </a>
+                        </li>
+
+                        <!-- Resource delivery request -->
+                        <li class="account-submenu-item" role="menuitem" aria-disabled="false">
+                            <a tabindex="0" id="mylibrary-menu-delivery" data-analyticsid="mylibrary-menu-delivery" data-testid="mylibrary-menu-delivery" href="${primoUrlPrefix}/blankIll?vid=${primoVid}&lang=en" rel="noreferrer">
+                                <svg class="account-menu-icon account-menu-resource-delivery-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="24" width="24">
+                                    <path style="fill: none" d="M0.755981 16.5H16.714c0.3596 0.0006 0.7075 -0.128 0.9803 -0.3624 0.2727 -0.2344 0.4522 -0.559 0.5057 -0.9146l1.864 -12.446c0.0534 -0.35513 0.2324 -0.67933 0.5045 -0.91366 0.2722 -0.23434 0.6194 -0.36326 0.9785 -0.36334h1.709"></path>
+                                    <path style="fill: none" d="M3.00598 7.5h4.5s0.75 0 0.75 0.75v4.5s0 0.75 -0.75 0.75h-4.5s-0.75 0 -0.75 -0.75v-4.5s0 -0.75 0.75 -0.75Z"></path>
+                                    <path style="fill: none" d="M9.00598 4.5H15.006s0.75 0 0.75 0.75v7.5s0 0.75 -0.75 0.75H9.00598s-0.75 0 -0.75 -0.75v-7.5s0 -0.75 0.75 -0.75Z"></path>
+                                    <path d="M2.25598 20.625c0 0.2462 0.0485 0.49 0.14273 0.7175 0.09422 0.2275 0.23234 0.4342 0.40645 0.6083 0.17411 0.1741 0.3808 0.3122 0.60829 0.4065 0.22749 0.0942 0.4713 0.1427 0.71753 0.1427s0.49005 -0.0485 0.71753 -0.1427c0.22749 -0.0943 0.43419 -0.2324 0.6083 -0.4065 0.17411 -0.1741 0.31222 -0.3808 0.40645 -0.6083 0.09422 -0.2275 0.14272 -0.4713 0.14272 -0.7175 0 -0.4973 -0.19754 -0.9742 -0.54917 -1.3258 -0.35163 -0.3517 -0.82855 -0.5492 -1.32583 -0.5492 -0.49728 0 -0.97419 0.1975 -1.32582 0.5492 -0.35163 0.3516 -0.54918 0.8285 -0.54918 1.3258Z"></path>
+                                    <path d="M12.756 20.625c0 0.4973 0.1975 0.9742 0.5492 1.3258 0.3516 0.3517 0.8285 0.5492 1.3258 0.5492 0.4973 0 0.9742 -0.1975 1.3258 -0.5492 0.3516 -0.3516 0.5492 -0.8285 0.5492 -1.3258 0 -0.4973 -0.1976 -0.9742 -0.5492 -1.3258 -0.3516 -0.3517 -0.8285 -0.5492 -1.3258 -0.5492 -0.4973 0 -0.9742 0.1975 -1.3258 0.5492 -0.3517 0.3516 -0.5492 0.8285 -0.5492 1.3258Z"></path>
+                                </svg>
+                                <span><span>Resource delivery request</span></span>
                             </a>
                         </li>
 
                         <!-- Learning resources -->
                         <li role="menuitem" aria-disabled="false">
                             <a tabindex="0" id="mylibrary-menu-course-resources" data-analyticsid="mylibrary-menu-course-resources" data-testid="mylibrary-menu-course-resources" href="https://www.library.uq.edu.au/learning-resources" rel="noreferrer">
-                                <svg viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-                                    <path d="M11.9999 21.4003V6.78587C11.9999 6.78587 9.94278 4.51443 2.99986 4.42871C2.87129 4.42871 2.78558 4.47157 2.69986 4.55728C2.61415 4.643 2.57129 4.72871 2.57129 4.85729V18.5717C2.57129 18.786 2.74272 19.0003 2.99986 19.0003C9.94278 19.1288 11.9999 21.4003 11.9999 21.4003Z" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M9.46999 12.2291C8.05569 11.7577 6.55568 11.4577 5.05566 11.3291" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M9.46999 15.7428C8.05569 15.2713 6.55568 14.9713 5.05566 14.8428" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M14.5293 12.2291C15.9436 11.7577 17.4436 11.4577 18.9436 11.3291" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M14.5293 15.7428C15.9436 15.2713 17.4436 14.9713 18.9436 14.8428" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M12.001 21.4003V6.78587C12.001 6.78587 14.0581 4.51443 21.001 4.42871C21.1296 4.42871 21.2153 4.47157 21.3011 4.55728C21.3868 4.643 21.4296 4.72871 21.4296 4.85729V18.5717C21.4296 18.786 21.2582 19.0003 21.001 19.0003C14.0581 19.1288 12.001 21.4003 12.001 21.4003Z" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
+                                <svg class="account-menu-icon account-menu-learning-resources-icon" viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                                    <path d="M11.9999 21.4003V6.78587C11.9999 6.78587 9.94278 4.51443 2.99986 4.42871C2.87129 4.42871 2.78558 4.47157 2.69986 4.55728C2.61415 4.643 2.57129 4.72871 2.57129 4.85729V18.5717C2.57129 18.786 2.74272 19.0003 2.99986 19.0003C9.94278 19.1288 11.9999 21.4003 11.9999 21.4003Z"/>
+                                    <path d="M9.46999 12.2291C8.05569 11.7577 6.55568 11.4577 5.05566 11.3291"/>
+                                    <path d="M9.46999 15.7428C8.05569 15.2713 6.55568 14.9713 5.05566 14.8428"/>
+                                    <path d="M14.5293 12.2291C15.9436 11.7577 17.4436 11.4577 18.9436 11.3291"/>
+                                    <path d="M14.5293 15.7428C15.9436 15.2713 17.4436 14.9713 18.9436 14.8428"/>
+                                    <path d="M12.001 21.4003V6.78587C12.001 6.78587 14.0581 4.51443 21.001 4.42871C21.1296 4.42871 21.2153 4.47157 21.3011 4.55728C21.3868 4.643 21.4296 4.72871 21.4296 4.85729V18.5717C21.4296 18.786 21.2582 19.0003 21.001 19.0003C14.0581 19.1288 12.001 21.4003 12.001 21.4003Z"/>
                                 </svg>
                                 <span><span>Learning resources</span></span>
                             </a>
@@ -159,12 +192,12 @@ class AuthButton extends HTMLElement {
                             <a tabindex="0" data-testid="mylibrary-menu-print-balance" data-analyticsid="mylibrary-menu-print-balance"
                                 href="${linkToDrupal('/library-services/it/print-scan-copy/your-printing-account')}"
                                 rel="noreferrer">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                                <svg class="account-menu-icon account-menu-print-balance-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
                                     <g clip-path="url(#clip0_1723_14098)">
-                                        <path d="M3.01562 12C3.01563 14.3828 3.96219 16.668 5.64709 18.3529C7.33198 20.0378 9.6172 20.9844 12 20.9844C14.3828 20.9844 16.668 20.0378 18.3529 18.3529C20.0378 16.668 20.9844 14.3828 20.9844 12C20.9844 9.6172 20.0378 7.33198 18.3529 5.64709C16.668 3.96219 14.3828 3.01563 12 3.01562C9.6172 3.01563 7.33198 3.96219 5.64709 5.64709C3.96219 7.33198 3.01563 9.6172 3.01562 12Z" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M10.2031 13.7969C10.2031 14.1523 10.3085 14.4997 10.506 14.7952C10.7034 15.0907 10.984 15.321 11.3124 15.457C11.6407 15.593 12.002 15.6286 12.3506 15.5592C12.6991 15.4899 13.0193 15.3188 13.2706 15.0675C13.5219 14.8162 13.693 14.496 13.7623 14.1474C13.8317 13.7989 13.7961 13.4376 13.6601 13.1092C13.5241 12.7809 13.2938 12.5003 12.9983 12.3028C12.7028 12.1054 12.3554 12 12 12C11.6446 12 11.2972 11.8946 11.0017 11.6972C10.7062 11.4997 10.4759 11.2191 10.3399 10.8908C10.2039 10.5624 10.1683 10.2011 10.2377 9.85257C10.307 9.50401 10.4781 9.18384 10.7294 8.93254C10.9807 8.68125 11.3009 8.51011 11.6494 8.44078C11.998 8.37144 12.3593 8.40703 12.6876 8.54303C13.016 8.67903 13.2966 8.90934 13.494 9.20484C13.6915 9.50033 13.7969 9.84774 13.7969 10.2031" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M12 7.20801V8.40592" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M12 15.5938V16.7917" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M3.01562 12C3.01563 14.3828 3.96219 16.668 5.64709 18.3529C7.33198 20.0378 9.6172 20.9844 12 20.9844C14.3828 20.9844 16.668 20.0378 18.3529 18.3529C20.0378 16.668 20.9844 14.3828 20.9844 12C20.9844 9.6172 20.0378 7.33198 18.3529 5.64709C16.668 3.96219 14.3828 3.01563 12 3.01562C9.6172 3.01563 7.33198 3.96219 5.64709 5.64709C3.96219 7.33198 3.01563 9.6172 3.01562 12Z"/>
+                                        <path d="M10.2031 13.7969C10.2031 14.1523 10.3085 14.4997 10.506 14.7952C10.7034 15.0907 10.984 15.321 11.3124 15.457C11.6407 15.593 12.002 15.6286 12.3506 15.5592C12.6991 15.4899 13.0193 15.3188 13.2706 15.0675C13.5219 14.8162 13.693 14.496 13.7623 14.1474C13.8317 13.7989 13.7961 13.4376 13.6601 13.1092C13.5241 12.7809 13.2938 12.5003 12.9983 12.3028C12.7028 12.1054 12.3554 12 12 12C11.6446 12 11.2972 11.8946 11.0017 11.6972C10.7062 11.4997 10.4759 11.2191 10.3399 10.8908C10.2039 10.5624 10.1683 10.2011 10.2377 9.85257C10.307 9.50401 10.4781 9.18384 10.7294 8.93254C10.9807 8.68125 11.3009 8.51011 11.6494 8.44078C11.998 8.37144 12.3593 8.40703 12.6876 8.54303C13.016 8.67903 13.2966 8.90934 13.494 9.20484C13.6915 9.50033 13.7969 9.84774 13.7969 10.2031"/>
+                                        <path d="M12 7.20801V8.40592"/>
+                                        <path d="M12 15.5938V16.7917"/>
                                     </g>
                                     <defs>
                                         <clipPath id="clip0_1723_14098">
@@ -179,11 +212,11 @@ class AuthButton extends HTMLElement {
                         <!-- Room bookings -->
                         <li role="menuitem" aria-disabled="false">
                             <a tabindex="0" data-testid="mylibrary-menu-room-bookings" data-analyticsid="mylibrary-menu-room-bookings" href="https://uqbookit.uq.edu.au/#/app/booking-types/77b52dde-d704-4b6d-917e-e820f7df07cb" rel="noreferrer">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-                                    <path d="M4.18907 5.41406H19.8109C20.467 5.41406 21 5.94588 21 6.60043V19.8141C21 20.4686 20.467 21.0004 19.8109 21.0004H4.18907C3.53303 21.0004 3 20.4686 3 19.8141V6.60043C3 5.94588 3.53303 5.41406 4.18907 5.41406Z" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M3 10.2002H20.5399" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M7.79688 7.21364V3" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M16.2441 7.21364V3" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
+                                <svg class="account-menu-icon account-menu-room-bookings-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                                    <path d="M4.18907 5.41406H19.8109C20.467 5.41406 21 5.94588 21 6.60043V19.8141C21 20.4686 20.467 21.0004 19.8109 21.0004H4.18907C3.53303 21.0004 3 20.4686 3 19.8141V6.60043C3 5.94588 3.53303 5.41406 4.18907 5.41406Z"/>
+                                    <path d="M3 10.2002H20.5399"/>
+                                    <path d="M7.79688 7.21364V3"/>
+                                    <path d="M16.2441 7.21364V3"/>
                                 </svg>
                                 <span><span>Book a room or desk</span></span>
                             </a>
@@ -192,12 +225,12 @@ class AuthButton extends HTMLElement {
                         <!-- eSpace dashboard -->
                         <li data-testid="mylibrary-espace" id="mylibrary-espace" role="menuitem" aria-disabled="false">
                             <a tabindex="0" data-analyticsid="mylibrary-menu-espace-dashboard" href="https://espace.library.uq.edu.au/dashboard" rel="noreferrer">
-                                <svg width="24" height="26" viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M5.09961 12.7431L6.64248 11.2003C6.94248 10.9003 7.45677 10.9003 7.79963 11.2003L8.7425 12.1431C9.0425 12.4431 9.55679 12.4431 9.89965 12.1431L12.1711 9.87169C12.4711 9.57168 12.9854 9.57168 13.3282 9.87169L15.0854 11.6288C15.3854 11.9288 15.8997 11.9288 16.2426 11.6288L18.9426 8.97168" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M11.8291 3.57129V4.77624" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M3.42844 4.77148H20.5714C21.0429 4.77148 21.4286 5.1572 21.4286 5.62863V17.1573C21.4286 17.6287 21.0429 18.0144 20.5714 18.0144H3.42844C2.95701 18.0144 2.57129 17.6287 2.57129 17.1573V5.62863C2.57129 5.1572 2.95701 4.77148 3.42844 4.77148Z" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M12 17.9717V20.5016" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M9.42773 22.4286L11.9992 20.5L14.5706 22.4286" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
+                                <svg class="account-menu-icon account-menu-espace-icon" width="24" height="26" viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5.09961 12.7431L6.64248 11.2003C6.94248 10.9003 7.45677 10.9003 7.79963 11.2003L8.7425 12.1431C9.0425 12.4431 9.55679 12.4431 9.89965 12.1431L12.1711 9.87169C12.4711 9.57168 12.9854 9.57168 13.3282 9.87169L15.0854 11.6288C15.3854 11.9288 15.8997 11.9288 16.2426 11.6288L18.9426 8.97168"/>
+                                    <path d="M11.8291 3.57129V4.77624"/>
+                                    <path d="M3.42844 4.77148H20.5714C21.0429 4.77148 21.4286 5.1572 21.4286 5.62863V17.1573C21.4286 17.6287 21.0429 18.0144 20.5714 18.0144H3.42844C2.95701 18.0144 2.57129 17.6287 2.57129 17.1573V5.62863C2.57129 5.1572 2.95701 4.77148 3.42844 4.77148Z"/>
+                                    <path d="M12 17.9717V20.5016"/>
+                                    <path d="M9.42773 22.4286L11.9992 20.5L14.5706 22.4286"/>
                                 </svg>
                                 <span><span>UQ eSpace dashboard</span></span>
                             </a>
@@ -206,23 +239,22 @@ class AuthButton extends HTMLElement {
                         <!-- Feedback -->
                         <li role="menuitem" aria-disabled="false" style="margin-bottom: 8px;">
                             <a tabindex="0" id="mylibrary-menu-feedback" data-testid="mylibrary-menu-feedback" data-analyticsid="mylibrary-menu-feedback" href="https://support.my.uq.edu.au/app/library/feedback" rel="noreferrer">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect width="24" height="24"/>
-                                        <path d="M19.7998 17.3998H11.3999L6.59995 20.9998V17.3998H4.19998C3.88173 17.3998 3.57651 17.2734 3.35147 17.0483C3.12643 16.8233 3 16.5181 3 16.1998V4.19998C3 3.88173 3.12643 3.57651 3.35147 3.35147C3.57651 3.12643 3.88173 3 4.19998 3H19.7998C20.118 3 20.4233 3.12643 20.6483 3.35147C20.8733 3.57651 20.9998 3.88173 20.9998 4.19998V16.1998C20.9998 16.5181 20.8733 16.8233 20.6483 17.0483C20.4233 17.2734 20.118 17.3998 19.7998 17.3998Z" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M6.59961 8.39941H17.3995" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M6.59961 12H14.9995" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
+                                <svg class="account-menu-icon account-menu-feedback-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M19.7998 17.3998H11.3999L6.59995 20.9998V17.3998H4.19998C3.88173 17.3998 3.57651 17.2734 3.35147 17.0483C3.12643 16.8233 3 16.5181 3 16.1998V4.19998C3 3.88173 3.12643 3.57651 3.35147 3.35147C3.57651 3.12643 3.88173 3 4.19998 3H19.7998C20.118 3 20.4233 3.12643 20.6483 3.35147C20.8733 3.57651 20.9998 3.88173 20.9998 4.19998V16.1998C20.9998 16.5181 20.8733 16.8233 20.6483 17.0483C20.4233 17.2734 20.118 17.3998 19.7998 17.3998Z"/>
+                                    <path d="M6.59961 8.39941H17.3995"/>
+                                    <path d="M6.59961 12H14.9995"/>
+                                </svg>
                                 <span><span>Feedback</span></span>
                             </a>
                         </li>
                         <!-- Logout -->
                         <li role="menuitem" aria-disabled="false" class="logout borderTop" >
                             <button class="logout" type="button" data-testid="auth-button-logout" data-analyticsid="auth-button-logout" id="signOutButton">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                                <svg class="account-menu-icon account-menu-logout-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
                                     <g id="Login-1--Streamline-Ultimate 1" clip-path="url(#clip0_1654_3032)">
-                                        <path id="Vector" d="M17.0859 9.00293H5.76562" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path id="Vector_2" d="M8.46094 11.6982L5.76562 9.00293L8.46094 6.30762" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path id="Vector_3" d="M11.6954 12.2344V15.4688C11.7077 15.7416 11.6115 16.0081 11.4278 16.2102C11.2441 16.4122 10.9878 16.5333 10.715 16.5469H1.89383C1.62121 16.5331 1.36513 16.412 1.18156 16.2099C0.997988 16.0079 0.901855 15.7414 0.91417 15.4688V2.53125C0.901664 2.25851 0.997731 1.99193 1.18134 1.78987C1.36495 1.5878 1.62114 1.46672 1.89383 1.45312H10.715C10.9878 1.46672 11.2441 1.58778 11.4278 1.78982C11.6115 1.99186 11.7077 2.25844 11.6954 2.53125V5.76562" stroke="#51247A" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path id="Vector" d="M17.0859 9.00293H5.76562"/>
+                                        <path id="Vector_2" d="M8.46094 11.6982L5.76562 9.00293L8.46094 6.30762"/>
+                                        <path id="Vector_3" d="M11.6954 12.2344V15.4688C11.7077 15.7416 11.6115 16.0081 11.4278 16.2102C11.2441 16.4122 10.9878 16.5333 10.715 16.5469H1.89383C1.62121 16.5331 1.36513 16.412 1.18156 16.2099C0.997988 16.0079 0.901855 15.7414 0.91417 15.4688V2.53125C0.901664 2.25851 0.997731 1.99193 1.18134 1.78987C1.36495 1.5878 1.62114 1.46672 1.89383 1.45312H10.715C10.9878 1.46672 11.2441 1.58778 11.4278 1.78982C11.6115 1.99186 11.7077 2.25844 11.6954 2.53125V5.76562"/>
                                     </g>
                                     <defs>
                                         <clipPath id="clip0_1654_3032">
@@ -491,6 +523,7 @@ class AuthButton extends HTMLElement {
             !!backgroundPane && (backgroundPane.style.display = 'block');
             hideElement('down-arrow');
             showElement('up-arrow');
+
             // apply hover style to username
             const username = shadowDOM.getElementById('username-area-label');
             !!username && username.classList.add('menu-open');
