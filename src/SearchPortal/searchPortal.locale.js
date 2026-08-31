@@ -1,11 +1,12 @@
 const urlRoot = 'https://search.library.uq.edu.au/discovery/';
-const primoPrefix = '&tab=61UQ_All&search_scope=61UQ_All&sortby=rank&vid=61UQ_INST:61UQ&offset=0';
+const primoPrefixShort = '&tab=61UQ_All&search_scope=61UQ_All&vid=61UQ_INST:61UQ';
+const primoPrefix = primoPrefixShort + '&sortby=rank&offset=0';
 
-// index of the drop down in the search selection box
-const PRIMO_ELEMENTS = [0, 1, 2, 3, 4, 5];
-const DATABASES = 6;
-const EXAMS = 7;
-const READING_LISTS = 8;
+// index of the drop down in the search selection box, from selectId below.
+const PRIMO_ELEMENTS = [0, 1, 3, 4, 5, 6, 7];
+const DATABASES = 2;
+const EXAMS = 8;
+const READING_LISTS = 9;
 
 export const searchPortalLocale = {
     typeSelect: {
@@ -35,6 +36,16 @@ export const searchPortalLocale = {
             },
             {
                 selectId: '2',
+                name: 'Databases',
+                // StorageIcon
+                iconPath: 'M2 20h20v-4H2v4zm2-3h2v2H4v-2zM2 4v4h20V4H2zm4 3H4V5h2v2zm-4 7h20v-4H2v4zm2-3h2v2H4v-2z',
+                placeholder: 'Enter a keyword or title',
+                link:
+                    urlRoot +
+                    'dbsearch?query=any,contains,[keyword]&tab=jsearch_slot&vid=61UQ_INST:61UQ&offset=0&databases=any,[keyword]',
+            },
+            {
+                selectId: '3',
                 name: 'Journal articles',
                 // SchoolIcon
                 iconPath: 'M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z',
@@ -42,21 +53,8 @@ export const searchPortalLocale = {
                 link: urlRoot + 'search?query=any,contains,[keyword]' + primoPrefix + '&facet=rtype,include,articles',
             },
             {
-                selectId: '3',
-                name: 'Video and audio',
-                // MovieIcon
-                iconPath:
-                    'M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z',
-                placeholder: 'Enter a keyword, title, cast, crew, composer, artist',
-                link:
-                    urlRoot +
-                    'search?query=any,contains,[keyword]' +
-                    primoPrefix +
-                    '&mfacet=rtype,include,videos,1&mfacet=rtype,include,audios,1',
-            },
-            {
                 selectId: '4',
-                name: 'Journals',
+                name: 'Journal titles',
                 // DescriptionIcon
                 iconPath:
                     'M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z',
@@ -69,26 +67,34 @@ export const searchPortalLocale = {
             },
             {
                 selectId: '5',
+                name: 'Peer-reviewed',
+                placeholder: 'Enter a keyword, title, author',
+                link: `${urlRoot}search?query=any,contains,cows${primoPrefixShort}&facet=tlevel,include,peer_reviewed&offset=0`,
+            },
+            {
+                selectId: '6',
                 name: 'Physical items',
                 // InboxIcon
                 iconPath:
                     'M19 3H4.99c-1.11 0-1.98.89-1.98 2L3 19c0 1.1.88 2 1.99 2H19c1.1 0 2-.9 2-2V5c0-1.11-.9-2-2-2zm0 12h-4c0 1.66-1.35 3-3 3s-3-1.34-3-3H4.99V5H19v10z',
                 placeholder: 'Enter a keyword, title, author',
-                link:
-                    urlRoot + 'search?query=any,contains,[keyword]' + primoPrefix + '&facet=tlevel,include,available_p',
-            },
-            {
-                selectId: '6',
-                name: 'Databases',
-                // StorageIcon
-                iconPath: 'M2 20h20v-4H2v4zm2-3h2v2H4v-2zM2 4v4h20V4H2zm4 3H4V5h2v2zm-4 7h20v-4H2v4zm2-3h2v2H4v-2z',
-                placeholder: 'Enter a keyword or title',
-                link:
-                    urlRoot +
-                    'dbsearch?query=any,contains,[keyword]&tab=jsearch_slot&vid=61UQ_INST:61UQ&offset=0&databases=any,[keyword]',
+                link: `${urlRoot}search?query=any,contains,[keyword]${primoPrefix}&facet=tlevel,include,available_p`,
             },
             {
                 selectId: '7',
+                name: 'Video and audio',
+                // MovieIcon
+                iconPath:
+                    'M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z',
+                placeholder: 'Enter a keyword, title, cast, crew, composer, artist',
+                link:
+                    urlRoot +
+                    'search?query=any,contains,[keyword]' +
+                    primoPrefix +
+                    '&mfacet=rtype,include,videos,1&mfacet=rtype,include,audios,1',
+            },
+            {
+                selectId: '8',
                 name: 'Past exam papers',
                 // FindInPageIcon
                 iconPath:
@@ -97,7 +103,7 @@ export const searchPortalLocale = {
                 link: 'https://www.library.uq.edu.au/exams/course/[keyword]',
             },
             {
-                selectId: '8',
+                selectId: '9',
                 name: 'Course reading lists',
                 // ListAltIcon
                 iconPath:
@@ -134,7 +140,7 @@ export const searchPortalLocale = {
             display: [READING_LISTS],
         },
         {
-            label: 'Curated collections',
+            label: 'Collection discovery',
             linkto: urlRoot + 'collectionDiscovery?vid=61UQ_INST:61UQ',
             display: [...PRIMO_ELEMENTS],
         },
