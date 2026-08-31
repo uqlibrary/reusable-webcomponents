@@ -1,6 +1,5 @@
 nde-account {
   /* make the account page sidebar look like drupal sidebar navigation */
-  --border-colour-drupal-sidebar: #dcdcdd;
   --layout-sidebar-width-drupal-sidebar: 261px;
   --mdc-text-button-label-text-tracking: 0.16px;
 
@@ -19,7 +18,7 @@ nde-account {
     }
 
     li {
-      border-bottom: 1px solid var(--border-colour-drupal-sidebar);
+      border-bottom: var(--uq-border);
       position: relative;
       margin: 0;
       padding: 0;

@@ -1,0 +1,47 @@
+nde-search-result-item-container {
+  /* tweak colours */
+  .search-results-container {
+    --border: var(--uq-border-color);
+    border-radius: 0 0 .25rem .25rem;
+  }
+
+  nde-record-type {
+    span {
+      --sys-outline: var(--uq-body-copy);
+    }
+  }
+  nde-record-summary {
+    p nde-highlight span {
+      --mat-app-text-color: var(--uq-body-copy);
+    }
+  }
+  /* END tweak colours */
+
+  /* put more space on items in item heading */
+  nde-record-summary {
+    p {
+      color: var(--uq-body-copy);
+    }
+    nde-paragraph-with-show-more-less-btn {
+      .read-less,
+      .read-more {
+        &.basic-button {
+          margin-left: auto;
+          padding-right: 1rem;
+        }
+      }
+    }
+  }
+  &:not(:has(nde-paragraph-with-show-more-less-btn)) {
+    nde-record-availability {
+      margin-top: 0.3rem;
+    }
+  }
+  &:has(nde-record-book-chapters-or-reviews),
+  &:has(nde-record-frbr) {
+    nde-record-availability {
+      margin-bottom: 0.5rem;
+    }
+  }
+  /* END put more space on items in item heading */
+}
