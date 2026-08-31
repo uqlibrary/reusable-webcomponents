@@ -317,6 +317,13 @@ body.custom-nde-theme {
 }
 /* END move proactive chat up above login prompt when placed bottom right on narrower screen */
 
+/* shift the shadow on the copy icon up */
+nde-copy-to-clipboard button .mat-mdc-button-persistent-ripple {
+  margin-top: -6px;
+  margin-bottom: 6px;
+}
+/* END shift the shadow on the copy icon up */
+
 .standardWarningBanner {
   margin-inline:.9375rem;
   margin-bottom: 2rem;
