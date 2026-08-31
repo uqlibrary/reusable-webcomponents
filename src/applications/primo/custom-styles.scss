@@ -122,6 +122,8 @@ body.custom-nde-theme {
 
   @import 'includes/components/nde-notification.scss';
 
+  @import 'includes/components/nde-quick-filters';
+
   @import 'includes/components/nde-record-availability';
 
   @import 'includes/components/nde-record-citations-and-times-cited';
@@ -341,6 +343,20 @@ body.custom-nde-theme {
     }
   }
   /* END hide big icon on "no results" page */
+
+  /* hide divider beside sort button */
+  nde-search-results-container {
+    div:has(> nde-sort-by)  {
+      > div {
+        > mat-divider {
+          --sys-outline: transparent;
+        }
+      }
+    }
+  }
+  /* END hide divider beside sort button */
+}
+/* END body.custom-nde-theme */
 
   /* let the 404 page breathe */
   .search-container {
