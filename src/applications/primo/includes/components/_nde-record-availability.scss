@@ -4,23 +4,41 @@ nde-record-availability {
     border: 1px solid var(--sys-primary);
     margin-top: .25rem;
     padding: 5px 1rem 4px 0.8rem;
+    mat-icon.mat-icon.available-record-indicator-color circle {
+      fill: var( --uq-main-purple);
+    }
+    &:has(button.available-at-button:focus),
     &:has(button.available-at-button:hover) {
-      background-color: #f1edf4;
+      background-color: var( --uq-main-purple);
+      opacity: 1;
+      color: #fff;
+      mat-icon.mat-icon.available-record-indicator-color circle {
+        fill: #fff;
+      }
     }
     button:has(> span:nth-child(5)) {
-      devtracking: two;
+      --uql-button-style-type: avail;
       &:hover, &:focus {
+        span.mat-mdc-button-persistent-ripple::before {
+          background-color: var(--uq-main-purple);
+          color: #fff;
+          opacity: 1;
+          transition: background-color .2s ease-out, color .2s ease-out, border .2s ease-out;
+          border-radius: unset;
+        }
         text-decoration: underline;
+        color: #fff;
         span.mdc-button__label:not(:has(mat-icon)) {
           line-height: normal;
           text-decoration: underline;
-          background-color: #f1edf4;
-          color: var( --uq-main-purple);
         }
       }
     }
-    button.available-at-button:hover .mdc-button__label {
-      text-decoration: none;
+    button.available-at-button:focus,
+    button.available-at-button:hover {
+      .mdc-button__label {
+        text-decoration: none;
+      }
     }
   }
   .quicklink-button {
