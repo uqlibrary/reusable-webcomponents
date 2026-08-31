@@ -1,11 +1,23 @@
 nde-full-display-details {
   /* Adjust field label display in Full Record Display > Details section */
-    .details-label {
-      --sys-title-small: 1rem;
-      font-weight: 500;
-      @media (min-width: 601px) {
-        text-align: right;
+  .details-label {
+    --sys-title-small: 1rem;
+    font-weight: 500;
+    @media (min-width: 601px) {
+      text-align: right;
+    }
+  }
+  /* END Adjust field label display in Full Record Display > Details section */
+
+  /* collection path to be normal text size */
+  nde-collection-path-detail {
+    div.full-display-detail {
+      div.collection-path-container {
+        a.collection-path {
+          font-size: 1rem;
+        }
       }
     }
-  /* END Adjust field label display in Full Record Display > Details section */
+  }
+  /* END collection path to be normal text size */
 }
