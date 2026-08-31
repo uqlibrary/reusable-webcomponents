@@ -384,6 +384,14 @@ body.custom-nde-theme {
   }
   /* END make all the words the same font size on the "this form is not available" */
 
+  /* filter button is cropped on left when tabbing to it */
+  nde-search-bar-filters {
+    button:nth-of-type(1) {
+      margin-left: 2px;
+    }
+  }
+  /* END filter button is cropped on left when tabbing to it */
+
 
 }
 /* END body.custom-nde-theme */
