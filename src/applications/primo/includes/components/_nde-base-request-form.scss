@@ -1,0 +1,33 @@
+main.sub-container { // needed for specificity :(
+  nde-base-request-form {
+    div.request-form-container {
+      form {
+        mat-dialog-actions.buttons-container {
+          justify-content: space-between;
+
+          > button.submit-btn {
+            @include uqPrimaryButton();
+          }
+
+          > div.blank-form-reset-button {
+            margin-left: 0;
+
+            > button.reset {
+              @include uqTertiaryButton();
+            }
+          }
+        }
+        /* error banner */
+        .missing-fields-alert-content.missing-fields-alert-container {
+          background-color: var(--uq-background-alert-error);
+          gap: 1rem; // put more space between the icon and the words
+          path {
+            fill: none;
+            stroke: var(--uq-body-copy);
+          }
+        }
+        /* END error banner */
+      }
+    }
+  }
+}
