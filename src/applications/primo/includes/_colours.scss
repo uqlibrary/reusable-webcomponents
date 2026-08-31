@@ -410,11 +410,10 @@ body.custom-nde-theme {
     }
   }
 
-  /* eg full, result header, sort by */
+  /* eg full/colldisc, result header, sort by */
   button:has(> span:nth-of-type(5)):has(> span.mdc-button__label > span > mat-icon):has(> span.mdc-button__label > span + span) {
     &:not(:has(div)) {
       --uql-button-style-type: twelve;
-      --uql-local-sort-by-background-colour: #fff;
 
       span.mdc-button__label span {
         line-height: normal;
@@ -434,7 +433,7 @@ body.custom-nde-theme {
           }
 
           mat-icon {
-            background-color: var(--uql-local-sort-by-background-colour);
+            background-color: #fff;
           }
         }
       }
@@ -643,7 +642,7 @@ body.custom-nde-theme {
 
   /* eg brief, not sure, maybe available online? */
   button:has(> span:nth-of-type(5)):has(> span.mdc-button__label span) {
-    &:not(mat-icon):not(div):not(:has(span.mdc-button__label span span)) {
+    &:not(:has(mat-icon)):not(:has(div)):not(:has(span.mdc-button__label span span)) {
       --uql-button-style-type: twentythree;
 
       span.mdc-button__label span {
@@ -667,7 +666,7 @@ body.custom-nde-theme {
       {
         --uql-button-style-type: twentyfour;
         line-height: normal;
-
+        --sys-inverse-on-surface: var(--uq-colour-purple-50);
         span.mdc-button__label {
           line-height: normal;
           text-decoration: none;
@@ -681,6 +680,15 @@ body.custom-nde-theme {
             color: #fff;
           }
         }
+      }
+    }
+  }
+  button[aria-label^="Clear all filters"] {
+    --uql-button-style-type: twentyfourextended;
+    text-decoration: underline;
+    &:hover, &:focus {
+      span.mat-mdc-button-persistent-ripple::before {
+        background-color: transparent;
       }
     }
   }
