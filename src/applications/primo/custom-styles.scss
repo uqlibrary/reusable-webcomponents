@@ -322,6 +322,15 @@ body.custom-nde-theme {
   }
   /* END style sidebar Search Inside box */
 
+  /* hide big icon on "no results" page */
+  nde-search-no-results {
+    mat-icon.mat-icon.nde-mat-icon-size {
+      display: none;
+    }
+  }
+  /* END hide big icon on "no results" page */
+}
+
 }
 /* END body.custom-nde-theme */
 
