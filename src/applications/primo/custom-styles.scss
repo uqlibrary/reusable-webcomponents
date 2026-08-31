@@ -339,6 +339,15 @@ body.custom-nde-theme {
   /* END let the 404 page breathe */
 
 
+  /* hide big icon on "no results" & "record not found" pages */
+  nde-full-display-error-page {
+    mat-icon {
+      display: none;
+    }
+  }
+  /* END hide big icon on "no results" page */
+}
+
 }
 /* END body.custom-nde-theme */
 
