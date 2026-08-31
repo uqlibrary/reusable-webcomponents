@@ -8,7 +8,7 @@
 
 $utility-500: var(--uq-color-utility-500);
 $uqBrandColour: var(--uq-colour-purple-500);
-$uq-body-font-family: Roboto, Helvetica, Arial, sans-serif;
+$uq-body-font-family: var(--uq-body-font-family);
 @mixin uqPrimaryButton() {
   background-color: $uqBrandColour !important;
   border: 2px solid $uqBrandColour;

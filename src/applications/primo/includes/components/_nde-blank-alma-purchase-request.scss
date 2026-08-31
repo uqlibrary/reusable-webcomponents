@@ -3,4 +3,27 @@ nde-blank-alma-purchase-request {
   .divider {
     display: none;
   }
+
+  div.blank-alma-purchase-request-container div.request-form-container mat-dialog-actions.mat-mdc-dialog-actions { // mostly for specificity
+    display: flex;
+    justify-content: space-between;
+
+    button.submit-btn {
+      @include uqPrimaryButton();
+    }
+
+    .blank-form-reset-button {
+      margin-left: 0;
+      button.reset {
+        text-decoration: underline;
+        padding-inline: 2rem;
+
+        &:hover, &:focus {
+          background-color: var(--uq-main-purple);
+          color: #fff;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
 }
