@@ -514,6 +514,8 @@ body.custom-nde-theme {
 
       span.mdc-button__label span {
         text-decoration: underline;
+        background-color: #fff;
+        color: var(--uq-main-purple);
       }
 
       &:hover, &:focus {
