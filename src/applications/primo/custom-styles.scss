@@ -283,19 +283,19 @@ body.custom-nde-theme {
 
 
   /* page title colour */
-  &:not(:has(nde-search-results)) nde-record-title a span,
+  nde-record-title a span,
+  nde-record-title a span em,
+  nde-record-title a nde-highlight,
   nde-person-entity.ng-star-inserted nde-entity-layout.ng-star-inserted .entity-container .entity-details .entity-name // star classes to force the specificity
   {
-    color: #333;
-    font-weight: 500;
+    font: var(--uq-heading-3);
+    font-size: 18px; // it was agreed that the official font size was comically large
   }
-
   nde-record-title a.not-linkable span,
   nde-record-title a.not-linkable nde-highlight,
   nde-person-entity.ng-star-inserted nde-entity-layout.ng-star-inserted .entity-container .entity-details .entity-name // star classes to force the specificity
   {
-    color: var(--uq-colour-black);
-    font-weight: 500;
+    color: var(--uq-colour-black); // on the detail page it isn't a working link, despite the markup
   }
   /* END page title colour */
 
