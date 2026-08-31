@@ -27,4 +27,43 @@ nde-advanced-search {
       }
     }
   }
+
+  /* make input field take whole line */
+  [aria-labelledby="basicQueryField"] {
+    grid-template-areas:
+      "a a b b"
+      "c c c c";
+  }
+  .mat-mdc-tab-body-wrapper {
+    form.advanced-search-form {
+      div.advanced-search-section-additional-container {
+        .additional-query-section {
+          .select-section {
+            margin-block: 0.75rem;
+            padding-block: 0.25rem;
+            display: grid;
+            grid-template-areas:
+              "aa bb bb cc cc"
+              "dd dd dd dd dd";
+            > mat-form-field:first-child {
+              grid-area: aa;
+            }
+            > mat-form-field:nth-child(2) {
+              grid-area: bb;
+            }
+            > mat-form-field:nth-child(3) {
+              grid-area: cc;
+            }
+            > div {
+              grid-area: dd;
+            }
+            row-gap: 0.5rem
+          }
+        }
+      }
+    }
+
+  }
+  /* END make input field take whole line */
+
 }
