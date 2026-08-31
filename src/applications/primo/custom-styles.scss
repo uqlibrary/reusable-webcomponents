@@ -322,6 +322,23 @@ body.custom-nde-theme {
   }
   /* END style sidebar Search Inside box */
 
+  /* form widths to be restricted */
+  nde-fetch-item > div.container, // citation finder
+  main.sub-container nde-base-request-form > div.request-form-container { // purchase request and resource delivery request
+    margin-inline: auto;
+    max-width: calc(var(--hero-layout-container-max-width) - 2 * var(--hero-layout-gap) - 3rem);
+  }
+  @media only screen and (max-width: 749.98px) {
+    .blank-request .two-columns {
+      grid-template-columns: 1fr;
+    }
+
+    nde-fetch-item > div.container .two-columns {
+      grid-template-columns: 1fr;
+    }
+  }
+  /* END form widths to be restricted */
+
 }
 /* END body.custom-nde-theme */
 
