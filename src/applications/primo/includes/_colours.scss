@@ -687,7 +687,8 @@ body.custom-nde-theme {
 
         span.mdc-button__label {
           line-height: normal;
-          text-decoration: underline;
+          text-decoration: none;
+          color: var(--uq-main-purple);
         }
 
         &:hover, &:focus {
