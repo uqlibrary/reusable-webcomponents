@@ -480,6 +480,17 @@ body.custom-nde-theme {
   }
   /* END form widths to be restricted */
 
+  /* make all the words the same font size on the "this form is not available" */
+  nde-restricted-form-page {
+    .description-container {
+      span.mat-body-small {
+        font-size: 1rem;
+      }
+    }
+  }
+  /* END make all the words the same font size on the "this form is not available" */
+
+
 }
 /* END body.custom-nde-theme */
 
