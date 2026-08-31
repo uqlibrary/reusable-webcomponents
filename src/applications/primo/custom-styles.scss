@@ -430,6 +430,13 @@ body:has(nde-natural-language-search-dialog) {
 }
 /* END move proactive chat when ai dialog has search button in bottom right */
 
+/* shift the shadow on the copy icon up */
+nde-copy-to-clipboard button .mat-mdc-button-persistent-ripple {
+  margin-top: -6px;
+  margin-bottom: 6px;
+}
+/* END shift the shadow on the copy icon up */
+
 .standardWarningBanner {
   margin-inline:.9375rem;
   margin-bottom: 2rem;
