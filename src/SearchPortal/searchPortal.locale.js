@@ -1,18 +1,38 @@
 const urlRoot = 'https://search.library.uq.edu.au/discovery/';
-const primoPrefix = '&tab=61UQ_All&search_scope=61UQ_All&sortby=rank&vid=61UQ_INST:61UQ&offset=0';
+const primoPrefixShort = '&tab=61UQ_All&search_scope=61UQ_All&vid=61UQ_INST:61UQ';
+const primoPrefix = primoPrefixShort + '&sortby=rank&offset=0';
 
-// index of the drop down in the search selection box
-const PRIMO_ELEMENTS = [0, 1, 2, 3, 4, 5];
-const DATABASES = 6;
-const EXAMS = 7;
-const READING_LISTS = 8;
+export const PRIMO_LIBRARY_SEARCH = '0';
+export const PRIMO_BOOKS_SEARCH = '1';
+export const PRIMO_JOURNAL_ARTICLES_SEARCH = '3';
+export const PRIMO_JOURNAL_TITLE_SEARCH = '4';
+export const PRIMO_VIDEO_AUDIO_SEARCH = '7';
+export const PRIMO_PEER_REVIEW_SEARCH = '5';
+export const PRIMO_PHYSICAL_ITEMS_SEARCH = '6';
+export const PRIMO_DATABASE_SEARCH = '2';
+export const EXAM_PAPER_SEARCH_TYPE = '8';
+export const COURSE_RESOURCE_SEARCH_TYPE = '9';
+
+// define the footer elements for each type
+const PRIMO_ELEMENTS = [
+    Number(PRIMO_LIBRARY_SEARCH),
+    Number(PRIMO_BOOKS_SEARCH),
+    Number(PRIMO_JOURNAL_ARTICLES_SEARCH),
+    Number(PRIMO_JOURNAL_TITLE_SEARCH),
+    Number(PRIMO_PEER_REVIEW_SEARCH),
+    Number(PRIMO_PHYSICAL_ITEMS_SEARCH),
+    Number(PRIMO_VIDEO_AUDIO_SEARCH),
+];
+const DATABASE_ELEMENTS = [Number(PRIMO_DATABASE_SEARCH)];
+const EXAM_PAPER_ELEMENTS = [Number(EXAM_PAPER_SEARCH_TYPE)];
+const READING_LIST_ELEMENTS = [Number(COURSE_RESOURCE_SEARCH_TYPE)];
 
 export const searchPortalLocale = {
     typeSelect: {
         label: 'Search',
         items: [
             {
-                selectId: '0',
+                selectId: PRIMO_LIBRARY_SEARCH,
                 name: 'All',
                 // PublicIcon
                 iconPath:
@@ -25,7 +45,7 @@ export const searchPortalLocale = {
                     '&facet=rtype,exclude,newspaper_articles,lk&facet=rtype,exclude,reviews,lk',
             },
             {
-                selectId: '1',
+                selectId: PRIMO_BOOKS_SEARCH,
                 name: 'Books',
                 // ImportContactsIcon
                 iconPath:
@@ -34,7 +54,17 @@ export const searchPortalLocale = {
                 link: urlRoot + 'search?query=any,contains,[keyword]' + primoPrefix + '&facet=rtype,include,books',
             },
             {
-                selectId: '2',
+                selectId: PRIMO_DATABASE_SEARCH,
+                name: 'Databases',
+                // StorageIcon
+                iconPath: 'M2 20h20v-4H2v4zm2-3h2v2H4v-2zM2 4v4h20V4H2zm4 3H4V5h2v2zm-4 7h20v-4H2v4zm2-3h2v2H4v-2z',
+                placeholder: 'Enter a keyword or title',
+                link:
+                    urlRoot +
+                    'dbsearch?query=any,contains,[keyword]&tab=jsearch_slot&vid=61UQ_INST:61UQ&offset=0&databases=any,[keyword]',
+            },
+            {
+                selectId: PRIMO_JOURNAL_ARTICLES_SEARCH,
                 name: 'Journal articles',
                 // SchoolIcon
                 iconPath: 'M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z',
@@ -42,7 +72,35 @@ export const searchPortalLocale = {
                 link: urlRoot + 'search?query=any,contains,[keyword]' + primoPrefix + '&facet=rtype,include,articles',
             },
             {
-                selectId: '3',
+                selectId: PRIMO_JOURNAL_TITLE_SEARCH,
+                name: 'Journal titles',
+                // DescriptionIcon
+                iconPath:
+                    'M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z',
+                placeholder: 'Enter a journal or newspaper title',
+                link:
+                    urlRoot +
+                    'search?query=title,contains,[keyword],AND' +
+                    primoPrefix +
+                    '&mfacet=rtype,include,newspapers,1&mfacet=rtype,include,journals,1&mode=advanced',
+            },
+            {
+                selectId: PRIMO_PEER_REVIEW_SEARCH,
+                name: 'Peer-reviewed',
+                placeholder: 'Enter a keyword, title, author',
+                link: `${urlRoot}search?query=any,contains,cows${primoPrefixShort}&facet=tlevel,include,peer_reviewed&offset=0`,
+            },
+            {
+                selectId: PRIMO_PHYSICAL_ITEMS_SEARCH,
+                name: 'Physical items',
+                // InboxIcon
+                iconPath:
+                    'M19 3H4.99c-1.11 0-1.98.89-1.98 2L3 19c0 1.1.88 2 1.99 2H19c1.1 0 2-.9 2-2V5c0-1.11-.9-2-2-2zm0 12h-4c0 1.66-1.35 3-3 3s-3-1.34-3-3H4.99V5H19v10z',
+                placeholder: 'Enter a keyword, title, author',
+                link: `${urlRoot}search?query=any,contains,[keyword]${primoPrefix}&facet=tlevel,include,available_p`,
+            },
+            {
+                selectId: PRIMO_VIDEO_AUDIO_SEARCH,
                 name: 'Video and audio',
                 // MovieIcon
                 iconPath:
@@ -55,40 +113,7 @@ export const searchPortalLocale = {
                     '&mfacet=rtype,include,videos,1&mfacet=rtype,include,audios,1',
             },
             {
-                selectId: '4',
-                name: 'Journals',
-                // DescriptionIcon
-                iconPath:
-                    'M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z',
-                placeholder: 'Enter a journal or newspaper title',
-                link:
-                    urlRoot +
-                    'search?query=title,contains,[keyword],AND' +
-                    primoPrefix +
-                    '&mfacet=rtype,include,newspapers,1&mfacet=rtype,include,journals,1&mode=advanced',
-            },
-            {
-                selectId: '5',
-                name: 'Physical items',
-                // InboxIcon
-                iconPath:
-                    'M19 3H4.99c-1.11 0-1.98.89-1.98 2L3 19c0 1.1.88 2 1.99 2H19c1.1 0 2-.9 2-2V5c0-1.11-.9-2-2-2zm0 12h-4c0 1.66-1.35 3-3 3s-3-1.34-3-3H4.99V5H19v10z',
-                placeholder: 'Enter a keyword, title, author',
-                link:
-                    urlRoot + 'search?query=any,contains,[keyword]' + primoPrefix + '&facet=tlevel,include,available_p',
-            },
-            {
-                selectId: '6',
-                name: 'Databases',
-                // StorageIcon
-                iconPath: 'M2 20h20v-4H2v4zm2-3h2v2H4v-2zM2 4v4h20V4H2zm4 3H4V5h2v2zm-4 7h20v-4H2v4zm2-3h2v2H4v-2z',
-                placeholder: 'Enter a keyword or title',
-                link:
-                    urlRoot +
-                    'dbsearch?query=any,contains,[keyword]&tab=jsearch_slot&vid=61UQ_INST:61UQ&offset=0&databases=any,[keyword]',
-            },
-            {
-                selectId: '7',
+                selectId: EXAM_PAPER_SEARCH_TYPE,
                 name: 'Past exam papers',
                 // FindInPageIcon
                 iconPath:
@@ -97,7 +122,7 @@ export const searchPortalLocale = {
                 link: 'https://www.library.uq.edu.au/exams/course/[keyword]',
             },
             {
-                selectId: '8',
+                selectId: COURSE_RESOURCE_SEARCH_TYPE,
                 name: 'Course reading lists',
                 // ListAltIcon
                 iconPath:
@@ -121,20 +146,20 @@ export const searchPortalLocale = {
         {
             label: 'Browse databases',
             linkto: urlRoot + 'dbsearch?vid=61UQ_INST:61UQ',
-            display: [DATABASES],
+            display: [...DATABASE_ELEMENTS],
         },
         {
             label: 'Browse courses (UQ login required)',
             linkto: 'https://www.library.uq.edu.au/exams/',
-            display: [EXAMS],
+            display: [...EXAM_PAPER_ELEMENTS],
         },
         {
             label: 'Browse courses (UQ login required)',
             linkto: 'https://uq.rl.talis.com/index.html',
-            display: [READING_LISTS],
+            display: [...READING_LIST_ELEMENTS],
         },
         {
-            label: 'Curated collections',
+            label: 'Collection discovery',
             linkto: urlRoot + 'collectionDiscovery?vid=61UQ_INST:61UQ',
             display: [...PRIMO_ELEMENTS],
         },
