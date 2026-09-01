@@ -1,5 +1,16 @@
 import overrides from './css/overrides.css';
-import { searchPortalLocale } from './searchPortal.locale';
+import {
+    COURSE_RESOURCE_SEARCH_TYPE,
+    EXAM_PAPER_SEARCH_TYPE,
+    PRIMO_LIBRARY_SEARCH,
+    PRIMO_BOOKS_SEARCH,
+    PRIMO_JOURNAL_ARTICLES_SEARCH,
+    PRIMO_JOURNAL_TITLE_SEARCH,
+    PRIMO_PEER_REVIEW_SEARCH,
+    PRIMO_VIDEO_AUDIO_SEARCH,
+    PRIMO_PHYSICAL_ITEMS_SEARCH,
+    searchPortalLocale,
+} from './searchPortal.locale';
 import { throttle } from 'throttle-debounce';
 import ApiAccess from '../ApiAccess/ApiAccess';
 import { cookieNotFound, getCookieValue, setCookie } from '../helpers/cookie';
@@ -13,18 +24,6 @@ import {
 } from '../helpers/keyDetection';
 
 const template = document.createElement('template');
-
-const PRIMO_LIBRARY_SEARCH = '0';
-const PRIMO_BOOKS_SEARCH = '1';
-const PRIMO_JOURNAL_ARTICLES_SEARCH = '3';
-const PRIMO_JOURNAL_ARTICLES_TITLE_SEARCH = '4';
-const PRIMO_VIDEO_AUDIO_SEARCH = '7';
-const PRIMO_PEER_REVIEW_SEARCH = '5';
-const PRIMO_JOURNALS_SEARCH = '4';
-const PRIMO_PHYSICAL_ITEMS_SEARCH = '6';
-// const PRIMO_DATABASE_SEARCH = '2';
-const EXAM_SEARCH_TYPE = '8';
-const COURSE_RESOURCE_SEARCH_TYPE = '9';
 
 const REMEMBER_COOKIE_ID = 'rememberSearchType';
 
@@ -453,16 +452,15 @@ class SearchPortal extends HTMLElement {
                 PRIMO_LIBRARY_SEARCH,
                 PRIMO_BOOKS_SEARCH,
                 PRIMO_JOURNAL_ARTICLES_SEARCH,
-                PRIMO_JOURNAL_ARTICLES_TITLE_SEARCH,
                 PRIMO_PEER_REVIEW_SEARCH,
                 PRIMO_VIDEO_AUDIO_SEARCH,
-                PRIMO_JOURNALS_SEARCH,
+                PRIMO_JOURNAL_TITLE_SEARCH,
                 PRIMO_PHYSICAL_ITEMS_SEARCH,
             ];
 
             if (PRIMO_SEARCH_TYPES.includes(searchType.value)) {
                 throttledPrimoLoadSuggestions(inputField.value);
-            } else if (searchType.value === EXAM_SEARCH_TYPE) {
+            } else if (searchType.value === EXAM_PAPER_SEARCH_TYPE) {
                 throttledExamLoadSuggestions(inputField.value);
             } else if (searchType.value === COURSE_RESOURCE_SEARCH_TYPE) {
                 throttledReadingListLoadSuggestions(inputField.value);
@@ -619,13 +617,13 @@ class SearchPortal extends HTMLElement {
         // !!path && (path.id = `portalTypeSelectionEntry-path-${index}`);
         // !!path && path.setAttribute('d', entry.iconPath);
 
-        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        !!svg && (svg.id = `portalTypeSelectionEntry-svg-${index}`);
-        !!svg && svg.setAttribute('class', 'MuiSvgIcon-root MuiSvgIcon-colorSecondary');
-        !!svg && svg.setAttribute('focusable', 'false');
-        !!svg && svg.setAttribute('viewBox', '0 0 24 24');
-        !!svg && svg.setAttribute('ariaHidden', 'true');
-        //!!svg && !!path && svg.appendChild(path);
+        // const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        // !!svg && (svg.id = `portalTypeSelectionEntry-svg-${index}`);
+        // !!svg && svg.setAttribute('class', 'MuiSvgIcon-root MuiSvgIcon-colorSecondary');
+        // !!svg && svg.setAttribute('focusable', 'false');
+        // !!svg && svg.setAttribute('viewBox', '0 0 24 24');
+        // !!svg && svg.setAttribute('ariaHidden', 'true');
+        // //!!svg && !!path && svg.appendChild(path);
 
         const label = document.createElement('span');
         !!label && (label.id = `portalTypeSelectionEntry-${index}`);
