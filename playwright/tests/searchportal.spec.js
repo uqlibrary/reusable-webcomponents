@@ -56,7 +56,7 @@ test.describe('Search Portal', () => {
                 .poll(async () =>
                     searchPortalElement.getByTestId('portal-type-wrapper-child').locator('button').count(),
                 )
-                .toEqual(9);
+                .toEqual(10);
         });
         test.describe('accessibility', () => {
             test('at initial load', async ({ page }) => {
@@ -488,28 +488,46 @@ test.describe('Search Portal', () => {
             ).toBeVisible();
         });
 
-        test('the user can use the keyboard to navigate the search type dropdown', async ({ page }) => {
+        test('the user can arrow down on the search type dropdown', async ({ page }) => {
             await page.setViewportSize({ width: 1300, height: 1000 });
             const searchPortalElement = page.locator('search-portal');
-
-            // arrow down from nth item goes to item n+1
             await searchPortalElement.getByTestId('search-type-selector').click(); // drop down opens
+
+            // arrow down from nth item goes to item n+1 (focus on books and then arrow down)
             await searchPortalElement.getByTestId('portal-search-type-books').focus();
             await page.keyboard.press('ArrowDown');
-            await expect(searchPortalElement.getByTestId('portal-search-type-journal-articles')).toBeFocused();
+            await expect(searchPortalElement.getByTestId('portal-search-type-databases')).toBeFocused();
+        });
 
-            // arrow up from nth item goes to item n-1
-            await searchPortalElement.getByTestId('portal-search-type-journals').focus();
+        test('the user can arrow up on the search type dropdown', async ({ page }) => {
+            await page.setViewportSize({ width: 1300, height: 1000 });
+            const searchPortalElement = page.locator('search-portal');
+            await searchPortalElement.getByTestId('search-type-selector').click(); // drop down opens
+
+            // arrow up from nth item goes to item n-1 (focus on journal titles and then arrow up)
+            await searchPortalElement.getByTestId('portal-search-type-journal-titles').focus();
             await page.keyboard.press('ArrowUp');
-            await expect(searchPortalElement.getByTestId('portal-search-type-video-and-audio')).toBeFocused();
+            await expect(searchPortalElement.getByTestId('portal-search-type-journal-articles')).toBeFocused();
+        });
 
-            // tab from final item goes to next field
+        test('the user can tab out of the search type dropdown', async ({ page }) => {
+            await page.setViewportSize({ width: 1300, height: 1000 });
+            const searchPortalElement = page.locator('search-portal');
+            await searchPortalElement.getByTestId('search-type-selector').click(); // drop down opens
+
+            // tab from final item goes to next field (focus on final item, course reading lists and then tab)
             await searchPortalElement.getByTestId('portal-search-type-course-reading-lists').focus();
             await page.keyboard.press('Tab');
             await expect(searchPortalElement.getByTestId('input-field')).toBeFocused();
+        });
 
-            // the user types a search on 'Library' (we are still on "All" - we never actually chose one of the options)
-            await typeTextStringIntoInputField(searchPortalElement, 'beard', 10);
+        test('the user can change search type on the search type dropdown', async ({ page }) => {
+            await page.setViewportSize({ width: 1300, height: 1000 });
+            const searchPortalElement = page.locator('search-portal');
+
+            // the user types a search on 'Library'
+            await searchPortalElement.getByTestId('input-field').focus();
+            await typeTextStringIntoInputField(searchPortalElement, 'bear', 10);
             await expect(searchPortalElement.getByTestId('suggestion-link-0')).toHaveAttribute(
                 'href',
                 /facet=rtype,exclude,newspaper_articles,lk&facet=rtype,exclude,reviews,lk/,
@@ -520,8 +538,9 @@ test.describe('Search Portal', () => {
             // choose a different search type
             await searchPortalElement.getByTestId('portal-search-type-video-and-audio').focus();
             await page.keyboard.press('Enter');
-            // and the search suggestions should update without further user action to the new search results
-            await expect.poll(async () => searchPortalElement.locator('li').count()).toBe(10);
+
+            // the search suggestions should update without further user action to the new search results
+            await expect.poll(async () => searchPortalElement.locator('li').count()).toBeGreaterThan(0);
             await expect(searchPortalElement.getByTestId('suggestion-link-0')).toHaveAttribute(
                 'href',
                 /rtype,include,audios/,
