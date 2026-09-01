@@ -18,7 +18,8 @@ nde-account {
     }
 
     li {
-      border-bottom: var(--uq-border);
+      --uq-color-drupal-sidebar-border: var(--uq-colour-grey-500);
+      border-bottom: 1px solid var(--uq-color-drupal-sidebar-border);
       position: relative;
       margin: 0;
       padding: 0;
