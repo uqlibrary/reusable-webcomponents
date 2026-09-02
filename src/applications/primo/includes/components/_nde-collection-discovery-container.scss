@@ -86,6 +86,16 @@ nde-collection-discovery-container {
             border: 1px solid rgba(38, 85, 115, 0.15);
         }
       }
+
+      nde-collection-discovery-gallery-collection {
+        .collection-overlay {
+          mat-icon {
+            path {
+              fill: #fff;
+            }
+          }
+        }
+      }
     }
     h3 a {
       display: inline !important;
