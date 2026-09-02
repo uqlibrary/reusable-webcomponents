@@ -130,4 +130,13 @@ nde-collection-discovery-container {
       }
     }
   }
+
+  /* override common anchor hovers from colours.scss */
+  nde-collection-discovery-top-bar nde-sort-by button {
+    &:hover, &:focus {
+      mat-icon {
+        --uql-local-sort-by-background-colour: var(--sys-inverse-on-surface);
+      }
+    }
+  }
 }

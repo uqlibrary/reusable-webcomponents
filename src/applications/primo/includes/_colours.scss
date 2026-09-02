@@ -15,6 +15,7 @@
   --uq-colour-grey-50: #f3f3f4;
   --uq-colour-grey-100: #e8e8e8;
   --uq-colour-grey-200: #dcdcdd;
+  --uq-colour-grey-500: #a3a1a4;
   --uq-colour-grey-900: #3b383e;
 
   --uq-color-utility-50: #e7f0fa;
@@ -179,8 +180,8 @@ body.custom-nde-theme {
 
   /* attempting to style by link/button html structure, rather than specific types */
 
-  /* eg full, Details section, body links; brief, result title  */
-  nde-full-display-details, nde-search-results {
+  /* eg full, Details section, body links; brief, result title; account, saved records tab, result title  */
+  nde-full-display-details, nde-search-results, nde-record-title {
     a:has(nde-highlight span) {
       --uql-button-style-type: one; /* so the developer can easily determine which of these styles is applied to the element */
       nde-highlight span {
@@ -201,11 +202,15 @@ body.custom-nde-theme {
   /* eg full, Requests section, "go to link" */
   /* button:has(> span:nth-child(5)), */
   a:has(> span:nth-of-type(5)):has(> mat-icon):has(span.mdc-button__label) {
-    &:not(:has(span.mdc-button__label mat-icon)):not(:has(> span > div)) {
+    &:not(:has(span.mdc-button__label mat-icon)):not(:has(> span > div)):not([data-qa^="account-menu"]) {
       --uql-button-style-type: two;
       text-decoration: underline;
 
       &:hover, &:focus {
+        span.mat-mdc-button-persistent-ripple::before {
+          background-color: transparent;
+          opacity: 1;
+        }
         span.mdc-button__label:not(:has(mat-icon)) {
           line-height: normal;
           text-decoration: underline;
@@ -251,6 +256,10 @@ body.custom-nde-theme {
   button:has(> span:nth-of-type(5)):has(> span.mdc-button__label span span):has(> span.mdc-button__label > span mat-icon + span) {
     &:not(:has(div)) {
       --uql-button-style-type: four;
+      border-radius: var(--uq-border-radius) !important;
+      span.mat-mdc-button-persistent-ripple.mdc-button__ripple {
+        border-radius: var(--uq-border-radius) !important;
+      }
 
       span.mdc-button__label span span {
         line-height: normal;
@@ -279,7 +288,7 @@ body.custom-nde-theme {
 
   /* eg main menu, help icon (possibly "has icon") */
   a:has(> span:nth-of-type(5)):has(> span.mdc-button__label > span) {
-    &:not(:has(> span > div)):not(:has(> div):not(:has(> mat-icon))) {
+    &:not(:has(> span > div)):not(:has(> div):not(:has(> mat-icon))):not([data-qa^="account-menu"]) {
       --uql-button-style-type: five;
 
       &:hover, &:focus {
@@ -294,22 +303,24 @@ body.custom-nde-theme {
 
   /* eg main menu, help icon (possibly "has icon") */
   a:has(> span > div):has(> span:nth-of-type(5)) {
-    --uql-button-style-type: six;
+    &:not([data-qa^="account-menu"]) {
+      --uql-button-style-type: six;
 
-    &:hover, &:focus {
-      span.mat-mdc-button-persistent-ripple::before {
-        background-color: transparent;
-      }
+      &:hover, &:focus {
+        span.mat-mdc-button-persistent-ripple::before {
+          background-color: transparent;
+        }
 
-      text-decoration: underline;
+        text-decoration: underline;
 
-      span.mdc-button__label {
-        line-height: normal;
+        span.mdc-button__label {
+          line-height: normal;
 
-        div span {
-          text-decoration: underline;
-          background-color: var(--uq-main-purple);
-          color: #fff;
+          div span {
+            text-decoration: underline;
+            background-color: var(--uq-main-purple);
+            color: #fff;
+          }
         }
       }
     }
@@ -335,7 +346,7 @@ body.custom-nde-theme {
   }
 
   /* eg full, list header, "results per page" */
-  mat-select:has(> div) {
+  mat-select[data-qa="results_per_page"]:has(> div) {
     &:not(:has(> div:nth-of-type(2))) {
       --uql-button-style-type: eight;
 
@@ -361,13 +372,16 @@ body.custom-nde-theme {
 
   /* egs: ai assisted search button, all filters */
   button:has(> span:nth-of-type(5)):has(> mat-icon:nth-child(2)):has(> span.mdc-button__label > span) {
-    &:not(:has(> div)) {
+    &:not(:has(div)) {
       --uql-button-style-type: nine;
 
       span.mat-mdc-button-persistent-ripple::before {
         background-color: transparent;
       }
 
+      .mdc-button__label {
+        line-height: normal;
+      }
       .mdc-button__label span {
         line-height: normal;
         text-decoration: underline;
@@ -412,7 +426,7 @@ body.custom-nde-theme {
 
   /* eg full/colldisc, result header, sort by */
   button:has(> span:nth-of-type(5)):has(> span.mdc-button__label > span > mat-icon):has(> span.mdc-button__label > span + span) {
-    &:not(:has(div)) {
+    &:not(:has(div)):not(:has(> mat-icon)) {
       --uql-button-style-type: twelve;
 
       span.mdc-button__label span {
@@ -441,7 +455,7 @@ body.custom-nde-theme {
   }
 
   /* eg full, result header, options */
-  button:has(> span:nth-of-type(5)):has( > mat-icon:nth-child(3)):has(> span.mdc-button__label > span) {
+  button:has(> span:nth-of-type(5)):has( > mat-icon:nth-child(3)):has(> span.mdc-button__label > span):has(span.mdc-button__label + mat-icon) {
     &:not(:has(> span.mdc-button__label > span > span)) {
       --uql-button-style-type: thirteen;
 
@@ -450,14 +464,32 @@ body.custom-nde-theme {
       }
 
       &:hover, &:focus {
+        span.mdc-button__label span {
+          background-color: var(--uq-main-purple);
+
+          svg path {
+            fill: #fff;
+          }
+        }
+
         span.mat-mdc-button-persistent-ripple::before {
           background-color: transparent;
         }
 
         span.mdc-button__label span {
           text-decoration: underline;
-          background-color: var(--uq-main-purple);
           color: #fff;
+        }
+      }
+    }
+    &.quicklink-button {
+      --uql-button-style-type: thirteen-quicklinkoverride;
+      border-top-right-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+      &:hover, &:focus {
+        background-color: var(--uq-main-purple);
+        span.mdc-button__label span {
+          background-color: transparent;
         }
       }
     }
@@ -491,12 +523,14 @@ body.custom-nde-theme {
   }
 
   /* eg brief, readmore/less button */
-  button:has(> span:nth-of-type(4)) {
-    &:not(:has(> span:nth-of-type(5))) {
+  button:has(> span:nth-of-type(4)):has(.mdc-button__label span) {
+    &:not(:has(> span:nth-of-type(5))):not(:has(mat-icon)):not(:has(div)) {
       --uql-button-style-type: fifteen;
 
       span.mdc-button__label span {
         text-decoration: underline;
+        background-color: transparent;
+        color: var(--uq-main-purple);
       }
 
       &:hover, &:focus {
@@ -513,8 +547,6 @@ body.custom-nde-theme {
   a:has(> span):has(> mat-icon) {
     &:not(:has(> span:nth-of-type(2))):not(:has(> span > span)) {
       --uql-button-style-type: sixteen;
-      line-height: normal;
-
       span {
         text-decoration: underline;
       }
@@ -529,10 +561,11 @@ body.custom-nde-theme {
     }
   }
 
-  /* eg full, view it, show licence button */
+  /* eg full, view it, show licence button; full, citations "view nn citations" */
   button:has(mat-icon + span + mat-icon) {
     &:not(span:nth-of-type(2)):not(mat-icon:nth-of-type(3)) {
       --uql-button-style-type: seventeen;
+      text-decoration: underline;
 
       &:hover, &:focus {
         span {
@@ -556,7 +589,7 @@ body.custom-nde-theme {
 
       &:hover, &:focus {
         text-decoration: underline;
-        background-color: #51247a;
+        background-color: var(--uq-main-purple);
         color: #fff;
         border-radius: 0;
 
@@ -570,13 +603,34 @@ body.custom-nde-theme {
 
   /* eg full, details, collection path */
   a {
-    &:not(:has(span)):not(:has(mat-icon)):not(:has(div)) {
+    &:not(:has(h3)):not(:has(span)):not(:has(mat-icon)):not(:has(div)) {
       --uql-button-style-type: nineteen;
+      text-decoration: underline !important;
 
       &:hover, &:focus {
         text-decoration: underline !important;
-        background-color: #51247a;
+        background-color: var(--uq-main-purple);
         color: #fff !important;
+      }
+    }
+  }
+
+  /* account: search history h3 */
+  a:has(h3) {
+    &:not(:has(span)):not(:has(mat-icon)):not(:has(div)) {
+      --uql-button-style-type: nineteenextended;
+
+      h3 {
+        line-height: normal !important;
+        text-decoration: underline !important;
+      }
+      &:hover, &:focus {
+        h3 {
+          text-decoration: underline !important;
+          background-color: var(--uq-main-purple);
+          color: #fff !important;
+          line-height: normal;
+        }
       }
     }
   }
@@ -586,10 +640,11 @@ body.custom-nde-theme {
     &:not(:has(span)) {
       --uql-button-style-type: twenty;
       line-height: normal;
+      text-decoration: underline;
 
       &:hover, &:focus {
         text-decoration: underline !important;
-        background-color: #51247a;
+        background-color: var(--uq-main-purple);
         color: #fff !important;
         border-radius: 0;
 
@@ -606,12 +661,14 @@ body.custom-nde-theme {
     &:not(:has(> span)):not(:has(> mat-icon)) {
       --uql-button-style-type: twentyone;
       line-height: 0;
+      text-decoration: underline;
 
       &:hover, &:focus {
         span {
           text-decoration: underline;
-          background-color: #51247a;
+          background-color: var(--uq-main-purple);
           color: #fff;
+          line-height: normal;
         }
       }
     }
@@ -629,7 +686,7 @@ body.custom-nde-theme {
     &:hover, &:focus {
       h5 span {
         text-decoration: underline;
-        background-color: #51247a;
+        background-color: var(--uq-main-purple);
         color: #fff;
       }
 
@@ -640,13 +697,14 @@ body.custom-nde-theme {
     }
   }
 
-  /* eg brief, not sure, maybe available online? */
+  /* eg full, top section, read more button */
   button:has(> span:nth-of-type(5)):has(> span.mdc-button__label span) {
     &:not(:has(mat-icon)):not(:has(div)):not(:has(span.mdc-button__label span span)) {
       --uql-button-style-type: twentythree;
 
       span.mdc-button__label span {
         text-decoration: underline;
+        background-color: transparent;
       }
 
       &:hover, &:focus {
@@ -659,36 +717,61 @@ body.custom-nde-theme {
     }
   }
 
-  /* eg full, top block, read more button */
-  button:has(> span:nth-of-type(5)):has(> span.mdc-button__label) {
-    &:not(:has(mat-icon)):not(:has(div)):not(:has(span span)) {
-      &:not([data-qa="atoz-button"]) // database search alpha block doesnt need this styling
-      {
-        --uql-button-style-type: twentyfour;
-        line-height: normal;
-        --sys-inverse-on-surface: var(--uq-colour-purple-50);
-        span.mdc-button__label {
-          line-height: normal;
-          text-decoration: none;
-          color: var(--uq-main-purple);
-        }
+  /* eg full, locations section, click filter by then clear filter button */
+  button, a {
+    &:has(> span:nth-of-type(5)):has(> span.mdc-button__label) {
+      &:not(:has(mat-icon)):not(:has(div)):not(:has(span span)) {
+        &:not(.facet-name) { // brief results, facet sidebar items
+          &:not(.quick-filter-btn) { // quick filter buttons (or we get weird double hover effect)
+            &:not([data-qa="atoz-button"]) { // database search alpha block doesnt need this styling
+              --uql-button-style-type: twentyfour;
 
-        &:hover, &:focus {
-          span.mdc-button__label {
-            text-decoration: underline;
-            background-color: var(--uq-main-purple);
-            color: #fff;
+              span.mdc-button__label {
+                line-height: normal;
+                color: var(--uq-main-purple);
+              }
+
+              &:hover, &:focus {
+                background-color: var(--uq-main-purple);
+                span.mdc-button__label {
+                  text-decoration: underline;
+                  color: #fff;
+                }
+
+                span.mat-mdc-button-persistent-ripple {
+                  display: none;
+                }
+              }
+            }
+
+            &[aria-label^="Clear all filters"] {
+              --uql-button-style-type: twentyfourextended-clearallfilters;
+              text-decoration: underline;
+              &:hover, &:focus {
+                span.mat-mdc-button-persistent-ripple::before {
+                  background-color: transparent;
+                }
+              }
+            }
+            &[data-qa="favorites-view-all-btn"], // account, overview
+            &[data-qa="saved-searches-view-all-btn"],
+            &[data-qa="search-history-view-all-btn"],
+            &[data-qa="fines-view-all-btn"],
+            &[data-qa="requests-view-all-btn"],
+            &.advanced-search-button { // search header
+              --uql-button-style-type: twentyfourextended-advancedsearch;
+              text-decoration: underline;
+              &:hover, &:focus {
+                background-color: transparent !important;
+                span.mdc-button__label {
+                  background-color: var(--uq-main-purple) !important;
+                  color: #fff !important;
+                }
+              }
+
+            }
           }
         }
-      }
-    }
-  }
-  button[aria-label^="Clear all filters"] {
-    --uql-button-style-type: twentyfourextended;
-    text-decoration: underline;
-    &:hover, &:focus {
-      span.mat-mdc-button-persistent-ripple::before {
-        background-color: transparent;
       }
     }
   }
@@ -701,19 +784,20 @@ body.custom-nde-theme {
     }
     text-decoration: underline;
     &:hover, &:focus {
-        background-color: var(--uq-main-purple);
-        color: #fff;
+      background-color: var(--uq-main-purple);
+      color: #fff;
     }
   }
 
-  /* full record, available online - secondary button */
-  nde-quick-filters,
+  /* full record, available online - second button (with icon) */
   nde-online-availability {
     button {
       --uql-button-style-type: twentysix;
       border-width: 2px;
       padding-block: 1rem;
       --sys-outline-variant: var(--uq-main-purple);
+      border-top-left-radius: 0 !important;
+      border-bottom-left-radius: 0 !important;
 
       &:hover, &:focus {
         span.mat-mdc-button-persistent-ripple::before {
@@ -729,9 +813,78 @@ body.custom-nde-theme {
           background-color: var(--uq-main-purple);
           color: #fff;
         }
+
+        mat-icon * {
+          fill: #fff;
+        }
       }
     }
   }
+
+  nde-quick-filters button {
+    --uql-button-style-type: twentyseven;
+    @include uqSecondaryButton();
+    --sys-outline-variant: var(--uq-main-purple);
+    --sys-on-background: var(--uq-main-purple);
+  }
+
+
+  /* eg search header, advanced search button  */
+  /* they are doing something horrid with the Advanced Search  - it loads with 4 span children, but on hover it has 5!!! */
+  /* and the AI buttons starts with 5 and hovers to 4!!! */
+  a, button.basic-button {
+    &:has(> span:nth-of-type(4)){
+      &:not(:has(> span:nth-of-type(5))):not(:has(div)):not(:has(mat-icon)) {
+        --uql-button-style-type: twentyeight;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  /* main menu popup items */
+  ul.show-more-main-menu-out-inner-wrapper-ul {
+    a, button {
+      text-decoration: underline;
+      color: var(--uq-main-purple);
+      cursor: pointer;
+
+      &:hover, &:focus {
+        background-color: transparent;
+        span.mat-title-small,
+        span.mat-body-small {
+          background-color: var(--uq-main-purple);
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  cdk-virtual-scroll-viewport a {
+    h3 {
+      text-decoration: underline;
+      display: inline;
+    }
+    &:hover, &:focus {
+      h3 {
+        text-decoration: none;
+        background-color: var(--uq-main-purple);
+        color: #fff;
+      }
+    }
+  }
+
+  nde-categories {
+    mat-tree-node {
+      text-decoration: underline;
+      color: var(--uq-main-purple);
+      --sys-on-background: var(--uq-main-purple);
+      &.selected-category {
+        font-weight: 500;
+      }
+    }
+  }
+
+
   /* END UQ DS style Tight links */
 
   /* Resource Sharing form message */

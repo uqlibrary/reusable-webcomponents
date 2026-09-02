@@ -194,11 +194,9 @@ body.custom-nde-theme {
   --uql-fontsize-body-small: 14px;
 }
 
-body.custom-nde-theme {
-  * {
-    font-size: 16px;
-    line-height: 1.5;
-  }
+body.custom-nde-theme * {
+  font-size: 16px;
+  line-height: 1.5;
   nde-action-container {
     button, mat-icon, svg, path { // don't de-centre the icons
       line-height: normal;
@@ -212,3 +210,4 @@ body.custom-nde-theme {
   }
   /* END the icon on the main search "save search | export results" button was getting a weird underline onhover. */
 }
+

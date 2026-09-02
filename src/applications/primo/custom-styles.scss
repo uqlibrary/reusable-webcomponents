@@ -1,14 +1,13 @@
-@import 'includes/fonts';
-@import 'includes/colours';
-
 :root, html, head, body {
   --mat-expansion-container-shape: 4px;
   --uq-border-radius: 0.25rem;
   --uq-border: 1px solid var(--uq-colour-grey-200);
+  --mdc-text-button-container-shape: var(--uq-border-radius) !important;
+  --mat-sys-corner-full: var(--uq-border-radius) !important;
 }
 
 $utility-500: var(--uq-color-utility-500);
-$uqBrandColour: var(--uq-colour-purple-500);
+$uqBrandColour: #51247a;
 $uq-body-font-family: var(--uq-body-font-family);
 @mixin uqPrimaryButton() {
   background-color: $uqBrandColour !important;
@@ -47,14 +46,30 @@ $uq-body-font-family: var(--uq-body-font-family);
   }
 }
 @mixin uqSecondaryButton() {
-  @include uqPrimaryButton();
-  background-color: rgba(0, 0, 0, 0) !important;
-  border-color: $uqBrandColour;
+  box-sizing: border-box;
+  cursor: pointer;
+  text-align: center;
+  border: 2px solid $uqBrandColour;
+  border-radius: .25rem;
+  align-items: center;
+  gap: .5rem;
+  padding: 1rem 1.5rem;
+  font-family: Roboto, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  transition: background-color .2s ease-out, color .2s ease-out, border .2s ease-out;
+  display: inline-flex;
+  position: relative;
   color: $uqBrandColour;
+  background-color: #0000;
+  border-color: $uqBrandColour;
   &:hover {
-    background-color: $uqBrandColour !important;
-    border-color: $uqBrandColour;
     color: #fff;
+    background-color: $uqBrandColour;
+    border-color: $uqBrandColour;
+    text-decoration: underline;
     mat-icon path {
       fill: #fff;
     }
@@ -65,6 +80,9 @@ $uq-body-font-family: var(--uq-body-font-family);
   border-color: transparent;
   text-decoration: underline;
 }
+
+@import 'includes/fonts';
+@import 'includes/colours';
 
 /* make the white bar in uq-site-header the right height */
 uq-site-header::part(root) {
@@ -225,8 +243,8 @@ body.custom-nde-theme {
 
   /* buttons like DS buttons */
   a, button {
-    --mdc-filled-button-container-shape: 4px; /* 0.25rem */
-    border-radius: var(--uq-border-radius);
+    --mdc-filled-button-container-shape: 4px !important; /* 0.25rem */
+    border-radius: var(--uq-border-radius) !important;
   }
   /* END buttons like DS buttons */
 
