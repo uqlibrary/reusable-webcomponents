@@ -936,14 +936,22 @@ body.custom-nde-theme {
   }
 
 
-    /* eg search header, advanced search button  */
-  /* they are doing something horrid with the Advanced Search  - it loads with 4 span children, but on hover it has 5!!! */
+  /* they are doing something horrid with the some buttons - it loads with 4 span children, but on hover it has 5!!! */
+  /* eg search header, advanced search button  */
   /* and the AI buttons starts with 5 and hovers to 4!!! */
-  a, button.basic-button {
+  /* and the full record logged in request button!! */
+  a, button.basic-button, button.mdc-button {
     &:has(> span:nth-of-type(4)){
       &:not(:has(> span:nth-of-type(5))):not(:has(div)):not(:has(mat-icon)) {
         --uql-button-style-type: twentyeight;
         text-decoration: underline;
+        &.request-button {
+          text-decoration: none;
+          background-color: #fff;
+          border: 2px solid var(--uq-main-purple);
+          --mdc-filled-button-label-text-color: var(--uq-main-purple);
+          --mdc-filled-button-container-color: #fff;
+        }
       }
     }
   }
