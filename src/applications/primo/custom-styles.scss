@@ -1,88 +1,10 @@
+@import 'includes/fonts';
+@import 'includes/colours';
+
 :root, html, head, body {
   --mat-expansion-container-shape: 4px;
   --uq-border-radius: 0.25rem;
-  --uq-border: 1px solid var(--uq-colour-grey-200);
-  --mdc-text-button-container-shape: var(--uq-border-radius) !important;
-  --mat-sys-corner-full: var(--uq-border-radius) !important;
 }
-
-$utility-500: var(--uq-color-utility-500);
-$uqBrandColour: #51247a;
-$uq-body-font-family: var(--uq-body-font-family);
-@mixin uqPrimaryButton() {
-  background-color: $uqBrandColour !important;
-  border: 2px solid $uqBrandColour;
-  border-radius: var(--uq-border-radius);
-  box-sizing: border-box;
-  color: #fff;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-family: $uq-body-font-family;
-  font-size: 1rem; /* 16px - Body, H6 */;
-  font-weight: 500;
-  line-height: 1;
-  padding: 1rem 1.5rem;
-  position: relative;
-  text-align: center;
-  text-decoration: none;
-  transition: background-color 200ms ease-out, color 200ms ease-out, border 200ms ease-out;
-  background-image: none;
-
-  &.mat-mdc-button-disabled {
-    opacity: 50%;
-  }
-
-  &:hover {
-    background-color: #fff !important;
-    border-color: $uqBrandColour;
-    color: $uqBrandColour;
-    text-decoration: underline;
-  }
-  &:focus {
-    outline: 2px solid $utility-500;
-    outline-offset: 0;
-  }
-}
-@mixin uqSecondaryButton() {
-  box-sizing: border-box;
-  cursor: pointer;
-  text-align: center;
-  border: 2px solid $uqBrandColour;
-  border-radius: .25rem;
-  align-items: center;
-  gap: .5rem;
-  padding: 1rem 1.5rem;
-  font-family: Roboto, Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: 1rem;
-  font-weight: 500;
-  line-height: 1;
-  text-decoration: none;
-  transition: background-color .2s ease-out, color .2s ease-out, border .2s ease-out;
-  display: inline-flex;
-  position: relative;
-  color: $uqBrandColour;
-  background-color: #0000;
-  border-color: $uqBrandColour;
-  &:hover {
-    color: #fff;
-    background-color: $uqBrandColour;
-    border-color: $uqBrandColour;
-    text-decoration: underline;
-    mat-icon path {
-      fill: #fff;
-    }
-  }
-}
-@mixin uqTertiaryButton() {
-  @include uqSecondaryButton();
-  border-color: transparent;
-  text-decoration: underline;
-}
-
-@import 'includes/fonts';
-@import 'includes/colours';
 
 /* make the white bar in uq-site-header the right height */
 uq-site-header::part(root) {
@@ -434,6 +356,7 @@ body.custom-nde-theme {
     }
   }
   /* END hide divider beside sort button */
+
   /* let the 404 page breathe */
   .search-container {
     &:has(nde-full-display-error-page) {
@@ -442,7 +365,7 @@ body.custom-nde-theme {
   }
   /* END let the 404 page breathe */
 
-  /* hide big icon on "record not found" page */
+  /* hide big icon on "no results" & "record not found" pages */
   nde-full-display-error-page {
     mat-icon {
       display: none;
@@ -508,6 +431,11 @@ body.custom-nde-theme {
   }
   /* END make all the words the same font size on the "this form is not available" */
 
+  /* account page, fines tab, weird 330 weight for labels?!?!? */
+  .fine-item-container .fine-info .field-title {
+    font-weight: 500;
+  }
+  /* END account page, fines tab, weird 330 weight for labels?!?!? */
 
 }
 /* END body.custom-nde-theme */
@@ -591,4 +519,3 @@ nde-copy-to-clipboard button .mat-mdc-button-persistent-ripple {
 .uq-icon--standard--exclamation-triangle:before {
   background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M20.127 18.545a1.18 1.18 0 0 1-1.055 1.706H4.929a1.18 1.18 0 0 1-1.055-1.706l7.072-14.143a1.179 1.179 0 0 1 2.109 0l7.072 14.143Z' stroke='%23000' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M12 9v4' stroke='%23000' stroke-width='1.5' stroke-linecap='round'%3e%3c/path%3e%3ccircle cx='11.9' cy='16.601' r='1.1' fill='%23000'%3e%3c/circle%3e%3c/svg%3e")
 }
-
