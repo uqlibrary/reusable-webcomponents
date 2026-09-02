@@ -853,6 +853,13 @@ body.custom-nde-theme {
                 }
               }
             }
+            &.request-button {
+              background-color: #fff;
+              border: 2px solid var(--uq-main-purple);
+              &:hover, &:focus {
+                background-color: var(--uq-main-purple);
+              }
+            }
             &[data-qa="favorites-view-all-btn"], // account, overview
             &[data-qa="saved-searches-view-all-btn"],
             &[data-qa="search-history-view-all-btn"],
