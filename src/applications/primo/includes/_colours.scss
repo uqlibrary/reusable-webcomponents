@@ -272,7 +272,7 @@ body.custom-nde-theme {
         text-decoration-thickness: 1px;
       }
 
-      &:hover, &:focus {
+      &:hover {
         nde-highlight span {
           text-decoration: none;
           background-color: var(--uq-main-purple);
@@ -289,7 +289,7 @@ body.custom-nde-theme {
       --uql-button-style-type: two;
       text-decoration: underline;
 
-      &:hover, &:focus {
+      &:hover {
         span.mat-mdc-button-persistent-ripple::before {
           background-color: transparent;
           opacity: 1;
@@ -314,7 +314,7 @@ body.custom-nde-theme {
         text-decoration: underline;
       }
 
-      &:hover, &:focus {
+      &:hover {
         span.mat-mdc-button-persistent-ripple::before {
           background-color: transparent;
         }
@@ -374,7 +374,7 @@ body.custom-nde-theme {
     &:not(:has(> span > div)):not(:has(> div):not(:has(> mat-icon))):not([data-qa^="account-menu"]) {
       --uql-button-style-type: five;
 
-      &:hover, &:focus {
+      &:hover {
         span.mdc-button__label > span {
           text-decoration: underline;
           background-color: var(--uq-main-purple);
@@ -389,7 +389,7 @@ body.custom-nde-theme {
     &:not([data-qa^="account-menu"]) {
       --uql-button-style-type: six;
 
-      &:hover, &:focus {
+      &:hover {
         span.mat-mdc-button-persistent-ripple::before {
           background-color: transparent;
         }
@@ -419,7 +419,7 @@ body.custom-nde-theme {
         line-height: normal;
         text-decoration: underline;
 
-        &:hover, &:focus {
+        &:hover {
           text-decoration: underline;
           background-color: var(--uq-main-purple);
           color: #fff;
@@ -437,7 +437,7 @@ body.custom-nde-theme {
         text-decoration: underline;
       }
 
-      &:hover, &:focus {
+      &:hover {
         div:has(> div:nth-of-type(2)):not(:has(> div:nth-of-type(3))) {
           div:has(> span):not(:has(> span:nth-of-type(2))) {
             span:has(> span):not(:has(> span:nth-of-type(2))) {
@@ -470,7 +470,7 @@ body.custom-nde-theme {
         text-decoration: underline;
       }
 
-      &:hover, &:focus {
+      &:hover {
         .mdc-button__label span {
           text-decoration: underline;
           background-color: var(--uq-main-purple);
@@ -497,7 +497,7 @@ body.custom-nde-theme {
         background-color: transparent;
       }
 
-      &:hover, &:focus {
+      &:hover {
         span.mdc-button__label {
           text-decoration: underline;
           background-color: var(--uq-main-purple);
@@ -517,7 +517,7 @@ body.custom-nde-theme {
         text-decoration: underline;
       }
 
-      &:hover, &:focus {
+      &:hover {
         span.mat-mdc-button-persistent-ripple::before {
           background-color: transparent;
         }
@@ -546,7 +546,7 @@ body.custom-nde-theme {
         text-decoration: underline;
       }
 
-      &:hover, &:focus {
+      &:hover {
         span.mdc-button__label span {
           background-color: var(--uq-main-purple);
 
@@ -569,7 +569,7 @@ body.custom-nde-theme {
       --uql-button-style-type: thirteen-quicklinkoverride;
       border-top-right-radius: 0 !important;
       border-bottom-right-radius: 0 !important;
-      &:hover, &:focus {
+      &:hover {
         background-color: var(--uq-main-purple);
         span.mdc-button__label span {
           background-color: transparent;
@@ -587,7 +587,7 @@ body.custom-nde-theme {
         text-decoration: underline;
       }
 
-      &:hover, &:focus {
+      &:hover {
         span.mdc-button__label {
           span span {
             text-decoration: underline;
@@ -616,7 +616,7 @@ body.custom-nde-theme {
         color: var(--uq-main-purple);
       }
 
-      &:hover, &:focus {
+      &:hover {
         span.mdc-button__label span {
           text-decoration: underline;
           background-color: var(--uq-main-purple);
@@ -634,7 +634,7 @@ body.custom-nde-theme {
         text-decoration: underline;
       }
 
-      &:hover, &:focus {
+      &:hover {
         span {
           text-decoration: underline;
           background-color: var(--uq-main-purple);
@@ -650,7 +650,7 @@ body.custom-nde-theme {
       --uql-button-style-type: seventeen;
       text-decoration: underline;
 
-      &:hover, &:focus {
+      &:hover {
         span {
           text-decoration: underline;
           background-color: var(--uq-main-purple);
@@ -670,7 +670,7 @@ body.custom-nde-theme {
         line-height: normal;
       }
 
-      &:hover, &:focus {
+      &:hover {
         text-decoration: underline;
         background-color: var(--uq-main-purple);
         color: #fff;
@@ -690,7 +690,7 @@ body.custom-nde-theme {
       --uql-button-style-type: nineteen;
       text-decoration: underline !important;
 
-      &:hover, &:focus {
+      &:hover {
         text-decoration: underline !important;
         background-color: var(--uq-main-purple);
         color: #fff !important;
@@ -707,7 +707,7 @@ body.custom-nde-theme {
         line-height: normal !important;
         text-decoration: underline !important;
       }
-      &:hover, &:focus {
+      &:hover {
         h3 {
           text-decoration: underline !important;
           background-color: var(--uq-main-purple);
@@ -725,7 +725,7 @@ body.custom-nde-theme {
       line-height: normal;
       text-decoration: underline;
 
-      &:hover, &:focus {
+      &:hover {
         text-decoration: underline !important;
         background-color: var(--uq-main-purple);
         color: #fff !important;
@@ -746,7 +746,7 @@ body.custom-nde-theme {
       line-height: 0;
       text-decoration: underline;
 
-      &:hover, &:focus {
+      &:hover {
         span {
           text-decoration: underline;
           background-color: var(--uq-main-purple);
@@ -766,7 +766,7 @@ body.custom-nde-theme {
       text-decoration: underline;
     }
 
-    &:hover, &:focus {
+    &:hover {
       h5 span {
         text-decoration: underline;
         background-color: var(--uq-main-purple);
@@ -781,6 +781,7 @@ body.custom-nde-theme {
   }
 
   /* eg full, top section, read more button */
+  /* eg full, locations section, place a physical items request button, logged in, eg record "AMH Australian medicines handbook" */
   button:has(> span:nth-of-type(5)):has(> span.mdc-button__label span) {
     &:not(:has(mat-icon)):not(:has(div)):not(:has(span.mdc-button__label span span)) {
       --uql-button-style-type: twentythree;
@@ -790,9 +791,21 @@ body.custom-nde-theme {
         background-color: transparent;
       }
 
-      &:hover, &:focus {
+      &:hover {
+        span.mat-mdc-button-persistent-ripple::before {
+          background-color: transparent;
+          opacity: 1;
+        }
         span.mdc-button__label span {
           text-decoration: underline;
+          background-color: var(--uq-main-purple);
+          color: #fff;
+        }
+      }
+
+      /* full record, secondary "available online" button, eg "AMH Australian medicines handbook" */
+      &.quicklink-button {
+        &:hover {
           background-color: var(--uq-main-purple);
           color: #fff;
         }
@@ -814,7 +827,7 @@ body.custom-nde-theme {
                 color: var(--uq-main-purple);
               }
 
-              &:hover, &:focus {
+              &:hover {
                 background-color: var(--uq-main-purple);
                 span.mdc-button__label {
                   text-decoration: underline;
@@ -830,7 +843,7 @@ body.custom-nde-theme {
             &[aria-label^="Clear all filters"] {
               --uql-button-style-type: twentyfourextended-clearallfilters;
               text-decoration: underline;
-              &:hover, &:focus {
+              &:hover {
                 span.mat-mdc-button-persistent-ripple::before {
                   background-color: transparent;
                 }
@@ -839,7 +852,7 @@ body.custom-nde-theme {
             &.request-button {
               background-color: #fff;
               border: 2px solid var(--uq-main-purple);
-              &:hover, &:focus {
+              &:hover {
                 background-color: var(--uq-main-purple);
               }
             }
@@ -851,7 +864,7 @@ body.custom-nde-theme {
             &.advanced-search-button { // search header
               --uql-button-style-type: twentyfourextended-advancedsearch;
               text-decoration: underline;
-              &:hover, &:focus {
+              &:hover {
                 background-color: transparent !important;
                 span.mdc-button__label {
                   background-color: var(--uq-main-purple) !important;
@@ -873,9 +886,9 @@ body.custom-nde-theme {
       background-color: transparent;
     }
     text-decoration: underline;
-    &:hover, &:focus {
-      background-color: var(--uq-main-purple);
-      color: #fff;
+    &:hover {
+        background-color: var(--uq-main-purple);
+        color: #fff;
     }
   }
 
@@ -889,7 +902,7 @@ body.custom-nde-theme {
       border-top-left-radius: 0 !important;
       border-bottom-left-radius: 0 !important;
 
-      &:hover, &:focus {
+      &:hover {
         span.mat-mdc-button-persistent-ripple::before {
           background-color: var(--uq-main-purple);
           color: #fff;
@@ -925,7 +938,7 @@ body.custom-nde-theme {
   /* and the full record logged in request button!! */
   a, button.basic-button, button.mdc-button {
     &:has(> span:nth-of-type(4)){
-      &:not(:has(> span:nth-of-type(5))):not(:has(div)):not(:has(mat-icon)) {
+      &:not(:has(> span:nth-of-type(5))):not(:has(div)) {
         --uql-button-style-type: twentyeight;
         text-decoration: underline;
         &.request-button {
@@ -946,7 +959,7 @@ body.custom-nde-theme {
       color: var(--uq-main-purple);
       cursor: pointer;
 
-      &:hover, &:focus {
+      &:hover {
         background-color: transparent;
         span.mat-title-small,
         span.mat-body-small {
@@ -962,7 +975,7 @@ body.custom-nde-theme {
       text-decoration: underline;
       display: inline;
     }
-    &:hover, &:focus {
+    &:hover {
       h3 {
         text-decoration: none;
         background-color: var(--uq-main-purple);
