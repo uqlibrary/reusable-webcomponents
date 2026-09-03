@@ -1,14 +1,22 @@
 nde-fetch-item {
   .buttons-container-wrapper {
     justify-content: space-between;
-    button {
+    button:nth-of-type(2) { // submit
       @include uqPrimaryButton();
+      span.mdc-button__label {
+        color: #fff !important;
+      }
+      &:hover {
+        span.mdc-button__label {
+          color: var(--uq-main-purple) !important;
+        }
+      }
     }
-    button:first-child {
-      @include uqSecondaryButton();
-      // but should be tertiary
-      border-width: 0;
-      text-decoration: underline;
+    button:first-child { // reset
+      @include uqTertiaryButton();
+      &:hover {
+        background-color: var(--uq-main-purple) !important;
+      }
     }
   }
   /* hide undesired fields from the citation linker form */
