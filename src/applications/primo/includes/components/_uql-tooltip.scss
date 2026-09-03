@@ -12,4 +12,7 @@ uql-tooltip {
     max-width: 280px;
     min-width: 160px;
   }
+  .cdk-overlay-pane .mat-mdc-tooltip-surface-large {
+    font-size: 14px;
+  }
 }
