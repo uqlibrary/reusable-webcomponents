@@ -513,7 +513,7 @@ body.custom-nde-theme {
 
   /* eg full, all filters button */
   button:has(> span:nth-of-type(5)):has(> mat-icon:nth-child(2)):has(> span.mdc-button__label) {
-    &:not(:has(> span.mdc-button__label span)) {
+    &:not(:has(> span.mdc-button__label span)):not(:has(div)) {
       --uql-button-style-type: eleven;
 
       span.mdc-button__label, mat-icon {
@@ -992,6 +992,17 @@ body.custom-nde-theme {
       }
     }
   }
+
+  /* back to top button */
+  nde-back-to-top {
+    button {
+      &:hover {
+        background-color: var(--uq-colour-purple-50) !important;
+        color: var(--uq-main-purple) !important;
+      }
+    }
+  }
+  /* END back to top button */
 
   /* main menu popup items */
   ul.show-more-main-menu-out-inner-wrapper-ul {
