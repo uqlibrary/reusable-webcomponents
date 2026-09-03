@@ -3,6 +3,10 @@ nde-selected-filters-container {
     button.selected-filters-container {
       border-radius: var(--uq-border-radius);
     }
+    mat-chip-listbox mat-chip-option {
+      border: var(--uq-button-border) !important;
+      border-radius: var(--uq-border-radius);
+    }
   }
 }
 nde-quick-filters {
