@@ -402,6 +402,18 @@ body.custom-nde-theme {
   }
   /* END correct font size on options show-hide button */
 
+  /* shift the icon on the new record eg last 3 months cancel 'x' icon up a smidge */
+  .dropdown-box {
+    mat-chip-listbox {
+      mat-chip-option {
+        button.mat-mdc-chip-remove {
+          margin-top: -2px;
+        }
+      }
+    }
+  }
+  /* END shift the icon on the new record eg last 3 months cancel 'x' icon up a smidge */
+
 
 }
 /* END body.custom-nde-theme */
