@@ -123,43 +123,43 @@ body.custom-nde-theme {
 
   /* don't let the primo contents get _narrower_ than the uq template */
   @media (max-width: 73.98rem) {
-      nde-top-bar > div.top-bar-container, /* DOES NOT GET PADDING!! */
-      .search-result-content .resource-type-filters-container,
-      &:not(:has(nde-collection-discovery-container)) .results-container {
-        margin-left: auto;
-        margin-right: auto;
-        max-width: 73.25em;
-        width: auto;
-      }
+    nde-top-bar > div.top-bar-container, /* DOES NOT GET PADDING!! */
+    .search-result-content .resource-type-filters-container,
+    &:not(:has(nde-collection-discovery-container)) .results-container {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 73.25em;
+      width: auto;
+    }
 
-      .search-result-content .resource-type-filters-container,
-      &:not(:has(nde-collection-discovery-container)) .results-container {
-        padding-left: 1em;
-        padding-right: 1em;
-      }
+    .search-result-content .resource-type-filters-container,
+    &:not(:has(nde-collection-discovery-container)) .results-container {
+      padding-left: 1em;
+      padding-right: 1em;
+    }
 
     /* adjust database search */
-      .search-container nde-journal-database-layout-component .layout-container .search-content-layout {
-        margin-inline: 0;
-      }
+    .search-container nde-journal-database-layout-component .layout-container .search-content-layout {
+      margin-inline: 0;
+    }
     /* END adjust database search */
   }
   @media (min-width: 74rem)and (max-width: 85.5rem) {
-      nde-top-bar > div.top-bar-container,
-      .search-result-content .resource-type-filters-container,
-      &:not(:has(nde-collection-discovery-container)) .results-container {
-        max-width: none;
-        width: calc(100% - 2rem);
-      }
+    nde-top-bar > div.top-bar-container,
+    .search-result-content .resource-type-filters-container,
+    &:not(:has(nde-collection-discovery-container)) .results-container {
+      max-width: none;
+      width: calc(100% - 2rem);
+    }
   }
   @media (max-width: 85.5rem) {
-      /* filter bar at top of main search */
-      .search-result-content .filters-wrapper {
-        margin-left: auto;
-        margin-right: auto;
-        min-width: calc(100% - 2rem);
-      }
-      /* END filter bar at top of main search */
+    /* filter bar at top of main search */
+    .search-result-content .filters-wrapper {
+      margin-left: auto;
+      margin-right: auto;
+      min-width: calc(100% - 2rem);
+    }
+    /* END filter bar at top of main search */
   }
   /* END don't let the primo contents get _narrower_ than the uq template */
 
@@ -436,6 +436,56 @@ body.custom-nde-theme {
     font-weight: 500;
   }
   /* END account page, fines tab, weird 330 weight for labels?!?!? */
+  mat-bottom-sheet-container {
+    border-top-left-radius: var(--uq-border-radius);
+    border-top-right-radius: var(--uq-border-radius);
+  }
+
+  /* form widths to be restricted */
+  nde-fetch-item > div.container, // citation finder
+  main.sub-container nde-base-request-form > div.request-form-container { // purchase request and resource delivery request
+    margin-inline: auto;
+    max-width: calc(var(--hero-layout-container-max-width) - 2 * var(--hero-layout-gap) - 3rem);
+  }
+  @media only screen and (max-width: 749.98px) {
+    .blank-request .two-columns {
+      grid-template-columns: 1fr;
+    }
+
+    nde-fetch-item > div.container .two-columns {
+      grid-template-columns: 1fr;
+    }
+  }
+  /* END form widths to be restricted */
+
+  /* make all the words the same font size on the "this form is not available" */
+  nde-restricted-form-page {
+    .description-container {
+      span.mat-body-small {
+        font-size: 1rem;
+      }
+    }
+  }
+  /* END make all the words the same font size on the "this form is not available" */
+
+  /* account page, fines tab, weird 330 weight for labels?!?!? */
+  .fine-item-container .fine-info .field-title {
+    font-weight: 500;
+  }
+  /* END account page, fines tab, weird 330 weight for labels?!?!? */
+
+  /* shift the icon on the new record eg last 3 months cancel 'x' icon up a smidge */
+  .dropdown-box {
+    mat-chip-listbox {
+      mat-chip-option {
+        button.mat-mdc-chip-remove {
+          margin-top: -2px;
+        }
+      }
+    }
+  }
+  /* END shift the icon on the new record eg last 3 months cancel 'x' icon up a smidge */
+
 
 }
 /* END body.custom-nde-theme */
