@@ -439,7 +439,21 @@ body.custom-nde-theme {
         &:hover {
           text-decoration: underline;
           background-color: var(--uq-main-purple);
+        }
+      }
+      &.selected-filters-container {
+        background-color: #fff;
+        border-width: 2px;
+        &:hover {
+          text-decoration: underline;
+          background-color: var(--uq-main-purple);
           color: #fff;
+          span.select-title {
+            color: #fff;
+          }
+          mat-icon path {
+            fill: #fff;
+          }
         }
       }
     }
