@@ -849,6 +849,16 @@ body.custom-nde-theme {
                 }
               }
             }
+            &.summary-search-button.edit-button { // "edit existing advanced search" button in search bar
+              background-color: #fff !important;
+              &:hover {
+                background-color: var(--uq-main-purple) !important;
+              }
+            }
+            &.summary-search-button.simple-search-button, // "basic search" button in search bar
+            &.summary-search-button.generated-query-button { // "edit ai generated search" button in search bar
+              text-decoration: underline;
+            }
             &.request-button {
               background-color: #fff;
               border: 2px solid var(--uq-main-purple);
