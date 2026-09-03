@@ -871,6 +871,18 @@ body.custom-nde-theme {
               }
             }
 
+            &[data-qa="submit-natural-language-search-form"] {
+              border: 2px solid var(--uq-main-purple);
+              span.mdc-button__label {
+                color: #fff;
+              }
+              &:hover {
+                background-color: #fff;
+                span.mdc-button__label {
+                  color: var(--uq-main-purple);
+                }
+              }
+            }
             &[aria-label^="Clear all filters"] {
               --uql-button-style-type: twentyfourextended-clearallfilters;
               text-decoration: underline;
