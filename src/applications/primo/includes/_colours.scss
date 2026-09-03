@@ -88,6 +88,7 @@
   --uq-border: 1px solid var(--uq-colour-grey-200);
   --mdc-text-button-container-shape: var(--uq-border-radius) !important;
   --mat-sys-corner-full: var(--uq-border-radius) !important;
+  --uq-button-border: 2px solid var(--uq-main-purple);
 }
 
 $utility-500: var(--uq-color-utility-500);
@@ -854,6 +855,18 @@ body.custom-nde-theme {
               }
             }
 
+            &[data-qa="submit-natural-language-search-form"] {
+              border: var(--uq-button-border);
+              span.mdc-button__label {
+                color: #fff;
+              }
+              &:hover {
+                background-color: #fff;
+                span.mdc-button__label {
+                  color: var(--uq-main-purple);
+                }
+              }
+            }
             &[aria-label^="Clear all filters"] {
               --uql-button-style-type: twentyfourextended-clearallfilters;
               text-decoration: underline;
@@ -875,7 +888,7 @@ body.custom-nde-theme {
             }
             &.request-button {
               background-color: #fff;
-              border: 2px solid var(--uq-main-purple);
+              border: var(--uq-button-border);
               &:hover {
                 background-color: var(--uq-main-purple);
               }
@@ -968,7 +981,7 @@ body.custom-nde-theme {
         &.request-button {
           text-decoration: none;
           background-color: #fff;
-          border: 2px solid var(--uq-main-purple);
+          border: var(--uq-button-border);
           --mdc-filled-button-label-text-color: var(--uq-main-purple);
           --mdc-filled-button-container-color: #fff;
         }
