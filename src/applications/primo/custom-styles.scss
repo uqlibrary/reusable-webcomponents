@@ -123,43 +123,43 @@ body.custom-nde-theme {
 
   /* don't let the primo contents get _narrower_ than the uq template */
   @media (max-width: 73.98rem) {
-    nde-top-bar > div.top-bar-container, /* DOES NOT GET PADDING!! */
-    .search-result-content .resource-type-filters-container,
-    &:not(:has(nde-collection-discovery-container)) .results-container {
-      margin-left: auto;
-      margin-right: auto;
-      max-width: 73.25em;
-      width: auto;
-    }
+      nde-top-bar > div.top-bar-container, /* DOES NOT GET PADDING!! */
+      .search-result-content .resource-type-filters-container,
+      &:not(:has(nde-collection-discovery-container)) .results-container {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 73.25em;
+        width: auto;
+      }
 
-    .search-result-content .resource-type-filters-container,
-    &:not(:has(nde-collection-discovery-container)) .results-container {
-      padding-left: 1em;
-      padding-right: 1em;
-    }
+      .search-result-content .resource-type-filters-container,
+      &:not(:has(nde-collection-discovery-container)) .results-container {
+        padding-left: 1em;
+        padding-right: 1em;
+      }
 
     /* adjust database search */
-    .search-container nde-journal-database-layout-component .layout-container .search-content-layout {
-      margin-inline: 0;
-    }
+      .search-container nde-journal-database-layout-component .layout-container .search-content-layout {
+        margin-inline: 0;
+      }
     /* END adjust database search */
   }
   @media (min-width: 74rem)and (max-width: 85.5rem) {
-    nde-top-bar > div.top-bar-container,
-    .search-result-content .resource-type-filters-container,
-    &:not(:has(nde-collection-discovery-container)) .results-container {
-      max-width: none;
-      width: calc(100% - 2rem);
-    }
+      nde-top-bar > div.top-bar-container,
+      .search-result-content .resource-type-filters-container,
+      &:not(:has(nde-collection-discovery-container)) .results-container {
+        max-width: none;
+        width: calc(100% - 2rem);
+      }
   }
   @media (max-width: 85.5rem) {
-    /* filter bar at top of main search */
-    .search-result-content .filters-wrapper {
-      margin-left: auto;
-      margin-right: auto;
-      min-width: calc(100% - 2rem);
-    }
-    /* END filter bar at top of main search */
+      /* filter bar at top of main search */
+      .search-result-content .filters-wrapper {
+        margin-left: auto;
+        margin-right: auto;
+        min-width: calc(100% - 2rem);
+      }
+      /* END filter bar at top of main search */
   }
   /* END don't let the primo contents get _narrower_ than the uq template */
 
@@ -344,6 +344,30 @@ body.custom-nde-theme {
     }
   }
   /* END style sidebar Search Inside box */
+
+  /* form widths to be restricted */
+  nde-fetch-item > div.container, // citation finder
+  main.sub-container nde-base-request-form > div.request-form-container { // purchase request and resource delivery request
+    margin-inline: auto;
+    max-width: calc(var(--hero-layout-container-max-width) - 2 * var(--hero-layout-gap) - 3rem);
+  }
+  @media only screen and (max-width: 749.98px) {
+    .blank-request .two-columns {
+      grid-template-columns: 1fr;
+    }
+
+    nde-fetch-item > div.container .two-columns {
+      grid-template-columns: 1fr;
+    }
+  }
+  /* END form widths to be restricted */
+
+  /* mobile save/export popup to have correct border radius */
+  mat-bottom-sheet-container {
+    border-top-left-radius: var(--uq-border-radius);
+    border-top-right-radius: var(--uq-border-radius);
+  }
+  /* END mobile save/export popup to have correct border radius */
 
   /* hide divider beside sort button */
   nde-search-results-container {
@@ -569,3 +593,4 @@ nde-copy-to-clipboard button .mat-mdc-button-persistent-ripple {
 .uq-icon--standard--exclamation-triangle:before {
   background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M20.127 18.545a1.18 1.18 0 0 1-1.055 1.706H4.929a1.18 1.18 0 0 1-1.055-1.706l7.072-14.143a1.179 1.179 0 0 1 2.109 0l7.072 14.143Z' stroke='%23000' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M12 9v4' stroke='%23000' stroke-width='1.5' stroke-linecap='round'%3e%3c/path%3e%3ccircle cx='11.9' cy='16.601' r='1.1' fill='%23000'%3e%3c/circle%3e%3c/svg%3e")
 }
+
