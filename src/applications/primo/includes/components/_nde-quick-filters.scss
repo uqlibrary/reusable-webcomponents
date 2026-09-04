@@ -1,3 +1,14 @@
+nde-selected-filters {
+  mat-chip-option,
+  mat-chip-option .mat-mdc-chip-focus-overlay,
+  mat-chip-option.mat-mdc-chip  span.mat-ripple.mat-mdc-chip-ripple {
+    border-radius: var(--uq-border-radius);
+
+  }
+  div.dropdown-box {
+    border-radius: var(--uq-border-radius);
+  }
+}
 nde-selected-filters-container {
   nde-selected-filters.selected-filters-drop {
     button.selected-filters-container {
