@@ -5,6 +5,9 @@ uql-course-reading-list-sidebar-panel {
       background: var(--mat-expansion-header-hover-state-layer-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-hover-state-layer-opacity) * 100%), transparent));
     }
   }
+  .mat-content {
+    min-width: 230px; // when there is nothing else in the sidebar, we have to create it - it needs a min width to force the content out
+  }
   // note these styles are also set in repo exlibris-primo src/assets/css/custom.css to avoid a fouc
   mat-expansion-panel.mat-expansion-panel {
     background-color: var(--whiteBG);
@@ -70,6 +73,7 @@ uql-course-reading-list-sidebar-panel {
     margin-top: 2px;
     margin-bottom: 0.5rem;
     font-size: 14px !important;
+    position: relative;
 
     &:before {
       content: "";
@@ -79,8 +83,8 @@ uql-course-reading-list-sidebar-panel {
       width: 1.8rem;
       height: 1.5rem;
       position: absolute;
-      top: 72px;
-      left: 38px;
+      top: 6px;
+      left: 16px;
     }
   }
 }
