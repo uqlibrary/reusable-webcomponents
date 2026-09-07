@@ -597,6 +597,9 @@ body.custom-nde-theme {
         }
       }
     }
+    &.expand-options-visible {
+      --sys-inverse-on-surface: transparent;
+    }
     &.quicklink-button {
       --uql-button-style-type: thirteen-quicklinkoverride;
       border-top-right-radius: 0 !important;
