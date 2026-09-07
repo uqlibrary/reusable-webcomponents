@@ -5,14 +5,18 @@
   margin-bottom: var(--hero-gap)
 }
 
-@media(min-width: 64rem) {
+@media (min-width: 64rem) {
   .uq-hero {
-    position:relative;
+    position: relative;
     padding: var(--hero-spacing) 0;
     min-height: var(--hero-min-height);
     display: flex;
     align-items: center;
-    height: 280px; // special library item: make defined height of hero include height of main menu
+  }
+  &:not(:has(nde-search-results-top-bar)):not(:has(nde-record-type)) { // not on database search interior pages
+    .uq-hero {
+      height: 280px; // special library item: make defined height of hero include height of main menu
+    }
   }
 }
 
@@ -68,6 +72,11 @@
   box-shadow: 0 3px 24px 0 rgba(24,24,24,.1);
   padding: var(--hero-layout-gap);
   margin-bottom: 8px
+}
+@media(max-width: 63.99rem) {
+  .uq-hero__content {
+    padding: calc(var(--hero-layout-gap) / 2);
+  }
 }
 
 @media(min-width: 64rem) {
