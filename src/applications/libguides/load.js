@@ -687,6 +687,7 @@
             if (!!firstChild && firstChild.isCurrentPage) {
                 // the current page is the first page in the sidebar - make the other items its child
                 firstChild.children = constructedTree;
+
                 htmlTree += '<ul class="uq-local-nav__children">';
                 htmlTree += addChildToHtmlTree(firstChild, true);
                 htmlTree += '</ul>';
@@ -788,17 +789,19 @@
                     const veryFirstAnchor = child.querySelector(':scope > ul > li:first-child > a:first-child');
                     const parentLi = !!veryFirstAnchor && veryFirstAnchor.parentNode;
                     const firstGrandchild = !!parentLi && parentLi.querySelector('ul li:first-child a');
+
                     if (!!firstGrandchild) {
                         // use the link from the first internal link in the local nav block
                         // (Springshare are supplying 2 links to this page and we are trying to get around the SEO issues of that by never linking to the dupe)
                         const link = new URL(firstGrandchild.href);
                         record.href = `${link.origin}${link.pathname}${link.search}`;
-                    } else {
+                    } 
+                    else {
                         // otherwise, when we arent on that first page that has the grandchilden, truncate the current url
                         // (author guideline: "our format is https://guides.library.uq.edu.au/group-name/guide-title/page-name")
-                        const url = window.location;
-                        const pathname = url.pathname.substring(0, url.pathname.lastIndexOf('/'));
-                        record.href = `${url.origin}${pathname}${url.search}`;
+                        const newUrl = new URL(anchor.href);
+                        const pathname = newUrl.pathname.substring(0, newUrl.pathname.lastIndexOf('/'));
+                        record.href = `${newUrl.origin}${pathname}${newUrl.search}`;
                     }
 
                     // use the page title as the first link
