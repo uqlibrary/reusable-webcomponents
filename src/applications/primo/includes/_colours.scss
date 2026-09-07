@@ -986,6 +986,11 @@ body.custom-nde-theme {
     @include uqSecondaryButton();
     --sys-outline-variant: var(--uq-main-purple);
     --sys-on-background: var(--uq-main-purple);
+    &:hover {
+      .mdc-button__label {
+        color: #fff;
+      }
+    }
   }
 
 
