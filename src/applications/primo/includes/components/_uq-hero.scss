@@ -11,7 +11,8 @@
     padding: var(--hero-spacing) 0;
     min-height: var(--hero-min-height);
     display: flex;
-    align-items: center
+    align-items: center;
+    height: 280px; // special library item: make defined height of hero include height of main menu
   }
 }
 
