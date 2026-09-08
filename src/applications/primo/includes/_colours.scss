@@ -303,7 +303,7 @@ body.custom-nde-theme {
   /* eg full, Requests section, "go to link" */
   /* button:has(> span:nth-child(5)), */
   a:has(> span:nth-of-type(5)):has(> mat-icon):has(span.mdc-button__label) {
-    &:not(:has(span.mdc-button__label mat-icon)):not(:has(> span > div)):not([data-qa^="account-menu"]) {
+    &:not(:has(span.mdc-button__label mat-icon)):not(:has(span.mdc-button__label span)):not(:has(> span > div)):not([data-qa^="account-menu"]) {
       --uql-button-style-type: two;
       text-decoration: underline;
 
@@ -387,10 +387,10 @@ body.custom-nde-theme {
     }
   }
 
-  /* eg main menu, help icon (possibly "has icon") */
+  /* unsure */
   a:has(> span:nth-of-type(5)):has(> span.mdc-button__label > span) {
     &:not(:has(> span > div)):not(:has(> div):not(:has(> mat-icon))):not([data-qa^="account-menu"]) {
-      --uql-button-style-type: five;
+      --uql-button-style-type: fiveother;
 
       &:hover {
         span.mdc-button__label > span {
@@ -402,8 +402,30 @@ body.custom-nde-theme {
     }
   }
 
+  /* eg versions button, eg Second opinion : an introduction to health sociology */
+  a:has(> span:nth-of-type(5)):has(> span.mdc-button__label > span) {
+    &:not(:has(> span > div)):not(:has(> div):not(:has(> mat-icon))):not([data-qa^="account-menu"]) {
+      --uql-button-style-type: five;
+
+      mat-icon.mat-icon.frbr-list-icon-color > svg > rect:first-of-type {
+        fill: var(--uq-main-purple);
+      }
+
+      span.mdc-button__label > span {
+        text-decoration: underline;
+      }
+      &:hover {
+        span.mdc-button__label > span {
+          text-decoration: underline;
+          background-color: var(--uq-main-purple);
+          color: #fff;
+        }
+      }
+    }
+  }
+
   /* eg main menu, help icon (possibly "has icon") */
-  a:has(> span > div):has(> span:nth-of-type(5)) {
+  a:has(> span > div > span):has(> span:nth-of-type(5)) {
     &:not([data-qa^="account-menu"]) {
       --uql-button-style-type: six;
 
