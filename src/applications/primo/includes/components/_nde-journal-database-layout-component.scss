@@ -22,6 +22,11 @@ nde-journal-database-layout-component {
     margin-right: 80px;
   }
 
+  .category-results-line,
+  .category-results-line span {
+    font: var(--uq-heading-3);
+  }
+
   nde-database-home-page {
     .database-homepage-container.flex-layout-center-center {
       margin-top: 0; /* remove silly big gap at top */
