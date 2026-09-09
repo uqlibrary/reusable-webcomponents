@@ -1,3 +1,4 @@
+/* lots of little bits from the account page can go here - if one gets big, extract to its own file */
 nde-fines-overview {
   .fines-balance {
     background-color: var(--uq-colour-warning-50);
@@ -16,5 +17,11 @@ nde-fines-overview {
       top: 50px;
       left: 30px;
     }
+  }
+}
+
+nde-loans-overview {
+  .mat-icon.due-warning-icon-color svg path {
+    fill: var(--uq-main-purple);
   }
 }
