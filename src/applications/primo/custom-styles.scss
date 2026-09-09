@@ -47,6 +47,8 @@ body.custom-nde-theme {
 
   @import 'includes/components/nde-account.scss';
 
+  @import 'includes/components/nde-account-overview';
+
   @import 'includes/components/nde-advanced-search.scss';
 
   @import 'includes/components/nde-back-to-top.scss';
@@ -64,8 +66,6 @@ body.custom-nde-theme {
   @import 'includes/components/nde-favoritesapp.scss';
 
   @import 'includes/components/nde-fetch-item.scss';
-
-  @import 'includes/components/nde-fines-overview';
 
   @import 'includes/components/nde-full-display-details.scss';
 
