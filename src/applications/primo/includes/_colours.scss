@@ -407,6 +407,7 @@ body.custom-nde-theme {
     &:not(:has(> span > div)):not(:has(> div):not(:has(> mat-icon))):not([data-qa^="account-menu"]) {
       --uql-button-style-type: five;
 
+      // the big versions icon is BRIGHT GREEN :(
       mat-icon.mat-icon.frbr-list-icon-color > svg > rect:first-of-type {
         fill: var(--uq-main-purple);
       }
@@ -414,9 +415,14 @@ body.custom-nde-theme {
       span.mdc-button__label > span {
         text-decoration: underline;
       }
+      span.mdc-button__label > span {
+        text-decoration: underline;
+        background-color: #fff;
+        color: var(--uq-main-purple);
+      }
+
       &:hover {
         span.mdc-button__label > span {
-          text-decoration: underline;
           background-color: var(--uq-main-purple);
           color: #fff;
         }
