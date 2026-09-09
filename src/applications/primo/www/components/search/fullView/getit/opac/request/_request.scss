@@ -171,3 +171,25 @@ prm-blank-purchase-request {
         @include requestFormRadioButtons($accent-color);
     }
 }
+
+prm-blank_ill {
+    prm-request {
+        #form_field_copyrights {
+            background-color: $uqWarning50;
+            padding: 2.5rem 2.5rem 1.5rem 3rem;
+            font-size: 1rem;
+
+            .checkbox-warning-message {
+                color: $uqBlack;
+            }
+
+            .help-block {
+                margin-top: 1rem;
+
+                span {
+                    font-size: 1rem;
+                }
+            }
+        }
+    }
+}
