@@ -230,3 +230,11 @@ alma-htgi-tabs {
     }
 }
 
+/* when on the embedded Resource delivery request form, hide the article/book radio button */
+prm-full-view-page {
+    alma-htgi-svc {
+        prm-form-field:has([translate="almaResourceSharing.article"]) {
+            display: none;
+        }
+    }
+}
