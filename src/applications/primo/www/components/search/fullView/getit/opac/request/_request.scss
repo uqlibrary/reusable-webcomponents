@@ -216,6 +216,11 @@ alma-htgi-tabs {
     .bar.success-bar.large-bar {
         background-color: $uqSuccess50;
         color: $uqGrey900;
+        display: block;
+        padding-left: 4rem;
+        > div {
+            margin-bottom: 4rem;
+        }
         &:before {
             content: "";
             background-image: $uqIconSuccess;
@@ -224,8 +229,14 @@ alma-htgi-tabs {
             width: 1.5rem;
             height: 1.5rem;
             position: absolute;
-            top: 25px;
+            top: 27px;
             left: 1.5rem;
+        }
+
+        h4, strong {
+            margin-left: 0;
+            display: block;
+            margin-bottom: 0.5rem;
         }
     }
 }
