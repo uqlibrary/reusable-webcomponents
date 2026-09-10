@@ -749,10 +749,12 @@ body.custom-nde-theme {
   }
 
   /* eg full, details, collection path */
+  /* eg  citation trails  eg  https://uq-psb.primo.exlibrisgroup.com/permalink/61UQ_INST/164qc5o/cdi_wolterskluwer_health_10_1097_ACI_0000000000000640 then click "Sources citing this" and look for "Now listing sources citing" */
   a {
     &:not(:has(h3)):not(:has(span)):not(:has(mat-icon)):not(:has(div)) {
       --uql-button-style-type: nineteen;
       text-decoration: underline !important;
+      display: inline;
 
       &:hover {
         text-decoration: underline !important;
