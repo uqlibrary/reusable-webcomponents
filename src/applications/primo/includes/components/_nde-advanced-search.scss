@@ -8,6 +8,7 @@ nde-advanced-search {
   form.advanced-search-form {
     button.mdc-button.mat-mdc-button-base {
       @include uqPrimaryButton();
+      transition: none;
       &[aria-label="Clear search filters"] {
         /* clear button as tertiary button */
         background-color: #fff !important;
