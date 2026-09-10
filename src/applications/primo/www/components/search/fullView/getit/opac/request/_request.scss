@@ -196,6 +196,7 @@ prm-blank_ill, alma-htgi-svc {
 }
 
 /* when they submit a purchase request, they may get an error back */
+prm-blank_ill,
 alma-htgi-svc {
     .bar.error-bar {
         background-color: $uqError50;
