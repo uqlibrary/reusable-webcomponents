@@ -390,7 +390,7 @@ body.custom-nde-theme {
     &:not(:has(> span > div)):not(:has(> div):not(:has(> mat-icon))):not([data-qa^="account-menu"]) {
       --uql-button-style-type: five;
 
-      // the big versions icon is BRIGHT GREEN :(
+      // the big versions icon is BRIGHT GREEN OTB :(
       mat-icon.mat-icon.frbr-list-icon-color > svg > rect:first-of-type {
         fill: var(--uq-main-purple);
       }
@@ -1047,6 +1047,10 @@ body.custom-nde-theme {
         &.facet-name {
           // don't underline the sidebar checkbox labels
           text-decoration: none;
+        }
+        // the big versions icon is BRIGHT GREEN OTB :(
+        mat-icon.mat-icon.frbr-list-icon-color > svg > rect:first-of-type {
+          fill: var(--uq-main-purple);
         }
       }
     }
