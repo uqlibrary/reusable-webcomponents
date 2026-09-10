@@ -458,7 +458,7 @@ body.custom-nde-theme {
 
   /* eg full, Locations section, "location" first link */
   button:has(> span:nth-of-type(1)) {
-    &:not(:has(> span:nth-of-type(2))):not(:has(> mat-icon:nth-of-type(2))) {
+    &:not(:has(> div)):not(:has(> span:nth-of-type(2))):not(:has(> mat-icon:nth-of-type(2))) {
       --uql-button-style-type: seven;
 
       span.mat-title-medium {
@@ -808,7 +808,9 @@ body.custom-nde-theme {
     &:not(:has(> span)):not(:has(> mat-icon)) {
       --uql-button-style-type: twentyone;
       line-height: 0;
-      text-decoration: underline;
+      span {
+        text-decoration: underline;
+      }
 
       &:hover {
         span {
@@ -904,6 +906,11 @@ body.custom-nde-theme {
               }
             }
 
+            &.see-more-btn {
+              &:hover {
+                font-weight: 400;
+              }
+            }
             &.barcode-search-button {
               border: 2px solid var(--uq-main-purple);
               span.mdc-button__label {
@@ -1053,6 +1060,26 @@ body.custom-nde-theme {
           border: var(--uq-button-border);
           --mdc-filled-button-label-text-color: var(--uq-main-purple);
           --mdc-filled-button-container-color: #fff;
+        }
+        &.facet-name {
+          // don't underline the sidebar checkbox labels
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  /* web of science, scopus buttons at bottom */
+  a, button {
+    &:has(> div > mat-icon):has(> div > span):has(> span) {
+      &:not(:has(> div:nth-of-type(2))):not(:has(> div > mat-icon:nth-of-type(2))):not(:has(> div > span:nth-of-type(2))):not(:has(> span:nth-of-type(2))) {
+        --uql-button-style-type: twentynine;
+        text-decoration: underline;
+        &:hover {
+          span {
+            background-color: var(--uq-main-purple);
+            color: #fff;
+          }
         }
       }
     }
