@@ -72,7 +72,6 @@ class SearchPortal extends HTMLElement {
 
     /* istanbul ignore next */
     async getLearningResourceSuggestions(keyword) {
-        console.log('getLearningResourceSuggestions', keyword);
         await new ApiAccess()
             .loadHomepageCourseReadingListsSuggestions(keyword)
             .then((suggestions) => {
@@ -90,7 +89,6 @@ class SearchPortal extends HTMLElement {
      * @param urlsource - some apis need a non displayed value to build the url. This tells them what field to use
      */
     loadSuggestionsIntoPage(suggestions, urlsource = 'text') {
-        console.log('loadSuggestionsIntoPage start', urlsource, suggestions);
         const that = this;
         const suggestionListSibling = that.shadowRoot.getElementById('input-field-wrapper');
 
@@ -119,8 +117,6 @@ class SearchPortal extends HTMLElement {
             const searchType = that.shadowRoot.getElementById('search-type-current-value');
             // searchType.value returns 0,1, ... 8; ie the current dropdown id
             let type = searchPortalLocale?.typeSelect?.items?.filter((item, index) => {
-                item.selectId === searchType.value &&
-                    console.log('loadSuggestionsIntoPage', item.selectId, searchType.value, item);
                 return item.selectId === searchType.value;
             });
             !!type && type.length > 0 && (type = type.shift());
@@ -612,18 +608,6 @@ class SearchPortal extends HTMLElement {
 
     createPortalTypeSelectionEntry(entry, index) {
         const that = this;
-
-        // const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        // !!path && (path.id = `portalTypeSelectionEntry-path-${index}`);
-        // !!path && path.setAttribute('d', entry.iconPath);
-
-        // const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        // !!svg && (svg.id = `portalTypeSelectionEntry-svg-${index}`);
-        // !!svg && svg.setAttribute('class', 'MuiSvgIcon-root MuiSvgIcon-colorSecondary');
-        // !!svg && svg.setAttribute('focusable', 'false');
-        // !!svg && svg.setAttribute('viewBox', '0 0 24 24');
-        // !!svg && svg.setAttribute('ariaHidden', 'true');
-        // //!!svg && !!path && svg.appendChild(path);
 
         const label = document.createElement('span');
         !!label && (label.id = `portalTypeSelectionEntry-${index}`);
