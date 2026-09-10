@@ -1014,6 +1014,7 @@ body.custom-nde-theme {
       &:not(:has(> span:nth-of-type(5))):not(:has(div)) {
         --uql-button-style-type: twentyeight;
         text-decoration: underline;
+        --sys-inverse-on-surface: #fff;
         &.request-button {
           text-decoration: none;
           background-color: #fff;
