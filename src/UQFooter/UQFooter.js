@@ -113,13 +113,13 @@ template.innerHTML = `
                             <a href="https://uq.edu.au/complaints-appeals" class="uq-footer__navigation-link" data-analyticsid="uqfooter-contact-complaint-desktop">Make a complaint</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://about.uq.edu.au/faculties-schools-institutes-centres" class="uq-footer__navigation-link" data-analyticsid="uqfooter-contact-schools-desktop">Faculties, schools, institutes and centres</a>
+                            <a href="https://about.uq.edu.au/faculties-institutes" class="uq-footer__navigation-link" data-analyticsid="uqfooter-contact-schools-desktop">Faculties, schools, institutes and centres</a>
                         </li>
                         <li class="uq-footer__navigation-item">
                             <a href="https://organisation.about.uq.edu.au/" class="uq-footer__navigation-link" data-analyticsid="uqfooter-contact-divisions-desktop">Divisions and departments</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://campuses.uq.edu.au" class="uq-footer__navigation-link" data-analyticsid="uqfooter-contact-campuses-desktop">Campuses, maps and transport</a>
+                            <a href="https://about.uq.edu.au/campuses-facilities" class="uq-footer__navigation-link" data-analyticsid="uqfooter-contact-campuses-desktop">Campuses, maps and transport</a>
                         </li>
                     </ul>
                 </li>
@@ -212,13 +212,13 @@ template.innerHTML = `
                             <a href="https://uq.edu.au/complaints-appeals" class="uq-footer__navigation-link" data-analyticsid="uqfooter-contact-complaint-mobile">Make a complaint</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://about.uq.edu.au/faculties-schools-institutes-centres" class="uq-footer__navigation-link" data-analyticsid="uqfooter-contact-schools-mobile">Faculties, schools, institutes and centres</a>
+                            <a href="https://about.uq.edu.au/faculties-institutes" class="uq-footer__navigation-link" data-analyticsid="uqfooter-contact-schools-mobile">Faculties, schools, institutes and centres</a>
                         </li>
                         <li class="uq-footer__navigation-item">
                             <a href="https://organisation.about.uq.edu.au/" class="uq-footer__navigation-link" data-analyticsid="uqfooter-contact-divisions-mobile">Divisions and departments</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://campuses.uq.edu.au" class="uq-footer__navigation-link" data-analyticsid="uqfooter-contact-campuses-mobile">Campuses, maps and transport</a>
+                            <a href="https://about.uq.edu.au/campuses-facilities" class="uq-footer__navigation-link" data-analyticsid="uqfooter-contact-campuses-mobile">Campuses, maps and transport</a>
                         </li>
                     </ul>
                 </li>
@@ -256,7 +256,7 @@ template.innerHTML = `
                 <a href="https://uq.edu.au/accessibility" class="uq-footer__link" data-analyticsid="uqfooter-accessibility">Accessibility</a>
               </li>
               <li class="uq-footer__footer-item">
-                  <a href="https://governance-risk.uq.edu.au/rtip" class="uq-footer__link" data-analyticsid="uqfooter-RIO">Right to information</a>
+                  <a href="https://governance-risk.uq.edu.au/rti" class="uq-footer__link" data-analyticsid="uqfooter-RIO">Right to information</a>
               </li>
               <li class="uq-footer__footer-menu__item">
                 <a href="https://my.uq.edu.au/feedback?r=${encodeURIComponent(
