@@ -2,6 +2,7 @@ const urlRoot = 'https://search.library.uq.edu.au/discovery/';
 const primoPrefixShort = '&tab=61UQ_All&search_scope=61UQ_All&vid=61UQ_INST:61UQ';
 const primoPrefix = primoPrefixShort + '&sortby=rank&offset=0';
 
+// uniqueness matters; order of IDs does not matter
 export const PRIMO_LIBRARY_SEARCH = '0';
 export const PRIMO_BOOKS_SEARCH = '1';
 export const PRIMO_JOURNAL_ARTICLES_SEARCH = '3';
