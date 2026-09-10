@@ -119,7 +119,7 @@ template.innerHTML = `
                             <a href="https://organisation.about.uq.edu.au/" class="uq-footer__navigation-link" data-analyticsid="uqfooter-contact-divisions-desktop">Divisions and departments</a>
                         </li>
                         <li class="uq-footer__navigation-item">
-                            <a href="https://campuses.uq.edu.au" class="uq-footer__navigation-link" data-analyticsid="uqfooter-contact-campuses-desktop">Campuses, maps and transport</a>
+                            <a href="https://about.uq.edu.au/campuses-facilities" class="uq-footer__navigation-link" data-analyticsid="uqfooter-contact-campuses-desktop">Campuses, maps and transport</a>
                         </li>
                     </ul>
                 </li>
