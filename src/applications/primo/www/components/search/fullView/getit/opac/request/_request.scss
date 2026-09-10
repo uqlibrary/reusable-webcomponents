@@ -196,8 +196,9 @@ prm-blank_ill, alma-htgi-svc {
 }
 
 /* when they submit a purchase request, they may get an error back */
-prm-blank_ill,
-alma-htgi-svc {
+prm-opac, // "place a physical item request"
+prm-blank_ill, // blank purchase request form
+alma-htgi-svc { // inline purchase request form
     .bar.error-bar {
         background-color: $uqError50;
         color: $uqGrey900;
@@ -213,6 +214,7 @@ alma-htgi-svc {
 }
 
 /* Your request has been submitted successfully. */
+prm-opac,
 prm-blank_ill,
 alma-htgi-tabs {
     .bar.success-bar.large-bar {
