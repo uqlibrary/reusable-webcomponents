@@ -256,7 +256,7 @@ template.innerHTML = `
                 <a href="https://uq.edu.au/accessibility" class="uq-footer__link" data-analyticsid="uqfooter-accessibility">Accessibility</a>
               </li>
               <li class="uq-footer__footer-item">
-                  <a href="https://governance-risk.uq.edu.au/rtip" class="uq-footer__link" data-analyticsid="uqfooter-RIO">Right to information</a>
+                  <a href="https://governance-risk.uq.edu.au/rti" class="uq-footer__link" data-analyticsid="uqfooter-RIO">Right to information</a>
               </li>
               <li class="uq-footer__footer-menu__item">
                 <a href="https://my.uq.edu.au/feedback?r=${encodeURIComponent(
