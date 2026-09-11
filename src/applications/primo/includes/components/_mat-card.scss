@@ -14,3 +14,8 @@ mat-card {
 }
 /* END panels should look like DS */
 
+/* but there are spots that should not have the border */
+nde-citation-trails mat-card-content {
+  border-width: 0;
+}
+/* END but there are spots that should not have the border */
