@@ -1122,14 +1122,7 @@ body.custom-nde-theme {
         }
 
         &[routerlinkactive="active-link"] {
-          span.mdc-button__label {
-            text-decoration: none !important;
-            span {
-              text-decoration: none !important;
-              text-decoration-thickness: 0 !important;
-              text-decoration-color: red;
-            }
-          }
+          text-decoration: none;
         }
         &.cancel-dialog-btn {
           text-decoration: none;
