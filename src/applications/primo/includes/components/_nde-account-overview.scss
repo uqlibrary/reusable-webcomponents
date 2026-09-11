@@ -20,7 +20,8 @@ nde-fines-overview {
   }
 }
 
-nde-loans-overview {
+// the loans overview and loans area have orange dots for "items who are due a few weeks out" */
+nde-account-section-item-container, nde-loans-overview {
   .mat-icon.due-warning-icon-color svg path {
     fill: var(--uq-main-purple);
   }
