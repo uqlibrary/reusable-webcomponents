@@ -83,12 +83,20 @@ nde-account {
   /* END make the account page sidebar look like drupal sidebar navigation */
 
   /* the dot on the Loans item should not hover to blank */
-  a.mdc-button .account-badge-warn {
-    --sys-error: var(--uq-colour-error-500);
-  }
-  a.mdc-button:hover mat-icon.account-badge-warn span.mat-badge-content { // 'span' within this is the little red dot on the Loans tab
-    background-color: var(--uq-colour-error-500);
-    border-radius: var(--uq-border-radius) !important;
+  a.mdc-button {
+    // mat-icon > span within this is the little red dot on some sidebar icons
+    .mat-badge-active {
+      --mat-badge-background-color: var(--uq-colour-error-500);
+    }
+    .account-badge-warn {
+      --sys-error: var(--uq-colour-error-500);
+    }
+    &:hover {
+      mat-icon.account-badge-warn span.mat-badge-content {
+        background-color: var(--uq-colour-error-500);
+        border-radius: var(--uq-border-radius) !important;
+      }
+    }
   }
   /* END the dot on the Loans item should not hover to blank */
 
