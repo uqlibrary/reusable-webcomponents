@@ -25,6 +25,7 @@ nde-notification {
         width: 100%;
         padding: 0;
         background-color: var(--uq-background-alert-info);
+        position: relative;
 
         & > div {
           padding: 1rem;
@@ -59,7 +60,6 @@ nde-notification {
       }
     }
   }
-}
 }
 
 /* Your session has timed out */
