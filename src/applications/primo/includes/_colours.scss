@@ -671,7 +671,7 @@ body.custom-nde-theme {
 
   /* eg brief, readmore/less button */
   button:has(> span:nth-of-type(4)):has(.mdc-button__label span) {
-    &:not(:has(> span:nth-of-type(5))):not(:has(mat-icon)):not(:has(div)) {
+    &:not(:has(> span:nth-of-type(5))):not(:has(mat-icon)):not(:has(div)):not(:has(.mdc-button__label span span)) {
       --uql-button-style-type: fifteen;
 
       span.mdc-button__label span {
@@ -873,6 +873,9 @@ body.custom-nde-theme {
 
       /* full record, secondary "available online" button, eg "AMH Australian medicines handbook" */
       &.quicklink-button {
+        span.mdc-button__label span {
+          text-decoration: none;
+        }
         &:hover {
           background-color: var(--uq-main-purple);
           color: #fff;
@@ -904,6 +907,30 @@ body.custom-nde-theme {
 
                 span.mat-mdc-button-persistent-ripple {
                   display: none;
+                }
+              }
+
+              &.reset {
+                span.mdc-button__label {
+                  text-decoration: underline;
+                }
+              }
+              &.cancel-dialog-btn {
+                border: var(--uq-button-border);
+                span.mdc-button__label {
+                  color: #fff;
+                }
+                &:hover {
+                  background-color: #fff;
+                  text-decoration: underline;
+                  span.mdc-button__label {
+                    color: var(--uq-main-purple);
+                  }
+                }
+              }
+              &.back-dialog-btn { // tertiary
+                span.mdc-button__label {
+                  text-decoration: underline;
                 }
               }
             }
@@ -1050,19 +1077,13 @@ body.custom-nde-theme {
   /* eg search header, advanced search button  */
   /* and the AI buttons starts with 5 and hovers to 4!!! */
   /* and the full record logged in request button!! */
+  /* and the cancel button on the account > requests "cancel this request" submit button */
   a, button.basic-button, button.mdc-button {
     &:has(> span:nth-of-type(4)){
       &:not(:has(> span:nth-of-type(5))):not(:has(div)) {
         --uql-button-style-type: twentyeight;
         text-decoration: underline;
         --sys-inverse-on-surface: #fff;
-        &.request-button {
-          text-decoration: none;
-          background-color: #fff;
-          border: var(--uq-button-border);
-          --mdc-filled-button-label-text-color: var(--uq-main-purple);
-          --mdc-filled-button-container-color: #fff;
-        }
         &.facet-name {
           // don't underline the sidebar checkbox labels
           text-decoration: none;
@@ -1070,6 +1091,17 @@ body.custom-nde-theme {
         // the big versions icon is BRIGHT GREEN OTB :(
         mat-icon.mat-icon.frbr-list-icon-color > svg > rect:first-of-type {
           fill: var(--uq-main-purple);
+        }
+
+        &.cancel-dialog-btn {
+          text-decoration: none;
+        }
+        &.request-button {
+          text-decoration: none;
+          background-color: #fff;
+          border: var(--uq-button-border);
+          --mdc-filled-button-label-text-color: var(--uq-main-purple);
+          --mdc-filled-button-container-color: #fff;
         }
       }
     }
@@ -1085,6 +1117,23 @@ body.custom-nde-theme {
           span {
             background-color: var(--uq-main-purple);
             color: #fff;
+          }
+        }
+      }
+    }
+  }
+
+  /* eg logged in, the cows "place a physical item request, popup */
+  a, button {
+    &:has(> span:nth-of-type(5)):has(> span.mdc-button__label span span) {
+      &:not(:has(div)):not(:has(mat-icon)):not(.available-at-button) {
+        --uql-button-style-type: thirty;
+        border: var(--uq-button-border);
+        &:hover {
+          background-color: #fff;
+          span.mdc-button__label span span {
+            color: var(--uq-main-purple);
+            text-decoration: underline;
           }
         }
       }
