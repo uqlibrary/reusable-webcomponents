@@ -47,6 +47,30 @@ nde-notification {
       }
     }
   }
+
+  // citation page hard codes an icon, which we need to replace with a proper looking svg
+  &:has(div > div > mat-icon) {
+    position: relative;
+    div:has(div > mat-icon) {
+      & > div {
+        padding-left: 2rem;
+        & > mat-icon {
+          display: none;
+        }
+      }
+      &:before {
+        content: "";
+        background-image: var(--uq-icon--info);
+        background-repeat: no-repeat;
+        background-size: 1.5rem;
+        width: 1.8rem;
+        height: 1.5rem;
+        position: absolute;
+        top: 14px;
+        left: 21px;
+      }
+    }
+  }
 }
 
 /* Your session has timed out */
