@@ -15,6 +15,7 @@
   --uq-colour-grey-50: #f3f3f4;
   --uq-colour-grey-100: #e8e8e8;
   --uq-colour-grey-200: #dcdcdd;
+  --uq-colour-grey-300: #d1d0d2;
   --uq-colour-grey-500: #a3a1a4;
   --uq-colour-grey-900: #3b383e;
 
@@ -23,6 +24,7 @@
   --uq-color-utility-500: #0d6dcd;
 
   --uq-colour-success-50: #edf6ed;
+  --uq-colour-success-500: #4aa74e;
 
   --uq-colour-warning-50:	#fef8e8;
 
@@ -57,9 +59,6 @@
   //--sys-on-surface-variant: #fff;
   //--mdc-icon-button-icon-color: var(--uq-main-purple);
 
-  --valid: var(--uq-main-purple);
-  --validDark: var(--uq-main-purple);
-
   --mdc-switch-unselected-focus-track-color: var(--uq-colour-purple-50);
   --mdc-switch-unselected-track-color: var(--uq-colour-purple-100);
   --mdc-switch-unselected-hover-track-color: var(--uq-colour-purple-200);
@@ -82,6 +81,34 @@
   --uql-content-indicator-cultural-advice: var(--uq-main-purple);
 
   --uql-base-icon-colour: var(--uq-main-purple);
+
+  --darkText: var(--uq-colour-black);
+  --lightText: var(--uq-body-copy);
+  --whiteText: #FFF;
+  --valid: var(--uq-main-purple);
+  --validDark: var(--uq-main-purple);
+  --disableText: var(--uq-colour-grey-300);
+  --validBG: var(--uq-colour-success-50);
+  --intermediate: var(--uq-color-utility-500);
+  --whiteBG: #FFF;
+  --notice: var(--uq-colour-warning-50);
+  --dark: var(--uq-colour-black);
+  --darkBGWithOpacity: rgba(25, 21, 28, .8);
+  --blackBGWithOpacity: rgba(25, 21, 28, .8);
+  --divider: var(--uq-border-color);
+  --switchTrackColor: #C9C9C9;
+  --border: #C9C9C9;
+  --scrollBar: #c9c9c9;
+  --lightBG: #fff;
+  --darkBG: #DADADA;
+  --searchBarBG: #fff;
+  --checkboxBorder: var(--uq-border-color);
+  --neutralBG: #fff;
+  --secondaryActionIcon: var(--uq-main-purple);
+  --lightShadow: #fff;
+  --darkShadow: #fff;
+  --skeleton: var(--uq-colour-grey-300);
+  --skeletonWave: var(--uq-colour-grey-500);
 }
 
 :root, html, head, body {
@@ -1061,6 +1088,7 @@ body.custom-nde-theme {
   /* and the AI buttons starts with 5 and hovers to 4!!! */
   /* and the full record logged in request button!! */
   /* and the cancel button on the account > requests "cancel this request" submit button */
+  /* and the sidebar links in account page :( */
   a, button.basic-button, button.mdc-button {
     &:has(> span:nth-of-type(4)){
       &:not(:has(> span:nth-of-type(5))):not(:has(div)) {
@@ -1076,6 +1104,9 @@ body.custom-nde-theme {
           fill: var(--uq-main-purple);
         }
 
+        &[routerlinkactive="active-link"] {
+          text-decoration: none;
+        }
         &.cancel-dialog-btn {
           text-decoration: none;
         }
