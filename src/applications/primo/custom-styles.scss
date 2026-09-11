@@ -6,6 +6,15 @@
   --uq-border-radius: 0.25rem;
 }
 
+@mixin uqBkgIconProperties() {
+  content: "";
+  background-repeat: no-repeat;
+  background-size: 1.5rem;
+  width: 1.8rem;
+  height: 1.5rem;
+  position: absolute;
+}
+
 /* make the white bar in uq-site-header the right height */
 uq-site-header::part(root) {
   height: 41px;

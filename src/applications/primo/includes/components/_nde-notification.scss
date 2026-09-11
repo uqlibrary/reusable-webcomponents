@@ -31,19 +31,31 @@ nde-notification {
           padding-left: 3rem;
         }
 
-        > div > div > span:first-of-type {
-          position: relative;
-          &:before {
-            content: "";
-            background-image: var(--uq-icon--info);
-            background-repeat: no-repeat;
-            background-size: 1.5rem;
-            width: 1.5rem;
-            height: 1.5rem;
-            position: absolute;
-            top: -2px;
-            left: -2rem;
-          }
+        &:before {
+          @include uqBkgIconProperties();
+          background-image: var(--uq-icon--info);
+          top: -2px;
+          left: -2rem;
+        }
+      }
+    }
+  }
+
+  // citation page hard codes an icon, which we need to replace with a proper looking svg
+  &:has(div > div > mat-icon) {
+    position: relative;
+    div:has(div > mat-icon) {
+      & > div {
+        padding-left: 2rem;
+        & > mat-icon {
+          display: none;
+        }
+      }
+      &:before {
+        @include uqBkgIconProperties();
+        background-image: var(--uq-icon--info);
+        top: 14px;
+        left: 21px;
       }
     }
   }

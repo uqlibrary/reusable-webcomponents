@@ -7,13 +7,8 @@ nde-fines-overview {
     padding-left: 2.5rem;
 
     &:before {
-      content: "";
+      @include uqBkgIconProperties();
       background-image: var(--uq-icon--warning);
-      background-repeat: no-repeat;
-      background-size: 1.5rem;
-      width: 1.8rem;
-      height: 1.5rem;
-      position: absolute;
       top: 50px;
       left: 30px;
     }
