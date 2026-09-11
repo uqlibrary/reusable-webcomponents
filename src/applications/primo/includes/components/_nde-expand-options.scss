@@ -1,0 +1,7 @@
+nde-expand-options {
+  flex-direction: row;
+}
+
+div:has(> button.expand-options-visible) {
+  display: none;
+}
