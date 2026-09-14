@@ -1,0 +1,19 @@
+nde-search-results-container {
+  /* hide divider beside sort button */
+  div:has(> nde-sort-by)  {
+    > div {
+      > mat-divider {
+        --sys-outline: transparent;
+      }
+    }
+  }
+  /* END hide divider beside sort button */
+
+  /* correct font size on options show-hide button */
+  button[aria-controls="expand-results-options-line"] {
+    span {
+      font-size: 1rem;
+    }
+  }
+  /* END correct font size on options show-hide button */
+}
