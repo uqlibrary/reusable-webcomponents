@@ -1154,6 +1154,22 @@ body.custom-nde-theme {
     }
   }
 
+  /* eg account > over view > panels */
+  nde-saved-searches-overview,
+  nde-search-history-overview {
+    a:has(> span){
+      &:not(:has(span:nth-of-type(2))) {
+        --uql-button-style-type: thirtyone;
+        &:hover {
+          span {
+            background-color: #51247a;
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+
   /* back to top button */
   nde-back-to-top {
     button {

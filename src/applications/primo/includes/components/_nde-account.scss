@@ -122,3 +122,28 @@ nde-account {
   }
   /* END layout the actual info links that we add in nde-account-info-links-custom cutomisation */
 }
+
+nde-account-overview {
+  div.overview-cards div.account-card-wrapper mat-card.mat-mdc-card  mat-card-content.mat-mdc-card-content ul.search-history-list {
+    li.search-history-row {
+      background-color: #fff; /* override the tiger stripe that are usability inappropriate in such a small list */
+      margin-left: 0.25rem;
+      a {
+        text-decoration: underline;
+        &:hover {
+          span {
+            background-color: var(--uq-main-purple);
+            color: #fff;
+          }
+        }
+      }
+    }
+    li.search-history-row::before {
+      /* put a nice dot on the list items */
+      content:"\A";
+      width: 5px;
+      height: 5px;
+      background: var(--uq-colour-black);
+    }
+  }
+}
