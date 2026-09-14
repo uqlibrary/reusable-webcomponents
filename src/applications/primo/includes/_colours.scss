@@ -626,6 +626,9 @@ body.custom-nde-theme {
           }
         }
 
+        span.mat-ripple.mat-mdc-button-ripple {
+          display: none;
+        }
         span.mat-mdc-button-persistent-ripple::before {
           background-color: transparent;
         }
