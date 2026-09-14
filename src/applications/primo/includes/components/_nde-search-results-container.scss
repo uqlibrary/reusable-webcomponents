@@ -1,0 +1,49 @@
+nde-search-results-container {
+  /* hide divider beside sort button */
+  div:has(> nde-sort-by)  {
+    > div {
+      > mat-divider {
+        --sys-outline: transparent;
+      }
+    }
+  }
+  /* END hide divider beside sort button */
+
+  /* correct font size on options show-hide button */
+  button[aria-controls="expand-results-options-line"] {
+    span {
+      font-size: 1rem;
+    }
+  }
+  /* END correct font size on options show-hide button */
+
+  /* filter sidebar styling */
+  div.results-container > div:first-of-type {
+    margin-top: 8px;
+
+    nde-search-filters-side-nav {
+      div.filters-side-nav-header {
+        display: block;
+        background-color: var(--uq-colour-purple-50);
+        max-height: 3rem;
+        padding-block-end: 0;
+        padding-block-start: 0;
+        border: var(--uq-border);
+        border-color: rgb(201, 201, 201);
+        border-top-left-radius: var(--uq-border-radius);
+        border-top-right-radius: var(--uq-border-radius);
+        mat-divider {
+          display: none;
+          border-width: 0;
+        }
+      }
+
+      div.scroller-content {
+        border: var(--uq-border);
+        border-radius: var(--uq-border-radius);
+        border-top-width: 0;
+      }
+    }
+  }
+  /* END filter sidebar styling */
+}
