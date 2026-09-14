@@ -85,8 +85,8 @@ uql-course-reading-list-sidebar-panel {
     &:before {
       @include uqBkgIconProperties();
       background-image: var(--uq-icon--info);
-      top: 72px;
-      left: 38px;
+      top: 6px;
+      left: 16px;
     }
   }
 }
