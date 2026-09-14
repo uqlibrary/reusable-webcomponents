@@ -1,4 +1,5 @@
 div.side-bottom-buttons:has(> nde-back-to-top) {
+  width: 40px;
   &.bumped-above-snackbar {
     inset-block-end: 1rem; /* override spacing that allows for login prompt on right */
   }
