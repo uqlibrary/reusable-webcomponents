@@ -625,7 +625,7 @@ class SearchPortal extends HTMLElement {
         const slug = entry.name.toLowerCase().replace(/ /g, '-');
         !!slug && !!button && button.setAttribute('data-testid', `portal-search-type-${slug}`);
         !!button && button.setAttribute('data-analyticsid', `primo-search-item-${entry?.analyticsId}`);
-        !!button && button.setAttribute('data-primo-search-form', `primo-search-item-${index}`);
+        !!button && button.setAttribute('data-primo-search-form', `primo-search-item-${entry?.analyticsId}`);
         //!!button && !!svg && button.appendChild(svg);
         !!label && !!button && button.appendChild(label);
 
