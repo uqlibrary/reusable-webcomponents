@@ -2,17 +2,17 @@ const urlRoot = 'https://search.library.uq.edu.au/discovery/';
 const primoPrefixShort = '&tab=61UQ_All&search_scope=61UQ_All&vid=61UQ_INST:61UQ';
 const primoPrefix = primoPrefixShort + '&sortby=rank&offset=0';
 
-// uniqueness matters; order of IDs does not matter
+// uniqueness matters and passing the expected number to GTM matters; order of IDs does not matter
 export const PRIMO_LIBRARY_SEARCH = '0';
 export const PRIMO_BOOKS_SEARCH = '1';
-export const PRIMO_JOURNAL_ARTICLES_SEARCH = '3';
+export const PRIMO_JOURNAL_ARTICLES_SEARCH = '2';
 export const PRIMO_JOURNAL_TITLE_SEARCH = '4';
-export const PRIMO_VIDEO_AUDIO_SEARCH = '7';
-export const PRIMO_PEER_REVIEW_SEARCH = '5';
-export const PRIMO_PHYSICAL_ITEMS_SEARCH = '6';
-export const PRIMO_DATABASE_SEARCH = '2';
-export const EXAM_PAPER_SEARCH_TYPE = '8';
-export const COURSE_RESOURCE_SEARCH_TYPE = '9';
+export const PRIMO_VIDEO_AUDIO_SEARCH = '3';
+export const PRIMO_PEER_REVIEW_SEARCH = '9';
+export const PRIMO_PHYSICAL_ITEMS_SEARCH = '5';
+export const PRIMO_DATABASE_SEARCH = '6';
+export const EXAM_PAPER_SEARCH_TYPE = '7';
+export const COURSE_RESOURCE_SEARCH_TYPE = '8';
 
 // define the footer elements for each type
 const PRIMO_ELEMENTS = [
