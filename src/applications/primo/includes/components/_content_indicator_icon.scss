@@ -59,8 +59,8 @@
 }
 
 /* ensure there can't be two of our indicators */
-uql-cultural-advice-content-indicator + uql-cultural-advice-content-indicator,
-uql-course-resource-content-indicator + uql-course-resource-content-indicator {
+div.uql-cultural-advice-content-indicator + div.uql-cultural-advice-content-indicator,
+div.uql-course-resource-content-indicator + div.uql-course-resource-content-indicator {
   display: none;
 }
 /* END ensure there can't be two of our indicators */
