@@ -1240,10 +1240,10 @@ body.custom-nde-theme {
   .mat-icon.open-access-indicator-color svg path {
     fill: var(--uql-content-indicator-open-access);
   }
-  uql-cultural-advice-content-indicator mat-icon svg path {
+  div.uql-cultural-advice-content-indicator mat-icon svg path {
     --uql-base-icon-colour: var(--uql-content-indicator-cultural-advice);
   }
-  uql-course-resource-content-indicator mat-icon svg path {
+  div.uql-course-resource-content-indicator mat-icon svg path {
     --uql-base-icon-colour: var(--uql-content-indicator-course-reading-list);
   }
   mat-icon[data-mat-icon-name="Peer-Reviewed-Indicator"] svg {
