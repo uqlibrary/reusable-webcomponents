@@ -1,5 +1,5 @@
-import { expect, test } from '@playwright/test';
-import { assertAccessibility } from '../lib/axe';
+import { expect, test } from '@uq/pw/test';
+import { assertAccessibility } from '@uq/pw/lib/axe';
 
 const _ApiAccess = require('../../src/ApiAccess/ApiAccess.locale');
 const _helpers = require('../../src/UtilityArea/helpers');
@@ -270,7 +270,6 @@ test.describe('Account menu button', () => {
             await visitPageforUser('uqstaff', page);
             await page.waitForTimeout(1000);
             await context.clearCookies({ name: _ApiAccess.apiLocale.SESSION_COOKIE_NAME });
-            await page.waitForTimeout(1000);
             await assertUserIsLoggedOut(page);
         });
 
@@ -290,7 +289,6 @@ test.describe('Account menu button', () => {
 
             // hit the escape key to close the menu
             await page.locator('body').press('Escape');
-            await page.waitForTimeout(1000);
 
             // the menu is hidden
             await expect(authButton.getByTestId('up-arrow')).not.toBeVisible();
