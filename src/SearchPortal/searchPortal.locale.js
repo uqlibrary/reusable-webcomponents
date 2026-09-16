@@ -2,15 +2,15 @@ const urlRoot = 'https://search.library.uq.edu.au/discovery/';
 const primoPrefixShort = '&tab=61UQ_All&search_scope=61UQ_All&vid=61UQ_INST:61UQ';
 const primoPrefix = primoPrefixShort + '&sortby=rank&offset=0';
 
-// uniqueness matters; order of IDs does not matter
+// order does matter, match the appearance
 export const PRIMO_LIBRARY_SEARCH = '0';
 export const PRIMO_BOOKS_SEARCH = '1';
+export const PRIMO_DATABASE_SEARCH = '2';
 export const PRIMO_JOURNAL_ARTICLES_SEARCH = '3';
 export const PRIMO_JOURNAL_TITLE_SEARCH = '4';
-export const PRIMO_VIDEO_AUDIO_SEARCH = '7';
 export const PRIMO_PEER_REVIEW_SEARCH = '5';
 export const PRIMO_PHYSICAL_ITEMS_SEARCH = '6';
-export const PRIMO_DATABASE_SEARCH = '2';
+export const PRIMO_VIDEO_AUDIO_SEARCH = '7';
 export const EXAM_PAPER_SEARCH_TYPE = '8';
 export const COURSE_RESOURCE_SEARCH_TYPE = '9';
 
@@ -34,6 +34,7 @@ export const searchPortalLocale = {
         items: [
             {
                 selectId: PRIMO_LIBRARY_SEARCH,
+                analyticsId: '0', // build the value that is sent to GTM to track what search types users are selecting.
                 name: 'All',
                 // PublicIcon
                 iconPath:
@@ -47,6 +48,7 @@ export const searchPortalLocale = {
             },
             {
                 selectId: PRIMO_BOOKS_SEARCH,
+                analyticsId: '1',
                 name: 'Books',
                 // ImportContactsIcon
                 iconPath:
@@ -56,6 +58,7 @@ export const searchPortalLocale = {
             },
             {
                 selectId: PRIMO_DATABASE_SEARCH,
+                analyticsId: '6',
                 name: 'Databases',
                 // StorageIcon
                 iconPath: 'M2 20h20v-4H2v4zm2-3h2v2H4v-2zM2 4v4h20V4H2zm4 3H4V5h2v2zm-4 7h20v-4H2v4zm2-3h2v2H4v-2z',
@@ -66,6 +69,7 @@ export const searchPortalLocale = {
             },
             {
                 selectId: PRIMO_JOURNAL_ARTICLES_SEARCH,
+                analyticsId: '2',
                 name: 'Journal articles',
                 // SchoolIcon
                 iconPath: 'M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z',
@@ -74,6 +78,7 @@ export const searchPortalLocale = {
             },
             {
                 selectId: PRIMO_JOURNAL_TITLE_SEARCH,
+                analyticsId: '4',
                 name: 'Journal titles',
                 // DescriptionIcon
                 iconPath:
@@ -87,12 +92,14 @@ export const searchPortalLocale = {
             },
             {
                 selectId: PRIMO_PEER_REVIEW_SEARCH,
+                analyticsId: '9',
                 name: 'Peer-reviewed',
                 placeholder: 'Enter a keyword, title, author',
                 link: `${urlRoot}search?query=any,contains,cows${primoPrefixShort}&facet=tlevel,include,peer_reviewed&offset=0`,
             },
             {
                 selectId: PRIMO_PHYSICAL_ITEMS_SEARCH,
+                analyticsId: '5',
                 name: 'Physical items',
                 // InboxIcon
                 iconPath:
@@ -102,6 +109,7 @@ export const searchPortalLocale = {
             },
             {
                 selectId: PRIMO_VIDEO_AUDIO_SEARCH,
+                analyticsId: '3',
                 name: 'Video and audio',
                 // MovieIcon
                 iconPath:
@@ -115,6 +123,7 @@ export const searchPortalLocale = {
             },
             {
                 selectId: EXAM_PAPER_SEARCH_TYPE,
+                analyticsId: '7',
                 name: 'Past exam papers',
                 // FindInPageIcon
                 iconPath:
@@ -124,6 +133,7 @@ export const searchPortalLocale = {
             },
             {
                 selectId: COURSE_RESOURCE_SEARCH_TYPE,
+                analyticsId: '8',
                 name: 'Course reading lists',
                 // ListAltIcon
                 iconPath:
