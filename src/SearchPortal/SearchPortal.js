@@ -2,13 +2,13 @@ import overrides from './css/overrides.css';
 import {
     COURSE_RESOURCE_SEARCH_TYPE,
     EXAM_PAPER_SEARCH_TYPE,
-    PRIMO_LIBRARY_SEARCH,
     PRIMO_BOOKS_SEARCH,
     PRIMO_JOURNAL_ARTICLES_SEARCH,
     PRIMO_JOURNAL_TITLE_SEARCH,
+    PRIMO_LIBRARY_SEARCH,
     PRIMO_PEER_REVIEW_SEARCH,
-    PRIMO_VIDEO_AUDIO_SEARCH,
     PRIMO_PHYSICAL_ITEMS_SEARCH,
+    PRIMO_VIDEO_AUDIO_SEARCH,
     searchPortalLocale,
 } from './searchPortal.locale';
 import { throttle } from 'throttle-debounce';
@@ -624,8 +624,8 @@ class SearchPortal extends HTMLElement {
         !!button && button.setAttribute('id', `search-portal-type-select-item-${index}`);
         const slug = entry.name.toLowerCase().replace(/ /g, '-');
         !!slug && !!button && button.setAttribute('data-testid', `portal-search-type-${slug}`);
-        !!button && button.setAttribute('data-analyticsid', `primo-search-item-${index}`);
-        !!button && button.setAttribute('data-primo-search-form', `primo-search-item-${index}`);
+        !!button && button.setAttribute('data-analyticsid', `primo-search-item-${entry?.analyticsId}`);
+        !!button && button.setAttribute('data-primo-search-form', `primo-search-item-${entry?.analyticsId}`);
         //!!button && !!svg && button.appendChild(svg);
         !!label && !!button && button.appendChild(label);
 
