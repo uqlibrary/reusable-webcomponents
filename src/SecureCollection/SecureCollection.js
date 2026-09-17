@@ -393,7 +393,8 @@ class SecureCollection extends HTMLElement {
 
     isSpecialTestMode() {
         /* istanbul ignore next */
-        if (window.location.host !== 'localhost:8080' &&
+        if (
+            window.location.host !== 'localhost:8080' &&
             !window.location.pathname.startsWith('/reusable-webcomponents-staging/')
         ) {
             return false;
