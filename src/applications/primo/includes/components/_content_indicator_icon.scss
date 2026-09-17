@@ -32,6 +32,7 @@
 }
 
 /* ensure there can't be two of our indicators */
+uql-course-reading-list-sidebar-panel + uql-course-reading-list-sidebar-panel,
 div.uql-cultural-advice-content-indicator + div.uql-cultural-advice-content-indicator,
 div.uql-course-resource-content-indicator + div.uql-course-resource-content-indicator {
   display: none;
