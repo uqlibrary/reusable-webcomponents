@@ -441,6 +441,7 @@ body.custom-nde-theme {
 
 
   /* eg full, Locations section, "location" first link */
+  /* eg brief, quick filters buttons, has special buttons */
   button:has(> span:nth-of-type(1)) {
     &:not(:has(> div)):not(:has(> span:nth-of-type(2))):not(:has(> mat-icon:nth-of-type(2))) {
       --uql-button-style-type: seven;
@@ -457,7 +458,7 @@ body.custom-nde-theme {
       }
       &.selected-filters-container {
         background-color: #fff;
-        border-width: 2px;
+        border-width: 1px;
         &:hover {
           text-decoration: underline;
           background-color: var(--uq-main-purple);
@@ -1041,20 +1042,6 @@ body.custom-nde-theme {
         mat-icon * {
           fill: #fff;
         }
-      }
-    }
-  }
-
-  nde-quick-filters button {
-    --uql-button-style-type: twentyseven;
-    @include uqSecondaryButton();
-    --sys-outline-variant: var(--uq-main-purple);
-    --sys-on-background: var(--uq-main-purple);
-    border-width: 1px;
-    transition: none;
-    &:hover {
-      .mdc-button__label {
-        color: #fff;
       }
     }
   }

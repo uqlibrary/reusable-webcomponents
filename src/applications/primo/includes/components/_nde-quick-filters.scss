@@ -15,8 +15,17 @@ nde-selected-filters-container {
       border-radius: var(--uq-border-radius);
     }
     mat-chip-listbox mat-chip-option {
-      border: var(--uq-button-border) !important;
       border-radius: var(--uq-border-radius);
+      &:hover {
+        background-color: var(--uq-main-purple);
+        .chipText {
+          color: #fff;
+          text-decoration: underline;
+        }
+        mat-icon path {
+          fill: #fff;
+        }
+      }
     }
   }
 }
@@ -36,5 +45,32 @@ nde-selected-filters {
 nde-quick-filters {
   button.quick-filter-btn {
     border-radius: var(--uq-border-radius);
+  }
+
+  button.quick-filter-btn-active {
+    &:hover {
+      background-color: var(--uq-main-purple);
+      color: #fff;
+      text-decoration: underline;
+    }
+  }
+
+  div.quick-filters-container button.quick-filter-btn.mdc-button.quick-filter-btn-unselected {
+    --uql-button-style-type: twentyseven;
+    @include uqSecondaryButton();
+    text-decoration: none;
+    span.mdc-button__label {
+      text-decoration: none;
+    }
+    --sys-outline-variant: var(--uq-main-purple);
+    --sys-on-background: var(--uq-main-purple);
+    border-width: 1px;
+    transition: none;
+    &:hover {
+      .mdc-button__label {
+        color: #fff;
+        text-decoration: underline;
+      }
+    }
   }
 }
