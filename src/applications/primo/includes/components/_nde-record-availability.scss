@@ -2,12 +2,12 @@ nde-record-availability {
   div.availability-status:has(button.available-at-button) {
     border-radius: var(--uq-border-radius);
     border: 1px solid var(--sys-primary);
-    margin-top: .25rem;
-    padding: 5px 1rem 4px 0.8rem;
+    // make the button fill as much of the parent div as can be (except the icon gets in the way) to make the div take the hover effect
+    margin-block: 0;
+    padding: 0 0 0 0.8rem;
     mat-icon.mat-icon.available-record-indicator-color circle {
       fill: var( --uq-main-purple);
     }
-    &:has(button.available-at-button:focus),
     &:has(button.available-at-button:hover) {
       background-color: var( --uq-main-purple);
       opacity: 1;
@@ -18,7 +18,7 @@ nde-record-availability {
     }
     button:has(> span:nth-child(5)) {
       --uql-button-style-type: avail;
-      &:hover, &:focus {
+      &:hover {
         span.mat-mdc-button-persistent-ripple::before {
           background-color: var(--uq-main-purple);
           color: #fff;
@@ -30,26 +30,45 @@ nde-record-availability {
         color: #fff;
         span.mdc-button__label:not(:has(mat-icon)) {
           line-height: normal;
+        }
+      }
+    }
+    button.available-at-button {
+      text-decoration: none;
+      padding-block: .25rem;
+      padding-right: 1.25rem;
+      margin-right: 0;
+      .mdc-button__label {
+        text-decoration: none;
+      }
+      &:hover {
+        .mdc-button__label {
           text-decoration: underline;
         }
       }
     }
-    button.available-at-button:focus,
-    button.available-at-button:hover {
-      .mdc-button__label {
-        text-decoration: none;
+  }
+  // needs strong specificity :(
+  .quicklink-button.quicklink-button-small-icon.quicklink-button-fixed-height.mdc-button.mat-mdc-button.mat-primary.mat-mdc-button-base,
+  .quicklink-button.mat-body-medium.quicklink-button-small-icon.mdc-button.mat-mdc-button.mat-primary.mat-mdc-button-base {
+    text-decoration: none;
+    span.mdc-button__label span {
+      text-decoration: none;
+    }
+    &:hover {
+      span.mdc-button__label span {
+        text-decoration: underline;
       }
     }
   }
-  .quicklink-button {
-    border-radius: var(--uq-border-radius);
-  }
-  .quicklinks-expand-button.mat-mdc-icon-button {
-    border-top-right-radius: var(--uq-border-radius);
-    border-bottom-right-radius: var(--uq-border-radius);
-  }
-  .quicklinks-expand-button mat-icon {
-    /* move the icon down a titch */
-    margin-top: 2px;
+  .quicklinks-expand-button {
+    &.mat-mdc-icon-button {
+      border-top-right-radius: var(--uq-border-radius);
+      border-bottom-right-radius: var(--uq-border-radius);
+    }
+    mat-icon {
+      // move the icon down a titch
+      margin-top: 2px;
+    }
   }
 }
