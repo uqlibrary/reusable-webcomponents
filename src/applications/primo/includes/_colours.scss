@@ -389,7 +389,7 @@ body.custom-nde-theme {
 
   /* unsure */
   a:has(> span:nth-of-type(5)):has(> span.mdc-button__label > span) {
-    &:not(:has(> span > div)):not(:has(> div):not(:has(> mat-icon))):not([data-qa^="account-menu"]) {
+    &:not(:has(> span > div)):not(:has(> div)):not(:has(> mat-icon)):not([data-qa^="account-menu"]) {
       --uql-button-style-type: fiveother;
 
       &:hover {
