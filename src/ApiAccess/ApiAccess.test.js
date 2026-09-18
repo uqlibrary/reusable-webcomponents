@@ -14,7 +14,7 @@ describe('ApiAccess', () => {
         }));
 
         apiAccess.loadTrainingEvents(10, 100);
-        expect(fetchFn).toHaveBeenCalledWith('training_events?take=10&filterIds[]=100');
+        expect(fetchFn).toHaveBeenCalledWith('training_events?take=10&filterIds[]=100', 'nocachebuster');
 
         window.fetch = fetch;
     });

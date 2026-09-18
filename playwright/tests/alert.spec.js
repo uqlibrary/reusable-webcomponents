@@ -1,5 +1,5 @@
-import { test, expect } from '@playwright/test';
-import { assertAccessibility } from '../lib/axe';
+import { test, expect } from '@uq/pw/test';
+import { assertAccessibility } from '@uq/pw/lib/axe';
 
 const FIRST_ALERT_ID = 'alert-1';
 const SECOND_ALERT_ID = 'alert-4';

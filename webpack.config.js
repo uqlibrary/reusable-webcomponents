@@ -52,14 +52,27 @@ module.exports = () => {
     console.log('BUILD URL        : ', componentJsPath[process.env.NODE_ENV]);
     console.log('BUILD PATH       : ', buildPath(process.env.NODE_ENV, 'index'));
     console.log('------------------------------------------------------------');
+    // Under Playwright e2e (PW_IS_RUNNING) the dev server only needs to serve a
+    // static bundle: no source maps (istanbul maps coverage to source itself),
+    // no hot reload / file watching, and no error overlay whose iframe can
+    // intercept clicks and cause flaky timeouts. See CI-TEST-PERFORMANCE-PLAYBOOK Lever 6.
+    const isPlaywright = !!process.env.PW_IS_RUNNING;
     return {
+        ...(isPlaywright ? { devtool: false } : {}),
         ...((isLocalDev && {
             devServer: {
-                hot: true,
-                liveReload: true,
-                watchFiles: {
-                    paths: ['src/**/*', 'index*.html', 'src/**/*.html'],
+                hot: !isPlaywright,
+                liveReload: !isPlaywright,
+                client: {
+                    overlay: !isPlaywright,
                 },
+                ...(isPlaywright
+                    ? {}
+                    : {
+                          watchFiles: {
+                              paths: ['src/**/*', 'index*.html', 'src/**/*.html'],
+                          },
+                      }),
                 // serve raw source files (e.g. component css/js referenced by relative paths
                 // in example.html pages) that aren't part of the compiled entry bundles.
                 // watch is disabled here (watchFiles above already triggers reloads) to avoid

@@ -56,16 +56,18 @@ npm ci
 - run `npm ci` to install packages.
 - run `npm run start` to run the project locally while developing with a listener (calls api on staging for data)
 - run `npm run start:mock` to run the project locally with mock data
-  - While this is running, you can run `npm run test:e2e` to manually run playwright tests, headless
+  - `npm run test:e2e` runs the playwright tests headless. It starts its own mock server, so you do not need `start:mock` running first (if it is, playwright reuses it).
   - and `npm run test:e2e:show` in headed mode
   - you can restrict to a single test by temporarily putting ".only" on the test
   - you can run a single suite by appending all or part of the filename to the test, eg `npm run test:e2e openaccess`
   - you can also simply run `npx playwright test`
+- run `npm run test:unit` to run the jest unit tests headless (`npm run test:unit:cc` adds coverage)
+- run `npm run test:cc` to run both suites (jest + playwright) and print the merged code coverage report. It starts its own mock server, so you do not need `start:mock` running first (if it is, playwright reuses it).
 - run `npm run build` to run a `local` test build in the `dist` folder (this also replaces `gulp styles` in the old reusable for building css locally for pasting into live pages for test)
 - run `npm run build:staging` to run a `staging` test build in the `dist` folder
 - run `npm run build:production` to run a `production` test build in the `dist` folder
-- run `npm run prettier:test` to check all files for codestyles, and
-- run `npm run prettier:fix` to fix all codestyle issues
+- run `npm run typecheck` to type-check the playwright and config typescript with `tsc --noEmit`, and
+- run `npm run codestyles:files` to check `src` for codestyle issues (this is the check CI runs)
 
 localhost will run on port 8080: `http://localhost:8080/`
 
@@ -119,9 +121,31 @@ This must be an ANCHOR, not any other html element.
 
 ## Testing
 
-This repo uses [playwright.dev](https://playwright.dev/) tests. To run tests:
+This repo has jest unit tests and [playwright.dev](https://playwright.dev/) end-to-end tests, plus a typecheck and a merged coverage report. The CI test stage (`bin/codebuild-test.sh`) runs them in this order: code style, typecheck, jest unit tests, playwright e2e tests, then the merged coverage report.
 
-- locally: `npm run test:e2e`
+Unit tests (jest, jsdom):
+
+- `npm run test:unit` runs the jest unit tests (`npm run test` does the same)
+- `npm run test:unit:cc` runs them with coverage
+
+End-to-end tests (playwright):
+
+- `npm run test:e2e` runs the tests headless and starts its own mock server
+- `npm run test:e2e:show` runs them headed
+- `npm run test:e2e:failed` re-runs only the last failed tests
+- restrict to one test by temporarily adding `.only`, or to one suite by appending part of the filename, eg `npm run test:e2e openaccess`
+- `npx playwright test` also works
+
+Typecheck:
+
+- `npm run typecheck` runs `tsc --noEmit` over the playwright and config typescript
+
+Coverage:
+
+- `npm run test:cc` runs jest and e2e under coverage and prints a merged jest + playwright report
+- coverage is report-only for now. The 100% gate is wired but not enforced (see `scripts/code-coverage.sh` and the `nyc` block in `package.json`); it does not fail the build.
+
+The e2e suite runs hermetically. `playwright/test.ts` mocks every external host, and a guard fails any test that hits an unmocked external route, with a message asking you to mock it or add a cross-app test in the `e2e-testing` repo. Unmocked external calls were the biggest source of flakiness here.
 
 NOTE: CI testing uses environment variables stored on AWS to run playwright successfully.
 

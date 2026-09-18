@@ -1,5 +1,5 @@
-import { test, expect } from '@playwright/test';
-import { assertAccessibility } from '../lib/axe';
+import { test, expect } from '@uq/pw/test';
+import { assertAccessibility } from '@uq/pw/lib/axe';
 
 const _access = require('../../src/helpers/access');
 
@@ -61,7 +61,6 @@ test.describe('UQ Header', () => {
             await expect(headerElement.getByTestId('uq-header-search-button')).toBeVisible();
             await expect(headerElement.locator('.uq-header__search-query-input')).not.toBeVisible();
             await headerElement.getByTestId('uq-header-search-button').click();
-            await page.waitForTimeout(1200);
             await expect(headerElement.locator('.uq-header__search-query-input')).toBeVisible();
             await expect(headerElement.locator('.uq-header__search-query-input')).toBeVisible();
             await expect(headerElement.getByTestId('uq-header-search-input')).toBeVisible();

@@ -1,5 +1,5 @@
-import { test, expect } from '@playwright/test';
-import { assertAccessibility } from '../lib/axe';
+import { test, expect } from '@uq/pw/test';
+import { assertAccessibility } from '@uq/pw/lib/axe';
 
 test.describe('Search Portal', () => {
     /**
