@@ -403,8 +403,8 @@ body.custom-nde-theme {
   }
 
   /* eg versions button, eg Second opinion : an introduction to health sociology */
-  a:has(> span:nth-of-type(5)):has(> span.mdc-button__label > span) {
-    &:not(:has(> span > div)):not(:has(> div):not(:has(> mat-icon))):not([data-qa^="account-menu"]) {
+  a:has(> span:nth-of-type(5)):has(> span.mdc-button__label > span):has(> mat-icon) {
+    &:not(:has(> div)):not([data-qa^="account-menu"]) {
       --uql-button-style-type: five;
 
       // the big versions icon is BRIGHT GREEN OTB :(
@@ -412,13 +412,14 @@ body.custom-nde-theme {
         fill: var(--uq-main-purple);
       }
 
-      span.mdc-button__label > span {
-        text-decoration: underline;
-      }
-      span.mdc-button__label > span {
-        text-decoration: underline;
-        background-color: #fff;
+      span.mdc-button__label {
         color: var(--uq-main-purple);
+        > span {
+          text-decoration: underline;
+          text-decoration: underline;
+          background-color: #fff;
+          color: var(--uq-main-purple);
+        }
       }
 
       &:hover {
@@ -1095,6 +1096,12 @@ body.custom-nde-theme {
         // the big versions icon is BRIGHT GREEN OTB :(
         mat-icon.mat-icon.frbr-list-icon-color > svg > rect:first-of-type {
           fill: var(--uq-main-purple);
+        }
+        span.mdc-button__label {
+          color: var(--uq-main-purple);
+          > span {
+            color: var(--uq-main-purple);
+          }
         }
 
         &[routerlinkactive="active-link"] {
