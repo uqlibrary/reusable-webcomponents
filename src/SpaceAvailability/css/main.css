@@ -20,12 +20,14 @@
     border-style: solid;
     margin-top: 6px;
     background-color: var(--white);
+    transition: border-color 0.4s ease;
 }
 
 .space-availability__chart_bar {
     grid-area: 1 / 1;
     height: 30px;
     max-height: 100%;
+    transition: width 0.4s ease, background-color 0.4s ease;
 }
 
 .space-availability__chart_label {
@@ -47,13 +49,111 @@
 }
 
 .space-availability__bar_green {
-    background-color: var(--success-100);
+    --space-availability-bar-colour-light: var(--success-50);
+    --space-availability-bar-colour: var(--success-100);
+    background-color: var(--space-availability-bar-colour);
 }
 
 .space-availability__bar_yellow {
-    background-color: var(--warning-100);
+    --space-availability-bar-colour-light: var(--warning-50);
+    --space-availability-bar-colour: var(--warning-100);
+    background-color: var(--space-availability-bar-colour);
 }
 
 .space-availability__bar_red {
-    background-color: var(--error-100);
+    --space-availability-bar-colour-light: var(--error-50);
+    --space-availability-bar-colour: var(--error-100);
+    background-color: var(--space-availability-bar-colour);
+}
+
+.space-availability__chart_bar--loading {
+    background-image: repeating-linear-gradient(
+        45deg,
+        var(--space-availability-bar-colour),
+        var(--space-availability-bar-colour) 10px,
+        color-mix(in srgb, var(--space-availability-bar-colour-light) 100%, white) 10px,
+        color-mix(in srgb, var(--space-availability-bar-colour-light) 100%, white) 20px
+    );
+    background-size: 28px 28px;
+    animation: space-availability-stripes 1s linear infinite;
+}
+
+@keyframes space-availability-stripes {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: 28px 0;
+    }
+}
+
+
+.uq-card-grid {
+    --layout-gap: 2rem;
+    display: grid;
+    gap: var(--layout-gap);
+    grid-template-columns: 1fr;
+    container-type:inline-size
+}
+
+.uq-card-grid > * {
+    grid-column:auto/span 1
+}
+
+.uq-card-grid--target-1x > * {
+    overflow:hidden
+}
+
+.uq-card-grid--target-2x {
+    grid-template-columns:1fr 1fr
+}
+
+.uq-card-grid--target-2x > * {
+    grid-column:auto/span 2
+}
+
+@media screen and (min-width: 550px) {
+    .uq-card-grid--target-2x > * {
+        grid-column:auto/span 1
+    }
+}
+
+.uq-card-grid--target-3x {
+    grid-template-columns:repeat(12, 1fr)
+}
+
+.uq-card-grid--target-3x > * {
+    grid-column:auto/span 12
+}
+
+@media screen and (min-width: 550px) {
+    .uq-card-grid--target-3x > * {
+        grid-column:auto/span 6
+    }
+}
+
+@media screen and (min-width: 667px) {
+    .uq-card-grid--target-3x > * {
+        grid-column:auto/span 4
+    }
+}
+
+.uq-card-grid--target-4x {
+    grid-template-columns:repeat(12, 1fr)
+}
+
+.uq-card-grid--target-4x > * {
+    grid-column:auto/span 12
+}
+
+@media screen and (min-width: 550px) {
+    .uq-card-grid--target-4x > * {
+        grid-column:auto/span 6
+    }
+}
+
+@media screen and (min-width: 799px) {
+    .uq-card-grid--target-4x > * {
+        grid-column:auto/span 3
+    }
 }

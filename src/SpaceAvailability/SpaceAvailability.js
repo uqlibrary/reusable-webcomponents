@@ -5,9 +5,10 @@ const SPACE_AVAILABILITY_TITLE_ID = 'space-availability__title';
 const SPACE_AVAILABILITY_SUBTITLE_ID = 'space-availability__subtitle';
 const SPACE_AVAILABILITY_CHART_CONTAINER_ID = 'space-availability__chart_container';
 const SPACE_AVAILABILITY_CHART_BAR_ID = 'space-availability__chart_bar';
+const SPACE_AVAILABILITY_CHART_BAR_LOADING_CLASS = 'space-availability__chart_bar--loading';
 const SPACE_AVAILABILITY_CHART_LABEL_ID = 'space-availability__chart_label';
 
-const REFRESH_INTERVAL_TICKS = 1000 * 60 * 5; // 5 minutes
+const REFRESH_INTERVAL_TICKS = 1000 * 60 * 1; // 5 minutes
 
 const spaceAvailabilityClass = {
     border: {
@@ -40,7 +41,9 @@ class SpaceAvailability extends HTMLElement {
     constructor() {
         super();
 
-        this.spaceId = this.getAttribute('id');
+        const idAttribute = this.getAttribute('id');
+        const id = Number(idAttribute);
+        this.spaceId = idAttribute === null || Number.isNaN(id) ? 0 : id;
         this.refreshIntervalTicks = REFRESH_INTERVAL_TICKS;
 
         this.shadowDOM = this.attachShadow({ mode: 'open' });
@@ -54,14 +57,16 @@ class SpaceAvailability extends HTMLElement {
     }
 
     async loadSpaceAvailability() {
-        console.log('LOADING DATA');
         const apiAccess = new ApiAccess();
+        this.setBarLoading(true);
         try {
             const data = await apiAccess.loadSpacesAvailability();
             this.render(data?.find(space => space.id === this.spaceId));
         } catch (error) {
             console.error('Error loading space availability:', error);
             this.showError('Error loading data');
+        } finally {
+            this.setBarLoading(false);
         }
     }
 
@@ -91,6 +96,11 @@ class SpaceAvailability extends HTMLElement {
     setBarPercentageWidth(percentage) {
         this.shadowDOM.querySelector(`.${SPACE_AVAILABILITY_CHART_BAR_ID}`).style.width = `${percentage}%`;
     }
+    setBarLoading(isLoading) {
+        this.shadowDOM
+            .querySelector(`.${SPACE_AVAILABILITY_CHART_BAR_ID}`)
+            .classList.toggle(SPACE_AVAILABILITY_CHART_BAR_LOADING_CLASS, isLoading);
+    }
     setBorderColour(colourClass) {
         this.resetElementClasses(SPACE_AVAILABILITY_CHART_CONTAINER_ID);
         this.shadowDOM.querySelector(`.${SPACE_AVAILABILITY_CHART_CONTAINER_ID}`).classList.add(colourClass);
@@ -106,7 +116,7 @@ class SpaceAvailability extends HTMLElement {
     }
     
     render(data) {
-        const percentage = this.getPercentage(data);
+        const percentage = Math.round(this.getPercentage(data));
         this.setBarPercentageWidth(percentage);
         this.setBarColourState(percentage);
         this.setBarText(this.getBarMessage(percentage));

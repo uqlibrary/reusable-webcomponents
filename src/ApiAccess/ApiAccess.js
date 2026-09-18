@@ -303,7 +303,7 @@ class ApiAccess {
         }
     }
 
-    async fetchOtherAPI(url, headers) {
+    async fetchOtherAPI(url, feCacheLength = 'millisecond', headers={}) {
         const options = {
             ...headers,
         };
@@ -318,8 +318,19 @@ class ApiAccess {
                 throw new Error(msg);
             }
         } else {
+            const connector = url.indexOf('?') > -1 ? '&' : '?';
+            let addTimestamp = ''; // default to no FE cache buster
+            if (feCacheLength === 'millisecond') {
+                addTimestamp = `${connector}ts=${new Date().getTime()}`;
+            } else if (feCacheLength === 'minute') {
+                addTimestamp = `${connector}ts=${Math.floor(Date.now() / 60000)}`;
+            }
+
+            const finalUrl = `${url}${addTimestamp}`;
+            window.location.hostname === 'localhost' && console.log(url, 'calls: ', finalUrl);
+
             // this assumes non api.library urls
-            const response = await fetch(url, options);
+            const response = await fetch(finalUrl, options);
             if (!response?.ok) {
                 window.location.hostname === 'localhost' &&
                     console.log(

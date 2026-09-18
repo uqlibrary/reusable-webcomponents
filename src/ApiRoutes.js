@@ -68,7 +68,7 @@ class ApiRoutes {
 
     SPACES_AVAILABILITY_API() {
         return {
-            apiUrl: 'homepage/headcount',
+            apiUrl: 'homepage/headcount.json',
         };
     }
 }
