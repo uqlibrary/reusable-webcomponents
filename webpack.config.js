@@ -73,6 +73,15 @@ module.exports = () => {
                               paths: ['src/**/*', 'index*.html', 'src/**/*.html'],
                           },
                       }),
+                // serve raw source files (e.g. component css/js referenced by relative paths
+                // in example.html pages) that aren't part of the compiled entry bundles.
+                // watch is disabled here (watchFiles above already triggers reloads) to avoid
+                // chokidar recursively watching the whole repo (incl. node_modules) -> EMFILE
+                static: {
+                    directory: path.resolve(__dirname),
+                    publicPath: '/',
+                    watch: false,
+                },
             },
         }) ||
             {}),
@@ -188,6 +197,7 @@ module.exports = () => {
                 'process.env.BRANCH': JSON.stringify(config.environment),
                 'process.env.FULL_PATH': JSON.stringify(process.env.FULL_PATH),
                 'process.env.API_URL': JSON.stringify(config.api),
+                'process.env.ASSETS_API_URL': JSON.stringify(`${config.url()}api/`),
             }),
         ].filter(Boolean),
         mode: isLocalDev ? 'development' : 'none',
