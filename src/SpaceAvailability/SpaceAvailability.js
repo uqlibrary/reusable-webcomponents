@@ -5,10 +5,16 @@ const SPACE_AVAILABILITY_TITLE_ID = 'space-availability__title';
 const SPACE_AVAILABILITY_SUBTITLE_ID = 'space-availability__subtitle';
 const SPACE_AVAILABILITY_CHART_CONTAINER_ID = 'space-availability__chart_container';
 const SPACE_AVAILABILITY_CHART_BAR_ID = 'space-availability__chart_bar';
-const SPACE_AVAILABILITY_CHART_BAR_LOADING_CLASS = 'space-availability__chart_bar--loading';
+const SPACE_AVAILABILITY_CHART_BAR_LOADING_CLASS = 'space-availability__chart_bar_loading';
 const SPACE_AVAILABILITY_CHART_LABEL_ID = 'space-availability__chart_label';
+const SPACE_AVAILABILITY_CHART_BAR_LOADER_ID = 'space-availability__chart_bar_loader';
+const SPACE_AVAILABILITY_REFRESH_PROGRESS_ID = 'space-availability__refresh_progress';
+const SPACE_AVAILABILITY_REFRESH_PROGRESS_BAR_ID = 'space-availability__refresh_progress_bar';
+const SPACE_AVAILABILITY_STATUS_ID = 'space-availability__status';
+const SPACE_AVAILABILITY_REGION_LABEL = 'UQ Library Space Availability';
+const SPACE_AVAILABILITY_INITIAL_LABEL_TEXT = 'Loading data';
 
-const REFRESH_INTERVAL_TICKS = 1000 * 60 * 1; // 5 minutes
+const REFRESH_INTERVAL_TICKS = 1000 * 60 * 2; // 2 minutes, as per peak server vemcount generation
 
 const spaceAvailabilityClass = {
     border: {
@@ -25,13 +31,18 @@ const spaceAvailabilityClass = {
 const template = document.createElement('template');
 template.innerHTML = `
     <style>${styles.toString()}</style>
-    <div role="region" aria-label="UQ Library Space Availability">
+    <div role="region" aria-label="${SPACE_AVAILABILITY_REGION_LABEL}" aria-busy="true">
         <div style="width: 100%" data-testid="spaceAvailabilityWrapper" id="spaceAvailabilityWrapper">
-            <div class="${SPACE_AVAILABILITY_TITLE_ID}">Space</div>
-            <div class="${SPACE_AVAILABILITY_SUBTITLE_ID}">0 seats</div>
+            <div class="${SPACE_AVAILABILITY_TITLE_ID}" role="heading" aria-level="3">${SPACE_AVAILABILITY_INITIAL_LABEL_TEXT}</div>
+            <div class="${SPACE_AVAILABILITY_SUBTITLE_ID}">${SPACE_AVAILABILITY_INITIAL_LABEL_TEXT}</div>
+            <div class="${SPACE_AVAILABILITY_STATUS_ID} visually-hidden" role="status"></div>
             <div class="${SPACE_AVAILABILITY_CHART_CONTAINER_ID}">
                 <div class="${SPACE_AVAILABILITY_CHART_BAR_ID}" style="width:0%;"></div>
-                <div class="${SPACE_AVAILABILITY_CHART_LABEL_ID}">0% of capacity</div>
+                <div class="${SPACE_AVAILABILITY_CHART_BAR_LOADER_ID}" aria-hidden="true"></div>
+                <div class="${SPACE_AVAILABILITY_CHART_LABEL_ID}">${SPACE_AVAILABILITY_INITIAL_LABEL_TEXT}</div>
+            </div>
+            <div class="${SPACE_AVAILABILITY_REFRESH_PROGRESS_ID}" aria-hidden="true">
+                <div class="${SPACE_AVAILABILITY_REFRESH_PROGRESS_BAR_ID}"></div>
             </div>
         </div>
     </div>
@@ -53,7 +64,18 @@ class SpaceAvailability extends HTMLElement {
 
     async updateChart(id) {
         await this.loadSpaceAvailability();
-        setInterval(() => this.loadSpaceAvailability(), this.refreshIntervalTicks);
+        this.startRefreshProgress();
+        setInterval(() => {
+            this.loadSpaceAvailability();
+            this.startRefreshProgress();
+        }, this.refreshIntervalTicks);
+    }
+
+    startRefreshProgress() {
+        const bar = this.shadowDOM.querySelector(`.${SPACE_AVAILABILITY_REFRESH_PROGRESS_BAR_ID}`);
+        bar.style.animation = 'none';
+        void bar.offsetWidth; // force reflow so the animation restarts from 0%
+        bar.style.animation = `space-availability-refresh-progress ${this.refreshIntervalTicks}ms linear`;
     }
 
     async loadSpaceAvailability() {
@@ -71,9 +93,21 @@ class SpaceAvailability extends HTMLElement {
     }
 
     showError(message) {
+        if (this.hasInitialText(SPACE_AVAILABILITY_TITLE_ID)) {
+            this.setRegionLabel(message);
+            this.setTitleText(message);
+        }
+        if (this.hasInitialText(SPACE_AVAILABILITY_SUBTITLE_ID)) {
+            this.setSubTitleText(message);
+        }
+        this.setStatusMessage(message);
         this.setBarColourState(100);
         this.setBarText(message);
         this.setBarPercentageWidth(0);
+    }
+
+    hasInitialText(elementId) {
+        return this.shadowDOM.querySelector(`.${elementId}`).innerText === SPACE_AVAILABILITY_INITIAL_LABEL_TEXT;
     }
     
     getBarMessage = percentage => `${percentage}% of capacity`;
@@ -85,6 +119,14 @@ class SpaceAvailability extends HTMLElement {
     }
     setTitleText(message) {
         this.shadowDOM.querySelector(`.${SPACE_AVAILABILITY_TITLE_ID}`).innerText = message;
+        this.setRegionLabel(message);
+    }
+    setRegionLabel(name) {
+        const label = name ? `${SPACE_AVAILABILITY_REGION_LABEL}: ${name}` : SPACE_AVAILABILITY_REGION_LABEL;
+        this.shadowDOM.querySelector('[role="region"]').setAttribute('aria-label', label);
+    }
+    setStatusMessage(message) {
+        this.shadowDOM.querySelector(`.${SPACE_AVAILABILITY_STATUS_ID}`).innerText = message;
     }
     setSubTitleText(message) {
         this.shadowDOM.querySelector(`.${SPACE_AVAILABILITY_SUBTITLE_ID}`).innerText = message;
@@ -98,7 +140,10 @@ class SpaceAvailability extends HTMLElement {
     }
     setBarLoading(isLoading) {
         this.shadowDOM
-            .querySelector(`.${SPACE_AVAILABILITY_CHART_BAR_ID}`)
+            .querySelector('[role="region"]')
+            .setAttribute('aria-busy', String(isLoading));
+        this.shadowDOM
+            .querySelector(`.${SPACE_AVAILABILITY_CHART_BAR_LOADER_ID}`)
             .classList.toggle(SPACE_AVAILABILITY_CHART_BAR_LOADING_CLASS, isLoading);
     }
     setBorderColour(colourClass) {
@@ -117,11 +162,13 @@ class SpaceAvailability extends HTMLElement {
     
     render(data) {
         const percentage = Math.round(this.getPercentage(data));
+        const titleMessage = this.getTitleMessage(data?.displayName || '');
         this.setBarPercentageWidth(percentage);
         this.setBarColourState(percentage);
         this.setBarText(this.getBarMessage(percentage));
-        this.setTitleText(this.getTitleMessage(data?.displayName || ''));
+        this.setTitleText(titleMessage);
         this.setSubTitleText(this.getSubTitleMessage(data?.capacity || ''));
+        this.setStatusMessage(`${titleMessage || 'Space availability'} updated: ${this.getBarMessage(percentage)}`);
     }
 
     resetElementClasses(elementId) {
