@@ -53,9 +53,21 @@ nde-advanced-search {
 
   /* make input field take whole line */
   [aria-labelledby="basicQueryField"] {
+    margin-block: 0.75rem;
+    padding-block: 0.25rem;
+    display: grid;
     grid-template-areas:
       "a a b b"
       "c c c c";
+    > :first-child {
+      grid-area: a;
+    }
+    > :nth-child(2) {
+      grid-area: b;
+    }
+    > :nth-child(3) {
+      grid-area: c;
+    }
   }
   .mat-mdc-tab-body-wrapper {
     form.advanced-search-form {
