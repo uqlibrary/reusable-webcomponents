@@ -20,13 +20,13 @@ const spaceAvailabilityClass = {
     border: {
         green: 'space-availability__border_green',
         yellow: 'space-availability__border_yellow',
-        red: 'space-availability__border_red'
+        red: 'space-availability__border_red',
     },
     bar: {
         green: 'space-availability__bar_green',
         yellow: 'space-availability__bar_yellow',
-        red: 'space-availability__bar_red'
-    }
+        red: 'space-availability__bar_red',
+    },
 };
 const template = document.createElement('template');
 template.innerHTML = `
@@ -83,7 +83,7 @@ class SpaceAvailability extends HTMLElement {
         this.setBarLoading(true);
         try {
             const data = await apiAccess.loadSpacesAvailability();
-            this.render(data?.find(space => space.id === this.spaceId));
+            this.render(data?.find((space) => space.id === this.spaceId));
         } catch (error) {
             console.error('Error loading space availability:', error);
             this.showError('Error loading data');
@@ -109,10 +109,10 @@ class SpaceAvailability extends HTMLElement {
     hasInitialText(elementId) {
         return this.shadowDOM.querySelector(`.${elementId}`).innerText === SPACE_AVAILABILITY_INITIAL_LABEL_TEXT;
     }
-    
-    getBarMessage = percentage => `${percentage}% of capacity`;
-    getTitleMessage = name => name || '';
-    getSubTitleMessage = count => count != null ? `${count} seats` : '';
+
+    getBarMessage = (percentage) => `${percentage}% of capacity`;
+    getTitleMessage = (name) => name || '';
+    getSubTitleMessage = (count) => (count != null ? `${count} seats` : '');
     getPercentage(data) {
         if (!data || !data.capacity || !data.headCount) return 0;
         return Math.min(100, Math.max(0, (data.headCount / data.capacity) * 100));
@@ -139,9 +139,7 @@ class SpaceAvailability extends HTMLElement {
         this.shadowDOM.querySelector(`.${SPACE_AVAILABILITY_CHART_BAR_ID}`).style.width = `${percentage}%`;
     }
     setBarLoading(isLoading) {
-        this.shadowDOM
-            .querySelector('[role="region"]')
-            .setAttribute('aria-busy', String(isLoading));
+        this.shadowDOM.querySelector('[role="region"]').setAttribute('aria-busy', String(isLoading));
         this.shadowDOM
             .querySelector(`.${SPACE_AVAILABILITY_CHART_BAR_LOADER_ID}`)
             .classList.toggle(SPACE_AVAILABILITY_CHART_BAR_LOADING_CLASS, isLoading);
@@ -159,7 +157,7 @@ class SpaceAvailability extends HTMLElement {
         this.setBorderColour(spaceAvailabilityClass.border[colour]);
         this.setBarColour(spaceAvailabilityClass.bar[colour]);
     }
-    
+
     render(data) {
         const percentage = Math.round(this.getPercentage(data));
         const titleMessage = this.getTitleMessage(data?.displayName || '');
