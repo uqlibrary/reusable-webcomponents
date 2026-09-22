@@ -2,7 +2,18 @@ nde-search-filters-side-nav {
   .side-nav-filters-actions button {
     white-space: nowrap;
     &.apply-filters-btn {
-      @include uqPrimaryButton();
+      &.mdc-button.mdc-button--unelevated.mat-mdc-unelevated-button.mat-primary.mat-mdc-button-base { // specificity
+        @include uqPrimaryButton();
+
+        span.mdc-button__label {
+          color: #fff;
+        }
+        &:hover {
+          span.mdc-button__label {
+            color: var(--uq-main-purple);
+          }
+        }
+      }
     }
     &:not(.apply-filters-btn) { // clear button
       @include uqTertiaryButton();
