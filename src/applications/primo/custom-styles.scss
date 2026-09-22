@@ -385,13 +385,11 @@ body.custom-nde-theme {
   }
   /* END hide big icon on "no results" page */
 
-  /* let the 404 page breathe */
+  /* let the page breathe */
   .search-container {
-    &:has(nde-full-display-error-page) {
-      padding-bottom: 50px; // "50px" taken from spacing on homepage
-    }
+    margin-bottom: 50px; // "50px" taken from spacing on homepage
   }
-  /* END let the 404 page breathe */
+  /* END let the page breathe */
 
   /* hide big icon on "no results" & "record not found" pages */
   nde-full-display-error-page {
