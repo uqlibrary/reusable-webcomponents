@@ -14,7 +14,7 @@ const SPACE_AVAILABILITY_HEADING_SR_PREFIX_LABEL = 'UQ Library Space Availabilit
 const SPACE_AVAILABILITY_INITIAL_LABEL_TEXT = 'Loading data';
 const SPACE_AVAILABILITY_WRAPPER_ID = 'spaceAvailabilityWrapper';
 
-const REFRESH_INTERVAL_TICKS = 1000 * 10; //60 * 2; // 2 minutes, as per peak server vemcount generation
+const REFRESH_INTERVAL_TICKS = 1000 * 60 * 2; // 2 minutes, as per peak server vemcount generation
 
 const spaceAvailabilityClass = {
     border: {
