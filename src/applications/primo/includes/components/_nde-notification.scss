@@ -25,20 +25,19 @@ nde-notification {
         width: 100%;
         padding: 0;
         background-color: var(--uq-background-alert-info);
+        position: relative;
 
         & > div {
           padding: 1rem;
           padding-left: 3rem;
+          justify-content: flex-start;
         }
 
-        > div > div > span:first-of-type {
-          position: relative;
           &:before {
             @include uqBkgIconProperties();
             background-image: var(--uq-icon--info);
-            top: -2px;
-            left: -2rem;
-          }
+          top: 23px;
+          left: 16px;
         }
       }
     }
