@@ -230,6 +230,7 @@ class ApiAccess {
         const API_URL =
             process.env.ASSETS_API_URL || 'https://assets.library.uq.edu.au/reusable-webcomponents-staging/api/';
         const headcountUrl = `${API_URL}${new ApiRoutes().SPACES_AVAILABILITY_API().apiUrl}`;
+
         return await this.fetchOtherAPI(headcountUrl)
             .then((data) => {
                 return data.data.locationList;
