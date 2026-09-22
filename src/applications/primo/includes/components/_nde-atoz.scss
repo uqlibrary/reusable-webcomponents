@@ -1,8 +1,19 @@
 nde-atoz {
   button.atoz-button {
-    .mdc-button__label {
-      text-decoration: underline;
-      color: var(--uq-main-purple);
+    &.mat-label-medium.mdc-button.mat-mdc-button.mat-unthemed.mat-mdc-button-base { // for specificity :(
+      border: 1px solid var(--lightBG);
+      --whiteText: #fff; // colour
+      --sys-primary: var(--lightBG); // bkg colour
+      &.selected {
+        border-color: var(--uq-main-purple);
+        font-weight: 500;
+      }
+
+      .mdc-button__label {
+        text-decoration: underline;
+        color: var(--uq-main-purple);
+      }
     }
   }
 }
+
