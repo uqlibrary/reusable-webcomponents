@@ -376,18 +376,6 @@ body.custom-nde-theme {
   }
   /* END mobile save/export popup to have correct border radius */
 
-  /* hide divider beside sort button */
-  nde-search-results-container {
-    div:has(> nde-sort-by)  {
-      > div {
-        > mat-divider {
-          --sys-outline: transparent;
-        }
-      }
-    }
-  }
-  /* END hide divider beside sort button */
-
   /* let the page breathe */
   .search-container {
     margin-bottom: 50px; // "50px" taken from spacing on homepage
@@ -427,65 +415,6 @@ body.custom-nde-theme {
     }
   }
   /* END correct font size on options show-hide button */
-
-  mat-bottom-sheet-container {
-    border-top-left-radius: var(--uq-border-radius);
-    border-top-right-radius: var(--uq-border-radius);
-  }
-
-  /* form widths to be restricted */
-  nde-fetch-item > div.container, // citation finder
-  main.sub-container nde-base-request-form > div.request-form-container { // purchase request and resource delivery request
-    margin-inline: auto;
-    max-width: calc(var(--hero-layout-container-max-width) - 2 * var(--hero-layout-gap) - 3rem);
-  }
-  @media only screen and (max-width: 749.98px) {
-    .blank-request .two-columns {
-      grid-template-columns: 1fr;
-    }
-
-    nde-fetch-item > div.container .two-columns {
-      grid-template-columns: 1fr;
-    }
-  }
-  /* END form widths to be restricted */
-
-  /* make all the words the same font size on the "this form is not available" */
-  nde-restricted-form-page {
-    .description-container {
-      span.mat-body-small {
-        font-size: 1rem;
-      }
-    }
-  }
-  /* END make all the words the same font size on the "this form is not available" */
-
-  /* account page, fines tab, weird 330 weight for labels?!?!? */
-  .fine-item-container .fine-info .field-title {
-    font-weight: 500;
-  }
-  /* END account page, fines tab, weird 330 weight for labels?!?!? */
-  mat-bottom-sheet-container {
-    border-top-left-radius: var(--uq-border-radius);
-    border-top-right-radius: var(--uq-border-radius);
-  }
-
-  /* form widths to be restricted */
-  nde-fetch-item > div.container, // citation finder
-  main.sub-container nde-base-request-form > div.request-form-container { // purchase request and resource delivery request
-    margin-inline: auto;
-    max-width: calc(var(--hero-layout-container-max-width) - 2 * var(--hero-layout-gap) - 3rem);
-  }
-  @media only screen and (max-width: 749.98px) {
-    .blank-request .two-columns {
-      grid-template-columns: 1fr;
-    }
-
-    nde-fetch-item > div.container .two-columns {
-      grid-template-columns: 1fr;
-    }
-  }
-  /* END form widths to be restricted */
 
   /* make all the words the same font size on the "this form is not available" */
   nde-restricted-form-page {
