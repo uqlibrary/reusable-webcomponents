@@ -12,8 +12,11 @@ const SPACE_AVAILABILITY_INITIAL_LABEL_TEXT = 'Loading data';
 const SPACE_AVAILABILITY_WRAPPER_ID = 'spaceAvailabilityWrapper';
 const SPACE_AVAILABILITY_TIMER_CONTROL_CLASS = 'space-availability__timer_control';
 const SPACE_AVAILABILITY_TIMER_CONTROL_ID = 'spaceAvailabilityTimerControl';
-const SPACE_AVAILABILITY_TIMER_CONTROL_STOP_TEXT = 'Stop all Space Availability chart updates';
-const SPACE_AVAILABILITY_TIMER_CONTROL_RESTART_TEXT = 'Restart all Space Availability chart updates';
+const SPACE_AVAILABILITY_DATA_FETCHING_EVENT = 'space-availability-data-fetching';
+const SPACE_AVAILABILITY_DATA_UPDATED_EVENT = 'space-availability-data-updated';
+const SPACE_AVAILABILITY_DATA_ERROR_EVENT = 'space-availability-data-error';
+const SPACE_AVAILABILITY_DATA_FETCH_COMPLETE_EVENT = 'space-availability-data-fetch-complete';
+const SPACE_AVAILABILITY_TIMER_TOGGLED_EVENT = 'space-availability-timer-toggled';
 
 const REFRESH_INTERVAL_TICKS = 1000 * 60 * 2; // 2 minutes, as per peak server vemcount generation
 
@@ -43,7 +46,7 @@ template.innerHTML = `
             <div class="${SPACE_AVAILABILITY_CHART_BAR_LOADER_CLASS}" aria-hidden="true"></div>
             <div class="${SPACE_AVAILABILITY_CHART_LABEL_CLASS}">${SPACE_AVAILABILITY_INITIAL_LABEL_TEXT}</div>
         </div>
-        <div class="${SPACE_AVAILABILITY_TIMER_CONTROL_CLASS} visually-hidden"><button type="button" id="${SPACE_AVAILABILITY_TIMER_CONTROL_ID}" data-testid="${SPACE_AVAILABILITY_TIMER_CONTROL_ID}" aria-pressed="false">${SPACE_AVAILABILITY_TIMER_CONTROL_STOP_TEXT}</button></div>
+        <div class="${SPACE_AVAILABILITY_TIMER_CONTROL_CLASS} visually-hidden"><button type="button" id="${SPACE_AVAILABILITY_TIMER_CONTROL_ID}" data-testid="${SPACE_AVAILABILITY_TIMER_CONTROL_ID}" aria-pressed="false">Pause all space availability chart updates</button></div>
     </div>
 `;
 
@@ -61,24 +64,26 @@ class SpaceAvailabilityDataService extends EventTarget {
 
     async fetchData() {
         try {
-            this.dispatchEvent(new CustomEvent('space-availability-data-fetching'));
+            this.dispatchEvent(new CustomEvent(SPACE_AVAILABILITY_DATA_FETCHING_EVENT));
             const data = await this.apiCallback();
-            this.dispatchEvent(new CustomEvent('space-availability-data-updated', { detail: data }));
+            this.dispatchEvent(new CustomEvent(SPACE_AVAILABILITY_DATA_UPDATED_EVENT, { detail: data }));
         } catch (error) {
-            this.dispatchEvent(new CustomEvent('space-availability-data-error', { detail: error }));
+            this.dispatchEvent(new CustomEvent(SPACE_AVAILABILITY_DATA_ERROR_EVENT, { detail: error }));
         } finally {
-            this.dispatchEvent(new CustomEvent('space-availability-data-fetch-complete'));
+            this.dispatchEvent(new CustomEvent(SPACE_AVAILABILITY_DATA_FETCH_COMPLETE_EVENT));
         }
     }
 
     startFetching() {
         this.intervalId = setInterval(() => this.fetchData(), this.intervalMs);
         this.isFetching = true;
+        this.dispatchEvent(new CustomEvent(SPACE_AVAILABILITY_TIMER_TOGGLED_EVENT, { detail: { isFetching: true } }));
     }
 
     stopFetching() {
         clearInterval(this.intervalId);
         this.isFetching = false;
+        this.dispatchEvent(new CustomEvent(SPACE_AVAILABILITY_TIMER_TOGGLED_EVENT, { detail: { isFetching: false } }));
     }
 }
 
@@ -105,12 +110,19 @@ class SpaceAvailability extends HTMLElement {
                 REFRESH_INTERVAL_TICKS,
             );
 
-        window.spaceAvailabilityDataService.addEventListener('space-availability-data-updated', this.onDataUpdate);
-        window.spaceAvailabilityDataService.addEventListener('space-availability-data-error', this.onDataError);
-        window.spaceAvailabilityDataService.addEventListener('space-availability-data-fetching', this.onDataFetching);
+        window.spaceAvailabilityDataService.addEventListener(SPACE_AVAILABILITY_DATA_UPDATED_EVENT, this.onDataUpdate);
+        window.spaceAvailabilityDataService.addEventListener(SPACE_AVAILABILITY_DATA_ERROR_EVENT, this.onDataError);
         window.spaceAvailabilityDataService.addEventListener(
-            'space-availability-data-fetch-complete',
+            SPACE_AVAILABILITY_DATA_FETCHING_EVENT,
+            this.onDataFetching,
+        );
+        window.spaceAvailabilityDataService.addEventListener(
+            SPACE_AVAILABILITY_DATA_FETCH_COMPLETE_EVENT,
             this.onDataFetchComplete,
+        );
+        window.spaceAvailabilityDataService.addEventListener(
+            SPACE_AVAILABILITY_TIMER_TOGGLED_EVENT,
+            this.onTimerToggled,
         );
 
         this.shadowDOM
@@ -119,23 +131,22 @@ class SpaceAvailability extends HTMLElement {
     }
 
     disconnectedCallback() {
-        window.spaceAvailabilityDataService.removeEventListener('space-availability-data-updated', this.onDataUpdate);
-        window.spaceAvailabilityDataService.removeEventListener('space-availability-data-error', this.onDataError);
         window.spaceAvailabilityDataService.removeEventListener(
-            'space-availability-data-fetching',
+            SPACE_AVAILABILITY_DATA_UPDATED_EVENT,
+            this.onDataUpdate,
+        );
+        window.spaceAvailabilityDataService.removeEventListener(SPACE_AVAILABILITY_DATA_ERROR_EVENT, this.onDataError);
+        window.spaceAvailabilityDataService.removeEventListener(
+            SPACE_AVAILABILITY_DATA_FETCHING_EVENT,
             this.onDataFetching,
         );
         window.spaceAvailabilityDataService.removeEventListener(
-            'space-availability-data-fetch-complete',
+            SPACE_AVAILABILITY_DATA_FETCH_COMPLETE_EVENT,
             this.onDataFetchComplete,
         );
         window.spaceAvailabilityDataService.removeEventListener(
-            'space-availability-data-fetching',
-            this.onDataFetching,
-        );
-        window.spaceAvailabilityDataService.removeEventListener(
-            'space-availability-data-fetch-complete',
-            this.onDataFetchComplete,
+            SPACE_AVAILABILITY_TIMER_TOGGLED_EVENT,
+            this.onTimerToggled,
         );
 
         this.shadowDOM
@@ -160,16 +171,17 @@ class SpaceAvailability extends HTMLElement {
     };
 
     onTimerControlClick = () => {
-        const button = this.shadowDOM.querySelector(`#${SPACE_AVAILABILITY_TIMER_CONTROL_ID}`);
         if (window.spaceAvailabilityDataService.isFetching) {
             window.spaceAvailabilityDataService.stopFetching();
-            button.innerText = SPACE_AVAILABILITY_TIMER_CONTROL_RESTART_TEXT;
-            button.setAttribute('aria-pressed', 'true');
         } else {
             window.spaceAvailabilityDataService.startFetching();
-            button.innerText = SPACE_AVAILABILITY_TIMER_CONTROL_STOP_TEXT;
-            button.setAttribute('aria-pressed', 'false');
         }
+    };
+
+    onTimerToggled = (e) => {
+        this.shadowDOM
+            .querySelector(`#${SPACE_AVAILABILITY_TIMER_CONTROL_ID}`)
+            .setAttribute('aria-pressed', String(!e.detail.isFetching));
     };
 
     showError(message) {
