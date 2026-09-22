@@ -1131,6 +1131,13 @@ body.custom-nde-theme {
           span.mdc-button__label {
             color: var(--uq-colour-black);
           }
+
+          // overrides
+          &.cancel-dialog-btn {
+            span.mdc-button__label {
+              color: #fff;
+            }
+          }
         }
       }
     }

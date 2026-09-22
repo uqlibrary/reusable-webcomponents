@@ -1,7 +1,26 @@
+nde-base-request-form {
+  div.request-form-container {
+    form {
+      mat-dialog-actions {
+        button.submit-btn {
+          span.mdc-button__label span span.button-text {
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+}
+
 main.sub-container { // needed for specificity :(
   nde-base-request-form {
     div.request-form-container {
       form {
+        mat-dialog-actions {
+          button.submit-btn {
+            color: #fff;
+          }
+        }
         mat-dialog-actions.buttons-container {
           justify-content: space-between;
 
