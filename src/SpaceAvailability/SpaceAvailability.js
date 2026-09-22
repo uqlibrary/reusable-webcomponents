@@ -1,20 +1,21 @@
 import styles from './css/main.css';
 import ApiAccess from '../ApiAccess/ApiAccess';
 
-const SPACE_AVAILABILITY_TITLE_ID = 'space-availability__title';
-const SPACE_AVAILABILITY_TITLE_LABEL_ID = 'space-availability__title_label';
-const SPACE_AVAILABILITY_SUBTITLE_ID = 'space-availability__subtitle';
-const SPACE_AVAILABILITY_CHART_CONTAINER_ID = 'space-availability__chart_container';
-const SPACE_AVAILABILITY_CHART_BAR_ID = 'space-availability__chart_bar';
+const SPACE_AVAILABILITY_TITLE_CLASS = 'space-availability__title';
+const SPACE_AVAILABILITY_SUBTITLE_CLASS = 'space-availability__subtitle';
+const SPACE_AVAILABILITY_CHART_CONTAINER_CLASS = 'space-availability__chart_container';
+const SPACE_AVAILABILITY_CHART_BAR_CLASS = 'space-availability__chart_bar';
 const SPACE_AVAILABILITY_CHART_BAR_LOADING_CLASS = 'space-availability__chart_bar_loading';
-const SPACE_AVAILABILITY_CHART_LABEL_ID = 'space-availability__chart_label';
-const SPACE_AVAILABILITY_CHART_BAR_LOADER_ID = 'space-availability__chart_bar_loader';
-const SPACE_AVAILABILITY_STATUS_REGION_ID = 'space-availability__status_region';
-const SPACE_AVAILABILITY_HEADING_SR_PREFIX_LABEL = 'UQ Library Space Availability updated:';
+const SPACE_AVAILABILITY_CHART_LABEL_CLASS = 'space-availability__chart_label';
+const SPACE_AVAILABILITY_CHART_BAR_LOADER_CLASS = 'space-availability__chart_bar_loader';
 const SPACE_AVAILABILITY_INITIAL_LABEL_TEXT = 'Loading data';
 const SPACE_AVAILABILITY_WRAPPER_ID = 'spaceAvailabilityWrapper';
+const SPACE_AVAILABILITY_TIMER_CONTROL_CLASS = 'space-availability__timer_control';
+const SPACE_AVAILABILITY_TIMER_CONTROL_ID = 'spaceAvailabilityTimerControl';
+const SPACE_AVAILABILITY_TIMER_CONTROL_STOP_TEXT = 'Stop all Space Availability chart updates';
+const SPACE_AVAILABILITY_TIMER_CONTROL_RESTART_TEXT = 'Restart all Space Availability chart updates';
 
-const REFRESH_INTERVAL_TICKS = 1000 * 10; // 60 * 2; // 2 minutes, as per peak server vemcount generation
+const REFRESH_INTERVAL_TICKS = 1000 * 60 * 2; // 2 minutes, as per peak server vemcount generation
 
 const spaceAvailabilityClass = {
     border: {
@@ -33,17 +34,16 @@ const template = document.createElement('template');
 template.innerHTML = `
     <style>${styles.toString()}</style>
     <div style="width: 100%" data-testid="${SPACE_AVAILABILITY_WRAPPER_ID}" id="${SPACE_AVAILABILITY_WRAPPER_ID}">
-        <div class="${SPACE_AVAILABILITY_STATUS_REGION_ID}" aria-busy="true">
-            <div class="${SPACE_AVAILABILITY_TITLE_ID}" role="heading" aria-level="3">
-                <span class="${SPACE_AVAILABILITY_TITLE_LABEL_ID}">${SPACE_AVAILABILITY_INITIAL_LABEL_TEXT}</span>
-            </div>
-            <div class="${SPACE_AVAILABILITY_SUBTITLE_ID}">${SPACE_AVAILABILITY_INITIAL_LABEL_TEXT}</div>
-            <div class="${SPACE_AVAILABILITY_CHART_CONTAINER_ID}">
-                <div class="${SPACE_AVAILABILITY_CHART_BAR_ID}" style="width:0%;"></div>
-                <div class="${SPACE_AVAILABILITY_CHART_BAR_LOADER_ID}" aria-hidden="true"></div>
-                <div class="${SPACE_AVAILABILITY_CHART_LABEL_ID}">${SPACE_AVAILABILITY_INITIAL_LABEL_TEXT}</div>
-            </div>
+        <div class="${SPACE_AVAILABILITY_TITLE_CLASS}" role="heading" aria-level="3">
+            ${SPACE_AVAILABILITY_INITIAL_LABEL_TEXT}
         </div>
+        <div class="${SPACE_AVAILABILITY_SUBTITLE_CLASS}">${SPACE_AVAILABILITY_INITIAL_LABEL_TEXT}</div>
+        <div class="${SPACE_AVAILABILITY_CHART_CONTAINER_CLASS}">
+            <div class="${SPACE_AVAILABILITY_CHART_BAR_CLASS}" style="width:0%;"></div>
+            <div class="${SPACE_AVAILABILITY_CHART_BAR_LOADER_CLASS}" aria-hidden="true"></div>
+            <div class="${SPACE_AVAILABILITY_CHART_LABEL_CLASS}">${SPACE_AVAILABILITY_INITIAL_LABEL_TEXT}</div>
+        </div>
+        <div class="${SPACE_AVAILABILITY_TIMER_CONTROL_CLASS} visually-hidden"><button type="button" id="${SPACE_AVAILABILITY_TIMER_CONTROL_ID}" data-testid="${SPACE_AVAILABILITY_TIMER_CONTROL_ID}" aria-pressed="false">${SPACE_AVAILABILITY_TIMER_CONTROL_STOP_TEXT}</button></div>
     </div>
 `;
 
@@ -51,10 +51,12 @@ class SpaceAvailabilityDataService extends EventTarget {
     constructor(apiCallback, intervalMs) {
         super();
         this.apiCallback = apiCallback;
+        this.intervalMs = intervalMs;
+        this.isFetching = false;
 
         this.fetchData();
 
-        setInterval(() => this.fetchData(), intervalMs);
+        this.startFetching();
     }
 
     async fetchData() {
@@ -67,6 +69,16 @@ class SpaceAvailabilityDataService extends EventTarget {
         } finally {
             this.dispatchEvent(new CustomEvent('space-availability-data-fetch-complete'));
         }
+    }
+
+    startFetching() {
+        this.intervalId = setInterval(() => this.fetchData(), this.intervalMs);
+        this.isFetching = true;
+    }
+
+    stopFetching() {
+        clearInterval(this.intervalId);
+        this.isFetching = false;
     }
 }
 
@@ -82,7 +94,6 @@ class SpaceAvailability extends HTMLElement {
         this.shadowDOM = this.attachShadow({ mode: 'open' });
         !!template && !!this.shadowDOM && this.shadowDOM.appendChild(template.content.cloneNode(true));
 
-        this.hasAnnouncedStatus = false;
         this.setBarLoading(true);
     }
 
@@ -101,6 +112,10 @@ class SpaceAvailability extends HTMLElement {
             'space-availability-data-fetch-complete',
             this.onDataFetchComplete,
         );
+
+        this.shadowDOM
+            .querySelector(`#${SPACE_AVAILABILITY_TIMER_CONTROL_ID}`)
+            .addEventListener('click', this.onTimerControlClick);
     }
 
     disconnectedCallback() {
@@ -122,6 +137,10 @@ class SpaceAvailability extends HTMLElement {
             'space-availability-data-fetch-complete',
             this.onDataFetchComplete,
         );
+
+        this.shadowDOM
+            .querySelector(`#${SPACE_AVAILABILITY_TIMER_CONTROL_ID}`)
+            .removeEventListener('click', this.onTimerControlClick);
     }
 
     onDataUpdate = (data) => {
@@ -140,21 +159,33 @@ class SpaceAvailability extends HTMLElement {
         this.setBarLoading(false);
     };
 
+    onTimerControlClick = () => {
+        const button = this.shadowDOM.querySelector(`#${SPACE_AVAILABILITY_TIMER_CONTROL_ID}`);
+        if (window.spaceAvailabilityDataService.isFetching) {
+            window.spaceAvailabilityDataService.stopFetching();
+            button.innerText = SPACE_AVAILABILITY_TIMER_CONTROL_RESTART_TEXT;
+            button.setAttribute('aria-pressed', 'true');
+        } else {
+            window.spaceAvailabilityDataService.startFetching();
+            button.innerText = SPACE_AVAILABILITY_TIMER_CONTROL_STOP_TEXT;
+            button.setAttribute('aria-pressed', 'false');
+        }
+    };
+
     showError(message) {
-        if (this.hasInitialText(SPACE_AVAILABILITY_TITLE_LABEL_ID)) {
+        if (this.hasInitialText(SPACE_AVAILABILITY_TITLE_CLASS)) {
             this.setTitleText(message);
         }
-        if (this.hasInitialText(SPACE_AVAILABILITY_SUBTITLE_ID)) {
+        if (this.hasInitialText(SPACE_AVAILABILITY_SUBTITLE_CLASS)) {
             this.setSubTitleText(message);
         }
         this.setBarColourState(100);
         this.setBarText(message);
         this.setBarPercentageWidth(0);
-        this.setStatusAnnouncement(message);
     }
 
     hasInitialText(elementId) {
-        return this.shadowDOM.querySelector(`.${elementId}`).innerText.includes(SPACE_AVAILABILITY_INITIAL_LABEL_TEXT);
+        return this.shadowDOM.querySelector(`.${elementId}`).innerText === SPACE_AVAILABILITY_INITIAL_LABEL_TEXT;
     }
 
     getBarMessage = (percentage) => `${percentage}% of capacity`;
@@ -169,50 +200,36 @@ class SpaceAvailability extends HTMLElement {
     }
 
     setTitleText(message) {
-        this.shadowDOM.querySelector(`.${SPACE_AVAILABILITY_TITLE_LABEL_ID}`).innerText = message;
+        this.shadowDOM.querySelector(`.${SPACE_AVAILABILITY_TITLE_CLASS}`).innerText = message;
     }
 
     setSubTitleText(message) {
-        this.shadowDOM.querySelector(`.${SPACE_AVAILABILITY_SUBTITLE_ID}`).innerText = message;
+        this.shadowDOM.querySelector(`.${SPACE_AVAILABILITY_SUBTITLE_CLASS}`).innerText = message;
     }
 
     setBarText(message) {
-        this.resetElementClasses(SPACE_AVAILABILITY_CHART_LABEL_ID);
-        this.shadowDOM.querySelector(`.${SPACE_AVAILABILITY_CHART_LABEL_ID}`).innerText = message;
+        this.resetElementClasses(SPACE_AVAILABILITY_CHART_LABEL_CLASS);
+        this.shadowDOM.querySelector(`.${SPACE_AVAILABILITY_CHART_LABEL_CLASS}`).innerText = message;
     }
 
     setBarPercentageWidth(percentage) {
-        this.shadowDOM.querySelector(`.${SPACE_AVAILABILITY_CHART_BAR_ID}`).style.width = `${percentage}%`;
-    }
-
-    // sets the atomic live-region content directly, avoiding a separately browsable hidden node
-    setStatusAnnouncement(message) {
-        this.shadowDOM
-            .querySelector(`.${SPACE_AVAILABILITY_STATUS_REGION_ID}`)
-            .setAttribute('aria-label', `${SPACE_AVAILABILITY_HEADING_SR_PREFIX_LABEL} ${message}`);
+        this.shadowDOM.querySelector(`.${SPACE_AVAILABILITY_CHART_BAR_CLASS}`).style.width = `${percentage}%`;
     }
 
     setBarLoading(isLoading) {
-        const statusRegionElement = this.shadowDOM.querySelector(`.${SPACE_AVAILABILITY_STATUS_REGION_ID}`);
-        // don't mark the region live until the first load cycle finishes, so it isn't announced
-        if (!isLoading && !this.hasAnnouncedStatus) {
-            statusRegionElement.setAttribute('role', 'status');
-            this.hasAnnouncedStatus = true;
-        }
-        statusRegionElement.setAttribute('aria-busy', String(isLoading));
         this.shadowDOM
-            .querySelector(`.${SPACE_AVAILABILITY_CHART_BAR_LOADER_ID}`)
+            .querySelector(`.${SPACE_AVAILABILITY_CHART_BAR_LOADER_CLASS}`)
             .classList.toggle(SPACE_AVAILABILITY_CHART_BAR_LOADING_CLASS, isLoading);
     }
 
     setBorderColour(colourClass) {
-        this.resetElementClasses(SPACE_AVAILABILITY_CHART_CONTAINER_ID);
-        this.shadowDOM.querySelector(`.${SPACE_AVAILABILITY_CHART_CONTAINER_ID}`).classList.add(colourClass);
+        this.resetElementClasses(SPACE_AVAILABILITY_CHART_CONTAINER_CLASS);
+        this.shadowDOM.querySelector(`.${SPACE_AVAILABILITY_CHART_CONTAINER_CLASS}`).classList.add(colourClass);
     }
 
     setBarColour(colourClass) {
-        this.resetElementClasses(SPACE_AVAILABILITY_CHART_BAR_ID);
-        this.shadowDOM.querySelector(`.${SPACE_AVAILABILITY_CHART_BAR_ID}`).classList.add(colourClass);
+        this.resetElementClasses(SPACE_AVAILABILITY_CHART_BAR_CLASS);
+        this.shadowDOM.querySelector(`.${SPACE_AVAILABILITY_CHART_BAR_CLASS}`).classList.add(colourClass);
     }
 
     setBarColourState(percent) {
@@ -229,7 +246,6 @@ class SpaceAvailability extends HTMLElement {
         this.setBarText(this.getBarMessage(percentage));
         this.setTitleText(titleMessage);
         this.setSubTitleText(this.getSubTitleMessage(data?.capacity || ''));
-        this.setStatusAnnouncement(`${titleMessage} ${this.getBarMessage(percentage)}`);
     }
 
     resetElementClasses(elementId) {
