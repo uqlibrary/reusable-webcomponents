@@ -1,6 +1,28 @@
 nde-search-filters-side-nav {
   .side-nav-filters-actions button {
     white-space: nowrap;
+    &.apply-filters-btn {
+      @include uqPrimaryButton();
+    }
+    &:not(.apply-filters-btn) { // clear button
+      @include uqTertiaryButton();
+      span.mdc-button__label {
+        line-height: normal;
+      }
+      &:hover {
+        span.mat-mdc-button-persistent-ripple::before {
+          background-color: transparent;
+          opacity: 1;
+        }
+        background-color: #fff;
+        border-color: #fff;
+        color: var(--uq-main-purple);
+        span.mdc-button__label {
+          color: #fff;
+          background-color: var(--uq-main-purple);
+        }
+      }
+    }
   }
   nde-filters-value .mdc-label>div {
     flex: 1;
@@ -11,6 +33,16 @@ nde-search-filters-side-nav {
   .mat-mdc-checkbox .mat-internal-form-field {
     label > div {
       max-width: 185px;
+    }
+  }
+
+  button.facet-name {
+    // the facet names gets this ugly half border on focus (I think it's to do with the focus on the item making the un-filter button appear)
+    &:focus  {
+      box-shadow: none !important;
+      span.mdc-button__label {
+        text-decoration: underline;
+      }
     }
   }
 }
