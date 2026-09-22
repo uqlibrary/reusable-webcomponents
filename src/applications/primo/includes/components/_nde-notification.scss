@@ -33,17 +33,30 @@ nde-notification {
         }
 
         &:before {
-          content: "";
-          // DS info icon
+          @include uqBkgIconProperties();
           background-image: var(--uq-icon--info);
-          background-repeat: no-repeat;
-          background-size: 1.5rem;
-          width: 1.5rem;
-          height: 1.5rem;
-          position: absolute;
           top: 1.5rem;
           left: 1rem;
         }
+      }
+    }
+  }
+
+  // citation page hard codes an icon, which we need to replace with a proper looking svg
+  &:has(div > div > mat-icon) {
+    position: relative;
+    div:has(div > mat-icon) {
+      & > div {
+        padding-left: 2rem;
+        & > mat-icon {
+          display: none;
+        }
+      }
+      &:before {
+        @include uqBkgIconProperties();
+        background-image: var(--uq-icon--info);
+        top: 14px;
+        left: 21px;
       }
     }
   }
