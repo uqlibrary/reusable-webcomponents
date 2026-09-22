@@ -4,66 +4,6 @@
 :root, html, head, body {
   --mat-expansion-container-shape: 4px;
   --uq-border-radius: 0.25rem;
-  --uq-border: 1px solid var(--uq-colour-grey-200);
-}
-
-$utility-500: var(--uq-color-utility-500);
-$uqBrandColour: var(--uq-colour-purple-500);
-$uq-body-font-family: var(--uq-body-font-family);
-@mixin uqPrimaryButton() {
-  background-color: $uqBrandColour !important;
-  border: 2px solid $uqBrandColour;
-  border-radius: var(--uq-border-radius);
-  box-sizing: border-box;
-  color: #fff;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-family: $uq-body-font-family;
-  font-size: 1rem; /* 16px - Body, H6 */;
-  font-weight: 500;
-  line-height: 1;
-  padding: 1rem 1.5rem;
-  position: relative;
-  text-align: center;
-  text-decoration: none;
-  transition: background-color 200ms ease-out, color 200ms ease-out, border 200ms ease-out;
-  background-image: none;
-
-  &.mat-mdc-button-disabled {
-    opacity: 50%;
-  }
-
-  &:hover {
-    background-color: #fff !important;
-    border-color: $uqBrandColour;
-    color: $uqBrandColour;
-    text-decoration: underline;
-  }
-  &:focus {
-    outline: 2px solid $utility-500;
-    outline-offset: 0;
-  }
-}
-@mixin uqSecondaryButton() {
-  @include uqPrimaryButton();
-  background-color: rgba(0, 0, 0, 0) !important;
-  border-color: $uqBrandColour;
-  color: $uqBrandColour;
-  &:hover {
-    background-color: $uqBrandColour !important;
-    border-color: $uqBrandColour;
-    color: #fff;
-    mat-icon path {
-      fill: #fff;
-    }
-  }
-}
-@mixin uqTertiaryButton() {
-  @include uqSecondaryButton();
-  border-color: transparent;
-  text-decoration: underline;
 }
 
 @mixin uqBkgIconProperties() {
@@ -120,6 +60,8 @@ body.custom-nde-theme {
 
   @import 'includes/components/nde-advanced-search.scss';
 
+  @import 'includes/components/nde-atoz.scss';
+
   @import 'includes/components/nde-back-to-top.scss';
 
   @import 'includes/components/nde-base-request-form.scss';
@@ -135,6 +77,10 @@ body.custom-nde-theme {
   @import 'includes/components/nde-favoritesapp.scss';
 
   @import 'includes/components/nde-fetch-item.scss';
+
+  @import 'includes/components/nde-fines-overview';
+
+  @import 'includes/components/nde-frbr-header.scss';
 
   @import 'includes/components/nde-full-display-details.scss';
 
@@ -236,8 +182,8 @@ body.custom-nde-theme {
 
   /* buttons like DS buttons */
   a, button {
-    --mdc-filled-button-container-shape: 4px; /* 0.25rem */
-    border-radius: var(--uq-border-radius);
+    --mdc-filled-button-container-shape: 4px !important; /* 0.25rem */
+    border-radius: var(--uq-border-radius) !important;
   }
   /* END buttons like DS buttons */
 
@@ -487,6 +433,11 @@ body.custom-nde-theme {
   }
   /* END shift the icon on the new record eg last 3 months cancel 'x' icon up a smidge */
 
+  /* account page, fines tab, weird 330 weight for labels?!?!? */
+  .fine-item-container .fine-info .field-title {
+    font-weight: 500;
+  }
+  /* END account page, fines tab, weird 330 weight for labels?!?!? */
 
 }
 /* END body.custom-nde-theme */

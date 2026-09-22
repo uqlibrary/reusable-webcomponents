@@ -18,7 +18,8 @@ nde-account {
     }
 
     li {
-      border-bottom: var(--uq-border);
+      --uq-color-drupal-sidebar-border: var(--uq-colour-grey-500);
+      border-bottom: 1px solid var(--uq-color-drupal-sidebar-border);
       position: relative;
       margin: 0;
       padding: 0;
@@ -75,19 +76,27 @@ nde-account {
         margin-top: -0.50rem;
         height: 3.75rem;
         border-radius: 0 !important;
-        color: var(--uq-colour-black) !important;
+        color: var(--uq-colour-black);
       }
     }
   }
   /* END make the account page sidebar look like drupal sidebar navigation */
 
   /* the dot on the Loans item should not hover to blank */
-  a.mdc-button .account-badge-warn {
-    --sys-error: var(--uq-colour-error-500);
-  }
-  a.mdc-button:hover mat-icon.account-badge-warn span.mat-badge-content { // 'span' within this is the little red dot on the Loans tab
-    background-color: var(--uq-colour-error-500);
-    border-radius: var(--uq-border-radius) !important;
+  a.mdc-button {
+    // mat-icon > span within this is the little red dot on some sidebar icons
+    .mat-badge-active {
+      --mat-badge-background-color: var(--uq-colour-error-500);
+    }
+    .account-badge-warn {
+      --sys-error: var(--uq-colour-error-500);
+    }
+    &:hover {
+      mat-icon.account-badge-warn span.mat-badge-content {
+        background-color: var(--uq-colour-error-500);
+        border-radius: var(--uq-border-radius) !important;
+      }
+    }
   }
   /* END the dot on the Loans item should not hover to blank */
 
@@ -112,4 +121,29 @@ nde-account {
     }
   }
   /* END layout the actual info links that we add in nde-account-info-links-custom cutomisation */
+}
+
+nde-account-overview {
+  div.overview-cards div.account-card-wrapper mat-card.mat-mdc-card  mat-card-content.mat-mdc-card-content ul.search-history-list {
+    li.search-history-row {
+      background-color: #fff; /* override the tiger stripe that are usability inappropriate in such a small list */
+      margin-left: 0.25rem;
+      a {
+        text-decoration: underline;
+        &:hover {
+          span {
+            background-color: var(--uq-main-purple);
+            color: #fff;
+          }
+        }
+      }
+    }
+    li.search-history-row::before {
+      /* put a nice dot on the list items */
+      content:"\A";
+      width: 5px;
+      height: 5px;
+      background: var(--uq-colour-black);
+    }
+  }
 }

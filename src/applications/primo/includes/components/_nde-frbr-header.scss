@@ -1,0 +1,6 @@
+nde-frbr-header {
+  // the big versions icon is BRIGHT GREEN OTB :(
+  mat-icon.mat-icon.frbr-list-icon-color > svg > rect:first-of-type {
+    fill: var(--uq-main-purple);
+  }
+}

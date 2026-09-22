@@ -15,6 +15,8 @@
   --uq-colour-grey-50: #f3f3f4;
   --uq-colour-grey-100: #e8e8e8;
   --uq-colour-grey-200: #dcdcdd;
+  --uq-colour-grey-300: #d1d0d2;
+  --uq-colour-grey-500: #a3a1a4;
   --uq-colour-grey-900: #3b383e;
 
   --uq-color-utility-50: #e7f0fa;
@@ -22,6 +24,7 @@
   --uq-color-utility-500: #0d6dcd;
 
   --uq-colour-success-50: #edf6ed;
+  --uq-colour-success-500: #4aa74e;
 
   --uq-colour-warning-50:	#fef8e8;
 
@@ -56,9 +59,6 @@
   //--sys-on-surface-variant: #fff;
   //--mdc-icon-button-icon-color: var(--uq-main-purple);
 
-  --valid: var(--uq-main-purple);
-  --validDark: var(--uq-main-purple);
-
   --mdc-switch-unselected-focus-track-color: var(--uq-colour-purple-50);
   --mdc-switch-unselected-track-color: var(--uq-colour-purple-100);
   --mdc-switch-unselected-hover-track-color: var(--uq-colour-purple-200);
@@ -81,7 +81,94 @@
   --uql-content-indicator-cultural-advice: var(--uq-main-purple);
 
   --uql-base-icon-colour: var(--uq-main-purple);
+  --darkText: var(--uq-colour-black);
 }
+
+:root, html, head, body {
+  --uq-border: 1px solid var(--uq-colour-grey-200);
+  --mdc-text-button-container-shape: var(--uq-border-radius) !important;
+  --mat-sys-corner-full: var(--uq-border-radius) !important;
+  --uq-button-border: 2px solid var(--uq-main-purple);
+}
+
+$utility-500: var(--uq-color-utility-500);
+$uqBrandColour: var(--uq-main-purple);
+$uq-body-font-family: var(--uq-body-font-family);
+@mixin uqPrimaryButton() {
+  background-color: $uqBrandColour !important;
+  border: 2px solid $uqBrandColour;
+  border-radius: var(--uq-border-radius);
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: $uq-body-font-family;
+  font-size: 1rem; /* 16px - Body, H6 */;
+  font-weight: 500;
+  line-height: 1;
+  padding: 1rem 1.5rem;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 200ms ease-out, color 200ms ease-out, border 200ms ease-out;
+  background-image: none;
+
+  &.mat-mdc-button-disabled {
+    opacity: 50%;
+  }
+  span.mat-ripple.mat-mdc-button-ripple {
+    display: none;
+  }
+  &:hover {
+    background-color: #fff !important;
+    border-color: $uqBrandColour;
+    color: $uqBrandColour;
+    text-decoration: underline;
+  }
+  &:focus {
+    outline: 2px solid $utility-500;
+    outline-offset: 0;
+  }
+}
+@mixin uqSecondaryButton() {
+  box-sizing: border-box;
+  cursor: pointer;
+  text-align: center;
+  border: 2px solid $uqBrandColour;
+  border-radius: .25rem;
+  align-items: center;
+  gap: .5rem;
+  padding: 1rem 1.5rem;
+  font-family: Roboto, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  transition: background-color .2s ease-out, color .2s ease-out, border .2s ease-out;
+  display: inline-flex;
+  position: relative;
+  color: $uqBrandColour;
+  background-color: #0000;
+  border-color: $uqBrandColour;
+  &:hover {
+    color: #fff;
+    background-color: $uqBrandColour;
+    border-color: $uqBrandColour;
+    text-decoration: underline;
+    mat-icon path {
+      fill: #fff;
+    }
+  }
+}
+
+@mixin uqTertiaryButton() {
+  @include uqSecondaryButton();
+  border-color: transparent;
+  text-decoration: underline;
+}
+
 
 /* override fill=green hard coded on attribute so everything-purple */
 svg, path, circle {
@@ -119,6 +206,7 @@ body.custom-nde-theme {
     .user-area .arrow path {
       fill: none;
     }
+
     /* UQ profile icon on logged out button override on everything-purple */
     button[aria-label="Open actions menu"] {
       svg, path {
@@ -126,6 +214,7 @@ body.custom-nde-theme {
       }
     }
   }
+
   /* END login-loggedout button */
 
   /* added items on account menu */
@@ -137,15 +226,18 @@ body.custom-nde-theme {
       fill: none !important;
     }
   }
+
   .library-favourites-icon {
     opacity: 50%;
   }
+
   /* END new items on account menu */
 
   /* collection discovery detailed list icon per DS */
-  .collection-discovery-gallery-container nde-collection-discovery-top-bar  mat-icon path {
+  .collection-discovery-gallery-container nde-collection-discovery-top-bar mat-icon path {
     fill: var(--uq-main-purple);
   }
+
   /* END collection discovery detailed list icon per DS */
 
 
@@ -153,12 +245,14 @@ body.custom-nde-theme {
   mat-icon svg path {
     --sys-outline: var(--uql-base-icon-colour);
   }
+
   /* END make icons purple  */
 
   /* login dialog wrong-password message banner */
   .login-dialog-notification {
     --notice: var(--uq-background-alert-info);
   }
+
   /* END login dialog wrong-password message banner */
 
   /* style the purchase request acount menu icon */
@@ -184,4 +278,957 @@ body.custom-nde-theme {
     }
   }
   /* END content indicator colours */
+
+  /* UQ DS style Tight links */
+
+  /* attempting to style by link/button html structure, rather than specific types */
+
+  /* eg full, Details section, body links; brief, result title; account, saved records tab, result title  */
+  nde-full-display-details, nde-search-results, nde-record-title {
+    a:has(nde-highlight span):not(.not-linkable) {
+      --uql-button-style-type: one; /* so the developer can easily determine which of these styles is applied to the element */
+      nde-highlight span {
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+      }
+
+      &:hover {
+        nde-highlight span {
+          text-decoration: none;
+          background-color: var(--uq-main-purple);
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  /* eg full, Requests section, "go to link" */
+  /* button:has(> span:nth-child(5)), */
+  a:has(> span:nth-of-type(5)):has(> mat-icon):has(span.mdc-button__label) {
+    &:not(:has(span.mdc-button__label mat-icon)):not(:has(span.mdc-button__label span)):not(:has(> span > div)):not([data-qa^="account-menu"]) {
+      --uql-button-style-type: two;
+      text-decoration: underline;
+
+      &:hover {
+        span.mat-mdc-button-persistent-ripple::before {
+          background-color: transparent;
+          opacity: 1;
+        }
+        span.mdc-button__label:not(:has(mat-icon)) {
+          line-height: normal;
+          text-decoration: underline;
+          background-color: var(--uq-main-purple);
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  /* eg full, Locations section, view items button */
+  /* label is sitting naked against mat-icon */
+  button:has(> span:nth-of-type(5)):has(> span.mdc-button__label > span > mat-icon) {
+    &:not(:has(div)):not(:has(> span.mdc-button__label > span + span)):not(:has(> span.mdc-button__label > span > span)) {
+      --uql-button-style-type: three;
+
+      span.mdc-button__label {
+        text-decoration: underline;
+      }
+
+      &:hover {
+        span.mat-mdc-button-persistent-ripple::before {
+          background-color: transparent;
+        }
+
+        span.mdc-button__label:has(> span > mat-icon) {
+          > span {
+            text-decoration: underline;
+            background-color: var(--uq-main-purple);
+            color: #fff;
+          }
+
+          mat-icon svg path {
+            fill: #fff;
+          }
+        }
+      }
+    }
+  }
+
+  /* eg full, Locations section, expand all button */
+  /* label is within own span, beside mat-icon */
+  button:has(> span:nth-of-type(5)):has(> span.mdc-button__label span span):has(> span.mdc-button__label > span mat-icon + span) {
+    &:not(:has(div)) {
+      --uql-button-style-type: four;
+      border-radius: var(--uq-border-radius) !important;
+      span.mat-mdc-button-persistent-ripple.mdc-button__ripple {
+        border-radius: var(--uq-border-radius) !important;
+      }
+
+      span.mdc-button__label span span {
+        line-height: normal;
+        text-decoration: underline;
+      }
+
+      &:hover { /* changes state, don't do focus */
+        span.mat-mdc-button-persistent-ripple::before {
+          background-color: transparent;
+        }
+
+        span.mdc-button__label:has(> span > mat-icon) {
+          span:not(:has(span)) {
+            text-decoration: underline;
+            background-color: var(--uq-main-purple);
+            color: #fff;
+          }
+
+          &:has(span:not(:has(span))) mat-icon svg path {
+            fill: #fff;
+          }
+        }
+      }
+    }
+  }
+
+  /* unsure */
+  a:has(> span:nth-of-type(5)):has(> span.mdc-button__label > span) {
+    &:not(:has(> span > div)):not(:has(> div)):not(:has(> mat-icon)):not([data-qa^="account-menu"]) {
+      --uql-button-style-type: fiveother;
+
+      &:hover {
+        span.mdc-button__label > span {
+          text-decoration: underline;
+          background-color: var(--uq-main-purple);
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  /* eg versions button, eg Second opinion : an introduction to health sociology */
+  a:has(> span:nth-of-type(5)):has(> span.mdc-button__label > span):has(> mat-icon) {
+    &:not(:has(> div)):not([data-qa^="account-menu"]) {
+      --uql-button-style-type: five;
+
+      // the big versions icon is BRIGHT GREEN OTB :(
+      mat-icon.mat-icon.frbr-list-icon-color > svg > rect:first-of-type {
+        fill: var(--uq-main-purple);
+      }
+
+      span.mdc-button__label {
+        color: var(--uq-main-purple);
+        > span {
+          text-decoration: underline;
+          text-decoration: underline;
+          background-color: #fff;
+          color: var(--uq-main-purple);
+        }
+      }
+
+      &:hover {
+        span.mdc-button__label > span {
+          background-color: var(--uq-main-purple);
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  /* eg main menu, help icon (possibly "has icon") */
+  a:has(> span > div > span):has(> span:nth-of-type(5)) {
+    &:not([data-qa^="account-menu"]) {
+      --uql-button-style-type: six;
+
+      &:hover {
+        span.mat-mdc-button-persistent-ripple::before {
+          background-color: transparent;
+        }
+
+        text-decoration: underline;
+
+        span.mdc-button__label {
+          line-height: normal;
+
+          div span {
+            text-decoration: underline;
+            background-color: var(--uq-main-purple);
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+
+
+  /* eg full, Locations section, "location" first link */
+  /* eg brief, quick filters buttons, has special buttons */
+  button:has(> span:nth-of-type(1)) {
+    &:not(:has(> div)):not(:has(> span:nth-of-type(2))):not(:has(> mat-icon:nth-of-type(2))) {
+      --uql-button-style-type: seven;
+
+      span.mat-title-medium {
+        line-height: normal;
+        text-decoration: underline;
+
+        &:hover {
+          text-decoration: underline;
+          background-color: var(--uq-main-purple);
+          color: #fff;
+        }
+      }
+      &.selected-filters-container {
+        background-color: #fff;
+        border-width: 1px;
+        &:hover {
+          text-decoration: underline;
+          background-color: var(--uq-main-purple);
+          color: #fff;
+          span.select-title {
+            color: #fff;
+          }
+          mat-icon path {
+            fill: #fff;
+          }
+        }
+      }
+    }
+  }
+
+  /* eg full, list header, "results per page" */
+  mat-select[data-qa="results_per_page"]:has(> div) {
+    &:not(:has(> div:nth-of-type(2))) {
+      --uql-button-style-type: eight;
+
+      span span {
+        text-decoration: underline;
+      }
+
+      &:hover {
+        div:has(> div:nth-of-type(2)):not(:has(> div:nth-of-type(3))) {
+          div:has(> span):not(:has(> span:nth-of-type(2))) {
+            span:has(> span):not(:has(> span:nth-of-type(2))) {
+              span {
+                text-decoration: underline;
+                background-color: var(--uq-main-purple);
+                color: #fff;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /* egs: ai assisted search button, all filters */
+  button:has(> span:nth-of-type(5)):has(> mat-icon:nth-child(2)):has(> span.mdc-button__label > span) {
+    &:not(:has(div)) {
+      --uql-button-style-type: nine;
+
+      span.mat-mdc-button-persistent-ripple::before {
+        background-color: transparent;
+      }
+
+      .mdc-button__label {
+        line-height: normal;
+      }
+      .mdc-button__label span {
+        line-height: normal;
+        text-decoration: underline;
+      }
+
+      &:hover {
+        .mdc-button__label span {
+          text-decoration: underline;
+          background-color: var(--uq-main-purple);
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  /* eg full, all filters button */
+  button:has(> span:nth-of-type(5)):has(> mat-icon:nth-child(2)):has(> span.mdc-button__label) {
+    &:not(:has(> span.mdc-button__label span)):not(:has(div)) {
+      --uql-button-style-type: eleven;
+
+      span.mdc-button__label, mat-icon {
+        line-height: normal;
+      }
+
+      span.mdc-button__label {
+        text-decoration: underline;
+      }
+
+      span.mat-mdc-button-persistent-ripple::before {
+        background-color: transparent;
+      }
+
+      &:hover {
+        span.mdc-button__label {
+          text-decoration: underline;
+          background-color: var(--uq-main-purple);
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  /* eg full/colldisc, result header, sort by */
+  button:has(> span:nth-of-type(5)):has(> span.mdc-button__label > span > mat-icon):has(> span.mdc-button__label > span + span) {
+    &:not(:has(div)):not(:has(> mat-icon)) {
+      --uql-button-style-type: twelve;
+
+      span.mdc-button__label span {
+        line-height: normal;
+        text-decoration: underline;
+      }
+
+      &:hover {
+        span.mat-mdc-button-persistent-ripple::before {
+          background-color: transparent;
+        }
+
+        span.mdc-button__label:has(> span > mat-icon) {
+          > span {
+            text-decoration: underline;
+            background-color: var(--uq-main-purple);
+            color: #fff;
+          }
+
+          mat-icon {
+            background-color: #fff;
+          }
+        }
+      }
+    }
+  }
+
+  /* eg full, result header, options */
+  button:has(> span:nth-of-type(5)):has( > mat-icon:nth-child(3)):has(> span.mdc-button__label > span):has(span.mdc-button__label + mat-icon) {
+    &:not(:has(> span.mdc-button__label > span > span)) {
+      --uql-button-style-type: thirteen;
+
+      span.mdc-button__label span {
+        text-decoration: underline;
+      }
+
+      &:hover {
+        span.mdc-button__label span {
+          background-color: var(--uq-main-purple);
+
+          svg path {
+            fill: #fff;
+          }
+        }
+
+        span.mat-ripple.mat-mdc-button-ripple {
+          display: none;
+        }
+        span.mat-mdc-button-persistent-ripple::before {
+          background-color: transparent;
+        }
+
+        span.mdc-button__label span {
+          text-decoration: underline;
+          color: #fff;
+        }
+      }
+    }
+    &.expand-options-visible {
+      --sys-inverse-on-surface: transparent;
+    }
+    &.quicklink-button {
+      --uql-button-style-type: thirteen-quicklinkoverride;
+      border-top-right-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+      &:hover {
+        background-color: var(--uq-main-purple);
+        span.mdc-button__label span {
+          background-color: transparent;
+        }
+      }
+    }
+  }
+
+  /* eg brief, search header save/export button */
+  button:has(> span:nth-of-type(5)):has(> span.mdc-button__label span span):has(> span.mdc-button__label > span span + mat-icon) {
+    &:not(:has(div)) {
+      --uql-button-style-type: fourteen;
+
+      span.mdc-button__label span span {
+        text-decoration: underline;
+      }
+
+      &:hover {
+        span.mdc-button__label {
+          span span {
+            text-decoration: underline;
+            background-color: var(--uq-main-purple);
+            color: #fff;
+          }
+        }
+
+        mat-icon, mat-icon * {
+          /* this doesn't work :( */
+          text-decoration: none;
+          border-width: 0;
+        }
+      }
+    }
+  }
+
+  /* eg brief, readmore/less button */
+  button:has(> span:nth-of-type(4)):has(.mdc-button__label span) {
+    &:not(:has(> span:nth-of-type(5))):not(:has(mat-icon)):not(:has(div)):not(:has(.mdc-button__label span span)) {
+      --uql-button-style-type: fifteen;
+
+      span.mdc-button__label span {
+        text-decoration: underline;
+        background-color: transparent;
+        color: var(--uq-main-purple);
+      }
+
+      &:hover {
+        span.mdc-button__label span {
+          text-decoration: underline;
+          background-color: var(--uq-main-purple);
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  /* eg full, view it, heading */
+  a:has(> span):has(> mat-icon) {
+    &:not(:has(> span:nth-of-type(2))):not(:has(> span > span)) {
+      --uql-button-style-type: sixteen;
+      span {
+        text-decoration: underline;
+      }
+
+      &:hover {
+        span {
+          text-decoration: underline;
+          background-color: var(--uq-main-purple);
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  /* eg full, view it, show licence button; full, citations "view nn citations" */
+  button:has(mat-icon + span + mat-icon) {
+    &:not(span:nth-of-type(2)):not(mat-icon:nth-of-type(3)) {
+      --uql-button-style-type: seventeen;
+      text-decoration: underline;
+
+      &:hover {
+        span {
+          text-decoration: underline;
+          background-color: var(--uq-main-purple);
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  /* eg full, other chapters in this book, link */
+  a:has(> span):has(> span > mat-icon) {
+    &:not(:has(span:nth-of-type(2))):not(:has(div)) {
+      --uql-button-style-type: eighteen;
+      line-height: normal;
+
+      span {
+        line-height: normal;
+      }
+
+      &:hover {
+        text-decoration: underline;
+        background-color: var(--uq-main-purple);
+        color: #fff;
+        border-radius: 0;
+
+        mat-icon path {
+          text-decoration: none;
+          fill: #fff;
+        }
+      }
+    }
+  }
+
+  /* eg full, details, collection path */
+  /* eg  citation trails  eg  https://uq-psb.primo.exlibrisgroup.com/permalink/61UQ_INST/164qc5o/cdi_wolterskluwer_health_10_1097_ACI_0000000000000640 then click "Sources citing this" and look for "Now listing sources citing" */
+  a {
+    &:not(:has(h3)):not(:has(span)):not(:has(mat-icon)):not(:has(div)) {
+      --uql-button-style-type: nineteen;
+      text-decoration: underline !important;
+      display: inline;
+
+      &:hover {
+        text-decoration: underline !important;
+        background-color: var(--uq-main-purple);
+        color: #fff !important;
+      }
+    }
+  }
+
+  /* account: search history h3 */
+  a:has(h3) {
+    &:not(:has(span)):not(:has(mat-icon)):not(:has(div)) {
+      --uql-button-style-type: nineteenextended;
+
+      h3 {
+        line-height: normal !important;
+        text-decoration: underline !important;
+      }
+      &:hover {
+        h3 {
+          text-decoration: underline !important;
+          background-color: var(--uq-main-purple);
+          color: #fff !important;
+          line-height: normal;
+        }
+      }
+    }
+  }
+
+  /* eg full record, Links section, access links */
+  a:has(> mat-icon) {
+    &:not(:has(span)) {
+      --uql-button-style-type: twenty;
+      line-height: normal;
+      text-decoration: underline;
+
+      &:hover {
+        text-decoration: underline !important;
+        background-color: var(--uq-main-purple);
+        color: #fff !important;
+        border-radius: 0;
+
+        mat-icon path {
+          fill: #fff;
+
+        }
+      }
+    }
+  }
+
+  /* full, Citations section, cited links */
+  a:has(> div mat-icon + span) {
+    &:not(:has(> span)):not(:has(> mat-icon)) {
+      --uql-button-style-type: twentyone;
+      line-height: 0;
+      span {
+        text-decoration: underline;
+      }
+
+      &:hover {
+        span {
+          text-decoration: underline;
+          background-color: var(--uq-main-purple);
+          color: #fff;
+          line-height: normal;
+        }
+      }
+    }
+  }
+
+  /* eg full, sidebar, related reading */
+  a:has(> h5 > span) {
+    --uql-button-style-type: twentytwo;
+
+    h5 span {
+      line-height: normal;
+      text-decoration: underline;
+    }
+
+    &:hover {
+      h5 span {
+        text-decoration: underline;
+        background-color: var(--uq-main-purple);
+        color: #fff;
+      }
+
+      mat-icon {
+        /* sometimes there is an icon */
+        background-color: #fff;
+      }
+    }
+  }
+
+  /* eg full, top section, read more button */
+  /* eg full, locations section, place a physical items request button, logged in, eg record "AMH Australian medicines handbook" */
+  button:has(> span:nth-of-type(5)):has(> span.mdc-button__label span) {
+    &:not(:has(mat-icon)):not(:has(div)):not(:has(span.mdc-button__label span span)) {
+      --uql-button-style-type: twentythree;
+
+      span.mdc-button__label span {
+        text-decoration: underline;
+        background-color: transparent;
+      }
+
+      &:hover {
+        span.mat-mdc-button-persistent-ripple::before {
+          background-color: transparent;
+          opacity: 1;
+        }
+        span.mdc-button__label span {
+          text-decoration: underline;
+          background-color: var(--uq-main-purple);
+          color: #fff;
+        }
+      }
+
+      /* full record, secondary "available online" button, eg "AMH Australian medicines handbook" */
+      &.quicklink-button {
+        span.mdc-button__label span {
+          text-decoration: none;
+        }
+        &:hover {
+          background-color: var(--uq-main-purple);
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  /* eg full, locations section, click filter by then clear filter button */
+  button, a {
+    &:has(> span:nth-of-type(5)):has(> span.mdc-button__label) {
+      &:not(:has(mat-icon)):not(:has(div)):not(:has(span span)) {
+        &:not(.facet-name) { // brief results, facet sidebar items
+          &:not(.quick-filter-btn) { // quick filter buttons (or we get weird double hover effect)
+            &:not([data-qa="atoz-button"]) { // database search alpha block doesnt need this styling
+              &:not([data-qa="filters_ClearAll"]):not(.apply-filters-btn) { // buttons at bottom of filters
+              --uql-button-style-type: twentyfour;
+
+              span.mdc-button__label {
+                line-height: normal;
+                color: var(--uq-main-purple);
+              }
+
+              &:hover {
+                background-color: var(--uq-main-purple);
+                span.mdc-button__label {
+                  text-decoration: underline;
+                  color: #fff;
+                }
+
+                span.mat-mdc-button-persistent-ripple {
+                  display: none;
+                }
+              }
+
+              // overrides
+              &.reset {
+                span.mdc-button__label {
+                  text-decoration: underline;
+                }
+              }
+              &.cancel-dialog-btn {
+                border: var(--uq-button-border);
+                span.mdc-button__label {
+                  color: #fff;
+                }
+                &:hover {
+                  background-color: #fff;
+                  text-decoration: underline;
+                  span.mdc-button__label {
+                    color: var(--uq-main-purple);
+                  }
+                }
+              }
+              &.back-dialog-btn { // tertiary
+                span.mdc-button__label {
+                  text-decoration: underline;
+                }
+              }
+            }
+            }
+
+            &.see-more-btn {
+              &:hover {
+                font-weight: 400;
+              }
+            }
+            &.barcode-search-button {
+              border: 2px solid var(--uq-main-purple);
+              span.mdc-button__label {
+                color: #fff;
+              }
+              &:hover {
+                background-color: #fff;
+                span.mdc-button__label {
+                  color: var(--uq-main-purple);
+                }
+              }
+            }
+            &[data-qa="submit-natural-language-search-form"] {
+              border: var(--uq-button-border);
+              span.mdc-button__label {
+                color: #fff;
+              }
+              &:hover {
+                background-color: #fff;
+                span.mdc-button__label {
+                  color: var(--uq-main-purple);
+                }
+              }
+            }
+            &.summary-search-button.edit-button { // "edit existing advanced search" button in search bar
+              background-color: #fff !important;
+              &:hover {
+                background-color: var(--uq-main-purple) !important;
+              }
+            }
+            &.summary-search-button.simple-search-button, // "basic search" button in search bar
+            &.summary-search-button.generated-query-button { // "edit ai generated search" button in search bar
+              text-decoration: underline;
+            }
+            &.request-button {
+              background-color: #fff;
+              border: var(--uq-button-border);
+              &:hover {
+                background-color: var(--uq-main-purple);
+              }
+            }
+            &[data-qa="favorites-view-all-btn"], // account, overview
+            &[data-qa="saved-searches-view-all-btn"],
+            &[data-qa="search-history-view-all-btn"],
+            &[data-qa="fines-view-all-btn"],
+            &[data-qa="requests-view-all-btn"],
+            &.advanced-search-button { // search header
+              --uql-button-style-type: twentyfourextended-advancedsearch;
+              text-decoration: underline;
+              &:hover {
+                background-color: transparent !important;
+                span.mdc-button__label {
+                  background-color: var(--uq-main-purple) !important;
+                  color: #fff !important;
+                }
+              }
+
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /* eg full, locations, expand "Show more" - note html is "broken", "Show more should be inside the provided mdc-button__label span */
+  button:has(> span:nth-of-type(5)):has(> span.mdc-button__label:empty) {
+    --uql-button-style-type: twentyfive;
+    span.mat-mdc-button-persistent-ripple::before {
+      background-color: transparent;
+    }
+    text-decoration: underline;
+    &:hover {
+        background-color: var(--uq-main-purple);
+        color: #fff;
+    }
+  }
+
+  /* full record, available online - second button (with icon) */
+  nde-online-availability {
+    button {
+      --uql-button-style-type: twentysix;
+      border-width: 2px;
+      padding-block: 1rem;
+      --sys-outline-variant: var(--uq-main-purple);
+      border-top-left-radius: 0 !important;
+      border-bottom-left-radius: 0 !important;
+
+      &:hover {
+        span.mat-mdc-button-persistent-ripple::before {
+          background-color: var(--uq-main-purple);
+          color: #fff;
+          opacity: 1;
+          transition: background-color .2s ease-out, color .2s ease-out, border .2s ease-out;
+          border-radius: unset;
+        }
+
+        span.mdc-button__label span {
+          text-decoration: underline;
+          background-color: var(--uq-main-purple);
+          color: #fff;
+        }
+
+        mat-icon * {
+          fill: #fff;
+        }
+      }
+    }
+  }
+
+
+  /* they are doing something horrid with the some buttons - it loads with 4 span children, but on hover it has 5!!! */
+  /* eg search header, advanced search button  */
+  /* and the AI buttons starts with 5 and hovers to 4!!! */
+  /* and the full record logged in request button!! */
+  /* and the cancel button on the account > requests "cancel this request" submit button */
+  /* and the sidebar links in account page :( */
+  a, button.basic-button, button.mdc-button {
+    &:has(> span:nth-of-type(4)){
+      &:not(:has(> span:nth-of-type(5))):not(:has(div)) {
+        --uql-button-style-type: twentyeight;
+        text-decoration: underline;
+        --sys-inverse-on-surface: #fff;
+        &.facet-name {
+          // don't underline the sidebar checkbox labels
+          text-decoration: none;
+        }
+        // the big versions icon is BRIGHT GREEN OTB :(
+        mat-icon.mat-icon.frbr-list-icon-color > svg > rect:first-of-type {
+          fill: var(--uq-main-purple);
+        }
+        span.mdc-button__label {
+          color: var(--uq-main-purple);
+          > span {
+            color: var(--uq-main-purple);
+          }
+        }
+
+        // overrides
+        &[routerlinkactive="active-link"] {
+          text-decoration: none;
+        }
+        &.cancel-dialog-btn {
+          text-decoration: none;
+        }
+        &.request-button {
+          text-decoration: none;
+          background-color: #fff;
+          border: var(--uq-button-border);
+          --mdc-filled-button-label-text-color: var(--uq-main-purple);
+          --mdc-filled-button-container-color: #fff;
+        }
+      }
+    }
+  }
+
+  /* web of science, scopus buttons at bottom */
+  a, button {
+    &:has(> div > mat-icon):has(> div > span):has(> span) {
+      &:not(:has(> div:nth-of-type(2))):not(:has(> div > mat-icon:nth-of-type(2))):not(:has(> div > span:nth-of-type(2))):not(:has(> span:nth-of-type(2))) {
+        --uql-button-style-type: twentynine;
+        text-decoration: underline;
+        &:hover {
+          span {
+            background-color: var(--uq-main-purple);
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+
+  /* eg logged in, the cows "place a physical item request, popup */
+  a, button {
+    &:has(> span:nth-of-type(5)):has(> span.mdc-button__label span span) {
+      &:not(:has(div)):not(:has(mat-icon)):not(.available-at-button) {
+        --uql-button-style-type: thirty;
+        border: var(--uq-button-border);
+        &:hover {
+          background-color: #fff;
+          span.mdc-button__label span span {
+            color: var(--uq-main-purple);
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+  /* eg the sidebar filter checkbox buttons in certain circumstances */
+  a, button {
+    &:has(> span:nth-of-type(4)):has(span.mdc-button__label) {
+      &:not(:has(> span:nth-of-type(5))):not(:has(div)):not(:has(mat-icon)):not(:has(span.mdc-button__label span)) {
+        &:not([data-qa="filters_applyFilters"]) {
+          --uql-button-style-type: thirtytwo;
+
+          span.mdc-button__label {
+            color: var(--uq-colour-black);
+          }
+        }
+      }
+    }
+  }
+
+  /* eg account > over view > panels */
+  nde-saved-searches-overview,
+  nde-search-history-overview {
+    a:has(> span){
+      &:not(:has(span:nth-of-type(2))) {
+        --uql-button-style-type: thirtyone;
+        &:hover {
+          span {
+            background-color: #51247a;
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+
+  /* back to top button */
+  nde-back-to-top {
+    button {
+      &:hover {
+        background-color: var(--uq-colour-purple-50) !important;
+        color: var(--uq-main-purple) !important;
+      }
+    }
+  }
+  /* END back to top button */
+
+  /* main menu popup items */
+  ul.show-more-main-menu-out-inner-wrapper-ul {
+    a, button {
+      text-decoration: underline;
+      color: var(--uq-main-purple);
+      cursor: pointer;
+
+      &:hover {
+        background-color: transparent;
+        span.mat-title-small,
+        span.mat-body-small {
+          background-color: var(--uq-main-purple);
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  cdk-virtual-scroll-viewport a {
+    h3 {
+      text-decoration: underline;
+      display: inline;
+    }
+    &:hover {
+      h3 {
+        text-decoration: none;
+        background-color: var(--uq-main-purple);
+        color: #fff;
+      }
+    }
+  }
+
+  nde-categories {
+    mat-tree-node {
+      text-decoration: underline;
+      color: var(--uq-main-purple);
+      --sys-on-background: var(--uq-main-purple);
+      &.selected-category {
+        font-weight: 500;
+      }
+    }
+  }
+
+
+  /* END UQ DS style Tight links */
+
+  /* Resource Sharing form message */
+  .description-container span {
+    font-size: 1rem;
+  }
+  /* END Resource Sharing form message */
 }

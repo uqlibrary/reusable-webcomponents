@@ -7,6 +7,14 @@ main.sub-container { // needed for specificity :(
 
           > button.submit-btn {
             @include uqPrimaryButton();
+            .mdc-button__label span span {
+              color: #fff;
+            }
+            &:hover {
+              .mdc-button__label span span {
+                color: var(--uq-main-purple);
+              }
+            }
           }
 
           > div.blank-form-reset-button {
