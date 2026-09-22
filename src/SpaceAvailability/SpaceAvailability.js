@@ -8,6 +8,7 @@ const SPACE_AVAILABILITY_CHART_CONTAINER_ID = 'space-availability__chart_contain
 const SPACE_AVAILABILITY_CHART_BAR_ID = 'space-availability__chart_bar';
 const SPACE_AVAILABILITY_CHART_BAR_LOADING_CLASS = 'space-availability__chart_bar_loading';
 const SPACE_AVAILABILITY_CHART_LABEL_ID = 'space-availability__chart_label';
+const SPACE_AVAILABILITY_CHART_LABEL_TEXT_ID = 'space-availability__chart_label_text';
 const SPACE_AVAILABILITY_CHART_BAR_LOADER_ID = 'space-availability__chart_bar_loader';
 const SPACE_AVAILABILITY_STATUS_ID = 'space-availability__status';
 const SPACE_AVAILABILITY_HEADING_SR_PREFIX_LABEL = 'UQ Library Space Availability:';
@@ -36,11 +37,13 @@ template.innerHTML = `
         <div class="${SPACE_AVAILABILITY_TITLE_ID}" role="heading" aria-level="3">
             <span class="visually-hidden">${SPACE_AVAILABILITY_HEADING_SR_PREFIX_LABEL}</span><span class="${SPACE_AVAILABILITY_TITLE_LABEL_ID}">${SPACE_AVAILABILITY_INITIAL_LABEL_TEXT}</span></div>
         <div class="${SPACE_AVAILABILITY_SUBTITLE_ID}">${SPACE_AVAILABILITY_INITIAL_LABEL_TEXT}</div>
-        <div class="${SPACE_AVAILABILITY_STATUS_ID} visually-hidden"></div>
         <div class="${SPACE_AVAILABILITY_CHART_CONTAINER_ID}">
             <div class="${SPACE_AVAILABILITY_CHART_BAR_ID}" style="width:0%;"></div>
             <div class="${SPACE_AVAILABILITY_CHART_BAR_LOADER_ID}" aria-hidden="true"></div>
-            <div class="${SPACE_AVAILABILITY_CHART_LABEL_ID}">${SPACE_AVAILABILITY_INITIAL_LABEL_TEXT}</div>
+            <div class="${SPACE_AVAILABILITY_CHART_LABEL_ID}">
+                <span class="${SPACE_AVAILABILITY_STATUS_ID} visually-hidden"></span>
+                <span class="${SPACE_AVAILABILITY_CHART_LABEL_TEXT_ID}">${SPACE_AVAILABILITY_INITIAL_LABEL_TEXT}</span>
+            </div>
         </div>
     </div>
 `;
@@ -187,7 +190,7 @@ class SpaceAvailability extends HTMLElement {
 
     setBarText(message) {
         this.resetElementClasses(SPACE_AVAILABILITY_CHART_LABEL_ID);
-        this.shadowDOM.querySelector(`.${SPACE_AVAILABILITY_CHART_LABEL_ID}`).innerText = message;
+        this.shadowDOM.querySelector(`.${SPACE_AVAILABILITY_CHART_LABEL_TEXT_ID}`).innerText = message;
     }
 
     setBarPercentageWidth(percentage) {
@@ -226,9 +229,10 @@ class SpaceAvailability extends HTMLElement {
         this.setTitleText(titleMessage);
         this.setSubTitleText(this.getSubTitleMessage(data?.capacity || ''));
         const updatedLabel = this.hasLoadedData ? ' updated' : ''; // only announce as an update after the initial load
-        this.setStatusMessage(
-            `${titleMessage || 'Space availability'}${updatedLabel}: ${this.getBarMessage(percentage)}`,
-        );
+        const titleMessageWithUpdate = `${
+            this.hasLoadedData ? titleMessage || 'Space availability' : ''
+        }${updatedLabel}`;
+        this.setStatusMessage(`${titleMessageWithUpdate}:`);
         this.hasLoadedData = true;
     }
 
