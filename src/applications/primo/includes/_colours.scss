@@ -118,7 +118,9 @@ $uq-body-font-family: var(--uq-body-font-family);
   &.mat-mdc-button-disabled {
     opacity: 50%;
   }
-
+  span.mat-ripple.mat-mdc-button-ripple {
+    display: none;
+  }
   &:hover {
     background-color: #fff !important;
     border-color: $uqBrandColour;
@@ -879,6 +881,7 @@ body.custom-nde-theme {
         &:not(.facet-name) { // brief results, facet sidebar items
           &:not(.quick-filter-btn) { // quick filter buttons (or we get weird double hover effect)
             &:not([data-qa="atoz-button"]) { // database search alpha block doesnt need this styling
+              &:not([data-qa="filters_ClearAll"]):not(.apply-filters-btn) { // buttons at bottom of filters
               --uql-button-style-type: twentyfour;
 
               span.mdc-button__label {
@@ -898,6 +901,7 @@ body.custom-nde-theme {
                 }
               }
 
+              // overrides
               &.reset {
                 span.mdc-button__label {
                   text-decoration: underline;
@@ -921,6 +925,7 @@ body.custom-nde-theme {
                   text-decoration: underline;
                 }
               }
+            }
             }
 
             &.see-more-btn {
@@ -949,15 +954,6 @@ body.custom-nde-theme {
                 background-color: #fff;
                 span.mdc-button__label {
                   color: var(--uq-main-purple);
-                }
-              }
-            }
-            &[aria-label^="Clear all filters"] {
-              --uql-button-style-type: twentyfourextended-clearallfilters;
-              text-decoration: underline;
-              &:hover {
-                span.mat-mdc-button-persistent-ripple::before {
-                  background-color: transparent;
                 }
               }
             }
@@ -1074,6 +1070,7 @@ body.custom-nde-theme {
           }
         }
 
+        // overrides
         &[routerlinkactive="active-link"] {
           text-decoration: none;
         }
@@ -1118,6 +1115,21 @@ body.custom-nde-theme {
           span.mdc-button__label span span {
             color: var(--uq-main-purple);
             text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+  /* eg the sidebar filter checkbox buttons in certain circumstances */
+  a, button {
+    &:has(> span:nth-of-type(4)):has(span.mdc-button__label) {
+      &:not(:has(> span:nth-of-type(5))):not(:has(div)):not(:has(mat-icon)):not(:has(span.mdc-button__label span)) {
+        &:not([data-qa="filters_applyFilters"]) {
+          --uql-button-style-type: thirtytwo;
+
+          span.mdc-button__label {
+            color: var(--uq-colour-black);
           }
         }
       }
