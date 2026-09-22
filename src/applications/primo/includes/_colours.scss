@@ -262,23 +262,6 @@ body.custom-nde-theme {
   }
   /* END style the purchase request acount menu icon */
 
-  /* content indicator colours */
-  .mat-icon.open-access-indicator-color svg path {
-    fill: var(--uql-content-indicator-open-access);
-  }
-  div.uql-cultural-advice-content-indicator mat-icon svg path {
-    --uql-base-icon-colour: var(--uql-content-indicator-cultural-advice);
-  }
-  div.uql-course-resource-content-indicator mat-icon svg path {
-    --uql-base-icon-colour: var(--uql-content-indicator-course-reading-list);
-  }
-  mat-icon[data-mat-icon-name="Peer-Reviewed-Indicator"] svg {
-    path, circle {
-      --sys-primary: var(--uql-content-indicator-peer-review);
-    }
-  }
-  /* END content indicator colours */
-
   /* UQ DS style Tight links */
 
   /* attempting to style by link/button html structure, rather than specific types */
@@ -1244,4 +1227,21 @@ body.custom-nde-theme {
     font-size: 1rem;
   }
   /* END Resource Sharing form message */
+
+  /* content indicator colours */
+  .mat-icon.open-access-indicator-color svg path {
+    fill: var(--uql-content-indicator-open-access);
+  }
+  div.uql-cultural-advice-content-indicator mat-icon svg path {
+    --uql-base-icon-colour: var(--uql-content-indicator-cultural-advice);
+  }
+  div.uql-course-resource-content-indicator mat-icon svg path {
+    --uql-base-icon-colour: var(--uql-content-indicator-course-reading-list);
+  }
+  mat-icon[data-mat-icon-name="Peer-Reviewed-Indicator"] svg {
+    path, circle {
+      --sys-primary: var(--uql-content-indicator-peer-review);
+    }
+  }
+  /* END content indicator colours */
 }
