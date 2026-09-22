@@ -15,7 +15,7 @@ const SPACE_AVAILABILITY_HEADING_SR_PREFIX_LABEL = 'UQ Library Space Availabilit
 const SPACE_AVAILABILITY_INITIAL_LABEL_TEXT = 'Loading data';
 const SPACE_AVAILABILITY_WRAPPER_ID = 'spaceAvailabilityWrapper';
 
-const REFRESH_INTERVAL_TICKS = 1000 * 60 * 2; // 2 minutes, as per peak server vemcount generation
+const REFRESH_INTERVAL_TICKS = 1000 * 10; // 60 * 2; // 2 minutes, as per peak server vemcount generation
 
 const spaceAvailabilityClass = {
     border: {
@@ -175,13 +175,25 @@ class SpaceAvailability extends HTMLElement {
     }
 
     setStatusMessage(message) {
+        const chartLabelElement = this.shadowDOM.querySelector(`.${SPACE_AVAILABILITY_CHART_LABEL_ID}`);
         const statusElement = this.shadowDOM.querySelector(`.${SPACE_AVAILABILITY_STATUS_ID}`);
         // only mark the region live once it already has initial content, so the first load isn't announced
+        // role is on the parent (not this span) so aria-atomic reads both the status and % capacity text together
         if (this.hasAnnouncedStatus) {
-            statusElement.setAttribute('role', 'status');
+            chartLabelElement.setAttribute('role', 'status');
         }
         statusElement.innerText = message;
         this.hasAnnouncedStatus = true;
+
+        // clear shortly after announcing so browse-mode/virtual cursor navigation doesn't read stale status text
+        clearTimeout(this.statusClearTimeoutId);
+        this.statusClearTimeoutId = setTimeout(() => {
+            // silence the live region for this mutation, otherwise aria-atomic would re-announce on the clear
+            chartLabelElement.setAttribute('aria-live', 'off');
+            console.log(statusElement.innerText);
+            statusElement.innerText = '';
+            chartLabelElement.removeAttribute('aria-live');
+        }, 10000);
     }
 
     setSubTitleText(message) {
