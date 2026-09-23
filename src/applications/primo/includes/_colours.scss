@@ -75,6 +75,9 @@
 
   --mat-datepicker-calendar-container-background-color: var(--uq-colour-purple-50);
 
+  --mat-sys-on-surface: var(--uq-body-copy); // general low level content
+  --primary-500: var(--uq-body-copy); // sort by label
+
   --uql-content-indicator-open-access: var(--uql-brand-orange);
   --uql-content-indicator-peer-review: var(--uql-brand-blue);
   --uql-content-indicator-course-reading-list: var(--uql-brand-green);
@@ -82,9 +85,7 @@
 
   --uql-base-icon-colour: var(--uq-main-purple);
   --darkText: var(--uq-colour-black);
-}
 
-:root, html, head, body {
   --uq-border: 1px solid var(--uq-colour-grey-200);
   --mdc-text-button-container-shape: var(--uq-border-radius) !important;
   --mat-sys-corner-full: var(--uq-border-radius) !important;
