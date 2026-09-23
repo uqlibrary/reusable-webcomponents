@@ -195,10 +195,10 @@ prm-blank_ill, alma-htgi-svc {
     }
 }
 
-/* when they submit a purchase request, they may get an error back */
-prm-opac, // "place a physical item request"
-prm-blank_ill, // blank purchase request form
-alma-htgi-svc { // inline purchase request form
+/* when they submit a request, they may get an error back */
+prm-opac, // blank (standalone) resource delivery request
+prm-blank_ill, // blank (standalone) purchase request form
+alma-htgi-svc { // inline request forms
     .bar.error-bar {
         background-color: $uqError50;
         color: $uqGrey900;
