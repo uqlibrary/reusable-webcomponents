@@ -1,3 +1,5 @@
+@use "../../../../styles-imports/www/variables";
+
 /* starting depositForm */
 
 .deposit-dialog {
@@ -28,7 +30,7 @@
 }
 
 .mandatory-files-error {
-    color: $red;
+    color: variables.$red;
     font-size: 12px;
     padding-top: 4px;
 }

@@ -1,9 +1,13 @@
+@use "sass:color";
+@use "../../../styles-imports/www/variables";
+@use "mixins/material-mixins";
+
 md-select,
 md-select:not([disabled]) {
     &[required] {
         // @extend %required-starlet;
         input {
-            border-bottom-color: $red;
+            border-bottom-color: variables.$red;
 
             &.ng-untouched {
                 + [ng-messages] {
@@ -22,7 +26,7 @@ md-select:not([disabled]) {
     ._md-select-icon,
     .md-select-icon {
         //text-align: right;
-        @include rtl(text-align, right, left);
+        @include material-mixins.rtl(text-align, right, left);
         &:after {
             font-size: 12px;
             top: 0px;
@@ -34,13 +38,13 @@ md-select-menu,
 md-select-menu.md-primoExplore-theme,
 md-select-menu.md-default-theme {
     md-content {
-        background-color: $white;
+        background-color: variables.$white;
 
         md-option {
             &:not([disabled]) {
                 &:hover,
                 &:focus {
-                    background: darken($white, 10%);
+                    background: color.adjust(variables.$white, $lightness: -10%);
                 }
             }
         }

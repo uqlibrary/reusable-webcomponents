@@ -1,3 +1,5 @@
+@use "../../../../../styles-imports/www/variables";
+
 /* starting personalizeResultsButton */
 
 prm-personalize-results-button {
@@ -20,7 +22,7 @@ prm-personalize-results-button {
                     ._md-thumb,
                     .md-bar,
                     ._md-bar {
-                        background-color: $white !important;
+                        background-color: variables.$white !important;
                     }
                     .md-bar,
                     ._md-bar {
@@ -34,7 +36,7 @@ prm-personalize-results-button {
                         ._md-bar,
                         .md-thumb,
                         ._md-thumb {
-                            color: $white !important;
+                            color: variables.$white !important;
                         }
                     }
                 }
@@ -43,12 +45,12 @@ prm-personalize-results-button {
             &.toggled {
                 &.button-as-link {
                     &:hover:not([disabled]) {
-                        background-color: $highlightBlue;
-                        color: $links-hue-5;
+                        background-color: variables.$highlightBlue;
+                        color: variables.$links-hue-5;
                     }
                     &:focus:not([disabled]) {
-                        background-color: $highlightBlue;
-                        color: $links-hue-5;
+                        background-color: variables.$highlightBlue;
+                        color: variables.$links-hue-5;
                     }
                 }
             }
@@ -57,7 +59,7 @@ prm-personalize-results-button {
                 height: 23px;
                 .md-bar,
                 ._md-bar {
-                    background-color: $background-hue7;
+                    background-color: variables.$background-hue7;
                 }
                 .md-thumb,
                 ._md-thumb {
@@ -84,7 +86,7 @@ prm-personalize-results-button {
     }
 
     .personalization-mobile-btn {
-        color: $personalization !important;
+        color: variables.$personalization !important;
         opacity: 0.8;
     }
 

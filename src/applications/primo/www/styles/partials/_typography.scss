@@ -1,7 +1,8 @@
-@import 'line-clamp';
+@use 'line-clamp';
+@use "../../../styles-imports/www/variables";
 
 body {
-    font-size: $defaultFontSize;
+    font-size: variables.$defaultFontSize;
     .combined-half-mark {
         font-family: arial;
         font-size: 0.95em;
@@ -15,7 +16,7 @@ h4 {
     margin-bottom: 0.5em;
 }
 h1 {
-    font-weight: $normal;
+    font-weight: variables.$normal;
 }
 h2 {
     font-weight: 300;
@@ -32,13 +33,13 @@ p {
 }
 em.keyword {
     font-style: normal;
-    box-shadow: inset 0 -2px 0 0 $highlight;
+    box-shadow: inset 0 -2px 0 0 variables.$highlight;
 }
 .text-muted {
-    color: $disabled;
+    color: variables.$disabled;
 }
 .text-success {
-    color: $success;
+    color: variables.$success;
 }
 .text-link {
     cursor: pointer;
@@ -47,7 +48,7 @@ em.keyword {
 .uppercase-bold {
     text-transform: uppercase;
     font-size: 0.75em;
-    font-weight: $bold;
+    font-weight: variables.$bold;
     letter-spacing: 0.05em;
 }
 .text-uppercase {
@@ -58,13 +59,13 @@ em.keyword {
 }
 .bold-text,
 strong {
-    font-weight: $bold !important;
+    font-weight: variables.$bold !important;
 }
 .normal-text {
-    font-weight: $normal;
+    font-weight: variables.$normal;
 }
 .light-text {
-    font-weight: $light;
+    font-weight: variables.$light;
 }
 .small-text {
     font-size: 12px;
@@ -74,15 +75,15 @@ strong {
     font-style: italic;
 }
 .weak-text {
-    color: $text-hue4;
+    color: variables.$text-hue4;
 }
 .darker-text {
-    color: $text-hue3;
+    color: variables.$text-hue3;
 }
 .tiny-uppercase-text {
     letter-spacing: 0.07em;
     text-transform: uppercase;
-    font-weight: $bold;
+    font-weight: variables.$bold;
     font-size: 0.75em;
 }
 .medium-uppercase-bold {
@@ -134,7 +135,7 @@ strong {
     letter-spacing: 0.03em;
 }
 .text-highlight {
-    box-shadow: inset 0 -0.2em 0 0 $highlightSecondary;
+    box-shadow: inset 0 -0.2em 0 0 variables.$highlightSecondary;
 }
 .text-rtl {
 }

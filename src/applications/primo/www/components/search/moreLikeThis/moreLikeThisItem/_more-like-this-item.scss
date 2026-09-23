@@ -1,3 +1,6 @@
+@use "../../../../../styles-imports/www/variables";
+@use "../../../../styles/partials/mixins";
+
 /* starting virtualBrowseItem */
 
 prm-more-like-this-item {
@@ -8,7 +11,7 @@ prm-more-like-this-item {
     }
 
     md-card {
-        background-color: $white;
+        background-color: variables.$white;
         max-height: 100%;
         font-size: 0.9em;
         margin: 0;
@@ -60,7 +63,7 @@ prm-more-like-this-item {
                 background: transparent !important;
             }
 
-            @include multiLineEllipsis($lineHeight: 1.2em, $lineCount: 5, $bgColor: white);
+            @include mixins.multiLineEllipsis($lineHeight: 1.2em, $lineCount: 5, $bgColor: white);
 
             text-align: left;
 

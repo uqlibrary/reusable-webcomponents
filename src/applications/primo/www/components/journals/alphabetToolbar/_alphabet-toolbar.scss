@@ -1,3 +1,6 @@
+@use "../../../../styles-imports/www/variables";
+@use "../../../styles/partials/mixins";
+
 /* starting alphabetToolbar */
 prm-alphabet-toolbar {
     .language-characters {
@@ -14,7 +17,7 @@ prm-alphabet-toolbar {
     .md-button {
         margin: 0;
         line-height: 44px;
-        @include setSize(44px);
+        @include mixins.setSize(44px);
         width: auto;
         &.letter-button {
             width: 44px;
@@ -28,7 +31,7 @@ prm-alphabet-toolbar {
         &.current-letter,
         &.current-letter:focus,
         &.current-letter:hover {
-            background-color: $accent-color;
+            background-color: variables.$accent-color;
             color: #fff !important;
         }
     }
@@ -39,7 +42,7 @@ prm-alphabet-toolbar {
             order: 2;
         }
         label {
-            color: $white !important;
+            color: variables.$white !important;
         }
     }
 
@@ -53,7 +56,7 @@ prm-alphabet-toolbar {
     }
 
     .language-selector {
-        color: $white;
+        color: variables.$white;
     }
 
     .hebrew-characters {

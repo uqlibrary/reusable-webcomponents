@@ -1,3 +1,6 @@
+@use "../../../../styles-imports/www/variables";
+@use "../../../styles/partials/mixins";
+
 prm-organization-or-facet-toggle {
     prm-facet & {
         height: 19px;
@@ -14,10 +17,10 @@ prm-organization-or-facet-toggle {
             &.toggled {
                 &.button-as-link {
                     &:hover:not([disabled]) {
-                        @include bgColor($primary);
+                        @include mixins.bgColor(variables.$primary);
                     }
                     &:focus:not([disabled]) {
-                        @include bgColor($primary);
+                        @include mixins.bgColor(variables.$primary);
                     }
                 }
             }

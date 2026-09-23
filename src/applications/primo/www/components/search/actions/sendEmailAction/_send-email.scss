@@ -1,3 +1,6 @@
+@use "../../../../../styles-imports/www/variables";
+@use "../../../../styles/partials/mixins";
+
 /* starting sendEmail */
 
 prm-send-email {
@@ -9,6 +12,6 @@ prm-send-email {
         }
     }
     button.button-confirm {
-        @include uqTertiaryButton($white, $accent-color);
+        @include mixins.uqTertiaryButton(variables.$white, variables.$accent-color);
     }
 }

@@ -1,6 +1,11 @@
-@import 'citation/citation';
-@import 'sendEmailAction/send-email';
-@import 'legantoAction/leganto';
+@use "sass:color";
+@use "sass:math";
+@use 'citation/citation';
+@use 'sendEmailAction/send-email';
+@use 'legantoAction/leganto';
+@use "../../../../styles-imports/www/variables";
+@use "../../../styles/partials/easing";
+@use "../../../styles/partials/mixins";
 
 /* starting actionList */
 .favorites-action-list,
@@ -26,7 +31,7 @@
 
 prm-action-list {
     & > div > button {
-        @include uqPrimaryButton($accent-color, $white);
+        @include mixins.uqPrimaryButton(variables.$accent-color, variables.$white);
     }
 }
 prm-action-list,
@@ -60,7 +65,7 @@ prm-action-list,
 
             .md-button.md-unselected,
             .md-button.md-primary {
-                color: $accent-color;
+                color: variables.$accent-color;
                 border-radius: 4px;
                 padding-bottom: 0.75em;
                 padding-top: 0.75em;
@@ -74,9 +79,9 @@ prm-action-list,
                 &:focus,
                 &:hover {
                     background-color: #fff;
-                    color: $accent-color;
+                    color: variables.$accent-color;
                     span.button-text {
-                        background-color: $accent-color;
+                        background-color: variables.$accent-color;
                         color: #fff;
                         padding-block: 2px;
                   }
@@ -99,7 +104,7 @@ prm-action-list,
             }
             .md-button.md-primary:focus:not([disabled]) {
               background-color: #fff;
-              color: $accent-color;
+              color: variables.$accent-color;
             }
           }
 
@@ -116,13 +121,13 @@ prm-action-list,
     &.visible {
         .md-nav-item {
             opacity: 1;
-            transition: $swift-ease-out;
+            transition: variables.$swift-ease-out;
             transition-duration: 0.25s;
             transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
             $max: 12;
             @for $i from 1 through $max {
                 $value: $max - $i;
-                &:nth-child(#{abs($i)}) {
+                &:nth-child(#{math.abs($i)}) {
                     transition-delay: ($value * 0.02)#{s};
                 }
             }
@@ -134,18 +139,18 @@ prm-action-list,
     max-height: 0;
 
     opacity: 0;
-    transition: opacity 0s ease, max-height 0s $easeOutQuint;
+    transition: opacity 0s ease, max-height 0s easing.$easeOutQuint;
 
     .send-content-visible & {
         max-height: 100em;
         opacity: 1;
-        transition: opacity 0.2s ease, max-height 0.3s $easeOutQuint;
+        transition: opacity 0.2s ease, max-height 0.3s easing.$easeOutQuint;
     }
 }
 
 .send-actions-content-item {
     transform-origin: 50% 0;
-    transition: transform 0.4s $easeOutQuint;
+    transition: transform 0.4s easing.$easeOutQuint;
 
     .__xs & {
         margin: 0;
@@ -164,8 +169,8 @@ prm-action-list,
     > md-content,
     > md-content.md-primoExplore-theme {
         padding: 1em;
-        border: 1px solid darken($actionsBackground, 4%);
-        background-color: $actionsBackground;
+        border: 1px solid color.adjust(variables.$actionsBackground, $lightness: -4%);
+        background-color: variables.$actionsBackground;
 
         .__xs & {
             padding: 0;
@@ -247,8 +252,8 @@ prm-action-list {
     prm-send-email .send-actions-content-item.layout-row,
     prm-share {
         button.button-confirm {
-            @include uqPrimaryButton($accent-color, $white);
-            border: 2px solid $accent-color !important;
+            @include mixins.uqPrimaryButton(variables.$accent-color, variables.$white);
+            border: 2px solid variables.$accent-color !important;
           font-size: 16px !important;
         }
     }

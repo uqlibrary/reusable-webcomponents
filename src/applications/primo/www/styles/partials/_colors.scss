@@ -1,3 +1,5 @@
+@use "../../../styles-imports/www/variables";
+
 .status-maybe {
     @extend .prm-notice !optional;
 }
@@ -6,5 +8,5 @@
     @extend .prm-positive !optional;
 }
 .status-unavailable {
-    color: $negative-hue1;
+    color: variables.$negative-hue1;
 }

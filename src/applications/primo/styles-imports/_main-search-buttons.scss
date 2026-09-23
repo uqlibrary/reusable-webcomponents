@@ -1,3 +1,5 @@
+@use "../../styles-imports/variables";
+
 prm-search-bar {
     .search-switch-buttons {
         padding-top: 0;
@@ -18,7 +20,7 @@ prm-search-bar {
 
             &.switch-to-advanced:focus,
             &.switch-to-simple:focus {
-                outline: $accent-color-light auto 5px !important;
+                outline: variables.$accent-color-light auto 5px !important;
                 color: $primary !important;
             }
         }
@@ -28,6 +30,6 @@ prm-search-bar {
 prm-advanced-search {
     .md-button[aria-label='Search']:not([disabled]),
     .md-button.button-confirm:not([disabled]) {
-        @include uqPrimaryButton($accent-color, rgb(243, 243, 243));
+        @include uqPrimaryButton(variables.$accent-color, rgb(243, 243, 243));
     }
 }

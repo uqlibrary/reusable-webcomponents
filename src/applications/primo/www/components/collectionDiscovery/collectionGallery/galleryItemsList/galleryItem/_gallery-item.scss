@@ -1,9 +1,13 @@
+@use "sass:color";
+@use "../../../../../../styles-imports/www/variables";
+@use "../../../../../styles/partials/mixins";
+
 $max-image-height: 140px;
 
 prm-gallery-item {
     .collection-element {
         cursor: pointer;
-       background-color: lighten($background, 4%);
+       background-color: color.adjust(variables.$background, $lightness: 4%);
         @extend .default-shadow;
         .item-title {
             font-size: 0.9em;
@@ -12,7 +16,7 @@ prm-gallery-item {
         }
         .resource-type,
         .item-title {
-           background-color: lighten($background, 4%);
+           background-color: color.adjust(variables.$background, $lightness: 4%);
         }
         .image-holder {
             position: relative;
@@ -20,10 +24,10 @@ prm-gallery-item {
             width: 100%;
         }
         &.is-active {
-            background-color: $white;
+            background-color: variables.$white;
             .resource-type,
             .item-title {
-                background-color: $white;
+                background-color: variables.$white;
             }
         }
     }
@@ -48,7 +52,7 @@ prm-gallery-item {
             }
             .image-holder {
                 transform: scale(1);
-                transition: $swift-ease-out;
+                transition: variables.$swift-ease-out;
                 transition-duration: 0.2s;
                 transform-origin: 0 0;
             }
@@ -57,7 +61,7 @@ prm-gallery-item {
                 bottom: 0;
                 background-color: transparent;
                 align-items: flex-start;
-                transition: $swift-ease-out;
+                transition: variables.$swift-ease-out;
                 transition-duration: 0.2s;
                 transform: translateY(100%);
                 max-height: 100%;
@@ -90,11 +94,11 @@ prm-gallery-item {
                 .md-button {
                     margin: 0;
                     transform: scale(0);
-                    transition: $swift-ease-out;
+                    transition: variables.$swift-ease-out;
                     transition-duration: 0.25s;
                     opacity: 0;
                     transform-origin: 100% 0;
-                    @include bgColor($secondary-hue3);
+                    @include mixins.bgColor(variables.$secondary-hue3);
                 }
             }
             // &:focus {
@@ -116,7 +120,7 @@ prm-gallery-item {
                     margin: 0;
                     opacity: 1;
                     transform: scale(1);
-                    transition: $swift-ease-out;
+                    transition: variables.$swift-ease-out;
                     transition-duration: 0.2s;
                 }
             }
@@ -149,11 +153,11 @@ prm-gallery-item {
                 .md-button {
                     margin: 0;
                     transform: scale(0.75);
-                    transition: $swift-ease-out;
+                    transition: variables.$swift-ease-out;
                     transition-duration: 0.25s;
                     opacity: 0.75;
                     transform-origin: 170% 0;
-                    @include bgColor($secondary-hue3);
+                    @include mixins.bgColor(variables.$secondary-hue3);
                 }
             }
             &.is-active {
@@ -161,7 +165,7 @@ prm-gallery-item {
                 .md-button {
                     opacity: 1;
                     transform: scale(1);
-                    transition: $swift-ease-out;
+                    transition: variables.$swift-ease-out;
                     transition-duration: 0.2s;
                 }
             }

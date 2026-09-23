@@ -1,3 +1,6 @@
+@use "../../../../../styles-imports/www/variables";
+@use "../../../../styles/partials/mixins";
+
 prm-saved-queries-list {
     .md-subheader {
         .__xs & {
@@ -70,12 +73,12 @@ prm-saved-queries-list {
             transform-origin: 0 50%;
         }
         &.ng-enter {
-            transition: $swift-ease-out;
+            transition: variables.$swift-ease-out;
             transition-duration: 0.3s;
             transform: scale(0.7);
             opacity: 0;
 
-            @include ie-exceptions;
+            @include mixins.ie-exceptions;
 
             &.ng-enter-active {
                 transform: scale(1);
@@ -103,14 +106,14 @@ prm-saved-queries-list {
             float: left;
             clear: none;
             display: inline;
-            color: $dark;
+            color: variables.$dark;
             color: #198a19;
             margin-right: 0.25em;
             left: -1.5em;
         }
         md-icon {
             transform: scale(-1, 1);
-            @include setSize(18px);
+            @include mixins.setSize(18px);
         }
     }
 
@@ -127,13 +130,13 @@ prm-saved-queries-list {
         }
     }
     button.md-button.button-confirm.button-large {
-        @include uqPrimaryButton($accent-color, $white);
+        @include mixins.uqPrimaryButton(variables.$accent-color, variables.$white);
     }
     .result-item-actions button.md-icon-button.md-button prm-icon {
-        color: $accent-color;
+        color: variables.$accent-color;
         &:focus,
         &:hover {
-            background-color: $accent-color;
+            background-color: variables.$accent-color;
             color: white;
             padding: 10px;
         }
@@ -156,7 +159,7 @@ prm-saved-queries-list {
         position: absolute;
         top: 0;
         left: 0;
-        background-color: $backgroundColor;
+        background-color: variables.$backgroundColor;
         width: 100%;
         height: 100%;
         z-index: -1;
@@ -170,13 +173,13 @@ prm-saved-queries-list {
         display: inline-block;
         a {
             max-width: 100%;
-            color: $links-hue-1;
+            color: variables.$links-hue-1;
         }
         h3 {
             white-space: inherit !important;
 
             &.item-title {
-                font-weight: $bold;
+                font-weight: variables.$bold;
             }
         }
         p {
@@ -194,7 +197,7 @@ prm-saved-queries-list {
             }
             &.saved-query-filters {
                 span.text-bold {
-                    font-weight: $bold;
+                    font-weight: variables.$bold;
                 }
             }
         }

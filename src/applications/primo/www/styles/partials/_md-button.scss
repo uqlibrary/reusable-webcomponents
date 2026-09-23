@@ -1,49 +1,54 @@
+@use "sass:color";
+@use "../../../styles-imports/www/variables";
+@use "mixins";
+@use "mixins/material-mixins";
+
 // Angular material buttons
 
 .md-button {
     // default
-   @include bgColor($text);
+   @include mixins.bgColor(variables.$text);
 
     .light-on-dark-dialog & {
-      @include bgColor($white);
+      @include mixins.bgColor(variables.$white);
     }
 
     .light-on-dark-dialog .hoverable-over-dark:not(.disable-hover) & {
-      @include bgColor($white);
+      @include mixins.bgColor(variables.$white);
     }
 
     // primary (override Angular material)
     &.md-primary {
-        @include bgColor($md-primary);
+        @include mixins.bgColor(variables.$md-primary);
     }
 
     // secondary (override Angular material)
     &.md-secondary {
-        @include bgColor($secondary);
+        @include mixins.bgColor(variables.$secondary);
     }
 
     // confirm (positive / green)
     &.button-confirm {
-        @include bgColor($positive);
+        @include mixins.bgColor(variables.$positive);
         @extend .prm-positive;
 
         .light-on-dark-dialog & {
-            @include bgColor($linkTitle);
+            @include mixins.bgColor(variables.$linkTitle);
         }
     }
 
     // notice (notification / orange)
     &.button-notice {
-        @include bgColor($notice);
+        @include mixins.bgColor(variables.$notice);
     }
 
     // prompt / alert (yellow)
     &.button-prompt {
-        @include bgColor($highlight);
+        @include mixins.bgColor(variables.$highlight);
     }
 
     &.button-warn {
-        @include bgColor($warn);
+        @include mixins.bgColor(variables.$warn);
     }
 
     // use to inherit background color of dark color parent
@@ -58,10 +63,10 @@
 
     // use to make buttons seem like links
     &.button-link {
-        @include bgColor($links);
+        @include mixins.bgColor(variables.$links);
         box-shadow: none;
         &.link-alt-color {
-            @include bgColor($linkAlt);
+            @include mixins.bgColor(variables.$linkAlt);
         }
     }
 
@@ -115,9 +120,9 @@
             border-radius: 0;
         }
         &.icon-button-large {
-            @include setSize(50px);
+            @include mixins.setSize(50px);
             md-icon {
-                @include setSize(40px);
+                @include mixins.setSize(40px);
             }
             prm-icon {
                 position: relative;
@@ -139,7 +144,7 @@
             + span {
                 display: inline-block;
                 margin-left: 3px;
-                @include rtl-prop(padding-right, padding-left, 0.5em, 0);
+                @include material-mixins.rtl-prop(padding-right, padding-left, 0.5em, 0);
 
                 .md-button.button-large & {
                     padding-right: 0;
@@ -196,10 +201,10 @@
         flex: 0 0 auto;
         letter-spacing: 0;
 
-        @include bgColor($links-hue-1);
+        @include mixins.bgColor(variables.$links-hue-1);
 
         &.link-alt-color {
-            @include bgColor($secondary-hue3);
+            @include mixins.bgColor(variables.$secondary-hue3);
         }
 
         &.button-external-link {
@@ -210,7 +215,7 @@
         }
 
         .light-on-dark-dialog & {
-            @include bgColor($linkTitle);
+            @include mixins.bgColor(variables.$linkTitle);
         }
     }
 
@@ -227,10 +232,10 @@
         flex: 0 0 auto;
         letter-spacing: 0;
 
-        @include bgColor($links);
+        @include mixins.bgColor(variables.$links);
 
         &.link-alt-color {
-            @include bgColor($secondary-hue3);
+            @include mixins.bgColor(variables.$secondary-hue3);
         }
 
         &.button-external-link {
@@ -241,7 +246,7 @@
         }
 
         .light-on-dark-dialog & {
-            @include bgColor($linkTitle);
+            @include mixins.bgColor(variables.$linkTitle);
         }
     }
 
@@ -296,7 +301,7 @@
         border-radius: 0;
         &:hover,
         &:focus {
-            background-color: $background-hue6;
+            background-color: variables.$background-hue6;
             color: inherit;
         }
     }
@@ -323,7 +328,7 @@
         }
         md-icon,
         &>span:not([disabled]) {
-            color: $accent-color !important;
+            color: variables.$accent-color !important;
             box-shadow: none !important;
         }
         &:hover:not([disabled]) {
@@ -332,13 +337,13 @@
         }
         &:hover md-icon,
         &:hover span:not([disabled]) span {
-            background-color: $accent-color !important;
-            color: $white !important;
+            background-color: variables.$accent-color !important;
+            color: variables.$white !important;
         }
         &:hover prm-icon md-icon,
         &:hover [external-link] md-icon {
             background-color: transparent !important;
-            color: $accent-color !important;
+            color: variables.$accent-color !important;
         }
     }
 
@@ -364,19 +369,19 @@
 
 .buttons-group {
     .md-button {
-        box-shadow: 1px 0 0 0 transparentize(black, 0.9);
+        box-shadow: 1px 0 0 0 color.adjust(black, $alpha: -0.9);
     }
 
     div {
         &:first-child .md-button {
-            box-shadow: 1px 0 0 0 transparentize(black, 0.9), -1px 0 0 0 transparentize(black, 0.9);
+            box-shadow: 1px 0 0 0 color.adjust(black, $alpha: -0.9), -1px 0 0 0 color.adjust(black, $alpha: -0.9);
             [dir='rtl'] & {
-                box-shadow: 1px 0 0 0 transparentize(black, 0.9);
+                box-shadow: 1px 0 0 0 color.adjust(black, $alpha: -0.9);
             }
         }
         &:last-child .md-button {
             [dir='rtl'] & {
-                box-shadow: 1px 0 0 0 transparentize(black, 0.9), -1px 0 0 0 transparentize(black, 0.9);
+                box-shadow: 1px 0 0 0 color.adjust(black, $alpha: -0.9), -1px 0 0 0 color.adjust(black, $alpha: -0.9);
             }
         }
     }

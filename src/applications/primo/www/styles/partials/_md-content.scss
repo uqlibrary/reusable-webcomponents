@@ -1,13 +1,15 @@
+@use "../../../styles-imports/www/variables";
+
 md-content,
 md-content.md-primoExplore-theme {
     background-color: transparent;
-    box-shadow: 0 0 0 0 $uqInformationLight;
+    box-shadow: 0 0 0 0 variables.$uqInformationLight;
     //overflow: hidden;
     // transition: $swift-ease-out;
     &.editable {
-        box-shadow: 0 0 0 3px $uqInformationLight;
+        box-shadow: 0 0 0 3px variables.$uqInformationLight;
     }
     &.opaque-content {
-        background-color: $white;
+        background-color: variables.$white;
     }
 }

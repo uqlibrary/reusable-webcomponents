@@ -1,3 +1,5 @@
+@use "../../../styles/partials/easing";
+
 prm-collection-search {
     .sortWithSearch {
         .__xs & {
@@ -93,7 +95,7 @@ prm-collection-search {
             }
 
             opacity: 1;
-            transition: transform 0.5s $easeOutQuint, min-width 0.5s $easeOutQuint, max-width 0.5s $easeOutQuint;
+            transition: transform 0.5s easing.$easeOutQuint, min-width 0.5s easing.$easeOutQuint, max-width 0.5s easing.$easeOutQuint;
             min-width: 40px;
             max-width: 40px;
             margin: 0;
@@ -125,7 +127,7 @@ prm-collection-search {
                 }
 
                 z-index: 1;
-                transition: transform 0.7s $easeOutQuint, min-width 0.5s $easeOutQuint, max-width 0.5s $easeOutQuint;
+                transition: transform 0.7s easing.$easeOutQuint, min-width 0.5s easing.$easeOutQuint, max-width 0.5s easing.$easeOutQuint;
 
                 .search-button-text {
                     opacity: 1;
@@ -150,13 +152,13 @@ prm-collection-search {
 
         md-input-container {
             input::placeholder {
-                transition: transform 0.5s $easeOutQuint;
+                transition: transform 0.5s easing.$easeOutQuint;
                 transform-origin: 0 50%;
             }
 
             input {
                 min-width: 120px;
-                transition: min-width 0.3s $easeOutQuint;
+                transition: min-width 0.3s easing.$easeOutQuint;
                 z-index: 1;
                 position: relative;
             }

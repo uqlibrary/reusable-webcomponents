@@ -1,9 +1,12 @@
+@use "sass:color";
+@use "../../../../../../styles-imports/www/variables";
+
 prm-ngrs-results-button {
     display: block;
     margin-bottom: 2em;
     md-card {
         @extend %default-shadow;
-       background-color: lighten($background, 4%);
+       background-color: color.adjust(variables.$background, $lightness: 4%);
         margin: 0;
         margin-right: 1em;
         &:last-of-type {

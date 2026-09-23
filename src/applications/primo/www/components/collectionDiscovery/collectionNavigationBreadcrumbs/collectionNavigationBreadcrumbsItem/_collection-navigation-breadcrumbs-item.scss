@@ -1,3 +1,6 @@
+@use "../../../../../styles-imports/www/variables";
+@use "../../../../styles/partials/mixins";
+
 /* starting collectionNavigationBreadcrumbsItem */
 prm-collection-navigation-breadcrumbs-item {
     .md-button.button-as-link.link-alt-color {
@@ -13,7 +16,7 @@ prm-collection-navigation-breadcrumbs-item {
                 padding-right: 0;
             }
             md-icon {
-                @include setSize(18px);
+                @include mixins.setSize(18px);
             }
         }
     }
@@ -27,9 +30,9 @@ prm-service-details {
                 box-shadow: none;
                 md-icon,
                 span {
-                    color: $accent-color !important;
+                    color: variables.$accent-color !important;
                     background-color: #fff !important;
-                    box-shadow: inset 0 -2px 0 0 $accent-color;
+                    box-shadow: inset 0 -2px 0 0 variables.$accent-color;
                 }
             }
             &.button-with-icon {

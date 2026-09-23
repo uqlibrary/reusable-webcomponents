@@ -1,3 +1,7 @@
+@use "sass:color";
+@use "../../../styles-imports/www/variables";
+@use "mixins";
+
 ::-ms-clear {
     display: none;
 }
@@ -11,7 +15,7 @@
 md-autocomplete {
     button {
         &:after {
-            background-color: transparentize($dark, 0.7);
+            background-color: color.adjust(variables.$dark, $alpha: -0.7);
         }
         &:focus,
         &:hover {
@@ -24,8 +28,8 @@ md-autocomplete {
 }
 md-autocomplete-wrap {
     input {
-        border-top-left-radius: $radius;
-        border-bottom-left-radius: $radius;
+        border-top-left-radius: variables.$radius;
+        border-bottom-left-radius: variables.$radius;
     }
 
     .clear-with-voice-search {
@@ -52,13 +56,13 @@ md-autocomplete-wrap {
         font-size: 1.15em;
         height: 2.2em;
         line-height: 2.2em;
-        color: darken($text, 10%);
+        color: color.adjust(variables.$text, $lightness: -10%);
         @extend .bold-text;
         padding: 0 15px;
     }
     .highlight {
-        font-weight: $normal !important;
-        color: lighten($text, 10%);
+        font-weight: variables.$normal !important;
+        color: color.adjust(variables.$text, $lightness: 10%);
     }
 
     .suggestion-scope {
@@ -68,7 +72,7 @@ md-autocomplete-wrap {
         font-size: 0.9em;
     }
     md-icon {
-        @include setSize(16px);
+        @include mixins.setSize(16px);
         //opacity: .4;
         margin-right: 0.2em;
     }

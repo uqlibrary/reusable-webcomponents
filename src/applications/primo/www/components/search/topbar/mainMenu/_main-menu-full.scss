@@ -1,5 +1,9 @@
+@use "../../../../../styles-imports/www/variables";
+@use "../../../../styles/partials/easing";
+@use "../../../../styles/partials/mixins";
+
 prm-main-menu[menu-type='full'] {
-    color: $white;
+    color: variables.$white;
     font-size: 1.1em;
 
     //Highlight the background to make the username clearer
@@ -26,8 +30,8 @@ prm-main-menu[menu-type='full'] {
         z-index: 1;
         color: inherit;
         transform: scale(0) rotate(-90deg);
-        transition: $swift-ease-out;
-        @include setSize(76px);
+        transition: variables.$swift-ease-out;
+        @include mixins.setSize(76px);
 
         .__xs & {
             top: 0.25em;
@@ -38,7 +42,7 @@ prm-main-menu[menu-type='full'] {
                 right: auto;
             }
 
-            @include setSize(66px);
+            @include mixins.setSize(66px);
         }
 
         [dir='rtl'] & {
@@ -57,10 +61,10 @@ prm-main-menu[menu-type='full'] {
         }
 
         md-icon {
-            @include setSize(56px);
+            @include mixins.setSize(56px);
 
             .__xs & {
-                @include setSize(46px);
+                @include mixins.setSize(46px);
             }
         }
     }
@@ -135,7 +139,7 @@ prm-main-menu[menu-type='full'] {
 
     .settings-container {
         text-transform: uppercase;
-        transition: $swift-ease-out;
+        transition: variables.$swift-ease-out;
 
         .__gt-xs & {
             position: absolute;
@@ -232,7 +236,7 @@ prm-main-menu[menu-type='full'] {
         .md-headline {
             font-weight: 600;
             font-size: 1.3em;
-            color: $linkTitle;
+            color: variables.$linkTitle;
             //@include bgColor($linkTitle);
         }
 
@@ -244,7 +248,7 @@ prm-main-menu[menu-type='full'] {
 
     md-divider {
         margin: 0em 1em 2em 1em;
-        @include bgColor(white);
+        @include mixins.bgColor(white);
         opacity: 0.3;
 
         .__xs & {
@@ -256,7 +260,7 @@ prm-main-menu[menu-type='full'] {
         position: relative;
         cursor: pointer;
         transform-origin: 0 50%;
-        border-radius: $radius;
+        border-radius: variables.$radius;
         align-self: stretch;
 
         &:hover,
@@ -270,7 +274,7 @@ prm-main-menu[menu-type='full'] {
         }
 
         .md-headline {
-            color: $linkTitle;
+            color: variables.$linkTitle;
             @extend .spaced-text;
             @extend .bold-text;
             text-transform: uppercase;
@@ -278,12 +282,12 @@ prm-main-menu[menu-type='full'] {
         }
 
         .md-ripple-container {
-            border-radius: $radius;
+            border-radius: variables.$radius;
         }
 
         &.ng-enter {
             transform: scale3d(0.5, 0.5, 1);
-            transition: transform 0.6s $easeOutExpo, opacity 0.2s;
+            transition: transform 0.6s easing.$easeOutExpo, opacity 0.2s;
             opacity: 0;
 
             &.ng-enter-active {
@@ -401,7 +405,7 @@ prm-main-menu[menu-type='full'] {
         &:hover,
         &:focus {
             span {
-                color: $primary !important;
+                color: variables.$primary !important;
             }
         }
     }

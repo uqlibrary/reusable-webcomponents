@@ -1,3 +1,6 @@
+@use "sass:color";
+@use "../../../styles-imports/www/variables";
+
 $footerHeight: 70px;
 
 md-menu-item {
@@ -78,7 +81,7 @@ md-menu-item {
 }
 
 md-menu-content {
-    background-color: $white;
+    background-color: variables.$white;
 
     .menu-title {
         padding: 0.5em 1em;
@@ -97,7 +100,7 @@ md-menu-content {
         // 	padding-top: .5em;
         // }
         .menu-footer {
-            background-color: $white;
+            background-color: variables.$white;
             position: absolute;
             width: 100%;
             bottom: 0;
@@ -125,7 +128,7 @@ md-menu-content {
 
 md-menu-divider {
     display: block;
-    background-color: transparentize($dark, 0.8);
+    background-color: color.adjust(variables.$dark, $alpha: -0.8);
 }
 
 .md-open-menu-container {

@@ -1,3 +1,5 @@
+@use "../../../../styles-imports/www/variables";
+
 /* starting collectionGalleryHeader */
 prm-collection-gallery-header {
     .collection-header-inner {
@@ -31,12 +33,12 @@ prm-collection-gallery-header {
         button.md-icon-button.custom-button.md-button {
             &.pin-button,
             &.unpin-button {
-                color: $accent-color;
+                color: variables.$accent-color;
                 &:focus-visible,
                 &:focus,
                 &:hover {
-                    background-color: $white !important;
-                    color: $accent-color !important;
+                    background-color: variables.$white !important;
+                    color: variables.$accent-color !important;
                 }
             }
         }

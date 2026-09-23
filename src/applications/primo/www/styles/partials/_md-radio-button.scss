@@ -1,7 +1,10 @@
+@use "sass:color";
+@use "../../../styles-imports/www/variables";
+
 md-radio-button {
     .md-off,
     ._md-off {
-        border-color: transparentize($dark, 0.3);
+        border-color: color.adjust(variables.$dark, $alpha: -0.3);
     }
 
     .md-on,
@@ -11,12 +14,12 @@ md-radio-button {
     &.md-checked {
         .md-off,
         ._md-off {
-            border-color: $secondary-hue5;
+            border-color: variables.$secondary-hue5;
         }
 
         .md-on,
         ._md-on {
-            background-color: $secondary-hue5;
+            background-color: variables.$secondary-hue5;
         }
     }
 

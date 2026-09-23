@@ -1,8 +1,10 @@
+@use "../../../styles-imports/www/variables";
+
 /* starting account */
 
 prm-account {
     .error-response {
-        color: $red;
+        color: variables.$red;
     }
     md-toolbar {
         .back-button {

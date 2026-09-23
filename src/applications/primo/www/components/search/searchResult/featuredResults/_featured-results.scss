@@ -1,3 +1,5 @@
+@use "../../../../../styles-imports/www/variables";
+
 /* starting featuredResults */
 
 prm-featured-results {
@@ -16,14 +18,14 @@ prm-featured-results {
     .horizontal-content-container {
         .horizontal-content-control {
             &.ng-enter {
-                transition: $swift-ease-out;
+                transition: variables.$swift-ease-out;
                 transform: scaleX(0);
                 &.ng-enter-active {
                     transform: scaleX(1);
                 }
             }
             &.ng-leave {
-                transition: $swift-ease-in;
+                transition: variables.$swift-ease-in;
                 transform: scaleX(1);
                 &.ng-leave-active {
                     transform: scaleX(0);

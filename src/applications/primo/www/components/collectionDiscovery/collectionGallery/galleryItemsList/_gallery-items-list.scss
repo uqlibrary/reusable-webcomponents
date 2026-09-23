@@ -1,3 +1,6 @@
+@use "../../../../../styles-imports/www/variables";
+@use "../../../../styles/partials/mixins";
+
 /* starting galleryItemsList */
 
 prm-gallery-items-list {
@@ -6,10 +9,10 @@ prm-gallery-items-list {
         font-weight: 400;
     }
     button {
-        @include uqPrimaryButton($accent-color, $white);
+        @include mixins.uqPrimaryButton(variables.$accent-color, variables.$white);
         &:hover {
-            background-color: $uqPanelBackgroundColor !important;
-            border: 2px solid $accent-color;
+            background-color: variables.$uqPanelBackgroundColor !important;
+            border: 2px solid variables.$accent-color;
         }
     }
 }

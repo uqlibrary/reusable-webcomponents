@@ -1,10 +1,14 @@
+@use "sass:color";
+@use "../../../../styles-imports/www/variables";
+@use "../../../styles/partials/mixins";
+
 prm-voice-search-toast {
     md-toast {
         z-index: 90;
         height: 200px;
-        box-shadow: 0 2px 7px 0 transparentize($dark, 0.88);
+        box-shadow: 0 2px 7px 0 color.adjust(variables.$dark, $alpha: -0.88);
         top: 0 !important;
-        background-color: $white;
+        background-color: variables.$white;
 
         .voice-mobile-view {
             .__xs & {
@@ -88,10 +92,10 @@ prm-voice-search-toast {
         display: inline-block;
         margin-left: 25px;
         pointer-events: none;
-        @include bgColor($links);
+        @include mixins.bgColor(variables.$links);
         //@include setSize(96px);
         md-icon {
-            @include setSize(66px);
+            @include mixins.setSize(66px);
         }
 
         /*prm-icon {

@@ -1,3 +1,5 @@
+@use "mixins";
+
 // align
 .align-self {
     &-stretch {
@@ -23,7 +25,7 @@
 .layout-block {
     display: block;
     &-xs {
-        @include __xs {
+        @include mixins.xs {
             display: block !important;
         }
     }

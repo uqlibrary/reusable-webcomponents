@@ -1,3 +1,5 @@
+@use "../../../styles-imports/www/variables";
+
 .links-block {
     .links-block-item {
         position: relative;
@@ -11,7 +13,7 @@
             height: 1em;
             width: 1px;
             // right: -.15em;
-            background-color: $background-hue7;
+            background-color: variables.$background-hue7;
             transform: rotate(15deg);
             // position: relative;
             // right: .2em;
@@ -32,13 +34,13 @@
     .block-body {
         overflow: hidden;
         max-height: 10em;
-        transition: max-height 0.8s $swift-ease-in-out-timing-function;
+        transition: max-height 0.8s variables.$swift-ease-in-out-timing-function;
     }
 
     &.collapsed {
         .block-body {
             max-height: 1.8em;
-            transition: max-height 0.5s $swift-ease-out-timing-function;
+            transition: max-height 0.5s variables.$swift-ease-out-timing-function;
         }
     }
 }

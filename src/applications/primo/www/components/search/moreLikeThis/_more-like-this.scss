@@ -1,3 +1,5 @@
+@use "../../../../styles-imports/www/variables";
+
 /* starting moreLikeThis */
 prm-more-like-this {
     position: relative;
@@ -77,8 +79,8 @@ prm-more-like-this {
                 &:hover {
                     background-color: transparent;
                     prm-icon {
-                        color: $white;
-                        background-color: $accent-color;
+                        color: variables.$white;
+                        background-color: variables.$accent-color;
                     }
                 }
             }
@@ -103,12 +105,12 @@ prm-more-like-this {
 
     .section-title {
         prm-icon {
-          color: $secondary-hue3;
+          color: variables.$secondary-hue3;
         }
         &:hover,
         &:focus {
             prm-icon {
-                color: $secondary-hue6;
+                color: variables.$secondary-hue6;
             }
         }
     }
@@ -165,9 +167,9 @@ prm-more-like-this {
             &:hover {
                 box-shadow: none;
                 span {
-                    color: $accent-color !important;
+                    color: variables.$accent-color !important;
                     background-color: #fff !important;
-                    box-shadow: inset 0 -2px 0 0 $accent-color;
+                    box-shadow: inset 0 -2px 0 0 variables.$accent-color;
                 }
             }
 

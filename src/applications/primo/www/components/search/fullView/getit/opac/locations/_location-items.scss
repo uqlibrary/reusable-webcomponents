@@ -1,3 +1,5 @@
+@use "../../../../../../../styles-imports/www/variables";
+
 /* starting locationItems */
 
 prm-location-items {
@@ -23,7 +25,7 @@ prm-location-items {
     button[aria-label="Expand items"] prm-icon md-icon,
     button prm-icon[aria-label="Remove filtering"],
     button prm-icon[aria-label="Filtering options"] md-icon {
-        color: $accent-color !important;
+        color: variables.$accent-color !important;
     }
 
   button.md-mini,
@@ -78,8 +80,8 @@ prm-location-items {
                 &:focus,
                 &:hover {
                     &:not([disabled]) {
-                        color: $white;
-                        background-color: $accent-color;
+                        color: variables.$white;
+                        background-color: variables.$accent-color;
                     }
                 }
             }

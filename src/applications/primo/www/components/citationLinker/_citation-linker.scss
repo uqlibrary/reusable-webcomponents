@@ -1,3 +1,6 @@
+@use "../../../styles-imports/www/variables";
+@use "../../styles/partials/mixins";
+
 /* starting citationLinker */
 prm-citation-linker {
     /*change maybe later!*/
@@ -23,7 +26,7 @@ prm-citation-linker {
     .request-form md-input-container md-select md-select-value span:first-child,
     .request-form md-input-container label:not(.md-no-float):not(._md-container-ignore) {
         opacity: 1;
-        color: $accent-color;
+        color: variables.$accent-color;
     }
 
     div:has(> form.request-form) {
@@ -36,10 +39,10 @@ prm-citation-linker {
         text-transform: capitalize;
         font-size: 1rem;
         &.button-confirm {
-            @include uqPrimaryButton($accent-color, $white);
+            @include mixins.uqPrimaryButton(variables.$accent-color, variables.$white);
         }
         &.button-secondary {
-            @include uqSecondaryButton($white, $accent-color);
+            @include mixins.uqSecondaryButton(variables.$white, variables.$accent-color);
         }
     }
 
@@ -83,7 +86,7 @@ prm-citation-linker {
         text-decoration: underline;
         &:hover,
         &:focus {
-            background-color: $uqPurple500;
+            background-color: variables.$uqPurple500;
             color: #fff !important;
         }
     }

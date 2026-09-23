@@ -1,3 +1,5 @@
+@use "../../../../styles-imports/www/variables";
+
 prm-quick-link {
     .quick-links-icons {
         opacity: 0.8;
@@ -11,7 +13,7 @@ prm-quick-link {
         &:hover md-icon,
         &:hover prm-icon {
             background-color: transparent !important;
-            color: $accent-color !important;
+            color: variables.$accent-color !important;
         }
 
         margin: 0.4em 3em 0 0;
@@ -24,7 +26,7 @@ prm-quick-link {
         }
 
         [link-arrow] {
-            color: $links;
+            color: variables.$links;
         }
 
         .quick-link-type {
@@ -64,7 +66,7 @@ prm-quick-link {
     prm-icon {
         md-icon,
         md-icon.md-primoExplore-theme {
-            color: $red;
+            color: variables.$red;
         }
     }
 }

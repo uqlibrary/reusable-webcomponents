@@ -1,3 +1,6 @@
+@use "../../../../styles-imports/www/variables";
+@use "../../../styles/partials/mixins";
+
 /* starting favoritesRecordLabels */
 prm-favorites-edit-labels-menu {
     .labels-menu-button {
@@ -10,12 +13,12 @@ prm-favorites-edit-labels-menu {
         }
 
         md-icon {
-            @include setSize(18px);
+            @include mixins.setSize(18px);
         }
 
         &.md-button {
             &.md-icon-button {
-                @include setSize(36px);
+                @include mixins.setSize(36px);
                 //    height: 2em;
                 //    width: 2em;
                 //    min-height: 2em;
@@ -38,7 +41,7 @@ prm-favorites-edit-labels-menu {
             &.button-with-icon {
                 // text-transform: none;
                 font-size: 0.8rem;
-                font-weight: $bold;
+                font-weight: variables.$bold;
                 // min-width: 0;
                 // line-height: 1em;
                 // min-height: 0;
@@ -50,7 +53,7 @@ prm-favorites-edit-labels-menu {
                 // padding: .35em .5em;
 
                 prm-favorites-tool-bar & {
-                    border-radius: $radius;
+                    border-radius: variables.$radius;
                     line-height: 36px;
                     min-height: 36px;
                 }
@@ -91,6 +94,6 @@ prm-favorites-edit-labels-menu {
         }
     }
     .disabledFavTool {
-        color: $disabled;
+        color: variables.$disabled;
     }
 }

@@ -1,22 +1,25 @@
+@use "sass:color";
+@use "../../../styles-imports/www/variables";
+
 md-progress-linear {
     &[md-mode='indeterminate'] {
         position: absolute;
-        height: $progressBarHeight;
+        height: variables.$progressBarHeight;
         bottom: 0;
         z-index: 10;
 
         .md-container {
-            height: $progressBarHeight;
+            height: variables.$progressBarHeight;
             top: auto;
 
             .md-bar {
-                height: $progressBarHeight;
+                height: variables.$progressBarHeight;
             }
         }
 
         &.header-progress-bar {
             .md-container {
-                background-color: lighten($midGrey, 5%);
+                background-color: color.adjust(variables.$midGrey, $lightness: 5%);
             }
         }
     }

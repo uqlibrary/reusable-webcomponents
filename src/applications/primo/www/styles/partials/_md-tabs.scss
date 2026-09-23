@@ -1,3 +1,8 @@
+@use "sass:color";
+@use "../../../styles-imports/www/variables";
+@use "easing";
+@use "mixins";
+
 md-tabs {
     md-tabs-wrapper {
         prm-icon {
@@ -13,20 +18,20 @@ md-tabs {
                     width: 100% !important;
                 }
                 md-tab-item:not([disabled]) {
-                    color: transparentize($dark, 0.3);
+                    color: color.adjust(variables.$dark, $alpha: -0.3);
                     min-width: 4em;
                     &.md-active,
                     &.md-focused {
-                        color: $uqPurple500
+                        color: variables.$uqPurple500
                     }
                     &.md-focused {
-                        border: 2px solid $links-hue-3;
+                        border: 2px solid variables.$links-hue-3;
                     }
                     prm-icon {
                         // margin-left: .35em;
                     }
                     md-icon {
-                        @include setSize(18px);
+                        @include mixins.setSize(18px);
                     }
                 }
             }
@@ -47,7 +52,7 @@ md-tabs {
 
 }
 md-tabs md-ink-bar {
-  background-color: $links-hue-3;
+  background-color: variables.$links-hue-3;
 }
 > md-tabs-wrapper {
     .hidden-tabs & {
@@ -57,12 +62,12 @@ md-tabs md-ink-bar {
         background-color: transparent;
     }
     .default-tabs[md-border-bottom] & {
-        border-color: darken($background, 8%);
+        border-color: color.adjust(variables.$background, $lightness: -8%);
         background-color: transparent !important;
     }
 }
 md-tab-content {
-    transition: transform 0.4s $swift-ease-out-timing-function;
+    transition: transform 0.4s variables.$swift-ease-out-timing-function;
 
     .static-tabs & {
         padding: 1em;
@@ -165,7 +170,7 @@ md-ink-bar {
     font-size: 1.2rem;
 
     &.label-warning {
-        box-shadow: 0 0 0 1px $red;
+        box-shadow: 0 0 0 1px variables.$red;
     }
 
     &.label-notify {
@@ -253,7 +258,7 @@ md-tabs {
             right: 0;
             bottom: 0;
             transform-origin: 50% 0;
-            transition: transform 0.6s $easeOutExpo;
+            transition: transform 0.6s easing.$easeOutExpo;
             overflow: auto;
             z-index: 1;
             &.md-no-scroll {
@@ -310,7 +315,7 @@ md-tabs {
     &.tabs-as-app {
         .back-button {
             //@extend .prm-links;
-            @include bgColor($links);
+            @include mixins.bgColor(variables.$links);
             margin-bottom: 0.5em;
 
             &.ng-hide-add {
@@ -319,7 +324,7 @@ md-tabs {
             }
 
             &.ng-hide-remove {
-                transition: all 0.4s 0.2s $swift-ease-out-timing-function;
+                transition: all 0.4s 0.2s variables.$swift-ease-out-timing-function;
                 transform: translateX(30px);
                 opacity: 0;
                 &.ng-hide-remove-active {
@@ -340,7 +345,7 @@ md-tabs {
 }
 
 md-tabs.tabs-as-app prm-opac-back-button .back-button {
-    @include uqSpannedTertiaryButton($white, $accent-color);
+    @include mixins.uqSpannedTertiaryButton(variables.$white, variables.$accent-color);
     span {
         padding-right: 0;
     }
@@ -350,10 +355,10 @@ md-tabs.tabs-as-app prm-opac-back-button .back-button {
         }
         prm-icon {
             background-color: transparent !important;
-            color: $accent-color;
+            color: variables.$accent-color;
             &[svg-icon-set="hardware"]:hover md-icon {
                 background-color: transparent;
-                color: $accent-color !important;
+                color: variables.$accent-color !important;
             }
         }
 
@@ -368,16 +373,16 @@ md-tab-content.md-active alma-htgi-back-button .back-button.md-button {
     &:hover {
         background-color: transparent !important;
         span {
-            background-color: $accent-color !important;
-            color: $white !important;
+            background-color: variables.$accent-color !important;
+            color: variables.$white !important;
             line-height: normal;
         }
         prm-icon {
             background-color: transparent !important;
-            color: $accent-color;
+            color: variables.$accent-color;
             &[svg-icon-set="hardware"]:hover md-icon {
                 background-color: transparent;
-                color: $accent-color !important;
+                color: variables.$accent-color !important;
             }
         }
 

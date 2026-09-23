@@ -1,3 +1,8 @@
+@use "sass:color";
+@use "../../../../../styles-imports/www/variables";
+@use "../../../../styles/partials/mixins";
+@use "../../../../styles/partials/mixins/material-mixins";
+
 $bottomSpace: 450px;
 $bottomSpace_small: 80px;
 
@@ -8,7 +13,7 @@ prm-search-result-list {
     .results-header,
     .results-footer {
         @extend .light-text;
-       background-color: lighten($background, 4%);
+       background-color: color.adjust(variables.$background, $lightness: 4%);
     }
 
     // results list header (results count)
@@ -26,7 +31,7 @@ prm-search-result-list {
 
         .md-button {
             md-icon {
-                @include setSize(20px);
+                @include mixins.setSize(20px);
             }
         }
 
@@ -57,7 +62,7 @@ prm-search-result-list {
     // results list footer
     .results-footer {
         padding: 0;
-        border-top: 1px solid $almostWhite;
+        border-top: 1px solid variables.$almostWhite;
         width: 100%;
 
         .results-count {
@@ -87,7 +92,7 @@ prm-search-result-list {
         position: relative;
         top: -7px;
         @extend .italic-text;
-        @include rtl-prop(padding-left, padding-right, 5px, auto);
+        @include material-mixins.rtl-prop(padding-left, padding-right, 5px, auto);
         padding-right: 10px;
 
         .__sm & {
@@ -122,13 +127,13 @@ prm-search-result-list {
     // this is to complement the tweak above, to make the first "page #" appear in the same line as the results count
     .pages-separated-with-gaps {
         .results-title:not(.results-title-favorites) {
-            @include rtl-prop(padding-left, padding-right, 60px, auto);
+            @include material-mixins.rtl-prop(padding-left, padding-right, 60px, auto);
         }
 
         &.single-page {
             .results-title:not(.results-title-favorites) {
                 padding-left: 5px;
-                @include rtl-prop(padding-left, padding-right, 5px, auto);
+                @include material-mixins.rtl-prop(padding-left, padding-right, 5px, auto);
 
                 &:before {
                     display: none;
@@ -152,7 +157,7 @@ prm-search-result-list {
                         top: -25px;
                         padding: 0;
 
-                        @include rtl-prop(left, right, 7px, auto);
+                        @include material-mixins.rtl-prop(left, right, 7px, auto);
                     }
 
                     .tiny-uppercase-text {

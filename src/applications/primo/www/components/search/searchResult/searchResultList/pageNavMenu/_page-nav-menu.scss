@@ -1,3 +1,8 @@
+@use "../../../../../../styles-imports/www/variables";
+@use "../../../../../styles/partials/easing";
+@use "../../../../../styles/partials/mixins";
+@use "../../../../../styles/partials/mixins/material-mixins";
+
 $pagingButton: 56px;
 $smallPagingButton: 44px;
 $numberOfButtons: 7;
@@ -6,17 +11,17 @@ $numberOfButtons: 7;
 prm-page-nav-menu {
     z-index: 11;
     position: static; // Stop bottom of page pagination block from floating above content
-    @include rtl-prop(left, right, 0, auto);
+    @include material-mixins.rtl-prop(left, right, 0, auto);
 
     .__gt-xs & {
-        @include rtl-prop(left, right, 0.5em, auto);
+        @include material-mixins.rtl-prop(left, right, 0.5em, auto);
     }
     .__gt-sm & {
         bottom: 0.75em;
     }
     .__gt-md & {
         bottom: 1.5em;
-        @include rtl-prop(left, right, 1em, auto);
+        @include material-mixins.rtl-prop(left, right, 1em, auto);
     }
 
     div[aria-label="Pagination"] {
@@ -32,7 +37,7 @@ prm-page-nav-menu {
         height: $smallPagingButton;
         border-radius: 22px !important;
         line-height: $smallPagingButton;
-        color: $accent-color !important;
+        color: variables.$accent-color !important;
         margin-inline: 1px;
         margin-top: 8px;
         &:focus,
@@ -41,20 +46,20 @@ prm-page-nav-menu {
             background-color: #fff;
         }
         &.current-page {
-            background-color: $accent-color;
+            background-color: variables.$accent-color;
             color: #fff !important;
             box-shadow: none;
             &:focus,
             &:hover {
-                background-color: $accent-color;
+                background-color: variables.$accent-color;
             }
         }
     }
 
     div.counter-nav {
-        @include rtl-prop(left, right, calc($pagingButton / $numberOfButtons), auto);
+        @include material-mixins.rtl-prop(left, right, calc($pagingButton / $numberOfButtons), auto);
         .__xs & {
-            @include rtl-prop(left, right, 0, auto);
+            @include material-mixins.rtl-prop(left, right, 0, auto);
         }
         .md-button {
             background-color: transparent;
@@ -65,8 +70,8 @@ prm-page-nav-menu {
             width: $smallPagingButton;
             height: $smallPagingButton;
             line-height: $smallPagingButton;
-            color: $accent-color !important;
-            border: 1px solid $accent-color;
+            color: variables.$accent-color !important;
+            border: 1px solid variables.$accent-color;
             border-radius: 22px;
             &:not([disabled]):focus,
             &:not([disabled]):hover {
@@ -82,14 +87,14 @@ prm-page-nav-menu {
         }
         &.ng-hide-remove {
             max-height: 0;
-            transition: max-height 0.3s $easeOutQuint;
+            transition: max-height 0.3s easing.$easeOutQuint;
             &.ng-hide-remove-active {
                 max-height: $smallPagingButton;
             }
         }
         &.ng-hide-add {
             max-height: $smallPagingButton;
-            transition: $swift-ease-out;
+            transition: variables.$swift-ease-out;
             transition-duration: 0.3s;
             z-index: 0;
             &.ng-hide-add-active {
@@ -110,14 +115,14 @@ prm-page-nav-menu {
         > .md-button {
             &.ng-enter {
                 transform: scale(0);
-                transition: $swift-ease-out;
+                transition: variables.$swift-ease-out;
                 &.ng-enter-active {
                     transform: scale(1);
                 }
             }
             &.ng-leave {
                 transform: scale(1);
-                transition: $swift-ease-out;
+                transition: variables.$swift-ease-out;
                 transition-duration: 0.3s;
                 &.ng-leave-active {
                     transform: scale(0);
@@ -142,15 +147,15 @@ prm-page-nav-menu {
             font-size: 14px;
             &:focus,
             &:hover {
-                background-color: $uqPanelBackgroundColor;
+                background-color: variables.$uqPanelBackgroundColor;
             }
         }
         button:not(.current-bulk) {
             text-decoration: underline;
-            color: $accent-color;
+            color: variables.$accent-color;
             &:focus,
             &:hover {
-                background-color: $accent-color;
+                background-color: variables.$accent-color;
                 color: #fff;
                 border-radius: .25rem;
             }
@@ -161,7 +166,7 @@ prm-page-nav-menu {
         &.md-left {
             md-fab-actions {
                 .md-fab-action-item {
-                    transition-timing-function: $easeOutQuint;
+                    transition-timing-function: easing.$easeOutQuint;
                     transition-duration: 0.3s;
                     opacity: 0 !important;
                     &.current {
@@ -222,7 +227,7 @@ prm-page-nav-menu {
             .md-button,
             .md-button:hover,
             .md-button:focus {
-                @include bgColor($dark);
+                @include mixins.bgColor(variables.$dark);
                 box-shadow: 5px 0 5px -3px rgba(0, 0, 0, 0.07), -5px 0 5px -3px rgba(0, 0, 0, 0.07);
                 &.md-is-open {
                     box-shadow: none;
@@ -240,7 +245,7 @@ prm-page-nav-menu {
                 > span {
                     position: relative;
                     line-height: 1em;
-                    transition: $swift-ease-out;
+                    transition: variables.$swift-ease-out;
                     &.ng-hide-remove {
                         transform: scale(0.6);
                         opacity: 0;
@@ -268,7 +273,7 @@ prm-page-nav-menu {
                         display: flex;
                         align-items: center;
                         justify-content: center;
-                        @include rtl-prop(left, right, 0, auto);
+                        @include material-mixins.rtl-prop(left, right, 0, auto);
                         &.ng-hide-remove {
                             transform: scale(0.6) rotate(-90deg);
                             transition-delay: 0.1s;
@@ -299,9 +304,9 @@ prm-page-nav-menu {
                 @extend .default-shadow;
                 border-radius: calc($pagingButton / 2);
                 transform: scale(0, 1);
-                transition: 0.2s $easeInCubic;
+                transition: 0.2s easing.$easeInCubic;
                 transform-origin: calc($pagingButton/2) 50%;
-                @include rtl-prop(left, right, 0, auto);
+                @include material-mixins.rtl-prop(left, right, 0, auto);
                 [dir='rtl'] &,
                 .facet-to-left & {
                     transform-origin: calc(100% - $pagingButton/2) 50%;
@@ -347,7 +352,7 @@ prm-page-nav-menu {
                 width: auto;
                 transition: width 0s 0s;
                 &:after {
-                    transition: all 0.3s $easeOutExpo;
+                    transition: all 0.3s easing.$easeOutExpo;
                     transform: scale(1, 1);
                 }
                 .md-fab {

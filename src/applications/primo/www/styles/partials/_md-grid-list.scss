@@ -1,6 +1,9 @@
+@use "sass:color";
+@use "../../../styles-imports/www/variables";
+
 md-grid-tile,
 .tiles-grid-tile {
-   background-color: lighten($background, 4%);
+   background-color: color.adjust(variables.$background, $lightness: 4%);
     @extend %default-shadow;
 
     md-list,
@@ -37,7 +40,7 @@ md-grid-tile,
                 bottom: 0;
                 margin: auto;
                 height: 48px;
-                transition: $swift-ease-out;
+                transition: variables.$swift-ease-out;
                 opacity: 0;
                 transform: translate3d(-1em, 0, 0);
 
@@ -48,7 +51,7 @@ md-grid-tile,
             }
 
             &:hover {
-                background-color: $white;
+                background-color: variables.$white;
                 .tile-item-arrow {
                     transform: translate3d(0, 0, 0);
                     opacity: 1;
@@ -115,7 +118,7 @@ md-grid-tile,
         prm-spinner {
             &.overlay-cover {
                 &:after {
-                   background-color: lighten($background, 4%);
+                   background-color: color.adjust(variables.$background, $lightness: 4%);
                 }
             }
         }
@@ -160,7 +163,7 @@ md-grid-tile,
                 position: relative;
                 opacity: 0;
                 transform: translate3d(0, 0, 0);
-                transition: $swift-ease-out;
+                transition: variables.$swift-ease-out;
             }
 
             .alert-icon {
@@ -173,7 +176,7 @@ md-grid-tile,
 
             &:hover,
             &:focus {
-                color: $links-hue-1;
+                color: variables.$links-hue-1;
                 .arrow-icon {
                     opacity: 1;
                     transform: translate3d(10px, 0, 0);

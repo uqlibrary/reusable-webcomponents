@@ -1,3 +1,5 @@
+@use "../../../../../../styles-imports/www/variables";
+
 /* starting almaOtherMembers */
 
 prm-alma-other-members {
@@ -10,7 +12,7 @@ prm-alma-other-members {
     .md-button.md-focused:not([disabled]),
     .md-button:focus:not([disabled]),
     .md-button:hover:not([disabled]) {
-        color: $dark;
-        background-color: $background-hue6;
+        color: variables.$dark;
+        background-color: variables.$background-hue6;
     }
 }

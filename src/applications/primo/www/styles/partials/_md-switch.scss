@@ -1,6 +1,8 @@
+@use "../../../styles-imports/www/variables";
+
 md-switch {
     .md-bar {
-        background-color: $background-hue7;
+        background-color: variables.$background-hue7;
     }
     &.tiny-switch {
         .md-thumb,

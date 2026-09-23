@@ -1,3 +1,5 @@
+@use "../../../../styles-imports/www/variables";
+
 /* starting newspapersSpotlight */
 
 .spotlight-element .spotlight-image {
@@ -7,7 +9,7 @@
 prm-newspapers-spotlight {
     h3 {
         a {
-            color: $links-hue-1;
+            color: variables.$links-hue-1;
         }
     }
 }

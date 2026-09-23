@@ -1,11 +1,13 @@
+@use "../../../../styles-imports/www/variables";
+
 /* starting personalInfo */
 
 prm-personal-info {
     .bar {
         &.error-bar {
             background-color: transparent;
-            color: $warn;
-            border: 2px solid $warn;
+            color: variables.$warn;
+            border: 2px solid variables.$warn;
         }
     }
 }

@@ -1,3 +1,5 @@
+@use "../../../../../styles-imports/www/variables";
+
 prm-browse-result {
     .cross-ref-icon {
         > md-icon {
@@ -25,7 +27,7 @@ prm-browse-result {
         .md-button {
             &:hover:not([disabled]) {
                 background-color: transparent;
-                color: $dark;
+                color: variables.$dark;
             }
         }
     }

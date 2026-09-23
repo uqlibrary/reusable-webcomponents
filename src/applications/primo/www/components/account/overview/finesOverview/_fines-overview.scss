@@ -1,15 +1,17 @@
+@use "../../../../../styles-imports/www/variables";
+
 /* starting finesOverview */
 prm-fines-overview {
     md-list-item {
         .md-button {
             &:hover:not([disabled]) {
                 background-color: transparent;
-                color: $dark-hue1;
+                color: variables.$dark-hue1;
             }
         }
     }
 
     .overdue-line-overview {
-        color: $highlightPrimary;
+        color: variables.$highlightPrimary;
     }
 }

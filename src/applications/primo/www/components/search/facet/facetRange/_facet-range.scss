@@ -1,8 +1,10 @@
+@use "../../../../../styles-imports/www/variables";
+
 /* starting facetRange */
 prm-facet-range {
     .section-title {
         prm-icon {
-            color: $secondary-hue3;
+            color: variables.$secondary-hue3;
         }
 
         &:hover,
@@ -10,7 +12,7 @@ prm-facet-range {
             background-color: transparent !important;
 
             span {
-                color: $secondary-hue3;
+                color: variables.$secondary-hue3;
             }
         }
     }

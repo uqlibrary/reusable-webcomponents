@@ -1,3 +1,7 @@
+@use "../../../styles-imports/www/variables";
+@use "../../styles/partials/media-queries";
+@use "../../styles/partials/mixins";
+
 prm-explore-main {
     * :focus {
         outline: none !important; //remove default focus border
@@ -38,7 +42,7 @@ prm-explore-main {
             transform-origin: 50% 50%;
             height: 30px;
 
-            @include media('screen', '<smallTablet') {
+            @include media-queries.media('screen', '<smallTablet') {
                 bottom: -10px;
                 max-height: 20px;
             }
@@ -55,10 +59,10 @@ prm-explore-main {
 
             &.ng-enter {
                 transform: scale3d(8, 0, 1);
-                transition: $swift-ease-out;
+                transition: variables.$swift-ease-out;
                 transition-duration: 0.75s;
 
-                @include ie-exceptions;
+                @include mixins.ie-exceptions;
 
                 &.ng-enter-active {
                     transform: scale3d(1, 1, 1);
@@ -67,9 +71,9 @@ prm-explore-main {
 
             &.ng-leave {
                 transform: scale3d(1, 1, 1);
-                transition: $swift-ease-in-out;
+                transition: variables.$swift-ease-in-out;
 
-                @include ie-exceptions;
+                @include mixins.ie-exceptions;
 
                 &.ng-leave-active {
                     transform: scale3d(8, 0, 1);

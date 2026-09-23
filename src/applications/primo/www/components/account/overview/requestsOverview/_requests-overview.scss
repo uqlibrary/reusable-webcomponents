@@ -1,3 +1,5 @@
+@use "../../../../../styles-imports/www/variables";
+
 /* starting requestsOverview */
 
 prm-requests-overview {
@@ -5,7 +7,7 @@ prm-requests-overview {
         .md-button {
             &:hover:not([disabled]) {
                 background-color: transparent;
-                color: $dark-hue1;
+                color: variables.$dark-hue1;
             }
         }
     }

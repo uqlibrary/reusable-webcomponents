@@ -1,389 +1,385 @@
 // Variables and themes
 // ====================
 //@import "partials/variables";
-@import '../../styles-imports/www/variables';
-@import 'partials/easing';
-@import 'partials/media-queries';
-@import 'partials/mixins';
-@import 'partials/utils';
-@import 'partials/custom-theme';
+@use '../../styles-imports/www/variables';
+@use 'partials/easing';
+@use 'partials/media-queries';
+@use 'partials/mixins';
+@use 'partials/utils';
+@use 'partials/custom-theme';
 
 // General classes
 // ===============
-@import 'partials/basic';
-@import 'partials/helpers';
-@import 'partials/typography';
-@import 'partials/headings';
-@import 'partials/structure';
-@import 'partials/animation';
-@import 'partials/ng-animation';
-@import 'partials/layout';
-@import 'partials/scrollbars';
-@import 'partials/masonry';
-@import 'partials/icons';
-@import 'partials/colors';
-@import 'partials/lists';
+@use 'partials/basic';
+@use 'partials/helpers';
+@use 'partials/typography';
+@use 'partials/headings';
+@use 'partials/structure';
+@use 'partials/animation';
+@use 'partials/ng-animation';
+@use 'partials/layout';
+@use 'partials/scrollbars';
+@use 'partials/masonry';
+@use 'partials/icons';
+@use 'partials/colors';
+@use 'partials/lists';
 
 // Primo general styles
 // ====================
-@import 'partials/permalink-unit';
-@import 'partials/bars';
-@import 'partials/blocks';
-@import 'partials/forms';
-@import 'partials/links';
-@import 'partials/statuses';
-@import 'partials/hacks';
-@import 'partials/horizontal-content';
-@import 'partials/badges';
-@import 'partials/spotlight';
+@use 'partials/permalink-unit';
+@use 'partials/bars';
+@use 'partials/blocks';
+@use 'partials/forms';
+@use 'partials/links';
+@use 'partials/statuses';
+@use 'partials/hacks';
+@use 'partials/horizontal-content';
+@use 'partials/badges';
+@use 'partials/spotlight';
 
 // Primo accessibiliy
 // ==================
-@import 'partials/accessibility';
+@use 'partials/accessibility';
 
 // Primo component imports
 // =======================
 
 // Loader / spinner
-@import '../components/spinner/spinner';
+@use '../components/spinner/spinner';
 
 // icons
-@import '../components/icon/icon';
+@use '../components/icon/icon';
 
 // login
-@import '../components/security/login/login';
+@use '../components/security/login/login';
 
 // Primo explore
-@import '../components/primoExplore/primo-explore-main';
+@use '../components/primoExplore/primo-explore-main';
 
 // search result list
-@import '../components/search/searchResult/searchResultList/search-result-list';
-@import '../components/search/search';
+@use '../components/search/searchResult/searchResultList/search-result-list';
+@use '../components/search/search';
 
 // search result item
-@import '../components/search/searchResult/searchResult';
-@import '../components/search/searchResult/searchResultAvailability/searchResultAvailabilityLine';
-@import '../components/search/searchResult/searchResultFrbr/search-results-frbr-line';
-@import '../components/search/searchResult/searchResultsChaptersAndReviews/chapters-results-line';
+@use '../components/search/searchResult/searchResult';
+@use '../components/search/searchResult/searchResultAvailability/searchResultAvailabilityLine';
+@use '../components/search/searchResult/searchResultFrbr/search-results-frbr-line';
+@use '../components/search/searchResult/searchResultsChaptersAndReviews/chapters-results-line';
 
 //featured result
-@import '../components/search/searchResult/featuredResults/featured-result-item';
-@import '../components/search/searchResult/featuredResults/featured-results';
+@use '../components/search/searchResult/featuredResults/featured-result-item';
+@use '../components/search/searchResult/featuredResults/featured-results';
 
 // results toolbar
-@import '../components/search/searchResult/searchResultToolBar/search-result-tool-bar';
-@import '../components/search/searchResult/searchResultAddToFavoritesMenu/search-result-add-to-favorites-menu';
+@use '../components/search/searchResult/searchResultToolBar/search-result-tool-bar';
+@use '../components/search/searchResult/searchResultAddToFavoritesMenu/search-result-add-to-favorites-menu';
 
 // results thumbnails
-@import '../components/search/searchResult/searchResultThumbnail/search-result-thumbnail-container';
+@use '../components/search/searchResult/searchResultThumbnail/search-result-thumbnail-container';
 
 // brief results container
-@import '../components/search/briefResult/briefResult';
-@import '../components/search/briefResult/briefResultContainer';
+@use '../components/search/briefResult/briefResult';
+@use '../components/search/briefResult/briefResultContainer';
 
 // reference entry
-@import '../components/search/referenceEntry/_reference-entry-item';
+@use '../components/search/referenceEntry/_reference-entry-item';
 
 // snippets
-@import '../components/search/snippet/snippet';
+@use '../components/search/snippet/snippet';
 
 // result item actions (email, permalink, citation etc)
-@import '../components/search/actions/action-list';
+@use '../components/search/actions/action-list';
 
 // citation module
-@import '../components/search/actions/citation/citation';
+@use '../components/search/actions/citation/citation';
 
 //citation Trail
-@import '../components/search/citationTrails/citation-trails-item';
-@import '../components/search/citationTrails/citation-trails-indication';
-@import '../components/search/citationTrails/citation-trails-breadcrumbs';
-@import '../components/search/citationTrails/citation-trails-fullview-link.scss';
+@use '../components/search/citationTrails/citation-trails-item';
+@use '../components/search/citationTrails/citation-trails-indication';
+@use '../components/search/citationTrails/citation-trails-breadcrumbs';
+@use '../components/search/citationTrails/citation-trails-fullview-link.scss';
 
 //chapters and reviews
-@import '../components/search/chaptersAndReviews/chapters-and-reviews';
-@import '../components/search/chaptersAndReviews/chapters-and-reviews-item';
+@use '../components/search/chaptersAndReviews/chapters-and-reviews';
+@use '../components/search/chaptersAndReviews/chapters-and-reviews-item';
 
 //times-cites
-@import '../components/search/timesCited/times-cited';
+@use '../components/search/timesCited/times-cited';
 
 //Pagination
 // @import "../components/infra/resultsNavigator/pagination-controls.scss";
 
 // Paging widget
-@import '../components/search/searchResult/searchResultList/pageNavMenu/page-nav-menu.scss';
+@use '../components/search/searchResult/searchResultList/pageNavMenu/page-nav-menu.scss';
 
 // back button
-@import '../components/search/fullView/backToSearchResultsButton/back-to-search-results-button';
+@use '../components/search/fullView/backToSearchResultsButton/back-to-search-results-button';
 
 // Deposit
-@import '../components/infra/deposit/deposit-form';
-@import '../components/infra/deposit/uploadFile/upload-file';
-@import '../components/account/deposits/deposits';
+@use '../components/infra/deposit/deposit-form';
+@use '../components/infra/deposit/uploadFile/upload-file';
+@use '../components/account/deposits/deposits';
 
 //Delivery
-@import '../components/delivery/almaViewer/_almaViewer';
-@import '../components/delivery/deniedAccess/_deniedAccess';
-@import '../components/delivery/representationViewer/_representationViewer';
-@import '../components/delivery/copyrights/_copyrights';
-@import '../components/delivery/thumbnailList/_thumbnailList';
-@import '../components/delivery/socialMenu/_socialMenu';
+@use '../components/delivery/almaViewer/_almaViewer';
+@use '../components/delivery/deniedAccess/_deniedAccess';
+@use '../components/delivery/representationViewer/_representationViewer';
+@use '../components/delivery/copyrights/_copyrights';
+@use '../components/delivery/thumbnailList/_thumbnailList';
+@use '../components/delivery/socialMenu/_socialMenu';
 
 //savedQueries
-@import '../components/search/searchResult/savedQueriesList/saved-queries-list';
-@import '../components/search/searchResult/savedQueriesList/savedQueryFilter/saved-query-filter';
-@import '../components/search/savedQueries/addQueryToSavedSearches/addQueryToSavedSearches';
-@import '../components/search/savedQueries/addAlertToast/addAlertToast';
+@use '../components/search/searchResult/savedQueriesList/saved-queries-list';
+@use '../components/search/searchResult/savedQueriesList/savedQueryFilter/saved-query-filter';
+@use '../components/search/savedQueries/addQueryToSavedSearches/addQueryToSavedSearches';
+@use '../components/search/savedQueries/addAlertToast/addAlertToast';
 
 // copy to clipboard button
-@import '../components/clipboard/copy-clipboard-btn';
+@use '../components/clipboard/copy-clipboard-btn';
 
 // topbar
-@import '../components/search/topbar/top-bar';
-@import '../components/search/topbar/skipTo/skip-to';
+@use '../components/search/topbar/top-bar';
+@use '../components/search/topbar/skipTo/skip-to';
 
 // User
-@import '../components/search/topbar/userArea/authentication';
-@import '../components/search/topbar/userArea/user-area-expandable';
-@import '../components/search/topbar/userArea/languageSelection/language-selection';
+@use '../components/search/topbar/userArea/authentication';
+@use '../components/search/topbar/userArea/user-area-expandable';
+@use '../components/search/topbar/userArea/languageSelection/language-selection';
 
 // header
-@import '../components/search/searchBar/search-bar';
-@import '../components/search/preFilters/pre-filters';
+@use '../components/search/searchBar/search-bar';
+@use '../components/search/preFilters/pre-filters';
 
 // voice search toast
-@import '../components/search/searchBar/voice-search-toast';
+@use '../components/search/searchBar/voice-search-toast';
 
 // journals
-@import '../components/journals/atoz-search-bar';
-@import '../components/journals/search-within-journal';
-@import '../components/journals/alphabetToolbar/alphabet-toolbar';
+@use '../components/journals/atoz-search-bar';
+@use '../components/journals/search-within-journal';
+@use '../components/journals/alphabetToolbar/alphabet-toolbar';
 
 // full view
-@import '../components/search/fullView/view-overlay';
-@import '../components/search/fullView/full-details';
-@import '../components/search/fullView/details/serviceDetails';
-@import '../components/search/fullView/fullViewServiceContainer/full-view-service-container';
-@import '../components/search/fullView/usageMetrics/usage-metrics';
+@use '../components/search/fullView/view-overlay';
+@use '../components/search/fullView/full-details';
+@use '../components/search/fullView/details/serviceDetails';
+@use '../components/search/fullView/fullViewServiceContainer/full-view-service-container';
+@use '../components/search/fullView/usageMetrics/usage-metrics';
 
 //ngrs
-@import '../components/search/fullView/ngrs/ngrs';
-@import '../components/search/fullView/ngrs/physicalBestOffer/physicalBestOffer';
-@import '../components/search/fullView/ngrs/noOfferFound/noOfferFound';
-@import '../components/search/fullView/ngrs/rapidoNoOfferMessage/rapidoNoOfferMessage';
-@import '../components/search/fullView/ngrs/getItRequest/getItRequest';
-@import '../components/search/fullView/ngrs/resultsButton/ngrs-results-button';
-@import '../components/search/fullView/ngrs/ngrsBriefResultLine/ngrsBriefResultLine';
-@import '../components/search/fullView/ngrs/ngrsBriefResultLine/briefResultDeliveryOptionLink/briefResultDeliveryOptionLink';
-@import '../components/search/fullView/ngrs/ngrsBriefResultLine/briefResultPhysicalBestOffer/briefResultPhysicalBestOffer';
-@import '../components/search/fullView/ngrs/physicalDeliveryOptions/physicalDeliveryOptions';
-@import '../components/search/fullView/ngrs/physicalDeliveryOptionsTable/physicalDeliveryOptionsTable';
-@import '../components/search/fullView/ngrs/ngrsBriefResultLine/briefResultDigitalBestOffer/briefResultDigitalBestOffer';
-@import '../components/search/fullView/ngrs/sliderField/slider-field';
-@import '../components/search/fullView/ngrs/librariesAroundBar/librariesAroundBar';
-@import '../components/search/fullView/ngrs/progressBar/progress-bar';
-@import '../components/search/fullView/ngrs/progressBar/progressCheckBox/progress-check-box';
-@import '../components/search/fullView/ngrs/physicalDeliveryMoreOptionRow/physicalDeliveryMoreOptionRow';
-@import '../components/search/fullView/ngrs/multiSelectFilter/multi-select-filter';
-@import '../components/search/fullView/ngrs/getItRequest/offerDetailsTile/offerDetailsTile';
-@import '../components/search/fullView/ngrs/rapidoMessageBar/rapido-message-bar';
+@use '../components/search/fullView/ngrs/ngrs';
+@use '../components/search/fullView/ngrs/physicalBestOffer/physicalBestOffer';
+@use '../components/search/fullView/ngrs/noOfferFound/noOfferFound';
+@use '../components/search/fullView/ngrs/rapidoNoOfferMessage/rapidoNoOfferMessage';
+@use '../components/search/fullView/ngrs/getItRequest/getItRequest';
+@use '../components/search/fullView/ngrs/resultsButton/ngrs-results-button';
+@use '../components/search/fullView/ngrs/ngrsBriefResultLine/ngrsBriefResultLine';
+@use '../components/search/fullView/ngrs/ngrsBriefResultLine/briefResultDeliveryOptionLink/briefResultDeliveryOptionLink';
+@use '../components/search/fullView/ngrs/ngrsBriefResultLine/briefResultPhysicalBestOffer/briefResultPhysicalBestOffer';
+@use '../components/search/fullView/ngrs/physicalDeliveryOptions/physicalDeliveryOptions';
+@use '../components/search/fullView/ngrs/physicalDeliveryOptionsTable/physicalDeliveryOptionsTable';
+@use '../components/search/fullView/ngrs/ngrsBriefResultLine/briefResultDigitalBestOffer/briefResultDigitalBestOffer';
+@use '../components/search/fullView/ngrs/sliderField/slider-field';
+@use '../components/search/fullView/ngrs/librariesAroundBar/librariesAroundBar';
+@use '../components/search/fullView/ngrs/progressBar/progress-bar';
+@use '../components/search/fullView/ngrs/progressBar/progressCheckBox/progress-check-box';
+@use '../components/search/fullView/ngrs/physicalDeliveryMoreOptionRow/physicalDeliveryMoreOptionRow';
+@use '../components/search/fullView/ngrs/multiSelectFilter/multi-select-filter';
+@use '../components/search/fullView/ngrs/getItRequest/offerDetailsTile/offerDetailsTile';
+@use '../components/search/fullView/ngrs/rapidoMessageBar/rapido-message-bar';
 
 // opac (get it)
-@import '../components/search/fullView/getit/opac/opac';
-@import '../components/search/fullView/getit/opac/request/request';
-@import '../components/search/fullView/getit/opac/request/request-services';
-@import '../components/search/fullView/getit/opac/locations/locations';
-@import '../components/search/fullView/getit/opac/locations/location/location';
-@import '../components/search/fullView/getit/opac/locations/location-items';
-@import '../components/search/fullView/getit/opac/locationsFilter/locations-filter';
-@import '../components/search/fullView/getit/opac/copyright/copyright';
-@import '../components/search/fullView/getit/opac/requestApproval/request-approval';
-@import '../components/search/fullView/fullViewServiceContainer/full-view-service-container';
+@use '../components/search/fullView/getit/opac/opac';
+@use '../components/search/fullView/getit/opac/request/request';
+@use '../components/search/fullView/getit/opac/request/request-services';
+@use '../components/search/fullView/getit/opac/locations/locations';
+@use '../components/search/fullView/getit/opac/locations/location/location';
+@use '../components/search/fullView/getit/opac/locations/location-items';
+@use '../components/search/fullView/getit/opac/locationsFilter/locations-filter';
+@use '../components/search/fullView/getit/opac/copyright/copyright';
+@use '../components/search/fullView/getit/opac/requestApproval/request-approval';
 
 // homepage
-@import '../static/homepage/homepage';
+@use '../static/homepage/homepage';
 
 // facets
-@import '../components/search/searchResult/searchResultSortBy/searchResultSortBy';
-@import '../components/search/facet/facet';
-@import '../components/search/facet/facetExact/facet-exact';
-@import '../components/search/breadcrumbs/breadcrumbs';
+@use '../components/search/searchResult/searchResultSortBy/searchResultSortBy';
+@use '../components/search/facet/facet';
+@use '../components/search/facet/facetExact/facet-exact';
+@use '../components/search/breadcrumbs/breadcrumbs';
 
 // Overlay menu
-@import '../components/search/topbar/mainMenu/main-menu-full';
+@use '../components/search/topbar/mainMenu/main-menu-full';
 
 // favorites
-@import '../components/favorites/favorites';
-@import '../components/favorites/favoritesToolBar/favorites-tool-bar';
-@import '../components/favorites/favoritesRecordLabels/favorites-record-labels';
-@import '../components/favorites/favoritesEditLabelsMenu/favorites-edit-labels-menu';
-@import '../components/favorites/favoritesLabels/favorites-labels';
+@use '../components/favorites/favorites';
+@use '../components/favorites/favoritesToolBar/favorites-tool-bar';
+@use '../components/favorites/favoritesRecordLabels/favorites-record-labels';
+@use '../components/favorites/favoritesEditLabelsMenu/favorites-edit-labels-menu';
+@use '../components/favorites/favoritesLabels/favorites-labels';
 
 // account
-@import '../components/account/account';
-@import '../components/account/overview/account-overview';
-@import '../components/account/personalInfo/personal-info';
-@import '../components/account/loans/loans-list';
-@import '../components/account/requests/requests';
-@import '../components/account/loans/loan';
+@use '../components/account/account';
+@use '../components/account/overview/account-overview';
+@use '../components/account/personalInfo/personal-info';
+@use '../components/account/loans/loans-list';
+@use '../components/account/requests/requests';
+@use '../components/account/loans/loan';
 
 // Recommendations
-@import '../components/search/fullView/recomendation/recommendations';
+@use '../components/search/fullView/recomendation/recommendations';
 
 //virtual browse
-@import '../components/search/virtualBrowse/virtual-browse.scss';
-@import '../components/search/virtualBrowse/virtualBrowseItem/virtual-browse-item';
-@import '../components/search/virtualBrowse/virtualBrowseItemInfo/virtual-browse-item-info';
+@use '../components/search/virtualBrowse/virtual-browse.scss';
+@use '../components/search/virtualBrowse/virtualBrowseItem/virtual-browse-item';
+@use '../components/search/virtualBrowse/virtualBrowseItemInfo/virtual-browse-item-info';
 
 // Digital collection
-@import '../components/collection/collection-discovery';
-@import '../components/collection/collectionBreadcrumbs/collection-breadcrumbs';
+@use '../components/collection/collection-discovery';
+@use '../components/collection/collectionBreadcrumbs/collection-breadcrumbs';
 
 //Collection discovery
-@import '../components/collectionDiscovery/collectionNavigationBreadcrumbs/collectionNavigationBreadcrumbsItem/collection-navigation-breadcrumbs-item';
-@import '../components/collectionDiscovery/collectionGalleryHeader/collection-gallery-header';
-@import '../components/collectionDiscovery/collectionGallery/galleryCollectionsList/gallery-collections-list';
-@import '../components/collectionDiscovery/collectionGallery/galleryItemsList/galleryItem/gallery-item';
-@import '../components/collectionDiscovery/collectionGallery/collection-gallery';
-@import '../components/collectionDiscovery/collectionGallery/collectionDiscoveryViewSwitcher/collection-discovery-view-switcher';
-@import '../components/collectionDiscovery/collectionGallery/galleryItemsList/gallery-items-list';
-@import '../components/collectionDiscovery/collectionSearch/collection-search';
+@use '../components/collectionDiscovery/collectionNavigationBreadcrumbs/collectionNavigationBreadcrumbsItem/collection-navigation-breadcrumbs-item';
+@use '../components/collectionDiscovery/collectionGalleryHeader/collection-gallery-header';
+@use '../components/collectionDiscovery/collectionGallery/galleryCollectionsList/gallery-collections-list';
+@use '../components/collectionDiscovery/collectionGallery/galleryItemsList/galleryItem/gallery-item';
+@use '../components/collectionDiscovery/collectionGallery/collection-gallery';
+@use '../components/collectionDiscovery/collectionGallery/collectionDiscoveryViewSwitcher/collection-discovery-view-switcher';
+@use '../components/collectionDiscovery/collectionGallery/galleryItemsList/gallery-items-list';
+@use '../components/collectionDiscovery/collectionSearch/collection-search';
 
 //Browse search
-@import '../components/search/browse/browseSearchBar/browse-search-bar';
-@import '../components/search/browse/_browse-search.scss';
-@import '../components/search/browse/browseResult/browse-result';
+@use '../components/search/browse/browseSearchBar/browse-search-bar';
+@use '../components/search/browse/_browse-search.scss';
+@use '../components/search/browse/browseResult/browse-result';
 
 //Form builder
-@import '../components/infra/formBuilder/field/_form-field';
+@use '../components/infra/formBuilder/field/_form-field';
 
 //Citation linker
-@import '../components/citationLinker/_citation-linker';
+@use '../components/citationLinker/_citation-linker';
 
 //Databases categorize
-@import '../components/journals/databasesCategorize/databases-categorize';
-@import '../components/journals/databasesCategorize/tree-nav';
+@use '../components/journals/databasesCategorize/databases-categorize';
+@use '../components/journals/databasesCategorize/tree-nav';
 
 //Organization categorize
-@import '../components/journals/orgListCategorize/orgList-categorize';
+@use '../components/journals/orgListCategorize/orgList-categorize';
 
 //More like this
-@import '../components/search/moreLikeThis/more-like-this';
-@import '../components/search/moreLikeThis/moreLikeThisItem/more-like-this-item';
-@import '../components/search/moreLikeThis/moreLikeThisItemInfo/more-like-this-item-info';
+@use '../components/search/moreLikeThis/more-like-this';
+@use '../components/search/moreLikeThis/moreLikeThisItem/more-like-this-item';
+@use '../components/search/moreLikeThis/moreLikeThisItemInfo/more-like-this-item-info';
 
 //quickAccess
-@import '../components/search/fullView/quickAccess/_quickAccess';
+@use '../components/search/fullView/quickAccess/_quickAccess';
 
 //save to favorites button
-@import '../components/favorites/saveToFavoritesButton/save-to-favorites-button';
+@use '../components/favorites/saveToFavoritesButton/save-to-favorites-button';
 
 //Personalization
-@import '../components/search/personalization/personalizationButton/_personalize-results-button';
-@import '../components/search/personalization/personalizationDialog/_personalization-dialog';
-@import '../components/search/facet/_personalization-sidebar';
+@use '../components/search/personalization/personalizationButton/_personalize-results-button';
+@use '../components/search/personalization/personalizationDialog/_personalization-dialog';
+@use '../components/search/facet/_personalization-sidebar';
 
 //Esploro organization list
-@import '../components/journals/organizationOrFacetToggle/_organization-or-facet-toggle';
+@use '../components/journals/organizationOrFacetToggle/_organization-or-facet-toggle';
 
 //Tags
-@import '../components/tags/tagsList/_tags-list';
-@import '../components/tags/tagsResults/_tags-results';
-@import '../components/tags/tagsSearchBar/_tags-search-bar';
-@import '../components/tags/_tags';
+@use '../components/tags/tagsList/_tags-list';
+@use '../components/tags/tagsResults/_tags-results';
+@use '../components/tags/tagsSearchBar/_tags-search-bar';
+@use '../components/tags/_tags';
 
 //Error Messages
-@import '../components/search/fullView/_sign-in-to-view';
-@import '../components/search/searchResult/errorMessage/_search-error-message';
+@use '../components/search/fullView/_sign-in-to-view';
+@use '../components/search/searchResult/errorMessage/_search-error-message';
 
 //alma view it
-@import '../components/search/fullView/getit/almaViewit/_alma-viewit-items';
+@use '../components/search/fullView/getit/almaViewit/_alma-viewit-items';
 
 // email template
-@import '../components/emailTemplate/emailTemplate.directive';
+@use '../components/emailTemplate/emailTemplate.directive';
 
 // resource recommender
-@import '../components/search/resourceRecommender/resource-recommender';
-@import '../components/search/resourceRecommender/resource-recommender-full-view';
+@use '../components/search/resourceRecommender/resource-recommender';
+@use '../components/search/resourceRecommender/resource-recommender-full-view';
 
 //Newspapers
-@import '../components/newspapers/newspapersSearchBar/_newspapers-search-bar';
-@import '../components/newspapers/newspapersSpotlight/_newspapers-spotlight';
-@import '../components/newspapers/_newspapers-home';
-@import '../components/newspapers/searchResultTitle/_search-result-title';
+@use '../components/newspapers/newspapersSearchBar/_newspapers-search-bar';
+@use '../components/newspapers/newspapersSpotlight/_newspapers-spotlight';
+@use '../components/newspapers/_newspapers-home';
+@use '../components/newspapers/searchResultTitle/_search-result-title';
 
 // Angular material (md) directives styles
 // =======================================
-@import 'partials/md-autocomplete';
-@import 'partials/md-backdrop';
-@import 'partials/md-progress-linear';
-@import 'partials/md-backdrop';
-@import 'partials/md-dialog';
-@import 'partials/md-content';
-@import 'partials/md-sidenav';
-@import 'partials/md-tabs';
-@import 'partials/md-grid-list';
-@import 'partials/md-card';
-@import 'partials/md-input';
-@import 'partials/md-select';
-@import 'partials/md-toast';
-@import 'partials/md-tooltip';
-@import 'partials/md-list';
-@import 'partials/md-toolbar';
-@import 'partials/md-datepicker';
-@import 'partials/md-whiteframe';
-@import 'partials/md-menu';
-@import 'partials/md-chips';
-@import 'partials/md-checkbox';
-@import 'partials/md-option';
-@import 'partials/md-radio-button';
-@import 'partials/md-divider';
-@import 'partials/md-virtual-repeat-container';
-@import 'partials/md-nav-bar';
-@import 'partials/md-switch';
+@use 'partials/md-autocomplete';
+@use 'partials/md-backdrop';
+@use 'partials/md-progress-linear';
+@use 'partials/md-dialog';
+@use 'partials/md-content';
+@use 'partials/md-sidenav';
+@use 'partials/md-tabs';
+@use 'partials/md-grid-list';
+@use 'partials/md-card';
+@use 'partials/md-input';
+@use 'partials/md-select';
+@use 'partials/md-toast';
+@use 'partials/md-tooltip';
+@use 'partials/md-list';
+@use 'partials/md-toolbar';
+@use 'partials/md-datepicker';
+@use 'partials/md-whiteframe';
+@use 'partials/md-menu';
+@use 'partials/md-chips';
+@use 'partials/md-checkbox';
+@use 'partials/md-option';
+@use 'partials/md-radio-button';
+@use 'partials/md-divider';
+@use 'partials/md-virtual-repeat-container';
+@use 'partials/md-nav-bar';
+@use 'partials/md-switch';
 
 // The following scss is imported via custom-theme.scss instead (keep it commented-out)
 //@import "partials/md-button";
 
 // Fullview permalink
-@import '../components/search/actions/permalinkAction/permalink';
+@use '../components/search/actions/permalinkAction/permalink';
 
 // Export Excel
-@import '../components/search/actions/exportExcelAction/export-excel';
+@use '../components/search/actions/exportExcelAction/export-excel';
 
 // Tabs and scopes
-@import '../components/search/searchBar/tabsAndScopesSelector/_tabs-and-scopes-selector.scss';
+@use '../components/search/searchBar/tabsAndScopesSelector/_tabs-and-scopes-selector.scss';
 
 // Requests overview
-@import '../components/account/overview/requestsOverview/_requests-overview';
+@use '../components/account/overview/requestsOverview/_requests-overview';
 
 // Loans overview
-@import '../components/account/overview/loansOverview/_loans-overview.scss';
+@use '../components/account/overview/loansOverview/_loans-overview.scss';
 
 // Fines overview
-@import '../components/account/overview/finesOverview/_fines-overview.scss';
+@use '../components/account/overview/finesOverview/_fines-overview.scss';
 
 // Messages and blocks overview
-@import '../components/account/overview/messagesAndBlocksOverview/_messages-and-blocks-overview.scss';
+@use '../components/account/overview/messagesAndBlocksOverview/_messages-and-blocks-overview.scss';
 
 // Facet range
-@import '../components/search/facet/facetRange/_facet-range.scss';
+@use '../components/search/facet/facetRange/_facet-range.scss';
 
 // Location
-@import '../components/search/fullView/getit/opac/locations/location/_location.scss';
 
 // Personal info
-@import '../components/account/personalInfo/_personal-info.scss';
 
 // Alma other members
-@import '../components/search/fullView/getit/almaOtherMembers/_alma-other-members.scss';
+@use '../components/search/fullView/getit/almaOtherMembers/_alma-other-members.scss';
 
 // change lang
-@import '../components/infra/lang/change-lang';
+@use '../components/infra/lang/change-lang';
 
 // Alma mashup
-@import '../components/search/fullView/getit/almaMashup/almaMashup.scss';
+@use '../components/search/fullView/getit/almaMashup/almaMashup.scss';
 
 // extra
-@import '../components/search/quickLink/quick-link';
-@import '../components/nosearchresults/no-search-results';
-@import '../components/person/person-entity-page';
+@use '../components/search/quickLink/quick-link';
+@use '../components/nosearchresults/no-search-results';
+@use '../components/person/person-entity-page';

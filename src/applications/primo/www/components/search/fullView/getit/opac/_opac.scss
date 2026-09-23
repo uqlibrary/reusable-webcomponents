@@ -1,3 +1,5 @@
+@use "../../../../../styles/partials/mixins";
+
 /* starting opac */
 
 prm-opac {
@@ -44,7 +46,7 @@ prm-opac {
         .md-button.button-with-icon {
             > prm-icon {
                 md-icon {
-                    @include setSize(20px);
+                    @include mixins.setSize(20px);
                 }
             }
         }
@@ -67,7 +69,7 @@ prm-opac {
         }
         .related-title-icon {
             md-icon {
-                @include setSize(18px);
+                @include mixins.setSize(18px);
             }
         }
     }

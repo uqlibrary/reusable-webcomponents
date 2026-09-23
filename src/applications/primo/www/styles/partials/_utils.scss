@@ -1,3 +1,8 @@
+@use "sass:color";
+@use "../../../styles-imports/www/variables";
+@use "mixins";
+@use "mixins/material-mixins";
+
 // Utility and silent classes
 
 // positioning
@@ -25,14 +30,14 @@
     height: 1px;
     left: -1000em;
     overflow: hidden;
-    @include rtl(position, absolute, fixed);
+    @include material-mixins.rtl(position, absolute, fixed);
     &-important {
         position: absolute !important;
         width: 1px !important;
         height: 1px !important;
         left: -1000em !important;
         overflow: hidden !important;
-        @include rtl(position, absolute, fixed);
+        @include material-mixins.rtl(position, absolute, fixed);
     }
 }
 
@@ -78,7 +83,7 @@
 // shadows
 %default-shadow,
 .default-shadow {
-    box-shadow: 0 1px 0 0 transparentize(black, 0.97), 0 5px 5px -3px transparentize(black, 0.93);
+    box-shadow: 0 1px 0 0 color.adjust(black, $alpha: -0.97), 0 5px 5px -3px color.adjust(black, $alpha: -0.93);
     &-on-light {
     }
     &-on-dark {
@@ -93,16 +98,16 @@
 
 %toolbar-shadow,
 .toolbar-shadow {
-    box-shadow: 0 1px 0 0 transparentize($dark, 0.9), 0 1px 5px 0 transparentize($dark, 0.8);
+    box-shadow: 0 1px 0 0 color.adjust(variables.$dark, $alpha: -0.9), 0 1px 5px 0 color.adjust(variables.$dark, $alpha: -0.8);
     &-top {
-        box-shadow: 0 -1px 0 0 transparentize($dark, 0.9), 0 -1px 5px 0 transparentize($dark, 0.8);
+        box-shadow: 0 -1px 0 0 color.adjust(variables.$dark, $alpha: -0.9), 0 -1px 5px 0 color.adjust(variables.$dark, $alpha: -0.8);
     }
 }
 %focused-item-shadow,
 .focused-item-shadow {
-    box-shadow: 0 0 0 ($paddingSmall + 0.05) $white, 0 0 0 ($paddingSmall + 0.1) desaturate(lighten($midGrey, 30%), 2%),
-        0 2px 15px 5px rgba(0, 0, 0, 0.2), 0 -40px 40px -8px transparentize($nearlyWhite, 0.4),
-        0 40px 40px -8px transparentize($nearlyWhite, 0.4);
+    box-shadow: 0 0 0 (variables.$paddingSmall + 0.05) variables.$white, 0 0 0 (variables.$paddingSmall + 0.1) color.adjust(color.adjust(variables.$midGrey, $lightness: 30%), $saturation: -2%),
+        0 2px 15px 5px rgba(0, 0, 0, 0.2), 0 -40px 40px -8px color.adjust(variables.$nearlyWhite, $alpha: -0.4),
+        0 40px 40px -8px color.adjust(variables.$nearlyWhite, $alpha: -0.4);
     &.without-halo {
         box-shadow: 0 0 0 0.55em #fff, 0 0 0 0.6em #acbecc, 0 2px 15px 5px rgba(0, 0, 0, 0.2);
     }
@@ -111,7 +116,7 @@
 // shading / color
 %darker-bg,
 .darker-bg {
-    background-color: transparentize($dark, 0.88);
+    background-color: color.adjust(variables.$dark, $alpha: -0.88);
 }
 
 // backgrounds
@@ -164,7 +169,7 @@
 // borders
 %bottom-border-light,
 .bottom-border-light {
-    border-bottom: 1px solid darken($nearlyWhite, 5%);
+    border-bottom: 1px solid color.adjust(variables.$nearlyWhite, $lightness: -5%);
 }
 %dashed-border,
 .dashed-border {
@@ -181,8 +186,8 @@
 // forms
 %form-focus,
 .form-focus {
-    border: 1px solid transparentize($dark, 0.7);
-    box-shadow: 0 2px 7px 0 transparentize($dark, 0.88);
+    border: 1px solid color.adjust(variables.$dark, $alpha: -0.7);
+    box-shadow: 0 2px 7px 0 color.adjust(variables.$dark, $alpha: -0.88);
     background-color: white;
 }
 %required-starlet,
@@ -194,7 +199,7 @@
     height: 0.75em;
     top: 0.2em;
     font-size: 2em;
-    transition: $swift-ease-out;
+    transition: variables.$swift-ease-out;
     @extend .prm-warn;
 
     .md-input-has-value & {
@@ -219,20 +224,20 @@
 // for hover effect over darker backgrounds
 %hoverable-over-dark,
 .hoverable-over-dark:not(.disable-hover) {
-    @include bgColor(black);
-    color: transparentize($white, 0.15);
+    @include mixins.bgColor(black);
+    color: color.adjust(variables.$white, $alpha: -0.15);
     &:hover,
     &:focus {
         &:not([disabled]) {
-            @include bgColor($white);
+            @include mixins.bgColor(variables.$white);
         }
     }
 }
 
 %hoverable-over-light,
 .hoverable-over-light {
-    @include bgColor(white);
-    color: transparentize(black, 0.35);
+    @include mixins.bgColor(white);
+    color: color.adjust(black, $alpha: -0.35);
     &:hover,
     &:focus {
         &:not([disabled]) {
@@ -243,12 +248,12 @@
 
 %hoverable-over-dark-mixed,
 .hoverable-over-dark-mixed {
-    @include bgColor(white);
-    color: transparentize($white, 0.35);
+    @include mixins.bgColor(white);
+    color: color.adjust(variables.$white, $alpha: -0.35);
     &:hover,
     &:focus {
         &:not([disabled]) {
-            color: $white;
+            color: variables.$white;
         }
     }
 }

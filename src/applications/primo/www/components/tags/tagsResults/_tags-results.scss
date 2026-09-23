@@ -1,3 +1,7 @@
+@use "sass:color";
+@use "../../../../styles-imports/www/variables";
+@use "../../../styles/partials/mixins";
+
 prm-tags-results-list {
     .results-title {
         position: relative;
@@ -26,7 +30,7 @@ prm-tags-results-list {
         }
 
         .show-more-button {
-            background-color: transparentize(white, 0.5);
+            background-color: color.adjust(white, $alpha: -0.5);
         }
 
         &.prm-bricks-list {
@@ -48,7 +52,7 @@ prm-tags-results-list {
                 height: 100%;
             }
             .md-button {
-                @include setSize(48px);
+                @include mixins.setSize(48px);
                 margin: 0;
             }
         }
@@ -83,7 +87,7 @@ prm-tags-results-list {
                     ._md-list-item-inner,
                     .md-list-item-inner {
                         padding: 0.75em 1em;
-                       background-color: lighten($background, 4%);
+                       background-color: color.adjust(variables.$background, $lightness: 4%);
                     }
                     .item-title {
                         // @extend .bold-text;
@@ -95,7 +99,7 @@ prm-tags-results-list {
                             margin-right: 5px;
                             color: initial;
                             md-icon {
-                                @include setSize(18px);
+                                @include mixins.setSize(18px);
                             }
                         }
                         .combined-half-mark {

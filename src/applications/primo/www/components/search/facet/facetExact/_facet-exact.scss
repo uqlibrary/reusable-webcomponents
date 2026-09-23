@@ -1,3 +1,5 @@
+@use "../../../../../styles-imports/www/variables";
+
 /* starting facetExact */
 
 prm-facet-exact {
@@ -30,7 +32,7 @@ prm-facet-exact {
 
     .section-title {
         prm-icon {
-            color: $highlightPrimary;
+            color: variables.$highlightPrimary;
         }
 
         &:hover,
@@ -38,7 +40,7 @@ prm-facet-exact {
             background-color: transparent !important;
 
             span {
-                color: $highlightPrimary;
+                color: variables.$highlightPrimary;
             }
         }
     }

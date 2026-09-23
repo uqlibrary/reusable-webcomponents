@@ -1,3 +1,7 @@
+@use "sass:color";
+@use "../../../../../styles-imports/www/variables";
+@use "../../../../styles/partials/mixins";
+
 /* starting featuredResultItem */
 
 $featured-book-width: 90px;
@@ -46,7 +50,7 @@ prm-featured-result-item {
     &.dummy-item {
         md-card {
             box-shadow: none;
-            background-color: $background-hue4;
+            background-color: variables.$background-hue4;
             prm-spinner {
                 height: 100%;
                 display: flex;
@@ -69,7 +73,7 @@ prm-featured-result-item {
         font-weight: 500;
 
         @extend %default-shadow;
-        background-color: $background-hue2;
+        background-color: variables.$background-hue2;
 
         md-card-title:not(#featuredResultTitle) {
           padding: 24px 16px 16px 16px;
@@ -92,7 +96,7 @@ prm-featured-result-item {
             }
             md-card-title-text {
                 &.has-ellipsis {
-                    @include multiLineEllipsis($lineHeight: 1em, $lineCount: 4, $bgColor: $background-hue2);
+                    @include mixins.multiLineEllipsis($lineHeight: 1em, $lineCount: 4, $bgColor: variables.$background-hue2);
                     text-align: left;
                 }
             }
@@ -115,7 +119,7 @@ prm-featured-result-item {
             }
             md-card-title-text {
                 &.has-ellipsis {
-                    @include multiLineEllipsis($lineHeight: 1.2em, $lineCount: 7, $bgColor: $background-hue2);
+                    @include mixins.multiLineEllipsis($lineHeight: 1.2em, $lineCount: 7, $bgColor: variables.$background-hue2);
                 }
             }
         }
@@ -145,12 +149,12 @@ prm-featured-result-item {
             z-index: 0;
             overflow: hidden;
             img {
-                transition: $swift-ease-out;
+                transition: variables.$swift-ease-out;
                 transition-duration: 0.3s;
             }
         }
         md-card-title {
-           background-color: lighten($background, 4%);
+           background-color: color.adjust(variables.$background, $lightness: 4%);
             position: relative;
             z-index: 1;
             padding: 0.5em;

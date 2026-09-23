@@ -1,3 +1,7 @@
+@use "sass:color";
+@use "../../../../styles-imports/www/variables";
+@use "../../../styles/partials/mixins";
+
 /* starting browseSearch */
 prm-browse-search {
     md-list {
@@ -13,7 +17,7 @@ prm-browse-search {
                 height: 100%;
             }
             .md-button {
-                @include setSize(48px);
+                @include mixins.setSize(48px);
                 margin: 0;
             }
         }
@@ -48,7 +52,7 @@ prm-browse-search {
                     ._md-list-item-inner,
                     .md-list-item-inner {
                         padding: 0.75em 1em;
-                       background-color: lighten($background, 4%);
+                       background-color: color.adjust(variables.$background, $lightness: 4%);
                     }
                     .item-title {
                         // @extend .bold-text;
@@ -60,7 +64,7 @@ prm-browse-search {
                             margin-right: 5px;
                             color: initial;
                             md-icon {
-                                @include setSize(18px);
+                                @include mixins.setSize(18px);
                             }
                         }
                         .combined-half-mark {

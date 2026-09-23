@@ -1,3 +1,6 @@
+@use "../../../../../styles-imports/www/variables";
+@use "../../../../styles/partials/mixins";
+
 /* starting personalizationDialog */
 
 prm-personalization-dialog {
@@ -8,7 +11,7 @@ prm-personalization-dialog {
         // margin-bottom: 1.5em;
         transform: scale3d(1, 0.7, 1);
         transform-origin: 50% 0;
-        transition: $swift-ease-in;
+        transition: variables.$swift-ease-in;
         transition-duration: 0.2s;
         padding: 1.5em;
         prm-search & {
@@ -19,13 +22,13 @@ prm-personalization-dialog {
         &.is-active {
             opacity: 1;
             transform: scale3d(1, 1, 1);
-            transition: $swift-ease-out;
+            transition: variables.$swift-ease-out;
         }
         button.md-button[translate="nui.pyr.popup.cancel"]:not([disabled]) {
-            @include uqTertiaryButton($white, $accent-color);
+            @include mixins.uqTertiaryButton(variables.$white, variables.$accent-color);
         }
         button.md-button.button-notice:has(span[translate="nui.pyr.popup.reset"]):not([disabled]) {
-            @include uqSecondaryButton($white, $accent-color);
+            @include mixins.uqSecondaryButton(variables.$white, variables.$accent-color);
         }
     }
     .personalization-dialog-inner {
@@ -45,11 +48,11 @@ prm-personalization-dialog {
     }
 
     .is-disabled {
-        color: $disabled;
+        color: variables.$disabled;
         &:hover {
             .md-icon,
             ._md-icon {
-                border-color: $disabled;
+                border-color: variables.$disabled;
             }
         }
     }

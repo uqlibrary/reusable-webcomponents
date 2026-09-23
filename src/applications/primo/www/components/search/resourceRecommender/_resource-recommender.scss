@@ -1,9 +1,13 @@
+@use "sass:color";
+@use "../../../../styles-imports/www/variables";
+@use "../../../styles/partials/mixins/material-mixins";
+
 prm-resource-recommender {
     display: block;
     margin-bottom: 2em;
     md-card {
         @extend %default-shadow;
-       background-color: lighten($background, 4%);
+       background-color: color.adjust(variables.$background, $lightness: 4%);
         margin: 0;
         margin-right: 1em;
         &:last-of-type {
@@ -81,16 +85,16 @@ prm-resource-recommender {
             bottom: 0;
         }
         .__md & {
-            @include rtl-prop(left, right, 15%, auto);
+            @include material-mixins.rtl-prop(left, right, 15%, auto);
         }
         .__lg & {
-            @include rtl-prop(left, right, 16.5%, auto);
+            @include material-mixins.rtl-prop(left, right, 16.5%, auto);
         }
         .__lgPlus & {
-            @include rtl-prop(left, right, 17.5%, auto);
+            @include material-mixins.rtl-prop(left, right, 17.5%, auto);
         }
         .__xl & {
-            @include rtl-prop(left, right, 22vw, auto);
+            @include material-mixins.rtl-prop(left, right, 22vw, auto);
         }
     }
 }

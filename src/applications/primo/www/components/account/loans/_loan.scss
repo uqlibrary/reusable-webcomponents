@@ -1,3 +1,5 @@
+@use "../../../../styles-imports/www/variables";
+
 /* starting loan */
 prm-loan {
     .md-list-item-text {
@@ -74,6 +76,6 @@ prm-loan {
     }
 
     .overdue-line {
-        color: $warn;
+        color: variables.$warn;
     }
 }

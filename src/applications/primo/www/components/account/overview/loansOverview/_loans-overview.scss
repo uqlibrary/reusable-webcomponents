@@ -1,3 +1,5 @@
+@use "../../../../../styles-imports/www/variables";
+
 /* starting loansOverview */
 prm-loans-overview {
     .loans-brief-display {
@@ -9,12 +11,12 @@ prm-loans-overview {
             &:hover:not([disabled]),
             &:focus {
                 background-color: transparent;
-                color: $dark-hue1;
+                color: variables.$dark-hue1;
             }
         }
     }
 
     .overdue-line-overview {
-        color: $highlightPrimary;
+        color: variables.$highlightPrimary;
     }
 }

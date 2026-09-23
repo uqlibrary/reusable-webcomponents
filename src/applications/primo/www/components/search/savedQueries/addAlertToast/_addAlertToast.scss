@@ -1,3 +1,6 @@
+@use "../../../../../styles-imports/www/variables";
+@use "../../../../styles/partials/mixins";
+
 prm-add-alert-toast,
 prm-silent-login-alert-toast,
 prm-timeout-toast,
@@ -70,7 +73,7 @@ prm-voice-search-toast {
 
     md-toast .md-toast-content .md-button {
         font-weight: 600;
-        @include bgColor($dark);
+        @include mixins.bgColor(variables.$dark);
         &:hover:not([disabled]),
         &:focus:not([disabled]),
         &:active:not([disabled]) {
@@ -79,6 +82,6 @@ prm-voice-search-toast {
     }
     md-toast .md-button.settings-button,
     md-toast .md-button.settings-button md-icon {
-        @include bgColor($links-hue-1);
+        @include mixins.bgColor(variables.$links-hue-1);
     }
 }

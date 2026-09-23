@@ -1,13 +1,16 @@
+@use "sass:color";
+@use "../../../styles-imports/www/variables";
+
 md-tooltip {
     &.md-tooltip {
         font-size: 0.8em;
         padding: 0 6px;
     }
 
-    color: $white;
+    color: variables.$white;
     letter-spacing: 0.03em;
     padding: 0.5em;
-    background-color: transparentize($dark, 0.25);
+    background-color: color.adjust(variables.$dark, $alpha: -0.25);
     opacity: 1 !important;
 
     &.multi-row-tooltip {

@@ -1,3 +1,5 @@
+@use "../../../../../styles-imports/www/variables";
+
 /* starting logo */
 prm-logo {
     .product-logo {
@@ -13,7 +15,7 @@ prm-logo {
             &:hover,
             &:focus {
                 background-color: transparent !important;
-                box-shadow: inset 0 -1px 0 0 $white;
+                box-shadow: inset 0 -1px 0 0 variables.$white;
             }
         }
     }

@@ -1,3 +1,4 @@
+@use "sass:map";
 // Predefined Break-points
 $mediaExMaxWidth: 1920px;
 $mediaMaxWidth: 1280px;
@@ -24,7 +25,7 @@ $mediaMinWidth: 480px;
         '>handset': '(min-width: #{$mediaMinWidth + 1})',
         '<handset': '(max-width: #{$mediaMinWidth})',
     );
-    @return map-get($condMap, $c);
+    @return map.get($condMap, $c);
 }
 
 // The media mixin

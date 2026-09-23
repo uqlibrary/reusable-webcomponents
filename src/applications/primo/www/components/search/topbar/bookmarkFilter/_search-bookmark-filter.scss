@@ -1,3 +1,6 @@
+@use "../../../../../styles-imports/www/variables";
+@use "../../../../styles/partials/easing";
+
 /* starting searchBookmarkFilter */
 prm-search-bookmark-filter {
     height: 100%;
@@ -17,7 +20,7 @@ prm-search-bookmark-filter {
     #fixed-buttons-holder {
         transition-duration: 0s;
         position: relative;
-        animation: animateStickyButtonOut 0.4s $swift-ease-out-timing-function forwards;
+        animation: animateStickyButtonOut 0.4s variables.$swift-ease-out-timing-function forwards;
 
         svg {
             transition-delay: 0s !important;
@@ -28,10 +31,10 @@ prm-search-bookmark-filter {
             top: 1em;
             right: 1em;
             z-index: 15;
-            animation: animateStickyButtonIn 0.7s $swift-ease-out-timing-function forwards;
+            animation: animateStickyButtonIn 0.7s variables.$swift-ease-out-timing-function forwards;
 
             svg {
-                fill: $dark;
+                fill: variables.$dark;
                 transition-duration: 0.4s;
                 transition-delay: 0s;
             }
@@ -92,14 +95,14 @@ prm-search-bookmark-filter {
             top: 0;
             left: 0;
             opacity: 0;
-            transition: $swift-ease-out;
+            transition: variables.$swift-ease-out;
             transition-duration: 2s;
             transition-delay: 0.1s;
         }
 
         prm-icon {
             svg {
-                transition: $swift-ease-out;
+                transition: variables.$swift-ease-out;
                 transition-duration: 2s;
                 transition-delay: 1s;
             }
@@ -122,7 +125,7 @@ prm-search-bookmark-filter {
 
             md-icon {
                 transform: rotate(-340deg);
-                transition: transform 0.5s 0.05s $swift-ease-out-timing-function;
+                transition: transform 0.5s 0.05s variables.$swift-ease-out-timing-function;
             }
 
             prm-icon {
@@ -162,7 +165,7 @@ prm-search-bookmark-filter {
 
         100% {
             transform: scale(1);
-            animation-timing-function: $easeOutQuint;
+            animation-timing-function: easing.$easeOutQuint;
         }
     }
 }
@@ -176,7 +179,7 @@ prm-search-bookmark-filter-after {
             background-color: #e7e7e8;
             border-radius: 50%;
             margin-top: 12px;
-            fill: $accent-color;
+            fill: variables.$accent-color;
         }
         &:hover {
             box-shadow: none;
@@ -197,7 +200,7 @@ prm-search-bookmark-filter-after {
 prm-search-bookmark-filter {
     // QR Code and Favourites button in top nav
     .md-icon-button.button-over-dark {
-        color: $accent-color !important;
+        color: variables.$accent-color !important;
         background-color: transparent;
     }
     .md-ripple-container {
@@ -221,7 +224,7 @@ prm-search-bookmark-filter {
         padding-inline: 4px;
         margin-inline: 0;
         span {
-            color: $uqBodyCopy;
+            color: variables.$uqBodyCopy;
             font-weight: 500;
         }
     }
@@ -229,7 +232,7 @@ prm-search-bookmark-filter {
         width: 44px; // 24, but a bit extra so the button doesnt half hide
         &:hover {
             prm-icon {
-                color: $uqGrey700; // this is a problem, background colours look terrible and there is an issue with spacing. take an easy out
+                color: variables.$uqGrey700; // this is a problem, background colours look terrible and there is an issue with spacing. take an easy out
             }
         }
     }
@@ -240,15 +243,15 @@ prm-search-bookmark-filter {
         margin-right: 10px;
         &:hover {
             prm-icon {
-                background-color: $white;
-                box-shadow: $accent-color 0px -2px 0px 0px inset;
+                background-color: variables.$white;
+                box-shadow: variables.$accent-color 0px -2px 0px 0px inset;
             }
         }
         prm-icon {
             background-color: #e7e7e8;
             border-radius: 20px;
             padding: 8px;
-            color: $accent-color;
+            color: variables.$accent-color;
         }
         span {
             padding-left: 6px;
@@ -271,8 +274,8 @@ prm-search-bookmark-filter {
             background-color: transparent !important;
             box-shadow: none;
             md-icon {
-                box-shadow: $accent-color 0px -2px 0px 0px inset;
-                background-color: $white;
+                box-shadow: variables.$accent-color 0px -2px 0px 0px inset;
+                background-color: variables.$white;
             }
         }
         span {
@@ -291,7 +294,7 @@ prm-search-bookmark-filter-after {
         align-items: center;
         margin-right: 20px;
         span {
-            color: $uqBodyCopy;
+            color: variables.$uqBodyCopy;
             font-weight: 500;
             margin-top: 12px;
             margin-left: 6px;

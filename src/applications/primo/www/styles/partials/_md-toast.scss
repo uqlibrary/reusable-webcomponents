@@ -1,6 +1,8 @@
+@use "../../../styles-imports/www/variables";
+
 md-toast,
 md-toast.md-default-theme {
-    background-color: $uqInformationLight;
+    background-color: variables.$uqInformationLight;
     // color: black;
     display: flex;
     align-items: center;
@@ -14,7 +16,7 @@ md-toast.md-default-theme {
     }
 
     .md-button {
-        font-weight: $bold;
+        font-weight: variables.$bold;
     }
 
     &.md-top {

@@ -1,9 +1,11 @@
+@use "../../../styles-imports/www/variables";
+
 prm-no-search-result {
   a {
     text-decoration: underline;
 
     &:hover {
-      background-color: $uqPurple500;
+      background-color: variables.$uqPurple500;
       color: #fff !important;
       box-shadow: none;
     }

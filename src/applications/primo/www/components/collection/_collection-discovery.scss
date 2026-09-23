@@ -1,6 +1,9 @@
+@use "sass:color";
+@use "../../../styles-imports/www/variables";
+
 $bg: rgb(241, 241, 241);
-$border: darken($bg, 7%);
-$dark: rgba(0, 0, 0, 0.87);
+$border: color.adjust(variables.$bg, $lightness: -7%);
+variables.$dark: rgba(0, 0, 0, 0.87);
 $defaultTheme: md-primoExplore-theme;
 
 .collections-wrapper {
@@ -15,7 +18,7 @@ $defaultTheme: md-primoExplore-theme;
 
     md-toolbar.md-primoExplore-theme:not(.md-menu-toolbar),
     md-content {
-        background-color: $bg;
+        background-color: variables.$bg;
     }
 
     md-content {
@@ -32,7 +35,7 @@ $defaultTheme: md-primoExplore-theme;
     md-toolbar.#{$defaultTheme}:not(.md-menu-toolbar) {
         md-icon,
         .md-toolbar-tools {
-            color: $dark !important;
+            color: variables.$dark !important;
         }
     }
 
@@ -137,7 +140,7 @@ $defaultTheme: md-primoExplore-theme;
 }
 
 .collection-actions {
-    box-shadow: 0 0 0 1px transparentize($dark, 0.7);
+    box-shadow: 0 0 0 1px color.adjust(variables.$dark, $alpha: -0.7);
     align-self: flex-start;
     margin-top: 1.5em;
     margin-right: 1em;
@@ -181,7 +184,7 @@ $defaultTheme: md-primoExplore-theme;
     a.md-button.md-primoExplore-theme {
         display: block;
         font-size: 1.1em;
-        color: $collectionDisLinks;
+        color: variables.$collectionDisLinks;
         box-shadow: 0 0 0 0px $border;
 
         span {
@@ -197,7 +200,7 @@ $defaultTheme: md-primoExplore-theme;
     md-card {
         margin: 0 0 1em 0;
         width: 100%;
-        border-radius: $radius;
+        border-radius: variables.$radius;
         box-shadow: 0 3px 15px -5px rgba(0, 0, 0, 0.2);
 
         // font-size: .8em;

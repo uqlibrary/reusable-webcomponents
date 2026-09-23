@@ -1,12 +1,15 @@
+@use "../../../../styles-imports/www/variables";
+@use "../../../styles/partials/mixins";
+
 /* starting login */
 
 .login-dialog {
-    color: $dark;
+    color: variables.$dark;
     min-width: 320px;
     max-width: 600px;
 
     .error-color {
-        color: $red;
+        color: variables.$red;
     }
 
     .back-button {
@@ -21,7 +24,7 @@
         height: 100%;
         width: 100%;
         z-index: 1;
-        background-color: $background-hue5;
+        background-color: variables.$background-hue5;
 
         .loader {
             height: 10%;
@@ -62,7 +65,7 @@
             button,
             .md-button {
                 padding: 1em;
-                border-radius: $radius;
+                border-radius: variables.$radius;
             }
 
             .md-list-item-text {
@@ -70,7 +73,7 @@
 
                 h3,
                 .list-item-title {
-                    font-weight: $light;
+                    font-weight: variables.$light;
                     font-size: 1.6em;
                     @extend .prm-links;
                     // margin-bottom: 0.5em;
@@ -96,7 +99,7 @@
                 max-height: 29px;
 
                 md-icon {
-                    @include setSize(1.25em);
+                    @include mixins.setSize(1.25em);
                     position: relative;
                     top: -0.25em;
                 }
@@ -108,7 +111,7 @@
                     opacity: 0.5;
                     display: inline-block;
                     transform: translateX(-5px);
-                    transition: $swift-ease-out;
+                    transition: variables.$swift-ease-out;
                 }
             }
 
@@ -128,7 +131,7 @@
                 .md-secondary-container {
                     prm-icon {
                         &.login-brighter-dialog {
-                            color: $dark;
+                            color: variables.$dark;
                         }
                     }
                 }
@@ -242,7 +245,7 @@
             .md-button {
                 &:hover,
                 &:focus {
-                    background-color: $background-hue11 !important;
+                    background-color: variables.$background-hue11 !important;
                 }
             }
         }

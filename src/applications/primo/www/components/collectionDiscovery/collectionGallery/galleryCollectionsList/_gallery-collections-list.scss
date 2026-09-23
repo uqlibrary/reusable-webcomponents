@@ -1,3 +1,7 @@
+@use "sass:color";
+@use "../../../../../styles-imports/www/variables";
+@use "../../../../styles/partials/mixins";
+
 prm-gallery-collection {
     &.ie-gallery-collection {
         flex-basis: calc(50% - 1em);
@@ -21,7 +25,7 @@ prm-gallery-collection {
         display: flex;
         width: 100%;
         height: 100%;
-       background-color: lighten($background, 4%);
+       background-color: color.adjust(variables.$background, $lightness: 4%);
         .collection-overlay {
             position: absolute;
             top: 0;
@@ -80,7 +84,7 @@ prm-gallery-collection {
             color: initial;
             display: inline-flex;
             padding: 0.1em 0.4em 0.1em 0.4em;
-           background-color: lighten($background, 4%);
+           background-color: color.adjust(variables.$background, $lightness: 4%);
             md-divider {
                 height: 13px;
                 margin: 0 0.5em;
@@ -102,7 +106,7 @@ prm-gallery-collection {
             position: absolute;
             top: 0;
             width: 100%;
-            transition: $swift-ease-in-out;
+            transition: variables.$swift-ease-in-out;
             transition-delay: 0.05s;
             transition-duration: 0.2s;
             transform: translateY(60px);
@@ -115,16 +119,16 @@ prm-gallery-collection {
             span {
                 display: inline;
                 padding: 0.12em 0 0.12em 0;
-                box-shadow: 0.4em 0 0 0 $background-hue2, -0.4em 0 0 0 $background-hue2;
+                box-shadow: 0.4em 0 0 0 variables.$background-hue2, -0.4em 0 0 0 variables.$background-hue2;
                 left: 0.3em;
                 position: relative;
-               background-color: lighten($background, 4%);
+               background-color: color.adjust(variables.$background, $lightness: 4%);
                 line-height: 1.4;
             }
         }
         .item-info {
             color: initial;
-            font-weight: $normal;
+            font-weight: variables.$normal;
             width: calc(100% - 1em);
             transform: translateY(140px);
             opacity: 0;
@@ -167,11 +171,11 @@ prm-gallery-collection {
             .md-button {
                 margin: 0;
                 transform: scale(0);
-                transition: $swift-ease-out;
+                transition: variables.$swift-ease-out;
                 transition-duration: 0.25s;
                 opacity: 0;
                 transform-origin: 100% 0;
-                @include bgColor($secondary-hue3);
+                @include mixins.bgColor(variables.$secondary-hue3);
             }
         }
         &:hover,
@@ -182,7 +186,7 @@ prm-gallery-collection {
                 margin: 0;
                 opacity: 1;
                 transform: scale(1);
-                transition: $swift-ease-out;
+                transition: variables.$swift-ease-out;
                 transition-duration: 0.2s;
                 transition-delay: 0.1s;
             }
@@ -192,12 +196,12 @@ prm-gallery-collection {
             margin: 0;
             opacity: 1;
             transform: scale(1);
-            transition: $swift-ease-out;
+            transition: variables.$swift-ease-out;
             transition-duration: 0.2s;
             transition-delay: 0.1s;
         }
         &.is-active {
-            background-color: $white;
+            background-color: variables.$white;
             .collection-overlay {
                 &:before {
                     opacity: 1;
@@ -207,16 +211,16 @@ prm-gallery-collection {
                     transform: translateY(0);
                 }
                 .item-title {
-                    transition: $swift-ease-out;
+                    transition: variables.$swift-ease-out;
                     transform: translateY(8px);
                     transition-duration: 0.3s;
                 }
                 .item-meta,
                 h3 span {
-                    background-color: $white;
+                    background-color: variables.$white;
                 }
                 .item-info {
-                    transition: $swift-ease-out;
+                    transition: variables.$swift-ease-out;
                     transition-duration: 0.3s;
                     transition-delay: 0.05s;
                     transform: translateY(8px);
@@ -225,7 +229,7 @@ prm-gallery-collection {
 
                 h3 {
                     span {
-                        box-shadow: 0.4em 0 0 0 $white, -0.4em 0 0 0 $white;
+                        box-shadow: 0.4em 0 0 0 variables.$white, -0.4em 0 0 0 variables.$white;
                     }
                 }
             }

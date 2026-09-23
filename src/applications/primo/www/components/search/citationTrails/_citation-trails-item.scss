@@ -1,3 +1,7 @@
+@use "../../../../styles-imports/www/variables";
+@use "../../../styles/partials/mixins";
+@use "../../../styles/partials/mixins/material-mixins";
+
 /* starting citationTrailsItem */
 
 prm-citation-trails-item {
@@ -36,7 +40,7 @@ prm-citation-trails-item {
         margin: 0;
         max-height: 100%;
         overflow: hidden;
-        @include multiLineEllipsis($lineHeight: 1.3em, $lineCount: 4, $bgColor: $background-hue2);
+        @include mixins.multiLineEllipsis($lineHeight: 1.3em, $lineCount: 4, $bgColor: variables.$background-hue2);
         margin-right: 0;
         padding-right: 1em;
         [dir='rtl'] & {
@@ -52,11 +56,11 @@ prm-citation-trails-item {
         position: absolute;
         top: 0;
         left: 0.1em;
-        @include rtl-prop(left, right, 0.1em, auto);
+        @include material-mixins.rtl-prop(left, right, 0.1em, auto);
         //opacity: .5;
         transition-duration: 0s;
         md-icon {
-            @include setSize(18px);
+            @include mixins.setSize(18px);
         }
     }
     p {
@@ -93,7 +97,7 @@ prm-citation-trails-item {
         }
         .item-title {
             @extend .bold-text;
-            @include multiLineEllipsis($lineHeight: 1.3em, $lineCount: 2, $bgColor: white);
+            @include mixins.multiLineEllipsis($lineHeight: 1.3em, $lineCount: 2, $bgColor: white);
             margin-right: 0em;
             padding-right: 1em;
             // @include rtl-prop(margin-right, margin-left, 0em, auto);
@@ -123,7 +127,7 @@ prm-citation-trails-item {
         ~ prm-citation-trails-item {
             .item-type {
                 right: 0.1em;
-                @include rtl-prop(right, left, 0.1em, auto);
+                @include material-mixins.rtl-prop(right, left, 0.1em, auto);
                 left: auto;
             }
         }
@@ -132,7 +136,7 @@ prm-citation-trails-item {
         &:hover {
             .item-title {
                 &:after {
-                    background-color: $white;
+                    background-color: variables.$white;
                 }
             }
         }

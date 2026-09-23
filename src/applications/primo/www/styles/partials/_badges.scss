@@ -1,3 +1,5 @@
+@use "../../../styles-imports/www/variables";
+
 .badges {
     padding: 0.25em 0;
     position: relative;
@@ -43,19 +45,19 @@
         &.prm-cdi-attributes-warning,
         &.prm-cdi-attributes-regular {
             span.badge-label {
-                color: $uqBodyCopy;
+                color: variables.$uqBodyCopy;
                 border: none;
             }
             svg {
                 height: 20px;
                 &.retracted {
-                    fill: $uqError500;
+                    fill: variables.$uqError500;
                 }
                 &.changed {
-                    fill: $uqWarning500;
+                    fill: variables.$uqWarning500;
                 }
                 &.regular {
-                    fill: $uqGrey700;
+                    fill: variables.$uqGrey700;
                 }
             }
         }

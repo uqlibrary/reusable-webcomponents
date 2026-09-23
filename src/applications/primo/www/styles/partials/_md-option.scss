@@ -1,10 +1,14 @@
+@use "sass:color";
+@use "../../../styles-imports/www/variables";
+@use "mixins/material-mixins";
+
 md-option.prm-select-checkbox {
     margin-bottom: 0;
     &._md-checkbox-enabled:not([selected]) {
         .md-icon,
         ._md-icon {
             opacity: 0.3;
-            border-color: $dark;
+            border-color: variables.$dark;
             border-width: 1px;
         }
 
@@ -14,7 +18,7 @@ md-option.prm-select-checkbox {
             height: 100%;
             margin: 0;
             > span {
-                @include rtl-prop(margin-left, margin-right, 30px, 0);
+                @include material-mixins.rtl-prop(margin-left, margin-right, 30px, 0);
             }
         }
         &:hover {
@@ -43,7 +47,7 @@ md-option.prm-select-checkbox {
         }
         .md-container,
         ._md-container {
-            color: $white;
+            color: variables.$white;
         }
     }
     &.has-small-text {
@@ -57,7 +61,7 @@ md-option.prm-select-checkbox {
         &[disabled] {
             .md-label,
             ._md-label {
-                color: $dark;
+                color: variables.$dark;
             }
         }
     }
@@ -71,10 +75,10 @@ md-option {
         justify-content: space-between;
         width: 100%;
         prm-icon {
-            color: lighten($dark, 25%);
+            color: color.adjust(variables.$dark, $lightness: 25%);
         }
     }
     &.md-focused {
-        background: darken($white, 10%);
+        background: color.adjust(variables.$white, $lightness: -10%);
     }
 }

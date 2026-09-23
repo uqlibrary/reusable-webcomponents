@@ -1,3 +1,6 @@
+@use "sass:color";
+@use "../../../../../styles-imports/www/variables";
+
 prm-user-area {
     @extend .layout-full-height;
     @extend %darker-bg;
@@ -12,8 +15,8 @@ prm-user-area {
 
         .user-name {
             text-transform: none;
-            font-weight: $bold;
-            color: $linkTitle;
+            font-weight: variables.$bold;
+            color: variables.$linkTitle;
             text-align: left;
             @extend %text-trim-ellipsis;
 
@@ -25,7 +28,7 @@ prm-user-area {
         }
         .user-language {
             font-size: 0.85em;
-            font-weight: $light;
+            font-weight: variables.$light;
         }
     }
 
@@ -157,11 +160,11 @@ prm-user-area {
                 }
 
                 md-select {
-                    color: transparentize($white, 0.35);
+                    color: color.adjust(variables.$white, $alpha: -0.35);
                     &:focus {
-                        background-color: transparentize(black, 0.92);
+                        background-color: color.adjust(black, $alpha: -0.92);
                         &:not([disabled]) {
-                            color: $white;
+                            color: variables.$white;
                         }
                     }
 
@@ -196,7 +199,7 @@ prm-user-area {
                 }
             }
             .md-fab-action-item {
-                transition-timing-function: $swift-ease-out-timing-function;
+                transition-timing-function: variables.$swift-ease-out-timing-function;
             }
         }
     }

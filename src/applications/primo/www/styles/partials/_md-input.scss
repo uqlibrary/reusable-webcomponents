@@ -1,3 +1,6 @@
+@use "sass:color";
+@use "../../../styles-imports/www/variables";
+
 input {
     border-style: none;
     font-family: inherit;
@@ -25,7 +28,7 @@ md-input-container {
     label:not(.md-no-float):not(._md-container-ignore, .md-container-ignore) {
         font-weight: inherit;
         white-space: nowrap;
-        color: $text-hue2;
+        color: variables.$text-hue2;
         &.md-required {
             &:after {
                 display: none;
@@ -54,7 +57,7 @@ md-input-container {
     &.md-input-focused {
         &:after {
             width: 100%;
-            transition: $swift-ease-out;
+            transition: variables.$swift-ease-out;
             transition-duration: 0.3s;
             transform: translateX(-25%);
         }
@@ -83,7 +86,7 @@ md-input-container {
         &.ng-enter {
             .md-input-message-animation {
                 transition-duration: 0.3s !important;
-                transition-timing-function: $swift-ease-out-timing-function !important;
+                transition-timing-function: variables.$swift-ease-out-timing-function !important;
             }
         }
     }
@@ -100,14 +103,14 @@ md-input-container {
         md-select-value,
         .md-select-value,
         ._md-select-value {
-            border-bottom-color: transparentize($dark, 0.33);
+            border-bottom-color: color.adjust(variables.$dark, $alpha: -0.33);
         }
         &.md-input-invalid {
             input,
             md-select-value,
             .md-select-value,
             ._md-select-value {
-                border-bottom-color: $red;
+                border-bottom-color: variables.$red;
             }
         }
         &:not(.md-input-invalid) {
@@ -150,7 +153,7 @@ md-input-container {
         label,
         label:not(.md-no-float) {
             transform: translate3d(38px, 0, 0) scale(1);
-            transition: $swift-ease-out;
+            transition: variables.$swift-ease-out;
             opacity: 0;
         }
 
@@ -197,7 +200,7 @@ md-input-container {
 
     [ng-message] {
         span {
-            color: $uqError500;
+            color: variables.$uqError500;
         }
     }
     &.has-fixed-message {
@@ -212,7 +215,7 @@ md-input-container {
 
     .recaptcha-error-info {
         span {
-            color: $red;
+            color: variables.$red;
         }
     }
 
@@ -249,7 +252,7 @@ md-input-container {
                 md-select-value {
                     &:after {
                       width: 100%;
-                      transition: $swift-ease-out;
+                      transition: variables.$swift-ease-out;
                       transition-duration: 0.3s;
                       transform: translateX(-25%);
                     }
@@ -261,7 +264,7 @@ md-input-container {
     .light-on-dark-dialog & {
         label {
             &:not(.md-no-float):not(._md-container-ignore, .md-container-ignore) {
-                color: $white;
+                color: variables.$white;
             }
         }
     }
@@ -284,8 +287,8 @@ md-input-container {
 }
 
 .classic-input {
-    background-color: $white;
-    border-radius: $radius;
+    background-color: variables.$white;
+    border-radius: variables.$radius;
     display: inline-flex;
     min-width: 400px;
     @extend .default-shadow;
@@ -330,8 +333,8 @@ md-input-container {
         line-height: 1rem;
         font-size: 1rem;
         text-align: left;
-        border-top-left-radius: $radius;
-        border-bottom-left-radius: $radius;
+        border-top-left-radius: variables.$radius;
+        border-bottom-left-radius: variables.$radius;
         border-right-width: 1px;
         border-right-style: solid;
         @extend .prm-alert-bg;
@@ -352,7 +355,7 @@ md-input-container {
 
     &.focused {
         width: 100%;
-        transition: $swift-ease-out;
+        transition: variables.$swift-ease-out;
         transition-duration: 0.3s;
         transform: translateX(-25%);
     }

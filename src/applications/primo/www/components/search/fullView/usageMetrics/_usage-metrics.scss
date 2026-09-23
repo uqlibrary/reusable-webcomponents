@@ -1,3 +1,5 @@
+@use "../../../../styles/partials/mixins";
+
 prm-usage-metrics {
     display: flex;
     flex-direction: column;
@@ -42,7 +44,7 @@ prm-usage-metrics {
         color: rgba(0, 0, 0, 0.6);
 
         md-icon {
-            @include setSize(28px);
+            @include mixins.setSize(28px);
         }
     }
 

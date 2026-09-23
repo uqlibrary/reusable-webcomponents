@@ -1,7 +1,9 @@
+@use "../../../../styles-imports/www/variables";
+
 /* starting loansList */
 prm-loans {
     .disabledFavTool {
-        color: $disabled;
+        color: variables.$disabled;
     }
 
     .action-list-content {
@@ -17,7 +19,7 @@ prm-loans {
     }
 
     .loans-type {
-        color: $primary-hue1;
+        color: variables.$primary-hue1;
     }
     .md-button:not([disabled]) {
         ._md-focused,

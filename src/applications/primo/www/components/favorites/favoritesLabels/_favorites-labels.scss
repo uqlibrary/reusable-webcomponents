@@ -1,10 +1,14 @@
+@use "sass:color";
+@use "../../../../styles-imports/www/variables";
+@use "../../../styles/partials/mixins";
+
 prm-favorites-labels {
     .md-chips {
         .md-chip.unlabled {
             .md-chip-content {
                 @extend .text-italic;
                 strong {
-                    font-weight: $normal !important;
+                    font-weight: variables.$normal !important;
                 }
             }
         }
@@ -15,9 +19,9 @@ prm-favorites-labels {
                 cursor: pointer;
                 padding-left: 0.35em;
                 padding-right: 0.35em;
-                border-radius: $radius;
+                border-radius: variables.$radius;
 
-                @include bgColor(lighten($dark, 10%));
+                @include mixins.bgColor(color.adjust(variables.$dark, $lightness: 10%));
             }
         }
     }

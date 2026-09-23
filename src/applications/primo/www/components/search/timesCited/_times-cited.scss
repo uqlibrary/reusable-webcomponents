@@ -1,3 +1,6 @@
+@use "../../../../styles-imports/www/variables";
+@use "../../../styles/partials/mixins";
+
 /* starting timesCited */
 prm-times-cited {
     .cited_logo {
@@ -22,10 +25,10 @@ prm-times-cited {
         }
         &:hover {
             box-shadow: none;
-            @include uqSpannedTertiaryButton($white, $accent-color);
+            @include mixins.uqSpannedTertiaryButton(variables.$white, variables.$accent-color);
             &:hover:not([disabled]) strong {
-                background-color: $accent-color !important;
-                color: $white !important;
+                background-color: variables.$accent-color !important;
+                color: variables.$white !important;
             }
         }
     }

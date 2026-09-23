@@ -1,3 +1,5 @@
+@use "../../../../../../styles-imports/www/variables";
+
 prm-rapido-no-offer-message {
     .main_tile {
         width: 100%;
@@ -35,7 +37,7 @@ prm-rapido-no-offer-message {
     #no_offer_message_text_part2 {
         font-family: Source Sans Pro;
         font-size: 16px;
-        color: $primary;
+        color: variables.$primary;
         display: flex;
         flex-direction: row;
         justify-content: flex-start;

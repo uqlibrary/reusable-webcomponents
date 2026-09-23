@@ -1,3 +1,6 @@
+@use "../../../../../styles-imports/www/variables";
+@use "../../../../styles/partials/mixins/material-mixins";
+
 /* starting citation */
 
 prm-citation {
@@ -18,14 +21,14 @@ prm-citation {
         overflow-x: hidden;
         max-height: 200px;
         max-width: 200px;
-        @include rtl-prop(padding-right, padding-right, 0.5rem, 0);
+        @include material-mixins.rtl-prop(padding-right, padding-right, 0.5rem, 0);
         .md-nav-item {
             .md-button,
             ._md-button {
                 white-space: normal;
                 line-height: 1.4;
                 word-break: break-word;
-                @include rtl(text-align, left, right);
+                @include material-mixins.rtl(text-align, left, right);
                 &._md-focused,
                 &.hovered,
                 &.md-focused,
@@ -43,7 +46,7 @@ prm-citation {
         &:focus,
         &:hover {
             box-shadow: none;
-            background-color: $accent-color;
+            background-color: variables.$accent-color;
             color: #fff !important;
             line-height: normal;
         }

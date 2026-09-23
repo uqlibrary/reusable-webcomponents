@@ -1,15 +1,19 @@
+@use "sass:color";
+@use "../../../../../styles-imports/www/variables";
+@use "../../../../styles/partials/mixins";
+
 /* starting chaptersResultsLine */
 
 prm-chapters-results-line {
     [chapters-type] {
-        color: transparentize($dark, 0.6);
+        color: color.adjust(variables.$dark, $alpha: -0.6);
         flex-shrink: 0;
         // margin-right: .35em;
 
         //@include rtl-prop(margin-right, margin-left,.35em, 0);
 
         md-icon {
-            @include setSize(18px);
+            @include mixins.setSize(18px);
             position: relative;
         }
     }

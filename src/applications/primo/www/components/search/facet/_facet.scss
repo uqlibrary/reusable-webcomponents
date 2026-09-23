@@ -1,3 +1,9 @@
+@use "sass:color";
+@use "../../../../styles-imports/www/variables";
+@use "../../../styles/partials/easing";
+@use "../../../styles/partials/mixins";
+@use "../../../styles/partials/mixins/material-mixins";
+
 prm-facet {
     .up-z-index {
         z-index: 101;
@@ -26,7 +32,7 @@ prm-facet {
         height: 100%;
         width: 100%;
         opacity: 1;
-        transition: $swift-ease-out;
+        transition: variables.$swift-ease-out;
         @extend .prm-background;
     }
 
@@ -52,13 +58,13 @@ prm-facet {
     }
 
     .mobile-toolbar-text {
-        color: $links;
+        color: variables.$links;
         font-weight: 500;
     }
 
     .mobile-action-button {
-        background-color: darken(saturate($white, 15%), 20%);
-        color: $dark;
+        background-color: color.adjust(color.adjust(variables.$white, $saturation: 15%), $lightness: -20%);
+        color: variables.$dark;
         padding: 0;
         margin: 0;
         height: 100%;
@@ -118,13 +124,13 @@ prm-facet {
         z-index: 12;
         opacity: 1;
         transform: translateY(0);
-        transition: $swift-ease-out;
+        transition: variables.$swift-ease-out;
 
         &.ng-hide {
             opacity: 0;
             transform: translateY(20%);
             &.ng-hide-add {
-                transition: $swift-ease-in;
+                transition: variables.$swift-ease-in;
                 //&.ng-hide-add-active {
                 //}
             }
@@ -150,10 +156,10 @@ prm-facet {
     font-weight: 600;
     font-size: 18px;
     font-size: 1.15rem;
-    color: $dark;
+    color: variables.$dark;
     margin-bottom: 0;
     flex-shrink: 0;
-    @include rtl-prop(margin-right, margin-left, 0.5em, 0);
+    @include material-mixins.rtl-prop(margin-right, margin-left, 0.5em, 0);
 }
 
 .sidebar-section {
@@ -184,7 +190,7 @@ prm-facet {
     //    @extend .padding-right-medium;
     //}
     padding-bottom: 2em;
-    @include rtl-prop(padding-left, padding-right, 1em, 0);
+    @include material-mixins.rtl-prop(padding-left, padding-right, 1em, 0);
     //  @include rtl-prop(margin-left, margin-right, 1em, 0);
 
     .__xs &,
@@ -208,7 +214,7 @@ prm-facet {
 .section-content {
     .md-chips {
         opacity: 1;
-        transition: max-height 0.3s $easeOutQuint, opacity 0.3s ease, z-index 0s 0.3s;
+        transition: max-height 0.3s easing.$easeOutQuint, opacity 0.3s ease, z-index 0s 0.3s;
         padding-bottom: 0;
         [dir='rtl'] & {
             padding: 0;
@@ -223,9 +229,9 @@ prm-facet {
                 overflow: visible;
                 white-space: normal;
                 padding-left: 1em;
-                color: $lightenGrey;
-                border-radius: $radius;
-                @include rtl-prop(padding-left, padding-right, 1em, 0);
+                color: variables.$lightenGrey;
+                border-radius: variables.$radius;
+                @include material-mixins.rtl-prop(padding-left, padding-right, 1em, 0);
 
                 &:hover,
                 &:focus {
@@ -235,7 +241,7 @@ prm-facet {
                 }
 
                 &.prm-warn {
-                    @include bgColor($highlightPrimary);
+                    @include mixins.bgColor(variables.$highlightPrimary);
                 }
             }
             .md-chip-remove-container {
@@ -250,7 +256,7 @@ prm-facet {
                     prm-icon {
                         transition: none;
                         md-icon {
-                            @include setSize(20px);
+                            @include mixins.setSize(20px);
                             position: relative;
                         }
                     }
@@ -262,7 +268,7 @@ prm-facet {
                 cursor: pointer;
                 padding: 0 0.25em;
                 border-radius: unset;
-                color: $uqBodyCopy;
+                color: variables.$uqBodyCopy;
                 &:hover,
                 &:focus,
                 &.hovered,
@@ -273,7 +279,7 @@ prm-facet {
                         background-color: unset;
                     }
                 }
-                @include rtl-prop(margin-right, margin-left, 0.2em, 0);
+                @include material-mixins.rtl-prop(margin-right, margin-left, 0.2em, 0);
 
                 .__xs & {
                     margin-left: 10px;
@@ -308,10 +314,10 @@ prm-facet {
                     }
                 }
                 .button-exclude {
-                    @include bgColor($highlightPrimary);
+                    @include mixins.bgColor(variables.$highlightPrimary);
                 }
                 .button-include {
-                    @include bgColor($secondary-hue1);
+                    @include mixins.bgColor(variables.$secondary-hue1);
                 }
                 &:hover,
                 &:focus,
@@ -324,7 +330,7 @@ prm-facet {
 
                         opacity: 1;
                         transform: translate3d(0, 0, 0);
-                        transition: transform 0.3s $easeOutQuint, opacity 0.2s ease, z-index 0s 0s;
+                        transition: transform 0.3s easing.$easeOutQuint, opacity 0.2s ease, z-index 0s 0s;
                     }
                     &.wrapping-chip {
                         .md-chip-remove-container {
@@ -347,9 +353,9 @@ prm-facet {
                     overflow: visible;
                     white-space: normal;
                     display: flex;
-                    @include rtl-prop(margin-right, margin-left, 40px, 0);
-                    @include rtl(text-align, left, right);
-                    @include rtl(direction, ltr, rtl);
+                    @include material-mixins.rtl-prop(margin-right, margin-left, 40px, 0);
+                    @include material-mixins.rtl(text-align, left, right);
+                    @include material-mixins.rtl(direction, ltr, rtl);
                     .__md & {
                         display: block;
                         position: relative;
@@ -365,14 +371,14 @@ prm-facet {
                 .facet-name {
                     .__md & {
                         display: inline;
-                        @include rtl(float, left, right);
+                        @include material-mixins.rtl(float, left, right);
                         clear: none;
                     }
                 }
                 .facet-count {
                     font-weight: lighter;
-                    @include rtl-prop(margin-left, margin-right, 0.25em, 0);
-                    color: $lightenGrey;
+                    @include material-mixins.rtl-prop(margin-left, margin-right, 0.25em, 0);
+                    color: variables.$lightenGrey;
                     .__md & {
                         display: inline;
                         //    position: absolute;
@@ -403,7 +409,7 @@ prm-facet {
                     align-items: flex-start;
                     // box-shadow: -5px 0 30px 6px currentColor;
                     // right: 0;
-                    @include rtl-prop(right, left, 0, auto);
+                    @include material-mixins.rtl-prop(right, left, 0, auto);
                     // @include rtl(box-shadow, -5px 0 30px 6px currentColor, 5px 0 30px 6px currentColor);
                     // @extend .prm-background;
                     // @extend .prm-background-color;
@@ -417,13 +423,13 @@ prm-facet {
     }
     .link-as-facet {
         margin-bottom: 4px;
-        @include rtl-prop(margin-left, margin-right, 12px, 0);
+        @include material-mixins.rtl-prop(margin-left, margin-right, 12px, 0);
     }
 }
 
 .multiselect-facet-group {
     .md-chip {
-        transition: $swift-ease-out;
+        transition: variables.$swift-ease-out;
         transition-duration: 0.2s;
         .md-chip-content {
             md-checkbox {
@@ -431,7 +437,7 @@ prm-facet {
                 width: 20px;
                 cursor: default;
                 position: absolute;
-                @include rtl-prop(left, right, -10px, 0);
+                @include material-mixins.rtl-prop(left, right, -10px, 0);
                 .md-icon,
                 ._md-icon {
                     &:before {
@@ -445,7 +451,7 @@ prm-facet {
                         left: 1px;
                         margin-top: -1px;
                         background: #fff;
-                        transition: transform 0.3s $swift-ease-out-timing-function, opacity 0.2s 0.2s ease;
+                        transition: transform 0.3s variables.$swift-ease-out-timing-function, opacity 0.2s 0.2s ease;
                     }
                 }
             }
@@ -463,7 +469,7 @@ prm-facet {
             //[dir=rtl] & {
             //  right: -10px;
             //}
-            @include rtl-prop(left, right, -10px, 0);
+            @include material-mixins.rtl-prop(left, right, -10px, 0);
             position: relative;
         }
 
@@ -475,7 +481,7 @@ prm-facet {
                         &:before {
                             transform: rotate(45deg) scale3d(1, 1, 1);
                             opacity: 1;
-                            transition: transform 0.4s $swift-ease-out-timing-function, opacity 0.2s ease;
+                            transition: transform 0.4s variables.$swift-ease-out-timing-function, opacity 0.2s ease;
                         }
                         &:after {
                             opacity: 0.7;
@@ -486,7 +492,7 @@ prm-facet {
                     }
                     .md-container,
                     ._md-container {
-                        @include bgColor($highlightPrimary);
+                        @include mixins.bgColor(variables.$highlightPrimary);
                     }
                 }
             }
@@ -495,13 +501,13 @@ prm-facet {
     &.multiselect-inactive {
         .md-chip {
             transform: translateX(0);
-            transition: $swift-ease-out;
+            transition: variables.$swift-ease-out;
             transition-duration: 0.2s;
             transition-delay: 0.2s;
             md-checkbox {
                 transform: scale3d(0, 0, 1);
                 transition: opacity 0.05s 0s ease, visibility 0s 0.1s, z-index 0s 0.1s,
-                    transform 0.05s 0s $swift-ease-in-timing-function;
+                    transform 0.05s 0s variables.$swift-ease-in-timing-function;
             }
             &:hover md-checkbox,
             &:focus md-checkbox,
@@ -517,11 +523,11 @@ prm-facet {
     &.multiselect-active {
         .md-chip {
             transform: translateX(10px);
-            transition: $swift-ease-out;
+            transition: variables.$swift-ease-out;
             transition-duration: 0.2s;
             transition-delay: 0s;
             // max-width: calc(100% - 34px);
-            @include rtl(transform, translateX(10px), translateX(-10px));
+            @include material-mixins.rtl(transform, translateX(10px), translateX(-10px));
             md-checkbox {
                 opacity: 1;
                 visibility: visible;
@@ -529,12 +535,12 @@ prm-facet {
                 transform: scale(1);
                 //transition: opacity .2s .2s ease, visibility 0s 0s, z-index 0s 0s, transform .2s .2s $swift-ease-out-timing-function;
                 transition: opacity 0.2s 0.2s ease, visibility 0s 0s, z-index 0s 0s,
-                    transform 0.2s 0.2s $swift-ease-out-timing-function, max-width 0.2s 0.2s ease;
+                    transform 0.2s 0.2s variables.$swift-ease-out-timing-function, max-width 0.2s 0.2s ease;
             }
         }
     }
     .expand-section-button {
-        @include rtl-prop(margin-left, margin-right, 6px, 0);
+        @include material-mixins.rtl-prop(margin-left, margin-right, 6px, 0);
     }
 }
 
@@ -553,7 +559,7 @@ prm-facet {
 
     .multiselect-submit-inner {
         transform: translateY(110%);
-        transition: $swift-ease-out;
+        transition: variables.$swift-ease-out;
         padding: 1em 0.25em;
         box-shadow: 0 -6px 10px -8px;
         min-width: 220px;
@@ -563,12 +569,12 @@ prm-facet {
             min-width: 75px;
             margin: 6px 3px;
             &:has([translate="nui.facets.clear"]) {
-                @include uqTertiaryButton($white, $accent-color);
+                @include mixins.uqTertiaryButton(variables.$white, variables.$accent-color);
                 background-color: transparent !important;
             }
         }
         .md-button.md-primary {
-            @include uqPrimaryButton($accent-color, $white);
+            @include mixins.uqPrimaryButton(variables.$accent-color, variables.$white);
             &:focus,
             &:hover {
                 background-color: transparent !important;

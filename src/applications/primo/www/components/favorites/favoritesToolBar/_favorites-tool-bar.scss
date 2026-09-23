@@ -1,3 +1,5 @@
+@use "../../../../styles-imports/www/variables";
+
 /* starting favoritesToolBar */
 
 prm-favorites-tool-bar {
@@ -10,7 +12,7 @@ prm-favorites-tool-bar {
 
         transform-origin: 50% 50%;
         &.ng-enter {
-            transition: $swift-ease-out;
+            transition: variables.$swift-ease-out;
             transform: scale3d(0.8, 0.8, 1) translateX(-30px);
             opacity: 0;
             &.ng-enter-active {
@@ -19,7 +21,7 @@ prm-favorites-tool-bar {
             }
         }
         &.ng-leave {
-            transition: $swift-ease-out;
+            transition: variables.$swift-ease-out;
             transition-duration: 0.2s;
             transform: scale3d(1, 1, 1) translateX(0);
             opacity: 1;
@@ -33,16 +35,16 @@ prm-favorites-tool-bar {
     md-toolbar {
         .__xs & {
             transform: translateY(0);
-            transition: $swift-ease-out;
+            transition: variables.$swift-ease-out;
             transition-duration: 0.3s;
             &.is-stuck {
                 transform: translateY(-60px);
-                transition: $swift-ease-in-out;
+                transition: variables.$swift-ease-in-out;
                 opacity: 0;
                 &.is-visible {
                     transform: translateY(0);
                     opacity: 1;
-                    transition: $swift-ease-out;
+                    transition: variables.$swift-ease-out;
                     transition-duration: 0.3s;
                 }
             }
@@ -82,7 +84,7 @@ prm-favorites-tool-bar {
     }
 
     .disabledFavTool {
-        color: $disabled;
+        color: variables.$disabled;
     }
 
     .md-dialog-container {

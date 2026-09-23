@@ -1,11 +1,15 @@
 // MIXINS
 // Import hand-picked angular material mixins
-@import 'mixins/material-mixins';
+@use "sass:color";
+@use "sass:selector";
+@use 'mixins/material-mixins';
+@use "../../../styles-imports/www/variables";
+
 //@import "_variables";
 
 // mixin to enable using mixin at root or nested
 @mixin optional-at-root($sel) {
-    @at-root #{if(not &, $sel, selector-append(&, $sel))} {
+    @at-root #{if(not &, $sel, selector.append(&, $sel))} {
         @content;
     }
 }
@@ -57,35 +61,35 @@ Color brightness is determined by the following formula:
 ------------------------*/
 
 @function set-button-font-color($fontColor) {
-    @if ($fontColor == $red) {
+    @if ($fontColor == variables.$red) {
         @return #fff;
     }
 
     @if (
         $fontColor ==
-            $positive or
+            variables.$positive or
             $fontColor ==
-            $links or
+            variables.$links or
             $fontColor ==
-            $text or
+            variables.$text or
             $fontColor ==
-            $dark or
+            variables.$dark or
             $fontColor ==
-            $secondary-hue3 or
+            variables.$secondary-hue3 or
             $fontColor ==
-            $notice or
+            variables.$notice or
             $fontColor ==
-            $warn or
+            variables.$warn or
             $fontColor ==
-            $warn-hue1 or
+            variables.$warn-hue1 or
             $fontColor ==
-            $personalization
+            variables.$personalization
     ) {
         @return white;
     }
 
-    @if (lightness($fontColor) > 40) {
-        @return $primary;
+    @if (color.lightness($fontColor) > 40) {
+        @return variables.$primary;
     } @else {
         @return white;
     }
@@ -94,31 +98,31 @@ Color brightness is determined by the following formula:
 @function set-button-bg-color($fontColor) {
     @if (
         $fontColor ==
-            $positive or
+            variables.$positive or
             $fontColor ==
-            $links or
+            variables.$links or
             $fontColor ==
-            $text or
+            variables.$text or
             $fontColor ==
-            $dark or
+            variables.$dark or
             $fontColor ==
-            $secondary-hue3 or
+            variables.$secondary-hue3 or
             $fontColor ==
-            $notice or
+            variables.$notice or
             $fontColor ==
-            $warn or
+            variables.$warn or
             $fontColor ==
-            $warn-hue1 or
+            variables.$warn-hue1 or
             $fontColor ==
-            $personalization
+            variables.$personalization
     ) {
         @return $fontColor;
     }
 
-    @if (lightness($fontColor) > 40) {
+    @if (color.lightness($fontColor) > 40) {
         @return white;
     } @else {
-        @return $primary;
+        @return variables.$primary;
     }
 }
 
@@ -209,7 +213,7 @@ Color brightness is determined by the following formula:
         content: '...';
         position: absolute;
         bottom: 0;
-        @include rtl-prop(right, left, 0, auto);
+        @include material-mixins.rtl-prop(right, left, 0, auto);
     }
     &:after {
         content: '';
@@ -218,7 +222,7 @@ Color brightness is determined by the following formula:
         height: 1em;
         margin-top: 0.2em;
         background: $bgColor;
-        @include rtl-prop(right, left, 0, auto);
+        @include material-mixins.rtl-prop(right, left, 0, auto);
     }
 }
 
@@ -227,14 +231,14 @@ Color brightness is determined by the following formula:
 $__xs: 599px;
 $__xs-portrait: 479px;
 
-@mixin __xs {
+@mixin xs {
     /* literal update of the css on viewport change */
     @media screen and (max-width: $__xs) {
         @content;
     }
 }
 
-@mixin __xs-portrait {
+@mixin xs-portrait {
     /* literal update of the css on viewport change */
     @media screen and (max-width: $__xs-portrait) {
         @content;

@@ -1,3 +1,10 @@
+@use "sass:color";
+@use "../../../../styles-imports/www/variables";
+@use "../../../styles/partials/easing";
+@use "../../../styles/partials/mixins";
+@use "../../../styles/partials/mixins/material-mixins";
+@use "../searchResult/searchResultThumbnail/search-result-thumbnail-container";
+
 $actionButtonSize: 38px;
 $actionButtonMargin: 4px;
 
@@ -25,11 +32,11 @@ prm-brief-result-container {
     }
 
     .list-item-primary-content {
-        padding: $paddingLarge $paddingExtra;
+        padding: variables.$paddingLarge variables.$paddingExtra;
         z-index: 10;
         background-color: transparent;
         position: relative;
-        transition: $swift-ease-out;
+        transition: variables.$swift-ease-out;
         transform: translate3d(0, 0, 0);
 
         .__xs & {
@@ -60,7 +67,7 @@ prm-brief-result-container {
             }
         }
         &.has-checkbox {
-            @include rtl-prop(padding-left, padding-right, 3em, auto);
+            @include material-mixins.rtl-prop(padding-left, padding-right, 3em, auto);
         }
         md-checkbox {
             .md-container {
@@ -84,7 +91,7 @@ prm-brief-result-container {
         }
         prm-full-view & {
             padding-left: 2em;
-            @include rtl-prop(padding-left, padding-right, 2em, auto);
+            @include material-mixins.rtl-prop(padding-left, padding-right, 2em, auto);
         }
     }
     .result-item-image {
@@ -109,7 +116,7 @@ prm-brief-result-container {
         prm-full-view & {
             .dedup-images-holder {
                 > div {
-                    width: $thumbnailWidth;
+                    width: search-result-thumbnail-container.$thumbnailWidth;
                     transform: translate(18px, 24px) scale(1.5);
                     display: block;
                 }
@@ -127,7 +134,7 @@ prm-brief-result-container {
         margin-top: -2px;
         word-break: break-all;
         @extend .tiny-uppercase-text;
-        color: $lightenGrey;
+        color: variables.$lightenGrey;
         prm-search-result-frbr-line {
             > span {
                 text-transform: lowercase;
@@ -151,10 +158,10 @@ prm-brief-result-container {
         font-weight: 500;
         padding-block: 9px;
         & > span {
-            @include uqSpannedTertiaryButton($white, $accent-color);
+            @include mixins.uqSpannedTertiaryButton(variables.$white, variables.$accent-color);
             text-decoration: underline;
             &:hover:not([disabled]) {
-                background-color: $accent-color !important;
+                background-color: variables.$accent-color !important;
             }
         }
         prm-icon {
@@ -164,7 +171,7 @@ prm-brief-result-container {
             color: rgba(59,56,62,0.4);
             line-height: 1.2em;
             md-icon {
-                @include setSize(15px);
+                @include mixins.setSize(15px);
             }
         }
         prm-icon[icon-definition="open-in-new"] { // hide outlink icon
@@ -181,12 +188,12 @@ prm-brief-result-container {
         margin-right: $actionButtonMargin;
         display: flex;
         align-items: flex-start;
-        transition: transform 0.3s $easeOutQuint, opacity 0.2s;
+        transition: transform 0.3s easing.$easeOutQuint, opacity 0.2s;
         transform: translate(-4px, 0);
-        @include rtl-prop(margin-right, margin-left, $actionButtonMargin, auto);
+        @include material-mixins.rtl-prop(margin-right, margin-left, $actionButtonMargin, auto);
 
         .item-expanded & {
-            @include rtl(transform, translate(14px, -18px), translate(-14px, -18px));
+            @include material-mixins.rtl(transform, translate(14px, -18px), translate(-14px, -18px));
         }
         html[dir='rtl'] & {
             right: auto;
@@ -205,9 +212,9 @@ prm-brief-result-container {
             margin: 0;
             display: inline-flex;
             justify-content: center;
-            color: $accent-color;
+            color: variables.$accent-color;
             md-icon {
-                @include setSize(20px);
+                @include mixins.setSize(20px);
             }
             opacity: .8;
             &:hover,
@@ -215,7 +222,7 @@ prm-brief-result-container {
                 &:not([disabled]) {
                     box-shadow: none;
                     background-color: transparent !important;
-                    color: $accent-color !important;
+                    color: variables.$accent-color !important;
                     opacity: 1;
                 }
             }
@@ -224,18 +231,18 @@ prm-brief-result-container {
             border-radius: 50%;
             padding: 8px;
             .md-primoExplore-theme {
-                color: $highlightPrimary !important;
+                color: variables.$highlightPrimary !important;
             }
             &:focus,
             &:hover {
-                background-color: $highlightPrimary;
+                background-color: variables.$highlightPrimary;
                 .md-primoExplore-theme {
-                    background-color: $highlightPrimary;
+                    background-color: variables.$highlightPrimary;
                     color: #fff !important;
                     transition: all .4s ease-out;
                 }
                 prm-icon {
-                    background-color: $highlightPrimary;
+                    background-color: variables.$highlightPrimary;
                     border-radius: 50%;
                     padding: 10px;
                 }
@@ -244,15 +251,15 @@ prm-brief-result-container {
 
         .pin-button {
             md-icon {
-                transition: $swift-ease-out;
+                transition: variables.$swift-ease-out;
                 transform: rotate3d(0, 0, 1, -25deg);
                 opacity: 0;
             }
-          color: $secondary-hue3;
+          color: variables.$secondary-hue3;
             &.pinned {
                 &:hover,
                 &:focus {
-                    color: $dark;
+                    color: variables.$dark;
                 }
 
                 md-icon {
@@ -263,7 +270,7 @@ prm-brief-result-container {
         }
         .unpin-button {
             md-icon {
-                transition: $swift-ease-out;
+                transition: variables.$swift-ease-out;
                 transform: rotate3d(0, 0, 1, 25deg);
                 opacity: 0;
             }
@@ -277,16 +284,16 @@ prm-brief-result-container {
 
         // more options button
         .more-options-button {
-            width: $briefButtonHeight;
+            width: variables.$briefButtonHeight;
             position: relative;
             @extend .prm-primary-color;
             prm-icon {
                 md-icon {
-                    -webkit-transition: $swift-ease-out;
-                    -moz-transition: $swift-ease-out;
-                    -ms-transition: $swift-ease-out;
-                    -o-transition: $swift-ease-out;
-                    transition: $swift-ease-out;
+                    -webkit-transition: variables.$swift-ease-out;
+                    -moz-transition: variables.$swift-ease-out;
+                    -ms-transition: variables.$swift-ease-out;
+                    -o-transition: variables.$swift-ease-out;
+                    transition: variables.$swift-ease-out;
                     position: relative;
                     // @include ie-exceptions
                 }
@@ -307,7 +314,7 @@ prm-brief-result-container {
                     top: 0;
                     right: 0;
                     md-icon {
-                        @include setSize(32px);
+                        @include mixins.setSize(32px);
                         transform: rotate3d(0, 0, 1, 45deg) scale3d(0.5, 0.5, 1) translate3d(4px, 0, 0);
                         opacity: 0;
                         transform-origin: 50% 45%;
@@ -329,7 +336,7 @@ prm-brief-result-container {
 
     @extend .zero-padding;
     @extend .prm-background-border;
-   background-color: lighten($background, 4%);
+   background-color: color.adjust(variables.$background, $lightness: 4%);
 
     &:last-of-type {
         border-bottom-width: 0;
@@ -356,7 +363,7 @@ prm-brief-result-container {
 
     & .item-bookmarked,
     & .item-bookmarked:hover {
-        background-color: $highlight-hue1;
+        background-color: variables.$highlight-hue1;
     }
 }
 
@@ -407,7 +414,7 @@ prm-brief-result-container {
     opacity: 0.5;
     font-size: 0.8em;
     top: 0.4em;
-    @include rtl-prop(left, right, 0.5em, auto);
+    @include material-mixins.rtl-prop(left, right, 0.5em, auto);
 
     .has-checkbox & {
         top: 1.2em;
@@ -415,7 +422,7 @@ prm-brief-result-container {
         width: 20px;
         display: flex;
         justify-content: center;
-        @include rtl-prop(left, right, 12px, auto);
+        @include material-mixins.rtl-prop(left, right, 12px, auto);
     }
 
     .new-result-item & {
@@ -429,7 +436,7 @@ prm-brief-result-container {
         align-items: center;
         justify-content: center;
         background-color: unset;
-        @include rtl-prop(left, right, 0.25em, auto);
+        @include material-mixins.rtl-prop(left, right, 0.25em, auto);
     }
 }
 
@@ -440,7 +447,7 @@ prm-brief-result-container {
     left: 0;
     width: 100%;
     height: 100%;
-    padding-left: $paddingLarge;
+    padding-left: variables.$paddingLarge;
 
     // white background for expanded item
     &:before {
@@ -451,15 +458,15 @@ prm-brief-result-container {
         width: 100%;
         height: calc(100% - 20px);
         opacity: 0;
-        background-color: $white;
-        transition: $swift-ease-out;
+        background-color: variables.$white;
+        transition: variables.$swift-ease-out;
         transform: translate3d(0, 0, 0);
-        box-shadow: 0 0 0 1px lighten($primary, 25%), 0 10px 20px -5px transparentize(black, 0.88),
-            0 -10px 20px -5px transparentize(black, 0.88);
+        box-shadow: 0 0 0 1px color.adjust(variables.$primary, $lightness: 25%), 0 10px 20px -5px color.adjust(black, $alpha: -0.88),
+            0 -10px 20px -5px color.adjust(black, $alpha: -0.88);
     }
 
     // rtl
-    @include rtl-prop(left, right, 0, auto);
+    @include material-mixins.rtl-prop(left, right, 0, auto);
 
     .secondary-content-holder {
         width: calc(100% + 39px);
@@ -507,7 +514,7 @@ prm-brief-result-container {
         .item-expanded & {
             transform: scale3d(1, 1, 1);
             opacity: 1;
-            transition: transform 0.3s $swift-ease-out-timing-function, opacity 0.2s ease;
+            transition: transform 0.3s variables.$swift-ease-out-timing-function, opacity 0.2s ease;
 
             // @include ie-exceptions;
 
@@ -525,7 +532,7 @@ prm-brief-result-container {
         margin: 0;
         width: 100%;
         @extend .prm-background-border;
-        @include rtl-prop(left, right, -26px, auto);
+        @include material-mixins.rtl-prop(left, right, -26px, auto);
         // height: 1px;
         // position: relative;
     }
@@ -535,7 +542,7 @@ prm-brief-result-container {
 .pinDummy {
     position: absolute;
     z-index: 1000;
-    transition: $swift-ease-in;
+    transition: variables.$swift-ease-in;
     transition-duration: 0.5s;
     background-color: transparent;
     border-radius: 50%;
@@ -547,7 +554,7 @@ prm-brief-result-container {
 
     &:before {
         content: '';
-        background-color: $accent-color;
+        background-color: variables.$accent-color;
         position: absolute;
         width: 100%;
         height: 100%;
@@ -572,7 +579,7 @@ prm-brief-result-container {
     }
 
     prm-icon {
-        color: $moreLink;
+        color: variables.$moreLink;
         transition: color 0.4s 0.1s linear;
     }
     md-icon {
@@ -580,12 +587,12 @@ prm-brief-result-container {
     }
 
     &.animating {
-        animation: flyToFav 1s $swift-ease-out-timing-function forwards;
+        animation: flyToFav 1s variables.$swift-ease-out-timing-function forwards;
         prm-icon {
             color: white;
         }
         md-icon {
-            transition: transform 0.7s $swift-ease-in-timing-function;
+            transition: transform 0.7s variables.$swift-ease-in-timing-function;
             transform: rotate(-415deg);
         }
         &:before {
@@ -609,7 +616,7 @@ prm-brief-result-container {
     50% {
         transform: scale3d(1, 1, 1);
         box-shadow: 0 15px 12px -6px rgba(0, 0, 0, 0.15);
-        transition: $swift-ease-out;
+        transition: variables.$swift-ease-out;
     }
 
     70% {

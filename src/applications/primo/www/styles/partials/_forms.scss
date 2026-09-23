@@ -1,3 +1,7 @@
+@use "sass:color";
+@use "../../../styles-imports/www/variables";
+@use "mixins";
+
 .service-form {
     position: relative;
 
@@ -5,7 +9,7 @@
     .md-input-container-dummy {
         md-select:not([disabled]) md-select-value,
         label {
-            color: $dark;
+            color: variables.$dark;
         }
     }
 }
@@ -18,7 +22,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: transparentize($white, 0.4);
+    background-color: color.adjust(variables.$white, $alpha: -0.4);
     z-index: 10;
     .loader {
         height: 70px;
@@ -46,25 +50,25 @@
 }
 
 .service-form-static-panel {
-    background-color: $background-hue8;
+    background-color: variables.$background-hue8;
     box-shadow: inset -1px 0 0 0;
     flex-grow: 1;
     * {
         //splitted the color to support from box-shadow to allow color customization
-        color: $uqBodyCopy;
+        color: variables.$uqBodyCopy;
     }
     h3 {
-        color: $uqHeading
+        color: variables.$uqHeading
     }
 
     button.button-confirm prm-icon {
         + span,
         & svg path {
-          @include bgColor($positive);
+          @include mixins.bgColor(variables.$positive);
           @extend .prm-positive;
 
           .light-on-dark-dialog & {
-            @include bgColor($linkTitle);
+            @include mixins.bgColor(variables.$linkTitle);
           }
         }
     }
@@ -88,7 +92,7 @@
         position: relative;
         top: -2px;
         transform: translate3d(0, 28px, 0) scale(1);
-        color: $uqBodyCopy;
+        color: variables.$uqBodyCopy;
         transform-origin: left top;
     }
 

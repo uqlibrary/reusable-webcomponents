@@ -1,3 +1,7 @@
+@use "sass:color";
+@use "../../../styles-imports/www/variables";
+@use "easing";
+
 @keyframes animationFrames {
     0% {
         transform: translate(0px, 0px) scale3d(0.5, 0.5, 1);
@@ -24,29 +28,29 @@
 
 @keyframes pulsateYellowBG {
     0% {
-        background-color: $uqWarningDark;
+        background-color: variables.$uqWarningDark;
     }
     50% {
-        background-color: desaturate(darken($uqWarningDark, 15%), 10%);
+        background-color: color.adjust(color.adjust(variables.$uqWarningDark, $lightness: -15%), $saturation: -10%);
     }
     100% {
-        background-color: $uqWarningDark;
+        background-color: variables.$uqWarningDark;
     }
 }
 @keyframes pulsateYellowColor {
     0% {
-        color: $uqWarningDark;
+        color: variables.$uqWarningDark;
     }
     50% {
-        color: desaturate(darken($uqWarningDark, 15%), 10%);
+        color: color.adjust(color.adjust(variables.$uqWarningDark, $lightness: -15%), $saturation: -10%);
     }
     100% {
-        color: $uqWarningDark;
+        color: variables.$uqWarningDark;
     }
 }
 
 .animate-fade-in-out {
-    transition: $swift-ease-out;
+    transition: variables.$swift-ease-out;
     &.ng-hide-add {
         opacity: 0;
     }
@@ -62,7 +66,7 @@
 }
 
 .animate-if-fade-in-out {
-    transition: $swift-ease-out;
+    transition: variables.$swift-ease-out;
     &.ng-enter {
         opacity: 0;
         &.ng-enter-active {
@@ -82,13 +86,13 @@
     opacity: 1;
     transform: scale3d(1, 1, 1);
     &.ng-hide-add {
-        transition: $swift-ease-out;
+        transition: variables.$swift-ease-out;
         transition-duration: 0.3s;
         &.ng-hide-add-active {
         }
     }
     &.ng-hide-remove {
-        transition: $swift-ease-in;
+        transition: variables.$swift-ease-in;
         transition-duration: 0.2s;
         &.ng-hide-remove-active {
         }
@@ -104,7 +108,7 @@
     &.ng-enter {
         transform: scale3d(0.85, 0.85, 1);
         opacity: 0;
-        transition: $swift-ease-out;
+        transition: variables.$swift-ease-out;
         transition-duration: 0.5s;
         &.ng-enter-active {
             transform: scale3d(1, 1, 1);
@@ -114,7 +118,7 @@
     &.ng-leave {
         transform: scale3d(1, 1, 1);
         opacity: 1;
-        transition: $swift-ease-in;
+        transition: variables.$swift-ease-in;
         transition-duration: 0.2s;
         &.ng-leave-active {
             opacity: 0;
@@ -129,7 +133,7 @@
 .animate-enter-leave-scale-bounce {
     transform-origin: 50% 50%;
     &.ng-enter {
-        transition: $swift-ease-out;
+        transition: variables.$swift-ease-out;
         transform: scale3d(0, 0, 1) translateX(-30px);
         opacity: 0;
         &.ng-enter-active {
@@ -138,7 +142,7 @@
         }
     }
     &.ng-leave {
-        transition: $swift-ease-out;
+        transition: variables.$swift-ease-out;
         transition-duration: 0.2s;
         transform: scale3d(1, 1, 1) translateX(0);
         opacity: 1;
@@ -162,7 +166,7 @@
         opacity: 0;
         max-height: 0;
         overflow: hidden;
-        transition: opacity 0.3s ease, max-height 0.3s 0.05s ease, transform 0.5s $swift-ease-out-timing-function;
+        transition: opacity 0.3s ease, max-height 0.3s 0.05s ease, transform 0.5s variables.$swift-ease-out-timing-function;
         &.ng-enter-active {
             transform: scale3d(1, 1, 1);
             opacity: 1;
@@ -170,8 +174,8 @@
         }
     }
     &.ng-leave-active {
-        transition: opacity 0.2s 0.15s ease, max-height 0.3s $swift-ease-out-timing-function,
-            transform 0.3s 0.15s $swift-ease-in-timing-function;
+        transition: opacity 0.2s 0.15s ease, max-height 0.3s variables.$swift-ease-out-timing-function,
+            transform 0.3s 0.15s variables.$swift-ease-in-timing-function;
         transform: scale3d(1, 1, 1);
         opacity: 1;
         max-height: 30em;
@@ -186,11 +190,11 @@
 
 .animate-max-height {
     max-height: 30em;
-    transition: max-height 1s $easeOutQuint;
+    transition: max-height 1s easing.$easeOutQuint;
     &.ng-enter {
         overflow: hidden;
         max-height: 0;
-        transition: max-height 1s $easeOutQuint;
+        transition: max-height 1s easing.$easeOutQuint;
         transition-delay: 1s;
         &.ng-enter-active {
             max-height: 30em;
@@ -212,7 +216,7 @@
         overflow: hidden;
         opacity: 1;
         transition-duration: 0.4s;
-        transition: all 0.2s $easeOutExpo;
+        transition: all 0.2s easing.$easeOutExpo;
         &.ng-hide-add-active {
             max-height: 0;
             opacity: 0;
@@ -222,7 +226,7 @@
         overflow: hidden;
         max-height: 1000em;
         transition-duration: 0.3s;
-        transition: $swift-ease-in;
+        transition: variables.$swift-ease-in;
         &.ng-hide-remove-active {
         }
     }
@@ -236,7 +240,7 @@
     &.ng-enter {
         overflow: hidden;
         max-height: 0;
-        transition: max-height 0.3s 0s $easeOutQuint;
+        transition: max-height 0.3s 0s easing.$easeOutQuint;
         // transition-delay: 1s;
         &.ng-enter-active {
             max-height: 5em;
@@ -245,7 +249,7 @@
     &.ng-leave {
         overflow: hidden;
         max-height: 7em;
-        transition: max-height 0.3s 0s $easeOutQuint;
+        transition: max-height 0.3s 0s easing.$easeOutQuint;
         &.ng-leave-active {
             max-height: 0;
         }
@@ -255,12 +259,12 @@
 .selectable-child {
     transform: scale3d(1, 1, 1);
     opacity: 1;
-    transition: $swift-ease-out;
+    transition: variables.$swift-ease-out;
     transition-duration: 0.3s;
     width: 32px;
     &.ng-enter {
         width: 0;
-        transition: 0.2s $easeOutBack;
+        transition: 0.2s easing.$easeOutBack;
         opacity: 0;
         transform: scale3d(0, 0, 1);
         &.ng-enter-active {
@@ -286,10 +290,10 @@
     opacity: 1;
     transform: scale3d(1, 1, 1);
     &.ng-hide-add {
-        transition: transform 0.4s $swift-ease-out-timing-function, opacity 0.2s ease;
+        transition: transform 0.4s variables.$swift-ease-out-timing-function, opacity 0.2s ease;
     }
     &.ng-hide-remove {
-        transition: transform 0.4s 0.5s $swift-ease-out-timing-function, opacity 0.3s 0.5s ease;
+        transition: transform 0.4s 0.5s variables.$swift-ease-out-timing-function, opacity 0.3s 0.5s ease;
     }
     &.ng-hide {
         opacity: 0;
@@ -306,14 +310,14 @@
 
         // transition-duration: 1s;
         &.ng-hide-add {
-            transition: $swift-ease-out;
+            transition: variables.$swift-ease-out;
             transition-duration: 0.3s;
             overflow: hidden;
             &.ng-hide-add-active {
             }
         }
         &.ng-hide-remove {
-            transition: $swift-ease-in;
+            transition: variables.$swift-ease-in;
             transition-duration: 0.2s;
             overflow: hidden;
             &.ng-hide-remove-active {
@@ -338,7 +342,7 @@
         overflow: hidden;
 
         &.ng-hide-add {
-            transition: $swift-ease-out;
+            transition: variables.$swift-ease-out;
             transition-duration: 0.7s;
             transition-delay: 0.25s;
             transform: translateY(0);
@@ -347,7 +351,7 @@
             }
         }
         &.ng-hide-remove {
-            transition: $swift-ease-in;
+            transition: variables.$swift-ease-in;
             transition-duration: 0.6s;
             &.ng-hide-remove-active {
             }
@@ -368,7 +372,7 @@
         overflow: hidden;
         max-height: 0;
         transform: scale3d(0, 0, 1);
-        transition: $swift-ease-out;
+        transition: variables.$swift-ease-out;
         &.ng-enter-active {
             max-height: 3em;
             opacity: 1;
@@ -379,7 +383,7 @@
         opacity: 1;
         max-height: 3em;
         transform: scale3d(1, 1, 1);
-        transition: $swift-ease-out;
+        transition: variables.$swift-ease-out;
         &.ng-leave-active {
             opacity: 0;
             max-height: 0;
@@ -395,7 +399,7 @@
         overflow: hidden;
         max-height: 0;
         transform: scale3d(0, 0, 1);
-        transition: $swift-ease-out;
+        transition: variables.$swift-ease-out;
         // transition: max-height .3s 0s $easeOutQuint;
         &.ng-enter-active {
             opacity: 1;
@@ -408,7 +412,7 @@
         overflow: hidden;
         max-height: 7em;
         transform: scale3d(1, 1, 1);
-        transition: $swift-ease-out;
+        transition: variables.$swift-ease-out;
         &.ng-leave-active {
             opacity: 0;
             max-height: 0;
@@ -422,7 +426,7 @@
     &.ng-enter {
         opacity: 0;
         transform: translateX(30px);
-        transition: opacity 0.3s ease, transform 0.5s $swift-ease-out-timing-function;
+        transition: opacity 0.3s ease, transform 0.5s variables.$swift-ease-out-timing-function;
         &.ng-enter-active {
             opacity: 1;
             transform: translateX(0);
@@ -431,7 +435,7 @@
     &.ng-leave {
         opacity: 1;
         transform: translateX(0);
-        transition: opacity 0.2s ease, transform 0.2s $swift-ease-in-timing-function;
+        transition: opacity 0.2s ease, transform 0.2s variables.$swift-ease-in-timing-function;
         &.ng-leave-active {
             opacity: 0;
             transform: translateX(30px);
@@ -443,7 +447,7 @@
     &.ng-enter {
         opacity: 0;
         transform: scale3d(0, 0, 1);
-        transition: opacity 0.3s ease, transform 0.4s $swift-ease-out-timing-function;
+        transition: opacity 0.3s ease, transform 0.4s variables.$swift-ease-out-timing-function;
         &.ng-enter-active {
             opacity: 1;
             transform: scale3d(1, 1, 1);
@@ -452,7 +456,7 @@
     &.ng-leave {
         opacity: 1;
         transform: scale3d(1, 1, 1);
-        transition: opacity 0.2s ease, transform 0.3s $swift-ease-out-timing-function;
+        transition: opacity 0.2s ease, transform 0.3s variables.$swift-ease-out-timing-function;
 
         &.ng-leave-active {
             opacity: 0;

@@ -1,3 +1,6 @@
+@use "../../../../styles-imports/www/variables";
+@use "../../../styles/partials/mixins";
+
 prm-reference-entry-item {
     .reference-entry-item-inner {
         position: relative;
@@ -75,7 +78,7 @@ prm-reference-entry-item {
         @extend .weak-text;
     }
     .item-title {
-        color: $uqHeading;
+        color: variables.$uqHeading;
         margin-bottom: 0.1em;
         @extend .bold-text;
     }
@@ -99,7 +102,7 @@ prm-reference-entry-item {
         flex-shrink: 0;
         margin-right: 0.35em;
         md-icon {
-            @include setSize(15px);
+            @include mixins.setSize(15px);
         }
     }
 }

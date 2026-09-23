@@ -1,3 +1,4 @@
+@use "sass:color";
 //// VARIABLES
 // UQ colours 2025 from Design System https://design-system.uq.edu.au/?path=/docs/core-colour--docs
 // also note brand document: https://marketing-communication.uq.edu.au/files/7573/Brand_Guidelines.pdf (around page 42)
@@ -69,8 +70,8 @@ $frbr: #ed9100;
 $pink: rgb(255, 171, 200);
 
 $dark: $uqGrey900;
-$dark-hue1: darken($dark, 30%);
-$darker: darken(saturate(adjust-hue($dark, 0), 0), 6.6667);
+$dark-hue1: color.adjust($dark, $lightness: -30%);
+$darker: color.adjust(color.adjust(color.adjust($dark, $hue: 0), $saturation: 0), $lightness: -6.6667);
 
 // lighter background color
 
@@ -84,9 +85,9 @@ $uqInformationLight: $uqWarning50;
 //$yellow-hue1: lighten($yellow, 20%); // uq yellow
 $overlayDarkDG: rgba(68, 68, 68, 0.6);
 
-$highlightBlue: transparentize($accent-color, 0.9);
+$highlightBlue: color.adjust($accent-color, $alpha: -0.9);
 $uqWarningDark: $uqWarning600;
-$highlight: darken(desaturate(adjust-hue($uqWarningDark, -4.092), 16), 8.0392);
+$highlight: color.adjust(color.adjust(color.adjust($uqWarningDark, $hue: -4.092), $saturation: -16), $lightness: -8.0392);
 
 $uqLightGrey: #f7f6f5;
 
@@ -94,79 +95,79 @@ $uqLightGrey: #f7f6f5;
 //$maybe: $orange;
 
 $alert: $uqInformationLight;
-$alert-hue1: darken(desaturate(adjust-hue($alert, 0.3074), 15.3043), 2.9412);
+$alert-hue1: color.adjust(color.adjust(color.adjust($alert, $hue: 0.3074), $saturation: -15.3043), $lightness: -2.9412);
 
 $disabled: #aaa;
 $courseColor: #55909b;
 
 $primary: $accent-color;
-$primary-hue1: darken($primary, 3%);
-$primary-hue2: darken($primary, 5%);
-$primary-hue3: darken($primary-hue2, 2%);
-$primary-hue4: darken($primary, 10%);
+$primary-hue1: color.adjust($primary, $lightness: -3%);
+$primary-hue2: color.adjust($primary, $lightness: -5%);
+$primary-hue3: color.adjust($primary-hue2, $lightness: -2%);
+$primary-hue4: color.adjust($primary, $lightness: -10%);
 //$primary-hue5: darker($primary, -5%);
-$primary-hue6: transparentize($primary, 0.1);
+$primary-hue6: color.adjust($primary, $alpha: -0.1);
 
 $secondary: $accent-color;
 $secondary-hue1: $accent-color;
 $secondary-hue2: $accent-color;
-$secondary-hue3: darken(saturate(adjust-hue($secondary, -12), 30.28), 47.65); // "show more" buttons in facets
-$secondary-hue4: darken(saturate(adjust-hue($secondary, -7), 64.57), 13.92);
-$secondary-hue5: darken($secondary, 37%);
-$secondary-hue6: darken(saturate(adjust-hue($secondary, -7), 64.57), 2);
+$secondary-hue3: color.adjust(color.adjust(color.adjust($secondary, $hue: -12), $saturation: 30.28), $lightness: -47.65); // "show more" buttons in facets
+$secondary-hue4: color.adjust(color.adjust(color.adjust($secondary, $hue: -7), $saturation: 64.57), $lightness: -13.92);
+$secondary-hue5: color.adjust($secondary, $lightness: -37%);
+$secondary-hue6: color.adjust(color.adjust(color.adjust($secondary, $hue: -7), $saturation: 64.57), $lightness: -2);
 
 $backgroundColor: white;
 $backgroundActual: $uqGrey50;
 $textColor: #000;
 
 $positive: $accent-color;
-$positive-hue1: darken($positive, 2%);
+$positive-hue1: color.adjust($positive, $lightness: -2%);
 
 $negative: gray;
-$negative-hue1: darken(saturate($negative, 5%), 10%);
+$negative-hue1: color.adjust(color.adjust($negative, $saturation: 5%), $lightness: -10%);
 
 $background: $uqGrey50;
 
-$background-hue1: darken($backgroundColor, 3%); // darker 1 (i.e: background for locations filter bar)
-$background-hue2: lighten($background, 4%);
-$background-hue3: lighten(
-    saturate(adjust-hue($backgroundColor, 0), 0),
-    5.8824
+$background-hue1: color.adjust($backgroundColor, $lightness: -3%); // darker 1 (i.e: background for locations filter bar)
+$background-hue2: color.adjust($background, $lightness: 4%);
+$background-hue3: color.adjust(
+    color.adjust(color.adjust($backgroundColor, $hue: 0), $saturation: 0),
+    $lightness: 5.8824
 ); // lighter 2 (i.e: background for actions forms)
 
-$background-hue4: lighten($background, 3%);
-$background-hue5: transparentize($background, 0.5);
-$background-hue6: darken($background, 1%);
-$background-hue7: darken($background, 10%);
-$background-hue8: lighten($background, 6%);
-$background-hue9: darken($background, 5%);
-$background-hue10: darken($background, 12%);
-$background-hue11: darken($background, 2%);
-$background-hue12: darken($background, 7%);
-$background-hue13: lighten($background, 2%);
-$background-hue14: darken($background, 40%);
-$background-hue15: darken($background, 54%);
+$background-hue4: color.adjust($background, $lightness: 3%);
+$background-hue5: color.adjust($background, $alpha: -0.5);
+$background-hue6: color.adjust($background, $lightness: -1%);
+$background-hue7: color.adjust($background, $lightness: -10%);
+$background-hue8: color.adjust($background, $lightness: 6%);
+$background-hue9: color.adjust($background, $lightness: -5%);
+$background-hue10: color.adjust($background, $lightness: -12%);
+$background-hue11: color.adjust($background, $lightness: -2%);
+$background-hue12: color.adjust($background, $lightness: -7%);
+$background-hue13: color.adjust($background, $lightness: 2%);
+$background-hue14: color.adjust($background, $lightness: -40%);
+$background-hue15: color.adjust($background, $lightness: -54%);
 
 $white: $backgroundColor;
-$almostWhite: lighten(saturate(adjust-hue($background, 60), 20), 0.7843);
+$almostWhite: color.adjust(color.adjust(color.adjust($background, $hue: 60), $saturation: 20), $lightness: 0.7843);
 $bg: $background;
-$nearlyWhite: darken(saturate(adjust-hue($backgroundColor, 0), 0), 5.4902); // stronger
+$nearlyWhite: color.adjust(color.adjust(color.adjust($backgroundColor, $hue: 0), $saturation: 0), $lightness: -5.4902); // stronger
 $blueGrey: #ccc;
 $midGrey: #53738c; //darken(saturate(adjust-hue($blueGrey, 206.3158), 25.5605), 36.2745);
-$actionsBackground: lighten($background, 6%);
+$actionsBackground: color.adjust($background, $lightness: 6%);
 $autoCompleteBg: $backgroundColor;
-$sectionHighlight: darken(desaturate($background, 0), 5%);
+$sectionHighlight: color.adjust(color.adjust($background, $saturation: -0), $lightness: -5%);
 $snippets: #999;
 $lightenGrey: #6d6d6d;
 
 $links: $accent-color;
 $links-background-hue1: transparent;
-$links-hue-1: darken(saturate($links, 5%), 5%);
-$links-hue-3: darken($links, 10%);
-$links-hue-4: darken(saturate($links, 5%), 2%);
-$links-hue-5: darken(saturate($links, 15%), 20%);
-$linksHover: darken(saturate($links, 20%), 20%);
-$linksHover-hue-2: transparentize($linksHover, 0.5);
+$links-hue-1: color.adjust(color.adjust($links, $saturation: 5%), $lightness: -5%);
+$links-hue-3: color.adjust($links, $lightness: -10%);
+$links-hue-4: color.adjust(color.adjust($links, $saturation: 5%), $lightness: -2%);
+$links-hue-5: color.adjust(color.adjust($links, $saturation: 15%), $lightness: -20%);
+$linksHover: color.adjust(color.adjust($links, $saturation: 20%), $lightness: -20%);
+$linksHover-hue-2: color.adjust($linksHover, $alpha: -0.5);
 $linkAlt: $secondary-hue1;
 $md-primary: $links;
 
@@ -175,18 +176,18 @@ $linkTitle: $links;
 $collectionDisLinks: #0075b0;
 
 $red: $uqError500;
-$red-hue1: darken($red, 20%);
+$red-hue1: color.adjust($red, $lightness: -20%);
 // warning
 $warning: $red;
 $warn: $red;
-$warn-hue1: darken($warn, 22%); // #801919
+$warn-hue1: color.adjust($warn, $lightness: -22%); // #801919
 $warningBorder: inset 0 0 0 3px $warning;
 
 $text: $dark;
-$text-hue1: lighten($text, 30%);
+$text-hue1: color.adjust($text, $lightness: 30%);
 $text-hue2: $text;
-$text-hue3: darken($text, 10%);
-$text-hue4: lighten($text, 10%);
+$text-hue3: color.adjust($text, $lightness: -10%);
+$text-hue4: color.adjust($text, $lightness: 10%);
 
 $notice: $red;
 
@@ -196,7 +197,7 @@ $highlight-hue1: $background-hue7;
 $modalBackdrop: rgb(68, 68, 68);
 $moreLink: $links;
 
-$selectedItem: saturate(lighten($midGrey, 53%), 40%);
+$selectedItem: color.adjust(color.adjust($midGrey, $lightness: 53%), $saturation: 40%);
 
 $citationTitle: $uqHeading;
 
@@ -216,14 +217,14 @@ $briefButtonHeight: 38px;
 // citations
 $citation: $highlightPrimary;
 $citationColor: $citation;
-$citation-hue1: darken($citation, 40%);
-$citation-hue2: darken($citation, 20%);
-$citation-hue3: darken($citation, 22%);
+$citation-hue1: color.adjust($citation, $lightness: -40%);
+$citation-hue2: color.adjust($citation, $lightness: -20%);
+$citation-hue3: color.adjust($citation, $lightness: -22%);
 
 // warning
 $warning: $red;
-$warning-hue1: darken($warning, 20%);
-$warning-hue2: darken($warning, 22%);
+$warning-hue1: color.adjust($warning, $lightness: -20%);
+$warning-hue2: color.adjust($warning, $lightness: -22%);
 
 // personalization
 $personalization: $accent-color;

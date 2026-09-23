@@ -1,3 +1,8 @@
+@use "../../../../styles-imports/www/variables";
+@use "../../../styles/partials/horizontal-content";
+@use "../../../styles/partials/mixins";
+@use "../../../styles/partials/mixins/material-mixins";
+
 /* starting citationTrailsItem */
 prm-chapters-and-reviews {
     md-card {
@@ -8,7 +13,7 @@ prm-chapters-and-reviews {
         line-height: 18px;
         font-size: 0.9em;
         border-radius: 3px;
-        box-shadow: $defaultShadow;
+        box-shadow: horizontal-content.$defaultShadow;
         margin-bottom: 2em;
 
         > .md-button {
@@ -122,7 +127,7 @@ prm-chapters-and-reviews {
         transition-duration: 0s;
 
         md-icon {
-            @include setSize(18px);
+            @include mixins.setSize(18px);
         }
     }
 
@@ -135,7 +140,7 @@ prm-chapters-and-reviews {
 
     .item-title {
         @extend .bold-text;
-        @include multiLineEllipsis($lineHeight: 1.3em, $lineCount: 2, $bgColor: white);
+        @include mixins.multiLineEllipsis($lineHeight: 1.3em, $lineCount: 2, $bgColor: white);
         margin-right: 0em;
         padding-right: 1em;
         // @include rtl-prop(margin-right, margin-left, 0em, auto);
@@ -171,7 +176,7 @@ prm-chapters-and-reviews {
     ~ prm-chapters-and-reviews {
         .item-type {
             right: 0.1em;
-            @include rtl-prop(right, left, 0.1em, auto);
+            @include material-mixins.rtl-prop(right, left, 0.1em, auto);
             left: auto;
         }
     }
@@ -181,7 +186,7 @@ prm-chapters-and-reviews {
         margin-top: -2px;
         word-break: break-all;
         @extend .tiny-uppercase-text;
-        color: $lightenGrey;
+        color: variables.$lightenGrey;
 
         > span {
             //text-transform: lowercase;

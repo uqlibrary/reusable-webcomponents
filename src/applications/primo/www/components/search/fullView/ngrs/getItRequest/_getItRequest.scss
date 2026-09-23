@@ -1,3 +1,5 @@
+@use "../../../../../../styles-imports/www/variables";
+
 prm-get-it-request {
     .main_tile_request_form {
         opacity: 1;
@@ -203,13 +205,13 @@ prm-get-it-request {
     .validation_msg {
         padding-left: 12%;
         padding-bottom: 1em;
-        color: $red;
+        color: variables.$red;
     }
 
     .material_type_msg {
         padding-left: 12%;
         padding-bottom: 1em;
-        color: $text-hue1;
+        color: variables.$text-hue1;
     }
 
     .alternativeEmail {

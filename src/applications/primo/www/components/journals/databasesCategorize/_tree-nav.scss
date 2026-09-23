@@ -1,3 +1,6 @@
+@use "../../../../styles-imports/www/variables";
+@use "../../../styles/partials/mixins";
+
 /* starting treeNav */
 prm-tree-nav {
     position: relative;
@@ -65,7 +68,7 @@ prm-tree-nav {
                     padding-top: 4px;
                     padding-bottom: 4px;
                     &.is-selected {
-                        @include bgColor($secondary-hue3);
+                        @include mixins.bgColor(variables.$secondary-hue3);
                     }
                 }
                 &.branch-arrow {

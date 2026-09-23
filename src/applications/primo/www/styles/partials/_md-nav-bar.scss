@@ -1,3 +1,6 @@
+@use "../../../styles-imports/www/variables";
+@use "mixins";
+
 md-nav-bar {
     ul {
         max-width: 100%;
@@ -29,7 +32,7 @@ md-nav-bar {
                 &.md-active {
                     @extend .bold-text;
                     //color: black;
-                    @include bgColor($dark);
+                    @include mixins.bgColor(variables.$dark);
                 }
             }
         }

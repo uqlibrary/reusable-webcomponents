@@ -1,3 +1,5 @@
+@use "../../../styles-imports/www/variables";
+
 .permalink-unit {
     .unit-content {
         display: flex;
@@ -19,16 +21,16 @@
     .message-element {
         position: absolute;
         padding: 0.4em;
-        background: $red;
+        background: variables.$red;
         left: 0;
         right: 0;
         margin: auto;
         width: 60%;
         margin-top: 0.9em;
         text-align: center;
-        border-radius: $radius;
+        border-radius: variables.$radius;
         color: white;
-        font-weight: $light;
+        font-weight: variables.$light;
 
         visibility: hidden;
         opacity: 0;

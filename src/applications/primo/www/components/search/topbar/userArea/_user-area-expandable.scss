@@ -1,3 +1,6 @@
+@use "../../../../../styles-imports/www/variables";
+@use "../../../../styles/partials/mixins";
+
 prm-user-area-expandable {
     flex: 0 0 auto;
 
@@ -9,9 +12,9 @@ prm-user-area-expandable {
     .md-button {
         text-transform: none;
         &.user-button {
-            color: $secondary-hue4;
+            color: variables.$secondary-hue4;
             .menu-arrow {
-                color: $white;
+                color: variables.$white;
             }
         }
         &.user-menu-button {
@@ -37,7 +40,7 @@ prm-user-area-expandable {
     .button-with-menu-arrow {
         &:hover {
             .menu-arrow {
-                @include bgColor($primary);
+                @include mixins.bgColor(variables.$primary);
             }
         }
     }

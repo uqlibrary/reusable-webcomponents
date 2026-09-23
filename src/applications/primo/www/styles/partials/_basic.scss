@@ -1,15 +1,18 @@
+@use "../../../styles-imports/www/variables";
+@use "mixins";
+
 html,
 body {
     @extend .prm-background;
 
-    @include ie-only {
+    @include mixins.ie-only {
         // IE overrides here
     }
 }
 
 body {
-    font-family: $serif;
-    font-size: $defaultFontSize;
+    font-family: variables.$serif;
+    font-size: variables.$defaultFontSize;
     @extend .prm-text;
     // overflow-x: hidden;
 }
@@ -33,7 +36,7 @@ button {
 }
 
 ::selection {
-    background: $highlight;
+    background: variables.$highlight;
 }
 
 .lowercase {
@@ -41,7 +44,7 @@ button {
 }
 
 .bold {
-    font-weight: $bold;
+    font-weight: variables.$bold;
 }
 
 mark {

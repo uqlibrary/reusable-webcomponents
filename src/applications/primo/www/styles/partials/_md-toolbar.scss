@@ -1,3 +1,8 @@
+@use "sass:color";
+@use "../../../styles-imports/www/variables";
+@use "mixins";
+@use "mixins/material-mixins";
+
 $defaultToolbarHeight: 60px;
 
 md-toolbar,
@@ -19,7 +24,7 @@ md-toolbar:not(.md-menu-toolbar) {
     }
 
     &.default-toolbar {
-        border-color: darken($background, 8%);
+        border-color: color.adjust(variables.$background, $lightness: -8%);
         background-color: transparent;
         @extend .prm-text;
 
@@ -28,7 +33,7 @@ md-toolbar:not(.md-menu-toolbar) {
             &:hover {
                 opacity: 1;
             }
-            @include uqTertiaryButton($white, $accent-color);
+            @include mixins.uqTertiaryButton(variables.$white, variables.$accent-color);
             background-color: transparent !important;
         }
         &.is-stuck {
@@ -36,13 +41,13 @@ md-toolbar:not(.md-menu-toolbar) {
         }
         .back-button.md-button {
             background-color: transparent !important;
-            color: $accent-color !important;
+            color: variables.$accent-color !important;
             span {
                 text-decoration: underline;
             }
             &:hover span {
-                background-color: $accent-color !important;
-                color: $white !important;
+                background-color: variables.$accent-color !important;
+                color: variables.$white !important;
             }
         }
     }
@@ -62,8 +67,8 @@ md-toolbar:not(.md-menu-toolbar) {
         }
     }
     &.dark-toolbar {
-        background-color: $midGrey;
-        color: $white;
+        background-color: variables.$midGrey;
+        color: variables.$white;
     }
     + md-toolbar {
         background-color: white !important;
@@ -104,7 +109,7 @@ md-toolbar:not(.md-menu-toolbar) {
     .toolbar-divider {
         width: 1px;
         height: 100%;
-        background-color: $background-hue10;
+        background-color: variables.$background-hue10;
         margin-left: 0.5em;
         margin-right: 0.5em;
         border: none;
@@ -120,7 +125,7 @@ md-toolbar:not(.md-menu-toolbar) {
         }
     }
     .toolbar-title {
-        font-weight: $light;
+        font-weight: variables.$light;
         font-size: 1.2em;
         // padding: 0 1em;
         margin-right: 0.5em;
@@ -132,7 +137,7 @@ md-toolbar:not(.md-menu-toolbar) {
         }
 
         + .toolbar-select-input {
-            color: $midGrey;
+            color: variables.$midGrey;
             font-size: 16px;
             line-height: 1.5em;
 
@@ -144,7 +149,7 @@ md-toolbar:not(.md-menu-toolbar) {
             }
 
             md-select-value {
-                color: $midGrey;
+                color: variables.$midGrey;
 
                 .md-select-icon {
                     font-size: 0.8em;
@@ -171,9 +176,9 @@ md-toolbar:not(.md-menu-toolbar) {
         padding-bottom: 0.7em;
         background-color: transparent;
         .toolbar-section {
-            background-color: $background-hue11;
+            background-color: variables.$background-hue11;
             border: 1px solid;
-            border-radius: $radius;
+            border-radius: variables.$radius;
             &:not(:last-child) {
                 margin-right: 0.5em;
             }
@@ -184,7 +189,7 @@ md-toolbar:not(.md-menu-toolbar) {
                 height: 38px;
                 line-height: 38px;
                 md-icon {
-                    color: $midGrey;
+                    color: variables.$midGrey;
                 }
                 &:not(:last-child) {
                     // box-shadow: 1px 0 0 0 darken($background, 7%);
@@ -198,7 +203,7 @@ md-toolbar:not(.md-menu-toolbar) {
     .pushto-actions {
         button,
         .md-button {
-            color: lighten($midGrey, 10%);
+            color: color.adjust(variables.$midGrey, $lightness: 10%);
             flex: 1;
             flex-direction: column;
             display: flex;
@@ -225,8 +230,8 @@ md-toolbar:not(.md-menu-toolbar) {
         opacity: 0.8;
         &:hover {
             opacity: 1;
-            color: $white;
-            background-color: $background-hue15;
+            color: variables.$white;
+            background-color: variables.$background-hue15;
         }
 
         .__xs & {
@@ -237,10 +242,10 @@ md-toolbar:not(.md-menu-toolbar) {
             width: 34px;
             height: 34px;
             border-radius: 0 !important;
-            @include rtl(transform, none, scale(-1, 1));
+            @include material-mixins.rtl(transform, none, scale(-1, 1));
         }
         + .toolbar-divider {
-            @include rtl-prop(margin-left, margin-right, 0, initial);
+            @include material-mixins.rtl-prop(margin-left, margin-right, 0, initial);
         }
 
         &.has-text {
@@ -248,9 +253,9 @@ md-toolbar:not(.md-menu-toolbar) {
         }
 
         &.offset-to-left {
-            @include rtl-prop(margin-left, margin-right, -16px, 0);
+            @include material-mixins.rtl-prop(margin-left, margin-right, -16px, 0);
             .__gt-sm & {
-                @include rtl-prop(margin-left, margin-right, -70px, 0);
+                @include material-mixins.rtl-prop(margin-left, margin-right, -70px, 0);
             }
         }
     }

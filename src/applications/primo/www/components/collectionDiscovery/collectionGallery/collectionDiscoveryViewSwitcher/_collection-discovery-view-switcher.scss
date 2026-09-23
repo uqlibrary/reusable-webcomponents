@@ -1,3 +1,6 @@
+@use "../../../../../styles-imports/www/variables";
+@use "../../../../styles/partials/mixins";
+
 /* starting collectionDiscoveryViewSwitcher */
 prm-collection-discovery-view-switcher {
     .md-button {
@@ -6,7 +9,7 @@ prm-collection-discovery-view-switcher {
         &.is-active:hover,
         &.is-active:focus {
             cursor: default;
-            @include bgColor($secondary-hue3);
+            @include mixins.bgColor(variables.$secondary-hue3);
         }
     }
 }

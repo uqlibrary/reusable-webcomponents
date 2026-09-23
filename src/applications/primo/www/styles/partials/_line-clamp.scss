@@ -1,3 +1,5 @@
+@use "../../../styles-imports/www/variables";
+
 // LINE CLAMP
 // Limiting a block of text to a given number of rows. Adds allipsis at the end of the block
 // useage: <div class="line-clamp-2">text text text text text text text text text </div>
@@ -20,7 +22,7 @@ $maxLines: 5;
         display: block;
         position: absolute;
         height: calc(1em * 1.2);
-        background-color: $background-hue2;
+        background-color: variables.$background-hue2;
         @supports (-webkit-line-clamp: 1) {
             display: none !important;
         }

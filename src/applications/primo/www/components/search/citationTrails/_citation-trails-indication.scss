@@ -1,3 +1,6 @@
+@use "../../../../styles-imports/www/variables";
+@use "../../../styles/partials/mixins";
+
 /* starting citationTrailsIndication */
 prm-citation-trails-indication {
     display: flex;
@@ -8,9 +11,9 @@ prm-citation-trails-indication {
             box-shadow: none;
             margin: 0;
             // @extend .prm-citation-color;
-            @include bgColor($citation-hue3);
+            @include mixins.bgColor(variables.$citation-hue3);
             &:hover {
-              color: $citation-hue1;
+              color: variables.$citation-hue1;
             }
             text-transform: none;
         }

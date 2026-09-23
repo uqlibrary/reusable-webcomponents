@@ -1,12 +1,15 @@
+@use "sass:color";
+@use "../../../styles-imports/www/variables";
+
 md-virtual-repeat-container {
-    background-color: $autoCompleteBg;
+    background-color: variables.$autoCompleteBg;
 
     ul {
     }
 
     li {
         &.selected {
-            background-color: darken($autoCompleteBg, 4%);
+            background-color: color.adjust(variables.$autoCompleteBg, $lightness: -4%);
         }
     }
 }

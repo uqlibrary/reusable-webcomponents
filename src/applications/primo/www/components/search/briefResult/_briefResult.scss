@@ -1,3 +1,6 @@
+@use "../../../../styles-imports/www/variables";
+@use "../../../styles/partials/mixins";
+
 $verticalMargin: 0.25em;
 
 prm-brief-result {
@@ -6,11 +9,11 @@ prm-brief-result {
     .item-title {
         // font-size: 1.18em;
         // line-height: 1.2em;
-        color: $uqHeading;
+        color: variables.$uqHeading;
         max-width: 85%;
         margin: 7px 0 7px 0;
         margin: 0;
-        font-weight: $bold;
+        font-weight: variables.$bold;
         cursor: pointer;
         align-self: flex-start;
 
@@ -30,12 +33,12 @@ prm-brief-result {
         }
         span {
             //make sure spans gets the color from here and not from the wrapping link (specificity)
-            color: $uqHeading;
+            color: variables.$uqHeading;
         }
     }
 
     .item-detail {
-        font-weight: $normal;
+        font-weight: variables.$normal;
         line-height: 1.4em;
         @extend .word-break;
 
@@ -52,14 +55,14 @@ prm-brief-result {
                 //     margin-bottom: $verticalMargin;
                 // }
 
-                @include ie-only {
+                @include mixins.ie-only {
                     &:after {
                         display: none;
                     }
                 }
             }
 
-            @include ie-only {
+            @include mixins.ie-only {
             }
         }
         span {
@@ -79,9 +82,9 @@ prm-brief-result {
 
         .media-creator {
             opacity: 1;
-            color: $dark;
+            color: variables.$dark;
             font-size: 1.1em;
-            font-weight: $bold;
+            font-weight: variables.$bold;
         }
     }
 

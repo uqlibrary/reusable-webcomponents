@@ -1,3 +1,7 @@
+@use "sass:color";
+@use "../../../../styles-imports/www/variables";
+@use "../../../styles/partials/mixins";
+
 prm-tags-list {
     ._md-chip-remove md-icon {
         height: 1px;
@@ -7,13 +11,13 @@ prm-tags-list {
         left: 50%;
         -webkit-transform: translate3d(-50%, -50%, 0);
         transform: translate3d(-50%, -50%, 0);
-        color: $warning-hue2;
+        color: variables.$warning-hue2;
         min-height: 18px;
         min-width: 18px;
     }
 
     .error-response {
-        color: $red;
+        color: variables.$red;
     }
 
     .tagNameRTL {
@@ -30,9 +34,9 @@ prm-tags-list {
             line-height: auto;
             margin-right: 1.5em;
             prm-icon {
-                color: transparentize($dark, 0.6);
+                color: color.adjust(variables.$dark, $alpha: -0.6);
                 md-icon {
-                    @include setSize(20px);
+                    @include mixins.setSize(20px);
                 }
                 svg {
                     width: 100%;
@@ -71,7 +75,7 @@ prm-tags-list {
                 }
                 .md-chip-remove {
                     md-icon {
-                        @include setSize(18px);
+                        @include mixins.setSize(18px);
                         @extend .prm-warn;
                     }
                 }

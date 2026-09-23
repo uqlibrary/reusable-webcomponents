@@ -1,8 +1,12 @@
+@use "sass:color";
+@use "../../../styles-imports/www/variables";
+@use "easing";
+
 prm-alert-bar {
     > div {
         &.ng-enter {
             opacity: 0;
-            transition: max-height 0.4s 0.3s $easeOutQuint, opacity 0.3s 0.3s ease, transform 0.4s 0.3s $easeOutQuint;
+            transition: max-height 0.4s 0.3s easing.$easeOutQuint, opacity 0.3s 0.3s ease, transform 0.4s 0.3s easing.$easeOutQuint;
             overflow: hidden;
             max-height: 0;
             transform: scale(0);
@@ -15,7 +19,7 @@ prm-alert-bar {
         &.ng-leave {
             opacity: 1;
             overflow: hidden;
-            transition: max-height 0.5s $easeInOutQuint, opacity 0.4s ease, transform 0.5s $easeInQuint;
+            transition: max-height 0.5s easing.$easeInOutQuint, opacity 0.4s ease, transform 0.5s easing.$easeInQuint;
             max-height: 60px;
             transform: scale(1);
             &.ng-leave-active {
@@ -45,9 +49,9 @@ prm-alert-bar {
 .bar {
     padding: 0.5em 1em;
     border: 1px solid;
-    height: $defaultBarHeight;
-    min-height: $defaultBarHeight;
-    border-radius: $radius;
+    height: variables.$defaultBarHeight;
+    min-height: variables.$defaultBarHeight;
+    border-radius: variables.$radius;
     .__xs & {
         height: auto;
     }
@@ -65,10 +69,10 @@ prm-alert-bar {
         height: 1.5em;
         margin-right: 0.5em;
         margin-left: 0.5em;
-        border-color: transparentize($dark, 0.8);
+        border-color: color.adjust(variables.$dark, $alpha: -0.8);
     }
     &.filter-bar {
-        background-color: $background-hue6;
+        background-color: variables.$background-hue6;
     }
 
     &.alert-bar {
@@ -77,14 +81,14 @@ prm-alert-bar {
         @extend .prm-alert-border;
     }
     &.success-bar {
-        background-color: desaturate(lighten($success, 30%), 5%);
-        border-color: lighten($success, 20%);
-        color: darken($success, 30%);
+        background-color: color.adjust(color.adjust(variables.$success, $lightness: 30%), $saturation: -5%);
+        border-color: color.adjust(variables.$success, $lightness: 20%);
+        color: color.adjust(variables.$success, $lightness: -30%);
     }
     &.error-bar {
-        background-color: desaturate(lighten($red, 30%), 5%);
-        border-color: lighten($red, 25%);
-        color: darken($red, 10%);
+        background-color: color.adjust(color.adjust(variables.$red, $lightness: 30%), $saturation: -5%);
+        border-color: color.adjust(variables.$red, $lightness: 25%);
+        color: color.adjust(variables.$red, $lightness: -10%);
         border-width: 0;
     }
 }

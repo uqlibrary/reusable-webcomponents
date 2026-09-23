@@ -1,3 +1,5 @@
+@use "../../../../../styles-imports/www/variables";
+
 /* starting uploadFile */
 
 .uploaded-file-list {
@@ -21,7 +23,7 @@
 }
 
 .file-drop-zone:not(.dragover):hover {
-    background: $background;
+    background: variables.$background;
 }
 
 .file-drop-zone:before {
@@ -255,7 +257,7 @@
 }
 
 .progress-bar-success {
-    background-color: $green;
+    background-color: variables.$green;
 }
 
 .progress-striped .progress-bar-success {

@@ -1,8 +1,10 @@
+@use "../../../../../../../styles-imports/www/variables";
+
 /* starting locationsFilter */
 
 prm-locations-filter {
     div div.bar.filter-bar {
-        background-color: $uqPanelBackgroundColor;
+        background-color: variables.$uqPanelBackgroundColor;
     }
     span.margin-right-small.bold-text {
         margin-top: -4px;

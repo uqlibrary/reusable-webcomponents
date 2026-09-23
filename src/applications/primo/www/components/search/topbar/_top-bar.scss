@@ -1,12 +1,14 @@
-@import 'bookmarkFilter/search-bookmark-filter.scss';
-@import 'logo/logo';
-@import 'mainMenu/main-menu-full';
-@import 'mainMenu/main-menu';
-@import 'userArea/authentication';
-@import 'userArea/user-area';
+@use 'bookmarkFilter/search-bookmark-filter.scss';
+@use 'logo/logo';
+@use 'mainMenu/main-menu-full';
+@use 'mainMenu/main-menu';
+@use 'userArea/authentication';
+@use 'userArea/user-area';
+@use "../../../../styles-imports/www/variables";
+@use "../../../styles/partials/mixins";
 
 prm-topbar {
-    height: $defaultBarHeight;
+    height: variables.$defaultBarHeight;
     position: relative;
     .top-nav-bar {
         @extend .prm-secondary-color;
@@ -34,7 +36,7 @@ prm-topbar {
 
     prm-search-bookmark-filter {
         // margin-right: 20px;
-        @include ie-only {
+        @include mixins.ie-only {
             min-width: 52px;
         }
     }

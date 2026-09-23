@@ -1,3 +1,7 @@
+@use "../../../../../styles-imports/www/variables";
+@use "../../../../styles/partials/mixins";
+@use "../../briefResult/briefResultContainer";
+
 prm-add-query-to-saved-searches {
     // temp hack for aligning saved queries button in results title
     prm-search-result-list & {
@@ -27,8 +31,8 @@ prm-add-query-to-saved-searches {
     }
 }
 
-$actionButtonSize: 50px;
-$actionButtonMargin: 4px;
+briefResultContainer.$actionButtonSize: 50px;
+briefResultContainer.$actionButtonMargin: 4px;
 
 prm-add-query-to-saved-searches {
     md-toast {
@@ -72,10 +76,10 @@ prm-add-query-to-saved-searches {
     .md-icon-button {
         margin: 0;
         background-color: transparent;
-        height: $actionButtonSize;
+        height: briefResultContainer.$actionButtonSize;
         // line-height: $actionButtonSize;
-        max-height: $actionButtonSize;
-        min-height: $actionButtonSize;
+        max-height: briefResultContainer.$actionButtonSize;
+        min-height: briefResultContainer.$actionButtonSize;
         width: 200px !important;
         min-width: 200px;
         max-width: 200px;
@@ -94,15 +98,15 @@ prm-add-query-to-saved-searches {
         padding: 0;
         @extend .prm-primary-color;
         md-icon {
-            @include setSize(20px);
+            @include mixins.setSize(20px);
         }
         &.pin-button {
             md-icon {
-                -webkit-transition: $swift-ease-out;
-                -moz-transition: $swift-ease-out;
-                -ms-transition: $swift-ease-out;
-                -o-transition: $swift-ease-out;
-                transition: $swift-ease-out;
+                -webkit-transition: variables.$swift-ease-out;
+                -moz-transition: variables.$swift-ease-out;
+                -ms-transition: variables.$swift-ease-out;
+                -o-transition: variables.$swift-ease-out;
+                transition: variables.$swift-ease-out;
 
                 -webkit-transform: rotate3d(0, 0, 1, -25deg);
                 -moz-transform: rotate3d(0, 0, 1, -25deg);
@@ -110,13 +114,13 @@ prm-add-query-to-saved-searches {
                 -o-transform: rotate3d(0, 0, 1, -25deg);
                 transform: rotate3d(0, 0, 1, -25deg);
                 opacity: 0;
-                @include ie-exceptions;
+                @include mixins.ie-exceptions;
             }
-            color: $secondary-hue1;
+            color: variables.$secondary-hue1;
             &.pinned {
                 &:hover,
                 &:focus {
-                    color: $dark;
+                    color: variables.$dark;
                 }
 
                 md-icon {
@@ -127,14 +131,14 @@ prm-add-query-to-saved-searches {
         }
         &.unpin-button {
             md-icon {
-                -webkit-transition: $swift-ease-out;
-                -moz-transition: $swift-ease-out;
-                -ms-transition: $swift-ease-out;
-                -o-transition: $swift-ease-out;
-                transition: $swift-ease-out;
+                -webkit-transition: variables.$swift-ease-out;
+                -moz-transition: variables.$swift-ease-out;
+                -ms-transition: variables.$swift-ease-out;
+                -o-transition: variables.$swift-ease-out;
+                transition: variables.$swift-ease-out;
                 transform: rotate3d(0, 0, 1, 25deg);
                 opacity: 0;
-                @include ie-exceptions;
+                @include mixins.ie-exceptions;
             }
             &.unpinned {
                 md-icon {

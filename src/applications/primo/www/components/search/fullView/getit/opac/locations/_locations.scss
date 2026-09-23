@@ -1,11 +1,13 @@
+@use "../../../../../../../styles-imports/www/variables";
+
 /* starting locations */
 prm-locations {
     button.md-button {
-        color: $accent-color;
+        color: variables.$accent-color;
         &:not([disabled]):focus,
         &:not([disabled]):hover {
-            color: $accent-color;
-            background-color: $uqPanelBackgroundColor;
+            color: variables.$accent-color;
+            background-color: variables.$uqPanelBackgroundColor;
         }
     }
     .disable-prefilter-button {

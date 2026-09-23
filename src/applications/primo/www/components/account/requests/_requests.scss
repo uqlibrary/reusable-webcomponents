@@ -1,7 +1,9 @@
+@use "../../../../styles-imports/www/variables";
+
 /* starting requests */
 prm-requests {
     .disabledFavTool {
-        color: $disabled;
+        color: variables.$disabled;
     }
 
     .action-list-content {
@@ -54,7 +56,7 @@ prm-requests {
     }
 
     .pickup-until {
-        color: $green;
+        color: variables.$green;
     }
 
     .rapido-material-type {

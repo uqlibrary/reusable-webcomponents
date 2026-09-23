@@ -1,3 +1,7 @@
+@use "sass:color";
+@use "../../../styles-imports/www/variables";
+@use "../../styles/partials/mixins";
+
 /* starting favorites */
 
 prm-favorites {
@@ -13,14 +17,14 @@ prm-favorites {
     }
 
     .mobile-toolbar-text {
-        color: $links;
+        color: variables.$links;
         font-weight: 500;
         @extend .prm-background;
     }
 
     .mobile-action-button {
-        background-color: darken(saturate($white, 15%), 20%);
-        color: $dark;
+        background-color: color.adjust(color.adjust(variables.$white, $saturation: 15%), $lightness: -20%);
+        color: variables.$dark;
         padding: 0;
         margin: 0;
         height: 100%;
@@ -46,14 +50,14 @@ prm-favorites {
             z-index: 12;
             opacity: 1;
             transform: translateY(0);
-            transition: $swift-ease-out;
+            transition: variables.$swift-ease-out;
 
             &.ng-hide {
                 opacity: 0;
                 transform: translateY(20%);
 
                 &.ng-hide-add {
-                    transition: $swift-ease-in;
+                    transition: variables.$swift-ease-in;
                     //&.ng-hide-add-active {
                     //}
                 }
@@ -97,8 +101,8 @@ prm-favorites {
     }
 
     .labels-toolbar {
-        background-color: darken(saturate($white, 15%), 20%);
-        color: $dark;
+        background-color: color.adjust(color.adjust(variables.$white, $saturation: 15%), $lightness: -20%);
+        color: variables.$dark;
     }
 
     /*
@@ -127,7 +131,7 @@ prm-favorites {
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
             margin-bottom: 8px;
-            @include uqSpannedTertiaryButton($white, $accent-color); // only hovers when there are words in the search field
+            @include mixins.uqSpannedTertiaryButton(variables.$white, variables.$accent-color); // only hovers when there are words in the search field
             background-color: transparent !important;
             &[disabled="disabled"] span {
                 text-decoration: none;
@@ -139,15 +143,15 @@ prm-favorites {
             margin-right: 12px;
             &:focus,
             &:hover {
-                background-color: $accent-color;
-                color: $white;
+                background-color: variables.$accent-color;
+                color: variables.$white;
             }
         }
     }
 
     prm-action-list {
         &> div button:has([translate="nui.aria.fulldisplay.closeButton.short"]) {
-            @include uqPrimaryButton($accent-color, $white);
+            @include mixins.uqPrimaryButton(variables.$accent-color, variables.$white);
         }
     }
 }

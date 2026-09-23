@@ -1,6 +1,9 @@
+@use "sass:color";
+@use "../../../styles-imports/www/variables";
+
 /* starting spinner */
-$accentOnDark: $white;
-$accentOnLight: $midGrey;
+$accentOnDark: variables.$white;
+$accentOnLight: variables.$midGrey;
 $duration: 1500ms;
 $timing: linear;
 $smallLoader: 30px;
@@ -11,7 +14,7 @@ prm-spinner {
         position: relative;
         width: 30px;
         .diamond {
-            background-color: $accent-color !important;
+            background-color: variables.$accent-color !important;
             position: absolute;
             left: 0;
             right: 0;
@@ -31,7 +34,7 @@ prm-spinner {
     }
 
     .loader-text {
-        color: $midGrey;
+        color: variables.$midGrey;
     }
     &.default-loader {
         .loader {
@@ -72,7 +75,7 @@ prm-spinner {
     }
     &.half-transparent {
         .diamond {
-            background-color: lighten($accentOnLight, 25%);
+            background-color: color.adjust($accentOnLight, $lightness: 25%);
         }
     }
     &.no-text {
@@ -105,7 +108,7 @@ prm-spinner {
         }
         &.dark-on-light {
             &:after {
-                background-color: $white;
+                background-color: variables.$white;
             }
         }
 

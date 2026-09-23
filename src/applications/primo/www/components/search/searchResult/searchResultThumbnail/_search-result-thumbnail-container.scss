@@ -1,3 +1,5 @@
+@use "../../../../../styles-imports/www/variables";
+
 $thumbnailWidth: 60px;
 
 prm-search-result-thumbnail-container {
@@ -46,7 +48,7 @@ prm-search-result-thumbnail-container {
         top: 0;
         left: 0;
         transform-origin: 50% 0;
-        transition: transform 0.4s $swift-ease-out-timing-function;
+        transition: transform 0.4s variables.$swift-ease-out-timing-function;
         &:nth-of-type(1) {
             position: relative;
             transform: rotate3d(0, 0, 1, -6deg) translate3d(-12px, 0, 0) scale3d(0.8, 0.8, 1);

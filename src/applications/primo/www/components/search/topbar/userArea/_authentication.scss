@@ -1,3 +1,5 @@
+@use "../../../../../styles-imports/www/variables";
+
 /* starting authentication */
 prm-authentication {
     // style the sign in button to look like a link
@@ -17,7 +19,7 @@ md-dialog prm-authentication {
         padding-left: 0;
         margin-bottom: 0;
         .primaryText {
-            color: $uqBodyCopy;
+            color: variables.$uqBodyCopy;
             margin-left: 10px;
         }
         button#mylibrary-menu-borrowing {

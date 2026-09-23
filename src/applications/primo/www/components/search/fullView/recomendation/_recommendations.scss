@@ -1,3 +1,8 @@
+@use "sass:color";
+@use "../../../../../styles-imports/www/variables";
+@use "../../../../styles/partials/mixins";
+@use "../../../../styles/partials/mixins/material-mixins";
+
 prm-recomendations {
     width: 100%;
 
@@ -6,7 +11,7 @@ prm-recomendations {
         margin-top: 0.5em;
         margin-bottom: 0.5em;
         opacity: 0.5;
-        border-bottom: 1px solid darken($bg, 15%);
+        border-bottom: 1px solid color.adjust(variables.$bg, $lightness: -15%);
     }
 
     h2.section-title {
@@ -30,7 +35,7 @@ prm-recomendations {
         padding: 0 1em 0 0;
         margin: 0;
         margin-left: 1.5em;
-        @include __xs {
+        @include mixins.xs {
             margin-left: 0;
             padding-left: 1em;
         }
@@ -42,7 +47,7 @@ prm-recomendations {
     }
     .section-description {
         margin-left: 2em;
-        @include __xs {
+        @include mixins.xs {
             margin-left: 0;
         }
     }
@@ -61,7 +66,7 @@ prm-recomendations {
         .__xs &,
         .__sm & {
             padding-top: 2.5em;
-           background-color: lighten($background, 4%);
+           background-color: color.adjust(variables.$background, $lightness: 4%);
         }
         .__sm & {
             padding-left: 8.5em;
@@ -72,12 +77,12 @@ prm-recomendations {
 primo-explore {
     prm-recomendation-item {
         // on a grey background, make each item white to make them separate from their siblings
-        background-color: $white;
+        background-color: variables.$white;
     }
     &:has(md-backdrop) {
         prm-recomendation-item {
             // on a white background, drop a hair-width line
-            border: 1px solid $uqBorderColor;
+            border: 1px solid variables.$uqBorderColor;
         }
     }
 }
@@ -101,7 +106,7 @@ prm-recomendation-item {
         }
     }
 
-    @include __xs {
+    @include mixins.xs {
         margin: 0;
         padding: 1em 1.5em;
     }
@@ -115,7 +120,7 @@ prm-recomendation-item {
     .media-figure {
         max-width: 3em;
 
-        @include rtl-prop(margin-right, margin-left, 1em, 0);
+        @include material-mixins.rtl-prop(margin-right, margin-left, 1em, 0);
     }
     img {
         width: 100%;
@@ -135,7 +140,7 @@ prm-recomendation-item {
         &.ng-enter {
             transform: translateX(10px);
             opacity: 0;
-            transition: $swift-ease-out;
+            transition: variables.$swift-ease-out;
             transition-duration: 0.3s;
             // transition-delay: .2s;
             &.ng-enter-active {
@@ -146,7 +151,7 @@ prm-recomendation-item {
         &.ng-leave {
             transform: translateX(2px);
             opacity: 1;
-            transition: $swift-ease-out;
+            transition: variables.$swift-ease-out;
             &.ng-leave-active {
                 opacity: 0;
                 transform: translateX(10px);
@@ -161,13 +166,13 @@ prm-recomendation-item {
         .pin-button {
             position: relative;
             top: -8px;
-            color: $secondary-hue1;
-           background-color: lighten($background, 4%);
+            color: variables.$secondary-hue1;
+           background-color: color.adjust(variables.$background, $lightness: 4%);
             @extend .default-shadow;
 
             &:hover {
                 opacity: 1;
-               background-color: lighten($background, 4%);
+               background-color: color.adjust(variables.$background, $lightness: 4%);
             }
 
             prm-full-view-cont & {
@@ -176,12 +181,12 @@ prm-recomendation-item {
 
             md-icon {
                 transform: rotate(25deg);
-                @include setSize(20px);
+                @include mixins.setSize(20px);
             }
         }
 
         .pin-icon {
-            color: $moreLink;
+            color: variables.$moreLink;
         }
     }
 }
@@ -195,15 +200,15 @@ prm-recomendation-item {
     display: block;
     position: relative;
 
-    @include rtl-prop(padding-right, padding-left, 16px, 0);
+    @include material-mixins.rtl-prop(padding-right, padding-left, 16px, 0);
 
     &:after {
-       background-color: lighten($background, 4%);
+       background-color: color.adjust(variables.$background, $lightness: 4%);
         prm-full-view-cont & {
             @extend .prm-background;
             .__xs &,
             .__sm & {
-               background-color: lighten($background, 4%);
+               background-color: color.adjust(variables.$background, $lightness: 4%);
             }
         }
     }
@@ -218,14 +223,14 @@ prm-recomendation-item {
         opacity: 0;
         position: absolute;
         bottom: 0;
-        @include rtl-prop(right, left, 1em, auto);
-       background-color: lighten($background, 4%);
+        @include material-mixins.rtl-prop(right, left, 1em, auto);
+       background-color: color.adjust(variables.$background, $lightness: 4%);
 
         prm-full-view-cont & {
             @extend .prm-background;
             .__xs &,
             .__sm & {
-               background-color: lighten($background, 4%);
+               background-color: color.adjust(variables.$background, $lightness: 4%);
             }
         }
 

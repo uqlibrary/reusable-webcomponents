@@ -1,3 +1,6 @@
+@use "../../../../../styles-imports/www/variables";
+@use "../../../../styles/partials/mixins";
+
 /* starting searchResultAddToFavoritesMenu */
 prm-search-result-add-to-favorites-menu {
     .labels-menu-button {
@@ -10,17 +13,17 @@ prm-search-result-add-to-favorites-menu {
         }
 
         md-icon {
-            @include setSize(18px);
+            @include mixins.setSize(18px);
         }
 
         &.md-button {
             &.md-icon-button {
-                @include setSize(36px);
+                @include mixins.setSize(36px);
             }
 
             &.button-with-icon {
                 font-size: 0.8rem;
-                font-weight: $bold;
+                font-weight: variables.$bold;
                 letter-spacing: 0.03em;
                 border-radius: 1.2em;
                 line-height: 28px;
@@ -38,6 +41,6 @@ prm-search-result-add-to-favorites-menu {
         }
     }
     .disabledFavTool {
-        color: $disabled;
+        color: variables.$disabled;
     }
 }
