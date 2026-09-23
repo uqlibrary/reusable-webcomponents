@@ -71,7 +71,7 @@ $pink: rgb(255, 171, 200);
 
 $dark: $uqGrey900;
 $dark-hue1: color.adjust($dark, $lightness: -30%);
-$darker: color.adjust(color.adjust(color.adjust($dark, $hue: 0), $saturation: 0), $lightness: -6.6667);
+$darker: color.adjust(color.adjust(color.adjust($dark, $hue: 0), $saturation: 0%), $lightness: -6.6667%);
 
 // lighter background color
 
@@ -87,7 +87,7 @@ $overlayDarkDG: rgba(68, 68, 68, 0.6);
 
 $highlightBlue: color.adjust($accent-color, $alpha: -0.9);
 $uqWarningDark: $uqWarning600;
-$highlight: color.adjust(color.adjust(color.adjust($uqWarningDark, $hue: -4.092), $saturation: -16), $lightness: -8.0392);
+$highlight: color.adjust(color.adjust(color.adjust($uqWarningDark, $hue: -4.092), $saturation: -16%), $lightness: -8.0392%);
 
 $uqLightGrey: #f7f6f5;
 
@@ -95,7 +95,7 @@ $uqLightGrey: #f7f6f5;
 //$maybe: $orange;
 
 $alert: $uqInformationLight;
-$alert-hue1: color.adjust(color.adjust(color.adjust($alert, $hue: 0.3074), $saturation: -15.3043), $lightness: -2.9412);
+$alert-hue1: color.adjust(color.adjust(color.adjust($alert, $hue: 0.3074), $saturation: -15.3043%), $lightness: -2.9412%);
 
 $disabled: #aaa;
 $courseColor: #55909b;
@@ -111,10 +111,10 @@ $primary-hue6: color.adjust($primary, $alpha: -0.1);
 $secondary: $accent-color;
 $secondary-hue1: $accent-color;
 $secondary-hue2: $accent-color;
-$secondary-hue3: color.adjust(color.adjust(color.adjust($secondary, $hue: -12), $saturation: 30.28), $lightness: -47.65); // "show more" buttons in facets
-$secondary-hue4: color.adjust(color.adjust(color.adjust($secondary, $hue: -7), $saturation: 64.57), $lightness: -13.92);
+$secondary-hue3: color.adjust(color.adjust(color.adjust($secondary, $hue: -12), $saturation: 30.28%), $lightness: -47.65%); // "show more" buttons in facets
+$secondary-hue4: color.adjust(color.adjust(color.adjust($secondary, $hue: -7), $saturation: 64.57%), $lightness: -13.92%);
 $secondary-hue5: color.adjust($secondary, $lightness: -37%);
-$secondary-hue6: color.adjust(color.adjust(color.adjust($secondary, $hue: -7), $saturation: 64.57), $lightness: -2);
+$secondary-hue6: color.adjust(color.adjust(color.adjust($secondary, $hue: -7), $saturation: 64.57%), $lightness: -2%);
 
 $backgroundColor: white;
 $backgroundActual: $uqGrey50;
@@ -131,8 +131,8 @@ $background: $uqGrey50;
 $background-hue1: color.adjust($backgroundColor, $lightness: -3%); // darker 1 (i.e: background for locations filter bar)
 $background-hue2: color.adjust($background, $lightness: 4%);
 $background-hue3: color.adjust(
-    color.adjust(color.adjust($backgroundColor, $hue: 0), $saturation: 0),
-    $lightness: 5.8824
+    color.adjust(color.adjust($backgroundColor, $hue: 0), $saturation: 0%),
+    $lightness: 5.8824%
 ); // lighter 2 (i.e: background for actions forms)
 
 $background-hue4: color.adjust($background, $lightness: 3%);
@@ -149,14 +149,14 @@ $background-hue14: color.adjust($background, $lightness: -40%);
 $background-hue15: color.adjust($background, $lightness: -54%);
 
 $white: $backgroundColor;
-$almostWhite: color.adjust(color.adjust(color.adjust($background, $hue: 60), $saturation: 20), $lightness: 0.7843);
+$almostWhite: color.adjust(color.adjust(color.adjust($background, $hue: 60), $saturation: 20%), $lightness: 0.7843%);
 $bg: $background;
-$nearlyWhite: color.adjust(color.adjust(color.adjust($backgroundColor, $hue: 0), $saturation: 0), $lightness: -5.4902); // stronger
+$nearlyWhite: color.adjust(color.adjust(color.adjust($backgroundColor, $hue: 0), $saturation: 0%), $lightness: -5.4902%); // stronger
 $blueGrey: #ccc;
-$midGrey: #53738c; //darken(saturate(adjust-hue($blueGrey, 206.3158), 25.5605), 36.2745);
+$midGrey: #53738c; //darken(saturate(adjust-hue($blueGrey, 206.3158%), 25.5605%), 36.2745%);
 $actionsBackground: color.adjust($background, $lightness: 6%);
 $autoCompleteBg: $backgroundColor;
-$sectionHighlight: color.adjust(color.adjust($background, $saturation: -0), $lightness: -5%);
+$sectionHighlight: color.adjust(color.adjust($background, $saturation: -0%), $lightness: -5%);
 $snippets: #999;
 $lightenGrey: #6d6d6d;
 

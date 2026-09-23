@@ -9,7 +9,7 @@
 
 // mixin to enable using mixin at root or nested
 @mixin optional-at-root($sel) {
-    @at-root #{if(not &, $sel, selector.append(&, $sel))} {
+    @at-root #{if(sass(not &): $sel; else: selector.append(&, $sel))} {
         @content;
     }
 }
@@ -88,7 +88,7 @@ Color brightness is determined by the following formula:
         @return white;
     }
 
-    @if (color.lightness($fontColor) > 40) {
+    @if (color.channel($fontColor, "lightness", $space: hsl) > 40) {
         @return variables.$primary;
     } @else {
         @return white;
@@ -119,7 +119,7 @@ Color brightness is determined by the following formula:
         @return $fontColor;
     }
 
-    @if (color.lightness($fontColor) > 40) {
+    @if (color.channel($fontColor, "lightness", $space: hsl) > 40) {
         @return white;
     } @else {
         @return variables.$primary;

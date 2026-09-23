@@ -5,6 +5,11 @@
 @use 'styles-imports/responsive';
 @use 'styles-imports/feedback';
 
+
+@include chat.rnChat();
+@include libcal.libCal();
+@include feedback.rnFeedback();
+
 // from drupal
 $breadcrumb-text-color: #676767;
 $breadcrumb-divider-color: #ccc;
