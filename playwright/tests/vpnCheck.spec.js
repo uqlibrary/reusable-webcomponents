@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '@uq/pw/test';
 
 test.describe('VPN', () => {
     test('user is warned they need vpn when an api completely fails', async ({ page }) => {

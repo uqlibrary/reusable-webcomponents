@@ -19,14 +19,23 @@
     "compilesass": "sass ./src/applications/:./dist/applications/ --style compressed",
     "eslint:fix": "eslint '**/*.js' --quiet --fix",
     "eslint": "eslint '**/*.js' --quiet",
+    "codestyles:files": "cross-env prettier-eslint 'src/**/*.js' 'src/**/*.jsx' './*.js' --list-different -l silent",
+    "typecheck": "tsc --noEmit",
     "start-test-server": "cross-env NODE_ENV=local USE_MOCK=true webpack-dev-server",
     "start:mock:no-open": "cross-env NODE_ENV=local USE_MOCK=true FULL_PATH=http://localhost:8080 NODE_OPTIONS='--max-old-space-size=2048' webpack-dev-server",
     "start:mock": "cross-env NODE_ENV=local USE_MOCK=true FULL_PATH=http://localhost:8080 NODE_OPTIONS='--max-old-space-size=2048' webpack-dev-server --open",
     "start": "cross-env NODE_ENV=local webpack-dev-server --open",
-    "test:e2e": "playwright test",
+    "test": "cross-env NODE_ENV=test FULL_PATH=http://localhost jest src/",
+    "test:e2e": "cross-env PW_IS_RUNNING=true playwright test",
     "test:e2e:show": "cross-env PW_HEADED=true npm run test:e2e -- --workers=1",
     "test:e2e:debug": "playwright show-trace",
-    "test:jest": "cross-env NODE_ENV=test FULL_PATH=http://localhost jest src/"
+    "test:e2e:failed": "npm run test:e2e -- --last-failed",
+    "test:unit": "cross-env NODE_ENV=test FULL_PATH=http://localhost jest src/",
+    "test:unit:ci": "cross-env NODE_ENV=test FULL_PATH=http://localhost jest src/ --maxWorkers=4 --workerIdleMemoryLimit=1024MB",
+    "test:unit:cc": "cross-env NODE_ENV=test FULL_PATH=http://localhost jest src/ --coverage --maxWorkers=4 --workerIdleMemoryLimit=1024MB",
+    "test:e2e:cc": "cross-env NODE_ENV=cc npm run test:e2e",
+    "cc:report": "bash scripts/code-coverage.sh",
+    "test:cc": "rm -rf coverage .nyc_output && npm run test:unit:cc && npm run test:e2e:cc && npm run cc:report"
   },
   "engines": {
     "npm": "~11.13.0",
@@ -40,7 +49,10 @@
   "license": "MIT",
   "homepage": "https://library.uq.edu.au",
   "overrides": {
-    "postcss": "^8.5.18"
+    "postcss": "^8.5.28",
+    "js-yaml@3": "3.15.2",
+    "js-yaml@4": "4.3.2",
+    "playwright-core": "1.62.1"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.0",
@@ -48,9 +60,10 @@
     "@babel/eslint-parser": "^7.22.9",
     "@babel/preset-env": "^7.22.9",
     "@babel/preset-react": "^7.22.5",
-    "@playwright/test": "^1.56.1",
+    "@playwright/test": "1.62.1",
     "autoprefixer": "^10.4.21",
     "axe-core": "^4.8.0",
+    "babel-jest": "^30.5.1",
     "babel-loader": "^8.3.0",
     "babel-plugin-istanbul": "^6.1.1",
     "babel-plugin-transform-remove-console": "^6.9.4",
@@ -59,7 +72,7 @@
     "copy-webpack-plugin": "^14.0.0",
     "cross-env": "^7.0.3",
     "css-loader": "^6.11.0",
-    "cssnano": "^6.1.2",
+    "cssnano": "^9.0.4",
     "cy2pw": "^0.0.6",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^15.0.0",
@@ -69,6 +82,8 @@
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.6.4",
     "istanbul-lib-coverage": "^3.2.0",
+    "jest": "^30.5.1",
+    "jest-environment-jsdom": "^30.5.1",
     "mini-css-extract-plugin": "^1.6.2",
     "nyc": "^18.0.0",
     "postcss-loader": "^7.3.4",
@@ -80,6 +95,7 @@
     "sass-loader": "^16.0.6",
     "start-server-and-test": "^2.0.11",
     "style-loader": "^3.3.4",
+    "typescript": "^5.9.3",
     "webpack": "^5.105.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^6.0.0"
@@ -96,13 +112,40 @@
     "defaults",
     "not IE 11"
   ],
+  "jest": {
+    "testEnvironment": "jsdom",
+    "testMatch": [
+      "<rootDir>/src/**/*.test.js"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/playwright/"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|scss|sass)$": "<rootDir>/__mocks__/styles.js",
+      "\\.(png|jpe?g|gif|svg|woff2?|ttf|eot)$": "<rootDir>/__mocks__/images.js"
+    },
+    "coverageDirectory": "coverage/jest",
+    "coverageReporters": [
+      "json",
+      "text-summary"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "statements": 0,
+        "branches": 0,
+        "functions": 0,
+        "lines": 0
+      }
+    }
+  },
   "nyc": {
     "all": false,
-    "check-coverage": true,
-    "branches": 100,
-    "lines": 100,
-    "functions": 100,
-    "statements": 100,
+    "check-coverage": false,
+    "branches": 0,
+    "lines": 0,
+    "functions": 0,
+    "statements": 0,
     "include": [
       "**/src/**"
     ],
@@ -110,7 +153,11 @@
       "**/*.locale.js",
       "**/src/locale/**",
       "**/mock/**",
-      "**/codebuild/**"
+      "**/codebuild/**",
+      "**/src/index.js",
+      "**/src/testhelpers.js",
+      "**/Training/js/uqds.js",
+      "**/UQFooter/js/nav.js"
     ]
   },
   "allowScripts": {

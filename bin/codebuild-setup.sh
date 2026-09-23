@@ -20,9 +20,9 @@ printf "\n\n--- INSTALL DEPENDENCIES ---\n"
 echo "$ npm ci"
 npm ci
 
-printf "\n\n--- INSTALL JEST ---\n"
-echo "$ npm install -g jest"
-npm install -g jest
+# NOTE: jest is a pinned devDependency (installed by `npm ci` above) and is run
+# via the `test:unit:ci` npm script, which resolves the local node_modules/.bin
+# copy. No global `npm install -g jest` (unpinned latest) is needed.
 
 # NOTE: no `playwright install` / `install-deps` here. CI runs on the official
 # Playwright image (mcr.microsoft.com/playwright:v<ver>-noble, set as the

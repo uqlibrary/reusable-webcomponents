@@ -6,7 +6,7 @@ const template = document.createElement('template');
 template.innerHTML = `
     <style>${styles.toString()}</style>
     <style>${overrides.toString()}</style>
-    <button style="display: none" tabindex="0" class="skip-to-content-link" id="skip-nav" data-testid="skip-nav" aria-label="Click to skip to the sites main content" data-analyticsid="uq-header-skip-click">
+    <button tabindex="0" class="skip-to-content-link" id="skip-nav" data-testid="skip-nav" aria-label="Click to skip to the sites main content" data-analyticsid="uq-header-skip-click">
         Skip to site content
     </button>
     <header class="uq-header" data-gtm-category="Header">
@@ -285,56 +285,64 @@ class UQHeader extends HTMLElement {
         this.addButtonListeners(shadowDOM);
     }
 
+    connectedCallback() {
+        const initialSkipNavId = this.getAttribute('skipnavid');
+        if (initialSkipNavId) {
+            this.handleSkipNavInsertion(initialSkipNavId);
+        }
+    }
+
     attributeChangedCallback(fieldName, oldValue, newValue) {
-        const that = this;
+        if (fieldName !== 'skipnavid' && fieldName !== 'searchlabel' && fieldName !== 'searchurl') {
+            return;
+        }
 
-        // the dom is not loaded for a moment (needed when attributes are added via JS, ie the applications)
-        const awaitShadowDom = setInterval(() => {
-            /* istanbul ignore next */
-            if (!that.shadowRoot) {
-                return;
-            }
+        if (!this.shadowRoot) {
+            return;
+        }
 
-            clearInterval(awaitShadowDom);
-
-            // (in other components we update the template from the attributes - that doesnt work here because
-            // UQHeader/uqds.js is expecting things to be ready immediately)
-            switch (fieldName) {
-                case 'skipnavid':
-                    this.handleSkipNavInsertion(newValue);
-
-                    break;
-                case 'searchlabel':
-                    //this.changeSearchWidgetLabel(newValue);
-
-                    break;
-                case 'searchurl':
-                    this.appendSearchWidgetUrl(newValue);
-
-                    break;
-                case 'hidelibrarymenuitem':
-                    this.hideLibraryGlobalMenuItem(newValue);
-
-                    break;
-                /* istanbul ignore next  */
-                default:
-                    window.location.hostname === 'localhost' &&
-                        console.log(`unhandled attribute ${fieldName} received for UQHeader`);
-            }
-        }, 50);
+        switch (fieldName) {
+            case 'skipnavid':
+                this.handleSkipNavInsertion(newValue);
+                break;
+            case 'searchlabel':
+                //this.changeSearchWidgetLabel(newValue);
+                break;
+            case 'searchurl':
+                this.appendSearchWidgetUrl(newValue);
+                break;
+            /* istanbul ignore next  */
+            default:
+                window.location.hostname === 'localhost' &&
+                    console.log(`unhandled attribute ${fieldName} received for UQHeader`);
+        }
     }
 
     // Provides a #id for skip nav
     // if never provided, skip nav is never unhidden
     handleSkipNavInsertion(newValue) {
-        const skipToElement = () => {
-            const skipNavLander = document.getElementById(newValue);
-            !!skipNavLander && skipNavLander.focus();
-        };
+        if (!newValue || !this.shadowRoot) {
+            return;
+        }
+
         const skipNavButton = this.shadowRoot.getElementById('skip-nav');
-        // element is style="display: none" by default
-        !!skipNavButton && (skipNavButton.style.display = null);
-        !!skipNavButton && skipNavButton.addEventListener('click', skipToElement);
+        if (!skipNavButton) {
+            return;
+        }
+
+        if (skipNavButton.dataset.skipBound === 'true') {
+            return;
+        }
+
+        skipNavButton.dataset.skipBound = 'true';
+
+        skipNavButton.addEventListener('click', () => {
+            const skipNavLander = document.getElementById(newValue);
+            console.log('skip nav click fired', { newValue, skipNavLander: !!skipNavLander, targetId: newValue });
+            if (skipNavLander) {
+                skipNavLander.focus();
+            }
+        });
     }
 
     // this does not apply to the current version as a Library link didnt make the cut for the top level

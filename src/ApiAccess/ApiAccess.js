@@ -226,6 +226,22 @@ class ApiAccess {
             );
     }
 
+    async loadSpacesAvailability() {
+        const API_URL =
+            process.env.ASSETS_API_URL || 'https://assets.library.uq.edu.au/reusable-webcomponents-staging/api/';
+        const headcountUrl = `${API_URL}${new ApiRoutes().SPACES_AVAILABILITY_API().apiUrl}`;
+
+        return await this.fetchOtherAPI(headcountUrl)
+            .then((data) => {
+                return data.data.locationList;
+            })
+            .catch((error) => {
+                window.location.hostname === 'localhost' && console.log('error loading Spaces Availability ', error);
+                const msg = `error loading Spaces Availability: ${error.message}`;
+                throw new Error(msg);
+            });
+    }
+
     async fetchAPI(urlPath, feCacheLength = 'millisecond', mustBeLoggedIn = false, headers = {}) {
         /* istanbul ignore next */
         if (!!mustBeLoggedIn && (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)) {
@@ -288,34 +304,45 @@ class ApiAccess {
         }
     }
 
-    // async fetchJsonpAPI(url, headers) {
-    //     const options = {
-    //         ...headers,
-    //     };
-    //
-    //     /* istanbul ignore else  */
-    //     if (this.isMock()) {
-    //         try {
-    //             return this.fetchMock(url);
-    //         } catch (e) {
-    //             const msg = `mock api error [B]: ${e.message}`;
-    //             window.location.hostname === 'localhost' && console.log(msg);
-    //             throw new Error(msg);
-    //         }
-    //     } else {
-    //         // this assumes non api.library urls
-    //         const response = await fetchJsonp(url, options);
-    //         if (!response?.ok) {
-    //             window.location.hostname === 'localhost' &&
-    //                 console.log(
-    //                     `ApiAccess console [A4]: An error has occured: ${response?.status} ${response?.statusText}`,
-    //                 );
-    //             const message = `ApiAccess [A2]: An error has occured: ${response?.status} ${response?.statusText}`;
-    //             throw new Error(message);
-    //         }
-    //         return (await !!response) ? response.json() : null;
-    //     }
-    // }
+    async fetchOtherAPI(url, feCacheLength = 'millisecond', headers = {}) {
+        const options = {
+            ...headers,
+        };
+
+        /* istanbul ignore else  */
+        if (this.isMock()) {
+            try {
+                return this.fetchMock(url);
+            } catch (e) {
+                const msg = `mock api error [B]: ${e.message}`;
+                window.location.hostname === 'localhost' && console.log(msg);
+                throw new Error(msg);
+            }
+        } else {
+            const connector = url.indexOf('?') > -1 ? '&' : '?';
+            let addTimestamp = ''; // default to no FE cache buster
+            if (feCacheLength === 'millisecond') {
+                addTimestamp = `${connector}ts=${new Date().getTime()}`;
+            } else if (feCacheLength === 'minute') {
+                addTimestamp = `${connector}ts=${Math.floor(Date.now() / 60000)}`;
+            }
+
+            const finalUrl = `${url}${addTimestamp}`;
+            window.location.hostname === 'localhost' && console.log(url, 'calls: ', finalUrl);
+
+            // this assumes non api.library urls
+            const response = await fetch(finalUrl, options);
+            if (!response?.ok) {
+                window.location.hostname === 'localhost' &&
+                    console.log(
+                        `ApiAccess console [A4]: An error has occured: ${response?.status} ${response?.statusText}`,
+                    );
+                const message = `ApiAccess [A2]: An error has occured: ${response?.status} ${response?.statusText}`;
+                throw new Error(message);
+            }
+            return await response?.json();
+        }
+    }
 
     getSessionCookie() {
         return getCookieValue(locale.SESSION_COOKIE_NAME);

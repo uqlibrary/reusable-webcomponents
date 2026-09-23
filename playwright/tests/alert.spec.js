@@ -1,5 +1,5 @@
-import { test, expect } from '@playwright/test';
-import { assertAccessibility } from '../lib/axe';
+import { test, expect } from '@uq/pw/test';
+import { assertAccessibility } from '@uq/pw/lib/axe';
 
 const FIRST_ALERT_ID = 'alert-1';
 const SECOND_ALERT_ID = 'alert-4';
@@ -18,8 +18,24 @@ test.describe('Alert', () => {
     const getBeforeElBackgroundImage = async (el) =>
         el.evaluate(async (el) => (await window.getComputedStyle(el, '::before')).backgroundImage);
 
+    // The CSS minifier (postcss-svgo) may percent-encode the inline SVG icon
+    // differently between versions (quote style, whether spaces / '=' / '/' are
+    // escaped) while producing byte-identical SVG once decoded. Compare the
+    // decoded, quote-normalised SVG so the assertion tracks the icon itself
+    // rather than the minifier's encoding choices.
+    const normaliseSvgDataUri = (value) =>
+        decodeURIComponent(
+            String(value)
+                .replace(/^url\((['"]?)([\s\S]*)\1\)$/, '$2') // strip url("...") wrapper
+                .replace(/^data:image\/svg\+xml;charset=utf-8,/, ''), // strip data-uri prefix
+        )
+            .replace(/["']/g, '"') // unify attribute quote style
+            .replace(/\s+/g, ' ') // collapse whitespace
+            .trim();
+
     const assertIconIsVisible = async (el, expected) => {
-        expect(await getBeforeElBackgroundImage(el.locator('.alert__message'))).toBe(expected);
+        const actual = await getBeforeElBackgroundImage(el.locator('.alert__message'));
+        expect(normaliseSvgDataUri(actual)).toBe(normaliseSvgDataUri(expected));
     };
 
     test('Alert is visible without interaction at 1280', async ({ page }) => {

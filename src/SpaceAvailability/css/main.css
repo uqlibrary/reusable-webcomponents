@@ -1,0 +1,211 @@
+* {
+    box-sizing: border-box;
+    letter-spacing: 0.01rem;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+#spaceAvailabilityWrapper {
+    position: relative;
+}
+
+.space-availability__title {
+    font-size: var(--font-size-l);
+    font-weight: var(--font-weight-bold);
+}
+
+.space-availability__subtitle {
+    font-size: var(--font-size-m);
+    font-weight: var(--font-weight-normal);
+}
+
+.space-availability__chart_container {
+    display: grid;
+    width: 100%;
+    border-width: 2px;
+    border-style: solid;
+    margin-top: 6px;
+    background-color: var(--white);
+    transition: border-color 0.4s ease;
+}
+
+.space-availability__chart_bar {
+    grid-area: 1 / 1;
+    height: 30px;
+    max-height: 100%;
+    transition: width 0.4s ease, background-color 0.4s ease;
+}
+
+.space-availability__chart_label {
+    grid-area: 1 / 1;
+    align-self: center;
+    justify-self: center;
+    position: relative; /* own stacking context so loader's opacity can't paint over it */
+    z-index: 1;
+}
+
+.space-availability__chart_bar_loader {
+    grid-area: 1 / 1;
+    height: 30px;
+    max-height: 100%;
+}
+
+.space-availability__border_green {
+    border-color: var(--success-100);
+}
+
+.space-availability__border_yellow {
+    border-color: var(--warning-100);
+}
+
+.space-availability__border_red {
+    border-color: var(--error-100);
+}
+
+.space-availability__bar_green {
+    --space-availability-bar-colour-light: var(--success-50);
+    --space-availability-bar-colour: var(--success-100);
+    background-color: var(--space-availability-bar-colour);
+}
+
+.space-availability__bar_yellow {
+    --space-availability-bar-colour-light: var(--warning-50);
+    --space-availability-bar-colour: var(--warning-100);
+    background-color: var(--space-availability-bar-colour);
+}
+
+.space-availability__bar_red {
+    --space-availability-bar-colour-light: var(--error-50);
+    --space-availability-bar-colour: var(--error-100);
+    background-color: var(--space-availability-bar-colour);
+}
+
+.space-availability__chart_bar_loading {
+    background-image: repeating-linear-gradient(
+        45deg,
+        var(--grey-50),
+        var(--grey-50) 10px,
+        color-mix(in srgb, var(--white) 50%, var(--white)) 10px,
+        color-mix(in srgb, var(--white) 50%, var(--white)) 20px
+    );
+    background-size: 28px 28px;
+    animation: space-availability-stripes 1s linear infinite;
+    opacity: 0.5;
+}
+
+@keyframes space-availability-stripes {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: 28px 0;
+    }
+}
+
+.space-availability__refresh_progress {
+    width: 100%;
+    height: 2px;
+    overflow: hidden;
+    position:absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.space-availability__refresh_progress_bar {
+    height: 100%;
+    width: 100%;
+    transform: scaleX(0);
+    transform-origin: left;
+    background-color: var(--black);
+    opacity: 0.15;
+}
+
+@keyframes space-availability-refresh-progress {
+    from {
+        transform: scaleX(0);
+    }
+    to {
+        transform: scaleX(1);
+    }
+}
+
+
+.uq-card-grid {
+    --layout-gap: 2rem;
+    display: grid;
+    gap: var(--layout-gap);
+    grid-template-columns: 1fr;
+    container-type:inline-size
+}
+
+.uq-card-grid > * {
+    grid-column:auto/span 1
+}
+
+.uq-card-grid--target-1x > * {
+    overflow:hidden
+}
+
+.uq-card-grid--target-2x {
+    grid-template-columns:1fr 1fr
+}
+
+.uq-card-grid--target-2x > * {
+    grid-column:auto/span 2
+}
+
+@media screen and (min-width: 550px) {
+    .uq-card-grid--target-2x > * {
+        grid-column:auto/span 1
+    }
+}
+
+.uq-card-grid--target-3x {
+    grid-template-columns:repeat(12, 1fr)
+}
+
+.uq-card-grid--target-3x > * {
+    grid-column:auto/span 12
+}
+
+@media screen and (min-width: 550px) {
+    .uq-card-grid--target-3x > * {
+        grid-column:auto/span 6
+    }
+}
+
+@media screen and (min-width: 667px) {
+    .uq-card-grid--target-3x > * {
+        grid-column:auto/span 4
+    }
+}
+
+.uq-card-grid--target-4x {
+    grid-template-columns:repeat(12, 1fr)
+}
+
+.uq-card-grid--target-4x > * {
+    grid-column:auto/span 12
+}
+
+@media screen and (min-width: 550px) {
+    .uq-card-grid--target-4x > * {
+        grid-column:auto/span 6
+    }
+}
+
+@media screen and (min-width: 799px) {
+    .uq-card-grid--target-4x > * {
+        grid-column:auto/span 3
+    }
+}
