@@ -4,6 +4,7 @@ import * as mockData from './data/account';
 import ApiRoutes from '../src/ApiRoutes';
 import { apiLocale as apilocale } from '../src/ApiAccess/ApiAccess.locale';
 
+import spacesAvailability from './data/spacesAvailability';
 import { alerts, examSuggestions, learningResourceSuggestions, libHours, primoSuggestions } from './data/misc';
 
 import trainingEvents from './data/trainingobject';
@@ -91,6 +92,16 @@ class MockApi {
             const returnUrl = decodeURI(url).replace('openathens/check/', '');
             return this.response(200, { available: true, useUrl: `${resolverRoot}${returnUrl}` }, true);
         }
+        if(url.endsWith(apiRoute.SPACES_AVAILABILITY_API().apiUrl)) {
+            if (this.user === 'errorUser') {
+                return this.response(403, {error: 'true'});
+                // return this.response(500, null, true);
+            }
+            if (this.user === 'emptyUser') {
+                return this.response(200, [], true);
+            }
+            return this.response(200, spacesAvailability, true);
+        }
 
         switch (urlWithoutQueryString) {
             case apiRoute.CURRENT_ACCOUNT_API().apiUrl:
@@ -165,6 +176,7 @@ class MockApi {
                 }
                 return this.response(200, trainingEvents, true);
 
+         
             default:
                 // splitting the '?' out of some apis doesn't work
                 switch (url) {
