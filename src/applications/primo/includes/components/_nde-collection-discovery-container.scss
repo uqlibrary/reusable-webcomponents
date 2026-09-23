@@ -85,6 +85,9 @@ nde-collection-discovery-container {
             background-color: rgb(243, 243, 244);
             border: 1px solid rgba(38, 85, 115, 0.15);
         }
+        .cutoff-text {
+          --sys-on-surface-variant: var(--uq-body-copy);
+        }
       }
 
       nde-collection-discovery-gallery-collection {
@@ -113,6 +116,9 @@ nde-collection-discovery-container {
         background-color: var(--uq-main-purple);
         color: #fff;
       }
+    }
+    .cutoff-text {
+      --sys-on-surface-variant: var(--uq-body-copy);
     }
   }
   nde-collection-path-breadcrumbs a {
