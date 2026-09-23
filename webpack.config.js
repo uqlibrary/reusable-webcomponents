@@ -75,8 +75,6 @@ module.exports = () => {
                       }),
                 // serve raw source files (e.g. component css/js referenced by relative paths
                 // in example.html pages) that aren't part of the compiled entry bundles.
-                // watch is disabled here (watchFiles above already triggers reloads) to avoid
-                // chokidar recursively watching the whole repo (incl. node_modules) -> EMFILE
                 static: {
                     directory: path.resolve(__dirname),
                     publicPath: '/',
