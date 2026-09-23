@@ -1,4 +1,5 @@
-@import '../styles-imports/skeleton.scss';
+@use "sass:color";
+@use '../styles-imports/skeleton.scss';
 
 $font: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $nav-border: 4px solid #51247a;
@@ -110,21 +111,21 @@ a {
 .dropdown-toggle {
     &.btn-info {
         background-color: $button-color;
-        border-color: darken($button-color, 17%);
+        border-color: color.adjust($button-color, $lightness: -17%);
         &:hover,
         &:focus,
         &:active {
             background-color: $button-color;
-            border-color: darken($button-color, 25%);
-            outline: darken($button-color, 25%);
+            border-color: color.adjust($button-color, $lightness: -25%);
+            outline: color.adjust($button-color, $lightness: -25%);
         }
         .open > & {
             &,
             &:hover,
             &:focus,
             &.focus {
-                background-color: darken($button-color, 17%);
-                border-color: darken($button-color, 25%);
+                background-color: color.adjust($button-color, $lightness: -17%);
+                border-color: color.adjust($button-color, $lightness: -25%);
             }
         }
     }
@@ -287,14 +288,14 @@ table,
 #time_grid_cont {
     .s-lc-info-label {
         background-color: $black-button-color;
-        border-color: darken($black-button-color, 17%);
+        border-color: color.adjust($black-button-color, $lightness: -17%);
         transition: background-color 250ms;
         &:hover,
         &:focus,
         &:active {
-            background-color: darken($black-button-color, 17%);
-            border-color: darken($black-button-color, 25%);
-            outline: darken($black-button-color, 25%);
+            background-color: color.adjust($black-button-color, $lightness: -17%);
+            border-color: color.adjust($black-button-color, $lightness: -25%);
+            outline: color.adjust($black-button-color, $lightness: -25%);
         }
     }
 }
