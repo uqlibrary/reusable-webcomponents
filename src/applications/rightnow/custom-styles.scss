@@ -1,9 +1,9 @@
-@import '../styles-imports/skeleton';
+@use '../styles-imports/skeleton';
 
-@import 'styles-imports/chat';
-@import 'styles-imports/libcal';
-@import 'styles-imports/responsive';
-@import 'styles-imports/feedback';
+@use 'styles-imports/chat';
+@use 'styles-imports/libcal';
+@use 'styles-imports/responsive';
+@use 'styles-imports/feedback';
 
 // from drupal
 $breadcrumb-text-color: #676767;
