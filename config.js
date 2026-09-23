@@ -1,7 +1,7 @@
 // webpack configuration for prod/staging/dev builds
 const deployment = {
     development: {
-        url: (branch) => `https://assets.library.uq.edu.au/reusable-webcomponents-development/${branch}/`,
+        url: () => 'https://assets.library.uq.edu.au/reusable-webcomponents-staging/',
         fullPath: (branch) => `https://assets.library.uq.edu.au/reusable-webcomponents-development/${branch}/`,
         api: 'https://api.library.uq.edu.au/staging/',
         // auth_login: 'https://auth.library.uq.edu.au/login',
