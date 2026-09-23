@@ -1,3 +1,9 @@
+@use 'uqaccordion';
+@use 'uqcard';
+@use 'uqhero'; // note hero styles are duplicated at https://uq.libapps.com/libguides/admin_c.php?g=976668 to avoid really bad FOUC
+@use 'uqpagination';
+@use 'landing-page-icons';
+
 :root {
     --pagination-size: 44px;
     --pagination-space: 12px;
@@ -187,11 +193,10 @@ $down-arrow: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22%3
 $up-arrow: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath d=%22m12 8-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z%22/%3E%3C/svg%3E';
 
 // styles imported from uq css files
-@import 'uqaccordion';
-@import 'uqcard';
-@import 'uqhero'; // note hero styles are duplicated at https://uq.libapps.com/libguides/admin_c.php?g=976668 to avoid really bad FOUC
-@import 'uqpagination';
-@import 'landing-page-icons';
+
+@include uqcard.uqCard();
+@include uqpagination.uqPagination();
+
 
 * {
     box-shadow: none !important;
