@@ -52,6 +52,7 @@ nde-record-availability {
   .quicklink-button.quicklink-button-small-icon.quicklink-button-fixed-height.mdc-button.mat-mdc-button.mat-primary.mat-mdc-button-base,
   .quicklink-button.mat-body-medium.quicklink-button-small-icon.mdc-button.mat-mdc-button.mat-primary.mat-mdc-button-base {
     text-decoration: none;
+    border-radius: var(--uq-border-radius) !important;
     span.mdc-button__label span {
       text-decoration: none;
     }
