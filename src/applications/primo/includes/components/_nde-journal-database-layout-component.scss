@@ -40,6 +40,9 @@ nde-journal-database-layout-component {
     }
     .description-container {
       border-radius: var(--uq-border-radius);
+      h3, li {
+        --sys-on-surface-variant: var(--uq-body-copy);
+      }
     }
     a {
       text-decoration: underline;
@@ -48,6 +51,12 @@ nde-journal-database-layout-component {
         background-color: var(--uq-main-purple);
         color: #fff;
       }
+    }
+  }
+
+  nde-search-result-item-container {
+    nde-record-type {
+      --sys-on-surface-variant: var(--uq-body-copy);
     }
   }
 }
