@@ -502,7 +502,7 @@ body.custom-nde-theme {
     }
   }
 
-  /* egs: ai assisted search button, all filters */
+  /* egs: advanced search, ai assisted search button, all filters */
   button:has(> span:nth-of-type(5)):has(> mat-icon:nth-child(2)):has(> span.mdc-button__label > span) {
     &:not(:has(div)) {
       --uql-button-style-type: nine;
@@ -523,6 +523,13 @@ body.custom-nde-theme {
         .mdc-button__label span {
           text-decoration: underline;
           background-color: var(--uq-main-purple);
+          color: #fff;
+        }
+      }
+
+      // override
+      &.advanced-search-btn-home-page {
+        .mdc-button__label span {
           color: #fff;
         }
       }
@@ -926,7 +933,12 @@ body.custom-nde-theme {
                   text-decoration: underline;
                 }
               }
-            }
+                &.advanced-search-btn-home-page {
+                  span.mdc-button__label {
+                    color: #fff;
+                  }
+                }
+              }
             }
 
             &.see-more-btn {
@@ -1085,6 +1097,11 @@ body.custom-nde-theme {
           --mdc-filled-button-label-text-color: var(--uq-main-purple);
           --mdc-filled-button-container-color: #fff;
         }
+        &.advanced-search-btn-home-page {
+          .mdc-button__label span {
+            color: #fff;
+          }
+        }
       }
     }
   }
@@ -1140,9 +1157,14 @@ body.custom-nde-theme {
               color: #fff;
             }
           }
-          &.advanced-search-button {
+          &.advanced-search-button:not(.advanced-search-btn-home-page) {
             span.mdc-button__label {
               color: var(--uq-main-purple);
+            }
+          }
+          &.advanced-search-btn-home-page {
+            span.mdc-button__label {
+              color: #fff;
             }
           }
         }
