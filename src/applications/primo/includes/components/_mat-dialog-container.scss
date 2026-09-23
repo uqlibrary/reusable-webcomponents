@@ -34,4 +34,7 @@ mat-dialog-container {
       }
     }
   }
+  .mat-mdc-option  {
+    --mat-option-label-text-color: var(--uq-body-copy); // colour of text on autocomplete dropdowns on brief search page
+  }
 }
