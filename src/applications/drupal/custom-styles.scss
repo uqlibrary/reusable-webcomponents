@@ -1,6 +1,6 @@
-@import '../styles-imports/skeleton.scss';
+@use '../styles-imports/skeleton.scss';
 
-@import 'styles-imports/libcal';
+@use 'styles-imports/libcal';
 
 auth-button {
     margin-top: -10px;
