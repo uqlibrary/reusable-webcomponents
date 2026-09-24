@@ -1267,4 +1267,8 @@ body.custom-nde-theme {
     }
   }
   /* END content indicator colours */
+
+  nde-copy-to-clipboard {
+    --lightBG: var(--uq-colour-grey-50);
+  }
 }
