@@ -2367,6 +2367,7 @@ prm-request {
 }
 prm-request form {
     prm-form-field div:has([translate="almaPurchaseRequest.citationType"]) {
+        // hide the radio button "choose a type: book or article?" selector
         display: none;
     }
     prm-form-field.service-form-item {
