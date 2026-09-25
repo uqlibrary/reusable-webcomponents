@@ -1,31 +1,31 @@
 // feedback.php
-@mixin rnFeedback() { 
-    .feedbackpage {
-        .menu__link .iron-icon-0 {
-            color: $accent-color;
-            width: 16px;
-            width: 1rem;
-        }
+@use '../../styles-imports/variables' as *;
 
-        .rn_FileAttachmentUpload.rn_Input {
-            margin-bottom: 24px;
-            margin-bottom: 1.5rem;
-        }
+.feedbackpage {
+    .menu__link .iron-icon-0 {
+        color: $accent-color;
+        width: 16px;
+        width: 1rem;
+    }
 
-        .successMsg {
-            background-color: $uq-emerald;
-            color: $secondary-color-light;
-            padding: 8px;
-            padding: 0.5rem;
-        }
+    .rn_FileAttachmentUpload.rn_Input {
+        margin-bottom: 24px;
+        margin-bottom: 1.5rem;
+    }
 
-        #researchParticipate {
-            font-size: 16px;
-            font-size: 1rem;
-            display: block;
-            padding-left: 0;
-            color: #000;
-            font-weight: normal;
-        }
+    .successMsg {
+        background-color: $uq-emerald;
+        color: $secondary-color-light;
+        padding: 8px;
+        padding: 0.5rem;
+    }
+
+    #researchParticipate {
+        font-size: 16px;
+        font-size: 1rem;
+        display: block;
+        padding-left: 0;
+        color: #000;
+        font-weight: normal;
     }
 }

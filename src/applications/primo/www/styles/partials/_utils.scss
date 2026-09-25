@@ -2,6 +2,7 @@
 @use "../../../styles-imports/www/variables";
 @use "mixins";
 @use "mixins/material-mixins";
+@use "custom-theme" as theme;
 
 // Utility and silent classes
 
@@ -200,7 +201,7 @@
     top: 0.2em;
     font-size: 2em;
     transition: variables.$swift-ease-out;
-    @extend .prm-warn;
+    @include prm-warn;
 
     .md-input-has-value & {
         transform: translateY(-20px);

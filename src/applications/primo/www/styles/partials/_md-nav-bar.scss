@@ -1,5 +1,6 @@
 @use "../../../styles-imports/www/variables";
 @use "mixins";
+@use "typography";
 
 md-nav-bar {
     ul {
@@ -30,7 +31,7 @@ md-nav-bar {
                 margin: 0;
                 padding: 0.5em 1em;
                 &.md-active {
-                    @extend .bold-text;
+                    @include typography.bold-text;
                     //color: black;
                     @include mixins.bgColor(variables.$dark);
                 }

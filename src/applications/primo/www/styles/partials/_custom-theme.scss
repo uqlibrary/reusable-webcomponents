@@ -4,7 +4,7 @@
 //this file has many color variables definition - that need to be open for customization
 @use "sass:color";
 @use 'md-button';
-@use "../../../styles-imports/www/variables";
+@use "../../../styles-imports/www/variables" as *;
 @use "mixins";
 
 // PRIMARY color
@@ -13,42 +13,42 @@
 // 		  			@extend .prm-primary-bg.prm-hue1
 .prm-primary {
     &-color {
-        color: variables.$primary;
+        color: $primary;
         &.prm-hue1 {
-            color: variables.$primary-hue1;
+            color: $primary-hue1;
         }
         &.prm-hue2 {
-            color: variables.$primary-hue2;
+            color: $primary-hue2;
         }
     }
     &-bg {
-        color: variables.$white;
-        background-color: variables.$primary;
+        color: $white;
+        background-color: $primary;
         &.prm-hue1 {
-            background-color: variables.$primary-hue1;
+            background-color: $primary-hue1;
         }
         &.prm-hue2 {
-            background-color: variables.$primary-hue2;
+            background-color: $primary-hue2;
         }
         &.prm-hue3 {
-            background-color: variables.$primary-hue3;
+            background-color: $primary-hue3;
             &-important {
-                background-color: variables.$primary-hue3 !important;
+                background-color: $primary-hue3 !important;
             }
         }
         &.prm-hue4 {
-            background-color: variables.$primary-hue4;
+            background-color: $primary-hue4;
         }
     }
 }
 
 .prm-primary-border {
-    border-color: variables.$primary;
+    border-color: $primary;
     &.prm-hue1 {
-        border-color: variables.$primary;
+        border-color: $primary;
     }
     &.prm-hue2 {
-        border-color: variables.$primary;
+        border-color: $primary;
     }
 }
 
@@ -58,48 +58,48 @@
 // 		  			@extend .prm-secondary-bg.prm-hue1
 .prm-secondary {
     &-color {
-        color: variables.$secondary;
+        color: $secondary;
         &.prm-hue1 {
-            color: variables.$secondary-hue1;
+            color: $secondary-hue1;
         }
         &.prm-hue2 {
-            color: variables.$secondary-hue2;
+            color: $secondary-hue2;
         }
         &.prm-hue3 {
-            color: variables.$secondary-hue3;
+            color: $secondary-hue3;
         }
         &.prm-hue4 {
-            color: variables.$secondary-hue4;
+            color: $secondary-hue4;
         }
         &.prm-hue6 {
-            color: variables.$secondary-hue6;
+            color: $secondary-hue6;
         }
     }
     &-bg {
-        background-color: variables.$secondary;
+        background-color: $secondary;
         &.prm-hue1 {
-            background-color: variables.$secondary-hue1;
+            background-color: $secondary-hue1;
         }
         &.prm-hue2 {
-            background-color: variables.$secondary-hue2;
+            background-color: $secondary-hue2;
         }
         &.prm-hue3 {
-            background-color: variables.$secondary-hue3;
+            background-color: $secondary-hue3;
         }
         &.prm-hue4 {
-            background-color: variables.$secondary-hue4;
+            background-color: $secondary-hue4;
         }
         &.prm-hue5 {
-            background-color: variables.$secondary-hue5;
+            background-color: $secondary-hue5;
         }
     }
     &-border {
-        border-color: variables.$secondary;
+        border-color: $secondary;
         &.prm-hue1 {
-            border-color: variables.$secondary-hue1;
+            border-color: $secondary-hue1;
         }
         &.prm-hue5 {
-            border-color: variables.$secondary-hue5;
+            border-color: $secondary-hue5;
         }
     }
 }
@@ -109,73 +109,73 @@
 // Usage examples:  @extend .prm-background.prm-hue1
 // 		  			@extend .prm-background-border.prm-hue1
 .prm-background {
-    background-color: variables.$background;
-    border-color: color.adjust(variables.$background, $lightness: -3%);
+    background-color: $background;
+    border-color: color.adjust($background, $lightness: -3%);
     &.prm-hue1 {
-        border-color: color.adjust(variables.$background, $lightness: -8%);
+        border-color: color.adjust($background, $lightness: -8%);
         background-color: transparent;
     }
     &.prm-hue2 {
-        background-color: variables.$background-hue2;
+        background-color: $background-hue2;
     }
     &.prm-hue3 {
-        background-color: variables.$background-hue3;
+        background-color: $background-hue3;
     }
     &.prm-hue4 {
-        background-color: variables.$background-hue4;
+        background-color: $background-hue4;
     }
     &.prm-hue5 {
-        background-color: variables.$background-hue5;
+        background-color: $background-hue5;
     }
     &.prm-hue6 {
-        background-color: variables.$background-hue6;
+        background-color: $background-hue6;
     }
     &.prm-hue7 {
-        background-color: variables.$background-hue7;
+        background-color: $background-hue7;
     }
     &.prm-hue8 {
-        background-color: variables.$background-hue8;
+        background-color: $background-hue8;
     }
     &.prm-hue9 {
-        background-color: variables.$background-hue9;
+        background-color: $background-hue9;
     }
     &.prm-hue10 {
-        background-color: variables.$background-hue10;
+        background-color: $background-hue10;
     }
     &.prm-hue11 {
-        background-color: variables.$background-hue11;
+        background-color: $background-hue11;
     }
     &.prm-hue13 {
-        background-color: variables.$background-hue13;
+        background-color: $background-hue13;
     }
     &.prm-hue14 {
-        background-color: variables.$background-hue14;
+        background-color: $background-hue14;
     }
     &.prm-hue15 {
-        background-color: variables.$background-hue15;
+        background-color: $background-hue15;
     }
 
     &-color {
-        color: variables.$background;
+        color: $background;
         &.prm-hue4 {
-            color: variables.$background-hue4;
+            color: $background-hue4;
         }
     }
     &-border {
-        border-color: variables.$background;
-        border-color: color.adjust(variables.$background, $lightness: -3%) !important;
+        border-color: $background;
+        border-color: color.adjust($background, $lightness: -3%) !important;
         &.prm-hue1 {
-            border-color: color.adjust(variables.$background-hue1, $lightness: -3%);
-            border-color: color.adjust(variables.$background, $lightness: -8%) !important;
+            border-color: color.adjust($background-hue1, $lightness: -3%);
+            border-color: color.adjust($background, $lightness: -8%) !important;
         }
         &.prm-hue2 {
-            border-color: color.adjust(variables.$background-hue2, $lightness: -3%) !important;
+            border-color: color.adjust($background-hue2, $lightness: -3%) !important;
         }
         &.prm-hue3 {
-            border-color: color.adjust(variables.$background, $lightness: -3%);
+            border-color: color.adjust($background, $lightness: -3%);
         }
         &.prm-hue4 {
-            border-color: variables.$background-hue12;
+            border-color: $background-hue12;
         }
     }
 }
@@ -197,57 +197,60 @@
 // Usage examples:  @extend .prm-links
 // 		  			@extend .prm-links.prm-links-hover
 // 		  			@extend .prm-links.prm-alt-link
-.prm-links {
-    color: variables.$links;
+@mixin prm-links {
+    color: $links;
     &.prm-hue1 {
-        color: variables.$links-hue-1;
+        color: $links-hue-1;
     }
     &.prm-hue4 {
-        color: variables.$links-hue-4;
-    }
-    &-important {
-        color: variables.$links !important;
+        color: $links-hue-4;
     }
     &.prm-links-hover {
-        color: variables.$linksHover;
+        color: $linksHover;
     }
     &.prm-alt-link {
-        color: variables.$secondary-hue1;
+        color: $secondary-hue1;
         &.prm-hue1 {
-            color: variables.$linkTitle;
+            color: $linkTitle;
         }
     }
     &.prm-hue-2 {
-        color: variables.$linkTitle;
+        color: $linkTitle;
     }
+}
+.prm-links {
+    @include prm-links;
 
+    &-important {
+        color: $links !important;
+    }
     &-bg {
-        @include mixins.bgColor(variables.$links);
+        @include mixins.bgColor($links);
         &.prm-hue-1 {
-            background-color: color.adjust(color.adjust(variables.$links, $saturation: 85%), $alpha: -0.9);
+            background-color: color.adjust(color.adjust($links, $saturation: 85%), $alpha: -0.9);
         }
     }
 
     &-background {
         &.prm-hue-1 {
-            background-color: color.adjust(variables.$links, $alpha: -0.9);
+            background-color: color.adjust($links, $alpha: -0.9);
         }
         &.prm-hue-2 {
-            background-color: variables.$links-background-hue1;
+            background-color: $links-background-hue1;
         }
         &.prm-hue-3 {
-            background-color: variables.$links-hue-3;
+            background-color: $links-hue-3;
         }
     }
     &-hover {
         &.prm-hue-1 {
-            color: variables.$linksHover;
+            color: $linksHover;
         }
         &.prm-hue-2 {
-            color: variables.$linksHover-hue-2;
+            color: $linksHover-hue-2;
         }
         &.prm-hue-3 {
-            color: variables.$links-background-hue1;
+            color: $links-background-hue1;
         }
     }
 }
@@ -256,36 +259,44 @@
 // Default text color
 // Usage examples:  @extend .prm-secondary-color
 // 		  			@extend .prm-secondary-bg.prm-hue1
-.prm-text {
-    color: variables.$text;
+@mixin prm-text {
+    color: $text;
     &.prm-hue1 {
         // lighter text
-        color: variables.$text-hue1;
+        color: $text-hue1;
     }
     &.prm-hue2 {
         // semi-lighter text
-        color: variables.$text-hue2;
+        color: $text-hue2;
     }
     &.prm-hue3 {
         // darken text
-        color: variables.$text-hue3;
+        color: $text-hue3;
     }
     &.prm-hue4 {
         // semi-darken text
-        color: variables.$text-hue4;
+        color: $text-hue4;
     }
+}
+
+.prm-text {
+    @include prm-text;
 }
 
 // WARNING color
 // Warning or error color
 // Usage examples:  @extend .prm-warn
 //					@extend .prm-warn-bg
+@mixin prm-warn{
+    color: $red;
+}
 .prm-warn {
-    color: variables.$red;
+    @include prm-warn;
+
     &-bg {
-        background-color: variables.$red;
+        background-color: $red;
         &.prm-hue1 {
-            background-color: variables.$red-hue1;
+            background-color: $red-hue1;
         }
     }
 }
@@ -296,13 +307,17 @@
 // Usage examples:  @extend .prm-alert
 // 					@extend .prm-alert-bg
 // 					@extend .prm-alert-border
-.prm-alert {
+@mixin prm-alert {
     color: black;
+}
+.prm-alert {
+    @include prm-alert;
+    
     &-bg {
-        background-color: variables.$alert;
+        background-color: $alert;
     }
     &-border {
-        border-color: variables.$alert-hue1;
+        border-color: $alert-hue1;
     }
 }
 
@@ -310,9 +325,9 @@
 // Example element in the UI: result item when saved to favorites
 // Usage examples:  @extend .prm-highlight
 .prm-highlight {
-    background-color: variables.$highlight;
+    background-color: $highlight;
     &.prm-hue1 {
-        background-color: variables.$highlight-hue1;
+        background-color: $highlight-hue1;
     }
 }
 
@@ -321,7 +336,7 @@
 // Example element in the UI: 'clear' button in advanced search
 // Usage examples: @extend .prm-highlight
 .prm-notice {
-    color: variables.$notice;
+    color: $notice;
 }
 
 // POSITIVE color
@@ -329,44 +344,44 @@
 // Example element in the UI: 'send' action button in email form
 // Usage examples:  @extend .prm-positive
 .prm-positive {
-    color: variables.$positive;
+    color: $positive;
     &.prm-hue1 {
-        color: variables.$positive-hue1;
+        color: $positive-hue1;
     }
     &-bg {
-        background-color: variables.$positive;
+        background-color: $positive;
     }
 }
 
 .prm-negative {
-    color: variables.$negative;
+    color: $negative;
     &.prm-hue1 {
-        color: variables.$negative-hue1;
+        color: $negative-hue1;
     }
 }
 
 .prm-citation-color {
-    color: variables.$citation;
+    color: $citation;
 
     &.prm-hue2 {
-        color: variables.$citation-hue2;
+        color: $citation-hue2;
     }
     &.prm-hue3 {
-        color: variables.$citation-hue3;
+        color: $citation-hue3;
     }
 
     &.citation-hover {
-        color: variables.$citation-hue1;
+        color: $citation-hue1;
     }
 }
 
 .prm-warning-color {
-    color: variables.$warning;
+    color: $warning;
     &.prm-hue1 {
-        color: variables.$warning-hue1;
+        color: $warning-hue1;
     }
     &.prm-hue2 {
-        color: variables.$warning-hue2;
+        color: $warning-hue2;
     }
 }
 
@@ -378,43 +393,43 @@
 }
 
 .prm-citation-title {
-    color: variables.$citationTitle;
+    color: $citationTitle;
 }
 
 .prm-hover-list-element {
     &-bg {
-        background-color: variables.$white;
+        background-color: $white;
     }
 }
 
 .prm-peer-reviewed,
 .prm-course {
-    color: variables.$peer-reviewed-color;
+    color: $peer-reviewed-color;
 }
 
 .prm-open-access {
-    color: variables.$open-access-color;
+    color: $open-access-color;
 }
 
 .prm-personalization {
-    color: variables.$dark;
+    color: $dark;
     &-bg {
-        background-color: variables.$accent-color;
+        background-color: $accent-color;
     }
 }
 
 .prm-organization {
-    color: variables.$primary;
+    color: $primary;
     &-bg {
-        background-color: variables.$primary;
+        background-color: $primary;
     }
 }
 
 .prm-dark {
-    color: variables.$dark;
+    color: $dark;
     &.prm-hue1 {
         // darker text
-        color: variables.$dark-hue1;
+        color: $dark-hue1;
     }
 }
 
@@ -423,13 +438,13 @@
 .uq-button-styled-as-link {
     md-icon,
     span:not([disabled]) {
-        color: variables.$accent-color !important;
+        color: $accent-color !important;
     }
     &:hover md-icon,
     &:focus md-icon,
     &:hover span:not([disabled]),
     &:focus span:not([disabled]) {
-        background-color: variables.$accent-color !important;
-        color: variables.$white !important;
+        background-color: $accent-color !important;
+        color: $white !important;
     }
 }

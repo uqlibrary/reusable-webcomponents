@@ -24,9 +24,13 @@ h2 {
 h3 {
     //
 }
+@mixin bold-text {
+    font-weight: variables.$bold !important;
+}
+    
 b {
     font-weight: normal;
-    @extend .bold-text;
+    @include bold-text;
 }
 p {
     margin: 0 0 0.5em;

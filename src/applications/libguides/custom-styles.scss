@@ -1,201 +1,9 @@
+@use 'vars';
 @use 'uqaccordion';
 @use 'uqcard';
 @use 'uqhero'; // note hero styles are duplicated at https://uq.libapps.com/libguides/admin_c.php?g=976668 to avoid really bad FOUC
 @use 'uqpagination';
 @use 'landing-page-icons';
-
-:root {
-    --pagination-size: 44px;
-    --pagination-space: 12px;
-}
-
-$roboto: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-$montserrat: 'Montserrat', Helvetica, Arial, sans-serif;
-$courier: 'Courier New', 'DejaVu Sans Mono', monospace, sans-serif;
-
-// Base
-$black: #19151c;
-$white: #fff;
-
-// Purple
-$purple-50: #eee9f2;
-$purple-100: #dcd3e4;
-$purple-200: #b9a7ca;
-$purple-300: #977caf;
-$purple-400: #745095;
-$purple-500: #51247a;
-$purple-600: #4b2271;
-$purple-650: #40205d;
-$purple-700: #3a1f53;
-$purple-800: #2f1d3f;
-$purple-900: #231a2c;
-$purple-light: #962a8b;
-
-// UQ Purple gradient
-$purple-gradient: linear-gradient(90deg, $purple-500 0%, 87%, $purple-light 100%);
-
-// Grey
-$grey-50: #f3f3f4;
-$grey-100: #e8e8e8;
-$grey-200: #dcdcdd;
-$grey-300: #d1d0d2;
-$grey-400: #bab9bb;
-$grey-500: #a3a1a4;
-$grey-600: #8c8a8d;
-$grey-700: #757377;
-$grey-800: #5e5b60;
-$grey-900: #3b383e;
-$grey-925: #302c33;
-
-// Error
-$error-50: #fbeaea;
-$error-100: #f7d4d4;
-$error-200: #efa9a9;
-$error-300: #e67f7f;
-$error-400: #de5454;
-$error-500: #d62929;
-$error-600: #c32727;
-$error-700: #9d2424;
-$error-800: #772020;
-$error-900: #511d1d;
-
-// Success
-$success-50: #edf6ed;
-$success-100: #dbeddc;
-$success-200: #b7dcb8;
-$success-300: #92ca95;
-$success-400: #6eb971;
-$success-500: #4aa74e;
-$success-600: #459949;
-$success-700: #3b7c3e;
-$success-800: #315f33;
-$success-900: #274328;
-
-// Warning
-$warning-50: #fef8e8;
-$warning-100: #fdf1d2;
-$warning-200: #fce3a5;
-$warning-300: #fad678;
-$warning-400: #f9c84b;
-$warning-500: #f7ba1e;
-$warning-600: #e1aa1d;
-$warning-700: #b4891c;
-$warning-800: #87691b;
-$warning-900: #5b491a;
-
-// Utility
-$utility-50: #e7f0fa;
-$utility-100: #cfe2f5;
-$utility-200: #9ec5eb;
-$utility-300: #6ea7e1;
-$utility-400: #3d8ad7;
-$utility-500: #0d6dcd;
-$utility-600: #0e65bb;
-$utility-700: #105497;
-$utility-800: #124373;
-$utility-900: #15324e;
-
-// Filters from #000000
-$filter-text: invert(0%) sepia(72%) saturate(588%) hue-rotate(348deg) brightness(115%) contrast(81%);
-$filter-primary: invert(20%) sepia(34%) saturate(1979%) hue-rotate(239deg) brightness(97%) contrast(107%);
-$filter-secondary: invert(35%) sepia(80%) saturate(952%) hue-rotate(181deg) brightness(94%) contrast(90%);
-$filter-white: invert(100%) sepia(0%) saturate(1%) hue-rotate(122deg) brightness(111%) contrast(102%);
-
-$font-body: $roboto;
-$font-title: $montserrat;
-$font-accent: $roboto;
-$font-monospace: $courier;
-
-// font sizes
-$font-size-ul: 3rem; /* 48px */
-$font-size-xxxxl: 2.5rem; /* 40px - H1 */
-$font-size-xxxl: 2rem; /* 32px - H2 */
-$font-size-xxl: 1.5rem; /* 24px - H3 */
-$font-size-xl: 1.25rem; /* 20px - H4 */
-$font-size-l: 1.125rem; /* 18px - H5 */
-$font-size-m: 1rem; /* 16px - Body, H6 */
-$font-size-s: 0.875rem; /* 14px - Sub */
-$font-size-xs: 0.75rem; /* 12px - Small */
-$font-size-xxs: 0.625rem; /* 10px - Small uppercase */
-
-// font weights
-$font-weight-normal: 400;
-$font-weight-medium: 500;
-$font-weight-bold: $font-weight-medium;
-
-// line heights
-$line-height: 1.6;
-$line-height-h: 1.2;
-$line-height-ui: 1;
-$line-height-single: 1;
-$line-height-short: 1.2;
-$line-height-long: 1.6;
-
-// 1% letter spacing
-$letter-spacing: 0.01rem;
-// Space is calculated as multiples of eight
-// Baseline is default of device or broswer, typically 16px
-
-$space-uuuuul: 10rem; /* 160px */
-$space-uuuul: 5.5rem; /* 88px */
-$space-uuul: 5rem; /* 80px */
-$space-uul: 4.5rem; /* 72px */
-$space-ul: 4rem; /* 64px */
-$space-xxxxl: 3.5rem; /* 56px */
-$space-xxxl: 3rem; /* 48px */
-$space-xxl: 2.5rem; /* 40px */
-$space-xl: 2rem; /* 32px */
-$space-l: 1.5rem; /* 24px */
-$space-m: 1rem; /* 16px */ /* Default */
-$space-s: 0.5rem; /* 8px */
-$space-xs: 0.25rem; /* 4px */
-/* 2px (0.125rem) */
-/* 1px (0.0625rem) */
-$space-none: 0; /* zero - no spacing */
-$space-auto: auto; /* auto */
-
-$spacing-xxs: 0.25rem;
-$spacing-xs: 0.5rem;
-$spacing-ss: 0.75rem;
-$spacing-s: 1rem;
-$spacing-m: 1.5rem;
-$spacing-l: 2rem;
-$spacing-xl: 2.5rem;
-$spacing-xxl: 3rem;
-$spacing-xxxl: 3.5rem;
-$spacing-xxxxl: 4rem;
-$spacing-ul: 4.5rem;
-$spacing-uul: 5rem;
-$spacing-uuul: 5.5rem;
-$spacing-ns-l: 2rem;
-$spacing-ns-xl: 2.5rem;
-$spacing-ns-xxl: 3rem;
-$spacing-ns-xxxl: 3.5rem;
-$spacing-ns-xxxxl: 4rem;
-$spacing-ns-ul: 4.5rem;
-$spacing-ns-uul: 5rem;
-$spacing-ns-uuul: 5.5rem;
-
-$section-spacing: 6rem;
-
-$uqBrandColour: $purple-500;
-$bodyCopy: $grey-900;
-$heading: $grey-900;
-$borders: $grey-200;
-$paneBackground: $grey-50;
-
-$font: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-$nav-border: 4px solid $uqBrandColour;
-$page-background-color: #fff;
-$button-color: $uqBrandColour;
-
-$down-arrow: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath d=%22M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z%22/%3E%3C/svg%3E';
-$up-arrow: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath d=%22m12 8-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z%22/%3E%3C/svg%3E';
-
-// styles imported from uq css files
-
-@include uqcard.uqCard();
-@include uqpagination.uqPagination();
 
 * {
     box-shadow: none !important;
@@ -215,12 +23,12 @@ svg {
 
 /* legacy, in case a Guides admin forgets they shouldn't use this */
 .important-content {
-    border: 1px solid $borders;
+    border: 1px solid vars.$borders;
     padding: 1rem 1rem 1rem 2.8rem;
     margin: 0 0 24px 0;
 }
 .important-exclamation-content {
-    border: 1px solid $borders;
+    border: 1px solid vars.$borders;
     padding: 1rem 1rem 1rem 5rem;
     background-image: url(https://libapps-au.s3-ap-southeast-2.amazonaws.com/customers/720/images/alert-circle.png);
     background-position: left;
@@ -243,20 +51,20 @@ svg {
 
 html,
 body {
-    font-size: $font-size-m;
+    font-size: vars.$font-size-m;
     height: 100%;
     margin: 0;
     padding: 0 !important;
-    line-height: $line-height-long;
+    line-height: vars.$line-height-long;
 }
 
 body {
-    font-family: $font;
+    font-family: vars.$font;
     font-weight: 400;
-    background: $page-background-color;
+    background: vars.$page-background-color;
     font-style: normal;
     letter-spacing: 0.16px;
-    color: $bodyCopy;
+    color: vars.$bodyCopy;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -267,9 +75,9 @@ h1, .h1, h2, .h2, h3, .h3 {
 body h1,
 body #s-lg-guide-header-info h1,
 body .s-lib-header h1 {
-    font-family: Montserrat, $font;
-    font-size: $font-size-xxxxl;
-    color: $heading;
+    font-family: Montserrat, vars.$font;
+    font-size: vars.$font-size-xxxxl;
+    color: vars.$heading;
     font-weight: 500;
     line-height: 1.2;
 }
@@ -284,26 +92,26 @@ body .s-lib-header h1 {
 }
 
 body h2 {
-    font-size: $font-size-xxxl;
-    font-family: $font;
-    color: $heading;
+    font-size: vars.$font-size-xxxl;
+    font-family: vars.$font;
+    color: vars.$heading;
     font-weight: 500;
     line-height: 1.2;
 }
 
 body .s-lib-box-container > div.s-lib-box > h2 {
-    font-size: $font-size-xxxl;
-    font-family: $font;
-    color: $heading;
+    font-size: vars.$font-size-xxxl;
+    font-family: vars.$font;
+    color: vars.$heading;
     font-weight: 500;
     line-height: 1.2;
 }
 h3,
 body h3,
 body .s-lib-box-container .s-lib-box-content h3 {
-    font-size: $font-size-xxl;
-    font-family: $font;
-    color: $heading;
+    font-size: vars.$font-size-xxl;
+    font-family: vars.$font;
+    color: vars.$heading;
     font-weight: 500;
     line-height: 1.2;
     margin-top: 24px;
@@ -312,27 +120,27 @@ h4,
 body h4,
 .row #accor h4,
 body .s-lib-box-container .s-lib-box-content h4 {
-    font-size: $font-size-xl;
-    font-family: $font;
-    color: $heading;
+    font-size: vars.$font-size-xl;
+    font-family: vars.$font;
+    color: vars.$heading;
     font-weight: 500;
     line-height: 1.2;
     margin-top: 24px;
 }
 h5,
 body h5 {
-    font-size: $font-size-l;
-    font-family: $font;
-    color: $heading;
+    font-size: vars.$font-size-l;
+    font-family: vars.$font;
+    color: vars.$heading;
     font-weight: 500;
     line-height: 1.2;
     margin-top: 24px;
 }
 h6,
 body h6 {
-    font-size: $font-size-m;
-    font-family: $font;
-    color: $heading;
+    font-size: vars.$font-size-m;
+    font-family: vars.$font;
+    color: vars.$heading;
     font-weight: 500;
     line-height: 1.2;
     margin-top: 24px;
@@ -341,14 +149,14 @@ body h6 {
 #s-lib-footer-login-link a,
 #s-lib-footer-support-link a,
 a {
-    color: $uqBrandColour;
+    color: vars.$uqBrandColour;
     text-decoration: underline;
     overflow-wrap: break-word;
     word-wrap: break-word;
     font-weight: 500;
     &:hover,
     &:focus {
-        background-color: $uqBrandColour;
+        background-color: vars.$uqBrandColour;
         color: #fff;
         text-decoration: underline;
     }
@@ -357,7 +165,7 @@ a {
         margin-left: 1em;
     }
     &:visited {
-        color: $uqBrandColour;
+        color: vars.$uqBrandColour;
         &:hover {
             color: #fff;
         }
@@ -367,7 +175,7 @@ p {
     margin-bottom: 24px;
     font-weight: 400;
     padding-bottom: 0;
-    color: $bodyCopy;
+    color: vars.$bodyCopy;
 }
 
 ul.s-lg-guide-list {
@@ -412,16 +220,16 @@ body:not(.editmode) {
         border-radius: 0;
         background-image: none;
         h4 a {
-            color: $heading !important; // TODO: remove inline style 'color:#51247A;' from toggle opener pon subject guides landing page!!!
+            color: vars.$heading !important; // TODO: remove inline style 'color:#51247A;' from toggle opener pon subject guides landing page!!!
         }
         h4 a:hover {
             text-decoration: underline;
-            color: $heading;
+            color: vars.$heading;
             background-color: transparent;
         }
 
         h4 a:focus {
-            color: $heading;
+            color: vars.$heading;
             background-color: transparent;
         }
     }
@@ -445,14 +253,14 @@ body:not(.editmode):not(.guides_homepage) #s-lg-index-cols {
         padding-right: 0;
         ul,
         ol {
-            margin-bottom: $spacing-m;
+            margin-bottom: vars.$spacing-m;
             margin-top: 0;
             padding-left: unset;
             display: inline-block;
         }
         ol li,
         ul li {
-            margin-bottom: $spacing-xs;
+            margin-bottom: vars.$spacing-xs;
         }
         ol li:last-child,
         ul li:last-child {
@@ -463,13 +271,13 @@ body:not(.editmode):not(.guides_homepage) #s-lg-index-cols {
         ul li > ol,
         ul li > ul {
             margin-bottom: 0;
-            margin-top: $spacing-xs;
+            margin-top: vars.$spacing-xs;
         }
     }
     #col1 {
         ul,
         ol {
-            padding-left: $spacing-m;
+            padding-left: vars.$spacing-m;
             // display: inline-block;
         }
     }
@@ -608,7 +416,7 @@ body:not(.editmode) {
 }
     /* styles for enclosing side nav */
 body:not(.editmode) #s-lg-side-nav-content {
-    margin-bottom: $section-spacing;
+    margin-bottom: vars.$section-spacing;
 
     > .row {
         display: grid;
@@ -705,11 +513,11 @@ body:not(.editmode) {
         }
         ol,
         ul {
-            margin-bottom: $spacing-m;
+            margin-bottom: vars.$spacing-m;
             margin-top: 0;
-            padding-left: $spacing-m;
+            padding-left: vars.$spacing-m;
             li {
-                margin-bottom: $spacing-xs;
+                margin-bottom: vars.$spacing-xs;
             }
 
             li:last-child {
@@ -719,7 +527,7 @@ body:not(.editmode) {
             li > ol,
             li > ul {
                 margin-bottom: 0;
-                margin-top: $spacing-xs;
+                margin-top: vars.$spacing-xs;
             }
         }
         button[aria-haspopup] {
@@ -753,8 +561,8 @@ body:not(.editmode) {
                 }
                 .btn-default {
                     color: #fff;
-                    background-color: $button-color;
-                    border: 1px solid $button-color;
+                    background-color: vars.$button-color;
+                    border: 1px solid vars.$button-color;
                 }
             }
         }
@@ -779,8 +587,8 @@ body:not(.editmode) {
                 margin-bottom: 0;
                 & > li > button {
                     background-color: white;
-                    color: $bodyCopy;
-                    font-size: $font-size-l;
+                    color: vars.$bodyCopy;
+                    font-size: vars.$font-size-l;
                     padding: 0;
                     margin: 0;
                     &:hover {
@@ -789,11 +597,11 @@ body:not(.editmode) {
                 }
                 & > li.active > button {
                     background-color: white;
-                    color: $uqBrandColour;
+                    color: vars.$uqBrandColour;
                 }
             }
             li {
-                border: 1px solid $borders;
+                border: 1px solid vars.$borders;
                 padding: 24px 32px;
                 &.active {
                     border-bottom: none;
@@ -804,7 +612,7 @@ body:not(.editmode) {
             // tabs: displayed content panel
             border-width: 0 0 0 1px;
             border-style: solid;
-            border-color: $borders;
+            border-color: vars.$borders;
         }
     }
     @media (max-width: 64rem) {
@@ -830,7 +638,7 @@ body:not(.editmode) .remove-h2 h2.s-lib-box-title // if the box has built in h2 
         padding-left: 15px;
         padding-right: 15px;
 
-        margin-block: $section-spacing;
+        margin-block: vars.$section-spacing;
         h2 {
             margin-top: 0;
             margin-bottom: 24px;
@@ -844,7 +652,7 @@ body:not(.editmode) .remove-h2 h2.s-lib-box-title // if the box has built in h2 
         padding-left: 15px;
 
         .s-lib-box-container {
-            border: 1px solid $borders !important;
+            border: 1px solid vars.$borders !important;
             border-radius: 4px;
             background-color: #fff;
             .s-lib-box-content h3 {
@@ -871,23 +679,23 @@ body:not(.editmode) .remove-h2 h2.s-lib-box-title // if the box has built in h2 
 
     .arrowPanel a {
         cursor: pointer;
-        color: $uqBrandColour;
+        color: vars.$uqBrandColour;
         font-family: Roboto, Helvetica, Arial, sans-serif;
-        font-size: $font-size-xl;
+        font-size: vars.$font-size-xl;
         font-weight: 500;
         position: relative;
         &:focus-within,
         &:hover {
-            background-color: $paneBackground !important;
+            background-color: vars.$paneBackground !important;
             h3 {
                 text-decoration: underline;
             }
             .panelBodyWrapper {
-                background-color: $paneBackground !important;
+                background-color: vars.$paneBackground !important;
             }
             div.arrowSvgWrapper {
-                background-color: $paneBackground !important;
-                color: $uqBrandColour;
+                background-color: vars.$paneBackground !important;
+                color: vars.$uqBrandColour;
             }
         }
         h3.cardHeading {
@@ -899,7 +707,7 @@ body:not(.editmode) .remove-h2 h2.s-lib-box-title // if the box has built in h2 
             margin-block: 8px;
         }
         p {
-            font-size: $font-size-m;
+            font-size: vars.$font-size-m;
             margin-bottom: 0;
         }
         svg.arrowForwardIcon {
@@ -1106,10 +914,10 @@ body:not(.editmode) {
     .uq-local-nav__link,
     .nav > li > .uq-local-nav__link {
         display: block;
-        color: $black;
+        color: vars.$black;
         padding-block: 1rem;
         padding-inline-start: 2rem;
-        border-bottom: 1px solid $borders;
+        border-bottom: 1px solid vars.$borders;
         -webkit-text-decoration: none;
         text-decoration: none;
         font-weight: 400;
@@ -1119,12 +927,12 @@ body:not(.editmode) {
         }
         &:focus,
         &:hover {
-            color: $black;
-            background-color: $paneBackground;
+            color: vars.$black;
+            background-color: vars.$paneBackground;
             transition: color 0.2s ease-out, text-decoration 0.2s ease-out, background-color 0.2s ease-out;
         }
         &:focus-visible {
-            outline: 4px solid $utility-500;
+            outline: 4px solid vars.$utility-500;
             outline-offset: -3px;
         }
     }
@@ -1139,7 +947,7 @@ body:not(.editmode) {
     }
 
     .uq-local-nav__grandparent .uq-local-nav__link {
-        border-color: $grey-900;
+        border-color: vars.$grey-900;
     }
 
     .uq-local-nav__grandparent .uq-local-nav__link,
@@ -1164,17 +972,17 @@ body:not(.editmode) {
     }
 
     .uq-local-nav--current-child {
-        border-left: 4px solid $uqBrandColour;
+        border-left: 4px solid vars.$uqBrandColour;
         margin-top: -1px;
     }
 
     .uq-local-nav--current-child > .uq-local-nav__link {
-        border-top: 1px solid $borders;
+        border-top: 1px solid vars.$borders;
         padding-inline: calc(2rem - 4px) 0;
     }
 
     .uq-local-nav--active-link {
-        background-color: $paneBackground;
+        background-color: vars.$paneBackground;
         font-weight: 500;
     }
 
@@ -1201,12 +1009,12 @@ body:not(.editmode) {
         margin: 0;
     }
     .s-lg-tabs-side .s-lg-boxnav .list-group-item a {
-        color: $black;
+        color: vars.$black;
         font-weight: 400;
         padding: 1rem 0 1rem 2.5rem;
     }
     .list-group-item a:hover {
-        background-color: $paneBackground;
+        background-color: vars.$paneBackground;
         transition: color 0.2s ease-out, text-decoration 0.2s ease-out, background-color 0.2s ease-out;
     }
     .list-group.s-lg-boxnav {
@@ -1214,7 +1022,7 @@ body:not(.editmode) {
         border-top: 1px solid rgb(220, 220, 221);
     }
     .list-group.s-lg-boxnav a:hover {
-        background-color: $paneBackground;
+        background-color: vars.$paneBackground;
         transition: color 0.2s ease-out, text-decoration 0.2s ease-out, background-color 0.2s ease-out;
     }
 
@@ -1228,19 +1036,19 @@ body:not(.editmode) {
         margin: 0;
         &:focus {
             height: auto;
-            color: $heading;
+            color: vars.$heading;
             margin: 0 0 2rem -1.5rem;
         }
     }
 
     /* the following should be temporary: override built in css on guides individual page - update springshare html template for golive */
     #s-lg-tabs-container .nav-pills > li.active > a {
-        background-color: $paneBackground !important;
-        color: $bodyCopy;
+        background-color: vars.$paneBackground !important;
+        color: vars.$bodyCopy;
     }
     #s-lg-tabs-container .nav-pills > li > ul > li:has(> a:hover) {
-        background-color: $paneBackground !important;
-        color: $bodyCopy;
+        background-color: vars.$paneBackground !important;
+        color: vars.$bodyCopy;
     }
     .uql-az-index {
         :focus-visible {
@@ -1348,12 +1156,12 @@ body:not(.editmode) {
         }
         li > a,
         li > span {
-            color: $uqBrandColour;
+            color: vars.$uqBrandColour;
             background-color: rgba(0, 0, 0, 0);
             border-color: rgba(0, 0, 0, 0);
             border-radius: 0.25rem;
-            font-family: $font;
-            font-size: $font-size-m;
+            font-family: vars.$font;
+            font-size: vars.$font-size-m;
             font-weight: 500;
             line-height: 1;
             padding: 1rem 1.5rem;
@@ -1362,8 +1170,8 @@ body:not(.editmode) {
         }
         li > a:focus,
         li > a:hover {
-            background-color: $uqBrandColour;
-            border-color: $uqBrandColour;
+            background-color: vars.$uqBrandColour;
+            border-color: vars.$uqBrandColour;
             color: #fff;
             text-decoration: underline;
         }
@@ -1392,13 +1200,13 @@ body:not(.editmode) {
         }
     }
     .s-lib-box .highlight-info {
-        background-color: $utility-50;
+        background-color: vars.$utility-50;
     }
     .s-lib-box .highlight-alert {
-        background-color: $warning-50;
+        background-color: vars.$warning-50;
     }
     .s-lib-box .highlight-callout {
-        background-color: $grey-50;
+        background-color: vars.$grey-50;
     }
     .s-lib-box .highlight-info,
     .s-lib-box .highlight-alert,
@@ -1413,7 +1221,7 @@ body:not(.editmode) {
         h4,
         h5,
         h6 {
-            color: $black;
+            color: vars.$black;
             margin-top: 0 !important;
             margin-bottom: 0.5rem;
         }
@@ -1508,9 +1316,9 @@ body:not(.editmode) {
                 }
 
                 h2 {
-                    color: $heading;
+                    color: vars.$heading;
                     font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-                    font-size: $font-size-xxxl;
+                    font-size: vars.$font-size-xxxl;
                     font-weight: 500;
                     line-height: 1.2;
                 }
@@ -1523,19 +1331,19 @@ body:not(.editmode) {
     }
 
     @mixin uqPrimaryButton() {
-        background-color: $purple-500 !important;
-        border: 2px solid $purple-500;
-        border-radius: $space-xs;
+        background-color: vars.$purple-500 !important;
+        border: 2px solid vars.$purple-500;
+        border-radius: vars.$space-xs;
         box-sizing: border-box;
-        color: $white;
+        color: vars.$white;
         cursor: pointer;
         display: inline-flex;
         align-items: center;
-        gap: $spacing-s;
-        font-family: $roboto;
-        font-size: $font-size-m;
-        font-weight: $font-weight-medium;
-        line-height: $line-height-ui;
+        gap: vars.$spacing-s;
+        font-family: vars.$roboto;
+        font-size: vars.$font-size-m;
+        font-weight: vars.$font-weight-medium;
+        line-height: vars.$line-height-ui;
         padding: 1rem 1.5rem;
         position: relative;
         text-align: center;
@@ -1546,22 +1354,22 @@ body:not(.editmode) {
 
         &:hover {
             background-color: #fff !important;
-            border-color: $uqBrandColour;
-            color: $uqBrandColour;
+            border-color: vars.$uqBrandColour;
+            color: vars.$uqBrandColour;
             text-decoration: underline;
         }
         &:focus {
-            outline: 2px solid $utility-500;
+            outline: 2px solid vars.$utility-500;
             outline-offset: 0;
         }
     }
     @mixin uqSecondaryButton() {
         @include uqPrimaryButton();
         background-color: rgba(0, 0, 0, 0) !important;
-        border-color: $uqBrandColour;
-        color: $uqBrandColour;
+        border-color: vars.$uqBrandColour;
+        color: vars.$uqBrandColour;
         &:hover {
-            background-color: $uqBrandColour !important;
+            background-color: vars.$uqBrandColour !important;
             border-color: #51247a;
             color: #fff;
         }
@@ -1596,7 +1404,7 @@ body:not(.editmode) {
     }
 
     figcaption {
-        line-height: $line-height-long;
+        line-height: vars.$line-height-long;
     }
 
     table.table.table-bordered {
@@ -1605,17 +1413,17 @@ body:not(.editmode) {
         width: 100%;
         border: none !important;
         caption {
-            color: $bodyCopy;
+            color: vars.$bodyCopy;
             text-align: center;
-            line-height: $line-height-long;
+            line-height: vars.$line-height-long;
         }
         thead tr th {
             border: none !important;
         }
         th {
-            background-color: $grey-50;
-            color: $black;
-            font-weight: $font-weight-bold;
+            background-color: vars.$grey-50;
+            color: vars.$black;
+            font-weight: vars.$font-weight-bold;
             text-align: left;
         }
         td,
@@ -1626,7 +1434,7 @@ body:not(.editmode) {
         tbody td,
         tbody th {
             border: none !important;
-            border-bottom: 1px solid $grey-300 !important;
+            border-bottom: 1px solid vars.$grey-300 !important;
         }
         td :last-child {
             margin-bottom: 0;
@@ -1656,14 +1464,14 @@ body:not(.editmode) {
     .s-srch-resultlist {
         .pagination > li > a,
         .pagination > li > span {
-            color: $uqBrandColour;
+            color: vars.$uqBrandColour;
         }
 
         .pagination > li > a:hover,
         .pagination > li > span:hover,
         .pagination > li > a:focus,
         .pagination > li > span:focus {
-            color: $uqBrandColour;
+            color: vars.$uqBrandColour;
             background-color: #eee;
         }
 
@@ -1674,15 +1482,15 @@ body:not(.editmode) {
         .pagination > .active > a:focus,
         .pagination > .active > span:focus {
             color: #fff;
-            background-color: $uqBrandColour;
-            border-color: $uqBrandColour;
+            background-color: vars.$uqBrandColour;
+            border-color: vars.$uqBrandColour;
         }
     }
     .s-srch-result-title,
     .s-srch-result .label,
     .s-srch-result,
     .s-srch-results-featured h3 {
-        font-size: $font-size-m;
+        font-size: vars.$font-size-m;
     }
     .s-srch-result > div > div,
     .s-srch-result > div {
@@ -1706,7 +1514,7 @@ body:not(.editmode) {
             font-size: 16px;
             &:focus,
             &:hover {
-                background-color: $uqBrandColour;
+                background-color: vars.$uqBrandColour;
                 color: white;
             }
         }
@@ -1816,7 +1624,7 @@ body:not(.editmode) {
     .s-lib-box .highlight-alert,
     .s-lib-box .highlight-info,
     .s-lib-box .highlight-callout {
-        border: 1px solid $borders;
+        border: 1px solid vars.$borders;
     }
 }
 body:not(.editmode) {
@@ -1833,7 +1641,7 @@ body:not(.editmode) {
           font-size: 14px;
           font-weight: 400;
           text-indent: 0;
-          border: 1px solid $borders;
+                    border: 1px solid vars.$borders;
           border-radius: 4px;
           margin-top: 0;
           padding: 0.5em;
@@ -1852,7 +1660,7 @@ body:not(.editmode) {
     // these tabs are expected to be removed eg MGTS1301 - Introduction to management.
     #s-lg-tabs-container .nav-tabs > li > a,
     #s-lg-tabs-container .nav-tabs > .active > a {
-        background-color: $uqBrandColour;
+        background-color: vars.$uqBrandColour;
     }
 
     #s-lg-col-1 .accordion-item, #s-lg-col-1 .uq-accordion__item {
@@ -1887,14 +1695,14 @@ body:not(.editmode) {
                         display: none;
                     }
                     
-                    @include toggle();
-                    @include toggleBefore();
+                    @include uqaccordion.toggle();
+                    @include uqaccordion.toggleBefore();
                     &::before {
                         right: 0;
                     }
 
                     &:not(.collapsed) {
-                        @include toggleActiveBefore();
+                        @include uqaccordion.toggleActiveBefore();
                     }
 
                     span:first-of-type {

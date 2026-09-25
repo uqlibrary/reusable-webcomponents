@@ -1,4 +1,4 @@
-@use "../../../../styles-imports/www/variables";
+@use "../../../../styles-imports/www/variables" as *;
 @use "../../../styles/partials/mixins";
 
 /* starting accountOverview */
@@ -15,7 +15,7 @@ prm-account-overview {
     prm-icon.prm-negative,
     prm-icon.prm-notice,
     prm-icon.prm-warn {
-        color: variables.$highlightPrimary;
+        color: $highlightPrimary;
         padding-left: 1px;
     }
 
@@ -40,11 +40,11 @@ prm-account-overview {
             width: 1px;
             right: 0;
             top: 0;
-            background-color: variables.$background-hue7;
+            background-color: $background-hue7;
         }
 
         & prm-icon {
-            color: variables.$primary;
+            color: $primary;
         }
 
         md-list-item {
@@ -59,18 +59,18 @@ prm-account-overview {
                 .institution-name,
                 prm-icon {
                     font-weight: 600;
-                  color: variables.$secondary-hue3;
+                  color: $secondary-hue3;
                 }
 
                 .md-button:hover h3,
                 .md-button:hover prm-icon {
-                  color: variables.$secondary-hue6;
+                  color: $secondary-hue6;
                 }
 
                 h3:focus,
                 h3:hover {
                     &.institution-name {
-                      color: variables.$secondary-hue6;
+                      color: $secondary-hue6;
                         //color: red!important;
                     }
                 }
@@ -110,15 +110,15 @@ prm-account-overview {
         md-list-item,
         md-list-item.md-no-style {
             margin: 0;
-            @include mixins.bgColor(variables.$dark);
+            @include mixins.bgColor($dark);
 
             button,
             .md-button {
                 padding: 1em;
-                @include mixins.bgColor(variables.$dark);
+                @include mixins.bgColor($dark);
 
                 prm-icon {
-                    color: variables.$dark;
+                    color: $dark;
                 }
 
                 .md-button:hover {
@@ -131,7 +131,7 @@ prm-account-overview {
             &:hover,
             &:focus {
                 prm-icon {
-                    color: variables.$white;
+                    color: $white;
                 }
             }
         }
@@ -143,7 +143,7 @@ prm-account-overview {
                 .md-list-item-inner {
                     &.is-selected {
                         .institution-name {
-                          color: variables.$secondary-hue4;
+                          color: $secondary-hue4;
                         }
                     }
                 }
@@ -205,7 +205,7 @@ prm-account-overview {
                     &.md-focused:not([disabled]),
                     &:focus:not([disabled]) {
                         &:focus {
-                            background-color: variables.$white;
+                            background-color: $white;
                         }
                     }
                 }
@@ -270,7 +270,7 @@ prm-account-overview {
     .empty-select-on-init {
         md-select-value .md-text {
             span {
-                color: variables.$dark;
+                color: $dark;
             }
         }
     }

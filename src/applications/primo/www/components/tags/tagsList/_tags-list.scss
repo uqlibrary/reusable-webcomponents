@@ -1,5 +1,7 @@
 @use "sass:color";
-@use "../../../../styles-imports/www/variables";
+@use "../../../../styles-imports/www/variables" as *;
+
+@use "../../../styles/partials/custom-theme" as theme;
 @use "../../../styles/partials/mixins";
 
 prm-tags-list {
@@ -11,13 +13,13 @@ prm-tags-list {
         left: 50%;
         -webkit-transform: translate3d(-50%, -50%, 0);
         transform: translate3d(-50%, -50%, 0);
-        color: variables.$warning-hue2;
+        color: $warning-hue2;
         min-height: 18px;
         min-width: 18px;
     }
 
     .error-response {
-        color: variables.$red;
+        color: $red;
     }
 
     .tagNameRTL {
@@ -34,7 +36,7 @@ prm-tags-list {
             line-height: auto;
             margin-right: 1.5em;
             prm-icon {
-                color: color.adjust(variables.$dark, $alpha: -0.6);
+                color: color.adjust($dark, $alpha: -0.6);
                 md-icon {
                     @include mixins.setSize(20px);
                 }
@@ -76,7 +78,7 @@ prm-tags-list {
                 .md-chip-remove {
                     md-icon {
                         @include mixins.setSize(18px);
-                        @extend .prm-warn;
+                        @include theme.prm-warn;
                     }
                 }
             }

@@ -1,4 +1,5 @@
-@use "../../../../styles-imports/www/variables";
+@use "../../../../styles-imports/www/variables" as *;
+@use "../../../styles/partials/custom-theme" as theme;
 @use "../../../styles/partials/mixins";
 @use "../../../styles/partials/mixins/material-mixins";
 
@@ -28,7 +29,7 @@ prm-breadcrumbs {
         }
 
         &.facet-excluded {
-            color: variables.$red-hue1;
+            color: $red-hue1;
 
             .md-chip-content {
                 position: relative;
@@ -41,7 +42,7 @@ prm-breadcrumbs {
                     top: 0.2em;
                     bottom: 0;
                     margin: auto;
-                    background-color: variables.$dark;
+                    background-color: $dark;
                     //left: 0;
                     @include material-mixins.rtl-prop(left, right, 0, auto);
                 }
@@ -140,7 +141,7 @@ prm-breadcrumbs {
                 opacity: 0;
                 //transform: translateX(-10px);
                 @include material-mixins.rtl(transform, translateX(-10px), translateX(10px));
-                transition: opacity 0.3s ease, transform 0.3s variables.$swift-ease-in-timing-function;
+                transition: opacity 0.3s ease, transform 0.3s $swift-ease-in-timing-function;
 
                 //[dir=rtl] & {
                 //  left: 0;
@@ -165,7 +166,7 @@ prm-breadcrumbs {
                 @include material-mixins.rtl(transform, translateX(-10px), translateX(10px));
                 //border-radius: 12px;
                 border-radius: 0;
-                transition: opacity 0.2s ease, transform 0.2s variables.$swift-ease-in-timing-function;
+                transition: opacity 0.2s ease, transform 0.2s $swift-ease-in-timing-function;
 
                 //[dir=rtl] & {
                 //  left: 0;
@@ -212,7 +213,7 @@ prm-breadcrumbs {
                 &:before {
                     opacity: 1;
                     transform: translateX(0);
-                    transition: opacity 0.2s ease, transform 0.25s variables.$swift-ease-out-timing-function;
+                    transition: opacity 0.2s ease, transform 0.25s $swift-ease-out-timing-function;
                 }
             }
 
@@ -222,12 +223,12 @@ prm-breadcrumbs {
             .persistence-button:focus {
                 transform: translateX(0);
                 opacity: 1;
-                transition: opacity 0.2s ease, transform 0.2s variables.$swift-ease-out-timing-function;
+                transition: opacity 0.2s ease, transform 0.2s $swift-ease-out-timing-function;
             }
         }
     }
     .disabledLockButton {
-        color: variables.$disabled !important;
+        color: $disabled !important;
         &:hover,
         &:focus {
             box-shadow: none !important;
@@ -248,7 +249,7 @@ prm-breadcrumbs {
         &:hover,
         &:focus {
             md-icon {
-                @extend .prm-warn;
+                @include theme.prm-warn;
             }
         }
     }

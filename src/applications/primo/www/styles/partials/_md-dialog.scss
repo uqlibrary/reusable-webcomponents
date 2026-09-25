@@ -1,5 +1,5 @@
 @use "sass:color";
-@use "../../../styles-imports/www/variables";
+@use "../../../styles-imports/www/variables" as *;
 @use "mixins";
 
 body {
@@ -12,7 +12,7 @@ body {
     height: 100% !important;
     position: fixed !important;
     top: 0px !important;
-    background-color: variables.$primary-hue6;
+    background-color: $primary-hue6;
 }
 
 .md-dialog-container {
@@ -22,7 +22,7 @@ body {
 md-dialog {
     // box-shadow: 0 5px 20px -5px rgba(0,0,0,.1);
     @extend .dialog-shadow;
-    background-color: variables.$white;
+    background-color: $white;
 
     prm-alma-viewit-items {
         md-list md-list-item:focus:not([disabled]) {
@@ -59,7 +59,7 @@ md-dialog {
         height: 100%;
         max-height: none;
         max-width: none;
-        background-color: color.adjust(variables.$white, $alpha: -0.2);
+        background-color: color.adjust($white, $alpha: -0.2);
         padding-right: 1em;
 
         &.md-transition-in,
@@ -106,11 +106,11 @@ md-dialog {
         // background-color: transparentize(desaturate(darken($midGrey, 12%), 5%),.7);
         background-color: color.adjust(black, $alpha: -0.2);
         border: 1px solid white;
-        border-radius: variables.$radius;
-        color: variables.$white;
+        border-radius: $radius;
+        color: $white;
 
         ::selection {
-            background: color.adjust(variables.$dark, $alpha: -0.5);
+            background: color.adjust($dark, $alpha: -0.5);
         }
 
         &.full-cover-dialog {
@@ -118,17 +118,17 @@ md-dialog {
         }
 
         a {
-            color: variables.$linkTitle;
+            color: $linkTitle;
         }
 
         .loader-wrapper {
             // background-color: transparentize(desaturate(darken($midGrey, 10%), 15%),.5);
-            background-color: color.adjust(color.adjust(color.adjust(variables.$midGrey, $lightness: -12%), $saturation: -5%), $alpha: -0.5);
+            background-color: color.adjust(color.adjust(color.adjust($midGrey, $lightness: -12%), $saturation: -5%), $alpha: -0.5);
             z-index: 100;
 
             .loader {
                 .diamond {
-                    background: variables.$white;
+                    background: $white;
                 }
             }
         }
@@ -136,13 +136,13 @@ md-dialog {
         md-toolbar,
         md-toolbar:not(.md-menu-toolbar) {
             background-color: transparent;
-            color: variables.$white;
+            color: $white;
 
             .md-button {
                 width: 64px;
 
                 md-icon {
-                    color: variables.$white;
+                    color: $white;
                 }
             }
         }
@@ -150,7 +150,7 @@ md-dialog {
         .dialog-actions {
             button,
             button.md-button {
-                color: variables.$white;
+                color: $white;
             }
         }
 
@@ -158,18 +158,18 @@ md-dialog {
             md-list {
                 md-list-item {
                     .md-list-item-inner {
-                        color: variables.$linkTitle;
+                        color: $linkTitle;
                     }
                 }
             }
 
             p {
-                color: variables.$white;
+                color: $white;
             }
         }
 
         .error-color {
-            color: color.adjust(color.adjust(variables.$red, $saturation: 20%), $lightness: 10%);
+            color: color.adjust(color.adjust($red, $saturation: 20%), $lightness: 10%);
         }
 
         md-input-container,
@@ -179,13 +179,13 @@ md-dialog {
             input,
             .md-input,
             label {
-                border-color: color.adjust(variables.$white, $alpha: -0.5);
-                color: variables.$white;
+                border-color: color.adjust($white, $alpha: -0.5);
+                color: $white;
             }
         }
 
         .dialog-title {
-            color: variables.$white;
+            color: $white;
         }
 
         md-list,
@@ -205,7 +205,7 @@ md-dialog {
             md-list-item {
                 &.list-login {
                     .md-button {
-                        color: variables.$linkTitle;
+                        color: $linkTitle;
 
                         h3,
                         h3:hover {
@@ -214,7 +214,7 @@ md-dialog {
 
                         &:hover:not([disabled]) {
                             background-color: transparent;
-                            color: variables.$linkTitle;
+                            color: $linkTitle;
                         }
                     }
 
@@ -273,7 +273,7 @@ md-dialog {
 
         &:not(.md-menu-toolbar) {
             @extend .prm-background;
-            color: variables.$dark;
+            color: $dark;
         }
 
         // + md-dialog-content {
@@ -307,12 +307,12 @@ md-dialog {
         md-list-item,
         md-list-item.md-no-style {
             margin: 0;
-            @include mixins.bgColor(variables.$dark);
+            @include mixins.bgColor($dark);
 
             button,
             .md-button {
                 padding: 1em;
-                @include mixins.bgColor(variables.$dark);
+                @include mixins.bgColor($dark);
 
                 .md-button:hover {
                     background-color: transparent;
@@ -336,7 +336,7 @@ md-dialog {
             button:hover:not([disabled]),
             button:focus:not([disabled]) {
                 &.neutralized-button {
-                    background-color: variables.$background-hue6;
+                    background-color: $background-hue6;
                     color: inherit;
                 }
             }
@@ -344,7 +344,7 @@ md-dialog {
             .md-button:hover:not([disabled]),
             .md-button:focus:not([disabled]) {
                 &.neutralized-button {
-                    background-color: variables.$background-hue6;
+                    background-color: $background-hue6;
                     color: inherit;
                 }
             }
@@ -361,7 +361,7 @@ md-dialog-content {
             &:hover,
             &:focus {
                 background-color: transparent !important;
-                box-shadow: inset 0 0 1px 1px variables.$white;
+                box-shadow: inset 0 0 1px 1px $white;
             }
         }
     }
@@ -400,7 +400,7 @@ md-dialog-content {
     height: 1px;
     margin-top: 0.5em;
     margin-bottom: 0.5em;
-    background-color: color.adjust(variables.$dark, $alpha: -0.5);
+    background-color: color.adjust($dark, $alpha: -0.5);
 
     &.transparent-divider {
         background-color: transparent;
@@ -435,12 +435,12 @@ md-dialog-content:has(prm-main-menu) {
     }
     prm-main-menu button {
         prm-icon {
-            color: variables.$accent-color;
+            color: $accent-color;
             font-weight: 400;
             margin-right: 6px;
         }
         span {
-            color: variables.$uqBodyCopy;
+            color: $uqBodyCopy;
             text-transform: capitalize;
             font-weight: 400;
         }

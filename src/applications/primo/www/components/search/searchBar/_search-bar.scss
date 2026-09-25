@@ -3,12 +3,13 @@
 @use "../../../styles/partials/easing";
 @use "../../../styles/partials/mixins";
 @use "../../../styles/partials/mixins/material-mixins";
+@use "../../../styles/partials/custom-theme" as theme;
 
 prm-search-bar {
     padding: 1.5em;
     position: relative;
     @extend .prm-primary-bg;
-    @extend .prm-text;
+    @include theme.prm-text;
 
     .__sm & {
         padding: 1em;

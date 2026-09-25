@@ -6,7 +6,7 @@ prm-quick-link {
     }
 
     a {
-        @extend .uq-button-styled-as-link;
+        @extend .uq-button-styled-as-link !optional;
         &:hover {
             box-shadow: none;
         }
