@@ -1,5 +1,6 @@
 @use "../../../../../styles-imports/www/variables";
 @use "../../../../styles/partials/mixins";
+@use "../../../../styles/partials/custom-theme" as theme;
 
 /* starting virtualBrowseItem */
 
@@ -40,7 +41,7 @@ prm-more-like-this-item {
         md-card-title,
         md-card-content {
             padding: 0.5em;
-            @extend .prm-text;
+            @include theme.prm-text;
         }
 
         md-card-title {
