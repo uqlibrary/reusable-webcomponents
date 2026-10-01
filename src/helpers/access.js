@@ -33,6 +33,8 @@ function hasWebContentAdminAccess(account) {
     return hasAdGroup(account, 'lib_libapi_SpotlightAdmins');
 }
 
+export const canSeeSpacesAdmin = (account) => hasAdGroup(account, 'lib_libapi_SpacesAdmin');
+
 export function canSeeAlertsAdmin(account) {
     return hasWebContentAdminAccess(account);
 }
