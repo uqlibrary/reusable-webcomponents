@@ -1123,6 +1123,7 @@ body.custom-nde-theme {
 
   /* eg the main search top bar "advanced search" button  */
   /* eg the sidebar filter checkbox buttons in certain circumstances */
+  /* citation finder/linker reset button */
   a, button {
     &:has(> span:nth-of-type(4)):has(span.mdc-button__label) {
       &:not(:has(> span:nth-of-type(5))):not(:has(div)):not(:has(mat-icon)):not(:has(span.mdc-button__label span)) {
