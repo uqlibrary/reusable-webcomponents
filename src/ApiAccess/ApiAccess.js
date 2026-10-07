@@ -227,8 +227,11 @@ class ApiAccess {
     }
 
     async loadSpacesAvailability() {
-        const API_URL =
-            process.env.ASSETS_API_URL || 'https://assets.library.uq.edu.au/reusable-webcomponents-staging/api/';
+        // Drupal Staging seems to be set as 'development', which screws up the 
+        // determination of ASSETS_API_URL when the API code is only ever
+        // on staging or prod. Override here.
+        const env = process.env.BRANCH === 'development' ? 'staging' : process.env.BRANCH;
+        const API_URL = env !== 'staging' ? process.env.ASSETS_API_URL : 'https://assets.library.uq.edu.au/reusable-webcomponents-staging/api/';
         const headcountUrl = `${API_URL}${new ApiRoutes().SPACES_AVAILABILITY_API().apiUrl}`;
 
         return await this.fetchOtherAPI(headcountUrl)
