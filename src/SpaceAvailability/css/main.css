@@ -16,7 +16,10 @@
 }
 
 #spaceAvailabilityWrapper {
-    position: relative;
+    position: relative; 
+    --space-availability-bar-colour-green: #2EA836;
+    --space-availability-bar-colour-yellow: #FBB800;
+    --space-availability-bar-colour-red: #EB602B;
 }
 
 .space-availability__title {
@@ -63,30 +66,27 @@
 }
 
 .space-availability__border_green {
-    border-color: var(--success-100);
+    border-color: var(--space-availability-bar-colour-green);
 }
 
 .space-availability__border_yellow {
-    border-color: var(--warning-100);
+    border-color: var(--space-availability-bar-colour-yellow);
 }
 
 .space-availability__border_red {
-    border-color: var(--error-100);
+    border-color: var(--space-availability-bar-colour-red);
 }
 
 .space-availability__bar_green {
-    --space-availability-bar-colour: #2EA836;
-    background-color: var(--space-availability-bar-colour);
+    background-color: var(--space-availability-bar-colour-green);
 }
 
 .space-availability__bar_yellow {
-    --space-availability-bar-colour: #FBB800;
-    background-color: var(--space-availability-bar-colour);
+    background-color: var(--space-availability-bar-colour-yellow);
 }
 
 .space-availability__bar_red {
-    --space-availability-bar-colour: #EB602B;
-    background-color: var(--space-availability-bar-colour);
+    background-color: var(--space-availability-bar-colour-red);
 }
 
 .space-availability__chart_bar_loading {
