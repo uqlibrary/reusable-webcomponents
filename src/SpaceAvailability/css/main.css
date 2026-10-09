@@ -52,6 +52,8 @@
     justify-self: center;
     position: relative; /* own stacking context so loader's opacity can't paint over it */
     z-index: 1;
+    font-weight: var(--font-weight-bold);
+    color: var(--black);
 }
 
 .space-availability__chart_bar_loader {
@@ -73,20 +75,17 @@
 }
 
 .space-availability__bar_green {
-    --space-availability-bar-colour-light: var(--success-50);
-    --space-availability-bar-colour: var(--success-100);
+    --space-availability-bar-colour: #2EA836;
     background-color: var(--space-availability-bar-colour);
 }
 
 .space-availability__bar_yellow {
-    --space-availability-bar-colour-light: var(--warning-50);
-    --space-availability-bar-colour: var(--warning-100);
+    --space-availability-bar-colour: #FBB800;
     background-color: var(--space-availability-bar-colour);
 }
 
 .space-availability__bar_red {
-    --space-availability-bar-colour-light: var(--error-50);
-    --space-availability-bar-colour: var(--error-100);
+    --space-availability-bar-colour: #EB602B;
     background-color: var(--space-availability-bar-colour);
 }
 
