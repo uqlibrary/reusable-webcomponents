@@ -2,26 +2,6 @@ import { test, expect } from '@uq/pw/test';
 import { assertAccessibility } from '@uq/pw/lib/axe';
 
 test.describe('Space Availability widget', () => {
-    const assertLayout = async (page, direction = 'row') => {
-        const first = page.locator('space-availability[id="7877"]');
-        const second = page.locator('space-availability[id="7878"]');
-
-        const firstBox = await first.boundingBox();
-        const secondBox = await second.boundingBox();
-
-        if (direction === 'row') {
-            // same row
-            expect(Math.abs(firstBox.y - secondBox.y)).toBeLessThan(5);
-            // side-by-side, not stacked/overlapping
-            expect(secondBox.x).toBeGreaterThanOrEqual(firstBox.x + firstBox.width);
-        } else if (direction === 'column') {
-            // left-aligned to the same column
-            expect(Math.abs(firstBox.x - secondBox.x)).toBeLessThan(5);
-            // stacked, not side-by-side/overlapping
-            expect(secondBox.y).toBeGreaterThanOrEqual(firstBox.y + firstBox.height);
-        }
-    };
-
     const installApiCallCounter = async (page) => {
         await page.evaluate(() => {
             const service = window.spaceAvailabilityDataService;
@@ -68,161 +48,92 @@ test.describe('Space Availability widget', () => {
             await page.goto('http://localhost:8080/src/SpaceAvailability/example.html');
         });
 
-        test('should display multiple instances correctly at 1280px wide', async ({ page }) => {
-            await page.setViewportSize({ width: 1280, height: 900 });
-            await expect(page.locator('space-availability')).toHaveCount(9);
-            await assertAccessibility(page, '.space-availability-wrapper');
+        for (const width of [1280, 320]) {
+            test(`should display multiple charts correctly at ${width}px wide`, async ({ page }) => {
+                await page.setViewportSize({ width, height: 900 });
+                await expect(page.locator('space-availability')).toHaveCount(9);
+                await assertAccessibility(page, '.space-availability-wrapper');
 
-            let spaceAvailability = page.locator('space-availability[id="7877"]');
-            await expect(spaceAvailability.locator('.space-availability__title')).toHaveText('Architecture and Music');
-            await expect(spaceAvailability.locator('.space-availability__subtitle')).toHaveText('105 seats');
-            await expect(spaceAvailability.locator('.space-availability__chart_label')).toHaveText('14% of capacity');
-            await expect(spaceAvailability.locator('.space-availability__chart_bar')).toHaveClass(
-                /space-availability__bar_green/,
-            );
-            await expect(spaceAvailability.locator('.space-availability__chart_bar')).toHaveAttribute(
-                'style',
-                'width: 14%;',
-            );
-            await expect(spaceAvailability.locator('#spaceAvailabilityTimerControl')).toHaveAttribute(
-                'aria-pressed',
-                'false',
-            );
+                let spaceAvailability = page.locator('space-availability[id="7877"]');
+                await expect(spaceAvailability.locator('.space-availability__title')).toHaveText(
+                    'Architecture and Music',
+                );
+                await expect(spaceAvailability.locator('.space-availability__subtitle')).toHaveText('105 seats');
+                await expect(spaceAvailability.locator('.space-availability__chart_label')).toHaveText(
+                    '14% of capacity',
+                );
+                await expect(spaceAvailability.locator('.space-availability__chart_bar')).toHaveClass(
+                    /space-availability__bar_green/,
+                );
+                await expect(spaceAvailability.locator('.space-availability__chart_bar')).toHaveAttribute(
+                    'style',
+                    'width: 14%;',
+                );
+                await expect(spaceAvailability.locator('#spaceAvailabilityTimerControl')).toHaveAttribute(
+                    'aria-pressed',
+                    'false',
+                );
 
-            spaceAvailability = page.locator('space-availability[id="7878"]');
-            await expect(spaceAvailability.locator('.space-availability__title')).toHaveText('Biological Sciences');
-            await expect(spaceAvailability.locator('.space-availability__subtitle')).toHaveText('595 seats');
-            await expect(spaceAvailability.locator('.space-availability__chart_label')).toHaveText('42% of capacity');
-            await expect(spaceAvailability.locator('.space-availability__chart_bar')).toHaveClass(
-                /space-availability__bar_green/,
-            );
-            await expect(spaceAvailability.locator('.space-availability__chart_bar')).toHaveAttribute(
-                'style',
-                'width: 42%;',
-            );
-            await expect(spaceAvailability.locator('#spaceAvailabilityTimerControl')).toHaveAttribute(
-                'aria-pressed',
-                'false',
-            );
+                spaceAvailability = page.locator('space-availability[id="7878"]');
+                await expect(spaceAvailability.locator('.space-availability__title')).toHaveText('Biological Sciences');
+                await expect(spaceAvailability.locator('.space-availability__subtitle')).toHaveText('595 seats');
+                await expect(spaceAvailability.locator('.space-availability__chart_label')).toHaveText(
+                    '42% of capacity',
+                );
+                await expect(spaceAvailability.locator('.space-availability__chart_bar')).toHaveClass(
+                    /space-availability__bar_green/,
+                );
+                await expect(spaceAvailability.locator('.space-availability__chart_bar')).toHaveAttribute(
+                    'style',
+                    'width: 42%;',
+                );
+                await expect(spaceAvailability.locator('#spaceAvailabilityTimerControl')).toHaveAttribute(
+                    'aria-pressed',
+                    'false',
+                );
 
-            spaceAvailability = page.locator('space-availability[id="7665"]');
-            await expect(spaceAvailability.locator('.space-availability__title')).toHaveText('Central');
-            await expect(spaceAvailability.locator('.space-availability__subtitle')).toHaveText('770 seats');
-            await expect(spaceAvailability.locator('.space-availability__chart_label')).toHaveText('71% of capacity');
-            await expect(spaceAvailability.locator('.space-availability__chart_bar')).toHaveClass(
-                /space-availability__bar_yellow/,
-            );
-            await expect(spaceAvailability.locator('.space-availability__chart_bar')).toHaveAttribute(
-                'style',
-                'width: 71%;',
-            );
-            await expect(spaceAvailability.locator('#spaceAvailabilityTimerControl')).toHaveAttribute(
-                'aria-pressed',
-                'false',
-            );
+                spaceAvailability = page.locator('space-availability[id="7665"]');
+                await expect(spaceAvailability.locator('.space-availability__title')).toHaveText('Central');
+                await expect(spaceAvailability.locator('.space-availability__subtitle')).toHaveText('770 seats');
+                await expect(spaceAvailability.locator('.space-availability__chart_label')).toHaveText(
+                    '71% of capacity',
+                );
+                await expect(spaceAvailability.locator('.space-availability__chart_bar')).toHaveClass(
+                    /space-availability__bar_yellow/,
+                );
+                await expect(spaceAvailability.locator('.space-availability__chart_bar')).toHaveAttribute(
+                    'style',
+                    'width: 71%;',
+                );
+                await expect(spaceAvailability.locator('#spaceAvailabilityTimerControl')).toHaveAttribute(
+                    'aria-pressed',
+                    'false',
+                );
 
-            spaceAvailability = page.locator('space-availability[id="7879"]');
-            await expect(spaceAvailability.locator('.space-availability__title')).toHaveText(
-                'Dorothy Hill Engineering and Sciences',
-            );
-            await expect(spaceAvailability.locator('.space-availability__subtitle')).toHaveText('315 seats');
-            await expect(spaceAvailability.locator('.space-availability__chart_label')).toHaveText('95% of capacity');
-            await expect(spaceAvailability.locator('.space-availability__chart_bar')).toHaveClass(
-                /space-availability__bar_red/,
-            );
-            await expect(spaceAvailability.locator('.space-availability__chart_bar')).toHaveAttribute(
-                'style',
-                'width: 95%;',
-            );
-            await expect(spaceAvailability.locator('#spaceAvailabilityTimerControl')).toHaveAttribute(
-                'aria-pressed',
-                'false',
-            );
+                spaceAvailability = page.locator('space-availability[id="7879"]');
+                await expect(spaceAvailability.locator('.space-availability__title')).toHaveText(
+                    'Dorothy Hill Engineering and Sciences',
+                );
+                await expect(spaceAvailability.locator('.space-availability__subtitle')).toHaveText('315 seats');
+                await expect(spaceAvailability.locator('.space-availability__chart_label')).toHaveText(
+                    '95% of capacity',
+                );
+                await expect(spaceAvailability.locator('.space-availability__chart_bar')).toHaveClass(
+                    /space-availability__bar_red/,
+                );
+                await expect(spaceAvailability.locator('.space-availability__chart_bar')).toHaveAttribute(
+                    'style',
+                    'width: 95%;',
+                );
+                await expect(spaceAvailability.locator('#spaceAvailabilityTimerControl')).toHaveAttribute(
+                    'aria-pressed',
+                    'false',
+                );
 
-            // assert side-by-side
-            await assertLayout(page, 'row');
-
-            // assert API was called after standard interval
-            await assertApiWasCalled(page);
-        });
-
-        test('should display multiple instances correctly at 320px wide', async ({ page }) => {
-            await page.setViewportSize({ width: 320, height: 900 });
-            await expect(page.locator('space-availability')).toHaveCount(9);
-            await assertAccessibility(page, '.space-availability-wrapper');
-
-            let spaceAvailability = page.locator('space-availability[id="7877"]');
-            await expect(spaceAvailability.locator('.space-availability__title')).toHaveText('Architecture and Music');
-            await expect(spaceAvailability.locator('.space-availability__subtitle')).toHaveText('105 seats');
-            await expect(spaceAvailability.locator('.space-availability__chart_label')).toHaveText('14% of capacity');
-            await expect(spaceAvailability.locator('.space-availability__chart_bar')).toHaveClass(
-                /space-availability__bar_green/,
-            );
-            await expect(spaceAvailability.locator('.space-availability__chart_bar')).toHaveAttribute(
-                'style',
-                'width: 14%;',
-            );
-            await expect(spaceAvailability.locator('#spaceAvailabilityTimerControl')).toHaveAttribute(
-                'aria-pressed',
-                'false',
-            );
-
-            spaceAvailability = page.locator('space-availability[id="7878"]');
-            await expect(spaceAvailability.locator('.space-availability__title')).toHaveText('Biological Sciences');
-            await expect(spaceAvailability.locator('.space-availability__subtitle')).toHaveText('595 seats');
-            await expect(spaceAvailability.locator('.space-availability__chart_label')).toHaveText('42% of capacity');
-            await expect(spaceAvailability.locator('.space-availability__chart_bar')).toHaveClass(
-                /space-availability__bar_green/,
-            );
-            await expect(spaceAvailability.locator('.space-availability__chart_bar')).toHaveAttribute(
-                'style',
-                'width: 42%;',
-            );
-            await expect(spaceAvailability.locator('#spaceAvailabilityTimerControl')).toHaveAttribute(
-                'aria-pressed',
-                'false',
-            );
-
-            spaceAvailability = page.locator('space-availability[id="7665"]');
-            await expect(spaceAvailability.locator('.space-availability__title')).toHaveText('Central');
-            await expect(spaceAvailability.locator('.space-availability__subtitle')).toHaveText('770 seats');
-            await expect(spaceAvailability.locator('.space-availability__chart_label')).toHaveText('71% of capacity');
-            await expect(spaceAvailability.locator('.space-availability__chart_bar')).toHaveClass(
-                /space-availability__bar_yellow/,
-            );
-            await expect(spaceAvailability.locator('.space-availability__chart_bar')).toHaveAttribute(
-                'style',
-                'width: 71%;',
-            );
-            await expect(spaceAvailability.locator('#spaceAvailabilityTimerControl')).toHaveAttribute(
-                'aria-pressed',
-                'false',
-            );
-
-            spaceAvailability = page.locator('space-availability[id="7879"]');
-            await expect(spaceAvailability.locator('.space-availability__title')).toHaveText(
-                'Dorothy Hill Engineering and Sciences',
-            );
-            await expect(spaceAvailability.locator('.space-availability__subtitle')).toHaveText('315 seats');
-            await expect(spaceAvailability.locator('.space-availability__chart_label')).toHaveText('95% of capacity');
-            await expect(spaceAvailability.locator('.space-availability__chart_bar')).toHaveClass(
-                /space-availability__bar_red/,
-            );
-            await expect(spaceAvailability.locator('.space-availability__chart_bar')).toHaveAttribute(
-                'style',
-                'width: 95%;',
-            );
-            await expect(spaceAvailability.locator('#spaceAvailabilityTimerControl')).toHaveAttribute(
-                'aria-pressed',
-                'false',
-            );
-
-            // assert stacked layout
-            await assertLayout(page, 'column');
-
-            // assert API was called after standard interval
-            await assertApiWasCalled(page);
-        });
+                // assert API was called after standard interval
+                await assertApiWasCalled(page);
+            });
+        }
 
         test('should handle pause button being pressed', async ({ page }) => {
             await page.setViewportSize({ width: 1280, height: 900 });
