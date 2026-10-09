@@ -72,20 +72,6 @@ async function assertUserHasAlertsAdmin(expected, page, userid = 'uqstaff') {
     }
 }
 
-async function assertUserHasSpacesAdmin(expected, page) {
-    const authButton = page.locator('uq-site-header').locator('auth-button');
-    if (!!expected) {
-        await expect(authButton.locator('li[data-testid="spaces-admin"]')).toBeVisible();
-        await expect(authButton.locator('li[data-testid="spaces-admin"]')).toHaveText('Spaces');
-        await expect(authButton.locator('li a[data-testid="mylibrary-menu-spaces-admin"]')).toHaveAttribute(
-            'href',
-            `http://localhost:2020/admin/spaces?user=libSpaces`,
-        );
-    } else {
-        await expect(authButton.locator('li[data-testid="alerts-spaces"]')).not.toBeVisible();
-    }
-}
-
 async function assertUserHasTestTagAdmin(expected, page) {
     // only staff who are Licensed Electrical Testers (or are on dev team) should have this
     const authButton = page.locator('uq-site-header').locator('auth-button');
