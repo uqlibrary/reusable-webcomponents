@@ -35,6 +35,9 @@ function hasWebContentAdminAccess(account) {
 
 export const canSeeSpacesAdmin = (account) => hasAdGroup(account, 'lib_libapi_SpacesAdmin');
 
+// the same AD group the API gates the membership back-office on
+export const canSeeMembershipAdmin = (account) => hasAdGroup(account, 'lib_libapi_MembershipAdmins');
+
 export function canSeeAlertsAdmin(account) {
     return hasWebContentAdminAccess(account);
 }
