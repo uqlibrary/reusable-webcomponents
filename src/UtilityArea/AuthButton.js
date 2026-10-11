@@ -9,6 +9,7 @@ import {
     canSeeAlertsAdmin,
     canSeeDlorAdmin,
     canSeeEspace,
+    canSeeMembershipAdmin,
     canSeeSpacesAdmin,
     canSeeSpringshareAdmin,
     canSeeTestTag,
@@ -347,6 +348,24 @@ class AuthButton extends HTMLElement {
             firstEntry = false;
         }
 
+        if (!!canSeeMembershipAdmin(account)) {
+            addAdminMenuOption(
+                'membership-admin',
+                'mylibrary-menu-membership-admin',
+                `${linkRoot}admin/membership${linkAppend}`,
+                `<svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+<rect x="2.5" y="5" width="19" height="14" rx="1.5" stroke="#51247A" stroke-linejoin="round" fill="none"/>
+<circle cx="8" cy="11" r="2" stroke="#51247A" fill="none"/>
+<path d="M5 16c0-1.7 1.3-3 3-3s3 1.3 3 3" stroke="#51247A" stroke-linecap="round" fill="none"/>
+<path d="M14 10h4.5" stroke="#51247A" stroke-linecap="round" fill="none"/>
+<path d="M14 13h4.5" stroke="#51247A" stroke-linecap="round" fill="none"/>
+</svg>`,
+                'Library membership',
+                firstEntry,
+            );
+            firstEntry = false;
+        }
+
         // pre-done in case spotlights returns. remove in 2026 if not used by then
         //         const canSeeSpotlightsAdmin = () => true;
         //         !!canSeeSpotlightsAdmin(account) &&
@@ -613,6 +632,7 @@ class AuthButton extends HTMLElement {
         closeAccountMenuOnLinkClick('mylibrary-menu-course-resources');
         closeAccountMenuOnLinkClick('mylibrary-menu-masquerade');
         closeAccountMenuOnLinkClick('mylibrary-menu-alerts-admin');
+        closeAccountMenuOnLinkClick('mylibrary-menu-membership-admin');
         closeAccountMenuOnLinkClick('mylibrary-menu-testTag-admin');
         closeAccountMenuOnLinkClick('mylibrary-menu-dlor-admin');
     }
