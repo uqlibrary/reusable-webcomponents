@@ -115,6 +115,20 @@ async function assertUserHasSpacesAdmin(expected, page) {
     }
 }
 
+async function assertUserHasMembershipAdmin(expected, page, userid = 'libMembership') {
+    const authButton = page.locator('uq-site-header').locator('auth-button');
+    if (!!expected) {
+        await expect(authButton.locator('li[data-testid="membership-admin"]')).toBeVisible();
+        await expect(authButton.locator('li[data-testid="membership-admin"]')).toHaveText('Library membership');
+        await expect(authButton.locator('li a[data-testid="mylibrary-menu-membership-admin"]')).toHaveAttribute(
+            'href',
+            `http://localhost:2020/admin/membership?user=${userid}`,
+        );
+    } else {
+        await expect(authButton.locator('li[data-testid="membership-admin"]')).not.toBeVisible();
+    }
+}
+
 async function assertUserHasSpringshareAdmin(expected, page) {
     if (!!expected) {
         await expect(page.locator('li[data-testid="springshare-admin"]')).toBeVisible();
@@ -155,6 +169,7 @@ async function visitPageforUser(userName, page) {
 async function assertUserSeesNOAdminOptions(page) {
     assertUserHasMasquerade(false, page);
     assertUserHasAlertsAdmin(false, page);
+    assertUserHasMembershipAdmin(false, page);
     assertUserHasTestTagAdmin(false, page);
     assertUserHasDlorAdmin(false, page);
     assertUserHasSpringshareAdmin(false, page);
@@ -402,6 +417,7 @@ test.describe('Account menu button', () => {
             await assertUserHasStandardMyLibraryOptions('uqstaff', page);
             await assertUserHasMasquerade(true, page, 'uqstaff');
             await assertUserHasAlertsAdmin(true, page);
+            await assertUserHasMembershipAdmin(true, page, 'uqstaff');
             await assertUserHasTestTagAdmin(false, page); // admins do not get T&T by default
             await assertUserHasDlorAdmin(false, page);
             await assertUserHasSpacesAdmin(false, page);
@@ -444,6 +460,21 @@ test.describe('Account menu button', () => {
             await assertUserHasTestTagAdmin(false, page);
             await assertUserHasDlorAdmin(false, page);
             await assertUserHasSpacesAdmin(true, page);
+            await assertUserHasMembershipAdmin(false, page);
+            await assertUserHasSpringshareAdmin(true, page);
+        });
+
+        test('Membership admin gets Library membership entry', async ({ page }) => {
+            await visitPageforUser('libMembership', page);
+            await openAccountDropdown(page);
+
+            await assertUserHasStandardMyLibraryOptions('libMembership', page);
+            await assertUserHasMasquerade(false, page, 'libMembership');
+            await assertUserHasAlertsAdmin(false, page);
+            await assertUserHasMembershipAdmin(true, page);
+            await assertUserHasTestTagAdmin(false, page);
+            await assertUserHasDlorAdmin(false, page);
+            await assertUserHasSpacesAdmin(false, page);
             await assertUserHasSpringshareAdmin(true, page);
         });
 
@@ -454,6 +485,7 @@ test.describe('Account menu button', () => {
             await assertUserHasStandardMyLibraryOptions('uqmasquerade', page);
             await assertUserHasMasquerade(true, page, 'uqmasquerade');
             await assertUserHasAlertsAdmin(false, page);
+            await assertUserHasMembershipAdmin(false, page);
             await assertUserHasTestTagAdmin(false, page);
             await assertUserHasDlorAdmin(false, page);
             await assertUserHasSpacesAdmin(false, page);
