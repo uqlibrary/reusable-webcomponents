@@ -145,7 +145,7 @@ test.describe('Space Availability widget', () => {
 
             // the accessibility pause button is hidden by default, so force the first
             // button to appear by removing the hidden class. This should allow us
-            // to press the button without issue (note: force:true didnt work here)
+            // to press the button without issue (note: force:true didnt work here).
             const spaceAvailability1ButtonWrapper = spaceAvailability1.locator('.space-availability__timer_control');
             await spaceAvailability1ButtonWrapper.evaluate((el) => {
                 el.classList.remove('visually-hidden');
