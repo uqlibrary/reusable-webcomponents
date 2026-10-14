@@ -86,7 +86,7 @@
     "jest-environment-jsdom": "^30.5.1",
     "mini-css-extract-plugin": "^1.6.2",
     "nyc": "^18.0.0",
-    "postcss-loader": "^7.3.4",
+    "postcss-loader": "^8.2.1",
     "prettier": "^2.8.8",
     "prettier-eslint-cli": "^7.1.0",
     "rename-output-webpack-plugin": "^1.0.1",
