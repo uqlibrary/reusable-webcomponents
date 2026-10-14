@@ -12,8 +12,7 @@ const ICON_INFO =
 const ICON_WARN =
     'url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 fill=%27none%27 viewBox=%270 0 24 24%27%3E%3Ccircle cx=%2712%27 cy=%2712%27 r=%279.25%27 stroke=%27%233b383e%27 stroke-width=%271.5%27/%3E%3Cpath stroke=%27%233b383e%27 stroke-linecap=%27round%27 stroke-width=%271.5%27 d=%27M12 7.8v4%27/%3E%3Ccircle cx=%2711.9%27 cy=%2715.6%27 r=%27.6%27 fill=%27%233b383e%27 stroke=%27%233b383e%27/%3E%3C/svg%3E")';
 const ICON_ERROR =
-    'url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 fill=%27none%27 viewBox=%270 0 24 24%27%3E%3Cpath stroke=%27%23fff%27 stroke-width=%271.5%27 d=%27M20.127 18.545a1.18 1.18 0 0 1-1.055 1.706H4.929a1.18 1.18 0 0 1-1.055-1.706l7.072-14.143a1.179 1.179 0 0 1 2.109 0z%27/%3E%3Cpath stroke=%27%23fff%27 stroke-linecap=%27round%27 stroke-width=%271.5%27 d=%27M12 9v4%27/%3E%3Ccircle cx=%2711.9%27 cy=%2716.601%27 r=%271.1%27 fill=%27%23fff%27/%3E%3C/svg%3E")';
-
+    'url("data:image/svg+xml,%3csvg viewBox=%270 0 24 24%27 fill=%27none%27 xmlns=%27http://www.w3.org/2000/svg%27%3e%3cpath d=%27M20.127 18.545a1.18 1.18 0 0 1-1.055 1.706H4.929a1.18 1.18 0 0 1-1.055-1.706l7.072-14.143a1.179 1.179 0 0 1 2.109 0l7.072 14.143Z%27 stroke=%27%23fff%27 stroke-width=%271.5%27%3e%3c/path%3e%3cpath d=%27M12 9v4%27 stroke=%27%23fff%27 stroke-width=%271.5%27 stroke-linecap=%27round%27%3e%3c/path%3e%3ccircle cx=%2711.9%27 cy=%2716.601%27 r=%271.1%27 fill=%27%23fff%27%3e%3c/circle%3e%3c/svg%3e")';
 test.describe('Alert', () => {
     const getBeforeElBackgroundImage = async (el) =>
         el.evaluate(async (el) => (await window.getComputedStyle(el, '::before')).backgroundImage);
@@ -26,11 +25,21 @@ test.describe('Alert', () => {
     const normaliseSvgDataUri = (value) =>
         decodeURIComponent(
             String(value)
-                .replace(/^url\((['"]?)([\s\S]*)\1\)$/, '$2') // strip url("...") wrapper
-                .replace(/^data:image\/svg\+xml;charset=utf-8,/, ''), // strip data-uri prefix
+                .replace(/^url\((['"]?)([\s\S]*)\1\)$/, '$2')  // strip url("...") wrapper
+                .replace(/^data:image\/svg\+xml(?:;charset=utf-8)?,/i, ''), // strip data-uri prefix
         )
-            .replace(/["']/g, '"') // unify attribute quote style
-            .replace(/\s+/g, ' ') // collapse whitespace
+            // Normalise empty SVG elements.
+            .replace(/<(\w+)([^<>]*?)><\/\1>/g, '<$1$2 />')
+            // Sort attributes so their order doesn't affect the comparison.
+            .replace(/<(\w+)([^<>]*?)\s*\/?>/g, (match, tag, attrs) => {
+                const sortedAttrs = [...attrs.matchAll(/([\w:-]+)=(["'])(.*?)\2/g)]
+                    .map(([, name, , val]) => [name, val])
+                    .sort(([a], [b]) => a.localeCompare(b))
+                    .map(([name, val]) => `${name}="${val}"`)
+                    .join(' ');
+
+                return `<${tag}${sortedAttrs ? ` ${sortedAttrs}` : ''} />`;
+            })
             .trim();
 
     const assertIconIsVisible = async (el, expected) => {
