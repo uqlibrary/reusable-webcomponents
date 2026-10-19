@@ -10,9 +10,9 @@ async function assertPopupIsOpen(page) {
     await expect(proactiveChatElement.getByTestId('popupIsOpen')).toHaveClass(/show/);
 
     await expect(
-        page.locator('proactive-chat').getByRole('button', { name: 'Ask Library Chat Bot a question' }),
+        page.locator('proactive-chat').getByRole('button', { name: 'Ask Library Chatbot a question' }),
     ).toBeVisible();
-    await expect(proactiveChatElement.getByRole('button', { name: 'Ask Library Chat Bot a question' })).toHaveCSS(
+    await expect(proactiveChatElement.getByRole('button', { name: 'Ask Library Chatbot a question' })).toHaveCSS(
         'background-color',
         _helpers.COLOUR_UQ_PURPLE,
     );
@@ -34,16 +34,16 @@ test.describe('Proactive Chat', () => {
         await assertPopupIsOpen(page);
 
         // button has correct look and feel
-        await expect(proactiveChatElement.getByRole('button', { name: 'Ask Library Chat Bot a question' })).toHaveCSS(
+        await expect(proactiveChatElement.getByRole('button', { name: 'Ask Library Chatbot a question' })).toHaveCSS(
             'background-color',
             _helpers.COLOUR_UQ_PURPLE,
         );
-        await proactiveChatElement.getByRole('button', { name: 'Ask Library Chat Bot a question' }).hover();
-        await expect(proactiveChatElement.getByRole('button', { name: 'Ask Library Chat Bot a question' })).toHaveCSS(
+        await proactiveChatElement.getByRole('button', { name: 'Ask Library Chatbot a question' }).hover();
+        await expect(proactiveChatElement.getByRole('button', { name: 'Ask Library Chatbot a question' })).toHaveCSS(
             'background-color',
             'rgb(255, 255, 255)',
         );
-        await expect(proactiveChatElement.getByRole('button', { name: 'Ask Library Chat Bot a question' })).toHaveCSS(
+        await expect(proactiveChatElement.getByRole('button', { name: 'Ask Library Chatbot a question' })).toHaveCSS(
             'border-color',
             _helpers.COLOUR_UQ_PURPLE,
         );
@@ -72,13 +72,13 @@ test.describe('Proactive Chat', () => {
             const proactiveChatElement = page.locator('proactive-chat');
 
             await expect(
-                proactiveChatElement.getByRole('button', { name: 'Ask Library Chat Bot a question' }),
+                proactiveChatElement.getByRole('button', { name: 'Ask Library Chatbot a question' }),
             ).toBeVisible();
             await assertAccessibility(page, 'proactive-chat');
 
-            await proactiveChatElement.getByRole('button', { name: 'Ask Library Chat Bot a question' }).hover();
+            await proactiveChatElement.getByRole('button', { name: 'Ask Library Chatbot a question' }).hover();
             await expect(
-                proactiveChatElement.getByRole('button', { name: 'Ask Library Chat Bot a question' }),
+                proactiveChatElement.getByRole('button', { name: 'Ask Library Chatbot a question' }),
             ).toHaveCSS('background-color', 'rgb(255, 255, 255)');
             await assertAccessibility(page, 'proactive-chat');
         });
@@ -86,7 +86,7 @@ test.describe('Proactive Chat', () => {
             await page.goto('http://localhost:8080/index-chat-fast.html?chatstatusoffline=true');
             await page.setViewportSize({ width: 1280, height: 900 });
             await expect(
-                page.locator('proactive-chat').getByRole('button', { name: 'Ask Library Chat Bot a question' }),
+                page.locator('proactive-chat').getByRole('button', { name: 'Ask Library Chatbot a question' }),
             ).toBeVisible();
             await assertAccessibility(page, 'proactive-chat');
         });
@@ -96,9 +96,9 @@ test.describe('Proactive Chat', () => {
             const proactiveChatElement = page.locator('proactive-chat');
 
             await expect(
-                proactiveChatElement.getByRole('button', { name: 'Ask Library Chat Bot a question' }),
+                proactiveChatElement.getByRole('button', { name: 'Ask Library Chatbot a question' }),
             ).toBeVisible();
-            await proactiveChatElement.getByRole('button', { name: 'Ask Library Chat Bot a question' }).click();
+            await proactiveChatElement.getByRole('button', { name: 'Ask Library Chatbot a question' }).click();
 
             // can see iframe
             await expect(page.locator('proactive-chat').getByTestId('chatbot-wrapper')).toBeVisible();
@@ -116,9 +116,9 @@ test.describe('Proactive Chat', () => {
             const proactiveChatElement = page.locator('proactive-chat');
 
             await expect(
-                proactiveChatElement.getByRole('button', { name: 'Ask Library Chat Bot a question' }),
+                proactiveChatElement.getByRole('button', { name: 'Ask Library Chatbot a question' }),
             ).toBeVisible();
-            await proactiveChatElement.getByRole('button', { name: 'Ask Library Chat Bot a question' }).click();
+            await proactiveChatElement.getByRole('button', { name: 'Ask Library Chatbot a question' }).click();
 
             // can see iframe
             await expect(page.locator('proactive-chat').getByTestId('chatbot-wrapper')).toBeVisible();
@@ -212,9 +212,9 @@ test.describe('Proactive Chat', () => {
             await proactiveChatElement.getByTestId('proactive-chat-online').click();
 
             await expect(
-                proactiveChatElement.getByRole('button', { name: 'Ask Library Chat Bot a question' }),
+                proactiveChatElement.getByRole('button', { name: 'Ask Library Chatbot a question' }),
             ).toBeVisible();
-            await proactiveChatElement.getByRole('button', { name: 'Ask Library Chat Bot a question' }).click();
+            await proactiveChatElement.getByRole('button', { name: 'Ask Library Chatbot a question' }).click();
 
             // iframe is open
             await expect(proactiveChatElement.getByTestId('chatbot-iframe')).toBeVisible();
@@ -271,9 +271,9 @@ test.describe('Proactive Chat', () => {
             await expect(proactiveChatElement.getByTestId('proactive-chat-online')).toBeVisible();
             await proactiveChatElement.getByTestId('proactive-chat-online').click();
             await expect(
-                proactiveChatElement.getByRole('button', { name: 'Ask Library Chat Bot a question' }),
+                proactiveChatElement.getByRole('button', { name: 'Ask Library Chatbot a question' }),
             ).toBeVisible();
-            await proactiveChatElement.getByRole('button', { name: 'Ask Library Chat Bot a question' }).click();
+            await proactiveChatElement.getByRole('button', { name: 'Ask Library Chatbot a question' }).click();
             await expect(proactiveChatElement.getByTestId('chatbot-wrapper')).toBeVisible();
             await expect(proactiveChatElement.getByTestId('chatbot-wrapper')).toBeVisible();
         });
@@ -289,9 +289,9 @@ test.describe('Proactive Chat', () => {
             await assertPopupIsOpen(page);
             const proactiveChatElement = page.locator('proactive-chat');
             await expect(
-                proactiveChatElement.getByRole('button', { name: 'Ask Library Chat Bot a question' }),
+                proactiveChatElement.getByRole('button', { name: 'Ask Library Chatbot a question' }),
             ).toBeVisible();
-            await proactiveChatElement.getByRole('button', { name: 'Ask Library Chat Bot a question' }).click();
+            await proactiveChatElement.getByRole('button', { name: 'Ask Library Chatbot a question' }).click();
 
             // let the iframe finish drawing
             await page.waitForTimeout(4000);
@@ -386,7 +386,7 @@ test.describe('Proactive Chat', () => {
             await assertHideCookieUnset(context);
             await assertPopupIsOpen(page);
 
-            await proactiveChatElement.getByRole('button', { name: 'Ask Library Chat Bot a question' }).click();
+            await proactiveChatElement.getByRole('button', { name: 'Ask Library Chatbot a question' }).click();
 
             // expected page loads in new tab (register the popup waiter before the click to avoid a race)
             const [newTab] = await Promise.all([
@@ -446,9 +446,9 @@ test.describe('Proactive Chat', () => {
             await expect(inlineProactiveChatElement.getByTestId('popupIsOpen')).toHaveClass(/show/);
 
             await expect(
-                inlineProactiveChatElement.getByRole('button', { name: 'Ask Library Chat Bot a question' }),
+                inlineProactiveChatElement.getByRole('button', { name: 'Ask Library Chatbot a question' }),
             ).toBeVisible();
-            await inlineProactiveChatElement.getByRole('button', { name: 'Ask Library Chat Bot a question' }).click();
+            await inlineProactiveChatElement.getByRole('button', { name: 'Ask Library Chatbot a question' }).click();
 
             await expect(proactiveChatElement.getByTestId('chatbot-iframe')).toBeVisible(); // well, at least we know the iframe reaches the page!
             const chatbotIframe = await proactiveChatElement.getByTestId('chatbot-iframe').boundingBox();
@@ -471,7 +471,7 @@ test.describe('Proactive Chat', () => {
             await expect(inlineProactiveChatElement.getByTestId('popupIsOpen')).toHaveClass(/show/);
 
             await expect(
-                inlineProactiveChatElement.getByRole('button', { name: 'Ask Library Chat Bot a question' }),
+                inlineProactiveChatElement.getByRole('button', { name: 'Ask Library Chatbot a question' }),
             ).toBeVisible();
 
             // expected page loads in new tab (register the popup waiter before the click to avoid a race)
@@ -500,7 +500,7 @@ test.describe('Proactive Chat', () => {
                 _helpers.COLOUR_UQ_PURPLE,
             );
             await expect(
-                proactiveChatElement.getByRole('button', { name: 'Ask Library Chat Bot a question' }),
+                proactiveChatElement.getByRole('button', { name: 'Ask Library Chatbot a question' }),
             ).not.toBeVisible();
         });
         test('gives a link to CRM contact form when askus is offline', async ({ page }) => {
@@ -518,7 +518,7 @@ test.describe('Proactive Chat', () => {
                 proactiveChatElement.getByRole('button', { name: 'No staff available to chat - Leave a question' }),
             ).toHaveCSS('background-color', _helpers.COLOUR_UQ_PURPLE);
             await expect(
-                proactiveChatElement.getByRole('button', { name: 'Ask Library Chat Bot a question' }),
+                proactiveChatElement.getByRole('button', { name: 'Ask Library Chatbot a question' }),
             ).not.toBeVisible();
         });
     });
