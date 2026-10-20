@@ -190,7 +190,7 @@ class AuthButton extends HTMLElement {
 
                         <!-- Room bookings -->
                         <li role="menuitem" aria-disabled="false">
-                            <a tabindex="0" data-testid="mylibrary-menu-room-bookings" data-analyticsid="mylibrary-menu-room-bookings" href="https://uqbookit.uq.edu.au/#/app/booking-types/77b52dde-d704-4b6d-917e-e820f7df07cb" rel="noreferrer">
+                            <a tabindex="0" data-testid="mylibrary-menu-room-bookings" data-analyticsid="mylibrary-menu-room-bookings" href="https://www.library.uq.edu.au/spaces" rel="noreferrer">
                                 ${svgRoomBooking}
                                 <span><span>Find library study spaces</span></span>
                             </a>
