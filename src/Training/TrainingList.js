@@ -196,9 +196,7 @@ class TrainingList extends HTMLElement {
                     ${dataAppend}
                 </span>
             </div>
-            <div id="event-venue-${event.entityId}" data-testid="event-venue-${event.entityId}">${getVenueLabel(
-            event,
-        )}</div>
+            <div id="event-venue-${event.entityId}" data-testid="event-venue-${event.entityId}">${getVenueLabel(event)}</div>
         `;
 
         const detailContainer = eventElement.getElementsByClassName('uq-accordion__content').item(0);
@@ -212,7 +210,10 @@ class TrainingList extends HTMLElement {
         detailContainer.appendChild(detailElement);
 
         let placesRemainingText = 'Booking is not required';
-        if (event.bookingSettings !== null) {
+        if ((event.bookingType === 3 || event.bookingType === 4) && event.bookingSettings === null) {
+            placesRemainingText = 'Booking is required';
+        }
+        else if (event.bookingSettings !== null) {
             if (event.bookingSettings.isBookingAvailable) {
                 placesRemainingText = 'Places still available';
             } else {

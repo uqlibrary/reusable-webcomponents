@@ -321,8 +321,8 @@ class TrainingFilter extends HTMLElement {
                 label: 'UQRDM',
             },
             {
-                term: 'Rstudio',
-                label: 'R (language)',
+                term: 'rstudio|positron|python',
+                label: 'R / Python',
             },
             {
                 term: 'Creating a Structured Thesis',

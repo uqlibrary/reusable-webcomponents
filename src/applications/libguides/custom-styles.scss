@@ -334,6 +334,30 @@ body h6 {
     margin-top: 24px;
 }
 
+a {
+    color: $uqBrandColour;
+    text-decoration: underline;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    font-weight: 500;
+    &:hover,
+    &:focus {
+        background-color: $uqBrandColour;
+        color: #fff;
+        text-decoration: underline;
+    }
+    &.bold {
+        font-weight: 500;
+        margin-left: 1em;
+    }
+    &:visited {
+        color: $uqBrandColour;
+        &:hover {
+            color: #fff;
+        }
+    }
+}
+
 p {
     margin-bottom: 24px;
     font-weight: 400;
@@ -576,11 +600,14 @@ body:not(.editmode) {
 
         #s-lg-guide-header-meta {
             padding-bottom: 0;
-            padding-top: 0;                
+            padding-top: 0;
+            margin-left: 0;
         }
-
+        #s-lg-guide-header-subjects{
+            margin-left: 0;
+        }
         #s-lg-guide-header-subjects, #s-lg-guide-header-tags {
-            padding-top: 0;                
+            padding-top: 0;
         }
 
         .s-lib-footer-login-link, .s-lib-footer-support-link {
