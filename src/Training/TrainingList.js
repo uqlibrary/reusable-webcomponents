@@ -55,7 +55,7 @@ class TrainingList extends HTMLElement {
         this._eventList = eventList;
         this.clearEvents();
 
-        // Get list of unique category names
+        // Get list of unique category names.
         const categoryNames = [...new Set(eventList.map((event) => event.eventType))];
 
         const categoryIdPrefix = 'category-top-';
@@ -196,7 +196,9 @@ class TrainingList extends HTMLElement {
                     ${dataAppend}
                 </span>
             </div>
-            <div id="event-venue-${event.entityId}" data-testid="event-venue-${event.entityId}">${getVenueLabel(event)}</div>
+            <div id="event-venue-${event.entityId}" data-testid="event-venue-${event.entityId}">${getVenueLabel(
+            event,
+        )}</div>
         `;
 
         const detailContainer = eventElement.getElementsByClassName('uq-accordion__content').item(0);
@@ -212,8 +214,7 @@ class TrainingList extends HTMLElement {
         let placesRemainingText = 'Booking is not required';
         if ((event.bookingType === 3 || event.bookingType === 4) && event.bookingSettings === null) {
             placesRemainingText = 'Booking is required';
-        }
-        else if (event.bookingSettings !== null) {
+        } else if (event.bookingSettings !== null) {
             if (event.bookingSettings.isBookingAvailable) {
                 placesRemainingText = 'Places still available';
             } else {
