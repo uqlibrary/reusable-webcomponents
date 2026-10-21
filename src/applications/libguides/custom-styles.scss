@@ -334,8 +334,6 @@ body h6 {
     margin-top: 24px;
 }
 
-#s-lib-footer-login-link a,
-#s-lib-footer-support-link a,
 a {
     color: $uqBrandColour;
     text-decoration: underline;
@@ -359,6 +357,7 @@ a {
         }
     }
 }
+
 p {
     margin-bottom: 24px;
     font-weight: 400;
@@ -591,6 +590,8 @@ body:not(.editmode) {
     }
 
     .s-lib-footer {
+        display: grid;
+
         padding-top: 10px;
         padding-bottom: 10px;
         border-top: none;
@@ -599,8 +600,22 @@ body:not(.editmode) {
 
         #s-lg-guide-header-meta {
             padding-bottom: 0;
+            padding-top: 0;
+            margin-left: 0;
         }
+        #s-lg-guide-header-subjects{
+            margin-left: 0;
+        }
+        #s-lg-guide-header-subjects, #s-lg-guide-header-tags {
+            padding-top: 0;
+        }
+
+        .s-lib-footer-login-link, .s-lib-footer-support-link {
+            display: none;
+        }
+
     }
+
 }
     /* styles for enclosing side nav */
 body:not(.editmode) #s-lg-side-nav-content {

@@ -321,8 +321,8 @@ class TrainingFilter extends HTMLElement {
                 label: 'UQRDM',
             },
             {
-                term: 'Rstudio',
-                label: 'R (language)',
+                term: 'rstudio|positron|python',
+                label: 'R / Python',
             },
             {
                 term: 'Creating a Structured Thesis',
@@ -344,7 +344,7 @@ class TrainingFilter extends HTMLElement {
             chipButton.innerHTML = chip.label;
             const slug = chip.term.toLowerCase().replace(/ /g, '-');
             chipButton.setAttribute('data-testid', `training-filter-popular-events-${slug}`);
-            chipButton.setAttribute('aria-label', `Use ${chip.term} as keyword`);
+            chipButton.setAttribute('aria-label', `${chip.label}: use ${chip.term} as keyword`);
             !!chipButton &&
                 chipButton.addEventListener('click', function () {
                     setKeyword(chip.term);

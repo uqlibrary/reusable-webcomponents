@@ -111,27 +111,15 @@ module.exports = () => {
                 },
                 {
                     test: /\.(png|jp(e*)g|svg)$/,
-                    use: [
-                        {
-                            loader: 'url-loader',
-                            options: {
-                                limit: 20000, // Convert images < 8kb to base64 strings
-                                name: 'img/[contenthash]-[name].[ext]',
-                            },
+                    type: 'asset',
+                    parser: {
+                        dataUrlCondition: {
+                            maxSize: 20000,
                         },
-                    ],
-                },
-                {
-                    test: /\.(png|jp(e*)g|svg)$/,
-                    use: [
-                        {
-                            loader: 'url-loader',
-                            options: {
-                                limit: 20000, // Convert images < 8kb to base64 strings
-                                name: 'img/[contenthash]-[name].[ext]',
-                            },
-                        },
-                    ],
+                    },
+                    generator: {
+                        filename: 'img/[contenthash]-[name][ext]',
+                    },
                 },
             ],
         },
