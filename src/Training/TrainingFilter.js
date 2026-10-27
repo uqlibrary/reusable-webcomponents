@@ -77,8 +77,6 @@ class TrainingFilter extends HTMLElement {
         this.loadWeeks(shadowDOM);
         this.loadPopularChips(shadowDOM);
 
-        this.changeHashofUrl(); // clear any bookmarked parameters, so displayed details match the empty filter
-
         this.addListeners = this.addListeners.bind(this);
         this.changeHashofUrl = this.changeHashofUrl.bind(this);
         this.listenForKeyClicks = this.listenForKeyClicks.bind(this);
@@ -122,6 +120,65 @@ class TrainingFilter extends HTMLElement {
             default:
                 break;
         }
+    }
+
+    initialiseFiltersFromUrl() {
+        const hash = new URL(document.URL).hash.slice(1);
+        const hashParams = new Map(
+            hash.split(';').map((param) => {
+                const separator = param.indexOf('=');
+
+                return separator === -1 ? [param, ''] : [param.slice(0, separator), param.slice(separator + 1)];
+            }),
+        );
+
+        const getHashValue = (key) => {
+            const value = hashParams.get(key) || '';
+
+            try {
+                return decodeURIComponent(value);
+            } catch {
+                return value;
+            }
+        };
+
+        const getSelectedOption = (listId, value) =>
+            [...this.shadowRoot.querySelectorAll(`#${listId} [data-value]`)].find(
+                (option) => option.dataset.value === value,
+            );
+
+        const restoreDropdown = (option, openerId, hoverId, dropdownId) => {
+            if (!option) {
+                return;
+            }
+
+            const opener = this.shadowRoot.getElementById(openerId);
+            if (opener) {
+                opener.textContent = option.textContent;
+            }
+
+            this.shadowRoot.getElementById(hoverId)?.classList.add('above');
+            this.shadowRoot.getElementById(dropdownId)?.classList.add('selected');
+        };
+
+        this._inputKeywordValue = getHashValue('keyword');
+        const selectedLocation = getSelectedOption('locationlist', getHashValue('location'));
+        const selectedWeek = getSelectedOption('weeklist', getHashValue('weekstart'));
+
+        // Restore only values that exist in the available dropdown options.
+        this._selectedLocation = selectedLocation?.dataset.value || '';
+        this._selectedWeek = selectedWeek?.dataset.value || '';
+
+        const inputKeyword = this.shadowRoot.getElementById('inputKeyword');
+        if (inputKeyword) {
+            inputKeyword.value = this._inputKeywordValue;
+        }
+
+        restoreDropdown(selectedLocation, 'locationOpener', 'locationhover', 'locationDropdown');
+        restoreDropdown(selectedWeek, 'weekOpener', 'weekhover', 'weekDropdown');
+
+        // Keep only the supported filters in the URL.
+        this.changeHashofUrl(true);
     }
 
     /**
@@ -280,16 +337,17 @@ class TrainingFilter extends HTMLElement {
         }
 
         function noteKeywordChange(e) {
-            if (isEscapeKeyPressed(e)) {
-                clearKeyword();
-            }
             const inputKeywordField = that.shadowRoot.getElementById('inputKeyword');
             !!inputKeywordField && (that.inputKeywordValue = inputKeywordField.value);
         }
 
         const inputKeywordField = that.shadowRoot.getElementById('inputKeyword');
-        !!inputKeywordField && inputKeywordField.addEventListener('keydown', noteKeywordChange);
-        !!inputKeywordField && inputKeywordField.addEventListener('keyup', noteKeywordChange);
+        inputKeywordField?.addEventListener('input', noteKeywordChange);
+        inputKeywordField?.addEventListener('keydown', (e) => {
+            if (isEscapeKeyPressed(e)) {
+                clearKeyword();
+            }
+        });
         !!inputKeywordField && inputKeywordField.addEventListener('blur', sendKeywordToGoogleAnalytics);
 
         function clearKeyword() {
@@ -404,6 +462,7 @@ class TrainingFilter extends HTMLElement {
             weekSelectButton.className = 'week filterer';
             weekSelectButton.setAttribute('id', `week-select-${index}`);
             weekSelectButton.setAttribute('data-testid', `training-filter-select-week-${index}`);
+            weekSelectButton.setAttribute('data-value', that.shortenDate(weekStartDate));
             weekSelectButton.setAttribute('role', 'option');
             const label =
                 weekStartDate === allAvailableEntry
@@ -484,6 +543,7 @@ class TrainingFilter extends HTMLElement {
             locationSelectButton.innerHTML = locationName;
             locationSelectButton.setAttribute('id', `location-select-${index}`);
             locationSelectButton.setAttribute('data-testid', `training-filter-location-select-${index}`);
+            locationSelectButton.setAttribute('data-value', locationCode);
             locationSelectButton.setAttribute('role', 'option');
             let label;
             switch (locationCode) {
@@ -523,17 +583,21 @@ class TrainingFilter extends HTMLElement {
     /**
      * update the hash of the url with the selected values
      */
-    changeHashofUrl() {
+    changeHashofUrl(replace = false) {
         const currentUrl = new URL(document.URL);
-        const oldHash = currentUrl.hash;
+        console.log('write hash:', currentUrl.hash);
 
         // break it up because prettier interacts badly with the longer string
         const keywordhash = `keyword=${this._inputKeywordValue}`;
         const locationhash = `location=${encodeURIComponent(this._selectedLocation)}`;
         const dateHash = `weekstart=${encodeURIComponent(this._selectedWeek)}`;
-        currentUrl.hash = `${keywordhash};${locationhash};${dateHash}`;
 
-        document.location.href = currentUrl.href;
+        currentUrl.hash = `${keywordhash};${locationhash};${dateHash}`;
+        if (replace) {
+            window.history.replaceState(null, '', currentUrl.href);
+        } else {
+            document.location.href = currentUrl.href;
+        }
     }
 
     closeDropdown(list) {
