@@ -957,13 +957,9 @@ test.describe('Training', () => {
             const trainingList = trainingElement.locator('training-list');
 
             // The invalid location and week are ignored, so the keyword filter still applies.
-            await expect(
-                trainingList.getByTestId('training-event-detail-toggle-3428487'),
-            ).not.toBeVisible(); // Python with Spyder
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3428487')).not.toBeVisible(); // Python with Spyder
 
-            await expect(
-                trainingList.getByTestId('training-event-detail-toggle-3437659'),
-            ).toBeVisible(); // Excel event
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3437659')).toBeVisible(); // Excel event
 
             await expect(page).toHaveURL(/#keyword=Excel;location=;weekstart=$/);
         });
