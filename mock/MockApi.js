@@ -156,13 +156,16 @@ class MockApi {
                 // it seems more flexible to filter the mock data here rather than create multiple mock files
                 // and conditionally return them
                 const filteredAlerts = alerts.filter(a => {
-                    if (a.systems.length === 0) {
-                        return true; // display this alert on all systems
+                    if (a.systems_shown.length > 0 && !a.systems_shown.includes(system)) {
+                        return false; // this alert is only meant for certain systems, and this page isn't in that system
                     }
-                    if (!!system && a.systems.includes(system)) {
-                        return true; // this alert is specific to this system - display
+                    if (!system) {
+                        return true; // this page isn't part of a restricted system
                     }
-                    return false; // this alert is specific to a different system than this one - dont display
+                    if (a.systems_hidden.length > 0 && !!a.systems_hidden.includes(system)) {
+                        return false; // this alert is not to be shown on this system
+                    }
+                    return true; // this alert is unaffected by any
                 })
                 return this.response(200, filteredAlerts, true);
 

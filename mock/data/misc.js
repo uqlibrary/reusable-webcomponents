@@ -51,7 +51,8 @@ export const alerts = [{
     "title": "This is an info alert that will show on all systems",
     "body": "This is the first message Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. [Alert 1 button label](http://www.example.com)",
     "priority_type": "info",
-    "systems": [],
+    "systems_hidden": [],
+    "systems_shown": [],
 }, {
     "id": "2",
     "start": "2021-01-01 00:00:12",
@@ -59,7 +60,8 @@ export const alerts = [{
     "title": "This is a permanent urgent alert that will only show on primo",
     "body": "This is the first message again [permanent]",
     "priority_type": "urgent",
-    "systems": ['primo'],
+    "systems_hidden": [],
+    "systems_shown": ['primo'],
 }, {
     "id": "3",
     "start": "2021-01-01 00:00:12",
@@ -67,7 +69,8 @@ export const alerts = [{
     "title": "This is a permanent urgent alert that will only show on primo or drupal",
     "body": "This is another message [permanent]",
     "priority_type": "urgent",
-    "systems": ['primo', 'drupal'],
+    "systems_hidden": [],
+    "systems_shown": ['primo', 'drupal'],
 }, {
     "id": "4",
     "start": "2021-01-01 00:00:12",
@@ -75,7 +78,8 @@ export const alerts = [{
     "title": "This is a permanent urgent alert that will show on all systems 2 of 2",
     "body": "This is the second message",
     "priority_type": "urgent",
-    "systems": [],
+    "systems_hidden": [],
+    "systems_shown": [],
 }, {
     "id": "5",
     "start": "2021-01-01 00:00:12",
@@ -83,7 +87,17 @@ export const alerts = [{
     "title": "This is a permanent extreme alert that will show on homepage only",
     "body": "This is the third message [permanent]",
     "priority_type": "extreme",
-    "systems": ['homepage'],
+    "systems_hidden": [],
+    "systems_shown": ['homepage'],
+}, {
+    "id": "6",
+    "start": "2021-01-01 00:00:12",
+    "end": "2025-12-31 23:59:12",
+    "title": "An alert that won't appear on homepage",
+    "body": "Alert body",
+    "priority_type": "info",
+    "systems_hidden": ['homepage'],
+    "systems_shown": [],
 }];
 
 export const primoSuggestions = {
