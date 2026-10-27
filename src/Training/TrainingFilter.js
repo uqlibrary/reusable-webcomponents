@@ -128,9 +128,7 @@ class TrainingFilter extends HTMLElement {
             hash.split(';').map((param) => {
                 const separator = param.indexOf('=');
 
-                return separator === -1
-                    ? [param, '']
-                    : [param.slice(0, separator), param.slice(separator + 1)];
+                return separator === -1 ? [param, ''] : [param.slice(0, separator), param.slice(separator + 1)];
             }),
         );
 
