@@ -93,6 +93,7 @@ class Training extends HTMLElement {
         // Save element refs
         this.rootElement = this.shadowRoot.getElementById('library-training');
         this.messageElement = this.shadowRoot.getElementById('training-data-message');
+        /** @type {import('./trainingFilter').default} */
         this.filterComponent = document.createElement('training-filter');
         this.listComponent = document.createElement('training-list');
         if (this.hideCategoryTitle) {
@@ -126,6 +127,11 @@ class Training extends HTMLElement {
                     }
                     this.rootElement.appendChild(this.listComponent);
                     this.initFiltering();
+
+                    if (!this.hideFilter) {
+                        this.filterComponent.initialiseFiltersFromUrl();
+                    }
+
                     this.setFilters();
                 } else {
                     this.messageElement.innerHTML = '';

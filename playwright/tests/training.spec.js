@@ -917,6 +917,57 @@ test.describe('Training', () => {
             const trainingList2 = page.getByTestId('test-with-filter');
             await expect(trainingList2.getByTestId('training-event-detail-toggle-3428487')).not.toBeVisible(); // Python with Spyder: Introduction to Data Science}
         });
+
+        test('restores the keyword from the URL on page load', async ({ page }) => {
+            await page.goto('http://localhost:8080/index-training.html#keyword=Excel;location=;weekstart=');
+
+            const trainingElement = page.getByTestId('test-with-filter');
+            const trainingList = trainingElement.locator('training-list');
+
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3428487')).not.toBeVisible();
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3437659')).toBeVisible();
+            await expect(page).toHaveURL(/#keyword=Excel;location=;weekstart=$/);
+        });
+
+        test('restores valid location and week selections from the URL', async ({ page }) => {
+            await page.goto(
+                'http://localhost:8080/index-training.html#keyword=;location=St%2520Lucia;weekstart=2021-06-16',
+            );
+
+            const trainingElement = page.getByTestId('test-with-filter');
+            const trainingList = trainingElement.locator('training-list');
+
+            // Audacity: introduction to audio editing - St Lucia and 2021-06-17T03:00:00.000Z
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3449989')).toBeVisible();
+            // Python with Spyder: Introduction to Data Science - Online
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3428487')).not.toBeVisible();
+            // Premiere Pro: Video Editing Basics - 2021-05-30T23:30:00.000Z
+            await expect(trainingList.getByTestId('training-event-detail-toggle-3637655')).not.toBeVisible();
+        });
+
+        test('clears invalid location and week values and removes unknown URL parameters', async ({ browser }) => {
+            const context = await browser.newContext();
+            const page = await context.newPage();
+
+            await page.goto(
+                'http://localhost:8080/index-training.html#keyword=Excel;location=not-a-campus;weekstart=2099-01-01;unexpected=value',
+            );
+
+            const trainingElement = page.getByTestId('test-with-filter');
+            const trainingList = trainingElement.locator('training-list');
+
+            // The invalid location and week are ignored, so the keyword filter still applies.
+            await expect(
+                trainingList.getByTestId('training-event-detail-toggle-3428487'),
+            ).not.toBeVisible(); // Python with Spyder
+
+            await expect(
+                trainingList.getByTestId('training-event-detail-toggle-3437659'),
+            ).toBeVisible(); // Excel event
+
+            await expect(page).toHaveURL(/#keyword=Excel;location=;weekstart=$/);
+        });
+
         test('sends to GTM', async ({ page }) => {
             const trainingElement = page.getByTestId('test-with-filter');
             await expect(trainingElement).toBeVisible();
