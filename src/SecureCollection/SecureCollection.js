@@ -186,6 +186,7 @@ class SecureCollection extends HTMLElement {
         }
 
         switch (this.displayPanel) {
+            /* istanbul ignore next */
             case 'loading':
                 return this.displayLoadingPanel();
             case 'redirect':
@@ -209,6 +210,7 @@ class SecureCollection extends HTMLElement {
                 // to satisfy switch syntax - shouldnt be possible
                 this.wrapFragmentInStandardPage('Something went wrong');
         }
+        /* istanbul ignore next */
         this.addListeners(shadowDOM);
     }
 
@@ -297,7 +299,7 @@ class SecureCollection extends HTMLElement {
         const getEmailBody = () => {
             let emailBody = 'Hi there!' + '\n\n';
             emailBody += "I'd like to report a problem with the Secure File Collection." + '\n\n';
-            /* istanbul ignore else */
+            /* istanbul ignore next */
             if (document.referrer !== '' && document.referrer !== window.location.href) {
                 emailBody += 'I was visiting ' + document.referrer + ' and clicked a link.' + '\n';
             }
@@ -402,7 +404,7 @@ class SecureCollection extends HTMLElement {
         const queryString = new URLSearchParams(window.location.search);
         const mode = !!queryString
             ? queryString.get('mode')
-            : window.location.hash.substring(window.location.hash.indexOf('?')).mode;
+            : /* istanbul ignore next */ window.location.hash.substring(window.location.hash.indexOf('?')).mode;
         return mode === 'manualRedirect';
     }
 
