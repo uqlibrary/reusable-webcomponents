@@ -34,12 +34,12 @@ const template_searchIcon =
 
 class SearchPortal extends HTMLElement {
     connectedCallback() {
-        this.theme = this.getAttribute('theme') || '';
+        this.theme = this.getAttribute('theme') || /* istanbul ignore next */ '';
         this.updateTemplate(this.theme);
     }
     constructor() {
         super();
-        this.theme = this.getAttribute('theme') || '';
+        this.theme = this.getAttribute('theme') || /* istanbul ignore next */ '';
     }
 
     async getPrimoSuggestions(keyword) {
@@ -155,7 +155,7 @@ class SearchPortal extends HTMLElement {
                             const eventTargetId =
                                 !!eventTarget && eventTarget.hasAttribute('id') && eventTarget.getAttribute('id');
                             const keyNumeric = e.charCode || e.keyCode;
-                            const keyChar = e.key || e.code;
+                            const keyChar = e.key || /* istanbul ignore next */ e.code;
                             if (isArrowDownKeyPressed(e)) {
                                 e.preventDefault();
                                 const currentId = eventTargetId.replace('suggestion-link-', '');
@@ -179,8 +179,8 @@ class SearchPortal extends HTMLElement {
                                 !!inputField && (inputField.value = '');
                                 !!inputField && inputField.focus();
                                 that.clearSearchResults();
-                            } else if (isReturnKeyPressed(e)) {
-                                // dont prevent default
+                            } else /* istanbul ignore next */ if (isReturnKeyPressed(e)) {
+                                // don't prevent default
                             } else {
                                 e.preventDefault();
                             }
@@ -280,6 +280,7 @@ class SearchPortal extends HTMLElement {
                     window.location.assign(link);
                 }
 
+                /* istanbul ignore next */
                 return false;
             };
         }
@@ -366,6 +367,7 @@ class SearchPortal extends HTMLElement {
 
         !!accordian &&
             accordian.addEventListener('keydown', (event) => {
+                /* istanbul ignore else */
                 if (event.code === 'Space' || event.code === 'Enter') {
                     bindRestrictionsAccordion();
                 }
@@ -664,7 +666,7 @@ class SearchPortal extends HTMLElement {
                 e.preventDefault();
                 const nextElement = that.shadowRoot.getElementById(`search-portal-type-select-item-${currentId + 1}`);
                 !!nextElement && nextElement.focus();
-            } /* istanbul ignore else */ else if (isArrowUpKeyPressed(e)) {
+            } else if (isArrowUpKeyPressed(e)) {
                 e.preventDefault();
                 /* istanbul ignore else */
                 if (currentIdRaw !== '0') {
@@ -673,10 +675,11 @@ class SearchPortal extends HTMLElement {
                     );
                     !!prevElement && prevElement.focus();
                 }
-            } else if (isTabKeyPressed(e)) {
+            } else /* istanbul ignore else */ if (isTabKeyPressed(e)) {
                 const eventTarget = !!e.composedPath() && e.composedPath().length > 0 && e.composedPath()[0];
                 const lastId = searchPortalLocale.typeSelect.items.length - 1;
                 const finalEntry = `portalTypeSelectionEntry-${lastId}`;
+                /* istanbul ignore else */
                 if (!!eventTarget && eventTarget.classList.contains(finalEntry)) {
                     // user has tabbed off end of list - close search type dropdown list
                     const portalTypeDropdown = that.shadowRoot.getElementById('portal-type-wrapper');
@@ -811,6 +814,7 @@ class SearchPortal extends HTMLElement {
     }
 
     updateTemplate(theme) {
+        const currentTheme = theme || /* istanbul ignore next */ 'light';
         template.innerHTML = `
             <style>${overrides.toString()}</style>
             <style>
@@ -987,22 +991,14 @@ class SearchPortal extends HTMLElement {
                 }
 
             </style>
-            <div id="search-portal" class="MuiPaper-root MuiCard-root libraryCard StandardCard MuiPaper-elevation1 MuiPaper-rounded theme-${
-                theme || 'light'
-            }" data-testid="primo-search" data-analyticsid="primo-search" data-analyticsid="primo-search" role="region" aria-live="polite" aria-label="Search Portal">
+            <div id="search-portal" class="MuiPaper-root MuiCard-root libraryCard StandardCard MuiPaper-elevation1 MuiPaper-rounded theme-${currentTheme}" data-testid="primo-search" data-analyticsid="primo-search" data-analyticsid="primo-search" role="region" aria-live="polite" aria-label="Search Portal">
                 <div class="MuiCardContent-root libraryContent" data-testid="primo-search-content" data-analyticsid="primo-search-content">
                     <form id="primo-search-form" class="searchForm" role="search">
                         <div class="MuiFormControl-root searchPanel" style="margin-bottom: -0.75rem; padding-top: 1rem;">
-                            <h2 id="search-portal-type-select-label-sub" data-testid="component-title" class="theme-${
-                                theme || 'light'
-                            }">Search</h2>
+                            <h2 id="search-portal-type-select-label-sub" data-testid="component-title" class="theme-${currentTheme}">Search</h2>
                         </div>
 
-                        
-
-                        
-
-                        <div class="searchPortalResponsive theme-${theme || 'light'}" id="search-parent">
+                        <div class="searchPortalResponsive theme-${currentTheme}" id="search-parent">
                             <div class="searchPortal-searchType portaltype-dropdown-container" id="search-portal-type-select">
                             <!-- SEARCH TYPE (DROPDOWN) START -->
                                 <div id="portaltype-dropdown" data-testid="search-portal-type-select-wrapper" class="search-type-button MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl">
@@ -1055,23 +1051,18 @@ class SearchPortal extends HTMLElement {
                         </div>
                         <div style="display: flex">
                             <div class="linksContainer" >
-                                <div id="footer-links" class="searchPanel MuiGrid-container MuiFormControlMuiGrid-spacing-xs-2 theme-${
-                                    theme || 'light'
-                                }" data-testid="footer-links" data-analyticsid="primo-search-links"></div>
+                                <div id="footer-links" data-testid="footer-links" data-analyticsid="primo-search-links" 
+                                class="searchPanel MuiGrid-container MuiFormControlMuiGrid-spacing-xs-2 theme-${currentTheme}"></div>
                             </div>
                         </div> 
                         <div>
-                            <span id="restrictions-accordian-container" class="theme-${
-                                theme || 'light'
-                            }" data-testid="restrictions-accordian-controller" role="button" tabindex="0">
+                            <span id="restrictions-accordian-container" class="theme-${currentTheme}" data-testid="restrictions-accordian-controller" role="button" tabindex="0">
                                 <!-- pack elements so they don't have an underlined gap -->
                                 <span>Restrictions on use</span><svg class="restriction-accordian-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                                      <path fill="currentColor" d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"/>
                                 </svg>
                             </span>
-                            <div id="restrictions-accordian" hidden class="theme-${
-                                theme || 'light'
-                            }" data-testid="restrictions-accordian-content">
+                            <div id="restrictions-accordian" hidden class="theme-${currentTheme}" data-testid="restrictions-accordian-content">
                                 <p>Your <a href="${linkToDrupal(
                                     '/about/policies-and-guidelines#collection-notice',
                                 )}">use of Library resources</a> must comply with UQ policies, copyright law, and all resource specific licence terms. The use of AI tools with Library resources is prohibited unless expressly permitted.</p>

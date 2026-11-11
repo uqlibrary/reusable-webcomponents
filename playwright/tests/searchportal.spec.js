@@ -557,5 +557,31 @@ test.describe('Search Portal', () => {
             await expect(searchPortalElement.getByTestId('autocomplete-listbox')).not.toBeVisible();
             await expect(searchPortalElement.getByTestId('input-field')).toHaveValue('');
         });
+
+        test('the user can use the keyboard to open and close the restrictions accordion', async ({ page }) => {
+            const searchPortalElement = page.locator('search-portal');
+
+            await expect(searchPortalElement.getByTestId('footer-links')).toBeVisible();
+            await expect(searchPortalElement.getByTestId('footer-links').locator('div:last-of-type a')).toBeVisible();
+            await searchPortalElement.getByTestId('footer-links').locator('div:last-of-type a').focus();
+
+            await expect(
+                searchPortalElement.getByTestId('restrictions-accordian-content').locator('p'),
+            ).not.toBeVisible();
+
+            await page.keyboard.press('Tab');
+            await expect(searchPortalElement.getByTestId('restrictions-accordian-controller')).toBeFocused();
+            await page.keyboard.press('Enter');
+
+            await expect(searchPortalElement.getByTestId('restrictions-accordian-content').locator('p')).toBeVisible();
+            expect(
+                await searchPortalElement.getByTestId('restrictions-accordian-content').locator('p').textContent(),
+            ).toContain('The use of AI tools with Library resources is prohibited unless expressly permitted.');
+
+            await page.keyboard.press('Enter');
+            await expect(
+                searchPortalElement.getByTestId('restrictions-accordian-content').locator('p'),
+            ).not.toBeVisible();
+        });
     });
 });
