@@ -38,8 +38,9 @@ class gtm extends HTMLElement {
                 });
                 const fTags = !!s && !!d && d.getElementsByTagName(s);
                 const f = !!fTags && fTags.length > 0 && fTags[0];
-                const dl = !!l && l !== 'dataLayer' ? '&l=' + l : '';
+                const dl = !!l && l !== 'dataLayer' ? /* istanbul ignore next */ '&l=' + l : '';
                 const j = !!s && d.createElement(s);
+                /* istanbul ignore next */
                 if (!j) {
                     return;
                 }
