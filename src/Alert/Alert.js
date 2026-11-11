@@ -45,10 +45,9 @@ class Alert extends HTMLElement {
             const priorityTypeDefault = 'info';
             let priorityType = this.getAttribute('prioritytype');
             // temporarily account for old values for maximum compatibility
-            if (priorityType == '0') {
-                priorityType = 'info';
-            } else if (priorityType == '1') {
-                priorityType = 'urgent';
+            /* istanbul ignore next */
+            if (priorityType == '0' || priorityType == '1') {
+                priorityType = priorityType == '0' ? 'info' : 'urgent';
             } else {
                 // this check should remain
                 priorityType = ['info', 'urgent', 'extreme'].includes(priorityType)

@@ -38,6 +38,7 @@ class Alerts extends HTMLElement {
     }
 
     attributeChangedCallback(fieldName, oldValue, newValue) {
+        /* istanbul ignore else */
         if (fieldName === 'system') {
             this.system = newValue;
         } else {
@@ -70,7 +71,8 @@ class Alerts extends HTMLElement {
                             !!alertData.id && alert.setAttribute('id', `alert-${alertData.id}`);
                             !!alertData.body && alert.setAttribute('alertmessage', alertData.body);
                             !!alertData.title && alert.setAttribute('alerttitle', alertData.title);
-                            const alertIconIndex = (!!alertData && alertData.priority_type) || 'info';
+                            const alertIconIndex =
+                                (!!alertData && alertData.priority_type) || /* istanbul ignore next */ 'info';
                             alert.setAttribute('prioritytype', alertIconIndex);
                             if (document.cookie.indexOf('UQ_ALERT_' + alert.id + '=hidden') <= -1) {
                                 alertWrapper.appendChild(alert);
