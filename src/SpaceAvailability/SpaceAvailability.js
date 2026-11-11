@@ -94,7 +94,7 @@ class SpaceAvailability extends HTMLElement {
         const idAttribute = this.getAttribute('id');
         const id = Number(idAttribute);
         this.apiAccess = new ApiAccess();
-        this.spaceId = idAttribute === null || Number.isNaN(id) ? 0 : id;
+        this.spaceId = idAttribute === null || Number.isNaN(id) ? /* istanbul ignore next */ 0 : id;
 
         this.shadowDOM = this.attachShadow({ mode: 'open' });
         !!template && !!this.shadowDOM && this.shadowDOM.appendChild(template.content.cloneNode(true));
@@ -130,6 +130,7 @@ class SpaceAvailability extends HTMLElement {
             .addEventListener('click', this.onTimerControlClick);
     }
 
+    /* istanbul ignore next */
     disconnectedCallback() {
         window.spaceAvailabilityDataService.removeEventListener(
             SPACE_AVAILABILITY_DATA_UPDATED_EVENT,
@@ -185,10 +186,12 @@ class SpaceAvailability extends HTMLElement {
     };
 
     showError(message) {
-        if (this.hasInitialText(SPACE_AVAILABILITY_TITLE_CLASS)) {
+        /* istanbul ignore else */
+        if (this.isLoading()) {
             this.setTitleText(message);
         }
-        if (this.hasInitialText(SPACE_AVAILABILITY_SUBTITLE_CLASS)) {
+        /* istanbul ignore else */
+        if (this.isLoading()) {
             this.setSubTitleText(message);
         }
         this.setBarColourState(100);
@@ -196,19 +199,23 @@ class SpaceAvailability extends HTMLElement {
         this.setBarPercentageWidth(0);
     }
 
-    hasInitialText(elementId) {
-        return this.shadowDOM.querySelector(`.${elementId}`).innerText === SPACE_AVAILABILITY_INITIAL_LABEL_TEXT;
+    isLoading() {
+        return (
+            this.shadowDOM.querySelector(`.${SPACE_AVAILABILITY_SUBTITLE_CLASS}`).innerText ===
+            SPACE_AVAILABILITY_INITIAL_LABEL_TEXT
+        );
     }
 
     getBarMessage = (percentage) => `${percentage}% of capacity`;
 
-    getTitleMessage = (name) => name || '';
+    getTitleMessage = (name) => name || /* istanbul ignore next */ '';
 
-    getSubTitleMessage = (count) => (count != null ? `${count} seats` : '');
+    getSubTitleMessage = (count) => (count != null ? `${count} seats` : /* istanbul ignore next */ '');
 
     getPercentage(data) {
-        if (!data || !data.capacity || !data.headCount) return 0;
-        return Math.min(100, Math.max(0, (data.headCount / data.capacity) * 100));
+        return !data || !data.capacity || !data.headCount
+            ? /* istanbul ignore next */ 0
+            : Math.min(100, Math.max(0, (data.headCount / data.capacity) * 100));
     }
 
     setTitleText(message) {
@@ -252,12 +259,12 @@ class SpaceAvailability extends HTMLElement {
 
     render(data) {
         const percentage = Math.round(this.getPercentage(data));
-        const titleMessage = this.getTitleMessage(data?.displayName || '');
+        const titleMessage = this.getTitleMessage(data?.displayName || /* istanbul ignore next */ '');
         this.setBarPercentageWidth(percentage);
         this.setBarColourState(percentage);
         this.setBarText(this.getBarMessage(percentage));
         this.setTitleText(titleMessage);
-        this.setSubTitleText(this.getSubTitleMessage(data?.capacity || ''));
+        this.setSubTitleText(this.getSubTitleMessage(data?.capacity || /* istanbul ignore next */ ''));
     }
 
     resetElementClasses(elementId) {

@@ -276,3 +276,17 @@ test.describe('Space Availability widget', () => {
         });
     });
 });
+test.describe('multiple instances per page', () => {
+    test.beforeEach(async ({ page, context }) => {
+        await page.clock.install();
+        await context.clearCookies();
+        await context.addCookies([{ name: 'UQ_PROACTIVE_CHAT', value: 'hidden', path: '/', domain: 'localhost:8080' }]);
+    });
+
+    test('handles an error', async ({ page }) => {
+        await page.goto('http://localhost:8080/src/SpaceAvailability/example.html?user=errorUser');
+        await page.setViewportSize({ width: 1280, height: 900 });
+        await page.waitForTimeout(1500);
+        await expect(page.locator('alert-list').getByTestId('alerts-wrapper').locator(':scope > *')).toHaveCount(0);
+    });
+});
