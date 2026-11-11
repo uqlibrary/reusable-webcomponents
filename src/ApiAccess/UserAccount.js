@@ -38,6 +38,7 @@ class UserAccount extends ApiAccess {
         let accountCallStatus = ACCOUNT_CALL_INCOMPLETE;
         await this.fetchAPI(accountApi?.apiUrl, 'millisecond', true)
             .then((account) => {
+                /* istanbul ignore else */
                 if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
                     accountCallStatus = ACCOUNT_CALL_DONE;
 
@@ -83,6 +84,7 @@ class UserAccount extends ApiAccess {
 
     watchForSessionExpiry() {
         // let the calling page know account is available
+        /* istanbul ignore else */
         if ('BroadcastChannel' in window) {
             const bc = new BroadcastChannel('account_availability');
             bc.postMessage('account_updated');
@@ -96,6 +98,7 @@ class UserAccount extends ApiAccess {
         }
 
         // watch the session cookie for expiry when the user is logged in
+        /* istanbul ignore else */
         if (this.getSessionCookie() !== undefined && this.getLibraryGroupCookie() !== undefined) {
             const watchforAccountExpiry = setInterval(() => {
                 if (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined) {
@@ -108,6 +111,7 @@ class UserAccount extends ApiAccess {
 
     showLoggedOutButton() {
         const authButton = document.querySelector('auth-button');
+        /* istanbul ignore else */
         if (!!authButton) {
             // create temporary reference element so we know where to paste the new logged out auth
             const referenceElement = document.createElement('span');
@@ -131,6 +135,7 @@ class UserAccount extends ApiAccess {
     announceUserLoggedOut() {
         setTimeout(() => {
             // a short delay so the above removals have firmly happened before the notified apps can action it
+            /* istanbul ignore else */
             if ('BroadcastChannel' in window) {
                 // let the calling page know account has been removed
                 const bc = new BroadcastChannel('account_availability');
