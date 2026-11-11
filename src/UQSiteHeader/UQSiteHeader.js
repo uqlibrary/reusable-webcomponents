@@ -105,7 +105,6 @@ class UQSiteHeader extends HTMLElement {
         // Bindings
         this.getLink = this.getLink.bind(this);
         this.loadScript = this.loadScript.bind(this);
-        this.rewriteMegaMenuFromJson = this.rewriteMegaMenuFromJson.bind(this);
         this.createDesktopHeaderItem = this.createDesktopHeaderItem.bind(this);
         this.createMobileHeaderItem = this.createMobileHeaderItem.bind(this);
         this.setTitle = this.setTitle.bind(this);
@@ -136,15 +135,6 @@ class UQSiteHeader extends HTMLElement {
 
         const links = shadowDOM.querySelectorAll('a');
         !!links && links.length > 0 && links.forEach((l) => l.addEventListener('click', (e) => sendClickToGTM(e)));
-    }
-
-    isValidUrl(urlString) {
-        try {
-            new URL(urlString);
-            return true;
-        } catch (e) {
-            return false;
-        }
     }
 
     attributeChangedCallback(fieldName, oldValue, newValue) {
@@ -284,150 +274,6 @@ class UQSiteHeader extends HTMLElement {
             50,
             that,
         );
-    }
-
-    createSubmenuCloseControl(linkPrimaryText, index) {
-        const parentTextNode = document.createTextNode(linkPrimaryText);
-        const closeControlNode = document.createElement('button');
-        !!closeControlNode &&
-            closeControlNode.setAttribute(
-                'class',
-                'uq-site-header__navigation__list--close slide-menu__backlink slide-menu__control mobile-only',
-            );
-        !!closeControlNode && closeControlNode.setAttribute('data-action', 'back');
-        !!closeControlNode &&
-            closeControlNode.setAttribute('data-testid', `uq-site-header__navigation__list--close-${index}`);
-        !!closeControlNode && !!parentTextNode && closeControlNode.appendChild(parentTextNode);
-
-        const listItem = document.createElement('li');
-        !!listItem && listItem.setAttribute('class', 'mobile-only uq-site-header__navigation__list-item-header');
-        !!listItem && !!closeControlNode && listItem.appendChild(closeControlNode);
-
-        return listItem;
-    }
-
-    rewriteMegaMenuFromJson(menu) {
-        const listWrapper = !!this.shadowRoot && this.shadowRoot.querySelector('.uq-site-header__navigation__list');
-        const insertAboveChild =
-            !!this.shadowRoot &&
-            this.shadowRoot.querySelector('.uq-site-header__navigation__list__first-permanent-child');
-
-        // get the id of the last list item which has primary text (ie, its not a placeholder)
-        // so we can tab out of the last _visible_ menu item
-        function getIdOfLastVisibleMenuItem(jsonParentItem) {
-            let lastId = 0;
-            jsonParentItem.submenuItems.forEach((jsonChild, indexChild) => {
-                !!jsonChild.primaryText && (lastId = indexChild);
-            });
-            return lastId;
-        }
-
-        menuLocale.publicmenu.forEach((jsonParentItem, index) => {
-            const datatestid = `menu-group-item-${index}`;
-            const hasChildren = !!jsonParentItem.submenuItems && jsonParentItem.submenuItems.length > 0;
-            const linkHref = jsonParentItem.linkTo || /* istanbul ignore next */ '';
-            const linkPrimaryText = jsonParentItem.primaryText || /* istanbul ignore next */ '';
-
-            // desktop has a link at top (submenu opens on mouseover); mobile has a button that opens the submenu
-            const parentListItem = document.createElement('li');
-            let classNavListitem = 'uq-site-header__navigation__list-item';
-            !!hasChildren && (classNavListitem += ' uq-site-header__navigation__list-item--has-subnav');
-            const activeClassName = ' uq-site-header__navigation__list-item--active';
-            /* istanbul ignore next */
-            jsonParentItem.linkTo === window.location.href && (classNavListitem += activeClassName);
-            parentListItem.setAttribute('class', classNavListitem);
-            parentListItem.setAttribute('data-testid', datatestid);
-            parentListItem.setAttribute('data-analyticsid', datatestid);
-            parentListItem.setAttribute('data-gtm-category', 'Main navigation');
-            parentListItem.setAttribute('aria-haspopup', 'true');
-            parentListItem.setAttribute('aria-expanded', 'false');
-
-            parentListItem.appendChild(this.createDesktopHeaderItem(datatestid, linkHref, linkPrimaryText));
-            if (hasChildren) {
-                parentListItem.appendChild(this.createMobileHeaderItem(linkPrimaryText, datatestid));
-
-                // make child items
-                const listItemWrapper = document.createElement('ul');
-                let listItemClass = 'uq-site-header__navigation__list uq-site-header__navigation__list--level-2';
-                !!jsonParentItem.columnCount &&
-                    jsonParentItem.columnCount > 1 &&
-                    (listItemClass += ' multicolumn-' + jsonParentItem.columnCount);
-                listItemClass += ' menu-undisplayed'; // desktop menus initially have width 0, this stops the page havent a stupidly wide width
-                listItemWrapper.setAttribute('class', listItemClass);
-
-                const textOfParentLinkNode = document.createTextNode(linkPrimaryText);
-
-                const slideCloseControl = !!linkPrimaryText && this.createSubmenuCloseControl(linkPrimaryText, index);
-                !!listItemWrapper && !!slideCloseControl && listItemWrapper.appendChild(slideCloseControl);
-
-                const topMostLink = document.createElement('a');
-                !!topMostLink && !!linkHref && topMostLink.setAttribute('href', this.getLink(linkHref));
-                !!topMostLink && !!textOfParentLinkNode && topMostLink.appendChild(textOfParentLinkNode);
-
-                const repeatParentListItem = document.createElement('li');
-                repeatParentListItem.appendChild(topMostLink);
-                !!repeatParentListItem &&
-                    repeatParentListItem.setAttribute('class', 'uq-site-header__navigation__list-item mobile-only');
-
-                !!listItemWrapper && !!repeatParentListItem && listItemWrapper.appendChild(repeatParentListItem);
-
-                let lastId = getIdOfLastVisibleMenuItem(jsonParentItem);
-                jsonParentItem.submenuItems.forEach((jsonChild, indexChild) => {
-                    const listItem = document.createElement('li');
-                    let theClassName = 'uq-site-header__navigation__list-item';
-                    indexChild === 0 && (theClassName = `${theClassName} first-child`);
-                    indexChild === lastId && (theClassName = `${theClassName} final-child`);
-                    listItem.setAttribute('class', theClassName);
-                    listItem.setAttribute(
-                        'data-testid',
-                        `${jsonParentItem.dataTestid}-${indexChild}` || /* istanbul ignore next */ '',
-                    );
-                    listItem.setAttribute(
-                        'data-analyticsid',
-                        `${jsonParentItem.dataTestid}-${indexChild}` || /* istanbul ignore next */ '',
-                    );
-
-                    // a missing primary text allows for an empty list item on desktop, controlling the spacing of the menu
-                    if (!!jsonChild.primaryText) {
-                        const primarytextOfLink = document.createTextNode(
-                            jsonChild.primaryText || /* istanbul ignore next */ '',
-                        );
-                        const primaryTextItem = document.createElement('span');
-                        primaryTextItem.setAttribute('class', 'displayText');
-                        primaryTextItem.appendChild(primarytextOfLink);
-
-                        const secondaryText = jsonChild.secondaryText || ' ';
-                        const secondarytextOfLink = document.createTextNode(secondaryText);
-                        const secondaryTextItem = document.createElement('span');
-                        let secondaryClassName = 'displayText secondaryText';
-                        secondaryText === ' ' && (secondaryClassName += ' desktop-only');
-                        secondaryTextItem.setAttribute('class', secondaryClassName);
-                        secondaryTextItem.appendChild(secondarytextOfLink);
-
-                        const itemLink = document.createElement('a');
-                        let itemLinkClassName = ''; // uq-site-header-menu-list-item';
-                        secondaryText === ' ' &&
-                            (itemLinkClassName += ' uq-site-header-menu-list-item-no-secondary-child');
-                        itemLink.setAttribute('class', itemLinkClassName);
-                        itemLink.setAttribute('tabindex', '0');
-                        !!jsonChild.linkTo && itemLink.setAttribute('href', this.getLink(jsonChild.linkTo));
-                        itemLink.appendChild(primaryTextItem);
-                        itemLink.appendChild(secondaryTextItem);
-
-                        listItem.appendChild(itemLink);
-                    } else {
-                        listItem.setAttribute('class', 'desktop-only');
-                    }
-
-                    listItemWrapper.appendChild(listItem);
-                });
-                parentListItem.appendChild(listItemWrapper);
-            }
-
-            listWrapper.insertBefore(parentListItem, insertAboveChild);
-        });
-
-        return listWrapper;
     }
 
     createMobileHeaderItem(linkPrimaryText, datatestid) {
