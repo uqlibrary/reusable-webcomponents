@@ -19,32 +19,18 @@ class ApiAccess {
         return isOnline;
     }
 
+    // currently unused, except for mock use!
     async loadOpeningHours() {
-        let result;
         const hoursApi = new ApiRoutes().LIB_HOURS_API();
         const urlPath = hoursApi.apiUrl;
         await this.fetchAPI(urlPath, 'minute')
             .then((hoursResponse) => {
-                let askusHours = null;
-                /* istanbul ignore else */
-                if (!!hoursResponse && !!hoursResponse.locations && hoursResponse.locations.length > 1) {
-                    askusHours = hoursResponse.locations.map((item) => {
-                        if (item.abbr === 'AskUs') {
-                            return {
-                                chat: `${item?.departments[0].times?.hours[0].from} \u2013 ${item?.departments[0].times?.hours[0]?.to}`,
-                                phone: `${item?.departments[1].times?.hours[0].from} \u2013 ${item?.departments[1].times?.hours[0]?.to}`,
-                            };
-                        }
-                        return null;
-                    });
-                }
-                result = askusHours ? askusHours.filter((item) => item !== null)[0] : /* istanbul ignore next */ null;
+                return hoursResponse;
             })
             .catch((error) => {
                 window.location.hostname === 'localhost' && console.log('error loading hours ', error);
                 return null;
             });
-        return result;
     }
 
     async loadAlerts(system) {
@@ -230,25 +216,28 @@ class ApiAccess {
         // Drupal Staging seems to be set as 'development', which screws up the
         // determination of ASSETS_API_URL when the API code is only ever
         // on staging or prod. Override here.
-        const env = process.env.BRANCH === 'development' ? 'staging' : process.env.BRANCH;
+        const env = process.env.BRANCH === 'development' ? 'staging' : /* istanbul ignore next */ process.env.BRANCH;
         const API_URL =
-            env !== 'staging'
-                ? process.env.ASSETS_API_URL
-                : 'https://assets.library.uq.edu.au/reusable-webcomponents-staging/api/';
+            env === 'staging'
+                ? 'https://assets.library.uq.edu.au/reusable-webcomponents-staging/api/'
+                : /* istanbul ignore next */ process.env.ASSETS_API_URL;
         const headcountUrl = `${API_URL}${new ApiRoutes().SPACES_AVAILABILITY_API().apiUrl}`;
 
         return await this.fetchOtherAPI(headcountUrl)
             .then((data) => {
                 return data.data.locationList;
             })
-            .catch((error) => {
-                window.location.hostname === 'localhost' && console.log('error loading Spaces Availability ', error);
-                const msg = `error loading Spaces Availability: ${error.message}`;
-                throw new Error(msg);
-            });
+            .catch(
+                /* istanbul ignore next */ (error) => {
+                    window.location.hostname === 'localhost' &&
+                        console.log('error loading Spaces Availability ', error);
+                    const msg = `error loading Spaces Availability: ${error.message}`;
+                    throw new Error(msg);
+                },
+            );
     }
 
-    async fetchAPI(urlPath, feCacheLength = 'millisecond', mustBeLoggedIn = false, headers = {}) {
+    async fetchAPI(urlPath, feCacheLength, mustBeLoggedIn = false, headers = {}) {
         /* istanbul ignore next */
         if (!!mustBeLoggedIn && (this.getSessionCookie() === undefined || this.getLibraryGroupCookie() === undefined)) {
             // no cookie so we won't bother asking for the account api that cant be returned
@@ -317,6 +306,7 @@ class ApiAccess {
 
         /* istanbul ignore else  */
         if (this.isMock()) {
+            /* istanbul ignore next  */
             try {
                 return this.fetchMock(url);
             } catch (e) {
@@ -375,6 +365,7 @@ class ApiAccess {
     }
 
     // across dev, apis silently fail when they are blocked by CORS - point out that VPN is needed because its very confusing!!
+    /* istanbul ignore next  */
     showVPNNeededToast() {
         const toast = `
             <style>
