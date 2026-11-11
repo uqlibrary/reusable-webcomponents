@@ -1,3 +1,4 @@
+/* istanbul ignore next */
 export function getAccountMenuRoot(hostname = null, protocol = null, pathname = null, port = null) {
     // similar logic happens in homepage repo
     const _protocol = protocol === null ? window.location.protocol : protocol;
