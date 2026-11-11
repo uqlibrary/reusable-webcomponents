@@ -7,12 +7,13 @@ import { sendClickToGTM } from '../helpers/gtmHelpers';
 
 const template = document.createElement('template');
 
-const footerLinkToGuidesAdmin = `
+const isGuidesSite = document.location.hostname === 'guides.library.uq.edu.au';
+const guideLoginLink = isGuidesSite
+    ? /* istanbul ignore next */ `
     <div class="uq-footer__contact-item uq-footer__contact-login">
         <a href="https://uq.libapps.com/libapps/login.php?site_id=731" class="uq-footer__link gtm-processed" rel="nofollow noopener" data-testid="footer-guides-login">Guides login</a>
-    </div>`;
-const isGuidesProductionPage = document.location.hostname === 'guides.library.uq.edu.au';
-const guideLoginLink = isGuidesProductionPage ? footerLinkToGuidesAdmin : '';
+    </div>`
+    : '';
 
 template.innerHTML = `
   <style>${mainStyles.toString()}</style>
@@ -290,6 +291,7 @@ class UQFooter extends HTMLElement {
             // control the open-close of the footer menu that is collapse-expandable in mobile view
             const listLeader = shadowDOM.getElementById(elementId);
 
+            /* istanbul ignore next */
             if (!listLeader) {
                 return;
             }
@@ -336,7 +338,7 @@ class UQFooter extends HTMLElement {
         });
 
         const links = shadowDOM.querySelectorAll('a');
-        !!links && links.length > 0 && links.forEach((l) => l.addEventListener('click', (e) => sendClickToGTM(e)));
+        !!links && links.length > 0 && links.forEach((l) => l.addEventListener('click', e => sendClickToGTM(e)));
 
         const buttons = shadowDOM.querySelectorAll('button');
         !!buttons &&
