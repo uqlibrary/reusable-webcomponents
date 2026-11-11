@@ -1,3 +1,8 @@
+/*
+  despite the filename, this is called by both Drupal and Guides!
+  (search codebase for "drupal-lib-reusable.min.js")
+ */
+
 import OpenAthens from './OpenAthens/OpenAthens';
 import Training from './Training/Training';
 import TrainingDetail from './Training/TrainingDetail';
