@@ -73,6 +73,8 @@ const ASSET_STUB_HOSTS = [
     'support.my.uq.edu.au',
     '*.crm.test.uq.edu.au',
     '*.crm.uq.edu.au',
+    'cdn.botframework.com',
+    '*.cc.environment.api.powerplatform.com',
 ];
 
 // Register the hermetic external-host routes on a context. Exported so tests that create their
