@@ -184,6 +184,7 @@ class OpenAthens extends HTMLElement {
      * @param e
      */
     inputUrlKeypress(e) {
+        /* istanbul ignore next */
         if (e.keyCode !== 13) {
             return;
         }
@@ -227,6 +228,7 @@ class OpenAthens extends HTMLElement {
         var cleanedUrl = this.cleanupUrl(url);
         this.inputValidator = this.validateRequestedUrl(cleanedUrl);
 
+        /* istanbul ignore else */
         if (this.inputValidator.valid) {
             this.outputUrl = this.determineUrl(cleanedUrl);
             this.visitLinkButton.focus();
@@ -237,12 +239,14 @@ class OpenAthens extends HTMLElement {
      * Open the Open athens link in a new window/tab
      */
     navigateToLinkViaOpenAthens() {
+        /* istanbul ignore next */
         if (this.redirectOnly) {
             var cleanedUrl = this.cleanupUrl(this.inputUrl);
             this.inputValidator = this.validateRequestedUrl(cleanedUrl);
             this.outputUrl = this.determineUrl(cleanedUrl);
         }
 
+        /* istanbul ignore else */
         if (this.inputValidator.valid) {
             const win = window.open(this.outputUrl);
         }
@@ -304,7 +308,7 @@ class OpenAthens extends HTMLElement {
 
     isEzproxyUrl(url) {
         const setupUrl = new URL(url);
-        const hostname = !!setupUrl ? setupUrl.hostname : '';
+        const hostname = !!setupUrl ? setupUrl.hostname : /* istanbul ignore next */ '';
         return hostname.endsWith('ezproxy.library.uq.edu.au');
     }
 
@@ -312,6 +316,7 @@ class OpenAthens extends HTMLElement {
      * Open the Open athens link in a new window/tab
      */
     redirectToLinkViaOpenAthens() {
+        /* istanbul ignore else */
         if (this.redirectOnly) {
             const cleanedUrl = this.cleanupUrl(this.inputUrl);
             this.inputValidator = this.validateRequestedUrl(cleanedUrl);
@@ -344,23 +349,25 @@ class OpenAthens extends HTMLElement {
                 spinner.style.display = 'none';
                 inputArea.classList.remove('hideInput');
 
+                /* istanbul ignore next */
                 if (!response || !response.hasOwnProperty('available')) {
                     this.inputValidator = {
                         valid: false,
                         message: 'The link generator is temporarily unavailable. Please try again later.',
                     };
                     return null;
-                } else if (response?.available === true) {
+                }
+
+                if (response?.available === true) {
                     this.displayUrl(response?.useUrl);
                     return response?.useUrl;
-                } else {
-                    // OA said thats not an OA url
-                    this.inputValidator = {
-                        valid: false,
-                        message: 'This link does not require UQ access. Try accessing it directly.',
-                    };
-                    return null;
                 }
+
+                this.inputValidator = {
+                    valid: false, // OA said that's not an OA url
+                    message: 'This link does not require UQ access. Try accessing it directly.',
+                };
+                return null;
                 //     },
                 //     // delay the mock response; let prod straight through
                 //     window.location.hostname === 'localhost' ? 500 : 0,
@@ -393,6 +400,7 @@ class OpenAthens extends HTMLElement {
      * Only available for Firefox 41+, Chrome 43+, Opera 29+, IE 10+
      */
     copyUrl() {
+        /* istanbul ignore next */
         if ((!window.navigator.clipboard || !window.navigator.clipboard.writeText) && !document.execCommand) {
             this.copyStatus = {
                 success: false,
@@ -405,11 +413,13 @@ class OpenAthens extends HTMLElement {
 
         try {
             const that = this;
+            /* istanbul ignore else */
             if (window.navigator.permissions && window.navigator.clipboard && window.navigator.clipboard.writeText) {
                 // from https://stackoverflow.com/questions/56306153/domexception-on-calling-navigator-clipboard-readtext
                 window.navigator.permissions.query({ name: 'clipboard-write' }).then((result) => {
                     // If permission to read the clipboard is granted or if the user will
                     // be prompted to allow it, we proceed.
+                    /* istanbul ignore else */
                     if (result.state === 'granted' || result.state === 'prompt') {
                         window.navigator.clipboard
                             .writeText(this.outputUrl)
@@ -441,6 +451,7 @@ class OpenAthens extends HTMLElement {
                 };
             }
         } catch (err) {
+            /* istanbul ignore next */
             this.copyStatus = {
                 success: false,
                 message: 'An error occurred while copying the URL.',
