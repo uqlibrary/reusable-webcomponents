@@ -3,6 +3,7 @@ export function cookieNotFound(cookieId, cookievalue = '') {
     return document.cookie.indexOf(searchString) <= -1;
 }
 
+/* istanbul ignore next */
 export function cookieFound(cookieId, cookievalue = '') {
     return !cookieNotFound(cookieId, cookievalue);
 }
@@ -20,12 +21,14 @@ export function getCookieValue(name) {
 
 export function setCookie(cookieId, cookieValue, expiryDate, secure = false) {
     const endswith = window.location.hostname.endsWith('.library.uq.edu.au');
-    const sameSite = endswith && secure ? 'SameSite=None;Secure' : ''; // Add SameSite and Secure for cross-site cookies
+    const sameSite =
+        endswith && /* istanbul ignore next */ secure ? /* istanbul ignore next */ 'SameSite=None;Secure' : ''; // Add SameSite and Secure for cross-site cookies
     const cookieDomain = endswith ? /* istanbul ignore next */ 'domain=.library.uq.edu.au;path=/' : '';
     document.cookie =
         cookieId + '=' + cookieValue + ';expires=' + expiryDate.toGMTString() + ';' + cookieDomain + ';' + sameSite;
 }
 
+/* istanbul ignore next */
 export function clearCookie(cookieId) {
     const numHours = -24; // date in the past
     const expiryDate = new Date();

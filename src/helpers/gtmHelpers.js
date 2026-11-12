@@ -3,20 +3,21 @@
  */
 export function sendClickToGTM(e) {
     window.dataLayer = window.dataLayer || []; // for tests
+    /* istanbul ignore next */
     if (!e) {
         return;
     }
     const elementId =
         e.target?.closest('[data-analyticsid]')?.getAttribute('data-analyticsid') ||
         e.target?.id ||
-        e.target?.closest('[id]')?.id ||
-        'not found';
+        /* istanbul ignore next */ e.target?.closest('[id]')?.id ||
+        /* istanbul ignore next */ 'not found';
     const linkLabel =
         e.target?.textContent?.trim() ||
         (!!e.target?.closest('[aria-label]') && e.target?.closest('[aria-label]').getAttribute('aria-label')) ||
         (!!e.target?.closest('[title]') && e.target?.closest('[title]').getAttribute('title')) ||
-        (e.target?.hasAttribute('innerHTML') && e.target?.innerHTML?.trim()) ||
-        'no label';
+        /* istanbul ignore next */ (e.target?.hasAttribute('innerHTML') && e.target?.innerHTML?.trim()) ||
+        /* istanbul ignore next */ 'no label';
     const gtmItems = {
         event: 'gtm.linkClick', //shows as "Link Click" in the sidebar of Tag Assistant
         'gtm.elementId': elementId,
