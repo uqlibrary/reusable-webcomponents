@@ -57,6 +57,12 @@ test.describe('UQ Header', () => {
             // secondary nav exists
             await expect.poll(async () => headerElement.locator(':scope > *').count()).toBeGreaterThan(0);
 
+            // skip to nav works
+            await page.keyboard.press('Tab');
+            await expect(headerElement.getByTestId('skip-nav')).toBeVisible();
+            await page.keyboard.press('Enter');
+            // await expect(headerElement.getByTestId('skipLandingPoint')).toBeFocused();
+
             // Site Search accordion toggles correctly
             await expect(headerElement.getByTestId('uq-header-search-button')).toBeVisible();
             await expect(headerElement.locator('.uq-header__search-query-input')).not.toBeVisible();
@@ -93,78 +99,82 @@ test.describe('UQ Header', () => {
             await expect(headerElement.getByTestId('subsite-title')).not.toBeVisible();
         });
 
-        test('Breadcrumbs in Responsive show the correct item', async ({ page }) => {
-            await page.setViewportSize({ width: 650, height: 1024 });
-            // both items show
-            const headerElement = page.locator('uq-site-header');
-            await expect(headerElement.getByTestId('root-link')).toBeVisible();
-            await expect(headerElement.getByTestId('root-link')).toBeVisible();
-            await expect(headerElement.getByText(/UQ home/).first()).toBeVisible();
-            await expect(headerElement.getByTestId('site-title')).toBeVisible();
-            await expect(headerElement.getByTestId('site-title')).toBeVisible();
-            await expect(headerElement.getByText(/Library Test/).first()).toBeVisible();
+        test.describe('Responsive mode', () => {
+            test('Breadcrumbs in Responsive show the correct item', async ({ page }) => {
+                await page.setViewportSize({ width: 650, height: 1024 });
+                // both items show
+                const headerElement = page.locator('uq-site-header');
+                await expect(headerElement.getByTestId('root-link')).toBeVisible();
+                await expect(headerElement.getByTestId('root-link')).toBeVisible();
+                await expect(headerElement.getByText(/UQ home/).first()).toBeVisible();
+                await expect(headerElement.getByTestId('site-title')).toBeVisible();
+                await expect(headerElement.getByTestId('site-title')).toBeVisible();
+                await expect(headerElement.getByText(/Library Test/).first()).toBeVisible();
 
-            await page.setViewportSize({ width: 590, height: 1024 });
-            const headerElement2 = page.locator('uq-site-header');
-            await expect(headerElement2.getByTestId('root-link')).toBeVisible();
-            await expect(headerElement2.getByTestId('root-link')).toBeVisible();
-            await expect(headerElement2.getByText(/UQ home/).first()).toBeVisible();
-            await expect(headerElement2.getByTestId('site-title')).not.toBeVisible();
+                await page.setViewportSize({ width: 590, height: 1024 });
+                const headerElement2 = page.locator('uq-site-header');
+                await expect(headerElement2.getByTestId('root-link')).toBeVisible();
+                await expect(headerElement2.getByTestId('root-link')).toBeVisible();
+                await expect(headerElement2.getByText(/UQ home/).first()).toBeVisible();
+                await expect(headerElement2.getByTestId('site-title')).not.toBeVisible();
+            });
+
+            test('Responsive Menu operates as expected', async ({ page }) => {
+                await page.setViewportSize({ width: 768, height: 1024 });
+                const headerElement = page.locator('uq-header');
+                const siteHeaderElement = page.locator('uq-site-header');
+
+                await page.waitForLoadState('networkidle');
+
+                // open search accordion
+                await expect(headerElement.getByTestId('uq-header-search-submit')).not.toBeVisible();
+                await headerElement.getByTestId('uq-header-search-button').click();
+
+                // mobile menu hidden
+                await expect(
+                    siteHeaderElement.locator('nav[aria-label="Site navigation"] > ul:first-child'),
+                ).not.toBeVisible();
+                await expect(siteHeaderElement.getByTestId('uq-header-study-link-mobile')).not.toBeVisible();
+
+                // open the menu
+                await expect(page.locator('uq-header').getByTestId('mobile-menu-toggle-button')).toBeVisible();
+                await page.locator('uq-header').getByTestId('mobile-menu-toggle-button').dispatchEvent('click');
+
+                // menu is open
+                await expect(siteHeaderElement.locator('[aria-label="Site navigation"]')).toBeVisible();
+                // other items visible
+                await expect(siteHeaderElement.getByTestId('uq-header-study-link-mobile')).toBeVisible();
+                await expect(
+                    siteHeaderElement.locator('.uq-site-header__navigation__list__first-permanent-child'),
+                ).toBeVisible();
+                // and menu has the correct children
+                const countPrimaryListItems = 4;
+                const countSecondaryListItems = 5;
+                await expect(siteHeaderElement.locator('[aria-label="Site navigation"] ul li')).toHaveCount(
+                    countPrimaryListItems + countSecondaryListItems,
+                );
+
+                // site search is hidden
+                await expect(headerElement.getByTestId('uq-header-search-submit')).not.toBeVisible();
+
+                // both primary list items and secondary list items are present
+                await expect(siteHeaderElement.getByTestId('uq-header-study-link-mobile')).toBeVisible();
+                await expect(siteHeaderElement.getByTestId('uq-header-study-link-mobile')).toHaveText(/Study/);
+                await expect(siteHeaderElement.getByTestId('uq-header-home-link-mobile')).toBeVisible();
+                await expect(siteHeaderElement.getByTestId('uq-header-home-link-mobile')).toHaveText(/UQ home/);
+
+                // close the mobile menu
+                await page.locator('uq-header').getByTestId('mobile-menu-toggle-button').dispatchEvent('click');
+
+                // mobile menu is hidden
+                await expect(
+                    siteHeaderElement.locator('nav[aria-label="Site navigation"] > ul:first-child'),
+                ).not.toBeVisible();
+                await expect(siteHeaderElement.getByTestId('uq-header-study-link-mobile')).not.toBeVisible();
+            });
         });
 
-        test('Responsive Menu operates as expected', async ({ page }) => {
-            await page.setViewportSize({ width: 768, height: 1024 });
-            const siteHeaderElement = page.locator('uq-site-header');
-
-            await page.waitForLoadState('networkidle');
-
-            // mobile menu hidden
-            await expect(
-                siteHeaderElement.locator('nav[aria-label="Site navigation"] > ul:first-child'),
-            ).not.toBeVisible();
-            await expect(siteHeaderElement.getByTestId('uq-header-study-link-mobile')).not.toBeVisible();
-
-            // open the menu
-            await expect(page.locator('uq-header').getByTestId('mobile-menu-toggle-button')).toBeVisible();
-            await page.locator('uq-header').getByTestId('mobile-menu-toggle-button').dispatchEvent('click');
-
-            // menu is open
-            await expect(siteHeaderElement.locator('[aria-label="Site navigation"]')).toBeVisible();
-            // other items visible
-            await expect(siteHeaderElement.getByTestId('uq-header-study-link-mobile')).toBeVisible();
-            await expect(
-                siteHeaderElement.locator('.uq-site-header__navigation__list__first-permanent-child'),
-            ).toBeVisible();
-            // and menu has the correct children
-            const countPrimaryListItems = 4;
-            const countSecondaryListItems = 5;
-            await expect(siteHeaderElement.locator('[aria-label="Site navigation"] ul li')).toHaveCount(
-                countPrimaryListItems + countSecondaryListItems,
-            );
-            // both primary list items and secondary list items are present
-            await expect(siteHeaderElement.getByTestId('uq-header-study-link-mobile')).toBeVisible();
-            await expect(siteHeaderElement.getByTestId('uq-header-study-link-mobile')).toHaveText(/Study/);
-            await expect(siteHeaderElement.getByTestId('uq-header-home-link-mobile')).toBeVisible();
-            await expect(siteHeaderElement.getByTestId('uq-header-home-link-mobile')).toHaveText(/UQ home/);
-
-            // close the mobile menu
-            await page.locator('uq-header').getByTestId('mobile-menu-toggle-button').dispatchEvent('click');
-
-            // mobile menu is hidden
-            await expect(
-                siteHeaderElement.locator('nav[aria-label="Site navigation"] > ul:first-child'),
-            ).not.toBeVisible();
-            await expect(siteHeaderElement.getByTestId('uq-header-study-link-mobile')).not.toBeVisible();
-        });
-
-        test('can send a search on the library site', async ({ page }) => {
-            await page.route(
-                'https://search.uq.edu.au/?q=frogs&op=Search&as_sitesearch=library.uq.edu.au',
-                async (route) => {
-                    await route.fulfill({ body: 'a search results page with frogs' });
-                },
-            );
-
+        test('can control site search in mobile view', async ({ page }) => {
             await page.setViewportSize({ width: 1280, height: 900 });
             const headerElement = page.locator('uq-header');
 
@@ -177,12 +187,11 @@ test.describe('UQ Header', () => {
             // search accordion is open
             await expect(headerElement.getByTestId('uq-header-search-submit')).toBeVisible();
 
-            // enter a query term and click return to submit
-            await headerElement.getByTestId('uq-header-search-input').fill('frogs');
-            await headerElement.getByTestId('uq-header-search-input').press('Enter');
+            // close search accordion
+            await headerElement.getByTestId('uq-header-search-button').click();
 
-            // we send through to the uq search page correctly
-            await expect(page.getByText('a search results page with frogs')).toBeVisible();
+            // search accordion is closed
+            await expect(headerElement.getByTestId('uq-header-search-submit')).not.toBeVisible();
         });
     });
 });

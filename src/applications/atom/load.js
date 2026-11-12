@@ -432,7 +432,7 @@ if (typeof readyFryer !== 'function') {
         if (!document.querySelector('uq-header')) {
             const header = document.createElement('uq-header');
             !!header && header.setAttribute('hideLibraryMenuItem', '');
-            !!header && header.setAttribute('searchurl', 'guides.library.uq.edu.au');
+            !!header && header.setAttribute('searchurl', 'http://library.uq.edu.au');
             document.body.insertBefore(header, firstElement);
         }
 

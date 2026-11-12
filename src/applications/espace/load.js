@@ -39,7 +39,6 @@ function loadReusableComponents() {
 
     const header = document.createElement('uq-header');
     !!header && header.setAttribute('hidelibrarymenuitem', true);
-    !!header && header.setAttribute('searchlabel', 'eSpace');
     !!header && header.setAttribute('searchurl', 'https://espace.library.uq.edu.au/');
     !!header && document.body.insertBefore(header, firstElement);
 

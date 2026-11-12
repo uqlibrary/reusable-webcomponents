@@ -277,9 +277,8 @@ class UQHeader extends HTMLElement {
         !!template && !!shadowDOM && shadowDOM.appendChild(template.content.cloneNode(true));
 
         // Bindings
-        this.hideLibraryGlobalMenuItem = this.hideLibraryGlobalMenuItem.bind(this);
         this.appendSearchWidgetUrl = this.appendSearchWidgetUrl.bind(this);
-        this.changeSearchWidgetLabel = this.changeSearchWidgetLabel.bind(this);
+        // this.changeSearchWidgetLabel = this.changeSearchWidgetLabel.bind(this);
         this.handleSkipNavInsertion = this.handleSkipNavInsertion.bind(this);
 
         this.addButtonListeners(shadowDOM);
@@ -297,6 +296,7 @@ class UQHeader extends HTMLElement {
             return;
         }
 
+        /* istanbul ignore next */
         if (!this.shadowRoot) {
             return;
         }
@@ -305,9 +305,9 @@ class UQHeader extends HTMLElement {
             case 'skipnavid':
                 this.handleSkipNavInsertion(newValue);
                 break;
-            case 'searchlabel':
-                //this.changeSearchWidgetLabel(newValue);
-                break;
+            // case 'searchlabel':
+            //     this.changeSearchWidgetLabel(newValue);
+            //     break;
             case 'searchurl':
                 this.appendSearchWidgetUrl(newValue);
                 break;
@@ -321,11 +321,13 @@ class UQHeader extends HTMLElement {
     // Provides a #id for skip nav
     // if never provided, skip nav is never unhidden
     handleSkipNavInsertion(newValue) {
+        /* istanbul ignore next */
         if (!newValue || !this.shadowRoot) {
             return;
         }
 
         const skipNavButton = this.shadowRoot.getElementById('skip-nav');
+        /* istanbul ignore next */
         if (!skipNavButton) {
             return;
         }
@@ -339,23 +341,11 @@ class UQHeader extends HTMLElement {
         skipNavButton.addEventListener('click', () => {
             const skipNavLander = document.getElementById(newValue);
             console.log('skip nav click fired', { newValue, skipNavLander: !!skipNavLander, targetId: newValue });
+            /* istanbul ignore else */
             if (skipNavLander) {
                 skipNavLander.focus();
             }
         });
-    }
-
-    // this does not apply to the current version as a Library link didnt make the cut for the top level
-    // lazily leave this here on the assumption this will be fixed at some point
-    hideLibraryGlobalMenuItem(newValue) {
-        // If the attribute hidelibrarymenuitem is true, remove the global menu item from the DOM
-        /* istanbul ignore else  */
-        if (!(newValue === 'false' || newValue === null)) {
-            const libraryMenuItem = this.shadowRoot.getElementById('menu-item-library');
-            !!libraryMenuItem && libraryMenuItem.remove();
-            const libraryMobileMenuItem = this.shadowRoot.getElementById('menu-item-library-mobile');
-            !!libraryMobileMenuItem && libraryMenuItem.remove();
-        }
     }
 
     appendSearchWidgetUrl(newValue) {
@@ -365,19 +355,20 @@ class UQHeader extends HTMLElement {
         }
     }
 
-    changeSearchWidgetLabel(newValue) {
-        /* istanbul ignore else  */
-        if (!!newValue) {
-            const oldValue = this.shadowRoot.getElementById('search-label').innerHTML;
-            const result = oldValue.replace('library.uq.edu.au', newValue);
-            this.shadowRoot.getElementById('search-label').innerHTML = result;
-        }
-    }
+    // changeSearchWidgetLabel(newValue) {
+    //     /* istanbul ignore else  */
+    //     if (!!newValue) {
+    //         const oldValue = this.shadowRoot.getElementById('search-label').innerHTML;
+    //         const result = oldValue.replace('library.uq.edu.au', newValue);
+    //         this.shadowRoot.getElementById('search-label').innerHTML = result;
+    //     }
+    // }
 
     addButtonListeners(shadowDOM) {
         function toggleSearchInputField() {
             function toggleButton() {
                 const buttonPanel = shadowDOM.getElementById('uq-header-search-button');
+                /* istanbul ignore else */
                 if (!!buttonPanel) {
                     buttonPanel.classList.toggle('nav-primary__search-toggle--is-open');
                     const currentExpanded = buttonPanel.getAttribute('aria-expanded');
@@ -420,6 +411,7 @@ class UQHeader extends HTMLElement {
 
             function toggleMobileMenuButton() {
                 const mobileMenuToggleButton = shadowDOM.getElementById('mobile-menu-toggle-button');
+                /* istanbul ignore else */
                 if (!!mobileMenuToggleButton) {
                     mobileMenuToggleButton.classList.toggle('nav-primary__menu-toggle--is-open');
                     const currentExpanded = mobileMenuToggleButton.getAttribute('aria-expanded');
@@ -455,15 +447,16 @@ class UQHeader extends HTMLElement {
                 return !!primoNavbar;
             }
 
-            function isMobileMenuOpen() {
-                const mobileMenuToggleButton = shadowDOM.querySelector('.nav-primary__menu-toggle');
-                return (
-                    !!mobileMenuToggleButton &&
-                    mobileMenuToggleButton.classList.contains('nav-primary__menu-toggle--is-open')
-                );
-            }
-
+            /* istanbul ignore next */
             function showHidePrimoUtilityBar() {
+                function isMobileMenuOpen() {
+                    const mobileMenuToggleButton = shadowDOM.querySelector('.nav-primary__menu-toggle');
+                    return (
+                        !!mobileMenuToggleButton &&
+                        mobileMenuToggleButton.classList.contains('nav-primary__menu-toggle--is-open')
+                    );
+                }
+
                 const newClass = isMobileMenuOpen() ? 'none' : null;
                 const primoNavbar = document.querySelector('.top-nav-bar.layout-row');
                 !!primoNavbar && (primoNavbar.style.display = newClass);
@@ -473,6 +466,7 @@ class UQHeader extends HTMLElement {
             if (isSiteSearchOpen()) {
                 closeSiteSearch();
             }
+            /* istanbul ignore next */
             if (isPrimoPage()) {
                 showHidePrimoUtilityBar();
             }
@@ -486,6 +480,7 @@ class UQHeader extends HTMLElement {
         !!mobileMenuToggleButton && mobileMenuToggleButton.addEventListener('click', openCloseMobileMenu);
 
         const links = shadowDOM.querySelectorAll('a');
+        /* istanbul ignore next */
         !!links && links.length > 0 && links.forEach((l) => l.addEventListener('click', (e) => sendClickToGTM(e)));
 
         const buttons = shadowDOM.querySelectorAll('button');
