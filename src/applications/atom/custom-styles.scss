@@ -1110,8 +1110,8 @@ uq-site-header {
 }
 
 .atomMenuLocation {
-    transform: translate(0, 40px);
-    display: block;
+    transform: translate(0, 40px) !important;
+    display: block !important;
 }
 .resizedSiteHeader {
     min-height: 49px;
