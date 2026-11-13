@@ -49,7 +49,7 @@ class Training extends HTMLElement {
     }
 
     get knownFilters() {
-        return ['keyword', 'campus', 'weekstart'];
+        return ['keyword', 'location', 'weekstart'];
     }
 
     get filters() {
@@ -59,7 +59,7 @@ class Training extends HTMLElement {
         }
         const ret = [];
 
-        // #keyword=Rstudio;campus=St%20Lucia|Gatton;weekstart=2021-05-31
+        // #keyword=Rstudio;location=St%20Lucia|Gatton;weekstart=2021-05-31
         location.hash
             .slice(1) // remove '#' from beginning
             .split(';') // separate filters
@@ -70,21 +70,18 @@ class Training extends HTMLElement {
                 }
                 const [name, value] = spec.split('='); // get keys and values
                 if (this.knownFilters.includes(name) && !!value) {
-                    if (['campus', 'weekstart'].includes(name) && value === 'all') {
+                    if (['location', 'weekstart'].includes(name) && value === 'all') {
                         return;
                     }
                     ret.push({
                         name,
-                        value: name === 'campus' ? decodeURIComponent(value).split('|').map(decodeURIComponent) : value,
+                        value:
+                            name === 'location' ? decodeURIComponent(value).split('|').map(decodeURIComponent) : value,
                     });
                 }
             });
 
         return ret;
-    }
-
-    constructor() {
-        super();
     }
 
     connectedCallback() {
@@ -96,6 +93,7 @@ class Training extends HTMLElement {
         // Save element refs
         this.rootElement = this.shadowRoot.getElementById('library-training');
         this.messageElement = this.shadowRoot.getElementById('training-data-message');
+        /** @type {import('./trainingFilter').default} */
         this.filterComponent = document.createElement('training-filter');
         this.listComponent = document.createElement('training-list');
         if (this.hideCategoryTitle) {
@@ -116,7 +114,7 @@ class Training extends HTMLElement {
                     !!fetchedEvents && typeof fetchedEvents === 'object'
                         ? Object.keys(fetchedEvents).map((key) => {
                               const fetchedEvent = fetchedEvents[key];
-                              !!isOnlineEvent(fetchedEvent) && (fetchedEvent.campus = 'Online');
+                              !!isOnlineEvent(fetchedEvent) && !fetchedEvent.campus && (fetchedEvent.campus = 'Online');
                               return fetchedEvent;
                           })
                         : /* istanbul ignore next */ fetchedEvents;
@@ -129,6 +127,11 @@ class Training extends HTMLElement {
                     }
                     this.rootElement.appendChild(this.listComponent);
                     this.initFiltering();
+
+                    if (!this.hideFilter) {
+                        this.filterComponent.initialiseFiltersFromUrl();
+                    }
+
                     this.setFilters();
                 } else {
                     this.messageElement.innerHTML = '';
@@ -148,11 +151,11 @@ class Training extends HTMLElement {
             return;
         }
 
-        const campusList = [];
+        const locationList = [];
         let firstStartDate = null;
         let lastEndDate = null;
         this.trainingEvents.map((event) => {
-            campusList.push(event.campus);
+            locationList.push(event.campus);
             if (!firstStartDate || firstStartDate > event.start) {
                 firstStartDate = event.start;
             }
@@ -160,13 +163,23 @@ class Training extends HTMLElement {
                 lastEndDate = event.end;
             }
         });
-        const campusListAttr = [...new Set(campusList)].filter(Boolean).map(encodeURIComponent).join('|');
+        const locationListAttr = [...new Set(locationList)].filter(Boolean).map(encodeURIComponent).join('|');
         const weekStartAttr = new Date(firstStartDate).toISOString();
         const weekEndAttr = new Date(lastEndDate).toISOString();
 
         this.filterComponent.setAttribute('week-start', weekStartAttr);
-        this.filterComponent.setAttribute('campus-list', campusListAttr);
+        this.filterComponent.setAttribute('location-list', locationListAttr);
         this.filterComponent.setAttribute('week-end', weekEndAttr);
+    }
+
+    // hospital events are flagged as private, for complicated access reasons
+    // but they still want them to appear on the drupal hospital training page
+    // so we hide private events UNLESS it is a hospital event
+    // (hospital events only show up on the hospital page because they send the different id from that page)
+    isPublishable(trainingEvent) {
+        const hospitalPageId = '360';
+        const isHospitalCall = this.eventFilterId === hospitalPageId;
+        return isHospitalCall || (!trainingEvent.isPrivate && !isHospitalCall);
     }
 
     getFilteredEvents() {
@@ -191,11 +204,27 @@ class Training extends HTMLElement {
         }
 
         const filteredEvents = this.trainingEvents.filter((event) => {
-            if (!!filters.keyword && !(event.name.match(keywordRegExp) || event.details.match(keywordRegExp))) {
+            if (!this.isPublishable(event)) {
                 return false;
             }
 
-            if (!!filters.campus && !filters.campus.includes(event.campus)) {
+            if (
+                !!filters.keyword &&
+                !(
+                    event.name.match(keywordRegExp) ||
+                    event.details.match(keywordRegExp) ||
+                    event.summary.match(keywordRegExp) ||
+                    event.eventType.match(keywordRegExp)
+                )
+            ) {
+                return false;
+            }
+
+            if (
+                !!filters.location &&
+                !filters.location.includes(event.campus) &&
+                !(event.isOnlineClass && filters.location.includes('Online'))
+            ) {
                 return false;
             }
 
@@ -229,7 +258,7 @@ class Training extends HTMLElement {
         //     this.filters.forEach(({ name, value }) => {
         //         let encodedValue;
         //         switch (name) {
-        //             case 'campus':
+        //             case 'location':
         //                 encodedValue = encodeURIComponent(value.join('|'));
         //                 break;
         //             case 'weekstart':

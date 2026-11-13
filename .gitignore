@@ -1,12 +1,41 @@
-dist
-node_modules
 .idea
-coverage/
-.nyc_output
-/.vscode
+.vscode
+node_modules
+dist
+npm-debug.log*
 .DS_Store
+
+# ignore .env files
+.env*
+
+e2eTestLog
+chromedriver.log
+/coverage
+yarn.lock
+frontend.json
+# ignore js bundle analyser files
+assets
+bundle.js
+bundle.js.map
+favicon.ico
+index.html
+stats.json
+
+# ignore wasm files
+*.wasm
+
+# Code Coverage checker temp dir
+.nyc_output
 
 # Playwright
 /playwright/.results
 /playwright/.cache
-test-results
+
+# AI
+CLAUDE.md
+.claude/
+src/.mcp.json
+src/boost.json
+
+# Misc
+.github/skills

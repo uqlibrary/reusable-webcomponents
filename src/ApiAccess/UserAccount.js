@@ -36,7 +36,7 @@ class UserAccount extends ApiAccess {
 
         const accountApi = new ApiRoutes().CURRENT_ACCOUNT_API();
         let accountCallStatus = ACCOUNT_CALL_INCOMPLETE;
-        await this.fetchAPI(accountApi?.apiUrl, {}, true)
+        await this.fetchAPI(accountApi?.apiUrl, 'millisecond', true)
             .then((account) => {
                 if (account.hasOwnProperty('hasSession') && account.hasSession === true) {
                     accountCallStatus = ACCOUNT_CALL_DONE;
@@ -56,7 +56,7 @@ class UserAccount extends ApiAccess {
                 }
 
                 const authorApi = new ApiRoutes().CURRENT_AUTHOR_API();
-                return that.fetchAPI(authorApi?.apiUrl, {}, true);
+                return that.fetchAPI(authorApi?.apiUrl, 'millisecond', true);
             })
             .then((author) => {
                 this.account = {

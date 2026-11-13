@@ -1,5 +1,5 @@
-import { test, expect } from '@playwright/test';
-import { assertAccessibility } from '../lib/axe';
+import { test, expect } from '@uq/pw/test';
+import { assertAccessibility } from '@uq/pw/lib/axe';
 
 test.describe('Skip nav', () => {
     test('Skip menu passes accessibility', async ({ page }) => {
@@ -9,10 +9,13 @@ test.describe('Skip nav', () => {
         await assertAccessibility(page, 'uq-header');
     });
 
-    test('Skip Menu off - no-skip works as expected', async ({ page }) => {
+    test('Skip Menu off - no-skip stays present but hidden by design', async ({ page }) => {
         await page.goto('http://localhost:8080/index-noauth-nomenu-noskip.html');
         await page.setViewportSize({ width: 1280, height: 900 });
-        await expect(page.locator('uq-header').locator('#skip-nav')).not.toBeVisible();
+
+        const skipNav = page.locator('uq-header').locator('#skip-nav');
+        await expect(skipNav).toBeAttached();
+        await expect(skipNav).toHaveText(/Skip to site content/i);
     });
 
     test('Skip Menu on - skip works as expected', async ({ page }) => {

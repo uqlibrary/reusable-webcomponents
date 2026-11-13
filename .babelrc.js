@@ -1,5 +1,5 @@
 const presets = ['@babel/preset-react'];
-const plugins = ['transform-class-properties'];
+const plugins = [];
 
 if (process.env.NODE_ENV === 'local') {
     plugins.push('istanbul');

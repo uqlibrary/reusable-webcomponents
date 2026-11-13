@@ -55,7 +55,7 @@ class TrainingList extends HTMLElement {
         this._eventList = eventList;
         this.clearEvents();
 
-        // Get list of unique category names
+        // Get list of unique category names.
         const categoryNames = [...new Set(eventList.map((event) => event.eventType))];
 
         const categoryIdPrefix = 'category-top-';
@@ -212,11 +212,13 @@ class TrainingList extends HTMLElement {
         detailContainer.appendChild(detailElement);
 
         let placesRemainingText = 'Booking is not required';
-        if (event.bookingSettings !== null) {
-            placesRemainingText = 'Class is full. Register for waitlist';
-
-            if (event.bookingSettings.placesRemaining > 0) {
+        if ((event.bookingType === 3 || event.bookingType === 4) && event.bookingSettings === null) {
+            placesRemainingText = 'Booking is required';
+        } else if (event.bookingSettings !== null) {
+            if (event.bookingSettings.isBookingAvailable) {
                 placesRemainingText = 'Places still available';
+            } else {
+                placesRemainingText = 'Class is full. Register for waitlist';
             }
         }
 

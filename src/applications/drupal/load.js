@@ -114,6 +114,8 @@ function getScriptPath(jsFilename) {
         } else {
             folder = `-development/${libraryFeatureBranchName}/`;
         }
+    } else if (window.location.hostname === 'web-staging.library.uq.edu.au') {
+        folder = `-development/drupal-staging/`;
     }
     return libraryAssetsRootLocation + folder + jsFilename;
 }

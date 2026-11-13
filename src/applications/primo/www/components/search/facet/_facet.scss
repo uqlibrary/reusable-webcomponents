@@ -70,12 +70,32 @@ prm-facet {
         transform: translateZ(0);
     }
 
-    // highlight the "Sort by" entry when not the default
+    // highlight the "Sort by" entry when not the default to look like the filter buttons
     div:has(> prm-search-result-sort-by):not(:has(md-select-value [translate="results.sortby.option.rank"])) {
-        div,
+        background-color: #fff;
+        padding-left: 0.5rem;
+        border-radius: 1.2em;
+        max-width: 13.75rem;
+        box-shadow: 0 1px 0 0 rgba(0, 0, 0, .03), 0 5px 5px -3px rgba(0, 0, 0, .07);
         h3 {
-            color: $accent-color !important;
-            font-weight: bold;
+            font-weight: 600;
+            font-size: 15px;
+            /* icon on button: source https://www.streamlinehq.com/icons/ultimate-regular-free?search=sort&icon=ico_7yW47yvKZ9jdibgQ */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' height='20' width='20'%3E%3Cpath stroke='%2351247a' stroke-linecap='round' stroke-linejoin='round' d='M0.75 4.29297h22.5' stroke-width='1.5'/%3E%3Cpath stroke='%2351247a' stroke-linecap='round' stroke-linejoin='round' d='M3.146 9.43103h17.708' stroke-width='1.5'/%3E%3Cpath stroke='%2351247a' stroke-linecap='round' stroke-linejoin='round' d='M8.71997 19.707H15.28' stroke-width='1.5'/%3E%3Cpath stroke='%2351247a' stroke-linecap='round' stroke-linejoin='round' d='M5.54303 14.569H18.457' stroke-width='1.5'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            padding-left: 1.7rem;
+            margin-left: 0.3rem;
+        }
+        prm-search-result-sort-by {
+            md-input-container {
+                padding-top: 0;
+            }
+            md-select-value {
+                padding-bottom: 0;
+            }
+        }
+        span.md-select-icon {
+            margin-left: -0.25rem; /* inch the arrow left a little closer */
         }
     }
 }

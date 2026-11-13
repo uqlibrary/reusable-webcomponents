@@ -110,7 +110,7 @@ export default [
             },
             {
                 label: 'Divisions and departments',
-                href: 'https://www.uq.edu.au/departments/',
+                href: 'https://organisation.about.uq.edu.au/',
             },
             {
                 label: 'Campuses, maps and transport',
