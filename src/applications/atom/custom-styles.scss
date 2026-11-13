@@ -1109,3 +1109,12 @@ uq-site-header {
         top: 0;
     }
 }
+
+.atomMenuLocation {
+    transform: translate(0, 40px);
+    display: block;
+}
+.resizedSiteHeader {
+    min-height: 49px;
+    padding-top: 10px;
+}
