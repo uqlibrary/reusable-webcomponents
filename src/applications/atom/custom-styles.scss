@@ -264,8 +264,7 @@ body.d-flex { /* add an extra layer of specificity to all our css to over ride t
             }
 
             // Only show up arrow when the sibling dropdown menu is visible (show-hide is a built-in Bootstrap function)
-            &:has(+ .dropdown-menu[style*='display: block']),
-            &:has(+ .dropdown-menu[style*='display:block']) {
+            &:has(+ .dropdown-menu.atomMenuLocation) {
                 .downArrow {
                     display: none;
                 }
@@ -1108,4 +1107,13 @@ uq-site-header {
         right: 0;
         top: 0;
     }
+}
+
+.atomMenuLocation {
+    transform: translate(0, 40px) !important;
+    display: block !important;
+}
+.resizedSiteHeader {
+    min-height: 49px;
+    padding-top: 10px;
 }
