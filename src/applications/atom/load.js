@@ -195,6 +195,20 @@ if (typeof readyFryer !== 'function') {
         });
     }
 
+    const makeCulturalAdviceBanner = (bannerText, displayBlockIdentifier) => {
+        const para = document.createElement('p');
+        !!para && (para.innerHTML = bannerText);
+
+        const block = document.createElement('div');
+        !!block && (block.id = displayBlockIdentifier);
+        !!block && block.classList.add(displayBlockIdentifier);
+        !!block && block.setAttribute('data-testid', displayBlockIdentifier);
+        const innerblock = document.createElement('div');
+        !!para && !!innerblock && innerblock.appendChild(para);
+        !!innerblock && !!block && block.appendChild(innerblock);
+        return block;
+    };
+
     function highlightCulturallySignificantEntriesOnDetailPage() {
         // eg "Aboriginal and Torres Strait Islander people are warned that this resource may contain images transcripts or names of Aboriginal and Torres Strait Islander people now deceased.  It may also contain historically and culturally sensitive words, terms, and descriptions."
         const displayBlockIdentifier = 'culturalAdviceBanner';
@@ -233,16 +247,7 @@ if (typeof readyFryer !== 'function') {
                 return;
             }
 
-            const para = document.createElement('p');
-            !!para && (para.innerHTML = bannerText);
-
-            const block = document.createElement('div');
-            !!block && (block.id = displayBlockIdentifier);
-            !!block && block.classList.add(displayBlockIdentifier);
-            !!block && block.setAttribute('data-testid', displayBlockIdentifier);
-            const innerblock = document.createElement('div');
-            !!para && !!innerblock && innerblock.appendChild(para);
-            !!innerblock && !!block && block.appendChild(innerblock);
+            const block = makeCulturalAdviceBanner(bannerText, displayBlockIdentifier);
 
             const parentElement = document.querySelector('#main-column h1');
             if (!!parentElement) {
@@ -255,7 +260,7 @@ if (typeof readyFryer !== 'function') {
         }, 100);
     }
 
-    function createCustomIndicator(svgPathValue, iconWrapperClassName, labelText) {
+    function createCustomIndicator(svgPathValue, iconWrapperClassName, labelText, nestedInDiv) {
         const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         !!path && path.setAttribute('d', svgPathValue);
         !!path && path.setAttribute('d', svgPathValue);
@@ -277,6 +282,12 @@ if (typeof readyFryer !== 'function') {
         !!indicatorWrapper && (indicatorWrapper.className = `customIndicator ${iconWrapperClassName}`);
         !!indicatorWrapper && !!svgCR && indicatorWrapper.appendChild(svgCR);
         !!indicatorWrapper && !!indicatorLabel && indicatorWrapper.appendChild(indicatorLabel);
+
+        if (nestedInDiv) {
+            const wrappingDiv = document.createElement('div');
+            !!wrappingDiv && !!indicatorWrapper && wrappingDiv.appendChild(indicatorWrapper);
+            return wrappingDiv;
+        }
 
         return indicatorWrapper;
     }
@@ -333,20 +344,47 @@ if (typeof readyFryer !== 'function') {
         addBookNowButton(); // now we have boxes, add the Request Access box as the top one
     }
 
-    const createCulturalAdviceCustomIndicator = (culturalAdviceMarkClassName) => {
-        const muiIconInfoSvgPath =
+    const createCulturalAdviceCustomIndicator = (culturalAdviceMarkClassName, nestedInDiv = false) => {
+        const muiIconInfoSvgPath = // svg for "Info" icon from MUI icon set, match search.library
             'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z';
         const culturalAdviceLabel = 'CULTURAL ADVICE';
-        return createCustomIndicator(muiIconInfoSvgPath, culturalAdviceMarkClassName, culturalAdviceLabel);
+        return createCustomIndicator(muiIconInfoSvgPath, culturalAdviceMarkClassName, culturalAdviceLabel, nestedInDiv);
     };
 
     function highlightCulturallySignificantEntriesOnListPage() {
+        console.log('### highlightCulturallySignificantEntriesOnListPage');
+        /*
+        each article that needs cultural advice on a list page is currently provided with structure like this:
+        <article>
+          <div>
+            <div>
+              <a class="h5"></a> <!-- append icon here -->
+              ...
+            </div>
+            <div>
+              <div>
+                ...
+              </div>
+              <span>...</span>
+              <span>
+                ...
+                <em>Content advice: Aboriginal and Torres Strait Islander peoples ...</em> <!-- add class name to em to look as banner -->
+                ...
+              </span>
+              ...
+            </div>
+          </div>
+        </article>
+
+        Where the em exists and starts with the displayed text, we add a cultural advice Content Indicator and make the em look like a blue info banner
+
+         */
         if (hasDebugParam('sandbox-fryer.library.uq.edu.au')) {
             return;
         }
 
         const waitForBody = setInterval(() => {
-            const contentBody = document.querySelectorAll('#content article p');
+            const contentBody = document.querySelectorAll('#content article:has(a.h5):has(em)');
             if (!contentBody) {
                 return; // the paragraphs have not yet been displayed, so we can't tell if they need CA or not
             }
@@ -354,42 +392,45 @@ if (typeof readyFryer !== 'function') {
             clearInterval(waitForBody);
 
             !!contentBody &&
-                contentBody.forEach(function (contentAdvice) {
+                contentBody.forEach(function (article) {
+                    const contentAdvice = article.querySelector('em');
                     const contentAdviceText = contentAdvice?.textContent;
 
-                    let hasContentAdvice = false;
-                    if (
-                        !!contentAdviceText.startsWith('Content advice: Aboriginal and Torres Strait Islander') ||
-                        !!contentAdviceText.startsWith('Cultural advice: Aboriginal and Torres Strait Islander') ||
-                        !!contentAdviceText.startsWith('Content advice: Aboriginal, Torres Strait Islander') ||
-                        !!contentAdviceText.startsWith('Cultural advice: Aboriginal, Torres Strait Islander')
-                    ) {
-                        hasContentAdvice = true;
-                    }
-                    if (!hasContentAdvice) {
-                        return;
-                    }
+                    const hasContentAdvice =
+                        !!contentAdviceText?.startsWith('Content advice: Aboriginal and Torres Strait Islander') ||
+                        !!contentAdviceText?.startsWith('Cultural advice: Aboriginal and Torres Strait Islander') ||
+                        !!contentAdviceText?.startsWith('Content advice: Aboriginal, Torres Strait Islander') ||
+                        !!contentAdviceText?.startsWith('Cultural advice: Aboriginal, Torres Strait Islander');
+                    if (hasContentAdvice) {
+                        const caMarkClassName = 'culturalAdviceMark';
+                        const createdCAIndicator = createCulturalAdviceCustomIndicator(caMarkClassName, true);
+                        if (!createdCAIndicator) {
+                            return;
+                        }
 
-                    // svg for "Info" icon from MUI icon set, match search.library
-                    const culturalAdviceMarkClassName = 'culturalAdviceMark';
-                    let createdCAIndicator = createCulturalAdviceCustomIndicator(culturalAdviceMarkClassName);
-                    if (!createdCAIndicator) {
-                        return;
-                    }
+                        const targetParent = article.querySelector('a.h5');
+                        if (!targetParent) {
+                            return;
+                        }
+                        const checkAlreadyExists = targetParent.querySelectorAll(`.${caMarkClassName}`); // dont insert it twice
+                        if (checkAlreadyExists?.length === 0) {
+                            if (targetParent.nextSibling) {
+                                targetParent.parentNode.insertBefore(createdCAIndicator, targetParent.nextSibling);
+                            } else {
+                                targetParent.parentNode.appendChild(block);
+                            }
+                        }
 
-                    const indicatorList = document.createElement('div');
-                    !!indicatorList && indicatorList.setAttribute('class', 'customIndicatorList');
-                    !!indicatorList && indicatorList.appendChild(createdCAIndicator);
-
-                    const targetParent = contentAdvice.parentNode.parentNode;
-
-                    const checkExists = targetParent.querySelectorAll(`.${culturalAdviceMarkClassName}`);
-                    if (
-                        checkExists.length === 0 && // dont insert it twice
-                        !!targetParent &&
-                        !!indicatorList
-                    ) {
-                        targetParent.insertBefore(indicatorList, targetParent.firstChild);
+                        // some of the entries have the content advice split between the initial info and the 'read more' block :(
+                        // so we can't do a full banner look
+                        // just put a banner colour on the background and a little bit of spacing
+                        const culturalAdviceContentWarnings = article.querySelectorAll('em');
+                        !!culturalAdviceContentWarnings &&
+                            culturalAdviceContentWarnings.length > 0 &&
+                            culturalAdviceContentWarnings.forEach((c) => {
+                                !c.classList.contains('standardWarningBanner') &&
+                                    c.classList.add('standardWarningBanner');
+                            });
                     }
                 });
         }, 100);
