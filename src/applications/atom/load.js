@@ -62,11 +62,7 @@ if (typeof readyFryer !== 'function') {
             if (!!siteHeaderShadowRoot) {
                 clearInterval(awaitSiteHeader);
                 const block = !!siteHeaderShadowRoot && siteHeaderShadowRoot.querySelector('.uq-site-header');
-                if (!block) {
-                    return;
-                }
-                block.style.minHeight = '49px';
-                block.style.paddingTop = '10px';
+                !!block && !block.classList.contains('resizedSiteHeader') && block.classList.add('resizedSiteHeader');
             }
         }, 100);
     }
@@ -673,10 +669,9 @@ if (typeof readyFryer !== 'function') {
             if (!!atomMenu) {
                 if (!!atomMenu.style.bottom) {
                     // if has bottom property, then it must be open - reset inline transform style
-                    atomMenu.style.transform = 'translate(0, 40px)';
-                    atomMenu.style.display = 'block';
+                    !atomMenu.classList.contains('atomMenuLocation') && atomMenu.classList.add('atomMenuLocation');
                 } else {
-                    atomMenu.style.display = 'none';
+                    !!atomMenu.classList.contains('atomMenuLocation') && atomMenu.classList.remove('atomMenuLocation');
                 }
             }
         }, 100);
