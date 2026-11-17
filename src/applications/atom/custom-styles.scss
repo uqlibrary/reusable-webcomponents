@@ -1077,6 +1077,9 @@ body.d-flex {
 
         a {
             text-decoration: underline; // body links should have underline
+            overflow: auto;
+            text-overflow: initial;
+            text-wrap: auto;
         }
     }
 
