@@ -6,7 +6,7 @@ describe('footerLocale', () => {
         // because the footer locale is meant to be maintained by the user, we check the file is valid
         expect(locale.connectFooter.buttonSocialHeader.length).not.toBe(0);
         locale.connectFooter.buttonSocial.forEach((menu) => {
-            isAString(menu.dataTestid);
+            isAString(menu.dataId);
             isAValidLink(menu.linkTo);
             isAString(menu.linkMouseOver);
             isAString(menu.iconPath);
@@ -15,13 +15,13 @@ describe('footerLocale', () => {
         });
 
         locale.connectFooter.internalLinks.forEach((menu) => {
-            isAString(menu.dataTestid);
+            isAString(menu.dataId);
             isAString(menu.linklabel);
             isAValidLink(menu.linkTo);
         });
 
         locale.connectFooter.givingLinks.forEach((menu) => {
-            isAString(menu.dataTestid);
+            isAString(menu.dataId);
             isAString(menu.label);
             isAValidLink(menu.linkTo);
         });

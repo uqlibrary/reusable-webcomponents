@@ -422,6 +422,10 @@ md-menu-item button.md-button svg:nth-of-type(n+2) {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
     }
+
+    button.account-menu-spaces { // spaces button
+        white-space: nowrap;
+    }
 }
 // logged out menu doesnt need a divider
 .prm-user-menu-content {
@@ -1853,7 +1857,8 @@ md-menu-item.logout-option {
     display: block;
     border-top: thin solid #d3d3d3;
     padding-inline: 0;
-    margin-inline: 24px;
+    margin-left: 24px;
+    margin-right: 20px;
     margin-top: 10px;
 }
 button.md-button.md-primary[aria-label="Sign out"],
@@ -2358,6 +2363,7 @@ prm-request {
 }
 prm-request form {
     prm-form-field div:has([translate="almaPurchaseRequest.citationType"]) {
+        // hide the radio button "choose a type: book or article?" selector
         display: none;
     }
     prm-form-field.service-form-item {
@@ -2608,7 +2614,12 @@ body:not(:has(.full-view-container)) {
     prm-brief-result-container:has(span[translate="mediatype.magazine"]),
     prm-brief-result-container:has(span[translate="mediatype.magazines"]) {
         prm-search-result-availability-line {
-            display: none;
+
+            // AD 1260
+            // current flakiness on overriding direct linking of availability records
+            // hopefully only temporary!!
+
+            // display: none;
         }
     }
 }
