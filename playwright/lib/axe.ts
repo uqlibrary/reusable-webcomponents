@@ -1,5 +1,5 @@
 import AxeBuilder from '@axe-core/playwright';
-import { expect, Page } from '../test';
+import { expect, Page } from '@uq/pw/test';
 
 export const defaultIncludedImpacts = ['minor', 'moderate', 'serious', 'critical'];
 export const assertAccessibility = async (
@@ -24,11 +24,11 @@ export const assertAccessibility = async (
     const results = await builder.analyze();
 
     const impacts = options?.includedImpacts || defaultIncludedImpacts;
-    const filtered = results.violations.filter(violation => violation.impact && impacts.includes(violation.impact));
+    const filtered = results.violations.filter((violation) => violation.impact && impacts.includes(violation.impact));
     if (filtered.length > 0) {
         console.error('Accessibility Violations Found (filtered by impact):');
         console.table(
-            filtered.map(violation => ({
+            filtered.map((violation) => ({
                 ruleId: violation.id,
                 description: violation.description,
                 impact: violation.impact,

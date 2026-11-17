@@ -6,7 +6,7 @@ const template = document.createElement('template');
 template.innerHTML = `
     <style>${styles.toString()}</style>
     <style>${overrides.toString()}</style>
-    <button tabindex="0" class="skip-to-content-link" id="skip-nav" data-testid="skip-nav" aria-label="Click to skip to the sites main content" data-analyticsid="uq-header-skip-click">
+    <button tabindex="0" class="skip-to-content-link" id="skip-nav" data-testid="skip-nav" aria-label="Skip to site content: click to skip to the sites main content" data-analyticsid="uq-header-skip-click">
         Skip to site content
     </button>
     <header class="uq-header" data-gtm-category="Header">

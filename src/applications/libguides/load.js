@@ -101,7 +101,7 @@
         // AD-1111 check if there is a hashtag in the current URL
         if (window.location.hash) {
             const targetElement = document.querySelector(window.location.hash);
-            
+
             if (targetElement) {
                 // wrap in a tiny timeout to ensure the DOM layout engine has settled
                 setTimeout(() => {
@@ -129,7 +129,7 @@
         // No longer need the script to do this when the css file is already included in
         // the look & feel settings.
         // const cssFileName = getIncludeFullPath('applications/libguides/custom-styles.css');
-        // insertCssFile(cssFileName); 
+        // insertCssFile(cssFileName);
 
         const waitForBody = setInterval(() => {
             const firstElement = document.body.children[0];
@@ -231,7 +231,7 @@
                 !!editModeStyles && !!headElement && headElement.appendChild(editModeStyles.content.cloneNode(true));
             }
 
-            if(!isInEditMode()) {
+            if (!isInEditMode()) {
                 adjustScrollPositionForHashLinks();
             }
         }, 100);
@@ -640,12 +640,12 @@
     /**
      * Native BS5 accordions use a H2 for the header, however we require
      * the use of H3 to maintain correct document hierarchy for screen readers.
-     * Rather than change the actual HTML, instead leverage the aria-level 
+     * Rather than change the actual HTML, instead leverage the aria-level
      * attribute to indicate the correct heading level.
      */
     function adjustAccordionHeaderLevels() {
         const accordions = document.querySelectorAll('div.accordion');
-            if (!accordions || accordions.length === 0) {
+        if (!accordions || accordions.length === 0) {
             return;
         }
 
@@ -687,6 +687,7 @@
             if (!!firstChild && firstChild.isCurrentPage) {
                 // the current page is the first page in the sidebar - make the other items its child
                 firstChild.children = constructedTree;
+
                 htmlTree += '<ul class="uq-local-nav__children">';
                 htmlTree += addChildToHtmlTree(firstChild, true);
                 htmlTree += '</ul>';
@@ -788,6 +789,7 @@
                     const veryFirstAnchor = child.querySelector(':scope > ul > li:first-child > a:first-child');
                     const parentLi = !!veryFirstAnchor && veryFirstAnchor.parentNode;
                     const firstGrandchild = !!parentLi && parentLi.querySelector('ul li:first-child a');
+
                     if (!!firstGrandchild) {
                         // use the link from the first internal link in the local nav block
                         // (Springshare are supplying 2 links to this page and we are trying to get around the SEO issues of that by never linking to the dupe)
@@ -796,9 +798,9 @@
                     } else {
                         // otherwise, when we arent on that first page that has the grandchilden, truncate the current url
                         // (author guideline: "our format is https://guides.library.uq.edu.au/group-name/guide-title/page-name")
-                        const url = window.location;
-                        const pathname = url.pathname.substring(0, url.pathname.lastIndexOf('/'));
-                        record.href = `${url.origin}${pathname}${url.search}`;
+                        const newUrl = new URL(anchor.href);
+                        const pathname = newUrl.pathname.substring(0, newUrl.pathname.lastIndexOf('/'));
+                        record.href = `${newUrl.origin}${pathname}${newUrl.search}`;
                     }
 
                     // use the page title as the first link
