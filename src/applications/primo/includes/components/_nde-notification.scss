@@ -33,9 +33,9 @@ nde-notification {
           justify-content: flex-start;
         }
 
-          &:before {
-            @include uqBkgIconProperties();
-            background-image: var(--uq-icon--info);
+        &:before {
+          @include uqBkgIconProperties();
+          background-image: var(--uq-icon--info);
           top: 23px;
           left: 16px;
         }
