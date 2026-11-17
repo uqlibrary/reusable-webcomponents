@@ -31,6 +31,8 @@
   --uq-colour-error-50: #fbeaea;
   --uq-colour-error-500: #d62929;
 
+  // colours from page 36, UQ Brand document https://digital-assets.uq.edu.au/uploads/56NjKv9eqRdprqdLu
+  // linked from https://uq.sharepoint.com/sites/topic-comm-marketing-info/SitePages/Using-the-UQ-Brand.aspx
   --uql-brand-orange: #EB602B; // rbg(235, 96, 43)
   --uql-brand-blue: #4085C6; // rgb(64, 133, 198)
   --uql-brand-green: #2EA836; // rbg(46, 168, 54)
@@ -992,7 +994,7 @@ body.custom-nde-theme {
             &[data-qa="search-history-view-all-btn"],
             &[data-qa="fines-view-all-btn"],
             &[data-qa="requests-view-all-btn"],
-            &.advanced-search-button { // search header
+            &.advanced-search-button { // search header, affects these buttons: advanced search, ai search, expand otions
               --uql-button-style-type: twentyfourextended-advancedsearch;
               text-decoration: underline;
               &:hover {
