@@ -422,6 +422,15 @@ md-menu-item button.md-button svg:nth-of-type(n+2) {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
     }
+
+    .account-menu-spaces button { // spaces button
+        div.textwrapper span {
+            white-space: nowrap;
+        }
+        svg {
+            width: 44px !important;
+        }
+    }
 }
 // logged out menu doesnt need a divider
 .prm-user-menu-content {
