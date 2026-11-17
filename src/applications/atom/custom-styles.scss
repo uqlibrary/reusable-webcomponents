@@ -2,7 +2,10 @@
 @import url(https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Roboto:wght@400;500&display=swap);
 
 // colours: https://design-system.ads-staging.aws.uq.edu.au/?path=/docs/core-colour--docs
-:root, html, head, body {
+:root,
+html,
+head,
+body {
     --grey-900: #3b383e;
     --purple-50: #eee9f2;
     --purple-500: #51247a;
@@ -10,15 +13,17 @@
     --utility-50: #e7f0fa;
     --utility-500: #0d6dcd;
     --black: #19151c;
+    --uq-colour-warning-50: #fef8e8;
 
     --accent-color: var(--purple-500);
     --accent-color-rgb: var(--purple-500-rgb);
 
-    --body-copy: var(--grey-900);
-    --body-copy-rgb: 59, 56, 62;
-    --info-banner-background: var(--utility-50);
+    --uq-body-copy: var(--grey-900);
+    --uq-body-copy-rgb: 59, 56, 62;
     --border-color: rgba(38, 85, 115, 0.15);
     --heading-colour: var(--black);
+
+    --uq-icon--warning: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M20.127 18.545a1.18 1.18 0 0 1-1.055 1.706H4.929a1.18 1.18 0 0 1-1.055-1.706l7.072-14.143a1.179 1.179 0 0 1 2.109 0l7.072 14.143Z' stroke='%233b383e' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M12 9v4' stroke='%233b383e' stroke-width='1.5' stroke-linecap='round'%3e%3c/path%3e%3ccircle cx='11.9' cy='16.601' r='1.1' fill='%233b383e'%3e%3c/circle%3e%3c/svg%3e");
 
     --body-font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
     --H1-font-family: 'Montserrat', Helvetica, Arial, sans-serif;
@@ -31,7 +36,7 @@
     font-family: var(--body-font-family);
     font-size: 1rem;
     font-weight: 400;
-    color: var(--body-copy);
+    color: var(--uq-body-copy);
     letter-spacing: 0.16px;
     line-height: 1.5;
 }
@@ -78,8 +83,8 @@
 }
 :root {
     // override bootstrap colours!!
-    --bs-body-color: var(--body-copy);
-    --bs-body-color-rgb: var(--body-copy-rgb);
+    --bs-body-color: var(--uq-body-copy);
+    --bs-body-color-rgb: var(--uq-body-copy-rgb);
     --bs-link-color: var(--accent-color);
     --bs-link-color-rgb: var(--accent-color-rgb);
     --bs-link-hover-color-rgb: #fff;
@@ -90,8 +95,8 @@
 
     --bs-body-bg: #fff;
     --bs-body-bg-rgb: 0, 0, 0;
-    --bs-secondary-color: var(--body-copy);
-    --bs-secondary-color-rgb: var(--body-copy-rgb);
+    --bs-secondary-color: var(--uq-body-copy);
+    --bs-secondary-color-rgb: var(--uq-body-copy-rgb);
     --bs-secondary-bg: var(--accent-color);
     --bs-secondary-bg-rgb: var(--accent-color-rgb);
     --bs-tertiary-color: var(--accent-color);
@@ -112,7 +117,8 @@ body {
     background-color: rgb(243, 243, 244) !important;
 }
 
-body.d-flex { /* add an extra layer of specificity to all our css to over ride the default more easily (grrr...) */
+body.d-flex {
+    /* add an extra layer of specificity to all our css to over ride the default more easily (grrr...) */
     .breadcrumb {
         --bs-breadcrumb-divider-color: var(--accent-color);
     }
@@ -137,7 +143,7 @@ body.d-flex { /* add an extra layer of specificity to all our css to over ride t
         @include heading();
         font-size: 1.5em;
     }
-    div.popover[data-popper-placement="right"] h3.popover-header {
+    div.popover[data-popper-placement='right'] h3.popover-header {
         color: #fff;
     }
 
@@ -685,7 +691,7 @@ body.d-flex { /* add an extra layer of specificity to all our css to over ride t
             button,
             input {
                 height: 51px; // match homepage search input height
-                color: var(--body-copy);
+                color: var(--uq-body-copy);
 
                 &:focus {
                     border-color: #fff;
@@ -741,9 +747,9 @@ body.d-flex { /* add an extra layer of specificity to all our css to over ride t
     }
 
     .culturalAdviceBanner {
-        padding: 1em 1em 1em 4em;
-        background-color: var(--info-banner-background);
-        color: var(--body-copy);
+        padding: 1rem 3.5rem 1rem 4rem;
+        background-color: var(--uq-colour-warning-50);
+        color: var(--uq-body-copy);
         font-family: var(--body-font-family);
         font-size: 1rem;
         font-weight: 400;
@@ -753,7 +759,7 @@ body.d-flex { /* add an extra layer of specificity to all our css to over ride t
 
         & div:before {
             content: '';
-            background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='12' cy='12' r='9.25' transform='rotate(-180 12 12)' stroke='%233b383e' stroke-width='1.5'%3e%3c/circle%3e%3cpath d='M12 16.2v-4' stroke='%233b383e' stroke-width='1.5' stroke-linecap='round'%3e%3c/path%3e%3ccircle cx='12' cy='8.4' r='1.1' transform='rotate(-180 12 8.4)' fill='%233b383e'%3e%3c/circle%3e%3c/svg%3e");
+            background-image: var(--uq-icon--warning);
             background-repeat: no-repeat;
             background-size: 1.5rem;
             width: 1.5rem;
@@ -777,16 +783,17 @@ body.d-flex { /* add an extra layer of specificity to all our css to over ride t
     }
 
     .customIndicatorLabel {
-        font-size: 16px;
+        font-size: 12px;
         margin-top: 1px;
         margin-left: 0.15rem;
+        font-weight: 600;
     }
 
     .culturalAdviceMark {
         svg {
             color: var(--utility-500);
-            width: 24px;
-            height: 24px;
+            width: 19px;
+            height: 19px;
 
             path {
                 fill: var(--utility-500);
@@ -928,9 +935,9 @@ body.d-flex { /* add an extra layer of specificity to all our css to over ride t
             border-color: var(--accent-color);
         }
     }
-    div[role="main"] {
-        *:not(a):not(button):not(input [type="button"]) > span {
-            --bs-primary-rgb: var(--body-copy);
+    div[role='main'] {
+        *:not(a):not(button):not(input [type='button']) > span {
+            --bs-primary-rgb: var(--uq-body-copy);
         }
     }
 
@@ -944,7 +951,7 @@ body.d-flex { /* add an extra layer of specificity to all our css to over ride t
     }
 
     input[aria-label='Search']::placeholder {
-        color: var(--body-copy);
+        color: var(--uq-body-copy);
         opacity: 0.42;
     }
 
@@ -1037,8 +1044,9 @@ body.d-flex { /* add an extra layer of specificity to all our css to over ride t
     }
 
     #sidebar {
-        .page-link.disabled, .disabled > .page-link {
-            color: var(--body-copy);
+        .page-link.disabled,
+        .disabled > .page-link {
+            color: var(--uq-body-copy);
             background-color: #fff;
             text-decoration: none;
         }
@@ -1069,6 +1077,9 @@ body.d-flex { /* add an extra layer of specificity to all our css to over ride t
 
         a {
             text-decoration: underline; // body links should have underline
+            overflow: auto;
+            text-overflow: initial;
+            text-wrap: auto;
         }
     }
 
@@ -1102,7 +1113,8 @@ uq-site-header {
     &::part(breadcrumb_nav) {
         padding-right: 4rem; /* leave gap for menu */
     }
-    [slot] { /* menu goes to far right */
+    [slot] {
+        /* menu goes to far right */
         position: absolute;
         right: 0;
         top: 0;
@@ -1116,4 +1128,15 @@ uq-site-header {
 .resizedSiteHeader {
     min-height: 49px;
     padding-top: 10px;
+}
+
+.standardWarningBanner {
+    background-color: var(--uq-colour-warning-50);
+    color: var(--uq-body-copy);
+    display: block;
+    padding-inline: 1em;
+    padding-top: 0.2rem;
+}
+#content article > div > div {
+    display: block !important; // don't put the CA indicator inline with the title
 }
