@@ -423,8 +423,13 @@ md-menu-item button.md-button svg:nth-of-type(n+2) {
         -moz-osx-font-smoothing: grayscale;
     }
 
-    button.account-menu-spaces { // spaces button
-        white-space: nowrap;
+    .account-menu-spaces button { // spaces button
+        div.textwrapper span {
+            white-space: nowrap;
+        }
+        svg {
+            width: 44px !important;
+        }
     }
 }
 // logged out menu doesnt need a divider
@@ -1857,8 +1862,7 @@ md-menu-item.logout-option {
     display: block;
     border-top: thin solid #d3d3d3;
     padding-inline: 0;
-    margin-left: 24px;
-    margin-right: 20px;
+    margin-inline: 24px;
     margin-top: 10px;
 }
 button.md-button.md-primary[aria-label="Sign out"],
