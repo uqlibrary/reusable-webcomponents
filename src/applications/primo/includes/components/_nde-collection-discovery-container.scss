@@ -88,6 +88,9 @@ nde-collection-discovery-container {
         .cutoff-text {
           --sys-on-surface-variant: var(--uq-body-copy);
         }
+        .grid-collection-properties .collection-header mat-icon.collection-icon.mat-icon[data-mat-icon-name="directory"] { // needs high specificity
+          display: none;
+        }
       }
 
       nde-collection-discovery-gallery-collection {
