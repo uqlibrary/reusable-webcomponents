@@ -1236,7 +1236,6 @@ body.custom-nde-theme {
 
   nde-categories {
     mat-tree-node {
-      text-decoration: underline;
       color: var(--uq-main-purple);
       --sys-on-background: var(--uq-main-purple);
       &.selected-category {
