@@ -940,6 +940,18 @@ body.custom-nde-theme {
                     color: #fff;
                   }
                 }
+                &.export-all-favorites-button { // tight link - export button on favourites page
+                  span.mdc-button__label {
+                    text-decoration: underline;
+                  }
+                  &:hover {
+                    background-color: transparent;
+                    span.mdc-button__label {
+                      background-color: var(--uq-main-purple);
+                      color: #fff;
+                    }
+                  }
+                }
               }
             }
 
