@@ -1,5 +1,5 @@
-import { expect, test } from '@playwright/test';
-import { assertAccessibility } from '../lib/axe';
+import { expect, test } from '@uq/pw/test';
+import { assertAccessibility } from '@uq/pw/lib/axe';
 
 const _ApiAccess = require('../../src/ApiAccess/ApiAccess.locale');
 const _helpers = require('../../src/UtilityArea/helpers');
@@ -46,7 +46,7 @@ async function assertUserHasStandardMyLibraryOptions(userid, page) {
     await expect(authButton.locator('li a[data-testid="mylibrary-menu-print-balance"]')).toHaveText('Print balance');
     await expect(authButton.locator('li a[data-testid="mylibrary-menu-room-bookings"]')).toBeVisible();
     await expect(authButton.locator('li a[data-testid="mylibrary-menu-room-bookings"]')).toHaveText(
-        'Book a room or desk',
+        'Find library study spaces',
     );
     await expect(authButton.locator('li a[data-testid="mylibrary-menu-feedback"]')).toBeVisible();
     await expect(authButton.locator('li a[data-testid="mylibrary-menu-feedback"]')).toHaveText('Feedback');
@@ -109,6 +109,34 @@ async function assertUserHasDlorAdmin(expected, page) {
     }
 }
 
+async function assertUserHasSpacesAdmin(expected, page) {
+    const authButton = page.locator('uq-site-header').locator('auth-button');
+    if (!!expected) {
+        await expect(authButton.locator('li[data-testid="spaces-admin"]')).toBeVisible();
+        await expect(authButton.locator('li[data-testid="spaces-admin"]')).toHaveText('Spaces');
+        await expect(authButton.locator('li a[data-testid="mylibrary-menu-spaces-admin"]')).toHaveAttribute(
+            'href',
+            `http://localhost:2020/admin/spaces?user=libSpaces`,
+        );
+    } else {
+        await expect(authButton.locator('li[data-testid="spaces-admin"]')).not.toBeVisible();
+    }
+}
+
+async function assertUserHasMembershipAdmin(expected, page, userid = 'libMembership') {
+    const authButton = page.locator('uq-site-header').locator('auth-button');
+    if (!!expected) {
+        await expect(authButton.locator('li[data-testid="membership-admin"]')).toBeVisible();
+        await expect(authButton.locator('li[data-testid="membership-admin"]')).toHaveText('Library membership');
+        await expect(authButton.locator('li a[data-testid="mylibrary-menu-membership-admin"]')).toHaveAttribute(
+            'href',
+            `http://localhost:2020/admin/membership?user=${userid}`,
+        );
+    } else {
+        await expect(authButton.locator('li[data-testid="membership-admin"]')).not.toBeVisible();
+    }
+}
+
 async function assertUserHasSpringshareAdmin(expected, page) {
     if (!!expected) {
         await expect(page.locator('li[data-testid="springshare-admin"]')).toBeVisible();
@@ -149,6 +177,7 @@ async function visitPageforUser(userName, page) {
 async function assertUserSeesNOAdminOptions(page) {
     assertUserHasMasquerade(false, page);
     assertUserHasAlertsAdmin(false, page);
+    assertUserHasMembershipAdmin(false, page);
     assertUserHasTestTagAdmin(false, page);
     assertUserHasDlorAdmin(false, page);
     assertUserHasSpringshareAdmin(false, page);
@@ -278,7 +307,6 @@ test.describe('Account menu button', () => {
             await visitPageforUser('uqstaff', page);
             await page.waitForTimeout(1000);
             await context.clearCookies({ name: _ApiAccess.apiLocale.SESSION_COOKIE_NAME });
-            await page.waitForTimeout(1000);
             await assertUserIsLoggedOut(page);
         });
 
@@ -298,7 +326,6 @@ test.describe('Account menu button', () => {
 
             // hit the escape key to close the menu
             await page.locator('body').press('Escape');
-            await page.waitForTimeout(1000);
 
             // the menu is hidden
             await expect(authButton.getByTestId('up-arrow')).not.toBeVisible();
@@ -398,8 +425,10 @@ test.describe('Account menu button', () => {
             await assertUserHasStandardMyLibraryOptions('uqstaff', page);
             await assertUserHasMasquerade(true, page, 'uqstaff');
             await assertUserHasAlertsAdmin(true, page);
+            await assertUserHasMembershipAdmin(true, page, 'uqstaff');
             await assertUserHasTestTagAdmin(false, page); // admins do not get T&T by default
             await assertUserHasDlorAdmin(false, page);
+            await assertUserHasSpacesAdmin(false, page);
             await assertUserHasSpringshareAdmin(true, page);
             await assertUserHasEspaceMenuItem(true, page); // not an admin function, this user happens to have an author account
         });
@@ -413,6 +442,7 @@ test.describe('Account menu button', () => {
             await assertUserHasAlertsAdmin(false, page);
             await assertUserHasTestTagAdmin(true, page);
             await assertUserHasDlorAdmin(false, page);
+            await assertUserHasSpacesAdmin(false, page);
             await assertUserHasSpringshareAdmin(true, page);
         });
 
@@ -428,6 +458,34 @@ test.describe('Account menu button', () => {
             await assertUserHasSpringshareAdmin(true, page);
         });
 
+        test('Spaces admin gets Spaces admin access entry', async ({ page }) => {
+            await visitPageforUser('libSpaces', page);
+            await openAccountDropdown(page);
+
+            await assertUserHasStandardMyLibraryOptions('libSpaces', page);
+            await assertUserHasMasquerade(false, page, 'libSpaces');
+            await assertUserHasAlertsAdmin(false, page);
+            await assertUserHasTestTagAdmin(false, page);
+            await assertUserHasDlorAdmin(false, page);
+            await assertUserHasSpacesAdmin(true, page);
+            await assertUserHasMembershipAdmin(false, page);
+            await assertUserHasSpringshareAdmin(true, page);
+        });
+
+        test('Membership admin gets Library membership entry', async ({ page }) => {
+            await visitPageforUser('libMembership', page);
+            await openAccountDropdown(page);
+
+            await assertUserHasStandardMyLibraryOptions('libMembership', page);
+            await assertUserHasMasquerade(false, page, 'libMembership');
+            await assertUserHasAlertsAdmin(false, page);
+            await assertUserHasMembershipAdmin(true, page);
+            await assertUserHasTestTagAdmin(false, page);
+            await assertUserHasDlorAdmin(false, page);
+            await assertUserHasSpacesAdmin(false, page);
+            await assertUserHasSpringshareAdmin(true, page);
+        });
+
         test('An espace masquerader non-admin sees masquerade but not other admin functions', async ({ page }) => {
             await visitPageforUser('uqmasquerade', page);
             await openAccountDropdown(page);
@@ -435,8 +493,10 @@ test.describe('Account menu button', () => {
             await assertUserHasStandardMyLibraryOptions('uqmasquerade', page);
             await assertUserHasMasquerade(true, page, 'uqmasquerade');
             await assertUserHasAlertsAdmin(false, page);
+            await assertUserHasMembershipAdmin(false, page);
             await assertUserHasTestTagAdmin(false, page);
             await assertUserHasDlorAdmin(false, page);
+            await assertUserHasSpacesAdmin(false, page);
             await assertUserHasSpringshareAdmin(true, page); // is library staff
             await assertUserHasEspaceMenuItem(true, page);
         });
@@ -459,6 +519,7 @@ test.describe('Account menu button', () => {
             await assertUserHasAlertsAdmin(false, page);
             await assertUserHasTestTagAdmin(false, page);
             await assertUserHasDlorAdmin(false, page);
+            await assertUserHasSpacesAdmin(false, page);
             await assertUserHasSpringshareAdmin(true, page);
         });
 
@@ -481,6 +542,7 @@ test.describe('Account menu button', () => {
             await assertUserHasAlertsAdmin(false, page);
             await assertUserHasTestTagAdmin(false, page);
             await assertUserHasDlorAdmin(false, page);
+            await assertUserHasSpacesAdmin(false, page);
             await assertUserHasSpringshareAdmin(false, page);
             await assertUserHasEspaceMenuItem(false, page);
         });

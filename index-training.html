@@ -152,6 +152,61 @@
                         };
                     });
                 </script>
+
+                <!-- places-remaining="Booking is required" bookingSettings === null bookingType === 3  -->
+                <!-- user not logged in, dont send user fields -->
+                <p>
+                    Non logged in user with a course (assume bookingType=3) that does not have any bookingSettings in JSON.
+                    This should show "Booking is required" in the registration section.
+                </p>
+                <training-detail data-testid="training-event-detail-content-6462487"></training-detail>
+                <script>
+                    window.addEventListener('DOMContentLoaded', () => {
+                        const trainingDetail6462487 = document.querySelector(
+                            '[data-testid="training-event-detail-content-6462487"]',
+                        );
+                        trainingDetail6462487.data = {
+                            id: '6462487',
+                            name: 'Python Training (3 of 4): Introductory Data Visualisation',
+                            details:
+                                "<p>In this workshop, you will learn how to use Python to:</p><ul> <li>install visualisation modules (seaborn and matplotlib)</li><li>explore the basic components of seaborn</li><li>create simple bar, scatter and line plots </li><li>use colour and size to include additional information</li><li>layer visualisations</li><li>alter themes, axes, legends and titles with matplotlib</li></ul><p>The materials for this workshop are available on&nbsp;<a href=\"https://uqlibrary.github.io/technology-training/Python/3-intro_visualisation/visualisation.html\">our website</a>. We will&nbsp;use <a href=\"https://positron.posit.co/\">Positron</a>, a new, VS Code based IDE for data science.&nbsp;<strong>Please download the software before attending</strong>.</p><p>It is recommended you attend the&nbsp;\"Python Training (1 of 4): The fundamentals\" and \"Python Training (2 of 4): Managing data\"&nbsp;<a href=\"https://web.library.uq.edu.au/study-and-learning-support/training-and-workshops/online-and-person-workshops#keyword=python;campus=;weekstart=\">workshops</a> before attending this one.</p>",
+                            summary: "This session will explore data visualisation in python to produce simple and effective plots. Using the visualisation package seaborn, basic line, scatter and bar graphs will be produced and customised with various additional features.",
+                            placesRemaining: 'Booking is required',
+                            start: '2026-11-02T13:00:00+10:00',
+                            end: '2026-11-02T15:00:00+10:00',
+                            venue: 'https://uqz.zoom.us/j/89954185460',
+                        };
+                    });
+                </script>
+
+                <!-- places-remaining="Booking is required" bookingSettings === null bookingType === 4 -->
+                <!-- user  logged in -->
+                <p>
+                    Logged in user with a course (assume bookingType=4) that does not have any bookingSettings in JSON.
+                    This should show "Booking is required" in the registration section.
+                </p>
+                <training-detail data-testid="training-event-detail-content-6462533"></training-detail>
+                <script>
+                    window.addEventListener('DOMContentLoaded', () => {
+                        const trainingDetail6462533 = document.querySelector(
+                            '[data-testid="training-event-detail-content-6462533"]',
+                        );
+                        trainingDetail6462533.data = {
+                            id: '6462533',
+                            name: 'Activate your Learning with LinkedIn',
+                            details:
+                                "<p>Join LinkedIn Learning&nbsp;for a practical 45-minute session to learn how to save time, use AI effectively, and get more value from LinkedIn Learning.</p><p><strong>Where</strong>: Online via&nbsp;Microsoft Teams.</p><p><strong>Register for the sessio</strong>n: via&nbsp;<a href=\"https://activate-your-learning-9nov.splashthat.com/\" target=\"_blank\">LinkedIn Learning</a></p><p><strong>What you need for the session</strong>:</p><ul><li><a href=\"https://www.linkedin.com/learning-login/\" target=\"_blank\">Log in to LinkedIn Learning</a> before the session. Check how to&nbsp;<a href=\"https://web.library.uq.edu.au/study-and-learning-support/training-and-workshops/linkedin-learning-online-courses\" target=\"_blank\">access or activate your Linkedin Learning account</a> using your UQ username and password.</li><li>Bring <strong>one real work (or study) challenge</strong> to apply during the session.</li></ul><p>Discover how to:</p><ul><li>find the right learning fast to cut through the vast LinkedIn Learning library</li><li>use AI Coach for just-in-time guidance for real work scenarios</li><li>practise workplace conversations safely with AI Role Play</li><li>set a career goal and build a personalised learning pathway you can track.</li></ul><p>Get more information about the session at&nbsp;<a href=\"https://activate-your-learning-nov26.splashthat.com/\" target=\"_blank\">Activate Your Learning</a>.</p>",
+                            summary: "Join LinkedIn Learning for a practical 45-minute session to learn how to save time, use AI effectively, and get more value from LinkedIn Learning.",
+                            placesRemaining: 'Booking is required',
+                            start: '2026-11-09T11:00:00+10:00',
+                            end: '2026-11-09T11:45:00+10:00',
+                            venue: 'https://activate-your-learning-9nov.splashthat.com/',
+                            userId: 'ema1111',
+                            userName: 'Lea de Groot',
+                            userEmail: 'uqldegro@uq.edu.au',
+                        };
+                    });
+                </script>
             </div>
         </article>
         <article>

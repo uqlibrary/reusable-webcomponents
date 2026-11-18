@@ -1,5 +1,5 @@
-import { test, expect } from '@playwright/test';
-import { assertAccessibility } from '../lib/axe';
+import { test, expect, applyHermeticRoutes } from '@uq/pw/test';
+import { assertAccessibility } from '@uq/pw/lib/axe';
 
 const BUTTONS_LINK_CREATED_BLOCK = 'copy-options';
 const BUTTON_CLEAR_ON_COPY_ENTRY = 'url-clear-button';
@@ -78,10 +78,12 @@ test.describe('OpenAthens', () => {
                 await openAthensElement.getByRole('button', { name: 'Create Link' }).click();
 
                 await expect(openAthensElement.getByRole('button', { name: 'Visit Link' })).toBeVisible();
-                await openAthensElement.getByRole('button', { name: 'Visit Link' }).click();
 
-                const newTabPromise = page.waitForEvent('popup');
-                const newTab = await newTabPromise;
+                // register the popup waiter before the click to avoid a race
+                const [newTab] = await Promise.all([
+                    page.waitForEvent('popup'),
+                    openAthensElement.getByRole('button', { name: 'Visit Link' }).click(),
+                ]);
                 await newTab.waitForLoadState();
                 await expect(newTab).toHaveURL(
                     'https://go.openathens.net/redirector/uq.edu.au?url=https%3A%2F%2Fwww.example.com%2Fsomething',
@@ -95,9 +97,8 @@ test.describe('OpenAthens', () => {
                 await openAthensElement.getByRole('button', { name: 'Create Link' }).click();
                 await openAthensElement.getByRole('button', { name: 'Copy Link' }).click();
 
-                // Toast appears and disappears
+                // Toast appears and disappears (not.toBeVisible auto-retries until it disappears)
                 await expect(openAthensElement.getByTestId('copy-status')).toBeVisible();
-                await page.waitForTimeout(4000); // give toast time to disappear
                 await expect(openAthensElement.getByTestId('copy-status')).not.toBeVisible();
             });
             test('in built command to copy the generated URL to the clipboard on clicking copy button succeeds', async ({
@@ -267,6 +268,7 @@ test.describe('OpenAthens', () => {
                 const context = await browser.newContext({
                     permissions: [], // No permissions granted
                 });
+                await applyHermeticRoutes(context); // this context is created outside the fixture
 
                 const page = await context.newPage();
 
@@ -317,10 +319,12 @@ test.describe('OpenAthens', () => {
                 const openAthensElement = page.locator('open-athens:not([create-link])').getByTestId('open-athens');
 
                 await openAthensElement.getByTestId('input-field').fill('https://www.example.com/something');
-                await openAthensElement.getByRole('button', { name: 'Go' }).click();
 
-                const newTabPromise = page.waitForEvent('popup');
-                const newTab = await newTabPromise;
+                // register the popup waiter before the click to avoid a race
+                const [newTab] = await Promise.all([
+                    page.waitForEvent('popup'),
+                    openAthensElement.getByRole('button', { name: 'Go' }).click(),
+                ]);
                 await newTab.waitForLoadState();
                 await expect(newTab).toHaveURL(
                     'https://go.openathens.net/redirector/uq.edu.au?url=https%3A%2F%2Fwww.example.com%2Fsomething',
