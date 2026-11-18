@@ -5,4 +5,46 @@ nde-favoritesapp {
     border: 1px solid var(--uq-colour-grey-200);
     margin-right: 1rem;
   }
+
+  nde-favorites-operations-labels {
+    span[role="gridcell"]::before {
+      border-radius: var(--uq-border-radius);
+    }
+    mat-chip-row.mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled) {
+      --mdc-chip-elevated-container-color: var(--uq-panel-background);
+      .mat-mdc-chip-action-label {
+        --mdc-chip-label-text-color: var(--uq-main-purple);
+      }
+      mat-icon svg path {
+        fill: var(--uq-main-purple);
+      }
+
+      &:hover {
+        --mdc-chip-elevated-container-color: var(--uq-main-purple);
+        .mat-mdc-chip-action-label {
+          --mdc-chip-label-text-color: #fff;
+          text-decoration: underline;
+        }
+        mat-icon svg path {
+          fill: #fff;
+        }
+      }
+    }
+    > div > div {
+      margin-top: 0.5rem;
+    }
+    &:has(mat-chip-grid) > div > div::before {
+      content: "Labels:";
+      width: 3.5rem;
+      height: 24px;
+      color: var(--uq-body-copy);
+    }
+  }
+
+  nde-account-results-range {
+    span.mat-body-medium {
+      font-size: 1rem;
+      color: var(--uq-body-copy);
+    }
+  }
 }
