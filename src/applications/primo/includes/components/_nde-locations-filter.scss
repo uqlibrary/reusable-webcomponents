@@ -1,0 +1,15 @@
+nde-locations-filter {
+  button.getit-location-filter-btn {
+    &:hover {
+      span.mat-mdc-button-persistent-ripple::before {
+        background-color: transparent;
+        opacity: 1;
+      }
+      span.mdc-button__label {
+        background-color: var(--uq-main-purple);
+        color: #fff;
+        line-height: normal;
+      }
+    }
+  }
+}
