@@ -43,5 +43,10 @@ nde-search-result-item-container {
       margin-bottom: 0.5rem;
     }
   }
+  nde-record-book-chapters-or-reviews {
+    span {
+      --sys-body-medium: 400 1rem / 1.25rem var(--uq-body-font-family); // only to override font-size
+    }
+  }
   /* END put more space on items in item heading */
 }
