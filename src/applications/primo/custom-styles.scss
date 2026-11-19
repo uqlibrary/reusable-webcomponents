@@ -273,7 +273,7 @@ body.custom-nde-theme {
   nde-collapsible-box {
     mat-expansion-panel.mat-expansion-panel {
       // note this is also set in repo exlibris-primo src/assets/css/custom.css to avoid a fouc
-      border: 1px solid var(--border);
+      border: var(--uq-border);
     }
   }
   /* END boxes with border should be DS styled */
@@ -289,7 +289,7 @@ body.custom-nde-theme {
     border-width: 0;
   }
   mat-accordion > div {
-    border: 1px solid var(--border);
+    border: var(--uq-border);
     border-radius: var(--uq-border-radius);
   }
   mat-accordion > div {
