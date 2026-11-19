@@ -5,11 +5,10 @@ nde-fines-overview {
     padding: 1rem;
     color: var(--uq-body-copy) !important;
     padding-left: 2.5rem;
-
+    margin-top: 0.5rem;
     &:before {
       @include uqBkgIconProperties();
       background-image: var(--uq-icon--warning);
-      top: 50px;
       left: 30px;
     }
   }
@@ -19,5 +18,117 @@ nde-fines-overview {
 nde-account-section-item-container, nde-loans-overview {
   .mat-icon.due-warning-icon-color svg path {
     fill: var(--uq-main-purple);
+  }
+}
+
+nde-account-overview {
+  div.overview-cards {
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    .cards-row {
+      gap: 1.5rem;
+      .cards-column {
+        gap: 1.5rem
+      }
+    }
+    div.account-card-wrapper mat-card.mat-mdc-card mat-card-content.mat-mdc-card-content {
+      * {
+        font-size: 1rem !important;
+      }
+    }
+  }
+
+  nde-loans-overview,
+  nde-requests-overview,
+  nde-favorites-overview,
+  nde-saved-searches-overview,
+  nde-search-history-overview {
+    mat-card {
+      padding-bottom: 1rem;
+    }
+    mat-card-header {
+      padding: 1rem 1rem 0;
+    }
+    mat-card-footer {
+      position: absolute;
+      top: 0.5rem;
+      right: 0;
+    }
+  }
+  nde-fines-overview {
+    mat-card-header {
+      padding: 1rem 1rem 0;
+    }
+    mat-card-footer a[data-qa="fines-view-all-btn"] {
+      position: absolute;
+      top: 0.75em;
+      right: 0;
+    }
+    @media (max-width: 185ch) and (min-width: 1200px) {
+      a.basic-button {
+        span.mdc-button__label {
+          display: none;
+        }
+      }
+      a.basic-button::before {
+        content: "View all";
+        color: var(--uq-main-purple);
+      }
+    }
+    a.basic-button:hover::before {
+      background-color: var(--uq-main-purple);
+      color: #fff;
+      line-height: normal;
+    }
+  }
+
+
+  div.overview-cards div.account-card-wrapper {
+    mat-card.search-history-card mat-card-content.mat-mdc-card-content {
+      ul.search-history-list {
+        li.search-history-row:nth-child(2n) {
+          background-color: #fff; /* override the tiger stripe that are usability inappropriate in such a small list */
+        }
+        li.search-history-row:last-of-type {
+          border: none;
+        }
+        li.search-history-row {
+          //background-color: #fff; /* override the tiger stripe that are usability inappropriate in such a small list */
+          margin-left: 0.25rem;
+          display: block;
+          border-bottom: var(--uq-border);
+          height: auto;
+          max-height: initial;
+
+          a.search-history-row-item.search-item {
+            text-decoration: underline;
+            padding-inline: 0;
+            max-height: initial;
+            overflow: initial;
+            line-height: initial;
+            height: initial;
+            display: inline;
+
+            &:hover {
+              span {
+                background-color: var(--uq-main-purple);
+                color: #fff;
+              }
+            }
+          }
+
+          time.search-history-row-item.date-item {
+            padding-inline: 0;
+            height: initial;
+            line-height: normal;
+          }
+          time::before {
+            content: "Search date: ";
+            color: var(--uq-body-copy);
+            font-size: 1rem;
+          }
+        }
+      }
+    }
   }
 }

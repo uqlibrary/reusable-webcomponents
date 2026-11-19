@@ -47,4 +47,12 @@ nde-favoritesapp {
       color: var(--uq-body-copy);
     }
   }
+  .account-section-top-bar-container {
+    background-color: var(--uq-panel-background);
+    border-radius: var(--uq-border-radius);
+  }
+  span.record-number {
+    background-color: var(--uq-panel-background);
+    color: var(--uq-body-copy);
+  }
 }
