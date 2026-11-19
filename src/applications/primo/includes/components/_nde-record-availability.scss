@@ -72,4 +72,9 @@ nde-record-availability {
       margin-top: 2px;
     }
   }
+  nde-physical-availability-line {
+    mat-icon.available-record-indicator-color {
+      display: none;
+    }
+  }
 }
