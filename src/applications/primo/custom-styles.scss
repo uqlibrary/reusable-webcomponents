@@ -287,7 +287,7 @@ body.custom-nde-theme {
     border-width: 0;
   }
   mat-accordion > div {
-    border: 1px solid var(--border);
+    border: var(--uq-border);
     border-radius: var(--uq-border-radius);
   }
   mat-accordion > div {
