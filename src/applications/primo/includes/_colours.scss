@@ -1155,6 +1155,11 @@ body.custom-nde-theme {
           }
 
           // overrides
+          &[data-qa="reset button"] {
+            span.mdc-button__label {
+              color: var(--uq-main-purple);
+            }
+          }
           &.cancel-dialog-btn {
             span.mdc-button__label {
               color: #fff;
