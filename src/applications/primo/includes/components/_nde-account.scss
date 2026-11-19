@@ -82,6 +82,21 @@ nde-account {
   }
   /* END make the account page sidebar look like drupal sidebar navigation */
 
+
+  /* common headings on each panel */
+  nde-loans h2.loans-section-title,
+  nde-fines h2.fines-section-title,
+  nde-requests-page  h2.requests-section-title,
+  nde-blocks h1.blocks-section-title,
+  nde-favoritesapp h2.saved-records-section-title,
+  nde-search-history h2.search-history-section-title,
+  nde-saved-searches h2.saved-search-section-title,
+  nde-personal-info h2.personal-info-section-title {
+    font: var(--uq-heading-3);
+    color: var(--uq-heading-color);
+  }
+  /* END common headings on each panel */
+
   /* the dot on the Loans item should not hover to blank */
   a.mdc-button {
     // mat-icon > span within this is the little red dot on some sidebar icons
@@ -111,7 +126,7 @@ nde-account {
   }
   /* END fix different alignment on settings page to other Account area tabs  */
 
-  /* layout the actual info links that we add in nde-account-info-links-custom cutomisation */
+  /* layout the actual info links that we add in nde-account-info-links-custom customisation */
   .stackable-links {
     display: flex;
     column-gap: 1rem;
@@ -120,30 +135,144 @@ nde-account {
       margin-block: 0.5rem;
     }
   }
-  /* END layout the actual info links that we add in nde-account-info-links-custom cutomisation */
-}
+  /* END layout the actual info links that we add in nde-account-info-links-custom customisation */
 
-nde-account-overview {
-  div.overview-cards div.account-card-wrapper mat-card.mat-mdc-card  mat-card-content.mat-mdc-card-content ul.search-history-list {
-    li.search-history-row {
-      background-color: #fff; /* override the tiger stripe that are usability inappropriate in such a small list */
-      margin-left: 0.25rem;
+  /* style Account page panel */
+  nde-account-section-results {
+    .account-section-top-bar-container {
+      background-color: var(--uq-panel-background);
+      border-radius: var(--uq-border-radius);
+    }
+    span.record-number {
+      background-color: var(--uq-panel-background);
+      color: var(--uq-body-copy);
+    }
+    .number-of-results {
+      --sys-body-medium: 400 1rem / 1.25rem var(--uq-body-font-family); // to override font-size
+    }
+    nde-request-item {
+      color: var(--uq-body-copy);
+      font-weight: 400;
+      .request-item-container .request-info .field-title {
+        font-weight: 400;
+      }
+    }
+  }
+  /* END style Account page panel */
+
+  /* style fines section */
+  nde-fines {
+    h2.mat-body-medium {
+      --sys-body-medium: var(--uq-body-copy); // not a heading, just a fine balance
+    }
+    nde-fine-item {
+      h3 {
+        --sys-body-medium: 400 1rem / 1.25rem var(--uq-body-font-family); // to override font-size
+      }
+      span,
+      .fine-item-container .fine-info .field-title {
+        font-weight: 400;
+      }
+    }
+    .fines-section-subtitle {
       a {
-        text-decoration: underline;
-        &:hover {
-          span {
-            background-color: var(--uq-main-purple);
-            color: #fff;
-          }
+        padding-right: 0.25rem; // icon too far from link text
+      }
+    }
+  }
+  /* END style fines section */
+
+  /* style account message display bloicks */
+  nde-blocks {
+    .block-item {
+      --lightBG: var(--uq-panel-background);
+    }
+  }
+  /* END style account message display blocks */
+
+  nde-requests-page {
+    .request-type-dropdown > span {
+      font-size: 1rem;
+    }
+  }
+
+  nde-favorites-overview {
+    p.favorite-card-record-author {
+      margin-bottom: 0;
+    }
+    mat-divider {
+      margin-block: 0.5rem;
+    }
+  }
+
+  nde-personal-info {
+    nde-personal-settings  mat-card-title,
+    nde-personal-details  mat-card-title.mat-mdc-card-title {
+      font: var(--uq-heading-4);
+      color: var(--uq-heading-color);
+    }
+    nde-personal-settings {
+      span {
+        --mat-switch-label-text-color: var(--uq-body-copy);
+        color: var(--uq-body-copy);
+      }
+    }
+    nde-personal-details  {
+      .details_container span {
+        color: var(--uq-body-copy);
+        font-weight: 400;
+        &.detail_name {
+          --sys-on-surface-variant: var(--uq-body-copy);
+          font-weight: 500;
         }
       }
     }
-    li.search-history-row::before {
-      /* put a nice dot on the list items */
-      content:"\A";
-      width: 5px;
-      height: 5px;
-      background: var(--uq-colour-black);
+  }
+}
+
+/* dialog that pops up when user clicks "Cancel" on Request */
+.nde-cancel-request-container.cdk-overlay-pane {
+  mat-dialog-container.mdc-dialog {
+    nde-cancel-request-dialog {
+      mat-dialog-content.mdc-dialog__content {
+        /* style based on DS Card-pane-text https://design-system.uq.edu.au/storybook-html/index.html?path=/story/components-cards-pane--text */
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        padding-left: 0;
+      }
+      h2 {
+        font: var(--uq-heading-3);
+        color: var(--uq-heading-color);
+        text-transform: lowercase;
+      }
+      h2::first-letter {
+        text-transform: capitalize;
+      }
+      & > div > div:has(mat-dialog-content) {
+        --darkText: var(--uq-body-copy)
+      }
+      mat-divider {
+        display: none;
+      }
+      .cancel-dialog-btn {
+        width: auto;
+        margin-top: 1.5rem;
+      }
+      .back-dialog-btn {
+        width: auto;
+        margin-top: 0.5rem;
+      }
+    }
+  }
+}
+/* END dialog that pops up when user clicks "Cancel" on Request */
+
+/* on narrower screen make the account panels vertical */
+@media (max-width: 1200px) {
+  nde-account {
+    .overview-cards .cards-row {
+      flex-direction: column;
+      padding-inline: 1rem;
     }
   }
 }
