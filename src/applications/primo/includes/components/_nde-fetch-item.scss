@@ -21,11 +21,11 @@ nde-fetch-item {
   }
   /* hide undesired fields from the citation linker form */
   &:has(input[type="radio"][value="article"]:checked) {
+    formly-field[data-qa="citationLinker.date"],
     formly-field[data-qa="citationLinker.aufirst"],
     formly-field[data-qa="citationLinker.aulast"],
     formly-field[data-qa="citationLinker.auinit"],
-    formly-field[data-qa="citationLinker.publisher"],
-    formly-field[data-qa="citationLinker.pubdate"] {
+    formly-field[data-qa="citationLinker.publisher"] {
       display: none;
     }
   }
