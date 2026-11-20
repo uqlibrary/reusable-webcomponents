@@ -1,0 +1,98 @@
+.mat-expansion-panel-body:has(nde-view-it) {
+  margin-top: -2.5rem; // bring the `view it` contents up a bit
+  padding-bottom: 0;
+}
+
+// :has(.view-it-card-links-items)
+nde-view-it {
+  /* reduce gaps between internal sections of view it panel */
+  nde-view-it-additional-services {
+    > div#view-it-links:has(nde-view-it-card):not(:has(nde-view-it-card:nth-of-type(2))) { // single #view-it-links
+      --uql-get-it-type: one; // this makes it easier for the dev to identify which of these stylings applies to this record
+      border-bottom: var(--uq-border);
+      margin-bottom: 0.5rem;
+    }
+    > div:last-of-type {
+      border: none !important;
+      margin-bottom: inherit;
+    }
+
+    nde-view-it-section #view-it-card-links {
+      --uql-get-it-type: two;
+      > div {
+        div.view-it-card-container {
+          border-bottom: var(--uq-border);
+          margin-bottom: 0.5rem;
+        }
+      }
+      > div:last-of-type {
+        div.view-it-card-container {
+          border: none;
+          margin-bottom: inherit;
+        }
+      }
+    }
+    div#view-it-links:has(nde-view-it-card:nth-of-type(2)) { // multiple #view-it-links
+      --uql-get-it-type: three;
+      nde-view-it-card {
+        div.view-it-card-container {
+          border-bottom: var(--uq-border);
+          margin-bottom: 0.5rem;
+        }
+      }
+      div.availability-text {
+        margin-block-end: 0;
+      }
+    }
+    div#view-it-links:last-of-type:has(nde-view-it-card:last-of-type) { // multiple #view-it-links
+      nde-view-it-card:last-of-type {
+        div.view-it-card-container {
+          border: none;
+          margin-bottom: inherit;
+        }
+      }
+    }
+  }
+  nde-view-it-section {
+    div#view-it-card-links > div {
+      --uql-get-it-type: four;
+
+      nde-view-it-card > div {
+        border-bottom: var(--uq-border);
+        margin-bottom: 0.5rem;
+      }
+    }
+    div#view-it-card-links > div:last-of-type {
+      nde-view-it-card > div {
+        border: none;
+        margin-bottom: inherit;
+      }
+    }
+  }
+  /* END reduce gaps between internal sections of view it panel */
+
+  // colour and placement of View It item
+  nde-view-it-card {
+    div.view-it-card-container {
+      --lightBG: none;
+
+      div.flex-container-view-it-no-digital {
+        gap: 0;
+
+        div.availability-text {
+          font-size: 1rem;
+        }
+
+        div.licence-container {
+          border-top: none;
+          margin-top: -0.5rem;
+
+          margin-left: -0.2rem;
+          button.show-licence {
+            margin-top: 0;
+          }
+        }
+      }
+    }
+  }
+}
