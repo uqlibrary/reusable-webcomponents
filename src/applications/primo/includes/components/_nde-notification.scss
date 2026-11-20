@@ -14,50 +14,53 @@ nde-notification {
       font-size: 1rem;
     }
   }
-
-  /* login prompt */
-  &:not(:has(.notification-container > div > mat-icon)) { // we dont apply this to instances where the "i" icon is already in place
-    &:has(nde-login) { // this only applies to login banners, but could be expanded?
-      display: block;
-
-      div.notification-container {
+  }
+  nde-citation-trails {
+    nde-notification {
+    /* login prompt */
+    &:not(:has(.notification-container > div > mat-icon)) { // we dont apply this to instances where the "i" icon is already in place
+      &:has(nde-login) { // this only applies to login banners, but could be expanded?
         display: block;
-        width: 100%;
-        padding: 0;
-        background-color: var(--uq-background-alert-info);
-        position: relative;
 
-        & > div {
-          padding: 1rem;
-          padding-left: 3rem;
-          justify-content: flex-start;
-        }
+        div.notification-container {
+          display: block;
+          width: 100%;
+          padding: 0;
+          background-color: var(--uq-background-alert-info);
+          position: relative;
 
-        &:before {
-          @include uqBkgIconProperties();
-          background-image: var(--uq-icon--info);
-          top: 23px;
-          left: 16px;
+          & > div {
+            padding: 1rem;
+            padding-left: 3rem;
+            justify-content: flex-start;
+          }
+
+          &:before {
+            @include uqBkgIconProperties();
+            background-image: var(--uq-icon--info);
+            top: 23px;
+            left: 16px;
+          }
         }
       }
     }
-  }
 
-  // citation page hard codes an icon, which we need to replace with a proper looking svg
-  &:has(div > div > mat-icon) {
-    position: relative;
-    div:has(div > mat-icon) {
-      & > div {
-        padding-left: 2rem;
-        & > mat-icon {
-          display: none;
+    // citation page hard codes an icon, which we need to replace with a proper looking svg
+    &:has(div > div > mat-icon) {
+      position: relative;
+      div:has(div > mat-icon) {
+        & > div {
+          padding-left: 2rem;
+          & > mat-icon {
+            display: none;
+          }
         }
-      }
-      &:before {
-        @include uqBkgIconProperties();
-        background-image: var(--uq-icon--info);
-        top: 14px;
-        left: 21px;
+        &:before {
+          @include uqBkgIconProperties();
+          background-image: var(--uq-icon--info);
+          top: 14px;
+          left: 21px;
+        }
       }
     }
   }
