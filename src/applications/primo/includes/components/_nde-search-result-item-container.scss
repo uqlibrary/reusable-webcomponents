@@ -5,11 +5,20 @@ nde-search-result-item-container {
     border-radius: 0 0 .25rem .25rem;
   }
 
+  /* increase font size on content indicators and record type label */
   nde-record-type {
-    span {
+    span.record-type {
       --sys-outline: var(--uq-body-copy);
+      font-size: var(--uql-fontsize-body-small);
     }
   }
+  nde-record-indications { // peer reviewed and cultural advice
+    .record-indication {
+      font-size: var(--uql-fontsize-body-small);
+    }
+  }
+  /* END increase font size on content indicators and record type label */
+
   nde-record-summary {
     p nde-highlight span {
       --mat-app-text-color: var(--uq-body-copy);
