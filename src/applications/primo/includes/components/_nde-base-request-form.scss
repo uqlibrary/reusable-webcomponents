@@ -12,6 +12,31 @@ nde-base-request-form {
   }
 }
 
+// embedded (popup) form
+nde-request-form > nde-base-request-form {
+  h2.request-title {
+    font: var(--uq-heading-3);
+    color: var(--uq-heading-color);
+    text-transform: lowercase;
+    &:first-letter {
+      text-transform: uppercase;
+    }
+  }
+  .request-description {
+    color: var(--uq-body-copy);
+    font-size: 1rem;
+  }
+  formly-field[data-qa="almaPurchaseRequest.citationType"] {
+    display: none; // hide the "Resource type" selector on the popup form
+  }
+  button.submit-btn {
+    width: 9rem;
+  }
+  button.reset {
+    margin-left: 0.5rem;
+  }
+}
+
 main.sub-container { // needed for specificity :(
   nde-base-request-form {
     div.request-form-container {

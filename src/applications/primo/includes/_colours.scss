@@ -1190,6 +1190,8 @@ body.custom-nde-theme {
               color: #fff;
             }
           }
+          &.request-button, // "Place a resource delivery request" button on full results Requests panel
+          &.reset, // popup "purchase request" Reset button
           &.getit-clear-filters-button,
           &[aria-label="Back to request"],
           &.advanced-search-button:not(.advanced-search-btn-home-page),
