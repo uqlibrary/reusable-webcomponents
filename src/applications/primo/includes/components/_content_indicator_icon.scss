@@ -10,7 +10,7 @@
   > div > div {
     display: flex;
     align-items: center;
-    margin-top: -20px;
+    margin-top: -23px;
     margin-left: 16px
   }
 
@@ -26,7 +26,7 @@
 
   &.record-indication {
     color: var(--sys-outline);
-    font-size: .75rem;
+    font-size: var(--uql-fontsize-body-small);
     font-weight: 500
   }
 }
