@@ -1160,6 +1160,8 @@ body.custom-nde-theme {
               color: #fff;
             }
           }
+          &.request-button, // "Place a resource delivery request" button on full results Requests panel
+          &.reset, // popup "purchase request" Reset button
           &.advanced-search-button:not(.advanced-search-btn-home-page) {
             span.mdc-button__label {
               color: var(--uq-main-purple);
