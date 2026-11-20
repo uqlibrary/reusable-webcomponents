@@ -912,7 +912,23 @@ body.custom-nde-theme {
               }
 
               // overrides
-              &.reset {
+                &[aria-label="Send"] {
+                  span.mdc-button__label {
+                    color: #fff;
+                  }
+                  width: 10rem;
+                  margin-inline: auto;
+                  &:hover {
+                    width: 10rem;
+                    margin-inline: auto;
+                    background-color: #fff;
+                    border: 2px solid var(--uq-main-purple);
+                    span.mdc-button__label {
+                      color: var(--uq-main-purple);
+                    }
+                  }
+                }
+                &.reset {
                 span.mdc-button__label {
                   text-decoration: underline;
                 }
@@ -1160,12 +1176,13 @@ body.custom-nde-theme {
               color: #fff;
             }
           }
+          &[aria-label="Send"],
           &.advanced-search-button:not(.advanced-search-btn-home-page) {
             span.mdc-button__label {
               color: var(--uq-main-purple);
             }
           }
-          &.advanced-search-btn-home-page {
+         &.advanced-search-btn-home-page {
             span.mdc-button__label {
               color: #fff;
             }
