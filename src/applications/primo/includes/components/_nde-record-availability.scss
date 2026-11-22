@@ -73,7 +73,7 @@ nde-record-availability {
     }
   }
   nde-physical-availability-line {
-    mat-icon.available-record-indicator-color {
+    mat-icon.mat-icon:has(+ button) {
       display: none;
     }
   }
