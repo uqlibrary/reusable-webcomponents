@@ -15,7 +15,7 @@ nde-notification {
     }
   }
   }
-  nde-citation-trails {
+nde-account, nde-citation-trails {
     nde-notification {
     /* login prompt */
     &:not(:has(.notification-container > div > mat-icon)) { // we dont apply this to instances where the "i" icon is already in place
