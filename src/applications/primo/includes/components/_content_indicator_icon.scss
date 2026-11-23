@@ -31,6 +31,21 @@
   }
 }
 
+/* show-hide the tooltip on CA and CRL Content Indicators */
+.uql-cultural-advice-content-indicator,
+.uql-course-resource-content-indicator {
+  &:has(.display-inline) .uql-tooltip {
+    display: none;
+  }
+  &:has(.display-inline:hover) .uql-tooltip {
+    display: flex;
+    position: absolute;
+    top: 80px;
+    height: 100%;
+  }
+}
+/* END show-hide the tooltip on CA and CRL Content Indicators */
+
 /* ensure there can't be two of our indicators */
 uql-course-reading-list-sidebar-panel + uql-course-reading-list-sidebar-panel,
 div.uql-cultural-advice-content-indicator + div.uql-cultural-advice-content-indicator,
