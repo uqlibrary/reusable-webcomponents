@@ -135,7 +135,25 @@ nde-account {
       margin-block: 0.5rem;
     }
   }
-  /* END layout the actual info links that we add in nde-account-info-links-custom customisation */
+  /* END layout the actual info links that we add in nde-account-info-links-custom cutomisation */
+
+  /* hide certain personal information */
+  nde-personal-info {
+    nde-personal-details {
+      mat-card.personal-settings-card {
+        nde-personal-details-view {
+          mat-card-content.mat-mdc-card-content {
+            margin-top: 0;
+          }
+          div.details_container:not([data-qa="nui.details.mailing"]),
+          mat-divider {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+  /* END hide certain personal information */
 
   /* style Account page panel */
   nde-account-section-results {
