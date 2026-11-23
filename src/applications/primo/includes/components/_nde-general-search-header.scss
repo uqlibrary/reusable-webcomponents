@@ -58,10 +58,6 @@ nde-general-search-header {
 
   h1 {
     --sys-title-large: var(--uq-heading-1);
-    text-transform: lowercase;
-    &::first-letter {
-      text-transform: uppercase;
-    }
   }
 
   nde-search-box-presenter {
