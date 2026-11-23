@@ -42,25 +42,16 @@ nde-locations-container {
   .mat-expansion-panel-content-wrapper {
     background-color: #fff;
   }
-//  .even-location-item-card,
-//  .getit-location-items-filter-bar {
-//    background-color: #fff;
-//  }
-//
-//  .not-grouped-by-library {
-//    border-width: 0;
-//  }
-//  mat-divider {
-//    display: none;
-//  }
-//  .getit-location-items-filter-bar {
-//    border-bottom-width: 0;
-//  }
+
+  div.getit-location-items-filter-bar {
+    --darkBG: var(--uq-panel-background);
+  }
 
   /* drill right into the full record Locations section, opening View Items, and the Library identifier is revealed */
   nde-location-items-container {
     nde-location-item {
       div.getit-items-full-properties-container {
+        padding-top: 0;
         nde-location-items-properties.getit-items-full-properties {
           div.getit-item-full-properties-container {
             span.getit-item-key {
@@ -73,5 +64,24 @@ nde-locations-container {
         }
       }
     }
+    /* remove the grey background from the location panels and put a border between */
+    nde-location-item {
+       .brief-property-header-container,
+      .getit-items-full-properties-container {
+         --lightBG: transparent;
+       }
+      .brief-property-header-container {
+        border-top: var(--uq-border);
+      }
+      .getit-items-full-properties-container.expanded {
+        border-radius: 0;
+      }
+    }
+    nde-location-item:first-of-type {
+      .brief-property-header-container {
+        border-top: none;
+      }
+    }
+    /* END remove the grey background from the location panels and put a border between */
   }
 }
