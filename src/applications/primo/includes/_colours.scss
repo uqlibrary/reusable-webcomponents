@@ -687,6 +687,14 @@ body.custom-nde-theme {
           color: #fff;
         }
       }
+
+      // overrides
+      &.available-at-button {
+        span.mdc-button__label span {
+          text-decoration: none;
+          font-weight: 400;
+        }
+      }
     }
   }
 
@@ -879,6 +887,7 @@ body.custom-nde-theme {
         }
       }
 
+      // overrides
       /* full record, secondary "available online" button, eg "AMH Australian medicines handbook" */
       &.quicklink-button {
         span.mdc-button__label span {
@@ -887,6 +896,12 @@ body.custom-nde-theme {
         &:hover {
           background-color: var(--uq-main-purple);
           color: #fff;
+        }
+      }
+      &.available-at-button {
+        span.mdc-button__label span {
+          text-decoration: none;
+          font-weight: 400;
         }
       }
     }
