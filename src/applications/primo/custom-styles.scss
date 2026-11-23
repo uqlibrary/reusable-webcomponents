@@ -4,6 +4,7 @@
 :root, html, head, body {
   --mat-expansion-container-shape: 4px;
   --uq-border-radius: 0.25rem;
+  --uq-chip-border-radius: 21px;
 }
 
 @mixin uqBkgIconProperties() {

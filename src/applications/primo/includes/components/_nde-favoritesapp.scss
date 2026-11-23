@@ -6,28 +6,27 @@ nde-favoritesapp {
     margin-right: 1rem;
   }
 
+  // labels on the favourite/saved record
   nde-favorites-operations-labels {
     span[role="gridcell"]::before {
-      border-radius: var(--uq-border-radius);
+      border-radius: var(--uq-chip-border-radius);
     }
     mat-chip-row.mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled) {
       --mdc-chip-elevated-container-color: var(--uq-panel-background);
+      border-radius: var(--uq-chip-border-radius);
       .mat-mdc-chip-action-label {
         --mdc-chip-label-text-color: var(--uq-main-purple);
       }
-      mat-icon svg path {
-        fill: var(--uq-main-purple);
+      // hover over the actual chip and nothing happens (as it has no action)
+      &:hover .mat-mdc-chip-focus-overlay {
+        background-color: var(--uq-panel-background);
+        opacity: 1;
       }
 
-      &:hover {
-        --mdc-chip-elevated-container-color: var(--uq-main-purple);
-        .mat-mdc-chip-action-label {
-          --mdc-chip-label-text-color: #fff;
-          text-decoration: underline;
-        }
-        mat-icon svg path {
-          fill: #fff;
-        }
+      // hover over the 'x' button within the chip and we get a background circle
+      button.mat-mdc-chip-remove:hover .mat-mdc-chip-focus-overlay {
+        --mdc-chip-hover-state-layer-color: var(--uq-panel-background);
+        --mdc-chip-hover-state-layer-opacity: 1;
       }
     }
     > div > div {

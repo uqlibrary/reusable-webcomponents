@@ -10,7 +10,7 @@ nde-loan-item {
     color: var(--uq-main-purple);
     border: 1px solid var(--uq-main-purple);
     font-size: 1rem;
-    border-radius: 21px;
+    border-radius: var(--uq-chip-border-radius);
     padding: 8px 14px !important;
   }
   .tooltip-content,
