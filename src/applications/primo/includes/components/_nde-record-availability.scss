@@ -41,6 +41,9 @@ nde-record-availability {
       .mdc-button__label {
         text-decoration: none;
       }
+      .light-text {
+        font-weight: 400;
+      }
       &:hover {
         .mdc-button__label {
           text-decoration: underline;
