@@ -67,6 +67,30 @@ nde-collection-discovery-container {
       }
     }
     nde-collection-discovery-gallery {
+      div.gallery-container {
+        div.all-collections-search {
+          background-color: var(--uq-background-alert-info);
+          width: clamp(1088px, 85%, 1368px);
+          margin: 0 auto;
+          margin-block: 1rem;
+          padding: 1.15rem;
+          &:before {
+            content: "";
+            background-repeat: no-repeat;
+            background-size: 1.5rem;
+            width: 1.8rem;
+            height: 1.5rem;
+            background-image: var(--uq-icon--info);
+            top: 14px;
+            left: 21px;
+          }
+        }
+        nde-collection-discovery-no-results {
+          mat-icon {
+            display: none;
+          }
+        }
+      }
       .item-grid-card {
         border-radius: var(--uq-border-radius);
         border: var(--uq-border);
