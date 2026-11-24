@@ -10,6 +10,21 @@ nde-base-request-form {
       }
     }
   }
+  /* style alert when an error occurs in submitted a physical item request on the full listing */
+  .missing-fields-alert-content {
+    background-color: var(--uq-colour-error-50);
+    &:before {
+      @include uqBkgIconProperties();
+      background-image: var(--uq-icon--error);
+    }
+    & > div {
+      padding-left: 50px;
+    }
+    mat-icon {
+      display: none;
+    }
+  }
+  /* END style alert when an error occurs in submitted a physical item request on the full listing */
 }
 
 // embedded (popup) form
