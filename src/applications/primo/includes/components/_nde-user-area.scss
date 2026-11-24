@@ -86,6 +86,7 @@ nde-user-area button:not(.user-area-logged-in)[aria-label="Open actions menu"] {
   }
 
   .auth-log-in-label {
+    color: var(--uq-colour-black);
     height: 1.4rem;
     letter-spacing: .16px;
   }
