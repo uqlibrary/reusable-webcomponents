@@ -1,0 +1,16 @@
+nde-related-entities-search-header {
+  // looks like a banner, like nde-notification
+  .related-entities-search-title {
+    mat-icon {
+      display: none;
+    }
+    &:before {
+      @include uqBkgIconProperties();
+      background-image: var(--uq-icon--info);
+    }
+    span {
+      padding-left: 2rem;
+      font-size: 1rem;
+    }
+  }
+}
