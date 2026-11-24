@@ -2,7 +2,7 @@ nde-locations-container {
   .getit-location-card {
     background-color: #fff;
     border-width: 0;
-    --sys-body-medium: 1rem;
+    --sys-body-medium: 400 1rem / 1.25rem var(--uq-body-font-family);
 
     .getit-location-maybe {
       color: var(--uq-colour-black);
