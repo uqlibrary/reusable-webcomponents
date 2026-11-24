@@ -8,7 +8,10 @@ nde-locations-container {
       color: var(--uq-colour-black);
     }
     span.getit-location-available {
-      --valid: var(--uq-colour-black);
+      --valid: var(--uq-body-copy);
+    }
+    span.getit-location-unavailable {
+    --secondaryActionIcon: var(--uq-body-copy);
     }
 
     /* unsure that this is ever a button */

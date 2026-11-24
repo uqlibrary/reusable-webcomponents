@@ -69,6 +69,8 @@ body.custom-nde-theme {
 
   @import 'includes/components/nde-blank-alma-purchase-request.scss';
 
+  @import 'includes/components/nde-bx-recommendations.scss';
+
   @import 'includes/components/nde-carousel.scss';
 
   @import 'includes/components/nde-collection-discovery-container.scss';
@@ -102,6 +104,8 @@ body.custom-nde-theme {
   @import 'includes/components/nde-natural-language-search-dialog.scss';
 
   @import 'includes/components/nde-notification.scss';
+
+  @import 'includes/components/nde-person-entity.scss';
 
   @import 'includes/components/nde-quick-filters';
 
@@ -304,15 +308,13 @@ body.custom-nde-theme {
   /* page title colour */
   nde-record-title a span,
   nde-record-title a span em,
-  nde-record-title a nde-highlight,
-  nde-person-entity.ng-star-inserted nde-entity-layout.ng-star-inserted .entity-container .entity-details .entity-name // star classes to force the specificity
+  nde-record-title a nde-highlight
   {
     font: var(--uq-heading-3);
     font-size: 18px; // it was agreed that the official font size was comically large
   }
   nde-record-title a.not-linkable span,
-  nde-record-title a.not-linkable nde-highlight,
-  nde-person-entity.ng-star-inserted nde-entity-layout.ng-star-inserted .entity-container .entity-details .entity-name // star classes to force the specificity
+  nde-record-title a.not-linkable nde-highlight
   {
     color: var(--uq-colour-black); // on the detail page it isn't a working link, despite the markup
   }

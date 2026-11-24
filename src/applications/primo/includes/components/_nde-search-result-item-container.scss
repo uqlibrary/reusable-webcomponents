@@ -22,6 +22,7 @@ nde-search-result-item-container {
   nde-record-summary {
     p nde-highlight span {
       --mat-app-text-color: var(--uq-body-copy);
+      --darkText: var(--uq-body-copy);
     }
   }
   /* END tweak colours */
