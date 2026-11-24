@@ -912,6 +912,20 @@ body.custom-nde-theme {
               }
 
               // overrides
+                &.summary-search-button.edit-button.basic-button { // advanced search, edit button, after hover
+                  background-color: #fff;
+                  color: var(--uq-main-purple);
+                  span.mdc-button__label {
+                    text-decoration: none;
+                  }
+                  &:hover {
+                    color: #fff;
+                    background-color: var(--uq-main-purple);
+                    span.mdc-button__label {
+                      text-decoration: underline;
+                    }
+                  }
+                }
               &.reset {
                 span.mdc-button__label {
                   text-decoration: underline;
@@ -1155,7 +1169,7 @@ body.custom-nde-theme {
           }
 
           // overrides
-          &.summary-search-button.edit-button.basic-button { // advanced search, edit button
+          &.summary-search-button.edit-button.basic-button { // advanced search, edit button, before hover
             background-color: #fff !important;
             span.mdc-button__label {
               color: var(--uq-main-purple);
