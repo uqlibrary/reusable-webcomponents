@@ -1,0 +1,27 @@
+nde-person-entity {
+  &.ng-star-inserted nde-entity-layout.ng-star-inserted .entity-container .entity-details .entity-name // star classes to force the specificity
+  {
+    font: var(--uq-heading-3);
+    font-size: 18px; // it was agreed that the official font size was comically large
+    color: var(--uq-colour-black); // on the detail page it isn't a working link, despite the markup
+  }
+  --mat-expansion-header-text-color: var(--uq-colour-black);
+  div.entity-details {
+    dt,
+    dd,
+    span {
+      color: var(--uq-body-copy);
+      font-size: 1rem;
+    }
+  }
+  div.entity-details a {
+    font-size: 1rem;
+  }
+  div.entity-details dt {
+    font-weight: 500;
+  }
+  mat-card p {
+    --sys-on-background: var(--uq-body-copy);
+    font-size: 1rem !important;
+  }
+}

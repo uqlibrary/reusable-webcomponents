@@ -1274,4 +1274,8 @@ body.custom-nde-theme {
   nde-copy-to-clipboard {
     --lightBG: var(--uq-colour-grey-50);
   }
+
+  mat-select span.mat-mdc-select-value-text > span {
+    color: var(--uq-body-copy);
+  }
 }
