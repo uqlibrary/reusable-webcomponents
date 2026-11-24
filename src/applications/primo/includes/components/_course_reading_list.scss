@@ -56,6 +56,9 @@ uql-course-reading-list-sidebar-panel {
             opacity: 1;
           }
         }
+        &:focus {
+          outline: 2px solid blue;
+        }
         &.noneHidden {
           mat-icon.toggle-long-crl-icon {
             transform: rotate(180deg);
