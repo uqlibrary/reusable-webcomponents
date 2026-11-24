@@ -248,7 +248,11 @@
     }
 
     function isInEditMode() {
-        if (window.location.hostname === 'uq.libapps.com' && window.location.pathname.startsWith('/libguides/admin')) {
+        if (
+            window.location.hostname === 'uq.libapps.com' &&
+            (window.location.pathname.startsWith('/libguides/admin') ||
+                window.location.pathname.includes('/guides/edit/'))
+        ) {
             return true;
         }
         return false;
