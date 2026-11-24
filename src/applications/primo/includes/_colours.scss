@@ -534,6 +534,13 @@ body.custom-nde-theme {
         .mdc-button__label span {
           color: #fff;
         }
+        &:hover {
+          .mdc-button__label span {
+            text-decoration: underline;
+            background-color: #fff;
+            color: var(--uq-main-purple);
+          }
+        }
       }
     }
   }
@@ -938,6 +945,12 @@ body.custom-nde-theme {
                 &.advanced-search-btn-home-page {
                   span.mdc-button__label {
                     color: #fff;
+                  }
+                  &:hover {
+                    .mdc-button__label {
+                      background-color: #fff !important;
+                      color: var(--uq-main-purple) !important;
+                    }
                   }
                 }
               }
