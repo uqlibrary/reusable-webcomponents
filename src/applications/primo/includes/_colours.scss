@@ -1216,6 +1216,12 @@ body.custom-nde-theme {
           }
 
           // overrides
+          &.summary-search-button.edit-button.basic-button { // advanced search, edit button
+            background-color: #fff !important;
+            span.mdc-button__label {
+              color: var(--uq-main-purple);
+            }
+          }
           &[data-qa="reset button"] {
             span.mdc-button__label {
               color: var(--uq-main-purple);
@@ -1231,6 +1237,8 @@ body.custom-nde-theme {
           &.reset, // popup "purchase request" Reset button
           &.getit-clear-filters-button,
           &[aria-label="Back to request"],
+          &.summary-search-button.simple-search-button,
+          &.load-more-btn,
           &.advanced-search-button:not(.advanced-search-btn-home-page),
           &[data-qa="loans-view-all-btn"],
           &[data-qa="fines-view-all-btn"],
