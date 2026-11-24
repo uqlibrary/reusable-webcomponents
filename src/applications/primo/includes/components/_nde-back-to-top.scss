@@ -1,7 +1,16 @@
 div.side-bottom-buttons:has(> nde-back-to-top) {
   width: 40px;
+  left: 1rem;
   &.bumped-above-snackbar {
     inset-block-end: 1rem; /* override spacing that allows for login prompt on right */
   }
-  left: 1rem;
+  button {
+    &:hover {
+      background-color: var(--uq-main-purple) !important;
+      border: 1px solid #fff;
+      svg path {
+        fill: #fff;
+      }
+    }
+  }
 }
