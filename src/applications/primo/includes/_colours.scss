@@ -1155,19 +1155,23 @@ body.custom-nde-theme {
           }
 
           // overrides
+          &.summary-search-button.edit-button.basic-button { // advanced search, edit button
+            background-color: #fff !important;
+            span.mdc-button__label {
+              color: var(--uq-main-purple);
+            }
+          }
+          &.advanced-search-btn-home-page,
           &.cancel-dialog-btn {
             span.mdc-button__label {
               color: #fff;
             }
           }
+          &.summary-search-button.simple-search-button,
+          &.load-more-btn,
           &.advanced-search-button:not(.advanced-search-btn-home-page) {
             span.mdc-button__label {
               color: var(--uq-main-purple);
-            }
-          }
-          &.advanced-search-btn-home-page {
-            span.mdc-button__label {
-              color: #fff;
             }
           }
         }
