@@ -1,0 +1,11 @@
+nde-full-display-service-container {
+  mat-expansion-panel-header {
+    mat-panel-description mat-icon {
+      padding: 0.4rem;
+    }
+    &:hover mat-panel-description mat-icon {
+      background-color: var(--uq-panel-background);
+      border-radius: 20px;
+    }
+  }
+}
