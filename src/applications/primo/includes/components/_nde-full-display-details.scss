@@ -20,4 +20,10 @@ nde-full-display-details {
     }
   }
   /* END collection path to be normal text size */
+
+  /* details panel */
+  dt, dd {
+    color: var(--uq-body-copy);
+  }
+  /* END details list */
 }
