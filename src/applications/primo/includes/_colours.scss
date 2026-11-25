@@ -1401,7 +1401,9 @@ body.custom-nde-theme {
     --lightBG: var(--uq-colour-grey-50);
   }
 
+  // this may only apply to brief > top bar > "results per page", which is overridden above
   mat-select span.mat-mdc-select-value-text > span {
     color: var(--uq-body-copy);
   }
+  // END this may only apply to Button Type Eight, brief > top bar > "results per page", which is overridden above
 }
