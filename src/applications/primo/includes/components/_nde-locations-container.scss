@@ -4,8 +4,8 @@ nde-locations-container {
     border-width: 0;
     --sys-body-medium: 1rem;
 
-    .getit-location-maybe {
-      color: var(--uq-colour-black);
+    span.getit-location-maybe {
+      color: var(--uq-body-copy);
     }
     span.getit-location-available {
       --valid: var(--uq-body-copy);
