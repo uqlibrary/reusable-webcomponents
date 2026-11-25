@@ -11,14 +11,15 @@ nde-person-entity {
     dd,
     span {
       color: var(--uq-body-copy);
+      --sys-on-surface-variant: var(--uq-body-copy);
       font-size: 1rem;
     }
-  }
-  div.entity-details a {
-    font-size: 1rem;
-  }
-  div.entity-details dt {
-    font-weight: 500;
+    dt {
+      font-weight: 500;
+    }
+    a {
+      font-size: 1rem;
+    }
   }
   mat-card p {
     --sys-on-background: var(--uq-body-copy);
