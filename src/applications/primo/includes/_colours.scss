@@ -1179,6 +1179,9 @@ body.custom-nde-theme {
         // overrides
         &[routerlinkactive="active-link"] {
           text-decoration: none;
+          span.mdc-button__label span {
+            color: var(--uq-colour-black);
+          }
         }
         &.cancel-dialog-btn {
           text-decoration: none;
