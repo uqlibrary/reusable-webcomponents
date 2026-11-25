@@ -27,6 +27,7 @@ nde-full-display-service-container, nde-search-results-container, nde-account, n
           width: 100%;
           padding: 0;
           background-color: var(--uq-background-alert-info);
+          color: var(--uq-body-copy);
           position: relative;
 
           & > div {
