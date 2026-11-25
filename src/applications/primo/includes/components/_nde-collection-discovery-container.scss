@@ -173,13 +173,11 @@ nde-collection-discovery-container {
       }
     }
   }
+  /* END override common anchor hovers from colours.scss */
 
-  /* override common anchor hovers from colours.scss */
-  nde-collection-discovery-top-bar nde-sort-by button {
-    &:hover, &:focus {
-      mat-icon {
-        --uql-local-sort-by-background-colour: var(--sys-inverse-on-surface);
-      }
-    }
+  /* after moving the breadcrumbs up to the uq-site-header, do what we can to remove the gap they occupied (some is done in js component) */
+  div:has(> nde-collection-path-breadcrumbs) ng-component {
+    height: 0;
   }
+  /* END after moving the breadcrumbs up to the uq-site-header, do what we can to remove the gap they occupied (some is done in js component) */
 }
