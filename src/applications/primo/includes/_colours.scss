@@ -115,7 +115,6 @@ $uq-body-font-family: var(--uq-body-font-family);
   position: relative;
   text-align: center;
   text-decoration: none;
-  transition: background-color 200ms ease-out, color 200ms ease-out, border 200ms ease-out;
   background-image: none;
 
   &.mat-mdc-button-disabled {
@@ -892,66 +891,55 @@ body.custom-nde-theme {
           &:not(.quick-filter-btn) { // quick filter buttons (or we get weird double hover effect)
             &:not([data-qa="atoz-button"]) { // database search alpha block doesnt need this styling
               &:not([data-qa="filters_ClearAll"]):not(.apply-filters-btn) { // buttons at bottom of filters
-              --uql-button-style-type: twentyfour;
+                &:not(.summary-search-button.edit-button.basic-button) { // advanced search, edit button, after hover, handled in top bar
+                  --uql-button-style-type: twentyfour;
 
-              span.mdc-button__label {
-                line-height: normal;
-                color: var(--uq-main-purple);
-              }
-
-              &:hover {
-                background-color: var(--uq-main-purple);
-                span.mdc-button__label {
-                  text-decoration: underline;
-                  color: #fff;
-                }
-
-                span.mat-mdc-button-persistent-ripple {
-                  display: none;
-                }
-              }
-
-              // overrides
-                &.summary-search-button.edit-button.basic-button { // advanced search, edit button, after hover
-                  background-color: #fff;
-                  color: var(--uq-main-purple);
                   span.mdc-button__label {
-                    text-decoration: none;
+                    line-height: normal;
+                    color: var(--uq-main-purple);
                   }
+
                   &:hover {
-                    color: #fff;
                     background-color: var(--uq-main-purple);
+                    span.mdc-button__label {
+                      text-decoration: underline;
+                      color: #fff;
+                    }
+
+                    span.mat-mdc-button-persistent-ripple {
+                      display: none;
+                    }
+                  }
+
+                  // overrides
+                  &.reset {
                     span.mdc-button__label {
                       text-decoration: underline;
                     }
                   }
-                }
-              &.reset {
-                span.mdc-button__label {
-                  text-decoration: underline;
-                }
-              }
-              &.cancel-dialog-btn {
-                border: var(--uq-button-border);
-                span.mdc-button__label {
-                  color: #fff;
-                }
-                &:hover {
-                  background-color: #fff;
-                  text-decoration: underline;
-                  span.mdc-button__label {
-                    color: var(--uq-main-purple);
+
+                  &.cancel-dialog-btn {
+                    border: var(--uq-button-border);
+                    span.mdc-button__label {
+                      color: #fff;
+                    }
+                    &:hover {
+                      background-color: #fff;
+                      text-decoration: underline;
+                      span.mdc-button__label {
+                        color: var(--uq-main-purple);
+                      }
+                    }
                   }
-                }
-              }
-              &.back-dialog-btn { // tertiary
-                span.mdc-button__label {
-                  text-decoration: underline;
-                }
-              }
-                &.advanced-search-btn-home-page {
-                  span.mdc-button__label {
-                    color: #fff;
+                  &.back-dialog-btn { // tertiary
+                    span.mdc-button__label {
+                      text-decoration: underline;
+                    }
+                  }
+                  &.advanced-search-btn-home-page {
+                    span.mdc-button__label {
+                      color: #fff;
+                    }
                   }
                 }
               }
@@ -1169,12 +1157,6 @@ body.custom-nde-theme {
           }
 
           // overrides
-          &.summary-search-button.edit-button.basic-button { // advanced search, edit button, before hover
-            background-color: #fff !important;
-            span.mdc-button__label {
-              color: var(--uq-main-purple);
-            }
-          }
           &.advanced-search-btn-home-page,
           &.cancel-dialog-btn {
             span.mdc-button__label {

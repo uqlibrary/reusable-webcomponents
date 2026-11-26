@@ -10,7 +10,17 @@ nde-top-bar {
           margin-top: 8px;
         }
         button.edit-button.summary-search-button.basic-button {
+          --uql-button-style-type: thirtyfour;
           @include uqPrimaryButton();
+          span.mdc-button__label {
+            color: var(--uq-main-purple);
+          }
+          &:hover {
+            span.mdc-button__label {
+              color: #fff;
+              text-decoration: underline;
+            }
+          }
         }
         button.simple-search-button.summary-search-button.basic-button {
           margin-left: 1rem;
