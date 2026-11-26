@@ -26,12 +26,12 @@ nde-search-results-pagination {
         border-radius: 40px;
       }
     }
-    li:last-of-type,
-    li:first-of-type {
+    li:first-of-type,
+    li:last-of-type {
       border: 1px solid var(--uq-main-purple);
       border-radius: 40px;
       margin-inline: 12px;
-      span.mat-mdc-button-persistent-ripple::before:hover {
+      button:hover span.mat-mdc-button-persistent-ripple::before {
         --mat-icon-button-state-layer-color: var(--uq-panel-background);
         opacity: 1;
       }
