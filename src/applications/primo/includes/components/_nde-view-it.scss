@@ -90,6 +90,9 @@ nde-view-it {
           margin-left: -0.2rem;
           button.show-licence {
             margin-top: 0;
+            span.licence-label {
+              font-family: var(--uq-body-font-family);
+            }
           }
         }
       }
