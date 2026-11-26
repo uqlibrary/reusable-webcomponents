@@ -1,17 +1,15 @@
 .uql-tooltip,
 uql-tooltip {
+  margin-top: -1rem;
   .cdk-overlay-pane .mat-mdc-tooltip-surface {
     background-color: var(--uq-color-utility-50);
     color: var(--uq-colour-black);
-    padding: 4px 8px;
-    text-align: center;
-    font-size: 12px;
+    padding: 4px 6px;
     word-break: normal;
     overflow-wrap: anywhere;
     border-radius: var(--uq-border-radius);
     white-space: normal;
-    max-width: 280px;
-    min-width: 160px;
+    min-width: 20ch !important;
   }
   .cdk-overlay-pane .mat-mdc-tooltip-surface-large {
     font-size: 14px;
