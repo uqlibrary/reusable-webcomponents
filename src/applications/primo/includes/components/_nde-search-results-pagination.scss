@@ -17,7 +17,7 @@ nde-search-results-pagination {
       --sys-primary-container: var(--uq-main-purple);
       color: #fff;
       border: 1px solid var(--uq-main-purple);
-      border-radius: 40px;
+      border-radius: 50% !important;
     }
     button:not(.current-page) {
       &:hover, &:focus {
@@ -30,6 +30,10 @@ nde-search-results-pagination {
       border: 1px solid var(--uq-main-purple);
       border-radius: 40px;
       margin-inline: 12px;
+      span.mat-mdc-button-persistent-ripple::before {
+        --mat-icon-button-state-layer-color: var(--uq-panel-background);
+        opacity: 1;
+      }
     }
   }
   /* END style the pagination on the brief results page */
