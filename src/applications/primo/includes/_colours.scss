@@ -943,7 +943,7 @@ body.custom-nde-theme {
                     }
                   }
 
-              // overrides
+                  // overrides
                   &.barcode-search-button:not(.mat-mdc-button-disabled) {
                     border: 2px solid var(--uq-main-purple);
                     background-color: #fff;
@@ -998,49 +998,50 @@ body.custom-nde-theme {
                       }
                     }
                   }
-                &.reset {
-                span.mdc-button__label {
-                  text-decoration: underline;
-                }
-              }
-              &.cancel-dialog-btn {
-                border: var(--uq-button-border);
-                span.mdc-button__label {
-                  color: #fff;
-                }
-                &:hover {
-                  background-color: #fff;
-                  text-decoration: underline;
-                  span.mdc-button__label {
-                    color: var(--uq-main-purple);
-                  }
-                }
-              }
-              &.back-dialog-btn { // tertiary
-                span.mdc-button__label {
-                  text-decoration: underline;
-                }
-              }
-                &.advanced-search-btn-home-page {
-                  span.mdc-button__label {
-                    color: #fff;
-                  }
-                  &:hover {
-                    .mdc-button__label {
-                      background-color: #fff !important;
-                      color: var(--uq-main-purple) !important;
+                  &.reset {
+                    span.mdc-button__label {
+                      text-decoration: underline;
                     }
                   }
-                }
-                &.export-all-favorites-button { // tight link - export button on favourites page
-                  span.mdc-button__label {
-                    text-decoration: underline;
-                  }
-                  &:hover {
-                    background-color: transparent;
+                  &.cancel-dialog-btn {
+                    border: var(--uq-button-border);
                     span.mdc-button__label {
-                      background-color: var(--uq-main-purple);
                       color: #fff;
+                    }
+                    &:hover {
+                      background-color: #fff;
+                      text-decoration: underline;
+                      span.mdc-button__label {
+                        color: var(--uq-main-purple);
+                      }
+                    }
+                  }
+                  &.back-dialog-btn { // tertiary
+                    span.mdc-button__label {
+                      text-decoration: underline;
+                    }
+                  }
+                  &.advanced-search-btn-home-page {
+                    span.mdc-button__label {
+                      color: #fff;
+                    }
+                    &:hover {
+                      .mdc-button__label {
+                        background-color: #fff !important;
+                        color: var(--uq-main-purple) !important;
+                      }
+                    }
+                  }
+                  &.export-all-favorites-button { // tight link - export button on favourites page
+                    span.mdc-button__label {
+                      text-decoration: underline;
+                    }
+                    &:hover {
+                      background-color: transparent;
+                      span.mdc-button__label {
+                        background-color: var(--uq-main-purple);
+                        color: #fff;
+                      }
                     }
                   }
                 }
