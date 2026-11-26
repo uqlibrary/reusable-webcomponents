@@ -5,6 +5,7 @@ nde-search-results-pagination {
     font-size: 1rem;
 
     button {
+      --mdc-icon-button-icon-color: var(--uq-main-purple);
       display: inline-flex;
       justify-content: center;
       align-items: center;
@@ -30,7 +31,7 @@ nde-search-results-pagination {
       border: 1px solid var(--uq-main-purple);
       border-radius: 40px;
       margin-inline: 12px;
-      span.mat-mdc-button-persistent-ripple::before {
+      span.mat-mdc-button-persistent-ripple::before:hover {
         --mat-icon-button-state-layer-color: var(--uq-panel-background);
         opacity: 1;
       }
