@@ -10,7 +10,7 @@
   > div > div.content-indicator-label {
     display: flex;
     align-items: center;
-    margin-top: -23px;
+    margin-top: -20px;
     margin-left: 16px;
   }
 
@@ -30,21 +30,6 @@
     font-weight: 500
   }
 }
-
-/* show-hide the tooltip on CA and CRL Content Indicators */
-.uql-cultural-advice-content-indicator,
-.uql-course-resource-content-indicator {
-  &:has(.display-inline) .uql-tooltip {
-    display: none;
-  }
-  &:has(.display-inline:hover) .uql-tooltip {
-    display: flex;
-    position: absolute;
-    top: 40px;
-    height: 100%;
-  }
-}
-/* END show-hide the tooltip on CA and CRL Content Indicators */
 
 /* ensure there can't be two of our indicators */
 uql-course-reading-list-sidebar-panel + uql-course-reading-list-sidebar-panel,

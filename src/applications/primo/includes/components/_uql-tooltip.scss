@@ -1,3 +1,18 @@
+/* show-hide the tooltip on CA and CRL Content Indicators */
+.uql-cultural-advice-content-indicator,
+.uql-course-resource-content-indicator {
+  &:has(.display-inline) .uql-tooltip {
+    display: none;
+  }
+  &:has(.display-inline:hover) .uql-tooltip {
+    display: flex;
+    position: absolute;
+    top: 40px;
+    height: 100%;
+  }
+}
+/* END show-hide the tooltip on CA and CRL Content Indicators */
+
 .uql-tooltip,
 uql-tooltip {
   margin-top: -1rem;
@@ -9,9 +24,23 @@ uql-tooltip {
     overflow-wrap: anywhere;
     border-radius: var(--uq-border-radius);
     white-space: normal;
-    min-width: 20ch !important;
-  }
-  .cdk-overlay-pane .mat-mdc-tooltip-surface-large {
-    font-size: 14px;
+
   }
 }
+
+/* set the width according to the text content of the content indicators, so it doesn't wrap :( */
+.uql-cultural-advice-content-indicator {
+  .uql-tooltip {
+    .cdk-overlay-pane .mat-mdc-tooltip-surface {
+      min-width: 32ch !important;
+    }
+  }
+}
+.uql-course-resource-content-indicator {
+  .uql-tooltip {
+    .cdk-overlay-pane .mat-mdc-tooltip-surface {
+      min-width: 28ch !important;
+    }
+  }
+}
+/* END set the width according to the text content of the content indicator, so it doesn't wrap :( */
