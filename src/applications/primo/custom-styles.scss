@@ -1222,9 +1222,12 @@ prm-personal-info prm-change-lang {
 
 // restyle the account area to allow for inclusion of standard Library Account items PT #182204834
 .my-library-card-ctm .textwrapper,
-.my-favorties-ctm .textwrapper,
-.my-search-history-ctm .textwrapper {
+.my-favorties-ctm .textwrapper {
     display: flex;
+    flex-direction: column;
+}
+.my-search-history-ctm .textwrapper {
+    display: inline-flex;
     flex-direction: column;
 }
 
