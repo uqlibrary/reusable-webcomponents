@@ -14,8 +14,30 @@ nde-notification {
       font-size: 1rem;
     }
   }
+}
+nde-search-results-container {
+  nde-notification {
+    background-color: transparent;
+    mat-icon {
+      display: none;
+    }
+    div.notification-container {
+      background-color: var(--uq-background-alert-success);
+      position: relative;
+      & > div {
+        padding-left: 2rem;
+        &:before {
+          @include uqBkgIconProperties();
+          background-image: var(--uq-icon--info);
+          top: 13px;
+          left: 1rem;
+        }
+      }
+    }
   }
-nde-full-display-service-container, nde-search-results-container, nde-account, nde-citation-trails {
+}
+
+nde-full-display-service-container, nde-account, nde-citation-trails {
     nde-notification {
     /* login prompt */
     &:not(:has(.notification-container > div > mat-icon)) { // we dont apply this to instances where the "i" icon is already in place
