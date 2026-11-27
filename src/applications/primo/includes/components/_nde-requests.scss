@@ -1,4 +1,7 @@
-//nde-requests {
+nde-requests {
+  div.request-title {
+    --sys-on-background: var(--uq-body-copy)
+  }
 //  display: grid;
 //  grid-template-rows: 1fr auto;
 //  grid-template-columns: repeat(auto-fill, 29%);
@@ -19,7 +22,7 @@
 //    }
 //  }
 //
-//  nde-request-card {
+  nde-request-card {
 //    --mdc-text-button-container-shape: 4px;
 //    border-radius: var(--uq-border-radius);
 //    min-height: 6rem;
@@ -54,14 +57,14 @@
 //            position: relative;
 //          }
 //
-//          .request-title {
+          .request-title {
 //            text-align: left;
-//            color: #19151c;
+            color: var(--uq-body-copy);
 //            font-size: 18px;
 //            font-weight: 500;
 //            letter-spacing: 0.16px;
 //            line-height: 28.8px;
-//          }
+          }
 //
 //          .request-description {
 //            display: inline-block;
@@ -123,7 +126,7 @@
 //        }
 //      }
 //    }
-//  }
+  }
 //}
 //
 ///* the request section doesnt have the left-right padding, because it doesnt have a border */
@@ -132,4 +135,4 @@
 //  div.mat-expansion-panel-body {
 //    padding-inline: 0;
 //  }
-//}
+}

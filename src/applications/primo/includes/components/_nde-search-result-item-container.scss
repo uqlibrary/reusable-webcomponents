@@ -10,6 +10,16 @@ nde-search-result-item-container {
       --sys-outline: var(--uq-body-copy);
     }
   }
+
+  /* style author in full top section */
+  nde-record-main-details {
+    span {
+      color: var(--uq-body-copy);
+      font-weight: 400;
+    }
+  }
+  /* END style author in full top section */
+
   nde-record-summary {
     p nde-highlight span {
       --mat-app-text-color: var(--uq-body-copy);
