@@ -1274,7 +1274,14 @@ body.custom-nde-theme {
               color: #fff;
             }
           }
-          &[aria-label="Send"],
+          &[aria-label="Send"] {
+            max-width: 10rem;
+            margin-inline: auto;
+            span.mdc-button__label {
+              color: #fff;
+              text-decoration: none;
+            }
+          }
           &.request-button, // "Place a resource delivery request" button on full results Requests panel
           &.reset, // popup "purchase request" Reset button
           &.getit-clear-filters-button,
